@@ -336,7 +336,6 @@ A7qpw
 a895 
 aa_j55
 AA_NAAV
-aacute
 Aacute
 Aacutesmall
 AAFFf
@@ -369,7 +368,6 @@ ABAllUsers
 Abandoning image 
 ABCDE
 abcdefghijklmnopqrstuvwxyz
-ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_
@@ -478,12 +476,9 @@ aCaYb
 AccanthisADFStd
 Accelerating too fast
 acceleration
-Acceleration
-accelerometer
 Accelerometer
 AccelerometerEnabled
 accept
-Accept
 Accepted
 AccErrorDrainedThousandth
 access
@@ -493,18 +488,15 @@ access_control
 accessCode
 accesskey
 AccessoriesAllHaveSameBuoyancy
-accessory
 Accessory
 accessoryVersionIds
 AccessoryWeld
 accessType
-AccessType
 accessUrl
 account 
 account_over13
 account_under13
 accountAge
-AccountAge
 AccountAgeReplicate
 accounts
 Accoutrement
@@ -512,7 +504,6 @@ AccoutrementWeldingFilteringEnabled
 ACcTLs1
 Accumulate
 AccumulatedError
-acircumflex
 Acircumflex
 Acircumflexsmall
 aCJoP
@@ -525,7 +516,6 @@ AcquireSRWLockExclusive
 AcquiringGame
 aCry3
 action
-Action
 Action1
 Action2
 Action3
@@ -540,16 +530,12 @@ actionRemoved
 ActionStation
 ActionStationDebounceTime
 actionType
-ActionType
-activate
 Activate
 Activated
 activation
-active
 Active
 ActiveCpu 
 activeElement
-ActiveElement
 ActiveElement 
 ActiveGamepadAdded
 ActiveGamepadRemoved
@@ -595,7 +581,6 @@ Adding job
 Adding MegaCluster replication data 
 Adding open node
 addInput
-addItem
 AddItem
 additional six characters expected to parse unicode surrogate pair
 additionalArgs
@@ -612,11 +597,9 @@ AddOrRemoveTweensOnStepOnly
 AddPose
 addRef
 Address already in use
-address family not supported
 Address family not supported
 Address in 
 address in use
-address not available
 Address not available
 addScript 
 AddSelectionParent
@@ -640,7 +623,6 @@ addTopReplicationContainers started at
 AddToSequence
 AddUntranslated
 AddWatch
-adieresis
 Adieresis
 Adieresissmall
 Adjusting cell sideways
@@ -683,7 +665,6 @@ AdvancedMouseSensitivityEnabled
 AdvancedRCCLoadFMODRetryCount
 AdvanceToNextPageAsync
 Advapi32
-ADVAPI32
 AdvArrow
 AdvArrowToolBase
 advClosed
@@ -757,7 +738,6 @@ AgeUnder13
 Aggregate
 AggregateInfo
 AGgXwu
-agrave
 Agrave
 Agravesmall
 agRNU
@@ -773,7 +753,6 @@ AirFree
 aiULQ
 AiV0H
 AIv4v
-AIv4V
 aIvHXg
 aIvYk
 aiVyKsL
@@ -797,13 +776,11 @@ ALIGN_TYPE is wrong
 Alignment
 AlignOrientation
 AlignPosition
-alive
 Alive
 alkqT
 all for HTTP errors not listed elsewhere
 all for socket
 all_proxy
-ALL_PROXY
 AllCanSelect
 Alley
 AllGenres
@@ -840,7 +817,6 @@ AllTutorialsDisabled
 AllUsers
 alnum
 alpha
-Alpha
 alpha color
 alpha image
 AlPhl
@@ -885,7 +861,6 @@ AMD Processor
 AmdPowerXpressRequestHighPerformance
 AMEzm
 amount
-ampersand
 Ampersand
 ampersandsmall
 AMPROPSETID_Pin
@@ -908,7 +883,6 @@ An2xQ
 aN4Ls
 AnalysticsSettings
 analytics
-Analytics
 Analytics task was not scheduled in the threadpool
 AnalyticsLog
 AnalyticsService
@@ -917,7 +891,6 @@ ancestor
 Ancestor change
 AncestryChanged
 anchor
-Anchor
 anchor_dn
 anchor_ds
 anchor_ovr
@@ -942,11 +915,9 @@ Angsana New
 AngsanaUPC
 Angular
 AngularSpeed
-angularvelocity
 AngularVelocity
 Animate
 Animated
-animation
 Animation
 Animation failed to load
 AnimationActive 
@@ -957,7 +928,6 @@ AnimationPriority
 animations
 AnimationStopNanFix
 animationTrack
-AnimationTrack
 AnimationTrackRaisePropertyChanged
 Animator
 Animator created 
@@ -990,7 +960,6 @@ API data
 API integrity
 API protection not yet implemented
 API Proxy BaseURL used
-apikey
 apiKey
 ApiRateLimit
 ApiServiceRemoveCompressionTeleportOnly
@@ -1054,7 +1023,6 @@ ar3skc
 Arabic Transparent
 Arcade
 ArcHandles
-archivable
 Archivable
 archive
 ArcRN
@@ -1082,7 +1050,6 @@ AreWorldCoordsShown
 Arg list too long
 ARGB 32
 argument
-argument 
 Argument 
 Argument 1 missing or nil
 Argument 2 missing or nil
@@ -1094,13 +1061,11 @@ argument not separated by comma
 argument out of domain
 arguments
 arial
-Arial
 Arial Black
 Arial Narrow
 Arial Unicode MS
 arialbd
 ArialBold
-aring
 Aring
 Aringsmall
 Arithmetic table 0x
@@ -1109,7 +1074,6 @@ ArjPung
 ArjPungTebhc
 arjUk
 ArNlZ
-array
 Array
 array tables
 ArrayIndex
@@ -1146,16 +1110,11 @@ assembly
 assembly xmlns
 assert
 assert json failed
-assertion failed
 Assertion failed
-ASSERTION FAILED
 asset
-Asset
 Asset 
 assetgame
 assetId
-assetID
-AssetId
 assetIds
 assetInstance
 assetName
@@ -1165,20 +1124,16 @@ assets
 AssetService
 AssetService error occurred
 assettype
-assetType
-AssetType
 AssetTypeHeaderForSounds
 assetTypeId
 assetUrl
 AssetUrlPiece
 AssetVersion 
 assetversionid
-assetVersionId
 AssetVersionsUrl
 assetVersionUrl
 AssetVersionUrlPiece
 ASsPhWx
-asterisk
 Asterisk
 AStudioShowAdornsFix
 AsuFoahs
@@ -1198,7 +1153,6 @@ atan2
 ATEMui
 atexit table
 AThHjZ
-atilde
 Atilde
 Atildesmall
 ATIX_
@@ -1278,7 +1232,6 @@ AUctype_base
 AUCurlDeleter
 AUCurlshDeleter
 AUdelete_data
-audio
 Audio
 Audio enabled 
 Audio file failed to load 
@@ -1363,14 +1316,12 @@ AUSphereTriangleDetector
 AUStringSink
 AUSwappedCreateFunc
 auth_sub_request
-authenticate
 Authenticate
 Authentication
 Authentication problem
 authentication url from server
 authenticationTicket
 authenticationUrl
-authorization
 Authorization
 Authors
 AUthread_data_base
@@ -1467,7 +1418,6 @@ AVAssetService
 AVAsyncCallbackDescriptor
 AVAsyncHttpQueue
 avatar
-Avatar
 avataraccoutrements
 AvatarBust
 AvatarClusterTime
@@ -1875,7 +1825,6 @@ AVEnvMap
 AVEqualizerSoundEffect
 AVEquationDisplay
 average
-Average
 Average Buffer Seek
 Average Lag
 Average packetloss                 
@@ -1894,7 +1843,6 @@ averageStepTime
 AverageSwitches
 averageTime
 AVerror
-AVError
 AVerror_category
 AVerror_info_base
 AVerror_info_container_impl
@@ -1907,7 +1855,6 @@ AVEvents
 AVEventSignalWrapperBase
 AVEventSource
 AVexception
-AVException
 AVExclusiveArbiter
 AVExecutionResource
 AVExplicitWeldJoint
@@ -2002,7 +1949,6 @@ AVGamePassService
 AVGameSettings
 AVGameTool
 AVGcJob
-AVGCJob
 AVgeneric_error_category
 AVGenericJob
 AVGenericSlotWrapper
@@ -2926,7 +2872,6 @@ Backend processing
 BackendAccoutrementState
 BackendToolStateSetPre
 background
-BACKGROUND
 background color must be supplied to remove alpha
 BackgroundColor
 BackgroundColor3
@@ -2938,7 +2883,6 @@ BackpackItem
 BackParamA
 BackParamB
 Backquote
-backslash
 BackSlash
 Backspace
 BackSurface
@@ -2949,7 +2893,6 @@ Bad access
 bad adaptive filter value
 bad addess 
 bad address
-Bad address
 bad address family
 bad allocation
 Bad argument
@@ -2970,7 +2913,6 @@ Bad escape sequence in string
 bad exception
 Bad file
 bad file descriptor
-Bad file descriptor
 Bad global 
 bad height format
 BAD internal error
@@ -2993,7 +2935,6 @@ Bad unicode escape sequence in string
 Bad upvalue 
 bad watch argument
 bad width format
-bad xml
 bad XML
 bad_alloc_
 bad_any_cast
@@ -3017,7 +2958,6 @@ BallSocketConstraint
 Balthazar
 BandwidthExceeded
 Banned
-BANNED
 barrel
 BarTextLen 
 Basalt
@@ -3226,7 +3166,6 @@ BindActionToInputTypes
 BindActivate
 BindActivate called with Enum
 BindActivate can only be called from a local script
-bindButton
 BindButton
 BindCoreAction
 binding 
@@ -3267,7 +3206,6 @@ bJuZxhW
 BKbhTb
 bKGD must be after
 BL8hH
-black
 Black
 Black metallic
 blackBkg_round
@@ -3293,8 +3231,6 @@ BlendDesignPositions
 Blf2GH
 BLLWWh
 blnOq
-block
-Block
 BLOCK
 blockDuration
 BlockedRequestFinishedSignal
@@ -3325,17 +3261,14 @@ BM7ybV
 bMDiKb
 bmhXY
 bMksL
-bMKSl
 bMksLf
 bMouse 
 bMouseIn
 bMouseIn 
 bMOWh
 bMOWhk
-bMSkT
 BmsKt
 bmUjE
-bMWoP
 BmwOp
 bnipB
 BODAf
@@ -3348,8 +3281,6 @@ BODY ID
 body style
 BodyAngularVelocity
 bodycolors
-bodyColors
-BodyColors
 BodyColorsHash
 bodyColorsUrl
 BodyDepthScale
@@ -3397,7 +3328,6 @@ boost_1_56_0
 BootstrapperVersionNumber
 BOPsXXgHffY
 border
-Border
 BorderColor
 BorderColor3
 borderSize
@@ -3406,7 +3336,6 @@ Both collision groups must be valid
 Both parts must be PartInstance descendants of the Workspace to make this query
 Both users must be connected to the current server
 BoTsi
-bottom
 Bottom
 BottomImage
 BottomLeft
@@ -3456,7 +3385,6 @@ bPUEz0
 BPWWh
 BqDE2
 BqYfH
-BQYfh
 BQYnVa
 BqzmoG
 braceleft
@@ -3465,12 +3393,9 @@ bracketleft
 bracketright
 Brci4
 break
-Break
 breakIntoIslands
-breakJoints
 BreakJoints
 breakpoint
-Breakpoint
 Breakpoint 
 BreakpointAdded
 BreakpointRemoved
@@ -3481,7 +3406,6 @@ breve
 Brevesmall
 Brick
 Brick yellow
-brickColor
 BrickColor
 BrickColorValue
 Bridge Style Supports
@@ -3505,7 +3429,6 @@ BrMOgX
 BRmWc
 brMzjU
 broken pipe
-Broken pipe
 brokenbar
 Bronze
 Browallia New
@@ -3514,8 +3437,6 @@ Brown
 Browsable
 browser tracking id from website
 browserTrackerId
-BrowserTrackerId
-BrowserTrackerID
 BrowserWindowClosed
 BrQifN
 BRUhxGhHwt
@@ -3637,7 +3558,6 @@ bufferDirtyMask
 bufferInfo
 BUFFERSFULL
 build
-buildagent
 BuildAgent
 BuildCharArray
 buildCompactHeightfield
@@ -3660,7 +3580,6 @@ Burlap
 Burnt Sienna
 Buttermilk
 button
-Button
 button 
 Button has not been bound
 Button index too large
@@ -3715,10 +3634,8 @@ bytesInResendQueue
 bytesInResendQueue 
 bytesInSendBuffer
 bytesReceived
-BytesReceived
 bytesReceivedPerSec
 bytesSent
-BytesSent
 bytesSentPerSec
 BzaiV
 bZCFA9
@@ -3752,7 +3669,6 @@ c9bi8
 c9iVh
 c9qe8
 cAC 6o
-cache
 Cache
 Cache update failed
 CacheableContentProvider
@@ -3761,7 +3677,6 @@ CachedRemoteSourceLoadState
 CacheEntry
 CacheFallbackHumanoidTextures
 cacheFilePath
-cacute
 Cacute
 Cadet blue
 Cadru
@@ -3786,18 +3701,14 @@ Call would block
 callable
 callable_slot
 callaverage
-CallAverage
 CallAverage 
 callback
-Callback
 Callback 
 Callback aborted
 Callback did not return a value
 callbackCreateInfo
 Callbacks cannot yield
 callcount
-CallCount
-callcount 
 CallCount 
 Called from local script and status not known
 Caller must register CURLOPT_CONV_ callback options
@@ -3810,7 +3721,6 @@ CallNtPowerInformation
 CallWindowProcA
 Camdi
 CamelCaseViolation
-camera
 Camera
 Camera Method Used
 CameraCenter
@@ -3858,7 +3768,6 @@ CancelAllNotification
 Canceled
 Canceling Right Mouse pan
 Cancelled
-CANCELLED
 Cancelling image 
 Cancelling Right mouse pan
 CancelNotification
@@ -3870,7 +3779,6 @@ CanCollideWith
 CanHideGuiGroupId
 CanLoadCharacterAppearance
 canmanage
-CanManage
 cannot 
 Cannot access DataModel
 Cannot access LuaWebService
@@ -3933,7 +3841,6 @@ CanUserChatAsync
 CanUsersChat returned false
 CanUsersChatAsync
 canvas
-Canvas
 canvas id
 CanvasDetailedOffscreen
 CanvasDetailedView
@@ -3975,7 +3882,6 @@ castRay
 CatchFailure
 categories
 category
-Category
 category 
 CategoryActive
 categoryId
@@ -4007,9 +3913,7 @@ CBVvalue_semantic
 CBVVariant
 cBWozg
 CC56c
-ccaron
 Ccaron
-ccedilla
 Ccedilla
 Ccedillasmall
 cceZy
@@ -4040,7 +3944,6 @@ CebzcgPerngbe
 cedilla
 Cedillasmall
 CEhPh
-CEHPh
 CelestialBodiesShown
 CellBlock
 CellCenterToWorld
@@ -4052,13 +3955,11 @@ CellPadding
 cells
 CellSize
 Cement
-center
 Center
 Center 
 Center of Mass is not currently available
 Center View
 centerDialogType
-CenterDialogType
 CenterOfMass
 centerPosition
 centerRegion
@@ -4080,7 +3981,6 @@ cEYYx
 cFeqW
 CFHXT
 cframe
-CFrame
 CFrameRightAndUpVectors
 CFrameValue
 Cg_shader
@@ -4097,7 +3997,6 @@ Chalkboard
 Change
 change the Default collision group
 ChangeCarriageToNewLine
-changed
 Changed
 Changed screen resolution to 
 ChangeDisplaySettings returned 
@@ -4118,7 +4017,6 @@ Changing humanoid state
 changingItem
 Channel
 ChannelControl
-channelGroup
 ChannelGroup
 ChannelsPlaying
 char 
@@ -4126,13 +4024,11 @@ char_traits
 char16_t
 char32_t
 character
-Character
 character conversion failed
 character Position in Object Space
 character3
 CharacterAdded
 CharacterAppearance
-characterAppearanceId
 CharacterAppearanceId
 CharacterAppearanceLoaded
 CharacterAutoLoads
@@ -4210,7 +4106,6 @@ ChepunfrCnpxntrCebzcg
 chHwX
 child
 Child instance added to replication
-childAdded
 ChildAdded
 ChildData
 ChildIndex
@@ -4289,8 +4184,6 @@ Cl9spu
 clamp
 clamp offset to prevent scrolling into the void
 class
-Class
-class 
 Class 
 class boost
 ClassCategory
@@ -4300,9 +4193,7 @@ Classic
 ClassicAndBubble
 ClassicChat
 className
-ClassName
 CleanCacheMoveMutex
-clear
 Clear
 clear_buffer_object
 clear_texture
@@ -4346,7 +4237,6 @@ ClickDetectorCursorIconEnabled
 clickfast
 ClickToMove
 client
-Client
 Client instance quota
 client_storage
 Client2Server
@@ -4376,13 +4266,11 @@ ClientPhysicsEnvSpeed
 ClientPhysicsFPS
 ClientPhysicsSendRate
 ClientPing
-clientPort
 ClientPort
 ClientPurchaseSuccess
 ClientReplicator
 ClientReplicatorDisconnect
 ClientRequests
-clientsettings
 ClientSettings
 ClientStartTime
 ClientTeleportError
@@ -4407,7 +4295,6 @@ cLjrMjZw
 cLlSiqIv
 cLnvIZB
 Clock
-clone
 Clone
 clone_impl
 CloneButton
@@ -4420,7 +4307,6 @@ CloneTool destroyed
 clonewand
 CloneWandTexture
 close
-Close
 Close DataModel Done
 CloseClipboard
 CloseConnection
@@ -4665,12 +4551,9 @@ CollisionGroupsAreCollidable
 CollisionGroupSetCollidable
 CollisionSoundEnabled
 CollisionSoundVolume
-colon
 Colon
 colonmonetary
-color
 Color
-COLOR
 color 
 color map overflow 
 color_buffer_float
@@ -4705,7 +4588,6 @@ com07
 COMCalls
 Comic Sans MS
 ComicNeue
-comma
 Comma
 commainferior
 Command
@@ -4714,7 +4596,6 @@ commandPool
 commandQueue
 commasuperior
 comment
-COMMENT
 commentStyle
 commentStyle must be 
 Common
@@ -4724,7 +4605,6 @@ CompareStringEx
 CompareStringW
 compatibility
 compatible
-compiled 
 Compiled 
 compiled_vertex_array
 compileModuleFolderFromPath cannot compile scripts
@@ -4764,7 +4644,6 @@ Compression buffer size cannot be changed because it is in use
 Compression buffer size cannot be reduced below 6
 CompressorSoundEffect
 compute
-Compute
 compute_program5
 compute_shader
 compute_variable_group_size
@@ -4807,7 +4686,6 @@ Concurrency
 ConcurrencyModel
 ConcurrentRakPeer
 condition
-Condition
 conditional_render
 conditional_render_inverted
 ConeHandleAdornment
@@ -4834,8 +4712,6 @@ congestionCtrlLimitBytes
 congestionManager
 ConHHg
 connect
-Connect
-CONNECT
 CONNECT 
 Connect me again please
 CONNECT responded chunked
@@ -4844,7 +4720,6 @@ connect to
 Connect to VR Server Failed 
 ConnectDiedSignalBackend
 connected
-Connected
 Connected to 
 ConnectFailed_InternalRakNet
 ConnectFailed_Timeout
@@ -4860,7 +4735,6 @@ Connecting Spawner to touched signal
 Connecting to 
 Connecting to server
 Connecting Tool to touched signal
-connection
 Connection
 Connection 
 connection aborted
@@ -4873,7 +4747,6 @@ Connection closure while negotiating auth
 Connection died
 Connection failed
 Connection Lost
-connection refused
 Connection refused
 connection reset
 Connection time
@@ -4915,11 +4788,9 @@ Contacting the server
 ContactManager
 contactPairHitRatio
 ContactPipelineDraggerNoOverlapIgnored
-contacts
 Contacts
 Contacts      
 content
-Content
 Content failed to load for 
 Content failed to parse for 
 Content Provider
@@ -4998,7 +4869,6 @@ ConvexDecomposition
 convolution
 convolution_accuracy
 convolution_border_modes
-cookie
 Cookie
 cookie 
 cookies
@@ -5009,7 +4879,6 @@ CookieStoreFiveMinutePlayKey
 Cool yellow
 coordinate_frame
 CoordinateFrame
-COORDINATEFRAME
 CoordinateFrame is not a valid member of 
 Copper
 copy constructor closure
@@ -5022,7 +4891,6 @@ copy_texture
 CopyFileW
 CopyRegion
 copyright
-COPYRIGHT
 Copyright 
 Cordia New
 CordiaUPC
@@ -5033,12 +4901,10 @@ CoreGuiChangedSignal
 CoreGuiFolder
 CoreGuiNavigationEnabled
 coreGuiType
-CoreGuiType
 CoreMemory
 CoreModulesFixDirectoriesWithSameName
 CoreScript
 CoreScriptFixBadgeTextBeingCutOff
-CorescriptLocalization
 CoreScriptLocalization
 CoreScripts
 CoreScriptsUseNewUserThumbnailAPI
@@ -5083,10 +4949,8 @@ Could not seek stream
 Could not set TCP_NODELAY
 Could only read 
 couldn
-Couldn
 CoUninitialize
 count
-Count
 Count 
 Countable
 CountCells
@@ -5104,7 +4968,6 @@ CounterNameWidthTemp
 CounterNameWidthTemp 
 counterprc
 counterprc 
-counters
 Counters
 CounterValueWidth 
 CounterValueWidthTemp
@@ -5147,7 +5010,6 @@ Crash Event posted
 Crash happened
 crash__
 crashevent
-CrashEvent
 CrashReport
 CrashReporter Start
 CrashReporter_WatcherThreadFunc
@@ -5157,7 +5019,6 @@ CratersAndDebris
 CRC error
 Creatable
 create
-Create
 create arrays that show how far back we need to start search in order to get all markers
 Create DataModel 
 Create failed because Instance is null
@@ -5253,13 +5114,9 @@ Creating open node
 creationID
 creationID is not a valid number 
 Creator
-creatorid
 creatorId
-creatorID
-CreatorId
 CreatorReadingServerLogs
 creatorType
-CreatorType
 CreatorTypeEnum
 CRemovePhysicalCharacterHack
 CRenderExportCompressedDiffuse
@@ -5394,7 +5251,6 @@ CURLSHOPT_UNLOCKFUNC
 currency
 CurrencySpent
 currencyType
-CurrencyType
 currencyTypeId
 Current
 Current command update
@@ -5411,9 +5267,7 @@ CurrentCamera
 CurrentDistance
 CurrentEditor
 CurrentLength
-currentline
 CurrentLine
-currentPage
 CurrentPage
 CurrentPid 
 currentPlaceId
@@ -5427,7 +5281,6 @@ CursorIcon
 Cursors
 Cusstats
 custom
-Custom
 Custom sort callback for 
 CustomBoundFuncDesc
 CustomCameraMode
@@ -5514,7 +5367,6 @@ d condition syntax error
 d connections
 d connectors
 d Constraints
-d contacts
 d Contacts
 d Depth 
 d Depth24 
@@ -5578,7 +5430,6 @@ d of
 d out of 
 d own connections
 d PartialMips 
-d parts
 d Parts
 d parts 
 d parts in 
@@ -5629,17 +5480,14 @@ d_o8iaO
 D00wX
 d0h0l0p0
 d0h0l0p0t0x0
-D0H0L0P0T0X0
 D0H0p0t0
 D0mM_
 d22Vt
 D24Qf
 D2jUf
 D3D Frame query timed out
-d3d10
 D3D10
 d3d10_1
-d3d11
 D3D11
 D3D11 Adapter
 D3D11 FATAL ERROR
@@ -5693,9 +5541,7 @@ Data Throughput ratio
 DATA_LOSS
 DataBasicFiltered
 datacenter
-dataCenterId
 DatacenterId
-DataCenterId
 DataComplexity
 DataComplexityLimit
 DataCost
@@ -5812,16 +5658,13 @@ DDxDD
 de3fHc
 Deactivate
 Deactivated
-deactivation
 Deactivation
 DEADLINE_EXCEEDED
 DeathAnimation
 Debris
 DebrisService MaxItems is restricted
 DebrisService MaxItems must be greater than 0
-debug
 Debug
-DEBUG
 Debug 
 debug_label
 debug_marker
@@ -5896,7 +5739,6 @@ DebugStudioRigImporter
 DebugTaskSchedulerProfiling
 DebugUseDefaultGlobalSettings
 DebugVisualizationImprovements
-decal
 Decal
 DecalTool
 DecayTime
@@ -5913,7 +5755,6 @@ Deep blue
 Deep orange
 deep_texture3D
 default
-Default
 default constructor closure
 DEFAULT_CHAR
 DefaultAuto
@@ -5937,7 +5778,6 @@ dehbt
 DejaVu Sans
 deJhX
 dEk_ 
-delay
 Delay
 delay function requires 2 arguments
 delay_before_swap
@@ -5945,7 +5785,6 @@ Delayed
 DelayedInvocationQueue
 DelayMillis
 DelayTime
-delete
 Delete
 delete_dn
 delete_ds
@@ -5964,7 +5803,6 @@ DeleteFilter
 DeleteObject
 DeleteTimerQueueTimer
 deletingItem
-delta
 Delta
 Delta 
 DELTA     WorldSteps       
@@ -5977,11 +5815,9 @@ DeltaTimes
 DemZjs
 Density
 denWs
-deprecated
 Deprecated
 DeprecatedApi
 Depricated API 
-depth
 Depth
 depth or type
 depth_bounds_test
@@ -6004,8 +5840,6 @@ Descender
 Described
 DescribedCreatable
 description
-Description
-DESCRIPTION
 description type
 descriptor
 Descriptor is not a socket
@@ -6022,7 +5856,6 @@ DestGlobalArray
 DESTINATION
 destination address required
 DestLogStart
-destroy
 Destroy
 DestroyAcceleratorTable
 Destroyed 
@@ -6035,7 +5868,6 @@ detail
 detail 
 detail_texture
 detailed
-Detailed
 Detailed Frames 
 Detailed View
 DetailedRedrawState
@@ -6112,7 +5944,6 @@ dhYR8
 Diag dir
 Diagnostics
 dialog
-Dialog
 dialog must be a GuiObject instance
 dialog_blue
 dialog_ellipses
@@ -6121,7 +5952,6 @@ dialog_red
 DialogBehaviorType
 DialogBoxIndirectParamA
 dialogChoice
-DialogChoice
 DialogChoice must be a child of this dialog root
 DialogChoice object expected as second argument
 DialogChoiceSelected
@@ -6131,7 +5961,6 @@ DialogPurpose
 DialogRoot
 DialogTone
 DialogTriggerDistanceOffsetEnabled
-Diamondplate
 DiamondPlate
 Dictionary
 Did you forget a colon
@@ -6147,7 +5976,6 @@ difftime
 diffuse
 Diffusion
 dIFVY
-Digest
 DIGEST
 digit
 digital_video_control
@@ -6159,11 +5987,9 @@ Direct3D11
 Direct3D9
 Direct3DCreate9
 direction
-Direction
 Direction to start
 Directories
 directory not empty
-Directory not empty
 directory_iterator
 Dirt brown
 dirty
@@ -6171,7 +5997,6 @@ Disable
 Disable180DegreeFlip
 DisableAngularVelocityInterpolationComponent
 DisableBounceOnNoPhysicsTransition
-disabled
 Disabled
 DisableHealthDeathUntilHealthAppears
 DisableInvalidateOnUnbind
@@ -6191,7 +6016,6 @@ Discard
 discarded 
 DiscardLast 
 disconnect
-Disconnect
 Disconnect from 
 Disconnected
 DisconnectForIdling
@@ -6209,20 +6033,17 @@ DisconnectReportPermyriad
 Disk full or allocation exceeded
 Dismount
 DispatchMessageW
-display
 Display
 display_color_table
 DisplayDistanceType
 DisplayMeaningfulCannotConnectError
 displayName
-DisplayName
 DisplayOrder
 DisplayPhyOutStatisticsForPhyNewSender
 DisplayVersionInformation
 DisplayWhenDamaged
 Disposition
 distance
-Distance
 Distance is less than previous closest distance 
 DistanceFactor
 DistanceFromCharacter
@@ -6281,7 +6102,6 @@ document
 dOfDS
 DOffY
 dofile
-dollar
 Dollar
 dollarinferior
 dollaroldstyle
@@ -6289,7 +6109,6 @@ dollarsuperior
 DoLocalizationServiceOverrideLocale
 domain
 Domain error
-DOMAIN error
 DominantAxis
 DOMMouseScroll
 Done counting linked scripts id
@@ -6334,7 +6153,6 @@ Dove blue
 Down_key
 Down_key_dn
 Download frame buffer cant create temp texture 
-downsample
 DownSample
 DownSample4x4AvgFS
 DownSample4x4GlowFS
@@ -6477,7 +6295,6 @@ DuplicatePlayer
 duplicateStringValue
 DuplicateTicket
 duration
-Duration
 DurationArray
 DurationArrays
 Durbanville1
@@ -6527,7 +6344,6 @@ E0ZfT
 E2bj_
 E3EAEL
 EAAC76
-eacute
 Eacute
 Eacutesmall
 EagerBulkExecution
@@ -6539,10 +6355,8 @@ Earth orange
 Earth yellow
 EArWu
 easingDirection
-EasingDirection
 EasingDirection input
 easingStyle
-EasingStyle
 EasingStyle input
 easy handle already used in multi handle
 EbbgPnzren
@@ -6554,7 +6368,6 @@ EboybkRiragErprvire
 EBZ9Yf
 eCCld
 EchoSoundEffect
-ecircumflex
 Ecircumflex
 Ecircumflexsmall
 ECjjUg
@@ -6566,7 +6379,6 @@ edata
 EdffY
 edge table creation
 EdgeBump
-edieresis
 Edieresis
 Edieresissmall
 EditingDisabled
@@ -6586,7 +6398,6 @@ EfViWW
 Eg2qA
 egDsF
 Eggplant
-egrave
 Egrave
 Egravesmall
 EGs3M
@@ -6598,7 +6409,6 @@ eh vector vbase copy constructor iterator
 ehEvni
 EhPY_Q
 eiANd
-eight
 Eight
 eightinferior
 eightoldstyle
@@ -6613,7 +6423,6 @@ EkPxe
 Elapsed connection time in seconds 
 Elapsed connection time in seconds   
 elapsedTime
-ElapsedTime
 Elastic
 Elasticity
 ElasticityWeight
@@ -6644,10 +6453,8 @@ EmitterSize
 EMItu
 EmmR 
 emoji
-Emoji
 EmojiEnabled2
 Empirical
-empty
 Empty
 empty challenge message
 empty entity with 
@@ -6682,7 +6489,6 @@ EnableConsoleReportAbusePage
 EnableContextActionPriority
 EnableContextActionServiceCallbackResult
 enabled
-Enabled
 EnabledAppShell3D
 EnabledAvatarAnimationCategory
 EnabledAvatarEditorV2
@@ -6726,9 +6532,7 @@ EnableWakingPGSJointsForNonSolverPrimitives
 EnableWeldConstraint
 enableYAMLCompatibility
 EncodePointer
-encoding
 Encoding
-ENCODING
 encoding found
 EncodingScheme
 Encountered error while loading plugin icon 
@@ -6792,9 +6596,7 @@ entrant
 entrant post
 Entries
 entry
-Entry
 entry xmlns
-enum 
 Enum 
 Enum cannot be modified
 Enum value overflow on 
@@ -6843,7 +6645,6 @@ EqualizerSoundEffect
 Equals
 equipIfPurchased
 equipped
-Equipped
 equippedGearVersionIds
 EquipTool
 EQyFLD
@@ -6866,9 +6667,7 @@ Erpxg
 Erqhpref
 ERrF8
 errno 
-error
 Error
-ERROR
 Error 
 Error adding header 
 Error changing context
@@ -6969,7 +6768,6 @@ ES1_1_compatibility
 ES2_compatibility
 ES3_1_compatibility
 ES3_compatibility
-escape
 Escape
 EscapeKeyPressed
 EscChar
@@ -7003,8 +6801,6 @@ EuZjU
 EUzJuZtTk
 evaluators
 event
-Event
-event 
 Event 
 Event queue is full 
 EventAfterEndOfSession
@@ -7044,7 +6840,6 @@ Exceeded stackLimit in readValue
 exceeds application limits
 ExceedThrottle
 exception
-Exception
 Exception caught in TGenericSlotWrapper
 Exception during cluster out step
 Exception during data out step
@@ -7091,7 +6886,6 @@ ExclusiveFrameSum
 ExclusiveFrameSum 
 ExclusiveMax
 exclusiveMouse
-exclusiveStartKey
 ExclusiveStartKey
 ExclusiveSum
 ExclusiveSum 
@@ -7116,7 +6910,6 @@ ExpansionFactor
 Expect
 Expect a value here
 Expect either an object or array at root
-expected 
 Expected 
 Expected  WorldSteps       
 Expected 2 arguments but got 
@@ -7138,7 +6931,6 @@ explicit_uniform_location
 Explorer
 ExplorerImageIndex
 ExplorerOrder
-explosion
 Explosion
 Explosion could not deform terrain
 Explosion created 
@@ -7157,7 +6949,6 @@ Explosives
 ExportMergeByMaterial
 ExportPlace
 ExportSelection
-expression
 Expression
 expressionKey
 ExpSolverEnabled_Replicate
@@ -7174,14 +6965,12 @@ ExtentsOffset
 ExtentsOffsetWorldSpace
 extern 
 External
-EXTERNAL
 external request
 external_drivers
 ExternalHttpRequestSizeLimitKB
 ExternalHttpResponseSizeLimitKB
 ExternalHttpResponseTimeoutMillis
 extra compressed data
-Extra compressed data
 Extra compressed data in IDAT
 Extra compression data in IDAT
 Extra non
@@ -7251,7 +7040,6 @@ f9Gpu
 f9GPu4f9G
 f9GZr
 f9K0u
-f9Kpu
 f9KPu
 f9Y0uVf9Y
 Fa3Vy
@@ -7263,9 +7051,7 @@ FaceAccessory
 facebook
 FaceCamera
 faceId
-FaceId
 FaceInstance
-faces
 Faces
 Factory Function Not Found 
 Faded green
@@ -7373,8 +7159,6 @@ fallback
 FallenPartsDestroyHeight
 FallingDown
 false
-False
-FALSE
 FAlTk
 FAMILY_NAME
 FamilyBlues
@@ -7469,7 +7253,6 @@ FfaAb
 ffEvuU
 ffff00
 ffffff
-FFFFFF
 FFG72p
 fFiif
 FFlag
@@ -7523,17 +7306,14 @@ fijkdbh
 File already completely uploaded
 file error
 file exists
-File exists
 File not found
 File Not Found 
 file not opened
 File Operations
 file too large
-File too large
 FileMesh
 filename
 filename too long
-Filename too long
 FileOperations
 filePath
 files
@@ -7555,14 +7335,12 @@ FillDirectionMaxCells must be set to a non
 FillEmptySpaceColumns
 FillEmptySpaceRows
 fillRect
-FillRect
 FillRegion
 fillStyle 
 fillText
 FillTool
 FillTool_dn
 filter
-Filter
 Filter 
 Filter API returned failure with message
 Filter API returned failure with no message
@@ -7579,7 +7357,6 @@ FilteredExceptionSendOnInferredStep
 FilteredSelection
 FilterEmptyStringThrowEarly
 filtergroup
-FilterGroup
 FilterGroup 
 Filtering is enabled
 filtering_stream
@@ -7614,7 +7391,6 @@ filtertext
 FilterTextSubdomain
 filterTextWithCallback
 filtertimer
-FilterTimer
 FilterTimer 
 FilterUpdate
 FilterValue
@@ -7630,7 +7406,6 @@ FindFirstAncestor
 FindFirstAncestorOfClass
 FindFirstAncestorWhichIsA
 FindFirstChangeNotificationA
-findFirstChild
 FindFirstChild
 FindFirstChildOfClass
 FindFirstChildWhichIsA
@@ -7640,12 +7415,10 @@ FindFirstFileW
 FindNextFileA
 FindNextFileW
 FindPartOnParabola
-findPartOnRay
 FindPartOnRay
 FindPartOnRayWithIgnoreList
 FindPartOnRayWithWhitelist
 findPartsInRegion3
-FindPartsInRegion3
 FindPartsInRegion3WithIgnoreList
 FindPartsInRegion3WithWhiteList
 FindPartsInRegion3WithWhitelist is not enabled
@@ -7680,22 +7453,18 @@ fire_main
 fire_sparks_color
 fire_sparks_main
 FireActionButtonFoundSignal
-fireAllClients
 FireAllClients
 FireAllClients can only be called from the server
 FireCharacterAddedAfterSpawn
-fireClient
 FireClient
 FireClient can only be called from the server
 fireEvent for equipped signal
 Firefox
 fireRenderStepEarlyFunctions unexpected error while invoking callback
-fireServer
 FireServer
 FireServer can only be called from the client
 FireWand
 firingItem
-first
 First
 First value to HapticService
 firstchild
@@ -7724,7 +7493,6 @@ FixContactManagerAssert
 FixCrashInSetCharacterHumanoidSetup
 FixCursorAppearingOnMobile
 FixDeadDisabledCrash
-fixed
 Fixed
 Fixed Miriam Transparent
 fixed point overflow ignored
@@ -7818,7 +7586,6 @@ float
 float_buffer
 float_pixels
 floor
-Floor
 Floor is same as ceil
 Floor movement too small
 Floor Subscribed
@@ -7844,7 +7611,6 @@ fMhNe
 FMMbb
 FmmRH
 fmod 
-FMOD 
 Fmod Closed
 FMOD object
 FMOD was not initialized correctly to support this function
@@ -7873,7 +7639,6 @@ fnQbr
 FnQHGwH
 fnYit
 fnyYf
-focus
 Focus
 Focused
 FocusLost
@@ -7905,7 +7670,6 @@ FontMatrix
 FontName
 FONTNAME_REGISTRY
 fonts
-fontSize
 FontSize
 FontSizePadding
 FontType
@@ -7915,7 +7679,6 @@ for ISO10646
 for k
 For more games visit http
 for video preroll
-force
 Force
 Force Enable
 ForceBold
@@ -7925,7 +7688,6 @@ ForceDataSendPriorityHigh
 ForceDevConsoleInStudio
 forceExcuseThrottledRequests
 Forcefield
-ForceField
 forcefield_glow_alpha
 forcefield_glow_color
 forcefield_glow_main
@@ -7948,7 +7710,6 @@ Forest
 Forest green
 Forever
 format
-Format
 Format 
 FORMAT_AnalogVideo
 FORMAT_DolbyAC3
@@ -7962,17 +7723,14 @@ FORMAT_MPEGVideo
 FORMAT_None
 FORMAT_VideoInfo
 FORMAT_VideoInfo2
-FORMAT_VIDEOINFO2
 FORMAT_WaveFormatEx
 formatCount
 FormatMeshIdBeforeCache
 FormatMessageA
 FormatMessageW
 formatted
-Formatted
 formattedlimit
 formed XML
-formFactor
 FormFactor
 FormFactor is deprecated
 FormFactorPart
@@ -8029,9 +7787,7 @@ fragment_shader
 fragment_shader_interlock
 fragment_shader_ordering
 fragment_specular_lighting
-frame
 Frame
-frame 
 Frame 
 Frame Average
 Frame Delta
@@ -8067,7 +7823,6 @@ FrameMax
 Framerate Variance
 FrameRateManager
 FramerateManagerMode
-frames
 Frames
 Frames 
 frameSize
@@ -8114,7 +7869,6 @@ freemove_ds
 freemove_ovr
 freemove_sel
 FreesiaUPC
-freire
 Freire
 FreireCynlre
 FreireCynlreVafgnyyre
@@ -8144,20 +7898,17 @@ Friction
 FrictionWeight
 Friday
 friend
-Friend
 friend fetch is already in progress
 friendData
 Friendly
 FriendPages
 friendRequestEvent
-FriendRequestEvent
 FriendRequestNotificationThrottle
 FriendRequestReceived
 FriendRequestSent
 FriendRequestsFromUser
 FriendRequestsToUser
 friends
-Friends
 FriendService
 FriendService error occurred
 FriendServiceCache
@@ -8172,7 +7923,6 @@ friendship
 friendsonline
 FriendsOnlineUrl
 friendStatus
-FriendStatus
 FriendStatusChanged
 friendUserId
 FRKy1
@@ -8214,7 +7964,6 @@ fromOrientation
 fromRGB
 fromUserId
 fromXYZYPRDegrees
-front
 Front
 FrontAccessory
 FrontParamA
@@ -8247,7 +7996,6 @@ FullscreenChanged
 FullWindowMessages
 FuncDesc
 function
-Function
 Function 
 function AutoRedraw
 function CalcAverage
@@ -8491,7 +8239,6 @@ Game script timeout
 game session ticket from server
 Game started
 GameAnnounce
-gameAvatarType
 GameAvatarType
 GameBasicSettings
 GameChatType
@@ -8506,8 +8253,6 @@ GameHasBeenAPIQueued
 GameHasBeenAPIThrottled
 gameicon
 gameId
-gameID
-GameId
 gameInstanceID
 gameJobID
 GameJoin
@@ -8555,7 +8300,6 @@ gameProcessedEvent
 gamerpic
 gamerTag
 games
-Games
 gameserver
 GameServerVerifyPurchase
 gameSessionID
@@ -8583,7 +8327,6 @@ GameTool created
 GameTool destroyed
 gametransactions
 gameType
-GameType
 gamma
 gamma table being rebuilt
 gamma value
@@ -8603,7 +8346,6 @@ Gbcone
 GbconePbafgnagf
 GbhpuWhzc
 gbo98U
-gbreve
 Gbreve
 GC Distance
 GC Job completed
@@ -8620,7 +8362,6 @@ gcrO
 GcStepMul
 GD3xq
 gdata
-GData
 GDBytes
 GDI32
 gdNG5
@@ -8632,7 +8373,6 @@ GDU_Mbstatet
 GearGenreSetting
 GeaRh
 gearType
-GearType
 geCurrentDesctopResolution GetMonitorInfo failed
 gEEfVi
 GEGJM
@@ -8666,11 +8406,9 @@ Geneva
 genlock
 GenpxPnzren
 genre
-Genre
 genreRestriction
 Genstats
 GeographicLatitude
-geometry
 Geometry
 Geometry Gen
 geometry_program4
@@ -8715,7 +8453,6 @@ GetBoundCoreActionInfo
 getBoundingClientRect
 GetBreakpoints
 GetBrickCount
-getButton
 GetButton
 GetCameraYInvertValue
 GetCanRedo
@@ -8726,7 +8463,6 @@ getChannelsPlaying
 GetCharacterAppearanceAsync
 GetChatForUserAsync
 getChildren
-GetChildren
 GetClassInfoExA
 GetClassInfoExW
 GetClassNameA
@@ -8898,7 +8634,6 @@ GetLogHistory
 GetLogicalProcessorInformation
 GetLogicalProcessorInformation is not supported
 GetLogicalProcessorInformationEx
-getMass
 GetMass
 getMasterChannelGroup
 GetMaxCollisionGroups
@@ -8910,7 +8645,6 @@ GetMessageW
 getmetatable
 getMeteringEnabled
 getMeteringInfo
-getMinutesAfterMidnight
 GetMinutesAfterMidnight
 getMode
 GetModelCFrame
@@ -8968,13 +8702,10 @@ GetPlatform
 GetPlatformFriends
 GetPlayer
 GetPlayerById
-GetPlayerByID
 GetPlayerByUserId
-getPlayerFromCharacter
 GetPlayerFromCharacter
 GetPlayerPlaceInstanceAsync
 GetPlayerPlaceInstanceAsync can only be called from the server
-getPlayers
 GetPlayers
 GetPlayingAnimationTracks
 GetPointBalance
@@ -8992,7 +8723,6 @@ GetProcessHeap
 GetProcessMemoryInfo
 GetProcessUserModeExceptionPolicy
 GetProcessWindowStation
-getProductInfo
 GetProductInfo
 GetProfileStringA
 GetPropertyChangedSignal
@@ -9029,7 +8759,6 @@ GetScreenResolution
 GetScriptStats
 GetSecondaryAxis
 GetSelectedRibbonTool
-getService
 GetService
 GetSetImpl
 GetSetting
@@ -9121,12 +8850,10 @@ GetUserPlatformId
 GetUserPointBalance
 GetUserPointBalanceInUniverse
 GetUserSets
-getUserThumbnailAsync
 GetUserThumbnailAsync
 GetValue
 GetValueString
 getVersion
-GetVersion
 GetVersionExA
 GetVersionExW
 getVolume
@@ -9144,7 +8871,6 @@ GetWindowTextLengthA
 GetWindowThreadProcessId
 getWorldStepId changed 
 Gf634
-gffff
 gfffF
 gfffS
 gfffV
@@ -9169,7 +8895,6 @@ GhhsKt2
 GHHwq
 GHltuo
 Ghost grey
-Ghp7a
 GhP7a
 GhQPRV
 GHstib
@@ -12148,8 +11873,6 @@ GnoQbpxVgrz
 GnV8U
 GO8HC
 Goals
-gOhxG
-GOhxg
 GOhxG
 gOKjB
 GoldenHashes
@@ -12208,7 +11931,6 @@ Granite
 grantaccess
 granted
 graph
-Graph
 Graphic
 Graphic Mode  
 Graphics
@@ -12234,7 +11956,6 @@ GraphicsTexture
 GraphicsTextureCharacter
 GraphicsVulkanInstancingEnabled
 GraSbbgVagresnpr
-grass
 Grass
 grass2
 grass3
@@ -12245,14 +11966,11 @@ grave
 Gravel
 Gravesmall
 gravity
-Gravity
 Gray color space not permitted on RGB PNG
 greater
 greaterequal
 greaterThan
-GreaterThan
 green
-Green
 Green Star 
 gregorian
 GREMEDY_
@@ -12274,7 +11992,6 @@ GrL U
 GrnzPung
 Ground
 group
-Group
 group 
 Group Colors
 Group drag
@@ -12282,7 +11999,6 @@ GroupAlliesUrl
 GroupColors
 GroupColors 
 GroupEnemiesUrl
-groupid
 groupId
 groupid in GroupInfo
 GroupInfo
@@ -12294,7 +12010,6 @@ GroupOrder
 GroupPos
 GroupPosArray
 groups
-Groups
 GroupsActive
 GroupsActive 
 GroupsAllActive
@@ -12439,7 +12154,6 @@ HalloweenSkull
 HalloweenThunder
 Hallway
 hAMAgV
-hammer
 Hammer
 HammerCursor
 HammerDownCursor
@@ -12483,7 +12197,6 @@ HapticService
 hARAYhx
 hardsoft
 Hardware
-HARDWARE
 HardwareID
 HardwareMouse
 HasAppearanceLoaded
@@ -12563,10 +12276,8 @@ headO
 headP
 HeadScale
 headshot
-HeadShot
 HeadsUpDisplay
 HeadWeld
-health
 Health
 Health_XML
 HealthChanged
@@ -12587,7 +12298,6 @@ Heartbeat stepping
 HeartBeatFailure
 heat_xml
 height
-Height
 height 
 height is zero
 HeightExpanded
@@ -12596,7 +12306,6 @@ help
 helpstart
 helpstart 
 helpwindow
-HelpWindow
 Helvetica
 Helvetica Neue
 hemanP
@@ -12638,7 +12347,6 @@ hHXBR
 HhXpAeS
 HhXpE
 hidden
-Hidden
 HideChatWindow
 HideFromPlayer can only be of type Player
 hideFunction
@@ -12719,7 +12427,6 @@ HorizontalScrollBarInset
 HorizontalWedge
 Host down
 Host not found
-host unreachable
 Host unreachable
 Hostname 
 Hostname in DNS cache was stale
@@ -12873,12 +12580,10 @@ HttpRBXEventFailureReportHundredthsPercent
 HttpReportStatisticsOnce
 HttpRequest
 httpRequestType
-HttpRequestType
 HttpResponseDefaultTimeoutMillis
 httpResult
 HttpResultOut
 https
-HTTPS
 HttpSendDefaultTimeoutMillis
 HttpSendStatsEveryXSeconds
 HttpService
@@ -12900,7 +12605,6 @@ Huffman code size table overflow
 Huffman table 0x
 HUJO5
 HUMAN
-humanoid
 Humanoid
 humanoid 
 Humanoid created 
@@ -13011,7 +12715,6 @@ I8SVW
 i8Xcm
 i9QfJ
 iABJu
-iacute
 Iacute
 Iacutesmall
 iAIpU
@@ -13037,7 +12740,6 @@ icemetal3
 icestone
 icestone2
 icestone3
-icircumflex
 Icircumflex
 Icircumflexsmall
 ICKc_9
@@ -13067,9 +12769,7 @@ idata
 IDATx
 idBun
 identifier removed
-identity
 Identity
-idieresis
 Idieresis
 Idieresissmall
 IDispatchImpl
@@ -13112,7 +12812,6 @@ Ignoring region transition for part
 Ignoring request to write a PLTE chunk in grayscale PNG
 Ignoring the response
 IgOppO
-igrave
 Igrave
 Igravesmall
 IGXoO
@@ -13164,7 +12863,6 @@ ilGroups
 iljj3
 illegal argument 
 illegal byte sequence
-Illegal byte sequence
 Illegal channels for PNG
 Illegal characters found in URL
 illegal format or missing URL
@@ -13177,7 +12875,6 @@ ilOptions
 ILSVW
 ilThreads
 image
-Image
 Image dimensions
 Image failed to load
 Image height exceeds user limit in IHDR
@@ -13252,7 +12949,6 @@ Inappropriate I
 inappropriate io control operation
 InclinationAngle
 include
-Include
 includeJobs
 inclusiveMaxValue
 inclusiveMinValue
@@ -13276,16 +12972,13 @@ Incorrect hex digit after
 incorrect length check
 Incorrect unescaped character in string
 increase
-increment
 Increment
 IncrementAsync
 InData
 InDataDetails
 indentation
 index
-Index
 index 
-Index 
 index in HoverLabel
 index in HoverMeta
 index out of range
@@ -13304,7 +12997,6 @@ InferredCrashReportingHundredthsPercentage
 Infinite
 Infinite yield possible on 
 infinity
-Infinity
 InfluxDbLog
 InfluxEnabled
 InfluxOverTCP
@@ -13314,9 +13006,7 @@ InfluxTattletaleReportCommunitySiftOutputPermyriad
 InfluxTattletaleV2Permyriad
 info change after png_start_read_image or png_read_update_info
 infoType
-InfoType
 InFullScreen
-inGame
 InGame
 INGR_
 init or System
@@ -13349,7 +13039,6 @@ initialSpawnName
 InitOnceExecuteOnce
 InitSecurityInterfaceA
 InitThreadMenu
-inity
 INITY
 Inlet
 InletCursor
@@ -13368,7 +13057,6 @@ InOut
 InPhysics
 InPhysicsDetails
 InProgress
-input
 Input
 Input file read error
 Input stream is not seekable
@@ -13376,14 +13064,11 @@ input type
 InputBegan
 InputChanged
 InputEnded
-inputObject
 InputObject
 inputThatCausedFocusLoss
 inputType
-InputType
 inputTypes
 inputUserCFrame
-insert
 Insert
 insert_dn
 insert_ds
@@ -13407,7 +13092,6 @@ Installation Corrupt
 Installation Not Found 
 Installation path could not be located 
 InstallRemotePlayer 
-instance
 Instance
 Instance 
 instance must be non
@@ -13420,7 +13104,6 @@ Instanced
 instanced_arrays
 InstanceDelete
 InstanceFunctions
-instanceId
 InstanceID
 InstanceLock
 InstanceNavigationAdditionsEnabled
@@ -13429,7 +13112,6 @@ InstancePacketCache
 instancePath
 InstanceRemoved
 instances
-Instances
 Instances     
 InstanceTaggingEnabled
 InstanceTreeManipulation
@@ -13495,7 +13177,6 @@ InterlockedFlushSList
 InterlockedIncrement
 InterlockedPopEntrySList
 InterlockedPushEntrySList
-Internal
 INTERNAL
 internal error
 internal error checking chromaticities
@@ -13538,7 +13219,6 @@ interval
 interval is empty
 InTouches
 intrusive
-Intrusive
 intrusive_ptr
 intrusive_ptr_target
 IntValue
@@ -13547,7 +13227,6 @@ invalid
 invalid after png_start_read_image or png_read_update_info
 invalid alpha mode
 invalid argument
-Invalid argument
 Invalid arguments
 Invalid attempt to read row data
 invalid background gamma type
@@ -13651,7 +13330,6 @@ Invalid scan script at entry
 Invalid schema type for writing value
 invalid screen gamma in png_set_gamma
 invalid seek
-Invalid seek
 Invalid share handle
 invalid signature
 Invalid SOS parameters for sequential JPEG
@@ -13671,10 +13349,8 @@ invalid unit
 invalid unknown chunk location
 invalid user transform pixel depth
 invalid UTF
-invalid value
 Invalid value
 invalid value 
-Invalid value 
 Invalid value for enum 
 invalid values
 invalid vector
@@ -13696,7 +13372,6 @@ Invalidating Fast Clusters
 inventory
 InventoryPages
 inverse
-Inverse
 InverseCornerWedge
 InverseSquareLaw
 InverseTapered
@@ -13710,10 +13385,8 @@ InvocationCount
 InvocationMeter
 Invoke
 InvokeCallback failed because 
-invokeClient
 InvokeClient
 InvokeClient can only be called from the server
-invokeServer
 InvokeServer
 InvokeServer can only be called from the client
 io error
@@ -13772,7 +13445,6 @@ IruvpyrUhq
 IRWrOJ
 irZaQ
 is a directory
-Is a directory
 is_any_ofF
 is_from_rangeF
 Is30FpsThrottleEnabled
@@ -13795,21 +13467,17 @@ IsDBCSLeadByte
 IsDebuggerPresent
 IsDebugging
 IsDefaultLoadingGuiRemoved
-isDescendantOf
 IsDescendantOf
 IsDisabled
 isdst
 isEnabled
-IsEnabled
 isError
 IsFinished
 IsFinishedReplicating
 isFixedPitch
-IsFixedPitch
 IsFixedV
 IsFmodProfilingEnabled
 IsFocused
-isFriendsWith
 IsFriendsWith
 isFullscreen
 IsGearTypeAllowed
@@ -13838,7 +13506,6 @@ isPartyLeader
 IsPaused
 isPerformanceStatsVisible
 IsPhysicsEnvironmentalThrottled
-isPlaying
 IsPlaying
 IsProcessorFeaturePresent
 isPurchase
@@ -13852,7 +13519,6 @@ IsRegion3EmptyWithIgnoreList
 IsRobloxPlace
 IsRunMode
 isRunning
-IsRunning
 IsScriptStackTracingEnabled
 IsServer
 IsSFFlagsLoaded
@@ -13883,7 +13549,6 @@ isUsing
 IsUsingCameraYInverted
 IsUsingGamepadCameraSensitivity
 isValid
-IsValid
 IsValidCodePage
 IsValidLocale
 IsValidLocaleName
@@ -14054,7 +13719,6 @@ JobCount
 JobId
 JobInfo
 jobname
-JobName
 JobStart
 JobStart 
 JobStop
@@ -14086,7 +13750,6 @@ JoinSendExtraItemCount
 JoinStart
 JoinStart 
 joint
-Joint
 Joint 
 Joint instance 
 Joint Instance created
@@ -14120,7 +13783,6 @@ Joints
 JointsService
 jointsStepUi
 jointType
-JointType
 JojAe
 joOtk
 joYrii
@@ -14204,7 +13866,6 @@ jzcLA
 JzEGOHA
 jzEjX
 jzEK7
-JzEK7
 jzeOb
 JzErB
 jZeWBJu
@@ -14252,8 +13913,6 @@ kemRT
 kemzZ
 Kerberos
 Kernel
-kernel32
-Kernel32
 KERNEL32
 kerning
 Kerplunk
@@ -14265,21 +13924,16 @@ KEY_PLAYER_IDLE_DISCONNECT
 Keyboard
 KeyboardEnabled
 KeyboardMouse
-keyCode
 KeyCode
 keyCode 
 keyCodeForActivation
 KeyCtrlDown
 KeyCtrlDown 
-keydown
-keyDown
 KeyDown
 keyframe
-Keyframe
 keyframeName
 KeyframeReached
 keyframeSequence
-KeyframeSequence
 KeyframeSequence loaded is not valid
 KeyframeSequenceCacheMemoryOptimization
 KeyframeSequenceEnableFrozen
@@ -14308,7 +13962,6 @@ Keypoints
 KeyPressed
 KeyShiftDown
 KeyShiftDown 
-keyup
 KeyUp
 keyword 
 keyword truncated
@@ -14431,7 +14084,6 @@ L8M_a7
 l9Flrd
 l9t9x9
 label
-Label
 Label 
 LabelArray
 lacks ending quotation before the end of string
@@ -14553,7 +14205,6 @@ Last player pos translation squared
 last_write_time
 LastError
 lastForce
-lastGfxMode
 lastGFXMode
 lastInputType
 LastInputTypeChanged
@@ -14624,7 +14275,6 @@ Left Shoulder
 Left_key
 Left_key_dn
 LeftAlt
-leftarm
 LeftArm
 LeftArmColor
 LeftBracket
@@ -14633,7 +14283,6 @@ LeftCurly
 LeftFoot
 LeftGame
 LeftHand
-leftleg
 LeftLeg
 LeftLegColor
 LeftLowerArm
@@ -14657,7 +14306,6 @@ LeftSurface
 LeftSurfaceInput
 LeftTread
 lefttrigger
-LeftTrigger
 LeftUpperArm
 LeftUpperLeg
 leftx
@@ -14676,7 +14324,6 @@ lElblrl
 Lemon metalic
 LenAvg 
 lenBuildCharArray
-length
 Length
 length 
 length body
@@ -14696,9 +14343,7 @@ lessequal
 LessThan
 let0G
 Letting watcher thread know we
-level
 Level
-level 
 Level 
 level must be non
 LevelOfDetailSetting
@@ -14727,7 +14372,6 @@ Libraries must contain a
 Libraries should return exactly 1 result
 Libraries should return exactly 1 table
 lifetime
-Lifetime
 Light
 Light blue
 Light bluish green
@@ -14751,11 +14395,9 @@ light_max_exponent
 light_texture
 LightEmission
 lightgrey
-lightgrid
 LightGrid
 LightInfluence
 lighting
-Lighting
 LightingChanged
 lightingComposit
 lightingComputeShadowMask
@@ -14775,7 +14417,6 @@ LilyUPC
 Lime green
 Limestone
 limit
-Limit
 limit 
 limitedByCongestionControl 
 limitedByOutBandwidthLimit 
@@ -14818,7 +14459,6 @@ list9
 ListBase
 listener
 listenerType
-ListenerType
 LiveThreadRef
 LivingRoom
 liXpR
@@ -14861,23 +14501,19 @@ lNJOf
 lNnmp
 lNQka
 load 
-Load 
 load can
 Load ClientAppSettings
 Load Named LinkedSource
 load plugins not supported
 Load Time
 LoadAdditionalCoreScriptsInStudio
-loadAnimation
 LoadAnimation
 LoadAnimation requires an Animation object
 LoadAnimation requires the 
 LoadAnimation requires the asset id to not be empty
-loadAsset
 LoadAsset
 LoadAssetVersion
 loadBoolean
-LoadBoolean
 LoadCharacter
 LoadCharacter 
 LoadCharacter can only be called by the backend server
@@ -14899,12 +14535,10 @@ LoadCursorA
 LoadCursorW
 LoadData
 LoadDefaultChat
-loaded
 Loaded
 Loaded 
 Loaded shaders from pack 
 loadfile
-Loadfile
 LoadFormattedAssetIds
 loadHumanoidAnimationScripts
 loadHumanoidSoundScripts
@@ -14917,7 +14551,6 @@ loadingGui
 LoadingScript
 LoadingScript Error
 LoadingScriptStopUsingVerbs
-loadInstance
 LoadInstance
 loadInstances can
 LoadKeyboardLayoutA
@@ -14926,15 +14559,12 @@ LoadLibraryA
 LoadLibraryExA
 LoadLibraryExW
 LoadLibraryW
-loadNumber
 LoadNumber
 LoadPlayerScriptsFromLua
 LoadPlugins
 LoadResource
 loadSoundWithContext could not find SoundService
 LoadStarterGearWithoutLoadCharacter
-loadstring
-loadString
 LoadString
 LoadStringA
 LoadStringEnabled
@@ -14951,7 +14581,6 @@ loadXML schemaVersionLoading
 Lobby3D
 LobbyService
 Lobster
-local
 Local
 local aZZZZ 
 Local player already exists
@@ -14984,7 +14613,6 @@ LocalizationTable does not contain languageKey
 Localize
 LocalLuaKick
 locally resolved
-localPlayer
 LocalPlayer
 LocalPlayerArrivedFromTeleport
 localSave
@@ -15004,7 +14632,6 @@ LocalTransparencyModifier
 LocalUserSecurity
 LocalWorkspace
 location
-Location
 locationId
 locationType
 Lock already taken
@@ -15041,7 +14668,6 @@ LogEnd
 Logical
 logicalnot
 login
-LOGIN
 Login denied
 loginError
 LoginFailed
@@ -15049,7 +14675,6 @@ LoginService
 LoginSucceeded
 LogJoinTime
 logout
-Logout
 LogService
 LogStart
 LogStart 
@@ -15063,7 +14688,6 @@ loop in settable
 Looped
 Lost connection to 
 lost rgb to gray
-lostConnection
 LostConnection
 LostLock
 LostReliableConnection
@@ -15094,7 +14718,6 @@ LsAYj
 lScNV
 LsIayF
 lskTSC
-lslash
 Lslash
 Lslashsmall
 Lsmall
@@ -15524,7 +15147,6 @@ MaeNK
 Magenta
 MagicDisco
 magnitude
-Magnitude
 mAi6tU
 Main View
 MainModule
@@ -15534,7 +15156,6 @@ Make Starter Gear Request exception
 make_current_read
 MakeCounter
 MakeHumanoidUnequipToolsSafe
-makeJoints
 MakeJoints
 MakeLod
 MakeSecure_AnalyticsMeasurement
@@ -15591,18 +15212,14 @@ Marker Per Timer
 MarkerItem 
 markers 
 marketplace
-MarketPlace
 MarketplaceService
-MarketPlaceService
 Marlett
 Maroon
 MaskWeight
 masters
 MasterVolume
 match
-Match
 MatchingGenreOnly
-material
 Material
 Material Color
 Material expected
@@ -15622,7 +15239,6 @@ MaterialVerb
 Matrix Size   
 matrix_palette
 matrixSize
-MatrixSize
 Mauve
 Max Bucket Size
 Max Buffer Seek
@@ -15657,17 +15273,14 @@ MaxDataStepsAccumulated
 MaxDataStepsPerCyclic
 MaxDebugFramesForVisuals
 MaxDepth 
-maxDistance
 MaxDistance
 MaxDistance is too large
 MaxExtents
-maxForce
 MaxForce
 MaxFrameBufferSize
 MaxFramesToSend
 maxFriends
 MaxGPU
-maxHealth
 MaxHealth
 Maximum 
 Maximum event re
@@ -15711,13 +15324,9 @@ MaxStack
 MaxStreamPacketsPerStep
 MaxTextSize
 MaxThrust
-maxTorque
 MaxTorque
 maxTreeDepth
-MaxTreeDepth
-maxvalue
 maxValue
-MaxValue
 maxvalue 
 MaxValue has to be integer or nil
 MaxVelocity
@@ -15797,7 +15406,6 @@ MEDIASUBTYPE_DVD_NAVIGATION_PROVIDER
 MEDIASUBTYPE_DVD_SUBPICTURE
 MEDIASUBTYPE_dvh1
 MEDIASUBTYPE_dvhd
-MEDIASUBTYPE_dvsd
 MEDIASUBTYPE_DVSD
 MEDIASUBTYPE_dvsl
 MEDIASUBTYPE_IA44
@@ -15913,13 +15521,10 @@ MegaClusterNetworkInit
 mejZum
 MeleeWeapons
 member
-Member
 membershipType
-MembershipType
 MembershipTypeReplicate
 MemEnforcedLRUCache
 meminfo
-memory
 Memory
 memory allocation error
 Memory allocation failed while processing sCAL
@@ -15955,13 +15560,11 @@ MeshContentProvider failed to process
 MeshData
 Meshes
 MeshId
-MeshID
 MeshManager
 MeshPart
 meshPartFallback
 MeshType
 message
-Message
 Message bytes per second ignored     
 Message bytes per second processed   
 Message bytes per second pushed    
@@ -15989,11 +15592,9 @@ messagesInResendQueue
 messagesInResendQueue      
 messageTotalBytesSentPerSec
 messageType
-MessageType
 MessageWarning
 metaagg
 Metadata
-metal
 Metal
 metal2
 metal3
@@ -16011,7 +15612,6 @@ metalstone2
 metalstone3
 metamax
 MetaNames
-method
 Method
 Metric
 metrics
@@ -16034,7 +15634,6 @@ Mh8f_
 MhP9a
 MHPoU
 MhUTQ
-microprofile
 MicroProfile
 MicroProfile Capture
 MicroProfileFlip
@@ -16058,7 +15657,6 @@ MinDelta
 MinDistance
 MinFeature
 MingLi43
-Mingliu
 MingLiU
 MiniDumpWriteDump
 minifigfoots1
@@ -16070,16 +15668,13 @@ MinReportInterval
 MinSize
 MinSoundStreamSizeBytes
 MinTextSize
-minus
 Minus
 minute exceeded limit for HTTP API throttle
 minute with local scripts
 minute with server scripts and no more than 
 minutes
 minutesToFire
-minvalue
 minValue
-MinValue
 minvalue 
 MinValue has to be integer or nil
 Miriam
@@ -16090,7 +15685,6 @@ misc_attribute
 misc_hints
 Miscellaneous marker 0x
 missing 
-Missing 
 missing close_notify
 Missing closing bracket
 Missing GL version
@@ -16182,7 +15776,6 @@ MotorMaxForce
 MotorMaxTorque
 Mountains
 mouse
-Mouse
 Mouse Cursor
 Mouse Lock Switch
 Mouse Move    
@@ -16206,13 +15799,11 @@ MouseButton2DownConnectionCount
 MouseButton2Up
 MouseButton2UpConnectionCount
 MouseButton3
-mouseClick
 MouseClick
 MouseCommand
 MouseCommandLifetime
 MouseDeltaSensitivity
 MouseDetailed 
-mousedown
 MouseDown
 MouseDown function
 mouseDown when already dragging
@@ -16256,7 +15847,6 @@ MouseLeave
 MouseLeaveConnectionCount
 MouseLockLabel
 MouseLockSwitch
-mousemove
 MouseMove
 mouseMove after mouseUp
 mouseMove without mouseDown
@@ -16269,10 +15859,8 @@ mouseRay
 MouseSensitivity
 MouseSensitivityFirstPerson
 MouseSensitivityThirdPerson
-mouseup
 MouseUp
 mouseUp without mouseDown
-mousewheel
 MouseWheel
 Mousewheel 
 MouseWheelBackward
@@ -16285,7 +15873,6 @@ MoveAvatarEditorPages
 MoveCharacter
 MoveCodeFromReplicator
 moveDirection
-MoveDirection
 MoveDirectionInternal
 MoveDownSelection
 MoveFileA
@@ -16297,7 +15884,6 @@ MoveMouse
 MoveResizeJoin
 MoveState
 MoveStateChanged
-moveTo
 MoveTo
 MoveToFinished
 MoveToNext
@@ -16426,7 +16012,6 @@ N9fjs
 N9Inv
 N9OaP
 naIvf
-name 
 Name 
 name conflict for module 
 Name of an object member must be a string
@@ -16449,7 +16034,6 @@ Nanylgvpf
 Narkisim
 NativePurchaseFinished
 nav li
-navigation
 Navigation
 NavigationDetail
 NavigationEnhancers
@@ -16510,11 +16094,9 @@ Net PacketReceive
 Net Peer Send
 Net Peer Stats
 Netstats
-network
 Network
 Network Data stream
 Network Debug Tracker
-network down
 Network down
 Network error 
 Network has been reset
@@ -16530,7 +16112,6 @@ Network recv
 network reset
 Network Send
 Network send  
-network unreachable
 Network unreachable
 NetworkCache
 NetworkClient
@@ -16708,7 +16289,6 @@ nNumLogs
 NNUUj
 NnyYfX
 No authentication method was acceptable
-no buffer space
 No buffer space
 No buffer support for type 
 no calling environment
@@ -16771,13 +16351,9 @@ No space left on device
 no space on device
 no stream resources
 no such device
-No such device
 no such device or address
-No such device or address
 no such file or directory
-No such file or directory
 no such process
-No such process
 No Supports
 No terrain yet 
 no upper message 
@@ -16787,7 +16363,6 @@ No View
 no write access
 no_error
 no_proxy
-NO_PROXY
 nocache
 NoCacheForLocalContent
 NoChat 
@@ -16825,11 +16400,8 @@ NoRemove
 NoReverb
 NORM_SPACE
 normal
-Normal
-NORMAL
 normal_
 normaldetail
-normalId
 NormalId
 NormalId input
 NormalId inputs
@@ -16837,7 +16409,6 @@ NoSound
 NoSoundNRT
 NoSupports
 not a directory
-Not a directory
 Not a JPEG file
 not a multiple of 4
 Not a PNG file
@@ -16853,7 +16424,6 @@ Not empty
 Not enough compressed data
 Not enough image data
 not enough memory
-Not enough memory
 not enough memory for string
 Not enough memory or resources
 Not enough memory to request more parts
@@ -16880,7 +16450,6 @@ NotFriend
 Nothing
 Nothing should follow the root object or array
 Notice
-NOTICE
 Notification Service Not Available
 NotificationService
 notifyAwake
@@ -16937,7 +16506,6 @@ nsuperior
 NtClose
 ntdll
 nThreadIn
-ntilde
 Ntilde
 Ntildesmall
 nTj30
@@ -16974,7 +16542,6 @@ Num slow requests
 num_get
 num_put
 number
-Number
 number expected
 number of API requests
 Number of channels 
@@ -17019,7 +16586,6 @@ numMovingPrimitives
 numOfTimesLooped
 NumPhysicsPacketsPerStep
 NumPhysicsTouchPacketsPerStep
-numPlayers
 NumPlayers
 numPoints
 numPrimitives
@@ -17083,17 +16649,14 @@ o7FYU
 o82 S
 O8H7Op
 oA kN
-oacute
 Oacute
 Oacutesmall
 obAbB
-object
 Object
 Object passed to 
 object_purgeable
 ObjectCFrame
 ObjectPosition
-objects
 Objects
 ObjectValue
 ObjExporterCorrectedSpecular
@@ -17115,7 +16678,6 @@ occupancyUpdateChunkPerform
 occupancyUpdateChunkPrepare
 Occupant
 oCed3
-ocircumflex
 Ocircumflex
 Ocircumflexsmall
 OCL4aZU
@@ -17123,7 +16685,6 @@ OcsDt
 oCswJ
 Octave
 October
-odieresis
 Odieresis
 Odieresissmall
 oEoOoZoaozo
@@ -17134,7 +16695,6 @@ offscreen
 OffscreenData
 OffscreenData 
 offset
-Offset
 Offset 
 OffsetBottom 
 OffsetTop 
@@ -17150,7 +16710,6 @@ oghXk
 oGLLs
 ogonek
 Ogoneksmall
-ograve
 Ograve
 Ogravesmall
 ogX6f
@@ -17182,7 +16741,6 @@ OldStart
 oldState
 ole32
 OleAut32
-OLEAUT32
 OleInitialize
 OleLockRunning
 OleUninitialize
@@ -17259,7 +16817,6 @@ OnReceive new connection
 OnReceive packet 
 OnRedo
 onRemoteSysStats
-OnRemoteSysStats
 onRemoteSysStats disconnect
 onRemoteSysStats disconnect not in the clist
 OnScreenKeyboardPosition
@@ -17300,7 +16857,6 @@ oP6vI
 Opacity
 opacity_xml
 oPAQn
-opaque
 Opaque
 oPcklD
 Open node already exist with cost 
@@ -17329,9 +16885,7 @@ operation canceled
 Operation could not be performed because specified sound
 operation in progress
 operation not permitted
-Operation not permitted
 Operation not permitted on an object without an associated state
-operation not supported
 Operation not supported
 Operation on a non
 Operation timed out after 
@@ -17376,18 +16930,15 @@ Ordering
 orderingChannel 
 ordfeminine
 ordmasculine
-orientation
 Orientation
 OrientationLocal
 origin
-Origin
 Original
 original_token
 OriginalSize
 ORXcx
 OscillateMotor
 OsIs64Bit
-oslash
 Oslash
 Oslashsmall
 Osmall
@@ -17407,7 +16958,6 @@ OtherTexture
 OtherTextureOrphan
 otherUserId
 otherUserIds
-otilde
 Otilde
 Otildesmall
 OtSQP
@@ -17421,9 +16971,7 @@ Out Data
 out GSS
 Out of bounds access by layout 
 Out of file descriptors
-out of memory
 Out of memory
-Out of Memory
 out of memory in raknet file 
 Out of memory while allocating 
 Out of memory while doing RGBA conversion for 
@@ -17469,7 +17017,6 @@ OuweAb8
 Ov_rnk
 OVACk
 over13
-Over13
 Over13 
 Overall 
 Overall RakNet Bandwidth 
@@ -17915,7 +17462,6 @@ PacketPriority
 PacketReliability
 Packets Thread
 PaddedCell
-padding
 Padding
 PaddingBottom
 PaddingComponentEnabled
@@ -17930,9 +17476,7 @@ pageIndex
 PageLayoutOverrideButtonClick
 PageLeave
 pageNum
-pages
 Pages
-pagesize
 pageSize
 PageSize has to be more or equal to zero
 PageSize is too large
@@ -17990,7 +17534,6 @@ parenright
 parenrightinferior
 parenrightsuperior
 parent
-Parent
 parent 
 Parent changed to NULL on instance 
 Parent in Instance
@@ -18007,7 +17550,6 @@ part count was
 Part is not a child of Humanoid
 part of this file has already been written to disk
 Part0
-part1
 Part1
 PartAdornment
 PartColor3Uint8Enabled
@@ -18034,7 +17576,6 @@ ParticleLightingFS
 ParticleLightingVS
 ParticleModulateFS
 ParticleModulateFS_Soft
-particles
 Particles
 Particles     
 ParticleSpreadAngleUpdate
@@ -18061,7 +17602,6 @@ partOrCharacter is not a legal character
 partOrCharacter must be a Part or a Character
 partOrCharacter must be in the Workspace
 partOrCharacter must be non
-parts
 Parts
 Parts not waiting for assets
 PartSizeUnder0P2AnalyticsInfluxHundredthPct
@@ -18072,7 +17612,6 @@ PartTool created
 PartTool destroyed
 PartType
 partyGuid
-PartyGUID
 PartyLeader
 PartyLeaderRequest
 Pass2d
@@ -18094,7 +17633,6 @@ PassThroughVS
 PassUserLocaleOnFilterMessage
 password
 pasteEmptyCells
-Pastel blue
 Pastel Blue
 Pastel brown
 Pastel green
@@ -18115,7 +17653,6 @@ PathAddBackslashA
 PathAppendA
 PathFileExistsA
 pathfinding
-Pathfinding
 Pathfinding request
 PathfindingAgeToCollectChunks
 PathfindingAverageWindow
@@ -18152,7 +17689,6 @@ PAUrcHeightfield
 PAUrcHeightfieldLayerSet
 PAUReplicationData
 PAUrun_custom_cleanup_function
-pause
 Pause
 Paused
 PAUTuple
@@ -18672,7 +18208,6 @@ pEiW_
 Penalized
 Pending Request count
 Pending script name
-percent
 Percent
 PercentApiRequestsRecordGoogleAnalytics
 percentConnectorsActive
@@ -18692,13 +18227,11 @@ PerformanceStatsVisible
 PerformanceStatsVisibleChanged
 PerformPurchase
 PerformPurchase 
-period
 Period
 periodcentered
 periodinferior
 periodsuperior
 permission denied
-Permission denied
 PERMISSION_DENIED
 Perngr
 Persimmon
@@ -18780,7 +18313,6 @@ pHwXfFy
 PHwYib
 PhysicalCharacter
 PhysicalProperties
-physics
 Physics
 Physics       
 Physics         
@@ -18854,14 +18386,12 @@ ping
 Ping Elapsed Time
 PingInterval
 pingUrl
-PingUrl
 pinned_memory
 Pipe broke
 Pipe is full
 pipeline_statistics_query
 pipelineLayout
 pipelineLayoutInfo
-pirate
 Pirate
 PirateHat
 Pitch
@@ -18885,7 +18415,6 @@ pksLcu
 pKSlY
 pKStL
 PL4lS
-place
 Place
 place filter
 Place Id is zero
@@ -18894,11 +18423,7 @@ Place_Prims_PercDynamicAssemblies
 PlaceAuthenticationThread
 PlaceholderColor3
 PlaceholderText
-placeid
 placeId
-placeID
-PlaceId
-PlaceID
 PlaceIdFailedVerification
 PlaceIdWherePurchased
 PlaceLauncher
@@ -18925,13 +18450,9 @@ PlacePercentDynamicAssemblies
 PlacePrimitives
 placerolesets
 places
-Places
 PlaceVersion
 plain
-Plain
-PLAIN
 Plane
-plastic
 Plastic
 plasticgrass
 plasticgrass2
@@ -18950,7 +18471,6 @@ plasticstone2
 plasticstone3
 Plate
 platform
-Platform
 Platform displaced
 PlatformContent
 PlatformImpl
@@ -18961,12 +18481,9 @@ PlatformStanding
 playbackActionSync
 PlaybackLoudness
 PlaybackSpeed
-playbackState
 PlaybackState
 PlayDelete
-played
 Played
-player
 Player
 Player 
 player argument must be of type Player
@@ -19008,9 +18525,7 @@ PlayerGuiLoadsWithoutCharacterAutoLoads
 PlayerGuiSetScreenOrientation
 PlayerHasPass
 playerHasPassUrl
-playerid
 playerId
-PlayerId
 playerIds
 PlayerInitiatedDialog
 PlayerInstalled
@@ -19026,7 +18541,6 @@ PlayerRejoining
 PlayerRemoving
 PlayerRemoving 
 PlayerRemovingLate
-players
 Players
 Players service requests player disconnect
 PlayerScripts
@@ -19115,7 +18629,6 @@ PoGXX
 pOhXg
 PoiIv4FnQ
 point
-Point
 point_line_texgen
 point_parameters
 POINT_SIZE
@@ -19128,11 +18641,9 @@ PointerArray
 PointerOver
 PointLight
 pointOnMousePart
-points
 Points
 Points        
 pointsAwarded
-PointsAwarded
 PointsService
 PointsService requires beta access
 PointsService requires loadstring to be disabled
@@ -19163,9 +18674,7 @@ PosArray
 PoseAnimation
 PoseEasingDirection
 PoseEasingStyle
-position
 Position
-POSITION
 position out of range
 PositionLocal
 positive height
@@ -19188,7 +18697,6 @@ postscript
 Potential overflow in png_zalloc
 Potential overflow of save_buffer
 pOtTk
-power
 Power
 Power PC
 PowerUps
@@ -19242,7 +18750,6 @@ PreloadTextureTimeBuget
 PreloadTextureToMemory
 Premature end of input file
 Premature end of JPEG file
-prepare
 Prepare
 prepare 
 PreprocesFindFirstFrames
@@ -19258,7 +18765,6 @@ PreprocessGlobalArray
 PreprocessLods
 PreprocessMeta
 present
-Present
 Present Time
 Present time            
 present_video
@@ -19287,7 +18793,6 @@ Primitives
 Primitives    
 PrimStatsGANumDelimited
 print
-Print
 print version string
 PrintBits
 PrintEvents
@@ -19300,7 +18805,6 @@ PrintScene
 PrintSplitMessage
 PrintStreamInstanceQuota
 PrintTouches
-priority
 Priority
 priority 
 priorityLevel
@@ -19310,7 +18814,6 @@ PrismaticConstraint
 PrismInstance
 PrismPart
 PrismSides
-private
 Private
 privateGameMode
 PrivilegeType
@@ -19353,11 +18856,9 @@ processRemoteEvent
 ProcessRequestCharacterTime
 processTask
 produce help message
-product
 Product
 productDetails
 productId
-ProductId
 productinfo
 ProductPurchaseDecision
 ProductPurchasePrompted
@@ -19367,7 +18868,6 @@ profile matches sRGB but writing iCCP instead
 profilebegin
 ProfileData
 ProfileData 
-profileend
 profileEnd
 ProfileEnter
 ProfileFps 
@@ -19381,7 +18881,6 @@ ProfileModeClear
 ProfileModeDraw
 ProfileModeDump
 profiler
-Profiler
 ProfileRedraw0
 ProfileRedraw0 
 ProfileRedraw1
@@ -19404,7 +18903,6 @@ promise
 Prompt
 prompted
 PromptForExistingAssetId
-promptLogin
 PromptLogin
 PromptNativePurchase
 PromptNativePurchase called from a local script
@@ -19422,10 +18920,8 @@ PromptThirdPartyPurchase
 PromptThirdPartyPurchase called from a local script
 PromptThirdPartyPurchaseRequested
 PropDescriptor
-properties
 Properties
 property
-Property
 Property 
 property is a 
 PropertyButton
@@ -19439,7 +18935,6 @@ ProtectedString
 ProtectionFromEvilJoins
 ProtectionFromMutantJoins
 proto
-Proto
 protocol
 Protocol 
 protocol error
@@ -19452,7 +18947,6 @@ Protocol option is unsupported
 ProtocolMismatch
 protocolVersion
 provoking_vertex
-proxy
 Proxy
 Proxy authentication is required to access the specified resource
 Proxy CONNECT aborted
@@ -19630,7 +19124,6 @@ qijBu
 QIL9V
 qIRjU
 qIv 8
-QIv 8
 QiVEM
 QIVnyIvy
 QIvYO
@@ -19750,13 +19243,11 @@ QueryPerformanceFrequency
 querySphere
 queryType
 Quest
-question
 Question
 questiondown
 questiondownsmall
 questionsmall
 Queue size
-Queue Size
 Queue suze
 queued 
 queuePresent
@@ -19821,7 +19312,6 @@ r03pDM
 R15Anim
 R15Character
 R15CollisionGeometry
-r15CollisionType
 R15CollisionType
 R15CollisionTypeField
 R15CompositLeftArmBase
@@ -19863,7 +19353,6 @@ RadialBlurFS
 RadialMenuAfterLoadingScreen
 radical
 radius
-Radius
 Ragdoll
 RaI2JQif
 RaI2Ju
@@ -19872,8 +19361,6 @@ RaiseException
 RaiseSendPriority
 Raising close
 raknet
-Raknet
-RakNet
 RakNetDidNotStartConnectAttempt
 RakNetDisconnect
 RakNetMaxSplitPacketCount
@@ -19886,7 +19373,6 @@ RakNetSupportIpV6
 RakPeer
 RakString
 random
-Random
 randomseed
 Range
 range for bit_depth
@@ -20225,7 +19711,6 @@ Region3WhitelistEnabled
 register_combiners
 register_combiners2
 RegisterActiveKeyframeSequence
-registerActiveUser
 RegisterActiveUser
 RegisterClassExA
 RegisterClassExW
@@ -20272,7 +19757,6 @@ relativeToCamera
 RelativeXX
 RelativeXY
 RelativeYY
-release
 Release
 ReleaseCapture
 Released DataModel
@@ -20325,12 +19809,10 @@ RemoteOnInvokeError
 RemoteOnInvokeServer
 RemoteOnInvokeSuccess
 remotePlayer already exists
-remove
 Remove
 Remove bulletDispatcher to
 RemoveAccessories
 RemoveCenterDialog
-removeCharacter
 RemoveCharacter
 RemoveCharacter can only be called by the backend server
 RemoveCollisionGroup
@@ -20367,7 +19849,6 @@ Removing url from failed list
 rename
 RenameCollisionGroup
 REND_
-render
 Render
 render 
 Render        
@@ -20477,7 +19958,6 @@ Replication prop
 Replication ref prop
 ReplicationDataLifetime
 replicator
-Replicator
 Replicator created
 Replicator created for player 
 Replicator DataPing
@@ -20493,7 +19973,6 @@ Replicator StatsSender
 Replicator StreamData
 ReplicatorAdded
 ReplicatorMaxPacketBytesSentToInfluxOnError
-report
 Report
 REPORT_ABUSE
 ReportAbuse
@@ -20527,10 +20006,8 @@ ReportStatURL
 ReportTaskScheduler
 repository0W
 request
-Request
 Request Dropped to prevent stale data for key
 Request failed
-Request Failed
 Request limit exceeded for get sorted
 Request limit exceeded on get
 Request limit exceeded on increment
@@ -20565,16 +20042,13 @@ RequestedFromServer
 requestedPrivileges
 Requester
 requesterUserId
-requestfollowuser
 RequestFollowUser
 RequestFriendship
-requestFriendship must be called from local script
 RequestFriendship must be called from local script
 RequestFriendship rate limit reached
 RequestFriendship should be passed a Player
 RequestGame
 RequestGameApp
-requestgamejob
 RequestGameJob
 requestGameStartInfo setCanRequestUniverseInfo
 requestGameStartInfo setCanRequestUniverseInfo setting
@@ -20593,9 +20067,7 @@ RequestNativeView
 RequestNavigation
 RequestPlaceInfoRetryCount
 RequestPlaceInfoTimeoutMS
-requestplaywithparty
 RequestPlayWithParty
-requestprivategame
 RequestPrivateGame
 RequestQueue  
 RequestQueueSize
@@ -20607,17 +20079,14 @@ RequestServerOutput
 RequestServerOutputSignal
 RequestServerStats
 RequestShutdown
-requestType
 RequestType
 RequestUnknown
 require
-Require
 RequireArmContactToClimbOntoLadder
 RequiresHandle
 resample
 rescale_normal
 ReservedServer
-reservedServerAccessCode
 ReservedServerAccessCode
 reservedservers
 ReserveServer
@@ -20635,7 +20104,6 @@ Resetting starterPackService
 Resetting starterPlayerService
 Resetting workspace
 ResetWaypoints
-resize
 Resize
 resize_buffers
 resize_dn
@@ -20647,9 +20115,7 @@ ResizeCanvas
 ResizeCursor
 ResizeIncrement
 ResizeWindow
-resolution
 Resolution
-RESOLUTION
 Resolution has to be 4
 Resolution has to be a positive number
 RESOLUTION_X
@@ -20680,15 +20146,12 @@ Restitution
 restoreResolution
 restrict
 RestrictSales
-result
 Result
 result 
 result out of range
 Result too large
 resulting string too large
-results
 Results
-resume
 Resume
 resume instead
 Resumed
@@ -20707,7 +20170,6 @@ RetryRequestSucceeded
 RetryTimesOn503
 RetryWaitTime
 return
-Return
 return 
 return 0
 return 1
@@ -20740,7 +20202,6 @@ return SplitArrays
 return str
 return str 
 return Sum 
-return time
 return Time
 return timer
 return Total
@@ -20795,7 +20256,6 @@ RibbonTool
 richard
 Rift Audio
 RigAttachment
-right
 Right
 Right Arm
 Right Arror
@@ -20808,7 +20268,6 @@ Right_key_dn
 RightAlt
 RightAngleRamp
 RightAngleRampPart
-rightarm
 RightArm
 RightArmColor
 RightBracket
@@ -20818,7 +20277,6 @@ RightFoot
 RightGrip
 RightGripAttachment
 RightHand
-rightleg
 RightLeg
 RightLegColor
 RightLowerArm
@@ -20838,7 +20296,6 @@ RightSurface
 RightSurfaceInput
 RightTread
 righttrigger
-RightTrigger
 RightUpperArm
 RightUpperLeg
 rightVector
@@ -20894,9 +20351,7 @@ rncst
 RnfrSvygref
 Ro4GE
 ROBLOSECURITY
-roblox
 Roblox
-ROBLOX
 Roblox cannot startup
 ROBLOX Corporation
 Roblox Corporation0
@@ -20925,7 +20380,6 @@ robloxlabs
 RobloxLocked
 robloxPlace
 RobloxPlaceSecurity
-RobloxPlayer
 ROBLOXPlayer
 RobloxPlayerBeta
 RobloxPlayerBetaRaw
@@ -20948,7 +20402,6 @@ robust_buffer_access_behavior
 robustness
 robustness_application_isolation
 robustness_share_group_isolation
-robux
 Robux
 robuxAmount
 RobuxUpsellStarted
@@ -20977,7 +20430,6 @@ RootJoint
 RootPart
 RopeConstraint
 rotate
-Rotate
 rotate_dn
 rotate_ds
 rotate_ovr
@@ -20985,7 +20437,6 @@ RotateAxis
 RotateP
 RotateV
 rotation
-Rotation
 RotationType
 RotSpeed
 RotVelocity
@@ -21043,13 +20494,10 @@ Rubber band sling shot
 Run Service
 Run still in progress
 RunAnimation
-runJob
 RunJob
 running
-Running
 Running performance test
 Running script 
-Running Script 
 Running transform function
 RunningAverageItem
 RunningAverageItemDouble
@@ -21060,7 +20508,6 @@ RunningSlave
 RunService
 runtime
 runtime error
-Runtime Error
 runtime error 
 RuntimeScriptService
 RuntimeUndoBehavior
@@ -21123,7 +20570,6 @@ s entry first
 s error
 s excl
 s expected
-s failed
 s Failed
 s failed because 
 s failed because could not lock datamodel in response
@@ -21138,7 +20584,6 @@ s failed because trying to award zero points
 s failed because userId 
 s failed to http
 s failed to load 
-s Failed to load 
 s failed to process 
 s failure
 s first argument must be either 
@@ -21295,17 +20740,13 @@ Save
 save_buffer error
 SaveAll
 saveBoolean
-SaveBoolean
 SaveData
 SaveDataForPlayerRemoving
 SavedQualityLevel
 SavedQualitySetting
 saveFilter
-SaveFilter
 SaveGame
-saveInstance
 SaveInstance
-saveNumber
 SaveNumber
 SavePlace
 SavePlace can only be called from a server script
@@ -21316,7 +20757,6 @@ SavePlaceAsync
 SavePlacePerMinute
 SaveSelectedToRoblox
 SaveStats
-saveString
 SaveString
 SaveToRoblox
 saveToRobloxAction
@@ -21337,7 +20777,6 @@ sCAL height
 sCAL width
 scalar deleting destructor
 scale
-Scale
 Scale9Frame
 ScaleButton
 ScaleButton_dn
@@ -21352,16 +20791,13 @@ ScalingSeatWeldCrashFix
 Scan script does not transmit all data
 scanbeam tree insertion
 scaps
-scaron
 Scaron
 Scaronsmall
 Scary
 SCDLGGllS
 SCDLsYI
-scedilla
 Scedilla
 scene
-Scene
 Scene updater 
 Scene updater finish
 scene_marker
@@ -21408,7 +20844,6 @@ ScreenshotReady
 Screenshots
 ScreenToClient
 script
-Script
 Script 
 Script Context
 Script context heartbeat finish
@@ -21432,14 +20867,12 @@ ScriptMouseCommand created
 ScriptMouseCommand destroyed
 ScriptPath
 ScriptPrint
-scripts
 Scripts
 ScriptsDisabled
 ScriptSecurityError
 ScriptService
 ScriptStartOptions
 ScriptWriteRestricted
-scroll
 Scroll
 ScrollBar
 ScrollBarInset
@@ -21578,8 +21011,6 @@ SecondsPerBatchAwardPointsCall
 section
 secur32
 secure
-security
-Security
 SECURITY
 SecurityException
 SecurityKeyMismatch
@@ -21589,7 +21020,6 @@ Seek failed on temporary file
 Segoe UI
 SeJGg
 select
-Select
 Selectable
 SelectAll
 SelectChildrenOfSelection
@@ -21600,7 +21030,6 @@ selectedDevice
 SelectedObject
 SelectedObject to 
 selection
-Selection
 SelectionBox
 SelectionChanged
 SelectionDown
@@ -21627,7 +21056,6 @@ SeleniumTest4
 SeleniumTestMode
 semaphoreInfo
 Semibold
-semicolon
 Semicolon
 Send Buffer Health
 Send capacity                    
@@ -21682,7 +21110,6 @@ Sent Data Packets
 Sent Physics Packets
 Sent Physics Packets       
 SentTouchPackets
-separate
 Separate
 separate_shader_objects
 separate_specular_color
@@ -21700,7 +21127,6 @@ SerializerV2
 SerrPnzren
 SerrPnzrenVafgnyyre
 server
-Server
 Server 
 Server does not receive this item
 Server doesn
@@ -21733,7 +21159,6 @@ ServerPhysicsBytesSentPerSecPerPlayer
 serverplaceid
 ServerPlayerFilterConfig
 ServerPlayerFilterPermyriad
-serverPort
 ServerPort
 ServerPurchaseVerification
 ServerReplicator
@@ -21753,7 +21178,6 @@ ServerToClientUnderOver13FilteredResponseSignal
 ServerUnequipAccoutrement
 ServerWait
 service
-Service
 Service is disabled
 ServiceAdded
 serviceloginauth
@@ -21763,12 +21187,9 @@ ServiceType
 Servo
 ServoMaxForce
 ServoMaxTorque
-session
 Session
 SessionAlreadyOver
 sessionID
-SessionId
-SessionID
 SessionReport
 set a Character
 set a Player
@@ -21832,7 +21253,6 @@ SetCore must be called from a local script
 SetCoreGuiEnabled
 SetCoreGuiEnabled must be called from a local script
 SetCreatorId
-SetCreatorID
 SetCurrentDirectoryW
 SetCursor
 SetCustomSortFunction
@@ -21917,10 +21337,8 @@ SetMembershipType
 SetMenuIsOpen
 setmetatable
 setMeteringEnabled
-setMinutesAfterMidnight
 SetMinutesAfterMidnight
 setMode
-SetMode
 SetMotor
 SetMotor inputType is not a valid type
 SetMotor is not a valid number 
@@ -21943,14 +21361,12 @@ SetPing
 SetPixelFormat
 SetPlaceAccessUrl
 SetPlaceId
-SetPlaceID
 SetPlacePermissions
 SetPlaceVersion
 SetPlayerHasPassUrl
 SetPlayerIsUsing
 SetPlayerNameWhenCreatingPlayerObject
 setPlaying
-setPosition
 SetPosition
 SetPrimaryCFrame
 SetPrimaryPartCFrame
@@ -21996,7 +21412,6 @@ SetThreadStackGuarantee
 SetTimeout
 setTimePosition
 SetTimer
-setting
 Setting
 Setting as null tool
 Setting cookies for domain
@@ -22011,7 +21426,6 @@ Setting terrain on workspace
 Setting up CURL headers
 Setting variable 
 Setting walking direction
-settings
 Settings
 Settings manager init failed 
 SettingsLoaded
@@ -22059,7 +21473,6 @@ SetWindowLongA
 SetWindowPlacement
 SetWindowPos
 SetWindowTextA
-seven
 Seven
 seveneighths
 seveninferior
@@ -22149,7 +21562,6 @@ shadowmask
 Shadows
 Shamrock
 shape
-Shape
 Shapgvbany
 Share currently in use
 shared
@@ -22173,14 +21585,12 @@ Shd20
 shdoclc
 Shell_traywnd
 Shell32
-SHELL32
 ShellExecuteA
 ShellExecuteW
 SHEXuF
 SHGetFolderPathAndSubDirW
 SHGetFolderPathW
 SHGetKnownFolderPath
-shift
 Shift
 Shiny
 Shirt
@@ -22242,7 +21652,6 @@ side Scripts
 SideChain
 SideChain must be Sound or Soundgroup
 sides
-Sides
 SiftSwear
 signal
 Signal 
@@ -22253,7 +21662,6 @@ SignalDialogChoiceSelected
 SignalObjectAndWait
 SignalPromptProductPurchaseFinished
 SignalPromptPurchaseFinished
-signals
 Signals
 SignalServerLuaDialogClosed
 Signature
@@ -22293,7 +21701,6 @@ sixoldstyle
 sixsuperior
 siyjW
 size 
-Size 
 size_xml
 Size10
 Size11
@@ -22323,7 +21730,6 @@ SizeofResource
 SizeRelativeOffset
 SjdVW
 skateboardController
-SkateboardController
 SkateboardPlatform
 SkatePark
 skFlz8x
@@ -22362,8 +21768,6 @@ skyspheremap
 SkyVS
 sL_Op_
 Slant
-SLANT
-slash
 Slash
 Slate
 sLBjN
@@ -22379,7 +21783,6 @@ SleepConditionVariableCS
 SleepConditionVariableSRW
 SleepEx
 sleeping
-slice
 Slice
 slice_accum
 SliceCenter
@@ -22387,7 +21790,6 @@ SliceCenter
 SlicePrefix
 SlidingBallConstraint
 Slime green
-slingshot
 Slingshot
 SlingshotTexture
 SlOSs
@@ -22406,7 +21808,6 @@ Smoke
 smoke_color
 smoke_main
 Smoky grey
-smooth
 Smooth
 SmoothCluster
 SmoothClusterChunkMesh
@@ -22452,13 +21853,11 @@ Socket is unsupported
 Socket not ready for send
 SocketLayer
 socks
-socks4
 SOCKS4
 SOCKS4 communication to 
 SOCKS4 connect to 
 SOCKS4 reply has wrong version
 socks4a
-socks5
 SOCKS5
 SOCKS5 access with
 SOCKS5 GSS
@@ -22494,7 +21893,6 @@ Solver
 Solver Iteratn
 SolverBatchedIslandsEnabled
 solverIterations
-SolverIterations
 SolverLog_Client
 SolverUsageTimeMeasurementInterval
 SolveWorld
@@ -22514,7 +21912,6 @@ sortConnectors
 sorted
 sortObjects
 SortOrder
-sound
 Sound
 Sound 
 Sound could not be loaded
@@ -22534,7 +21931,6 @@ SoundEnabled
 SoundGroup
 SoundGroupTryReleaseV2
 SoundGroupTryReleaseV3
-soundId
 SoundId
 SoundLoadAsync
 SoundLoadAsyncANDROID
@@ -22553,7 +21949,6 @@ SoundMemoryFix
 SoundMemoryFixForceRelease
 SoundPlaybackLoudnessNoNani
 sounds
-Sounds
 Soundscape
 SoundService
 SoundService does not exist
@@ -22570,7 +21965,6 @@ SoundV2LogOnAncestorChanged
 SoundV2LogOnLoaded
 SoundV2LogOnServiceProvider
 SoundV2LogOnSetSoundId
-source
 Source
 Source 
 SourceCount
@@ -22588,7 +21982,6 @@ sp_counted_impl_pd
 sp_ms_deleter
 SP_ol
 sP_pU
-space
 Space
 SPACING
 spanRegion
@@ -22603,9 +21996,7 @@ sparse_texture
 sparse_texture2
 spatial index 
 spatialhash
-SpatialHash
 spawn
-Spawn
 Spawn function requires 1 argument
 SpawnCursor
 SpawnerService
@@ -22621,23 +22012,19 @@ SpecificGravityDummyReturnsZero
 Specified instance in FMOD_REVERB_PROPERTIES couldn
 specifies the launching of a game
 specifies the launching of an app
-specular
 Specular
 specular_fog
 specular_vector
 speech
 SpeechRecog_SUCCESS
 speed
-Speed
 SpeedCountCap
 SpeedTestPeriodMillis
 Sphere
-SPHERE
 SphereHandleAdornment
 SphericalSparklesEmission
 Spike Display
 splat
-Splat
 split
 split message
 Split Messages
@@ -22714,7 +22101,6 @@ sSxPO
 ST insertion
 sT3IyYcuL
 stack
-Stack
 Stack Begin
 Stack End
 stack overflow
@@ -22741,7 +22127,6 @@ StandardOut ready
 StandardPages
 StarCount
 start
-Start
 Start Frame
 Start Of Frame 0x
 Start of Image
@@ -22806,7 +22191,6 @@ startsWith
 StartTrackKern
 StartupInfluxHundredthsPercentage
 StatDisplaySettings
-state
 State
 state not recoverable
 StateChanged
@@ -22817,7 +22201,6 @@ static
 static_cast
 static_data
 staticimage
-stats
 Stats
 Stats http error
 stats is a NULL pointer in statsToString
@@ -22827,7 +22210,6 @@ StatsHud2
 StatsItem
 StatsReceived
 status
-Status
 StatusAdded
 StatusRemoved
 StdHW
@@ -22901,7 +22283,6 @@ STRCL
 StrCmpW
 StrCount
 stream
-Stream
 stream end
 stream error
 stream timeout
@@ -22927,12 +22308,10 @@ strictRoot
 STRIKEOUT_ASCENT
 STRIKEOUT_DESCENT
 string
-String
 string 
 string length overflow
 string slice too long
 string too long
-String too long
 string_marker
 StringArray
 StringFileInfo
@@ -22952,7 +22331,6 @@ StrThread
 StrTotal
 struct 
 struct boost
-studio
 Studio
 Studio API access is not enabled
 Studio CSG
@@ -22991,7 +22369,6 @@ StudioStopLockOnWindowUnfocus
 StudioStopWinXPReporting
 StudioUseMarketplaceApiClient
 StudioVideoRecordFix
-studs
 Studs
 StudsBetweenTextures
 StudsCursor
@@ -23000,7 +22377,6 @@ StudsOffsetWorldSpace
 StudsPerTileU
 StudsPerTileV
 style
-Style
 Subject
 Submit
 submitFrame
@@ -23026,7 +22402,6 @@ substr
 substring
 subtexture
 Succeeded CacheResult
-success
 Success
 Success 
 success is not a bool
@@ -23037,7 +22412,6 @@ SuEza
 suggest
 suggestedFileName
 summary
-Summary
 SummaryStats
 summation
 sUMry
@@ -23067,7 +22441,6 @@ supplied productId was less than 0
 supplied row stride too small
 SupportRemoteKnownSFFlags
 surface
-Surface
 Surface Inputs
 Surface Tool created
 Surface Tool destroyed
@@ -23106,7 +22479,6 @@ svDzt
 sVector3Value
 SVh0a
 SVhpa
-SVhPa
 SVhpH
 SvkrqPnzren
 sVmUU
@@ -23119,7 +22491,6 @@ SVWhD
 SVWhH
 SVWhL
 SVWhLC
-SVWhp
 SVWhP
 SVWhX
 SVWj 
@@ -23130,9 +22501,7 @@ SVWj8
 SVWj83
 SVWjA_jZ
 SVWjh
-SVWjH
 SVWjHj
-SVWjl
 SVWjL
 SVWjP
 SVWjT
@@ -23143,7 +22512,6 @@ SVWQP
 SVWtf
 SVWtt
 SVWtw
-SVWtW
 SVWtz
 SVWUj
 swap_control
@@ -23160,14 +22528,12 @@ SWIDTH
 SwimAnimation
 Swimming
 swipeDirection
-SwipeDirection
 switch
 Switch from POST to GET
 SWITCH3
 switchState
 SwitchToThread
 swoosh
-Swoosh
 sword
 Sword128
 swordlunge
@@ -23197,15 +22563,11 @@ synchronous
 SyncHttpGet Time
 syncrecognize
 syntax error
-Syntax error
 SyntZnantre
 SysReq
-system
-System
 SYSTEM
 System object is not yet initialized
 system_complete
-systemAddress
 SystemAddress
 SystemErrorMessageLocalize
 SystemLocaleId
@@ -23349,7 +22711,6 @@ t8h4_
 T8pOA
 t9OMU
 tab to toggle tooltip
-table
 Table
 table expected
 table index is NaN
@@ -23371,9 +22732,7 @@ tag_sample_buffer
 Tahoma
 TaIJRe
 tail call
-takeDamage
 TakeDamage
-target
 Target
 target 
 target data
@@ -23424,7 +22783,6 @@ TC Job texture
 TC Reuse texture 
 tC7Ddx
 tC97u
-tcommaaccent
 Tcommaaccent
 tcp connect failed
 tcp connect failed 
@@ -23474,7 +22832,6 @@ teleportInfo
 Teleporting while using ROBLOX Studio is not permitted
 TeleportRetryTimes
 TeleportService
-teleportState
 TeleportState
 TeleportThreadImpl
 TeleportToPlaceInstance
@@ -23483,18 +22840,15 @@ TeleportToPrivateServer can only be called from the server
 TeleportToPrivateServer must be passed an array of players
 TeleportToSpawnByName
 teleportType
-TeleportType
 Temp read failed
 temp_directory_path
 template
 template static data member constructor helper
 template static data member destructor helper
-templatePlaceId
 templatePlaceID
 temporary
 TerminateProcess
 Terra Cotta
-terrain
 Terrain
 Terrain already exists 
 Terrain doesn
@@ -23555,12 +22909,10 @@ TextAndMenu
 TextBounds
 TextBox
 textboxFocused
-TextBoxFocused
 TextBoxFocusReleased
 TextBoxManualFocusRelease
 textboxReleased
 TextButton
-textcolor
 TextColor
 TextColor3
 textcolorindex
@@ -23575,14 +22927,12 @@ TextLabel
 TextPlain
 TextScaled
 TextService
-textsize
 TextSize
 textsize 
 TextSizeLimit
 TextStrokeColor3
 TextStrokeTransparency
 TextTransparency
-texture
 Texture
 texture_add_env
 texture_array
@@ -23670,7 +23020,6 @@ TextureCompositor
 TextureCompositor copyFramebuffer failed
 TextureContentProvider
 TextureId
-TextureID
 TextureLength
 TextureManager
 TextureMode
@@ -23678,7 +23027,6 @@ TextureName
 TextureQueryType
 TextureRef
 textures
-Textures
 TextureSize
 TextUseLocalizationV2
 TextWrap
@@ -23795,11 +23143,9 @@ This subsound is already being used by another sound
 tHj0j
 tHlWB
 thmmR
-thorn
 Thorn
 Thornsmall
 thread
-Thread
 Thread 
 thread_data
 thread_detail
@@ -23825,7 +23171,6 @@ ThreadProxyFactory
 ThreadRef
 ThreadRefCounts
 threads
-Threads
 Threads1
 Threads16
 Threads2
@@ -23842,7 +23187,6 @@ ThreadsThrottled
 ThreadSubMenu
 ThreadY
 ThreadY 
-three
 Three
 threeeighths
 threeinferior
@@ -23869,9 +23213,7 @@ thumbnail
 thumbnailasset
 ThumbnailRender
 thumbnailSize
-ThumbnailSize
 thumbnailType
-ThumbnailType
 Thumbpad
 thumbs
 Thumbstick
@@ -23886,14 +23228,11 @@ TIBsu
 TickCountPreciseOverride
 TickCountSampleMethod
 ticket
-Ticket
 TicketProcessed
 tIhdi
-tilde
 Tilde
 Tildesmall
 tileCount
-tileSize
 TileSize
 TileSize must have non
 tiling
@@ -23915,7 +23254,6 @@ TimeArray
 timeBeginPeriod
 TimeBetweenCheckingApiAccessMillis
 timebomb
-timed out
 Timed out
 TimeDelta 
 TimeDeltaExclusive 
@@ -23929,19 +23267,15 @@ TimeIn
 TimeLength
 TimeOfDay
 timeOut
-Timeout
-TimeOut
 TimeOut 
 Timeout before resuming thread
 timeOut must be greater than 0
 Timeout was reached
 Timeout while waiting for content 
 TimeoutRakNetPassword
-timePosition
 TimePosition
 TimePositionUpdatedFromClient
 TimePositionUpdatedFromServer
-timer
 Timer
 Timer Frames
 Timer Views
@@ -23951,12 +23285,10 @@ TimerArray
 timercolor
 timerid
 timerid in TimerInfo
-timerindex
 TimerIndex
 TimerInfo
 TimerLen
 timers
-Timers
 Timers View
 TimerService
 TimersGroups
@@ -23968,10 +23300,7 @@ Times New Roman
 timeSetEvent
 timeSlice
 timestamp
-Timestamp
-TimeStamp
 timestart
-timestart 
 TimeStart 
 TimeString
 TimeText
@@ -24081,7 +23410,6 @@ ToggleDisableLod
 ToggleDisableMerge
 ToggleFilterInput
 ToggleFullscreen
-ToggleFullScreen
 ToggleFullScreen_ds
 ToggleGroup
 ToggleGroupColors
@@ -24094,8 +23422,6 @@ toHSV requires a Color3 argument
 ToInstance
 tojWj
 token
-Token
-TOKEN
 Token 
 token_finderF
 toLocaleString
@@ -24114,7 +23440,6 @@ too many files open in system
 Too many IDATs found
 too many length or distance symbols
 too many links
-Too many links
 too many nested functions
 Too many open files
 Too many open files in system
@@ -24142,8 +23467,6 @@ toolEquipped
 ToolMouseCommand
 ToolPunchThroughDistance
 tools
-Tools
-tooltip
 ToolTip
 ToolTip 
 ToolTipStr 
@@ -24169,16 +23492,11 @@ TopSurface
 TopSurfaceInput
 ToReservedServer
 torque
-Torque
-torso
 Torso
 TorsoColor
 tostring
-toString
 total
-Total
 total 
-Total 
 Total actual bytes received        
 Total actual bytes sent            
 Total Bytes Received
@@ -24219,7 +23537,6 @@ totalServerMemory
 totalSize 
 totalTranslation
 tOtet
-touch
 Touch
 TouchCameraMove
 TouchCameraMovementChanged
@@ -24232,7 +23549,6 @@ TouchCameraMoveModeFollow
 TouchCameraMoveModeOrbital
 TouchCameraMoveModeUser
 TouchCameraMoveModified
-touched
 Touched
 TouchedSignal
 TouchEnabled
@@ -24314,7 +23630,6 @@ translations
 TranslucentVerb
 transp
 transparency
-Transparency
 Transparent
 Transport
 transpose_matrix
@@ -24342,7 +23657,6 @@ tRNS must be after
 trowel
 TrowelTexture
 truetype
-TrueType
 TrueTypeFont
 TRUEVISION
 truncated
@@ -24392,7 +23706,6 @@ Tss2I
 tssPp
 tsuperior
 TSVW3
-tSVWj
 TSVWj
 tSVWj8
 TSVWP
@@ -24425,7 +23738,6 @@ TurnSpeed
 Turquoise
 Tutorial
 tutorialId
-TutorialId
 TUUUU
 tuVhh
 tUVPW
@@ -24441,7 +23753,6 @@ tw_Bw
 Tween
 TweenBase
 tweenInfo
-TweenInfo
 TweenPosition
 TweenService
 TweenSize
@@ -24556,7 +23867,6 @@ u3QVj
 u3QWj
 u4f9Cpu
 u4f9Kpu
-u4f9KPu
 U4fnp8
 u4h4E
 u4hdD
@@ -24575,7 +23885,6 @@ u90KE
 u9hTC
 u9iIv4
 u9PhH
-uacute
 Uacute
 Uacutesmall
 UAE_NAAVbtVoronoiSimplexSolver
@@ -24604,17 +23913,14 @@ UCachedLuaWebServiceInfo
 UCachedRawLuaWebServiceInfo
 Uchain_impl
 uchar
-ucircumflex
 Ucircumflex
 Ucircumflexsmall
 uCPVj
 UCreatePathRequest
 uCSVW
 Udata
-UData
 Udelete_data
 uDf9Ypu
-udieresis
 Udieresis
 Udieresissmall
 UDim2
@@ -24656,7 +23962,6 @@ UGeometryBatch
 UggcNanylgvpfGno
 UggcQroht
 uGj f
-ugrave
 Ugrave
 Ugravesmall
 uGVWS
@@ -24719,7 +24024,6 @@ UITextSizeConstraint
 UIUnknown
 uJaYf
 uJD86
-UjdtK
 UjDTk
 UjEK_
 UjEkc
@@ -24769,9 +24073,7 @@ uLhPn
 uLhpW
 uLhTP
 uLhtQ
-uLhTq
 uLhtW
-uLhTW
 ULinkedScriptLoadData
 ULoadedImage
 ULOcWX
@@ -24792,7 +24094,6 @@ umnSV
 UMouseDownCaptureInfo
 uMPPPP
 umRia
-uMrTlS
 UmRtLs
 umVQR
 Unable to access DataModel
@@ -24887,17 +24188,14 @@ UnBzx
 Uncompressed truecolor
 undefined
 under13
-Under13
 underline
 UNDERLINE_POSITION
 UNDERLINE_THICKNESS
 UnderlinePosition
 UnderlineThickness
-underscore
 Underscore
 UnderWater
 Undocumented SOCKS5 mode attempted to be used by server
-unequipped
 Unequipped
 UnequipTools
 UnequipTools can only be called on a Humanoid with a corresponding Player object
@@ -24955,12 +24253,9 @@ Universal
 UniversalCursor
 universe
 universeId
-UniverseId
 universes
 Unjoinable
 UnjoinFromOutsiders
-unknown
-Unknown
 UNKNOWN
 Unknown 
 Unknown Adobe color transform code 
@@ -24974,7 +24269,6 @@ Unknown compression method in IHDR
 unknown compression type
 Unknown custom filter method
 unknown ecsu
-unknown error
 Unknown error
 Unknown error 
 Unknown error with remote module loading asset id 
@@ -25001,7 +24295,6 @@ Unknown value for thumbnailType
 UnknownInstance
 Unlinking 
 UNlj_
-unlock
 Unlock
 UnlockAll
 UnlockCursor
@@ -25088,7 +24381,6 @@ UOxDv
 Up_key
 Up_key_dn
 UPbsa
-update
 Update
 Update failed
 update1_invalidated
@@ -25261,7 +24553,6 @@ User Canceled Init
 User Config Directory Invalid 
 User didn
 User was rejected by the SOCKS5 server 
-user32
 USER32
 userAgent
 UserAllCamerasInLua
@@ -25281,11 +24572,7 @@ UserGameSettings
 UserHasBadge
 UserHeadCFrame
 UserHttpRequestsPerMinuteLimit
-userid
 userId
-userID
-UserId
-UserID
 userIdFrom
 userIdTo
 UserInGameChatUseNewFilterAPI
@@ -25298,10 +24585,7 @@ UserInputType or string
 userInputTypeForActivation
 userLocale
 UserMode Exception Flags
-username
 userName
-Username
-UserName
 UseRoundRobin
 UserPortraitPopperFix
 users
@@ -25432,17 +24716,13 @@ Valid palette required for paletted images
 validate
 validate failed because 
 validateBootstrapperVersion Error
-ValidateBootstrapperVersion Error
 ValidateBootstrapperVersion Fail Loading Version Info
 validateBootstrapperVersion File Error
-ValidateBootstrapperVersion File Error
 validateBootstrapperVersion file remove failed
 ValidateLauncherPercent
 validatepurchase
 ValidHatsOnly
 value
-Value
-value 
 Value 
 Value end
 value expected
@@ -25467,7 +24747,6 @@ VAnimationController
 VAnimationId
 VAnimationTrack
 VAnimator
-var a 
 var A 
 var ActiveCpu 
 var ActiveElement 
@@ -25520,9 +24799,7 @@ var ContextSwitchThreads
 var cookie 
 var copy 
 var count 
-var Count 
 var counter 
-var Counter 
 var CounterInfo 
 var CounterLimitWidth 
 var CounterLimitWidthNew 
@@ -25685,7 +24962,6 @@ var g_IndexArray
 var g_LabelArray
 var g_MaxStack 
 var g_Msg 
-var g_MSG 
 var g_TimeArray
 var g_TypeArray
 var GColor 
@@ -25693,7 +24969,6 @@ var glob
 var GlobalArray 
 var globstart 
 var group 
-var Group 
 var GroupColors 
 var groupid 
 var groupid in GroupInfo
@@ -25731,7 +25006,6 @@ var ilThreads
 var In 
 var Indent 
 var index 
-var Index 
 var IndexArray 
 var IndexEnd 
 var IndexStart 
@@ -25754,12 +25028,10 @@ var KeyShiftDown
 var Label 
 var LabelArray 
 var len 
-var Len 
 var LenAvg 
 var LenMax 
 var LenStr 
 var lerp 
-var Lerp 
 var li 
 var Limit 
 var Links 
@@ -25814,7 +25086,6 @@ var MouseDragYStart
 var MouseGraphX 
 var MouseHistory 
 var mousewheelevt 
-var name 
 var Name 
 var NameWidth 
 var nBackColorOffset 
@@ -25924,7 +25195,6 @@ var RangeGpuNext
 var RangeSelect 
 var RcpReferenceTime 
 var rect 
-var Rect 
 var RedrawMode 
 var ReferenceMenu 
 var ReferenceTime 
@@ -25990,8 +25260,6 @@ var ThreadsAllActive
 var ThreadY
 var ti
 var ti 
-var TI 
-var time 
 var Time 
 var TimeArray 
 var TimeDelta
@@ -25999,7 +25267,6 @@ var timeend
 var TimeIn 
 var TimeOut 
 var timer 
-var Timer 
 var TimerArray 
 var timerid 
 var timerindex in TimerArray
@@ -26036,13 +25303,11 @@ var ulThreadMenu
 var ulTimersMeta 
 var W 
 var W0 
-var width 
 var Width 
 var WidthArray 
 var WNext 
 var WText 
 var x 
-var X 
 var X0 
 var X1 
 var XBase 
@@ -26054,7 +25319,6 @@ var XPosRight
 var xStart 
 var XText 
 var xx 
-var y 
 var Y 
 var Y0 
 var YBase 
@@ -26263,7 +25527,6 @@ veejZ
 VehicleController
 VehicleSeat
 velocity
-Velocity
 VelocityInheritance
 VelocityMotor
 VelocitySpread
@@ -26291,8 +25554,6 @@ VerQueryValueA
 Verror
 VerSetConditionMask
 version
-Version
-VERSION
 version 
 version 1
 version 2
@@ -26407,7 +25668,6 @@ VGamePerfMonitor
 VGameSettings
 VGameTool
 VGcJob
-VGCJob
 VGDOU
 VGenericJob
 VGenericSlotWrapper
@@ -26476,7 +25736,6 @@ vI7Gy
 vI7qo
 VIAdornableCollector
 vibrationMotor
-VibrationMotor
 vibrationValues
 vIbZe
 vIbZe7oP
@@ -26486,7 +25745,6 @@ vICSlCIIv
 vICSlCQA
 vIcsxv8
 victory
-Victory
 Video
 Video capture startup failed error 
 Video Memory
@@ -26561,13 +25819,11 @@ VirtualAllocationManager
 VirtualFree
 VirtualProtect
 VirtualQuery
-virtualUser
 VirtualUser
 Viryh
 Visibility
 Visible
 visit
-Visit
 Visit http
 Visiting children with unlockParent
 Visitor
@@ -27171,7 +26427,6 @@ VTextureProxyBase
 VTextureVulkan
 VThirdPartyUserService
 Vthread
-VThread
 Vthread_resource_error
 VThreadPool
 VTime
@@ -27217,7 +26472,6 @@ VUISizeConstraint
 VUITableLayout
 VUITextSizeConstraint
 VuLj8
-vulkan
 Vulkan
 Vulkan Device
 VULKAN ERROR
@@ -27286,13 +26540,9 @@ VWh02S
 VWh03S
 VWh0a
 VWh0w
-VWhp1S
 VWhP1S
-VWhp2S
 VWhP2S
-VWhp3S
 VWhP3S
-VWhpa
 VWhPa
 VWhPaX
 VWhpH
@@ -27520,7 +26770,6 @@ waitEvent
 waitEvent null
 WaitForChild
 WaitForChildWarnTimeOutTime
-waitForDataReady
 WaitForDataReady
 WaitForMultipleObjects
 WaitForMultipleObjectsEx
@@ -27554,28 +26803,24 @@ WakeConditionVariable
 WalkAngleError
 WalkAnimation
 walkDirection
-WalkDirection
 WalkSpeed
 WalkToPart
 WalkToPoint
 wangIndex
 Warm yellowish orange
 WarnCount
-Warning
 WARNING
 WarnOnNoCoreFunction
 warping
 wasPurchased
 wasSuccessful
 WaT89
-watch
 Watch
 WatchAdded
 WatcherThread Detected hang
 WatcherThread Exiting
 WatcherThread Started
 WatchRemoved
-water
 Water
 WaterColor
 WaterDirection
@@ -27618,9 +26863,7 @@ Wedge
 WedgePart
 Wednesday
 WEEVFy
-weight
 Weight
-WEIGHT
 WEIGHT_NAME
 WeightCurrent
 WeightTarget
@@ -27833,7 +27076,6 @@ while
 While entering function defined in script 
 Whisper
 WhisperChat
-white
 White
 White Star 
 WhiteListChatFilter
@@ -27865,16 +27107,12 @@ WhZCC
 WhZGGx
 WideCharToMultiByte
 width
-Width
 width 
 width or precision too long
 WidthArray
 WildWest
-win32
-Win32
 WIN32
 window
-Window
 window is invisible until this named event is signaled
 window_pos
 WindowFocused
@@ -27892,9 +27130,7 @@ WindowsPlayer
 winfonts
 Wingdings
 WinInet
-WININET
 winmm
-WINMM
 WinRawInput
 WinRTInitialization
 Winsock library is not ready
@@ -27955,11 +27191,9 @@ WOpZb
 work 
 Worker
 worker_thread
-workspace
 Workspace
 Workspace created
 Workspace destroyed
-world
 World
 World Id      
 World Steps this Iteration
@@ -27983,7 +27217,6 @@ WorldToCellPreferSolid
 WorldToScreenPoint
 WorldToViewportPoint
 worst
-Worst
 worst 
 worstend
 worstend 
@@ -28011,12 +27244,10 @@ WqYfn7
 wQZJu0Po
 wrapInCurlyBraces
 wrench
-write
 Write
 write area exhausted
 Write callback asked for PAUSE when not supported
 Write error
-Write Error
 Write failed on temporary file 
 write from cache
 Write Marshalled
@@ -28055,7 +27286,6 @@ WSVPP
 WSVRh
 WT9OD
 WtDsc
-WtDSC
 WText
 WText 
 WTHelperGetProvSignerFromChain
@@ -28253,7 +27483,6 @@ XSSlZ
 xStart
 xStart 
 xSVW3
-xSVWj
 XSVWj
 XText
 XText 
@@ -28432,7 +27661,6 @@ Y9lxL
 YA6JB
 yAbjU
 yabZE
-yacute
 Yacute
 Yacutesmall
 yagCQlU
@@ -28468,7 +27696,6 @@ yCZ8B
 ydej5
 YDgaf
 YDh_y2
-ydieresis
 Ydieresis
 Ydieresissmall
 Year is out of valid range
@@ -28505,7 +27732,6 @@ YirJ5Mr
 yIvDeMr
 yIvmU
 yIVnU
-yIvppO
 YIvPPo
 YiVueZu
 YIvY_Op7
@@ -28575,7 +27801,6 @@ yxxxVW
 YXY9q
 yYbZq
 yyF4lpq
-yyFio
 yyFiO
 YyFld
 YyFte
@@ -28604,7 +27829,6 @@ z8KA8
 zAsKtffuU
 ZaYf 
 ZaYfh
-ZaYfH
 ZaYVNAAJBqy
 ZaYvnq
 ZB1qN
@@ -28617,7 +27841,6 @@ ZBqyF
 ZBqyF8
 zc_jO
 Zc5Mr
-zcaron
 Zcaron
 Zcaronsmall
 ZcM_q
