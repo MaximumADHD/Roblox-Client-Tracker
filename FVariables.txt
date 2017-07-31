@@ -93,6 +93,7 @@ ClientNetworkUseBulkStatsApi
 ClientUseNewClientTicket
 CloseFMODRemoveChildFix
 CloudEditKickDuplicatePlayersOnJoin
+ConstraintToolInitializationFixEnabled
 ContactPipelineDraggerNoOverlapIgnored
 ContentProviderCheckExpectedType
 ContentProviderCheckExpectedTypeAnimation
@@ -276,6 +277,7 @@ EnableRelativePositioningProperties
 EnableRenderThrottling3
 EnableReportAbuseMenuFix
 EnableReportPlaceIDAboveMemory
+EnableResponsiveUIFix
 EnableRobloxEventStream
 EnableSoundsInAttachments
 EnableTextboxNativeInput
@@ -372,6 +374,7 @@ ForceDevConsoleInStudio
 ForcePhysicsSendPriorityHigh
 ForcePhysicsSendReliable
 ForcePhysicsSendReliableOrdered
+ForceToDeclareFlagsInCpp
 ForceUpdateOffset
 FormatMeshIdBeforeCache
 FreeCameraForAdmins
@@ -702,6 +705,7 @@ PreventScaleButNoWrap
 PrimStatsGANumDelimited
 ProcessPendingCredit
 ProcessPendingRefresh
+ProcessWindowFocusEventBuffer
 ProtectionFromEvilJoins
 ProtectionFromMutantJoins
 PurchaseErrorReportRate
@@ -803,6 +807,7 @@ SmoothTerrainPhysicsCacheSize
 SmoothTerrainPhysicsRayAabbSlop
 SolverBatchedIslandsEnabled
 SolverUsageTimeMeasurementInterval
+SoundChangeAsyncCallbackType
 SoundChannelPartNoState
 SoundGroupTryReleaseV2
 SoundGroupTryReleaseV3
@@ -956,6 +961,7 @@ UseMatrix3ForInertiaTensor
 UseNDKFunctionMarshaller
 UseNetworkSchema2
 UseNewAppBridgeXbone2
+UseNewNotificationPathLua
 UseNewPhysicsSender
 UseNewProtocolForStreaming
 UseNewR15Animate
