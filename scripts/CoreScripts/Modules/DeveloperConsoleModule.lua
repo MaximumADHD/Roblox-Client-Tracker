@@ -1416,41 +1416,6 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
           syncClientMemoryAnalyzerVisibility()
       end)
 	end
-	
-	do -- Client Http Results tab
-		if permissions.MayViewHttpResultClient then
-			local tabBody = Primitives.FolderFrame(body, 'HttpResult')
-			local tabOpen = false
-			local httpResultListClass = require(CoreGui.RobloxGui.Modules.HttpAnalyticsTab)
-			local httpResultListClient = httpResultListClass.new(tabBody, function ( newHeight )
-				-- update the body.Size only when tab is open so it won't disturb other tab
-				if tabOpen then
-					body.Size = UDim2.new(1, 0, 0, newHeight)
-				end
-			end)
-
-			local logService = game:GetService('LogService')
-			-- add http result when client got a http result
-          	logService.HttpResultOut:connect(function (httpResult)
-          		httpResultListClient:addHttpResult(httpResult)
-          	end)
-          	-- add http results client got before console was opened
-          	local history = logService:GetHttpResultHistory()
-			for i = 1, #history do
-				httpResultListClient:addHttpResult(history[i])
-			end
-
-			local tab = devConsole:AddTab('Client Http Result', tabBody, function(open)
-				tabOpen = open
-				-- update the 'body.Size', so the scrollbar will work
-				if open then				
-					body.Size = UDim2.new(1, 0, 0, httpResultListClient:getHeightInPix())
-				end
-	        end)
-      	
-			tab:SetVisible(true)
-		end
-	end
 
 	do -- ContextActionService debugging
 		if permissions.MayViewContextActionBindings and enableActionBindingsTab then
@@ -3138,10 +3103,6 @@ do
 		permissions.MayViewDataStoreBudget = false
 		pcall(function()
 			permissions.MayViewDataStoreBudget = permissions.IsCreator and settings():GetFFlag("EnableDevConsoleDataStoreStats")
-		end)
-		permissions.MayViewHttpResultClient = false
-		pcall(function()
-			permissions.MayViewHttpResultClient = permissions.IsCreator and settings():GetFFlag("EnableClientHttpAnalytics")
 		end)
 
 		permissions.MayViewContextActionBindings = permissions.IsCreator

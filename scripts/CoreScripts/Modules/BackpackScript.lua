@@ -1,5 +1,13 @@
--- Backpack Version 5.1
+-- Backpack Version 5.01
 -- OnlyTwentyCharacters, SolarCrane
+
+local backpackUseGridLayoutSuccess, backpackUseGridLayoutValue = pcall(function() return settings():GetFFlag("BackpackUseGridLayout") end)
+local backpackUseGridLayoutEnabled = backpackUseGridLayoutSuccess and backpackUseGridLayoutValue
+
+if backpackUseGridLayoutEnabled then
+	local BackpackScriptV2 = script.Parent:WaitForChild("BackpackScriptV2")
+	return require(BackpackScriptV2)
+end
 
 -------------------
 --| Exposed API |--
@@ -115,8 +123,6 @@ local OpenInventoryButton = nil
 local CloseInventoryButton = nil
 local InventoryFrame = nil
 local ScrollingFrame = nil
-local UIGridFrame = nil
-local UIGridLayout = nil
 local ScrollUpInventoryButton = nil
 local ScrollDownInventoryButton = nil
 
@@ -134,7 +140,7 @@ local ActiveHopper = nil -- NOTE: HopperBin
 local StarterToolFound = false -- Special handling is required for the gear currently equipped on the site
 local WholeThingEnabled = false
 local TextBoxFocused = false -- ANY TextBox, not just the search box
-local ViewingSearchResults = false -- If the results of a search are currently being viewed
+local ResultsIndices = nil -- Results of a search, or nil
 local HotkeyStrings = {} -- Used for eating/releasing hotkeys
 local CharConns = {} -- Holds character connections to be cleared later
 local GamepadEnabled = false -- determines if our gui needs to be gamepad friendly
@@ -216,20 +222,15 @@ local function AdjustHotbarFrames()
 	OpenInventoryButton.Position = UDim2.new(0.5, -15, 1, hotbarIsVisible and -110 or -50)
 end
 
-local function UpdateScrollingFrameCanvasSize()
-	local countX = math.floor(ScrollingFrame.AbsoluteSize.X/(ICON_SIZE + ICON_BUFFER))
-	local maxRow = math.ceil((#UIGridFrame:GetChildren() - 1)/countX)
-	local canvasSizeY = maxRow*(ICON_SIZE + ICON_BUFFER) + ICON_BUFFER
-	ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, canvasSizeY)
-end
-
 local function AdjustInventoryFrames()
+	local lowestPoint = 0
 	for i = NumberOfHotbarSlots + 1, #Slots do
 		local slot = Slots[i]
-		slot.Frame.LayoutOrder = slot.Index
+		slot:Reposition()
 		slot.Frame.Visible = (slot.Tool ~= nil)
+		lowestPoint = math.max(lowestPoint, slot.Frame.Position.Y.Offset + slot.Frame.Size.Y.Offset)
 	end
-	UpdateScrollingFrameCanvasSize()
+	ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, lowestPoint + ICON_BUFFER)
 end
 
 local function UpdateBackpackLayout()
@@ -300,9 +301,7 @@ local function MakeSlot(parent, index)
 	slot.Index = index
 	slot.Frame = nil
 
-	local SlotFrameParent = nil
 	local SlotFrame = nil
-	local FakeSlotFrame = nil
 	local ToolIcon = nil
 	local ToolName = nil
 	local ToolChangeConn = nil
@@ -343,6 +342,20 @@ local function MakeSlot(parent, index)
 			SlotFrame.BackgroundTransparency = (SlotFrame.Draggable) and 0 or SLOT_FADE_LOCKED
 		end
 		SlotFrame.BackgroundColor3 = (SlotFrame.Draggable) and SLOT_DRAGGABLE_COLOR or BACKGROUND_COLOR
+	end
+
+	function slot:Reposition()
+		-- Slots are positioned into rows
+		local index = (ResultsIndices and ResultsIndices[self]) or self.Index
+		local sizePlus = ICON_BUFFER + ICON_SIZE
+
+		local modSlots = 0
+		modSlots = ((index - 1) % NumberOfHotbarSlots) + 1
+
+		local row = 0
+		row = (index > NumberOfHotbarSlots) and (math.floor((index - 1) / NumberOfHotbarSlots)) - 1 or 0
+
+		SlotFrame.Position = UDim2.new(0, ICON_BUFFER + ((modSlots - 1) * sizePlus), 0, ICON_BUFFER + (sizePlus * row))
 	end
 
 	function slot:Readjust(visualIndex, visualTotal) --NOTE: Only used for Hotbar slots
@@ -487,7 +500,11 @@ local function MakeSlot(parent, index)
 			Slots[i]:SlideBack()
 		end
 
-		UpdateScrollingFrameCanvasSize()
+		if newSize % NumberOfHotbarSlots == 0 then -- We lost a row at the bottom! Adjust the CanvasSize
+			local lastSlot = Slots[newSize]
+			local lowestPoint = lastSlot.Frame.Position.Y.Offset + lastSlot.Frame.Size.Y.Offset
+			ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, lowestPoint + ICON_BUFFER)
+		end
 	end
 
 	function slot:Swap(targetSlot) --NOTE: This slot (self) must not be empty!
@@ -507,7 +524,7 @@ local function MakeSlot(parent, index)
 	function slot:SlideBack() -- For inventory slot shifting
 		self.Index = self.Index - 1
 		SlotFrame.Name = self.Index
-		SlotFrame.LayoutOrder = self.Index
+		self:Reposition()
 	end
 
 	function slot:TurnNumber(on)
@@ -596,7 +613,7 @@ local function MakeSlot(parent, index)
 	ToolName.Position = UDim2.new(0, 1, 0, 1)
 	ToolName.Parent = SlotFrame
 
-	slot.Frame.LayoutOrder = slot.Index
+	slot:Reposition()
 
 	if index <= NumberOfHotbarSlots then -- Hotbar-Specific Slot Stuff
 		-- ToolTip stuff
@@ -618,15 +635,14 @@ local function MakeSlot(parent, index)
 			if slot.Index <= NumberOfHotbarSlots then -- From a Hotbar slot
 				local tool = slot.Tool
 				self:Clear() --NOTE: Order matters here
-				local newSlot = MakeSlot(UIGridFrame)
+				local newSlot = MakeSlot(ScrollingFrame)
 				newSlot:Fill(tool)
 				if IsEquipped(tool) then -- Also unequip it --NOTE: HopperBin
 					UnequipAllTools()
 				end
 				-- Also hide the inventory slot if we're showing results right now
-				if ViewingSearchResults then
+				if ResultsIndices then
 					newSlot.Frame.Visible = false
-					newSlot.Parent = InventoryFrame
 				end
 			end
 		end
@@ -640,6 +656,21 @@ local function MakeSlot(parent, index)
 			SlotNumber.Visible = false
 			SlotNumber.Parent = SlotFrame
 			HotkeyFns[ZERO_KEY_VALUE + slotNum] = slot.Select
+		end
+	else -- Inventory-Specific Slot Stuff
+
+		local newRow = false
+		newRow = (index % NumberOfHotbarSlots == 1)
+
+		if newRow then -- We are the first slot of a new row! Adjust the CanvasSize
+			local lowestPoint = SlotFrame.Position.Y.Offset + SlotFrame.Size.Y.Offset
+			ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, lowestPoint + ICON_BUFFER)
+		end
+
+		-- Scroll to new inventory slot, if we're open and not viewing search results
+		if InventoryFrame.Visible and not ResultsIndices then
+			local offset = ScrollingFrame.CanvasSize.Y.Offset - ScrollingFrame.AbsoluteSize.Y
+			ScrollingFrame.CanvasPosition = Vector2.new(0, math.max(0, offset))
 		end
 	end
 
@@ -670,25 +701,15 @@ local function MakeSlot(parent, index)
 
 			-- Circumvent the ScrollingFrame's ClipsDescendants property
 			startParent = SlotFrame.Parent
-			if startParent == UIGridFrame then
-				local oldAbsolutPos = SlotFrame.AbsolutePosition
-				local newPosition = UDim2.new(0, SlotFrame.AbsolutePosition.X - InventoryFrame.AbsolutePosition.X, 0, SlotFrame.AbsolutePosition.Y - InventoryFrame.AbsolutePosition.Y)
+			if startParent == ScrollingFrame then
 				SlotFrame.Parent = InventoryFrame
-				SlotFrame.Position = newPosition
-
-				FakeSlotFrame = NewGui('Frame', 'FakeSlot')
-				FakeSlotFrame.LayoutOrder = SlotFrame.LayoutOrder
-				FakeSlotFrame.Size = SlotFrame.Size
-				FakeSlotFrame.BackgroundTransparency = 1
-				FakeSlotFrame.Parent = UIGridFrame
+				local pos = ScrollingFrame.Position
+				local offset = ScrollingFrame.CanvasPosition - Vector2.new(pos.X.Offset, pos.Y.Offset)
+				SlotFrame.Position = SlotFrame.Position - UDim2.new(0, offset.X, 0, offset.Y)
 			end
 		end)
 
 		SlotFrame.DragStopped:connect(function(x, y)
-			if FakeSlotFrame then
-				FakeSlotFrame:Destroy()
-			end
-
 			local now = tick()
 			SlotFrame.Position = startPoint
 			SlotFrame.Parent = startParent
@@ -752,9 +773,8 @@ local function MakeSlot(parent, index)
 								UnequipAllTools()
 							end
 							-- Also hide the inventory slot if we're showing results right now
-							if ViewingSearchResults then
+							if ResultsIndices then
 								slot.Frame.Visible = false
-								slot.Frame.Parent = InventoryFrame
 							end
 						end
 					end
@@ -777,16 +797,6 @@ local function MakeSlot(parent, index)
 	-- All ready!
 	SlotFrame.Parent = parent
 	Slots[index] = slot
-
-	if index > NumberOfHotbarSlots then
-		UpdateScrollingFrameCanvasSize()
-		-- Scroll to new inventory slot, if we're open and not viewing search results
-		if InventoryFrame.Visible and not ViewingSearchResults then
-			local offset = ScrollingFrame.CanvasSize.Y.Offset - ScrollingFrame.AbsoluteSize.Y
-			ScrollingFrame.CanvasPosition = Vector2.new(0, math.max(0, offset))
-		end
-	end
-
 	return slot
 end
 
@@ -873,7 +883,7 @@ local function OnChildAdded(child) -- To Character or Backpack
 		if starterGear then
 			if starterGear:FindFirstChild(tool.Name) then
 				StarterToolFound = true
-				local slot = LowestEmptySlot or MakeSlot(UIGridFrame)
+				local slot = LowestEmptySlot or MakeSlot(ScrollingFrame)
 				for i = slot.Index, 1, -1 do
 					local curr = Slots[i] -- An empty slot, because above
 					local pIndex = i - 1
@@ -901,7 +911,7 @@ local function OnChildAdded(child) -- To Character or Backpack
 	if slot then
 		slot:UpdateEquipView()
 	else -- New! Put into lowest hotbar slot or new inventory slot
-		slot = LowestEmptySlot or MakeSlot(UIGridFrame)
+		slot = LowestEmptySlot or MakeSlot(ScrollingFrame)
 		slot:Fill(tool)
 		if slot.Index <= NumberOfHotbarSlots and not InventoryFrame.Visible then
 			AdjustHotbarFrames()
@@ -1421,18 +1431,6 @@ ScrollingFrame.Selectable = false
 ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 ScrollingFrame.Parent = InventoryFrame
 
-UIGridFrame = NewGui('Frame', 'UIGridFrame')
-UIGridFrame.Selectable = false
-UIGridFrame.Size = UDim2.new(1, -(ICON_BUFFER*2), 1, 0)
-UIGridFrame.Position = UDim2.new(0, ICON_BUFFER, 0, 0)
-UIGridFrame.Parent = ScrollingFrame
-
-UIGridLayout = Instance.new("UIGridLayout")
-UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIGridLayout.CellSize = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE)
-UIGridLayout.CellPadding = UDim2.new(0, ICON_BUFFER, 0, ICON_BUFFER)
-UIGridLayout.Parent = UIGridFrame
-
 ScrollUpInventoryButton = MakeVRRoundButton('ScrollUpButton', 'rbxasset://textures/ui/Backpack/ScrollUpArrow.png')
 ScrollUpInventoryButton.Size = UDim2.new(0, 34, 0, 34)
 ScrollUpInventoryButton.Position = UDim2.new(0.5, -ScrollUpInventoryButton.Size.X.Offset/2, 0, INVENTORY_HEADER_SIZE + 3)
@@ -1511,7 +1509,7 @@ local function addGamepadHint(hintImage, hintImageLarge, hintText)
 		TextScaled = true,
 		TextWrapped = true
 	}
-	local textSizeConstraint = Instance.new("UITextSizeConstraint", hintText)
+	local textSizeConstraint = Instance.new("UITextSizeConstraint",hintText)
 	textSizeConstraint.MaxTextSize = hintText.TextSize
 end
 
@@ -1584,43 +1582,37 @@ do -- Search stuff
 			local hits = slot:CheckTerms(terms)
 			table.insert(hitTable, {slot, hits})
 			slot.Frame.Visible = false
-			slot.Frame.Parent = InventoryFrame
 		end
 
 		table.sort(hitTable, function(left, right)
 			return left[2] > right[2]
 		end)
-		ViewingSearchResults = true
+		ResultsIndices = {}
 
-		local hitCount = 0
 		for i, data in ipairs(hitTable) do
 			local slot, hits = data[1], data[2]
 			if hits > 0 then
+				ResultsIndices[slot] = NumberOfHotbarSlots + i
+				slot:Reposition()
 				slot.Frame.Visible = true
-				slot.Frame.Parent = UIGridFrame
-				slot.Frame.LayoutOrder = NumberOfHotbarSlots + hitCount
-				hitCount = hitCount + 1
 			end
 		end
 
 		ScrollingFrame.CanvasPosition = Vector2.new(0, 0)
-		UpdateScrollingFrameCanvasSize()
 
 		xButton.ZIndex = 3
 	end
 
 	local function clearResults()
 		if xButton.ZIndex > 0 then
-			ViewingSearchResults = false
+			ResultsIndices = nil
 			for i = NumberOfHotbarSlots + 1, #Slots do
 				local slot = Slots[i]
-				slot.Frame.LayoutOrder = slot.Index
-				slot.Frame.Parent = UIGridFrame
+				slot:Reposition()
 				slot.Frame.Visible = true
 			end
 			xButton.ZIndex = 0
 		end
-		UpdateScrollingFrameCanvasSize()
 	end
 
 	local function reset()
