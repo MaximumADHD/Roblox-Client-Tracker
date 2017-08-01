@@ -48,6 +48,7 @@ local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (F
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Thumbstick)" or "Default (Keyboard)"
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
 local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and "Tap to Move" or "Click to Move"
+local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -72,6 +73,8 @@ local getFixSensitivitySliderMinSuccess, fixSensitivitySliderMinValue = pcall(fu
 local fixSensitivitySliderMin = getFixSensitivitySliderMinSuccess and fixSensitivitySliderMinValue
 local getFixQualityLevelSuccess, fixQualityLevelValue = pcall(function() return settings():GetFFlag("InitializeQualityLevelFromSettings") end)
 local fixQualityLevel = getFixQualityLevelSuccess and fixQualityLevelValue
+local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
+dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
 
 ----------- CLASS DECLARATION --------------
 
@@ -358,61 +361,85 @@ local function Initialize()
     ------------------
     ------------------ Camera Mode -----------------------
     do
-      local enumItems = nil
-      local startingCameraEnumItem = 1
-      if UserInputService.TouchEnabled then
-        enumItems = Enum.TouchCameraMovementMode:GetEnumItems()
-      else
-        enumItems = Enum.ComputerCameraMovementMode:GetEnumItems()
-      end
+      if dynamicMovementAndCameraOptions then
+        local enumItems = {}
+        local startingCameraEnumItem = 1
+        local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
 
-      local cameraEnumNames = {}
-      local cameraEnumNameToItem = {}
-      for i = 1, #enumItems do
-        local displayName = enumItems[i].Name
-        if displayName == 'Default' then
-          displayName = CAMERA_MODE_DEFAULT_STRING
+        local cameraEnumNames = {}
+        local cameraEnumNameToItem = {}
+
+        local function updateCameraMovementModes()
+          local enumsToAdd = nil
+          
+          if UserInputService.TouchEnabled then
+            enumsToAdd = PlayerScripts:GetRegisteredTouchCameraMovementModes()
+          else
+            enumsToAdd = PlayerScripts:GetRegisteredComputerCameraMovementModes()
+          end
+
+          for i = 1, #enumsToAdd do
+            local newCameraMode = enumsToAdd[i]
+            local displayName = newCameraMode.Name
+            if displayName == 'Default' then
+              displayName = CAMERA_MODE_DEFAULT_STRING
+            end
+
+            if UserInputService.TouchEnabled then
+              if GameSettings.TouchCameraMovementMode == newCameraMode then
+                startingCameraEnumItem = i
+              end
+            else
+              if GameSettings.ComputerCameraMovementMode == newCameraMode then
+                startingCameraEnumItem = i
+              end
+            end
+        
+            cameraEnumNames[#cameraEnumNames+1] = displayName
+            cameraEnumNameToItem[displayName] = newCameraMode.Value
+          end
+
+          if this.CameraMode then
+            this.CameraMode:UpdateOptions(enumItems)
+          end
         end
 
-        if UserInputService.TouchEnabled then
-          if GameSettings.TouchCameraMovementMode == enumItems[i] then
-            startingCameraEnumItem = i
+        updateCameraMovementModes()
+
+        this.CameraModeFrame,
+        this.CameraModeLabel,
+        this.CameraMode = utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, startingCameraEnumItem)
+
+        settingsDisabledInVR[this.CameraMode] = true
+
+        this.CameraModeOverrideText = utility:Create'TextLabel'
+        {
+          Name = "CameraDevOverrideLabel",
+          Text = "Set by Developer",
+          TextColor3 = Color3.new(1,1,1),
+          Font = Enum.Font.SourceSans,
+          FontSize = Enum.FontSize.Size24,
+          BackgroundTransparency = 1,
+          Size = UDim2.new(0,200,1,0),
+          Position = UDim2.new(1,-350,0,0),
+          Visible = false,
+          ZIndex = 2,
+          Parent = this.CameraModeFrame
+        };
+
+        PlayerScripts.TouchCameraMovementModeRegistered:connect(function(registeredMode)
+          if UserInputService.TouchEnabled then
+            updateCameraMovementModes()
           end
-        else
-          if GameSettings.ComputerCameraMovementMode == enumItems[i] then
-            startingCameraEnumItem = i
+        end)
+
+        PlayerScripts.ComputerCameraMovementModeRegistered:connect(function(registeredMode)
+          if UserInputService.MouseEnabled then
+            updateCameraMovementModes()
           end
-        end
-		
-		-- Exclude Orbital Camera from user-selectable options
-		if enumItems[i].Value ~= Enum.ComputerCameraMovementMode.Orbital.Value and enumItems[i].Value ~= Enum.TouchCameraMovementMode.Orbital.Value then
-        	cameraEnumNames[#cameraEnumNames+1] = displayName
-		end
-        cameraEnumNameToItem[displayName] = enumItems[i].Value
-      end
+        end)
 
-      this.CameraModeFrame,
-      this.CameraModeLabel,
-      this.CameraMode = utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, startingCameraEnumItem)
-
-      settingsDisabledInVR[this.CameraMode] = true
-
-      this.CameraModeOverrideText = utility:Create'TextLabel'
-      {
-        Name = "CameraDevOverrideLabel",
-        Text = "Set by Developer",
-        TextColor3 = Color3.new(1,1,1),
-        Font = Enum.Font.SourceSans,
-        FontSize = Enum.FontSize.Size24,
-        BackgroundTransparency = 1,
-        Size = UDim2.new(0,200,1,0),
-        Position = UDim2.new(1,-350,0,0),
-        Visible = false,
-        ZIndex = 2,
-        Parent = this.CameraModeFrame
-      };
-
-      this.CameraMode.IndexChanged:connect(function(newIndex)
+        this.CameraMode.IndexChanged:connect(function(newIndex)
           local newEnumSetting = cameraEnumNameToItem[cameraEnumNames[newIndex]]
 
           if UserInputService.TouchEnabled then
@@ -421,6 +448,71 @@ local function Initialize()
             GameSettings.ComputerCameraMovementMode = newEnumSetting
           end
         end)
+      else
+        local enumItems = nil
+        local startingCameraEnumItem = 1
+        if UserInputService.TouchEnabled then
+          enumItems = Enum.TouchCameraMovementMode:GetEnumItems()
+        else
+          enumItems = Enum.ComputerCameraMovementMode:GetEnumItems()
+        end
+
+        local cameraEnumNames = {}
+        local cameraEnumNameToItem = {}
+        for i = 1, #enumItems do
+          local displayName = enumItems[i].Name
+          if displayName == 'Default' then
+            displayName = CAMERA_MODE_DEFAULT_STRING
+          end
+
+          if UserInputService.TouchEnabled then
+            if GameSettings.TouchCameraMovementMode == enumItems[i] then
+              startingCameraEnumItem = i
+            end
+          else
+            if GameSettings.ComputerCameraMovementMode == enumItems[i] then
+              startingCameraEnumItem = i
+            end
+          end
+  		
+      		-- Exclude Orbital Camera from user-selectable options
+      		if enumItems[i].Value ~= Enum.ComputerCameraMovementMode.Orbital.Value and enumItems[i].Value ~= Enum.TouchCameraMovementMode.Orbital.Value then
+              	cameraEnumNames[#cameraEnumNames+1] = displayName
+      		end
+          cameraEnumNameToItem[displayName] = enumItems[i].Value
+        end
+
+        this.CameraModeFrame,
+        this.CameraModeLabel,
+        this.CameraMode = utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, startingCameraEnumItem)
+
+        settingsDisabledInVR[this.CameraMode] = true
+
+        this.CameraModeOverrideText = utility:Create'TextLabel'
+        {
+          Name = "CameraDevOverrideLabel",
+          Text = "Set by Developer",
+          TextColor3 = Color3.new(1,1,1),
+          Font = Enum.Font.SourceSans,
+          FontSize = Enum.FontSize.Size24,
+          BackgroundTransparency = 1,
+          Size = UDim2.new(0,200,1,0),
+          Position = UDim2.new(1,-350,0,0),
+          Visible = false,
+          ZIndex = 2,
+          Parent = this.CameraModeFrame
+        };
+
+        this.CameraMode.IndexChanged:connect(function(newIndex)
+          local newEnumSetting = cameraEnumNameToItem[cameraEnumNames[newIndex]]
+
+          if UserInputService.TouchEnabled then
+            GameSettings.TouchCameraMovementMode = newEnumSetting
+          else
+            GameSettings.ComputerCameraMovementMode = newEnumSetting
+          end
+        end)
+      end
     end
 
 
@@ -454,72 +546,171 @@ local function Initialize()
     ------------------
     ------------------ Movement Mode ---------------------
     if movementModeEnabled then
-      local movementEnumItems = nil
-      local startingMovementEnumItem = 1
-      if UserInputService.TouchEnabled then
-        movementEnumItems = Enum.TouchMovementMode:GetEnumItems()
-      else
-        movementEnumItems = Enum.ComputerMovementMode:GetEnumItems()
-      end
+      if dynamicMovementAndCameraOptions then
+        local startingMovementEnumItem = 1
+        local movementEnumNames = {}
+        local movementEnumNameToItem = {}
 
-      local movementEnumNames = {}
-      local movementEnumNameToItem = {}
-      for i = 1, #movementEnumItems do
-        local displayName = movementEnumItems[i].Name
-        if displayName == "Default" then
-          displayName = MOVEMENT_MODE_DEFAULT_STRING
-        elseif displayName == "KeyboardMouse" then
-          displayName = MOVEMENT_MODE_KEYBOARDMOUSE_STRING
-        elseif displayName == "ClickToMove" then
-          displayName = MOVEMENT_MODE_CLICKTOMOVE_STRING
+        local movementModes = {}
+        local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
+
+        local function getDisplayName(name)
+          local displayName = name
+          if name == "Default" then
+            displayName = MOVEMENT_MODE_DEFAULT_STRING
+          elseif name == "KeyboardMouse" then
+            displayName = MOVEMENT_MODE_KEYBOARDMOUSE_STRING
+          elseif name == "ClickToMove" then
+            displayName = MOVEMENT_MODE_CLICKTOMOVE_STRING
+          elseif name == "DynamicThumbstick" then
+            displayName = MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING
+          end
+
+          return displayName
         end
 
-        if UserInputService.TouchEnabled then
-          if GameSettings.TouchMovementMode == movementEnumItems[i] then
-            startingMovementEnumItem = i
-          end
-        else
-          if GameSettings.ComputerMovementMode == movementEnumItems[i] then
-            startingMovementEnumItem = i
-          end
-        end
-
-        movementEnumNames[i] = displayName
-        movementEnumNameToItem[displayName] = movementEnumItems[i]
-      end
-
-      this.MovementModeFrame,
-      this.MovementModeLabel,
-      this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
-
-      settingsDisabledInVR[this.MovementMode] = true
-
-      this.MovementModeOverrideText = utility:Create'TextLabel'
-      {
-        Name = "MovementDevOverrideLabel",
-        Text = "Set by Developer",
-        TextColor3 = Color3.new(1,1,1),
-        Font = Enum.Font.SourceSans,
-        FontSize = Enum.FontSize.Size24,
-        BackgroundTransparency = 1,
-        Size = UDim2.new(0,200,1,0),
-        Position = UDim2.new(1,-350,0,0),
-        Visible = false,
-        ZIndex = 2,
-        Parent = this.MovementModeFrame
-      };
-
-      this.MovementMode.IndexChanged:connect(function(newIndex)
-          local newEnumSetting = movementEnumNameToItem[movementEnumNames[newIndex]]
-
+        local function updateMovementModes()
           if UserInputService.TouchEnabled then
-            GameSettings.TouchMovementMode = newEnumSetting
+            movementModes = PlayerScripts:GetRegisteredTouchMovementModes()
           else
-            GameSettings.ComputerMovementMode = newEnumSetting
+            movementModes = PlayerScripts:GetRegisteredComputerMovementModes()
+          end
+
+          for i = 1, #movementModes do
+            local movementMode = movementModes[i]
+
+            local displayName = getDisplayName(movementMode.Name)
+
+            if UserInputService.TouchEnabled then
+              if GameSettings.TouchMovementMode == movementMode then
+                startingMovementEnumItem = movementMode.Value + 1
+              end
+            else
+              if GameSettings.ComputerMovementMode == movementModes[i] then
+                startingMovementEnumItem = movementMode.Value + 1
+              end
+            end
+
+            movementEnumNames[#movementEnumNames + 1] = displayName
+            movementEnumNameToItem[displayName] = movementMode
+          end
+
+          if this.MovementMode then
+            this.MovementMode:UpdateOptions(movementEnumNames)
+          end
+        end
+
+        updateMovementModes()
+
+        this.MovementModeFrame,
+        this.MovementModeLabel,
+        this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
+
+        settingsDisabledInVR[this.MovementMode] = true
+
+        this.MovementModeOverrideText = utility:Create'TextLabel'
+        {
+          Name = "MovementDevOverrideLabel",
+          Text = "Set by Developer",
+          TextColor3 = Color3.new(1,1,1),
+          Font = Enum.Font.SourceSans,
+          FontSize = Enum.FontSize.Size24,
+          BackgroundTransparency = 1,
+          Size = UDim2.new(0,200,1,0),
+          Position = UDim2.new(1,-350,0,0),
+          Visible = false,
+          ZIndex = 2,
+          Parent = this.MovementModeFrame
+        };
+
+        PlayerScripts.TouchMovementModeRegistered:connect(function(registeredMode)
+          if UserInputService.TouchEnabled then
+            updateMovementModes()
           end
         end)
-    end
 
+        PlayerScripts.ComputerMovementModeRegistered:connect(function(registeredMode)
+          if UserInputService.MouseEnabled then
+            updateMovementModes()
+          end
+        end)
+
+        this.MovementMode.IndexChanged:connect(function(newIndex)
+            local newEnumSetting = movementEnumNameToItem[movementEnumNames[newIndex]]
+
+            if UserInputService.TouchEnabled then
+              GameSettings.TouchMovementMode = newEnumSetting
+            else
+              GameSettings.ComputerMovementMode = newEnumSetting
+            end
+        end)
+      else
+        local movementEnumItems = nil
+        local startingMovementEnumItem = 1
+        if UserInputService.TouchEnabled then
+          movementEnumItems = Enum.TouchMovementMode:GetEnumItems()
+        else
+          movementEnumItems = Enum.ComputerMovementMode:GetEnumItems()
+        end
+
+        local movementEnumNames = {}
+        local movementEnumNameToItem = {}
+        for i = 1, #movementEnumItems do
+          local displayName = movementEnumItems[i].Name
+          if displayName == "Default" then
+            displayName = MOVEMENT_MODE_DEFAULT_STRING
+          elseif displayName == "KeyboardMouse" then
+            displayName = MOVEMENT_MODE_KEYBOARDMOUSE_STRING
+          elseif displayName == "ClickToMove" then
+            displayName = MOVEMENT_MODE_CLICKTOMOVE_STRING
+          end
+
+          if UserInputService.TouchEnabled then
+            if GameSettings.TouchMovementMode == movementEnumItems[i] then
+              startingMovementEnumItem = i
+            end
+          else
+            if GameSettings.ComputerMovementMode == movementEnumItems[i] then
+              startingMovementEnumItem = i
+            end
+          end
+
+          movementEnumNames[i] = displayName
+          movementEnumNameToItem[displayName] = movementEnumItems[i]
+        end
+
+        this.MovementModeFrame,
+        this.MovementModeLabel,
+        this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
+
+        settingsDisabledInVR[this.MovementMode] = true
+
+        this.MovementModeOverrideText = utility:Create'TextLabel'
+        {
+          Name = "MovementDevOverrideLabel",
+          Text = "Set by Developer",
+          TextColor3 = Color3.new(1,1,1),
+          Font = Enum.Font.SourceSans,
+          FontSize = Enum.FontSize.Size24,
+          BackgroundTransparency = 1,
+          Size = UDim2.new(0,200,1,0),
+          Position = UDim2.new(1,-350,0,0),
+          Visible = false,
+          ZIndex = 2,
+          Parent = this.MovementModeFrame
+        };
+
+        this.MovementMode.IndexChanged:connect(function(newIndex)
+            local newEnumSetting = movementEnumNameToItem[movementEnumNames[newIndex]]
+
+            if UserInputService.TouchEnabled then
+              GameSettings.TouchMovementMode = newEnumSetting
+            else
+              GameSettings.ComputerMovementMode = newEnumSetting
+            end
+        end)
+      end
+    end
 
     ------------------------------------------------------
     ------------------
@@ -928,24 +1119,19 @@ local function Initialize()
   if UserInputService.MouseEnabled and not isTenFootInterface then
     createMouseOptions()
   end
-  
-  local CameraYInvertedSuccess,CameraYInvertedEnabled = pcall(function() return settings():GetFFlag("CameraYInvertedEnabled") end)
-  local cameraYInvertedFastFlag = CameraYInvertedSuccess and CameraYInvertedEnabled
 
-  if cameraYInvertedFastFlag then
-    if GameSettings.IsUsingCameraYInverted then
-      createCameraInvertedOptions()
-    else
-      local gamesettingsConn = nil
-      gamesettingsConn = GameSettings.Changed:connect(function(prop)
-        if prop == "IsUsingCameraYInverted" then
-          if GameSettings.IsUsingCameraYInverted then
-            gamesettingsConn:disconnect()
-            createCameraInvertedOptions()
-          end
+  if GameSettings.IsUsingCameraYInverted then
+    createCameraInvertedOptions()
+  else
+    local gamesettingsConn = nil
+    gamesettingsConn = GameSettings.Changed:connect(function(prop)
+      if prop == "IsUsingCameraYInverted" then
+        if GameSettings.IsUsingCameraYInverted then
+          gamesettingsConn:disconnect()
+          createCameraInvertedOptions()
         end
-      end)
-    end
+      end
+    end)
   end
 
   createVolumeOptions()

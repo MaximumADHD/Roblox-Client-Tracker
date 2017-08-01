@@ -5,7 +5,7 @@
 --  The code is kept on the server and only replicated to the client of members of the Roblox admin group
 --  to minimize security problems.
 
-local ADMIN_GROUP_ID = 1200769
+local FREECAM_GROUP_IDS = {1200769, 3013794} -- Admin Group, Group Requested by RobloxsaurusRex for contractors who need this power.
 local PlayerService = game:GetService("Players")
 
 local function LoadLocalScript(name, parent)
@@ -29,8 +29,14 @@ end
 local Install = function ()
 
 	local function AddFreeCamera(player)
-		local playerScripts = player:WaitForChild("PlayerScripts")
-		local freeCamera = LoadLocalScript("FreeCamera", playerScripts)
+		local playerGui = player:WaitForChild("PlayerGui")
+		local freeCameraScreenGui = Instance.new("ScreenGui")
+		freeCameraScreenGui.Name = "FreeCamera"
+		freeCameraScreenGui.ResetOnSpawn = false
+		freeCameraScreenGui.DisplayOrder = 10
+		freeCameraScreenGui.Enabled = false
+		freeCameraScreenGui.Parent = playerGui
+		local freeCamera = LoadLocalScript("FreeCamera", freeCameraScreenGui)
 		LoadModule("Maid", freeCamera)
 		LoadModule("Spring", freeCamera)
 	end
@@ -38,9 +44,14 @@ local Install = function ()
 	local function PlayerAdded(player)
 		if player.UserId > 0 then
 			local inGroup = false
-			pcall(function()
-				inGroup = player:IsInGroup(ADMIN_GROUP_ID)
-			end)
+			for i = 1, #FREECAM_GROUP_IDS do
+				pcall(function()
+					inGroup = player:IsInGroup(FREECAM_GROUP_IDS[i])
+				end)
+				if inGroup then
+					break
+				end
+			end
 			if inGroup then
 				AddFreeCamera(player)
 			end

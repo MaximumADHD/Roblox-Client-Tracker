@@ -13,9 +13,6 @@ local PlayersService = game:GetService('Players')
 local StarterGui = game:GetService("StarterGui")
 
 --[[ Fast Flags ]]--
-local useNewBlockApiSuccess, useNewBlockApiFlagValue = pcall(function() return settings():GetFFlag("UseNewBlockApi") end)
-local useNewBlockApiEnabled = useNewBlockApiSuccess and useNewBlockApiFlagValue
-
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
@@ -40,7 +37,7 @@ end
 local recentApiRequests = -- stores requests for target players by userId
 {
 	Following = {};
-} 
+}
 
 --[[ Constants ]]--
 local POPUP_ENTRY_SIZE_Y = 24
@@ -140,7 +137,7 @@ local function getFriendCountAsync(userId)
 		if userId then
 			str = str..'?userId='..tostring(userId)
 		end
-		return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default, 
+		return HttpRbxApiService:GetAsync(str, Enum.ThrottlingPriority.Default,
             Enum.HttpRequestType.Players)
 	end)
 	if not wasSuccess then
@@ -184,7 +181,7 @@ local function isFollowing(userId, followerUserId)
 	local apiPath = "user/following-exists?userId="
 	local params = userId.."&followerUserId="..followerUserId
 	local success, result = pcall(function()
-		return HttpRbxApiService:GetAsync(apiPath..params, 
+		return HttpRbxApiService:GetAsync(apiPath..params,
             Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
 	end)
 	if not success then
@@ -216,7 +213,7 @@ local function GetBlockedPlayersAsync()
 	if userId > 0 then
 		local blockList = nil
 		local success, msg = pcall(function()
-			local request = HttpRbxApiService:GetAsync(apiPath, 
+			local request = HttpRbxApiService:GetAsync(apiPath,
                 Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
 			blockList = request and game:GetService('HttpService'):JSONDecode(request)
 		end)
@@ -282,16 +279,11 @@ local function BlockPlayerAsync(playerToBlock)
 				BlockedList[blockUserId] = true
 				BlockStatusChanged:fire(blockUserId, true)
 				local success, wasBlocked = pcall(function()
-					if useNewBlockApiEnabled then
-						local apiPath = "userblock/block"
-						local params = "userId=" ..tostring(playerToBlock.UserId)
-						local request = HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationUrlEncoded)
-						response = request and game:GetService('HttpService'):JSONDecode(request)
-						return response and response.success
-					else
-						local playerBlocked = LocalPlayer:BlockUser(playerToBlock)
-						return playerBlocked
-					end
+					local apiPath = "userblock/block"
+					local params = "userId=" ..tostring(playerToBlock.UserId)
+					local request = HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationUrlEncoded)
+					response = request and game:GetService('HttpService'):JSONDecode(request)
+					return response and response.success
 				end)
 				return success and wasBlocked
 			else
@@ -310,16 +302,11 @@ local function UnblockPlayerAsync(playerToUnblock)
 			BlockedList[unblockUserId] = nil
 			BlockStatusChanged:fire(unblockUserId, false)
 			local success, wasUnBlocked = pcall(function()
-				if useNewBlockApiEnabled then
-					local apiPath = "userblock/unblock"
-					local params = "userId=" ..tostring(playerToUnblock.UserId)
-					local request = HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationUrlEncoded)
-					response = request and game:GetService('HttpService'):JSONDecode(request)
-					return response and response.success
-				else
-					local playerUnblocked = LocalPlayer:UnblockUser(playerToUnblock)
-					return playerUnblocked
-				end
+				local apiPath = "userblock/unblock"
+				local params = "userId=" ..tostring(playerToUnblock.UserId)
+				local request = HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationUrlEncoded)
+				response = request and game:GetService('HttpService'):JSONDecode(request)
+				return response and response.success
 			end)
 			return success and wasUnBlocked
 		else
@@ -401,7 +388,7 @@ function createPlayerDropDown()
 		local apiPath = "user/unfollow"
 		local params = "followedUserId="..followedUserId
 		local success, result = pcall(function()
-			return HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default, 
+			return HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default,
                 Enum.HttpContentType.ApplicationUrlEncoded, Enum.HttpRequestType.Players)
 		end)
 		if not success then
@@ -464,7 +451,7 @@ function createPlayerDropDown()
 		local apiPath = "user/follow"
 		local params = "followedUserId="..followedUserId
 		local success, result = pcall(function()
-			return HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default, 
+			return HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default,
                 Enum.HttpContentType.ApplicationUrlEncoded, Enum.HttpRequestType.Players)
 		end)
 		if not success then

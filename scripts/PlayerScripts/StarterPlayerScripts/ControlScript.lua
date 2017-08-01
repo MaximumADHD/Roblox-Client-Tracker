@@ -50,6 +50,24 @@ local IsModalEnabled = UserInputService.ModalEnabled
 local BindableEvent_OnFailStateChanged = nil
 local isJumpEnabled = false
 
+-- register what control scripts we are using
+do
+	local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
+	local canRegisterControls = pcall(function() PlayerScripts:RegisterTouchMovementMode(Enum.TouchMovementMode.Default) end)
+
+	if canRegisterControls then
+		PlayerScripts:RegisterTouchMovementMode(Enum.TouchMovementMode.Thumbstick)
+		PlayerScripts:RegisterTouchMovementMode(Enum.TouchMovementMode.DPad)
+		PlayerScripts:RegisterTouchMovementMode(Enum.TouchMovementMode.Thumbpad)
+		PlayerScripts:RegisterTouchMovementMode(Enum.TouchMovementMode.ClickToMove)
+		PlayerScripts:RegisterTouchMovementMode(Enum.TouchMovementMode.DynamicThumbstick)
+
+		PlayerScripts:RegisterComputerMovementMode(Enum.ComputerMovementMode.Default)
+		PlayerScripts:RegisterComputerMovementMode(Enum.ComputerMovementMode.KeyboardMouse)
+		PlayerScripts:RegisterComputerMovementMode(Enum.ComputerMovementMode.ClickToMove)
+	end
+end
+
 local DynamicThumbstickAvailable = pcall(function() 
 	return Enum.DevTouchMovementMode.DynamicThumbstick and Enum.TouchMovementMode.DynamicThumbstick
 end)
@@ -419,3 +437,4 @@ end)
 
 switchToInputType(UserInputService:GetLastInputType())
 UserInputService.LastInputTypeChanged:connect(switchToInputType)
+

@@ -64,10 +64,6 @@ local FOCUS_OFFSET = CFrame.new(0, 0, -16)
 -- For the hack.
 
 function CreateLetterBox()
-	local letterBox = Instance.new("ScreenGui")
-	letterBox.Name = "LetterboxGui"
-	letterBox.ResetOnSpawn = false
-
 	local topBar = Instance.new("Frame")
 	topBar.Name = "TopBar"
 	topBar.Position = UDim2.new(0, 0, 0, -36)
@@ -75,14 +71,14 @@ function CreateLetterBox()
 	topBar.ZIndex = 10
 	topBar.BackgroundColor3 = Color3.new(0, 0, 0)
 	topBar.BorderSizePixel = 0
-	topBar.Parent = letterBox
+	topBar.Parent = script.Parent
 
 	local bottomBar = topBar:Clone()
 	bottomBar.Name = "BottomBar"
 	bottomBar.Position = UDim2.new(0, 0, 1, 0)
 	bottomBar.AnchorPoint = Vector2.new(0, 1)
-	bottomBar.Parent = letterBox
-	return letterBox
+	bottomBar.Parent = script.Parent
+	return script.Parent
 end
 
 ------------------------------------------------
@@ -279,7 +275,7 @@ local function EnterFreecam()
 		end
 	end
 	if LETTERBOX then
-		letterbox.Parent = playerGui
+		letterbox.Enabled = true
 	end
 	RS:BindToRenderStep("Freecam", Enum.RenderPriority.Camera.Value, UpdateFreecam)
 	freeCamEnabled = true
@@ -288,7 +284,7 @@ end
 local function ExitFreecam()
 	freeCamEnabled = false
 	if LETTERBOX then
-		letterbox.Parent = script
+		letterbox.Enabled = false
 	end
 	UIS.MouseIconEnabled = true
 	UIS.MouseBehavior = Enum.MouseBehavior.Default
