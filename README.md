@@ -11,8 +11,7 @@ The master branch stores tracked content that is currently on production (roblox
 This is Roblox's API Dump. It is a feature bundled with their game client that exports a readable version of Roblox's usable Lua API.
 
 ### DeepStrings.txt
-This is a sorted list of dumped strings from Roblox's game client exe. Each keyword is matched using the pattern **[A\-Za\-z0\-9\_]\+**.
-Theres currently a lot of garbage data dumped into this file, which is why it's really large. I'm hoping to improve this in the future using a better method of piecing out legible strings.
+This is a sorted list of dumped strings from Roblox's game client exe. Theres currently a lot of garbage data dumped into this file, which is why it's really large. I'm hoping to improve this in the future using a better method of parsing out legible strings.
 
 ### FVariables.txt
 This is a sorted list of fast variables, which are used by Roblox to toggle features remotely on multiple platforms, in case of crashes.
