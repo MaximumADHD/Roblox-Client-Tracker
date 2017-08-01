@@ -25,3 +25,4 @@ This represents a GUID for the current version of Roblox on the specified branch
 * Comparison of [roblox->gametest1](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs)
 * Comparison of [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest2.robloxlabs)
 * Comparison of [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs...gametest2.robloxlabs)
+* [DeepStrings.txt without extreme page lag](https://raw.githubusercontent.com/CloneTrooper1019/Roblox-Client-Watch/master/DeepStrings.txt)
