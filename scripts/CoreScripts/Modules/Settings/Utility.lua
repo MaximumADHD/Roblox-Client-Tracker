@@ -35,12 +35,12 @@ local VRService = game:GetService("VRService")
 
 --------------- FLAGS ----------------
 
-local fixTextBoxLoseSelectionSuccess, fixTextBoxLoseSelectionValue = pcall(function() return settings():GetFFlag("FixTextBoxLoseSelection") end)
-local fixTextBoxLoseSelection = fixTextBoxLoseSelectionSuccess and fixTextBoxLoseSelectionValue
-
 -- Enable the old Utility.lua if the EnablePortraitMode flag is off
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
+
+local reportPlayerInMenuSuccess, reportPlayerInMenuValue = pcall(function() return settings():GetFFlag("CoreScriptReportPlayerInMenu") end)
+local enableReportPlayer = reportPlayerInMenuSuccess and reportPlayerInMenuValue
 
 local fixSettingsMenuDropdownsSuccess, fixSettingsMenuDropdownsValue = pcall(function() return settings():GetFFlag("FixSettingsMenuDropdowns") end)
 local fixSettingsMenuDropdowns = fixSettingsMenuDropdownsSuccess and fixSettingsMenuDropdownsValue
@@ -48,9 +48,6 @@ local fixSettingsMenuDropdowns = fixSettingsMenuDropdownsSuccess and fixSettings
 if not enablePortraitMode then
 	return require(RobloxGui.Modules.Settings:WaitForChild("UtilityOld"))
 end
-
-local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
-dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
 
 
 ------------------ VARIABLES --------------------
@@ -398,6 +395,10 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		ZIndex = 2,
 		SelectionImageObject = SelectionOverrideObject
 	};
+	if not enableReportPlayer then
+		button.NextSelectionLeft = button
+		button.NextSelectionRight = button
+	end
 
 	local enabled = Util.Create'BoolValue'
 	{
@@ -736,7 +737,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		ZIndex = 2,
 		Parent = this.DropDownFrame
 	};
-	this.DropDownImage = dropDownImage
 
 
 	---------------------- FUNCTIONS -----------------------------------
@@ -794,18 +794,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		end
 	end
 
-	local function setIsFaded(isFaded)
-		if isFaded then
-			this.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0.5
-			this.DropDownFrame.ImageTransparency = 0.5
-			this.DropDownImage.ImageTransparency = 0.5
-		else
-			this.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0
-			this.DropDownFrame.ImageTransparency = 0
-			this.DropDownImage.ImageTransparency = 0
-		end
-	end
-
 
 	--------------------- PUBLIC FACING FUNCTIONS -----------------------
 	this.IndexChanged = indexChangedEvent.Event
@@ -840,15 +828,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 		if not interactable then
 			hideDropDownSelection()
-			setIsFaded(VRService.VREnabled)
-			if not VRService.VREnabled then
-				this:SetZIndex(1)
-			end
+			this:SetZIndex(1)
 		else
-			setIsFaded(false)
-			if not VRService.VREnabled then
-				this:SetZIndex(2)
-			end
+			this:SetZIndex(2)
 		end
 
 		dropDownButtonEnabled.Value = value and not active
@@ -1072,41 +1054,40 @@ local function CreateSelector(selectionStringTable, startPosition)
 	local isSelectionLabelVisible = {}
 	local isAutoSelectButton = {}
 
-	if not dynamicMovementAndCameraOptions then
-		for i,v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create'TextLabel'
-			{
-				Name = "Selection" .. tostring(i),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
-				Position = UDim2.new(1,0,0,0),
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 24,
-				Text = v,
-				ZIndex = 2,
-				Visible = false,
-				Parent = this.SelectorFrame
-			};
-			if isTenFootInterface() then
-				nextSelection.TextSize = 36
-			end
-
-			if i == startPosition then
-				this.CurrentIndex = i
-				nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
-				nextSelection.Visible = true
-
-				isSelectionLabelVisible[nextSelection] = true
-			else
-				isSelectionLabelVisible[nextSelection] = false
-			end
-
-			this.Selections[i] = nextSelection
+	for i,v in pairs(selectionStringTable) do
+		local nextSelection = Util.Create'TextLabel'
+		{
+			Name = "Selection" .. tostring(i),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
+			Position = UDim2.new(1,0,0,0),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextTransparency = 0.5,
+			Font = Enum.Font.SourceSans,
+			TextSize = 24,
+			TextSize = 16,
+			Text = v,
+			ZIndex = 2,
+			Visible = false,
+			Parent = this.SelectorFrame
+		};
+		if isTenFootInterface() then
+			nextSelection.TextSize = 36
 		end
+
+		if i == startPosition then
+			this.CurrentIndex = i
+			nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
+			nextSelection.Visible = true
+
+			isSelectionLabelVisible[nextSelection] = true
+		else
+			isSelectionLabelVisible[nextSelection] = false
+		end
+
+		this.Selections[i] = nextSelection
 	end
 
 	local autoSelectButton = Util.Create'ImageButton'{
@@ -1259,52 +1240,6 @@ local function CreateSelector(selectionStringTable, startPosition)
 		end
 	end
 
-	function this:UpdateOptions(selectionStringTable)
-		if not dynamicMovementAndCameraOptions then return end
-
-		for i,v in pairs(this.Selections) do
-			v:Destroy()
-		end
-
-		isSelectionLabelVisible = {}
-		this.Selections = {}
-
-		for i,v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create'TextLabel'
-			{
-				Name = "Selection" .. tostring(i),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
-				Position = UDim2.new(1,0,0,0),
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 24,
-				Text = v,
-				ZIndex = 2,
-				Visible = false,
-				Parent = this.SelectorFrame
-			};
-			if isTenFootInterface() then
-				nextSelection.TextSize = 36
-			end
-
-			if i == startPosition then
-				this.CurrentIndex = i
-				nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
-				nextSelection.Visible = true
-
-				isSelectionLabelVisible[nextSelection] = true
-			else
-				isSelectionLabelVisible[nextSelection] = false
-			end
-
-			this.Selections[i] = nextSelection
-		end
-	end
-
 	--------------------- SETUP -----------------------
 	local function onVREnabled(prop)
 		if prop ~= "VREnabled" then
@@ -1340,10 +1275,6 @@ local function CreateSelector(selectionStringTable, startPosition)
 	end)
 
 	local isInTree = true
-
-	if dynamicMovementAndCameraOptions then
-		this:UpdateOptions(selectionStringTable)
-	end
 
 	UserInputService.InputBegan:Connect(function(inputObject)
 		if not interactable then return end
@@ -2084,10 +2015,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(2, 2, 18, 18),
-		ImageTransparency = 1,
+		Image = "",
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1,0,0,ROW_HEIGHT),
@@ -2097,7 +2025,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};
-	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 
 	if RowFrame and extraSpacing then
 		RowFrame.Position = UDim2.new(RowFrame.Position.X.Scale,RowFrame.Position.X.Offset,
@@ -2190,7 +2117,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		box.FocusLost:Connect(function(enterPressed, inputObject)
-			if not fixTextBoxLoseSelection and GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
+			if GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
 				GuiService.SelectedCoreObject = nil
 			end
 			forceReturnSelectionOnFocusLost = false
@@ -2283,7 +2210,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		box.FocusLost:Connect(function(enterPressed, inputObject)
-			if not fixTextBoxLoseSelection and GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
+			if GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
 				GuiService.SelectedCoreObject = nil
 			end
 			forceReturnSelectionOnFocusLost = false
@@ -2404,10 +2331,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 						if prop == "SelectedCoreObject" then
 							local selected = GuiService.SelectedCoreObject
 							if selected and (selected == RowFrame or selected:IsDescendantOf(RowFrame)) then
-								RowFrame.ImageTransparency = 0.5
-								RowFrame.BackgroundTransparency = 1
+								RowFrame.BackgroundTransparency = 0.5
 							else
-								RowFrame.ImageTransparency = 1
 								RowFrame.BackgroundTransparency = 1
 							end
 						end
@@ -2423,13 +2348,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 		ValueChangerSelection.SelectionGained:Connect(function()
 			if usesSelectedObject() then
-				if VRService.VREnabled then
-					RowFrame.ImageTransparency = 0.5
-					RowFrame.BackgroundTransparency = 1
-				else
-					RowFrame.ImageTransparency = 1
-					RowFrame.BackgroundTransparency = 0.5
-				end
+				RowFrame.BackgroundTransparency = 0.5
 
 				if ValueChangerInstance.HubRef then
 					ValueChangerInstance.HubRef:ScrollToFrame(RowFrame)
@@ -2438,7 +2357,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		end)
 		ValueChangerSelection.SelectionLost:Connect(function()
 			if usesSelectedObject() then
-				RowFrame.ImageTransparency = 1
 				RowFrame.BackgroundTransparency = 1
 			end
 		end)
@@ -2463,10 +2381,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(10,10,10,10),
-		ImageTransparency = 1,
+		Image = "",
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1,0,0,ROW_HEIGHT),
@@ -2476,7 +2391,6 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};
-	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 	RowFrame.SelectionGained:Connect(function()
 		RowFrame.BackgroundTransparency = 0.5
 	end)
@@ -2529,16 +2443,9 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 	rowObject.SelectionImageObject = noSelectionObject
 
 	rowObject.SelectionGained:Connect(function()
-		if VRService.VREnabled then
-			RowFrame.ImageTransparency = 0.5
-			RowFrame.BackgroundTransparency = 1
-		else
-			RowFrame.ImageTransparency = 1
 			RowFrame.BackgroundTransparency = 0.5
-		end
-	end)
+		end)
 	rowObject.SelectionLost:Connect(function()
-		RowFrame.ImageTransparency = 1
 		RowFrame.BackgroundTransparency = 1
 	end)
 

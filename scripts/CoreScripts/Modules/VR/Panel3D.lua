@@ -22,13 +22,6 @@ local fullyOpaqueAtPixelsFromEdge = 10
 local fullyTransparentAtPixelsFromEdge = 80
 local partThickness = 0.2
 
---The default origin CFrame for all Standard type panels
-local standardOriginCF = CFrame.new(0, -0.5, -5.5)
-
---Compensates for the thickness of the panel part and rotates it so that
---the front face is pointing back at the camera
-local panelAdjustCF = CFrame.new(0, 0, -0.5 * partThickness) * CFrame.Angles(0, math.pi, 0) 
-
 local cursorHidden = false
 local cursorHideTime = 2.5
 
@@ -67,7 +60,7 @@ end)
 local Panel3D = {}
 Panel3D.Type = {
 	None = 0,
-	Standard = 1,
+--	Floor = 1, todo: remove when deemed safe
 	Fixed = 2,
 	HorizontalFollow = 3,
 	FixedToHead = 4
@@ -78,9 +71,9 @@ Panel3D.OnPanelClosed = Utility:Create 'BindableEvent' {
 }
 
 function Panel3D.GetHeadLookXZ(withTranslation)
-	local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+	local userHeadCF = UserInputService:GetUserCFrame(Enum.UserCFrame.Head)
 	local headLook = userHeadCF.lookVector
-	local headYaw = math.atan2(-headLook.Z, headLook.X) - math.rad(90)
+	local headYaw = math.atan2(-headLook.Z, headLook.X) + math.rad(90)
 	local cf = CFrame.Angles(0, headYaw, 0)
 
 	if withTranslation then
@@ -195,7 +188,7 @@ local function autoHideCursor(hide)
 		cursorHidden = false
 		return
 	end
-	if not VRService.VREnabled then
+	if not UserInputService.VREnabled then
 		cursorHidden = false
 		return
 	end
@@ -253,8 +246,6 @@ function Panel.new(name)
 	self.canFade = true
 	self.shouldFindLookAtGuiElement = false
 	self.ignoreModal = false
-	self.needsPositionUpdate = false
-	self.needsLocalPositionUpdate = false
 
 	self.linkedTo = false
 	self.subpanels = {}
@@ -334,7 +325,7 @@ end
 
 --Panel update methods
 function Panel:SetPartCFrame(cframe)
-	self:GetPart().CFrame = cframe * panelAdjustCF
+	self:GetPart().CFrame = cframe * CFrame.new(0, 0, -0.5 * partThickness)
 end
 
 function Panel:SetEnabled(enabled)
@@ -369,27 +360,18 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
 		self:SetPartCFrame(cameraCF * cf)
 	elseif self.panelType == Panel3D.Type.HorizontalFollow then
 		local headLook = userHeadCF.lookVector
-		local headForwardCF = CFrame.new(userHeadCF.p, userHeadCF.p + (headLook * Vector3.new(1, 0, 1)))
+		local headYaw = math.atan2(-headLook.Z, headLook.X) + math.rad(90)
+		local headForwardCF = CFrame.Angles(0, headYaw, 0) + userHeadCF.p
 		local localCF = (headForwardCF * self.angleFromForward) * --Rotate about Y (left-right)
 						self.angleFromHorizon * --Rotate about X (up-down)
-						CFrame.new(0, 0, currentHeadScale * -self.distance)
+						CFrame.new(0, 0, currentHeadScale * self.distance)-- * --Move into scene
+						--turnAroundCF --Turn around to face character
 		self:SetPartCFrame(cameraCF * localCF)
 	elseif self.panelType == Panel3D.Type.FixedToHead then
 		--Places the panel in the user's head local space. localCF can be updated in PreUpdate for animation.
 		local cf = self.localCF - self.localCF.p
 		cf = cf + (self.localCF.p * currentHeadScale)
 		self:SetPartCFrame(cameraRenderCF * cf)
-	elseif self.panelType == Panel3D.Type.Standard then
-		local shouldUpdate = self.needsPositionUpdate or self.needsLocalPositionUpdate
-		if self.needsPositionUpdate then
-			self.needsPositionUpdate = false
-			local headLookXZ = Panel3D.GetHeadLookXZ(true)
-			self.originCF = headLookXZ * standardOriginCF
-		end
-		if shouldUpdate then
-			self.needsLocalPositionUpdate = false
-			self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
-		end
 	end
 end
 
@@ -637,8 +619,8 @@ function Panel:SetType(panelType, config)
 	if panelType == Panel3D.Type.None then
 		--nothing to do
 		return
-	elseif panelType == Panel3D.Type.Standard then
-		self.localCF = config.CFrame or CFrame.new()
+	elseif panelType == Panel3D.Type.Floor then
+		self.floorPos = config.FloorPosition or Vector3.new(0, 0, 0)
 	elseif panelType == Panel3D.Type.Fixed then
 		self.localCF = config.CFrame or CFrame.new()
 	elseif panelType == Panel3D.Type.HorizontalFollow then
@@ -657,8 +639,6 @@ function Panel:SetVisible(visible, modal)
 		self:OnVisibilityChanged(visible)
 		if not visible then
 			Panel3D.OnPanelClosed:Fire(self.name)
-		else
-			self.needsPositionUpdate = true
 		end
 	end
 
@@ -711,29 +691,6 @@ end
 
 function Panel:SetCanFade(canFade)
 	self.canFade = canFade
-end
-
-function Panel:RequestPositionUpdate()
-	self.needsPositionUpdate = true
-end
-
-function Panel:GetGuiPositionInPanelSpace(guiPosition)
-	local partSize = Vector2.new(self.part.Size.X, self.part.Size.Y)
-	local guiSize = self.gui.AbsoluteSize
-	local guiCenter = guiSize / 2
-
-	local guiPositionFraction = (guiPosition - guiCenter) / guiSize
-	local positionInPartFace = guiPositionFraction * partSize
-
-	return Vector3.new(positionInPartFace.X, positionInPartFace.Y, partThickness * 0.5)
-end
-
-function Panel:GetCFrameInCameraSpace()
-	if self.panelType == Panel3D.Type.Standard then
-		return self.originCF * self.localCF
-	else
-		return self.localCF or CFrame.new()
-	end
 end
 
 --Child class, Subpanel
@@ -872,7 +829,7 @@ function Subpanel:GetGUI()
 		ToolPunchThroughDistance = 1000,
 		CanvasSize = self.parentPanel:GetGUI().CanvasSize,
 		Enabled = self.parentPanel.isEnabled,
-		AlwaysOnTop = true
+		AlwaysOnTop = false
 	}
 	self.guiSurrogate = Utility:Create "Frame" {
 		Parent = self.gui,
@@ -975,7 +932,7 @@ end
 --Panel3D Setup
 local frameStart = tick()
 local function onRenderStep()
-	if not VRService.VREnabled then
+	if not UserInputService.VREnabled then
 		return
 	end
 
@@ -992,11 +949,11 @@ local function onRenderStep()
 	local camera = workspace.CurrentCamera
 	local cameraCF = camera.CFrame
 	local cameraRenderCF = camera:GetRenderCFrame()
-	local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+	local userHeadCF = UserInputService:GetUserCFrame(Enum.UserCFrame.Head)
 	local lookRay = Ray.new(cameraRenderCF.p, cameraRenderCF.lookVector)
 
 	local inputUserCFrame = VRService.GuiInputUserCFrame
-	local inputCF = cameraCF * VRService:GetUserCFrame(inputUserCFrame)
+	local inputCF = cameraCF * UserInputService:GetUserCFrame(inputUserCFrame)
 	local pointerRay = Ray.new(inputCF.p, inputCF.lookVector)
 
 	--allow all panels to run their own update code
@@ -1091,58 +1048,62 @@ RunService.Heartbeat:connect(onHeartbeat)
 
 
 
-local headscaleChangedConn = nil
-local function onHeadScaleChanged()
-	local currentHeadScale = workspace.CurrentCamera.HeadScale
+local cameraChangedConnection = nil
+local function onHeadScalePropChanged(prop)
+	currentHeadScale = workspace.CurrentCamera.HeadScale
 	for i, v in pairs(panels) do
 		v:OnHeadScaleChanged(currentHeadScale)
 	end
 end
 
-local function onCurrentCameraChanged()
-	onHeadScaleChanged()
-	if headscaleChangedConn then
-		headscaleChangedConn:disconnect()
-	end
-	headscaleChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("HeadScale"):connect(onHeadScaleChanged)
+local function onWorkspaceChanged(prop)
+	if prop == "CurrentCamera" then
+		onHeadScalePropChanged()
+		if cameraChangedConnection then
+			cameraChangedConnection:disconnect()
+		end
+		cameraChangedConnection = workspace.CurrentCamera:GetPropertyChangedSignal("HeadScale"):connect(onHeadScalePropChanged)
 
-	if VRService.VREnabled then
-		partFolder.Parent = workspace.CurrentCamera
-		effectFolder.Parent = workspace.CurrentCamera
+		if UserInputService.VREnabled then
+			partFolder.Parent = workspace.CurrentCamera
+			effectFolder.Parent = workspace.CurrentCamera
+		end
 	end
 end
 
 local currentCameraChangedConn = nil
 local renderStepFuncBound = false
-local function onVREnabledChanged()
-	if VRService.VREnabled then
-		if workspace.CurrentCamera then
-			onCurrentCameraChanged()
-		end
-		currentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):connect(onCurrentCameraChanged)
+local function onVREnabled(prop)
+	if prop == "VREnabled" then
+		if UserInputService.VREnabled then
+			if workspace.CurrentCamera then
+				onWorkspaceChanged("CurrentCamera")
+			end
+			currentCameraChangedConn = workspace.Changed:connect(onWorkspaceChanged)
 
-		partFolder.Parent = workspace.CurrentCamera
-		effectFolder.Parent = workspace.CurrentCamera
-		
-		if not renderStepFuncBound then
-			RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, onRenderStep)
-			renderStepFuncBound = true
-		end
-	else
-		if currentCameraChangedConn then
-			currentCameraChangedConn:disconnect()
-			currentCameraChangedConn = nil
-		end
-		partFolder.Parent = nil
-		effectFolder.Parent = nil
-		
-		if renderStepFuncBound then
-			RunService:UnbindFromRenderStep(renderStepName)
-			renderStepFuncBound = false
+			partFolder.Parent = workspace.CurrentCamera
+			effectFolder.Parent = workspace.CurrentCamera
+			
+			if not renderStepFuncBound then
+				RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, onRenderStep)
+				renderStepFuncBound = true
+			end
+		else
+			if currentCameraChangedConn then
+				currentCameraChangedConn:disconnect()
+				currentCameraChangedConn = nil
+			end
+			partFolder.Parent = nil
+			effectFolder.Parent = nil
+			
+			if renderStepFuncBound then
+				RunService:UnbindFromRenderStep(renderStepName)
+				renderStepFuncBound = false
+			end
 		end
 	end
 end
-VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
-onVREnabledChanged()
+UserInputService.Changed:connect(onVREnabled)
+onVREnabled("VREnabled")
 
 return Panel3D

@@ -35,9 +35,8 @@ local function Run(ChatService)
 						string.format("Your friend %s has joined the game.", joinedFriend.Name)
 					),
 					"{RBX_NAME}",
-					joinedFriend.Name
-				),
-				"System",
+					joinedFriend.Name)
+				"System", 
 				FriendMessageExtraData
 			)
 		end

@@ -4,11 +4,11 @@
 		// Description: Server core script that handles core script server side logic.
 ]]--
 
-local runService = game:GetService('RunService')
-
 -- Prevent server script from running in Studio when not in run mode
-while not runService:IsRunning() do
-	wait()
+local runService = nil
+while runService == nil or not runService:IsRunning() do
+	wait(0.1)
+	runService = game:GetService('RunService')
 end
 
 --[[ Services ]]--
@@ -23,10 +23,6 @@ local RemoteEvent_SetDialogInUse = Instance.new("RemoteEvent")
 RemoteEvent_SetDialogInUse.Name = "SetDialogInUse"
 RemoteEvent_SetDialogInUse.Parent = RobloxReplicatedStorage
 
-local RemoteFunction_GetServerVersion = Instance.new("RemoteFunction")
-RemoteFunction_GetServerVersion.Name = "GetServerVersion"
-RemoteFunction_GetServerVersion.Parent = RobloxReplicatedStorage
-
 --[[ Event Connections ]]--
 local playerDialogMap = {}
 
@@ -38,9 +34,6 @@ local dialogMultiplePlayersFlag = (dialogMultiplePlayersFlagSuccess and dialogMu
 
 local freeCameraFlagSuccess, freeCameraFlagValue = pcall(function() return settings():GetFFlag("FreeCameraForAdmins") end)
 local freeCameraFlag = (freeCameraFlagSuccess and freeCameraFlagValue)
-
-local displayServerVersionSuccess, displayServerVersionValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
-local displayServerVersionFlag = (displayServerVersionSuccess and displayServerVersionValue)
 
 local function setDialogInUse(player, dialog, value, waitTime)
 	if typeof(dialog) ~= "Instance" or not dialog:IsA("Dialog") then
@@ -76,23 +69,6 @@ local function setDialogInUse(player, dialog, value, waitTime)
 	end
 end
 RemoteEvent_SetDialogInUse.OnServerEvent:connect(setDialogInUse)
-
-local function getServerVersion()
-	local rawVersion = runService:GetRobloxVersion()
-	local displayVersion
-	if rawVersion == "?" then
-		displayVersion = "DEBUG_SERVER"
-	else
-		if runService:IsStudio() then
-			displayVersion = "ROBLOX Studio"
-		else
-			displayVersion = rawVersion
-		end
-	end
-	return displayVersion
-end
-
-RemoteFunction_GetServerVersion.OnServerInvoke = displayServerVersionFlag and getServerVersion or function() return "" end
 
 game:GetService("Players").PlayerRemoving:connect(function(player)
 	if dialogInUseFixFlag then

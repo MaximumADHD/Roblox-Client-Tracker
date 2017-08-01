@@ -38,8 +38,9 @@ scriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript",
 spawn(function() safeRequire(RobloxGui.Modules.ChatSelector) end)
 spawn(function() safeRequire(RobloxGui.Modules.PlayerlistModule) end)
 
--- Purchase Prompt Script
+-- Purchase Prompt Script (run both versions, they will check the relevant flag)
 scriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript2", RobloxGui)
+scriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript3", RobloxGui)
 
 -- Prompt Block Player Script
 scriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
@@ -51,7 +52,6 @@ spawn(function() safeRequire(RobloxGui.Modules.BackpackScript) end)
 scriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 
 scriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
-scriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenuOld", RobloxGui)
 
 if touchEnabled then -- touch devices don't use same control frame
 	-- only used for touch device button generation
@@ -62,37 +62,44 @@ if touchEnabled then -- touch devices don't use same control frame
 	RobloxGui.ControlFrame.BottomLeftControl.Visible = false
 end
 
-spawn(function()
-	local VRService = game:GetService('VRService')
-	local function onVREnabledChanged()
-		if VRService.VREnabled then
-			safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
-			safeRequire(RobloxGui.Modules.VR.UserGui)
+do
+	local UserInputService = game:GetService('UserInputService')
+	local function tryRequireVRKeyboard()
+		if UserInputService.VREnabled then
+			return safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
 		end
+		return nil
 	end
-	onVREnabledChanged()
-	VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
-end)
+	if not tryRequireVRKeyboard() then
+		UserInputService.Changed:connect(function(prop)
+			if prop == "VREnabled" then
+				tryRequireVRKeyboard()
+			end
+		end)
+	end
+end
 
 -- Boot up the VR App Shell
 if UserSettings().GameSettings:InStudioMode() then
-	local VRService = game:GetService('VRService')
-	local function onVREnabledChanged()
-		if VRService.VREnabled then
-			local shellInVRSuccess, shellInVRFlagValue = pcall(function() return settings():GetFFlag("EnabledAppShell3D") end)
-			local shellInVR = (shellInVRSuccess and shellInVRFlagValue == true)
-			local modulesFolder = RobloxGui.Modules
-			local appHomeModule = modulesFolder:FindFirstChild('Shell') and modulesFolder:FindFirstChild('Shell'):FindFirstChild('AppHome')
-			if shellInVR and appHomeModule then
-				safeRequire(appHomeModule)
+	local UserInputService = game:GetService('UserInputService')
+	local function onVREnabled(prop)
+		if prop == "VREnabled" then
+			if UserInputService.VREnabled then
+				local shellInVRSuccess, shellInVRFlagValue = pcall(function() return settings():GetFFlag("EnabledAppShell3D") end)
+				local shellInVR = (shellInVRSuccess and shellInVRFlagValue == true)
+				local modulesFolder = RobloxGui.Modules
+				local appHomeModule = modulesFolder:FindFirstChild('Shell') and modulesFolder:FindFirstChild('Shell'):FindFirstChild('AppHome')
+				if shellInVR and appHomeModule then
+					safeRequire(appHomeModule)
+				end
 			end
 		end
 	end
 
 	spawn(function()
-		if VRService.VREnabled then
-			onVREnabledChanged()
+		if UserInputService.VREnabled then
+			onVREnabled("VREnabled")
 		end
-		VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
+		UserInputService.Changed:connect(onVREnabled)
 	end)
 end

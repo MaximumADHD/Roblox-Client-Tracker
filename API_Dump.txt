@@ -10,7 +10,7 @@ Class Instance [notbrowsable]
 	Function void Instance:ClearAllChildren()
 	Function Instance Instance:Clone()
 	Function void Instance:Destroy()
-	Function Instance Instance:FindFirstAncestor(string name)
+	Function Instance Instance:FindFirstAncestor(string className)
 	Function Instance Instance:FindFirstAncestorOfClass(string className)
 	Function Instance Instance:FindFirstAncestorWhichIsA(string className)
 	Function Instance Instance:FindFirstChild(string name, bool recursive = false)
@@ -142,7 +142,7 @@ Class PlayerGui : BasePlayerGui [notCreatable]
 	Function void PlayerGui:SetTopbarTransparency(float transparency)
 	Event PlayerGui.TopbarTransparencyChangedSignal(float transparency)
 Class StarterGui : BasePlayerGui
-	Property bool StarterGui.ResetPlayerGuiOnSpawn [deprecated]
+	Property bool StarterGui.ResetPlayerGuiOnSpawn
 	Property ScreenOrientation StarterGui.ScreenOrientation
 	Property bool StarterGui.ShowDevelopmentGui
 	Function bool StarterGui:GetCoreGuiEnabled(CoreGuiType coreGuiType)
@@ -307,7 +307,6 @@ Class Chat : Instance [notCreatable]
 	YieldFunction string Chat:FilterStringForPlayerAsync(string stringToFilter, Instance playerToFilterFor) [deprecated]
 	Event Chat.Chatted(Instance part, string message, ChatColor color)
 Class ClickDetector : Instance
-	Property Content ClickDetector.CursorIcon
 	Property float ClickDetector.MaxActivationDistance
 	Event ClickDetector.MouseClick(Instance playerWhoClicked)
 	Event ClickDetector.MouseHoverEnter(Instance playerWhoHovered)
@@ -650,7 +649,6 @@ Class GameSettings : Instance [notbrowsable]
 	Property float GameSettings.CollisionSoundVolume [deprecated]
 	Property bool GameSettings.HardwareMouse
 	Property int GameSettings.MaxCollisionSounds [deprecated]
-	Property string GameSettings.OverrideStarterScript
 	Property int GameSettings.ReportAbuseChatHistory
 	Property bool GameSettings.SoftwareSound
 	Property bool GameSettings.SoundEnabled
@@ -1011,7 +1009,6 @@ Class GuiService : Instance [notCreatable]
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) [RobloxScriptSecurity]
 	Function string GuiService:GetErrorMessage() [deprecated] [RobloxScriptSecurity]
 	Function Tuple GuiService:GetGuiInset()
-	Function Dictionary GuiService:GetNativeViewFeatureList() [RobloxScriptSecurity]
 	Function int GuiService:GetResolutionScale() [LocalUserSecurity]
 	Function string GuiService:GetUiMessage() [RobloxScriptSecurity]
 	Function bool GuiService:IsMemoryTrackerEnabled() [RobloxScriptSecurity]
@@ -1022,7 +1019,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:RemoveKey(string key) [RobloxScriptSecurity]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(SpecialKey key) [RobloxScriptSecurity]
-	Function void GuiService:RequestNativeView(string url, int featureType) [RobloxScriptSecurity]
+	Function void GuiService:RequestNativeView(string url) [RobloxScriptSecurity]
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
 	Function void GuiService:SetMenuIsOpen(bool open) [RobloxScriptSecurity]
 	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage) [LocalUserSecurity]
@@ -1287,10 +1284,8 @@ Class LocalizationTable : Instance
 	Function string LocalizationTable:GetString(string languageKey, string expressionKey)
 Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
-	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]
 	Function Array LogService:GetLogHistory()
 	Function void LogService:RequestServerOutput() [RobloxScriptSecurity]
-	Event LogService.HttpResultOut(Dictionary httpResult) [RobloxScriptSecurity]
 	Event LogService.MessageOut(string message, MessageType messageType)
 	Event LogService.ServerMessageOut(string message, MessageType messageType, int timestamp) [RobloxScriptSecurity]
 Class LoginService : Instance
@@ -1392,7 +1387,7 @@ Class NetworkPeer : Instance [notbrowsable]
 Class NetworkClient : NetworkPeer [notCreatable]
 	Property string NetworkClient.Ticket
 	Function void NetworkClient:Disconnect(int blockDuration = 3000) [LocalUserSecurity]
-	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1, string userName = ) [PluginSecurity]
+	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1) [PluginSecurity]
 	Function void NetworkClient:SetGameSessionID(string gameSessionID) [RobloxSecurity]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
@@ -1466,6 +1461,8 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property string NetworkSettings.ReportStatURL [deprecated] [hidden]
 	Property int NetworkSettings.SendPacketBufferLimit
 	Property bool NetworkSettings.ShowActiveAnimationAsset
+	Property bool NetworkSettings.ShowPartMovementWayPoint
+	Property int NetworkSettings.TotalNumMovementWayPoint
 	Property float NetworkSettings.TouchSendRate
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
@@ -1885,18 +1882,6 @@ Class Player : Instance
 	Event Player.OnTeleport(TeleportState teleportState, int placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) [LocalUserSecurity]
 Class PlayerScripts : Instance [notCreatable]
-	Function Array PlayerScripts:GetRegisteredComputerCameraMovementModes() [RobloxScriptSecurity]
-	Function Array PlayerScripts:GetRegisteredComputerMovementModes() [RobloxScriptSecurity]
-	Function Array PlayerScripts:GetRegisteredTouchCameraMovementModes() [RobloxScriptSecurity]
-	Function Array PlayerScripts:GetRegisteredTouchMovementModes() [RobloxScriptSecurity]
-	Function void PlayerScripts:RegisterComputerCameraMovementMode(ComputerCameraMovementMode cameraMovementMode)
-	Function void PlayerScripts:RegisterComputerMovementMode(ComputerMovementMode movementMode)
-	Function void PlayerScripts:RegisterTouchCameraMovementMode(TouchCameraMovementMode cameraMovementMode)
-	Function void PlayerScripts:RegisterTouchMovementMode(TouchMovementMode movementMode)
-	Event PlayerScripts.ComputerCameraMovementModeRegistered(ComputerCameraMovementMode movementMode) [RobloxScriptSecurity]
-	Event PlayerScripts.ComputerMovementModeRegistered(ComputerMovementMode movementMode) [RobloxScriptSecurity]
-	Event PlayerScripts.TouchCameraMovementModeRegistered(TouchCameraMovementMode movementMode) [RobloxScriptSecurity]
-	Event PlayerScripts.TouchMovementModeRegistered(TouchMovementMode movementMode) [RobloxScriptSecurity]
 Class Players : Instance
 	Property bool Players.BubbleChat [readonly]
 	Property bool Players.CharacterAutoLoads
@@ -1954,12 +1939,11 @@ Class Plugin : Instance
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
 	Function Instance Plugin:GetMouse() [PluginSecurity]
-	Function RibbonTool Plugin:GetSelectedRibbonTool() [PluginSecurity]
 	Function Variant Plugin:GetSetting(string key) [PluginSecurity]
 	Function int Plugin:GetStudioUserId() [PluginSecurity]
 	Function void Plugin:ImportFbxAnimation(Instance rigModel) [PluginSecurity]
 	Function Objects Plugin:Negate(Objects objects) [PluginSecurity]
-	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) [PluginSecurity]
+	Function void Plugin:OpenScript(Instance script, int lineNumber = 0) [PluginSecurity]
 	Function void Plugin:OpenWikiPage(string url) [PluginSecurity]
 	Function void Plugin:SaveSelectedToRoblox() [PluginSecurity]
 	Function void Plugin:SelectRibbonTool(RibbonTool tool, UDim2 position) [PluginSecurity]
@@ -2086,7 +2070,6 @@ Class ReplicatedStorage : Instance [notCreatable]
 Class RobloxReplicatedStorage : Instance [notbrowsable] [notCreatable]
 Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
-	Function string RunService:GetRobloxVersion() [RobloxScriptSecurity]
 	Function bool RunService:IsClient()
 	Function bool RunService:IsRunMode()
 	Function bool RunService:IsRunning()
@@ -2547,10 +2530,8 @@ Class UserGameSettings : Instance
 	Property ComputerMovementMode UserGameSettings.ComputerMovementMode
 	Property ControlMode UserGameSettings.ControlMode
 	Property bool UserGameSettings.Fullscreen [RobloxScriptSecurity]
-	Property float UserGameSettings.GamepadCameraSensitivity
 	Property UploadSetting UserGameSettings.ImageUploadPromptBehavior [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
-	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson [hidden] [RobloxScriptSecurity]
@@ -2570,7 +2551,6 @@ Class UserGameSettings : Instance
 	Function bool UserGameSettings:InFullScreen()
 	Function bool UserGameSettings:InStudioMode()
 	Function void UserGameSettings:SetCameraYInvertVisible()
-	Function void UserGameSettings:SetGamepadCameraSensitivityVisible()
 	Function void UserGameSettings:SetTutorialState(string tutorialId, bool value) [RobloxScriptSecurity]
 	Event UserGameSettings.FullscreenChanged(bool isFullscreen)
 	Event UserGameSettings.PerformanceStatsVisibleChanged(bool isPerformanceStatsVisible) [RobloxScriptSecurity]
@@ -3729,7 +3709,6 @@ Enum RibbonTool
 	EnumItem RibbonTool.MaterialPicker : 6
 	EnumItem RibbonTool.Group : 7
 	EnumItem RibbonTool.Ungroup : 8
-	EnumItem RibbonTool.None : 9
 Enum RollOffMode
 	EnumItem RollOffMode.Inverse : 0
 	EnumItem RollOffMode.Linear : 1

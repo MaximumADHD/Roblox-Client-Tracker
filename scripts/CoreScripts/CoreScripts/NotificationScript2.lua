@@ -18,7 +18,6 @@ local Players = game:GetService('Players')
 local PointsService = game:GetService('PointsService')
 local MarketplaceService = game:GetService('MarketplaceService')
 local TeleportService = game:GetService('TeleportService')
-local TextService = game:GetService("TextService")
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -38,9 +37,6 @@ local function LocalizedGetString(key, rtv)
 	end)
 	return rtv
 end
-
-local FixBadgeTextBeingCutOffSuccess, FixBadgeTextBeingCutOffValue = pcall(function() return settings():GetFFlag("CoreScriptFixBadgeTextBeingCutOff") end)
-local FixBadgeTextBeingCutOff = FixBadgeTextBeingCutOffSuccess and FixBadgeTextBeingCutOffValue
 
 --[[ Fast Flags ]]--
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
@@ -89,7 +85,6 @@ local NOTIFICATION_TITLE_Y_OFFSET = isTenFootInterface and 40 or 12
 local NOTIFICATION_TEXT_Y_OFFSET = isTenFootInterface and -16 or 1
 local NOTIFICATION_FRAME_WIDTH = isTenFootInterface and 450 or 200
 local NOTIFICATION_TEXT_HEIGHT = isTenFootInterface and 85 or 28
-local NOTIFICATION_TEXT_HEIGHT_MAX = isTenFootInterface and 170 or 56
 local NOTIFICATION_TITLE_FONT_SIZE = isTenFootInterface and Enum.FontSize.Size42 or Enum.FontSize.Size18
 local NOTIFICATION_TEXT_FONT_SIZE = isTenFootInterface and Enum.FontSize.Size36 or Enum.FontSize.Size14
 
@@ -244,18 +239,6 @@ local function createNotification(title, text, image)
 	local notificationText = NotificationText:Clone()
 	notificationText.Text = text
 	notificationText.Parent = notificationFrame
-	if FixBadgeTextBeingCutOff and (image == nil or image == "") then
-		notificationFrame.Parent = NotificationFrame
-		if not notificationText.TextFits then
-			local textSize = TextService:GetTextSize(notificationText.Text, notificationText.TextSize, notificationText.Font, Vector2.new(notificationText.AbsoluteSize.X, 1000))
-			local addHeight = math.min(textSize.Y - notificationText.Size.Y.Offset, NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset)
-			notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight/2)
-			notificationText.Position = notificationText.Position - UDim2.new(0, 0, 0, addHeight/2)
-			notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
-			notificationText.Size = notificationText.Size + UDim2.new(0, 0, 0, addHeight)
-		end
-		notificationFrame.Parent = nil
-	end
 
 	if image and image ~= "" then
 		local notificationImage = NotificationImage:Clone()
@@ -265,49 +248,9 @@ local function createNotification(title, text, image)
 		notificationTitle.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, -NOTIFICATION_TITLE_Y_OFFSET)
 		notificationTitle.TextXAlignment = Enum.TextXAlignment.Left
 
-		if FixBadgeTextBeingCutOff then
-			notificationFrame.Parent = NotificationFrame
-			notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
-			notificationText.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
-			notificationText.TextXAlignment = Enum.TextXAlignment.Left
-			if not notificationText.TextFits then
-				local extraText = nil
-				local text = notificationText.Text
-				for i = string.len(text) - 1, 2, -1 do
-					if string.sub(text, i, i) == " " then
-						notificationText.Text = string.sub(text, 1, i - 1)
-						if notificationText.TextFits then
-							extraText = string.sub(text, i + 1)
-							break
-						end
-					end
-				end
-				if extraText then
-					local notificationText2 = NotificationText:Clone()
-					notificationText2.TextXAlignment = Enum.TextXAlignment.Left
-					notificationText2.Text = extraText
-					notificationText2.Name = "ExtraText"
-					notificationText2.Parent = notificationFrame
-
-					local textSize = TextService:GetTextSize(extraText, notificationText2.TextSize, notificationText2.Font, Vector2.new(notificationText2.AbsoluteSize.X, 1000))
-					local addHeight = math.min(textSize.Y, NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset)
-					notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight/2)
-					notificationText.Position = notificationText.Position - UDim2.new(0, 0, 0, addHeight/2)
-					notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
-
-					notificationText2.Size = UDim2.new(notificationText2.Size.X.Scale, notificationText2.Size.X.Offset, 0, addHeight)
-					notificationText2.AnchorPoint = Vector2.new(0.5, 0)
-					notificationText2.Position = UDim2.new(0.5, 0, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset + notificationText.AbsoluteSize.Y)
-				else
-					notificationText.Text = text
-				end
-			end
-			notificationFrame.Parent = nil
-		else
-			notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
-			notificationText.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
-			notificationText.TextXAlignment = Enum.TextXAlignment.Left
-		end
+		notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
+		notificationText.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
+		notificationText.TextXAlignment = Enum.TextXAlignment.Left
 	end
 
 	GuiService:AddSelectionParent(HttpService:GenerateGUID(false), notificationFrame)
@@ -333,9 +276,6 @@ local function updateNotifications()
 			local frame = currentNotification.Frame
 			if frame and frame.Parent then
 				local thisOffset = currentNotification.IsFriend and (NOTIFICATION_Y_OFFSET + 2) * 1.5 or NOTIFICATION_Y_OFFSET
-				if FixBadgeTextBeingCutOff then
-					thisOffset = currentNotification.IsFriend and frame.Size.Y.Offset + ((NOTIFICATION_Y_OFFSET + 2) * 0.5) or frame.Size.Y.Offset
-				end
 				yOffset = yOffset + thisOffset
 				frame:TweenPosition(UDim2.new(0, 0, 1, -yOffset - (pos * 4)), EASE_DIR, EASE_STYLE, TWEEN_TIME, true,
 					function()
@@ -536,7 +476,7 @@ spawn(function()
 		--If on console, New follower notification should be blocked
 		return
 	end
-
+	
 	local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 	local RemoteEvent_NewFollower = RobloxReplicatedStorage:WaitForChild('NewFollower', 86400) or RobloxReplicatedStorage:WaitForChild('NewFollower')
 	--
@@ -653,7 +593,7 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 				if FFlagUseNotificationsLocalization then
 					detailText = string.gsub(LocalizedGetString("NotificationScript2.FriendRequestEvent.Accept",detailText), "{RBX_NAME}", toPlayer.Name)
 				end
-
+				
 				sendNotificationInfo {
 					GroupName = "Friends",
 					Title = "New Friend",
@@ -779,7 +719,7 @@ function onGameSettingsChanged(property, amount)
 		if level > 0 and level ~= CurrentGraphicsQualityLevel and GameSettings.SavedQualityLevel ~= Enum.SavedQualitySetting.Automatic then
 			local action = (level > CurrentGraphicsQualityLevel) and "Increased" or "Decreased"
 			local message = ("%s to (%d)"):format(action, level)
-
+			
 			if FFlagUseNotificationsLocalization then
 				if level > CurrentGraphicsQualityLevel then
 					message = string.gsub(LocalizedGetString("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased",message),"{RBX_NUMBER}",tostring(level))
@@ -787,7 +727,7 @@ function onGameSettingsChanged(property, amount)
 					message = string.gsub(LocalizedGetString("NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased",message),"{RBX_NUMBER}",tostring(level))
 				end
 			end
-
+			
 			if newNotificationPath then
 				sendNotificationInfo {
 					GroupName = "Graphics",

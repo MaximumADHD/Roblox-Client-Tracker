@@ -63,9 +63,9 @@ local totalWidth = totalHeight * aspectRatio
 local leftPanelWidth = totalWidth * 0.4
 local rightPanelWidth = totalWidth * 0.6
 
-local panelOffset = -totalWidth / 2
-local leftOffset = (panelOffset + (leftPanelWidth * 0.5))
-local rightOffset = (leftOffset + (leftPanelWidth * 0.5) + (rightPanelWidth * 0.5))
+local panelOffset = totalWidth / 2
+local leftOffset = panelOffset - (leftPanelWidth * 0.5)
+local rightOffset = leftOffset - (leftPanelWidth * 0.5) - (rightPanelWidth * 0.5)
 
 local NotificationHubModule = {}
 NotificationHubModule.ModuleName = "Notifications"
@@ -224,8 +224,7 @@ do
 	end
 
 	function WindowFrame:OnUpdate(dt)
-		self.panel.localCF = self.zeroCF * CFrame.new(0, 0, self.zOffset)
-		self.panel.needsLocalPositionUpdate = self.isAnimating or self.isPopping
+		self.panel.localCF = self.zeroCF * CFrame.new(0, 0, -self.zOffset)
 
 		if self.isPopping then
 			local alpha = math.max(0, math.min(1, self.zOffset / POPOUT_DISTANCE))
@@ -236,7 +235,7 @@ end
 
 --Notifications panel setup
 do
-	notificationsPanel:SetType(Panel3D.Type.Standard)
+	notificationsPanel:SetType(Panel3D.Type.Fixed)
 	notificationsPanel:SetVisible(false)
 	notificationsPanel:SetCanFade(false)
 	notificationsPanel:ResizeStuds(leftPanelWidth, totalHeight, PIXELS_PER_STUD)
@@ -264,7 +263,7 @@ end
 
 --Details panel setup
 do
-	detailsPanel:SetType(Panel3D.Type.Standard)
+	detailsPanel:SetType(Panel3D.Type.Fixed)
 	detailsPanel:SetVisible(false)
 	detailsPanel:SetCanFade(false)
 	detailsPanel:ResizeStuds(rightPanelWidth, totalHeight, PIXELS_PER_STUD)
@@ -737,13 +736,15 @@ do
 			unreadCount = 0
 			NotificationHubModule.UnreadCountChanged(unreadCount)
 
-			notificationsPanel.localCF = CFrame.new(leftOffset, 0, 0)
+			local hubSpace = topbarPanel.localCF * PANEL_OFFSET_CFRAME
+
+			notificationsPanel.localCF = hubSpace * CFrame.new(leftOffset, 0, 0)
 			notificationsWindow.zeroCF = notificationsPanel.localCF
 			if not NO_TRANSITION_ANIMATIONS then
 				notificationsWindow:AnimateIn(nil)
 			end
 
-			detailsPanel.localCF = CFrame.new(rightOffset, 0, 0)
+			detailsPanel.localCF = hubSpace * CFrame.new(rightOffset, 0, 0)
 			detailsWindow.zeroCF = detailsPanel.localCF
 			if not NO_TRANSITION_ANIMATIONS then
 				detailsWindow:AnimateIn(nil)
@@ -752,7 +753,7 @@ do
 			notificationsPanel:SetVisible(true)
 			detailsPanel:SetVisible(true)
 
-			ContextActionService:BindCoreAction(menuCloseShortcutBindName, onMenuCloseShortcut, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+			ContextActionService:BindCoreAction(menuCloseShortcutBindName, onMenuCloseShortcut, false, Enum.KeyCode.ButtonB)
 
 			VRHub:FireModuleOpened(NotificationHubModule.ModuleName)
 		else

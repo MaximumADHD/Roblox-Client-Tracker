@@ -1074,6 +1074,7 @@ local function CreateCamera()
 	local currentSpeed = 0
 	local maxSpeed = 6
 	local vrMaxSpeed = 4
+	local thumbstickSensitivity = 1.0
 	local lastThumbstickPos = Vector2.new(0,0)
 	local ySensitivity = 0.65
 	local lastVelocity = nil
@@ -1149,8 +1150,7 @@ local function CreateCamera()
 					end
 				end
 
-				local success, gamepadCameraSensitivity = pcall(function() return GameSettings.GamepadCameraSensitivity end)
-				finalConstant = success and (gamepadCameraSensitivity * currentSpeed) or currentSpeed
+				finalConstant = thumbstickSensitivity * currentSpeed
 				lastVelocity = (gamepadPan - lastThumbstickPos)/(currentTime - lastThumbstickRotate)
 			end
 
@@ -1539,21 +1539,21 @@ local function CreateCamera()
 		isDynamicThumbstickEnabled = false
 	end
 	
+	local function OnDevTouchMovementModeChanged()
+		if PlayersService.LocalPlayer.DevTouchMovementMode.Name == "DynamicThumbstick" then
+			OnDynamicThumbstickEnabled()
+		else
+			OnDynamicThumbstickDisabled()
+		end
+	end	
+	
 	local function OnGameSettingsTouchMovementModeChanged()
-		if LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
+		if PlayersService.LocalPlayer and PlayersService.LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
 			if GameSettings.TouchMovementMode.Name == "DynamicThumbstick" then
 				OnDynamicThumbstickEnabled()
 			else
 				OnDynamicThumbstickDisabled()
 			end
-		end
-	end
-	
-	local function OnDevTouchMovementModeChanged()
-		if LocalPlayer.DevTouchMovementMode.Name == "DynamicThumbstick" then
-			OnDynamicThumbstickEnabled()
-		else
-			OnGameSettingsTouchMovementModeChanged()
 		end
 	end
 	
@@ -1573,7 +1573,6 @@ local function CreateCamera()
 	end)
 	OnGameSettingsTouchMovementModeChanged()
 	GameSettings:SetCameraYInvertVisible()
-	pcall(function() GameSettings:SetGamepadCameraSensitivityVisible() end)
 	
 	return this
 end
