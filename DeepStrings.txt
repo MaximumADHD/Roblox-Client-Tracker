@@ -12,6 +12,7 @@
 - Attempt to initialize the CRT more than once.
 - Attempt to use MSIL code from this assembly during native code initialization
 -- Begin Recording
+' cBU
 ----- Contacts ----
 - CRT not initialized
 ----- Custom Stats -----
@@ -51,19 +52,22 @@
 ----- Streaming ----
 ----- Throttles ----
 ----- Timing -----
+- Ttq
 - unable to initialize heap
 - unable to open console device
 - unexpected heap error
 - unexpected multithread lock error
 ----- World ----
+' Y&To
 '!$J$N$R$V$Z$^$b$f$j$n0
 -!lbak
+'!NVB7
 '!tYJ
 '#474747', '#313131' 
 '#ffffff', '#333333'
 '$!.#
-'${;V!
-% }#N
+'$*cH
+% 0k'
 % Active CC's : 
 % Feature Hit : 
 % gsx
@@ -74,22 +78,26 @@
 %!PS-TrueTypeFont
 %!x$Qy
 %#*_;
+%#H/eU
+%$<h{
+%$0q/
 %%%02X
 %%.%dg
-%%:oa
 %%h?kp:n
+%%j}h
 %%oJ..r
+%&#!x
 %&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+%(khU
 %(Sm-?
 %).h.c
+%)GX#95
 %)RXjn
 %)Y8X
 %*3!s
 %*d<G
-'%,,vc
-%,e!*
 %.!mU
-%.)&U
+%.$@f0
 %._PR
 %.0f ms
 %.0f, %.2fms
@@ -134,57 +142,60 @@
 %.4f msec
 %.5f %04x: 
 %.fsgr|N
-%/456
 %/'te
 %/U,ij
 %;8Nu
 %;Fg%
+%;t/M
+%?_hU
 %@/#M
 %-@p_
+%^S,n
+%^WnNU
 %^xkB
-%_lzm%
+%_TG@
 %{ lbm
 %{mw2
-%|=m m9
+%{oF,
+%{uIw
 %|pc#
-%|q>C
-%+eBt
+%|x}K^
 %=pSt
-%>ErpS
+%>.f@
+%>=)5
 %000S0
+%010<0B0L0P0m0w0|0
 %02d:%02d
 %02d:%02d:%02d
-%040>0P0
 %04x%04x
 %04x: %s
 ------------------------%08x%08x
+%0B0S0
+%0J0f0
 %0JLY
-%0M0a0q0
 %0P&P
+%0U0x0V1c2
 %1023
-%1alID
 %1dYW
 %2%6%:%>%B%F%J%N%R%V0
-%2%CA
+%2?BTi
+%20CG
 %2I64d.%0I64dG
 %2I64d.%0I64dM
 %2I64d:%02I64d:%02I64d
 %3.2f%s
-%32+U
 %3I64d %s  %3I64d %s  %3I64d %s  %s  %s %s %s %s %s
 %3I64dd %02I64dh
 %4.2fmb
 %4.3f
 %4.4f
 %4.4f, %4.4f, %4.4f, %4.4f
-%4ehU
 %4I64dG
 %4I64dk
 %4I64dM
 %4I64dP
 %4I64dT
 %4kZpq
-%5&e)I
 %5.2f
 %5.2f %3.1fx
 %5.2fms
@@ -196,6 +207,7 @@
 %6.3f
 %6.3fms
 %7I64dd
+%7OrI
 %8!|T
 %8d:%s
 %8d:%s(%s)
@@ -204,15 +216,17 @@
 %9Locs
 %ADOBeginFontDict
 %ajJ_
+%aT7MU
+%aU0g
 %b %d %H : %M : %S %Y
 -%B4zW
+%Bae#
+%bOJU
 %c %s
 %c%c%c%c
 %c%c%c=
 %c%c==
 %C:|u
-%Cfne
-%chL4m
 %CRez6o
 %csN8
 %d  %d  %d  %d
@@ -234,17 +248,21 @@
 %d parts, %d entities
 %d vertices (%d KB)
 %d x %d-bit %s processor
+%d$FU
 %d-%02d-%02d
 %d&&'
 %d.%d.%d.%d
 %d.%s
 %DlU?
 %dM hq %d (%dM) lq %d (%dM) cache %d (%dM)
+%dM06
 %dx%d
+%E$P;
 %ejcb
+%eMIr
 %EQJv
 %e'vj
-%Fet5
+%F.lG
 %fIj&
 %g (%.0f%%CV)
 %g, %g, %g
@@ -252,17 +270,21 @@
 %g, %g, %g; %g, %g, %g; %g, %g, %g
 %g_j-H
 %G4O{<
+%G8oG
+%GtX:e
 %H : %M
 %H : %M : %S
 %Hg<b
+%-HOe
 %hu.%hu.%hu.%hu
 %I : %M : %S %p
 %I64d
 %I64u-
 %iO'5{
 %J'$yh
-%J=m4
+%J0}I
 %JE/PDe
+%jUrl
 %kc&8?
 %kD#x
 %L<Qo
@@ -270,20 +292,23 @@
 %lld:{'tid':%lld,'pid':%lld,'t':'%s','p':'%s'},
 %lldi
 %llui
-%Lw|,
 %m / %d / %y
 %m.k2
+%mk d!<U
 %mSqK
 %o_V4
+%ol{H
 '%oP/
 %PQCS
 %prefix%
 '%prefix%
 %pU(-
-%Q/1:
 %q^!F
 %q3m{
+%qXrpy
 %r%v%z%
+%R&Ho
+%R?nP$M
 --%s--
 %s - %s
 %s %d
@@ -445,6 +470,7 @@
 %sgroups/%i/enemies
 %sincrement?placeId=%i&key=%s&type=%s&scope=%s&target=%s&value=%i
 %sincrement?placeId=%i&key=%s&type=%s&scope=%s&target=&value=%i
+%SkS$
 %sset?placeId=%i&key=%s&&type=%s&scope=%s&target=%s&valueLength=%u
 %sset?placeId=%i&key=%s&&type=%s&scope=%s&target=&valueLength=%u
 %sset?placeId=%i&key=%s&type=%s&scope=%s&target=%s&valueLength=%u&expectedValueLength=%u
@@ -453,49 +479,42 @@
 %susers/%i/friends
 %susers/%i/groups
 %sv1/packages/%i/assets
+%T&>:
+%TJ}0
 %u x %u
 %u, %u, %u
 %Ucj+
-%UqFA
 %v67i
-%veeU
-%vm9U
 %vP8*yY
+%w&nAT
+%w(#d
 %w9!^M
 %wP2Q
-%XPdU
+%x3>b
 %Y-%m-%dT%H:%M:%S
-%Y+OF
 %zd bytes of chunk left
 -&LMb#{'
 -(&%D
-'(,vDU
--(Id{04%
 '(lY3
 '(zyK
--)JA6
--)pZU
 * %04x
 * %04x: %s
-* _.M
-*!;_MU
+* X5d
 *!2qi
 *!J:t
-*!u=I
 *!xX{
 *#?a|
 *$*FCX
 *$:tr
-*$Vg}
 *&'%+
 *) jp
-*)%6(Xc^HhU
 *)O}s
-*)z*L
 ** Resuming transfer from byte position %I64d
+**#63U
 *** %s ***
 *** Value not found ***
 ***ERROR*** %s %s
+**<E#
 **m_materials
 **UploadUntranslated PlaceID(%d) String(%s) Full(%s)
 **V*6t
@@ -503,70 +522,74 @@
 *.dmp
 */!:y
 */-#*
-*:;:J:
-*:|T)
+*/gXllU
 *:JZjz
 *;}:$
 *?+Hq
 *@&.N
 *@h8L
-*{#t.
+'*^bf
 *{6Og
 *'{6q;
+*{M2c_0 
+*|(p#
+*||%Sp
 *}:!8
-*+8,z
+*}|Jo
 *+Op3
 *+w L
 *+xi(
+*< ja
 *-<DF
-*=<JU
 *=H5:w
 *>=8>
-*0=0J0|0
-*020?0M0W0
-*0B0J0
-*0l0w0
+*0?0J0
+*0|mM
+*020B0V1%2V2
+*0A0Q0a0t0
+*0D0Q0c0
+*0X0i0w0
+*1@hyw
 *10XA7b-
-*121@1l1
+*2_*C
 *2_Bz
 *2H'd
-*2X2>
-*5niw
-*6)bA
 *62e=
 *6nQ,
 *9Rs<
 *9z)-k
-*A5@Q!X
 *-AI-e
 *bmPv
-*bn>#
-*bnM!
 *cF-V!
+*cu9n
 *'d#o>
+*DEHXN
+*Dl'G
+*dMev
 *dN/h
-*E^nv
 *e}2av
+*e>j@PL
+*e6iU
+*'EWU
+*F^97
 *first
 *fl>Q
+*fX$?
 *gJb,
-*gvmU
+*h4b)
 *hLiH
 *I*T*e*l*u
 *i^U'
-*IQ%?
-*JQ:U
-*k>tU
+*io3V51
 *ki*+
 *kIoY
 *kir<k
-*KN_L
-*l:k5
+*kxp>
 *l;J0
 *L;W#
 *last
 *LL*(
-*luYb
+*lwR|
 *m_3indices16
 *m_3indices8
 *m_anchors
@@ -614,80 +637,80 @@
 *m_vertices3f
 *m_weights
 *ng>D24
+*np|5
+*NY{G
+*OC/?
 *p)fX{{
 *P@lT9
-*pEV_
 *PjTW
 *pX,#
 *q/9|
-*qgEB!@f
+*qcg=U
 *r}(y)v)
 *RI!J
-*RpBU
 *RZi@
-*s)Do
 *s/ks
-*SUEI
+*'sgej
 *SwU-H0
-*t^51
 *t5BD
 *T7G^
 *TE!$
+*ThbU
 *tN;0
+*U/?U
 *U+xPU
+*Ul:/E2$Sg
 *Unknown*
 *vEHsk
 *VgMX5
 *vkg@
 *WDI)L'
-*x7ty
-*xEc<;
 *YNtT
+*z,*H
 *z;(0
 ', script, 
-',q2W
 -.(|z
+'.?)TD
 -.-2-6-:->-B-F-J-N-R0
-'.Y(BN
+'.O5$&
+'/?B>t
 -/DZ^
+''/oY
 ':-.a
 --:--:--
 ':7+@
-':IwR=
 '; SV
 -;{0t7
 ';s1D
--;tM*
 -;u u
 '?/y8
+-?3}<I,
 -?fFs
 -?k? 
--@!|j
+-?ME$
 '@=;H
--@A9,
-'@K8M
 -^,qk
 _!_BM
 _'!gO
-_$Gt0d
+_%.z:
 _%;)p
-_%Lo+
 _%mxF
 _%rXwI
-_&)G?
+_-%t:
 _(ALb
 _(XD9
-_) y/
-_)F o/_
+_)fs.
+_)v$b
 _*5tl
+_*qsz5aF
 _,G-r}dh
 _.<5i
 _/2<;S
 _/aH?
+_:OLU
 _;CK4
 _?y(aU
-_@h_G
-_@'Q3o
+_@Ksp
 _^u 3
 __add
 __based(
@@ -726,21 +749,29 @@ __unm
 __vectorcall
 __w64 
 _|Nei
-_<k%{
+_+dU:l
+_=GmU
+_>!!g
 _0D$6
-_0w0F4^4Y6Y7
-_1tXI
+_0f{k
+_0s/h
+_2bUY
 _2nJq
-_3-j:
 _4*8@
+_4hdO)
+_4htO)
+_4Kf3
 _5 {h,
+_6KTC>
+_7KUK3
 _7Nh&-
+_8IuB{
 _9gad
 _9kG@
 _AfterLoadFinished
 _BeforeConnected
 _BeforeLoadFinished
-_bHw1aU
+_bJkU
 _bJr<
 _bS=k
 _BufferHealth_Platform_
@@ -748,6 +779,7 @@ _BytesReceived
 _c^{E
 _c2Bm
 _cabs
+_cI!8
 _cqGK
 _DataPing_Country_
 _DataPing_Platform_
@@ -757,31 +789,32 @@ _ds.png
 _dump.txt
 _Duration
 _e.bp
-_F/Jc
+_e_AZ>
 _f5_w
 _Failed_
+_FcrK
 _Fe3d
 _Fg$6
 _first
+_F-W)
 _g@Rrd
+_GCfU
 _GLLd
-_GSh*
 _HB5U
 _hypot
-_-I:b
-_j!?0
+_I(b@:
+_iLc{
 _J#p2ON
 _j@(S
-_kKQAU
-_KV>E
-_L}}u
+_k.bU
+_kY#&
 _latest
 _LOADED
 _logb
 _LuDV
 _Lv!:sl
 _Lx>)
-_M^hJ
+_lyE#
 _M}:,U
 _mtFeA
 _MTU_Platform_
@@ -789,27 +822,31 @@ _MULE_BASELINE_OFFSET
 _MULE_RELATIVE_COMPOSE
 _netrc
 _nextafter
+_NjGM
+_NmAa
 _NotStartedYet
 _NVN=
 _NWsF
 _NxHK
 _O R7
-_o:{=
 _oJ!_h
 _ovr.png
 _OX7C
-_oZtU
 _PhysicsPacketsRepeatedPerSecond_Platform_
 _PhysicsPacketsSkippedPerSecond_Platform
 _PlaceFilter
 _proxy
+_Q,k%p#
 _Q{ik
 _Q|bV
+_QBT2
 _R%Pu
+_R/h}O
+_R+a/
 _RakNetIgnoredPercent_Platform_
 _RakNetResendMsgLen_Platform_
 _RakNetResentPercent_Platform_
-_s=Wf
+_reJm
 _sdn.png
 _sel.png
 _sovr.png
@@ -817,66 +854,65 @@ _Success_
 _tcPVj@
 _tnmX
 _TPYN
+_TWW4U
 _u*PQR
-_uk!B}u1
 _UnknownLoadState
-_UYJmU
+_v*Uq
 _V4B3d
 _VERSION
+_vtyMA
+_w#y9
 _W_a_x_
-_w+_ 
+_we9|0
 _Wou.
 _WVj@
-_Wy**
 _Wz|>9
 _x+A 
 _XDAB
 _XFREE86_GLYPH_RANGES
+_y^AO
 _y8F1
-_ykT}
-_z)6j
 _ZS{A
-_zWgU
 -{},:=!
-'{AJL
+-{R|D
+-|)<l
 -'|FD
-'}iJo
+'|QAZ
+'}n@N
 -+ #0
--+Q-U
 '+w9*9
 '<M)z
--<T_2
 -={WIXo
+-=+Y!
 '> G/
--0:0G0l0v0x1
--0:0Y0|0
-'0-0L0q0|0
--020?0
-'020N0V081
--0I0i0
-'0T0a0k0
--0V0r0
+'>*QG
+->P8RU
+'0;0S0i0
+'050?0
+'071N2
+-0iWM
+'0R0b0
+'0R0l0
 -1e+9999
-'1S*S
 -1VKI^
--1y1X2h2
+'1W1|1
 '2!Ys
 -29^&
-'2L2d2s2
 -2Oy^
 '2w7Y_Kd
-'3^W,Z
 -3kYj
-'4 %5
 -41'k
 '49lF
 -4Pfw>
 '58ng
 '6-9d
+-6l>W
+'6Q94;<;
 -6sO$f
 -7;{,
 '7GWgw
 -8|&h
+'82D-F
 '9^Y!
 -9G^zKn?
 '9Uh)
@@ -886,6 +922,7 @@ A = ProfileData.Plot;
 A call to a standard soundcard driver failed, which could possibly mean a bug in the driver or resources were missing or exhausted.
 A command issued was not supported by this object.  Possibly a plugin without certain callbacks specified.
 A dialogInstance should not change CenterDialogTypes
+A gxQ
 A HTTP error occurred. This is a catch-all for HTTP errors not listed elsewhere.
 A HTTP server error occurred.
 A libcurl function was given a bad argument
@@ -893,139 +930,132 @@ A new property type is not supported on this legacy client. Please flag off the 
 A new type (%s) is used for property '%s', please make sure this property will not be replicated to or from the legacy clients.
 A plugin was built with an unsupported SDK version.
 A primary part should be set so that the character can be spawned correctly
+A QHU
 A requested feature, protocol or option was not found built-in in this libcurl due to a build-time decision.
 A requested output, dsp unit type or codec was not available.
 A required function in the library was not found
 A resource that the plugin requires cannot be found. (ie the DLS file for MIDI playback)
 A socket error occurred.  This is a catch-all for socket-related errors not listed elsewhere.
 A valid JSON document must be either an array or an object value.
-a! 54
 a!;ARR
 A!;I2
-A!h-Y
+a!{Jf
 a#9dq
-A#vNC
+a$! m
 A$+A 
 A$+A@
 A$j$;
 a$OjE
-A%=GdAx
-A%b@3
-a%ekd
-a%p4U
-a%zLd
+a%$Y|
 a&?{VU
+a&P5t
 A(;A,t
 A(;A,v
 A(+A$
 a(adL
+A(u9D
 a(yw*M@W
 A)?gZS
+a)aG{*
 A*jeq
+a*w{I
 a,.ru
 a,P<'
-a.!v-
 -a.:/
 A.push(s);
 A/$YX
 'a/Nd
+A/Yl1
 a:hover, a:active{
 a:Mx!
+A; (Y
+a;71Z+p
 A;AAA
 A;J(|
 A;pZe
 a;w0tV
-a?%%|'
-a-?e8
-A?INB
+A?bPr|
+a?uQqe?U
+A@,H^Z
 A@;A<u
 A@;QHr
 a@C-nYZ@N
 a@JdI
 a@Nwwc:P
 A@PQj$S
+a@R|U
 A'^,l
 a^:_(
 a^+^B^
 a^aOo
 a^L}KD
 A_6VQ
-a_X<K=
-A{!dk
 a{_K:
 A|+Ax
 a}88mS
 a}vU8
 A+$4zI
+a+rEPC
 A+sD;C4s
 a<:k(
 A<+Q,
+A<43|p*
 A<haA5+
-a>q34
+A<j;s-
+a>yL%
 A0;A4te9}
 A0;B(u
 A0+A,
-A0h0n0
-A0hH%
-A0Lyw
-A0N0y0
-A0PhP
-A0s0z0
+A0F0p0w0
+A0Phx
 A0u:td
-A0V051
-A0V0a0v0
 a0wRw
 A1<Fu
-a1mb 
 a1N:J
+a2%xr
 a'2b/
-A2ND;
--a2Td!
 a3*:5
 A3=j8
 a3EM<U
 a3gQ,D
 A3PBf
+a3TCi
 a3z!X
 A4;B,
 A4;F4
-a4>o1
 A4Q-!
 A4t,=
 A4u|;
-a5!xV
+A4w77i
 A5,Zh
 a5_j5W
-a538R
+A5C^8
 A5pK-
 A5tUz
-a5YX*
+A6}fU
 a6'w;
 A7!hU
-a7+MX
 A8%W@Og
 A8)mP
 A8;C8
-a8@$y
-A8|z4h
 A8+AD
 A8r.-
 a98<-
+A9YRU
 Aa*?oR
 aa_j55
 Aa{Jq
+AA=4D
+AA=4g
 a'aCaYb
 Aacute
 Aacutesmall
 aacz*
-aaf?,kK
 AAFFf;
 aAi$B
-aaIDU
-AaJ_,
-aajVC
 AASamples
 aB#j|
+AB<If
 ABAllUsers
 Abandoning image %s because TextureManager is dead
 abcdefghijklmnopqrstuvwxyz
@@ -1039,6 +1069,8 @@ ABNewUsers
 Abort
 ABORTED
 about:blank
+aBp&1
+AbS2rL^
 AbsoluteContentSize
 AbsolutePosition
 AbsoluteRotation
@@ -1046,6 +1078,7 @@ AbsoluteSize
 AbsoluteWindowSize
 AbuserID:
 ABx/D
+AC$A5%w
 ac&LLT
 AccanthisADFStd-Regular.otf
 Accelerating too fast, Applying Velocity: %4.4f, %4.4f, %4.4f
@@ -1189,6 +1222,7 @@ addTopReplicationContainers started at %f s
 AddUntranslated
 AddWatch
 aDE9-
+aDfSU
 Adieresis
 Adieresissmall
 Adjusting cell sideways, cell: %i %i %i
@@ -1225,7 +1259,6 @@ AdService:ShowVideoAd could not find LocalPlayer, not showing ad.
 AdService:ShowVideoAd could not find UserInputService, not showing ad.
 AdService:ShowVideoAd must be called from a local script!
 adShown
-ADt$s
 AdvancedDragger
 AdvancedMouseSensitivityEnabled
 AdvancedRCCLoadFMODRetryCount
@@ -1247,18 +1280,16 @@ AdvScale
 AdvTranslate
 aDw%d
 Ae,D9C
-ae4Ni
 AeHcY2
 AeNlZrEbS
-AEs(x
 AeSlZrNbS
 AEsmall
-aeWtsU
+AEW}l>
 AEzWh
 Af;:u
 Af_^M5#P
-AfCmS
 AfE!^n
+Afgn}
 Afi+};
 After
 After %ldms connect time, move on!
@@ -1266,26 +1297,30 @@ After checking everything, returning closest node %i %i %i
 After initial bind, added parts: %u
 After render: Providers requests empty. Content: %u, Mesh: %u
 AFyeF
+ag#)$
 AG<>u
 Age13OrOver
 AgeUnder13
 AGF;M
 Aggregate
 agI'r
+aGK.A6
 Agrave
 Agravesmall
-aGxjsn)%
-ah,M_
+agSHU
+aGTl4
 AH;ADsy
 AH;ALu
+Ah@_Z
 AH+ADV
-ah<M_
+Ah0_Z
 Aharoni
 Ahd=<c
 AHI!X
 AHkO($
-ahL+Z
 AHltuo
+ahmD|La
+AhP_Z
 AHpmoc
 AHPQR
 AHPQVR
@@ -1296,14 +1331,14 @@ AiFC.
 aiOhG
 aiOHt
 AirFree
-aIZ9Q
+aIxns
 AIzaSyButHh5V_xfQNw3HmUzzorI8a23Czz1Lgo
-aJ_i1
+aJ&G,
 AJDSp
-aJRbg
+AJ'nu
 -AK$q
-Ak-%$
-AKj=$gc
+AK_=?
+akP_WU 
 aL!x$
 AL;FLu
 AL+AH
@@ -1351,7 +1386,7 @@ already connected
 already open
 Already recording
 ALREADY_EXISTS
-ALSVPQh
+ALSVPQh@G
 alt or z: Toggle ToolTip<br>
 Alternating Supports
 AlternatingSupports
@@ -1400,7 +1435,6 @@ An invalid string was passed to this function.
 An unexpected error occurred and ROBLOX needs to quit.  We're sorry!
 An unknown option was passed in to libcurl
 An unspecified error has been returned from a plugin.
-a'n.wC
 An^rk
 an|fT
 aN3<5
@@ -1460,23 +1494,26 @@ Animator:StepAnimations() can only be used when the game is not running!
 anonymous
 anonymous namespace'
 Another app was already launching (117)
-anQ^d
 anQQc7
 Antialiasing
 AntiCheat-AfterJoin
 Antique
-anXSi
+anz/5
+ao8W'
+AOcV{
 A'ola
 aOni*{
+aOoY+
 AoVnI
 Aow@G
+-aow6&
 Ap)Bh
-Ap:O&
+Ap.8kG
 AP;AL
 aP;GUY
 AP9BPu
 APf;B
-aPG&)9@
+APhDJ
 apikey=
 apiKey=%s
 apiKey=%s&sequenceName=%s&value=%s
@@ -1527,12 +1564,10 @@ APxhI
 APXn3<
 aq#{M
 Aq0YK
-AQ4-#f
-AQgHj
 AQo?t
-AQRPh
+AQRPhp
+AQz(h
 aR:={
-Ar<1L
 Arabic Transparent
 Arcade
 ArcHandles
@@ -1540,7 +1575,6 @@ Archivable
 archive
 ArcRN(
 ARCZy
-aRD$}
 aRDj>
 AreAnchorsShown
 AreArbitersThrottled
@@ -1648,6 +1682,7 @@ AssetVersionsUrl
 assetVersionUrl
 AssetVersionUrlPiece
 Asterisk
+aSTNl
 asuperior
 async
 async_histogram
@@ -1661,7 +1696,6 @@ at_gl
 at>xd
 atan2
 ATf;B
-AThxJZ
 Atilde
 Atildesmall
 ATIX_
@@ -1717,12 +1751,9 @@ Attempted to send value with unknown network format
 Attempted to use interpolation with a camera mode other than scriptable.
 Attempting to send a Character request without a local Player
 attribute 
-ATx^W
-ATxKd
+at-Z:
 Au$f9
 aU&,(
-Au*kM
-Au0o*=8#
 aU1g)o
 AU8NJI
 Audio
@@ -1732,6 +1763,7 @@ Audio filed failed to load, unable to access FMOD UserData. Error(%d).
 Auditorium
 August
 aUk(e
+aUm1+
 Authentication
 Authentication problem. Ignoring this.
 authentication url from server
@@ -1760,6 +1792,7 @@ AutoSelectGuiEnabled
 AutowedgeCell
 AutowedgeCells
 aux_depth_stencil
+av)S)
 availRAM
 Avatar
 AvatarBust
@@ -1830,15 +1863,22 @@ AvgHttpApiCallsPerSecInPlaySolo
 AvgHttpApiCallsPerSecInServer
 aVGtD
 avgWorldStepFreq= %f
+AvL=2x
 Avoided giant realloc for header (max is %d)!
 Avssuh}
 AVU8DV
+AVw&Q
+AvW)u
+Aw/N)!
 awake
 AwardBadge
 AwardPoints
+aWfRp
 awKiZ
+Ax lA
 Ax#?uN}*
 Ax?oI
+ax@#ar
 AX+CX
 AX+FX
 AX+GX
@@ -1851,23 +1891,25 @@ AxisChanged
 AxisLabel
 AxisRotate
 AxisType
-AXux3n
 AXWIN UI Window
 ay+k!
-ay=8!
-ay5j?Q
 AY5v 
 aybVtYg
 ayiL|
+ayiMz
 Ayl.}
+AYmV@
+az=Wg
+az4O>
+az8LC
 AzimuthalAngle
+aZRvp
 B ;B$s
 B ;C u
 B ;C u!
 B <1=
 B 02CV
 b T|e
-b z^U
 b-!7Sj
 B'!CW/
 b!dDF
@@ -1876,97 +1918,95 @@ B#C0D?EQFeG|H
 B$;C$t
 B$;C$t*
 B$;C$u
-B$<oUT
 b$hUi=
-B$m{Yw
-B%#M:
-B%tT<U
 B&=yF
 'B-&f
-b&M2gU
 b&PbQS
 b&sJ!
 B(;B$r
 B(;B,
 b-(12
 b(FvU>
+B(WDl
 b(XPx
-b(yH@
 B);pI
 B)z%Av
-b*<yTU
-B*l#3Y
+B*Di/
 B*wg&
 B,A+B(
+B,Q2(_
 b.hW7
-b.sgh
+B.SV#
+B/ TU
+b/8@&
 b/b,O
 b/eoY
-b/j.}W
-B/v<X
 B:4P?
 B:k(T
 B:tCk
+B;100
 B;b!g^QB
-b;cAX
 B?fff?
 B@::{*
 B@;A4|
+b@?0u9
+b@<Ia
 b@Eig
 B@KT(
 B@WQ#A
 B@YXT
 b^:^5
-b^-?8_Y
-B_Lm64
-B{!*N
+b^qpq
+b^R/U
+B_Y*U
 b{#Ch
-b{jTs
+b{X+{h
 b|3G3
 b}<$5#T
-B}W'c
-B+)r{
+B}6:UU
 B+1p3
 b+aBZ
 b+n-!
-B< )0HL
 B<;A0|
-b<5taV
 B<B{B
 B<HCaO
+b=/@=
 B'=>>
 b=k)6
 b'=p!
 B>+3x
-b>V{t?
+B0&1H2R2
 B0;A<
 B0;B4
-b0=X(
 B0C;_
-B0H0Q0
+B0O061/2g3
 B0PWS
 b0s:h
-B0U0f0
+B0S0l0
+B0SXlU
 b-0vy
-B1&#d
-b162d3|4
-B1jfSn(
-B1x|/v<
+B1?BT6
+B1G1T1
+b3%P;
 B4;A@
-b4|dsu'
-b4mQ'
-b4O|n
+B4J4#
+b4kD;
+b4rc*
 B56C#
-b6*ih
+B5J.H
+b5jH?<Q
 B6/_zB
-b60mI
-b6RcrU
-b7?J;+
+B6a=U
+B6EYas_
 b7}kJ
+B7=hdU
+B7a7d
+b8)<f
 B8;A8s
 B8;AD
 B8<xu
-B9}}!
+b87(;U
+B8UwT
 b9F@y
 -b9uj
 ba8d>=
@@ -1994,7 +2034,6 @@ BackSlash
 Backspace
 BackSurface
 BackSurfaceInput
-baCoU
 bActive = GroupsActive
 bActive = GroupsAllActive;
 bActive = IsCategoryActive(CategoryIdx);
@@ -2062,13 +2101,12 @@ BadLogInfluxHundredthsPercentage
 BadLogMask
 BadTypeOnDelayErrorEnabled
 BadTypeOnSpawnErrorEnabled
-bahk%
-BalF7
 BallSocketConstraint
 Balthazar-Regular.ttf
 B-aN#Hg
 BandwidthExceeded
 Banned
+bAPOU
 barrel
 Basalt
 Base Init
@@ -2104,15 +2142,15 @@ BbNorz
 BBy:n
 BC .=
 bc_q>a
-bC}hPO
 bC5%!
+BCu-G
 BD;A8|
 BDebugNavigationDrawTileBounds
 BDHPj
 BDjl&+2
 Bdx)ha
-be7WA:
-bearY
+bE|b||
+be7*E
 Because game window resolution changed
 Before
 Begin
@@ -2126,44 +2164,36 @@ Beige
 bemMJ=
 Benchmark
 Benchmarking
-BERxFx
 betterQuality
 Bevel
 Bevel Roundness
 BevelMesh
 Bevels
+Bf.>uM
 bf2'S
 BFBQB
 bFound = true;
 BG Opacity
 bG#L>s
 BG,MD
+BG.Jo
 bg^O&
+bG>po
 BGbqv.;
 BGDcY
-BGM-'U
 bgore
 BGRsu
 BGRsu)
-bh(%^
-bh(T_
+bh(!Z
 BH;BDsy
-bh@4_
-bh8/_
-bh8'Z
+bh8#Z
 Bhard
-bhHB_
-bhP6_
-bhPpZ
-BhtBV
-bhXK_
-Bi?,jK
+bhx Z
 bi@P$
 bIHg{
 BillboardGui
 BillboardGuiMaxDistance
 BillboardGuiTouchEventsInProcess
-bImjeU
 binary
 BinaryString
 BinaryStringValue
@@ -2207,16 +2237,16 @@ BitStream.cpp
 bJ: h
 bj82iX
 bJU$i)
+BK:<g
 BK9B(
 BKbhTb
 bKGD must be after
-bKhxCc.<
-BKoxn
 bKRA3
 bksP4
 bKu5F
 BkXT t|
 bl!V+
+BL:vV
 Black
 Black metallic
 blank
@@ -2237,6 +2267,8 @@ blend_subtract
 BlendAxisTypes
 BlendDesignMap
 BlendDesignPositions
+BlN19t
+bLncC
 blnOq
 BLOCK
 blockDuration
@@ -2263,11 +2295,15 @@ blurRender
 BlurX
 BlurY
 bLVGG
+bM8BS
+bMeeJ
+'Bmk!d
 bMouseIn = DetailedViewMouseY >= Y && DetailedViewMouseY < Y + BoxHeight;
 bMouseIn = DetailedViewMouseY >= Y && DetailedViewMouseY < Y + HeightExpanded;
+bN3Gv
 Bn9Dc
+'BneU
 Bnw/q*
-bo8cR
 bO98B
 BODAf
 Bodies
@@ -2344,7 +2380,6 @@ BorderSizePixel
 Both collision groups must be valid.
 Both parts must be PartInstance descendants of the Workspace to make this query.
 Both users must be connected to the current server
-BoTkp
 Bottom
 BottomImage
 BottomLeft
@@ -2369,10 +2404,9 @@ BoxSelectCommand destriyed: %p
 BP;BL
 B-P@J
 BP3BL
-Bp4Xt
-BPuJl
-bqJa-
-bQ-lJ
+BpiEm
+bPNoG
+bPtfT
 BqolR^sM
 bqv!;
 br&s.(
@@ -2385,6 +2419,7 @@ braceleft
 braceright
 bracketleft
 bracketright
+brba4B
 bRdY_4
 break
 break;
@@ -2400,6 +2435,7 @@ Breakpoints are not supported for the executed script code
 Breakpoints must be a child of ScriptDebugger
 breve
 Brevesmall
+bRhOv
 Brick
 Brick yellow
 BrickColor
@@ -2418,7 +2454,6 @@ Bright reddish violet
 Bright violet
 Bright yellow
 Brightness
-bRJ=0
 broken pipe
 brokenbar
 Bronze
@@ -2435,13 +2470,14 @@ bSA(:
 bscX7Ni=
 bShowTimers = !bShowTimers;
 bSikv9?
-bsJUr
 Bsmall
 BSQsh(
 bsuperior
 bt&0GQ
 bt&1Ts
+bT.sH
 bT@3d
+bt^s3
 Bt-1&
 btBU_Simplex1to4
 btBvhSubtreeInfoData
@@ -2475,6 +2511,7 @@ btHingeConstraintDoubleData2
 btHingeConstraintFloatData
 btIntIndexData
 BTkm>
+bTKt{
 btMatrix3x3DoubleData
 btMatrix3x3FloatData
 btMeshPartData
@@ -2512,7 +2549,8 @@ btTypedConstraintFloatData
 btU= 
 btVector3DoubleData
 btVector3FloatData
-BTVlS
+BTWMo
+BTZ's
 bu r$
 bU7{9Q'
 Bubble
@@ -2540,6 +2578,8 @@ BulletContactBreakOrthogonalThresholdActivatePercent
 BulletContactBreakOrthogonalThresholdPercent
 BulletContactBreakThresholdPercent
 Bumps
+bUpZ;
+bur+O:,
 Burgundy
 Burlap
 Burnt Sienna
@@ -2579,27 +2619,29 @@ buttonTimers
 buttonTimers.style
 ButtonX
 ButtonY
-buwsj
+BUWO}
 BuyDeveloperProduct
 BuyDeveloperProduct_AutoAccepted
 bV#'p
 bV;H2
-bv^,g2
-Bv7tR
+bvCYU
 BVF gm
 BVj(j
+bVpQTa
 bwN?F
+BWT)_d
 BX;AX|
 BX;AX}
-bX@2S
 BX+FX
 bX=j+
 BXF03
 BXG_I
+BxG8:
 BXskSV
-By;qJ
-ByD?,
+BY#p)
+BY{rx5
 ByDatacenter_
+ByPW5
 byte_coordinates
 Bytes
 Bytes in resend buffer               %I64u
@@ -2615,34 +2657,41 @@ bytesReceivedPerSec
 BytesSent
 bytesSent/s : 
 bytesSentPerSec
+BZ#G>
+BZ@J5
+bZ|#yU
+BZ|1pp
 BZag&G
+bznDK
 B'zr?
 C +G 
 C =02CVu
-c 3Xg
-C 63pZ
-C m89
+C K4.P-{
 C stack overflow
 C WVP
-C!aC)
-c!p#r
-c!U&sd
+C!(_H
+C!{7m
+c!tE(k
+C#{9U
 -C#xg
-C$&Zp
 C$*'Tp
 C$;C(u@
 C$@PS
 C$+C 
+c$2<A
+c$21m)3
 C$F;w
 c$tfv
 C%B)0X
 C%eA9L
-C&kY}
+C%W<TDQ
 C&YhEA
+C&z>J#
 C(;A(u
 C(5i9xu#
 C(9F<t
 c)Qzf
+C**>8WU
 c*w)+
 C,;A,u
 C,+C(
@@ -2651,22 +2700,20 @@ C,f9E
 C,H_^u
 C,QVP
 C,SVW
-C,VSh|
-c..z^E
+C,VSh,
+c.9@y
 C.yog
-c/xy&
-c/zR/QJ
-c:{U#
-c;#(u
+c/f_E
+C:0J9z
 C;@1(
 C;^8u
 C;^l|
 C;_,r
-c;SS)%
 C;Yl|
+c;ZyU
 c?>-L
 C?5B;CE^
-C?D:w
+c?x8C
 c@;%z
 C@aNt
 C@jvY
@@ -2675,32 +2722,32 @@ C^O%2
 C_Ep2
 C{FnY
 C{G4aX
+c{h5U
 c{Om%
 C|+Cx
 C|dccag
 C|F+Cx
 C<+C8F
+c<B2U
 c=''*
+C=|4G
 C=|jO
-C=t-Z
-C>b)U
-c0%d<
 C0;C4
 C0;C4t(
 C0;K8}
 C0+C,
+c0-<lyU
+C061<2U2x2
 c0E&&
 C0G+C,
-C0k0z0
-C0oNU
-C0V0m0
-C0VSh|
+c0H&b
+C0r.t
+C0VSh,
 C1(Y6J
-C1|1O2
-C1LxU
+c1d:j
 C1Qv3
 c2#<Xn
-C3h)U
+C3}}U
 C4+C,
 C4+C0W
 C4+K f
@@ -2711,12 +2758,10 @@ C4PWV
 C5)+q
 C5+mb
 c5=^?b}}Q*
-C5ZVp
+c5kw<U
 c6riZ
-c7#.9V
-c7%f8
-c7+j,
-c7A1}7Fo)
+C7>5U
+C7>G/
 c7cPc
 C8;A8s
 C8;A8s>
@@ -2725,11 +2770,11 @@ C8;B8
 C8;sx|
 C82H3
 C8F;s4|
-c8k2j
+c9Dp6w
 C9sZ+
 c9X0,Gk
 Ca$O)%
-CA3VHdQ
+CA'/w
 Ca5rS
 Cache
 Cache update failed: %s
@@ -3018,33 +3063,32 @@ category
 categoryId
 CategoryInfo
 Caution: quantization tables are too coarse for baseline JPEG
+cAVideoCapture
 CaZ6?w
 cB!!0 
 cB(|^
 CBDAf
-CBHon
 CbMGO
-cC(o'
+cc<PU
 Ccaron
 Ccedilla
 Ccedillasmall
 CCIR601 sampling not implemented yet
 CCw^y&
-Cd$oU
 cd;b{
 Cd;Ch
 Cd;Cht-
 CD;SH
+cD_2V
 CD+C@
+Cd2Ae
 CDATA
 cdMxY
 CDPVj
-cdrH:
-CDS%U
 CE QSVP
-CE$Ph8u
+CE$Ph
 CE<Ph
-CE0PhH
+CE0Php
 CebzcgPerngbe
 cedilla
 Cedillasmall
@@ -3072,33 +3116,33 @@ centoldstyle
 centsuperior
 Century
 Century Gothic
-ceoUU
-CEPPhx
+CEPPh
 CertCloseStore
 CertFindCertificateInStore
 CertFreeCertificateContext
 CertGetNameStringA
 CertGetNameStringW
 Certification Services Division1806
-CF7|6
-CFGq**
+CFg;L
 Cfi<}
 cframe
 CFrame.new(
 CFrame::fromXYZYPRDegrees(% 5.1ff, % 5.1ff, % 5.1ff, % 5.1ff, % 5.1ff, % 5.1ff)
 CFrameRightAndUpVectors
 CFrameValue
-cfsQ@K
+cG?G^
 Cg_shader
 CG=rD
 CGA brown
-cGno:
 CGY;i
-ch(__
-Ch@L_
-ch@MZ
+ch B_
+ch(1_
+ch(j^
+ch@>_
 cH|ka
 CH+CD
+ch8>Z
+ch8Z_
 chain complete
 Chalkboard
 Change
@@ -3202,8 +3246,8 @@ Checkpoint
 checkpoint 
 CheckSyntax
 CheckWholeAssemblyForAccessoryBuoyancyAdjustment
-chH$Z
-chhb_
+chHl^
+chhn^
 child
 Child instance added to replication: %p
 ChildAdded
@@ -3217,7 +3261,6 @@ CHltuo
 CHltuof
 ChoosePixelFormat
 ChorusSoundEffect
-ChPL_
 cHRM Blue X
 cHRM Blue Y
 cHRM Blue Z
@@ -3238,10 +3281,12 @@ chunk reading DONE
 chunked
 Chunky upload is not supported by HTTP 1.0
 CHVW3
-chxF^
-Ci ?b
+chx4_
+chXU_
+Ci%W^
 'Ci(m
-cI?kYu
+Ci_Q{
+CiCZ*
 CID Type 1
 CIDCount
 CIDFontName
@@ -3259,19 +3304,20 @@ Circular
 circular_buffer
 circumflex
 Circumflexsmall
-cIw?8*
-cj%s?&;
 c'j7xB
 Cjh&:
-Cjn%'_
-cJvy!g
+-ck89@=
+CKEQYG
 ckJ}4
+cKj8?
+c-kRn
 cL)GT
 'cl@D
 cl_event
 CL+CD
 Cl+Ch
 cL5L8
+-cl6Lg
 Cl9spu
 clamp
 class
@@ -3391,6 +3437,7 @@ clip_volume_hint
 ClipCursor
 clipmap
 ClipsDescendants
+cLnU$w
 Clock
 Clone
 CloneCursor
@@ -3583,10 +3630,14 @@ ClusterGridV3
 Clusters: 
 CM'#-
 CMainFrame::ShareHwnd wnd=%d
+CMC%K
 Cmt+7
 cmyka
+Cn%M4
 cN_/K
+cN3-!
 Cn77Y
+CNkFM
 CnpwEk4'W
 CntrfVasb
 cntrl
@@ -4227,16 +4278,17 @@ countOrComputeDirtyChunks
 CountryCode
 CountShifted >>= 10;
 Courier New
-Couu*
 Cp;Ct
 CP+CL
-cP5<U'
+Cp3n#
 cP5fo 
 Cp9shu
 CPath
 CPB+CL
+cPd;s_
 cPDuc
 cPID!
+CpKyb
 CPU Time
 CPU: 
 cpuCore
@@ -4245,22 +4297,25 @@ cpuMake
 cpuPhys
 cpuSpeed
 cPY+@
+cq$1X
 cQ_r$
+CQ=9+
+cqcoU
 CQCtC
 CQd_L:
 CQmwW,g
-c-QPD
+CQo@,c
 CqTR;
 cqvWq'a
+cQWGU
 CR!j3
-cR&}S
-cR&K7tX
 CR{Y0B
 CrackedLava
 CRAM-MD5
 Crash
 Crash Event post
 Crash Event posted, response: %s
+Crash happened!
 crash__
 CrashEvent
 CrashReport
@@ -4353,9 +4408,11 @@ CRenderExportCompressedDiffuse
 CrepragPSenzr
 Crimson
 CRITICAL
+cR'N,
 Cross
 cross device link
 CRPQV
+cRWAF
 CRYPT32.dll
 CryptAcquireContextA
 CryptCreateHash
@@ -4374,7 +4431,6 @@ CryptReleaseContext
 CryptVerifySignatureA
 CS .#
 cS)7EP+
-CsanC
 CSArrayCpu = new Array();
 CSArrayCpu.push(Cpu);
 CSArrayIn = new Array();
@@ -4382,6 +4438,7 @@ CSArrayIn.push(TimeIn);
 CSArrayOut = new Array();
 CSArrayOut.push(TimeOut);
 CSaveToRobloxDialog
+CSd#X
 cSE,4
 CSGAllowUnorderedProperties
 CSGDictionaryService
@@ -4400,7 +4457,6 @@ CSObject.Cpu = CSArrayCpu;
 CSObject.In = CSArrayIn;
 CSObject.Out = CSArrayOut;
 CSObject.Size = CSArrayIn.length;
-CSs9s
 CSwitch Trace
 CSwitchCache
 CSwitchOnlyThreads.sort( function(a, b){ 
@@ -4416,15 +4472,16 @@ CtctStageCtcts
 CtctStageCtcts: 
 CTdc'
 CTeg&(
+cTmYa
 Ctrl + Drag: Pan<br>
 Ctrl + Mouse up/down: Zoom<br>
 Ctrl + Shift + Drag: Select region<br>
 Ctrl-Shift-C again to restore.
 Ctrl-Shift-G again to restore.
+Cu+Tk
 Cubic
 cubify
 cUC3i
-cuEoB
 cull_distance
 cull_vertex
 CURL cookie(%s
@@ -4537,23 +4594,26 @@ CustomPhysics
 CustomStats
 CustomStatusAdded
 CustomStatusRemoved
+cV&p/7
 cv.Bq
+cV^K6
 CV9X<
 cvF^-^
 cviN/m
 Cvw,HI
-Cw^KD
 CW<He
-Cw09,
 cwa?$i7
 CwPeB
 CWSYD
 cx,?$o
 cX..ek
 Cx;C|
+Cx?jXk
 Cx@kO
 CX+AX
 CX+AX+q
+cX7f5S.
+CXKKw
 CXz'W
 cy%v%
 CY|(P
@@ -4563,6 +4623,7 @@ CyclicExecutiveThrottling
 CyclicExecutiveThrottlingCancelWorldStepAccum
 CyclicExecutiveTiming
 CyclicExecutiveWorldSteps
+CYG^)
 CYgqIy
 cyk-n
 Cylinder
@@ -4580,204 +4641,223 @@ Cyrix Processor
 CYY,w
 cyy=G,
 cyya|
+cZ!5nQ/u
 Cz&q#@8+
+cZ_Zg
 CZ|I(
 cZcccqc
 CzIUbw
 cZwA00
 d (: 
+D |EZ:
 d AnGN
+D BgL
 D u#k
-D! qt
-D!%7F
-d!1m&
+D#'&6O
 D#V0+
-D$  !n
-D$ #k
-D$ &8
-D$ (1
-D$ ,_
-D$ .9
-D$ /@
-D$ @h
-D$ {,
-D$ |p
-D$ 1|P
-D$ 2/
-D$ 4^
-D$ 6'
-D$ A4
-D$ AG
-D$ b(
-D$ cg
-D$ d(
-D$ E:
-D$ FI
-D$ GO
-D$ h)?
-D$ hS
-D$ iB
-D$ k}
-D$ Oc
-D$ Op
-D$ PHm
-D$ PIm
-D$ TE
-d$ Th
-D$ tJ
-d$ TU
-D$ WS
-D$$ !n
-D$$#<
-D$$#m
-D$$%G
-D$$,_
-D$$,E
-D$$,t
-D$$.D
-D$$@|P
-D$$@h
-D$$'^
-D$$07
-D$$0n
-D$$'b^1h
-D$$D#
-D$$D1
-D$$fC
-D$$Gvg
-D$$h:
-D$$hv@
-D$$L/
-D$$ok>
-D$$PHm
-D$$PIm
-D$$qs
-D$$R<
-D$$r2
-D$($4
-D$(%6
-D$(:J
-D$(@h
-D$(=N
-D$(0a
-D$(2U
-D$(4H
-D$(7b
-D$(7r
-D$(cg
-D$(h4
-D$(h'p
-D$(j|
-D$(l4
-D$(m!
-D$(N3
-D$(PHm
-D$(PIm
-D$(-SZ
-D$(Tf
-d$(Th
-D$(TV
-D$, !n
-D$,)S
-D$,.g
-D$,@|P
-D$,81
-D$,D1
-D$,h^;
-D$,h3
-D$,hF
-d$,TS
-D$@ !n
-D$@=0
-D$@9j
-D$@a*
-D$@D}
-D$@h0
-D$@h2H
-D$@hD
-D$@nf
-D$@OU
-D$@PIm
-D$@QQf
-D$@Vh
-D$@Wf
+D$  b
+D$ )}
+D$ *G 
+D$ ,o
+D$ @pm
+D$ ^#S!
+D$ _x
+D$ 0C
+D$ 0'm
+D$ a!
+D$ A&l
+D$ A_ }
+D$ Cv 
+D$ Dm =
+D$ f? e
+D$ h$
+D$ hAE
+D$ hP
+D$ hVnY
+D$ i,
+D$ Jz(
+D$ k/
+D$ M4 
+D$ Md
+D$ p-
+D$ S|
+D$ T5
+D$ Tf
+D$ Th
+D$ xC
+D$ Zw
+D$$ b
+D$$&Lm
+D$$)v =
+D$$,o
+D$$@|
+D$$|cY
+D$$2f
+D$$4_
+d$$f9
+D$$FO =
+D$$h'
+D$$h2
+D$$hD
+D$$hF2a
+D$$hM
+D$$hv
+d$$hX2
+D$$Ko
+D$$l2 
+D$$p-
+D$$P_
+D$$Q<
+D$$qc
+D$$SD }
+D$$Tf
+D$$Ue
+D$$UQ
+D$$Va
+D$$Wn %
+D$$WV
+D$$z: 
+D$$Zt
+D$(/(
+D$(:p
+D$(@T
+D$(}R
+D$(-0
+D$(1B
+D$(5QZ
+D$(h$
+D$(h&
+D$(h.d)i
+D$(h-_M
+D$(hu
+D$(I.
+D$('L
+D$(oD+
+D$(P_
+D$(ps
+D$(QI
+D$(SW }
+D$(T;
+D$(T6
+D$(u?
+D$(vO
+D$(wd
+D$(Xf
+D$(z1
+D$,h 
+D$,h>V
+d$,h5
+D$,hdKHl
+D$,J7
+D$,rC
+D$,Sc
+D$,Th6 K
+D$,Uh
+D$,Us*U
+D$,Yf
+D$@ Q
+D$@$P
+D$@(J
+D$@@pm
+D$@-0
+D$@2a 
+D$@2G -
+D$@DFsaf
+D$@hJ
+D$@hk
+D$@hP
+D$@k?
+D$@'O
+D$@P_
+D$@Rh
+D$@YXE
 d$_a;
-D$< !n
-D$<9K
-D$<cL
+D$<?8
+D$<@pm
+D$<9p
+D$<c'
+D$<f7#
 D$<h-
-D$<hh
-D$<m0
-D$<PHm
-D$<RR
-D$<TQ
-d$<TQW
-D$<w;
-D$0*Y
-D$0@|P
-D$0h#
-D$0h+B
-D$0h3
-D$0h9
-D$0PIm
-D$0RTW
-D$0wK
-D$4}9
-D$4h6
-D$4hy
-D$4Jn
-D$8.a
-D$8h4bR
-D$8hUt
-D$8Pf
-D$D*Z
-D$D@|P
-D$D81
-D$D-F
-d$Dh_|7
-D$Dhz
-D$Drq
-D$DV,
-D$H!R
-D$H81
-D$Hh|
-D$HM8
-D$Hn-
-D$Hwf
-D$HwX
-D$L&)
-D$L+:
-D$Ln 
-D$P@q
-d$PTP
-D$PU-m
-D$T)^q
-D$T7h
+D$<h#8
+D$<K}
+D$<p#
+D$<X7
+D$0}e
+D$0h/
+D$0h?
+D$0hj
+D$0hu
+D$0Wf
+D$4.%
+D$40w
+D$46n
+D$4h#W
+D$4h/
+D$4hf
+D$4hp
+D$8/Q
+D$8b|
+D$8hPHp
+D$8hV
+D$8hX
+D$D0_
+D$D0'm
+D$D1D 
+D$DF8
+D$Dhb*
+D$DhdL
+D$DhF
+D$DhR
+D$DhZ
+D$DJ6
+D$DnE
+D$DQf
+D$DqY
+D$DtkG
+D$DVf
+D$DWS
+D$H i
+D$HJQ
+D$L Q
+D$Lh'T
+D$Lq)
+D$LQf
+D$Plk
+D$Tt_
 D$wa0
 d$wc0
 d%!9v
+d%1p',
 D%Ect
 D&cw4
 D&D4a
 D-&J3
 D(8NJP9!
 D(G:-
+D(Ku7
 d) 00
 d)1)-
-D,;8|
+D)nR2
+D*EnvX
+'D,lC
+d,Z*?ya)
 d.+1#
-D.+IMm
 d.>t(
 D.CYFJ
 d.iva
+D.SjU
+d/L:77
+d:mSu
 d;3g){
 D;b#-
+d;CG$
 d? cf>
 D?(%(
 D?3JV9
 d?9},f
 d?B=x
 d?Z08
+D@ e9
 d@@5;
 d@cd6
 D@DD8x8x8|DDDDD|
@@ -4785,48 +4865,48 @@ D@DDxDD
 D@nEg
 d@o+G
 D_G+d8
-D{!hH%_
-D{%hh
+d_u)v
+D{!h@
 D{.h 
-D{.h l
-D{.h( ^
+D{.h8
 D{+VW
 D{=;S
-D{0h 
-D{0h l
-D{4hx
-D{8hx
+D{0h8
+D{-68
+D{8hp
 D{dWh
 D{oSQ
 D{YVQ
 D'|}G
 D|NEI
-D}0yZ
-d}gsP
-D}L6o
+D} SYR
+D+D:U
 D+e,&
 d<_v#
 D<xZu
 D=<R%
 D=b(t1
+D=qDvYl^$/
 D>0_^
-d>h>l>p>t>x>|>
 d>SP9
 D0(I#
 d0_?b
-D0A1V1
-D0H  
-D0H<!
-d0h0p0t0x0|0
-D0Hd-
-D0HlU
-D0o5|6
+D05<U
+D0b0m0
+D0d(s(
+D0dxs(
+D0H<z
+d0h0l0p0t0x0|0
+D0HHK
+D0Hp 
+D0L0U0
 D0p;D1hr
+D0pLu(
 D1p;D1hr
 d2EHH
-D2Fe$
+D2H2L2P2T2X2
+d2Lcy
 D3$@v):
-D3(8>
 D3D Frame query timed out, resetting
 d3d10
 D3D10.0
@@ -4855,30 +4935,33 @@ d3d9.dll
 D3DPERF_BeginEvent
 D3DPERF_EndEvent
 D3DPERF_GetStatus
-D3'VP
+D3GjB
+d4D6x2
+d4h4l4p4t4x4|4
 d4-pX
-d5^i#W
+D4RPl
+D5fED
+D5Md8
 D6925E56-BFB9-4908-AAA2-A5B1EC4B2D79
+d6D.D
 d6d?a
 d7?aOX
-d8 c',k#
+d7w#z
+D8- A>
 D8(Ht
 D8(Ht5F
 D8(HXt:f
 d8^#9
 d8=Y{
-d8Bd^
+D81tU
 D8H_^
-D8H<!
-D8H</
-D8Hd-
 D8HD8DD8x<@x
-d8Ny7
+D8HTO
 d8Utx
-d8YX/
+d8wx^O
 D9?Mn
 'D9|y
-d9'GU
+D9GEl
 D9p;D9hr
 DA$fx
 Da;K(2
@@ -5018,10 +5101,9 @@ dbdpdyd
 DbG_S
 dbghelp.dll
 DbJh5
-DBp3F
+DC:eQB
+DC;v!2
 Dc^ky
-DC8#q
-DcGW9J
 dcNVt
 dcroat
 DCT coefficient out of range
@@ -5031,7 +5113,6 @@ DCzp/O
 Dd.5$
 DD@D@ <D
 DD@D@@@D
-Dd@g^
 dD{T}9
 DD|RU
 DDD((
@@ -5040,14 +5121,10 @@ dddd, MMMM dd, yyyy
 DDDD@@DD
 DDDDD
 DDDDUUUU
-DDHdU
-ddktl
+ddizX9
 ddM*a
 DDS P
 DDS t@
-De m_
-DE#um
-DE%XN
 De|eb
 Deactivate
 Deactivated
@@ -5170,6 +5247,7 @@ deflateEnd failed (ignored)
 DefWindowProcA
 DefWindowProcW
 degree
+dEhW0FY
 DejaVu Sans
 Delay
 delay function requires 2 arguments
@@ -5316,22 +5394,18 @@ DFKaiSho-SB
 DFKaiShu
 DFLog
 DFString
-dfVlD,
-DG>5F
-dgh T
-dgj>:
+DG0k{
 DGKbu
 DGKbu&;
 dgM{.A
-dgr l
 DgSf:
 DH@DDD@HHD
 dhdl3
 dhf.isValid==false
 'd'h'l'p't'x'|'
 dHvkE
-DhX:Z
 dHxlq
+DI)ku
 di|;t
 Diag dir: %u, cell to check: %i %i %i
 Diagnostics
@@ -5369,7 +5443,6 @@ DIGEST-MD5
 digit
 digital_video_control
 DilleniaUPC
--dIo*b
 Dir: %u, cell to check: %i %i %i
 Direct
 direct_state_access
@@ -5449,19 +5522,26 @@ dkH{y
 dKqkX
 dKt-,
 dKwHi
-Dl_R 
+DL;JM
+Dl+;X
+DlD?wX#
 DLED1d
-dlwp/
 DM event processed
+DM0*5
 DMA Failure.  See debug output for more information.
-DMi/%&
+DMmzH
 dmp,d
-DMTD+
+dmY,U
+Dn)l(
 DN)U3s
+dn0|RL
 DN3nV
+dN8,g
 DNA{xen
+DnA<#
 DNEIu
 DNEIu_
+Dn-ia
 DnLL3
 Do Menu Insert->Service, to insert a Service
 Do you allow game to create new place in your inventory?
@@ -5470,7 +5550,6 @@ doCloseDataModel - %p
 document.cookie = cookie;
 document.getElementById('filterinput').style
 dofile
-doga@
 Dollar
 dollarinferior
 dollaroldstyle
@@ -5526,17 +5605,17 @@ DPadDown
 DPadLeft
 DPadRight
 DPadUp
+DPb4{
 dpdown
+DPhhf)
+DPIQd-T
+dpiUz
 dpleft
 DPR = 1;
 DPR = window.devicePixelRatio;
 dpright
-DPuon8'
-DPXHn
 dpzKp
 Dq:dT7
-dQkEn+j
-dQLmHs
 dqP@V
 DQPVd
 dQq5W
@@ -5642,6 +5721,8 @@ DrawToolTip(StringArray, Canvas, 0, 200);
 DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY+20);
 DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY+20, Timer.color);
 DrawToolTip(StringArray, CanvasHistory, HistoryViewMouseX, HistoryViewMouseY+20);
+DrDvk
+dRh{n|Q
 Driver Failed (200)
 Driver Not Known (201)
 Driver Not Loaded (203)
@@ -5658,7 +5739,6 @@ DropperCursor
 DropShadow
 DryLevel
 Ds,+y
-ds.UA,
 DS_HuffmanEncodingTree.cpp
 DS_List.h
 DS_Map.h
@@ -5666,9 +5746,9 @@ DS_MemoryPool.h
 DS_RangeList.h
 DS_ThreadsafeAllocatingQueue.h
 DsAmms
+dSEr1
 DSl)o
 Dsmall
-DsO/&
 DSP connection error.  Connection possibly caused a cyclic dependency or connected dsps with incompatible buffer counts.
 DSP connection error.  Couldn't find the DSP unit specified.
 DSP Format error.  A DSP unit may have attempted to connect to this network with the wrong format, or a matrix may have been set with the wrong size if the target unit has a specified channel map.
@@ -5677,6 +5757,7 @@ DSP operation cannot be performed on a DSP of this type.
 DSP operation error.  Cannot perform operation on this DSP as it is reserved by the system.
 DSP return code from a DSP process query callback.  Tells mixer not to call the process callback and therefore not consume CPU.  Use this to optimize the DSP graph.
 DSP return code from a DSP process query callback.  Tells mixer silence would be produced from read, so go idle and not consume CPU.  Use this to optimize the DSP graph.
+DsP?T
 Dst.Begin = Src.Begin;
 Dst.End = Src.End;
 Dst.Thread = Src.Thread;
@@ -5691,9 +5772,9 @@ DSVWh
 DSVWj
 dSVWj 
 dt: %f
-Dt0WXJ
 DTK=y
-dtTjn
+du%**?
+dU(lX
 DUc;8
 DummyArbiter
 DUninitialized
@@ -5711,27 +5792,25 @@ DurationArrays
 Durbanville1
 Dusty Rose
 dutyfraction
-dv/q.
 DV1>;c
+dv5:8>
 dvfBH
+DVK| 
 DVna^
-DVoDz
 dvOjdj
 DVSO-8
-DW*7A
-Dw}0}M
+dw7hD
 -Dwaj
 DWDbDgD
-dwid0
+DWeXU
 DWIDTH
 DwJ3$
-dW'-l
+dX&.q
 Dx@Dxx@|
 DX_interop
 DX_interop2
 DX10tHQh
 DX10u
-DX70I
 Dx8x|@<D88D|DD8@4D8
 dxgi.dll
 dxonZ
@@ -5746,8 +5825,6 @@ DXVRAM: GetAvailableVidMem (2D) returned %x, trying again
 DXVRAM: GetAvailableVidMem (2D) succeeded, total %d, free %d; took %d ms
 DXVRAM: GetAvailableVidMem (3D) returned %x, giving up
 DXVRAM: GetAvailableVidMem (3D) succeeded, total %d, free %d; took %d ms
-DxWlY=
-DYB}U
 DYgq&K
 dynamic atexit destructor for '
 dynamic initializer for '
@@ -5758,9 +5835,12 @@ DynamicRotate
 DynamicThumbstick
 DYS|*
 dYWaS
-Dz$hL
+dZ/8^E
 Dz8QQ
 Dza8!RVJ
+DZE1U
+dzFlP
+dZO${HL^
 DzVVW
 e !72
 e &dQ
@@ -5769,59 +5849,46 @@ e e%e.e=eM
 E hRDHIV
 E i=^
 e mousewheel as of FF3.x
-e mv;:
 E VWQ
-e ZXs
+e!.yz
 e!:0M
 e!_wZ
-e!0w'FN
 e!All
 E-!C+
-E!v0{i
-E#9)E
-E#b(o;
 E#kmms
+E#Y0oU
 E$#-g
 E$)E(2
 e$C)g
-e% kB
 E%-/a
-e%h9>t#
+E%yEy
+E&.P 
 E&b= 
 E(@tVE
-e)WMU
-E*?mG
-E*c/U
+e*.C{
 e-,%J;
 E,.7:
 e,|xE
 E,WVRP
-E,Wzr@
-E.rP{
 E/0 $
 e/s_Uy
-E:nU<
-e?-wX
+e:a,|&I
+e@*rU
+e@|;N|*Z{
 E@9E 
-e@LAC
-E@R+TD
-e^?.o
-e^EMU
 E_JxA
-E_RE1
 e_w>g
-e|.}$
+e{PR/
 E|/qY(
 e|:Ar
 e|7,:
 -e|Ef
-e|HaQ
+E}HA:U
 e+(qzm
 e+?k$
 e+000
+e+3Ke
 E+j@(
-e+rNW
-e+sVO
 e+U,_
 E<$uMR
 e<%M!
@@ -5829,48 +5896,46 @@ E<;FL
 E<;FT
 E<+E8
 E<6'kL
-e<D*>
-e<S;u
 e=40e
 E=5lr
 E=FZGrH
 E=gKe!
 e>5yD*
-e>W}%#c
+e>I8s&
+E>L>u>|>
 e0,uD
-E0@hh
+E0@h8M)
 E0+E8
-e0r0z0d1
 E0TeT
+e0u1!262
 e-0w3
 e1/9>
-E2y8s
-E2yU^
+e2;Dn
+e3;8U
 E3EAEL
-E3vvJ
+e3Q71V
 e4+0 
 E4+E8
 E4pp4ST-
 E4Pw 
-E4u8T
 e5?^v
-E52FI
 E5js9*
+e6$TQ
 E6O=S
 E7M}R
 E8|Bm=
 e8XMj%(X
-e9!d:
-e9!dz
 E9%d8.
-e9%ZU
-e93p@
-eA(qe
-EA->6
+e9,Ub&
+E95(M
+Ea=Nj
+Eab1)
 eabW9*p7
 Eacute
 Eacutesmall
+eAeTi
 EagerBulkExecution
+eagO$G0
 EarAccessory
 Earth blue
 Earth green
@@ -5880,40 +5945,46 @@ EArWu
 easingDirection
 easingStyle
 easy handle already used in multi handle
+EatEP)
 EBDAf
 Ebe5e
 ebegeq
+EBMV1lJ4X
 EBNaT
-EbOB-
 EBRA/
 ec2-54-165-151-168.compute-1.amazonaws.com
 EchoSoundEffect
 Ecircumflex
 Ecircumflexsmall
+ECltB5
 ecsv2
-ed/iU
-EdeN7
 edge table creation
 EdgeBump
 Edieresis
 Edieresissmall
 EditingDisabled
 EditQualityLevel
-edR2E
 edX.r
+eepBCf
+eeRxoV
 eexec
 eF##^
-Ef#{/
 Ef)GR
+eF;t{Z
+ef0TT
 Ef10y
 Effective FPS
 EFR'J
 eFU-j
 Eg)%0/
 EG@2A
+EG=X@QqU
+Eg1XW{
+egElU
 Eggplant
 egh)7
 Egl_O
+eGn&=
 EgR*(
 Egrave
 Egravesmall
@@ -5922,26 +5993,21 @@ eh vector copy constructor iterator'
 eh vector destructor iterator'
 eh vector vbase constructor iterator'
 eh vector vbase copy constructor iterator'
-Eh|SA
 ehfBw
-ehGg(|
-e-HO%
-EHOwQ
-eI.1w
 ei>1$E
 Eight
 eightinferior
 eightoldstyle
 eightsuperior
 EijNkT
+'EIWN
 EIx/v
 eJ,,u=
 Ej,yOu
 EJ4gO<z^
-eJK(U
 Ek8?D
+EkCr|
 ekhHD
-ekj+z_
 eL7ncY
 Elapsed connection time in seconds   %I64u
 Elapsed connection time in seconds %I64u
@@ -5949,7 +6015,6 @@ elapsedTime
 Elastic
 Elasticity
 ElasticityWeight
-ElBO(
 Electric blue
 elem.style
 element had no id
@@ -6009,6 +6074,8 @@ else//reuse stored result untill next time viewport is changed.
 elseif
 E'lT<
 eLu7Zn
+eM#X 
+Em^?U
 emdash
 Emission
 EmissionDirection
@@ -6033,10 +6100,8 @@ Empty!!!
 EmptyCutoff
 emscripten
 -emu$@
-EmV&N!
 EmV7s
 EN$yP
-En30:
 EN7A-
 EN9(O
 enable
@@ -6176,15 +6241,20 @@ Environment Speed %
 environmentSpeed
 EnviroSpeed % : 
 envmap_bumpmap
+eo.,f
 EOF encountered while reading Tag
 EOF encountered while reading Tag start
-EOJaD=
-eP h8
-eP:0 
-EP^YU
+EOOHs
+ep%E$
+epB83
 ephemeralcounters
 ephemeralcounters.api
+EPhp$)
+Epp:e$T3S
+eQi=s
 EqiP(
+EqpN-
+eQS-u
 equal
 EqualizerSoundEffect
 Equals
@@ -6197,7 +6267,6 @@ er)w(
 Erasing chunk: %i %i %i
 erc+M
 eRJ;m,I
-Erl0>U
 erodeWalkableArea
 Error
 Error %d
@@ -6325,6 +6394,7 @@ Errors
 errorStr
 ErrorUploader
 Erv%Y
+Ery:?A
 ES1_0_compatibility
 ES1_1_compatibility
 ES2_compatibility
@@ -6335,12 +6405,12 @@ Esc: Exit &amp; Clear filter
 Escape
 EscapeKeyPressed
 EscChar
+eSM5&
 Esmall
-esSqA
 Establish HTTP proxy tunnel to %s:%hu
 Estrangelo Edessa
 esuperior
-eT}RXh
+eT.wU9U
 et>7bQ7
 ETC2 decoding disabled
 Ethsmall
@@ -6348,13 +6418,13 @@ eTL6*
 ETLPu
 ETLPu/
 ETLPur
+etOgV
 eu)cv
 eu_QW
 EucrosiaUPC
 EuE+,K
 eurtu
 eV!92
-Ev+ U
 evaluators
 evc#0
 EveN7
@@ -6379,15 +6449,20 @@ EventReplicator
 Events
 eventType
 Everyone
+EVgWU
+EVHox
 EVj(m
 evt.preventDefault();
+Ew%$7l
 Ew?F:
 E-w7!#o
-EwA0U
 ewh/?y
 EWl_v
+ewo-r
 eWTnP
 eWwu7
+eX@6y
+ex+<9
 eX4A;
 Ex9;h6l
 Exceeded DataComplexity limit for Boolean key %s
@@ -6445,13 +6520,11 @@ ExecuteScript
 Executing lua from signal, execution depth: %u
 Executing retry requests, size: %f, budget: %f
 Executing throttled requests, size: %f, budget: %f
-EXG6U
 EXgh'#
 Exhausted all retries for key: %s 
 ExitProcess
 ExitProcessOnExit
 ExitThread
-exm3^
 ExpandEnvironmentStringsA
 ExpandToGrid
 ExpansionFactor
@@ -6517,30 +6590,30 @@ Extra non-whitespace after JSON value.
 ExtraMemoryUsed
 Extreme
 E'xv2
-Ey:wI
+eXw'#xLK
 ey4*AO
 EyeAccessory
 EYi0SZ
+eYiD;
+eykb2
 EYlAT%
-Ez}HLD
 eZe}e
+ezx)H
 F ;A t
 F ;A(t
 F +B 
 F +F<
 f = fNext;
-F 4L:
 f- 8f=
 F j,j
-F RwX
 F SWP
 F Zaq
 f!->N
 f!f=fEfwf
-f!G,,
 F!h<W
 F#+<Q
 f#7b{
+f#Y#w
 F$;F(
 F$;F(w
 F$;F,u
@@ -6550,10 +6623,12 @@ F$+F@
 F$+F4
 F$9xX
 F$G+F 
+F$Phxf)
 F$SRj
 f$T)9@
 F$WQj
-f&3Q:<O
+F%NpK
+f%y f
 F(;F$_
 F(;F$r
 F(;F,u
@@ -6561,16 +6636,16 @@ F(;H$t9
 F(_^3
 F(+F 
 F(+F$
-F(3|(
 F(9G(t
 F(C+F$
-F(h0a
-F(h4|
+F(hda
+F(hpa
+F(hXa
+f(swB
 F);8:
 F)9%n
-F)WzU
 F)XQ,
-F)ZpO
+F*;gf
 F*NW_k
 F,:G,u
 F,;F0t
@@ -6580,17 +6655,11 @@ F,f;F.r)
 F,G+F(
 F,ixc|*
 f.;=I
-f.gv1w
 f.nWW-
+f/%@'U
 F/:K-
-f/j?M
+F/hhI
 f/o,w
-f/StQ^
-f/Z;H
-f: ya
-f:&Rb
-f:>Ak
-F:bLU
 F:on 
 F:SDR
 F;&eC
@@ -6608,7 +6677,6 @@ F;w v
 F;w$r
 F;w(|
 F;w@|
-F;w|#
 F;w||
 F;wd|
 F;whr
@@ -6618,81 +6686,77 @@ F;wX|
 f?$4#
 f?F{u?
 f?Hqf?
+f?KMU
 F@;F<u
 F@;G@u
 F@;G8u
 F@;NH}
 F@;NHr
-f@84:
+F@2l|Dr
+f@eJS
 F@j:f
 f^glfW
 f^h{:
-f^hn$|
 f^Oh2T
 F_#?/
 f-{#3
+F'{<b
 F{='@
-f{a.|
+f-{B0
 F|@t'
 F|^_7
 F||<##
 F|+Fx
+F|bH?
 F|G+Fx
 f|RYb%S
 f}!ix
 f};++
 f}StR
-f'}'Y4
 F+_Dr
 F+D$i5
-f+Xo-
-f<<$d
+f+P4|
 F<1q)_
+F<7s&
 F<G+F8
 F<PSW
 F<QRP
+F<SXZ
 f<tY'
 F<WSP
+F=&07b
 f=DDu
-f=Q6b
-f=r}f9
+F=Qm=
+F=z>B
 f=zq_
+F>=@w
+f0!161|3
 F0$?3=1
-f0&1q1
-F0(D)
-F0;F t(hDY
+f0&1V2F4i4x4}4
+F0&2B2d2i2
+F0;F t(hhY
 F0;F4tt
 F0;F4tV
 F0;F4u
 F0;N8}
-f0_;H
-F0}O.
+F0_0#1(1A1_1
 f-00f=
 F0el1
-f0F1v3
 F0G+F,
+F0k0p0
+F0m0y0
 F0N0U0_0
 F0PVf
-F0q0{0
-F0S0Z0f0m0
-F0S0Z0h0o0
-F0t0*4
-f0v1F2
+f0v2V4
 F1<at
 F1<gt
 f15x*
-f162V3
-F1c1>2I2^2
-F1F2r4
-f1hA.Jz
-F1p1w1
 f2cJK
 f2F(*MLF
+F2G*WF
 F2jgYf;
-f2wkle
-'f2wM
+f3&7L;
 f3l(u
-F3yVTW
 F4)F0
 F4;C4uhf
 F4;F<}t3
@@ -6704,20 +6768,21 @@ F4f;F6v
 F4SWf
 f51l0R:
 F5J5}2
-f7,)i
+F7desq
 F8;F<
 F8;F<r G
 F8;F0s.;FTr
 F8;F0s+;FTr
+F8+D9
 F8+F4
 F8+F4W
-F846)
+F'8fa
 F8G+F4
-f8L9f9
-f8St!
+f8oQ+
 f8-V/!
 F8WPQ
 F8WQP
+f8z&aR
 f9:t!V
 f9<At
 f90^u
@@ -6727,13 +6792,13 @@ f93dcbA3
 f94Bt
 f99t/
 f99t7
-f9awNK
 f9F4r
 f9GZr
+f9hOI
+F9y$ V
 f9Y0uVf9Y@uPf9YPuJf9Y
-fA,&ym
+fA#t!
 fA{.Q
-fA}LU
 Fa9kz
 Fabric
 FACE_NAME
@@ -6848,7 +6913,6 @@ Failure creating named (preventing multiple simultaneous processes), GetLastErro
 Failure waiting on named event (preventing multiple simultaneous processes), GetLastError returned %d
 Failure when receiving data from the peer
 FailureReason
-fAl)3
 FallAnimation
 fallback-script
 FallenPartsDestroyHeight
@@ -6860,6 +6924,7 @@ FamilyName
 FamilyOtherBlues
 FangSong_GB2312
 Fantasy
+FaNVB&
 fast %dc %dp queue %dc
 Fast Cluster queued to check - %p, isFW - %u
 Fast clusters to check for break: %u, fw: %u
@@ -6874,12 +6939,13 @@ FavorIPV4Connections
 Fawn brown
 FAXWIN Frame Window
 fAY)'
-fBlqG@76
 Fboost::lock_error
 FbpvnyHgvy
 FbTwKiZ
 FbY)}
 FbZwKi
+fC0EIg
+fC2D'$
 FcevgrFurrgZnantre
 FCj>hw
 fCk_J<
@@ -6888,11 +6954,12 @@ FD;^0vP
 FD;F@tr
 Fd;Fhu!
 FD;GDu
+Fd?>s
 FD+F@
 FD+F@W
 fd2f}^4
-Fd3|U
 FD333?
+Fd4s(
 Fd9FXu
 FDArray
 FDBytes
@@ -6907,6 +6974,8 @@ fDetailedRange = fDetailedRangeOriginal + (fDetailedRangeTarget - fDetailedRange
 fDetailedRange = fDetailedRangeTarget;
 fDetailedRange = fNewDetailedRange;
 fDetailedRange = timeend-timestart;
+Fdm#W
+Fdm9{
 FDPWj
 Fdt$V
 Feature
@@ -6935,8 +7004,8 @@ F'F2F>F
 FFlag
 ffyw-v
 FG Opacity
-fG1H7
 FG2s#Kq>
+Fge{u
 FglyrJvqtrgf
 FGmB@h
 FgnegreCynlreFpevcgf/PbagebyFpevcg
@@ -6980,7 +7049,7 @@ Fgngf/OneTencu
 Fgngf/OnfrZrzbelNanylmre
 Fgngf/PyvragZrzbelNanylmre
 Fgngf/QrpbengrqInyhrYnory
-Fh A|
+FGVf+
 Fh!Bdq
 Fh(L!
 FH:GHu
@@ -6989,25 +7058,30 @@ FH;FDu
 FH;FL
 FH;FPv
 FH;GHu
+fH|HObb6
 FH+FD
 FH<au
 FH=stib
+fH0>v
 FH9X,t
 FH9X0t
+fhD:.{
 FhfHf
 FHG+FD
 FHG7Z
+fHkx'
 FHltuo
 FHltuof
 FHltuoP
+FhP_Z
 FHPVf
 FHS!L
 FHstib
 FHstibt
 FHy,-
+fi)j:
 FI.Qg
 FI:GIu
-FI6y2 4?
 field
 field '%s' missing in date table
 FieldOfView
@@ -7016,7 +7090,6 @@ FIGURE_WIDTH
 figuredash
 F-II=
 fijkdbh
-Fikw4
 File already completely uploaded
 file error
 file exists
@@ -7109,6 +7182,7 @@ filterTextWithCallback:Merged %d
 filtertimer
 FilterTimer = CreateFilter(FilterInputTimerString);
 FilterUpdate();
+FIm.s>
 Final
 Final cell: %i %i %i
 final file: %s
@@ -7159,7 +7233,7 @@ FinishedReceivingInitialGameData
 FinishedReceivingInitialGameData 
 FinishedReplicating
 FinishShutdown
-finV'
+'FIQtU
 Fire Yellow
 FireActionButtonFoundSignal
 FireAllClients
@@ -7258,9 +7332,9 @@ FJ|r8^&q
 fj0r7
 fJ64x
 FjFv0
-fkBtz
+FJupN
+fK(fl
 FKgG2<
-fkMVS
 fkN6Q
 fKvWO_
 FL;F$t
@@ -7286,6 +7360,7 @@ FlashMessage = Message;
 FlatCursor
 FLc?S
 FlC+Fh
+flCkR?
 Flf+FdfH
 Flf+Fp
 FlfHj
@@ -7313,8 +7388,11 @@ flush_raster
 FlushFileBuffers
 FlushInstructionCache
 FlushProcessWriteBuffers
+FlxMU
+FLyG5
 Flying
 FlyweightService
+fLZc^
 fM.%@
 fm;IG
 fmod %08x
@@ -7345,17 +7423,19 @@ FMODSoundChannels
 fMousePrc = 0;
 fMoveBegin = fMoveCenter - 0.5 * fRange;
 fMoveEnd = fMoveCenter + 0.5 * fRange;
-fMQJQ?Q
 fmt u
 FmV(K
-FN(k=
+fN*2S
+Fn{@<
 fN|qY
+fN>5u$
 FNcZf
 fNewDetailedRange = 0.0001;
 fNmWC
 fNYiGc
-FO).U
 Fo/A^
+fO}@h
+fOa6;
 Focus
 Focused
 FocusLost
@@ -7403,6 +7483,7 @@ FontSize
 FontSizePadding
 FontType
 FontWidth = context.measureText('W').width;
+foo@h
 for (var i = 0; Counter && i < 3; ++i)
 'for' initial value must be a number
 for k,v in pairs(t1) do
@@ -7546,33 +7627,37 @@ FOUNDRY
 fourinferior
 fouroldstyle
 foursuperior
-fOwy/
 foyAtJ/D
 FP 5e
+FP s(
 FP;FL
 FP;GPu)
 Fp^Bx
+fp|8;S
+fp>,X
 fP>=hL
+FP1m%
+Fp24>
 FP33s?
 FP3FL3E
 FP8GPt
 FP9A 
 fpgiu
-Fpo(S
-Fpp(G
+FPps(
 fPrc = 1.0;
 fPrc = Math.pow(fPrc, 0.3);
 FPS              : 
 FPS         : 
+FPTs(
 FPVWS
+FpXu(
+FPXYG
 FPZNZ
-Fq::p
+fQ%9U
 Fq:B*
 FQ?R'fw%
-fQGIL<
 FQIS_
 fr b%
-fR^^I
 fraction
 Fractional sampling not implemented yet
 fragment_coord_conventions
@@ -7830,22 +7915,22 @@ FrontParamA
 FrontParamB
 FrontSurface
 FrontSurfaceInput
-fs%c5
+FRYk6
+fs*i}
 fs_tmp
 fs={:
+FsCzU
 FSendImmediaePriorityNow
 fSf,sy
-fsIZ8
 Fsmall
 FsP(M
-FsqHs
 FString
 FSType
-Fszkx
 ft%9q
 Ft;FTu
 Ft;FxtcW
 Ft+Fp
+F-T<U
 FTGT(
 ftHQ!
 fTimeBegin = RangeCpu.Begin;
@@ -8023,7 +8108,6 @@ FunctionalTestResult
 functionInfoTable
 functionToBind
 Funny
-fuq2U
 Furyy/AbgvsvpngvbaUnaqyre
 Furyy/AbNpgvbaBireynl
 Furyy/BhgsvgGvyr
@@ -8143,12 +8227,10 @@ future
 FuX8TF
 fV$(F
 Fv<Q>$
-fvo3M
 fvTnM
 fw %dc %dp; dyn %dc %dp; hum %dc %dp
 FWqns
 fWSJJ
-FWUtW
 fX += fWidth;
 Fx%@@
 fx*=z
@@ -8162,32 +8244,27 @@ FXCompositing
 FXCompositingFS
 FXComposition
 FxG+Ft
+fy(UU
 FY;w(|
-Fyp?M
+fyf U
 FYY;w(|
-FZ/)a
-Fz;M@
 fz?0Kz?
 FZ{.p
 fz2CY
-Fz5tD
+fzCKU
 FZh_Zy
 FzpxX
-fz'Pz{
 G @;G
 G _^f
 G Ff;p
-G!|Y#_
 g!A7r
 G!G&C
-g!Kln,
 G!L.F
 g#%0n
-g#&I8V
 g#?fT
 G#{kW
 g#g3K
-g#r%t>
+G#VhU
 G$;A$v@
 G$;G(u
 G$;G(vA
@@ -8198,37 +8275,40 @@ G$F+G
 G$SVP
 G$VSj
 G$VSP
-g%<o!
+G$xMX1
 g%0oI
-g%t=?u
 g%W_eM
-G&aCU
+G&g9rl
 G(9_Lu8
-G(hlx,
-G(o*z
+G(h<+,
+g):w7Y
 g)1oK@
 G)6Z;
 G)GYA
 G)NO<
-G*o/,
+G)TTm:
+'g*4u;
+G*j+%
 g*V|uK
 G,&rv
 G,@HL
 G,+G 
 G,+G(
 G,F+G(
+g,z%&
 G.?m}t
-G//:f
+G.DY(
 G//}PR
+G:,c6
 G:';'j
+'G:}U
 G:3jf4
-g;/n@
 G;} |
-'g;2i#
 g;7B+*
 G;FDv
 g;yC!
 g?Ifg?w
+G?OgU
 G@/9g
 G@_6Q
 g@}}J
@@ -8236,11 +8316,11 @@ G@+G<
 g@od$
 g@Pu?
 G@WVPR
+g^#J#
 g^> y
 G^GbF
 g^mS|
 g^Te)
-G_^^'
 g_GlobalArray
 g_GlobalArray = new Array(nNumLogs);
 g_IndexArray
@@ -8259,68 +8339,57 @@ g|&#V3
 G|&1c0
 G|+Gx
 G|C+Gx
-G}*$_U
 g+?<,
 g+}V+
 -G+cA
-g+FmU
 G+GXGfGkGpGuG{G
 g+L{;
-g+p<V
 G<;G@t
 G<+G8
+G<apN
 G<C+G8
 G<F+G8
+g<lP}E
 G<VSP
 G<xW!
 G=$0f
+g=/+i!
 g=1gd
 G=DXcu;
 g>}*x-
-g>0:R
 g>96=re
-g>F c5
-g>GrJ'
 g>sCg
-g0&1%2y2
-G0(D)
-G0,AR
 G0;G,u
 G0+G$
 G09_0
 g0e0*
 g0e0c
-G0f0f2
 G0PSQ
-g0q0L1Q1p1u1
-G0sCg
-G0Y0i0
+g1@=F
 g19IzP
-G1f1l2/4
-G2A8|
+G1d&?
+g28Bq7
 G2lZK
+G2y<!
 g2zOW
 G3/!{
 G3/dn
-G3>}=
+G3;1M
 G-30L
-G3b3m3y7
 G3D %d.%02d
 G3I=U
 G4at#P
-g4f&Zu
 G4F+G0
+G4FV%
 G4iPAJ
 G4PSV
 g5g>gK
 g5q?)e
-G5q5k:
 G5-yW
-G6FY-
+G6CGi
 G6wXB
 g6wZ1
-g7@{^E
-g7fSor*
+G7/YT
 G7G;G@GEGJM
 G7V6S
 G8$4G
@@ -8330,7 +8399,6 @@ G8_5%
 G8+G4
 G8<O)
 G8F+G4
-g8YjO
 g97OP
 g99KrJJ
 G9N}|
@@ -8458,19 +8526,18 @@ gamma value out of range
 Garamond
 Garbage collecting soundId = %s
 Garbage Collection
-gaSOU
 gatherConnectors
 gatherConstraints
 gatherForces
+gau*v
 Gautami
 GazeSelectionEnabled
 gb{Q@
+Gb>q9:
 GB90{t
 GbconePbafgnagf
 Gbreve
-gbtwO
 gbxg#
-gBZJU
 GC Distance
 GC Job completed.  Memory free: %u
 GC Job finish, data model: %p
@@ -8485,7 +8552,6 @@ gcQ*Sz2W*9@8
 GcStepMul
 GCSU-#
 gCuuZV{
-gcYy!m_
 GD;G@u
 GD;G@u(
 gD?Fk
@@ -8493,20 +8559,20 @@ GD_2I-
 gd4_6
 GD5)H
 GD'6/
+Gd8..
 GData-Version
 GDBytes
 Gdf;Gfu
 GdF+G
 GDI32.dll
+GdPQf
 GDPSV
 GDQSP
-gE(ma
 Ge^S0
 gE|.;
 Ge8}5a
 GearGenreSetting
 gearType
-geI2+
 General
 General  (MTU Size, Ping) :
 General (MTU Size, Ping) :
@@ -8544,7 +8610,6 @@ geometry_program4
 geometry_shader_passthrough
 geometry_shader4
 Georgia
-gEoSl
 germandbls
 get length of
 get_program_binary
@@ -8692,6 +8757,7 @@ GetGlobalDataStore
 GetGlobals
 GetGPUDelay
 GetGroupInfoAsync
+GetGroupsAsync
 GetGroupsUrl
 GetGuiInset
 GetHash
@@ -8959,7 +9025,9 @@ gfff+OL3
 gfff+OLF
 gfff+Q0
 gfff+U
+gfff0
 gfffF
+gffff9
 gfffS
 gfffS+
 gfffV
@@ -8970,45 +9038,45 @@ GfxCard
 GfxClusters
 GfxClustersFull
 gg}V++
-GG8Du
 GGcea
 ggnE5
-gGuEF
-Gh mZ
-GH s)
-Gh W_
+GGOHf
+gGX#|
+ggZ$x>
 Gh;G<
 GH;GDu
-Gh@W_
-G-H^+
 GH_^;
 Gh_^t
 GH+GD
 GH=a,4
-Gh0W_
-Gh1j3
 Gh40y
 GH9V(t
 ghau;*
-GhJFpPNl
 GHltuo
 Ghost grey
+GhP_Z
 GhQPRV
 GHstib
 GHstib_
 GhtAP
-gHuz:o
+gHvLt
 ghVZCu@
+gI^jZ
 Gi2ki
+gIarsz
 Gij<#w
 Gill Sans
 GImpactCompound
 gIUqkk
-Gj>Ph
+gj-}1
+Gj>Phxg
+GjBqe
 gjPLF
 GjrraCebcreglPbagebyyre
-gK#ETx
+GjzReU
 gK^%S
+gk74LU
+gKn:|
 GL 1.1 and up are not supported
 GL Debug: %s
 GL Renderer: %s
@@ -9883,7 +9951,6 @@ glCullFace
 glCullParameterdvEXT
 glCullParameterfvEXT
 glCurrentPaletteMatrixARB
-GLdb4-
 glDebugMessageCallback
 glDebugMessageCallbackAMD
 glDebugMessageCallbackARB
@@ -11439,6 +11506,7 @@ glTransformFeedbackVaryingsEXT
 glTransformFeedbackVaryingsNV
 glTransformPathNV
 glTranslatex
+gluCB
 GlueCursor
 glUniform1d
 glUniform1dv
@@ -11888,7 +11956,6 @@ glVertexWeightfvEXT
 glVertexWeighthNV
 glVertexWeighthvNV
 glVertexWeightPointerEXT
-GlVh0f
 glVideoCaptureNV
 glVideoCaptureStreamParameterdvNV
 glVideoCaptureStreamParameterfvNV
@@ -11972,18 +12039,14 @@ gM$@h<
 g'm(7
 gmatch
 GMloOU+
-GmPjEV>
-GmZ%U
 gN7pC
 Gn9Y#
 gNT7U
-GNUw4ep
 GNWX/
+gNX+R
 Go2))
-GO5t4m
-gO9pu
-GOA7%
 Goals
+GOGmB
 GoldenHashes
 Gone!!!
 GoodbyeChoiceActive
@@ -11999,15 +12062,11 @@ GoogleAnalyticsLoadPlayer
 GoogleAnalyticsLoadStudio
 GoogleAnalyticsThreadPoolMaxScheduleSize
 GoogleAnalyticsTracking
-Gor'<
 GOsl#%
 Got cached version, returning %s
 Got content as string: %s
 GP+GH
-gP3#:1
-G'P5^oZF
 gpc malloc failure: %s
-GpfMn4Ng
 GPGSJumpForceAdjustment
 GPGTB
 Gpreprocess
@@ -12027,8 +12086,9 @@ gpu_shader_int64
 gpu_shader4
 gpu_shader5
 Gq0-?Wy
+GQ5p;
 GQdC?
-gQSAb
+GQOreg
 gquLU
 GqYu%
 gR6}F
@@ -12073,7 +12133,6 @@ gravity
 Gray color space not permitted on RGB PNG
 gray+alpha color-map: too few entries
 gray-alpha color-map: too few entries
-gRCFj
 greater
 greaterequal
 greaterThan
@@ -12091,7 +12150,6 @@ GripForward
 GripPos
 GripRight
 GripUp
-grk3i4
 GRo*d
 Ground
 Group
@@ -12132,13 +12190,13 @@ grpE)%
 gs9UZ=?
 Gsmall
 GSSAPI
+'GT#..
 GT;GLu
 GT;GXu=
-gT?*r
 gT3Nc
+GtjB 
 GTSVj@
 GtSVP
-gTuI/'U
 GTVPS
 GU1%P
 Guest
@@ -12211,21 +12269,18 @@ GuiService:RemoveKey requires a string with a single character
 GuiTargetLifetime
 Gulim
 Gun metallic
+guP&J
 Guru-Regular.otf
-gV e+
-gV*9B+
-gV*O3
+Guv?2b
+gV#lEx
 gV}e:_
 gVbi,
-Gvnlv8U
+gVm;Q
+gVP6c*yjm
 gVQSo
-gvQys
-GvRp2U
-GV-vf
-Gw/'/
+Gw;(U
 Gw-1<;,*
-Gwp&}
-'gWVn
+gx.fK
 GX+GT
 GX33DC
 'Gx4R&
@@ -12234,9 +12289,11 @@ gX9(C
 GXF+GT
 GXR/k
 GxVPR
+gy }1
 Gy$LY
 gy4ct
 gYC)N
+gyc3U
 GyroscopeEnabled
 GyUzY
 Gz/%'
@@ -12246,44 +12303,48 @@ gZgnhKhWhci
 gZIb)#
 gzip' content encodings.
 gzip error
-GZti/
+h *%4h
 H ;K u
 H ;O u0
-H |4A
+h ?7-
+h _X?9
 H 5<<
-h a</
 h BGRW
 h FDB
-H!R<bz
-h!T7pf
-H!V(S
+h!<K,
 h#gZ$a
-H#Tns
 H#u$T
-H$hE'
-h$s#h
-h%G_s
+h$l7*
+h$UDv
+h%(LA
+h%_<L
+h%G+h
 H%O2:
+H%y>%J
 h&<;K
-h&MNF
+h&Y+h
 h()|+
-h'(2!
-h(a/U
-H(y(U
+h(:%a
+h)/DF
 H)e1UFH
-H)I#a
+h)l;U
+h*.pX
 h*;z;
+h*fiV
+h*ZB7
 h,($u
-h,<B.
+h,*kG.
+-h,6wJ
 h,flV
-H,iM>
 H,Q!R
-h.d-Df
-h.W2m
+H.$<v
+h/%K6
 h/3t*N,M
 H/b<'
+H/FO7U
 h/Sk*6
 h/SReab
+h/YW*'a
 h:FbR@k
 h:UTE
 h;/z7
@@ -12291,83 +12352,89 @@ H;@3g+v
 h;{(u
 H;} r
 h;eOZO
-H;u!2q
-h;u__
-h?1#n(
+h;g/d
+H;L;h;l;p;t;x;|;
+h;w1o
+h?6)B
 h?fg:
-h?G,FM
 h?W<@2
+h?z!0S
 H@+H<
-h@aO?
+H@3/r
 H@lDDDDDD
-h@s</f
 h^#lh
+h^i;s1
 h_&?!
-H_-,!D
-h_?)I
+h_(QC
 H_6T'
 h_H)A
-h_W2b2}/
+h_W5&
 h{oE Lgc
+h{UJ{
 H{V8$
-H|7K4
-H|SBp9
-H|v;{1
-H|VV<g
+h|i&U
+h}U4N
+h+=%6
+h+aoU
 h+iztE
-H+p j T
 H+r@+BD;r4
 H+r@+BH
-H+TN-
-H+X_K,
 h+zJJ
-h<*k#
-h<*kM
+h<#{l
+h<,iX
 H</'G
-h<6H-
-H<w3*
-h=/@G
-H=5w%
+-h<FZ
+h=:(U
+h=34?f
 H=7>h+
-H=L=T=X=
 H=O p{
+h=O}!k4
+h=pom
 H=Qlf
 H>|#;L
 h>Pi<
+h>T@|
 H0;H4u
+h0}x.
 H0+HH
-h001x1
-h042O
-H0L0P0T0X0
+h0f ?U
+H0H18203 4
+H0l0M1
+H0l0w0
 h0N}Qx
+h0QpAg
 H1>g?i
-h1>s*
-h1H!wh_
 'H1H8
+h1p1t1x1
+h1pFg
+h27tJAf
 H2p>55
-h2rdz
-h3UX?
+h3DSo
+H4$j4(
 h4,8$@_
-h4'}_U
+h4^#9T
 H4H3h
 h4V/%
 H4W8O
-H5L5P5T5X5
-h5Sho
 H6#gE
+h6?@a
+h6a,@
 h6o/Pw
-h7arJ
+h6x?l
+h70ih
+h7l7p7t7x7|7
+h7rv'#
 H8;zA
 'H93T
-h9bs+z
 H9eeF
 H9fqW
 H9VHw9S
-haa{ 
+h9Z$U
+haCi>
 haehhV
 haehvV
-haF@-3H
 HairAccessory
+HAKeM
 half_float
 half_float_pixel
 half_float_vertex
@@ -12419,7 +12486,7 @@ Haptic: Invalid effect identifier.
 Haptic: Invalid haptic device identifier
 Haptic: There are %d haptic devices available
 HapticService
-hARAYhx
+hARAYh(
 hardsoft
 Hardware
 HardwareMouse
@@ -12445,23 +12512,26 @@ HasTerrain
 Hat index too large: %d
 Have sticky command %p, generating new mouse command: %p
 HaveActiveUser
+hB!,F
 hb-!a
 hb?O2
-hb0Gq
 hbdw39
 hbehqQyh
 hBFrA
 hBGRsV
-hbHM4
-hbi.-
+hBMMS
 Hc$S#
-HC^W<
+hc2+n
+HCc3A
 hCGd1
 hcinu
 hcinuW
+hCJl^
+hCkxU
 HCLGc
+hcQ}!
 hcQG7
-hcToGh
+hcrDe
 hd!A5
 HD;a+*6
 hd{Zh
@@ -12474,7 +12544,9 @@ hDNEIV
 hDXT1j
 hDXT3j
 hDXT5j
-HE9'/
+he$}&
+he?p7
+hE673
 HeadColor
 Header
 Header 
@@ -12511,8 +12583,8 @@ Heartbeat start, data model: %p
 Heartbeat stepping: %4.4f, Step Budget: %4.4f
 HeartBeatFailure
 heat_xml
-heeMY}
 Height
+Hej#V
 help,?
 helpstart
 helpwindow
@@ -12524,45 +12596,40 @@ hEMItV
 -HeNA
 heQI|
 HEZLOCUS
--hf o
-HF*gdy+
+hF@ 5
 hf} %
-HF1^X
+HFd.h-
 HfHrH
-hFMS7
 Hfu0m4
-hFW<7
 HFXR>
-HFy!w
 hfylg
 hfylgV
 hg | 
-hg%*U
-hg;AS
+hG5K=
 hGA5K
-hgd$<
+HgCx,U
 HgF.5n
+h-gj}
 hgJr&
 HGnm/w
 hGnr)
-Hgo1|B
-hgxI7U
+hgVsKd
+hgwH'
 hGxt V
 hh%S_
-hh(a^
+hh(%_
 HH:mm:ss
-hH2X:
-hhh$^
-hhh+^
-hhHc^
-hhhe^
-hhHy_
-HhM28
-hhpS_
-hht(q
+hH;mN
+Hh@*|N
+hhb)'
+hhHi_
+hHk3J
+hhNgq
+hhPD^
+hhpF^
+hHT(M
 hHXBR
 HhXpE
-hI?8$
 hi{g*
 hidden
 HideChatWindow
@@ -12575,13 +12642,12 @@ HIGH_PRIORITY
 HighGain
 HighResolution
 Highway
-HIMYU
 Hinge
 HingeConstraint
 HingeCursor
 hinting-engine
-h-Ipf
 HipHeight
+hiR2b
 hIST must be after
 histogram
 History
@@ -12591,20 +12657,15 @@ historyprc
 HistoryViewMouseX = HistoryViewMouseY = -1;
 HistoryViewMouseX = x;
 HistoryViewMouseY = y;
-HJ!,e
 Hj<r+E
-hj3_s
-hjE$^A
+hjf&^
 HjGKN
-HJhh4/
-HJhP4/
-HjKhH
+HjKhP
 hJLiD
+Hk?5q
 Hk@5N
-hK@7NQ
-HK{FC:x
+hK6a9
 HK9!4
-hkcQn
 HKEY_CLASSES_ROOT
 HKEY_CURRENT_CONFIG
 HKEY_CURRENT_USER
@@ -12614,24 +12675,29 @@ HKEY_PERFORMANCE_DATA
 HKEY_PERFORMANCE_NLSTEXT
 HKEY_PERFORMANCE_TEXT
 HKEY_USERS
-Hkj'hO
 hknilW
-HKZLq
+hKQCi
 HKZop
-HL!rV
-HL*oM
+hL,siU&
 Hl<YL
 hL8n8
 Hla4^;
 hLACpV
+HLBxM
 hlcmn
+hlh^Z
 HL-h3
 hl'h8*X#
-HLQPh
+HLQPh@G
+hLt2K5DU
 Hltuot
 Hltuou-
 Hltuou+
+hlu&U
+h'lz%9d
 hlz{W
+HM!tg
+HMa+rU
 HMD already in use by another application (205)
 HMD detected over USB, but Monitor may be mirrored instead of extended (212)
 HMD detected over USB, but Monitor not found (208)
@@ -12653,33 +12719,21 @@ HMD found, but unable to request config (1102)
 Hmd Not Found (108)
 Hmd Not Found Presence Failed (126)
 HMD Not Known (202)
-HMG(B1
-hMG)I}
 hmgpfV
-hMj$_
-hmS8$
-HmW9j.
+hmSRt
 Hn!+/
 hN)_@
-hN9}i
-hndF&
-hNdq^
-hNgla
-hNH<Q
-hN-i9
-HNM7$
-hNOL$
-hO:c/
+HNojp#(
+ho<?y
 hO>,7
 hole flag table creation
-Hole32.dll
 holeCount > 1000000
 HOMEDRIVE
 HOMEPATH
-hONww
 HOORy %
 Hopper
 HopperBin
+HOqkP
 Horizontal
 HorizontalAlignment
 HorizontalScrollBarInset
@@ -12707,6 +12761,8 @@ Hp8#J
 hpamcV
 hPCCiS
 hperpV
+hpGO,
+HPht?
 HPj+S
 HPjPW
 Hpmoct
@@ -12714,19 +12770,22 @@ Hpmocu
 hPn)i
 HPQVR
 hpsagW
+hQ&70
 hq,/4<|
-hQ1sH
 hqTNY
 hQtry
-h-R^%
+hqTX0
+Hr%jU
 hrava
 hravgV
+'hRb>
 HRESULT = 0x%.8X
-hRHG 
+hrFpy
+hRhrE
 HrO_X
+hrVTM
 HS=.Z
 hs=r m}
-hS1VG
 HsAi%m
 hsFFoV
 Hsmall
@@ -12738,11 +12797,12 @@ hSVWh
 hSVWj
 hsYHpV
 Ht$;}
-ht62U
 hTADIV
 hTADIW
 HTC-VIVE
+htD^+h
 htdwu
+htJwc
 htK.k
 hTLCPV
 hTLd.
@@ -12880,15 +12940,13 @@ HttpTraceLight
 HttpUseContentCacheFlag2
 HttpZeroLatencyCaching
 HTXj2
-hTZ?@
-hU>ZwU
+Hty>!
 HuaTianKaiTi?
 HuaTianSongTi?
 hud4Sw0
 Huffman code size table overflow
 Huffman table 0x%02x was not defined
-hufMZ
-hUjOPf
+huM;0
 Humanoid
 Humanoid created - %p
 Humanoid destroyed - %p
@@ -12914,130 +12972,145 @@ HumanoidTextureOrphan
 HumanoidWithPGSConstraintsUsePhysicsState
 hungarumlaut
 Hungarumlautsmall
+hUOSH
 Hurricane grey
+hV: 5h
 hV;?D
-h'Vav
+hV^R(
 hVIv4
-HvK+?u=
 HVkK.
 hV'S>
+hVsXJ
 Hvy@cD
-hW!f2wM
 hw:Y,
-Hw+qJ1.
 HW>M!
 Hw4S|
+hWcBO
+hWh x
 hwH^I
-hWhpw
+hWOT=I
+hWSkZ
 HWYGOTH.ttf
-HX$:>U
 hX*BK
-hxFoN
+hX<pG
 hxi(j
-hXkYN
 Hxo)5v
 HXRPk
 HXWSR
 hXXY$
-hxY8E
-HY:I9
 hy^br
 hy0#!
 hY1x18
 hYARGW
 Hybrid
-hyKP|
+hYhF|
+hyK%H
 hyphen
 hypheninferior
 hyphensuperior
+hZ.}l
+hZN-G
+hzoMYS
+'HzVU
 HZVx+
-hzZva
 i % CSwitchColors.length
 I G;)
-I Z U
 i!'_W
-I!}7z@
-i!HI;
+I!<r|M
 I#,5e
 I#|kJ
-i#m5Y
+I#bpS4
 i#o?1
+i$<Ny
 I$-=yiF
 i$1og
 i$PVgv
 i$yZb
-I%&+.
+i%i<c
 I&I,I:IJ
 i&xe1
-i(4#PMU
+I(<fA
 i(i4i:iP
 I)j27
+I*#SXnz
 I*h1 
+I*jN8
+I*juU
+I*vrjTm
+I,,eU
+i,9Px
+I,qM*
 i.$l0
-i.gp{+
-i.Rvy
 I/}Zev{1
 I/ivo
 I/u-=
+i/X>i
 i:.|d
 i:{>O
+I;+cC
 i?/XI
 i?b^{
+I?BgD
+I?wbT.b
 I?'yK
 i@%!:
+i@&*)w
 i@{x*
+i@}NX
 I@o/>
 i@ot'
+I@vp 
 i^^?(>
 I^9{a
+i_:_@
 i{+2;
-i|p<U
+i{Y37
+i'|?I,C!
 i|V&V
 i}<Sg
-I}>/7
-I}>{%
 I}8J+<
-i}Mgm
+I}dw;
+I}WTU
 i+&Us
-I+b0wO
+I+<?r
 I+EAS:-$
 I+sD;C4s1;s8s,;K<s'
 i+srDW
 -I+xe@
-I<tGJ
+i<!C<Xl
+I=5/Yx(U
 i=Q=Y
+i=Z1=
 i>$l!
-I>({5
 i><a'
-I0:C@
+I0^&&U|
 I09O0u
-I0Q052F3s3
-i0q0x0
-i1Iw;
-I1U1v112F2
+I0n0s0
+I0Q0^0l0v0{0
+i0S1U
+i0z0f1,4
+i1ODh$
 i2?!lBC
-I2a1:e
 i2-fp+E
+I3@rkNM
 i386-pc-win32
-i3p''
+i3lN9
+I4em,
 I4mot
-i4ogr
 I4SVW
+I4s-x
 I4W(i
-i5zRG
--i6OR
-i71^#
-i7B|4
+i5zuS
 I82!b
 i8Czm
 i8Igr
+-i8rE
 I8SVW
-I'9p9
 I9ps-8R
 I9Xn{
 i9zS8j
 Ia.(V
-Ia{I=
+I'A=J
 IaA{.
 Iacute
 Iacutesmall
@@ -13045,7 +13118,7 @@ IaIrI
 IA'Wl
 IB9hYz
 ic)c=
-iC7S;
+ic1:,j.
 ICC profile length invalid (not a multiple of 4)
 ICC profile tag outside profile
 ICC profile tag start not a multiple of 4
@@ -13054,7 +13127,6 @@ iCCP: invalid keyword
 icGXo
 Icircumflex
 Icircumflexsmall
-ICiy5$
 IcmpCreateFile
 ICMPPingHundrethsPercentage
 ICMPPingTestDelay
@@ -13078,7 +13150,8 @@ Id_Terrain
 Id_Transparent
 Id_TransparentCasters
 Id_Water
-ID>BM
+id2>-
+Id7^.
 IDAT: ADLER32 checksum mismatch
 IDATx
 I-DD9
@@ -13088,6 +13161,7 @@ Identity
 identity', 
 Idieresis
 Idieresissmall
+IdIjI
 IdleAnimation
 Idled
 IDma2
@@ -13105,8 +13179,11 @@ IE/IveghnyXrlobneq
 IE/Qvnybt
 IE/Urnyguone3Q
 IE/YnfreCbvagre
+iE4A4{
+Ie9/b
 ieframe.dll
 IENccFuryyFgnegreFpevcg
+iett^
 IEVJY
 if (Seperate)
 if aZZZZ 
@@ -13375,7 +13452,7 @@ if(XText + WText > nWidth)
 if(xx + 1 < len && tt
 if(y + nHeight > CanvasRect.height)
 If@A@=
-IfEx!N};U
+If2$Y
 iFKHe6
 If-Modified-Since: %s
 iFU!;
@@ -13390,7 +13467,6 @@ ignoreDescendantsInstance
 ignoreDescendantsTable
 ignoreDescendentsInstance
 ignoreDescendentsTable
-ignoreList
 ignoreWater
 Ignoring attempt to write 16-bit bKGD chunk when bit_depth is 8
 Ignoring attempt to write 16-bit tRNS chunk when bit_depth is 8
@@ -13404,12 +13480,16 @@ Ignoring region transition for part %s because it is a child of character
 Ignoring request to write a PLTE chunk in grayscale PNG
 Ignoring the response-body
 iGO4j
+igquoU
 Igrave
 Igravesmall
 IGUN4
+Ih!jU
+Ih/bM
 Ih4D,
+IHenU
 II (ZW
-II}wU
+Ii<D*
 IID_IAMDirectSound
 IID_IAMLine21Decoder
 IID_IAMWstDecoder
@@ -13437,23 +13517,24 @@ IID_IVPObject
 IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
-IiD-tL
 IiGM>nw
+II-JH?
 ij;pJ
+Ij^_p
 ij<#Bi
 IJ0d/
 ij0QB
 iJCNe
 IJEJl
 iJgrC
+iJn:5
 iK%xF
 iK&&.
 Ik5L=?
+ikAW_
+IKc6U
 IKdywc
-ikIuO
-IkWIA
-ilbqU
-ILe#z
+IL_Hh
 ilGroups
 ilGroups.style
 IlL7a
@@ -13470,8 +13551,8 @@ ilOptions
 ILSVW
 ilThreads
 ilThreads.style
+IlyK+
 im$qS
-I-m5>
 Image
 Image dimensions: %dx%d format %d
 Image dimensions: %dx%d format %d (scaled from %dx%d)
@@ -13505,7 +13586,6 @@ ImageTransparency
 ImageUploadPromptBehavior
 imaging
 IMAP.
-IMl/t
 IMLP$
 Immediate connect fail for %s: %s
 IMMEDIATE_PRIORITY
@@ -13608,7 +13688,6 @@ infoType
 InFullScreen
 InGame
 INGR_
-iNingneFgnegreFpevcg
 init_resolve_thread() failed for %s; %s
 InitFrameInfo();
 InitGroupMenu();
@@ -13645,6 +13724,7 @@ inner
 inner.length-1
 InnerBox
 InOut
+iNpg-
 InPhysics
 InPhysicsDetails
 InProgress
@@ -13740,6 +13820,7 @@ Insufficient permissions to set TouchCameraMovementMode
 Insufficient permissions to set TouchMovementMode
 Insufficient permissions to set UserSettings parent
 Insufficient permissions to set vr rotation intensity
+int64
 IntConstrainedValue
 integer
 integral
@@ -13809,6 +13890,7 @@ interval is empty
 interval.average
 interval.samples
 interval.variance
+intg!4
 InTouches
 IntValue
 InUse
@@ -13990,10 +14072,10 @@ InvokeClient: player argument must be a Player object
 InvokeServer
 InvokeServer can only be called from the client
 io error
+iO.NU
 ioctl callback returned error %d
-iOh,c)
+IoJDU
 iOmIZe^
-iooHqs
 IOQmv
 ios_base::badbit set
 ios_base::eofbit set
@@ -14003,10 +14085,13 @@ iostream
 iostream stream error
 IP Type, Datacenter fetched               
 iP>2P3
+IP86U
 IpAddress
 ipairs
 ipbDq
-iPf3OU
+iPeWi
+ipftT
+-iPh<
 IPHLPAPI.DLL
 iPhone 5S
 iPhone 6
@@ -14014,15 +14099,13 @@ iPhone 6 Plus
 iPhone 6S
 iPhone 6S Plus
 iPhone SE
-IPjWu
 ipM_0
-Ipqs'
 IPTypeAndDataCenter
 IPv6 numerical address used in URL without brackets
 IPV6RobloxStudioCleanUp
 IQ*BE&g
 iq<,c
-Iqh%0
+iQaFU
 iq-tr
 iQvlBl
 ir_instrument1
@@ -14030,9 +14113,10 @@ ir5WV
 IR8z!
 IrisUPC
 IRRRQ
+iRtJZR
 IRv5.N
-IrxVU
 is a directory
+iS:T(
 iS?4W
 Is30FpsThrottleEnabled
 IsAncestorOf
@@ -14135,10 +14219,9 @@ IsWow64Process
 iS'wu
 IsY,5
 IT insertion
-it*^)
-IT,*I
 It/N6
 It: %d, Residual: %f%%, Delta: %f%%
+IT+1U
 Italic
 ITALIC_ANGLE
 ItalicAngle
@@ -14152,108 +14235,106 @@ Items Per Packet
 Items queued on destruction: %d
 Items Sent Per Sec
 Iterations    : 
+iTFD5Y
 Ito*+EF
 iTXt: invalid compression
 iTXt: invalid keyword
 iTXt: uncompressed text too long
-IU,%oU
-i-u,3Q
 IU.YU
 iu+-,
 iU6Dv
 IUbRw
 IUDE7
-iuYHpG
+IUX2Ewp
 Iv;^y
+ivcKU
+IVg|#
 IVl_b
 iVo>e
+ivoH3
 ivOjM
 IVRClientCore_002
 IVRCompositor_019
 IVRSystem_015
 iW0K;
 iWBhH&
-IWpMC
 IWQv.,
 IwtKn
 iwUqie
-iX {E
-Ix*6Y
-iX.oG
+IxGp%
 Ixl4H
 IXSVW
-iXtub$05
-Iy-!_
+iY.V#
+iY-D+
 IyR2Rf
-iZ$L_
-Iz1@%:$
+iY-UV
+iz NP
+I'Z^dx6
 j += 3;
-j h4$
-j hx7
+j h<$
 j j QPR
 j rU 
 j vy;
 j Y;E
 j!^-o
 J#E2?3
-j#h$-
-j#h4^
+j#hD-
+j#hX^
 j$*3#H
 j-$;Q
 J$+J 
 J$B5(
-j$hLK
-j$hpk)
+j$hlK
 j$j$jVhS
-j%h$D
+j%hLD
+j%htD
 j%jbh
-J%uFf
-j%Vx}
+-J%ZD
+j&hL{(
 j(:WR
-j(+ y
-j(7r&
-j(h|_H
-j(h0#
 j(j@jih
 j(Qj.Ph
 j(Qj.Rj Ph
-j(Qj:Rj PhhY
-j(Qj:Rj PhtY
+j(Qj:Rj Ph
 J)'%b
-j)@/$
-j)}|}
+J)fS^g
 J)hT3
-j)oqz
+J)Ml-
+J*2pt
 j*4^;
 j*jLh
-j*k+I
-j,%xH
 J,{:+
-j-,}abS-u
+J,dOD
+j,hxMF
 J.+)x
+j.6TU
+j.U<e
 j.Yf;
 J/(h7
+j/?If
 j/{Mv
 j/j.j{h
 j:{RB<
 j:Xf;
-j;dc!
+J;:B3
 j;f06
-j;u<mW
 j;Xf9
+J?,=}
+j??23
 j?@PR
 j?@PWR
 j?4t4
+J?fNU
 J?FQ&1
 j?jhj
 j?VWR
 j@6QlS
-J@CyG
-j@dX<cn
 j@j ^V
 j@j P
 j@j!P
 j@j!V
+J^%Y?
+J^f8:
 J_8;9
 j_bs>{
 j_FbT
@@ -14264,67 +14345,67 @@ J|+Jx
 J|0.M
 j|j2jkjh
 j|jRh1
-j|P/N
 j|t)h
-j}d{=
+J|tlkHDa
 j}FdS
 j}j:h
 -J-}r
-j+lm?k
-J+MF(N
-J+O:bcaU
 J< tF<,u)S
+J<}PV
+j<hx#
 J<I5y7F
+-J=F(
+J=hH5=
 j=jsh
+J=Um{
 J=uTb)
-j>&iW
+j>(0Y
 j>_;D
+J>C3YN
+J>GrP
+j>h4p(
 j>j>h
 j0&&7
-j0h(Q)
 j0Hd4
-J0O0X0
+j0hp$)
+J0O0I2
+j0q0n1u1
 j0Xf;
-j1h(r
+j1hxr
 J1J7JU
-j2h|C
-j2h0:,
 j2hQ2
+j2hx*/
+j2hx+/
 j2jGjbj
-j2wRI
 j3>>N
 j3COe
 j3FXC
-j3hdE
 J4|t>
-j4054585<5@5D5H5i5
-j4b'U
-j4htm
-j4tfp
-j53H'
+j4h$n
 j5j*j
 j5j_h
+J5rPe
 J5z?$<o
-J6,KU
+J6?;J
 J6^RU
-j6{il
 J6}d'
+J6c<U
 j6jBjVhi
-j6tDU
 j7%zC
+J7e/?p
+'J7p0
 J8?)a
+J8?g%xG7U
+J8AZ_
 ''J8c
-j8hLz
-j8M}!
+j8hXXF
+J9@Mg
 j9jjhm
 j9xrgm
+JA$$Zb
 jA_f;
-ja9-!
 Jacobians
 JAf>|.;
-jahpk)
-jAI/n@
-jak1!U
 JAN9f
 JanFebMarAprMayJunJulAugSepOctNovDec
 January
@@ -14335,34 +14416,34 @@ jAXf;
 jaZf;
 jAZjX
 jAZjZ^
-Jb}3xO
-jBh $1
+'-Jbg
 jbj_jch
 jbjhh
 jbjkh
 jbjljuh
 jBjLjZhl
-JBmZz
-Jboz*
 jbZRX
+jC+yt
 jc5w=
-jCiXU
+Jcm9I.
+jCn?|
+jd,a4
 -jd_;
 JD1|HI
-jDc;7
-Jdg2C{
-jdhlL
+jdaAV
+Jddln
+jDekU
+jdh8M
+jdp/j3w
 jdPjeS
 jdR$cG
-jdv7&Y
 Je!,<^
-JE8w-|mD
-jeH*R+
 jej,h0
-JEm_8
+jEmmB
 jF:^r
 JF9'U
-jfhpk)
+Jff2m
+JfGtcwS
 JFIF APP0 marker: version %d.%02d, density %dx%d  %d
 JFIF extension marker: JPEG-compressed thumbnail image, length %u
 JFIF extension marker: palette thumbnail image, length %u
@@ -14374,46 +14455,54 @@ jfjihk
 JFRVP
 JFX,U
 jG^K;
+Jg2()
+jGhPx
 jGiZ!
 jGj#h
 jgjFh
-jgNs,U
-jgR_zO
+Jg'N1
 jGYf;
 jgYjG
 JH;JDu
+Jh0FZ
 JHFzr1
-jHhlL
-j'hlq
-Jhp*a
-ji4,0
+jHh8M
+jhS_0
+JhXl_
+jI/>>
 jIBg3
 JiF1X
-jIhlL
+jIh8M
+Jiqj8{'|
+JIt%x
 jj}}d
 -j'j2j>jU
 jjbE}
 j-jFj'h
-jJhlL
+jJh8M
 jjTTE
+jJUSER32.dll
+jjv1f
 jJyJZ{
-jKhlL
+jKh8M
 jKjKh
 jKjTh
 jKjXjlhc
+jL gX
 jL%N.
 jL&&Zl66A
+JL}&5
 JL}3)
 Jl+Jh
-jLhlL
+jL=sY
+jLh8M
 jljnjmj
 jLjoh
 jlsw=
-JM+Ie?
-jmn&u
 JmSVG
 jMw$l
 jMw,%
+jn6lp
 jncMm
 jnext
 jnext+1
@@ -14421,7 +14510,6 @@ jnext+2
 jNld<
 jNPP!
 jNX^HE
-'jo$'U
 Job Created - this(%p) arbiter(%p)
 Job Destroyed - this(%p)
 JobCount
@@ -14433,6 +14521,7 @@ JobStart %s
 JobStart. this: %p arbiter: %p time: %u error: %d
 JobStop %s
 JobStop. This: %p arbiter: %p time: %u
+jODc=}
 Join All Time
 Join data contained invalid class network id
 join game type is invalid
@@ -14507,19 +14596,21 @@ jointsStepUi
 jointType
 jORQLtq
 jOS_r':2F
+joU!77
 Joystick button name too large: %s
 Joystick hasn't been opened yet
 jP%h.
 JPEG datastream contains no image
 JPEG parameter struct mismatch: library thinks size is %u, caller expects %u
-JQIkZ<uXypU
+jPvn}
 jqlj|
-jR &J
 jR!|c=<+R
-jRhhw)
-jro/U
+Jr+pp
+jRh8*)
 JrPW{4
-Js<?U
+jrVe#ME
+jRvkT&
+jS?2U
 jscript:
 jsez$
 jsfunc = 
@@ -14529,16 +14620,17 @@ JSON response is not valid
 Json Response was invalid
 JSONDecode
 JSONEncode
+jSu)U
 JSxE&
-Jtf9s
-jTh87
+JT#cH
 jTj!h
 jTjCjn
 jtjhjp
 jTjmjPh-
-jTSTU
 JtUg*
 jtx)DZ>
+jU,3%
+jubc5
 juj+j4h
 jUjUh
 JumpAnimation
@@ -14549,11 +14641,11 @@ JumpReplicate
 JumpRequest
 JumpTo
 JumpToIndex
+jUni:
 juSe1
 JUyB5
 JV*q^
 JV_T4
-J'vGI
 jVj:j h
 JvKsK}l
 j'Vlk
@@ -14561,14 +14653,16 @@ JVpLu
 jw#36
 jW((>
 jw*{w
-jw?Aw
+JW6z;U
 jwg0P
 jWjXjWh
 jwjyh
+JX*@Fi$V
 j'x,/
 jxI-L
 jXj3h2
 jxj9h
+JXuKM
 jxv{*C
 jXXf;
 JY :C/&
@@ -14588,133 +14682,128 @@ k k.k;m
 K QSj
 K S't2o
 K!2Re
-k!AF|
 k!e;,
-k!Si_
+k!gE8
+K!N3g
 k!WKI
 k#!m1
-'K#|&
-k#|HA
+K#^HC
 k#}x:
 k#9h;
 K$#s$
 K$$4A
 k$.eh
 k$;eG
+K$3&,
 k$6&p
 K$9H$u
+K% C'
 k%)p&
-k%Lwp$
-k%pde
-k%pTE
-K%XjfM
+K%=zt
+K%WEG
 -k&+f
 k&-7R
 K&K8KFKQ
 K&Shm8
+K(.uP
 K(_^2
 K(+K$j
 K(CZ<
-K(le}y@
 k(N^.
-k)HP.
 k')Qg
 K)U?3
 K)XwS
 k*cIm
 k*do^
 'K*V(<
-k,2Nz>
 K,52w
-k,A&x5
+k,9u)
 K,HoV
 K,VWRP
+k,Y4U
 k.&H&
-k.QxSR
-k/D?i
-K:(ER
+k.ROU
 k;Cd$
-k?!;!
-k?!fW#
+K;o:$
+k;QLl
 k?*ZL
-k?IJ*
+k?H(D
 K?lgR
-k?-nb
-k?QE>
 K@;O@uf
 K@{hN
 K@6u0
-K@UCL
 K@vbT
-K^:j-
 K^d2tw
 K^kb_
 -k^r)uw
-k^R@U
+k_Q'$
 k'{!Wa
+k{:(r
 k{i:6
+K|$i>
+k|Q%v5
 k}?4Y}?
-k}eB 
+k}j*|n
 K}kH*
+K+%2l
+k+BFy
 K+HggJ
-k+t4}a
 K<,PZ}AwW
 K<<H!
-K<2bI $
 K<4dz
-K=8uS
-k=E*0
+K<H>j*
+k<VYm
+k=Rt{#
 K0;H0u
 k0_4vfC
+k0|0p2
 k06/y
-k0p0w0
+K1flq
 k1jQ%8
 k1XNx
+k2F=n
+k2x2l4
 k3I'<
 K4;O4u,j
-K4i.#,KU
-k50>.
+k4CEU
 k51DFK
-K5g_u
-K626>
+K6} x
+K6OTE
 K74=K
 k7u+N
 K8;J8s
 K8|VgD$
 K89K0u
-K8rbr
-k9$^2B
+K9}^X
 K92?9
+k9M9B!
+Ka)GaY
 kA*:7
 K'a9+
-kAD$;
-kAhU)$
 KaiTi_GB2312
-kAMnm
 kb@;M
 Kb<7<hX
-Kb5GA<
 kBeg_W-
-kbG.U
-kc?OU
 kC9k)
-kcj_+|
+KCc?H
 Kcm|5
-KCmD_
 kcQrvnb<
 KD.%H
 KD+K@
 KdF+K
-kdHWk
+kdFqJ
 KdM{t
 kDsV!
+kDTq'
 KdVPW
 kDw^O
+'kE{z
 kE9#H
-ke9c%
+Ke9($
 Keep sending data to get tossed away!
 keep-alive
 KeepPlayersBeforeOnClose
+KeMcm:
 Kerberos
 Kernel
 Kernel::stepWorld
@@ -14722,7 +14811,6 @@ Kernel::stepWorldThrottled
 Kernel32
 KERNEL32.DLL
 kerning
-kEvna
 kEwV;
 Key %s throttled, moving over
 Key is not cached, can just store it directly: %s
@@ -14778,221 +14866,220 @@ KeyUp
 keyword 
 keyword truncated
 Kf;b(
+KFC}9es
 kFfa&n#X
 KFgnegreFpevcg
 kFOGn
-kfpTU
 kG;?y!z
+Kg;wU
 KgBoX
-KgcPiN
 kGr?;nw
 KGS!@#$%
+kh|;>
 Kh+Kd
 kh0n&
 Khaki
-khH>^
-khP9^
 khvL/
+kI;?2
+Ki|d4.G
+KI4St
 KickByDatacenter_
 KiDGgrq
 killed
-KJ%=U
-kjH>5
-kJv&{
-KK.s3
+kjK:&
+kK+hQ
 kK04k
+kKBNa
 KkF0J
-KkxDcCH
-KL#>z
+kKNNi7
+Kl}FS
 KL+KH
+kla{<I|*PE
+KLgh1
 KM,jP
 kM>}l
 kM7vO
 kMa%K
 KMkZS
+kmzLW_U
+kN%_S
 KN'Hf
 knilt
 known
 known incorrect sRGB profile
+kNp;@|O
 kNUoG
 kNXm_
+Knzg lU
 Ko};(
 KodchiangUPC
 kOE#zy
 Koeso
+KOKp#
 K'OmLX
+KOzK{
 KP_^f
 Kp+Kl
 Kpasp!
+KpC7U
 kPIoJ
 Kpkaj4
 KpocP
 kQB)Cj
+KQI6Sb
 kqO_c|
 kQpUwa
-KQwG@
-KR$XM
-KR3^K
+kR5#Z
 Krexg
-kRGCH
 KRjG':
 Krl@#
 Krxu?
 KS#KSVW
 kS&N7
 KS;+_
-kS=+,
 Ksmall
 kSmwSD#
 KspEk
+kT|w?
 KT69k
+KtE?I
+KTGuo/
 ktQUG
 KTr;n
 KTX 11
-ku%LMK
-Ku&0Z
-KU:yf
 KU;$p
 KUfL9jaD
+kUJS=
 KUMUX
 kuWdJ
 kv^-m9T
 kvA,Gs
+kVDi6
 kW$4k_(4
 KW/'TP
-kw}n&
 KWp Z
+KWzp%|
 KX+KT
-KX9H9/
 'kxkY}
-kxsLU
-kY!NJ
+kxUd3
+KY?me
+kY?ol<&U
 KyG(&
 kYnG6$
 kYV/W
 KYV|p0
-kZ.S'l8
 KZ@WS
+kz{2L
+k-Z<kMb
 KzCe_
+KzFc%
 kZkjk
 KZZ*S
 L $k6
-l }Ju
 L!4pn
+'l#_(Y
 l#n<=
-l$ hB
-l$ Qh
-l$ Tf
-L$$h*
-l$@Rht'
-L$4hE
-L$e1vR
-l$KLJ
+'L#Q,
+L$ hI8j
+L$$h'^
+L$$h9
+l$0Vf
+L$0Yf
+l$4h#
+l$4hZ
+l$8Th
+l$ZuR
 l%,-!
-l%H,&lO
+l%;lnw
 L&&jl66Z
-l&)zU
-l&E7cd
-L({(0
+l&KVuD
 L(knNk
-l(OP:
 L(T(< 
 L)'#OI
-l)^%(
-L)<)E
-L)p p$
 L,(fz
-L,CLU
 l,kg<i
 l,R.As
-l,r=x
-l,v*U
 l.&}$
 L.|pA
 l.Z#kek
-l/,;v
-L/lrU
 L/We,
 l: %f, E1: %f, E2: %f, E3: %f, E4: %f
 l: %f, F1: %f, F2: %f, F3: %f, F4: %f
 l:Fnf
-L:-t*
 L;*;}
 L;} r
-L;J>3
 L;R,7<
 'L?/wG
 l?:5N
 L?a{}4
 L?Ez/L
 L@(Z_
-l@@:l<
 l-@H7
+l@huq
+l@pI3
+L-^B_
+L^bzt
 L_7>n
 L_Smq
-l{$L,
 l-{*6
-L{@*-
-l{^EPe
+L{'o/ 
 L{s/x
-L|?:gW
+L|/zp
 L|7jn
 L|fhR
 l|vsd'
-l}+0U
+L}tG$
 l}u2I#
 L}w!|;I
-L+;|<
 L+00'
 l<?.,
 L<|<a
-L<cyIU
 L=20&R
+L=GA*
 L=U0lp
+l=VL2
 L=X^>
 l> o'D
 L>,+L>(
-L>BnQ
 l>MTn
-l>p>t>x>|>
 l>W@v
 L>X,7
-l0 b$
+L0,1<1H1M1W1
 l0:du$
-l0}0 1J1
-L0c0o0}0
-L0i0r0w0
+L0^0c0<1N1S1,2>2C2
+l0'F9
 L0L:LA
-l0V1&2W2c2
-L0W0s0{0
-L0W0s0{081I1v1
+l0p0t0x0
+l0p0t0x0|0
+L0R0v0
+L0V1F2
+l1,2,3=3
 L18RS
 L1bsX
-L2,3%4u4
+L1M#%
+l1owi
+L2}<IP
 L2Ua;
-l3#5K
 L3%5<*m
 l3:i0
-l3|5U
+l3;_}
 l3>53os
+'L3gU
 l3p3t3x3|3
+L3W3s3{3
 l4^1G
-L4P4T4X4
 l5:i7
-l58K2
+l59DLU
 L6@LS
-L-62%^
 l6qnk
 l7'b>
-'l8}M
-l8x?B
+L'8OU
+L8rHz(
 L9,j!-
 L9;umW
 l9Flrd
-L9s2bU
 l9t9x9|9
 lA(z|
-La,8l
 label
 Label = tl
 Label:
@@ -15048,28 +15135,37 @@ LayoutHandleSwapping2
 LayoutOnCollectorHeartbeat
 LayoutOrder
 LB{ _
+Lb+>C
 Lbf5U
+lbgEd
 lC(s)
 LC_ALL
 LC_CTYPE
 LC_MESSAGES
-LC94bU
+Lc+Z)U
 LCIDToLocaleName
 LCMapStringA
 LCMapStringEx
 LCMapStringW
 lcmnw^tP
+LCU -s$
 LCvi0_
+lCz%@9
 Ld{y4V
+Ld|*a
+Ld6iK
 LDAP.
 LDAP: cannot bind
 LDAP: search failed
+lDDSi
 ldexp
 ldgEq
 LDJCf
+lDl8oQw
 LdrAccessResource
 LdrFindResource_U
 ldSr.-
+lDWr.
 LeafyGrass
 Leaked resource %p
 lEauq
@@ -15141,6 +15237,7 @@ length does not match profile
 length exceeds PNG maximum
 Length of supplied header is too long. Maximum length is %d characters.
 lenIV
+lEnsZg
 lessequal
 LessThan
 Letting watcher thread know we're alive
@@ -15151,25 +15248,28 @@ level must be non-negative
 Level%02d
 LevelOfDetailSetting
 Levenim MT
-lf:)U
+levSsj
+LEVssK
 LF0ZD
 lfo:w
+LFsfG
+lFsmU
 lfxcH
-lG0q*
 lg8tp
+LGcSjU
 lgd7_
+lGq=c
 LGr*<:
 lGwjl
-lGwTdU
 LH(R=_+
-lh,c#
+LH)6qP
 lH^dH
-lHd+?a
-LhLla
+LH=:9
+lH4Au/
 lhttx2
-L-HU'
 li li a{ display:block;float:none;width:100%;text-align:left;}
 lI#@'
+lI%0o
 li.innerHTML = html;
 li.innerText = '
 li.innerText = name;
@@ -15238,7 +15338,6 @@ lightingUpdateChunkSkylight
 lightingUpdateLightScratch
 lightingUploadChunk
 lightingUploadCommit
-LIkD 
 Lilac
 Lily white
 LilyUPC
@@ -15266,36 +15365,48 @@ LineThickness
 LinkedSource
 Links
 Linux
-LIQt_
 list_priority
 list<T> too long
 ListBase
 listener
 listenerType
 LivingRoom
+lIX,VW^&r@
 LJ09r4
 ljCBE
+ljhmA
 LjHW8
 Lka{EH
+l-KAj
 Lkh9Fgc^A
-Ll!?3S
+lkN0_
+LkQ%4
+LKt$=
+lkxeU
 lL2_o
+llE6K
 LLL#L$L%LL&L'()LLLL%LLLLLLLL*LLLLLLLLLLLL+LL,-LLLLLLLLLLL.L/LLLLLLLLLLLLLL01LL234LL56789L:LLLLLL;<LL=>?LL@LLLLLABCLLLLLDL%LLLLLELLF%%%GLLLHLILLLLJK
 LLLLL
 LLLLLLLLLLLLLLLLL
 llText(StringArray
 lLWy0
+llX?b'
 lly}J&
 L'LZa
 LM/sd$
 Lm=2@
-lMek(2
+lM2Uy
+lm80YO
 lMgtv
 LMT insertion
 L-MTz
+lMuE.
+lNG7<}
 lniW?
 LNL;NP
 lnl{oE
+lO^C#
+lOa%U
 Load '%s'
 Load ClientAppSettings
 Load Named LinkedSource
@@ -15349,7 +15460,7 @@ loadingGui
 LoadingScript
 LoadingScript Error: %s
 LoadingScriptStopUsingVerbs
-LoadInstance
+loadInstance
 LoadKeyboardLayoutA
 LoadLibrary
 LoadLibraryA
@@ -15462,6 +15573,7 @@ LogJoinTime
 Logout
 LogService
 LogStartArray
+lokE>t
 long 
 LOOK_DOWNSTREAM_ONLY
 LOOK_UPSTREAM_ONLY
@@ -15492,24 +15604,26 @@ LowQMaterialWangFS
 LowResolution
 loy&&d
 lozenge
+Lp{(U
 lp>M'b
 LPjQW
 lpYrI!
 lQ g02
 l'q(c^h
+lq:aY#{
 LqR,:
-lRktU
+lQV^ns
+'Lr|H
+LRA^U
 LrKy(
 LrMDM
 LrvoZ
 LrXo'
 LS#rx
-lSBMs
-LSGP 
+lsb5j
 Lslash
 Lslashsmall
 Lsmall
-Lstp&)$
 lstrcmpA
 lstrcmpiA
 lstrcpynW
@@ -15519,12 +15633,12 @@ lsuperior
 LsVcK
 LSVW3
 LSVWjD
-LTkA#
-ltuo@e
-ltuop
-ltuope
+ltuo0
+ltuoPh
 ltuot
 ltuou
+LTWgU
+ltWk6
 lTY.x4
 LU#L3u
 LU)&j
@@ -15571,80 +15685,79 @@ Lucida Grande
 Lucida Sans Typewriter
 Lucida Sans Unicode
 lUKsgw
+lu-Lw
 LUM#A%
 lUnfs
+luPCV
 luxwir
-lv%'&+
 Lv/!V
 lv{Yn
 LV7Ybg
 LVs7^Hu
 l-vxN|
+Lwl>a
 LWLHl
-lX(,3
+lwqeQ
+Lx*pH
 Lx.uZm
 Lx;2.
 lx8x<
 LxGk+u
+lxLu#
+Lxumn
 lxw9bXmn
 Lyc>=
+lyhxx
 Lying server, not serving HTTP/2
 lyXMIo
-L-z %@b
+lZ!{%
+LZ|g$U
+Lz86%(IF
+LzY28
 M ,Z{
+M j_c
 M jV/
 M SBp
 M SVW
 m xn$
+M!!FQJ
 m!#/g
-M!$lv
-M!%tB2d
-M!/T0
-m!@H8
-M!+x2
-m!dIy4
-m!eO&
+m!8K=V
 m#:LVI
 m#=KQ
-m#jKny
 M#L60
-M$:YES
 m$;-0W
 M$+E4@Pj
 m$G;}
-M$mZU
 M$SVW
 M$t*j
 m$te&V
-M%f2wM
 M(G;y
 m)&F1D
+M)<2s
 m)4NU/
 M-)v(p
 M*@yJ
-M*CTg
 M*k*R
 m,?zH
 M,+M(
-m,><=D-
-M,eak
 m,Ks9
-m.:QYV9
-M.R{n
 m.rYF
-M/6s<
-m/qlJmr
+M.yP|
+m/l;K
 M:/>|
 M:iiK
+m;b%ifU
 M??;H'
+m?_>h
 M'?-K
 M?M$7
 m?od,U
 m?ym!
-M@;xf
 M@?- 
+M@?,Y
+m^.D$
 m^on/
-m_$wNJ
 m_6dofData
 m_aabbMaxOrg
 m_aabbMinOrg
@@ -15671,6 +15784,7 @@ m_appliedImpulse
 m_aqq
 m_area
 m_attach
+m_auG
 m_axisInA
 m_axisInB
 m_basis
@@ -15907,43 +16021,39 @@ m_volumeStiffness
 m_warmstartingFactor
 m_worldTransform
 m_zeroAreaThreshold
-m|)Ia
-m|a|gD
-m}?Xc
+M|Lr.
 m+B1'
 m+E/s
 M<qez
-M=e3e
+M<xyk=TV
+M=I,C
 m>(eI>
-m>gr,
 m>lz1
-M>XEx
 m0_$@
 m0|97
-m0n113
-M1a1o1w1}1
+M0e0o0y0
+M0X0t0|0
+M0Y4I5V5
+M1gRU
+m1J Ug
 m1WY$
-m1X/c
-m2$;%
 M23S;
 m2'9J
+m2lC>
 M3Uf3
 M4*Ff
 M40FH>
 M4CcQ
+M4h8M)
 M4W;-V
-M4X P
 m5ERn
-m5N%S
 m5zRu
-M6^>{
--m63^
 m69(a
+m7(rx
 m7;r<
-m7_|H
 m8yIY
+M9#0Vq
 M9o$P
-mA/$I
 MA?,6
 Ma1(c
 Ma38uj8&
@@ -15980,6 +16090,7 @@ MakeSecure_GameValidateMachine
 MakeTeleportServiceReplicated
 MakeTimes(%e,
 MakeTimesExtra(%e,%e,tt%d
+Mal$g
 Malformed data (%d != %d)
 Malformed encoding found
 Malformed Join
@@ -15989,7 +16100,6 @@ malformed pattern (ends with '%%')
 malformed pattern (missing '
 malformed sPLT chunk
 Malformed telnet option
-Mam$a
 managed vector constructor iterator'
 managed vector copy constructor iterator'
 managed vector destructor iterator'
@@ -16008,7 +16118,6 @@ map_Ka
 map_Kd 
 map_object_buffer
 map_texture
-mAP|}
 MapDialogRect
 mapping
 MappingScheme
@@ -16167,14 +16276,16 @@ MaxValue has to be integer or nil
 MaxVelocity
 MaxWaitTimeBeforeForcePacketProcessMS
 maxWalkDelta
-may^y
-mb,{U
+MBgTo
+Mbp? 
 MbP?{
+mC2GKe
+McG,Mt
 mCS|?
 'Md>J
-mDL8uY
 mdlSM
 mdsqb
+Me!T;
 MeasureFont()
 MechanicalJointsInUse
 MechanismInterpolationWorldSpace
@@ -16438,7 +16549,6 @@ messagesInResendQueue :
 messageTotalBytesSentPerSec
 messageType
 MessageWarning
-MeszD
 metaagg
 Metal
 MetaLengths
@@ -16454,32 +16564,20 @@ MetricsSets
 MEx2P
 mExcf
 MexHx
-mF7*!bG
+mf zR
+mf2VF
 mfn)(
-mfy;_%
+MFq._
+MFsth
 m'g;&
 Mg+w1
 MGgV'3
+MgL(#
 mG'q7
-MgZ2B4U
-Mh ,a
-Mh ba
-Mh da
-MH no
-Mh@F_
-Mh@mZ
-Mh@qa
-Mh0,a
-Mh0ba
-Mh0mZ
-MH0-o
-Mh0qa
-MhhF_
-MhPF_
-Mhpka
-MhPmZ
-MhPqa
-MhPW_
+mH0|;
+MhHlvv
+MhP!a
+Mhpl_
 MHSx&
 MicroProfile
 microprofile-%Y%m%d-%H%M%S.html
@@ -16491,8 +16589,8 @@ Microsoft Visual C++ Runtime Library
 Mid gray
 MidGain
 MidImage
+Mihx6)
 mimeType
-MiMlXU
 Min Time
 Min Time, Spike
 Min voxel chunk: %i %i %i
@@ -16527,7 +16625,6 @@ Misc Legacy Fonts
 misc_attribute
 misc_hints
 Miscellaneous marker 0x%02x, length %u
-mISFf
 missing '
 Missing ',' or '
 Missing ',' or '}' in object declaration
@@ -16542,11 +16639,11 @@ missing LZ dictionary
 Missing PLTE before IDAT
 Missing string closure
 Missing the second 
-MiVOW
 MiWI2s
+mj&Pc
 mj*bV2z
-m'j^_
 mj>zjZ
+Mj5%P
 MJM|a
 mJor0
 Mk2ItemDebug
@@ -16555,33 +16652,38 @@ Mk2ItemDebugEnabled
 Mk2ItemDebugLastCount
 Mk2ItemDebugReportHundredthsPercentage
 MKa-+
-MkDc7
 mke&1
+Mkjjq
 mKnP@
 mktn9
 mKVUS
 mkWCW
 MkYO 
 mL+ q3
+Ml0&{H
 mL2LV
-ml9gQ
 MLA,/I
 Mm$kL
 MM/dd/yy
+MMa=x
 mMkRV
 mMRAC
 MMUf33
-mMVUG
 Mmz5;j^
+mn5E%
 mn7G9
 MNA 6
 mNfHX
 MNG features are not allowed in a PNG datastream
 Mnn+zf
+mnNvX
 mNo$G
 mNpDcM
-mo?Ih
-m-O4Tx
+mnq?}<H@4U
+mo(}1
+MO8)I
+mO8@q
+'Mo8|E
 MO9QJf
 Mobile
 MobileJoinRateFormatUrl
@@ -16697,7 +16799,6 @@ MouseHoverEnter
 MouseHoverLeave
 MouseIconEnabled
 MouseInputQueryMethodsEnabled
-MouseLeave
 MouseLeaveConnectionCount
 MouseLockLabel
 MouseLockSwitch
@@ -16756,6 +16857,9 @@ mqWE*y&
 mR.Ww8
 MR?IT
 mR<fB
+Mr=#Q
+Mr6Lb
+MR9>e
 MRcWY
 MRHcu
 mRmom}m
@@ -16764,6 +16868,7 @@ MS Legacy Fonts
 MS Mincho
 Ms# q
 Ms}XE
+Ms1m*
 MsecBetweenTextureMemoryUsageArrayRefresh
 MSeP)
 msgBytesRecv/s : 
@@ -16774,8 +16879,8 @@ msgTotalBytesSent/s :
 msgType
 mshtml.dll
 Msmall
+Ms-pU
 mSs#P
-mSS,B
 msuperior
 msyU{r
 'Mt{l
@@ -16783,11 +16888,11 @@ mt8&8b
 MtD= 
 Mthov
 mtllib 
-Mtu}/
 MTULimit
 MtuSize
 MU'&Kx
 MU0& 
+m-u1N
 Mulberry
 MulDiv
 multi_bind
@@ -16808,7 +16913,6 @@ multisample_filter_hint
 multitexture
 multiview
 multiview2
-MUs)U
 MusicalInstruments
 Must be a comma or '
 Must be a comma or '}' after an object member
@@ -16818,35 +16922,40 @@ Must only be called for the local user fom local scripts
 Must only be called from server scripts
 MutexLifetime
 MV Boli
+MV@Xp
+mVA8IF
 MVmsp
 MVx:>
 mw%Ao
 mW(61
-mw/*<
 mW@PMR
 mW@U@
 Mw3'#
-MW3&l*U
 MWf?5Y
 mwh5$
+MWj w
+Mwnhl
+MWQ:f
 mx&F1
 MX?Bk
 MX_k,{
+Mx>HU
 Mx6C@9
+Mxd2&
 MxHq%W
 my/platform-currency-budget
-my+?#
-mY43>H
 MYAR#R
 MyToolsAreMine
--my'y
+mYV%Z-
+Mz6iU
 mzFA6B
 MzJZm
+mzk43
 MZOok
+N (CLU7L
 N 6zf1
-N bXT
 N PSQ
-n TnI
+N Qf0
 N Xw}
 N!S_I
 N!w0$
@@ -16854,89 +16963,100 @@ n!xP2
 n!z42
 N#?(.
 n#4o.
-n#g(8
 N$+N 
 n$l7>x
-n%fR<
+n%*R!
+N%9&U
 n%Mvv
 n({VD
 n(}=1<BD
 N(9N0u
 N(N9.
 n):>#
-N)k8*
 n)w^,
+n*<$G
 N*>wm
-n*IQ/
+N*4{#
 N*MZE10r
 n,L>a<
-N,m3.
-n,V6_
 n.OcC
-N.UAU
 n:4V#
-N;0o9
+n:SQ?
 n;ehS
 N;NHNQNkN
 N;W=b
 N?({!
 n?|Pn?m
-N?i,r
+n?Ks}
 N@EnableRobloxEventStream
 n@F<!
 N^:5q+
+N^6JU
+N^8=c
 N^bX)
 N^q''A
 n'^y2
+n_M2/
 n{$%xNp
 N{SSx
-n|@^8U
-n|{5S
 N|={m
+n}k5K
 n}kVM
+n}z6YU
 N+N,C
-N+zIW
+n<,hIpX
 N<+N8
+N<eU|
 N<n-a
-N=)xf
 N=^^=
+n==#1uO
 n=ar8
-N>!Nva)#qU
 n>._R
 N>00C
 N>a}NJ
 n>gmC
+n>h%u
 n>h5T
 N>x>hr
 N0+N,
-N0gMa
-n0O#R
+n0gYm4
 N0p#B
+N0p0V1y1
+N0S0E1
+N10.y7
+n1R1&
+n1vXK
 N29/X
 N2CQiT
 n2YD-
-n3KJ2$h
+N3|*<
 N3r(S
 N4 _^
 N4;HHu
 N4;N8
 N4+N0
+n45vx
 N47n}|
+n4SR1.
 N4w^2
 n4z/l0
+N6C(LU4
 n6Lwu
 N7(q:/
+N7liO
 N8;J8r
 N8;J8s
 N89N0u
 N8aBb
-n8K.U
+n8JFs
 N8tdz$w
 N8Yej,
+N9DOK1
 n9ju/
 N9OaP
+n'a14
+NA4O^
 NaaNi
-NAezL
 Name '%s' family %i resolved to '%s' family %i
 Name = Name.substr(0, BarTextLen);
 name conflict for module '%s'
@@ -16955,6 +17075,7 @@ namespace
 namewhat
 NAN(IND)
 NAN(SNAN)
+NaO23
 Narkisim
 NaTd=
 NativePurchaseFinished
@@ -16975,15 +17096,15 @@ NavigationWaypointAction
 Navy blue
 nawV2
 nAz42
-nB:As
-nBcuG>G
+nB *u
 NbfD,
+NbJsOv
 NbV-h
-nBxqU
-nBy+.:
-nc%p*
+nBVZY5
 Nc:y0
-nc7Jf
+NC3&w
+Nc7hl
+nCh%#
 nCI{/'
 nColorIndex
 nColorIndex = 1 - nColorIndex;
@@ -16994,12 +17115,12 @@ nContextSwitchEnabled = Enabled ? 1 : 0;
 nContextSwitchEnabled = Obj.nContextSwitchEnabled; 
 NCyL}Rf
 nD,>r
-ND1-b
 NdrAVh
 nDrawCount++;
 ndyh{
 Ndyw7
 NE2}@U
+Ne2<vi
 necessary data rewind wasn't possible
 NeckAccessory
 Need destination address
@@ -17011,7 +17132,6 @@ Negative content-length: %I64d, closing after transfer
 NegativePart
 Negotiate
 Negotiate handshake failure (empty challenge message)
-nEMIJ
 Neon green
 Neon orange
 Net PacketReceive
@@ -17129,7 +17249,7 @@ NextSelectionLeft
 NextSelectionRight
 NextSelectionUp
 nF{%vJ
-nf1(U
+Nf>q}
 NffrgGlcrAnzrf
 nfinity
 NfiO<
@@ -17137,7 +17257,10 @@ nFKJ@
 nFrameFirst
 nFrameFirst = 0;
 nFrameLast = Frames.length;
+NGN4b
 NgQmq
+nh#32I
+nH&{s
 NH+JH
 NH9NLu@
 nHc$>S
@@ -17176,15 +17299,19 @@ nHoverTokenNext = -1;
 nHoverTokenNext = nToken;
 NhOz#
 nHQI|=y
+nhy|U
 NHZnC/b9
 ni,/^
+ni?Xn{
 Ni=n5
+nid4#
 nil or table expected
 N'in%
 Nine*
 nineinferior
 nineoldstyle
 ninesuperior
+NingneFgnegreFpevcg
 NingneFgnegreFpevcgI2
 Ninja
 nIwW<
@@ -17196,15 +17323,19 @@ nK9iN
 NKaeK
 NkOek
 nKrq'M!
-nkx7uU
 Nl#N4
+nL/Dz
 Nl=r1=
 nl1a=
+-NL2K
 nL7^F
 NL8APt
 NL9A4u
 NL9A4u&
+nLE@vW
 NlGOu
+NLm*F
+Nlo/?
 nLog = nHoverTokenLogIndex;
 nLog = RangeSelect.Thread;
 nLog+1
@@ -17217,14 +17348,14 @@ nMaxWidth = nSum;
 NMcJc
 nMetaCharacters = MetaNames
 nMetaIndex
+NMk02U
 NmkprH
 nmraf
-Nmuq!
-nN5W<
 nn8F!=
+NND@Q
 nnE6X
-NNjhP
 NNS{$+oZy
+NnsL;
 nnz3!l
 No authentication method was acceptable.
 No authentication method was acceptable. (It is quite likely that the SOCKS5 server wanted a username/password, since none was supplied to the server on this connection.)
@@ -17345,6 +17476,7 @@ NORM_SPACE
 normal
 normaldetail
 NormalId
+NOSBz
 NoSound
 no-stem-darkening
 NoSupports
@@ -17405,31 +17537,35 @@ NP+NX
 NpC+Nl
 NpgvbaOvaqvatfGno
 npp70
+NpU8U
+NQ$Gz
 Nq:.j
+nQa=m
+nQC+1
 NqKAb
-NQLW 
+nqkhJ
+'nqnZ|
 nqTe(
 nQwLP
-NQX_R
 NqxYm
-NR ZU
-Nr0cU
+nR#zSP
 NRc+3
 nRMEJ
+n'ro$E
+Nro( @xU
 nrZ/W
 NS5mI
-nSk:U
+nscDgy
 Nsmall
 nsMO3
 nStackPos--;
 nStackPos++;
 nsuperior
-nt#=+
+nT z2
 -Nt(ac
-NT6dMh
 NtClose
 ntdll
-NThhw)
+NTh8*)
 nThreadIn
 Ntilde
 Ntildesmall
@@ -17523,53 +17659,50 @@ numSteppingContacts
 numtimers
 numTouchingContacts
 NumWaitingJobs
-Nuser32.dll
-Nv,#gg
+Nv)?b
+NV4//
 NvD@P
 nvK .
 NvOptimusEnablement
-nvRU7
-nvvr<
 Nw! F
 nWidth = window.innerWidth;
 nwJ/#
 NWO6O
-nWoZx
 nWyct
+NX&onFr6
+Nx{ U
+NX1xTX
 nx4m#
 nXbs6N
+NXjOR
 NxM|x
+nXOy,1
 Nxy_DJFa+
-Ny{(@
-ny4FF
 nybM#
-nz%|{
-NzklZj
+nYPvQ
+nz%Bl
+NZ;{>
+N-z=OC
+nZIz7
+NzmZU
 NZyA<
 O ,A>
-O @Q<
 O {mTn
-O a#n
 O G|H
 o TwO
-O!&>7
 O!5$+
 O!M0G
 o!NH)
-O!z/>8
-O#kQ 
 o$:Z-
 O$9H$u(
 O$C=N
+o$u:#X
 O%#4A5
-O%|6V
-o&?hU
 o&b/z
 O&j1h
 O&wWG
-O(-!+U
 O(+GD
-o)PQG
+O),!1d
 o*Ywaf
 O,.f_
 O,+O(
@@ -17577,19 +17710,18 @@ o,<2A
 o,4I1
 O,9O(vV
 O,AT#
+o,cuN
 o,fJA
 O,Pcwc
-O,W@4U
 O.ASz8W
 o.GlobalArray = GlobalArray;
+O.lNT
 o.LogStart = LogStart;
 o.MinDelta = MinDelta;
-o/HsV
 O/R{Ob
 O:)ec
-O:JUqU
+O:_pU
 o;tX4
-o;xJA
 o?.HF%BD05K
 o?@xo?
 O?}kT
@@ -17598,62 +17730,59 @@ O@;K@u
 O@+G4+O8
 O@+O<
 o@<xL
-O-@1(kR
 O@C#l
-O@Plb
-o^:yW
 o^{D>
-o^2A9W
-o^2WC
 O^38Z
-O^x3{#vWe!}%
-O_)u-
-o_wI@
-o_xcU
+o_(0^
+o_+u4d
+O_rU8<&$>8
 o{3Xl
+O{P2U
+O{YFO
 O|+Ox
 O|c-4Yq
-o|-DR-q2
-o-|T^
 o}0!;
-o+.1p
 o<#|wy
 O<+O8
 O<+O8P
 o<<WX
 O<9O@u,
-O<wsh
+O<i%i
 o<X@d
 O={|Tk
-O>^,f8
+O>*s;
 o>J1#
+O>MOS
+o>NXy
 O>TnIqa
 o0,v:
 O0+O,
 O00_g
 O09O4u,
-o0y0<1
+O0V1A2W2
+o0W2<8@8D8H8L8P8T8X8
 o0z0(171S1
+O1;2x2
+O1@6P8
 o11ck
 o14L%
-o18nU
-O1H<c
+O2$l>
 o2G@*
 o2QKU
+o3%:O&
 O4;O8
 O4_^+
 O4+O0
 O4=UUU
 O4F%dk
-O4IA2b
-o537g
-o5c}S
+o59?FA
 O5OFO
 o5tzg
 o5Wy0
 o63 pI
 o6c4*
 o6rGZ
+o7$p+
 o79'm
 o7AoC
 O7p#Xo
@@ -17663,15 +17792,15 @@ o9f&Jx
 o-A*Z
 oA{;2
 oA|@2
-oABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+Oa+1=
 Oacute
 Oacutesmall
+oaw$A
 oAwtk
 OaZ><j
-Ob%XU
 OB}jI
-oBdNOn
 obFAP?f
+ObG-U
 Obj = new Object();
 Obj.Count += 1;
 Obj.Count = 0;
@@ -17699,19 +17828,12 @@ Objects
 ObjectValue
 ObjExporterCorrectedSpecular
 ObjExporterLinearizeColors
-Ob'K2s
 Oblique
 obn}>d
 Obstacle Found, Moving to: %4.4f, %4.4f, %4.4f
 Obtained EMS handle %u
 Obtained XMS handle %u
 obwQ4
-oC%j>&
-oC%jLOK 
-oC1rD
-oC4MU
-oC7*l
-oC7KMr}
 OccludeAll
 occlusion_query
 occlusion_query_event
@@ -17727,24 +17849,28 @@ Ocircumflexsmall
 OcO,f
 Octave
 October
-OCvK;
-Ocz,dU
 od!1z
-oD:gf
-oDATX
+OD!RU
+OD;- +B
+Od=:!
 odD'f3
 OdF+O
-OdHwdo
+odg@U)
+ODH#'
 Odieresis
 Odieresissmall
-ODiu)
-oDZ+DA
-oe/AiU
+odtsR$
+OE&fm
+Oe)H5
+OEao-S
 OeGII&
 oeOKv
 oEoOoZoaozo
+oEQr$
 OEsmall
+Oet@!!
 of>cr
+OF>oU
 OF56RFxa
 O'FD5@
 offscreen.clearRect(0, 0, CanvasDetailedView.width, CanvasDetailedView.height);
@@ -17761,33 +17887,36 @@ Ofk 6
 OfLNK
 og:9y
 og@Sw
-OG^KZX
+Og'|n
 o'g>g
+oG7<}
+oGdwCP
 OgI82{q
 ogonek
 Ogoneksmall
 Ograve
 Ogravesmall
-O'h:}k
-oh@fa
-oh@s^
-oh@yZ
+OgtQU
 OH|R3
 OH+OD
-oh01^
-O'hF9
+oh0B^
+oh8#^
 OhfvarffYbtvp
+ohh)Z
 ohk6s
-OhL9Z
+ohlF+
 ohP&+
-ohPQ_
+ohPHZ
 OHPSQ
+ohRCa
 OHSSVSSW
 oH-W;
-ohXha
+ohx+_
 OHxiW
+oHy;Sw
 Oi.$X
-oi?^H(U
+oi;xU
+oI=H<
 oIa?1}j
 OId)68
 oj!^3
@@ -17796,13 +17925,12 @@ oJ0HY
 Oj2sq;
 OjlZ;
 oJmJ8
-OJQF}
+ojXa}oU
 OkouX
-ol&MN>
-OL)pN
+Ol-.8
 OL+OH
+OL=i/k
 OL7Vb
-OlC'rU
 oldCharacter
 oLDik
 oldResult, moduleRef  = ...
@@ -17813,22 +17941,18 @@ OleAut32.dll
 OleInitialize
 OleLockRunning
 OleUninitialize
-oLf{O
 Olive
 Olivine
-olSq#
-oM#DU
 Om|M}
+Omd0r{
 Omega
 omj=e
 omni callsig'
 On receive packet %d
 ON#Ow
-on,m)U
 oN;++
 OnAdjustSpeed
 OnAdjustWeight
-OnAh&) c
 onAncestorChanged
 onAssemblyMovedFromStep
 onBoundCloseFunctionError - %s
@@ -17897,13 +18021,17 @@ OnTeleportInternal
 OnTTj
 OnUndo
 OnUpdate
+ONVER#
 oO_,g
 OO|L3
+Oo1t@
 oOb93
 OOL<'
+oo'qgL
 ooSY*
 Op?wE
 Op+Ol
+oP4aU
 Opacity
 opacity_xml
 Opaque
@@ -17965,17 +18093,15 @@ option '%canonical_option%' only takes a single argument
 option '%canonical_option%' requires at least one argument
 optionalMessage
 Options
+Oq&n{
 OQ*?t
 OQaO@
 OqbLE
 OqVvh
-or bl
-or$OU
 Or=^<z
 OR1>!e
 or8D P
 Orapuznexre
-orB7XU
 Orbital
 Order66
 OrderArray
@@ -17987,24 +18113,25 @@ Ordering
 ordfeminine
 ordmasculine
 oRf*K
-OrgZU
+oRff_zE
 Orientation
 OrientationLocal
 origin
 Original
 original_token
 OriginalSize
-os%Lf
 os(4$
 os.date's first argument must be either '*t' or '!*t'
 OscillateMotor
+OShq?
 OsIs64Bit
 Oslash
 Oslashsmall
 Osmall
+OSoTU
 OsPlatform
 OsPlatformId
-Osr6I
+OSQhM9
 osuperior
 OsV1'
 OsVer
@@ -18025,12 +18152,10 @@ otherUserId
 otherUserIds=%d
 Otilde
 Otildesmall
-otOJ+
 OtSQP
 OTTOt
-otWG_U
-ou'D(
-OUKGE
+OU|B0
+OUgumQ
 oUlVKCe}
 Our change is rejected, update local value
 Our change won, lets update final value
@@ -18080,7 +18205,7 @@ OutputDebugStringA
 OutputDebugStringW
 OutrageousBuildersClub
 OutTouches
-'oUV)
+OUY)}
 over13
 Overall (KB/s) :
 Overall (KB/s, Pkt/s, Queue)
@@ -18095,7 +18220,6 @@ override
 OverrideMouseIconBehavior
 OverrideStarterScript
 OverrideStarterScriptInStudio
-OVO-e
 ovr_ClearShouldRecenterFlag
 ovr_CommitTextureSwapChain
 ovr_Create
@@ -18179,113 +18303,120 @@ ownership
 Ownership check failed because %s
 Ownership check failed with an unknown error
 ownership/hasasset?userId=%d&assetId=%d
-oWR{&a
 OwxR$
 OX,3x
 Ox@_^
 OX+JX
 OX+NX
 OX+OT
-OXBwi
-OY(&^
-oY8<5
+Ox9=_
+OyMAow
 OyRx4
 Oyster
 OYv#1TqugLHU>.
-oz^,!
-OzC2s
+oz%Ba=z
+oz&mU
 OzG<2
+ozH@q
+OZPm+
 OZw3(?
 P- ck;
 p!iu/8
-P!lPj*
-P#0ER;
-p#GS48)
+p!T@,Uh3lz
+p#,$S
+p#?h<
 p#p7pP
+P#uAR
 p'#wT
-P$(wlza
-P$.{M
 p$;WDr
 P$F;w
-P$h2l
-p&%9{'
+P$v%7
+p&;3>
 P&I!y
 p&Z%N
-P((5ar
+P(9>l:
 p(FeRN
 p(N$Q
-p(Oy5
-p(OzK
 P(P;P
-p(s-xH
 p)&+u
 P)/&h
 P)taT
-P*:cK
 P*a/N
+p*lGU
+P*mXcF
 P*YHz
 P,;P0t8
-P',{mka
-P.bw+
+P,-ao
+p,k{s
 p.Cu1
-P.mOV
-P/@+J
+p.E:!
+P.k^H
 P/3}ds
 P/5*eJe
+p/jN_
 p:)* 
+p:6dd
+p:t=|
 p:v;!
 p;D1hr
 p;K u
+p-;U^
 P;uqe
-P?%v6
 P?5>fj
+p?cs;
 p?O7p?c
-P?T?X?
-p@d.cU
+p@b4Kk
 P@DLD@TP
 p@Signals
 P@TdDDDD@
+p@x7y
+P^|dT
 P^}IB
-P_*#D
-p_.FS<
+p^Ujk
 p_@q=J
 P_i!4
 P_RFp
-p_yoU1f
-p{aoW
+p{$AU
+p{{uhb@
+P|e&!F
 P|f#t
 P}?3!j
+p}9Jx:
+p'<?*
 P<Dx<
-P<m!c
 p=ATEMui
+p=glDU
 p>B|>
+P>tA<
 p0;2u(
 P0;X u
-P084&7
-P0JA8
-P0k0v0
 P0T0X0
-P0v0V1
-P0X0_0i0
+P1HBCU
+p1l223
+p1t1x1|1
+p29|3
 P2cGS
-p2jHKs
-P2Ss'
-P2T2X2
-p2t2x2|2
+P3)5:5K5
 P4@)B>
 P4@)B>%
 p4j?QRV
-p4MDF|
 p5!B1
+p5>::@
 p59b 
 p5c?/
-p5X{%
 P6#i^
 P6/k7j
+p-6=<
+p6gkA
 p6KeX
-P6WV|
+P6PSHU
+P6suA
 p7jlxi;7++
+P8@|>
+p88duER
+P9$<Q
 p9BQZ
+pA?_c
 pack_invert
 pack_reverse_row_order
 Package
@@ -18327,14 +18458,17 @@ pageSize
 PageSize has to be more or equal to zero
 PageSize is too large
 PageUp
+PAhDp
 PaintType
 pairs
+paJW-D
 Palatino Linotype
 palette
 palette color-map: too few entries
 palette index out of bounds (%d)
 Palette is NULL in indexed image
 paletted_texture
+PaMo9
 Pan View
 PANIC: unprotected error in call to Lua API (%s)
 Panning camera, heading: %f, elevation: %f, distance: %f
@@ -18495,13 +18629,10 @@ Pause
 Paused
 Pavement
 paypal.com
-Pb:=A,
 pb}mJ
-Pb}n}h&y
 pBDfb
 PberFpevcgf/AbgvsvpngvbaFpevcg2
 PberFpevcgf/ChepunfrCebzcgFpevcg2
-PberFpevcgf/ChepunfrCebzcgFpevcg3
 PberFpevcgf/CresbeznaprFgngfZnantreFpevcg
 PberFpevcgf/Gbcone
 PberFpevcgf/IruvpyrUhq
@@ -18509,6 +18640,7 @@ PberFpevcgf/OybpxCynlreCebzcg
 PberFpevcgf/PbagrkgNpgvbaGbhpu
 PberFpevcgf/SevraqCynlreCebzcg
 PberFpevcgf/TnzrcnqZrah
+PberFpevcgf/TnzrcnqZrahByq
 PberFpevcgf/UrnyguFpevcg
 PberFpevcgf/ZnvaObgPungFpevcg2
 pBh(N
@@ -18523,24 +18655,26 @@ Pbzzba/Uggc
 PC Player
 pc{o_
 pc0I|i
+pc2@XU
 PC7DI{
 pCAL: invalid keyword
 pcall
 PCCiu
 pContext
-pcrQX
 PCS illuminant is not D50
-pD$Tq;e
-pD&kO
 pd;ph
-pDgq:
-Pdmr4
+PdC7M
+pDh|v)
+pdM0U
 pDNf,
-pe,N5
+PdV,'
+pDV?t
+pE,A.S
 pe?t=
 pe?t=client&evt=latencyMeasurements
 Pearl
 Pebble
+pEcxX
 PeekMessageW
 PeekNamedPipe
 Peer certificate cannot be authenticated with given CA certificates
@@ -18577,23 +18711,21 @@ PersistedCurrentValue
 persistence
 PersonalServerService
 perthousand
+pEU)U
 pEuBE
 pEvents
 Pex?0
 pExecutionResource
-PF#O+
 pF4Y/-
+Pfa U
+PFef{!B
 pfiG 
 pFP7&
 pfr-metrics
 Pfto<
-Pg1URM
 pG3Ui
 pGFsr<JO
-PgKWU
 PGLM>?
-pGO#h8
-pGO;xB
 PGS Solver On : 
 PGSAlign2AxesCorrectionDamping
 PGSAlwaysActiveMasterSwitch
@@ -18626,61 +18758,50 @@ PGSSolverMinutes
 PGSSolverSimIslandsEnabled2
 PGSWakeOtherAssemblyForJoints
 PGSWakeOtherIfOneAssemblyIsAwake
-Ph t,
-Ph$|)
-Ph$D1
-Ph,wZ
-Ph@ /
-Ph@!_
-Ph@Fs
-Ph@Jv
-Ph|v-
-Ph<A.
-Ph0wu
-Ph4la
-Ph4x)
-Ph8v-
-Ph8w-
-PhD,^
-PhDI,
-PhDR)
-pHdS1EU
+pgYj}n
+Ph f)
+Ph#X-
+Ph$+)
+Ph$8)
+Ph(e)
+Ph@8)
+Ph@au
+Ph@CZ
+Ph@GY
+Ph<W(
+Ph<w)
+Ph0*v
+Ph0h(
+Ph4W(
+PhD+)
 PhETLPV
-Phhe)
-PhhI,
-PhhR)
-pHJ/,l
-PhL)^
-Phl,^
-PhL4)
-PhL8)
+PhgdRN
+PhH(,
+Phh+-
+PhL)-
+Phl+)
 PhLACs
-PhLu-
 phong_shading
 Phosph. White
-Php+1
-PhP6)
+PhP--
 PhPCCiV
-PhPlv
-PhPvz
-Pht,^
+PhPLv
+Phr!3
+PHSKL
+Pht(,
 PhTADIV
-PhTc)
-PhTD1
-PhTF_
 PhTLPsV
 PhTSIhV
-PhTV,
-PhTx)
 PhtXEtW
 PhtXTiV
 PhtXTzW
+Phty(
+PhT'Z
 Phvt,}
-PhxQ)
-Phxu,
+PhX),
+PhX8)
 Phy: v1
 Phy: v2
-PhYe-
 PhysicalCharacter
 PhysicalProperties
 PhysicalProperties.%s cannot be assigned to
@@ -18745,7 +18866,9 @@ PhysicsStats
 PhysicsStats2
 PhysicsStepsPerSecond
 Phystats
+pI^,d
 pi{kU
+Pi+D3
 PIN_CATEGORY_ANALOGVIDEOIN
 PIN_CATEGORY_CAPTURE
 PIN_CATEGORY_CC
@@ -18764,10 +18887,12 @@ Ping Elapsed Time: %d
 PingInterval
 pingUrl
 pinned_memory
+pIP8g
 Pipe broke: handle %p, url = %s
 Pipe is full, skip (%zu)
 pipeline_statistics_query
 Pirate
+pisbU
 Pitch
 PitchShiftSoundEffect
 pixel_buffer
@@ -18782,17 +18907,17 @@ pixel_texture_bits
 pixel_transform
 pixel_transform_color_table
 PJ}OG
-pJ+*}
 pj=hG
-pj>%6
 pj4j7
 PjHjH
+P-jHk
 -PjWW
 pk 'U
 pk*Ji
 pk=E)
 PK7$3
-pKxc>
+PKa{U
+pl |g
 pL&*-<
 pl;ppt
 pl@Ad
@@ -18991,6 +19116,8 @@ Please check internet connection and restart Roblox.
 Please contact the application's support team for more information.
 Please URL encode %% as %%25, see RFC 6874.
 plG$d
+PlNY_
+plQBU
 Plugin
 PluginManager
 PluginManager::StateDataEntry::hideStudioUI
@@ -19001,15 +19128,13 @@ PluginSecurity
 plusminus
 pLWVS
 pM.ZG}
-pM;M6
-PM{q;MU
 pm+0R
 pMFvD 
 pmgGF}
 PMingLiU
 PmnN1
 pmoct'
-PMzw!
+PMqd-
 p-N.T
 pn_triangles
 PNG file corrupted by ASCII conversion
@@ -19062,7 +19187,6 @@ pNlZr
 pNqE5
 pnu&;
 PnzrenPbagebyyre
-PO{,h
 PO=zh{
 point
 point_line_texgen
@@ -19132,7 +19256,6 @@ Power
 Power PC
 PowerUps
 POWRPROF.dll
-pp(yQ
 PP9E u:PPVWP
 ppB|>>
 PPDx<<
@@ -19143,25 +19266,24 @@ PPPPPWS
 PPPVS
 PPPWS
 ppVirtualProcessorRoots
-PQ -U
-PQ0re/J.
 PQAeS
 PqBZ;n
 pqex,
 pqgjy
-PQh(eH
-PQh0fH
+PQh|Z(
+PQhd}
+PQhdw
 PQj$S
 PQjdR
 PQKb|:
+pQN*U
 PQPVP
-PQRhD
-PQRVh
+PQRVhxp
 PQSVW
-PQuxz
 PQWQj
 PR|0f
 Pr3M:
+Pr66j
 Prc = 1;
 Pre Friction Displacement: %4.4f, %4.4f, %4.4f
 Precise
@@ -19212,8 +19334,9 @@ Previous
 Previous request on key 
 PreviousMetric
 prEZ^
-'PrH$2
-PRh0M
+PRhpM
+PRhVD
+PrI>c
 PrimaryAxisOnly
 PrimaryPart
 Primitive %p created
@@ -19401,21 +19524,19 @@ pscat
 pScheduler
 PShCLBC
 pshinter
-psKiD
 Psmall
 psnames
 PSQ#b
-psrO^
-PSVhtv
+PSs?H
+PSVh$w
 PSVRj
 PSWSS
-pT7q|U
-pTB^G
 pt-BR
 ptBT+?
 pThreadProxy
 pTmDN
 pTq$n
+ptqc7
 PU 6>
 Pu=2S
 Pu6n.'4
@@ -19423,7 +19544,6 @@ public:
 PublishedProjectsPageHeight
 PublishedProjectsPageUrl
 PublishedProjectsPageWidth
-'PUk&
 punct
 PungFryrpgbe
 PungHgvy
@@ -19446,18 +19566,15 @@ Pushing next frame.
 PushPixels
 pushProfilerActiveRegionForResumeContext - No active resume context.
 putback buffer full
+PuW#zq
 pv8l0
 PVAdornment
-PVh E
-PVh$O
-PVh$p)
-PVh(V
-PVh<q)
+PVh4K
 PVh8x
-PVhdx
-PVhHv
 PVhnrek
-PVhp(
+PVhpE
+PVhtO
+PVhX#)
 PVInstance
 PViuT
 p-VMM
@@ -19465,214 +19582,222 @@ PVR!t
 PVSQf
 PVSQj
 PVSQSWV
-PVVhp
-PVWh0
+PVVhHV(
+pVVnNU
 PVWSQ
 PVWWQ
-PWht<)
-PWhtK
+PWhd}
 PWjUR
-PwK Z
 PWOp<f:Z
+'PWp}
 pWsgp
 PWSQV
 PwY3Z
 pwYEg
+pw'z1
 px?yy
 PX+QX
 PX9}(uU
 pxbIQ
-PxKG<
-pXlwpk7U
-pxUrJ^
+Pxg#CV
+PxU*S
 PY,}7
 'PyQX
 Pyramid
 PyramidPart
 PyramidSides
+pYS6N2
 PYvL!
 Pyxr?f
+pz%d9
 Pz.fs
-pZ+zU
+pz_vb
 Pz1PO2
 pz7R*
 pzMRW{
 q 1vz
+Q 7n#Hm
+Q uhX
 q x7q
+Q!5w#
+q!DS1
 q#&$E
-q$(1U
+Q#)jg
+q#w(n
 Q$B@;
 Q$mLL
 Q$Qay
-Q%{O;
+q$T16
 Q%ald
+q%qX>
 Q%r.|
-Q&-9U
+q%sF%
 q&B:U
-q(q9%U
-Q)^{b
-q)Pz6
+Q(uNO
 Q)Q7QWQ
-q)x(9i
 Q'*DCY
 Q*foP
 q,!T5|
+Q,5N2
 Q,A!Sc
-q/N@T
-q/Nm@
+Q.)q!U
+Q/BtPV
 q/SbX
 q/T,'
 q/T+y
+q/Uoo
+q/z%46
 Q;+w6
-Q;>a$H
-Q?.iU
+Q;s_d!
 q?v o
 q-@,eT
+q@/DJ
 q@;p s
 q@;p(s
-q@@eU
 q@+q<
 q@7=4
+q@UHg
 Q^^S{
 q^S*l
+q{$mE
 q{)KS
+Q{>0V
 q{iDu
+q{ozp
 q{q+k
 q|}Y(
-Q}'OS
-Q+;#M
+Q|I$9
 q+F8j
 q+kL'
 Q+pb_
+Q+Tmm
 q<;q@tMff
 q<Zq&
-Q=lyU
-Q0^cU
-q0+1M1
+q=P${{n
+Q=TkE
+q>l@o+
 q023K
-Q0b0r0
-q0JlWU
 q0N>%
-q0Y*C
 q18&R(
 Q1hG;
-q21aU
+q21a}
+q2u3d4p4
+q2Un,
 Q2XXR
 -q3:a
-Q3=<U
 Q3C*s
 Q3EbS
-Q4#(>A
+q3olx
+Q3x?&x
 q4)q0
 q4^J3
-q4PhP
-Q4Q@ 
+-q4A(
+q4Phx
 q4qIqQ
 q4W5o
 q5$V/@
-q5bZU
-Q5dus
 q5v$w
-q6 W*
-Q6ha8
+-q6?r
+q61:r
 Q6si8
+Q7B'}F
 q7f*2*
 Q7XLh
 Q8}p%
+q8Phxp
 Q8We*t
 q9// 
-Q9L!(p
 QA3oCA
+QA-cU
 qaINs
+qApX(
 QASX*
+qB#0U
+Qb%%U
 QbA.D
 qBEbd
-qbNAv
 qBsx}
 qBUk_
 Qbz+r
-Qc!8m
 Qc)e@
 qc,UE
-qc^:3W
 qc|!y
-Qcoq(;
+QCguXU
 -QcQIT
 QcUd(
 Qd,jX
 qd=lU
 qd>CfS
+qD8FU
+qD9:U
 qD9qHt&
+qdk$:'U
 qdn';
-qdx4 
+QdV(Ymt
+QdVOj
 qdZRMHD@=;86421/.-+*)(''&%$$#
-QE' *
-qE=DV}
+Qe6@$J)
 QE6e6
 qEH3:=
 qf j(
 qf/B!
-Qf_}1
 QF4E!j
-qFPC$
 qg$!+
 QGSsvf
-Qh b)
-Qh#rm
-Qh,b)
+'qH(:
+Qh@N)
 qh_NK7
-Qh< *
-QhD_H
-QhDb)
-Qhl;/
-QhP/)
-qhP7=
-QHqxf
+Qh4W(
+QhdV/
+QhhY(
+Qhn'c
+QhpQY
+Qht3)
 QhTIBsP
-Qi)+u
+QhX+-
 qI*K7
+QIksv
 qis$<
+qisAF
 Qj PV
-QJ.mH
-Qj.Rj Ph
+Qj.Rj Ph4Y
 QJB@31
 QjBVj
 QJc(B}
-qJSFYF
+qJc?;2
 QjtyO$
 QJUbm5
 QkK04
 Qkkbal
 'QkOa
-Qkz$U
 QL?jlw6.'
 ql|||T|<||
 Ql0)_
 Qlptb8
+Qlu=g
 QM%oh
-QmqK>Q
+qM5xiW
 'QmV>
 qN'f(@
-qNjx 
+qNhFe
 QO**Y
-Q-O95
 qoHE|
+QOJB95
 Qoptc9
+QOU5*
 qov,!
-QOW;D
-QPh 0)
-QPhh6)
+qpb+U
+Qpg24
+QPh@au
 qPQM*
-qPTYC
+QPVhx
 QPVWS
 QPWRV
-Qq*w@N7
 qq2 vFU
 Qq4453
 QQ8HOh
+QqHxY
 qqj5A
-qqL>e
-QqqFq
 QQQWPQ
 QQsge0(
 QQSVW
@@ -19681,25 +19806,24 @@ QQSWj0j@
 QQVWj
 QQWPQ
 qqxx|
-qqzqE
+qr$T7
 qR%WM
+Qr&u8
 QrirybcrePbafbyrZbqhyr
-QRm3LU
 Qrmo<
-QRPhHP)
-QS^I@
+qrRxa
 Qs7>pK
 q'sb@.#
-qSensApi.dll
 qSeUa
+QShHW
 QShravgP
 Qsmall
 QsnTi
 QSSSSj
+qsT&y
 qsUwV
 QSVW3
 QSVWh
-QSVWh0O
 QSVWj
 QSVWj(
 QSVWj0
@@ -19708,6 +19832,7 @@ QSVWQ
 Qsw'@/
 QSWj<
 QSWVj
+qTtna
 qu5+?
 -QU70
 QUAD_WIDTH
@@ -19752,6 +19877,7 @@ Quill grey
 Quint
 QuitDialog
 Q-UN3
+qUo|9
 QUOkm
 Quote
 Quote command returned error
@@ -19764,8 +19890,7 @@ quoteleft
 quoteright
 quotesinglbase
 quotesingle
-QVh,N
-QVhp,
+QVhlN
 qvids
 qVOR}
 qVuMH=
@@ -19779,68 +19904,61 @@ QVWjH
 QVWjt
 QVWSj
 qw805
+Qw8L8d
+qW8LU
 -qw93
 QWA<y
+qwcVHBU
 QWEJe
 QWINU2
 q-wnd
 Qwo#B
 qWO$?
-QWRPh
-QWRPhlL)
-qx*3n
+qwoR&
+QWRPh<
+QWRPhh
+Qx^jq
 'qx{(
 qXijh
-qxNN'$
 qxv7>
-qY2&U
 q'Y56MjN
 Qye'w
 qynX(r I
-'qYp-.$5
 qYqaqnq
 QyReSOT5U
 qYx/E
-qz9+S
-qzC/U
+qz!0a
+QZGo;
 Qzj^T<
 qzn'Dx
 r %BN7
 r EUD
 R Oku
-r T%G<
-R!&uA
 R!:}&
 r!?a9
-r#@L/
+R!><L%
 r#7}(
 R#feU
 r#Go0%L
--R$@A0q
+R$G}'E
 r$VKY
 r%%ik
 R%B%5
 r%bK1
-R%g#W
 R%R<RqS
+R%un6
 R%yeS
+r&;+0>
 r&@PW
-R&+=e
-R&0}n
-r&Je.
-r&Mxk!p#
 R&ump
-r(q/+
 r(S%:
 r)/U9
-r)i,K
+r)0Hi
 r)JWW
 R)oH!
 r)x9.
 r*r4r;
-R*Xo?
-r,OZC
-r.bTo
+r,A({
 r.FED
 r.JU3$
 R.Thread
@@ -19852,38 +19970,36 @@ R.YEnd = nHeight;
 R.YEnd = ThreadY
 R/{Ty8
 r/9jxf
+R/k-7
+r/Py!1b
 r/VQP
+r/W5U
 r:rAV
-r;0oQ
+r;2MU
+R;3e(
 R;9We
-r;jwy7X
 R;Mv;
 r@$|:
 R@,-A
-R_(/d
-R_|#J
+R@VUl
+'r@ymv
 r{fGc
 r{j3p_
-r|=$a
 r|BhN
-r}&sK
+r|Z!oQ
 R+G$$
 R+J5l
 r<bub3
+R<orCU
 r<P%Z
-R<X*6
 R='du
-R=S7!
 r=XU-
 r>o^w
 r0.2:2H2^2d2
 R0@*O
-R0^0f0
+R0D.rL
 R0g!N
-r0G).
-R0Z0a0q0z0
 R0Zyz
-R1@;D
 R15Anim
 R15Character
 R15CollisionGeometry
@@ -19892,15 +20008,16 @@ R15CollisionTypeField
 R15DefaultCollisionType
 r1GWg
 R1h58
+r1IuG
 R1vh}|h
-r2';b
+r2MVU
 r2oY2
 R3%6e
 r3@#{l
 'r3MX
-R4lZA)U
+R4L}jU
 r4w2Pj
-r5}mW
+R5 gbP0
 R5XA!I
 R6002
 R6008
@@ -19921,18 +20038,15 @@ R6033
 R6034
 r63kz
 r6d>6R
-r6PVRQh
+r6PVRQhH
 r7Wzr)
 r7Yr7=
-R8%lFq
-R8H@U
-'R8Pyj
 R8tt*
 r8Wl 
-ra5DL
+rA.dZ
 Raavi
 raB3G
-raB3GDI;
+raB3Gl
 RadialBlurFS
 RadialMenuAfterLoadingScreen
 radical
@@ -19941,6 +20055,7 @@ Ragdoll
 RaiseException
 RaiseSendPriority
 Raising close..
+RaKA|
 raknet
 Raknet: AckTimeout
 RakNet: Calling CloseConnectionInternal, BCS_CLOSE_CONNECTION
@@ -20031,7 +20146,7 @@ RAW_CAP_HEIGHT
 RAW_DESCENT
 RAW_END_SPACE
 RAW_FIGURE_WIDTH
-raw_hl
+raw_h
 RAW_MAX_SPACE
 RAW_MIN_SPACE
 RAW_NORM_SPACE
@@ -20058,9 +20173,9 @@ rawget
 RAWINPUT pointer is null
 rawset
 RayValue
-RB.$AU
-RBB|x%t
-rBb3P
+rb0jjj
+rbeVG
+RbRD2
 rbs) 
 rBwZw
 RBX*.log
@@ -20723,8 +20838,8 @@ rcErodeWalkableAreaForTorso: Out of memory 'boundarySpans' (%d).
 RCHJ4x
 rCneF
 rcniu
+RCoNs0*L|?
 rcRasterizeTriangle: Out of memory.
-rCW4;|,ygL
 Rcxt t
 RCY#{
 rD _o:
@@ -20734,15 +20849,14 @@ RD9w,t{
 rdata filebase = 0x%08X
 rdata filerva = 0x%08X
 RDEFu:
+rDfo*
 RDHIu
 RDHIu5
 RDsz*
 rdw})
 rdwbWV
-re'@J
 RE3>(/
 rE7.-s
-RE7mX
 reached
 Reached maximum audible playback count for this sound's soundgroup.
 ReachedTarget
@@ -21042,7 +21156,6 @@ Removing job %p from waitingJobs (::remove)
 Removing replicator instance: %p
 Removing url from failed list, expired: %s
 RenameCollisionGroup
-RENC_
 REND_
 Render
 Render          : 
@@ -21323,7 +21436,7 @@ Resetting starterPackService...
 Resetting starterPlayerService...
 Resetting workspace...
 ResetWaypoints
-resize
+Resize
 resize_buffers
 ResizeableFaces
 ResizeCanvas();
@@ -21459,18 +21572,14 @@ Rewinding stream by : %zd bytes on url %s (zero-length body)
 Rewinding stream by : %zu bytes on url %s (size = %I64d, maxdownload = %I64d, bytecount = %I64d, nread = %zd)
 rEXor
 RF##e
-rF.qS
-rF@}q!U
-rF@R8
-rF| {
-rF4uc
-rFB_N
+rf&@P
+rF2|M
+RFN|N8
 rfoWu
 RFRQR
 rFSx<
 rFYGF
 rg#4c
-Rg%{*
 RGB 24
 RGB 32
 RGB 555 (16 bit)
@@ -21485,13 +21594,17 @@ RGB VGA
 rgb_422
 rgb+alpha color-map: too few entries
 rgb-alpha color-map: too few entries
-RgdPO1
-Rh;ZCe
-RH==<
+RgKrNgY'
+rGnAAUH
+rh$b)
+RH;Ks
+Rhl!)
 rHnESVM
-rho$u
 R-HP#
-rHR-i
+RhU}J
+Rhxt(
+RI)oaU
+Ri<c5
 riAP@Q
 Ribbon Tool 
 RibbonTool
@@ -21546,20 +21659,24 @@ righty
 RigidityEnabled
 rigModel
 RigType
+RIKDMU
 Ringsmall
-rIQ/:
-rir;%
+RisDVKi
 RiseVelocity
 riseVelocity_xml
 rixty.com
+rj&_?
 Rj}X{
+Rj'bU
 RjD:n
-RJ'om
 rJThYyU
 R'JUT
 rjwhj
+'rJX^+
 rJZ*v
+Rk^Rx
 rK'4R
+RKbMU
 rkKIb
 RkL%E0
 rkr/RG
@@ -21567,16 +21684,17 @@ RL.9u
 rLp>B
 rm.&%
 rm5a;F
-rm'mX
 RMO(k
 RMp)<
+RmwDh
 rn;-G
-rn=o/
 rncst
 RnfrSvygref
 RngUhB
 RNH/%
-RNOCZY
+rNRg+
+RntU|
+rnx!k
 RnxZ{
 RO2!OZ7
 Roblox
@@ -21676,32 +21794,31 @@ Royal blue
 Royal purple
 roYe3
 RP<#p
-RpP,'
+rPe: f
+rPGJf
+rpiz82
 RPpop
-RPQWhh
+RPQWh8C)
 rPu?3
-rq)f>S.A
 rq:*4
-rQB8N
 rqISQa
-RQn9'_
-RQPh80)
-RQPhHP)
+RQPh<
 RQPSW
 RQSVP
 RQVWP
 rQxOX
+rR&?#
 rr{G(F
 rRD0X_
 RRMv;;a
-RRn3G
 rrq!J
 rRySg,
-rsG^V
+RS,=J
 Rsmall
 RST%d
 Rsu:1
 rsuperior
+RT;r>
 RtlUnwind
 RTPool: failed to create texture: %s
 RTPool: width %u height %u miplevels %u format %u count %u
@@ -21710,6 +21827,9 @@ Rtq&j
 rtrpt
 RTSP CSeq mismatch or invalid CSeq
 RTSP session error
+rTW<{
+rU3wU
+Ru9XU
 ruAhc7
 rUhH(
 Run Service
@@ -21737,28 +21857,29 @@ runtime error: %s
 RuntimeScriptService
 RuntimeUndoBehavior
 rupiah
+RuRZU
 RUUUUU
 RV k%
-RV;k0
-Rv6_U
+Rv0Mx
 RVQSW
 Rvy4K
 r'w%P
+rW}Hq
 rw1Yg1
-rw'N{(
+RWhpT(
 RWn|D;
-RWo#'
 rwQUF
 Rx data pkts  : 
 Rx phys pkts  : 
 rx)1.
 rX+9w
 rx>J_
-R'Xi8
 rXiWF
-rY)2&:
 rY{!E8
 RY|r25
+r-yJ*U
+RzFqg=
+rzHbm
 S }.7
 S +p=0Z
 S 9{$
@@ -21766,33 +21887,32 @@ S Ff;r
 s!*9_J
 s!;7s
 s!59(#
+S!hmU
 s!pQ7
 s#;Ob(C
-S#kk_
 s#q)U
 s$;s(t
 s$;s(t,
+s$<Rl
 S$myt$
 S$X>i
-S$Y|(
-S$Y|(+D
 S$--Z
 S%$*1
-s%a=y
+s%$q#
 s%J/d,
-S%m|i#
 S%S?a
+S%Zi'
 s&^1c
-s&1WX
+s&h ,
 s&JV,
 S&yz>
 s(>:(T
 s(h-*
-s(j2 
 s)!vd
+s)HVYv
+S)q-p
 S*+,3
 s*8fQ
--s*BM
 s*t+8
 S,+S(
 s,ixR
@@ -21802,58 +21922,61 @@ S.:^7
 S.z=H
 s/d1$
 S:&<<
+s:Alw
 s:hJK
-S;^(f
+s:-rU
 s;87Z
 s';B8s
 'S;D9
 s;klU
-S;SXa
 S@iu8
+S^#d-
 s^.G9
 S^9/E
-s^rpY
+s_/v.LS
 s{c|H
+s|;H-O
 s|1S#
 s-|PK
-S|rmR
-s}fj$
-s}Y>P
 s+;B8s&;J<s!
 s+;N8s&;F<s!
-s+J<@
-S+l,J
+S+?{$zu
+'S+8Z
 s<<{=
 S<PWB
 s<shm
 s=;J8s8;B<s3
 s=W6+
-s>uz!U
-S0_0U
-S0u}@Ep
+s>CU7
+S>R{r
+S0:dA
+S0;%c
+S0^6w
+s081N1U1
+S0L3W3s3{3
+S0r9+
 s1+)b
 -s17|
 s1s:sHsX
+s1w1{1
 S1Xrz
-S2 ,5
 S2NumPhysicsPacketsPerStep
 S2PhysicsSenderRate
 s2QER
-S3_3l3y3
-S30L3
 s3ca$
 S3eE'
-s3j5G
-S3oSP
-s5xAP
-S6&|8>*Z#U
+S5@F7
+s6:qw
 S68!LL
+S7E_U
+s7IB;/}
 s8<bb
 S89S0u
 S8nW#
 s8W4P
-'s8z+
+s9$m_
 Sa(TN
+sA;0p
 sa_addr inet_ntop() failed with errno %d: %s
 sA+sd
 sA3JD3^
@@ -21879,6 +22002,7 @@ Sand violet metallic
 Sand yellow
 Sand yellow metallic
 Sandstone
+sARd&
 sAs$o
 Saturation
 Saturday
@@ -21899,25 +22023,22 @@ SavePlaceAsync
 SavePlacePerMinute
 SaveSelectedToRoblox
 SaveStats
-SaveString
+saveString
 SaveToRoblox
 saveToRobloxAction
 SaveWorld
 Saving unknown chunk:
-SAx|c
-SAx|hU
 sAYRPi
-SB.}k
+SaZ4U
+SB&VU
 Sb11?*
 sb11S*
 SB4-t
-sb5i!
-Sbiehoj
-sbL+E
-sBPhR
+Sbief
 sbt creation
 SC,wu
 SC.GRH@
+sc-2g
 sCAL height
 sCAL width
 scalar deleting destructor'
@@ -22020,7 +22141,6 @@ SchedulerRate
 SchedulingProtocol
 scheme=
 SciFi
-SC'KO
 SCN|9q)y
 scope
 Scoped connection %p assign: %p
@@ -22099,6 +22219,7 @@ ScrollingFrame.ScrollBarThickness set to negative value, clamping value to 0.
 ScrollLock
 SDbApYM
 SDBytes
+SDK}c
 SDL EVENT QUEUE: Maximum events in-flight: %d
 SDL not built with audio support
 SDL not built with video support
@@ -22115,8 +22236,8 @@ SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING
 SDLTimer
 SDLXInputDev%d
 SDNANAMEE
-SDncKi
-Se^I?
+sE}s +
+SE'3Z
 Sea green
 seamless_cube_map
 seamless_cubemap_per_texture
@@ -22225,6 +22346,7 @@ SecurityKeyRejected
 seek callback returned error %d
 Seek failed on temporary file
 Segoe UI
+SEISG
 select
 select/poll on SSL socket, errno: %d
 select/poll on SSL/TLS socket, errno: %d
@@ -22679,9 +22801,9 @@ seveninferior
 sevenoldstyle
 sevensuperior
 SewerPipe
-seY+XQ
 SF{Z@C
 sF+Sd
+SF8obF
 SFFlag
 sFFou
 sFFou&;
@@ -22690,21 +22812,19 @@ SFLog
 sfnts
 sfnt-table
 SFString
-sG)nb
 SGIS_
 SGIX_
 sgLNU
+sGs2uM
+Sh 8-
 sH Max Bucket : 
 sH Nodes      : 
 sH Nodes Out  : 
-sh(%Z
-Sh(B0
-Sh(H0
-Sh.$W
 sh;sl
 Sh}Jv
+Sh0#0
 Sh5&g
-Sh8p0
+Sh8t/
 ShacolV
 Shader %d has a non-empty infolog (length %d)
 shader_atomic_counter_ops
@@ -22759,12 +22879,10 @@ Shared IPC State Init Failed (302)
 Shared subsounds cannot be replaced or moved from their parent stream, such as when the parent stream is an FSB file.
 shared_texture_palette
 sharpen_texture
-ShC!:3
 ShCLBEW
 ShCOBJPV
 ShcolbW
 shdoclc.dll
-SHe/e
 Shell_traywnd
 Shell32.dll
 ShellExecuteA
@@ -22773,6 +22891,7 @@ SHEXuF
 SHGetFolderPathAndSubDirW
 SHGetFolderPathW
 SHGetKnownFolderPath
+ShHm/
 shift
 Shift++;
 Shiny
@@ -22780,8 +22899,7 @@ Shirt
 Shirt Graphic
 ShirtGraphic
 ShirtTemplate
-ShL(0
-Shlb0
+Shl!)
 SHLWAPI.dll
 short
 short 
@@ -22790,7 +22908,6 @@ ShoulderAccessory
 ShowAccountPicker
 ShowActiveAnimationAsset
 ShowAppShellTabBar
-ShowBoundingBoxes
 ShowDecompositionGeometry
 ShowDevelopmentGui
 ShowFilterInput(0);
@@ -22812,8 +22929,6 @@ ShowStatsBasedOnInputString
 ShowVideoAd
 ShowWindow
 ShowWindowAsync
-ShP.)
-ShPH0
 SHR@<
 ShravfV
 Shruti
@@ -22827,9 +22942,10 @@ shTXEBZ
 Shutdown
 Shutting down
 Shwww
+Shx*/
+Shx+/
 ShxibsW
 ShxmdhW
-ShXZ0
 sI+Sd
 si9i?
 sibling
@@ -22905,15 +23021,15 @@ SizeOffset
 SizeofResource
 SizeRelativeOffset
 sj Ez
-sj.WU
 sj;3u
 Sj;PQ
+SJ@}WCU
 SjdVW
 SjJUC
 SjkGm}n
 SJniO|
 Sjw<H
-SK!z(G
+S'k*}
 sk1g{
 skateboardController
 SkateboardPlatform
@@ -22931,9 +23047,9 @@ Skipping part %s because it is a child of character
 Skipping, %i %i %i is not empty
 Skipping, nottom %i %i %i is not solid
 Skipping: %s:%s << %s
-SkQ^'S
 SkQ<-|h
 SkR45
+sKsuOkP
 Sky.SkyboxBk
 Sky.SkyboxDn
 Sky.SkyboxFt
@@ -22952,6 +23068,7 @@ SkyFS
 SkyVS
 SL#ua
 sl;sptp
+Sl2_R9
 Slant
 Slash
 Slate
@@ -22974,13 +23091,14 @@ Slot Exception
 Slow Http request: %s
 SlowHttpRequest
 slQ_@
-sLR@d
-slsK4y
+SlRN@
 SLSnSzS
 sLVWj
 Small
 SMALL_CAP_SIZE
 SmartRoundUIObjects
+SMcuM
+smljF
 Smoke
 Smoky grey
 Smooth
@@ -23013,19 +23131,21 @@ SMTP.
 smVs#
 Sn$%cd
 sn)WC
+Sn*yU
+Sn;mLB
+SN>vWe
 SNAN)
 SnapSelection
 Snapshot
 s'naT
 SNB93#
-sNfVK
 snhfNKRf
 SnpSD
+-S'NR
 SNRtu
 SNRtu&;
-so!DkK
 sO)0I
-SO}EY
+So0?_
 SocialItems
 SocialServiceBestFriendUrl
 SocialServiceFriendUrl
@@ -23070,6 +23190,7 @@ SoftBodyTetraData
 SoftRigidAnchorData
 Software
 SoftwareSound
+soJgH
 Solid
 Solid at same level: %i, solid above: %i
 Solid Model - failed to load physics data: %s
@@ -23159,6 +23280,7 @@ SoundLoadAsync
 SoundLoadAsyncANDROID
 SoundLoadAsyncFail-Total
 SoundLoadAsyncFailureDetailed
+SoundLoadAsyncFailureDetailedReportHundredthPct
 SoundLoadAsyncFail-WIN32
 SoundLoadAsyncIOS
 SoundLoadAsyncOSX
@@ -23225,7 +23347,6 @@ SourceSansPro-Light.ttf
 SourceSansPro-Regular.ttf
 SourceValueChanged
 SOvKf
-sP(F/
 SP+u,
 sp6=7*X
 Space
@@ -23279,31 +23400,36 @@ Sports
 SpotLight
 SpOVd
 SPPP8
-SPPWh
+SPPWhG
 Spread
 SpreadAngle
-SpRhD
+SpRhd
 SpRhT
 Spring
 SpringConstraint
 sprite
+sps/Z
 SPSSSW
 SPVSQ
 SPWVR
 Sq?EH
+sQF8w$
+SQi^sC
 SqRIL
 sQSpl
 SQVWP
-sr$'5
+Sr*>h
 sr{Cgm XL
 sR+SH
-sr3bl
 sRA}L
 src5F
 sRe >
+sRmn8
 srp: %u
+SRWhH
+SryXi
+sRz'fU
 ss:@/h
-sS;V<
 ss}K%
 Ss<DjM<U
 SSAOApply
@@ -23338,11 +23464,12 @@ SSSSSV
 ssuperior
 SSVWh 
 SSWVj
-SsYFT
+SSZ*!
+SSz-N
 ST insertion
-st#Ai
 ST^)V
 sT{03
+st9jJ*
 stack
 Stack Begin
 Stack End
@@ -23623,7 +23750,6 @@ StudsPerTileU
 StudsPerTileV
 STv/N
 style
-su(9Ry
 su{=L
 SU<C9
 sU0&?W
@@ -23644,6 +23770,7 @@ SUBSCRIPT_SIZE
 SUBSCRIPT_X
 SUBSCRIPT_Y
 subtexture
+sUbzyp^
 Succeeded CacheResult::updateCache(%s
 Success
 success is not a bool
@@ -23651,7 +23778,6 @@ SuccessfulClose
 Successfully connected to server
 Successfully created player
 suggestedFileName
-sULf3
 Sum += localtime;
 summary
 SummaryStats
@@ -23674,7 +23800,6 @@ SuperSafeChatReplicate
 SUPERSCRIPT_SIZE
 SUPERSCRIPT_X
 SUPERSCRIPT_Y
-'SuPm
 Supplement
 supplied row stride too small
 SupportRemoteKnownSFFlags
@@ -23698,9 +23823,13 @@ suspended
 SuspendThread
 Suspension not allowed here
 suzanne
+sV&5|
 sv||N
+SVaUm
+svgG*v
 SVj/W
 SvSXY/
+SVt%J%
 SVVVW
 SVW;A
 SVW;E
@@ -23708,14 +23837,13 @@ SVW;M
 SVW8A
 SVW9H 
 SVWf9
-SVWh$
 SVWh@
-SVWh@B
+SVWh|
 SVWh0
 SVWhD
 SVWhH
 SVWhL
-SVWhp
+SVWhP
 SVWhX
 SVWj 
 SVWj j
@@ -23743,7 +23871,7 @@ SVWtw
 SVWtz
 SVWu/j
 SVWUj
-SW&J-$
+sVx^_
 Sw5IR
 swap_control
 swap_control_tear
@@ -23752,8 +23880,6 @@ swap_frame_usage
 swap_group
 swap_hint
 SwapBuffers
-SWh8V,
-SWhd!
 SWIDTH
 SwimAnimation
 Swimming
@@ -23763,20 +23889,21 @@ switch(SortColumn)
 switchState
 SwitchToThread
 Swoosh
+sWR f
 SX Ub
 SX!;{
-sx*FT
+SX=&R
+SXLL:7k
 SxqC@
 sXY2=I
+sy 2Zt_&
 sY&^N
-Sy.836ys
-sy{%@
 SY{;>
 SY=:!
 sYad(
+sYe=3U
 sYHpu
 sYHpu&;
-Syiw%5:y|4X
 Sylfaen
 Symantec Corporation100.
 Symantec Corporation1402
@@ -23792,6 +23919,7 @@ SyncHttpGet Time
 syntax error: %s
 Syntax error: value, object or array expected.
 SyntZnantre
+sYoVP
 SysReq
 SYSTEM
 SystemAddress
@@ -23802,152 +23930,138 @@ Systems
 SystemTimeToFileTime
 SystemTimeToTzSpecificLocalTime
 SystemUtil
-Sz$yo
+syvEU
+syYPT
+SZ!T&yi
 sZ&'f
-sZ?n9
 SZ->4
-sZ>zU
 SzD0B
 t <!t
 t 9N(
 t 9p0u
 t f;}
-t hFU
-t hx|
+t hT8
+T MDW
+t Ph8
 t!<{t
 T!6S+
-t!hD_H
 t!RSV
 t!VSP
-t#h@2*
+T#GSF
+t#h0D
+t#hhD
 T#r2Q
 T#T.Tk
+T#TmY.MN1
 t#VWS
-t$ f9
-T$ h#5.
-t$ hh4=+
-t$ hK4
-t$$h,
-t$$Vf
-t$:8i
+t$ Sf
+T$$^f
+T$$Qf
+T$(h%
+t$(h(
+T$,Vf
 t$:TG
-T$@hk
-t$<h>
-t$<hV
-t$0h,
-t$0ho
-T$0PV
+T$@Ph
+t$<Xf
+t$0hq@
+t$4VST
 t$90t
-t$h<F)
-t$Lh%
-T$RJt!
+t$Dh%-a=
+t$h(x-
+T% B.
 T-%:F
 t%B1W
 t%F{ 
-t%hx2*
-T%Zw%(h
+T%j72
 T& Y56
 t'&-$
 t&</t
-t&hl2*
-T&i/v^
-T&iKs
 t&SWV
 t&V$>
-T( s-
-T( sK
-T($v8{
-T(&Lh
-T(&we
 t(</t$<(t <)t
 t(B)p
-t(h(n
-T(H6(
-t(hl2*
+t(hpr
 t(j0j
-T(r2E
 t(Wff
-T)F5vT
-t)h %)
-t)h0D
+T)}x!;|Q
+t)h0_(
+t)PhP
 t)WSV
-t)zgtU
+t*$TU
 -T*_S'
 T*1Y_
-t*h@;q
-t*hHL,
 t*hravfV
 t*jPj
 t*pfr
-T*sXW
 T,^|-
 t,_4J
-T',<fs
 t,<'t(<.t$<,t <:t
 T,g3<
-t,hx2*
 T,Wg&
 t,WW9}
 T.}5c
 t.<_u*
-t.hHL,
-t.hP!^
-T.Jy_
+t.h(x-
 T/ 27
 t/:&u
+T/:r,
 t/=fcttt(=OTTOt!=eurtt
-t/hLV
+t/f|DZ_
+t/h|a)
 t/pNY#
 t/tOtet
 T:$6.
+t:.+ea/
 t::Z6
+t:h(9
+t:h,H
 t:SVW
 t;!L0
-t;bd.
-t;h0C
+T;nQU
 t?;1u0
+t?cfb
+t?DE^?
 t?f9j
-t?hht
-t?hp{
+T?h{@
+t?hX)
 t?j|j
 t?Vho'
 t?vMt?
 t@;9u1
 T@dk;
-t@Ph0
-T@y=&
+t@hXq0
 T^|1lsLYzd
+T^B=C
+T^ez{Hz,
 t^NP{
 t^WjU
+T_*1@
 T_kab
 t_SSPV
+T_WS%
+T{?*g
 t|VSQ
-T}&Y4B
-t+hxj
+T|YlX&
+t}!na
+t+f?|
 t+j7WP
 t+PVR
 t+WWVPV
-t<=Xe
+T<r/ba
 t<u1y
 t=;;u.
 t=;3u.
 t=</t9<(t5<)t1<<t-<>t)<
-T=F Q
+t><bU
 t>90t$
 t0@*m
-t0-|N
-t0hP*
-t0hXr
+t0h@t
 t0jXXf
 T0'm9
 t0x0|0
 t1 = newResult
 t1^Y&
-T1}X,
 t1cid
-t1h@;q
-t1hD{
-t1hP*
 t1jLj
 T1Q?e7
 t1x1|1
@@ -23958,23 +24072,17 @@ t2aC4Z
 t2f;G
 t2QVW
 t2sMM?_t7
+t2x2|2
 t3;8r/
-t3h(-
 t3m/2
 t3VQW
-t3x3|3
 t4;_$t/
 t4;s,t/j
-t4h8m
 t4SWV
 t4VWQ
 t5;N4u0
-t5=He,
 t59G4u0
 t5j hMRHcV
-t5Sh0
-t5VxoU
-T6{,}p
 t6<0|
 t6BPu}
 T6'Ek
@@ -23983,21 +24091,23 @@ T6uu><
 T6uzz
 t6xea
 t7;>r3
-t76yL
 t7L:q
 t7VWQ
 t82yd
-t8h |
-t8h }
+t8hp|
+t8hp}
 t8j/j
 t9<_u5
 t'90t
 T98gx
-t9BvE
+t9h<9/
+T9m1H
+t9mBau
 t'9OTu
 t'9WPu
 tA;1u2
 tA;9u2
+TA}Kj
 Ta5(6
 TaaqR
 Tab: go to filtering<br>
@@ -24021,7 +24131,6 @@ tag count too large
 tag expected
 tag expected after Byte-Order-Mark
 tag_sample_buffer
-tah -
 Tahoma
 TakeDamage
 tAlY}
@@ -24059,13 +24168,17 @@ TattletaleMinimumClientCountWithServerVerification
 TattletaleReportToRCCCooldownSeconds
 TattletaleReportUnfilteredJobFrequencySeconds
 TattletaleReportUnfilteredJobMaxReportsPerTick
+TAVbZ
 Tawny
 tb;dv
 tB+|F
-TB7-n
-tB8%&6vU
+tb1.h6d
+tb2Vy
 TbbtyrNanylgvpfHgvyf
 tBH_=
+tBh|.
+tBhl{
+tbpau
 tBPVR
 tbuffer
 TC Create texture %p
@@ -24078,10 +24191,10 @@ TC Job texture: %s
 TC Reuse texture %p
 TC: Failure reason %s
 TC>O}
-tc3vH
 tC7Ddx
 tC97u?j4
 tCf;F
+tchHD/
 Tchw{:
 tCj?S
 Tcommaaccent
@@ -24093,21 +24206,23 @@ tcp socket creation failed with error %d
 tcp task was not scheduled in the threadpool: %s
 TCP_NODELAY set
 TCTKB
-'td}%E
+TCWs+-
 tD=2'
 TDDDD
 TDDDD@
 TDDDD@8
 tDf;G
-tDh8n)
-tDhHn)
-tDhpn)
+tDh@!)
+tDhT!)
 TDIs0)
 tdj|j
+-tdjL
+tDMG4H
 Tdq.3
 tdr,,<
-tD-Rv
 TE: gzip
+TE;XL
+Te|Yo
 tE<A|2<P
 tEAkgJ
 Team Create
@@ -24201,7 +24316,6 @@ TestService: Run completed, tests: %u, warns: %u, errors: %u
 TestService: Tests failed to complete in %g seconds
 TestService: Waiting a total of %g seconds for the test to end
 TETNTc
-TeVSN
 teVWh
 tEWPS
 Tex.png
@@ -24381,6 +24495,8 @@ TextYAlignment
 TF&:uj%
 tf_^3
 Tf9Gn
+Tfal9+F;
+tFGjcZ 
 tFk0d
 tfSVWj
 TFTP: Access Violation
@@ -24390,12 +24506,11 @@ TFTP: No such user
 TFTP: Unknown transfer ID
 tfygP
 tg!-v
-TG/#8
 t'G;} |
 tG;sHtB
 tG;x(u
-tG{bj
 TG6<V
+TG9}1
 TGA files must be 24 or 32 bit.
 TGA images must be type 2 (Uncompressed truecolor) or 10 (Run-length truecolor)
 TGh>X
@@ -24403,11 +24518,12 @@ tGi%Dn
 tgIhh
 tgQWVS
 tGSVf
-t-h D1
-th(w_
-t-h0-
+tGu9E
+Th <Z
+th@'_
 tH1(X
 TH5%#
+Th8*)
 That operation is not supported
 Thawte Certification1
 thawte Primary Root CA0
@@ -24486,8 +24602,6 @@ There was a problem opening the in-game browser.
 These two users cannot communicate (ChatService:CanUsersChat returned false)
 THEZOCQS
 thgwu
-tHhP#
-Thhw)
 Thickness
 ThirdPartyPurchaseFinished
 ThirdPartyUserService
@@ -24507,12 +24621,14 @@ This platform lacks SSE2 support.
 This property is not enabled yet.
 This subsound is already being used by another sound, you cannot have more than one parent to a sound.  Null out the other parent's entry first.
 tHj0j
+Thj9ma
 THJHnw
 tHlWB
 Thorn
 Thornsmall
-thp3_
-thpoZ
+thP%^
+thp'^
+t-hp1
 thread
 'Thread %d',
 Thread32First
@@ -24584,13 +24700,7 @@ Thumbstick1
 Thumbstick2
 thunk
 Thursday
-t-hx2*
-thXu^
-thxw^
-TI-(rT T
-tI@#U
 Ti+8N
-ti+vd
 tI97uEjD
 tIBM(
 TIBsu
@@ -24676,20 +24786,15 @@ TintColor
 TIpk8
 tIQWh
 title
-tIZ3Q
 TJ<@g
 tj24k#
-tJh$-
 tJj_S
-tjl(_U
 tJVjB
 tjygW
-TJZ4'
 t'jZS
 tK<_t<<$t8<<t4<>t0<-t,<a|
-tkfs:
-Tl**6
 tL;GLu@
+TLcUI
 tlFVS
 tlj?S
 tljxj
@@ -24698,37 +24803,36 @@ TlOyN
 TlP1q
 TLPsu
 TLPsu&;
+tlQhpz
 TlsAlloc
 TlsFree
 TlsGetValue
 TlsSetValue
 TlsSetValue() failed
 tLxXj
+tM9=(
 tM9Xp
 TMf>y
-tMhL+
--'tMU
+tMPhX
 tMVj@
 tmwJM
 tn,2W
 tN.e_b
-tnC'?
-tNhlT
+tn^)c
+Tn}kU
 tn'I'
 TnjL 
 tnlsu
 tnSVW
 tNVSP
 tNWVS
-TNYS}
 to many left 0x%x
 To play this game, please visit: http://www.roblox.com/item.aspx?id=%d&amp;rbx_source=youtube&amp;rbx_medium=uservideo
-to;<Ug
+To$e0
 tO@;C
 toAxisAngle
 toEulerAnglesXYZ
 toEulerAnglesYXZ
-ToG5;&
 Toggle
 Toggle Graph
 ToggleCategory
@@ -24748,9 +24852,9 @@ ToggleThread(
 ToggleThread();
 ToggleTimersMeta();
 ToggleViewMode
+tOhL-
 toHSV
 ToInstance
-TOj-m
 token
 Token = RangeSelect.Index;
 tonumber
@@ -24911,13 +25015,11 @@ TouchTransmitter
 toUserId
 TownAndCity
 toWorldSpace
-tP rh7U
+TPQm?
 tpv?vDw
+TQ.vy
+TQ^#5J
 tQ<&tM
--'Tqc
-TqD<-U
-TqXb6
-tQYWO
 TR*aA
 Tr. Blue
 Tr. Bright bluish violet
@@ -24982,6 +25084,8 @@ Trebuchet MS
 Tree          : 
 TremoloSoundEffect
 tRf;G
+TRg+BU
+tRh@m
 Triangle
 triangle_list
 TriangleCount
@@ -24995,7 +25099,6 @@ TriggerOffset
 tRj|j
 tRNS chunk has out-of-range samples for bit_depth
 tRNS must be after
-trTJr
 truetype
 truetype-engine
 TRUEVISION-XFILE
@@ -25007,6 +25110,7 @@ Truss
 TrussPart
 Trust check failed
 trustLevel
+tRWhP
 TryAcquireSRWLockExclusive
 TryEnterCriticalSection
 Trying sides
@@ -25033,6 +25137,7 @@ TSIhu
 TSIhu&;
 TSItemC
 tSj|j
+tsLP9Bm
 Tsmall
 TSMk2 worker
 TSMk2::Worker
@@ -25044,21 +25149,23 @@ TSVWj
 tSVWj8
 TSVWP
 t-SWV
+tSZg*
 tt;3t
 TT09!
 Tt1jhZ;
-TT2s>
 tT9F4uO
 tt-cmaps
 tt-glyf
 ttMetricP1
+tTmgV
 ttPVS
 TTQ8&
 tTRQVW
-TtsF8
 ttVj$
+TUeaF
 TUeHz
 Tuesday
+tuh@:/
 TUKX1
 Tunga
 TUNNEL_STATE switched to: %d
@@ -25074,17 +25181,14 @@ tutorialId
 TutorialId's cannot be empty strings
 TutorialId's cannot contain commas
 TUUUU
-tuVhp
+tuVhp|
 tUVPW
+tv&x2
 tV@SP
 TV6P!
 tVG}j
-TVh@F.
-tvhtZ
-Tvj6U
 TVTnS
 tVWHj
--'Tw*
 tw;-0
 Tw{<7R:
 tw{N+
@@ -25110,10 +25214,9 @@ TweenSize
 TweenSizeAndPosition
 TweenStatus
 TweenTime
+TwHZU
 tWjhj
-TWjm.
 tWjpj
-twl(O
 tWMC;N
 twodotenleader
 twoinferior
@@ -25123,16 +25226,12 @@ twothirds
 tWSPQ
 t-WSV
 tWVWj>
-twx0W
 tX,,.4
 TX;|qx
 Tx}=m
 tx1J,
-tx2Q$M
 tXEtu
 tXEtu&;
-TxKUP
-txpkU
 txt = txt + '<hr>';
 txt = txt + 'Detailed View' + '<br>';
 txt = txt + 'Frames:' + AggregateInfo.Frames +'<br>';
@@ -25145,13 +25244,12 @@ tXTiu
 tXTiu&;
 tXTzu
 tXTzu&;
+tXVuX
 tXWjB
 Ty+:k!1
 tY<:u
-Ty3!$
 Ty5}7
-TYa'f
-tyh4K/
+tY'i}
 tYj|j
 Type 1
 Type 42
@@ -25173,13 +25271,13 @@ TypesetterSubstituteOnReject
 TYPEW
 tyPVj@W
 tYPVR
-tYVhH
-TZ%OR:-
+tYQhX
+tZhpt
 tzIvi
-tzShx{
+TZrP&El
+tzSh(|
 tzVWj
 u escape
-U gLU
 u in surrogate pair
 u in surrogate pair is invalid
 u kE$<
@@ -25191,70 +25289,66 @@ U SVW
 u token to begin the second half of a unicode surrogate pair
 u VWS
 u WPS
+u!}&;
 u!9E(
 u!9stud
-u!h 9Z
-u!h44/
-u!hT8Z
-u!hx1Z
-u!p#r
+u!9xP(
 u!VVh
-u#hsN
-u#j$oK
 u#j,Xf;
 u$%op
 u$;3tD
 u$B@;
-u$hlN
 u$PPW
+u$Vh0
 u$WRQP
 u%$?l
 U%)qf
 u%^x^_
+U%=LLU
 u%9E@
-U%iFZk
+u%fc!
 U%j};
-u&hpT
 u&LE!
 u&W&A
 u&WVS
-u({r(
 u(bY^
 u(COO
 u(f=E
 u(f9Kpu
-u(hDb
-u(hsN
+u(hHK
+u(hTn
 u(jNh
 u(WSj
 U(xP(
-u)&SU
-U)ecc
 u)jAXf;
-u)Str
+u)Vh0
 u)VVVV
 U*1jc
 U*1nG
-u*hhF
+u*hXI
 u*jLW
 u*Py7
 u,E)l.(
 U,h.0_
-u,Php
+u,Ph 
 U,SVW
+u,TeBn
 u,uEu
 u,y<x
-U.'#U
 u._^3
 u.f9Gpu(
 u.iAz
 u.yCi
 u/_^3
+U/3/L
 u/j(f
-u/LH)
+U:*r5L
 U':b*
 u:F;w
+u:F<'
 u:j(f
+U:UTQ
+u;h<:
 u;H3c
 u;j@f
 u;j<f
@@ -25263,27 +25357,35 @@ u;j4f
 u;j8f
 u;jHf
 u;jTf
+U;kdM
 -u;Rh
 u?^p?o4
 U?EVT?
 U?Xzv
 u@SWV
+u^(zp
+u^5/3
 u^8PeC9
 u^SVW
 u^Wj4
 u_PPP
-u_T.F
 u_ZU#
 u{%PK
 u{>fm
 U{99g
-u-|%}M
+U{lAv
+U|Qd#
+u|T *
+u|T$/{.D
 U}m2W
 u}sZZG
 u+9GPu$
 u+9wLt
-U+Flf
-u+j&h
+u+h@_Z
+u+h|d
+u+h0_Z
+u+hP_Z
+u+j&hP
 u+SVW
 u+u35
 u+WVS
@@ -25292,31 +25394,33 @@ u<4RHc
 u<KSW
 u=(fZ
 u=.Nw<%
+u=h$z(
 u=j,f
 u=j0f
 u=j8f
 u=jxf
+u=WhXd
 u>_^3
-u>4wM.
 u>Fw+
-U>h&l
 u>j$f
 u0|0@1D1H1L1P1h1l1p1t1x1
 U0+U8
-u0hlO/
+u0hP_Z
 u0j f
 u0jAXf;
-u0WhL
+u0Sh4
 u0Y?6
-U0Z0_0u0z0
+u158a&
 u1G@;}
+u1hPI
 u2}.Y
-u2+ U
-U2b2o2
+u2fJ7
+u2hPP
 u2j,f
 U2lTu
 u2Vj@h
 u3''D*
+u3G!X9
 u3j$f
 u3j@f
 u3jHf
@@ -25324,27 +25428,24 @@ u3jTf
 u3jXf
 u3QVj
 u3QWj
+u3ucgV
 u3v}S
-U3WQ{
 U4(/T^eQ
 u49Y<u/9y,u*
-u4A/P
 u4f9Cpu.
 u4f9Kpu.
-u4h 9
-u4h(V
-u4h|V
-u4h<U
-u4hH9
+u4h$V
+u4h8:
+u4hLV
 u4hp9
-u4hPV
-u4hPWi
+u4hxV
 u4j0f
 u4RPj
 u5^7/
 u59E(
 U5E<;
 u5ev+
+u5hdz(
 u5j(f
 u5nPf
 U6>kB
@@ -25352,10 +25453,11 @@ U63{Q
 u6j f
 u6j(f
 u6j8f
+U6yP!
 u7_^3
 u7j f
 u7j8Q
-U7XJI
+u7kbD
 u87bQ
 u8j@P
 u8SS3
@@ -25363,24 +25465,22 @@ u8SSQ
 u97a7;
 U9C|5d
 U9C0g
-u9hdT
-u9hPN
-u9PhP
-U9vTG
-u-a&w7
+u9PhT
 Ua)+m
 UA-43420590-13
 UA-43420590-2
-UAA$@U
 Uacute
 Uacutesmall
+UaD3%R{
+UaS!g
+UAtE_
 uB!!c 
 UB%>5
+ub*_i
 ubf9Y u
-uBh$D
-uBhdY
+uBh>e
+uBhtD
 uBjAYjZ+
-UbN@w
 Ubuntu
 UC.M0
 UC;4Y
@@ -25388,7 +25488,6 @@ uchar
 Ucircumflex
 Ucircumflexsmall
 UCJni
-ucPhT
 UCpoL
 uCPVj
 UCS-2
@@ -25400,9 +25499,8 @@ UCS-4BE
 UCS-4-INTERNAL
 UCS-4LE
 uCSVW
+ucVh00Q
 UCx9;
-ud7RC,n
-uDCm,(
 uDf9Ypu>
 Udieresis
 Udieresissmall
@@ -25414,64 +25512,47 @@ udp host lookup failed %d
 udp sendto failed %d
 udp task was not scheduled in the threadpool: %s
 udt returning'
+UE!}:
 UE&=;
-UEhWU
+uEh89
+UEKhwIC
 UEUeUt
 'Uf/?
-uf6N!C8
+uf1zwy
 uF8F@uA
 uF9wTuA
-UFA +V
 uFf9K u@f9K0u:f9K@u4f9KPu.f9K
+ufhTa
 uFm'K
 uFSPV
-UG.4'
+uG St
 u-G;}
 ug?^6n
 UG@_N
 UggcNanylgvpfGno
+UgHjg
+ughPl
 uGj f
 ugJJvH
 uGqIs46BA
 Ugrave
 Ugravesmall
 uGVWS
-Uh$8Z
-Uh(X_
-Uh,5Z
-u-h@L_
-Uh|5Z
-Uh<4Z
-Uh47Z
+ugWhdp
+Uh)A@y
+u'h<8
 uH8FH
-Uhd4Z
-UhD6Z
-u-hHL,
-UhhT_
-Uhl6Z
-u-hPL_
-Uhq0W
 uHQVW
-UhS*sk
-UhT5Z
-UhTRh
 UhXJ-&
-UhYsEX
-UhZ2U
+uHZ;p
 UI#m 
-uI*1i
-uI/ox3
 Ui{{:
-uI+$ 
 Ui+f6
-uI=|%^I
-uI=QN
 Ui0s=
-uI1tJ
 uI8F@uD
-uIAi=
 UIAspectRatioConstraint
 UIBase
+UICC(
 UIComponent
 UIConstraint
 UID0UpdatedFromSolver
@@ -25481,6 +25562,7 @@ UIFogVS
 UIGridLayout
 UIGridStyleLayout
 UIGridStyleLayout Lua MergeSort
+uIl_L
 UILayout
 UIListLayout
 UILitFS
@@ -25499,27 +25581,21 @@ UIScale
 UIScaleComponentEnabled
 UISizeConstraint
 uiStep
-UIt|%
 UITableLayout
 UITableLayout is not yet enabled!
 UITextSizeConstraint
-uiU(2
-uIUE-
-UiZYk
 Uj%qt
-UJ)2+
-uJ?wO
 Uj|75
-UJC=N
+UJa&U
 UJf9Q
 uJjLf
 uJjXf
-uJnGU
+UjOe?
 uk4HU
+ukgq_
 uKj|h
 uKj0f
 uKjHf
-uKKrw/U
 UKM9G
 Ukqp?2
 ul {list-style-type: none;margin: 0;padding: 0;}
@@ -25527,35 +25603,40 @@ ul li ul li{ display:block;float:none;width:100%;}
 ul li ul{ display:block;float:none;width:100%;}
 ul ul {
 ul!jt
-uL20UU
+U'l)H
+uL.{6K
 uLc3r
 uLf9G uFf9G0u@f9G@u:f9GPu4f9G
 ulGroupColors.style
 ulGroupMenu.appendChild(li);
-uLh(f
-uLh,L
-uLh@g
-uLh0K
-uLh4@
-uLhHe
-uLhhu
-uLhlL
-uLhpE
-uLhPg
-uLhPn
+uLh,G
+uLh@o
+uLh|L
+uLhD@
+uLhDb
+uLhdg
+uLhHf
+uLhl>
+uLhLq
+uLhPu
+uLhTS
+uLhTz
+uLhX;
+uLhxf
 ulong
 ulThreadMenu.appendChild(li);
 ulTimersMeta.style
 uluzu
-um#2y)
+ulZf'n
 uMj$f
+umJ)ut
 UMJi4
 uMPPPP
-uMtsU*!
 UmvaP
 umVQR
-U-n(sK
-uN3dj
+un@=z
+un@hEs
+uN->,o,U
 Unable to access DataModel
 Unable to add SDL controller mappings because %s
 Unable to allocate memory for Publisher Info.
@@ -25708,7 +25789,7 @@ universeId
 universes/get-info?placeId=%d
 universes/get-player-place-instance?currentPlaceId=%d&userId=%d
 universes/new-place
-unj!h
+unj!ht
 uNj$f
 Unjoinable
 UnjoinFromOutsiders
@@ -25836,13 +25917,14 @@ unsupported zlib version
 uNSVW
 Unthrottled
 until
-Uo;zU
+uO|/_
 uoH4j
 uoHLz
 uOjBh
 UokOP
 uOxY0u
 up %d down %d backoff %d backoff avg %d
+uP2TU
 Update
 Update failed: 
 update1_invalidated
@@ -25894,6 +25976,8 @@ Updating key %s
 Updating stats Replicator::onStatisticsChanged
 Updating value and triggering: %s
 UpDown
+UPfJ_k
+UP-FY0
 upload
 upload completely sent off: %I64d out of %I64d bytes
 upload crash dmp
@@ -25919,18 +26003,21 @@ upper
 UpperLimit
 UpperTorso
 UPsdA
+UPsqi
 upval
 upvalue
 upVector
+uPWhP
 u-PWWS
+Uq#dQ
 UQ/>1n
-uq9=|
-uQj)hl
+uq-;!
+uq9}8
+uQj)h
 uqj8j
+UqMDSW
 UQPXY
-uQuRU
 UqV7B
-ur*h3U
 UR-EZ
 uRf9C uLf9C0uFf9C@u@f9CPu:f9C
 uRf9K uLf9K0uFf9K@u@f9KPu:f9K
@@ -25946,12 +26033,10 @@ urlmon.dll
 UrlReconstructRejectInvalidSchemes
 urn:schemas-microsoft-com:asm.v3
 URPQQh
-URPQQh@c
 urSPj
 urts@:S
 US14116
 US14116_pt2
-Us5@Q
 Usage
 Usage error: RegisterActiveKeyframeSequence can only be used in Solo mode.
 Usage error: RegisterKeyframeSequence can only be used in Solo mode.
@@ -26071,9 +26156,8 @@ Usmall
 uSRL,
 u'SVP
 usW-#
-Ut|x(
-UTC#*
 ute_!
+UTf<K
 UTF16
 UTF-16
 UTF16BE
@@ -26088,124 +26172,130 @@ UTF-32BE
 UTF32LE
 UTF-32LE
 UTF-8
-UtIc/
-Uu$f6
 Uu$X&
-uU-0!
+Uu5pP
 uUB.VS
-uULRs
 uuM}|
-uuQh4
+uuQh8
 UUUUU
 UUUUUU
 uuuuuuuubtnufruuuuuuuuuuuuuuuuuu
 UUxP((z
+UV_Li
 uV<n8
-UV8WZ U
 uv99tr
+uVbgOa
 uvbN2
 uvyKg
 uW-!C._
-uW,/ae
 uw.;(N
-UW:Zf
-uw=9M%
-uWhH|
-uwhLD
+Uw5cx
 uWK<2
 UwM^6)
 UWPAppSettings
-UwS|@!
+UX tS
+uX^nFSd
 Ux|jf.
-uxowU
 UX-pJ@+
-Uxs;&
 uxv $
+Uxyk$
 uY%UT
 uy;B!
 UY^{lN
+uy1vL
 UYFbK
 UyQYg
-uZ;ZU
+uyV^c
 'uz}q
+UZ'1_
 Uz3^e
 uzdg-
-UZe5K
 uZEeu
-uZh(E
-uZRQhP
+uZhxE
+uzKiU
+uzRH+
+uZRQh
 UZt.e
-UZUKm
 uzVSW
-v Grq#Wu,
+v }<nU
+V l+s
 v QhA
 v!'.w
 v!B2q4
 v#2#&
-v#Ano
 v$;54
-v$kCY6
+V$7hJ
+V$N!+t
 V$VYW
+V%0B.
 V%A+=
 v%fff
 V(>'Q
+V(0MJ
+v(F2He1(
+v(P,*
 v(TD2
+v)$eF
 v)=e{
-V*(-?
-V*.}Tc
-V*|Iw
+V*#0o
 V,;V$
 V,;V0
+v,}n6
 V,+V(
 V,4@PJ>
-V,D$U
-V,ia^w
+v,g/U
 V,V7VB
 v.)*!
 v/(1}
 v/.kp
 v/BpL
-V/'mo
-v:GAgj
+V/t:X
+V/Y.U
 V:Vv$
-v;DM3.(
 V;y#CT2m
 v?$byeYp
 V?:!'
 v?9Kmci
+V?F@q
 v@!5_
 v@}Sa
-v@4OH
 V@717W
-V^<0^
+V@G+7
+V@Ph(
+v^%),Y
+V'^lc
 V_.'O
 V_/03F
 V_:X1:
-V_G*m
-v_wb*s
 v{!7P
 V{U_$u5
 v| y,
-V|&Mx
+v|!V+
 V|Jd5
+v|OfI
 V},z7
+V}2HTx
+v}CP9
 v+P?V>
 V<)sfYH
 v<'*6
 V<;V8}
 V<+V8
-V<j@T
 v<MTb
-v>Sl_3
-v0&1&2I2X2
+v>&J*,
+V0^0e0o0
 V0+V,
-V012F2V263S4^4z4
-V0f1v2F4
-V0g0&181&282&353
-V0g0V1d1
-V0Q1Y1x1
+V02l2
+V0C1L1
+v0F1N1T1L2
+v0f1V2
+V0h0|0
+V0s0Y1
+V0t0y0
 v0UQB
 V0WD2
+V0X1i1
+V1&2Y2z2
 v1.0/avatar-fetch-thumbnail/?%s
 v1.0/MultiIncrement
 v1.0/SequenceStatistics/AddToSequence
@@ -26215,11 +26305,13 @@ v1.1/avatar-fetch/?placeId=%d&userId=%d
 v1.1/avatar-fetch/?placeId=%s&userId=%s
 v1.1/Counters/Increment
 v1.1/game-start-info/?universeId=%d
+v1A+xJ*2p
 v1cT9
 v1hAn
-v1v2&3V4
 v2!L.2
+v21+%
 V2'A:
+v2A;U
 v2mv,^
 v3<&ux
 V3h{L
@@ -26227,9 +26319,11 @@ V3kyiA
 V4;V8
 v4^$}
 v4SWj 
+v5#62:
 v5%db
-V-5%v<
 v5;,)
+V5N9m
+v6 7$<
 V6'3_D5
 v6TT^
 v6u?-M&
@@ -26237,11 +26331,10 @@ v7{mX
 v7>?H
 v8)LK
 V8;Q8s
-V8}5l
-v8Qhxf
 v8vUb
+V95E<S
+V97 4x
 va>Es
-vA51(
 Va81 #
 vaCAfh
 -VAk?
@@ -26272,7 +26365,7 @@ value=
 value1
 value2
 values
-vAmj)m0
+vAQrm
 var a = Batches
 var A = ProfileData.Plot;
 var ActiveCpu = Cpu
@@ -26972,12 +27065,12 @@ VarFileInfo
 Variables
 Variant
 Variant cast failed
+Va-v@
 VB%,yv
+vB+y5H^
 vB-=3r
-VB5d0U
 vbase destructor'
-vBch@H
-VbqN&
+V-BIiY
 vbtable'
 vbv>V
 VC20XC00U
@@ -26987,17 +27080,17 @@ vcall'
 vCOqy
 VCOzj
 vCt{4
+v'd&.ol
 Vd22Nt::
 VD9VHt 
 VD9VHt#
 V-dac
 VDEC2
 VDIHaH
+VDKmQ
+Vdn,sB#c
 vdpau_interop
-VDPC 
 Vdr2VT
-VE%xZ
-Ve)9e
 VeaFOfb
 vector constructor iterator'
 vector copy constructor iterator'
@@ -27018,6 +27111,7 @@ Vector3Value
 VectorForce
 vectorToObjectSpace
 vectorToWorldSpace
+vEduLdw
 VehicleController
 VehicleSeat
 velocity
@@ -27089,39 +27183,34 @@ VerticalAlignment
 VerticalScrollBarInset
 VerticalScrollBarPosition
 VerticalWedge
-vETq(D
 VfAGE
-vfB4,
+VFbvU
 VFQXA
 vftable'
 vg TVe
 vg%Cvy
 VG*l{
-vgbxU
+vg}d<
+VgGw+
 Vglx-
 VgVrV
 vGVVV
-Vh F.
+Vh *-
 Vh FFCS
 Vh tvcS
-Vh(F.
-Vh/'(BR
-Vh@/O
+Vh(d(
+Vh@&-
 VH@{1
-Vh0F.
-Vh8F.
-Vh8t,
+vh2_de
 VhdaehS
-VhHF.
-VhlF.
-Vhps-
-VhPw-
+VHK2#
+Vhp&-
 VhravcW
 vHs+f
-VhtF.
+VhT&-
 VhxibsR
-vhy,:
-VI=i{y
+vI:j{yo+
+vi-;U
 vibrationMotor
 vibrationValues
 Victory
@@ -27189,17 +27278,9 @@ VivePresenceWorkaround
 viWrU
 Vj$03
 VJ$s)
-vJ&mK
-vJ//L
-vj;{T
-Vj;Aq
+vj@h8
 Vj@Z3
-vJ>1^
-vJ2J$nL
-vJ8yy
-VJHXX
-VJiR8BK
-vJNr5)?
+vJTT8Yq
 VK_EXT_debug_report
 VK_KHR_surface
 VK_KHR_swapchain
@@ -27307,7 +27388,6 @@ vkDestroyShaderModule
 vkDestroySurfaceKHR
 vkDestroySwapchainKHR
 vkDeviceWaitIdle
-VKE)t
 vkEndCommandBuffer
 vkEnumerateDeviceExtensionProperties
 vkEnumerateDeviceLayerProperties
@@ -27350,7 +27430,6 @@ vkGetQueryPoolResults
 vkGetRenderAreaGranularity
 vkGetSwapchainImagesKHR
 vkInvalidateMappedMemoryRanges
-vKk1&
 vkMapMemory
 vkMergePipelineCaches
 VkP$4
@@ -27367,29 +27446,25 @@ vkSetEvent
 vkUnmapMemory
 vkUpdateDescriptorSets
 vkWaitForFences
-'vl$X)
-VL|RR
 V'L+a
 vLPSh@
 VLU!2
+vLVhdN
+vLVhLN
 Vlw76
 VlZ8<&
-vM?S}
 vm'3b
--vMbH
-vmD='z
 vMEL+
 vmFmX
 vMJPT1
 Vmp.exe
-vN NW
-vN_NG
+vN^OLYU
+Vn+v>
 vNfKh
-vNJ:AU
-VNLS(
 vnvyv
-vo>G 
-vo8mg
+Vo 2|E
+VO)xU
+VO,kU
 VodsZ
 VoiceRecogDuration
 VoiceRecogStart
@@ -27398,25 +27473,21 @@ void
 volatile
 volatile 
 Volume
+vou@Z
 Voxel
 Voxelizer
 Voxelizing: %i %i %i
 VP{L!
-VPhDd)
-V'Ps%t
 vpTe5
-VPWh$
+VpU|0
+VPWht
 VPWPh
-V'Py)
-v-Q?U
+VQ^z=itd
 vQ<)8
 vQD-pF#
-vQHfan
-vqj8Qi*U
 vQKo*
 vQO+t
 vQpb/
-VQPh0h)
 vQSxh
 vQXFl
 VR ERROR during setup: %s
@@ -27454,6 +27525,7 @@ VRClientCoreFactory
 VRDevice
 VREnabled
 VRH0.
+vrh3|
 VRInitError_Compositor_D3D11HardwareRequired
 VRInitError_Compositor_Failed
 VRInitError_Compositor_FirmwareRequiresUpdate
@@ -27531,19 +27603,18 @@ VRInitError_VendorSpecific_HmdFound_UserDataError
 VRInitError_VendorSpecific_UnableToConnectToOculusRuntime
 VRPQj0
 VRPurchasePromptsEnabled
+VrRD)
 VRRotationIntensity
 vrserver internal error (124)
 VRService
 VRTestControlSchemes
-VS#M-U
-Vs(^1F
 vs}ips
-VSh8J
+Vs3#HSW
+VSh@K
 Vsmall
 vsOSo
 VSQRW
-VSZI4E
-V-t(E
+VT@Tp
 VT+VP
 vtdDY
 VtM= 
@@ -27552,7 +27623,6 @@ vtordispex{
 VuD(z
 vuEd#
 -vuGg
-VUh#a
 V-Ui2m
 VuLj8
 Vulkan
@@ -27611,83 +27681,75 @@ Vulkan: destroying main frame buffer
 Vulkan: Loaded pipeline cache (%d bytes)
 Vulkan: resizing main framebuffer to %dx%d
 vulkan-1.dll
-vunJ-
+VUOk*%BU
 'vuTW
 VUUU+
 VUUUf
 VUUUS
-vUvG;w
 vV&e3
 VVector
-vVhi.t|
 vvi:H
-VVOfOw
 VVVVS
 VVVVV
 VVVVW
-Vw#dU
-vW$ -
+vvyQn
 'vW&j
 VW<(t
+vw> G
 VW0=fm
 vWd5?
-VWh '
-VWh ;S
-VWh <S
-VWh =S
-VWh 2*
-VWh Ha
-VWh r
-VWh$x,
-VWh@;S
-VWh@<S
-VWh@=S
-VWh@r
-VWh0;S
-VWh0<S
-VWh0=S
-VWh0r
-VWh8F
-VWhHL,
-VWhP;d
-VWhP;S
-VWhp{
-VWhP<S
-VWhP=S
-VWhpvH
+VWh 7S
+VWh 8S
+VWh 9S
+VWh f
+VWh@@a
+VWh@7S
+VWh@8S
+VWh@9n
+VWh@9S
+VWh@f
+VWh0@a
+VWh07S
+VWh08S
+VWh09
+VWh09S
+VWh0f
+VWhP@a
+VWhp^Q
+VWhP7S
+VWhP8S
+VWhP9S
+VWhpC
+VWhPT
+VWhxF
 vwKdU
+vwNI'
 VWPSh
 VWuWh
 vx{;t
+VX}Hr
+vXBFU
 VXCVy
 VXk-Y%
-VXL3#
 vXWQj
-vxy}p(
 vy!:=|
 VY/_;
 VY}N|
-vY<c!$
-vY=&>
-vy6 U
 vYu1{+
 vyZTJ
 -v-z-
 vz)Lp
+vZ*A(
 Vz|9|
-Vz<06-
-vZXIU
 W = (XNext+WNext) - X;
 w VPj
 w!);b
 W!4pA
-W!ai7
-W!DD>
+w!5oQ)
+W!E=XU
 w#91v
 W#p=!
-w#Wc2
 W#Y%q
-W$!/eU
 W$*D3
 w$_^d
 w$C;w(
@@ -27696,77 +27758,72 @@ w%4Ibt
 W%cl$eH
 W%rI+
 w%s(+
-w%Y3em
+w%xlc
 w&79-
 W(+W0
 W(u';
 W)F<A
-w)H:f
 w)z*I7&L
-W*$e/nh
+w*Ba9
 w*ezh
 w*M.r.
 w,fyc@
-w',op
 w,t4=
 -W.,E
-W.LG;
-w/|{8v
-w/mXjN}
-w/Wn_
 W/y+!
 w:3t=e
-W;xD=
 W?5XV
 W?oWc
 W@;WX
+W@6tw
 w@S6<
+W^.%R
 w^;C5
-w^Cv(a=
+w^-1)
 'W^HGK
-w^zhv
 w_bA:
 W_c5tE
 W_cz#4
+w{=c>
 W{8y6
+W|NJrU
 w|'pXP
-w}) dz,
-w+_*yRM
 w+HH&
-W+OhE
 w+OQvr
 W+VDx1
 w<;/(
 W<1X8
-W=)5k&
-W=.&,3
-W=|<7
 W=ltuou
 W>8*JZ7
 W>MhI
 w>SAH
 W0 = W0 / 2.0;
-w0-1m2
-w0aab
+w0b1t1
+w0G-(
 w0VVW
 W1^c$
-W2H+7
+W1A5e5r5}5
 w2tej
 w2V{$
-w3DxN8
-w3RDB
+w39ex
 w4}6G
 w5g/LJ
-w5hyzH
 w5NCs
-W7$sx_
--W7m{
+w65E,
+w7qy8O
 W8^.u:
 W846tdx0A
+W8D:+
+w8J?P
+W8nsc
+w8X>89F
 w9&5aU-
+W9/jU
 W90t=
 W9s$tZ
 w9UY'
+wA|=)
+WAHp3u
 WaistAccessory
 Wait returned %u
 wait(
@@ -27848,17 +27905,21 @@ WAVEu
 waVPR
 waxn#!
 waypoint
-wb/H+
 WB05}
 wBc12.
+wbcL#YDi^
 wBj%V
+Wc7wQ
+wcEdb
 wchar_t
 WclOK
-wcZ5U
+Wcr2G
 wd(fsD{
 wd;wh
+wD<fU
 WD9WHt
 WD9WHt 
+wDBFU
 wdDJZ
 wDfXg
 WDigest
@@ -27871,7 +27932,7 @@ We can reuse, but we want a new connection anyway
 we/DD
 we;lR
 wE|^&
-wE4lQ
+We8zs
 WeakThreadRef
 WeakThreadRef::addRef() %p for node %p
 WeakThreadRef::addToNode() for node %p
@@ -27897,18 +27958,16 @@ WEIGHT_NAME
 WeightCurrent
 WeightTarget
 WeightVector
+WEK:U
 WEl7-
 WeldConstraint
 WeldCursor
 Western Cape1
 WetLevel
-WF uQ
-wf<}U
-wf0uA:
+weYTum^^
 wf27I
-wfP/!
+WG}?y9
 wG2}+U
-wg2=0*
 WGL_3DFX_multisample
 WGL_3DL_stereo_control
 WGL_AMD_gpu_association
@@ -28088,18 +28147,18 @@ wglSwapIntervalEXT
 wglSwapLayerBuffersMscOML
 wglWaitForMscOML
 wglWaitForSbcOML
+Wgo_f
+Wh 8-
 wh(*M
-Wh,@2
-Wh,V,
+Wh(i(
+Wh|c(
 wH+w@
-Wh</)
 Wh2/SOV
-Wh8V,
-Wh9)d6
 Wheat
 WheelBackward
 WheelForward
-WhHL,
+Whhi(
+whhx*/
 while
 while (Counter)
 While entering function defined in script '%s', line %d
@@ -28114,22 +28173,24 @@ White
 White Star : Delta Time Delimiter (10ms)
 WhiteListChatFilter
 whitelistDescendantsTable
--WHkfx'
+Whm=l
+Whp-)
 Whpxam
 WhravfS
 WhravgS
 WhtsopV
+Wh'tsPn!
 WhxibsS
 WhxibsV
 WI^mC
 Wi}{m
-wi7E/
 wIbT5
 WideCharToMultiByte
 'width'
 Width
 width:100%
 WidthArray
+WIjyN)
 WildWest
 Win32
 Window
@@ -28172,36 +28233,31 @@ WinVerifyTrust
 wIPS3
 WireRadius
 wIVSP
-wj T&F
+wJ/&_
 Wj0XPV
 Wj4XPV
-WjCak
-Wjchk%
 Wj'M1
 Wjz$H
-wK=g@
-wK3vc
-wK7c6
-WKdEu
-WKQLU
+WJZ%tA
 wkUau6
-wL+)P
-WlaI!
-wlQs|
+wlhx+/
+WlQei
 WLzbn
 WM:(&-
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 Wm1&&Vf
 WMCreateProfileManager
-wMk#H
 Wmvcore.dll
 wn>Jj
 WndProcessCheck
-wNV$kM
+WNyG>
+wNyWQ
+WO*D$g
+Wo@D4
 wo_jLE
 wO75P
-wOcn#
+'wob;
 WoDB+
 WOesK
 WoodLog
@@ -28241,18 +28297,22 @@ worst
 worstend
 worststart
 Woyjt2
+WPh$*
 WpH<.
+WPhP--
 wPI,A
 wPKq+N
+WPQhdw
 WPQVS
 WPWV2
+Wq4gFp
 wqk%u+^
+WQPhl
 wqT2F
 wQuWg
 wR%ZK
 W'R0&
 wr0Z=U
-w-R93a>
 wrapInCurlyBraces
 WRbqC
 WRI{c
@@ -28284,21 +28344,20 @@ Wrong return data type
 WrongVersion
 Wrote palette index exceeding num_palette
 WRSQP
-WRz&g
 WS{p4
 WS2_32.dll
 WSAIoctl
+wsC7%,U
 WShfylgV
 WShTADIV
 Wsmall
 Wsp-f
-WSPh|
+WSPhLB)
 WSQR;X
 WSVPP
 WSVRh
 Wt+Wp
 WT=yH
-Wt0(-
 Wt0gI
 WT9OD
 WText = nWidth - XText;
@@ -28306,23 +28365,205 @@ WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
 wTMvb
 wTx{'
-wu}+;
+Wu5<A
 wU'Az*|
-wUEJnU
 WUk>5
 wUt<=
 wuV4mr
 wv{py
-WVh(|0
-WVh4}0
-WVhh|0
-WVhHI
-WVhL|0
-WVhL}0
+WVh :0
+WVh 30
+WVh 60
+WVh 80
+WVh b0
+WVh I0
+WVh L0
+WVh M0
+WVh P0
+WVh s0
+WVh$c0
+WVh$e0
+WVh$F0
+WVh$J
+WVh$v0
+WVh$Z0
+WVh(=0
+WVh(>0
+WVh(70
+WVh(f0
+WVh(g0
+WVh(N0
+WVh(Q0
+WVh(R0
+WVh(U0
+WVh(w0
+WVh,<0
+WVh,20
+WVh,d0
+WVh,E0
+WVh,W0
+WVh,Y0
+WVh@90
+WVh@a0
+WVh@D0
+WVh@F0
+WVh@O0
+WVh|@0
+WVh|60
+WVh|70
+WVh|c0
+WVh|e0
+WVh|F0
+WVh|I0
+WVh|J0
+WVh|K0
+WVh|S0
+WVh|u0
+WVh|W0
+WVh|x0
+WVh<:0
+WVh<;0
+WVh<00
+WVh<80
+WVh<9/
+WVh<c0
+WVh<e0
+WVh<f0
+WVh<g0
+WVh<k
+WVh<L0
+WVh<Z0
+WVh>k
+WVh0?0
+WVh0@0
+WVh0_0
+WVh010
+WVh040
+WVh050
+WVh0a0
+WVh0H0
+WVh0I0
+WVh0K0
+WVh0O0
+WVh0S0
+WVh4^0
+WVh4B0
+WVh4J0
+WVh4P0
+WVh4t0
+WVh4u0
+WVh4V0
+WVh4x0
+WVh8/0
+WVh860
+WVh8A0
+WVh8C0
+WVh8G0
+WVh8M0
+WVh8s0
+WVh8v0
+WVhd^0
+WVhD>0
+WVhD30
+WVhd60
+WVhdB0
+WVhDH0
+WVhdQ0
+WVhDR0
+WVhdt0
+WVhdU0
+WVhDw0
+WVhdx0
+WVhdZ0
+WVhh/0
+WVhH@0
+WVhh10
+WVhh20
+WVhh30
+WVhh40
+WVhh50
+WVhH60
+WVhh70
+WVhhb0
+WVhhC0
+WVhHE0
+WVhhF0
+WVhHI0
+WVhhJ0
+WVhHK0
+WVhhP0
+WVhHQ0
+WVhhs0
+WVhhT0
+WVhHv0
+WVhHx0
+WVhL?0
+WVhL^0
+WVhl_0
+WVhl<0
+WVhL40
+WVhL70
+WVhl80
+WVhLB0
+WVhLC0
+WVhlD0
+WVhlI
+WVhLJ0
+WVhlL0
+WVhLN0
+WVhlO0
+WVhLP0
+WVhLT0
+WVhlw0
+WVhLY0
+WVhp:0
+WVhp?0
+WVhP<0
+WVhP=0
+WVhp00
+WVhP10
+WVhP20
+WVhP80
+WVhPc0
+WVhpd0
+WVhpf0
+WVhPH0
+WVhPL0
+WVhpM0
+WVhPs0
+WVhPt0
+WVhPU0
+WVhPV0
+WVhPZ0
+WVhT/0
+WVht;0
+WVhT_0
+WVhT50
+WVhTA0
+WVhTG0
+WVhtH0
+WVhTI
+WVhTM0
+WVhTO0
+WVhtt0
+WVhX;0
+WVhx=0
+WVhX00
+WVhx90
+WVhXa0
+WVhXd0
+WVhxE0
+WVhXf0
+WVhxQ0
+WVhxR0
+WVhXu0
+WVhXw0
+WVhxX0
+WW!%KL
 Ww'&l
 ww)RJ(MF|
 ww:tU
-wwoOB
+ww9N|
 WWVSW
 www.facebook.com
 www.google.com
@@ -28333,25 +28574,30 @@ WWWPWS
 WWWSHSh
 WWWWV
 WWWWW
-Wx&)*
+WX#nd
+wX$?|R
 wx;wt
-wX7Y7
 wx9D+NY
+wXFY9
 Wxk(s
 wXKZ,
+WXusj3
 WXY;V
-Wy&uK
 Wy)V.fp
+Wy.Kb>
 wY|FK$
+wy|IO
 wy<CYO
 WYARE
-wYhIa
 wYoCS
 wyOH<
+wYtJU
 wz$@0
-wz$D(
-Wz3gZ
+WZewu
+wzl,Q6
+wzRMl
 wzW+(&
+X- ?.
 X ??S
 X += (FontWidth*Width);
 x += 1;
@@ -28375,20 +28621,21 @@ X = NameWidth + XBase;
 X = NameWidth;
 x = X;
 X c&0
+X eMP
 x mfd
-x QMQ
 x t*W
-X!DN0
 x#;OP}
 x#b}P
 X$;X tm
 x${.$
+x$cat
 x$ltuou
 X$RRr
 x%'$C%F
+x%'dY0
 x%oJ%.r
+X%qKC
 x%soK
-x&l3s.b
 X&Qu{
 x&sfS
 x(@<l
@@ -28397,20 +28644,18 @@ x(j/W
 x(kP$4
 x(XF7
 X):8T
-X)}YU
 x)L*$
-X, zJ
-X,$wM
-X,$ww
+X)Mj#
+x*2e;r
 X,,t4
+X,sVv
 X./iM
-x.b-|
 x.category = GroupInfo
 x.category = i;
 x.index = i;
 x.IsCategory = 0;
 x.IsCategory = 1;
-x.K&6
+X.N(#5
 x.name = CategoryInfo
 x.name = GroupInfo
 X.Qvv
@@ -28419,9 +28664,11 @@ X;^$|
 X;^L|
 X;A?D
 X;F$|
+x;kkY
 X;NL|
 x?_^3
-x?hW:
+x?i_Qn
+x'?n6s
 x@&u'
 x@&u-
 x@&u 8
@@ -28432,70 +28679,72 @@ x@&u0
 x@&u1
 x@&uj
 x@&uZ
+X-@@.
 x@8N$
 x@HAK
 x@q:)=
 -X^>K
 X_HEIGHT
-X_J)HY
 X{5vm
 X{jp7
-x|4h7Wp
+X| nJ
 X|A#<u
-X|E=/
-x|vf-
 X|yom}
 X}toN
+x+a+i
 x+Be._
 x+G;}
-x+p3#
 X<+X8
 x<<D%
+X<NDlK
 X<y&;y
 x=MR$
 x=WGpv
 X=Y}Z
 x>}EH5@
-x>1x};2i
 x>I|M
-X>kM$a
 x>xoxyx
-x0 2(4@7
 x0?M!
-X0b0?1
+x0@1 2
+X0d0h0l0p0t0x0|0
 X0eMW
-X0P1H28304(5
+X0H5(<p<
+x0I1t1
+x0p1h2X3P4H5
 X0T{7
-x0Zq)
 x11_sync_object
-x11jn
-x1l?6
+x1R3_3o3
 x2{'=
--x2}a
 x28n*^*
+x2n|o
 X360 Controller #%u
-X3l<o
 X4#,Q
-x4SrW
 x4vi 
+X5 @.
+X5!@U
+X50@G
 X5AHx
 x5G86
-X81pc
+x5O=-U
+X5vZ'U
+X72i}
+X7T?i
 'x8A-
-X8F/^
 x8x||<D8
-x8y32
-X9i(xF
-X9jNk%w
+X9+qI
 X9uu?
-x9zVU
+x9z#x
 xa M*
+XA%Tx7
 xa0(i
 XAfV.+
 XAg?=
+xArIy
 X-ATT-DevideId
+xb #W1
 xB g1a
-XB*1JJv
+xB7ug|
+xBf!jV
 XBK!;
 X-Box
 xbox/localgamerpic
@@ -28507,23 +28756,22 @@ XBoxOne
 XboxUseCrossPlatformPlay
 XboxUseRobloxInput
 xC(Jf
--xckiU
+Xc0c 
 XckM/
 xCME|e
 x-compress
 X-CSRF-TOKEN: 
 xctl$-
-Xcu{9i
 XCXVXac
-XD7*9
+Xd9ym
 xdigit
 xDvFt
 XEi)#
 XEm8f
 xEnd = Temp;
+xeSq=
 XF(OW8
 Xf;8H
-XF|EY
 X-Forwarded-For
 X-Forwarded-Host
 X-Forwarded-Proto
@@ -28532,20 +28780,18 @@ XfuwD
 xG mU
 xg^Jp5|
 XG6Jb
-xg7zL
 X-GData-Key
 XgdBf
 xGH^I
 xGQ&#
-xgY{#p6
 x-gzip
 XgZnw
-xH0gH
+xh$zF+
 XHAGF
 XHeight
 XHFF/Z
-xhfwb
 xHG;WT
+Xho(st
 xHpmocu>
 xHstibt
 X-Http-Proto
@@ -28570,23 +28816,25 @@ XInputSetState
 xiSVW
 xiTP-
 xIxRx
+xJSvT
 xjVAx
-xk!$m
 Xk2h82
 Xkj3d
 xKMu:
 xkvf0  
-xL(oK
-xL:/f
-xL:{Y
+xL) 6_z
+XL:-C
 Xl_5|
 XL<4T6W
-xLFXg
 xLKw.f
 X-Log-7522
-xLTA1 
-Xm#PU
+-xLoi
+X-LT6
+Xm@+Q
+xm_ HSK
 xM_P+
+XM10a
+Xm81G
 XMABP
 XML Load Time
 xmlns:media=
@@ -28595,31 +28843,34 @@ xmlns:xsi
 xmlns:yt=
 xmlRead_MaxDistance_3
 xmlRead_MinDistance_3
+XmqE36z
 XM'xO4
-xn&u_
 XN(QP
 Xn.hy=
-xNBb$x
-xnFka
-xnmDY
+XN9Lc
 XO,_f
 XO_xf
 xO4@8
 XOAUTH2
+XOeRxw
 XOR:z
-xOW1t
+XOS+x
 XP(4S
-xp45.q
+Xp<kMz)
 xpcall
-XpNu+U
+xPK{L
 xppwpp
 xpxxxx
+xq;dJS
+XQBgTo
 xqfxl
+XQny&
 XQSTwq
 xqy!mr
 XR};i/u
 xr1t#
 X-Real-Ip
+xrf$ME
 xRP{s
 xSAH9
 XsG?f
@@ -28632,20 +28883,17 @@ xSVW3
 XSVWj
 XSZ3M
 Xt!)I
-Xt|Vn
+XT@/K
 xt98xS
 Xti)I
-XTKaz
 xtmht
 xtmvu?
-xtOWc
 Xtq>zh
 XTZh>Vp#
 XU/7d
-xU/af
 XUB1T
-xutBjU
 Xv%rV
+xv^Yn
 XV}z<<
 xVekEh
 xVgcO
@@ -28653,158 +28901,143 @@ XVzk&
 xw+T3
 xw29i
 X-Wap-Profile
+xwh$6
 XwOa#
 xwpwpp
+xWqoEB
+xwQWU
+XWtPT
 xx%CMaY{
+XX}HPSR&
 xXduQ
+xXDwzY@
 xxoJ%%r
 xXrPk
-xXuI!(
-xxXL )
 xxYFf
-xy)l^Jl
+XY$csvuX
 xYC*<
 XYfS3
+XYt}Hd
 XZ_|K6
+xZF2W
 xzroesc
-XZtwg
+XZS9'EP
+y %hRG
 Y += Height;
 Y += HeightExpanded;
 y = CanvasRect.height - nHeight;
 Y 4 g=
-y!.hU
-y!/hF
+y- B!z
 Y!9r&
 Y!Q!t!
-y!Wh(p,
 Y# OS
 y#9!%
 Y#B-+=
 Y#Dl}
 Y#lwF
 y#Qu'
-Y$lNj
+y$*6+
+Y$csv
 y$ltuou
 y$ltuou.
-Y%@b/
-y%>FSR
-Y%H5.
-Y%hb/
-Y%P5.
-y%t(:
-Y%Xb/
-y%Y*w
-y& cu
+Y$p5U
+Y%46/
+Y%8G)
+Y%xT)
 y&.=,
+y&r-9
 y(97u
 y(Ja>
 Y(Z S+
 y)ck?
-Y-)iK;
-y)OrP
-y)PQ;
-y)Pz6
-y)s8U
-y*;StudioVideoRecordFix
-y*fxU
-y*i;d
+Y)ZVU
 Y, YBottom
 Y,,v077
+y,-HM+U
 Y,r5|8y
 Y.:e(
 Y.3v#
-Y.m5K
+y.6Ff
+Y.Atl
 Y.msT0
 Y:/(A6>
-Y:EL-ZU
 Y:KSu
-Y;=hV
-Y;r@;
 y?1'^n
+Y?bMu
 y?hTo
 y@&u'
 y@&u$
 y@1;H)
+y@i Y
 y^:k8
 y^Z;Rq
+y_:0,Z
 y_c,t
 y_EyP
-y{/c4
 y{:2+F
-Y{L(N
-y|ySj<
-Y-+|<
-Y-+|R
 y++G?
-y+v#t0
 y+zw,
 Y<,dT
-Y'<Zr{
+y<M{U
+Y<sF3|
 y=kZP:
 Y'>o 
 y>P^!aq
+Y>TD'
 Y>vwI
-Y0?5P5
+Y0a0h0r0
+Y0a0j0
 y0gg;;
 y0RM<
-y0XgPCU
 Y1$^J
-y12GR
-y1e _
-y1XYO
-y2X(U
-Y3@;U
+Y1-2?5'6z7
+Y-3;X
 y3+.{
-y354r4
-y3cyz6
+Y3<J;d
 y3d.;
 y3ii*
 y4_ 4
 y4+A0
-y438Y
+y4k?K
 Y4U4x
+y5?o0
 y51V$c
-y58.3
+y5-n!
 Y5-s&
 y6.h8)
 Y6:4:N
 y67Rr
-y'6k!
-y72q.
+y7(HU
 y7aKr:>
-y7k 6
-y7V^<
-Y7v0P
 Y830=
+Y-8G)
 Y'8l}
 Y8P3Yx;
-Y-'9&s;
-Y9>V5
+y8qt{i
 y92SQ
-y9S^_
 Y9zO+
-YA2U41!
+YA%AHv
 Ya3p;U?
 Yacute
 Yacutesmall
 YACZ 
+yaqU!B}U
 YARGtB
-YB.iV:R
+yB zt
 yb5}Z
 YBegin
+YBj:!
+YbLdu{
 YbnqvatFperra3Q
 YbnqvatFpevcg
-yC!@n
 YC^O(
 Yc{?c
-Yc'|$
 yCBAf
 ycbcr_422
 ycbcr_texture
 ycrcb
 yCu#NN
 yd%%t
-Y-'d4
 yDI{%
 Ydieresis
 Ydieresissmall
@@ -28816,23 +29049,19 @@ yeD+(2
 Yellow
 Yellow flip/flop
 Yellow Star : Last Received Networked Pos
-Yem?o
 YEQ|oo
 YEXN'
 YeYii
+yEZ!hU
 YF^j:
 yF<$U
+Yf>W$
 -yF8N
+YfG6o9_
 yFrOz
-YFtxU
-yfU4n
 yG&F1*
+y-g'U
 yGWL%
-yh&:C
-Y-H.*
-yh2w_
-Y-hb/
-YhH9Y
 YHlsa
 YhnPung/BeqrerqZnc
 YhnPung/BeqrerqZnc.fcrp
@@ -28925,28 +29154,33 @@ YieldFunction
 YieldFunction 
 Yiue/
 yJ&gO
-Yj*BU
+-yJ)A
 yj,7D
-yj}Je
+Yj<fJ
 YJH &
-yJJ#w
-Yju+R
-YjznTU
+YJkYU
+yjv(FA}
 yK$XNx
 yK0#<
+yk1}t
 yK-mF
-yks/2#
-yky c
+YKrP%
 yL*#Yua
 Ylol 
 YLYVh
+-YLZb
 YM,v*
-yMKR$
+yM.Fi
 YmLc<
-yMQuX
 Yn!xh
+YNdSyvV
 Yne&hd6
+YnH|t
+YNr$o
+YnS#K
+YnsD%
 YnV;V
+YNxMy
 YOrC>
 YOST/
 You can only report-abuse from a client machine
@@ -28963,138 +29197,133 @@ yoYPi
 yP_^3
 Yp=q3
 Yp3)L
+Yp4=S
 ypcall
+YPh?X-
+YPhwX-
 YPos += BoxHeight;
-YPpYP
-YPSh|
 YpU_Z
-yPX>1
-Yq*<)
+YQft8f
+YqPIU
 yQRmu
 yR,zN
 YR^9n
-yRD14
+YrD(3
 Ys+tH
-YS3ZU
-Ys6HV
 ysaWo
-Ysd?T
+YsdI}
 Ysmall
 YsUX)
 Yt3F+
 yTF)9wsf
+yU)=N
 yUJ t7v
+YUrFtJe
 YVM/c
 Yvoenevrf/EokFgnzcre
 Yvoenevrf/EokHgvyvgl
 Yvoenevrf/EokThv
-yW@/ja
+Yw%x_
 YWPtF
-ywT(<1px
+ywtl#
 Yx F}
-Yx){jm
-yx*Q^
-yx*y s
+YX7 <
 y-xE1
+YXQ<G
+YXR&y
 yxxx+
 yxxxVW
+yy.%oU
 y'y6y?yMa
 yyb7Q
 YYF;w,|
-yYLmU
+YYhDK;
+yYmmDX
 yz)$(
+yz*2AP_
 Yz.zh
--y'Z;U
 yZ{K 
 yz}j,3
-yZ>oQ
 yZ161
+YZa^Q
 Yz'dPBK
-yZldxg
+Y-ZF^
 yZncl
 Yzv8yW
 yZygy
-z /m!
-Z _Su
 Z 857b
 z b</d8
-z Gk)
 z m,(ci
+z#=:Q
+Z#kZU
 z#xZYz<<=%
-z&-)4s
+Z$27Qy
+Z%<WE)
 z&M,V
-z(o)tXI
-z)9 U
 z)g|9
-z*I;K
-z*y,P
+Z)Np4
 z,|qI*
 Z,8oL
+z,F)TO
+z,F18
 z,iH&
-Z,oMa
-Z.&y#
-Z.(eF
+Z,-'V
 Z.>70;
-Z.89S
-Z.E^W
 Z.l(R
-z.MlQ
-z.MUQ
-Z.x5T
 Z/,Xq
+z/iPY
 z-/vo8
-z/xB6
-Z;>rU
 Z;tQR
 Z?;9pjR
 z?RD!
 Z@&LHA'
 Z@q^0j_
+z^_9r
+Z^M=)
+Z_H?|
+Z_HPU
 Z_OK on Z_FINISH with output space
-z_Tw3
 z{|aX%U
 Z{Llo
+z|$0t
 Z|3R{%
-z}sx(w
+Z+$K1
+Z+62S
+Z+C>y
 z+k)V
 Z<5z-=DB^
 z<zRz_zvz
-z=^<F
 'Z=1R!
 z=Q:0
 Z=xF+
-Z>!Ui
+z>3NfL
 z>JL2
-z>KHP
 z>Qpk
-z>yI}
 z0%7}/
-Z1#Im
+Z041d1
+Z0X03
 Z1dQi
+Z1G*E
 Z3+88
 z34&M
-z3AKU
+Z4 'm
 Z4+#l
+z5,AU
 z5vC)Oa
 z6^'Y
-z6=dlF^
 z-6j_
 z6o5k
+z'6rqU
 z75!m
 Z7iYr
-z8tE-,P 
-Z8weh
+z8Ay?
 Z92t1
 Z9NpF
 z9s,b
 Zan)MWK:
-ZAn-U
-zaS9U
-zAyE8
 Zb&oy
-Zb;QU
 zb<pk
-ZbGXf
+zb5Xj
 zbNgi
 ZbovyrPungFgnegreFpevcg
 ZbtR@
@@ -29104,10 +29333,8 @@ Zc<:X
 Zcaron
 Zcaronsmall
 zcq58
-zd T%G
-zd;LU
 zdBtqrSD|
-zdDzM
+zdDyH
 ZdXYA
 zdz78,
 ZDZUZ
@@ -29119,57 +29346,53 @@ ZEo^m/
 zeroinferior
 zerooldstyle
 zerosuperior
+Z'f#/3
 ZF*<(w 
+zF9q2
 ZfA$(
+zFf:}U
 zFF3>
+zFMaX
 zFw,&
 zfW6x
-zg eu
 Zg.Z%
 ZG?..
--zG13
 Zgx9sN
-Zh lZ
 ZH#} 
-ZhPx^
+ZhH(^
 ZhzM{
-Zi%Bju
-zI'^^c
-zi=b<
-zi3xD
 ZiA5n
--Zif%5
-zIH0=|{
+zIe+U
 ZIndex
-ziv- 
-zIXSr
 ZiY='
-zj$':=
 zJ^ld
-zK4w7
+Zj4: {6
+zjnZU
+zJvczC
 zKD;L
 zkpKp
-zl)h8
+ZL!*{.
+Zlc!_y
+ZLdFP
 zlib error
 zlib IO error
+zlN+>
+ZlUmU
+Zm?3}
 zm@hu
-zm5+U
-ZMAqj
+Zm_%.X
+Zmat+f
 'ZMbF
 zmE2n
 zmJE7
+'ZMnB{1
 zmSZ<8N
 ZmX>A
-zN#l52
-zN$m?
-zN.^X
 zn/kW
-zN<}g>
-zNBVC
 Zno_-*
 zntMdl
 Zo :E
-zo@y1
+Zo2XDU
 ZOffset
 Zoom to frame
 ZoomActive = 1;
@@ -29182,60 +29405,61 @@ ZoomTo(RangeSelect.Begin, RangeSelect.End);
 ZoomToExtents
 ZoomToHighlight();
 ZoomToHighlight(1);
-'zOOP
 ZOr7 
 zoSE&
 ZOso3
 zosw)4u?
-'zotU
 zoxBJ
 z'p!^
 ZP&#YO
-zp(Os
-zp(w 
-Zp,#g_
 Zp?s|g
+zpMKR
+zq( E6
 ZQ*G#
 zQ/S^
 zQ8%T
+zQLH:U
+ZQyAp
+ZR!pi
 'ZR%9
-zRCnU
+Zr3K2
 ZretrFbeg
-Zrh!s
+ZrFbU
+zrGN:;Vb
 ZrNlS
+zsHw(
 Zsmall
 zspou
 zstream unclaimed
+ZT)nx{
+zT1cQ
 ZT1mVkh
 zt8S(Y
+zTTb'
+ztVcZ=ag
+Ztw*p
 zTXt: invalid compression type
 zTXt: invalid keyword
-ZuI_1
-zv,{.}v>
 ZV,q?<
-zV<JTD9?
 zvg#9
 zvLo6b>p
-zvqR'
-zVUHj
+ZVqUH
 zw?C6w?
 ZwCreateSection
 'ZwG9
 zwI?}
 ZwMapViewOfSection
 ZwQueryVirtualMemory
-zWR_+U
--zx{p
-ZXc!U
+Zx!(H
+ZX=<;
 zxiU9
-ZxXVC
-z-y/q
-zY41U
+zXRSpU
+-ZXxY
+ZyEp(d
 Zyr%%
 zyy=/
 ZZ#6@
-zZ,hVi
-zz<v&
+zZ+,Q
+zZ+/.
 Zz9<g
-z'ZBw
-z-zDW
+Zz-LU

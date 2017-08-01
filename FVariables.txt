@@ -814,6 +814,7 @@ SoundGroupTryReleaseV3
 SoundLoadAsync
 SoundLoadAsyncANDROID
 SoundLoadAsyncFailureDetailed
+SoundLoadAsyncFailureDetailedReportHundredthPct
 SoundLoadAsyncIOS
 SoundLoadAsyncOSX
 SoundLoadAsyncOSXSTUDIO
