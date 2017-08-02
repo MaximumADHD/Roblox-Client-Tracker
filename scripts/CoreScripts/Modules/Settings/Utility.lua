@@ -39,15 +39,15 @@ local VRService = game:GetService("VRService")
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 
+local reportPlayerInMenuSuccess, reportPlayerInMenuValue = pcall(function() return settings():GetFFlag("CoreScriptReportPlayerInMenu") end)
+local enableReportPlayer = reportPlayerInMenuSuccess and reportPlayerInMenuValue
+
 local fixSettingsMenuDropdownsSuccess, fixSettingsMenuDropdownsValue = pcall(function() return settings():GetFFlag("FixSettingsMenuDropdowns") end)
 local fixSettingsMenuDropdowns = fixSettingsMenuDropdownsSuccess and fixSettingsMenuDropdownsValue
 
 if not enablePortraitMode then
 	return require(RobloxGui.Modules.Settings:WaitForChild("UtilityOld"))
 end
-
-local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
-dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
 
 
 ------------------ VARIABLES --------------------
@@ -395,6 +395,10 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		ZIndex = 2,
 		SelectionImageObject = SelectionOverrideObject
 	};
+	if not enableReportPlayer then
+		button.NextSelectionLeft = button
+		button.NextSelectionRight = button
+	end
 
 	local enabled = Util.Create'BoolValue'
 	{
@@ -1050,41 +1054,40 @@ local function CreateSelector(selectionStringTable, startPosition)
 	local isSelectionLabelVisible = {}
 	local isAutoSelectButton = {}
 
-	if not dynamicMovementAndCameraOptions then
-		for i,v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create'TextLabel'
-			{
-				Name = "Selection" .. tostring(i),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
-				Position = UDim2.new(1,0,0,0),
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 24,
-				Text = v,
-				ZIndex = 2,
-				Visible = false,
-				Parent = this.SelectorFrame
-			};
-			if isTenFootInterface() then
-				nextSelection.TextSize = 36
-			end
-
-			if i == startPosition then
-				this.CurrentIndex = i
-				nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
-				nextSelection.Visible = true
-
-				isSelectionLabelVisible[nextSelection] = true
-			else
-				isSelectionLabelVisible[nextSelection] = false
-			end
-
-			this.Selections[i] = nextSelection
+	for i,v in pairs(selectionStringTable) do
+		local nextSelection = Util.Create'TextLabel'
+		{
+			Name = "Selection" .. tostring(i),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
+			Position = UDim2.new(1,0,0,0),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextTransparency = 0.5,
+			Font = Enum.Font.SourceSans,
+			TextSize = 24,
+			TextSize = 16,
+			Text = v,
+			ZIndex = 2,
+			Visible = false,
+			Parent = this.SelectorFrame
+		};
+		if isTenFootInterface() then
+			nextSelection.TextSize = 36
 		end
+
+		if i == startPosition then
+			this.CurrentIndex = i
+			nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
+			nextSelection.Visible = true
+
+			isSelectionLabelVisible[nextSelection] = true
+		else
+			isSelectionLabelVisible[nextSelection] = false
+		end
+
+		this.Selections[i] = nextSelection
 	end
 
 	local autoSelectButton = Util.Create'ImageButton'{
@@ -1237,52 +1240,6 @@ local function CreateSelector(selectionStringTable, startPosition)
 		end
 	end
 
-	function this:UpdateOptions(selectionStringTable)
-		if not dynamicMovementAndCameraOptions then return end
-
-		for i,v in pairs(this.Selections) do
-			v:Destroy()
-		end
-
-		isSelectionLabelVisible = {}
-		this.Selections = {}
-
-		for i,v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create'TextLabel'
-			{
-				Name = "Selection" .. tostring(i),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
-				Position = UDim2.new(1,0,0,0),
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 24,
-				Text = v,
-				ZIndex = 2,
-				Visible = false,
-				Parent = this.SelectorFrame
-			};
-			if isTenFootInterface() then
-				nextSelection.TextSize = 36
-			end
-
-			if i == startPosition then
-				this.CurrentIndex = i
-				nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
-				nextSelection.Visible = true
-
-				isSelectionLabelVisible[nextSelection] = true
-			else
-				isSelectionLabelVisible[nextSelection] = false
-			end
-
-			this.Selections[i] = nextSelection
-		end
-	end
-
 	--------------------- SETUP -----------------------
 	local function onVREnabled(prop)
 		if prop ~= "VREnabled" then
@@ -1318,10 +1275,6 @@ local function CreateSelector(selectionStringTable, startPosition)
 	end)
 
 	local isInTree = true
-
-	if dynamicMovementAndCameraOptions then
-		this:UpdateOptions(selectionStringTable)
-	end
 
 	UserInputService.InputBegan:Connect(function(inputObject)
 		if not interactable then return end
