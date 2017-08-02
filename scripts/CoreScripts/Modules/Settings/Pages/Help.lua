@@ -32,6 +32,9 @@ local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
+local getDisplayVersionFlagSuccess, getDisplayVersionFlagValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
+local displayVersionFlag = (getDisplayVersionFlagSuccess and getDisplayVersionFlagValue)
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -589,6 +592,11 @@ do
           PageInstance.HubRef.BottomButtonFrame.Visible = false
         end
       end
+	  if displayVersionFlag then
+	    if PageInstance.HubRef.VersionContainer then
+		  PageInstance.HubRef.VersionContainer.Visible = true
+	    end
+	  end
     end)
 
   PageInstance.Hidden.Event:connect(function()
@@ -603,6 +611,9 @@ do
           PageInstance.HubRef.BottomButtonFrame.Visible = true
         end
       end
+	  if PageInstance.HubRef.VersionContainer then
+		PageInstance.HubRef.VersionContainer.Visible = false
+	  end
     end)
 end
 
