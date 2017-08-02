@@ -31,6 +31,9 @@ local enableNetworkJoinHealthStats = enableNetworkJoinHealthStatsSuccess and ena
 local enableNewLoadingScreenShowStatusSuccess, enableNewLoadingScreenShowStatusValue = pcall(function() return settings():GetFFlag("NewLoadingScreenShowStatus") end)
 local enableNewLoadingScreenShowStatus = enableNewLoadingScreenShowStatusSuccess and enableNewLoadingScreenShowStatusValue
 
+local loadingScriptStopUsingVerbsSuccess, loadingScriptStopUsingVerbsValue = pcall(function() return settings():GetFFlag("LoadingScriptStopUsingVerbs") end)
+local loadingScriptStopUsingVerbs = loadingScriptStopUsingVerbsSuccess and loadingScriptStopUsingVerbsValue
+
 --Turn this on if you want to test the loading screen in Play Solo and have FFlagLoadingScreenInStudio
 local debugMode = false
 
@@ -327,6 +330,12 @@ function MainGui:GenerateMain()
 			ZIndex = 10,
 			Parent = mainBackgroundContainer,
 		}
+
+        if loadingScriptStopUsingVerbs then
+            closeButton.MouseButton1Click:connect(function()
+                game:Shutdown()
+            end)
+        end
 
 		local graphicsFrame = create 'Frame' {
 			Name = 'GraphicsFrame',
@@ -757,6 +766,7 @@ if isTenFootInterface then
 	createTenfootCancelGui()
 end
 
+-- todo: remove setVerb when removing loadingScriptStopUsingVerbs
 local setVerb = true
 local lastRenderTime, lastDotUpdateTime, brickCountChange = nil, nil, nil
 local fadeCycleTime = 1.7
@@ -793,10 +803,12 @@ renderSteppedConnection = game:GetService("RunService").RenderStepped:connect(fu
 	if not currScreenGui then return end
 	if not currScreenGui:FindFirstChild("BlackFrame") then return end
 
-	if setVerb then
-		currScreenGui.BlackFrame.CloseButton:SetVerb("Exit")
-		setVerb = false
-	end
+    if not loadingScriptStopUsingVerbs then
+        if setVerb then
+            currScreenGui.BlackFrame.CloseButton:SetVerb("Exit")
+            setVerb = false
+        end
+    end
 
 	if currScreenGui.BlackFrame:FindFirstChild("BackgroundTextureFrame") and currScreenGui.BlackFrame.BackgroundTextureFrame.AbsoluteSize ~= lastAbsoluteSize then
 		lastAbsoluteSize = currScreenGui.BlackFrame.BackgroundTextureFrame.AbsoluteSize
@@ -897,6 +909,7 @@ local leaveGameButton, leaveGameTextLabel, errorImage = nil
 
 GuiService.ErrorMessageChanged:connect(function()
 	if GuiService:GetErrorMessage() ~= '' then
+		local utility = require(RobloxGui.Modules.Settings.Utility)
 		if isTenFootInterface then
 			currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
 			currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
@@ -914,28 +927,8 @@ GuiService.ErrorMessageChanged:connect(function()
 				errorImage.BackgroundTransparency = 1
 				errorImage.Parent = currScreenGui.ErrorFrame
 			end
-			-- we show a B button to kill game data model on console
-			if not isTenFootInterface then
-				if leaveGameButton == nil then
-					local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-					local utility = require(RobloxGui.Modules.Settings.Utility)
-					local textLabel = nil
-					leaveGameButton, leaveGameTextLabel = utility:MakeStyledButton("LeaveGame", "Leave", UDim2.new(0, 288, 0, 78))
-					leaveGameButton:SetVerb("Exit")
-					leaveGameButton.NextSelectionDown = leaveGameButton
-					leaveGameButton.NextSelectionLeft = leaveGameButton
-					leaveGameButton.NextSelectionRight = leaveGameButton
-					leaveGameButton.NextSelectionUp = leaveGameButton
-					leaveGameButton.ZIndex = 9
-					leaveGameButton.Position = UDim2.new(0.771875, 0, 0, 37)
-					leaveGameButton.Parent = currScreenGui.ErrorFrame
-					leaveGameTextLabel.FontSize = Enum.FontSize.Size36
-					leaveGameTextLabel.ZIndex = 10
-					GuiService.SelectedCoreObject = leaveGameButton
-				else
-					GuiService.SelectedCoreObject = leaveGameButton
-				end
-			end
+		elseif utility:IsSmallTouchScreen() then
+			currScreenGui.ErrorFrame.Size = UDim2.new(0.5, 0, 0, 40)
 		end
 		currScreenGui.ErrorFrame.ErrorText.Text = GuiService:GetErrorMessage()
 		currScreenGui.ErrorFrame.Visible = true
@@ -953,11 +946,21 @@ GuiService.UiMessageChanged:connect(function(type, newMessage)
 	if type == Enum.UiMessageType.UiMessageInfo then
 		local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
 		if blackFrame then
-			blackFrame.UiMessageFrame.UiMessage.Text = newMessage
-			if newMessage ~= '' then
-				blackFrame.UiMessageFrame.Visible = true
+			local infoFrame = blackFrame:FindFirstChild("InfoFrame")
+			if enableNewLoadingScreenShowStatus and infoFrame then
+				infoFrame.UiMessageFrame.UiMessage.Text = newMessage
+				if newMessage ~= '' then
+					infoFrame.UiMessageFrame.Visible = true
+				else
+					infoFrame.UiMessageFrame.Visible = false
+				end
 			else
-				blackFrame.UiMessageFrame.Visible = false
+				blackFrame.UiMessageFrame.UiMessage.Text = newMessage
+				if newMessage ~= '' then
+					blackFrame.UiMessageFrame.Visible = true
+				else
+					blackFrame.UiMessageFrame.Visible = false
+				end
 			end
 		end
 	end

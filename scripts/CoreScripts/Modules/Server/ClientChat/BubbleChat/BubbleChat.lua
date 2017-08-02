@@ -351,7 +351,7 @@ end
 function this:SetBillboardLODNear(billboardGui)
 	local isLocalPlayer = isPartOfLocalPlayer(billboardGui.Adornee)
 	billboardGui.Size = UDim2.new(0, BILLBOARD_MAX_WIDTH, 0, BILLBOARD_MAX_HEIGHT)
-	billboardGui.StudsOffset = Vector3.new(0, isLocalPlayer and 1.5 or 2.5, isLocalPlayer and 2 or 0)
+	billboardGui.StudsOffset = Vector3.new(0, isLocalPlayer and 1.5 or 2.5, isLocalPlayer and 2 or 0.1)
 	billboardGui.Enabled = true
 	local billChildren = billboardGui.BillboardFrame:GetChildren()
 	for i = 1, #billChildren do
@@ -363,7 +363,7 @@ end
 function this:SetBillboardLODDistant(billboardGui)
 	local isLocalPlayer = isPartOfLocalPlayer(billboardGui.Adornee)
 	billboardGui.Size = UDim2.new(4,0,3,0)
-	billboardGui.StudsOffset = Vector3.new(0, 3, isLocalPlayer and 2 or 0)
+	billboardGui.StudsOffset = Vector3.new(0, 3, isLocalPlayer and 2 or 0.1)
 	billboardGui.Enabled = true
 	local billChildren = billboardGui.BillboardFrame:GetChildren()
 	for i = 1, #billChildren do

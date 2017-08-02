@@ -21,10 +21,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 
-local reportPlayerInMenuSuccess, reportPlayerInMenuValue = pcall(function() return settings():GetFFlag("CoreScriptReportPlayerInMenu") end)
--- The player report flag relies on portrait mode being enabled.
-local enableReportPlayer = enablePortraitMode and reportPlayerInMenuSuccess and reportPlayerInMenuValue
-
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
@@ -79,7 +75,7 @@ local function Initialize()
 	this.Page.Name = "Players"
 
 	local function createFriendStatusTextLabel(status, player)
-		if enableReportPlayer and status == nil then
+		if status == nil then
 			return nil
 		end
 
@@ -88,14 +84,7 @@ local function Initialize()
 
 		local friendLabel = nil
 		local friendLabelText = nil
-		if not status then
-			-- Remove with enableReportPlayer
-			friendLabel = Instance.new("TextButton")
-			friendLabel.Text = ""
-			friendLabel.BackgroundTransparency = 1
-			friendLabel.Position = UDim2.new(1,-198,0,7)
-			friendLabel.SelectionImageObject = fakeSelection
-		elseif status == Enum.FriendStatus.Friend or status == Enum.FriendStatus.FriendRequestSent then
+		if status == Enum.FriendStatus.Friend or status == Enum.FriendStatus.FriendRequestSent then
 			friendLabel = Instance.new("TextButton")
 			friendLabel.BackgroundTransparency = 1
 			friendLabel.FontSize = Enum.FontSize.Size24
@@ -181,8 +170,8 @@ local function Initialize()
 	local reportSelectionFound = nil
 	local friendSelectionFound = nil
 	local function friendStatusCreate(playerLabel, player)
-		local friendLabelParent = playerLabel
-		if enableReportPlayer and playerLabel then
+		local friendLabelParent = nil
+		if playerLabel then
 			friendLabelParent = playerLabel:FindFirstChild("RightSideButtons")
 		end
 
@@ -204,60 +193,34 @@ local function Initialize()
 				status = getFriendStatus(player)
 			end
 
-			if enableReportPlayer then
-				local friendLabel = nil
-				local wasIsPortrait = nil
-				utility:OnResized(playerLabel, function(newSize, isPortrait)
-					if friendLabel and isPortrait == wasIsPortrait then
-						return
-					end
-					wasIsPortrait = isPortrait
-					if friendLabel then
-						friendLabel:Destroy()
-					end
-					if isPortrait then
-						friendLabel = createFriendStatusImageLabel(status, player)
-					else
-						friendLabel = createFriendStatusTextLabel(status, player)
-					end
+			local friendLabel = nil
+			local wasIsPortrait = nil
+			utility:OnResized(playerLabel, function(newSize, isPortrait)
+				if friendLabel and isPortrait == wasIsPortrait then
+					return
+				end
+				wasIsPortrait = isPortrait
+				if friendLabel then
+					friendLabel:Destroy()
+				end
+				if isPortrait then
+					friendLabel = createFriendStatusImageLabel(status, player)
+				else
+					friendLabel = createFriendStatusTextLabel(status, player)
+				end
 
-					if friendLabel then
-						friendLabel.Name = "FriendStatus"
-						friendLabel.LayoutOrder = 2
-						friendLabel.Selectable = true
-						friendLabel.Parent = friendLabelParent
-
-						if UserInputService.GamepadEnabled and not friendSelectionFound then
-							friendSelectionFound = true
-							GuiService.SelectedCoreObject = friendLabel
-						end
-					end
-				end)
-			else
-				local friendLabel = createFriendStatusTextLabel(status, player)
 				if friendLabel then
 					friendLabel.Name = "FriendStatus"
-					friendLabel.Size = UDim2.new(0,182,0,46)
-					friendLabel.ZIndex = 3
 					friendLabel.LayoutOrder = 2
 					friendLabel.Selectable = true
 					friendLabel.Parent = friendLabelParent
-
-					local updateHighlight = function()
-						if playerLabel then
-							playerLabel.ImageTransparency = friendLabel and GuiService.SelectedCoreObject == friendLabel and FRAME_SELECTED_TRANSPARENCY or FRAME_DEFAULT_TRANSPARENCY
-						end
-					end
-					friendLabel.SelectionGained:connect(updateHighlight)
-					friendLabel.SelectionLost:connect(updateHighlight)
 
 					if UserInputService.GamepadEnabled and not friendSelectionFound then
 						friendSelectionFound = true
 						GuiService.SelectedCoreObject = friendLabel
 					end
 				end
-			end
-
+			end)
 		end
 	end
 
@@ -402,14 +365,12 @@ local function Initialize()
 			end
 		end)
 
-		if enableReportPlayer then
-			fakeSelectionObject = Instance.new("Frame")
-			fakeSelectionObject.Selectable = true
-			fakeSelectionObject.Size = UDim2.new(0, 100, 0, 100)
-			fakeSelectionObject.BackgroundTransparency = 1
-			fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
-			fakeSelectionObject.Parent = rightSideButtons
-		end
+		fakeSelectionObject = Instance.new("Frame")
+		fakeSelectionObject.Selectable = true
+		fakeSelectionObject.Size = UDim2.new(0, 100, 0, 100)
+		fakeSelectionObject.BackgroundTransparency = 1
+		fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
+		fakeSelectionObject.Parent = rightSideButtons
 
 		local rightSideListLayout = Instance.new("UIListLayout")
 		rightSideListLayout.Name = "RightSideListLayout"
@@ -442,7 +403,7 @@ local function Initialize()
 		nameLabel.Size = UDim2.new(0, 0, 0, 0)
 		nameLabel.ZIndex = 3
 		nameLabel.Parent = frame
-		
+
 		return frame
 	end
 
@@ -530,12 +491,10 @@ local function Initialize()
 				frame.NameLabel.Text = player.Name
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 
-				if enableReportPlayer then
-					managePlayerNameCutoff(frame, player)
-				end
+				managePlayerNameCutoff(frame, player)
 
 				friendStatusCreate(frame, player)
-				if enableReportPlayer and platform ~= Enum.Platform.XBoxOne and platform ~= Enum.Platform.PS4 then
+				if platform ~= Enum.Platform.XBoxOne and platform ~= Enum.Platform.PS4 then
 					reportAbuseButtonCreate(frame, player)
 				end
 			end

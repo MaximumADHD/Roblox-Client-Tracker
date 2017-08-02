@@ -32,6 +32,21 @@ end
 
 local isOrbitalCameraEnabled = pcall(function() local test = Enum.CameraType.Orbital end)
 
+-- register what camera scripts we are using
+do
+	local PlayerScripts = PlayersService.LocalPlayer:WaitForChild("PlayerScripts")
+	local canRegisterCameras = pcall(function() PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Default) end)
+
+	if canRegisterCameras then
+		PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Follow)
+		PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Classic)
+
+		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Default)
+		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Follow)
+		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Classic)
+	end
+end
+
 local CameraTypeEnumMap = 
 {
 	[Enum.CameraType.Attach] = AttachCamera;
