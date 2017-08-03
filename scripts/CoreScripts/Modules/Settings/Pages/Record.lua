@@ -20,9 +20,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 
-local getDisableVideoRecordPopup, disableVideoRecordPopupValue = pcall(function() return settings():GetFFlag("DisableVideoRecordPopup") end)
-local disableVideoRecordPopup = getDisableVideoRecordPopup and disableVideoRecordPopupValue
-
 ------------ Variables -------------------
 local PageInstance = nil
 
@@ -173,21 +170,6 @@ local function Initialize()
  			videoBody = makeTextLabelOld("VideoBody", "By clicking the 'Record Video' button, the menu will close and start recording your screen.", false, UDim2.new(1,-10,0,70), UDim2.new(0,0,1,0), videoTitle)
 		end
 
-		if not disableVideoRecordPopup then
-			this.VideoSettingsFrame, 
-			this.VideoSettingsLabel,
-			this.VideoSettingsMode = utility:AddNewRow(this, "Video Settings", "Selector", recordEnumNames, startSetting, enablePortraitMode and nil or 270)
-			this.VideoSettingsFrame.LayoutOrder = 5
-
-			this.VideoSettingsMode.IndexChanged:connect(function(newIndex)
-				if newIndex == 1 then
-					GameSettings.VideoUploadPromptBehavior = Enum.UploadSetting.Never
-				elseif newIndex == 2 then
-					GameSettings.VideoUploadPromptBehavior = Enum.UploadSetting.Always
-				end
-			end)
-		end
-		
 		local recordButtonRow, recordButton
 		if enablePortraitMode then
 			recordButtonRow, recordButton = utility:AddButtonRow(this, "RecordButton", "Record Video", UDim2.new(0, 300, 0, 44), closeSettingsFunc)
@@ -198,13 +180,8 @@ local function Initialize()
 		else
 			recordButton = utility:MakeStyledButton("RecordButton", "Record Video", UDim2.new(0,300,0,44), closeSettingsFunc, this)
 	  		
-			if not disableVideoRecordPopup then
-				recordButton.Position = UDim2.new(0,410,1,10)
-				recordButton.Parent = this.VideoSettingsMode.SelectorFrame.Parent
-			else
-				recordButton.Position = UDim2.new(0,400,1,0)
-	 			recordButton.Parent = videoBody
-			end
+			recordButton.Position = UDim2.new(0,400,1,0)
+			recordButton.Parent = videoBody
 	 	end
 
 		local gameOptions = settings():FindFirstChild("Game Options")

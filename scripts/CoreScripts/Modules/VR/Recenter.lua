@@ -108,5 +108,8 @@ function RecenterModule:SetVisible(visible)
 	end
 end
 
+function RecenterModule:IsVisible()
+	return visible
+end
 
 return RecenterModule
