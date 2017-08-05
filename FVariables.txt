@@ -1,9 +1,9 @@
 AccErrorDrainedThousandth
-AccessoriesAllHaveSameBuoyancy
+AccessoriesAllHaveSameBuoyancy2
 AccoutrementWeldingFilteringEnabled
 ActionStationDebounceTime
-AdditionalCheck0
-AdditionalCheckC1
+AdditionalCheckC0
+AdditionalCheckC1_2
 AdditionalReportingPermyriad
 AddMoreMathAPI
 AddOrRemoveTweensOnStepOnly
@@ -54,6 +54,7 @@ BadLogMask
 BadTypeOnDelayErrorEnabled
 BadTypeOnSpawnErrorEnabled
 BlockWindowsMenu
+BoldNetworkStats
 BootstrapperVersionNumber
 BuildRigFromAttachmentsApiEnabled
 BulletContactBreakOrthogonalThresholdActivatePercent
@@ -145,7 +146,6 @@ DataStoreOrderedSetPerPlayerRequestLimit
 DataStorePerPlayerRequestLimit
 DataStoreRefetchFixedRequestLimit
 DataStoreRefetchPerPlayerRequestLimit
-DataStoreRequestLimitAPI
 DataStoreRetryWaitTimeMSec
 DataStoreSameKeyPerMinute
 DataStoreTouchTimeoutInSeconds
@@ -258,6 +258,7 @@ EnableGetAvailableForExperimentAPI
 EnableImageTilingInGUI
 EnableInputServiceOnScreenKeyboardMethods
 EnableInstanceLockUnlockTracking
+EnableLightingClockTime
 EnableLightObjectsInAttachments
 EnableLoadingScreenPlaceIconTween
 EnableLowQualityBlur
@@ -276,6 +277,8 @@ EnableReportPlaceIDAboveMemory
 EnableResponsiveUIFix
 EnableRobloxEventStream
 EnableSoundsInAttachments
+EnableStencilShadowMask
+EnableTeamMemberChangeEvent
 EnableTextboxNativeInput
 EnableTrackingAccessoryDestoyedWithLiveSignals
 EnableVoiceASR
@@ -324,6 +327,7 @@ FixInterpolationRotationalGoal
 FixInterpolationTargetFrame
 FixIsCurrentlyVisibleSurfaceGuis
 FixLayerCollectorRects
+FixLayoutCustomSortCrash
 FixNonFiniteHipHeight
 FixNoPhysicsUprightInHumanoidState
 FixPGSJointNetworkOwnership
@@ -368,6 +372,7 @@ ForceToDeclareFlagsInCpp
 ForceUpdateOffset
 FormatMeshIdBeforeCache
 FreeCameraForAdmins
+FreeCameraForDevelopers
 FriendRequestNotificationThrottle
 FriendServiceCachedOfflineStatusCount
 FriendServiceCachedOfflineStatusMaxAgeSeconds
@@ -449,6 +454,7 @@ InferredCrashReportingHundredthsPercentage
 InfluxEnabled
 InfluxOverTCP
 InfluxOverUDPThreshold
+InfluxReportFeOnStartupErrorPermyriad
 InfluxReportLocalFilterStringPermyriad
 InfluxTattletaleReportCommunitySiftOutputPermyriad
 InfluxTattletaleV2Permyriad
@@ -456,6 +462,8 @@ InitialAccelerationLatencyMultTenths
 InitializeQualityLevelFromSettings
 InsertServiceReportAllowClientInsertModels
 InsertServiceScriptInsert
+InstanceTaggingDisableDefensiveCode
+InstanceTagReplicationFix
 IntegrateGyroscopicForcesEnabled
 InterceptPlayerHasPassCalls
 InterpolationAwareTargetTime
@@ -467,6 +475,7 @@ IPV6RobloxStudioCleanUp
 JoinDataBonus
 JoinDataCompressionLevel
 JoinInfluxHundredthsPercentage
+JoinTime_AllowFullTexturePrioUpdate
 JoinTime_AvatarFastClusterSignal
 JoinTime_AvatarTextureCompositorSignal
 JoinTime_EnableCase2
@@ -492,6 +501,7 @@ LoadPlayerScriptsFromLua
 LoadStarterGearWithoutLoadCharacter
 LocalFilterStringDeprecationWarning
 LocalInsertPermyriad
+LocalizeRootOnSet
 LockR15CharacterParts
 LockViolationInstanceCrash
 LockViolationInstanceCrashStudio
@@ -554,6 +564,7 @@ Mk2ItemDebugEnabled
 Mk2ItemDebugLastCount
 Mk2ItemDebugReportHundredthsPercentage
 MobileScrollBarFadeOnInactivity
+MoreViewCreationFailureHandling
 MoreWeldRestrictions
 MoreWeldRestrictions2
 MotionDiscontinuityThreshold
@@ -595,6 +606,7 @@ ObjExporterCorrectedSpecular
 ObjExporterLinearizeColors
 OnCloseTimeoutInSeconds
 OnContactOwnerBufferTimeCentiSec
+OnDisconnectHTTPTimeout
 OneWeldToRuleThemAll2
 OnlyNumbersForInfluxIds
 OptimizedContactCheckHighVelocitySleep
@@ -612,7 +624,7 @@ OverrideStarterScriptInStudio
 PacketErrorInfluxHundredthsPercentage
 PartColor3Uint8Enabled
 ParticleEmitterEmitFix
-ParticleSpreadAngleUpdate
+ParticleSpreadAngleUpdateFix
 PartInstanceCofMPropertyExposed
 PartMinSizeMul1000
 PartSizeUnder0P2AnalyticsInfluxHundredthPct
@@ -689,10 +701,12 @@ ProtectionFromEvilJoins
 ProtectionFromMutantJoins
 PurchaseErrorReportRate
 PurchaseMismatchReportRate
+QuickHttpWhenGameClose
 R15CollisionGeometry2
 R15DefaultCollisionType
-RadialMenuAfterLoadingScreen
+RadialMenuAfterLoadingScreen2
 RaiseSendPriority
+RakNetDetectNetUnreachable
 RakNetMaxSplitPacketCount
 RakNetSupportIpV6
 RbxMemorySetOnAllocate
@@ -753,6 +767,7 @@ SaveDataForPlayerRemoving
 SavePlacePerMinute
 ScalingSeatWeldCrashFix
 ScrollBarSideEnabled
+ScrollFrameIgnoreInitialTouchDelta
 SecondsPerBatchAwardPointsCall
 SendAdditionalNonAdjustedTimeStamp
 SendAllPhysicsPackets
@@ -778,6 +793,7 @@ ShowLocalizationService
 SimToInterBufferClearFactorTenths
 SizeFromContentsEnabled
 SkipModuleSource2
+SkySunMoonTextureAndSize
 SmartRoundUIObjects
 SmootherVehicleSeatControlSystem
 SmoothTerrainMaxCppRegion
@@ -847,9 +863,11 @@ StudioGamePassCheckEnabled
 StudioMockPurchasesEnabled
 StudioPreserveSelectionOnUndo
 StudioRecentActionCacheSize
+StudioRefreshPluginsWithoutReopening
 StudioRemoveGetUnusedTeamColor
 StudioReportCachedRecentActions
 StudioRespectMeshOffset
+StudioSaveSelectionToChangeHistoryWaypoints
 StudioShowAdornsFix
 StudioSkipServerStatsPermissionsChecks
 StudioStartServerBoyGuestCharacterAppearance
@@ -902,7 +920,9 @@ TrailNoErrorOnEmptyTexture
 TruncateReservedServerAccessCode
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
+TweensUseMutex
 TypesetterFontFallback2
+TypesetterForceAutoHint
 TypesetterSubstituteOnReject
 UIScaleComponentEnabled
 UnlockMouseIfKicked
@@ -953,6 +973,7 @@ UsePlaceFilterSuffix
 UsePurchasePromptLocalization
 UserAllCamerasInLua
 UserAllowDisableCustomAnims
+UserAllowDisableCustomAnims2
 UserBetterInertialScrolling
 UseRewindMethod
 UserHttpRequestsPerMinuteLimit
