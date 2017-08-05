@@ -82,11 +82,6 @@ StatsUtils.TargetKeyWidth = 11
 StatsUtils.TargetKeyHeight = 2
 StatsUtils.DecorationMargin = 6
 
-local fflagSuccess, fflagValue = pcall(function() return settings():GetFFlag("MemoryTrackerInPerformanceStats2") end)
-local GuiService = game:GetService('GuiService')
-local isMemoryTrackerEnabled = GuiService:IsMemoryTrackerEnabled()
-
-StatsUtils.FFlagMemoryTrackerInPerformanceStats = (fflagSuccess and fflagValue and isMemoryTrackerEnabled)
 
 -- Enums
 StatsUtils.StatType_Memory =            "st_Memory"

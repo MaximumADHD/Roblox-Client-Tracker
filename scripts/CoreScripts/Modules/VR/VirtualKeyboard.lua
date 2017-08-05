@@ -408,6 +408,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 			BackgroundTransparency = BACKGROUND_OPACITY;
 			BorderSizePixel = 0;
 			AutoButtonColor = false;
+			SelectionImageObject = newKeyElement.SelectionImageObject;
 			Parent = newKeyElement;
 		}
 		if layoutData['x2'] <= 0 then
@@ -726,10 +727,6 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 	local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 	local panel = Panel3D.Get("Keyboard")
 	panel:SetVisible(false)
-
-	-- DEBUG setting
-	-- panel:GetGUI().Parent = workspace
-
 
 	local buttons = {}
 
@@ -1122,20 +1119,12 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 					end
 				end)
 
-				-- Attach to it if it's linked to our keyboard panel
-				if textboxPanel.linkedTo == panel then
-					local panelCF = textboxPanel.localCF
-					localCF = panelCF * CFrame.new(0, (-textboxPanel.height / 2) - 0.5, 0) *
-										CFrame.Angles(math.rad(30), 0, 0) *
-										CFrame.new(0, (-panel.height / 2) - 0.5, 0)
-				else
-					--Otherwise, best-guess where it should go based on the user's head.
-					local headForwardCF = Panel3D.GetHeadLookXZ(true)
-					localCF = headForwardCF * CFrame.Angles(math.rad(22.5), 0, 0) * CFrame.new(0, -1, 5)
-				end
+				local textboxPosition = options.TextBox.AbsolutePosition + (Vector2.new(0.5, 1) * options.TextBox.AbsoluteSize)
+				local panelCF = textboxPanel:GetCFrameInCameraSpace()
+				localCF = panelCF * CFrame.new(textboxPanel:GetGuiPositionInPanelSpace(textboxPosition)) * CFrame.new(0, -panel.height * 0.65, 0.5) * CFrame.Angles(math.rad(-22.5), 0, 0)
 			else -- no panel!
 				local headForwardCF = Panel3D.GetHeadLookXZ(true)
-				localCF = headForwardCF * CFrame.Angles(math.rad(22.5), 0, 0) * CFrame.new(0, -1, 5)
+				localCF = headForwardCF * CFrame.Angles(math.rad(22.5), 0, 0) * CFrame.new(0, -1, -5)
 			end
 		else
 			setBufferText("")
@@ -1173,8 +1162,6 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 		panel:SetCanFade(false)
 		panel:SetVisible(true, true)
 		panel:ForceShowUntilLookedAt()
-
-		Panel3D.Get("Topbar3D"):SetVisible(false)
 
 		function panel:OnUpdate()
 		end
