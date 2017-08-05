@@ -35,6 +35,9 @@ local VRService = game:GetService("VRService")
 
 --------------- FLAGS ----------------
 
+local fixTextBoxLoseSelectionSuccess, fixTextBoxLoseSelectionValue = pcall(function() return settings():GetFFlag("FixTextBoxLoseSelection") end)
+local fixTextBoxLoseSelection = fixTextBoxLoseSelectionSuccess and fixTextBoxLoseSelectionValue
+
 -- Enable the old Utility.lua if the EnablePortraitMode flag is off
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
@@ -733,6 +736,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		ZIndex = 2,
 		Parent = this.DropDownFrame
 	};
+	this.DropDownImage = dropDownImage
 
 
 	---------------------- FUNCTIONS -----------------------------------
@@ -790,6 +794,18 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		end
 	end
 
+	local function setIsFaded(isFaded)
+		if isFaded then
+			this.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0.5
+			this.DropDownFrame.ImageTransparency = 0.5
+			this.DropDownImage.ImageTransparency = 0.5
+		else
+			this.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0
+			this.DropDownFrame.ImageTransparency = 0
+			this.DropDownImage.ImageTransparency = 0
+		end
+	end
+
 
 	--------------------- PUBLIC FACING FUNCTIONS -----------------------
 	this.IndexChanged = indexChangedEvent.Event
@@ -824,9 +840,15 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 		if not interactable then
 			hideDropDownSelection()
-			this:SetZIndex(1)
+			setIsFaded(VRService.VREnabled)
+			if not VRService.VREnabled then
+				this:SetZIndex(1)
+			end
 		else
-			this:SetZIndex(2)
+			setIsFaded(false)
+			if not VRService.VREnabled then
+				this:SetZIndex(2)
+			end
 		end
 
 		dropDownButtonEnabled.Value = value and not active
@@ -2062,7 +2084,10 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		Image = "",
+		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(2, 2, 18, 18),
+		ImageTransparency = 1,
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1,0,0,ROW_HEIGHT),
@@ -2072,6 +2097,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};
+	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 
 	if RowFrame and extraSpacing then
 		RowFrame.Position = UDim2.new(RowFrame.Position.X.Scale,RowFrame.Position.X.Offset,
@@ -2164,7 +2190,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		box.FocusLost:Connect(function(enterPressed, inputObject)
-			if GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
+			if not fixTextBoxLoseSelection and GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
 				GuiService.SelectedCoreObject = nil
 			end
 			forceReturnSelectionOnFocusLost = false
@@ -2257,7 +2283,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		box.FocusLost:Connect(function(enterPressed, inputObject)
-			if GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
+			if not fixTextBoxLoseSelection and GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
 				GuiService.SelectedCoreObject = nil
 			end
 			forceReturnSelectionOnFocusLost = false
@@ -2378,8 +2404,10 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 						if prop == "SelectedCoreObject" then
 							local selected = GuiService.SelectedCoreObject
 							if selected and (selected == RowFrame or selected:IsDescendantOf(RowFrame)) then
-								RowFrame.BackgroundTransparency = 0.5
+								RowFrame.ImageTransparency = 0.5
+								RowFrame.BackgroundTransparency = 1
 							else
+								RowFrame.ImageTransparency = 1
 								RowFrame.BackgroundTransparency = 1
 							end
 						end
@@ -2395,7 +2423,13 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 		ValueChangerSelection.SelectionGained:Connect(function()
 			if usesSelectedObject() then
-				RowFrame.BackgroundTransparency = 0.5
+				if VRService.VREnabled then
+					RowFrame.ImageTransparency = 0.5
+					RowFrame.BackgroundTransparency = 1
+				else
+					RowFrame.ImageTransparency = 1
+					RowFrame.BackgroundTransparency = 0.5
+				end
 
 				if ValueChangerInstance.HubRef then
 					ValueChangerInstance.HubRef:ScrollToFrame(RowFrame)
@@ -2404,6 +2438,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		end)
 		ValueChangerSelection.SelectionLost:Connect(function()
 			if usesSelectedObject() then
+				RowFrame.ImageTransparency = 1
 				RowFrame.BackgroundTransparency = 1
 			end
 		end)
@@ -2428,7 +2463,10 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		Image = "",
+		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(10,10,10,10),
+		ImageTransparency = 1,
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1,0,0,ROW_HEIGHT),
@@ -2438,6 +2476,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};
+	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 	RowFrame.SelectionGained:Connect(function()
 		RowFrame.BackgroundTransparency = 0.5
 	end)
@@ -2490,9 +2529,16 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 	rowObject.SelectionImageObject = noSelectionObject
 
 	rowObject.SelectionGained:Connect(function()
+		if VRService.VREnabled then
+			RowFrame.ImageTransparency = 0.5
+			RowFrame.BackgroundTransparency = 1
+		else
+			RowFrame.ImageTransparency = 1
 			RowFrame.BackgroundTransparency = 0.5
-		end)
+		end
+	end)
 	rowObject.SelectionLost:Connect(function()
+		RowFrame.ImageTransparency = 1
 		RowFrame.BackgroundTransparency = 1
 	end)
 

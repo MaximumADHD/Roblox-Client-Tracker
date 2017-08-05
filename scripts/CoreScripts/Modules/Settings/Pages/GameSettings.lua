@@ -75,6 +75,8 @@ local getFixQualityLevelSuccess, fixQualityLevelValue = pcall(function() return 
 local fixQualityLevel = getFixQualityLevelSuccess and fixQualityLevelValue
 local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
 dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
+local GamepadCameraSensitivitySuccess, GamepadCameraSensitivityEnabled = pcall(function() return settings():GetFFlag("GamepadCameraSensitivityEnabled") end)
+local GamepadCameraSensitivityFastFlag = GamepadCameraSensitivitySuccess and GamepadCameraSensitivityEnabled
 
 ----------- CLASS DECLARATION --------------
 
@@ -859,6 +861,22 @@ local function Initialize()
     end)
   end
 
+  -- TODO: remove "advancedEnabled" when clean up FFlagAdvancedMouseSensitivityEnabled
+  local function setCameraSensitivity(newValue, advancedEnabled)
+    if GamepadCameraSensitivityFastFlag and UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
+      GameSettings.GamepadCameraSensitivity = newValue
+    end
+    if UserInputService.MouseEnabled then
+      if not advancedEnabled then
+        GameSettings.MouseSensitivity = newValue
+      else
+        local newVectorValue = Vector2.new(newValue, newValue)
+        GameSettings.MouseSensitivityFirstPerson = newVectorValue
+        GameSettings.MouseSensitivityThirdPerson = newVectorValue
+      end
+    end
+  end
+
   local function createMouseOptions()
     local MouseSteps = 10
     local MinMouseSensitivity = 0.2
@@ -908,7 +926,7 @@ local function Initialize()
       end
 
       this.MouseSensitivitySlider.ValueChanged:connect(function(newValue)
-          GameSettings.MouseSensitivity = translateGuiMouseSensitivityToEngine(newValue)
+          setCameraSensitivity(translateGuiMouseSensitivityToEngine(newValue))
       end)
     else
       ------------------ 3D Sensitivity ------------------
@@ -977,10 +995,7 @@ local function Initialize()
       function setMouseSensitivity(newValue, widgetOrigin)
         if not canSetSensitivity then return end
 
-        local newVectorValue = Vector2.new(newValue, newValue)
-
-        GameSettings.MouseSensitivityFirstPerson = newVectorValue
-        GameSettings.MouseSensitivityThirdPerson = newVectorValue
+        setCameraSensitivity(newValue, true)
 
         canSetSensitivity = false
         do
@@ -1016,6 +1031,35 @@ local function Initialize()
         setMouseSensitivity(newValue, this.MouseAdvancedEntry)
       end)
     end
+  end
+
+  local function createGamepadOptions()
+    local GamepadSteps = 10
+    local MinGamepadCameraSensitivity = 0.2
+    -- equations below map a function to include points (0, 0.2) (5, 1) (10, 4)
+    -- where x is the slider position, y is the mouse sensitivity
+    local function translateEngineGamepadSensitivityToGui(engineSensitivity)
+      -- 0 <= y <= 1: x = (y - 0.2) / 0.16
+      -- 1 <= y <= 4: x = (y + 2) / 0.6
+      local guiSensitivity = (engineSensitivity <= 1) and math.floor((engineSensitivity - 0.2) / 0.16 + 0.5) or math.floor((engineSensitivity + 2) / 0.6 + 0.5)
+      return (engineSensitivity <= MinGamepadCameraSensitivity) and 0 or guiSensitivity
+    end
+    local function translateGuiGamepadSensitivityToEngine(guiSensitivity)
+      -- 0 <= x <= 5:  y = 0.16 * x + 0.2
+      -- 5 <= x <= 10: y = 0.6 * x - 2
+      local engineSensitivity = (guiSensitivity <= 5) and (0.16 * guiSensitivity + 0.2) or (0.6 * guiSensitivity - 2)
+      return (engineSensitivity <= MinGamepadCameraSensitivity) and MinGamepadCameraSensitivity or engineSensitivity
+    end
+    local startGamepadLevel = translateEngineGamepadSensitivityToGui(GameSettings.GamepadCameraSensitivity)
+    ------------------ Basic Gamepad Sensitivity Slider ------------------
+    -- basic quantized sensitivity with a weird number of settings.
+    local SliderLabel = "Camera Sensitivity"
+    this.GamepadSensitivityFrame,
+    this.GamepadSensitivityLabel,
+    this.GamepadSensitivitySlider = utility:AddNewRow(this, SliderLabel, "Slider", GamepadSteps, startGamepadLevel)
+    this.GamepadSensitivitySlider.ValueChanged:connect(function(newValue)
+        setCameraSensitivity(translateGuiGamepadSensitivityToEngine(newValue))
+    end)
   end
 
   local function createOverscanOption()
@@ -1116,8 +1160,30 @@ local function Initialize()
   createCameraModeOptions(not isTenFootInterface and
     (UserInputService.TouchEnabled or UserInputService.MouseEnabled or UserInputService.KeyboardEnabled))
 
-  if UserInputService.MouseEnabled and not isTenFootInterface then
+  local checkGamepadOptions = function()
+    if GameSettings.IsUsingGamepadCameraSensitivity then
+      createGamepadOptions()
+    else
+      local camerasettingsConn = GameSettings:GetPropertyChangedSignal('IsUsingGamepadCameraSensitivity'):connect(function()
+        if GameSettings.IsUsingGamepadCameraSensitivity then
+          camerasettingsConn:disconnect()
+          createGamepadOptions()
+        end
+      end)
+    end
+  end
+
+  if UserInputService.MouseEnabled then
     createMouseOptions()
+  elseif GamepadCameraSensitivityFastFlag then
+    if UserInputService.GamepadEnabled then
+      checkGamepadOptions()
+    else
+      local gamepadConnectedConn = UserInputService.GamepadConnected:connect(function()
+        gamepadConnectedConn:disconnect()
+        checkGamepadOptions()
+      end)
+    end
   end
 
   if GameSettings.IsUsingCameraYInverted then

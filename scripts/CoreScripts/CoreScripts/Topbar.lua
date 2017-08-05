@@ -26,6 +26,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService('RunService')
 local TextService = game:GetService('TextService')
 local ChatService = game:GetService('Chat')
+local VRService = game:GetService('VRService')
 
 --[[ END OF SERVICES ]]
 
@@ -39,7 +40,7 @@ local topbarEnabled = true
 local topbarEnabledChangedEvent = Instance.new('BindableEvent')
 
 local function isTopbarEnabled()
-	return topbarEnabled and not InputService.VREnabled
+	return topbarEnabled and not VRService.VREnabled
 end
 
 StarterGui:RegisterSetCore("TopbarEnabled", function(enabled) -- registers a placeholder setcore function that keeps track of players enabling/disabling the topbar before it's ready.
@@ -47,7 +48,6 @@ StarterGui:RegisterSetCore("TopbarEnabled", function(enabled) -- registers a pla
 		topbarEnabled = enabled
 	end
 end)
-local lookMenuEnabled = true
 
 local settingsActive = false
 
@@ -74,10 +74,6 @@ end
 
 local TenFootInterface = require(GuiRoot.Modules.TenFootInterface)
 local isTenFootInterface = TenFootInterface:IsEnabled()
-
-local Panel3D = require(GuiRoot.Modules.VR.Panel3D)
-local TopbarPanel3D = Panel3D.Get("Topbar3D")
-local VRHub = require(GuiRoot.Modules.VR.VRHub)
 
 local Util = {}
 do
@@ -143,14 +139,6 @@ do
 	end
 end
 
-local selectionRing = Util.Create "ImageLabel" {
-	Name = "SelectionRing",
-	Position = UDim2.new(0.5, -23, 0.5, -23),
-	Size = UDim2.new(0, 46, 0, 46),
-	BackgroundTransparency = 1,
-	Image = "rbxasset://textures/ui/VR/buttonHover.png"
-}
-
 local function CreateTopBar()
 	local this = {}
 
@@ -192,7 +180,7 @@ local function CreateTopBar()
 	end
 
 	function this:UpdateBackgroundTransparency()
-		if settingsActive and not InputService.VREnabled then
+		if settingsActive and not VRService.VREnabled then
 			topbarContainer.BackgroundTransparency = TopbarConstants.TOPBAR_OPAQUE_TRANSPARENCY
 			topbarShadow.Visible = false
 		else
@@ -344,33 +332,13 @@ local function CreateMenuBar(barAlignment)
 	return this
 end
 
-local function CreateMenuBar3D(barAlignment, threeDPanel)
-	local this = CreateMenuBar(barAlignment)
-
-	local superArrangeItems = this.ArrangeItems
-	function this:ArrangeItems()
-		local totalWidth = superArrangeItems(self)
-		if threeDPanel then
-			threeDPanel:ResizePixels(totalWidth, 120)
-		end
-		for _, v in pairs(this:GetItems()) do
-			v:UpdateHoverText()
-		end
-		return totalWidth
-	end
-
-	return this
-end
-
 local function CreateMenuChangedNotifier()
 	local this = {}
 	local notifier3D = require(GuiRoot.Modules.VR.NotifierHint3D)
 
 	function this:PromptNotification()
 		-- Don't show the notification if we are looking down at the menubar already
-		if not (TopbarPanel3D:IsVisible() and TopbarPanel3D.isEnabled) then
-			notifier3D:BeginNotification(notifier3D.DEFAULT_DURATION)
-		end
+		notifier3D:BeginNotification(notifier3D.DEFAULT_DURATION)
 	end
 
 	Player.FriendStatusChanged:connect(function(fromPlayer, friendStatus)
@@ -451,164 +419,6 @@ local function CreateMenuItem(origInstance)
 	end
 
 	return this
-end
-
-local function CreateMenuItem3D(name)
-	local menuItem = {}
-
-	local backgroundButton = Util.Create 'ImageButton' {
-		Name = name,
-		Size = UDim2.new(0, 52, 0, 52),
-
-		BackgroundTransparency = 1,
-		SelectionImageObject = selectionRing:Clone(),
-
-		ClipsDescendants = false
-	}
-
-	local isActive = false
-
-	function menuItem:OnClicked(wasActive)
-	end
-
-	function menuItem:IsActive()
-		return isActive
-	end
-
-	function menuItem:SetActive(active)
-		isActive = active
-		if active then
-			backgroundButton.Image = "rbxasset://textures/ui/VR/buttonActive.png"
-		else
-			backgroundButton.Image = "rbxasset://textures/ui/VR/buttonBackground.png"
-		end
-		backgroundButton.SelectionImageObject.Visible = not active
-	end
-
-	function menuItem:GetWidth()
-		return backgroundButton.AbsoluteSize.X
-	end
-
-	function menuItem:GetInstance()
-		return backgroundButton
-	end
-
-	local function setTransparency(parent, transparency)
-		if parent:IsA("ImageLabel") or parent:IsA("ImageButton") then
-			parent.ImageTransparency = transparency
-		elseif parent:IsA("TextLabel") or parent:IsA("TextButton") then
-			parent.TextTransparency = transparency
-		end
-		for _, v in pairs(parent:GetChildren()) do
-			if v:IsA("GuiObject") then
-				setTransparency(v, transparency)
-			end
-		end
-	end
-	function menuItem:SetTransparency(transparency)
-		setTransparency(backgroundButton, transparency)
-	end
-
-	menuItem:SetActive(false)
-
-	local hoverTextFrame = Util.Create 'Frame' {
-		Name = "ButtonHoverText",
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-
-		Position = UDim2.new(0.5, -45, 0, 55),
-		Size = UDim2.new(0, 90, 0, 60),
-
-		Visible = false,
-		Parent = backgroundButton
-	}
-	local hoverMid = Util.Create 'ImageLabel' {
-		Name = "HoverMid",
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/hoverPopupMid.png",
-
-		Position = UDim2.new(0.5, -12, 0, 0),
-		Size = UDim2.new(0, 24, 1, 0),
-		Parent = hoverTextFrame
-	}
-	local hoverLeft = Util.Create 'ImageLabel' {
-		Name = "HoverLeft",
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/hoverPopupLeft.png",
-
-		Position = UDim2.new(0, 0, 0, 0),
-		Size = UDim2.new(0.5, -12, 1, 0),
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(1, 1, 33, 59),
-		Parent = hoverTextFrame
-	}
-	local hoverRight = Util.Create 'ImageLabel' {
-		Name = "HoverRight",
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/hoverPopupRight.png",
-
-		Position = UDim2.new(0.5, 12, 0, 0),
-		Size = UDim2.new(0.5, -12, 1, 0),
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(0, 1, 32, 59),
-		Parent = hoverTextFrame
-	}
-
-	local hoverTextLabel = Util.Create 'TextLabel' {
-		Name = "ButtonHoverTextLabel",
-		BackgroundTransparency = 1,
-
-		Font = Enum.Font.SourceSansBold,
-		FontSize = Enum.FontSize.Size24,
-		Text = "",
-		TextColor3 = Color3.new(1, 1, 1),
-
-		Position = UDim2.new(0, 0, 0, 8),
-		Size = UDim2.new(1, 0, 1, -5),
-
-		Parent = hoverTextFrame
-	}
-
-	function menuItem:SetHoverText(text)
-		hoverTextLabel.Text = text
-		local textSize = TextService:GetTextSize(
-			hoverTextLabel.Text,
-			24,
-			hoverTextLabel.Font,
-			Vector2.new(1000, 10000))
-		local frameWidth = textSize.x + 20
-		hoverTextFrame.Position = UDim2.new(0.5, -frameWidth / 2, 0, 55)
-		hoverTextFrame.Size = UDim2.new(0, frameWidth, 0, 60)
-	end
-
-	backgroundButton.SelectionGained:connect(function()
-		hoverTextFrame.Visible = true
-	end)
-	backgroundButton.SelectionLost:connect(function()
-		hoverTextFrame.Visible = false
-	end)
-
-	function menuItem:UpdateHoverText()
-		self:SetHoverText(hoverTextLabel.Text)
-	end
-
-	backgroundButton.MouseButton1Click:connect(function()
-		menuItem:OnClicked(menuItem:IsActive())
-	end)
-
-	setmetatable(menuItem, {
-		__index = function(t, k)
-			return backgroundButton[k]
-		end,
-		__newindex = function(t, k, v)
-			backgroundButton[k] = v
-		end
-	})
-
-	return menuItem
 end
 
 local function createNormalHealthBar()
@@ -725,7 +535,7 @@ local function CreateUsernameHealthMenuItem()
 	local CurrentHumanoid = nil
 
 	local function AnimateHurtOverlay()
-		if hurtOverlay and not InputService.VREnabled then
+		if hurtOverlay and not VRService.VREnabled then
 			local newSize = UDim2.new(20, 0, 20, 0)
 			local newPos = UDim2.new(-10, 0, -10, 0)
 
@@ -970,7 +780,7 @@ local function CreateLeaderstatsMenuItem()
 		end)
 
 	topbarEnabledChangedEvent.Event:connect(function(enabled)
-		PlayerlistModule.TopbarEnabledChanged(enabled and not InputService.VREnabled) --We don't show the playerlist at all in VR
+		PlayerlistModule.TopbarEnabledChanged(enabled and not VRService.VREnabled) --We don't show the playerlist at all in VR
 	end)
 
 	this:SetColumns(PlayerlistModule.GetStats())
@@ -1065,41 +875,6 @@ local function CreateSettingsIcon(topBarInstance)
 	return menuItem
 end
 
-local function CreateSettingsIcon3D(topBarInstance, panel, menubar)
-	local VRHub = require(GuiRoot.Modules.VR.VRHub)
-
-	local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
-	local menuItem = CreateMenuItem3D(thisModuleName)
-	menuItem:SetHoverText("Settings")
-
-	local icon = Util.Create "ImageLabel" {
-		Parent = menuItem:GetInstance(),
-
-		Position = UDim2.new(0.5, -15, 0.5, -11),
-		Size = UDim2.new(0, 30, 0, 22),
-
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/hamburger.png"
-	}
-
-	function menuItem:OnClicked(wasActive)
-		MenuModule:SetVisibility(not wasActive)
-	end
-
-	VRHub.ModuleOpened.Event:connect(function(moduleName)
-		if moduleName == MenuModule.ModuleName then
-			menuItem:SetActive(true)
-		end
-	end)
-	VRHub.ModuleClosed.Event:connect(function(moduleName)
-		if moduleName == MenuModule.ModuleName then
-			menuItem:SetActive(false)
-		end
-	end)
-
-	return menuItem
-end
 
 ------------
 
@@ -1223,7 +998,7 @@ local function CreateChatIcon()
 	end
 
 	local function toggleChat()
-		if InputService.VREnabled then
+		if VRService.VREnabled then
 			ChatModule:ToggleVisibility()
 		elseif Util.IsTouchDevice() or ChatModule:IsBubbleChatOnly() then
 			if debounce + TopbarConstants.DEBOUNCE_TIME < tick() then
@@ -1272,7 +1047,7 @@ local function CreateChatIcon()
 		ChatModule.VisibilityStateChanged:connect(onChatStateChanged)
 	end
 
-	if not InputService.VREnabled then
+	if not VRService.VREnabled then
 		-- check to see if the chat was disabled
 		local willEnableChat = true
         willEnableChat = GameSettings.ChatVisible
@@ -1352,107 +1127,7 @@ local function CreateMobileHideChatIcon()
 end
 
 
-local function CreateChatIcon3D(topBarInstance, panel, menubar)
-	local chatEnabled = game:GetService("UserInputService"):GetPlatform() ~= Enum.Platform.XBoxOne
-	if not chatEnabled then return end
 
-	local VRHub = require(GuiRoot.Modules.VR.VRHub)
-
-	local ChatModule = require(GuiRoot.Modules.ChatSelector)
-	local thisModuleName = ChatModule.ModuleName
-
-	local menuItem = CreateMenuItem3D(thisModuleName)
-	menuItem:SetHoverText("Chat")
-
-	local icon = Util.Create "ImageLabel" {
-		Parent = menuItem:GetInstance(),
-
-		Position = UDim2.new(0.5, -14, 0.5, -12),
-		Size = UDim2.new(0, 28, 0, 28),
-
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/chat.png"
-	}
-
-	function menuItem:OnClicked(wasActive)
-		ChatModule:SetVisible(not wasActive)
-		if not wasActive then
-			ChatModule:FocusChatBar()
-		end
-	end
-
-	VRHub.ModuleOpened.Event:connect(function(moduleName)
-		if moduleName == ChatModule.ModuleName then
-			menuItem:SetActive(true)
-		end
-	end)
-
-	VRHub.ModuleClosed.Event:connect(function(moduleName)
-		if moduleName == ChatModule.ModuleName then
-			menuItem:SetActive(false)
-		end
-	end)
-
-	local closedEventConn = nil
-	local function OnVREnabled(prop)
-		if prop == 'VREnabled' then
-			if closedEventConn then
-				closedEventConn:disconnect()
-				closedEventConn = nil
-			end
-			if InputService.VREnabled then
-				local VirtualKeyboardModule = require(GuiRoot.Modules.VR.VirtualKeyboard)
-				closedEventConn = VirtualKeyboardModule.ClosedEvent:connect(function()
-					if ChatModule:IsFocused(true) then
-						ChatModule:SetVisible(false)
-					end
-				end)
-				-- Chat should not be visible by default in VR
-				ChatModule:SetVisible(false)
-			end
-		end
-	end
-	InputService.Changed:connect(OnVREnabled)
-	spawn(function() OnVREnabled("VREnabled") end)
-
-	return menuItem
-end
-
-local function CreateUserGuiToggleIcon3D(topBarInstance, panel, menubar)
-	local UserGuiModule = require(GuiRoot.Modules.VR.UserGui)
-
-	local menuItem = CreateMenuItem3D()
-	menuItem:SetHoverText("2D UI")
-
-	local icon = Util.Create "ImageLabel" {
-		Parent = menuItem:GetInstance(),
-
-		Position = UDim2.new(0.5, -14, 0.5, -14),
-		Size = UDim2.new(0, 28, 0, 28),
-
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/toggle2D.png"
-	}
-
-	VRHub.ModuleOpened.Event:connect(function(moduleName)
-		if moduleName == UserGuiModule.ModuleName then
-			menuItem:SetActive(true)
-		end
-	end)
-	VRHub.ModuleClosed.Event:connect(function(moduleName)
-		if moduleName == UserGuiModule.ModuleName then
-			menuItem:SetActive(false)
-		end
-	end)
-
-	function menuItem:OnClicked(wasActive)
-		UserGuiModule:SetVisible(not wasActive)
-	end
-
-	return menuItem
-end
 
 -----------
 
@@ -1531,121 +1206,8 @@ local function CreateStopRecordIcon()
 end
 -----------------------
 
----- Recenter VR --
 
-local function CreateRecenterIcon3D(topBarInstance, panel, menubar)
-	local RecenterModule = require(GuiRoot.Modules.VR.Recenter)
 
-	local menuItem = CreateMenuItem3D(thisModuleName)
-	menuItem:SetHoverText("Recenter")
-
-	local icon = Util.Create "ImageLabel" {
-		Parent = menuItem:GetInstance(),
-
-		Position = UDim2.new(0.5, -17, 0.5, -17),
-		Size = UDim2.new(0, 34, 0, 34),
-
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/recenter.png"
-	}
-
-	VRHub.ModuleOpened.Event:connect(function(moduleName)
-		if moduleName == RecenterModule.ModuleName then
-			menuItem:SetActive(true)
-		end
-	end)
-	VRHub.ModuleClosed.Event:connect(function(moduleName)
-		if moduleName == RecenterModule.ModuleName then
-			menuItem:SetActive(false)
-		end
-	end)
-
-	function menuItem:OnClicked(wasActive)
-		RecenterModule:SetVisible(not wasActive)
-	end
-
-	return menuItem
-end
-
--------------------
-
----- Notifications VR --
-
-local function CreateNotificationsIcon3D(topBarInstance, panel, menubar)
-	local NotificationHubModule = require(GuiRoot.Modules.VR.NotificationHub)
-
-	local menuItem = CreateMenuItem3D(NotificationHubModule.ModuleName)
-	menuItem:SetHoverText("Notifications")
-
-	local icon = Util.Create "ImageLabel" {
-		Parent = menuItem:GetInstance(),
-
-		Position = UDim2.new(0.5, -12, 0.5, -16),
-		Size = UDim2.new(0, 24, 0, 32),
-
-		BackgroundTransparency = 1,
-
-		Image = "rbxasset://textures/ui/VR/notifications.png"
-	}
-
-	local notificationBubble = Util.Create "ImageLabel" {
-		Parent = menuItem:GetInstance(),
-
-		BackgroundTransparency = 1,
-
-		Position = UDim2.new(0.5, 0, 0.25, 0),
-		Size = UDim2.new(0, 18, 0, 18),
-
-		Image = "rbxasset://textures/ui/Chat/MessageCounter.png",
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(9, 0, 9, 18),
-
-		Visible = false
-	}
-
-	local notificationCount = Util.Create "TextLabel" {
-		Parent = notificationBubble,
-
-		BackgroundTransparency = 1,
-
-		Text = "0",
-		TextColor3 = Color3.new(1, 1, 1),
-		Font = Enum.Font.SourceSansBold,
-		FontSize = Enum.FontSize.Size14,
-
-		Position = UDim2.new(0, -1, 0, -2),
-		Size = UDim2.new(1, 0, 1, 0)
-	}
-
-	local function setCounter(number)
-		if number == 0 then
-			notificationBubble.Visible = false
-		else
-			notificationBubble.Visible = true
-		end
-		notificationCount.Text = tostring(number)
-		notificationBubble.Size = UDim2.new(0, notificationCount.TextBounds.X + 11, 0, 18)
-	end
-	NotificationHubModule.UnreadCountChanged = setCounter
-
-	function menuItem:OnClicked(wasActive)
-		NotificationHubModule:SetVisible(not wasActive)
-	end
-
-	VRHub.ModuleOpened.Event:connect(function(moduleName)
-		if moduleName == NotificationHubModule.ModuleName then
-			menuItem:SetActive(true)
-		end
-	end)
-	VRHub.ModuleClosed.Event:connect(function(moduleName)
-		if moduleName == NotificationHubModule.ModuleName then
-			menuItem:SetActive(false)
-		end
-	end)
-
-	return menuItem
-end
 
 local function CreateNoTopBarAccountType()
 	local container = Util.Create'ImageButton'
@@ -1683,7 +1245,7 @@ local function CreateNoTopBarAccountType()
 	end)
 
 	local function UpdateNoTopBarAccountType()
-		if isTopbarEnabled() then
+		if isTopbarEnabled() or VRService.VREnabled then
 			container.Visible = false
 			container.Size = UDim2.new(0, 0, 0, 0)
 		else
@@ -1695,6 +1257,7 @@ local function CreateNoTopBarAccountType()
 	end
 
 	topbarEnabledChangedEvent.Event:connect(UpdateNoTopBarAccountType)
+	VRService:GetPropertyChangedSignal("VREnabled"):Connect(UpdateNoTopBarAccountType)
 	UpdateNoTopBarAccountType()
 
 	local menuItem = CreateMenuItem(container)
@@ -1707,7 +1270,6 @@ end
 local TopBar = CreateTopBar()
 local LeftMenubar = CreateMenuBar(BarAlignmentEnum.Left)
 local RightMenubar = CreateMenuBar(BarAlignmentEnum.Right)
-local Menubar3D = CreateMenuBar3D(BarAlignmentEnum.Left, TopbarPanel3D)
 
 local settingsIcon = CreateSettingsIcon(TopBar)
 local noTopBarAccountType = nil
@@ -1730,16 +1292,10 @@ local stopRecordingIcon = CreateStopRecordIcon()
 local leaderstatsMenuItem = CreateLeaderstatsMenuItem()
 local nameAndHealthMenuItem = CreateUsernameHealthMenuItem()
 
-local settingsIcon3D = CreateSettingsIcon3D(TopBar, TopbarPanel3D, Menubar3D)
-local chatIcon3D = CreateChatIcon3D(TopBar, TopbarPanel3D, Menubar3D)
-local recenterIcon3D = CreateRecenterIcon3D(TopBar, TopbarPanel3D, Menubar3D)
-local notificationsIcon3D = CreateNotificationsIcon3D(TopBar, TopbarPanel3D, Menubar3D)
-local userGuiIcon3D = CreateUserGuiToggleIcon3D(TopBar, TopbarPanel3D, Menubar3D)
 local menuChangedNotifier3D = nil
 
 local LEFT_ITEM_ORDER = {}
 local RIGHT_ITEM_ORDER = {}
-local ITEM_ORDER_3D = {}
 
 
 -- Set Item Orders
@@ -1769,22 +1325,6 @@ if nameAndHealthMenuItem and not isTenFootInterface then
 	RIGHT_ITEM_ORDER[nameAndHealthMenuItem] = 2
 end
 
-if settingsIcon3D then
-	ITEM_ORDER_3D[settingsIcon3D] = 1
-end
-if userGuiIcon3D then
-	ITEM_ORDER_3D[userGuiIcon3D] = 2
-end
-if recenterIcon3D then
-	ITEM_ORDER_3D[recenterIcon3D] = 3
-end
-if chatIcon3D then
-	ITEM_ORDER_3D[chatIcon3D] = 4
-end
-if notificationsIcon3D then
-	ITEM_ORDER_3D[notificationsIcon3D] = 5
-end
-
 -------------------------
 
 
@@ -1800,10 +1340,9 @@ local ChatModule = require(GuiRoot.Modules.ChatSelector)
 
 local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 	local enabled = coreGuiEnabled and topbarEnabled
-	local vrEnabled = InputService.VREnabled
 	if coreGuiType == Enum.CoreGuiType.PlayerList or coreGuiType == Enum.CoreGuiType.All then
 		if leaderstatsMenuItem then
-			if enabled and not vrEnabled then
+			if enabled then
 				AddItemInOrder(RightMenubar, leaderstatsMenuItem, RIGHT_ITEM_ORDER)
 			else
 				RightMenubar:RemoveItem(leaderstatsMenuItem)
@@ -1817,7 +1356,7 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 	end
 	if coreGuiType == Enum.CoreGuiType.Backpack or coreGuiType == Enum.CoreGuiType.All then
 		if backpackIcon then
-			if enabled and not vrEnabled then
+			if enabled then
 				AddItemInOrder(LeftMenubar, backpackIcon, LEFT_ITEM_ORDER)
 			else
 				LeftMenubar:RemoveItem(backpackIcon)
@@ -1828,17 +1367,7 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 		enabled = enabled and (not ChatModule:IsDisabled())
 		local ChatSelector = require(GuiRoot.Modules.ChatSelector)
 		local showTopbarChatIcon = enabled
-		local showThree3DChatIcon = coreGuiEnabled and InputService.VREnabled and (Player.ChatMode == Enum.ChatMode.TextAndMenu or RunService:IsStudio())
 
-		if showThree3DChatIcon then
-			if chatIcon3D then
-				AddItemInOrder(Menubar3D, chatIcon3D, ITEM_ORDER_3D)
-			end
-		else
-			if chatIcon3D then
-				Menubar3D:RemoveItem(chatIcon3D)
-			end
-		end
 		if showTopbarChatIcon then
 			if Util.IsTouchDevice() or ChatModule:IsBubbleChatOnly() then
 				if chatIcon and canChat then
@@ -1892,7 +1421,6 @@ TopBar:UpdateBackgroundTransparency()
 
 LeftMenubar:SetDock(TopBar:GetInstance())
 RightMenubar:SetDock(TopBar:GetInstance())
-Menubar3D:SetDock(TopbarPanel3D:GetGUI())
 
 if not isTenFootInterface then
 	Util.SetGUIInsetBounds(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
@@ -1906,89 +1434,6 @@ if noTopBarAccountType and not isTenFootInterface then
 end
 if nameAndHealthMenuItem and isTopbarEnabled() and not isTenFootInterface then
 	AddItemInOrder(RightMenubar, nameAndHealthMenuItem, RIGHT_ITEM_ORDER)
-end
-
-if userGuiIcon3D then
-	local function FindScreenGuiChild(object)
-		for _, child in pairs(object:GetChildren()) do
-			if child:IsA('ScreenGui') then
-				return child
-			end
-		end
-	end
-
-	local function onPlayerGuiAdded(playerGui)
-		playerGui.ChildAdded:connect(function(child)
-			if child:IsA('ScreenGui') and FindScreenGuiChild(playerGui) then
-				AddItemInOrder(Menubar3D, userGuiIcon3D, ITEM_ORDER_3D)
-			end
-		end)
-		playerGui.ChildRemoved:connect(function(child)
-			if child:IsA('ScreenGui') and not FindScreenGuiChild(playerGui) then
-				Menubar3D:RemoveItem(userGuiIcon3D)
-			end
-		end)
-		if FindScreenGuiChild(playerGui) then
-			AddItemInOrder(Menubar3D, userGuiIcon3D, ITEM_ORDER_3D)
-		end
-	end
-	Player.ChildAdded:connect(function(child)
-		if child:IsA('PlayerGui') then
-			onPlayerGuiAdded(child)
-		end
-	end)
-	if Player:FindFirstChild('PlayerGui') then
-		onPlayerGuiAdded(Player:FindFirstChild('PlayerGui'))
-	end
-end
-
-local function lookMenuEnabledChanged()
-	if InputService.VREnabled then
-		TopbarPanel3D:SetVisible(lookMenuEnabled)
-	end
-end
-
-local function EnableVR()
-	local VRHub = require(GuiRoot.Modules.VR.VRHub)
-
-	TopbarPanel3D:SetType(Panel3D.Type.Fixed)
-
-	function TopbarPanel3D:PreUpdate(cameraCF, cameraRenderCF, userHeadCF, lookRay)
-		if self.transparency == 1 then
-			local headForwardCF = Panel3D.GetHeadLookXZ()
-			local panelOriginCF = CFrame.new(userHeadCF.p) * headForwardCF
-			self.localCF = panelOriginCF * TopbarConstants.TOPBAR_LOCAL_CFRAME_3D
-		end
-	end
-
-	function TopbarPanel3D:OnUpdate()
-		for _, item in pairs(Menubar3D:GetItems()) do
-			item:SetTransparency(self.transparency)
-		end
-	end
-
-	VRHub.ModuleOpened.Event:connect(function(moduleName)
-		if VRHub:KeepVRTopbarOpen() then
-			TopbarPanel3D:SetCanFade(false)
-			TopbarPanel3D:SetVisible(true)
-		end
-	end)
-	VRHub.ModuleClosed.Event:connect(function(moduleName)
-		if not VRHub:KeepVRTopbarOpen() then
-			TopbarPanel3D:SetCanFade(true)
-			lookMenuEnabledChanged()
-		end
-	end)
-
-
-	menuChangedNotifier3D = menuChangedNotifier3D or CreateMenuChangedNotifier()
-
-	LeftMenubar:RemoveItem(settingsIcon)
-	AddItemInOrder(Menubar3D, settingsIcon3D, ITEM_ORDER_3D)
-	AddItemInOrder(Menubar3D, recenterIcon3D, ITEM_ORDER_3D)
-	if newNotificationPath then
-		AddItemInOrder(Menubar3D, notificationsIcon3D, ITEM_ORDER_3D)
-	end
 end
 
 local gameOptions = settings():FindFirstChild("Game Options")
@@ -2005,12 +1450,9 @@ if gameOptions and not isTenFootInterface then
 end
 
 local function topbarEnabledChanged()
-	if InputService.VREnabled then
-		lookMenuEnabled = topbarEnabled
-		lookMenuEnabledChanged()
+	if VRService.VREnabled then
 		Util.SetGUIInsetBounds(0, 0, 0, 0)
 	else
-		lookMenuEnabled = false
 		if not isTenFootInterface then
 			Util.SetGUIInsetBounds(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
 		end
@@ -2027,19 +1469,6 @@ local function topbarEnabledChanged()
 		end
 	end
 end
-
-local UISChanged;
-local function OnVREnabled(prop)
-	if prop == "VREnabled" then
-		if InputService.VREnabled then
-			EnableVR()
-		else
-			--TODO: finish making this work with toggling VR
-			topbarEnabledChanged()
-		end
-	end
-end
-UISChanged = InputService.Changed:connect(OnVREnabled)
 
 if enablePortraitMode then
 	--Temporarily disable the leaderstats while in portrait mode.
@@ -2084,4 +1513,3 @@ end)
 
 -- Hook-up coregui changing
 StarterGui.CoreGuiChangedSignal:connect(OnCoreGuiChanged)
-OnVREnabled("VREnabled")
