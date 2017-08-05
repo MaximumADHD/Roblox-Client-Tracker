@@ -25,3 +25,6 @@ This is a sorted list of fast variables, which are used by Roblox to toggle feat
 
 ### version.txt
 This represents a GUID for the current version of Roblox on the specified branch.
+
+### CppTypes.txt
+A list of defined C++ class names and enum names that were buried in Roblox's game client exe.
