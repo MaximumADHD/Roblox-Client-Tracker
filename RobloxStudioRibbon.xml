@@ -128,6 +128,9 @@
         </MenuPopupButton>
         <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
+      <Group fflag="StudioGameSettingsUIEnabled" name="Settings">
+        <addaction name="gameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
+      </Group>
     </TabPage>
 
     <TabPage name="Model">
