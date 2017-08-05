@@ -16,7 +16,11 @@ local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
 
+local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (isSmallTouchScreen and 24 or 26)
+
 --[[ SERVICES ]]
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local StarterGui = game:GetService("StarterGui")
@@ -24,12 +28,19 @@ local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
+
+local enableConsoleReportAbusePageSuccess, enableReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
+local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableReportAbusePageValue
 
 -- Enable the old SettingsHub.lua if the EnablePortraitMode flag is off
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
+
+local getDisplayVersionFlagSuccess, getDisplayVersionFlagValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
+local displayVersionFlag = (getDisplayVersionFlagSuccess and getDisplayVersionFlagValue)
 
 if not enablePortraitMode then
 	return require(RobloxGui.Modules.Settings.SettingsHubOld)
@@ -37,6 +48,14 @@ end
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
 local enableResponsiveUI = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
+
+--[[ REMOTES ]]
+local GetServerVersionRemote = nil
+if displayVersionFlag then
+	spawn(function()
+		GetServerVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion")
+	end)
+end
 
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -49,11 +68,14 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local platform = UserInputService:GetPlatform()
 
+local baseUrl = ContentProvider.BaseUrl
+local isTestEnvironment = not string.find(baseUrl, "www.roblox.com")
 local DeveloperConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
 
 local lastInputChangedCon = nil
 local chatWasVisible = false
 
+local connectedServerVersion = nil
 
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
@@ -63,10 +85,23 @@ if isSmallTouchScreen or isTenFootInterface then
 	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
 end
 
+local function GetServerVersionBlocking()
+	if connectedServerVersion then
+		return connectedServerVersion
+	end
+	if not GetServerVersionRemote then
+		repeat
+			wait()
+		until GetServerVersionRemote
+	end
+	connectedServerVersion = GetServerVersionRemote:InvokeServer()
+	return connectedServerVersion
+end
+
 local function CreateSettingsHub()
 	local this = {}
 	this.Visible = false
-	this.Active = false
+	this.Active = true
 	this.Pages = {CurrentPage = nil, PageTable = {}}
 	this.MenuStack = {}
 	this.TabHeaders = {}
@@ -99,6 +134,9 @@ local function CreateSettingsHub()
 	end
 
 	local function setBottomBarBindings()
+		if not this.Visible then
+			return
+		end
 		for i = 1, #this.BottomBarButtons do
 			local buttonTable = this.BottomBarButtons[i]
 			local buttonName = buttonTable[1]
@@ -140,7 +178,7 @@ local function CreateSettingsHub()
 		end
 
 		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
-		
+
 		this[buttonName].Position = position
 		this[buttonName].Parent = this.BottomButtonFrame
 		if isTenFootInterface then
@@ -171,19 +209,19 @@ local function CreateSettingsHub()
 				Image = image,
 				Parent = this[buttonName]
 			};
-			
+
 			hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
 			hintLabel.Size = UDim2.new(0,50,0,50)
 			hintLabel.Position = UDim2.new(0.15,0,0.475,0)
-			
+
 		end
 
 		if isTenFootInterface then
 			this[textName].FontSize = Enum.FontSize.Size36
 		end
-		
+
 		UserInputService.InputBegan:connect(function(inputObject)
-			
+
 			if inputObject.UserInputType == Enum.UserInputType.Gamepad1 or inputObject.UserInputType == Enum.UserInputType.Gamepad2 or
 			inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
 				if hintLabel then
@@ -291,7 +329,71 @@ local function CreateSettingsHub()
 
 			Visible = false
 		}
+		
+		if displayVersionFlag then
+			this.VersionContainer = utility:Create("Frame") {
+				Name = "VersionContainer",
+				Parent = this.Shield,
 
+				BackgroundColor3 = SETTINGS_SHIELD_COLOR,
+				BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
+				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
+				AnchorPoint = Vector2.new(0,1),
+				BorderSizePixel = 0,
+				
+				ZIndex = 5,
+				
+				Visible = false
+			}
+			
+			this.ServerVersionLabel = utility:Create("TextLabel") {
+				Name = "ServerVersionLabel",
+				Parent = this.VersionContainer,
+				Position = UDim2.new(0,3,0,3),
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1,1,1),
+				TextSize = isTenFootInterface and 28 or (isSmallTouchScreen and 14 or 20),
+				Text = "Server Version: ...",
+				Size = UDim2.new(.5,-6,1,-6),
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				ZIndex = 5
+			}
+			spawn(function()
+				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
+			end)
+			
+			this.ClientVersionLabel = utility:Create("TextLabel") {
+				Name = "ClientVersionLabel",
+				Parent = this.VersionContainer,
+				Position = UDim2.new(0.5,3,0,3),
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1,1,1),
+				TextSize = isTenFootInterface and 28 or (isSmallTouchScreen and 14 or 20),
+				Text = "Client Version: "..RunService:GetRobloxVersion(),
+				Size = UDim2.new(.5,-6,1,-6),
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				ZIndex = 5
+			}
+			
+			this.EnvironmentLabel = utility:Create("TextLabel") {
+				Name = "EnvironmentLabel",
+				Parent = this.VersionContainer,
+				Position = UDim2.new(0.5,0,0,3),
+				AnchorPoint = Vector2.new(0.5,0),
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1,1,1),
+				TextSize = isTenFootInterface and 28 or (isSmallTouchScreen and 14 or 20),
+				Text = baseUrl,
+				Size = UDim2.new(.5,-6,1,-6),
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				ZIndex = 5,
+				Visible = isTestEnvironment
+			}
+		end
 		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{
 			Name = 'Modal',
@@ -1192,8 +1294,8 @@ local function CreateSettingsHub()
 		local VRHub = require(RobloxGui.Modules.VR.VRHub)
 		local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 		local panel = Panel3D.Get(thisModuleName)
-		panel:ResizeStuds(4, 4, 200)
-		panel:SetType(Panel3D.Type.Fixed)
+		panel:ResizeStuds(4, 4, 250)
+		panel:SetType(Panel3D.Type.Standard)
 		panel:SetVisible(false)
 		panel:SetCanFade(false)
 
@@ -1204,8 +1306,6 @@ local function CreateSettingsHub()
 
 		vrMenuOpened = this.SettingsShowSignal:connect(function(visible)
 			if visible then
-				local topbarPanel = Panel3D.Get("Topbar3D")
-				panel.localCF = topbarPanel.localCF * CFrame.Angles(math.rad(-5), 0, 0) * CFrame.new(0, 4, 0) * CFrame.Angles(math.rad(-15), 0, 0)
 				panel:SetVisible(true)
 
 				VRHub:FireModuleOpened(thisModuleName)
@@ -1269,7 +1369,7 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	if platform ~= Enum.Platform.XBoxOne and platform ~= Enum.Platform.PS4 then
+	if platform ~= Enum.Platform.XBoxOne or enableConsoleReportAbusePage then
 		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 		this.ReportAbusePage:SetHub(this)
 	end
@@ -1303,7 +1403,7 @@ local function CreateSettingsHub()
 	end
 
 	if not isTenFootInterface then
-		this:SwitchToPage(this.PlayerPage, true, 1)
+		this:SwitchToPage(this.PlayersPage, true, 1)
 	else
 		if this.HomePage then
 			this:SwitchToPage(this.HomePage, true, 1)

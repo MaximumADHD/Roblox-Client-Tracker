@@ -5,14 +5,14 @@
 		// Written by: jeditkacheff/jmargh
 		// Description: Handles in game purchases
 ]]--
-local vrPurchasePromptsEnabledSuccess, vrPurchasePromptsEnabled = pcall(function() return settings():GetFFlag("VRPurchasePromptsEnabled") end)
-vrPurchasePromptsEnabled = vrPurchasePromptsEnabled and vrPurchasePromptsEnabledSuccess
-if vrPurchasePromptsEnabled then
-	return --Don't enable this file if the VR Purchase Prompts flag is ON
-end
-
 local success, result = pcall(function() return settings():GetFFlag('UsePurchasePromptLocalization') end)
 local FFlagUsePurchasePromptLocalization = success and result
+
+local FFlagEnableNewGamePassEndpoints do
+	local success, result = pcall(function() return settings():GetFFlag"EnableGamePassFunctions" end)
+	FFlagEnableNewGamePassEndpoints = success and result
+end
+
 local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
@@ -46,6 +46,7 @@ local IsNativePurchasing = platform == Enum.Platform.XBoxOne or
 local IsCurrentlyPrompting = false
 local IsCurrentlyPurchasing = false
 local IsPurchasingConsumable = false
+local IsPurchasingGamePass = false
 local IsCheckingPlayerFunds = false
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -491,13 +492,18 @@ local function getCurrencyString(currencyType)
 	return currencyType == Enum.CurrencyType.Tix and "Tix" or "R$"
 end
 
-local function setInitialPurchaseData(assetId, productId, currencyType, equipOnPurchase)
+local function setInitialPurchaseData(assetId, productId, gamePassId, currencyType, equipOnPurchase)
 	PurchaseData.AssetId = assetId
 	PurchaseData.ProductId = productId
+	PurchaseData.GamePassId = gamePassId
 	PurchaseData.CurrencyType = currencyType
 	PurchaseData.EquipOnPurchase = equipOnPurchase
 
 	IsPurchasingConsumable = productId ~= nil
+	
+	if FFlagEnableNewGamePassEndpoints then
+		IsPurchasingGamePass = gamePassId ~= nil
+	end
 end
 
 local function setCurrencyData(playerBalance)
@@ -973,6 +979,8 @@ local function onPromptEnded(isSuccess)
 	closePurchaseDialog()
 	if IsPurchasingConsumable then
 		MarketplaceService:SignalPromptProductPurchaseFinished(Players.LocalPlayer.UserId, PurchaseData.ProductId, didPurchase)
+	elseif IsPurchasingGamePass then
+		MarketplaceService:SignalPromptGamePassPurchaseFinished(Players.LocalPlayer, PurchaseData.GamePassId, didPurchase)
 	else
 		MarketplaceService:SignalPromptPurchaseFinished(Players.LocalPlayer, PurchaseData.AssetId, didPurchase)
 	end
@@ -1039,6 +1047,10 @@ local function getProductInfo()
 		success, result = pcall(function()
 			return MarketplaceService:GetProductInfo(PurchaseData.ProductId, Enum.InfoType.Product)
 		end)
+	elseif IsPurchasingGamePass then
+		success, result = pcall(function()
+			return MarketplaceService:GetProductInfo(PurchaseData.GamePassId, Enum.InfoType.GamePass)
+		end)
 	else
 		success, result = pcall(function()
 			return MarketplaceService:GetProductInfo(PurchaseData.AssetId)
@@ -1057,10 +1069,32 @@ local function getProductInfo()
 	return result
 end
 
+local function doesPlayerOwnGamePass()
+	if (not PurchaseData.GamePassId) or (PurchaseData.GamePassId <= 0) then
+		return false, nil
+	end
+	
+	local success, result = pcall(function()
+		local gamePassService = game:GetService("GamePassService")
+		return gamePassService:PlayerHasPass(game.Players.LocalPlayer, PurchaseData.GamePassId)
+	end)
+	
+	if not success then
+		print("PurchasePromptScript: doesPlayerOwnGamePass() failed because", result)
+		return false, nil
+	end
+	
+	return true, (result == true) or (result == "true")
+end
+
 -- returns success, doesOwnItem
 local function doesPlayerOwnItem()
 	if not PurchaseData.AssetId or PurchaseData.AssetId <= 0 then
-		return false, nil
+		if PurchaseData.GamePassId then
+			return doesPlayerOwnGamePass()
+		else
+			return false, nil
+		end
 	end
 
 	local success, result = pcall(function()
@@ -1491,6 +1525,9 @@ local function onAcceptPurchase()
 			return
 		end
 		MarketplaceService:SignalClientPurchaseSuccess(tostring(result["receipt"]), Players.LocalPlayer.UserId, productId)
+	elseif IsPurchasingGamePass then
+		onPurchaseSuccess()
+		MarketplaceService:ReportAssetSale(PurchaseData.GamePassId, PurchaseData.CurrencyAmount)
 	else
 		onPurchaseSuccess()
 		if PurchaseData.CurrencyType == Enum.CurrencyType.Robux then
@@ -1500,10 +1537,10 @@ local function onAcceptPurchase()
 end
 
 -- main entry point
-local function onPurchasePrompt(player, assetId, equipIfPurchased, currencyType, productId)
+local function onPurchasePrompt(player, assetId, equipIfPurchased, currencyType, productId, gamePassId)
 	if player == Players.LocalPlayer and not IsCurrentlyPrompting then
 		IsCurrentlyPrompting = true
-		setInitialPurchaseData(assetId, productId, currencyType, equipIfPurchased)
+		setInitialPurchaseData(assetId, productId, gamePassId, currencyType, equipIfPurchased)
 		if canPurchase() then
 			showPurchasePrompt()
 		end
@@ -1710,6 +1747,9 @@ MarketplaceService.PromptProductPurchaseRequested:connect(function(player, produ
 end)
 MarketplaceService.PromptPurchaseRequested:connect(function(player, assetId, equipIfPurchased, currencyType)
 	onPurchasePrompt(player, assetId, equipIfPurchased, currencyType, nil)
+end)
+MarketplaceService.PromptGamePassPurchaseRequested:connect(function(player, gamePassId)
+	onPurchasePrompt(player, nil, false, Enum.CurrencyType.Default, nil, gamePassId)
 end)
 MarketplaceService.ServerPurchaseVerification:connect(function(serverResponseTable)
 	if not serverResponseTable then

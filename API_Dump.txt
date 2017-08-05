@@ -10,7 +10,7 @@ Class Instance [notbrowsable]
 	Function void Instance:ClearAllChildren()
 	Function Instance Instance:Clone()
 	Function void Instance:Destroy()
-	Function Instance Instance:FindFirstAncestor(string className)
+	Function Instance Instance:FindFirstAncestor(string name)
 	Function Instance Instance:FindFirstAncestorOfClass(string className)
 	Function Instance Instance:FindFirstAncestorWhichIsA(string className)
 	Function Instance Instance:FindFirstChild(string name, bool recursive = false)
@@ -1006,12 +1006,13 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:AddSelectionParent(string selectionName, Instance selectionParent)
 	Function void GuiService:AddSelectionTuple(string selectionName, Tuple selections)
 	Function void GuiService:AddSpecialKey(SpecialKey key) [RobloxScriptSecurity]
+	Function void GuiService:BroadcastNotification(string data, int notificationType) [RobloxScriptSecurity]
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function int GuiService:GetBrickCount() [RobloxScriptSecurity]
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) [RobloxScriptSecurity]
 	Function string GuiService:GetErrorMessage() [deprecated] [RobloxScriptSecurity]
 	Function Tuple GuiService:GetGuiInset()
-	Function Dictionary GuiService:GetNativeViewFeatureList() [RobloxScriptSecurity]
+	Function Dictionary GuiService:GetNotificationTypeList() [RobloxScriptSecurity]
 	Function int GuiService:GetResolutionScale() [LocalUserSecurity]
 	Function string GuiService:GetUiMessage() [RobloxScriptSecurity]
 	Function bool GuiService:IsMemoryTrackerEnabled() [RobloxScriptSecurity]
@@ -1022,11 +1023,9 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:RemoveKey(string key) [RobloxScriptSecurity]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(SpecialKey key) [RobloxScriptSecurity]
-	Function void GuiService:RequestNativeView(string url, int featureType) [RobloxScriptSecurity]
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
 	Function void GuiService:SetMenuIsOpen(bool open) [RobloxScriptSecurity]
 	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage) [LocalUserSecurity]
-	Function void GuiService:ShowAppShellTabBar(bool value) [RobloxScriptSecurity]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function void GuiService:ToggleFullscreen() [RobloxScriptSecurity]
 	YieldFunction Vector2 GuiService:GetScreenResolution() [RobloxScriptSecurity]
@@ -1254,6 +1253,7 @@ Class SurfaceLight : Light
 Class Lighting : Instance [notCreatable]
 	Property Color3 Lighting.Ambient
 	Property float Lighting.Brightness
+	Property float Lighting.ClockTime
 	Property Color3 Lighting.ColorShift_Bottom
 	Property Color3 Lighting.ColorShift_Top
 	Property Color3 Lighting.FogColor
@@ -1321,6 +1321,7 @@ Class ModuleScript : LuaSourceContainer
 Class LuaWebService : Instance
 Class MarketplaceService : Instance [notCreatable]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) [RobloxScriptSecurity]
+	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) [RobloxScriptSecurity]
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int productId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
 	Function void MarketplaceService:PromptPurchase(Instance player, int assetId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
@@ -1328,6 +1329,7 @@ Class MarketplaceService : Instance [notCreatable]
 	Function void MarketplaceService:ReportAssetSale(string assetId, int robuxAmount) [RobloxScriptSecurity]
 	Function void MarketplaceService:ReportRobuxUpsellStarted() [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalClientPurchaseSuccess(string ticket, int playerId, int productId) [RobloxScriptSecurity]
+	Function void MarketplaceService:SignalPromptGamePassPurchaseFinished(Instance player, int gamePassId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalPromptProductPurchaseFinished(int userId, int productId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalPromptPurchaseFinished(Instance player, int assetId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalServerLuaDialogClosed(bool value) [RobloxScriptSecurity]
@@ -1339,6 +1341,8 @@ Class MarketplaceService : Instance [notCreatable]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) [RobloxScriptSecurity]
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int playerId, int productId) [RobloxScriptSecurity]
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) [RobloxScriptSecurity]
+	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int gamePassId, bool wasPurchased)
+	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int gamePassId) [RobloxScriptSecurity]
 	Event MarketplaceService.PromptProductPurchaseFinished(int userId, int productId, bool isPurchased) [deprecated]
 	Event MarketplaceService.PromptProductPurchaseRequested(Instance player, int productId, bool equipIfPurchased, CurrencyType currencyType) [RobloxScriptSecurity]
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int assetId, bool isPurchased)
@@ -1392,7 +1396,7 @@ Class NetworkPeer : Instance [notbrowsable]
 Class NetworkClient : NetworkPeer [notCreatable]
 	Property string NetworkClient.Ticket
 	Function void NetworkClient:Disconnect(int blockDuration = 3000) [LocalUserSecurity]
-	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1) [PluginSecurity]
+	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1, string userName = ) [PluginSecurity]
 	Function void NetworkClient:SetGameSessionID(string gameSessionID) [RobloxSecurity]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
@@ -1466,8 +1470,6 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property string NetworkSettings.ReportStatURL [deprecated] [hidden]
 	Property int NetworkSettings.SendPacketBufferLimit
 	Property bool NetworkSettings.ShowActiveAnimationAsset
-	Property bool NetworkSettings.ShowPartMovementWayPoint
-	Property int NetworkSettings.TotalNumMovementWayPoint
 	Property float NetworkSettings.TouchSendRate
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
@@ -1479,7 +1481,7 @@ Class NotificationService : Instance [notCreatable]
 	Function void NotificationService:CancelNotification(int userId, int alertId) [RobloxPlaceSecurity]
 	Function void NotificationService:ScheduleNotification(int userId, int alertId, string alertMsg, int minutesToFire) [RobloxPlaceSecurity]
 	YieldFunction Array NotificationService:GetScheduledNotifications(int userId) [RobloxPlaceSecurity]
-	Event NotificationService.RobloxConnectionChanged(string connectionName) [RobloxScriptSecurity]
+	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
 Class NumberValue : Instance
 	Property double NumberValue.Value
@@ -2082,12 +2084,15 @@ Class ReplicatedFirst : Instance [notCreatable]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Function bool ReplicatedFirst:IsFinishedReplicating() [RobloxScriptSecurity]
 	Function void ReplicatedFirst:RemoveDefaultLoadingScreen()
+	Function void ReplicatedFirst:SetDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
+	Event ReplicatedFirst.DefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Event ReplicatedFirst.FinishedReplicating() [RobloxScriptSecurity]
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() [RobloxScriptSecurity]
 Class ReplicatedStorage : Instance [notCreatable]
 Class RobloxReplicatedStorage : Instance [notbrowsable] [notCreatable]
 Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
+	Function string RunService:GetRobloxVersion() [RobloxScriptSecurity]
 	Function bool RunService:IsClient()
 	Function bool RunService:IsRunMode()
 	Function bool RunService:IsRunning()
@@ -2227,6 +2232,8 @@ Class UserSettings : GenericSettings
 	Function void UserSettings:Reset()
 Class Sky : Instance
 	Property bool Sky.CelestialBodiesShown
+	Property float Sky.MoonAngularSize
+	Property Content Sky.MoonTextureId
 	Property Content Sky.SkyboxBk
 	Property Content Sky.SkyboxDn
 	Property Content Sky.SkyboxFt
@@ -2234,6 +2241,8 @@ Class Sky : Instance
 	Property Content Sky.SkyboxRt
 	Property Content Sky.SkyboxUp
 	Property int Sky.StarCount
+	Property float Sky.SunAngularSize
+	Property Content Sky.SunTextureId
 Class Smoke : Instance
 	Property Color3 Smoke.Color
 	Property bool Smoke.Enabled
@@ -2337,6 +2346,7 @@ Class Sparkles : Instance
 Class SpawnerService : Instance
 Class StarterGear : Instance
 Class StarterPlayer : Instance [notCreatable]
+	Property bool StarterPlayer.AllowCustomAnimations [hidden] [ScriptWriteRestricted: [NotAccessibleSecurity]]
 	Property bool StarterPlayer.AutoJumpEnabled
 	Property float StarterPlayer.CameraMaxZoomDistance
 	Property float StarterPlayer.CameraMinZoomDistance
@@ -2393,6 +2403,8 @@ Class Team : Instance
 	Property int Team.Score [deprecated]
 	Property BrickColor Team.TeamColor
 	Function Objects Team:GetPlayers()
+	Event Team.PlayerAdded(Instance player)
+	Event Team.PlayerRemoved(Instance player)
 Class Teams : Instance [notCreatable]
 	Function Objects Teams:GetTeams()
 	Function void Teams:RebalanceTeams() [deprecated]
@@ -2504,7 +2516,7 @@ Class UIGridStyleLayout : UILayout [notbrowsable]
 	Property SortOrder UIGridStyleLayout.SortOrder
 	Property VerticalAlignment UIGridStyleLayout.VerticalAlignment
 	Function void UIGridStyleLayout:ApplyLayout()
-	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil)
+	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [deprecated]
 Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellPadding
 	Property UDim2 UIGridLayout.CellSize
@@ -2548,8 +2560,10 @@ Class UserGameSettings : Instance
 	Property ComputerMovementMode UserGameSettings.ComputerMovementMode
 	Property ControlMode UserGameSettings.ControlMode
 	Property bool UserGameSettings.Fullscreen [RobloxScriptSecurity]
+	Property float UserGameSettings.GamepadCameraSensitivity
 	Property UploadSetting UserGameSettings.ImageUploadPromptBehavior [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
+	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson [hidden] [RobloxScriptSecurity]
@@ -2569,6 +2583,7 @@ Class UserGameSettings : Instance
 	Function bool UserGameSettings:InFullScreen()
 	Function bool UserGameSettings:InStudioMode()
 	Function void UserGameSettings:SetCameraYInvertVisible()
+	Function void UserGameSettings:SetGamepadCameraSensitivityVisible()
 	Function void UserGameSettings:SetTutorialState(string tutorialId, bool value) [RobloxScriptSecurity]
 	Event UserGameSettings.FullscreenChanged(bool isFullscreen)
 	Event UserGameSettings.PerformanceStatsVisibleChanged(bool isPerformanceStatsVisible) [RobloxScriptSecurity]
@@ -2864,6 +2879,9 @@ Enum ConcurrencyModel
 	EnumItem ConcurrencyModel.Safe : 1
 	EnumItem ConcurrencyModel.Logical : 2
 	EnumItem ConcurrencyModel.Empirical : 3
+Enum ConnectionState
+	EnumItem ConnectionState.Connected : 0
+	EnumItem ConnectionState.Disconnected : 1
 Enum ContextActionPriority
 	EnumItem ContextActionPriority.Low : 1000
 	EnumItem ContextActionPriority.Medium : 2000
@@ -3134,6 +3152,7 @@ Enum InOut
 Enum InfoType
 	EnumItem InfoType.Asset : 0
 	EnumItem InfoType.Product : 1
+	EnumItem InfoType.GamePass : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.LeftTread : 1
@@ -3781,7 +3800,7 @@ Enum SleepAdjustMethod
 Enum SortOrder
 	EnumItem SortOrder.LayoutOrder : 2
 	EnumItem SortOrder.Name : 0
-	EnumItem SortOrder.Custom : 1
+	EnumItem SortOrder.Custom : 1 [deprecated]
 Enum SoundType
 	EnumItem SoundType.NoSound : 0
 	EnumItem SoundType.Boing : 1
