@@ -242,6 +242,7 @@ EnableAnimationTrackAdjustWeightReplication
 EnableAttachmentsAsBillboardGuiAdornee
 EnableClientHttpAnalytics
 EnableCollisionGroups
+EnableConsolePlayerSideBar
 EnableConsoleReportAbusePage
 EnableContextActionPriority
 EnableContextActionServiceCallbackResult
@@ -509,6 +510,7 @@ LockViolationScriptCrash
 LogJoinTime
 LuaDebugger
 LuaDebuggerBreakOnError
+LuaDebuggerStrictGetScriptCheck
 LuaDebugProfileGCUnusedTokens
 LuaDebugProfilerTokenGCTimeMS
 LuaDebugProfileUserTokensCount

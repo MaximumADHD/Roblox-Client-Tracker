@@ -3909,6 +3909,10 @@ Enum ThumbnailSize
 	EnumItem ThumbnailSize.Size48x48 : 0
 	EnumItem ThumbnailSize.Size180x180 : 1
 	EnumItem ThumbnailSize.Size420x420 : 2
+	EnumItem ThumbnailSize.Size60x60 : 3
+	EnumItem ThumbnailSize.Size100x100 : 4
+	EnumItem ThumbnailSize.Size150x150 : 5
+	EnumItem ThumbnailSize.Size352x352 : 6
 Enum ThumbnailType
 	EnumItem ThumbnailType.HeadShot : 0
 	EnumItem ThumbnailType.AvatarBust : 1
