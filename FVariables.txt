@@ -14,7 +14,6 @@ AllowClientFallback
 AllowEarlyPacketDiscardOfPhysicsData
 AllowHumanoidScalingClientSide
 AllowInsertFreeModels
-AllowKeyboardInputOnGuiObjects
 AllowMultipleHangReports
 AllowMultiRotationInterpolation
 AllowNewClientTicketFormat
@@ -53,7 +52,6 @@ BadLogInfluxHundredthsPercentage
 BadLogMask
 BadTypeOnDelayErrorEnabled
 BadTypeOnSpawnErrorEnabled
-BlockWindowsMenu
 BoldNetworkStats
 BootstrapperVersionNumber
 BuildRigFromAttachmentsApiEnabled
@@ -66,7 +64,6 @@ CanHideGuiGroupId
 CanOverlayNativeInput
 CarefulHumanoidChangedEnabled
 CFrameRightAndUpVectors
-ChangeCarriageToNewLine
 ChangeDuplicateBrickColor
 ChangePositionOfFireSecondEmitter
 ChatFilterMaxCachedRequestMilliseconds
@@ -277,6 +274,7 @@ EnableReportAbuseMenuFix
 EnableReportPlaceIDAboveMemory
 EnableResponsiveUIFix
 EnableRobloxEventStream
+EnableServerHttpAnalytics
 EnableSoundsInAttachments
 EnableStencilShadowMask
 EnableTeamMemberChangeEvent
@@ -543,6 +541,7 @@ MaxDataStepsPerCyclic
 MaxDebugFramesForVisuals
 MaxFrameBufferSize
 MaxFramesToSend
+MaxHttpResultResponseSize
 MaximumFreefallMoveTimeInTenths
 MaximumUnstickForceInGs
 MaxLearnDescriptors
@@ -572,7 +571,6 @@ MoreWeldRestrictions2
 MotionDiscontinuityThreshold
 Motor6DApplyPoseMaskFix
 Motor6DTransformPropEnabled
-MouseInputQueryMethodsEnabled
 MoveAvatarEditorPages
 MoveCodeFromReplicator
 MsecBetweenTextureMemoryUsageArrayRefresh
@@ -762,7 +760,6 @@ RetryBaseTimeMSec
 RetryOn503
 RetryTimesOn503
 RetryWaitTime
-RoundThrottleSteerFloat
 S2NumPhysicsPacketsPerStep
 S2PhysicsSenderRate
 SaveDataForPlayerRemoving
@@ -782,6 +779,7 @@ SendRakNetStatsInterval
 SendRakNetStatsThrottle
 SendScreenOrientationToGA
 ServerCheckLastRecievedInitializedBeforeSend
+ServerHttpAnalyticsMaxHistory
 ServerNotifyPlayerScriptsStatus
 ServerPlayerFilterConfig
 ServerPlayerFilterPermyriad

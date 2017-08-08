@@ -1289,9 +1289,13 @@ Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
 	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]
 	Function Array LogService:GetLogHistory()
+	Function void LogService:RequestHttpResultApproved() [RobloxScriptSecurity]
+	Function void LogService:RequestServerHttpResult() [RobloxScriptSecurity]
 	Function void LogService:RequestServerOutput() [RobloxScriptSecurity]
 	Event LogService.HttpResultOut(Dictionary httpResult) [RobloxScriptSecurity]
 	Event LogService.MessageOut(string message, MessageType messageType)
+	Event LogService.OnHttpResultApproved(bool isApproved) [RobloxScriptSecurity]
+	Event LogService.ServerHttpResultOut(Dictionary httpResult) [RobloxScriptSecurity]
 	Event LogService.ServerMessageOut(string message, MessageType messageType, int timestamp) [RobloxScriptSecurity]
 Class LoginService : Instance
 	Function void LoginService:Logout() [RobloxSecurity]
