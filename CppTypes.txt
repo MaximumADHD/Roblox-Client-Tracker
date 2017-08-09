@@ -438,6 +438,7 @@ Classes
 	dtPolyQuery
 	dtTileCache
 	DummyArbiter
+	DWebBrowserEventsImpl
 	DynamicRotate
 	DynamicRotateJoint
 	EchoSoundEffect
@@ -646,7 +647,6 @@ Classes
 	ICreator
 	IDataState
 	IDec
-	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -819,6 +819,7 @@ Classes
 	MultiWaitBlock
 	MyActivationSource
 	NavigationContext
+	NavigationJob
 	NavigationPath
 	NavigationService
 	NavigationWaypoint
@@ -1240,7 +1241,6 @@ Classes
 	TypedPercentItem
 	Typesetter
 	TypesetterDynamic
-	U8DV
 	UDim
 	UDim2
 	UIAspectRatioConstraint
@@ -1307,6 +1307,7 @@ Classes
 	WaitingScriptsJob
 	WeakFunctionRef
 	WeakThreadRef
+	WebBrowserAxDialog
 	WebBrowserEvents
 	Wedge
 	WedgePoly

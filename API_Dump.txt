@@ -10,7 +10,7 @@ Class Instance [notbrowsable]
 	Function void Instance:ClearAllChildren()
 	Function Instance Instance:Clone()
 	Function void Instance:Destroy()
-	Function Instance Instance:FindFirstAncestor(string name)
+	Function Instance Instance:FindFirstAncestor(string className)
 	Function Instance Instance:FindFirstAncestorOfClass(string className)
 	Function Instance Instance:FindFirstAncestorWhichIsA(string className)
 	Function Instance Instance:FindFirstChild(string name, bool recursive = false)
@@ -1321,7 +1321,6 @@ Class ModuleScript : LuaSourceContainer
 Class LuaWebService : Instance
 Class MarketplaceService : Instance [notCreatable]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) [RobloxScriptSecurity]
-	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) [RobloxScriptSecurity]
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int productId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
 	Function void MarketplaceService:PromptPurchase(Instance player, int assetId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
@@ -1329,7 +1328,6 @@ Class MarketplaceService : Instance [notCreatable]
 	Function void MarketplaceService:ReportAssetSale(string assetId, int robuxAmount) [RobloxScriptSecurity]
 	Function void MarketplaceService:ReportRobuxUpsellStarted() [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalClientPurchaseSuccess(string ticket, int playerId, int productId) [RobloxScriptSecurity]
-	Function void MarketplaceService:SignalPromptGamePassPurchaseFinished(Instance player, int gamePassId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalPromptProductPurchaseFinished(int userId, int productId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalPromptPurchaseFinished(Instance player, int assetId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalServerLuaDialogClosed(bool value) [RobloxScriptSecurity]
@@ -1341,8 +1339,6 @@ Class MarketplaceService : Instance [notCreatable]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) [RobloxScriptSecurity]
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int playerId, int productId) [RobloxScriptSecurity]
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) [RobloxScriptSecurity]
-	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int gamePassId, bool wasPurchased)
-	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int gamePassId) [RobloxScriptSecurity]
 	Event MarketplaceService.PromptProductPurchaseFinished(int userId, int productId, bool isPurchased) [deprecated]
 	Event MarketplaceService.PromptProductPurchaseRequested(Instance player, int productId, bool equipIfPurchased, CurrencyType currencyType) [RobloxScriptSecurity]
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int assetId, bool isPurchased)
@@ -1396,7 +1392,7 @@ Class NetworkPeer : Instance [notbrowsable]
 Class NetworkClient : NetworkPeer [notCreatable]
 	Property string NetworkClient.Ticket
 	Function void NetworkClient:Disconnect(int blockDuration = 3000) [LocalUserSecurity]
-	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1, string userName = ) [PluginSecurity]
+	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1) [PluginSecurity]
 	Function void NetworkClient:SetGameSessionID(string gameSessionID) [RobloxSecurity]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
@@ -1470,6 +1466,8 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property string NetworkSettings.ReportStatURL [deprecated] [hidden]
 	Property int NetworkSettings.SendPacketBufferLimit
 	Property bool NetworkSettings.ShowActiveAnimationAsset
+	Property bool NetworkSettings.ShowPartMovementWayPoint
+	Property int NetworkSettings.TotalNumMovementWayPoint
 	Property float NetworkSettings.TouchSendRate
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
@@ -2090,7 +2088,6 @@ Class ReplicatedStorage : Instance [notCreatable]
 Class RobloxReplicatedStorage : Instance [notbrowsable] [notCreatable]
 Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
-	Function string RunService:GetRobloxVersion() [RobloxScriptSecurity]
 	Function bool RunService:IsClient()
 	Function bool RunService:IsRunMode()
 	Function bool RunService:IsRunning()
@@ -2551,10 +2548,8 @@ Class UserGameSettings : Instance
 	Property ComputerMovementMode UserGameSettings.ComputerMovementMode
 	Property ControlMode UserGameSettings.ControlMode
 	Property bool UserGameSettings.Fullscreen [RobloxScriptSecurity]
-	Property float UserGameSettings.GamepadCameraSensitivity
 	Property UploadSetting UserGameSettings.ImageUploadPromptBehavior [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
-	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson [hidden] [RobloxScriptSecurity]
@@ -2574,7 +2569,6 @@ Class UserGameSettings : Instance
 	Function bool UserGameSettings:InFullScreen()
 	Function bool UserGameSettings:InStudioMode()
 	Function void UserGameSettings:SetCameraYInvertVisible()
-	Function void UserGameSettings:SetGamepadCameraSensitivityVisible()
 	Function void UserGameSettings:SetTutorialState(string tutorialId, bool value) [RobloxScriptSecurity]
 	Event UserGameSettings.FullscreenChanged(bool isFullscreen)
 	Event UserGameSettings.PerformanceStatsVisibleChanged(bool isPerformanceStatsVisible) [RobloxScriptSecurity]
@@ -3140,7 +3134,6 @@ Enum InOut
 Enum InfoType
 	EnumItem InfoType.Asset : 0
 	EnumItem InfoType.Product : 1
-	EnumItem InfoType.GamePass : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.LeftTread : 1
