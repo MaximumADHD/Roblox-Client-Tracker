@@ -315,6 +315,7 @@ FixDeadDisabledCrash
 FixFinishCharacterLoadingCrash
 FixFreefallStuckIgnoreSelfContact
 FixGamepadNavigationInVR
+FixGamepadScrolling
 FixHandleHitDetection
 FixHandlesMouseEvents
 FixHipHeightScalingError
@@ -461,6 +462,7 @@ InitialAccelerationLatencyMultTenths
 InitializeQualityLevelFromSettings
 InsertServiceReportAllowClientInsertModels
 InsertServiceScriptInsert
+InstanceGetDescendantsEnabled
 InstanceTaggingDisableDefensiveCode
 InstanceTagReplicationFix
 IntegrateGyroscopicForcesEnabled
@@ -977,7 +979,7 @@ UserAllowDisableCustomAnims2
 UserBetterInertialScrolling
 UseRewindMethod
 UserHttpRequestsPerMinuteLimit
-UserInGameChatUseNewFilterAPI
+UserInGameChatUseNewFilterAPIV2
 UseRoundRobin
 UserPortraitPopperFix
 UseSort

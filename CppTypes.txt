@@ -646,6 +646,7 @@ Classes
 	ICreator
 	IDataState
 	IDec
+	ideoCapture
 	IDllStream
 	IDoc
 	IDraw

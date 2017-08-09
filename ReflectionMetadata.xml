@@ -3112,6 +3112,12 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">GetDescendants</string>
+            <string name="summary">Returns an array containing all of the descendants of the instance. Returns in preorder traversal, or in other words, where the parents come before their children, depth first.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">Remove</string>
             <string name="summary">Deprecated. Use ClearAllChildren() to get rid of all child objects, or Destroy() to invalidate this object and its descendants</string>
             <bool name="Deprecated">true</bool>

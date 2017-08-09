@@ -18,6 +18,7 @@ Class Instance [notbrowsable]
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false)
 	Function Objects Instance:GetChildren()
 	Function string Instance:GetDebugId(int scopeLength = 4) [notbrowsable] [PluginSecurity]
+	Function Array Instance:GetDescendants()
 	Function string Instance:GetFullName()
 	Function EventInstance Instance:GetPropertyChangedSignal(string property)
 	Function bool Instance:IsA(string className)
