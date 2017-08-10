@@ -18,6 +18,7 @@ Class Instance [notbrowsable]
 	Function Instance Instance:FindFirstChildWhichIsA(string className, bool recursive = false)
 	Function Objects Instance:GetChildren()
 	Function string Instance:GetDebugId(int scopeLength = 4) [notbrowsable] [PluginSecurity]
+	Function Array Instance:GetDescendants()
 	Function string Instance:GetFullName()
 	Function EventInstance Instance:GetPropertyChangedSignal(string property)
 	Function bool Instance:IsA(string className)
@@ -1006,12 +1007,13 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:AddSelectionParent(string selectionName, Instance selectionParent)
 	Function void GuiService:AddSelectionTuple(string selectionName, Tuple selections)
 	Function void GuiService:AddSpecialKey(SpecialKey key) [RobloxScriptSecurity]
+	Function void GuiService:BroadcastNotification(string data, int notificationType) [RobloxScriptSecurity]
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function int GuiService:GetBrickCount() [RobloxScriptSecurity]
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) [RobloxScriptSecurity]
 	Function string GuiService:GetErrorMessage() [deprecated] [RobloxScriptSecurity]
 	Function Tuple GuiService:GetGuiInset()
-	Function Dictionary GuiService:GetNativeViewFeatureList() [RobloxScriptSecurity]
+	Function Dictionary GuiService:GetNotificationTypeList() [RobloxScriptSecurity]
 	Function int GuiService:GetResolutionScale() [LocalUserSecurity]
 	Function string GuiService:GetUiMessage() [RobloxScriptSecurity]
 	Function bool GuiService:IsMemoryTrackerEnabled() [RobloxScriptSecurity]
@@ -1022,11 +1024,9 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:RemoveKey(string key) [RobloxScriptSecurity]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(SpecialKey key) [RobloxScriptSecurity]
-	Function void GuiService:RequestNativeView(string url, int featureType) [RobloxScriptSecurity]
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
 	Function void GuiService:SetMenuIsOpen(bool open) [RobloxScriptSecurity]
 	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage) [LocalUserSecurity]
-	Function void GuiService:ShowAppShellTabBar(bool value) [RobloxScriptSecurity]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function void GuiService:ToggleFullscreen() [RobloxScriptSecurity]
 	YieldFunction Vector2 GuiService:GetScreenResolution() [RobloxScriptSecurity]
@@ -1254,6 +1254,7 @@ Class SurfaceLight : Light
 Class Lighting : Instance [notCreatable]
 	Property Color3 Lighting.Ambient
 	Property float Lighting.Brightness
+	Property float Lighting.ClockTime
 	Property Color3 Lighting.ColorShift_Bottom
 	Property Color3 Lighting.ColorShift_Top
 	Property Color3 Lighting.FogColor
@@ -1289,9 +1290,13 @@ Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
 	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]
 	Function Array LogService:GetLogHistory()
+	Function void LogService:RequestHttpResultApproved() [RobloxScriptSecurity]
+	Function void LogService:RequestServerHttpResult() [RobloxScriptSecurity]
 	Function void LogService:RequestServerOutput() [RobloxScriptSecurity]
 	Event LogService.HttpResultOut(Dictionary httpResult) [RobloxScriptSecurity]
 	Event LogService.MessageOut(string message, MessageType messageType)
+	Event LogService.OnHttpResultApproved(bool isApproved) [RobloxScriptSecurity]
+	Event LogService.ServerHttpResultOut(Dictionary httpResult) [RobloxScriptSecurity]
 	Event LogService.ServerMessageOut(string message, MessageType messageType, int timestamp) [RobloxScriptSecurity]
 Class LoginService : Instance
 	Function void LoginService:Logout() [RobloxSecurity]
@@ -1481,7 +1486,7 @@ Class NotificationService : Instance [notCreatable]
 	Function void NotificationService:CancelNotification(int userId, int alertId) [RobloxPlaceSecurity]
 	Function void NotificationService:ScheduleNotification(int userId, int alertId, string alertMsg, int minutesToFire) [RobloxPlaceSecurity]
 	YieldFunction Array NotificationService:GetScheduledNotifications(int userId) [RobloxPlaceSecurity]
-	Event NotificationService.RobloxConnectionChanged(string connectionName) [RobloxScriptSecurity]
+	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
 Class NumberValue : Instance
 	Property double NumberValue.Value
@@ -2084,6 +2089,8 @@ Class ReplicatedFirst : Instance [notCreatable]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Function bool ReplicatedFirst:IsFinishedReplicating() [RobloxScriptSecurity]
 	Function void ReplicatedFirst:RemoveDefaultLoadingScreen()
+	Function void ReplicatedFirst:SetDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
+	Event ReplicatedFirst.DefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Event ReplicatedFirst.FinishedReplicating() [RobloxScriptSecurity]
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() [RobloxScriptSecurity]
 Class ReplicatedStorage : Instance [notCreatable]
@@ -2230,6 +2237,8 @@ Class UserSettings : GenericSettings
 	Function void UserSettings:Reset()
 Class Sky : Instance
 	Property bool Sky.CelestialBodiesShown
+	Property float Sky.MoonAngularSize
+	Property Content Sky.MoonTextureId
 	Property Content Sky.SkyboxBk
 	Property Content Sky.SkyboxDn
 	Property Content Sky.SkyboxFt
@@ -2237,6 +2246,8 @@ Class Sky : Instance
 	Property Content Sky.SkyboxRt
 	Property Content Sky.SkyboxUp
 	Property int Sky.StarCount
+	Property float Sky.SunAngularSize
+	Property Content Sky.SunTextureId
 Class Smoke : Instance
 	Property Color3 Smoke.Color
 	Property bool Smoke.Enabled
@@ -2340,6 +2351,7 @@ Class Sparkles : Instance
 Class SpawnerService : Instance
 Class StarterGear : Instance
 Class StarterPlayer : Instance [notCreatable]
+	Property bool StarterPlayer.AllowCustomAnimations [hidden] [ScriptWriteRestricted: [NotAccessibleSecurity]]
 	Property bool StarterPlayer.AutoJumpEnabled
 	Property float StarterPlayer.CameraMaxZoomDistance
 	Property float StarterPlayer.CameraMinZoomDistance
@@ -2396,6 +2408,8 @@ Class Team : Instance
 	Property int Team.Score [deprecated]
 	Property BrickColor Team.TeamColor
 	Function Objects Team:GetPlayers()
+	Event Team.PlayerAdded(Instance player)
+	Event Team.PlayerRemoved(Instance player)
 Class Teams : Instance [notCreatable]
 	Function Objects Teams:GetTeams()
 	Function void Teams:RebalanceTeams() [deprecated]
@@ -2507,7 +2521,7 @@ Class UIGridStyleLayout : UILayout [notbrowsable]
 	Property SortOrder UIGridStyleLayout.SortOrder
 	Property VerticalAlignment UIGridStyleLayout.VerticalAlignment
 	Function void UIGridStyleLayout:ApplyLayout()
-	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil)
+	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [deprecated]
 Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellPadding
 	Property UDim2 UIGridLayout.CellSize
@@ -2870,6 +2884,9 @@ Enum ConcurrencyModel
 	EnumItem ConcurrencyModel.Safe : 1
 	EnumItem ConcurrencyModel.Logical : 2
 	EnumItem ConcurrencyModel.Empirical : 3
+Enum ConnectionState
+	EnumItem ConnectionState.Connected : 0
+	EnumItem ConnectionState.Disconnected : 1
 Enum ContextActionPriority
 	EnumItem ContextActionPriority.Low : 1000
 	EnumItem ContextActionPriority.Medium : 2000
@@ -3788,7 +3805,7 @@ Enum SleepAdjustMethod
 Enum SortOrder
 	EnumItem SortOrder.LayoutOrder : 2
 	EnumItem SortOrder.Name : 0
-	EnumItem SortOrder.Custom : 1
+	EnumItem SortOrder.Custom : 1 [deprecated]
 Enum SoundType
 	EnumItem SoundType.NoSound : 0
 	EnumItem SoundType.Boing : 1
@@ -3897,6 +3914,10 @@ Enum ThumbnailSize
 	EnumItem ThumbnailSize.Size48x48 : 0
 	EnumItem ThumbnailSize.Size180x180 : 1
 	EnumItem ThumbnailSize.Size420x420 : 2
+	EnumItem ThumbnailSize.Size60x60 : 3
+	EnumItem ThumbnailSize.Size100x100 : 4
+	EnumItem ThumbnailSize.Size150x150 : 5
+	EnumItem ThumbnailSize.Size352x352 : 6
 Enum ThumbnailType
 	EnumItem ThumbnailType.HeadShot : 0
 	EnumItem ThumbnailType.AvatarBust : 1

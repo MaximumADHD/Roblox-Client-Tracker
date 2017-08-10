@@ -18,6 +18,11 @@ local GameSettings = Settings.GameSettings
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
+local enableConsolePlayerSideBarSuccess, enableConsolePlayerSideBarValue = pcall(function() return settings():GetFFlag("EnableConsolePlayerSideBar") end)
+local enableConsolePlayerSideBar = enableConsolePlayerSideBarSuccess and enableConsolePlayerSideBarValue
+local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
+local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
+
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
 	-- because it caused a bug where the local players name would show as Player in game.
@@ -39,6 +44,7 @@ local blockingUtility = playerDropDownModule:CreateBlockingUtility()
 local playerDropDown = playerDropDownModule:CreatePlayerDropDown()
 
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
+local reportAbuseMenu = enableConsoleReportAbusePage and require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 
 --[[ Remotes ]]--
 local RemoveEvent_OnFollowRelationshipChanged = nil
@@ -109,6 +115,15 @@ local IsSmallScreenDevice = Utility:IsSmallTouchScreen()
 local BaseUrl = game:GetService('ContentProvider').BaseUrl:lower()
 BaseUrl = string.gsub(BaseUrl, "/m.", "/www.")
 AssetGameUrl = string.gsub(BaseUrl, 'www', 'assetgame')
+
+--Make SideBar if on Console
+local SideBar = nil
+
+--Set Visible Func
+local setVisible = nil
+
+--Whether the playerlist is still open (isOpen is true if the playerlist is hidden in the background)
+local isOpen = not isTenFootInterface
 
 --[[ Constants ]]--
 local ENTRY_PAD = 2
@@ -527,7 +542,7 @@ local function createImageIcon(image, name, xOffset, parent)
     background.Size = UDim2.new(0, 66, 0, 66)
     background.Position = UDim2.new(0.01, xOffset - 1, 0.5, -background.Size.Y.Offset/2)
     background.ZIndex = 2
-    
+
     imageLabel.Size = UDim2.new(0, 64, 0, 64)
     imageLabel.Position = UDim2.new(0.5, -64/2, 0.5, -64/2)
     imageLabel.ZIndex = 2
@@ -740,11 +755,68 @@ local function openPlatformProfileUI(rbxUid)
     end)
 end
 
+local function createPlayerSideBarOption(player)
+  --Make sure the player is valid and isn't a guest
+  if player and player.UserId and player.UserId >= 1 then
+    local savedSelectedGuiObject = GuiService.SelectedCoreObject
+    if not SideBar then
+      local sideBarModule = RobloxGui.Modules:FindFirstChild('SideBar') or RobloxGui.Modules.Shell.SideBar
+      local createSideBarFunc = require(sideBarModule)
+      SideBar = createSideBarFunc()
+    end
+    --Get modules
+    local screenManagerModule = RobloxGui.Modules:FindFirstChild('ScreenManager') or RobloxGui.Modules.Shell.ScreenManager
+    local ScreenManager = require(screenManagerModule)
+    local utilModule = RobloxGui.Modules:FindFirstChild('Utility') or RobloxGui.Modules.Shell.Utility
+    local Util = require(utilModule)
+    local stringsModule = RobloxGui.Modules:FindFirstChild('LocalizedStrings') or RobloxGui.Modules.Shell.LocalizedStrings
+    local Strings = require(stringsModule)
+
+    SideBar:RemoveAllItems()
+    SideBar:AddItem(Util.Upper(Strings:LocalizedString("ViewGamerCardWord")), function()
+      openPlatformProfileUI(player.UserId)
+    end)
+
+    if reportAbuseMenu then
+      --We can't report guests/localplayer
+      if player ~= PlayersService.LocalPlayer then
+        SideBar:AddItem(Util.Upper(Strings:LocalizedString("Report Player")), function()
+          --Force closing player list before open the report tab
+          isOpen = false
+          setVisible(false)
+          GuiService.SelectedCoreObject = nil
+          reportAbuseMenu:ReportPlayer(player)
+        end)
+      end
+    end
+
+    local closedCon = nil
+    --Will fire when sidebar closes, fires before the item callback
+    closedCon = SideBar.Closed:connect(function()
+      closedCon:disconnect()
+      if Container.Visible then
+        if savedSelectedGuiObject and savedSelectedGuiObject.Parent then
+          GuiService.SelectedCoreObject = savedSelectedGuiObject
+        else
+          --SavedSelectedGuiObject gets removed, selects the first frame
+          setVisible(true)
+        end
+      end
+    end)
+
+    ScreenManager:OpenScreen(SideBar, false)
+  end
+end
+
 local function onEntryFrameSelected(selectedFrame, selectedPlayer)
   if isTenFootInterface then
     -- open the profile UI for the selected user. On console we allow user to select themselves
     -- they may want quick access to platform profile features
-    openPlatformProfileUI(selectedPlayer.UserId)
+    if enableConsolePlayerSideBar then
+      createPlayerSideBarOption(selectedPlayer)
+    else
+      openPlatformProfileUI(selectedPlayer.UserId)
+    end
     return
   end
 
@@ -1646,7 +1718,6 @@ end
 local noOpFunc = function ( )
 end
 
-local isOpen = not isTenFootInterface
 
 local closeListFunc = function(name, state, input)
   if state ~= Enum.UserInputState.Begin then return end
@@ -1661,8 +1732,11 @@ local closeListFunc = function(name, state, input)
   UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 end
 
-local setVisible = function(state, fromTemp)
+setVisible = function(state, fromTemp)
   Container.Visible = state
+  local lastInputType = UserInputService:GetLastInputType()
+  local isUsingGamepad = (lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or
+    lastInputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4)
 
   if state then
     local children = ScrollList:GetChildren()
@@ -1671,10 +1745,6 @@ local setVisible = function(state, fromTemp)
       local frameChildren = frame:GetChildren()
       for i = 1, #frameChildren do
         if frameChildren[i]:IsA("TextButton") then
-          local lastInputType = UserInputService:GetLastInputType()
-          local isUsingGamepad = (lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or
-            lastInputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4)
-
           if isUsingGamepad and not fromTemp then
             GuiService.SelectedCoreObject = frameChildren[i]
             GuiService:AddSelectionParent("PlayerlistGuiSelection", ScrollList)
