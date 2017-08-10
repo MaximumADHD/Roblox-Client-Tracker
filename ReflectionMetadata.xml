@@ -1759,6 +1759,7 @@
                 <Properties>
                     <string name="Name">SetCustomSortFunction</string>
                     <string name="summary">When SortOrder is set to Custom, this lua function is used to determine the ordering of elements. Function should take two arguments (each will be an Instance child to compare), and return true if a comes before b, otherwise return false. In other words, use this function the same way you would use a table.sort function. The sorting should be deterministic, otherwise sort will fail and fall back to name order.</string>
+                    <bool name="Deprecated">true</bool>
                 </Properties>
             </Item>
             <Item class="ReflectionMetadataMember">
@@ -3111,6 +3112,12 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">GetDescendants</string>
+            <string name="summary">Returns an array containing all of the descendants of the instance. Returns in preorder traversal, or in other words, where the parents come before their children, depth first.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">Remove</string>
             <string name="summary">Deprecated. Use ClearAllChildren() to get rid of all child objects, or Destroy() to invalidate this object and its descendants</string>
             <bool name="Deprecated">true</bool>
@@ -4094,6 +4101,14 @@
           <Properties>
             <string name="Name">TimeOfDay</string>
             <string name="summary">A string that represent the current time of day. Time is in 24-hour clock format "XX::YY:ZZ", where X is hour, Y is minute, and Z is seconds.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ClockTime</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">24</double>
+            <double name="UINumTicks">240</double>
           </Properties>
         </Item>
       </Item>
@@ -5918,6 +5933,30 @@
         <string name="Name">PrivilegeType</string>
         <bool name="Deprecated">true</bool>
       </Properties>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">SortOrder</string>
+        <string name="summary">The ordering to use for sorting an array of GuiObjects.</string>
+      </Properties>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Name</string>
+          <string name="summary">Sort by alphabetical ordering of the Name property.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">LayoutOrder</string>
+          <string name="summary">Sort using the less than operator on the LayoutOrder property of GuiObject.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Custom</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
     </Item>
   </Item>
 </roblox>

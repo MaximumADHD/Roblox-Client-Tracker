@@ -738,6 +738,7 @@ Classes
 	length_error
 	Light
 	LightGrid
+	LightGridCPU
 	Lighting
 	LightObject
 	Line
@@ -1319,6 +1320,7 @@ Classes
 	windows_file_codecvt
 	Workspace
 	WorkspaceStatsItem
+	wpY
 	Writer
 	XmlParser
 	XmlWriter
@@ -1346,7 +1348,6 @@ Enums
 	ConcurrencyModel
 	ControlMode
 	CreatorType
-	DEPRECATED_UploadSetting
 	DeveloperCameraOcclusionMode
 	DeveloperComputerCameraMovementMode
 	DeveloperComputerMovementMode

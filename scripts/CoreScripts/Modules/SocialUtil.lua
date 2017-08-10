@@ -12,7 +12,11 @@ local Players = game:GetService("Players")
 local THUMBNAIL_SIZE_MAP = {
 	[Enum.ThumbnailSize.Size48x48]   =  48,
 	[Enum.ThumbnailSize.Size180x180] = 180,
-	[Enum.ThumbnailSize.Size420x420] = 420
+	[Enum.ThumbnailSize.Size420x420] = 420,
+	[Enum.ThumbnailSize.Size60x60]   =  60,
+	[Enum.ThumbnailSize.Size100x100] = 100,
+	[Enum.ThumbnailSize.Size150x150] = 150,
+	[Enum.ThumbnailSize.Size352x352] = 352
 }
 
 local THUMBNAIL_FALLBACK_URLS = {
@@ -22,7 +26,7 @@ local THUMBNAIL_FALLBACK_URLS = {
 }
 
 local GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = 5
-local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size48x48
+local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size100x100
 local DEFAULT_THUMBNAIL_TYPE = Enum.ThumbnailType.AvatarThumbnail
 local GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = 1
 

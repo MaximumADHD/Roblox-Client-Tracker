@@ -43,7 +43,7 @@ local radialButtons = {}
 local lastInputChangedCon = nil
 
 --[[ Fast Flags ]]--
-local getRadialMenuAfterLoadingScreen, radialMenuAfterLoadingScreenValue = pcall(function() return settings():GetFFlag("RadialMenuAfterLoadingScreen") end)
+local getRadialMenuAfterLoadingScreen, radialMenuAfterLoadingScreenValue = pcall(function() return settings():GetFFlag("RadialMenuAfterLoadingScreen2") end)
 local radialMenuAfterLoadingScreen = getRadialMenuAfterLoadingScreen and radialMenuAfterLoadingScreenValue
 
 local function getImagesForSlot(slot)
@@ -572,7 +572,7 @@ local function setupGamepadControls()
 				[Enum.KeyCode.DPadLeft] = false;
 				[Enum.KeyCode.DPadRight] = false;
 			}
-			
+
 			--set D_PAD_BUTTONS status: button down->true, button up->false
 			local gamepadState = InputService:GetGamepadState(input.UserInputType)
 			for index, value in ipairs(gamepadState) do
@@ -580,7 +580,7 @@ local function setupGamepadControls()
 					D_PAD_BUTTONS[value.KeyCode] = (value.UserInputState == Enum.UserInputState.Begin)
 				end
 			end
-			
+
 			if D_PAD_BUTTONS[Enum.KeyCode.DPadUp] or D_PAD_BUTTONS[Enum.KeyCode.DPadDown] then
 				inputVector = D_PAD_BUTTONS[Enum.KeyCode.DPadUp] and Vector2.new(0, 1) or Vector2.new(0, -1)
 				if D_PAD_BUTTONS[Enum.KeyCode.DPadLeft] then
@@ -589,7 +589,7 @@ local function setupGamepadControls()
 					inputVector = Vector2.new(1, inputVector.Y)
 				end
 			end
-			
+
 			inputVector = inputVector.unit
 		end
 
@@ -757,7 +757,7 @@ local function setupGamepadControls()
 	end
 
 if radialMenuAfterLoadingScreen then
-	local removeDefaultLoadingGuiConnection = nil
+	local defaultLoadingGuiRemovedConnection = nil
 	local loadedConnection = nil
 	local isLoadingGuiRemoved = false
 	local isPlayerAdded = false
@@ -786,17 +786,19 @@ if radialMenuAfterLoadingScreen then
 		handlePlayerAdded()
 	end
 
-	local function handleRemoveDefaultLoadingGui()
-		removeDefaultLoadingGuiConnection:disconnect()
+	local function handleDefaultLoadingGuiRemoved()
+		if defaultLoadingGuiRemovedConnection then
+			defaultLoadingGuiRemovedConnection:disconnect()
+		end
 		isLoadingGuiRemoved = true
 		updateRadialMenuActionBinding()
 	end
 
-	removeDefaultLoadingGuiConnection = game:GetService("ReplicatedFirst").RemoveDefaultLoadingGuiSignal:connect(handleRemoveDefaultLoadingGui)
 	if game:GetService("ReplicatedFirst"):IsDefaultLoadingGuiRemoved() then
-		handleRemoveDefaultLoadingGui()
+		handleDefaultLoadingGuiRemoved()
+	else
+		defaultLoadingGuiRemovedConnection = game:GetService("ReplicatedFirst").DefaultLoadingGuiRemoved:connect(handleDefaultLoadingGuiRemoved)
 	end
-
 else
 	local loadedConnection
 	local function enableRadialMenu()

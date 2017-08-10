@@ -1,8 +1,9 @@
 ------------------------------------------------
 --
 -- Freecam.lua
--- Written by: Unknown, maybe Quenty based on code style.
--- Edited by: TheGamer101, to make it work without the screen gui and remove the Class library.
+-- Written by: Quenty
+-- Edited by: TheGamer101, to make it work without the screen gui, remove the Class library
+-- and add alternative key bindings.
 ------------------------------------------------
 
 -- To exit and enter free camera, use key shortcut Left Shift + P
@@ -60,8 +61,21 @@ local FVEL_GAIN = -330
 local DEADZONE = 0.125
 local FOCUS_OFFSET = CFrame.new(0, 0, -16)
 
--------
--- For the hack.
+local DIRECTION_LEFT = 1
+local DIRECTION_RIGHT = 2
+local DIRECTION_FORWARD = 3
+local DIRECTION_BACKWARD = 4
+local DIRECTION_UP = 5
+local DIRECTION_DOWN = 6
+
+local KEY_MAPPINGS = {
+	[DIRECTION_LEFT] = {Enum.KeyCode.A, Enum.KeyCode.H},
+	[DIRECTION_RIGHT] = {Enum.KeyCode.D, Enum.KeyCode.K},
+	[DIRECTION_FORWARD] = {Enum.KeyCode.W, Enum.KeyCode.U},
+	[DIRECTION_BACKWARD] = {Enum.KeyCode.S, Enum.KeyCode.J},
+	[DIRECTION_UP] = {Enum.KeyCode.Q, Enum.KeyCode.Y},
+	[DIRECTION_DOWN] = {Enum.KeyCode.E, Enum.KeyCode.I},
+}
 
 function CreateLetterBox()
 	local topBar = Instance.new("Frame")
@@ -155,6 +169,15 @@ UIS.InputBegan:Connect(ProcessInput)
 
 ------------------------------------------------
 
+local function IsDirectionDown(direction)
+	for i = 1, #KEY_MAPPINGS[direction] do
+		if UIS:IsKeyDown(KEY_MAPPINGS[direction][i]) then
+			return true
+		end
+	end
+	return false
+end
+
 local UpdateFreecam do
 	local dt = 1/60
 	RS.RenderStepped:Connect(function(_dt)
@@ -164,9 +187,9 @@ local UpdateFreecam do
 	function UpdateFreecam()
 		local camCFrame = camera.CFrame
 
-		local kx = (UIS:IsKeyDown(Enum.KeyCode.D) and 1 or 0) - (UIS:IsKeyDown(Enum.KeyCode.A) and 1 or 0)
-		local ky = (UIS:IsKeyDown(Enum.KeyCode.E) and 1 or 0) - (UIS:IsKeyDown(Enum.KeyCode.Q) and 1 or 0)
-		local kz = (UIS:IsKeyDown(Enum.KeyCode.S) and 1 or 0) - (UIS:IsKeyDown(Enum.KeyCode.W) and 1 or 0)
+		local kx = (IsDirectionDown(DIRECTION_RIGHT) and 1 or 0) - (IsDirectionDown(DIRECTION_LEFT) and 1 or 0)
+		local ky = (IsDirectionDown(DIRECTION_UP) and 1 or 0) - (IsDirectionDown(DIRECTION_DOWN) and 1 or 0)
+		local kz = (IsDirectionDown(DIRECTION_BACKWARD) and 1 or 0) - (IsDirectionDown(DIRECTION_FORWARD) and 1 or 0)
 		local km = (kx * kx) + (ky * ky) + (kz * kz)
 		if km > 1e-15 then
 			km = ((UIS:IsKeyDown(Enum.KeyCode.LeftShift) or UIS:IsKeyDown(Enum.KeyCode.RightShift)) and 1/4 or 1)/math.sqrt(km)

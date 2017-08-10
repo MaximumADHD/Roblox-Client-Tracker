@@ -6,7 +6,7 @@ local forceNewFilterAPI = false
 local IN_GAME_CHAT_USE_NEW_FILTER_API
 do
 	local textServiceExists = (game:GetService("TextService") ~= nil)
-	local success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserInGameChatUseNewFilterAPI") end)
+	local success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserInGameChatUseNewFilterAPIV2") end)
 	local flagEnabled = (success and enabled)
 	IN_GAME_CHAT_USE_NEW_FILTER_API = (forceNewFilterAPI or flagEnabled) and textServiceExists
 end
@@ -506,7 +506,7 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 		for _, speakerName in pairs(speakersMissingMessage) do
 			local speaker = self.Speakers[speakerName]
 			if speaker then
-				speaker:InternalSendFilteredMessageWithFilterResult(cMessageObj, self.Name)
+				speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
 			end
 		end
 	--// NEW BEHAVIOR

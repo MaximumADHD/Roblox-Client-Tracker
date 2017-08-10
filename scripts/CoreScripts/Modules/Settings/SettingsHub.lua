@@ -32,8 +32,8 @@ local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local enableConsoleReportAbusePageSuccess, enableReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
-local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableReportAbusePageValue
+local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
+local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
 
 -- Enable the old SettingsHub.lua if the EnablePortraitMode flag is off
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
@@ -329,7 +329,7 @@ local function CreateSettingsHub()
 
 			Visible = false
 		}
-		
+
 		if displayVersionFlag then
 			this.VersionContainer = utility:Create("Frame") {
 				Name = "VersionContainer",
@@ -341,12 +341,12 @@ local function CreateSettingsHub()
 				Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
 				AnchorPoint = Vector2.new(0,1),
 				BorderSizePixel = 0,
-				
+
 				ZIndex = 5,
-				
+
 				Visible = false
 			}
-			
+
 			this.ServerVersionLabel = utility:Create("TextLabel") {
 				Name = "ServerVersionLabel",
 				Parent = this.VersionContainer,
@@ -363,7 +363,7 @@ local function CreateSettingsHub()
 			spawn(function()
 				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
 			end)
-			
+
 			this.ClientVersionLabel = utility:Create("TextLabel") {
 				Name = "ClientVersionLabel",
 				Parent = this.VersionContainer,
@@ -377,7 +377,7 @@ local function CreateSettingsHub()
 				TextXAlignment = Enum.TextXAlignment.Right,
 				ZIndex = 5
 			}
-			
+
 			this.EnvironmentLabel = utility:Create("TextLabel") {
 				Name = "EnvironmentLabel",
 				Parent = this.VersionContainer,
