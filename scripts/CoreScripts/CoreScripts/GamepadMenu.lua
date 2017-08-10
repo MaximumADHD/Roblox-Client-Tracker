@@ -58,7 +58,7 @@ local PANEL_RESOLUTION = 250
 
 
 --[[ Fast Flags ]]--
-local getRadialMenuAfterLoadingScreen, radialMenuAfterLoadingScreenValue = pcall(function() return settings():GetFFlag("RadialMenuAfterLoadingScreen") end)
+local getRadialMenuAfterLoadingScreen, radialMenuAfterLoadingScreenValue = pcall(function() return settings():GetFFlag("RadialMenuAfterLoadingScreen2") end)
 local radialMenuAfterLoadingScreen = getRadialMenuAfterLoadingScreen and radialMenuAfterLoadingScreenValue
 
 local function getImagesForSlot(slot)
@@ -129,7 +129,7 @@ vrSlotImages[8].icon = "rbxasset://textures/ui/Settings/Radial/Chat.png"
 vrSlotImages[8].iconPosition = UDim2.new(0.29, -60, 0.29, -52)
 vrSlotImages[8].iconSize = UDim2.new(0, 56, 0, 53)
 
-local radialButtonLayout = {	
+local radialButtonLayout = {
 	PlayerList 		= { Range = { Begin = 36, 	End = 96 } },
 	Notifications 	= { Range = { Begin = 96, 	End = 156 } },
 	LeaveGame 		= { Range = { Begin = 156,	End = 216 } },
@@ -235,7 +235,7 @@ local function radialSelect(name, state, input)
 			[Enum.KeyCode.DPadLeft] = false;
 			[Enum.KeyCode.DPadRight] = false;
 		}
-		
+
 		--set D_PAD_BUTTONS status: button down->true, button up->false
 		local gamepadState = InputService:GetGamepadState(input.UserInputType)
 		for index, value in ipairs(gamepadState) do
@@ -243,7 +243,7 @@ local function radialSelect(name, state, input)
 				D_PAD_BUTTONS[value.KeyCode] = (value.UserInputState == Enum.UserInputState.Begin)
 			end
 		end
-		
+
 		if VRService.VREnabled then
 			for index, value in pairs(D_PAD_BUTTONS) do
 				if value then
@@ -260,7 +260,7 @@ local function radialSelect(name, state, input)
 				end
 			end
 		end
-		
+
 		inputVector = inputVector.unit
 	end
 
@@ -387,7 +387,7 @@ local function setButtonEnabled(button, enabled)
 	end
 
 	local vrEnabled = VRService.VREnabled
-	
+
 	if enabled then
 		if vrEnabled then
 			button.Image = vrSlotBackgroundImage
@@ -505,14 +505,14 @@ local function toggleVR(vrEnabled)
 				button.RadialLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
 
 				local selectedImage = button:FindFirstChild("Selected")
-				if selectedImage then 
+				if selectedImage then
 					selectedImage.Image = slotImages.active
 				end
 
 				button.MouseFrame.Visible = false
 			end
 		end
-		
+
 		local healthbarFrame = utility:Create("Frame") {
 			Parent = gamepadSettingsFrame,
 			Position = UDim2.new(0.8, 0, 0, 0),
@@ -524,7 +524,7 @@ local function toggleVR(vrEnabled)
 		hint.Parent = gamepadSettingsFrame
 
 		local chatButton = radialButtonsByName.Chat
-		if chatButton then 
+		if chatButton then
 			setButtonEnabled(chatButton, false)
 		end
 	else
@@ -558,7 +558,7 @@ local function toggleVR(vrEnabled)
 		end
 
 		local chatButton = radialButtonsByName.Chat
-		if chatButton then 
+		if chatButton then
 			setButtonEnabled(chatButton, not isTenFootInterface)
 		end
 	end
@@ -888,7 +888,7 @@ local function createGamepadMenuGui()
 			unbindAllRadialActions()
 		end
 	end)
-	
+
 	VRService:GetPropertyChangedSignal("VREnabled"):connect(function() toggleVR(VRService.VREnabled) end)
 	toggleVR(VRService.VREnabled)
 end
@@ -947,7 +947,7 @@ else
 end
 
 if radialMenuAfterLoadingScreen then
-	local removeDefaultLoadingGuiConnection = nil
+	local defaultLoadingGuiRemovedConnection = nil
 	local loadedConnection = nil
 	local isLoadingGuiRemoved = false
 	local isPlayerAdded = false
@@ -977,17 +977,19 @@ if radialMenuAfterLoadingScreen then
 		handlePlayerAdded()
 	end
 
-	local function handleRemoveDefaultLoadingGui()
-		removeDefaultLoadingGuiConnection:disconnect()
+	local function handleDefaultLoadingGuiRemoved()
+		if defaultLoadingGuiRemovedConnection then
+			defaultLoadingGuiRemovedConnection:disconnect()
+		end
 		isLoadingGuiRemoved = true
 		updateRadialMenuActionBinding()
 	end
 
-	removeDefaultLoadingGuiConnection = game:GetService("ReplicatedFirst").RemoveDefaultLoadingGuiSignal:connect(handleRemoveDefaultLoadingGui)
 	if game:GetService("ReplicatedFirst"):IsDefaultLoadingGuiRemoved() then
-		handleRemoveDefaultLoadingGui()
+		handleDefaultLoadingGuiRemoved()
+	else
+		defaultLoadingGuiRemovedConnection = game:GetService("ReplicatedFirst").DefaultLoadingGuiRemoved:connect(handleDefaultLoadingGuiRemoved)
 	end
-
 else
 	local loadedConnection
 	local function enableRadialMenu()

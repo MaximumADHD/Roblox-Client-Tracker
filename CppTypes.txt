@@ -738,6 +738,7 @@ Classes
 	length_error
 	Light
 	LightGrid
+	LightGridCPU
 	Lighting
 	LightObject
 	Line
