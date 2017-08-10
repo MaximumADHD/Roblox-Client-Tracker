@@ -24,10 +24,10 @@ local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown
 local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
 local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
 
-local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size420x420
-local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size180x180
+local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
+local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
 
-local REGULAR_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.AvatarBust
+local REGULAR_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.HeadShot
 local CONSOLE_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.AvatarThumbnail
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)

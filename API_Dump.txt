@@ -2566,7 +2566,6 @@ Class UserGameSettings : Instance
 	Property ControlMode UserGameSettings.ControlMode
 	Property bool UserGameSettings.Fullscreen [RobloxScriptSecurity]
 	Property float UserGameSettings.GamepadCameraSensitivity
-	Property UploadSetting UserGameSettings.ImageUploadPromptBehavior [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
@@ -2582,7 +2581,6 @@ Class UserGameSettings : Instance
 	Property bool UserGameSettings.UsedCustomGuiIsVisibleToggle [RobloxScriptSecurity]
 	Property bool UserGameSettings.UsedHideHudShortcut [RobloxScriptSecurity]
 	Property int UserGameSettings.VRRotationIntensity [RobloxScriptSecurity]
-	Property UploadSetting UserGameSettings.VideoUploadPromptBehavior [RobloxScriptSecurity]
 	Function int UserGameSettings:GetCameraYInvertValue()
 	Function bool UserGameSettings:GetTutorialState(string tutorialId) [RobloxScriptSecurity]
 	Function bool UserGameSettings:InFullScreen()

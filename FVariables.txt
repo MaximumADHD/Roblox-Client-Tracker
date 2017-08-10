@@ -2,6 +2,7 @@ AccErrorDrainedThousandth
 AccessoriesAllHaveSameBuoyancy2
 AccoutrementWeldingFilteringEnabled
 ActionStationDebounceTime
+ActOnNewCheck
 AdditionalCheckC0
 AdditionalCheckC1_2
 AdditionalReportingPermyriad
@@ -379,12 +380,14 @@ FriendServiceCachedOfflineStatusMaxAgeSeconds
 FriendServiceLoadFriendRequests
 FRMRecomputeDistanceFrameDelay
 FullMechanismInterpolation2
+FurtherOptimizeMeshBoxMap
 GameConfigurerUseBulkStats
 GameKeyboardV2IOS
 GameLifecycleStateTracking
 GamepadCameraSensitivityEnabled
 GamePerfMonitorPercentage
 GamePerfMonitorReportTimer
+GenerateSessionIDAtInit
 GetTeamLazyEvaluation
 GoodbyeChoiceActiveProperty
 GraphicsDX11InstancingEnabled
@@ -395,7 +398,6 @@ GraphicsReportingInitErrorsToGAEnabled
 GraphicsVulkanInstancingEnabled
 GuestFriendCheckFailImmediate
 GuiNavOnlyWorksOnEnabledCollectors
-HandleAdornmentChangeHistoryFix
 HangDetectionTimeoutMs
 HashConfigP3
 HashConfigP4
@@ -582,6 +584,7 @@ MyToolsAreMine
 NamesOccludedAsDefault
 NavigationJobMaxTimeBudgetMS
 NavigationJobRunsPerSecond
+NavigationSearchTileOffset
 NavigationServiceEnabled
 NetworkFamilyAnalytics
 NetworkFamilyToFavor
@@ -730,7 +733,7 @@ RemoveMotor6DPoseFreshnessLogic
 RemovePhysicalCharacterHack
 RenderEnvNoDepthTest
 RenderExportCompressedDiffuse
-RenderInstancingEnabled4
+RenderInstancingEnabled5
 RenderMaxParticleSize
 RenderMeshReturnsCorrectly
 RenderMetalMac
@@ -852,16 +855,11 @@ StreamJobPriorityAmplifierRadius
 StreamOutCompressionIdListLengthThreshold
 StudioAdvToolsUseSameLocalSpaceSetting
 StudioAllowMouseEventsOutsideViewBounds
-StudioAssetTypeCheckEnabled
 StudioAttachmentToolFixNoGridPlacement
-StudioBypassGameChecksEnabled
-StudioByPassGamePassServerCheck
 StudioCacheRecentAction
 StudioDE6194FixEnabled
 StudioDontCreatePlayerChildrenInTeamCreate
-StudioDoubleCursorFixForXBoxEmulation
 StudioFixLocalMoveToolHandles
-StudioGamePassCheckEnabled
 StudioMockPurchasesEnabled
 StudioPreserveSelectionOnUndo
 StudioRecentActionCacheSize
@@ -931,6 +929,7 @@ UnlockMouseIfKicked
 UnstickForceAttackInTenths
 UnstickForceDecayInTenths
 UnstickForceEpsilonInHundredths
+UpdatedMainGridToleranceEnabled
 UpdateMouseSensitivityTitle
 UpdateSliderButtonImages
 UploadUntranslated
@@ -998,6 +997,7 @@ WaitForChildWarnTimeOutTime
 WaitGetInQueueTime
 WarnOnNoCoreFunction
 WebChatFilterHttpTimeoutSeconds
+WeldPermyriad
 WhiteListChatFilter
 WindowsCrashReporterEnableSpareMemoryFix
 WorldStepDtAveExpFactorHundredth

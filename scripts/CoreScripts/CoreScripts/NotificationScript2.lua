@@ -223,7 +223,7 @@ local function getFriendImage(playerId)
 	if useNewUserThumbnailAPI then
 		-- SocialUtil.GetPlayerImage can yield for up to  MAX_GET_FRIEND_IMAGE_YIELD_TIME seconds while waiting for thumbnail to be final.
 		-- It will just return an invalid thumbnail if a valid one can not be generated in time.
-		return SocialUtil.GetPlayerImage(playerId, Enum.ThumbnailSize.Size48x48, Enum.ThumbnailType.AvatarThumbnail, --[[timeOut = ]] MAX_GET_FRIEND_IMAGE_YIELD_TIME)
+		return SocialUtil.GetPlayerImage(playerId, Enum.ThumbnailSize.Size48x48, Enum.ThumbnailType.HeadShot, --[[timeOut = ]] MAX_GET_FRIEND_IMAGE_YIELD_TIME)
 	else
 		return ("http://www.roblox.com/thumbs/avatar.ashx?userId=%d&x=%d&y=%d"):format(playerId, 48, 48)
 	end

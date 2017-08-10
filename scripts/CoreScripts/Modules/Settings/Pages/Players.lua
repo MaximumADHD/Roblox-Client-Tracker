@@ -477,10 +477,10 @@ local function Initialize()
 				frame.Name = "PlayerLabel" ..player.Name
 				if useNewUserThumbnailAPI then
 					-- Immediately assign the image to an image that isn't guaranteed to be generated
-					frame.Icon.Image = SocialUtil.GetFallbackPlayerImageUrl(math.max(1, player.UserId), Enum.ThumbnailSize.Size180x180, Enum.ThumbnailType.AvatarThumbnail)
+					frame.Icon.Image = SocialUtil.GetFallbackPlayerImageUrl(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
 					-- Spawn a function to get the generated image
 					spawn(function()
-						local imageUrl = SocialUtil.GetPlayerImage(math.max(1, player.UserId), Enum.ThumbnailSize.Size180x180, Enum.ThumbnailType.AvatarThumbnail)
+						local imageUrl = SocialUtil.GetPlayerImage(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
 						if frame and frame.Parent and frame.Parent == this.Page then
 							frame.Icon.Image = imageUrl
 						end

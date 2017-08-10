@@ -325,43 +325,7 @@
         <addaction name="cleanupServersAndPlayersAction" style="textundericon" text="Cleanup" icon=":/RibbonBar/images/Studio 2.0 icons/32x32/delete_x_32.png"  width="32" height="32"/>
       </Group>
       <Group name ="Emulation">
-        <MenuButton fflag="!StudioEnhancedEmulatorUIEnabled" handleMenuTrigger="true" name="emulateDeviceAction" style="textundericon" popupStyle="menubutton" text="Choose Device" tooltip="Emulate roblox as if it were another device" icon=":/RibbonBar/images/RibbonIcons/Test/EmulateComputer.png" width="32" height="32">
-          <addaction name="manageEmulationDeviceAction" style="textbesideicon" text="Manage Devices..." icon=":/16x16/images/Studio 2.0 icons/16x16/emulate_device_16.png" width="16" height="16"/>
-        </MenuButton>
-
-        <MenuButton fflag="!StudioEnhancedEmulatorUIEnabled" handleMenuTrigger="false" name="emulationScalingMode"  text="Toggle Viewport Scaling" tooltip="Scale viewport to fit screen or to match actual device properties." icon=":/RibbonBar/images/RibbonIcons/Test/scale_to_physical_size_32.png" width="32" height="32">
-          <ActionGroup name="emulationScalingMode" style="textundericon" ischeckable="false">
-              
-              <addaction name="scaleToPhysicalSize"
-                text="Scale to Physical Size"
-                value="scaleToPhysicalSize"
-                icon=":/16x16/images/Studio 2.0 icons/16x16/scale_to_physical_size_16.png"
-                tooltip="Scale viewport actual device screen size"
-                width="16"
-                height="16" />
-              
-              <addaction name="actualResolution"
-                text="Actual Resolution"
-                value="actualResolution"
-                icon=":/16x16/images/Studio 2.0 icons/16x16/actual_resolution_16.png"
-                tooltip="Scale viewport to actual device resolution"
-                width="16"
-                height="16" />
-              
-              <addaction
-                name="fitToWindow"
-                text="Fit to Window"
-                value="fitToWindow"
-                icon=":/16x16/images/Studio 2.0 icons/16x16/scale_to_physical_size_16.png"
-                tooltip="Scale viewport to to fit containing window"
-                width="16"
-                height="16" />
-              
-              <addaction name="calibrateDeviceScalingAction" text="Calibrate Physical Scaling" icon=":/16x16/images/Studio 2.0 icons/16x16/calibrate_device_scaling_16.png" tooltip="Calibrate Physical Size scaling for this screen." width="16" height="16" />
-              
-          </ActionGroup>
-        </MenuButton>
-        <addaction fflag="StudioEnhancedEmulatorUIEnabled" name="deviceEmulatorToggleAction" style="textundericon" text="Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32"/>
+        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32"/>
       </Group>
       <Group name="Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Mute" tooltip="Toggle Game Audio Sounds"/>
