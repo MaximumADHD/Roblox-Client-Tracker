@@ -1,3 +1,4 @@
+__6aU
 __add
 __based
 __call
@@ -40,6 +41,8 @@ _1sJB
 _2nJq
 _8Shl
 _AfterLoadFinished
+_b0_q
+_bdsu
 _BeforeConnected
 _BeforeLoadFinished
 _BufferHealth_Platform_
@@ -66,6 +69,7 @@ _GUID_00000100_0000_0000_c000_000000000046
 _GUID_b2d0778b_ac99_4c58_a5c8_e7724e5316b5
 _HCjK
 _hypot
+_i84sU
 _Iosb
 _IyRU
 _latest
@@ -678,6 +682,7 @@ AirFree
 AIzaSyButHh5V_xfQNw3HmUzzorI8a23Czz1Lgo
 AJDSp
 Alder
+Ale8C
 alert
 alertId
 alertMsg
@@ -1125,6 +1130,7 @@ AUNavigationJob
 AUNavigationRequest
 AUOcclusionRequest
 AUOculusVRD3D11
+aUOP4
 AUOpenVRD3D11
 AUPathfindingRequest
 AUPoolData
@@ -1174,6 +1180,7 @@ AutowedgeCells
 AUtss_cleanup_function
 AUUiChunk
 AUutf8_codecvt_facet
+aUvZX
 aux_depth_stencil
 AV__non_rtti_object
 AV_CancellationTokenRegistration
@@ -2621,6 +2628,7 @@ AW4VisualStyle
 AW4VisualTrussStyle
 AW4XAlignment
 AW4YAlignment
+AW7bU
 awake
 award
 AwardBadge
@@ -2860,6 +2868,7 @@ bFound
 BfXKX
 BGbqv
 bgcolor
+BGDcY
 BgIAAACkAABSU0ExAAQAAAEAAQCjbUyx9OXTBcWEAonZOfAoT7YhMS
 bgore
 BGRsu
@@ -3204,6 +3213,7 @@ BulletContactBreakOrthogonalThresholdPercent
 BulletContactBreakThresholdPercent
 bulletDispatcher
 Bumps
+BuN4n
 bundle
 Burgundy
 Burlap
@@ -3529,6 +3539,7 @@ cframe
 cframeOnly
 CFrameRightAndUpVectors
 CFrameValue
+CFzPu
 Cg_shader
 chain
 chain_base
@@ -4692,6 +4703,7 @@ CustomPhysics
 CustomStats
 CustomStatusAdded
 CustomStatusRemoved
+Cvd9S
 CWindowImpl
 CWindowImplBaseT
 CWindowImplRoot
@@ -5074,7 +5086,7 @@ DestGlobalArray
 destination
 DestLogStart
 destriyed
-Destroy
+destroy
 DestroyAcceleratorTable
 destroyed
 destroyGeometry
@@ -5103,6 +5115,7 @@ detection
 determine
 DetermineIfServiceIsBad2
 detiling
+DEtMFz
 Detonator
 Detour
 DevCameraOcclusion
@@ -5199,6 +5212,7 @@ Dilger
 DilleniaUPC
 dimension
 dimensions
+dIMZU
 Dinkumware
 direct
 direct_state_access
@@ -5338,6 +5352,7 @@ DPadRight
 DPadUp
 dpdown
 dpleft
+dPQlU
 dpright
 dpzKp
 DQ1ea
@@ -5406,6 +5421,7 @@ DropperTool
 DropperTool_dn
 dropping
 DropShadow
+DrPPT
 DrumKit
 DryLevel
 DS_HuffmanEncodingTree
@@ -5498,6 +5514,7 @@ e9qEU
 E9UAaE
 EA8Bs
 EAAC76
+eabW9
 Eacute
 Eacutesmall
 EagerBulkExecution
@@ -5516,6 +5533,9 @@ ebegeq
 EBNaT
 EbohkOnynaprBireynl
 EboybkRiragErprvire
+eBVjj
+Ec3mf
+ECd_y
 EchoSoundEffect
 Ecircumflex
 Ecircumflexsmall
@@ -5708,6 +5728,7 @@ EngineStats
 enhanced_layouts
 Eni_I
 enough
+EnqaY
 enqueue
 enqueueWaitingJob
 enter
@@ -5821,6 +5842,7 @@ ErybnqreZnantre
 ES1_0_compatibility
 ES1_1_compatibility
 ES2_compatibility
+Es2w6
 ES3_1_compatibility
 ES3_compatibility
 escape
@@ -5828,6 +5850,7 @@ escaped
 EscapeKeyPressed
 EscChar
 Esmall
+eSQxe
 essential
 Establish
 estimate
@@ -5842,6 +5865,7 @@ EucrosiaUPC
 euk5e
 EUNetPmcChallenge
 EUODcQHTKpbM18FRobqLcvK0DNdIaHwypr7NRnSWk4NXhtM0v40W7
+EuQOh
 eurtt
 eurtu
 eUyp94
@@ -5871,6 +5895,7 @@ EventSignalWrapper
 eventType
 Everyone
 everything
+eVfI0
 evicted
 eviP1
 EVREye
@@ -5970,7 +5995,7 @@ exponent
 ExportMergeByMaterial
 ExportPlace
 ExportSelection
-Expression
+expression
 expressionKey
 ExpSolverEnabled_Replicate
 extended
@@ -6033,6 +6058,7 @@ f9KPu
 f9Y0uVf9Y
 Fa9kz
 Fabric
+faBwn
 FACE_NAME
 FaceAccessory
 facebook
@@ -6098,6 +6124,7 @@ fcttt
 fctttD
 FD333
 Fd9FXu
+FDanq
 FDArray
 FDBytes
 fDetailedOffset
@@ -6426,11 +6453,13 @@ floor
 floorPositionDelta
 FloorWire
 florin
+floY1
 FlQSP
 FlsAlloc
 FLsDk
 FlsFree
 FlsGetValue
+FlSNV
 FlsSetValue
 FLtUh
 FLUSH
@@ -6807,6 +6836,7 @@ Funny
 FurtherOptimizeMeshBoxMap
 Furyy
 fusedgirl
+fUStL
 future
 future_errc
 FuvsgYbpxPbagebyyre
@@ -6845,7 +6875,9 @@ g_TimeArray
 g_TypeArray
 G_zqc
 G09_0
+G0c0f2
 g0e0c
+G0EJU
 G0PSQ
 g19IzP
 G1O1W1l1
@@ -6973,6 +7005,7 @@ GBuffer
 GcFrequency
 gcinfo
 GCJob
+gCju5wa
 GcLimit
 gcn_shader
 GColor
@@ -10552,6 +10585,7 @@ GripUp
 GrkgObk
 GrkgOhggba
 GrkgVachgRagel
+GRMyJU
 GrnzPung
 Ground
 grounded
@@ -10753,6 +10787,8 @@ HCLGc
 hCO8T
 hcQG7
 hdaehV
+hDBgZ
+hDBx4
 hdehbV
 hDGKbV
 hDNEIV
@@ -11100,6 +11136,8 @@ Hungarumlautsmall
 Hurricane
 HVChangeHistoryService
 HVKernel
+Hvnkq
+hvs5O
 HVSoundService
 HVWeakFunctionRef
 HVWorld
@@ -11157,6 +11195,7 @@ icemetal3
 icestone
 icestone2
 icestone3
+icGXo
 Icircumflex
 Icircumflexsmall
 IcmpCreateFile
@@ -11171,6 +11210,7 @@ IcmpSendEcho
 iconname
 icons
 iCreateDXGIFactory1
+icXUKe
 ID_CONNECTION_LOST
 ID_CONNECTION_REQUEST_ACCEPTED
 Id_Decals
@@ -11546,6 +11586,7 @@ intrusive_ptr_target
 IntValue
 inU3L
 InUse
+inVAa
 invalid
 INVALID_ARGUMENTS
 invalid_line
@@ -11593,6 +11634,8 @@ iostreams
 IP6AIPAUlua_State
 IpAddress
 ipairs
+ipbDq
+IpCAtEp
 IpFilter
 IPHLPAPI
 iPhone
@@ -11833,6 +11876,7 @@ jKq5C
 jL_1F
 jl66Z
 jL66Zl
+jLhd_
 jljnjmj
 jLjoh
 jLwHRC
@@ -11930,6 +11974,7 @@ JumpReplicate
 JumpRequest
 JumpTo
 JumpToIndex
+juSe1
 Juvfcre
 JuvfcreZrffntr
 JUyB5
@@ -12131,6 +12176,7 @@ lambda_3cfcc05ba7b39f9940250f044fcfd4f6
 lambda_40e0e2d79b604e383ecd0dc70d437a51
 lambda_4835f9657cb7c7624c4cd670344ace1e
 lambda_4841fe9782f84a79ca68849f200b522a
+lambda_49ef1c05c81f81afb5ff2610e6a5a7fb
 lambda_4a1aaf677869e984300037170ceb5065
 lambda_4aebd6dd3ede96ee87f01223ee55f757
 lambda_4ff92ccafac08f23450e646399ae350a
@@ -12188,6 +12234,7 @@ lambda_d0093f2b28594092d4e0424c3f4c915d
 lambda_d6ad5f7c46ef55e21a7b2fe1f8b3f1cc
 lambda_d6e523e38e3d838b3077c48b98468724
 lambda_d725da7e943126b3b2d5b58446f01852
+lambda_db9da9b13f9e86d0368834997061b3c9
 lambda_dfee488dd6a3e08fd9f41d869d6d2ae1
 lambda_ea138742fc80a405332513f6834416f1
 lambda_eaf4fd85e44ba8643756c9ea1fac7faa
@@ -12255,6 +12302,7 @@ LCMapStringW
 lcmnw
 LCvi0_
 lDDDDDD
+lDDSi
 ldexp
 ldgEq
 LDJCf
@@ -13370,7 +13418,7 @@ MEJcU
 MeleeWeapons
 member
 members
-MembershipType
+membershipType
 MembershipTypeReplicate
 MemEnforcedLRUCache
 meminfo
@@ -13703,6 +13751,9 @@ mr35PxbJ8rQ
 mrbGm
 MRHcu
 mRmom
+MrQHe
+MrrbZ
+mrZJP
 MsecBetweenTextureMemoryUsageArrayRefresh
 msgBytesRecv
 msgBytesRecvAndIgnored
@@ -13839,6 +13890,7 @@ NccPbagnvare
 NccUbzr
 NccUho
 NccYbnqrq
+NCkP6
 nColorIndex
 nContextSwitchEnabled
 nCount
@@ -14329,6 +14381,7 @@ Olivine
 OLLZ5
 Omega
 omitted
+OMn31
 OnAdjustSpeed
 OnAdjustWeight
 onAncestorChanged
@@ -14400,6 +14453,7 @@ onStepped
 OnStop
 OnTeleport
 OnTeleportInternal
+OnTTj
 OnUndo
 OnUpdate
 onUpdateKeys
@@ -15631,6 +15685,7 @@ PersonalServerService
 perthousand
 PerThreadTimer
 PerThreadTimerTotal
+pEuBE
 pEvents
 pExecutionResource
 Pff4p
@@ -16032,6 +16087,7 @@ PPPVS
 PPPWS
 ppVirtualProcessorRoots
 PPVWP
+pPwdJ
 PQ123
 PQAeS
 pqgjy
@@ -16272,6 +16328,7 @@ PublishedProjectsPageHeight
 PublishedProjectsPageUrl
 PublishedProjectsPageWidth
 Publisher
+puLAc
 PunaaryfGno
 PunaaryfOne
 punct
@@ -16321,6 +16378,8 @@ putImageData
 pv8l0
 PVAdornment
 PVhnrek
+PVhpZU
+PVhxM
 PVInstance
 PViuT
 pvOMv
@@ -16334,7 +16393,6 @@ PWh8Pb
 PWjUR
 pWsgp
 PWSQV
-PWVhd
 PWWVW
 PwY3Z
 pwYEg
@@ -16361,6 +16419,8 @@ q28a_
 q2PC5
 Q2XXR
 Q3EbS
+q4dYU
+q4Ph8T
 q4qIqQ
 q4W5o
 Q5YSMp1
@@ -16424,6 +16484,10 @@ QQSVWd
 QQSWj0j
 QQVWj
 QQWPQ
+QrcFg
+QrECfO
+QRh4x
+QRhLF
 QrirybcrePbafbyr
 QrirybcrePbafbyrZbqhyr
 Qroht
@@ -16442,6 +16506,7 @@ QSSSSj
 qsUwV
 QSVW3
 QSVWh
+QSVWhP
 QSVWj
 QSVWj0
 QSVWjw
@@ -16752,6 +16817,7 @@ RDEFu
 RDHIu
 RDHIu5
 rdwbWV
+reABtU
 reached
 ReachedTarget
 ReactionForceEnabled
@@ -17314,6 +17380,7 @@ rHnESVM
 RhpRa
 Ribbon
 RibbonTool
+Ric6S
 richard
 RigAttachment
 Right
@@ -17563,18 +17630,19 @@ SavedQualitySetting
 saveFilter
 SaveGame
 SaveInstance
-SaveNumber
+saveNumber
 SavePlace
 SavePlaceAsync
 SavePlacePerMinute
 SaveSelectedToRoblox
 SaveStats
-SaveString
+saveString
 SaveToRoblox
 saveToRobloxAction
 SaveWorld
 Saving
 saying
+sAYRPi
 sb11S
 sBinaryStringValue
 sBoolValue
@@ -17881,6 +17949,7 @@ SendTouches
 SensApi
 Sensor
 SentTouchPackets
+sEoH5
 Separate
 separate_shader_objects
 separate_specular_color
@@ -18300,6 +18369,7 @@ Shell32
 ShellExecuteA
 ShellExecuteW
 SHEXuF
+SHfFk
 SHGetFolderPathAndSubDirW
 SHGetFolderPathW
 SHGetKnownFolderPath
@@ -18502,6 +18572,7 @@ Slime
 sling
 Slingshot
 SlingshotTexture
+SlNJz
 SlowHttpRequest
 SLSnSzS
 sLVWj
@@ -18509,6 +18580,7 @@ small
 SMALL_CAP_SIZE
 smaller
 SmartRoundUIObjects
+smljF
 Smoke
 smoke_color
 smoke_main
@@ -18584,6 +18656,7 @@ SolverLog_Client
 SolverUsageTimeMeasurementInterval
 SolveWorld
 sombrero
+sOMd7
 SomeNameHere
 Something
 sorry
@@ -18650,6 +18723,7 @@ SourceSansItalic
 SourceSansLight
 SourceSansPro
 SourceValueChanged
+SOvKf
 sp_counted_impl_p
 sp_counted_impl_pd
 sp_ms_deleter
@@ -18703,6 +18777,7 @@ Spent
 Sphere
 SphereHandleAdornment
 SphericalSparklesEmission
+SPhPPu
 Spike
 spkRr
 splat
@@ -18732,6 +18807,7 @@ SQ0Op
 SqRIL
 squared
 SQVWP
+sR2qB
 sRayValue
 src5F
 SReab
@@ -18752,6 +18828,7 @@ sSfff
 SSLErrorLogAll
 ssloc
 Ssmall
+ssO3u6
 SSPQSS
 ssrem
 SSSSS
@@ -18850,6 +18927,7 @@ status
 StatusAdded
 StatusCallback
 StatusRemoved
+Stcn7
 StdHW
 stdin
 stdio
@@ -19071,6 +19149,7 @@ supported
 SupportRemoteKnownSFFlags
 supports
 supposed
+suPuh
 surface
 surface_dn
 surface_ds
@@ -19136,6 +19215,7 @@ SVWtt
 SVWtw
 SVWtz
 SVWUj
+Sw5IR
 swap_control
 swap_control_tear
 swap_frame_lock
@@ -19625,6 +19705,9 @@ TickCountPreciseOverride
 TickCountSampleMethod
 ticket
 TicketProcessed
+tiEWi
+tIhTS
+tihxQ
 Tilde
 Tildesmall
 tileCount
@@ -19970,6 +20053,7 @@ trustLevel
 TryAcquireSRWLockExclusive
 TryEnterCriticalSection
 trying
+Tryis
 tryLoad
 tryLoadAsync
 tryLoadAsync_contentProviderLoaded
@@ -20020,6 +20104,7 @@ tutorialId
 TUUUU
 TVTnS
 tVWHj
+TwAeQ
 tween
 TweenBase
 tweened
@@ -20101,6 +20186,7 @@ U54QRT6
 u6j8f
 U71mB
 u7j8Q
+u87bQ
 u8SS3
 u8SSQ
 U91UU
@@ -20126,6 +20212,7 @@ UCachedContent
 UCachedFriendStatus
 UCachedLuaWebServiceInfo
 UCachedRawLuaWebServiceInfo
+UCB2E
 Uchain_impl
 uchar
 Ucircumflex
@@ -20311,6 +20398,7 @@ uninitialized
 uninstall
 Union
 UnionOperation
+UnIop
 unique
 unique_lock
 UniqueID
@@ -20471,6 +20559,7 @@ upsample
 UPsqi
 upTo_Equipped
 Upublic_
+uPuXnU
 upval
 upvalue
 upVector
@@ -20589,14 +20678,18 @@ UseThreadedScreenshot
 UseUpdatedKeyboardSettings
 UseUpdatedR15CharacterModel
 UseWorldSpaceMechanismInterpolationThreshold
+usFWU
 UShared
 Ushared_state_base
 ushort
 using
 UsingCSG
 UsingMeshPart
+USKE6C
 USleepingTag
+USlUh1
 Usmall
+USrcZw
 UStandardOutMessage
 UStartGameParams
 UStartGameStatistics
@@ -20834,6 +20927,7 @@ VDebuggerBreakpoint
 VDebuggerManager
 VDebuggerWatch
 VDebugSettings
+VDEC2
 VDecal
 VDecalTexture
 VDeleter
@@ -20866,6 +20960,7 @@ vdpau_interop
 Vdr2VT
 vdr4F
 VDropperTool
+vDt0F
 VDummyArbiter
 VDynamicRotate
 VeaFOfb
@@ -20883,6 +20978,7 @@ vectorToObjectSpace
 vectorToWorldSpace
 VehicleController
 VehicleSeat
+vEHsk
 velocity
 VelocityInheritance
 VelocityMotor
@@ -20957,6 +21053,7 @@ VerticalScrollBarInset
 VerticalScrollBarPosition
 VerticalWedge
 vertices
+veSCU
 VEvents
 Vexception
 VExplosion
@@ -21021,6 +21118,7 @@ VGlobalAdvancedSettings
 VGlobalBasicSettings
 VGlue
 VGlueTool
+VgMX5
 VGoogleAnalyticsConfiguration
 VGrabTool
 VGroupService
@@ -21053,6 +21151,7 @@ VHeightfieldBuilder
 VHingeConstraint
 VHingeTool
 VHint
+Vhlh_
 VHole
 VHopper
 VHopperBin
@@ -21138,6 +21237,7 @@ Vislot
 Visual
 VisualEngineInit
 VItem
+VIuTU
 VivePresenceWorkaround
 viWrU
 VJobS2
@@ -21457,6 +21557,7 @@ VProtectedString
 vPse4
 VPVAdornment
 VPVInstance
+VPWhL
 VPWPh
 VPyramidInstance
 VQJBD
@@ -21597,6 +21698,7 @@ VRunStateVerb
 Vruntime_error
 VRuntimeScriptService
 VRunTransition
+Vs42U
 VScale9Frame
 Vscoped_connection
 VScreenGui
@@ -21717,6 +21819,7 @@ Vtoo_many_positional_options_error
 VTool
 VToolbar
 VTopNErrorsPhysicsSender
+VTopz
 vtordisp
 vtordispex
 VTorqueActuator
@@ -21997,6 +22100,7 @@ W4VisualStyle
 W4VisualTrussStyle
 W4WaterCellDirection
 W4WaterCellForce
+w4Wh0
 W4work_result
 W4XAlignment
 W4YAlignment
@@ -22597,6 +22701,9 @@ xt98xS
 XText
 xtmht
 xtmvu
+Xu1owl
+Xu64M
+XUB1T
 XUEventSlot
 XVAccoutrement
 XVAdService
@@ -22778,6 +22885,7 @@ YbnqvatVaqvpngbe
 YBottom
 YbpnyFbhaq
 YbpnyvmrqFgevatf
+yBPwpH
 YbpxrqTnzrFbegIvrj
 YbpxrqTnzrPnebhfryIvrj
 YBu2O
@@ -22840,6 +22948,8 @@ Yu_aX
 YUGvU
 Yv3Sp
 YvaxNppbhagFperra
+YvcSVyF
+YVcZU
 YvfgFrpgvba
 YvfgRagel
 yViNe
