@@ -1,4 +1,3 @@
-__6aU
 __add
 __based
 __call
@@ -41,8 +40,6 @@ _1sJB
 _2nJq
 _8Shl
 _AfterLoadFinished
-_b0_q
-_bdsu
 _BeforeConnected
 _BeforeLoadFinished
 _BufferHealth_Platform_
@@ -69,7 +66,6 @@ _GUID_00000100_0000_0000_c000_000000000046
 _GUID_b2d0778b_ac99_4c58_a5c8_e7724e5316b5
 _HCjK
 _hypot
-_i84sU
 _Iosb
 _IyRU
 _latest
@@ -77,7 +73,6 @@ _lM77
 _LOADED
 _logb
 _LuDV
-_m9oZ
 _MallocaArrayHolder
 _Mpunct
 _mtFeA
@@ -288,7 +283,6 @@ A6AXW4UserCFrame
 A6AXW4UserInputType
 A6AXXZ
 A6AXXZV
-a77aSY
 aa_j55
 AA_NAAV
 Aacute
@@ -304,7 +298,6 @@ AAVProtectedString
 AAVScriptContext
 AAVVariant
 AAVVelocity
-AAwKIQ
 AB_KP6AAB_KPB_K
 AB_NABHABV
 AB_NABV
@@ -313,7 +306,6 @@ AB_NABV67
 AB_NP6AAB_NPB_N
 ABAllUsers
 Abandoning
-AbAVYx
 abbreviated
 ABCDE
 abcdefghijklmnopqrstuvwxyz
@@ -348,7 +340,6 @@ ABNewStudioUsers
 ABNewUsers
 ABNP6AABNPBN
 AbNpgvbaBireynl
-aBOJe
 Abort
 ABORTED
 aborting
@@ -459,7 +450,6 @@ Accumulate
 AccumulatedError
 Acircumflex
 Acircumflexsmall
-AcJ_n
 AckCount
 AckTimeout
 acquire
@@ -686,10 +676,8 @@ AiAtA
 aiOhG
 AirFree
 AIzaSyButHh5V_xfQNw3HmUzzorI8a23Czz1Lgo
-aJBE4
 AJDSp
 Alder
-Ale8C
 alert
 alertId
 alertMsg
@@ -747,7 +735,6 @@ AllTutorialsDisabled
 AllUsers
 alnum
 alpha
-AlPhx
 already
 ALREADY_EXISTS
 ALSVPQh
@@ -842,7 +829,6 @@ anQQc7
 Antialiasing
 AntiCheat
 Antique
-anupe8
 any_cast
 anyway
 ao_p3
@@ -865,7 +851,6 @@ AppBridgePlaceLaunchRetryWaitInSec
 Appearance
 AppearanceDidLoad
 appendChild
-ApPhh
 AppID
 Apple
 APPLE_
@@ -1012,8 +997,6 @@ AsyncHttpCache
 AsyncHttpQueue
 Asystem
 at_gl
-aT8IG
-aT9ZQ
 atan2
 ATEMui
 atexit
@@ -1142,7 +1125,6 @@ AUNavigationJob
 AUNavigationRequest
 AUOcclusionRequest
 AUOculusVRD3D11
-aUOP4
 AUOpenVRD3D11
 AUPathfindingRequest
 AUPoolData
@@ -1192,7 +1174,6 @@ AutowedgeCells
 AUtss_cleanup_function
 AUUiChunk
 AUutf8_codecvt_facet
-aUvZX
 aux_depth_stencil
 AV__non_rtti_object
 AV_CancellationTokenRegistration
@@ -2640,7 +2621,6 @@ AW4VisualStyle
 AW4VisualTrussStyle
 AW4XAlignment
 AW4YAlignment
-AW7bU
 awake
 award
 AwardBadge
@@ -2785,7 +2765,6 @@ BD05K
 BDebugNavigationDrawTileBounds
 BDHPj
 bDrawEnabled
-BDSXU
 BE_NXZ
 BE_NXZP81
 BE_NXZP812
@@ -2881,7 +2860,6 @@ bFound
 BfXKX
 BGbqv
 bgcolor
-BGDcY
 BgIAAACkAABSU0ExAAQAAAEAAQCjbUyx9OXTBcWEAonZOfAoT7YhMS
 bgore
 BGRsu
@@ -2963,7 +2941,6 @@ BlockUser
 BlockUserSignal
 Bloom
 BloomEffect
-Blt7J
 BlueFuzz
 BluePlastic
 BlueScale
@@ -3100,10 +3077,8 @@ bShow
 bShowTimers
 bSikv9
 Bsmall
-Bsq7O
 BSQsh
 bsuperior
-bt_jT
 btBoxBoxCollisionAlgorithm
 btBU_Simplex1to4
 btBvhSubtreeInfoData
@@ -3221,7 +3196,6 @@ BuildRigFromAttachments
 BuildRigFromAttachmentsApiEnabled
 built
 buiW5
-bUjKx
 Bulge
 bulkExecution
 bullet
@@ -3230,7 +3204,6 @@ BulletContactBreakOrthogonalThresholdPercent
 BulletContactBreakThresholdPercent
 bulletDispatcher
 Bumps
-BuN4n
 bundle
 Burgundy
 Burlap
@@ -3292,7 +3265,6 @@ bytesSent
 bytesSentPerSec
 byZal
 bZZZZ
-c_ajS
 C_Ep2
 c0h0m0
 C0J0a0h0
@@ -3300,7 +3272,6 @@ C0J0Q0X0_0f0m0t0
 C0VSh
 C0W0m0y0
 C15730E2
-C1m83
 C1Qv3
 c3BdE
 C4D688
@@ -3519,9 +3490,7 @@ CebterffFcvaare
 CebzcgPerngbe
 cedilla
 Cedillasmall
-CEhPhl
-Cehw4
-cEkje
+CEhPh
 Celes
 CelestialBodiesShown
 CellBlock
@@ -3560,7 +3529,6 @@ cframe
 cframeOnly
 CFrameRightAndUpVectors
 CFrameValue
-CFzPu
 Cg_shader
 chain
 chain_base
@@ -3693,9 +3661,6 @@ chunking
 chunks
 Chunky
 CHVW3
-chx1_
-chXca
-cI5Lf
 CIDCount
 CIDFont
 CIDFontName
@@ -4558,7 +4523,7 @@ creationID
 Creator
 CreatorId
 CreatorReadingServerLogs
-CreatorType
+creatorType
 CreatorTypeEnum
 credential
 credentials
@@ -4573,9 +4538,7 @@ CRITICAL
 Cross
 CrossX
 CrossY
-CrPg8U
 CRPQV
-cRsWn
 CRYPT32
 CryptAcquireContext
 CryptAcquireContextA
@@ -4729,7 +4692,6 @@ CustomPhysics
 CustomStats
 CustomStatusAdded
 CustomStatusRemoved
-Cvd9S
 CWindowImpl
 CWindowImplBaseT
 CWindowImplRoot
@@ -4746,7 +4708,6 @@ CyclicExecutiveThrottlingCancelWorldStepAccum
 CyclicExecutiveTiming
 CyclicExecutiveWorldSteps
 CYgqIy
-cyl_z
 Cylinder
 CylinderHandleAdornment
 CylinderMesh
@@ -4806,7 +4767,6 @@ daeht0
 dagger
 daggerdbl
 Daisy
-dAJBU
 damaged
 Damping
 DancePad
@@ -5010,7 +4970,6 @@ decoration
 decrypt
 decrypted
 DecryptMessage
-DEeMU
 deep_texture3D
 Default
 DEFAULT_CHAR
@@ -5115,7 +5074,7 @@ DestGlobalArray
 destination
 DestLogStart
 destriyed
-destroy
+Destroy
 DestroyAcceleratorTable
 destroyed
 destroyGeometry
@@ -5144,7 +5103,6 @@ detection
 determine
 DetermineIfServiceIsBad2
 detiling
-DEtMFz
 Detonator
 Detour
 DevCameraOcclusion
@@ -5241,7 +5199,6 @@ Dilger
 DilleniaUPC
 dimension
 dimensions
-dIMZU
 Dinkumware
 direct
 direct_state_access
@@ -5308,13 +5265,11 @@ DistortionSoundEffect
 Distributed
 DistributedGameTime
 divFrameInfo
-divgD
 divide
 Division1806
 Divisor
 djHTIE
 DjNBp
-DkbkU
 dKqkX
 dkY9F
 dLajce
@@ -5359,7 +5314,6 @@ DontSendReparentForPlayer
 DontSerializeSoundEnabledInGameSettings
 DontUpdatePartsWithoutParents
 DontUsePhysicsCache
-dopeP
 DopplerScale
 DoSendGetLogHistoryGATracking
 dotaccent
@@ -5378,14 +5332,12 @@ DownSample4x4GlowFS
 DownSample4x4MaxFS
 DownSample4x4VS
 doWorldStep
-dp07z
 DPadDown
 DPadLeft
 DPadRight
 DPadUp
 dpdown
 dpleft
-dPQlU
 dpright
 dpzKp
 DQ1ea
@@ -5454,7 +5406,6 @@ DropperTool
 DropperTool_dn
 dropping
 DropShadow
-drQSb
 DrumKit
 DryLevel
 DS_HuffmanEncodingTree
@@ -5533,7 +5484,6 @@ E0Q0Y0
 E0TeT
 E0V0v0b1s1
 e1UFH
-e2zf1
 E3EAEL
 E3lrl
 e3Q71V
@@ -5548,7 +5498,6 @@ e9qEU
 E9UAaE
 EA8Bs
 EAAC76
-eabW9
 Eacute
 Eacutesmall
 EagerBulkExecution
@@ -5567,9 +5516,6 @@ ebegeq
 EBNaT
 EbohkOnynaprBireynl
 EboybkRiragErprvire
-eBVjj
-Ec3mf
-ECd_y
 EchoSoundEffect
 Ecircumflex
 Ecircumflexsmall
@@ -5582,9 +5528,6 @@ Edieresissmall
 edited
 EditingDisabled
 EditQualityLevel
-EDPsqL
-Ee4EHX
-eeR2J
 eexec
 ef0TT
 Ef10y
@@ -5765,7 +5708,6 @@ EngineStats
 enhanced_layouts
 Eni_I
 enough
-EnqaY
 enqueue
 enqueueWaitingJob
 enter
@@ -5814,8 +5756,6 @@ Eoobe
 ephemeralcounters
 ePhUp
 epuduM
-EPzIiU
-Eq2GV
 EQFeG
 equal
 equal_to
@@ -5881,7 +5821,6 @@ ErybnqreZnantre
 ES1_0_compatibility
 ES1_1_compatibility
 ES2_compatibility
-Es2w6
 ES3_1_compatibility
 ES3_compatibility
 escape
@@ -5889,7 +5828,6 @@ escaped
 EscapeKeyPressed
 EscChar
 Esmall
-eSQxe
 essential
 Establish
 estimate
@@ -5904,13 +5842,11 @@ EucrosiaUPC
 euk5e
 EUNetPmcChallenge
 EUODcQHTKpbM18FRobqLcvK0DNdIaHwypr7NRnSWk4NXhtM0v40W7
-EuQOh
 eurtt
 eurtu
 eUyp94
 Ev9bh
 evaluators
-EvE4j
 EveN7
 event
 EventAfterEndOfSession
@@ -5935,7 +5871,6 @@ EventSignalWrapper
 eventType
 Everyone
 everything
-eVfI0
 evicted
 eviP1
 EVREye
@@ -6035,7 +5970,7 @@ exponent
 ExportMergeByMaterial
 ExportPlace
 ExportSelection
-expression
+Expression
 expressionKey
 ExpSolverEnabled_Replicate
 extended
@@ -6087,7 +6022,6 @@ f7Abl
 F8WPQ
 F8WQP
 f94Bt
-f94pFNr3
 f99t7
 f9CPu
 f9F4r
@@ -6099,7 +6033,6 @@ f9KPu
 f9Y0uVf9Y
 Fa9kz
 Fabric
-faBwn
 FACE_NAME
 FaceAccessory
 facebook
@@ -6136,7 +6069,6 @@ FamilyName
 FamilyOtherBlues
 FangSong_GB2312
 Fantasy
-faprO
 FastBackoff
 FastCluster
 FastClusterUpdateWaitingBudgetMs
@@ -6158,7 +6090,6 @@ FbpvnyFperra
 FbpvnyHgvy
 FbTwKiZ
 FbZwKi
-FcB04p
 Fcevat
 FcevgrFurrgZnantre
 fcJpU
@@ -6167,7 +6098,6 @@ fcttt
 fctttD
 FD333
 Fd9FXu
-FDanq
 FDArray
 FDBytes
 fDetailedOffset
@@ -6207,8 +6137,6 @@ ff0000
 ff00ff
 Ff3pU
 ff7f27
-FFcwm
-fffct
 ffff00
 ffffff
 ffk2S
@@ -6232,7 +6160,6 @@ FgngfNttertngbe
 FgngfNttertngbeZnantre
 FgngfOhggba
 FgngfZvavGrkgCnary
-Fh0_b
 FH9X0t
 fHeight
 fHeightScale
@@ -6458,7 +6385,6 @@ FixWindowsInputCaptureHandling
 FiZwK
 fj0r7
 fJ64x
-FjeKe
 FjFv0
 FjnyybjThrfgPung
 FjvgpuPunaary
@@ -6466,7 +6392,6 @@ FKgG2
 fkLBv
 FkLo1b
 fkN6Q
-fkoXU
 fKvWO_
 FlagCaptured
 FlagCreated
@@ -6487,10 +6412,8 @@ FlashPrc
 FlatCursor
 FlatTool
 FlatTool_dn
-fld8m
 FlfgrzZrffntr
 FlfHj
-FLi7K
 flight
 FlightStick
 Flint
@@ -6503,13 +6426,11 @@ floor
 floorPositionDelta
 FloorWire
 florin
-floY1
 FlQSP
 FlsAlloc
 FLsDk
 FlsFree
 FlsGetValue
-FlSNV
 FlsSetValue
 FLtUh
 FLUSH
@@ -6518,7 +6439,6 @@ flush_raster
 FlushFileBuffers
 FlushInstructionCache
 FlushProcessWriteBuffers
-fLXjU
 Flying
 FlyweightService
 fMinRange
@@ -6666,7 +6586,6 @@ FperraZnantre
 FpevcgnoyrPnzren
 fpgiu
 FPRQV
-fPtY7
 FPVWS
 FPZNZ
 fqbHU
@@ -6854,7 +6773,6 @@ FrontSurfaceInput
 frozen
 fRulerOffset
 fs_tmp
-FS1x2
 fScaleX
 FSendImmediaePriorityNow
 Fsmall
@@ -6889,7 +6807,6 @@ Funny
 FurtherOptimizeMeshBoxMap
 Furyy
 fusedgirl
-fUStL
 future
 future_errc
 FuvsgYbpxPbagebyyre
@@ -6928,9 +6845,7 @@ g_TimeArray
 g_TypeArray
 G_zqc
 G09_0
-G0c0f2
 g0e0c
-G0EJU
 G0PSQ
 g19IzP
 G1O1W1l1
@@ -7058,7 +6973,6 @@ GBuffer
 GcFrequency
 gcinfo
 GCJob
-gCju5wa
 GcLimit
 gcn_shader
 GColor
@@ -7074,9 +6988,7 @@ GDE4n
 GDI32
 GdPQf
 GDPSV
-gDqSaL
 GDQSP
-gDSdU
 GDU_Mbstatet
 GearGenreSetting
 gearType
@@ -7552,8 +7464,6 @@ gfffS
 gfffV
 gfffVW
 gfffW
-gfffZ
-gfGDT
 gfids
 gfind
 GfxCard
@@ -7571,7 +7481,6 @@ GHstib
 GHstib_
 GhtAP
 ghVZCu
-GhZG9N4
 Gi2ki
 GI4QM
 giant
@@ -10540,7 +10449,6 @@ glWriteMaskEXT
 glyph
 gmatch
 GMloOU
-gMqrTl
 gN7pC
 GNISu
 GnoQbpx
@@ -10644,7 +10552,6 @@ GripUp
 GrkgObk
 GrkgOhggba
 GrkgVachgRagel
-GRMyJU
 GrnzPung
 Ground
 grounded
@@ -10718,14 +10625,11 @@ GuiTextMixin
 Gulim
 GunCursor
 GunWaitCursor
-gV9mi
 gVQSo
 GvzrHavg
 GvzrMbar
-GWIbK
 GWWn1
 GX33DC
-gX84W
 GXGfGkGpGuG
 GxVPR
 gyDKU
@@ -10762,14 +10666,12 @@ H8L8h8l8p8t8x8
 h97Pl
 H9eeF
 H9fqW
-h9OSdp
 h9p9t9x9
 HABV34
 haehhV
 haehvV
 hagq0
 HairAccessory
-haLaW
 half_float
 half_float_pixel
 half_float_vertex
@@ -10810,8 +10712,7 @@ HANNz
 happened
 Haptic
 HapticService
-hAQklf
-hARAYhhI
+hARAYh
 hardsoft
 Hardware
 HardwareID
@@ -10845,8 +10746,6 @@ hBFrA
 hBGRsV
 hbPV3
 HCc3A
-hcdaf9
-hCFpp
 hCGd1
 hcinu
 hcinuW
@@ -10854,8 +10753,6 @@ HCLGc
 hCO8T
 hcQG7
 hdaehV
-hDBgZ
-hDBx4
 hdehbV
 hDGKbV
 hDNEIV
@@ -10940,10 +10837,6 @@ hfylgV
 HgaaU
 Hgvyvgl
 HgvyvglByq
-hH_QAh
-hh0n_
-hh8Ja
-hh8u_
 HHHH0
 HHPAV
 HHW4FriendEventType
@@ -10952,8 +10845,6 @@ hHXBR
 hhXpa
 HhXpAeS
 HhXpE
-hhxsa
-hhxva
 hidden
 HIDE_TAB_BAR
 HideChatWindow
@@ -11068,7 +10959,6 @@ HrO_X
 hs3_V
 hSAK6
 hsFFoV
-hSFsOf
 Hsmall
 hSNRtQ
 hSNRtV
@@ -11076,7 +10966,6 @@ HSO3m
 hSp54
 Hstib
 HstibuU
-hSuBz
 hSVWh
 hSVWj
 hsYHpV
@@ -11210,10 +11099,7 @@ hungarumlaut
 Hungarumlautsmall
 Hurricane
 HVChangeHistoryService
-hVh7h
 HVKernel
-Hvnkq
-hvs5O
 HVSoundService
 HVWeakFunctionRef
 HVWorld
@@ -11252,7 +11138,6 @@ I51GA
 I5y7F
 i7STh
 i8Igr
-i8RbJ
 I8SVW
 i9zS8j
 Iacute
@@ -11272,7 +11157,6 @@ icemetal3
 icestone
 icestone2
 icestone3
-icGXo
 Icircumflex
 Icircumflexsmall
 IcmpCreateFile
@@ -11287,7 +11171,6 @@ IcmpSendEcho
 iconname
 icons
 iCreateDXGIFactory1
-icXUKe
 ID_CONNECTION_LOST
 ID_CONNECTION_REQUEST_ACCEPTED
 Id_Decals
@@ -11320,7 +11203,6 @@ iEIBa
 IENccFuryyFgnegreFpevcg
 Ierusalimschy
 IEUho
-ieUxO
 IEVJY
 iFdYU
 iFfSS
@@ -11341,7 +11223,6 @@ IGQR_
 Igrave
 Igravesmall
 IGUN4
-IHfhAL
 IHW4FMOD_SPEAKERMODE
 IIABVInstanceIdentifier
 IID_IAMDirectSound
@@ -11371,11 +11252,9 @@ IID_IVPObject
 IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
-IiK9i
 IIPAPAX0PAI1
 ij0QB
 Ij6ww
-iJcdc
 iJCNe
 IJdej
 IJEJl
@@ -11667,7 +11546,6 @@ intrusive_ptr_target
 IntValue
 inU3L
 InUse
-inVAa
 invalid
 INVALID_ARGUMENTS
 invalid_line
@@ -11713,11 +11591,8 @@ iOSAppSettings
 iostream
 iostreams
 IP6AIPAUlua_State
-iPAcX
 IpAddress
 ipairs
-ipbDq
-IpCAtEp
 IpFilter
 IPHLPAPI
 iPhone
@@ -11827,7 +11702,6 @@ IStepped
 ISteppedLifetime
 IsThrottledByCongestionControl
 IsThrottledByOutgoingBandwidthLimit
-IstiNU
 istreambuf_iterator
 IsTreeShown
 IsUnknownOrUnder13
@@ -11908,8 +11782,6 @@ j6MaR
 j7H3S
 j9dag
 j9jjhm
-j9SJfB
-j9XBf
 j9xrgm
 Jacobians
 JAN9f
@@ -11931,7 +11803,6 @@ jcXI3
 jd_PG
 Jdc6m
 jdelta
-JDG5Y
 jdPjeS
 jdxgU
 jEN_r
@@ -11955,7 +11826,6 @@ JiF1X
 jIfdp
 jjTTE
 jJyJZ
-jkHAU
 jKjKh
 jKjTh
 jKjXjlhc
@@ -11963,7 +11833,6 @@ jKq5C
 jL_1F
 jl66Z
 jL66Zl
-jLhd_
 jljnjmj
 jLjoh
 jLwHRC
@@ -12061,7 +11930,6 @@ JumpReplicate
 JumpRequest
 JumpTo
 JumpToIndex
-juSe1
 Juvfcre
 JuvfcreZrffntr
 JUyB5
@@ -12084,7 +11952,6 @@ jYjYh
 jYjzh
 JyZWI
 JzCxB
-jZhpZ
 JZJdp
 K_Key
 K_Key_dn
@@ -12105,9 +11972,7 @@ KaiTi_GB2312
 kBeg_W
 kbsPs
 KBytesPerSec
-KBzQy
 KcHQM
-kCilQ
 kcQrvnb
 kCtMP
 KdVPW
@@ -12176,7 +12041,6 @@ KIZ3O
 kK04k
 kkAkv
 KkF0J
-KKtji5
 kM7vO
 KmeQU
 KMkZS
@@ -12267,7 +12131,6 @@ lambda_3cfcc05ba7b39f9940250f044fcfd4f6
 lambda_40e0e2d79b604e383ecd0dc70d437a51
 lambda_4835f9657cb7c7624c4cd670344ace1e
 lambda_4841fe9782f84a79ca68849f200b522a
-lambda_49ef1c05c81f81afb5ff2610e6a5a7fb
 lambda_4a1aaf677869e984300037170ceb5065
 lambda_4aebd6dd3ede96ee87f01223ee55f757
 lambda_4ff92ccafac08f23450e646399ae350a
@@ -12325,7 +12188,6 @@ lambda_d0093f2b28594092d4e0424c3f4c915d
 lambda_d6ad5f7c46ef55e21a7b2fe1f8b3f1cc
 lambda_d6e523e38e3d838b3077c48b98468724
 lambda_d725da7e943126b3b2d5b58446f01852
-lambda_db9da9b13f9e86d0368834997061b3c9
 lambda_dfee488dd6a3e08fd9f41d869d6d2ae1
 lambda_ea138742fc80a405332513f6834416f1
 lambda_eaf4fd85e44ba8643756c9ea1fac7faa
@@ -12380,7 +12242,6 @@ layout
 LayoutErrors
 layoutInfo
 LayoutOrder
-Lb52jm0
 Lbf5U
 lbgrt
 LbWfyp
@@ -12394,7 +12255,6 @@ LCMapStringW
 lcmnw
 LCvi0_
 lDDDDDD
-lDDSi
 ldexp
 ldgEq
 LDJCf
@@ -12742,7 +12602,6 @@ LOOK_UPSTREAM_ONLY
 lookup
 lookVector
 Looped
-loril
 LostConnection
 LostLock
 LostReliableConnection
@@ -13511,7 +13370,7 @@ MEJcU
 MeleeWeapons
 member
 members
-membershipType
+MembershipType
 MembershipTypeReplicate
 MemEnforcedLRUCache
 meminfo
@@ -13523,7 +13382,6 @@ MemoryInputStream
 MemoryLevel
 MemoryMapFontFiles
 MemoryPlaceIDReportThreshold
-menAH
 MenuArray
 MenuClosed
 MenuIsOpen
@@ -13841,12 +13699,10 @@ MP8PartInstance
 MPDVFu
 mpM7f
 MQ2ad
-MQ6n9Z
 mr35PxbJ8rQ
 mrbGm
 MRHcu
 mRmom
-MsahU
 MsecBetweenTextureMemoryUsageArrayRefresh
 msgBytesRecv
 msgBytesRecvAndIgnored
@@ -13928,11 +13784,8 @@ N89N0u
 N8aBb
 N8tdz
 N8Yej
-N9NpJ
 N9OaP
-n9TCVb
 NaaNi
-nAl1d
 name_gen_delete
 name1
 name2
@@ -13986,7 +13839,6 @@ NccPbagnvare
 NccUbzr
 NccUho
 NccYbnqrq
-nCkid
 nColorIndex
 nContextSwitchEnabled
 nCount
@@ -13995,7 +13847,6 @@ NCxky
 NdrAVhl
 nDrawCount
 Ndyw7
-ne_A8
 necessary
 NeckAccessory
 needs
@@ -14101,11 +13952,9 @@ nFrameLast
 nFrameRows
 ngDtf
 NggnpuPnzren
-NgJ3k
 NGN4b
 NgQmq
 nGroup
-Nh0ra
 NH9NLu
 nHeight
 nhGzw
@@ -14158,7 +14007,6 @@ nMetaCharacters
 nMetaCount
 nMetaIndex
 nMetaLen
-nMeuV
 nMinTimeMs
 nMinWidth
 nMinWidthPan
@@ -14281,7 +14129,6 @@ nToken
 NtOpenFile
 nTotalRowPixels
 nTotalRows
-NTPfw
 NtQueryAttributesFile
 NtQuerySection
 NtUnmapViewOfSection
@@ -14378,7 +14225,6 @@ O00_g
 O03kG
 O06_yz
 O09O4u
-O0d0o0
 o11ck
 o2QKU
 O5OFO
@@ -14402,7 +14248,6 @@ Obstacle
 obtain
 Obtained
 obwQ4
-oc_Ue
 OC2Fx
 OccludeAll
 occlusion_query
@@ -14452,10 +14297,8 @@ Ogoneksmall
 Ograve
 Ogravesmall
 OhfvarffYbtvp
-ohhC_
 ohk6s
 OhooyrPung
-ohpea
 OHPSQ
 ohRCa
 OHSSVSSW
@@ -14486,7 +14329,6 @@ Olivine
 OLLZ5
 Omega
 omitted
-OmlIR
 OnAdjustSpeed
 OnAdjustWeight
 onAncestorChanged
@@ -14558,7 +14400,6 @@ onStepped
 OnStop
 OnTeleport
 OnTeleportInternal
-OnTTj
 OnUndo
 OnUpdate
 onUpdateKeys
@@ -14701,8 +14542,6 @@ OutrageousBuildersClub
 outside
 outstanding
 OutTouches
-ouWAU
-OvajQ
 over13
 Overall
 overflow
@@ -14796,7 +14635,6 @@ OweyK
 Owned
 Owner
 ownership
-OwZtp
 oXEe1
 OybpxCynlreCebzcg
 OYJHe
@@ -14887,7 +14725,6 @@ P8DialogChoice
 P8DialogRoot
 P8DistortionSoundEffect
 P8DynamicRotate
-P8ebU
 P8EchoSoundEffect
 P8EqualizerSoundEffect
 P8Explosion
@@ -15044,8 +14881,6 @@ P8Workspace
 p9BQZ
 PA_N0
 PA_NV
-pA49S
-PaBS1U
 pack_invert
 pack_reverse_row_order
 Package
@@ -15796,7 +15631,6 @@ PersonalServerService
 perthousand
 PerThreadTimer
 PerThreadTimerTotal
-pEuBE
 pEvents
 pExecutionResource
 Pff4p
@@ -15849,11 +15683,8 @@ phong_shading
 Phosph
 PhPCCiV
 PhTADIV
-pHTB1
 PhTLPsV
 PhTSIhV
-PhTv_
-PhTx1
 PhtXEtW
 PhtXTiV
 PhtXTzW
@@ -16154,7 +15985,6 @@ PointsServiceBatchingImplOnUpdateDelaySeconds
 pointToObjectSpace
 pointToWorldSpace
 Poison
-poKmt
 PoliceCap
 polygon
 polygon_offset
@@ -16202,7 +16032,6 @@ PPPVS
 PPPWS
 ppVirtualProcessorRoots
 PPVWP
-pPwdJ
 PQ123
 PQAeS
 pqgjy
@@ -16212,7 +16041,6 @@ PQjdR
 PQPVP
 PQRVh
 PQSVW
-PqwhJ
 PQWQj
 Pr06U
 preceded
@@ -16433,9 +16261,7 @@ PShCLBC
 pshinter
 Psmall
 psnames
-psUZU
 PSVRj
-PSWhx
 PSWSS
 pTd3Q
 pThreadProxy
@@ -16446,7 +16272,6 @@ PublishedProjectsPageHeight
 PublishedProjectsPageUrl
 PublishedProjectsPageWidth
 Publisher
-puLAc
 PunaaryfGno
 PunaaryfOne
 punct
@@ -16495,9 +16320,7 @@ putback
 putImageData
 pv8l0
 PVAdornment
-PVhlR
 PVhnrek
-PVhPQ
 PVInstance
 PViuT
 pvOMv
@@ -16511,7 +16334,7 @@ PWh8Pb
 PWjUR
 pWsgp
 PWSQV
-PWVhl
+PWVhd
 PWWVW
 PwY3Z
 pwYEg
@@ -16538,7 +16361,6 @@ q28a_
 q2PC5
 Q2XXR
 Q3EbS
-q4Ph8
 q4qIqQ
 q4W5o
 Q5YSMp1
@@ -16549,11 +16371,8 @@ Q7QWQ
 Q8o8v8
 QA3oCA
 qaINs
-qAYgm8U
 qBEbd
 qBUk_
-qBWnq
-qC7QZ
 QcQIT
 Qcrep
 QCtbl
@@ -16584,7 +16403,6 @@ qkfWN8B
 QkK04
 Qkkbal
 qkkeg
-qkKsU
 QlanzvpGuhzofgvpx
 Qlptb8
 qmDpO
@@ -16606,10 +16424,6 @@ QQSVWd
 QQSWj0j
 QQVWj
 QQWPQ
-QrcFg
-QrECfO
-QRh4x
-QRhLF
 QrirybcrePbafbyr
 QrirybcrePbafbyrZbqhyr
 Qroht
@@ -16628,14 +16442,11 @@ QSSSSj
 qsUwV
 QSVW3
 QSVWh
-QSVWhP
 QSVWj
 QSVWj0
 QSVWjw
 QSVWQ
 QSWVj
-QsyVi
-qTVXpn
 QUAD_WIDTH
 Quality
 QualityLevel
@@ -16700,7 +16511,6 @@ quotesinglbase
 quotesingle
 QvfnoyrPebffcynlBireynl
 qvids
-qvLGR
 Qvnybt
 QvnybtPbzcbaragf
 qVuMH
@@ -16736,7 +16546,6 @@ R15CompositLeftArmBase
 R15CompositRightArmBase
 R15CompositTorsoBase
 R15DefaultCollisionType
-r1fC4
 r1GWg
 R1h58
 R2a2l4v4
@@ -16805,7 +16614,6 @@ RangeSelect
 RangeSet
 RangeValid
 RanoyrPebffcynlBireynl
-ras8J
 raster_multisample
 raster1
 rasterizeTile
@@ -16944,7 +16752,6 @@ RDEFu
 RDHIu
 RDHIu5
 rdwbWV
-rDzsi
 reached
 ReachedTarget
 ReactionForceEnabled
@@ -17507,7 +17314,6 @@ rHnESVM
 RhpRa
 Ribbon
 RibbonTool
-Ric6S
 richard
 RigAttachment
 Right
@@ -17570,7 +17376,6 @@ RLTDt
 rmDZvu
 RmsXA
 RmwDh
-rnAaU
 rncst
 RnfrSvygref
 RngUhB
@@ -17696,7 +17501,6 @@ runService
 runtime
 RuntimeScriptService
 RuntimeUndoBehavior
-RuPap
 rupiah
 RUUUUU
 rV7Ml
@@ -17759,22 +17563,19 @@ SavedQualitySetting
 saveFilter
 SaveGame
 SaveInstance
-saveNumber
+SaveNumber
 SavePlace
 SavePlaceAsync
 SavePlacePerMinute
 SaveSelectedToRoblox
 SaveStats
-saveString
+SaveString
 SaveToRoblox
 saveToRobloxAction
 SaveWorld
 Saving
 saying
-sAYRPi
 sb11S
-sb9Xc
-Sbief
 sBinaryStringValue
 sBoolValue
 sBrickColorValue
@@ -18080,7 +17881,6 @@ SendTouches
 SensApi
 Sensor
 SentTouchPackets
-sEoH5
 Separate
 separate_shader_objects
 separate_specular_color
@@ -18089,7 +17889,6 @@ separated
 separating
 Seperate
 September
-SEQub
 sequence
 sequenceName
 sequenceNumber
@@ -18419,7 +18218,6 @@ SevraqfYvfg
 SevraqPbhag
 SevraqWbvaAbgvsvre
 SewerPipe
-seYPd
 SFFlag
 sFFou
 SFInt
@@ -18497,13 +18295,11 @@ ShcolbW
 Shda0
 ShDj0
 shdoclc
-ShdZh
 Shell_traywnd
 Shell32
 ShellExecuteA
 ShellExecuteW
 SHEXuF
-SHfFk
 SHGetFolderPathAndSubDirW
 SHGetFolderPathW
 SHGetKnownFolderPath
@@ -18553,7 +18349,6 @@ ShtadbV
 ShTADIV
 ShTDBCV
 ShTDBEV
-Shtq0
 shTXEBZ
 Shutdown
 Shutting
@@ -18653,7 +18448,6 @@ sizes
 SjdVW
 SjkGm
 SJniO
-Sjoot
 skateboard
 skateboardController
 SkateboardPlatform
@@ -18708,7 +18502,6 @@ Slime
 sling
 Slingshot
 SlingshotTexture
-SlNJz
 SlowHttpRequest
 SLSnSzS
 sLVWj
@@ -18716,7 +18509,6 @@ small
 SMALL_CAP_SIZE
 smaller
 SmartRoundUIObjects
-smljF
 Smoke
 smoke_color
 smoke_main
@@ -18792,7 +18584,6 @@ SolverLog_Client
 SolverUsageTimeMeasurementInterval
 SolveWorld
 sombrero
-sOMd7
 SomeNameHere
 Something
 sorry
@@ -18859,7 +18650,6 @@ SourceSansItalic
 SourceSansLight
 SourceSansPro
 SourceValueChanged
-SOvKf
 sp_counted_impl_p
 sp_counted_impl_pd
 sp_ms_deleter
@@ -18913,7 +18703,6 @@ Spent
 Sphere
 SphereHandleAdornment
 SphericalSparklesEmission
-SPhPPu
 Spike
 spkRr
 splat
@@ -18943,7 +18732,6 @@ SQ0Op
 SqRIL
 squared
 SQVWP
-sR2qB
 sRayValue
 src5F
 SReab
@@ -18964,7 +18752,6 @@ sSfff
 SSLErrorLogAll
 ssloc
 Ssmall
-ssO3u6
 SSPQSS
 ssrem
 SSSSS
@@ -19063,7 +18850,6 @@ status
 StatusAdded
 StatusCallback
 StatusRemoved
-Stcn7
 StdHW
 stdin
 stdio
@@ -19124,7 +18910,6 @@ store
 stored
 storing
 Storm
-stqn_
 Strafe
 Strafing
 StrafingNoPhysics
@@ -19286,7 +19071,6 @@ supported
 SupportRemoteKnownSFFlags
 supports
 supposed
-suPuh
 surface
 surface_dn
 surface_ds
@@ -19352,7 +19136,6 @@ SVWtt
 SVWtw
 SVWtz
 SVWUj
-Sw5IR
 swap_control
 swap_control_tear
 swap_frame_lock
@@ -19429,9 +19212,7 @@ t2sMM
 t3hT8
 t3VQW
 t4SWV
-T4V5f7v8
 t4VWQ
-t4Whl
 t59G4u0
 t5cNi
 t5Sh0
@@ -19489,7 +19270,6 @@ TattletaleReportUnfilteredJobMaxReportsPerTick
 taupe
 Tawny
 TbbtyrNanylgvpfHgvyf
-tbhPO
 tBPVR
 tbpWz
 tbscp
@@ -19845,8 +19625,6 @@ TickCountPreciseOverride
 TickCountSampleMethod
 ticket
 TicketProcessed
-TifID
-tIhLW
 Tilde
 Tildesmall
 tileCount
@@ -20192,17 +19970,13 @@ trustLevel
 TryAcquireSRWLockExclusive
 TryEnterCriticalSection
 trying
-Tryis
 tryLoad
 tryLoadAsync
 tryLoadAsync_contentProviderLoaded
 tryLoadAsync_createSound
 tryLoadAsync_getFile
 tryLoadContentAsync_contentProviderLoaded
-tRYQow
 tsbat
-tSh0u
-tShhO
 TSIhu
 TSItemC
 Tsmall
@@ -20246,7 +20020,6 @@ tutorialId
 TUUUU
 TVTnS
 tVWHj
-TwAeQ
 tween
 TweenBase
 tweened
@@ -20312,7 +20085,6 @@ u0T1X1
 u0Whx
 U2k0I
 U2lTu
-U3gR1
 u3jHf
 u3jTf
 u3jXf
@@ -20329,13 +20101,10 @@ U54QRT6
 u6j8f
 U71mB
 u7j8Q
-u83Rf
 u8SS3
 u8SSQ
 U91UU
 U9C0g
-U9L2Q
-u9O9q
 Uacute
 Uacutesmall
 UAE_NAAVbtVoronoiSimplexSolver
@@ -20350,16 +20119,13 @@ Ubad_exception_
 Ubad_month
 Ubad_year
 ubf9Y
-uBhlk
 uBjAYjZ
 Ubuntu
 UbzrCnar
-uc_HaU
 UCachedContent
 UCachedFriendStatus
 UCachedLuaWebServiceInfo
 UCachedRawLuaWebServiceInfo
-UCB2E
 Uchain_impl
 uchar
 Ucircumflex
@@ -20368,7 +20134,6 @@ UCpoL
 uCPVj
 UCreatePathRequest
 uCSVW
-ucVhP
 Udata
 Udelete_data
 uDf9Ypu
@@ -20376,9 +20141,7 @@ Udieresis
 Udieresissmall
 UDim2
 Udir_itr_imp
-UDl72
 UdtTileCacheAlloc
-uehPR
 UEUeUt
 UEventInstance
 UEvents
@@ -20453,7 +20216,6 @@ UItemTag
 UITextSizeConstraint
 UIUnknown
 UJf9Q
-uJhhI
 uJjLf
 uJjXf
 UjNlU
@@ -20486,7 +20248,6 @@ Um_imp
 UMD9jytU
 UMeshResource
 UMessageAndSenderId
-uMhDx1
 UMJi4
 UMouseDownCaptureInfo
 uMPPPP
@@ -20550,7 +20311,6 @@ uninitialized
 uninstall
 Union
 UnionOperation
-UnIop
 unique
 unique_lock
 UniqueID
@@ -20686,7 +20446,6 @@ UpDown
 uPf9YPuJf9Y
 upgrade
 upgrade_lock
-UPHUE
 upload
 uploaded
 UploadExistingAsset
@@ -20712,7 +20471,6 @@ upsample
 UPsqi
 upTo_Equipped
 Upublic_
-uPuXnU
 upval
 upvalue
 upVector
@@ -20740,7 +20498,6 @@ Urun_custom_cleanup_function
 US14116
 US14116_pt2
 Usage
-Usbk2
 UseBitCountLimit
 useCache
 UseContentFolderHumanoidHealthScript
@@ -20832,18 +20589,14 @@ UseThreadedScreenshot
 UseUpdatedKeyboardSettings
 UseUpdatedR15CharacterModel
 UseWorldSpaceMechanismInterpolationThreshold
-usFWU
 UShared
 Ushared_state_base
 ushort
 using
 UsingCSG
 UsingMeshPart
-USKE6C
 USleepingTag
-USlUh1
 Usmall
-USrcZw
 UStandardOutMessage
 UStartGameParams
 UStartGameStatistics
@@ -20865,7 +20618,6 @@ utility
 UTryLoadAsyncCallbackParams
 UTuple
 Uu5pP
-uUh8Z
 uuhhh
 uUhhO
 Uunspecified
@@ -20885,8 +20637,6 @@ UYFbK
 uyPOn
 UyQYg
 uZEeu
-uZhpl
-uzRCu
 uZRQh
 uzVSW
 V__ExceptionPtr
@@ -20900,9 +20650,6 @@ V0WD2
 v1beta1
 v1cT9
 v1hAn
-V1uDB
-v1V2W3e4
-V2_2l2
 V24iV
 v2minmax
 V2tVj
@@ -20982,7 +20729,6 @@ VBinaryString
 VBindableEvent
 VBindableFunction
 VBitStream
-vBksR
 VBlockMesh
 VBloomEffect
 VBlurEffect
@@ -21075,7 +20821,6 @@ VCylinderHandleAdornment
 VCylinderMesh
 VCylindricalConstraint
 Vd22Nt
-vd9MU
 VD9VHt
 VDataModel
 VDataModelMesh
@@ -21089,7 +20834,6 @@ VDebuggerBreakpoint
 VDebuggerManager
 VDebuggerWatch
 VDebugSettings
-VDEC2
 VDecal
 VDecalTexture
 VDeleter
@@ -21122,7 +20866,6 @@ vdpau_interop
 Vdr2VT
 vdr4F
 VDropperTool
-vDt0F
 VDummyArbiter
 VDynamicRotate
 VeaFOfb
@@ -21140,7 +20883,6 @@ vectorToObjectSpace
 vectorToWorldSpace
 VehicleController
 VehicleSeat
-vEHsk
 velocity
 VelocityInheritance
 VelocityMotor
@@ -21215,7 +20957,6 @@ VerticalScrollBarInset
 VerticalScrollBarPosition
 VerticalWedge
 vertices
-veSCU
 VEvents
 Vexception
 VExplosion
@@ -21280,7 +21021,6 @@ VGlobalAdvancedSettings
 VGlobalBasicSettings
 VGlue
 VGlueTool
-VgMX5
 VGoogleAnalyticsConfiguration
 VGrabTool
 VGroupService
@@ -21310,11 +21050,9 @@ VhdaehS
 VhDqZ
 VHeartbeatTask
 VHeightfieldBuilder
-Vhhv1
 VHingeConstraint
 VHingeTool
 VHint
-Vhlh_
 VHole
 VHopper
 VHopperBin
@@ -21369,7 +21107,6 @@ VImage
 VImageHandleAdornment
 VImageLabel
 VImmK
-vin1F
 VIndexBufferD3D9
 VInletTool
 VInputObject
@@ -21401,7 +21138,6 @@ Vislot
 Visual
 VisualEngineInit
 VItem
-viu4p
 VivePresenceWorkaround
 viWrU
 VJobS2
@@ -21562,7 +21298,6 @@ vkGetPipelineCacheData
 vkGetQueryPoolResults
 vkGetRenderAreaGranularity
 vkGetSwapchainImagesKHR
-Vkhib
 vkInvalidateMappedMemoryRanges
 vkMapMemory
 vkMergePipelineCaches
@@ -21651,7 +21386,6 @@ VNumberRange
 VNumberSequence
 VNumberSequenceKeypoint
 vnvyv
-vNxWVs
 VObjectValue
 VodsZ
 VoiceRecogDuration
@@ -21663,7 +21397,6 @@ Volume
 VOneQuarterClusterPacketCache
 voodi
 VOPci
-VOPjf
 Voption_description
 VOrderedDataStore
 VOrientationConstraint
@@ -21724,7 +21457,6 @@ VProtectedString
 vPse4
 VPVAdornment
 VPVInstance
-VPWhL
 VPWPh
 VPyramidInstance
 VQJBD
@@ -21839,7 +21571,6 @@ VRInitError_VendorSpecific_HmdFound_UnableToSendUserDataStart
 VRInitError_VendorSpecific_HmdFound_UserDataAddressRange
 VRInitError_VendorSpecific_HmdFound_UserDataError
 VRInitError_VendorSpecific_UnableToConnectToOculusRuntime
-Vrk7X
 vrl0tv
 VRobloxReplicatedStorage
 VRocket
@@ -21866,7 +21597,6 @@ VRunStateVerb
 Vruntime_error
 VRuntimeScriptService
 VRunTransition
-vsBpC
 VScale9Frame
 Vscoped_connection
 VScreenGui
@@ -21906,7 +21636,6 @@ VSharedBinaryStringDictionary
 VSharedStringDictionary
 VShirt
 VShirtGraphic
-VShTR
 VSimulateStage
 VSkateboardController
 VSkateboardPlatform
@@ -21988,7 +21717,6 @@ Vtoo_many_positional_options_error
 VTool
 VToolbar
 VTopNErrorsPhysicsSender
-VTopz
 vtordisp
 vtordispex
 VTorqueActuator
@@ -22056,7 +21784,6 @@ VVideoRecord
 VViewBase
 VVirtualUser
 VVisit
-VVoBU
 VVRService
 VVVVS
 VVVVV
@@ -22162,7 +21889,6 @@ W4GearType
 W4Genre
 W4GraphicsMode
 W4GuiType
-W4hiN
 W4HorizontalAlignment
 W4HttpContentType
 W4HttpRequestResult
@@ -22271,11 +21997,9 @@ W4VisualStyle
 W4VisualTrussStyle
 W4WaterCellDirection
 W4WaterCellForce
-w4Wh0
 W4work_result
 W4XAlignment
 W4YAlignment
-W4ZdU
 w5NCs
 W846tdx0A
 WaistAccessory
@@ -22339,7 +22063,6 @@ wau2A
 WAVEu
 waypoint
 waypoints
-wB9WW
 wBc12
 WBWSW
 wchar_t
@@ -22686,7 +22409,6 @@ Worst
 worstend
 worststart
 worstthread
-Worwh
 would
 Woyjt2
 WP10r
@@ -22732,7 +22454,6 @@ wstring
 WSVPP
 WSVRh
 Wt0gI
-wT55O
 WT9OD
 WText
 WTHelperGetProvSignerFromChain
@@ -22775,7 +22496,6 @@ X9UIu
 xaffJ
 XBase
 XBegin
-xBnIn
 XBox360
 XBoxAppSettings
 XboxEnableGA
@@ -22786,9 +22506,7 @@ XboxUseRobloxInput
 xBvxr
 XCXVXac
 xdata
-Xdib_
 xdigit
-XdipE
 Xdkrw
 XdpGAH
 xdtvb
@@ -22818,7 +22536,6 @@ xiSVW
 xIxRx
 xjVAx
 Xk2h82
-XK9Lu3
 Xkj3d
 xkvf0
 XlM6D
@@ -22880,9 +22597,6 @@ xt98xS
 XText
 xtmht
 xtmvu
-Xu1owl
-Xu64M
-XUB1T
 XUEventSlot
 XVAccoutrement
 XVAdService
@@ -23004,7 +22718,6 @@ XVToolMouseCommand
 XVTopNErrorsPhysicsSender
 XVTouchScrollable
 XVTrailNode
-xVubt
 XVUILayout
 XVUIPageLayout
 XVUserInputBase
@@ -23052,7 +22765,6 @@ y8IFd
 Y8P3Yx
 Y8z3n
 y92SQ
-y9B8Q
 Yacute
 Yacutesmall
 YARGtB
@@ -23066,7 +22778,6 @@ YbnqvatVaqvpngbe
 YBottom
 YbpnyFbhaq
 YbpnyvmrqFgevatf
-yBPwpH
 YbpxrqTnzrFbegIvrj
 YbpxrqTnzrPnebhfryIvrj
 YBu2O
@@ -23106,12 +22817,10 @@ YLYVh
 Yn9F4
 YNext
 YnfreCbvagre
-yniso
 YnmlFpebyyvatTevq
 YnmlSevraqfIvrj
 YODDn
 YOffset
-YoPnU
 youtube
 yoYPi
 ypcall
@@ -23125,15 +22834,12 @@ YShca
 Ysmall
 ySMuN
 YSpace
-YsSx7
 YText
 ytrZU
 Yu_aX
 YUGvU
 Yv3Sp
 YvaxNppbhagFperra
-YvcSVyF
-YVcZU
 YvfgFrpgvba
 YvfgRagel
 yViNe
@@ -23198,12 +22904,9 @@ zfW6x
 ZfycG
 Zgx9sN
 ZhgrFcrnxre
-ZhHD_
 ZiA5n
 ZiMqm
 ZIndex
-ZIy4W
-zJ62lb
 zJvczC
 zkpKp
 Zl66A
@@ -23217,7 +22920,6 @@ zntMdl
 ZnvaObgPungFpevcg2
 ZO_gLW
 ZOffset
-zojY8
 ZOOM_TIME
 ZoomActive
 ZoomFunc
