@@ -383,6 +383,8 @@ Classes
 	Decal
 	DecalTexture
 	DecalTool
+	DeferredEphemeralCounters
+	DeferredEphemeralStats
 	DeleteBase
 	DeleteInstanceItem
 	Deleter
@@ -646,7 +648,6 @@ Classes
 	ICreator
 	IDataState
 	IDec
-	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -1320,7 +1321,6 @@ Classes
 	windows_file_codecvt
 	Workspace
 	WorkspaceStatsItem
-	wpY
 	Writer
 	XmlParser
 	XmlWriter

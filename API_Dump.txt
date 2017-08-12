@@ -2167,6 +2167,7 @@ Class ServiceProvider : Instance [notbrowsable]
 Class DataModel : ServiceProvider
 	Property int DataModel.CreatorId [readonly]
 	Property CreatorType DataModel.CreatorType [readonly]
+	Property int DataModel.GameId [readonly]
 	Property GearGenreSetting DataModel.GearGenreSetting [readonly]
 	Property Genre DataModel.Genre [readonly]
 	Property bool DataModel.IsSFFlagsLoaded [readonly] [RobloxScriptSecurity]

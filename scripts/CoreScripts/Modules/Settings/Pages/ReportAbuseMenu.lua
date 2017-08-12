@@ -52,6 +52,9 @@ local enableReportAbuseMenuFix = enableReportAbuseMenuFixSuccess and enableRepor
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 
+local reportPlayerAutoSelectSuccess, reportPlayerAutoSelectValue = pcall(function() return settings():GetFFlag("ReportPlayerAutoSelect") end)
+local reportPlayerAutoSelect = reportPlayerAutoSelectSuccess and reportPlayerAutoSelectValue
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -127,8 +130,19 @@ local function Initialize()
 		end
 
 		if nextPlayerToReport then
-			this.WhichPlayerMode:SetSelectionByValue(nextPlayerToReport.Name)
+			local playerSelected = this.WhichPlayerMode:SetSelectionByValue(nextPlayerToReport.Name)
 			nextPlayerToReport = nil
+
+			if this.GameOrPlayerMode.CurrentIndex == 2 then
+				if reportPlayerAutoSelect then
+					if playerSelected then --if the reported player is still in game
+						--Auto select type of abuse when report a player
+						GuiService.SelectedCoreObject = this.TypeOfAbuseMode.DropDownFrame
+					else
+						GuiService.SelectedCoreObject = this.WhichPlayerMode.DropDownFrame
+					end
+				end
+			end
 		end
 	end
 

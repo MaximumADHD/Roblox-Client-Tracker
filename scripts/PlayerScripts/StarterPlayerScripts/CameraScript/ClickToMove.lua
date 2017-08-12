@@ -1,5 +1,15 @@
 -- Written By Kip Turner, Copyright Roblox 2014
 
+local newClickToMove = script:FindFirstChild("NewClickToMove")
+if newClickToMove then
+	local newClickToMoveFlagSuccess, newClickToMoveFlagEnabled = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UseNewClickToMove")
+	end)
+	local useNewClickToMove = newClickToMoveFlagSuccess and newClickToMoveFlagEnabled
+	if useNewClickToMove then
+		return require(newClickToMove)
+	end
+end
 
 local UIS = game:GetService("UserInputService")
 local PathfindingService = game:GetService("PathfindingService")

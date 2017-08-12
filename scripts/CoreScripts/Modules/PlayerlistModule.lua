@@ -23,6 +23,9 @@ local enableConsolePlayerSideBar = enableConsolePlayerSideBarSuccess and enableC
 local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
 local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
 
+local fixGamePadPlayerlistSuccess, fixGamePadPlayerlistValue = pcall(function() return settings():GetFFlag("FixGamePadPlayerlist") end)
+local fixGamePadPlayerlist = fixGamePadPlayerlistSuccess and fixGamePadPlayerlistValue
+
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
 	-- because it caused a bug where the local players name would show as Player in game.
@@ -1556,7 +1559,18 @@ end
 local function removePlayerEntry(player)
   for i = 1, #PlayerEntries do
     if PlayerEntries[i].Player == player then
+      local prevSelectedCoreObject = GuiService.SelectedCoreObject
       PlayerEntries[i].Frame:Destroy()
+      if fixGamePadPlayerlist then
+        --Fix lose selection
+        if Container.Visible then
+          --prevSelectedCoreObject get removed, reset selection
+          if prevSelectedCoreObject and not GuiService.SelectedCoreObject then
+            --SelectedCoreObject gets removed, selects the first frame
+            setVisible(true)
+          end
+        end
+      end
       table.remove(PlayerEntries, i)
       break
     end
@@ -1732,6 +1746,7 @@ local closeListFunc = function(name, state, input)
   UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 end
 
+--fromTemp is always false when fixGamePadPlayerlist is on, remove the second arg when removing FFlagfixGamePadPlayerlist
 setVisible = function(state, fromTemp)
   Container.Visible = state
   local lastInputType = UserInputService:GetLastInputType()
@@ -1748,13 +1763,22 @@ setVisible = function(state, fromTemp)
           if isUsingGamepad and not fromTemp then
             GuiService.SelectedCoreObject = frameChildren[i]
             GuiService:AddSelectionParent("PlayerlistGuiSelection", ScrollList)
-            UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-            ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
-            ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+            if not fixGamePadPlayerlist then
+              ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
+              ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+            end
           end
           break
         end
       end
+    end
+    --We need to OverrideMouseIcon and rebind core action even if the ScrollList is empty
+    if fixGamePadPlayerlist and isUsingGamepad then
+      UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+      ContextActionService:UnbindCoreAction("CloseList")
+      ContextActionService:UnbindCoreAction("StopAction")
+      ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
+      ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
     end
   else
     if isUsingGamepad then
@@ -1795,11 +1819,11 @@ Playerlist.HideTemp = function(self, key, hidden)
 
   if next(TempHideKeys) == nil then
     if isOpen then
-      setVisible(true, true)
+      setVisible(true, not fixGamePadPlayerlist)
     end
   else
     if isOpen then
-      setVisible(false, true)
+      setVisible(false, not fixGamePadPlayerlist)
     end
   end
 end

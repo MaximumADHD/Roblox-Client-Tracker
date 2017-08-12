@@ -1,3 +1,4 @@
+AbsoluteContentSizeChangedEvent
 AccErrorDrainedThousandth
 AccessoriesAllHaveSameBuoyancy2
 AccoutrementWeldingFilteringEnabled
@@ -18,7 +19,11 @@ AllowInsertFreeModels
 AllowMultipleHangReports
 AllowMultiRotationInterpolation
 AllowNewClientTicketFormat
-AnalyticsUseV2BulkStatsEndpoint
+AnalyticsDeferredEphemeralReportingIntervalSeconds
+AnalyticsKillDeferredEphemeralReportingThread
+AnalyticsMaxDeferredStats
+AnalyticsMaxFlushWaitTimeMs
+AnalyticsSupportDeferredEphemeralReporting
 AnchoredSendPositionUpdate
 AnimationStopNanFix
 AnimationTrackRaisePropertyChanged
@@ -83,9 +88,7 @@ CLI16089_2
 ClickDetectorCursorIconEnabled
 ClientInstanceQuotaCap
 ClientInstanceQuotaInitial
-ClientNetworkImprovedLoadStates
 ClientNetworkInfluxHundredthsPercentage
-ClientNetworkUseBulkStatsApi
 ClientUseNewClientTicket
 CloseFMODRemoveChildFix
 CloudEditKickDuplicatePlayersOnJoin
@@ -98,7 +101,6 @@ ContentProviderCheckExpectedTypeImage
 ContentProviderCheckExpectedTypeLua
 ContentProviderCheckExpectedTypeMesh
 ContentProviderCheckExpectedTypeSolidModel
-ContentProviderFixHarmonicLoadTime
 ContentProviderJobDutyCycleMicroseconds
 ContentProviderNoDataModelCheckFix
 ContentProviderPreloadInstance
@@ -262,6 +264,7 @@ EnableLightObjectsInAttachments
 EnableLoadingScreenPlaceIconTween
 EnableLowQualityBlur
 EnableNewLoadingScreen
+EnableNewNeon
 EnableNewSelectionLogic
 EnableOldDialogueStatTracking
 EnableParticleEmittersInAttachments
@@ -316,6 +319,7 @@ FixDeadDisabledCrash
 FixFinishCharacterLoadingCrash
 FixFreefallStuckIgnoreSelfContact
 FixGamepadNavigationInVR
+FixGamePadPlayerlist
 FixGamepadScrolling
 FixHandleHitDetection
 FixHandlesMouseEvents
@@ -355,6 +359,7 @@ FixSurfaceGuisBreakingAfterRespawn
 FixTeleportVideoRecordingCrash
 FixTextBoxLoseSelection
 FixTouchEndedReporting
+FixTouchSelectingTextBox
 FixUpsidedownAvatar
 FixVRGamepadInputEvents
 FixWeldedHumanoidsDeath
@@ -381,7 +386,6 @@ FriendServiceLoadFriendRequests
 FRMRecomputeDistanceFrameDelay
 FullMechanismInterpolation2
 FurtherOptimizeMeshBoxMap
-GameConfigurerUseBulkStats
 GameKeyboardV2IOS
 GameLifecycleStateTracking
 GamepadCameraSensitivityEnabled
@@ -518,6 +522,7 @@ LuaDebugProfilerTokenGCTimeMS
 LuaDebugProfileUserTokensCount
 LuaGcBoost
 LuaGcMaxKb
+LuaInstanceBridgeFixMicroprofilerLabels
 LuaStrlibLimitMatchDepth
 MakeHumanoidUnequipToolsSafe
 MakeSecure_AnalyticsMeasurement
@@ -616,7 +621,7 @@ OneWeldToRuleThemAll2
 OnlyNumbersForInfluxIds
 OptimizedContactCheckHighVelocitySleep
 OptimizedContactOverlapGoalHundredth
-OptimizedContactPipeline4
+OptimizedContactPipeline5
 OptimizedContactPipelineBulletCreateTwoPoints
 OptimizedContactPipelineImprovedBuoyancy
 OptimizedContactWakeDepth
@@ -684,11 +689,9 @@ PhysicsSenderRate
 PhysicsSenderRotationThresholdThousandth
 PhysicsSkipNonRealTimeHumanoidForceCalc
 PlaceholderText
-PlaceLauncherDetectJsonParseError
 PlaceLauncherExceptionInfluxHundredthsPercentage
 PlaceLauncherUsePOST
 PlayerAcceptPlayerScriptsStatus
-PlayerDetectJsonParseError
 PlayerDropDownEnabled
 PlayerGuiLoadsWithoutCharacterAutoLoads
 PointBalanceCacheInvalidateTimeMs
@@ -721,9 +724,7 @@ RCCKickDuplicatePlayersOnJoin
 RCCSupportCloudEdit
 RCCSupportTeamTest
 RCCUseMarketplaceApiClient
-ReceiverDictionaryThrowOnInappropriateDefault
 RecordInGameDeaths
-ReflectionUseFastEqualValues
 Region3WhitelistEnabled
 RegLambda
 RemoteDelayedQueueLimit
@@ -731,13 +732,10 @@ RemoveHumanoidHealthScriptsFromLegacyContentTable
 RemoveLeaveGameVerb
 RemoveMotor6DPoseFreshnessLogic
 RemovePhysicalCharacterHack
-RenderEnvNoDepthTest
-RenderExportCompressedDiffuse
 RenderInstancingEnabled5
 RenderMaxParticleSize
 RenderMeshReturnsCorrectly
 RenderMetalMac
-RenderNearZClipFix2
 RenderScreenDPIScale
 RenderShadowIntensity
 RenderSkyUseDynamicBuffers
@@ -755,6 +753,7 @@ ReportElevatedPhysicsFPSToGA
 ReportFeOnStartupPermyriad
 ReportInfluxHundredthsPercentage
 ReportInGameAssetSales
+ReportPlayerAutoSelect
 ReportRobuxUpsellEnabled
 ReportSolverUsageStats
 RequestPlaceInfoRetryCount
@@ -773,6 +772,7 @@ ScalingSeatWeldCrashFix
 ScrollBarSideEnabled
 ScrollFrameIgnoreInitialTouchDelta
 SecondsPerBatchAwardPointsCall
+SelectionBoxSizeBias
 SendAdditionalNonAdjustedTimeStamp
 SendAllPhysicsPackets
 SendHttpBodyOnFailureMaxBytes
@@ -864,7 +864,6 @@ StudioMockPurchasesEnabled
 StudioPreserveSelectionOnUndo
 StudioRecentActionCacheSize
 StudioRefreshPluginsWithoutReopening
-StudioRemoveGetUnusedTeamColor
 StudioReportCachedRecentActions
 StudioRespectMeshOffset
 StudioSaveSelectionToChangeHistoryWaypoints
@@ -900,10 +899,12 @@ TeamCreateDataStorePerKeyThrottleFixEnabled
 TelegrafTCPPort
 TelegrafUDPPort
 TeleportExceptionInfluxHundredthsPercentage
+TeleportMethodAnalyticsHundredthPct
 TeleportRetryTimes
 TestForBadNormal
 TexAtlasUpdateLineHeight
 TextBoxManualFocusRelease
+TextBoxSelectable
 TextFilterCacheAge
 TextFilterMaxCachedRequestMilliseconds
 TextSizeLimit
@@ -960,6 +961,7 @@ UseMatrix3ForInertiaTensor
 UseNDKFunctionMarshaller
 UseNetworkSchema2
 UseNewAppBridgeXbone2
+UseNewClickToMove
 UseNewNotificationPathLua
 UseNewPhysicsSender
 UseNewProtocolForStreaming
@@ -999,7 +1001,6 @@ WarnOnNoCoreFunction
 WebChatFilterHttpTimeoutSeconds
 WeldPermyriad
 WhiteListChatFilter
-WindowsCrashReporterEnableSpareMemoryFix
 WorldStepDtAveExpFactorHundredth
 WorldStepMax
 WorldStepsOffsetAdjustRate
