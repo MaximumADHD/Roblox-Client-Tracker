@@ -1369,7 +1369,7 @@ Enums
 	FontSize
 	FormFactor
 	FrameRateManagerMode
-	FriendStatus
+	FriendService_FriendStatus
 	GameAvatarType
 	GearGenreSetting
 	Genre
