@@ -1186,7 +1186,8 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 		if (enableDevConsoleDataStoreStats and permissions.MayViewServerMemory) then
 			local tabBody = Primitives.FolderFrame(body, 'ServerMemory')
 			local serverMemoryAnalyzer = ServerMemoryAnalyzerClass.new(tabBody)
-
+			local serverTab = nil
+			
 			-- When memory analyzer decides its new size, we get notified.
 			serverMemoryAnalyzer:setHeightChangedCallback(function(newHeight)
 					body.Size = UDim2.new(1, 0, 0, newHeight)
@@ -1195,8 +1196,8 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			-- Considering all state (is dev console even showing, which tab is showing), 
 			-- do I need to update the memory stats tab right now, and should I be listening
 			-- for regular update?
-			function syncServerMemoryAnalyzerVisibility()
-				if (tab.Open and tab.Visible and devConsole.Visible) then 
+			local function syncServerMemoryAnalyzerVisibility()
+				if (serverTab.Open and serverTab.Visible and devConsole.Visible) then 
 					serverMemoryAnalyzer:renderUpdates()
 					body.Size = UDim2.new(1, 0, 0, serverMemoryAnalyzer:getHeightInPix())
 				end
@@ -1205,14 +1206,14 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			-- Every time 'open' state changes, call syncVisibility.
 			local tabName = "Server Memory"
 
-			tab = devConsole:AddTab(tabName, tabBody, function(open)
+			serverTab = devConsole:AddTab(tabName, tabBody, function(open)
 					if (open) then
 						devConsole.WindowScrollbar:SetValue(0)
 						setShownOptionTypes({})
 					end
 					syncServerMemoryAnalyzerVisibility()
 				end)
-			tab:SetVisible(true)   
+			serverTab:SetVisible(true)   
 
 			-- Every time dev console's open state changes, call syncVisibility.
 			devConsole.VisibleChanged:connect(function(visible)
@@ -1376,7 +1377,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 	do -- Client Memory tab
     
       local tabBody = Primitives.FolderFrame(body, 'ClientMemory')
-      
+      local clientTab = nil
       local clientMemoryAnalyzer = ClientMemoryAnalyzerClass.new(tabBody)
             
       -- When memory analyzer decides it's new size, we get notified.
@@ -1388,8 +1389,8 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
       -- Considering all state (is dev console even showing, which tab is showing), 
       -- do I need to update the memory stats tab right now, and should I be listening
       -- for regular updates?
-      function syncClientMemoryAnalyzerVisibility()
-        if (tab.Open and tab.Visible and devConsole.Visible) then 
+      local function syncClientMemoryAnalyzerVisibility()
+        if (clientTab.Open and clientTab.Visible and devConsole.Visible) then 
           clientMemoryAnalyzer:renderUpdates()
           clientMemoryAnalyzer:startListeningForUpdates()
           body.Size = UDim2.new(1, 0, 0, clientMemoryAnalyzer:getHeightInPix())
@@ -1401,7 +1402,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
       -- Every time 'open' state changes, call syncVisibility.
       local tabName = "Client Memory"
 
-      tab = devConsole:AddTab(tabName, tabBody, function(open)
+      clientTab = devConsole:AddTab(tabName, tabBody, function(open)
           if (open) then
 			devConsole.WindowScrollbar:SetValue(0)
             setShownOptionTypes({})
@@ -1409,7 +1410,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
           
           syncClientMemoryAnalyzerVisibility()
         end)
-      tab:SetVisible(true)   
+      clientTab:SetVisible(true)   
       
       -- Every time dev console's open state changes, call syncVisibility.
       devConsole.VisibleChanged:connect(function(visible)

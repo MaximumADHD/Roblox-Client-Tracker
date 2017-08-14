@@ -233,6 +233,7 @@ DoSendGetLogHistoryGATracking
 DragCylindersAndBallsAsBlocks
 DraggerMaxMovePercent
 DraggerMaxMoveSteps
+DropItLikeItsHat
 DynamicMovementAndCameraOptions
 ElevatedPhysicsFPSReportThresholdTenths
 EliminateHeapAllocationInLadderRaycast
@@ -485,7 +486,6 @@ JoinInfluxHundredthsPercentage
 JoinTime_AllowFullTexturePrioUpdate
 JoinTime_AvatarFastClusterSignal
 JoinTime_AvatarTextureCompositorSignal
-JoinTime_EnableCase2
 JoinTime_HttpQueuePrio
 JoinTime_LocalUserAnimationPriority
 JoinTime_LocalUserMeshPriority

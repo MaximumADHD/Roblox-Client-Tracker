@@ -174,7 +174,7 @@ function BaseMemoryAnalyzerClass:__getOrMakeRowForStatType(statType, statLabel)
 end
       
 function BaseMemoryAnalyzerClass:__updateStatValue(statType, statLabel, value) 
-  row = self:__getOrMakeRowForStatType(statType, statLabel) 
+  local row = self:__getOrMakeRowForStatType(statType, statLabel) 
   row:setRowValue(value)
 end
       
