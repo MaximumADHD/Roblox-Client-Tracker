@@ -231,6 +231,7 @@ DoSendGetLogHistoryGATracking
 DragCylindersAndBallsAsBlocks
 DraggerMaxMovePercent
 DraggerMaxMoveSteps
+DropItLikeItsHat
 DynamicMovementAndCameraOptions
 ElevatedPhysicsFPSReportThresholdTenths
 EliminateHeapAllocationInLadderRaycast
