@@ -1366,7 +1366,7 @@ local function createPlayerEntry(player, isTopStat)
 
   local playerName
   local playerPlatformName
-  local PlatformLogo
+  local robloxIcon
 
   if  game:GetService('UserInputService'):GetPlatform() == Enum.Platform.XBoxOne and
       player.OsPlatform == "Durango" and
@@ -1374,26 +1374,26 @@ local function createPlayerEntry(player, isTopStat)
   then
     local playerNameXSize = entryFrame.Size.X.Offset - currentXOffset
 
-    playerName = createEntryNameText("PlayerName", name,
+    playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
       UDim2.new(0.01, currentXOffset, -0.20, 0),
+      UDim2.new(-0.01, playerNameXSize, 1, 0))
+    playerPlatformName.Parent = entryFrame
+
+    robloxIcon = Instance.new('ImageButton')
+    robloxIcon.Position = UDim2.new(0.01, currentXOffset, 0.21, 30)
+    robloxIcon.Size = UDim2.new(0, 24, 0, 24)
+    robloxIcon.Image = "rbxasset://textures/ui/Shell/Icons/RobloxIcon24.png"
+    robloxIcon.BackgroundTransparency = 1
+    robloxIcon.ImageColor3 = Color3.new(1,1,1)
+    robloxIcon.Selectable = false
+    robloxIcon.ZIndex = 2
+    robloxIcon.Parent = entryFrame
+
+    playerName = createEntryNameText("PlayerName", name,
+      UDim2.new(0.01, currentXOffset + robloxIcon.Size.X.Offset + 6, 0.12, 0),
       UDim2.new(-0.01, playerNameXSize, 1, 0))
     playerName.Parent = entryFrame
 
-    PlatformLogo = Instance.new('ImageButton')
-    PlatformLogo.Position = UDim2.new(0.01, currentXOffset, 0.21, 30)
-    PlatformLogo.Size = UDim2.new(0, 24, 0, 24)
-    PlatformLogo.Image = "rbxasset://textures/ui/Shell/Icons/PlayerlistXboxLogo.png"
-    PlatformLogo.BackgroundTransparency = 1
-    PlatformLogo.ImageColor3 = Color3.new(1,1,1)
-    PlatformLogo.Selectable = false
-    PlatformLogo.ZIndex = 2
-    PlatformLogo.Parent = entryFrame
-
-    playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
-      UDim2.new(0.01, currentXOffset + PlatformLogo.Size.X.Offset + 6, 0.12, 0),
-      UDim2.new(-0.01, playerNameXSize, 1, 0),
-      Enum.FontSize.Size24)
-    playerPlatformName.Parent = entryFrame
   else
     playerName = createEntryNameText("PlayerName", name,
       UDim2.new(0.01, currentXOffset, 0, 0),
@@ -1406,7 +1406,6 @@ local function createPlayerEntry(player, isTopStat)
     SelectedButtonColor = Color3.new(50/255, 181/255, 1);
     TextSelectedColor = Color3.new(19/255, 19/255, 19/255);
     IconSelectedColor = Color3.new(19/255, 19/255, 19/255);
-    ButtonUnselectedColor = Color3.new(78/255, 84/255, 96/255);
     TextUnselectedColor = Color3.new(1,1,1);
     IconUnselectedColor = Color3.new(1,1,1);
   }
@@ -1419,18 +1418,18 @@ local function createPlayerEntry(player, isTopStat)
       if playerPlatformName then
         playerPlatformName.TextColor3 = ColorConstants.TextSelectedColor
       end
-      if PlatformLogo then
-        PlatformLogo.ImageColor3 = ColorConstants.IconSelectedColor
+      if robloxIcon then
+        robloxIcon.ImageColor3 = ColorConstants.IconSelectedColor
       end
     end)
     entryFrame.SelectionLost:connect(function()
-      entryFrame.BackgroundColor3 = ColorConstants.ButtonUnselectedColor
+      entryFrame.BackgroundColor3 = BG_COLOR
       playerName.TextColor3 = ColorConstants.TextUnselectedColor
       if playerPlatformName then
         playerPlatformName.TextColor3 = ColorConstants.TextUnselectedColor
       end
-      if PlatformLogo then
-        PlatformLogo.ImageColor3 = ColorConstants.IconUnselectedColor
+      if robloxIcon then
+        robloxIcon.ImageColor3 = ColorConstants.IconUnselectedColor
       end
     end)
   end
@@ -1575,6 +1574,7 @@ local function removePlayerEntry(player)
       break
     end
   end
+  updateAllTeamScores()
   setEntryPositions()
   setScrollListSize()
 end
@@ -1880,7 +1880,9 @@ local blockStatusChanged = function(userId, isBlocked)
 
   for _,playerEntry in ipairs(PlayerEntries) do
     if playerEntry.Player.UserId == userId then
-      playerEntry.Frame.BGFrame.MembershipIcon.Image = getMembershipIcon(playerEntry.Player)
+      local membershipIcon = getMembershipIcon(playerEntry.Player)
+      local iconImage = getCustomPlayerIcon(playerEntry.Player)
+      playerEntry.Frame.BGFrame.MembershipIcon.Image = iconImage and iconImage or membershipIcon
       return
     end
   end

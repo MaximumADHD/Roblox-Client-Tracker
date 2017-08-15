@@ -23,6 +23,7 @@ Classes
 	123
 	423
 	512
+	9aU
 	AacResponseItem
 	abstract_variables_map
 	Accessory
@@ -383,8 +384,6 @@ Classes
 	Decal
 	DecalTexture
 	DecalTool
-	DeferredEphemeralCounters
-	DeferredEphemeralStats
 	DeleteBase
 	DeleteInstanceItem
 	Deleter

@@ -18,14 +18,14 @@ TopbarConstants.ITEM_SPACING = 0
 TopbarConstants.VR_ITEM_SPACING = 3
 
 TopbarConstants.FONT_COLOR = Color3.new(1,1,1)
-TopbarConstants.TOPBAR_BACKGROUND_COLOR = Color3.new(31/255,31/255,31/255)
+TopbarConstants.TOPBAR_BACKGROUND_COLOR = Color3.fromRGB(31,31,31)
 TopbarConstants.TOPBAR_OPAQUE_TRANSPARENCY = 0
 TopbarConstants.TOPBAR_TRANSLUCENT_TRANSPARENCY = 0.5
 
-TopbarConstants.HEALTH_BACKGROUND_COLOR = Color3.new(228/255, 236/255, 246/255)
-TopbarConstants.HEALTH_RED_COLOR = Color3.new(255/255, 28/255, 0/255)
-TopbarConstants.HEALTH_YELLOW_COLOR = Color3.new(250/255, 235/255, 0)
-TopbarConstants.HEALTH_GREEN_COLOR = Color3.new(27/255, 252/255, 107/255)
+TopbarConstants.HEALTH_BACKGROUND_COLOR = Color3.fromRGB(228, 236, 246)
+TopbarConstants.HEALTH_RED_COLOR = Color3.fromRGB(255, 28, 0)
+TopbarConstants.HEALTH_YELLOW_COLOR = Color3.fromRGB(250, 235, 0)
+TopbarConstants.HEALTH_GREEN_COLOR = Color3.fromRGB(27, 252, 107)
 
 TopbarConstants.HEALTH_PERCANTAGE_FOR_OVERLAY = 5 / 100
 

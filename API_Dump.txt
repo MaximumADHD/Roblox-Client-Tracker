@@ -734,6 +734,7 @@ Class GuiButton : GuiObject [notbrowsable]
 	Property bool GuiButton.Selected
 	Property ButtonStyle GuiButton.Style
 	Function void GuiButton:SetVerb(string verb) [RobloxScriptSecurity]
+	Event GuiButton.Activated(Instance inputObject)
 	Event GuiButton.MouseButton1Click()
 	Event GuiButton.MouseButton1Down(int x, int y)
 	Event GuiButton.MouseButton1Up(int x, int y)
@@ -999,7 +1000,6 @@ Class GuiService : Instance [notCreatable]
 	Property bool GuiService.IsModalDialog [deprecated] [readonly]
 	Property bool GuiService.IsWindows [deprecated] [readonly]
 	Property bool GuiService.MenuIsOpen [readonly]
-	Property bool GuiService.ScreenGuiEnabled [RobloxScriptSecurity]
 	Property Object GuiService.SelectedCoreObject [RobloxScriptSecurity]
 	Property Object GuiService.SelectedObject
 	Function void GuiService:AddCenterDialog(Instance dialog, CenterDialogType centerDialogType, Function showFunction, Function hideFunction) [RobloxScriptSecurity]
@@ -1032,7 +1032,6 @@ Class GuiService : Instance [notCreatable]
 	YieldFunction Vector2 GuiService:GetScreenResolution() [RobloxScriptSecurity]
 	Event GuiService.BrowserWindowClosed() [RobloxScriptSecurity]
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) [deprecated] [RobloxScriptSecurity]
-	Event GuiService.EscapeKeyPressed() [RobloxScriptSecurity]
 	Event GuiService.KeyPressed(string key, string modifiers) [RobloxScriptSecurity]
 	Event GuiService.MenuClosed()
 	Event GuiService.MenuOpened()
@@ -1282,10 +1281,14 @@ Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 Class LocalizationTable : Instance
-	Property string LocalizationTable.Contents [hidden]
 	Property string LocalizationTable.DevelopmentLanguage [hidden]
 	Property Object LocalizationTable.Root [hidden]
+	Function string LocalizationTable:GetContents()
+	Function Array LocalizationTable:GetEntries()
 	Function string LocalizationTable:GetString(string languageKey, string expressionKey)
+	Function void LocalizationTable:RemoveKey(string key)
+	Function void LocalizationTable:SetContents(string contents)
+	Function void LocalizationTable:SetEntry(string key, string locale, string text)
 Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
 	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]

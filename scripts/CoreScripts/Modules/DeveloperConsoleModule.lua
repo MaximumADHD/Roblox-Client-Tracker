@@ -30,6 +30,8 @@ local isTenFootInterface = GuiService:IsTenFootInterface()
 local ClientMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.ClientMemoryAnalyzer)
 local ServerMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.ServerMemoryAnalyzer)
 local StatsUtils = require(CoreGui.RobloxGui.Modules.Stats.StatsUtils)
+local Style = require(CoreGui.RobloxGui.Modules.Stats.DeveloperConsoleStyle)
+local Primitives = require(CoreGui.RobloxGui.Modules.Stats.DeveloperConsolePrimitives)
 
 --[[ Flags ]]--
 local function checkFFlag(flagName) 
@@ -46,183 +48,10 @@ local enableDevConsoleDataStoreStats = checkFFlag("EnableDevConsoleDataStoreStat
 -- Eye candy uses RenderStepped
 local EYECANDY_ENABLED = true
 
-local ZINDEX = 6
-
 local AUTO_TAB_WIDTH = -1
 local TAB_TEXT_SIZE = 14
 local TAB_TEXT_PADDING = 8
 
-local Style; do
-	local function c3(r, g, b)
-		return Color3_new(r / 255, g / 255, b / 255)
-	end
-	local frameColor = Color3_new(0.1, 0.1, 0.1)
-	local textColor = Color3_new(1, 1, 1)
-	local optionsFrameColor = Color3_new(1, 1, 1)
-	
-	pcall(function() -- Fun window colors for cool people
-		local Players = game:GetService("Players")
-		if not Players or not Players.LocalPlayer then
-			return
-		end
-		local FunColors = {
-			[56449]   = {c3(255, 63,  127)}; -- ReeseMcBlox
-			[6949935] = {c3(255, 63,  127)}; -- NobleDragon
-		}
-		local funColor = FunColors[Players.LocalPlayer.UserId]
-		if funColor then
-			frameColor = funColor[1] or frameColor
-			textColor = funColor[2] or textColor
-		end
-	end)
-	
-	Style = {
-		Font = Enum.Font.SourceSans;
-		FontBold = Enum.Font.SourceSansBold;
-		
-		HandleHeight = 24; -- How tall the top window handle is, as well as the width of the scroll bar
-		TabHeight = 28;
-		GearSize = 24;
-		BorderSize = 2;
-		CommandLineHeight = 22;
-		
-		OptionAreaHeight = 56;
-		
-		FrameColor = frameColor; -- Applies to pretty much everything, including buttons
-		FrameTransparency = 0.5;
-		OptionsFrameColor = optionsFrameColor;
-		
-		TextColor = textColor;
-		
-		MessageColors = {
-			[0] = Color3_new(1, 1, 1); -- Enum.MessageType.MessageOutput
-			[1] = Color3_new(0.4, 0.5, 1); -- Enum.MessageType.MessageInfo
-			[2] = Color3_new(1, 0.6, 0.4); -- Enum.MessageType.MessageWarning
-			[3] = Color3_new(1, 0, 0); -- Enum.MessageType.MessageError
-		};
-		
-		ScrollbarFrameColor = frameColor;
-		ScrollbarBarColor = frameColor;
-		
-		ScriptButtonHeight = 32;
-		ScriptButtonColor = Color3_new(0, 1/3, 2/3);
-		ScriptButtonTransparency = 0.5;
-		
-		CheckboxSize = 24;
-		
-		ChartTitleHeight = 20;
-		ChartGraphHeight = 64;
-		ChartDataHeight = 24;
-		ChartHeight = 0; -- This gets added up at end and set at end of block
-		ChartWidth = 620;
-		
-		-- (-1) means right to left
-		-- (1) means left to right
-		ChartGraphDirection = 1; -- the direction the bars move
-		
-		
-		GetButtonDownColor = function(normalColor)
-			local r, g, b = normalColor.r, normalColor.g, normalColor.b
-			return Color3_new(1 - 0.75 * (1 - r), 1 - 0.75 * (1 - g), 1 - 0.75 * (1 - b))
-		end;
-		GetButtonHoverColor = function(normalColor)
-			local r, g, b = normalColor.r, normalColor.g, normalColor.b
-			return Color3_new(1 - 0.875 * (1 - r), 1 - 0.875 * (1 - g), 1 - 0.875 * (1 - b))
-		end;
-
-	}
-	
-	Style.ChartHeight = Style.ChartTitleHeight + Style.ChartGraphHeight + Style.ChartDataHeight + Style.BorderSize
-
-end
-
--- This provides an easy way to create GUI objects without writing insanely redundant code
-local Primitives = {}; do
-	local function new(className, parent, name)
-		local n = Instance_new(className, parent)
-		n.ZIndex = ZINDEX
-		if name then
-			n.Name = name
-		end
-		return n
-	end
-	local unitSize = UDim2_new(1, 0, 1, 0)
-	
-	local function setupFrame(n)
-		n.BackgroundColor3 = Style.FrameColor
-		n.BackgroundTransparency = Style.FrameTransparency
-		n.BorderSizePixel = 0
-	end
-	local function setupText(n, text)
-		n.Font = Style.Font
-		n.TextColor3 = Style.TextColor
-		n.Text = text or n.Text
-	end
-	
-	function Primitives.Frame(parent, name)
-		local n = new('Frame', parent, name)
-		setupFrame(n)
-		return n
-	end
-	function Primitives.TextLabel(parent, name, text)
-		local n = new('TextLabel', parent, name)
-		setupFrame(n)
-		setupText(n, text)
-		return n
-	end
-	function Primitives.TextBox(parent, name, text)
-		local n = new('TextBox', parent, name)
-		setupFrame(n)
-		setupText(n, text)
-		return n
-	end
-	function Primitives.TextButton(parent, name, text)
-		local n = new('TextButton', parent, name)
-		setupFrame(n)
-		setupText(n, text)
-		return n
-	end
-	function Primitives.Button(parent, name)
-		local n = new('TextButton', parent, name)
-		setupFrame(n)
-		n.Text = ""
-		return n
-	end
-	function Primitives.ImageButton(parent, name, image)
-		local n = new('ImageButton', parent, name)
-		setupFrame(n)
-		n.Image = image or ""
-		n.Size = unitSize
-		return n
-	end
-	
-	-- An invisible frame of size (1, 0, 1, 0)
-	function Primitives.FolderFrame(parent, name) -- Should this be called InvisibleFrame? lol
-		local n = new('Frame', parent, name)
-		n.BackgroundTransparency = 1
-		n.Size = unitSize
-		return n
-	end
-	function Primitives.InvisibleTextLabel(parent, name, text)
-		local n = new('TextLabel', parent, name)
-		setupText(n, text)
-		n.BackgroundTransparency = 1
-		return n
-	end
-	function Primitives.InvisibleButton(parent, name, text)
-		local n = new('TextButton', parent, name)
-		n.BackgroundTransparency = 1
-		n.Text = ""
-		return n
-	end
-	function Primitives.InvisibleImageLabel(parent, name, image)
-		local n = new('ImageLabel', parent, name)
-		n.BackgroundTransparency = 1
-		n.Image = image or ""
-		n.Size = unitSize
-		return n
-	end
-end
 
 local function CreateSignal()
 	local this = {}
@@ -1184,7 +1013,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 
 		-- Server Memory --
 		if (enableDevConsoleDataStoreStats and permissions.MayViewServerMemory) then
-			local tabBody = Primitives.FolderFrame(body, 'ServerMemory')
+			local tabBody = Primitives.FolderFrame(body, "ServerMemory")
 			local serverMemoryAnalyzer = ServerMemoryAnalyzerClass.new(tabBody)
 			local serverTab = nil
 			
@@ -1553,7 +1382,7 @@ do -- This doesn't support multiple windows very well
 		label.Size = UDim2.new(0, 64, 0, 64)
 		label.Image = "rbxasset://Textures/ArrowFarCursor.png"
 		label.Name = "BackupMouse"
-		label.ZIndex = ZINDEX + 2
+		label.ZIndex = Style.ZINDEX + 2
 		
 		local disconnector = CreateDisconnectSignal()
 		
@@ -1752,7 +1581,7 @@ do -- Script performance/Chart list
 		
 		local scrollingFrame = Instance.new("ScrollingFrame", sideMenu)
 		scrollingFrame.BorderSizePixel = 0
-		scrollingFrame.ZIndex = ZINDEX
+		scrollingFrame.ZIndex = Style.ZINDEX
 		scrollingFrame.ScrollBarThickness = 12
 		scrollingFrame.Selectable = false
 		this.ScrollingFrame = scrollingFrame
@@ -1948,7 +1777,7 @@ do -- Chart
 				local height = getReferenceHeight(position)
 				if height ~= 0 then
 					local notch = Instance_new('Frame', frame)
-					notch.ZIndex = ZINDEX
+					notch.ZIndex = Style.ZINDEX
 					notch.BorderSizePixel = 0
 					notch.BackgroundColor3 = Color3_new(1, 1, 1)
 					notch.Size = UDim2_new(0, 1, 0, height)
@@ -2434,7 +2263,7 @@ do
 					local label = labels[labelPosition]
 					if not label then
 						label = Instance_new('TextLabel', frame)
-						label.ZIndex = ZINDEX
+						label.ZIndex = Style.ZINDEX
 						label.BackgroundTransparency = 1
 						--label.Font = Style.Font
 						label.FontSize = 'Size10'
