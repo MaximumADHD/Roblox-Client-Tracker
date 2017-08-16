@@ -7,9 +7,9 @@ The master branch stores tracked content that is currently on production (roblox
 
 ## Helpful Links:
 
-* Comparison of [roblox->gametest1](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs)
-* Comparison of [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest2.robloxlabs)
-* Comparison of [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs...gametest2.robloxlabs)
+* Comparison of [roblox->gametest1](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs#files_bucket)
+* Comparison of [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest2.robloxlabs#files_bucket)
+* Comparison of [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs...gametest2.robloxlabs#files_bucket)
 * [DeepStrings.txt without extreme page lag](https://raw.githubusercontent.com/CloneTrooper1019/Roblox-Client-Watch/master/DeepStrings.txt)
 
 ## Helpful Info:
