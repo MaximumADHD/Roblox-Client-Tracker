@@ -646,7 +646,6 @@ Classes
 	ICreator
 	IDataState
 	IDec
-	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -738,6 +737,7 @@ Classes
 	length_error
 	Light
 	LightGrid
+	LightGridCPU
 	Lighting
 	LightObject
 	Line

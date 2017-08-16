@@ -1097,6 +1097,7 @@ function handleRemoveDefaultLoadingGui(instant)
 		ContextActionService:UnbindCoreAction('CancelGameLoad')
 	end
 	destroyLoadingElements(instant)
+	game:GetService("ReplicatedFirst"):SetDefaultLoadingGuiRemoved()
 end
 
 if debugMode then

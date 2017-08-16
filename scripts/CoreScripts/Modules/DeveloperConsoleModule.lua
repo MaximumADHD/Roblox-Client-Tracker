@@ -1419,36 +1419,92 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 	
 	do -- Client Http Results tab
 		if permissions.MayViewHttpResultClient then
+			local logService = game:GetService('LogService')
 			local tabBody = Primitives.FolderFrame(body, 'HttpResult')
 			local tabOpen = false
-			local httpResultListClass = require(CoreGui.RobloxGui.Modules.HttpAnalyticsTab)
-			local httpResultListClient = httpResultListClass.new(tabBody, function ( newHeight )
+			local httpAnalyzerClass = require(CoreGui.RobloxGui.Modules.HttpAnalyticsTab)
+			local httpAnalyzer = httpAnalyzerClass.new(tabBody, function ( newHeight )
 				-- update the body.Size only when tab is open so it won't disturb other tab
 				if tabOpen then
+					if newHeight < window.AbsoluteSize.Y then
+						newHeight = window.AbsoluteSize.Y
+					end
 					body.Size = UDim2.new(1, 0, 0, newHeight)
 				end
 			end)
 
-			local logService = game:GetService('LogService')
 			-- add http result when client got a http result
           	logService.HttpResultOut:connect(function (httpResult)
-          		httpResultListClient:addHttpResult(httpResult)
+          		httpAnalyzer:addHttpResult(httpResult)
           	end)
-          	-- add http results client got before console was opened
+          	-- add http results that client got before console was opened
           	local history = logService:GetHttpResultHistory()
 			for i = 1, #history do
-				httpResultListClient:addHttpResult(history[i])
+				httpAnalyzer:addHttpResult(history[i])
 			end
 
-			local tab = devConsole:AddTab('Client Http Result', tabBody, function(open)
+			local tab = devConsole:AddTab('Client Http', tabBody, function(open)
 				tabOpen = open
 				-- update the 'body.Size', so the scrollbar will work
-				if open then				
-					body.Size = UDim2.new(1, 0, 0, httpResultListClient:getHeightInPix())
+				if open then
+					local newHeight = httpAnalyzer:getHeightInPix()
+					if newHeight < window.AbsoluteSize.Y then
+						newHeight = window.AbsoluteSize.Y
+					end
+					body.Size = UDim2.new(1, 0, 0, newHeight)
 				end
 	        end)
-      	
 			tab:SetVisible(true)
+		end
+	end
+
+	do -- Server Http Results tab
+		local logService = game:GetService('LogService')
+		local showServerHttp = function ()
+			if permissions.MayViewHttpResultServer then
+				local tabBody = Primitives.FolderFrame(body, 'Server Http Result')
+				local tabOpen = false
+				local httpAnalyzerClass = require(CoreGui.RobloxGui.Modules.HttpAnalyticsTab)
+				local httpAnalyzer = httpAnalyzerClass.new(tabBody, function ( newHeight )
+					-- update the body.Size only when tab is open so it won't disturb other tab
+					if tabOpen then
+						if newHeight < window.AbsoluteSize.Y then
+							newHeight = window.AbsoluteSize.Y
+						end
+						body.Size = UDim2.new(1, 0, 0, newHeight)
+					end
+				end)
+
+				-- add http result when got a http result from server
+	          	logService.ServerHttpResultOut:connect(function (httpResult)
+	          		httpAnalyzer:addHttpResult(httpResult)
+	          	end)
+		        logService:RequestServerHttpResult()
+
+				local tab = devConsole:AddTab('Server Http', tabBody, function(open)
+					tabOpen = open
+					-- update the 'body.Size', so the scrollbar will work
+					if open then
+						local newHeight = httpAnalyzer:getHeightInPix()
+						if newHeight < window.AbsoluteSize.Y then
+							newHeight = window.AbsoluteSize.Y
+						end
+						body.Size = UDim2.new(1, 0, 0, httpAnalyzer:getHeightInPix())
+					end
+		        end)
+	      	
+				tab:SetVisible(true)
+			end
+		end
+		-- show server http results with user in the DFStringHttpResultsApprovedUserIDs
+		if not permissions.MayViewHttpResultServer then
+			logService.OnHttpResultApproved:connect(function (isApproved)
+				permissions.MayViewHttpResultServer = isApproved
+				showServerHttp()
+			end)
+			logService:RequestHttpResultApproved()
+		else
+			showServerHttp()
 		end
 	end
 
@@ -3142,6 +3198,12 @@ do
 		permissions.MayViewHttpResultClient = false
 		pcall(function()
 			permissions.MayViewHttpResultClient = permissions.IsCreator and settings():GetFFlag("EnableClientHttpAnalytics")
+		end)
+		permissions.MayViewHttpResultServer = false
+		pcall(function()
+			permissions.MayViewHttpResultServer = permissions.IsCreator and
+								settings():GetFFlag("EnableClientHttpAnalytics") and
+								settings():GetFFlag("EnableServerHttpAnalytics")
 		end)
 
 		permissions.MayViewContextActionBindings = permissions.IsCreator

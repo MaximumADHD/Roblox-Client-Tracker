@@ -2,8 +2,9 @@ AccErrorDrainedThousandth
 AccessoriesAllHaveSameBuoyancy2
 AccoutrementWeldingFilteringEnabled
 ActionStationDebounceTime
-AdditionalCheck0
-AdditionalCheckC1
+ActOnNewCheck
+AdditionalCheckC0
+AdditionalCheckC1_2
 AdditionalReportingPermyriad
 AddMoreMathAPI
 AddOrRemoveTweensOnStepOnly
@@ -14,7 +15,6 @@ AllowClientFallback
 AllowEarlyPacketDiscardOfPhysicsData
 AllowHumanoidScalingClientSide
 AllowInsertFreeModels
-AllowKeyboardInputOnGuiObjects
 AllowMultipleHangReports
 AllowMultiRotationInterpolation
 AllowNewClientTicketFormat
@@ -53,7 +53,7 @@ BadLogInfluxHundredthsPercentage
 BadLogMask
 BadTypeOnDelayErrorEnabled
 BadTypeOnSpawnErrorEnabled
-BlockWindowsMenu
+BoldNetworkStats
 BootstrapperVersionNumber
 BuildRigFromAttachmentsApiEnabled
 BulletContactBreakOrthogonalThresholdActivatePercent
@@ -65,7 +65,6 @@ CanHideGuiGroupId
 CanOverlayNativeInput
 CarefulHumanoidChangedEnabled
 CFrameRightAndUpVectors
-ChangeCarriageToNewLine
 ChangeDuplicateBrickColor
 ChangePositionOfFireSecondEmitter
 ChatFilterMaxCachedRequestMilliseconds
@@ -232,6 +231,7 @@ DoSendGetLogHistoryGATracking
 DragCylindersAndBallsAsBlocks
 DraggerMaxMovePercent
 DraggerMaxMoveSteps
+DropItLikeItsHat
 DynamicMovementAndCameraOptions
 ElevatedPhysicsFPSReportThresholdTenths
 EliminateHeapAllocationInLadderRaycast
@@ -241,6 +241,7 @@ EnableAnimationTrackAdjustWeightReplication
 EnableAttachmentsAsBillboardGuiAdornee
 EnableClientHttpAnalytics
 EnableCollisionGroups
+EnableConsolePlayerSideBar
 EnableConsoleReportAbusePage
 EnableContextActionPriority
 EnableContextActionServiceCallbackResult
@@ -257,6 +258,7 @@ EnableGetAvailableForExperimentAPI
 EnableImageTilingInGUI
 EnableInputServiceOnScreenKeyboardMethods
 EnableInstanceLockUnlockTracking
+EnableLightingClockTime
 EnableLightObjectsInAttachments
 EnableLoadingScreenPlaceIconTween
 EnableLowQualityBlur
@@ -274,8 +276,10 @@ EnableReportAbuseMenuFix
 EnableReportPlaceIDAboveMemory
 EnableResponsiveUIFix
 EnableRobloxEventStream
+EnableServerHttpAnalytics
 EnableSoundsInAttachments
 EnableStencilShadowMask
+EnableTeamMemberChangeEvent
 EnableTextboxNativeInput
 EnableTrackingAccessoryDestoyedWithLiveSignals
 EnableVoiceASR
@@ -313,6 +317,7 @@ FixDeadDisabledCrash
 FixFinishCharacterLoadingCrash
 FixFreefallStuckIgnoreSelfContact
 FixGamepadNavigationInVR
+FixGamepadScrolling
 FixHandleHitDetection
 FixHandlesMouseEvents
 FixHipHeightScalingError
@@ -324,6 +329,7 @@ FixInterpolationRotationalGoal
 FixInterpolationTargetFrame
 FixIsCurrentlyVisibleSurfaceGuis
 FixLayerCollectorRects
+FixLayoutCustomSortCrash
 FixNonFiniteHipHeight
 FixNoPhysicsUprightInHumanoidState
 FixPGSJointNetworkOwnership
@@ -368,6 +374,7 @@ ForceToDeclareFlagsInCpp
 ForceUpdateOffset
 FormatMeshIdBeforeCache
 FreeCameraForAdmins
+FreeCameraForDevelopers
 FriendRequestNotificationThrottle
 FriendServiceCachedOfflineStatusCount
 FriendServiceCachedOfflineStatusMaxAgeSeconds
@@ -449,6 +456,7 @@ InferredCrashReportingHundredthsPercentage
 InfluxEnabled
 InfluxOverTCP
 InfluxOverUDPThreshold
+InfluxReportFeOnStartupErrorPermyriad
 InfluxReportLocalFilterStringPermyriad
 InfluxTattletaleReportCommunitySiftOutputPermyriad
 InfluxTattletaleV2Permyriad
@@ -456,6 +464,7 @@ InitialAccelerationLatencyMultTenths
 InitializeQualityLevelFromSettings
 InsertServiceReportAllowClientInsertModels
 InsertServiceScriptInsert
+InstanceGetDescendantsEnabled
 InstanceTaggingDisableDefensiveCode
 InstanceTagReplicationFix
 IntegrateGyroscopicForcesEnabled
@@ -469,6 +478,7 @@ IPV6RobloxStudioCleanUp
 JoinDataBonus
 JoinDataCompressionLevel
 JoinInfluxHundredthsPercentage
+JoinTime_AllowFullTexturePrioUpdate
 JoinTime_AvatarFastClusterSignal
 JoinTime_AvatarTextureCompositorSignal
 JoinTime_EnableCase2
@@ -494,6 +504,7 @@ LoadPlayerScriptsFromLua
 LoadStarterGearWithoutLoadCharacter
 LocalFilterStringDeprecationWarning
 LocalInsertPermyriad
+LocalizeRootOnSet
 LockR15CharacterParts
 LockViolationInstanceCrash
 LockViolationInstanceCrashStudio
@@ -501,6 +512,7 @@ LockViolationScriptCrash
 LogJoinTime
 LuaDebugger
 LuaDebuggerBreakOnError
+LuaDebuggerStrictGetScriptCheck
 LuaDebugProfileGCUnusedTokens
 LuaDebugProfilerTokenGCTimeMS
 LuaDebugProfileUserTokensCount
@@ -533,6 +545,7 @@ MaxDataStepsPerCyclic
 MaxDebugFramesForVisuals
 MaxFrameBufferSize
 MaxFramesToSend
+MaxHttpResultResponseSize
 MaximumFreefallMoveTimeInTenths
 MaximumUnstickForceInGs
 MaxLearnDescriptors
@@ -556,12 +569,12 @@ Mk2ItemDebugEnabled
 Mk2ItemDebugLastCount
 Mk2ItemDebugReportHundredthsPercentage
 MobileScrollBarFadeOnInactivity
+MoreViewCreationFailureHandling
 MoreWeldRestrictions
 MoreWeldRestrictions2
 MotionDiscontinuityThreshold
 Motor6DApplyPoseMaskFix
 Motor6DTransformPropEnabled
-MouseInputQueryMethodsEnabled
 MoveAvatarEditorPages
 MoveCodeFromReplicator
 MsecBetweenTextureMemoryUsageArrayRefresh
@@ -597,11 +610,12 @@ ObjExporterCorrectedSpecular
 ObjExporterLinearizeColors
 OnCloseTimeoutInSeconds
 OnContactOwnerBufferTimeCentiSec
+OnDisconnectHTTPTimeout
 OneWeldToRuleThemAll2
 OnlyNumbersForInfluxIds
 OptimizedContactCheckHighVelocitySleep
 OptimizedContactOverlapGoalHundredth
-OptimizedContactPipeline4
+OptimizedContactPipeline5
 OptimizedContactPipelineBulletCreateTwoPoints
 OptimizedContactPipelineImprovedBuoyancy
 OptimizedContactWakeDepth
@@ -614,7 +628,7 @@ OverrideStarterScriptInStudio
 PacketErrorInfluxHundredthsPercentage
 PartColor3Uint8Enabled
 ParticleEmitterEmitFix
-ParticleSpreadAngleUpdate
+ParticleSpreadAngleUpdateFix
 PartInstanceCofMPropertyExposed
 PartMinSizeMul1000
 PartSizeUnder0P2AnalyticsInfluxHundredthPct
@@ -691,10 +705,12 @@ ProtectionFromEvilJoins
 ProtectionFromMutantJoins
 PurchaseErrorReportRate
 PurchaseMismatchReportRate
+QuickHttpWhenGameClose
 R15CollisionGeometry2
 R15DefaultCollisionType
-RadialMenuAfterLoadingScreen
+RadialMenuAfterLoadingScreen2
 RaiseSendPriority
+RakNetDetectNetUnreachable
 RakNetMaxSplitPacketCount
 RakNetSupportIpV6
 RbxMemorySetOnAllocate
@@ -748,13 +764,13 @@ RetryBaseTimeMSec
 RetryOn503
 RetryTimesOn503
 RetryWaitTime
-RoundThrottleSteerFloat
 S2NumPhysicsPacketsPerStep
 S2PhysicsSenderRate
 SaveDataForPlayerRemoving
 SavePlacePerMinute
 ScalingSeatWeldCrashFix
 ScrollBarSideEnabled
+ScrollFrameIgnoreInitialTouchDelta
 SecondsPerBatchAwardPointsCall
 SendAdditionalNonAdjustedTimeStamp
 SendAllPhysicsPackets
@@ -767,6 +783,7 @@ SendRakNetStatsInterval
 SendRakNetStatsThrottle
 SendScreenOrientationToGA
 ServerCheckLastRecievedInitializedBeforeSend
+ServerHttpAnalyticsMaxHistory
 ServerNotifyPlayerScriptsStatus
 ServerPlayerFilterConfig
 ServerPlayerFilterPermyriad
@@ -780,6 +797,7 @@ ShowLocalizationService
 SimToInterBufferClearFactorTenths
 SizeFromContentsEnabled
 SkipModuleSource2
+SkySunMoonTextureAndSize
 SmartRoundUIObjects
 SmootherVehicleSeatControlSystem
 SmoothTerrainMaxCppRegion
@@ -849,9 +867,11 @@ StudioGamePassCheckEnabled
 StudioMockPurchasesEnabled
 StudioPreserveSelectionOnUndo
 StudioRecentActionCacheSize
+StudioRefreshPluginsWithoutReopening
 StudioRemoveGetUnusedTeamColor
 StudioReportCachedRecentActions
 StudioRespectMeshOffset
+StudioSaveSelectionToChangeHistoryWaypoints
 StudioShowAdornsFix
 StudioSkipServerStatsPermissionsChecks
 StudioStartServerBoyGuestCharacterAppearance
@@ -904,13 +924,16 @@ TrailNoErrorOnEmptyTexture
 TruncateReservedServerAccessCode
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
+TweensUseMutex
 TypesetterFontFallback2
+TypesetterForceAutoHint
 TypesetterSubstituteOnReject
 UIScaleComponentEnabled
 UnlockMouseIfKicked
 UnstickForceAttackInTenths
 UnstickForceDecayInTenths
 UnstickForceEpsilonInHundredths
+UpdatedMainGridToleranceEnabled
 UpdateMouseSensitivityTitle
 UpdateSliderButtonImages
 UploadUntranslated
@@ -955,10 +978,11 @@ UsePlaceFilterSuffix
 UsePurchasePromptLocalization
 UserAllCamerasInLua
 UserAllowDisableCustomAnims
+UserAllowDisableCustomAnims2
 UserBetterInertialScrolling
 UseRewindMethod
 UserHttpRequestsPerMinuteLimit
-UserInGameChatUseNewFilterAPI
+UserInGameChatUseNewFilterAPIV2
 UseRoundRobin
 UserPortraitPopperFix
 UseSort
@@ -977,6 +1001,7 @@ WaitForChildWarnTimeOutTime
 WaitGetInQueueTime
 WarnOnNoCoreFunction
 WebChatFilterHttpTimeoutSeconds
+WeldPermyriad
 WhiteListChatFilter
 WindowsCrashReporterEnableSpareMemoryFix
 WorldStepDtAveExpFactorHundredth
