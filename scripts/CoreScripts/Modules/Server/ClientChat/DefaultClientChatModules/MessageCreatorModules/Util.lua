@@ -166,6 +166,27 @@ function methods:AddChannelButtonToBaseMessage(BaseMessage, channelColor, format
 	return ChannelButton
 end
 
+function methods:AddTagLabelToBaseMessage(BaseMessage, tagColor, formatTagText)
+	local tagNameSize = self:GetStringTextBounds(formatTagText, BaseMessage.Font, BaseMessage.TextSize)
+	local TagLabel = self:GetFromObjectPool("TextLabel")
+	TagLabel.Selectable = false
+	TagLabel.Size = UDim2.new(0, tagNameSize.X, 0, tagNameSize.Y)
+	TagLabel.Position = UDim2.new(0, 0, 0, 0)
+	TagLabel.BackgroundTransparency = 1
+	TagLabel.Font = BaseMessage.Font
+	TagLabel.TextSize = BaseMessage.TextSize
+	TagLabel.TextXAlignment = BaseMessage.TextXAlignment
+	TagLabel.TextYAlignment = BaseMessage.TextYAlignment
+	TagLabel.TextTransparency = BaseMessage.TextTransparency
+	TagLabel.TextStrokeTransparency = BaseMessage.TextStrokeTransparency
+	TagLabel.TextColor3 = tagColor
+	TagLabel.Text = formatTagText
+	TagLabel.Visible = true
+	TagLabel.Parent = BaseMessage
+
+	return TagLabel
+end
+
 function GetWhisperChannelPrefix()
 	if ChatConstants.WhisperChannelPrefix then
 		return ChatConstants.WhisperChannelPrefix

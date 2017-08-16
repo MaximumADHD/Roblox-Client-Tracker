@@ -552,6 +552,10 @@ function Invisicam:SetCustomBehavior(func)
 	end
 end
 
+function Invisicam:GetObscuredParts()
+	return SavedHits
+end
+
 -- Want to turn off Invisicam? Be sure to call this after.
 function Invisicam:Cleanup()
 	for hit, originalFade in pairs(SavedHits) do

@@ -16,6 +16,9 @@ if FFlagUseNewRadialMenu then
 	return
 end
 
+local fixGamePadPlayerlistSuccess, fixGamePadPlayerlistValue = pcall(function() return settings():GetFFlag("FixGamePadPlayerlist") end)
+local fixGamePadPlayerlist = fixGamePadPlayerlistSuccess and fixGamePadPlayerlistValue
+
 --[[ SERVICES ]]
 local GuiService = game:GetService('GuiService')
 local CoreGuiService = game:GetService('CoreGui')
@@ -319,10 +322,20 @@ local function createGamepadMenuGui()
 	---------------------------------
 	-------- Player List ------------
 	local playerListFunc = function()
-		toggleCoreGuiRadial(true)
-		local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
-		if not PlayerListModule:IsOpen() then
-			PlayerListModule:ToggleVisibility()
+		if not fixGamePadPlayerlist then
+			toggleCoreGuiRadial(true)
+			local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
+			if not PlayerListModule:IsOpen() then
+				PlayerListModule:ToggleVisibility()
+			end
+		else
+			local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
+			if not PlayerListModule:IsOpen() then
+				toggleCoreGuiRadial(true)
+				PlayerListModule:ToggleVisibility()
+			else
+				toggleCoreGuiRadial()
+			end
 		end
 	end
 	local playerListRadial = createRadialButton("PlayerList", "Playerlist", 2, not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList), Enum.CoreGuiType.PlayerList, playerListFunc)

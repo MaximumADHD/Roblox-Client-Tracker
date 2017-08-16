@@ -1346,7 +1346,6 @@ Enums
 	ConcurrencyModel
 	ControlMode
 	CreatorType
-	DEPRECATED_UploadSetting
 	DeveloperCameraOcclusionMode
 	DeveloperComputerCameraMovementMode
 	DeveloperComputerMovementMode
@@ -1368,7 +1367,7 @@ Enums
 	FontSize
 	FormFactor
 	FrameRateManagerMode
-	FriendStatus
+	FriendService_FriendStatus
 	GameAvatarType
 	GearGenreSetting
 	Genre

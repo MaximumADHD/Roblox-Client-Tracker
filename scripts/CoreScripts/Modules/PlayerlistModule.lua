@@ -23,6 +23,9 @@ local enableConsolePlayerSideBar = enableConsolePlayerSideBarSuccess and enableC
 local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
 local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
 
+local fixGamePadPlayerlistSuccess, fixGamePadPlayerlistValue = pcall(function() return settings():GetFFlag("FixGamePadPlayerlist") end)
+local fixGamePadPlayerlist = fixGamePadPlayerlistSuccess and fixGamePadPlayerlistValue
+
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
 	-- because it caused a bug where the local players name would show as Player in game.
@@ -1363,7 +1366,7 @@ local function createPlayerEntry(player, isTopStat)
 
   local playerName
   local playerPlatformName
-  local PlatformLogo
+  local robloxIcon
 
   if  game:GetService('UserInputService'):GetPlatform() == Enum.Platform.XBoxOne and
       player.OsPlatform == "Durango" and
@@ -1371,26 +1374,26 @@ local function createPlayerEntry(player, isTopStat)
   then
     local playerNameXSize = entryFrame.Size.X.Offset - currentXOffset
 
-    playerName = createEntryNameText("PlayerName", name,
+    playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
       UDim2.new(0.01, currentXOffset, -0.20, 0),
+      UDim2.new(-0.01, playerNameXSize, 1, 0))
+    playerPlatformName.Parent = entryFrame
+
+    robloxIcon = Instance.new('ImageButton')
+    robloxIcon.Position = UDim2.new(0.01, currentXOffset, 0.21, 30)
+    robloxIcon.Size = UDim2.new(0, 24, 0, 24)
+    robloxIcon.Image = "rbxasset://textures/ui/Shell/Icons/RobloxIcon24.png"
+    robloxIcon.BackgroundTransparency = 1
+    robloxIcon.ImageColor3 = Color3.new(1,1,1)
+    robloxIcon.Selectable = false
+    robloxIcon.ZIndex = 2
+    robloxIcon.Parent = entryFrame
+
+    playerName = createEntryNameText("PlayerName", name,
+      UDim2.new(0.01, currentXOffset + robloxIcon.Size.X.Offset + 6, 0.12, 0),
       UDim2.new(-0.01, playerNameXSize, 1, 0))
     playerName.Parent = entryFrame
 
-    PlatformLogo = Instance.new('ImageButton')
-    PlatformLogo.Position = UDim2.new(0.01, currentXOffset, 0.21, 30)
-    PlatformLogo.Size = UDim2.new(0, 24, 0, 24)
-    PlatformLogo.Image = "rbxasset://textures/ui/Shell/Icons/PlayerlistXboxLogo.png"
-    PlatformLogo.BackgroundTransparency = 1
-    PlatformLogo.ImageColor3 = Color3.new(1,1,1)
-    PlatformLogo.Selectable = false
-    PlatformLogo.ZIndex = 2
-    PlatformLogo.Parent = entryFrame
-
-    playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
-      UDim2.new(0.01, currentXOffset + PlatformLogo.Size.X.Offset + 6, 0.12, 0),
-      UDim2.new(-0.01, playerNameXSize, 1, 0),
-      Enum.FontSize.Size24)
-    playerPlatformName.Parent = entryFrame
   else
     playerName = createEntryNameText("PlayerName", name,
       UDim2.new(0.01, currentXOffset, 0, 0),
@@ -1403,7 +1406,6 @@ local function createPlayerEntry(player, isTopStat)
     SelectedButtonColor = Color3.new(50/255, 181/255, 1);
     TextSelectedColor = Color3.new(19/255, 19/255, 19/255);
     IconSelectedColor = Color3.new(19/255, 19/255, 19/255);
-    ButtonUnselectedColor = Color3.new(78/255, 84/255, 96/255);
     TextUnselectedColor = Color3.new(1,1,1);
     IconUnselectedColor = Color3.new(1,1,1);
   }
@@ -1416,18 +1418,18 @@ local function createPlayerEntry(player, isTopStat)
       if playerPlatformName then
         playerPlatformName.TextColor3 = ColorConstants.TextSelectedColor
       end
-      if PlatformLogo then
-        PlatformLogo.ImageColor3 = ColorConstants.IconSelectedColor
+      if robloxIcon then
+        robloxIcon.ImageColor3 = ColorConstants.IconSelectedColor
       end
     end)
     entryFrame.SelectionLost:connect(function()
-      entryFrame.BackgroundColor3 = ColorConstants.ButtonUnselectedColor
+      entryFrame.BackgroundColor3 = BG_COLOR
       playerName.TextColor3 = ColorConstants.TextUnselectedColor
       if playerPlatformName then
         playerPlatformName.TextColor3 = ColorConstants.TextUnselectedColor
       end
-      if PlatformLogo then
-        PlatformLogo.ImageColor3 = ColorConstants.IconUnselectedColor
+      if robloxIcon then
+        robloxIcon.ImageColor3 = ColorConstants.IconUnselectedColor
       end
     end)
   end
@@ -1556,11 +1558,23 @@ end
 local function removePlayerEntry(player)
   for i = 1, #PlayerEntries do
     if PlayerEntries[i].Player == player then
+      local prevSelectedCoreObject = GuiService.SelectedCoreObject
       PlayerEntries[i].Frame:Destroy()
+      if fixGamePadPlayerlist then
+        --Fix lose selection
+        if Container.Visible then
+          --prevSelectedCoreObject get removed, reset selection
+          if prevSelectedCoreObject and not GuiService.SelectedCoreObject then
+            --SelectedCoreObject gets removed, selects the first frame
+            setVisible(true)
+          end
+        end
+      end
       table.remove(PlayerEntries, i)
       break
     end
   end
+  updateAllTeamScores()
   setEntryPositions()
   setScrollListSize()
 end
@@ -1732,6 +1746,7 @@ local closeListFunc = function(name, state, input)
   UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 end
 
+--fromTemp is always false when fixGamePadPlayerlist is on, remove the second arg when removing FFlagfixGamePadPlayerlist
 setVisible = function(state, fromTemp)
   Container.Visible = state
   local lastInputType = UserInputService:GetLastInputType()
@@ -1748,13 +1763,22 @@ setVisible = function(state, fromTemp)
           if isUsingGamepad and not fromTemp then
             GuiService.SelectedCoreObject = frameChildren[i]
             GuiService:AddSelectionParent("PlayerlistGuiSelection", ScrollList)
-            UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-            ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
-            ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+            if not fixGamePadPlayerlist then
+              ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
+              ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
+            end
           end
           break
         end
       end
+    end
+    --We need to OverrideMouseIcon and rebind core action even if the ScrollList is empty
+    if fixGamePadPlayerlist and isUsingGamepad then
+      UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+      ContextActionService:UnbindCoreAction("CloseList")
+      ContextActionService:UnbindCoreAction("StopAction")
+      ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
+      ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
     end
   else
     if isUsingGamepad then
@@ -1795,11 +1819,11 @@ Playerlist.HideTemp = function(self, key, hidden)
 
   if next(TempHideKeys) == nil then
     if isOpen then
-      setVisible(true, true)
+      setVisible(true, not fixGamePadPlayerlist)
     end
   else
     if isOpen then
-      setVisible(false, true)
+      setVisible(false, not fixGamePadPlayerlist)
     end
   end
 end
@@ -1856,7 +1880,9 @@ local blockStatusChanged = function(userId, isBlocked)
 
   for _,playerEntry in ipairs(PlayerEntries) do
     if playerEntry.Player.UserId == userId then
-      playerEntry.Frame.BGFrame.MembershipIcon.Image = getMembershipIcon(playerEntry.Player)
+      local membershipIcon = getMembershipIcon(playerEntry.Player)
+      local iconImage = getCustomPlayerIcon(playerEntry.Player)
+      playerEntry.Frame.BGFrame.MembershipIcon.Image = iconImage and iconImage or membershipIcon
       return
     end
   end
