@@ -102,6 +102,7 @@ _LOADED
 _logb
 _LuDV
 _MallocaArrayHolder
+_mfXU
 _Mpunct
 _MQYRZ
 _mtFeA
@@ -201,6 +202,7 @@ A4te9
 A4w77i
 a5_j5W
 A5B1EC4B2D79
+A5Q6gj2
 A5tUz
 A6A_NABV
 A6A_NH
@@ -331,6 +333,7 @@ A6AXW4UserInputState
 A6AXW4UserInputType
 A6AXXZ
 A6AXXZV
+A98vU
 aa_j55
 AA_NAAV
 aa1iV
@@ -691,6 +694,7 @@ AERLU
 aersH4
 AeSlZrNbS
 AEsmall
+aEStudioRemoveGetUnusedTeamColor
 AEX_N
 AEX0M
 AEX0W412
@@ -726,6 +730,7 @@ AEXW4342
 AEXW43452
 AEXW4423
 AEXW4LegacyPartType
+AEzsJ
 AEzWh
 AFgcf
 afgck5
@@ -861,6 +866,7 @@ ALSVPQh
 Alternating
 AlternatingSupports
 alternatives
+aLuLv
 Aluminum
 Always
 AlwaysOff
@@ -921,6 +927,7 @@ Android
 AndroidAppSettings
 AndroidTV
 AndSave
+AnExZ
 Angle
 ANGLE_
 Angles
@@ -959,6 +966,7 @@ ApiRateLimit
 ApiServiceRemoveCompressionTeleportOnly
 ApiServiceRemovePostCompression
 apiUrlPath
+APJYU
 APP14
 AppBridgePlaceLaunchExponentialBaseFraction
 AppBridgePlaceLaunchMaxRetries
@@ -1071,11 +1079,14 @@ ASCII
 asciicircum
 asciitilde
 asCString
+Asdqd
 asInvoker
 asitr
 asked
 Asking
+asKn70A
 Asmall
+asN5C
 AspectRatio
 AspectType
 Asphalt
@@ -1361,6 +1372,7 @@ AVAnimationController
 AVAnimationId
 AVAnimationTrack
 AVAnimator
+AvaPG
 AVArbiter
 AVArcHandles
 AVArchiveBinder
@@ -3031,6 +3043,7 @@ bgchxm
 bgcolor
 BgIAAACkAABSU0ExAAQAAAEAAQCjbUyx9OXTBcWEAonZOfAoT7YhMS
 bgore
+bGpxn
 BGRsu
 bgVP60
 bgvskXF
@@ -3055,6 +3068,7 @@ bideyFJGGM
 biEDC
 biEGszwrXG
 BillboardGui
+bIlpKq
 binary
 BinaryString
 BinaryStringValue
@@ -3338,6 +3352,7 @@ btDiscreteCollisionDetectorInterface
 btDynamicsWorldDoubleData
 btDynamicsWorldFloatData
 btEmptyAlgorithm
+BTFnC
 btGearConstraintDoubleData
 btGearConstraintFloatData
 btGeneric6DofConstraintData
@@ -3498,11 +3513,13 @@ BZRAC
 bzsOWJ
 BZUTJD
 bZZZZ
+C_Dqh
 C_Ep2
 C_NCF72E
 C08cnH
 C0VSh
 C15730E2
+C1N1W1
 C1Qv3
 c3BdE
 C3mSPPT
@@ -3513,6 +3530,7 @@ c5c0B
 c5lvx
 c6NmVM
 c6riZ
+c6tMF
 c7cPc
 C82H3
 Cache
@@ -3892,6 +3910,7 @@ ChatStyle
 Chatted
 chatType
 ChatVisible
+CHeartBeatFailure
 check
 CheckBackpack
 checked
@@ -3919,6 +3938,7 @@ children
 chKf7
 CHltuo
 CHltuof
+ChM9D
 choices
 ChoosePixelFormat
 choosing
@@ -3951,6 +3971,7 @@ cinuj
 cinuP
 cinut
 cinuu
+ciNwGT
 cipher
 CIplEInvkJsiSW
 CIpxWh
@@ -3993,7 +4014,8 @@ classes
 Classic
 ClassicAndBubble
 ClassicChat
-className
+ClassName
+ClCvXu
 CleanCacheMoveMutex
 cleaning
 cleanup
@@ -4824,7 +4846,7 @@ creationID
 Creator
 CreatorId
 CreatorReadingServerLogs
-creatorType
+CreatorType
 CreatorTypeEnum
 credential
 credentials
@@ -4896,6 +4918,7 @@ cubemap
 Cubic
 cubify
 cUC3i
+cujfN
 cull_distance
 cull_vertex
 curl_easy_perform
@@ -5186,6 +5209,7 @@ ddjPF
 DdtiueX
 DDU_Mbstatet
 DDxDD
+dE9aD
 Deactivate
 Deactivated
 Deactivation
@@ -5489,6 +5513,7 @@ dhnWM
 DHSYJ
 dHvkE
 dHxlq
+dIA03
 Diagnostics
 dialog
 dialog_blue
@@ -5623,6 +5648,7 @@ DLTWF
 dm_SG
 DMRkS
 Dn5Fi
+DNcyf
 DNEIu
 DNEIu_
 do_heap_delete
@@ -5681,6 +5707,7 @@ DPadLeft
 DPadRight
 DPadUp
 dpdown
+DpjKy
 dpleft
 dpright
 DPyadCLaGqzOe
@@ -5805,6 +5832,7 @@ Dusty
 DuTQFKUU
 dutyDt
 dutyfraction
+duZVI
 dvfBH
 dvOjdj
 dVVmS7
@@ -5865,6 +5893,8 @@ e0i0m0q0u0y0
 e0q0W1v223
 E0TeT
 e1UFH
+e27gWGR
+e2qn3
 E3EAEL
 e3Q71V
 e47Ke
@@ -6302,6 +6332,7 @@ eTpnk
 eu_QW
 EucrosiaUPC
 EUNetPmcChallenge
+EUo1U
 EUODcQHTKpbM18FRobqLcvK0DNdIaHwypr7NRnSWk4NXhtM0v40W7
 eurtt
 eurtu
@@ -6310,6 +6341,7 @@ euuuh
 euuuo
 EUVE0
 evaluators
+evaXc
 EveN7
 event
 EventAfterEndOfSession
@@ -6335,9 +6367,12 @@ eventType
 Everyone
 everything
 evicted
+EvnaBFk
 EVREye
 EvWRELuw
 EWl_v
+EWlSd
+EWT_IJ
 eWTnP
 EWYHVW
 eX5MST
@@ -6521,6 +6556,7 @@ f9GPu4f9G
 f9GZr
 f9K0u
 f9KPu
+F9nx7
 f9Y0uVf9Y
 FA6CSP
 Fa9kz
@@ -6580,6 +6616,9 @@ FAXWIN
 fBarWidth
 FbegfQngn
 fBegin
+fbGC_D
+FbGlI
+FbGPG
 Fbhaq
 FbhaqZnantre
 FBhTzQ
@@ -6664,6 +6703,7 @@ ff7f27
 FFCSZ
 ffff00
 ffffff
+FfGT2
 FFlag
 FFOwtK
 FFOwuJSV
@@ -7347,6 +7387,7 @@ fs_tmp
 fScaleX
 FSendImmediaePriorityNow
 Fsmall
+FsQJlH
 fStart
 fStep
 FString
@@ -7356,6 +7397,7 @@ FT0x8
 FTDFP
 fTimeBegin
 fTimeEnd
+FTkV3
 FTSWjX
 FTt2h
 fttQS08
@@ -7467,7 +7509,10 @@ g19IzP
 g1QeU
 G2lZK
 g2zOW
+g3O4e
+G45rFQ
 G4iPAJ
+g4Pi47
 G4PSV
 g5mZxfPV
 G6Fjy
@@ -8111,6 +8156,7 @@ gfffVW
 gfffW
 gfids
 gfind
+GFsaiIU
 GfxCard
 GfxClusters
 GfxClustersFull
@@ -10281,6 +10327,7 @@ glProvokingVertexEXT
 glPushClientAttribDefaultEXT
 glPushDebugGroup
 glPushGroupMarkerEXT
+glQ6vU
 glQueryCounter
 glQueryCounterANGLE
 glQueryObjectParameteruiAMD
@@ -11103,6 +11150,7 @@ glWindowPos4sMESA
 glWindowPos4svMESA
 glWriteMaskEXT
 glyph
+Gm9MX
 gmatch
 gmbI58
 GMloOU
@@ -11113,6 +11161,7 @@ gmswa
 gmswJ
 gmsxlWB
 gN7pC
+gNDD0
 GNISu
 GnoQbpx
 GnoQbpxVgrz
@@ -11120,6 +11169,7 @@ gnpwtt
 gNT7U
 gnvzy
 Goals
+godMi
 going
 GoldenHashes
 GoodbyeChoiceActive
@@ -11443,6 +11493,7 @@ HasPass
 HasStatus
 HasTag
 HasTerrain
+hAv8v
 HaveActiveUser
 haveLoadedRemoteSFFlagNames
 HaxabjaZrffntr
@@ -11531,7 +11582,6 @@ HeapReAlloc
 heapSize
 HeapValue
 heartbeat
-HeartBeatFailure
 heat_xml
 heedSP
 hefcJ
@@ -11568,6 +11618,7 @@ HfreQngn
 HfreRagel
 HfreThv
 HfreYvfg
+hFsoW
 Hfu0m4
 hfylg
 hfylgV
@@ -11589,6 +11640,8 @@ hhXHa
 hhXn_
 HhXpAeS
 HhXpE
+hhxsa
+hhxva
 hidden
 HIDE_TAB_BAR
 HideChatWindow
@@ -11597,11 +11650,15 @@ hideFunction
 Hiden
 hideStudioUI
 Hiding
+HidXc
 Hierarchy
+hIgd_
 HIGH_PRIORITY
 HighGain
 HighResolution
 Highway
+HiJVl
+HiNBM
 Hinge
 HingeConstraint
 HingeCursor
@@ -11647,6 +11704,8 @@ hlcmn
 HLQPh
 Hltuot
 Hltuou
+HlWCgoU
+hmDth
 hmgpfV
 hmpgXRh
 HMQQ14
@@ -11731,12 +11790,14 @@ hR75I
 hrava
 hravfV
 hravgV
+HrB_U
 hRDHIV
 HRESULT
 HrO_X
 Hrzhvmw
 hs3_V
 hsFFoV
+hskqH
 Hsmall
 hSNRtQ
 hSNRtV
@@ -11757,6 +11818,7 @@ htdwu
 hteSgh
 hTLCPV
 htnfs
+Hto_X
 htsbaW
 htsCNB
 hTSOP
@@ -11885,6 +11947,7 @@ Hurricane
 hUTCG02
 hUUoU
 HVChangeHistoryService
+hvIOp
 HVKernel
 hvktjfb
 HVM6C
@@ -11979,6 +12042,7 @@ i7744
 I7AHSP
 i7STh
 i8Igr
+I8m9D
 I8SVW
 I9Btww
 i9zS8j
@@ -12139,6 +12203,7 @@ iIeCWY
 IIPAPAX0PAI1
 ij0QB
 Ij6ww
+IjAtVo
 iJCNe
 IJEJl
 iJgrC
@@ -12432,6 +12497,7 @@ intrusive
 intrusive_ptr
 intrusive_ptr_target
 IntValue
+inU3L
 InUse
 invalid
 INVALID_ARGUMENTS
@@ -12486,6 +12552,7 @@ IPeuj
 IpFilter
 IPHLPAPI
 iPhone
+iPIRHJ
 ipM_0
 IpqqpK
 IptfaEw
@@ -12786,6 +12853,7 @@ jcXI3
 jD4bE
 Jdc6m
 jdelta
+jDhRB
 jdPjeS
 jdXFD
 jDZUQ
@@ -12815,8 +12883,10 @@ JJmdbS
 jJrPU
 jjTTE
 jJyJZ
+jkcNG
 jKjKh
 jKjTh
+jKjwU
 jKjXjlhc
 jKrzo
 jl66Z
@@ -12890,6 +12960,7 @@ Joints
 JointsService
 jointsStepUi
 jointType
+JoPFN
 jORQLtq
 jOS_r
 Joystick
@@ -12972,6 +13043,7 @@ jUQAA
 Jur1c
 Juvfcre
 JuvfcreZrffntr
+jUvMw
 JUyB5
 JuyHqm
 JV_T4
@@ -13426,6 +13498,7 @@ launch
 launching
 launchmode
 launchtime
+lAUNR_
 Laurel
 Lavender
 layer
@@ -13438,6 +13511,7 @@ LayoutOrder
 laZPr
 lbg_J
 lbgrt
+LbWfyp
 LC_ALL
 LC_CTYPE
 LC_MESSAGES
@@ -13458,6 +13532,7 @@ LDGVS
 LDJCf
 Ldm3S
 LdrAccessResource
+Ldraw
 LdrFindResource_U
 ldZ41
 ldzig9
@@ -13626,6 +13701,7 @@ LinkedSource
 Links
 Linotype
 Linux
+lISlv
 list_base_hook
 list_node
 list_node_traits
@@ -13650,6 +13726,7 @@ literal
 LiveThreadRef
 LivingRoom
 LJ09r4
+lj4myZ1
 ljCBE
 LJpgm6
 ljZZV
@@ -13665,13 +13742,16 @@ LLLLLLLLLLL
 LLLLLLLLLLLL
 LLLLLLLLLLLLLL01LL234LL56789L
 LLLLLLLLLLLLLLLLL
+LlNJe
 llText
 llW82
 LLWBU
 lLWy0
 lm78b
 lm80YO
+lMbo4
 lMgtv
+lnAy7
 lnKeG
 Lo5XQ
 LoadAdditionalCoreScriptsInStudio
@@ -14046,6 +14126,7 @@ m_escapeIndexOrTriangleIndex
 m_faces
 m_flags
 m_floats
+M_Fnyh
 m_framerefs
 m_framexform
 m_friction
@@ -14268,6 +14349,7 @@ M3a3o3
 M3Uf3
 M40FH
 M4AQj
+m4BfC
 M4CcQ
 M4hX_
 m52RN
@@ -14658,7 +14740,7 @@ MegaClusters
 MeleeWeapons
 member
 members
-membershipType
+MembershipType
 MembershipTypeReplicate
 MemEnforcedLRUCache
 meminfo
@@ -15200,6 +15282,7 @@ NavigationWaypointAction
 navigator
 nawV2
 nAz42
+NAzAh
 nBackColorOffset
 nBackColors
 nBarsWidth
@@ -15530,6 +15613,7 @@ nQUO2
 nQwLP
 NQXO3
 NqxYm
+nr_ZU
 nread
 nRQsrK
 nrxfa
@@ -15688,6 +15772,7 @@ nZxerjd
 o__H06
 o_fhlT45
 O00_g
+O02C5
 O09O4u
 O0Z0e0p0
 o11ck
@@ -16499,6 +16584,7 @@ PacketPriority
 PacketReceive
 PacketReliability
 Packets
+PaCMQPU
 PaddedCell
 Padding
 PaddingBottom
@@ -16624,6 +16710,7 @@ PartyCannotFit
 partyGuid
 PartyLeader
 PartyLeaderRequest
+Pasfh
 Pass2d
 Pass3dAdorn
 Passed
@@ -17230,6 +17317,7 @@ PerThreadTimer
 PerThreadTimerTotal
 pEvents
 pExecutionResource
+Pfcfb
 Pff4p
 pfOWU
 pFsze
@@ -17272,6 +17360,7 @@ Ph4zo
 PH7DG
 PHALR
 Phase
+PhCdA
 PheeraplJvqtrg
 PheirHgvy
 PhETLPV
@@ -17520,6 +17609,7 @@ pmd02
 pmDAcjmT1
 pmgGF
 PMingLiU
+PMjrjB
 PmnN1
 pmoct
 pmPZcc
@@ -17966,6 +18056,7 @@ purchaseVerificationError
 purchaseVerificationMismatch
 PurchasingEvents
 purged
+pUrOe9
 purple
 Purpose
 puSE8
@@ -18087,6 +18178,7 @@ qaINs
 qaiPK
 qaykxO
 qBEbd
+QBizq
 qBUk_
 qCG9265
 qclFp
@@ -18129,6 +18221,7 @@ QJUbm5
 QjYCHEA7
 Qk9l17U
 qkaBCq
+qkDyN
 qkeys
 QkK04
 Qkkbal
@@ -18197,6 +18290,7 @@ QrirybcrePbafbyrZbqhyr
 Qroht
 QrohtZnantre
 QrpbengrqInyhrYnory
+QRPhh
 QrsnhygFreireCynlreZbqhyrf
 QrsnhygPungZbqhyrf
 QrsnhygPungZrffntr
@@ -18277,6 +18371,7 @@ Quill
 Quint
 QuitDialog
 quite
+quJfKt
 QUOkm
 QUOmP
 quota
@@ -18399,6 +18494,7 @@ R6032
 R6033
 R6034
 r63kz
+r6C_xg
 r6PVRQh
 r7Wzr
 r7Yr7
@@ -18446,6 +18542,7 @@ RangeSelect
 RangeSet
 RangeValid
 RanoyrPebffcynlBireynl
+Ras_qg
 raster_multisample
 raster1
 rasterizeTile
@@ -19222,6 +19319,7 @@ rjwhj
 rK18Lu
 rK2YF
 RkgenQngnVavgvnyvmre
+rkHhYb
 rkKIb
 rksuHW
 RkVrx
@@ -19243,6 +19341,8 @@ RmVRBG
 RmwDh
 RMxhVM
 rncst
+rnF7K
+RnFibG
 RnfrSvygref
 RngUhB
 rnMV2
@@ -19355,6 +19455,8 @@ RQPh8J
 RQPhh
 RQPhXJ
 RQPSW
+RQQJU
+rQrvh
 RQSVP
 rqUTAxo
 RqvgPungTebhc
@@ -19485,6 +19587,7 @@ s5LRO
 s64aG
 S89S0u
 s8W4P
+S9oQun
 sa_addr
 sA91w
 safe_queue
@@ -19500,7 +19603,9 @@ sampleRunningJobCount
 samples
 sampling
 sAmTb
+sANA4
 Sandstone
+SatcO
 Saturation
 Saturday
 sAuthorization
@@ -19970,7 +20075,7 @@ SetContextSwitch
 SetCookieValue
 SetCore
 SetCoreGuiEnabled
-SetCreatorId
+SetCreatorID
 SetCurrentDirectoryW
 SetCursor
 SetCustomSortFunction
@@ -20180,6 +20285,7 @@ SevraqfYvfg
 SevraqPbhag
 SevraqWbvaAbgvsvre
 SewerPipe
+SF61eFm
 SFFlag
 sFFou
 SFInt
@@ -20255,6 +20361,8 @@ sharpen_texture
 ShCLBEW
 ShCOBJPV
 ShcolbW
+Shd80
+Shdo0
 shdoclc
 Shell_traywnd
 Shell32
@@ -20436,6 +20544,7 @@ SkipModuleSource2
 skipped
 skipping
 skipSigningScripts
+SkPMs3
 SkR45
 sKsuOkP
 sky512_bk
@@ -20603,7 +20712,7 @@ SoundEnabled
 SoundGroup
 SoundGroupTryReleaseV2
 SoundGroupTryReleaseV3
-SoundId
+soundId
 SoundLoadAsync
 SoundLoadAsyncANDROID
 SoundLoadAsyncFail
@@ -20936,6 +21045,7 @@ STRCL
 StrCmpW
 StrCount
 strdup
+sTRe8
 stream
 stream_base
 stream_buffer
@@ -21144,12 +21254,12 @@ SVWf9
 SVWh0
 SVWhD
 SVWhH
-SVWhL
+SVWhl
 SVWhP
 SVWhU
 SVWhx
 SVWj03
-SVWj0h
+SVWj0hx
 SVWj8
 SVWj83
 SVWjA_jZ
@@ -21283,10 +21393,14 @@ t4VWQ
 T55133
 t59G4u0
 t6BPu
+t6hDA
 T6TIQ
 T6uzz
 t7VWQ
+T7wiU
 t82yd
+t8Q2S
+T8xcOt
 T98gx
 t9hLP0
 t9oYryi
@@ -21351,6 +21465,7 @@ tBPVR
 tbpWz
 tbscp
 tbuffer
+tc__6
 tC7Ddx
 tC97u
 tCIpk
@@ -21376,6 +21491,7 @@ Teams
 TeamTest
 TebhcQrgnvy
 TeeShirt
+tEht7
 TelegrafAddress
 TelegrafTCPPort
 TelegrafUDPPort
@@ -21988,7 +22104,7 @@ TouchCameraMoveModeFollow
 TouchCameraMoveModeOrbital
 TouchCameraMoveModeUser
 TouchCameraMoveModified
-Touched
+touched
 TouchedSignal
 TouchEnabled
 TouchEnded
@@ -22152,12 +22268,16 @@ Tsmall
 TSMk2
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
+tSpU5
 tsuperior
 tSVW3
 TSVWj
 tSVWj8
 TSVWP
+tSVXa
 Tt1jhZ
+tT5Zz
+Tt81j
 tT9F4uO
 TTDxDx8
 ttdzsM
@@ -22362,6 +22482,7 @@ UCpoL
 uCPVj
 UCreatePathRequest
 uCSVW
+ucVh0
 Udata
 Udelete_data
 uDf9Ypu
@@ -22940,6 +23061,7 @@ UTF16LE
 UTF32
 UTF32BE
 UTF32LE
+uTfVg
 utility
 UTjSO9
 utjX37
@@ -22986,12 +23108,15 @@ uyiYe
 UyQYg
 UywlU
 uZEeu
+uZJMx
 uZRQh
 uztmC
 uzVSW
 V__ExceptionPtr
 V0F1h1p1x1
 v0UQB
+v0v1F2
+v0v1F2_3
 V0WD2
 v1beta1
 v1cT9
@@ -23214,6 +23339,7 @@ VDialogRoot
 VDIHaH
 VDirectPhysicsReceiver
 VDistortionSoundEffect
+VDJuz
 Vdomain_error
 vdpau_interop
 Vdr2VT
@@ -23243,6 +23369,7 @@ VelocityTool
 VelocityTool_dn
 VelocityTool_ds
 VelocityTool_ovr
+vEmeD
 VEmitter
 Vendor
 VendorId
@@ -23457,6 +23584,7 @@ VideoQualitySettings
 videoRAM
 VideoRecordingChangeRequest
 VIdSerializer
+vIeJkVI
 VIEW_PROFILE
 Viewer
 viewport
@@ -23709,6 +23837,7 @@ VLoginService
 VLogService
 vlPQd_
 vLPSh
+vlQQ6
 VLuaDragger
 VLuaScriptFileDesc
 VLuaSettings
@@ -23809,10 +23938,12 @@ VOscillateMotorTool
 voSPnf
 Vout_of_range
 Voverflow_error
+VOwO0p
 voxel
 Voxel2
 Voxelizer
 Voxelizing
+VozEPU
 VPacketJob
 VPacketReceiveJob
 VPages
@@ -23895,6 +24026,7 @@ VRClientCoreFactory
 VRDevice
 VRealAllocationStrategy
 VRect2D
+vrEcU
 VReflection
 VReflectionClassContainer
 VReflectionEventContainer
@@ -24056,6 +24188,7 @@ VSharedStringDictionary
 vsHBC
 VShirt
 VShirtGraphic
+VShtR
 VSimulateStage
 VSjdL8
 VSkateboardController
@@ -24556,6 +24689,7 @@ wchar_t
 WCjrzC6
 WclOK
 WD9WHt
+WdAMU
 wdDJZ
 wDfXg
 wDhRzdh
@@ -25019,6 +25153,8 @@ WSSYG
 wstring
 WSVPP
 WSVRh
+WsXL1
+wt_6a
 Wt0gI
 WT9OD
 WTA_I4
@@ -25209,6 +25345,7 @@ xdfgX
 xdhiNDE
 xdhlRgYkRU
 xdigit
+XdkBT
 Xdkrw
 xDvFt
 xdYcf
