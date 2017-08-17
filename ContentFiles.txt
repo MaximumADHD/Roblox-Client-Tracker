@@ -1,0 +1,2946 @@
+content/avatar/character.rbxm
+[26396 bytes]
+
+content/avatar/characterR15.rbxm
+[73092 bytes]
+
+content/avatar/characterR15_3.rbxm
+[72252 bytes]
+
+content/avatar/compositing/CompositExtraSlot0.mesh
+[817 bytes]
+
+content/avatar/compositing/CompositExtraSlot1.mesh
+[817 bytes]
+
+content/avatar/compositing/CompositExtraSlot2.mesh
+[817 bytes]
+
+content/avatar/compositing/CompositExtraSlot3.mesh
+[817 bytes]
+
+content/avatar/compositing/CompositExtraSlot4.mesh
+[817 bytes]
+
+content/avatar/compositing/CompositFullAtlasBaseTexture.mesh
+[193 bytes]
+
+content/avatar/compositing/CompositFullAtlasOverlayTexture.mesh
+[189 bytes]
+
+content/avatar/compositing/CompositLeftArmBase.mesh
+[28805 bytes]
+
+content/avatar/compositing/CompositLeftLegBase.mesh
+[28141 bytes]
+
+content/avatar/compositing/CompositPantsTemplate.mesh
+[42981 bytes]
+
+content/avatar/compositing/CompositQuad.mesh
+[183 bytes]
+
+content/avatar/compositing/CompositRightArmBase.mesh
+[28585 bytes]
+
+content/avatar/compositing/CompositRightLegBase.mesh
+[28409 bytes]
+
+content/avatar/compositing/CompositShirtTemplate.mesh
+[42224 bytes]
+
+content/avatar/compositing/CompositTorsoBase.mesh
+[28551 bytes]
+
+content/avatar/compositing/CompositTShirt.mesh
+[193 bytes]
+
+content/avatar/compositing/R15CompositLeftArmBase.mesh
+[18822 bytes]
+
+content/avatar/compositing/R15CompositRightArmBase.mesh
+[18803 bytes]
+
+content/avatar/compositing/R15CompositTorsoBase.mesh
+[8818 bytes]
+
+content/avatar/content-avatar.zip
+[163861 bytes]
+
+content/avatar/heads/head.mesh
+[28207 bytes]
+
+content/avatar/heads/headA.mesh
+[13336 bytes]
+
+content/avatar/heads/headB.mesh
+[1033 bytes]
+
+content/avatar/heads/headC.mesh
+[18585 bytes]
+
+content/avatar/heads/headD.mesh
+[29041 bytes]
+
+content/avatar/heads/headE.mesh
+[24067 bytes]
+
+content/avatar/heads/headF.mesh
+[9441 bytes]
+
+content/avatar/heads/headG.mesh
+[21168 bytes]
+
+content/avatar/heads/headH.mesh
+[28241 bytes]
+
+content/avatar/heads/headI.mesh
+[2818 bytes]
+
+content/avatar/heads/headJ.mesh
+[2657 bytes]
+
+content/avatar/heads/headK.mesh
+[28287 bytes]
+
+content/avatar/heads/headL.mesh
+[13783 bytes]
+
+content/avatar/heads/headM.mesh
+[3225 bytes]
+
+content/avatar/heads/headN.mesh
+[28979 bytes]
+
+content/avatar/heads/headO.mesh
+[18728 bytes]
+
+content/avatar/heads/headP.mesh
+[28979 bytes]
+
+content/avatar/meshes/leftarm.mesh
+[2033 bytes]
+
+content/avatar/meshes/leftleg.mesh
+[2033 bytes]
+
+content/avatar/meshes/rightarm.mesh
+[2033 bytes]
+
+content/avatar/meshes/rightleg.mesh
+[2033 bytes]
+
+content/avatar/meshes/torso.mesh
+[2049 bytes]
+
+content/avatar/scripts/characterSound.rbxmx
+[11417 bytes]
+
+content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
+[19911 bytes]
+
+content/avatar/scripts/humanoidAnimateLocalKeyframe2.rbxm
+[19949 bytes]
+
+content/avatar/scripts/humanoidAnimateR15.rbxm
+[30213 bytes]
+
+content/avatar/scripts/humanoidAnimateR15_4.rbxm
+[30141 bytes]
+
+content/avatar/scripts/humanoidHealthRegenScript.rbxmx
+[1426 bytes]
+
+content/fonts/AccanthisADFStd-Regular.otf
+[51166 bytes]
+
+content/fonts/arial.ttf
+[706354 bytes]
+
+content/fonts/arialbd.ttf
+[684409 bytes]
+
+content/fonts/Balthazar-Regular.ttf
+[28117 bytes]
+
+content/fonts/character3.rbxm
+[26396 bytes]
+
+content/fonts/characterCameraScript.rbxmx
+[154411 bytes]
+
+content/fonts/characterControlScript.rbxmx
+[82801 bytes]
+
+content/fonts/characterR15.rbxm
+[73092 bytes]
+
+content/fonts/characterR15_3.rbxm
+[72252 bytes]
+
+content/fonts/characterSound.rbxmx
+[11417 bytes]
+
+content/fonts/ComicNeue-Angular-Bold.ttf
+[61983 bytes]
+
+content/fonts/CompositExtraSlot0.mesh
+[817 bytes]
+
+content/fonts/CompositExtraSlot1.mesh
+[817 bytes]
+
+content/fonts/CompositExtraSlot2.mesh
+[817 bytes]
+
+content/fonts/CompositExtraSlot3.mesh
+[817 bytes]
+
+content/fonts/CompositExtraSlot4.mesh
+[817 bytes]
+
+content/fonts/CompositFullAtlasBaseTexture.mesh
+[193 bytes]
+
+content/fonts/CompositFullAtlasOverlayTexture.mesh
+[189 bytes]
+
+content/fonts/CompositLeftArmBase.mesh
+[28805 bytes]
+
+content/fonts/CompositLeftLegBase.mesh
+[28141 bytes]
+
+content/fonts/CompositPantsTemplate.mesh
+[42981 bytes]
+
+content/fonts/CompositQuad.mesh
+[183 bytes]
+
+content/fonts/CompositRightArmBase.mesh
+[28585 bytes]
+
+content/fonts/CompositRightLegBase.mesh
+[28409 bytes]
+
+content/fonts/CompositShirtTemplate.mesh
+[42224 bytes]
+
+content/fonts/CompositTorsoBase.mesh
+[28551 bytes]
+
+content/fonts/CompositTShirt.mesh
+[193 bytes]
+
+content/fonts/content-fonts.zip
+[1898593 bytes]
+
+content/fonts/gamecontrollerdb.txt
+[24066 bytes]
+
+content/fonts/Guru-Regular.otf
+[693972 bytes]
+
+content/fonts/head.mesh
+[28207 bytes]
+
+content/fonts/headA.mesh
+[13336 bytes]
+
+content/fonts/headB.mesh
+[1033 bytes]
+
+content/fonts/headC.mesh
+[18585 bytes]
+
+content/fonts/headD.mesh
+[29041 bytes]
+
+content/fonts/headE.mesh
+[24067 bytes]
+
+content/fonts/headF.mesh
+[9441 bytes]
+
+content/fonts/headG.mesh
+[21168 bytes]
+
+content/fonts/headH.mesh
+[28241 bytes]
+
+content/fonts/headI.mesh
+[2818 bytes]
+
+content/fonts/headJ.mesh
+[2657 bytes]
+
+content/fonts/headK.mesh
+[28287 bytes]
+
+content/fonts/headL.mesh
+[13783 bytes]
+
+content/fonts/headM.mesh
+[3225 bytes]
+
+content/fonts/headN.mesh
+[28979 bytes]
+
+content/fonts/headO.mesh
+[18728 bytes]
+
+content/fonts/headP.mesh
+[28979 bytes]
+
+content/fonts/humanoidAnimateLocalKeyframe.rbxm
+[19911 bytes]
+
+content/fonts/humanoidAnimateLocalKeyframe2.rbxm
+[19949 bytes]
+
+content/fonts/humanoidAnimateR15.rbxm
+[30213 bytes]
+
+content/fonts/humanoidAnimateR15_4.rbxm
+[30141 bytes]
+
+content/fonts/humanoidHealthRegenScript.rbxmx
+[1426 bytes]
+
+content/fonts/humanoidSoundNewLocal.rbxmx
+[5774 bytes]
+
+content/fonts/HWYGOTH.ttf
+[52488 bytes]
+
+content/fonts/Inconsolata-Regular.ttf
+[79017 bytes]
+
+content/fonts/leftarm.mesh
+[2033 bytes]
+
+content/fonts/leftleg.mesh
+[2033 bytes]
+
+content/fonts/PressStart2P-Regular.ttf
+[66336 bytes]
+
+content/fonts/R15CompositLeftArmBase.mesh
+[18822 bytes]
+
+content/fonts/R15CompositRightArmBase.mesh
+[18803 bytes]
+
+content/fonts/R15CompositTorsoBase.mesh
+[8818 bytes]
+
+content/fonts/rightarm.mesh
+[2033 bytes]
+
+content/fonts/rightleg.mesh
+[2033 bytes]
+
+content/fonts/RomanAntique.otf
+[265740 bytes]
+
+content/fonts/SourceSansPro-Bold.ttf
+[289472 bytes]
+
+content/fonts/SourceSansPro-It.ttf
+[102903 bytes]
+
+content/fonts/SourceSansPro-Light.ttf
+[149023 bytes]
+
+content/fonts/SourceSansPro-Regular.ttf
+[148611 bytes]
+
+content/fonts/SourceSansPro-Semibold.ttf
+[148454 bytes]
+
+content/fonts/torso.mesh
+[2049 bytes]
+
+content/fonts/zekton_rg.ttf
+[86820 bytes]
+
+content/music/bass.wav
+[6351 bytes]
+
+content/music/content-music.zip
+[3881 bytes]
+
+content/scripts/content-scripts.zip
+[536255 bytes]
+
+content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
+[6773 bytes]
+
+content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
+[8991 bytes]
+
+content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
+[10514 bytes]
+
+content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
+[36507 bytes]
+
+content/scripts/CoreScripts/CoreScripts/GamepadMenuOld.lua
+[28170 bytes]
+
+content/scripts/CoreScripts/CoreScripts/HealthScript.lua
+[10404 bytes]
+
+content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
+[25477 bytes]
+
+content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
+[39530 bytes]
+
+content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
+[6524 bytes]
+
+content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
+[66237 bytes]
+
+content/scripts/CoreScripts/CoreScripts/Topbar.lua
+[42738 bytes]
+
+content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
+[5805 bytes]
+
+content/scripts/CoreScripts/Libraries/RbxGui.lua
+[139986 bytes]
+
+content/scripts/CoreScripts/Libraries/RbxStamper.lua
+[83834 bytes]
+
+content/scripts/CoreScripts/Libraries/RbxUtility.lua
+[36996 bytes]
+
+content/scripts/CoreScripts/LoadingScript.lua
+[37491 bytes]
+
+content/scripts/CoreScripts/MergeSort.lua
+[808 bytes]
+
+content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
+[14612 bytes]
+
+content/scripts/CoreScripts/Modules/BackpackScript.lua
+[65855 bytes]
+
+content/scripts/CoreScripts/Modules/BackpackScript3D.lua
+[15884 bytes]
+
+content/scripts/CoreScripts/Modules/BusinessLogic.lua
+[281 bytes]
+
+content/scripts/CoreScripts/Modules/Chat.lua
+[103586 bytes]
+
+content/scripts/CoreScripts/Modules/ChatSelector.lua
+[5602 bytes]
+
+content/scripts/CoreScripts/Modules/ChatUtil.lua
+[711 bytes]
+
+content/scripts/CoreScripts/Modules/Common/CommonUtil.lua
+[573 bytes]
+
+content/scripts/CoreScripts/Modules/Common/Http.lua
+[3151 bytes]
+
+content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
+[1562 bytes]
+
+content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
+[106951 bytes]
+
+content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
+[701 bytes]
+
+content/scripts/CoreScripts/Modules/HttpAnalyticsTab.lua
+[17925 bytes]
+
+content/scripts/CoreScripts/Modules/LoadingScreen3D.lua
+[10036 bytes]
+
+content/scripts/CoreScripts/Modules/NewChat.lua
+[10440 bytes]
+
+content/scripts/CoreScripts/Modules/PlayerDropDown.lua
+[22846 bytes]
+
+content/scripts/CoreScripts/Modules/PlayerlistModule.lua
+[62938 bytes]
+
+content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
+[1187 bytes]
+
+content/scripts/CoreScripts/Modules/PromptCreator.lua
+[24859 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/BubbleChat/BubbleChat.lua
+[22793 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsBar.lua
+[14531 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsTab.lua
+[12013 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChatBar.lua
+[17536 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChatChannel.lua
+[4297 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChatMain.lua
+[31337 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChatScript.lua
+[4278 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindow.lua
+[19955 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindowInstaller.lua
+[6550 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/CommandProcessor.lua
+[2309 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/CurveUtil.lua
+[1832 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatConstants.lua
+[740 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
+[407 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
+[4691 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/ClearMessages.lua
+[674 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/DeveloperConsole.lua
+[912 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/GetVersion.lua
+[814 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwallowGuestChat.lua
+[1272 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwitchChannel.lua
+[1692 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Team.lua
+[3665 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Util.lua
+[1816 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Whisper.lua
+[5448 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/DefaultChatMessage.lua
+[3464 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/MeCommandMessage.lua
+[2835 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/SetCoreMessage.lua
+[1740 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/SystemMessage.lua
+[2427 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/UnknownMessage.lua
+[687 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/Util.lua
+[11404 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WelcomeMessage.lua
+[2432 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WhisperMessage.lua
+[3846 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/MessageLabelCreator.lua
+[4288 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/MessageLogDisplay.lua
+[7498 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/MessageSender.lua
+[835 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/README.md
+[1732 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ClientChat/TransparencyTweener.lua
+[6111 bytes]
+
+content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCamera.lua
+[10508 bytes]
+
+content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCameraInstaller.lua
+[3208 bytes]
+
+content/scripts/CoreScripts/Modules/Server/FreeCamera/Maid.lua
+[950 bytes]
+
+content/scripts/CoreScripts/Modules/Server/FreeCamera/Spring.lua
+[877 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/ChatChannel.lua
+[22322 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
+[14165 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
+[2624 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
+[13094 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatCommandsTeller.lua
+[3196 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatFloodDetector.lua
+[2808 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatMessageValidator.lua
+[2495 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDataInitializer.lua
+[4603 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
+[2117 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MeCommand.lua
+[789 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MuteSpeaker.lua
+[4249 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/PrivateMessaging.lua
+[6218 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/TeamChat.lua
+[6304 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/README.md
+[4308 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/Speaker.lua
+[8958 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/Util.lua
+[2804 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerPlayer/DefaultServerPlayerModules/PlayerSettings.lua
+[288 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerPlayer/ServerPlayerInstaller.lua
+[478 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
+[9 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
+[48977 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
+[26855 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
+[2702 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
+[4855 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
+[20349 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
+[7975 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
+[13681 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
+[5390 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
+[48515 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/SettingsHubOld.lua
+[40999 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
+[9490 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/Utility.lua
+[80938 bytes]
+
+content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
+[77183 bytes]
+
+content/scripts/CoreScripts/Modules/SocialUtil.lua
+[3226 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
+[5795 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/BaseMemoryAnalyzer.lua
+[6605 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
+[4342 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/DecoratedValueLabel.lua
+[3087 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/DeveloperConsolePrimitives.lua
+[2560 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/DeveloperConsoleStyle.lua
+[2736 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/ServerMemoryAnalyzer.lua
+[4143 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsAggregator.lua
+[4192 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsAggregatorManager.lua
+[2003 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsAnnotatedGraph.lua
+[7002 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsButton.lua
+[3068 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsMiniTextPanel.lua
+[4526 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsTextPanel.lua
+[7765 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
+[9233 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
+[4027 bytes]
+
+content/scripts/CoreScripts/Modules/StyleWidgets.lua
+[1168 bytes]
+
+content/scripts/CoreScripts/Modules/TenFootInterface.lua
+[11560 bytes]
+
+content/scripts/CoreScripts/Modules/TopbarConstants.lua
+[1261 bytes]
+
+content/scripts/CoreScripts/Modules/VR/Dialog.lua
+[6092 bytes]
+
+content/scripts/CoreScripts/Modules/VR/Healthbar3D.lua
+[9301 bytes]
+
+content/scripts/CoreScripts/Modules/VR/LaserPointer.lua
+[31680 bytes]
+
+content/scripts/CoreScripts/Modules/VR/NotificationHub.lua
+[24556 bytes]
+
+content/scripts/CoreScripts/Modules/VR/NotifierHint3D.lua
+[2110 bytes]
+
+content/scripts/CoreScripts/Modules/VR/Panel3D.lua
+[32867 bytes]
+
+content/scripts/CoreScripts/Modules/VR/Recenter.lua
+[3009 bytes]
+
+content/scripts/CoreScripts/Modules/VR/UserGui.lua
+[2223 bytes]
+
+content/scripts/CoreScripts/Modules/VR/VirtualKeyboard.lua
+[40103 bytes]
+
+content/scripts/CoreScripts/Modules/VR/VRHub.lua
+[3473 bytes]
+
+content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
+[7940 bytes]
+
+content/scripts/CoreScripts/ServerStarterScript.lua
+[3973 bytes]
+
+content/scripts/CoreScripts/StarterScript.lua
+[3722 bytes]
+
+content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
+[1677 bytes]
+
+content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
+[9063 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
+[10488 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
+[47359 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewClickToMove.lua
+[33033 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
+[20726 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
+[5345 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
+[49717 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
+[2232 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ClassicCamera.lua
+[6792 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FixedCamera.lua
+[1411 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FollowCamera.lua
+[6966 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/OrbitalCamera.lua
+[17635 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ScriptableCamera.lua
+[222 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/TrackCamera.lua
+[1613 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/WatchCamera.lua
+[1884 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ShiftLockController.lua
+[6079 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/TransparencyController.lua
+[5543 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript.lua
+[15595 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.lua
+[5016 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DPad.lua
+[5125 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick.lua
+[16533 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Gamepad.lua
+[6929 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/KeyboardMovement.lua
+[5785 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbpad.lua
+[8802 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbstick.lua
+[6658 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/TouchJump.lua
+[4667 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VehicleController.lua
+[6699 bytes]
+
+content/sky/content-sky.zip
+[14152 bytes]
+
+content/sky/moon.jpg
+[7107 bytes]
+
+content/sky/sun.jpg
+[14512 bytes]
+
+content/sounds/action_falling.mp3
+[127688 bytes]
+
+content/sounds/action_footsteps_plastic.mp3
+[38962 bytes]
+
+content/sounds/action_get_up.mp3
+[9926 bytes]
+
+content/sounds/action_jump.mp3
+[6353 bytes]
+
+content/sounds/action_jump_land.mp3
+[5137 bytes]
+
+content/sounds/action_swim.mp3
+[75633 bytes]
+
+content/sounds/content-sounds.zip
+[328397 bytes]
+
+content/sounds/impact_explosion_03.mp3
+[40674 bytes]
+
+content/sounds/impact_water.mp3
+[37445 bytes]
+
+content/sounds/snap.mp3
+[5339 bytes]
+
+content/sounds/uuhhh.mp3
+[5281 bytes]
+
+content/terrain/content-terrain.zip
+[23917403 bytes]
+
+content/terrain/diffuse.dds
+[2654777 bytes]
+
+content/terrain/diffusearray.dds
+[5957152 bytes]
+
+content/terrain/materials.json
+[4819 bytes]
+
+content/terrain/normal.dds
+[5384181 bytes]
+
+content/terrain/normalarray.dds
+[12124037 bytes]
+
+content/terrain/specular.dds
+[2735557 bytes]
+
+content/terrain/speculararray.dds
+[6163874 bytes]
+
+content/textures/advancedMove.png
+[1873 bytes]
+
+content/textures/advancedMove_joint.png
+[3539 bytes]
+
+content/textures/advancedMove_keysOnly.png
+[2469 bytes]
+
+content/textures/advancedMove_noJoint.png
+[2928 bytes]
+
+content/textures/advancedMoveResize.png
+[2042 bytes]
+
+content/textures/advClosed-hand.png
+[1093 bytes]
+
+content/textures/advClosed-hand-no-weld.png
+[1127 bytes]
+
+content/textures/advClosed-hand-weld.png
+[1216 bytes]
+
+content/textures/advCursor-default.png
+[1115 bytes]
+
+content/textures/advCursor-openedHand.png
+[1126 bytes]
+
+content/textures/advCursor-white.png
+[1053 bytes]
+
+content/textures/aluminum/diffuse.dds
+[152 bytes]
+
+content/textures/aluminum/normal.dds
+[339520 bytes]
+
+content/textures/aluminum/normaldetail.dds
+[176 bytes]
+
+content/textures/aluminum/specular.dds
+[151 bytes]
+
+content/textures/AnchorCursor.png
+[1114 bytes]
+
+content/textures/ArrowCursor.png
+[230 bytes]
+
+content/textures/ArrowCursorDecalDrag.png
+[230 bytes]
+
+content/textures/ArrowFarCursor.png
+[233 bytes]
+
+content/textures/AvatarEditorImages/btn.png
+[162 bytes]
+
+content/textures/AvatarEditorImages/btn@2x.png
+[252 bytes]
+
+content/textures/AvatarEditorImages/btn@3x.png
+[369 bytes]
+
+content/textures/AvatarEditorImages/Sheet.png
+[292348 bytes]
+
+content/textures/AvatarEditorImages/Stretch/bar-empty-mid.png
+[82 bytes]
+
+content/textures/AvatarEditorImages/Stretch/bar-empty-mid@2x.png
+[83 bytes]
+
+content/textures/AvatarEditorImages/Stretch/bar-empty-mid@3x.png
+[84 bytes]
+
+content/textures/AvatarEditorImages/Stretch/bar-full-mid.png
+[103 bytes]
+
+content/textures/AvatarEditorImages/Stretch/bar-full-mid@2x.png
+[129 bytes]
+
+content/textures/AvatarEditorImages/Stretch/bar-full-mid@3x.png
+[152 bytes]
+
+content/textures/AvatarEditorImages/Stretch/gr-tail.png
+[104 bytes]
+
+content/textures/AvatarEditorImages/Stretch/gr-tail@2x.png
+[152 bytes]
+
+content/textures/blackBkg_round.png
+[331 bytes]
+
+content/textures/blackBkg_square.png
+[131 bytes]
+
+content/textures/Blank.png
+[183 bytes]
+
+content/textures/blockUpperLeft.png
+[271 bytes]
+
+content/textures/brick/diffuse.dds
+[1310157 bytes]
+
+content/textures/brick/normal.dds
+[1357058 bytes]
+
+content/textures/brick/normaldetail.dds
+[176 bytes]
+
+content/textures/brick/specular.dds
+[687467 bytes]
+
+content/textures/chatBubble_bot_notifyGray_dotDotDot.png
+[246 bytes]
+
+content/textures/cobblestone/diffuse.dds
+[1319027 bytes]
+
+content/textures/cobblestone/normal.dds
+[1344521 bytes]
+
+content/textures/cobblestone/normaldetail.dds
+[176 bytes]
+
+content/textures/cobblestone/specular.dds
+[685490 bytes]
+
+content/textures/concrete/diffuse.dds
+[643261 bytes]
+
+content/textures/concrete/normal.dds
+[1358361 bytes]
+
+content/textures/concrete/normaldetail.dds
+[340331 bytes]
+
+content/textures/concrete/specular.dds
+[171623 bytes]
+
+content/textures/content-textures.zip
+[3175 bytes]
+
+content/textures/content-textures2.zip
+[6043582 bytes]
+
+content/textures/content-textures3.zip
+[26376277 bytes]
+
+content/textures/Cursors/Gamepad/Pointer.png
+[1073 bytes]
+
+content/textures/Cursors/Gamepad/Pointer@2x.png
+[1154 bytes]
+
+content/textures/Cursors/Gamepad/PointerOver.png
+[864 bytes]
+
+content/textures/Cursors/Gamepad/PointerOver@2x.png
+[1513 bytes]
+
+content/textures/diamondplate/diffuse.dds
+[164334 bytes]
+
+content/textures/diamondplate/normal.dds
+[341408 bytes]
+
+content/textures/diamondplate/normaldetail.dds
+[176 bytes]
+
+content/textures/diamondplate/specular.dds
+[168004 bytes]
+
+content/textures/emoji/page0.png
+[289785 bytes]
+
+content/textures/emoji/page1.png
+[298826 bytes]
+
+content/textures/emoji/page10.png
+[314823 bytes]
+
+content/textures/emoji/page11.png
+[298998 bytes]
+
+content/textures/emoji/page12.png
+[320636 bytes]
+
+content/textures/emoji/page13.png
+[331737 bytes]
+
+content/textures/emoji/page14.png
+[237393 bytes]
+
+content/textures/emoji/page2.png
+[288947 bytes]
+
+content/textures/emoji/page3.png
+[252281 bytes]
+
+content/textures/emoji/page4.png
+[240775 bytes]
+
+content/textures/emoji/page5.png
+[293910 bytes]
+
+content/textures/emoji/page6.png
+[274965 bytes]
+
+content/textures/emoji/page7.png
+[176151 bytes]
+
+content/textures/emoji/page8.png
+[301867 bytes]
+
+content/textures/emoji/page9.png
+[313036 bytes]
+
+content/textures/explosion.png
+[11692 bytes]
+
+content/textures/fabric/diffuse.dds
+[341572 bytes]
+
+content/textures/fabric/normal.dds
+[336596 bytes]
+
+content/textures/fabric/normaldetail.dds
+[176 bytes]
+
+content/textures/fabric/specular.dds
+[171590 bytes]
+
+content/textures/face.png
+[855 bytes]
+
+content/textures/glow.png
+[36056 bytes]
+
+content/textures/gradient.png
+[165843 bytes]
+
+content/textures/granite/diffuse.dds
+[675614 bytes]
+
+content/textures/granite/normal.dds
+[176 bytes]
+
+content/textures/granite/normaldetail.dds
+[176 bytes]
+
+content/textures/granite/specular.dds
+[684798 bytes]
+
+content/textures/grass/diffuse.dds
+[661313 bytes]
+
+content/textures/grass/normal.dds
+[1346646 bytes]
+
+content/textures/grass/normaldetail.dds
+[176 bytes]
+
+content/textures/grass/specular.dds
+[687955 bytes]
+
+content/textures/ice/diffuse.dds
+[152 bytes]
+
+content/textures/ice/normal.dds
+[347896 bytes]
+
+content/textures/ice/normaldetail.dds
+[176 bytes]
+
+content/textures/ice/specular.dds
+[681824 bytes]
+
+content/textures/loading/cancelButton.png
+[2567 bytes]
+
+content/textures/loading/darkLoadingTexture.png
+[41563 bytes]
+
+content/textures/loading/loadingCircle.png
+[12083 bytes]
+
+content/textures/loading/loadingTexture.png
+[42096 bytes]
+
+content/textures/loading/loadingvignette.png
+[3798 bytes]
+
+content/textures/loading/robloxlogo.png
+[17071 bytes]
+
+content/textures/loading/robloxTilt.png
+[2450 bytes]
+
+content/textures/loading/robloxTiltRed.png
+[2338 bytes]
+
+content/textures/LockCursor.png
+[547 bytes]
+
+content/textures/marble/diffuse.dds
+[648287 bytes]
+
+content/textures/marble/normal.dds
+[1356223 bytes]
+
+content/textures/marble/normaldetail.dds
+[176 bytes]
+
+content/textures/marble/specular.dds
+[675422 bytes]
+
+content/textures/meshPartFallback.png
+[241 bytes]
+
+content/textures/metal/diffuse.dds
+[168465 bytes]
+
+content/textures/metal/normal.dds
+[340602 bytes]
+
+content/textures/metal/normaldetail.dds
+[176 bytes]
+
+content/textures/metal/specular.dds
+[167904 bytes]
+
+content/textures/MouseLockedCursor.png
+[1650 bytes]
+
+content/textures/particles/common_alpha.dds
+[4203 bytes]
+
+content/textures/particles/explosion_alpha.dds
+[2861 bytes]
+
+content/textures/particles/explosion_color.dds
+[5547 bytes]
+
+content/textures/particles/explosion01_core_alpha.png
+[22673 bytes]
+
+content/textures/particles/explosion01_core_main.dds
+[85637 bytes]
+
+content/textures/particles/explosion01_implosion_color.png
+[2589 bytes]
+
+content/textures/particles/explosion01_implosion_main.dds
+[87032 bytes]
+
+content/textures/particles/explosion01_shockwave_main.dds
+[86982 bytes]
+
+content/textures/particles/explosion01_smoke_alpha.dds
+[2881 bytes]
+
+content/textures/particles/explosion01_smoke_color_new.dds
+[2859 bytes]
+
+content/textures/particles/explosion01_smoke_main.dds
+[86586 bytes]
+
+content/textures/particles/fire_alpha.dds
+[5629 bytes]
+
+content/textures/particles/fire_color.dds
+[5582 bytes]
+
+content/textures/particles/fire_main.dds
+[85672 bytes]
+
+content/textures/particles/fire_sparks_color.dds
+[5508 bytes]
+
+content/textures/particles/fire_sparks_main.dds
+[5474 bytes]
+
+content/textures/particles/forcefield_alpha.dds
+[5640 bytes]
+
+content/textures/particles/forcefield_glow_alpha.dds
+[5618 bytes]
+
+content/textures/particles/forcefield_glow_color.dds
+[5628 bytes]
+
+content/textures/particles/forcefield_glow_main.dds
+[86604 bytes]
+
+content/textures/particles/forcefield_vortex_color.dds
+[5628 bytes]
+
+content/textures/particles/forcefield_vortex_main.dds
+[21708 bytes]
+
+content/textures/particles/legacy_fire_alpha_color.dds
+[2871 bytes]
+
+content/textures/particles/smoke_color.dds
+[5546 bytes]
+
+content/textures/particles/smoke_main.dds
+[21514 bytes]
+
+content/textures/particles/sparkles_color.dds
+[5465 bytes]
+
+content/textures/particles/sparkles_main.dds
+[21631 bytes]
+
+content/textures/pebble/diffuse.dds
+[164675 bytes]
+
+content/textures/pebble/normal.dds
+[176 bytes]
+
+content/textures/pebble/normaldetail.dds
+[176 bytes]
+
+content/textures/pebble/specular.dds
+[171623 bytes]
+
+content/textures/plastic/diffuse.dds
+[160111 bytes]
+
+content/textures/plastic/normal.dds
+[347085 bytes]
+
+content/textures/plastic/normaldetail.dds
+[336328 bytes]
+
+content/textures/rotationArrow.png
+[2354 bytes]
+
+content/textures/rust/diffuse.dds
+[1310518 bytes]
+
+content/textures/rust/normal.dds
+[1357305 bytes]
+
+content/textures/rust/normaldetail.dds
+[176 bytes]
+
+content/textures/rust/specular.dds
+[683005 bytes]
+
+content/textures/sand/diffuse.dds
+[628826 bytes]
+
+content/textures/sand/normal.dds
+[333632 bytes]
+
+content/textures/sand/normaldetail.dds
+[176 bytes]
+
+content/textures/sand/specular.dds
+[688434 bytes]
+
+content/textures/shadowmask.png
+[3045 bytes]
+
+content/textures/sky/sky512_bk.tex
+[675709 bytes]
+
+content/textures/sky/sky512_dn.tex
+[686000 bytes]
+
+content/textures/sky/sky512_ft.tex
+[676111 bytes]
+
+content/textures/sky/sky512_lf.tex
+[676440 bytes]
+
+content/textures/sky/sky512_rt.tex
+[675198 bytes]
+
+content/textures/sky/sky512_up.tex
+[684066 bytes]
+
+content/textures/slate/diffuse.dds
+[630212 bytes]
+
+content/textures/slate/normal.dds
+[1353006 bytes]
+
+content/textures/slate/normaldetail.dds
+[336496 bytes]
+
+content/textures/slate/specular.dds
+[169987 bytes]
+
+content/textures/sparkle.png
+[1072 bytes]
+
+content/textures/studs.dds
+[165021 bytes]
+
+content/textures/SurfacesDefault.png
+[153 bytes]
+
+content/textures/transformFiveDegrees.png
+[2323 bytes]
+
+content/textures/transformNinetyDegrees.png
+[3266 bytes]
+
+content/textures/transformOneDegree.png
+[2004 bytes]
+
+content/textures/transformTwentyTwoDegrees.png
+[2388 bytes]
+
+content/textures/ui/account_over13.png
+[1714 bytes]
+
+content/textures/ui/account_under13.png
+[1851 bytes]
+
+content/textures/ui/Backpack/Backpack.png
+[569 bytes]
+
+content/textures/ui/Backpack/Backpack@2x.png
+[1374 bytes]
+
+content/textures/ui/Backpack/Backpack_Down.png
+[675 bytes]
+
+content/textures/ui/Backpack/Backpack_Down@2x.png
+[1606 bytes]
+
+content/textures/ui/Backpack/ScrollDownArrow.png
+[384 bytes]
+
+content/textures/ui/Backpack/ScrollUpArrow.png
+[382 bytes]
+
+content/textures/ui/Backpack_Close.png
+[151 bytes]
+
+content/textures/ui/Backpack_Close@2x.png
+[238 bytes]
+
+content/textures/ui/Backpack_Open.png
+[156 bytes]
+
+content/textures/ui/Backpack_Open@2x.png
+[243 bytes]
+
+content/textures/ui/btn_grey.png
+[281 bytes]
+
+content/textures/ui/btn_greyTransp.png
+[284 bytes]
+
+content/textures/ui/btn_newBlue.png
+[14779 bytes]
+
+content/textures/ui/btn_newBlue@2x.png
+[15154 bytes]
+
+content/textures/ui/btn_newBlueGlow.png
+[14788 bytes]
+
+content/textures/ui/btn_newBlueGlow@2x.png
+[15146 bytes]
+
+content/textures/ui/btn_newGrey.png
+[14722 bytes]
+
+content/textures/ui/btn_newGrey@2x.png
+[15038 bytes]
+
+content/textures/ui/btn_newGreyGlow.png
+[14725 bytes]
+
+content/textures/ui/btn_newGreyGlow@2x.png
+[15030 bytes]
+
+content/textures/ui/btn_newWhite.png
+[14714 bytes]
+
+content/textures/ui/btn_newWhite@2x.png
+[15021 bytes]
+
+content/textures/ui/btn_newWhiteGlow.png
+[14727 bytes]
+
+content/textures/ui/btn_newWhiteGlow@2x.png
+[15031 bytes]
+
+content/textures/ui/btn_red.png
+[354 bytes]
+
+content/textures/ui/btn_redGlow.png
+[465 bytes]
+
+content/textures/ui/btn_white.png
+[273 bytes]
+
+content/textures/ui/ButtonLeft.png
+[14944 bytes]
+
+content/textures/ui/ButtonLeftDown.png
+[15081 bytes]
+
+content/textures/ui/ButtonRight.png
+[14931 bytes]
+
+content/textures/ui/ButtonRightDown.png
+[15084 bytes]
+
+content/textures/ui/Chat/Chat.png
+[501 bytes]
+
+content/textures/ui/Chat/Chat@2x.png
+[1193 bytes]
+
+content/textures/ui/Chat/ChatDown.png
+[557 bytes]
+
+content/textures/ui/Chat/ChatDown@2x.png
+[1219 bytes]
+
+content/textures/ui/Chat/MessageCounter.png
+[405 bytes]
+
+content/textures/ui/Chat/MessageCounter@2x.png
+[870 bytes]
+
+content/textures/ui/Chat/ToggleChat.png
+[662 bytes]
+
+content/textures/ui/Chat/ToggleChat@2x.png
+[1603 bytes]
+
+content/textures/ui/Chat/ToggleChatDown.png
+[832 bytes]
+
+content/textures/ui/Chat/ToggleChatDown@2x.png
+[1958 bytes]
+
+content/textures/ui/Chat/VRChatBackground.png
+[210 bytes]
+
+content/textures/ui/chat_teamButton.png
+[250 bytes]
+
+content/textures/ui/chat_teamButton@2x.png
+[539 bytes]
+
+content/textures/ui/chatBubble_blue_notify_bkg.png
+[494 bytes]
+
+content/textures/ui/chatBubble_green_notify_bkg.png
+[490 bytes]
+
+content/textures/ui/chatBubble_red_notify_bkg.png
+[483 bytes]
+
+content/textures/ui/chatBubble_white_notify_bkg.png
+[333 bytes]
+
+content/textures/ui/CloseButton.png
+[1336 bytes]
+
+content/textures/ui/CloseButton_dn.png
+[1460 bytes]
+
+content/textures/ui/dialog_blue.png
+[190 bytes]
+
+content/textures/ui/dialog_blue@2x.png
+[345 bytes]
+
+content/textures/ui/dialog_green.png
+[191 bytes]
+
+content/textures/ui/dialog_green@2x.png
+[350 bytes]
+
+content/textures/ui/dialog_purpose_help.png
+[294 bytes]
+
+content/textures/ui/dialog_purpose_quest.png
+[233 bytes]
+
+content/textures/ui/dialog_purpose_shop.png
+[344 bytes]
+
+content/textures/ui/dialog_red.png
+[187 bytes]
+
+content/textures/ui/dialog_red@2x.png
+[347 bytes]
+
+content/textures/ui/dialog_tail.png
+[146 bytes]
+
+content/textures/ui/dialog_tail@2x.png
+[182 bytes]
+
+content/textures/ui/dialog_white.png
+[132 bytes]
+
+content/textures/ui/dialog_white@2x.png
+[180 bytes]
+
+content/textures/ui/DPadSheet.png
+[10679 bytes]
+
+content/textures/ui/dropdown_arrow.png
+[209 bytes]
+
+content/textures/ui/dropdown_arrow@2x.png
+[373 bytes]
+
+content/textures/ui/ErrorIcon.png
+[1473 bytes]
+
+content/textures/ui/ErrorIconSmall.png
+[1575 bytes]
+
+content/textures/ui/Gear.png
+[1049 bytes]
+
+content/textures/ui/Gear_dn.png
+[1126 bytes]
+
+content/textures/ui/Health-BKG-Center.png
+[950 bytes]
+
+content/textures/ui/Health-BKG-Center@2x.png
+[965 bytes]
+
+content/textures/ui/Health-BKG-Left-Cap.png
+[1063 bytes]
+
+content/textures/ui/Health-BKG-Left-Cap@2x.png
+[1267 bytes]
+
+content/textures/ui/Health-BKG-Right-Cap.png
+[1075 bytes]
+
+content/textures/ui/Health-BKG-Right-Cap@2x.png
+[1300 bytes]
+
+content/textures/ui/homeButton.png
+[14620 bytes]
+
+content/textures/ui/homeButton@2x.png
+[345 bytes]
+
+content/textures/ui/icon_admin-16.png
+[1049 bytes]
+
+content/textures/ui/icon_BC-16.png
+[1047 bytes]
+
+content/textures/ui/icon_follower-16.png
+[1096 bytes]
+
+content/textures/ui/icon_following-16.png
+[1126 bytes]
+
+content/textures/ui/icon_friendrequestrecieved-16.png
+[1073 bytes]
+
+content/textures/ui/icon_friendrequestsent_16.png
+[1007 bytes]
+
+content/textures/ui/icon_friends_16.png
+[1125 bytes]
+
+content/textures/ui/icon_intern-16.png
+[345 bytes]
+
+content/textures/ui/icon_mutualfollowing-16.png
+[1027 bytes]
+
+content/textures/ui/icon_OBC-16.png
+[1063 bytes]
+
+content/textures/ui/icon_placeowner.png
+[1118 bytes]
+
+content/textures/ui/icon_TBC-16.png
+[1047 bytes]
+
+content/textures/ui/Input/Disk_padded.png
+[4293 bytes]
+
+content/textures/ui/Input/Ring_padded.png
+[2711 bytes]
+
+content/textures/ui/Keyboard/close_button_background.png
+[859 bytes]
+
+content/textures/ui/Keyboard/close_button_icon.png
+[516 bytes]
+
+content/textures/ui/Keyboard/close_button_selection.png
+[1714 bytes]
+
+content/textures/ui/Keyboard/key_selection_9slice.png
+[346 bytes]
+
+content/textures/ui/Keyboard/mic_icon.png
+[1083 bytes]
+
+content/textures/ui/LoadingBKG.png
+[1578 bytes]
+
+content/textures/ui/LoadingScreen/BackgroundDark.png
+[963 bytes]
+
+content/textures/ui/LoadingScreen/BackgroundLight.png
+[3686 bytes]
+
+content/textures/ui/LoadingScreen/LoadingSpinner.png
+[2769 bytes]
+
+content/textures/ui/Lobby/Buttons/glow_nine_slice.png
+[11928 bytes]
+
+content/textures/ui/Lobby/Buttons/more_nine_slice_button.png
+[308 bytes]
+
+content/textures/ui/Lobby/Buttons/nine_slice_button.png
+[206 bytes]
+
+content/textures/ui/Lobby/Buttons/scroll_button.png
+[292 bytes]
+
+content/textures/ui/Lobby/Buttons/scroll_down.png
+[234 bytes]
+
+content/textures/ui/Lobby/Buttons/scroll_left.png
+[222 bytes]
+
+content/textures/ui/Lobby/Buttons/scroll_right.png
+[212 bytes]
+
+content/textures/ui/Lobby/Buttons/scroll_up.png
+[229 bytes]
+
+content/textures/ui/Lobby/Icons/back_icon.png
+[188 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble.png
+[232 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble@2x.png
+[451 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble@3x.png
+[649 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble2.png
+[224 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble2@2x.png
+[441 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble2@3x.png
+[616 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self.png
+[187 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self@2x.png
+[296 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self@3x.png
+[434 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self2.png
+[181 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self2@2x.png
+[309 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self2@3x.png
+[412 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip.png
+[98 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip@2x.png
+[116 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip@3x.png
+[136 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip.png
+[101 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip@2x.png
+[121 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip@3x.png
+[133 bytes]
+
+content/textures/ui/LuaChat/9-slice/input-default.png
+[131 bytes]
+
+content/textures/ui/LuaChat/9-slice/input-default@2x.png
+[179 bytes]
+
+content/textures/ui/LuaChat/9-slice/input-default@3x.png
+[225 bytes]
+
+content/textures/ui/LuaChat/9-slice/input-send-message.png
+[125 bytes]
+
+content/textures/ui/LuaChat/9-slice/input-send-message@2x.png
+[178 bytes]
+
+content/textures/ui/LuaChat/9-slice/input-send-message@3x.png
+[228 bytes]
+
+content/textures/ui/LuaChat/9-slice/modal.png
+[135 bytes]
+
+content/textures/ui/LuaChat/9-slice/modal@2x.png
+[188 bytes]
+
+content/textures/ui/LuaChat/9-slice/modal@3x.png
+[251 bytes]
+
+content/textures/ui/LuaChat/9-slice/new-message-indicator.png
+[244 bytes]
+
+content/textures/ui/LuaChat/9-slice/new-message-indicator@2x.png
+[433 bytes]
+
+content/textures/ui/LuaChat/9-slice/new-message-indicator@3x.png
+[619 bytes]
+
+content/textures/ui/LuaChat/9-slice/search.png
+[113 bytes]
+
+content/textures/ui/LuaChat/9-slice/search@2x.png
+[139 bytes]
+
+content/textures/ui/LuaChat/9-slice/search@3x.png
+[175 bytes]
+
+content/textures/ui/LuaChat/9-slice/system-message.png
+[114 bytes]
+
+content/textures/ui/LuaChat/9-slice/system-message@2x.png
+[157 bytes]
+
+content/textures/ui/LuaChat/9-slice/system-message@3x.png
+[194 bytes]
+
+content/textures/ui/LuaChat/9-slice/tag-bubble.png
+[318 bytes]
+
+content/textures/ui/LuaChat/9-slice/tag-bubble@2x.png
+[682 bytes]
+
+content/textures/ui/LuaChat/9-slice/tag-bubble@3x.png
+[1082 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-ingame.png
+[237 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-ingame@2x.png
+[383 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-ingame@3x.png
+[591 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-instudio.png
+[231 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-instudio@2x.png
+[382 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-instudio@3x.png
+[583 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-online.png
+[224 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-online@2x.png
+[366 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-indicator-online@3x.png
+[551 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-36x36.png
+[426 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-36x36@2x.png
+[812 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-36x36@3x.png
+[1343 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-48x48.png
+[514 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-48x48@2x.png
+[1162 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-48x48@3x.png
+[2356 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-send.png
+[280 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-send@2x.png
+[489 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-send@3x.png
+[749 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-send-on.png
+[316 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-send-on@2x.png
+[554 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-send-on@3x.png
+[1090 bytes]
+
+content/textures/ui/LuaChat/graphic/ic-checkbox.png
+[210 bytes]
+
+content/textures/ui/LuaChat/graphic/ic-checkbox@2x.png
+[400 bytes]
+
+content/textures/ui/LuaChat/graphic/ic-checkbox@3x.png
+[625 bytes]
+
+content/textures/ui/LuaChat/graphic/ic-checkbox-on.png
+[308 bytes]
+
+content/textures/ui/LuaChat/graphic/ic-checkbox-on@2x.png
+[523 bytes]
+
+content/textures/ui/LuaChat/graphic/ic-checkbox-on@3x.png
+[732 bytes]
+
+content/textures/ui/LuaChat/graphic/indicator-background.png
+[235 bytes]
+
+content/textures/ui/LuaChat/graphic/send-white.png
+[318 bytes]
+
+content/textures/ui/LuaChat/graphic/send-white@2x.png
+[495 bytes]
+
+content/textures/ui/LuaChat/graphic/send-white@3x.png
+[697 bytes]
+
+content/textures/ui/LuaChat/icons/ic-add-friends.png
+[481 bytes]
+
+content/textures/ui/LuaChat/icons/ic-add-friends@2x.png
+[1064 bytes]
+
+content/textures/ui/LuaChat/icons/ic-add-friends@3x.png
+[2039 bytes]
+
+content/textures/ui/LuaChat/icons/ic-alert.png
+[370 bytes]
+
+content/textures/ui/LuaChat/icons/ic-alert@2x.png
+[739 bytes]
+
+content/textures/ui/LuaChat/icons/ic-alert@3x.png
+[1129 bytes]
+
+content/textures/ui/LuaChat/icons/ic-back.png
+[209 bytes]
+
+content/textures/ui/LuaChat/icons/ic-back@2x.png
+[309 bytes]
+
+content/textures/ui/LuaChat/icons/ic-check.png
+[155 bytes]
+
+content/textures/ui/LuaChat/icons/ic-check@2x.png
+[210 bytes]
+
+content/textures/ui/LuaChat/icons/ic-check@3x.png
+[276 bytes]
+
+content/textures/ui/LuaChat/icons/ic-checkbox-on copy.png
+[143 bytes]
+
+content/textures/ui/LuaChat/icons/ic-checkbox-on copy@2x.png
+[174 bytes]
+
+content/textures/ui/LuaChat/icons/ic-checkbox-on copy@3x.png
+[219 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-gray.png
+[360 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-gray@2x.png
+[664 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-gray@3x.png
+[993 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-solid.png
+[261 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-solid@2x.png
+[478 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-solid@3x.png
+[677 bytes]
+
+content/textures/ui/LuaChat/icons/ic-create-group.png
+[435 bytes]
+
+content/textures/ui/LuaChat/icons/ic-create-group@2x.png
+[889 bytes]
+
+content/textures/ui/LuaChat/icons/ic-create-group@3x.png
+[1365 bytes]
+
+content/textures/ui/LuaChat/icons/ic-friends.png
+[1541 bytes]
+
+content/textures/ui/LuaChat/icons/ic-friends@2x.png
+[3256 bytes]
+
+content/textures/ui/LuaChat/icons/ic-friends@3x.png
+[5101 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group.png
+[491 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group@2x.png
+[992 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group@3x.png
+[1472 bytes]
+
+content/textures/ui/LuaChat/icons/ic-info.png
+[285 bytes]
+
+content/textures/ui/LuaChat/icons/ic-info@2x.png
+[572 bytes]
+
+content/textures/ui/LuaChat/icons/ic-info@3x.png
+[883 bytes]
+
+content/textures/ui/LuaChat/icons/ic-leave.png
+[177 bytes]
+
+content/textures/ui/LuaChat/icons/ic-leave@2x.png
+[244 bytes]
+
+content/textures/ui/LuaChat/icons/ic-leave@3x.png
+[359 bytes]
+
+content/textures/ui/LuaChat/icons/ic-more.png
+[133 bytes]
+
+content/textures/ui/LuaChat/icons/ic-more@2x.png
+[199 bytes]
+
+content/textures/ui/LuaChat/icons/ic-more@3x.png
+[270 bytes]
+
+content/textures/ui/LuaChat/icons/ic-nametag.png
+[146 bytes]
+
+content/textures/ui/LuaChat/icons/ic-nametag@2x.png
+[194 bytes]
+
+content/textures/ui/LuaChat/icons/ic-nametag@3x.png
+[253 bytes]
+
+content/textures/ui/LuaChat/icons/ic-notification.png
+[351 bytes]
+
+content/textures/ui/LuaChat/icons/ic-notification@2x.png
+[629 bytes]
+
+content/textures/ui/LuaChat/icons/ic-notification@3x.png
+[916 bytes]
+
+content/textures/ui/LuaChat/icons/ic-resend.png
+[510 bytes]
+
+content/textures/ui/LuaChat/icons/ic-resend@2x.png
+[1052 bytes]
+
+content/textures/ui/LuaChat/icons/ic-resend@3x.png
+[1624 bytes]
+
+content/textures/ui/LuaChat/icons/ic-robux.png
+[561 bytes]
+
+content/textures/ui/LuaChat/icons/ic-robux@2x.png
+[1043 bytes]
+
+content/textures/ui/LuaChat/icons/ic-robux@3x.png
+[1576 bytes]
+
+content/textures/ui/LuaChat/icons/ic-search.png
+[264 bytes]
+
+content/textures/ui/LuaChat/icons/ic-search@2x.png
+[479 bytes]
+
+content/textures/ui/LuaChat/icons/ic-search@3x.png
+[669 bytes]
+
+content/textures/ui/LuaChat/icons/ic-search-gray.png
+[291 bytes]
+
+content/textures/ui/LuaChat/icons/ic-search-gray@2x.png
+[527 bytes]
+
+content/textures/ui/LuaChat/icons/ic-search-gray@3x.png
+[726 bytes]
+
+content/textures/ui/LuaChat/icons/ic-send.png
+[242 bytes]
+
+content/textures/ui/LuaChat/icons/ic-send@2x.png
+[427 bytes]
+
+content/textures/ui/LuaChat/icons/ic-send@3x.png
+[609 bytes]
+
+content/textures/ui/Menu/buttonActive.png
+[1325 bytes]
+
+content/textures/ui/Menu/buttonBackground.png
+[844 bytes]
+
+content/textures/ui/Menu/buttonHover.png
+[1670 bytes]
+
+content/textures/ui/Menu/Hamburger.png
+[178 bytes]
+
+content/textures/ui/Menu/Hamburger@2x.png
+[324 bytes]
+
+content/textures/ui/Menu/hamburger3D.png
+[191 bytes]
+
+content/textures/ui/Menu/HamburgerDown.png
+[210 bytes]
+
+content/textures/ui/Menu/HamburgerDown@2x.png
+[402 bytes]
+
+content/textures/ui/Menu/hoverPopupLeft.png
+[152 bytes]
+
+content/textures/ui/Menu/hoverPopupMid.png
+[269 bytes]
+
+content/textures/ui/Menu/hoverPopupRight.png
+[155 bytes]
+
+content/textures/ui/Menu/rectBackground.png
+[132 bytes]
+
+content/textures/ui/Menu/rectBackgroundWhite.png
+[132 bytes]
+
+content/textures/ui/Modal.png
+[15495 bytes]
+
+content/textures/ui/Motor.png
+[839 bytes]
+
+content/textures/ui/mouseLock_off.png
+[1055 bytes]
+
+content/textures/ui/mouseLock_off@2x.png
+[2701 bytes]
+
+content/textures/ui/mouseLock_on.png
+[1304 bytes]
+
+content/textures/ui/mouseLock_on@2x.png
+[3237 bytes]
+
+content/textures/ui/newBkg_square.png
+[14709 bytes]
+
+content/textures/ui/newBkg_square@2x.png
+[15011 bytes]
+
+content/textures/ui/PerformanceStats/BackgroundRounded.png
+[889 bytes]
+
+content/textures/ui/PerformanceStats/OvalKey.png
+[121 bytes]
+
+content/textures/ui/PerformanceStats/TargetFiller.png
+[127 bytes]
+
+content/textures/ui/PerformanceStats/TargetKey.png
+[90 bytes]
+
+content/textures/ui/PerformanceStats/TargetLine.png
+[104 bytes]
+
+content/textures/ui/Plastic.png
+[1060 bytes]
+
+content/textures/ui/PlayerList/BlockedIcon.png
+[249 bytes]
+
+content/textures/ui/PlayerList/CharacterImageBackground.png
+[441 bytes]
+
+content/textures/ui/PlayerList/TileShadowMissingTop.png
+[380 bytes]
+
+content/textures/ui/RecordDown.png
+[1407 bytes]
+
+content/textures/ui/ResetIcon.png
+[1973 bytes]
+
+content/textures/ui/RobloxNameIcon.png
+[518 bytes]
+
+content/textures/ui/RobuxIcon.png
+[1129 bytes]
+
+content/textures/ui/Scroll/scroll-bottom.png
+[967 bytes]
+
+content/textures/ui/Scroll/scroll-bottom@2x.png
+[1010 bytes]
+
+content/textures/ui/Scroll/scroll-middle.png
+[919 bytes]
+
+content/textures/ui/Scroll/scroll-middle@2x.png
+[922 bytes]
+
+content/textures/ui/Scroll/scroll-top.png
+[971 bytes]
+
+content/textures/ui/Scroll/scroll-top@2x.png
+[1031 bytes]
+
+content/textures/ui/scrollbar.png
+[924 bytes]
+
+content/textures/ui/scroll-bottom.png
+[143 bytes]
+
+content/textures/ui/scroll-bottom@2x.png
+[14581 bytes]
+
+content/textures/ui/scrollbuttonDown.png
+[1010 bytes]
+
+content/textures/ui/scrollbuttonDown_dn.png
+[1007 bytes]
+
+content/textures/ui/scrollbuttonDown_ds.png
+[1011 bytes]
+
+content/textures/ui/scrollbuttonDown_ovr.png
+[1007 bytes]
+
+content/textures/ui/scrollbuttonUp.png
+[1020 bytes]
+
+content/textures/ui/scrollbuttonUp_dn.png
+[1015 bytes]
+
+content/textures/ui/scrollbuttonUp_ds.png
+[1014 bytes]
+
+content/textures/ui/scrollbuttonUp_ovr.png
+[1015 bytes]
+
+content/textures/ui/scroll-middle.png
+[106 bytes]
+
+content/textures/ui/scroll-middle@2x.png
+[109 bytes]
+
+content/textures/ui/scroll-top.png
+[142 bytes]
+
+content/textures/ui/scroll-top@2x.png
+[14584 bytes]
+
+content/textures/ui/SearchIcon.png
+[1178 bytes]
+
+content/textures/ui/SelectionBox.png
+[1069 bytes]
+
+content/textures/ui/SelectionBox@2x.png
+[4413 bytes]
+
+content/textures/ui/Settings/DropDown/DropDown.png
+[256 bytes]
+
+content/textures/ui/Settings/DropDown/DropDown@2x.png
+[369 bytes]
+
+content/textures/ui/Settings/Help/AButtonDark.png
+[3564 bytes]
+
+content/textures/ui/Settings/Help/AButtonDark@2x.png
+[8336 bytes]
+
+content/textures/ui/Settings/Help/AButtonLight.png
+[2789 bytes]
+
+content/textures/ui/Settings/Help/AButtonLight@2x.png
+[6652 bytes]
+
+content/textures/ui/Settings/Help/AButtonLightSmall.png
+[731 bytes]
+
+content/textures/ui/Settings/Help/BButtonDark.png
+[3480 bytes]
+
+content/textures/ui/Settings/Help/BButtonDark@2x.png
+[8256 bytes]
+
+content/textures/ui/Settings/Help/BButtonLight.png
+[2897 bytes]
+
+content/textures/ui/Settings/Help/BButtonLight@2x.png
+[6783 bytes]
+
+content/textures/ui/Settings/Help/EscapeIcon.png
+[587 bytes]
+
+content/textures/ui/Settings/Help/GenericController.png
+[19268 bytes]
+
+content/textures/ui/Settings/Help/GenericController@2x.png
+[46974 bytes]
+
+content/textures/ui/Settings/Help/LeaveIcon.png
+[229 bytes]
+
+content/textures/ui/Settings/Help/ResetIcon.png
+[347 bytes]
+
+content/textures/ui/Settings/Help/RotateCameraGesture.png
+[4509 bytes]
+
+content/textures/ui/Settings/Help/UseToolGesture.png
+[2169 bytes]
+
+content/textures/ui/Settings/Help/XboxController.png
+[57873 bytes]
+
+content/textures/ui/Settings/Help/XButtonDark.png
+[3661 bytes]
+
+content/textures/ui/Settings/Help/XButtonDark@2x.png
+[8584 bytes]
+
+content/textures/ui/Settings/Help/XButtonLight.png
+[2832 bytes]
+
+content/textures/ui/Settings/Help/XButtonLight@2x.png
+[6748 bytes]
+
+content/textures/ui/Settings/Help/YButtonDark.png
+[3503 bytes]
+
+content/textures/ui/Settings/Help/YButtonDark@2x.png
+[8212 bytes]
+
+content/textures/ui/Settings/Help/YButtonLight.png
+[2715 bytes]
+
+content/textures/ui/Settings/Help/YButtonLight@2x.png
+[6468 bytes]
+
+content/textures/ui/Settings/Help/ZoomGesture.png
+[3559 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuBackground.png
+[214 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButton.png
+[528 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButton@2x.png
+[1213 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png
+[540 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButtonSelected@2x.png
+[1227 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuSelection.png
+[184 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuSelection@2x.png
+[239 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/GameSettingsTab.png
+[1848 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png
+[4376 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HelpTab.png
+[1794 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HelpTab@2x.png
+[4039 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HomeTab.png
+[799 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HomeTab@2x.png
+[1697 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png
+[665 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png
+[968 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/RecordTab.png
+[1165 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/RecordTab@2x.png
+[2465 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png
+[782 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/ReportAbuseTab@2x.png
+[1474 bytes]
+
+content/textures/ui/Settings/Players/AddFriendIcon.png
+[333 bytes]
+
+content/textures/ui/Settings/Players/AddFriendIcon@2x.png
+[597 bytes]
+
+content/textures/ui/Settings/Players/FriendIcon.png
+[451 bytes]
+
+content/textures/ui/Settings/Players/FriendIcon@2x.png
+[927 bytes]
+
+content/textures/ui/Settings/Players/ReportFlagIcon.png
+[154 bytes]
+
+content/textures/ui/Settings/Players/ReportFlagIcon@2x.png
+[239 bytes]
+
+content/textures/ui/Settings/Radial/Alert.png
+[1729 bytes]
+
+content/textures/ui/Settings/Radial/Alert@2x.png
+[3745 bytes]
+
+content/textures/ui/Settings/Radial/Backpack.png
+[1398 bytes]
+
+content/textures/ui/Settings/Radial/Backpack@2x.png
+[3079 bytes]
+
+content/textures/ui/Settings/Radial/Bottom.png
+[4595 bytes]
+
+content/textures/ui/Settings/Radial/BottomLeft.png
+[4338 bytes]
+
+content/textures/ui/Settings/Radial/BottomLeftSelected.png
+[6166 bytes]
+
+content/textures/ui/Settings/Radial/BottomRight.png
+[4397 bytes]
+
+content/textures/ui/Settings/Radial/BottomRightSelected.png
+[6122 bytes]
+
+content/textures/ui/Settings/Radial/BottomSelected.png
+[5696 bytes]
+
+content/textures/ui/Settings/Radial/Chat.png
+[1205 bytes]
+
+content/textures/ui/Settings/Radial/Chat@2x.png
+[2594 bytes]
+
+content/textures/ui/Settings/Radial/EmptyBottom.png
+[6416 bytes]
+
+content/textures/ui/Settings/Radial/EmptyBottomLeft.png
+[6135 bytes]
+
+content/textures/ui/Settings/Radial/EmptyBottomRight.png
+[6216 bytes]
+
+content/textures/ui/Settings/Radial/EmptyTop.png
+[6195 bytes]
+
+content/textures/ui/Settings/Radial/EmptyTopLeft.png
+[6151 bytes]
+
+content/textures/ui/Settings/Radial/EmptyTopRight.png
+[6236 bytes]
+
+content/textures/ui/Settings/Radial/Leave.png
+[1242 bytes]
+
+content/textures/ui/Settings/Radial/Leave@2x.png
+[2889 bytes]
+
+content/textures/ui/Settings/Radial/Menu.png
+[645 bytes]
+
+content/textures/ui/Settings/Radial/Menu@2x.png
+[1488 bytes]
+
+content/textures/ui/Settings/Radial/PlayerList.png
+[784 bytes]
+
+content/textures/ui/Settings/Radial/PlayerList@2x.png
+[1768 bytes]
+
+content/textures/ui/Settings/Radial/RadialLabel.png
+[643 bytes]
+
+content/textures/ui/Settings/Radial/RadialLabel@2x.png
+[1492 bytes]
+
+content/textures/ui/Settings/Radial/Top.png
+[4346 bytes]
+
+content/textures/ui/Settings/Radial/TopLeft.png
+[4220 bytes]
+
+content/textures/ui/Settings/Radial/TopLeftSelected.png
+[5861 bytes]
+
+content/textures/ui/Settings/Radial/TopRight.png
+[4338 bytes]
+
+content/textures/ui/Settings/Radial/TopRightSelected.png
+[5848 bytes]
+
+content/textures/ui/Settings/Radial/TopSelected.png
+[5703 bytes]
+
+content/textures/ui/Settings/Slider/BarLeft.png
+[145 bytes]
+
+content/textures/ui/Settings/Slider/BarLeft@2x.png
+[221 bytes]
+
+content/textures/ui/Settings/Slider/BarRight.png
+[145 bytes]
+
+content/textures/ui/Settings/Slider/BarRight@2x.png
+[213 bytes]
+
+content/textures/ui/Settings/Slider/Left.png
+[256 bytes]
+
+content/textures/ui/Settings/Slider/Left@2x.png
+[418 bytes]
+
+content/textures/ui/Settings/Slider/Less.png
+[1199 bytes]
+
+content/textures/ui/Settings/Slider/More.png
+[1585 bytes]
+
+content/textures/ui/Settings/Slider/Right.png
+[247 bytes]
+
+content/textures/ui/Settings/Slider/Right@2x.png
+[419 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarLeft.png
+[139 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarLeft@2x.png
+[213 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarRight.png
+[134 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarRight@2x.png
+[202 bytes]
+
+content/textures/ui/SingleButton.png
+[384 bytes]
+
+content/textures/ui/SingleButtonDown.png
+[511 bytes]
+
+content/textures/ui/Slider.png
+[1149 bytes]
+
+content/textures/ui/Slider_dn.png
+[1127 bytes]
+
+content/textures/ui/slider_new_tab.png
+[714 bytes]
+
+content/textures/ui/slider_new_tab@2x.png
+[1674 bytes]
+
+content/textures/ui/Slider_sel.png
+[1127 bytes]
+
+content/textures/ui/Slider-BKG-Center.png
+[923 bytes]
+
+content/textures/ui/Slider-BKG-Center@2x.png
+[924 bytes]
+
+content/textures/ui/Slider-BKG-Left-Cap.png
+[958 bytes]
+
+content/textures/ui/Slider-BKG-Left-Cap@2x.png
+[1013 bytes]
+
+content/textures/ui/Slider-BKG-Right-Cap.png
+[959 bytes]
+
+content/textures/ui/Slider-BKG-Right-Cap@2x.png
+[1007 bytes]
+
+content/textures/ui/Slider-Fill-Center.png
+[923 bytes]
+
+content/textures/ui/Slider-Fill-Center@2x.png
+[923 bytes]
+
+content/textures/ui/Slider-Fill-Left-Cap.png
+[959 bytes]
+
+content/textures/ui/Slider-Fill-Left-Cap@2x.png
+[1015 bytes]
+
+content/textures/ui/Slider-Fill-Right-Cap.png
+[956 bytes]
+
+content/textures/ui/Slider-Fill-Right-Cap@2x.png
+[1005 bytes]
+
+content/textures/ui/TixIcon.png
+[554 bytes]
+
+content/textures/ui/TopBar/dropshadow.png
+[144 bytes]
+
+content/textures/ui/TopBar/dropshadow@2x.png
+[179 bytes]
+
+content/textures/ui/TopBar/Round.png
+[176 bytes]
+
+content/textures/ui/TouchControlsSheet.png
+[76740 bytes]
+
+content/textures/ui/Vehicle/SpeedBar.png
+[296 bytes]
+
+content/textures/ui/Vehicle/SpeedBar@2x.png
+[334 bytes]
+
+content/textures/ui/Vehicle/SpeedBarBKG.png
+[172 bytes]
+
+content/textures/ui/Vehicle/SpeedBarBKG@2x.png
+[304 bytes]
+
+content/textures/ui/Vehicle/SpeedBarEmpty.png
+[96 bytes]
+
+content/textures/ui/Vehicle/SpeedBarEmpty@2x.png
+[115 bytes]
+
+content/textures/ui/VR/button.png
+[266 bytes]
+
+content/textures/ui/VR/buttonActive.png
+[1325 bytes]
+
+content/textures/ui/VR/buttonBackground.png
+[844 bytes]
+
+content/textures/ui/VR/buttonHover.png
+[1670 bytes]
+
+content/textures/ui/VR/buttonSelected.png
+[256 bytes]
+
+content/textures/ui/VR/chat.png
+[694 bytes]
+
+content/textures/ui/VR/circleWhite.png
+[454 bytes]
+
+content/textures/ui/VR/closeButtonPadded.png
+[391 bytes]
+
+content/textures/ui/VR/hamburger.png
+[191 bytes]
+
+content/textures/ui/VR/hoverPopupLeft.png
+[152 bytes]
+
+content/textures/ui/VR/hoverPopupMid.png
+[269 bytes]
+
+content/textures/ui/VR/hoverPopupRight.png
+[155 bytes]
+
+content/textures/ui/VR/notifications.png
+[1475 bytes]
+
+content/textures/ui/VR/notifier_glow.png
+[66810 bytes]
+
+content/textures/ui/VR/Radial/Icons/2DUI.png
+[4718 bytes]
+
+content/textures/ui/VR/Radial/Icons/Backpack.png
+[5459 bytes]
+
+content/textures/ui/VR/Radial/Icons/Recenter.png
+[5162 bytes]
+
+content/textures/ui/VR/Radial/SliceActive.png
+[16840 bytes]
+
+content/textures/ui/VR/Radial/SliceBackground.png
+[16571 bytes]
+
+content/textures/ui/VR/Radial/SliceDisabled.png
+[20049 bytes]
+
+content/textures/ui/VR/recenter.png
+[2229 bytes]
+
+content/textures/ui/VR/recenterFrame.png
+[4344 bytes]
+
+content/textures/ui/VR/rectBackground.png
+[132 bytes]
+
+content/textures/ui/VR/rectBackgroundWhite.png
+[132 bytes]
+
+content/textures/ui/VR/toggle2D.png
+[698 bytes]
+
+content/textures/ui/vr_active.png
+[3987 bytes]
+
+content/textures/ui/vr_idle.png
+[5104 bytes]
+
+content/textures/UnAnchorCursor.png
+[1528 bytes]
+
+content/textures/UnlockCursor.png
+[565 bytes]
+
+content/textures/wangIndex.dds
+[32896 bytes]
+
+content/textures/water/normal_01.dds
+[84957 bytes]
+
+content/textures/water/normal_02.dds
+[84872 bytes]
+
+content/textures/water/normal_03.dds
+[84918 bytes]
+
+content/textures/water/normal_04.dds
+[84988 bytes]
+
+content/textures/water/normal_05.dds
+[84863 bytes]
+
+content/textures/water/normal_06.dds
+[84887 bytes]
+
+content/textures/water/normal_07.dds
+[84861 bytes]
+
+content/textures/water/normal_08.dds
+[84935 bytes]
+
+content/textures/water/normal_09.dds
+[84910 bytes]
+
+content/textures/water/normal_10.dds
+[84927 bytes]
+
+content/textures/water/normal_11.dds
+[84843 bytes]
+
+content/textures/water/normal_12.dds
+[84861 bytes]
+
+content/textures/water/normal_13.dds
+[84850 bytes]
+
+content/textures/water/normal_14.dds
+[84804 bytes]
+
+content/textures/water/normal_15.dds
+[84899 bytes]
+
+content/textures/water/normal_16.dds
+[84778 bytes]
+
+content/textures/water/normal_17.dds
+[84766 bytes]
+
+content/textures/water/normal_18.dds
+[84722 bytes]
+
+content/textures/water/normal_19.dds
+[84848 bytes]
+
+content/textures/water/normal_20.dds
+[84883 bytes]
+
+content/textures/water/normal_21.dds
+[84935 bytes]
+
+content/textures/water/normal_22.dds
+[84857 bytes]
+
+content/textures/water/normal_23.dds
+[84846 bytes]
+
+content/textures/water/normal_24.dds
+[84813 bytes]
+
+content/textures/water/normal_25.dds
+[84969 bytes]
+
+content/textures/whiteCircle.png
+[3929 bytes]
+
+content/textures/wood/diffuse.dds
+[635284 bytes]
+
+content/textures/wood/normal.dds
+[344973 bytes]
+
+content/textures/wood/normaldetail.dds
+[343912 bytes]
+
+content/textures/wood/specular.dds
+[682095 bytes]
+
+content/textures/woodplanks/diffuse.dds
+[1346503 bytes]
+
+content/textures/woodplanks/normal.dds
+[1357232 bytes]
+
+content/textures/woodplanks/normaldetail.dds
+[176 bytes]
+
+content/textures/woodplanks/specular.dds
+[684723 bytes]
+
+content/translations/content-translations.zip
+[39727 bytes]
+
+content/translations/CorescriptLocalization.json
+[134552 bytes]
+
