@@ -109,7 +109,7 @@ do
 
 		function moduleApiTable:IsFocused(useWasFocused)
 			local success, retVal = AttemptInvokeFunction("IsFocused", useWasFocused)
-			if (sucucess) then
+			if (success) then
 				return retVal
 			else
 				return false

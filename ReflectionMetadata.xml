@@ -4035,6 +4035,8 @@
           <Properties>
             <string name="Name">Brightness</string>
             <string name="summary">How much global light each Part in the Workspace receives. Standard range is 0 to 1 (0 being little light), but can be increased all the way to 5 (colors start to be appear very different at this value).</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">2</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -4071,6 +4073,9 @@
           <Properties>
             <string name="Name">GeographicLatitude</string>
             <string name="summary">The latitude position the level is placed at.  This affects sun position. &lt;a href="http://wiki.roblox.com/index.php/GeographicLatitude" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">360</double>
+            <double name="UINumTicks">360</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5728,12 +5733,40 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Light</string>
+        <string name="ClassCategory">Lights</string>
+        <string name="summary">Parent of all light objects</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">13</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Brightness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">PointLight</string>
         <string name="ClassCategory">Lights</string>
         <string name="summary">Makes the parent part emit light in a spherical shape</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Range</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">60</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -5743,6 +5776,22 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Range</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">60</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Angle</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">180</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -5752,6 +5801,29 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Range</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">60</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Brightness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Angle</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">180</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

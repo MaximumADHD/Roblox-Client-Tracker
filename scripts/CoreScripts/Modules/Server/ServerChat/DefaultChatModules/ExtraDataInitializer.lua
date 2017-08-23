@@ -138,6 +138,20 @@ local function Run(ChatService)
 			end
 		end
 		if not speaker:GetExtraData("Tags") then
+			--// Example of how you would set tags
+			--[[
+			local tags = {
+				{
+					TagText = "VIP",
+					TagColor = Color3.new(1, 215/255, 0)
+				},
+				{
+					TagText = "Alpha Tester",
+					TagColor = Color3.new(205/255, 0, 0)
+				}
+			}
+			speaker:SetExtraData("Tags", tags)
+			]]
 			speaker:SetExtraData("Tags", {})
 		end
 	end)

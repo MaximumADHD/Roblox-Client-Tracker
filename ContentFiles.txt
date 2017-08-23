@@ -233,7 +233,7 @@ content/fonts/CompositTShirt.mesh
 [193 bytes]
 
 content/fonts/content-fonts.zip
-[1898593 bytes]
+[1735947 bytes]
 
 content/fonts/gamecontrollerdb.txt
 [24066 bytes]
@@ -371,22 +371,22 @@ content/music/content-music.zip
 [3881 bytes]
 
 content/scripts/content-scripts.zip
-[536255 bytes]
+[535954 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
-[6773 bytes]
+[6771 bytes]
 
 content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
 [8991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
-[10514 bytes]
+[10512 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
-[36507 bytes]
+[37081 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenuOld.lua
-[28170 bytes]
+[28682 bytes]
 
 content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [10404 bytes]
@@ -395,7 +395,7 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [25477 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[39530 bytes]
+[39523 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
@@ -404,7 +404,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [66237 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[42738 bytes]
+[43073 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5805 bytes]
@@ -455,7 +455,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[106951 bytes]
+[102348 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -467,13 +467,13 @@ content/scripts/CoreScripts/Modules/LoadingScreen3D.lua
 [10036 bytes]
 
 content/scripts/CoreScripts/Modules/NewChat.lua
-[10440 bytes]
+[10439 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22846 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[62938 bytes]
+[64349 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -548,7 +548,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [5448 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/DefaultChatMessage.lua
-[3464 bytes]
+[4394 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/MeCommandMessage.lua
 [2835 bytes]
@@ -563,7 +563,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/M
 [687 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/Util.lua
-[11404 bytes]
+[12286 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WelcomeMessage.lua
 [2432 bytes]
@@ -620,7 +620,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatMes
 [2495 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDataInitializer.lua
-[4603 bytes]
+[4896 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
 [2117 bytes]
@@ -671,10 +671,10 @@ content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
 [20349 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
-[7975 bytes]
+[7725 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[13681 bytes]
+[14346 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5390 bytes]
@@ -695,13 +695,13 @@ content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [77183 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
-[3226 bytes]
+[3396 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
 [5795 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BaseMemoryAnalyzer.lua
-[6605 bytes]
+[6611 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
 [4342 bytes]
@@ -749,7 +749,7 @@ content/scripts/CoreScripts/Modules/TenFootInterface.lua
 [11560 bytes]
 
 content/scripts/CoreScripts/Modules/TopbarConstants.lua
-[1261 bytes]
+[1225 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Dialog.lua
 [6092 bytes]
@@ -800,13 +800,13 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
 [10488 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
-[47359 bytes]
+[47762 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewClickToMove.lua
 [33033 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
-[20726 bytes]
+[20791 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5345 bytes]
@@ -917,7 +917,7 @@ content/sounds/uuhhh.mp3
 [5281 bytes]
 
 content/terrain/content-terrain.zip
-[23917403 bytes]
+[23917642 bytes]
 
 content/terrain/diffuse.dds
 [2654777 bytes]
@@ -935,10 +935,10 @@ content/terrain/normalarray.dds
 [12124037 bytes]
 
 content/terrain/specular.dds
-[2735557 bytes]
+[2735397 bytes]
 
 content/terrain/speculararray.dds
-[6163874 bytes]
+[6163865 bytes]
 
 content/textures/advancedMove.png
 [1873 bytes]

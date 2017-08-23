@@ -123,15 +123,6 @@ local function Initialize()
 	function this:SetHub(newHubRef)
 		this.HubRef = newHubRef
 
-		local recordEnumNames = {}
-		recordEnumNames[1] = "Save To Disk"
-		recordEnumNames[2] = "Upload to YouTube"
-
-		local startSetting = 2
-		if GameSettings.VideoUploadPromptBehavior == Enum.UploadSetting["Never"] then
-			startSetting = 1
-		end
-
 		---------------------------------- SCREENSHOT -------------------------------------
 		local closeSettingsFunc = function()
 			this.HubRef:SetVisibility(false, true)

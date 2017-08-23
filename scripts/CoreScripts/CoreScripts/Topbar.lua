@@ -532,6 +532,7 @@ local function CreateUsernameHealthMenuItem()
 	--------------
 
 	local HealthBarEnabled = true
+	local NameEnabled = true
 	local CurrentHumanoid = nil
 
 	local function AnimateHurtOverlay()
@@ -656,16 +657,29 @@ local function CreateUsernameHealthMenuItem()
 		childRemovedConn = character.ChildRemoved:connect(onChildAddedOrRemoved)
 	end
 
+	local function UpdateContainerEnabled()
+		if HealthBarEnabled or NameEnabled then
+			container.Visible = true
+			container.Active = true
+		else
+			container.Visible = false
+			container.Active = false
+		end
+	end
+
 	rawset(this, "SetHealthbarEnabled",
 		function(self, enabled)
 			HealthBarEnabled = enabled
 			UpdateHealthVisible()
+			UpdateContainerEnabled()
 		end)
 
 	rawset(this, "SetNameVisible",
 		function(self, visible)
+			NameEnabled = visible
 			username.Visible = visible
 			accountType.Visible = visible
+			UpdateContainerEnabled()
 		end)
 
 	-- Don't need to disconnect this one because we never reconnect it.
