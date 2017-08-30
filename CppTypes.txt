@@ -23,6 +23,7 @@ Classes
 	123
 	423
 	512
+	8bU
 	AacResponseItem
 	abstract_variables_map
 	Accessory
@@ -383,6 +384,7 @@ Classes
 	Decal
 	DecalTexture
 	DecalTool
+	DeferredEphemeral
 	DeleteBase
 	DeleteInstanceItem
 	Deleter
@@ -619,7 +621,6 @@ Classes
 	HingeTool
 	Hint
 	HitTestFilter
-	hLf
 	Hole
 	Hook
 	HookManager
@@ -647,6 +648,7 @@ Classes
 	ICreator
 	IDataState
 	IDec
+	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -789,6 +791,7 @@ Classes
 	Members
 	MemoryCheckerCheckerJob
 	MemoryCheckerJob
+	MemoryTrackerCategoryStatsItem
 	MergeBinder
 	MergedFilter
 	MeshContentProvider
@@ -1267,6 +1270,7 @@ Classes
 	UnlockedPartByLocalCharacter
 	UnsecuredStudioGame
 	unsupported_os
+	UntrackedMemoryStatsItem
 	untyped_value
 	UserInputBase
 	UserInputService

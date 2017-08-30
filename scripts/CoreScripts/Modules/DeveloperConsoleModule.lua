@@ -44,6 +44,7 @@ end
 local enableActionBindingsTab = checkFFlag("EnableActionBindingsTab")
 local forceDevConsoleInStudio = checkFFlag("ForceDevConsoleInStudio")
 local enableDevConsoleDataStoreStats = checkFFlag("EnableDevConsoleDataStoreStats")
+local enableMemoryTrackerCategoryStats = checkFFlag("EnableMemoryTrackerCategoryStats")
 
 -- Eye candy uses RenderStepped
 local EYECANDY_ENABLED = true
@@ -1054,10 +1055,19 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			statsSyncServer:GetStats()
 			-- Listen to the "new server stats" event.
 			statsSyncServer.StatsReceived:connect(function(stats)
-				local filteredStats = serverMemoryAnalyzer:filterServerMemoryStats(stats)
-				if filteredStats then
-					serverMemoryAnalyzer:updateStats(filteredStats)
+					
+				if (enableMemoryTrackerCategoryStats) then 
+					local filteredTreeStats = serverMemoryAnalyzer:filterServerMemoryTreeStats(stats)
+					if filteredTreeStats then
+						serverMemoryAnalyzer:updateWithTreeStats(filteredTreeStats)
+					end
+				else
+					local filteredStats = serverMemoryAnalyzer:DEPRECATED_filterServerMemoryStats(stats)
+					if filteredStats then
+						serverMemoryAnalyzer:DEPRECATED_updateStats(filteredStats)
+					end
 				end
+				
 			end)			
 		end
 		  

@@ -1,8 +1,8 @@
 content/avatar/character.rbxm
-[26396 bytes]
+[27838 bytes]
 
 content/avatar/characterR15.rbxm
-[73092 bytes]
+[74479 bytes]
 
 content/avatar/characterR15_3.rbxm
 [72252 bytes]
@@ -65,7 +65,7 @@ content/avatar/compositing/R15CompositTorsoBase.mesh
 [8818 bytes]
 
 content/avatar/content-avatar.zip
-[163861 bytes]
+[163907 bytes]
 
 content/avatar/heads/head.mesh
 [28207 bytes]
@@ -371,7 +371,7 @@ content/music/content-music.zip
 [3881 bytes]
 
 content/scripts/content-scripts.zip
-[535954 bytes]
+[537146 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -455,7 +455,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[102348 bytes]
+[102741 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -587,7 +587,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/TransparencyTweener.lua
 [6111 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCamera.lua
-[10508 bytes]
+[10670 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCameraInstaller.lua
 [3208 bytes]
@@ -656,7 +656,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[48977 bytes]
+[48800 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [26855 bytes]
@@ -716,7 +716,7 @@ content/scripts/CoreScripts/Modules/Stats/DeveloperConsoleStyle.lua
 [2736 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ServerMemoryAnalyzer.lua
-[4143 bytes]
+[7944 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAggregator.lua
 [4192 bytes]
@@ -791,10 +791,10 @@ content/scripts/CoreScripts/StarterScript.lua
 [3722 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[1677 bytes]
+[2593 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
-[9063 bytes]
+[9479 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
 [10488 bytes]
@@ -806,7 +806,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewC
 [33033 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
-[20791 bytes]
+[21059 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5345 bytes]
@@ -2031,6 +2031,15 @@ content/textures/ui/LuaChat/icons/ic-back.png
 
 content/textures/ui/LuaChat/icons/ic-back@2x.png
 [309 bytes]
+
+content/textures/ui/LuaChat/icons/ic-chat-large.png
+[2572 bytes]
+
+content/textures/ui/LuaChat/icons/ic-chat-large@2x.png
+[5763 bytes]
+
+content/textures/ui/LuaChat/icons/ic-chat-large@3x.png
+[10645 bytes]
 
 content/textures/ui/LuaChat/icons/ic-check.png
 [155 bytes]

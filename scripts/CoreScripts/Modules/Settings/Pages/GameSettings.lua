@@ -402,7 +402,7 @@ local function Initialize()
           end
 
           if this.CameraMode then
-            this.CameraMode:UpdateOptions(enumItems)
+            this.CameraMode:UpdateOptions(cameraEnumNames)
           end
         end
 
@@ -1220,12 +1220,7 @@ local function Initialize()
     end
   else
     -- enable dev console for desktop and mobile
-    local success, result = pcall(function()
-        return settings():GetFFlag("EnableDevConsoleOnMobileAndDesktop")
-      end)
-    if success and result == true then
-      createDeveloperConsoleOption()
-    end
+    createDeveloperConsoleOption()
   end
 
   allSettingsCreated = true

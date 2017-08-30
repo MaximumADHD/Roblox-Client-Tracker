@@ -7,6 +7,15 @@
 	The default Sound script loaded for every character will then be replaced with your copy of the script.
 ]]--
 
+local DefaultServerSoundEvent = nil
+if UserSettings():IsUserFeatureEnabled("UserPlayCharacterSoundWhenFE") then
+	DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+	if DefaultServerSoundEvent == nil then
+		DefaultServerSoundEvent = Instance.new("RemoteEvent", game:GetService("ReplicatedStorage"))
+		DefaultServerSoundEvent.Name = "DefaultServerSoundEvent"
+	end
+end
+
 function CreateNewSound(name, id, looped, pitch, parent)
 	local sound = Instance.new("Sound")
 	sound.SoundId = id
@@ -20,6 +29,18 @@ function CreateNewSound(name, id, looped, pitch, parent)
 	sound.MaxDistance = 150
 	sound.Volume = 0.65
 	
+	if UserSettings():IsUserFeatureEnabled("UserPlayCharacterSoundWhenFE") and DefaultServerSoundEvent then
+		local CharacterSoundEvent = Instance.new("RemoteEvent", sound)
+		CharacterSoundEvent.Name = "CharacterSoundEvent"
+		local Players = game:GetService("Players")
+		CharacterSoundEvent.OnServerEvent:connect(function(player)
+			for _, p in pairs(Players:GetPlayers()) do
+				if p ~= player then
+					DefaultServerSoundEvent:FireClient(p, sound)
+				end
+			end
+		end)
+	end
 	return sound
 end
 

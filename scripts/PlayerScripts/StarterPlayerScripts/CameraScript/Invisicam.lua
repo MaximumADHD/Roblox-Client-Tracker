@@ -488,11 +488,20 @@ function Invisicam:Update()
 	-- the bounding box of a concave mesh part, and a solid part of the mesh can obscure the camera since
 	-- rays coming from the camera would not be considered as hitting the part. This code adds all parts
 	-- that touch a 2x2x2 box around the camera position.
+	local distance = (TorsoPart.CFrame.p - Camera.CoordinateFrame.p).magnitude
 	local region3 = Region3.new(Camera.CFrame.p + Vector3_new(-1,-1,-1), Camera.CFrame.p + Vector3_new(1,1,1))
-	local partsTouchingCamera = game.Workspace:FindPartsInRegion3(region3,nil,10)	
-	for _,part in pairs(partsTouchingCamera) do
-		hitParts[#hitParts+1] = part
-		partIsTouchingCamera[part] = true
+	local partsTouchingCamera
+	if distance < 12 then
+		partsTouchingCamera = game.Workspace:FindPartsInRegion3(region3,Character,math.huge)	
+	else
+		partsTouchingCamera = game.Workspace:FindPartsInRegion3(region3,nil,10)	
+	end
+
+	if partsTouchingCamera then
+		for _,part in pairs(partsTouchingCamera) do
+			hitParts[#hitParts+1] = part
+			partIsTouchingCamera[part] = true
+		end
 	end
 	
 	local partTargetTransparency = {}

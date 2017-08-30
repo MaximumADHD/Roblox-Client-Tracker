@@ -1,7 +1,7 @@
 ------------------------------------------------
 --
 -- Freecam.lua
--- Written by: Quenty
+-- Written by: Fractality
 -- Edited by: TheGamer101, to make it work without the screen gui, remove the Class library
 -- and add alternative key bindings.
 ------------------------------------------------
@@ -52,7 +52,6 @@ end
 
 ------------------------------------------------
 
-local LETTERBOX = true
 local DEF_FOV = 70
 local NM_ZOOM = math.tan(DEF_FOV * math.pi/360)
 local LVEL_GAIN = Vector3.new(1, 0.75, 1)
@@ -73,8 +72,8 @@ local KEY_MAPPINGS = {
 	[DIRECTION_RIGHT] = {Enum.KeyCode.D, Enum.KeyCode.K},
 	[DIRECTION_FORWARD] = {Enum.KeyCode.W, Enum.KeyCode.U},
 	[DIRECTION_BACKWARD] = {Enum.KeyCode.S, Enum.KeyCode.J},
-	[DIRECTION_UP] = {Enum.KeyCode.Q, Enum.KeyCode.Y},
-	[DIRECTION_DOWN] = {Enum.KeyCode.E, Enum.KeyCode.I},
+	[DIRECTION_UP] = {Enum.KeyCode.E, Enum.KeyCode.I},
+	[DIRECTION_DOWN] = {Enum.KeyCode.Q, Enum.KeyCode.Y},
 }
 
 function CreateLetterBox()
@@ -99,6 +98,7 @@ end
 
 local screenGuis = {}
 local freeCamEnabled = false
+local letterBoxEnabled = true
 
 local stateRot = Vector2.new()
 local panDeltaGamepad = Vector2.new()
@@ -108,7 +108,7 @@ local velSpring = Spring.new(7/9, 1/3, 1, Vector3.new())
 local rotSpring = Spring.new(7/9, 1/3, 1, Vector2.new())
 local fovSpring = Spring.new(2,   1/3, 1, 0)
 
-local letterbox = LETTERBOX and CreateLetterBox()
+local letterbox = CreateLetterBox()
 
 local gp_x  = 0
 local gp_z  = 0
@@ -297,7 +297,7 @@ local function EnterFreecam()
 			screenGuis[obj] = true
 		end
 	end
-	if LETTERBOX then
+	if letterBoxEnabled then
 		letterbox.Enabled = true
 	end
 	RS:BindToRenderStep("Freecam", Enum.RenderPriority.Camera.Value, UpdateFreecam)
@@ -306,7 +306,7 @@ end
 
 local function ExitFreecam()
 	freeCamEnabled = false
-	if LETTERBOX then
+	if letterBoxEnabled then
 		letterbox.Enabled = false
 	end
 	UIS.MouseIconEnabled = true
@@ -332,13 +332,18 @@ end
 ------------------------------------------------
 
 UIS.InputBegan:Connect(function(input, processed)
-	if not processed and (input.KeyCode == Enum.KeyCode.P) then
-		if UIS:IsKeyDown(Enum.KeyCode.LeftShift) then
-			if freeCamEnabled then
-				ExitFreecam()
-			else
-				EnterFreecam()
+	if not processed then
+		if input.KeyCode == Enum.KeyCode.P then
+			if UIS:IsKeyDown(Enum.KeyCode.LeftShift) then
+				if freeCamEnabled then
+					ExitFreecam()
+				else
+					EnterFreecam()
+				end
 			end
+		elseif input.KeyCode == Enum.KeyCode.L then
+			letterBoxEnabled = not letterBoxEnabled
+			letterbox.Enabled = letterBoxEnabled
 		end
 	end
 end)

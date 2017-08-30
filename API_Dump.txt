@@ -277,11 +277,17 @@ Class ChangeHistoryService : Instance [notCreatable]
 Class CharacterAppearance : Instance
 Class BodyColors : CharacterAppearance
 	Property BrickColor BodyColors.HeadColor
+	Property Color3 BodyColors.HeadColor3
 	Property BrickColor BodyColors.LeftArmColor
+	Property Color3 BodyColors.LeftArmColor3
 	Property BrickColor BodyColors.LeftLegColor
+	Property Color3 BodyColors.LeftLegColor3
 	Property BrickColor BodyColors.RightArmColor
+	Property Color3 BodyColors.RightArmColor3
 	Property BrickColor BodyColors.RightLegColor
+	Property Color3 BodyColors.RightLegColor3
 	Property BrickColor BodyColors.TorsoColor
+	Property Color3 BodyColors.TorsoColor3
 Class CharacterMesh : CharacterAppearance
 	Property int CharacterMesh.BaseTextureId
 	Property BodyPart CharacterMesh.BodyPart
@@ -2339,6 +2345,7 @@ Class SoundService : Instance [notCreatable]
 	Property ReverbType SoundService.AmbientReverb
 	Property float SoundService.DistanceFactor
 	Property float SoundService.DopplerScale
+	Property bool SoundService.RespectFilteringEnabled
 	Property float SoundService.RolloffScale
 	Function bool SoundService:BeginRecording() [RobloxScriptSecurity]
 	Function Tuple SoundService:GetListener()
@@ -2371,9 +2378,20 @@ Class StarterPlayer : Instance [notCreatable]
 	Property float StarterPlayer.NameDisplayDistance
 Class StarterPlayerScripts : Instance
 Class StarterCharacterScripts : StarterPlayerScripts
-Class Stats : Instance [notCreatable]
+Class Stats : Instance
+	Property int Stats.ContactsCount [readonly]
+	Property float Stats.DataReceiveKbps [readonly]
+	Property float Stats.DataSendKbps [readonly]
+	Property float Stats.HeartbeatTimeMs [readonly]
+	Property int Stats.InstanceCount [readonly]
 	Property double Stats.MinReportInterval [RobloxScriptSecurity]
+	Property int Stats.MovingPrimitivesCount [readonly]
+	Property float Stats.PhysicsReceiveKbps [readonly]
+	Property float Stats.PhysicsSendKbps [readonly]
+	Property float Stats.PhysicsStepTimeMs [readonly]
+	Property int Stats.PrimitivesCount [readonly]
 	Property string Stats.ReporterType [RobloxScriptSecurity]
+	Function float Stats:GetMemoryUsageMbForTag(DeveloperMemoryTag tag)
 	Function void Stats:Report(string category, Dictionary data) [RobloxScriptSecurity]
 	Function void Stats:ReportJobsStepWindow() [RobloxScriptSecurity]
 	Function void Stats:ReportTaskScheduler(bool includeJobs = false) [RobloxScriptSecurity]
@@ -2950,6 +2968,29 @@ Enum DevTouchMovementMode
 	EnumItem DevTouchMovementMode.ClickToMove : 4
 	EnumItem DevTouchMovementMode.Scriptable : 5
 	EnumItem DevTouchMovementMode.DynamicThumbstick : 6
+Enum DeveloperMemoryTag
+	EnumItem DeveloperMemoryTag.Internal : 0
+	EnumItem DeveloperMemoryTag.HttpCache : 1
+	EnumItem DeveloperMemoryTag.Instances : 2
+	EnumItem DeveloperMemoryTag.Signals : 3
+	EnumItem DeveloperMemoryTag.LuaHeap : 4
+	EnumItem DeveloperMemoryTag.Script : 5
+	EnumItem DeveloperMemoryTag.PhysicsCollision : 6
+	EnumItem DeveloperMemoryTag.PhysicsParts : 7
+	EnumItem DeveloperMemoryTag.GraphicsSolidModels : 8
+	EnumItem DeveloperMemoryTag.GraphicsMeshParts : 9
+	EnumItem DeveloperMemoryTag.GraphicsParticles : 10
+	EnumItem DeveloperMemoryTag.GraphicsParts : 11
+	EnumItem DeveloperMemoryTag.GraphicsSpatialHash : 12
+	EnumItem DeveloperMemoryTag.GraphicsTerrain : 13
+	EnumItem DeveloperMemoryTag.GraphicsTexture : 14
+	EnumItem DeveloperMemoryTag.GraphicsTextureCharacter : 15
+	EnumItem DeveloperMemoryTag.Sounds : 16
+	EnumItem DeveloperMemoryTag.StreamingSounds : 17
+	EnumItem DeveloperMemoryTag.TerrainVoxels : 18
+	EnumItem DeveloperMemoryTag.Gui : 20
+	EnumItem DeveloperMemoryTag.Animation : 21
+	EnumItem DeveloperMemoryTag.Navigation : 22
 Enum DialogBehaviorType
 	EnumItem DialogBehaviorType.SinglePlayer : 0
 	EnumItem DialogBehaviorType.MultiplePlayers : 1
