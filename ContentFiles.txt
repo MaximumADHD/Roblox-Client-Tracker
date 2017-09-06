@@ -1088,7 +1088,7 @@ content/textures/content-textures.zip
 [3175 bytes]
 
 content/textures/content-textures2.zip
-[6043582 bytes]
+[6059155 bytes]
 
 content/textures/content-textures3.zip
 [26376277 bytes]
