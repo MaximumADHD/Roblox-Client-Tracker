@@ -23,7 +23,6 @@ Classes
 	123
 	423
 	512
-	8bU
 	AacResponseItem
 	abstract_variables_map
 	Accessory
@@ -345,6 +344,7 @@ Classes
 	CRegObject
 	CRenderSettings
 	CRenderSettingsItem
+	CrHD
 	CSGDictionaryService
 	CSGMesh
 	CSGMeshFactory
@@ -551,6 +551,8 @@ Classes
 	future_error
 	future_error_category
 	future_uninitialized
+	FuzzyBoolean
+	FuzzyInt
 	G_CAPITAL_WIDTH
 	G_LOWERCASE_WIDTH
 	Game
@@ -648,7 +650,6 @@ Classes
 	ICreator
 	IDataState
 	IDec
-	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -892,9 +893,7 @@ Classes
 	PhysicsJob
 	PhysicsPacketCache
 	PhysicsReceiver
-	PhysicsReceiverS2
 	PhysicsSender
-	PhysicsSenderS2
 	PhysicsService
 	PhysicsSettings
 	PhysicsStatsCommand
@@ -1244,7 +1243,6 @@ Classes
 	TypedPercentItem
 	Typesetter
 	TypesetterDynamic
-	U8DV
 	UDim
 	UDim2
 	UIAspectRatioConstraint

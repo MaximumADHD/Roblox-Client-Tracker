@@ -506,6 +506,7 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property MeshType SpecialMesh.MeshType
 Class DataStoreService : Instance [notCreatable]
+	Property bool DataStoreService.AutomaticRetry [LocalUserSecurity]
 	Property bool DataStoreService.LegacyNamingScheme [deprecated] [LocalUserSecurity]
 	Function Instance DataStoreService:GetDataStore(string name, string scope = global)
 	Function Instance DataStoreService:GetGlobalDataStore()
@@ -660,7 +661,6 @@ Class GameSettings : Instance [notbrowsable]
 	Property string GameSettings.OverrideStarterScript
 	Property int GameSettings.ReportAbuseChatHistory
 	Property bool GameSettings.SoftwareSound
-	Property bool GameSettings.SoundEnabled
 	Property bool GameSettings.VideoCaptureEnabled
 	Property VideoQualitySettings GameSettings.VideoQuality
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) [RobloxScriptSecurity]
@@ -1951,6 +1951,7 @@ Class Players : Instance
 	Function Instance Players:playerFromCharacter(Instance character) [deprecated]
 	Function Objects Players:players() [deprecated]
 	YieldFunction Instance Players:GetCharacterAppearanceAsync(int userId)
+	YieldFunction Dictionary Players:GetCharacterAppearanceInfoAsync(int userId)
 	YieldFunction Instance Players:GetFriendsAsync(int userId)
 	YieldFunction string Players:GetNameFromUserIdAsync(int userId)
 	YieldFunction int Players:GetUserIdFromNameAsync(string userName)
