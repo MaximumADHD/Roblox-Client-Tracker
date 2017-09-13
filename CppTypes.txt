@@ -344,7 +344,6 @@ Classes
 	CRegObject
 	CRenderSettings
 	CRenderSettingsItem
-	CrHD
 	CSGDictionaryService
 	CSGMesh
 	CSGMeshFactory
@@ -650,6 +649,7 @@ Classes
 	ICreator
 	IDataState
 	IDec
+	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -1323,6 +1323,7 @@ Classes
 	Workspace
 	WorkspaceStatsItem
 	Writer
+	xlH
 	XmlParser
 	XmlWriter
 	YieldFunctionDescriptor

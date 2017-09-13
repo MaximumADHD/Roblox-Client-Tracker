@@ -9,7 +9,7 @@ AdditionalCheckC1_2
 AdditionalReportingPermyriad
 AddMoreMathAPI
 AddOrRemoveTweensOnStepOnly
-AddSoundLoadErrorMessage
+AddTypeToFailedUrl
 AdvancedMouseSensitivityEnabled
 AdvancedRCCLoadFMODRetryCount
 AlignDiagChartWithCoreCase1
@@ -78,7 +78,6 @@ CanOverlayNativeInput
 CarefulHumanoidChangedEnabled
 CFrameRightAndUpVectors
 ChangeDuplicateBrickColor
-ChangePositionOfFireSecondEmitter
 ChatFilterMaxCachedRequestMilliseconds
 ChatPrivacyFailOpen
 ChatServiceCachedResultCount
@@ -97,7 +96,8 @@ ClientInstanceQuotaCap
 ClientInstanceQuotaInitial
 ClientNetworkInfluxHundredthsPercentage
 ClientUseNewClientTicket
-CloseFMODRemoveChildFix
+CloseMenuAfterOpenConsole
+ConfidentialUpdates
 ConstraintToolInitializationFixEnabled
 ContactPipelineDraggerNoOverlapIgnored
 ContentProviderCheckExpectedType
@@ -130,6 +130,7 @@ CSGVoxelizerFadeRadius
 CyclicExecutiveThrottlingCancelWorldStepAccum
 DataModelInitializationParamsUseRobloxLocale
 DataRequestInQueueTime
+DataStore429MinReponseTimeMSec
 DataStoreAnalyticsReportEveryNSeconds
 DataStoreAutoHttpRetry
 DataStoreBudgetOnCloseBase
@@ -160,6 +161,7 @@ DataStoreSameKeyPerMinute
 DataStoreTouchTimeoutInSeconds
 DataStoreWaitOnYieldingRequestsExpiration
 DebugAdornsDisabled
+DebugAdvancedNetworkedVisualizer
 DebugAnalyticsForceLotteryWin
 DebugAnalyticsSendUserId
 DebugBreakOnFMODErrors
@@ -172,6 +174,7 @@ DebugDisableOnScreenProfiler
 DebugDisableTimeoutDisconnect
 DebugDisplayFPS
 DebugDoNotLoadHumanoidSounds
+DebugEnableInterpolationVisualizer
 DebugEnableRenderCSGTriangles
 DebugForceChatDisabled
 DebugForceMSAASamples
@@ -216,7 +219,6 @@ DetailedStatsName
 DetermineIfServiceIsBad2
 DialogInUseFix
 DialogMultiplePlayers
-DialogTriggerDistanceOffsetEnabled
 Disable180DegreeFlip
 DisableAngularVelocityInterpolationComponent
 DisableBounceOnNoPhysicsTransition
@@ -241,7 +243,6 @@ DontCallOnMovingAssemblyRoot
 DontSendReparentForPlayer
 DontUpdatePartsWithoutParents
 DontUsePhysicsCache
-DoSendGetLogHistoryGATracking
 DragCylindersAndBallsAsBlocks
 DraggerMaxMovePercent
 DraggerMaxMoveSteps
@@ -275,7 +276,6 @@ EnableLaterStartingOfPhysicsSender
 EnableLightingClockTime
 EnableLightObjectsInAttachments
 EnableLoadingScreenPlaceIconTween
-EnableLowQualityBlur
 EnableMemoryTrackerCategoryStats
 EnableNewLoadingScreen
 EnableNewNeon
@@ -292,8 +292,8 @@ EnableReportAbuseMenuFix
 EnableReportPlaceIDAboveMemory
 EnableResponsiveUIFix
 EnableRobloxEventStream
+EnableSeatSitFunction
 EnableServerHttpAnalytics
-EnableSoundsInAttachments
 EnableStencilShadowMask
 EnableTeamMemberChangeEvent
 EnableTextboxNativeInput
@@ -306,7 +306,6 @@ EnableWeldConstraint
 ErrorForFailedRequestsInThumbnailLogic
 ExitProcessOnExit
 ExpireMarketPlaceServiceCacheSeconds
-ExtendedCrashInfluxReporting
 ExternalHttpRequestSizeLimitKB
 ExternalHttpResponseSizeLimitKB
 ExternalHttpResponseTimeoutMillis
@@ -317,6 +316,7 @@ FilterAllPlayerPropChanges
 FilterCheckMap
 FilterDoublePass
 FilterEmptyStringThrowEarly
+FilterParticleEmitEvent
 FireCharacterAddedAfterSpawn
 FixAlwaysOnTopSurfaceGuiInput
 FixCharacterStuckInFreefall
@@ -390,10 +390,9 @@ FriendServiceCachedOfflineStatusCount
 FriendServiceCachedOfflineStatusMaxAgeSeconds
 FriendServiceLoadFriendRequests
 FRMRecomputeDistanceFrameDelay
-FullMechanismInterpolation2
+FullMechanismInterpolation3
 FurtherOptimizeMeshBoxMap
 GameKeyboardV2IOS
-GameLifecycleStateTracking
 GamepadCameraSensitivityEnabled
 GamePerfMonitorPercentage
 GamePerfMonitorReportTimer
@@ -402,10 +401,10 @@ GetCharacterAppearanceInfoEnabled
 GetPlayerPlaceInstanceCheckTargetGameID
 GetTeamLazyEvaluation
 GoodbyeChoiceActiveProperty
+GraphicsAndroidMapBufferWorkaround
 GraphicsDX11BootcampDetection
 GraphicsDX11InstancingEnabled
 GraphicsETC2
-GraphicsGLDisableMapBuffer
 GraphicsOculusDetectTimeout
 GraphicsReportingInitErrorsToGAEnabled
 GraphicsVulkanDisableGalaxyS6
@@ -530,9 +529,6 @@ LuaDebugger
 LuaDebuggerBreakOnError
 LuaDebuggerHandleErrorEvent
 LuaDebuggerStrictGetScriptCheck
-LuaDebugProfileGCUnusedTokens
-LuaDebugProfilerTokenGCTimeMS
-LuaDebugProfileUserTokensCount
 LuaGcBoost
 LuaGcMaxKb
 LuaInstanceBridgeFixMicroprofilerLabels
@@ -633,7 +629,7 @@ OneWeldToRuleThemAll2
 OnlyNumbersForInfluxIds
 OptimizedContactCheckHighVelocitySleep
 OptimizedContactOverlapGoalHundredth
-OptimizedContactPipeline6
+OptimizedContactPipeline7
 OptimizedContactPipelineBulletCreateTwoPoints
 OptimizedContactPipelineImprovedBuoyancy
 OptimizedContactWakeDepth
@@ -647,7 +643,6 @@ OverrideStarterScriptInStudio
 PacketErrorInfluxHundredthsPercentage
 ParentLockStartPlayerChildren
 PartColor3Uint8Enabled
-ParticleEmitterEmitFix
 ParticleSpreadAngleUpdateFix
 PartInstanceCofMPropertyExposed
 PartMinSizeMul1000
@@ -666,6 +661,7 @@ PathfindingUseNavigationService
 PathfindingVerticalChunkClamp
 PercentApiRequestsRecordGoogleAnalytics
 PercentSentAlways
+PersistentConnectionHealthDialog
 PGSAlign2AxesCorrectionDamping
 PGSAlwaysActiveMasterSwitch
 PGSAngularDampingPermilPersecond
@@ -709,6 +705,7 @@ PlayerAcceptPlayerScriptsStatus
 PlayerDropDownEnabled
 PlayerGuiLoadsWithoutCharacterAutoLoads
 PlayerListDoProfile
+PluginCollectUntranslatedEnabled
 PointBalanceCacheInvalidateTimeMs
 PointsServiceBatchingImplMaxDelaySeconds
 PointsServiceBatchingImplMinuteSeconds
@@ -716,6 +713,7 @@ PointsServiceBatchingImplOnUpdateDelaySeconds
 PreloadTextureTimeBuget
 PreloadTextureToMemoryV2
 PreventReturnOfElevatedPhysicsFPS
+PreventTypingControlCharacters
 PrimStatsGANumDelimited
 ProcessPendingCredit
 ProcessPendingRefresh
@@ -752,6 +750,7 @@ RenderMaxParticleSize
 RenderMeshReturnsCorrectly
 RenderMetalMac
 RenderScreenDPIScale2
+RenderSendFeatureLevelStatsEarly
 RenderShadowIntensity
 RenderTextureManagerBudget
 RenderTextureManagerBudgetFor4k
@@ -826,42 +825,13 @@ SmoothTerrainPhysicsRayAabbSlop
 SolverBatchedIslandsEnabled
 SolverUsageTimeMeasurementInterval
 SolverUsesNewRigidBodyType
-SoundChangeAsyncCallbackType
-SoundChannelPartNoState
-SoundGroupTryReleaseV2
-SoundGroupTryReleaseV3
 SoundLoadAsync
-SoundLoadAsyncANDROID
-SoundLoadAsyncFailureDetailed
-SoundLoadAsyncFailureDetailedReportHundredthPct
-SoundLoadAsyncIOS
-SoundLoadAsyncOSX
-SoundLoadAsyncOSXSTUDIO
-SoundLoadAsyncRCC
-SoundLoadAsyncUWP
-SoundLoadAsyncWIN
-SoundLoadAsyncWINSTUDIO
-SoundLoadAsyncXBOX
-SoundMemoryFix
-SoundMemoryFixForceRelease
-SoundPlaybackLoudnessNoNani
-SoundServiceGameConfigurerConfigureRunServiceRun
-SoundServiceInitializeFMODMoreDebugInfo
-SoundServicePreRemovalCleanupEnabled
-SoundServicePreRemovalCleanupRemoveAllChildren
-SoundServicePreRemovalCleanupRemoveAllChildren_Post
-SoundServiceRespectFilteringEnabled
-SoundV2LogOnAncestorChanged
-SoundV2LogOnLoaded
-SoundV2LogOnServiceProvider
-SoundV2LogOnSetSoundId
 SpecificGravityDummyFunctionGA
 SpecificGravityDummyReturnsZero
 SpeedCountCap
 SpeedTestPeriodMillis
 SphericalSparklesEmission
 SSAOMipLevels
-SSLErrorLogAll
 StartupInfluxHundredthsPercentage
 StatsLuaEnabled
 StepAnimatedJointsInBufferZone
@@ -892,7 +862,6 @@ StudioStartServerGuestAppearance
 StudioStopWinXPReporting
 StudioTerrainRegionReplicationFix
 StudioUseMarketplaceApiClient
-StudioVideoRecordFix
 SuperClusterFastClusterSize
 SupportRemoteKnownSFFlags
 SyncAnimationsOnJoin
@@ -938,8 +907,6 @@ TouchScrollableAlwaysSinkMouseWheelInput
 TrackGetKeyframeSequence
 TrackPurchaseEvents
 TrackR15Games
-TrailNoErrorOnEmptyTexture
-TruncateReservedServerAccessCode
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
 TweensUseMutex
@@ -1010,7 +977,6 @@ UserUseNewClickToMove
 UseSort
 UseStepAnimations
 UseThreadedScreenshot
-UseUpdatedKeyboardSettings
 UseWorldSpaceMechanismInterpolationThreshold
 ValidateLauncherPercent
 ValidHatsOnly
@@ -1031,5 +997,5 @@ WorldStepMax
 WorldStepsOffsetAdjustRate
 WriteFullDmpPercent
 XboxEnableGA
-XboxUseCrossPlatformPlay
+XboxUseCrossPlatformPlay2
 XboxUseRobloxInput

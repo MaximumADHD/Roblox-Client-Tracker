@@ -360,62 +360,6 @@ local function createPopupPath(points, numCircles)
 	return stopFunction, killPopup
 end
 
-local function createTrailPath(points, width, speed) -- list of points, speed in studs/second, returns a function to stop the pathfinding
-	local stopTraversing = false
-	local currentPoint = 1
-	local setCurrentPoint = function(point)
-		currentPoint = point
-	end
-	local stopFunction = function()
-		stopTraversing = true
-	end
-	spawn(function()
-		local attachments = {Instance.new("Attachment",workspace.Terrain), Instance.new("Attachment",workspace.Terrain)}
-		local trail = Create'Trail'
-		{
-			Parent = workspace.CurrentCamera,
-			Transparency = NumberSequence.new(0.5,1),
-			LightEmission = 1,
-			Lifetime = .1,
-			Attachment0 = attachments[1],
-			Attachment1 = attachments[2]
-		}
-		
-		local startTime = tick()
-		
-		while not stopTraversing do
-			for i = currentPoint, #points do
-				if i%speed == 0 or i == #points then
-					if stopTraversing then
-						break
-					end
-					local pos = points[i].Position
-					local nextPos = points[i+1] and points[i+1].Position
-					if pos and nextPos then
-						local centerCF = CFrame_new(pos, nextPos)
-						attachments[1].CFrame = CFrame_new(centerCF:pointToWorldSpace(Vector3_new(-width/2,1,0)), nextPos)
-						attachments[2].CFrame = CFrame_new(centerCF:pointToWorldSpace(Vector3_new(width/2,1,0)), nextPos)
-					end
-					RunService.RenderStepped:wait()
-				end
-			end
-			wait(trail.Lifetime)
-			trail.Enabled = false
-			local centerCF = CFrame_new(points[1].Position, points[2].Position)
-			attachments[1].CFrame = CFrame_new(centerCF:pointToWorldSpace(Vector3_new(-width/2,1,0)), points[2].Position)
-			attachments[2].CFrame = CFrame_new(centerCF:pointToWorldSpace(Vector3_new(width/2,1,0)), points[2].Position)
-			wait(1)
-			trail.Enabled = true
-		end
-		
-		trail:Destroy()
-		attachments[1]:Destroy()
-		attachments[2]:Destroy()
-		attachments = nil
-	end)
-	return stopFunction, setCurrentPoint
-end
-
 local function Pather(character, endPoint, surfaceNormal)
 	local this = {}
 
@@ -432,38 +376,26 @@ local function Pather(character, endPoint, surfaceNormal)
 	this.TargetPoint = endPoint
 	this.TargetSurfaceNormal = surfaceNormal
 	
-	function this:YieldUntilPointReached(character, point, timeout)
-		timeout = timeout or 10000000 --why
-		
-		local humanoid = findPlayerHumanoid(Player)
-		local torso = humanoid and humanoid.Torso
-		local start = tick()
-		local lastMoveTo = start
-		while torso and tick() - start < timeout and this.Cancelled == false do
-			local diffVector = (point - torso.CFrame.p)
-			local xzMagnitude = (diffVector * XZ_VECTOR3).magnitude
-			
-			-- The hard-coded number 2 here is from the engine's MoveTo implementation
-			if xzMagnitude < 2 then
-				return true
-			end
-			-- Keep on issuing the move command because it will automatically quit every so often.
-			if tick() - lastMoveTo > 1.5 then
-				humanoid:MoveTo(point)
-				lastMoveTo = tick()
-			end
-			wait()
+	this.MoveToConn = nil
+	this.CurrentPoint = 0
+
+	function this:Cleanup()
+		if this.stopTraverseFunc then
+			this.stopTraverseFunc()
 		end
-		return false
+
+		if this.MoveToConn then
+			this.MoveToConn:disconnect()
+			this.MoveToConn = nil
+			this.humanoid = nil
+		end
+
+		this.humanoid = nil
 	end
 
 	function this:Cancel()
 		this.Cancelled = true
-		local humanoid = findPlayerHumanoid(Player)
-		local torso = humanoid and humanoid.Torso
-		if humanoid and torso then
-			humanoid:MoveTo(torso.CFrame.p)
-		end
+		this:Cleanup()
 	end
 	
 	function this:ComputePath()
@@ -490,68 +422,77 @@ local function Pather(character, endPoint, surfaceNormal)
 		return this.pathResult.Status == Enum.NavigationStatus.Success
 	end
 
+	function this:OnPointReached(reached)
+
+		if reached and not this.Cancelled then
+
+			this.CurrentPoint = this.CurrentPoint + 1
+			
+			if this.CurrentPoint > #this.pointList then
+				-- End of path reached
+				if this.stopTraverseFunc then
+					this.stopTraverseFunc()
+				end
+				this.Finished:fire()
+				this:Cleanup()
+			else
+				-- If next action == Jump, but the humanoid
+				-- is still jumping from a previous action
+				-- wait until it gets to the ground
+				if this.CurrentPoint + 1 <= #this.pointList then
+					local nextAction = this.pointList[this.CurrentPoint + 1].Action
+					if nextAction == Enum.NavigationWaypointAction.Jump then
+						local currentState = this.humanoid:GetState()
+						if currentState == Enum.HumanoidStateType.FallingDown or
+						   currentState == Enum.HumanoidStateType.Freefall or
+						   currentState == Enum.HumanoidStateType.Jumping then
+						   this.humanoid.FreeFalling:wait()
+						end
+					end
+				end
+
+				-- Move to the next point
+				if this.setPointFunc then
+					this.setPointFunc(this.CurrentPoint)
+				end
+
+				local nextWaypoint = this.pointList[this.CurrentPoint]
+				
+				if nextWaypoint.Action == Enum.NavigationWaypointAction.Jump then
+					this.humanoid.Jump = true
+				end
+				this.humanoid:MoveTo(nextWaypoint.Position)
+			end
+		else
+			this.PathFailed:fire()
+			this:Cleanup()
+		end
+	end
+
 	function this:Start()
 		if CurrentSeatPart then
 			return
 		end
-		spawn(function()
-			local humanoid = findPlayerHumanoid(Player)
-			local torso = humanoid and humanoid.Torso
-			if torso then
-				if this.Started then return end
-				this.Started = true
-				local smoothPath = this.pointList
-				
-				local stopTraverseFunc = nil
-				local setPointFunc = nil
-				if SHOW_PATH then
-					-- choose whichever one Mike likes best
-					stopTraverseFunc, setPointFunc = createPopupPath(smoothPath, 30)
-					--stopTraverseFunc, setPointFunc = createTrailPath(smoothPath, .6, 5)
-				end
-				
-				for i = 1, #smoothPath do
-					if setPointFunc then
-						setPointFunc(i+2)
-					end
-					local point = smoothPath[i]
-					local pos = point.Position
-					if humanoid then
-						if this.Cancelled then
-							return
-						end
+		
+		this.humanoid = findPlayerHumanoid(Player)
+		if this.Started then return end
+		this.Started = true
+		
+		if SHOW_PATH then
+			-- choose whichever one Mike likes best
+			this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4)
+		end
 
-						humanoid:MoveTo(pos)
-						if point.Action == Enum.NavigationWaypointAction.Jump then
-							humanoid.Jump = true
-						end
-						
-						local distance = ((torso.CFrame.p - pos) * XZ_VECTOR3).magnitude
-						local approxTime = 10
-						if humanoid.WalkSpeed > 0 then
-							approxTime = distance / humanoid.WalkSpeed
-						end
-
-						local didReach = this:YieldUntilPointReached(character, pos, approxTime * 3 + 1)
-
-						if not didReach then
-							if stopTraverseFunc then
-								stopTraverseFunc()
-							end
-							this.PathFailed:fire()
-							return
-						end
-					end
-				end
-				
-				if stopTraverseFunc then
-					stopTraverseFunc()
-				end
-				this.Finished:fire()
-				return
-			end
+		if #this.pointList > 0 then
+			this.MoveToConn = this.humanoid.MoveToFinished:connect(function(reached) this:OnPointReached(reached) end)
+			this.CurrentPoint = 0
+			this:OnPointReached(true) -- Move to first point
+		else
 			this.PathFailed:fire()
-		end)
+			if this.stopTraverseFunc then
+				this.stopTraverseFunc()
+			end
+		end
 	end
 	
 	this:ComputePath()
@@ -814,7 +755,6 @@ local function OnTap(tapPositions, goToPoint)
 						end
 						local popup = destinationPopup
 						spawn(function()
-						print("gone")
 							local tweenOut = popup:TweenOut()
 							tweenOut.Completed:wait()
 							popup.Model:Destroy()

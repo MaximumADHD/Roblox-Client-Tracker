@@ -27,8 +27,12 @@ local GuiService = game:GetService('GuiService')
 local isTenFootInterface = GuiService:IsTenFootInterface()
 
 --[[ Modules ]]--
+local DEPRECATED_ClientMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.DEPRECATED_ClientMemoryAnalyzer)
+local DEPRECATED_ServerMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.DEPRECATED_ServerMemoryAnalyzer)
+
 local ClientMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.ClientMemoryAnalyzer)
 local ServerMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.ServerMemoryAnalyzer)
+
 local StatsUtils = require(CoreGui.RobloxGui.Modules.Stats.StatsUtils)
 local Style = require(CoreGui.RobloxGui.Modules.Stats.DeveloperConsoleStyle)
 local Primitives = require(CoreGui.RobloxGui.Modules.Stats.DeveloperConsolePrimitives)
@@ -45,6 +49,7 @@ local enableActionBindingsTab = checkFFlag("EnableActionBindingsTab")
 local forceDevConsoleInStudio = checkFFlag("ForceDevConsoleInStudio")
 local enableDevConsoleDataStoreStats = checkFFlag("EnableDevConsoleDataStoreStats")
 local enableMemoryTrackerCategoryStats = checkFFlag("EnableMemoryTrackerCategoryStats")
+local improveClientAndServerMemoryTabLayout = checkFFlag("ImproveClientAndServerMemoryTabLayout")
 
 -- Eye candy uses RenderStepped
 local EYECANDY_ENABLED = true
@@ -858,8 +863,61 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			tab:SetVisible(true)
 			
 			return tab, statList
+				end
+
+
+		do -- Client Memory tab
+
+			local tabBody = Primitives.FolderFrame(body, 'ClientMemory')
+			local clientTab = nil
+			local clientMemoryAnalyzer = nil
+
+			if (improveClientAndServerMemoryTabLayout) then 
+				clientMemoryAnalyzer = ClientMemoryAnalyzerClass.new(tabBody)
+			else
+				clientMemoryAnalyzer = DEPRECATED_ClientMemoryAnalyzerClass.new(tabBody)
+			end
+
+			-- When memory analyzer decides it's new size, we get notified.
+			clientMemoryAnalyzer:setHeightChangedCallback(function(newHeight)
+					body.Size = UDim2.new(1, 0, 0, newHeight)
+				end)
+
+			-- Considering all state (is dev console even showing, which tab is showing), 
+			-- do I need to update the memory stats tab right now, and should I be listening
+			-- for regular updates?
+			local function syncClientMemoryAnalyzerVisibility()
+				if (clientTab.Open and clientTab.Visible and devConsole.Visible) then 
+					if (improveClientAndServerMemoryTabLayout) then
+						clientMemoryAnalyzer:refreshMemoryUsageTree()
+					end
+					clientMemoryAnalyzer:renderUpdates()
+					clientMemoryAnalyzer:startListeningForUpdates()
+					body.Size = UDim2.new(1, 0, 0, clientMemoryAnalyzer:getHeightInPix())
+				else
+					clientMemoryAnalyzer:stopListeningForUpdates()
+				end
+			end
+
+			-- Every time 'open' state changes, call syncVisibility.
+			local tabName = "Client Memory"
+
+			clientTab = devConsole:AddTab(tabName, tabBody, function(open)
+					if (open) then
+						devConsole.WindowScrollbar:SetValue(0)
+						setShownOptionTypes({})
+					end
+
+					syncClientMemoryAnalyzerVisibility()
+				end)
+			clientTab:SetVisible(true)   
+
+			-- Every time dev console's open state changes, call syncVisibility.
+			devConsole.VisibleChanged:connect(function(visible)
+					syncClientMemoryAnalyzerVisibility()
+				end)
 		end
-		
+
 		-- Server Scripts --
 		if permissions.MayViewServerScripts then
 			
@@ -1015,8 +1073,15 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 		-- Server Memory --
 		if (enableDevConsoleDataStoreStats and permissions.MayViewServerMemory) then
 			local tabBody = Primitives.FolderFrame(body, "ServerMemory")
-			local serverMemoryAnalyzer = ServerMemoryAnalyzerClass.new(tabBody)
+			
 			local serverTab = nil
+			local serverMemoryAnalyzer = nil
+			
+			if (improveClientAndServerMemoryTabLayout) then 
+				serverMemoryAnalyzer = ServerMemoryAnalyzerClass.new(tabBody)
+			else
+				serverMemoryAnalyzer = DEPRECATED_ServerMemoryAnalyzerClass.new(tabBody)
+			end
 			
 			-- When memory analyzer decides its new size, we get notified.
 			serverMemoryAnalyzer:setHeightChangedCallback(function(newHeight)
@@ -1028,8 +1093,16 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			-- for regular update?
 			local function syncServerMemoryAnalyzerVisibility()
 				if (serverTab.Open and serverTab.Visible and devConsole.Visible) then 
-					serverMemoryAnalyzer:renderUpdates()
+					if (improveClientAndServerMemoryTabLayout) then
+						serverMemoryAnalyzer:setVisible(true)
+					else
+						serverMemoryAnalyzer:renderUpdates()
+					end
 					body.Size = UDim2.new(1, 0, 0, serverMemoryAnalyzer:getHeightInPix())
+				else
+					if (improveClientAndServerMemoryTabLayout) then
+						serverMemoryAnalyzer:setVisible(false)
+					end
 				end
 			end
 
@@ -1054,8 +1127,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			local statsSyncServer = devConsole.MessagesAndStats.StatsSyncServer
 			statsSyncServer:GetStats()
 			-- Listen to the "new server stats" event.
-			statsSyncServer.StatsReceived:connect(function(stats)
-					
+			statsSyncServer.StatsReceived:connect(function(stats)					
 				if (enableMemoryTrackerCategoryStats) then 
 					local filteredTreeStats = serverMemoryAnalyzer:filterServerMemoryTreeStats(stats)
 					if filteredTreeStats then
@@ -1210,51 +1282,6 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			
 			tab:SetVisible(true)
 		end
-	end
-	
-  
-	do -- Client Memory tab
-    
-      local tabBody = Primitives.FolderFrame(body, 'ClientMemory')
-      local clientTab = nil
-      local clientMemoryAnalyzer = ClientMemoryAnalyzerClass.new(tabBody)
-            
-      -- When memory analyzer decides it's new size, we get notified.
-      clientMemoryAnalyzer:setHeightChangedCallback(function(newHeight)
-          body.Size = UDim2.new(1, 0, 0, newHeight)
-          -- body.Size = UDim2.new(1, 0, 0, newHeight)
-        end)
-      
-      -- Considering all state (is dev console even showing, which tab is showing), 
-      -- do I need to update the memory stats tab right now, and should I be listening
-      -- for regular updates?
-      local function syncClientMemoryAnalyzerVisibility()
-        if (clientTab.Open and clientTab.Visible and devConsole.Visible) then 
-          clientMemoryAnalyzer:renderUpdates()
-          clientMemoryAnalyzer:startListeningForUpdates()
-          body.Size = UDim2.new(1, 0, 0, clientMemoryAnalyzer:getHeightInPix())
-        else
-          clientMemoryAnalyzer:stopListeningForUpdates()
-        end
-      end
-      
-      -- Every time 'open' state changes, call syncVisibility.
-      local tabName = "Client Memory"
-
-      clientTab = devConsole:AddTab(tabName, tabBody, function(open)
-          if (open) then
-			devConsole.WindowScrollbar:SetValue(0)
-            setShownOptionTypes({})
-          end
-          
-          syncClientMemoryAnalyzerVisibility()
-        end)
-      clientTab:SetVisible(true)   
-      
-      -- Every time dev console's open state changes, call syncVisibility.
-      devConsole.VisibleChanged:connect(function(visible)
-          syncClientMemoryAnalyzerVisibility()
-      end)
 	end
 	
 	do -- Client Http Results tab

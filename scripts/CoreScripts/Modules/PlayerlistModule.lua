@@ -189,6 +189,21 @@ local MUTUAL_FOLLOWING_ICON = 'rbxasset://textures/ui/icon_mutualfollowing-16.pn
 local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterImageBackground.png'
 
 --[[ Helper Functions ]]--
+
+local playerListDoProfileSuccess, playerListDoProfileValue = pcall(function() return settings():GetFFlag("PlayerListDoProfile") end)
+local playerListDoProfile = playerListDoProfileSuccess and playerListDoProfileValue
+local function rbx_profilebegin(name)
+  if playerListDoProfile then
+    debug.profilebegin(name)
+  end
+end
+
+local function rbx_profileend()
+  if playerListDoProfile then
+    debug.profileend()
+  end
+end
+
 local function clamp(value, min, max)
   if value < min then
     value = min
@@ -1061,6 +1076,7 @@ local function initializeStatText(stat, statObject, entry, statFrame, index, isT
   end
 
   statObject.Changed:connect(function(newValue)
+      rbx_profilebegin("statObject.Changed")
       local scoreValue = getScoreValue(statObject)
       statText.Text = formatStatString(tostring(scoreValue))
       if statObject.Name == GameStats[1].Name then
@@ -1073,8 +1089,10 @@ local function initializeStatText(stat, statObject, entry, statFrame, index, isT
       end
       updateAllTeamScores()
       setEntryPositions()
+      rbx_profileend()
     end)
   statObject.ChildAdded:connect(function(child)
+      rbx_profilebegin("statObject.ChildAdded")
       if child.Name == "IsPrimary" then
         GameStats[1].IsPrimary = false
         stat.IsPrimary = true
@@ -1082,6 +1100,7 @@ local function initializeStatText(stat, statObject, entry, statFrame, index, isT
         if updateLeaderstatFrames then updateLeaderstatFrames() end
         Playerlist.OnLeaderstatsChanged:Fire(GameStats)
       end
+      rbx_profileend()
     end)
 end
 
@@ -1278,22 +1297,34 @@ local function setLeaderStats(entry)
   end
 
   player.ChildAdded:connect(function(child)
+      rbx_profilebegin("player.ChildAdded")
       if child.Name == 'leaderstats' then
         onStatAdded(child, entry)
       end
-      child.Changed:connect(function(property) onPlayerChildChanged(property, child) end)
+      rbx_profileend()
+      child.Changed:connect(function(property) 
+        rbx_profilebegin("child.Changed-1")
+        onPlayerChildChanged(property, child) 
+        rbx_profileend()
+      end)
     end)
   for _,child in pairs(player:GetChildren()) do
-    child.Changed:connect(function(property) onPlayerChildChanged(property, child) end)
+    child.Changed:connect(function(property) 
+      rbx_profilebegin("child.Changed-2")
+      onPlayerChildChanged(property, child) 
+      rbx_profileend()
+    end)
   end
 
   player.ChildRemoved:connect(function(child)
+      rbx_profilebegin("player.ChildRemoved-1")
       if child.Name == 'leaderstats' then
         for i,stat in ipairs(child:GetChildren()) do
           onStatRemoved(stat, entry)
         end
         updateLeaderstatFrames()
       end
+      rbx_profileend()
     end)
 end
 
@@ -1487,6 +1518,7 @@ local function createTeamEntry(team)
 
   -- connections
   team.Changed:connect(function(property)
+      rbx_profilebegin("team.Changed")
       if property == 'Name' then
         teamName.Text = team.Name
       elseif property == 'TeamColor' then
@@ -1501,6 +1533,7 @@ local function createTeamEntry(team)
         setEntryPositions()
         setScrollListSize()
       end
+      rbx_profileend()
     end)
 
   return teamEntry
@@ -1532,12 +1565,14 @@ local function setupEntry(player, newEntry, isTopStat)
   updateLeaderstatFrames()
 
   player.Changed:connect(function(property)
+      rbx_profilebegin("player.Changed-4")
       if #TeamEntries > 0 and (property == 'Neutral' or property == 'TeamColor') then
         setTeamEntryPositions()
         updateAllTeamScores()
         setEntryPositions()
         setScrollListSize()
       end
+      rbx_profileend()
     end)
 end
 
@@ -1638,14 +1673,17 @@ local function resizePlayerList()
 end
 
 RobloxGui.Changed:connect(function(property)
+    rbx_profilebegin("RobloxGui.Changed")
     if property == 'AbsoluteSize' then
       spawn(function()	-- must spawn because F11 delays when abs size is set
           resizePlayerList()
         end)
     end
+    rbx_profileend()
   end)
 
 UserInputService.InputBegan:connect(function(inputObject, isProcessed)
+    rbx_profilebegin("UserInputService.InputBegan")
     if isProcessed then return end
     local inputType = inputObject.UserInputType
     if (inputType == Enum.UserInputType.Touch and  inputObject.UserInputState == Enum.UserInputState.Begin) or
@@ -1654,13 +1692,16 @@ UserInputService.InputBegan:connect(function(inputObject, isProcessed)
         playerDropDown:Hide()
       end
     end
+    rbx_profileend()
   end)
 
 -- NOTE: Core script only
 
 --[[ Player Add/Remove Connections ]]--
 PlayersService.PlayerAdded:connect(function(child)
+  rbx_profilebegin("PlayersService.PlayerAdded")
   insertPlayerEntry(child)
+  rbx_profileend()
 end)
 
 for _, player in ipairs(PlayersService:GetPlayers()) do
@@ -1677,7 +1718,9 @@ if not isTenFootInterface then
     RemoteFunc_GetFollowRelationships = RobloxReplicatedStorage:WaitForChild('GetFollowRelationships')
 
     RemoveEvent_OnFollowRelationshipChanged.OnClientEvent:connect(function(result)
+      rbx_profilebegin("RemoveEvent_OnFollowRelationshipChanged.OnClientEvent")
       setFollowRelationshipsView(result)
+      rbx_profileend()
     end)
 
     local result = getFollowRelationships()
@@ -1686,12 +1729,14 @@ if not isTenFootInterface then
 end
 
 PlayersService.ChildRemoved:connect(function(child)
+  rbx_profilebegin("PlayersService.ChildRemoved")
   if child:IsA("Player") then
     if LastSelectedPlayer and child == LastSelectedPlayer then
       playerDropDown:Hide()
     end
     removePlayerEntry(child)
   end
+  rbx_profileend()
 end)
 
 --[[ Teams ]]--
@@ -1719,9 +1764,11 @@ if TeamsService then
 end
 
 game.ChildAdded:connect(function(child)
+    rbx_profilebegin("game.ChildAdded")
     if child:IsA('Teams') then
       initializeTeams(child)
     end
+    rbx_profileend()
   end)
 
 --[[ Public API ]]--
@@ -1835,6 +1882,7 @@ end
 --[[ Core Gui Changed events ]]--
 -- NOTE: Core script only
 local function onCoreGuiChanged(coreGuiType, enabled)
+  rbx_profilebegin("onCoreGuiChanged")
   if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.PlayerList then
     -- on console we can always toggle on/off, ignore change
     if isTenFootInterface then
@@ -1862,6 +1910,7 @@ local function onCoreGuiChanged(coreGuiType, enabled)
       ContextActionService:UnbindCoreAction("RbxPlayerListToggle")
     end
   end
+  rbx_profileend()
 end
 
 Playerlist.TopbarEnabledChanged = function(enabled)

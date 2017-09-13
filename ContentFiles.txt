@@ -65,7 +65,7 @@ content/avatar/compositing/R15CompositTorsoBase.mesh
 [8818 bytes]
 
 content/avatar/content-avatar.zip
-[163907 bytes]
+[148749 bytes]
 
 content/avatar/heads/head.mesh
 [28207 bytes]
@@ -143,7 +143,7 @@ content/avatar/scripts/humanoidAnimateLocalKeyframe2.rbxm
 [19949 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[30213 bytes]
+[30319 bytes]
 
 content/avatar/scripts/humanoidAnimateR15_4.rbxm
 [30141 bytes]
@@ -371,7 +371,7 @@ content/music/content-music.zip
 [3881 bytes]
 
 content/scripts/content-scripts.zip
-[537146 bytes]
+[543530 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -419,7 +419,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [36996 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[37491 bytes]
+[37032 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -455,7 +455,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[102741 bytes]
+[103591 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -473,7 +473,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22846 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[64349 bytes]
+[65882 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -656,7 +656,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[48800 bytes]
+[48974 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [26855 bytes]
@@ -701,13 +701,22 @@ content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
 [5795 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BaseMemoryAnalyzer.lua
-[6611 bytes]
+[11040 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
-[4342 bytes]
+[4312 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DecoratedValueLabel.lua
 [3087 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/DEPRECATED_BaseMemoryAnalyzer.lua
+[6722 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/DEPRECATED_ClientMemoryAnalyzer.lua
+[4464 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/DEPRECATED_ServerMemoryAnalyzer.lua
+[8208 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsolePrimitives.lua
 [2560 bytes]
@@ -716,7 +725,7 @@ content/scripts/CoreScripts/Modules/Stats/DeveloperConsoleStyle.lua
 [2736 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ServerMemoryAnalyzer.lua
-[7944 bytes]
+[6573 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAggregator.lua
 [4192 bytes]
@@ -741,6 +750,9 @@ content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
 
 content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
 [4027 bytes]
+
+content/scripts/CoreScripts/Modules/Stats/TreeViewItem.lua
+[1260 bytes]
 
 content/scripts/CoreScripts/Modules/StyleWidgets.lua
 [1168 bytes]
@@ -803,7 +815,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
 [47762 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewClickToMove.lua
-[33033 bytes]
+[30925 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
 [21059 bytes]
@@ -1407,6 +1419,9 @@ content/textures/sand/normaldetail.dds
 
 content/textures/sand/specular.dds
 [688434 bytes]
+
+content/textures/shadowblurmask.png
+[3045 bytes]
 
 content/textures/shadowmask.png
 [3045 bytes]

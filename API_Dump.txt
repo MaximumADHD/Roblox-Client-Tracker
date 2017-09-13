@@ -430,7 +430,7 @@ Class ContentProvider : Instance
 	Property string ContentProvider.BaseUrl [readonly]
 	Property int ContentProvider.RequestQueueSize [readonly]
 	Function Array ContentProvider:GetFailedUrls() [LocalUserSecurity]
-	Function void ContentProvider:Preload(Content contentId)
+	Function void ContentProvider:Preload(Content contentId) [deprecated]
 	Function void ContentProvider:SetAssetUrl(string url) [LocalUserSecurity]
 	Function void ContentProvider:SetBaseUrl(string url) [LocalUserSecurity]
 	Function void ContentProvider:SetCacheSize(int count) [LocalUserSecurity]
@@ -1287,8 +1287,8 @@ Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 Class LocalizationTable : Instance
-	Property string LocalizationTable.DevelopmentLanguage [hidden]
-	Property Object LocalizationTable.Root [hidden]
+	Property string LocalizationTable.DevelopmentLanguage
+	Property Object LocalizationTable.Root
 	Function string LocalizationTable:GetContents()
 	Function Array LocalizationTable:GetEntries()
 	Function string LocalizationTable:GetString(string languageKey, string expressionKey)
@@ -1597,6 +1597,7 @@ Class Platform : Part
 Class Seat : Part
 	Property bool Seat.Disabled
 	Property Object Seat.Occupant [readonly]
+	Function void Seat:Sit(Instance humanoid)
 Class SkateboardPlatform : Part [deprecated]
 	Property Object SkateboardPlatform.Controller [readonly]
 	Property Object SkateboardPlatform.ControllingHumanoid [readonly]
@@ -1674,6 +1675,7 @@ Class VehicleSeat : BasePart
 	Property float VehicleSeat.ThrottleFloat
 	Property float VehicleSeat.Torque
 	Property float VehicleSeat.TurnSpeed
+	Function void VehicleSeat:Sit(Instance humanoid)
 Class Model : PVInstance
 	Property Object Model.PrimaryPart
 	Function void Model:BreakJoints()
@@ -1991,8 +1993,10 @@ Class Plugin : Instance
 	Event Plugin.Deactivation() [PluginSecurity]
 Class PluginManager : Instance
 	Function Instance PluginManager:CreatePlugin() [PluginSecurity]
+	Function Instance PluginManager:EndUntranslatedStringCollect() [PluginSecurity]
 	Function void PluginManager:ExportPlace(string filePath = ) [PluginSecurity]
 	Function void PluginManager:ExportSelection(string filePath = ) [PluginSecurity]
+	Function void PluginManager:StartUntranslatedStringCollect() [PluginSecurity]
 Class PointsService : Instance [notCreatable]
 	Function int PointsService:GetAwardablePoints() [deprecated]
 	YieldFunction Tuple PointsService:AwardPoints(int userId, int amount)
@@ -2118,6 +2122,7 @@ Class RunService : Instance
 	Function void RunService:Run() [PluginSecurity]
 	Function void RunService:Stop() [PluginSecurity]
 	Function void RunService:UnbindFromRenderStep(string name)
+	Function void RunService:setThrottleFramerateEnabled(bool enable) [RobloxScriptSecurity]
 	Event RunService.Heartbeat(double step)
 	Event RunService.RenderStepped(double step)
 	Event RunService.Stepped(double time, double step)

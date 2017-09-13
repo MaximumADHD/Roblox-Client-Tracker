@@ -9,44 +9,29 @@ local CoreGuiService = game:GetService('CoreGui')
 
 --[[ Modules ]]--
 local BaseMemoryAnalyzerClass = require(CoreGuiService.RobloxGui.Modules.Stats.BaseMemoryAnalyzer)
+local TreeViewItem = require(CoreGuiService.RobloxGui.Modules.Stats.TreeViewItem)
 local CommonUtils = require(CoreGuiService.RobloxGui.Modules.Common.CommonUtil)
 
 --[[ Globals ]]--
 local BYTES_PER_MB = 1048576.0;
 
---[[ Helper functions ]]--
-local function SortTripletsByName(triplets)	
-	function compareTripletNames(t1, t2) 
-		return (t1[2] < t2[2])
-	end
-	table.sort(triplets, compareTripletNames)
-	return triplets
-end
-
--- labelToBytesUsedMap is a table of name/value pairs.
--- sum up all the values into total.
--- for each value, also create an indented triplet like:
--- {key,
---	indentedKey, 
---	value}
--- add add that triplet to triplets.
---
--- All values should be adjusted to MB.
---
--- return total, triplets.
-local function readAndSumNameValuePairs(labelToBytesUsedMap) 
+-- labelToBytesUsedMap maps string to "num bytes used".
+-- for each item in the map:
+--    Make sure there's a child in the tree for that string.
+--    Update that child to have latest value.
+--    Add value to a sum total.
+-- Return the sum total.
+local function __ReadAndSumValues(treeViewItem, labelToBytesUsedMap) 
 	local totalMB = 0;
-	local triplets = {}
 	
 	for label, numBytes in pairs(labelToBytesUsedMap) do
 		-- Convert to MB.
 		local numMB = numBytes / BYTES_PER_MB
 		totalMB = totalMB + numMB 
-		table.insert(triplets, {label, 
-                    BaseMemoryAnalyzerClass.Indent .. BaseMemoryAnalyzerClass.Indent .. label,
-                    numMB})
+		local childTreeViewItem = treeViewItem:getOrMakeChildById(label)
+		childTreeViewItem:setLabelAndValue(label, numMB)
 	end
-	return totalMB, triplets
+	return totalMB
 end
 
 
@@ -67,8 +52,13 @@ function ServerMemoryAnalyzerClass.new(parentFrame)
     local self = BaseMemoryAnalyzerClass.new(parentFrame)
     setmetatable(self, ServerMemoryAnalyzerClass)
 
-    self.cachedTriplets = {}
+    self._cachedRootTreeViewItem = nil
+	self._coreTreeViewItem = nil
+	self._placeTreeViewItem = nil
+	self._untrackedTreeViewItem = nil
 
+	self._isVisible = false
+	
     return self
 end
 
@@ -93,54 +83,39 @@ function ServerMemoryAnalyzerClass:filterServerMemoryTreeStats(stats)
 end
 
 function ServerMemoryAnalyzerClass:updateWithTreeStats(stats)     
-    local totalPlaceMemory = 0
-    local developerTagTriplets = {}
-	
-	local totalInternalMemory = 0
-    local categoryTriplets = {}
-	
     local totalServerMemory = 0
 		
+	if (self._cachedRootTreeViewItem == nil) then 
+		self._cachedRootTreeViewItem = TreeViewItem.new("root", nil) 
+		-- make sure the childen are in the order I want them in.
+		self._coreTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("CoreMemory")
+		self._placeTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("PlaceMemory")
+		self._untrackedTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("UntrackedMemory")
+	end
+		
+	
 	-- All values are in bytes.
 	-- Convert to MB ASAP.
     for key, value in pairs(stats) do
         if key == "totalServerMemory" then
             totalServerMemory = value / BYTES_PER_MB
         elseif key == "developerTags" then 
-			totalPlaceMemory, developerTagTriplets = readAndSumNameValuePairs(value)
+			local sum = __ReadAndSumValues(self._placeTreeViewItem, value)
+			self._placeTreeViewItem:setLabelAndValue("PlaceMemory", sum)
 		elseif key == "internalCategories" then 
-			totalInternalMemory, categoryTriplets = readAndSumNameValuePairs(value)
+			local sum = __ReadAndSumValues(self._coreTreeViewItem, value)
+			self._coreTreeViewItem:setLabelAndValue("CoreMemory", sum)
 		end
     end
-    
-    local finalTriplets = {}
-    
-    -- Triplet for total memory.
-    table.insert(finalTriplets, {"Memory", "Memory", totalServerMemory})
+        
+    -- Update total.
+    self._cachedRootTreeViewItem:setLabelAndValue("Memory", totalServerMemory)
 	
-    -- Triplet for internal memory.
-    table.insert(finalTriplets, {"CoreMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "CoreMemory", 
-            totalInternalMemory})
-    -- Internal categories, sorted by name.
-	categoryTriplets = SortTripletsByName(categoryTriplets)
-	finalTriplets = CommonUtils.TableConcat(finalTriplets, categoryTriplets)
-
-    -- Triplet for place memory.
-    table.insert(finalTriplets, {"PlaceMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "PlaceMemory", 
-            totalPlaceMemory})
-    -- Developer tags, sorted by name.
-	developerTagTriplets = SortTripletsByName(developerTagTriplets)
-	finalTriplets = CommonUtils.TableConcat(finalTriplets, developerTagTriplets)
+    -- Update untracked.
+	local untrackedMemory = totalServerMemory - 
+		(self._coreTreeViewItem:getValue() + self._placeTreeViewItem:getValue())
+    self._untrackedTreeViewItem:setLabelAndValue("UntrackedMemory", untrackedMemory)
 	
-    -- Triplet untracked memory (total - (place + categories))
-	local untrackedMemory = totalServerMemory - (totalInternalMemory + totalPlaceMemory)
-    table.insert(finalTriplets, {"UntrackedMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "UntrackedMemory", 
-            untrackedMemory})
-
-    self.cachedTriplets = finalTriplets    
     self:renderUpdates();
 end
 
@@ -167,65 +142,49 @@ end
 -- FIXME(dbanks)
 -- 2017/08/16
 -- Remove once FFlag::EnableMemoryTrackerCategoryStats is on for good.
---
--- We are being passed a table that looks like this:
---   "totalServerMemory": <some value>
---   <developer tag label>: <developer tag value>
---   (for all developer tags).
--- Convert that into "type name value triplets", where 
---    Type is unique id for the row.
---    Name is user-friendly label, including indents.
---    Value is value for type.
--- Also we're doing some data munching to make sense of the rows, convert, etc.
 function ServerMemoryAnalyzerClass:DEPRECATED_updateStats(stats)     
-    local totalPlaceMemory = 0
-    local developerTagTriplets = {}
-    local totalServerMemory = 0
-
+	local totalServerMemory = 0
+		
+	if (self._cachedRootTreeViewItem == nil) then 
+		self._cachedRootTreeViewItem = TreeViewItem.new("root", nil) 
+		-- make sure the childen are in the order I want them in.
+		self._coreTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("CoreMemory")
+		self._placeTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("PlaceMemory")
+	end
+		
+	
+	-- All values are in bytes.
+	-- Convert to MB ASAP.
     for key, value in pairs(stats) do
-		-- All values are in bytes.
-		-- Convert to MB.
-		value = value / BYTES_PER_MB
         if key == "totalServerMemory" then
-            totalServerMemory = value
-        else 
-            -- This is a developer tag.
-            -- 1) it contributes to total "place" memory.
-            totalPlaceMemory = totalPlaceMemory + value
-            --  2) We want an indented triplet for this.
-            table.insert(developerTagTriplets, {key, 
-                    BaseMemoryAnalyzerClass.Indent .. BaseMemoryAnalyzerClass.Indent .. key,
-                    value})
-        end
+            totalServerMemory = value / BYTES_PER_MB
+        elseif key == "developerTags" then 
+			local sum = __ReadAndSumValues(self._placeTreeViewItem, value)
+			self._placeTreeViewItem:setLabelAndValue("PlaceMemory", sum)
+		end
     end
-    
-    local finalTriplets = {}
-    
-    -- Triplet for total memory.
-    table.insert(finalTriplets, {"Memory", "Memory", totalServerMemory})
-    -- Triplet for core memory (total - place)
-    table.insert(finalTriplets, {"CoreMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "CoreMemory", 
-            totalServerMemory - totalPlaceMemory})
-    -- Triplet for place memory (sum of all developer tags).
-    table.insert(finalTriplets, {"PlaceMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "PlaceMemory", 
-            totalPlaceMemory})
-    -- Developer tags, sorted by name.
-	developerTagTriplets = SortTripletsByName(developerTagTriplets)
-   
-   finalTriplets = CommonUtils.TableConcat(finalTriplets, developerTagTriplets)
-
-    self.cachedTriplets = finalTriplets
-    
-    self:renderUpdates();
+        
+    -- Update total.
+    self._cachedRootTreeViewItem:setLabelAndValue("Memory", totalServerMemory)
+	
+    -- Update core.
+	local coreMemory = totalServerMemory - self._placeTreeViewItem:getValue()
+    self._coreTreeViewItem:setLabelAndValue("CoreMemory", coreMemory)
+	
+	if (self._isVisible) then 
+		self:renderUpdates();
+	end
 end
 
--- Override: where do we get type/name/value triplets?
-function ServerMemoryAnalyzerClass:getMemoryTypeNameValueTriplets()
-    -- We have them cached.
-    return self.cachedTriplets
+function ServerMemoryAnalyzerClass:getMemoryUsageTree()
+    return self._cachedRootTreeViewItem
 end
 
+function ServerMemoryAnalyzerClass:setVisible(isVisible) 
+	self._isVisible = isVisible
+	if (self._isVisible) then 
+		self:renderUpdates()
+	end
+end
 
 return ServerMemoryAnalyzerClass

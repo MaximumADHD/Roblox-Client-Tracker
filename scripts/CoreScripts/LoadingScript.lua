@@ -25,9 +25,6 @@ local newLoadingScreenWhiteTheme = newLoadingScreenWhiteThemeSuccess and newLoad
 local enableLoadingScreenPlaceIconTweenSuccess, enableLoadingScreenPlaceIconTweenValue = pcall(function() return settings():GetFFlag("EnableLoadingScreenPlaceIconTween") end)
 local enableLoadingScreenPlaceIconTween = enableLoadingScreenPlaceIconTweenSuccess and enableLoadingScreenPlaceIconTweenValue
 
-local enableNetworkJoinHealthStatsSuccess, enableNetworkJoinHealthStatsValue = pcall(function() return settings():GetFFlag("NetworkJoinHealthStats") end)
-local enableNetworkJoinHealthStats = enableNetworkJoinHealthStatsSuccess and enableNetworkJoinHealthStatsValue
-
 local enableNewLoadingScreenShowStatusSuccess, enableNewLoadingScreenShowStatusValue = pcall(function() return settings():GetFFlag("NewLoadingScreenShowStatus") end)
 local enableNewLoadingScreenShowStatus = enableNewLoadingScreenShowStatusSuccess and enableNewLoadingScreenShowStatusValue
 
@@ -361,24 +358,22 @@ function MainGui:GenerateMain()
             local lastTapTime = math.huge
             local doubleTapTimeThreshold = 0.5
 
-            if enableNetworkJoinHealthStats then
-                loadingImageCon = loadingImage.InputBegan:connect(function()
-                    if numberOfTaps == 0 then
-                        numberOfTaps = 1
-                        lastTapTime = tick()
-                        return
-                    end
+            loadingImageCon = loadingImage.InputBegan:connect(function()
+                if numberOfTaps == 0 then
+                    numberOfTaps = 1
+                    lastTapTime = tick()
+                    return
+                end
 
-                    if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
-                        if tick() - lastTapTime <= doubleTapTimeThreshold then
-                            GuiService:ShowStatsBasedOnInputString("ConnectionHealth")
-                        end
+                if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
+                    if tick() - lastTapTime <= doubleTapTimeThreshold then
+                        GuiService:ShowStatsBasedOnInputString("ConnectionHealth")
                     end
+                end
 
-                    numberOfTaps = 0
-                    lastTapTime = math.huge
-                end)
-            end
+                numberOfTaps = 0
+                lastTapTime = math.huge
+            end)
 
 			local loadingText = create 'TextLabel' {
 				Name = 'LoadingText',
@@ -1047,10 +1042,8 @@ function fadeAndDestroyBlackFrame(blackFrame)
 			stopListeningToRenderingStep()
 			blackFrame:Destroy()
 		end
-        if enableNetworkJoinHealthStats then
-            loadingImageCon:disconnect()
-            GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
-        end
+        loadingImageCon:disconnect()
+        GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
     end)
 end
 

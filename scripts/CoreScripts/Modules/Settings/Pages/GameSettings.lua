@@ -1164,9 +1164,12 @@ local function Initialize()
     if GameSettings.IsUsingGamepadCameraSensitivity then
       createGamepadOptions()
     else
-      local camerasettingsConn = GameSettings:GetPropertyChangedSignal('IsUsingGamepadCameraSensitivity'):connect(function()
+      local camerasettingsConn = nil
+      camerasettingsConn = GameSettings:GetPropertyChangedSignal('IsUsingGamepadCameraSensitivity'):connect(function()
         if GameSettings.IsUsingGamepadCameraSensitivity then
-          camerasettingsConn:disconnect()
+          if camerasettingsConn then
+            camerasettingsConn:disconnect()
+          end
           createGamepadOptions()
         end
       end)
@@ -1179,8 +1182,11 @@ local function Initialize()
     if UserInputService.GamepadEnabled then
       checkGamepadOptions()
     else
-      local gamepadConnectedConn = UserInputService.GamepadConnected:connect(function()
-        gamepadConnectedConn:disconnect()
+      local gamepadConnectedConn = nil
+      gamepadConnectedConn = UserInputService.GamepadConnected:connect(function()
+        if gamepadConnectedConn then
+          gamepadConnectedConn:disconnect()
+        end
         checkGamepadOptions()
       end)
     end

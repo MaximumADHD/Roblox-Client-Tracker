@@ -2,6 +2,10 @@
   Filename: ClientMemoryAnalyzer.lua
   Written by: dbanks
   Description: Widget to display client memory usage.
+  
+  FIXME(dbanks)
+  2017/08/21
+  Remove once FFlag::ImproveClientAndServerMemoryTabLayout is on for good.
 --]]
 
 --[[ Services ]]--
@@ -9,13 +13,12 @@ local StatsService = game:GetService("Stats")
 local CoreGuiService = game:GetService('CoreGui')
 
 --[[ Modules ]]--
-local BaseMemoryAnalyzerClass = require(CoreGuiService.RobloxGui.Modules.Stats.BaseMemoryAnalyzer)
+local BaseMemoryAnalyzerClass = require(CoreGuiService.RobloxGui.Modules.Stats.DEPRECATED_BaseMemoryAnalyzer)
 local CommonUtils = require(CoreGuiService.RobloxGui.Modules.Common.CommonUtil)
 local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
-local TreeViewItem = require(CoreGuiService.RobloxGui.Modules.Stats.TreeViewItem)
 
 --[[ Helper functions ]]--
-local function __GetMemoryPerformanceStatsItem()
+function __GetMemoryPerformanceStatsItem()
   local performanceStats = StatsService and StatsService:FindFirstChild("PerformanceStats")
   if performanceStats == nil then
     return nil
@@ -26,22 +29,42 @@ local function __GetMemoryPerformanceStatsItem()
   return memoryStats
 end
 
-local function __FillInMemoryUsageTreeRecursive(treeViewItem, statsItem)
-  local statId = statsItem.Name
-  local statLabel = StatsUtils.GetMemoryAnalyzerStatName(statId)
+function __GetMemoryTypeNameValueTripletsRecursive(statsItem, prefix)
+  local retVal = {}
+
+  local statType = statsItem.Name
+  local statName = StatsUtils.GetMemoryAnalyzerStatName(statType)
   local statValue = statsItem:GetValue()
 
-  treeViewItem:setLabelAndValue(statLabel, statValue)
-  
+  table.insert(retVal, {statType, prefix .. statName, statValue})
+
   local rawChildren = statsItem:GetChildren()
   -- sort children by name.
   local sortedChildren = CommonUtils.SortByName(rawChildren)
   
-  for i, childStatItem in ipairs(sortedChildren) do
-    local childStatId = childStatItem.Name
-    local childTreeItem = treeViewItem:getOrMakeChildById(childStatId)
-    __FillInMemoryUsageTreeRecursive(childTreeItem, childStatItem)
+  for i, childItem in ipairs(sortedChildren) do
+    local childTriplets = __GetMemoryTypeNameValueTripletsRecursive(childItem,
+        prefix .. BaseMemoryAnalyzerClass.Indent)
+    retVal = CommonUtils.TableConcat(retVal, childTriplets)
   end
+
+  return retVal
+end
+
+-- Read out the entire breakdown of memory data from performance
+-- stats, in the form of an ordered array of {memory stat type, value}
+-- pairs.
+function __GetMemoryTypeNameValueTriplets()
+  local retVal = {}
+          
+  local memoryStats = __GetMemoryPerformanceStatsItem()
+  if memoryStats == nil then
+    return retVal
+  end
+  
+  retVal = __GetMemoryTypeNameValueTripletsRecursive(memoryStats, "")
+
+  return retVal
 end
 
 --[[ Classes ]]--
@@ -61,8 +84,6 @@ function ClientMemoryAnalyzerClass.new(parentFrame)
     local self = BaseMemoryAnalyzerClass.new(parentFrame)
     setmetatable(self, ClientMemoryAnalyzerClass)
 
-    self._rootTreeViewItem = nil
-    
     -- am I currently listening for updates?
     self._shouldListenForUpdates = false
     
@@ -93,7 +114,6 @@ function ClientMemoryAnalyzerClass:startListeningForUpdates()
     
     spawn(function()
             while(self._shouldListenForUpdates) do 
-                self:refreshMemoryUsageTree()
                 self:renderUpdates()
                 wait(1)
             end
@@ -106,23 +126,11 @@ end
 function ClientMemoryAnalyzerClass:stopListeningForUpdates()        
   self._shouldListenForUpdates = false
 end
-
--- Generate the memory usage tree.
-function ClientMemoryAnalyzerClass:refreshMemoryUsageTree()
-    if (self._rootTreeViewItem == nil) then 
-        self._rootTreeViewItem = TreeViewItem.new("root", nil)
-    end
-    
-    local statsItem = __GetMemoryPerformanceStatsItem()
-    if statsItem == nil then
-        return nil
-    end
-    
-    __FillInMemoryUsageTreeRecursive(self._rootTreeViewItem, statsItem)
-end
-
-function ClientMemoryAnalyzerClass:getMemoryUsageTree()
-    return self._rootTreeViewItem
+      
+-- Override: where do we get type/name/value triplets?
+function ClientMemoryAnalyzerClass:getMemoryTypeNameValueTriplets()
+    -- We pull them out of the stats service.
+    return __GetMemoryTypeNameValueTriplets()
 end
 
 return ClientMemoryAnalyzerClass
