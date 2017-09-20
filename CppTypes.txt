@@ -550,8 +550,6 @@ Classes
 	future_error
 	future_error_category
 	future_uninitialized
-	FuzzyBoolean
-	FuzzyInt
 	G_CAPITAL_WIDTH
 	G_LOWERCASE_WIDTH
 	Game
@@ -946,6 +944,7 @@ Classes
 	PVAdornment
 	PVInstance
 	PyramidPoly
+	QcG
 	QueryD3D9
 	Ragdoll
 	RakPeer
@@ -1170,6 +1169,7 @@ Classes
 	system_error
 	system_error_category
 	TagItem
+	TaskQueueJob
 	TaskScheduler
 	TaskSchedulerMk2
 	TaskSchedulerOld
@@ -1323,7 +1323,6 @@ Classes
 	Workspace
 	WorkspaceStatsItem
 	Writer
-	xlH
 	XmlParser
 	XmlWriter
 	YieldFunctionDescriptor
