@@ -31,6 +31,9 @@ local enableNewLoadingScreenShowStatus = enableNewLoadingScreenShowStatusSuccess
 local loadingScriptStopUsingVerbsSuccess, loadingScriptStopUsingVerbsValue = pcall(function() return settings():GetFFlag("LoadingScriptStopUsingVerbs") end)
 local loadingScriptStopUsingVerbs = loadingScriptStopUsingVerbsSuccess and loadingScriptStopUsingVerbsValue
 
+local persistentConnectionHealthDialogSuccess, persistentConnectionHealthDialogValue = pcall(function() return settings():GetFFlag("PersistentConnectionHealthDialog") end)
+local persistentConnectionHealthDialog = persistentConnectionHealthDialogSuccess and persistentConnectionHealthDialogValue
+
 --Turn this on if you want to test the loading screen in Play Solo and have FFlagLoadingScreenInStudio
 local debugMode = false
 
@@ -97,6 +100,9 @@ local platform = UserInputService:GetPlatform()
 local placeLabel, creatorLabel = nil, nil
 local backgroundFadeStarted = false
 local tweenPlaceIcon = nil
+
+local connectionHealthShown = false
+local connectionHealthCon
 
 local function IsConvertMyPlaceNameInXboxAppEnabled()
 	if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
@@ -366,8 +372,11 @@ function MainGui:GenerateMain()
                 end
 
                 if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
-                    if tick() - lastTapTime <= doubleTapTimeThreshold then
+				    if tick() - lastTapTime <= doubleTapTimeThreshold then
                         GuiService:ShowStatsBasedOnInputString("ConnectionHealth")
+						if persistentConnectionHealthDialog then
+							connectionHealthShown = not connectionHealthShown
+						end
                     end
                 end
 
@@ -974,6 +983,14 @@ function stopListeningToRenderingStep()
 	end
 end
 
+function disconnectAndCloseHealthStat()
+	if connectionHealthCon then
+		connectionHealthCon:disconnect()
+		connectionHealthCon = nil
+		GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
+	end
+end
+
 function fadeAndDestroyBlackFrame(blackFrame)
 	if destroyingBackground then return end
 	destroyingBackground = true
@@ -1042,8 +1059,19 @@ function fadeAndDestroyBlackFrame(blackFrame)
 			stopListeningToRenderingStep()
 			blackFrame:Destroy()
 		end
-        loadingImageCon:disconnect()
-        GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
+
+		loadingImageCon:disconnect()	
+		if persistentConnectionHealthDialog and connectionHealthShown then
+			if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
+				connectionHealthCon = game:GetService("UserInputService").InputBegan:connect(function()
+					disconnectAndCloseHealthStat()
+				end)
+			else
+				GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
+			end
+		else
+			GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
+		end
     end)
 end
 

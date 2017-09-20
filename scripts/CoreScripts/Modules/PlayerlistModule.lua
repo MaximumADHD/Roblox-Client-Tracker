@@ -776,53 +776,72 @@ end
 local function createPlayerSideBarOption(player)
   --Make sure the player is valid and isn't a guest
   if player and player.UserId and player.UserId >= 1 then
-    local savedSelectedGuiObject = GuiService.SelectedCoreObject
-    if not SideBar then
-      local sideBarModule = RobloxGui.Modules:FindFirstChild('SideBar') or RobloxGui.Modules.Shell.SideBar
-      local createSideBarFunc = require(sideBarModule)
-      SideBar = createSideBarFunc()
-    end
-    --Get modules
-    local screenManagerModule = RobloxGui.Modules:FindFirstChild('ScreenManager') or RobloxGui.Modules.Shell.ScreenManager
-    local ScreenManager = require(screenManagerModule)
-    local utilModule = RobloxGui.Modules:FindFirstChild('Utility') or RobloxGui.Modules.Shell.Utility
-    local Util = require(utilModule)
-    local stringsModule = RobloxGui.Modules:FindFirstChild('LocalizedStrings') or RobloxGui.Modules.Shell.LocalizedStrings
-    local Strings = require(stringsModule)
-
-    SideBar:RemoveAllItems()
-    SideBar:AddItem(Util.Upper(Strings:LocalizedString("ViewGamerCardWord")), function()
-      openPlatformProfileUI(player.UserId)
+    local platformId = nil
+    pcall(function()
+      local platformService = game:GetService('PlatformService')
+      platformId = platformService:GetPlatformId(player.UserId)
     end)
+    local addReportItem = false
+    if player ~= PlayersService.LocalPlayer then
+      addReportItem = true
+    end
+    local addGamerCardItem = false
+    if platformId and #platformId > 0 then
+      addGamerCardItem = true
+    end
 
-    if reportAbuseMenu then
-      --We can't report guests/localplayer
-      if player ~= PlayersService.LocalPlayer then
-        SideBar:AddItem(Util.Upper(Strings:LocalizedString("Report Player")), function()
-          --Force closing player list before open the report tab
-          isOpen = false
-          setVisible(false)
-          GuiService.SelectedCoreObject = nil
-          reportAbuseMenu:ReportPlayer(player)
+    --Add sidebar only if we have item(s) to add
+    if addReportItem or addGamerCardItem then
+      local savedSelectedGuiObject = GuiService.SelectedCoreObject
+      if not SideBar then
+        local sideBarModule = RobloxGui.Modules:FindFirstChild('SideBar') or RobloxGui.Modules.Shell.SideBar
+        local createSideBarFunc = require(sideBarModule)
+        SideBar = createSideBarFunc()
+      end
+      --Get modules
+      local screenManagerModule = RobloxGui.Modules:FindFirstChild('ScreenManager') or RobloxGui.Modules.Shell.ScreenManager
+      local ScreenManager = require(screenManagerModule)
+      local utilModule = RobloxGui.Modules:FindFirstChild('Utility') or RobloxGui.Modules.Shell.Utility
+      local Util = require(utilModule)
+      local stringsModule = RobloxGui.Modules:FindFirstChild('LocalizedStrings') or RobloxGui.Modules.Shell.LocalizedStrings
+      local Strings = require(stringsModule)
+
+      SideBar:RemoveAllItems()
+      if addGamerCardItem then
+        SideBar:AddItem(Util.Upper(Strings:LocalizedString("ViewGamerCardWord")), function()
+          openPlatformProfileUI(player.UserId)
         end)
       end
-    end
 
-    local closedCon = nil
-    --Will fire when sidebar closes, fires before the item callback
-    closedCon = SideBar.Closed:connect(function()
-      closedCon:disconnect()
-      if Container.Visible then
-        if savedSelectedGuiObject and savedSelectedGuiObject.Parent then
-          GuiService.SelectedCoreObject = savedSelectedGuiObject
-        else
-          --SavedSelectedGuiObject gets removed, selects the first frame
-          setVisible(true)
+      if reportAbuseMenu then
+        --We can't report guests/localplayer
+        if addReportItem then
+          SideBar:AddItem(Util.Upper(Strings:LocalizedString("Report Player")), function()
+            --Force closing player list before open the report tab
+            isOpen = false
+            setVisible(false)
+            GuiService.SelectedCoreObject = nil
+            reportAbuseMenu:ReportPlayer(player)
+          end)
         end
       end
-    end)
 
-    ScreenManager:OpenScreen(SideBar, false)
+      local closedCon = nil
+      --Will fire when sidebar closes, fires before the item callback
+      closedCon = SideBar.Closed:connect(function()
+        closedCon:disconnect()
+        if Container.Visible then
+          if savedSelectedGuiObject and savedSelectedGuiObject.Parent then
+            GuiService.SelectedCoreObject = savedSelectedGuiObject
+          else
+            --SavedSelectedGuiObject gets removed, selects the local player's frame
+            setVisible(true)
+          end
+        end
+      end)
+
+      ScreenManager:OpenScreen(SideBar, false)
+    end
   end
 end
 
@@ -1302,16 +1321,16 @@ local function setLeaderStats(entry)
         onStatAdded(child, entry)
       end
       rbx_profileend()
-      child.Changed:connect(function(property) 
+      child.Changed:connect(function(property)
         rbx_profilebegin("child.Changed-1")
-        onPlayerChildChanged(property, child) 
+        onPlayerChildChanged(property, child)
         rbx_profileend()
       end)
     end)
   for _,child in pairs(player:GetChildren()) do
-    child.Changed:connect(function(property) 
+    child.Changed:connect(function(property)
       rbx_profilebegin("child.Changed-2")
-      onPlayerChildChanged(property, child) 
+      onPlayerChildChanged(property, child)
       rbx_profileend()
     end)
   end
@@ -1343,7 +1362,7 @@ local function createPlayerEntry(player, isTopStat)
       onEntryFrameSelected(containerFrame, player)
     end)
 
-  local currentXOffset = hasXboxGamertag and 14 or 1
+  local currentXOffset = isTenFootInterface and 14 or 1
 
   -- check membership
   local membershipIconImage = getMembershipIcon(player)
@@ -1351,7 +1370,7 @@ local function createPlayerEntry(player, isTopStat)
 
   if membershipIconImage then
     membershipIcon = createImageIcon(membershipIconImage, "MembershipIcon", currentXOffset, entryFrame)
-    currentXOffset = currentXOffset + membershipIcon.Size.X.Offset + (hasXboxGamertag and 4 or 2)
+    currentXOffset = currentXOffset + membershipIcon.Size.X.Offset + (isTenFootInterface and 4 or 2)
   else
     currentXOffset = currentXOffset + offsetSize
   end
@@ -1399,19 +1418,25 @@ local function createPlayerEntry(player, isTopStat)
   local playerPlatformName
   local robloxIcon
 
-  if  game:GetService('UserInputService'):GetPlatform() == Enum.Platform.XBoxOne and
-      player.OsPlatform == "Durango" and
-      player.DisplayName ~= ""
-  then
+  -- Only show new layout if...
+  -- 1) It's TenFootInterface
+  -- 2) Our client has a DisplayName (this implies we have a gamertag and backend cross play is enabled)
+  if game:GetService('UserInputService'):GetPlatform() == Enum.Platform.XBoxOne and Player.DisplayName ~= "" then
     local playerNameXSize = entryFrame.Size.X.Offset - currentXOffset
 
-    playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
-      UDim2.new(0.01, currentXOffset, -0.20, 0),
-      UDim2.new(-0.01, playerNameXSize, 1, 0))
-    playerPlatformName.Parent = entryFrame
+    if hasXboxGamertag then
+      playerPlatformName = createEntryNameText("PlayerPlatformName", player.DisplayName,
+        UDim2.new(0.01, currentXOffset, -0.20, 0),
+        UDim2.new(-0.01, playerNameXSize, 1, 0))
+      playerPlatformName.Parent = entryFrame
+    end
 
     robloxIcon = Instance.new('ImageButton')
-    robloxIcon.Position = UDim2.new(0.01, currentXOffset, 0.21, 30)
+    if hasXboxGamertag then
+      robloxIcon.Position = UDim2.new(0.01, currentXOffset, 0.21, 30)
+    else
+      robloxIcon.Position = UDim2.new(0.01, currentXOffset, 0.5, -12)
+    end
     robloxIcon.Size = UDim2.new(0, 24, 0, 24)
     robloxIcon.Image = "rbxasset://textures/ui/Shell/Icons/RobloxIcon24.png"
     robloxIcon.BackgroundTransparency = 1
@@ -1421,10 +1446,9 @@ local function createPlayerEntry(player, isTopStat)
     robloxIcon.Parent = entryFrame
 
     playerName = createEntryNameText("PlayerName", name,
-      UDim2.new(0.01, currentXOffset + robloxIcon.Size.X.Offset + 6, 0.12, 0),
-      UDim2.new(-0.01, playerNameXSize, 1, 0))
-    playerName.Parent = entryFrame
-
+      UDim2.new(0.01, robloxIcon.Size.X.Offset + 6, 0, 0),
+      UDim2.new(0, playerNameXSize, 1, 0))
+    playerName.Parent = robloxIcon
   else
     playerName = createEntryNameText("PlayerName", name,
       UDim2.new(0.01, currentXOffset, 0, 0),
@@ -1593,13 +1617,13 @@ end
 local function removePlayerEntry(player)
   for i = 1, #PlayerEntries do
     if PlayerEntries[i].Player == player then
-      local prevSelectedCoreObject = GuiService.SelectedCoreObject
+      local hadSelectedObject = GuiService.SelectedCoreObject and GuiService.SelectedCoreObject.Parent
       PlayerEntries[i].Frame:Destroy()
       if fixGamePadPlayerlist then
         --Fix lose selection
         if Container.Visible then
-          --prevSelectedCoreObject get removed, reset selection
-          if prevSelectedCoreObject and not GuiService.SelectedCoreObject then
+          --previous SelectedCoreObject get removed, reset selection
+          if hadSelectedObject and (not GuiService.SelectedCoreObject or not GuiService.SelectedCoreObject.Parent) then
             --SelectedCoreObject gets removed, selects the first frame
             setVisible(true)
           end

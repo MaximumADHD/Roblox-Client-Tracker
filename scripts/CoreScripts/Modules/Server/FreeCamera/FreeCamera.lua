@@ -341,7 +341,7 @@ UIS.InputBegan:Connect(function(input, processed)
 					EnterFreecam()
 				end
 			end
-		elseif input.KeyCode == Enum.KeyCode.L then
+		elseif input.KeyCode == Enum.KeyCode.L and freeCamEnabled and UIS:IsKeyDown(Enum.KeyCode.LeftShift) then
 			letterBoxEnabled = not letterBoxEnabled
 			letterbox.Enabled = letterBoxEnabled
 		end

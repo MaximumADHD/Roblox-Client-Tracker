@@ -1127,6 +1127,13 @@ local function Initialize()
       local function onOpenDevConsole()
         if devConsoleModule then
           devConsoleModule:SetVisibility(true)
+          local success, result = pcall(function() return settings():GetFFlag("CloseMenuAfterOpenConsole") end)
+          if success and result then
+            local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+            if MenuModule then
+              MenuModule:SetVisibility(false)
+            end
+          end
         end
       end
 

@@ -371,7 +371,7 @@ content/music/content-music.zip
 [3881 bytes]
 
 content/scripts/content-scripts.zip
-[543530 bytes]
+[543962 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -392,7 +392,7 @@ content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [10404 bytes]
 
 content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
-[25477 bytes]
+[25171 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
 [39523 bytes]
@@ -419,7 +419,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [36996 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[37032 bytes]
+[38106 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -473,7 +473,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22846 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[65882 bytes]
+[66884 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -587,7 +587,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/TransparencyTweener.lua
 [6111 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCamera.lua
-[10670 bytes]
+[10731 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCameraInstaller.lua
 [3208 bytes]
@@ -656,7 +656,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[48974 bytes]
+[49316 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [26855 bytes]
@@ -1100,7 +1100,7 @@ content/textures/content-textures.zip
 [3175 bytes]
 
 content/textures/content-textures2.zip
-[6059155 bytes]
+[6062317 bytes]
 
 content/textures/content-textures3.zip
 [26376277 bytes]

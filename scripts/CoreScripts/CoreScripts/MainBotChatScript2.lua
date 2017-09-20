@@ -62,11 +62,6 @@ local goodbyeChoiceActiveFlagSuccess, goodbyeChoiceActiveFlagValue = pcall(funct
 end)
 local goodbyeChoiceActiveFlag = (goodbyeChoiceActiveFlagSuccess and goodbyeChoiceActiveFlagValue)
 
-local distanceOffsetFlagSuccess, distanceOffsetFlagValue = pcall(function()
-	return settings():GetFFlag("DialogTriggerDistanceOffsetEnabled")
-end)
-local distanceOffsetFlag = (distanceOffsetFlagSuccess and distanceOffsetFlagValue)
-
 local dialogMultiplePlayersFlagSuccess, dialogMultiplePlayersFlagValue = pcall(function() return settings():GetFFlag("DialogMultiplePlayers") end)
 local dialogMultiplePlayersFlag = (dialogMultiplePlayersFlagSuccess and dialogMultiplePlayersFlagValue)
 
@@ -721,34 +716,30 @@ game:GetService("RunService").Heartbeat:connect(function()
 	local closestDistance = math.huge
 	local closestDialog = nil
 
-	if usingGamepad or distanceOffsetFlag then
-		local humanoidRootPart = getLocalHumanoidRootPart()
-		if humanoidRootPart then
-			local characterPosition = humanoidRootPart.Position
-			closestDialog = getClosestDialogToPosition(guiService, characterPosition)
-		end
-	end
+    local humanoidRootPart = getLocalHumanoidRootPart()
+    if humanoidRootPart then
+        local characterPosition = humanoidRootPart.Position
+        closestDialog = getClosestDialogToPosition(guiService, characterPosition)
+    end
 
-	if distanceOffsetFlag then
-		if getLocalHumanoidRootPart() and dialogIsValid(closestDialog) and currentConversationDialog == nil then
+    if getLocalHumanoidRootPart() and dialogIsValid(closestDialog) and currentConversationDialog == nil then
 
-			local dialogTriggerDistance = closestDialog.TriggerDistance
-			local dialogTriggerOffset = closestDialog.TriggerOffset
+        local dialogTriggerDistance = closestDialog.TriggerDistance
+        local dialogTriggerOffset = closestDialog.TriggerOffset
 
-			local distanceFromCharacterWithOffset = localPlayer:DistanceFromCharacter(
-				closestDialog.Parent.Position + dialogTriggerOffset
-			)
+        local distanceFromCharacterWithOffset = localPlayer:DistanceFromCharacter(
+            closestDialog.Parent.Position + dialogTriggerOffset
+        )
 
-			if dialogTriggerDistance ~= 0 and
-				distanceFromCharacterWithOffset < closestDialog.ConversationDistance and
-				distanceFromCharacterWithOffset < dialogTriggerDistance then
+        if dialogTriggerDistance ~= 0 and
+            distanceFromCharacterWithOffset < closestDialog.ConversationDistance and
+            distanceFromCharacterWithOffset < dialogTriggerDistance then
 
-				startDialog(closestDialog)
-			end
-		end
-	end
+            startDialog(closestDialog)
+        end
+    end
 
-	if (distanceOffsetFlag == false) or (distanceOffsetFlag == true and usingGamepad == true) then
+	if usingGamepad == true then
 		if closestDialog ~= lastClosestDialog then
 			if dialogMap[lastClosestDialog] then
 				dialogMap[lastClosestDialog].Background.ActivationButton.Visible = false
