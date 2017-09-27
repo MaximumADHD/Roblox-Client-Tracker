@@ -65,7 +65,7 @@ content/avatar/compositing/R15CompositTorsoBase.mesh
 [8818 bytes]
 
 content/avatar/content-avatar.zip
-[148749 bytes]
+[148793 bytes]
 
 content/avatar/heads/head.mesh
 [28207 bytes]
@@ -143,7 +143,7 @@ content/avatar/scripts/humanoidAnimateLocalKeyframe2.rbxm
 [19949 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[30319 bytes]
+[30428 bytes]
 
 content/avatar/scripts/humanoidAnimateR15_4.rbxm
 [30141 bytes]
@@ -364,14 +364,8 @@ content/fonts/torso.mesh
 content/fonts/zekton_rg.ttf
 [86820 bytes]
 
-content/music/bass.wav
-[6351 bytes]
-
-content/music/content-music.zip
-[3881 bytes]
-
 content/scripts/content-scripts.zip
-[543962 bytes]
+[544717 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -419,7 +413,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [36996 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[38106 bytes]
+[37489 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -455,7 +449,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[103591 bytes]
+[104894 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -473,7 +467,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22846 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[66884 bytes]
+[67127 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -518,7 +512,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [740 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[407 bytes]
+[339 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
 [4691 bytes]
@@ -599,7 +593,7 @@ content/scripts/CoreScripts/Modules/Server/FreeCamera/Spring.lua
 [877 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatChannel.lua
-[22322 bytes]
+[22386 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
 [14165 bytes]
@@ -656,40 +650,40 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[49316 bytes]
+[49598 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[26855 bytes]
+[26956 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
-[2702 bytes]
+[2969 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4855 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[20349 bytes]
+[21077 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
-[7725 bytes]
+[7994 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[14346 bytes]
+[14614 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5390 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[48515 bytes]
+[48859 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHubOld.lua
 [40999 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
-[9490 bytes]
+[11023 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[80938 bytes]
+[81495 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [77183 bytes]
@@ -913,8 +907,11 @@ content/sounds/action_jump_land.mp3
 content/sounds/action_swim.mp3
 [75633 bytes]
 
+content/sounds/bass.wav
+[6351 bytes]
+
 content/sounds/content-sounds.zip
-[328397 bytes]
+[332256 bytes]
 
 content/sounds/impact_explosion_03.mp3
 [40674 bytes]
@@ -1100,7 +1097,7 @@ content/textures/content-textures.zip
 [3175 bytes]
 
 content/textures/content-textures2.zip
-[6062317 bytes]
+[6079380 bytes]
 
 content/textures/content-textures3.zip
 [26376277 bytes]
@@ -1233,6 +1230,21 @@ content/textures/ice/normaldetail.dds
 
 content/textures/ice/specular.dds
 [681824 bytes]
+
+content/textures/icon_ROBUX.png
+[316 bytes]
+
+content/textures/icon_ROBUX@2x.png
+[558 bytes]
+
+content/textures/Icon_Stream_Off.png
+[200 bytes]
+
+content/textures/Icon_Stream_Off@2x.png
+[299 bytes]
+
+content/textures/Icon_Stream_Off@3x.png
+[421 bytes]
 
 content/textures/loading/cancelButton.png
 [2567 bytes]
@@ -1903,6 +1915,15 @@ content/textures/ui/LuaChat/9-slice/new-message-indicator@2x.png
 content/textures/ui/LuaChat/9-slice/new-message-indicator@3x.png
 [619 bytes]
 
+content/textures/ui/LuaChat/9-slice/scroll-bar.png
+[67 bytes]
+
+content/textures/ui/LuaChat/9-slice/scroll-bar@2x.png
+[76 bytes]
+
+content/textures/ui/LuaChat/9-slice/scroll-bar@3x.png
+[79 bytes]
+
 content/textures/ui/LuaChat/9-slice/search.png
 [113 bytes]
 
@@ -1974,6 +1995,15 @@ content/textures/ui/LuaChat/graphic/gr-profile-border-48x48@2x.png
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48@3x.png
 [2356 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-48x48-dotted.png
+[1248 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-48x48-dotted@2x.png
+[3342 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-profile-border-48x48-dotted@3x.png
+[5787 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send.png
 [280 bytes]
@@ -2163,6 +2193,15 @@ content/textures/ui/LuaChat/icons/ic-notification@2x.png
 
 content/textures/ui/LuaChat/icons/ic-notification@3x.png
 [916 bytes]
+
+content/textures/ui/LuaChat/icons/ic-remove.png
+[418 bytes]
+
+content/textures/ui/LuaChat/icons/ic-remove@2x.png
+[892 bytes]
+
+content/textures/ui/LuaChat/icons/ic-remove@3x.png
+[1385 bytes]
 
 content/textures/ui/LuaChat/icons/ic-resend.png
 [510 bytes]
@@ -2962,9 +3001,12 @@ content/textures/woodplanks/normaldetail.dds
 content/textures/woodplanks/specular.dds
 [684723 bytes]
 
+content/translations/ChatLocalization.json
+[21829 bytes]
+
 content/translations/content-translations.zip
-[39727 bytes]
+[40849 bytes]
 
 content/translations/CorescriptLocalization.json
-[134552 bytes]
+[113042 bytes]
 

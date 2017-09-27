@@ -19,6 +19,9 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 ------------ Variables -------------------
 local PageInstance = nil
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -31,8 +34,12 @@ local function Initialize()
 	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png"
 	this.TabHeader.Icon.Size = UDim2.new(0,32,0,30)
 	this.TabHeader.Icon.Position = UDim2.new(0,5,0.5,-15)
-
-	this.TabHeader.Icon.Title.Text = "Home"
+	
+	if FFlagUseNotificationsLocalization then
+		this.TabHeader.Title.Text = "Home"
+	else
+		this.TabHeader.Icon.Title.Text = "Home"
+	end
 
 	this.TabHeader.Size = UDim2.new(0,100,1,0)
 

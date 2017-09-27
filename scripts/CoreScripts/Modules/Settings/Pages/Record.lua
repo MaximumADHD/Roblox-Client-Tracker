@@ -23,6 +23,9 @@ local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 ------------ Variables -------------------
 local PageInstance = nil
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -42,8 +45,12 @@ local function Initialize()
 
 	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/RecordTab.png"
 	this.TabHeader.Icon.AspectRatioConstraint.AspectRatio = 41 / 40
-
-	this.TabHeader.Icon.Title.Text = "Record"
+	
+	if FFlagUseNotificationsLocalization then
+		this.TabHeader.Title.Text = "Record"
+	else
+		this.TabHeader.Icon.Title.Text = "Record"
+	end
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Record"

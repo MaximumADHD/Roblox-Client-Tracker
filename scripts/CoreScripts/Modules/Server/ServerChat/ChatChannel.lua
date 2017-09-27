@@ -299,7 +299,7 @@ function methods:GetHistoryLogForSpeaker(speaker)
 				--// into an actual string message to send to players for their chat history.
 				--// System messages aren't filtered the same way, so they just have a regular 
 				--// text value in the Message field.
-				if (messageObj.MessageType == ChatConstants.MessageTypeDefault) then
+				if (messageObj.MessageType == ChatConstants.MessageTypeDefault or messageObj.MessageType == ChatConstants.MessageTypeMeCommand) then
 					local filterResult = messageObj.FilterResult
 					if (messageObj.IsFilterResult) then
 						if (player) then

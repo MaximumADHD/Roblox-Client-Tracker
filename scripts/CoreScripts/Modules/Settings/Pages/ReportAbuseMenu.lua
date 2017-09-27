@@ -55,6 +55,9 @@ local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 local reportPlayerAutoSelectSuccess, reportPlayerAutoSelectValue = pcall(function() return settings():GetFFlag("ReportPlayerAutoSelect") end)
 local reportPlayerAutoSelect = reportPlayerAutoSelectSuccess and reportPlayerAutoSelectValue
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -149,7 +152,11 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
 	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png"
-	this.TabHeader.Icon.Title.Text = "Report"
+	if FFlagUseNotificationsLocalization then
+		this.TabHeader.Title.Text = "Report"
+	else
+		this.TabHeader.Icon.Title.Text = "Report"
+	end
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbusePage"

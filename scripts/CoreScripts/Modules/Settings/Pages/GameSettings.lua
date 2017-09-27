@@ -64,6 +64,9 @@ local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
 local overscanScreen = nil
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 --------------- FLAGS ----------------
 local getUpdateMouseSensitivityTitleSuccess, updateMouseSensitivityTitleValue = pcall(function() return settings():GetFFlag("UpdateMouseSensitivityTitle") end)
 local updateMouseSensitivityTitle = getUpdateMouseSensitivityTitleSuccess and updateMouseSensitivityTitleValue
@@ -1244,8 +1247,13 @@ local function Initialize()
   ------ TAB CUSTOMIZATION -------
   this.TabHeader.Name = "GameSettingsTab"
   this.TabHeader.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab.png"
-
-  this.TabHeader.Icon.Title.Text = "Settings"
+  
+  if FFlagUseNotificationsLocalization then
+    this.TabHeader.Title.Text = "Settings"
+  else
+    this.TabHeader.Icon.Title.Text = "Settings"
+  end
+  
 
   ------ PAGE CUSTOMIZATION -------
   this.Page.ZIndex = 5

@@ -24,6 +24,9 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 ----------- CONSTANTS --------------
 local HEADER_SPACING = 5
 if utility:IsSmallTouchScreen() then
@@ -81,25 +84,38 @@ local function Initialize()
 	local title = utility:Create'TextLabel'
 	{
 		Name = "Title",
-		Text = "Change Me",
+		Text = "",
 		Font = Enum.Font.SourceSansBold,
 		FontSize = Enum.FontSize.Size24,
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1.05,0,1,0),
-		Position = UDim2.new(1.2,0,0,0),
+		Size = UDim2.new(1.05,0,1,0), --overwritten
+		Position = UDim2.new(1.2,0,0,0), --overwritten
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextTransparency = 0.5,
-		Parent = icon
+		TextTransparency = 0.5
 	};
+	
+	local titleTextSizeConstraint = Instance.new("UITextSizeConstraint")
+	titleTextSizeConstraint.MaxTextSize = 24
+	if FFlagUseNotificationsLocalization then
+		title.Parent = this.TabHeader
+		title.TextScaled = true
+		title.TextWrapped = true
+		titleTextSizeConstraint.Parent = title
+	else
+		title.Parent = icon
+	end
+	
 	if utility:IsSmallTouchScreen() then
 		title.FontSize = Enum.FontSize.Size18
+		titleTextSizeConstraint.MaxTextSize = 18
 	elseif isTenFootInterface then
 		title.FontSize = Enum.FontSize.Size48
+		titleTextSizeConstraint.MaxTextSize = 48
 	end
 
 	local tabSelection = StyleWidgets.MakeTabSelectionWidget(this.TabHeader)
-
+	local titleScaleInitial = Vector2.new(title.Size.X.Scale, title.Size.Y.Scale)
 	local function onResized()
 		if not this.TabHeader then
 			return
@@ -124,11 +140,39 @@ local function Initialize()
 			this.TabHeader.Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
 			this.TabHeader.Icon.AnchorPoint = Vector2.new(0.5, 0.5)
 			this.TabHeader.Icon.Size = UDim2.new(0.5, 0, 0.5, 0)
-			this.TabHeader.Icon.Title.Visible = false
+			if FFlagUseNotificationsLocalization then
+				this.TabHeader.Title.Visible = false
+			else
+				this.TabHeader.Icon.Title.Visible = false
+			end
 		else
-			this.TabHeader.Icon.Title.Visible = true
+			if FFlagUseNotificationsLocalization then
+				this.TabHeader.Title.Visible = true
+			else
+				this.TabHeader.Icon.Title.Visible = true
+			end
 		end
-	end
+		
+		if FFlagUseNotificationsLocalization then			
+			local iconSize = this.TabHeader.Icon.AbsoluteSize
+			local paddingLeft = 0.125
+			local paddingRight = 0.025
+			
+			title.Position = UDim2.new(
+				paddingLeft,
+				iconSize.X,
+				0.225,
+				0
+			)
+			title.Size = UDim2.new(
+				titleScaleInitial.X - paddingLeft - paddingRight,
+				-iconSize.X,
+				0.5,
+				0
+			)
+		end
+	end --end local function onResized()
+	
 	if enablePortraitMode then
 		utility:OnResized(this.TabHeader, onResized)
 	else
@@ -207,7 +251,11 @@ local function Initialize()
 		if this.TabHeader then
 			this.TabHeader.TabSelection.Visible = true
 			this.TabHeader.Icon.ImageTransparency = 0
-			this.TabHeader.Icon.Title.TextTransparency = 0
+			if FFlagUseNotificationsLocalization then
+				this.TabHeader.Title.TextTransparency = 0
+			else
+				this.TabHeader.Icon.Title.TextTransparency = 0
+			end
 		end
 
 		this.Page.Parent = pageParent
@@ -232,7 +280,11 @@ local function Initialize()
 		if this.TabHeader then
 			this.TabHeader.TabSelection.Visible = false
 			this.TabHeader.Icon.ImageTransparency = 0.5
-			this.TabHeader.Icon.Title.TextTransparency = 0.5
+			if FFlagUseNotificationsLocalization then
+				this.TabHeader.Title.TextTransparency = 0.5
+			else
+				this.TabHeader.Icon.Title.TextTransparency = 0.5
+			end
 		end
 
 		if this.Page.Parent then

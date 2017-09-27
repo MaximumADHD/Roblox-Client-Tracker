@@ -555,10 +555,12 @@ local function Initialize()
 	this.TabHeader.Name = "HelpTab"
 
 	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
-
-	this.TabHeader.Icon.Title.Text = "Help"
-
-
+  
+  if FFlagUseNotificationsLocalization then
+    this.TabHeader.Title.Text = "Help"
+  else
+    this.TabHeader.Icon.Title.Text = "Help"
+  end
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Help"
 

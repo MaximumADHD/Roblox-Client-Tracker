@@ -447,6 +447,9 @@ local function createEntryFrame(name, sizeYOffset, isTopStat)
   nameFrame.Text = ""
   nameFrame.Parent = containerFrame
   nameFrame.ZIndex = isTenFootInterface and 2 or 1
+  pcall(function()
+    nameFrame.Localize = false
+  end)
 
   return containerFrame, nameFrame
 end
@@ -476,6 +479,9 @@ local function createEntryNameText(name, text, position, size, fontSize)
   nameLabel.ClipsDescendants = true
   nameLabel.Text = text
   nameLabel.ZIndex = isTenFootInterface and 2 or 1
+  pcall(function()
+    nameLabel.Localize = false
+  end)
 
   return nameLabel
 end
@@ -489,6 +495,9 @@ local function createStatFrame(offset, parent, name, isTopStat)
   statFrame.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
   statFrame.BorderSizePixel = 0
   statFrame.Parent = parent
+  pcall(function()
+    statFrame.Localize = false
+  end)
 
   if isTenFootInterface then
     statFrame.ZIndex = 2
@@ -525,6 +534,10 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
   statText.Text = text
   statText.Active = true
   statText.Parent = parent
+  pcall(function()
+    statText.Localize = false
+  end)
+  
   if isTenFootInterface then
     statText.ZIndex = 2
   end

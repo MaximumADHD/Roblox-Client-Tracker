@@ -52,6 +52,8 @@ end
 local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
 dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -2119,6 +2121,16 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ZIndex = 2,
 		Parent = RowFrame
 	};
+	
+	local RowLabelTextSizeConstraint = Instance.new("UITextSizeConstraint")
+	if FFlagUseNotificationsLocalization then
+		RowLabel.Size = UDim2.new(0.35,0,1,0)
+		RowLabel.TextScaled = true
+		RowLabel.TextWrapped = true
+		RowLabelTextSizeConstraint.Parent = RowLabel
+		RowLabelTextSizeConstraint.MaxTextSize = 16
+	end
+	
 	if not isARealRow then
 		RowLabel.Text = ''
 	end
@@ -2129,6 +2141,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		else
 			RowLabel.TextSize = isTenFootInterface() and 36 or 24
 		end
+		RowLabelTextSizeConstraint.MaxTextSize = RowLabel.TextSize
 	end
 	onResized(getViewportSize(), isPortrait())
 	addOnResizedCallback(RowFrame, onResized)

@@ -43,6 +43,9 @@ while not localPlayer do
 	localPlayer = PlayersService.LocalPlayer
 end
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -55,8 +58,12 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
 	this.TabHeader.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png"
-
-	this.TabHeader.Icon.Title.Text = "Players"
+	
+	if FFlagUseNotificationsLocalization then
+		this.TabHeader.Title.Text = "Players"
+	else
+		this.TabHeader.Icon.Title.Text = "Players"
+	end
 
 	----- FRIENDSHIP FUNCTIONS ------
 	local function getFriendStatus(selectedPlayer)
@@ -291,6 +298,17 @@ local function Initialize()
 			buttonsContainer.Visible = true
 		end
 	end
+	
+	if FFlagUseNotificationsLocalization then
+		local function ApplyLocalizeTextSettingsToLabel(label)
+			label.AnchorPoint = Vector2.new(0.5,0.5)
+			label.Position = UDim2.new(0.5, 0, 0.5, -3)
+			label.Size = UDim2.new(0.75, 0, 0.5, 0)
+		end
+		ApplyLocalizeTextSettingsToLabel(leaveLabel)
+		ApplyLocalizeTextSettingsToLabel(resetLabel)
+		ApplyLocalizeTextSettingsToLabel(resetLabel)
+	end
 
 	local function reportAbuseButtonCreate(playerLabel, player)
 		local rightSideButtons = playerLabel:FindFirstChild("RightSideButtons")
@@ -403,6 +421,9 @@ local function Initialize()
 		nameLabel.Size = UDim2.new(0, 0, 0, 0)
 		nameLabel.ZIndex = 3
 		nameLabel.Parent = frame
+		pcall(function()
+			nameLabel.Localize = false
+		end)
 
 		return frame
 	end

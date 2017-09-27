@@ -28,9 +28,6 @@ local enableLoadingScreenPlaceIconTween = enableLoadingScreenPlaceIconTweenSucce
 local enableNewLoadingScreenShowStatusSuccess, enableNewLoadingScreenShowStatusValue = pcall(function() return settings():GetFFlag("NewLoadingScreenShowStatus") end)
 local enableNewLoadingScreenShowStatus = enableNewLoadingScreenShowStatusSuccess and enableNewLoadingScreenShowStatusValue
 
-local loadingScriptStopUsingVerbsSuccess, loadingScriptStopUsingVerbsValue = pcall(function() return settings():GetFFlag("LoadingScriptStopUsingVerbs") end)
-local loadingScriptStopUsingVerbs = loadingScriptStopUsingVerbsSuccess and loadingScriptStopUsingVerbsValue
-
 local persistentConnectionHealthDialogSuccess, persistentConnectionHealthDialogValue = pcall(function() return settings():GetFFlag("PersistentConnectionHealthDialog") end)
 local persistentConnectionHealthDialog = persistentConnectionHealthDialogSuccess and persistentConnectionHealthDialogValue
 
@@ -334,11 +331,9 @@ function MainGui:GenerateMain()
 			Parent = mainBackgroundContainer,
 		}
 
-        if loadingScriptStopUsingVerbs then
-            closeButton.MouseButton1Click:connect(function()
-                game:Shutdown()
-            end)
-        end
+        closeButton.MouseButton1Click:connect(function()
+            game:Shutdown()
+        end)
 
 		local graphicsFrame = create 'Frame' {
 			Name = 'GraphicsFrame',
@@ -770,8 +765,6 @@ if isTenFootInterface then
 	createTenfootCancelGui()
 end
 
--- todo: remove setVerb when removing loadingScriptStopUsingVerbs
-local setVerb = true
 local lastRenderTime, lastDotUpdateTime, brickCountChange = nil, nil, nil
 local fadeCycleTime = 1.7
 local turnCycleTime = 2
@@ -806,13 +799,6 @@ local spinnerEasingFunc = spinnerEasingFunc2
 renderSteppedConnection = game:GetService("RunService").RenderStepped:connect(function()
 	if not currScreenGui then return end
 	if not currScreenGui:FindFirstChild("BlackFrame") then return end
-
-    if not loadingScriptStopUsingVerbs then
-        if setVerb then
-            currScreenGui.BlackFrame.CloseButton:SetVerb("Exit")
-            setVerb = false
-        end
-    end
 
 	if currScreenGui.BlackFrame:FindFirstChild("BackgroundTextureFrame") and currScreenGui.BlackFrame.BackgroundTextureFrame.AbsoluteSize ~= lastAbsoluteSize then
 		lastAbsoluteSize = currScreenGui.BlackFrame.BackgroundTextureFrame.AbsoluteSize

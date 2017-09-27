@@ -18,6 +18,9 @@ local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
 
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (isSmallTouchScreen and 24 or 26)
 
+local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local FFlagUseNotificationsLocalization = success and result
+
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContentProvider = game:GetService("ContentProvider")
@@ -189,9 +192,13 @@ local function CreateSettingsHub()
 		local hintLabel = nil
 
 		if not isTouchDevice then
-			this[textName].Size = UDim2.new(0.75,0,0.9,0)
-			this[textName].Position = UDim2.new(0.25,0,0,0)
-
+			if FFlagUseNotificationsLocalization then
+				this[textName].Size = UDim2.new(0.675,0,0.67,0)
+				this[textName].Position = UDim2.new(0.275,0,0.125,0)
+			else
+				this[textName].Size = UDim2.new(0.75,0,0.9,0)
+				this[textName].Position = UDim2.new(0.25,0,0,0)
+			end
 			local hintNameText = name .. "HintText"
 			local hintName = name .. "Hint"
 			local image = ""
