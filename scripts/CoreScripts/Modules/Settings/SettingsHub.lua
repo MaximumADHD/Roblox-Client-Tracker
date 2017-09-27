@@ -5,6 +5,14 @@
 				Description: Controls the settings menu navigation and contains the settings pages
 --]]
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+
+--[[ UTILITIES ]]
+local utility = require(RobloxGui.Modules.Settings.Utility)
+local VRHub = require(RobloxGui.Modules.VR.VRHub)
+
 --[[ CONSTANTS ]]
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
 local SETTINGS_SHIELD_TRANSPARENCY = 0.2
@@ -16,7 +24,7 @@ local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
 
-local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (isSmallTouchScreen and 24 or 26)
+local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
@@ -24,8 +32,6 @@ local FFlagUseNotificationsLocalization = success and result
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContentProvider = game:GetService("ContentProvider")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local StarterGui = game:GetService("StarterGui")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
@@ -60,15 +66,9 @@ if displayVersionFlag then
 	end)
 end
 
---[[ UTILITIES ]]
-local utility = require(RobloxGui.Modules.Settings.Utility)
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
-
 --[[ VARIABLES ]]
 local isTouchDevice = UserInputService.TouchEnabled
-local isSmallTouchScreen = utility:IsSmallTouchScreen()
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local platform = UserInputService:GetPlatform()
 
 local baseUrl = ContentProvider.BaseUrl
@@ -83,7 +83,7 @@ local connectedServerVersion = nil
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
 
-if isSmallTouchScreen or isTenFootInterface then
+if utility:IsSmallTouchScreen() or isTenFootInterface then
 	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
 	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
 end
@@ -128,11 +128,10 @@ local function CreateSettingsHub()
 			return false
 		end
 
-		local isPortrait = utility:IsPortrait()
-
-		if isPortrait or isSmallTouchScreen then
+		if utility:IsPortrait() or utility:IsSmallTouchScreen() then
 			return false
 		end
+
 		return true
 	end
 
@@ -294,7 +293,7 @@ local function CreateSettingsHub()
 
 	local function createGui()
 		local PageViewSizeReducer = 0
-		if isSmallTouchScreen then
+		if utility:IsSmallTouchScreen() then
 			PageViewSizeReducer = 5
 		end
 
@@ -360,7 +359,7 @@ local function CreateSettingsHub()
 				Position = UDim2.new(0,3,0,3),
 				BackgroundTransparency = 1,
 				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (isSmallTouchScreen and 14 or 20),
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
 				Text = "Server Version: ...",
 				Size = UDim2.new(.5,-6,1,-6),
 				Font = Enum.Font.SourceSans,
@@ -377,7 +376,7 @@ local function CreateSettingsHub()
 				Position = UDim2.new(0.5,3,0,3),
 				BackgroundTransparency = 1,
 				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (isSmallTouchScreen and 14 or 20),
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
 				Text = "Client Version: "..RunService:GetRobloxVersion(),
 				Size = UDim2.new(.5,-6,1,-6),
 				Font = Enum.Font.SourceSans,
@@ -392,7 +391,7 @@ local function CreateSettingsHub()
 				AnchorPoint = Vector2.new(0.5,0),
 				BackgroundTransparency = 1,
 				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (isSmallTouchScreen and 14 or 20),
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
 				Text = baseUrl,
 				Size = UDim2.new(.5,-6,1,-6),
 				Font = Enum.Font.SourceSans,
@@ -464,7 +463,7 @@ local function CreateSettingsHub()
 			Parent = this.HubBar
 		}
 
-		if isSmallTouchScreen then
+		if utility:IsSmallTouchScreen() then
 			this.HubBar.Size = UDim2.new(1,-10,0,40)
 			this.HubBar.Position = UDim2.new(0.5,0,0,6)
 		elseif isTenFootInterface then
@@ -645,15 +644,17 @@ local function CreateSettingsHub()
 	end
 
 	local function onScreenSizeChanged()
+		
 		local largestPageSize = 600
 		local fullScreenSize = RobloxGui.AbsoluteSize.y
 		local bufferSize = (1-0.95) * fullScreenSize
 		local isPortrait = utility:IsPortrait()
+
 		if isTenFootInterface then
 			largestPageSize = 800
 			bufferSize = 0.07 * fullScreenSize
 			this.MenuContainer.Size = UDim2.new(0.95, 0, 0.95, 0)
-		elseif isSmallTouchScreen then
+		elseif utility:IsSmallTouchScreen() then
 			bufferSize = math.min(10, (1-0.99) * fullScreenSize)
 			this.MenuContainer.Size = UDim2.new(1, 0, 0.99, 0)
 		else
@@ -661,7 +662,6 @@ local function CreateSettingsHub()
 		end
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
-		local isPortrait = utility:IsPortrait()
 
 		if isPortrait then
 			this.MenuContainer.Size = UDim2.new(1, 0, 1, 0)
@@ -672,7 +672,7 @@ local function CreateSettingsHub()
 			if isTenFootInterface then
 				this.HubBar.Size = UDim2.new(0, 1200, 0, 100)
 				this.MenuAspectRatio.Parent = this.MenuContainer
-			elseif isSmallTouchScreen then
+			elseif utility:IsSmallTouchScreen() then
 				this.HubBar.Size = UDim2.new(1, -10, 0, 40)
 				this.MenuAspectRatio.Parent = nil
 			else
@@ -752,7 +752,7 @@ local function CreateSettingsHub()
 		end
 
 		if not isTenFootInterface then
-			if isSmallTouchScreen then
+			if utility:IsSmallTouchScreen() then
 				this.PageViewClipper.Size = UDim2.new(
 					0,
 					this.HubBar.AbsoluteSize.X,

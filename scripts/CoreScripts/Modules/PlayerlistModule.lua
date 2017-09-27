@@ -1147,7 +1147,7 @@ updateLeaderstatFrames = function()
     end
   end
 
-  for _,entry in ipairs(PlayerEntries) do
+  for index,entry in ipairs(PlayerEntries) do
     local player = entry.Player
     local mainFrame = entry.Frame
     local offset = NameEntrySizeX
@@ -1162,12 +1162,12 @@ updateLeaderstatFrames = function()
         if not statFrame then
           statFrame = createStatFrame(offset, mainFrame, stat.Name, isTopStat)
           if statObject then
-            initializeStatText(stat, statObject, entry, statFrame, _, isTopStat)
+            initializeStatText(stat, statObject, entry, statFrame, index, isTopStat)
           end
         elseif statObject then
           local statText = statFrame:FindFirstChild('StatText')
           if not statText then
-            initializeStatText(stat, statObject, entry, statFrame, _, isTopStat)
+            initializeStatText(stat, statObject, entry, statFrame, index, isTopStat)
           end
         end
         statFrame.Position = UDim2.new(0, offset + TILE_SPACING, 0, 0)

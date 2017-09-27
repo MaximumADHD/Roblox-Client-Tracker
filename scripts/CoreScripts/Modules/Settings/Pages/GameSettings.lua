@@ -16,6 +16,7 @@ pcall(function() PlatformService = game:GetService("PlatformService") end)
 local ContextActionService = game:GetService("ContextActionService")
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
+local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -57,8 +58,6 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 RobloxGui:WaitForChild("Modules"):WaitForChild("Settings"):WaitForChild("SettingsHub")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
-local HasVRAPI = false
-pcall(function() HasVRAPI = UserInputService.GetUserCFrame ~= nil end)
 local PageInstance = nil
 local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
@@ -80,6 +79,8 @@ local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = 
 dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
 local GamepadCameraSensitivitySuccess, GamepadCameraSensitivityEnabled = pcall(function() return settings():GetFFlag("GamepadCameraSensitivityEnabled") end)
 local GamepadCameraSensitivityFastFlag = GamepadCameraSensitivitySuccess and GamepadCameraSensitivityEnabled
+local FFlagAddVRToggleSuccess, FFlagAddVRToggleResult = pcall(function() return settings():GetFFlag("AddVRToggle") end)
+local FFlagAddVRToggle = FFlagAddVRToggleSuccess and FFlagAddVRToggleResult
 
 ----------- CLASS DECLARATION --------------
 
@@ -90,23 +91,22 @@ local function Initialize()
   local allSettingsCreated = false
   local settingsDisabledInVR = {}
   local function onVRSettingsReady()
-    local vrEnabled = UserInputService.VREnabled
+    local vrEnabled = VRService.VREnabled
     for settingFrame, _ in pairs(settingsDisabledInVR) do
-      settingFrame:SetInteractable(not vrEnabled)
+      settingFrame.Visible = not vrEnabled
     end
   end
 
-  local function onVREnabled(prop)
-    if prop ~= "VREnabled" then return end
-    if UserInputService.VREnabled and allSettingsCreated then
+  local function onVREnabled()
+    if VRService.VREnabled and allSettingsCreated then
       --Only call this if all settings have been created.
       --If they aren't ready by the time VR is enabled, this
       --will be called later when they are.
       onVRSettingsReady()
     end
   end
-  UserInputService.Changed:connect(onVREnabled)
-  onVREnabled("VREnabled")
+  VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabled)
+  onVREnabled()
 
   ----------- FUNCTIONS ---------------
   local function createGraphicsOptions()
@@ -121,7 +121,7 @@ local function Initialize()
     this.FullscreenLabel,
     this.FullscreenEnabler = utility:AddNewRow(this, "Fullscreen", "Selector", {"On", "Off"}, fullScreenInit)
 
-    settingsDisabledInVR[this.FullscreenEnabler] = true
+    settingsDisabledInVR[this.FullscreenFrame] = true
 
     this.FullscreenEnabler.IndexChanged:connect(function(newIndex)
         if newIndex == 1 then
@@ -334,7 +334,7 @@ local function Initialize()
           {"On", "Off"},
           startIndex)
 
-        settingsDisabledInVR[this.ShiftLockMode] = true
+        settingsDisabledInVR[this.ShiftLockFrame] = true
 
         this.ShiftLockOverrideText = utility:Create'TextLabel'
         {
@@ -365,14 +365,41 @@ local function Initialize()
     ------------------------------------------------------
     ------------------
     ------------------ Camera Mode -----------------------
+    local enumItems = {}
+
+    function setCameraModeVisible(visible)
+       if this.CameraMode then
+        if dynamicMovementAndCameraOptions then
+          local shouldBeVisible = visible
+          if not dynamicMovementAndCameraOptions then
+            shouldBeVisible = shouldBeVisible and (#enumItems > 0)
+          end
+          this.CameraMode.SelectorFrame.Visible = shouldBeVisible
+          this.CameraMode:SetInteractable(shouldBeVisible)
+          this.CameraModeOverrideText.Visible = not shouldBeVisible
+        else
+          this.CameraMode.SelectorFrame.Visible = visible
+          this.CameraMode:SetInteractable(visible)
+        end
+      end
+    end
+
     do
       if dynamicMovementAndCameraOptions then
-        local enumItems = {}
         local startingCameraEnumItem = 1
         local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
 
         local cameraEnumNames = {}
         local cameraEnumNameToItem = {}
+
+        local function updateCurrentCameraMovementIndex(index)
+          local newEnumSetting = cameraEnumNameToItem[cameraEnumNames[index]]
+          if UserInputService.TouchEnabled then
+            GameSettings.TouchCameraMovementMode = newEnumSetting
+          else
+            GameSettings.ComputerCameraMovementMode = newEnumSetting
+          end
+        end
 
         local function updateCameraMovementModes()
           local enumsToAdd = nil
@@ -382,6 +409,15 @@ local function Initialize()
           else
             enumsToAdd = PlayerScripts:GetRegisteredComputerCameraMovementModes()
           end
+
+          if #enumsToAdd <= 0 then
+            cameraEnumNames = {}
+            cameraEnumNameToItem = {}
+            setCameraModeVisible(false)
+            return
+          end
+
+          setCameraModeVisible(true)
 
           for i = 1, #enumsToAdd do
             local newCameraMode = enumsToAdd[i]
@@ -407,9 +443,9 @@ local function Initialize()
           if this.CameraMode then
             this.CameraMode:UpdateOptions(cameraEnumNames)
           end
-        end
 
-        updateCameraMovementModes()
+          updateCurrentCameraMovementIndex(this.CameraMode.CurrentIndex)
+        end
 
         this.CameraModeFrame,
         this.CameraModeLabel,
@@ -425,8 +461,11 @@ local function Initialize()
           Font = Enum.Font.SourceSans,
           FontSize = Enum.FontSize.Size24,
           BackgroundTransparency = 1,
-          Size = UDim2.new(0,200,1,0),
-          Position = UDim2.new(1,-350,0,0),
+          Size = UDim2.new(0.6,0,1,0),
+          AnchorPoint = Vector2.new(1,0.5),
+          Position = UDim2.new(1,0,0.5,0),
+          TextXAlignment = Enum.TextXAlignment.Center,
+          TextYAlignment = Enum.TextYAlignment.Center,
           Visible = false,
           ZIndex = 2,
           Parent = this.CameraModeFrame
@@ -445,14 +484,10 @@ local function Initialize()
         end)
 
         this.CameraMode.IndexChanged:connect(function(newIndex)
-          local newEnumSetting = cameraEnumNameToItem[cameraEnumNames[newIndex]]
-
-          if UserInputService.TouchEnabled then
-            GameSettings.TouchCameraMovementMode = newEnumSetting
-          else
-            GameSettings.ComputerCameraMovementMode = newEnumSetting
-          end
+          updateCurrentCameraMovementIndex(newIndex)
         end)
+        
+        updateCameraMovementModes()
       else
         local enumItems = nil
         local startingCameraEnumItem = 1
@@ -491,7 +526,7 @@ local function Initialize()
         this.CameraModeLabel,
         this.CameraMode = utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, startingCameraEnumItem)
 
-        settingsDisabledInVR[this.CameraMode] = true
+        settingsDisabledInVR[this.CameraModeFrame] = true
 
         this.CameraModeOverrideText = utility:Create'TextLabel'
         {
@@ -523,40 +558,73 @@ local function Initialize()
 
     ------------------------------------------------------
     ------------------
-    ------------------ VR Camera Mode -----------------------
+    ------------------ VR Mode -----------------------
+    if FFlagAddVRToggle then
+      local createdVROption = false
+      local function createVROption()
+        if not createdVROption then
+          createdVROption = true
 
-    if HasVRAPI and UserInputService.VREnabled then
-      local VR_ROTATION_INTENSITY_OPTIONS = {"Low", "High", "Smooth"}
+          local optionNames
+          if GameSettings.VREnabled then
+            optionNames = { "On", "Off (restart pending)" }
+          else
+            optionNames = { "On (restart pending)", "Off" }
+          end
 
-      if utility:IsSmallTouchScreen() then
-        this.VRRotationFrame,
-        this.VRRotationLabel,
-        this.VRRotationMode = utility:AddNewRow(this, "VR Camera Rotation", "Selector", VR_ROTATION_INTENSITY_OPTIONS, GameSettings.VRRotationIntensity)
-      else
-        this.VRRotationFrame,
-        this.VRRotationLabel,
-        this.VRRotationMode = utility:AddNewRow(this, "VR Camera Rotation", "Selector", VR_ROTATION_INTENSITY_OPTIONS, GameSettings.VRRotationIntensity, 3)
+          this.VREnabledFrame,
+          this.VREnabledLabel,
+          this.VREnabledSelector = utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
+
+          this.VREnabledSelector.IndexChanged:connect(function(newIndex)
+            local vrEnabledSetting = (newIndex == 1)
+            if GameSettings.VREnabled ~= vrEnabledSetting then
+              GameSettings.VREnabled = vrEnabledSetting
+            end
+          end)
+
+        end
       end
 
-      StarterGui:RegisterGetCore("VRRotationIntensity",
-        function()
-          return VR_ROTATION_INTENSITY_OPTIONS[GameSettings.VRRotationIntensity] or VR_ROTATION_INTENSITY_OPTIONS[1]
-        end)
-      this.VRRotationMode.IndexChanged:connect(function(newIndex)
-          GameSettings.VRRotationIntensity = newIndex
-        end)
+      local function onVREnabledChanged()
+        if VRService.VREnabled then
+          GameSettings.HasEverUsedVR = true
+          createVROption()
+        else
+          if GameSettings.HasEverUsedVR then
+            createVROption()
+          end
+        end
+      end
+      onVREnabledChanged()
+      VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
     end
 
     ------------------------------------------------------
     ------------------
     ------------------ Movement Mode ---------------------
+    local movementModes = {}
+
+    function setMovementModeVisible(visible)
+      if this.MovementMode then
+        if dynamicMovementAndCameraOptions then
+          local shouldBeVisible = visible and (#movementModes > 0)
+          this.MovementMode.SelectorFrame.Visible = shouldBeVisible
+          this.MovementMode:SetInteractable(shouldBeVisible)
+          this.MovementModeOverrideText.Visible = not shouldBeVisible
+        else
+          this.MovementMode.SelectorFrame.Visible = visible
+          this.MovementMode:SetInteractable(visible)
+        end
+      end
+    end
+
     if movementModeEnabled then
       if dynamicMovementAndCameraOptions then
         local startingMovementEnumItem = 1
         local movementEnumNames = {}
         local movementEnumNameToItem = {}
 
-        local movementModes = {}
         local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
 
         local function getDisplayName(name)
@@ -574,12 +642,56 @@ local function Initialize()
           return displayName
         end
 
+        this.MovementModeFrame,
+        this.MovementModeLabel,
+        this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
+
+        settingsDisabledInVR[this.MovementMode] = true
+
+        this.MovementModeOverrideText = utility:Create'TextLabel'
+        {
+          Name = "MovementDevOverrideLabel",
+          Text = "Set by Developer",
+          TextColor3 = Color3.new(1,1,1),
+          Font = Enum.Font.SourceSans,
+          FontSize = Enum.FontSize.Size24,
+          BackgroundTransparency = 1,
+          Size = UDim2.new(0.6,0,1,0),
+          AnchorPoint = Vector2.new(1,0.5),
+          Position = UDim2.new(1,0,0.5,0),
+          TextXAlignment = Enum.TextXAlignment.Center,
+          TextYAlignment = Enum.TextYAlignment.Center,
+          Visible = false,
+          ZIndex = 2,
+          Parent = this.MovementModeFrame
+        };
+
+        local function setMovementModeToIndex(index)
+          local newEnumSetting = movementEnumNameToItem[movementEnumNames[index]]
+
+          if UserInputService.TouchEnabled then
+            GameSettings.TouchMovementMode = newEnumSetting
+          else
+            GameSettings.ComputerMovementMode = newEnumSetting
+          end
+        end
+
         local function updateMovementModes()
           if UserInputService.TouchEnabled then
             movementModes = PlayerScripts:GetRegisteredTouchMovementModes()
           else
             movementModes = PlayerScripts:GetRegisteredComputerMovementModes()
           end
+
+          movementEnumNames = {}
+          movementEnumNameToItem = {}
+
+          if #movementModes <= 0 then
+            setMovementModeVisible(false)
+            return
+          end
+
+          setMovementModeVisible(true)
 
           for i = 1, #movementModes do
             local movementMode = movementModes[i]
@@ -603,30 +715,11 @@ local function Initialize()
           if this.MovementMode then
             this.MovementMode:UpdateOptions(movementEnumNames)
           end
+
+          setMovementModeToIndex(this.MovementMode.CurrentIndex)
         end
 
         updateMovementModes()
-
-        this.MovementModeFrame,
-        this.MovementModeLabel,
-        this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
-
-        settingsDisabledInVR[this.MovementMode] = true
-
-        this.MovementModeOverrideText = utility:Create'TextLabel'
-        {
-          Name = "MovementDevOverrideLabel",
-          Text = "Set by Developer",
-          TextColor3 = Color3.new(1,1,1),
-          Font = Enum.Font.SourceSans,
-          FontSize = Enum.FontSize.Size24,
-          BackgroundTransparency = 1,
-          Size = UDim2.new(0,200,1,0),
-          Position = UDim2.new(1,-350,0,0),
-          Visible = false,
-          ZIndex = 2,
-          Parent = this.MovementModeFrame
-        };
 
         PlayerScripts.TouchMovementModeRegistered:connect(function(registeredMode)
           if UserInputService.TouchEnabled then
@@ -641,13 +734,7 @@ local function Initialize()
         end)
 
         this.MovementMode.IndexChanged:connect(function(newIndex)
-            local newEnumSetting = movementEnumNameToItem[movementEnumNames[newIndex]]
-
-            if UserInputService.TouchEnabled then
-              GameSettings.TouchMovementMode = newEnumSetting
-            else
-              GameSettings.ComputerMovementMode = newEnumSetting
-            end
+            setMovementModeToIndex(newIndex)
         end)
       else
         local movementEnumItems = nil
@@ -688,7 +775,7 @@ local function Initialize()
         this.MovementModeLabel,
         this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
 
-        settingsDisabledInVR[this.MovementMode] = true
+        settingsDisabledInVR[this.MovementModeFrame] = true
 
         this.MovementModeOverrideText = utility:Create'TextLabel'
         {
@@ -720,20 +807,6 @@ local function Initialize()
     ------------------------------------------------------
     ------------------
     ------------------------- Connection Setup -----------
-    function setCameraModeVisible(visible)
-      if this.CameraMode then
-        this.CameraMode.SelectorFrame.Visible = visible
-        this.CameraMode:SetInteractable(visible)
-      end
-    end
-
-    function setMovementModeVisible(visible)
-      if this.MovementMode then
-        this.MovementMode.SelectorFrame.Visible = visible
-        this.MovementMode:SetInteractable(visible)
-      end
-    end
-
     function setShiftLockVisible(visible)
       if this.ShiftLockMode then
         this.ShiftLockMode.SelectorFrame.Visible = visible
@@ -853,8 +926,9 @@ local function Initialize()
       return
     end
 
-    _,_,this.CameraInvertedSelector = utility:AddNewRow(this, "Camera Inverted", "Selector", {"Off", "On"}, initialIndex)
-    
+    this.CameraInvertedFrame,_,this.CameraInvertedSelector = utility:AddNewRow(this, "Camera Inverted", "Selector", {"Off", "On"}, initialIndex)
+    settingsDisabledInVR[this.CameraInvertedFrame] = true
+
     this.CameraInvertedSelector.IndexChanged:connect(function(newIndex)
       if newIndex == 2 then
         GameSettings.CameraYInverted = true
@@ -942,6 +1016,7 @@ local function Initialize()
       this.MouseAdvancedFrame,
       this.MouseAdvancedLabel,
       this.MouseAdvancedEntry = utility:AddNewRow(this, updateMouseSensitivityTitle and "Camera Sensitivity" or "Mouse Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)
+      settingsDisabledInVR[this.MouseAdvancedFrame] = true
 
       this.MouseAdvancedEntry.SliderFrame.Size = UDim2.new(this.MouseAdvancedEntry.SliderFrame.Size.X.Scale, this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth, 
                                                             this.MouseAdvancedEntry.SliderFrame.Size.Y.Scale, this.MouseAdvancedEntry.SliderFrame.Size.Y.Offset - 6)
@@ -1113,9 +1188,9 @@ local function Initialize()
     adjustButton.Position = UDim2.new(1,-400,0,12)
 
     if RunService:IsStudio() then
-      adjustButton.Selectable = value
-      adjustButton.Active = value
-      adjustButton.Enabled.Value = value
+      adjustButton.Selectable = false
+      adjustButton.Active = false
+      adjustButton.Enabled.Value = false
       adjustText.TextColor3 = Color3.fromRGB(100, 100, 100)
     end
 
@@ -1240,7 +1315,7 @@ local function Initialize()
   end
 
   allSettingsCreated = true
-  if UserInputService.VREnabled then
+  if VRService.VREnabled then
     onVRSettingsReady()
   end
 

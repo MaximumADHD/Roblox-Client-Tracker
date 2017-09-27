@@ -573,7 +573,7 @@ t.SelectTerrainRegion = function(regionToSelect, color, selectEmptyCells, select
 	local selectionBox = Instance.new("SelectionBox")
 
 	-- srs translation from region3 to region3int16
-	function Region3ToRegion3int16(region3)
+	local function Region3ToRegion3int16(region3)
 		local theLowVec = region3.CFrame.p - (region3.Size/2) + Vector3.new(2,2,2)
 		local lowCell = WorldToCellPreferSolid(terrain,theLowVec)
 

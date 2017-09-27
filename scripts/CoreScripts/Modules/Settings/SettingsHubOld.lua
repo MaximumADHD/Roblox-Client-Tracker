@@ -404,9 +404,9 @@ local function CreateSettingsHub()
 						inviteToGameFunc, {Enum.KeyCode.ButtonX}
 					)
 					if RunService:IsStudio() then
-						this.InviteToGameButton.Selectable = value
-						this.InviteToGameButton.Active = value
-						this.InviteToGameButton.Enabled.Value = value
+						this.InviteToGameButton.Selectable = false
+						this.InviteToGameButton.Active = false
+						this.InviteToGameButton.Enabled.Value = false
 						local inviteHint = this.InviteToGameButton:FindFirstChild("InviteToGameHint")
 						if inviteHint then
 							inviteHint.ImageColor3 = Color3.fromRGB(100, 100, 100)
@@ -883,7 +883,7 @@ local function CreateSettingsHub()
 
 	function setVisibilityInternal(visible, noAnimation, customStartPage)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
-		local switchedFromGamepadInput = switchedFromGamepadInput or isTenFootInterface
+		local switchedFromGamepadInput = isTenFootInterface
 		this.Visible = visible
 
 

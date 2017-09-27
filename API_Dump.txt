@@ -361,6 +361,9 @@ Class BallSocketConstraint : Constraint
 	Property bool BallSocketConstraint.LimitsEnabled
 	Property float BallSocketConstraint.Radius
 	Property float BallSocketConstraint.Restitution
+	Property bool BallSocketConstraint.TwistLimitsEnabled
+	Property float BallSocketConstraint.TwistLowerAngle
+	Property float BallSocketConstraint.TwistUpperAngle
 	Property float BallSocketConstraint.UpperAngle
 Class HingeConstraint : Constraint
 	Property ActuatorType HingeConstraint.ActuatorType
@@ -684,6 +687,7 @@ Class GuiBase2d : GuiBase [notbrowsable]
 	Property Vector2 GuiBase2d.AbsolutePosition [readonly]
 	Property float GuiBase2d.AbsoluteRotation [readonly]
 	Property Vector2 GuiBase2d.AbsoluteSize [readonly]
+	Property bool GuiBase2d.Localize [hidden]
 Class GuiObject : GuiBase2d [notbrowsable]
 	Property bool GuiObject.Active
 	Property Vector2 GuiObject.AnchorPoint
@@ -759,6 +763,7 @@ Class ImageButton : GuiButton
 Class TextButton : GuiButton
 	Property Font TextButton.Font
 	Property FontSize TextButton.FontSize [deprecated]
+	Property string TextButton.LocalizedText [hidden] [readonly]
 	Property string TextButton.Text
 	Property Vector2 TextButton.TextBounds [readonly]
 	Property BrickColor TextButton.TextColor [deprecated] [hidden]
@@ -788,7 +793,7 @@ Class ImageLabel : GuiLabel
 Class TextLabel : GuiLabel
 	Property Font TextLabel.Font
 	Property FontSize TextLabel.FontSize [deprecated]
-	Property bool TextLabel.Localize [hidden] [RobloxScriptSecurity]
+	Property string TextLabel.LocalizedText [hidden] [readonly]
 	Property string TextLabel.Text
 	Property Vector2 TextLabel.TextBounds [readonly]
 	Property BrickColor TextLabel.TextColor [deprecated] [hidden]
@@ -1395,14 +1400,6 @@ Class Mouse : Instance
 Class PlayerMouse : Mouse
 Class PluginMouse : Mouse
 	Event PluginMouse.DragEnter(Objects instances) [PluginSecurity]
-Class NavigationPath : Instance
-	Property NavigationStatus NavigationPath.Status [readonly]
-	Function Array NavigationPath:GetWaypoints()
-Class NavigationService : Instance
-	YieldFunction Instance NavigationService:FindPathAsync(Vector3 start, Vector3 finish)
-Class NavigationWaypoint : Instance
-	Property NavigationWaypointAction NavigationWaypoint.Action [readonly]
-	Property Vector3 NavigationWaypoint.Position [readonly]
 Class NetworkMarker : Instance [notbrowsable]
 	Event NetworkMarker.Received()
 Class NetworkPeer : Instance [notbrowsable]
@@ -1757,18 +1754,23 @@ Class ParticleEmitter : Instance
 	Property Content ParticleEmitter.Texture
 	Property NumberSequence ParticleEmitter.Transparency
 	Property float ParticleEmitter.VelocityInheritance
-	Property float ParticleEmitter.VelocitySpread
+	Property float ParticleEmitter.VelocitySpread [deprecated]
 	Property float ParticleEmitter.ZOffset
 	Function void ParticleEmitter:Clear()
 	Function void ParticleEmitter:Emit(int particleCount = 16)
 Class Path : Instance
 	Property PathStatus Path.Status [readonly]
-	Function Array Path:GetPointCoordinates()
+	Function Array Path:GetPointCoordinates() [deprecated]
+	Function Array Path:GetWaypoints()
 	YieldFunction int Path:CheckOcclusionAsync(int start)
+Class PathWaypoint : Instance
+	Property PathWaypointAction PathWaypoint.Action [readonly]
+	Property Vector3 PathWaypoint.Position [readonly]
 Class PathfindingService : Instance [notCreatable]
-	Property float PathfindingService.EmptyCutoff
-	YieldFunction Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance)
-	YieldFunction Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance)
+	Property float PathfindingService.EmptyCutoff [deprecated]
+	YieldFunction Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
+	YieldFunction Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
+	YieldFunction Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish)
 Class PersonalServerService : Instance
 Class PhysicsPacketCache : Instance
 Class PhysicsService : Instance
@@ -1905,6 +1907,10 @@ Class Player : Instance
 	Event Player.OnTeleport(TeleportState teleportState, int placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) [LocalUserSecurity]
 Class PlayerScripts : Instance [notCreatable]
+	Function void PlayerScripts:ClearComputerCameraMovementModes()
+	Function void PlayerScripts:ClearComputerMovementModes()
+	Function void PlayerScripts:ClearTouchCameraMovementModes()
+	Function void PlayerScripts:ClearTouchMovementModes()
 	Function Array PlayerScripts:GetRegisteredComputerCameraMovementModes() [RobloxScriptSecurity]
 	Function Array PlayerScripts:GetRegisteredComputerMovementModes() [RobloxScriptSecurity]
 	Function Array PlayerScripts:GetRegisteredTouchCameraMovementModes() [RobloxScriptSecurity]
@@ -1913,10 +1919,10 @@ Class PlayerScripts : Instance [notCreatable]
 	Function void PlayerScripts:RegisterComputerMovementMode(ComputerMovementMode movementMode)
 	Function void PlayerScripts:RegisterTouchCameraMovementMode(TouchCameraMovementMode cameraMovementMode)
 	Function void PlayerScripts:RegisterTouchMovementMode(TouchMovementMode movementMode)
-	Event PlayerScripts.ComputerCameraMovementModeRegistered(ComputerCameraMovementMode movementMode) [RobloxScriptSecurity]
-	Event PlayerScripts.ComputerMovementModeRegistered(ComputerMovementMode movementMode) [RobloxScriptSecurity]
-	Event PlayerScripts.TouchCameraMovementModeRegistered(TouchCameraMovementMode movementMode) [RobloxScriptSecurity]
-	Event PlayerScripts.TouchMovementModeRegistered(TouchMovementMode movementMode) [RobloxScriptSecurity]
+	Event PlayerScripts.ComputerCameraMovementModeRegistered() [RobloxScriptSecurity]
+	Event PlayerScripts.ComputerMovementModeRegistered() [RobloxScriptSecurity]
+	Event PlayerScripts.TouchCameraMovementModeRegistered() [RobloxScriptSecurity]
+	Event PlayerScripts.TouchMovementModeRegistered() [RobloxScriptSecurity]
 Class Players : Instance
 	Property bool Players.BubbleChat [readonly]
 	Property bool Players.CharacterAutoLoads
@@ -2069,21 +2075,6 @@ Class RemoteFunction : Instance
 	YieldFunction Tuple RemoteFunction:InvokeServer(Tuple arguments)
 	Callback Tuple RemoteFunction.OnClientInvoke(Tuple arguments)
 	Callback Tuple RemoteFunction.OnServerInvoke(Instance player, Tuple arguments)
-Class RenderHooksService : Instance
-	Function void RenderHooksService:CaptureMetrics() [LocalUserSecurity]
-	Function void RenderHooksService:DisableQueue(int qId) [LocalUserSecurity]
-	Function void RenderHooksService:EnableAdorns(bool enabled) [LocalUserSecurity]
-	Function void RenderHooksService:EnableQueue(int qId) [LocalUserSecurity]
-	Function double RenderHooksService:GetDeltaAve() [LocalUserSecurity]
-	Function double RenderHooksService:GetGPUDelay() [LocalUserSecurity]
-	Function double RenderHooksService:GetPresentTime() [LocalUserSecurity]
-	Function double RenderHooksService:GetRenderAve() [LocalUserSecurity]
-	Function double RenderHooksService:GetRenderConfMax() [LocalUserSecurity]
-	Function double RenderHooksService:GetRenderConfMin() [LocalUserSecurity]
-	Function double RenderHooksService:GetRenderStd() [LocalUserSecurity]
-	Function void RenderHooksService:PrintScene() [LocalUserSecurity]
-	Function void RenderHooksService:ReloadShaders() [LocalUserSecurity]
-	Function void RenderHooksService:ResizeWindow(int width, int height) [LocalUserSecurity]
 Class RenderSettings : Instance [notbrowsable]
 	Property int RenderSettings.AutoFRMLevel
 	Property bool RenderSettings.EagerBulkExecution
@@ -2594,6 +2585,7 @@ Class UserGameSettings : Instance
 	Property ControlMode UserGameSettings.ControlMode
 	Property bool UserGameSettings.Fullscreen [RobloxScriptSecurity]
 	Property float UserGameSettings.GamepadCameraSensitivity
+	Property bool UserGameSettings.HasEverUsedVR [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
@@ -2608,6 +2600,7 @@ Class UserGameSettings : Instance
 	Property bool UserGameSettings.UsedCoreGuiIsVisibleToggle [RobloxScriptSecurity]
 	Property bool UserGameSettings.UsedCustomGuiIsVisibleToggle [RobloxScriptSecurity]
 	Property bool UserGameSettings.UsedHideHudShortcut [RobloxScriptSecurity]
+	Property bool UserGameSettings.VREnabled [RobloxScriptSecurity]
 	Property int UserGameSettings.VRRotationIntensity [RobloxScriptSecurity]
 	Function int UserGameSettings:GetCameraYInvertValue()
 	Function bool UserGameSettings:GetTutorialState(string tutorialId) [RobloxScriptSecurity]
@@ -3588,12 +3581,6 @@ Enum NameOcclusion
 	EnumItem NameOcclusion.OccludeAll : 2
 	EnumItem NameOcclusion.EnemyOcclusion : 1
 	EnumItem NameOcclusion.NoOcclusion : 0
-Enum NavigationStatus
-	EnumItem NavigationStatus.Success : 0
-	EnumItem NavigationStatus.NoPath : 1
-Enum NavigationWaypointAction
-	EnumItem NavigationWaypointAction.Walk : 0
-	EnumItem NavigationWaypointAction.Jump : 1
 Enum NetworkOwnership
 	EnumItem NetworkOwnership.Automatic : 0
 	EnumItem NetworkOwnership.Manual : 1
@@ -3626,10 +3613,14 @@ Enum PartType
 	EnumItem PartType.Cylinder : 2
 Enum PathStatus
 	EnumItem PathStatus.Success : 0
-	EnumItem PathStatus.ClosestNoPath : 1
-	EnumItem PathStatus.ClosestOutOfRange : 2
-	EnumItem PathStatus.FailStartNotEmpty : 3
-	EnumItem PathStatus.FailFinishNotEmpty : 4
+	EnumItem PathStatus.ClosestNoPath : 1 [deprecated]
+	EnumItem PathStatus.ClosestOutOfRange : 2 [deprecated]
+	EnumItem PathStatus.FailStartNotEmpty : 3 [deprecated]
+	EnumItem PathStatus.FailFinishNotEmpty : 4 [deprecated]
+	EnumItem PathStatus.NoPath : 5
+Enum PathWaypointAction
+	EnumItem PathWaypointAction.Walk : 0
+	EnumItem PathWaypointAction.Jump : 1
 Enum PhysicsReceiveMethod
 	EnumItem PhysicsReceiveMethod.Direct : 0
 	EnumItem PhysicsReceiveMethod.Interpolation : 1

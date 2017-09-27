@@ -119,63 +119,6 @@ function ServerMemoryAnalyzerClass:updateWithTreeStats(stats)
     self:renderUpdates();
 end
 
--- FIXME(dbanks)
--- 2017/08/14
--- Remove this once EnableMemoryTrackerCategoryStats is on for good.
--- 'static' function.
--- 'stats' is a value table from server.
--- One top-level key is "DEPRECATED_ServerMemory".
--- That contains a table that looks like this:
---   "totalServerMemory": <some value>
---   <developer tag label>: <developer tag value>
---   (for all developer tags).
--- We want to 'filter' this so that we return just the "DEPRECATED_ServerMemory" value.
-function ServerMemoryAnalyzerClass:DEPRECATED_filterServerMemoryStats(stats)
-    if (stats.DEPRECATED_ServerMemory == nil) then
-        return {}
-    else
-        return stats.DEPRECATED_ServerMemory
-    end
-end
-
-
--- FIXME(dbanks)
--- 2017/08/16
--- Remove once FFlag::EnableMemoryTrackerCategoryStats is on for good.
-function ServerMemoryAnalyzerClass:DEPRECATED_updateStats(stats)     
-	local totalServerMemory = 0
-		
-	if (self._cachedRootTreeViewItem == nil) then 
-		self._cachedRootTreeViewItem = TreeViewItem.new("root", nil) 
-		-- make sure the childen are in the order I want them in.
-		self._coreTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("CoreMemory")
-		self._placeTreeViewItem = self._cachedRootTreeViewItem:getOrMakeChildById("PlaceMemory")
-	end
-		
-	
-	-- All values are in bytes.
-	-- Convert to MB ASAP.
-    for key, value in pairs(stats) do
-        if key == "totalServerMemory" then
-            totalServerMemory = value / BYTES_PER_MB
-        elseif key == "developerTags" then 
-			local sum = __ReadAndSumValues(self._placeTreeViewItem, value)
-			self._placeTreeViewItem:setLabelAndValue("PlaceMemory", sum)
-		end
-    end
-        
-    -- Update total.
-    self._cachedRootTreeViewItem:setLabelAndValue("Memory", totalServerMemory)
-	
-    -- Update core.
-	local coreMemory = totalServerMemory - self._placeTreeViewItem:getValue()
-    self._coreTreeViewItem:setLabelAndValue("CoreMemory", coreMemory)
-	
-	if (self._isVisible) then 
-		self:renderUpdates();
-	end
-end
-
 function ServerMemoryAnalyzerClass:getMemoryUsageTree()
     return self._cachedRootTreeViewItem
 end

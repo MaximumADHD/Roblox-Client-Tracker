@@ -358,19 +358,6 @@ local function CreateMenuChangedNotifier()
 		return findScreenGuiAncestor(parent)
 	end
 
-
-	local userGuiModuleName = require(GuiRoot.Modules.VR.UserGui).ModuleName
-	GuiService.Changed:connect(function(prop)
-		-- Notify if the selected object has changed and we are not observing it
-		if prop == 'SelectedObject' and GuiService.SelectedObject then
-			if findScreenGuiAncestor(GuiService.SelectedObject) then
-				if not VRHub:IsModuleOpened(userGuiModuleName) then
-					this:PromptNotification()
-				end
-			end
-		end
-	end)
-
 	InputService.TextBoxFocused:connect(function(textbox)
 		local myScreenGui = findScreenGuiAncestor(textbox)
 		local myScreenGuiParent = myScreenGui and myScreenGui.Parent
@@ -1414,9 +1401,6 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 end
 
 local function OnChatModuleDisabled()
-	if chatIcon3D then
-		Menubar3D:RemoveItem(chatIcon3D)
-	end
 	if chatIcon then
 		LeftMenubar:RemoveItem(chatIcon)
 	end

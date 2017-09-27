@@ -16,8 +16,6 @@ local MasterControl = {}
 
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
-local VRService = game:GetService('VRService')
-local VREnabled = VRService.VREnabled
 
 while not Players.LocalPlayer do
 	Players.PlayerAdded:wait()
@@ -43,12 +41,6 @@ function MasterControl:GetHumanoid()
 		end
 	end
 end
-
-VRService.Changed:connect(function(prop)
-	if prop == "VREnabled" then
-		VREnabled = VRService.VREnabled
-	end
-end)
 
 local characterAncestryChangedConn = nil
 local characterChildRemovedConn = nil
@@ -86,7 +78,6 @@ LocalPlayer.CharacterAdded:connect(characterAdded)
 
 local getHumanoid = MasterControl.GetHumanoid
 local moveFunc = LocalPlayer.Move
-local getUserCFrame = VRService.GetUserCFrame
 local updateMovement = function()
 	
 	if not areControlsEnabled then return end
@@ -100,16 +91,8 @@ local updateMovement = function()
 			humanoid.Jump = isJumping
 		end
 	end
-	
-	local adjustedMoveValue = moveValue
-	if VREnabled and workspace.CurrentCamera.HeadLocked then
-		local vrFrame = getUserCFrame(VRService, Enum.UserCFrame.Head)
-		local lookVector = Vector3.new(vrFrame.lookVector.X, 0, vrFrame.lookVector.Z).unit
-		local rotation = CFrame.new(ZERO_VECTOR3, lookVector)
-		adjustedMoveValue = rotation:vectorToWorldSpace(adjustedMoveValue)
-	end
 
-	moveFunc(LocalPlayer, adjustedMoveValue, true)
+	moveFunc(LocalPlayer, moveValue, true)
 end
 
 --[[ Public API ]]--

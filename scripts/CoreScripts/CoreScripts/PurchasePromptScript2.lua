@@ -142,6 +142,7 @@ local function studioMockPurchasesEnabled()
 end
 
 local function useNewMarketplaceMethods()
+	local flagExists, flagValue = false, false
 	if game:GetService("RunService"):IsStudio() then
 		flagExists, flagValue = pcall(function() return settings():GetFFlag("StudioUseMarketplaceApiClient") end)
 	else

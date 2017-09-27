@@ -16,7 +16,7 @@ local Primitives = {};
 do
 	local function new(className, parent, name)
 		local n = Instance.new(className, parent)
-		n.ZIndex = ZINDEX
+		n.ZIndex = 0
 		if name then
 			n.Name = name
 		end

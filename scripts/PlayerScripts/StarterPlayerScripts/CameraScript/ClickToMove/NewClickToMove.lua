@@ -1,8 +1,8 @@
 -- Written By Kip Turner, Copyright Roblox 2014
--- Updated by Garnold to utilize NavigationService, 2017
+-- Updated by Garnold to utilize the new PathfindingService API, 2017
 
 local UIS = game:GetService("UserInputService")
-local NavigationService = game:GetService("NavigationService")
+local PathfindingService = game:GetService("PathfindingService")
 local PlayerService = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local DebrisService = game:GetService('Debris')
@@ -346,7 +346,11 @@ local function createPopupPath(points, numCircles)
 			if stopTraversing then
 				break
 			end
-			if i%numCircles == 0 then
+
+			local includeWaypoint = i % numCircles == 0
+			                    and i < #points
+			                    and (points[#points].Position - points[i].Position).magnitude > 4
+			if includeWaypoint then
 				local popup = createNewPopup("PatherPopup")
 				popups[i] = popup
 				local nextPopup = points[i+1]
@@ -406,11 +410,11 @@ local function Pather(character, endPoint, surfaceNormal)
 			if this.PathComputed or this.PathComputing then return end
 			this.PathComputing = true
 			success = pcall(function()
-				this.pathResult = NavigationService:FindPathAsync(torso.CFrame.p, this.TargetPoint)
+				this.pathResult = PathfindingService:FindPathAsync(torso.CFrame.p, this.TargetPoint)
 			end)
 			this.pointList = this.pathResult and this.pathResult:GetWaypoints()
 			this.PathComputing = false
-			this.PathComputed = this.pathResult and this.pathResult.Status == Enum.NavigationStatus.Success or false
+			this.PathComputed = this.pathResult and this.pathResult.Status == Enum.PathStatus.Success or false
 		end
 		return true
 	end
@@ -419,7 +423,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		if not this.pathResult then
 			this:ComputePath()
 		end
-		return this.pathResult.Status == Enum.NavigationStatus.Success
+		return this.pathResult.Status == Enum.PathStatus.Success
 	end
 
 	function this:OnPointReached(reached)
@@ -427,7 +431,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		if reached and not this.Cancelled then
 
 			this.CurrentPoint = this.CurrentPoint + 1
-			
+
 			if this.CurrentPoint > #this.pointList then
 				-- End of path reached
 				if this.stopTraverseFunc then
@@ -441,12 +445,18 @@ local function Pather(character, endPoint, surfaceNormal)
 				-- wait until it gets to the ground
 				if this.CurrentPoint + 1 <= #this.pointList then
 					local nextAction = this.pointList[this.CurrentPoint + 1].Action
-					if nextAction == Enum.NavigationWaypointAction.Jump then
+					if nextAction == Enum.PathWaypointAction.Jump then
 						local currentState = this.humanoid:GetState()
 						if currentState == Enum.HumanoidStateType.FallingDown or
 						   currentState == Enum.HumanoidStateType.Freefall or
 						   currentState == Enum.HumanoidStateType.Jumping then
+						   
 						   this.humanoid.FreeFalling:wait()
+
+						   -- Give time to the humanoid's state to change
+						   -- Otherwise, the jump flag in Humanoid
+						   -- will be reset by the state change
+						   wait(0.1)
 						end
 					end
 				end
@@ -458,7 +468,7 @@ local function Pather(character, endPoint, surfaceNormal)
 
 				local nextWaypoint = this.pointList[this.CurrentPoint]
 				
-				if nextWaypoint.Action == Enum.NavigationWaypointAction.Jump then
+				if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
 					this.humanoid.Jump = true
 				end
 				this.humanoid:MoveTo(nextWaypoint.Position)
@@ -485,7 +495,7 @@ local function Pather(character, endPoint, surfaceNormal)
 
 		if #this.pointList > 0 then
 			this.MoveToConn = this.humanoid.MoveToFinished:connect(function(reached) this:OnPointReached(reached) end)
-			this.CurrentPoint = 0
+			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
 			this:OnPointReached(true) -- Move to first point
 		else
 			this.PathFailed:fire()
@@ -949,7 +959,6 @@ local function CreateClickToMoveModule()
 		local function getThrottleAndSteer(object, point)
 			local throttle, steer = 0, 0
 			local oCF = object.CFrame
-			local p1 = oCF.p
 			
 			local relativePosition = oCF:pointToObjectSpace(point)
 			local relativeZDirection = -relativePosition.z
@@ -1019,7 +1028,9 @@ local function CreateClickToMoveModule()
 			if child:IsA('Humanoid') then
 				disconnectEvent(HumanoidDiedConn)
 				HumanoidDiedConn = child.Died:connect(function()
-					DebrisService:AddItem(ExistingIndicator.Model, 1)
+					if ExistingIndicator then
+						DebrisService:AddItem(ExistingIndicator.Model, 1)
+					end
 				end)
 				HumanoidSeatedConn = child.Seated:connect(function(active, seat) onSeated(child, active, seat) end)
 				if child.SeatPart then

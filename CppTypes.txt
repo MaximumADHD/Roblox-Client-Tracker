@@ -314,6 +314,7 @@ Classes
 	ConstraintSingleAxisLinearVelocity
 	ConstraintSingleAxisSpring
 	ConstraintSurfacePair
+	ConstraintTwist
 	Contact
 	ContactConnector
 	ContactManager
@@ -394,6 +395,7 @@ Classes
 	DeserializedAacChallengeItem
 	DeserializedChangePropertyItem
 	DeserializedClusterItem
+	DeserializedClusterItemOld
 	DeserializedDeleteInstanceItem
 	DeserializedEventInvocationItem
 	DeserializedIdChallengeItem
@@ -647,7 +649,6 @@ Classes
 	ICreator
 	IDataState
 	IDec
-	ideoCapture
 	IDllStream
 	IDoc
 	IDraw
@@ -824,7 +825,6 @@ Classes
 	NavigationContext
 	NavigationPath
 	NavigationService
-	NavigationWaypoint
 	NegateOperation
 	nested_scheduler_missing_detach
 	NetPmcResponseItem
@@ -875,6 +875,7 @@ Classes
 	Path
 	PathfindingJob
 	PathfindingService
+	PathWaypoint
 	pcharNode
 	pDNameNode
 	Peer
@@ -944,7 +945,6 @@ Classes
 	PVAdornment
 	PVInstance
 	PyramidPoly
-	QcG
 	QueryD3D9
 	Ragdoll
 	RakPeer
@@ -969,7 +969,6 @@ Classes
 	RemoteFunction
 	Renderable
 	RenderEntity
-	RenderHooksService
 	RenderJob
 	RenderNode
 	RenderStatsCommand
@@ -1392,7 +1391,6 @@ Enums
 	MouseType
 	MoveState
 	NameOcclusion
-	NavigationStatus
 	NetworkOwnership
 	NormalId
 	NumSidesEnum

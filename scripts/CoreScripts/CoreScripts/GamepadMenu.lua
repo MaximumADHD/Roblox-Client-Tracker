@@ -226,6 +226,13 @@ local function radialSelectCancel(name, state, input)
 	end
 end
 
+local D_PAD_VR_DIRS = {
+	[Enum.KeyCode.DPadUp] = Vector2.new(0, 1),
+	[Enum.KeyCode.DPadDown] = Vector2.new(0, -1),
+	[Enum.KeyCode.DPadRight] = Vector2.new(1, 0),
+	[Enum.KeyCode.DPadLeft] = Vector2.new(-1, 0)
+}
+
 local function radialSelect(name, state, input)
 	local inputVector = Vector2.new(0, 0)
 
@@ -434,7 +441,6 @@ local function getVRKidSafeHint()
 			SliceCenter = Rect.new(10, 10, 10, 10);
 			ImageTransparency = 0.3;
 			BackgroundTransparency = 1;
-			Parent = container;
 		}
 		bubble.Position = UDim2.new(0.5, -bubble.Size.X.Offset/2, 1, 10);
 
@@ -916,13 +922,6 @@ local function isCoreGuiDisabled()
 
 	return true
 end
-
-local D_PAD_VR_DIRS = {
-	[Enum.KeyCode.DPadUp] = Vector2.new(0, 1),
-	[Enum.KeyCode.DPadDown] = Vector2.new(0, -1),
-	[Enum.KeyCode.DPadRight] = Vector2.new(1, 0),
-	[Enum.KeyCode.DPadLeft] = Vector2.new(-1, 0)
-}
 
 function updateGuiVisibility()
 	if VRService.VREnabled and vrPanel and isVisible then

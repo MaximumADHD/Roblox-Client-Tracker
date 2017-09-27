@@ -107,7 +107,6 @@ end
 
 local function cancelSlide(areaSoak)
 	areaSoak.Visible = false
-	if areaSoakMouseMoveCon then areaSoakMouseMoveCon:disconnect() end
 end
 
 t.CreateStyledMessageDialog = function(title, message, style, buttons)
@@ -397,32 +396,23 @@ t.CreateScrollingDropDownMenu = function(onSelectedCallback, size, position, bas
 			btn.AutoButtonColor = false
 			btn.Parent = listMenu
 
-			if IsTouchClient then
-				btn.TouchTap:connect(function()
-					currentSelectionName.Text = btn.Text
-					onEntrySelected()
-					btn.Font = Enum.Font.SourceSans
-					onSelectedCallback(btn.Text)
-				end)
-			else
-				btn.MouseButton1Click:connect(function()
-					currentSelectionName.Text = btn.Text
-					onEntrySelected()
-					btn.Font = Enum.Font.SourceSans
-					btn.TextColor3 = Color3.new(0.5, 0.5, 0.5)
-					btn.BackgroundColor3 = Color3.new(1, 1, 1)
-					onSelectedCallback(btn.Text)
-				end)
+			btn.MouseButton1Click:connect(function()
+				currentSelectionName.Text = btn.Text
+				onEntrySelected()
+				btn.Font = Enum.Font.SourceSans
+				btn.TextColor3 = Color3.new(0.5, 0.5, 0.5)
+				btn.BackgroundColor3 = Color3.new(1, 1, 1)
+				onSelectedCallback(btn.Text)
+			end)
 
-				btn.MouseEnter:connect(function()
-					btn.TextColor3 = Color3.new(1, 1, 1)
-					btn.BackgroundColor3 = Color3.new(0.75, 0.75, 0.75)
-				end)
-				btn.MouseLeave:connect(function()
-					btn.TextColor3 = Color3.new(0.5, 0.5, 0.5)
-					btn.BackgroundColor3 = Color3.new(1, 1, 1)
-				end)
-			end
+			btn.MouseEnter:connect(function()
+				btn.TextColor3 = Color3.new(1, 1, 1)
+				btn.BackgroundColor3 = Color3.new(0.75, 0.75, 0.75)
+			end)
+			btn.MouseLeave:connect(function()
+				btn.TextColor3 = Color3.new(0.5, 0.5, 0.5)
+				btn.BackgroundColor3 = Color3.new(1, 1, 1)
+			end)
 		end
 	end
 
@@ -2362,7 +2352,7 @@ local function TransitionTutorialPages(fromPage, toPage, transitionFrame, curren
 	transitionFrame.Visible = true
 	currentPageValue.Value = nil
 
-	local newsize, newPosition
+	local newSize, newPosition
 	if toPage then
 		--Make it visible so it resizes
 		toPage.Visible = true
@@ -3490,7 +3480,7 @@ t.CreateSetPanel = function(userIdsForSets, objectSelected, dialogClosed, size, 
 
 	populateSetsFrame()
 
-	insertPanelCloseCon = setGui.SetPanel.CancelButton.MouseButton1Click:connect(function()
+	setGui.SetPanel.CancelButton.MouseButton1Click:connect(function()
 		setGui.SetPanel.Visible = false
 		if dialogClosed then dialogClosed() end
 	end)
@@ -3844,7 +3834,7 @@ t.CreateLoadingFrame = function(name,size,position)
 end
 
 t.CreatePluginFrame = function (name,size,position,scrollable,parent)
-	function createMenuButton(size,position,text,fontsize,name,parent)
+	local function createMenuButton(size,position,text,fontsize,name,parent)
 		local button = Instance.new("TextButton",parent)
 		button.AutoButtonColor = false
 		button.Name = name

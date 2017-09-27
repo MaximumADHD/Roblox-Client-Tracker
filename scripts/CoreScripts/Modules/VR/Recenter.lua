@@ -7,6 +7,7 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local Util = require(RobloxGui.Modules.Settings.Utility)
 
 local cancelShortcutName = "CancelRecenterShortcut"
+local visible = false
 
 local RecenterModule = {}
 RecenterModule.ModuleName = "Recenter"
@@ -64,7 +65,9 @@ VRHub.ModuleOpened.Event:connect(function(moduleName)
 	end
 end)
 
-function RecenterModule:SetVisible(visible)
+function RecenterModule:SetVisible(value)
+	visible = value
+	
 	if visible then
 		if isCountingDown then
 			cancelCountdown()

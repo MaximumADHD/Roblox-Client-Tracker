@@ -93,6 +93,8 @@ local function CreateModule()
 	end
 
 	function addBackToDisplayStack(displayObject)
+		local moveDownFromHere = 0
+
 		for i = 1, #displayStack do
 			if displayStack[i] == displayObject then
 				moveDownFromHere = i + 1

@@ -668,7 +668,7 @@ function Panel:SetVisible(visible, modal)
 		Panel3D.SetModalPanel(self)
 	end
 	if not visible and currentModal == self then
-		if modal and not doNotRestore then
+		if modal then
 			--restore last modal panel
 			Panel3D.SetModalPanel(lastModal)
 		else

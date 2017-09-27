@@ -46,9 +46,6 @@ local function checkFFlag(flagName)
 end
 
 local enableActionBindingsTab = checkFFlag("EnableActionBindingsTab")
-local forceDevConsoleInStudio = checkFFlag("ForceDevConsoleInStudio")
-local enableDevConsoleDataStoreStats = checkFFlag("EnableDevConsoleDataStoreStats")
-local enableMemoryTrackerCategoryStats = checkFFlag("EnableMemoryTrackerCategoryStats")
 local improveClientAndServerMemoryTabLayout = checkFFlag("ImproveClientAndServerMemoryTabLayout")
 local disablePassiveClientLogProcessing = checkFFlag("DisablePassiveClientLogProcessing")
 
@@ -1078,7 +1075,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 		end	
 
 		-- Server Memory --
-		if (enableDevConsoleDataStoreStats and permissions.MayViewServerMemory) then
+		if (permissions.MayViewServerMemory) then
 			local tabBody = Primitives.FolderFrame(body, "ServerMemory")
 			
 			local serverTab = nil
@@ -1134,19 +1131,11 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			local statsSyncServer = devConsole.MessagesAndStats.StatsSyncServer
 			statsSyncServer:GetStats()
 			-- Listen to the "new server stats" event.
-			statsSyncServer.StatsReceived:connect(function(stats)					
-				if (enableMemoryTrackerCategoryStats) then 
-					local filteredTreeStats = serverMemoryAnalyzer:filterServerMemoryTreeStats(stats)
-					if filteredTreeStats then
-						serverMemoryAnalyzer:updateWithTreeStats(filteredTreeStats)
-					end
-				else
-					local filteredStats = serverMemoryAnalyzer:DEPRECATED_filterServerMemoryStats(stats)
-					if filteredStats then
-						serverMemoryAnalyzer:DEPRECATED_updateStats(filteredStats)
-					end
-				end
-				
+			statsSyncServer.StatsReceived:connect(function(stats)
+                local filteredTreeStats = serverMemoryAnalyzer:filterServerMemoryTreeStats(stats)
+                if filteredTreeStats then
+                    serverMemoryAnalyzer:updateWithTreeStats(filteredTreeStats)
+                end
 			end)			
 		end
 		  
@@ -2653,7 +2642,8 @@ end
 function Methods.CreateScrollbar(devConsole, rotation)
 	local scrollbar = {}
 
-	local main = Primitives.FolderFrame(main, 'Scrollbar')
+	local main = nil
+	main = Primitives.FolderFrame(main, 'Scrollbar')
 	scrollbar.Frame = main
 
 	local frame = Primitives.Button(main, 'Frame')
@@ -3077,7 +3067,7 @@ do
 			permissions.ServerCodeExecutionEnabled = permissions.IsCreator and (not settings():GetFFlag("DebugDisableLogServiceExecuteScript"))
 		end)
 		
-		if DEBUG or (forceDevConsoleInStudio and RunService:IsStudio()) then
+		if DEBUG or (RunService:IsStudio()) then
 			permissions.IsCreator = true
 			permissions.ServerCodeExecutionEnabled = true
 		end
@@ -3092,7 +3082,7 @@ do
 
 		permissions.MayViewDataStoreBudget = false
 		pcall(function()
-			permissions.MayViewDataStoreBudget = permissions.IsCreator and settings():GetFFlag("EnableDevConsoleDataStoreStats")
+			permissions.MayViewDataStoreBudget = permissions.IsCreator
 		end)
 		permissions.MayViewHttpResultClient = false
 		pcall(function()

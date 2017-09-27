@@ -1198,10 +1198,6 @@ local function CreateCamera()
 			subjectStateChangedConn:disconnect()
 			subjectStateChangedConn = nil
 		end
-		if cameraChangedConn then
-			cameraChangedConn:disconnect()
-			cameraChangedConn = nil
-		end
 		if workspaceChangedConn then
 			workspaceChangedConn:disconnect()
 			workspaceChangedConn = nil

@@ -37,7 +37,7 @@ function createFetchImageFunction(...)
 		spawn(function()
 			local imageUrl = SocialUtil.GetPlayerImage(unpack(args))
 			if imageLabel and imageLabel.Parent then
-				frame.Icon.Image = imageUrl
+				imageLabel.Image = imageUrl
 			end
 		end)
 	end

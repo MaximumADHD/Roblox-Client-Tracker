@@ -20,7 +20,7 @@ local BYTES_PER_MB = 1048576.0;
 
 --[[ Helper functions ]]--
 local function SortTripletsByName(triplets)	
-	function compareTripletNames(t1, t2) 
+	local function compareTripletNames(t1, t2) 
 		return (t1[2] < t2[2])
 	end
 	table.sort(triplets, compareTripletNames)
@@ -148,83 +148,6 @@ function ServerMemoryAnalyzerClass:updateWithTreeStats(stats)
             untrackedMemory})
 
     self.cachedTriplets = finalTriplets    
-    self:renderUpdates();
-end
-
--- FIXME(dbanks)
--- 2017/08/14
--- Remove this once EnableMemoryTrackerCategoryStats is on for good.
--- 'static' function.
--- 'stats' is a value table from server.
--- One top-level key is "DEPRECATED_ServerMemory".
--- That contains a table that looks like this:
---   "totalServerMemory": <some value>
---   <developer tag label>: <developer tag value>
---   (for all developer tags).
--- We want to 'filter' this so that we return just the "DEPRECATED_ServerMemory" value.
-function ServerMemoryAnalyzerClass:DEPRECATED_filterServerMemoryStats(stats)
-    if (stats.DEPRECATED_ServerMemory == nil) then
-        return {}
-    else
-        return stats.DEPRECATED_ServerMemory
-    end
-end
-
-
--- FIXME(dbanks)
--- 2017/08/16
--- Remove once FFlag::EnableMemoryTrackerCategoryStats is on for good.
---
--- We are being passed a table that looks like this:
---   "totalServerMemory": <some value>
---   <developer tag label>: <developer tag value>
---   (for all developer tags).
--- Convert that into "type name value triplets", where 
---    Type is unique id for the row.
---    Name is user-friendly label, including indents.
---    Value is value for type.
--- Also we're doing some data munching to make sense of the rows, convert, etc.
-function ServerMemoryAnalyzerClass:DEPRECATED_updateStats(stats)     
-    local totalPlaceMemory = 0
-    local developerTagTriplets = {}
-    local totalServerMemory = 0
-
-    for key, value in pairs(stats) do
-		-- All values are in bytes.
-		-- Convert to MB.
-		value = value / BYTES_PER_MB
-        if key == "totalServerMemory" then
-            totalServerMemory = value
-        else 
-            -- This is a developer tag.
-            -- 1) it contributes to total "place" memory.
-            totalPlaceMemory = totalPlaceMemory + value
-            --  2) We want an indented triplet for this.
-            table.insert(developerTagTriplets, {key, 
-                    BaseMemoryAnalyzerClass.Indent .. BaseMemoryAnalyzerClass.Indent .. key,
-                    value})
-        end
-    end
-    
-    local finalTriplets = {}
-    
-    -- Triplet for total memory.
-    table.insert(finalTriplets, {"Memory", "Memory", totalServerMemory})
-    -- Triplet for core memory (total - place)
-    table.insert(finalTriplets, {"CoreMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "CoreMemory", 
-            totalServerMemory - totalPlaceMemory})
-    -- Triplet for place memory (sum of all developer tags).
-    table.insert(finalTriplets, {"PlaceMemory", 
-            BaseMemoryAnalyzerClass.Indent .. "PlaceMemory", 
-            totalPlaceMemory})
-    -- Developer tags, sorted by name.
-	developerTagTriplets = SortTripletsByName(developerTagTriplets)
-   
-   finalTriplets = CommonUtils.TableConcat(finalTriplets, developerTagTriplets)
-
-    self.cachedTriplets = finalTriplets
-    
     self:renderUpdates();
 end
 

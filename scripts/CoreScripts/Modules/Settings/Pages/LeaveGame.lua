@@ -108,13 +108,13 @@ local function Initialize()
 		leaveGameText.FontSize = Enum.FontSize.Size48
 	end
 
-	this.LeaveGameButton = utility:MakeStyledButton("LeaveGame", "Leave", buttonSize, this.LeaveFunc)
+	this.LeaveGameButton = utility:MakeStyledButton("LeaveGame", "Leave", nil, this.LeaveFunc)
 	this.LeaveGameButton.NextSelectionRight = nil
 	this.LeaveGameButton.Parent = leaveButtonContainer
 
 	------------- Init ----------------------------------
 	
-	local dontleaveGameButton = utility:MakeStyledButton("DontLeaveGame", "Don't Leave", buttonSize, this.DontLeaveFromButton)
+	local dontleaveGameButton = utility:MakeStyledButton("DontLeaveGame", "Don't Leave", nil, this.DontLeaveFromButton)
 	dontleaveGameButton.NextSelectionLeft = nil
 	dontleaveGameButton.Parent = leaveButtonContainer
 

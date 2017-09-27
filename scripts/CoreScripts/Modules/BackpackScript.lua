@@ -885,7 +885,7 @@ local function OnChildAdded(child) -- To Character or Backpack
 	end
 	local tool = child
 
-	if tool.Parent == character then
+	if tool.Parent == Character then
 		ShowVRBackpackPopup()		
 		TimeOfLastToolChange = tick()
 	end

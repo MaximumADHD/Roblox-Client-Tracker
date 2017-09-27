@@ -84,6 +84,7 @@ end
 function StatsAggregatorClass:GetValues()
   -- Get the past N values, from oldest to newest.
   local retval = {}
+  local actualIndex
   for i = 0, self._numSamples-1, 1 do
     actualIndex = (self._oldestIndex + i) % self._numSamples
     retval[i+1] = self._samples[actualIndex]

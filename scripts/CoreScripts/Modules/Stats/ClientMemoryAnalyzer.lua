@@ -89,7 +89,7 @@ function ClientMemoryAnalyzerClass:startListeningForUpdates()
     if (self._spawnedLoopScheduled) then 
         return
     end
-    _spawnedLoopScheduled = true
+    self._spawnedLoopScheduled = true
     
     spawn(function()
             while(self._shouldListenForUpdates) do 

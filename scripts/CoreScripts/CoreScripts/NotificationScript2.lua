@@ -983,7 +983,7 @@ if not isTenFootInterface then
 			isPaused = false
 			local utility = require(RobloxGui.Modules.Settings.Utility)
 			local okPressedFunc = function() end
-			utility:ShowAlert("You have no notifications", "Ok", settingsHub, okPressedFunc, true)
+			utility:ShowAlert("You have no notifications", "Ok", --[[settingsHub]] nil, okPressedFunc, true)
 		end
 	end)
 

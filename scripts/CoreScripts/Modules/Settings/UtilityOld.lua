@@ -348,6 +348,8 @@ local function addHoverState(button, instance, onNormalButtonState, onHoverButto
 end
 
 local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
+	local rowRef = nil
+
 	local SelectionOverrideObject = Util.Create'ImageLabel'
 	{
 		Image = "",
@@ -381,7 +383,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 			local lastInputType = nil
 			pcall(function() lastInputType = UserInputService:GetLastInputType() end)
 			if lastInputType then
-				clickFunc(lastInputTypee == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or
+				clickFunc(lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or
 					lastInputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4)
 			else
 				clickFunc(false)
@@ -429,7 +431,6 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		end
 	end)
 
-	local rowRef = nil
 	local function setRowRef(ref)
 		rowRef = ref
 	end
@@ -2225,7 +2226,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		end
 
 		function ValueChangerInstance:SetInteractable(value)
-			interactable = value
+			local interactable = value
 			box.Selectable = interactable
 			if not interactable then
 				box.TextColor3 = Color3.new(49/255, 49/255, 49/255)

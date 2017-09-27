@@ -758,7 +758,6 @@ do
 		else
 			if not NO_TRANSITION_ANIMATIONS then
 				spawn(function()
-					cancelAnimation = false
 					notificationsWindow:AnimateOut(function()
 						notificationsPanel:SetVisible(false)
 					end)

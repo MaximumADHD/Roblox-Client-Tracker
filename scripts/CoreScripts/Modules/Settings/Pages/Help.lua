@@ -63,10 +63,10 @@ local function Initialize()
 			lastInputType == Enum.UserInputType.MouseButton1 or lastInputType == Enum.UserInputType.MouseButton2 or
 			lastInputType == Enum.UserInputType.MouseButton3 or lastInputType == Enum.UserInputType.MouseWheel then
 			  return KEYBOARD_MOUSE_TAG
-			elseif lastInputType == Enum.UserInputType.Touch then
-			  return TOUCH_TAG
-			elseif lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or 
-			inputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4 then
+		elseif lastInputType == Enum.UserInputType.Touch then
+		  	  return TOUCH_TAG
+		elseif lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or 
+			lastInputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4 then
 			  return GAMEPAD_TAG
 		end
 

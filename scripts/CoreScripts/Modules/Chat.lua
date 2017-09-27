@@ -568,11 +568,11 @@ function createPopupFrame(selectedPlayer, selectedButton)
         PopupFrame.Size = UDim2.new(0, 150, PopupFrame.Size.Y.Scale, PopupFrame.Size.Y.Offset)
         PopupFrame.ZIndex = 5
         PopupFrame.Parent = GuiRoot
-      end
 
-      for _, button in pairs(PopupFrame:GetChildren()) do
-        button.BackgroundTransparency = 0
-        button.ZIndex = 6
+        for _, button in pairs(PopupFrame:GetChildren()) do
+          button.BackgroundTransparency = 0
+          button.ZIndex = 6
+        end
       end
     else
       if IsPlayerDropDownEnabled then

@@ -359,7 +359,7 @@ local function CreateOrbitalCamera()
 			curDistance = clamp(desiredZoom, minDistance, maxDistance)
 		end
 
-		isFirstPerson = self:GetCameraZoom() < 2
+		local isFirstPerson = self:GetCameraZoom() < 2
 
 		--ShiftLockController:SetIsInFirstPerson(isFirstPerson)
 		-- set mouse behavior

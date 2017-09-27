@@ -573,14 +573,14 @@ do --Action functions
 			end
 			self.teleporting = true
 
-			wait(FADE_OUT_DURATION)
+			wait(TELEPORT.FADE_OUT_DURATION)
 
 			local camera = workspace.CurrentCamera
 			local flatLookDir = camera.CFrame.lookVector * flattenMask
 			local pos = teleportPoint + (teleportNormal * TELEPORT.FLOOR_OFFSET)
 			character:SetPrimaryPartCFrame(CFrame.new(pos, pos + flatLookDir))
 
-			wait(FADE_IN_DURATION)
+			wait(TELEPORT.FADE_IN_DURATION)
 			self.teleporting = false
 		else
 			--play teleport failed sound
@@ -829,13 +829,11 @@ do --Laser/teleport functions
 		--Make a CFrame out of our hit point and normal; tangent doesn't matter because it's all circular!
 		local plopCF = CFrame.new(parabHitPoint, parabHitPoint + parabHitNormal)
 
+		local ballHeight = 0
 		--Calculate the height of the ball from a sine wave raised to a configurable exponent
 		if self.teleportValid then
 			local ballWave = applyExpCurve(math.sin((now * 2 * math.pi) / TELEPORT.BALL_WAVE_PERIOD), TELEPORT.BALL_WAVE_EXP)
 			ballHeight = TELEPORT.BALL_WAVE_START + (ballWave * TELEPORT.BALL_WAVE_AMPLITUDE)
-		else
-			--If the teleport isn't valid, just lock the ball in place.
-			ballHeight = 0
 		end
 
 		self.plopPart.CFrame = plopCF

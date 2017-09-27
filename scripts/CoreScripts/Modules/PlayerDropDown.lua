@@ -509,6 +509,8 @@ function createPlayerDropDown()
 		return frame
 	end
 
+	local TWEEN_TIME = 0.25
+
 	--[[ PlayerDropDown Functions ]]--
 	function playerDropDown:Hide()
 		if playerDropDown.PopupFrame then

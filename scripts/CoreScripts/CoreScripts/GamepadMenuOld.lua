@@ -140,7 +140,6 @@ local function getVRKidSafeHint()
 			SliceCenter = Rect.new(10, 10, 10, 10);
 			ImageTransparency = 0.3;
 			BackgroundTransparency = 1;
-			Parent = container;
 		}
 		bubble.Position = UDim2.new(0.5, -bubble.Size.X.Offset/2, 1, 10);
 

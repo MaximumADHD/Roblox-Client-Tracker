@@ -207,11 +207,11 @@ function BaseMemoryAnalyzerClass:__layoutRows()
   end  
   
   self._heightInPix = RowHeight * #self._orderedRows
-  self._frame.Size = UDim2.new(1, 0, 0, newHeight)
+  self._frame.Size = UDim2.new(1, 0, 0, 0)
   self._frame.Position = UDim2.new(0, 0, 0, 0)
 
   if (self._heightChangedCallback) then 
-    self._heightChangedCallback(newHeight)
+    self._heightChangedCallback(0)
   end
 end
 

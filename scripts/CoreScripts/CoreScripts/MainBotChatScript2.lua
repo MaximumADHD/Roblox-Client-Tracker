@@ -417,7 +417,7 @@ function presentDialogChoices(talkingPart, dialogChoices, parentDialog)
 	end
 
 	currentConversationPartner = talkingPart
-	sortedDialogChoices = {}
+	local sortedDialogChoices = {}
 	for n, obj in pairs(dialogChoices) do
 		if obj:IsA("DialogChoice") then
 			table.insert(sortedDialogChoices, obj)

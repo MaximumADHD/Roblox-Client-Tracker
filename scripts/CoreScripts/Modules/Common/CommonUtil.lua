@@ -19,7 +19,7 @@ end
 -- Instances have a "Name" field.  Sort 
 -- by that name,
 function CommonUtil.SortByName(items)	
-	function compareInstanceNames(i1, i2) 
+	local function compareInstanceNames(i1, i2) 
 		return (i1.Name < i2.Name)
 	end
 	table.sort(items, compareInstanceNames)

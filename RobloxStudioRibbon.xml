@@ -113,12 +113,18 @@
         <addaction name="anchorAction" text="Anchor " icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" style="textbesideicon" tooltip="Anchor/Unanchor the selected parts" width="16" height="16" />
       </Group>
       <Group name="Terrain">
-        <addaction name="Generate.Smooth Terrain.Terrain." isProxy="true" text="Generate" style="textbesideicon" tooltip="Generate landscapes of terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="16" height="16"/>
-        <addaction name="Add.Smooth Terrain.Terrain." isProxy="true" text="Add" style="textbesideicon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="16" height="16"/>
-        <addaction name="Paint.Smooth Terrain.Terrain." isProxy="true" text="Paint" tooltip="Paint the material of the terrain." type="plugin" style="textbesideicon"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/paint.png" width="16" height="16"/>
-        <addaction name="Grow.Smooth Terrain.Terrain." isProxy="true" text="Grow" style="textbesideicon" type="plugin" tooltip="Click and hold to grow and expand terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/grow.png" width="16" height="16"/>
-        <addaction name="Erode.Smooth Terrain.Terrain." isProxy="true" text="Erode" style="textbesideicon" type="plugin" tooltip="Click and hold to erode and remove terrain."  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/erode.png" width="16" height="16"/>
-        <addaction name="Smooth.Smooth Terrain.Terrain." isProxy="true" text="Smooth" style="textbesideicon" type="plugin" tooltip="Brush to smooth out rough or jagged terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/smooth.png"  width="16" height="16"/>
+        <addaction fflag="!StudioEnableHomeTerrainButtons" name="Generate.Smooth Terrain.Terrain." isProxy="true" text="Generate" style="textbesideicon" tooltip="Generate landscapes of terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="16" height="16"/>
+        <addaction fflag="!StudioEnableHomeTerrainButtons" name="Add.Smooth Terrain.Terrain." isProxy="true" text="Add" style="textbesideicon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="16" height="16"/>
+        <addaction fflag="!StudioEnableHomeTerrainButtons" name="Paint.Smooth Terrain.Terrain." isProxy="true" text="Paint" tooltip="Paint the material of the terrain." type="plugin" style="textbesideicon"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/paint.png" width="16" height="16"/>
+        <addaction fflag="!StudioEnableHomeTerrainButtons" name="Grow.Smooth Terrain.Terrain." isProxy="true" text="Grow" style="textbesideicon" type="plugin" tooltip="Click and hold to grow and expand terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/grow.png" width="16" height="16"/>
+        <addaction fflag="!StudioEnableHomeTerrainButtons" name="Erode.Smooth Terrain.Terrain." isProxy="true" text="Erode" style="textbesideicon" type="plugin" tooltip="Click and hold to erode and remove terrain."  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/erode.png" width="16" height="16"/>
+        <addaction fflag="!StudioEnableHomeTerrainButtons" name="Smooth.Smooth Terrain.Terrain." isProxy="true" text="Smooth" style="textbesideicon" type="plugin" tooltip="Brush to smooth out rough or jagged terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/smooth.png"  width="16" height="16"/>
+        <addaction fflag="StudioEnableHomeTerrainButtons" name="Generate" isProxy="true" text="Generate" style="textbesideicon" tooltip="Generate landscapes of terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="16" height="16"/>
+        <addaction fflag="StudioEnableHomeTerrainButtons" name="Add" isProxy="true" text="Add" style="textbesideicon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="16" height="16"/>
+        <addaction fflag="StudioEnableHomeTerrainButtons" name="Paint" isProxy="true" text="Paint" tooltip="Paint the material of the terrain." type="plugin" style="textbesideicon"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/paint.png" width="16" height="16"/>
+        <addaction fflag="StudioEnableHomeTerrainButtons" name="Grow" isProxy="true" text="Grow" style="textbesideicon" type="plugin" tooltip="Click and hold to grow and expand terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/grow.png" width="16" height="16"/>
+        <addaction fflag="StudioEnableHomeTerrainButtons" name="Erode" isProxy="true" text="Erode" style="textbesideicon" type="plugin" tooltip="Click and hold to erode and remove terrain."  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/erode.png" width="16" height="16"/>
+        <addaction fflag="StudioEnableHomeTerrainButtons" name="Smooth" isProxy="true" text="Smooth" style="textbesideicon" type="plugin" tooltip="Brush to smooth out rough or jagged terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/smooth.png"  width="16" height="16"/>
       </Group>
       <Group name="Test">
         <MenuPopupButton handleMenuTrigger="true"  selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Play" tooltip="Play the game inside the window" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
@@ -231,7 +237,7 @@
           <addaction name="createRopeConstraintAction" style="textundericon" iscommonslot="true" text="Rope" tooltip="Create rope constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rope-32x32.png" width="32" height="32" />
           <addaction name="createRodConstraintAction" style="textundericon" iscommonslot="true" text="Rod" tooltip="Create rod constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rod-32x32.png" width="32" height="32" />
           <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Spring" tooltip="Create spring constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/spring-32x32.png" width="32" height="32" />
-          <addaction fflag="EnableWeldConstraint" name="createWeldConstraintAction" style="textundericon" iscommonslot="true" text="Weld" tooltip="Create weld constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="32" height="32" />
+          <addaction fflag="EnableWeldConstraint2" name="createWeldConstraintAction" style="textundericon" iscommonslot="true" text="Weld" tooltip="Create weld constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
           <addaction name="createAlignOrientationAction" style="textundericon" iscommonslot="true" text="Align Orientation" tooltip="Create align orientation" icon=":/RibbonBar/images/RibbonIcons/Physics/align-orientation-32x32.png" width="32" height="32" />
           <addaction name="createAlignPositionAction" style="textundericon" iscommonslot="true" text="Align Position" tooltip="Create align position" icon=":/RibbonBar/images/RibbonIcons/Physics/align-position-32x32.png" width="32" height="32" />
@@ -346,23 +352,18 @@
         <addaction name="actionStartPage" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Start-Page.png"  tooltip="Login, view places you own, browse your roblox catalog" height="32" width="32"/>
         <addaction name="gameExplorerAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View Game Explorer" height="32" width="32"/>
         <addaction name="viewToolboxAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-        <addseparator visible="false"/>
         <addaction name="viewContextualHelpAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="View context-sensitive help" height="32" width="32"/>
         <addaction fflag="StudioShowTutorialsByDefault" name="viewTutorialsAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="View Tutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="View Lua API objects that can be accessed through scripting" height="32" width="32"/>
-        <addseparator visible="false"/>
         <addaction name="viewOutputWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="See the output feed of your scripts" text="Output" height="32" width="32"/>
         <addaction name="viewScriptAnalysisAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="View Script Analysis" height="32" width="32"/>
         <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Command Bar" height="32" width="32"/>
-        <addseparator visible="false"/>
         <addaction fflag="LuaDebugger" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" tooltip="View existing breakpoints" height="32" width="32"/>
         <addaction fflag="LuaDebugger" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" tooltip="View current call stack" height="32" width="32"/>
         <addaction fflag="LuaDebugger" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" tooltip="View currently watched variables" height="32" width="32"/>
-        <addseparator visible="false"/>
         <addaction name="viewDiagnosticsAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="View diagnostic information of your game" height="32" width="32"/>
         <addaction name="viewTaskSchedulerAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="View task execution information" height="32" width="32"/>
         <addaction name="viewScriptPerformanceAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="View script performance information" height="32" width="32"/>
-        <addseparator visible="false"/>
         <addaction name="viewFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Find results window" height="32" width="32"/>
         <addaction name="viewTeamCreateAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="View Team Create Window" height="32" width="32"/>
         <addaction name="viewScriptRecoveryAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png" tooltip="View Recovered Scripts" height="32" width ="32"/>
