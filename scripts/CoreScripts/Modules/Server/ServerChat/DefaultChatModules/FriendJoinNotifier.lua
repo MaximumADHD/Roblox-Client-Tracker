@@ -4,10 +4,13 @@
 
 local Chat = game:GetService("Chat")
 local Players = game:GetService("Players")
+local FriendService = game:GetService("FriendService")
 
 local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
 local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(ReplicatedModules:WaitForChild("ChatConstants"))
+local useCachedFriendChecksForChatSuccess, useCachedFriendChecksForChatValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserUseCachedFriendChecksForChat") end)
+local useCachedFriendChecksForChat = useCachedFriendChecksForChatSuccess and useCachedFriendChecksForChatValue
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
@@ -55,9 +58,25 @@ local function Run(ChatService)
 
 	if ShowFriendJoinNotification() then
 		Players.PlayerAdded:connect(function(player)
-			local possibleFriends = Players:GetPlayers()
-			for i = 1, #possibleFriends do
-				TrySendFriendNotification(possibleFriends[i], player)
+			if useCachedFriendChecksForChat then
+				coroutine.wrap(function()
+					local possibleFriends = Players:GetPlayers()
+					local playerUserId = player.UserId
+
+					for i = 1, #possibleFriends do
+						local userId = possibleFriends[i].UserId
+						if userId > 0 and userId ~= playerUserId then
+							if FriendService:GetAreUsersFriends(playerUserId, userId) then
+								SendFriendJoinNotification(possibleFriends[i], player)
+							end
+						end
+					end
+				end)()
+			else
+				local possibleFriends = Players:GetPlayers()
+				for i = 1, #possibleFriends do
+					TrySendFriendNotification(possibleFriends[i], player)
+				end
 			end
 		end)
 	end

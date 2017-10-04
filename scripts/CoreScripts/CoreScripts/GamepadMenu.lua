@@ -61,9 +61,6 @@ local PANEL_RESOLUTION = 250
 
 
 --[[ Fast Flags ]]--
-local getRadialMenuAfterLoadingScreen, radialMenuAfterLoadingScreenValue = pcall(function() return settings():GetFFlag("RadialMenuAfterLoadingScreen2") end)
-local radialMenuAfterLoadingScreen = getRadialMenuAfterLoadingScreen and radialMenuAfterLoadingScreenValue
-
 local function getImagesForSlot(slot)
 	if slot == 1 then		return "rbxasset://textures/ui/Settings/Radial/Top.png", "rbxasset://textures/ui/Settings/Radial/TopSelected.png",
 									"rbxasset://textures/ui/Settings/Radial/Menu.png",
@@ -306,12 +303,13 @@ local function bindAllRadialActions()
 	ContextActionService:BindCoreAction(freezeControllerActionName, noOpFunc, false, Enum.UserInputType.Gamepad1)
 	ContextActionService:BindCoreAction(radialAcceptActionName, radialSelectAccept, false, Enum.KeyCode.ButtonA)
 	ContextActionService:BindCoreAction(radialCancelActionName, radialSelectCancel, false, Enum.KeyCode.ButtonB)
-	ContextActionService:BindCoreAction(radialSelectActionName, radialSelect, false, Enum.KeyCode.Thumbstick1, Enum.KeyCode.DPadUp, Enum.KeyCode.DPadDown, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight)
 	ContextActionService:BindCoreAction(thumbstick2RadialActionName, noOpFunc, false, Enum.KeyCode.Thumbstick2)
 	ContextActionService:BindCoreAction(toggleMenuActionName, doGamepadMenuButton, false, Enum.KeyCode.ButtonStart)
 
 	if VRService.VREnabled then
-		ContextActionService:BindCoreAction(radialAcceptActionName .. "VR", radialSelectAccept, false, Enum.KeyCode.ButtonL3)
+		ContextActionService:BindCoreAction(radialAcceptActionName .. "VR", radialSelectAccept, false, Enum.KeyCode.ButtonR2)
+	else
+		ContextActionService:BindCoreAction(radialSelectActionName, radialSelect, false, Enum.KeyCode.Thumbstick1, Enum.KeyCode.DPadUp, Enum.KeyCode.DPadDown, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight)
 	end
 end
 
@@ -959,67 +957,48 @@ else
 	end)
 end
 
-if radialMenuAfterLoadingScreen then
-	local defaultLoadingGuiRemovedConnection = nil
-	local loadedConnection = nil
-	local isLoadingGuiRemoved = false
-	local isPlayerAdded = false
+local defaultLoadingGuiRemovedConnection = nil
+local loadedConnection = nil
+local isLoadingGuiRemoved = false
+local isPlayerAdded = false
 
-	local function updateRadialMenuActionBinding()
-		if isLoadingGuiRemoved and isPlayerAdded then
-			createGamepadMenuGui()
-			ContextActionService:BindCoreAction(toggleMenuActionName, doGamepadMenuButton, false, Enum.KeyCode.ButtonStart)
-		end
-	end
-
-	local function handlePlayerAdded()
-		loadedConnection:disconnect()
-		isPlayerAdded = true
-		updateRadialMenuActionBinding()
-	end
-
-	loadedConnection = Players.PlayerAdded:connect(
-		function(plr)
-			if Players.LocalPlayer and plr == Players.LocalPlayer then
-				handlePlayerAdded()
-			end
-		end
-	)
-
-	if Players.LocalPlayer then
-		handlePlayerAdded()
-	end
-
-	local function handleDefaultLoadingGuiRemoved()
-		if defaultLoadingGuiRemovedConnection then
-			defaultLoadingGuiRemovedConnection:disconnect()
-		end
-		isLoadingGuiRemoved = true
-		updateRadialMenuActionBinding()
-	end
-
-	if game:GetService("ReplicatedFirst"):IsDefaultLoadingGuiRemoved() then
-		handleDefaultLoadingGuiRemoved()
-	else
-		defaultLoadingGuiRemovedConnection = game:GetService("ReplicatedFirst").DefaultLoadingGuiRemoved:connect(handleDefaultLoadingGuiRemoved)
-	end
-else
-	local loadedConnection
-	local function enableRadialMenu()
+local function updateRadialMenuActionBinding()
+	if isLoadingGuiRemoved and isPlayerAdded then
 		createGamepadMenuGui()
 		ContextActionService:BindCoreAction(toggleMenuActionName, doGamepadMenuButton, false, Enum.KeyCode.ButtonStart)
-		loadedConnection:disconnect()
 	end
+end
 
-	loadedConnection = Players.PlayerAdded:connect(function(plr)
+local function handlePlayerAdded()
+	loadedConnection:disconnect()
+	isPlayerAdded = true
+	updateRadialMenuActionBinding()
+end
+
+loadedConnection = Players.PlayerAdded:connect(
+	function(plr)
 		if Players.LocalPlayer and plr == Players.LocalPlayer then
-			enableRadialMenu()
+			handlePlayerAdded()
 		end
-	end)
-
-	if Players.LocalPlayer then
-		enableRadialMenu()
 	end
+)
+
+if Players.LocalPlayer then
+	handlePlayerAdded()
+end
+
+local function handleDefaultLoadingGuiRemoved()
+	if defaultLoadingGuiRemovedConnection then
+		defaultLoadingGuiRemovedConnection:disconnect()
+	end
+	isLoadingGuiRemoved = true
+	updateRadialMenuActionBinding()
+end
+
+if game:GetService("ReplicatedFirst"):IsDefaultLoadingGuiRemoved() then
+	handleDefaultLoadingGuiRemoved()
+else
+	defaultLoadingGuiRemovedConnection = game:GetService("ReplicatedFirst").DefaultLoadingGuiRemoved:connect(handleDefaultLoadingGuiRemoved)
 end
 
 -- some buttons always show/hide depending on platform

@@ -34,10 +34,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 
 --------------- FLAGS ----------------
-
-local fixTextBoxLoseSelectionSuccess, fixTextBoxLoseSelectionValue = pcall(function() return settings():GetFFlag("FixTextBoxLoseSelection") end)
-local fixTextBoxLoseSelection = fixTextBoxLoseSelectionSuccess and fixTextBoxLoseSelectionValue
-
 -- Enable the old Utility.lua if the EnablePortraitMode flag is off
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
@@ -2210,9 +2206,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		box.FocusLost:Connect(function(enterPressed, inputObject)
-			if not fixTextBoxLoseSelection and GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
-				GuiService.SelectedCoreObject = nil
-			end
 			forceReturnSelectionOnFocusLost = false
 		end)
 		if extraSpacing then
@@ -2303,9 +2296,6 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		box.FocusLost:Connect(function(enterPressed, inputObject)
-			if not fixTextBoxLoseSelection and GuiService.SelectedCoreObject == box and (not isMouseOverRow or forceReturnSelectionOnFocusLost) then
-				GuiService.SelectedCoreObject = nil
-			end
 			forceReturnSelectionOnFocusLost = false
 		end)
 		if extraSpacing then

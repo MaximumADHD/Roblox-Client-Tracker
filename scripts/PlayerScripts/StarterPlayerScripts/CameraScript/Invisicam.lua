@@ -393,6 +393,10 @@ end
 
 -- Update. Called every frame after the camera movement step
 function Invisicam:Update()
+
+	-- Bail if there is no Character
+	if not Character then return end
+	
 	-- Make sure we still have a HumanoidRootPart
 	if not HumanoidRootPart then
 		local humanoid = Character:FindFirstChildOfClass("Humanoid")
@@ -483,26 +487,6 @@ function Invisicam:Update()
 	
 	-- Now get all the parts hit by all the rays
 	hitParts = Camera:GetPartsObscuringTarget(castPoints, ignoreList)
-
-	-- This accounts for parts the camera may actually be inside. There is a case where the camera can be inside
-	-- the bounding box of a concave mesh part, and a solid part of the mesh can obscure the camera since
-	-- rays coming from the camera would not be considered as hitting the part. This code adds all parts
-	-- that touch a 2x2x2 box around the camera position.
-	local distance = (TorsoPart.CFrame.p - Camera.CoordinateFrame.p).magnitude
-	local region3 = Region3.new(Camera.CFrame.p + Vector3_new(-1,-1,-1), Camera.CFrame.p + Vector3_new(1,1,1))
-	local partsTouchingCamera
-	if distance < 12 then
-		partsTouchingCamera = game.Workspace:FindPartsInRegion3(region3,Character,math.huge)	
-	else
-		partsTouchingCamera = game.Workspace:FindPartsInRegion3(region3,nil,10)	
-	end
-
-	if partsTouchingCamera then
-		for _,part in pairs(partsTouchingCamera) do
-			hitParts[#hitParts+1] = part
-			partIsTouchingCamera[part] = true
-		end
-	end
 	
 	local partTargetTransparency = {}
 	
@@ -510,7 +494,7 @@ function Invisicam:Update()
 	for i = 1, #hitParts do
 		local hitPart = hitParts[i]
 		
-		partTargetTransparency[hitPart] = partIsTouchingCamera[hitPart] and 1.0 or (headTorsoRayHitParts[hitPart] and perPartTransparencyHeadTorsoHits or perPartTransparencyOtherHits)
+		partTargetTransparency[hitPart] =headTorsoRayHitParts[hitPart] and perPartTransparencyHeadTorsoHits or perPartTransparencyOtherHits
 
 		-- If the part is not already as transparent or more transparent than what invisicam requires, add it to the list of
 		-- parts to be modified by invisicam

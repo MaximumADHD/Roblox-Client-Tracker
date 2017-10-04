@@ -17,13 +17,14 @@ local AnalyticsAction_InitialOpenTab = "DeveloperConsole_InitialOpenTab"
 local AnalyticsAction_ClickToOpenOpenTab = "DeveloperConsole_ClickToOpenOpenTab"
 
 --[[ Services ]]--
-local CoreGui = game:GetService('CoreGui')
-local RobloxGui = CoreGui:FindFirstChild('RobloxGui')
-local Modules = RobloxGui:FindFirstChild('Modules')
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
+local Modules = RobloxGui:FindFirstChild("Modules")
 
 local ContextActionService = game:GetService("ContextActionService")
 local TextService = game:GetService("TextService")
-local GuiService = game:GetService('GuiService')
+local GuiService = game:GetService("GuiService")
+local VRService = game:GetService("VRService")
 local isTenFootInterface = GuiService:IsTenFootInterface()
 
 --[[ Modules ]]--
@@ -229,7 +230,13 @@ function Methods.SetVisible(devConsole, visible, animate)
 			tab:RecordInitialOpen()
 		end
 	end
-  
+  	if VRService.VREnabled then
+  		if visible then
+			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
+		else
+			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+		end
+	end
 end
 
 -----------------
@@ -260,6 +267,13 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 	--frame.ClipsDescendants = true
 	frame.Visible = devConsole.Visible
 	frame.Selectable = not isTenFootInterface
+
+	local function onVREnabled()
+		frame.Modal = VRService.VREnabled
+	end
+	onVREnabled()
+	VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabled)
+
 	devConsole.Frame = frame
 	devConsole:ResetFrameDimensions()
 	

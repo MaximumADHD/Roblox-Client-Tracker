@@ -41,9 +41,6 @@ local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
-local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
-
 -- Enable the old SettingsHub.lua if the EnablePortraitMode flag is off
 local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
 local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
@@ -1106,13 +1103,11 @@ local function CreateSettingsHub()
 	end
 
 	function setOverrideMouseIconBehavior()
-		pcall(function()
-			if UserInputService:GetLastInputType() == Enum.UserInputType.Gamepad1 then
-				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-			else
-				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
-			end
-		end)
+		if UserInputService:GetLastInputType() == Enum.UserInputType.Gamepad1 or VRService.VREnabled then
+			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+		else
+			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
+		end
 	end
 
 	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput)
@@ -1175,11 +1170,9 @@ local function CreateSettingsHub()
 
 
 			setOverrideMouseIconBehavior()
-			pcall(function() lastInputChangedCon = UserInputService.LastInputTypeChanged:connect(setOverrideMouseIconBehavior) end)
-			if UserInputService.MouseEnabled then
-				pcall(function()
-					UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
-				end)
+			lastInputChangedCon = UserInputService.LastInputTypeChanged:connect(setOverrideMouseIconBehavior)
+			if UserInputService.MouseEnabled and not VRService.VREnabled then
+				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceShow
 			end
 
 			if customStartPage then
@@ -1233,7 +1226,9 @@ local function CreateSettingsHub()
 				chatWasVisible = false
 			end
 
-			pcall(function() UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None end)
+			if not VRService.VREnabled then
+				UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+			end
 
 			clearMenuStack()
 			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
@@ -1376,10 +1371,8 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	if platform ~= Enum.Platform.XBoxOne or enableConsoleReportAbusePage then
-		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-		this.ReportAbusePage:SetHub(this)
-	end
+	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+	this.ReportAbusePage:SetHub(this)
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)

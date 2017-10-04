@@ -365,7 +365,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[541807 bytes]
+[550332 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -377,19 +377,19 @@ content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
 [10523 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
-[37057 bytes]
+[36246 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenuOld.lua
-[28658 bytes]
+[27902 bytes]
 
 content/scripts/CoreScripts/CoreScripts/HealthScript.lua
-[10404 bytes]
+[10198 bytes]
 
 content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [25177 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[39533 bytes]
+[39534 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
@@ -422,7 +422,7 @@ content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
 [14612 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[65855 bytes]
+[65865 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
 [15884 bytes]
@@ -440,7 +440,7 @@ content/scripts/CoreScripts/Modules/ChatUtil.lua
 [711 bytes]
 
 content/scripts/CoreScripts/Modules/Common/CommonUtil.lua
-[579 bytes]
+[1277 bytes]
 
 content/scripts/CoreScripts/Modules/Common/Http.lua
 [3151 bytes]
@@ -449,7 +449,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[104314 bytes]
+[104777 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -467,13 +467,13 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22874 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[67139 bytes]
+[66745 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
 
 content/scripts/CoreScripts/Modules/PromptCreator.lua
-[24865 bytes]
+[24866 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/BubbleChat/BubbleChat.lua
 [22793 bytes]
@@ -617,7 +617,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDa
 [4896 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
-[2117 bytes]
+[2971 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MeCommand.lua
 [789 bytes]
@@ -650,7 +650,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[52106 bytes]
+[52163 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [26960 bytes]
@@ -662,34 +662,34 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4841 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21077 bytes]
+[21078 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
-[7994 bytes]
+[8220 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[14614 bytes]
+[13456 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5376 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[48844 bytes]
+[48471 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHubOld.lua
-[40971 bytes]
+[40614 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [11023 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[81723 bytes]
+[81096 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [77190 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
-[3396 bytes]
+[4077 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
 [5795 bytes]
@@ -757,6 +757,9 @@ content/scripts/CoreScripts/Modules/TenFootInterface.lua
 content/scripts/CoreScripts/Modules/TopbarConstants.lua
 [1225 bytes]
 
+content/scripts/CoreScripts/Modules/VR/Controllers/ViveController.lua
+[11578 bytes]
+
 content/scripts/CoreScripts/Modules/VR/Dialog.lua
 [6092 bytes]
 
@@ -764,7 +767,7 @@ content/scripts/CoreScripts/Modules/VR/Healthbar3D.lua
 [9301 bytes]
 
 content/scripts/CoreScripts/Modules/VR/LaserPointer.lua
-[31631 bytes]
+[22130 bytes]
 
 content/scripts/CoreScripts/Modules/VR/NotificationHub.lua
 [24526 bytes]
@@ -773,19 +776,22 @@ content/scripts/CoreScripts/Modules/VR/NotifierHint3D.lua
 [2110 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Panel3D.lua
-[32846 bytes]
+[29907 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Recenter.lua
 [3051 bytes]
 
 content/scripts/CoreScripts/Modules/VR/UserGui.lua
-[2223 bytes]
+[2222 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VirtualKeyboard.lua
 [40103 bytes]
 
+content/scripts/CoreScripts/Modules/VR/VRControllerModel.lua
+[5328 bytes]
+
 content/scripts/CoreScripts/Modules/VR/VRHub.lua
-[3473 bytes]
+[5804 bytes]
 
 content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
 [7940 bytes]
@@ -803,7 +809,7 @@ content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lu
 [9479 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
-[10488 bytes]
+[10913 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
 [47762 bytes]
@@ -812,7 +818,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewC
 [31362 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
-[21059 bytes]
+[20135 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5345 bytes]
@@ -841,6 +847,9 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/Scrip
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/TrackCamera.lua
 [1613 bytes]
 
+content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/VRCamera.lua
+[7972 bytes]
+
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/WatchCamera.lua
 [1884 bytes]
 
@@ -851,7 +860,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/TransparencyCont
 [5543 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript.lua
-[15595 bytes]
+[16310 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.lua
 [4368 bytes]
@@ -879,6 +888,12 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/T
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VehicleController.lua
 [6699 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VRNavigation.lua
+[12563 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/PathDisplay.lua
+[3207 bytes]
 
 content/sky/content-sky.zip
 [14152 bytes]
@@ -1093,11 +1108,14 @@ content/textures/concrete/normaldetail.dds
 content/textures/concrete/specular.dds
 [171623 bytes]
 
+content/textures/ConstraintCursor.png
+[165 bytes]
+
 content/textures/content-textures.zip
 [3175 bytes]
 
 content/textures/content-textures2.zip
-[6079380 bytes]
+[6184143 bytes]
 
 content/textures/content-textures3.zip
 [26376277 bytes]
@@ -1189,8 +1207,14 @@ content/textures/fabric/specular.dds
 content/textures/face.png
 [855 bytes]
 
+content/textures/FlatCursor.png
+[432 bytes]
+
 content/textures/glow.png
 [36056 bytes]
+
+content/textures/GlueCursor.png
+[648 bytes]
 
 content/textures/gradient.png
 [165843 bytes]
@@ -1218,6 +1242,9 @@ content/textures/grass/normaldetail.dds
 
 content/textures/grass/specular.dds
 [687955 bytes]
+
+content/textures/HingeCursor.png
+[451 bytes]
 
 content/textures/ice/diffuse.dds
 [152 bytes]
@@ -1299,6 +1326,9 @@ content/textures/metal/normaldetail.dds
 
 content/textures/metal/specular.dds
 [167904 bytes]
+
+content/textures/MotorCursor.png
+[477 bytes]
 
 content/textures/MouseLockedCursor.png
 [1650 bytes]
@@ -2884,6 +2914,12 @@ content/textures/ui/VR/rectBackgroundWhite.png
 content/textures/ui/VR/toggle2D.png
 [698 bytes]
 
+content/textures/ui/VR/VRPointerDiscBlue.png
+[41581 bytes]
+
+content/textures/ui/VR/VRPointerDiscRed.png
+[59830 bytes]
+
 content/textures/ui/vr_active.png
 [3987 bytes]
 
@@ -2973,6 +3009,9 @@ content/textures/water/normal_24.dds
 
 content/textures/water/normal_25.dds
 [84969 bytes]
+
+content/textures/WeldCursor.png
+[413 bytes]
 
 content/textures/whiteCircle.png
 [3929 bytes]

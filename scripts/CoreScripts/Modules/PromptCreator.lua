@@ -48,7 +48,7 @@ local WasCoreGuiNavigationEnabled = false
 local WasGuiNavigationEnabled = false
 local WasAutoSelectGuiEnabled = false
 
-local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI") end)
+local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
 -- Inital prompt options. These are passed to CreatePrompt.

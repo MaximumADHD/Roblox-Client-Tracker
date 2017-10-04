@@ -1293,7 +1293,8 @@ local function Initialize()
 
   createVolumeOptions()
 
-  if platform == Enum.Platform.Windows or platform == Enum.Platform.UWP or platform == Enum.Platform.OSX then
+  -- we disable quality slider on Xbox since it has FRM disabled and forced to max quality level so the slider is useless
+  if platform ~= Enum.Platform.XBoxOne then
     createGraphicsOptions()
   end
 

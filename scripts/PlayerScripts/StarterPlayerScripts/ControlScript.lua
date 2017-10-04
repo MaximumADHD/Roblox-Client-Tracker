@@ -23,6 +23,7 @@
 local ContextActionService = game:GetService('ContextActionService')
 local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
+local VRService = game:GetService('VRService')
 -- Settings and GameSettings are read only
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -107,7 +108,7 @@ local DPadModule = require(script.MasterControl:WaitForChild('DPad'))
 local DefaultModule = ControlModules.Thumbstick
 local TouchJumpModule = require(script.MasterControl:WaitForChild('TouchJump'))
 MasterControl.TouchJumpModule = TouchJumpModule
-
+local VRNavigationModule = require(script.MasterControl:WaitForChild('VRNavigation'))
 local keyboardModule = require(script.MasterControl:WaitForChild('KeyboardMovement'))
 ControlModules.Gamepad = require(script.MasterControl:WaitForChild('Gamepad'))
 
@@ -315,6 +316,16 @@ function ControlModules.Keyboard:Disable()
 	end
 end
 
+ControlModules.VRNavigation = {}
+
+function ControlModules.VRNavigation:Enable()
+	VRNavigationModule:Enable()
+end
+
+function ControlModules.VRNavigation:Disable()
+	VRNavigationModule:Disable()
+end
+
 if IsTouchDevice then
 	BindableEvent_OnFailStateChanged = script.Parent:WaitForChild('OnClickToMoveFailStateChange')
 end
@@ -397,6 +408,11 @@ end
 local switchToInputType = function(newLastInputType)
 	lastInputType = newLastInputType
 	
+	if VRService.VREnabled then
+		ControlState:SwitchTo(ControlModules.VRNavigation)
+		return
+	end
+	
 	if lastInputType == Enum.UserInputType.Touch then
 				ControlState:SwitchTo(ControlModules.Touch)
 	elseif lastInputType == Enum.UserInputType.Keyboard or
@@ -424,17 +440,30 @@ UserInputService.GamepadDisconnected:connect(function(gamepadEnum)
 	local connectedGamepads = UserInputService:GetConnectedGamepads()
 	if #connectedGamepads > 0 then return end
 	
-	if UserInputService.KeyboardEnabled then
-		ControlState:SwitchTo(ControlModules.Keyboard)
-	elseif IsTouchDevice then
-		ControlState:SwitchTo(ControlModules.Touch)
+	if not VRService.VREnabled then
+		if UserInputService.KeyboardEnabled then
+			ControlState:SwitchTo(ControlModules.Keyboard)
+		elseif IsTouchDevice then
+			ControlState:SwitchTo(ControlModules.Touch)
+		end
 	end
 end)
 
 UserInputService.GamepadConnected:connect(function(gamepadEnum)
-	ControlState:SwitchTo(ControlModules.Gamepad)
+	if not VRService.VREnabled then
+		ControlState:SwitchTo(ControlModules.Gamepad)
+	end
 end)
 
 switchToInputType(UserInputService:GetLastInputType())
 UserInputService.LastInputTypeChanged:connect(switchToInputType)
 
+VRService.Changed:connect(function(prop)
+	if prop ~= "VREnabled" then
+		return
+	end
+	
+	if VRService.VREnabled then
+		ControlState:SwitchTo(ControlModules.VRNavigation)
+	end
+end)

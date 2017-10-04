@@ -46,7 +46,7 @@ local FixBadgeTextBeingCutOff = FixBadgeTextBeingCutOffSuccess and FixBadgeTextB
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
 local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
 
-local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI") end)
+local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
 --[[ Script Variables ]]--

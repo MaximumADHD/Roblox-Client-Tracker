@@ -17,14 +17,11 @@ local GameSettings = Settings.GameSettings
 
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
-
-local enableConsolePlayerSideBarSuccess, enableConsolePlayerSideBarValue = pcall(function() return settings():GetFFlag("EnableConsolePlayerSideBar") end)
-local enableConsolePlayerSideBar = enableConsolePlayerSideBarSuccess and enableConsolePlayerSideBarValue
-local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
-local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
-
 local fixGamePadPlayerlistSuccess, fixGamePadPlayerlistValue = pcall(function() return settings():GetFFlag("FixGamePadPlayerlist") end)
 local fixGamePadPlayerlist = fixGamePadPlayerlistSuccess and fixGamePadPlayerlistValue
+
+local fixConsoleGuestIconSuccess, fixConsoleGuestIconValue = pcall(function() return settings():GetFFlag("FixConsoleGuestIcon") end)
+local fixConsoleGuestIcon = fixConsoleGuestIconSuccess and fixConsoleGuestIconValue
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -47,7 +44,6 @@ local blockingUtility = playerDropDownModule:CreateBlockingUtility()
 local playerDropDown = playerDropDownModule:CreatePlayerDropDown()
 
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
-local reportAbuseMenu = enableConsoleReportAbusePage and require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 
 --[[ Remotes ]]--
 local RemoveEvent_OnFollowRelationshipChanged = nil
@@ -121,6 +117,7 @@ AssetGameUrl = string.gsub(BaseUrl, 'www', 'assetgame')
 
 --Make SideBar if on Console
 local SideBar = nil
+local reportAbuseMenu = nil
 
 --Set Visible Func
 local setVisible = nil
@@ -250,7 +247,7 @@ local function setAvatarIconAsync(player, iconImage)
 
   local isFinalSuccess = false
   if thumbnailLoader then
-    local loader = thumbnailLoader:Create(iconImage, player.UserId,
+    local loader = thumbnailLoader:Create(iconImage, fixConsoleGuestIcon and math.max(1, player.UserId) or player.UserId,
       thumbnailLoader.Sizes.Small, thumbnailLoader.AssetType.Avatar, true)
     isFinalSuccess = loader:LoadAsync(false, true, nil)
   end
@@ -537,7 +534,7 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
   pcall(function()
     statText.Localize = false
   end)
-  
+
   if isTenFootInterface then
     statText.ZIndex = 2
   end
@@ -826,17 +823,19 @@ local function createPlayerSideBarOption(player)
         end)
       end
 
-      if reportAbuseMenu then
-        --We can't report guests/localplayer
-        if addReportItem then
-          SideBar:AddItem(Util.Upper(Strings:LocalizedString("Report Player")), function()
-            --Force closing player list before open the report tab
-            isOpen = false
-            setVisible(false)
-            GuiService.SelectedCoreObject = nil
-            reportAbuseMenu:ReportPlayer(player)
-          end)
-        end
+      if not reportAbuseMenu then
+        reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+      end
+
+      --We can't report guests/localplayer
+      if addReportItem then
+        SideBar:AddItem(Util.Upper(Strings:LocalizedString("Report Player")), function()
+          --Force closing player list before open the report tab
+          isOpen = false
+          setVisible(false)
+          GuiService.SelectedCoreObject = nil
+          reportAbuseMenu:ReportPlayer(player)
+        end)
       end
 
       local closedCon = nil
@@ -862,11 +861,7 @@ local function onEntryFrameSelected(selectedFrame, selectedPlayer)
   if isTenFootInterface then
     -- open the profile UI for the selected user. On console we allow user to select themselves
     -- they may want quick access to platform profile features
-    if enableConsolePlayerSideBar then
-      createPlayerSideBarOption(selectedPlayer)
-    else
-      openPlatformProfileUI(selectedPlayer.UserId)
-    end
+    createPlayerSideBarOption(selectedPlayer)
     return
   end
 

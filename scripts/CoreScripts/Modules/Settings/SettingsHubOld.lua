@@ -46,8 +46,6 @@ local chatWasVisible = false
 local resetButtonFlagSuccess, resetButtonFlagValue = pcall(function() return settings():GetFFlag("AllowResetButtonCustomization") end)
 local resetButtonCustomizationAllowed = (resetButtonFlagSuccess and resetButtonFlagValue == true)
 
-local enableConsoleReportAbusePageSuccess, enableConsoleReportAbusePageValue = pcall(function() return settings():GetFFlag("EnableConsoleReportAbusePage") end)
-local enableConsoleReportAbusePage = enableConsoleReportAbusePageSuccess and enableConsoleReportAbusePageValue
 
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
@@ -1134,10 +1132,8 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	if platform ~= Enum.Platform.XBoxOne or enableConsoleReportAbusePage then
-		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-		this.ReportAbusePage:SetHub(this)
-	end
+	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+	this.ReportAbusePage:SetHub(this)
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)

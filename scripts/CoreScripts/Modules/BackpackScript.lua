@@ -166,11 +166,8 @@ local function EvaluateBackpackPanelVisibility(enabled)
 end
 
 local function ShowVRBackpackPopup()
-	if BackpackPanel then
-		BackpackPanel:SetVisible(EvaluateBackpackPanelVisibility(true))
-		if BackpackPanel.transparency > 0.5 then
-			BackpackPanel:RequestPositionUpdate()
-		end
+	if BackpackPanel and EvaluateBackpackPanelVisibility(true) then
+		BackpackPanel:ForceShowForSeconds(2)
 	end
 end
 
@@ -1431,6 +1428,7 @@ CloseInventoryButton.Position = UDim2.new(0, 0, 0, -50)
 CloseInventoryButton.MouseButton1Click:connect(function()
 	if InventoryFrame.Visible then
 		BackpackScript.OpenClose()
+		spawn(function() GuiService:SetMenuIsOpen(false) end)
 	end
 end)
 
@@ -1897,7 +1895,7 @@ local function OnVREnabled()
 			local timeSinceToolChange = now - TimeOfLastToolChange
 			local transparency = math.clamp(timeSinceToolChange / VR_FADE_TIME, 0, 1)
 
-			if transparency == 1 and BackpackPanel:IsVisible() then
+			if transparency == 1 and BackpackPanel:IsVisible() and not InventoryFrame.Visible then
 				BackpackPanel:SetVisible(false)
 			end
 

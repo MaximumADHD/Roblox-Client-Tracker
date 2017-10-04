@@ -388,7 +388,6 @@
         <addaction name="testPhysicsStatsAction" action="testPhysicsStatsAction" text="Physics" style="textbesideicon" />
         <addaction name="testNetworkStatsAction" action="testNetworkStatsAction" text="Network" style="textbesideicon"/>
         <addaction name="testSummaryStatsAction" action="testSummaryStatsAction" text="Summary" style="textbesideicon"/>
-        <addaction fflag="StudioCustomStatsEnabled" name="testCustomStatsAction" action="testCustomStatsAction" text="Custom" style="textbesideicon"/>
         <addaction name="testClearStatsAction" action="testClearStatsAction" text="Clear" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" height="32" width="32" />
       </Group>
     </TabPage>

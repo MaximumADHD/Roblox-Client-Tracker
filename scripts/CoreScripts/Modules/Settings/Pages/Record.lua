@@ -9,6 +9,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local TextService = game:GetService("TextService")
+local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -51,6 +52,12 @@ local function Initialize()
 	else
 		this.TabHeader.Icon.Title.Text = "Record"
 	end
+
+	local function onVREnabled()
+		this.TabHeader.Visible = not VRService.VREnabled
+	end
+	onVREnabled()
+	VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabled)
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Record"

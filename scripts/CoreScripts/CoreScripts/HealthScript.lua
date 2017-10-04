@@ -13,12 +13,6 @@ while not game:GetService("Players") do
 	wait(1/60)
 end
 
-local useCoreHealthBar = false
-local success = pcall(function() useCoreHealthBar = game:GetService("Players"):GetUseCoreScriptHealthBar() end)
-if not success or not useCoreHealthBar then
-	return
-end
-
 local currentHumanoid = nil
 
 local HealthGui = nil

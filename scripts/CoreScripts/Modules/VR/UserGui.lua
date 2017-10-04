@@ -70,6 +70,6 @@ VRKeyboard.ClosedEvent:connect(function()
 	UserGuiModule:Update()
 end)
 
-UserGuiModule:SetVisible(false)
+UserGuiModule:SetVisible(true)
 
 return UserGuiModule
