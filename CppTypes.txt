@@ -100,6 +100,8 @@ Classes
 	BaseThreadPool
 	BasicPartInstance
 	BasicSpatialHashPrimitive
+	Bdj
+	BeB
 	BevelMesh
 	BillboardGui
 	BinaryInput
@@ -356,8 +358,6 @@ Classes
 	CustomEvent
 	CustomEventReceiver
 	CustomParticleEmitter
-	CustomStatsCommand
-	CustomStatsGuiJSON
 	CVideoStream
 	CVideoStreamFilter
 	CWin32Heap
@@ -734,7 +734,6 @@ Classes
 	KeyframeSequence
 	KeyframeSequenceProvider
 	Landed
-	LeaveGameVerb
 	LeftMotorTool
 	LegacyCharacterAppearance
 	length_error
@@ -773,7 +772,6 @@ Classes
 	ManualSurfaceJointInstance
 	ManualWeld
 	ManualWeldJoint
-	Marker
 	MarkerItem
 	MarketplaceApiClient
 	MarketplaceService
@@ -991,7 +989,6 @@ Classes
 	RobloxReplicatedStorage
 	RobloxView
 	Rocket
-	RockyDbgItem
 	RockyItem
 	RodConstraint
 	RootInstance
@@ -1361,7 +1358,6 @@ Enums
 	EThrottleType
 	ExplosionType
 	FillDirection
-	FilterResult
 	FMOD_OPENSTATE
 	FMOD_RESULT
 	FMOD_SPEAKERMODE
@@ -1432,6 +1428,7 @@ Enums
 	TouchMovementMode
 	TweenEasingDirection
 	TweenEasingStyle
+	UserCFrame
 	UserInputState
 	UserInputType
 	VerticalAlignment
@@ -1439,5 +1436,6 @@ Enums
 	VideoQuality
 	VisualStyle
 	VisualTrussStyle
+	VRTouchpadMode
 	XAlignment
 	YAlignment

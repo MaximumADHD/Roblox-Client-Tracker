@@ -95,7 +95,6 @@ CleanCacheMoveMutex
 ClearPedingTexturesOnCancel
 CLI15496
 CLI16089_2
-CLI17955
 ClickDetectorCursorIconEnabled
 ClickDetectorMobileFix
 ClickDetectorSurfaceGuiSunkEvent
@@ -104,6 +103,7 @@ ClientInstanceQuotaInitial
 ClientNetworkInfluxHundredthsPercentage
 ClientUseNewClientTicket
 CloseMenuAfterOpenConsole
+CombineJoinGamePlaceLauncherAndTeleportImp
 ConfidentialUpdates
 ConstraintToolInitializationFixEnabled
 ContactPipelineDraggerNoOverlapIgnored
@@ -117,6 +117,7 @@ ContentProviderStudio
 ContentProviderThreadPoolSize
 CoreScriptFixBadgeTextBeingCutOff
 CoreScriptsUseNewUserThumbnailAPI
+CoreScriptsUseNewUserThumbnailAPI2
 CreatePlacePerMinute
 CreatePlacePerPlayerPerMinute
 CSGAllowUnorderedProperties
@@ -127,6 +128,7 @@ CSGUnionsSizeShouldNeverBe000
 CSGVoxelizerFadeRadius
 CurvesFTW
 CyclicExecutiveThrottlingCancelWorldStepAccum
+DataModelDisableParallelDataOut
 DataModelInitializationParamsUseRobloxLocale
 DataRequestInQueueTime
 DataStore429MinReponseTimeMSec
@@ -156,6 +158,7 @@ DataStoreRefetchFixedRequestLimit
 DataStoreRefetchPerPlayerRequestLimit
 DataStoreRetryWaitTimeMSec
 DataStoreSameKeyPerMinute
+DataStoreThrottleWarningMsgs
 DataStoreTouchTimeoutInSeconds
 DataStoreWaitOnYieldingRequestsExpiration
 DebugAdornsDisabled
@@ -227,7 +230,9 @@ DisableDataModelSaveOnClose
 DisableFriendServiceLoadFriendRequests
 DisableHealthDeathUntilHealthAppears
 DisableInstanceLockUnlock
+DisableLoadFile
 DisableNeckDeathUntilNeckAppears
+DisableOldStylePlaceFilter
 DisablePassiveClientLogProcessing
 DisableServerGetSetTeleportSetting
 DisableVRCheckInRecording
@@ -236,7 +241,6 @@ DisconnectInfluxHundredthsPercentage
 DisconnectReportPermyriad
 DisplayJoinStatusToPlayer
 DisplayMeaningfulCannotConnectError
-DisplayPhyOutStatisticsForPhyNewSender
 DisplayUserFriendlyJoinStatus
 DisplayVersionInformation
 DoLocalizationServiceOverrideLocale
@@ -259,8 +263,6 @@ EnableAnimationTrackAdjustWeightReplication
 EnableAttachmentsAsBillboardGuiAdornee
 EnableClientHttpAnalytics
 EnableCollisionGroups
-EnableConsolePlayerSideBar
-EnableConsoleReportAbusePage
 EnableContextActionPriority
 EnableContextActionServiceCallbackResult
 EnabledAppShell3D
@@ -286,7 +288,6 @@ EnablePortraitModeQA
 EnableRandomSpawn
 EnableRelativePositioningProperties
 EnableRenderThrottling3
-EnableReportAbuseMenuFix
 EnableReportPlaceIDAboveMemory
 EnableResponsiveUIFix
 EnableRobloxEventStream
@@ -295,9 +296,12 @@ EnableServerHttpAnalytics
 EnableTeamMemberChangeEvent
 EnableTextboxNativeInput
 EnableTrackingAccessoryDestoyedWithLiveSignals
+EnableViveCapTouchInput
 EnableVoiceASR
 EnableVoiceRecording
 EnableVRInputFromHand
+EnableVRServiceGuiInputUserCFrame
+EnableVRServiceTouchpadAPI
 EnableWakingPGSJointsForNonSolverPrimitives
 EnableWeldConstraint2
 EnsafenBuildJointsFromAttachments
@@ -312,7 +316,6 @@ FavorIPV4Connections
 FileSystemGetCacheDirectoryLikeAndroid
 FilterAllPlayerPropChanges
 FilterCheckMap
-FilterDoublePass
 FilterEmptyStringThrowEarly
 FilterParticleEmitEvent
 FireCharacterAddedAfterSpawn
@@ -320,6 +323,7 @@ FireClockTimeChanged
 FixAlwaysOnTopSurfaceGuiInput
 FixCharacterStuckInFreefall
 FixCharacterStutterInFreefall
+FixConsoleGuestIcon
 FixCursorAppearingOnMobile
 FixDataStoreMetrics
 FixDeadDisabledCrash
@@ -336,7 +340,6 @@ FixInterpolationRotationalGoal
 FixInterpolationTargetFrame
 FixIsCurrentlyVisibleSurfaceGuis
 FixJointDestroyedPrimitiveInsert
-FixLayerCollectorRects
 FixLayoutChangedConnections
 FixNoPhysicsUprightInHumanoidState
 FixPageLayoutSync
@@ -354,20 +357,16 @@ FixSensitivitySliderCurve
 FixSensitivitySliderMin
 FixSettingsMenuDropdowns
 FixSettingsMenuVRLua
-FixShiftLockCanSeeThroughWalls
 FixSmallSurfaceGuiMouseInput
 FixStudioFeaturesAppearingInVRApp
 FixSurfaceGuiGamepadNav
 FixSurfaceGuiGazeSelect
 FixSurfaceGuisBreakingAfterRespawn
 FixTeleportVideoRecordingCrash
-FixTextBoxLoseSelection
 FixTouchEndedReporting
-FixTouchSelectingTextBox
 FixUpsidedownAvatar
 FixVRGamepadInputEvents
 FixWeldedHumanoidsDeath
-FixWhitespaceWrongTextBounds2
 FixWindowsInputCaptureHandling
 FMODSoundChannels
 FontIgnoreWhitespaceInLineBreaking2
@@ -389,6 +388,7 @@ GameKeyboardV2IOS
 GamepadCameraSensitivityEnabled
 GamePerfMonitorPercentage
 GamePerfMonitorReportTimer
+GenerateRobloxAnalyticsUrl
 GenerateSessionIDAtInit
 GetCharacterAppearanceInfoEnabled
 GetPlayerPlaceInstanceCheckTargetGameID
@@ -398,6 +398,7 @@ GraphicsAndroidMapBufferWorkaround
 GraphicsD3D11DisableAltEnter
 GraphicsDX11BootcampDetection
 GraphicsDX11InstancingEnabled
+GraphicsDX11InstancingIntelEnabled
 GraphicsETC2
 GraphicsOculusDetectTimeout
 GraphicsReportingInitErrorsToGAEnabled
@@ -497,11 +498,13 @@ JoinTime_AvatarFastClusterSignal
 JoinTime_AvatarTextureCompositorSignal
 JoinTime_HttpQueuePrio
 JoinTime_LocalUserAnimationPriority
+JoinTime_LocalUserClusterPriority
 JoinTime_LocalUserMeshPriority
 JoinTime_LocalUserTexturePriority
 JoinTime_PassTexturePriority
 JoinTimeCounters
 JoinTimeCounters_JoinInfluxHundredthsPercentage
+JointTime_TextureCooldown
 KeepPlayersBeforeOnClose
 KeyframeSequenceCacheMemoryOptimization
 KeyframeSequenceEnableFrozen
@@ -513,6 +516,7 @@ LoadCorescriptTranslations
 LoadFormattedAssetIds
 LoadPlayerScriptsFromLua
 LoadStarterGearWithoutLoadCharacter
+LoadStudioCursorImageLocally
 LoadTheLoadingScreenFaster
 LocalFilterStringDeprecationWarning
 LocalFilterStringDeprecationWarning2
@@ -603,6 +607,7 @@ NetworkFamilyToFavor
 NetworkJoinHealthStats
 NetworkNewClusterItem
 NetworkQualityStatsOSCorrection
+NetworkSchemaAdditionalCleanup
 NetworkSchemaCompressionRatio
 NetworkStatRefreshRate
 NetworkStreamingGCMaxMicroSecondLimit
@@ -614,6 +619,8 @@ NoCacheForLocalContent
 NoChangelingsNeedApply
 NodeIntervalCapMS
 NoJumpWhileSwimming
+NoNetworkedHttp
+NonJsonParseType
 NoPhysicsSenderCompression
 NullToolSkipUpdateIfNoClickDetectors
 NullToolSkipUpdateIfNoClickDetectors2
@@ -623,6 +630,7 @@ NumPhysicsPacketsPerStep
 NumPhysicsTouchPacketsPerStep
 NumSmoothingPasses
 ObjExporterCorrectedSpecular
+ObjExporterDisableCompressedDiffuse
 ObjExporterLinearizeColors
 OnCloseTimeoutInSeconds
 OnContactOwnerBufferTimeCentiSec
@@ -637,13 +645,14 @@ OptimizedContactPipelineSpatialHashOverlapToleranceMicro
 OptimizedContactWakeDepth
 OptimizeMeshesOnImport
 Order66
-OrderedUIRendering
 OutlineBrightnessMax
 OutlineBrightnessMin
 OutlineThickness
 OutputClientTeleportErrorsOnServer
 OverrideStarterScriptInStudio
+OverrideThrottlingForPendingRequests
 PacketErrorInfluxHundredthsPercentage
+PageLayoutInputTypeControl
 ParentLockStartPlayerChildren
 PartColor3Uint8Enabled
 PartInstanceCofMPropertyExposed
@@ -670,6 +679,7 @@ PGSBallInSocketCorrectionDamping
 PGSCacheOptimizationEnabled
 PGSConstraintAchievePositionFix
 PGSConstraintTwistLimitsEnabled
+PGSFixVirtualObjects
 PGSFrictionUpdatePeriod
 PGSGyroscopicEffectPrecisionPercent
 PGSJumpForceAdjustment
@@ -707,7 +717,6 @@ PlaceLauncherExceptionInfluxHundredthsPercentage
 PlaceLauncherUsePOST
 PlayerAcceptPlayerScriptsStatus
 PlayerDropDownEnabled
-PlayerGuiLoadsWithoutCharacterAutoLoads
 PlayerListDoProfile
 PluginCollectUntranslatedEnabled
 PointBalanceCacheInvalidateTimeMs
@@ -729,10 +738,12 @@ PurchaseMismatchReportRate
 QuickHttpWhenGameClose
 R15CollisionGeometry3
 R15DefaultCollisionType
-RadialMenuAfterLoadingScreen2
 RaiseSendPriority
+RakNetConnectionStartWithOpenWindow
 RakNetDetectNetUnreachable
 RakNetMaxSplitPacketCount
+RakNetResendMaxThresholdTimeInUs
+RakNetResendMaxThresholdTimeInUs4Bytes
 RakNetSupportIpV6
 RandomSpawnRetryTimes
 RbxMemorySetOnAllocate
@@ -749,7 +760,6 @@ RegisterFileErrorDetailPercentage
 RegLambda
 RemoteDelayedQueueLimit
 RemoveHumanoidHealthScriptsFromLegacyContentTable
-RemoveLeaveGameVerb
 RemoveNPCSitFromClient
 RemoveTweenWhenCancelled
 RenderInstancingEnabled6
@@ -766,6 +776,7 @@ RenderVulkanAndroid4
 ReplicateLuaMoveDirection
 ReplicatorFixParallelAccessToDefaultObjectMap
 ReplicatorMaxPacketBytesSentToInfluxOnError
+ReplicatorSupportInt64Type
 ReplicatorSupportRegion3Types
 ReportCharacterLoadTimeMetrics2
 ReportCharacterLoadTimeMetricsInverseProbability
@@ -802,9 +813,6 @@ SendPlayerGuiEarly
 SendRakNetStatsInterval
 SendRakNetStatsThrottle
 SendScreenOrientationToGA
-ServerAPICleanup1
-ServerAPICleanup2
-ServerAPICleanup3
 ServerCheckLastRecievedInitializedBeforeSend
 ServerConfigCloudEditSavePeriodSeconds
 ServerNotifyPlayerScriptsStatus
@@ -819,9 +827,11 @@ SetSecureFlag3
 SetSimulationRadiusInPhysicsSender
 SetUnder13FromAppShell
 ShowFormFactorDeprecatedWarning
+ShowJoinErrorDescriptionIfAny
 ShowLocalizationService
 SimplifyStudioCameraControlLogic
 SimToInterBufferClearFactorTenths
+SizeChangedMidLayoutFix
 SizeFromContentsEnabled
 SkipModuleSource2
 SkySunMoonTextureAndSize
@@ -831,7 +841,7 @@ SmoothTerrainMaxCppRegion
 SmoothTerrainMaxLuaRegion
 SmoothTerrainPhysicsCacheSize
 SmoothTerrainPhysicsRayAabbSlop
-SolverBatchedIslandsEnabled
+SolverAngularVelocityAssignmentFix
 SolverUsageTimeMeasurementInterval
 SolverUsesNewRigidBodyType
 SoundLoadAsync
@@ -867,6 +877,7 @@ StudioSaveSelectionToChangeHistoryWaypoints
 StudioStartServerBoyGuestCharacterAppearance
 StudioStartServerGirlGuestCharacterAppearance
 StudioStartServerGuestAppearance
+StudioStickyHingeAndMotorSurfaceTool
 StudioStopWinXPReporting
 StudioTerrainRegionReplicationFix
 StudioUndoCommandTeamCreateModelFix
@@ -903,6 +914,7 @@ TeleportToLastServerOnTeleportFailed
 TerrainVoxelizationInPerform
 TestForBadNormal
 TexAtlasUpdateLineHeight
+TextBoxLoseFocusForTouch
 TextBoxManualFocusRelease
 TextBoxSelectable
 TextFilterCacheAge
@@ -910,11 +922,11 @@ TextFilterLateStudioBypass
 TextFilterMaxCachedRequestMilliseconds
 TextSizeLimit
 TextUseLocalizationV2
+ThreadedCacheableContentProvider
 ThrottleDeveloperConsoleEvents
 ThrottledVelocityThresholdTenths
 ThumbnailJsonExportFOV
 TimeBetweenCheckingApiAccessMillis
-TouchScrollableAlwaysSinkMouseWheelInput
 TouchScrollDontSinkBeginEvent
 TrackGetKeyframeSequence
 TrackPurchaseEvents
@@ -924,7 +936,6 @@ TrackSmallCSGPercentage
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
 TypesetterFontFallback2
-TypesetterForceAutoHint
 TypesetterSubstituteOnReject
 UIScaleComponentEnabled
 UnifyAlwaysOnTopRenderPath
@@ -947,6 +958,7 @@ UrlReconstructRejectInvalidSchemes
 UseActivatedEvent
 UseBitCountLimit
 UseContentFolderHumanoidHealthScript
+UseControllerModelsVR
 UseCustomAnimations
 UseDeltaForFBAdorn
 UseDistanceThinning
@@ -973,8 +985,8 @@ UseNotificationsLocalization
 UseOldClientTicketNameForNewClientTicket
 UseOptimizedGetPartsObscuringTarget
 UsePasiveOnlyForBind
-UsePlaceFilterSuffix
 UsePurchasePromptLocalization
+UseR15PartsCache
 UserAllCamerasInLua
 UserAllowDisableCustomAnims
 UserAllowDisableCustomAnims2
@@ -987,6 +999,7 @@ UseRoundRobin
 UserPlayCharacterSoundWhenFE
 UserPortraitPopperFix
 UserToolR15Fix
+UserUseCachedFriendChecksForChat
 UserUseNewClickToMove
 UseSort
 UseStepAnimations
@@ -996,8 +1009,6 @@ Utf8DotGraphemesEnabled
 ValidateLauncherPercent
 ValidHatsOnly
 VerifyIncomingFriendRequestsBeforeNotifying
-VRPurchasePromptsEnabled
-VRTestControlSchemes
 WaitForChildWarnTimeOutTime
 WaitGetInQueueTime
 WaitToUseCompositeForAccoutrements
@@ -1012,6 +1023,5 @@ WorldStepDtAveExpFactorHundredth
 WorldStepMax
 WorldStepsOffsetAdjustRate
 WriteFullDmpPercent
-XboxEnableGA
-XboxUseCrossPlatformPlay2
+XboxUseCrossPlatformPlay3
 XboxUseRobloxInput

@@ -55,6 +55,7 @@ Class AdService : Instance [notCreatable]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [notCreatable]
 	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
+	Function void AnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) [RobloxScriptSecurity]
 	Function void AnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
@@ -88,9 +89,6 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) [PluginSecurity]
 Class AssetService : Instance
-	Function void AssetService:SetAssetRevertUrl(string revertUrl) [LocalUserSecurity]
-	Function void AssetService:SetAssetVersionsUrl(string versionsUrl) [LocalUserSecurity]
-	Function void AssetService:SetPlaceAccessUrl(string accessUrl) [LocalUserSecurity]
 	YieldFunction int AssetService:CreatePlaceAsync(string placeName, int templatePlaceID, string description = )
 	YieldFunction int AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int packageAssetId)
@@ -119,12 +117,6 @@ Class Attachment : Instance
 	Function void Attachment:SetAxis(Vector3 axis)
 	Function void Attachment:SetSecondaryAxis(Vector3 axis)
 Class BadgeService : Instance [notCreatable]
-	Function void BadgeService:SetAwardBadgeUrl(string url) [LocalUserSecurity]
-	Function void BadgeService:SetHasBadgeCooldown(int seconds) [LocalUserSecurity]
-	Function void BadgeService:SetHasBadgeUrl(string url) [LocalUserSecurity]
-	Function void BadgeService:SetIsBadgeDisabledUrl(string url) [LocalUserSecurity]
-	Function void BadgeService:SetIsBadgeLegalUrl(string url) [LocalUserSecurity]
-	Function void BadgeService:SetPlaceId(int placeId) [LocalUserSecurity]
 	YieldFunction bool BadgeService:AwardBadge(int userId, int badgeId)
 	YieldFunction bool BadgeService:IsDisabled(int badgeId)
 	YieldFunction bool BadgeService:IsLegal(int badgeId)
@@ -234,7 +226,6 @@ Class CFrameValue : Instance
 Class CacheableContentProvider : Instance
 Class MeshContentProvider : CacheableContentProvider
 Class SolidModelContentProvider : CacheableContentProvider
-Class TextureContentProvider : CacheableContentProvider
 Class Camera : Instance
 	Property CoordinateFrame Camera.CFrame
 	Property Object Camera.CameraSubject
@@ -635,9 +626,7 @@ Class Folder : Instance
 Class ForceField : Instance
 	Property bool ForceField.Visible
 Class FriendService : Instance [notCreatable]
-	Function void FriendService:SetBreakFriendUrl(string url) [LocalUserSecurity]
-	Function void FriendService:SetGetFriendsUrl(string url) [LocalUserSecurity]
-	Function void FriendService:SetMakeFriendUrl(string url) [LocalUserSecurity]
+	YieldFunction bool FriendService:GetAreUsersFriends(int userId, int otherUserId, bool allowOfflineUsers = false) [RobloxScriptSecurity]
 	YieldFunction Array FriendService:GetPlatformFriends() [RobloxScriptSecurity]
 	Event FriendService.FriendsUpdated(Array friendData) [RobloxScriptSecurity]
 Class FunctionalTest : Instance [deprecated]
@@ -831,8 +820,8 @@ Class TextBox : GuiObject
 	Property bool TextBox.ManualFocusRelease [RobloxScriptSecurity]
 	Property bool TextBox.MultiLine
 	Property bool TextBox.OverlayNativeInput [RobloxScriptSecurity]
-	Property Color3 TextBox.PlaceholderColor3 [RobloxScriptSecurity]
-	Property string TextBox.PlaceholderText [RobloxScriptSecurity]
+	Property Color3 TextBox.PlaceholderColor3
+	Property string TextBox.PlaceholderText
 	Property bool TextBox.ShowNativeInput
 	Property string TextBox.Text
 	Property Vector2 TextBox.TextBounds [readonly]
@@ -855,11 +844,11 @@ Class TextBox : GuiObject
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
 Class LayerCollector : GuiBase2d
+	Property bool LayerCollector.Enabled
 Class BillboardGui : LayerCollector
 	Property bool BillboardGui.Active
 	Property Object BillboardGui.Adornee
 	Property bool BillboardGui.AlwaysOnTop
-	Property bool BillboardGui.Enabled
 	Property Vector3 BillboardGui.ExtentsOffset
 	Property Vector3 BillboardGui.ExtentsOffsetWorldSpace
 	Property float BillboardGui.LightInfluence
@@ -871,7 +860,6 @@ Class BillboardGui : LayerCollector
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
-	Property bool ScreenGui.Enabled
 	Property bool ScreenGui.ResetOnSpawn
 Class GuiMain : ScreenGui [deprecated]
 Class SurfaceGui : LayerCollector
@@ -879,7 +867,6 @@ Class SurfaceGui : LayerCollector
 	Property Object SurfaceGui.Adornee
 	Property bool SurfaceGui.AlwaysOnTop
 	Property Vector2 SurfaceGui.CanvasSize
-	Property bool SurfaceGui.Enabled
 	Property NormalId SurfaceGui.Face
 	Property float SurfaceGui.LightInfluence
 	Property float SurfaceGui.ToolPunchThroughDistance
@@ -1406,43 +1393,22 @@ Class NetworkPeer : Instance [notbrowsable]
 	Function void NetworkPeer:SetOutgoingKBPSLimit(int limit) [PluginSecurity]
 Class NetworkClient : NetworkPeer [notCreatable]
 	Property string NetworkClient.Ticket
-	Function void NetworkClient:Disconnect(int blockDuration = 3000) [LocalUserSecurity]
 	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1, string userName = ) [PluginSecurity]
-	Function void NetworkClient:SetGameSessionID(string gameSessionID) [RobloxSecurity]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
 	Event NetworkClient.ConnectionRejected(string peer)
 Class NetworkServer : NetworkPeer [notCreatable]
 	Property int NetworkServer.Port [readonly]
-	Function void NetworkServer:ConfigureAsCloudEditServer() [RobloxSecurity]
-	Function void NetworkServer:ConfigureAsTeamTestServer() [RobloxSecurity]
 	Function int NetworkServer:GetClientCount() [LocalUserSecurity]
-	Function void NetworkServer:SetIsPlayerAuthenticationRequired(bool value) [RobloxSecurity]
 	Function void NetworkServer:Start(int port = 0, int threadSleepTime = 20) [PluginSecurity]
-	Function void NetworkServer:Stop(int blockDuration = 1000) [LocalUserSecurity]
-	Event NetworkServer.DataBasicFiltered(Instance peer, FilterResult result, Instance instance, string member) [LocalUserSecurity]
-	Event NetworkServer.DataCustomFiltered(Instance peer, FilterResult result, Instance instance, string member) [LocalUserSecurity]
-	Event NetworkServer.IncommingConnection(string peer, Instance replicator) [RobloxScriptSecurity]
 Class NetworkReplicator : Instance [notCreatable]
-	Property string NetworkReplicator.MachineAddress [readonly] [LocalUserSecurity]
-	Property int NetworkReplicator.Port [readonly] [LocalUserSecurity]
 	Function void NetworkReplicator:CloseConnection() [LocalUserSecurity]
 	Function Instance NetworkReplicator:GetPlayer()
 	Function string NetworkReplicator:GetRakStatsString(int verbosityLevel = 0) [PluginSecurity]
-	Function void NetworkReplicator:RequestCharacter() [LocalUserSecurity]
-	Function Instance NetworkReplicator:SendMarker() [LocalUserSecurity]
-	Event NetworkReplicator.Disconnection(string peer, bool lostConnection, string reason) [LocalUserSecurity]
 Class ClientReplicator : NetworkReplicator [notCreatable]
 	Function void ClientReplicator:RequestServerStats(bool request) [RobloxScriptSecurity]
 	Event ClientReplicator.StatsReceived(Dictionary stats) [RobloxScriptSecurity]
 Class ServerReplicator : NetworkReplicator [notCreatable]
-	Function void ServerReplicator:PreventTerrainChanges() [RobloxPlaceSecurity]
-	Function void ServerReplicator:SetBasicFilteringEnabled(bool value) [RobloxPlaceSecurity]
-	Event ServerReplicator.TicketProcessed(int userId, bool isAuthenticated, int protocolVersion)
-	Callback FilterResult ServerReplicator.DeleteFilter(Instance deletingItem) [noyield] [RobloxPlaceSecurity]
-	Callback FilterResult ServerReplicator.EventFilter(Instance firingItem, string event) [noyield] [RobloxPlaceSecurity]
-	Callback FilterResult ServerReplicator.NewFilter(Instance newItem, Instance parent) [noyield] [RobloxPlaceSecurity]
-	Callback FilterResult ServerReplicator.PropertyFilter(Instance changingItem, string member, Variant value) [noyield] [RobloxPlaceSecurity]
 Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.ArePhysicsRejectionsReported
 	Property int NetworkSettings.CanSendPacketBufferLimit
@@ -1885,7 +1851,6 @@ Class Player : Instance
 	Function void Player:saveInstance(string key, Instance value) [deprecated]
 	Function void Player:saveNumber(string key, double value) [deprecated]
 	Function void Player:saveString(string key, string value) [deprecated]
-	YieldFunction string Player:BlockUser(Instance player) [deprecated] [RobloxScriptSecurity]
 	YieldFunction Array Player:GetFriendsOnline(int maxFriends = 200)
 	YieldFunction int Player:GetRankInGroup(int groupId)
 	YieldFunction string Player:GetRoleInGroup(int groupId)
@@ -1894,7 +1859,6 @@ Class Player : Instance
 	YieldFunction bool Player:IsInGroup(int groupId)
 	YieldFunction void Player:LoadCharacter()
 	YieldFunction void Player:LoadCharacterBlocking() [LocalUserSecurity]
-	YieldFunction string Player:UnblockUser(Instance player) [deprecated] [RobloxScriptSecurity]
 	YieldFunction bool Player:WaitForDataReady() [deprecated]
 	YieldFunction bool Player:isFriendsWith(int userId) [deprecated]
 	YieldFunction bool Player:waitForDataReady() [deprecated]
@@ -1936,22 +1900,12 @@ Class Players : Instance
 	Property Object Players.localPlayer [deprecated] [hidden] [readonly]
 	Property int Players.numPlayers [deprecated] [hidden] [readonly]
 	Function void Players:Chat(string message) [PluginSecurity]
-	Function Instance Players:CreateLocalPlayer(int userId, bool isTeleport = false) [PluginSecurity]
-	Function Instance Players:GetPlayerByID(int userID) [deprecated] [LocalUserSecurity]
-	Function Instance Players:GetPlayerById(int userId) [LocalUserSecurity]
+	Function Instance Players:CreateLocalPlayer() [LocalUserSecurity]
 	Function Instance Players:GetPlayerByUserId(int userId)
 	Function Instance Players:GetPlayerFromCharacter(Instance character)
 	Function Objects Players:GetPlayers()
-	Function bool Players:GetUseCoreScriptHealthBar() [RobloxScriptSecurity]
 	Function void Players:ReportAbuse(Instance player, string reason, string optionalMessage) [LocalUserSecurity]
-	Function void Players:SetAbuseReportUrl(string url) [RobloxSecurity]
-	Function void Players:SetBuildUserPermissionsUrl(string url) [RobloxSecurity]
-	Function void Players:SetChatFilterUrl(string url) [RobloxSecurity]
 	Function void Players:SetChatStyle(ChatStyle style = Classic) [PluginSecurity]
-	Function void Players:SetLoadDataUrl(string url) [LocalUserSecurity]
-	Function void Players:SetSaveDataUrl(string url) [LocalUserSecurity]
-	Function void Players:SetSysStatsUrl(string url) [LocalUserSecurity]
-	Function void Players:SetSysStatsUrlId(string urlId) [LocalUserSecurity]
 	Function void Players:TeamChat(string message) [PluginSecurity]
 	Function void Players:WhisperChat(string message, Instance player) [LocalUserSecurity]
 	Function Instance Players:getPlayerFromCharacter(Instance character) [deprecated]
@@ -1967,13 +1921,11 @@ Class Players : Instance
 	Event Players.FriendRequestEvent(Instance player, Instance player, FriendRequestEvent friendRequestEvent) [RobloxScriptSecurity]
 	Event Players.GameAnnounce(string message) [RobloxScriptSecurity]
 	Event Players.PlayerAdded(Instance player)
-	Event Players.PlayerAddedEarly(Instance player) [LocalUserSecurity]
 	Event Players.PlayerChatted(PlayerChatType chatType, Instance player, string message, Instance targetPlayer) [LocalUserSecurity]
 	Event Players.PlayerConnecting(Instance player) [LocalUserSecurity]
 	Event Players.PlayerDisconnecting(Instance player) [LocalUserSecurity]
 	Event Players.PlayerRejoining(Instance player) [LocalUserSecurity]
 	Event Players.PlayerRemoving(Instance player)
-	Event Players.PlayerRemovingLate(Instance player) [LocalUserSecurity]
 Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
@@ -2121,11 +2073,7 @@ Class RuntimeScriptService : Instance [notCreatable]
 Class ScriptContext : Instance [notCreatable]
 	Property bool ScriptContext.ScriptsDisabled [LocalUserSecurity]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) [RobloxScriptSecurity]
-	Function Tuple ScriptContext:GetHeapStats(bool clearHighwaterMark = true) [RobloxScriptSecurity]
-	Function Array ScriptContext:GetScriptStats() [RobloxScriptSecurity]
-	Function void ScriptContext:SetCollectScriptStats(bool enable = false) [RobloxScriptSecurity]
 	Function void ScriptContext:SetTimeout(double seconds) [PluginSecurity]
-	Event ScriptContext.CamelCaseViolation(Instance object, string member, Instance script) [RobloxScriptSecurity]
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
 Class ScriptDebugger : Instance [notCreatable]
 	Property int ScriptDebugger.CurrentLine [readonly]
@@ -2185,9 +2133,7 @@ Class DataModel : ServiceProvider
 	Property Object DataModel.Workspace [readonly]
 	Property Object DataModel.lighting [deprecated] [readonly]
 	Property Object DataModel.workspace [deprecated] [readonly]
-	Function void DataModel:AddStat(string displayName, string stat) [LocalUserSecurity]
 	Function void DataModel:BindToClose(Function function)
-	Function void DataModel:FinishShutdown(bool localSave) [RobloxScriptSecurity]
 	Function double DataModel:GetJobIntervalPeakFraction(string jobname, double greaterThan) [PluginSecurity]
 	Function double DataModel:GetJobTimePeakFraction(string jobname, double greaterThan) [PluginSecurity]
 	Function Array DataModel:GetJobsExtendedStats() [PluginSecurity]
@@ -2199,41 +2145,29 @@ Class DataModel : ServiceProvider
 	Function bool DataModel:IsGearTypeAllowed(GearType gearType)
 	Function bool DataModel:IsLoaded()
 	Function void DataModel:Load(Content url) [LocalUserSecurity]
-	Function void DataModel:LoadPlugins() [RobloxSecurity]
 	Function void DataModel:OpenScreenshotsFolder() [RobloxScriptSecurity]
 	Function void DataModel:OpenVideosFolder() [RobloxScriptSecurity]
-	Function void DataModel:RemoveStat(string stat) [LocalUserSecurity]
 	Function void DataModel:ReportInGoogleAnalytics(string category, string action = custom, string label = none, int value = 0) [RobloxScriptSecurity]
-	Function void DataModel:ReportMeasurement(string id, string key1, string value1, string key2, string value2) [RobloxScriptSecurity]
-	Function void DataModel:Save(Content url) [RobloxSecurity]
-	Function void DataModel:SaveStats() [LocalUserSecurity]
-	Function void DataModel:ServerSave() [LocalUserSecurity]
 	Function void DataModel:SetCreatorID(int creatorID, CreatorType creatorType) [deprecated] [PluginSecurity]
 	Function void DataModel:SetCreatorId(int creatorId, CreatorType creatorType) [PluginSecurity]
 	Function void DataModel:SetGearSettings(GearGenreSetting genreRestriction, int allowedGenres) [PluginSecurity]
 	Function void DataModel:SetGenre(Genre genre) [PluginSecurity]
-	Function void DataModel:SetJobsExtendedStatsWindow(double seconds) [LocalUserSecurity]
 	Function void DataModel:SetPlaceID(int placeID, bool robloxPlace = false) [deprecated] [PluginSecurity]
 	Function void DataModel:SetPlaceId(int placeId, bool robloxPlace = false) [PluginSecurity]
 	Function void DataModel:SetPlaceVersion(int placeId) [PluginSecurity]
 	Function void DataModel:SetScreenshotInfo(string info) [LocalUserSecurity]
-	Function void DataModel:SetServerSaveUrl(string url) [LocalUserSecurity]
 	Function void DataModel:SetUniverseId(int universeId) [PluginSecurity]
-	Function void DataModel:SetVIPServerId(string newId) [LocalUserSecurity]
-	Function void DataModel:SetVIPServerOwnerId(int newId) [LocalUserSecurity]
 	Function void DataModel:SetVideoInfo(string info) [LocalUserSecurity]
 	Function void DataModel:Shutdown() [LocalUserSecurity]
 	YieldFunction string DataModel:HttpGetAsync(string url, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string DataModel:HttpPostAsync(string url, string data, string contentType = */*, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction bool DataModel:SavePlace(SaveFilter saveFilter = SaveAll) [deprecated]
-	YieldFunction bool DataModel:SaveToRoblox() [RobloxScriptSecurity]
 	Event DataModel.AllowedGearTypeChanged() [deprecated]
 	Event DataModel.GraphicsQualityChangeRequest(bool betterQuality)
 	Event DataModel.ItemChanged(Instance object, Property descriptor) [deprecated]
 	Event DataModel.Loaded()
 	Event DataModel.ScreenshotReady(string path) [RobloxScriptSecurity]
 	Callback Tuple DataModel.OnClose() [deprecated]
-	Callback bool DataModel.RequestShutdown() [noyield] [RobloxScriptSecurity]
 Class GenericSettings : ServiceProvider
 Class AnalysticsSettings : GenericSettings
 Class GlobalSettings : GenericSettings [notbrowsable]
@@ -2381,18 +2315,12 @@ Class Stats : Instance
 	Property float Stats.DataSendKbps [readonly]
 	Property float Stats.HeartbeatTimeMs [readonly]
 	Property int Stats.InstanceCount [readonly]
-	Property double Stats.MinReportInterval [RobloxScriptSecurity]
 	Property int Stats.MovingPrimitivesCount [readonly]
 	Property float Stats.PhysicsReceiveKbps [readonly]
 	Property float Stats.PhysicsSendKbps [readonly]
 	Property float Stats.PhysicsStepTimeMs [readonly]
 	Property int Stats.PrimitivesCount [readonly]
-	Property string Stats.ReporterType [RobloxScriptSecurity]
 	Function float Stats:GetMemoryUsageMbForTag(DeveloperMemoryTag tag)
-	Function void Stats:Report(string category, Dictionary data) [RobloxScriptSecurity]
-	Function void Stats:ReportJobsStepWindow() [RobloxScriptSecurity]
-	Function void Stats:ReportTaskScheduler(bool includeJobs = false) [RobloxScriptSecurity]
-	Function void Stats:SetReportUrl(string url) [RobloxScriptSecurity]
 	YieldFunction Dictionary Stats:GetPaginatedMemoryByTexture(TextureQueryType queryType, int pageIndex, int pageSize) [RobloxScriptSecurity]
 Class StatsItem : Instance
 	Function double StatsItem:GetValue() [PluginSecurity]
@@ -2419,8 +2347,6 @@ Class TaskScheduler : Instance
 	Property ThreadPoolConfig TaskScheduler.ThreadPoolConfig
 	Property int TaskScheduler.ThreadPoolSize [readonly]
 	Property double TaskScheduler.ThrottledJobSleepTime
-	Function void TaskScheduler:AddDummyJob(bool exclusive = true, double fps = 30) [LocalUserSecurity]
-	Function void TaskScheduler:SetThreadShare(double timeSlice, int numShare) [deprecated] [LocalUserSecurity]
 Class Team : Instance
 	Property bool Team.AutoAssignable
 	Property bool Team.AutoColorCharacters [deprecated]
@@ -2554,7 +2480,10 @@ Class UIPageLayout : UIGridStyleLayout
 	Property Object UIPageLayout.CurrentPage [readonly]
 	Property EasingDirection UIPageLayout.EasingDirection
 	Property EasingStyle UIPageLayout.EasingStyle
+	Property bool UIPageLayout.GamepadInputEnabled
 	Property UDim UIPageLayout.Padding
+	Property bool UIPageLayout.ScrollWheelInputEnabled
+	Property bool UIPageLayout.TouchInputEnabled
 	Property float UIPageLayout.TweenTime
 	Function void UIPageLayout:JumpTo(Instance page)
 	Function void UIPageLayout:JumpToIndex(int index)
@@ -2679,13 +2608,17 @@ Class UserInputService : Instance [notCreatable]
 	Event UserInputService.WindowFocusReleased()
 	Event UserInputService.WindowFocused()
 Class VRService : Instance
-	Property UserCFrame VRService.GuiInputUserCFrame [RobloxScriptSecurity]
+	Property UserCFrame VRService.GuiInputUserCFrame
+	Property string VRService.VRDeviceName [readonly] [RobloxScriptSecurity]
 	Property bool VRService.VREnabled [readonly]
+	Function VRTouchpadMode VRService:GetTouchpadMode(VRTouchpad pad)
 	Function CoordinateFrame VRService:GetUserCFrame(UserCFrame type)
 	Function bool VRService:GetUserCFrameEnabled(UserCFrame type)
 	Function void VRService:RecenterUserHeadCFrame()
 	Function void VRService:RequestNavigation(CoordinateFrame cframe, UserCFrame inputUserCFrame)
+	Function void VRService:SetTouchpadMode(VRTouchpad pad, VRTouchpadMode mode)
 	Event VRService.NavigationRequested(CoordinateFrame cframe, UserCFrame inputUserCFrame)
+	Event VRService.TouchpadModeChanged(VRTouchpad pad, VRTouchpadMode mode)
 	Event VRService.UserCFrameChanged(UserCFrame type, CoordinateFrame value)
 	Event VRService.UserCFrameEnabled(UserCFrame type, bool enabled)
 Class Vector3Value : Instance
@@ -4024,6 +3957,13 @@ Enum UserInputType
 	EnumItem UserInputType.Gamepad8 : 19
 	EnumItem UserInputType.TextInput : 20
 	EnumItem UserInputType.None : 21
+Enum VRTouchpad
+	EnumItem VRTouchpad.Left : 0
+	EnumItem VRTouchpad.Right : 1
+Enum VRTouchpadMode
+	EnumItem VRTouchpadMode.Touch : 0
+	EnumItem VRTouchpadMode.VirtualThumbstick : 1
+	EnumItem VRTouchpadMode.ABXY : 2
 Enum VerticalAlignment
 	EnumItem VerticalAlignment.Center : 0
 	EnumItem VerticalAlignment.Top : 1
