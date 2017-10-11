@@ -12,6 +12,7 @@ local NON_SELECTED_COLOR = Color3.fromRGB(78,84,96)
 local ARROW_COLOR = Color3.fromRGB(204, 204, 204)
 local ARROW_COLOR_HOVER = Color3.fromRGB(255, 255, 255)
 local ARROW_COLOR_TOUCH = ARROW_COLOR_HOVER
+local ARROW_COLOR_INACTIVE = Color3.fromRGB(150, 150, 150)
 
 local SELECTED_LEFT_IMAGE = "rbxasset://textures/ui/Settings/Slider/SelectedBarLeft.png"
 local NON_SELECTED_LEFT_IMAGE = "rbxasset://textures/ui/Settings/Slider/BarLeft.png"
@@ -50,6 +51,9 @@ dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMov
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+
+local FFlagFixInactiveSelectorArrowsSuccess, FFlagFixInactiveSelectorArrowsResult = pcall(function() return settings():GetFFlag("FFlagFixInactiveSelectorArrows") end)
+local FFlagFixInactiveSelectorArrows = FFlagFixInactiveSelectorArrowsSuccess and FFlagFixInactiveSelectorArrowsResult
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -350,8 +354,24 @@ local function isGuiVisible(gui, debug) -- true if any part of the gui is visibl
 end
 
 local function addHoverState(button, instance, onNormalButtonState, onHoverButtonState)
-	local function onNormalButtonStateCallback() onNormalButtonState(instance) end
-	local function onHoverButtonStateCallback() onHoverButtonState(instance) end
+	local function onNormalButtonStateCallback() 
+		if FFlagFixInactiveSelectorArrows then
+			if button.Active then 
+				onNormalButtonState(instance) 
+			end
+		else
+			onNormalButtonState(instance)
+		end
+	end
+	local function onHoverButtonStateCallback() 
+		if FFlagFixInactiveSelectorArrows then
+			if button.Active then 
+				onHoverButtonState(instance) 
+			end
+		else
+			onHoverButtonState(instance)
+		end
+	end
 
 	button.MouseEnter:Connect(onHoverButtonStateCallback)
 	button.SelectionGained:Connect(onHoverButtonStateCallback)
@@ -1249,13 +1269,27 @@ local function CreateSelector(selectionStringTable, startPosition)
 	function this:SetInteractable(value)
 		interactable = value
 		this.SelectorFrame.Selectable = interactable
+
+		if FFlagFixInactiveSelectorArrows then
+			leftButton.Active = interactable
+			rightButton.Active = interactable
+		end
+		
 		if not interactable then
 			for i, selectionLabel in pairs(this.Selections) do
 				selectionLabel.TextColor3 = Color3.fromRGB(49, 49, 49)
 			end
+			if FFlagFixInactiveSelectorArrows then
+				leftButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
+				rightButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
+			end
 		else
 			for i, selectionLabel in pairs(this.Selections) do
 				selectionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+			if FFlagFixInactiveSelectorArrows then
+				leftButtonImage.ImageColor3 = ARROW_COLOR
+				rightButtonImage.ImageColor3 = ARROW_COLOR
 			end
 		end
 	end

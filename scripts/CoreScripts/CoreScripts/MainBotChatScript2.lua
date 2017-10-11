@@ -62,9 +62,6 @@ local goodbyeChoiceActiveFlagSuccess, goodbyeChoiceActiveFlagValue = pcall(funct
 end)
 local goodbyeChoiceActiveFlag = (goodbyeChoiceActiveFlagSuccess and goodbyeChoiceActiveFlagValue)
 
-local dialogMultiplePlayersFlagSuccess, dialogMultiplePlayersFlagValue = pcall(function() return settings():GetFFlag("DialogMultiplePlayers") end)
-local dialogMultiplePlayersFlag = (dialogMultiplePlayersFlagSuccess and dialogMultiplePlayersFlagValue)
-
 local mainFrame
 local choices = {}
 local lastChoice
@@ -309,7 +306,7 @@ function sanitizeMessage(msg)
 end
 
 local function chatFunc(dialog, ...)
-	if dialogMultiplePlayersFlag and isDialogMultiplePlayers(dialog) then
+	if isDialogMultiplePlayers(dialog) then
 		game:GetService("Chat"):ChatLocal(...)
 	else
 		game:GetService("Chat"):Chat(...)
@@ -496,23 +493,18 @@ function doDialog(dialog)
 		return
 	end
 
-	local isMultiplePlayers = dialogMultiplePlayersFlag and isDialogMultiplePlayers(dialog)
+	local isMultiplePlayers = isDialogMultiplePlayers(dialog)
 
 	if dialog.InUse and not isMultiplePlayers then
 		return
 	else
-		if dialogMultiplePlayersFlag then
-			currentConversationDialog = dialog
-		end
+		currentConversationDialog = dialog
 		dialog.InUse = true
 		-- only bind if we actual enter the dialog
 		contextActionService:BindCoreAction("Nothing", function()
 		end, false, Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4)
 		-- Immediately sets InUse to true on the server
 		setDialogInUseEvent:FireServer(dialog, true, 0)
-	end
-	if not dialogMultiplePlayersFlag then
-		currentConversationDialog = dialog
 	end
 	chatFunc(dialog, dialog.Parent, dialog.InitialPrompt, getChatColor(dialog.Tone))
 	variableDelay(dialog.InitialPrompt)
@@ -594,13 +586,7 @@ function addDialog(dialog)
 			local chatGui = chatNotificationGui:clone()
 			chatGui.Adornee = dialog.Parent
 			chatGui.RobloxLocked = true
-
-			if dialogMultiplePlayersFlag then
-				chatGui.Enabled = not dialog.InUse or isDialogMultiplePlayers(dialog)
-			else
-				chatGui.Enabled = not dialog.InUse
-			end
-
+			chatGui.Enabled = not dialog.InUse or isDialogMultiplePlayers(dialog)
 			chatGui.Parent = CoreGui
 
 			chatGui.Background.MouseButton1Click:connect(function()
@@ -616,23 +602,14 @@ function addDialog(dialog)
 					removeDialog(dialog)
 					addDialog(dialog)
 				elseif prop == "InUse" then
-					if dialogMultiplePlayersFlag then
-						if not isDialogMultiplePlayers(dialog) then
-							chatGui.Enabled = (currentConversationDialog == nil) and not dialog.InUse
-						else
-							chatGui.Enabled = (currentConversationDialog ~= dialog)
-						end
+					if not isDialogMultiplePlayers(dialog) then
+						chatGui.Enabled = (currentConversationDialog == nil) and not dialog.InUse
 					else
-						chatGui.Enabled = not currentConversationDialog and not dialog.InUse
+						chatGui.Enabled = (currentConversationDialog ~= dialog)
 					end
-					if dialogMultiplePlayersFlag then
-						if not dialog.InUse and not isDialogMultiplePlayers(player) and dialog == currentConversationDialog then
-							timeoutDialog()
-						end
-					else
-						if dialog == currentConversationDialog and currentConversationDialog.InUse == false then
-							timeoutDialog()
-						end
+
+					if not dialog.InUse and not isDialogMultiplePlayers(player) and dialog == currentConversationDialog then
+						timeoutDialog()
 					end
 				elseif prop == "Tone" or prop == "Purpose" then
 					setChatNotificationTone(chatGui, dialog.Purpose, dialog.Tone)

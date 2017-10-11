@@ -1,7 +1,7 @@
 Class Instance [notbrowsable]
 	Property bool Instance.Archivable
 	Property string Instance.ClassName [readonly]
-	Property int Instance.DataCost [readonly] [RobloxPlaceSecurity]
+	Property int Instance.DataCost [readonly] [LocalUserSecurity]
 	Property string Instance.Name
 	Property Object Instance.Parent
 	Property bool Instance.RobloxLocked [PluginSecurity]
@@ -253,7 +253,7 @@ Class Camera : Instance
 	Function Tuple Camera:WorldToScreenPoint(Vector3 worldPoint)
 	Function Tuple Camera:WorldToViewportPoint(Vector3 worldPoint)
 	Function bool Camera:Zoom(float distance) [RobloxScriptSecurity]
-	Event Camera.FirstPersonTransition(bool entering) [RobloxPlaceSecurity]
+	Event Camera.FirstPersonTransition(bool entering) [LocalUserSecurity]
 	Event Camera.InterpolationFinished()
 Class ChangeHistoryService : Instance [notCreatable]
 	Function Tuple ChangeHistoryService:GetCanRedo() [PluginSecurity]
@@ -423,12 +423,8 @@ Class VectorForce : Constraint
 Class ContentProvider : Instance
 	Property string ContentProvider.BaseUrl [readonly]
 	Property int ContentProvider.RequestQueueSize [readonly]
-	Function Array ContentProvider:GetFailedUrls() [LocalUserSecurity]
 	Function void ContentProvider:Preload(Content contentId) [deprecated]
-	Function void ContentProvider:SetAssetUrl(string url) [LocalUserSecurity]
 	Function void ContentProvider:SetBaseUrl(string url) [LocalUserSecurity]
-	Function void ContentProvider:SetCacheSize(int count) [LocalUserSecurity]
-	Function void ContentProvider:SetThreadPool(int count) [LocalUserSecurity]
 	YieldFunction void ContentProvider:PreloadAsync(Array contentIdList)
 Class ContextActionService : Instance
 	Function void ContextActionService:BindAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes)
@@ -473,9 +469,6 @@ Class SkateboardController : Controller
 Class VehicleController : Controller
 Class ControllerService : Instance [notCreatable]
 Class CookiesService : Instance
-	Function void CookiesService:DeleteCookieValue(string key) [RobloxSecurity]
-	Function string CookiesService:GetCookieValue(string key) [RobloxSecurity]
-	Function void CookiesService:SetCookieValue(string key, string value) [RobloxSecurity]
 Class CustomEvent : Instance [deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers()
 	Function void CustomEvent:SetValue(float newValue)
@@ -532,8 +525,6 @@ Class DebugSettings : Instance [notbrowsable]
 	Property string DebugSettings.SystemProductName [readonly]
 	Property TickCountSampleMethod DebugSettings.TickCountPreciseOverride
 	Property int DebugSettings.VideoMemory [readonly]
-	Function void DebugSettings:LegacyScriptMode() [deprecated] [LocalUserSecurity]
-	Function void DebugSettings:SetBlockingRemove(bool value) [LocalUserSecurity]
 Class DebuggerBreakpoint : Instance [notCreatable]
 	Property string DebuggerBreakpoint.Condition
 	Property bool DebuggerBreakpoint.IsEnabled
@@ -637,7 +628,6 @@ Class FunctionalTest : Instance [deprecated]
 	Function void FunctionalTest:Passed(string message = )
 	Function void FunctionalTest:Warn(string message = )
 Class GamePassService : Instance
-	Function void GamePassService:SetPlayerHasPassUrl(string playerHasPassUrl) [LocalUserSecurity]
 	YieldFunction bool GamePassService:PlayerHasPass(Instance player, int gamePassId)
 Class GameSettings : Instance [notbrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs
@@ -1142,17 +1132,6 @@ Class InsertService : Instance [notCreatable]
 	Function void InsertService:ApproveAssetId(int assetId) [deprecated]
 	Function void InsertService:ApproveAssetVersionId(int assetVersionId) [deprecated]
 	Function void InsertService:Insert(Instance instance) [deprecated]
-	Function void InsertService:SetAdvancedResults(bool enable, bool user = false) [LocalUserSecurity]
-	Function void InsertService:SetAssetUrl(string assetUrl) [LocalUserSecurity]
-	Function void InsertService:SetAssetVersionUrl(string assetVersionUrl) [LocalUserSecurity]
-	Function void InsertService:SetBaseCategoryUrl(string baseSetsUrl) [LocalUserSecurity]
-	Function void InsertService:SetBaseSetsUrl(string baseSetsUrl) [LocalUserSecurity]
-	Function void InsertService:SetCollectionUrl(string collectionUrl) [LocalUserSecurity]
-	Function void InsertService:SetFreeDecalUrl(string freeDecalUrl) [LocalUserSecurity]
-	Function void InsertService:SetFreeModelUrl(string freeModelUrl) [LocalUserSecurity]
-	Function void InsertService:SetTrustLevel(float trustLevel) [LocalUserSecurity]
-	Function void InsertService:SetUserCategoryUrl(string userSetsUrl) [LocalUserSecurity]
-	Function void InsertService:SetUserSetsUrl(string userSetsUrl) [LocalUserSecurity]
 	YieldFunction Array InsertService:GetBaseCategories() [deprecated]
 	YieldFunction Array InsertService:GetBaseSets()
 	YieldFunction Array InsertService:GetCollection(int categoryId)
@@ -1276,6 +1255,7 @@ Class LobbyService : Instance [notCreatable]
 	Function void LobbyService:BeginLobbyStartGame(int placeId) [RobloxScriptSecurity]
 Class LocalWorkspace : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
+	Property string LocalizationService.RobloxLocaleId [readonly] [RobloxScriptSecurity]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 Class LocalizationTable : Instance
@@ -1319,7 +1299,7 @@ Class BaseScript : LuaSourceContainer
 Class CoreScript : BaseScript [notCreatable]
 Class Script : BaseScript
 	Property ProtectedString Script.Source [PluginSecurity]
-	Function string Script:GetHash() [RobloxPlaceSecurity]
+	Function string Script:GetHash() [LocalUserSecurity]
 Class LocalScript : Script
 Class ModuleScript : LuaSourceContainer
 	Property Content ModuleScript.LinkedSource
@@ -1331,7 +1311,7 @@ Class MarketplaceService : Instance [notCreatable]
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) [RobloxScriptSecurity]
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int productId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
 	Function void MarketplaceService:PromptPurchase(Instance player, int assetId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
-	Function void MarketplaceService:PromptThirdPartyPurchase(Instance player, string productId) [RobloxPlaceSecurity]
+	Function void MarketplaceService:PromptThirdPartyPurchase(Instance player, string productId) [LocalUserSecurity]
 	Function void MarketplaceService:ReportAssetSale(string assetId, int robuxAmount) [RobloxScriptSecurity]
 	Function void MarketplaceService:ReportRobuxUpsellStarted() [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalClientPurchaseSuccess(string ticket, int playerId, int productId) [RobloxScriptSecurity]
@@ -1354,7 +1334,7 @@ Class MarketplaceService : Instance [notCreatable]
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int assetId, bool isPurchased)
 	Event MarketplaceService.PromptPurchaseRequested(Instance player, int assetId, bool equipIfPurchased, CurrencyType currencyType) [RobloxScriptSecurity]
 	Event MarketplaceService.ServerPurchaseVerification(Dictionary serverResponseTable) [RobloxScriptSecurity]
-	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) [RobloxPlaceSecurity]
+	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) [LocalUserSecurity]
 	Callback ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
 Class Message : Instance [deprecated]
 	Property string Message.Text
@@ -1393,14 +1373,12 @@ Class NetworkPeer : Instance [notbrowsable]
 	Function void NetworkPeer:SetOutgoingKBPSLimit(int limit) [PluginSecurity]
 Class NetworkClient : NetworkPeer [notCreatable]
 	Property string NetworkClient.Ticket
-	Function Instance NetworkClient:PlayerConnect(int userId, string server, int serverPort, int clientPort = 0, int threadSleepTime = 30, int dataCenterId = -1, string userName = ) [PluginSecurity]
 	Event NetworkClient.ConnectionAccepted(string peer, Instance replicator)
 	Event NetworkClient.ConnectionFailed(string peer, int code, string reason)
 	Event NetworkClient.ConnectionRejected(string peer)
 Class NetworkServer : NetworkPeer [notCreatable]
 	Property int NetworkServer.Port [readonly]
 	Function int NetworkServer:GetClientCount() [LocalUserSecurity]
-	Function void NetworkServer:Start(int port = 0, int threadSleepTime = 20) [PluginSecurity]
 Class NetworkReplicator : Instance [notCreatable]
 	Function void NetworkReplicator:CloseConnection() [LocalUserSecurity]
 	Function Instance NetworkReplicator:GetPlayer()
@@ -1454,10 +1432,10 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.UsePhysicsPacketCache
 	Property int NetworkSettings.WaitingForCharacterLogRate [deprecated] [hidden]
 Class NotificationService : Instance [notCreatable]
-	Function void NotificationService:CancelAllNotification(int userId) [RobloxPlaceSecurity]
-	Function void NotificationService:CancelNotification(int userId, int alertId) [RobloxPlaceSecurity]
-	Function void NotificationService:ScheduleNotification(int userId, int alertId, string alertMsg, int minutesToFire) [RobloxPlaceSecurity]
-	YieldFunction Array NotificationService:GetScheduledNotifications(int userId) [RobloxPlaceSecurity]
+	Function void NotificationService:CancelAllNotification(int userId) [LocalUserSecurity]
+	Function void NotificationService:CancelNotification(int userId, int alertId) [LocalUserSecurity]
+	Function void NotificationService:ScheduleNotification(int userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
+	YieldFunction Array NotificationService:GetScheduledNotifications(int userId) [LocalUserSecurity]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
 Class NumberValue : Instance
@@ -2148,16 +2126,6 @@ Class DataModel : ServiceProvider
 	Function void DataModel:OpenScreenshotsFolder() [RobloxScriptSecurity]
 	Function void DataModel:OpenVideosFolder() [RobloxScriptSecurity]
 	Function void DataModel:ReportInGoogleAnalytics(string category, string action = custom, string label = none, int value = 0) [RobloxScriptSecurity]
-	Function void DataModel:SetCreatorID(int creatorID, CreatorType creatorType) [deprecated] [PluginSecurity]
-	Function void DataModel:SetCreatorId(int creatorId, CreatorType creatorType) [PluginSecurity]
-	Function void DataModel:SetGearSettings(GearGenreSetting genreRestriction, int allowedGenres) [PluginSecurity]
-	Function void DataModel:SetGenre(Genre genre) [PluginSecurity]
-	Function void DataModel:SetPlaceID(int placeID, bool robloxPlace = false) [deprecated] [PluginSecurity]
-	Function void DataModel:SetPlaceId(int placeId, bool robloxPlace = false) [PluginSecurity]
-	Function void DataModel:SetPlaceVersion(int placeId) [PluginSecurity]
-	Function void DataModel:SetScreenshotInfo(string info) [LocalUserSecurity]
-	Function void DataModel:SetUniverseId(int universeId) [PluginSecurity]
-	Function void DataModel:SetVideoInfo(string info) [LocalUserSecurity]
 	Function void DataModel:Shutdown() [LocalUserSecurity]
 	YieldFunction string DataModel:HttpGetAsync(string url, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string DataModel:HttpPostAsync(string url, string data, string contentType = */*, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
@@ -2371,8 +2339,6 @@ Class TeleportService : Instance
 	YieldFunction Tuple TeleportService:GetPlayerPlaceInstanceAsync(int userId)
 	YieldFunction string TeleportService:ReserveServer(int placeId)
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
-	Callback bool TeleportService.ConfirmationCallback(string message, int placeId, string spawnName) [noyield] [RobloxScriptSecurity]
-	Callback void TeleportService.ErrorCallback(string message) [noyield] [RobloxScriptSecurity]
 Class TerrainRegion : Instance
 	Property bool TerrainRegion.IsSmooth [deprecated] [readonly]
 	Property Vector3 TerrainRegion.SizeInCells [readonly]
@@ -2640,9 +2606,6 @@ Class VirtualUser : Instance [notCreatable]
 	Function string VirtualUser:StopRecording() [LocalUserSecurity]
 	Function void VirtualUser:TypeKey(string key) [LocalUserSecurity]
 Class Visit : Instance [notCreatable]
-	Function string Visit:GetUploadUrl() [RobloxSecurity]
-	Function void Visit:SetPing(string pingUrl, int interval) [RobloxSecurity]
-	Function void Visit:SetUploadUrl(string url) [RobloxSecurity]
 Class WeldConstraint : Instance
 	Property bool WeldConstraint.Enabled
 	Property Object WeldConstraint.Part0

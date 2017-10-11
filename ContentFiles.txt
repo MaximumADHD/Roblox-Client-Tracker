@@ -65,7 +65,7 @@ content/avatar/compositing/R15CompositTorsoBase.mesh
 [8818 bytes]
 
 content/avatar/content-avatar.zip
-[148793 bytes]
+[148753 bytes]
 
 content/avatar/heads/head.mesh
 [28207 bytes]
@@ -149,7 +149,7 @@ content/avatar/scripts/humanoidAnimateR15_4.rbxm
 [30141 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
-[1426 bytes]
+[1338 bytes]
 
 content/fonts/AccanthisADFStd-Regular.otf
 [51166 bytes]
@@ -365,7 +365,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[550332 bytes]
+[544957 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -386,7 +386,7 @@ content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [10198 bytes]
 
 content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
-[25177 bytes]
+[24298 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
 [39534 bytes]
@@ -413,7 +413,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[27880 bytes]
+[27891 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -449,7 +449,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[104777 bytes]
+[103846 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -683,7 +683,7 @@ content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [11023 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[81096 bytes]
+[82154 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [77190 bytes]
@@ -797,7 +797,7 @@ content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
 [7940 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
-[3973 bytes]
+[3554 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
 [3722 bytes]
@@ -1115,7 +1115,7 @@ content/textures/content-textures.zip
 [3175 bytes]
 
 content/textures/content-textures2.zip
-[6184143 bytes]
+[6184465 bytes]
 
 content/textures/content-textures3.zip
 [26376277 bytes]
@@ -2107,6 +2107,9 @@ content/textures/ui/LuaChat/icons/ic-back.png
 content/textures/ui/LuaChat/icons/ic-back@2x.png
 [309 bytes]
 
+content/textures/ui/LuaChat/icons/ic-back-mdpi.png
+[191 bytes]
+
 content/textures/ui/LuaChat/icons/ic-chat-large.png
 [2572 bytes]
 
@@ -3041,11 +3044,11 @@ content/textures/woodplanks/specular.dds
 [684723 bytes]
 
 content/translations/ChatLocalization.json
-[21829 bytes]
+[21706 bytes]
 
 content/translations/content-translations.zip
-[40849 bytes]
+[40762 bytes]
 
 content/translations/CorescriptLocalization.json
-[113042 bytes]
+[111982 bytes]
 

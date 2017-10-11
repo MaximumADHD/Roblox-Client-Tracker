@@ -711,7 +711,7 @@ GuiService.ErrorMessageChanged:connect(function()
 		if isTenFootInterface then
 			currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
 			currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
-			currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BLACK
+			currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
 			currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
 			currScreenGui.ErrorFrame.ErrorText.FontSize = Enum.FontSize.Size36
 			currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)

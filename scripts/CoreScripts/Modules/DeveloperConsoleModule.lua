@@ -28,9 +28,6 @@ local VRService = game:GetService("VRService")
 local isTenFootInterface = GuiService:IsTenFootInterface()
 
 --[[ Modules ]]--
-local DEPRECATED_ClientMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.DEPRECATED_ClientMemoryAnalyzer)
-local DEPRECATED_ServerMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.DEPRECATED_ServerMemoryAnalyzer)
-
 local ClientMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.ClientMemoryAnalyzer)
 local ServerMemoryAnalyzerClass = require(CoreGui.RobloxGui.Modules.Stats.ServerMemoryAnalyzer)
 
@@ -46,8 +43,6 @@ local function checkFFlag(flagName)
 	return (flagSuccess and flagValue)
 end
 
-local enableActionBindingsTab = checkFFlag("EnableActionBindingsTab")
-local improveClientAndServerMemoryTabLayout = checkFFlag("ImproveClientAndServerMemoryTabLayout")
 local disablePassiveClientLogProcessing = checkFFlag("DisablePassiveClientLogProcessing")
 
 -- Eye candy uses RenderStepped
@@ -890,11 +885,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			local clientTab = nil
 			local clientMemoryAnalyzer = nil
 
-			if (improveClientAndServerMemoryTabLayout) then 
-				clientMemoryAnalyzer = ClientMemoryAnalyzerClass.new(tabBody)
-			else
-				clientMemoryAnalyzer = DEPRECATED_ClientMemoryAnalyzerClass.new(tabBody)
-			end
+            clientMemoryAnalyzer = ClientMemoryAnalyzerClass.new(tabBody)
 
 			-- When memory analyzer decides it's new size, we get notified.
 			clientMemoryAnalyzer:setHeightChangedCallback(function(newHeight)
@@ -905,10 +896,8 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			-- do I need to update the memory stats tab right now, and should I be listening
 			-- for regular updates?
 			local function syncClientMemoryAnalyzerVisibility()
-				if (clientTab.Open and clientTab.Visible and devConsole.Visible) then 
-					if (improveClientAndServerMemoryTabLayout) then
-						clientMemoryAnalyzer:refreshMemoryUsageTree()
-					end
+				if (clientTab.Open and clientTab.Visible and devConsole.Visible) then
+                    clientMemoryAnalyzer:refreshMemoryUsageTree()
 					clientMemoryAnalyzer:renderUpdates()
 					clientMemoryAnalyzer:startListeningForUpdates()
 					body.Size = UDim2.new(1, 0, 0, clientMemoryAnalyzer:getHeightInPix())
@@ -1094,13 +1083,9 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			
 			local serverTab = nil
 			local serverMemoryAnalyzer = nil
-			
-			if (improveClientAndServerMemoryTabLayout) then 
-				serverMemoryAnalyzer = ServerMemoryAnalyzerClass.new(tabBody)
-			else
-				serverMemoryAnalyzer = DEPRECATED_ServerMemoryAnalyzerClass.new(tabBody)
-			end
-			
+
+            serverMemoryAnalyzer = ServerMemoryAnalyzerClass.new(tabBody)
+
 			-- When memory analyzer decides its new size, we get notified.
 			serverMemoryAnalyzer:setHeightChangedCallback(function(newHeight)
 					body.Size = UDim2.new(1, 0, 0, newHeight)
@@ -1110,17 +1095,11 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 			-- do I need to update the memory stats tab right now, and should I be listening
 			-- for regular update?
 			local function syncServerMemoryAnalyzerVisibility()
-				if (serverTab.Open and serverTab.Visible and devConsole.Visible) then 
-					if (improveClientAndServerMemoryTabLayout) then
-						serverMemoryAnalyzer:setVisible(true)
-					else
-						serverMemoryAnalyzer:renderUpdates()
-					end
+				if (serverTab.Open and serverTab.Visible and devConsole.Visible) then
+                    serverMemoryAnalyzer:setVisible(true)
 					body.Size = UDim2.new(1, 0, 0, serverMemoryAnalyzer:getHeightInPix())
 				else
-					if (improveClientAndServerMemoryTabLayout) then
-						serverMemoryAnalyzer:setVisible(false)
-					end
+                    serverMemoryAnalyzer:setVisible(false)
 				end
 			end
 
@@ -1386,7 +1365,7 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 	end
 
 	do -- ContextActionService debugging
-		if permissions.MayViewContextActionBindings and enableActionBindingsTab then
+		if permissions.MayViewContextActionBindings then
 			local tabBody = Primitives.FolderFrame(body, "ActionBindings")
 			local tab = devConsole:AddTab("Action Bindings", tabBody)
 			

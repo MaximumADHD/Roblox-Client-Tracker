@@ -33,9 +33,6 @@ local playerDialogMap = {}
 local dialogInUseFixFlagSuccess, dialogInUseFixValue = pcall(function() return settings():GetFFlag("DialogInUseFix") end)
 local dialogInUseFixFlag = (dialogInUseFixFlagSuccess and dialogInUseFixValue)
 
-local dialogMultiplePlayersFlagSuccess, dialogMultiplePlayersFlagValue = pcall(function() return settings():GetFFlag("DialogMultiplePlayers") end)
-local dialogMultiplePlayersFlag = (dialogMultiplePlayersFlagSuccess and dialogMultiplePlayersFlagValue)
-
 local freeCameraFlagSuccess, freeCameraFlagValue = pcall(function() return settings():GetFFlag("FreeCameraForAdmins") end)
 local freeCameraFlag = (freeCameraFlagSuccess and freeCameraFlagValue)
 
@@ -60,11 +57,7 @@ local function setDialogInUse(player, dialog, value, waitTime)
 		wait(waitTime)
 	end
 	if dialog ~= nil then
-		if dialogMultiplePlayersFlag then
-			dialog:SetPlayerIsUsing(player, value)
-		else
-			dialog.InUse = value
-		end
+		dialog:SetPlayerIsUsing(player, value)
 
 		if dialogInUseFixFlag then
 			if value == true then
@@ -99,11 +92,7 @@ game:GetService("Players").PlayerRemoving:connect(function(player)
 		if player then
 			local dialog = playerDialogMap[player]
 			if dialog then
-				if dialogMultiplePlayersFlag then
-					dialog:SetPlayerIsUsing(player, false)
-				else
-					dialog.InUse = false
-				end
+				dialog:SetPlayerIsUsing(player, false)
 				playerDialogMap[player] = nil
 			end
 		end

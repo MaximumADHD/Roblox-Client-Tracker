@@ -100,7 +100,6 @@ Classes
 	BaseThreadPool
 	BasicPartInstance
 	BasicSpatialHashPrimitive
-	BeB
 	BevelMesh
 	BillboardGui
 	BinaryInput
@@ -394,7 +393,6 @@ Classes
 	DeserializedAacChallengeItem
 	DeserializedChangePropertyItem
 	DeserializedClusterItem
-	DeserializedClusterItemOld
 	DeserializedDeleteInstanceItem
 	DeserializedEventInvocationItem
 	DeserializedIdChallengeItem
@@ -627,7 +625,6 @@ Classes
 	Hopper
 	HopperBin
 	http_status_error
-	HttpQueueStatsItem
 	HttpRbxApiJob
 	HttpRbxApiService
 	HttpService
@@ -706,7 +703,6 @@ Classes
 	IReferenceBinder
 	IScriptFilter
 	ISelectionBase
-	ISetter
 	islot
 	IStage
 	IStepped
@@ -1159,7 +1155,6 @@ Classes
 	SurfaceSelection
 	SurfaceTool
 	Swimming
-	SyncCallbackDescriptor
 	System
 	system_error
 	system_error_category

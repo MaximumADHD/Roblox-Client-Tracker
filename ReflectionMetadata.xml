@@ -829,6 +829,61 @@
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>
+        
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Drag</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">5</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">VelocityInheritance</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rate</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rotation</string>
+            <double name="UIMinimum">-180</double>
+            <double name="UIMaximum">180</double>
+            <double name="UINumTicks">72</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RotSpeed</string>
+            <double name="UIMinimum">-360</double>
+            <double name="UIMaximum">360</double>
+            <double name="UINumTicks">72</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Speed</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Lifetime</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">5</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
