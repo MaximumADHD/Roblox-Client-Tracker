@@ -30,6 +30,9 @@ local moveValue = Vector3.new(0, 0, 0)
 local isJumpEnabled = true
 local areControlsEnabled = true
 
+local clickToMoveFailStateChanged = Instance.new("BindableEvent")
+clickToMoveFailStateChanged.Name = "ClickToMoveFailStateChanged"
+
 --[[ Local Functions ]]--
 function MasterControl:GetHumanoid()
 	if LocalCharacter then
@@ -161,6 +164,10 @@ function MasterControl:DoJump()
 	if humanoid then
 		humanoid.Jump = true
 	end
+end
+
+function MasterControl:GetClickToMoveFailStateChanged()
+	return clickToMoveFailStateChanged
 end
 
 return MasterControl

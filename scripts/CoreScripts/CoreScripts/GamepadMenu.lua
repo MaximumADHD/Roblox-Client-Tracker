@@ -8,14 +8,6 @@
 --NOTICE: This file has been branched! If you're implementing changes in this file, please consider also implementing them in the other
 --version.
 
---Handle branching early so we do as little work as possible:
-local useNewRadialMenuSuccess, useNewRadialMenuValue = pcall(function() return settings():GetFFlag("UseNewRadialMenu") end)
-local FFlagUseNewRadialMenu = useNewRadialMenuSuccess and useNewRadialMenuValue
-if not FFlagUseNewRadialMenu then
-	--This file is now inactive because the flag IS NOT on
-	return
-end
-
 local fixGamePadPlayerlistSuccess, fixGamePadPlayerlistValue = pcall(function() return settings():GetFFlag("FixGamePadPlayerlist") end)
 local fixGamePadPlayerlist = fixGamePadPlayerlistSuccess and fixGamePadPlayerlistValue
 
@@ -294,7 +286,7 @@ local function unbindAllRadialActions()
 	ContextActionService:UnbindCoreAction(radialAcceptActionName)
 	ContextActionService:UnbindCoreAction(freezeControllerActionName)
 	ContextActionService:UnbindCoreAction(thumbstick2RadialActionName)
-	ContextActionService:UnbindCoreAction(radialSelectActionName .. "VR")
+	ContextActionService:UnbindCoreAction(radialAcceptActionName .. "VR")
 end
 
 local function bindAllRadialActions()
@@ -303,13 +295,12 @@ local function bindAllRadialActions()
 	ContextActionService:BindCoreAction(freezeControllerActionName, noOpFunc, false, Enum.UserInputType.Gamepad1)
 	ContextActionService:BindCoreAction(radialAcceptActionName, radialSelectAccept, false, Enum.KeyCode.ButtonA)
 	ContextActionService:BindCoreAction(radialCancelActionName, radialSelectCancel, false, Enum.KeyCode.ButtonB)
+	ContextActionService:BindCoreAction(radialSelectActionName, radialSelect, false, Enum.KeyCode.Thumbstick1, Enum.KeyCode.DPadUp, Enum.KeyCode.DPadDown, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight)
 	ContextActionService:BindCoreAction(thumbstick2RadialActionName, noOpFunc, false, Enum.KeyCode.Thumbstick2)
 	ContextActionService:BindCoreAction(toggleMenuActionName, doGamepadMenuButton, false, Enum.KeyCode.ButtonStart)
 
 	if VRService.VREnabled then
 		ContextActionService:BindCoreAction(radialAcceptActionName .. "VR", radialSelectAccept, false, Enum.KeyCode.ButtonR2)
-	else
-		ContextActionService:BindCoreAction(radialSelectActionName, radialSelect, false, Enum.KeyCode.Thumbstick1, Enum.KeyCode.DPadUp, Enum.KeyCode.DPadDown, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight)
 	end
 end
 

@@ -243,7 +243,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">HttpService</string>
-        <string name="ExplorerOrder">101</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -259,7 +258,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">InsertService</string>
-        <string name="ExplorerOrder">101</string>
         <string name="summary">A service used to insert objects stored on the website into the game.</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">

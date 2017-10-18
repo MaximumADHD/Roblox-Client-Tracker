@@ -8,12 +8,10 @@
 ]]--
 
 local DefaultServerSoundEvent = nil
-if UserSettings():IsUserFeatureEnabled("UserPlayCharacterSoundWhenFE") then
-	DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
-	if DefaultServerSoundEvent == nil then
-		DefaultServerSoundEvent = Instance.new("RemoteEvent", game:GetService("ReplicatedStorage"))
-		DefaultServerSoundEvent.Name = "DefaultServerSoundEvent"
-	end
+DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+if DefaultServerSoundEvent == nil then
+	DefaultServerSoundEvent = Instance.new("RemoteEvent", game:GetService("ReplicatedStorage"))
+	DefaultServerSoundEvent.Name = "DefaultServerSoundEvent"
 end
 
 function CreateNewSound(name, id, looped, pitch, parent)
@@ -29,14 +27,14 @@ function CreateNewSound(name, id, looped, pitch, parent)
 	sound.MaxDistance = 150
 	sound.Volume = 0.65
 	
-	if UserSettings():IsUserFeatureEnabled("UserPlayCharacterSoundWhenFE") and DefaultServerSoundEvent then
+	if DefaultServerSoundEvent then
 		local CharacterSoundEvent = Instance.new("RemoteEvent", sound)
 		CharacterSoundEvent.Name = "CharacterSoundEvent"
 		local Players = game:GetService("Players")
-		CharacterSoundEvent.OnServerEvent:connect(function(player)
+		CharacterSoundEvent.OnServerEvent:connect(function(player, playing, resetPosition)
 			for _, p in pairs(Players:GetPlayers()) do
 				if p ~= player then
-					DefaultServerSoundEvent:FireClient(p, sound)
+					DefaultServerSoundEvent:FireClient(p, sound, playing, resetPosition)
 				end
 			end
 		end)

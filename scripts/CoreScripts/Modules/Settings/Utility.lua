@@ -52,7 +52,7 @@ dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMov
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagFixInactiveSelectorArrowsSuccess, FFlagFixInactiveSelectorArrowsResult = pcall(function() return settings():GetFFlag("FFlagFixInactiveSelectorArrows") end)
+local FFlagFixInactiveSelectorArrowsSuccess, FFlagFixInactiveSelectorArrowsResult = pcall(function() return settings():GetFFlag("FixInactiveSelectorArrows") end)
 local FFlagFixInactiveSelectorArrows = FFlagFixInactiveSelectorArrowsSuccess and FFlagFixInactiveSelectorArrowsResult
 
 ------------------ VARIABLES --------------------

@@ -92,6 +92,7 @@ Class AssetService : Instance
 	YieldFunction int AssetService:CreatePlaceAsync(string placeName, int templatePlaceID, string description = )
 	YieldFunction int AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int packageAssetId)
+	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
 	YieldFunction Dictionary AssetService:GetAssetVersions(int placeId, int pageNum = 1)
 	YieldFunction int AssetService:GetCreatorAssetID(int creationID) [deprecated]
 	YieldFunction Instance AssetService:GetGamePlacesAsync()
@@ -146,6 +147,7 @@ Class StarterGui : BasePlayerGui
 	YieldFunction Variant StarterGui:GetCore(string parameterName)
 	Event StarterGui.CoreGuiChangedSignal(CoreGuiType coreGuiType, bool enabled) [RobloxScriptSecurity]
 Class BinaryStringValue : Instance
+	Event BinaryStringValue.Changed(BinaryString value)
 Class BindableEvent : Instance
 	Function void BindableEvent:Fire(Tuple arguments)
 	Event BindableEvent.Event(Tuple arguments)
@@ -1943,7 +1945,7 @@ Class Pose : Instance
 	Property CoordinateFrame Pose.CFrame
 	Property PoseEasingDirection Pose.EasingDirection
 	Property PoseEasingStyle Pose.EasingStyle
-	Property float Pose.MaskWeight
+	Property float Pose.MaskWeight [deprecated]
 	Property float Pose.Weight
 	Function void Pose:AddSubPose(Instance pose)
 	Function Objects Pose:GetSubPoses()
@@ -2400,6 +2402,7 @@ Class Trail : Instance
 	Property float Trail.TextureLength
 	Property TextureMode Trail.TextureMode
 	Property NumberSequence Trail.Transparency
+	Function void Trail:Clear()
 Class TweenBase : Instance [notbrowsable]
 	Property PlaybackState TweenBase.PlaybackState [readonly]
 	Function void TweenBase:Cancel()

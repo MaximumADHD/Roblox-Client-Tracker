@@ -138,9 +138,9 @@
         <addaction name="gameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
       </Group>
       <Group fflag="StudioTeamTestGroupInHomeRibbonBar" name="Team Test" >
-        <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Team Test"  tooltip="Start server and players" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32" />
+        <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Team Test"  tooltip="Start a Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32" />
         <addseparator visible="false"/>
-        <addaction name="cleanupTeamTestAction" iscommonslot="true" style="textundericon" text="Exit Game"  tooltip="Exit game" icon=":/RibbonBar/images/RibbonIcons/Test/Exit-Team-Test.png" width="32" height="32" />
+        <addaction name="cleanupTeamTestAction" iscommonslot="true" style="textundericon" text="Exit Game"  tooltip="Exit Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Exit-Team-Test.png" width="32" height="32" />
       </Group>
     </TabPage>
 

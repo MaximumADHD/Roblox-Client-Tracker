@@ -39,9 +39,6 @@ local function LocalizedGetString(key, rtv)
 	return rtv
 end
 
-local FixBadgeTextBeingCutOffSuccess, FixBadgeTextBeingCutOffValue = pcall(function() return settings():GetFFlag("CoreScriptFixBadgeTextBeingCutOff") end)
-local FixBadgeTextBeingCutOff = FixBadgeTextBeingCutOffSuccess and FixBadgeTextBeingCutOffValue
-
 --[[ Fast Flags ]]--
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
 local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
@@ -241,7 +238,7 @@ local function createNotification(title, text, image)
 	local notificationText = NotificationText:Clone()
 	notificationText.Text = text
 	notificationText.Parent = notificationFrame
-	if FixBadgeTextBeingCutOff and (image == nil or image == "") then
+	if (image == nil or image == "") then
 		notificationFrame.Parent = NotificationFrame
 		if not notificationText.TextFits then
 			local textSize = TextService:GetTextSize(notificationText.Text, notificationText.TextSize, notificationText.Font, Vector2.new(notificationText.AbsoluteSize.X, 1000))
@@ -262,49 +259,43 @@ local function createNotification(title, text, image)
 		notificationTitle.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, -NOTIFICATION_TITLE_Y_OFFSET)
 		notificationTitle.TextXAlignment = Enum.TextXAlignment.Left
 
-		if FixBadgeTextBeingCutOff then
-			notificationFrame.Parent = NotificationFrame
-			notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
-			notificationText.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
-			notificationText.TextXAlignment = Enum.TextXAlignment.Left
-			if not notificationText.TextFits then
-				local extraText = nil
-				local text = notificationText.Text
-				for i = string.len(text) - 1, 2, -1 do
-					if string.sub(text, i, i) == " " then
-						notificationText.Text = string.sub(text, 1, i - 1)
-						if notificationText.TextFits then
-							extraText = string.sub(text, i + 1)
-							break
-						end
+		notificationFrame.Parent = NotificationFrame
+		notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
+		notificationText.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
+		notificationText.TextXAlignment = Enum.TextXAlignment.Left
+		if not notificationText.TextFits then
+			local extraText = nil
+			local text = notificationText.Text
+			for i = string.len(text) - 1, 2, -1 do
+				if string.sub(text, i, i) == " " then
+					notificationText.Text = string.sub(text, 1, i - 1)
+					if notificationText.TextFits then
+						extraText = string.sub(text, i + 1)
+						break
 					end
 				end
-				if extraText then
-					local notificationText2 = NotificationText:Clone()
-					notificationText2.TextXAlignment = Enum.TextXAlignment.Left
-					notificationText2.Text = extraText
-					notificationText2.Name = "ExtraText"
-					notificationText2.Parent = notificationFrame
-
-					local textSize = TextService:GetTextSize(extraText, notificationText2.TextSize, notificationText2.Font, Vector2.new(notificationText2.AbsoluteSize.X, 1000))
-					local addHeight = math.min(textSize.Y, NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset)
-					notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight/2)
-					notificationText.Position = notificationText.Position - UDim2.new(0, 0, 0, addHeight/2)
-					notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
-
-					notificationText2.Size = UDim2.new(notificationText2.Size.X.Scale, notificationText2.Size.X.Offset, 0, addHeight)
-					notificationText2.AnchorPoint = Vector2.new(0.5, 0)
-					notificationText2.Position = UDim2.new(0.5, 0, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset + notificationText.AbsoluteSize.Y)
-				else
-					notificationText.Text = text
-				end
 			end
-			notificationFrame.Parent = nil
-		else
-			notificationText.Size = UDim2.new(1, -IMAGE_SIZE - 16, 0, NOTIFICATION_TEXT_HEIGHT)
-			notificationText.Position = UDim2.new(0, (4.0/3.0) * IMAGE_SIZE, 0.5, NOTIFICATION_TEXT_Y_OFFSET)
-			notificationText.TextXAlignment = Enum.TextXAlignment.Left
+			if extraText then
+				local notificationText2 = NotificationText:Clone()
+				notificationText2.TextXAlignment = Enum.TextXAlignment.Left
+				notificationText2.Text = extraText
+				notificationText2.Name = "ExtraText"
+				notificationText2.Parent = notificationFrame
+
+				local textSize = TextService:GetTextSize(extraText, notificationText2.TextSize, notificationText2.Font, Vector2.new(notificationText2.AbsoluteSize.X, 1000))
+				local addHeight = math.min(textSize.Y, NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset)
+				notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight/2)
+				notificationText.Position = notificationText.Position - UDim2.new(0, 0, 0, addHeight/2)
+				notificationFrame.Size = notificationFrame.Size + UDim2.new(0, 0, 0, addHeight)
+
+				notificationText2.Size = UDim2.new(notificationText2.Size.X.Scale, notificationText2.Size.X.Offset, 0, addHeight)
+				notificationText2.AnchorPoint = Vector2.new(0.5, 0)
+				notificationText2.Position = UDim2.new(0.5, 0, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset + notificationText.AbsoluteSize.Y)
+			else
+				notificationText.Text = text
+			end
 		end
+		notificationFrame.Parent = nil
 	end
 
 	GuiService:AddSelectionParent(HttpService:GenerateGUID(false), notificationFrame)
@@ -330,9 +321,7 @@ local function updateNotifications()
 			local frame = currentNotification.Frame
 			if frame and frame.Parent then
 				local thisOffset = currentNotification.IsFriend and (NOTIFICATION_Y_OFFSET + 2) * 1.5 or NOTIFICATION_Y_OFFSET
-				if FixBadgeTextBeingCutOff then
-					thisOffset = currentNotification.IsFriend and frame.Size.Y.Offset + ((NOTIFICATION_Y_OFFSET + 2) * 0.5) or frame.Size.Y.Offset
-				end
+				thisOffset = currentNotification.IsFriend and frame.Size.Y.Offset + ((NOTIFICATION_Y_OFFSET + 2) * 0.5) or frame.Size.Y.Offset
 				yOffset = yOffset + thisOffset
 				frame:TweenPosition(UDim2.new(0, 0, 1, -yOffset - (pos * 4)), EASE_DIR, EASE_STYLE, TWEEN_TIME, true,
 					function()

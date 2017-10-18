@@ -1,5 +1,6 @@
 -- Creates the generic "ROBLOX" loading screen on startup
 -- Written by ArceusInator & Ben Tkacheff, 2014
+local AssetService = game:GetService('AssetService')
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
@@ -10,6 +11,9 @@ local ContentProvider = game:GetService("ContentProvider")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 --FFlags
+local enableGetAssetThumbnailSuccess, enableGetAssetThumbnailValue = pcall(function() return settings():GetFFlag('EnableGetAssetThumbnail') end)
+local enableGetAssetThumbnail = enableGetAssetThumbnailSuccess and enableGetAssetThumbnailValue
+
 local persistentConnectionHealthDialogSuccess, persistentConnectionHealthDialogValue = pcall(function() return settings():GetFFlag("PersistentConnectionHealthDialog") end)
 local persistentConnectionHealthDialog = persistentConnectionHealthDialogSuccess and persistentConnectionHealthDialogValue
 
@@ -424,21 +428,40 @@ function MainGui:GenerateMain()
 	--show a N/A image. This is how the console AppShell does it!
 	coroutine.wrap(function()
 		local httpService = game:GetService("HttpService")
-
 		local placeId = WaitForPlaceId()
-		local assetGameUrl = ContentProvider.BaseUrl:gsub("www", "assetgame")
-		local assetJsonUrl = string.format("%sasset-thumbnail/json?assetId=%d&width=576&height=324&format=png", assetGameUrl, placeId)
-		local imageUrl = string.format("%sThumbs/GameIcon.ashx?assetId=%d&width=576&height=324&ignorePlaceMediaItems=true", assetGameUrl, placeId)
 
 		local function tryGetFinalAsync()
-			local resultStr = game:HttpGetAsync(assetJsonUrl)
-			local parseSuccess, result = pcall(function() return httpService:JSONDecode(resultStr) end)
+			if not enableGetAssetThumbnail then
+				local assetGameUrl = ContentProvider.BaseUrl:gsub("www", "assetgame")
+				local assetJsonUrl = string.format("%sasset-thumbnail/json?assetId=%d&width=576&height=324&format=png", assetGameUrl, placeId)
+				local imageUrl = string.format("%sThumbs/GameIcon.ashx?assetId=%d&width=576&height=324&ignorePlaceMediaItems=true", assetGameUrl, placeId)
+				local resultStr = game:HttpGetAsync(assetJsonUrl)
+				local parseSuccess, result = pcall(function() return httpService:JSONDecode(resultStr) end)
 
-			if parseSuccess and result then
-				local isFinal = result.Final or result.thumbnailFinal
-				local substitutionType = result.substitutionType or result.substitutionType
+				if parseSuccess and result then
+					local isFinal = result.Final or result.thumbnailFinal
+					local substitutionType = result.substitutionType or result.substitutionType
 
-				if isFinal and (substitutionType == nil or substitutionType == gameIconSubstitutionType.None) then
+					if isFinal and (substitutionType == nil or substitutionType == gameIconSubstitutionType.None) then
+						ContentProvider:PreloadAsync { imageUrl }
+						placeIcon.Image = imageUrl
+
+						if not backgroundFadeStarted then
+							placeIcon.ImageTransparency = 0
+						end
+
+						return true
+					end
+				end
+				return false
+			else
+				local imageUrl = nil
+				local isGenerated = false
+				local success, msg = pcall(function()
+					imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(placeId, Vector2.new(576, 324), 1)
+				end)
+
+				if success and isGenerated == true and imageUrl then
 					ContentProvider:PreloadAsync { imageUrl }
 					placeIcon.Image = imageUrl
 
@@ -448,8 +471,9 @@ function MainGui:GenerateMain()
 
 					return true
 				end
+
+				return false
 			end
-			return false
 		end
 
 		while not tryGetFinalAsync() do end
@@ -481,7 +505,7 @@ function MainGui:GenerateMain()
 		Size = UDim2.new(1, 0, 0, 48),
 		LayoutOrder = 3,
 
-		create 'UIListLayout' {			
+		create 'UIListLayout' {
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Center,

@@ -52,19 +52,30 @@ do
 	Sounds[SFX.Landing] = 		Head:WaitForChild("Landing")
 	Sounds[SFX.Splash] = 		Head:WaitForChild("Splash")
 
-	if UserSettings():IsUserFeatureEnabled("UserPlayCharacterSoundWhenFE") then
-		local DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
-		if DefaultServerSoundEvent then
-			DefaultServerSoundEvent.OnClientEvent:connect(function(sound)
+	local DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+	if DefaultServerSoundEvent then
+		DefaultServerSoundEvent.OnClientEvent:connect(function(sound, playing, resetPosition)
+			if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") then
+				if resetPosition and sound.TimePosition ~= 0 then
+					sound.TimePosition = 0
+				end
+				if sound.IsPlaying ~= playing then
+					sound.Playing = playing
+				end
+			else
 				if sound.TimePosition ~= 0 then
 					sound.TimePosition = 0
 				end
 				if not sound.IsPlaying then
 					sound.Playing = true
 				end
-			end)
-		end
+			end
+		end)
 	end
+end
+
+local IsSoundFilteringEnabled = function()
+	return game.Workspace.FilteringEnabled and SoundService.RespectFilteringEnabled
 end
 
 local Util
@@ -98,8 +109,8 @@ Util = {
 	--Setting Playing/TimePosition values directly result in less network traffic than Play/Pause/Resume/Stop
 	--If these properties are enabled, use them.
 	Play = function(sound)		
-		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterSoundWhenFE") and game.Workspace.FilteringEnabled and SoundService.RespectFilteringEnabled then
-			sound.CharacterSoundEvent:FireServer()
+		if IsSoundFilteringEnabled() then
+			sound.CharacterSoundEvent:FireServer(true, true)
 		end
 		if sound.TimePosition ~= 0 then
 			sound.TimePosition = 0
@@ -110,18 +121,27 @@ Util = {
 	end;
 
 	Pause = function(sound)
+		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") and IsSoundFilteringEnabled() then
+			sound.CharacterSoundEvent:FireServer(false, false)
+		end
 		if sound.IsPlaying then
 			sound.Playing = false
 		end
 	end;
 
 	Resume = function(sound)
+		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") and IsSoundFilteringEnabled() then
+			sound.CharacterSoundEvent:FireServer(true, false)
+		end
 		if not sound.IsPlaying then
 			sound.Playing = true
 		end
 	end;
 
 	Stop = function(sound)
+		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") and IsSoundFilteringEnabled() then
+			sound.CharacterSoundEvent:FireServer(false, true)
+		end
 		if sound.IsPlaying then
 			sound.Playing = false
 		end

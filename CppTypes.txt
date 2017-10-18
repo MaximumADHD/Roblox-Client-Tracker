@@ -729,6 +729,7 @@ Classes
 	KeyframeSequence
 	KeyframeSequenceProvider
 	Landed
+	LatchedSignalBase
 	LeftMotorTool
 	LegacyCharacterAppearance
 	length_error
@@ -958,7 +959,6 @@ Classes
 	RegionRemovalItem
 	RelativePanel
 	RemoteEvent
-	RemoteEventCommon
 	RemoteFunction
 	Renderable
 	RenderEntity
@@ -1318,6 +1318,7 @@ Classes
 	YieldFunctionDescriptor
 	YieldFunctions
 	YieldFunctionStateObject
+	z9Y
 	zlib_error
 
 Enums

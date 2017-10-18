@@ -51,7 +51,6 @@ spawn(function() safeRequire(RobloxGui.Modules.BackpackScript) end)
 scriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 
 scriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
-scriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenuOld", RobloxGui)
 
 if touchEnabled then -- touch devices don't use same control frame
 	-- only used for touch device button generation

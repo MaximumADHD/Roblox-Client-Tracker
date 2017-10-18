@@ -365,7 +365,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[544957 bytes]
+[547337 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -377,7 +377,7 @@ content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
 [10523 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
-[36246 bytes]
+[35861 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenuOld.lua
 [27902 bytes]
@@ -389,13 +389,13 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [24298 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[39534 bytes]
+[38866 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[66282 bytes]
+[66991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
 [42564 bytes]
@@ -413,7 +413,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[27891 bytes]
+[28755 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -653,7 +653,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
 [52163 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[26960 bytes]
+[27937 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
 [2969 bytes]
@@ -683,7 +683,7 @@ content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [11023 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[82154 bytes]
+[82149 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [77190 bytes]
@@ -800,16 +800,16 @@ content/scripts/CoreScripts/ServerStarterScript.lua
 [3554 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
-[3722 bytes]
+[3647 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[2593 bytes]
+[2482 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
-[9479 bytes]
+[10234 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
-[10913 bytes]
+[11421 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
 [47762 bytes]
@@ -860,10 +860,13 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/TransparencyCont
 [5543 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript.lua
-[16310 bytes]
+[17608 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.lua
-[4368 bytes]
+[4604 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/ClickToMoveController.lua
+[31256 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DPad.lua
 [5125 bytes]
@@ -1030,6 +1033,24 @@ content/textures/AvatarEditorImages/btn@2x.png
 content/textures/AvatarEditorImages/btn@3x.png
 [369 bytes]
 
+content/textures/AvatarEditorImages/circle_blue.png
+[228 bytes]
+
+content/textures/AvatarEditorImages/circle_blue@2x.png
+[452 bytes]
+
+content/textures/AvatarEditorImages/circle_blue@3x.png
+[613 bytes]
+
+content/textures/AvatarEditorImages/circle_gray4.png
+[239 bytes]
+
+content/textures/AvatarEditorImages/circle_gray4@2x.png
+[445 bytes]
+
+content/textures/AvatarEditorImages/circle_gray4@3x.png
+[631 bytes]
+
 content/textures/AvatarEditorImages/Sheet.png
 [292348 bytes]
 
@@ -1115,10 +1136,10 @@ content/textures/content-textures.zip
 [3175 bytes]
 
 content/textures/content-textures2.zip
-[6184465 bytes]
+[6209981 bytes]
 
 content/textures/content-textures3.zip
-[26376277 bytes]
+[26364153 bytes]
 
 content/textures/Cursors/Gamepad/Pointer.png
 [1073 bytes]
@@ -1439,7 +1460,7 @@ content/textures/rotationArrow.png
 [2354 bytes]
 
 content/textures/rust/diffuse.dds
-[1310518 bytes]
+[1311623 bytes]
 
 content/textures/rust/normal.dds
 [1357305 bytes]
@@ -1873,6 +1894,15 @@ content/textures/ui/LuaChat/9-slice/chat-bubble2@2x.png
 content/textures/ui/LuaChat/9-slice/chat-bubble2@3x.png
 [616 bytes]
 
+content/textures/ui/LuaChat/9-slice/chat-bubble-right.png
+[401 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-right@2x.png
+[861 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-right@3x.png
+[1379 bytes]
+
 content/textures/ui/LuaChat/9-slice/chat-bubble-self.png
 [187 bytes]
 
@@ -1908,6 +1938,15 @@ content/textures/ui/LuaChat/9-slice/chat-bubble-tip@2x.png
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip@3x.png
 [133 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right.png
+[130 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@2x.png
+[182 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@3x.png
+[211 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-default.png
 [131 bytes]
@@ -2110,6 +2149,15 @@ content/textures/ui/LuaChat/icons/ic-back@2x.png
 content/textures/ui/LuaChat/icons/ic-back-mdpi.png
 [191 bytes]
 
+content/textures/ui/LuaChat/icons/ic-bc.png
+[931 bytes]
+
+content/textures/ui/LuaChat/icons/ic-bc@2x.png
+[1947 bytes]
+
+content/textures/ui/LuaChat/icons/ic-bc@3x.png
+[3009 bytes]
+
 content/textures/ui/LuaChat/icons/ic-chat-large.png
 [2572 bytes]
 
@@ -2154,6 +2202,15 @@ content/textures/ui/LuaChat/icons/ic-clear-solid@2x.png
 
 content/textures/ui/LuaChat/icons/ic-clear-solid@3x.png
 [677 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-gray2.png
+[359 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-gray2@2x.png
+[627 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-gray2@3x.png
+[754 bytes]
 
 content/textures/ui/LuaChat/icons/ic-create-group.png
 [435 bytes]
@@ -2337,6 +2394,9 @@ content/textures/ui/mouseLock_on.png
 
 content/textures/ui/mouseLock_on@2x.png
 [3237 bytes]
+
+content/textures/ui/move.png
+[9563 bytes]
 
 content/textures/ui/newBkg_square.png
 [14709 bytes]

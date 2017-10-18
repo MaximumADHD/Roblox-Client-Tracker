@@ -18,7 +18,6 @@ local ClassicCamera = require(RootCamera:WaitForChild('ClassicCamera'))()
 local FollowCamera = require(RootCamera:WaitForChild('FollowCamera'))()
 local PopperCam = require(script:WaitForChild('PopperCam'))
 local Invisicam = require(script:WaitForChild('Invisicam'))
-local ClickToMove = require(script:WaitForChild('ClickToMove'))()
 local TransparencyController = require(script:WaitForChild('TransparencyController'))()
 
 local VRCamera = require(RootCamera:WaitForChild("VRCamera"))()
@@ -32,6 +31,10 @@ end)
 if not success then
 	print("Couldn't get feature UserAllCamerasInLua because:" , msg) 
 end
+
+local FFlagUserNoCameraClickToMoveSuccess, FFlagUserNoCameraClickToMoveResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoCameraClickToMove") end)
+local FFlagUserNoCameraClickToMove = FFlagUserNoCameraClickToMoveSuccess and FFlagUserNoCameraClickToMoveResult
+local ClickToMove = FFlagUserNoCameraClickToMove and nil or require(script:WaitForChild('ClickToMove'))()
 
 local isOrbitalCameraEnabled = pcall(function() local test = Enum.CameraType.Orbital end)
 
@@ -118,7 +121,7 @@ local function getCurrentCameraMode()
 	local player = PlayersService.LocalPlayer
 	if usePlayerScripts and player then
 		if (hasLastInput and lastInputType == Enum.UserInputType.Touch) or IsTouch() then -- Touch (iPad, etc...)
-			if isClickToMoveOn() then
+			if not FFlagUserNoCameraClickToMove and isClickToMoveOn() then
 				return Enum.DevTouchMovementMode.ClickToMove.Name
 			elseif player.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice then
 				local touchMovementMode = GameSettings.TouchCameraMovementMode
@@ -130,7 +133,7 @@ local function getCurrentCameraMode()
 				return player.DevTouchCameraMode.Name
 			end
 		else -- Computer
-			if isClickToMoveOn() then
+			if not FFlagUserNoCameraClickToMove and isClickToMoveOn() then
 				return Enum.DevComputerMovementMode.ClickToMove.Name
 			elseif player.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice then
 				local computerMovementMode = GameSettings.ComputerCameraMovementMode
@@ -179,6 +182,10 @@ end
 
 local function OnCameraMovementModeChange(newCameraMode)
 	if newCameraMode == Enum.DevComputerMovementMode.ClickToMove.Name then
+		if FFlagUserNoCameraClickToMove then
+			--No longer responding to ClickToMove here!
+			return
+		end
 		ClickToMove:Start()
 		SetEnabledCamera(nil)
 		TransparencyController:SetEnabled(true)
