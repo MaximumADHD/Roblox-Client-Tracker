@@ -200,6 +200,7 @@ Classes
 	BuoyancyCylinderContact
 	BuoyancyWedgeContact
 	Button
+	c0v
 	CacheableContentProvider
 	CacheLocalScheduleGroup
 	CacheLocalScheduleGroupSegment
@@ -363,6 +364,7 @@ Classes
 	Cylinder
 	CylinderHandleAdornment
 	CylinderMesh
+	CylindricalConstraint
 	D6Link
 	DataModel
 	DataModelArbiter
@@ -614,6 +616,7 @@ Classes
 	Hat
 	HeartbeatInstance
 	HeartbeatTask
+	HhxtmhhaehhV
 	HingeAutoJointSurfacePair
 	HingeConstraint
 	HingeTool
@@ -1113,6 +1116,7 @@ Classes
 	SpotLight
 	SpringConstraint
 	SpringCurve
+	Ssw
 	StandardPages
 	StarterCharacterScripts
 	StarterGear
@@ -1284,6 +1288,7 @@ Classes
 	VertexLayoutD3D9
 	VertexLayoutGL
 	VertexLayoutVulkan
+	VhxtmvhaehvV
 	VideoControl
 	VideoRecord
 	ViewBase
@@ -1318,7 +1323,6 @@ Classes
 	YieldFunctionDescriptor
 	YieldFunctions
 	YieldFunctionStateObject
-	z9Y
 	zlib_error
 
 Enums

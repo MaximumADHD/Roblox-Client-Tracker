@@ -167,7 +167,7 @@ content/fonts/character3.rbxm
 [26396 bytes]
 
 content/fonts/characterCameraScript.rbxmx
-[154411 bytes]
+[154142 bytes]
 
 content/fonts/characterControlScript.rbxmx
 [82801 bytes]
@@ -233,7 +233,7 @@ content/fonts/CompositTShirt.mesh
 [193 bytes]
 
 content/fonts/content-fonts.zip
-[1735947 bytes]
+[1735907 bytes]
 
 content/fonts/gamecontrollerdb.txt
 [24066 bytes]
@@ -365,7 +365,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[547337 bytes]
+[547260 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -824,7 +824,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5345 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
-[49618 bytes]
+[49342 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
 [2232 bytes]
@@ -839,7 +839,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/Follo
 [6966 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/OrbitalCamera.lua
-[17641 bytes]
+[17490 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ScriptableCamera.lua
 [222 bytes]

@@ -173,7 +173,7 @@
         <addspinbox fflag="!StudioClampRotateIncrement" type="spinbox" keyboardTracking="true" tooltip="The grid that rotate tools will snap to" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="180" minumumWidth="100" step="5" suffix=" ?"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="The grid move and resize tools will snap to" name="setDragGridIncrementAction" decimals="2" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix=" studs"/>
       </Group>
-      <Group name="UI" fflag="UserUIEditorEnabled" controlsCentering="true">
+      <Group name="UI" controlsCentering="true">
         <addaction name="RobloxUIEditor" instancename="UIEditor" style="textundericon" text="UI Editor" tooltip="UI Editor v1.0" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32" />
       </Group>
       <Group name="Parts" options="true">
@@ -239,6 +239,7 @@
           <addaction name="createBallInSocketConstraintAction" style="textundericon" iscommonslot="true" text="Ball in Socket" tooltip="Create ball in socket" icon=":/RibbonBar/images/RibbonIcons/Physics/ball-in-socket-32x32.png" width="32" height="32" />
           <addaction name="createHingeConstraintAction" style="textundericon" iscommonslot="true" text="Hinge" tooltip="Create hinge" icon=":/RibbonBar/images/RibbonIcons/Physics/hinge-32x32.png" width="32" height="32" />
           <addaction name="createPrismaticConstraintAction" style="textundericon" iscommonslot="true" text="Prismatic" tooltip="Create prismatic constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/prismatic-constraint-32x32.png" width="32" height="32" />
+          <addaction fflag="EnableCylindricalConstraint" name="createCylindricalConstraintAction" style="textundericon" iscommonslot="true" text="Cylindrical" tooltip="Create cylindrical constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/cylindrical-constraint-32x32.png" width="32" height="32" />
           <addaction name="createRopeConstraintAction" style="textundericon" iscommonslot="true" text="Rope" tooltip="Create rope constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rope-32x32.png" width="32" height="32" />
           <addaction name="createRodConstraintAction" style="textundericon" iscommonslot="true" text="Rod" tooltip="Create rod constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rod-32x32.png" width="32" height="32" />
           <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Spring" tooltip="Create spring constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/spring-32x32.png" width="32" height="32" />

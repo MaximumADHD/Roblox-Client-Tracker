@@ -370,11 +370,7 @@ local function CreateOrbitalCamera()
 	function module:ZoomCameraBy(zoomScale)
 		local newDist = curDistance
 		-- Can break into more steps to get more accurate integration
-		if UserSettings():IsUserFeatureEnabled("UserBetterInertialScrolling") then
-			newDist = self:rk4Integrator(curDistance, zoomScale, 1/10)
-		else
-			newDist = self:rk4Integrator(curDistance, zoomScale, 1)
-		end
+        newDist = self:rk4Integrator(curDistance, zoomScale, 1)
 		self:ZoomCamera(newDist)
 		return self:GetCameraZoom()
 	end

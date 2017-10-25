@@ -400,8 +400,20 @@ Class SlidingBallConstraint : Constraint
 	Property float SlidingBallConstraint.UpperLimit
 	Property float SlidingBallConstraint.Velocity
 Class CylindricalConstraint : SlidingBallConstraint
-	Property float CylindricalConstraint.AzimuthalAngle
+	Property ActuatorType CylindricalConstraint.AngularActuatorType
+	Property bool CylindricalConstraint.AngularLimitsEnabled
+	Property float CylindricalConstraint.AngularRestitution
+	Property float CylindricalConstraint.AngularSpeed
+	Property float CylindricalConstraint.AngularVelocity
+	Property float CylindricalConstraint.CurrentAngle [readonly]
 	Property float CylindricalConstraint.InclinationAngle
+	Property float CylindricalConstraint.LowerAngle
+	Property float CylindricalConstraint.MotorMaxAngularAcceleration
+	Property float CylindricalConstraint.MotorMaxTorque
+	Property float CylindricalConstraint.ServoMaxTorque
+	Property float CylindricalConstraint.TargetAngle
+	Property float CylindricalConstraint.UpperAngle
+	Property Vector3 CylindricalConstraint.WorldRotationAxis [readonly]
 Class PrismaticConstraint : SlidingBallConstraint
 Class SpringConstraint : Constraint
 	Property float SpringConstraint.Coils
@@ -434,6 +446,7 @@ Class ContextActionService : Instance
 	Function void ContextActionService:BindActionToInputTypes(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes) [deprecated]
 	Function void ContextActionService:BindActivate(UserInputType userInputTypeForActivation, KeyCode keyCodeForActivation = Unknown)
 	Function void ContextActionService:BindCoreAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes) [RobloxScriptSecurity]
+	Function void ContextActionService:BindCoreActionAtPriority(string actionName, Function functionToBind, bool createTouchButton, int priorityLevel, Tuple inputTypes) [RobloxScriptSecurity]
 	Function Tuple ContextActionService:CallFunction(string actionName, UserInputState state, Instance inputObject) [RobloxScriptSecurity]
 	Function void ContextActionService:FireActionButtonFoundSignal(string actionName, Instance actionButton) [RobloxScriptSecurity]
 	Function Dictionary ContextActionService:GetAllBoundActionInfo()
@@ -653,6 +666,7 @@ Class GlobalDataStore : Instance
 	Function Connection GlobalDataStore:OnUpdate(string key, Function callback)
 	YieldFunction Variant GlobalDataStore:GetAsync(string key)
 	YieldFunction Variant GlobalDataStore:IncrementAsync(string key, int delta = 1)
+	YieldFunction Variant GlobalDataStore:RemoveAsync(string key)
 	YieldFunction void GlobalDataStore:SetAsync(string key, Variant value)
 	YieldFunction Tuple GlobalDataStore:UpdateAsync(string key, Function transformFunction)
 Class OrderedDataStore : GlobalDataStore
@@ -1784,6 +1798,7 @@ Class Player : Instance
 	Property float Player.NameDisplayDistance
 	Property bool Player.Neutral
 	Property string Player.OsPlatform [RobloxScriptSecurity]
+	Property Object Player.ReplicationFocus
 	Property Object Player.RespawnLocation
 	Property float Player.SimulationRadius [LocalUserSecurity]
 	Property Object Player.Team
