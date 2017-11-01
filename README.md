@@ -27,4 +27,4 @@ This is a sorted list of fast variables, which are used by Roblox to toggle feat
 This represents a GUID for the current version of Roblox on the specified branch.
 
 ### CppTree.txt
-A tree of the RBX namespace, which *appears to be* the root namespace used by Roblox in the C++ backend. Note that namespaces, classes, and subclasses are not explicitly labeled as such, as that information can't be extracted from the exe (at least afaik)
+A tree of the RBX namespace, which *appears to be* the root namespace used by Roblox in the C++ backend. Note that namespaces, classes, and subclasses are not explicitly labeled as such, as that information can't be extracted from the exe.
