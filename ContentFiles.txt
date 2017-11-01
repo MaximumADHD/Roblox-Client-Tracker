@@ -4,9 +4,6 @@ content/avatar/character.rbxm
 content/avatar/characterR15.rbxm
 [74479 bytes]
 
-content/avatar/characterR15_3.rbxm
-[72252 bytes]
-
 content/avatar/compositing/CompositExtraSlot0.mesh
 [817 bytes]
 
@@ -139,14 +136,8 @@ content/avatar/scripts/characterSound.rbxmx
 content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
 [19911 bytes]
 
-content/avatar/scripts/humanoidAnimateLocalKeyframe2.rbxm
-[19949 bytes]
-
 content/avatar/scripts/humanoidAnimateR15.rbxm
 [30428 bytes]
-
-content/avatar/scripts/humanoidAnimateR15_4.rbxm
-[30141 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
 [1338 bytes]
@@ -163,74 +154,14 @@ content/fonts/arialbd.ttf
 content/fonts/Balthazar-Regular.ttf
 [28117 bytes]
 
-content/fonts/character3.rbxm
-[26396 bytes]
-
 content/fonts/characterCameraScript.rbxmx
 [154142 bytes]
 
 content/fonts/characterControlScript.rbxmx
 [82801 bytes]
 
-content/fonts/characterR15.rbxm
-[73092 bytes]
-
-content/fonts/characterR15_3.rbxm
-[72252 bytes]
-
-content/fonts/characterSound.rbxmx
-[11417 bytes]
-
 content/fonts/ComicNeue-Angular-Bold.ttf
 [61983 bytes]
-
-content/fonts/CompositExtraSlot0.mesh
-[817 bytes]
-
-content/fonts/CompositExtraSlot1.mesh
-[817 bytes]
-
-content/fonts/CompositExtraSlot2.mesh
-[817 bytes]
-
-content/fonts/CompositExtraSlot3.mesh
-[817 bytes]
-
-content/fonts/CompositExtraSlot4.mesh
-[817 bytes]
-
-content/fonts/CompositFullAtlasBaseTexture.mesh
-[193 bytes]
-
-content/fonts/CompositFullAtlasOverlayTexture.mesh
-[189 bytes]
-
-content/fonts/CompositLeftArmBase.mesh
-[28805 bytes]
-
-content/fonts/CompositLeftLegBase.mesh
-[28141 bytes]
-
-content/fonts/CompositPantsTemplate.mesh
-[42981 bytes]
-
-content/fonts/CompositQuad.mesh
-[183 bytes]
-
-content/fonts/CompositRightArmBase.mesh
-[28585 bytes]
-
-content/fonts/CompositRightLegBase.mesh
-[28409 bytes]
-
-content/fonts/CompositShirtTemplate.mesh
-[42224 bytes]
-
-content/fonts/CompositTorsoBase.mesh
-[28551 bytes]
-
-content/fonts/CompositTShirt.mesh
-[193 bytes]
 
 content/fonts/content-fonts.zip
 [1735907 bytes]
@@ -241,72 +172,6 @@ content/fonts/gamecontrollerdb.txt
 content/fonts/Guru-Regular.otf
 [693972 bytes]
 
-content/fonts/head.mesh
-[28207 bytes]
-
-content/fonts/headA.mesh
-[13336 bytes]
-
-content/fonts/headB.mesh
-[1033 bytes]
-
-content/fonts/headC.mesh
-[18585 bytes]
-
-content/fonts/headD.mesh
-[29041 bytes]
-
-content/fonts/headE.mesh
-[24067 bytes]
-
-content/fonts/headF.mesh
-[9441 bytes]
-
-content/fonts/headG.mesh
-[21168 bytes]
-
-content/fonts/headH.mesh
-[28241 bytes]
-
-content/fonts/headI.mesh
-[2818 bytes]
-
-content/fonts/headJ.mesh
-[2657 bytes]
-
-content/fonts/headK.mesh
-[28287 bytes]
-
-content/fonts/headL.mesh
-[13783 bytes]
-
-content/fonts/headM.mesh
-[3225 bytes]
-
-content/fonts/headN.mesh
-[28979 bytes]
-
-content/fonts/headO.mesh
-[18728 bytes]
-
-content/fonts/headP.mesh
-[28979 bytes]
-
-content/fonts/humanoidAnimateLocalKeyframe.rbxm
-[19911 bytes]
-
-content/fonts/humanoidAnimateLocalKeyframe2.rbxm
-[19949 bytes]
-
-content/fonts/humanoidAnimateR15.rbxm
-[30213 bytes]
-
-content/fonts/humanoidAnimateR15_4.rbxm
-[30141 bytes]
-
-content/fonts/humanoidHealthRegenScript.rbxmx
-[1426 bytes]
-
 content/fonts/humanoidSoundNewLocal.rbxmx
 [5774 bytes]
 
@@ -316,29 +181,8 @@ content/fonts/HWYGOTH.ttf
 content/fonts/Inconsolata-Regular.ttf
 [79017 bytes]
 
-content/fonts/leftarm.mesh
-[2033 bytes]
-
-content/fonts/leftleg.mesh
-[2033 bytes]
-
 content/fonts/PressStart2P-Regular.ttf
 [66336 bytes]
-
-content/fonts/R15CompositLeftArmBase.mesh
-[18822 bytes]
-
-content/fonts/R15CompositRightArmBase.mesh
-[18803 bytes]
-
-content/fonts/R15CompositTorsoBase.mesh
-[8818 bytes]
-
-content/fonts/rightarm.mesh
-[2033 bytes]
-
-content/fonts/rightleg.mesh
-[2033 bytes]
 
 content/fonts/RomanAntique.otf
 [265740 bytes]
@@ -358,9 +202,6 @@ content/fonts/SourceSansPro-Regular.ttf
 content/fonts/SourceSansPro-Semibold.ttf
 [148454 bytes]
 
-content/fonts/torso.mesh
-[2049 bytes]
-
 content/fonts/zekton_rg.ttf
 [86820 bytes]
 
@@ -378,9 +219,6 @@ content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
 [35861 bytes]
-
-content/scripts/CoreScripts/CoreScripts/GamepadMenuOld.lua
-[27902 bytes]
 
 content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [10198 bytes]
@@ -441,9 +279,6 @@ content/scripts/CoreScripts/Modules/ChatUtil.lua
 
 content/scripts/CoreScripts/Modules/Common/CommonUtil.lua
 [1277 bytes]
-
-content/scripts/CoreScripts/Modules/Common/Http.lua
-[3151 bytes]
 
 content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
@@ -702,15 +537,6 @@ content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
 
 content/scripts/CoreScripts/Modules/Stats/DecoratedValueLabel.lua
 [3087 bytes]
-
-content/scripts/CoreScripts/Modules/Stats/DEPRECATED_BaseMemoryAnalyzer.lua
-[6706 bytes]
-
-content/scripts/CoreScripts/Modules/Stats/DEPRECATED_ClientMemoryAnalyzer.lua
-[4469 bytes]
-
-content/scripts/CoreScripts/Modules/Stats/DEPRECATED_ServerMemoryAnalyzer.lua
-[5308 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsolePrimitives.lua
 [2555 bytes]
@@ -1132,9 +958,6 @@ content/textures/concrete/specular.dds
 content/textures/ConstraintCursor.png
 [165 bytes]
 
-content/textures/content-textures.zip
-[3175 bytes]
-
 content/textures/content-textures2.zip
 [6209981 bytes]
 
@@ -1484,9 +1307,6 @@ content/textures/sand/specular.dds
 [688434 bytes]
 
 content/textures/shadowblurmask.png
-[3045 bytes]
-
-content/textures/shadowmask.png
 [3045 bytes]
 
 content/textures/sky/sky512_bk.tex
