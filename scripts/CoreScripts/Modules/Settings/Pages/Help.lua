@@ -6,9 +6,6 @@
 --]]
 
 ------------ FFLAGS -------------------
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
@@ -351,7 +348,7 @@ local function Initialize()
 
 	local function updateTouchLayout(scheme) -- adjust layout to work well with the various touch control schemes
 		this.ActiveHelpScheme = scheme
-		local isPortrait = enablePortraitMode and utility:IsPortrait()
+		local isPortrait = utility:IsPortrait()
 		local helpFrame = this.HelpPages[TOUCH_TAG]
 
 		if helpFrame then
@@ -606,13 +603,12 @@ local function Initialize()
 		end
 	end)
 
-	if enablePortraitMode then
-		utility:OnResized(this, function(newSize, isPortrait)
-			if this.HelpPages[TOUCH_TAG] then
-				adjustForScreenLayout(newSize)
-			end
-		end)
-	end
+	utility:OnResized(this, function(newSize, isPortrait)
+		if this.HelpPages[TOUCH_TAG] then
+			adjustForScreenLayout(newSize)
+		end
+	end)
+
 	return this
 end
 
@@ -622,7 +618,7 @@ do
   PageInstance = Initialize()
 
   PageInstance.Displayed.Event:connect(function()
-      local isPortrait = enablePortraitMode and utility:IsPortrait()
+      local isPortrait = utility:IsPortrait()
       if PageInstance:GetCurrentInputType() == TOUCH_TAG then
         if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
           PageInstance.HubRef.BottomButtonFrame.Visible = false
@@ -641,7 +637,7 @@ do
 
       PageInstance.HubRef:ShowShield()
 
-      local isPortrait = enablePortraitMode and utility:IsPortrait()
+      local isPortrait = utility:IsPortrait()
       if PageInstance:GetCurrentInputType() == TOUCH_TAG then
         if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
           PageInstance.HubRef.BottomButtonFrame.Visible = true

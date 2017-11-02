@@ -206,7 +206,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[547260 bytes]
+[537971 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -218,7 +218,7 @@ content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
 [10523 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
-[35861 bytes]
+[35355 bytes]
 
 content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [10198 bytes]
@@ -236,7 +236,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [66991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[42564 bytes]
+[42229 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5805 bytes]
@@ -302,7 +302,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22874 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[66745 bytes]
+[65922 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -488,7 +488,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
 [52163 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[27937 bytes]
+[27615 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
 [2969 bytes]
@@ -497,28 +497,28 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4841 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21078 bytes]
+[20424 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
-[8220 bytes]
+[5796 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[13456 bytes]
+[12345 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5376 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[48471 bytes]
+[48084 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHubOld.lua
 [40614 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
-[11023 bytes]
+[10629 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[82149 bytes]
+[81756 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [77190 bytes]
@@ -674,7 +674,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/Track
 [1613 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/VRCamera.lua
-[7972 bytes]
+[8123 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/WatchCamera.lua
 [1884 bytes]

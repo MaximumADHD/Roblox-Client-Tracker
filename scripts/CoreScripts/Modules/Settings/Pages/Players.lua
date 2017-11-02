@@ -18,9 +18,6 @@ local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
@@ -51,9 +48,7 @@ local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
 
-	if enablePortraitMode then
-		this.PageListLayout.Padding = UDim.new(0, PLAYER_ROW_SPACING - PLAYER_ROW_HEIGHT)
-	end
+	this.PageListLayout.Padding = UDim.new(0, PLAYER_ROW_SPACING - PLAYER_ROW_HEIGHT)
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
@@ -276,28 +271,20 @@ local function Initialize()
 	resumeLabel.Size = UDim2.new(1, 0, 1, -6)
 	resumeButton.Parent = buttonsContainer
 
-	if enablePortraitMode then
-		utility:OnResized(buttonsContainer, function(newSize, isPortrait)
-			if isPortrait or utility:IsSmallTouchScreen() then
-				local buttonsFontSize = isPortrait and 18 or 24
-				buttonsContainer.Visible = true
-				buttonsContainer.Size = UDim2.new(1, 0, 0, isPortrait and 50 or 62)
-				resetLabel.TextSize = buttonsFontSize
-				leaveLabel.TextSize = buttonsFontSize
-				resumeLabel.TextSize = buttonsFontSize
-			else
-				buttonsContainer.Visible = false
-				buttonsContainer.Size = UDim2.new(1, 0, 0, 0)
-			end
-		end)
-	else
-		if not utility:IsSmallTouchScreen() then
+	utility:OnResized(buttonsContainer, function(newSize, isPortrait)
+		if isPortrait or utility:IsSmallTouchScreen() then
+			local buttonsFontSize = isPortrait and 18 or 24
+			buttonsContainer.Visible = true
+			buttonsContainer.Size = UDim2.new(1, 0, 0, isPortrait and 50 or 62)
+			resetLabel.TextSize = buttonsFontSize
+			leaveLabel.TextSize = buttonsFontSize
+			resumeLabel.TextSize = buttonsFontSize
+		else
 			buttonsContainer.Visible = false
 			buttonsContainer.Size = UDim2.new(1, 0, 0, 0)
-		else
-			buttonsContainer.Visible = true
 		end
-	end
+	end)
+
 	
 	if FFlagUseNotificationsLocalization then
 		local function ApplyLocalizeTextSettingsToLabel(label)
@@ -477,7 +464,7 @@ local function Initialize()
 		end)
 
 		local extraOffset = 20
-		if utility:IsSmallTouchScreen() or (enablePortraitMode and utility:IsPortrait()) then
+		if utility:IsSmallTouchScreen() or utility:IsPortrait() then
 			extraOffset = 85
 		end
 
@@ -531,17 +518,14 @@ local function Initialize()
 			end
 		end
 
-		if enablePortraitMode then
-			utility:OnResized("MenuPlayerListExtraPageSize", function(newSize, isPortrait)
-				local extraOffset = 20
-				if utility:IsSmallTouchScreen() or utility:IsPortrait() then
-					extraOffset = 85
-				end
-				this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * #sortedPlayers - 5)
-			end)
-		else
+		utility:OnResized("MenuPlayerListExtraPageSize", function(newSize, isPortrait)
+			local extraOffset = 20
+			if utility:IsSmallTouchScreen() or utility:IsPortrait() then
+				extraOffset = 85
+			end
 			this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * #sortedPlayers - 5)
-		end
+		end)
+
 	end)
 
 	return this

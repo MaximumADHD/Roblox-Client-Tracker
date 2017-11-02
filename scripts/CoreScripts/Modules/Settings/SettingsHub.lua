@@ -41,16 +41,8 @@ local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
--- Enable the old SettingsHub.lua if the EnablePortraitMode flag is off
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
 local getDisplayVersionFlagSuccess, getDisplayVersionFlagValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
 local displayVersionFlag = (getDisplayVersionFlagSuccess and getDisplayVersionFlagValue)
-
-if not enablePortraitMode then
-	return require(RobloxGui.Modules.Settings.SettingsHubOld)
-end
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
 local enableResponsiveUI = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue

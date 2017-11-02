@@ -16,7 +16,7 @@ RBX
 	{
 		SpatialHash
 		{
-			CoarseMovementCallback
+			MovementCallback
 		}
 		BallBallContact
 		BallBlockContact
@@ -971,6 +971,7 @@ RBX
 	ServerScriptService
 	ServerStorage
 	Service
+	ServiceInstance
 	ServiceProvider
 	SetDragGridToOff
 	SetDragGridToOne

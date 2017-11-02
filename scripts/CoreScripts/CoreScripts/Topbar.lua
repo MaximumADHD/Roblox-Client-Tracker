@@ -9,9 +9,6 @@
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
 local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
 
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
 --[[ END OF FFLAG VALUES ]]
 
 
@@ -470,22 +467,20 @@ local function createNormalHealthBar()
 		Parent = healthContainer;
 	};
 
-	if enablePortraitMode then
-		local function onResized(viewportSize, isPortrait)
-			if isPortrait then
-				username.TextXAlignment = Enum.TextXAlignment.Right
-				accountType.TextXAlignment = Enum.TextXAlignment.Right
-				container.Size = UDim2.new(0.3, 0, 1, 0)
-				container.AnchorPoint = Vector2.new(1, 0)
-			else
-				username.TextXAlignment = Enum.TextXAlignment.Left
-				accountType.TextXAlignment = Enum.TextXAlignment.Left
-				container.Size = UDim2.new(0, TopbarConstants.USERNAME_CONTAINER_WIDTH, 1, 0)
-				container.AnchorPoint = Vector2.new(0, 0)
-			end
+	local function onResized(viewportSize, isPortrait)
+		if isPortrait then
+			username.TextXAlignment = Enum.TextXAlignment.Right
+			accountType.TextXAlignment = Enum.TextXAlignment.Right
+			container.Size = UDim2.new(0.3, 0, 1, 0)
+			container.AnchorPoint = Vector2.new(1, 0)
+		else
+			username.TextXAlignment = Enum.TextXAlignment.Left
+			accountType.TextXAlignment = Enum.TextXAlignment.Left
+			container.Size = UDim2.new(0, TopbarConstants.USERNAME_CONTAINER_WIDTH, 1, 0)
+			container.AnchorPoint = Vector2.new(0, 0)
 		end
-		Utility:OnResized(container, onResized)
 	end
+	Utility:OnResized(container, onResized)
 
 	return container, username, healthContainer, healthFill, accountType
 end
@@ -786,7 +781,7 @@ local function CreateLeaderstatsMenuItem()
 
 	this:SetColumns(PlayerlistModule.GetStats())
 	PlayerlistModule.OnLeaderstatsChanged.Event:connect(function(newStatColumns)
-		if not enablePortraitMode or not Utility:IsPortrait() then
+		if not Utility:IsPortrait() then
 			this:SetColumns(newStatColumns)
 		end
 	end)
@@ -1468,20 +1463,18 @@ local function topbarEnabledChanged()
 	end
 end
 
-if enablePortraitMode then
-	--Temporarily disable the leaderstats while in portrait mode.
-	--Will come back to this when a new design is ready.
-	local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
-	local function onResized(viewportSize, isPortrait)
-		if isPortrait then
-			leaderstatsMenuItem:SetColumns({})
-		else
-			leaderstatsMenuItem:SetColumns(PlayerlistModule.GetStats())
-		end
-		RightMenubar:ArrangeItems()
+--Temporarily disable the leaderstats while in portrait mode.
+--Will come back to this when a new design is ready.
+local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
+local function onResized(viewportSize, isPortrait)
+	if isPortrait then
+		leaderstatsMenuItem:SetColumns({})
+	else
+		leaderstatsMenuItem:SetColumns(PlayerlistModule.GetStats())
 	end
-	Utility:OnResized(leaderstatsMenuItem, onResized)
+	RightMenubar:ArrangeItems()
 end
+Utility:OnResized(leaderstatsMenuItem, onResized)
 
 topbarEnabledChanged() -- if it was set before this point, enable/disable it now
 StarterGui:RegisterSetCore("TopbarEnabled", function(enabled)

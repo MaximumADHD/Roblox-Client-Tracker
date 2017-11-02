@@ -2527,6 +2527,7 @@ Class UserGameSettings : Instance
 	Event UserGameSettings.StudioModeChanged(bool isStudioMode)
 Class UserInputService : Instance [notCreatable]
 	Property bool UserInputService.AccelerometerEnabled [readonly]
+	Property Vector2 UserInputService.BottomBarSize [readonly] [RobloxScriptSecurity]
 	Property bool UserInputService.GamepadEnabled [readonly]
 	Property bool UserInputService.GazeSelectionEnabled [hidden] [RobloxScriptSecurity]
 	Property bool UserInputService.GyroscopeEnabled [readonly]
@@ -2536,11 +2537,13 @@ Class UserInputService : Instance [notCreatable]
 	Property float UserInputService.MouseDeltaSensitivity
 	Property bool UserInputService.MouseEnabled [readonly]
 	Property bool UserInputService.MouseIconEnabled
+	Property Vector2 UserInputService.NavBarSize [readonly] [RobloxScriptSecurity]
 	Property double UserInputService.OnScreenKeyboardAnimationDuration [readonly] [RobloxScriptSecurity]
 	Property Vector2 UserInputService.OnScreenKeyboardPosition [readonly]
 	Property Vector2 UserInputService.OnScreenKeyboardSize [readonly]
 	Property bool UserInputService.OnScreenKeyboardVisible [readonly]
 	Property OverrideMouseIconBehavior UserInputService.OverrideMouseIconBehavior [RobloxScriptSecurity]
+	Property Vector2 UserInputService.StatusBarSize [readonly] [RobloxScriptSecurity]
 	Property bool UserInputService.TouchEnabled [readonly]
 	Property CoordinateFrame UserInputService.UserHeadCFrame [deprecated] [readonly]
 	Property bool UserInputService.VREnabled [readonly]

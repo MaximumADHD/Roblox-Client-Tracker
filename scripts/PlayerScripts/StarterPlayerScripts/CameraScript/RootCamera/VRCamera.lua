@@ -112,7 +112,7 @@ local function CreateVRCamera()
 
 		humanoid.StateChanged:connect(function(oldState, newState)
 			local camera = workspace.CurrentCamera
-			if not camera or camera.CameraSubject ~= humanoid then
+			if not camera or camera.CameraSubject ~= humanoid or not VRService.VREnabled then
 				return
 			end
 			if newState == Enum.HumanoidStateType.Jumping then
@@ -192,7 +192,10 @@ local function CreateVRCamera()
 	workspace:GetPropertyChangedSignal("CurrentCamera"):connect(onCurrentCameraChanged)
 	onCurrentCameraChanged()
 	
-	bindActions(true)
+	local function onVREnabled()
+		bindActions(VRService.VREnabled)
+	end
+	VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabled)
 
 	function module:Update()
 		local now = tick()

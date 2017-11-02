@@ -415,41 +415,231 @@
               </Properties>
           </Item>
       </Item>
-
-
     </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">Constraint</string>
+        <string name="ClassCategory">Physics</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">86</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Enabled</string>
+            <string name="summary">Toggles whether or not this constraint is enabled. Disabled constraints will not render in game.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Color</string>
+            <string name="summary">The color of the in-game visual.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Visible</string>
+            <string name="summary">Toggles the in-game visual associated with this constraint.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BallSocketConstraint</string>
         <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">86</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Enables the angular limit between the axis of Attachment0 and the axis of Attachment1.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UpperAngle</string>
+            <string name="summary">Maximum angle between the two main axes. Value in [0, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Restitution</string>
+            <string name="summary">Restitution of the limit, or how elastic it is. Value in [0, 1].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TwistLimitsEnabled</string>
+            <string name="summary">Enables the angular limits around the main axis of Attachment1.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TwistUpperAngle</string>
+            <string name="summary">Upper angular limit around the axis of Attachment1. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TwistLowerAngle</string>
+            <string name="summary">Lower angular limit around the axis of Attachment1. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Radius</string>
+            <string name="summary">Radius of the in-game visual. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
+    
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RopeConstraint</string>
         <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">89</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Length</string>
+            <string name="summary">The length of the rope or the maximum distance between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Restitution</string>
+            <string name="summary">Restitution of the rope, or how elastic it is. Value in [0, 1].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentDistance</string>
+            <string name="summary">Current distance between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thickness</string>
+            <string name="summary">The thickness of the in-game visual (diameter). Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
+    
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RodConstraint</string>
         <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">90</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Length</string>
+            <string name="summary">The length of the rod or the distance to be maintained between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentDistance</string>
+            <string name="summary">Current distance between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thickness</string>
+            <string name="summary">The thickness of the in-game visual (diameter). Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
+    
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SpringConstraint</string>
         <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">91</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Enables limits on the length of the spring.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Stiffness</string>
+            <string name="summary">The stiffness parameter of the spring. Force is scaled based on distance from the free length. The units of this property are force / distance. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Damping</string>
+            <string name="summary">The damping parameter of the spring. The force is scaled with respect to relative velocity. The units of this property are force / velocity. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FreeLength</string>
+            <string name="summary">The distance (in studs) between the two attachments at which the spring exerts no stiffness force. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxForce</string>
+            <string name="summary">The maximum force that the spring can apply. Useful to prevent instabilities. The units are mass * studs / seconds^2. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxLength</string>
+            <string name="summary">Maximum spring length, or the maxium distance between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MinLength</string>
+            <string name="summary">Minimum spring length, or the minimum distance between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Radius</string>
+            <string name="summary">The radius of the in-game spring coil visual. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Thickness</string>
+            <string name="summary">The thickness of the spring wire (diameter) in the in-game visual. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Coils</string>
+            <string name="summary">The number of coils in the in-game visual. Value in [0, 8].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentLength</string>
+            <string name="summary">Current distance between the two attachments. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">WeldConstraint</string>
@@ -458,22 +648,295 @@
         <string name="ExplorerImageIndex">94</string>
       </Properties>
     </Item>
+    
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">HingeConstraint</string>
         <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+		    <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">87</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ActuatorType</string>
+            <string name="summary">Type of the rotational actuator: None, Motor, or Servo. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Enables the angular limits on rotations around the main axis of Attachment0.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UpperAngle</string>
+            <string name="summary">Upper limit for the angle from the SecondaryAxis of Attachment0 to the SecondaryAxis of Attachment1 around the rotation axis. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LowerAngle</string>
+            <string name="summary">Lower limit for the angle from the SecondaryAxis of Attachment0 to the SecondaryAxis of Attachment1 around the rotation axis. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularRestitution</string>
+            <string name="summary">Restitution of the two limits, or how elastic they are. Value in [0,1].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularVelocity</string>
+            <string name="summary">The target angular velocity of the motor in radians per second around the rotation axis. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MotorMaxTorque</string>
+            <string name="summary">The maximum torque the motor can apply to achieve the target angular velocity. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MotorMaxAcceleration</string>
+            <string name="summary">The maximum angular acceleration of the motor in radians per second square. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularSpeed</string>
+            <string name="summary">Target angular speed. This value is unsigned as the servo will always move toward its target. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ServoMaxTorque</string>
+            <string name="summary">Maximum torque the servo motor can apply. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TargetAngle</string>
+            <string name="summary">Target angle for the SecondaryAxis of Attachment1 from the SecondaryAxis of Attachment0 around the rotation axis. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentAngle</string>
+            <string name="summary">Signed angle between the SecondaryAxis of Attchement0 and the SecondaryAxis of Attachment1 around the rotation axis. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Radius</string>
+            <string name="summary">Radius of the in-game visual. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">SlidingBallConstraint</string>
+        <string name="ClassCategory">Physics</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">88</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ActuatorType</string>
+            <string name="summary">Type of linear actuator (along the axis of the slider): None, Motor, or Servo.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LimitsEnabled</string>
+            <string name="summary">Enables the limits on the linear motion along the axis of the slider.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LowerLimit</string>
+            <string name="summary">Lower limit for the position of Attachment1 with respect to Attachment0 along the slider axis. Value in (-inf, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UpperLimit</string>
+            <string name="summary">Upper limit for the position of Attachment1 with respect to Attachment0 along the slider axis. Value in (-inf, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Restitution</string>
+            <string name="summary">Restitution of the two limits, or how elastic they are. Value in [0, 1].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Velocity</string>
+            <string name="summary">The target linear velocity of the motor in studs per second along the slider axis. Value in (-inf, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MotorMaxForce</string>
+            <string name="summary">The maximum force the motor can apply to achieve the target velocity. Units are mass * studs / seconds^2. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MotorMaxAcceleration</string>
+            <string name="summary">The maximum acceleration of the motor in studs per second squared. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Speed</string>
+            <string name="summary">Target speed in studs per second. This value is unsigned as the servo will always move toward its target. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ServoMaxForce</string>
+            <string name="summary">Maximum force the servo motor can apply. Units are mass * studs / seconds^2. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TargetPosition</string>
+            <string name="summary">Target position of Attachment1 with respect to Attachment0 along the slider axis. Value in (-inf, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentPosition</string>
+            <string name="summary">Current position of Attachment1 with respect to Attachment0 along the slider axis. Value in (-inf, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Size</string>
+            <string name="summary">Size of the in-game visual associated with this constraint. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">PrismaticConstraint</string>
         <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">88</string>
       </Properties>
     </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">CylindricalConstraint</string>
+        <string name="ClassCategory">Physics</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">95</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InclinationAngle</string>
+            <string name="summary">Direction of the rotation axis as an angle from the x-axis in the xy-plane of Attachment0. Value in [-180, 180]. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularActuatorType</string>
+            <string name="summary">Type of angular actuator: None, Motor, or Servo. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularLimitsEnabled</string>
+            <string name="summary">Enables the angular limits around the rotation axis.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UpperAngle</string>
+            <string name="summary">Upper limit for the angle (in degrees) between the reference axis and the SecondaryAxis of Attachment1 around the rotation axis. Value in [-180, 180]. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LowerAngle</string>
+            <string name="summary">Lower limit for the angle (in degrees) between the reference axis and the SecondaryAxis of Attachment1 around the rotation axis. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularRestitution</string>
+            <string name="summary">Restitution of the two limits, or how elastic they are. Value in [0, 1]. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularVelocity</string>
+            <string name="summary">The target angular velocity of the motor in radians per second around the rotation axis. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MotorMaxTorque</string>
+            <string name="summary">The maximum torque the motor can apply to achieve the target angular velocity. The units are mass * studs^2 / second^2. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MotorMaxAngularAcceleration</string>
+            <string name="summary">The maximum angular acceleration of the motor in radians per second squared. Value in [0, inf).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AngularSpeed</string>
+            <string name="summary">Target angular speed. This value is unsigned as the servo will always move toward its target. In radians per second. Value in [0, inf). </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ServoMaxTorque</string>
+            <string name="summary">Maximum torque the servo motor can apply. The units are mass * studs^2 / second^2. Value in [0, inf). </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TargetAngle</string>
+            <string name="summary"> Target angle (in degrees) between the reference axis and the secondary axis of Attachment1 around the rotation axis. Value in [-180, 180].</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentAngle</string>
+            <string name="summary">Signed angle (in degrees) between the reference axis and the secondary axis of Attachment1 around the rotation axis. Value in [-180, 180]. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WorldRotationAxis</string>
+            <string name="summary">The unit vector direction of the rotation axis in world coordinates.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RotationAxisVisible</string>
+            <string name="summary">Enable the visibility of the rotation axis.</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">AlignOrientation</string>

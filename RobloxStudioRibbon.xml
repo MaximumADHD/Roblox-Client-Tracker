@@ -454,7 +454,7 @@
         <addseparator />
         <addaction name="commentSelectionAction" tooltip="Comment out the selected text" style="textbesideicon"/>
         <addaction name="uncommentSelectionAction" tooltip="Uncomment out the selected text" style="textbesideicon"/>
-        <addaction name="toggleCommentAction" tooltip="Toggle the commented status of the selected text" style="textbesideicon"/>
+        <addaction name="toggleCommentAction" tooltip="Toggle the commented status of the selected lines" style="textbesideicon"/>
         <addseparator />
         <addaction name="expandAllFoldsAction" tooltip="Expand all collapsed folds in the script" style="textbesideicon"/>
         <addaction name="collapseAllFoldsAction" tooltip="Collapse all collapsable sections of scripts" style="textbesideicon"/>

@@ -21,9 +21,6 @@ local StyleWidgets = require(RobloxGui.Modules.StyleWidgets)
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
@@ -135,7 +132,7 @@ local function Initialize()
 			this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
 		end
 
-		local isPortrait = enablePortraitMode and utility:IsPortrait()
+		local isPortrait = utility:IsPortrait()
 		if isPortrait then
 			this.TabHeader.Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
 			this.TabHeader.Icon.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -173,12 +170,7 @@ local function Initialize()
 		end
 	end --end local function onResized()
 	
-	if enablePortraitMode then
-		utility:OnResized(this.TabHeader, onResized)
-	else
-		--If the flag isn't on, just call onResized once.
-		onResized()
-	end
+	utility:OnResized(this.TabHeader, onResized)
  
 	------ PAGE CREATION -------
 	this.Page = utility:Create'Frame'
@@ -188,18 +180,16 @@ local function Initialize()
 		Size = UDim2.new(1,0,1,0)
 	};
 
-	if enablePortraitMode then
-		this.PageListLayout = utility:Create'UIListLayout'
-		{
-			Name = "RowListLayout",
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			Padding = UDim.new(0, 3),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			Parent = this.Page
-		};
-	end
+	this.PageListLayout = utility:Create'UIListLayout'
+	{
+		Name = "RowListLayout",
+		FillDirection = Enum.FillDirection.Vertical,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		VerticalAlignment = Enum.VerticalAlignment.Top,
+		Padding = UDim.new(0, 3),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Parent = this.Page
+	};
 
 
 	-- make sure each page has a unique selection group (for gamepad selection)

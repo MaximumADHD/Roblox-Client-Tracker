@@ -8,9 +8,6 @@
 --NOTICE: This file has been branched! If you're implementing changes in this file, please consider also implementing them in the other
 --version.
 
-local fixGamePadPlayerlistSuccess, fixGamePadPlayerlistValue = pcall(function() return settings():GetFFlag("FixGamePadPlayerlist") end)
-local fixGamePadPlayerlist = fixGamePadPlayerlistSuccess and fixGamePadPlayerlistValue
-
 --[[ SERVICES ]]
 local GuiService = game:GetService('GuiService')
 local CoreGuiService = game:GetService('CoreGui')
@@ -718,20 +715,12 @@ local function createGamepadMenuGui()
 			local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
 			MenuModule:SetVisibility(true, nil, MenuModule.Instance.PlayersPage, true)
 		else
-			if not fixGamePadPlayerlist then
+			local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
+			if PlayerListModule and not PlayerListModule:IsOpen() then
 				toggleCoreGuiRadial(true)
-				local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
-				if PlayerListModule and not PlayerListModule:IsOpen() then
-					PlayerListModule:ToggleVisibility()
-				end
+				PlayerListModule:ToggleVisibility()
 			else
-				local PlayerListModule = require(GuiRoot.Modules.PlayerlistModule)
-				if PlayerListModule and not PlayerListModule:IsOpen() then
-					toggleCoreGuiRadial(true)
-					PlayerListModule:ToggleVisibility()
-				else
-					toggleCoreGuiRadial()
-				end
+				toggleCoreGuiRadial()
 			end
 		end
 	end

@@ -46,12 +46,6 @@ end)
 ------------ VARIABLES -------------------
 local PageInstance = nil
 
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
-local reportPlayerAutoSelectSuccess, reportPlayerAutoSelectValue = pcall(function() return settings():GetFFlag("ReportPlayerAutoSelect") end)
-local reportPlayerAutoSelect = reportPlayerAutoSelectSuccess and reportPlayerAutoSelectValue
-
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
@@ -121,13 +115,11 @@ local function Initialize()
 			nextPlayerToReport = nil
 
 			if this.GameOrPlayerMode.CurrentIndex == 2 then
-				if reportPlayerAutoSelect then
-					if playerSelected then --if the reported player is still in game
-						--Auto select type of abuse when report a player
-						GuiService.SelectedCoreObject = this.TypeOfAbuseMode.DropDownFrame
-					else
-						GuiService.SelectedCoreObject = this.WhichPlayerMode.DropDownFrame
-					end
+				if playerSelected then --if the reported player is still in game
+					--Auto select type of abuse when report a player
+					GuiService.SelectedCoreObject = this.TypeOfAbuseMode.DropDownFrame
+				else
+					GuiService.SelectedCoreObject = this.WhichPlayerMode.DropDownFrame
 				end
 			end
 		end
@@ -177,15 +169,6 @@ local function Initialize()
 			this.AbuseDescriptionFrame,
 			this.AbuseDescriptionLabel,
 			this.AbuseDescription = utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
-
-			if not enablePortraitMode then
-				this.AbuseDescription.Selection.Size = UDim2.new(0, 290, 0, 30)
-	 			this.AbuseDescription.Selection.Position = UDim2.new(1,-345,this.AbuseDescription.Selection.Position.Y.Scale, this.AbuseDescription.Selection.Position.Y.Offset)
-	 			this.AbuseDescriptionLabel = this.TypeOfAbuseLabel:clone()
- 				this.AbuseDescriptionLabel.Text = "Abuse Description"
-				this.AbuseDescriptionLabel.Position = UDim2.new(this.AbuseDescriptionLabel.Position.X.Scale, this.AbuseDescriptionLabel.Position.X.Offset,0,50)
-				this.AbuseDescriptionLabel.Parent = this.Page
-			end
 
 			this.AbuseDescriptionLabel.Text = "Abuse Description"
 		else

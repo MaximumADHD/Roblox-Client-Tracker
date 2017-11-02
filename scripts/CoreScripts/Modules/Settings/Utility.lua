@@ -35,16 +35,9 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 
 --------------- FLAGS ----------------
--- Enable the old Utility.lua if the EnablePortraitMode flag is off
-local enablePortraitModeSuccess, enablePortraitModeValue = pcall(function() return settings():GetFFlag("EnablePortraitMode") end)
-local enablePortraitMode = enablePortraitModeSuccess and enablePortraitModeValue
-
 local fixSettingsMenuDropdownsSuccess, fixSettingsMenuDropdownsValue = pcall(function() return settings():GetFFlag("FixSettingsMenuDropdowns") end)
 local fixSettingsMenuDropdowns = fixSettingsMenuDropdownsSuccess and fixSettingsMenuDropdownsValue
 
-if not enablePortraitMode then
-	return require(RobloxGui.Modules.Settings:WaitForChild("UtilityOld"))
-end
 
 local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
 dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
