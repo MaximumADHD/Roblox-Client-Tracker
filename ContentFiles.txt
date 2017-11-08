@@ -962,7 +962,7 @@ content/textures/content-textures2.zip
 [6209981 bytes]
 
 content/textures/content-textures3.zip
-[26364153 bytes]
+[26081381 bytes]
 
 content/textures/Cursors/Gamepad/Pointer.png
 [1073 bytes]
@@ -1145,16 +1145,16 @@ content/textures/LockCursor.png
 [547 bytes]
 
 content/textures/marble/diffuse.dds
-[648287 bytes]
+[637816 bytes]
 
 content/textures/marble/normal.dds
-[1356223 bytes]
+[1354267 bytes]
 
 content/textures/marble/normaldetail.dds
 [176 bytes]
 
 content/textures/marble/specular.dds
-[675422 bytes]
+[675034 bytes]
 
 content/textures/meshPartFallback.png
 [241 bytes]
