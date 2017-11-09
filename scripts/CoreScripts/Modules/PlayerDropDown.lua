@@ -11,10 +11,13 @@ local HttpService = game:GetService('HttpService')
 local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local PlayersService = game:GetService('Players')
 local StarterGui = game:GetService("StarterGui")
+local AnalyticsService = game:GetService("AnalyticsService")
 
 --[[ Fast Flags ]]--
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
+
+local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
 
 --[[ Script Variables ]]--
 local LocalPlayer = PlayersService.LocalPlayer
@@ -359,13 +362,28 @@ function createPlayerDropDown()
 					-- check for max friends before letting them send the request
 					if canSendFriendRequestAsync(cachedLastSelectedPlayer) then 	-- Yields
 						if cachedLastSelectedPlayer and cachedLastSelectedPlayer.Parent == PlayersService then
+                            if thePowerOfFriendship then
+                                AnalyticsService:ReportCounter("PlayerDropDown-RequestFriendship")
+                                AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayerDropDown")
+                            end
+                      
 							LocalPlayer:RequestFriendship(cachedLastSelectedPlayer)
 						end
 					end
 				end)
 			elseif status == Enum.FriendStatus.FriendRequestSent then
+                if thePowerOfFriendship then
+                    AnalyticsService:ReportCounter("PlayerDropDown-RevokeFriendship")
+                    AnalyticsService:TrackEvent("Game", "RevokeFriendship", "PlayerDropDown")
+                end
+                
 				LocalPlayer:RevokeFriendship(playerDropDown.Player)
 			elseif status == Enum.FriendStatus.FriendRequestReceived then
+                if thePowerOfFriendship then
+                    AnalyticsService:ReportCounter("PlayerDropDown-RequestFriendship")
+                    AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayerDropDown")
+                end
+                
 				LocalPlayer:RequestFriendship(playerDropDown.Player)
 			end
 

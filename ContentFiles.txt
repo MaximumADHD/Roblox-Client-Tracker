@@ -206,7 +206,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[537971 bytes]
+[538080 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -215,7 +215,7 @@ content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
 [8991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
-[10523 bytes]
+[10880 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
 [35355 bytes]
@@ -227,7 +227,7 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [24298 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[38866 bytes]
+[39596 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
@@ -236,7 +236,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [66991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[42229 bytes]
+[42578 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5805 bytes]
@@ -299,10 +299,10 @@ content/scripts/CoreScripts/Modules/NewChat.lua
 [10439 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[22874 bytes]
+[23871 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[65922 bytes]
+[65963 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -452,7 +452,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDa
 [4896 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
-[2971 bytes]
+[2173 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MeCommand.lua
 [789 bytes]
@@ -485,7 +485,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[52163 bytes]
+[50725 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [27615 bytes]
@@ -497,7 +497,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4841 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[20424 bytes]
+[21168 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5796 bytes]
@@ -511,9 +511,6 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
 [48084 bytes]
 
-content/scripts/CoreScripts/Modules/Settings/SettingsHubOld.lua
-[40614 bytes]
-
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [10629 bytes]
 
@@ -521,7 +518,7 @@ content/scripts/CoreScripts/Modules/Settings/Utility.lua
 [81756 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
-[77190 bytes]
+[76886 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
 [4077 bytes]
@@ -959,7 +956,7 @@ content/textures/ConstraintCursor.png
 [165 bytes]
 
 content/textures/content-textures2.zip
-[6209981 bytes]
+[6226007 bytes]
 
 content/textures/content-textures3.zip
 [26081381 bytes]
@@ -1471,6 +1468,18 @@ content/textures/ui/Chat/ChatDown.png
 content/textures/ui/Chat/ChatDown@2x.png
 [1219 bytes]
 
+content/textures/ui/Chat/ChatDownFlip.png
+[1195 bytes]
+
+content/textures/ui/Chat/ChatDownFlip@2x.png
+[2144 bytes]
+
+content/textures/ui/Chat/ChatFlip.png
+[1210 bytes]
+
+content/textures/ui/Chat/ChatFlip@2x.png
+[2413 bytes]
+
 content/textures/ui/Chat/MessageCounter.png
 [405 bytes]
 
@@ -1488,6 +1497,18 @@ content/textures/ui/Chat/ToggleChatDown.png
 
 content/textures/ui/Chat/ToggleChatDown@2x.png
 [1958 bytes]
+
+content/textures/ui/Chat/ToggleChatDownFlip.png
+[1517 bytes]
+
+content/textures/ui/Chat/ToggleChatDownFlip@2x.png
+[3002 bytes]
+
+content/textures/ui/Chat/ToggleChatFlip.png
+[1413 bytes]
+
+content/textures/ui/Chat/ToggleChatFlip@2x.png
+[2943 bytes]
 
 content/textures/ui/Chat/VRChatBackground.png
 [210 bytes]

@@ -67,12 +67,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 --------------- FLAGS ----------------
-local getUpdateMouseSensitivityTitleSuccess, updateMouseSensitivityTitleValue = pcall(function() return settings():GetFFlag("UpdateMouseSensitivityTitle") end)
-local updateMouseSensitivityTitle = getUpdateMouseSensitivityTitleSuccess and updateMouseSensitivityTitleValue
-local getFixSensitivitySliderCurveSuccess, fixSensitivitySliderCurveValue = pcall(function() return settings():GetFFlag("FixSensitivitySliderCurve") end)
-local fixSensitivitySliderCurve = getFixSensitivitySliderCurveSuccess and fixSensitivitySliderCurveValue
-local getFixSensitivitySliderMinSuccess, fixSensitivitySliderMinValue = pcall(function() return settings():GetFFlag("FixSensitivitySliderMin") end)
-local fixSensitivitySliderMin = getFixSensitivitySliderMinSuccess and fixSensitivitySliderMinValue
 local getFixQualityLevelSuccess, fixQualityLevelValue = pcall(function() return settings():GetFFlag("InitializeQualityLevelFromSettings") end)
 local fixQualityLevel = getFixQualityLevelSuccess and fixQualityLevelValue
 local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
@@ -963,29 +957,17 @@ local function Initialize()
     -- equations below map a function to include points (0, 0.2) (5, 1) (10, 4)
     -- where x is the slider position, y is the mouse sensitivity
     local function translateEngineMouseSensitivityToGui(engineSensitivity)
-      if not fixSensitivitySliderCurve then
-        local sqrtValue = 75.0 * engineSensitivity - 10.0
-        if sqrtValue < 0 then
-          return 0
-        end
-        return math.floor((2.0/3.0) * (math.sqrt(sqrtValue) - 2))
-      else
-        -- 0 <= y <= 1: x = (y - 0.2) / 0.16
-        -- 1 <= y <= 4: x = (y + 2) / 0.6
-        local guiSensitivity = (engineSensitivity <= 1) and math.floor((engineSensitivity - 0.2) / 0.16 + 0.5) or math.floor((engineSensitivity + 2) / 0.6 + 0.5)
-        return (engineSensitivity <= MinMouseSensitivity) and 0 or guiSensitivity
-      end
+      -- 0 <= y <= 1: x = (y - 0.2) / 0.16
+      -- 1 <= y <= 4: x = (y + 2) / 0.6
+      local guiSensitivity = (engineSensitivity <= 1) and math.floor((engineSensitivity - 0.2) / 0.16 + 0.5) or math.floor((engineSensitivity + 2) / 0.6 + 0.5)
+      return (engineSensitivity <= MinMouseSensitivity) and 0 or guiSensitivity
     end
 
     local function translateGuiMouseSensitivityToEngine(guiSensitivity)
-      if not fixSensitivitySliderCurve then
-        return 0.03 * math.pow(guiSensitivity,2) + (0.08 * guiSensitivity) + MinMouseSensitivity
-      else
-        -- 0 <= x <= 5:  y = 0.16 * x + 0.2
-        -- 5 <= x <= 10: y = 0.6 * x - 2
-        local engineSensitivity = (guiSensitivity <= 5) and (0.16 * guiSensitivity + 0.2) or (0.6 * guiSensitivity - 2)
-        return (engineSensitivity <= MinMouseSensitivity) and MinMouseSensitivity or engineSensitivity
-      end
+      -- 0 <= x <= 5:  y = 0.16 * x + 0.2
+      -- 5 <= x <= 10: y = 0.6 * x - 2
+      local engineSensitivity = (guiSensitivity <= 5) and (0.16 * guiSensitivity + 0.2) or (0.6 * guiSensitivity - 2)
+      return (engineSensitivity <= MinMouseSensitivity) and MinMouseSensitivity or engineSensitivity
     end
 
     local startMouseLevel = translateEngineMouseSensitivityToGui(GameSettings.MouseSensitivity)
@@ -993,14 +975,11 @@ local function Initialize()
     if not AdvancedEnabled then
       ------------------ Basic Mouse Sensitivity Slider ------------------
       -- basic quantized sensitivity with a weird number of settings.
-      local SliderLabel = updateMouseSensitivityTitle and "Camera Sensitivity" or "Mouse Sensitivity"
+      local SliderLabel = "Camera Sensitivity"
 
       this.MouseSensitivityFrame,
       this.MouseSensitivityLabel,
       this.MouseSensitivitySlider = utility:AddNewRow(this, SliderLabel, "Slider", MouseSteps, startMouseLevel)
-      if not fixSensitivitySliderMin then
-        this.MouseSensitivitySlider:SetMinStep(1)
-      end
 
       this.MouseSensitivitySlider.ValueChanged:connect(function(newValue)
           setCameraSensitivity(translateGuiMouseSensitivityToEngine(newValue))
@@ -1015,7 +994,7 @@ local function Initialize()
 
       this.MouseAdvancedFrame,
       this.MouseAdvancedLabel,
-      this.MouseAdvancedEntry = utility:AddNewRow(this, updateMouseSensitivityTitle and "Camera Sensitivity" or "Mouse Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)
+      this.MouseAdvancedEntry = utility:AddNewRow(this, "Camera Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)
       settingsDisabledInVR[this.MouseAdvancedFrame] = true
 
       this.MouseAdvancedEntry.SliderFrame.Size = UDim2.new(this.MouseAdvancedEntry.SliderFrame.Size.X.Scale, this.MouseAdvancedEntry.SliderFrame.Size.X.Offset - textBoxWidth, 

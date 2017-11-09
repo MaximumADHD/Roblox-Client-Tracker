@@ -1454,6 +1454,7 @@ local function createPlayerEntry(player, isTopStat)
     playerName = createEntryNameText("PlayerName", name,
       UDim2.new(0.01, robloxIcon.Size.X.Offset + 6, 0, 0),
       UDim2.new(0, playerNameXSize, 1, 0))
+    playerName.ClipsDescendants = false
     playerName.Parent = robloxIcon
   else
     playerName = createEntryNameText("PlayerName", name,

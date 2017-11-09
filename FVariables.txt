@@ -23,7 +23,7 @@ AnalyticsKillDeferredEphemeralReportingThread
 AnalyticsMaxDeferredStats
 AnalyticsMaxSendWaitTimeMs
 AnalyticsMaxShutdownWaitTimeMs
-AnalyticsSupportDeferredEphemeralReporting3
+AnalyticsSupportDeferredEphemeralReporting4
 AnchoredSendPositionUpdate
 AndroidExitGameEarlier
 AnimatorDoNotStepIfNotInWorkspace
@@ -53,6 +53,8 @@ AvatarEditorUsesNewAssetGetEndpoint
 AvatarEditorUsesNewR15Loading
 AvatarEditorUsesRecommended
 AvatarEditorUsesSpriteSheets
+AvatarEditorV3Landscape
+AvatarEditorV3Portrait
 AvatarEditorWaitsForInitialLoad
 AvoidMoveAfterResize
 BackendToolStateSetPre
@@ -65,7 +67,6 @@ BindToRenderStepAddDeltaTimeParam
 BodyColorsColor3Enabled
 BodyColorsColor3PropertyReplicationEnabled
 BodyColorsColor3PropertyReplicationLogicEnabled
-BoldNetworkStats
 BootstrapperVersionNumber
 BulletContactBreakOrthogonalThresholdActivatePercent
 BulletContactBreakOrthogonalThresholdPercent
@@ -86,7 +87,7 @@ CheckMarketplaceAvailable
 CheckWholeAssemblyForAccessoryBuoyancyAdjustment
 ClampHeightAboveFloorForce
 CleanCacheMoveMutex
-CLI12034
+CLI120342
 CLI15496
 CLI16089_2
 ClickDetectorCursorIconEnabled
@@ -100,6 +101,7 @@ CloseMenuAfterOpenConsole
 CombineJoinGamePlaceLauncherAndTeleportImp
 ConfidentialUpdates
 ConnectionMTUSize
+ContactPipelineCallWakeEvenOnWakePending
 ContactPipelineDraggerNoOverlapIgnored
 ContentProviderCheckExpectedType
 ContentProviderCheckExpectedTypeImage2
@@ -222,7 +224,6 @@ DebugUseDefaultGlobalSettings
 DebugVisualizationImprovements
 DefaultBalanceD
 DefaultBalanceP
-DeprecateOldHashes
 DescriptiveDisconnectMessages
 DetailedStatsName
 DialogInUseFix
@@ -247,9 +248,9 @@ DisplayJoinStatusToPlayer
 DisplayUserFriendlyJoinStatus
 DisplayVersionInformation
 DistanceThinningForClient
+DistToShowBufferCountSqr
 DoLocalizationServiceOverrideLocale
 DoNotApplySmallFloorVelocity
-DoNotOverridePlaceFilterFFWithDynamic
 DoNotSetOutdatedNetworkData
 DoNotShowRetryWhenWaitingForGameServer
 DoNotShowRetryWhenWaitingForGameServerNew
@@ -266,16 +267,18 @@ ElevatedPhysicsFPSReportThresholdTenths
 EliminateHeapAllocationInLadderRaycast
 EnableAdServiceVideoAds
 EnableAnimationTrackAdjustWeightReplication
+EnableBeamEffect
 EnableClientHttpAnalytics
 EnableCollisionGroups
 EnableCylindricalConstraint
+EnableCylindricalConstraintAdorn
 EnabledAppShell3D
 EnabledAvatarAnimationCategory
 EnabledAvatarEditorV2
-EnabledAvatarEditorV3
 EnabledAvatarScalePage
 EnableDevConsoleOnXbox
 EnableEfficientStreamingGC
+EnableExplicitHumanoidChanged
 EnableFloorMaterial
 EnableGamePassFunctions
 EnableGetAssetThumbnail
@@ -290,7 +293,6 @@ EnableParticleEmittersInAttachments
 EnablePartVoxelizationDataCache2
 EnableRandomSpawn
 EnableRelativePositioningProperties
-EnableRenderThrottling3
 EnableReportPlaceIDAboveMemory
 EnableResponsiveUIFix
 EnableRobloxEventStream
@@ -336,6 +338,8 @@ FixContactPipelineBuoyancyOnSmallIncline
 FixCustomSortCrash
 FixDataStoreMetrics
 FixDeadDisabledCrash
+FixDestroyedTorsoCrash
+FixFlyweightServiceLeak
 FixFolderDescendantSelection
 FixFreefallStuckIgnoreSelfContact
 FixGamepadNavigationInVR
@@ -354,6 +358,7 @@ FixInterpolationTargetFrame
 FixJointDestroyedPrimitiveInsert
 FixLayoutChangedConnections
 FixMobileCursorInSpawnedCases
+FixMoonPosition
 FixOutOfBoundsMouseLocation
 FixPageLayoutSync
 FixPGSJointNetworkOwnership
@@ -364,10 +369,9 @@ FixR15BodyPhysics
 FixR15SphereHead
 FixRandomSpawnLocationShape
 FixRecursiveWakeDepthNoResetingAssert
+FixRemoveAsyncReturnValueBug
 FixRevereseKeyframeReached
 FixScrollingFrameClipRect
-FixSensitivitySliderCurve
-FixSensitivitySliderMin
 FixSettingsMenuDropdowns
 FixSettingsMenuVRLua
 FixSmallSurfaceGuiMouseInput
@@ -383,6 +387,7 @@ FixWeldedHumanoidsDeath
 FixWindowsInputCaptureHandling
 FixWindowsRemoteCaptureHandling
 FixWorkspaceNumSleepingPartsReportingForNewRigidBody
+FlipperEnabled
 FMODSoundChannels
 FontIgnoreWhitespaceInLineBreaking2
 FontSizePadding
@@ -402,6 +407,7 @@ FriendServiceCachedOfflineStatusCount
 FriendServiceCachedOfflineStatusMaxAgeSeconds
 FRMRecomputeDistanceFrameDelay
 FullMechanismInterpolation4
+GameConfigurerSupport64BitPlaceId
 GameKeyboardV2IOS
 GamepadCameraSensitivityEnabled
 GamePerfMonitorPercentage
@@ -432,11 +438,10 @@ GraphicsVulkanAnalyticsFlow
 GraphicsVulkanAnalyticsOnlyEarly
 GraphicsVulkanAnalyticsOnlyLate
 GraphicsVulkanDisableGalaxyS6
-GraphicsVulkanDynamicUBO
+GraphicsVulkanHandlePipelineErrors
 GraphicsVulkanInstancingEnabled
 GraphicsVulkanMinAndroidVersion
 GraphicsVulkanMinApiVersion
-GraphicsVulkanSupportTextureLocking
 GraphicsVulkanThreadSafe
 GroupDragToolAssertFixEnabled
 GuestFriendCheckFailImmediate
@@ -509,6 +514,7 @@ InfluxReportFeOnStartupErrorPermyriad
 InfluxReportLocalFilterStringPermyriad
 InfluxTattletaleReportCommunitySiftOutputPermyriad
 InfluxTattletaleV2Permyriad
+InfluxUseStrtollForParsingStaticIdStrings
 IngestUsers
 InitialAccelerationLatencyMultTenths
 InitializeQualityLevelFromSettings
@@ -548,6 +554,7 @@ LandedBalanceP
 LatencyErrorMultiplierTennths
 LegacyBodyColorsOnCharacterLoadFailure
 LoadAdditionalCoreScriptsInStudio
+LoadAvatarEditorTranslations
 LoadCorescriptTranslations
 LoadPlayerScriptsFromLua
 LoadStarterGearWithoutLoadCharacter
@@ -567,6 +574,7 @@ LuaChatAssetCards
 LuaChatDisplayInFront
 LuaChatEnableRemoveRoute
 LuaChatFontAdjustment
+LuaChatNotificationButtonEnabled
 LuaChatPopToIntentFixEnabled
 LuaChatSearchFeedBack
 LuaChatTweenOnKeyboardResize
@@ -665,6 +673,7 @@ NodeIntervalCapMS
 NoFloorJumpThreshold
 NoInfiniteLoopOnChatInfoLoadFailure
 NoJumpWhileSwimming
+NoJumpWhileSwimming2
 NoNetworkedHttp
 NonJsonParseType
 NoPhysicsSenderCompression
@@ -700,7 +709,7 @@ OverrideStarterScriptInStudio
 OverrideThrottlingForPendingRequests
 PacketErrorInfluxHundredthsPercentage
 PageLayoutInputTypeControl
-ParentLockStartPlayerChildren2
+ParentLockStartPlayerChildren3
 PartColor3Uint8Enabled
 PartInstanceCofMPropertyExposed
 PartMinSizeMul1000
@@ -780,6 +789,7 @@ PointBalanceCacheInvalidateTimeMs
 PointsServiceBatchingImplMaxDelaySeconds
 PointsServiceBatchingImplMinuteSeconds
 PointsServiceBatchingImplOnUpdateDelaySeconds
+PoserParentCheck
 PreloadTextureTimeBuget
 PreloadTextureToMemoryV2
 PreventReturnOfElevatedPhysicsFPS
@@ -798,10 +808,10 @@ R15DefaultCollisionType
 RaiseSendPriority
 RakNetConnectionStartWindow_HundredthsPercentage
 RakNetDetectNetUnreachable
+RakNetHandshakeCapabilitiesNegotiation
 RakNetMaxSplitPacketCount
 RakNetResendFactorCWND
 RakNetResendMaxThresholdTimeInUs
-RakNetResendMaxThresholdTimeInUs4Bytes
 RakNetResendScaleBackFactorHundredthsPercent
 RakNetResetSSThresholdOnNewCCPeriod
 RakNetSupportIpV6
@@ -824,11 +834,14 @@ Region3WhitelistEnabled
 RegLambda
 RemoteDelayedQueueLimit
 RemoteEventWaitAllowImmediateReturn
+RemoveCompositCooldown
+RemoveHTTPStat
 RemoveHumanoidHealthScriptsFromLegacyContentTable
 RemoveKeyFromDataStoreEnable
 RemoveNPCSitFromClient
 RemoveTweenWhenCancelled
 RenderGGNMForMeshesEnabled
+RenderInstancingDisableMMDecompBlock
 RenderInstancingEnabled8
 RenderInstancingUseMaxConstants
 RenderMaxParticleSize
@@ -838,7 +851,7 @@ RenderShadowIntensity
 RenderTextureManagerBudget
 RenderTextureManagerBudgetFor4k
 RenderTypesetterScaleFix2
-RenderVulkanAndroid6
+RenderVulkanAndroid7
 ReplicateLuaMoveDirection
 ReplicatorMaxPacketBytesSentToInfluxOnError
 ReplicatorSupportInt64Type
@@ -858,6 +871,7 @@ RequestPlaceInfoRetryCount
 RequestPlaceInfoTimeoutMS
 RestrictSales
 RetryBaseTimeMSec
+RetryNotUpdatedInNetworkHealth
 RotateAboutAxisFollowsLocalSpaceSetting
 RunningBaseClampAcceleration
 RunningBaseMaxAcceleration
@@ -907,10 +921,10 @@ SetSecureFlag2
 SetSecureFlag3
 SetSimulationRadiusInPhysicsSender
 SetUnder13FromAppShell
+ShowBufferCount
 ShowFormFactorDeprecatedWarning
 ShowJoinErrorDescriptionIfAny
 ShowJoinErrorDescriptionIfAnyNew2
-ShowLocalizationService
 SimplifyRakNetConnectionHandshake
 SimToInterBufferClearFactorTenths
 SizeChangedMidLayoutFix
@@ -926,6 +940,7 @@ SmoothTerrainPhysicsRayAabbSlop
 SolverAngularVelocityAssignmentFix
 SolverUsageTimeMeasurementInterval
 SolverUsesNewRigidBodyType2
+SoundChannelAlwaysUseServiceAsContext
 SoundChannelAncestorDisconnect
 SoundFileErrorDetail
 SoundFileErrorDetailPercentage
@@ -953,6 +968,7 @@ StreamOutCompressionIdListLengthThreshold
 StudioCacheRecentAction
 StudioDE6194FixEnabled
 StudioFocusAttachmentAndConstraintsFix
+StudioHighlightingAdornsWhenMouseNotInGraphicsWindowFix
 StudioMockPurchasesEnabled
 StudioPreserveSelectionOnUndo
 StudioRecentActionCacheSize
@@ -1010,6 +1026,7 @@ TextFilterLateStudioBypass
 TextFilterMaxCachedRequestMilliseconds
 TextSizeLimit
 TextUseLocalizationV2
+ThePowerOfFriendship
 ThrottleDeveloperConsoleEvents
 ThrottledVelocityThresholdTenths
 ThrottleGetUserThumbnailAsync
@@ -1025,6 +1042,7 @@ TrackSmallCSG
 TrackSmallCSGPercentage
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
+TweenAlphaCap
 TypesetterFontFallback2
 TypesetterSubstituteOnReject
 UIScaleComponentEnabled
@@ -1035,8 +1053,6 @@ UnstickForceAttackInTenths
 UnstickForceDecayInTenths
 UnstickForceEpsilonInHundredths
 UpdatedMainGridToleranceEnabled
-UpdateMouseSensitivityTitle
-UpdateSliderButtonImages
 UploadUntranslated
 UploadUntranslatedHundredthPercentage
 UploadUntranslatedRejectUsernames
@@ -1046,16 +1062,16 @@ UploadUntranslatedToConsole
 UploadUntranslatedToEventStream
 UploadUntranslatedToInflux
 UrlReconstructRejectInvalidSchemes
-UseActivatedEvent
+UseActivatedEvent2
 UseArialFallback
 UseBitCountLimit
+UseCachedFriendChecksForPlayerIsFriendsWith
 UseControllerModelsVR
 UseCorrectCoreCase1Devices
 UseCustomAnimations
 UseDeltaForFBAdorn
 UseDistanceThinning
 UseExpectedTypeOnCacheFix2
-UseFFlagNameVariable
 UsegetFamilyandMapAddress
 UseGetMassInScripts
 UseGsiFilePath
@@ -1091,19 +1107,20 @@ UseRoundRobinForClient
 UserPlayCharacterLoopSoundWhenFE
 UserPortraitPopperFix
 UserToolR15Fix
-UserUseCachedFriendChecksForChat
 UserUseNewClickToMove
 UseSort
 UseSortForClient
 UseStepAnimations
 UseTextLayout
 Utf8DotGraphemesEnabled
+Utf8DotNormalizeEnabled
 ValidateLauncherPercent
 ValidHatsOnly
 VerifyIncomingFriendRequestsBeforeNotifying
 WaitForChildWarnTimeOutTime
 WaitGetInQueueTime
 WaitToUseCompositeForAccoutrements
+WarnLowVideoMemory
 WarnOnNoCoreFunction
 WebChatFilterHttpTimeoutSeconds
 WebParserSupportInt64
@@ -1118,5 +1135,4 @@ WorldStepDtAveExpFactorHundredth
 WorldStepMax
 WorldStepsOffsetAdjustRate
 WriteFullDmpPercent
-XboxUseCrossPlatformPlay6
 XboxUseRobloxInput

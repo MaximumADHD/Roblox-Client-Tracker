@@ -1268,6 +1268,25 @@
     
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Beam</string>
+        <string name="ClassCategory">Effects</string>
+        <string name="summary">Makes beam between two attachments</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">96</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LightEmission</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">ParticleEmitter</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">A generic particle system.</string>
@@ -2924,7 +2943,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LocalizationService</string>
-        <string name="ExplorerOrder">52</string>
+        <string name="ExplorerOrder">-1</string>
         <string name="ExplorerImageIndex">92</string>
       </Properties>
       <Item class="ReflectionMetadataMember">

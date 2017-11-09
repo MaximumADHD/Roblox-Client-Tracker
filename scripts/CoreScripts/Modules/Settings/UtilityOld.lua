@@ -42,8 +42,6 @@ end
 --------------- FLAGS ----------------
 local getFixSettingsMenuVRSuccess, fixSettingsMenuVRValue = pcall(function() return settings():GetFFlag("FixSettingsMenuVRLua") end)
 local fixSettingsMenuVR = getFixSettingsMenuVRSuccess and fixSettingsMenuVRValue
-local getUpdateSliderButtonImagesSuccess, updateSliderButtonImagesValue = pcall(function() return settings():GetFFlag("UpdateSliderButtonImages") end)
-local updateSliderButtonImages = getUpdateSliderButtonImagesSuccess and updateSliderButtonImagesValue
 
 ----------- UTILITIES --------------
 local Util = {}
@@ -1518,17 +1516,15 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR
 	};
 
-	if updateSliderButtonImages then
-		leftButtonImage.AnchorPoint = Vector2.new(0.5, 0.5)
-		leftButtonImage.Position = UDim2.new(0.5,0,0.5,0)
-		leftButtonImage.Size =  UDim2.new(0,30,0,30)
-		leftButtonImage.Image =  "rbxasset://textures/ui/Settings/Slider/Less.png"
+	leftButtonImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	leftButtonImage.Position = UDim2.new(0.5,0,0.5,0)
+	leftButtonImage.Size =  UDim2.new(0,30,0,30)
+	leftButtonImage.Image =  "rbxasset://textures/ui/Settings/Slider/Less.png"
 
-		rightButtonImage.AnchorPoint = Vector2.new(0.5, 0.5)
-		rightButtonImage.Position = UDim2.new(0.5,0,0.5,0)
-		rightButtonImage.Size =  UDim2.new(0,30,0,30)
-		rightButtonImage.Image =  "rbxasset://textures/ui/Settings/Slider/More.png"
-	end
+	rightButtonImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	rightButtonImage.Position = UDim2.new(0.5,0,0.5,0)
+	rightButtonImage.Size =  UDim2.new(0,30,0,30)
+	rightButtonImage.Image =  "rbxasset://textures/ui/Settings/Slider/More.png"
 
 	if not UserInputService.TouchEnabled and fixSettingsMenuVR then
 		local onNormalButtonState, onHoverButtonState =

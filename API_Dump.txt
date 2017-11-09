@@ -89,10 +89,10 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) [PluginSecurity]
 Class AssetService : Instance
-	YieldFunction int AssetService:CreatePlaceAsync(string placeName, int templatePlaceID, string description = )
-	YieldFunction int AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int templatePlaceID, string description = )
-	YieldFunction Array AssetService:GetAssetIdsForPackage(int packageAssetId)
-	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
+	YieldFunction int AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = )
+	YieldFunction int AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
+	YieldFunction Array AssetService:GetAssetIdsForPackage(int64 packageAssetId)
+	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int64 assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
 	YieldFunction Dictionary AssetService:GetAssetVersions(int placeId, int pageNum = 1)
 	YieldFunction int AssetService:GetCreatorAssetID(int creationID) [deprecated]
 	YieldFunction Instance AssetService:GetGamePlacesAsync()
@@ -146,6 +146,24 @@ Class StarterGui : BasePlayerGui
 	Function void StarterGui:SetCoreGuiEnabled(CoreGuiType coreGuiType, bool enabled)
 	YieldFunction Variant StarterGui:GetCore(string parameterName)
 	Event StarterGui.CoreGuiChangedSignal(CoreGuiType coreGuiType, bool enabled) [RobloxScriptSecurity]
+Class Beam : Instance
+	Property Object Beam.Attachment0
+	Property Object Beam.Attachment1
+	Property ColorSequence Beam.Color
+	Property float Beam.CurveSize0
+	Property float Beam.CurveSize1
+	Property bool Beam.Enabled
+	Property bool Beam.FaceCamera
+	Property float Beam.LightEmission
+	Property int Beam.Segments
+	Property Content Beam.Texture
+	Property float Beam.TextureLength
+	Property BeamTextureMode Beam.TextureMode
+	Property float Beam.TextureSpeed
+	Property NumberSequence Beam.Transparency
+	Property float Beam.Width0
+	Property float Beam.Width1
+	Property float Beam.ZOffset
 Class BinaryStringValue : Instance
 	Event BinaryStringValue.Changed(BinaryString value)
 Class BindableEvent : Instance
@@ -410,6 +428,7 @@ Class CylindricalConstraint : SlidingBallConstraint
 	Property float CylindricalConstraint.LowerAngle
 	Property float CylindricalConstraint.MotorMaxAngularAcceleration
 	Property float CylindricalConstraint.MotorMaxTorque
+	Property bool CylindricalConstraint.RotationAxisVisible
 	Property float CylindricalConstraint.ServoMaxTorque
 	Property float CylindricalConstraint.TargetAngle
 	Property float CylindricalConstraint.UpperAngle
@@ -632,7 +651,6 @@ Class Folder : Instance
 Class ForceField : Instance
 	Property bool ForceField.Visible
 Class FriendService : Instance [notCreatable]
-	YieldFunction bool FriendService:GetAreUsersFriends(int userId, int otherUserId, bool allowOfflineUsers = false) [RobloxScriptSecurity]
 	YieldFunction Array FriendService:GetPlatformFriends() [RobloxScriptSecurity]
 	Event FriendService.FriendsUpdated(Array friendData) [RobloxScriptSecurity]
 Class FunctionalTest : Instance [deprecated]
@@ -2121,7 +2139,7 @@ Class DataModel : ServiceProvider
 	Property Genre DataModel.Genre [readonly]
 	Property bool DataModel.IsSFFlagsLoaded [readonly] [RobloxScriptSecurity]
 	Property string DataModel.JobId [readonly]
-	Property int DataModel.PlaceId [readonly]
+	Property int64 DataModel.PlaceId [readonly]
 	Property int DataModel.PlaceVersion [readonly]
 	Property string DataModel.VIPServerId [readonly]
 	Property int DataModel.VIPServerOwnerId [readonly]
@@ -2568,6 +2586,7 @@ Class UserInputService : Instance [notCreatable]
 	Function bool UserInputService:IsMouseButtonPressed(UserInputType mouseButton)
 	Function bool UserInputService:IsNavigationGamepad(UserInputType gamepadEnum)
 	Function void UserInputService:RecenterUserHeadCFrame()
+	Function void UserInputService:SendAppUISizes(Vector2 statusBarSize, Vector2 navBarSize, Vector2 bottomBarSize) [RobloxScriptSecurity]
 	Function void UserInputService:SetNavigationGamepad(UserInputType gamepadEnum, bool enabled)
 	Event UserInputService.DeviceAccelerationChanged(Instance acceleration)
 	Event UserInputService.DeviceGravityChanged(Instance gravity)
@@ -2714,6 +2733,9 @@ Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1
 	EnumItem Axis.Z : 2
+Enum BeamTextureMode
+	EnumItem BeamTextureMode.Stretch : 0
+	EnumItem BeamTextureMode.Wrap : 1
 Enum BinType
 	EnumItem BinType.Script : 0
 	EnumItem BinType.GameTool : 1

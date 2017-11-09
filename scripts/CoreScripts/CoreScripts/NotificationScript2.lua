@@ -24,6 +24,7 @@ local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 local StarterGui = game:GetService("StarterGui")
 local CoreGui = game:GetService("CoreGui")
+local AnalyticsService = game:GetService("AnalyticsService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
@@ -45,6 +46,8 @@ local newNotificationPath = getNewNotificationPathSuccess and newNotificationPat
 
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
+
+local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
 
 --[[ Script Variables ]]--
 local LocalPlayer = nil
@@ -583,8 +586,18 @@ local function sendFriendNotification(fromPlayer)
 			Duration = 8,
 			Callback = function(buttonChosen)
 				if buttonChosen == acceptText then
+                    if thePowerOfFriendship then
+                        AnalyticsService:ReportCounter("NotificationScript-RequestFriendship")
+                        AnalyticsService:TrackEvent("Game", "RequestFriendship", "NotificationScript")
+                    end
+                    
 					LocalPlayer:RequestFriendship(fromPlayer)
 				else
+                    if thePowerOfFriendship then
+                        AnalyticsService:ReportCounter("NotificationScript-RevokeFriendship")
+                        AnalyticsService:TrackEvent("Game", "RevokeFriendship", "NotificationScript")
+                    end
+                    
 					LocalPlayer:RevokeFriendship(fromPlayer)
 					FriendRequestBlacklist[fromPlayer] = true
 				end

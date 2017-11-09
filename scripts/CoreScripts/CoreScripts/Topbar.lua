@@ -9,6 +9,8 @@
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
 local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
 
+local flipperEnabled = settings():GetFFlag("FlipperEnabled")
+
 --[[ END OF FFLAG VALUES ]]
 
 
@@ -947,6 +949,18 @@ local function CreateUnreadMessagesNotifier(ChatModule)
 	return chatCounter
 end
 
+local function GetChatIcon(chatIconName)
+    if flipperEnabled then
+        if Player:GetUnder13() then
+            return "rbxasset://textures/ui/Chat/" .. chatIconName .. "Flip.png"
+        else
+            return "rbxasset://textures/ui/Chat/" .. chatIconName .. ".png"
+        end
+    else
+        return "rbxasset://textures/ui/Chat/" .. chatIconName .. ".png"
+    end
+end
+
 local function CreateChatIcon()
 	local chatEnabled = game:GetService("UserInputService"):GetPlatform() ~= Enum.Platform.XBoxOne
 	if not chatEnabled then return end
@@ -970,7 +984,7 @@ local function CreateChatIcon()
 		Size = UDim2.new(0, 28, 0, 27);
 		Position = UDim2.new(0.5, -14, 0.5, -13);
 		BackgroundTransparency = 1;
-		Image = "rbxasset://textures/ui/Chat/Chat.png";
+        Image = GetChatIcon("Chat");
 		Parent = chatIconButton;
 	};
 	if not Util.IsTouchDevice() then
@@ -980,9 +994,9 @@ local function CreateChatIcon()
 
 	local function updateIcon(down)
 		if down then
-			chatIconImage.Image = "rbxasset://textures/ui/Chat/ChatDown.png";
+			chatIconImage.Image = GetChatIcon("ChatDown")
 		else
-			chatIconImage.Image = "rbxasset://textures/ui/Chat/Chat.png";
+			chatIconImage.Image = GetChatIcon("Chat")
 		end
 	end
 
@@ -1086,7 +1100,7 @@ local function CreateMobileHideChatIcon()
 		Size = UDim2.new(0, 28, 0, 27);
 		Position = UDim2.new(0.5, -14, 0.5, -13);
 		BackgroundTransparency = 1;
-		Image = "rbxasset://textures/ui/Chat/ToggleChat.png";
+        Image = GetChatIcon("ToggleChat");
 		Parent = chatHideIconButton;
 	};
 
@@ -1095,9 +1109,9 @@ local function CreateMobileHideChatIcon()
 
 	local function updateIcon(down)
 		if down then
-			chatIconImage.Image = "rbxasset://textures/ui/Chat/ToggleChatDown.png";
+			chatIconImage.Image = GetChatIcon("ToggleChatDown")
 		else
-			chatIconImage.Image = "rbxasset://textures/ui/Chat/ToggleChat.png";
+			chatIconImage.Image = GetChatIcon("ToggleChat")
 		end
 	end
 

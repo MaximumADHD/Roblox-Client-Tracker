@@ -85,6 +85,7 @@ RBX
 			ChunkRenderNode
 		}
 		AdornRender
+		BeamNode
 		Buffer
 		BufferD3D11
 		BufferGL
@@ -133,6 +134,7 @@ RBX
 		ParticleEmitter
 		ParticleEmitterBase
 		PersistentBufferVulkan
+		PlaneEffect
 		ProfilerRenderer
 		QueryD3D9
 		Renderable
@@ -535,6 +537,7 @@ RBX
 	BaseThreadPool
 	BasicPartInstance
 	BasicSpatialHashPrimitive
+	Beam
 	BevelMesh
 	BillboardGui
 	BindableEvent

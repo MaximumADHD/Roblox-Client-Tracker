@@ -10,6 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
+local AnalyticsService = game:GetService("AnalyticsService")
 
 ----------- UTILITIES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -20,6 +21,8 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
+
+local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -104,6 +107,11 @@ local function Initialize()
 					friendLabel.ImageTransparency = 1
 					friendLabelText.Text = ""
 					if localPlayer and player then
+                        if thePowerOfFriendship then
+                            AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+                            AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
+                        end
+                        
 						localPlayer:RequestFriendship(player)
 					end
 				end
@@ -155,6 +163,11 @@ local function Initialize()
 					addFriendButton.ImageTransparency = 1
 					addFriendImage.ImageTransparency = 1
 					if localPlayer and player then
+                        if thePowerOfFriendship then
+                            AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+                            AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
+                        end
+                        
 						localPlayer:RequestFriendship(player)
 					end
 				end
