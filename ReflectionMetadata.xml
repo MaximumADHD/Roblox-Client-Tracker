@@ -2286,6 +2286,7 @@
     <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">UIGridStyleLayout</string>
+            <string name="ClassCategory">GUI</string>
             <string name="Browsable">false</string>
         </Properties>
         
@@ -2338,6 +2339,7 @@
             <string name="Name">UIListLayout</string>
             <string name="ExplorerOrder">3</string>
             <string name="ExplorerImageIndex">26</string>
+            <string name="ClassCategory">GUI</string>
             <string name="summary">Sets the position of UI elements in a list. You can use a UIListLayout by parenting it to a GuiObject. The UIListLayout will then apply itself to all of its GuiObject siblings.</string>
         </Properties>
         
@@ -2356,6 +2358,7 @@
         <string name="Name">UIGridLayout</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="summary">Sets the position of UI elements in a 2D grid (this can be modified to 1D grid for list layout). This will also set the elements to a particular size, although this can be overridden with particular constraints on elements. You can use a UIGridLayout by parenting it to a GuiObject. The UIGridLayout will then apply itself to all of its GuiObject siblings.</string>
       </Properties>
     
@@ -2399,6 +2402,7 @@
             <string name="Name">UIPageLayout</string>
             <string name="ExplorerOrder">3</string>
             <string name="ExplorerImageIndex">26</string>
+            <string name="ClassCategory">GUI</string>
             <string name="summary">Creates a paged viewing window, like the home screen of a mobile device. You can use a UIPageLayout by parenting it to a GuiObject. The UIPageLayout will then apply itself to all of its GuiObject siblings.</string>
         </Properties>
         
@@ -2507,6 +2511,7 @@
         <string name="Name">UITableLayout</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="summary">Provides a layout of rows and columns that are sized based on the cells in them.</string>
       </Properties>
 
@@ -2546,6 +2551,7 @@
         <string name="Name">UISizeConstraint</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject does not become smaller or larger than the min and max size. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element?s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
       </Properties>
     
@@ -2570,6 +2576,7 @@
         <string name="Name">UITextSizeConstraint</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject with text does not allow the font size to become larger or smaller than min and max text sizes. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element?s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
       </Properties>
     
@@ -2594,6 +2601,7 @@
         <string name="Name">UIAspectRatioConstraint</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject will always have a particular aspect ratio. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element?s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
       </Properties>
 
@@ -2624,6 +2632,7 @@
         <string name="Name">UIScale</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="summary">Uniformly scales a GUI object and all its children.</string>
       </Properties>
 
@@ -2642,6 +2651,7 @@
         <string name="Name">UIPadding</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
         <string name="Summary">Insets the children of the GuiObject this is parented to, by the specified padding.</string>
       </Properties>
           
@@ -5363,7 +5373,7 @@
       <Properties>
         <string name="Name">SurfaceGui</string>
         <string name="ClassCategory">GUI</string>
-        <string name="summary"> tbd </string>
+        <string name="summary">Renders its contained GuiObjects flat against the face of a part.</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">64</string>
         <string name="PreferredParent">StarterGui</string>

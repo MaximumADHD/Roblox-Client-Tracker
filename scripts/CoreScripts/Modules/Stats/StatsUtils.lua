@@ -15,14 +15,20 @@ local GameSettings = Settings.GameSettings
 local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants)
 local StyleWidgets = require(CoreGuiService.RobloxGui.Modules.StyleWidgets)
 
+local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
+
 function LocalizedGetKey(key)
   local rtv = key
   pcall(function()
-		local LocalizationService = game:GetService("LocalizationService")
-		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-	end)
-	return rtv
+    local LocalizationService = game:GetService("LocalizationService")
+    local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+    if FFlagClientAppsUseRobloxLocale then
+      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+    else
+      rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+    end
+  end)
+  return rtv
 end
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
@@ -65,9 +71,9 @@ StatsUtils.GraphZIndex = 2
 StatsUtils.GraphTargetLineInnerThickness = 2
 StatsUtils.GraphAverageLineInnerThickness = 2
 StatsUtils.GraphAverageLineBorderThickness = 1
-StatsUtils.GraphAverageLineTotalThickness = (StatsUtils.GraphAverageLineInnerThickness + 
+StatsUtils.GraphAverageLineTotalThickness = (StatsUtils.GraphAverageLineInnerThickness +
   2 * StatsUtils.GraphAverageLineBorderThickness)
-      
+
 -- Layout: Main Text Panel
 StatsUtils.TextPanelTitleHeightY = 52
 StatsUtils.TextPanelLegendItemHeightY = 20
@@ -90,7 +96,7 @@ StatsUtils.StatType_GPU =               "st_GPU"
 StatsUtils.StatType_NetworkSent =       "st_NetworkSent"
 StatsUtils.StatType_NetworkReceived =   "st_NetworkReceived"
 StatsUtils.StatType_Physics =           "st_Physics"
-      
+
 StatsUtils.AllStatTypes = {
   StatsUtils.StatType_Memory,
   StatsUtils.StatType_CPU,
@@ -159,9 +165,9 @@ StatsUtils.MemoryAnalyzerTypeToName = {
   ["CSG"] = "Solid Models",
   ["Meshes"] = "Meshes",
 }
-      
-function StatsUtils.GetMemoryAnalyzerStatName(memoryAnalyzerStatType) 
-  if (StatsUtils.MemoryAnalyzerTypeToName[memoryAnalyzerStatType] == nil) then 
+
+function StatsUtils.GetMemoryAnalyzerStatName(memoryAnalyzerStatType)
+  if (StatsUtils.MemoryAnalyzerTypeToName[memoryAnalyzerStatType] == nil) then
     return memoryAnalyzerStatType
   else
     return StatsUtils.MemoryAnalyzerTypeToName[memoryAnalyzerStatType]
@@ -186,7 +192,7 @@ end
 
 function StatsUtils.StyleButtonSelected(frame, isSelected)
   StatsUtils.StyleButton(frame)
-  if (isSelected) then 
+  if (isSelected) then
     frame.BackgroundColor3 = StatsUtils.SelectedBackgroundColor
   end
 end
@@ -194,17 +200,22 @@ end
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local function LocalizedGetString(key, rtv)
-	pcall(function()
-		local LocalizationService = game:GetService("LocalizationService")
-		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-	end)
-	return rtv
+  pcall(function()
+    local LocalizationService = game:GetService("LocalizationService")
+    local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+    if FFlagClientAppsUseRobloxLocale then
+      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+    else
+      rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+    end
+  end)
+
+  return rtv
 end
 
 function StatsUtils.FormatTypedValue(value, statType)
   if FFlagUseNotificationsLocalization then
-    if statType == StatsUtils.StatType_CPU or statType == StatsUtils.StatType_GPU then 
+    if statType == StatsUtils.StatType_CPU or statType == StatsUtils.StatType_GPU then
       return string.gsub(LocalizedGetString("StatsUtil.ms",string.format("%.2f MB", value)),"{RBX_NUMBER}",string.format("%.2f",value))
     elseif statType == StatsUtils.StatType_PlaceMemory then
       return string.gsub(LocalizedGetString("StatsUtil.MB",string.format("%.2f ms", value)),"{RBX_NUMBER}",string.format("%.2f",value))
@@ -212,7 +223,7 @@ function StatsUtils.FormatTypedValue(value, statType)
       return string.gsub(LocalizedGetString("StatsUtil.KBps",string.format("%.2f KB/s", value)),"{RBX_NUMBER}",string.format("%.2f",value))
     end
   end
-  
+
   if statType == StatsUtils.StatType_Memory then
     return string.format("%.2f MB", value)
   elseif statType == StatsUtils.StatType_CPU then
@@ -233,20 +244,20 @@ function StatsUtils.StyleAverageLine(frame)
   frame.BorderSizePixel = StatsUtils.GraphAverageLineBorderThickness
   frame.BorderColor3 = StatsUtils.GraphAverageLineBorderColor
 end
-  
-function StatsUtils.GetColorForValue(value, target) 
-  if value < 0.666 * target then 
+
+function StatsUtils.GetColorForValue(value, target)
+  if value < 0.666 * target then
     return StatsUtils.GraphBarGreenColor
-  elseif value < 1.333 * target then 
+  elseif value < 1.333 * target then
     return StatsUtils.GraphBarYellowColor
   else
     return StatsUtils.GraphBarRedColor
   end
 end
-  
+
 function StatsUtils.PerformanceStatsShouldBeVisible()
   local localPlayer = PlayersService.LocalPlayer
   return (GameSettings.PerformanceStatsVisible and localPlayer ~= nil)
 end
-  
+
 return StatsUtils

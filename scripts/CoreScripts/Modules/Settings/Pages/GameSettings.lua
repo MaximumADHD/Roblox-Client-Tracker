@@ -1141,12 +1141,9 @@ local function Initialize()
       local closedCon = nil
       closedCon = overscanScreen.Closed:connect(function()
           closedCon:disconnect()
-          pcall(function() PlatformService.BlurIntensity = 0 end)
           ContextActionService:UnbindCoreAction("RbxStopOverscanMovement")
           MenuModule:SetVisibility(true, true)
         end)
-
-      pcall(function() PlatformService.BlurIntensity = 10 end)
 
       local noOpFunc = function() end
       ContextActionService:BindCoreAction("RbxStopOverscanMovement", noOpFunc, false,

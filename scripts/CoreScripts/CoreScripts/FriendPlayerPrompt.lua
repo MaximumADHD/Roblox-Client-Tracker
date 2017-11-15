@@ -22,6 +22,8 @@ local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 
+local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
+
 local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
 local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
 
@@ -40,7 +42,11 @@ local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+		if FFlagClientAppsUseRobloxLocale then
+			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		else
+			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+		end
 	end)
 	return rtv
 end
@@ -103,12 +109,12 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 				})
 			else
 				if AtFriendLimit(playerToFriend) then
-					
+
 					local mainText = string.format("You can not send a friend request to %s because they are at the max friend limit.",  playerToFriend.Name)
 					if FFlagUseNotificationsLocalization then
 						mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",mainText),"{RBX_NAME}",playerToFriend.Name)
 					end
-					
+
 					PromptCreator:CreatePrompt({
 						WindowTitle = "Error Sending Friend Request",
 						MainText = mainText,
@@ -126,12 +132,12 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 						while PromptCreator:IsCurrentlyPrompting() do
 							wait()
 						end
-						
+
 						local mainText = string.format("An error occurred while sending %s a friend request. Please try again later.", playerToFriend.Name)
 						if FFlagUseNotificationsLocalization then
 							mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToFriend.Name)
 						end
-						
+
 						PromptCreator:CreatePrompt({
 							WindowTitle = "Error Sending Friend Request",
 							MainText = mainText,
@@ -148,12 +154,12 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 			end
 		end
 	end
-	
+
 	local mainText = string.format("Would you like to send %s a Friend Request?", playerToFriend.Name)
 	if FFlagUseNotificationsLocalization then
 		mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptRequestFriendPlayer",mainText),"{RBX_NAME}",playerToFriend.Name)
 	end
-	
+
 	PromptCreator:CreatePrompt({
 		WindowTitle = "Send Friend Request?",
 		MainText = mainText,
@@ -203,12 +209,12 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 				while PromptCreator:IsCurrentlyPrompting() do
 					wait()
 				end
-				
+
 				local mainText = string.format("An error occurred while unfriending %s. Please try again later.", playerToUnfriend.Name)
 				if FFlagUseNotificationsLocalization then
 					mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToUnfriend.Name)
 				end
-				
+
 				PromptCreator:CreatePrompt({
 					WindowTitle = "Error Unfriending Player",
 					MainText = mainText,
@@ -223,12 +229,12 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 			end
 		end
 	end
-	
+
 	local mainText = string.format("Would you like to remove %s from your friends list?", playerToUnfriend.Name)
 	if FFlagUseNotificationsLocalization then
 		mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptUnfriendPlayer",mainText),"{RBX_NAME}",playerToUnfriend.Name)
 	end
-	
+
 	PromptCreator:CreatePrompt({
 		WindowTitle = "Unfriend Player?",
 		MainText = mainText,

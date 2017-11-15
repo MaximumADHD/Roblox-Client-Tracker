@@ -206,7 +206,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[538080 bytes]
+[538295 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -215,7 +215,7 @@ content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
 [8991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
-[10880 bytes]
+[11079 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
 [35355 bytes]
@@ -227,13 +227,13 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [24298 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[39596 bytes]
+[39829 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[66991 bytes]
+[67224 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
 [42578 bytes]
@@ -260,7 +260,7 @@ content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
 [14612 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[65865 bytes]
+[66130 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
 [15884 bytes]
@@ -299,7 +299,7 @@ content/scripts/CoreScripts/Modules/NewChat.lua
 [10439 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[23871 bytes]
+[24102 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
 [65963 bytes]
@@ -347,7 +347,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [740 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[339 bytes]
+[340 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
 [4691 bytes]
@@ -485,7 +485,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[50725 bytes]
+[50592 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [27615 bytes]
@@ -503,7 +503,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5796 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[12345 bytes]
+[12672 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5376 bytes]
@@ -533,7 +533,7 @@ content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
 [4317 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DecoratedValueLabel.lua
-[3087 bytes]
+[3314 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsolePrimitives.lua
 [2555 bytes]
@@ -563,7 +563,7 @@ content/scripts/CoreScripts/Modules/Stats/StatsTextPanel.lua
 [7765 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
-[9233 bytes]
+[9613 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
 [4027 bytes]
@@ -808,6 +808,9 @@ content/textures/advancedMoveResize.png
 content/textures/advClosed-hand.png
 [1093 bytes]
 
+content/textures/advClosed-hand-anchored.png
+[1078 bytes]
+
 content/textures/advClosed-hand-no-weld.png
 [1127 bytes]
 
@@ -956,7 +959,7 @@ content/textures/ConstraintCursor.png
 [165 bytes]
 
 content/textures/content-textures2.zip
-[6226007 bytes]
+[6227221 bytes]
 
 content/textures/content-textures3.zip
 [26081381 bytes]

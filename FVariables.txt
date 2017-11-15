@@ -8,6 +8,7 @@ AddFloorMaterialToWhiteList
 AdditionalCheckC0
 AdditionalCheckC1_2
 AdditionalReportingPermyriad
+AddKTurnAccelMaxForPGS
 AddTypeToFailedUrl
 AddVRToggle
 AdvancedMouseSensitivityEnabled
@@ -27,6 +28,8 @@ AnalyticsSupportDeferredEphemeralReporting4
 AnchoredSendPositionUpdate
 AndroidExitGameEarlier
 AnimatorDoNotStepIfNotInWorkspace
+ApiAnalyticsUrlConstruction
+ApiBadgesUrlConstruction
 ApiRateLimit
 ApiServiceRemoveCompressionTeleportOnly
 ApiServiceRemovePostCompression
@@ -53,8 +56,8 @@ AvatarEditorUsesNewAssetGetEndpoint
 AvatarEditorUsesNewR15Loading
 AvatarEditorUsesRecommended
 AvatarEditorUsesSpriteSheets
-AvatarEditorV3Landscape
-AvatarEditorV3Portrait
+AvatarEditorV3Landscape2
+AvatarEditorV3Portrait2
 AvatarEditorWaitsForInitialLoad
 AvoidMoveAfterResize
 BackendToolStateSetPre
@@ -68,6 +71,8 @@ BodyColorsColor3Enabled
 BodyColorsColor3PropertyReplicationEnabled
 BodyColorsColor3PropertyReplicationLogicEnabled
 BootstrapperVersionNumber
+BroadPhaseIslandBufferZone
+BroadPhaseIslandBufferZoneExpansionFactorHundredth
 BulletContactBreakOrthogonalThresholdActivatePercent
 BulletContactBreakOrthogonalThresholdPercent
 BulletContactBreakThresholdPercent
@@ -87,12 +92,14 @@ CheckMarketplaceAvailable
 CheckWholeAssemblyForAccessoryBuoyancyAdjustment
 ClampHeightAboveFloorForce
 CleanCacheMoveMutex
+CleanUpIsMouseLockedLogic
 CLI120342
 CLI15496
 CLI16089_2
 ClickDetectorCursorIconEnabled
 ClickDetectorMobileFix
 ClickDetectorSurfaceGuiProcessEvent
+ClientAppsUseRobloxLocale
 ClientInstanceQuotaCap
 ClientInstanceQuotaInitial
 ClientNetworkInfluxHundredthsPercentage
@@ -101,8 +108,10 @@ CloseMenuAfterOpenConsole
 CombineJoinGamePlaceLauncherAndTeleportImp
 ConfidentialUpdates
 ConnectionMTUSize
-ContactPipelineCallWakeEvenOnWakePending
+ContactPipelineCallWakeEvenOnWakePending2
 ContactPipelineDraggerNoOverlapIgnored
+ContactPipelineFixFeatureCollisionCaching
+ContactPipelineFlattenRecursiveWakeTraversal
 ContentProviderCheckExpectedType
 ContentProviderCheckExpectedTypeImage2
 ContentProviderJobDutyCycleMicroseconds
@@ -124,7 +133,6 @@ CSGUnionsSizeShouldNeverBe000
 CSGVoxelizerFadeRadius
 CurvesFTW
 CyclicExecutiveThrottlingCancelWorldStepAccum
-DataModelDisableParallelDataOut
 DataModelInitializationParamsUseRobloxLocale
 DataRequestInQueueTime
 DataStore429MinReponseTimeMSec
@@ -211,6 +219,7 @@ DebugPhysicsSenderLogCacheMissToGA
 DebugRakNetNoTimestampInUdt
 DebugRakNetUseUdt
 DebugRenderDisableWangMobile
+DebugRenderDragAxis
 DebugRenderVRHUD
 DebugReportAnchoredSimBodyUpdatedFromSolver
 DebugRestrictGCDistance
@@ -230,7 +239,6 @@ DialogInUseFix
 Disable180DegreeFlip
 DisableAngularVelocityInterpolationComponent
 DisableBounceOnNoPhysicsTransition
-DisableDataModelSaveOnClose
 DisableFriendServiceLoadFriendRequests
 DisableHealthDeathUntilHealthAppears
 DisableHopperBin
@@ -260,6 +268,7 @@ DontUsePhysicsCache
 DragCylindersAndBallsAsBlocks
 DraggerMaxMovePercent
 DraggerMaxMoveSteps
+DraggerRotateAlwaysUseWorldSpace
 DropItLikeItsHat2
 DynamicMovementAndCameraOptions
 ElasticScrollbars
@@ -299,6 +308,7 @@ EnableRobloxEventStream
 EnableSeatSitFunction
 EnableServerHttpAnalytics
 EnableSpecialMeshTransformInVoxelizerDescriptors
+EnableSurfaceGuiHumanoidShadow
 EnableTeamMemberChangeEvent
 EnableTextboxNativeInput
 EnableThumbStick2Scroll
@@ -333,6 +343,7 @@ FixBuildCoreModules
 FixBulletPhysicsObjectResize
 FixCharacterStuckInFreefall
 FixCharacterStutterInFreefall
+FixCharacterStutterInFreefall2
 FixConsoleGuestIcon
 FixContactPipelineBuoyancyOnSmallIncline
 FixCustomSortCrash
@@ -346,8 +357,6 @@ FixGamepadNavigationInVR
 FixGamepadSettingsLineBreak
 FixGetAsyncThrottleMsg
 FixHandlesMouseEvents
-FixHttpCacheStatsReporting
-FixHttpCacheUpdating
 FixHumanoidEmbeddedInGround
 FixHumanoidFrictionSimulation
 FixHumanoidTouchEnded
@@ -427,6 +436,8 @@ GetUserThumbnailMaxThrottle
 GetUserThumbnailThrottleExponent
 GoodbyeChoiceActiveProperty
 GoogleAnalyticsLoadLuaShell
+GraphicsAndroidFixSGX
+GraphicsAndroidNoExts
 GraphicsDX11BootcampDetection
 GraphicsDX11InstancingEnabled
 GraphicsDX11InstancingIntelEnabled
@@ -502,6 +513,10 @@ HumanoidWithPGSConstraintsUsePhysicsState
 ICMPPingHundrethsPercentage
 ICMPPingTestDelay
 ICMPPingTestRetryPerIPCount
+IkDraggerAnchorMode
+IkDraggerEnabled
+IkDraggerEnabledInRunMode
+IkDraggerSolveIterations
 ImageDisableETC2Decode
 ImageVerifySliceCenterImageOffset
 ImplementPlayerReplicationFocus
@@ -519,7 +534,6 @@ IngestUsers
 InitialAccelerationLatencyMultTenths
 InitializeQualityLevelFromSettings
 InsertServiceDoNotCreateHolderFolder
-InsertServiceDoNotParentInsertedObjectsToSelf
 InsertServiceScriptInsert
 InterceptPlayerHasPassCalls
 InterpolationAwareTargetTime
@@ -608,6 +622,7 @@ MaxDebugFramesForVisuals
 MaxFrameBufferSize
 MaxFramesToSend
 MaxHttpResultResponseSize
+MaxHumanoidRotationAngleErrorTenths
 MaximumFreefallMoveTimeInTenths
 MaximumUnstickForceInGs
 MaxLearnDescriptors
@@ -644,6 +659,7 @@ NavigationAgentJumpHeight
 NavigationAgentMaxDrop
 NavigationAgentRadius
 NavigationAgentWalkableClimb
+NavigationIgnoreSpecialMesh
 NavigationJobMaxTimeBudgetMS
 NavigationJobRunsPerSecond
 NavigationPolygonMergePasses
@@ -656,11 +672,11 @@ NavigationServiceTimingAnalytics
 NavigationUseDetailedMovementCallback
 NavigationUseGreedyPolygonMerge
 NavigationUseHalfSpaceRasterizer
+NavigationUseLinkPool
 NetworkFamilyAnalytics
 NetworkFamilyToFavor
 NetworkJoinHealthStats
 NetworkQualityStatsOSCorrection
-NetworkSchemaAdditionalCleanup
 NetworkSchemaCompressionRatio
 NetworkStatRefreshRate
 NetworkStreamingGCMaxMicroSecondLimit
@@ -697,6 +713,7 @@ OptimizedContactPipeline9
 OptimizedContactPipelineBulletCreateTwoPoints
 OptimizedContactPipelineImprovedBuoyancy
 OptimizedContactPipelineSpatialHashOverlapToleranceMicro
+OptimizedContactPipeNine
 OptimizedContactWakeDepth
 OptimizedUIListLayoutUpdate
 OptimizeMeshesOnImport2
@@ -739,6 +756,8 @@ PGSFixVirtualObjects
 PGSFrictionUpdatePeriod
 PGSGyroscopicEffectPrecisionPercent
 PGSJumpForceAdjustment
+PGSLineForceMaxForce
+PGSLineForceReactionForce
 PGSPenetrationMarginMax
 PGSPenetrationMarginMaxBump
 PGSPenetrationMarginMin
@@ -807,9 +826,11 @@ R15CollisionGeometry4
 R15DefaultCollisionType
 RaiseSendPriority
 RakNetConnectionStartWindow_HundredthsPercentage
+RakNetDatagramMessageIdArrayLength
 RakNetDetectNetUnreachable
 RakNetHandshakeCapabilitiesNegotiation
 RakNetMaxSplitPacketCount
+RakNetResendBufferArrayLength
 RakNetResendFactorCWND
 RakNetResendMaxThresholdTimeInUs
 RakNetResendScaleBackFactorHundredthsPercent
@@ -819,6 +840,7 @@ RakNetUseSlidingWindow2
 RakNetUseSlidingWindow2_cwndMax
 RakNetUseSlidingWindow2_cwndMultiplier
 RakNetUseSlidingWindow2_flightBreakMs
+RakNetUseSlidingWindow2_rangeCount
 RakNetUseSlidingWindow2_trackLengthMs
 RandomSpawnRetryTimes
 RCCBWLimitInKBPerSecond
@@ -851,7 +873,7 @@ RenderShadowIntensity
 RenderTextureManagerBudget
 RenderTextureManagerBudgetFor4k
 RenderTypesetterScaleFix2
-RenderVulkanAndroid7
+RenderVulkanAndroid8
 ReplicateLuaMoveDirection
 ReplicatorMaxPacketBytesSentToInfluxOnError
 ReplicatorSupportInt64Type
@@ -881,10 +903,9 @@ S2PhysicsSenderRate
 SafeClimbingJump
 SafeMovementJump
 SafeSeatedJump
-SafeSwimmingJump
+SafeSwimmingJump2
 SaveDataForPlayerRemoving
 SavePlacePerMinute
-ScriptContextHookModuleScriptThread
 ScriptContextImprovedTimeoutMonitoring2
 ScrollMouseBetter
 SeatReduceSitLantency
@@ -900,7 +921,7 @@ SendJoinTimesToDiag
 SendJoinTimesToDiag_HundredthsPercentage
 SendNetworkQualityStatstoDiag
 SendNonImmediaePriorityNow
-SendPlayerGuiEarly
+SendPlayerGuiEarly2
 SendRakNetStatsInterval
 SendRakNetStatsThrottle
 SendScreenOrientationAnalytics
@@ -956,6 +977,7 @@ SSAOMipLevels
 StartupInfluxHundredthsPercentage
 StatsLuaEnabled
 StepAnimatedJointsInBufferZone
+StepContactCatchNanInfCFrame
 StopAssertOnSFFlagMismatch
 StopSurfaceGuiRenderOnPartParentRemoval
 StreamedRegionGCFactor
@@ -967,6 +989,7 @@ StreamJobPriorityAmplifierRadius
 StreamOutCompressionIdListLengthThreshold
 StudioCacheRecentAction
 StudioDE6194FixEnabled
+StudioDontDeleteLockedScripts
 StudioFocusAttachmentAndConstraintsFix
 StudioHighlightingAdornsWhenMouseNotInGraphicsWindowFix
 StudioMockPurchasesEnabled
@@ -1020,6 +1043,7 @@ TestForBadNormal
 TexAtlasUpdateLineHeight
 TextBoxLoseFocusForTouch
 TextBoxManualFocusRelease
+TextBoxOverrideManualFocusRelease
 TextBoxSelectable
 TextFilterCacheAge
 TextFilterLateStudioBypass
@@ -1040,6 +1064,7 @@ TrackPurchaseEvents
 TrackR15Games
 TrackSmallCSG
 TrackSmallCSGPercentage
+TrailRemoveRedundantSort
 TSMk2ThrottleStreamJob
 TSMk2ThrottleVCJ
 TweenAlphaCap
@@ -1083,11 +1108,10 @@ UseLaserPointerVR
 UseMainGridTolForMultiPartAsSinglePartDrag
 UseMatrix3ForInertiaTensor2
 UseNDKFunctionMarshaller
-UseNetworkSchema2
 UseNewAppBridgeXbone2
 UseNewGoogleAnalyticsImpl
 UseNewNotificationPathLua
-UseNewPhysicsSender4
+UseNewPhysicsSender5
 UseNewProtocolForStreaming
 UseNotificationsLocalization
 UseOldClientTicketNameForNewClientTicket
@@ -1123,7 +1147,6 @@ WaitToUseCompositeForAccoutrements
 WarnLowVideoMemory
 WarnOnNoCoreFunction
 WebChatFilterHttpTimeoutSeconds
-WebParserSupportInt64
 WeldPermyriad
 WellRounded
 WeWantAResolution

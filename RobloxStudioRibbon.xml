@@ -59,6 +59,7 @@
         <addaction name="advRotateAction" style="textundericon" text="Rotate" tooltip="Rotate an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32"/>
         <addseparator visible="false"/>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions " tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
+        <addaction fflag="IkDraggerEnabled" name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Choose how parts are joined together" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Always join adjacent parts" width="32" height="32"/>
@@ -108,8 +109,16 @@
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Select color and apply to parts" width="32" height="32"/>
         <addseparator visible="false"/>
-        <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
-        <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
+        <MenuPopupButton fflag="IkDraggerEnabled" name="groupSelectionAction" style="textbesideicon" text="Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Group the selected parts into a model" width="16" height="16">
+          <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
+          <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
+        </MenuPopupButton>
+        <addaction fflag="!IkDraggerEnabled" name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
+        <addaction fflag="!IkDraggerEnabled" name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
+        <MenuPopupButton fflag="IkDraggerEnabled" name="lockAction" style="textbesideicon" text="Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="32" height="32">
+          <addaction name="lockAction" text="Lock Tool" />
+          <addaction name="unlockAllAction" />
+        </MenuPopupButton>
         <addaction name="anchorAction" text="Anchor " icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" style="textbesideicon" tooltip="Anchor/Unanchor the selected parts" width="16" height="16" />
       </Group>
       <Group name="Terrain">
@@ -152,11 +161,12 @@
         <addaction name="advRotateAction" style="textundericon" text="Rotate" tooltip="Rotate an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32" />
         <addaction name="Transform" instancename="Transform" style="textundericon" text="Transform" tooltip="Precisely Manipulate an Object" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/Plane.png" width="32" height="32" />
         <addseparator visible="false"/>
-        <MenuButton name="lockMenu" style="textbesideicon" text="Lock" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="16" height="16">
+        <MenuButton fflag="!IkDraggerEnabled" name="lockMenu" style="textbesideicon" text="Lock" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="16" height="16">
           <addaction name="lockAction" text="Lock Tool" />
           <addaction name="unlockAllAction" />
         </MenuButton>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions " tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
+        <addaction fflag="IkDraggerEnabled" name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Choose how parts are joined together" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Always join adjacent parts" width="32" height="32"/>
@@ -224,8 +234,16 @@
           <!--   <addaction name="hingeAction" text="Add Hinge"/> -->
         </MenuButton>
         <addseparator visible="false"/>
-        <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
-        <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
+        <MenuPopupButton fflag="IkDraggerEnabled" name="groupSelectionAction" style="textbesideicon" text="Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Group the selected parts into a model" width="16" height="16">
+          <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
+          <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
+        </MenuPopupButton>
+        <addaction fflag="!IkDraggerEnabled" name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
+        <addaction fflag="!IkDraggerEnabled" name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
+        <MenuPopupButton fflag="IkDraggerEnabled" name="lockAction" style="textbesideicon" text="Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="32" height="32">
+          <addaction name="lockAction" text="Lock Tool" />
+          <addaction name="unlockAllAction" />
+        </MenuPopupButton>
         <addaction name="anchorAction" text="Anchor " icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" style="textbesideicon" tooltip="Anchor/Unanchor the selected parts" width="16" height="16" />
       </Group>
       <Group name="Solid Modeling">
@@ -262,7 +280,7 @@
             <addaction name="PointLight" value="PointLight" icon=":/16x16/images/Studio 2.0 icons/16x16/light.png" width="16" height="16" style="textundericon"/>
             <addaction name="Smoke" value="Smoke" icon=":/16x16/images/Studio 2.0 icons/16x16/smoke.png" style="textundericon"/>
             <addaction name="Trail" value="Trail" icon=":/16x16/images/Studio 2.0 icons/16x16/trail.png" style="textundericon"/>
-            <addaction name="Beam" value="Beam" icon=":/16x16/images/Studio 2.0 icons/16x16/fire.png" style="textundericon"/>
+            <addaction name="Beam" value="Beam" icon=":/16x16/images/Studio 2.0 icons/16x16/beam.png" style="textundericon"/>
             <addaction name="Sparkles" value="Sparkles" icon=":/16x16/images/Studio 2.0 icons/16x16/sparkles.png" width="16" height="16" style="textundericon"/>
             <addaction name="SpotLight" value="SpotLight" icon=":/16x16/images/Studio 2.0 icons/16x16/light.png" width="16" height="16" style="textundericon"/>
             <addaction name="SurfaceLight" value="SurfaceLight" icon=":/16x16/images/Studio 2.0 icons/16x16/light.png" width="16" height="16" style="textundericon"/>
@@ -441,7 +459,7 @@
         <addaction name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
         <addaction name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
         <addaction name="stepOutAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32"/>
-        <addaction name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Add-Watch.png" tooltip="Watch the highlighted variable's value" width="32" height="32" tooltip=""/>
+        <addaction name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Add-Watch.png" tooltip="Watch the highlighted variable's value" width="32" height="32"/>
       </Group>
       <Group fflag="LuaDebuggerBreakOnError" name="Debug Errors">
         <addaction type="radio" name="neverBreakOnScriptErrorsAction" style="textbesideicon" text="Never" tooltip="Never break errors into debugger"/>

@@ -158,7 +158,7 @@ Class Beam : Instance
 	Property int Beam.Segments
 	Property Content Beam.Texture
 	Property float Beam.TextureLength
-	Property BeamTextureMode Beam.TextureMode
+	Property TextureMode Beam.TextureMode
 	Property float Beam.TextureSpeed
 	Property NumberSequence Beam.Transparency
 	Property float Beam.Width0
@@ -394,6 +394,8 @@ Class LineForce : Constraint
 	Property bool LineForce.ApplyAtCenterOfMass
 	Property bool LineForce.InverseSquareLaw
 	Property float LineForce.Magnitude
+	Property float LineForce.MaxForce
+	Property bool LineForce.ReactionForceEnabled
 Class RodConstraint : Constraint
 	Property float RodConstraint.CurrentDistance [readonly]
 	Property float RodConstraint.Length
@@ -1289,7 +1291,7 @@ Class LobbyService : Instance [notCreatable]
 	Function void LobbyService:BeginLobbyStartGame(int placeId) [RobloxScriptSecurity]
 Class LocalWorkspace : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
-	Property string LocalizationService.RobloxLocaleId [readonly] [RobloxScriptSecurity]
+	Property string LocalizationService.RobloxLocaleId [readonly]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 Class LocalizationTable : Instance
@@ -1769,6 +1771,7 @@ Class PhysicsSettings : Instance
 	Property bool PhysicsSettings.AreAssembliesShown
 	Property bool PhysicsSettings.AreAwakePartsHighlighted
 	Property bool PhysicsSettings.AreBodyTypesShown
+	Property bool PhysicsSettings.AreContactIslandsShown
 	Property bool PhysicsSettings.AreContactPointsShown
 	Property bool PhysicsSettings.AreJointCoordinatesShown
 	Property bool PhysicsSettings.AreMechanismsShown
@@ -1778,6 +1781,7 @@ Class PhysicsSettings : Instance
 	Property bool PhysicsSettings.AreRegionsShown
 	Property bool PhysicsSettings.AreUnalignedPartsShown
 	Property bool PhysicsSettings.AreWorldCoordsShown
+	Property bool PhysicsSettings.DisableCSGv2
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
 	Property bool PhysicsSettings.ParallelPhysics
@@ -2733,9 +2737,6 @@ Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1
 	EnumItem Axis.Z : 2
-Enum BeamTextureMode
-	EnumItem BeamTextureMode.Stretch : 0
-	EnumItem BeamTextureMode.Wrap : 1
 Enum BinType
 	EnumItem BinType.Script : 0
 	EnumItem BinType.GameTool : 1

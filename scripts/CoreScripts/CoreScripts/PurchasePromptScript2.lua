@@ -5,6 +5,8 @@
 		// Written by: jeditkacheff/jmargh
 		// Description: Handles in game purchases
 ]]--
+local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
+
 local enableGetAssetThumbnailSuccess, enableGetAssetThumbnailValue = pcall(function() return settings():GetFFlag('EnableGetAssetThumbnail') end)
 local enableGetAssetThumbnail = enableGetAssetThumbnailSuccess and enableGetAssetThumbnailValue
 
@@ -20,7 +22,11 @@ local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+		if FFlagClientAppsUseRobloxLocale then
+			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		else
+			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+		end
 	end)
 	return rtv
 end

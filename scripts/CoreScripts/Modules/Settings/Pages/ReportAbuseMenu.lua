@@ -15,6 +15,9 @@ local MarketplaceService = game:GetService("MarketplaceService")
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 
+------------ FAST FLAGS ------------------
+local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
+
 ------------ CONSTANTS -------------------
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -38,9 +41,15 @@ end
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
 	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-	DEFAULT_ABUSE_DESC_TEXT = CorescriptLocalization:GetString(
-		LocalizationService.SystemLocaleId,
-		"KEY_DESCRIPTION_OPTIONAL")
+	if FFlagClientAppsUseRobloxLocale then
+		DEFAULT_ABUSE_DESC_TEXT = CorescriptLocalization:GetString(
+			LocalizationService.RobloxLocaleId,
+			"KEY_DESCRIPTION_OPTIONAL")
+	else
+		DEFAULT_ABUSE_DESC_TEXT = CorescriptLocalization:GetString(
+			LocalizationService.SystemLocaleId,
+			"KEY_DESCRIPTION_OPTIONAL")
+	end
 end)
 
 ------------ VARIABLES -------------------
