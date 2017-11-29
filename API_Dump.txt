@@ -778,6 +778,7 @@ Class ImageButton : GuiButton
 Class TextButton : GuiButton
 	Property Font TextButton.Font
 	Property FontSize TextButton.FontSize [deprecated]
+	Property float TextButton.LineHeight
 	Property string TextButton.LocalizedText [hidden] [readonly]
 	Property string TextButton.Text
 	Property Vector2 TextButton.TextBounds [readonly]
@@ -808,6 +809,7 @@ Class ImageLabel : GuiLabel
 Class TextLabel : GuiLabel
 	Property Font TextLabel.Font
 	Property FontSize TextLabel.FontSize [deprecated]
+	Property float TextLabel.LineHeight
 	Property string TextLabel.LocalizedText [hidden] [readonly]
 	Property string TextLabel.Text
 	Property Vector2 TextLabel.TextBounds [readonly]
@@ -843,6 +845,7 @@ Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
 	Property Font TextBox.Font
 	Property FontSize TextBox.FontSize [deprecated]
+	Property float TextBox.LineHeight
 	Property bool TextBox.ManualFocusRelease [RobloxScriptSecurity]
 	Property bool TextBox.MultiLine
 	Property bool TextBox.OverlayNativeInput [RobloxScriptSecurity]
@@ -869,8 +872,9 @@ Class TextBox : GuiObject
 	Function void TextBox:SetTextFromInput(string text) [RobloxScriptSecurity]
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
-Class LayerCollector : GuiBase2d
+Class LayerCollector : GuiBase2d [notbrowsable]
 	Property bool LayerCollector.Enabled
+	Property ZIndexBehavior LayerCollector.ZIndexBehavior
 Class BillboardGui : LayerCollector
 	Property bool BillboardGui.Active
 	Property Object BillboardGui.Adornee
@@ -1299,10 +1303,10 @@ Class LocalizationTable : Instance
 	Property Object LocalizationTable.Root
 	Function string LocalizationTable:GetContents()
 	Function Array LocalizationTable:GetEntries()
-	Function string LocalizationTable:GetString(string languageKey, string expressionKey)
+	Function string LocalizationTable:GetString(string targetLocaleId, string key)
 	Function void LocalizationTable:RemoveKey(string key)
 	Function void LocalizationTable:SetContents(string contents)
-	Function void LocalizationTable:SetEntry(string key, string locale, string text)
+	Function void LocalizationTable:SetEntry(string key, string targetLocaleId, string text)
 Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
 	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]
@@ -1540,6 +1544,7 @@ Class BasePart : PVInstance [notbrowsable]
 	Function bool BasePart:CanCollideWith(Instance part)
 	Function Tuple BasePart:CanSetNetworkOwnership()
 	Function Objects BasePart:GetConnectedParts(bool recursive = false)
+	Function Objects BasePart:GetJoints()
 	Function float BasePart:GetMass()
 	Function Instance BasePart:GetNetworkOwner()
 	Function bool BasePart:GetNetworkOwnershipAuto()
@@ -1628,11 +1633,13 @@ Class Terrain : BasePart [notCreatable]
 	Function void Terrain:FillBlock(CoordinateFrame cframe, Vector3 size, Material material)
 	Function void Terrain:FillRegion(Region3 region, float resolution, Material material)
 	Function Tuple Terrain:GetCell(int x, int y, int z) [deprecated]
+	Function Color3 Terrain:GetMaterialColor(Material material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [deprecated]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution)
 	Function void Terrain:SetCell(int x, int y, int z, CellMaterial material, CellBlock block, CellOrientation orientation) [deprecated]
 	Function void Terrain:SetCells(Region3int16 region, CellMaterial material, CellBlock block, CellOrientation orientation) [deprecated]
+	Function void Terrain:SetMaterialColor(Material material, Color3 value)
 	Function void Terrain:SetWaterCell(int x, int y, int z, WaterForce force, WaterDirection direction) [deprecated]
 	Function Vector3 Terrain:WorldToCell(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
@@ -2080,6 +2087,7 @@ Class RunService : Instance
 	Function void RunService:Pause() [PluginSecurity]
 	Function void RunService:Reset() [deprecated] [PluginSecurity]
 	Function void RunService:Run() [PluginSecurity]
+	Function void RunService:Set3dRenderingEnabled(bool enable) [RobloxScriptSecurity]
 	Function void RunService:Stop() [PluginSecurity]
 	Function void RunService:UnbindFromRenderStep(string name)
 	Function void RunService:setThrottleFramerateEnabled(bool enable) [RobloxScriptSecurity]
@@ -2986,6 +2994,7 @@ Enum Font
 	EnumItem Font.ArialBold : 2
 	EnumItem Font.SourceSans : 3
 	EnumItem Font.SourceSansBold : 4
+	EnumItem Font.SourceSansSemibold : 16
 	EnumItem Font.SourceSansLight : 5
 	EnumItem Font.SourceSansItalic : 6
 	EnumItem Font.Bodoni : 7
@@ -4002,3 +4011,6 @@ Enum WaterForce
 	EnumItem WaterForce.Medium : 2
 	EnumItem WaterForce.Strong : 3
 	EnumItem WaterForce.Max : 4
+Enum ZIndexBehavior
+	EnumItem ZIndexBehavior.Global : 0
+	EnumItem ZIndexBehavior.Sibling : 1

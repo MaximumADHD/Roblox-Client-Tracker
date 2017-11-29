@@ -38,10 +38,6 @@ local VRService = game:GetService("VRService")
 local fixSettingsMenuDropdownsSuccess, fixSettingsMenuDropdownsValue = pcall(function() return settings():GetFFlag("FixSettingsMenuDropdowns") end)
 local fixSettingsMenuDropdowns = fixSettingsMenuDropdownsSuccess and fixSettingsMenuDropdownsValue
 
-
-local dynamicMovementAndCameraOptions, dynamicMovementAndCameraOptionsSuccess = pcall(function() return settings():GetFFlag("DynamicMovementAndCameraOptions") end)
-dynamicMovementAndCameraOptions = dynamicMovementAndCameraOptions and dynamicMovementAndCameraOptionsSuccess
-
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
@@ -1083,43 +1079,6 @@ local function CreateSelector(selectionStringTable, startPosition)
 	local isSelectionLabelVisible = {}
 	local isAutoSelectButton = {}
 
-	if not dynamicMovementAndCameraOptions then
-		for i,v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create'TextLabel'
-			{
-				Name = "Selection" .. tostring(i),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
-				Position = UDim2.new(1,0,0,0),
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 24,
-				Text = v,
-				ZIndex = 2,
-				Visible = false,
-				Parent = this.SelectorFrame
-			};
-			if isTenFootInterface() then
-				nextSelection.TextSize = 36
-			end
-
-			if i == startPosition then
-				this.CurrentIndex = i
-				nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
-				nextSelection.Visible = true
-
-				isSelectionLabelVisible[nextSelection] = true
-			else
-				isSelectionLabelVisible[nextSelection] = false
-			end
-
-			this.Selections[i] = nextSelection
-		end
-	end
-
 	local autoSelectButton = Util.Create'ImageButton'{
 		Name = 'AutoSelectButton',
 		BackgroundTransparency = 1,
@@ -1288,8 +1247,6 @@ local function CreateSelector(selectionStringTable, startPosition)
 	end
 
 	function this:UpdateOptions(selectionStringTable)
-		if not dynamicMovementAndCameraOptions then return end
-
 		for i,v in pairs(this.Selections) do
 			v:Destroy()
 		end
@@ -1372,10 +1329,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 	end)
 
 	local isInTree = true
-
-	if dynamicMovementAndCameraOptions then
-		this:UpdateOptions(selectionStringTable)
-	end
+	this:UpdateOptions(selectionStringTable)
 
 	UserInputService.InputBegan:Connect(function(inputObject)
 		if not interactable then return end

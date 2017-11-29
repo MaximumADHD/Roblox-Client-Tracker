@@ -112,13 +112,13 @@ local function Initialize()
 	this.ResetBindable = true
 	
 	local onResetFunction = function()
-		if this.HubRef then
-			this.HubRef:SetVisibility(false, true)
-		end
 		if this.ResetBindable == true then
 			resetCharFunc()
 		elseif this.ResetBindable then
 			this.ResetBindable:Fire()
+		end
+		if this.HubRef then
+			this.HubRef:SetVisibility(false, true)
 		end
 	end
 	

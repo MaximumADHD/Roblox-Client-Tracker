@@ -2438,14 +2438,14 @@
           <Item class="ReflectionMetadataMember">
             <Properties>
               <string name="Name">EasingStyle</string>
-              <string name="summary">The easing style to use when performing an aninmation.</string>
+              <string name="summary">The easing style to use when performing an animation.</string>
             </Properties>
           </Item>
 
           <Item class="ReflectionMetadataMember">
             <Properties>
               <string name="Name">EasingDirection</string>
-              <string name="summary">The easing direction to use when performing an aninmation.</string>
+              <string name="summary">The easing direction to use when performing an animation.</string>
             </Properties>
           </Item>
 
@@ -5265,6 +5265,24 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">LayerCollector</string>
+        <string name="summary">The base class of ScreenGui, BillboardGui, and SurfaceGui.</string>
+        <string name="Browsable">false</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <string name="Name">Enabled</string>
+          <string name="summary">Whether or not this should be displayed.</string>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <string name="Name">ZIndexBehavior</string>
+          <string name="summary">Controls the behavior of the ZIndex property for descendants of this object. It can be set to Global (Default) or Sibling.</string>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">ScreenGui</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay</string>
@@ -6572,6 +6590,24 @@
         <Properties>
           <string name="Name">Custom</string>
           <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">ZIndexBehavior</string>
+        <string name="summary">Controls the behavior of the ZIndex property.</string>
+      </Properties>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Global</string>
+          <string name="summary">The ZIndex property will override the default value computed from the depth in the hierarchy.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Sibling</string>
+          <string name="summary">The ZIndex property will control the order that the GuiObject will be rendered relative to its siblings.</string>
         </Properties>
       </Item>
     </Item>

@@ -300,6 +300,7 @@ RBX
 		DeserializedStatsItem
 		DeserializedStreamDataItem
 		DeserializedTagItem
+		DeserializedTimeoutInfoRequestItem
 		DeserializedTouchItem
 		DirectPhysicsReceiver
 		GuidRegistryService
@@ -401,14 +402,6 @@ RBX
 	}
 	Solver
 	{
-		LegacySolver
-		{
-			PGSSolver
-		}
-		NewBodySolver
-		{
-			PGSSolver
-		}
 		Constraint
 		ConstraintAchievePosition
 		ConstraintAlign2Axes
@@ -436,6 +429,7 @@ RBX
 		ForceAngular
 		ForceLinear
 		InteractingPair
+		PGSSolver
 		PGSSolverInterface
 	}
 	Soundscape

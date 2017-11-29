@@ -206,7 +206,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[538295 bytes]
+[537752 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -485,7 +485,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[50592 bytes]
+[44655 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [27615 bytes]
@@ -515,7 +515,7 @@ content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [10629 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[81756 bytes]
+[80329 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
 [76886 bytes]
@@ -767,16 +767,16 @@ content/sounds/uuhhh.mp3
 [5281 bytes]
 
 content/terrain/content-terrain.zip
-[23917642 bytes]
+[23296515 bytes]
 
 content/terrain/diffuse.dds
-[2654777 bytes]
+[2562991 bytes]
 
 content/terrain/diffusearray.dds
-[5957152 bytes]
+[5763825 bytes]
 
 content/terrain/materials.json
-[4819 bytes]
+[5765 bytes]
 
 content/terrain/normal.dds
 [5384181 bytes]
@@ -959,7 +959,7 @@ content/textures/ConstraintCursor.png
 [165 bytes]
 
 content/textures/content-textures2.zip
-[6227221 bytes]
+[6247807 bytes]
 
 content/textures/content-textures3.zip
 [26081381 bytes]
@@ -1719,6 +1719,51 @@ content/textures/ui/Lobby/Buttons/scroll_up.png
 
 content/textures/ui/Lobby/Icons/back_icon.png
 [188 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-shadow.png
+[782 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-shadow@2x.png
+[1858 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-shadow@3x.png
+[3202 bytes]
+
+content/textures/ui/LuaApp/icons/ic-bc.png
+[584 bytes]
+
+content/textures/ui/LuaApp/icons/ic-bc@2x.png
+[1127 bytes]
+
+content/textures/ui/LuaApp/icons/ic-bc@3x.png
+[1590 bytes]
+
+content/textures/ui/LuaApp/icons/ic-obc.png
+[701 bytes]
+
+content/textures/ui/LuaApp/icons/ic-obc@2x.png
+[1423 bytes]
+
+content/textures/ui/LuaApp/icons/ic-obc@3x.png
+[1990 bytes]
+
+content/textures/ui/LuaApp/icons/ic-tbc.png
+[636 bytes]
+
+content/textures/ui/LuaApp/icons/ic-tbc@2x.png
+[1255 bytes]
+
+content/textures/ui/LuaApp/icons/ic-tbc@3x.png
+[1715 bytes]
+
+content/textures/ui/LuaApp/icons/ic-thumbup.png
+[261 bytes]
+
+content/textures/ui/LuaApp/icons/ic-thumbup@2x.png
+[441 bytes]
+
+content/textures/ui/LuaApp/icons/ic-thumbup@3x.png
+[623 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble.png
 [232 bytes]
