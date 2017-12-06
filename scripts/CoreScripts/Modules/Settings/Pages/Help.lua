@@ -12,8 +12,6 @@ local FFlagUseNotificationsLocalization = success and result
 local getDisplayVersionFlagSuccess, getDisplayVersionFlagValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
 local displayVersionFlag = (getDisplayVersionFlagSuccess and getDisplayVersionFlagValue)
 
-local FFlagFixGamepadSettingsLineBreak = settings():GetFFlag("FixGamepadSettingsLineBreak")
-
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
@@ -285,8 +283,7 @@ local function Initialize()
 				};
 			end
 
-			if FFlagFixGamepadSettingsLineBreak and
-				gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
+			if gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
 
 				nameLabel.TextWrapped = true
 
@@ -313,9 +310,7 @@ local function Initialize()
 		local textVerticalSize = (gamepadFontSize == Enum.FontSize.Size36) and 36 or 24
 
 		if gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
-			if FFlagFixGamepadSettingsLineBreak then
-				textVerticalSize = textVerticalSize * 2
-			end
+			textVerticalSize = textVerticalSize * 2
 			createGamepadLabel("Switch Tool", UDim2.new(0.5,-470,0,0), UDim2.new(0,100,0,textVerticalSize), true)
 			createGamepadLabel("Game Menu Toggle", UDim2.new(0.5,-470,0.15,0), UDim2.new(0,164,0,textVerticalSize), true)
 			createGamepadLabel("Move", UDim2.new(0.5,-700,0.31,0), UDim2.new(0,46,0,textVerticalSize), true)

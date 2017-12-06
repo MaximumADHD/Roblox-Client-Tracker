@@ -1,3 +1,15 @@
+content/avatar/anthro/characterNarrowBladeHands.rbxm
+[121015 bytes]
+
+content/avatar/anthro/characterNarrowFlatHands.rbxm
+[120700 bytes]
+
+content/avatar/anthro/characterWideBladeHands.rbxm
+[120903 bytes]
+
+content/avatar/anthro/characterWideFlatHands.rbxm
+[120922 bytes]
+
 content/avatar/character.rbxm
 [27838 bytes]
 
@@ -62,7 +74,7 @@ content/avatar/compositing/R15CompositTorsoBase.mesh
 [8818 bytes]
 
 content/avatar/content-avatar.zip
-[148753 bytes]
+[181771 bytes]
 
 content/avatar/heads/head.mesh
 [28207 bytes]
@@ -206,7 +218,7 @@ content/fonts/zekton_rg.ttf
 [86820 bytes]
 
 content/scripts/content-scripts.zip
-[537752 bytes]
+[537907 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -311,7 +323,7 @@ content/scripts/CoreScripts/Modules/PromptCreator.lua
 [24866 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/BubbleChat/BubbleChat.lua
-[22793 bytes]
+[23105 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsBar.lua
 [14531 bytes]
@@ -392,7 +404,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/M
 [687 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/Util.lua
-[12286 bytes]
+[12599 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WelcomeMessage.lua
 [2432 bytes]
@@ -488,7 +500,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
 [44655 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[27615 bytes]
+[27424 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
 [2969 bytes]
@@ -647,7 +659,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5345 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
-[49342 bytes]
+[49377 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
 [2232 bytes]
@@ -959,7 +971,7 @@ content/textures/ConstraintCursor.png
 [165 bytes]
 
 content/textures/content-textures2.zip
-[6247807 bytes]
+[6249340 bytes]
 
 content/textures/content-textures3.zip
 [26081381 bytes]
@@ -1053,6 +1065,18 @@ content/textures/face.png
 
 content/textures/FlatCursor.png
 [432 bytes]
+
+content/textures/glass/diffuse.dds
+[348372 bytes]
+
+content/textures/glass/normal.dds
+[337628 bytes]
+
+content/textures/glass/normaldetail.dds
+[342659 bytes]
+
+content/textures/glass/specular.dds
+[633390 bytes]
 
 content/textures/glow.png
 [36056 bytes]
@@ -1765,6 +1789,9 @@ content/textures/ui/LuaApp/icons/ic-thumbup@2x.png
 content/textures/ui/LuaApp/icons/ic-thumbup@3x.png
 [623 bytes]
 
+content/textures/ui/LuaChat/9-slice/btn-control-sm.png
+[184 bytes]
+
 content/textures/ui/LuaChat/9-slice/chat-bubble.png
 [232 bytes]
 
@@ -2101,6 +2128,9 @@ content/textures/ui/LuaChat/icons/ic-close-gray2@2x.png
 content/textures/ui/LuaChat/icons/ic-close-gray2@3x.png
 [754 bytes]
 
+content/textures/ui/LuaChat/icons/ic-close-white.png
+[367 bytes]
+
 content/textures/ui/LuaChat/icons/ic-create-group.png
 [435 bytes]
 
@@ -2226,6 +2256,9 @@ content/textures/ui/LuaChat/icons/ic-send@2x.png
 
 content/textures/ui/LuaChat/icons/ic-send@3x.png
 [609 bytes]
+
+content/textures/ui/LuaChat/icons/share-game-thumbnail.png
+[529 bytes]
 
 content/textures/ui/Menu/buttonActive.png
 [1325 bytes]

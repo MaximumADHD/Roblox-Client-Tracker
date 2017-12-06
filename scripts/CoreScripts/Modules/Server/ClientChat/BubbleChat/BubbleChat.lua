@@ -19,6 +19,9 @@ end
 
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
+local okShouldClipInGameChat, valueShouldClipInGameChat = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldClipInGameChat") end)
+local shouldClipInGameChat = okShouldClipInGameChat and valueShouldClipInGameChat
+
 --[[ SCRIPT VARIABLES ]]
 local CHAT_BUBBLE_FONT = Enum.Font.SourceSans
 local CHAT_BUBBLE_FONT_SIZE = Enum.FontSize.Size24 -- if you change CHAT_BUBBLE_FONT_SIZE_INT please change this to match
@@ -410,6 +413,9 @@ function this:CreateBubbleText(message)
 	bubbleText.Position = UDim2.new(0,CHAT_BUBBLE_WIDTH_PADDING/2,0,0)
 	bubbleText.Size = UDim2.new(1,-CHAT_BUBBLE_WIDTH_PADDING,1,0)
 	bubbleText.Font = CHAT_BUBBLE_FONT
+	if shouldClipInGameChat then
+		bubbleText.ClipsDescendants = true
+	end
 	bubbleText.TextWrapped = true
 	bubbleText.FontSize = CHAT_BUBBLE_FONT_SIZE
 	bubbleText.Text = message

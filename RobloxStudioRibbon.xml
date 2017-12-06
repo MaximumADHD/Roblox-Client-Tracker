@@ -106,6 +106,7 @@
           <addaction name="ms_Cobblestone" style="textbesideicon" text="Cobblestone" value="Cobblestone" icon=":/RibbonBar/images/Studio Ribbon Icons/cobblestone.png" width="32" height="32"/>
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="SmoothPlastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
+          <addaction name="ms_Glass" style="textbesideicon"  text="Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Select color and apply to parts" width="32" height="32"/>
         <addseparator visible="false"/>
@@ -213,6 +214,7 @@
           <addaction name="ms_Cobblestone" style="textbesideicon" text="Cobblestone" value="Cobblestone" icon=":/RibbonBar/images/Studio Ribbon Icons/cobblestone.png" width="32" height="32"/>
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="SmoothPlastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
+          <addaction name="ms_Glass" style="textbesideicon"  text="Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Select color and apply to parts" width="32" height="32"/>
         <MenuButton name="actionSurface" style="textundericon" iconvisibleinmenu="false" tooltip="Pick a surface type, and click on part surfaces to apply" text="Surface" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Home/Surfaces.png" width="32" height="32">
@@ -286,7 +288,8 @@
         </ActionGroup>
       </Group>
       <Group name="Advanced">
-        <addaction name="actionInsertAdvancedObject" iscommonslot="true" text="Advanced Objects" tooltip="Insert scripts and other advanced objects into the game" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag="!StudioInsertObjectMenuButton" name="actionInsertAdvancedObject" iscommonslot="true" text="Advanced Objects" tooltip="Insert scripts and other advanced objects into the game" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
+        <addaction fflag="StudioInsertObjectMenuButton" name="actionInsertAdvancedObject" iscommonslot="true" text="Insert Object" tooltip="Insert scripts and other advanced objects into the game" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
         <addaction name="insertModelAction" style="textundericon" text="Model" tooltip="Insert a model from local files" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Service" tooltip="Insert service from a service selection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">

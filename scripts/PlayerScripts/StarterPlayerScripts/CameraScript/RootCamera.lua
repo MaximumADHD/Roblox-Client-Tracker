@@ -108,6 +108,7 @@ local function OnCharacterAdded(character)
 	if UserInputService.TouchEnabled then
 		if PlayerGui then
 			local ScreenGui = Instance.new("ScreenGui")
+			ScreenGui.Name = "GestureArea"
 			ScreenGui.Parent = PlayerGui
 			
 			GestureArea = Instance.new("Frame")

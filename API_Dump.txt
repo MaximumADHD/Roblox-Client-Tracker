@@ -1301,6 +1301,7 @@ Class LocalizationService : Instance [notCreatable]
 Class LocalizationTable : Instance
 	Property string LocalizationTable.DevelopmentLanguage
 	Property Object LocalizationTable.Root
+	Property string LocalizationTable.SourceLocaleId [hidden]
 	Function string LocalizationTable:GetContents()
 	Function Array LocalizationTable:GetEntries()
 	Function string LocalizationTable:GetString(string targetLocaleId, string key)
@@ -2424,6 +2425,7 @@ Class ThirdPartyUserService : Instance [notCreatable]
 	Function string ThirdPartyUserService:GetUserDisplayName() [RobloxScriptSecurity]
 	Function string ThirdPartyUserService:GetUserPlatformId() [RobloxScriptSecurity]
 	Function bool ThirdPartyUserService:HaveActiveUser() [RobloxScriptSecurity]
+	Function void ThirdPartyUserService:ReturnToEngagement() [RobloxScriptSecurity]
 	Function void ThirdPartyUserService:ShowAccountPicker() [RobloxScriptSecurity]
 	YieldFunction int ThirdPartyUserService:RegisterActiveUser(UserInputType gamepadId) [RobloxScriptSecurity]
 	Event ThirdPartyUserService.ActiveGamepadAdded() [RobloxScriptSecurity]
@@ -3488,6 +3490,7 @@ Enum Material
 	EnumItem Material.Ground : 1360 [notbrowsable]
 	EnumItem Material.CrackedLava : 804 [notbrowsable]
 	EnumItem Material.Neon : 288
+	EnumItem Material.Glass : 1568
 	EnumItem Material.Asphalt : 1376 [notbrowsable]
 	EnumItem Material.LeafyGrass : 1284 [notbrowsable]
 	EnumItem Material.Salt : 1392 [notbrowsable]
