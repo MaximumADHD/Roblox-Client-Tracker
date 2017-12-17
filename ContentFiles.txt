@@ -974,7 +974,7 @@ content/textures/content-textures2.zip
 [6249340 bytes]
 
 content/textures/content-textures3.zip
-[26081381 bytes]
+[26888951 bytes]
 
 content/textures/Cursors/Gamepad/Pointer.png
 [1073 bytes]
