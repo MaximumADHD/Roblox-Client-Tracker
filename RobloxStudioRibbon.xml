@@ -141,7 +141,7 @@
       <Group name="Settings">
         <addaction name="gameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
       </Group>
-      <Group fflag="StudioTeamTestGroupInHomeRibbonBar" name="Team Test" >
+      <Group name="Team Test" >
         <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Team Test"  tooltip="Start a Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32" />
         <addseparator visible="false"/>
         <addaction name="cleanupTeamTestAction" iscommonslot="true" style="textundericon" text="Exit Game"  tooltip="Exit Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Exit-Team-Test.png" width="32" height="32" />
@@ -252,7 +252,7 @@
           <addaction name="createBallInSocketConstraintAction" style="textundericon" iscommonslot="true" text="Ball in Socket" tooltip="Create ball in socket" icon=":/RibbonBar/images/RibbonIcons/Physics/ball-in-socket-32x32.png" width="32" height="32" />
           <addaction name="createHingeConstraintAction" style="textundericon" iscommonslot="true" text="Hinge" tooltip="Create hinge" icon=":/RibbonBar/images/RibbonIcons/Physics/hinge-32x32.png" width="32" height="32" />
           <addaction name="createPrismaticConstraintAction" style="textundericon" iscommonslot="true" text="Prismatic" tooltip="Create prismatic constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/prismatic-constraint-32x32.png" width="32" height="32" />
-          <addaction fflag="EnableCylindricalConstraint" name="createCylindricalConstraintAction" style="textundericon" iscommonslot="true" text="Cylindrical" tooltip="Create cylindrical constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/cylindrical-constraint-32x32.png" width="32" height="32" />
+          <addaction name="createCylindricalConstraintAction" style="textundericon" iscommonslot="true" text="Cylindrical" tooltip="Create cylindrical constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/cylindrical-constraint-32x32.png" width="32" height="32" />
           <addaction name="createRopeConstraintAction" style="textundericon" iscommonslot="true" text="Rope" tooltip="Create rope constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rope-32x32.png" width="32" height="32" />
           <addaction name="createRodConstraintAction" style="textundericon" iscommonslot="true" text="Rod" tooltip="Create rod constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rod-32x32.png" width="32" height="32" />
           <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Spring" tooltip="Create spring constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/spring-32x32.png" width="32" height="32" />

@@ -1,5 +1,6 @@
 -- Creates the generic "ROBLOX" loading screen on startup
 -- Written by ArceusInator & Ben Tkacheff, 2014
+-- Updates by 0xBAADF00D, 2017
 local AssetService = game:GetService('AssetService')
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
@@ -11,14 +12,21 @@ local ContentProvider = game:GetService("ContentProvider")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 --FFlags
-local enableGetAssetThumbnailSuccess, enableGetAssetThumbnailValue = pcall(function() return settings():GetFFlag('EnableGetAssetThumbnail') end)
-local enableGetAssetThumbnail = enableGetAssetThumbnailSuccess and enableGetAssetThumbnailValue
-
 local persistentConnectionHealthDialogSuccess, persistentConnectionHealthDialogValue = pcall(function() return settings():GetFFlag("PersistentConnectionHealthDialog") end)
 local persistentConnectionHealthDialog = persistentConnectionHealthDialogSuccess and persistentConnectionHealthDialogValue
 
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
+
+local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript")
+local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
+
+if FFlagSetGuiInsetInLoadingScript then
+	coroutine.wrap(function()
+		local TopbarConstants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("TopbarConstants"))
+		GuiService:SetGlobalGuiInset(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
+	end)()
+end
 
 local debugMode = false
 
@@ -52,6 +60,7 @@ local platform = UserInputService:GetPlatform()
 local placeLabel, creatorLabel = nil, nil
 local backgroundFadeStarted = false
 local tweenPlaceIcon = nil
+local layoutIsReady = false
 
 local connectionHealthShown = false
 local connectionHealthCon
@@ -349,6 +358,7 @@ function MainGui:GenerateMain()
 		Parent = mainBackgroundContainer
 	}
 
+
 	local uiMessageFrame = create 'Frame' {
 		Name = 'UiMessageFrame',
 		BackgroundTransparency = 1,
@@ -369,8 +379,8 @@ function MainGui:GenerateMain()
 			TextWrapped = true,
 			TextColor3 = COLORS.TEXT_COLOR,
 			Text = "",
+			TextTransparency = 1,
 			ZIndex = 2,
-			Visible = true
 		}
 	}
 
@@ -431,49 +441,24 @@ function MainGui:GenerateMain()
 		local placeId = WaitForPlaceId()
 
 		local function tryGetFinalAsync()
-			if not enableGetAssetThumbnail then
-				local assetGameUrl = ContentProvider.BaseUrl:gsub("www", "assetgame")
-				local assetJsonUrl = string.format("%sasset-thumbnail/json?assetId=%d&width=576&height=324&format=png", assetGameUrl, placeId)
-				local imageUrl = string.format("%sThumbs/GameIcon.ashx?assetId=%d&width=576&height=324&ignorePlaceMediaItems=true", assetGameUrl, placeId)
-				local resultStr = game:HttpGetAsync(assetJsonUrl)
-				local parseSuccess, result = pcall(function() return httpService:JSONDecode(resultStr) end)
+			local imageUrl = nil
+			local isGenerated = false
+			local success, msg = pcall(function()
+				imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(placeId, Vector2.new(576, 324), 1)
+			end)
 
-				if parseSuccess and result then
-					local isFinal = result.Final or result.thumbnailFinal
-					local substitutionType = result.substitutionType or result.substitutionType
+			if success and isGenerated == true and imageUrl then
+				ContentProvider:PreloadAsync { imageUrl }
+				placeIcon.Image = imageUrl
 
-					if isFinal and (substitutionType == nil or substitutionType == gameIconSubstitutionType.None) then
-						ContentProvider:PreloadAsync { imageUrl }
-						placeIcon.Image = imageUrl
-
-						if not backgroundFadeStarted then
-							placeIcon.ImageTransparency = 0
-						end
-
-						return true
-					end
-				end
-				return false
-			else
-				local imageUrl = nil
-				local isGenerated = false
-				local success, msg = pcall(function()
-					imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(placeId, Vector2.new(576, 324), 1)
-				end)
-
-				if success and isGenerated == true and imageUrl then
-					ContentProvider:PreloadAsync { imageUrl }
-					placeIcon.Image = imageUrl
-
-					if not backgroundFadeStarted then
-						placeIcon.ImageTransparency = 0
-					end
-
-					return true
+				if not backgroundFadeStarted then
+					placeIcon.ImageTransparency = 0
 				end
 
-				return false
+				return true
 			end
+
+			return false
 		end
 
 		while not tryGetFinalAsync() do end
@@ -491,6 +476,7 @@ function MainGui:GenerateMain()
 		TextScaled = true,
 		TextColor3 = COLORS.TEXT_COLOR,
 		TextStrokeTransparency = 1,
+		TextTransparency = FFlagFixLoadingScreenJankiness and 1 or nil, --setting to nil means it's not in the table at all, so it uses the default value to ensure behavior is the same. It should be 0 either way.
 		Text = "",
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextYAlignment = Enum.TextYAlignment.Bottom,
@@ -581,6 +567,21 @@ function MainGui:GenerateMain()
 		creatorLabel.TextScaled = false
 		creatorLabel.Position = UDim2.new(0, 72, 0, 80)
 		creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+	end
+
+	if FFlagFixLoadingScreenJankiness then
+		coroutine.wrap(function()
+			RunService.RenderStepped:wait()
+			RunService.RenderStepped:wait()
+			layoutIsReady = true
+
+			placeLabel.TextTransparency = 0
+
+			local uiMessage = uiMessageFrame.UiMessage
+			if uiMessage.Text ~= "" then
+				uiMessage.TextTransparency = 0
+			end
+		end)()
 	end
 
 	local errorFrame = create 'Frame' {
@@ -769,19 +770,31 @@ GuiService.UiMessageChanged:connect(function(type, newMessage)
 		local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
 		if blackFrame then
 			local infoFrame = blackFrame:FindFirstChild("InfoFrame")
-			if infoFrame then
-				infoFrame.UiMessageFrame.UiMessage.Text = newMessage
-				if newMessage ~= '' then
-					infoFrame.UiMessageFrame.Visible = true
-				else
-					infoFrame.UiMessageFrame.Visible = false
+			if FFlagFixLoadingScreenJankiness then
+				if infoFrame then
+					local uiMessage = infoFrame.UiMessageFrame.UiMessage 
+					uiMessage.Text = newMessage
+					if newMessage ~= '' and layoutIsReady then
+						uiMessage.TextTransparency = 0
+					else
+						uiMessage.TextTransparency = 1
+					end
 				end
 			else
-				blackFrame.UiMessageFrame.UiMessage.Text = newMessage
-				if newMessage ~= '' then
-					blackFrame.UiMessageFrame.Visible = true
+				if infoFrame then
+					infoFrame.UiMessageFrame.UiMessage.Text = newMessage
+					if newMessage ~= '' then
+						infoFrame.UiMessageFrame.Visible = true
+					else
+						infoFrame.UiMessageFrame.Visible = false
+					end
 				else
-					blackFrame.UiMessageFrame.Visible = false
+					blackFrame.UiMessageFrame.UiMessage.Text = newMessage
+					if newMessage ~= '' then
+						blackFrame.UiMessageFrame.Visible = true
+					else
+						blackFrame.UiMessageFrame.Visible = false
+					end
 				end
 			end
 		end

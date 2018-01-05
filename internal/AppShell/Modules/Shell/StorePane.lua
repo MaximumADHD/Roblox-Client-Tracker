@@ -31,8 +31,6 @@ local GuiService = game:GetService('GuiService')
 local PlatformService;
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 
-local FixCurrencySymbol = settings():GetFFlag('XboxFixCurrencySymbol')
-
 --[[ Constants ]]--
 local GRID_ROWS = 2
 local GRID_COLUMNS = 3
@@ -105,24 +103,6 @@ local function createGridItem(productInfo)
 			ZIndex = 2;
 			Parent = container,
 		}
-
-		if not FixCurrencySymbol then
-			local dollarSign = Utility.Create'TextLabel'
-			{
-				Name = "DollarSign",
-				Size = UDim2.new(0, 0, 1, -15),
-				Position = UDim2.new(0, 0, 0, 15),
-				BackgroundTransparency = 1,
-				TextXAlignment = Enum.TextXAlignment.Right,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextColor3 = GlobalSettings.WhiteTextColor,
-				Font = GlobalSettings.BoldFont,
-				FontSize = GlobalSettings.MediumFontSize,
-				Text = Strings:LocalizedString('CurrencySymbol'),
-				ZIndex = 2;
-				Parent = priceText,
-			}
-		end
 
 		local robuxIcon = Utility.Create'ImageLabel'
 		{
@@ -330,8 +310,8 @@ local function CreateStorePane(parent)
 			end
 		end)
 	end
-  
-  
+
+
 	local StoreContainer = Utility.Create'Frame'
 	{
 			Size = GRID_SIZE;
@@ -349,11 +329,11 @@ local function CreateStorePane(parent)
 		FillDirectionMaxCells = GRID_COLUMNS;
 		Parent = StoreContainer;
 	};
-	
+
 	local function ContainsItem(gridItem)
 		return itemSet[gridItem] ~= nil
 	end
-	
+
 	local function AddItem(gridItem)
 		if not ContainsItem(gridItem) then
 			table.insert(gridItems, gridItem)
@@ -364,7 +344,7 @@ local function CreateStorePane(parent)
 			end
 		end
 	end
-  
+
 	local SuccessfullyLoadedCatalog = false
 	local catalogLoading = false
 	local function OnLoad()
@@ -479,11 +459,7 @@ local function CreateStorePane(parent)
 							debounce = false
 						end
 
-						local extractedPrice = productInfo and productInfo.DisplayPrice and string.gsub(productInfo.DisplayPrice, "%$", "") or ""
-						if FixCurrencySymbol then
-							extractedPrice = productInfo and productInfo.DisplayPrice or extractedPrice
-						end
-
+						local extractedPrice = productInfo and productInfo.DisplayPrice or ""
 						local thisRatio = PlatformCatalogData:CalculateRobuxRatio(productInfo)
 
 						local item = createGridItem()

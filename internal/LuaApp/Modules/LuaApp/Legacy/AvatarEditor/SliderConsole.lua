@@ -4,6 +4,8 @@ local GuiService = game:GetService("GuiService")
 local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
+local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
+local FFlagXboxSliderDpadSupport = Flags:GetFlag('XboxSliderDpadSupport')
 
 local THUMBSTICK_MOVE_DEADZONE = 0.6
 local THUMBSTICK_MOVE_INITIAL_REPEAT_TIME = 0.5
@@ -245,13 +247,15 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 		end
 	end
 
-	local moveListen, renderStepListen = nil, nil
+	local inputBeganListener, inputChangedListener, inputEndedListener, renderStepListener
 	local lastMoveDirection = 0
 	local repeatMoveTimer = nil
 	local fastRepeatMoveTimer = nil
 	local function reset()
-		moveListen = Utilities.disconnectEvent(moveListen)
-		renderStepListen = Utilities.disconnectEvent(renderStepListen)
+		inputBeganListener = Utilities.disconnectEvent(inputBeganListener)
+		inputChangedListener = Utilities.disconnectEvent(inputChangedListener)
+		inputEndedListener = Utilities.disconnectEvent(inputEndedListener)
+		renderStepListener = Utilities.disconnectEvent(renderStepListener)
 		lastMoveDirection = 0
 		repeatMoveTimer = nil
 		fastRepeatMoveTimer = nil
@@ -259,7 +263,6 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 
 
 	draggerButton.SelectionGained:Connect(function()
-		local canDrag = true
 		local highlight
 		if dragger and dragger.Parent then
 			highlight = dragger:FindFirstChild('Highlight')
@@ -269,30 +272,50 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 		end
 		local function inputChanged(input, gameProcessedEvent)
 			if input.KeyCode == Enum.KeyCode.Thumbstick1 then
-				if input.UserInputState == Enum.UserInputState.Change then
-					if canDrag then
-						local newMoveDirection = input.Position.X
-						if math.abs(newMoveDirection) > THUMBSTICK_MOVE_DEADZONE then
-							local newMoveDirection = newMoveDirection > 0 and 1 or -1
-							if lastMoveDirection ~= newMoveDirection then
-								repeatMoveTimer = tick()
-								fastRepeatMoveTimer = nil
-								lastMoveDirection = newMoveDirection
-								handle(lastMoveDirection)
-							end
-						else --thumbstick is not pressed(under THUMBSTICK_MOVE_DEADZONE, reset timer and lastMoveDirection)
-							lastMoveDirection = 0
-							repeatMoveTimer = nil
-							fastRepeatMoveTimer = nil
-						end
+				local newMoveDirection = input.Position.X
+				if math.abs(newMoveDirection) > THUMBSTICK_MOVE_DEADZONE then
+					local newMoveDirection = newMoveDirection > 0 and 1 or -1
+					if lastMoveDirection ~= newMoveDirection then
+						repeatMoveTimer = tick()
+						fastRepeatMoveTimer = nil
+						lastMoveDirection = newMoveDirection
+						handle(lastMoveDirection)
 					end
+				else --thumbstick is not pressed(under THUMBSTICK_MOVE_DEADZONE, reset timer and lastMoveDirection)
+					lastMoveDirection = 0
+					repeatMoveTimer = nil
+					fastRepeatMoveTimer = nil
+				end
+			end
+		end
+
+		local function inputEnded(input, gameProcessedEvent)
+			if input.KeyCode == Enum.KeyCode.DPadLeft or input.KeyCode == Enum.KeyCode.DPadRight then
+				lastMoveDirection = 0
+				repeatMoveTimer = nil
+				fastRepeatMoveTimer = nil
+			end
+		end
+
+		local function inputBegan(input, gameProcessedEvent)
+			if input.KeyCode == Enum.KeyCode.DPadLeft or input.KeyCode == Enum.KeyCode.DPadRight then
+				local newMoveDirection = input.KeyCode == Enum.KeyCode.DPadLeft and -1 or 1
+				if lastMoveDirection ~= newMoveDirection then
+					repeatMoveTimer = tick()
+					fastRepeatMoveTimer = nil
+					lastMoveDirection = newMoveDirection
+					handle(lastMoveDirection)
 				end
 			end
 		end
 
 		reset()
-		moveListen = UserInputService.InputChanged:connect(inputChanged)
-		renderStepListen = game:GetService("RunService").RenderStepped:connect(function()
+		if FFlagXboxSliderDpadSupport then
+			inputBeganListener = UserInputService.InputBegan:connect(inputBegan)
+			inputEndedListener = UserInputService.InputEnded:connect(inputEnded)
+		end
+		inputChangedListener = UserInputService.InputChanged:connect(inputChanged)
+		renderStepListener = game:GetService("RunService").RenderStepped:connect(function()
 			if lastMoveDirection == 0 or repeatMoveTimer == nil then
 				return
 			end

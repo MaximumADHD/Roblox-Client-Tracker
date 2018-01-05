@@ -26,7 +26,7 @@ local recentPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Category/ic-all-on.png',
 	iconImageName =		'ic-all',
 	iconImageSelectedName = 'ic-all-on',
-	specialPageType = 'Recent All'
+	specialPageType = 'Recent All',
 }
 local recentClothingPage = {
 	name = 'Recent Clothing',
@@ -36,7 +36,7 @@ local recentClothingPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Category/ic-clothing-on.png',
 	iconImageName = 'ic-clothing',
 	iconImageSelectedName = 'ic-clothing-on',
-	specialPageType = 'Recent Clothing'
+	specialPageType = 'Recent Clothing',
 }
 local recentBodyPage = {
 	name = 'Recent Body',
@@ -46,7 +46,7 @@ local recentBodyPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Category/ic-body-part-on.png',
 	iconImageName = 'ic-body',
 	iconImageSelectedName = 'ic-body-on',
-	specialPageType = 'Recent Body'
+	specialPageType = 'Recent Body',
 }
 local recentAnimationPage = {
 	name = 'Recent Animation',
@@ -56,7 +56,7 @@ local recentAnimationPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation-on.png',
 	iconImageName = 'ic-animations',
 	iconImageSelectedName = 'ic-animations-on',
-	specialPageType = 'Recent Animation'
+	specialPageType = 'Recent Animation',
 }
 local recentOutfitsPage = {
 	name = 'Recent Outfits',
@@ -64,7 +64,7 @@ local recentOutfitsPage = {
 	titleLandscape = Strings:LocalizedString("RecentOutfitsLandscapeTitle"),
 	iconImageName = 'ic-costumes',
 	iconImageSelectedName = 'ic-costumes-on',
-	specialPageType = 'Recent Outfits'
+	specialPageType = 'Recent Outfits',
 }
 local outfitsPage = {
 	name = 'Outfits',			--outfits will include packages in some way
@@ -76,7 +76,7 @@ local outfitsPage = {
 	iconImageName = 'ic-all',
 	iconImageSelectedName = 'ic-all-on',
 	infiniteScrolling = true,
-	specialPageType = 'Outfits'
+	specialPageType = 'Outfits',
 }
 local hatsPage = {
 	name = 'Hats',
@@ -88,9 +88,10 @@ local hatsPage = {
 	iconImageName = 'ic-hat',
 	iconImageSelectedName = 'ic-hat-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = headWideFocus,
 	CameraZoomRadius = 7.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=9",
 }
 local hairPage = {
 	name = 'Hair',
@@ -101,9 +102,10 @@ local hairPage = {
 	iconImageName = 'ic-hair',
 	iconImageSelectedName = 'ic-hair-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = headWideFocus,
 	CameraZoomRadius = 7.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=20",
 }
 local faceAccessoryPage = {
 	name = 'Face Accessories',
@@ -115,9 +117,10 @@ local faceAccessoryPage = {
 	iconImageName = 'ic-face-accessories',
 	iconImageSelectedName = 'ic-face-accessories-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = faceFocus,
 	CameraZoomRadius = 4.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=21",
 }
 local neckAccessoryPage = {
 	name = 'Neck Accessories',
@@ -129,9 +132,10 @@ local neckAccessoryPage = {
 	iconImageName = 'ic-neck',
 	iconImageSelectedName = 'ic-neck-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = neckFocus,
 	CameraZoomRadius = 6.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=22",
 }
 local shoulderAccessoryPage = {
 	name = 'Shoulder Accessories',
@@ -143,9 +147,10 @@ local shoulderAccessoryPage = {
 	iconImageName = 'ic-shoulders',
 	iconImageSelectedName = 'ic-shoulders-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = shoulderFocus,
 	CameraZoomRadius = 6.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=23",
 }
 local frontAccessoryPage = {
 	name = 'Front Accessories',
@@ -157,9 +162,10 @@ local frontAccessoryPage = {
 	iconImageName = 'ic-front',
 	iconImageSelectedName = 'ic-front-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = armsFocus,
 	CameraZoomRadius = 7.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=24",
 }
 local backAccessoryPage = {
 	name = 'Back Accessories',
@@ -171,9 +177,10 @@ local backAccessoryPage = {
 	iconImageName = 'ic-back',
 	iconImageSelectedName = 'ic-back-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = armsFocus,
 	CameraZoomRadius = 7.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=25",
 }
 local waistAccessoryPage = {
 	name = 'Waist Accessories',
@@ -185,9 +192,10 @@ local waistAccessoryPage = {
 	iconImageName = 'ic-waist',
 	iconImageSelectedName = 'ic-waist-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = waistFocus,
 	CameraZoomRadius = 6.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=11&Subcategory=26",
 }
 local shirtsPage = {
 	name = 'Shirts',
@@ -199,9 +207,10 @@ local shirtsPage = {
 	iconImageName = 'ic-shirts',
 	iconImageSelectedName = 'ic-shirts-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = armsFocus,
 	CameraZoomRadius = 7.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=3&Subcategory=12",
 }
 local pantsPage = {
 	name = 'Pants',
@@ -212,9 +221,10 @@ local pantsPage = {
 	iconImageName = 'ic-pants',
 	iconImageSelectedName = 'ic-pants-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = legsFocus,
 	CameraZoomRadius = 7.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=3&Subcategory=14",
 }
 local facesPage = {
 	name = 'Faces',
@@ -226,9 +236,10 @@ local facesPage = {
 	iconImageName = 'ic-face',
 	iconImageSelectedName = 'ic-face-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = faceFocus,
 	CameraZoomRadius = 4.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=4&Subcategory=10",
 }
 local headsPage = {
 	name = 'Heads',
@@ -240,9 +251,10 @@ local headsPage = {
 	iconImageName = 'ic-head',
 	iconImageSelectedName = 'ic-head-on',
 	infiniteScrolling = true,
-	recommendedSort = true,
 	CameraFocus = faceFocus,
 	CameraZoomRadius = 4.5,
+	recommendedSort = true,
+	shopUrl = "/catalog/?Category=4&Subcategory=15",
 }
 local torsosPage = {
 	name = 'Torsos',
@@ -315,6 +327,7 @@ local gearPage = {
 	iconImageSelectedName = 'ic-gear-on',
 	infiniteScrolling = true,
 	recommendedSort = true,
+	shopUrl = "/catalog/?Category=5",
 }
 local skinTonePage = {
 	name = 'Skin Tone',
@@ -324,7 +337,7 @@ local skinTonePage = {
 	iconImageName = 'ic-skintone',
 	iconImageSelectedName = 'ic-skintone-on',
 	special = true,
-	specialPageType = 'Skin Tone'
+	specialPageType = 'Skin Tone',
 }
 local scalePage = {
 	name = 'Scale',
@@ -334,9 +347,8 @@ local scalePage = {
 	iconImageName = 'ic-scale',
 	iconImageSelectedName = 'ic-scale-on',
 	special = true,
-	specialPageType = 'Scale'
+	specialPageType = 'Scale',
 }
-
 local climbAnimPage = {
 	name = 'Climb Animations',
 	title = Strings:LocalizedString("ClimbAnimationsWord"),
@@ -346,7 +358,7 @@ local climbAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on.png',
 	iconImageName = 'ic-climb',
 	iconImageSelectedName = 'ic-climb-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local jumpAnimPage = {
 	name = 'Jump Animations',
@@ -357,7 +369,7 @@ local jumpAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on.png',
 	iconImageName = 'ic-jump',
 	iconImageSelectedName = 'ic-jump-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local fallAnimPage = {
 	name = 'Fall Animations',
@@ -368,7 +380,7 @@ local fallAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on.png',
 	iconImageName = 'ic-fall',
 	iconImageSelectedName = 'ic-fall-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local idleAnimPage = {
 	name = 'Idle Animations',
@@ -379,7 +391,7 @@ local idleAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on.png',
 	iconImageName = 'ic-idle',
 	iconImageSelectedName = 'ic-idle-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local walkAnimPage = {
 	name = 'Walk Animations',
@@ -390,7 +402,7 @@ local walkAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on.png',
 	iconImageName = 'ic-walk',
 	iconImageSelectedName = 'ic-walk-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local runAnimPage = {
 	name = 'Run Animations',
@@ -401,7 +413,7 @@ local runAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on.png',
 	iconImageName = 'ic-run',
 	iconImageSelectedName = 'ic-run-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local swimAnimPage = {
 	name = 'Swim Animations',
@@ -412,7 +424,7 @@ local swimAnimPage = {
 	iconImageSelected =	'rbxasset://textures/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on.png',
 	iconImageName = 'ic-swim',
 	iconImageSelectedName = 'ic-swim-on',
-	infiniteScrolling = true
+	infiniteScrolling = true,
 }
 local recentCategory = {
 	name = 'Recent',
@@ -495,7 +507,8 @@ if LayoutInfo.isLandscape then
 
 	table.insert(recentCategory.pages, recentOutfitsPage)
 
-	clothingCategory.pages = {hatsPage,
+	clothingCategory.pages = {
+		hatsPage,
 		hairPage,
 		faceAccessoryPage,
 		neckAccessoryPage,

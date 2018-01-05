@@ -29,7 +29,7 @@ local flags = {
 	AvatarEditorCardRecycling = false,
 	AvatarEditorInitializationOptimization = false,
 	AvatarEditorEnableDefaultShirtAndPants = false,
-	UseAnthroValues = false
+	UseAnthroValues2 = false
 }
 
 local testStates = {
@@ -54,7 +54,7 @@ local testStates = {
 	AvatarEditorCardRecycling = true,
 	AvatarEditorInitializationOptimization = true,
 	AvatarEditorEnableDefaultShirtAndPants = true,
-	UseAnthroValues = true
+	UseAnthroValues2 = true
 }
 
 --

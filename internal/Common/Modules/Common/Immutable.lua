@@ -72,6 +72,28 @@ function Immutable.Append(list, ...)
 end
 
 --[[
+	Remove elements from a dictionary
+]]
+function Immutable.RemoveFromDictionary(dictionary, ...)
+	local result = {}
+
+	for key, value in pairs(dictionary) do
+		local found = false
+		for listKey = 1, select("#", ...) do
+			if key == select(listKey, ...) then
+				found = true
+				break
+			end
+		end
+		if not found then
+			result[key] = value
+		end
+	end
+
+	return result
+end
+
+--[[
 	Remove the given key from the list.
 ]]
 function Immutable.RemoveFromList(list, removeIndex)

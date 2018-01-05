@@ -3,22 +3,6 @@ local LuaChat = script.Parent.Parent
 local ActionType = require(LuaChat.ActionType)
 local Immutable = require(LuaChat.Immutable)
 
--- TODO: CLICHAT-570 Remove this function after Luke's changes for fast flags
-local function isFFlagEnabled(flagName)
-	local success, isFlagEnabled = pcall(function()
-		return settings():GetFFlag(flagName)
-	end)
-	if success and not isFlagEnabled then
-		warn("Fast Flag:", flagName, "is currently not enabled.")
-	elseif not success then
-		warn("GetFFlag failed for flag:", flagName)
-	end
-	return success and isFlagEnabled
-end
-
-local chatRemoveRouteEnabled = isFFlagEnabled("LuaChatEnableRemoveRoute")
-local chatPopToIntentFixEnabled = isFFlagEnabled("LuaChatPopToIntentFixEnabled")
-
 return function(state, action)
 	state = state or {
 		current = {},
@@ -35,7 +19,7 @@ return function(state, action)
 			parameters = action.parameters
 		}
 
-		if chatPopToIntentFixEnabled and action.popToIntent then
+		if action.popToIntent then
 			local found = false
 			for i = #history, 1, -1 do
 				local loc = history[i]
@@ -77,7 +61,7 @@ return function(state, action)
 			history = history
 		}
 
-	elseif action.type == ActionType.RemoveRoute and chatRemoveRouteEnabled then
+	elseif action.type == ActionType.RemoveRoute then
 		local intent = action.intent
 		local history = state.history
 

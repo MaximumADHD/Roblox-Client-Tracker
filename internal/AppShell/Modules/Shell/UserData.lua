@@ -5,8 +5,6 @@
 			// TODO:
 				Eventually all of this will move into Rodux
 ]]
-local IsUsingLocalPlayerForUserInfo = settings():GetFFlag("XboxBetterInitializeLocalPlayer")
-
 local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
@@ -89,49 +87,21 @@ function UserData:Initialize()
 
 	currentUserData = {}
 
-	if IsUsingLocalPlayerForUserInfo then
-		local localplayer = getLocalPlayer()
-		currentUserData["RobloxName"] = localplayer.Name
-		currentUserData["RbxUid"] = localplayer.UserId
+	local localplayer = getLocalPlayer()
+	currentUserData["RobloxName"] = localplayer.Name
+	currentUserData["RbxUid"] = localplayer.UserId
 
-		if UserSettings().GameSettings:InStudioMode() then
-			currentUserData["Gamertag"] = "InStudioNoGamertag"
-		else
-			if ThirdPartyUserService then
-				currentUserData["Gamertag"] = ThirdPartyUserService:GetUserDisplayName()
-			end
-
-			spawn(setVoteCountAsync)
-			-- TODO: When all accounts that are linked but have no credentials are cleaned up, we can remove these checks
-			spawn(verifyHasLinkedAccountAsync)
-			spawn(verifyHasRobloxCredentialsAsync)
-		end
+	if UserSettings().GameSettings:InStudioMode() then
+		currentUserData["Gamertag"] = "InStudioNoGamertag"
 	else
-		if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
-			local localPlayer = getLocalPlayer()
-			currentUserData["Gamertag"] = "InStudioNoGamertag"
-			currentUserData["RbxUid"] = localPlayer.userId
-			currentUserData["RobloxName"] = localPlayer.Name
-			spawn(function()
-				setVoteCountAsync()
-			end)
-		elseif PlatformService then
-			local userInfo = PlatformService:GetPlatformUserInfo()
-			if userInfo then
-				currentUserData["Gamertag"] = userInfo["Gamertag"]
-				currentUserData["RbxUid"] = userInfo["RobloxUserId"]
-			else
-				currentUserData["Gamertag"] = Players.LocalPlayer.Name
-			end
-	
-			spawn(setVoteCountAsync)
-			-- TODO: When all accounts that are linked but have no credentials are cleaned up, we can remove these checks
-			spawn(verifyHasLinkedAccountAsync)
-			spawn(verifyHasRobloxCredentialsAsync)
-			spawn(function()
-				currentUserData["RobloxName"] = Players:GetNameFromUserIdAsync(currentUserData["RbxUid"])
-			end)
+		if ThirdPartyUserService then
+			currentUserData["Gamertag"] = ThirdPartyUserService:GetUserDisplayName()
 		end
+
+		spawn(setVoteCountAsync)
+		-- TODO: When all accounts that are linked but have no credentials are cleaned up, we can remove these checks
+		spawn(verifyHasLinkedAccountAsync)
+		spawn(verifyHasRobloxCredentialsAsync)
 	end
 end
 

@@ -123,10 +123,10 @@ local function openMenu(title, tableOfButtons, assetId)
 end
 
 
-local AvatarEditorUsesBrowserWindowCall = Flags:GetFlag("AvatarEditorUsesBrowserWindowCall")
+local AvatarEditorCatalogRecommended = Flags:GetFlag("AvatarEditorCatalogRecommended")
 
 function this:openDetails(assetId)
-	if AvatarEditorUsesBrowserWindowCall then
+	if AvatarEditorCatalogRecommended then
 		closeMenu()
 		guiService:OpenNativeOverlay("Catalog", Urls.catalogUrlBase..assetId)
 	else
@@ -216,7 +216,7 @@ return function(inCharacterManager, inShadeLayer, inMenuFrame, inDetailsMenuFram
 	detailsImageLabel = detailsMenuFrame:WaitForChild('ImageLabel')
 	detailsCloseButton = detailsMenuFrame:WaitForChild('CloseButton')
 	detailsCloseImageLabel = detailsCloseButton:WaitForChild('ImageLabel')
-	
+
 	if AvatarEditorNewLocalizedStrings then
 		menuCancelButton.Text = Strings:LocalizedString("CancelWord")
 	end

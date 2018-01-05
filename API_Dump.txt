@@ -93,13 +93,9 @@ Class AssetService : Instance
 	YieldFunction int AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int64 packageAssetId)
 	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int64 assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
-	YieldFunction Dictionary AssetService:GetAssetVersions(int placeId, int pageNum = 1)
-	YieldFunction int AssetService:GetCreatorAssetID(int creationID) [deprecated]
+	YieldFunction int AssetService:GetCreatorAssetID(int64 creationID) [deprecated]
 	YieldFunction Instance AssetService:GetGamePlacesAsync()
-	YieldFunction Dictionary AssetService:GetPlacePermissions(int placeId)
-	YieldFunction bool AssetService:RevertAsset(int placeId, int versionNumber)
 	YieldFunction void AssetService:SavePlaceAsync()
-	YieldFunction bool AssetService:SetPlacePermissions(int placeId, AccessType accessType = Everyone, Array inviteList = {})
 Class Attachment : Instance
 	Property Vector3 Attachment.Axis
 	Property CoordinateFrame Attachment.CFrame
@@ -118,11 +114,11 @@ Class Attachment : Instance
 	Function void Attachment:SetAxis(Vector3 axis)
 	Function void Attachment:SetSecondaryAxis(Vector3 axis)
 Class BadgeService : Instance [notCreatable]
-	YieldFunction bool BadgeService:AwardBadge(int userId, int badgeId)
-	YieldFunction bool BadgeService:IsDisabled(int badgeId)
-	YieldFunction bool BadgeService:IsLegal(int badgeId)
-	YieldFunction bool BadgeService:UserHasBadge(int userId, int badgeId)
-	Event BadgeService.BadgeAwarded(string message, int userId, int badgeId) [RobloxScriptSecurity]
+	YieldFunction bool BadgeService:AwardBadge(int64 userId, int64 badgeId)
+	YieldFunction bool BadgeService:IsDisabled(int64 badgeId)
+	YieldFunction bool BadgeService:IsLegal(int64 badgeId)
+	YieldFunction bool BadgeService:UserHasBadge(int64 userId, int64 badgeId)
+	Event BadgeService.BadgeAwarded(string message, int64 userId, int64 badgeId) [RobloxScriptSecurity]
 Class BasePlayerGui : Instance
 Class CoreGui : BasePlayerGui [notCreatable]
 	Property Object CoreGui.SelectionImageObject [RobloxScriptSecurity]
@@ -164,6 +160,7 @@ Class Beam : Instance
 	Property float Beam.Width0
 	Property float Beam.Width1
 	Property float Beam.ZOffset
+	Function void Beam:SetTextureOffset(float offset = 0)
 Class BinaryStringValue : Instance
 	Event BinaryStringValue.Changed(BinaryString value)
 Class BindableEvent : Instance
@@ -888,6 +885,7 @@ Class BillboardGui : LayerCollector
 	Property Vector2 BillboardGui.SizeOffset
 	Property Vector3 BillboardGui.StudsOffset
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
+Class PluginGui : LayerCollector
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.ResetOnSpawn
@@ -1169,20 +1167,21 @@ Class InputObject : Instance [notCreatable]
 	Property UserInputType InputObject.UserInputType
 Class InsertService : Instance [notCreatable]
 	Property bool InsertService.AllowInsertFreeModels [notbrowsable] [deprecated]
-	Function void InsertService:ApproveAssetId(int assetId) [deprecated]
-	Function void InsertService:ApproveAssetVersionId(int assetVersionId) [deprecated]
+	Function void InsertService:ApproveAssetId(int64 assetId) [deprecated]
+	Function void InsertService:ApproveAssetVersionId(int64 assetVersionId) [deprecated]
 	Function void InsertService:Insert(Instance instance) [deprecated]
+	Function Instance InsertService:LoadLocalAsset(string assetPath) [RobloxScriptSecurity]
 	YieldFunction Array InsertService:GetBaseCategories() [deprecated]
 	YieldFunction Array InsertService:GetBaseSets()
-	YieldFunction Array InsertService:GetCollection(int categoryId)
+	YieldFunction Array InsertService:GetCollection(int64 categoryId)
 	YieldFunction Array InsertService:GetFreeDecals(string searchText, int pageNum)
 	YieldFunction Array InsertService:GetFreeModels(string searchText, int pageNum)
-	YieldFunction int InsertService:GetLatestAssetVersionAsync(int assetId)
-	YieldFunction Array InsertService:GetUserCategories(int userId) [deprecated]
-	YieldFunction Array InsertService:GetUserSets(int userId)
-	YieldFunction Instance InsertService:LoadAsset(int assetId)
-	YieldFunction Instance InsertService:LoadAssetVersion(int assetVersionId)
-	YieldFunction Instance InsertService:loadAsset(int assetId) [deprecated]
+	YieldFunction int64 InsertService:GetLatestAssetVersionAsync(int64 assetId)
+	YieldFunction Array InsertService:GetUserCategories(int64 userId) [deprecated]
+	YieldFunction Array InsertService:GetUserSets(int64 userId)
+	YieldFunction Instance InsertService:LoadAsset(int64 assetId)
+	YieldFunction Instance InsertService:LoadAssetVersion(int64 assetVersionId)
+	YieldFunction Instance InsertService:loadAsset(int64 assetId) [deprecated]
 Class InstancePacketCache : Instance
 Class IntConstrainedValue : Instance [deprecated]
 	Property int IntConstrainedValue.ConstrainedValue [hidden]
@@ -1290,14 +1289,12 @@ Class Lighting : Instance [notCreatable]
 	Function double Lighting:getMinutesAfterMidnight() [deprecated]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
-Class LobbyService : Instance [notCreatable]
-	Function void LobbyService:BeginLeaveLobby() [RobloxScriptSecurity]
-	Function void LobbyService:BeginLobbyStartGame(int placeId) [RobloxScriptSecurity]
 Class LocalWorkspace : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.RobloxLocaleId [readonly]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
+	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 Class LocalizationTable : Instance
 	Property string LocalizationTable.DevelopmentLanguage
 	Property Object LocalizationTable.Root
@@ -1305,6 +1302,7 @@ Class LocalizationTable : Instance
 	Function string LocalizationTable:GetContents()
 	Function Array LocalizationTable:GetEntries()
 	Function string LocalizationTable:GetString(string targetLocaleId, string key)
+	Function Instance LocalizationTable:GetTranslator(string localeId)
 	Function void LocalizationTable:RemoveKey(string key)
 	Function void LocalizationTable:SetContents(string contents)
 	Function void LocalizationTable:SetEntry(string key, string targetLocaleId, string text)
@@ -1926,7 +1924,7 @@ Class Players : Instance
 	Property int Players.numPlayers [deprecated] [hidden] [readonly]
 	Function void Players:Chat(string message) [PluginSecurity]
 	Function Instance Players:CreateLocalPlayer() [LocalUserSecurity]
-	Function Instance Players:GetPlayerByUserId(int userId)
+	Function Instance Players:GetPlayerByUserId(int64 userId)
 	Function Instance Players:GetPlayerFromCharacter(Instance character)
 	Function Objects Players:GetPlayers()
 	Function void Players:ReportAbuse(Instance player, string reason, string optionalMessage) [LocalUserSecurity]
@@ -1955,6 +1953,7 @@ Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
+	Function Instance Plugin:CreatePluginGui(string pluginGuiId) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
 	Function Instance Plugin:GetMouse() [PluginSecurity]
@@ -2064,7 +2063,6 @@ Class RenderSettings : Instance [notbrowsable]
 	Property QualityLevel RenderSettings.QualityLevel
 	Property bool RenderSettings.ReloadAssets
 	Property bool RenderSettings.RenderCSGTrianglesDebug
-	Property Resolution RenderSettings.Resolution
 	Property bool RenderSettings.ShowBoundingBoxes
 	Function int RenderSettings:GetMaxQualityLevel()
 Class ReplicatedFirst : Instance [notCreatable]
@@ -2450,6 +2448,9 @@ Class Trail : Instance
 	Property TextureMode Trail.TextureMode
 	Property NumberSequence Trail.Transparency
 	Function void Trail:Clear()
+Class Translator : Instance [notCreatable]
+	Property string Translator.LocaleId [readonly]
+	Function string Translator:FormatByKey(string key, Variant args)
 Class TweenBase : Instance [notbrowsable]
 	Property PlaybackState TweenBase.PlaybackState [readonly]
 	Function void TweenBase:Cancel()
@@ -2664,15 +2665,6 @@ Class WeldConstraint : Instance
 	Property bool WeldConstraint.Enabled
 	Property Object WeldConstraint.Part0
 	Property Object WeldConstraint.Part1
-Enum AASamples
-	EnumItem AASamples.None : 1
-	EnumItem AASamples.4 : 4
-	EnumItem AASamples.8 : 8
-Enum AccessType
-	EnumItem AccessType.Me : 0
-	EnumItem AccessType.Friends : 1
-	EnumItem AccessType.Everyone : 2
-	EnumItem AccessType.InviteOnly : 3
 Enum ActionType
 	EnumItem ActionType.Nothing : 0
 	EnumItem ActionType.Pause : 1
@@ -2692,10 +2684,6 @@ Enum AnimationPriority
 	EnumItem AnimationPriority.Movement : 1
 	EnumItem AnimationPriority.Action : 2
 	EnumItem AnimationPriority.Core : 1000
-Enum Antialiasing
-	EnumItem Antialiasing.Automatic : 0
-	EnumItem Antialiasing.Off : 2
-	EnumItem Antialiasing.On : 1
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1
@@ -2743,6 +2731,10 @@ Enum AssetType
 	EnumItem AssetType.PoseAnimation : 56
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
+Enum AvatarContextMenuOption
+	EnumItem AvatarContextMenuOption.Friend : 0
+	EnumItem AvatarContextMenuOption.Chat : 1
+	EnumItem AvatarContextMenuOption.Emote : 2
 Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1
@@ -3689,26 +3681,6 @@ Enum RenderPriority
 	EnumItem RenderPriority.Camera : 200
 	EnumItem RenderPriority.Character : 300
 	EnumItem RenderPriority.Last : 2000
-Enum Resolution
-	EnumItem Resolution.Automatic : 0
-	EnumItem Resolution.720x526 : 1
-	EnumItem Resolution.800x600 : 2
-	EnumItem Resolution.1024x600 : 3
-	EnumItem Resolution.1024x768 : 4
-	EnumItem Resolution.1280x720 : 5
-	EnumItem Resolution.1280x768 : 6
-	EnumItem Resolution.1152x864 : 7
-	EnumItem Resolution.1280x800 : 8
-	EnumItem Resolution.1360x768 : 9
-	EnumItem Resolution.1280x960 : 10
-	EnumItem Resolution.1280x1024 : 11
-	EnumItem Resolution.1440x900 : 12
-	EnumItem Resolution.1600x900 : 13
-	EnumItem Resolution.1600x1024 : 14
-	EnumItem Resolution.1600x1200 : 15
-	EnumItem Resolution.1680x1050 : 16
-	EnumItem Resolution.1920x1080 : 17
-	EnumItem Resolution.1920x1200 : 18
 Enum ReverbType
 	EnumItem ReverbType.NoReverb : 0
 	EnumItem ReverbType.GenericReverb : 1

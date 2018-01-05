@@ -897,10 +897,12 @@ RBX
 	Player
 	PlayerConfigurer
 	PlayerGui
+	PlayerLocaleServiceTranslatorInstance
 	PlayerMouse
 	Players
 	PlayerScripts
 	Plugin
+	PluginGui
 	PluginManager
 	PluginMouse
 	Point
@@ -984,6 +986,7 @@ RBX
 	ShirtGraphic
 	SimpleThrottlingArbiter
 	SimulateStage
+	SingleLocaleTableTranslatorInstance
 	SkateboardController
 	SkateboardPlatform
 	Skin
@@ -1055,6 +1058,7 @@ RBX
 	TouchScrollable
 	TouchTransmitter
 	Trail
+	TranslatorInstance
 	TranslucentVerb
 	TreeStage
 	TriangleMesh

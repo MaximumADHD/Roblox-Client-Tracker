@@ -125,7 +125,7 @@ local tapDistanceThreshold = 10	-- Defines the maximum allowable distance betwee
 local doubleTapThreshold = .25
 local extraVerticalShift = 25 -- This is to make space for page title labels
 
-local useAnthoValues = flagManager.UseAnthroValues
+local useAnthoValues = flagManager.UseAnthroValues2
 
 
 

@@ -6,14 +6,15 @@ local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-
 local GuiService = game:GetService('GuiService')
 
-local DEFAULT_WINDOW_SIZE = UDim2.new(1,0,1,0)
-
+local XboxUseNewScrollingGrid = settings():GetFFlag("XboxUseNewScrollingGrid")
+if not XboxUseNewScrollingGrid then
+	local ScrollingGridModule = require(ShellModules:FindFirstChild('ScrollingGridOld'))
+	return ScrollingGridModule
+end
 
 local function ScrollingGrid(config)
-
 	local this = {}
 	this.Enum =
 	{
@@ -36,31 +37,34 @@ local function ScrollingGrid(config)
 	this.Dynamic = config.Dynamic or false
 
 	--build the base guis
-	local container = Utility.Create'Frame'
+	local ContainerAttributes =
 	{
-		Size = DEFAULT_WINDOW_SIZE;
-		Name = "Container";
+		Size = UDim2.new(1, 0, 1, 0);
+		Position = UDim2.new(0, 0, 0, 0);
+		CanvasSize = UDim2.new(1, 0, 1, 0);
+		Name = "ScrollingGridContainer";
 		BackgroundTransparency = 1;
 		ClipsDescendants = true;
-	}
-	local scrollingArea = Utility.Create'ScrollingFrame'
-	{
-		Size = UDim2.new(1,0,1,0);
-		Position = UDim2.new(0,0,0,0);
-		Name = "ScrollingArea";
-		BackgroundTransparency = 1;
+		Visible = true;
 		ScrollingEnabled = false;
 		ScrollBarThickness = 0;
 		Selectable = false;
-		Parent = container;
 	}
 
+	for key, value in pairs(config) do
+		if ContainerAttributes[key] ~= nil then
+			ContainerAttributes[key] = value
+		end
+	end
+
+	local container = Utility.Create'ScrollingFrame'(ContainerAttributes)
+
+
 	this.Container = container
-	this.ScrollingArea = scrollingArea
 
 	this.DefaultSelection = this.Container
 
-	this.ScrollingArea:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
+	this.Container:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
 		this:RecalcLayout()
 	end)
 
@@ -235,18 +239,18 @@ local function ScrollingGrid(config)
 	function this:GetCanvasPositionForOffscreenItem(selectedObject)
 		-- NOTE: using <= and >= instead of < and > because scrollingframe
 		-- code may automatically bump it while we are observing the change
-		if selectedObject and self.ScrollingArea and self:ContainsItem(selectedObject) then
+		if selectedObject and self.Container and self:ContainsItem(selectedObject) then
 			if self.ScrollDirection == self.Enum.ScrollDirection.Vertical then
-				if selectedObject.AbsolutePosition.Y <= self.ScrollingArea.AbsolutePosition.Y then
-					return Utility.ClampCanvasPosition(self.ScrollingArea, Vector2.new(0, selectedObject.Position.Y.Offset)) -- - selectedObject.AbsoluteSize.Y/2))
-				elseif selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y >= self.ScrollingArea.AbsolutePosition.Y + self.ScrollingArea.AbsoluteWindowSize.Y then
-					return Utility.ClampCanvasPosition(self.ScrollingArea, Vector2.new(0, -(self.ScrollingArea.AbsoluteWindowSize.Y - selectedObject.Position.Y.Offset - selectedObject.AbsoluteSize.Y)  )) --+ selectedObject.AbsoluteSize.Y/2))
+				if selectedObject.AbsolutePosition.Y <= self.Container.AbsolutePosition.Y then
+					return Utility.ClampCanvasPosition(self.Container, Vector2.new(0, selectedObject.Position.Y.Offset)) -- - selectedObject.AbsoluteSize.Y/2))
+				elseif selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y >= self.Container.AbsolutePosition.Y + self.Container.AbsoluteWindowSize.Y then
+					return Utility.ClampCanvasPosition(self.Container, Vector2.new(0, -(self.Container.AbsoluteWindowSize.Y - selectedObject.Position.Y.Offset - selectedObject.AbsoluteSize.Y)  )) --+ selectedObject.AbsoluteSize.Y/2))
 				end
 			else -- Horizontal
-				if selectedObject.AbsolutePosition.X <= self.ScrollingArea.AbsolutePosition.X then
-					return Utility.ClampCanvasPosition(self.ScrollingArea, Vector2.new(selectedObject.Position.X.Offset, 0))
-				elseif selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X >= self.ScrollingArea.AbsolutePosition.X + self.ScrollingArea.AbsoluteWindowSize.X then
-					return Utility.ClampCanvasPosition(self.ScrollingArea, Vector2.new(-(self.ScrollingArea.AbsoluteWindowSize.X - selectedObject.Position.X.Offset - selectedObject.AbsoluteSize.X), 0))
+				if selectedObject.AbsolutePosition.X <= self.Container.AbsolutePosition.X then
+					return Utility.ClampCanvasPosition(self.Container, Vector2.new(selectedObject.Position.X.Offset, 0))
+				elseif selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X >= self.Container.AbsolutePosition.X + self.Container.AbsoluteWindowSize.X then
+					return Utility.ClampCanvasPosition(self.Container, Vector2.new(-(self.Container.AbsoluteWindowSize.X - selectedObject.Position.X.Offset - selectedObject.AbsoluteSize.X), 0))
 				end
 			end
 		end
@@ -266,8 +270,8 @@ local function ScrollingGrid(config)
 			for i = #self.GridItems, 1, -1 do
 				local item = self.GridItems[i]
 				if item then
-					if item.Position.X.Offset >= self.ScrollingArea.CanvasPosition.X and
-							item.Position.X.Offset + item.AbsoluteSize.X <= self.ScrollingArea.CanvasPosition.X + self.ScrollingArea.AbsoluteWindowSize.X then
+					if item.Position.X.Offset >= self.Container.CanvasPosition.X and
+							item.Position.X.Offset + item.AbsoluteSize.X <= self.Container.CanvasPosition.X + self.Container.AbsoluteWindowSize.X then
 						firstVisibleItem = item
 					end
 				end
@@ -283,7 +287,7 @@ local function ScrollingGrid(config)
 			if selectedObject and self:ContainsItem(selectedObject) then
 				local thisPos = self:GetCanvasPositionForOffscreenItem(selectedObject)
 				if thisPos then
-					Utility.PropertyTweener(self.ScrollingArea, 'CanvasPosition', thisPos, thisPos, 0, Utility.EaseOutQuad, true)
+					Utility.PropertyTweener(self.Container, 'CanvasPosition', thisPos, thisPos, 0, Utility.EaseOutQuad, true)
 				end
 			end
 		end
@@ -292,7 +296,7 @@ local function ScrollingGrid(config)
 			if not self:ContainsItem(gridItem) then
 				table.insert(self.GridItems, gridItem)
 				self.ItemSet[gridItem] = true
-				gridItem.Parent = self.ScrollingArea
+				gridItem.Parent = self.Container
 				if GuiService.SelectedCoreObject == self.DefaultSelection then
 					Utility.SetSelectedCoreObject(gridItem)
 				end
@@ -339,13 +343,13 @@ local function ScrollingGrid(config)
 			end
 
 			self:RecalcLayout()
-			self.ScrollingArea.CanvasPosition = Vector2.new(0, 0)
+			self.Container.CanvasPosition = Vector2.new(0, 0)
 		end
 
 		function this:GetNumRowsColumns()
 			local rows, columns = 0, 0
 
-			local windowSize = self.ScrollingArea.AbsoluteWindowSize
+			local windowSize = self.Container.AbsoluteWindowSize
 			local padding = self:GetPadding()
 			local cellSize = self:GetCellSize()
 			local cellSpacing = self:GetSpacing()
@@ -371,13 +375,10 @@ local function ScrollingGrid(config)
 			local rows, columns = self:GetNumRowsColumns()
 
 			if self.ScrollDirection == self.Enum.ScrollDirection.Vertical then
-				self.ScrollingArea.CanvasSize = UDim2.new(self.ScrollingArea.Size.X.Scale, self.ScrollingArea.Size.X.Offset, 0, padding.Y * 2 + rows * gridItemSize.Y + (math.max(0, rows - 1)) * cellSpacing.Y)
+				self.Container.CanvasSize = UDim2.new(self.Container.Size.X.Scale, self.Container.Size.X.Offset, 0, padding.Y * 2 + rows * gridItemSize.Y + (math.max(0, rows - 1)) * cellSpacing.Y)
 			else
-				self.ScrollingArea.CanvasSize = UDim2.new(0, padding.X * 2 + columns * gridItemSize.X + (math.max(0, columns - 1)) * cellSpacing.X, self.ScrollingArea.Size.Y.Scale, self.ScrollingArea.Size.Y.Offset)
+				self.Container.CanvasSize = UDim2.new(0, padding.X * 2 + columns * gridItemSize.X + (math.max(0, columns - 1)) * cellSpacing.X, self.Container.Size.Y.Scale, self.Container.Size.Y.Offset)
 			end
-
-			self.ScrollingArea.Size = UDim2.new(1, 0, 1, 0)
-			self.ScrollingArea.Position = UDim2.new(0, 0, 0, 0)
 
 			local grid2DtoIndex = {}
 			for i = 1, #self.GridItems do
@@ -457,24 +458,24 @@ local function ScrollingGrid(config)
 						end
 					end
 
-					if upPos and (upPos.Y < this.ScrollingArea.CanvasPosition.Y or upPos.X < this.ScrollingArea.CanvasPosition.X) then
+					if upPos and (upPos.Y < this.Container.CanvasPosition.Y or upPos.X < this.Container.CanvasPosition.X) then
 						nextPos = upPos
-					elseif downPos and (downPos.Y > this.ScrollingArea.CanvasPosition.Y or downPos.X > this.ScrollingArea.CanvasPosition.X) then
+					elseif downPos and (downPos.Y > this.Container.CanvasPosition.Y or downPos.X > this.Container.CanvasPosition.X) then
 						nextPos = downPos
 					else
 						nextPos = thisPos
 					end
 
 					if nextPos then
-						nextPos = Utility.ClampCanvasPosition(this.ScrollingArea, nextPos)
+						nextPos = Utility.ClampCanvasPosition(this.Container, nextPos)
 						if thisPos then --and thisPos ~= nextPos then
 							-- Sort of a hack to not snap on the last one
 							if (upObject and downObject) then
-								Utility.PropertyTweener(this.ScrollingArea, 'CanvasPosition', thisPos, thisPos, 0, Utility.EaseOutQuad, true)
+								Utility.PropertyTweener(this.Container, 'CanvasPosition', thisPos, thisPos, 0, Utility.EaseOutQuad, true)
 							end
 						end
 
-						Utility.PropertyTweener(this.ScrollingArea, 'CanvasPosition', this.ScrollingArea.CanvasPosition, nextPos, 0.2, Utility.EaseOutQuad, true)
+						Utility.PropertyTweener(this.Container, 'CanvasPosition', this.Container.CanvasPosition, nextPos, 0.2, Utility.EaseOutQuad, true)
 					end
 					lastSelectedObject = selectedObject
 				else
@@ -498,19 +499,19 @@ local function ScrollingGrid(config)
 		function this:GetItemVisible(item, fully)
 			if fully then --Whether item is fully visible
 				if this.ScrollDirection == this.Enum.ScrollDirection.Vertical then
-					return item.Position.Y.Offset >= self.ScrollingArea.CanvasPosition.Y and
-						item.Position.Y.Offset + item.AbsoluteSize.Y <= self.ScrollingArea.CanvasPosition.Y + self.ScrollingArea.AbsoluteWindowSize.Y
+					return item.Position.Y.Offset >= self.Container.CanvasPosition.Y and
+						item.Position.Y.Offset + item.AbsoluteSize.Y <= self.Container.CanvasPosition.Y + self.Container.AbsoluteWindowSize.Y
 				else
-					return item.Position.X.Offset >= self.ScrollingArea.CanvasPosition.X and
-						item.Position.X.Offset + item.AbsoluteSize.X <= self.ScrollingArea.CanvasPosition.X + self.ScrollingArea.AbsoluteWindowSize.X
+					return item.Position.X.Offset >= self.Container.CanvasPosition.X and
+						item.Position.X.Offset + item.AbsoluteSize.X <= self.Container.CanvasPosition.X + self.Container.AbsoluteWindowSize.X
 				end
 			else
 				if this.ScrollDirection == this.Enum.ScrollDirection.Vertical then
-					return item.Position.Y.Offset < self.ScrollingArea.CanvasPosition.Y + self.ScrollingArea.AbsoluteWindowSize.Y or
-						item.Position.Y.Offset + item.AbsoluteSize.Y > self.ScrollingArea.CanvasPosition.Y
+					return item.Position.Y.Offset < self.Container.CanvasPosition.Y + self.Container.AbsoluteWindowSize.Y or
+						item.Position.Y.Offset + item.AbsoluteSize.Y > self.Container.CanvasPosition.Y
 				else
-					return item.Position.X.Offset < self.ScrollingArea.CanvasPosition.X + self.ScrollingArea.AbsoluteWindowSize.X or
-						item.Position.X.Offset + item.AbsoluteSize.X > self.ScrollingArea.CanvasPosition.X
+					return item.Position.X.Offset < self.Container.CanvasPosition.X + self.Container.AbsoluteWindowSize.X or
+						item.Position.X.Offset + item.AbsoluteSize.X > self.Container.CanvasPosition.X
 				end
 			end
 		end
@@ -525,7 +526,7 @@ local function ScrollingGrid(config)
 		function this:GetNumRowsColumns()
 			local rows, columns = 0, 0
 
-			local windowSize = self.ScrollingArea.AbsoluteWindowSize
+			local windowSize = self.Container.AbsoluteWindowSize
 			local padding = self:GetPadding()
 			local cellSize = self:GetCellSize()
 			local cellSpacing = self:GetSpacing()
@@ -578,7 +579,7 @@ local function ScrollingGrid(config)
 
 		function this:Add(index, gridItem)
 			self.GridItems[index] = gridItem
-			gridItem.Parent = self.ScrollingArea
+			gridItem.Parent = self.Container
 			self.ItemSet[gridItem] = true
 		end
 
@@ -594,8 +595,8 @@ local function ScrollingGrid(config)
 			end
 		end
 
-		function this:GetActiveItemsRange()
-			local windowSize = self.ScrollingArea.AbsoluteWindowSize
+		function this:GetActiveItemsRange(overwriteWindowSize)
+			local windowSize = overwriteWindowSize or self.Container.AbsoluteWindowSize
 			local windowWidth = windowSize.X
 			local windowHeight = windowSize.Y
 			local canvasPosition = self.targetCanvasPosition
@@ -636,7 +637,7 @@ local function ScrollingGrid(config)
 		end
 
 		--Re-allocate the griditems based on (target) canvasposition
-		function this:Rewindow()
+		function this:Rewindow(overwriteWindowSize)
 			if self.getItemFunc then
 				local removeMe = {}
 				local moveMe = {}
@@ -646,7 +647,7 @@ local function ScrollingGrid(config)
 				end
 
 				local addMe = {}
-				local firstIndex, lastIndex = self:GetActiveItemsRange()
+				local firstIndex, lastIndex = self:GetActiveItemsRange(overwriteWindowSize)
 				for index = firstIndex, lastIndex do
 					local gridItem = self.getItemFunc(index)
 					if gridItem then
@@ -684,12 +685,12 @@ local function ScrollingGrid(config)
 		end
 
 		function this:GetSelectableItem(includeContainer, prevSelectedIndex)
-			local windowSize = self.ScrollingArea.AbsoluteWindowSize
+			local windowSize = self.Container.AbsoluteWindowSize
 			local width = windowSize.X
 			local height = windowSize.Y
 			local centerRow, centerColumn = self:GetItemRowColumnFromScreenPosition(
-				self.ScrollingArea.CanvasPosition.X + width / 2,
-				self.ScrollingArea.CanvasPosition.Y + height / 2)
+				self.Container.CanvasPosition.X + width / 2,
+				self.Container.CanvasPosition.Y + height / 2)
 
 			-- Find the item closest to the top left
 			local bestGridItem = nil
@@ -729,6 +730,20 @@ local function ScrollingGrid(config)
 			end
 		end
 
+		function this:Focus()
+			local selectedObject = self:FindAncestorGridItem(GuiService.SelectedCoreObject)
+
+			if not( selectedObject and self:ContainsItem(selectedObject) ) then
+				self:SelectAvailableItem()
+			end
+		end
+
+		function this:RemoveFocus()
+			if this:ContainsItem(GuiService.SelectedCoreObject) then
+				Utility.SetSelectedCoreObject(nil)
+			end
+		end
+
 		function this:RecalcLayout(newGridCount)
 			if newGridCount then
 				self.gridCount = newGridCount
@@ -757,13 +772,13 @@ local function ScrollingGrid(config)
 			end
 
 			if self.ScrollDirection == self.Enum.ScrollDirection.Vertical then
-				self.ScrollingArea.CanvasSize = UDim2.new(self.ScrollingArea.Size.X.Scale, self.ScrollingArea.Size.X.Offset, 0, padding.Y * 2 + rows * gridItemSize.Y + (math.max(0, rows - 1)) * cellSpacing.Y)
+				self.Container.CanvasSize = UDim2.new(self.Container.Size.X.Scale, self.Container.Size.X.Offset, 0, padding.Y * 2 + rows * gridItemSize.Y + (math.max(0, rows - 1)) * cellSpacing.Y)
 			else
-				self.ScrollingArea.CanvasSize = UDim2.new(0, padding.X * 2 + columns * gridItemSize.X + (math.max(0, columns - 1)) * cellSpacing.X, self.ScrollingArea.Size.Y.Scale, self.ScrollingArea.Size.Y.Offset)
+				self.Container.CanvasSize = UDim2.new(0, padding.X * 2 + columns * gridItemSize.X + (math.max(0, columns - 1)) * cellSpacing.X, self.Container.Size.Y.Scale, self.Container.Size.Y.Offset)
 			end
 
 			--The previous target canvasPos may become non-reachable now
-			self.targetCanvasPosition = Utility.ClampCanvasPosition(self.ScrollingArea, self.targetCanvasPosition)
+			self.targetCanvasPosition = Utility.ClampCanvasPosition(self.Container, self.targetCanvasPosition)
 
 			--Re allocate grid items
 			self:Rewindow()
@@ -775,7 +790,7 @@ local function ScrollingGrid(config)
 				if thisPos then
 					self.targetCanvasPosition = thisPos
 					--Here use the tween to overwrite and stop all other tweens, replace this with TweenService
-					Utility.PropertyTweener(self.ScrollingArea, 'CanvasPosition', thisPos, thisPos, 0.0, Utility.EaseOutQuad, true,
+					Utility.PropertyTweener(self.Container, 'CanvasPosition', thisPos, thisPos, 0.0, Utility.EaseOutQuad, true,
 					function()
 						self:Rewindow()
 					end)
@@ -784,6 +799,25 @@ local function ScrollingGrid(config)
 				--Selected object got removed, select the nearest gridItem or container
 				self:SelectAvailableItem(true, prevSelectedIndex)
 			end
+		end
+
+		function this:BackToInitial(duration)
+			if not duration then
+				duration = 0
+			end
+
+			local origin = Vector2.new(0, 0)
+			local overwriteWindowSize = self.Container.AbsoluteWindowSize + self.targetCanvasPosition
+			self.targetCanvasPosition = origin
+
+			-- Rewindow to include all items in grid up to the current position.
+			self:Rewindow(overwriteWindowSize)
+
+			-- Then animate the move to the origin, and after the animation, rewindow again to fit the view
+			Utility.PropertyTweener(self.Container, 'CanvasPosition', self.Container.CanvasPosition, origin, duration, Utility.SCurveVector2, true,
+				function()
+					self:Rewindow()
+				end)
 		end
 
 		GuiService:GetPropertyChangedSignal('SelectedCoreObject'):connect(function()
@@ -798,10 +832,10 @@ local function ScrollingGrid(config)
 				local cellHeight = (spacing.Y + cellSize.Y)
 
 				if this.SelectionMode == this.Enum.SelectionMode.Middle then
-					local windowSize = this.ScrollingArea.AbsoluteWindowSize
+					local windowSize = this.Container.AbsoluteWindowSize
 					local width = windowSize.X
 					local height = windowSize.Y
-					local centerRow, centerColumn = this:GetItemRowColumnFromScreenPosition( this.ScrollingArea.CanvasPosition.X + width / 2, this.ScrollingArea.CanvasPosition.Y + height / 2)
+					local centerRow, centerColumn = this:GetItemRowColumnFromScreenPosition( this.Container.CanvasPosition.X + width / 2, this.Container.CanvasPosition.Y + height / 2)
 
 					if this.ScrollDirection == this.Enum.ScrollDirection.Vertical then
 						local maxaway = math.floor( (math.floor(height / cellHeight) - 1) / 2 );
@@ -838,16 +872,12 @@ local function ScrollingGrid(config)
 					return
 				end
 
-				-- If there are too many other tasks, the animation pipeline can get behind, setting
-				-- the canvas position to the last target helps the percieved speed of the scroll in that case.
-				this.ScrollingArea.CanvasPosition = this.targetCanvasPosition
-
 				if nextPos then
-					nextPos = Vector2.new(math.max(0, nextPos.x), math.max(0, nextPos.y))
-					nextPos = Utility.ClampCanvasPosition(this.ScrollingArea, nextPos)
-					Utility.PropertyTweener(this.ScrollingArea, 'CanvasPosition', this.ScrollingArea.CanvasPosition, nextPos, 0.2, Utility.EaseOutQuad, true)
+					local oldTargetCanvasPosition = this.targetCanvasPosition or this.Container.CanvasPosition
+					nextPos = Utility.ClampCanvasPosition(this.Container, nextPos)
 					this.targetCanvasPosition = nextPos
 					this:Rewindow()
+					Utility.PropertyTweener(this.Container, 'CanvasPosition', oldTargetCanvasPosition, nextPos, 0.2, Utility.EaseOutQuad, true)
 				end
 			end
 		end)

@@ -41,19 +41,14 @@ local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local getDisplayVersionFlagSuccess, getDisplayVersionFlagValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
-local displayVersionFlag = (getDisplayVersionFlagSuccess and getDisplayVersionFlagValue)
-
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
 local enableResponsiveUI = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
 
 --[[ REMOTES ]]
 local GetServerVersionRemote = nil
-if displayVersionFlag then
-	spawn(function()
-		GetServerVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion")
-	end)
-end
+spawn(function()
+	GetServerVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion")
+end)
 
 --[[ VARIABLES ]]
 local isTouchDevice = UserInputService.TouchEnabled
@@ -325,70 +320,69 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
-		if displayVersionFlag then
-			this.VersionContainer = utility:Create("Frame") {
-				Name = "VersionContainer",
-				Parent = this.Shield,
+		this.VersionContainer = utility:Create("Frame") {
+			Name = "VersionContainer",
+			Parent = this.Shield,
 
-				BackgroundColor3 = SETTINGS_SHIELD_COLOR,
-				BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
-				Position = UDim2.new(0, 0, 1, 0),
-				Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
-				AnchorPoint = Vector2.new(0,1),
-				BorderSizePixel = 0,
+			BackgroundColor3 = SETTINGS_SHIELD_COLOR,
+			BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
+			Position = UDim2.new(0, 0, 1, 0),
+			Size = UDim2.new(1, 0, 0, VERSION_BAR_HEIGHT),
+			AnchorPoint = Vector2.new(0,1),
+			BorderSizePixel = 0,
 
-				ZIndex = 5,
+			ZIndex = 5,
 
-				Visible = false
-			}
+			Visible = false
+		}
 
-			this.ServerVersionLabel = utility:Create("TextLabel") {
-				Name = "ServerVersionLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0,3,0,3),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Server Version: ...",
-				Size = UDim2.new(.5,-6,1,-6),
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				ZIndex = 5
-			}
-			spawn(function()
-				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
-			end)
+		this.ServerVersionLabel = utility:Create("TextLabel") {
+			Name = "ServerVersionLabel",
+			Parent = this.VersionContainer,
+			Position = UDim2.new(0,3,0,3),
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "Server Version: ...",
+			Size = UDim2.new(.5,-6,1,-6),
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			ZIndex = 5
+		}
+		spawn(function()
+			this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
+		end)
 
-			this.ClientVersionLabel = utility:Create("TextLabel") {
-				Name = "ClientVersionLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0.5,3,0,3),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Client Version: "..RunService:GetRobloxVersion(),
-				Size = UDim2.new(.5,-6,1,-6),
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Right,
-				ZIndex = 5
-			}
+		this.ClientVersionLabel = utility:Create("TextLabel") {
+			Name = "ClientVersionLabel",
+			Parent = this.VersionContainer,
+			Position = UDim2.new(0.5,3,0,3),
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "Client Version: "..RunService:GetRobloxVersion(),
+			Size = UDim2.new(.5,-6,1,-6),
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Right,
+			ZIndex = 5
+		}
 
-			this.EnvironmentLabel = utility:Create("TextLabel") {
-				Name = "EnvironmentLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0.5,0,0,3),
-				AnchorPoint = Vector2.new(0.5,0),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = baseUrl,
-				Size = UDim2.new(.5,-6,1,-6),
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				ZIndex = 5,
-				Visible = isTestEnvironment
-			}
-		end
+		this.EnvironmentLabel = utility:Create("TextLabel") {
+			Name = "EnvironmentLabel",
+			Parent = this.VersionContainer,
+			Position = UDim2.new(0.5,0,0,3),
+			AnchorPoint = Vector2.new(0.5,0),
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = baseUrl,
+			Size = UDim2.new(.5,-6,1,-6),
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			ZIndex = 5,
+			Visible = isTestEnvironment
+		}
+
 		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{
 			Name = 'Modal',

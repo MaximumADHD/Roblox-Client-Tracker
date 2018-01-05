@@ -32,6 +32,9 @@ function CreateNewSound(name, id, looped, pitch, parent)
 		CharacterSoundEvent.Name = "CharacterSoundEvent"
 		local Players = game:GetService("Players")
 		CharacterSoundEvent.OnServerEvent:connect(function(player, playing, resetPosition)
+			if player.Character ~= script.Parent then
+				return
+			end
 			for _, p in pairs(Players:GetPlayers()) do
 				if p ~= player then
 					DefaultServerSoundEvent:FireClient(p, sound, playing, resetPosition)

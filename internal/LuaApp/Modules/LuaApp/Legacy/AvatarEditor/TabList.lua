@@ -7,6 +7,9 @@ local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local SpriteManager = require(Modules.LuaApp.Legacy.AvatarEditor.SpriteSheetManager)
 local Categories = require(Modules.LuaApp.Legacy.AvatarEditor.Categories)
 local TweenController = require(Modules.LuaApp.Legacy.AvatarEditor.TweenInstanceController)
+local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
+
+local AvatarEditorTabResizing = Flags:GetFlag("AvatarEditorTabResizing")
 
 --Constants
 local TAB_WIDTH = LayoutInfo.TabWidth
@@ -25,15 +28,25 @@ local function initTabList()
 	if LayoutInfo.isLandscape then
 		tabListContainer.Visible = true
 
+if AvatarEditorTabResizing then
+		-- When cleaning up FFlagAvatarEditorTabResizing, consider removing the scroll button from the place.
+		tabListContainer.ScrollButtonDown.Parent = nil
+		tabList.ScrollingEnabled = true
+end
+
 		if SpriteManager.getScale() >= 2 then
 			tabListContainer.TabListBackground.Size = UDim2.new(1, 12, 1, 0)
 			tabListContainer.TabListBackground.Position = UDim2.new(0, -6, 0, 0)
+if not AvatarEditorTabResizing then
 			tabListContainer.ScrollButtonDown.BackgroundClipper.Background.Size = UDim2.new(1, 12, 2, 0)
 			tabListContainer.ScrollButtonDown.BackgroundClipper.Background.Position = UDim2.new(0, -6, -1, 0)
+end
 		else
 			tabListContainer.TabListBackground.Size = UDim2.new(1, 6, 1, 3)
 			tabListContainer.TabListBackground.Position = UDim2.new(0, -3, 0, 0)
 		end
+
+		Flags:GetFlag("AvatarEditorTabResizing")
 
 		tabList.Position = UDim2.new(0, 0, 0, 0)
 		tabList.Size = UDim2.new(1, 0, 1, -6)
@@ -41,6 +54,7 @@ local function initTabList()
 		tabList.ClipsDescendants = true
 		tabList.Parent = tabListContainer
 
+if not AvatarEditorTabResizing then
 		tabListContainer.ScrollButtonDown.Visible = false
 
 		tabListContainer.ScrollButtonDown.Button.MouseButton1Click:connect(function()
@@ -73,11 +87,15 @@ local function initTabList()
 	end
 end
 
+end
+
 
 local function setScrollButtonVisible(visible)
+if not AvatarEditorTabResizing then
 	if LayoutInfo.isLandscape then
 		tabListContainer.ScrollButtonDown.Visible = visible
 	end
+end
 end
 
 
@@ -125,6 +143,7 @@ local function selectTab(index, desiredPage)
 	currentPage = desiredPage
 end
 
+
 local function renderTabButton(index, page, categoryIndex)
 	local tabButton = Instance.new('ImageButton')
 	tabButton.Name = 'Tab'..page.name
@@ -141,6 +160,24 @@ local function renderTabButton(index, page, categoryIndex)
 	end
 	tabButton.BorderSizePixel = 0
 	tabButton.AutoButtonColor = false
+
+if AvatarEditorTabResizing then
+	local MIN_TAB_HEIGHT = 80
+	local MAX_TAB_WIDTH = 72
+
+	-- Compute a hight/width to allow a half-integer number of tabs to be visible
+	-- at first.  The idea is to indicate to the user that the view scrolls.
+	if LayoutInfo.isLandscape then
+		local space = tabList.Contents.Parent.AbsoluteSize.y - FIRST_TAB_BONUS_WIDTH
+		local tabNum = space / MIN_TAB_HEIGHT
+		TAB_HEIGHT = space / ((2 * math.floor(tabNum + 0.5) - 1) / 2)
+	else
+		local space = tabList.Contents.Parent.AbsoluteSize.x - FIRST_TAB_BONUS_WIDTH
+		local tabNum = space / MAX_TAB_WIDTH
+		TAB_WIDTH = space / ((2 * math.ceil(tabNum - 0.5) + 1) / 2)
+	end
+end
+
 	if LayoutInfo.isLandscape then
 		tabButton.Size = UDim2.new(1, 0, 0, TAB_HEIGHT)
 		tabButton.Position = UDim2.new(0, 0, 0, (index-1) * (TAB_HEIGHT+1) + FIRST_TAB_BONUS_WIDTH)
@@ -148,6 +185,7 @@ local function renderTabButton(index, page, categoryIndex)
 		tabButton.Size = UDim2.new(0, TAB_WIDTH, 0, TAB_HEIGHT)
 		tabButton.Position = UDim2.new(0, (index-1) * (TAB_WIDTH+1) + FIRST_TAB_BONUS_WIDTH, 0, 0)
 	end
+
 	if index == 1 then
 		if LayoutInfo.isLandscape then
 			tabButton.Size = UDim2.new(1, 0, 0, TAB_HEIGHT + FIRST_TAB_BONUS_WIDTH)
@@ -265,9 +303,12 @@ local function changeCategory(categoryIndex)
 		end
 	end
 
+if not AvatarEditorTabResizing then
 	if LayoutInfo.isLandscape then
 		setScrollButtonVisible(#category.pages > 6)
 	end
+end
+
 end
 
 local function getPageName()
@@ -299,7 +340,9 @@ return function(CategoryMenu, inTabList, inTabListContainer)
 	CategoryMenu.openCategoryMenuEvent:Connect(function()
 		if LayoutInfo.isLandscape then
 			TweenController(tabListContainer.TabListBackground, tweenInfo, imageInvisible)
+if not AvatarEditorTabResizing then
 			TweenController(tabListContainer.ScrollButtonDown.Arrow, tweenInfo, imageInvisible)
+end
 
 			for _, obj in next, tabList.Contents:GetChildren() do
 				if obj.ClassName == 'ImageButton' then
@@ -319,10 +362,12 @@ return function(CategoryMenu, inTabList, inTabListContainer)
 				end
 			end
 
+if not AvatarEditorTabResizing then
 			tabListContainer.ScrollButtonDown.Button.Visible = false
 
 			TweenController(tabListContainer.ScrollButtonDown.Gradient, tweenInfoFast, imageInvisible)
 			TweenController(tabListContainer.ScrollButtonDown.BackgroundClipper.Background, tweenInfoFast, imageInvisible)
+end
 		end
 	end)
 
@@ -340,6 +385,7 @@ return function(CategoryMenu, inTabList, inTabListContainer)
 				end
 			end
 
+if not AvatarEditorTabResizing then
 			local atBottom = tabList.CanvasPosition.y + tabList.AbsoluteSize.y >= tabList.CanvasSize.Y.Offset
 			if not atBottom then
 				tabListContainer.ScrollButtonDown.Button.Visible = true
@@ -347,6 +393,7 @@ return function(CategoryMenu, inTabList, inTabListContainer)
 				TweenController(tabListContainer.ScrollButtonDown.BackgroundClipper.Background, tweenInfo, imageVisible)
 				TweenController(tabListContainer.ScrollButtonDown.Arrow, tweenInfo, imageVisible)
 			end
+end
 
 			TweenController(
 				tabListContainer.TabListBackground, tweenInfo, imageVisible, imageInvisible).Completed:Connect(

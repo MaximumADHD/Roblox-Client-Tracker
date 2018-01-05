@@ -36,9 +36,6 @@ local dialogInUseFixFlag = (dialogInUseFixFlagSuccess and dialogInUseFixValue)
 local freeCameraFlagSuccess, freeCameraFlagValue = pcall(function() return settings():GetFFlag("FreeCameraForAdmins") end)
 local freeCameraFlag = (freeCameraFlagSuccess and freeCameraFlagValue)
 
-local displayServerVersionSuccess, displayServerVersionValue = pcall(function() return settings():GetFFlag("DisplayVersionInformation") end)
-local displayServerVersionFlag = (displayServerVersionSuccess and displayServerVersionValue)
-
 local function setDialogInUse(player, dialog, value, waitTime)
 	if typeof(dialog) ~= "Instance" or not dialog:IsA("Dialog") then
 		return
@@ -85,7 +82,7 @@ local function getServerVersion()
 	return displayVersion
 end
 
-RemoteFunction_GetServerVersion.OnServerInvoke = displayServerVersionFlag and getServerVersion or function() return "" end
+RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 
 game:GetService("Players").PlayerRemoving:connect(function(player)
 	if dialogInUseFixFlag then

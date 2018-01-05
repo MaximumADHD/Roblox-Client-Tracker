@@ -140,9 +140,10 @@ return function(state, action)
 		end
 	elseif action.type == ActionType.FetchingOlderMessages then
 		local conversation = state[action.conversationId]
-		local newConversation = Immutable.Set(conversation, "fetchingOlderMessages", action.fetchingOlderMessages)
-		state = Immutable.Set(state, newConversation.id, newConversation)
-
+		if conversation then
+			local newConversation = Immutable.Set(conversation, "fetchingOlderMessages", action.fetchingOlderMessages)
+			state = Immutable.Set(state, newConversation.id, newConversation)
+		end
 	elseif action.type == ActionType.FetchedOldestMessage then
 		local conversation = state[action.conversationId]
 		local newConversation = Immutable.Set(conversation, "fetchedOldestMessage", action.fetchedOldestMessage)

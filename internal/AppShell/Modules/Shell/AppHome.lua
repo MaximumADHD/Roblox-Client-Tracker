@@ -1,7 +1,5 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
-local IsUsingLocalPlayerForUserInfo = settings():GetFFlag("XboxBetterInitializeLocalPlayer")
-
 -- App's Main
 local CoreGui = Game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
@@ -108,12 +106,8 @@ local function onAuthenticationSuccess(isNewLinkedAccount)
 
 	-- Account Age Setting
 	local ActiveUserActions = require(ShellModules.Actions.ActiveUserActions)
-	if IsUsingLocalPlayerForUserInfo then
-		local value = game:GetService("Players").LocalPlayer:GetUnder13()
-		AppState.store:Dispatch(ActiveUserActions.SetUnder13(value))
-	else
-		AppState.store:Dispatch(ActiveUserActions.GetUnder13())
-	end
+	local value = game:GetService("Players").LocalPlayer:GetUnder13()
+	AppState.store:Dispatch(ActiveUserActions.SetUnder13(value))
 
 	EventHub:addEventListener(EventHub.Notifications["OpenGameDetail"], "gameDetail",
 		function(placeId)

@@ -2,6 +2,10 @@
 -- Created by Ben T. 10/29/10
 -- Please note that these are loaded in a specific order to diminish errors/perceived load time by user
 
+
+local avatarContextMenuEnabledSuccess, avatarContextMenuEnabledValue =  pcall(function() return settings():GetFFlag("AvatarContextMenuEnabled") end)
+local avatarContextMenuEnabled = avatarContextMenuEnabledSuccess and avatarContextMenuEnabledValue
+
 local scriptContext = game:GetService("ScriptContext")
 local touchEnabled = game:GetService("UserInputService").TouchEnabled
 
@@ -44,6 +48,11 @@ scriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript2", RobloxGui)
 -- Prompt Block Player Script
 scriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
 scriptContext:AddCoreScriptLocal("CoreScripts/FriendPlayerPrompt", RobloxGui)
+
+if avatarContextMenuEnabled then
+	-- Avatar Context Menu
+	scriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
+end
 
 -- Backpack!
 spawn(function() safeRequire(RobloxGui.Modules.BackpackScript) end)

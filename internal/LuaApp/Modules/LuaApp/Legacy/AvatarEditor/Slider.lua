@@ -5,6 +5,7 @@ local utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
 local AvatarEditorHideSliderHighlightOnInit = Flags:GetFlag("AvatarEditorHideSliderHighlightOnInit")
+local AvatarEditorSliderUIAdjustments = Flags:GetFlag("AvatarEditorSliderUIAdjustments")
 
 local function makeSlider()
 	local SliderFrameTemplate = utilities.create'ImageButton'
@@ -149,6 +150,20 @@ local function makeSlider()
 		Parent = SliderFrameTemplate;
 	}
 
+if AvatarEditorSliderUIAdjustments then
+	utilities.create'TextLabel'
+	{
+		Name = 'TextLabel';
+		Position = UDim2.new(0, 0, 0.15, -32);
+		Size = UDim2.new(0, 0, 0, 25);
+		TextXAlignment = 'Left';
+		TextYAlignment = 'Center';
+		ZIndex = 3;
+		BackgroundTransparency = 1;
+		BorderSizePixel = 1;
+		Parent = SliderFrameTemplate;
+	}
+else
 	utilities.create'TextLabel'
 	{
 		Name = 'TextLabel';
@@ -159,6 +174,7 @@ local function makeSlider()
 		BorderSizePixel = 1;
 		Parent = SliderFrameTemplate;
 	}
+end
 
 	utilities.create'ImageButton'
 	{
@@ -238,11 +254,16 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 	end
 
 	local function sliderDown(x, y)
-		-- Is now dragging, or is setting slider
+if not AvatarEditorSliderUIAdjustments then
 		handle(x)
+end
 		local upListen = nil
 		local moveListen = nil
 		local highlight
+		local firstX = x
+		local firstY = y
+
+if not AvatarEditorSliderUIAdjustments then
 		if dragger and dragger.Parent then
 			highlight = dragger:FindFirstChild('Highlight')
 			if highlight then
@@ -252,11 +273,12 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 		if scrollingFrame then  -- If there is a scroll frame, let's stop it from scroll'n while we slide'n
 			scrollingFrame.ScrollingEnabled = false
 		end
+end
+
 		local function inputChanged(input, gameProcessedEvent)
 			if input.UserInputState == Enum.UserInputState.Change
 				and (input.UserInputType == Enum.UserInputType.MouseMovement
 					or input.UserInputType == Enum.UserInputType.Touch) then
-
 				-- Update slider
 				if input.Position then
 					handle(input.Position.x)
@@ -286,11 +308,60 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 			end
 		end
 
-		moveListen = userInputService.InputChanged:connect(inputChanged)
-		upListen = userInputService.InputEnded:connect(inputChanged)
+		local function inputStarted(input, gameProcessedEvent)
+			if input.UserInputState == Enum.UserInputState.Change
+				and (input.UserInputType == Enum.UserInputType.MouseMovement
+					or input.UserInputType == Enum.UserInputType.Touch)
+			then
+				-- Determine if the first drag motion is mostly horizontal.  If it is, disable (vertical) scrolling,
+				-- and allow subsequent events to move the slider
+				local w = math.abs( input.Position.X - firstX )
+				local h = math.abs( input.Position.Y - firstY )
+				if w == 0 and h == 0 then return end
+
+				if w > h then
+					highlight = dragger:FindFirstChild('Highlight')
+					if highlight then
+						highlight.Visible = true
+					end
+					if scrollingFrame then  -- If there is a scroll frame, let's stop it from scroll'n while we slide'n
+						scrollingFrame.ScrollingEnabled = false
+					end
+
+					if input.Position then
+						handle(input.Position.x)
+					end
+
+					moveListen:Disconnect()
+					upListen:Disconnect()
+
+					moveListen = userInputService.InputChanged:connect( inputChanged )
+					upListen = userInputService.InputEnded:connect( inputChanged )
+				else
+					-- If the user is dragging vertically, disconnect event handlers to let scrolling happen.
+					if moveListen then
+						moveListen:Disconnect()
+						moveListen = nil
+					end
+					if upListen then
+						upListen:Disconnect()
+						upListen = nil
+					end
+				end
+			end
+		end
+
+if AvatarEditorSliderUIAdjustments then
+		moveListen = userInputService.InputChanged:connect( inputStarted )
+		upListen = userInputService.InputEnded:connect( inputStarted )
+else
+		moveListen = userInputService.InputChanged:connect( inputChanged )
+		upListen = userInputService.InputEnded:connect( inputChanged )
+end
 	end
-	sliderButton.MouseButton1Down:connect(sliderDown)
-	draggerButton.MouseButton1Down:connect(sliderDown)
+
+	sliderButton.MouseButton1Down:connect( sliderDown )
+	draggerButton.MouseButton1Down:connect( sliderDown )
 	slider.Visible = true
 	return slider
 

@@ -1,0 +1,292 @@
+--[[
+	// FileName: ContextMenuUtil.lua
+	// Written by: TheGamer101
+	// Description: Module for utility funcitons of the avatar context menu.
+]]
+
+--[[
+	// FileName: ContextMenuGui.lua
+	// Written by: TheGamer101
+	// Description: Module for creating the context GUI.
+]]
+
+--- CONSTANTS
+
+local STOP_MOVEMENT_ACTION_NAME = "AvatarContextMenuStopInput"
+local MAX_THUMBNAIL_WAIT_TIME = 2
+local MAX_THUMBNAIL_RETRIES = 4
+
+--- SERVICES
+local CoreGuiService = game:GetService("CoreGui")
+local PlayersService = game:GetService("Players")
+local ContextActionService = game:GetService("ContextActionService")
+local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
+
+--- VARIABLES
+local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
+
+local LocalPlayer = PlayersService.LocalPlayer
+while not LocalPlayer do
+	PlayersService.PlayerAdded:wait()
+	LocalPlayer = PlayersService.LocalPlayer
+end
+
+local ContextMenuUtil = {}
+ContextMenuUtil.__index = ContextMenuUtil
+
+-- PUBLIC METHODS
+
+function ContextMenuUtil:GetHeadshotForPlayer(player)
+	if self.HeadShotUrlCache[player] ~= nil and self.HeadShotUrlCache[player] ~= "" then
+		return self.HeadShotUrlCache[player]
+	end
+	if self.HeadShotUrlCache[player] == nil then
+		-- Mark that we are getting a headshot for this player.
+		self.HeadShotUrlCache[player] = ""
+	end
+
+	local startTime = tick()
+	local headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
+
+	if not isFinal then
+		for i = 0, MAX_THUMBNAIL_RETRIES do
+			headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
+			if isFinal then
+				break
+			end
+			wait(i ^ 2)
+		end
+	end
+	self.HeadShotUrlCache[player] = headshotUrl
+
+	return headshotUrl
+end
+
+function ContextMenuUtil:HasOrGettingHeadShot(player)
+	return self.HeadShotUrlCache[player] ~= nil
+end
+
+function ContextMenuUtil:FindPlayerFromPart(part)
+	if part and part.Parent then
+		local possibleCharacter = part
+		while possibleCharacter and not possibleCharacter:IsA("Model") do
+			possibleCharacter = possibleCharacter.Parent
+		end
+		if possibleCharacter then
+			return PlayersService:GetPlayerFromCharacter(possibleCharacter)
+		end
+	end
+	return nil
+end
+
+function ContextMenuUtil:GetPlayerPosition(player)
+	if player.Character then
+		local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+		if hrp then
+			return hrp.Position
+		end
+	end
+	return nil
+end
+
+local playerMovementEnabled = true
+
+function ContextMenuUtil:DisablePlayerMovement()
+	if not playerMovementEnabled then return end
+	playerMovementEnabled = false
+
+	local noOpFunc = function() end
+	ContextActionService:BindCoreAction(STOP_MOVEMENT_ACTION_NAME, noOpFunc, false,
+		Enum.PlayerActions.CharacterForward,
+		Enum.PlayerActions.CharacterBackward,
+		Enum.PlayerActions.CharacterLeft,
+		Enum.PlayerActions.CharacterRight,
+		Enum.PlayerActions.CharacterJump,
+		Enum.KeyCode.LeftShift,
+		Enum.KeyCode.RightShift,
+		Enum.KeyCode.Tab,
+		Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
+	)
+
+	if LocalPlayer.Character then
+		local humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		if humanoid then
+			self.OldJumpPower = humanoid.JumpPower
+			self.OldWalkSpeed = humanoid.WalkSpeed
+			humanoid.JumpPower = 0
+			humanoid.WalkSpeed = 0
+		end
+	end
+end
+
+function ContextMenuUtil:EnablePlayerMovement()
+	if playerMovementEnabled then return end
+	playerMovementEnabled = true
+
+	ContextActionService:UnbindCoreAction(STOP_MOVEMENT_ACTION_NAME)
+	if LocalPlayer.Character then
+		local humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		if humanoid then
+			if self.OldJumpPower and self.OldWalkSpeed then
+				humanoid.JumpPower = self.OldJumpPower
+				humanoid.WalkSpeed = self.OldWalkSpeed
+			end
+		end
+	end
+end
+
+function ContextMenuUtil:GetFriendStatus(player)
+	local success, result = pcall(function()
+		-- NOTE: Core script only
+		return LocalPlayer:GetFriendStatus(player)
+	end)
+	if success then
+		return result
+	else
+		return Enum.FriendStatus.NotFriend
+	end
+end
+
+local SelectionOverrideObject = Instance.new("ImageLabel")
+SelectionOverrideObject.Image = ""
+SelectionOverrideObject.BackgroundTransparency = 1
+
+local function MakeDefaultButton(name, size, clickFunc)
+
+	local button = Instance.new("ImageButton")
+	button.Name = name .. "Button"
+	button.Image = ""
+	button.ScaleType = Enum.ScaleType.Slice
+	button.SliceCenter = Rect.new(8,6,46,44)
+	button.AutoButtonColor = false
+	button.BackgroundTransparency = 1
+	button.Size = size
+	button.ZIndex = 2
+	button.SelectionImageObject = SelectionOverrideObject
+	button.BorderSizePixel = 0
+
+		local underline = Instance.new("Frame")
+		underline.Name = "Underline"
+		underline.BackgroundColor3 = Color3.fromRGB(137,137,137)
+		underline.AnchorPoint = Vector2.new(0.5,1)
+		underline.BorderSizePixel = 0
+		underline.Position = UDim2.new(0.5,0,1,0)
+		underline.Size = UDim2.new(0.95,0,0,1)
+		underline.Parent = button
+
+	if clickFunc then
+		button.MouseButton1Click:Connect(function()
+			clickFunc(UserInputService:GetLastInputType())
+		end)
+	end
+
+	local function isPointerInput(inputObject)
+		return inputObject.UserInputType == Enum.UserInputType.MouseMovement or inputObject.UserInputType == Enum.UserInputType.Touch
+	end
+
+	local function selectButton()
+		button.BackgroundTransparency = 0.5
+	end
+
+	local function deselectButton()
+		button.BackgroundTransparency = 1
+	end
+
+	button.InputBegan:Connect(function(inputObject)
+		if button.Selectable and isPointerInput(inputObject) then
+			selectButton()
+		end
+	end)
+	button.InputEnded:Connect(function(inputObject)
+		if button.Selectable and GuiService.SelectedCoreObject ~= button and isPointerInput(inputObject) then
+			deselectButton()
+		end
+	end)
+
+	button.SelectionGained:Connect(function()
+		selectButton()
+	end)
+	button.SelectionLost:Connect(function()
+		deselectButton()
+	end)
+
+	local guiServiceCon = GuiService.Changed:Connect(function(prop)
+		if prop ~= "SelectedCoreObject" then return end
+
+		if GuiService.SelectedCoreObject == nil or GuiService.SelectedCoreObject ~= button then
+			deselectButton()
+			return
+		end
+
+		if button.Selectable then
+			selectButton()
+		end
+	end)
+
+	return button
+end
+
+local function getViewportSize()
+	while not workspace.CurrentCamera do
+		workspace.Changed:wait()
+	end
+
+	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
+	-- Also check against 0, 0 incase this is changed in the future.
+	while workspace.CurrentCamera.ViewportSize == Vector2.new(0,0) or
+		workspace.CurrentCamera.ViewportSize == Vector2.new(1,1) do
+		workspace.CurrentCamera.Changed:wait()
+	end
+
+	return workspace.CurrentCamera.ViewportSize
+end
+
+local function isSmallTouchScreen()
+	local viewportSize = getViewportSize()
+	return UserInputService.TouchEnabled and (viewportSize.Y < 500 or viewportSize.X < 700)
+end
+
+function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc)
+	local button = MakeDefaultButton(name, size, clickFunc)
+
+	local textLabel = Instance.new("TextLabel")
+	textLabel.Name = name .. "TextLabel"
+	textLabel.BackgroundTransparency = 1
+	textLabel.BorderSizePixel = 0
+	textLabel.Size = UDim2.new(1, 0, 1, -8)
+	textLabel.Position = UDim2.new(0,0,0,0)
+	textLabel.TextColor3 = Color3.fromRGB(255,255,255)
+	textLabel.TextYAlignment = Enum.TextYAlignment.Center
+	textLabel.Font = Enum.Font.SourceSansLight
+	textLabel.TextSize = 24
+	textLabel.Text = text
+	textLabel.TextScaled = true
+	textLabel.TextWrapped = true
+	textLabel.ZIndex = 2
+	textLabel.Parent = button
+
+	local constraint = Instance.new("UITextSizeConstraint",textLabel)
+
+	if isSmallTouchScreen() then
+		textLabel.TextSize = 18
+	elseif GuiService:IsTenFootInterface() then
+		textLabel.TextSize = 36
+	end
+	constraint.MaxTextSize = textLabel.TextSize
+
+	return button, textLabel
+end
+
+function ContextMenuUtil.new()
+	local obj = setmetatable({}, ContextMenuUtil)
+
+	obj.HeadShotUrlCache = {}
+
+	obj.OldJumpPower = nil
+	obj.OldWalkSpeed = nil
+
+	return obj
+end
+
+return ContextMenuUtil.new()

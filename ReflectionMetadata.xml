@@ -4,7 +4,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BindableFunction</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow functions defined in one script to be called by another script</string>
         <string name="ExplorerOrder">4</string>
         <string name="ExplorerImageIndex">66</string>
@@ -30,7 +30,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BindableEvent</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow events defined in one script to be subscribed to by another script</string>
 
         <string name="ExplorerOrder">5</string>
@@ -384,8 +384,8 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Attachment</string>
-        <string name="ClassCategory">Physics</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ClassCategory">Constraints</string>
+	    <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">81</string>
       </Properties>
       
@@ -449,7 +449,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BallSocketConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">86</string>
       </Properties>
@@ -502,7 +502,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RopeConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">89</string>
       </Properties>
@@ -537,7 +537,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RodConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">90</string>
       </Properties>
@@ -566,7 +566,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SpringConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">91</string>
       </Properties>
@@ -643,7 +643,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">WeldConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">94</string>
       </Properties>
@@ -652,7 +652,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">HingeConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
 		    <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">87</string>
       </Properties>
@@ -741,7 +741,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SlidingBallConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">88</string>
       </Properties>
@@ -830,7 +830,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">PrismaticConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">88</string>
       </Properties>
@@ -839,7 +839,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">CylindricalConstraint</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">95</string>
       </Properties>
@@ -940,7 +940,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">AlignOrientation</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
       </Properties>
@@ -948,7 +948,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">AlignPosition</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
       </Properties>
@@ -956,7 +956,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">VectorForce</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
       </Properties>
@@ -964,7 +964,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LineForce</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
       </Properties>
@@ -972,7 +972,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Torque</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Constraints</string>
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
       </Properties>
@@ -1052,7 +1052,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Y</string>
-            <string name="summary">The absolute pixel position of the Mouse along the y-axis of the viewport (game window). Values start at 0 on the stop of the screen and increase to the bottom.</string>
+            <string name="summary">The absolute pixel position of the Mouse along the y-axis of the viewport (game window). Values start at 0 on the top of the screen and increase to the bottom.</string>
           </Properties>
         </Item>
       </Item>
@@ -1844,7 +1844,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Sound</string>
-        <string name="ClassCategory">Effects</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">1</string>
         <string name="ExplorerImageIndex">11</string>
       </Properties>
@@ -1871,6 +1871,7 @@
       <Properties>
         <string name="Name">EchoSoundEffect</string>
         <string name="summary">An echo audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -1914,6 +1915,7 @@
       <Properties>
         <string name="Name">FlangeSoundEffect</string>
         <string name="summary">A Flanging audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -1949,6 +1951,7 @@
       <Properties>
         <string name="Name">DistortionSoundEffect</string>
         <string name="summary">A Distortion audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -1968,6 +1971,7 @@
       <Properties>
         <string name="Name">PitchShiftSoundEffect</string>
         <string name="summary">A Pitch Shifting audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -1987,6 +1991,7 @@
       <Properties>
         <string name="Name">ChorusSoundEffect</string>
         <string name="summary">A Chorus audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -2022,6 +2027,7 @@
       <Properties>
         <string name="Name">TremoloSoundEffect</string>
         <string name="summary">A Tremolo audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -2057,6 +2063,7 @@
       <Properties>
         <string name="Name">ReverbSoundEffect</string>
         <string name="summary">A Reverb audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -2108,6 +2115,7 @@
       <Properties>
         <string name="Name">EqualizerSoundEffect</string>
         <string name="summary">An Three-band Equalizer audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -2143,6 +2151,7 @@
       <Properties>
         <string name="Name">CompressorSoundEffect</string>
         <string name="summary">A Compressor audio effect that can be applied to a Sound or SoundGroup.</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
       </Properties>
@@ -2193,6 +2202,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SoundGroup</string>
+        <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">85</string>
       </Properties>
@@ -2251,6 +2261,7 @@
         <string name="Name">Backpack</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">20</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2272,6 +2283,7 @@
         <string name="Name">StarterGear</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">20</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     
@@ -3205,6 +3217,7 @@
     <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">ColorCorrectionEffect</string>
+            <string name="ClassCategory">Post Processing Effects</string>
             <string name="ExplorerOrder">2</string>
             <string name="ExplorerImageIndex">83</string>
         </Properties>
@@ -3235,6 +3248,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BloomEffect</string>
+        <string name="ClassCategory">Post Processing Effects</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">83</string>
       </Properties>
@@ -3267,6 +3281,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BlurEffect</string>
+        <string name="ClassCategory">Post Processing Effects</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">83</string>
       </Properties>
@@ -3285,6 +3300,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SunRaysEffect</string>
+        <string name="ClassCategory">Post Processing Effects</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">83</string>
       </Properties>
@@ -3309,8 +3325,8 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Motor</string>
-
         <string name="ExplorerOrder">2</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3727,7 +3743,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BodyGyro</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="summary">Attempts to maintain a fixed orientation of its parent Part</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
@@ -3777,7 +3793,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BodyPosition</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
       </Properties>
@@ -3826,7 +3842,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RocketPropulsion</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="summary">A propulsion system that mimics a rocket</string>
@@ -3835,7 +3851,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BodyVelocity</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
       </Properties>
@@ -3877,7 +3893,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BodyAngularVelocity</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
       </Properties>
@@ -3909,7 +3925,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BodyForce</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="summary">When parented to a physical part, BodyForce will continually exert a force upon its parent object.</string>
@@ -3929,7 +3945,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BodyThrust</string>
-        <string name="ClassCategory">Physics</string>
+        <string name="ClassCategory">Legacy Body Movers</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
       </Properties>
@@ -4044,7 +4060,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Script</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">6</string>
       </Properties>
@@ -4063,7 +4079,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LocalScript</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="ExplorerOrder">4</string>
         <string name="ExplorerImageIndex">18</string>
         <string name="summary">A script that runs on clients, NOT servers.  LocalScripts can only run when parented under the PlayerGui currently.</string>
@@ -4081,7 +4097,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Model</string>
-        <string name="ClassCategory">Parts</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">2</string>
         <string name="summary">A construct used to group Parts and other objects together, also allows manipulation of multiple objects.</string>
@@ -4750,6 +4765,7 @@
         <string name="Name">Accoutrement</string>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">32</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
 
@@ -5242,6 +5258,7 @@
         <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be copied to new Players on startup.</string>
         <string name="ExplorerOrder">13</string>
         <string name="ExplorerImageIndex">78</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5250,6 +5267,7 @@
         <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be copied to new characters on startup.</string>
         <string name="ExplorerOrder">13</string>
         <string name="ExplorerImageIndex">78</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
 
@@ -6027,7 +6045,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Folder</string>
-        <string name="ClassCategory">Scripts</string>
         <string name="summary">An object that can be created to hold and organize objects</string>
         <string name="ExplorerOrder">1</string>
         <string name="ExplorerImageIndex">77</string>
@@ -6065,6 +6082,7 @@
         <string name="summary">The pose of a joint relative to it's parent part in a keyframe</string>
         <string name="ExplorerOrder">22</string>
         <string name="ExplorerImageIndex">60</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6073,6 +6091,7 @@
         <string name="summary">One keyframe of an animation</string>
         <string name="ExplorerOrder">22</string>
         <string name="ExplorerImageIndex">60</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6391,7 +6410,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RemoteFunction</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow functions defined in one script to be called by another script across client/server boundary</string>
         <string name="ExplorerOrder">4</string>
         <string name="ExplorerImageIndex">74</string>
@@ -6400,7 +6419,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RemoteEvent</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow events defined in one script to be subscribed to by another script across client/server boundary</string>
         <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">75</string>
@@ -6413,12 +6432,13 @@
         <bool name="Browsable">true</bool>
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">65</string>
+        <string name="Insertable">false</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ModuleScript</string>
-        <string name="ClassCategory">Scripts</string>
+        <string name="ClassCategory">Scripting</string>
         <string name="summary">A script fragment. Only runs when another script uses require() on it.</string>
         <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">76</string>

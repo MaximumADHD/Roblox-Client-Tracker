@@ -282,10 +282,8 @@ function AssetCard:Update(newState)
 		if self.viewDetailsClick then self.viewDetailsClick:Disconnect() end
 
 		self.viewDetailsClick = self.actionButton.MouseButton1Click:Connect(function()
-			-- Currently using VIEW_PROFILE for the full page web view.
-			-- GAME_INFO can be used but only needs to pass the assetId.
-			GuiService:BroadcastNotification(WebApi.MakeItemUrl(self.assetId),
-				GuiService:GetNotificationTypeList().VIEW_PROFILE)
+			GuiService:BroadcastNotification(self.assetId,
+				GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
 		end)
 
 	end

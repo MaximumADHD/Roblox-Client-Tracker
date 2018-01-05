@@ -119,6 +119,8 @@ local function CreateGamesPane(parent)
 			Padding = Vector2.new(0, 0);
 			ScrollDirection = "Vertical";
 			ClipsDescendants = false;
+			SelectionMode = "TopLeft";
+			Dynamic = true;
 		},
 		onNewGameSelected
 	)

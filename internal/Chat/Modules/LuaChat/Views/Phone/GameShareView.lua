@@ -40,6 +40,7 @@ end
 
 function GameShareView:Start()
 	self.gameShareComponent:Start()
+	self.prevTabBarVisibility = self.appState.store:GetState().TabBarVisible
 
 	BaseScreen.Stop(self)
 
@@ -56,7 +57,7 @@ function GameShareView:Stop()
 
 	self.appState.store:Dispatch({
 		type = ActionType.SetTabBarVisible,
-		value = true,
+		value = self.prevTabBarVisibility,
 	})
 end
 

@@ -162,6 +162,30 @@ return function()
 		end)
 	end)
 
+	describe("RemoveFromDictionary", function()
+		it("should preserve immutability", function()
+			local a = { foo = "bar" }
+
+			local b = Immutable.RemoveFromDictionary(a, "foo")
+
+			expect(b).to.never.equal(a)
+		end)
+
+		it("should remove fields from the dictionary", function()
+			local a = {
+				foo = "bar",
+				baz = "qux",
+				boof = "garply",
+			}
+
+			local b = Immutable.RemoveFromDictionary(a, "foo", "boof")
+
+			expect(b.foo).to.never.be.ok()
+			expect(b.baz).to.equal("qux")
+			expect(b.boof).to.never.be.ok()
+		end)
+	end)
+
 	describe("RemoveFromList", function()
 		it("should preserve immutability", function()
 			local a = {1, 2, 3}

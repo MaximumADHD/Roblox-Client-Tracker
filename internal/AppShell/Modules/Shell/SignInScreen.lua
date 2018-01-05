@@ -1,7 +1,6 @@
 --[[
 			// SignInScreen.lua
 ]]
-local IsUsingLocalPlayerForUserInfo = settings():GetFFlag("XboxBetterInitializeLocalPlayer")
 local XboxNewEngagementFlow = settings():GetFFlag("XboxNewEngagementFlow")
 
 local CoreGui = Game:GetService("CoreGui")
@@ -40,19 +39,9 @@ local function createSignInScreen()
 
 	-- get gamertag and set display text
 	local createAccountText = Strings:LocalizedString("PlayAsPhrase")
-	if IsUsingLocalPlayerForUserInfo then
-		if ThirdPartyUserService then
-			local gamertag = ThirdPartyUserService:GetUserDisplayName()
-			createAccountText = string.format(createAccountText, gamertag)
-		end
-	else
-		if PlatformService then
-			local userInfo = PlatformService:GetPlatformUserInfo()
-			local gamertag = userInfo["Gamertag"]
-			if gamertag then
-				createAccountText = string.format(createAccountText, gamertag)
-			end
-		end
+	if ThirdPartyUserService then
+		local gamertag = ThirdPartyUserService:GetUserDisplayName()
+		createAccountText = string.format(createAccountText, gamertag)
 	end
 
 	local ModalOverlay = Utility.Create'Frame'

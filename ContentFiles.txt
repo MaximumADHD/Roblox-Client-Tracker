@@ -217,8 +217,17 @@ content/fonts/SourceSansPro-Semibold.ttf
 content/fonts/zekton_rg.ttf
 [86820 bytes]
 
+content/models/AvatarContextMenu/AvatarContextArrow.rbxm
+[5163 bytes]
+
+content/models/content-models.zip
+[3319 bytes]
+
 content/scripts/content-scripts.zip
-[537907 bytes]
+[551873 bytes]
+
+content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
+[11274 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -245,7 +254,7 @@ content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[67224 bytes]
+[66068 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
 [42578 bytes]
@@ -263,13 +272,28 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[28755 bytes]
+[28831 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
 
 content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
 [14612 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuGui.lua
+[8887 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuItems.lua
+[10319 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuUtil.lua
+[8396 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/PlayerCarousel.lua
+[7713 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator.lua
+[2967 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
 [66130 bytes]
@@ -314,7 +338,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [24102 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[65963 bytes]
+[65701 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -497,10 +521,10 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[44655 bytes]
+[44417 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[27424 bytes]
+[31810 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
 [2969 bytes]
@@ -521,7 +545,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5376 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[48084 bytes]
+[47721 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [10629 bytes]
@@ -632,13 +656,13 @@ content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
 [7940 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
-[3554 bytes]
+[3259 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
-[3647 bytes]
+[4046 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[2482 bytes]
+[2550 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
 [10234 bytes]
@@ -971,7 +995,7 @@ content/textures/ConstraintCursor.png
 [165 bytes]
 
 content/textures/content-textures2.zip
-[6249340 bytes]
+[6456384 bytes]
 
 content/textures/content-textures3.zip
 [26888951 bytes]
@@ -2474,13 +2498,22 @@ content/textures/ui/Settings/Help/EscapeIcon.png
 [587 bytes]
 
 content/textures/ui/Settings/Help/GenericController.png
-[19268 bytes]
+[27313 bytes]
 
 content/textures/ui/Settings/Help/GenericController@2x.png
-[46974 bytes]
+[67653 bytes]
 
 content/textures/ui/Settings/Help/LeaveIcon.png
 [229 bytes]
+
+content/textures/ui/Settings/Help/OldGenericController.png
+[19268 bytes]
+
+content/textures/ui/Settings/Help/OldGenericController@2x.png
+[46974 bytes]
+
+content/textures/ui/Settings/Help/OldXboxController.png
+[57873 bytes]
 
 content/textures/ui/Settings/Help/ResetIcon.png
 [347 bytes]
@@ -2492,7 +2525,10 @@ content/textures/ui/Settings/Help/UseToolGesture.png
 [2169 bytes]
 
 content/textures/ui/Settings/Help/XboxController.png
-[57873 bytes]
+[33041 bytes]
+
+content/textures/ui/Settings/Help/XboxController@2x.png
+[82736 bytes]
 
 content/textures/ui/Settings/Help/XButtonDark.png
 [3661 bytes]

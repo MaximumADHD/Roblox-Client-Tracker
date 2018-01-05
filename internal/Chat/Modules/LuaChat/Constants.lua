@@ -1,7 +1,6 @@
 
 local Device = require(script.Parent.Device)
 
-local LuaChatFontAdjustment = settings():GetFFlag("LuaChatFontAdjustment")
 local LuaChatSemiboldReplacesBold = settings():GetFFlag("LuaChatSemiboldReplacesBold")
 
 local Constants = {
@@ -120,18 +119,6 @@ if Device.Platform == Enum.Platform.Android then
 	Constants.PlatformSpecific = Constants.Platforms.Android
 else
 	Constants.PlatformSpecific = Constants.Platforms.Default
-end
-
-if not LuaChatFontAdjustment then
-	Constants.Font = {
-		TITLE = Enum.Font.SourceSansBold,
-		FONT_SIZE_12 = 12,
-		FONT_SIZE_14 = 14,
-		FONT_SIZE_16 = 16,
-		FONT_SIZE_18 = 18,
-		FONT_SIZE_20 = 20,
-		FONT_SIZE_18_POS_OFFSET = 0,
-	}
 end
 
 if LuaChatSemiboldReplacesBold then

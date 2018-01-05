@@ -15,16 +15,24 @@ local SortsData = require(ShellModules:FindFirstChild('SortsData'))
 local FFlagXboxUseCuratedGameSort = SortsData.FFlagXboxNewGameSortsEndpoint
 
 local GamesScrollingGrid = require(ShellModules:FindFirstChild('GamesScrollingGrid'))
+local ScrollingGrid = require(ShellModules:FindFirstChild('ScrollingGrid'))
 local GameCarouselItem = require(ShellModules:FindFirstChild('GameCarouselItem'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local LockedGameCarouselView = require(ShellModules:FindFirstChild('LockedGameCarouselView'))
 local AchievementManager = require(ShellModules:FindFirstChild('AchievementManager'))
-
+local XboxUseNewScrollingGrid = settings():GetFFlag("XboxUseNewScrollingGrid")
 
 local createGamesView = function(viewGridConfig, onNewGameSelected)
 
-	local viewGridContainer = GamesScrollingGrid(viewGridConfig)
+	local viewGridContainer
+	if XboxUseNewScrollingGrid then
+		viewGridContainer = ScrollingGrid(viewGridConfig)
+	else
+		viewGridContainer = GamesScrollingGrid(viewGridConfig)
+	end
+
+
 	viewGridContainer.Container.Visible = false
 	local this = {}
 
@@ -263,7 +271,11 @@ local createGamesView = function(viewGridConfig, onNewGameSelected)
 					table.insert(carouselItems, item)
 				end
 				--Recalc when carouselItems changes
-				viewGridContainer:Recalc()
+				if XboxUseNewScrollingGrid then
+					viewGridContainer:RecalcLayout(#carouselItems + 1)
+				else
+					viewGridContainer:Recalc()
+				end
 				--Update SelectedRow num as the rowNumber may change
 				lastSelectedRow = GetSelectedRow()
 			end
@@ -274,7 +286,11 @@ local createGamesView = function(viewGridConfig, onNewGameSelected)
 				item:RemoveFocus()
 				--If was in the carouselItems, remove
 				table.remove(carouselItems, lastItemIndex)
-				viewGridContainer:Recalc()
+				if XboxUseNewScrollingGrid then
+					viewGridContainer:RecalcLayout(#carouselItems + 1)
+				else
+					viewGridContainer:Recalc()
+				end
 
 				--The selected row get removed, select the same selected row or first row if doesn't exist
 				if inFocus and wasSelected then
@@ -321,7 +337,11 @@ local createGamesView = function(viewGridConfig, onNewGameSelected)
 		end
 
 		viewGridContainer:SetItemCallback(getItemByIndex)
-		viewGridContainer:Recalc()
+		if XboxUseNewScrollingGrid then
+			viewGridContainer:RecalcLayout(#carouselItems + 1)
+		else
+			viewGridContainer:Recalc()
+		end
 
 		for i = 1, #savedCarouselItems do
 			if not AchievementManager:AllGamesUnlocked() and savedCarouselItems[i]:GetLockInPUP() then
@@ -375,7 +395,11 @@ local createGamesView = function(viewGridConfig, onNewGameSelected)
 					savedCarouselItems = {}
 					savedSelectedCarouselItem = nil
 					onNewGameSelected(nil)
-					viewGridContainer:Recalc()
+					if XboxUseNewScrollingGrid then
+						viewGridContainer:RecalcLayout(0)
+					else
+						viewGridContainer:Recalc()
+					end
 					viewGridContainer:BackToInitial()
 					lastSelectedRow = 0
 

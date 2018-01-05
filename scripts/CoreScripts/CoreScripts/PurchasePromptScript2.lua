@@ -7,9 +7,6 @@
 ]]--
 local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
 
-local enableGetAssetThumbnailSuccess, enableGetAssetThumbnailValue = pcall(function() return settings():GetFFlag('EnableGetAssetThumbnail') end)
-local enableGetAssetThumbnail = enableGetAssetThumbnailSuccess and enableGetAssetThumbnailValue
-
 local success, result = pcall(function() return settings():GetFFlag('UsePurchasePromptLocalization') end)
 local FFlagUsePurchasePromptLocalization = success and result
 
@@ -536,51 +533,21 @@ local function setPreviewImageXbox(productInfo, assetId)
 	else
 		ItemPreviewImage.Image = DEFAULT_XBOX_IMAGE
 		return
-	end
+    end
 
-	if not enableGetAssetThumbnail then
-		local path = 'asset-thumbnail/json?assetId=%d&width=100&height=100&format=png'
-		path = BASE_URL..string.format(path, id)
-		spawn(function()
-			-- check if thumb has been generated, if not generated or if anything fails
-			-- set to the default image
-			local success, result = pcall(function()
-				return game:HttpGetAsync(path)
-			end)
-			if not success then
-				ItemPreviewImage.Image = DEFAULT_XBOX_IMAGE
-				return
-			end
-
-			local decodeSuccess, decodeResult = pcall(function()
-				return HttpService:JSONDecode(result)
-			end)
-			if not decodeSuccess then
-				ItemPreviewImage.Image = DEFAULT_XBOX_IMAGE
-				return
-			end
-
-			if decodeResult["Final"] == true then
-				ItemPreviewImage.Image = THUMBNAIL_URL..tostring(id).."&x=100&y=100&format=png"
-			else
-				ItemPreviewImage.Image = DEFAULT_XBOX_IMAGE
-			end
+    spawn(function()
+		local imageUrl = nil
+		local isGenerated = false
+		local success, msg = pcall(function()
+			imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(id, Vector2.new(100, 100))
 		end)
-	else
-		spawn(function()
-			local imageUrl = nil
-			local isGenerated = false
-			local success, msg = pcall(function()
-				imageUrl, isGenerated = AssetService:GetAssetThumbnailAsync(id, Vector2.new(100, 100))
-			end)
 
-			if success and isGenerated == true and imageUrl then
-				ItemPreviewImage.Image = imageUrl
-			else
-				ItemPreviewImage.Image = DEFAULT_XBOX_IMAGE
-			end
-		end)
-	end
+		if success and isGenerated == true and imageUrl then
+			ItemPreviewImage.Image = imageUrl
+		else
+			ItemPreviewImage.Image = DEFAULT_XBOX_IMAGE
+		end
+	end)
 end
 
 local function setPreviewImage(productInfo, assetId)

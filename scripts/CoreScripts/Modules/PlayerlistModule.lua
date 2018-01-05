@@ -18,9 +18,6 @@ local GameSettings = Settings.GameSettings
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
-local fixConsoleGuestIconSuccess, fixConsoleGuestIconValue = pcall(function() return settings():GetFFlag("FixConsoleGuestIcon") end)
-local fixConsoleGuestIcon = fixConsoleGuestIconSuccess and fixConsoleGuestIconValue
-
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
 	-- because it caused a bug where the local players name would show as Player in game.
@@ -245,7 +242,7 @@ local function setAvatarIconAsync(player, iconImage)
 
   local isFinalSuccess = false
   if thumbnailLoader then
-    local loader = thumbnailLoader:Create(iconImage, fixConsoleGuestIcon and math.max(1, player.UserId) or player.UserId,
+    local loader = thumbnailLoader:Create(iconImage, math.max(1, player.UserId),
       thumbnailLoader.Sizes.Small, thumbnailLoader.AssetType.Avatar, true)
     isFinalSuccess = loader:LoadAsync(false, true, nil)
   end

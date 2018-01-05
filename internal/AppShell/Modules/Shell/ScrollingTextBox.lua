@@ -18,7 +18,6 @@ local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
-local EnableThumbStick2Scroll = settings():GetFFlag('EnableThumbStick2Scroll')
 
 local createScrollingTextBox = function(size, position, parent)
 	local this = {}
@@ -145,14 +144,12 @@ local createScrollingTextBox = function(size, position, parent)
 	scrollingFrame:GetPropertyChangedSignal('AbsoluteWindowSize'):connect(function()
 		setArrowState()
 	end)
-	if EnableThumbStick2Scroll then
-		scrollingFrame.SelectionGained:Connect(function()
-			hintImage.Visible = true
-		end)
-		scrollingFrame.SelectionLost:Connect(function()
-			hintImage.Visible = false
-		end)
-	end
+	scrollingFrame.SelectionGained:Connect(function()
+		hintImage.Visible = true
+	end)
+	scrollingFrame.SelectionLost:Connect(function()
+		hintImage.Visible = false
+	end)
 
 
 	--[[ Public API ]]--
@@ -215,9 +212,7 @@ local createScrollingTextBox = function(size, position, parent)
 		textLabel.ZIndex = value
 		upArrow.ZIndex = value
 		downArrow.ZIndex = value
-		if EnableThumbStick2Scroll then
-			hintImage.ZIndex = value
-		end
+		hintImage.ZIndex = value
 	end
 
 	function this:SetArrowsVisible(value)

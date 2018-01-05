@@ -48,6 +48,7 @@ function ConversationView.new(appState, conversationId)
 	self.BackButtonPressed = Signal.new()
 	self.GroupDetailsButtonPressed = Signal.new()
 	self.wasTouchingBottom = false
+	self.oldConversation = nil
 
 	setmetatable(self, ConversationView)
 
@@ -302,9 +303,10 @@ function ConversationView:Update(state, oldState)
 		end
 
 		self:Rescale()
-	elseif conversation == oldState.Conversations[self.conversationId] then
+	elseif conversation == self.oldConversation then
 		return
 	end
+	self.oldConversation = conversation
 
 	if not conversation.fetchingOlderMessages then
 		self.messageList:StopLoadingMessageHistoryAnimation()

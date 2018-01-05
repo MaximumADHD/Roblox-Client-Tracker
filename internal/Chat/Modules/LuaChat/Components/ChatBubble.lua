@@ -99,7 +99,7 @@ function ChatBubble.new(appState, message)
 		if message.moderated or isSending then
 			self:AddBubble(UserChatBubble.new(appState, message), 1)
 
-		elseif message.content:match("roblox[labs]-%.com/[^%d]*(%d+)/") 
+		elseif message.content:match("roblox[labs]-%.com/[^%d]*(%d+)/")
 			and not message.content:match("roblox[labs]-%.com/users/") then
 
 			local linkStart, endLink

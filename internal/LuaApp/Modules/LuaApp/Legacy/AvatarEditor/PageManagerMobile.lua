@@ -6,10 +6,13 @@ local UseNewPageManager = Flags:GetFlag("AvatarEditorPageManagerRefactor")
 if not UseNewPageManager then
 	return require(Modules.LuaApp.Legacy.AvatarEditor.PageManager)
 end
-local AvatarEditorUsesBrowserWindowCall = Flags:GetFlag("AvatarEditorUsesBrowserWindowCall")
+local AvatarEditorCatalogRecommended = Flags:GetFlag("AvatarEditorCatalogRecommended")
 local AvatarEditorAnthroSliders =
 	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
 	Flags:GetFlag("AvatarEditorUseNewCommonAction")
+
+local AvatarEditorSliderUIAdjustments =
+	Flags:GetFlag("AvatarEditorSliderUIAdjustments")
 
 -------------- SERVICES --------------
 local UserInputService = game:GetService('UserInputService')
@@ -203,6 +206,13 @@ function this:renderAssetCardByIndex(i)
 
 	local card = cardGrid:makeAssetCard(i, cardName, cardImage, clickFunction, longPressFunction, isSelected)
 	card.Parent = scrollingFrame
+end
+
+local function makeShopPressFunction(url)
+	return function()
+		local url = "https://" .. Urls.domainUrl .. (url or "/catalog")
+		GuiService:OpenNativeOverlay( "Catalog", url )
+	end
 end
 
 local function loadMoreListContent()
@@ -409,6 +419,10 @@ local function loadMoreListContent()
 			Parent = scrollingFrame;
 		}
 
+		if AvatarEditorSliderUIAdjustments then
+			background.BorderSizePixel = 0;
+		end
+
 		local scalesCount = this:getScalesInfoCount()
 		local sliderPositionY = LayoutInfo.SliderPositionY
 		local sliderSize = LayoutInfo.ScaleSliderSize
@@ -447,8 +461,8 @@ end
 
 			-- No assets text
 			if #assetList == 0 and
-				(reachedBottom or (currentPage.specialPageType and string.find(currentPage.specialPageType, 'Recent'))) and
-				not renderedNoAssetsMessage then
+				(reachedBottom or (currentPage.specialPageType and string.find(currentPage.specialPageType, 'Recent')))
+				and not renderedNoAssetsMessage then
 
 				renderedNoAssetsMessage = true
 				local noAssetsLabel = Utilities.create'TextLabel'
@@ -467,54 +481,51 @@ end
 					Parent = scrollingFrame;
 				}
 
-				if AvatarEditorUsesBrowserWindowCall then
-					-- Create "shop in catalog" button
-					local shopInCatalogButton = Utilities.create'ImageButton'
-					{
-						Name = 'ShopInCatalogButton';
-						AnchorPoint = Vector2.new(.5, 0);
-						Position = UDim2.new(.5, 0, .5, 0);
-						Size = UDim2.new(0, 160, 0, 36);
-						ZIndex = 5;
-						BackgroundTransparency = 1;
-						BorderSizePixel = 0;
-						Image = 'rbxasset://textures/AvatarEditorImages/btn.png';
-						ImageRectOffset = Vector2.new(0, 0);
-						ImageRectSize = Vector2.new(0, 0);
-						ScaleType = Enum.ScaleType.Slice;
-						SliceCenter = Rect.new(3, 3, 4, 4);
-						Visible = true;
-						Parent = scrollingFrame;
-					}
-					Utilities.create'TextLabel'
-					{
-						Name = 'TextLabel';
-						Position = UDim2.new(0, 0, 0, -1);
-						Size = UDim2.new(1, 0, 1, 0);
-						ZIndex = 5;
-						BackgroundTransparency = 1;
-						BorderSizePixel = 0;
-						Font = Enum.Font.SourceSans;
-						Text = 'Shop in Catalog';
-						TextSize = 22;
-						TextColor3 = Color3.new(1,1,1);
-						TextScaled = false;
-						TextStrokeTransparency = 1;
-						Parent = shopInCatalogButton
-					}
-					local function pressFunction()
-						GuiService:OpenNativeOverlay(
-							"Catalog",
-							"https://www."
-							..Urls.domainUrl
-							.."/catalog/?Category=11&Subcategory="
-							..AssetTypeNames[currentPage.typeName])
-					end
-					shopInCatalogButton.MouseButton1Click:connect(pressFunction)
-					shopInCatalogButton.TouchLongPress:connect(pressFunction)
-				end
+if AvatarEditorCatalogRecommended then
+			if currentPage.shopUrl then
+				-- Create "shop in catalog" button
+				local shopInCatalogButton = Utilities.create'ImageButton'
+				{
+					Name = 'ShopInCatalogButton';
+					AnchorPoint = Vector2.new(.5, 0);
+					Position = UDim2.new(.5, 0, .5, 0);
+					Size = UDim2.new(0, 160, 0, 36);
+					ZIndex = 5;
+					BackgroundTransparency = 1;
+					BorderSizePixel = 0;
+					Image = 'rbxasset://textures/AvatarEditorImages/btn.png';
+					ImageRectOffset = Vector2.new(0, 0);
+					ImageRectSize = Vector2.new(0, 0);
+					ScaleType = Enum.ScaleType.Slice;
+					SliceCenter = Rect.new(3, 3, 4, 4);
+					Visible = true;
+					Parent = scrollingFrame;
+				}
+				Utilities.create'TextLabel'
+				{
+					Name = 'TextLabel';
+					Position = UDim2.new(0, 0, 0, -1);
+					Size = UDim2.new(1, 0, 1, 0);
+					ZIndex = 5;
+					BackgroundTransparency = 1;
+					BorderSizePixel = 0;
+					Font = Enum.Font.SourceSans;
+					Text = 'Shop in Catalog';
+					TextSize = 22;
+					TextColor3 = Color3.new(1,1,1);
+					TextScaled = false;
+					TextStrokeTransparency = 1;
+					Parent = shopInCatalogButton
+				}
 
-				scrollingFrame.CanvasSize = UDim2.new(0, scrollingFrame.AbsoluteSize.X, 0, scrollingFrame.AbsoluteSize.Y)
+				local pressFunction = makeShopPressFunction( currentPage.shopUrl )
+				shopInCatalogButton.MouseButton1Click:connect( pressFunction )
+				shopInCatalogButton.TouchLongPress:connect( pressFunction )
+			end
+end
+
+				scrollingFrame.CanvasSize =
+					UDim2.new(0, scrollingFrame.AbsoluteSize.X, 0, scrollingFrame.AbsoluteSize.Y)
 			elseif currentPage.typeName and not LayoutInfo.isLandscape then
 				local pageTitleLabel = scrollingFrame:FindFirstChild('PageTitleLabel')
 				if pageTitleLabel then
@@ -523,11 +534,11 @@ end
 			end
 		end
 
+if AvatarEditorCatalogRecommended then
 		Utilities.fastSpawn(function()
 			if reachedBottom
 				and not renderedRecommended
-				and currentPage.recommendedSort
-				and AvatarEditorUsesBrowserWindowCall
+				and currentPage.shopUrl
 				and currentPage.typeName
 				and thisLoadingContentCall == currentLoadingContentCall
 				and not renderedNoAssetsMessage then
@@ -560,54 +571,45 @@ end
 					Parent = scrollingFrame;
 				}
 
-				if AvatarEditorUsesBrowserWindowCall then
-					-- Create "Shop Now" button
-					local shopNowButton = Utilities.create'ImageButton'
-					{
-						Name = 'ShopNowButtonTemplate';
-						Position = LayoutInfo.isLandscape and
-							UDim2.new(1, -100, 0, recommendedYPosition - 3) or
-							UDim2.new(1, -88, 0, recommendedYPosition - 3);
-						Size = UDim2.new(0, 85, 0, 26);
-						ZIndex = 5;
-						BackgroundTransparency = 1;
-						BorderSizePixel = 0;
-						Image = 'rbxasset://textures/AvatarEditorImages/btn.png';
-						ImageRectOffset = Vector2.new(0, 0);
-						ImageRectSize = Vector2.new(0, 0);
-						ScaleType = Enum.ScaleType.Slice;
-						SliceCenter = Rect.new(3, 3, 4, 4);
-						Visible = true;
-						Parent = scrollingFrame;
-					}
-					Utilities.create'TextLabel'
-					{
-						Name = 'TextLabel';
-						Position = UDim2.new(0, 0, 0, -1);
-						Size = UDim2.new(1, 0, 1, 0);
-						ZIndex = 5;
-						BackgroundTransparency = 1;
-						BorderSizePixel = 0;
-						Font = Enum.Font.SourceSans;
-						Text = 'Shop Now';
-						TextSize = 18;
-						TextColor3 = Color3.new(1,1,1);
-						TextScaled = false;
-						TextStrokeTransparency = 1;
-						Parent = shopNowButton;
-					}
+				-- Create "Shop Now" button
+				local shopNowButton = Utilities.create'ImageButton'
+				{
+					Name = 'ShopNowButtonTemplate';
+					Position = LayoutInfo.isLandscape and
+						UDim2.new(1, -100, 0, recommendedYPosition - 3) or
+						UDim2.new(1, -88, 0, recommendedYPosition - 3);
+					Size = UDim2.new(0, 85, 0, 26);
+					ZIndex = 5;
+					BackgroundTransparency = 1;
+					BorderSizePixel = 0;
+					Image = 'rbxasset://textures/AvatarEditorImages/btn.png';
+					ImageRectOffset = Vector2.new(0, 0);
+					ImageRectSize = Vector2.new(0, 0);
+					ScaleType = Enum.ScaleType.Slice;
+					SliceCenter = Rect.new(3, 3, 4, 4);
+					Visible = true;
+					Parent = scrollingFrame;
+				}
+				Utilities.create'TextLabel'
+				{
+					Name = 'TextLabel';
+					Position = UDim2.new(0, 0, 0, -1);
+					Size = UDim2.new(1, 0, 1, 0);
+					ZIndex = 5;
+					BackgroundTransparency = 1;
+					BorderSizePixel = 0;
+					Font = Enum.Font.SourceSans;
+					Text = Strings:LocalizedString("ShopNowWord");
+					TextSize = 18;
+					TextColor3 = Color3.new(1,1,1);
+					TextScaled = false;
+					TextStrokeTransparency = 1;
+					Parent = shopNowButton;
+				}
 
-					local function pressFunction()
-						GuiService:OpenNativeOverlay(
-							"Catalog",
-							"https://"
-							..Urls.domainUrl
-							.."/catalog/?Category=11&Subcategory="
-							..AssetTypeNames[currentPage.typeName])
-					end
-					shopNowButton.MouseButton1Click:connect(pressFunction)
-					shopNowButton.TouchLongPress:connect(pressFunction)
-				end
+				local pressFunction = makeShopPressFunction( currentPage.shopUrl )
+				shopNowButton.MouseButton1Click:connect( pressFunction )
+				shopNowButton.TouchLongPress:connect( pressFunction )
 
 				local recommendedAssetListRequest =
 					Utilities.httpGet(
@@ -638,11 +640,6 @@ end
 							local cardName = tostring(assetId)
 							local cardImage = Urls.assetImageUrl..tostring(assetId)
 
-							local longPressFunction = function()
-								if longPressMenu then
-									longPressMenu:openDetails(assetId)
-								end
-							end
 							local clickFunction = function()
 								if longPressMenu then
 									longPressMenu:openDetails(assetId)
@@ -654,7 +651,7 @@ end
 								cardName,
 								cardImage,
 								clickFunction,
-								longPressFunction,
+								function() end,
 								false,
 								position)
 
@@ -672,6 +669,7 @@ end
 							+ bonusYPixels)
 			end
 		end)
+end
 	end
 
 	loadingContent = false

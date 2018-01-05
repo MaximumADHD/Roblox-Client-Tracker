@@ -1129,18 +1129,10 @@ local function Initialize()
 
   if isTenFootInterface then
     createOverscanOption()
-
-    -- enable dev console for xbox
-    local success, result = pcall(function()
-        return settings():GetFFlag("EnableDevConsoleOnXbox")
-      end)
-    if success and result == true then
-      createDeveloperConsoleOption()
-    end
-  else
-    -- enable dev console for desktop and mobile
-    createDeveloperConsoleOption()
   end
+
+  -- dev console option only shows for place/group place owners
+  createDeveloperConsoleOption()
 
   allSettingsCreated = true
   if VRService.VREnabled then
