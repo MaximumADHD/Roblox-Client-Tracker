@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local ResetCategory = require(Modules.LuaApp.Actions.ResetCategory)
-    
+
     describe("Action ResetCategory", function()
         it("should return a correct action name", function()
             expect(ResetCategory.name).to.equal("ResetCategory")

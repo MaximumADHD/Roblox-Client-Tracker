@@ -182,9 +182,11 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 	Utilities.fastSpawn(function()
 		if AvatarEditorFixDefaultClothesIds then
 			local myColorIndex = ((defaultClothesIndex-1) % DefaultClothesIds.getDefaultClothesCount()) + 1
-			myDefaultShirtTemplate = InsertService:LoadAsset(DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
+			myDefaultShirtTemplate = InsertService:LoadAsset(
+				DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
 			myDefaultShirtTemplate.Name = 'ShirtDefault'
-			myDefaultPantsTemplate = InsertService:LoadAsset(DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
+			myDefaultPantsTemplate = InsertService:LoadAsset(
+				DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
 			myDefaultPantsTemplate.Name = 'PantsDefault'
 		else
 			local myColorIndex = ((defaultClothesIndex-1) % #DEFAULT_SHIRT_IDS) + 1
@@ -969,7 +971,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 							end
 						end
 					end
-					
+
 					if useAnthoValues then
 						thing.Parent = character
 					end

@@ -12,9 +12,6 @@ local ContentProvider = game:GetService("ContentProvider")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 --FFlags
-local persistentConnectionHealthDialogSuccess, persistentConnectionHealthDialogValue = pcall(function() return settings():GetFFlag("PersistentConnectionHealthDialog") end)
-local persistentConnectionHealthDialog = persistentConnectionHealthDialogSuccess and persistentConnectionHealthDialogValue
-
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 
@@ -338,9 +335,7 @@ function MainGui:GenerateMain()
         if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
             if tick() - lastTapTime <= doubleTapTimeThreshold then
                 GuiService:ShowStatsBasedOnInputString("ConnectionHealth")
-				if persistentConnectionHealthDialog then
-					connectionHealthShown = not connectionHealthShown
-				end
+				connectionHealthShown = not connectionHealthShown
             end
         end
 
@@ -876,7 +871,7 @@ function fadeAndDestroyBlackFrame(blackFrame)
 		end
 
         loadingImageInputBeganConn:disconnect()
-        if persistentConnectionHealthDialog and connectionHealthShown then
+        if connectionHealthShown then
 			if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
 				connectionHealthCon = game:GetService("UserInputService").InputBegan:connect(function()
 					disconnectAndCloseHealthStat()

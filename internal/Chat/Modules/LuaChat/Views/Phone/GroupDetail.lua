@@ -31,13 +31,14 @@ function GroupDetail.new(appState, route)
 
 	setmetatable(self, GroupDetail)
 
-	self.groupDetailComponent.BackButtonPressed:Connect(function()
+	local backButtonConnection = self.groupDetailComponent.BackButtonPressed:Connect(function()
 		self.appState.store:Dispatch({
 			type = ActionType.PopRoute,
 		})
 	end)
+	table.insert(self.connections, backButtonConnection)
 
-	self.groupDetailComponent.AddFriendsPressed:Connect(function()
+	local addFriendsConnection = self.groupDetailComponent.AddFriendsPressed:Connect(function()
 		if self.appState.screenManager:GetCurrentView() ~= self then
 			return
 		end
@@ -63,6 +64,7 @@ function GroupDetail.new(appState, route)
 			})
 		end
 	end)
+	table.insert(self.connections, addFriendsConnection)
 
 	return self
 end
@@ -121,7 +123,11 @@ function GroupDetail:Stop()
 	end
 
 	self.connections = {}
+	self.groupDetailComponent:Stop()
 end
 
+function GroupDetail:Destruct()
+	self.groupDetailComponent:Destruct()
+end
 
 return GroupDetail

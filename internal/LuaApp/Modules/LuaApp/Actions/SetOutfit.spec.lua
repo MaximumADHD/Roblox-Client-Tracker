@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local SetOutfit = require(Modules.LuaApp.Actions.SetOutfit)
-    
+
     describe("Action SetOutfit", function()
         it("should return a correct action name", function()
             expect(SetOutfit.name).to.equal("SetOutfit")

@@ -150,113 +150,80 @@ local closeAvatarEditor = function()
 end
 
 
-local function isV3FeatureOn()
-	if LayoutInfo.isLandscape then
-		return AvatarEditorFlags:GetFlag("AvatarEditorV3Landscape2")
-	else
-		return AvatarEditorFlags:GetFlag("AvatarEditorV3Portrait2")
-	end
-	return false
-end
-
-
-if isV3FeatureOn() then
-	spawn(function()
+spawn(function()
 
 if AvatarEditorUseModernHeader then
-		local header
-		local appGui
+	local header
+	local appGui
 
-		if not UserSettings().GameSettings:InStudioMode() then
-			header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
-				UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
+	if not UserSettings().GameSettings:InStudioMode() then
+		header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
+			UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
 
-			local headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
-			appGui = AppGui(
-				UDim2.new(0, 0, 0,  headerHeight),
-				UDim2.new(1, 0, 1, -headerHeight))
+		local headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
+		appGui = AppGui(
+			UDim2.new(0, 0, 0,  headerHeight),
+			UDim2.new(1, 0, 1, -headerHeight))
 
-			local function updateUIDimensions()
-				header:SetNavAndStatusBarHeight(UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
-				local headerHeight = UserInputService.NavBarSize.Y + UserInputService.StatusBarSize.Y
-				appGui:setDimensions(
-					UDim2.new(0, 0, 0,  headerHeight),
-					UDim2.new(1, 0, 1, -headerHeight))
-			end
-
-			UserInputService:GetPropertyChangedSignal("NavBarSize"):Connect( updateUIDimensions )
-			UserInputService:GetPropertyChangedSignal("StatusBarSize"):Connect( updateUIDimensions )
-		else
-			local navBarHeight = 44
-			local statusBarHeight = 20
-
-			header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
-				navBarHeight, statusBarHeight)
-
-			local headerHeight = navBarHeight + statusBarHeight
-			appGui = AppGui(
+		local function updateUIDimensions()
+			header:SetNavAndStatusBarHeight(UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
+			local headerHeight = UserInputService.NavBarSize.Y + UserInputService.StatusBarSize.Y
+			appGui:setDimensions(
 				UDim2.new(0, 0, 0,  headerHeight),
 				UDim2.new(1, 0, 1, -headerHeight))
 		end
 
-		header.rbx.Parent = appGui.ScreenGui
+		UserInputService:GetPropertyChangedSignal("NavBarSize"):Connect( updateUIDimensions )
+		UserInputService:GetPropertyChangedSignal("StatusBarSize"):Connect( updateUIDimensions )
+	else
+		local navBarHeight = 44
+		local statusBarHeight = 20
 
-		AvatarEditorMain =
-			require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
-				.new(appGui)
+		header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
+			navBarHeight, statusBarHeight)
+
+		local headerHeight = navBarHeight + statusBarHeight
+		appGui = AppGui(
+			UDim2.new(0, 0, 0,  headerHeight),
+			UDim2.new(1, 0, 1, -headerHeight))
+	end
+
+	header.rbx.Parent = appGui.ScreenGui
+
+	AvatarEditorMain =
+		require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
+			.new(appGui)
 else
-		local headerHeight
-		if not UserSettings().GameSettings:InStudioMode() then
-			headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
-		else
-			headerHeight = 49
-		end
+	local headerHeight
+	if not UserSettings().GameSettings:InStudioMode() then
+		headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
+	else
+		headerHeight = 49
+	end
 
-		AvatarEditorMain =
-			require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
-				.new(headerHeight)
+	AvatarEditorMain =
+		require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
+			.new(headerHeight)
 end
 
-		local function startAvatarEditor()
-			screenGui.HackBody.Visible = false
-			AvatarEditorMain:Start()
-			notifyAppReady(AppNameEnum.AvatarEditor)
-		end
-
-		if startAvatarEditorAfterInitializing then
-			startAvatarEditor()
-		end
-
-		openAvatarEditor = startAvatarEditor
-
-		closeAvatarEditor = function()
-			screenGui.HackBody.Visible = true
-			AvatarEditorMain:Stop()
-		end
-	end)
-else
-	spawn(function()
-		AvatarEditorMain = require(Modules.AvatarEditorMainV2)
+	local function startAvatarEditor()
 		screenGui.HackBody.Visible = false
+		AvatarEditorMain:Start()
+		notifyAppReady(AppNameEnum.AvatarEditor)
+	end
 
-		local function startAvatarEditor()
-			screenGui.HackBody.Visible = false
-			AvatarEditorMain.Start()
-			notifyAppReady(AppNameEnum.AvatarEditor)
-		end
+	if startAvatarEditorAfterInitializing then
+		startAvatarEditor()
+	end
 
-		if startAvatarEditorAfterInitializing then
-			startAvatarEditor()
-		end
+	openAvatarEditor = startAvatarEditor
 
-		openAvatarEditor = startAvatarEditor
+	closeAvatarEditor = function()
+		screenGui.HackBody.Visible = true
+		AvatarEditorMain:Stop()
+	end
+end)
 
-		closeAvatarEditor = function()
-			screenGui.HackBody.Visible = true
-			AvatarEditorMain.Stop()
-		end
-	end)
-end
 
 
 local function installStudioTestingHooks(store)

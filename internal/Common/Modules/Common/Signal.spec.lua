@@ -89,4 +89,26 @@ return function()
 		expect(countA).to.equal(1)
 		expect(countB).to.equal(1)
 	end)
+
+	it("should skip listeners that were disconnected during event evaluation", function()
+		local signal = Signal.new()
+		local countA = 0
+		local countB = 0
+
+		local connectionB
+
+		signal:Connect(function()
+			countA = countA + 1
+			connectionB:Disconnect()
+		end)
+
+		connectionB = signal:Connect(function()
+			countB = countB + 1
+		end)
+
+		signal:Fire()
+
+		expect(countA).to.equal(1)
+		expect(countB).to.equal(0)
+	end)
 end

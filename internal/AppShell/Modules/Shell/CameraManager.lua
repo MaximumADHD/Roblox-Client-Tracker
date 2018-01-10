@@ -9,12 +9,8 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService('UserInputService')
 local Lighting = game:GetService('Lighting')
 
-local UseNewAppShellPlace = Utility.IsFeatureNonZero('XboxAvatarEditorRolloutPercent3')
-if not UseNewAppShellPlace then
-	return require(ShellModules.LegacyCameraManager)
-end
-
 local XboxFixSkyboxCycle = settings():GetFFlag("XboxFixSkyboxCycle")
+local AvatarEditorUseNewScene = settings():GetFFlag("AvatarEditorUseNewScene")
 
 local BackgroundTintColor = Color3.new(0.0784, 0.1686, 0.2353)
 
@@ -35,6 +31,14 @@ local Blur = Utility.Create'BlurEffect'
 	Parent = Lighting;
 }
 
+local Bloom = Utility.Create'BloomEffect'
+{
+	Intensity = 0.05;
+	Size = 24;
+	Threshold = 0.95;
+	Enabled = AvatarEditorUseNewScene and true or false;
+	Parent = AvatarEditorUseNewScene and Lighting or nil;
+}
 
 local function GetCameraParts(model)
 	local parts = {}
@@ -139,12 +143,15 @@ local function startEternalRenderStep()
 end
 
 
-local function transitionToCameraAnimator(cameraAnimator, transitionDuration, targetBrightness, targetBlurEnabled)
+local function transitionToCameraAnimator(cameraAnimator, transitionDuration, targetBrightness, targetBlurEnabled, targetBloomEnabled)
 	Utility.PropertyTweener(ColorCorrection, "Brightness", ColorCorrection.Brightness,
 		-1, transitionDuration, Utility.EaseInOutQuad, true,
 	function()
 		getFrameInfo = cameraAnimator:get_getFrameInfo()
 		Blur.Enabled = targetBlurEnabled
+		if AvatarEditorUseNewScene then
+			Bloom.Enabled = targetBloomEnabled
+		end
 		Utility.PropertyTweener(ColorCorrection, "Brightness", ColorCorrection.Brightness,
 			targetBrightness, transitionDuration, Utility.EaseInOutQuad, true)
 	end)
@@ -336,13 +343,23 @@ local function CameraZoomAnimator(cframes, length, pathFunc)
 	function myGetFrameInfo()
 		local t = Utility.Clamp(0, 1, (tick() - timestamp0) / length)
 
-		return {
-			CFrame = CFrameBezierLerp(cframes, pathFunc(t));
-			Contrast = 0;
-			Saturation = 0;
-			TintColor = Color3.new(1,1,1);
-			BlurSize = 1;
-		}
+		if AvatarEditorUseNewScene then
+			return {
+				CFrame = CFrameBezierLerp(cframes, pathFunc(t));
+				Contrast = 0.35;
+				Saturation = 0.175;
+				TintColor = Color3.fromRGB(255, 255, 255);
+				BlurSize = 1;
+			}
+		else
+			return {
+				CFrame = CFrameBezierLerp(cframes, pathFunc(t));
+				Contrast = 0;
+				Saturation = 0;
+				TintColor = Color3.new(1,1,1);
+				BlurSize = 1;
+			}
+		end
 	end
 
 	function this:get_getFrameInfo()
@@ -415,12 +432,12 @@ function CameraManager:CameraMoveToAsync()
 	end)
 
 	flythroughAnimator:Start()
-	transitionToCameraAnimator(flythroughAnimator, 0.25, 0.3, true)
+	transitionToCameraAnimator(flythroughAnimator, 0.25, 0.3, true, false)
 end
 
 
 function CameraManager:SwitchToFlyThrough()
-	transitionToCameraAnimator(flythroughAnimator, 0.25, 0.3, true)
+	transitionToCameraAnimator(flythroughAnimator, 0.25, 0.3, true, false)
 	flythroughAnimator:Start()
 end
 
@@ -429,7 +446,8 @@ function CameraManager:SwitchToAvatarEditor()
 	flythroughAnimator:Stop()
 	ZoneManager:SetZone("AvatarEditor")
 	avatarEditorCameraAnimator:Reset()
-	transitionToCameraAnimator(avatarEditorCameraAnimator, 0.25, 0.0, false)
+
+	transitionToCameraAnimator(avatarEditorCameraAnimator, 0.25, AvatarEditorUseNewScene and 0.02 or 0.0, false, true)
 end
 
 local targetCFrame = avatarEditorZoomCFrames[2]

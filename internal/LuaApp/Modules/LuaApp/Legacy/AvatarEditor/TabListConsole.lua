@@ -23,8 +23,6 @@ local function createTabList(container, pageManager)
 	local SELECTOR_BOTTOM_MIN_DISTANCE = LayoutInfo.SelectorBottomMinDistance
 
 	local storeChangedCn = nil
-	local openCategoryMenuConn = nil
-	local closeCategoryMenuConn = nil
 
 	local TabList = Utilities.create'ScrollingFrame'
 	{

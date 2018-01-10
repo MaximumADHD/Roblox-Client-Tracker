@@ -28,19 +28,11 @@ local SocialPaneModule = require(ShellModules:FindFirstChild('SocialPane'))
 local StorePaneModule = require(ShellModules:FindFirstChild('StorePane'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local SettingsScreen = require(ShellModules:FindFirstChild('SettingsScreen'))
-local AvatarEditorScreen = nil
+local AvatarEditorScreen = require(ShellModules:FindFirstChild('AvatarEditorScreen'))
 local GameSearchScreen = require(ShellModules:FindFirstChild('GameSearchScreen'))
 
 local AchievementManager = require(ShellModules:FindFirstChild('AchievementManager'))
 local HintActionView = require(ShellModules:FindFirstChild('HintActionView'))
-
-local UseNewAppShellPlace = Utility.IsFeatureNonZero("XboxAvatarEditorRolloutPercent3")
-
-if UseNewAppShellPlace then
-	AvatarEditorScreen = require(ShellModules:FindFirstChild('AvatarEditorScreen'))
-end
-
-local EnableXboxAvatarEditor = false
 
 local function CreateAppHub()
 	local this = {}
@@ -99,11 +91,8 @@ local function CreateAppHub()
 	hintActionView = HintActionView(HubContainer, "OpenHintAction")
 	hintActionView:SetImage('rbxasset://textures/ui/Shell/ButtonIcons/XButton.png')	-- always X button for tab views
 
-	EnableXboxAvatarEditor = UseNewAppShellPlace and Utility.IsFeatureRolledOut('XboxAvatarEditorRolloutPercent3')
-	if EnableXboxAvatarEditor then
-		hintActionViewY = HintActionView(HubContainer, "OpenYHintAction", UDim2.new(0, 0, 1, -1))
-		hintActionViewY:SetImage('rbxasset://textures/ui/Shell/ButtonIcons/YButton.png')
-	end
+	hintActionViewY = HintActionView(HubContainer, "OpenYHintAction", UDim2.new(0, 0, 1, -1))
+	hintActionViewY:SetImage('rbxasset://textures/ui/Shell/ButtonIcons/YButton.png')
 
 	-- Action Functions
 	local seenXButtonPressed = false
@@ -121,7 +110,7 @@ local function CreateAppHub()
 	local function onOpenAvatarEditor(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			seenYButtonPressed = true
-		elseif inputState == Enum.UserInputState.End and seenYButtonPressed and AvatarEditorScreen then
+		elseif inputState == Enum.UserInputState.End and seenYButtonPressed then
 			local avatarEditorScreen = AvatarEditorScreen()
 			EventHub:dispatchEvent(EventHub.Notifications["OpenAvatarEditorScreen"], avatarEditorScreen);
 			seenYButtonPressed = false
@@ -166,10 +155,8 @@ local function CreateAppHub()
 	local function setHintAction(selectedTab)
 		hintActionView:UnbindAction()
 		hintActionView:SetVisible(false)
-		if EnableXboxAvatarEditor then
-			hintActionViewY:UnbindAction()
-			hintActionViewY:SetVisible(false)
-		end
+		hintActionViewY:UnbindAction()
+		hintActionViewY:SetVisible(false)
 
 		if selectedTab == HomeTab then
 			bindHintAction(onOpenSettings, Strings:LocalizedString("SettingsWord"))
@@ -179,7 +166,7 @@ local function CreateAppHub()
 			end
 		elseif selectedTab == SocialTab then
 			bindHintAction(onOpenPartyUI, Strings:LocalizedString("StartPartyPhrase"))
-		elseif EnableXboxAvatarEditor and selectedTab == AvatarTab then
+		elseif selectedTab == AvatarTab then
 			hintActionViewY:SetText(Strings:LocalizedString("AvatarEditorWord"))
 			hintActionViewY:BindAction(onOpenAvatarEditor, Enum.KeyCode.ButtonY)
 			hintActionViewY:SetVisible(true)

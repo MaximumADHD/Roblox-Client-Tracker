@@ -98,14 +98,16 @@ local Constants = {
 	Platforms = {
 		Android = {
 			HEADER_CONTENT_FRAME_Y_OFFSET = 0,
+			HEADER_TITLE_FRAME_POSITION_NO_BACK_BUTTON = UDim2.new(0, 15, 0, 0),
 			HEADER_TITLE_FRAME_POSITION = UDim2.new(0, 72, 0, 0),
 			HEADER_TITLE_FRAME_ANCHOR_POINT = Vector2.new(0, 0),
 			HEADER_VERTICAL_ALIGNMENT = 0,
 			HEADER_TEXT_X_ALIGNMENT = 0,
-			BACK_BUTTON_ASSET_ID = "rbxasset://textures/ui/LuaChat/icons/ic-back-mdpi.png",
+			BACK_BUTTON_ASSET_ID = "rbxasset://textures/ui/LuaChat/icons/ic-back-android.png",
 		},
 		Default = {
 			HEADER_CONTENT_FRAME_Y_OFFSET = 24,
+			HEADER_TITLE_FRAME_POSITION_NO_BACK_BUTTON = UDim2.new(0.5, 0, 0, 0),
 			HEADER_TITLE_FRAME_POSITION = UDim2.new(0.5, 0, 0, 0),
 			HEADER_TITLE_FRAME_ANCHOR_POINT = Vector2.new(0.5, 0),
 			HEADER_VERTICAL_ALIGNMENT = 1,

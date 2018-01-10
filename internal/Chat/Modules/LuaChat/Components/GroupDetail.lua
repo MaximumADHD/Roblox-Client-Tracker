@@ -135,7 +135,7 @@ function GroupDetail.new(appState, convoId)
 	self.groupName = ActionEntryComponent.new(appState, getAsset("icons/ic-nametag"), StringsLocale.Keys.CHAT_GROUP_NAME)
 	self.groupName.rbx.LayoutOrder = 2
 	self.groupName.rbx.Parent = content
-	self.groupName.tapped.Event:Connect(function()
+	local groupNameConnection = self.groupName.tapped.Event:Connect(function()
 		self.appState.store:Dispatch({
 			type = ActionType.SetRoute,
 			intent = Intent.GenericDialog,
@@ -149,6 +149,7 @@ function GroupDetail.new(appState, convoId)
 			}
 		})
 	end)
+	table.insert(self.connections, groupNameConnection)
 
 	self.responseIndicator = ResponseIndicator.new(appState)
 	self.responseIndicator:SetVisible(false)
@@ -169,7 +170,7 @@ function GroupDetail.new(appState, convoId)
 	self.participantsList = UserListComponent.new(appState, getAsset("icons/ic-more"))
 	self.participantsList.rbx.LayoutOrder = 7
 	self.participantsList.rbx.Parent = content
-	self.participantsList.userSelected:Connect(function(user)
+	local userSelectedConnection = self.participantsList.userSelected:Connect(function(user)
 		if user.id ~= tostring(Players.LocalPlayer.UserId) then
 			self.appState.store:Dispatch({
 				type = ActionType.SetRoute,
@@ -191,12 +192,13 @@ function GroupDetail.new(appState, convoId)
 			})
 		end
 	end)
+	table.insert(self.connections, userSelectedConnection)
 
 	self.seeMore = SeeMoreButton.new(appState)
 	self.seeMore.rbx.LayoutOrder = 9
 	self.seeMore.rbx.Parent = content
 	self.showAllParticipants = false
-	self.seeMore.tapped:Connect(function()
+	local seeMoreConnection = self.seeMore.tapped:Connect(function()
 		if self.showAllParticipants then
 			self.showAllParticipants = false
 			self:Update(appState.store:GetState())
@@ -205,6 +207,7 @@ function GroupDetail.new(appState, convoId)
 			self:Update(appState.store:GetState())
 		end
 	end)
+	table.insert(self.connections, seeMoreConnection)
 
 	self.blankSection = SectionComponent.new(appState)
 	self.blankSection.rbx.LayoutOrder = 10
@@ -213,7 +216,7 @@ function GroupDetail.new(appState, convoId)
 	self.leaveGroup = ActionEntryComponent.new(appState, getAsset("icons/ic-leave"), StringsLocale.Keys.LEAVE_GROUP)
 	self.leaveGroup.rbx.LayoutOrder = 11
 	self.leaveGroup.rbx.Parent = content
-	self.leaveGroup.tapped.Event:Connect(function()
+	local leaveGroupConnection = self.leaveGroup.tapped.Event:Connect(function()
 		self.appState.store:Dispatch({
 			type = ActionType.SetRoute,
 			intent = Intent.GenericDialog,
@@ -229,19 +232,13 @@ function GroupDetail.new(appState, convoId)
 			}
 		})
 	end)
+	table.insert(self.connections, leaveGroupConnection)
 
 	content.ListLayout:ApplyLayout()
 
 	self.conversation = ConversationModel.empty()
 
 	self:Update(appState.store:GetState())
-
-	local ancestryChangedConnection = self.rbx.AncestryChanged:Connect(function(rbx, parent)
-		if rbx == self.rbx and parent == nil then
-			self:Destruct()
-		end
-	end)
-	table.insert(self.connections, ancestryChangedConnection)
 
 	return self
 end
@@ -317,13 +314,15 @@ function GroupDetail:Update(state)
 	self.oldState = state
 end
 
-function GroupDetail:Destruct()
+function GroupDetail:Stop()
 	for _, connection in ipairs(self.connections) do
 		connection:Disconnect()
 	end
 
 	self.connections = {}
+end
 
+function GroupDetail:Destruct()
 	self.responseIndicator:Destruct()
 
 	self.rbx:Destroy()

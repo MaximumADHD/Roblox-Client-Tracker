@@ -90,7 +90,7 @@ function Header.new(appState, dialogType)
 					Name = "Titles",
 					BackgroundTransparency = 1,
 					Size = UDim2.new(0, 200, 1, 0),
-					Position = Constants.PlatformSpecific.HEADER_TITLE_FRAME_POSITION,
+					Position = self:GetHeaderTitleFramePosition(),
 					AnchorPoint = Constants.PlatformSpecific.HEADER_TITLE_FRAME_ANCHOR_POINT,
 
 					Create.new "UIListLayout" {
@@ -196,6 +196,19 @@ function Header:CreateHeaderButton(name, textKey)
 	local saveGroup = TextButton.new(self.appState, name, textKey)
 	self:AddButton(saveGroup)
 	return saveGroup
+end
+
+function Header:SetBackButtonEnabled(enabled)
+	self.backButton.rbx.Visible = enabled
+	self.rbx.Header.Content.Titles.Position = self:GetHeaderTitleFramePosition()
+end
+
+function Header:GetHeaderTitleFramePosition()
+	if self.backButton and self.backButton.rbx and self.backButton.rbx.Visible then
+	 	return Constants.PlatformSpecific.HEADER_TITLE_FRAME_POSITION
+	end
+
+	return Constants.PlatformSpecific.HEADER_TITLE_FRAME_POSITION_NO_BACK_BUTTON
 end
 
 return Header

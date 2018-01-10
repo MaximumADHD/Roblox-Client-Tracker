@@ -9,10 +9,6 @@ return function(position, size)
 
 	AppGui.ScreenGui = ServerStorage:WaitForChild('ScreenGuiV2'):Clone()
 	AppGui.ScreenGui.Name = 'ScreenGui'
-	AppGui.EdgeShadingGui = StarterGui:WaitForChild('EdgeShading'):Clone()
-	AppGui.EdgeShadingGui.Name = 'EdgeShadingGui'
-
-	AppGui.EdgeShadingGui.DisplayOrder = 0
 	AppGui.ScreenGui.DisplayOrder = 2
 
 	AppGui.RootGui = Create"Frame"

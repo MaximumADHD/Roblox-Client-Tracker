@@ -467,7 +467,16 @@ local bodyCategory = {
 	selectedIconImageConsole = 'rbxasset://textures/ui/Shell/AvatarEditor/icon/ic-body-blk.png',
 	iconImageName = 'ic-body',
 	selectedIconImageName = 'ic-body-on',
-	pages = {skinTonePage, scalePage, facesPage, headsPage, torsosPage, rightArmsPage, leftArmsPage, rightLegsPage, leftLegsPage},
+	pages = {
+		skinTonePage,
+		scalePage,
+		facesPage,
+		headsPage,
+		torsosPage,
+		rightArmsPage,
+		leftArmsPage,
+		rightLegsPage,
+		leftLegsPage},
 }
 local animationCategory = {
 	name = 'Animation',

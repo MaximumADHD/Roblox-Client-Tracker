@@ -49,9 +49,6 @@ end
 
 local GameDetailModule = require(ShellModules:FindFirstChild('GameDetailScreen'))
 
-local UseNewAppShellPlace = Utility.IsFeatureNonZero("XboxAvatarEditorRolloutPercent3")
-local EnableXboxAvatarEditor = false
-
 -- Initialize AppState and in turn initialize the Store
 local AppState = require(ShellModules.AppState)
 
@@ -133,14 +130,11 @@ local function onAuthenticationSuccess(isNewLinkedAccount)
 			ScreenManager:OpenScreen(settingsScreen);
 		end)
 
-	EnableXboxAvatarEditor = UseNewAppShellPlace and Utility.IsFeatureRolledOut('XboxAvatarEditorRolloutPercent3') 
-	if EnableXboxAvatarEditor then
-		EventHub:addEventListener(EventHub.Notifications["OpenAvatarEditorScreen"], "avatarEditorScreen",
-			function(screen)
-				screen:SetParent(AppContainer.Root);
-				ScreenManager:OpenScreen(screen);
-			end)
-	end
+	EventHub:addEventListener(EventHub.Notifications["OpenAvatarEditorScreen"], "avatarEditorScreen",
+		function(screen)
+			screen:SetParent(AppContainer.Root);
+			ScreenManager:OpenScreen(screen);
+		end)
 
 	Utility.DebugLog("User and Event initialization finished. Opening AppHub")
 	ScreenManager:OpenScreen(AppHub);
@@ -172,10 +166,7 @@ local function onReAuthentication(reauthenticationReason)
 	EventHub:removeEventListener(EventHub.Notifications["OpenGameGenre"], "gameGenre")
 	EventHub:removeEventListener(EventHub.Notifications["OpenBadgeScreen"], "gameBadges")
 	EventHub:removeEventListener(EventHub.Notifications["OpenSettingsScreen"], "settingsScreen")
-	if EnableXboxAvatarEditor then
-		EventHub:removeEventListener(EventHub.Notifications["OpenAvatarEditorScreen"], "avatarEditorScreen")
-		EnableXboxAvatarEditor = false
-	end
+	EventHub:removeEventListener(EventHub.Notifications["OpenAvatarEditorScreen"], "avatarEditorScreen")
 
 	Utility.DebugLog("Reauth complete. Return to engagement screen.")
 

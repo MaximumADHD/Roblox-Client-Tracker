@@ -37,13 +37,20 @@ function ConversationView.new(appState, route)
 	self.conversationComponent = ConversationComponent.new(appState, self.conversationId)
 	self.rbx = self.conversationComponent.rbx
 
-	self.conversationComponent.BackButtonPressed:Connect(function()
+	return self
+end
+
+function ConversationView:Start()
+	BaseScreen.Start(self)
+
+	local backButtonConnection = self.conversationComponent.BackButtonPressed:Connect(function()
 		self.appState.store:Dispatch({
 			type = ActionType.PopRoute,
 		})
 	end)
+	table.insert(self.connections, backButtonConnection)
 
-	self.conversationComponent.GroupDetailsButtonPressed:Connect(function()
+	local groupDetailConnection = self.conversationComponent.GroupDetailsButtonPressed:Connect(function()
 		self.appState.store:Dispatch({
 			type = ActionType.SetRoute,
 			intent = Intent.GroupDetail,
@@ -52,12 +59,7 @@ function ConversationView.new(appState, route)
 			},
 		})
 	end)
-
-	return self
-end
-
-function ConversationView:Start()
-	BaseScreen.Start(self)
+	table.insert(self.connections, groupDetailConnection)
 
 	do
 		local connection = self.appState.store.Changed:Connect(function(state, oldState)

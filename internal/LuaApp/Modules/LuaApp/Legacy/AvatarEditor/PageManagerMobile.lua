@@ -434,7 +434,9 @@ if AvatarEditorAnthroSliders then
 else
 			slider = this:makeSlider(Slider, i, (i > 1) and scrollingFrame or nil)
 end
-			slider.Position = LayoutInfo.isLandscape and UDim2.new(0, 29, 0, sliderPositionY) or UDim2.new(.1, 0, 0, sliderPositionY)
+			slider.Position = LayoutInfo.isLandscape
+				and UDim2.new(0, 29, 0, sliderPositionY)
+				or UDim2.new(.1, 0, 0, sliderPositionY)
 			slider.Size = sliderSize
 			slider.Parent = scrollingFrame
 			sliderPositionY = sliderPositionY + LayoutInfo.SliderVeritcalOffset
@@ -465,7 +467,7 @@ end
 				and not renderedNoAssetsMessage then
 
 				renderedNoAssetsMessage = true
-				local noAssetsLabel = Utilities.create'TextLabel'
+				Utilities.create'TextLabel'
 				{
 					Name = 'TextLabel';
 					Position = UDim2.new(.5, 0, .5, -15);
@@ -556,7 +558,7 @@ if AvatarEditorCatalogRecommended then
 				end
 
 				-- Tablet Text is on dark background, Phone text is on white background
-				local recommendedLabel = Utilities.create'TextLabel'
+				Utilities.create'TextLabel'
 				{
 					Position = UDim2.new(0, 7, 0, recommendedYPosition - 2);
 					Size = UDim2.new(1, -14, 0, 25);
@@ -698,7 +700,7 @@ local function selectPage(categoryIndex, tabIndex)
 		end
 
 		if not LayoutInfo.isLandscape then
-			local pageLabel = Utilities.create'TextLabel'
+			Utilities.create'TextLabel'
 			{
 				Name = 'PageTitleLabel';
 				Position = UDim2.new(0, 7, 0, 3);

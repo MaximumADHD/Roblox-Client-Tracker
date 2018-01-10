@@ -40,16 +40,13 @@ local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 
 -------------- FFLAGS --------------
 local EnableAvatarEditorFlipPage = Flags:GetFlag("AvatarEditorPageManagerRefactor")
+local AvatarEditorUseNewScene = Flags:GetFlag("AvatarEditorUseNewScene")
 
 ------------ VARIABLES -------------------
-local characterTemplates = {}
-
-local UseNewAppShellPlace = Utility.IsFeatureNonZero("XboxAvatarEditorRolloutPercent3")
-
-if UseNewAppShellPlace then
-	characterTemplates.CharacterR6 = ReplicatedStorage:WaitForChild('CharacterR6')
-	characterTemplates.CharacterR15 = ReplicatedStorage:WaitForChild('CharacterR15')
-end
+local characterTemplates = {
+	CharacterR6 = ReplicatedStorage:WaitForChild('CharacterR6');
+	CharacterR15 = ReplicatedStorage:WaitForChild('CharacterR15');
+}
 
 
 local cameraTweenerObject = {
@@ -103,7 +100,9 @@ local function createAvatarEditorView()
 		Size = UDim2.new(1, 0, 1, 0);
 		BackgroundTransparency = 1;
 		Visible = true;
-		Image = 'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay.png';
+		Image = AvatarEditorUseNewScene and
+			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay merge.png' or 
+			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay.png';
 		ZIndex = LayoutInfo.BackgroundLayer;
 		Parent = Container;
 	}
@@ -138,18 +137,21 @@ local function createAvatarEditorView()
 		Parent = Container;
 	}
 
-	local BottomOverlay = Utilities.create'ImageLabel'
-	{
-		Name = 'BottomOverlay';
-		AnchorPoint = Vector2.new(0, 1);
-		Position = UDim2.new(0, 0, 1, 0);
-		Size = UDim2.new(1, 0, 0, 190);
-		BackgroundTransparency = 1;
-		Visible = true;
-		Image = 'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-bottom overlay.png';
-		ZIndex = LayoutInfo.ShadingOverlayLayer;
-		Parent = Container;
-	}
+	local BottomOverlay
+	if not AvatarEditorUseNewScene then
+		BottomOverlay = Utilities.create'ImageLabel'
+		{
+			Name = 'BottomOverlay';
+			AnchorPoint = Vector2.new(0, 1);
+			Position = UDim2.new(0, 0, 1, 0);
+			Size = UDim2.new(1, 0, 0, 190);
+			BackgroundTransparency = 1;
+			Visible = true;
+			Image = 'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-bottom overlay.png';
+			ZIndex = LayoutInfo.ShadingOverlayLayer;
+			Parent = Container;
+		}
+	end
 
 	local CameraController = require(Modules.LuaApp.Legacy.AvatarEditor.CameraController)(
 		cameraTweenerObject, LayoutInfo.CameraCenterScreenPosition)
@@ -290,10 +292,14 @@ local function createAvatarEditorView()
 				false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonA, Enum.KeyCode.ButtonL2, Enum.KeyCode.ButtonR2)
 
 			BackgroundOverlay.Visible = false
-			BottomOverlay.Visible = false
+			if not AvatarEditorUseNewScene then
+				BottomOverlay.Visible = false
+			end
 		elseif fullView == false then
 			BackgroundOverlay.Visible = true
-			BottomOverlay.Visible = true
+			if not AvatarEditorUseNewScene then
+				BottomOverlay.Visible = true
+			end
 		end
 	end
 

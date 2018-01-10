@@ -18,7 +18,7 @@ local ListEntry = require(Components.ListEntry)
 local UserThumbnail = require(Components.UserThumbnail)
 
 local ICON_CELL_WIDTH = 60
-local HEIGHT = 54
+local HEIGHT = 56
 
 local function userPresenceToText(localization, presence, lastLocation)
 	if presence == User.PresenceType.OFFLINE then
@@ -74,12 +74,13 @@ function UserEntry.new(appState, user, icon, selected)
 		Name = "Label",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, -ICON_CELL_WIDTH, 0.75, 0),
-		Position = UDim2.new(0, ICON_CELL_WIDTH, 0, 0),
+		Position = UDim2.new(0, ICON_CELL_WIDTH, 0.5, 1 - Constants.Font.FONT_SIZE_18),
 		TextSize = Constants.Font.FONT_SIZE_18,
 		TextColor3 = Constants.Color.GRAY1,
 		Font = Enum.Font.SourceSans,
 		Text = user.name,
 		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
 	}
 	label.Parent = self.rbx
 
@@ -87,12 +88,13 @@ function UserEntry.new(appState, user, icon, selected)
 		Name = "SubLabel",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, -ICON_CELL_WIDTH, 0.35, 0),
-		Position = UDim2.new(0, ICON_CELL_WIDTH, 0.55, 0),
+		Position = UDim2.new(0, ICON_CELL_WIDTH, 0.5, 1),
 		TextSize = Constants.Font.FONT_SIZE_14,
 		TextColor3 = Constants.Color.GRAY2,
 		Font = Enum.Font.SourceSans,
 		Text = userPresenceToText(appState.localization, user.presence, user.lastLocation),
 		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
 	}
 	sublabel.Parent = self.rbx
 

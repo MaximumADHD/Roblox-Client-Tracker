@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local ToggleAvatarType = require(Modules.LuaApp.Actions.ToggleAvatarType)
-    
+
     describe("Action ToggleAvatarType", function()
         it("should return a correct action name", function()
             expect(ToggleAvatarType.name).to.equal("ToggleAvatarType")

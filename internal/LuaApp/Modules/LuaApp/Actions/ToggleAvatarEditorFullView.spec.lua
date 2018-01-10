@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local ToggleAvatarEditorFullView = require(Modules.LuaApp.Actions.ToggleAvatarEditorFullView)
-    
+
     describe("Action ToggleAvatarEditorFullView", function()
         it("should return a correct action name", function()
             expect(ToggleAvatarEditorFullView.name).to.equal("ToggleAvatarEditorFullView")

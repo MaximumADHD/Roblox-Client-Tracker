@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local SetScales = require(Modules.LuaApp.Actions.SetScales)
-    
+
     describe("Action SetScales", function()
         it("should return a correct action name", function()
             expect(SetScales.name).to.equal("SetScales")

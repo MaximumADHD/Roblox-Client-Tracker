@@ -24,10 +24,15 @@ function Signal.new()
 end
 
 function Signal:Connect(callback)
-	self._listeners = Immutable.Append(self._listeners, callback)
+	local listener = {
+		callback = callback,
+		isConnected = true,
+	}
+	self._listeners = Immutable.Append(self._listeners, listener)
 
 	local function disconnect()
-		self._listeners = Immutable.RemoveValueFromList(self._listeners, callback)
+		listener.isConnected = false
+		self._listeners = Immutable.RemoveValueFromList(self._listeners, listener)
 	end
 
 	return {
@@ -37,7 +42,9 @@ end
 
 function Signal:Fire(...)
 	for _, listener in ipairs(self._listeners) do
-		listener(...)
+		if listener.isConnected then
+			listener.callback(...)
+		end
 	end
 end
 

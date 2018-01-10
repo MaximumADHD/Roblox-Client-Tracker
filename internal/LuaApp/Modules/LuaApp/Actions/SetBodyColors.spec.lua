@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local SetBodyColors = require(Modules.LuaApp.Actions.SetBodyColors)
-    
+
     describe("Action SetBodyColors", function()
         it("should return a correct action name", function()
             expect(SetBodyColors.name).to.equal("SetBodyColors")

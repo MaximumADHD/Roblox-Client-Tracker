@@ -1,5 +1,5 @@
 local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
-local SetConsoleMenuLevel = require(Modules.LuaApp.Actions.SetConsoleMenuLevel) 
+local SetConsoleMenuLevel = require(Modules.LuaApp.Actions.SetConsoleMenuLevel)
 
 return function(state, action)
 	state = state or 0

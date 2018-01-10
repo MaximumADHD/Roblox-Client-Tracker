@@ -1,8 +1,8 @@
 local domainUrl = game:GetService('ContentProvider').BaseUrl
 
 local this = {}
-local defaultShirtIds = {}
-local defaultPantIds =  {}
+local defaultShirtIds
+local defaultPantIds
 
 if string.find(domainUrl, "sitetest2") then
 	defaultShirtIds = {92632399}

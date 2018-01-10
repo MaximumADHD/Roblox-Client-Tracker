@@ -290,7 +290,7 @@ local function createPageManager(userId, scrollingFrame, characterManager)
 					#skinColorList/SKIN_COLORS_PER_ROW)*(SKIN_COLOR_BUTTONS_SIZE + SKIN_COLOR_GRID_PADDING)
 				+ SKIN_COLOR_GRID_PADDING
 				+ SKIN_COLOR_EXTRA_VERTICAL_SHIFT)
-			
+
 			colorButtons = {}
 			colorButtonIndex = 0
 			local sameBodyColor = this:getSameBodyColor()

@@ -82,9 +82,6 @@ if LayoutInfo.isLandscape then
 	detailsMenuFrame.BackgroundTransparency = 1
 	detailsMenuFrame.ClipsDescendants = false
 	detailsMenuFrame.Background.Visible = true
-
-	AvatarEditorScene.Model.Unions.BaseCylinder.BillboardGui.TextLabel.Size = UDim2.new(0.3, 0, 1, 0)
-	AvatarEditorScene.Model.Unions.BaseCylinder.BillboardGui.TextLabel.Position = UDim2.new(0.5, 0, 0, 0)
 end
 
 
@@ -447,9 +444,7 @@ end)
 
 
 appGui.ScreenGui.Parent = CoreGui
-appGui.EdgeShadingGui.Parent = CoreGui
 appGui.ScreenGui.Enabled = false
-appGui.EdgeShadingGui.Enabled = false
 
 local AppMain = {}
 
@@ -457,7 +452,6 @@ AppMain.appGui = appGui.ScreenGui
 
 function AppMain:Start()
 	appGui.ScreenGui.Enabled = true
-	appGui.EdgeShadingGui.Enabled = true
 	AvatarEditorScene.Parent = game.Workspace
 	cameraController:Focus()
 	characterManager.show()
@@ -466,7 +460,6 @@ end
 
 function AppMain:Stop()
 	appGui.ScreenGui.Enabled = false
-	appGui.EdgeShadingGui.Enabled = false
 	AvatarEditorScene.Parent = nil
 	cameraController:RemoveFocus()
 	characterManager.hide()

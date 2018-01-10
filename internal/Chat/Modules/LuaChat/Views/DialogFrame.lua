@@ -51,7 +51,7 @@ function DialogFrame.new(appState, route)
 		Visible = false,
 		Name = "BaseFrame",
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundColor3 = Constants.Color.White,
+		BackgroundColor3 = Constants.Color.GRAY6,
 		BorderSizePixel = 0,
 
 		Create.new "Frame" {

@@ -1,7 +1,7 @@
 return function()
     local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
     local SetAssets = require(Modules.LuaApp.Actions.SetAssets)
-    
+
     describe("Action SetAssets", function()
         it("should return a correct action name", function()
             expect(SetAssets.name).to.equal("SetAssets")
@@ -16,7 +16,7 @@ return function()
             expect(action).to.be.a("table")
             expect(action.assets).to.be.a("table")
             expect(next(action.assets)).never.to.be.ok()
-            
+
             action = SetAssets({
                 ["Head"] = {1}
             })
