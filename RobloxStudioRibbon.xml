@@ -33,6 +33,7 @@
         <addaction name="exportPlaceAction"/>
         <addaction name="shortcutHelpAction"/>
         <addaction name="fastLogDumpAction"/>
+        <addaction fflag="StudioManagePluginsInStartPage" name="managePluginsAction"/>
         <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
       </submenu>
       <addseparator />

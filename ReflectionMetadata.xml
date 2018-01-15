@@ -3523,6 +3523,18 @@
             <string name="summary">Use GetService() instead</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetService</string>
+            <string name="Constraint">Instance:isService:0</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FindService</string>
+            <string name="Constraint">Instance:isService:0</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3607,6 +3619,7 @@
           <Properties>
             <string name="Name">IsA</string>
             <string name="summary">Returns a boolean if this Instance is of type 'className' or a is a subclass of type 'className'.  If 'className' is not a valid class type in ROBLOX, this function will always return false.  &lt;a href="http://wiki.roblox.com/index.php/IsA" target="_blank"&gt;More info&lt;/a&gt;</string>
+            <string name="Constraint">Instance:Any:0</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3619,12 +3632,14 @@
           <Properties>
             <string name="Name">FindFirstChildOfClass</string>
             <string name="summary">Returns the first child of this Instance that with a ClassName equal to 'className'.  The function will return nil if no Instance is found.</string>
+            <string name="Constraint">Instance:isScriptCreatable:0</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">FindFirstChildWhichIsA</string>
             <string name="summary">Returns the first child of this Instance that :IsA(className).  The second argument 'recursive' is an optional boolean (defaults to false) that will force the call to traverse down thru all of this Instance's descendants until it finds an object with a name that matches the 'className' argument.  The function will return nil if no Instance is found.</string>
+            <string name="Constraint">Instance:Any:0</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3637,12 +3652,14 @@
           <Properties>
             <string name="Name">FindFirstAncestorOfClass</string>
             <string name="summary">Returns the first ancestor of this Instance with a ClassName equal to 'className'.  The function will return nil if no Instance is found.</string>
+            <string name="Constraint">Instance:isScriptCreatable:0</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">FindFirstAncestorWhichIsA</string>
             <string name="summary">Returns the first ancestor of this Instance that :IsA(className).  The function will return nil if no Instance is found.</string>
+            <string name="Constraint">Instance:Any:0</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

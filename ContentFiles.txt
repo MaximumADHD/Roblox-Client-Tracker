@@ -224,7 +224,7 @@ content/models/content-models.zip
 [3319 bytes]
 
 content/scripts/content-scripts.zip
-[551873 bytes]
+[551769 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
 [11274 bytes]
@@ -272,7 +272,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[28831 bytes]
+[28439 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -995,7 +995,7 @@ content/textures/ConstraintCursor.png
 [165 bytes]
 
 content/textures/content-textures2.zip
-[6456384 bytes]
+[6456853 bytes]
 
 content/textures/content-textures3.zip
 [26888951 bytes]
@@ -2085,6 +2085,12 @@ content/textures/ui/LuaChat/icons/ic-back.png
 
 content/textures/ui/LuaChat/icons/ic-back@2x.png
 [309 bytes]
+
+content/textures/ui/LuaChat/icons/ic-back-android.png
+[191 bytes]
+
+content/textures/ui/LuaChat/icons/ic-back-android@2x.png
+[304 bytes]
 
 content/textures/ui/LuaChat/icons/ic-back-mdpi.png
 [191 bytes]
