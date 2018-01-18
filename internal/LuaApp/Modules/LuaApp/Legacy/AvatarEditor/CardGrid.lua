@@ -2,6 +2,7 @@ local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 
 local AppState = require(Modules.LuaApp.Legacy.AvatarEditor.AppState)
 
+local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local spriteManager = require(Modules.LuaApp.Legacy.AvatarEditor.SpriteSheetManager)
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
@@ -23,6 +24,9 @@ local assetCardVersionKeys = {}
 local lastSuccessfulAssetCardUpdateAtY = 0
 local renderAssetCard = function() end
 local currentAssetRegion = {}
+
+local AvatarEditorFixEquippedFrameZIndex =
+	Flags:GetFlag("AvatarEditorFixEquippedFrameZIndex")
 
 local this = {}
 
@@ -143,6 +147,17 @@ local function makeNewAssetCard(cardName, image)
 	return assetButton
 end
 
+local function makeEquippedFrame(equippedFrameTemplate, card)
+	local equippedFrame = card:FindFirstChild('EquippedFrame')
+	if not equippedFrame then
+		local equippedFrame = equippedFrameTemplate:clone()
+		equippedFrame.Name = 'EquippedFrame'
+		equippedFrame.ZIndex = card.ZIndex + 2
+		equippedFrame.Visible = true
+		equippedFrame.Parent = card
+	end
+end
+
 function this:makeAssetCard(i, cardName, image, clickFunction, longPressFunction, isSelected, positionOverride)
 	local card = popRecycledAssetCard() or makeNewAssetCard(cardName, image)
 
@@ -172,11 +187,15 @@ function this:makeAssetCard(i, cardName, image, clickFunction, longPressFunction
 		table.insert(assetCardConnections[card], card.TouchLongPress:connect(longPressFunction))
 	end
 	if isSelected then
-		local equippedFrame = equippedFrameTemplate:clone()
-		equippedFrame.Name = 'EquippedFrame'
-		equippedFrame.ZIndex = card.ZIndex + 2
-		equippedFrame.Visible = true
-		equippedFrame.Parent = card
+		if AvatarEditorFixEquippedFrameZIndex then
+			makeEquippedFrame(equippedFrameTemplate, card)
+		else
+			local equippedFrame = equippedFrameTemplate:clone()
+			equippedFrame.Name = 'EquippedFrame'
+			equippedFrame.ZIndex = card.ZIndex + 2
+			equippedFrame.Visible = true
+			equippedFrame.Parent = card
+		end
 	end
 
 	if type(image) == 'function' then
@@ -260,13 +279,17 @@ local function equipAsset(assetId)
 	local assetButtonName = 'AssetButton'..tostring(assetId)
 	for _, assetButton in pairs(scrollingFrame:GetChildren()) do
 		if assetButton.Name == assetButtonName then
-			local equippedFrame = assetButton:FindFirstChild('EquippedFrame')
-			if not equippedFrame then
-				local equippedFrame = equippedFrameTemplate:clone()
-				equippedFrame.Name = 'EquippedFrame'
-				equippedFrame.ZIndex = assetButton.ZIndex
-				equippedFrame.Visible = true
-				equippedFrame.Parent = assetButton
+			if AvatarEditorFixEquippedFrameZIndex then
+				makeEquippedFrame(equippedFrameTemplate, assetButton)
+			else
+				local equippedFrame = assetButton:FindFirstChild('EquippedFrame')
+				if not equippedFrame then
+					local equippedFrame = equippedFrameTemplate:clone()
+					equippedFrame.Name = 'EquippedFrame'
+					equippedFrame.ZIndex = assetButton.ZIndex
+					equippedFrame.Visible = true
+					equippedFrame.Parent = assetButton
+				end
 			end
 		end
 	end

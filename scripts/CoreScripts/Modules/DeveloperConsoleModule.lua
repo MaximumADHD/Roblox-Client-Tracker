@@ -3078,15 +3078,9 @@ do
 			permissions.MayViewDataStoreBudget = permissions.IsCreator
 		end)
 		permissions.MayViewHttpResultClient = false
-		pcall(function()
-			permissions.MayViewHttpResultClient = permissions.IsCreator and settings():GetFFlag("EnableClientHttpAnalytics")
-		end)
+		permissions.MayViewHttpResultClient = permissions.IsCreator
 		permissions.MayViewHttpResultServer = false
-		pcall(function()
-			permissions.MayViewHttpResultServer = permissions.IsCreator and
-								settings():GetFFlag("EnableClientHttpAnalytics") and
-								settings():GetFFlag("EnableServerHttpAnalytics")
-		end)
+		permissions.MayViewHttpResultServer = permissions.IsCreator
 
 		permissions.MayViewContextActionBindings = permissions.IsCreator
 		

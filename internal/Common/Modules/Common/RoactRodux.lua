@@ -23,9 +23,7 @@ function StoreProvider:init(props)
 		error("Error initializing StoreProvider. Expected a `store` prop to be a Rodux store.")
 	end
 
-	self._context = {
-		[StoreKey] = store,
-	}
+	self._context[StoreKey] = store
 end
 
 function StoreProvider:render()

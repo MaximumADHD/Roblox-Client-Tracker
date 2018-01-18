@@ -4,6 +4,11 @@ local AppState = require(Modules.LuaApp.Legacy.AvatarEditor.AppState)
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local TableUtilities = require(Modules.LuaApp.TableUtilities)
+local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
+
+local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
+local ShellModules = Modules:FindFirstChild("Shell")
+local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
 
 --Constants
 local BUTTONS_PER_ROW = LayoutInfo.ButtonsPerRow
@@ -120,6 +125,11 @@ local function makeNewAssetCard(cardName, image)
 		SelectionImageObject = itemCardSelector;
 	}
 
+	if XboxSFXPolish then
+		local MoveSelectionSound = SoundManager:CreateSound('MoveSelection')
+		MoveSelectionSound.Parent = assetButton
+	end
+
 	Utilities.create'ImageLabel'
 	{
 		Name = 'AssetButtonBackground';
@@ -186,7 +196,14 @@ function this:makeAssetCard(i, cardName, image, clickFunction, isEquipped, unAva
 	assetCardVersionKeys[card] = myVersionKey
 
 	if clickFunction then
-		table.insert(assetCardConnections[card], card.MouseButton1Click:connect(clickFunction))
+		if XboxSFXPolish then
+			table.insert(assetCardConnections[card], card.MouseButton1Click:connect(function()
+				SoundManager:Play('ButtonPress')
+				clickFunction()
+			end))
+		else
+			table.insert(assetCardConnections[card], card.MouseButton1Click:connect(clickFunction))
+		end
 	end
 
 	if type(image) == 'function' then

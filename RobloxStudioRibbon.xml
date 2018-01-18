@@ -3,6 +3,7 @@
   <QuickAccessBar tooltip ="Customize Quick Access Bar" visible="true">
     <addaction name="fileNewAction" visible="true"/>
     <addaction name="fileOpenAction" visible="false"/>
+    <addaction fflag="OpenRecentOpensNativeStartPage" name="fileOpenRecentAction" visible="false"/>
     <addaction name="fileSaveAction" visible="false"/>
     <addaction name="undoAction" visible="true" />
     <addaction name="redoAction" visible="true" />
@@ -17,7 +18,8 @@
     <SystemPopup>
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
-      <addaction name="filePublishedProjectsAction"/>
+      <addaction fflag="OpenRecentOpensNativeStartPage" name="fileOpenRecentAction"/>
+      <addaction fflag="!RemoveFilePublishedProjectsButton" name="filePublishedProjectsAction"/>
       <addaction name="fileCloseAction" style="textundericon"/>
       <addseparator />
       <addaction name="fileSaveAction"/>

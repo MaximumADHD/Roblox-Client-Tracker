@@ -164,7 +164,7 @@ function Header.new(appState, dialogType)
 	table.insert(self.connections, statusBarConnection)
 
 	do
-		local userId = PlayerService.localPlayer.userId
+		local userId = tostring(PlayerService.LocalPlayer.UserId)
 		local connection = appState.store.Changed:Connect(function(state, oldState)
 			if state.Users == oldState.Users then
 				return
@@ -205,7 +205,7 @@ end
 
 function Header:GetHeaderTitleFramePosition()
 	if self.backButton and self.backButton.rbx and self.backButton.rbx.Visible then
-	 	return Constants.PlatformSpecific.HEADER_TITLE_FRAME_POSITION
+		return Constants.PlatformSpecific.HEADER_TITLE_FRAME_POSITION
 	end
 
 	return Constants.PlatformSpecific.HEADER_TITLE_FRAME_POSITION_NO_BACK_BUTTON

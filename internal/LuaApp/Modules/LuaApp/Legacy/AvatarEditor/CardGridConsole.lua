@@ -12,6 +12,11 @@ local TableUtilities = require(Modules.LuaApp.TableUtilities)
 
 local EquipAsset = require(Modules.LuaApp.Actions.EquipAsset)
 local UnequipAsset = require(Modules.LuaApp.Actions.UnequipAsset)
+local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
+
+local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
+local ShellModules = Modules:FindFirstChild("Shell")
+local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
 
 --Constants
 local BUTTONS_PER_ROW = LayoutInfo.ButtonsPerRow
@@ -125,6 +130,11 @@ local function createCardGrid(scrollingFrame, getAssetList, characterManager)
 			ZIndex = LayoutInfo.BasicLayer;
 			SelectionImageObject = itemCardSelector;
 		}
+
+		if XboxSFXPolish then
+			local MoveSelectionSound = SoundManager:CreateSound('MoveSelection')
+			MoveSelectionSound.Parent = assetButton
+		end
 
 		Utilities.create'ImageLabel'
 		{
@@ -265,6 +275,9 @@ local function createCardGrid(scrollingFrame, getAssetList, characterManager)
 			end
 
 			clickFunction = function()
+				if XboxSFXPolish then
+					SoundManager:Play('ButtonPress')
+				end
 				wearOrTakeOffFunction()
 			end
 		end

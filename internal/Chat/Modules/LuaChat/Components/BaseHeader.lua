@@ -38,9 +38,10 @@ function BaseHeader:SetDefaultSubtitle()
 	end
 
 	local displayText = ""
-	local player = PlayerService.localPlayer
+	local player = PlayerService.LocalPlayer
 	if player then
-		local localUser = self.appState.store:GetState().Users[tostring(player.userId)]
+		local userId = tostring(player.UserId)
+		local localUser = self.appState.store:GetState().Users[userId]
 		if localUser then
 			if player:GetUnder13() then
 				displayText = string.format("%s: <13", localUser.name)
@@ -48,7 +49,7 @@ function BaseHeader:SetDefaultSubtitle()
 				displayText = string.format("%s: 13+", localUser.name)
 			end
 		else
-			self.appState.store:Dispatch(GetUsername(tostring(player.userId)))
+			self.appState.store:Dispatch(GetUsername(userId))
 			return
 		end
 	end

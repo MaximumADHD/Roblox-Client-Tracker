@@ -224,7 +224,7 @@ content/models/content-models.zip
 [3319 bytes]
 
 content/scripts/content-scripts.zip
-[551769 bytes]
+[551729 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
 [11274 bytes]
@@ -320,7 +320,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[103846 bytes]
+[103611 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]

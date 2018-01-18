@@ -1245,8 +1245,8 @@ Class KeyframeSequence : Instance
 	Function Objects KeyframeSequence:GetKeyframes()
 	Function void KeyframeSequence:RemoveKeyframe(Instance keyframe)
 Class KeyframeSequenceProvider : Instance
-	Function Instance KeyframeSequenceProvider:GetKeyframeSequence(Content assetId)
-	Function Instance KeyframeSequenceProvider:GetKeyframeSequenceById(int assetId, bool useCache)
+	Function Instance KeyframeSequenceProvider:GetKeyframeSequence(Content assetId) [deprecated] [PluginSecurity]
+	Function Instance KeyframeSequenceProvider:GetKeyframeSequenceById(int assetId, bool useCache) [deprecated] [PluginSecurity]
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
 	YieldFunction Instance KeyframeSequenceProvider:GetAnimations(int userId)

@@ -32,6 +32,9 @@ local SetBodyColors = require(Modules.LuaApp.Actions.SetBodyColors)
 local ShellModules = Modules:FindFirstChild("Shell")
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 
+local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
+local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
+
 -------------- CONSTANTS --------------
 local BUTTONS_PER_ROW = LayoutInfo.ButtonsPerRow
 local GRID_PADDING = LayoutInfo.GridPadding
@@ -335,6 +338,9 @@ local function createPageManager(userId, scrollingFrame, characterManager)
 				table.insert(colorButtons, colorButton)
 
 				local selectFunction = function()
+					if XboxSFXPolish then
+						SoundManager:Play('ButtonPress')
+					end
 					equippedFrame.Parent = colorButton
 					local bodyColors = {
 						["HeadColor"] = brickColor.Number,

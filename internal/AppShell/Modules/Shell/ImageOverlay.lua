@@ -16,6 +16,7 @@ local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
+local XboxSFXPolish = settings():GetFFlag("XboxSFXPolish")
 
 local createImageOverlay = function(thumbIds, selectedThumbIndex)
 	local this = {}
@@ -186,7 +187,9 @@ local createImageOverlay = function(thumbIds, selectedThumbIndex)
 			shield:Destroy()
 		end)
 		container:Destroy()
-		SoundManager:Play('ScreenChange');
+		if not XboxSFXPolish then
+			SoundManager:Play('ScreenChange')
+		end
 	end
 
 	function this:Focus()

@@ -26,6 +26,9 @@ local SetBodyColors = require(Modules.LuaApp.Actions.SetBodyColors)
 local ShellModules = Modules:FindFirstChild("Shell")
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 
+local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
+local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
+
 local this = {}
 
 local BUTTONS_PER_ROW = LayoutInfo.ButtonsPerRow
@@ -506,6 +509,9 @@ local function loadMoreListContent()
 			end
 
 			local selectFunction = function()
+				if XboxSFXPolish then
+					SoundManager:Play('ButtonPress')
+				end
 				equippedFrame.Parent = colorButton
 				local bodyColors = {
 					["HeadColor"] = brickColor.Number,

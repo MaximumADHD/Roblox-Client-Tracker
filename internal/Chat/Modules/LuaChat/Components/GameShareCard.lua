@@ -27,7 +27,7 @@ local function getOneToOneConversationFriend(appState, conversation)
 	if #conversation.participants == 2 then
 		local friendId = nil
 		for _, userId in ipairs(conversation.participants) do
-			if userId ~= Players.LocalPlayer.UserId then
+			if userId ~= tostring(Players.LocalPlayer.UserId) then
 				friendId = userId
 				break
 			end

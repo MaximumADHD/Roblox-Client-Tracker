@@ -231,6 +231,7 @@ RBX
 			ClientStatsItem
 			MemoryCheckerCheckerJob
 			MemoryCheckerJob
+			MultiScannerJob
 			RequestCharacterItem
 		}
 		ConcurrentRakPeer
@@ -262,6 +263,7 @@ RBX
 			IdResponseItem
 			JoinDataItem
 			MarkerItem
+			ModuleScanReportItem
 			NetPmcResponseItem
 			NewInstanceItem
 			PingBackItem

@@ -38,7 +38,8 @@ function User.fromData(id, name, isFriend)
 
 	self.id = tostring(id)
 	self.name = name
-	self.presence = id == Players.LocalPlayer.UserId and User.PresenceType.ONLINE or User.PresenceType.OFFLINE
+	self.presence = self.id == tostring(Players.LocalPlayer.UserId) and User.PresenceType.ONLINE
+		or User.PresenceType.OFFLINE
 	self.lastLocation = nil
 	self.isFriend = isFriend
 

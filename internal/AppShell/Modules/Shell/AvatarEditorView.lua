@@ -41,6 +41,8 @@ local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 -------------- FFLAGS --------------
 local EnableAvatarEditorFlipPage = Flags:GetFlag("AvatarEditorPageManagerRefactor")
 local AvatarEditorUseNewScene = Flags:GetFlag("AvatarEditorUseNewScene")
+local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
+local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
 
 ------------ VARIABLES -------------------
 local characterTemplates = {
@@ -101,7 +103,7 @@ local function createAvatarEditorView()
 		BackgroundTransparency = 1;
 		Visible = true;
 		Image = AvatarEditorUseNewScene and
-			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay merge.png' or 
+			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay merge.png' or
 			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay.png';
 		ZIndex = LayoutInfo.BackgroundLayer;
 		Parent = Container;
@@ -204,6 +206,9 @@ local function createAvatarEditorView()
 				if inputObject.KeyCode == Enum.KeyCode.ButtonSelect and not AppState.Store:GetState().FullView then
 					if toggleButtonDebounce then
 						toggleButtonDebounce = false
+						if XboxSFXPolish then
+							SoundManager:Play('ButtonPress')
+						end
 						AppState.Store:Dispatch(ToggleAvatarType())
 						toggleButtonDebounce = true
 					end
@@ -212,6 +217,9 @@ local function createAvatarEditorView()
 				if inputObject.KeyCode == Enum.KeyCode.ButtonR3 then
 					if toggleViewDebounce then
 						toggleViewDebounce = false
+						if XboxSFXPolish then
+							SoundManager:Play('ScreenChange')
+						end
 						AppState.Store:Dispatch(ToggleAvatarEditorFullView())
 						toggleViewDebounce = true
 					end
@@ -230,6 +238,9 @@ local function createAvatarEditorView()
 					if inputObject.KeyCode == Enum.KeyCode.ButtonB then
 						if AppState.Store:GetState().ConsoleMenuLevel > LayoutInfo.ConsoleMenuLevel.CategoryMenu then
 							local currentMenuLevel = AppState.Store:GetState().ConsoleMenuLevel
+							if XboxSFXPolish then
+								SoundManager:Play('PopUp')
+							end
 							AppState.Store:Dispatch(SetConsoleMenuLevel(currentMenuLevel - 1))
 						else
 							-- Back to avatar page in AppShell
@@ -264,6 +275,9 @@ local function createAvatarEditorView()
 				if inputState == Enum.UserInputState.End then
 					if AppState.Store:GetState().ConsoleMenuLevel > LayoutInfo.ConsoleMenuLevel.CategoryMenu then
 						local currentMenuLevel = AppState.Store:GetState().ConsoleMenuLevel
+						if XboxSFXPolish then
+							SoundManager:Play('PopUp')
+						end
 						AppState.Store:Dispatch(SetConsoleMenuLevel(currentMenuLevel - 1))
 					else
 						-- Back to avatar page in AppShell
@@ -284,6 +298,9 @@ local function createAvatarEditorView()
 				function(actionName, inputState, inputObject)
 					if inputState == Enum.UserInputState.End then
 						if inputObject.KeyCode == Enum.KeyCode.ButtonB then
+							if XboxSFXPolish then
+								SoundManager:Play('ScreenChange')
+							end
 							AppState.Store:Dispatch(ToggleAvatarEditorFullView())
 						end
 						return Enum.ContextActionResult.Sink
