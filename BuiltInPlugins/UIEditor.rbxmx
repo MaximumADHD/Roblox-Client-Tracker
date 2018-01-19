@@ -1,0 +1,3330 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Model" referent="RBX4DD8336B5A9C48B69284A648C1AA4F71">
+		<Properties>
+			<CoordinateFrame name="ModelInPrimary">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<string name="Name">UIEditor</string>
+			<Ref name="PrimaryPart">null</Ref>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="Script" referent="RBXCCD8278A7274447CA99E63E7B8719CE7">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">main</string>
+				<string name="ScriptGuid">{34A19B7D-1583-4262-A391-F01E3CD7D973}</string>
+				<ProtectedString name="Source"><![CDATA[local plugin, settings = plugin, settings
+
+local versionString = "v1.0"
+
+-----------------------------------
+-----------MODULE SCRIPTS----------
+-----------------------------------
+
+local CoreGuiManager		= require(script.Parent.CoreGuiManager)
+local DoubleClickDetector	= require(script.Parent.DoubleClickDetector)
+local Rubberband			= require(script.Parent.Rubberband)
+local TextEditor			= require(script.Parent.TextEditor)
+local Utility				= require(script.Parent.Utility)
+local GlobalValues 			= require(script.Parent.GlobalValues)
+local InstanceInfo			= require(script.Parent.InstanceInfo)
+
+local Select				= require(script.Parent.Select)
+local Resize				= require(script.Parent.Resize)
+local Move					= require(script.Parent.Move)
+
+local SelectionManager		= require(script.Parent.SelectionManager)
+
+local SnappingPointManager	= require(script.Parent.SnappingPointManager)
+
+local Analytics				= require(script.Parent.Analytics)
+
+-----------------------------------
+--------------Services-------------
+-----------------------------------
+
+local ChangeHistoryService	= game:GetService("ChangeHistoryService")
+local UserInputService		= game:GetService("UserInputService")
+local SelectionService		= game:GetService("Selection")
+
+-----------------------------------
+--------------VARIABLES------------
+-----------------------------------
+
+local inputBeganEvent = nil
+local inputChangedEvent = nil
+local inputEndedEvent = nil
+local selectionChangedEvent = nil
+local deactivationEvent = nil
+
+local undoEvent = nil
+local redoEvent = nil
+
+local selectedInstancesPropertyChangedEvent = nil
+local m_totalInputs = 0
+
+local m_mouseDown = false
+
+local m_previousSelection = {}
+
+--constants
+local BUFFER_SIZE_MINIMUM = 5
+
+-----------------------------------
+-------------FUNCTIONS-------------
+-----------------------------------
+
+-----------------------------------
+---------------EVENTS--------------
+-----------------------------------
+
+local function onDoubleClick(inputObject)
+	local location = Vector2.new(inputObject.Position.x, inputObject.Position.y)
+	local objectsAtPoint = Select:getGuiObjectsAtPoint(location)
+	
+	if (#objectsAtPoint > 0) and 
+		(objectsAtPoint[1]:IsA("TextLabel") or
+		objectsAtPoint[1]:IsA("TextButton") or
+		objectsAtPoint[1]:IsA("TextBox")) then
+	
+		TextEditor:startEditingInstance(objectsAtPoint[1])
+		Resize:hide()
+		
+		return true
+	end
+	
+	return false
+end
+
+local function onInstanceChanged(instance, property)
+	Resize:update()
+end
+
+local function onInputBegan(inputObject)
+
+	if (TextEditor:isCurrentlyEditing()) then
+		return
+	end
+	
+	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
+				
+		if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or 
+			UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+				m_previousSelection = SelectionManager:getRawSelection()
+		end
+		
+		
+		selectedInstancesPropertyChangedEvent = SelectionManager:disconnectSelectionInstancesChanged(selectedInstancesPropertyChangedEvent)
+		
+		m_mouseDown = true
+		local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
+		
+		--Check if over resize handle
+		if (Resize:isOverHandle(location)) then
+			Resize:startDrag(location)
+			return
+		end
+		
+		local item = Select:selectTopLevelItemAtPoint(location)
+		
+		Move:startDrag(location)
+		
+		--Double click to activate text editor
+		if (DoubleClickDetector:isDoubleClick() and not (UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt))) then
+			if (onDoubleClick(inputObject)) then
+				return
+			end
+			--return
+		end
+		
+		if (not item) then
+			Rubberband:startRubberbandDrag(location)
+		else
+			InstanceInfo:isVisible(item, true)
+		end
+--		
+	elseif (inputObject.UserInputType == Enum.UserInputType.Keyboard) then
+		
+		--[[
+		if (inputObject.KeyCode == Enum.KeyCode.Left) then
+			Move:bump(Move.LEFT)
+		elseif (inputObject.KeyCode == Enum.KeyCode.Right) then
+			Move:bump(Move.RIGHT)
+		elseif (inputObject.KeyCode == Enum.KeyCode.Up) then
+			Move:bump(Move.UP)
+		elseif (inputObject.KeyCode == Enum.KeyCode.Down) then
+			Move:bump(Move.DOWN)
+		else--]]
+		if (inputObject.KeyCode == Enum.KeyCode.U and 
+			(UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or
+			UserInputService:IsKeyDown(Enum.KeyCode.RightShift))) then
+			
+			GlobalValues:toggleGridType()
+		elseif (inputObject.KeyCode == Enum.KeyCode.A and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl)) then
+			--We will eventually want an action overriding system
+			--Select all action has already been fired
+			SelectionManager:setSelection(Select:getGuiObjects())
+		end
+	end
+end
+
+local function onInputEnded(inputObject)
+	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
+		m_mouseDown = false
+		
+		local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
+		
+		if (Resize:isDragInProgress()) then
+			Resize:finishDrag()
+		end
+		
+		if (Rubberband:isDragInProgress()) then
+			if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or 
+				UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+				Select:toggleSelectionOfAllObjectsInBounds(m_previousSelection, Rubberband:getBounds())
+			else
+				Select:selectAllObjectsInBounds(Rubberband:getBounds())
+			end
+						
+			if (#SelectionManager:getRawSelection() > 0) then
+				Analytics:reportEvent("DragSelect")
+			end
+			
+			Rubberband:finishRubberbandDrag()
+			m_previousSelection = {}
+		end
+		
+		if Move:isDragInProgress() then
+			Move:finishDrag(location)
+		end
+			
+		if (not TextEditor:isCurrentlyEditing()) then
+			Resize:show()
+			Resize:updatePosition()
+		end
+		
+		
+		if not selectedInstancesPropertyChangedEvent then
+			selectedInstancesPropertyChangedEvent = SelectionManager:connectSelectionInstancesChanged(onInstanceChanged)
+		end
+	end
+	
+	
+end
+
+local function onInputChanged(inputObject)
+	
+	if (TextEditor:isCurrentlyEditing()) then return end
+	
+	if (inputObject.UserInputType == Enum.UserInputType.MouseMovement) then
+
+		local location = Vector2.new(inputObject.Position.x, inputObject.Position.y)
+		
+		local actionPerformed = false
+		
+		if (Resize:isDragInProgress()) then
+			Resize:updateDrag(location)
+			return
+		end
+		
+		if (Rubberband:isDragInProgress()) then
+			Rubberband:updateRubberband(location)
+			
+			if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or 
+				UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+				Select:toggleSelectionOfAllObjectsInBounds(m_previousSelection, Rubberband:getBounds())
+			else
+				Select:selectAllObjectsInBounds(Rubberband:getBounds())
+			end
+				
+			Resize:hide()
+			return
+		end
+		
+		if (Move:isDragInProgress()) then
+			Move:updateDrag(location)
+			return
+		end
+		
+		
+		Resize:highlightHandles(location)
+	end
+end
+
+local function onSelectionChanged()
+	SelectionManager:onSelectionChanged()
+	Resize:onSelectionChanged()
+	Resize:updatePosition()
+	
+	SnappingPointManager:generateSnappingLines()
+end
+
+local function onUndo(waypoint)
+	Resize:updatePosition()
+end
+
+local function onRedo(waypoint)
+	Resize:updatePosition()
+end
+
+-----------------------------------
+---------PLUGIN BOILERPLATE--------
+-----------------------------------
+
+local loaded = false
+local on = false
+
+local toolbar = plugin:CreateToolbar("RobloxUIEditor")
+local toolbarButton = toolbar:CreateButton("RobloxUIEditor", "RobloxUIEditor", "")
+
+function Off()
+	if not on then return end
+	on = false
+	
+	Analytics:reportEvent("Disabled")
+	
+	inputBeganEvent:disconnect()
+	inputChangedEvent:disconnect()
+	inputEndedEvent:disconnect()
+	selectionChangedEvent:disconnect()
+	deactivationEvent:disconnect()
+	
+	selectedInstancesPropertyChangedEvent = SelectionManager:disconnectSelectionInstancesChanged(selectedInstancesPropertyChangedEvent)
+	
+	Resize:clearAdornments()
+	
+	toolbarButton:SetActive(false)
+end
+
+function On()
+	if on then return end
+	
+	Analytics:reportEvent("Enabled")
+	
+	plugin:Activate(true)
+	toolbarButton:SetActive(true)
+	
+	inputBeganEvent = UserInputService.InputBegan:connect(onInputBegan)	
+	inputChangedEvent = UserInputService.InputChanged:connect(onInputChanged)
+	inputEndedEvent = UserInputService.InputEnded:connect(onInputEnded)
+	selectionChangedEvent = SelectionService.SelectionChanged:connect(onSelectionChanged)
+	
+	deactivationEvent = plugin.Deactivation:connect(Off)
+	
+	selectedInstancesPropertyChangedEvent = SelectionManager:connectSelectionInstancesChanged(onInstanceChanged)
+	undoEvent = ChangeHistoryService.OnUndo:connect(onUndo)
+	redoEvent = ChangeHistoryService.OnRedo:connect(onRedo)
+	
+	SnappingPointManager:setThreshold(5)
+	
+	Resize:showResizeAdorns()
+	
+	on = true
+end
+
+toolbarButton.Click:connect(function()
+	if on then
+		Off()
+	else
+		On()
+	end
+end)
+
+loaded = true]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX5A324FB48A064286B9D2C2B9F5FD847C">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Rubberband</string>
+				<string name="ScriptGuid">{E5C0F730-A606-4984-B9E0-5BD9342AC9BA}</string>
+				<ProtectedString name="Source"><![CDATA[local CoreGuiManager = require(script.Parent.CoreGuiManager)
+
+
+local m_rubberbandDragInProgress = false
+local m_selectionBoxStart = nil
+local m_selectionBoxEnd = nil
+
+local m_selectionScreenGui = nil
+local m_rubberbandFrames = {}
+
+--constant
+local RUBBERBAND_BORDER_SIZE = 1
+local RUBBERBAND_COLOR = Color3.new(0.7019, 0.7019, 0.7019)
+
+local function createFrame(parent, border, color)
+	local frame = Instance.new("Frame", parent)
+	frame.BorderSizePixel = border
+	frame.BackgroundColor3 = color
+	return frame
+end
+
+local function createRubberband()
+	m_selectionScreenGui = Instance.new("ScreenGui", CoreGuiManager:findOrCreateFolder("Rubberband"))
+	
+	for i = 1, 4 do
+		m_rubberbandFrames[i] = createFrame(m_selectionScreenGui, 0, RUBBERBAND_COLOR)
+	end
+end
+
+local Rubberband = {}
+
+function Rubberband:startRubberbandDrag(location)
+	m_rubberbandDragInProgress = true
+	m_selectionBoxStart = location
+	m_selectionBoxEnd = location
+	
+	if (not m_selectionScreenGui) then
+		createRubberband()
+	end
+end
+
+function Rubberband:updateRubberband(location)
+	if (not m_rubberbandDragInProgress) then return end
+	
+	m_selectionBoxEnd = location	
+	local size = m_selectionBoxEnd - m_selectionBoxStart
+	
+	m_rubberbandFrames[1].Size = UDim2.new(0, RUBBERBAND_BORDER_SIZE, 0, size.Y + RUBBERBAND_BORDER_SIZE)
+	m_rubberbandFrames[2].Size = UDim2.new(0, RUBBERBAND_BORDER_SIZE, 0, size.Y + RUBBERBAND_BORDER_SIZE)
+	m_rubberbandFrames[3].Size = UDim2.new(0, size.X + RUBBERBAND_BORDER_SIZE, 0, RUBBERBAND_BORDER_SIZE)
+	m_rubberbandFrames[4].Size = UDim2.new(0, size.X + RUBBERBAND_BORDER_SIZE, 0, RUBBERBAND_BORDER_SIZE)
+	
+	m_rubberbandFrames[1].Position = UDim2.new(0, m_selectionBoxStart.X, 0, m_selectionBoxStart.Y)
+	m_rubberbandFrames[2].Position = UDim2.new(0, m_selectionBoxStart.X + size.X, 0, m_selectionBoxStart.Y)
+	m_rubberbandFrames[3].Position = UDim2.new(0, m_selectionBoxStart.X, 0, m_selectionBoxStart.Y)
+	m_rubberbandFrames[4].Position = UDim2.new(0, m_selectionBoxStart.X, 0, m_selectionBoxStart.Y + size.Y)
+end
+
+function Rubberband:finishRubberbandDrag()
+	if (not m_rubberbandDragInProgress) then return end
+	
+	m_rubberbandDragInProgress = false
+	m_selectionBoxStart = nil
+	
+	if (m_selectionScreenGui) then
+		m_selectionScreenGui:Destroy()
+		m_selectionScreenGui = nil
+		m_rubberbandFrames = {}
+	end
+end
+
+function Rubberband:isDragInProgress()
+	return m_rubberbandDragInProgress-- and m_selectionBoxStart ~= m_selectionBoxEnd
+end
+
+function Rubberband:getBounds()
+	return m_selectionBoxStart, m_selectionBoxEnd
+end
+
+return Rubberband
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXAF7C1396C1934F7B938BF96186F5E528">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">CoreGuiManager</string>
+				<string name="ScriptGuid">{AE0B6978-A31E-4841-8C29-B9D825E9FF12}</string>
+				<ProtectedString name="Source"><![CDATA[-----------------------------------
+-----------CoreGuiManager----------
+-----------------------------------
+--[[
+	This is a simple module script which creates or returns existing folders
+	underneath the main plugin folder under the coreGuiService
+--]]
+
+local m_mainFolder = nil
+
+local CoreGui = game:GetService("CoreGui")
+
+local function createFolder(name, parent)
+	local folder = Instance.new("Folder")
+	folder.Name = name
+	folder.Parent = parent
+	return folder
+end
+
+local function createScreenGui(name, parent)
+	local sg = Instance.new("ScreenGui")
+	sg.Name = name
+	sg.Parent = parent
+	return sg
+end
+
+local function getMainFolder()
+	if (not m_mainFolder) then
+		m_mainFolder = createFolder("RobloxGUIEditor", CoreGui)
+	end
+	return m_mainFolder
+end
+
+local CoreGuiManager = {}
+
+function CoreGuiManager:findOrCreateFolder(name)
+	local folder = getMainFolder():FindFirstChild(name)
+	if (not folder) then
+		folder = createFolder(name, getMainFolder())
+	end
+	return folder
+end
+
+function CoreGuiManager:findOrCreateScreenGui(name)
+	local sg = getMainFolder():FindFirstChild(name)
+	if (not sg) then
+		sg = createScreenGui(name, getMainFolder())
+	end
+	return sg
+end
+
+return CoreGuiManager
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXD592D5F9D1CF4C09BE189D45D25D701C">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Utility</string>
+				<string name="ScriptGuid">{B09747B4-F704-498A-B54F-A300C0E8CD2A}</string>
+				<ProtectedString name="Source"><![CDATA[local Error = require(script.Parent.Error)
+
+local Utility = {}
+
+-- bool Utility:tablesAreEquivalent(table t1, table t2)
+function Utility:tablesAreEquivalent(t1, t2)
+	if #t1 ~= #t2 then return false end
+	
+	for i = 1, #t1 do
+		if t1[i] ~= t2[i] then return false end
+	end
+	return true	
+end
+
+-- int Utility:findItemInTable(? item, table t)
+function Utility:findItemInTable(item, t)
+	if not item then return 0 end
+	for i = 1, #t do
+		if (t[i] == item) then
+			return i
+		end
+	end
+	return 0
+end
+
+-- void Utility:removeItemFromTable(? item, table t)
+function Utility:removeItemFromTable(item, t)
+	local index = Utility:findItemInTable(item, t)
+	if (index > 0) then
+		table.remove(t, index)
+		return true
+	end
+	return false
+end
+
+-- int Utility:mathattanDistance(Vector2 v)
+function Utility:manhattanDistance(v)
+	return math.abs(v.X) + math.abs(v.Y)
+end
+
+-- Vector2 Utility:minVector2(Vector2 v1, Vector2 v2)
+function Utility:minVector2(v1, v2)
+	return Vector2.new(math.min(v1.X, v2.X), math.min(v1.Y, v2.Y))
+end
+
+-- Vector2 Utility:maxVector2(Vector2 v1, Vector2 v2)
+function Utility:maxVector2(v1, v2)
+	return Vector2.new(math.max(v1.X, v2.X), math.max(v1.Y, v2.Y))
+end
+
+-- UDim2 Utility:vector2ToUDim2Offset(Vector2 v)
+function Utility:vector2ToUDim2Offset(v1)
+	return UDim2.new(0, v1.X, 0, v1.Y)
+end
+
+-- num or nil Utility:minOrNil(num v1, num v2)
+function Utility:minOrNil(v1, v2)
+	if not v1 then return v2 end
+	if not v2 then return v1 end
+	
+	return math.min(v1, v2)
+end
+
+-- num or nil Utility:maxOrNil(num v1, num v2)
+function Utility:maxOrNil(v1, v2)
+	if not v1 then return v2 end
+	if not v2 then return v1 end
+	
+	return math.max(v1, v2)
+end
+
+-- bool Utility:isOnlyScaleUDim2(UDim2 value)
+function Utility:isOnlyScaleUDim2(value)
+	return (value.X.Offset == 0 and value.Y.Offset == 0) and
+			(value.X.Scale ~=0 or value.Y.Scale ~= 0)
+end
+
+-- bool Utility:isOnlyOffsetUDim2(UDim2 value)
+function Utility:isOnlyOffsetUDim2(value)
+	return (value.X.Scale == 0 and value.Y.Scale == 0) and
+			(value.X.Offset ~=0 or value.Y.Offset ~= 0)
+end
+
+-- num or Vector2 Utility:distance((num or Vector2) v1, (num or Vector2) v2)
+function Utility:distance(v1, v2)
+	local v1IsNumber = type(v1) == "number"
+	local v2IsNumber = type(v2) == "number"
+	if (v1IsNumber and v2IsNumber) then
+		return math.abs(v2 - v1)
+	elseif (v1IsNumber or v2IsNumber) then
+		Error("passed in one number and one non number")
+	else
+		return (v2 - v1).magnitude
+	end
+end
+
+-- table(mt ?) Utility:cloneTable(table(mt ?) t)
+function Utility:cloneTable(t)
+	local newTable = {}
+
+	local mt = getmetatable(t)
+	local newMt = nil
+	
+	for k, v in pairs(t) do
+		if (type(v) == "table") then
+			if v == mt then
+				v = Utility:cloneTable(v)
+				newMt = v
+			else
+				v = Utility:cloneTable(v)
+			end
+		end
+		newTable[k] = v
+	end
+	
+	if mt ~= nil and newMt == nil then
+		newMt = Utility:cloneTable(mt)
+	end	
+	
+	if newMt then
+		setmetatable(newTable, newMt)
+	end
+	
+	return newTable
+end
+
+--table Utility:joinTables(table t1, table t2)
+function Utility:joinTables(t1, t2)
+	local newTable = Utility:cloneTable(t1)
+	
+	for i = 1, #t2 do
+		table.insert(newTable, t2[i])
+	end
+	
+	return newTable
+end
+
+return Utility
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXDADB29B963134FF6B8CB90B5E9BA2105">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">DoubleClickDetector</string>
+				<string name="ScriptGuid">{D437651A-E23A-4FEC-9917-3B60B6DF46C6}</string>
+				<ProtectedString name="Source"><![CDATA[
+local m_lastClickTime = nil
+local DOUBLE_CLICK_TIME_BUFFER = 0.3
+
+local DoubleClickDetector = {}
+
+function DoubleClickDetector:isDoubleClick()
+	local currentTime = tick()
+	if (m_lastClickTime and m_lastClickTime + DOUBLE_CLICK_TIME_BUFFER >= currentTime) then
+		m_lastClickTime = nil
+		return true
+	end
+	
+	m_lastClickTime = currentTime
+	return false
+end
+
+return DoubleClickDetector
+
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXF174ED05A6BC49ABAB80AC960960CC83">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">TextEditor</string>
+				<string name="ScriptGuid">{FAD895E4-EDA8-4C2A-A990-546FF1D94457}</string>
+				<ProtectedString name="Source"><![CDATA[local CoreGuiManager = require(script.Parent.CoreGuiManager)
+
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
+
+local m_currentInstance = nil
+
+local m_screenGui = nil
+local m_textBox = nil
+
+local m_originalText = ""
+
+local m_focusLostConnection = nil
+
+local TextEditor = {}
+
+
+
+
+
+
+function TextEditor:updateInstance(inputObject)
+	if not m_currentInstance then return false end
+	
+	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1 and
+		inputObject.UserInputState == Enum.UserInputState.Begin) then
+	
+		--check if outside
+		local location = Vector2.new(inputObject.Position.x, inputObject.Position.y)
+	end
+end
+
+function TextEditor:finishEditingInstance()
+	m_currentInstance = nil
+	
+	if m_screenGui then
+		
+		m_screenGui:Destroy()
+		m_screenGui = nil
+		
+		m_textBox:Destroy()
+		m_textBox = nil
+		
+		m_focusLostConnection:disconnect()
+		m_focusLostConnection = nil
+	end
+	
+	ChangeHistoryService:SetWaypoint("Text Changed")
+end
+
+function TextEditor:isCurrentlyEditing()
+	return m_currentInstance ~= nil
+end
+
+function TextEditor:getCurrentInstance()
+	return m_currentInstance
+end
+
+local function onFocusLost(enterPressed, inputObject)
+	
+	if (m_currentInstance) then
+		m_currentInstance.Text = m_textBox.Text
+	end
+	
+	TextEditor:finishEditingInstance()	
+end
+
+function TextEditor:startEditingInstance(instance)
+	m_currentInstance = instance
+	
+	local pos = instance.AbsolutePosition
+	local size = instance.AbsoluteSize
+	
+	m_originalText = instance.Text
+	instance.Text = ""
+	
+	if not m_screenGui then
+		m_screenGui = Instance.new("ScreenGui", CoreGuiManager:findOrCreateFolder("TextEditor"))
+		m_textBox = Instance.new("TextBox")
+		
+		m_textBox.Position = UDim2.new(0, pos.X, 0, pos.Y)
+		m_textBox.Size = UDim2.new(0, size.X, 0, size.Y)
+		
+		m_textBox.BackgroundTransparency = 1
+		m_textBox.BorderSizePixel = 0
+		
+		m_textBox.Font = m_currentInstance.Font
+		m_textBox.TextColor3 = m_currentInstance.TextColor3
+		m_textBox.Text = m_originalText
+		m_textBox.TextSize = m_currentInstance.TextSize
+		
+		m_textBox.TextScaled = m_currentInstance.TextScaled
+		
+		m_textBox.TextWrapped = m_currentInstance.TextWrapped
+		m_textBox.TextXAlignment = m_currentInstance.TextXAlignment
+		m_textBox.TextYAlignment = m_currentInstance.TextYAlignment
+		
+		m_textBox.Parent = m_screenGui
+		
+		m_focusLostConnection = m_textBox.FocusLost:connect(onFocusLost)
+		
+		m_textBox.ClearTextOnFocus = false
+		m_textBox:CaptureFocus()
+		
+		
+		
+	end
+end
+
+return TextEditor
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXA3D1A052130C4471B18E0B6B1A9E7828">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Resize</string>
+				<string name="ScriptGuid">{E2185AB6-C336-4E0C-8F88-7F1625A0EE8A}</string>
+				<ProtectedString name="Source"><![CDATA[
+--[[
+	TODO
+	
+	Feature
+	Minimum part size respects all potentially changeable parts
+	ChangeHistoryService
+	Shift - Uniform Resize
+	Hide when object not axis aligned
+	
+--]]
+
+-----------------------------------
+--------------MODULES--------------
+-----------------------------------
+local AdornmentModule		= require(script.Parent.AdornmentModule)
+local Analytics				= require(script.Parent.Analytics)
+local CoreGuiManager		= require(script.Parent.CoreGuiManager)
+local Convert				= require(script.Parent.Convert)
+local Extents2D				= require(script.Parent.Extents2D)
+local FFlag					= require(script.Parent.FFlag)
+local GlobalValues			= require(script.Parent.GlobalValues)
+local SelectionManager		= require(script.Parent.SelectionManager)
+local SnappingPointManager	= require(script.Parent.SnappingPointManager)
+local Utility				= require(script.Parent.Utility)
+
+local SnappingType			= require(script.Parent.Enum.SnappingType)
+
+-----------------------------------
+-------------SERVICES--------------
+-----------------------------------
+
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
+local UserInputService = game:GetService("UserInputService")
+
+-----------------------------------
+-------------VARIABLES-------------
+-----------------------------------
+local m_selectionManagerEvent = nil
+
+local HANDLE_SIZE = 9
+
+local m_screenGui = nil
+
+local m_draggingHandle = nil
+
+local m_handles = {}
+local m_boundingBox = {}
+
+local m_originalAspectRatio = nil
+local m_farHandlePosition = nil
+
+local m_originalMousePosition = nil
+local m_originalExtents = nil
+local m_originalSelectionData = {}
+
+local m_currentlyDragging = false
+
+local m_isHidden = false
+
+
+-----------------------------------
+-------------CONSTANTS-------------
+-----------------------------------
+
+local MINIMUM_SIZE = 1
+local HANDLE_POSITION_OFFSET = 3
+
+local HOVER_COLOR = Color3.new(1,1,1)
+local BASE_COLOR = Color3.new(0.8, 0.8, 0.8)
+local BOUNDING_BOX_COLOR = Color3.new(0, 0, 0)
+
+local HANDLE_OFFSET = Vector2.new(1, 1)
+
+local BOUNDING_BOX_WIDTH = 3
+
+local HANDLE_NW = 1
+local HANDLE_N = 2
+local HANDLE_NE = 3
+local HANDLE_W = 4
+local HANDLE_E = 5
+local HANDLE_SW = 6
+local HANDLE_S = 7
+local HANDLE_SE = 8
+
+
+local DATA_INSTANCE = 1
+local DATA_ABSPOSITION = 2
+local DATA_POSITION = 3
+local DATA_ABSSIZE = 4
+local DATA_SIZE = 5
+
+
+-----------------------------------
+-------------FUNCTIONS-------------
+-----------------------------------
+
+local function createResizeHandle()
+	local handle = Instance.new("Frame")
+	handle.Size = UDim2.new(0, HANDLE_SIZE, 0, HANDLE_SIZE)
+	handle.AnchorPoint = Vector2.new(0.5, 0.5)
+	handle.BackgroundColor3 = BASE_COLOR
+	handle.ZIndex = 2
+	return handle
+end
+
+local function createBoundingFrame()
+	local frame = Instance.new("Frame")
+	frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	frame.BackgroundColor3 = BOUNDING_BOX_COLOR
+	frame.BorderSizePixel = 0
+	return frame
+end
+
+local function handlesExist()
+	return #m_handles > 0
+end
+
+local function hide()
+	if m_isHidden then return end
+	m_isHidden = true
+	if m_screenGui then
+		m_screenGui.Enabled = false
+	end
+end
+
+--Vector2 getPositionFromHandle(table(mt Extents2D), num handle)
+local function getPositionFromHandle(extents, handle)
+	if (handle == HANDLE_NW) then
+		return extents.TopLeft
+	elseif (handle == HANDLE_N) then
+		return Vector2.new(extents.Center.X, extents.Top)
+	elseif (handle == HANDLE_NE) then
+		return extents.TopRight
+	elseif (handle == HANDLE_W) then
+		return Vector2.new(extents.Left, extents.Center.Y)
+	elseif (handle == HANDLE_E) then
+		return Vector2.new(extents.Right, extents.Center.Y)
+	elseif (handle == HANDLE_SW) then
+		return extents.BottomLeft
+	elseif (handle == HANDLE_S) then
+		return Vector2.new(extents.Center.X, extents.Bottom)
+	elseif (handle == HANDLE_SE) then
+		return extents.BottomRight
+	end
+	return extents.Center
+end
+
+-- num getSnappingTypeFromHandle(num handle)
+local function getSnappingTypeFromHandle(handle)
+	
+	if (handle == HANDLE_NW) then
+		return SnappingType.ResizeXnYn
+	elseif (handle == HANDLE_N) then
+		return SnappingType.ResizeYn
+	elseif (handle == HANDLE_NE) then
+		return SnappingType.ResizeXpYn
+	elseif (handle == HANDLE_W) then
+		return SnappingType.ResizeXn
+	elseif (handle == HANDLE_E) then
+		return SnappingType.ResizeXp
+	elseif (handle == HANDLE_SW) then
+		return SnappingType.ResizeXnYp
+	elseif (handle == HANDLE_S) then
+		return SnappingType.ResizeYp
+	elseif (handle == HANDLE_SE) then
+		return SnappingType.ResizeXpYp
+	end
+	
+	--assert
+	return nil
+end
+
+-- void updateHandlePositionFromExtents(table(mt Extents2D) extents)
+local function updateHandlePositionFromExtents(extents)
+		
+	local widenedExtents = Utility:cloneTable(extents)
+
+	widenedExtents:translate(-Vector2.new(HANDLE_POSITION_OFFSET, HANDLE_POSITION_OFFSET))
+	widenedExtents:resize((widenedExtents.Size + Vector2.new(HANDLE_POSITION_OFFSET, HANDLE_POSITION_OFFSET) * 2) - HANDLE_OFFSET)
+	
+	local size = widenedExtents.Size
+	local center = widenedExtents.Center
+	
+	for i = 1, 8 do
+		m_handles[i].Position = Utility:vector2ToUDim2Offset(getPositionFromHandle(widenedExtents, i))
+	end
+	
+	m_boundingBox[1].Position = UDim2.new(0, center.X, 0, widenedExtents.Top)
+	m_boundingBox[1].Size = UDim2.new(0, size.X, 0, BOUNDING_BOX_WIDTH)
+	
+	m_boundingBox[2].Position = UDim2.new(0, center.X, 0, widenedExtents.Bottom)
+	m_boundingBox[2].Size = UDim2.new(0, size.X, 0, BOUNDING_BOX_WIDTH)
+	
+	m_boundingBox[3].Position = UDim2.new(0, widenedExtents.Left, 0, center.Y)
+	m_boundingBox[3].Size = UDim2.new(0, BOUNDING_BOX_WIDTH, 0, size.Y)
+	
+	m_boundingBox[4].Position = UDim2.new(0, widenedExtents.Right, 0, center.Y)
+	m_boundingBox[4].Size = UDim2.new(0, BOUNDING_BOX_WIDTH, 0, size.Y)
+end
+
+local function updatePosition(selection)
+	if (not handlesExist() or m_isHidden) then return end
+	
+	local selection = SelectionManager:getFilteredSelection()
+	
+	if (#selection == 0) then
+		hide()
+		return
+	end
+	
+	updateHandlePositionFromExtents(Extents2D:getExtentsFromGuis(selection))
+	
+end
+
+local function createResizeAdorns()
+	if (handlesExist()) then return end
+	
+	local container = CoreGuiManager:findOrCreateFolder("m_handles")
+	
+	if not m_screenGui then
+		m_screenGui = Instance.new("ScreenGui", container)
+	end
+	
+	for i = 1, 8 do
+		table.insert(m_handles, createResizeHandle())
+		m_handles[i].Parent = m_screenGui
+	end
+	
+	for i = 1, 4 do
+		table.insert(m_boundingBox, createBoundingFrame())
+		m_boundingBox[i].Parent = m_screenGui
+	end
+	
+end
+
+local function deleteResizeAdorns()
+	for i = 1, #m_handles do
+		m_handles[i]:Destroy()
+	end
+	
+	for i = 1, #m_boundingBox do
+		m_boundingBox[i]:Destroy()
+	end
+	m_handles = {}
+	m_boundingBox = {}
+end
+
+
+local function isPointInBox(location, upperLeft, size)
+	return location.x >= upperLeft.x and
+			location.y >= upperLeft.y and
+			location.x <= upperLeft.x + size.x and
+			location.y <= upperLeft.y + size.y
+end
+
+local function getHandleOver(location)
+	for i = 1, #m_handles do
+		if (isPointInBox(location, m_handles[i].AbsolutePosition, m_handles[i].AbsoluteSize)) then
+			return m_handles[i]
+		end
+	end
+	return nil
+end
+
+local function getOppositeHandle(handle)
+	return 9 - handle
+end
+
+
+-----------------------------------
+-----------ENCAPSULATION-----------
+-----------------------------------
+
+local Resize = {}
+
+function Resize:onSelectionChanged()
+	if (not SelectionManager:hasSelection()) then
+		deleteResizeAdorns()
+	else
+		createResizeAdorns()
+		updatePosition()
+	end
+end
+
+-- Should move this to AdornmentModule
+function Resize:clearAdornments()
+	deleteResizeAdorns()
+end
+
+function Resize:showResizeAdorns()
+	if (SelectionManager:hasFilteredSelection()) then
+		createResizeAdorns()
+		updatePosition()
+	end
+end
+
+function Resize:update()
+	updatePosition()
+end
+
+function Resize:isOverHandle(location)
+	return getHandleOver(location) ~= nil
+end
+
+function Resize:highlightHandles(location)
+	for i = 1, #m_handles do
+		if (isPointInBox(location, m_handles[i].AbsolutePosition, m_handles[i].AbsoluteSize)) then
+			m_handles[i].BackgroundColor3 = HOVER_COLOR
+		else
+			m_handles[i].BackgroundColor3 = BASE_COLOR
+		end
+	end	
+end
+
+function Resize:isDragInProgress()
+	return m_currentlyDragging
+end
+
+--Move this function to a different module script
+
+function Resize:startDrag(location)
+	if m_currentlyDragging then return end
+	
+	m_currentlyDragging = true
+	
+	--hide handles
+	for i = 1, #m_handles do
+		if (isPointInBox(location, m_handles[i].AbsolutePosition, m_handles[i].AbsoluteSize)) then
+			m_draggingHandle = i
+			m_handles[i].Visible = true
+		else
+			m_handles[i].Visible = false
+		end
+	end
+		
+	local selection = SelectionManager:getFilteredSelection()
+	
+	for i = 1, #selection do
+		table.insert(m_originalSelectionData,
+					{
+						selection[i], 
+						selection[i].AbsolutePosition,
+						selection[i].Position,
+						selection[i].AbsoluteSize,
+						selection[i].Size
+					})
+	end
+	
+	m_originalExtents = Extents2D:getExtentsFromGuis(SelectionManager:getFilteredSelection())
+	m_originalAspectRatio = m_originalExtents.Width / m_originalExtents.Height
+	
+	
+	
+	m_originalMousePosition = location
+	
+	m_farHandlePosition = getPositionFromHandle(m_originalExtents, getOppositeHandle(m_draggingHandle))
+	
+end
+
+--void retainAspectRatio(table(mt Extents2D)& extents, Vector2 mouseLocation, bool hasSnappedX, bool hasSnappedY)
+local function retainAspectRatio(extents, mouseLocation, hasSnappedX, hasSnappedY)
+		
+	local snapXOnly = hasSnappedX and not hasSnappedY
+	local snapYOnly = hasSnappedY and not hasSnappedX
+			
+	if (m_draggingHandle == HANDLE_E or
+		m_draggingHandle == HANDLE_W) then
+		
+		local height = extents.Width / m_originalAspectRatio
+		extents:expandFromCenter(Vector2.new(0, height - extents.Height))
+		
+	elseif (m_draggingHandle == HANDLE_N or
+			m_draggingHandle == HANDLE_S) then
+		
+		local width = m_originalAspectRatio * extents.Height
+		extents:expandFromCenter(Vector2.new(width - extents.Width, 0))
+		
+	elseif (m_draggingHandle == HANDLE_SE) then
+		
+		local mouseDelta = mouseLocation - m_originalExtents.TopLeft
+		local mouseAspectRatio = mouseDelta.X / mouseDelta.Y
+		local isCloserX = mouseDelta.Y <= 0 or mouseAspectRatio > m_originalAspectRatio
+				
+		if ((isCloserX or snapXOnly) and (not snapYOnly)) then
+			extents.BottomRight = extents.TopLeft + Vector2.new(extents.Width, extents.Width / m_originalAspectRatio)
+		else
+			extents.BottomRight = extents.TopLeft + Vector2.new(m_originalAspectRatio * extents.Height, extents.Height)
+		end
+		
+	elseif (m_draggingHandle == HANDLE_NE) then
+	
+		local multiplier = Vector2.new(1, -1)	
+		
+		local mouseDelta = (mouseLocation - m_originalExtents.BottomLeft) * multiplier
+		local mouseAspectRatio = mouseDelta.X / mouseDelta.Y
+		local isCloserX = mouseDelta.y <= 0 or mouseAspectRatio > m_originalAspectRatio
+		
+		if (isCloserX) then
+			extents.TopRight = extents.BottomLeft + (Vector2.new(extents.Width, extents.Width / m_originalAspectRatio) * multiplier)
+		else
+			extents.TopRight = extents.BottomLeft + (Vector2.new(m_originalAspectRatio * extents.Height, extents.Height) * multiplier)
+		end
+	elseif (m_draggingHandle == HANDLE_SW) then
+		local multiplier = Vector2.new(-1, 1)	
+		
+		local mouseDelta = (mouseLocation - m_originalExtents.TopRight) * multiplier
+		local mouseAspectRatio = mouseDelta.X / mouseDelta.Y
+		local isCloserX = mouseDelta.y <= 0 or mouseAspectRatio > m_originalAspectRatio
+		
+		if (isCloserX) then
+			extents.BottomLeft = extents.TopRight + (Vector2.new(extents.Width, extents.Width / m_originalAspectRatio) * multiplier)
+		else
+			extents.BottomLeft = extents.TopRight + (Vector2.new(m_originalAspectRatio * extents.Height, extents.Height) * multiplier)
+		end
+	elseif (m_draggingHandle == HANDLE_NW) then
+		
+		local multiplier = Vector2.new(-1, -1)
+		
+		local mouseDelta = (mouseLocation - m_originalExtents.BottomRight) * multiplier
+		local mouseAspectRatio = mouseDelta.X / mouseDelta.Y
+		local isCloserX = mouseDelta.y <= 0 or mouseAspectRatio > m_originalAspectRatio
+		
+		if ((isCloserX or snapXOnly) and (not snapYOnly)) then
+			extents.TopLeft = extents.BottomRight + (Vector2.new(extents.Width, extents.Width / m_originalAspectRatio) * multiplier)
+		else
+			extents.TopLeft = extents.BottomRight + (Vector2.new(m_originalAspectRatio * extents.Height, extents.Height) * multiplier)
+		end		
+	end
+	
+end
+
+-- void Resize:updateDrag(Vector2 location)
+function Resize:updateDrag(location)
+
+	if not m_currentlyDragging then return end
+		
+	local selection = SelectionManager:getFilteredSelection()
+	local newExtents = Utility:cloneTable(m_originalExtents)
+	
+	AdornmentModule:hideSnappingLines()
+	
+	-----------------------
+	--Contextual Snapping--
+	-----------------------
+	
+	local delta = location - m_originalMousePosition
+		
+	if (m_draggingHandle == HANDLE_NW or
+		m_draggingHandle == HANDLE_W or
+		m_draggingHandle == HANDLE_SW) then
+	
+		newExtents:translate(Vector2.new(delta.X, 0))
+		newExtents:resize(newExtents.Size - Vector2.new(delta.X, 0))
+				
+	elseif (m_draggingHandle == HANDLE_NE or
+			m_draggingHandle == HANDLE_E or
+			m_draggingHandle == HANDLE_SE) then
+	
+		newExtents:resize(newExtents.Size + Vector2.new(delta.X, 0))
+	end
+	
+	if (m_draggingHandle == HANDLE_NW or
+		m_draggingHandle == HANDLE_N or
+		m_draggingHandle == HANDLE_NE) then
+	
+		newExtents:translate(Vector2.new(0, delta.Y))
+		newExtents:resize(newExtents.Size - Vector2.new(0, delta.Y))
+
+	elseif (m_draggingHandle == HANDLE_SW or
+			m_draggingHandle == HANDLE_S or
+			m_draggingHandle == HANDLE_SE) then
+	
+		newExtents:resize(newExtents.Size + Vector2.new(0, delta.Y))
+	end
+	
+	if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+		retainAspectRatio(newExtents, location, false, false)
+	end
+	
+	local snappingLines, hasSnappedX, hasSnappedY
+	newExtents, snappingLines, hasSnappedX, hasSnappedY = SnappingPointManager:snapExtents(newExtents, getSnappingTypeFromHandle(m_draggingHandle))
+			
+	for i = 1, #snappingLines do
+		AdornmentModule:showSnappingLine(snappingLines[i])
+	end
+	
+	if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+		retainAspectRatio(newExtents, location, hasSnappedX, hasSnappedY)
+	end
+	
+	local intendedPosition = {}
+	local intendedSize = {}	
+	
+	--calculate intended position and size
+	
+	for i = 1, #m_originalSelectionData do
+		
+		local data = m_originalSelectionData[i]
+		local guiObject = data[DATA_INSTANCE]
+			
+		local percentPosition = (data[DATA_ABSPOSITION] - m_originalExtents.TopLeft) / m_originalExtents.Size
+		local newAbsolutePosition = (percentPosition * newExtents.Size) + newExtents.TopLeft
+		
+		local newAbsoluteSize = (data[DATA_ABSSIZE] / m_originalExtents.Size) * newExtents.Size
+		
+		--adjust for anchor point
+		newAbsolutePosition = newAbsolutePosition + (newAbsoluteSize * guiObject.AnchorPoint)
+		
+		if (newAbsoluteSize.X <= 0 or newAbsoluteSize.Y <= 0) then return end
+
+		local shouldUseScalePosition = Utility:isOnlyScaleUDim2(data[DATA_POSITION]) or 
+									(not Utility:isOnlyOffsetUDim2(data[DATA_POSITION]) and
+									GlobalValues:isScale())
+									
+		local shouldUseScaleSize = Utility:isOnlyScaleUDim2(data[DATA_SIZE]) or 
+									(not Utility:isOnlyOffsetUDim2(data[DATA_SIZE]) and
+									GlobalValues:isScale())
+
+		intendedPosition[guiObject], intendedSize[guiObject] = Convert:convertAbsoluteToScaleOrOffset(
+											shouldUseScalePosition, shouldUseScaleSize,
+											newAbsolutePosition, newAbsoluteSize, 
+											data[DATA_POSITION], data[DATA_SIZE],
+											guiObject.Parent)
+	end
+	
+	
+	for i = 1, #m_originalSelectionData do
+		local guiObject = m_originalSelectionData[i][DATA_INSTANCE]
+		
+		guiObject.Position = intendedPosition[guiObject]
+		guiObject.Size = intendedSize[guiObject]
+		
+		
+	end
+	
+	updateHandlePositionFromExtents(newExtents)
+end
+
+--void Resize:finishDrag(Vector2 location)
+function Resize:finishDrag(location)
+	if not m_currentlyDragging then return end
+	
+	AdornmentModule:hideSnappingLines()
+	
+	if m_originalMousePosition ~= location then
+		Analytics:reportEvent("Resize")
+		ChangeHistoryService:SetWaypoint("Resize")
+	end
+	
+	m_currentlyDragging = false
+	
+	AdornmentModule:hideXSnappingLine()
+	AdornmentModule:hideYSnappingLine()
+	
+	m_originalSelectionData = {}
+	m_originalMousePosition = nil
+	m_originalExtents = nil
+	m_draggingHandle = nil
+	for i = 1, #m_handles do
+		m_handles[i].Visible = true
+	end
+end
+
+Resize.updatePosition = updatePosition
+Resize.hide = hide
+
+function Resize:show()
+	if not m_isHidden then return end
+	m_isHidden = false
+	if m_screenGui then
+		m_screenGui.Enabled = true
+	end
+end
+
+return Resize
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXBD59AA59EEDE41038C4A2D16ACC73B31">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Error</string>
+				<string name="ScriptGuid">{171BD556-A514-41FD-BF0A-2E58CDFAD4A0}</string>
+				<ProtectedString name="Source"><![CDATA[local e = nil
+
+function Error(str)
+	print("ERROR:", str)
+	e:throw()
+end
+
+return Error
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX843EB31CDDF44F05B4865E015C98A33B">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">AdornmentModule</string>
+				<string name="ScriptGuid">{902789FF-89A7-4491-AA7B-170A05D1A24A}</string>
+				<ProtectedString name="Source"><![CDATA[
+
+local CoreGuiManager = require(script.Parent.CoreGuiManager)
+
+local Utility		= require(script.Parent.Utility)
+
+local m_reparentInstance = nil
+local m_reparentOverlay = nil
+
+local m_xSnappingLine = nil
+local m_ySnappingLine = nil
+
+-- ImageLabel createSnappingLine()
+local function createSnappingLine()
+	local line = Instance.new("ImageLabel")
+	line.BorderSizePixel = 0
+	line.BackgroundTransparency = 1
+	line.Image = "rbxasset://textures/blockUpperLeft.png"
+	line.ScaleType = Enum.ScaleType.Tile
+	line.TileSize = UDim2.new(0, 16, 0, 16)
+	line.AnchorPoint = Vector2.new(0.5, 0.5)
+	line.ImageColor3 = Color3.new(0.8, 0.8, 0.8)
+	line.Parent = CoreGuiManager:findOrCreateScreenGui("Adornments")
+	return line
+end
+
+local function createFrame()
+	local frame = Instance.new("Frame")
+	frame.BorderSizePixel = 0
+	frame.BackgroundColor3 = Color3.new(0, 0, 0)
+	frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	frame.Parent = CoreGuiManager:findOrCreateScreenGui("Adornments")
+	return frame
+end
+
+
+local AdornmentModule = {}
+
+local snappingLines = {}
+
+-- void AdornmentModule:showSnappingLine(table line)
+function AdornmentModule:showSnappingLine(line)
+	local sl = createSnappingLine()
+	sl.AnchorPoint = Vector2.new(0,0)
+	sl.Position = UDim2.new(0, line[1].X, 0, line[1].Y)
+	sl.Size = UDim2.new(0, math.max(1, Utility:distance(line[1].X, line[2].X)), 0, math.max(1, Utility:distance(line[1].Y, line[2].Y)))
+	sl.ImageColor3 = line[3]
+	table.insert(snappingLines, sl)
+end
+
+-- void AdornmentModule:hideSnappingLines()
+function AdornmentModule:hideSnappingLines()
+	for i = 1, #snappingLines do
+		snappingLines[i]:Destroy()
+	end
+	
+	snappingLines = {}
+end
+
+function AdornmentModule:showXSnappingLine(point, size)
+	if (not m_xSnappingLine) then
+		m_xSnappingLine = createFrame()
+	end
+	
+	m_xSnappingLine.Visible = true
+	
+	m_xSnappingLine.Size = UDim2.new(0, 1, 0, size)
+	m_xSnappingLine.Position = UDim2.new(0, point.X, 0, point.Y)
+end
+
+function AdornmentModule:showYSnappingLine(point, size)
+	if (not m_ySnappingLine) then
+		m_ySnappingLine = createFrame()
+	end
+	
+	m_ySnappingLine.Visible = true
+	
+	m_ySnappingLine.Size = UDim2.new(0, size, 0, 1)
+	m_ySnappingLine.Position = UDim2.new(0, point.X, 0, point.Y)
+end
+
+function AdornmentModule:hideXSnappingLine()
+	if (m_xSnappingLine) then
+		m_xSnappingLine.Visible = false
+	end
+end
+
+function AdornmentModule:hideYSnappingLine()
+	if (m_ySnappingLine) then
+		m_ySnappingLine.Visible = false
+	end
+end
+
+function AdornmentModule:showOfferReparentAdornments(instance,offeredParent)
+	if (not m_reparentInstance) then
+		m_reparentInstance = instance:Clone()
+		m_reparentInstance.AnchorPoint = Vector2.new(0,0)
+		m_reparentInstance.ZIndex = 3
+		m_reparentOverlay = createFrame()
+		
+		m_reparentOverlay.BackgroundColor3 = Color3.new(0,0,0)
+		m_reparentOverlay.BackgroundTransparency = 0.8
+		m_reparentOverlay.AnchorPoint = Vector2.new(0,0)
+		m_reparentOverlay.ZIndex = 2
+	end
+	
+	m_reparentInstance.Parent = CoreGuiManager:findOrCreateScreenGui("Adornments")
+	
+	m_reparentInstance.Position = UDim2.new(0, instance.AbsolutePosition.X, 0, instance.AbsolutePosition.Y)
+	m_reparentInstance.Size = UDim2.new(0, instance.AbsoluteSize.X, 0, instance.AbsoluteSize.Y)
+	
+	m_reparentOverlay.Position = UDim2.new(0, offeredParent.AbsolutePosition.X, 0, offeredParent.AbsolutePosition.Y)
+	m_reparentOverlay.Size = UDim2.new(0, offeredParent.AbsoluteSize.X, 0, offeredParent.AbsoluteSize.Y)
+end
+
+function AdornmentModule:hideOfferReparent()
+	if m_reparentInstance then
+		m_reparentInstance:Destroy()
+		m_reparentOverlay:Destroy()
+		
+		m_reparentInstance = nil
+		m_reparentOverlay = nil
+	end
+end
+
+
+return AdornmentModule
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX77A1136695104E7BB53F736494C802D5">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">SelectionManager</string>
+				<string name="ScriptGuid">{B2A1FB18-0D9B-4C62-9ABE-2322E03FF971}</string>
+				<ProtectedString name="Source"><![CDATA[
+
+
+local Utility = require(script.Parent.Utility)
+--this class interfaces with Selection Service
+
+local SelectionService = game:GetService("Selection")
+
+
+--filtered selection
+--when selection changes register to changed event on new items
+
+local m_rawSelection = {}
+local m_filteredSelection = {}
+local m_filteredSelectionAncestors = {}
+
+local m_changedEvents = {}
+
+local m_changedEventCallbacks = {}
+local m_callbackIdentifier = 0
+
+
+local function onChangedEvent(instance, property)
+
+	for k, v in pairs(m_changedEventCallbacks) do
+		v(instance, property)
+	end
+end
+
+
+local function disconnectChangedEvents()
+	for i = 1, #m_filteredSelection do
+		m_changedEvents[m_filteredSelection[i]]:disconnect()
+	end
+end
+
+local function connectChangedEvents()
+	for i = 1, #m_filteredSelection do
+		m_changedEvents[m_filteredSelection[i]] = m_filteredSelection[i].Changed:connect(
+			function(property) onChangedEvent(m_filteredSelection[i], property) end)
+	end
+end
+
+local function ancestorExistsInList(instance, list)
+	if (not instance or
+		not instance:IsA("GuiBase2d")) then
+		return false
+	end
+	if (Utility:findItemInTable(instance, list) ~= 0) then
+		return true
+	end
+	return ancestorExistsInList(instance.Parent, list)
+end
+
+local SelectionManager = {}
+
+function SelectionManager:connectSelectionInstancesChanged(func)
+	m_callbackIdentifier = m_callbackIdentifier + 1
+	m_changedEventCallbacks[m_callbackIdentifier] = func
+	
+	return m_callbackIdentifier
+end
+
+function SelectionManager:disconnectSelectionInstancesChanged(identifier)
+	if not identifier then return nil end
+		
+	m_changedEventCallbacks[identifier] = nil
+	return nil
+end
+
+function SelectionManager:onSelectionChanged()
+	disconnectChangedEvents()
+	
+	local selection = SelectionService:Get()
+	
+	m_rawSelection = selection
+	m_filteredSelection = {}
+	m_filteredSelectionAncestors = {}
+	for i = 1, #m_rawSelection do
+		if m_rawSelection[i]:IsA("GuiBase2d") then
+			table.insert(m_filteredSelection, m_rawSelection[i])
+		end
+	end
+	
+	for i = 1, #m_filteredSelection do
+		if (not ancestorExistsInList(selection[i].Parent, selection)) then
+			table.insert(m_filteredSelectionAncestors, selection[i])
+		end
+	end
+		
+	connectChangedEvents()
+end
+
+function SelectionManager:getRawSelection()
+	return {unpack(m_rawSelection)}
+end
+
+function SelectionManager:getFilteredSelection()
+	return {unpack(m_filteredSelection)}
+end
+
+function SelectionManager:getFilteredSelectionCommonAncestors()
+	return {unpack(m_filteredSelectionAncestors)}
+end
+
+function SelectionManager:hasSelection()
+	return #m_rawSelection ~= 0
+end
+
+function SelectionManager:hasFilteredSelection()
+	return #m_filteredSelection ~= 0
+end
+
+function SelectionManager:setSelection(selection)
+	if (Utility:tablesAreEquivalent(m_rawSelection, selection)) then return false end
+	
+	SelectionService:Set(selection)
+	return true
+end
+
+
+
+return SelectionManager
+
+
+
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX58CD76ACFA4C48698C261280D4F30701">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Move</string>
+				<string name="ScriptGuid">{8DFF8734-9E4B-45E6-9882-933F80386C52}</string>
+				<ProtectedString name="Source"><![CDATA[
+
+-----------------------------------
+--------------MODULES--------------
+-----------------------------------
+local AdornmentModule		= require(script.Parent.AdornmentModule)
+local Analytics				= require(script.Parent.Analytics)
+local Convert				= require(script.Parent.Convert)
+local Extents2D				= require(script.Parent.Extents2D)
+local FFlag					= require(script.Parent.FFlag)
+local GlobalValues			= require(script.Parent.GlobalValues)
+local Resize				= require(script.Parent.Resize)
+local Select 				= require(script.Parent.Select)
+local SelectionManager		= require(script.Parent.SelectionManager)
+local SnappingPointManager	= require(script.Parent.SnappingPointManager)
+local Utility				= require(script.Parent.Utility)
+
+local SnappingType 			= require(script.Parent.Enum.SnappingType)
+
+-----------------------------------
+--------------SERVICES-------------
+-----------------------------------
+local UserInputService = game:GetService("UserInputService")
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
+
+
+-----------------------------------
+-------------VARIABLES-------------
+-----------------------------------
+
+local m_originalMousePosition = nil
+
+local m_draggingStarted = false
+local m_currentlyDragging = false
+
+local UP = 1
+local DOWN = 2
+local LEFT = 3
+local RIGHT = 4
+
+local DATA_INSTANCE = 1
+local DATA_ABSPOSITION = 2
+local DATA_POSITION = 3
+
+local MANHATTAN_DRAG_START_DELTA = 3
+
+local m_originalSelectionData = {}
+
+local m_originalExtents = nil
+
+-----------------------------------
+-------------FUNCTIONS-------------
+-----------------------------------
+
+local function dragElementsBy(vector)
+	
+	for i = 1, #m_originalSelectionData do
+		local element = m_originalSelectionData[i][DATA_INSTANCE]
+		
+		if (element.Parent and element.Parent:IsA("GuiBase2d")) then
+			
+			local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
+									(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
+									GlobalValues:isScale())
+										
+			if (shouldUseScalePosition) then
+				local scale = vector / element.Parent.AbsoluteSize
+				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
+			else
+				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(0, vector.X, 0, vector.Y)
+			end
+		end
+		
+		
+	end
+	
+end
+
+local function dragElements(location)
+	dragElementsBy(location - m_originalMousePosition)
+end
+
+local function directionToDirectionVector(direction)
+	if (direction == UP) then
+		return Vector2.new(0, -1)
+	elseif (direction == DOWN) then
+		return Vector2.new(0, 1)
+	elseif (direction == LEFT) then
+		return Vector2.new(-1, 0)
+	elseif (direction == RIGHT) then
+		return Vector2.new(1, 0)
+	end
+	
+	--assert	
+	return Vector2.new(0, -1)
+end
+
+local function getFirstAncestorOfType(instance, objectType)
+	if not instance or not instance.Parent then
+		return nil
+	end
+	
+	if (instance.Parent:IsA(objectType)) then
+		return instance.Parent
+	end
+	
+	return getFirstAncestorOfType(instance.Parent, objectType)
+end
+
+--[[ Commenting out reparenting functionality until we have better flow
+local function offerReparent(instance, offeredParent)
+	
+	if not instance then
+		return
+	end
+	
+	
+	if not offeredParent then
+		offeredParent = getFirstAncestorOfType(instance, "ScreenGui")
+
+		if not offeredParent then
+			AdornmentModule:hideOfferReparent()
+			return
+		end
+	end
+	
+	if (offeredParent == instance.Parent) then
+		AdornmentModule:hideOfferReparent()
+	else
+		AdornmentModule:showOfferReparentAdornments(instance,offeredParent)
+	end
+	
+end
+--]]
+
+local function isDescendantOf(item, potentialAncestor)
+	while (item and item.Parent) do
+		if (item.Parent == potentialAncestor) then 
+			return true
+		end
+		item = item.Parent
+	end
+	return false
+end
+
+function getHighestZIndexOfSelfAndDescendants(instance, original)
+	
+	if instance == original then return 0 end
+	
+	local zIndex = 0
+	
+	if (instance:IsA("GuiObject")) then
+		
+		zIndex = instance.ZIndex		
+	end
+	
+	local children = instance:GetChildren()
+	
+	for i = 1, #children do
+		zIndex = math.max(zIndex, getHighestZIndexOfSelfAndDescendants(children[i], original))
+	end
+	
+	return zIndex
+end
+
+function incrementZIndexOfSelfAndDescendantsBy(instance, number)
+
+	if (instance:IsA("GuiObject")) then
+		instance.ZIndex = instance.zIndex + number	
+	end
+	
+	local children = instance:GetChildren()
+	
+	for i = 1, #children do
+		incrementZIndexOfSelfAndDescendantsBy(children[i], number)
+	end
+end
+
+local Move = {}
+
+function Move:isDragInProgress()
+	return m_draggingStarted
+end
+
+--void Move:startDrag(Vector2 location)
+function Move:startDrag(location)
+	m_originalSelectionData = {}
+	local draggableElements = SelectionManager:getFilteredSelectionCommonAncestors()
+	
+	for i = 1, #draggableElements do
+		table.insert(m_originalSelectionData, {draggableElements[i], draggableElements[i].AbsolutePosition, draggableElements[i].Position})
+	end
+	
+	if (#m_originalSelectionData == 0) then return end	
+	
+	m_originalMousePosition = location
+	m_draggingStarted = true
+	m_currentlyDragging = false	
+	
+	m_originalExtents = Extents2D:getExtentsFromGuis(draggableElements)	
+end
+
+--void Move:finishDrag(Vector2 location)
+function Move:finishDrag(location)
+	if (m_currentlyDragging) then
+		Analytics:reportEvent("Move")
+		ChangeHistoryService:SetWaypoint("Translate Objects (better tt needed)")
+	end
+	
+	m_draggingStarted = false
+	
+	m_originalMousePosition = nil
+	
+	AdornmentModule:hideSnappingLines()
+	
+	--[[ Commenting out reparenting functionality until we have better flow
+	if (#m_originalSelectionData == 1 and m_currentlyDragging) then
+		local guiObject = m_originalSelectionData[1][DATA_INSTANCE]
+		local guiObjectsAtPoint = Select:getGuiObjectsAtPoint(location)
+		Utility:removeItemFromTable(guiObject, guiObjectsAtPoint)
+				
+		acceptReparent(guiObject, guiObjectsAtPoint[1])
+	end
+	--]]
+	
+	m_currentlyDragging = false
+end
+
+-- void Move:updateDrag(Vector2 location)
+function Move:updateDrag(location)
+	
+	if not m_currentlyDragging and Utility:manhattanDistance(location - m_originalMousePosition) <= MANHATTAN_DRAG_START_DELTA then
+		return
+	end
+	
+	m_currentlyDragging = true
+	
+	AdornmentModule:hideSnappingLines()
+	
+	local snapType = SnappingType.MoveXY
+	
+	if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+		local distanceToXAxis = math.abs(location.Y - m_originalMousePosition.Y)
+		local distanceToYAxis = math.abs(location.X - m_originalMousePosition.X)
+		
+		if (distanceToXAxis < distanceToYAxis) then
+			location = Vector2.new(location.X, m_originalMousePosition.Y)
+		else
+			location = Vector2.new(m_originalMousePosition.X, location.Y)
+		end
+	end
+	
+	local extents = Extents2D:translate(m_originalExtents, location - m_originalMousePosition)
+	local snappingLines
+	
+	extents, snappingLines = SnappingPointManager:snapExtents(extents, SnappingType.MoveXY)
+	
+	
+	for i = 1, #snappingLines do
+		AdornmentModule:showSnappingLine(snappingLines[i])
+	end
+	
+	local positionOffset = extents.TopLeft - m_originalExtents.TopLeft 
+		
+	dragElements(m_originalMousePosition + positionOffset)
+	Resize:hide()
+	--[[ Commenting out reparenting functionality until we have better flow
+	if (#m_originalSelectionData == 1) then
+			
+		local guiObject = m_originalSelectionData[1][DATA_INSTANCE]
+		local guiObjectsAtPoint = Select:getGuiObjectsAtPoint(location)
+		Utility:removeItemFromTable(guiObject, guiObjectsAtPoint)
+		
+		offerReparent(guiObject, guiObjectsAtPoint[1])			
+	end
+	--]]
+end
+
+function Move:bump(direction)
+	Move:startDrag(Vector2.new(0,0))
+	dragElementsBy(directionToDirectionVector(direction))
+	Move:finishDrag(direction)
+end
+
+Move.UP = UP
+Move.DOWN = DOWN
+Move.LEFT = LEFT
+Move.RIGHT = RIGHT
+
+return Move
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX70BE70FE7C994607BC578DCDE58804C1">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Rotate</string>
+				<string name="ScriptGuid">{92882F28-8124-4DC8-9C73-D41393974D28}</string>
+				<ProtectedString name="Source"><![CDATA[local Rotate = {}
+
+return Rotate
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX4768146F94A944E4A1B2B92BF420690B">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Select</string>
+				<string name="ScriptGuid">{0F669255-450A-4C1B-BC43-EF8797844724}</string>
+				<ProtectedString name="Source"><![CDATA[
+
+local Utility = require(script.Parent.Utility)
+local SelectionManager = require(script.Parent.SelectionManager)
+local InstanceInfo = require(script.Parent.InstanceInfo)
+local Analytics		= require(script.Parent.Analytics)
+
+local UserInputService = game:GetService("UserInputService")
+
+local paintOrder = {} --array of paintOrder
+local paintOrderMap = {} --map of child to position in order
+
+local BUFFER_SIZE_MINIMUM = 5
+
+
+local function doesPointExistInInstance(point, instance)
+	if not instance or not instance:IsA("GuiBase2d") then return false end	
+	
+	local sizeBuffer = instance.AbsoluteSize
+	sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
+	
+	local upperLeft = instance.AbsolutePosition + (instance.AbsoluteSize * 0.5) - (sizeBuffer * 0.5)
+	
+	return point.x >= upperLeft.x and
+		point.x <= upperLeft.x + sizeBuffer.x and
+		point.y >= upperLeft.y and
+		point.y <= upperLeft.y + sizeBuffer.y
+end
+
+
+
+local function collectVisibleGuiObjectsUnder(instance)
+	local children = instance:GetChildren()
+	
+	local allItems = {}
+	for i = 1, #children do
+		if (children[i]:IsA("GuiObject")) then
+			
+			local ancestors = collectVisibleGuiObjectsUnder(children[i])
+			
+			if (InstanceInfo:isVisible(children[i])) then
+				table.insert(allItems, children[i])
+			end
+						
+			for j = 1, #ancestors do
+				table.insert(allItems, ancestors[j])
+			end
+		end
+	end
+	return allItems
+end
+
+
+local function guessScreenGui(sg)
+	local anc = collectVisibleGuiObjectsUnder(sg)
+	
+	local orderMap = {}
+	
+	for i = 1, #anc do
+		orderMap[anc[i]] = i;
+	end
+		
+	local function guiSort(a, b)
+		if (a.ZIndex == b.ZIndex) then
+			return orderMap[a] < orderMap[b]
+		end
+		return a.ZIndex < b.ZIndex
+	end
+	
+	table.sort(anc, guiSort)
+	
+	return anc
+end
+
+local function refreshPaintOrder()
+	local starterGui = game.StarterGui
+	local children = starterGui:GetChildren()
+	
+	paintOrder = {}
+	
+	for i = 1, #children do
+		if (children[i]:IsA("ScreenGui")) then
+			
+			local guiAncestors = guessScreenGui(children[i])
+			
+			for i = 1, #guiAncestors do
+				table.insert(paintOrder, guiAncestors[i])
+				paintOrderMap[guiAncestors[i]] = #paintOrder
+			end
+		end
+	end
+	
+	
+end
+
+local function getGuiObjectsAtPoint(point)
+	local objectsAtPoint = {}
+	
+	for i = #paintOrder, 1, -1 do
+		if (doesPointExistInInstance(point, paintOrder[i])) then
+			table.insert(objectsAtPoint, paintOrder[i])
+		end
+	end
+	return objectsAtPoint
+end
+
+
+local function getTopLevelItemAtPoint(point)
+	refreshPaintOrder()
+	
+	local objectsAtPoint = getGuiObjectsAtPoint(point)
+	local objectToSelect = objectsAtPoint[1]
+	
+	if (UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)) then
+		local location = Utility:findItemInTable(lastSelectedElement, objectsAtPoint)
+		if (location ~= 0 and location ~= #objectsAtPoint) then
+			objectToSelect = objectsAtPoint[location + 1]
+		end
+	end
+	
+	return objectToSelect
+end
+
+--return true if added, false if removed
+local function toggleItemsExistenceInTable(item, t)
+
+	local itemLocation = Utility:findItemInTable(item, t)
+	
+	if (itemLocation > 0) then
+		table.remove(t, itemLocation)
+		return false
+	end
+	
+	table.insert(t, item)
+	return true
+end
+
+
+local Select = {}
+
+function Select:getGuiObjects()
+	return {unpack(paintOrder)}
+end
+
+function Select:getGuiObjectsAtPoint(point)
+	return getGuiObjectsAtPoint(point)
+end
+
+function Select:selectTopLevelItemAtPoint(point)
+	
+	local objectToSelect = getTopLevelItemAtPoint(point)
+	
+	local selection = SelectionManager:getRawSelection()
+	
+	local newSelection = {unpack(selection)}
+	
+	local analyticsSelectionReported = false
+	
+	if (objectToSelect) then
+		if (UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or
+			UserInputService:IsKeyDown(Enum.KeyCode.RightControl) or
+			UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or 
+			UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+			
+			if (toggleItemsExistenceInTable(objectToSelect, newSelection)) then
+				Analytics:reportEvent("AddToSelection")
+			else
+				Analytics:reportEvent("RemoveFromSelection")
+			end
+			analyticsSelectionReported = true
+		elseif (Utility:findItemInTable(objectToSelect, newSelection) == 0) then
+			newSelection = {objectToSelect}			
+		end
+	else
+		if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or 
+			UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
+			return nil
+		elseif (Utility:findItemInTable(objectToSelect, newSelection) == 0) then
+			newSelection = {objectToSelect}			
+		end
+	end
+			
+	lastSelectedElement = objectToSelect
+	if (SelectionManager:setSelection(newSelection) and not analyticsSelectionReported) then
+		if (SelectionManager:hasFilteredSelection()) then
+			Analytics:reportEvent("Select")
+		else
+			Analytics:reportEvent("Deselect")
+		end
+	end
+	
+	return lastSelectedElement
+end
+
+
+
+function Select:selectAllObjectsInBounds(point1, point2)
+	local min = Vector2.new(math.min(point1.X, point2.X), math.min(point1.Y, point2.Y))
+	local max = Vector2.new(math.max(point1.X, point2.X), math.max(point1.Y, point2.Y))
+	
+	local totalSelected = {}
+	for i = 1, #paintOrder do
+		if (paintOrder[i].AbsolutePosition.X >= min.X and
+			paintOrder[i].AbsolutePosition.Y >= min.Y and
+			paintOrder[i].AbsolutePosition.X + paintOrder[i].AbsoluteSize.X <= max.X and
+			paintOrder[i].AbsolutePosition.Y + paintOrder[i].AbsoluteSize.Y <= max.Y) then
+		
+			table.insert(totalSelected, paintOrder[i])
+		end
+	end
+	
+	SelectionManager:setSelection(totalSelected)	
+end
+
+function Select:toggleSelectionOfAllObjectsInBounds(previousSelection, point1, point2)
+	local min = Vector2.new(math.min(point1.X, point2.X), math.min(point1.Y, point2.Y))
+	local max = Vector2.new(math.max(point1.X, point2.X), math.max(point1.Y, point2.Y))
+	
+	local totalSelected = {}
+	for i = 1, #paintOrder do
+		if (paintOrder[i].AbsolutePosition.X >= min.X and
+			paintOrder[i].AbsolutePosition.Y >= min.Y and
+			paintOrder[i].AbsolutePosition.X + paintOrder[i].AbsoluteSize.X <= max.X and
+			paintOrder[i].AbsolutePosition.Y + paintOrder[i].AbsoluteSize.Y <= max.Y) then
+		
+			table.insert(totalSelected, paintOrder[i])
+		end
+	end
+	
+	for i = 1, #previousSelection do
+		local location = Utility:findItemInTable(previousSelection[i], totalSelected)
+		
+		if (location ~= 0) then
+			table.remove(totalSelected, location)
+		else
+			table.insert(totalSelected, previousSelection[i])
+		end
+	end
+	
+	SelectionManager:setSelection(totalSelected)
+end
+
+return Select
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX834A46115A8647EAB28E3FA07BED861F">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">GlobalValues</string>
+				<string name="ScriptGuid">{27B4468D-96B1-4D16-804E-4EFDDDDCE260}</string>
+				<ProtectedString name="Source"><![CDATA[
+
+
+local SCALE = 1
+local OFFSET = 2
+
+local m_gridType = SCALE
+
+
+
+
+
+
+
+
+local GlobalValues = {}
+
+function GlobalValues:isScale()
+	return m_gridType == SCALE
+end
+
+
+function GlobalValues:toggleGridType()
+	if (GlobalValues:isScale()) then
+		m_gridType = OFFSET
+		print("Setting Grid mode: Offset")
+	else
+		m_gridType = SCALE
+		print("Setting Grid mode: Scale")
+	end
+end
+
+function GlobalValues:getScreenSize()
+	return game.Workspace.CurrentCamera.ViewportSize
+end
+
+--function GlobalValues:getGridType()
+--	return m_gridType
+--end
+--
+--function GlobalValues:setGridType(gridType)
+--	m_gridType = gridType
+--end
+
+--GlobalValues.SCALE = SCALE
+--GlobalValues.OFFSET = OFFSET
+
+return GlobalValues
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="Script" referent="RBX5EAEC6800B1C4617A0FA725F2DC01D75">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">README</string>
+				<string name="ScriptGuid">{246CC8ED-7B99-466C-B6BB-3B59DBE59695}</string>
+				<ProtectedString name="Source"><![CDATA[
+--[[
+	
+	---Overview---
+
+	The UI Editor is an Official Roblox supported plugin shipped with Roblox Studio.
+	
+	The intention of this plugin is to enable developers to easily create good looking
+	cross-platform user interfaces.
+	
+	
+	---Function Comments---
+	
+	Given that lua is a weakly typed language we are using comments on functions to document 
+	expected return and parameter types.
+	
+	Given the example
+	
+	-- void extend(table(mt Extents2D)& extents, Vector2 ...)
+	local function extend(extents, ...) end
+	
+	We have a function named extend that takes a variable number of arguments.
+	The first argument we expect is a table that has a metatable with the functionality of
+	Extents2D (defined in the Extents2D module script). All other arguments after
+	the first are expected to be of type Vector2(userdata). We expect that this function will
+	not return anything. One thing of note is that we use the & symbol to describe that the
+	extents table may be mutated by the function. Although not demonstrated here, we use the
+	symbol ? to acknowledge that the type is not known
+	
+	
+--]]
+
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX80A1B7150C2B453881B06E3B332AE09D">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">InstanceInfo</string>
+				<string name="ScriptGuid">{55E2295C-E264-4599-9A2D-9250CEABDA31}</string>
+				<ProtectedString name="Source"><![CDATA[
+
+
+
+
+
+
+
+local function areAncestorsEnabledAndVisible(instance)
+	if not instance or not instance.Parent then return false end
+	
+	if (instance.Parent:IsA("ScreenGui") and instance.Parent.Enabled == true) then
+		return true
+	end
+	
+	if (instance.Parent:IsA("GuiObject") and instance.Parent.Visible == true) then
+		return areAncestorsEnabledAndVisible(instance.Parent)
+	end
+	
+	if (instance.Parent:IsA("Folder")) then
+		return areAncestorsEnabledAndVisible(instance.Parent)
+	end
+	
+	return false
+	
+	--GuiObject    -Visible
+	--ScreenGui    -Enabled
+	
+	
+	--non GuiBase2d Parent or screen gui final
+	
+	
+end
+
+
+
+local InstanceInfo = {}
+
+function InstanceInfo:isVisible(object, p)
+
+	if (not object:IsA("GuiObject")) then
+		return false
+	end
+	
+	if (not object.Visible) then
+		return false
+	end	
+	
+	if (not areAncestorsEnabledAndVisible(object)) then
+		return false
+	end
+	
+	if (object.BackgroundTransparency >= 1.0) then
+		if (object:IsA("ImageLabel") or object:IsA("ImageButton")) then
+			return object.Image ~= "" and object.ImageTransparency < 1.0
+		end
+		
+		if (object:IsA("TextLabel") or object:IsA("TextButton")) then
+			return object.Text ~= "" and object.TextTransparency < 1.0
+		end
+		return false
+	end
+	
+	return true
+end
+
+-- bool InstanceInfo:canSeeThrough(GuiObject object)
+function InstanceInfo:canSeeThrough(object)
+		
+	if (not object:IsA("GuiObject") or
+		not object.Visible or
+		not areAncestorsEnabledAndVisible(object) or
+		object.BackgroundTransparency > 0) then
+		return true
+	end
+		
+	return false
+	
+end
+
+return InstanceInfo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX5D4526B9739F48FE8D340481F9E29A32">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">SnappingPointManager</string>
+				<string name="ScriptGuid">{4ABC8724-DB27-4AF0-B141-A7C746152F09}</string>
+				<ProtectedString name="Source"><![CDATA[
+local Extents2D			= require(script.Parent.Extents2D)
+local FFlag				= require(script.Parent.FFlag)
+local GlobalValues		= require(script.Parent.GlobalValues)
+local Select			= require(script.Parent.Select)
+local SelectionManager	= require(script.Parent.SelectionManager)
+local Set				= require(script.Parent.Set)
+local Utility			= require(script.Parent.Utility)
+
+local SnappingType 	= require(script.Parent.Enum.SnappingType)
+
+--List of Generated Snapping Extents
+local gExt = {}
+
+local m_threshold = 1
+
+local function closestSnappingLine(value, center, t)
+	local closestLine = nil
+	local closestDistance = 9e9
+	
+	for i = 1, #t do
+		if (t[i][2] == center) then
+			local delta = math.abs(value - t[i][1])
+			if (delta < closestDistance) then
+				closestDistance = delta
+				closestLine = t[i][1]
+			else
+				break
+			end
+		end
+	end
+	
+	return closestLine
+end
+
+-- void removeInstanceAndDescendantsFromTableExcludingSet(Instance instance, table t, table set)
+local function removeInstanceAndDescendantsFromTableExcludingSet(instance, t, set)
+	
+	if (set[instance] ~= nil) then return end
+	set[instance] = true
+	
+	--remove all entries of instance from the table
+	while (Utility:removeItemFromTable(instance, t)) do end
+	
+	local children = instance:GetChildren()
+	
+	for i = 1, #children do
+		removeInstanceAndDescendantsFromTableExcludingSet(children[i], t, set)
+	end
+end
+
+
+local SnappingPointManager = {}
+
+-- void SnappingPointManager:generateSnappingLines()
+function SnappingPointManager:generateSnappingLines()
+		
+	gExt = {}
+	
+	local filteredSelection = SelectionManager:getFilteredSelection()
+	if (#filteredSelection == 0) then return end
+	
+	local snappingInstances = Select:getGuiObjects()
+	if (#snappingInstances == 0) then return end
+	
+	-- Remove currently selected items from table of all gui objects
+	-- Using set to prevent removal of the same item
+	local previouslyRemovedItems = {}
+	for i = 1, #filteredSelection do
+		removeInstanceAndDescendantsFromTableExcludingSet(filteredSelection[i], snappingInstances, previouslyRemovedItems)
+	end
+	
+	for i = 1, #snappingInstances do
+		table.insert(gExt, Extents2D:getExtentsFromGui(snappingInstances[i]))
+	end
+	
+	-- Adding viewport
+	table.insert(gExt, Extents2D.new(Vector2.new(0,0), GlobalValues:getScreenSize()))
+end
+
+local SNAPPING_LINE_MARGIN = 10
+
+local EDGE_LINE_COLOR = Color3.new(255 / 255, 8 / 255, 103 / 255)
+local CENTER_LINE_COLOR = Color3.new(0 / 255, 255 / 255, 0 / 255)
+
+-- table(mt Extents2D), table(table), hasSnappedX, hasSnappedY SnappingPointManager:snapExtents(table(mt Extents2D) extents, int snappingType)
+function SnappingPointManager:snapExtents(extents, snappingType)
+	
+	-- We don't want to edit extents, copying table
+	extents = Utility:cloneTable(extents)
+	
+	local finalListOfSnappingLines = {}
+	
+	local hasSnappedX = false
+	local hasSnappedY = false
+	
+	local distance, offset
+	local listOfSnappingLines = {}
+	
+	local function clearData()
+		--resetting distance to maximum snapping threshold
+		-- We always want to test for less than distance, so adding 1
+		distance = m_threshold + 1
+		offset = 0
+		listOfSnappingLines = {}
+	end
+	
+	local function checkAndMaybeAddToSnappingLines(p1, p2, lp1, lp2, c)
+		local d = Utility:distance(p1, p2)
+		local o = p2 - p1
+				
+		if (d < distance) then
+			listOfSnappingLines = {}
+			distance = d
+			offset = o
+			table.insert(listOfSnappingLines, {lp1, lp2, c})
+		elseif (d == distance and o == offset) then
+			table.insert(listOfSnappingLines, {lp1, lp2, c})
+		end
+	end
+	
+	if (SnappingType:containsType(snappingType, SnappingType.MoveX)) then
+		clearData()
+		
+		for i = 1, #gExt do
+			
+			if (gExt[i].LeftVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Left, gExt[i].Left,
+					Vector2.new(gExt[i].Left, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Left, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+				
+				checkAndMaybeAddToSnappingLines(
+					extents.Right, gExt[i].Left,
+					Vector2.new(gExt[i].Left, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Left, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].RightVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Left, gExt[i].Right,
+					Vector2.new(gExt[i].Right, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Right, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+				
+				checkAndMaybeAddToSnappingLines(
+					extents.Right, gExt[i].Right,
+					Vector2.new(gExt[i].Right, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Right, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].CenterVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Center.X, gExt[i].Center.X,
+					Vector2.new(gExt[i].Center.X, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Center.X, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					CENTER_LINE_COLOR)						
+			end
+		end
+		
+		hasSnappedX = offset ~= 0
+		extents = Extents2D:translate(extents, Vector2.new(offset, 0))
+		finalListOfSnappingLines = Utility:joinTables(finalListOfSnappingLines, listOfSnappingLines)
+	end
+	
+	if (SnappingType:containsType(snappingType, SnappingType.MoveY)) then
+		clearData()
+		
+		for i = 1, #gExt do
+			
+			if (gExt[i].TopVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Top, gExt[i].Top,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Top),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Top),
+					EDGE_LINE_COLOR)
+				
+				checkAndMaybeAddToSnappingLines(
+					extents.Bottom, gExt[i].Top,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Top),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Top),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].BottomVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Top, gExt[i].Bottom,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					EDGE_LINE_COLOR)
+			
+				checkAndMaybeAddToSnappingLines(
+					extents.Bottom, gExt[i].Bottom,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					EDGE_LINE_COLOR)
+			end
+
+			if (gExt[i].CenterVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Center.Y, gExt[i].Center.Y,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Center.Y),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Center.Y),
+					CENTER_LINE_COLOR)						
+			end		
+		end
+		
+		hasSnappedY = offset ~= 0
+		extents = Extents2D:translate(extents, Vector2.new(0, offset))
+		finalListOfSnappingLines = Utility:joinTables(finalListOfSnappingLines, listOfSnappingLines)
+		
+	end
+	
+	-- Positive X
+	if (SnappingType:containsType(snappingType, SnappingType.ResizeXp)) then
+		clearData()
+				
+		for i = 1, #gExt do
+			if (gExt[i].LeftVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Right, gExt[i].Left,
+					Vector2.new(gExt[i].Left, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Left, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].RightVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Right, gExt[i].Right,
+					Vector2.new(gExt[i].Right, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Right, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)	
+			end
+			
+
+		end
+		
+		hasSnappedX = offset ~= 0	
+		extents.Right = extents.Right + offset
+		finalListOfSnappingLines = Utility:joinTables(finalListOfSnappingLines, listOfSnappingLines)
+	end
+	
+	-- Negative X
+	if (SnappingType:containsType(snappingType, SnappingType.ResizeXn)) then
+		clearData()
+		
+		for i = 1, #gExt do
+			
+			if (gExt[i].LeftVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Left, gExt[i].Left,
+					Vector2.new(gExt[i].Left, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Left, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].RightVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Left, gExt[i].Right,
+					Vector2.new(gExt[i].Right, math.min(extents.Top, gExt[i].Top) - SNAPPING_LINE_MARGIN),
+					Vector2.new(gExt[i].Right, math.max(extents.Bottom, gExt[i].Bottom) + SNAPPING_LINE_MARGIN),
+					EDGE_LINE_COLOR)
+			end
+			
+		end
+		
+		hasSnappedX = offset ~= 0	
+		extents.Left = extents.Left + offset
+		finalListOfSnappingLines = Utility:joinTables(finalListOfSnappingLines, listOfSnappingLines)
+	end
+	
+	-- Positive Y
+	if (SnappingType:containsType(snappingType, SnappingType.ResizeYp)) then
+		clearData()
+				
+		for i = 1, #gExt do
+			
+			if (gExt[i].TopVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Bottom, gExt[i].Top,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Top),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Top),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].BottomVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Bottom, gExt[i].Bottom,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					EDGE_LINE_COLOR)
+			end
+		end
+		
+		hasSnappedY = offset ~= 0
+		extents.Bottom = extents.Bottom + offset
+		finalListOfSnappingLines = Utility:joinTables(finalListOfSnappingLines, listOfSnappingLines)
+	end
+	
+	-- Negative Y
+	if (SnappingType:containsType(snappingType, SnappingType.ResizeYn)) then
+		clearData()
+				
+		for i = 1, #gExt do
+			
+			if (gExt[i].TopVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Top, gExt[i].Top,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Top),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Top),
+					EDGE_LINE_COLOR)
+			end
+			
+			if (gExt[i].BottomVisible) then
+				checkAndMaybeAddToSnappingLines(
+					extents.Top, gExt[i].Bottom,
+					Vector2.new(math.min(extents.Left, gExt[i].Left) - SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					Vector2.new(math.max(extents.Right, gExt[i].Right) + SNAPPING_LINE_MARGIN, gExt[i].Bottom),
+					EDGE_LINE_COLOR)
+			end
+							
+		end
+		
+		hasSnappedY = offset ~= 0
+		extents.Top = extents.Top + offset
+		finalListOfSnappingLines = Utility:joinTables(finalListOfSnappingLines, listOfSnappingLines)
+	end
+	return extents, finalListOfSnappingLines, hasSnappedX, hasSnappedY
+end
+
+function SnappingPointManager:setThreshold(value)
+	m_threshold = value
+end
+
+return SnappingPointManager
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXE564C7C57D964D43A197363B492B4592">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Set</string>
+				<string name="ScriptGuid">{526CED19-5FF7-4070-A852-B7ACD5447A74}</string>
+				<ProtectedString name="Source"><![CDATA[
+local HttpService = game:GetService("HttpService")
+
+local function getUniqueKey(t)
+	return HttpService:JSONEncode(t)
+end
+
+
+local Set = {}
+
+function Set.new()
+	local setTable = {}
+	setTable.map = {}
+	setTable.mt = {}
+	
+	function setTable.mt.__index(t, k)
+		if k == "insert" then
+			return function(v)
+				
+				local pk = v
+				if (type(pk) == "table") then
+					pk = getUniqueKey(pk)
+				end
+				
+				if (not t.map[pk]) then
+					table.insert(t, v)
+					t.map[pk] = #t
+				end
+			end
+		elseif k == "remove" then
+			return function(v)
+				
+				local pk = v
+				if (type(pk) == "table") then
+					pk = getUniqueKey(pk)
+				end
+				
+				if (t.map[pk]) then
+					local index = t.map[pk]
+					table.remove(setTable, index)
+					for i = index, #t do
+						
+						pk = t[i]
+						if (type(pk) == "table") then
+							pk = getUniqueKey(pk)
+						end
+						
+						t.map[pk] = i
+					end
+				end
+			end
+		elseif k == "exists" then
+			return function(v)
+				
+				local pk = v
+				if (type(pk) == "table") then
+					pk = getUniqueKey(pk)
+				end
+				
+				return t.map[pk] ~= nil
+			end
+		elseif k == "clear" then
+			return function()
+				while #t > 0 do
+					
+					local pk = t[1]
+					if (type(pk) == "table") then
+						pk = getUniqueKey(pk)
+					end
+				
+					t.map[pk] = nil
+					table.remove(t, 1)
+				end
+			end
+		end
+	end
+	
+	setmetatable(setTable, setTable.mt)	
+	return setTable
+end
+
+
+
+return Set
+
+
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX8EB2018BCA704D78AD7DC6F9B515CC2A">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">UniqueArrayMap</string>
+				<string name="ScriptGuid">{90ADDAC7-524C-4817-9CF1-5957A24B30A3}</string>
+				<ProtectedString name="Source"><![CDATA[local UniqueArrayMap = {}
+
+function UniqueArrayMap.new()
+	local setTable = {}
+	setTable.map = {}
+	setTable.mt = {}
+	
+	function setTable.mt.__index(t, k)
+		if k == "insert" then
+			return function(key, value)
+				if (not t.map[key]) then
+					table.insert(t, {key, value})
+					t.map[key] = #t
+				end
+			end
+		elseif k == "remove" then
+			return function(key, value)
+				if (t.map[key]) then
+					local index = t.map[key]
+					table.remove(setTable, index)
+					for i = index, #t do
+						t.map[t[i][1]] = i
+					end
+				end
+			end
+		elseif k == "exists" then
+			return function(key)
+				return t.map[key] ~= nil
+			end
+		elseif k == "clear" then
+			return function()
+				while #t > 0 do
+					t.map[t[1][1]] = nil
+					table.remove(t, 1)
+				end
+			end
+		end
+	end
+	
+	setmetatable(setTable, setTable.mt)	
+	return setTable
+end
+
+return UniqueArrayMap
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX06902DD6BC43436C94BF36E93D92B6C0">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Analytics</string>
+				<string name="ScriptGuid">{B36AE4D4-87BA-4539-B18A-679A05D2AF81}</string>
+				<ProtectedString name="Source"><![CDATA[
+local success, AnalyticsService = pcall(function() return game:GetService("AnalyticsService") end)
+
+local Analytics = {}
+
+-- void Analytics:reportEvent(string event)
+function Analytics:reportEvent(event)
+	if (not success or not AnalyticsService) then return end --Not currently enabled
+	AnalyticsService:TrackEvent("Studio", "UIEditorAction", event)
+end
+
+return Analytics
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX8C996EFCBDB24368B178F2BDA8CC7D53">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Convert</string>
+				<string name="ScriptGuid">{C7662E52-DE31-43E9-A36E-202A8DF06CAE}</string>
+				<ProtectedString name="Source"><![CDATA[local GlobalValues = require(script.Parent.GlobalValues)
+
+local Convert = {}
+
+function Convert:convertAbsoluteToScaleOrOffset(positionUDimTypeIsScale, sizeUDimTypeIsScale, absPosition, absSize, pos, size, parent)
+	
+	local finalPosition
+	local finalSize
+	
+	if (positionUDimTypeIsScale) then
+		--scale
+		local scalePosition = ((absPosition - Vector2.new(pos.X.Offset, pos.Y.Offset)) - parent.AbsolutePosition) / parent.AbsoluteSize
+		finalPosition = UDim2.new( scalePosition.X, pos.X.Offset, scalePosition.Y, pos.Y.Offset)
+	else
+		--offset
+		local offsetPosition = absPosition - (Vector2.new(pos.X.Scale, pos.Y.Scale) * parent.AbsoluteSize) - parent.AbsolutePosition
+		finalPosition = UDim2.new( pos.X.Scale, offsetPosition.X, pos.Y.Scale, offsetPosition.Y)
+	end
+	
+	if (sizeUDimTypeIsScale) then
+		--scale
+		local scaleSize = (absSize - Vector2.new(size.X.Offset, size.Y.Offset)) / parent.AbsoluteSize
+		finalSize = UDim2.new( scaleSize.X, size.X.Offset, scaleSize.Y, size.Y.Offset)
+	else
+		--offset
+		local offsetSize = absSize - (Vector2.new(size.X.Scale, size.Y.Scale) * parent.AbsoluteSize)
+		finalSize = UDim2.new( size.X.Scale, offsetSize.X, size.Y.Scale, offsetSize.Y)
+	end
+	
+	return finalPosition, finalSize
+end
+
+return Convert
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXC2394208F8D2445AB795DBD6CD7494A1">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">FFlag</string>
+				<string name="ScriptGuid">{65FDFEE9-A352-40A8-BCDB-37473F6BB9DC}</string>
+				<ProtectedString name="Source"><![CDATA[
+local flagMap = {}
+
+-- void getFFlagValue(string flag)
+local function getFFlagValue(flag)
+	local flagExists, flagValue = pcall(function () return settings():GetFFlag(flag) end)
+	flagMap[flag] = flagExists and flagValue
+end
+
+
+local FFlag = {}
+
+-- bool FFlag:isEnabled(string flag)
+function FFlag:isEnabled(flag)
+	if (flagMap[flag] == nil) then
+		getFFlagValue(flag)
+	end
+	
+	return flagMap[flag]
+end
+
+return FFlag
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXD72913025FED46FD83D7E6371B33DDE0">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">Extents2D</string>
+				<string name="ScriptGuid">{6653155F-BD2E-4D8D-8842-995B9061446E}</string>
+				<ProtectedString name="Source"><![CDATA[local InstanceInfo = require(script.Parent.InstanceInfo)
+local Utility = require(script.Parent.Utility)
+local Select = require(script.Parent.Select)
+
+-- void refreshData(table(mt Extents2D)& extents)
+local function refreshData(extents)
+	
+	-- We use extents.hidden.TopLeft and extents.hidden.BottomRight as
+	-- the source of truth for data. Everything else is derived from those
+	-- two points.
+	extents.Center = (extents.hidden.TopLeft + extents.hidden.BottomRight) * 0.5
+	
+	extents.hidden.Left = extents.hidden.TopLeft.X
+	extents.hidden.Right = extents.hidden.BottomRight.X
+	extents.hidden.Top = extents.hidden.TopLeft.Y
+	extents.hidden.Bottom = extents.hidden.BottomRight.Y
+	extents.hidden.TopRight = Vector2.new(extents.Right, extents.Top)
+	extents.hidden.BottomLeft = Vector2.new(extents.Left, extents.Bottom)
+	
+	extents.Width = extents.hidden.Right - extents.hidden.Left
+	extents.Height = extents.hidden.Bottom - extents.hidden.Top
+	
+	extents.Size = Vector2.new(extents.Width, extents.Height)
+	
+end
+
+-- bool isPointVisible(Instance instance, Vector2 point)
+local function isPointVisible(instance, point)
+	if (not instance) then return true end
+	local guis = Select:getGuiObjectsAtPoint(point)
+		
+	for i = 1, #guis do
+		if (guis[i] == instance) then
+			return true
+		end
+		
+		if (not InstanceInfo:canSeeThrough(guis[i])) then
+			return false
+		end
+	end
+	return false
+end
+
+-- void refreshVisibility(table(mt Extents2D), Instance instance)
+local function refreshVisibility(extents, instance)
+	
+	extents.hidden.TopLeftVisible = isPointVisible(instance, extents.hidden.TopLeft)
+	extents.hidden.TopRightVisible = isPointVisible(instance, extents.hidden.TopRight)
+	extents.hidden.BottomLeftVisible = isPointVisible(instance, extents.hidden.BottomLeft)
+	extents.hidden.BottomRightVisible = isPointVisible(instance, extents.hidden.BottomRight)
+	extents.hidden.CenterVisible = isPointVisible(instance, extents.Center)
+end
+
+-- void extend(table(mt Extents2D)& extents, Vector2 ...)
+local function extend(extents, ...)
+	local args = {...}
+	
+	for i = 1, #args do
+		extents.hidden.TopLeft = Utility:minVector2(extents.hidden.TopLeft, args[i])
+		extents.hidden.BottomRight = Utility:maxVector2(extents.hidden.BottomRight, args[i])
+	end
+	
+	refreshData(extents)
+end
+
+-- void set(table(mt Extents2D)& extents, Vector2 ...)
+local function set(extents, ...)
+	local args = {...}
+	if (#args > 0) then
+		extents.hidden.TopLeft = args[1]
+		extents.hidden.BottomRight = args[1]
+		
+		table.remove(args, 1)
+		
+		extend(extents, unpack(args))
+	else
+		refreshData(extents)
+	end
+	
+end
+
+-- void Extents2D:translate(table(mt Extents2D)& extents, Vector2 offset)
+function translate(extents, offset)
+	extents.hidden.TopLeft = extents.hidden.TopLeft + offset
+	extents.hidden.BottomRight = extents.hidden.BottomRight + offset
+	refreshData(extents)
+end
+
+-- void Extents2D:resize(table(mt Extents2D)& extents, Vector2 offset)
+function resize(extents, size)
+	extents.hidden.BottomRight = extents.hidden.TopLeft + size
+	refreshData(extents)
+end
+
+-- void Extents2D:extendFromCenter(table(mt Extents2D)& extents, Vector2 offset)
+function expandFromCenter(extents, sizeOffset)	
+	local offset = sizeOffset * 0.5
+	
+	extents.TopLeft = extents.TopLeft - offset
+	extents.BottomRight = extents.BottomRight + offset
+	
+	refreshData(extents)
+end
+
+
+
+local Extents2D = {}
+
+-- table(mt Extents2D) Extents2D.new(Vector2 ...)
+function Extents2D.new(...)
+	local extents = {}
+	extents.map = {}
+	extents.mt = {}
+	extents.hidden = {}
+	extents.hidden.TopLeft = Vector2.new(0,0)
+	extents.hidden.BottomRight = Vector2.new(0,0)
+	
+	set(extents, ...)
+	refreshVisibility(extents)
+	
+	function extents.mt.__index(t, k)
+		if k == "extend" then
+			return extend
+		elseif k == "set" then
+			return set
+		elseif k == "TopLeft" then
+			return t.hidden.TopLeft
+		elseif k == "BottomRight" then
+			return t.hidden.BottomRight	
+		elseif k == "TopRight" then
+			return t.hidden.TopRight
+		elseif k == "BottomLeft" then
+			return t.hidden.BottomLeft		
+		elseif k == "Top" then
+			return t.hidden.Top
+		elseif k == "Bottom" then
+			return t.hidden.Bottom
+		elseif k == "Left" then
+			return t.hidden.Left
+		elseif k == "Right" then
+			return t.hidden.Right
+			
+		elseif k == "TopLeftVisible" then
+			return extents.hidden.TopLeftVisible
+		elseif k == "TopRightVisible" then
+			return extents.hidden.TopRightVisible
+		elseif k == "BottomLeftVisible" then
+			return extents.hidden.BottomLeftVisible
+		elseif k == "BottomRightVisible" then
+			return extents.hidden.BottomRightVisible
+		elseif k == "TopVisible" then
+			return extents.hidden.TopLeftVisible or extents.hidden.TopRightVisible
+		elseif k == "BottomVisible" then
+			return extents.hidden.BottomLeftVisible or extents.hidden.BottomRightVisible
+		elseif k == "LeftVisible" then
+			return extents.hidden.TopLeftVisible or extents.hidden.BottomLeftVisible
+		elseif k == "RightVisible" then
+			return extents.hidden.TopRightVisible or extents.hidden.BottomRightVisible
+		elseif k == "CenterVisible" then
+			return extents.hidden.CenterVisible
+			
+		elseif k == "translate" then
+			return translate
+		elseif k == "resize" then
+			return resize
+		elseif k == "expandFromCenter" then
+			return expandFromCenter
+		end
+	end
+	
+	function extents.mt.__newindex(t, k, v)
+		if k == "TopLeft" then
+			t.hidden.TopLeft = v
+		elseif k == "BottomRight" then
+			t.hidden.BottomRight = v
+		elseif k == "TopRight" then
+			t.hidden.TopLeft = Vector2.new(t.hidden.Left, v.Y)
+			t.hidden.BottomRight = Vector2.new(v.X, t.hidden.Bottom)
+		elseif k == "BottomLeft" then
+			t.hidden.TopLeft = Vector2.new(v.X, t.hidden.Top)
+			t.hidden.BottomRight = Vector2.new(t.hidden.Right, v.Y)
+		elseif k == "Top" then
+			t.hidden.TopLeft = Vector2.new(t.hidden.Left, v)
+		elseif k == "Bottom" then
+			t.hidden.BottomRight = Vector2.new(t.hidden.Right, v)
+		elseif k == "Left" then
+			t.hidden.TopLeft = Vector2.new(v, t.hidden.Top)
+		elseif k == "Right" then
+			t.hidden.BottomRight = Vector2.new(v, t.hidden.Bottom)
+		end
+		refreshData(t)
+	end
+	
+	setmetatable(extents, extents.mt)	
+	return extents
+end
+
+-- table(mt Extents2D) Extents2D:translate(table(mt Extents2D) extents, Vector2 offset)
+function Extents2D:translate(extents, offset)
+	local clone = Utility:cloneTable(extents)
+	translate(clone, offset)
+	return clone
+end
+
+-- table(mt Extents2D) Extents2D:resize(table(mt Extents2D) extents, Vector2 size)
+function Extents2D:resize(extents, size)
+	local clone = Utility:cloneTable(extents)
+	resize(extents, size)
+	return clone
+end
+
+-- table(mt Extents2D) Extents2D:expandFromCenter(table(mt Extents2D) extents, Vector2 sizeOffset)
+function Extents2D:expandFromCenter(extents, sizeOffset)
+	local clone = Utility:cloneTable(extents)
+	expandFromCenter(extents, sizeOffset)
+	return clone
+end
+
+-- table(mt Extents2D) Extents2D:getExtentsFromGui(GuiBase2d guiObject)
+function Extents2D:getExtentsFromGui(guiObject)
+	local extents = Extents2D.new()
+	set(extents, guiObject.AbsolutePosition, guiObject.AbsolutePosition + guiObject.AbsoluteSize)
+	
+	refreshVisibility(extents, guiObject)
+	
+	return extents
+end
+
+-- table(mt Extents2D) Extents2D:getExtentsFromGuis(table(GuiBase2d) guiObjects)
+function Extents2D:getExtentsFromGuis(guiObjects)
+	if (#guiObjects == 0) then return nil end
+	
+	local extents = Extents2D.new()
+	set(extents, guiObjects[1].AbsolutePosition, guiObjects[1].AbsolutePosition + guiObjects[1].AbsoluteSize)
+	
+	for i = 2, #guiObjects do
+		extend(extents, guiObjects[2].AbsolutePosition, guiObjects[2].AbsolutePosition + guiObjects[2].AbsoluteSize)
+	end
+	
+	return extents
+end
+
+return Extents2D
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="Folder" referent="RBX510EC5C3618E42D8B9A66A3C5582CD8C">
+			<Properties>
+				<string name="Name">Enum</string>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="ModuleScript" referent="RBXD75DB0BB3ED34D91A2EC9B7D4B8D6FB2">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">SnappingType</string>
+					<string name="ScriptGuid">{5C0DCE85-5878-4418-8545-030BF2B0CB20}</string>
+					<ProtectedString name="Source"><![CDATA[
+
+local SnappingType = {}
+
+SnappingType.MoveX			= 0
+SnappingType.MoveY			= 1
+SnappingType.MoveXY			= 2
+
+SnappingType.ResizeXp		= 3
+SnappingType.ResizeXn		= 4
+SnappingType.ResizeYp		= 5
+SnappingType.ResizeYn		= 6
+SnappingType.ResizeXpYp		= 7
+SnappingType.ResizeXnYp		= 8
+SnappingType.ResizeXpYn		= 9
+SnappingType.ResizeXnYn		= 10
+
+function SnappingType:containsType(baseType, containType)
+	if (baseType == containType) then
+		return true
+	end
+	
+	if (baseType == SnappingType.MoveXY) then
+		return containType == SnappingType.MoveX or containType == SnappingType.MoveY
+	elseif (baseType == SnappingType.ResizeXpYp) then
+		return containType == SnappingType.ResizeXp or containType == SnappingType.ResizeYp
+	elseif (baseType == SnappingType.ResizeXnYp) then
+		return containType == SnappingType.ResizeXn or containType == SnappingType.ResizeYp
+	elseif (baseType == SnappingType.ResizeXpYn) then
+		return containType == SnappingType.ResizeXp or containType == SnappingType.ResizeYn
+	elseif (baseType == SnappingType.ResizeXnYn) then
+		return containType == SnappingType.ResizeXn or containType == SnappingType.ResizeYn
+	end
+	
+	return false
+end
+
+return SnappingType
+]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+</roblox>

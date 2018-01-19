@@ -73,9 +73,6 @@ content/avatar/compositing/R15CompositRightArmBase.mesh
 content/avatar/compositing/R15CompositTorsoBase.mesh
 [8818 bytes]
 
-content/avatar/content-avatar.zip
-[181771 bytes]
-
 content/avatar/heads/head.mesh
 [28207 bytes]
 
@@ -175,9 +172,6 @@ content/fonts/characterControlScript.rbxmx
 content/fonts/ComicNeue-Angular-Bold.ttf
 [61983 bytes]
 
-content/fonts/content-fonts.zip
-[1735907 bytes]
-
 content/fonts/gamecontrollerdb.txt
 [24066 bytes]
 
@@ -219,12 +213,6 @@ content/fonts/zekton_rg.ttf
 
 content/models/AvatarContextMenu/AvatarContextArrow.rbxm
 [5163 bytes]
-
-content/models/content-models.zip
-[3319 bytes]
-
-content/scripts/content-scripts.zip
-[551729 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
 [11274 bytes]
@@ -757,9 +745,6 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/V
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/PathDisplay.lua
 [3207 bytes]
 
-content/sky/content-sky.zip
-[14152 bytes]
-
 content/sky/moon.jpg
 [7107 bytes]
 
@@ -787,9 +772,6 @@ content/sounds/action_swim.mp3
 content/sounds/bass.wav
 [6351 bytes]
 
-content/sounds/content-sounds.zip
-[332256 bytes]
-
 content/sounds/impact_explosion_03.mp3
 [40674 bytes]
 
@@ -801,9 +783,6 @@ content/sounds/snap.mp3
 
 content/sounds/uuhhh.mp3
 [5281 bytes]
-
-content/terrain/content-terrain.zip
-[23296515 bytes]
 
 content/terrain/diffuse.dds
 [2562991 bytes]
@@ -993,12 +972,6 @@ content/textures/concrete/specular.dds
 
 content/textures/ConstraintCursor.png
 [165 bytes]
-
-content/textures/content-textures2.zip
-[6456853 bytes]
-
-content/textures/content-textures3.zip
-[26888951 bytes]
 
 content/textures/Cursors/Gamepad/Pointer.png
 [1073 bytes]
@@ -3069,9 +3042,6 @@ content/textures/woodplanks/specular.dds
 
 content/translations/ChatLocalization.json
 [21706 bytes]
-
-content/translations/content-translations.zip
-[40762 bytes]
 
 content/translations/CorescriptLocalization.json
 [111982 bytes]
