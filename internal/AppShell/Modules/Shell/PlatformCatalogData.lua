@@ -6,8 +6,6 @@ local ShellModules = Modules:FindFirstChild("Shell")
 local PlatformService;
 pcall(function() PlatformService = Game:GetService('PlatformService') end)
 
-local XboxFixRobuxProductsPrice = settings():GetFFlag("XboxFixRobuxProductsPrice")
-
 local PlatformCatalogData = {}
 
 local function getStudioDummyData()
@@ -38,15 +36,8 @@ function PlatformCatalogData:GetCatalogInfoAsync()
 end
 
 function PlatformCatalogData:ParseMoneyValue(productInfo)
-	if not XboxFixRobuxProductsPrice then
-		local rawText = productInfo and productInfo.DisplayPrice
-		local noCurrency = rawText and string.gsub(rawText, "%$", "") or nil
-		noCurrency = noCurrency and string.gsub(noCurrency, ",", "") or nil
-		return noCurrency and tonumber(noCurrency) or 0.99
-	else
-		local price = productInfo and tonumber(productInfo.Price) or 0.99
-		return price
-	end
+	local price = productInfo and tonumber(productInfo.Price) or 0.99
+	return price
 end
 
 function PlatformCatalogData:ParseRobuxValue(productInfo)

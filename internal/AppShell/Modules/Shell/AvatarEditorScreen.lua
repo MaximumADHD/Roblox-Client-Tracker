@@ -21,7 +21,6 @@ pcall(function() ThirdPartyUserService = game:GetService('ThirdPartyUserService'
 
 local AvatarEditorView = nil
 local AvatarEditorReconstruct = false
-local FixAvatarEditorNotUpdateWithPurchase = settings():GetFFlag("XboxFixAvatarEditorNotUpdateWithPurchase")
 
 local function createAvatarEditorScreen()
 	local this = BaseScreen()
@@ -41,12 +40,10 @@ local function createAvatarEditorScreen()
 	view.TitleText.Position = titleTextPosition
 
 	--Reconstruct the AvatarEditorView if user switched/assets purchased
-	if FixAvatarEditorNotUpdateWithPurchase then
-		if AvatarEditorReconstruct and AvatarEditorView then
-			AvatarEditorView:Destruct()
-			AvatarEditorView = nil
-			AvatarEditorReconstruct = false
-		end
+	if AvatarEditorReconstruct and AvatarEditorView then
+		AvatarEditorView:Destruct()
+		AvatarEditorView = nil
+		AvatarEditorReconstruct = false
 	end
 	AvatarEditorView = AvatarEditorView or CreateAvatarEditorView()
 
@@ -109,35 +106,24 @@ local function createAvatarEditorScreen()
 	return this
 end
 
-
-if not FixAvatarEditorNotUpdateWithPurchase then
-	if ThirdPartyUserService then
-		ThirdPartyUserService.ActiveUserSignedOut:connect(function()
-			AvatarEditorView:Destruct()
-			AvatarEditorView = nil
+local function OnUserAccountChanged()
+	AvatarEditorReconstruct = true
+	EventHub:removeEventListener(EventHub.Notifications["AvatarPurchaseSuccess"], "AvatarEditorScreen")
+	EventHub:addEventListener(EventHub.Notifications["AvatarPurchaseSuccess"], "AvatarEditorScreen",
+		function()
+			AvatarEditorReconstruct = true
 		end)
-	end
-else
-	local function OnUserAccountChanged()
-		AvatarEditorReconstruct = true
-		EventHub:removeEventListener(EventHub.Notifications["AvatarPurchaseSuccess"], "AvatarEditorScreen")
-		EventHub:addEventListener(EventHub.Notifications["AvatarPurchaseSuccess"], "AvatarEditorScreen",
-			function()
-				AvatarEditorReconstruct = true
-			end)
-	end
-
-	EventHub:addEventListener(EventHub.Notifications["AuthenticationSuccess"], "AvatarEditorScreen", OnUserAccountChanged)
-
-	local function OnUserSignOut()
-		AvatarEditorReconstruct = true
-		EventHub:removeEventListener(EventHub.Notifications["AvatarPurchaseSuccess"], "AvatarEditorScreen")
-	end
-
-	if ThirdPartyUserService then
-		ThirdPartyUserService.ActiveUserSignedOut:connect(OnUserSignOut)
-	end
 end
 
+EventHub:addEventListener(EventHub.Notifications["AuthenticationSuccess"], "AvatarEditorScreen", OnUserAccountChanged)
+
+local function OnUserSignOut()
+	AvatarEditorReconstruct = true
+	EventHub:removeEventListener(EventHub.Notifications["AvatarPurchaseSuccess"], "AvatarEditorScreen")
+end
+
+if ThirdPartyUserService then
+	ThirdPartyUserService.ActiveUserSignedOut:connect(OnUserSignOut)
+end
 
 return createAvatarEditorScreen

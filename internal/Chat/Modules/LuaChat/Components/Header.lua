@@ -67,7 +67,7 @@ function Header.new(appState, dialogType)
 				Position = UDim2.new(0.5, 0, 1, 0),
 				AnchorPoint = Vector2.new(0.5, 1),
 				Text = appState.localization:Format(StringsLocale.Keys.NO_NETWORK_CONNECTION),
-				Font = "SourceSansBold",
+				Font = "SourceSans",
 				LayoutOrder = 0,
 			},
 		},

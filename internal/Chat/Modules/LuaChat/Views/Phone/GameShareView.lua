@@ -42,7 +42,7 @@ function GameShareView:Start()
 	self.gameShareComponent:Start()
 	self.prevTabBarVisibility = self.appState.store:GetState().TabBarVisible
 
-	BaseScreen.Stop(self)
+	BaseScreen.Start(self)
 
 	self.appState.store:Dispatch({
 		type = ActionType.SetTabBarVisible,
@@ -64,7 +64,7 @@ end
 function GameShareView:Destruct()
 	self.gameShareComponent:Destruct()
 
-	BaseScreen.Stop(self)
+	BaseScreen.Destruct(self)
 end
 
 return GameShareView

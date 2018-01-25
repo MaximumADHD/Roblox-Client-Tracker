@@ -6,7 +6,6 @@ local LuaChat = script.Parent.Parent
 local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
 local Text = require(LuaChat.Text)
-local WebApi = require(LuaChat.WebApi)
 
 local AssetInfoActions = require(LuaChat.Actions.AssetInfoActions)
 local GetPlaceInfo = require(LuaChat.Actions.GetPlaceInfo)

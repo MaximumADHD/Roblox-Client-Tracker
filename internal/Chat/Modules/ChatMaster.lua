@@ -9,6 +9,10 @@ local DebugManager = require(LuaChat.Debug.DebugManager)
 local ActionType = require(LuaChat.ActionType)
 local DialogInfo = require(LuaChat.DialogInfo)
 
+local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+
+local PerformanceTesting = require(LuaApp.PerformanceTesting)
+
 local Intent = DialogInfo.Intent
 
 local ChatMaster = {}
@@ -46,6 +50,8 @@ function ChatMaster.new()
 	self._chatRunning = false
 	self._gameShareRunning = false
 
+	PerformanceTesting:Initialize(self._appState)
+
 	return self
 end
 
@@ -54,7 +60,7 @@ function ChatMaster:Start(startType, parameters)
 		startType = ChatMaster.Type.Default
 	end
 
-	RunService:setThrottleFramerateEnabled(true)
+	RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
 	RunService:Set3dRenderingEnabled(false)
 	self._appState.store:Dispatch({
 		type = ActionType.ToggleChatPaused,
@@ -99,6 +105,8 @@ function ChatMaster:Stop(stopType)
 		warn('cannot stop share game to chat while chat is running')
 		return
 	end
+
+	PerformanceTesting:Stop()
 
 	self._chatRunning = false
 	self._gameShareRunning = false

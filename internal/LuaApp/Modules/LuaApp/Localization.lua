@@ -15,7 +15,7 @@ function Localization.new(stringsLocale, locale)
 	})
 
 	local table = Instance.new("LocalizationTable")
-	table.DevelopmentLanguage = "en-us"
+	table.SourceLocaleId = "en-us"
 	local content = HttpService:JSONEncode(self.stringsLocale.Content)
 	table:SetContents(content)
 	self.table = table

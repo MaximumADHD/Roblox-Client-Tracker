@@ -12,29 +12,46 @@ local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local AppGui = require(Modules.LuaApp.Legacy.AvatarEditor.AppGui)
 
 local AvatarEditorUseModernHeader = AvatarEditorFlags:GetFlag("AvatarEditorUseModernHeader2")
+local RefactoringAvatarEditorSetup = AvatarEditorFlags:GetFlag("RefactoringAvatarEditorSetup")
 
 local ChatMaster = nil
 local AvatarEditorMain = nil
 
-local AppNames = {
-	"AvatarEditor",
-	"Chat",
-	"ShareGameToChat",
-}
-
-local AppNameEnum = {}
-for i = 1, #AppNames do
-	AppNameEnum[AppNames[i]] = AppNames[i]
+local function notifyAppReady(appName)
+	spawn(function()
+		GuiService:BroadcastNotification(appName, GuiService:GetNotificationTypeList().APP_READY)
+	end)
 end
 
-setmetatable(AppNameEnum, {
-	__index = function(self, key)
-		error(("Invalid AppNameEnum %q"):format(tostring(key)))
+local AvatarEditorSetup = require(Modules.Mobile.AvatarEditorSetup)
+
+local AppNameEnum = {}
+if RefactoringAvatarEditorSetup then
+	AppNameEnum = require(Modules.Mobile.AppNameEnum)
+else
+	local AppNames = {
+		"AvatarEditor",
+		"Chat",
+		"ShareGameToChat",
+	}
+
+	for i = 1, #AppNames do
+		AppNameEnum[AppNames[i]] = AppNames[i]
 	end
-})
+
+	setmetatable(AppNameEnum, {
+		__index = function(self, key)
+			error(("Invalid AppNameEnum %q"):format(tostring(key)))
+		end
+	})
+end
 
 --This is to cover the sky while loading, and also prevent the sky from flashing in when the global gui inset changes
 local screenGui
+
+if RefactoringAvatarEditorSetup then
+	AvatarEditorSetup:Initialize(notifyAppReady)
+else
 
 if not UserSettings().GameSettings:InStudioMode() then
 screenGui = Create.new "ScreenGui" {
@@ -102,13 +119,7 @@ screenGui.Parent = CoreGui
 ]]
 local startAvatarEditorAfterInitializing = false
 
-
-local function notifyAppReady(appName)
-	spawn(function()
-		GuiService:BroadcastNotification(appName, GuiService:GetNotificationTypeList().APP_READY)
-	end)
 end
-
 
 local function openChat()
 	if ChatMaster == nil then
@@ -123,7 +134,6 @@ end
 local function closeChat()
 	ChatMaster:Stop()
 end
-
 
 local function openShareGameToChat(parameters)
 	if ChatMaster == nil then
@@ -140,15 +150,22 @@ local function closeShareGameToChat()
 end
 
 
-local openAvatarEditor = function()
-	startAvatarEditorAfterInitializing = true
+local openAvatarEditor
+if not RefactoringAvatarEditorSetup then
+	openAvatarEditor = function()
+		startAvatarEditorAfterInitializing = true
+	end
 end
 
 
-local closeAvatarEditor = function()
-	startAvatarEditorAfterInitializing = false
+local closeAvatarEditor
+if not RefactoringAvatarEditorSetup then
+	closeAvatarEditor = function()
+		startAvatarEditorAfterInitializing = false
+	end
 end
 
+if not RefactoringAvatarEditorSetup then
 
 spawn(function()
 
@@ -224,7 +241,7 @@ end
 	end
 end)
 
-
+end
 
 local function installStudioTestingHooks(store)
 	local ActionType = require(CoreGui.RobloxGui.Modules.Mobile.ActionType)
@@ -279,7 +296,11 @@ then
 					end
 
 					if newState.OpenApp == AppNameEnum.AvatarEditor then
-						openAvatarEditor()
+						if RefactoringAvatarEditorSetup then
+							AvatarEditorSetup:Open()
+						else
+							openAvatarEditor()
+						end
 					end
 
 					if newState.OpenApp == AppNameEnum.ShareGameToChat then
@@ -291,7 +312,11 @@ then
 					end
 
 					if oldState.OpenApp == AppNameEnum.AvatarEditor then
-						closeAvatarEditor()
+						if RefactoringAvatarEditorSetup then
+							AvatarEditorSetup:Close()
+						else
+							closeAvatarEditor()
+						end
 					end
 
 					if oldState.OpenApp == AppNameEnum.ShareGameToChat then
@@ -316,7 +341,11 @@ else
 					end
 
 					if newState.OpenApp == AppNameEnum.AvatarEditor then
-						openAvatarEditor()
+						if RefactoringAvatarEditorSetup then
+							AvatarEditorSetup:Open()
+						else
+							openAvatarEditor()
+						end
 					end
 
 					if oldState.OpenApp == AppNameEnum.Chat then
@@ -324,7 +353,11 @@ else
 					end
 
 					if oldState.OpenApp == AppNameEnum.AvatarEditor then
-						closeAvatarEditor()
+						if RefactoringAvatarEditorSetup then
+							AvatarEditorSetup:Close()
+						else
+							closeAvatarEditor()
+						end
 					end
 				end
 			end

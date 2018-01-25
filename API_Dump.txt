@@ -50,8 +50,6 @@ Class Accoutrement : Instance
 Class Accessory : Accoutrement
 Class Hat : Accoutrement [deprecated]
 Class AdService : Instance [notCreatable]
-	Function void AdService:ShowVideoAd() [deprecated]
-	Event AdService.VideoAdClosed(bool adShown) [deprecated]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [notCreatable]
 	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
@@ -660,7 +658,7 @@ Class FunctionalTest : Instance [deprecated]
 	Function void FunctionalTest:Passed(string message = )
 	Function void FunctionalTest:Warn(string message = )
 Class GamePassService : Instance
-	YieldFunction bool GamePassService:PlayerHasPass(Instance player, int gamePassId)
+	YieldFunction bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId)
 Class GameSettings : Instance [notbrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs
 	Property float GameSettings.BubbleChatLifetime
@@ -1246,10 +1244,10 @@ Class KeyframeSequence : Instance
 	Function void KeyframeSequence:RemoveKeyframe(Instance keyframe)
 Class KeyframeSequenceProvider : Instance
 	Function Instance KeyframeSequenceProvider:GetKeyframeSequence(Content assetId) [deprecated] [PluginSecurity]
-	Function Instance KeyframeSequenceProvider:GetKeyframeSequenceById(int assetId, bool useCache) [deprecated] [PluginSecurity]
+	Function Instance KeyframeSequenceProvider:GetKeyframeSequenceById(int64 assetId, bool useCache) [deprecated] [PluginSecurity]
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
-	YieldFunction Instance KeyframeSequenceProvider:GetAnimations(int userId)
+	YieldFunction Instance KeyframeSequenceProvider:GetAnimations(int64 userId)
 	YieldFunction Instance KeyframeSequenceProvider:GetKeyframeSequenceAsync(Content assetId)
 Class Light : Instance
 	Property float Light.Brightness
@@ -1296,15 +1294,16 @@ Class LocalizationService : Instance [notCreatable]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 Class LocalizationTable : Instance
-	Property string LocalizationTable.DevelopmentLanguage
+	Property string LocalizationTable.DevelopmentLanguage [deprecated] [hidden]
 	Property Object LocalizationTable.Root
-	Property string LocalizationTable.SourceLocaleId [hidden]
+	Property string LocalizationTable.SourceLocaleId
 	Function string LocalizationTable:GetContents()
 	Function Array LocalizationTable:GetEntries()
 	Function string LocalizationTable:GetString(string targetLocaleId, string key)
 	Function Instance LocalizationTable:GetTranslator(string localeId)
 	Function void LocalizationTable:RemoveKey(string key)
 	Function void LocalizationTable:SetContents(string contents)
+	Function void LocalizationTable:SetEntries(Variant entries)
 	Function void LocalizationTable:SetEntry(string key, string targetLocaleId, string text)
 Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
@@ -1601,17 +1600,11 @@ Class WedgePart : FormFactorPart
 Class MeshPart : BasePart
 	Property Content MeshPart.MeshId [ScriptWriteRestricted: [NotAccessibleSecurity]]
 	Property Content MeshPart.TextureID
-Class ParallelRampPart : BasePart [notbrowsable] [deprecated]
 Class PartOperation : BasePart
 	Property int PartOperation.TriangleCount [readonly]
 	Property bool PartOperation.UsePartColor
 Class NegateOperation : PartOperation
 Class UnionOperation : PartOperation
-Class PrismPart : BasePart [notbrowsable] [deprecated]
-	Property PrismSides PrismPart.Sides
-Class PyramidPart : BasePart [notbrowsable] [deprecated]
-	Property PyramidSides PyramidPart.Sides
-Class RightAngleRampPart : BasePart [notbrowsable] [deprecated]
 Class Terrain : BasePart [notCreatable]
 	Property bool Terrain.IsSmooth [deprecated] [readonly]
 	Property Region3int16 Terrain.MaxExtents [readonly]
@@ -1891,7 +1884,7 @@ Class Player : Instance
 	Event Player.Chatted(string message, Instance recipient)
 	Event Player.FriendStatusChanged(Instance player, FriendStatus friendStatus) [RobloxScriptSecurity]
 	Event Player.Idled(double time)
-	Event Player.OnTeleport(TeleportState teleportState, int placeId, string spawnName)
+	Event Player.OnTeleport(TeleportState teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) [LocalUserSecurity]
 Class PlayerScripts : Instance [notCreatable]
 	Function void PlayerScripts:ClearComputerCameraMovementModes()
@@ -1935,8 +1928,8 @@ Class Players : Instance
 	Function Objects Players:getPlayers() [deprecated]
 	Function Instance Players:playerFromCharacter(Instance character) [deprecated]
 	Function Objects Players:players() [deprecated]
-	YieldFunction Instance Players:GetCharacterAppearanceAsync(int userId)
-	YieldFunction Dictionary Players:GetCharacterAppearanceInfoAsync(int userId)
+	YieldFunction Instance Players:GetCharacterAppearanceAsync(int64 userId)
+	YieldFunction Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId)
 	YieldFunction Instance Players:GetFriendsAsync(int userId)
 	YieldFunction string Players:GetNameFromUserIdAsync(int userId)
 	YieldFunction int Players:GetUserIdFromNameAsync(string userName)
@@ -1959,7 +1952,7 @@ Class Plugin : Instance
 	Function Instance Plugin:GetMouse() [PluginSecurity]
 	Function RibbonTool Plugin:GetSelectedRibbonTool() [PluginSecurity]
 	Function Variant Plugin:GetSetting(string key) [PluginSecurity]
-	Function int Plugin:GetStudioUserId() [PluginSecurity]
+	Function int64 Plugin:GetStudioUserId() [PluginSecurity]
 	Function void Plugin:ImportFbxAnimation(Instance rigModel) [PluginSecurity]
 	Function Objects Plugin:Negate(Objects objects) [PluginSecurity]
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) [PluginSecurity]
@@ -1970,9 +1963,10 @@ Class Plugin : Instance
 	Function void Plugin:SetSetting(string key, Variant value) [PluginSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:ImportFbxRig() [PluginSecurity]
-	YieldFunction int Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
+	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
 	Event Plugin.Deactivation() [PluginSecurity]
+Class PluginGuiService : Instance [notCreatable]
 Class PluginManager : Instance
 	Function Instance PluginManager:CreatePlugin() [PluginSecurity]
 	Function Instance PluginManager:EndUntranslatedStringCollect() [PluginSecurity]
@@ -1982,8 +1976,8 @@ Class PluginManager : Instance
 Class PointsService : Instance [notCreatable]
 	Function int PointsService:GetAwardablePoints() [deprecated]
 	YieldFunction Tuple PointsService:AwardPoints(int userId, int amount)
-	YieldFunction int PointsService:GetGamePointBalance(int userId)
-	YieldFunction int PointsService:GetPointBalance(int userId) [deprecated]
+	YieldFunction int PointsService:GetGamePointBalance(int64 userId)
+	YieldFunction int PointsService:GetPointBalance(int64 userId) [deprecated]
 	Event PointsService.PointsAwarded(int userId, int pointsAwarded, int userBalanceInGame, int userTotalBalance)
 Class Pose : Instance
 	Property CoordinateFrame Pose.CFrame
@@ -2378,13 +2372,13 @@ Class TeleportService : Instance
 	Function Variant TeleportService:GetLocalPlayerTeleportData()
 	Function Variant TeleportService:GetTeleportSetting(string setting)
 	Function void TeleportService:SetTeleportSetting(string setting, Variant value)
-	Function void TeleportService:Teleport(int placeId, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
+	Function void TeleportService:Teleport(int64 placeId, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportCancel() [RobloxScriptSecurity]
-	Function void TeleportService:TeleportToPlaceInstance(int placeId, string instanceId, Instance player = nil, string spawnName = , Variant teleportData, Instance customLoadingScreen = nil)
-	Function void TeleportService:TeleportToPrivateServer(int placeId, string reservedServerAccessCode, Objects players, string spawnName = , Variant teleportData, Instance customLoadingScreen = nil)
-	Function void TeleportService:TeleportToSpawnByName(int placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
-	YieldFunction Tuple TeleportService:GetPlayerPlaceInstanceAsync(int userId)
-	YieldFunction string TeleportService:ReserveServer(int placeId)
+	Function void TeleportService:TeleportToPlaceInstance(int64 placeId, string instanceId, Instance player = nil, string spawnName = , Variant teleportData, Instance customLoadingScreen = nil)
+	Function void TeleportService:TeleportToPrivateServer(int64 placeId, string reservedServerAccessCode, Objects players, string spawnName = , Variant teleportData, Instance customLoadingScreen = nil)
+	Function void TeleportService:TeleportToSpawnByName(int64 placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
+	YieldFunction Tuple TeleportService:GetPlayerPlaceInstanceAsync(int64 userId)
+	YieldFunction string TeleportService:ReserveServer(int64 placeId)
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.TeleportInitFailed(Instance player, TeleportResult teleportResult, string errorMessage)
 Class TerrainRegion : Instance
@@ -2415,12 +2409,12 @@ Class TestService : Instance
 	Event TestService.ServerCollectConditionalResult(bool condition, string text, Instance script, int line)
 	Event TestService.ServerCollectResult(string text, Instance script, int line)
 Class TextFilterResult : Instance [notCreatable]
-	YieldFunction string TextFilterResult:GetChatForUserAsync(int toUserId)
+	YieldFunction string TextFilterResult:GetChatForUserAsync(int64 toUserId)
 	YieldFunction string TextFilterResult:GetNonChatStringForBroadcastAsync()
-	YieldFunction string TextFilterResult:GetNonChatStringForUserAsync(int toUserId)
+	YieldFunction string TextFilterResult:GetNonChatStringForUserAsync(int64 toUserId)
 Class TextService : Instance
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Font font, Vector2 frameSize)
-	YieldFunction Instance TextService:FilterStringAsync(string stringToFilter, int fromUserId)
+	YieldFunction Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId)
 Class ThirdPartyUserService : Instance [notCreatable]
 	Function string ThirdPartyUserService:GetUserDisplayName() [RobloxScriptSecurity]
 	Function string ThirdPartyUserService:GetUserPlatformId() [RobloxScriptSecurity]
@@ -2615,6 +2609,7 @@ Class UserInputService : Instance [notCreatable]
 	Event UserInputService.InputEnded(Instance input, bool gameProcessedEvent)
 	Event UserInputService.JumpRequest()
 	Event UserInputService.LastInputTypeChanged(UserInputType lastInputType)
+	Event UserInputService.StatusBarTapped(Vector2 position) [RobloxScriptSecurity]
 	Event UserInputService.TextBoxFocusReleased(Instance textboxReleased)
 	Event UserInputService.TextBoxFocused(Instance textboxFocused)
 	Event UserInputService.TouchEnded(Instance touch, bool gameProcessedEvent)
@@ -2648,6 +2643,14 @@ Class Vector3Value : Instance
 	Property Vector3 Vector3Value.Value
 	Event Vector3Value.Changed(Vector3 value)
 	Event Vector3Value.changed(Vector3 value) [deprecated]
+Class VirtualInputManager : Instance
+	Property string VirtualInputManager.AdditionalLuaState [RobloxScriptSecurity]
+	Function void VirtualInputManager:Dump() [RobloxScriptSecurity]
+	Function void VirtualInputManager:StartPlaying(string fileName) [RobloxScriptSecurity]
+	Function void VirtualInputManager:StartRecording() [RobloxScriptSecurity]
+	Function void VirtualInputManager:StopRecording() [RobloxScriptSecurity]
+	Event VirtualInputManager.PlaybackCompleted(string additionalLuaState) [RobloxScriptSecurity]
+	Event VirtualInputManager.RecordingCompleted(string result) [RobloxScriptSecurity]
 Class VirtualUser : Instance [notCreatable]
 	Function void VirtualUser:Button1Down(Vector2 position, CoordinateFrame camera = Identity) [LocalUserSecurity]
 	Function void VirtualUser:Button1Up(Vector2 position, CoordinateFrame camera = Identity) [LocalUserSecurity]
@@ -3627,13 +3630,6 @@ Enum PriorityMethod
 	EnumItem PriorityMethod.LastError : 0
 	EnumItem PriorityMethod.AccumulatedError : 1
 	EnumItem PriorityMethod.FIFO : 2
-Enum PrismSides
-	EnumItem PrismSides.3 : 3
-	EnumItem PrismSides.5 : 5
-	EnumItem PrismSides.6 : 6
-	EnumItem PrismSides.8 : 8
-	EnumItem PrismSides.10 : 10
-	EnumItem PrismSides.20 : 20
 Enum PrivilegeType
 	EnumItem PrivilegeType.Owner : 255
 	EnumItem PrivilegeType.Admin : 240
@@ -3643,14 +3639,6 @@ Enum PrivilegeType
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1
-Enum PyramidSides
-	EnumItem PyramidSides.3 : 3
-	EnumItem PyramidSides.4 : 4
-	EnumItem PyramidSides.5 : 5
-	EnumItem PyramidSides.6 : 6
-	EnumItem PyramidSides.8 : 8
-	EnumItem PyramidSides.10 : 10
-	EnumItem PyramidSides.20 : 20
 Enum QualityLevel
 	EnumItem QualityLevel.Automatic : 0
 	EnumItem QualityLevel.Level01 : 1
@@ -3984,6 +3972,10 @@ Enum VideoQualitySettings
 	EnumItem VideoQualitySettings.LowResolution : 0
 	EnumItem VideoQualitySettings.MediumResolution : 1
 	EnumItem VideoQualitySettings.HighResolution : 2
+Enum VirtualInputMode
+	EnumItem VirtualInputMode.Recording : 1
+	EnumItem VirtualInputMode.Playing : 2
+	EnumItem VirtualInputMode.None : 0
 Enum WaterDirection
 	EnumItem WaterDirection.NegX : 0
 	EnumItem WaterDirection.X : 1

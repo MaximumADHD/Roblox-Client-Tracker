@@ -325,7 +325,6 @@ RBX
 	}
 	PART
 	{
-		ParametricPartInstance
 		Wedge
 	}
 	PartInstance
@@ -723,7 +722,6 @@ RBX
 	GuiBase3d
 	GuiButton
 	GuiImageButton
-	GuiImageMixin
 	GuiItem
 	GuiLabel
 	GuiLayerCollector
@@ -877,7 +875,6 @@ RBX
 	Pages
 	Pants
 	ParabolaAdornment
-	ParallelRampPoly
 	PartAdornment
 	PartByLocalCharacter
 	PartDragTool
@@ -920,10 +917,8 @@ RBX
 	PostEffect
 	Primitive
 	PriorityThreadPool
-	PrismPoly
 	PVAdornment
 	PVInstance
-	PyramidPoly
 	RelativePanel
 	RemoteEvent
 	RemoteFunction
@@ -932,7 +927,6 @@ RBX
 	ReplicatedStorage
 	ResetCommand
 	RevoluteLink
-	RightAngleRampPoly
 	RightMotorTool
 	RigidJoint
 	RobloxReplicatedStorage
@@ -1099,6 +1093,7 @@ RBX
 	VideoRecord
 	ViewBase
 	VirtualHardwareDevice
+	VirtualInputManager
 	VirtualUser
 	Visit
 	VRService

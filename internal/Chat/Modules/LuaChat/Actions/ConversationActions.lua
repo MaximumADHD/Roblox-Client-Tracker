@@ -876,18 +876,22 @@ function ConversationActions.MarkConversationAsRead(conversationId)
 		local messages = conversation.messages
 
 		local lastUnreadMessage = nil
+		local count = 0
+		local lastUreadMessageId = ''
 		for _, message in messages:CreateReverseIterator() do
+			count = count + 1
 			if not message.read then
 				lastUnreadMessage = message
+				lastUreadMessageId = lastUnreadMessage.id
 				break
 			end
 		end
 
 		spawn(function()
 
-			if lastUnreadMessage then
+			if lastUnreadMessage or (conversation.hasUnreadMessages and count == 0) then
 
-				local status = WebApi.MarkAsRead(conversationId, lastUnreadMessage.id)
+				local status = WebApi.MarkAsRead(conversationId, lastUreadMessageId)
 
 				if status ~= WebApi.Status.OK then
 					warn("WebApi failure in MarkConversationAsRead")

@@ -12,11 +12,7 @@ local this = {}
 
 local function createLocalizationTable(contents)
 	local localTable = Instance.new("LocalizationTable")
-	if FFlagClientAppsUseRobloxLocale then
-		localTable.DevelopmentLanguage = LocalizationService.RobloxLocaleId
-	else
-		localTable.DevelopmentLanguage = LocalizationService.SystemLocaleId
-	end
+	localTable.SourceLocaleId = "en-us"
 	localTable:SetContents(HttpService:JSONEncode(contents))
 	return localTable
 end

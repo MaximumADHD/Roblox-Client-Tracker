@@ -10,4 +10,7 @@ return {
 	HttpDelay = false,
 
 	SimulatePlatform = Enum.Platform.IOS,
+
+	PerformanceTestingMode = Enum.VirtualInputMode.None,
+	PerformanceTestFilename = "GalaxyS6.json",
 }

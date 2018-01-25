@@ -1263,6 +1263,40 @@
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ZOffset</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Lifetime</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextureLength</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">40</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MinLength</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
       </Item>
     </Item>
     
@@ -1279,6 +1313,47 @@
           <Properties>
             <string name="Name">LightEmission</string>
             <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextureSpeed</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextureLength</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">40</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurveSize0</string>
+            <double name="UIMinimum">-10</double>
+            <double name="UIMaximum">10</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurveSize1</string>
+            <double name="UIMinimum">-10</double>
+            <double name="UIMaximum">10</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ZOffset</string>
+            <double name="UIMinimum">-1</double>
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>
@@ -2960,6 +3035,16 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
       </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">LocalizationTable</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">97</string>
+        <string name="ClassCategory">Localization</string>
+        <string name="summary">A database of strings used in the game and their translations.</string>        
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">

@@ -105,6 +105,7 @@ local AvatarEditorFixDefaultClothesIds = Flags:GetFlag("AvatarEditorFixDefaultCl
 local AvatarEditorAnthroSliders =
 	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
 	Flags:GetFlag("AvatarEditorUseNewCommonAction")
+local FixApplyTShirtOnR6Character = Flags:GetFlag("FixApplyTShirtOnR6Character")
 
 if AvatarEditorAnthroSliders then
 	DEFAULT_SCALES = {
@@ -117,7 +118,7 @@ if AvatarEditorAnthroSliders then
 	}
 end
 
-local useAnthoValues = Flags:GetFlag("UseAnthroValues3")
+local useAnthroValues = Flags:GetFlag("UseAnthroValues4")
 
 
 ----------- CLASS DECLARATION --------------
@@ -663,7 +664,8 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 	local function sortAndEquipItemToCharacter(character, thing, assetInsertedContentList)
 		if thing then
-			if thing.className == 'ShirtGraphic' then
+			if not FixApplyTShirtOnR6Character and
+				thing.className == 'ShirtGraphic' then
 				return
 			end
 
@@ -928,7 +930,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 				if oldThing then
 					local thingClone = thing:Clone()
 
-					if not useAnthoValues then
+					if not useAnthroValues then
 						thing.Parent = character
 					end
 
@@ -955,6 +957,10 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 								if thing:FindFirstChild(v.Name) then
 									thing[v.Name]:Destroy()
 								end
+								if useAnthroValues and v:FindFirstChild("OriginalPosition") then
+									v["OriginalPosition"]:Destroy()
+								end
+
 								v.Parent = thing
 							end
 						end
@@ -972,7 +978,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 						end
 					end
 
-					if useAnthoValues then
+					if useAnthroValues then
 						thing.Parent = character
 					end
 
