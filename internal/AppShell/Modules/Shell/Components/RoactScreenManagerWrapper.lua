@@ -22,7 +22,7 @@ local ScreenManager = require(Modules.Shell.ScreenManager)
 local RoactScreenManagerWrapper = {}
 RoactScreenManagerWrapper.__index = RoactScreenManagerWrapper
 
-function RoactScreenManagerWrapper.new(roactComponent, parent, props)
+function RoactScreenManagerWrapper.new(roactComponent, parent, props, closeCallback)
 	local self = {}
 	props = props or {}
 
@@ -31,6 +31,9 @@ function RoactScreenManagerWrapper.new(roactComponent, parent, props)
 	local function onUnmount()
 		if self == ScreenManager:GetTopScreen() then
 			ScreenManager:CloseCurrent()
+			if closeCallback then
+				closeCallback()
+			end
 		end
 	end
 

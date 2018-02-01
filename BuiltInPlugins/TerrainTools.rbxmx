@@ -145,13 +145,34 @@ for i,tool in pairs(plugins) do
 	end
 end
 
+local StudioTerrainToolsInLuaWidget = settings():GetFFlag("StudioTerrainToolsInLuaWidget")
+
+
 function FirstTimeSetUp()
 	setup = true
 	local changeHistory = utilityModule:GetUsingAsPlugin() and game:GetService('ChangeHistoryService') or nil 
 	local terrain = game.Workspace.Terrain
 	local coreGui = utilityModule:GetCoreGui()
-	local gui = script.Parent:WaitForChild('TerrainBrushGui')
-	local guiFrame = gui:WaitForChild('Frame')
+
+	local guiForBrushRendering
+    local guiForWidgetRendering
+    if (StudioTerrainToolsInLuaWidget) then
+        guiForBrushRendering = script.Parent:WaitForChild('TerrainBrushGui')
+
+        guiForWidgetRendering = plugin:CreatePluginGui('TerrainBrushPluginGui', false, true)
+        guiForWidgetRendering.Name = "Terrain Brush"
+        local children = guiForBrushRendering:GetChildren()
+        for i = 1, #children do
+            local child = children[i]
+            child.Parent = guiForWidgetRendering
+        end
+        guiForWidgetRendering.Enabled = true
+    else
+        guiForBrushRendering = script.Parent:WaitForChild('TerrainBrushGui')
+        guiForWidgetRendering = guiForBrushRendering
+    end
+
+	local guiFrame = guiForWidgetRendering:WaitForChild('Frame')
 	local closeButton = guiFrame:WaitForChild('CloseButton')
 	local titlelabel = guiFrame:WaitForChild('TitleLabel')
 	local checkBox1 = guiFrame:WaitForChild('CheckBox1')
@@ -525,7 +546,7 @@ function FirstTimeSetUp()
 				selectionBox.Transparency = transparency
 				selectionBox.Adornee = linePart
 				selectionBox.Parent = linePart
-				linePart.Parent = gui
+				linePart.Parent = guiForBrushRendering
 				gridLineParts[u] = linePart
 			elseif linePart.SelectionBox.Transparency ~= transparency or linePart.SelectionBox.Color ~= color then
 				linePart.SelectionBox.Transparency = transparency
@@ -549,7 +570,7 @@ function FirstTimeSetUp()
 				selectionBox.Transparency = transparency
 				selectionBox.Adornee = linePart
 				selectionBox.Parent = linePart
-				linePart.Parent = gui
+				linePart.Parent = guiForBrushRendering
 				gridLineParts[gridSize + u] = linePart
 			elseif linePart.SelectionBox.Transparency ~= transparency or linePart.SelectionBox.Color ~= color then
 				linePart.SelectionBox.Transparency = transparency
@@ -898,8 +919,12 @@ function FirstTimeSetUp()
 
 			resizeGuiFrame()
 			titlelabel.Text = tool.name
-			gui.Parent = coreGui
-			gui.Frame.Visible = true
+
+			guiForBrushRendering.Parent = coreGui
+            if (StudioTerrainToolsInLuaWidget) then
+                guiForWidgetRendering.Enabled = true
+            end
+			guiForWidgetRendering.Frame.Visible = true
 	
 			local loopTag = {}	--using table as a unique value for debouncing
 			currentLoopTag = loopTag
@@ -995,7 +1020,7 @@ function FirstTimeSetUp()
 					selectionPart.Anchored = true
 					selectionPart.CanCollide = false
 					selectionPart.Size = Vector3.new(1, 1, 1) * selectionSize * resolution + Vector3.new(.1, .1, .1)
-					selectionPart.Parent = gui
+					selectionPart.Parent = guiForBrushRendering
 				end
 				if not selectionObject then
 					selectionObject = Instance.new(brushShape == 'Sphere' and 'SelectionSphere' or 'SelectionBox')
@@ -1028,9 +1053,14 @@ function FirstTimeSetUp()
 			game.Workspace.CurrentCamera.CameraType = prevCameraType		
 		end
 		currentLoopTag = nil
-		gui.Parent = script.Parent
-		gui.Frame.Visible = false
-		
+
+		guiForBrushRendering.Parent = script.Parent
+		guiForWidgetRendering.Frame.Visible = false
+
+        if (StudioTerrainToolsInLuaWidget) then
+            guiForWidgetRendering.Enabled = false
+        end
+
 		clearSelection()
 		clearGrid()
 		if lastTool then

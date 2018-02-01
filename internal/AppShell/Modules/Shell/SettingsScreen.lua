@@ -1,3 +1,4 @@
+local UseRoactOverscan = settings():GetFFlag("XboxRoactOverscan")
 
 local CoreGui = Game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
@@ -60,7 +61,18 @@ local function createSettingsScreen()
 	end
 
 	function this:OpenOverscanScreen()
-		ScreenManager:OpenScreen(OverscanScreenModule(GuiRoot))
+		if UseRoactOverscan then
+			local RoactScreenManagerWrapper = require(ShellModules.Components.RoactScreenManagerWrapper)
+			local overscanComponent = require(ShellModules.Components.Overscan.Overscan)
+			local overscanElement = RoactScreenManagerWrapper.new(overscanComponent, GuiRoot, {
+				ImageVisible = true,
+				BackgroundTransparency = 0,
+			})
+
+			ScreenManager:OpenScreen(overscanElement)
+		else
+			ScreenManager:OpenScreen(OverscanScreenModule(GuiRoot))
+		end
 	end
 
 	function this:OpenHelpScreen()

@@ -7,7 +7,13 @@ local ActionType = {
 	ChangedParticipants = "ChangedParticipants",
 	RemovedConversation = "RemovedConversation",
 	FetchLocalUserConversations = "FetchLocalUserConversations",
-	GotUserPresence = "GotUserPresence",
+
+	RequestLatestMessages = "RequestLatestMessages",
+	ReceivedLatestMessages = "ReceivedLatestMessages",
+
+	RequestUserPresence = "RequestUserPresence",
+	ReceivedUserPresence = "ReceivedUserPresence",
+
 	ShowAlert = "ShowAlert",
 	DeleteAlert = "DeleteAlert",
 	ShowToast = "ShowToast",
@@ -22,19 +28,29 @@ local ActionType = {
 	SetChatEnabled = "SetChatEnabled",
 	SetUserTyping = "SetUserTyping",
 	SetAppLoaded = "SetAppLoaded",
+
+	RequestUsername = "RequestUsername",
 	ReceivedUsername = "ReceivedUsername",
+
+	RequestAllFriends = "RequestAllFriends",
+	ReceivedAllFriends = "ReceivedAllFriends",
+
+	RequestPageConversations = "RequestPageConversations",
+	ReceivedPageConversations = "ReceivedPageConversations",
+
 	SetFriendCount = "SetFriendCount",
 	SetConnectionState = "SetConnectionState",
 	SetConversationLoadingStatus = "SetConversationLoadingStatus",
-	SetFetchingConversations = "SetFetchingConversations",
-	FetchedOldestConversation = "FetchedOldestConversation",
+
+	ReceivedOldestConversation = "ReceivedOldestConversation",
+
 	SetRoute = "SetRoute",
 	PopRoute = "PopRoute",
 	RemoveRoute = "RemoveRoute",
 	SetFormFactor = "SetFormFactor",
 	ToggleChatPaused = "ToggleChatPaused",
 	SetTabBarVisible = "SetTabBarVisible",
-	FetchedAllFriends = "FetchedAllFriends",
+
 	SetUnreadConversationCount = "SetUnreadConversationCount",
 	IncrementUnreadConversationCount = "IncrementUnreadConversationCount",
 	DecrementUnreadConversationCount = "DecrementUnreadConversationCount",

@@ -50,6 +50,8 @@ Class Accoutrement : Instance
 Class Accessory : Accoutrement
 Class Hat : Accoutrement [deprecated]
 Class AdService : Instance [notCreatable]
+	Function void AdService:ShowVideoAd() [deprecated]
+	Event AdService.VideoAdClosed(bool adShown) [deprecated]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [notCreatable]
 	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
@@ -149,6 +151,7 @@ Class Beam : Instance
 	Property bool Beam.Enabled
 	Property bool Beam.FaceCamera
 	Property float Beam.LightEmission
+	Property float Beam.LightInfluence
 	Property int Beam.Segments
 	Property Content Beam.Texture
 	Property float Beam.TextureLength
@@ -313,8 +316,8 @@ Class Chat : Instance [notCreatable]
 	Function void Chat:Chat(Instance partOrCharacter, string message, ChatColor color = Blue)
 	Function void Chat:ChatLocal(Instance partOrCharacter, string message, ChatColor color = Blue) [RobloxScriptSecurity]
 	Function bool Chat:GetShouldUseLuaChat() [RobloxScriptSecurity]
-	YieldFunction bool Chat:CanUserChatAsync(int userId)
-	YieldFunction bool Chat:CanUsersChatAsync(int userIdFrom, int userIdTo)
+	YieldFunction bool Chat:CanUserChatAsync(int64 userId)
+	YieldFunction bool Chat:CanUsersChatAsync(int64 userIdFrom, int64 userIdTo)
 	YieldFunction string Chat:FilterStringAsync(string stringToFilter, Instance playerFrom, Instance playerTo)
 	YieldFunction string Chat:FilterStringForBroadcast(string stringToFilter, Instance playerFrom)
 	YieldFunction string Chat:FilterStringForPlayerAsync(string stringToFilter, Instance playerToFilterFor) [deprecated]
@@ -1799,7 +1802,7 @@ Class Player : Instance
 	Property bool Player.CanLoadCharacterAppearance
 	Property Object Player.Character
 	Property string Player.CharacterAppearance [notbrowsable] [deprecated]
-	Property int Player.CharacterAppearanceId
+	Property int64 Player.CharacterAppearanceId
 	Property ChatMode Player.ChatMode [readonly] [RobloxScriptSecurity]
 	Property int Player.DataComplexity [deprecated] [readonly]
 	Property int Player.DataComplexityLimit [deprecated] [LocalUserSecurity]
@@ -1811,7 +1814,7 @@ Class Player : Instance
 	Property DevTouchCameraMovementMode Player.DevTouchCameraMode
 	Property DevTouchMovementMode Player.DevTouchMovementMode
 	Property string Player.DisplayName [RobloxScriptSecurity]
-	Property int Player.FollowUserId [readonly]
+	Property int64 Player.FollowUserId [readonly]
 	Property bool Player.Guest [readonly] [RobloxScriptSecurity]
 	Property float Player.HealthDisplayDistance
 	Property float Player.MaximumSimulationRadius [LocalUserSecurity]
@@ -1826,9 +1829,9 @@ Class Player : Instance
 	Property BrickColor Player.TeamColor
 	Property bool Player.Teleported [hidden] [readonly] [RobloxScriptSecurity]
 	Property bool Player.TeleportedIn [RobloxScriptSecurity]
-	Property int Player.UserId
+	Property int64 Player.UserId
 	Property string Player.VRDevice [RobloxScriptSecurity]
-	Property int Player.userId [deprecated]
+	Property int64 Player.userId [deprecated]
 	Function void Player:ClearCharacterAppearance()
 	Function float Player:DistanceFromCharacter(Vector3 point)
 	Function FriendStatus Player:GetFriendStatus(Instance player) [RobloxScriptSecurity]
@@ -1868,15 +1871,15 @@ Class Player : Instance
 	Function void Player:saveNumber(string key, double value) [deprecated]
 	Function void Player:saveString(string key, string value) [deprecated]
 	YieldFunction Array Player:GetFriendsOnline(int maxFriends = 200)
-	YieldFunction int Player:GetRankInGroup(int groupId)
-	YieldFunction string Player:GetRoleInGroup(int groupId)
-	YieldFunction bool Player:IsBestFriendsWith(int userId) [deprecated]
-	YieldFunction bool Player:IsFriendsWith(int userId)
-	YieldFunction bool Player:IsInGroup(int groupId)
+	YieldFunction int Player:GetRankInGroup(int64 groupId)
+	YieldFunction string Player:GetRoleInGroup(int64 groupId)
+	YieldFunction bool Player:IsBestFriendsWith(int64 userId) [deprecated]
+	YieldFunction bool Player:IsFriendsWith(int64 userId)
+	YieldFunction bool Player:IsInGroup(int64 groupId)
 	YieldFunction void Player:LoadCharacter()
 	YieldFunction void Player:LoadCharacterBlocking() [LocalUserSecurity]
 	YieldFunction bool Player:WaitForDataReady() [deprecated]
-	YieldFunction bool Player:isFriendsWith(int userId) [deprecated]
+	YieldFunction bool Player:isFriendsWith(int64 userId) [deprecated]
 	YieldFunction bool Player:waitForDataReady() [deprecated]
 	Event Player.CharacterAdded(Instance character)
 	Event Player.CharacterAppearanceLoaded(Instance character)
@@ -1930,10 +1933,10 @@ Class Players : Instance
 	Function Objects Players:players() [deprecated]
 	YieldFunction Instance Players:GetCharacterAppearanceAsync(int64 userId)
 	YieldFunction Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId)
-	YieldFunction Instance Players:GetFriendsAsync(int userId)
-	YieldFunction string Players:GetNameFromUserIdAsync(int userId)
-	YieldFunction int Players:GetUserIdFromNameAsync(string userName)
-	YieldFunction Tuple Players:GetUserThumbnailAsync(int userId, ThumbnailType thumbnailType, ThumbnailSize thumbnailSize)
+	YieldFunction Instance Players:GetFriendsAsync(int64 userId)
+	YieldFunction string Players:GetNameFromUserIdAsync(int64 userId)
+	YieldFunction int64 Players:GetUserIdFromNameAsync(string userName)
+	YieldFunction Tuple Players:GetUserThumbnailAsync(int64 userId, ThumbnailType thumbnailType, ThumbnailSize thumbnailSize)
 	Event Players.FriendRequestEvent(Instance player, Instance player, FriendRequestEvent friendRequestEvent) [RobloxScriptSecurity]
 	Event Players.GameAnnounce(string message) [RobloxScriptSecurity]
 	Event Players.PlayerAdded(Instance player)
@@ -1946,7 +1949,7 @@ Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
-	Function Instance Plugin:CreatePluginGui(string pluginGuiId) [PluginSecurity]
+	Function Instance Plugin:CreatePluginGui(string pluginGuiName, bool restoreEnabledState, bool initialEnabledState) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
 	Function Instance Plugin:GetMouse() [PluginSecurity]
@@ -2138,9 +2141,9 @@ Class ServiceProvider : Instance [notbrowsable]
 	Event ServiceProvider.ServiceAdded(Instance service)
 	Event ServiceProvider.ServiceRemoving(Instance service)
 Class DataModel : ServiceProvider
-	Property int DataModel.CreatorId [readonly]
+	Property int64 DataModel.CreatorId [readonly]
 	Property CreatorType DataModel.CreatorType [readonly]
-	Property int DataModel.GameId [readonly]
+	Property int64 DataModel.GameId [readonly]
 	Property GearGenreSetting DataModel.GearGenreSetting [readonly]
 	Property Genre DataModel.Genre [readonly]
 	Property bool DataModel.IsSFFlagsLoaded [readonly] [RobloxScriptSecurity]
@@ -2330,6 +2333,7 @@ Class Stats : Instance
 	Property float Stats.PhysicsStepTimeMs [readonly]
 	Property int Stats.PrimitivesCount [readonly]
 	Function float Stats:GetMemoryUsageMbForTag(DeveloperMemoryTag tag)
+	Function float Stats:GetTotalUsedMemory()
 	YieldFunction Dictionary Stats:GetPaginatedMemoryByTexture(TextureQueryType queryType, int pageIndex, int pageSize) [RobloxScriptSecurity]
 Class StatsItem : Instance
 	Function double StatsItem:GetValue() [PluginSecurity]
@@ -2438,6 +2442,7 @@ Class Trail : Instance
 	Property bool Trail.FaceCamera
 	Property float Trail.Lifetime
 	Property float Trail.LightEmission
+	Property float Trail.LightInfluence
 	Property float Trail.MinLength
 	Property Content Trail.Texture
 	Property float Trail.TextureLength

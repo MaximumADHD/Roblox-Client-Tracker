@@ -215,12 +215,16 @@ function methods:NameButtonClicked(nameButton, playerName)
 				if targetChannelName ~= whisperChannel then
 					self.ChatWindow:SwitchCurrentChannel(whisperChannel)
 				end
-				self.ChatBar:ResetText()
+
+				local whisperMessage = "/w " ..playerName
+				self.ChatBar:SetText(whisperMessage)
+
 				self.ChatBar:CaptureFocus()
 			elseif not self.ChatBar:IsInCustomState() then
 				local whisperMessage = "/w " ..playerName
-				self.ChatBar:CaptureFocus()
 				self.ChatBar:SetText(whisperMessage)
+
+				self.ChatBar:CaptureFocus()
 			end
 		end
 	end

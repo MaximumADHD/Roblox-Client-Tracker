@@ -19,6 +19,8 @@ local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 
+local UseRoactOverscan = settings():GetFFlag("XboxRoactOverscan")
+
 local GameJoin = {}
 
 GameJoin.JoinType = {
@@ -65,15 +67,49 @@ function GameJoin:StartGame(joinType, joinId, creatorUserId)
 	if game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
 		needToOverscan = false
 	end
-	if needToOverscan or UserSettings().GameSettings:InStudioMode() then
-		local overscanScreen = OverscanScreenModule(GuiRoot)
-		overscanClosedCn = Utility.DisconnectEvent(overscanClosedCn)
-		overscanClosedCn = overscanScreen.Closed:connect(function()
-			joinGame(joinType, joinId, creatorUserId)
-		end)
-		ScreenManager:OpenScreen(overscanScreen)
+
+	if UseRoactOverscan then
+		local function onJoinGame()
+			if UserSettings().GameSettings:InStudioMode() then
+				ScreenManager:OpenScreen(ErrorOverlayModule(Errors.Test.CannotJoinGame), false)
+			else
+				local success, result = pcall(function()
+					-- check if we are the creator for normal joins
+					if joinType == GameJoin.JoinType.Normal and creatorUserId == UserData:GetRbxUserId() then
+						joinType = GameJoin.JoinType.PMPCreator
+					end
+		
+					return PlatformService:BeginStartGame3(joinType, joinId)
+				end)
+				-- catch pcall error, something went wrong with call into API
+				-- all other game join errors are caught in AppHome.lua
+				if not success then
+					ScreenManager:OpenScreen(ErrorOverlayModule(Errors.GameJoin.Default, false))
+				end
+			end
+		end
+
+		if needToOverscan or UserSettings().GameSettings:InStudioMode() then
+			-- Roact
+			local RoactScreenManagerWrapper = require(ShellModules.Components.RoactScreenManagerWrapper)
+			local OverscanRoact = require(ShellModules.Components.Overscan.Overscan)
+			
+			local overscanRoact = RoactScreenManagerWrapper.new(OverscanRoact, GuiRoot, {}, onJoinGame)
+			ScreenManager:OpenScreen(overscanRoact)
+		else
+			onJoinGame()
+		end
 	else
-		joinGame(joinType, joinId, creatorUserId)
+		if needToOverscan or UserSettings().GameSettings:InStudioMode() then
+			local overscanScreen = OverscanScreenModule(GuiRoot)
+			overscanClosedCn = Utility.DisconnectEvent(overscanClosedCn)
+			overscanClosedCn = overscanScreen.Closed:connect(function()
+				joinGame(joinType, joinId, creatorUserId)
+			end)
+			ScreenManager:OpenScreen(overscanScreen)
+		else
+			joinGame(joinType, joinId, creatorUserId)
+		end
 	end
 end
 

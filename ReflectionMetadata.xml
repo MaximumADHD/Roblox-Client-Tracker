@@ -1263,6 +1263,14 @@
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>
+        
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LightInfluence</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
 
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -1312,6 +1320,14 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">LightEmission</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LightInfluence</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
           </Properties>

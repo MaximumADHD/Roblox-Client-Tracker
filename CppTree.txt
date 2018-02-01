@@ -896,7 +896,7 @@ RBX
 	Player
 	PlayerConfigurer
 	PlayerGui
-	PlayerLocaleServiceTranslatorInstance
+	PlayerLocaleLocalizationServiceTranslatorInstance
 	PlayerMouse
 	Players
 	PlayerScripts

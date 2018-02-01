@@ -12,6 +12,7 @@ local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 local ThirdPartyUserService = nil
 pcall(function() ThirdPartyUserService = game:GetService('ThirdPartyUserService') end)
+local Players = game:GetService("Players")
 
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 
@@ -102,9 +103,8 @@ local function onAuthenticationSuccess(isNewLinkedAccount)
 	AppHub:SetParent(TitleSafeContainer)
 
 	-- Account Age Setting
-	local ActiveUserActions = require(ShellModules.Actions.ActiveUserActions)
-	local value = game:GetService("Players").LocalPlayer:GetUnder13()
-	AppState.store:Dispatch(ActiveUserActions.SetUnder13(value))
+	local SetUnder13 = require(ShellModules.Actions.SetUnder13)
+	AppState.store:Dispatch(SetUnder13(Players.LocalPlayer:GetUnder13()))
 
 	EventHub:addEventListener(EventHub.Notifications["OpenGameDetail"], "gameDetail",
 		function(placeId)
@@ -155,8 +155,8 @@ local function onReAuthentication(reauthenticationReason)
 	-- unwind ScreenManager
 
 	-- Account Age View
-	local ActiveUserActions = require(ShellModules.Actions.ActiveUserActions)
-	AppState.store:Dispatch(ActiveUserActions.SetUnder13(nil))
+	local SetUnder13 = require(ShellModules.Actions.SetUnder13)
+	AppState.store:Dispatch(SetUnder13(nil))
 
 	returnToEngagementScreen()
 

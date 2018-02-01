@@ -74,6 +74,9 @@ local GamepadCameraSensitivityFastFlag = GamepadCameraSensitivitySuccess and Gam
 local FFlagAddVRToggleSuccess, FFlagAddVRToggleResult = pcall(function() return settings():GetFFlag("AddVRToggle") end)
 local FFlagAddVRToggle = FFlagAddVRToggleSuccess and FFlagAddVRToggleResult
 
+local roactOverscanSuccess, roactOverscanValue = pcall(function() return settings():GetFFlag("XboxRoactOverscan") end)
+local UseRoactOverscan = roactOverscanSuccess and roactOverscanValue
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -971,7 +974,8 @@ local function Initialize()
   end
 
   local function createOverscanOption()
-      local showOverscanScreen = function()
+    -- old overscan show function
+    local showOverscanScreen = function()
       if RunService:IsStudio() then
         return
       end
@@ -991,10 +995,10 @@ local function Initialize()
 
       local closedCon = nil
       closedCon = overscanScreen.Closed:connect(function()
-          closedCon:disconnect()
-          ContextActionService:UnbindCoreAction("RbxStopOverscanMovement")
-          MenuModule:SetVisibility(true, true)
-        end)
+        closedCon:disconnect()
+        ContextActionService:UnbindCoreAction("RbxStopOverscanMovement")
+        MenuModule:SetVisibility(true, true)
+      end)
 
       local noOpFunc = function() end
       ContextActionService:BindCoreAction("RbxStopOverscanMovement", noOpFunc, false,
@@ -1007,7 +1011,39 @@ local function Initialize()
       end
       local ScreenManager = require(screenManagerModule)
       ScreenManager:OpenScreen(overscanScreen)
+    end
 
+    if UseRoactOverscan then
+      showOverscanScreen = function()
+        local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+        local overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
+        local roact = require(RobloxGui.Modules.Common.Roact)
+        local overscanComponent = nil
+
+        local props = {}
+        props.onUnmount = function()
+          if overscanComponent then
+            roact.teardown(overscanComponent)
+            -- show settings menu and give back movement
+            ContextActionService:UnbindCoreAction("RbxStopOverscanMovement")
+            MenuModule:SetVisibility(true, true)
+          end
+        end
+        props.ImageVisible = false
+        props.BackgroundTransparency = 0.2
+
+        -- hide settings menu
+        MenuModule:SetVisibility(false, true)
+
+        -- override all bindings for movement
+        local noOpFunc = function() end
+        ContextActionService:BindCoreAction("RbxStopOverscanMovement", noOpFunc, false,
+          Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2,
+          Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4)
+
+        local overscanElement = roact.createElement(overscan, props)
+        overscanComponent = roact.reify(overscanElement, RobloxGui, tostring(overscan))
+      end
     end
 
     local adjustButton, adjustText, setButtonRowRef = utility:MakeStyledButton("AdjustButton", "Adjust", UDim2.new(0,300,1,-20), showOverscanScreen, this)

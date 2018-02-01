@@ -38,7 +38,7 @@ local LuaChatNotificationButtonEnabled = settings():GetFFlag("LuaChatNotificatio
 
 local function requestOlderConversations(appState)
 	-- Don't fetch older conversations if the oldest conversation has already been fetched.
-	if appState.store:GetState().FetchedOldestConversation then
+	if appState.store:GetState().ConversationsAsync.oldestConversationIsFetched then
 		return
 	end
 
@@ -262,7 +262,7 @@ function ConversationHub:Update(state, oldState)
 		self.createGroupButton:SetVisible(true)
 	end
 
-	if state.FetchingConversations ~= oldState.FetchingConversations then
+	if state.ConversationsAsync.pageConversationsIsFetching ~= oldState.ConversationsAsync.pageConversationsIsFetching then
 		self.list:Update(state, oldState)
 		self:getOlderConversationsForSearchIfNecessary()
 	end
@@ -271,12 +271,14 @@ end
 function ConversationHub:getOlderConversationsForSearchIfNecessary(appState)
 	-- To Check:
 	-- 1) Search is open
-	-- 2) Not have loaded all conversations.
-	-- 3) Not Ccrrently getting older conversations
-	-- 4) Having enouth search items to show
+	-- 2) Not have loaded all oldest conversations
+	-- 3) Not currently getting conversations
+	-- 4) Has enough items to show
 	-- Note that we already try to load more conversations if we scroll down to the bottom of the list
 	local state = self.appState.store:GetState()
-	if not self.isSearchOpen or state.FetchedOldestConversation or state.FetchingConversations then
+	if not self.isSearchOpen
+		or state.ConversationsAsync.oldestConversationIsFetched
+		or state.ConversationsAsync.pageConversationsIsFetching then
 		return
 	end
 

@@ -146,7 +146,7 @@ content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
 [19911 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[30428 bytes]
+[33616 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
 [1338 bytes]
@@ -251,7 +251,7 @@ content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5805 bytes]
 
 content/scripts/CoreScripts/Libraries/RbxGui.lua
-[139655 bytes]
+[139720 bytes]
 
 content/scripts/CoreScripts/Libraries/RbxStamper.lua
 [83818 bytes]
@@ -416,7 +416,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/M
 [687 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/Util.lua
-[12599 bytes]
+[12664 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WelcomeMessage.lua
 [2432 bytes]
@@ -509,7 +509,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[44417 bytes]
+[45991 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [31810 bytes]
@@ -653,7 +653,7 @@ content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
 [2550 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
-[10234 bytes]
+[11794 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
 [11421 bytes]

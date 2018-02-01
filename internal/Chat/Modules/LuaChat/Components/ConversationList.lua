@@ -119,9 +119,11 @@ function ConversationList.new(appState, conversations, entryCard)
 	self.noResultsFrame.Parent = self.rbx
 
 	local appStateConnection = appState.store.Changed:Connect(function(state, oldState)
-		if not oldState.FetchingConversations and state.FetchingConversations then
+		if not oldState.ConversationsAsync.pageConversationsIsFetching
+			and state.ConversationsAsync.pageConversationsIsFetching then
 			self:StartFetchingConversationsAnimation()
-		elseif oldState.FetchingConversations and not state.FetchingConversations then
+		elseif oldState.ConversationsAsync.pageConversationsIsFetching
+			and not state.ConversationsAsync.pageConversationsIsFetching then
 			self:StopFetchingConversationsAnimation()
 		end
 		self:CheckToShowNoSearchResults()

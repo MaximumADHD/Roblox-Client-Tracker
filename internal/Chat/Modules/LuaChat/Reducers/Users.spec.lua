@@ -43,7 +43,7 @@ return function()
 		end)
 	end)
 
-	describe("GotUserPresence", function()
+	describe("ReceivedUserPresence", function()
 		it("should set presence on an existing user", function()
 			local user = User.mock()
 			local state = {
@@ -54,7 +54,7 @@ return function()
 			local newPresence = Constants.PresenceType.ONLINE
 
 			state = Users(state, {
-				type = ActionType.GotUserPresence,
+				type = ActionType.ReceivedUserPresence,
 				userId = user.id,
 				presence = newPresence
 			})

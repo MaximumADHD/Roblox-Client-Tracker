@@ -7,30 +7,41 @@ return function(state, action)
 	state = state or {}
 
 	if action.type == ActionType.AddUser then
-		local user = action.user
-		state = Immutable.Set(state, user.id, user)
+		state = Immutable.Join(state, {
+			[action.user.id] = action.user,
+		})
 	elseif action.type == ActionType.SetUserIsFriend then
 		local user = state[action.userId]
 		if user then
-			local newUser = Immutable.Set(user, "isFriend", action.isFriend)
-			state = Immutable.Set(state, user.id, newUser)
+			state = Immutable.Join(state, {
+				[action.userId] = Immutable.Join(user, {
+					isFriend = action.isFriend,
+				}),
+			})
 		end
-	elseif action.type == ActionType.GotUserPresence then
+	elseif action.type == ActionType.ReceivedUserPresence then
 		local user = state[action.userId]
 		if user then
-			local newUser = Immutable.Set(user, "presence", action.presence)
-			newUser = Immutable.Set(newUser, "lastLocation", action.lastLocation)
-			state = Immutable.Set(state, user.id, newUser)
+			state = Immutable.Join(state, {
+				[action.userId] = Immutable.Join(user, {
+					presence = action.presence,
+					lastLocation = action.lastLocation,
+				}),
+			})
 		end
 	elseif action.type == ActionType.ReceivedUsername then
 		local userId = action.userId
 		local user = state[userId]
 		if user then
-			local newUser = Immutable.Set(user, "name", action.username)
-			state = Immutable.Set(state, userId, newUser)
+			state = Immutable.Join(state, {
+				[userId] = Immutable.Join(user, {
+					name = action.username,
+				}),
+			})
 		else
-			local newUser = UserModel.fromData(action.userId, action.username, false)
-			state = Immutable.Set(state, userId, newUser)
+			state = Immutable.Join(state, {
+				[userId] = UserModel.fromData(userId, action.username, false),
+			})
 		end
 	end
 

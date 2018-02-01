@@ -6,6 +6,7 @@ local StringsLocale = require(LuaApp.StringsLocale)
 
 local Modules = script.Parent.Parent
 
+local Functional = require(Modules.Functional)
 local WebApi = require(Modules.WebApi)
 local ActionType = require(Modules.ActionType)
 local DateTime = require(Modules.DateTime)
@@ -73,7 +74,7 @@ local function getUserConversations(store, pageNumber, pageSize)
 
 	if #result.conversations < pageSize then
 		store:Dispatch({
-			type = ActionType.FetchedOldestConversation,
+			type = ActionType.ReceivedOldestConversation,
 			value = true,
 		})
 		store:Dispatch(ConversationActions.CreateMockOneOnOneConversations())
@@ -82,19 +83,29 @@ local function getUserConversations(store, pageNumber, pageSize)
 	return status, result
 end
 
+local function shouldFetchPageConversations(state)
+	if state.ConversationsAsync.pageConversationsIsFetching then
+		return false
+	end
+	return true
+end
+
 function ConversationActions.GetLocalUserConversations(pageNumber, pageSize, callback)
 	return function(store)
+		if not shouldFetchPageConversations(store:GetState()) then
+			return
+		end
+
 		store:Dispatch({
-			type = ActionType.SetFetchingConversations,
-			value = true,
+			type = ActionType.RequestPageConversations,
 		})
 
 		spawn(function()
 			local status, result = getUserConversations(store, pageNumber, pageSize)
 			processConversations(store, status, result)
+
 			store:Dispatch({
-				type = ActionType.SetFetchingConversations,
-				value = false,
+				type = ActionType.ReceivedPageConversations,
 			})
 
 			if callback then
@@ -301,11 +312,9 @@ function ConversationActions.CreateMockOneOnOneConversations()
 				})
 			end
 		end
-		if not store:GetState().FetchedAllFriends then
-			store:Dispatch(ConversationActions.GetAllFriends(onFetchedAllFriends))
-		else
-			onFetchedAllFriends()
-		end
+
+		store:Dispatch(ConversationActions.GetAllFriends())
+		onFetchedAllFriends()
 	end
 end
 
@@ -331,12 +340,27 @@ function ConversationActions.GetConversations(convoIds)
 	end
 end
 
-function ConversationActions.GetAllFriends(onSuccess)
+local function shouldGetAllFriends(state)
+	if state.UsersAsync.allFriendsIsFetching then
+		return false
+	end
+	return true
+end
+
+function ConversationActions.GetAllFriends()
 	return function(store)
+		if not shouldGetAllFriends(store:GetState()) then
+			return
+		end
+
+		store:Dispatch({
+			type = ActionType.RequestAllFriends,
+		})
+
 		spawn(function()
 			local state = store:GetState()
-			local getFriendshipCountStatus, totalCount = WebApi.GetFriendshipCount()
-			if getFriendshipCountStatus ~= WebApi.Status.OK then
+			local getFriendCountStatus, totalCount = WebApi.GetFriendCount()
+			if getFriendCountStatus ~= WebApi.Status.OK then
 				return
 			end
 			local count = 0
@@ -370,10 +394,11 @@ function ConversationActions.GetAllFriends(onSuccess)
 					return
 				end
 			end
+
+			store:Dispatch({
+				type = ActionType.ReceivedAllFriends,
+			})
 			store:Dispatch(ConversationActions.GetUserPresences(needsPresence))
-			if onSuccess then
-				onSuccess()
-			end
 		end)
 	end
 end
@@ -435,10 +460,38 @@ function ConversationActions.GetAllUserPresences()
 	end
 end
 
+local function shouldFetchUserPresences(state, userIds)
+	local filteredUserIds = Functional.Filter(userIds, function(userId)
+		local userAS = state.UsersAsync[userId]
+		if userAS and userAS.presenceIsFetching then
+			return false
+		end
+		return true
+	end)
+
+	if #filteredUserIds == 0 then
+		return false, filteredUserIds
+	end
+
+	return true, filteredUserIds
+end
+
 function ConversationActions.GetUserPresences(userIds)
 	return function(store)
+		local ret, newUserIds = shouldFetchUserPresences(store:GetState(), userIds)
+		if not ret then
+			return
+		end
+
+		for _, v in ipairs(newUserIds) do
+			store:Dispatch({
+				type = ActionType.RequestUserPresence,
+				userId = v,
+			})
+		end
+
 		spawn(function()
-			local status, result = WebApi.GetUserPresences(userIds)
+			local status, result = WebApi.GetUserPresences(newUserIds)
 
 			if status ~= WebApi.Status.OK then
 				warn("WebApi failure in GetUserPresences")
@@ -447,7 +500,7 @@ function ConversationActions.GetUserPresences(userIds)
 
 			for userId, result in pairs(result) do
 				store:Dispatch({
-					type = ActionType.GotUserPresence,
+					type = ActionType.ReceivedUserPresence,
 					userId = userId,
 					presence = result.presence,
 					lastLocation = result.lastLocation,
@@ -457,8 +510,23 @@ function ConversationActions.GetUserPresences(userIds)
 	end
 end
 
+local function shouldFetchLatestMessages(state)
+	if state.ConversationsAsync.latestMessagesIsFetching then
+		return false
+	end
+	return true
+end
+
 function ConversationActions.GetLatestMessages(convoIds)
 	return function(store)
+		if not shouldFetchLatestMessages(store:GetState()) then
+			return
+		end
+
+		store:Dispatch({
+			type = ActionType.RequestLatestMessages,
+		})
+
 		spawn(function()
 			local status, messages = WebApi.GetLatestMessages(convoIds)
 
@@ -474,13 +542,17 @@ function ConversationActions.GetLatestMessages(convoIds)
 					if conversation.messages:Last() ~= nil then
 						message.previousMessageId = conversation.messages:Last().id
 					end
-				store:Dispatch({
-					type = ActionType.ReceivedMessages,
-					conversationId = message.conversationId,
-					messages = {message},
-				})
+					store:Dispatch({
+						type = ActionType.ReceivedMessages,
+						conversationId = message.conversationId,
+						messages = {message},
+					})
+				end
 			end
-			end
+
+			store:Dispatch({
+				type = ActionType.ReceivedLatestMessages,
+			})
 		end)
 	end
 end

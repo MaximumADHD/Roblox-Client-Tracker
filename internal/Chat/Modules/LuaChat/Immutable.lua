@@ -20,6 +20,8 @@ function Immutable.JoinDictionaries(...)
 	return result
 end
 
+Immutable.Join = Immutable.JoinDictionaries
+
 --[[
 	Joins any number of lists together into a new list
 ]]

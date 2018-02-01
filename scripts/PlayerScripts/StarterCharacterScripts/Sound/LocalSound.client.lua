@@ -23,6 +23,8 @@ local SFX = {
 	Splash = 9;
 }
 
+local useUpdatedLocalSoundFlag = UserSettings():IsUserFeatureEnabled("UserFixCharacterSoundIssues")
+
 local Humanoid = nil
 local Head = nil
 --SFX ID to Sound object
@@ -158,6 +160,8 @@ do
 	-- Last seen Enum.HumanoidStateType
 	local activeState = nil
 
+	local fallSpeed = 0
+
 	-- Verify and set that "sound" is in "playingLoopedSounds".
 	function setSoundInPlayingLoopedSounds(sound)
 		for i=1, #playingLoopedSounds do
@@ -186,24 +190,43 @@ do
 			Util.Play(sound)
 		end;
 
-		[Enum.HumanoidStateType.RunningNoPhysics] = function()
-			stateUpdated(Enum.HumanoidStateType.Running)
+		[Enum.HumanoidStateType.RunningNoPhysics] = function(speed)
+			stateUpdated(Enum.HumanoidStateType.Running, speed)
 		end;
 
-		[Enum.HumanoidStateType.Running] = function()	
+		[Enum.HumanoidStateType.Running] = function(speed)	
 			local sound = Sounds[SFX.Running]
 			stopPlayingLoopedSoundsExcept(sound)
 
-			if Util.HorizontalSpeed(Head) > 0.5 then
-				Util.Resume(sound)
-				setSoundInPlayingLoopedSounds(sound)
+			if(useUpdatedLocalSoundFlag and activeState == Enum.HumanoidStateType.Freefall and fallSpeed > 0.1) then
+				-- Play a landing sound if the character dropped from a large distance
+				local vol = math.min(1.0, math.max(0.0, (fallSpeed - 50) / 110))
+				local freeFallSound = Sounds[SFX.FreeFalling]
+				freeFallSound.Volume = vol
+				Util.Play(freeFallSound)
+				fallSpeed = 0
+			end
+			if useUpdatedLocalSoundFlag then
+				if speed ~= nil and speed > 0.5 then
+					Util.Resume(sound)
+					setSoundInPlayingLoopedSounds(sound)
+				elseif speed ~= nil then
+					stopPlayingLoopedSoundsExcept()
+				end
 			else
-				stopPlayingLoopedSoundsExcept()
+				if Util.HorizontalSpeed(Head) > 0.5 then
+					Util.Resume(sound)
+					setSoundInPlayingLoopedSounds(sound)
+				else
+					stopPlayingLoopedSoundsExcept()
+				end
 			end
 		end;
 
-		[Enum.HumanoidStateType.Swimming] = function()
-			if activeState ~= Enum.HumanoidStateType.Swimming and Util.VerticalSpeed(Head) > 0.1 then
+		[Enum.HumanoidStateType.Swimming] = function(speed)
+		local threshold
+		if useUpdatedLocalSoundFlag then threshold = speed else threshold = Util.VerticalSpeed(Head) end
+			if activeState ~= Enum.HumanoidStateType.Swimming and threshold > 0.1 then
 				local splashSound = Sounds[SFX.Splash]
 				splashSound.Volume = Util.Clamp(
 					Util.YForLineGivenXAndTwoPts(
@@ -222,14 +245,25 @@ do
 			end
 		end;
 
-		[Enum.HumanoidStateType.Climbing] = function()
+		[Enum.HumanoidStateType.Climbing] = function(speed)
 			local sound = Sounds[SFX.Climbing]
-			if Util.VerticalSpeed(Head) > 0.1 then
-				Util.Resume(sound)
-				stopPlayingLoopedSoundsExcept(sound)
+			if useUpdatedLocalSoundFlag then
+				if speed ~= nil and math.abs(speed) > 0.1 then
+					Util.Resume(sound)
+					stopPlayingLoopedSoundsExcept(sound)
+				else
+					Util.Pause(sound)
+					stopPlayingLoopedSoundsExcept(sound)
+				end		
 			else
-				stopPlayingLoopedSoundsExcept()
-			end		
+				if Util.VerticalSpeed(Head) > 0.1 then
+					Util.Resume(sound)
+					stopPlayingLoopedSoundsExcept(sound)
+				else
+					stopPlayingLoopedSoundsExcept()
+				end
+			end
+
 			setSoundInPlayingLoopedSounds(sound)
 		end;
 
@@ -255,6 +289,8 @@ do
 			local sound = Sounds[SFX.FreeFalling]
 			sound.Volume = 0
 			stopPlayingLoopedSoundsExcept()
+
+			fallSpeed = math.max(fallSpeed, math.abs(Head.Velocity.y))
 		end;
 
 		[Enum.HumanoidStateType.FallingDown] = function()
@@ -283,23 +319,28 @@ do
 	
 
 	-- Handle state event fired or OnChange fired
-	function stateUpdated(state)
+	function stateUpdated(state, speed)
 		if stateUpdateHandler[state] ~= nil then
-			stateUpdateHandler[state]()
+			if useUpdatedLocalSoundFlag and (state == Enum.HumanoidStateType.Running 
+				or state == Enum.HumanoidStateType.Climbing
+				or state == Enum.HumanoidStateType.Swimming
+				or state == Enum.HumanoidStateType.RunningNoPhysics) then
+				stateUpdateHandler[state](speed)
+			else
+				stateUpdateHandler[state]()
+			end
 		end
 		activeState = state
 	end
 
-	
-
 	Humanoid.Died:connect(			function() stateUpdated(Enum.HumanoidStateType.Dead) 			end)
-	Humanoid.Running:connect(		function() stateUpdated(Enum.HumanoidStateType.Running) 		end)
-	Humanoid.Swimming:connect(		function() stateUpdated(Enum.HumanoidStateType.Swimming) 		end)
-	Humanoid.Climbing:connect(		function() stateUpdated(Enum.HumanoidStateType.Climbing) 		end)
+	Humanoid.Running:connect(		function(speed) stateUpdated(Enum.HumanoidStateType.Running, speed) end)
+	Humanoid.Swimming:connect(		function(speed) stateUpdated(Enum.HumanoidStateType.Swimming, speed) end)
+	Humanoid.Climbing:connect(		function(speed) stateUpdated(Enum.HumanoidStateType.Climbing, speed) end)
 	Humanoid.Jumping:connect(		function() stateUpdated(Enum.HumanoidStateType.Jumping) 		end)
 	Humanoid.GettingUp:connect(		function() stateUpdated(Enum.HumanoidStateType.GettingUp) 		end)
-	Humanoid.FreeFalling:connect(		function() stateUpdated(Enum.HumanoidStateType.Freefall) 		end)
-	Humanoid.FallingDown:connect(		function() stateUpdated(Enum.HumanoidStateType.FallingDown) 	end)
+	Humanoid.FreeFalling:connect(	function() stateUpdated(Enum.HumanoidStateType.Freefall) 		end)
+	Humanoid.FallingDown:connect(	function() stateUpdated(Enum.HumanoidStateType.FallingDown) 	end)
 
 	
 

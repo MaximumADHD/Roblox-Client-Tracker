@@ -6,7 +6,7 @@ local ActionType = require(Modules.ActionType)
 return function()
 	return function(store)
 		spawn(function()
-			local status, totalCount = WebApi.GetFriendshipCount()
+			local status, totalCount = WebApi.GetFriendCount()
 			if status ~= WebApi.Status.OK then
 				store:Dispatch({
 					type = ActionType.SetFriendCount,

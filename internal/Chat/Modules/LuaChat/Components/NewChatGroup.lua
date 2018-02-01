@@ -150,9 +150,7 @@ function NewChatGroup.new(appState)
 	end)
 	self.ConversationSaved = Signal.new()
 
-	if not self.appState.store:GetState().FetchedAllFriends then
-		self.appState.store:Dispatch(ConversationActions.GetAllFriends())
-	end
+	self.appState.store:Dispatch(ConversationActions.GetAllFriends())
 
 	self.tooManyFriendsAlertId = nil
 

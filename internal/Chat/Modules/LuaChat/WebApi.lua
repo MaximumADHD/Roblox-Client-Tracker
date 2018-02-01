@@ -274,7 +274,7 @@ function WebApi.GetUsername(userId)
 end
 
 
-function WebApi.GetFriendshipCount()
+function WebApi.GetFriendCount()
 	--Endpoint documented here:
 	--https://api.roblox.com/docs#Friends
 	local query = makeQueryString({
