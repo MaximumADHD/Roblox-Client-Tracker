@@ -33,12 +33,25 @@ function ChatInputBar.new(appState)
 	self.UserChangedText = Signal.new()
 	self.blockUserChangedText = true
 
+	local function getTextButtonHeight(text, font, textSize, textBoxAbsoluteSizeX)
+		local textHeight = Text.GetTextHeight(text, font, textSize,
+				textBoxAbsoluteSizeX)
+		local maxTextHeight = Text.GetTextHeight("A\nB\nC\nD\nE", font, textSize,
+				textBoxAbsoluteSizeX) * 4.5/5.0
+		local textButtonHeight = 24 + math.min(textHeight, maxTextHeight)
+		return textHeight, maxTextHeight, textButtonHeight
+	end
+
+	local textButtonInputTextFont = Enum.Font.SourceSans
+	local textButtonInputTextSize = Constants.Font.FONT_SIZE_18
+	local _, _, textButtonHeight = getTextButtonHeight("", textButtonInputTextFont, textButtonInputTextSize, 0)
+
 	self.rbx = Create.new "TextButton" {
 		Name = "ChatInputBar",
 		Text = "",
 		AutoButtonColor = false,
 		BackgroundColor3 = Constants.Color.WHITE,
-		Size = UDim2.new(1, 0, 0, 42),
+		Size = UDim2.new(1, 0, 0, textButtonHeight),
 		BorderSizePixel = 0,
 
 		Create.new "Frame" {
@@ -70,8 +83,8 @@ function ChatInputBar.new(appState)
 					Size = UDim2.new(1, 0, 1, 0),
 					Position = UDim2.new(0, 12, 0, 6),
 					Text = "",
-					Font = Enum.Font.SourceSans,
-					TextSize = Constants.Font.FONT_SIZE_18,
+					Font = textButtonInputTextFont,
+					TextSize = textButtonInputTextSize,
 					TextColor3 = Constants.Text.INPUT,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
@@ -117,10 +130,8 @@ function ChatInputBar.new(appState)
 	end)
 
 	self.textBox.FocusLost:Connect(function()
-		local textHeight = Text.GetTextHeight(self.textBox.Text, self.textBox.Font,
-			self.textBox.TextSize, self.textBox.AbsoluteSize.X)
-		local maxTextHeight = Text.GetTextHeight("A\nB\nC\nD\nE", self.textBox.Font, self.textBox.TextSize,
-			self.textBox.AbsoluteSize.X) * 4.5/5.0
+		local textHeight, maxTextHeight, _ = getTextButtonHeight(self.textBox.Text, self.textBox.Font,
+				self.textBox.TextSize, self.textBox.AbsoluteSize.X)
 		self.rbx.Size = UDim2.new(1, 0, 0, 24 + math.min(textHeight, maxTextHeight + 6))
 		if textHeight > maxTextHeight then
 			self.textBox.Size = UDim2.new(1, 0, 0, 24 + textHeight);
@@ -137,11 +148,9 @@ function ChatInputBar.new(appState)
 
 	self.textBox:GetPropertyChangedSignal("Text"):Connect(function()
 		local text = self.textBox.Text
-		local textHeight = Text.GetTextHeight(text, self.textBox.Font, self.textBox.TextSize,
-			self.textBox.AbsoluteSize.X)
-		local maxTextHeight = Text.GetTextHeight("A\nB\nC\nD\nE", self.textBox.Font, self.textBox.TextSize,
-			self.textBox.AbsoluteSize.X) * 4.5/5.0
-		self.rbx.Size = UDim2.new(1, 0, 0, 24 + math.min(textHeight, maxTextHeight))
+		local _, _, textButtonHeight = getTextButtonHeight(text, self.textBox.Font,
+				self.textBox.TextSize, self.textBox.AbsoluteSize.X)
+		self.rbx.Size = UDim2.new(1, 0, 0, textButtonHeight)
 
 		if isMessageValid(text) then
 			self:SetSendButtonEnabled(true)

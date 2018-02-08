@@ -41,6 +41,7 @@
       <addseparator />
       <addaction name="aboutRobloxAction"/>
       <addaction name="onlineHelpAction"/>
+      <addaction fflag="StudioTeamCreateConnectionIndicator" name="connectionIndicatorAction"/> 
       <addaction name="settingsAction"/>
     </SystemPopup>
   </SystemButton>
@@ -316,6 +317,23 @@
         <addaction name="Erode" instancename="Erode" text="Erode" style="textundericon" tooltip="Click and hold to erode and remove terrain." type="plugin" icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/erode.png" width="32" height="32"/>
         <addaction name="Smooth" instancename="Smooth" text="Smooth" style="textundericon" tooltip="Brush to smooth out rough or jagged terrain." type="plugin" icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/smooth.png"  width="32" height="32"/>
         <addaction name="Regions" instancename="Regions" text="Regions" style="textundericon" tooltip="Manipulate regions of smooth terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/regions.png"  width="32" height="32"/>
+      </Group>
+    </TabPage>
+    <!--
+      RIBBON BAR UI TAB
+      -->
+    <TabPage name="UI" fflag="StudioUIEditorTab">
+      <Group name="">
+        <addaction name="ScreenGUI" instancename="ScreenGUI" text="ScreenGUI" style="textundericon" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/screengui.png" width="32" height="32"/>
+      </Group>
+      <Group name=" ">
+        <addaction name="Frame" instancename="Frame" text="Frame" style="textundericon" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/frame.png" width="32" height="32"/>
+        <addaction name="Scrolling Frame" instancename="Scrolling Frame" text="Scrolling Frame" style="textundericon" tooltip="A container object used to layout other GUI objects, and allows for scrolling." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/scrollingframe.png" width="32" height="32"/>
+        <addaction name="Text" instancename="Text" text="Text" style="textundericon" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/text.png" width="32" height="32"/>
+        <addaction name="Text Button" instancename="Text Button" text="Text Button" style="textundericon" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbutton.png" width="32" height="32"/>
+        <addaction name="Text Box" instancename="Text Box" text="Text Box" style="textundericon" tooltip="A text entry box." type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbox.png" width="32" height="32"/>
+        <addaction name="Image Button" instancename="Image Button" text="Image Button" style="textundericon" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/imagebutton.png"  width="32" height="32"/>
+        <addaction name="Image" instancename="Image" text="Image" style="textundericon" tooltip="Specifies the asset id of the texture to display.." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/image.png"  width="32" height="32"/>
       </Group>
     </TabPage>
     <!--

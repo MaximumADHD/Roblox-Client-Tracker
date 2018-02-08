@@ -231,7 +231,7 @@ function MessageList:Update(conversation)
 
 		if message ~= existingMessage then
 			if bubble then
-				bubble.rbx:Destroy()
+				bubble:Destruct()
 			end
 
 			bubble = ChatBubble.new(self.appState, message)
@@ -370,6 +370,19 @@ function MessageList:StopLoadingMessageHistoryAnimation()
 
 		self.loadingIndicator:Destroy()
 		self.loadingIndicator = nil
+	end
+end
+
+--TODO: Remove do block. CLICHAT-820 for more info.
+do
+	function MessageList:DisconnectChatBubbles()
+		for _, chatEntry in pairs(self.messageIdToBubble) do
+			for _, childBubble in pairs(chatEntry.bubbles) do
+				if childBubble.bubbleType == "AssetCard" then
+					childBubble:DisconnectUpdate()
+				end
+			end
+		end
 	end
 end
 

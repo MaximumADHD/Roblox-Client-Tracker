@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
+local TweenService = game:GetService("TweenService")
 
 local LuaChat = script.Parent.Parent
 
@@ -7,23 +8,26 @@ local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
 local Text = require(LuaChat.Text)
 
-local AssetInfoActions = require(LuaChat.Actions.AssetInfoActions)
+local LoadingIndicator = require(script.Parent.LoadingIndicator)
+
 local GetPlaceInfo = require(LuaChat.Actions.GetPlaceInfo)
 local GetPlaceThumbnail = require(LuaChat.Actions.GetPlaceThumbnail)
 
 local BUBBLE_PADDING = 10
+local DEFAULT_THUMBNAIL = "rbxasset://textures/ui/LuaChat/icons/share-game-thumbnail.png"
 local EXTERIOR_PADDING = 3
 local INTERIOR_PADDING = 12
 local ICON_SIZE = 64
+local PLACE_INFO_THUMBNAIL_SIZE = 50
 
 local function isOutgoingMessage(message)
 	local localUserId = tostring(Players.LocalPlayer.UserId)
 	return message.senderTargetId == localUserId
 end
 
+local UrlSupportNewGamesAPI = settings():GetFFlag("UrlSupportNewGamesAPI")
 
 local AssetCard = {}
-
 AssetCard.__index = AssetCard
 
 function AssetCard.new(appState, message, assetId)
@@ -108,6 +112,14 @@ function AssetCard.new(appState, message, assetId)
 		TextWrapped = true,
 	}
 
+	self.fadeScreen = Create.new "Frame" {
+		Name = "FadeScreen",
+		BackgroundTransparency = 0,
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundColor3 = Color3.new(1, 1, 1),
+		BorderSizePixel = 0,
+	}
+
 	self.Content = Create.new "Frame" {
 		Name = "Content",
 		BackgroundTransparency = 1,
@@ -120,6 +132,7 @@ function AssetCard.new(appState, message, assetId)
 		self.Title,
 		self.Icon,
 		self.Details,
+		self.fadeScreen,
 	}
 
 	self.bubble = Create.new "ImageLabel" {
@@ -195,8 +208,8 @@ function AssetCard.new(appState, message, assetId)
 		self.rbx.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
 	end
 
-	if state.AssetInfo[self.assetId] == nil then
-		appState.store:Dispatch(AssetInfoActions.GetAssetInformation(assetId))
+	if state.PlaceInfos[self.assetId] == nil then
+		appState.store:Dispatch(GetPlaceInfo(assetId))
 	end
 
 	self.appStateConnection = self.appState.store.Changed:Connect(function(state)
@@ -213,7 +226,6 @@ function AssetCard.new(appState, message, assetId)
 
 	return self
 end
-
 
 function AssetCard:Resize()
 	self.bubble.Size = UDim2.new(0, 267, 0, 92 + ICON_SIZE)
@@ -239,62 +251,102 @@ function AssetCard:Resize()
 end
 
 function AssetCard:Update(newState)
-	if newState.AssetInfo[self.assetId] then
-
-		self.itemInfo = newState.AssetInfo[self.assetId]
-		self.assetId = self.itemInfo.AssetId
-
-		self.Title.Text = self.itemInfo.Name
-		self.Details.Text = self.itemInfo.Description:gsub("%s", " ")
-
-		if self.itemInfo.Icon then
-			self.thumbnail = self.itemInfo.Icon
-			self:FillThumbnail()
-			self:Show()
-			if self.appStateConnection then
-				self.appStateConnection:Disconnect()
-			end
-		else
-			local placeInfo = newState.PlaceInfos[self.assetId]
-			if placeInfo == nil then
-				self.appState.store:Dispatch(GetPlaceInfo(self.assetId))
-			else
+	local placeInfo = newState.PlaceInfos[self.assetId]
+	if placeInfo == nil then
+		self:ShowLoadingIndicator(true)
+		self.appState.store:Dispatch(GetPlaceInfo(self.assetId))
+	else
+		if placeInfo.status == Constants.WebStatus.SUCCESS then
+			self.Title.Text = placeInfo.name
+			self.Details.Text = placeInfo.description:gsub("%s", " ")
+			if UrlSupportNewGamesAPI then
 				local thumbnail = newState.PlaceThumbnails[placeInfo.imageToken]
 				if thumbnail == nil then
-					self.appState.store:Dispatch(GetPlaceThumbnail(placeInfo.imageToken, 50, 50))
+					self.appState.store:Dispatch(GetPlaceThumbnail(
+						placeInfo.imageToken, PLACE_INFO_THUMBNAIL_SIZE, PLACE_INFO_THUMBNAIL_SIZE
+					))
 				else
-					if thumbnail == '' then
-						self.thumbnail = "rbxasset://textures/ui/LuaChat/icons/share-game-thumbnail.png"
-					else
-						self.thumbnail = thumbnail
-					end
-					self:FillThumbnail()
-					self:Show()
-					if self.appStateConnection then
-						self.appStateConnection:Disconnect()
+					if thumbnail.status == Constants.WebStatus.SUCCESS then
+						if thumbnail.image == '' then
+							self.thumbnail = DEFAULT_THUMBNAIL
+						else
+							self.thumbnail = thumbnail.image
+						end
+						self:FillThumbnail()
+						self:Show()
 					end
 				end
-
+			else
+				self.thumbnail = DEFAULT_THUMBNAIL
+				self:Show()
 			end
 		end
-
-		if self.viewDetailsClick then self.viewDetailsClick:Disconnect() end
-
-		self.viewDetailsClick = self.actionButton.MouseButton1Click:Connect(function()
-			GuiService:BroadcastNotification(self.assetId,
-				GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
-		end)
-
 	end
+	if self.viewDetailsClick then self.viewDetailsClick:Disconnect() end
+
+	self.viewDetailsClick = self.actionButton.MouseButton1Click:Connect(function()
+		GuiService:BroadcastNotification(self.assetId,
+		GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
+	end)
 	self:Resize()
 end
 
 function AssetCard:Show()
 	self.Content.Visible = true
+	spawn(function()
+		while (not self.Icon.IsLoaded) do wait() end
+
+		self:ShowLoadingIndicator(false)
+		local fadeInTween = TweenService:Create(
+			self.fadeScreen,
+			TweenInfo.new(0.4),
+			{BackgroundTransparency = 1}
+		)
+		fadeInTween:Play()
+	end)
+
+	--TODO: Remove comments. CLICHAT-820 for more info.
+	--[[
+	do
+		if self.appStateConnection then
+			self.appStateConnection:Disconnect()
+		end
+	end
+	]]
 end
 
 function AssetCard:FillThumbnail()
 	self.Icon.Image = self.thumbnail or ""
+end
+
+function AssetCard:ShowLoadingIndicator(isVisible)
+	if isVisible then
+		if not self.loadingIndicator then
+			local loadingIndicator = LoadingIndicator.new(self.appState)
+			loadingIndicator.rbx.AnchorPoint = Vector2.new(0.5, 0.5)
+			loadingIndicator.rbx.Position = UDim2.new(0.5, 0, 0.5, 0)
+			loadingIndicator.rbx.Size = UDim2.new(0.5, 0, 0.25, 0)
+			loadingIndicator.rbx.Parent = self.bubble
+			loadingIndicator:SetVisible(true)
+			self.loadingIndicator = loadingIndicator
+		end
+	else
+		if self.loadingIndicator then
+			self.loadingIndicator:Destroy()
+		end
+	end
+end
+
+--TODO: Remove do block. CLICHAT-820 for more info.
+do
+	function AssetCard:DisconnectUpdate()
+		if self.Content.Visible then
+			if self.appStateConnection then
+				self.appStateConnection:Disconnect()
+				self.appStateConnection = nil
+			end
+		end
+	end
 end
 
 function AssetCard:Destruct()
@@ -304,7 +356,5 @@ function AssetCard:Destruct()
 	self.connections = {}
 	self.rbx:Destroy()
 end
-
-
 
 return AssetCard

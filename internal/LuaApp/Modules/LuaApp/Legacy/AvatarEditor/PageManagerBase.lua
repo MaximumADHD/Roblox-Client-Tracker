@@ -16,7 +16,6 @@ local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local AvatarEditorAnthroSliders =
 	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
 	Flags:GetFlag("AvatarEditorUseNewCommonAction")
-local AvatarEditorNewLocalizedStrings = Flags:GetFlag("AvatarEditorNewLocalizedStrings")
 
 
 local SKIN_COLORS = {
@@ -35,9 +34,7 @@ local function createPageManagerBase(characterManager)
 		{
 			StoreName = "Height",
 			WebPropertyName = "height",
-			Title = AvatarEditorNewLocalizedStrings and
-				Strings:LocalizedString("ScaleHeightTitle") or
-				Strings:LocalizedString("HeightWord"),
+			Title = Strings:LocalizedString("ScaleHeightTitle"),
 			Min = 0.95,
 			Max = 1.05,
 			Default = 1,
@@ -49,9 +46,7 @@ local function createPageManagerBase(characterManager)
 		{
 			StoreName = "Width",
 			WebPropertyName = "width",
-			Title = AvatarEditorNewLocalizedStrings and
-				Strings:LocalizedString("ScaleWidthTitle") or
-				Strings:LocalizedString("WidthWord"),
+			Title = Strings:LocalizedString("ScaleWidthTitle"),
 			Min = 0.70,
 			Max = 1.00,
 			Default = 1.0,
@@ -63,9 +58,7 @@ local function createPageManagerBase(characterManager)
 		{
 			StoreName = "Head",
 			WebPropertyName = "head",
-			Title = AvatarEditorNewLocalizedStrings and
-				Strings:LocalizedString("ScaleHeadTitle") or
-				Strings:LocalizedString("HeadWord"),
+			Title = Strings:LocalizedString("ScaleHeadTitle"),
 			Min = 0.95,
 			Max = 1.00,
 			Default = 1,
@@ -80,9 +73,7 @@ local function createPageManagerBase(characterManager)
 		{
 			StoreName = "Height",
 			WebPropertyName = "height",
-			Title = AvatarEditorNewLocalizedStrings and
-				Strings:LocalizedString("ScaleHeightTitle") or
-				Strings:LocalizedString("HeightWord"),
+			Title = Strings:LocalizedString("ScaleHeightTitle"),
 			Min = 0.95,
 			Max = 1.05,
 			Default = 1,
@@ -94,9 +85,7 @@ local function createPageManagerBase(characterManager)
 		{
 			StoreName = "Width",
 			WebPropertyName = "width",
-			Title = AvatarEditorNewLocalizedStrings and
-				Strings:LocalizedString("ScaleWidthTitle") or
-				Strings:LocalizedString("WidthWord"),
+			Title = Strings:LocalizedString("ScaleWidthTitle"),
 			Min = 0.70,
 			Max = 1.00,
 			Default = 1.0,
@@ -108,9 +97,7 @@ local function createPageManagerBase(characterManager)
 		{
 			StoreName = "Head",
 			WebPropertyName = "head",
-			Title = AvatarEditorNewLocalizedStrings and
-				Strings:LocalizedString("ScaleHeadTitle") or
-				Strings:LocalizedString("HeadWord"),
+			Title = Strings:LocalizedString("ScaleHeadTitle"),
 			Min = 0.95,
 			Max = 1.00,
 			Default = 1,

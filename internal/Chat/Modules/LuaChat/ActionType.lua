@@ -56,7 +56,10 @@ local ActionType = {
 	DecrementUnreadConversationCount = "DecrementUnreadConversationCount",
 	FetchedAssetCardInfo = "FetchedAssetCardInfo",
 	FetchedPlaceInfo = "FetchedPlaceInfo",
+	FetchingPlaceInfo = "FetchingPlaceInfo",
+	FailedToFetchPlaceInfo = "FailedToFetchPlaceInfo",
 	FetchedPlaceThumbnail = "FetchedPlaceThumbnail",
+	FetchingImageToken = "FetchingImageToken",
 }
 
 setmetatable(ActionType, {

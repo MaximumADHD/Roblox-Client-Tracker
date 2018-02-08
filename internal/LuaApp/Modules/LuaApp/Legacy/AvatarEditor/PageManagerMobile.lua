@@ -2,10 +2,6 @@ local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
 -------------- FFLAGS --------------
-local UseNewPageManager = Flags:GetFlag("AvatarEditorPageManagerRefactor")
-if not UseNewPageManager then
-	return require(Modules.LuaApp.Legacy.AvatarEditor.PageManager)
-end
 local AvatarEditorCatalogRecommended = Flags:GetFlag("AvatarEditorCatalogRecommended")
 local AvatarEditorAnthroSliders =
 	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and

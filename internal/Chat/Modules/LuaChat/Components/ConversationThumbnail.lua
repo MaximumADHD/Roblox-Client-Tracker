@@ -192,7 +192,7 @@ function ConversationThumbnail:Update(conversation)
 
 	Create.new "ImageLabel" {
 		Name = "Mask",
-		Image = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-36x36.png",
+		Image = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-48x48.png",
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,

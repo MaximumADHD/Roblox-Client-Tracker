@@ -29,7 +29,7 @@ local PLACE_INFO_FRAME_HEIGHT = 84
 
 local function requestOlderConversations(appState)
 	-- Don't fetch older conversations if the oldest conversation has already been fetched.
-	if appState.store:GetState().FetchedOldestConversation then
+	if appState.store:GetState().ConversationsAsync.oldestConversationIsFetched then
 		return
 	end
 
@@ -237,7 +237,8 @@ function GameShareComponent:Update(newState, oldState)
 		end
 	end
 
-	if newState.FetchingConversations ~= oldState.FetchingConversations and self.list then
+	if newState.ConversationsAsync.pageConversationsIsFetching ~= oldState.ConversationsAsync.pageConversationsIsFetching
+		and self.list then
 		self.list:Update(newState, oldState)
 		self:getOlderConversationsForSearchIfNecessary()
 	end
@@ -288,7 +289,8 @@ function GameShareComponent:getOlderConversationsForSearchIfNecessary(appState)
 	-- Note that we already try to load more conversations if we scroll down to the bottom of the list
 	local state = self.appState.store:GetState()
 	local isSearchOpen = (self.searchBox.Text) ~= nil and (self.searchBox.Text ~= "")
-	if (not isSearchOpen) or state.FetchedOldestConversation or state.FetchingConversations then
+	if (not isSearchOpen) or state.ConversationsAsync.oldestConversationIsFetched
+		or state.ConversationsAsync.pageConversationsIsFetching then
 		return
 	end
 

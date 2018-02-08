@@ -6,6 +6,8 @@ local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local FFlagXboxSliderDpadSupport = Flags:GetFlag('XboxSliderDpadSupport')
+local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
+
 
 local THUMBSTICK_MOVE_DEADZONE = 0.6
 local THUMBSTICK_MOVE_INITIAL_REPEAT_TIME = 0.5
@@ -26,6 +28,10 @@ local function makeSlider()
 		ScaleType = Enum.ScaleType.Stretch;
 		SliceCenter = Rect.new(0, 0, 0, 0);
 	}
+	if XboxScrollingInScalesPage then
+		SliderFrameTemplate.Position = UDim2.new(0, 0, 0, 0)
+		SliderFrameTemplate.Size = UDim2.new(1, 0, 0, 48)
+	end
 
 	local BackgroundBar = Utilities.create'ImageLabel'
 	{
@@ -42,12 +48,15 @@ local function makeSlider()
 		Parent = SliderFrameTemplate;
 	}
 
+if not XboxScrollingInScalesPage then
 	Utilities.create'StringValue'
 	{
 		Name = 'SpriteName';
 		Value = 'slider bar';
 		Parent = BackgroundBar;
 	}
+end
+
 	local Dragger = Utilities.create'ImageLabel'
 	{
 		Name = 'Dragger';
@@ -77,6 +86,7 @@ local function makeSlider()
 		Visible = false;
 	}
 
+if not XboxScrollingInScalesPage then
 	Utilities.create'StringValue'
 	{
 		Name = 'SpriteName';
@@ -90,7 +100,7 @@ local function makeSlider()
 		Value = 'btn-slider';
 		Parent = Dragger;
 	}
-
+end
 
 	local DraggerSelector = Utilities.create'ImageLabel'
 	{
@@ -135,12 +145,14 @@ local function makeSlider()
 		Parent = SliderFrameTemplate;
 	}
 
+if not XboxScrollingInScalesPage then
 	Utilities.create'StringValue'
 	{
 		Name = 'SpriteName';
 		Value = 'slider bar-on';
 		Parent = FillBar;
 	}
+end
 
 	Utilities.create'ImageLabel'
 	{
@@ -156,7 +168,7 @@ local function makeSlider()
 		Parent = SliderFrameTemplate;
 	}
 
-	Utilities.create'TextLabel'
+	local titleText = Utilities.create'TextLabel'
 	{
 		Name = 'TextLabel';
 		Position = UDim2.new(0, 0, 0.5, -64);
@@ -170,6 +182,10 @@ local function makeSlider()
 		TextSize = LayoutInfo.SubHeaderFontSize;
 		Font = LayoutInfo.RegularFont;
 	}
+	if XboxScrollingInScalesPage then
+		titleText.Position = UDim2.new(0, 0, 0, -42)
+		titleText.Size = UDim2.new(1, 0, 0, 30)
+	end
 
 	local dummySelection = Utilities.create'Frame'
 	{
@@ -200,7 +216,7 @@ end
 local this = {}
 
 
-function this.renderSlider(name, title, changedFunction, currentPercent, intervals, defaultValue)
+function this.renderSlider(name, title, changedFunction, currentPercent, intervals, defaultValue, scrollingFrame)
 	local slider = makeSlider()
 	slider.TextLabel.Text = title
 	slider.Name = 'Slider'..name
@@ -233,7 +249,7 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 			end
 		end
 		dragger.Position = UDim2.new(percent, 0, .5, 0)
-		slider.FillBar.Size = UDim2.new(percent, 8, 0, 15)
+		slider.FillBar.Size = UDim2.new(percent, 8, 0, XboxScrollingInScalesPage and 12 or 15)
 		if changedFunction then
 			changedFunction(name, lastValue)
 		end
@@ -261,6 +277,25 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 		fastRepeatMoveTimer = nil
 	end
 
+	-- Check if scrollingFrame need to scroll up/down
+	local function checkScroll()
+		local newCanvasPositionY = scrollingFrame.CanvasPosition.Y
+		local bottomOffset = slider.TextLabel.AbsolutePosition.Y + LayoutInfo.SliderVeritcalOffset - 890
+		if slider.TextLabel.AbsolutePosition.Y < LayoutInfo.SelectorTopMinDistance then
+			newCanvasPositionY = newCanvasPositionY - LayoutInfo.SliderVeritcalOffset
+		elseif bottomOffset > 0 then
+			newCanvasPositionY =  newCanvasPositionY + bottomOffset
+		end
+		newCanvasPositionY =
+			math.max(0,
+				math.min(
+					newCanvasPositionY,
+					scrollingFrame.CanvasSize.Y.Offset - scrollingFrame.AbsoluteWindowSize.Y
+				)
+			)
+
+		scrollingFrame.CanvasPosition = Vector2.new(scrollingFrame.CanvasPosition.X, newCanvasPositionY)
+	end
 
 	draggerButton.SelectionGained:Connect(function()
 		local highlight
@@ -310,6 +345,9 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 		end
 
 		reset()
+		if XboxScrollingInScalesPage then
+			checkScroll()
+		end
 		if FFlagXboxSliderDpadSupport then
 			inputBeganListener = UserInputService.InputBegan:connect(inputBegan)
 			inputEndedListener = UserInputService.InputEnded:connect(inputEnded)

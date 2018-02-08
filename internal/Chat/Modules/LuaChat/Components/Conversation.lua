@@ -23,8 +23,6 @@ local LoadingIndicator = require(Components.LoadingIndicator)
 
 local Intent = DialogInfo.Intent
 
-local FFlagLuaChatTweenOnKeyboardResize = settings():GetFFlag("LuaChatTweenOnKeyboardResize")
-
 local ConversationView = {}
 
 ConversationView.__index = ConversationView
@@ -162,22 +160,27 @@ function ConversationView:Start()
 	end)
 	table.insert(self.connections, keyboardVisibleConnection)
 
-	if FFlagLuaChatTweenOnKeyboardResize then
-		propertyChangeSignal = UserInputService:GetPropertyChangedSignal("OnScreenKeyboardPosition")
-		local keyboardSizeConnection = propertyChangeSignal:Connect(function()
-			self:TweenRescale()
-		end)
-		table.insert(self.connections, keyboardSizeConnection)
-		propertyChangeSignal = self.rbx:GetPropertyChangedSignal("AbsoluteSize")
-		local absoluteSizeConnection = propertyChangeSignal:Connect(function()
-			self:TweenRescale()
-		end)
-		table.insert(self.connections, absoluteSizeConnection)
-	end
+	propertyChangeSignal = UserInputService:GetPropertyChangedSignal("OnScreenKeyboardPosition")
+	local keyboardSizeConnection = propertyChangeSignal:Connect(function()
+		self:TweenRescale()
+	end)
+	table.insert(self.connections, keyboardSizeConnection)
+	propertyChangeSignal = self.rbx:GetPropertyChangedSignal("AbsoluteSize")
+	local absoluteSizeConnection = propertyChangeSignal:Connect(function()
+		self:TweenRescale()
+	end)
+	table.insert(self.connections, absoluteSizeConnection)
 end
 
 function ConversationView:Stop()
 	self.chatInputBar.textBox:ReleaseFocus()
+
+	--TODO: Remove do block. See CLICHAT-820 for more info.
+	do
+		if self.messageList then
+			self.messageList:DisconnectChatBubbles()
+		end
+	end
 
 	for _, connection in ipairs(self.connections) do
 		connection:Disconnect()
@@ -227,18 +230,16 @@ function ConversationView:Update(state, oldState)
 		messageList:ResizeCanvas()
 		self.messageList = messageList
 
-		if FFlagLuaChatTweenOnKeyboardResize then
-			if self.messageListConnection ~= nil then
-				self.messageListConnection:Disconnect()
-			end
-			local propertyChangeSignal = self.messageList.rbx:GetPropertyChangedSignal("AbsoluteSize")
-			self.messageListConnection = propertyChangeSignal:Connect(function()
-				if self.messageList.isTouchingBottom or self.wasTouchingBottom then
-					self:TweenScrollToBottom()
-					self.wasTouchingBottom = false
-				end
-			end)
+		if self.messageListConnection ~= nil then
+			self.messageListConnection:Disconnect()
 		end
+		local propertyChangeSignal = self.messageList.rbx:GetPropertyChangedSignal("AbsoluteSize")
+		self.messageListConnection = propertyChangeSignal:Connect(function()
+			if self.messageList.isTouchingBottom or self.wasTouchingBottom then
+				self:TweenScrollToBottom()
+				self.wasTouchingBottom = false
+			end
+		end)
 
 		local function onRequestOlderMessages()
 			local conversation = self.appState.store:GetState().Conversations[self.conversationId]
@@ -381,12 +382,6 @@ function ConversationView:TweenRescale()
 	local tween = TweenService:Create(self.messageList.rbx, tweenInfo, propertyGoals)
 
 	tween:Play()
-
-	if not FFlagLuaChatTweenOnKeyboardResize then
-		if self.wasTouchingBottom then
-			self.messageList:TweenScrollToBottom(duration, offset, tweenInfo)
-		end
-	end
 end
 
 function ConversationView:TweenScrollToBottom()

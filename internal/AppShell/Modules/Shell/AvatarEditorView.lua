@@ -39,10 +39,10 @@ local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 
 -------------- FFLAGS --------------
-local EnableAvatarEditorFlipPage = Flags:GetFlag("AvatarEditorPageManagerRefactor")
 local AvatarEditorUseNewScene = Flags:GetFlag("AvatarEditorUseNewScene")
 local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
 local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
+local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
 
 ------------ VARIABLES -------------------
 local characterTemplates = {
@@ -109,10 +109,22 @@ local function createAvatarEditorView()
 		Parent = Container;
 	}
 
+	local frame = Utilities.create'Frame'
+	{
+		Position = UDim2.new(0, 0, 0, 270);
+		Size = UDim2.new(1, 0, 1, 0);
+		Name = "PageFrame";
+		BackgroundTransparency = 1;
+		ClipsDescendants = true;
+		Visible = true;
+		Selectable = false;
+		ZIndex = LayoutInfo.BasicLayer;
+		Parent = XboxScrollingInScalesPage and Container or nil;
+	}
 	local scrollingFrame = Utilities.create'ScrollingFrame'
 	{
 		AnchorPoint = Vector2.new(1, 0);
-		Position = UDim2.new(1, -99, 0, 270);
+		Position = UDim2.new(1, -99, 0, XboxScrollingInScalesPage and 0 or 270);
 		Size = UDim2.new(0, 491, 1, -270);
 		Name = "ScrollingFrame";
 		BackgroundTransparency = 1;
@@ -122,7 +134,7 @@ local function createAvatarEditorView()
 		ScrollBarThickness = 0;
 		Selectable = false;
 		ZIndex = LayoutInfo.BasicLayer;
-		Parent = Container;
+		Parent = XboxScrollingInScalesPage and frame or Container;
 	}
 
 	ConsoleButtonIndicators.init(Container)
@@ -232,47 +244,9 @@ local function createAvatarEditorView()
 	local function initMenuActions()
 		ContextActionService:UnbindCoreAction("AvatarEditorMenu")
 
-		if EnableAvatarEditorFlipPage then
-			ContextActionService:BindCoreAction("AvatarEditorMenu", function(actionName, inputState, inputObject)
-				if inputState == Enum.UserInputState.End then
-					if inputObject.KeyCode == Enum.KeyCode.ButtonB then
-						if AppState.Store:GetState().ConsoleMenuLevel > LayoutInfo.ConsoleMenuLevel.CategoryMenu then
-							local currentMenuLevel = AppState.Store:GetState().ConsoleMenuLevel
-							if XboxSFXPolish then
-								SoundManager:Play('PopUp')
-							end
-							AppState.Store:Dispatch(SetConsoleMenuLevel(currentMenuLevel - 1))
-						else
-							-- Back to avatar page in AppShell
-							AppState.Store:Dispatch(ResetCategory())
-							AppState.Store:Dispatch(SetConsoleMenuLevel(LayoutInfo.ConsoleMenuLevel.None))
-							return Enum.ContextActionResult.Pass
-						end
-					end
-				elseif inputState == Enum.UserInputState.Begin then
-					if inputObject.KeyCode == Enum.KeyCode.ButtonL2 then
-						if AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.CategoryMenu then
-							CategoryMenu:SelectPreviousPage()
-						elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.TabList then
-							TabList:SelectPreviousPage()
-						elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.AssetsPage then
-							PageManager:SelectPreviousPage()
-						end
-					elseif inputObject.KeyCode == Enum.KeyCode.ButtonR2 then
-						if AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.CategoryMenu then
-							CategoryMenu:SelectNextPage()
-						elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.TabList then
-							TabList:SelectNextPage()
-						elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.AssetsPage then
-							PageManager:SelectNextPage()
-						end
-					end
-				end
-			end,
-			false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonL2, Enum.KeyCode.ButtonR2)
-		else
-			ContextActionService:BindCoreAction("AvatarEditorMenu", function(actionName, inputState, inputObject)
-				if inputState == Enum.UserInputState.End then
+		ContextActionService:BindCoreAction("AvatarEditorMenu", function(actionName, inputState, inputObject)
+			if inputState == Enum.UserInputState.End then
+				if inputObject.KeyCode == Enum.KeyCode.ButtonB then
 					if AppState.Store:GetState().ConsoleMenuLevel > LayoutInfo.ConsoleMenuLevel.CategoryMenu then
 						local currentMenuLevel = AppState.Store:GetState().ConsoleMenuLevel
 						if XboxSFXPolish then
@@ -286,9 +260,27 @@ local function createAvatarEditorView()
 						return Enum.ContextActionResult.Pass
 					end
 				end
-			end,
-			false, Enum.KeyCode.ButtonB)
-		end
+			elseif inputState == Enum.UserInputState.Begin then
+				if inputObject.KeyCode == Enum.KeyCode.ButtonL2 then
+					if AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.CategoryMenu then
+						CategoryMenu:SelectPreviousPage()
+					elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.TabList then
+						TabList:SelectPreviousPage()
+					elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.AssetsPage then
+						PageManager:SelectPreviousPage()
+					end
+				elseif inputObject.KeyCode == Enum.KeyCode.ButtonR2 then
+					if AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.CategoryMenu then
+						CategoryMenu:SelectNextPage()
+					elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.TabList then
+						TabList:SelectNextPage()
+					elseif AppState.Store:GetState().ConsoleMenuLevel == LayoutInfo.ConsoleMenuLevel.AssetsPage then
+						PageManager:SelectNextPage()
+					end
+				end
+			end
+		end,
+		false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonL2, Enum.KeyCode.ButtonR2)
 	end
 
 	local function updateFullViewCoreAction(fullView)

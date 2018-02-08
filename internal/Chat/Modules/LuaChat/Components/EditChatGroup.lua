@@ -159,9 +159,7 @@ function EditChatGroup.new(appState, maxSize, convoId)
 		self.BackButtonPressed:Fire()
 	end)
 
-	if not self.appState.store:GetState().FetchedAllFriends then
-		self.appState.store:Dispatch(ConversationActions.GetAllFriends())
-	end
+	self.appState.store:Dispatch(ConversationActions.GetAllFriends())
 
 	self.tooManyFriendsAlertId = nil
 

@@ -1,14 +1,10 @@
 -------------- CONSTANTS --------------
 local MAX_RECENT_ASSETS = 200
 
--- Clean up DEFAULT_SHIRT_IDS and DEFAULT_PANT_IDS when FFlagAvatarEditorFixDefaultClothesIds has been removed
 -- These sync up with chat username color order. The last clothing is a teal
 -- color instead of a tan color like the usernames.
 -- Username color list: "Bright red", "Bright blue", "Earth green", "Bright violet",
 -- "Bright orange", "Bright yellow", "Light reddish violet", "Brick yellow"
-local DEFAULT_SHIRT_IDS = {855776103, 855760101, 855766176, 855777286, 855768342, 855779323, 855773575, 855778084}
-local DEFAULT_PANT_IDS =  {855783877, 855780360, 855781078, 855782781, 855781508, 855785499, 855782253, 855784936}
-
 local BODY_COLOR_NAME_MAP = {
 	["HeadColor"] = 'headColorId',
 	["LeftArmColor"] = 'leftArmColorId',
@@ -100,8 +96,6 @@ local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local TableUtilities = require(Modules.LuaApp.TableUtilities)
 
 -------------- FFLAGS --------------
-local AvatarEditorDefaultClothingV2 = Flags:GetFlag("AvatarEditorDefaultClothingV2")
-local AvatarEditorFixDefaultClothesIds = Flags:GetFlag("AvatarEditorFixDefaultClothesIds")
 local AvatarEditorAnthroSliders =
 	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
 	Flags:GetFlag("AvatarEditorUseNewCommonAction")
@@ -181,21 +175,13 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 	-- initDefaultClothes
 	Utilities.fastSpawn(function()
-		if AvatarEditorFixDefaultClothesIds then
-			local myColorIndex = ((defaultClothesIndex-1) % DefaultClothesIds.getDefaultClothesCount()) + 1
-			myDefaultShirtTemplate = InsertService:LoadAsset(
-				DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
-			myDefaultShirtTemplate.Name = 'ShirtDefault'
-			myDefaultPantsTemplate = InsertService:LoadAsset(
-				DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
-			myDefaultPantsTemplate.Name = 'PantsDefault'
-		else
-			local myColorIndex = ((defaultClothesIndex-1) % #DEFAULT_SHIRT_IDS) + 1
-			myDefaultShirtTemplate = InsertService:LoadAsset(DEFAULT_SHIRT_IDS[myColorIndex]):GetChildren()[1]
-			myDefaultShirtTemplate.Name = 'ShirtDefault'
-			myDefaultPantsTemplate = InsertService:LoadAsset(DEFAULT_PANT_IDS[myColorIndex]):GetChildren()[1]
-			myDefaultPantsTemplate.Name = 'PantsDefault'
-		end
+		local myColorIndex = ((defaultClothesIndex-1) % DefaultClothesIds.getDefaultClothesCount()) + 1
+		myDefaultShirtTemplate = InsertService:LoadAsset(
+			DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
+		myDefaultShirtTemplate.Name = 'ShirtDefault'
+		myDefaultPantsTemplate = InsertService:LoadAsset(
+			DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
+		myDefaultPantsTemplate.Name = 'PantsDefault'
 	end)
 
 	local function getRecentAssetList(name)
@@ -1147,45 +1133,27 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 		local characterShouldHaveDefaultPants = not hasPants
 
 		if characterShouldHaveDefaultShirt or characterShouldHaveDefaultPants then
-			if AvatarEditorDefaultClothingV2 then
-				local rightLegColor = Color3.new(0, 0, 0)
-				local leftLegColor = Color3.new(0, 0, 0)
-				local torsoColor = Color3.new(0, 0, 0)
-				local bodyColors = getBodyColors()
-				for index, value in pairs(bodyColors) do
-					if index == "RightLegColor" then
-						rightLegColor = BrickColor.new(value).Color
-					elseif index == "LeftLegColor" then
-						leftLegColor = BrickColor.new(value).Color
-					elseif index == "TorsoColor" then
-						torsoColor = BrickColor.new(value).Color
-					end
+			local rightLegColor = Color3.new(0, 0, 0)
+			local leftLegColor = Color3.new(0, 0, 0)
+			local torsoColor = Color3.new(0, 0, 0)
+			local bodyColors = getBodyColors()
+			for index, value in pairs(bodyColors) do
+				if index == "RightLegColor" then
+					rightLegColor = BrickColor.new(value).Color
+				elseif index == "LeftLegColor" then
+					leftLegColor = BrickColor.new(value).Color
+				elseif index == "TorsoColor" then
+					torsoColor = BrickColor.new(value).Color
 				end
-				local minDeltaE = math.min(
-					Utilities.delta_CIEDE2000(rightLegColor, torsoColor),
-					Utilities.delta_CIEDE2000(leftLegColor, torsoColor))
-
-				characterShouldHaveDefaultShirt =
-					minDeltaE <= minDeltaEBodyColorDifference and characterShouldHaveDefaultShirt
-				characterShouldHaveDefaultPants =
-					minDeltaE <= minDeltaEBodyColorDifference and characterShouldHaveDefaultPants
-			else
-				local waistBodyColors = {}
-				local numberOfWaistBodyColors = 0
-				local bodyColors = getBodyColors()
-				for index, value in pairs(bodyColors) do
-					-- These are the three body areas that define the waist
-					if index == "RightLegColor" or index == "LeftLegColor" or index == "TorsoColor" then
-						if not waistBodyColors[value] then
-							waistBodyColors[value] = true
-							numberOfWaistBodyColors = numberOfWaistBodyColors + 1
-						end
-					end
-				end
-
-				characterShouldHaveDefaultShirt = numberOfWaistBodyColors <= 1 and characterShouldHaveDefaultShirt
-				characterShouldHaveDefaultPants = numberOfWaistBodyColors <= 1 and characterShouldHaveDefaultPants
 			end
+			local minDeltaE = math.min(
+				Utilities.delta_CIEDE2000(rightLegColor, torsoColor),
+				Utilities.delta_CIEDE2000(leftLegColor, torsoColor))
+
+			characterShouldHaveDefaultShirt =
+				minDeltaE <= minDeltaEBodyColorDifference and characterShouldHaveDefaultShirt
+			characterShouldHaveDefaultPants =
+				minDeltaE <= minDeltaEBodyColorDifference and characterShouldHaveDefaultPants
 		end
 
 		Utilities.fastSpawn(function()

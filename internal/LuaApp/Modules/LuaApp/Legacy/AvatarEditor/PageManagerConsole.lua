@@ -2,11 +2,8 @@ local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
 -------------- FFLAGS --------------
-local AvatarEditorPageManagerRefactor = Flags:GetFlag("AvatarEditorPageManagerRefactor")
-if not AvatarEditorPageManagerRefactor then
-	return require(Modules.LuaApp.Legacy.AvatarEditor.LegacyPageManagerConsole)
-end
 local AvatarEditorUsesBrowserWindowCall = Flags:GetFlag("AvatarEditorUsesBrowserWindowCall")
+local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
 
 -------------- SERVICES --------------
 local GuiService = game:GetService("GuiService")
@@ -364,15 +361,21 @@ local function createPageManager(userId, scrollingFrame, characterManager)
 
 		elseif currentPage.specialPageType == 'Scale' then
 			scrollingFrame.ClipsDescendants = false
-			scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 260)
 			scaleButtons = {}
 
 			local scalesCount = this:getScalesInfoCount()
+			if XboxScrollingInScalesPage then
+				local scrollingFrameSizeY = scalesCount * LayoutInfo.SliderVeritcalOffset + LayoutInfo.SelectorBottomMinDistance
+				scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, scrollingFrameSizeY)
+			else
+				scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 260)
+			end
+
 			local sliderPositionY = LayoutInfo.SliderPositionY
 			local sliderSize = LayoutInfo.ScaleSliderSize
 
 			for i = 1, scalesCount do
-				local slider = this:makeSlider(Slider, i)
+				local slider = this:makeSlider(Slider, i, scrollingFrame)
 				slider.Position = UDim2.new(0, 0, 0, sliderPositionY)
 				slider.Size = sliderSize
 				slider.Parent = scrollingFrame

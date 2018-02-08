@@ -244,13 +244,26 @@
       <Properties>
         <string name="Name">HttpService</string>
       </Properties>
-
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">HttpEnabled</string>
             <bool name="Browsable">true</bool>
             <string name="summary">Enabling http requests from scripts</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataYieldFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetAsync</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PostAsync</string>
+            <string name="ScriptContext">Server</string>
           </Properties>
         </Item>
       </Item>
@@ -3066,7 +3079,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LocalizationService</string>
-        <string name="ExplorerOrder">-1</string>
+        <string name="ExplorerOrder">53</string>
         <string name="ExplorerImageIndex">92</string>
       </Properties>
       <Item class="ReflectionMetadataMember">
@@ -6533,6 +6546,34 @@
         <string name="ExplorerOrder">4</string>
         <string name="ExplorerImageIndex">74</string>
       </Properties>
+      <Item class="ReflectionMetadataYieldFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InvokeClient</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InvokeServer</string>
+            <string name="ScriptContext">Client</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataCallbacks">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnClientInvoke</string>
+            <string name="ScriptContext">Client</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnServerInvoke</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -6542,6 +6583,40 @@
         <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">75</string>
       </Properties>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FireAllClients</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FireClient</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FireServer</string>
+            <string name="ScriptContext">Client</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnClientEvent</string>
+            <string name="ScriptContext">Client</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnServerEvent</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

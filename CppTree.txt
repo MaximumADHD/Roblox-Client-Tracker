@@ -483,7 +483,6 @@ RBX
 	Accoutrement
 	Adorn
 	AdornBillboarder
-	AdornBillboarder2D
 	AdornSurface
 	AdService
 	AdvArrowTool

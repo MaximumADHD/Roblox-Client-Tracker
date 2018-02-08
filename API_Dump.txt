@@ -1292,10 +1292,15 @@ Class Lighting : Instance [notCreatable]
 	Event Lighting.LightingChanged(bool skyboxChanged)
 Class LocalWorkspace : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
+	Property bool LocalizationService.IsTextScraperRunning [hidden] [readonly] [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxLocaleId [readonly]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
+	Function void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
+	Function void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
+	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
+	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
 Class LocalizationTable : Instance
 	Property string LocalizationTable.DevelopmentLanguage [deprecated] [hidden]
 	Property Object LocalizationTable.Root
@@ -2024,6 +2029,7 @@ Class ReflectionMetadataItem : Instance
 	Property bool ReflectionMetadataItem.Deprecated
 	Property bool ReflectionMetadataItem.EditingDisabled
 	Property bool ReflectionMetadataItem.IsBackend
+	Property string ReflectionMetadataItem.ScriptContext
 	Property double ReflectionMetadataItem.UIMaximum
 	Property double ReflectionMetadataItem.UIMinimum
 	Property double ReflectionMetadataItem.UINumTicks

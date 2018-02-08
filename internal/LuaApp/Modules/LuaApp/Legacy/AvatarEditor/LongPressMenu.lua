@@ -10,8 +10,6 @@ local AssetInfo = require(Modules.LuaApp.Legacy.AvatarEditor.AssetInfo)
 local Urls = require(Modules.LuaApp.Legacy.AvatarEditor.Urls)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
-local AvatarEditorNewLocalizedStrings = Flags:GetFlag("AvatarEditorNewLocalizedStrings")
-
 local shadeLayer = nil
 local menuFrame = nil
 local menuTitleLabel
@@ -217,9 +215,7 @@ return function(inCharacterManager, inShadeLayer, inMenuFrame, inDetailsMenuFram
 	detailsCloseButton = detailsMenuFrame:WaitForChild('CloseButton')
 	detailsCloseImageLabel = detailsCloseButton:WaitForChild('ImageLabel')
 
-	if AvatarEditorNewLocalizedStrings then
-		menuCancelButton.Text = Strings:LocalizedString("CancelWord")
-	end
+	menuCancelButton.Text = Strings:LocalizedString("CancelWord")
 
 	detailsCloseButton.MouseButton1Click:connect(function()
 		closeDetails()

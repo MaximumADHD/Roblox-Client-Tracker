@@ -24,6 +24,8 @@ local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiV
 
 local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
 
+local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers")
+
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
 local FRAME_SELECTED_TRANSPARENCY = .65
@@ -78,6 +80,10 @@ local function Initialize()
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Players"
+
+	local function showRightSideButtons(player)
+		return player and player ~= localPlayer and player.UserId > 1 and localPlayer.UserId > 1
+	end
 
 	local function createFriendStatusTextLabel(status, player)
 		if status == nil then
@@ -204,7 +210,7 @@ local function Initialize()
 
 			-- create new friend status label
 			local status = nil
-			if player and player ~= localPlayer and player.UserId > 1 and localPlayer.UserId > 1 then
+			if showRightSideButtons(player) then
 				status = getFriendStatus(player)
 			end
 
@@ -321,7 +327,7 @@ local function Initialize()
 				oldReportButton:Destroy()
 			end
 
-			if player and player ~= localPlayer and player.UserId > 1 then
+			if showRightSideButtons(player) then
 				local reportPlayerFunction = function()
 					reportAbuseMenu:ReportPlayer(player)
 				end
@@ -469,9 +475,10 @@ local function Initialize()
 		end)
 	end
 
+	local sortedPlayers
 	local existingPlayerLabels = {}
 	this.Displayed.Event:connect(function(switchedFromGamepadInput)
-		local sortedPlayers = PlayersService:GetPlayers()
+		sortedPlayers = PlayersService:GetPlayers()
 		table.sort(sortedPlayers, function(item1,item2)
 			return item1.Name:lower() < item2.Name:lower()
 		end)
@@ -540,6 +547,24 @@ local function Initialize()
 		end)
 
 	end)
+
+	if preventFriendingRemovedPlayers then
+		PlayersService.PlayerRemoving:Connect(function (player)
+			if sortedPlayers then
+				for index=1, #sortedPlayers do
+					if sortedPlayers[index] == player then
+						local playerLabel = existingPlayerLabels[index]
+						if not playerLabel then break end
+
+						local buttons = playerLabel:FindFirstChild("RightSideButtons")
+						if not buttons then break end
+
+						buttons:Destroy()
+					end
+				end
+			end
+		end)
+	end
 
 	return this
 end

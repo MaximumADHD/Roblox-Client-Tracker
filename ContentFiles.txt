@@ -521,7 +521,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4841 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21168 bytes]
+[21829 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5796 bytes]
@@ -1067,10 +1067,10 @@ content/textures/glass/diffuse.dds
 [348372 bytes]
 
 content/textures/glass/normal.dds
-[337628 bytes]
+[336118 bytes]
 
 content/textures/glass/normaldetail.dds
-[342659 bytes]
+[176 bytes]
 
 content/textures/glass/specular.dds
 [633390 bytes]
@@ -1161,6 +1161,24 @@ content/textures/loading/robloxTilt.png
 
 content/textures/loading/robloxTiltRed.png
 [2338 bytes]
+
+content/textures/localizationExport.png
+[1131 bytes]
+
+content/textures/localizationImport.png
+[1042 bytes]
+
+content/textures/localizationTargetEnglish.png
+[881 bytes]
+
+content/textures/localizationTargetSpanish.png
+[888 bytes]
+
+content/textures/localizationUIScrapingOff.png
+[965 bytes]
+
+content/textures/localizationUIScrapingOn.png
+[531 bytes]
 
 content/textures/LockCursor.png
 [547 bytes]
@@ -1362,6 +1380,9 @@ content/textures/slate/specular.dds
 
 content/textures/sparkle.png
 [1072 bytes]
+
+content/textures/StudioUIEditor/sizeBoxRoundedRectangle.png
+[212 bytes]
 
 content/textures/studs.dds
 [165021 bytes]

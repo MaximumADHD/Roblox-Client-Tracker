@@ -3,13 +3,6 @@ local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local Strings = require(Modules.LuaApp.Legacy.AvatarEditor.LocalizedStrings)
 
-local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-local AvatarEditorNewLocalizedStrings = Flags:GetFlag("AvatarEditorNewLocalizedStrings")
-
-if not AvatarEditorNewLocalizedStrings then
-	return require(Modules.LuaApp.Legacy.AvatarEditor.LegacyCategories)
-end
-
 local legsFocus = {Parts={'RightUpperLeg', 'LeftUpperLeg'}}
 local faceFocus = {Parts={'Head'}}
 local armsFocus = {Parts={'UpperTorso'}}

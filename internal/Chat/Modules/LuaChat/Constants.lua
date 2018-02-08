@@ -1,8 +1,6 @@
 
 local Device = require(script.Parent.Device)
 
-local LuaChatSemiboldReplacesBold = settings():GetFFlag("LuaChatSemiboldReplacesBold")
-
 local Constants = {
 	Color = {
 		GRAY1 = Color3.fromRGB(25, 25, 25),
@@ -32,7 +30,7 @@ local Constants = {
 		CONVERSATION_BACKGROUND = Color3.fromRGB(224, 224, 224),
 	},
 	Font = {
-		TITLE = Enum.Font.SourceSansBold,
+		TITLE = Enum.Font.SourceSansSemibold,
 		-- These values appear differently because of the discrepancy between design sizes and
 		-- the engine sizes
 		FONT_SIZE_12 = 15,
@@ -115,16 +113,18 @@ local Constants = {
 			BACK_BUTTON_ASSET_ID = "rbxasset://textures/ui/LuaChat/icons/ic-back.png",
 		},
 	},
+
+	WebStatus = {
+		SUCCESS = "SUCCESS",
+		FAILED = "FAILED",
+		FETCHING = "FETCHING",
+	},
 }
 
 if Device.Platform == Enum.Platform.Android then
 	Constants.PlatformSpecific = Constants.Platforms.Android
 else
 	Constants.PlatformSpecific = Constants.Platforms.Default
-end
-
-if LuaChatSemiboldReplacesBold then
-	Constants.Font.TITLE = Enum.Font.SourceSansSemibold
 end
 
 return Constants

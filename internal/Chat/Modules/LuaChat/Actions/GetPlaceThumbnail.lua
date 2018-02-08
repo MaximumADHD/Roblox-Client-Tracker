@@ -2,6 +2,8 @@ local Modules = script.Parent.Parent
 
 local WebApi = require(Modules.WebApi)
 local ActionType = require(Modules.ActionType)
+local Constants = require(Modules.Constants)
+local ThumbnailModel = require(Modules.Models.ThumbnailModel)
 
 local RETRY_COUNT  = 3
 local WAIT_TIME  = 2
@@ -9,6 +11,16 @@ local WAIT_TIME  = 2
 return function(imageToken, width, height)
 	return function(store)
 		spawn(function()
+			local state = store:GetState()
+			if state.PlaceThumbnails and state.PlaceThumbnails[imageToken]
+				and state.PlaceThumbnails[imageToken].status ~= Constants.WebStatus.FAILED then
+				return
+			end
+			store:Dispatch({
+				type = ActionType.FetchingImageToken,
+				imageToken = imageToken,
+			})
+
 			local thumbnail = ''
 			local retryCount = RETRY_COUNT
 			local waitTime = WAIT_TIME
@@ -33,11 +45,14 @@ return function(imageToken, width, height)
 				end
 			end
 
+			local thumbnailModel = ThumbnailModel.fromWeb(thumbnail)
+
 			store:Dispatch({
 				type = ActionType.FetchedPlaceThumbnail,
 				imageToken = imageToken,
-				thumbnail = thumbnail,
+				thumbnail = thumbnailModel,
 			})
+
 		end)
 	end
 end

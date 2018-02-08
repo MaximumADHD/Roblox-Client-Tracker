@@ -1,0 +1,118 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Model" referent="RBX5b3f3aacc7b74a248c4090b6c0895536">
+		<Properties>
+			<CoordinateFrame name="ModelInPrimary">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<string name="Name">LocalizationPlugin</string>
+			<Ref name="PrimaryPart">null</Ref>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="Script" referent="RBX80b65251d0d4473f99856c535f049554">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">LocalizationPluginScript</string>
+				<string name="ScriptGuid">{23c184c9-73de-4b2d-9bd7-55d0a70adf12}</string>
+				<ProtectedString name="Source"><![CDATA[if not settings():GetFFlag("StudioEnableBuiltInGameLocalizationPlugin") then
+	return
+end
+
+local runService = game:GetService("RunService")
+
+local toolbar = plugin:CreateToolbar("Game Localization Tools")
+
+local captureButton = nil
+if settings():GetFFlag("TextScraper2Enabled2") then
+	captureButton = toolbar:CreateButton(
+		"Text Capture",
+		"Enable untranslated text capture",
+		"rbxasset://textures/localizationUIScrapingOff.png"
+	)
+end
+
+local exportButton = toolbar:CreateButton(
+	"Export",
+	"Export LocalizationTables to CSVs",
+	"rbxasset://textures/localizationExport.png"
+)
+
+local importButton = toolbar:CreateButton(
+	"Import",
+	"Import CSVs to LocalizationTables",
+	"rbxasset://textures/localizationImport.png"
+)
+
+--[[local targetButton = toolbar:CreateButton(
+	"Espa?ol",
+	"In-game text is displayed in Espa?ol",
+	"rbxasset://textures/localizationTargetSpanish.png"
+)]]
+
+if settings():GetFFlag("TextScraper2Enabled2") then
+	local ok, msg = pcall(function()
+		captureButton:SetActive(game:GetService("LocalizationService").IsTextScraperRunning)
+	end)
+	if not ok then
+		warn("Localization tools plugin failed to set captureButton active state:", msg)
+	end
+
+	captureButton.Click:connect(function()
+		local ls = game:GetService("LocalizationService")
+		if not ls.IsTextScraperRunning then
+			if runService:IsRunning() then
+				-- Text scraper should be started before hitting play for maximum effectiveness
+				error("LocalizationService text scraper should be started before running the game.")
+			end
+
+			ls:StartTextScraper()
+		else
+			if runService:IsRunning() then
+				-- Text scraper an only be stopped from the same DataModel it was started on (the edit mode one in this case)
+				error("LocalizationService text scraper can't be stopped while the game is running.")
+			end
+
+			ls:StopTextScraper()
+		end
+		captureButton:SetActive(ls.IsTextScraperRunning)
+	end)
+end
+
+exportButton.Click:connect(function()
+	if not runService:IsRunning() then
+		game:GetService("LocalizationService"):PromptExportToCSVs()
+	else
+		print("Cannot export to CSVs while the game is running!")
+	end
+end)
+
+importButton.Click:connect(function()
+	if not runService:IsRunning() then
+		game:GetService("LocalizationService"):PromptImportFromCSVs()
+	else
+		print("Cannot import from CSVs while the game is running!")
+	end
+end)
+
+--[[targetButton.Click:connect(function()
+	-- TODO
+end)]]
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+	</Item>
+</roblox>

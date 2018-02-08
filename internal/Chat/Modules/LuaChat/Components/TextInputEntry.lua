@@ -114,6 +114,8 @@ function TextInputEntry.new(appState, icon, placeholder)
 		clearButton.Visible = visible
 	end
 
+	updateClearButtonVisibility()
+
 	local textChangedConnection = textBox:GetPropertyChangedSignal("Text"):Connect(function()
 		self.value = self.textBoxComponent.Text
 		self.textBoxChanged:Fire(self.value)
