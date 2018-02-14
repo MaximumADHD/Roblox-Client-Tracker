@@ -133,7 +133,7 @@ StringsLocale.Content = {
 
 		key = StringsLocale.Keys.SEARCH_FOR_FRIENDS_AND_CHAT,
 		values = {
-			[StringsLocale.Languages.EN_US] = "Search for friends and chat group",
+			[StringsLocale.Languages.EN_US] = "Search for friends and chat groups",
 		},
 		comment = "Placeholder text when searching for friends and chat groups.",
 	},

@@ -60,7 +60,12 @@ function ChatMaster:Start(startType, parameters)
 		startType = ChatMaster.Type.Default
 	end
 
-	RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
+	if (settings():GetFFlag("UpdateRenderViewStatsEvenThrottling")) then
+		RunService:setThrottleFramerateEnabled(true)
+	else
+		RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
+	end
+
 	RunService:Set3dRenderingEnabled(false)
 	self._appState.store:Dispatch({
 		type = ActionType.ToggleChatPaused,

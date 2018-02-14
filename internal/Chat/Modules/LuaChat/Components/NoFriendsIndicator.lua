@@ -39,13 +39,13 @@ function NoFriendsIndicator.new(appState)
 			},
 
 			Create.new "TextLabel" {
-				Size = UDim2.new(1, -32, 0, 44),
+				Size = UDim2.new(1, -32, 0, 66),
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
 				Font = Enum.Font.SourceSans,
 				TextColor3 = Constants.Color.GRAY2,
 				TextSize = Constants.Font.FONT_SIZE_18,
-				TextWrap = true,
+				TextWrapped = true,
 				Text = appState.localization:Format(StringsLocale.Keys.MAKE_FRIENDS_TO_CHAT),
 			},
 		},

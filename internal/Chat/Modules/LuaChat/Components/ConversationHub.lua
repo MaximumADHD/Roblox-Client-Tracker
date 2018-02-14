@@ -42,6 +42,11 @@ local function requestOlderConversations(appState)
 		return
 	end
 
+	-- Don't fetch older conversations if the oldest conversation is  fetched.
+	if appState.store:GetState().ConversationsAsync.pageConversationsIsFetching then
+		return
+	end
+
 	-- Ask for new conversations
 	local convoCount = 0
 	for _, _ in pairs(appState.store:GetState().Conversations) do
@@ -205,6 +210,14 @@ function ConversationHub:Start()
 		self:TweenRescale()
 	end)
 	table.insert(self.connections, inputServiceConnection)
+
+	local statusBarTappedConnection = UserInputService.StatusBarTapped:connect(function(pos)
+		if self.appState.store:GetState().Location.current.intent ~= Intent.ConversationHub then
+			return
+		end
+		self.list.rbx:ScrollToTop()
+	end)
+	table.insert(self.connections, statusBarTappedConnection)
 end
 
 function ConversationHub:Stop()
