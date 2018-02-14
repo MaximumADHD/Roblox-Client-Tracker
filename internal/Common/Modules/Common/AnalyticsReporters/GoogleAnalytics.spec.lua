@@ -6,31 +6,22 @@ return function()
 	local testCategory = "testCategory"
 	local testAction = "testAction"
 	local testLabel = "testLabel"
-	local testValue = 6
 	local badTestCategory = 13141
 	local badTestAction = {}
 	local badTestLabel = {}
-	local badTestValue = "heyo"
 
 
 	local function createDebugReportingService()
 		local DebugReportingService = {}
-		function DebugReportingService:TrackEvent(category, action, label, value)
+		function DebugReportingService:TrackEvent(category, action, label)
 			if category ~= testCategory then
-				error("unexpected value for category: " .. category)
+				error("unexpected value for category: " .. testCategory)
 			end
 			if action ~= testAction then
-				error("unexpected value for action: " .. action)
+				error("unexpected value for action: " .. testAction)
 			end
-			if label then
-				if label ~= testLabel then
-					error("unexpected value for label: " .. label)
-				end
-			end
-			if value then
-				if value ~= testValue then
-					error("unexpected value for value: " .. value)
-				end
+			if label ~= testLabel then
+				error("unexpected value for label: " .. testLabel)
 			end
 		end
 
@@ -73,62 +64,48 @@ return function()
 
 		it("should succeed with valid input", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
-			ga:TrackEvent(testCategory, testAction, testLabel, testValue)
+			ga:TrackEvent(testCategory, testAction, testLabel)
 		end)
 
 		it("should throw an error if it is missing a category", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
 			expect(function()
-				ga:TrackEvent(nil, testAction, testLabel, testValue)
+				ga:TrackEvent(nil, testAction, testLabel)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a testAction", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
 			expect(function()
-				ga:TrackEvent(testCategory, nil, testLabel, testValue)
+				ga:TrackEvent(testCategory, nil, testLabel)
 			end).to.throw()
 		end)
 
-		it("should not throw an error if it is missing a label", function()
+		it("should throw an error if it is missing a label", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
-			ga:TrackEvent(testCategory, testAction, nil, testValue)
-		end)
-
-		it("should not throw an error if it is missing a value", function()
-			local ga = GoogleAnalytics.new(createDebugReportingService())
-			ga:TrackEvent(testCategory, testAction, testLabel)
+			expect(function()
+				ga:TrackEvent(testCategory, testAction, nil)
+			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for category", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
 			expect(function()
-				ga:TrackEvent(badTestCategory, testAction, testLabel, testValue)
+				ga:TrackEvent(badTestCategory, testAction, testLabel)
 			end).to.throw()
 		end)
 
-		it("should throw an error if it is given invalid input for action", function()
+		it("should throw an error if it is given invalid input for  testAction", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
 			expect(function()
-				ga:TrackEvent(testCategory, badTestAction, testLabel, testValue)
+				ga:TrackEvent(testCategory, badTestAction, testLabel)
 			end).to.throw()
 		end)
 
-		it("should throw an error if it is given invalid input for label", function()
+		it("should throw an error if it is given invalid input for  label", function()
 			local ga = GoogleAnalytics.new(createDebugReportingService())
 			expect(function()
-				ga:TrackEvent(testCategory, testAction, badTestLabel, testValue)
-			end).to.throw()
-		end)
-
-		it("should throw an error if it is given invalid input for value", function()
-			local ga = GoogleAnalytics.new(createDebugReportingService())
-			expect(function()
-				ga:TrackEvent(testCategory, testAction, testLabel, badTestValue)
-			end).to.throw()
-
-			expect(function()
-				ga:TrackEvent(testCategory, testAction, testLabel, -1)
+				ga:TrackEvent(testCategory, testAction, badTestLabel)
 			end).to.throw()
 		end)
 	end)

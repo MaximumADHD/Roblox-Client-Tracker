@@ -6,7 +6,7 @@ return function()
 
 	-- create some dummy test values
 	local testError = "foo"
-	local testAppName = "testSuite"
+	local testScreenName = "testSuite"
 	local testSignal = Signal.new()
 
 	local function createSilentLER()
@@ -33,6 +33,13 @@ return function()
 	end
 
     describe("new()", function()
+		it("should construct with no parameters", function()
+			local ler = LuaErrorReporter.new(testSignal)
+			expect(ler).to.be.ok()
+
+			ler:delete()
+		end)
+
 		it("should construct with a custom signal", function()
 			local ler = createSilentLER()
 			expect(ler).to.be.ok()
@@ -60,6 +67,12 @@ return function()
 	end)
 
 	describe("delete()", function()
+		it("should not be allowed to be called on the module object", function()
+			expect(function()
+				LuaErrorReporter:delete()
+			end).to.throw()
+		end)
+
 		it("should break the connection to the error context", function()
 			local ler = createSilentLER()
 			function ler:handleError(message, stack, script)
@@ -72,12 +85,18 @@ return function()
 		end)
 	end)
 
-	describe("setCurrentApp()", function()
+	describe("setCurrentScreen()", function()
+		it("should not be allowed to be called on the module object", function()
+			expect(function()
+				LuaErrorReporter:setCurrentScreen(testScreenName)
+			end).to.throw()
+		end)
+
 		it("should not allow the value to be nil", function()
 			local ler = createSilentLER()
 
 			expect(function()
-				ler:setCurrentApp(nil)
+				ler:setCurrentScreen(nil)
 			end).to.throw()
 
 			ler:delete()
@@ -86,14 +105,20 @@ return function()
 		it("should allow the value to be set to a string", function()
 			local ler = createSilentLER()
 
-			ler:setCurrentApp(testAppName)
-			expect(ler._currentApp).to.equal(testAppName)
+			ler:setCurrentScreen(testScreenName)
+			expect(ler._currentScreen).to.equal(testScreenName)
 
 			ler:delete()
 		end)
 	end)
 
 	describe("handleError()", function()
+		it("should not be allowed to be called on the module object", function()
+			expect(function()
+				LuaErrorReporter:handleError(testError, debug.traceback(), script)
+			end).to.throw()
+		end)
+
 		it("should be overrideable with a custom function", function()
 			local callCounter = 0
 

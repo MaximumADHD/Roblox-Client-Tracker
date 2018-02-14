@@ -41,14 +41,13 @@ function ChatDisabledIndicator.new(appState)
 			},
 
 			Create.new "TextLabel" {
-				Size = UDim2.new(1, 0, 0, 66),
+				Size = UDim2.new(1, 0, 0, 44),
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
 				Font = Enum.Font.SourceSans,
 				TextColor3 = Constants.Color.GRAY2,
 				TextSize = Constants.Font.FONT_SIZE_18,
 				Text = appState.localization:Format(StringsLocale.Keys.TURN_ON_CHAT),
-				TextWrapped = true
 			},
 
 			Create.new "ImageButton" {

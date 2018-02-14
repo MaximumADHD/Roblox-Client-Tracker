@@ -64,9 +64,7 @@ local function CreateHomePane(parent)
 	local this = {}
 
 	local ButtonBeganConnection, ButtonEndedConnection = nil
-	local EngagementHintText = string.gsub(
-		Strings:LocalizedString('EngagementHint'),
-		" {Button_A} ", "             ")
+	local EngagementHintText = Strings:LocalizedString('EngagementHint')
 
 	local EngagementScreenContainer = Utility.Create'Frame'
 	{
@@ -140,13 +138,10 @@ local function CreateHomePane(parent)
 
 	local function adjustTextsAndImages()
 		local startIndex = string.find(EngagementHintText, "             ")
-		if startIndex >= 1 then
-			local leftSize = 0
-			if startIndex > 1 then
-				EngagementHint.Text = string.sub(EngagementHintText, 1, startIndex - 1)
-				Utility.ResizeButtonWithText(EngagementHint, EngagementHint, 0, 0)
-				leftSize = EngagementHint.Size.X.Offset
-			end
+		if startIndex > 1 then
+			EngagementHint.Text = string.sub(EngagementHintText, 1, startIndex - 1)
+			Utility.ResizeButtonWithText(EngagementHint, EngagementHint, 0, 0)
+			local leftSize = EngagementHint.Size.X.Offset
 
 			EngagementHint.Text = "             "
 			Utility.ResizeButtonWithText(EngagementHint, EngagementHint, 0, 0)

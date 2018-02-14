@@ -244,6 +244,7 @@ AnimationTrack
 AnivtngvbaRiragErprvire
 AnthroPercentInHundredths
 AnthroStandardPartIds
+AntiSpyware
 ApiAnalyticsUrlConstructionFixed
 ApiBadgesUrlConstruction
 ApiCrashUploadUrlConstruction
@@ -258,8 +259,6 @@ ApiUploadUrlConstructionFixed
 ApiUsersPlayerUserNameFromIdUrlConstruction
 ApiUsersUrlConstructionFixed
 ApiUsersUrlNoDoubleSlash
-AppBridgeDisableHashJoin
-AppBridgeDisableOverrideJoinUrlJoin
 AppBridgePlaceLaunchExponentialBaseFraction
 AppBridgePlaceLaunchMaxRetries
 AppBridgePlaceLaunchMaxSleepBetweenRequests
@@ -468,8 +467,10 @@ AUtime_base
 AutoAssignable
 AutoButtonColor
 Autocenter
+AutoColorCharacters
 AutoDetect
 AutoFRMLevel
+AutoJointDefinedDuringCTor
 AutoJumpEnabled
 AutomaticRetry
 AutoMemPool
@@ -537,6 +538,7 @@ AvatarContextMenuOption
 AvatarEditorAnalytics2
 AvatarEditorAnthroSlidersUIOnly
 AvatarEditorCatalogRecommended
+AvatarEditorDefaultTabSelection
 AvatarEditorFixEquippedFrameZIndex
 AvatarEditorHideSliderHighlightOnInit
 AvatarEditorSliderUIAdjustments
@@ -924,7 +926,6 @@ AVEventSignalWrapperBase
 AVEventSource
 AVexception
 AVException
-AVExclusiveArbiter
 AVExecutionResource
 AVExplicitWeldJoint
 AVExplosion
@@ -1064,6 +1065,7 @@ AVICharacterSubject
 AVICombinedSignalData
 AVICreator
 AVIDataState
+AVideoCapture
 AVIDllStream
 AVIdResponseItem
 AVIdSerializer
@@ -1634,6 +1636,9 @@ AVWeldConstraint
 AVWeldJoint
 AVWeldTool
 AVwindows_file_codecvt
+AVWmiInstance
+AVWmiLocalInstance
+AVWmiObject
 AVWorkspace
 AVWorkspaceStatsItem
 AVXmlParser
@@ -2186,7 +2191,6 @@ CategoryName
 CategoryString
 CAtlModule
 CAtlModuleT
-CAutoColorCharacters
 CAxDialogImpl
 CB_JW4FriendService_FriendStatus
 CbfgCebprffvat
@@ -2205,7 +2209,6 @@ CComPolyObject
 CCRakNetUDT
 CDDDDDDDDD
 CDEFGHIJSTUVWXYZcdefghijstuvwxyz
-CDestroyJointRadiusPercent
 CDialogImplBaseT
 CebzcgPerngbe
 Cedillasmall
@@ -2291,7 +2294,6 @@ ChatServiceCachedResultCount
 ChatServie
 ChatSignalMaxCachedRequestMilliseconds
 ChatVisible
-CheckAvailabilityOfDepthTechniques
 CheckBackpack
 CheckFramebufferStatus
 CheckMarketplaceAvailable
@@ -2846,6 +2848,7 @@ Corporation100
 Corporation1402
 CorrectNumAccessories
 CorrodedMetal
+CoSetProxyBlanket
 CoTaskMemAlloc
 CoTaskMemFree
 CoTaskMemRealloc
@@ -2932,6 +2935,7 @@ CreateMirrorTextureWithOptionsGL
 CreateMirrorTextureWithOptionsVk
 CreateMutex
 CreateMutexA
+CreateMutexW
 CreateOrderArray
 CreatePbufferARB
 CreatePbufferEXT
@@ -3397,6 +3401,7 @@ DestroyImageBufferI3D
 DestroyImageView
 Destroying
 DestroyInstance
+DestroyJointRadiusPercent
 DestroyMirrorTexture
 DestroyPbufferARB
 DestroyPbufferEXT
@@ -3498,7 +3503,6 @@ DisableLod
 DisableMerge
 DisableNeckDeathUntilNeckAppears
 DisablePassiveClientLogProcessing
-DisableTaskSchedulerPrintDiagnostics
 DisableVertexAttribArray
 DisableVRCheckInRecording
 DisallowWorkspaceGuiSelectedObject
@@ -3600,6 +3604,7 @@ DS_HuffmanEncodingTree
 DS_MemoryPool
 DS_RangeList
 DS_ThreadsafeAllocatingQueue
+DSaNlCMZpo
 DSVideoCaptureEngine
 DumpUtcCaptureTime
 DuplicateHandle
@@ -3648,6 +3653,8 @@ EditingDisabled
 EditQualityLevel
 EEEEEEEEEEEEEEEEEEEEEEEEEE
 EffectBoundings
+EffectiveRetryCount
+EgqfDkerHw
 Egravesmall
 ElapsedTime
 Elasticity
@@ -3684,6 +3691,7 @@ EnableLightObjectsInAttachments
 EnableLoadingScreenPlaceIconTween
 EnableMouseLockOption
 EnableOldDialogueStatTracking
+EnableOnboardingMemoryAPI
 EnableParticleEmittersInAttachments
 EnablePartVoxelizationDataCache2
 EnableRandomSpawn
@@ -3771,6 +3779,7 @@ ErmaSusiLumaBavaJietMimrAbraSitrPilhPhkrOihtKktaBharBdnaMmkaCcr
 ErodeWalkableAreaForTorso
 Erpbapvyre
 ErprvirqHfreGlcvat
+ErrDontRetry
 ErrorComputation
 ErrorComputation2
 ErrorCount
@@ -3812,7 +3821,6 @@ ExceptionCode
 ExceptionParameter
 ExceptionPtr
 ExceptionStr
-ExclusiveArbiter
 ExclusiveAverage
 ExclusiveFrameAverage
 ExclusiveFrameMax
@@ -3993,6 +4001,7 @@ FixApplyTShirtOnR6Character
 FixAssetVersionId
 FixBodyAndAccessoryScaling
 FixBoundSocket
+FixBulletFloatingPointErrorsAgainButForDecompThisTime
 FixBulletMaxDotNanOutOfBounds
 FixCharacterAppearanceLoadedEvent
 FixCharacterStuckInFreefall
@@ -4016,7 +4025,6 @@ FixInactiveSelectorArrows
 FixInputForLayerCollectorsInFolders2
 FixInterpolationTargetFrame
 FixJointDestroyedPrimitiveInsert
-FixLegacyNPCJointLocations
 FixLoadingScreenJankiness
 FixMeshPartInitialSizeDivisionByZero
 FixMissingStandardAnthroParts
@@ -4039,10 +4047,12 @@ FixSettingsMenuVRLua
 FixSmallSurfaceGuiMouseInput
 FixStaleBillboardGuiPosition
 FixStaleBillboardGuiPosition2
+FixSunRaysFlickering
 FixSurfaceGuisBreakingAfterRespawn
 FixSwappedBodypartsColoring
 FixTeleportVideoRecordingCrash
 FixTextAsserts2
+FixTextCutOff
 FixVRGamepadInputEvents
 FixWindowsRemoteCaptureHandling
 FjnyybjThrfgPung
@@ -4208,6 +4218,7 @@ FrggvatfFperraOnfr
 FrggvatfFperraPbafbyr
 FrggvatfUho
 FrgHaqre13
+FrgKobkHfre
 FrgNingneCebcbegvba
 FrgNingneGlcr
 FrgNingneJvqgu
@@ -4350,6 +4361,7 @@ GcFrequency
 GDU_Mbstatet
 GearGenreSetting
 GearVersionIds
+GeJdfTKuBLx
 GenafcneraplGjrrare
 GenafcneraplPbagebyyre
 GenBuffers
@@ -4469,6 +4481,7 @@ GetCurrentReadDCARB
 GetCurrentReadDCEXT
 GetCurrentThread
 GetCurrentThreadId
+GetCurrentUser
 GetCurrentValue
 GetCursorPos
 GetDataStore
@@ -4597,7 +4610,6 @@ GetLogHistory
 GetLogicalDriveStringsW
 GetLogicalProcessorInformation
 GetLogicalProcessorInformationEx
-GetLongPathNameW
 GetMaterialColor
 GetMaxCollisionGroups
 GetMaxQualityLevel
@@ -4640,6 +4652,7 @@ GetnTexImage
 GetNumaHighestNodeNumber
 GetNumAwakeParts
 GetObjectA
+GetOnboardingCompleted
 GetOrderedDataStore
 GetPaginatedMemoryByTexture
 GetPanSpeed
@@ -4790,8 +4803,8 @@ GetTimeZoneInformation
 GettingUpBalanceD
 GettingUpBalanceP
 GetTopbarTransparency
-GetTotalUsedMemory
-GetTotalUsedMemoryEnable
+GetTotalMemoryUsageMb
+GetTotalMemoryUsageMbEnable
 GetTouchHapticsDesc
 GetTouchingParts
 GetTouchpadMode
@@ -4946,6 +4959,7 @@ GraphicsTerrain
 GraphicsTexture
 GraphicsTextureCharacter
 GraphicsVulkanAnalyticsErrors
+GraphicsVulkanBindProgramAMDWorkaround
 GraphicsVulkanBlacklist
 GraphicsVulkanBlacklistPVR
 GraphicsVulkanCompactGeometry
@@ -5037,6 +5051,7 @@ HayvaxNppbhagBireynl
 HayvaxNppbhagFperra
 HB_OPTIONS
 HB_SHAPER_LIST
+HCPGSLineForceReactionForce
 HeadColor3
 HeaderData
 HeaderLeft
@@ -5073,6 +5088,7 @@ HideChatWindow
 HideFromPlayer
 HIGH_PRIORITY
 HighResolution
+HighTeleportRequestAttmptsAnalytics
 HingeConstraint
 HingeCursor
 HistoryFrameTime
@@ -5192,7 +5208,9 @@ HTTPSuccessMarketPlace
 HttpTraceLight
 HttpTrimUrls
 HttpUrlNormFix
+HttpUrlSubdomainFix
 HttpUseContentCacheFlag3
+HttpUseRobloxSite
 HttpZeroLatencyCaching
 HuaTianKaiTi
 HuaTianSongTi
@@ -5310,6 +5328,7 @@ ImportFromCSVsEnabled
 ImprovedAutoJump
 ImproveScriptSize
 ImproveScriptSizeTeamTest
+ImproveTimeStamp
 ImpulseCache
 Inaccessible
 Inappropriate
@@ -5328,6 +5347,7 @@ IndexArray
 IndexStart
 InferredCrash
 InferredCrashReportingHundredthsPercentage
+InfluxDbAsTag
 InfluxDbLog
 InfluxEnabled
 InfluxOverTCP
@@ -5381,7 +5401,6 @@ InsertRequestAssetVersion
 InsertService
 InsertServiceException
 InsertServiceFailure
-InsertServiceInt64
 Installation
 InstallRemotePlayer
 InstanceAdded
@@ -5587,6 +5606,7 @@ JointTime_TextureCooldown
 JrypbzrZrffntr
 JSONDecode
 JSONEncode
+JTCmztcERpJ
 JumpAnimation
 JumpCharacter
 JumpingTorsoShouldCollide
@@ -5628,8 +5648,10 @@ KeyShiftDown
 KeywordFilterType
 KFgnegreFpevcg
 KickByDatacenter_
+KillZombieGame
 KKKKKKKKKK
 KmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMar
+KobkHfreErqhpre
 KodchiangUPC
 LabelArray
 LandedBalanceD
@@ -5646,7 +5668,6 @@ LastSecond
 LatchedSignal
 LatencyErrorMultiplierTennths
 LatestAssetVersion
-LauncherUrl
 LayerCollector
 LayerCount
 LayoutErrors
@@ -5819,6 +5840,7 @@ LoginSucceeded
 LogJoinTime
 LogManager
 LogMemoryStatsOnCompressionError
+LogPhysicsIgnored
 LogService
 LogServiceHttpApprovedUsersFix
 LogStartArray
@@ -5847,8 +5869,6 @@ LuaChatUsesZIndexSibling
 LuaDebugger
 LuaDebuggerBreakOnError
 LuaDebuggerPerformanceImprovementsV2
-LuaDebuggerShowMixedTableValues
-LuaDebuggerSupportForLocalGlobalVarsEnabled
 LuaDialogCallbackSignal
 LuaDragger
 LuaDragTool
@@ -5868,6 +5888,7 @@ LuaStrlibLimitMatchDepth
 LuaTypeErrors
 LuaWebService
 LuaWidgetsUI
+LzXzEwXfDzxnlVyW
 MachineAddress
 MachineIdUploader
 Macronsmall
@@ -6385,6 +6406,7 @@ MusicalInstruments
 MutexLifetime
 MW4PartMaterial
 NABUPlaceLauncherRequestInfo
+NABVWmiObject
 NamedBufferStorageEXT
 NamedColor
 NameDisplayDistance
@@ -6424,6 +6446,7 @@ NavigationServiceTimingAnalytics
 NavigationServiceWorker
 NavigationUseDetailedMovementCallback
 NavigationUseLinkPool
+NavigationUseTileExtentsToProjectPoint
 NavMeshTiles
 NccAnzrRahz
 NccErqhpre
@@ -6531,7 +6554,6 @@ NotoSansCJKjp
 NotProcessedYet
 NotStartedYet
 NP6A_NPAVInstance
-NP6A_NUStartGameParams
 NPAPAVChannel
 NPAPAVDSPConnection
 NPAUlua_State
@@ -6649,6 +6671,8 @@ OleLockRunning
 OleUninitialize
 OnAdjustSpeed
 OnAdjustWeight
+Onboarding
+OnboardingsCompleted
 OnClearRequested
 OnClientEvent
 OnClientInvoke
@@ -6689,7 +6713,6 @@ OpenBrowserWindow
 OpenClipboard
 OpenEventA
 OpenEventW
-OpenLogsForAppend
 OpenNativeOverlay
 OpenProcess
 OpenScreenshotsFolder
@@ -7327,7 +7350,6 @@ PGSGyroscopicEffectPrecisionPercent
 PGSIsEnabled
 PGSJumpForceAdjustment
 PGSLineForceMaxForce
-PGSLineForceReactionForce
 PGSPenetrationMarginMax
 PGSPenetrationMarginMaxBump
 PGSPenetrationMarginMin
@@ -7495,6 +7517,7 @@ PlayingUpdatedFromServer
 PlayLocalSound
 PlayOnRemove
 PlayStockSound
+PluginButtonProperty
 PluginCollectUntranslatedEnabled
 PluginGuiService
 PluginManager
@@ -7704,6 +7727,7 @@ PyvpxGbZbirPbagebyyre
 PyvragPung
 PyvragZrzbelNanylmre
 QebcfunqbjSenzr
+QINruD3AwL
 QlanzvpGuhzofgvpx
 QnexPbireZnantre
 QrirybcrePbafbyr
@@ -7764,6 +7788,7 @@ QvnybtPbzcbaragf
 QvnybtSenzr
 QvnybtVasb
 RadialBlurFS
+RaiseCSGMinSize
 RaiseException
 RaiseSendPriority
 RakNetConnectionStartWindow_HundredthsPercentage
@@ -7933,6 +7958,7 @@ ReadMarker
 ReadPixels
 ReadVoxels
 RebalanceTeams
+RecalculateAbsolutePlacementFix
 ReceiveAge
 ReceivedGlobalsTime
 ReceivedPerSec
@@ -8182,6 +8208,7 @@ ReportStat
 ReportStats
 ReportStatURL
 ReportTeleportMethodAnalytics_
+RequestAuth
 RequestBoundaryVisible
 RequestCharacter
 RequestCloudEditImmediatePublish
@@ -8196,7 +8223,6 @@ RequestFriendship
 RequestGame
 RequestGameApp
 RequestGameJob
-RequestHash
 RequestHttpResultApproved
 RequestHttpResultApprovedSignal
 Requesting
@@ -8231,6 +8257,8 @@ ResetDescriptorPool
 ResetEvent
 ResetFences
 ResetFrameCountNV
+ResetKeyboardMode
+ResetOnboardingCompleted
 ResetOnSpawn
 ResetOrientationToIdentity
 ResetPerfStats
@@ -8390,6 +8418,7 @@ RunningSlave
 RunService
 RuntimeScriptService
 RuntimeUndoBehavior
+RXbMgmOpBm
 SafeClimbingJump
 SafeMovementJump
 SafeSeatedJump
@@ -8455,10 +8484,12 @@ ScriptStartOptions
 ScriptWriteRestricted
 ScrollBarInset
 ScrollBarThickness
+ScrollBarWellRounded
 ScrollingEnabled
 ScrollingFrame
 ScrollLock
 ScrollMouseBetter
+ScrollToTop
 ScrollWheelInputEnabled
 SDL_EVENT_QUEUE_STATISTICS
 SDL_GAMECONTROLLERCONFIG
@@ -8740,6 +8771,7 @@ SetNavigationGamepad
 SetNetworkedHumanoidState
 SetNetworkOwner
 SetNetworkOwnershipAuto
+SetOnboardingCompleted
 SetOutgoingKBPSLimit
 SetPartCollisionGroup
 SetPbufferAttribARB
@@ -8769,6 +8801,7 @@ SetStateEnabled
 SetStdHandle
 SetStereoEmitterState3DL
 SetSuperSafeChat
+SetSurfaceTypeTheFutureIsNow
 SetSynchonizationQueueVk
 SetTeleportSetting
 SetTextFromInput
@@ -9122,6 +9155,7 @@ StudioLastActions
 StudioMockPurchasesEnabled
 StudioMode
 StudioModeChanged
+StudioMouseOverGraphicsWindowCheckEnabled
 StudioOrganizeIdleMouseCall
 StudioRecentActionCacheSize
 StudioReorganizeInsertObjectWindow
@@ -9189,6 +9223,7 @@ SurfaceTransparency
 SurfaceType
 SuspendThread
 Suspension
+SuWuJxBTVd
 SvkrqPnzren
 SwapBuffers
 SwapBuffersMscOML
@@ -9211,7 +9246,6 @@ SystemTimeToFileTime
 SystemTimeToTzSpecificLocalTime
 SystemUtil
 TableMajorAxis
-TaggedRCCLogs
 TakeDamage
 TargetAngle
 TargetFilter
@@ -9231,6 +9265,7 @@ TaskSchedulerInit
 TaskSchedulerReRender
 TaskSchedulerRun
 TaskSchedulerSettings
+TaskSchedulerSTDThreadwrapper
 TaskSchedulerStepResult
 TaskSchedulerTasksDefaultMaxCountPerCycle
 TaskSchedulerTasksDefaultMaxTimeMsPerCycle
@@ -9576,6 +9611,7 @@ Traditional
 TrailFSLight
 TrailFSQuad
 TrailFSQuadLight
+TrailMaxLength
 TrailPosition
 TrailRemoveRedundantSort
 TrailVSLight
@@ -9697,7 +9733,7 @@ UIntVector
 UINumTicks
 UIPageLayout
 UIScaleComponentEnabled
-UIScalingImprovement
+UIScalingDeferredRounding
 UIScrollingImprovement
 UIScrollingNewElastic
 UISizeConstraint
@@ -9817,6 +9853,7 @@ UpdateKeys
 UpdateLightScratch
 UpdateOptionsMenu
 UpdatePrepare
+UpdateRenderViewStatsEvenThrottling
 UpdateSize
 UpdateThreadMenu
 UpdateWindow
@@ -9824,6 +9861,8 @@ UploadChunk
 UploadCommit
 UploadExistingAsset
 UploadFromCloudEdit
+UploadNewImage
+UploadNewMesh
 UploadSetting
 UpperAngle
 UpperLimit
@@ -9839,7 +9878,7 @@ Urnyguone3Q
 Urun_custom_cleanup_function
 US14116_pt2
 UseActivatedEvent3
-UseAnthroValues4
+UseAnthroValues5
 UseArialFallback
 UseBitCountLimit
 UseBoostDateTimeInLuaOsTime
@@ -9864,7 +9903,7 @@ UseJsonBodyColors2
 UseLaserPointerVR
 UseMatrix3ForInertiaTensor2
 UseNewAppBridgeXbone2
-UseNewGoogleAnalyticsImpl
+UseNewGoogleAnalyticsImpl2
 UseNewNotificationPathLua
 UseNewPhysicsSender7
 UseNewPhysicsSenderFlag
@@ -9885,6 +9924,7 @@ UserCFrameChanged
 UserCFrameEnabled
 UserChoice
 UserDialog
+UserEnableDynamicThumbstickIntro
 UserFixCharacterSoundIssues
 UserGameSettings
 UserHasBadge
@@ -9897,6 +9937,7 @@ UserInputService
 UserInputState
 UserInputType
 UserNoCameraClickToMove
+UseRobloxServiceHost
 UseRoundRobin
 UseRoundRobinForClient
 UserPlayCharacterLoopSoundWhenFE
@@ -9945,6 +9986,7 @@ VAdvLuaDragger
 VAdvRotateTool
 VAdvScaleTool
 VAdvTranslateTool
+VAgpZPBHVA
 ValidateBootstrapperVersion
 ValidateLauncherPercent
 ValidateProgram
@@ -10815,6 +10857,7 @@ WGL_OML_sync_control
 WheelBackward
 WheelForward
 WhisperChat
+White2dBackground
 WhiteListChatFilter
 WhoClicked
 WhoHovered
@@ -10900,6 +10943,7 @@ XboxNewEngagementFlow
 XboxRoactOverscan
 XboxSFXPolish
 XboxSliderDpadSupport
+XboxUpdateUnlinkAccountPrompt
 XboxUseNewScrollingGrid
 XboxUseNewValidUsernameCheck2
 XboxUseRobloxInput

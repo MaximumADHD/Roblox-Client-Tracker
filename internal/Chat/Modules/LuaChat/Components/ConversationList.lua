@@ -86,16 +86,11 @@ function ConversationList.new(appState, conversations, entryCard)
 	self.convoLoadingIndicatorFrame.Parent = self.rbx
 
 	local canvasSizeConnection = self.rbx:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
-		local canvasSizeYOffset = self.rbx.CanvasSize.Y.Offset
-		if self.convoLoadingIndicatorFrame.Visible then
-			canvasSizeYOffset = canvasSizeYOffset - self.convoLoadingIndicatorFrame.Size.Y.Offset
-		end
-
 		if not self.isTouchingBottom and
-				self.rbx.CanvasPosition.Y + self.rbx.AbsoluteSize.Y >= canvasSizeYOffset then
+			self.rbx.CanvasPosition.Y + self.rbx.AbsoluteSize.Y >= self.rbx.CanvasSize.Y.Offset then
 			self.isTouchingBottom = true
 			self.RequestOlderConversations:Fire()
-		elseif self.rbx.CanvasPosition.Y + self.rbx.AbsoluteSize.Y < canvasSizeYOffset then
+		elseif self.rbx.CanvasPosition.Y + self.rbx.AbsoluteSize.Y < self.rbx.CanvasSize.Y.Offset then
 			self.isTouchingBottom = false
 		end
 	end)
@@ -118,7 +113,7 @@ function ConversationList.new(appState, conversations, entryCard)
 			Position = UDim2.new(0, 0, 1, -18),
 			TextSize = Constants.Font.FONT_SIZE_18,
 			TextColor3 = Constants.Color.GRAY3,
-			Text = appState.localization:Format(StringsLocale.Keys.NO_RESULTS_FOUND),
+			Text = appState.localization:Format(StringsLocale.Keys.NO_RESULTS_FOUND)
 		}
 	}
 	self.noResultsFrame.Parent = self.rbx

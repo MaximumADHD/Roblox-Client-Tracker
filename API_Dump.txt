@@ -59,7 +59,7 @@ Class AnalyticsService : Instance [notCreatable]
 	Function void AnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
-	Function void AnalyticsService:TrackEvent(string category, string action, string label) [RobloxScriptSecurity]
+	Function void AnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) [RobloxScriptSecurity]
 	Function void AnalyticsService:UpdateHeartbeatObject(Dictionary args) [RobloxScriptSecurity]
 Class Animation : Instance
 	Property Content Animation.AnimationId
@@ -89,11 +89,11 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) [PluginSecurity]
 Class AssetService : Instance
-	YieldFunction int AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = )
-	YieldFunction int AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
+	YieldFunction int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = )
+	YieldFunction int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int64 packageAssetId)
 	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int64 assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
-	YieldFunction int AssetService:GetCreatorAssetID(int64 creationID) [deprecated]
+	YieldFunction int64 AssetService:GetCreatorAssetID(int64 creationID) [deprecated]
 	YieldFunction Instance AssetService:GetGamePlacesAsync()
 	YieldFunction void AssetService:SavePlaceAsync()
 Class Attachment : Instance
@@ -235,6 +235,8 @@ Class BrickColorValue : Instance
 	Event BrickColorValue.Changed(BrickColor value)
 	Event BrickColorValue.changed(BrickColor value) [deprecated]
 Class Button : Instance
+	Property bool Button.Enabled
+	Property Content Button.Icon
 	Function void Button:SetActive(bool active) [PluginSecurity]
 	Event Button.Click() [PluginSecurity]
 Class CFrameValue : Instance
@@ -298,10 +300,10 @@ Class BodyColors : CharacterAppearance
 	Property BrickColor BodyColors.TorsoColor
 	Property Color3 BodyColors.TorsoColor3
 Class CharacterMesh : CharacterAppearance
-	Property int CharacterMesh.BaseTextureId
+	Property int64 CharacterMesh.BaseTextureId
 	Property BodyPart CharacterMesh.BodyPart
-	Property int CharacterMesh.MeshId
-	Property int CharacterMesh.OverlayTextureId
+	Property int64 CharacterMesh.MeshId
+	Property int64 CharacterMesh.OverlayTextureId
 Class Clothing : CharacterAppearance
 Class Pants : Clothing
 	Property Content Pants.PantsTemplate
@@ -691,10 +693,10 @@ Class OrderedDataStore : GlobalDataStore
 	YieldFunction Instance OrderedDataStore:GetSortedAsync(bool ascending, int pagesize, Variant minValue, Variant maxValue)
 Class GoogleAnalyticsConfiguration : Instance
 Class GroupService : Instance [notCreatable]
-	YieldFunction Instance GroupService:GetAlliesAsync(int groupId)
-	YieldFunction Instance GroupService:GetEnemiesAsync(int groupId)
-	YieldFunction Variant GroupService:GetGroupInfoAsync(int groupId)
-	YieldFunction Array GroupService:GetGroupsAsync(int userId)
+	YieldFunction Instance GroupService:GetAlliesAsync(int64 groupId)
+	YieldFunction Instance GroupService:GetEnemiesAsync(int64 groupId)
+	YieldFunction Variant GroupService:GetGroupInfoAsync(int64 groupId)
+	YieldFunction Array GroupService:GetGroupsAsync(int64 userId)
 Class GuiBase : Instance
 Class GuiBase2d : GuiBase [notbrowsable]
 	Property Vector2 GuiBase2d.AbsolutePosition [readonly]
@@ -839,6 +841,7 @@ Class ScrollingFrame : GuiObject
 	Property Content ScrollingFrame.TopImage
 	Property ScrollBarInset ScrollingFrame.VerticalScrollBarInset
 	Property VerticalScrollBarPosition ScrollingFrame.VerticalScrollBarPosition
+	Function void ScrollingFrame:ScrollToTop() [RobloxScriptSecurity]
 Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
 	Property Font TextBox.Font
@@ -867,6 +870,7 @@ Class TextBox : GuiObject
 	Function void TextBox:CaptureFocus()
 	Function bool TextBox:IsFocused()
 	Function void TextBox:ReleaseFocus(bool submitted = false)
+	Function void TextBox:ResetKeyboardMode() [RobloxScriptSecurity]
 	Function void TextBox:SetTextFromInput(string text) [RobloxScriptSecurity]
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
@@ -1478,10 +1482,10 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.UsePhysicsPacketCache
 	Property int NetworkSettings.WaitingForCharacterLogRate [deprecated] [hidden]
 Class NotificationService : Instance [notCreatable]
-	Function void NotificationService:CancelAllNotification(int userId) [LocalUserSecurity]
-	Function void NotificationService:CancelNotification(int userId, int alertId) [LocalUserSecurity]
-	Function void NotificationService:ScheduleNotification(int userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
-	YieldFunction Array NotificationService:GetScheduledNotifications(int userId) [LocalUserSecurity]
+	Function void NotificationService:CancelAllNotification(int64 userId) [LocalUserSecurity]
+	Function void NotificationService:CancelNotification(int64 userId, int alertId) [LocalUserSecurity]
+	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
+	YieldFunction Array NotificationService:GetScheduledNotifications(int64 userId) [LocalUserSecurity]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
 Class NumberValue : Instance
@@ -1983,10 +1987,10 @@ Class PluginManager : Instance
 	Function void PluginManager:StartUntranslatedStringCollect() [PluginSecurity]
 Class PointsService : Instance [notCreatable]
 	Function int PointsService:GetAwardablePoints() [deprecated]
-	YieldFunction Tuple PointsService:AwardPoints(int userId, int amount)
+	YieldFunction Tuple PointsService:AwardPoints(int64 userId, int amount)
 	YieldFunction int PointsService:GetGamePointBalance(int64 userId)
 	YieldFunction int PointsService:GetPointBalance(int64 userId) [deprecated]
-	Event PointsService.PointsAwarded(int userId, int pointsAwarded, int userBalanceInGame, int userTotalBalance)
+	Event PointsService.PointsAwarded(int64 userId, int pointsAwarded, int userBalanceInGame, int userTotalBalance)
 Class Pose : Instance
 	Property CoordinateFrame Pose.CFrame
 	Property PoseEasingDirection Pose.EasingDirection
@@ -2339,7 +2343,7 @@ Class Stats : Instance
 	Property float Stats.PhysicsStepTimeMs [readonly]
 	Property int Stats.PrimitivesCount [readonly]
 	Function float Stats:GetMemoryUsageMbForTag(DeveloperMemoryTag tag)
-	Function float Stats:GetTotalUsedMemory()
+	Function float Stats:GetTotalMemoryUsageMb()
 	YieldFunction Dictionary Stats:GetPaginatedMemoryByTexture(TextureQueryType queryType, int pageIndex, int pageSize) [RobloxScriptSecurity]
 Class StatsItem : Instance
 	Function double StatsItem:GetValue() [PluginSecurity]
@@ -2449,6 +2453,7 @@ Class Trail : Instance
 	Property float Trail.Lifetime
 	Property float Trail.LightEmission
 	Property float Trail.LightInfluence
+	Property float Trail.MaxLength
 	Property float Trail.MinLength
 	Property Content Trail.Texture
 	Property float Trail.TextureLength
@@ -2545,6 +2550,7 @@ Class UserGameSettings : Instance
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson [hidden] [RobloxScriptSecurity]
 	Property Vector2 UserGameSettings.MouseSensitivityThirdPerson [hidden] [RobloxScriptSecurity]
+	Property string UserGameSettings.OnboardingsCompleted [RobloxScriptSecurity]
 	Property bool UserGameSettings.PerformanceStatsVisible [RobloxScriptSecurity]
 	Property RotationType UserGameSettings.RotationType
 	Property SavedQualitySetting UserGameSettings.SavedQualityLevel
@@ -2556,11 +2562,14 @@ Class UserGameSettings : Instance
 	Property bool UserGameSettings.VREnabled [RobloxScriptSecurity]
 	Property int UserGameSettings.VRRotationIntensity [RobloxScriptSecurity]
 	Function int UserGameSettings:GetCameraYInvertValue()
+	Function bool UserGameSettings:GetOnboardingCompleted(string onboardingId)
 	Function bool UserGameSettings:GetTutorialState(string tutorialId) [RobloxScriptSecurity]
 	Function bool UserGameSettings:InFullScreen()
 	Function bool UserGameSettings:InStudioMode()
+	Function void UserGameSettings:ResetOnboardingCompleted(string onboardingId) [RobloxScriptSecurity]
 	Function void UserGameSettings:SetCameraYInvertVisible()
 	Function void UserGameSettings:SetGamepadCameraSensitivityVisible()
+	Function void UserGameSettings:SetOnboardingCompleted(string onboardingId)
 	Function void UserGameSettings:SetTutorialState(string tutorialId, bool value) [RobloxScriptSecurity]
 	Event UserGameSettings.FullscreenChanged(bool isFullscreen)
 	Event UserGameSettings.PerformanceStatsVisibleChanged(bool isPerformanceStatsVisible) [RobloxScriptSecurity]

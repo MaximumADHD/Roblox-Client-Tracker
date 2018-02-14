@@ -3,9 +3,6 @@
 
 				// Confirmation overlay for when you unlink your account
 ]]
-
-local XboxUpdateUnlinkAccountPrompt = settings():GetFFlag("XboxUpdateUnlinkAccountPrompt")
-
 local CoreGui = Game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
@@ -74,59 +71,16 @@ local function createUnlinkAccountOverlay(titleAndMsg)
 		Size = UDim2.new(0, 320, 0, 66);
 		Position = UDim2.new(0, this.RightAlign, 1, -100 - 66);
 		BorderSizePixel = 0;
-		BackgroundColor3 = XboxUpdateUnlinkAccountPrompt and GlobalSettings.GreyButtonColor or GlobalSettings.BlueButtonColor;
+		BackgroundColor3 = GlobalSettings.BlueButtonColor;
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
-		TextColor3 = XboxUpdateUnlinkAccountPrompt and GlobalSettings.WhiteTextColor or GlobalSettings.TextSelectedColor;
+		TextColor3 = GlobalSettings.TextSelectedColor;
 		Text = Utility.Upper(Strings:LocalizedString("ConfirmWord"));
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');
 	}
 	Utility.ResizeButtonWithText(okButton, okButton, GlobalSettings.TextHorizontalPadding)
-	
-	local cancelButton = nil
-	if XboxUpdateUnlinkAccountPrompt then
-		
-		cancelButton = Utility.Create'TextButton'
-		{
-			Name = "CancelButton";
-			Position = UDim2.new(0, okButton.Position.X.Offset + okButton.Size.X.Offset + 10, 1, -100 - 66);
-			Size = UDim2.new(0, 320, 0, 66);
-			BorderSizePixel = 0;
-			BackgroundColor3 = GlobalSettings.BlueButtonColor;
-			Font = GlobalSettings.RegularFont;
-			FontSize = GlobalSettings.ButtonSize;
-			TextColor3 = GlobalSettings.TextSelectedColor;
-			Text = Utility.Upper(Strings:LocalizedString("CancelWord"));
-			Parent = this.Container;
-
-			SoundManager:CreateSound('MoveSelection');
-		}
-		Utility.ResizeButtonWithText(cancelButton, cancelButton, GlobalSettings.TextHorizontalPadding)
-
-		okButton.SelectionGained:connect(function()
-			okButton.BackgroundColor3 = GlobalSettings.GreySelectedButtonColor
-			okButton.TextColor3 = GlobalSettings.TextSelectedColor
-		end)
-		okButton.SelectionLost:connect(function()
-			okButton.BackgroundColor3 = GlobalSettings.GreyButtonColor
-			okButton.TextColor3 = GlobalSettings.WhiteTextColor
-		end)
-
-		cancelButton.SelectionGained:connect(function()
-			cancelButton.BackgroundColor3 = GlobalSettings.GreySelectedButtonColor
-			cancelButton.TextColor3 = GlobalSettings.TextSelectedColor
-		end)
-		cancelButton.SelectionLost:connect(function()
-			cancelButton.BackgroundColor3 = GlobalSettings.GreyButtonColor
-			cancelButton.TextColor3 = GlobalSettings.WhiteTextColor
-		end)
-
-		cancelButton.MouseButton1Click:connect(function()
-			this:Close()
-		end)
-	end -- End of Flag True
 
 	--[[ Input Events ]]--
 	function this:GetAnalyticsInfo()
@@ -147,7 +101,7 @@ local function createUnlinkAccountOverlay(titleAndMsg)
 	local baseFocus = this.Focus
 	function this:Focus()
 		baseFocus(self)
-		Utility.SetSelectedCoreObject(XboxUpdateUnlinkAccountPrompt and cancelButton or okButton)
+		Utility.SetSelectedCoreObject(okButton)
 	end
 
 	function this:GetOverlaySound()

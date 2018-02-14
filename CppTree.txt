@@ -401,6 +401,12 @@ RBX
 		StepOutBreakpoint
 		StepOverBreakpoint
 	}
+	Security
+	{
+		WmiInstance
+		WmiLocalInstance
+		WmiObject
+	}
 	Solver
 	{
 		Constraint
@@ -660,7 +666,6 @@ RBX
 	Effect
 	EngineStatsCommand
 	EquationDisplay
-	ExclusiveArbiter
 	ExplicitWeldJoint
 	Explosion
 	ExtrudedPartInstance

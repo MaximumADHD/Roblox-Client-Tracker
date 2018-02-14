@@ -112,7 +112,7 @@ if AvatarEditorAnthroSliders then
 	}
 end
 
-local useAnthroValues = Flags:GetFlag("UseAnthroValues5")
+local useAnthroValues = Flags:GetFlag("UseAnthroValues4")
 
 
 ----------- CLASS DECLARATION --------------

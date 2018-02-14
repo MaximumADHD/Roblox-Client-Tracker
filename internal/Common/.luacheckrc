@@ -5,7 +5,6 @@ stds.roblox = {
 	read_globals = {
 		-- Roblox globals
 		"script",
-		"utf8",
 
 		-- Extra functions
 		"tick", "warn", "spawn",

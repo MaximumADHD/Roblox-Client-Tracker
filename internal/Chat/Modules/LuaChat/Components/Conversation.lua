@@ -170,14 +170,6 @@ function ConversationView:Start()
 		self:TweenRescale()
 	end)
 	table.insert(self.connections, absoluteSizeConnection)
-
-	local statusBarTappedConnection = UserInputService.StatusBarTapped:connect(function(pos)
-		if self.appState.store:GetState().Location.current.intent ~= Intent.Conversation then
-			return
-		end
-		self.messageList.rbx:ScrollToTop()
-	end)
-	table.insert(self.connections, statusBarTappedConnection)
 end
 
 function ConversationView:Stop()

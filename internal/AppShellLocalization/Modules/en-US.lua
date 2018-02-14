@@ -74,7 +74,7 @@ local enUS =
 	["ExperimentalGamePhrase"] = "Experimental Game: Not Cross-Platform";
 
 	["EngagementScreenHint"] = "Press Any Button To Begin";
-	["EngagementHint"] = "Press {Button_A} to Begin";
+	["EngagementHint"] = "Press             to Begin";
 	["SwitchAccountHint"] = "Switch Xbox Account";
 
 	["EquipWord"] = "Swap Avatar";
