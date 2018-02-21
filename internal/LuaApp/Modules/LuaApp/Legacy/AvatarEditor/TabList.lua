@@ -10,6 +10,7 @@ local TweenController = require(Modules.LuaApp.Legacy.AvatarEditor.TweenInstance
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
 local AvatarEditorTabResizing = Flags:GetFlag("AvatarEditorTabResizing")
+local AvatarEditorDefaultTabSelection = Flags:GetFlag("AvatarEditorDefaultTabSelection")
 
 --Constants
 local TAB_WIDTH = LayoutInfo.TabWidth
@@ -315,7 +316,16 @@ local function getPageName()
 	local categoryIndex = AppState.Store:GetState().Category.CategoryIndex
 	local tabsInfo = categoryIndex and AppState.Store:GetState().Category.TabsInfo[categoryIndex]
 	local tabIndex = tabsInfo and tabsInfo.TabIndex
-	local pageName = (categoryIndex and tabIndex) and Categories[categoryIndex].pages[tabIndex].name or ""
+	local defaultSelection = ""
+
+	--[[ AvatarEditorDefaultTabSelection fixes issue where tab 1 is initially selected as a fallback when changeCategory() calls selectCategory() due to 
+	AppState.Store:GetState().Category.TabsInfo[categoryIndex] being nil. so this function also needs to use a fallack. currentPage being a 
+	good option as it is set in selectCategory() --]]
+	if AvatarEditorDefaultTabSelection then 
+		defaultSelection = currentPage and currentPage.name or defaultSelection
+	end
+
+	local pageName = (categoryIndex and tabIndex) and Categories[categoryIndex].pages[tabIndex].name or defaultSelection
 	return pageName
 end
 

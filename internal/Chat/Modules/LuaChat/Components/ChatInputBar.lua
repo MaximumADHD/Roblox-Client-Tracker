@@ -174,6 +174,7 @@ end
 function ChatInputBar:Reset()
 	self.blockUserChangedText = true
 	self.textBox.Text = ""
+	self.textBox:ResetKeyboardMode()
 	self.blockUserChangedText = false
 end
 

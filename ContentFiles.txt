@@ -719,7 +719,10 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/D
 [5125 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick.lua
-[16533 bytes]
+[21725 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick/Intro.lua
+[14258 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Gamepad.lua
 [6929 bytes]
@@ -1702,8 +1705,23 @@ content/textures/ui/icon_placeowner.png
 content/textures/ui/icon_TBC-16.png
 [1047 bytes]
 
+content/textures/ui/Input/DashedLine.png
+[140 bytes]
+
 content/textures/ui/Input/Disk_padded.png
 [4293 bytes]
+
+content/textures/ui/Input/IntroCamera.png
+[4017 bytes]
+
+content/textures/ui/Input/IntroCameraPinch.png
+[19926 bytes]
+
+content/textures/ui/Input/IntroMove.png
+[6896 bytes]
+
+content/textures/ui/Input/IntroMove@2x.png
+[16999 bytes]
 
 content/textures/ui/Input/Ring_padded.png
 [2711 bytes]

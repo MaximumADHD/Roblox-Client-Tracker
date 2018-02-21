@@ -41,7 +41,6 @@
       <addseparator />
       <addaction name="aboutRobloxAction"/>
       <addaction name="onlineHelpAction"/>
-      <addaction fflag="StudioTeamCreateConnectionIndicator" name="connectionIndicatorAction"/> 
       <addaction name="settingsAction"/>
     </SystemPopup>
   </SystemButton>
@@ -322,18 +321,18 @@
     <!--
       RIBBON BAR UI TAB
       -->
-    <TabPage name="UI" fflag="StudioUIEditorTab">
+    <TabPage name="UI" fflag="StudioUIEditorV2Alpha">
       <Group name="">
-        <addaction name="ScreenGUI" instancename="ScreenGUI" text="ScreenGUI" style="textundericon" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/screengui.png" width="32" height="32"/>
+        <addaction name="createScreenGuiAction" text="ScreenGUI" style="textundericon" iscommonslot="true" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/screengui.png" width="32" height="32"/>
       </Group>
       <Group name=" ">
-        <addaction name="Frame" instancename="Frame" text="Frame" style="textundericon" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/frame.png" width="32" height="32"/>
-        <addaction name="Scrolling Frame" instancename="Scrolling Frame" text="Scrolling Frame" style="textundericon" tooltip="A container object used to layout other GUI objects, and allows for scrolling." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/scrollingframe.png" width="32" height="32"/>
-        <addaction name="Text" instancename="Text" text="Text" style="textundericon" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/text.png" width="32" height="32"/>
-        <addaction name="Text Button" instancename="Text Button" text="Text Button" style="textundericon" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbutton.png" width="32" height="32"/>
-        <addaction name="Text Box" instancename="Text Box" text="Text Box" style="textundericon" tooltip="A text entry box." type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbox.png" width="32" height="32"/>
-        <addaction name="Image Button" instancename="Image Button" text="Image Button" style="textundericon" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/imagebutton.png"  width="32" height="32"/>
-        <addaction name="Image" instancename="Image" text="Image" style="textundericon" tooltip="Specifies the asset id of the texture to display.." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/image.png"  width="32" height="32"/>
+        <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/frame.png" width="32" height="32"/>
+        <addaction name="createScrollingFrameAction" text="Scrolling Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/scrollingframe.png" width="32" height="32"/>
+        <addaction name="createTextAction" text="Text" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/text.png" width="32" height="32"/>
+        <addaction name="createTextButtonAction" text="Text Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbutton.png" width="32" height="32"/>
+        <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbox.png" width="32" height="32"/>
+        <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/imagebutton.png"  width="32" height="32"/>
+        <addaction name="createImageAction" text="Image" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/image.png"  width="32" height="32"/>
       </Group>
     </TabPage>
     <!--
@@ -349,7 +348,7 @@
         <addaction name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
         <addaction name="simulationStopAction" style="textundericon" text="Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
         <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
-        <addaction fflag="DiabolicalModeBtnSwitch" name="simulationDiabolicalModeAction" style="textundericon" text="Network Simulator" icon=":/RibbonBar/images/RibbonIcons/Test/Diabolical-Mode.png" width="32" height="32"/>
+        <addaction name="simulationDiabolicalModeAction" style="textundericon" text="Network Simulator" icon=":/RibbonBar/images/RibbonIcons/Test/Diabolical-Mode.png" width="32" height="32"/>
       </Group>
       <Group name="Clients and Servers">
         <addaction name="startServerAndPlayersAction" iscommonslot="true" style="textundericon" text="Start"  tooltip="Start server and players" icon=":/RibbonBar/images/RibbonIcons/Test/Start-Server.png" width="32" height="32" />

@@ -4,6 +4,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local Modules = CoreGui.RobloxGui.Modules
 
+local LuaErrorReporter = require(Modules.Common.LuaErrorReporter)
 local Create = require(Modules.Mobile.Create)
 local Constants = require(Modules.Mobile.Constants)
 local MobileAppState = require(Modules.Mobile.AppState)
@@ -275,8 +276,12 @@ local initMobile
 if not UserSettings().GameSettings:InStudioMode()
 then
 	initMobile = function()
+		local errorReporter = LuaErrorReporter.new()
+		errorReporter:setCurrentApp("Mobile")
+		errorReporter:startQueueTimers()
+		-- to do : observe app lifecycle changes to disable timers when in background
+
 		local appState = MobileAppState.new()
-		local errorReporter = require(Modules.Common.LuaErrorReporter).new()
 
 		GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
 		local bottomBarChanged = UserInputService:GetPropertyChangedSignal("BottomBarSize")
@@ -286,10 +291,6 @@ then
 
 		appState.store.Changed:Connect(
 			function(newState, oldState)
-				if newState.OpenApp ~= oldState.OpenApp then
-					errorReporter:setCurrentScreen(newState.OpenApp)
-				end
-
 				if oldState.OpenApp ~= newState.OpenApp then
 					if newState.OpenApp == AppNameEnum.Chat then
 						openChat()

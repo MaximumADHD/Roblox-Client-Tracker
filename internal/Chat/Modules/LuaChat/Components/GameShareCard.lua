@@ -65,28 +65,6 @@ function GameShareCard.new(appState, conversation)
 	conversationThumbnail.rbx.AnchorPoint = Vector2.new(0.5, 0.5)
 	self.conversationThumbnail = conversationThumbnail
 
-	local conversationThumbnailFrame = Create.new"Frame" {
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Size = UDim2.new(0, ICON_CELL_WIDTH, 1, 0),
-		Position = UDim2.new(0, 0, 0, 0),
-		conversationThumbnail.rbx,
-	}
-	conversationThumbnailFrame.Parent = self.rbx
-
-	local conversationTitle = Create.new"TextLabel" {
-		Name = "ConversationTitle",
-		BackgroundTransparency = 1,
-		Size = UDim2.new(1, -ICON_CELL_WIDTH, 0.75, 0),
-		Position = UDim2.new(0, ICON_CELL_WIDTH, 0, 0),
-		TextSize = Constants.Font.FONT_SIZE_18,
-		TextColor3 = Constants.Color.GRAY1,
-		Font = Enum.Font.SourceSans,
-		Text = conversation.title,
-		TextXAlignment = Enum.TextXAlignment.Left,
-	}
-	conversationTitle.Parent = self.rbx
-
 	if friend then
 		local sublabel = Create.new"TextLabel" {
 			Name = "SubLabel",
@@ -111,6 +89,15 @@ function GameShareCard.new(appState, conversation)
 	self.sendButton.rbx.AnchorPoint = Vector2.new(0.5, 0.5)
 	self.sendButton.rbx.Position = UDim2.new(0.5, 0, 0.5, 0)
 	local sendTextWidth = Text.GetTextWidth(label.Text, label.Font, label.TextSize)
+
+	local conversationThumbnailFrame = Create.new"Frame" {
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.new(0, ICON_CELL_WIDTH, 1, 0),
+		Position = UDim2.new(0, 0, 0, 0),
+		conversationThumbnail.rbx,
+	}
+	conversationThumbnailFrame.Parent = self.rbx
 
 	self.sentLabel = Create.new "TextLabel" {
 		Name = "SentLabel",
@@ -158,6 +145,28 @@ function GameShareCard.new(appState, conversation)
 		self.sentLabel.Visible = true
 	end)
 	table.insert(self.connections, sendButtonConnection)
+
+
+	 self.conversationTitle = Create.new"TextLabel" {
+		Name = "ConversationTitle",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, -ICON_CELL_WIDTH - sendButtonFrame.Size.X.Offset - 20, 0.75, 0),
+		Position = UDim2.new(0, ICON_CELL_WIDTH, 0, 0),
+		TextSize = Constants.Font.FONT_SIZE_18,
+		TextColor3 = Constants.Color.GRAY1,
+		Font = Enum.Font.SourceSans,
+		Text = conversation.title,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	}
+
+	self.conversationTitle.Parent = self.rbx
+
+	local convoTitleChanged = self.conversationTitle:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		self.conversationTitle.Text = self.conversation.title
+		Text.TruncateTextLabel(self.conversationTitle, "...")
+	end)
+	table.insert(self.connections, convoTitleChanged)
+
 
 	local divider = Create.new"Frame" {
 		Name = "Divider",
