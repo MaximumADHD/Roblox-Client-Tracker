@@ -89,8 +89,6 @@ local Settings =
 
 	TabDockTweenDuration = 0.35;
 
---Games Pane RefreshInterval (in seconds)
-	GamesPaneRefreshInterval = 30 * 60;
 	AvatarPaneRefreshInterval = Utility.GetFastVariable("XboxAvatarPaneRefreshInterval") and tonumber(Utility.GetFastVariable("XboxAvatarPaneRefreshInterval")) or 1800;
 
 	GameDetailsRefreshInterval = Utility.GetFastVariable("XboxGameDetailsRefreshInterval") and tonumber(Utility.GetFastVariable("XboxGameDetailsRefreshInterval")) or 1800;

@@ -2,45 +2,45 @@
 	Specialized reporter for sending data to InfluxDb.
 	Useful for very detailed information about specific errors.
 
-	NOTE - due to how Influx sends data, it is disallowed on XBox.
+	Due to how Influx sends data, it is disallowed on XBox.
 	~Kyler Mulherin (9/12/2017)
 ]]
 
-local BaseReporter = require(script.Parent.BaseReporter)
-
 local Influx = {}
-setmetatable(Influx, { __index = BaseReporter })
 Influx.__index = Influx
 
 -- reportingService - (object) any object that defines the same functions for Influx as AnalyticsService
 function Influx.new(reportingService)
-	local self = BaseReporter.new("Influx", reportingService)
+	local rsType = type(reportingService)
+	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
+
+	local self = {
+		_reporter = reportingService,
+		_isEnabled = true,
+	}
 	setmetatable(self, Influx)
 
 	return self
 end
 
+-- isEnabled : (boolean)
+function Influx:setEnabled(isEnabled)
+	assert(type(isEnabled) == "boolean", "Expected isEnabled to be a boolean")
+	self._isEnabled = isEnabled
+end
+
 -- seriesName : (string) the name of the series as it will appear in InfluxDb
 -- additionalArgs : (map<string, string>) extra key/values to appear in each series
 -- throttlingPercent : (int) the chance to actually report this series
-function Influx:ReportSeries(seriesName, additionalArgs, throttlingPercent)
-	local funcName = "ReportSeries"
+function Influx:reportSeries(seriesName, additionalArgs, throttlingPercent)
 	additionalArgs = additionalArgs or {}
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
+	assert(type(seriesName) == "string", "Expected seriesName to be a string")
+	assert(type(additionalArgs) == "table", "Expected additionalArgs to be a table")
+	assert(type(throttlingPercent) == "number", "Expected throttlingPercent to be a number")
+	assert(throttlingPercent >= 0 and throttlingPercent <= 10000, "throttlingPercent must be between 0 - 10,000")
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	self:CheckForTypeError("seriesName", "string", seriesName)
-	self:CheckForTypeError("additionalArgs", "table", additionalArgs)
-	self:CheckForTypeError("throttlingPercent", "number", throttlingPercent)
-
-	if throttlingPercent < 0 or throttlingPercent > 10000 then
-		error("throttlingPercent must be between 0 - 10,000", 2)
-	end
-
-	self:CheckDisabledModule(funcName, seriesName, additionalArgs, throttlingPercent)
-
-	-- report the data to the server
 	self._reporter:ReportInfluxSeries(seriesName, additionalArgs, throttlingPercent)
 end
 

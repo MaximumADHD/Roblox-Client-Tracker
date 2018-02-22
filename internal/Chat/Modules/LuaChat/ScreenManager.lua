@@ -215,10 +215,12 @@ function ScreenManager:PopView(expectView)
 
 		last:Stop(current)
 		self.dialogFrame:TransitionDialogFrame(last, lastIntent, curIntent, DialogFrame.TransitionType.Stop,
-			function()
-				last:Destruct()
-				if last.rbx then
-					last.rbx.Parent = nil
+			function(playbackState)
+				if playbackState == Enum.PlaybackState.Completed then
+					last:Destruct()
+					if last.rbx then
+						last.rbx.Parent = nil
+					end
 				end
 			end)
 	end

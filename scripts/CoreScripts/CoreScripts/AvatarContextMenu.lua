@@ -104,6 +104,7 @@ for setCoreMethod, queue in pairs(TempSetCoreQueue) do
 end
 
 function SetSelectedPlayer(player, dontTween)
+	if SelectedPlayer == player then return end
 	SelectedPlayer = player
 	SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer)
 	ContextMenuItems:BuildContextMenuItems(SelectedPlayer)

@@ -61,7 +61,7 @@ end
 
 -- analytics reporting functions
 local function reportErrorToGA(currentApp, errorMsg, stack, value)
-	Analytics.GoogleAnalytics:TrackEvent(currentApp, errorMsg, stack, value)
+	Analytics.GoogleAnalytics:trackEvent(currentApp, errorMsg, stack, value)
 end
 
 local function reportErrorToInflux(currentApp, message, stack, offendingScript)
@@ -73,12 +73,12 @@ local function reportErrorToInflux(currentApp, message, stack, offendingScript)
 	}
 
 	-- fire the error report
-	Analytics.InfluxDb:ReportSeries(influxSeriesName, additionalArgs, influxThrottlingPercentage)
+	Analytics.InfluxDb:reportSeries(influxSeriesName, additionalArgs, influxThrottlingPercentage)
 end
 
 local function reportErrorToDiag(currentApp)
 	-- these reports may be broken down further based on current app
-	Analytics.Diag:ReportCounter(diagCounterName, 1)
+	Analytics.Diag:reportCounter(diagCounterName, 1)
 end
 
 -- helper queue object

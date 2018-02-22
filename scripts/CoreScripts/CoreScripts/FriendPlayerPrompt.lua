@@ -36,8 +36,6 @@ local CONSOLE_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.AvatarThumbnail
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
-
 local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
@@ -64,10 +62,8 @@ function createFetchImageFunction(...)
 end
 
 function SendFriendRequest(playerToFriend)
-    if thePowerOfFriendship then
-        AnalyticsService:ReportCounter("FriendPlayerPrompt-RequestFriendship")
-        AnalyticsService:TrackEvent("Game", "RequestFriendship", "FriendPlayerPrompt")
-    end
+    AnalyticsService:ReportCounter("FriendPlayerPrompt-RequestFriendship")
+    AnalyticsService:TrackEvent("Game", "RequestFriendship", "FriendPlayerPrompt")
     
 	local success = pcall(function()
 		LocalPlayer:RequestFriendship(playerToFriend)

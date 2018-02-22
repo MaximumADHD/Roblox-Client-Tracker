@@ -66,8 +66,6 @@ local GameSettings = Settings.GameSettings
 --[[ END OF SERVICES ]]
 
 --[[ Fast Flags ]]--
-local playerDropDownEnabledSuccess, playerDropDownEnabledFlagValue = pcall(function() return settings():GetFFlag("PlayerDropDownEnabled") end)
-local IsPlayerDropDownEnabled = playerDropDownEnabledSuccess and playerDropDownEnabledFlagValue
 
 --[[ SCRIPT VARIABLES ]]
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -92,16 +90,12 @@ local chatBarDisabled = false
 local lastSelectedPlayer = nil
 local lastSelectedButton = nil
 
-local playerDropDownModule = nil
-local playerDropDown = nil
 local blockingUtility = nil
 
 local topbarEnabled = true
 
 if not NON_CORESCRIPT_MODE and not InputService.VREnabled then
-  playerDropDownModule = require(RobloxGui.Modules:WaitForChild("PlayerDropDown"))
-  playerDropDown = playerDropDownModule:CreatePlayerDropDown()
-  blockingUtility = playerDropDownModule:CreateBlockingUtility()
+  blockingUtility = require(RobloxGui.Modules:WaitForChild("PlayerDropDown")):CreateBlockingUtility()
 end
 
 --[[ END OF SCRIPT VARIABLES ]]
@@ -560,24 +554,7 @@ function createPopupFrame(selectedPlayer, selectedButton)
       lastSelectedButton = selectedButton
       lastSelectedPlayer = selectedPlayer
       selectedButton.BackgroundTransparency = 0.5
-
-      if IsPlayerDropDownEnabled then
-        playerDropDown.HidePopupImmediately = true
-        local PopupFrame = playerDropDown:CreatePopup(selectedPlayer)
-        PopupFrame.Position = UDim2.new(0, selectedButton.AbsolutePosition.X + selectedButton.AbsoluteSize.X + 2, 0, selectedButton.AbsolutePosition.Y)
-        PopupFrame.Size = UDim2.new(0, 150, PopupFrame.Size.Y.Scale, PopupFrame.Size.Y.Offset)
-        PopupFrame.ZIndex = 5
-        PopupFrame.Parent = GuiRoot
-
-        for _, button in pairs(PopupFrame:GetChildren()) do
-          button.BackgroundTransparency = 0
-          button.ZIndex = 6
-        end
-      end
     else
-      if IsPlayerDropDownEnabled then
-        playerDropDown:Hide()
-      end
       lastSelectedPlayer = nil
     end
   end
@@ -591,19 +568,12 @@ function popupHidden()
   end
 end
 
-if IsPlayerDropDownEnabled and playerDropDown then
-  playerDropDown.HiddenSignal:connect(popupHidden)
-end
-
 InputService.InputBegan:connect(function(inputObject, isProcessed)
     if isProcessed then return end
     local inputType = inputObject.UserInputType
     if ((inputType == Enum.UserInputType.Touch and
         inputObject.UserInputState == Enum.UserInputState.Begin) or
       inputType == Enum.UserInputType.MouseButton1) then
-      if lastSelectedButton and IsPlayerDropDownEnabled then
-        playerDropDown:Hide()
-      end
     end
   end)
 
@@ -729,7 +699,6 @@ local function CreatePlayerChatMessage(settings, playerChatType, sendingPlayer, 
     end
     this.ClickedOnModeConn = Util.DisconnectEvent(this.ClickedOnModeConn)
     this.ClickedOnPlayerConn = Util.DisconnectEvent(this.ClickedOnPlayerConn)
-    this.RightClickedOnPlayerConn = Util.DisconnectEvent(this.RightClickedOnPlayerConn)
   end
 
   local function CreateMessageGuiElement()
@@ -897,16 +866,7 @@ local function CreatePlayerChatMessage(settings, playerChatType, sendingPlayer, 
             end
           end
         end)
-      this.RightClickedOnPlayerConn = userNameButton.MouseButton2Click:connect(function()
-          local gui = this:GetGui()
-          if gui and gui.Visible then
-            if IsPlayerDropDownEnabled and playerDropDown then
-              if this.SendingPlayer and this.SendingPlayer ~= Player then
-                createPopupFrame(this.SendingPlayer, userNameButton)
-              end
-            end
-          end
-        end)
+
     end
 
     local chatMessage = Util.Create'TextLabel'
@@ -1700,9 +1660,6 @@ local function CreateChatWindowWidget(settings)
     if InputService.VREnabled then return end
     if this.ChatsVisible == false then return end
     this.ChatsVisible = false
-    if IsPlayerDropDownEnabled and playerDropDown then
-      playerDropDown:Hide()
-    end
     for index, message in pairs(this.Chats) do
       local messageGui = message:GetGui()
       local instant = false
@@ -2593,11 +2550,6 @@ local function CreateChat()
       end
       if InputService.VREnabled and not this.Visible then
         this.ChatBarWidget:RemoveFocus()
-      end
-    end
-    if IsPlayerDropDownEnabled and playerDropDown then
-      if not this.Visible then
-        playerDropDown:Hide()
       end
     end
     if InputService.VREnabled then

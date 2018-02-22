@@ -3,7 +3,6 @@
 	Useful for tracking explicit user interactions with screens and guis.
 ]]
 
-local BaseReporter = require(script.Parent.BaseReporter)
 local UserInputService = game:GetService("UserInputService")
 
 local function getPlatformTarget()
@@ -44,37 +43,41 @@ end
 
 
 local EventStream = {}
-setmetatable(EventStream, { __index = BaseReporter })
 EventStream.__index = EventStream
 
 -- reportingService - (object) any object that defines the same functions for Event Stream as AnalyticsService
 function EventStream.new(reportingService)
-	local self = BaseReporter.new("EventStream", reportingService)
+	local rsType = type(reportingService)
+	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
+
+	local self = {
+		_reporter = reportingService,
+		_isEnabled = true,
+	}
 	setmetatable(self, EventStream)
 
 	return self
 end
 
+-- isEnabled : (boolean)
+function EventStream:setEnabled(isEnabled)
+	assert(type(isEnabled) == "boolean", "Expected isEnabled to be a boolean")
+	self._isEnabled = isEnabled
+end
 
 -- eventContext : (string) the location or context in which the event is occurring.
 -- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
 -- additionalArgs : (optional, map<string, Value>) table for additional information to appear in the event stream.
-function EventStream:SetRBXEvent(eventContext, eventName, additionalArgs)
-	-- NOTE - This function fires reports to the server in real-time
-	local funcName = "SetRBXEvent"
+function EventStream:setRBXEvent(eventContext, eventName, additionalArgs)
 	local target = getPlatformTarget()
 	additionalArgs = additionalArgs or {}
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
+	assert(type(eventContext) == "string", "Expected eventContext to be a string")
+	assert(type(eventName) == "string", "Expected eventName to be a string")
+	assert(type(additionalArgs) == "table", "Expected additionalArgs to be a table")
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	self:CheckForTypeError("eventContext", "string", eventContext)
-	self:CheckForTypeError("eventName", "string", eventName)
-	self:CheckForTypeError("additionalArgs", "table", additionalArgs)
-
-	self:CheckDisabledModule(funcName, eventContext, eventName, additionalArgs)
-
-	-- report to the server in real time
+	-- This function fires reports to the server right away
 	self._reporter:SetRBXEvent(target, eventContext, eventName, additionalArgs)
 end
 
@@ -82,40 +85,27 @@ end
 -- eventContext : (string) the location or context in which the event is occurring.
 -- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
 -- additionalArgs : (optional, map<string, Value>) map for extra keys to appear in the event stream.
-function EventStream:SetRBXEventStream(eventContext, eventName, additionalArgs)
-	-- NOTE - this function sends reports to the server in batches, not real-time
-	local funcName = "SetRBXEventStream"
+function EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 	local target = getPlatformTarget()
 	additionalArgs = additionalArgs or {}
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
+	assert(type(eventContext) == "string", "Expected eventContext to be a string")
+	assert(type(eventName) == "string", "Expected eventName to be a string")
+	assert(type(additionalArgs) == "table", "Expected additionalArgs to be a table")
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	self:CheckForTypeError("eventContext", "string", eventContext)
-	self:CheckForTypeError("eventName", "string", eventName)
-	self:CheckForTypeError("additionalArgs", "table", additionalArgs)
-
-	self:CheckDisabledModule(funcName, eventContext, eventName, additionalArgs)
-
-	-- queue up the report
+	-- this function sends reports to the server in batches, not real-time
 	self._reporter:SetRBXEventStream(target, eventContext, eventName, additionalArgs)
 end
 
 
 -- additionalArgs : (optional, map<string, string>) table for extra keys to appear in the event stream.
-function EventStream:UpdateHeartbeatObject(additionalArgs)
-	local funcName = "UpdateHeartbeatObject"
+function EventStream:updateHeartbeatObject(additionalArgs)
+	additionalArgs = additionalArgs or {}
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
+	assert(type(additionalArgs) == "table", "Expected additionalArgs to be a table")
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	if additionalArgs ~= nil then
-		self:CheckForTypeError("additionalArgs", "table", additionalArgs)
-	end
-
-	self:CheckDisabledModule(funcName, additionalArgs)
-
-	-- report the heartbeat
 	self._reporter:UpdateHeartbeatObject(additionalArgs)
 end
 
@@ -123,67 +113,52 @@ end
 -- eventContext : (string) the location or context in which the event is occurring.
 -- buttonName : (string) the name of the pressed button
 -- extraData : (optional, string) contextual info about the button, when multiple buttons have the same name.
-function EventStream:ReportButtonPressed(eventContext, buttonName, extraData)
-	local funcName = "ReportButtonPressed"
+function EventStream:reportButtonPressed(eventContext, buttonName, extraData)
 	local eventName = "buttonClick"
 	local additionalArgs = {
 		btn = buttonName
 	}
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
-	self:CheckForTypeError("eventContext", "string", eventContext)
-	self:CheckForTypeError("buttonName", "string", buttonName)
-
+	assert(type(eventContext) == "string", "Expected eventContext to be a string")
+	assert(type(buttonName) == "string", "Expected buttonName to be a string")
 	if extraData ~= nil then
-		self:CheckForTypeError("extraData", "string", extraData)
-
+		assert(type(extraData) == "string", "Expected extraData to be a string")
 		additionalArgs.cstm = extraData
 	end
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	self:CheckDisabledModule(funcName, eventContext, buttonName, extraData)
-
-	-- fire the report
-	self:SetRBXEventStream(eventContext, eventName, additionalArgs)
+	self:setRBXEventStream(eventContext, eventName, additionalArgs)
 end
 
 
 -- eventContext : (string) the location or context in which the event is occurring.
 -- field : (string) the name of the validated field.
 -- errorText : (string) the error message displayed.
-function EventStream:ReportFormFieldValidated(eventContext, field, errorText)
-	local funcName = "ReportFormFieldValidated"
+function EventStream:reportFormFieldValidated(eventContext, field, errorText)
 	local eventName = "formFieldValidation"
 	local additionalArgs = {
 		field = field,
 		error = errorText
 	}
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
-	self:CheckForTypeError("eventContext", "string", eventContext)
-	self:CheckForTypeError("field", "string", field)
-	self:CheckForTypeError("errorText", "string", errorText)
-	self:CheckDisabledModule(funcName, eventContext, field, errorText)
+	assert(type(eventContext) == "string", "Expected eventContext to be a string")
+	assert(type(field) == "string", "Expected field to be a string")
+	assert(type(errorText) == "string", "Expected errorText to be a string")
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	-- send the report
-	self:SetRBXEventStream(eventContext, eventName, additionalArgs)
+	self:setRBXEventStream(eventContext, eventName, additionalArgs)
 end
 
 
 
 -- eventContext : (string) the location or context in which the event is occurring.
-function EventStream:ReportScreenLoaded(eventContext)
-	local funcName = "ReportScreenLoaded"
+function EventStream:reportScreenLoaded(eventContext)
 	local eventName = "screenLoaded"
 
-	-- validate the input and calling convention
-	self:CheckBadCallingConvention(funcName)
-	self:CheckForTypeError("eventContext", "string", eventContext)
-	self:CheckDisabledModule(funcName, eventContext)
+	assert(type(eventContext) == "string", "Expected eventContext to be a string")
+	assert(self._isEnabled, "This reporting service is disabled")
 
-	-- fire the report
-	self:SetRBXEventStream(eventContext, eventName, nil)
+	self:setRBXEventStream(eventContext, eventName, nil)
 end
 
 

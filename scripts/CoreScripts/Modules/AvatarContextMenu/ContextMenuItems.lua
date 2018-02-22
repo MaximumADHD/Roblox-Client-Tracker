@@ -155,17 +155,20 @@ end
 local friendRequestPendingString = "Friend Request Pending"
 local addFriendString = "Add Friend"
 local friendString = "Friend"
+local friendStatusChangedConn = nil
 function ContextMenuItems:CreateFriendButton(status)
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
 	if friendLabel then
 		friendLabel:Destroy()
 		friendLabel = nil
 	end
+    if friendStatusChangedConn then
+        friendStatusChangedConn:disconnect()
+    end
 	local friendLabelText = nil
 
 	local addFriendFunc = function()
 		if friendLabelText then
-			friendLabelText.Text = friendRequestPendingString
 			AnalyticsService:ReportCounter("AvatarContextMenu-RequestFriendship")
         	AnalyticsService:TrackEvent("Game", "RequestFriendship", "AvatarContextMenu")
 			LocalPlayer:RequestFriendship(self.SelectedPlayer)
@@ -181,7 +184,18 @@ function ContextMenuItems:CreateFriendButton(status)
 		end
 	elseif status == Enum.FriendStatus.Unknown or status == Enum.FriendStatus.NotFriend or status == Enum.FriendStatus.FriendRequestReceived then
 		friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
+        friendLabelText.Text = addFriendString
 	end
+
+    friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
+        if player == self.SelectedPlayer and friendLabelText then
+            if friendStatus == Enum.FriendStatus.Friend then
+                friendLabelText.Text = friendString
+            elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
+                friendLabelText.Text = friendRequestPendingString
+            end
+        end
+    end)
 
 	friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER
 	friendLabel.Parent = self.MenuItemFrame

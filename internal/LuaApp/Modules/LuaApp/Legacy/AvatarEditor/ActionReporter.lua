@@ -30,7 +30,7 @@ return function(store)
 		local tabInfo = state.Category.TabsInfo[currentCategoryIndex]
 		local tabIndex = tabInfo and tabInfo.TabIndex or 1
 
-		getAnalytics().EventStream:SetRBXEventStream(
+		getAnalytics().EventStream:setRBXEventStream(
 			context,
 			"avatarEditorPropertyChanged",
 			{

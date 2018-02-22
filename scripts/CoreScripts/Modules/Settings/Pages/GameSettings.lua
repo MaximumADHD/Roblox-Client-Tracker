@@ -67,8 +67,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 --------------- FLAGS ----------------
-local getFixQualityLevelSuccess, fixQualityLevelValue = pcall(function() return settings():GetFFlag("InitializeQualityLevelFromSettings") end)
-local fixQualityLevel = getFixQualityLevelSuccess and fixQualityLevelValue
 local GamepadCameraSensitivitySuccess, GamepadCameraSensitivityEnabled = pcall(function() return settings():GetFFlag("GamepadCameraSensitivityEnabled") end)
 local GamepadCameraSensitivityFastFlag = GamepadCameraSensitivitySuccess and GamepadCameraSensitivityEnabled
 local FFlagAddVRToggleSuccess, FFlagAddVRToggleResult = pcall(function() return settings():GetFFlag("AddVRToggle") end)
@@ -239,9 +237,7 @@ local function Initialize()
       else
         graphicsLevel = GRAPHICS_QUALITY_LEVELS
       end
-	  if fixQualityLevel then
-		SetGraphicsQuality(graphicsLevel)
-	  end
+	  SetGraphicsQuality(graphicsLevel)
       spawn(function()
           this.GraphicsQualitySlider:SetValue(graphicsLevel)
         end)

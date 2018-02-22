@@ -206,6 +206,11 @@ RBX
 		OutfitChangedSignalData
 		PropertyChangedSignalData
 	}
+	Localization
+	{
+		MyNumPunct
+		ParameterTranslator
+	}
 	Lua
 	{
 		EventSignalWrapperBase
@@ -625,6 +630,7 @@ RBX
 	CorescriptConfigurer
 	CornerWedgeInstance
 	CornerWedgePoly
+	CrashReporter
 	CRenderSettings
 	CSGDictionaryService
 	CSGMesh
@@ -1030,6 +1036,8 @@ RBX
 	SurfaceLight
 	SurfaceSelection
 	SurfaceTool
+	TableListPtrTranslator
+	TablePtrTranslator
 	TaskQueueJob
 	TaskSchedulerMk2
 	TaskSchedulerOld

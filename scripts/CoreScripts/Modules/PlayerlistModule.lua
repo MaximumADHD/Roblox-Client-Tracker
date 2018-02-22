@@ -182,18 +182,12 @@ local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterI
 
 --[[ Helper Functions ]]--
 
-local playerListDoProfileSuccess, playerListDoProfileValue = pcall(function() return settings():GetFFlag("PlayerListDoProfile") end)
-local playerListDoProfile = playerListDoProfileSuccess and playerListDoProfileValue
 local function rbx_profilebegin(name)
-  if playerListDoProfile then
-    debug.profilebegin(name)
-  end
+  debug.profilebegin(name)
 end
 
 local function rbx_profileend()
-  if playerListDoProfile then
-    debug.profileend()
-  end
+  debug.profileend()
 end
 
 local function clamp(value, min, max)

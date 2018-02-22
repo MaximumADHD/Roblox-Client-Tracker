@@ -153,7 +153,7 @@ local function useNewMarketplaceMethods()
 	if game:GetService("RunService"):IsStudio() then
 		flagExists, flagValue = pcall(function() return settings():GetFFlag("StudioUseMarketplaceApiClient") end)
 	else
-		flagExists, flagValue = pcall(function() return settings():GetFFlag("RCCUseMarketplaceApiClient") end)
+		flagExists, flagValue = pcall(function() return settings():GetFFlag("RCCUseMarketplaceApiClient2") end)
 	end
 	return flagExists and flagValue
 end

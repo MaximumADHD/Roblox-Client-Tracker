@@ -100,6 +100,7 @@ local AvatarEditorAnthroSliders =
 	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
 	Flags:GetFlag("AvatarEditorUseNewCommonAction")
 local FixApplyTShirtOnR6Character = Flags:GetFlag("FixApplyTShirtOnR6Character")
+local AvatarEditorSelectivelyUseDefaultAsset = Flags:GetFlag("AvatarEditorSelectivelyUseDefaultAsset")
 
 if AvatarEditorAnthroSliders then
 	DEFAULT_SCALES = {
@@ -1009,7 +1010,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 
 
-	local function replaceR15PartWithDefault(character, assetId)
+	local function replaceR15PartWithDefault(character, assetId, replaceParts)
 		local info = itemsOnR15[assetId]
 		itemsOnR15[assetId] = nil
 
@@ -1019,17 +1020,19 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 					v:Destroy()
 				end
 			end
-			if info.replacesR15Parts then
-				local replaceFolder = Instance.new'Folder'
-				replaceFolder.Name = 'R15'
+			if (not AvatarEditorSelectivelyUseDefaultAsset) or replaceParts then
+				if info.replacesR15Parts then
+					local replaceFolder = Instance.new'Folder'
+					replaceFolder.Name = 'R15'
 
-				for v in next, info.replacesR15Parts do
-					if templateCharacterR15:FindFirstChild(v) then
-						templateCharacterR15[v]:Clone().Parent = replaceFolder
+					for v in next, info.replacesR15Parts do
+						if templateCharacterR15:FindFirstChild(v) then
+							templateCharacterR15[v]:Clone().Parent = replaceFolder
+						end
 					end
-				end
 
-				amendR15ForItemAddedAsModel(character, replaceFolder)
+					amendR15ForItemAddedAsModel(character, replaceFolder)
+				end
 			end
 			if info.replacesHead then
 				replaceHead(templateCharacterR15.Head.Mesh:Clone())
@@ -1042,14 +1045,14 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 			end
 
 			updateCharacterBodyColors()
-		end
+		end			
 	end
 
 
-	local function amendR15ForItemAdded(character, assetId)
-	-- InsertService:LoadAsset() is a yeilding call and will break the store. So this needs to be spawned
+	local function amendR15ForItemAdded(character, assetId, areDefaultReplacementsRequired)
+		-- InsertService:LoadAsset() is a yeilding call and will break the store. So this needs to be spawned
 		spawn(function()
-			replaceR15PartWithDefault(character, assetId)
+			replaceR15PartWithDefault(character, assetId, areDefaultReplacementsRequired)
 
 			local model = InsertService:LoadAsset(assetId)
 			Utilities.recursiveDisable(model)
@@ -1210,7 +1213,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 		local currentlyWearing = getAllEquippedAssets()
 		for _, assetId in next, currentlyWearing do
-			amendR15ForItemAdded(currentCharacter, assetId)
+			amendR15ForItemAdded(currentCharacter, assetId, true)
 		end
 
 		refreshCharacterScale(currentCharacter)
@@ -1630,111 +1633,220 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 		startAnimationPreviewFromAssets(getAnimationAssets(assetId))
 	end
 
+	local function deleteAssetR6(assetId)				
+		--Destroy rendered content
+		local currentAssetContent = assetsLinkedContent[assetId]
+		if currentAssetContent then
+			for _,thing in pairs(currentAssetContent) do
+				if thing and thing.Parent then
+					thing:Destroy()
+				end
+			end
+			assetsLinkedContent[assetId] = nil
+		end
+	end
 
-	local function unequipAsset(character, assetId)
+	local function setDefaultAssetR6(character, assetTypeName)
+		--Special cases where we need to replace removed asset with a default
+		if assetTypeName == 'Head' then
+			if character and character.Parent then
+				local head = character:FindFirstChild('Head')
+				if head then
+					local defaultHeadMesh = Instance.new('SpecialMesh')
+					defaultHeadMesh.MeshType = 'Head'
+					defaultHeadMesh.Scale = Vector3.new(1.2,1.2,1.2)
+					defaultHeadMesh.Parent = head
+				end
+			end
+		elseif assetTypeName == 'Face' then
+			if character and character.Parent then
+				local head = character:FindFirstChild('Head')
+				if head then
+					local currentFace = Utilities.findFirstChildOfType(head,'Decal')
+					if not currentFace then
+						local face = Instance.new('Decal')
+						face.Name = 'face'
+						face.Texture = "rbxasset://textures/face.png"
+						face.Parent = head
+					end
+				end
+			end
+		elseif assetTypeName == 'Gear' then
+			holdToolPos('Down')
+		end
+	end
+
+	local function getAssetTypeName(assetId)
 		local assetInfo = AssetInfo.getAssetInfo(assetId)
 		local assetTypeName = nil
 		if assetInfo then
 			assetTypeName = AssetTypeNames[assetInfo.AssetTypeId]
 		end
+		return assetTypeName
+	end
 
+	-- unequip an R6 asset which has already been replaced
+	local function unequipSupercededAssetR6(character, assetId)
+		local assetTypeName = getAssetTypeName(assetId)
 		Utilities.fastSpawn(function()
 			if assetTypeName and assetTypeName:find'Animation' then
 				startEquippedAnimationPreview(defaultAnimation)
 			else
-				if getAvatarType() == 'R15' then
-					replaceR15PartWithDefault(character, assetId)
-				else
-					--Destroy rendered content
-					local currentAssetContent = assetsLinkedContent[assetId]
-					if currentAssetContent then
-						for _,thing in pairs(currentAssetContent) do
-							if thing and thing.Parent then
-								thing:Destroy()
-							end
-						end
-						assetsLinkedContent[assetId] = nil
-					end
-
-					--Special cases where we need to replace removed asset with a default
-					if assetTypeName == 'Head' then
-						if character and character.Parent then
-							local head = character:FindFirstChild('Head')
-							if head then
-								local defaultHeadMesh = Instance.new('SpecialMesh')
-								defaultHeadMesh.MeshType = 'Head'
-								defaultHeadMesh.Scale = Vector3.new(1.2,1.2,1.2)
-								defaultHeadMesh.Parent = head
-							end
-						end
-					elseif assetTypeName == 'Face' then
-						if character and character.Parent then
-							local head = character:FindFirstChild('Head')
-							if head then
-								local currentFace = Utilities.findFirstChildOfType(head,'Decal')
-								if not currentFace then
-									local face = Instance.new('Decal')
-									face.Name = 'face'
-									face.Texture = "rbxasset://textures/face.png"
-									face.Parent = head
-								end
-							end
-						end
-					elseif assetTypeName == 'Gear' then
-						holdToolPos('Down')
-					end
-				end
-
+				deleteAssetR6(assetId)
 			end
 		end)
 
 	end
 
-	local function equipAsset(character, assetId)
-		spawn(function()
-			addAssetToRecentAssetList(assetId)
-
-			local assetInfo = AssetInfo.getAssetInfo(assetId)
-
-			if assetInfo then
-				local assetTypeName = AssetTypeNames[assetInfo.AssetTypeId]
-
-				local assetModel = InsertService:LoadAsset(assetId)
-
-				-- If the new asset is not an animation then we need to update the render of the character
-				-- Also, after loading model, check to make sure it is still equipped before dressing character
-				if not string.find(assetTypeName, 'Animation') then
-					-- Render changes
-					if getAvatarType() == 'R6' then
-						local insertedStuff = {}
-						if not assetsLinkedContent[assetId] then
-							assetsLinkedContent[assetId] = insertedStuff
-						else
-							insertedStuff = assetsLinkedContent[assetId]
-						end
-						local stuff = {assetModel}
-						if stuff[1].className == 'Model' then
-							stuff = assetModel:GetChildren()
-						end
-						for _,thing in pairs(stuff) do -- Equip asset differently depending on what it is.
-							if string.lower(thing.Name) == 'r6' then
-								for _,r6SpecificThing in pairs(thing:GetChildren()) do
-									sortAndEquipItemToCharacter(character, r6SpecificThing, insertedStuff)
-								end
-							elseif thing.className ~= 'Folder' then
-								sortAndEquipItemToCharacter(character, thing, insertedStuff)
-							end
-						end
-					else
-						amendR15ForItemAdded(character, assetId)
+	local function unequipAsset(character, assetId, isDefaultRequired)
+		if AvatarEditorSelectivelyUseDefaultAsset then
+			local assetTypeName = getAssetTypeName(assetId)
+			Utilities.fastSpawn(function()
+				if assetTypeName and assetTypeName:find'Animation' then
+					startEquippedAnimationPreview(defaultAnimation)
+				else
+					if getAvatarType() == 'R15' then
+						replaceR15PartWithDefault(character, assetId, isDefaultRequired)
+					elseif isDefaultRequired then
+						deleteAssetR6(assetId, assetTypeName)
+						setDefaultAssetR6(character, assetTypeName)
 					end
-				end
 
-				-- If the new asset is a bodypart, then we need to update the colors
-				if assetInfo.AssetTypeId >= 25 and assetInfo.AssetTypeId <= 31 then
-					updateCharacterBodyColors()
+				end
+			end)
+		else
+			local assetInfo = AssetInfo.getAssetInfo(assetId)
+			local assetTypeName = nil
+			if assetInfo then
+				assetTypeName = AssetTypeNames[assetInfo.AssetTypeId]
+			end
+
+			Utilities.fastSpawn(function()
+				if assetTypeName and assetTypeName:find'Animation' then
+					startEquippedAnimationPreview(defaultAnimation)
+				else
+					if getAvatarType() == 'R15' then
+						replaceR15PartWithDefault(character, assetId)
+					else
+						--Destroy rendered content
+						local currentAssetContent = assetsLinkedContent[assetId]
+						if currentAssetContent then
+							for _,thing in pairs(currentAssetContent) do
+								if thing and thing.Parent then
+									thing:Destroy()
+								end
+							end
+							assetsLinkedContent[assetId] = nil
+						end
+
+						--Special cases where we need to replace removed asset with a default
+						if assetTypeName == 'Head' then
+							if character and character.Parent then
+								local head = character:FindFirstChild('Head')
+								if head then
+									local defaultHeadMesh = Instance.new('SpecialMesh')
+									defaultHeadMesh.MeshType = 'Head'
+									defaultHeadMesh.Scale = Vector3.new(1.2,1.2,1.2)
+									defaultHeadMesh.Parent = head
+								end
+							end
+						elseif assetTypeName == 'Face' then
+							if character and character.Parent then
+								local head = character:FindFirstChild('Head')
+								if head then
+									local currentFace = Utilities.findFirstChildOfType(head,'Decal')
+									if not currentFace then
+										local face = Instance.new('Decal')
+										face.Name = 'face'
+										face.Texture = "rbxasset://textures/face.png"
+										face.Parent = head
+									end
+								end
+							end
+						elseif assetTypeName == 'Gear' then
+							holdToolPos('Down')
+						end
+					end
+
+				end
+			end)
+
+		end
+	end
+
+
+	local function equipAssetInternal(character, assetId, isDefaultRequired)
+		addAssetToRecentAssetList(assetId)
+
+		local assetInfo = AssetInfo.getAssetInfo(assetId)
+
+		if assetInfo then
+			local assetTypeName = AssetTypeNames[assetInfo.AssetTypeId]
+
+			local assetModel = InsertService:LoadAsset(assetId)
+
+			-- If the new asset is not an animation then we need to update the render of the character
+			-- Also, after loading model, check to make sure it is still equipped before dressing character
+			if not string.find(assetTypeName, 'Animation') then
+				-- Render changes
+				if getAvatarType() == 'R6' then
+					local insertedStuff = {}
+					if not assetsLinkedContent[assetId] then
+						assetsLinkedContent[assetId] = insertedStuff
+					else
+						insertedStuff = assetsLinkedContent[assetId]
+					end
+					local stuff = {assetModel}
+					if stuff[1].className == 'Model' then
+						stuff = assetModel:GetChildren()
+					end
+					for _,thing in pairs(stuff) do -- Equip asset differently depending on what it is.
+						if string.lower(thing.Name) == 'r6' then
+							for _,r6SpecificThing in pairs(thing:GetChildren()) do
+								sortAndEquipItemToCharacter(character, r6SpecificThing, insertedStuff)
+							end
+						elseif thing.className ~= 'Folder' then
+							sortAndEquipItemToCharacter(character, thing, insertedStuff)
+						end
+					end
+				else
+					amendR15ForItemAdded(character, assetId, isDefaultRequired)
 				end
 			end
+
+			-- If the new asset is a bodypart, then we need to update the colors
+			if assetInfo.AssetTypeId >= 25 and assetInfo.AssetTypeId <= 31 then
+				updateCharacterBodyColors()
+			end
+		end
+	end
+
+	local function batchR6EquipmentChange(character, addTheseAssets, removeTheseAssets)
+		local numWaitingOn = 0
+		local numSpawned = 0
+
+		for _, assetId in pairs(addTheseAssets) do
+			numWaitingOn = numWaitingOn + 1
+		end
+
+		for _, assetId in pairs(addTheseAssets) do
+			spawn(function()
+				numSpawned = numSpawned + 1
+
+				equipAssetInternal(character, assetId, true)
+
+				if numSpawned == numWaitingOn then
+					for _, removeAssetId in pairs(removeTheseAssets) do
+						unequipSupercededAssetR6(character, removeAssetId)
+					end
+				end
+			end)
+		end
+	end
+
+	local function equipAsset(character, assetId, isDefaultRequired)
+		spawn(function()
+			equipAssetInternal(character, assetId, isDefaultRequired)
 		end)
 	end
 
@@ -2007,7 +2119,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 			for assetType, assetList in pairs(oldState.Character.Assets) do
 				if not newState.Character.Assets[assetType] and assetList then
 					for _, assetId in pairs(assetList) do
-						unequipAsset(currentCharacter, assetId)
+						unequipAsset(currentCharacter, assetId, true)
 					end
 				end
 			end
@@ -2021,19 +2133,55 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 						TableUtilities.ListDifference(oldState.Character.Assets[assetType] or {},
 						newState.Character.Assets[assetType] or {})
 
-					for _, assetId in pairs(addTheseAssets) do
-						equipAsset(currentCharacter, assetId)
-						didUpdate = true
-						didEquip = true
-
-						if string.find(assetType, 'Animation') then
-							animationId = assetId
+					if AvatarEditorSelectivelyUseDefaultAsset then -- AvatarEditorSelectivelyUseDefaultAsset flag is intended to stop the default body part appearing, when a new one will shortly be equipped
+						local addTheseAssetsHasItems = next(addTheseAssets) ~= nil
+						if addTheseAssetsHasItems then
+							didEquip = true
 						end
-					end
+						didUpdate = didUpdate or (addTheseAssetsHasItems or (next(removeTheseAssets) ~= nil))
+						local isAnimationAssetType = string.find(assetType, 'Animation')
 
-					for _, assetId in pairs(removeTheseAssets) do
-						unequipAsset(currentCharacter, assetId)
-						didUpdate = true
+						if getAvatarType() == 'R15' then
+							for _, assetId in pairs(addTheseAssets) do					
+								equipAsset(currentCharacter, assetId, false)
+								if isAnimationAssetType then
+									animationId = assetId
+								end
+							end
+
+							local isDefaultForTypeRequired = not addTheseAssetsHasItems
+							for _, assetId in pairs(removeTheseAssets) do
+								unequipAsset(currentCharacter, assetId, isDefaultForTypeRequired)
+							end
+						else
+							if isAnimationAssetType then
+								for _, assetId in pairs(addTheseAssets) do								
+									animationId = assetId								
+								end
+							end
+							if addTheseAssetsHasItems then
+								batchR6EquipmentChange(currentCharacter, addTheseAssets, removeTheseAssets)
+							else
+								for _, assetId in pairs(removeTheseAssets) do
+									unequipAsset(currentCharacter, assetId, true)
+								end
+							end
+						end
+					else					
+						for _, assetId in pairs(addTheseAssets) do
+							equipAsset(currentCharacter, assetId, true)
+							didUpdate = true
+							didEquip = true
+
+							if string.find(assetType, 'Animation') then
+								animationId = assetId
+							end
+						end
+
+						for _, assetId in pairs(removeTheseAssets) do
+							unequipAsset(currentCharacter, assetId)
+							didUpdate = true
+						end
 					end
 				end
 			end

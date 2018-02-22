@@ -450,7 +450,6 @@ local createGamesView = function(viewGridConfig, onNewGameSelected)
 	local function onGridViewFocusRemoved(fromAppHub)
 		savedSelectedCarouselItem = GetSelectedItem()
 		lastSelectedRow = 0
-		onNewGameSelected(nil)
 
 		--If the bumper/button B caused the removing focus, reset to the top of viewGridContainer
 		if fromAppHub then

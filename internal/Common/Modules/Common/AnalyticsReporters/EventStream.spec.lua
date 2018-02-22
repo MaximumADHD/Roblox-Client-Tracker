@@ -2,7 +2,6 @@ return function()
 
 	local EventStream = require(script.Parent.EventStream)
 
-	-- set up some debug values
 	local testArgs = {
 		testKey = "testValue"
 	}
@@ -20,15 +19,12 @@ return function()
 	local badTestExtraData = 124141
 	local badTestField = 12313
 
-	-- helper functions
+
 	local function isTableEqual(table1, table2)
-		-- quick escape check
-		-- should also capture the case of table1 and 2 being nil
 		if table1 == table2 then
 			return true
 		end
 
-		-- check for type equality
 		if type(table1) ~= "table" then
 			return false
 		end
@@ -37,7 +33,6 @@ return function()
 			return false
 		end
 
-		-- check for key value equality
 		for key, _ in pairs(table1) do
 			if table1[key] ~= table2[key] then
 				return false
@@ -49,30 +44,18 @@ return function()
 			end
 		end
 
-		-- if all other tests fail, they are probably equal
 		return true
 	end
 
-	-- debug and testing services
 	local function createDebugReportingService()
 		local function validateInputs(eventTarget, eventContext, eventName, additionalArgs)
-			if eventTarget == nil then
-				error("no value found for eventTarget")
-			end
-			if eventContext ~= testContext then
-				error("unexpected value for eventContext" .. eventContext)
-			end
-			if eventName ~= testEvent then
-				error("unexpected value for eventName" .. eventName)
-			end
-
-			if isTableEqual(additionalArgs, {}) == false then
-				if (isTableEqual(additionalArgs, testArgs) == false)
-					then error("unexpected value for additionalArgs")
-				end
+			assert(eventTarget, "no value found for eventTarget")
+			assert(eventContext == testContext, "unexpected value for eventContext : " .. eventContext)
+			assert(eventName == testEvent, "unexpected value for eventName : " .. eventName)
+			if additionalArgs and not isTableEqual(additionalArgs, {}) then
+				assert(isTableEqual(additionalArgs, testArgs), "unexpected value for additionalArgs")
 			end
 		end
-
 
 		local DebugReportingService = {}
 		function DebugReportingService:SetRBXEvent(eventTarget, eventContext, eventName, additionalArgs)
@@ -82,40 +65,30 @@ return function()
 			validateInputs(eventTarget, eventContext, eventName, additionalArgs)
 		end
 		function DebugReportingService:UpdateHeartbeatObject(additionalArgs)
-			if (additionalArgs ~= nil) then
-				if (isTableEqual(additionalArgs, testArgs) == false) then
-					error("unexpected value for additionalArgs")
-				end
+			if additionalArgs and not isTableEqual(additionalArgs, {}) then
+				assert(isTableEqual(additionalArgs, testArgs), "unexpected value for additionalArgs")
 			end
 		end
 
 		return DebugReportingService
 	end
 
-	-- override the SetRBXEvent and SetRBXEventStream functions to better test the reporting of buttons
 	local function createButtonReportingService()
 		local function validateInputs(eventTarget, eventContext, eventName, additionalArgs)
-			if eventTarget == nil then
-				error("no value found for eventTarget")
-			end
-			if eventContext ~= testContext then
-				error("unexpected value for eventContext : " .. eventContext)
-			end
-			if eventName ~= "buttonClick" then
-				print(eventName .. " = " .. "buttonClick : ", eventName)
-				error("unexpected value for eventName : " .. eventName)
-			end
-			if additionalArgs["btn"] ~= testButton then
-				error("unexpected value for additionalArgs[btn] : " .. additionalArgs["btn"])
-			end
-			if additionalArgs["cstm"] ~= nil then
-				if additionalArgs["cstm"] ~= testExtraData then
-					error("unexpected value for additionalArgs[cstm] : " .. additionalArgs["cstm"])
-				end
+			local btn = additionalArgs["btn"]
+			local cstm = additionalArgs["cstm"]
+
+			assert(eventTarget, "no value found for eventTarget")
+			assert(eventContext == testContext, "unexpected value for eventContext : " .. eventContext)
+			assert(eventName == "buttonClick", "unexpected value for eventName : " .. eventName)
+			assert(btn == testButton, "unexpected value for additionalArgs[btn] : " .. btn)
+			if cstm then
+				assert(cstm == testExtraData, "unexpected value for additionalArgs[cstm] : " .. cstm)
 			end
 		end
 
-		local buttonReportingService = createDebugReportingService()
+		-- override the SetRBXEvent and SetRBXEventStream functions to better test the reporting of buttons
+		local buttonReportingService = {}
 		function buttonReportingService:SetRBXEvent(target, context, event, additionalArgs)
 			validateInputs(target, context, event, additionalArgs)
 		end
@@ -126,26 +99,19 @@ return function()
 		return buttonReportingService
 	end
 
-	-- override the SetRBXEvent and SetRBXEventStream functions to better test the reporting of form validations
 	local function createFormReportingService()
 		local function validateInputs(eventTarget, eventContext, eventName, additionalArgs)
-			if eventTarget == nil then
-				error("no value found for eventTarget")
-			end
-			if eventContext ~= testContext then
-				error("unexpected value for eventContext" .. eventContext)
-			end
-			if eventName ~= "formFieldValidation" then
-				error("unexpected value for eventName" .. eventName)
-			end
-			if additionalArgs["field"] ~= testField then
-				error("unexpected value for additionalArgs[field]" .. additionalArgs["field"])
-			end
-			if additionalArgs["error"] ~= testErrorText then
-				error("unexpected value for additionalArgs[error]" .. additionalArgs["error"])
-			end
+			local field = additionalArgs["field"]
+			local err = additionalArgs["error"]
+
+			assert(eventTarget, "no value found for eventTarget")
+			assert(eventContext == testContext, "unexpected value for eventContext : " .. eventContext)
+			assert(eventName == "formFieldValidation", "unexpected value for eventName : " .. eventName)
+			assert(field == testField, "unexpected value for additionalArgs[field] : " .. field)
+			assert(err == testErrorText, "unexpected value for additionalArgs[error] : " .. err)
 		end
 
+		-- override the SetRBXEvent and SetRBXEventStream functions to better test the reporting of form validations
 		local formReportingService = createDebugReportingService()
 		function formReportingService:SetRBXEvent(target, context, event, additionalArgs)
 			validateInputs(target, context, event, additionalArgs)
@@ -157,23 +123,15 @@ return function()
 		return formReportingService
 	end
 
-	-- override the SetRBXEvent and SetRBXEventStream functions to better test the reporting of screen loads
 	local function createScreenReportingService()
 		local function validateInputs(eventTarget, eventContext, eventName, additionalArgs)
-			if eventTarget == nil then
-				error("no value found for eventTarget")
-			end
-			if eventContext ~= testContext then
-				error("unexpected value for eventContext" .. eventContext)
-			end
-			if eventName ~= "screenLoaded" then
-				error("unexpected value for eventName" .. eventName)
-			end
-			if isTableEqual(additionalArgs, {}) == false then
-				error("unexpected value for additionalArgs")
-			end
+			assert(eventTarget, "no value found for eventTarget")
+			assert(eventContext == testContext, "unexpected value for eventContext : " .. eventContext)
+			assert(eventName == "screenLoaded", "unexpected value for eventName : " .. eventName)
+			assert(isTableEqual(additionalArgs, {}), "unexpected value for additionalArgs")
 		end
 
+		-- override the SetRBXEvent and SetRBXEventStream functions to better test the reporting of screen loads
 		local screenReportingService = createDebugReportingService()
 		function screenReportingService:SetRBXEvent(target, context, event, additionalArgs)
 			validateInputs(target, context, event, additionalArgs)
@@ -199,378 +157,322 @@ return function()
 		end)
 	end)
 
-
-	describe("SetRBXEvent()", function()
-		it("should throw an error if called from the EventStream module object", function()
+	describe("setEnabled()", function()
+		it("should succeed with valid input", function()
+			local reporter = EventStream.new(createDebugReportingService())
+			reporter:setEnabled(false)
+			reporter:setEnabled(true)
+		end)
+		it("should disable the reporter", function()
+			local reporter = EventStream.new(createDebugReportingService())
+			reporter:setEnabled(false)
 			expect(function()
-				EventStream:SetRBXEvent(testContext, testEvent, testArgs)
+				reporter:updateHeartbeatObject()
 			end).to.throw()
 		end)
+	end)
 
+	describe("setRBXEvent()", function()
 		it("should succeed with valid input", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:SetRBXEvent(testContext, testEvent, testArgs)
+			es:setRBXEvent(testContext, testEvent, testArgs)
 		end)
 
 		it("should work when appropriately enabled / disabled", function()
 			local es = EventStream.new(createDebugReportingService())
 
 			expect(function()
-				es:SetEnabled(false)
-				es:SetRBXEvent(testContext, testEvent, testArgs)
+				es:setEnabled(false)
+				es:setRBXEvent(testContext, testEvent, testArgs)
 			end).to.throw()
 
-			es:SetEnabled(true)
-			es:SetRBXEvent(testContext, testEvent, testArgs)
+			es:setEnabled(true)
+			es:setRBXEvent(testContext, testEvent, testArgs)
 		end)
 
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEvent(nil, testEvent, testArgs)
+				es:setRBXEvent(nil, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an event name", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEvent(testContext, nil, testArgs)
+				es:setRBXEvent(testContext, nil, testArgs)
 			end).to.throw()
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:SetRBXEvent(testContext, testEvent, nil)
+			es:setRBXEvent(testContext, testEvent, nil)
 		end)
 
 		it("should throw an error if it is given bad input for a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEvent(badTestContext, testEvent, testArgs)
+				es:setRBXEvent(badTestContext, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for a event", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEvent(testContext, badTestEvent, testArgs)
+				es:setRBXEvent(testContext, badTestEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for additionalArgs", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEvent(testContext, testEvent, badTestArgs)
+				es:setRBXEvent(testContext, testEvent, badTestArgs)
 			end).to.throw()
 		end)
 	end)
 
-
-	describe("SetRBXEventStream()", function()
-		it("should throw an error if called from the EventStream module object", function()
-			expect(function()
-				EventStream:SetRBXEventStream(testContext, testEvent, testArgs)
-			end).to.throw()
-		end)
-
+	describe("setRBXEventStream()", function()
 		it("should succeed with valid input", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:SetRBXEventStream(testContext, testEvent, testArgs)
+			es:setRBXEventStream(testContext, testEvent, testArgs)
 		end)
 
 		it("should work when appropriately enabled / disabled", function()
 			local es = EventStream.new(createDebugReportingService())
 
 			expect(function()
-				es:SetEnabled(false)
-				es:SetRBXEventStream(testContext, testEvent, testArgs)
+				es:setEnabled(false)
+				es:setRBXEventStream(testContext, testEvent, testArgs)
 			end).to.throw()
 
-			es:SetEnabled(true)
-			es:SetRBXEventStream(testContext, testEvent, testArgs)
+			es:setEnabled(true)
+			es:setRBXEventStream(testContext, testEvent, testArgs)
 		end)
 
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEventStream(nil, testEvent, testArgs)
+				es:setRBXEventStream(nil, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an event name", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEventStream(testContext, nil, testArgs)
+				es:setRBXEventStream(testContext, nil, testArgs)
 			end).to.throw()
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:SetRBXEventStream(testContext, testEvent, nil)
+			es:setRBXEventStream(testContext, testEvent, nil)
 		end)
 
 		it("should throw an error if it is given bad input for a context", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEventStream(badTestContext, testEvent, testArgs)
+				es:setRBXEventStream(badTestContext, testEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for a event", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEventStream(testContext, badTestEvent, testArgs)
+				es:setRBXEventStream(testContext, badTestEvent, testArgs)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given bad input for additionalArgs", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:SetRBXEventStream(testContext, testEvent, badTestArgs)
+				es:setRBXEventStream(testContext, testEvent, badTestArgs)
 			end).to.throw()
 		end)
 	end)
 
-
-	describe("UpdateHeartbeatObject()", function()
-		it("should throw an error if called from the EventStream module object", function()
-			expect(function()
-				EventStream:UpdateHeartbeatObject(testArgs)
-			end).to.throw()
-		end)
-
+	describe("updateHeartbeatObject()", function()
 		it("should work when appropriately enabled / disabled", function()
 			local es = EventStream.new(createDebugReportingService())
 
 			expect(function()
-				es:SetEnabled(false)
-				es:UpdateHeartbeatObject(testArgs)
+				es:setEnabled(false)
+				es:updateHeartbeatObject(testArgs)
 			end).to.throw()
 
 			expect(function()
-				es:SetEnabled(true)
-				es:UpdateHeartbeatObject(testArgs)
+				es:setEnabled(true)
+				es:updateHeartbeatObject(testArgs)
 			end).never.to.throw()
 		end)
 
 		it("should succeed with valid input", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:UpdateHeartbeatObject(testArgs)
+			es:updateHeartbeatObject(testArgs)
 		end)
 
 		it("should succeed even if there aren't any additional args", function()
 			local es = EventStream.new(createDebugReportingService())
-			es:UpdateHeartbeatObject(nil)
+			es:updateHeartbeatObject(nil)
 		end)
 
 		it("should throw an error with invalid input", function()
 			local es = EventStream.new(createDebugReportingService())
 			expect(function()
-				es:UpdateHeartbeatObject(badTestArgs)
+				es:updateHeartbeatObject(badTestArgs)
 			end).to.throw()
 		end)
 	end)
 
-
-	describe("ReportButtonPressed()", function()
-		it("should throw an error if called from the EventStream module object", function()
-			expect(function()
-				EventStream:ReportButtonPressed(testContext, testButton, testExtraData)
-			end).to.throw()
-		end)
-
+	describe("reportButtonPressed()", function()
 		it("should work when appropriately enabled / disabled", function()
 			local es = EventStream.new(createButtonReportingService())
 
 			expect(function()
-				es:SetEnabled(false)
-				es:ReportButtonPressed(testContext, testButton, testExtraData)
+				es:setEnabled(false)
+				es:reportButtonPressed(testContext, testButton, testExtraData)
 			end).to.throw()
 
-			es:SetEnabled(true)
-			es:ReportButtonPressed(testContext, testButton, testExtraData)
+			es:setEnabled(true)
+			es:reportButtonPressed(testContext, testButton, testExtraData)
 		end)
 
 		it("should succeed with valid input", function()
 			local es = EventStream.new(createButtonReportingService())
-			es:ReportButtonPressed(testContext, testButton, testExtraData)
+			es:reportButtonPressed(testContext, testButton, testExtraData)
 		end)
 
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createButtonReportingService())
 			expect(function()
-				es:ReportButtonPressed(nil, testButton, testExtraData)
+				es:reportButtonPressed(nil, testButton, testExtraData)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a button name", function()
 			local es = EventStream.new(createButtonReportingService())
 			expect(function()
-				es:ReportButtonPressed(testContext, nil, testExtraData)
+				es:reportButtonPressed(testContext, nil, testExtraData)
 			end).to.throw()
 		end)
 
 		it("should succeed even without extra data", function()
 			local es = EventStream.new(createButtonReportingService())
-			es:ReportButtonPressed(testContext, testButton, nil)
+			es:reportButtonPressed(testContext, testButton, nil)
 		end)
 
 		it("should throw an error if it is given invalid input for a context", function()
 			local es = EventStream.new(createButtonReportingService())
 			expect(function()
-				es:ReportButtonPressed(badTestContext, testButton, testExtraData)
+				es:reportButtonPressed(badTestContext, testButton, testExtraData)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for a button name", function()
 			local es = EventStream.new(createButtonReportingService())
 			expect(function()
-				es:ReportButtonPressed(testContext, badTestButton, testExtraData)
+				es:reportButtonPressed(testContext, badTestButton, testExtraData)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for extra data", function()
 			local es = EventStream.new(createButtonReportingService())
 			expect(function()
-				es:ReportButtonPressed(testContext, testButton, badTestExtraData)
+				es:reportButtonPressed(testContext, testButton, badTestExtraData)
 			end).to.throw()
 		end)
 	end)
 
-
-	describe("ReportFormFieldValidated()", function()
-		it("should throw an error if called from the EventStream module object", function()
-			expect(function()
-				EventStream:ReportFormFieldValidated(testContext, testField, testErrorText)
-			end).to.throw()
-		end)
-
+	describe("reportFormFieldValidated()", function()
 		it("should work when appropriately enabled / disabled", function()
 			local es = EventStream.new(createFormReportingService())
 
 			expect(function()
-				es:SetEnabled(false)
-				es:ReportFormFieldValidated(testContext, testField, testErrorText)
+				es:setEnabled(false)
+				es:reportFormFieldValidated(testContext, testField, testErrorText)
 			end).to.throw()
 
-			es:SetEnabled(true)
-			es:ReportFormFieldValidated(testContext, testField, testErrorText)
+			es:setEnabled(true)
+			es:reportFormFieldValidated(testContext, testField, testErrorText)
 		end)
 
 		it("should succeed with valid input", function()
 			local es = EventStream.new(createFormReportingService())
-			es:ReportFormFieldValidated(testContext, testField, testErrorText)
+			es:reportFormFieldValidated(testContext, testField, testErrorText)
 		end)
 
 		it("should throw an error if it is missing a context", function()
 			local es = EventStream.new(createFormReportingService())
 			expect(function()
-				es:ReportFormFieldValidated(nil, testField, testErrorText)
+				es:reportFormFieldValidated(nil, testField, testErrorText)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a field name", function()
 			local es = EventStream.new(createFormReportingService())
 			expect(function()
-				es:ReportFormFieldValidated(testContext, nil, testErrorText)
+				es:reportFormFieldValidated(testContext, nil, testErrorText)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an error text", function()
 			local es = EventStream.new(createFormReportingService())
 			expect(function()
-				es:ReportFormFieldValidated(testContext, testField, nil)
+				es:reportFormFieldValidated(testContext, testField, nil)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for a context", function()
 			local es = EventStream.new(createFormReportingService())
 			expect(function()
-				es:ReportFormFieldValidated(badTestContext, testField, testErrorText)
+				es:reportFormFieldValidated(badTestContext, testField, testErrorText)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for a button name", function()
 			local es = EventStream.new(createFormReportingService())
 			expect(function()
-				es:ReportFormFieldValidated(testContext, badTestField, testErrorText)
+				es:reportFormFieldValidated(testContext, badTestField, testErrorText)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for extra data", function()
 			local es = EventStream.new(createFormReportingService())
 			expect(function()
-				es:ReportFormFieldValidated(testContext, testField, badTestErrorText)
+				es:reportFormFieldValidated(testContext, testField, badTestErrorText)
 			end).to.throw()
 		end)
 	end)
 
-
-	describe("ReportScreenLoaded()", function()
-		it("should throw an error if called from the EventStream module object", function()
-			expect(function()
-				EventStream:ReportScreenLoaded(testContext)
-			end).to.throw()
-		end)
-
+	describe("reportScreenLoaded()", function()
 		it("should work when appropriately enabled / disabled", function()
 			local es = EventStream.new(createScreenReportingService())
 
 			expect(function()
-				es:SetEnabled(false)
-				es:ReportScreenLoaded(testContext)
+				es:setEnabled(false)
+				es:reportScreenLoaded(testContext)
 			end).to.throw()
 
-			es:SetEnabled(true)
-			es:ReportScreenLoaded(testContext)
+			es:setEnabled(true)
+			es:reportScreenLoaded(testContext)
 		end)
 
 		it("should succeed with valid input", function()
 			local es = EventStream.new(createScreenReportingService())
-			es:ReportScreenLoaded(testContext)
+			es:reportScreenLoaded(testContext)
 		end)
 
 		it("should throw an error if it is missing a screen name", function()
 			local es = EventStream.new(createScreenReportingService())
 			expect(function()
-				es:ReportScreenLoaded(nil)
+				es:reportScreenLoaded(nil)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is given invalid input for a screen name", function()
 			local es = EventStream.new(createScreenReportingService())
 			expect(function()
-				es:ReportScreenLoaded(badTestContext)
+				es:reportScreenLoaded(badTestContext)
 			end).to.throw()
-		end)
-	end)
-
-
-	describe("Inheritted Functions", function()
-		it("SetReporter() should succeed with valid input", function()
-			local reporter = EventStream.new(createDebugReportingService())
-			reporter:SetReporter(createDebugReportingService())
-		end)
-
-		it("SetEnabled() should succeed with valid input", function()
-			local reporter = EventStream.new(createDebugReportingService())
-			reporter:SetEnabled(false)
-			reporter:SetEnabled(true)
-		end)
-
-		it("CheckBadCallingConvention() should do nothing when called appropriately", function()
-			local reporter = EventStream.new(createDebugReportingService())
-			reporter:CheckBadCallingConvention("someFunction")
-		end)
-
-		it("CheckForTypeError() should do nothing when called appropriately", function()
-			local reporter = EventStream.new(createDebugReportingService())
-			reporter:CheckForTypeError("someParameter", "string", "some value")
-		end)
-
-		it("CheckDisabledModule() should do nothing when called appropriately", function()
-			local reporter = EventStream.new(createDebugReportingService())
-			reporter:CheckDisabledModule("someFunction")
 		end)
 	end)
 end

@@ -1,7 +1,6 @@
 return function()
 	local Diag = require(script.Parent.Diag)
 
-	-- create some testing values
 	local testCounterName = "testCounter"
 	local testCounterAmount = 1
 	local testCategoryName = "testCategory"
@@ -12,33 +11,22 @@ return function()
 	local badTestCategoryName = {}
 	local badTestCategoryValue = {}
 
-	-- create a testing service that mimics the AnalyticsService
-	local function createDebugReportingService()
-		local DebugReportingService = {}
-		function DebugReportingService:ReportCounter(counterName, amount)
-			if counterName ~= testCounterName then
-				error("Unexpected value for counterName: " .. counterName)
-			end
-			if amount ~= testCounterAmount then
-				error("Unexpected value for amount: " .. amount)
-			end
-		end
-		function DebugReportingService:ReportStats(categoryName, value)
-			if categoryName ~= testCategoryName then
-				error("Unexpected value for category: " .. categoryName)
-			end
-			if value ~= testCategoryValue then
-				error("Unexpected value for value: " .. value)
-			end
-		end
-		return DebugReportingService
+	local DebugReportingService = {}
+	function DebugReportingService:ReportCounter(counterName, amount)
+		assert(counterName == testCounterName, "Unexpected value for counterName: " .. counterName)
+		assert(amount == testCounterAmount, "Unexpected value for amount: " .. amount)
 	end
-
+	function DebugReportingService:ReportStats(categoryName, value)
+		assert(categoryName == testCategoryName, "Unexpected value for category: " .. categoryName)
+		if value then
+			assert(value == testCategoryValue, "Unexpected value for value: " .. value)
+		end
+	end
 
 
 	describe("new()", function()
 		it("should construct with a Reporting Service", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(diag).to.be.ok()
 		end)
 
@@ -49,169 +37,140 @@ return function()
 		end)
 	end)
 
-
-	describe("ReportCounter()", function()
-		it("should throw an error to be called on the Diag module object", function()
+	describe("setEnabled()", function()
+		it("should succeed with valid input", function()
+			local diag = Diag.new(DebugReportingService)
+			diag:setEnabled(false)
+			diag:setEnabled(true)
+		end)
+		it("should disable the reporter", function()
+			local diag = Diag.new(DebugReportingService)
+			diag:setEnabled(false)
 			expect(function()
-				Diag:ReportCounter(testCounterName, testCounterAmount)
+				diag:reportCounter(testCounterName, testCounterAmount)
 			end).to.throw()
 		end)
+	end)
 
-		it("should throw an error if the module itself is disabled", function()
-			local diag = Diag.new(createDebugReportingService())
+	describe("reportCounter()", function()
+		it("should work when appropriately enabled / disabled", function()
+			local diag = Diag.new(DebugReportingService)
 
 			expect(function()
-				diag:SetEnabled(false)
-				diag:ReportCounter(testCounterName, testCounterAmount)
+				diag:setEnabled(false)
+				diag:reportCounter(testCounterName, testCounterAmount)
 			end).to.throw()
 
-			diag:SetEnabled(true)
-			diag:ReportCounter(testCounterName, testCounterAmount)
+			diag:setEnabled(true)
+			diag:reportCounter(testCounterName, testCounterAmount)
 		end)
 
 		it("should succeed with valid input", function()
-			local diag = Diag.new(createDebugReportingService())
-			diag:ReportCounter(testCounterName, testCounterAmount)
+			local diag = Diag.new(DebugReportingService)
+			diag:reportCounter(testCounterName, testCounterAmount)
 		end)
 
 		it("should throw an error with invalid input for the counter name", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportCounter(badTestCounterName, testCounterAmount)
+				diag:reportCounter(badTestCounterName, testCounterAmount)
 			end).to.throw()
 		end)
 
 		it("should throw an error with invalid input for the amount", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportCounter(testCounterName, badTestCounterAmount)
+				diag:reportCounter(testCounterName, badTestCounterAmount)
 			end).to.throw()
 		end)
 
 		it("should throw an error with completely invalid input", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportCounter(badTestCounterName, badTestCounterAmount)
+				diag:reportCounter(badTestCounterName, badTestCounterAmount)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a counter name", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportCounter(nil, testCounterAmount)
+				diag:reportCounter(nil, testCounterAmount)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing an amount", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportCounter(testCounterName, nil)
+				diag:reportCounter(testCounterName, nil)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing any input", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportCounter(nil, nil)
+				diag:reportCounter(nil, nil)
 			end).to.throw()
 		end)
 	end)
 
-
-	describe("ReportStats()", function()
-
-		it("should throw an error to be called on the Diag module object", function()
-			expect(function()
-				Diag:ReportStats(testCategoryName, testCategoryValue)
-			end).to.throw()
-		end)
-
+	describe("reportStats()", function()
 		it("should work when appropriately enabled / disabled", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 
 			expect(function()
-				diag:SetEnabled(false)
-				diag:ReportStats(testCategoryName, testCategoryValue)
+				diag:setEnabled(false)
+				diag:reportStats(testCategoryName, testCategoryValue)
 			end).to.throw()
 
-			diag:SetEnabled(true)
-			diag:ReportStats(testCategoryName, testCategoryValue)
+			diag:setEnabled(true)
+			diag:reportStats(testCategoryName, testCategoryValue)
 		end)
 
 		it("should succeed with valid input", function()
-			local diag = Diag.new(createDebugReportingService())
-			diag:ReportStats(testCategoryName, testCategoryValue)
+			local diag = Diag.new(DebugReportingService)
+			diag:reportStats(testCategoryName, testCategoryValue)
 		end)
 
 		it("should throw an error with invalid input for the category name", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportStats(badTestCategoryName, testCategoryValue)
+				diag:reportStats(badTestCategoryName, testCategoryValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error with invalid input for the value", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportStats(testCategoryName, badTestCategoryValue)
+				diag:reportStats(testCategoryName, badTestCategoryValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error with completely invalid input", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportStats(badTestCategoryName, badTestCategoryValue)
+				diag:reportStats(badTestCategoryName, badTestCategoryValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a category name", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportStats(nil, testCategoryValue)
+				diag:reportStats(nil, testCategoryValue)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing a value", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportStats(testCategoryName, nil)
+				diag:reportStats(testCategoryName, nil)
 			end).to.throw()
 		end)
 
 		it("should throw an error if it is missing any input", function()
-			local diag = Diag.new(createDebugReportingService())
+			local diag = Diag.new(DebugReportingService)
 			expect(function()
-				diag:ReportStats(nil, nil)
+				diag:reportStats(nil, nil)
 			end).to.throw()
-		end)
-	end)
-
-
-	describe("Inheritted Functions", function()
-		it("SetReporter() should succeed with valid input", function()
-			local reporter = Diag.new(createDebugReportingService())
-			reporter:SetReporter(createDebugReportingService())
-		end)
-
-		it("SetEnabled() should succeed with valid input", function()
-			local reporter = Diag.new(createDebugReportingService())
-			reporter:SetEnabled(false)
-			reporter:SetEnabled(true)
-		end)
-
-		it("CheckBadCallingConvention() should do nothing when called appropriately", function()
-			local reporter = Diag.new(createDebugReportingService())
-			reporter:CheckBadCallingConvention("someFunction")
-		end)
-
-		it("CheckForTypeError() should do nothing when called appropriately", function()
-			local reporter = Diag.new(createDebugReportingService())
-			reporter:CheckForTypeError("someParameter", "string", "some value")
-		end)
-
-		it("CheckDisabledModule() should do nothing when called appropriately", function()
-			local reporter = Diag.new(createDebugReportingService())
-			reporter:CheckDisabledModule("someFunction")
 		end)
 	end)
 end

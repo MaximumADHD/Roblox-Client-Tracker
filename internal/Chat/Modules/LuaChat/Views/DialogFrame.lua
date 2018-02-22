@@ -1,3 +1,5 @@
+local TweenService = game:GetService("TweenService")
+
 local Modules = script.Parent.Parent
 
 local BaseScreen = require(Modules.Views.Phone.BaseScreen)
@@ -160,7 +162,7 @@ end
 function DialogFrame:TransitionDialogFrame(frame, intent, otherIntent, transitionType, callback)
 	if (not self.appState) or (not intent) or (not otherIntent) then
 		if callback ~= nil then
-			callback()
+			callback(Enum.PlaybackState.Completed)
 		end
 		return
 	end
@@ -170,7 +172,7 @@ function DialogFrame:TransitionDialogFrame(frame, intent, otherIntent, transitio
 
 	if dialogType ~= DialogInfo.DialogType.Centered or otherDialogType ~= DialogInfo.DialogType.Centered then
 		if callback ~= nil then
-			callback()
+			callback(Enum.PlaybackState.Completed)
 		end
 		return
 	end
@@ -192,8 +194,25 @@ function DialogFrame:TransitionDialogFrame(frame, intent, otherIntent, transitio
 	end
 
 	frame.rbx.Position = startingPos
-	frame.rbx:TweenPosition(endingPos, Constants.Tween.DEFAULT_TWEEN_EASING_DIRECTION,
-		Constants.Tween.DEFAULT_TWEEN_STYLE, Constants.Tween.DEFAULT_TWEEN_TIME, true, callback)
+	local tweenPosition = TweenService:Create(
+		frame.rbx,
+		TweenInfo.new(
+			Constants.Tween.DEFAULT_TWEEN_TIME,
+			Constants.Tween.DEFAULT_TWEEN_STYLE,
+			Constants.Tween.DEFAULT_TWEEN_EASING_DIRECTION
+		),
+		{
+			Position = endingPos,
+		}
+	)
+
+	tweenPosition:Play()
+	if callback then
+		spawn(function()
+			local playbackState = tweenPosition.Completed:wait()
+			callback(playbackState)
+		end)
+	end
 end
 
 return DialogFrame

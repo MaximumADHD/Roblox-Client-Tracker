@@ -9,9 +9,7 @@ local PlayerService = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local DebrisService = game:GetService('Debris')
 local ReplicatedStorage = game:GetService('ReplicatedStorage')
-local tweenService = game:GetService("TweenService")
-
-
+local TweenService = game:GetService("TweenService")
 
 local Player = PlayerService.LocalPlayer
 local PlayerScripts = Player.PlayerScripts
@@ -52,8 +50,6 @@ local XZ_VECTOR3 = Vector3_new(1, 0, 1)
 local ZERO_VECTOR3 = Vector3_new(0, 0, 0)
 local ZERO_VECTOR2 = Vector2_new(0, 0)
 
-local lastFailedPosition = nil
-
 local BindableEvent_OnFailStateChanged = nil
 if UIS.TouchEnabled then
 	BindableEvent_OnFailStateChanged = MasterControl:GetClickToMoveFailStateChanged()
@@ -62,52 +58,6 @@ end
 --------------------------UTIL LIBRARY-------------------------------
 local Utility = {}
 do
-	local Signal = {}
-	function Signal.Create()
-		local sig = {}
-
-		local mSignaler = Instance.new('BindableEvent')
-
-		local mArgData = nil
-		local mArgDataCount = nil
-
-		function sig:fire(...)
-			mArgData = {...}
-			mArgDataCount = select('#', ...)
-			mSignaler:Fire()
-		end
-
-		function sig:connect(f)
-			if not f then error("connect(nil)", 2) end
-			return mSignaler.Event:connect(function()
-				f(unpack(mArgData, 1, mArgDataCount))
-			end)
-		end
-
-		function sig:wait()
-			mSignaler.Event:wait()
-			assert(mArgData, "Missing arg data, likely due to :TweenSize/Position corrupting threadrefs.")
-			return unpack(mArgData, 1, mArgDataCount)
-		end
-
-		return sig
-	end
-	Utility.Signal = Signal
-
-	function Utility.Create(instanceType)
-		return function(data)
-			local obj = Instance.new(instanceType)
-			for k, v in pairs(data) do
-				if type(k) == 'number' then
-					v.Parent = obj
-				else
-					obj[k] = v
-				end
-			end
-			return obj
-		end
-	end
-
 	local function ViewSizeX()
 		local camera = workspace.CurrentCamera
 		local x = camera and camera.ViewportSize.X or 0
@@ -140,17 +90,17 @@ do
 	end
 	Utility.ViewSizeY = ViewSizeY
 
-	local function FindChacterAncestor(part)
+	local function FindCharacterAncestor(part)
 		if part then
 			local humanoid = part:FindFirstChild("Humanoid")
 			if humanoid then
 				return part, humanoid
 			else
-				return FindChacterAncestor(part.Parent)
+				return FindCharacterAncestor(part.Parent)
 			end
 		end
 	end
-	Utility.FindChacterAncestor = FindChacterAncestor
+	Utility.FindCharacterAncestor = FindCharacterAncestor
 
 	local function Raycast(ray, ignoreNonCollidable, ignoreList)
 		local ignoreList = ignoreList or {}
@@ -177,25 +127,6 @@ do
 		return avgPos
 	end
 	Utility.AveragePoints = AveragePoints
-
-	local function FuzzyEquals(numa, numb)
-		return numa + 0.1 > numb and numa - 0.1 < numb
-	end
-	Utility.FuzzyEquals = FuzzyEquals
-
-	local LastInput = 0
-	UIS.InputBegan:connect(function(inputObject, wasSunk)
-		if not wasSunk then
-			if inputObject.UserInputType == Enum.UserInputType.Touch or
-					inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
-					inputObject.UserInputType == Enum.UserInputType.MouseButton2 then
-				LastInput = tick()
-			end
-		end
-	end)
-	Utility.GetLastInput = function()
-		return LastInput
-	end
 end
 
 local humanoidCache = {}
@@ -218,9 +149,6 @@ end
 
 ---------------------------------------------------------
 
-local Signal = Utility.Signal
-local Create = Utility.Create
-
 --------------------------CHARACTER CONTROL-------------------------------
 local CurrentIgnoreList
 
@@ -230,7 +158,7 @@ end
 
 local function GetTorso()
 	local humanoid = findPlayerHumanoid(Player)
-	return humanoid and humanoid.Torso
+	return humanoid and humanoid.RootPart
 end
 
 local function getIgnoreList()
@@ -246,77 +174,101 @@ end
 
 -----------------------------------PATHER--------------------------------------
 
-local function createNewPopup(popupType)	
+local popupAdornee
+local function getPopupAdorneePart()
+	--Handle the case of the adornee part getting deleted (camera changed, maybe)
+	if popupAdornee and not popupAdornee.Parent then
+		popupAdornee = nil
+	end
 	
+	--If the adornee doesn't exist yet, create it
+	if not popupAdornee then
+		popupAdornee = Instance.new("Part")		
+		popupAdornee.Name = "ClickToMovePopupAdornee"
+		popupAdornee.Transparency = 1
+		popupAdornee.CanCollide = false
+		popupAdornee.Anchored = true
+		popupAdornee.Size = Vector3.new(2, 2, 2)
+		popupAdornee.CFrame = CFrame.new()
+		
+		popupAdornee.Parent = workspace.CurrentCamera
+	end
+	
+	return popupAdornee
+end
+
+local activePopups = {}
+local function createNewPopup(popupType)
 	local newModel = Instance.new("ImageHandleAdornment")
 	
 	newModel.AlwaysOnTop = false
+	newModel.Transparency = 1
+	newModel.Size = ZERO_VECTOR2
+	newModel.SizeRelativeOffset = ZERO_VECTOR3
 	newModel.Image = "rbxasset://textures/ui/move.png"
-	newModel.ZIndex = 2
+	newModel.ZIndex = 20
 	
-	local size = ZERO_VECTOR2
+	local radius = 0
 	if popupType == "DestinationPopup" then
 		newModel.Color3 = Color3.fromRGB(0, 175, 255)
-		size = Vector2.new(4,4)
+		radius = 1.25
 	elseif popupType == "DirectWalkPopup" then
 		newModel.Color3 = Color3.fromRGB(0, 175, 255)
-		size = Vector2.new(4,4)
+		radius = 1.25
 	elseif popupType == "FailurePopup" then
 		newModel.Color3 = Color3.fromRGB(255, 100, 100)
-		size = Vector2.new(4,4)
+		radius = 1.25
 	elseif popupType == "PatherPopup" then
 		newModel.Color3 = Color3.fromRGB(255, 255, 255)
-		size = Vector2.new(3,3)
-		newModel.ZIndex = 1
+		radius = 1
+		newModel.ZIndex = 10
 	end
+	newModel.Size = Vector2.new(5, 0.1) * radius
 	
 	local dataStructure = {}
 	dataStructure.Model = newModel	
 	
+	activePopups[#activePopups + 1] = newModel
+	
 	function dataStructure:TweenIn()
-		local tween1 = tweenService:Create(self.Model,
-			TweenInfo.new(
-				1,
-				Enum.EasingStyle.Elastic,
-				Enum.EasingDirection.Out,
-				0,
-				false,
-				0
-			),{
-				Size = size
-			}	
-		)
+		local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out)
+		local tween1 = TweenService:Create(newModel, tweenInfo, { Size = Vector2.new(2,2) * radius })
 		tween1:Play()
+		TweenService:Create(newModel, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0.1), { Transparency = 0, SizeRelativeOffset = Vector3.new(0, radius * 1.5, 0) }):Play()
 		return tween1
 	end
 	
 	function dataStructure:TweenOut()
-		local tween1 = tweenService:Create(self.Model,
-			TweenInfo.new(
-				.25,
-				Enum.EasingStyle.Quad,
-				Enum.EasingDirection.In,
-				0,
-				false,
-				0
-			),{
-				Size = ZERO_VECTOR2
-			}	
-		)
+		local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+		local tween1 = TweenService:Create(newModel, tweenInfo, { Size = ZERO_VECTOR2 })
 		tween1:Play()
+		
+		coroutine.wrap(function()
+			tween1.Completed:Wait()
+			
+			for i = 1, #activePopups do
+				if activePopups[i] == newModel then
+					table.remove(activePopups, i)
+					break
+				end
+			end
+		end)()
 		return tween1
 	end
 	
 	function dataStructure:Place(position, dest)
 		-- place the model at position
 		if not self.Model.Parent then
-			self.Model.Parent = workspace.Terrain
-			self.Model.Adornee = workspace.Terrain
+			local popupAdorneePart = getPopupAdorneePart()
+			self.Model.Parent = popupAdorneePart
+			self.Model.Adornee = popupAdorneePart
 
+			--Start the 10-stud long ray 2.5 studs above where the tap happened and point straight down to try to find
+			--the actual ground position.
 			local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
 			local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(ray, { workspace.CurrentCamera, Player.Character })
-
-			self.Model.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal) * CFrame.Angles(0,0,0) + Vector3.new(0, 0.2,0)
+			
+			self.Model.CFrame = CFrame.new(hitPoint) + Vector3.new(0, -radius,0)
 		end
 	end
 	
@@ -334,7 +286,7 @@ local function createPopupPath(points, numCircles)
 			if iter <= i then
 				local tween = v:TweenOut()
 				spawn(function()
-					tween.Completed:wait()
+					tween.Completed:Wait()
 					v.Model:Destroy()
 				end)
 				popups[iter] = nil
@@ -376,9 +328,8 @@ local function Pather(character, endPoint, surfaceNormal)
 	this.Cancelled = false
 	this.Started = false
 
-	this.Finished = Signal.Create()
-	this.PathFailed = Signal.Create()
-	this.PathStarted = Signal.Create()
+	this.Finished = Instance.new("BindableEvent")
+	this.PathFailed = Instance.new("BindableEvent")
 	
 	this.PathComputing = false
 	this.PathComputed = false
@@ -395,7 +346,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 
 		if this.MoveToConn then
-			this.MoveToConn:disconnect()
+			this.MoveToConn:Disconnect()
 			this.MoveToConn = nil
 			this.humanoid = nil
 		end
@@ -443,7 +394,7 @@ local function Pather(character, endPoint, surfaceNormal)
 				if this.stopTraverseFunc then
 					this.stopTraverseFunc()
 				end
-				this.Finished:fire()
+				this.Finished:Fire()
 				this:Cleanup()
 			else
 				-- If next action == Jump, but the humanoid
@@ -457,7 +408,7 @@ local function Pather(character, endPoint, surfaceNormal)
 						   currentState == Enum.HumanoidStateType.Freefall or
 						   currentState == Enum.HumanoidStateType.Jumping then
 						   
-						   this.humanoid.FreeFalling:wait()
+						   this.humanoid.FreeFalling:Wait()
 
 						   -- Give time to the humanoid's state to change
 						   -- Otherwise, the jump flag in Humanoid
@@ -480,7 +431,7 @@ local function Pather(character, endPoint, surfaceNormal)
 				this.humanoid:MoveTo(nextWaypoint.Position)
 			end
 		else
-			this.PathFailed:fire()
+			this.PathFailed:Fire()
 			this:Cleanup()
 		end
 	end
@@ -500,11 +451,11 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 
 		if #this.pointList > 0 then
-			this.MoveToConn = this.humanoid.MoveToFinished:connect(function(reached) this:OnPointReached(reached) end)
+			this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
 			this:OnPointReached(true) -- Move to first point
 		else
-			this.PathFailed:fire()
+			this.PathFailed:Fire()
 			if this.stopTraverseFunc then
 				this.stopTraverseFunc()
 			end
@@ -567,11 +518,11 @@ local function CleanupPath()
 		ExistingPather:Cancel()
 	end
 	if PathCompleteListener then
-		PathCompleteListener:disconnect()
+		PathCompleteListener:Disconnect()
 		PathCompleteListener = nil
 	end
 	if PathFailedListener then
-		PathFailedListener:disconnect()
+		PathFailedListener:Disconnect()
 		PathFailedListener = nil
 	end
 	if ExistingIndicator then
@@ -579,7 +530,7 @@ local function CleanupPath()
 		local tween = obj:TweenOut()
 		local tweenCompleteEvent = nil
 		tweenCompleteEvent = tween.Completed:connect(function()
-			tweenCompleteEvent:disconnect()
+			tweenCompleteEvent:Disconnect()
 			obj.Model:Destroy()
 		end)
 		ExistingIndicator = nil
@@ -605,6 +556,17 @@ local function inExtents(Extents, Position)
 	end
 	--ignoring Y for now
 	return true
+end
+
+local function showQuickPopupAsync(position, popupType)
+	local popup = createNewPopup(popupType)
+	popup:Place(position, Vector3_new(0,position.y,0))
+	local tweenIn = popup:TweenIn()
+	tweenIn.Completed:Wait()
+	local tweenOut = popup:TweenOut()
+	tweenOut.Completed:Wait()
+	popup.Model:Destroy()
+	popup = nil
 end
 
 local FailCount = 0
@@ -637,14 +599,14 @@ local function OnTap(tapPositions, goToPoint)
 			local myHumanoid = findPlayerHumanoid(Player)
 			local hitPart, hitPt, hitNormal, hitMat = Utility.Raycast(ray, true, ignoreTab)
 
-			local hitChar, hitHumanoid = Utility.FindChacterAncestor(hitPart)
+			local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
 			local torso = GetTorso()
 			local startPos = torso.CFrame.p
 			if goToPoint then
 				hitPt = goToPoint
 				hitChar = nil
 			end
-			if hitChar and hitHumanoid and hitHumanoid.Torso and (hitHumanoid.Torso.CFrame.p - torso.CFrame.p).magnitude < 7 then
+			if hitChar and hitHumanoid and hitHumanoid.RootPart and (hitHumanoid.Torso.CFrame.p - torso.CFrame.p).magnitude < 7 then
 				CleanupPath()
 				
 				if myHumanoid then
@@ -676,15 +638,15 @@ local function OnTap(tapPositions, goToPoint)
 					ExistingPather = thisPather
 					ExistingIndicator = destinationPopup
 
-					PathCompleteListener = thisPather.Finished:connect(function()
+					PathCompleteListener = thisPather.Finished.Event:Connect(function()
 						if destinationPopup then
 							if ExistingIndicator == destinationPopup then
 								ExistingIndicator = nil
 							end
 							local tween = destinationPopup:TweenOut()
 							local tweenCompleteEvent = nil
-							tweenCompleteEvent = tween.Completed:connect(function()
-								tweenCompleteEvent:disconnect()
+							tweenCompleteEvent = tween.Completed:Connect(function()
+								tweenCompleteEvent:Disconnect()
 								destinationPopup.Model:Destroy()
 								destinationPopup = nil
 							end)
@@ -697,18 +659,17 @@ local function OnTap(tapPositions, goToPoint)
 								LastFired = tick()
 							end
 							if humanoid then
-	
 								humanoid:MoveTo(hitPt)
 							end
 						end
 					end)
-					PathFailedListener = thisPather.PathFailed:connect(function()
+					PathFailedListener = thisPather.PathFailed.Event:Connect(function()
 						if failurePopup then
 							failurePopup:Place(hitPt, Vector3_new(0,hitPt.y,0))
 							local failTweenIn = failurePopup:TweenIn()
-							failTweenIn.Completed:wait()
+							failTweenIn.Completed:Wait()
 							local failTweenOut = failurePopup:TweenOut()
-							failTweenOut.Completed:wait()
+							failTweenOut.Completed:Wait()
 							failurePopup.Model:Destroy()
 							failurePopup = nil
 						end
@@ -723,22 +684,12 @@ local function OnTap(tapPositions, goToPoint)
 								if myHumanoid.Sit then
 									myHumanoid.Jump = true
 								end
-								local currentPosition
 								myHumanoid:MoveTo(hitPt)
 								foundDirectPath = true
 							end
-						end						
+						end		
 						
-						spawn(function()
-							local directPopup = createNewPopup(foundDirectPath and "DirectWalkPopup" or "FailurePopup")
-							directPopup:Place(hitPt, Vector3_new(0,hitPt.y,0))
-							local directTweenIn = directPopup:TweenIn()
-							directTweenIn.Completed:wait()
-							local directTweenOut = directPopup:TweenOut()
-							directTweenOut.Completed:wait()
-							directPopup.Model:Destroy()
-							directPopup = nil
-						end)
+						coroutine.wrap(showQuickPopupAsync)(hitPt, foundDirectPath and "DirectWalkPopup" or "FailurePopup")
 					end
 				end
 			elseif hitPt and character and CurrentSeatPart then 
@@ -757,7 +708,7 @@ local function OnTap(tapPositions, goToPoint)
 							local popup = destinationPopup
 							spawn(function()
 								local tweenOut = popup:TweenOut()
-								tweenOut.Completed:wait()
+								tweenOut.Completed:Wait()
 								popup.Model:Destroy()
 							end)
 							destinationPopup = nil
@@ -772,7 +723,7 @@ local function OnTap(tapPositions, goToPoint)
 						local popup = destinationPopup
 						spawn(function()
 							local tweenOut = popup:TweenOut()
-							tweenOut.Completed:wait()
+							tweenOut.Completed:Wait()
 							popup.Model:Destroy()
 						end)
 						destinationPopup = nil
@@ -832,7 +783,7 @@ local function CreateClickToMoveModule()
 
 	local function disconnectEvent(event)
 		if event then
-			event:disconnect()
+			event:Disconnect()
 		end
 	end
 
@@ -887,7 +838,7 @@ local function CreateClickToMoveModule()
 	local function OnCharacterAdded(character)
 		DisconnectEvents()
 
-		InputBeganConn = UIS.InputBegan:connect(function(input, processed)
+		InputBeganConn = UIS.InputBegan:Connect(function(input, processed)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				OnTouchBegan(input, processed)
 
@@ -924,13 +875,13 @@ local function CreateClickToMoveModule()
 			end
 		end)
 
-		InputChangedConn = UIS.InputChanged:connect(function(input, processed)
+		InputChangedConn = UIS.InputChanged:Connect(function(input, processed)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				OnTouchChanged(input, processed)
 			end
 		end)
 
-		InputEndedConn = UIS.InputEnded:connect(function(input, processed)
+		InputEndedConn = UIS.InputEnded:Connect(function(input, processed)
 			if input.UserInputType == Enum.UserInputType.Touch then
 				OnTouchEnded(input, processed)
 			end
@@ -945,7 +896,7 @@ local function CreateClickToMoveModule()
 			end
 		end)
 
-		TapConn = UIS.TouchTap:connect(function(touchPositions, processed)
+		TapConn = UIS.TouchTap:Connect(function(touchPositions, processed)
 			if not processed then
 				OnTap(touchPositions)
 			end
@@ -997,6 +948,12 @@ local function CreateClickToMoveModule()
 					CurrentSeatPart.SteerFloat = 0
 				end
 			end
+			
+			local cameraPos = workspace.CurrentCamera.CFrame.p
+			for i = 1, #activePopups do
+				local popup = activePopups[i]
+				popup.CFrame = CFrame.new(popup.CFrame.p, cameraPos)
+			end
 		end
 		
 		RunService:BindToRenderStep("ClickToMoveRenderUpdate",Enum.RenderPriority.Camera.Value - 1,Update)
@@ -1025,22 +982,22 @@ local function CreateClickToMoveModule()
 			end
 			if child:IsA('Humanoid') then
 				disconnectEvent(HumanoidDiedConn)
-				HumanoidDiedConn = child.Died:connect(function()
+				HumanoidDiedConn = child.Died:Connect(function()
 					if ExistingIndicator then
 						DebrisService:AddItem(ExistingIndicator.Model, 1)
 					end
 				end)
-				HumanoidSeatedConn = child.Seated:connect(function(active, seat) onSeated(child, active, seat) end)
+				HumanoidSeatedConn = child.Seated:Connect(function(active, seat) onSeated(child, active, seat) end)
 				if child.SeatPart then
 					onSeated(child, true, child.SeatPart)
 				end
 			end
 		end
 
-		CharacterChildAddedConn = character.ChildAdded:connect(function(child)
+		CharacterChildAddedConn = character.ChildAdded:Connect(function(child)
 			OnCharacterChildAdded(child)
 		end)
-		CharacterChildRemovedConn = character.ChildRemoved:connect(function(child)
+		CharacterChildRemovedConn = character.ChildRemoved:Connect(function(child)
 			if UIS.TouchEnabled then
 				if child:IsA('Tool') then
 					child.ManualActivationOnly = false
@@ -1054,7 +1011,7 @@ local function CreateClickToMoveModule()
 
 	local Running = false
 
-	function this:Stop()
+	function this:Disable()
 		if Running then
 			DisconnectEvents()
 			CleanupPath()
@@ -1073,25 +1030,23 @@ local function CreateClickToMoveModule()
 			Running = false
 		end
 	end
+	function this:Stop()
+		this:Disable()
+	end
 
-	function this:Start()
+	function this:Enable()
 		if not Running then
 			if Player.Character then -- retro-listen
 				OnCharacterAdded(Player.Character)
 			end
-			OnCharacterAddedConn = Player.CharacterAdded:connect(OnCharacterAdded)
+			OnCharacterAddedConn = Player.CharacterAdded:Connect(OnCharacterAdded)
 			Running = true
 		end
 	end
-
-	function this:Enable()
-		self:Start()
+	function this:Start()
+		this:Enable()
 	end
 	
-	function this:Disable()
-		self:Stop()
-	end
-
 	function this:GetName()
 		return DEBUG_NAME
 	end

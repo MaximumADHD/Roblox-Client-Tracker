@@ -22,8 +22,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
-local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
-
 local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers")
 
 ------------ Constants -------------------
@@ -113,10 +111,8 @@ local function Initialize()
 					friendLabel.ImageTransparency = 1
 					friendLabelText.Text = ""
 					if localPlayer and player then
-                        if thePowerOfFriendship then
-                            AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-                            AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
-                        end
+                        AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+                        AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
                         
 						localPlayer:RequestFriendship(player)
 					end
@@ -169,10 +165,8 @@ local function Initialize()
 					addFriendButton.ImageTransparency = 1
 					addFriendImage.ImageTransparency = 1
 					if localPlayer and player then
-                        if thePowerOfFriendship then
-                            AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-                            AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
-                        end
+                        AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+                        AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
                         
 						localPlayer:RequestFriendship(player)
 					end

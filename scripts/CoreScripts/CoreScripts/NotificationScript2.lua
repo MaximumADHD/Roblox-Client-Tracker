@@ -53,8 +53,6 @@ local newNotificationPath = getNewNotificationPathSuccess and newNotificationPat
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
-local thePowerOfFriendship = settings():GetFFlag("ThePowerOfFriendship")
-
 --[[ Script Variables ]]--
 local LocalPlayer = nil
 while not Players.LocalPlayer do
@@ -592,17 +590,13 @@ local function sendFriendNotification(fromPlayer)
 			Duration = 8,
 			Callback = function(buttonChosen)
 				if buttonChosen == acceptText then
-                    if thePowerOfFriendship then
-                        AnalyticsService:ReportCounter("NotificationScript-RequestFriendship")
-                        AnalyticsService:TrackEvent("Game", "RequestFriendship", "NotificationScript")
-                    end
+                    AnalyticsService:ReportCounter("NotificationScript-RequestFriendship")
+                    AnalyticsService:TrackEvent("Game", "RequestFriendship", "NotificationScript")
                     
 					LocalPlayer:RequestFriendship(fromPlayer)
 				else
-                    if thePowerOfFriendship then
-                        AnalyticsService:ReportCounter("NotificationScript-RevokeFriendship")
-                        AnalyticsService:TrackEvent("Game", "RevokeFriendship", "NotificationScript")
-                    end
+                    AnalyticsService:ReportCounter("NotificationScript-RevokeFriendship")
+                    AnalyticsService:TrackEvent("Game", "RevokeFriendship", "NotificationScript")
                     
 					LocalPlayer:RevokeFriendship(fromPlayer)
 					FriendRequestBlacklist[fromPlayer] = true

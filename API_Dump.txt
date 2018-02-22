@@ -702,7 +702,9 @@ Class GuiBase2d : GuiBase [notbrowsable]
 	Property Vector2 GuiBase2d.AbsolutePosition [readonly]
 	Property float GuiBase2d.AbsoluteRotation [readonly]
 	Property Vector2 GuiBase2d.AbsoluteSize [readonly]
-	Property bool GuiBase2d.Localize [hidden]
+	Property bool GuiBase2d.AutoLocalize [hidden]
+	Property bool GuiBase2d.Localize [deprecated] [hidden]
+	Property Object GuiBase2d.RootLocalizationTable [hidden]
 Class GuiObject : GuiBase2d [notbrowsable]
 	Property bool GuiObject.Active
 	Property Vector2 GuiObject.AnchorPoint
@@ -790,6 +792,7 @@ Class TextButton : GuiButton
 	Property Color3 TextButton.TextStrokeColor3
 	Property float TextButton.TextStrokeTransparency
 	Property float TextButton.TextTransparency
+	Property TextTruncate TextButton.TextTruncate
 	Property bool TextButton.TextWrap [deprecated]
 	Property bool TextButton.TextWrapped
 	Property TextXAlignment TextButton.TextXAlignment
@@ -821,6 +824,7 @@ Class TextLabel : GuiLabel
 	Property Color3 TextLabel.TextStrokeColor3
 	Property float TextLabel.TextStrokeTransparency
 	Property float TextLabel.TextTransparency
+	Property TextTruncate TextLabel.TextTruncate
 	Property bool TextLabel.TextWrap [deprecated]
 	Property bool TextLabel.TextWrapped
 	Property TextXAlignment TextLabel.TextXAlignment
@@ -863,6 +867,7 @@ Class TextBox : GuiObject
 	Property Color3 TextBox.TextStrokeColor3
 	Property float TextBox.TextStrokeTransparency
 	Property float TextBox.TextTransparency
+	Property TextTruncate TextBox.TextTruncate
 	Property bool TextBox.TextWrap [deprecated]
 	Property bool TextBox.TextWrapped
 	Property TextXAlignment TextBox.TextXAlignment
@@ -891,6 +896,7 @@ Class BillboardGui : LayerCollector
 	Property Vector3 BillboardGui.StudsOffset
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
 Class PluginGui : LayerCollector
+	Property bool PluginGui.HostWidgetWasRestored [readonly]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.ResetOnSpawn
@@ -1296,7 +1302,9 @@ Class Lighting : Instance [notCreatable]
 	Event Lighting.LightingChanged(bool skyboxChanged)
 Class LocalWorkspace : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
+	Property string LocalizationService.ForcePlayModeRobloxLocaleId [LocalUserSecurity]
 	Property bool LocalizationService.IsTextScraperRunning [hidden] [readonly] [RobloxScriptSecurity]
+	Property string LocalizationService.RobloxForcePlayModeRobloxLocaleId [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxLocaleId [readonly]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
@@ -1307,16 +1315,24 @@ Class LocalizationService : Instance [notCreatable]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
 Class LocalizationTable : Instance
 	Property string LocalizationTable.DevelopmentLanguage [deprecated] [hidden]
-	Property Object LocalizationTable.Root
+	Property Object LocalizationTable.Root [deprecated] [hidden]
 	Property string LocalizationTable.SourceLocaleId
-	Function string LocalizationTable:GetContents()
+	Function string LocalizationTable:GetContents() [deprecated]
 	Function Array LocalizationTable:GetEntries()
-	Function string LocalizationTable:GetString(string targetLocaleId, string key)
+	Function string LocalizationTable:GetString(string targetLocaleId, string key) [deprecated]
 	Function Instance LocalizationTable:GetTranslator(string localeId)
-	Function void LocalizationTable:RemoveKey(string key)
-	Function void LocalizationTable:SetContents(string contents)
+	Function void LocalizationTable:RemoveEntry(string key, string source, string context)
+	Function void LocalizationTable:RemoveEntryValue(string key, string source, string context, string localeId)
+	Function void LocalizationTable:RemoveKey(string key) [deprecated]
+	Function void LocalizationTable:RemoveTargetLocale(string localeId)
+	Function void LocalizationTable:SetContents(string contents) [deprecated]
 	Function void LocalizationTable:SetEntries(Variant entries)
-	Function void LocalizationTable:SetEntry(string key, string targetLocaleId, string text)
+	Function void LocalizationTable:SetEntry(string key, string targetLocaleId, string text) [deprecated]
+	Function void LocalizationTable:SetEntryContext(string key, string source, string context, string newContext)
+	Function void LocalizationTable:SetEntryExample(string key, string source, string context, string example)
+	Function void LocalizationTable:SetEntryKey(string key, string source, string context, string newKey)
+	Function void LocalizationTable:SetEntrySource(string key, string source, string context, string newSource)
+	Function void LocalizationTable:SetEntryValue(string key, string source, string context, string localeId, string text)
 Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
 	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]
@@ -1958,7 +1974,6 @@ Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
-	Function Instance Plugin:CreatePluginGui(string pluginGuiName, bool restoreEnabledState, bool initialEnabledState) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
 	Function Instance Plugin:GetMouse() [PluginSecurity]
@@ -1974,6 +1989,7 @@ Class Plugin : Instance
 	Function Objects Plugin:Separate(Objects objects) [PluginSecurity]
 	Function void Plugin:SetSetting(string key, Variant value) [PluginSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
+	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]
 	YieldFunction Instance Plugin:ImportFbxRig() [PluginSecurity]
 	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
@@ -2161,7 +2177,7 @@ Class DataModel : ServiceProvider
 	Property int64 DataModel.PlaceId [readonly]
 	Property int DataModel.PlaceVersion [readonly]
 	Property string DataModel.VIPServerId [readonly]
-	Property int DataModel.VIPServerOwnerId [readonly]
+	Property int64 DataModel.VIPServerOwnerId [readonly]
 	Property Object DataModel.Workspace [readonly]
 	Property Object DataModel.lighting [deprecated] [readonly]
 	Property Object DataModel.workspace [deprecated] [readonly]
@@ -3169,6 +3185,12 @@ Enum InfoType
 	EnumItem InfoType.Asset : 0
 	EnumItem InfoType.Product : 1
 	EnumItem InfoType.GamePass : 2
+Enum InitialDockState
+	EnumItem InitialDockState.Top : 0
+	EnumItem InitialDockState.Bottom : 1
+	EnumItem InitialDockState.Left : 2
+	EnumItem InitialDockState.Right : 3
+	EnumItem InitialDockState.Float : 4
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.LeftTread : 1
@@ -3861,6 +3883,9 @@ Enum TeleportType
 	EnumItem TeleportType.ToPlace : 0
 	EnumItem TeleportType.ToInstance : 1
 	EnumItem TeleportType.ToReservedServer : 2
+Enum TextTruncate
+	EnumItem TextTruncate.None : 0
+	EnumItem TextTruncate.AtEnd : 1
 Enum TextXAlignment
 	EnumItem TextXAlignment.Left : 0
 	EnumItem TextXAlignment.Center : 2

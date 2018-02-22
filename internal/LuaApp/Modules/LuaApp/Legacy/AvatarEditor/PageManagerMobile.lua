@@ -518,7 +518,6 @@ if AvatarEditorCatalogRecommended then
 
 				local pressFunction = makeShopPressFunction( currentPage.shopUrl )
 				shopInCatalogButton.MouseButton1Click:connect( pressFunction )
-				shopInCatalogButton.TouchLongPress:connect( pressFunction )
 			end
 end
 
@@ -607,7 +606,6 @@ if AvatarEditorCatalogRecommended then
 
 				local pressFunction = makeShopPressFunction( currentPage.shopUrl )
 				shopNowButton.MouseButton1Click:connect( pressFunction )
-				shopNowButton.TouchLongPress:connect( pressFunction )
 
 				local recommendedAssetListRequest =
 					Utilities.httpGet(

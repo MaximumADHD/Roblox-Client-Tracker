@@ -9,7 +9,7 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService('UserInputService')
 local Lighting = game:GetService('Lighting')
 
-local XboxFixSkyboxCycle = settings():GetFFlag("XboxFixSkyboxCycle")
+local XboxFixSkyboxCycle2 = settings():GetFFlag("XboxFixSkyboxCycle2")
 local AvatarEditorUseNewScene = settings():GetFFlag("AvatarEditorUseNewScene")
 
 local BackgroundTintColor = Color3.new(0.0784, 0.1686, 0.2353)
@@ -217,7 +217,7 @@ local function CameraSeriesAnimator(cameraSeries, length)
 	end
 
 	local runCameraSeries = function() end
-	if not XboxFixSkyboxCycle then
+	if not XboxFixSkyboxCycle2 then
 		runCameraSeries = function(transitionDuration)
 			local tween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, 0.5, 4, Utility.EaseInOutQuad, true)
 			table.insert(tweenTable, tween)
@@ -270,7 +270,7 @@ local function CameraSeriesAnimator(cameraSeries, length)
 				newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize,  10, transitionDuration, Utility.EaseInOutQuad, true)
 				table.insert(tweenTable, newTween)
 				advance()
-			elseif timePassed >= length - transitionDuration then
+			elseif timePassed >= length - transitionDuration and #tweenTable == 0 then
 				local newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, -1, transitionDuration, Utility.EaseInOutQuad, true)
 				table.insert(tweenTable, newTween)
 				newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize, 50, transitionDuration, Utility.EaseInOutQuad, true)
@@ -291,7 +291,7 @@ local function CameraSeriesAnimator(cameraSeries, length)
 
 	function this:Start()
 		isRunning = true
-		if XboxFixSkyboxCycle then
+		if XboxFixSkyboxCycle2 then
 			startCameraSeries()
 			RunService:BindToRenderStep("runCameraSeries", Enum.RenderPriority.Camera.Value + 1, function()
 				runCameraSeries(1.7)
@@ -313,7 +313,7 @@ local function CameraSeriesAnimator(cameraSeries, length)
 			Contrast = 0.5;
 			BlurSize = 10;
 		}
-		if XboxFixSkyboxCycle then
+		if XboxFixSkyboxCycle2 then
 			RunService:UnbindFromRenderStep("runCameraSeries")
 		end
 	end

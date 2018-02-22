@@ -215,7 +215,7 @@ content/models/AvatarContextMenu/AvatarContextArrow.rbxm
 [5163 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
-[11274 bytes]
+[11320 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6771 bytes]
@@ -224,7 +224,7 @@ content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
 [8991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
-[11079 bytes]
+[10952 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
 [35355 bytes]
@@ -236,13 +236,13 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [24298 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[39829 bytes]
+[39587 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[66068 bytes]
+[66069 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
 [42578 bytes]
@@ -272,7 +272,7 @@ content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuGui.lua
 [8887 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuItems.lua
-[10319 bytes]
+[10912 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuUtil.lua
 [8396 bytes]
@@ -293,7 +293,7 @@ content/scripts/CoreScripts/Modules/BusinessLogic.lua
 [281 bytes]
 
 content/scripts/CoreScripts/Modules/Chat.lua
-[103594 bytes]
+[101481 bytes]
 
 content/scripts/CoreScripts/Modules/ChatSelector.lua
 [5602 bytes]
@@ -323,10 +323,10 @@ content/scripts/CoreScripts/Modules/NewChat.lua
 [10439 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[24102 bytes]
+[23777 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[65701 bytes]
+[65402 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -371,7 +371,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [740 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[340 bytes]
+[529 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
 [4691 bytes]
@@ -458,10 +458,13 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
 [14165 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
-[2624 bytes]
+[3147 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
 [13094 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatLocalization.lua
+[28561 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatCommandsTeller.lua
 [3196 bytes]
@@ -509,7 +512,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[45991 bytes]
+[45736 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [31810 bytes]
@@ -521,7 +524,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4841 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21829 bytes]
+[21571 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5796 bytes]
@@ -713,7 +716,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.l
 [4604 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/ClickToMoveController.lua
-[31256 bytes]
+[31125 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DPad.lua
 [5125 bytes]
@@ -1383,6 +1386,18 @@ content/textures/slate/specular.dds
 
 content/textures/sparkle.png
 [1072 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeDiagonalDown.png
+[1363 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeDiagonalUp.png
+[1351 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeHorizontal.png
+[1172 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeVertical.png
+[1200 bytes]
 
 content/textures/StudioUIEditor/sizeBoxRoundedRectangle.png
 [212 bytes]
