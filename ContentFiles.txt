@@ -1,20 +1,20 @@
 content/avatar/anthro/characterNarrowBladeHands.rbxm
-[121015 bytes]
+[117134 bytes]
 
 content/avatar/anthro/characterNarrowFlatHands.rbxm
-[120700 bytes]
+[116819 bytes]
 
 content/avatar/anthro/characterWideBladeHands.rbxm
-[120903 bytes]
+[117022 bytes]
 
 content/avatar/anthro/characterWideFlatHands.rbxm
-[120922 bytes]
+[117041 bytes]
 
 content/avatar/character.rbxm
-[27838 bytes]
+[26887 bytes]
 
 content/avatar/characterR15.rbxm
-[74479 bytes]
+[72148 bytes]
 
 content/avatar/compositing/CompositExtraSlot0.mesh
 [817 bytes]
@@ -140,16 +140,16 @@ content/avatar/meshes/torso.mesh
 [2049 bytes]
 
 content/avatar/scripts/characterSound.rbxmx
-[11417 bytes]
+[11052 bytes]
 
 content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
-[19911 bytes]
+[19248 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[33616 bytes]
+[32599 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
-[1338 bytes]
+[1307 bytes]
 
 content/fonts/AccanthisADFStd-Regular.otf
 [51166 bytes]
@@ -164,22 +164,22 @@ content/fonts/Balthazar-Regular.ttf
 [28117 bytes]
 
 content/fonts/characterCameraScript.rbxmx
-[154142 bytes]
+[149131 bytes]
 
 content/fonts/characterControlScript.rbxmx
-[82801 bytes]
+[80335 bytes]
 
 content/fonts/ComicNeue-Angular-Bold.ttf
 [61983 bytes]
 
 content/fonts/gamecontrollerdb.txt
-[24066 bytes]
+[23978 bytes]
 
 content/fonts/Guru-Regular.otf
 [693972 bytes]
 
 content/fonts/humanoidSoundNewLocal.rbxmx
-[5774 bytes]
+[5584 bytes]
 
 content/fonts/HWYGOTH.ttf
 [52488 bytes]
@@ -211,545 +211,2855 @@ content/fonts/SourceSansPro-Semibold.ttf
 content/fonts/zekton_rg.ttf
 [86820 bytes]
 
-content/models/AvatarContextMenu/AvatarContextArrow.rbxm
-[5163 bytes]
+content/internal/AppShell/Modules/Shell/AccountAgeWidget.lua
+[1959 bytes]
 
-content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
-[11320 bytes]
+content/internal/AppShell/Modules/Shell/AccountLinkingView.lua
+[9035 bytes]
 
-content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
-[6771 bytes]
+content/internal/AppShell/Modules/Shell/AccountManager.lua
+[5897 bytes]
 
-content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
-[8991 bytes]
+content/internal/AppShell/Modules/Shell/AccountScreen.lua
+[3500 bytes]
 
-content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
-[10952 bytes]
+content/internal/AppShell/Modules/Shell/AchievementManager.lua
+[13142 bytes]
 
-content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
-[35355 bytes]
+content/internal/AppShell/Modules/Shell/Actions/SetRobloxUser.lua
+[268 bytes]
 
-content/scripts/CoreScripts/CoreScripts/HealthScript.lua
-[10198 bytes]
+content/internal/AppShell/Modules/Shell/Actions/SetRobloxUser.spec.lua
+[1489 bytes]
 
-content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
-[24298 bytes]
+content/internal/AppShell/Modules/Shell/Actions/SetUnder13.lua
+[186 bytes]
 
-content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[39587 bytes]
+content/internal/AppShell/Modules/Shell/Actions/SetUnder13.spec.lua
+[747 bytes]
 
-content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
-[6524 bytes]
+content/internal/AppShell/Modules/Shell/Actions/SetXboxUser.lua
+[228 bytes]
 
-content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[66069 bytes]
+content/internal/AppShell/Modules/Shell/Actions/SetXboxUser.spec.lua
+[1229 bytes]
 
-content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[42578 bytes]
+content/internal/AppShell/Modules/Shell/Alerts.lua
+[3553 bytes]
 
-content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
-[5805 bytes]
+content/internal/AppShell/Modules/Shell/Analytics.lua
+[5013 bytes]
 
-content/scripts/CoreScripts/Libraries/RbxGui.lua
-[139720 bytes]
+content/internal/AppShell/Modules/Shell/AppContainer.lua
+[2052 bytes]
 
-content/scripts/CoreScripts/Libraries/RbxStamper.lua
-[83818 bytes]
+content/internal/AppShell/Modules/Shell/AppHome.lua
+[7870 bytes]
 
-content/scripts/CoreScripts/Libraries/RbxUtility.lua
-[37002 bytes]
+content/internal/AppShell/Modules/Shell/AppHub.lua
+[15310 bytes]
 
-content/scripts/CoreScripts/LoadingScript.lua
-[28439 bytes]
+content/internal/AppShell/Modules/Shell/AppState.lua
+[543 bytes]
 
-content/scripts/CoreScripts/MergeSort.lua
-[808 bytes]
+content/internal/AppShell/Modules/Shell/AssetManager.lua
+[3233 bytes]
 
-content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
-[14612 bytes]
+content/internal/AppShell/Modules/Shell/AvatarEditorScreen.lua
+[4662 bytes]
 
-content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuGui.lua
-[8887 bytes]
+content/internal/AppShell/Modules/Shell/AvatarEditorView.lua
+[17785 bytes]
 
-content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuItems.lua
+content/internal/AppShell/Modules/Shell/AvatarPane.lua
+[23564 bytes]
+
+content/internal/AppShell/Modules/Shell/AvatarTile.lua
+[7515 bytes]
+
+content/internal/AppShell/Modules/Shell/BackgroundSceneManager.lua
+[2276 bytes]
+
+content/internal/AppShell/Modules/Shell/BadgeOverlay.lua
+[4761 bytes]
+
+content/internal/AppShell/Modules/Shell/BadgeScreen.lua
+[3852 bytes]
+
+content/internal/AppShell/Modules/Shell/BadgeSort.lua
+[5444 bytes]
+
+content/internal/AppShell/Modules/Shell/BaseCarouselScreen.lua
+[15384 bytes]
+
+content/internal/AppShell/Modules/Shell/BaseOverlay.lua
+[4648 bytes]
+
+content/internal/AppShell/Modules/Shell/BaseScreen.lua
+[5226 bytes]
+
+content/internal/AppShell/Modules/Shell/BaseSignInScreen.lua
+[7940 bytes]
+
+content/internal/AppShell/Modules/Shell/BaseTile.lua
+[3367 bytes]
+
+content/internal/AppShell/Modules/Shell/CachedData.lua
+[1705 bytes]
+
+content/internal/AppShell/Modules/Shell/CameraManager.lua
+[12378 bytes]
+
+content/internal/AppShell/Modules/Shell/CameraManagerModules/CameraManager_ZoneManager.lua
+[2168 bytes]
+
+content/internal/AppShell/Modules/Shell/CameraManagerModules/CameraManager_Zones/CameraManagerZone_City.lua
+[4860 bytes]
+
+content/internal/AppShell/Modules/Shell/CameraManagerModules/CameraManager_Zones/CameraManagerZone_Space.lua
+[3449 bytes]
+
+content/internal/AppShell/Modules/Shell/CameraManagerModules/CameraManager_Zones/CameraManagerZone_Volcano.lua
+[1198 bytes]
+
+content/internal/AppShell/Modules/Shell/CameraManagerModules/ZoneManager.lua
+[1980 bytes]
+
+content/internal/AppShell/Modules/Shell/CarouselController.lua
+[19493 bytes]
+
+content/internal/AppShell/Modules/Shell/CarouselView.lua
+[9352 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/AccountAgeStatus.lua
+[2563 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/AccountAgeStatus.spec.lua
+[1080 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/ContextActionEvent.lua
+[1624 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/Overscan/ButtonHint.lua
+[773 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/Overscan/ControllerHint.lua
+[1247 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/Overscan/Edges.lua
+[7850 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/Overscan/Overscan.lua
+[2752 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/RenderStep.lua
+[1181 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/RenderStep.spec.lua
+[462 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/RoactScreenManagerWrapper.lua
+[1954 bytes]
+
+content/internal/AppShell/Modules/Shell/ConfirmPrompt.lua
+[14242 bytes]
+
+content/internal/AppShell/Modules/Shell/ControllerStateManager.lua
+[5256 bytes]
+
+content/internal/AppShell/Modules/Shell/CurrencyWidget.lua
+[8857 bytes]
+
+content/internal/AppShell/Modules/Shell/DisableCrossplayOverlay.lua
+[4871 bytes]
+
+content/internal/AppShell/Modules/Shell/EnableCrossplayOverlay.lua
+[3190 bytes]
+
+content/internal/AppShell/Modules/Shell/EngagementScreen.lua
+[11652 bytes]
+
+content/internal/AppShell/Modules/Shell/ErrorOverlay.lua
+[4443 bytes]
+
+content/internal/AppShell/Modules/Shell/Errors.lua
+[9240 bytes]
+
+content/internal/AppShell/Modules/Shell/EventHub.lua
+[5859 bytes]
+
+content/internal/AppShell/Modules/Shell/FriendPresenceItem.lua
+[8339 bytes]
+
+content/internal/AppShell/Modules/Shell/FriendsData.lua
+[7168 bytes]
+
+content/internal/AppShell/Modules/Shell/FriendsView.lua
+[5733 bytes]
+
+content/internal/AppShell/Modules/Shell/GameCarouselItem.lua
+[9453 bytes]
+
+content/internal/AppShell/Modules/Shell/GameData.lua
+[24722 bytes]
+
+content/internal/AppShell/Modules/Shell/GameDetailScreen.lua
+[42066 bytes]
+
+content/internal/AppShell/Modules/Shell/GameGenreScreen.lua
+[770 bytes]
+
+content/internal/AppShell/Modules/Shell/GameJoin.lua
+[4185 bytes]
+
+content/internal/AppShell/Modules/Shell/GameplaySettingsData.lua
+[1020 bytes]
+
+content/internal/AppShell/Modules/Shell/GameplaySettingsView.lua
+[6311 bytes]
+
+content/internal/AppShell/Modules/Shell/GameSearchScreen.lua
+[3125 bytes]
+
+content/internal/AppShell/Modules/Shell/GameSort.lua
+[11321 bytes]
+
+content/internal/AppShell/Modules/Shell/GamesPane.lua
+[6440 bytes]
+
+content/internal/AppShell/Modules/Shell/GamesPaneDetailsView.lua
+[13566 bytes]
+
+content/internal/AppShell/Modules/Shell/GamesScrollingGrid.lua
+[13760 bytes]
+
+content/internal/AppShell/Modules/Shell/GamesView.lua
+[15624 bytes]
+
+content/internal/AppShell/Modules/Shell/GlobalSettings.lua
+[3988 bytes]
+
+content/internal/AppShell/Modules/Shell/HeroStatsManager.lua
+[3573 bytes]
+
+content/internal/AppShell/Modules/Shell/HintActionView.lua
+[3864 bytes]
+
+content/internal/AppShell/Modules/Shell/HomePane.lua
+[17581 bytes]
+
+content/internal/AppShell/Modules/Shell/Http.lua
+[26965 bytes]
+
+content/internal/AppShell/Modules/Shell/ImageOverlay.lua
+[7383 bytes]
+
+content/internal/AppShell/Modules/Shell/LegacyEngagementScreen.lua
+[7961 bytes]
+
+content/internal/AppShell/Modules/Shell/LinkAccountScreen.lua
+[5131 bytes]
+
+content/internal/AppShell/Modules/Shell/LoadingWidget.lua
+[2388 bytes]
+
+content/internal/AppShell/Modules/Shell/LocalizedStrings.lua
+[1723 bytes]
+
+content/internal/AppShell/Modules/Shell/LockedGameCarouselView.lua
+[3144 bytes]
+
+content/internal/AppShell/Modules/Shell/LockedGameSortView.lua
+[3093 bytes]
+
+content/internal/AppShell/Modules/Shell/NoActionOverlay.lua
+[4224 bytes]
+
+content/internal/AppShell/Modules/Shell/NotificationHandler.lua
+[2924 bytes]
+
+content/internal/AppShell/Modules/Shell/OutfitData.lua
+[3237 bytes]
+
+content/internal/AppShell/Modules/Shell/OutfitTile.lua
+[3070 bytes]
+
+content/internal/AppShell/Modules/Shell/OverscanScreen.lua
+[14976 bytes]
+
+content/internal/AppShell/Modules/Shell/PackageData.lua
+[27025 bytes]
+
+content/internal/AppShell/Modules/Shell/PlatformCatalogData.lua
+[2425 bytes]
+
+content/internal/AppShell/Modules/Shell/PlatformInterface.lua
+[1024 bytes]
+
+content/internal/AppShell/Modules/Shell/PopupText.lua
+[3546 bytes]
+
+content/internal/AppShell/Modules/Shell/PostProcessing.lua
+[1625 bytes]
+
+content/internal/AppShell/Modules/Shell/PurchasePackagePrompt.lua
+[17466 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/ActiveUser.lua
+[348 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/ActiveUser.spec.lua
+[1090 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/AppShellReducer.lua
+[300 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/AppShellReducer.spec.lua
+[318 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/RobloxUserReducer.lua
+[447 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/RobloxUserReducer.spec.lua
+[1487 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/XboxUserReducer.lua
+[362 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/XboxUserReducer.spec.lua
+[1264 bytes]
+
+content/internal/AppShell/Modules/Shell/ReloaderManager.lua
+[4895 bytes]
+
+content/internal/AppShell/Modules/Shell/ReportOverlay.lua
+[5571 bytes]
+
+content/internal/AppShell/Modules/Shell/RobuxBalanceOverlay.lua
+[6724 bytes]
+
+content/internal/AppShell/Modules/Shell/ScreenManager.lua
+[7401 bytes]
+
+content/internal/AppShell/Modules/Shell/ScrollingGrid.lua
+[30500 bytes]
+
+content/internal/AppShell/Modules/Shell/ScrollingGridOld.lua
+[29770 bytes]
+
+content/internal/AppShell/Modules/Shell/ScrollingTextBox.lua
+[6387 bytes]
+
+content/internal/AppShell/Modules/Shell/SetAccountCredentialsScreen.lua
+[9382 bytes]
+
+content/internal/AppShell/Modules/Shell/SettingsScreen.lua
+[4175 bytes]
+
+content/internal/AppShell/Modules/Shell/SideBar.lua
+[5703 bytes]
+
+content/internal/AppShell/Modules/Shell/SignInScreen.lua
+[8728 bytes]
+
+content/internal/AppShell/Modules/Shell/SiteInfoWidget.lua
+[2510 bytes]
+
+content/internal/AppShell/Modules/Shell/SiteInfoWidgetOld.lua
+[1930 bytes]
+
+content/internal/AppShell/Modules/Shell/SocialPane.lua
+[6949 bytes]
+
+content/internal/AppShell/Modules/Shell/SortsData.lua
+[36289 bytes]
+
+content/internal/AppShell/Modules/Shell/SoundManager.lua
+[4870 bytes]
+
+content/internal/AppShell/Modules/Shell/StorePane.lua
+[18198 bytes]
+
+content/internal/AppShell/Modules/Shell/TabDock.lua
+[9254 bytes]
+
+content/internal/AppShell/Modules/Shell/TabDockItem.lua
+[3983 bytes]
+
+content/internal/AppShell/Modules/Shell/Templates/BaseScreen.lua
+[2985 bytes]
+
+content/internal/AppShell/Modules/Shell/Templates/SettingsScreenBase.lua
+[3363 bytes]
+
+content/internal/AppShell/Modules/Shell/Templates/SettingsScreenConsole.lua
+[5303 bytes]
+
+content/internal/AppShell/Modules/Shell/Templates/SettingsScreenVR.lua
+[2783 bytes]
+
+content/internal/AppShell/Modules/Shell/TextBox.lua
+[5369 bytes]
+
+content/internal/AppShell/Modules/Shell/ThumbnailLoader.lua
+[7479 bytes]
+
+content/internal/AppShell/Modules/Shell/UnlinkAccountOverlay.lua
+[5366 bytes]
+
+content/internal/AppShell/Modules/Shell/UnlinkAccountScreen.lua
+[6535 bytes]
+
+content/internal/AppShell/Modules/Shell/UserData.lua
+[5999 bytes]
+
+content/internal/AppShell/Modules/Shell/Utility.lua
+[16721 bytes]
+
+content/internal/AppShell/Modules/Shell/VoteFrame.lua
+[4223 bytes]
+
+content/internal/AppShell/Modules/Shell/VoteView.lua
+[9526 bytes]
+
+content/internal/AppShell/Modules/Shell/Widgets/MoreButton.lua
+[1839 bytes]
+
+content/internal/AppShell/VRAppShellStarterScript.lua
+[899 bytes]
+
+content/internal/AppShell/XStarterScript.lua
+[332 bytes]
+
+content/internal/AppShellLocalization/Modules/de.lua
+[18398 bytes]
+
+content/internal/AppShellLocalization/Modules/en-US.lua
+[16867 bytes]
+
+content/internal/AppShellLocalization/Modules/es.lua
+[17954 bytes]
+
+content/internal/AppShellLocalization/Modules/fr.lua
+[18362 bytes]
+
+content/internal/AppShellLocalization/Modules/it.lua
+[17192 bytes]
+
+content/internal/AppShellLocalization/Modules/ja.lua
+[11775 bytes]
+
+content/internal/AppShellLocalization/Modules/pt-BR.lua
+[17137 bytes]
+
+content/internal/AppShellLocalization/Modules/ru.lua
+[17428 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-box-shadow.png
+[196 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-box-shadow@2x.png
+[348 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-box-shadow@3x.png
+[498 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-circle-shadow.png
+[1006 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-circle-shadow@2x.png
+[2214 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-circle-shadow@3x.png
+[3898 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-circle-white.png
+[331 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-circle-white@2x.png
+[645 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-circle-white@3x.png
+[1155 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-ring-selector.png
+[772 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-ring-selector@2x.png
+[1996 bytes]
+
+content/internal/AvatarEditorIcons/ColorSelection/gr-ring-selector@3x.png
+[3314 bytes]
+
+content/internal/AvatarEditorIcons/ic-avatareditor.png
+[846 bytes]
+
+content/internal/AvatarEditorIcons/ic-avatareditor-filled.png
+[757 bytes]
+
+content/internal/AvatarEditorIcons/ic-back.png
+[261 bytes]
+
+content/internal/AvatarEditorIcons/ic-back-white.png
+[255 bytes]
+
+content/internal/AvatarEditorIcons/ic-bundle.png
+[778 bytes]
+
+content/internal/AvatarEditorIcons/ic-bundle-white.png
+[613 bytes]
+
+content/internal/AvatarEditorIcons/ic-close.png
+[371 bytes]
+
+content/internal/AvatarEditorIcons/ic-close-white.png
+[367 bytes]
+
+content/internal/AvatarEditorIcons/ic-color.png
+[1086 bytes]
+
+content/internal/AvatarEditorIcons/ic-color-filled.png
+[953 bytes]
+
+content/internal/AvatarEditorIcons/ic-download.png
+[389 bytes]
+
+content/internal/AvatarEditorIcons/ic-face.png
+[849 bytes]
+
+content/internal/AvatarEditorIcons/ic-face-white.png
+[660 bytes]
+
+content/internal/AvatarEditorIcons/ic-gear.png
+[603 bytes]
+
+content/internal/AvatarEditorIcons/ic-gear-white.png
+[453 bytes]
+
+content/internal/AvatarEditorIcons/ic-hat.png
+[388 bytes]
+
+content/internal/AvatarEditorIcons/ic-hat-gray4.png
+[382 bytes]
+
+content/internal/AvatarEditorIcons/ic-hat-white.png
+[301 bytes]
+
+content/internal/AvatarEditorIcons/ic-head.png
+[611 bytes]
+
+content/internal/AvatarEditorIcons/ic-head-white.png
+[453 bytes]
+
+content/internal/AvatarEditorIcons/ic-history.png
+[769 bytes]
+
+content/internal/AvatarEditorIcons/ic-history-white.png
+[581 bytes]
+
+content/internal/AvatarEditorIcons/ic-leftarm.png
+[609 bytes]
+
+content/internal/AvatarEditorIcons/ic-leftarm-white.png
+[446 bytes]
+
+content/internal/AvatarEditorIcons/ic-leftleg.png
+[506 bytes]
+
+content/internal/AvatarEditorIcons/ic-leftleg-white.png
+[385 bytes]
+
+content/internal/AvatarEditorIcons/ic-pant.png
+[542 bytes]
+
+content/internal/AvatarEditorIcons/ic-pant-white.png
+[421 bytes]
+
+content/internal/AvatarEditorIcons/ic-rewind.png
+[708 bytes]
+
+content/internal/AvatarEditorIcons/ic-rightarm.png
+[613 bytes]
+
+content/internal/AvatarEditorIcons/ic-rightarm-white.png
+[439 bytes]
+
+content/internal/AvatarEditorIcons/ic-rightleg.png
+[515 bytes]
+
+content/internal/AvatarEditorIcons/ic-rightleg-white.png
+[383 bytes]
+
+content/internal/AvatarEditorIcons/ic-robux.png
+[972 bytes]
+
+content/internal/AvatarEditorIcons/ic-robux-filled.png
+[802 bytes]
+
+content/internal/AvatarEditorIcons/ic-scale.png
+[184 bytes]
+
+content/internal/AvatarEditorIcons/ic-scale@2x.png
+[258 bytes]
+
+content/internal/AvatarEditorIcons/ic-scale-filled.png
+[157 bytes]
+
+content/internal/AvatarEditorIcons/ic-scale-filled@2x.png
+[188 bytes]
+
+content/internal/AvatarEditorIcons/ic-search.png
+[683 bytes]
+
+content/internal/AvatarEditorIcons/ic-star.png
+[766 bytes]
+
+content/internal/AvatarEditorIcons/ic-star-filled.png
+[576 bytes]
+
+content/internal/AvatarEditorIcons/ic-tee.png
+[497 bytes]
+
+content/internal/AvatarEditorIcons/ic-tee-white.png
+[378 bytes]
+
+content/internal/AvatarEditorIcons/ic-torso.png
+[645 bytes]
+
+content/internal/AvatarEditorIcons/ic-torso-white.png
+[499 bytes]
+
+content/internal/AvatarEditorIcons/ic-tshirt.png
+[732 bytes]
+
+content/internal/AvatarEditorIcons/ic-tshirt-white.png
+[604 bytes]
+
+content/internal/AvatarEditorIcons/ingame/btn-expand.png
+[295 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-button.png
+[332 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-button@2x.png
+[513 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-frame.png
+[299 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-frame@2x.png
+[504 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-card corner.png
+[211 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-card corner@2x.png
+[405 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-category-selector.png
+[562 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-category-selector@2x.png
+[1241 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-corner.png
+[440 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-half-circle.png
+[787 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-half-circle@2x.png
+[1690 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-orange-circle.png
+[488 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-orange-circle@2x.png
+[1246 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-ring01.png
+[612 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-ring01@2x.png
+[1190 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-tail.png
+[104 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-tail@2x.png
+[152 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-back-white.png
+[194 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-back-white@2x.png
+[266 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-close.png
+[149 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-close@2x.png
+[208 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-up-black.png
+[208 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-up-black@2x.png
+[289 bytes]
+
+content/internal/AvatarEditorIcons/ingame/img-selector-box.png
+[400 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb.png
+[340 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb@2x.png
+[606 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on.png
+[289 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on@2x.png
+[447 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall.png
+[405 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall@2x.png
+[727 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on.png
+[301 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on@2x.png
+[482 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle.png
+[343 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle@2x.png
+[621 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on.png
+[271 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on@2x.png
+[441 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump.png
+[368 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump@2x.png
+[626 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on.png
+[277 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on@2x.png
+[451 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run.png
+[365 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run@2x.png
+[638 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on.png
+[277 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on@2x.png
+[440 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim.png
+[317 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim@2x.png
+[526 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on.png
+[253 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on@2x.png
+[401 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk.png
+[385 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk@2x.png
+[653 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on.png
+[287 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on@2x.png
+[492 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color.png
+[418 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color@2x.png
+[780 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color-on.png
+[402 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color-on@2x.png
+[688 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head.png
+[267 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head@2x.png
+[425 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head-on.png
+[222 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head-on@2x.png
+[330 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm.png
+[321 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm@2x.png
+[511 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm-on.png
+[245 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm-on@2x.png
+[390 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg.png
+[236 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg@2x.png
+[373 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg-on.png
+[191 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg-on@2x.png
+[282 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm.png
+[312 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm@2x.png
+[518 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm-on.png
+[234 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm-on@2x.png
+[369 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg.png
+[241 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg@2x.png
+[366 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg-on.png
+[198 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg-on@2x.png
+[266 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling.png
+[184 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling@2x.png
+[258 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling-on.png
+[157 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling-on@2x.png
+[209 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso.png
+[289 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso@2x.png
+[485 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso-on.png
+[238 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso-on@2x.png
+[384 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-all.png
+[166 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-all@2x.png
+[228 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-all-on.png
+[155 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-all-on@2x.png
+[214 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation.png
+[196 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation@2x.png
+[278 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation-on.png
+[188 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation-on@2x.png
+[260 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part.png
+[295 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part@2x.png
+[492 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part-on.png
+[241 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part-on@2x.png
+[345 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing.png
+[303 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing@2x.png
+[484 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing-on.png
+[246 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing-on@2x.png
+[404 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent.png
+[298 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent@2x.png
+[531 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent-on.png
+[245 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent-on@2x.png
+[425 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back.png
+[342 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back@2x.png
+[601 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back-on.png
+[270 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back-on@2x.png
+[454 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle.png
+[334 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle@2x.png
+[586 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle-on.png
+[277 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle-on@2x.png
+[475 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face.png
+[330 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face@2x.png
+[574 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face-on.png
+[257 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face-on@2x.png
+[447 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front.png
+[288 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front@2x.png
+[460 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front-on.png
+[234 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front-on@2x.png
+[359 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear.png
+[284 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear@2x.png
+[475 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear-on.png
+[225 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear-on@2x.png
+[352 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair.png
+[374 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair@2x.png
+[655 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair-on.png
+[293 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair-on@2x.png
+[488 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat.png
+[182 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat@2x.png
+[264 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat-on.png
+[150 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat-on@2x.png
+[221 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck.png
+[276 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck@2x.png
+[485 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck-on.png
+[264 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck-on@2x.png
+[427 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants.png
+[256 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants@2x.png
+[406 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants-on.png
+[212 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants-on@2x.png
+[326 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt.png
+[346 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt@2x.png
+[564 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt-on.png
+[284 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt-on@2x.png
+[488 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder.png
+[368 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder@2x.png
+[592 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder-on.png
+[323 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder-on@2x.png
+[530 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt.png
+[251 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt@2x.png
+[365 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt-on.png
+[210 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt-on@2x.png
+[293 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist.png
+[165 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist@2x.png
+[222 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist-on.png
+[156 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist-on@2x.png
+[194 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-head.png
+[99 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-head@2x.png
+[131 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-head@3x.png
+[160 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-mid.png
+[82 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-mid@2x.png
+[83 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-mid@3x.png
+[84 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-tail.png
+[101 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-tail@2x.png
+[127 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-empty-tail@3x.png
+[158 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-head.png
+[183 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-head@2x.png
+[323 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-head@3x.png
+[477 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-mid.png
+[103 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-mid@2x.png
+[129 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-mid@3x.png
+[152 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-tail.png
+[179 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-tail@2x.png
+[322 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/bar-full-tail@3x.png
+[486 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/dragger.png
+[658 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/dragger@2x.png
+[1460 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/dragger@3x.png
+[2265 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/dragger-highlight.png
+[450 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/dragger-highlight@2x.png
+[1025 bytes]
+
+content/internal/AvatarEditorIcons/Scaling/dragger-highlight@3x.png
+[1726 bytes]
+
+content/internal/Chat/.luacheckrc
+[770 bytes]
+
+content/internal/Chat/MobileChatStarterScript.lua
+[507 bytes]
+
+content/internal/Chat/Modules/ChatMaster.lua
+[3191 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ConversationActions.lua
+[27111 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchChatEnabled.lua
+[533 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/GetFriendCount.lua
+[550 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/GetPlaceInfo.lua
+[1053 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/GetPlaceThumbnail.lua
+[1461 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/GetUsername.lua
+[925 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedUserTyping.lua
+[624 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetTabBarVisible.lua
+[256 bytes]
+
+content/internal/Chat/Modules/LuaChat/ActionType.lua
+[2391 bytes]
+
+content/internal/Chat/Modules/LuaChat/AppReducer.lua
+[2105 bytes]
+
+content/internal/Chat/Modules/LuaChat/AppState.lua
+[1872 bytes]
+
+content/internal/Chat/Modules/LuaChat/BaseView.lua
+[430 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ActionEntry.lua
+[3126 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/AssetCard.lua
+[9791 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/BaseHeader.lua
+[4793 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatBubble.lua
+[7813 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatDisabledIndicator.lua
+[3069 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatInputBar.lua
+[5737 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatInputBarTablet.lua
+[4525 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatLoadingIndicator.lua
+[1058 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatTimestamp.lua
+[1694 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/Conversation.lua
+[13199 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ConversationEntry.lua
+[6724 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ConversationHub.lua
+[10591 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ConversationList.lua
+[10496 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ConversationSearchBox.lua
+[4316 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ConversationThumbnail.lua
+[5782 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/DefaultScreen.lua
+[1263 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/DialogComponents.lua
+[19463 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/EditChatGroup.lua
+[6308 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/FriendSearchBox.lua
+[8812 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GameShareCard.lua
+[6229 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GameShareComponent.lua
+[10366 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GroupDetail.lua
+[10504 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/EditChatGroupNameDialog.lua
+[1512 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/GenericDialogType.lua
+[231 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/LeaveGroupDialog.lua
+[1372 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/ParticipantDialog.lua
+[3148 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/RemoveUserDialog.lua
+[1381 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/Header.lua
+[6679 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/HeaderLoader.lua
+[718 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ListEntry.lua
+[2007 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ListSection.lua
+[1539 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/LoadingIndicator.lua
+[2761 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/MessageList.lua
+[11715 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ModalHeader.lua
+[5810 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ModalTextButton.lua
+[1484 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/NewChatGroup.lua
+[6960 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/NoFriendsIndicator.lua
+[1508 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/PaddedImageButton.lua
+[880 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/PlaceInfoCard.lua
+[3506 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ResponseIndicator.lua
+[1728 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/TextButton.lua
+[1405 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/TextInputEntry.lua
+[4409 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ToastComponent.lua
+[2445 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/TypingIndicator.lua
+[2405 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/UserChatBubble.lua
+[8058 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/UserEntry.lua
+[4697 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/UserList.lua
+[3605 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/UserThumbnail.lua
+[2897 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/UserThumbnailBar.lua
+[5764 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/UserTypingIndicator.lua
+[3774 bytes]
+
+content/internal/Chat/Modules/LuaChat/Config.lua
+[435 bytes]
+
+content/internal/Chat/Modules/LuaChat/Config.spec.lua
+[314 bytes]
+
+content/internal/Chat/Modules/LuaChat/Constants.lua
+[4037 bytes]
+
+content/internal/Chat/Modules/LuaChat/Constants.spec.lua
+[401 bytes]
+
+content/internal/Chat/Modules/LuaChat/Create.lua
+[1527 bytes]
+
+content/internal/Chat/Modules/LuaChat/Create.spec.lua
+[2249 bytes]
+
+content/internal/Chat/Modules/LuaChat/DateTime.lua
+[11277 bytes]
+
+content/internal/Chat/Modules/LuaChat/DateTime.spec.lua
+[11093 bytes]
+
+content/internal/Chat/Modules/LuaChat/Debug/ActionDebug.lua
+[4611 bytes]
+
+content/internal/Chat/Modules/LuaChat/Debug/DebugManager.lua
+[3601 bytes]
+
+content/internal/Chat/Modules/LuaChat/Debug/HttpDebug.lua
+[4421 bytes]
+
+content/internal/Chat/Modules/LuaChat/Device.lua
+[2487 bytes]
+
+content/internal/Chat/Modules/LuaChat/DialogInfo.lua
+[2646 bytes]
+
+content/internal/Chat/Modules/LuaChat/Functional.lua
+[2231 bytes]
+
+content/internal/Chat/Modules/LuaChat/Functional.spec.lua
+[3354 bytes]
+
+content/internal/Chat/Modules/LuaChat/HeadshotLoader.lua
+[1013 bytes]
+
+content/internal/Chat/Modules/LuaChat/Immutable.lua
+[1932 bytes]
+
+content/internal/Chat/Modules/LuaChat/Immutable.spec.lua
+[5509 bytes]
+
+content/internal/Chat/Modules/LuaChat/MockId.lua
+[154 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/Alert.lua
+[425 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/AssetInfo.lua
+[534 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/Conversation.lua
+[4611 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/Message.lua
+[1624 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/PlaceInfoModel.lua
+[763 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/ThumbnailModel.lua
+[479 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/ToastModel.lua
+[223 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/User.lua
+[1707 bytes]
+
+content/internal/Chat/Modules/LuaChat/NotificationBroadcaster.lua
+[838 bytes]
+
+content/internal/Chat/Modules/LuaChat/OrderedMap.lua
+[5537 bytes]
+
+content/internal/Chat/Modules/LuaChat/OrderedMap.spec.lua
+[5974 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/AppLoaded.lua
+[234 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/AppState.lua
+[904 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ChatEnabled.lua
+[254 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ChatEnabled.spec.lua
+[634 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ConnectionState.lua
+[276 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Conversations.lua
+[7944 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Conversations.spec.lua
+[15332 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ConversationsAsync.lua
+[901 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ConversationsAsync.spec.lua
+[1970 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/FormFactor.lua
+[297 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/FriendCount.lua
+[232 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/FriendCount.spec.lua
+[495 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Location.lua
+[1721 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Location.spec.lua
+[6248 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/PlaceInfos.lua
+[768 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/PlaceThumbnails.lua
+[671 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/TabBarVisible.lua
+[257 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/TabBarVisible.spec.lua
+[612 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Toast.lua
+[297 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ToggleChatPaused.lua
+[239 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/ToggleChatPaused.spec.lua
+[634 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/UnreadConversationCount.lua
+[428 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/UnreadConversationCount.spec.lua
+[1461 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Users.lua
+[1250 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Users.spec.lua
+[2416 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.lua
+[1411 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.spec.lua
+[2372 bytes]
+
+content/internal/Chat/Modules/LuaChat/RobloxEventReceiver.lua
+[10482 bytes]
+
+content/internal/Chat/Modules/LuaChat/ScreenManager.lua
+[6037 bytes]
+
+content/internal/Chat/Modules/LuaChat/ScreenManager.spec.lua
+[2292 bytes]
+
+content/internal/Chat/Modules/LuaChat/ScreenRouter.lua
+[3280 bytes]
+
+content/internal/Chat/Modules/LuaChat/Signal.lua
+[667 bytes]
+
+content/internal/Chat/Modules/LuaChat/Signal.spec.lua
+[1253 bytes]
+
+content/internal/Chat/Modules/LuaChat/Store.lua
+[2598 bytes]
+
+content/internal/Chat/Modules/LuaChat/Store.spec.lua
+[2991 bytes]
+
+content/internal/Chat/Modules/LuaChat/Text.lua
+[2479 bytes]
+
+content/internal/Chat/Modules/LuaChat/Text.spec.lua
+[7558 bytes]
+
+content/internal/Chat/Modules/LuaChat/TimeUnit.lua
+[357 bytes]
+
+content/internal/Chat/Modules/LuaChat/TimeZone.lua
+[194 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/DialogFrame.lua
+[6012 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/GenericDialog.lua
+[3086 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/Alert.lua
+[1547 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/BaseScreen.lua
+[411 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/Conversation.lua
+[2808 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/ConversationHub.lua
+[3077 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/EditChatGroup.lua
+[2324 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/GameShareView.lua
+[1690 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/GroupDetail.lua
+[3731 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Phone/NewChatGroup.lua
+[1968 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Tablet/ConversationHub.lua
+[2823 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/Tablet/GameShareView.lua
+[1809 bytes]
+
+content/internal/Chat/Modules/LuaChat/Views/ToastView.lua
+[530 bytes]
+
+content/internal/Chat/Modules/LuaChat/WebApi.lua
+[15536 bytes]
+
+content/internal/Common/.luacheckrc
+[678 bytes]
+
+content/internal/Common/Modules/Common/Action.lua
+[1905 bytes]
+
+content/internal/Common/Modules/Common/Action.spec.lua
+[2021 bytes]
+
+content/internal/Common/Modules/Common/Analytics.lua
+[1274 bytes]
+
+content/internal/Common/Modules/Common/Analytics.spec.lua
+[771 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/Diag.lua
+[2125 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/Diag.spec.lua
+[5379 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/EventStream.lua
+[6367 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/EventStream.spec.lua
+[16299 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/GoogleAnalytics.lua
+[1848 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/GoogleAnalytics.spec.lua
+[4216 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/Influx.lua
+[1692 bytes]
+
+content/internal/Common/Modules/Common/AnalyticsReporters/Influx.spec.lua
+[4971 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-asteroids.lua
+[11228 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-context.lua
+[1330 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-counter.lua
+[1660 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-events.lua
+[784 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-ref.lua
+[874 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-rodux.lua
+[2065 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-router.lua
+[5390 bytes]
+
+content/internal/Common/Modules/Common/Examples/Roact-stress.lua
+[1230 bytes]
+
+content/internal/Common/Modules/Common/Functional.lua
+[2301 bytes]
+
+content/internal/Common/Modules/Common/Functional.spec.lua
+[4453 bytes]
+
+content/internal/Common/Modules/Common/Immutable.lua
+[2335 bytes]
+
+content/internal/Common/Modules/Common/Immutable.spec.lua
+[6041 bytes]
+
+content/internal/Common/Modules/Common/LuaErrorReporter.lua
+[9111 bytes]
+
+content/internal/Common/Modules/Common/LuaErrorReporter.spec.lua
+[3145 bytes]
+
+content/internal/Common/Modules/Common/NoYield.lua
+[613 bytes]
+
+content/internal/Common/Modules/Common/NoYield.spec.lua
+[684 bytes]
+
+content/internal/Common/Modules/Common/Roact.lua
+[1135 bytes]
+
+content/internal/Common/Modules/Common/Roact.spec.lua
+[10812 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/Component.lua
+[4062 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/Component.spec.lua
+[3828 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/Core.lua
+[2978 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/Core.spec.lua
+[1626 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/Debug.lua
+[1834 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/getDefaultPropertyValue.lua
+[1049 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/getDefaultPropertyValue.spec.lua
+[952 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/PureComponent.lua
+[811 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/PureComponent.spec.lua
+[1361 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/README.md
+[3820 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/Reconciler.lua
+[13100 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/SingleEventManager.lua
+[2001 bytes]
+
+content/internal/Common/Modules/Common/RoactImplementation/SingleEventManager.spec.lua
+[4468 bytes]
+
+content/internal/Common/Modules/Common/RoactRodux.lua
+[2339 bytes]
+
+content/internal/Common/Modules/Common/RoactRodux.spec.lua
+[2487 bytes]
+
+content/internal/Common/Modules/Common/RoactUtilities/ExternalEventConnection.lua
+[1300 bytes]
+
+content/internal/Common/Modules/Common/RoactUtilities/ExternalEventConnection.spec.lua
+[1866 bytes]
+
+content/internal/Common/Modules/Common/Rodux.lua
+[2773 bytes]
+
+content/internal/Common/Modules/Common/Rodux.spec.lua
+[3525 bytes]
+
+content/internal/Common/Modules/Common/Signal.lua
+[943 bytes]
+
+content/internal/Common/Modules/Common/Signal.spec.lua
+[2202 bytes]
+
+content/internal/Common/Modules/Common/Symbol.lua
+[899 bytes]
+
+content/internal/Common/Modules/Common/Symbol.spec.lua
+[1051 bytes]
+
+content/internal/Common/Modules/Common/Text.lua
+[1968 bytes]
+
+content/internal/Common/Modules/Common/Text.spec.lua
+[6922 bytes]
+
+content/internal/LuaApp/.luacheckrc
+[811 bytes]
+
+content/internal/LuaApp/MobileGamesStarterScript.lua
+[251 bytes]
+
+content/internal/LuaApp/MobileHomeStarterScript.lua
+[244 bytes]
+
+content/internal/LuaApp/Modules/GamesMaster.lua
+[1614 bytes]
+
+content/internal/LuaApp/Modules/HomeMaster.lua
+[1421 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ActionType.lua
+[592 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/EquipAsset.lua
+[658 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/EquipAsset.spec.lua
+[940 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ResetCategory.lua
+[530 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ResetCategory.spec.lua
+[742 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategory.lua
+[628 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategory.spec.lua
+[866 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategoryTab.lua
+[771 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategoryTab.spec.lua
+[1156 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAssets.lua
+[578 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAssets.spec.lua
+[1885 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarBodyType.lua
+[220 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarBodyType.spec.lua
+[889 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarEditorFullView.lua
+[618 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarEditorFullView.spec.lua
+[1152 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeadSize.lua
+[582 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeadSize.spec.lua
+[884 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeight.lua
+[590 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeight.spec.lua
+[870 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarProportion.lua
+[228 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarProportion.spec.lua
+[911 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarType.lua
+[610 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarType.spec.lua
+[1058 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarWidth.lua
+[632 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarWidth.spec.lua
+[967 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetBodyColors.lua
+[610 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetBodyColors.spec.lua
+[1928 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetConsoleMenuLevel.lua
+[224 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetConsoleMenuLevel.spec.lua
+[903 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetOutfit.lua
+[658 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetOutfit.spec.lua
+[2798 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetPagePaused.lua
+[206 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetPagePaused.spec.lua
+[1040 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetScales.lua
+[577 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetScales.spec.lua
+[1756 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarEditorFullView.lua
+[556 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarEditorFullView.spec.lua
+[859 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarType.lua
+[536 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarType.spec.lua
+[769 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/UnequipAsset.lua
+[664 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/UnequipAsset.spec.lua
+[958 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/AppReducer.lua
+[580 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/AppReducer.spec.lua
+[600 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/DropshadowFrame.lua
+[1484 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/DropshadowFrame.spec.lua
+[513 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCard.lua
+[4075 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCard.spec.lua
+[568 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCarousel.lua
+[2163 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCarousel.spec.lua
+[739 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GamesHub.lua
+[1875 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GamesHub.spec.lua
+[733 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameVoteBar.lua
+[1851 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Home/HomePage.lua
+[5780 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Home/HomePage.spec.lua
+[417 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/SectionHeader.lua
+[1447 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/SectionHeader.spec.lua
+[441 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/SectionHeaderWithSeeAll.lua
+[1878 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/SectionHeaderWithSeeAll.spec.lua
+[524 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Constants.lua
+[993 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/GeneratedStrings.lua
+[3226 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AccessoriesColumn.lua
+[6544 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ActionReporter.lua
+[2534 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AppGui.lua
+[812 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AppScene.lua
+[444 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AppState.lua
+[649 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AssetInfo.lua
+[993 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AssetTypeNames.lua
+[1329 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AvatarEditorMain.lua
+[14831 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AvatarTypeSwitch.lua
+[2645 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CameraController.lua
+[2682 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CardGrid.lua
+[10184 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CardGridConsole.lua
+[12906 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Categories.lua
+[20988 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CategoryMenu.lua
+[10536 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CategoryMenuConsole.lua
+[9112 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CharacterManager.lua
+[66012 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ConsoleButtonIndicators.lua
+[7124 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/DarkCoverManager.lua
+[1143 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/DefaultClothesIds.lua
+[957 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/EaseFilters.lua
+[1628 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Flags.lua
+[422 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/FullView.lua
+[1344 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Header.lua
+[6039 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LayoutInfo.lua
+[2400 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LayoutInfoConsole.lua
+[3274 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LocalizedStrings.lua
+[11872 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LongPressMenu.lua
+[7916 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/OldHeader.lua
+[3113 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PaddedImageButton.lua
+[1018 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerBase.lua
+[6078 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerConsole.lua
+[22502 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerMobile.lua
+[24031 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ParticleScreen.lua
+[2224 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Slider.lua
+[10372 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/SliderConsole.lua
+[11903 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/SpriteSheetManager.lua
+[84471 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/TabList.lua
+[15594 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/TabListConsole.lua
 [10912 bytes]
 
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/TweenInstanceController.lua
+[623 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/TweenPropertyController.lua
+[4178 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Urls.lua
+[675 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Utilities.lua
+[7984 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/WarningWidget.lua
+[17118 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Localization.lua
+[1972 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Localization.spec.lua
+[1359 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/PerformanceTesting.lua
+[5255 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Assets.lua
+[4175 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Assets.spec.lua
+[5210 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Avatar.lua
+[512 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/AvatarType.lua
+[962 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/AvatarType.spec.lua
+[1094 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/BodyColors.lua
+[1347 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/BodyColors.spec.lua
+[2710 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Category.lua
+[309 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/CategoryIndex.lua
+[901 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/CategoryIndex.spec.lua
+[971 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Character.lua
+[466 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/ConsoleMenuLevel.lua
+[311 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/ConsoleMenuLevel.spec.lua
+[796 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/FullView.lua
+[1050 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/FullView.spec.lua
+[1246 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Scales.lua
+[2461 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Scales.spec.lua
+[4829 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/TabsInfo.lua
+[1329 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/TabsInfo.spec.lua
+[1369 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/Games.lua
+[2090 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/GameSorts.lua
+[477 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/HomeGameSorts.lua
+[322 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/PagePaused.lua
+[275 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/PagePaused.spec.lua
+[815 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotion.lua
+[460 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/Config.lua
+[727 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/merge.lua
+[214 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/MotionSpecifier.lua
+[1116 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/MotionType.lua
+[203 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/SimpleMotion.lua
+[3783 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/stepSpring.lua
+[1005 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/StringsLocale.lua
+[14497 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/StringsLocale.spec.lua
+[923 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/TableUtilities.lua
+[2721 bytes]
+
+content/internal/Mobile/MobileMaster.lua
+[9937 bytes]
+
+content/internal/Mobile/MobileStarterScript.lua
+[190 bytes]
+
+content/internal/Mobile/Modules/Mobile/ActionType.lua
+[294 bytes]
+
+content/internal/Mobile/Modules/Mobile/AppNameEnum.lua
+[304 bytes]
+
+content/internal/Mobile/Modules/Mobile/AppReducer.lua
+[352 bytes]
+
+content/internal/Mobile/Modules/Mobile/AppState.lua
+[488 bytes]
+
+content/internal/Mobile/Modules/Mobile/AvatarEditorSetup.lua
+[5601 bytes]
+
+content/internal/Mobile/Modules/Mobile/Constants.lua
+[2252 bytes]
+
+content/internal/Mobile/Modules/Mobile/Create.lua
+[1527 bytes]
+
+content/internal/Mobile/Modules/Mobile/NavigationEventReceiver.lua
+[1063 bytes]
+
+content/internal/Test/.luacheckrc
+[672 bytes]
+
+content/internal/Test/Modules/Test/Create.lua
+[1742 bytes]
+
+content/internal/Test/Modules/Test/Expectation.lua
+[4571 bytes]
+
+content/internal/Test/Modules/Test/Expectation.spec.lua
+[4361 bytes]
+
+content/internal/Test/Modules/Test/README.md
+[3012 bytes]
+
+content/internal/Test/Modules/Test/Reporters/GuiReporter.lua
+[4011 bytes]
+
+content/internal/Test/Modules/Test/Reporters/StudioReporter.lua
+[308 bytes]
+
+content/internal/Test/Modules/Test/Reporters/TextReporter.lua
+[2075 bytes]
+
+content/internal/Test/Modules/Test/TestBootstrap.lua
+[2521 bytes]
+
+content/internal/Test/Modules/Test/TestEnum.lua
+[325 bytes]
+
+content/internal/Test/Modules/Test/TestPlan.lua
+[2002 bytes]
+
+content/internal/Test/Modules/Test/TestPlanBuilder.lua
+[1933 bytes]
+
+content/internal/Test/Modules/Test/TestPlanner.lua
+[3334 bytes]
+
+content/internal/Test/Modules/Test/TestResults.lua
+[2242 bytes]
+
+content/internal/Test/Modules/Test/TestRunner.lua
+[3103 bytes]
+
+content/internal/Test/Modules/Test/TestSession.lua
+[3397 bytes]
+
+content/internal/Test/README.md
+[8296 bytes]
+
+content/places/AvatarEditor.rbxl
+[304925 bytes]
+
+content/places/ConsoleUnitTest.rbxl
+[1037130 bytes]
+
+content/places/Lobby3D.rbxl
+[237550 bytes]
+
+content/places/Mobile.rbxl
+[285019 bytes]
+
+content/places/MobileChatPlace.rbxl
+[11220 bytes]
+
+content/places/MobileGamesPlace.rbxl
+[15047 bytes]
+
+content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
+[10996 bytes]
+
+content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
+[6601 bytes]
+
+content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
+[8712 bytes]
+
+content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
+[10686 bytes]
+
+content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
+[34344 bytes]
+
+content/scripts/CoreScripts/CoreScripts/HealthScript.lua
+[9888 bytes]
+
+content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
+[23540 bytes]
+
+content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
+[38556 bytes]
+
+content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
+[6319 bytes]
+
+content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
+[64296 bytes]
+
+content/scripts/CoreScripts/CoreScripts/Topbar.lua
+[41058 bytes]
+
+content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
+[5650 bytes]
+
+content/scripts/CoreScripts/Libraries/RbxGui.lua
+[135514 bytes]
+
+content/scripts/CoreScripts/Libraries/RbxStamper.lua
+[81623 bytes]
+
+content/scripts/CoreScripts/Libraries/RbxUtility.lua
+[35868 bytes]
+
+content/scripts/CoreScripts/LoadingScript.lua
+[27483 bytes]
+
+content/scripts/CoreScripts/MergeSort.lua
+[775 bytes]
+
+content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
+[14177 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuGui.lua
+[8621 bytes]
+
+content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuItems.lua
+[10607 bytes]
+
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuUtil.lua
-[8396 bytes]
+[8104 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/PlayerCarousel.lua
-[7713 bytes]
+[7489 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator.lua
-[2967 bytes]
+[2865 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[66130 bytes]
+[64113 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
-[15884 bytes]
+[15363 bytes]
 
 content/scripts/CoreScripts/Modules/BusinessLogic.lua
-[281 bytes]
+[262 bytes]
 
 content/scripts/CoreScripts/Modules/Chat.lua
-[101481 bytes]
+[98708 bytes]
 
 content/scripts/CoreScripts/Modules/ChatSelector.lua
-[5602 bytes]
+[5411 bytes]
 
 content/scripts/CoreScripts/Modules/ChatUtil.lua
-[711 bytes]
+[678 bytes]
 
 content/scripts/CoreScripts/Modules/Common/CommonUtil.lua
-[1277 bytes]
+[1217 bytes]
 
 content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
-[1562 bytes]
+[1511 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[103611 bytes]
+[100227 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
-[701 bytes]
+[683 bytes]
 
 content/scripts/CoreScripts/Modules/HttpAnalyticsTab.lua
-[17925 bytes]
+[17316 bytes]
 
 content/scripts/CoreScripts/Modules/LoadingScreen3D.lua
-[10036 bytes]
+[9664 bytes]
 
 content/scripts/CoreScripts/Modules/NewChat.lua
-[10439 bytes]
+[10145 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[23777 bytes]
+[23040 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[65402 bytes]
+[63445 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
-[1187 bytes]
+[1147 bytes]
 
 content/scripts/CoreScripts/Modules/PromptCreator.lua
-[24866 bytes]
+[24143 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/BubbleChat/BubbleChat.lua
-[23105 bytes]
+[22394 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsBar.lua
-[14531 bytes]
+[14131 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsTab.lua
-[12013 bytes]
+[11703 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatBar.lua
-[17536 bytes]
+[16965 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatChannel.lua
-[4297 bytes]
+[4131 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatMain.lua
-[31337 bytes]
+[30296 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatScript.lua
-[4278 bytes]
+[4138 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindow.lua
-[19955 bytes]
+[19302 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindowInstaller.lua
-[6550 bytes]
+[6377 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/CommandProcessor.lua
-[2309 bytes]
+[2239 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/CurveUtil.lua
 [1832 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatConstants.lua
-[740 bytes]
+[712 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[529 bytes]
+[512 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
-[4691 bytes]
+[4584 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/ClearMessages.lua
-[674 bytes]
+[653 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/DeveloperConsole.lua
-[912 bytes]
+[887 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/GetVersion.lua
-[814 bytes]
+[791 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwallowGuestChat.lua
-[1272 bytes]
+[1238 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwitchChannel.lua
-[1692 bytes]
+[1640 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Team.lua
-[3665 bytes]
+[3535 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Util.lua
-[1816 bytes]
+[1753 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Whisper.lua
-[5448 bytes]
+[5274 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/DefaultChatMessage.lua
-[4394 bytes]
+[4282 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/MeCommandMessage.lua
-[2835 bytes]
+[2763 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/SetCoreMessage.lua
-[1740 bytes]
+[1695 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/SystemMessage.lua
-[2427 bytes]
+[2366 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/UnknownMessage.lua
-[687 bytes]
+[668 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/Util.lua
-[12664 bytes]
+[12289 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WelcomeMessage.lua
-[2432 bytes]
+[2371 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WhisperMessage.lua
-[3846 bytes]
+[3749 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/MessageLabelCreator.lua
-[4288 bytes]
+[4172 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/MessageLogDisplay.lua
-[7498 bytes]
+[7235 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/MessageSender.lua
-[835 bytes]
+[802 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/README.md
-[1732 bytes]
+[1652 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/TransparencyTweener.lua
-[6111 bytes]
+[5916 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCamera.lua
-[10731 bytes]
+[10382 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCameraInstaller.lua
-[3208 bytes]
+[3116 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/Maid.lua
-[950 bytes]
+[895 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/Spring.lua
-[877 bytes]
+[845 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatChannel.lua
-[22386 bytes]
+[21694 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
-[14165 bytes]
+[13710 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
-[3147 bytes]
+[3055 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
-[13094 bytes]
+[12685 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatLocalization.lua
-[28561 bytes]
+[28027 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatCommandsTeller.lua
-[3196 bytes]
+[3138 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatFloodDetector.lua
-[2808 bytes]
+[2716 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatMessageValidator.lua
-[2495 bytes]
+[2430 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDataInitializer.lua
-[4896 bytes]
+[4715 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
-[2173 bytes]
+[2106 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MeCommand.lua
-[789 bytes]
+[767 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MuteSpeaker.lua
-[4249 bytes]
+[4122 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/PrivateMessaging.lua
-[6218 bytes]
+[6041 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/TeamChat.lua
-[6304 bytes]
+[6114 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/README.md
-[4308 bytes]
+[4174 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/Speaker.lua
-[8958 bytes]
+[8666 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/Util.lua
-[2804 bytes]
+[2694 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerPlayer/DefaultServerPlayerModules/PlayerSettings.lua
-[288 bytes]
+[281 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerPlayer/ServerPlayerInstaller.lua
-[478 bytes]
+[461 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[45736 bytes]
+[44536 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[31810 bytes]
+[31090 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
-[2969 bytes]
+[2880 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
-[4841 bytes]
+[4702 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21571 bytes]
+[21002 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
-[5796 bytes]
+[5632 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[12672 bytes]
+[12288 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
-[5376 bytes]
+[5213 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[47721 bytes]
+[46227 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
-[10629 bytes]
+[10263 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[80329 bytes]
+[77665 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
-[76886 bytes]
+[74381 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
-[4077 bytes]
+[3960 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
-[5795 bytes]
+[5578 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BaseMemoryAnalyzer.lua
-[11040 bytes]
+[10695 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
-[4317 bytes]
+[4189 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DecoratedValueLabel.lua
-[3314 bytes]
+[3211 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsolePrimitives.lua
-[2555 bytes]
+[2453 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsoleStyle.lua
-[2736 bytes]
+[2643 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ServerMemoryAnalyzer.lua
-[4552 bytes]
+[4419 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAggregator.lua
-[4213 bytes]
+[4057 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAggregatorManager.lua
-[2003 bytes]
+[1937 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAnnotatedGraph.lua
-[7002 bytes]
+[6762 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsButton.lua
-[3068 bytes]
+[2967 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsMiniTextPanel.lua
-[4526 bytes]
+[4352 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsTextPanel.lua
-[7765 bytes]
+[7501 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
-[9613 bytes]
+[9350 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
-[4027 bytes]
+[3889 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/TreeViewItem.lua
-[1260 bytes]
+[1192 bytes]
 
 content/scripts/CoreScripts/Modules/StyleWidgets.lua
-[1168 bytes]
+[1129 bytes]
 
 content/scripts/CoreScripts/Modules/TenFootInterface.lua
-[11592 bytes]
+[11203 bytes]
 
 content/scripts/CoreScripts/Modules/TopbarConstants.lua
-[1225 bytes]
+[1188 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Controllers/ViveController.lua
-[11578 bytes]
+[11226 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Dialog.lua
-[6092 bytes]
+[5894 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Healthbar3D.lua
-[9301 bytes]
+[9010 bytes]
 
 content/scripts/CoreScripts/Modules/VR/LaserPointer.lua
-[22130 bytes]
+[21463 bytes]
 
 content/scripts/CoreScripts/Modules/VR/NotificationHub.lua
-[24526 bytes]
+[23738 bytes]
 
 content/scripts/CoreScripts/Modules/VR/NotifierHint3D.lua
-[2110 bytes]
+[2025 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Panel3D.lua
-[29907 bytes]
+[28852 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Recenter.lua
-[3051 bytes]
+[2934 bytes]
 
 content/scripts/CoreScripts/Modules/VR/UserGui.lua
-[2222 bytes]
+[2147 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VirtualKeyboard.lua
-[40103 bytes]
+[38687 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VRControllerModel.lua
-[5328 bytes]
+[5170 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VRHub.lua
-[5804 bytes]
+[5608 bytes]
 
 content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
-[7940 bytes]
+[7695 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
-[3259 bytes]
+[3153 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
-[4046 bytes]
+[3940 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[2550 bytes]
+[2487 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
-[11794 bytes]
+[11399 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
-[11421 bytes]
+[11113 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
-[47762 bytes]
+[46175 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewClickToMove.lua
-[31362 bytes]
+[30263 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
-[20135 bytes]
+[19551 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
-[5345 bytes]
+[5151 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
-[49377 bytes]
+[47807 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
-[2232 bytes]
+[2157 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ClassicCamera.lua
-[6792 bytes]
+[6597 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FixedCamera.lua
-[1411 bytes]
+[1363 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FollowCamera.lua
-[6966 bytes]
+[6774 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/OrbitalCamera.lua
-[17490 bytes]
+[17040 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ScriptableCamera.lua
-[222 bytes]
+[210 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/TrackCamera.lua
-[1613 bytes]
+[1559 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/VRCamera.lua
-[8123 bytes]
+[7862 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/WatchCamera.lua
-[1884 bytes]
+[1817 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ShiftLockController.lua
-[6079 bytes]
+[5873 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/TransparencyController.lua
-[5543 bytes]
+[5353 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript.lua
-[17608 bytes]
+[17117 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.lua
-[4604 bytes]
+[4430 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/ClickToMoveController.lua
-[31125 bytes]
+[30069 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DPad.lua
-[5125 bytes]
+[4955 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick.lua
-[21725 bytes]
+[21063 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick/Intro.lua
-[14258 bytes]
+[13773 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Gamepad.lua
-[6929 bytes]
+[6731 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/KeyboardMovement.lua
-[5785 bytes]
+[5610 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbpad.lua
-[8802 bytes]
+[8574 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbstick.lua
-[6658 bytes]
+[6480 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/TouchJump.lua
-[4667 bytes]
+[4495 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VehicleController.lua
-[6699 bytes]
+[6519 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VRNavigation.lua
-[12563 bytes]
+[12130 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/PathDisplay.lua
-[3207 bytes]
+[3076 bytes]
 
 content/sky/moon.jpg
 [7107 bytes]
@@ -790,27 +3100,6 @@ content/sounds/snap.mp3
 content/sounds/uuhhh.mp3
 [5281 bytes]
 
-content/terrain/diffuse.dds
-[2562991 bytes]
-
-content/terrain/diffusearray.dds
-[5763825 bytes]
-
-content/terrain/materials.json
-[5765 bytes]
-
-content/terrain/normal.dds
-[5384181 bytes]
-
-content/terrain/normalarray.dds
-[12124037 bytes]
-
-content/terrain/specular.dds
-[2735397 bytes]
-
-content/terrain/speculararray.dds
-[6163865 bytes]
-
 content/textures/advancedMove.png
 [1873 bytes]
 
@@ -846,18 +3135,6 @@ content/textures/advCursor-openedHand.png
 
 content/textures/advCursor-white.png
 [1053 bytes]
-
-content/textures/aluminum/diffuse.dds
-[152 bytes]
-
-content/textures/aluminum/normal.dds
-[339520 bytes]
-
-content/textures/aluminum/normaldetail.dds
-[176 bytes]
-
-content/textures/aluminum/specular.dds
-[151 bytes]
 
 content/textures/AnchorCursor.png
 [1114 bytes]
@@ -937,44 +3214,8 @@ content/textures/Blank.png
 content/textures/blockUpperLeft.png
 [271 bytes]
 
-content/textures/brick/diffuse.dds
-[1310157 bytes]
-
-content/textures/brick/normal.dds
-[1357058 bytes]
-
-content/textures/brick/normaldetail.dds
-[176 bytes]
-
-content/textures/brick/specular.dds
-[687467 bytes]
-
 content/textures/chatBubble_bot_notifyGray_dotDotDot.png
 [246 bytes]
-
-content/textures/cobblestone/diffuse.dds
-[1319027 bytes]
-
-content/textures/cobblestone/normal.dds
-[1344521 bytes]
-
-content/textures/cobblestone/normaldetail.dds
-[176 bytes]
-
-content/textures/cobblestone/specular.dds
-[685490 bytes]
-
-content/textures/concrete/diffuse.dds
-[643261 bytes]
-
-content/textures/concrete/normal.dds
-[1358361 bytes]
-
-content/textures/concrete/normaldetail.dds
-[340331 bytes]
-
-content/textures/concrete/specular.dds
-[171623 bytes]
 
 content/textures/ConstraintCursor.png
 [165 bytes]
@@ -990,18 +3231,6 @@ content/textures/Cursors/Gamepad/PointerOver.png
 
 content/textures/Cursors/Gamepad/PointerOver@2x.png
 [1513 bytes]
-
-content/textures/diamondplate/diffuse.dds
-[164334 bytes]
-
-content/textures/diamondplate/normal.dds
-[341408 bytes]
-
-content/textures/diamondplate/normaldetail.dds
-[176 bytes]
-
-content/textures/diamondplate/specular.dds
-[168004 bytes]
 
 content/textures/emoji/page0.png
 [289785 bytes]
@@ -1051,35 +3280,11 @@ content/textures/emoji/page9.png
 content/textures/explosion.png
 [11692 bytes]
 
-content/textures/fabric/diffuse.dds
-[341572 bytes]
-
-content/textures/fabric/normal.dds
-[336596 bytes]
-
-content/textures/fabric/normaldetail.dds
-[176 bytes]
-
-content/textures/fabric/specular.dds
-[171590 bytes]
-
 content/textures/face.png
 [855 bytes]
 
 content/textures/FlatCursor.png
 [432 bytes]
-
-content/textures/glass/diffuse.dds
-[348372 bytes]
-
-content/textures/glass/normal.dds
-[336118 bytes]
-
-content/textures/glass/normaldetail.dds
-[176 bytes]
-
-content/textures/glass/specular.dds
-[633390 bytes]
 
 content/textures/glow.png
 [36056 bytes]
@@ -1090,44 +3295,8 @@ content/textures/GlueCursor.png
 content/textures/gradient.png
 [165843 bytes]
 
-content/textures/granite/diffuse.dds
-[675614 bytes]
-
-content/textures/granite/normal.dds
-[176 bytes]
-
-content/textures/granite/normaldetail.dds
-[176 bytes]
-
-content/textures/granite/specular.dds
-[684798 bytes]
-
-content/textures/grass/diffuse.dds
-[661313 bytes]
-
-content/textures/grass/normal.dds
-[1346646 bytes]
-
-content/textures/grass/normaldetail.dds
-[176 bytes]
-
-content/textures/grass/specular.dds
-[687955 bytes]
-
 content/textures/HingeCursor.png
 [451 bytes]
-
-content/textures/ice/diffuse.dds
-[152 bytes]
-
-content/textures/ice/normal.dds
-[347896 bytes]
-
-content/textures/ice/normaldetail.dds
-[176 bytes]
-
-content/textures/ice/specular.dds
-[681824 bytes]
 
 content/textures/icon_ROBUX.png
 [316 bytes]
@@ -1189,32 +3358,8 @@ content/textures/localizationUIScrapingOn.png
 content/textures/LockCursor.png
 [547 bytes]
 
-content/textures/marble/diffuse.dds
-[637816 bytes]
-
-content/textures/marble/normal.dds
-[1354267 bytes]
-
-content/textures/marble/normaldetail.dds
-[176 bytes]
-
-content/textures/marble/specular.dds
-[675034 bytes]
-
 content/textures/meshPartFallback.png
 [241 bytes]
-
-content/textures/metal/diffuse.dds
-[168465 bytes]
-
-content/textures/metal/normal.dds
-[340602 bytes]
-
-content/textures/metal/normaldetail.dds
-[176 bytes]
-
-content/textures/metal/specular.dds
-[167904 bytes]
 
 content/textures/MotorCursor.png
 [477 bytes]
@@ -1303,86 +3448,11 @@ content/textures/particles/sparkles_color.dds
 content/textures/particles/sparkles_main.dds
 [21631 bytes]
 
-content/textures/pebble/diffuse.dds
-[164675 bytes]
-
-content/textures/pebble/normal.dds
-[176 bytes]
-
-content/textures/pebble/normaldetail.dds
-[176 bytes]
-
-content/textures/pebble/specular.dds
-[171623 bytes]
-
-content/textures/plastic/diffuse.dds
-[160111 bytes]
-
-content/textures/plastic/normal.dds
-[347085 bytes]
-
-content/textures/plastic/normaldetail.dds
-[336328 bytes]
-
 content/textures/rotationArrow.png
 [2354 bytes]
 
-content/textures/rust/diffuse.dds
-[1311623 bytes]
-
-content/textures/rust/normal.dds
-[1357305 bytes]
-
-content/textures/rust/normaldetail.dds
-[176 bytes]
-
-content/textures/rust/specular.dds
-[683005 bytes]
-
-content/textures/sand/diffuse.dds
-[628826 bytes]
-
-content/textures/sand/normal.dds
-[333632 bytes]
-
-content/textures/sand/normaldetail.dds
-[176 bytes]
-
-content/textures/sand/specular.dds
-[688434 bytes]
-
 content/textures/shadowblurmask.png
 [3045 bytes]
-
-content/textures/sky/sky512_bk.tex
-[675709 bytes]
-
-content/textures/sky/sky512_dn.tex
-[686000 bytes]
-
-content/textures/sky/sky512_ft.tex
-[676111 bytes]
-
-content/textures/sky/sky512_lf.tex
-[676440 bytes]
-
-content/textures/sky/sky512_rt.tex
-[675198 bytes]
-
-content/textures/sky/sky512_up.tex
-[684066 bytes]
-
-content/textures/slate/diffuse.dds
-[630212 bytes]
-
-content/textures/slate/normal.dds
-[1353006 bytes]
-
-content/textures/slate/normaldetail.dds
-[336496 bytes]
-
-content/textures/slate/specular.dds
-[169987 bytes]
 
 content/textures/sparkle.png
 [1072 bytes]
@@ -1401,9 +3471,6 @@ content/textures/StudioUIEditor/placeholderResizeVertical.png
 
 content/textures/StudioUIEditor/sizeBoxRoundedRectangle.png
 [212 bytes]
-
-content/textures/studs.dds
-[165021 bytes]
 
 content/textures/SurfacesDefault.png
 [153 bytes]
@@ -2118,9 +4185,6 @@ content/textures/ui/LuaChat/icons/ic-back-android.png
 
 content/textures/ui/LuaChat/icons/ic-back-android@2x.png
 [304 bytes]
-
-content/textures/ui/LuaChat/icons/ic-back-mdpi.png
-[191 bytes]
 
 content/textures/ui/LuaChat/icons/ic-bc.png
 [931 bytes]
@@ -2986,117 +5050,357 @@ content/textures/UnAnchorCursor.png
 content/textures/UnlockCursor.png
 [565 bytes]
 
-content/textures/wangIndex.dds
-[32896 bytes]
-
-content/textures/water/normal_01.dds
-[84957 bytes]
-
-content/textures/water/normal_02.dds
-[84872 bytes]
-
-content/textures/water/normal_03.dds
-[84918 bytes]
-
-content/textures/water/normal_04.dds
-[84988 bytes]
-
-content/textures/water/normal_05.dds
-[84863 bytes]
-
-content/textures/water/normal_06.dds
-[84887 bytes]
-
-content/textures/water/normal_07.dds
-[84861 bytes]
-
-content/textures/water/normal_08.dds
-[84935 bytes]
-
-content/textures/water/normal_09.dds
-[84910 bytes]
-
-content/textures/water/normal_10.dds
-[84927 bytes]
-
-content/textures/water/normal_11.dds
-[84843 bytes]
-
-content/textures/water/normal_12.dds
-[84861 bytes]
-
-content/textures/water/normal_13.dds
-[84850 bytes]
-
-content/textures/water/normal_14.dds
-[84804 bytes]
-
-content/textures/water/normal_15.dds
-[84899 bytes]
-
-content/textures/water/normal_16.dds
-[84778 bytes]
-
-content/textures/water/normal_17.dds
-[84766 bytes]
-
-content/textures/water/normal_18.dds
-[84722 bytes]
-
-content/textures/water/normal_19.dds
-[84848 bytes]
-
-content/textures/water/normal_20.dds
-[84883 bytes]
-
-content/textures/water/normal_21.dds
-[84935 bytes]
-
-content/textures/water/normal_22.dds
-[84857 bytes]
-
-content/textures/water/normal_23.dds
-[84846 bytes]
-
-content/textures/water/normal_24.dds
-[84813 bytes]
-
-content/textures/water/normal_25.dds
-[84969 bytes]
-
 content/textures/WeldCursor.png
 [413 bytes]
 
 content/textures/whiteCircle.png
 [3929 bytes]
 
-content/textures/wood/diffuse.dds
-[635284 bytes]
+PlatformContent/pc/fonts/NotoSansCJKjp-Regular.otf
+[16018281 bytes]
 
-content/textures/wood/normal.dds
-[344973 bytes]
+PlatformContent/pc/terrain/diffuse.dds
+[2562991 bytes]
 
-content/textures/wood/normaldetail.dds
-[343912 bytes]
+PlatformContent/pc/terrain/diffusearray.dds
+[5763825 bytes]
 
-content/textures/wood/specular.dds
-[682095 bytes]
+PlatformContent/pc/terrain/materials.json
+[5574 bytes]
 
-content/textures/woodplanks/diffuse.dds
-[1346503 bytes]
+PlatformContent/pc/terrain/normal.dds
+[5384181 bytes]
 
-content/textures/woodplanks/normal.dds
-[1357232 bytes]
+PlatformContent/pc/terrain/normalarray.dds
+[12124037 bytes]
 
-content/textures/woodplanks/normaldetail.dds
+PlatformContent/pc/terrain/specular.dds
+[2735397 bytes]
+
+PlatformContent/pc/terrain/speculararray.dds
+[6163865 bytes]
+
+PlatformContent/pc/textures/aluminum/diffuse.dds
+[152 bytes]
+
+PlatformContent/pc/textures/aluminum/normal.dds
+[339520 bytes]
+
+PlatformContent/pc/textures/aluminum/normaldetail.dds
 [176 bytes]
 
-content/textures/woodplanks/specular.dds
+PlatformContent/pc/textures/aluminum/specular.dds
+[151 bytes]
+
+PlatformContent/pc/textures/brick/diffuse.dds
+[1310157 bytes]
+
+PlatformContent/pc/textures/brick/normal.dds
+[1357058 bytes]
+
+PlatformContent/pc/textures/brick/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/brick/specular.dds
+[687467 bytes]
+
+PlatformContent/pc/textures/cobblestone/diffuse.dds
+[1319027 bytes]
+
+PlatformContent/pc/textures/cobblestone/normal.dds
+[1344521 bytes]
+
+PlatformContent/pc/textures/cobblestone/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/cobblestone/specular.dds
+[685490 bytes]
+
+PlatformContent/pc/textures/concrete/diffuse.dds
+[643261 bytes]
+
+PlatformContent/pc/textures/concrete/normal.dds
+[1358361 bytes]
+
+PlatformContent/pc/textures/concrete/normaldetail.dds
+[340331 bytes]
+
+PlatformContent/pc/textures/concrete/specular.dds
+[171623 bytes]
+
+PlatformContent/pc/textures/diamondplate/diffuse.dds
+[164334 bytes]
+
+PlatformContent/pc/textures/diamondplate/normal.dds
+[341408 bytes]
+
+PlatformContent/pc/textures/diamondplate/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/diamondplate/specular.dds
+[168004 bytes]
+
+PlatformContent/pc/textures/fabric/diffuse.dds
+[341572 bytes]
+
+PlatformContent/pc/textures/fabric/normal.dds
+[336596 bytes]
+
+PlatformContent/pc/textures/fabric/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/fabric/specular.dds
+[171590 bytes]
+
+PlatformContent/pc/textures/glass/diffuse.dds
+[348372 bytes]
+
+PlatformContent/pc/textures/glass/normal.dds
+[336118 bytes]
+
+PlatformContent/pc/textures/glass/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/glass/specular.dds
+[633390 bytes]
+
+PlatformContent/pc/textures/granite/diffuse.dds
+[675614 bytes]
+
+PlatformContent/pc/textures/granite/normal.dds
+[176 bytes]
+
+PlatformContent/pc/textures/granite/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/granite/specular.dds
+[684798 bytes]
+
+PlatformContent/pc/textures/grass/diffuse.dds
+[661313 bytes]
+
+PlatformContent/pc/textures/grass/normal.dds
+[1346646 bytes]
+
+PlatformContent/pc/textures/grass/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/grass/specular.dds
+[687955 bytes]
+
+PlatformContent/pc/textures/ice/diffuse.dds
+[152 bytes]
+
+PlatformContent/pc/textures/ice/normal.dds
+[347896 bytes]
+
+PlatformContent/pc/textures/ice/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/ice/specular.dds
+[681824 bytes]
+
+PlatformContent/pc/textures/marble/diffuse.dds
+[637816 bytes]
+
+PlatformContent/pc/textures/marble/normal.dds
+[1354267 bytes]
+
+PlatformContent/pc/textures/marble/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/marble/specular.dds
+[675034 bytes]
+
+PlatformContent/pc/textures/metal/diffuse.dds
+[168465 bytes]
+
+PlatformContent/pc/textures/metal/normal.dds
+[340602 bytes]
+
+PlatformContent/pc/textures/metal/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/metal/specular.dds
+[167904 bytes]
+
+PlatformContent/pc/textures/pebble/diffuse.dds
+[164675 bytes]
+
+PlatformContent/pc/textures/pebble/normal.dds
+[176 bytes]
+
+PlatformContent/pc/textures/pebble/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/pebble/specular.dds
+[171623 bytes]
+
+PlatformContent/pc/textures/plastic/diffuse.dds
+[160111 bytes]
+
+PlatformContent/pc/textures/plastic/normal.dds
+[347085 bytes]
+
+PlatformContent/pc/textures/plastic/normaldetail.dds
+[336328 bytes]
+
+PlatformContent/pc/textures/rust/diffuse.dds
+[1311623 bytes]
+
+PlatformContent/pc/textures/rust/normal.dds
+[1357305 bytes]
+
+PlatformContent/pc/textures/rust/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/rust/specular.dds
+[683005 bytes]
+
+PlatformContent/pc/textures/sand/diffuse.dds
+[628826 bytes]
+
+PlatformContent/pc/textures/sand/normal.dds
+[333632 bytes]
+
+PlatformContent/pc/textures/sand/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/sand/specular.dds
+[688434 bytes]
+
+PlatformContent/pc/textures/sky/sky512_bk.tex
+[675709 bytes]
+
+PlatformContent/pc/textures/sky/sky512_dn.tex
+[686000 bytes]
+
+PlatformContent/pc/textures/sky/sky512_ft.tex
+[676111 bytes]
+
+PlatformContent/pc/textures/sky/sky512_lf.tex
+[676440 bytes]
+
+PlatformContent/pc/textures/sky/sky512_rt.tex
+[675198 bytes]
+
+PlatformContent/pc/textures/sky/sky512_up.tex
+[684066 bytes]
+
+PlatformContent/pc/textures/slate/diffuse.dds
+[630212 bytes]
+
+PlatformContent/pc/textures/slate/normal.dds
+[1353006 bytes]
+
+PlatformContent/pc/textures/slate/normaldetail.dds
+[336496 bytes]
+
+PlatformContent/pc/textures/slate/specular.dds
+[169987 bytes]
+
+PlatformContent/pc/textures/studs.dds
+[165021 bytes]
+
+PlatformContent/pc/textures/wangIndex.dds
+[32896 bytes]
+
+PlatformContent/pc/textures/water/normal_01.dds
+[84957 bytes]
+
+PlatformContent/pc/textures/water/normal_02.dds
+[84872 bytes]
+
+PlatformContent/pc/textures/water/normal_03.dds
+[84918 bytes]
+
+PlatformContent/pc/textures/water/normal_04.dds
+[84988 bytes]
+
+PlatformContent/pc/textures/water/normal_05.dds
+[84863 bytes]
+
+PlatformContent/pc/textures/water/normal_06.dds
+[84887 bytes]
+
+PlatformContent/pc/textures/water/normal_07.dds
+[84861 bytes]
+
+PlatformContent/pc/textures/water/normal_08.dds
+[84935 bytes]
+
+PlatformContent/pc/textures/water/normal_09.dds
+[84910 bytes]
+
+PlatformContent/pc/textures/water/normal_10.dds
+[84927 bytes]
+
+PlatformContent/pc/textures/water/normal_11.dds
+[84843 bytes]
+
+PlatformContent/pc/textures/water/normal_12.dds
+[84861 bytes]
+
+PlatformContent/pc/textures/water/normal_13.dds
+[84850 bytes]
+
+PlatformContent/pc/textures/water/normal_14.dds
+[84804 bytes]
+
+PlatformContent/pc/textures/water/normal_15.dds
+[84899 bytes]
+
+PlatformContent/pc/textures/water/normal_16.dds
+[84778 bytes]
+
+PlatformContent/pc/textures/water/normal_17.dds
+[84766 bytes]
+
+PlatformContent/pc/textures/water/normal_18.dds
+[84722 bytes]
+
+PlatformContent/pc/textures/water/normal_19.dds
+[84848 bytes]
+
+PlatformContent/pc/textures/water/normal_20.dds
+[84883 bytes]
+
+PlatformContent/pc/textures/water/normal_21.dds
+[84935 bytes]
+
+PlatformContent/pc/textures/water/normal_22.dds
+[84857 bytes]
+
+PlatformContent/pc/textures/water/normal_23.dds
+[84846 bytes]
+
+PlatformContent/pc/textures/water/normal_24.dds
+[84813 bytes]
+
+PlatformContent/pc/textures/water/normal_25.dds
+[84969 bytes]
+
+PlatformContent/pc/textures/wood/diffuse.dds
+[635284 bytes]
+
+PlatformContent/pc/textures/wood/normal.dds
+[344973 bytes]
+
+PlatformContent/pc/textures/wood/normaldetail.dds
+[343912 bytes]
+
+PlatformContent/pc/textures/wood/specular.dds
+[682095 bytes]
+
+PlatformContent/pc/textures/woodplanks/diffuse.dds
+[1346503 bytes]
+
+PlatformContent/pc/textures/woodplanks/normal.dds
+[1357232 bytes]
+
+PlatformContent/pc/textures/woodplanks/normaldetail.dds
+[176 bytes]
+
+PlatformContent/pc/textures/woodplanks/specular.dds
 [684723 bytes]
-
-content/translations/ChatLocalization.json
-[21706 bytes]
-
-content/translations/CorescriptLocalization.json
-[111982 bytes]
 
