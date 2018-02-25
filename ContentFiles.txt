@@ -1,3 +1,27 @@
+BuiltInPlugins/AnimationEditor.rbxmx
+[593591 bytes]
+
+BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
+[249262 bytes]
+
+BuiltInPlugins/LocalizationPlugin.rbxmx
+[5251 bytes]
+
+BuiltInPlugins/PhysicsAnalyzer.rbxmx
+[25640 bytes]
+
+BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
+[274869 bytes]
+
+BuiltInPlugins/TransformDragger.rbxmx
+[210497 bytes]
+
+BuiltInPlugins/UIEditor.rbxmx
+[132707 bytes]
+
+BuiltInPlugins/VideoDocumentation.rbxmx
+[3801 bytes]
+
 content/avatar/anthro/characterNarrowBladeHands.rbxm
 [117134 bytes]
 
@@ -5409,4 +5433,19 @@ PlatformContent/pc/textures/woodplanks/normaldetail.dds
 
 PlatformContent/pc/textures/woodplanks/specular.dds
 [684723 bytes]
+
+shaders/keepme
+[0 bytes]
+
+shaders/shaders_glsl.pack
+[318186 bytes]
+
+shaders/shaders_glsl3.pack
+[334692 bytes]
+
+shaders/shaders_metal_osx.pack
+[893433 bytes]
+
+shaders/shaders_metal_osx_old.pack
+[1035274 bytes]
 
