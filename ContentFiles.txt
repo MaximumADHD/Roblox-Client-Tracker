@@ -5,7 +5,7 @@ BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
 [249262 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[5251 bytes]
+[5253 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
@@ -59,109 +59,109 @@ content/avatar/compositing/CompositFullAtlasBaseTexture.mesh
 [193 bytes]
 
 content/avatar/compositing/CompositFullAtlasOverlayTexture.mesh
-[189 bytes]
+[193 bytes]
 
 content/avatar/compositing/CompositLeftArmBase.mesh
-[28805 bytes]
+[28921 bytes]
 
 content/avatar/compositing/CompositLeftLegBase.mesh
-[28141 bytes]
+[28921 bytes]
 
 content/avatar/compositing/CompositPantsTemplate.mesh
-[42981 bytes]
+[43201 bytes]
 
 content/avatar/compositing/CompositQuad.mesh
-[183 bytes]
+[193 bytes]
 
 content/avatar/compositing/CompositRightArmBase.mesh
 [28585 bytes]
 
 content/avatar/compositing/CompositRightLegBase.mesh
-[28409 bytes]
+[28585 bytes]
 
 content/avatar/compositing/CompositShirtTemplate.mesh
-[42224 bytes]
+[43201 bytes]
 
 content/avatar/compositing/CompositTorsoBase.mesh
-[28551 bytes]
+[28921 bytes]
 
 content/avatar/compositing/CompositTShirt.mesh
 [193 bytes]
 
 content/avatar/compositing/R15CompositLeftArmBase.mesh
-[18822 bytes]
+[18937 bytes]
 
 content/avatar/compositing/R15CompositRightArmBase.mesh
-[18803 bytes]
+[18937 bytes]
 
 content/avatar/compositing/R15CompositTorsoBase.mesh
-[8818 bytes]
+[9049 bytes]
 
 content/avatar/heads/head.mesh
-[28207 bytes]
+[28789 bytes]
 
 content/avatar/heads/headA.mesh
-[13336 bytes]
+[13561 bytes]
 
 content/avatar/heads/headB.mesh
 [1033 bytes]
 
 content/avatar/heads/headC.mesh
-[18585 bytes]
+[18961 bytes]
 
 content/avatar/heads/headD.mesh
-[29041 bytes]
+[29509 bytes]
 
 content/avatar/heads/headE.mesh
-[24067 bytes]
+[24505 bytes]
 
 content/avatar/heads/headF.mesh
-[9441 bytes]
+[9601 bytes]
 
 content/avatar/heads/headG.mesh
-[21168 bytes]
+[21589 bytes]
 
 content/avatar/heads/headH.mesh
-[28241 bytes]
+[28789 bytes]
 
 content/avatar/heads/headI.mesh
-[2818 bytes]
+[2881 bytes]
 
 content/avatar/heads/headJ.mesh
-[2657 bytes]
+[2665 bytes]
 
 content/avatar/heads/headK.mesh
-[28287 bytes]
+[28789 bytes]
 
 content/avatar/heads/headL.mesh
-[13783 bytes]
+[14029 bytes]
 
 content/avatar/heads/headM.mesh
-[3225 bytes]
+[3241 bytes]
 
 content/avatar/heads/headN.mesh
-[28979 bytes]
+[29509 bytes]
 
 content/avatar/heads/headO.mesh
-[18728 bytes]
+[19105 bytes]
 
 content/avatar/heads/headP.mesh
-[28979 bytes]
+[29509 bytes]
 
 content/avatar/meshes/leftarm.mesh
-[2033 bytes]
+[2065 bytes]
 
 content/avatar/meshes/leftleg.mesh
-[2033 bytes]
+[2065 bytes]
 
 content/avatar/meshes/rightarm.mesh
-[2033 bytes]
+[2065 bytes]
 
 content/avatar/meshes/rightleg.mesh
-[2033 bytes]
+[2065 bytes]
 
 content/avatar/meshes/torso.mesh
-[2049 bytes]
+[2065 bytes]
 
 content/avatar/scripts/characterSound.rbxmx
 [11052 bytes]
@@ -176,16 +176,16 @@ content/avatar/scripts/humanoidHealthRegenScript.rbxmx
 [1307 bytes]
 
 content/fonts/AccanthisADFStd-Regular.otf
-[51166 bytes]
+[51728 bytes]
 
 content/fonts/arial.ttf
-[706354 bytes]
+[709704 bytes]
 
 content/fonts/arialbd.ttf
-[684409 bytes]
+[686916 bytes]
 
 content/fonts/Balthazar-Regular.ttf
-[28117 bytes]
+[28224 bytes]
 
 content/fonts/characterCameraScript.rbxmx
 [149131 bytes]
@@ -194,46 +194,46 @@ content/fonts/characterControlScript.rbxmx
 [80335 bytes]
 
 content/fonts/ComicNeue-Angular-Bold.ttf
-[61983 bytes]
+[62916 bytes]
 
 content/fonts/gamecontrollerdb.txt
 [23978 bytes]
 
 content/fonts/Guru-Regular.otf
-[693972 bytes]
+[695888 bytes]
 
 content/fonts/humanoidSoundNewLocal.rbxmx
 [5584 bytes]
 
 content/fonts/HWYGOTH.ttf
-[52488 bytes]
+[53012 bytes]
 
 content/fonts/Inconsolata-Regular.ttf
-[79017 bytes]
+[80456 bytes]
 
 content/fonts/PressStart2P-Regular.ttf
-[66336 bytes]
+[66432 bytes]
 
 content/fonts/RomanAntique.otf
-[265740 bytes]
+[268000 bytes]
 
 content/fonts/SourceSansPro-Bold.ttf
-[289472 bytes]
+[291584 bytes]
 
 content/fonts/SourceSansPro-It.ttf
-[102903 bytes]
+[103620 bytes]
 
 content/fonts/SourceSansPro-Light.ttf
-[149023 bytes]
+[149916 bytes]
 
 content/fonts/SourceSansPro-Regular.ttf
-[148611 bytes]
+[149508 bytes]
 
 content/fonts/SourceSansPro-Semibold.ttf
-[148454 bytes]
+[149352 bytes]
 
 content/fonts/zekton_rg.ttf
-[86820 bytes]
+[86964 bytes]
 
 content/internal/AppShell/Modules/Shell/AccountAgeWidget.lua
 [1959 bytes]
@@ -656,751 +656,751 @@ content/internal/AppShell/XStarterScript.lua
 [332 bytes]
 
 content/internal/AppShellLocalization/Modules/de.lua
-[18398 bytes]
+[18564 bytes]
 
 content/internal/AppShellLocalization/Modules/en-US.lua
-[16867 bytes]
+[16871 bytes]
 
 content/internal/AppShellLocalization/Modules/es.lua
-[17954 bytes]
+[18174 bytes]
 
 content/internal/AppShellLocalization/Modules/fr.lua
-[18362 bytes]
+[18697 bytes]
 
 content/internal/AppShellLocalization/Modules/it.lua
-[17192 bytes]
+[17276 bytes]
 
 content/internal/AppShellLocalization/Modules/ja.lua
-[11775 bytes]
+[20423 bytes]
 
 content/internal/AppShellLocalization/Modules/pt-BR.lua
-[17137 bytes]
+[17444 bytes]
 
 content/internal/AppShellLocalization/Modules/ru.lua
-[17428 bytes]
+[25936 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-box-shadow.png
-[196 bytes]
+[199 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-box-shadow@2x.png
-[348 bytes]
+[361 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-box-shadow@3x.png
-[498 bytes]
+[517 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-circle-shadow.png
-[1006 bytes]
+[1071 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-circle-shadow@2x.png
-[2214 bytes]
+[2363 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-circle-shadow@3x.png
-[3898 bytes]
+[4125 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-circle-white.png
-[331 bytes]
+[350 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-circle-white@2x.png
-[645 bytes]
+[682 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-circle-white@3x.png
-[1155 bytes]
+[1251 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-ring-selector.png
-[772 bytes]
+[814 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-ring-selector@2x.png
-[1996 bytes]
+[2138 bytes]
 
 content/internal/AvatarEditorIcons/ColorSelection/gr-ring-selector@3x.png
-[3314 bytes]
+[3548 bytes]
 
 content/internal/AvatarEditorIcons/ic-avatareditor.png
-[846 bytes]
+[911 bytes]
 
 content/internal/AvatarEditorIcons/ic-avatareditor-filled.png
-[757 bytes]
+[789 bytes]
 
 content/internal/AvatarEditorIcons/ic-back.png
-[261 bytes]
+[270 bytes]
 
 content/internal/AvatarEditorIcons/ic-back-white.png
-[255 bytes]
+[264 bytes]
 
 content/internal/AvatarEditorIcons/ic-bundle.png
-[778 bytes]
+[809 bytes]
 
 content/internal/AvatarEditorIcons/ic-bundle-white.png
-[613 bytes]
+[643 bytes]
 
 content/internal/AvatarEditorIcons/ic-close.png
-[371 bytes]
-
-content/internal/AvatarEditorIcons/ic-close-white.png
-[367 bytes]
-
-content/internal/AvatarEditorIcons/ic-color.png
-[1086 bytes]
-
-content/internal/AvatarEditorIcons/ic-color-filled.png
-[953 bytes]
-
-content/internal/AvatarEditorIcons/ic-download.png
-[389 bytes]
-
-content/internal/AvatarEditorIcons/ic-face.png
-[849 bytes]
-
-content/internal/AvatarEditorIcons/ic-face-white.png
-[660 bytes]
-
-content/internal/AvatarEditorIcons/ic-gear.png
-[603 bytes]
-
-content/internal/AvatarEditorIcons/ic-gear-white.png
-[453 bytes]
-
-content/internal/AvatarEditorIcons/ic-hat.png
-[388 bytes]
-
-content/internal/AvatarEditorIcons/ic-hat-gray4.png
-[382 bytes]
-
-content/internal/AvatarEditorIcons/ic-hat-white.png
-[301 bytes]
-
-content/internal/AvatarEditorIcons/ic-head.png
-[611 bytes]
-
-content/internal/AvatarEditorIcons/ic-head-white.png
-[453 bytes]
-
-content/internal/AvatarEditorIcons/ic-history.png
-[769 bytes]
-
-content/internal/AvatarEditorIcons/ic-history-white.png
-[581 bytes]
-
-content/internal/AvatarEditorIcons/ic-leftarm.png
-[609 bytes]
-
-content/internal/AvatarEditorIcons/ic-leftarm-white.png
-[446 bytes]
-
-content/internal/AvatarEditorIcons/ic-leftleg.png
-[506 bytes]
-
-content/internal/AvatarEditorIcons/ic-leftleg-white.png
-[385 bytes]
-
-content/internal/AvatarEditorIcons/ic-pant.png
-[542 bytes]
-
-content/internal/AvatarEditorIcons/ic-pant-white.png
-[421 bytes]
-
-content/internal/AvatarEditorIcons/ic-rewind.png
-[708 bytes]
-
-content/internal/AvatarEditorIcons/ic-rightarm.png
-[613 bytes]
-
-content/internal/AvatarEditorIcons/ic-rightarm-white.png
-[439 bytes]
-
-content/internal/AvatarEditorIcons/ic-rightleg.png
-[515 bytes]
-
-content/internal/AvatarEditorIcons/ic-rightleg-white.png
 [383 bytes]
 
-content/internal/AvatarEditorIcons/ic-robux.png
-[972 bytes]
+content/internal/AvatarEditorIcons/ic-close-white.png
+[379 bytes]
 
-content/internal/AvatarEditorIcons/ic-robux-filled.png
-[802 bytes]
+content/internal/AvatarEditorIcons/ic-color.png
+[1130 bytes]
 
-content/internal/AvatarEditorIcons/ic-scale.png
-[184 bytes]
+content/internal/AvatarEditorIcons/ic-color-filled.png
+[996 bytes]
 
-content/internal/AvatarEditorIcons/ic-scale@2x.png
-[258 bytes]
+content/internal/AvatarEditorIcons/ic-download.png
+[403 bytes]
 
-content/internal/AvatarEditorIcons/ic-scale-filled.png
-[157 bytes]
+content/internal/AvatarEditorIcons/ic-face.png
+[896 bytes]
 
-content/internal/AvatarEditorIcons/ic-scale-filled@2x.png
-[188 bytes]
+content/internal/AvatarEditorIcons/ic-face-white.png
+[692 bytes]
 
-content/internal/AvatarEditorIcons/ic-search.png
-[683 bytes]
-
-content/internal/AvatarEditorIcons/ic-star.png
-[766 bytes]
-
-content/internal/AvatarEditorIcons/ic-star-filled.png
-[576 bytes]
-
-content/internal/AvatarEditorIcons/ic-tee.png
-[497 bytes]
-
-content/internal/AvatarEditorIcons/ic-tee-white.png
-[378 bytes]
-
-content/internal/AvatarEditorIcons/ic-torso.png
-[645 bytes]
-
-content/internal/AvatarEditorIcons/ic-torso-white.png
-[499 bytes]
-
-content/internal/AvatarEditorIcons/ic-tshirt.png
-[732 bytes]
-
-content/internal/AvatarEditorIcons/ic-tshirt-white.png
-[604 bytes]
-
-content/internal/AvatarEditorIcons/ingame/btn-expand.png
-[295 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gra-toggle-button.png
-[332 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gra-toggle-button@2x.png
-[513 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gra-toggle-frame.png
-[299 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gra-toggle-frame@2x.png
-[504 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-card corner.png
-[211 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-card corner@2x.png
-[405 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-category-selector.png
-[562 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-category-selector@2x.png
-[1241 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-corner.png
-[440 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-half-circle.png
-[787 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-half-circle@2x.png
-[1690 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-orange-circle.png
-[488 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-orange-circle@2x.png
-[1246 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-ring01.png
-[612 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-ring01@2x.png
-[1190 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-tail.png
-[104 bytes]
-
-content/internal/AvatarEditorIcons/ingame/gr-tail@2x.png
-[152 bytes]
-
-content/internal/AvatarEditorIcons/ingame/ic-back-white.png
-[194 bytes]
-
-content/internal/AvatarEditorIcons/ingame/ic-back-white@2x.png
-[266 bytes]
-
-content/internal/AvatarEditorIcons/ingame/ic-close.png
-[149 bytes]
-
-content/internal/AvatarEditorIcons/ingame/ic-close@2x.png
-[208 bytes]
-
-content/internal/AvatarEditorIcons/ingame/ic-up-black.png
-[208 bytes]
-
-content/internal/AvatarEditorIcons/ingame/ic-up-black@2x.png
-[289 bytes]
-
-content/internal/AvatarEditorIcons/ingame/img-selector-box.png
-[400 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb.png
-[340 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb@2x.png
-[606 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on.png
-[289 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on@2x.png
-[447 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall.png
-[405 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall@2x.png
-[727 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on.png
-[301 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on@2x.png
-[482 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle.png
-[343 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle@2x.png
-[621 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on.png
-[271 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on@2x.png
-[441 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump.png
-[368 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump@2x.png
-[626 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on.png
-[277 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on@2x.png
-[451 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run.png
-[365 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run@2x.png
+content/internal/AvatarEditorIcons/ic-gear.png
 [638 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on.png
-[277 bytes]
+content/internal/AvatarEditorIcons/ic-gear-white.png
+[470 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on@2x.png
-[440 bytes]
+content/internal/AvatarEditorIcons/ic-hat.png
+[400 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim.png
-[317 bytes]
+content/internal/AvatarEditorIcons/ic-hat-gray4.png
+[400 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim@2x.png
-[526 bytes]
+content/internal/AvatarEditorIcons/ic-hat-white.png
+[310 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on.png
-[253 bytes]
+content/internal/AvatarEditorIcons/ic-head.png
+[647 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on@2x.png
-[401 bytes]
+content/internal/AvatarEditorIcons/ic-head-white.png
+[467 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk.png
-[385 bytes]
+content/internal/AvatarEditorIcons/ic-history.png
+[815 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk@2x.png
-[653 bytes]
+content/internal/AvatarEditorIcons/ic-history-white.png
+[611 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on.png
-[287 bytes]
+content/internal/AvatarEditorIcons/ic-leftarm.png
+[633 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on@2x.png
-[492 bytes]
+content/internal/AvatarEditorIcons/ic-leftarm-white.png
+[464 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color.png
-[418 bytes]
+content/internal/AvatarEditorIcons/ic-leftleg.png
+[524 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color@2x.png
-[780 bytes]
+content/internal/AvatarEditorIcons/ic-leftleg-white.png
+[397 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color-on.png
-[402 bytes]
+content/internal/AvatarEditorIcons/ic-pant.png
+[566 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color-on@2x.png
-[688 bytes]
+content/internal/AvatarEditorIcons/ic-pant-white.png
+[433 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head.png
-[267 bytes]
+content/internal/AvatarEditorIcons/ic-rewind.png
+[747 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head@2x.png
-[425 bytes]
+content/internal/AvatarEditorIcons/ic-rightarm.png
+[642 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head-on.png
-[222 bytes]
+content/internal/AvatarEditorIcons/ic-rightarm-white.png
+[463 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head-on@2x.png
-[330 bytes]
+content/internal/AvatarEditorIcons/ic-rightleg.png
+[534 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm.png
-[321 bytes]
+content/internal/AvatarEditorIcons/ic-rightleg-white.png
+[404 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm@2x.png
-[511 bytes]
+content/internal/AvatarEditorIcons/ic-robux.png
+[1030 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm-on.png
-[245 bytes]
+content/internal/AvatarEditorIcons/ic-robux-filled.png
+[838 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm-on@2x.png
-[390 bytes]
+content/internal/AvatarEditorIcons/ic-scale.png
+[192 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg.png
-[236 bytes]
+content/internal/AvatarEditorIcons/ic-scale@2x.png
+[269 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg@2x.png
-[373 bytes]
+content/internal/AvatarEditorIcons/ic-scale-filled.png
+[159 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg-on.png
-[191 bytes]
+content/internal/AvatarEditorIcons/ic-scale-filled@2x.png
+[193 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg-on@2x.png
-[282 bytes]
+content/internal/AvatarEditorIcons/ic-search.png
+[709 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm.png
-[312 bytes]
+content/internal/AvatarEditorIcons/ic-star.png
+[807 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm@2x.png
+content/internal/AvatarEditorIcons/ic-star-filled.png
+[605 bytes]
+
+content/internal/AvatarEditorIcons/ic-tee.png
+[521 bytes]
+
+content/internal/AvatarEditorIcons/ic-tee-white.png
+[387 bytes]
+
+content/internal/AvatarEditorIcons/ic-torso.png
+[674 bytes]
+
+content/internal/AvatarEditorIcons/ic-torso-white.png
 [518 bytes]
 
+content/internal/AvatarEditorIcons/ic-tshirt.png
+[757 bytes]
+
+content/internal/AvatarEditorIcons/ic-tshirt-white.png
+[633 bytes]
+
+content/internal/AvatarEditorIcons/ingame/btn-expand.png
+[307 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-button.png
+[346 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-button@2x.png
+[538 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-frame.png
+[305 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gra-toggle-frame@2x.png
+[520 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-card corner.png
+[224 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-card corner@2x.png
+[424 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-category-selector.png
+[591 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-category-selector@2x.png
+[1316 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-corner.png
+[463 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-half-circle.png
+[826 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-half-circle@2x.png
+[1777 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-orange-circle.png
+[509 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-orange-circle@2x.png
+[1311 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-ring01.png
+[649 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-ring01@2x.png
+[1245 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-tail.png
+[106 bytes]
+
+content/internal/AvatarEditorIcons/ingame/gr-tail@2x.png
+[154 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-back-white.png
+[201 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-back-white@2x.png
+[272 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-close.png
+[150 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-close@2x.png
+[211 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-up-black.png
+[213 bytes]
+
+content/internal/AvatarEditorIcons/ingame/ic-up-black@2x.png
+[304 bytes]
+
+content/internal/AvatarEditorIcons/ingame/img-selector-box.png
+[422 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb.png
+[352 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb@2x.png
+[631 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on.png
+[295 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-climb-on@2x.png
+[470 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall.png
+[417 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall@2x.png
+[774 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on.png
+[312 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-fall-on@2x.png
+[518 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle.png
+[358 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle@2x.png
+[645 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on.png
+[277 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-idle-on@2x.png
+[452 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump.png
+[378 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump@2x.png
+[656 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on.png
+[293 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-jump-on@2x.png
+[470 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run.png
+[382 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run@2x.png
+[673 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on.png
+[289 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-run-on@2x.png
+[463 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim.png
+[330 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim@2x.png
+[552 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on.png
+[259 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-swim-on@2x.png
+[419 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk.png
+[399 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk@2x.png
+[696 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on.png
+[296 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Avatar-Animation/ic-walk-on@2x.png
+[511 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color.png
+[428 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color@2x.png
+[822 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color-on.png
+[416 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-color-on@2x.png
+[706 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head.png
+[280 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head@2x.png
+[448 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head-on.png
+[230 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-head-on@2x.png
+[345 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm.png
+[328 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm@2x.png
+[530 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm-on.png
+[249 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-arm-on@2x.png
+[400 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg.png
+[250 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg@2x.png
+[383 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg-on.png
+[194 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-left-leg-on@2x.png
+[289 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm.png
+[325 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm@2x.png
+[531 bytes]
+
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm-on.png
-[234 bytes]
+[238 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-arm-on@2x.png
-[369 bytes]
+[394 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg.png
-[241 bytes]
+[252 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg@2x.png
-[366 bytes]
+[386 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg-on.png
 [198 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-right-leg-on@2x.png
-[266 bytes]
+[278 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling.png
-[184 bytes]
+[192 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling@2x.png
-[258 bytes]
+[269 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling-on.png
-[157 bytes]
+[159 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-scaling-on@2x.png
-[209 bytes]
+[219 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso.png
-[289 bytes]
+[302 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso@2x.png
-[485 bytes]
+[506 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso-on.png
-[238 bytes]
+[244 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Body-Part/ic-torso-on@2x.png
-[384 bytes]
+[398 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-all.png
-[166 bytes]
+[169 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-all@2x.png
-[228 bytes]
+[234 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-all-on.png
-[155 bytes]
+[160 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-all-on@2x.png
-[214 bytes]
+[222 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation.png
-[196 bytes]
+[200 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation@2x.png
-[278 bytes]
+[290 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation-on.png
 [188 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-avatar-animation-on@2x.png
-[260 bytes]
+[273 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part.png
-[295 bytes]
+[311 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part@2x.png
-[492 bytes]
+[522 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part-on.png
-[241 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part-on@2x.png
-[345 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing.png
-[303 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing@2x.png
-[484 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing-on.png
 [246 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing-on@2x.png
-[404 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent.png
-[298 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent@2x.png
-[531 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent-on.png
-[245 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent-on@2x.png
-[425 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back.png
-[342 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back@2x.png
-[601 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back-on.png
-[270 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back-on@2x.png
-[454 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle.png
-[334 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle@2x.png
-[586 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle-on.png
-[277 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle-on@2x.png
-[475 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face.png
-[330 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face@2x.png
-[574 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face-on.png
-[257 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face-on@2x.png
-[447 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front.png
-[288 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front@2x.png
-[460 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front-on.png
-[234 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front-on@2x.png
-[359 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear.png
-[284 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear@2x.png
-[475 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear-on.png
-[225 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear-on@2x.png
-[352 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair.png
-[374 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair@2x.png
-[655 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair-on.png
-[293 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair-on@2x.png
-[488 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat.png
-[182 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat@2x.png
-[264 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat-on.png
-[150 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat-on@2x.png
-[221 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck.png
-[276 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck@2x.png
-[485 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck-on.png
-[264 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck-on@2x.png
-[427 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants.png
-[256 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants@2x.png
-[406 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants-on.png
-[212 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants-on@2x.png
-[326 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt.png
-[346 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt@2x.png
-[564 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt-on.png
-[284 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt-on@2x.png
-[488 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder.png
-[368 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder@2x.png
-[592 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder-on.png
-[323 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder-on@2x.png
-[530 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt.png
-[251 bytes]
-
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt@2x.png
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-body-part-on@2x.png
 [365 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt-on.png
-[210 bytes]
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing.png
+[313 bytes]
 
-content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt-on@2x.png
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing@2x.png
+[510 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing-on.png
+[257 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-clothing-on@2x.png
+[427 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent.png
+[310 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent@2x.png
+[552 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent-on.png
+[258 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Category/ic-recent-on@2x.png
+[437 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back.png
+[348 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back@2x.png
+[624 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back-on.png
+[286 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-back-on@2x.png
+[478 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle.png
+[356 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle@2x.png
+[609 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle-on.png
+[282 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-bundle-on@2x.png
+[494 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face.png
+[340 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face@2x.png
+[616 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face-on.png
+[270 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-face-on@2x.png
+[474 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front.png
+[299 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front@2x.png
+[483 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front-on.png
+[239 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-front-on@2x.png
+[374 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear.png
+[296 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear@2x.png
+[494 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear-on.png
+[235 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-gear-on@2x.png
+[365 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair.png
+[389 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair@2x.png
+[683 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair-on.png
+[302 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hair-on@2x.png
+[515 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat.png
+[184 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat@2x.png
+[270 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat-on.png
+[152 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-hat-on@2x.png
+[223 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck.png
+[285 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck@2x.png
+[515 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck-on.png
+[272 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-neck-on@2x.png
+[445 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants.png
+[265 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants@2x.png
+[427 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants-on.png
+[217 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-pants-on@2x.png
+[333 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt.png
+[357 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt@2x.png
+[597 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt-on.png
 [293 bytes]
 
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shirt-on@2x.png
+[506 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder.png
+[380 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder@2x.png
+[623 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder-on.png
+[330 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-shoulder-on@2x.png
+[552 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt.png
+[263 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt@2x.png
+[381 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt-on.png
+[214 bytes]
+
+content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-tshirt-on@2x.png
+[304 bytes]
+
 content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist.png
-[165 bytes]
+[172 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist@2x.png
-[222 bytes]
+[227 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist-on.png
-[156 bytes]
+[157 bytes]
 
 content/internal/AvatarEditorIcons/PageIcons/Clothing/ic-waist-on@2x.png
-[194 bytes]
+[200 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-head.png
-[99 bytes]
+[102 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-head@2x.png
 [131 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-head@3x.png
-[160 bytes]
+[166 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-mid.png
 [82 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-mid@2x.png
-[83 bytes]
-
-content/internal/AvatarEditorIcons/Scaling/bar-empty-mid@3x.png
 [84 bytes]
 
+content/internal/AvatarEditorIcons/Scaling/bar-empty-mid@3x.png
+[85 bytes]
+
 content/internal/AvatarEditorIcons/Scaling/bar-empty-tail.png
-[101 bytes]
+[102 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-tail@2x.png
-[127 bytes]
+[130 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-empty-tail@3x.png
-[158 bytes]
+[159 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-head.png
-[183 bytes]
+[187 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-head@2x.png
-[323 bytes]
+[336 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-head@3x.png
-[477 bytes]
+[488 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-mid.png
 [103 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-mid@2x.png
-[129 bytes]
+[130 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-mid@3x.png
-[152 bytes]
+[154 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-tail.png
-[179 bytes]
+[188 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-tail@2x.png
-[322 bytes]
+[340 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/bar-full-tail@3x.png
-[486 bytes]
+[505 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/dragger.png
-[658 bytes]
+[685 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/dragger@2x.png
-[1460 bytes]
+[1518 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/dragger@3x.png
-[2265 bytes]
+[2396 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/dragger-highlight.png
-[450 bytes]
+[467 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/dragger-highlight@2x.png
-[1025 bytes]
+[1079 bytes]
 
 content/internal/AvatarEditorIcons/Scaling/dragger-highlight@3x.png
-[1726 bytes]
+[1829 bytes]
 
 content/internal/Chat/.luacheckrc
 [770 bytes]
@@ -1793,10 +1793,10 @@ content/internal/Chat/Modules/LuaChat/Store.spec.lua
 [2991 bytes]
 
 content/internal/Chat/Modules/LuaChat/Text.lua
-[2479 bytes]
+[2483 bytes]
 
 content/internal/Chat/Modules/LuaChat/Text.spec.lua
-[7558 bytes]
+[8134 bytes]
 
 content/internal/Chat/Modules/LuaChat/TimeUnit.lua
 [357 bytes]
@@ -2207,7 +2207,7 @@ content/internal/LuaApp/Modules/LuaApp/Constants.lua
 [993 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/GeneratedStrings.lua
-[3226 bytes]
+[3240 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AccessoriesColumn.lua
 [6544 bytes]
@@ -2285,7 +2285,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LayoutInfoConsole.lua
 [3274 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LocalizedStrings.lua
-[11872 bytes]
+[11878 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/LongPressMenu.lua
 [7916 bytes]
@@ -2333,7 +2333,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Urls.lua
 [675 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Utilities.lua
-[7984 bytes]
+[7988 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/WarningWidget.lua
 [17118 bytes]
@@ -2531,16 +2531,16 @@ content/internal/Test/README.md
 [8296 bytes]
 
 content/places/AvatarEditor.rbxl
-[304925 bytes]
+[306064 bytes]
 
 content/places/ConsoleUnitTest.rbxl
-[1037130 bytes]
+[1045824 bytes]
 
 content/places/Lobby3D.rbxl
-[237550 bytes]
+[241029 bytes]
 
 content/places/Mobile.rbxl
-[285019 bytes]
+[286290 bytes]
 
 content/places/MobileChatPlace.rbxl
 [11220 bytes]
@@ -2798,7 +2798,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
 [12685 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatLocalization.lua
-[28027 bytes]
+[31418 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatCommandsTeller.lua
 [3138 bytes]
@@ -3086,1399 +3086,1399 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/PathDisplay.lua
 [3076 bytes]
 
 content/sky/moon.jpg
-[7107 bytes]
+[7394 bytes]
 
 content/sky/sun.jpg
-[14512 bytes]
+[14773 bytes]
 
 content/sounds/action_falling.mp3
-[127688 bytes]
+[134063 bytes]
 
 content/sounds/action_footsteps_plastic.mp3
-[38962 bytes]
+[40858 bytes]
 
 content/sounds/action_get_up.mp3
-[9926 bytes]
+[10347 bytes]
 
 content/sounds/action_jump.mp3
-[6353 bytes]
+[6585 bytes]
 
 content/sounds/action_jump_land.mp3
-[5137 bytes]
+[5331 bytes]
 
 content/sounds/action_swim.mp3
-[75633 bytes]
+[79310 bytes]
 
 content/sounds/bass.wav
-[6351 bytes]
+[6380 bytes]
 
 content/sounds/impact_explosion_03.mp3
-[40674 bytes]
+[42529 bytes]
 
 content/sounds/impact_water.mp3
-[37445 bytes]
+[39186 bytes]
 
 content/sounds/snap.mp3
-[5339 bytes]
+[5460 bytes]
 
 content/sounds/uuhhh.mp3
-[5281 bytes]
+[5461 bytes]
 
 content/textures/advancedMove.png
-[1873 bytes]
+[1939 bytes]
 
 content/textures/advancedMove_joint.png
-[3539 bytes]
+[3717 bytes]
 
 content/textures/advancedMove_keysOnly.png
-[2469 bytes]
+[2580 bytes]
 
 content/textures/advancedMove_noJoint.png
-[2928 bytes]
+[3072 bytes]
 
 content/textures/advancedMoveResize.png
-[2042 bytes]
+[2106 bytes]
 
 content/textures/advClosed-hand.png
-[1093 bytes]
+[1099 bytes]
 
 content/textures/advClosed-hand-anchored.png
-[1078 bytes]
+[1136 bytes]
 
 content/textures/advClosed-hand-no-weld.png
-[1127 bytes]
+[1132 bytes]
 
 content/textures/advClosed-hand-weld.png
-[1216 bytes]
+[1228 bytes]
 
 content/textures/advCursor-default.png
-[1115 bytes]
+[1120 bytes]
 
 content/textures/advCursor-openedHand.png
-[1126 bytes]
+[1133 bytes]
 
 content/textures/advCursor-white.png
-[1053 bytes]
+[1060 bytes]
 
 content/textures/AnchorCursor.png
-[1114 bytes]
+[1150 bytes]
 
 content/textures/ArrowCursor.png
-[230 bytes]
+[232 bytes]
 
 content/textures/ArrowCursorDecalDrag.png
-[230 bytes]
+[232 bytes]
 
 content/textures/ArrowFarCursor.png
-[233 bytes]
+[235 bytes]
 
 content/textures/AvatarEditorImages/btn.png
-[162 bytes]
+[165 bytes]
 
 content/textures/AvatarEditorImages/btn@2x.png
-[252 bytes]
+[257 bytes]
 
 content/textures/AvatarEditorImages/btn@3x.png
-[369 bytes]
+[383 bytes]
 
 content/textures/AvatarEditorImages/circle_blue.png
-[228 bytes]
+[234 bytes]
 
 content/textures/AvatarEditorImages/circle_blue@2x.png
-[452 bytes]
+[469 bytes]
 
 content/textures/AvatarEditorImages/circle_blue@3x.png
-[613 bytes]
+[646 bytes]
 
 content/textures/AvatarEditorImages/circle_gray4.png
-[239 bytes]
+[246 bytes]
 
 content/textures/AvatarEditorImages/circle_gray4@2x.png
-[445 bytes]
+[457 bytes]
 
 content/textures/AvatarEditorImages/circle_gray4@3x.png
-[631 bytes]
+[659 bytes]
 
 content/textures/AvatarEditorImages/Sheet.png
-[292348 bytes]
+[308198 bytes]
 
 content/textures/AvatarEditorImages/Stretch/bar-empty-mid.png
 [82 bytes]
 
 content/textures/AvatarEditorImages/Stretch/bar-empty-mid@2x.png
-[83 bytes]
+[84 bytes]
 
 content/textures/AvatarEditorImages/Stretch/bar-empty-mid@3x.png
-[84 bytes]
+[85 bytes]
 
 content/textures/AvatarEditorImages/Stretch/bar-full-mid.png
 [103 bytes]
 
 content/textures/AvatarEditorImages/Stretch/bar-full-mid@2x.png
-[129 bytes]
+[130 bytes]
 
 content/textures/AvatarEditorImages/Stretch/bar-full-mid@3x.png
-[152 bytes]
+[154 bytes]
 
 content/textures/AvatarEditorImages/Stretch/gr-tail.png
-[104 bytes]
+[106 bytes]
 
 content/textures/AvatarEditorImages/Stretch/gr-tail@2x.png
-[152 bytes]
+[154 bytes]
 
 content/textures/blackBkg_round.png
-[331 bytes]
+[341 bytes]
 
 content/textures/blackBkg_square.png
-[131 bytes]
+[135 bytes]
 
 content/textures/Blank.png
 [183 bytes]
 
 content/textures/blockUpperLeft.png
-[271 bytes]
+[278 bytes]
 
 content/textures/chatBubble_bot_notifyGray_dotDotDot.png
-[246 bytes]
+[253 bytes]
 
 content/textures/ConstraintCursor.png
-[165 bytes]
+[170 bytes]
 
 content/textures/Cursors/Gamepad/Pointer.png
-[1073 bytes]
+[1080 bytes]
 
 content/textures/Cursors/Gamepad/Pointer@2x.png
-[1154 bytes]
+[1170 bytes]
 
 content/textures/Cursors/Gamepad/PointerOver.png
-[864 bytes]
+[905 bytes]
 
 content/textures/Cursors/Gamepad/PointerOver@2x.png
-[1513 bytes]
+[1593 bytes]
 
 content/textures/emoji/page0.png
-[289785 bytes]
+[306260 bytes]
 
 content/textures/emoji/page1.png
-[298826 bytes]
+[315776 bytes]
 
 content/textures/emoji/page10.png
-[314823 bytes]
+[332681 bytes]
 
 content/textures/emoji/page11.png
-[298998 bytes]
+[316452 bytes]
 
 content/textures/emoji/page12.png
-[320636 bytes]
+[339405 bytes]
 
 content/textures/emoji/page13.png
-[331737 bytes]
+[351294 bytes]
 
 content/textures/emoji/page14.png
-[237393 bytes]
+[251379 bytes]
 
 content/textures/emoji/page2.png
-[288947 bytes]
+[305223 bytes]
 
 content/textures/emoji/page3.png
-[252281 bytes]
+[266547 bytes]
 
 content/textures/emoji/page4.png
-[240775 bytes]
+[254069 bytes]
 
 content/textures/emoji/page5.png
-[293910 bytes]
+[310847 bytes]
 
 content/textures/emoji/page6.png
-[274965 bytes]
+[290859 bytes]
 
 content/textures/emoji/page7.png
-[176151 bytes]
+[186518 bytes]
 
 content/textures/emoji/page8.png
-[301867 bytes]
+[319481 bytes]
 
 content/textures/emoji/page9.png
-[313036 bytes]
+[331137 bytes]
 
 content/textures/explosion.png
-[11692 bytes]
+[12457 bytes]
 
 content/textures/face.png
-[855 bytes]
+[893 bytes]
 
 content/textures/FlatCursor.png
-[432 bytes]
-
-content/textures/glow.png
-[36056 bytes]
-
-content/textures/GlueCursor.png
-[648 bytes]
-
-content/textures/gradient.png
-[165843 bytes]
-
-content/textures/HingeCursor.png
 [451 bytes]
 
+content/textures/glow.png
+[38009 bytes]
+
+content/textures/GlueCursor.png
+[665 bytes]
+
+content/textures/gradient.png
+[174811 bytes]
+
+content/textures/HingeCursor.png
+[467 bytes]
+
 content/textures/icon_ROBUX.png
-[316 bytes]
+[332 bytes]
 
 content/textures/icon_ROBUX@2x.png
-[558 bytes]
+[584 bytes]
 
 content/textures/Icon_Stream_Off.png
-[200 bytes]
+[206 bytes]
 
 content/textures/Icon_Stream_Off@2x.png
-[299 bytes]
+[309 bytes]
 
 content/textures/Icon_Stream_Off@3x.png
-[421 bytes]
+[445 bytes]
 
 content/textures/loading/cancelButton.png
-[2567 bytes]
+[2663 bytes]
 
 content/textures/loading/darkLoadingTexture.png
-[41563 bytes]
+[43675 bytes]
 
 content/textures/loading/loadingCircle.png
-[12083 bytes]
+[12554 bytes]
 
 content/textures/loading/loadingTexture.png
-[42096 bytes]
+[44202 bytes]
 
 content/textures/loading/loadingvignette.png
-[3798 bytes]
+[3950 bytes]
 
 content/textures/loading/robloxlogo.png
-[17071 bytes]
+[18050 bytes]
 
 content/textures/loading/robloxTilt.png
-[2450 bytes]
+[2538 bytes]
 
 content/textures/loading/robloxTiltRed.png
-[2338 bytes]
+[2452 bytes]
 
 content/textures/localizationExport.png
-[1131 bytes]
+[1185 bytes]
 
 content/textures/localizationImport.png
-[1042 bytes]
+[1104 bytes]
 
 content/textures/localizationTargetEnglish.png
-[881 bytes]
+[914 bytes]
 
 content/textures/localizationTargetSpanish.png
-[888 bytes]
+[927 bytes]
 
 content/textures/localizationUIScrapingOff.png
-[965 bytes]
-
-content/textures/localizationUIScrapingOn.png
-[531 bytes]
-
-content/textures/LockCursor.png
-[547 bytes]
-
-content/textures/meshPartFallback.png
-[241 bytes]
-
-content/textures/MotorCursor.png
-[477 bytes]
-
-content/textures/MouseLockedCursor.png
-[1650 bytes]
-
-content/textures/particles/common_alpha.dds
-[4203 bytes]
-
-content/textures/particles/explosion_alpha.dds
-[2861 bytes]
-
-content/textures/particles/explosion_color.dds
-[5547 bytes]
-
-content/textures/particles/explosion01_core_alpha.png
-[22673 bytes]
-
-content/textures/particles/explosion01_core_main.dds
-[85637 bytes]
-
-content/textures/particles/explosion01_implosion_color.png
-[2589 bytes]
-
-content/textures/particles/explosion01_implosion_main.dds
-[87032 bytes]
-
-content/textures/particles/explosion01_shockwave_main.dds
-[86982 bytes]
-
-content/textures/particles/explosion01_smoke_alpha.dds
-[2881 bytes]
-
-content/textures/particles/explosion01_smoke_color_new.dds
-[2859 bytes]
-
-content/textures/particles/explosion01_smoke_main.dds
-[86586 bytes]
-
-content/textures/particles/fire_alpha.dds
-[5629 bytes]
-
-content/textures/particles/fire_color.dds
-[5582 bytes]
-
-content/textures/particles/fire_main.dds
-[85672 bytes]
-
-content/textures/particles/fire_sparks_color.dds
-[5508 bytes]
-
-content/textures/particles/fire_sparks_main.dds
-[5474 bytes]
-
-content/textures/particles/forcefield_alpha.dds
-[5640 bytes]
-
-content/textures/particles/forcefield_glow_alpha.dds
-[5618 bytes]
-
-content/textures/particles/forcefield_glow_color.dds
-[5628 bytes]
-
-content/textures/particles/forcefield_glow_main.dds
-[86604 bytes]
-
-content/textures/particles/forcefield_vortex_color.dds
-[5628 bytes]
-
-content/textures/particles/forcefield_vortex_main.dds
-[21708 bytes]
-
-content/textures/particles/legacy_fire_alpha_color.dds
-[2871 bytes]
-
-content/textures/particles/smoke_color.dds
-[5546 bytes]
-
-content/textures/particles/smoke_main.dds
-[21514 bytes]
-
-content/textures/particles/sparkles_color.dds
-[5465 bytes]
-
-content/textures/particles/sparkles_main.dds
-[21631 bytes]
-
-content/textures/rotationArrow.png
-[2354 bytes]
-
-content/textures/shadowblurmask.png
-[3045 bytes]
-
-content/textures/sparkle.png
-[1072 bytes]
-
-content/textures/StudioUIEditor/placeholderResizeDiagonalDown.png
-[1363 bytes]
-
-content/textures/StudioUIEditor/placeholderResizeDiagonalUp.png
-[1351 bytes]
-
-content/textures/StudioUIEditor/placeholderResizeHorizontal.png
-[1172 bytes]
-
-content/textures/StudioUIEditor/placeholderResizeVertical.png
-[1200 bytes]
-
-content/textures/StudioUIEditor/sizeBoxRoundedRectangle.png
-[212 bytes]
-
-content/textures/SurfacesDefault.png
-[153 bytes]
-
-content/textures/transformFiveDegrees.png
-[2323 bytes]
-
-content/textures/transformNinetyDegrees.png
-[3266 bytes]
-
-content/textures/transformOneDegree.png
-[2004 bytes]
-
-content/textures/transformTwentyTwoDegrees.png
-[2388 bytes]
-
-content/textures/ui/account_over13.png
-[1714 bytes]
-
-content/textures/ui/account_under13.png
-[1851 bytes]
-
-content/textures/ui/Backpack/Backpack.png
-[569 bytes]
-
-content/textures/ui/Backpack/Backpack@2x.png
-[1374 bytes]
-
-content/textures/ui/Backpack/Backpack_Down.png
-[675 bytes]
-
-content/textures/ui/Backpack/Backpack_Down@2x.png
-[1606 bytes]
-
-content/textures/ui/Backpack/ScrollDownArrow.png
-[384 bytes]
-
-content/textures/ui/Backpack/ScrollUpArrow.png
-[382 bytes]
-
-content/textures/ui/Backpack_Close.png
-[151 bytes]
-
-content/textures/ui/Backpack_Close@2x.png
-[238 bytes]
-
-content/textures/ui/Backpack_Open.png
-[156 bytes]
-
-content/textures/ui/Backpack_Open@2x.png
-[243 bytes]
-
-content/textures/ui/btn_grey.png
-[281 bytes]
-
-content/textures/ui/btn_greyTransp.png
-[284 bytes]
-
-content/textures/ui/btn_newBlue.png
-[14779 bytes]
-
-content/textures/ui/btn_newBlue@2x.png
-[15154 bytes]
-
-content/textures/ui/btn_newBlueGlow.png
-[14788 bytes]
-
-content/textures/ui/btn_newBlueGlow@2x.png
-[15146 bytes]
-
-content/textures/ui/btn_newGrey.png
-[14722 bytes]
-
-content/textures/ui/btn_newGrey@2x.png
-[15038 bytes]
-
-content/textures/ui/btn_newGreyGlow.png
-[14725 bytes]
-
-content/textures/ui/btn_newGreyGlow@2x.png
-[15030 bytes]
-
-content/textures/ui/btn_newWhite.png
-[14714 bytes]
-
-content/textures/ui/btn_newWhite@2x.png
-[15021 bytes]
-
-content/textures/ui/btn_newWhiteGlow.png
-[14727 bytes]
-
-content/textures/ui/btn_newWhiteGlow@2x.png
-[15031 bytes]
-
-content/textures/ui/btn_red.png
-[354 bytes]
-
-content/textures/ui/btn_redGlow.png
-[465 bytes]
-
-content/textures/ui/btn_white.png
-[273 bytes]
-
-content/textures/ui/ButtonLeft.png
-[14944 bytes]
-
-content/textures/ui/ButtonLeftDown.png
-[15081 bytes]
-
-content/textures/ui/ButtonRight.png
-[14931 bytes]
-
-content/textures/ui/ButtonRightDown.png
-[15084 bytes]
-
-content/textures/ui/Chat/Chat.png
-[501 bytes]
-
-content/textures/ui/Chat/Chat@2x.png
-[1193 bytes]
-
-content/textures/ui/Chat/ChatDown.png
-[557 bytes]
-
-content/textures/ui/Chat/ChatDown@2x.png
-[1219 bytes]
-
-content/textures/ui/Chat/ChatDownFlip.png
-[1195 bytes]
-
-content/textures/ui/Chat/ChatDownFlip@2x.png
-[2144 bytes]
-
-content/textures/ui/Chat/ChatFlip.png
-[1210 bytes]
-
-content/textures/ui/Chat/ChatFlip@2x.png
-[2413 bytes]
-
-content/textures/ui/Chat/MessageCounter.png
-[405 bytes]
-
-content/textures/ui/Chat/MessageCounter@2x.png
-[870 bytes]
-
-content/textures/ui/Chat/ToggleChat.png
-[662 bytes]
-
-content/textures/ui/Chat/ToggleChat@2x.png
-[1603 bytes]
-
-content/textures/ui/Chat/ToggleChatDown.png
-[832 bytes]
-
-content/textures/ui/Chat/ToggleChatDown@2x.png
-[1958 bytes]
-
-content/textures/ui/Chat/ToggleChatDownFlip.png
-[1517 bytes]
-
-content/textures/ui/Chat/ToggleChatDownFlip@2x.png
-[3002 bytes]
-
-content/textures/ui/Chat/ToggleChatFlip.png
-[1413 bytes]
-
-content/textures/ui/Chat/ToggleChatFlip@2x.png
-[2943 bytes]
-
-content/textures/ui/Chat/VRChatBackground.png
-[210 bytes]
-
-content/textures/ui/chat_teamButton.png
-[250 bytes]
-
-content/textures/ui/chat_teamButton@2x.png
-[539 bytes]
-
-content/textures/ui/chatBubble_blue_notify_bkg.png
-[494 bytes]
-
-content/textures/ui/chatBubble_green_notify_bkg.png
-[490 bytes]
-
-content/textures/ui/chatBubble_red_notify_bkg.png
-[483 bytes]
-
-content/textures/ui/chatBubble_white_notify_bkg.png
-[333 bytes]
-
-content/textures/ui/CloseButton.png
-[1336 bytes]
-
-content/textures/ui/CloseButton_dn.png
-[1460 bytes]
-
-content/textures/ui/dialog_blue.png
-[190 bytes]
-
-content/textures/ui/dialog_blue@2x.png
-[345 bytes]
-
-content/textures/ui/dialog_green.png
-[191 bytes]
-
-content/textures/ui/dialog_green@2x.png
-[350 bytes]
-
-content/textures/ui/dialog_purpose_help.png
-[294 bytes]
-
-content/textures/ui/dialog_purpose_quest.png
-[233 bytes]
-
-content/textures/ui/dialog_purpose_shop.png
-[344 bytes]
-
-content/textures/ui/dialog_red.png
-[187 bytes]
-
-content/textures/ui/dialog_red@2x.png
-[347 bytes]
-
-content/textures/ui/dialog_tail.png
-[146 bytes]
-
-content/textures/ui/dialog_tail@2x.png
-[182 bytes]
-
-content/textures/ui/dialog_white.png
-[132 bytes]
-
-content/textures/ui/dialog_white@2x.png
-[180 bytes]
-
-content/textures/ui/DPadSheet.png
-[10679 bytes]
-
-content/textures/ui/dropdown_arrow.png
-[209 bytes]
-
-content/textures/ui/dropdown_arrow@2x.png
-[373 bytes]
-
-content/textures/ui/ErrorIcon.png
-[1473 bytes]
-
-content/textures/ui/ErrorIconSmall.png
-[1575 bytes]
-
-content/textures/ui/Gear.png
-[1049 bytes]
-
-content/textures/ui/Gear_dn.png
-[1126 bytes]
-
-content/textures/ui/Health-BKG-Center.png
-[950 bytes]
-
-content/textures/ui/Health-BKG-Center@2x.png
-[965 bytes]
-
-content/textures/ui/Health-BKG-Left-Cap.png
-[1063 bytes]
-
-content/textures/ui/Health-BKG-Left-Cap@2x.png
-[1267 bytes]
-
-content/textures/ui/Health-BKG-Right-Cap.png
-[1075 bytes]
-
-content/textures/ui/Health-BKG-Right-Cap@2x.png
-[1300 bytes]
-
-content/textures/ui/homeButton.png
-[14620 bytes]
-
-content/textures/ui/homeButton@2x.png
-[345 bytes]
-
-content/textures/ui/icon_admin-16.png
-[1049 bytes]
-
-content/textures/ui/icon_BC-16.png
-[1047 bytes]
-
-content/textures/ui/icon_follower-16.png
-[1096 bytes]
-
-content/textures/ui/icon_following-16.png
-[1126 bytes]
-
-content/textures/ui/icon_friendrequestrecieved-16.png
-[1073 bytes]
-
-content/textures/ui/icon_friendrequestsent_16.png
 [1007 bytes]
 
+content/textures/localizationUIScrapingOn.png
+[547 bytes]
+
+content/textures/LockCursor.png
+[560 bytes]
+
+content/textures/meshPartFallback.png
+[243 bytes]
+
+content/textures/MotorCursor.png
+[492 bytes]
+
+content/textures/MouseLockedCursor.png
+[1690 bytes]
+
+content/textures/particles/common_alpha.dds
+[4224 bytes]
+
+content/textures/particles/explosion_alpha.dds
+[2888 bytes]
+
+content/textures/particles/explosion_color.dds
+[5648 bytes]
+
+content/textures/particles/explosion01_core_alpha.png
+[23031 bytes]
+
+content/textures/particles/explosion01_core_main.dds
+[87536 bytes]
+
+content/textures/particles/explosion01_implosion_color.png
+[2714 bytes]
+
+content/textures/particles/explosion01_implosion_main.dds
+[87536 bytes]
+
+content/textures/particles/explosion01_shockwave_main.dds
+[87536 bytes]
+
+content/textures/particles/explosion01_smoke_alpha.dds
+[2888 bytes]
+
+content/textures/particles/explosion01_smoke_color_new.dds
+[2888 bytes]
+
+content/textures/particles/explosion01_smoke_main.dds
+[87536 bytes]
+
+content/textures/particles/fire_alpha.dds
+[5648 bytes]
+
+content/textures/particles/fire_color.dds
+[5648 bytes]
+
+content/textures/particles/fire_main.dds
+[87536 bytes]
+
+content/textures/particles/fire_sparks_color.dds
+[5648 bytes]
+
+content/textures/particles/fire_sparks_main.dds
+[5616 bytes]
+
+content/textures/particles/forcefield_alpha.dds
+[5648 bytes]
+
+content/textures/particles/forcefield_glow_alpha.dds
+[5648 bytes]
+
+content/textures/particles/forcefield_glow_color.dds
+[5648 bytes]
+
+content/textures/particles/forcefield_glow_main.dds
+[87536 bytes]
+
+content/textures/particles/forcefield_vortex_color.dds
+[5648 bytes]
+
+content/textures/particles/forcefield_vortex_main.dds
+[22000 bytes]
+
+content/textures/particles/legacy_fire_alpha_color.dds
+[2888 bytes]
+
+content/textures/particles/smoke_color.dds
+[5648 bytes]
+
+content/textures/particles/smoke_main.dds
+[22000 bytes]
+
+content/textures/particles/sparkles_color.dds
+[5648 bytes]
+
+content/textures/particles/sparkles_main.dds
+[22000 bytes]
+
+content/textures/rotationArrow.png
+[2436 bytes]
+
+content/textures/shadowblurmask.png
+[3208 bytes]
+
+content/textures/sparkle.png
+[1127 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeDiagonalDown.png
+[1447 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeDiagonalUp.png
+[1427 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeHorizontal.png
+[1219 bytes]
+
+content/textures/StudioUIEditor/placeholderResizeVertical.png
+[1268 bytes]
+
+content/textures/StudioUIEditor/sizeBoxRoundedRectangle.png
+[218 bytes]
+
+content/textures/SurfacesDefault.png
+[154 bytes]
+
+content/textures/transformFiveDegrees.png
+[2358 bytes]
+
+content/textures/transformNinetyDegrees.png
+[3343 bytes]
+
+content/textures/transformOneDegree.png
+[2009 bytes]
+
+content/textures/transformTwentyTwoDegrees.png
+[2520 bytes]
+
+content/textures/ui/account_over13.png
+[1798 bytes]
+
+content/textures/ui/account_under13.png
+[1954 bytes]
+
+content/textures/ui/Backpack/Backpack.png
+[597 bytes]
+
+content/textures/ui/Backpack/Backpack@2x.png
+[1472 bytes]
+
+content/textures/ui/Backpack/Backpack_Down.png
+[708 bytes]
+
+content/textures/ui/Backpack/Backpack_Down@2x.png
+[1714 bytes]
+
+content/textures/ui/Backpack/ScrollDownArrow.png
+[400 bytes]
+
+content/textures/ui/Backpack/ScrollUpArrow.png
+[399 bytes]
+
+content/textures/ui/Backpack_Close.png
+[157 bytes]
+
+content/textures/ui/Backpack_Close@2x.png
+[247 bytes]
+
+content/textures/ui/Backpack_Open.png
+[160 bytes]
+
+content/textures/ui/Backpack_Open@2x.png
+[254 bytes]
+
+content/textures/ui/btn_grey.png
+[292 bytes]
+
+content/textures/ui/btn_greyTransp.png
+[294 bytes]
+
+content/textures/ui/btn_newBlue.png
+[14797 bytes]
+
+content/textures/ui/btn_newBlue@2x.png
+[15193 bytes]
+
+content/textures/ui/btn_newBlueGlow.png
+[14800 bytes]
+
+content/textures/ui/btn_newBlueGlow@2x.png
+[15192 bytes]
+
+content/textures/ui/btn_newGrey.png
+[14738 bytes]
+
+content/textures/ui/btn_newGrey@2x.png
+[15060 bytes]
+
+content/textures/ui/btn_newGreyGlow.png
+[14740 bytes]
+
+content/textures/ui/btn_newGreyGlow@2x.png
+[15059 bytes]
+
+content/textures/ui/btn_newWhite.png
+[14728 bytes]
+
+content/textures/ui/btn_newWhite@2x.png
+[15047 bytes]
+
+content/textures/ui/btn_newWhiteGlow.png
+[14739 bytes]
+
+content/textures/ui/btn_newWhiteGlow@2x.png
+[15054 bytes]
+
+content/textures/ui/btn_red.png
+[365 bytes]
+
+content/textures/ui/btn_redGlow.png
+[484 bytes]
+
+content/textures/ui/btn_white.png
+[283 bytes]
+
+content/textures/ui/ButtonLeft.png
+[14960 bytes]
+
+content/textures/ui/ButtonLeftDown.png
+[15105 bytes]
+
+content/textures/ui/ButtonRight.png
+[14943 bytes]
+
+content/textures/ui/ButtonRightDown.png
+[15099 bytes]
+
+content/textures/ui/Chat/Chat.png
+[531 bytes]
+
+content/textures/ui/Chat/Chat@2x.png
+[1247 bytes]
+
+content/textures/ui/Chat/ChatDown.png
+[577 bytes]
+
+content/textures/ui/Chat/ChatDown@2x.png
+[1276 bytes]
+
+content/textures/ui/Chat/ChatDownFlip.png
+[1233 bytes]
+
+content/textures/ui/Chat/ChatDownFlip@2x.png
+[2223 bytes]
+
+content/textures/ui/Chat/ChatFlip.png
+[1251 bytes]
+
+content/textures/ui/Chat/ChatFlip@2x.png
+[2532 bytes]
+
+content/textures/ui/Chat/MessageCounter.png
+[427 bytes]
+
+content/textures/ui/Chat/MessageCounter@2x.png
+[919 bytes]
+
+content/textures/ui/Chat/ToggleChat.png
+[690 bytes]
+
+content/textures/ui/Chat/ToggleChat@2x.png
+[1681 bytes]
+
+content/textures/ui/Chat/ToggleChatDown.png
+[876 bytes]
+
+content/textures/ui/Chat/ToggleChatDown@2x.png
+[2084 bytes]
+
+content/textures/ui/Chat/ToggleChatDownFlip.png
+[1569 bytes]
+
+content/textures/ui/Chat/ToggleChatDownFlip@2x.png
+[3155 bytes]
+
+content/textures/ui/Chat/ToggleChatFlip.png
+[1462 bytes]
+
+content/textures/ui/Chat/ToggleChatFlip@2x.png
+[3095 bytes]
+
+content/textures/ui/Chat/VRChatBackground.png
+[215 bytes]
+
+content/textures/ui/chat_teamButton.png
+[255 bytes]
+
+content/textures/ui/chat_teamButton@2x.png
+[568 bytes]
+
+content/textures/ui/chatBubble_blue_notify_bkg.png
+[505 bytes]
+
+content/textures/ui/chatBubble_green_notify_bkg.png
+[504 bytes]
+
+content/textures/ui/chatBubble_red_notify_bkg.png
+[502 bytes]
+
+content/textures/ui/chatBubble_white_notify_bkg.png
+[346 bytes]
+
+content/textures/ui/CloseButton.png
+[1376 bytes]
+
+content/textures/ui/CloseButton_dn.png
+[1489 bytes]
+
+content/textures/ui/dialog_blue.png
+[194 bytes]
+
+content/textures/ui/dialog_blue@2x.png
+[363 bytes]
+
+content/textures/ui/dialog_green.png
+[195 bytes]
+
+content/textures/ui/dialog_green@2x.png
+[363 bytes]
+
+content/textures/ui/dialog_purpose_help.png
+[307 bytes]
+
+content/textures/ui/dialog_purpose_quest.png
+[238 bytes]
+
+content/textures/ui/dialog_purpose_shop.png
+[359 bytes]
+
+content/textures/ui/dialog_red.png
+[192 bytes]
+
+content/textures/ui/dialog_red@2x.png
+[360 bytes]
+
+content/textures/ui/dialog_tail.png
+[149 bytes]
+
+content/textures/ui/dialog_tail@2x.png
+[190 bytes]
+
+content/textures/ui/dialog_white.png
+[135 bytes]
+
+content/textures/ui/dialog_white@2x.png
+[190 bytes]
+
+content/textures/ui/DPadSheet.png
+[11266 bytes]
+
+content/textures/ui/dropdown_arrow.png
+[217 bytes]
+
+content/textures/ui/dropdown_arrow@2x.png
+[394 bytes]
+
+content/textures/ui/ErrorIcon.png
+[1562 bytes]
+
+content/textures/ui/ErrorIconSmall.png
+[1656 bytes]
+
+content/textures/ui/Gear.png
+[1066 bytes]
+
+content/textures/ui/Gear_dn.png
+[1141 bytes]
+
+content/textures/ui/Health-BKG-Center.png
+[952 bytes]
+
+content/textures/ui/Health-BKG-Center@2x.png
+[969 bytes]
+
+content/textures/ui/Health-BKG-Left-Cap.png
+[1078 bytes]
+
+content/textures/ui/Health-BKG-Left-Cap@2x.png
+[1294 bytes]
+
+content/textures/ui/Health-BKG-Right-Cap.png
+[1091 bytes]
+
+content/textures/ui/Health-BKG-Right-Cap@2x.png
+[1316 bytes]
+
+content/textures/ui/homeButton.png
+[14628 bytes]
+
+content/textures/ui/homeButton@2x.png
+[363 bytes]
+
+content/textures/ui/icon_admin-16.png
+[1057 bytes]
+
+content/textures/ui/icon_BC-16.png
+[1049 bytes]
+
+content/textures/ui/icon_follower-16.png
+[1106 bytes]
+
+content/textures/ui/icon_following-16.png
+[1139 bytes]
+
+content/textures/ui/icon_friendrequestrecieved-16.png
+[1082 bytes]
+
+content/textures/ui/icon_friendrequestsent_16.png
+[1011 bytes]
+
 content/textures/ui/icon_friends_16.png
-[1125 bytes]
+[1137 bytes]
 
 content/textures/ui/icon_intern-16.png
-[345 bytes]
+[357 bytes]
 
 content/textures/ui/icon_mutualfollowing-16.png
-[1027 bytes]
+[1033 bytes]
 
 content/textures/ui/icon_OBC-16.png
-[1063 bytes]
+[1070 bytes]
 
 content/textures/ui/icon_placeowner.png
-[1118 bytes]
+[1127 bytes]
 
 content/textures/ui/icon_TBC-16.png
-[1047 bytes]
+[1054 bytes]
 
 content/textures/ui/Input/DashedLine.png
 [140 bytes]
 
 content/textures/ui/Input/Disk_padded.png
-[4293 bytes]
+[4527 bytes]
 
 content/textures/ui/Input/IntroCamera.png
-[4017 bytes]
+[4193 bytes]
 
 content/textures/ui/Input/IntroCameraPinch.png
-[19926 bytes]
+[20184 bytes]
 
 content/textures/ui/Input/IntroMove.png
-[6896 bytes]
+[7182 bytes]
 
 content/textures/ui/Input/IntroMove@2x.png
-[16999 bytes]
+[17722 bytes]
 
 content/textures/ui/Input/Ring_padded.png
-[2711 bytes]
+[2863 bytes]
 
 content/textures/ui/Keyboard/close_button_background.png
-[859 bytes]
+[909 bytes]
 
 content/textures/ui/Keyboard/close_button_icon.png
-[516 bytes]
+[541 bytes]
 
 content/textures/ui/Keyboard/close_button_selection.png
-[1714 bytes]
+[1798 bytes]
 
 content/textures/ui/Keyboard/key_selection_9slice.png
-[346 bytes]
+[356 bytes]
 
 content/textures/ui/Keyboard/mic_icon.png
-[1083 bytes]
+[1141 bytes]
 
 content/textures/ui/LoadingBKG.png
-[1578 bytes]
+[1620 bytes]
 
 content/textures/ui/LoadingScreen/BackgroundDark.png
-[963 bytes]
+[1017 bytes]
 
 content/textures/ui/LoadingScreen/BackgroundLight.png
-[3686 bytes]
+[3913 bytes]
 
 content/textures/ui/LoadingScreen/LoadingSpinner.png
-[2769 bytes]
+[2935 bytes]
 
 content/textures/ui/Lobby/Buttons/glow_nine_slice.png
-[11928 bytes]
+[12573 bytes]
 
 content/textures/ui/Lobby/Buttons/more_nine_slice_button.png
-[308 bytes]
+[319 bytes]
 
 content/textures/ui/Lobby/Buttons/nine_slice_button.png
-[206 bytes]
+[213 bytes]
 
 content/textures/ui/Lobby/Buttons/scroll_button.png
-[292 bytes]
+[303 bytes]
 
 content/textures/ui/Lobby/Buttons/scroll_down.png
-[234 bytes]
+[244 bytes]
 
 content/textures/ui/Lobby/Buttons/scroll_left.png
-[222 bytes]
+[236 bytes]
 
 content/textures/ui/Lobby/Buttons/scroll_right.png
-[212 bytes]
+[221 bytes]
 
 content/textures/ui/Lobby/Buttons/scroll_up.png
-[229 bytes]
+[237 bytes]
 
 content/textures/ui/Lobby/Icons/back_icon.png
-[188 bytes]
+[189 bytes]
 
 content/textures/ui/LuaApp/9-slice/gr-shadow.png
-[782 bytes]
+[822 bytes]
 
 content/textures/ui/LuaApp/9-slice/gr-shadow@2x.png
-[1858 bytes]
+[1940 bytes]
 
 content/textures/ui/LuaApp/9-slice/gr-shadow@3x.png
-[3202 bytes]
+[3361 bytes]
 
 content/textures/ui/LuaApp/icons/ic-bc.png
-[584 bytes]
+[607 bytes]
 
 content/textures/ui/LuaApp/icons/ic-bc@2x.png
-[1127 bytes]
+[1198 bytes]
 
 content/textures/ui/LuaApp/icons/ic-bc@3x.png
-[1590 bytes]
+[1671 bytes]
 
 content/textures/ui/LuaApp/icons/ic-obc.png
-[701 bytes]
+[735 bytes]
 
 content/textures/ui/LuaApp/icons/ic-obc@2x.png
-[1423 bytes]
+[1497 bytes]
 
 content/textures/ui/LuaApp/icons/ic-obc@3x.png
-[1990 bytes]
+[2092 bytes]
 
 content/textures/ui/LuaApp/icons/ic-tbc.png
-[636 bytes]
+[663 bytes]
 
 content/textures/ui/LuaApp/icons/ic-tbc@2x.png
-[1255 bytes]
+[1321 bytes]
 
 content/textures/ui/LuaApp/icons/ic-tbc@3x.png
-[1715 bytes]
+[1800 bytes]
 
 content/textures/ui/LuaApp/icons/ic-thumbup.png
-[261 bytes]
+[264 bytes]
 
 content/textures/ui/LuaApp/icons/ic-thumbup@2x.png
-[441 bytes]
+[457 bytes]
 
 content/textures/ui/LuaApp/icons/ic-thumbup@3x.png
-[623 bytes]
+[652 bytes]
 
 content/textures/ui/LuaChat/9-slice/btn-control-sm.png
-[184 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble.png
-[232 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble@2x.png
-[451 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble@3x.png
-[649 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble2.png
-[224 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble2@2x.png
-[441 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble2@3x.png
-[616 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-right.png
-[401 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-right@2x.png
-[861 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-right@3x.png
-[1379 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-self.png
 [187 bytes]
 
+content/textures/ui/LuaChat/9-slice/chat-bubble.png
+[245 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble@2x.png
+[466 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble@3x.png
+[685 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble2.png
+[240 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble2@2x.png
+[465 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble2@3x.png
+[654 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-right.png
+[416 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-right@2x.png
+[898 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-right@3x.png
+[1453 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-self.png
+[193 bytes]
+
 content/textures/ui/LuaChat/9-slice/chat-bubble-self@2x.png
-[296 bytes]
+[320 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-self@3x.png
-[434 bytes]
+[449 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-self2.png
-[181 bytes]
+[189 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-self2@2x.png
-[309 bytes]
+[324 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-self2@3x.png
-[412 bytes]
+[439 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip.png
-[98 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip@2x.png
-[116 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip@3x.png
-[136 bytes]
-
-content/textures/ui/LuaChat/9-slice/chat-bubble-tip.png
 [101 bytes]
 
-content/textures/ui/LuaChat/9-slice/chat-bubble-tip@2x.png
+content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip@2x.png
 [121 bytes]
 
+content/textures/ui/LuaChat/9-slice/chat-bubble-self-tip@3x.png
+[140 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip.png
+[102 bytes]
+
+content/textures/ui/LuaChat/9-slice/chat-bubble-tip@2x.png
+[123 bytes]
+
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip@3x.png
-[133 bytes]
+[136 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right.png
 [130 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@2x.png
-[182 bytes]
+[189 bytes]
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@3x.png
-[211 bytes]
+[214 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-default.png
-[131 bytes]
+[132 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-default@2x.png
-[179 bytes]
+[185 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-default@3x.png
-[225 bytes]
+[232 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-send-message.png
-[125 bytes]
+[127 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-send-message@2x.png
-[178 bytes]
+[184 bytes]
 
 content/textures/ui/LuaChat/9-slice/input-send-message@3x.png
-[228 bytes]
+[233 bytes]
 
 content/textures/ui/LuaChat/9-slice/modal.png
-[135 bytes]
+[136 bytes]
 
 content/textures/ui/LuaChat/9-slice/modal@2x.png
-[188 bytes]
+[193 bytes]
 
 content/textures/ui/LuaChat/9-slice/modal@3x.png
-[251 bytes]
+[263 bytes]
 
 content/textures/ui/LuaChat/9-slice/new-message-indicator.png
-[244 bytes]
+[254 bytes]
 
 content/textures/ui/LuaChat/9-slice/new-message-indicator@2x.png
-[433 bytes]
+[457 bytes]
 
 content/textures/ui/LuaChat/9-slice/new-message-indicator@3x.png
-[619 bytes]
+[656 bytes]
 
 content/textures/ui/LuaChat/9-slice/scroll-bar.png
-[67 bytes]
+[69 bytes]
 
 content/textures/ui/LuaChat/9-slice/scroll-bar@2x.png
-[76 bytes]
+[79 bytes]
 
 content/textures/ui/LuaChat/9-slice/scroll-bar@3x.png
-[79 bytes]
+[80 bytes]
 
 content/textures/ui/LuaChat/9-slice/search.png
 [113 bytes]
 
 content/textures/ui/LuaChat/9-slice/search@2x.png
-[139 bytes]
+[149 bytes]
 
 content/textures/ui/LuaChat/9-slice/search@3x.png
-[175 bytes]
+[183 bytes]
 
 content/textures/ui/LuaChat/9-slice/system-message.png
-[114 bytes]
+[117 bytes]
 
 content/textures/ui/LuaChat/9-slice/system-message@2x.png
-[157 bytes]
+[160 bytes]
 
 content/textures/ui/LuaChat/9-slice/system-message@3x.png
-[194 bytes]
+[199 bytes]
 
 content/textures/ui/LuaChat/9-slice/tag-bubble.png
-[318 bytes]
+[336 bytes]
 
 content/textures/ui/LuaChat/9-slice/tag-bubble@2x.png
-[682 bytes]
+[718 bytes]
 
 content/textures/ui/LuaChat/9-slice/tag-bubble@3x.png
-[1082 bytes]
+[1125 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-ingame.png
-[237 bytes]
+[240 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-ingame@2x.png
-[383 bytes]
+[399 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-ingame@3x.png
-[591 bytes]
+[613 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-instudio.png
-[231 bytes]
+[236 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-instudio@2x.png
-[382 bytes]
+[395 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-instudio@3x.png
-[583 bytes]
+[607 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-online.png
-[224 bytes]
+[229 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-online@2x.png
-[366 bytes]
+[380 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-online@3x.png
-[551 bytes]
+[583 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-36x36.png
-[426 bytes]
+[444 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-36x36@2x.png
-[812 bytes]
+[860 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-36x36@3x.png
-[1343 bytes]
+[1438 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48.png
-[514 bytes]
+[544 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48@2x.png
-[1162 bytes]
+[1222 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48@3x.png
-[2356 bytes]
+[2481 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48-dotted.png
-[1248 bytes]
+[1297 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48-dotted@2x.png
-[3342 bytes]
+[3513 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-48x48-dotted@3x.png
-[5787 bytes]
+[6078 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send.png
-[280 bytes]
+[294 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send@2x.png
-[489 bytes]
+[516 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send@3x.png
-[749 bytes]
+[784 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send-on.png
-[316 bytes]
+[335 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send-on@2x.png
-[554 bytes]
+[576 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-send-on@3x.png
-[1090 bytes]
+[1137 bytes]
 
 content/textures/ui/LuaChat/graphic/ic-checkbox.png
-[210 bytes]
+[219 bytes]
 
 content/textures/ui/LuaChat/graphic/ic-checkbox@2x.png
-[400 bytes]
+[422 bytes]
 
 content/textures/ui/LuaChat/graphic/ic-checkbox@3x.png
-[625 bytes]
+[648 bytes]
 
 content/textures/ui/LuaChat/graphic/ic-checkbox-on.png
-[308 bytes]
+[324 bytes]
 
 content/textures/ui/LuaChat/graphic/ic-checkbox-on@2x.png
-[523 bytes]
+[546 bytes]
 
 content/textures/ui/LuaChat/graphic/ic-checkbox-on@3x.png
-[732 bytes]
+[763 bytes]
 
 content/textures/ui/LuaChat/graphic/indicator-background.png
-[235 bytes]
+[238 bytes]
 
 content/textures/ui/LuaChat/graphic/send-white.png
-[318 bytes]
+[327 bytes]
 
 content/textures/ui/LuaChat/graphic/send-white@2x.png
-[495 bytes]
+[511 bytes]
 
 content/textures/ui/LuaChat/graphic/send-white@3x.png
-[697 bytes]
+[729 bytes]
 
 content/textures/ui/LuaChat/icons/ic-add-friends.png
-[481 bytes]
+[505 bytes]
 
 content/textures/ui/LuaChat/icons/ic-add-friends@2x.png
-[1064 bytes]
+[1131 bytes]
 
 content/textures/ui/LuaChat/icons/ic-add-friends@3x.png
-[2039 bytes]
+[2191 bytes]
 
 content/textures/ui/LuaChat/icons/ic-alert.png
-[370 bytes]
+[390 bytes]
 
 content/textures/ui/LuaChat/icons/ic-alert@2x.png
-[739 bytes]
+[778 bytes]
 
 content/textures/ui/LuaChat/icons/ic-alert@3x.png
-[1129 bytes]
+[1178 bytes]
 
 content/textures/ui/LuaChat/icons/ic-back.png
 [209 bytes]
 
 content/textures/ui/LuaChat/icons/ic-back@2x.png
-[309 bytes]
+[317 bytes]
 
 content/textures/ui/LuaChat/icons/ic-back-android.png
 [191 bytes]
 
 content/textures/ui/LuaChat/icons/ic-back-android@2x.png
-[304 bytes]
+[318 bytes]
 
 content/textures/ui/LuaChat/icons/ic-bc.png
-[931 bytes]
+[972 bytes]
 
 content/textures/ui/LuaChat/icons/ic-bc@2x.png
-[1947 bytes]
+[2052 bytes]
 
 content/textures/ui/LuaChat/icons/ic-bc@3x.png
-[3009 bytes]
+[3168 bytes]
 
 content/textures/ui/LuaChat/icons/ic-chat-large.png
-[2572 bytes]
+[2714 bytes]
 
 content/textures/ui/LuaChat/icons/ic-chat-large@2x.png
-[5763 bytes]
+[5992 bytes]
 
 content/textures/ui/LuaChat/icons/ic-chat-large@3x.png
-[10645 bytes]
+[11113 bytes]
 
 content/textures/ui/LuaChat/icons/ic-check.png
-[155 bytes]
+[158 bytes]
 
 content/textures/ui/LuaChat/icons/ic-check@2x.png
-[210 bytes]
-
-content/textures/ui/LuaChat/icons/ic-check@3x.png
-[276 bytes]
-
-content/textures/ui/LuaChat/icons/ic-checkbox-on copy.png
-[143 bytes]
-
-content/textures/ui/LuaChat/icons/ic-checkbox-on copy@2x.png
-[174 bytes]
-
-content/textures/ui/LuaChat/icons/ic-checkbox-on copy@3x.png
 [219 bytes]
 
-content/textures/ui/LuaChat/icons/ic-clear-gray.png
-[360 bytes]
+content/textures/ui/LuaChat/icons/ic-check@3x.png
+[293 bytes]
 
-content/textures/ui/LuaChat/icons/ic-clear-gray@2x.png
-[664 bytes]
-
-content/textures/ui/LuaChat/icons/ic-clear-gray@3x.png
-[993 bytes]
-
-content/textures/ui/LuaChat/icons/ic-clear-solid.png
-[261 bytes]
-
-content/textures/ui/LuaChat/icons/ic-clear-solid@2x.png
-[478 bytes]
-
-content/textures/ui/LuaChat/icons/ic-clear-solid@3x.png
-[677 bytes]
-
-content/textures/ui/LuaChat/icons/ic-close-gray2.png
-[359 bytes]
-
-content/textures/ui/LuaChat/icons/ic-close-gray2@2x.png
-[627 bytes]
-
-content/textures/ui/LuaChat/icons/ic-close-gray2@3x.png
-[754 bytes]
-
-content/textures/ui/LuaChat/icons/ic-close-white.png
-[367 bytes]
-
-content/textures/ui/LuaChat/icons/ic-create-group.png
-[435 bytes]
-
-content/textures/ui/LuaChat/icons/ic-create-group@2x.png
-[889 bytes]
-
-content/textures/ui/LuaChat/icons/ic-create-group@3x.png
-[1365 bytes]
-
-content/textures/ui/LuaChat/icons/ic-friends.png
-[1541 bytes]
-
-content/textures/ui/LuaChat/icons/ic-friends@2x.png
-[3256 bytes]
-
-content/textures/ui/LuaChat/icons/ic-friends@3x.png
-[5101 bytes]
-
-content/textures/ui/LuaChat/icons/ic-group.png
-[491 bytes]
-
-content/textures/ui/LuaChat/icons/ic-group@2x.png
-[992 bytes]
-
-content/textures/ui/LuaChat/icons/ic-group@3x.png
-[1472 bytes]
-
-content/textures/ui/LuaChat/icons/ic-info.png
-[285 bytes]
-
-content/textures/ui/LuaChat/icons/ic-info@2x.png
-[572 bytes]
-
-content/textures/ui/LuaChat/icons/ic-info@3x.png
-[883 bytes]
-
-content/textures/ui/LuaChat/icons/ic-leave.png
-[177 bytes]
-
-content/textures/ui/LuaChat/icons/ic-leave@2x.png
-[244 bytes]
-
-content/textures/ui/LuaChat/icons/ic-leave@3x.png
-[359 bytes]
-
-content/textures/ui/LuaChat/icons/ic-more.png
-[133 bytes]
-
-content/textures/ui/LuaChat/icons/ic-more@2x.png
-[199 bytes]
-
-content/textures/ui/LuaChat/icons/ic-more@3x.png
-[270 bytes]
-
-content/textures/ui/LuaChat/icons/ic-nametag.png
+content/textures/ui/LuaChat/icons/ic-checkbox-on copy.png
 [146 bytes]
 
+content/textures/ui/LuaChat/icons/ic-checkbox-on copy@2x.png
+[181 bytes]
+
+content/textures/ui/LuaChat/icons/ic-checkbox-on copy@3x.png
+[230 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-gray.png
+[377 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-gray@2x.png
+[694 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-gray@3x.png
+[1035 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-solid.png
+[273 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-solid@2x.png
+[501 bytes]
+
+content/textures/ui/LuaChat/icons/ic-clear-solid@3x.png
+[707 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-gray2.png
+[374 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-gray2@2x.png
+[652 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-gray2@3x.png
+[783 bytes]
+
+content/textures/ui/LuaChat/icons/ic-close-white.png
+[379 bytes]
+
+content/textures/ui/LuaChat/icons/ic-create-group.png
+[455 bytes]
+
+content/textures/ui/LuaChat/icons/ic-create-group@2x.png
+[931 bytes]
+
+content/textures/ui/LuaChat/icons/ic-create-group@3x.png
+[1438 bytes]
+
+content/textures/ui/LuaChat/icons/ic-friends.png
+[1630 bytes]
+
+content/textures/ui/LuaChat/icons/ic-friends@2x.png
+[3427 bytes]
+
+content/textures/ui/LuaChat/icons/ic-friends@3x.png
+[5407 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group.png
+[516 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group@2x.png
+[1040 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group@3x.png
+[1552 bytes]
+
+content/textures/ui/LuaChat/icons/ic-info.png
+[296 bytes]
+
+content/textures/ui/LuaChat/icons/ic-info@2x.png
+[602 bytes]
+
+content/textures/ui/LuaChat/icons/ic-info@3x.png
+[928 bytes]
+
+content/textures/ui/LuaChat/icons/ic-leave.png
+[181 bytes]
+
+content/textures/ui/LuaChat/icons/ic-leave@2x.png
+[260 bytes]
+
+content/textures/ui/LuaChat/icons/ic-leave@3x.png
+[376 bytes]
+
+content/textures/ui/LuaChat/icons/ic-more.png
+[135 bytes]
+
+content/textures/ui/LuaChat/icons/ic-more@2x.png
+[206 bytes]
+
+content/textures/ui/LuaChat/icons/ic-more@3x.png
+[277 bytes]
+
+content/textures/ui/LuaChat/icons/ic-nametag.png
+[148 bytes]
+
 content/textures/ui/LuaChat/icons/ic-nametag@2x.png
-[194 bytes]
+[201 bytes]
 
 content/textures/ui/LuaChat/icons/ic-nametag@3x.png
-[253 bytes]
+[263 bytes]
 
 content/textures/ui/LuaChat/icons/ic-notification.png
-[351 bytes]
+[367 bytes]
 
 content/textures/ui/LuaChat/icons/ic-notification@2x.png
-[629 bytes]
+[653 bytes]
 
 content/textures/ui/LuaChat/icons/ic-notification@3x.png
-[916 bytes]
+[963 bytes]
 
 content/textures/ui/LuaChat/icons/ic-remove.png
-[418 bytes]
+[431 bytes]
 
 content/textures/ui/LuaChat/icons/ic-remove@2x.png
-[892 bytes]
+[924 bytes]
 
 content/textures/ui/LuaChat/icons/ic-remove@3x.png
-[1385 bytes]
+[1462 bytes]
 
 content/textures/ui/LuaChat/icons/ic-resend.png
-[510 bytes]
+[542 bytes]
 
 content/textures/ui/LuaChat/icons/ic-resend@2x.png
-[1052 bytes]
+[1111 bytes]
 
 content/textures/ui/LuaChat/icons/ic-resend@3x.png
-[1624 bytes]
+[1721 bytes]
 
 content/textures/ui/LuaChat/icons/ic-robux.png
-[561 bytes]
+[580 bytes]
 
 content/textures/ui/LuaChat/icons/ic-robux@2x.png
-[1043 bytes]
+[1097 bytes]
 
 content/textures/ui/LuaChat/icons/ic-robux@3x.png
-[1576 bytes]
+[1669 bytes]
 
 content/textures/ui/LuaChat/icons/ic-search.png
-[264 bytes]
+[273 bytes]
 
 content/textures/ui/LuaChat/icons/ic-search@2x.png
-[479 bytes]
+[506 bytes]
 
 content/textures/ui/LuaChat/icons/ic-search@3x.png
-[669 bytes]
+[699 bytes]
 
 content/textures/ui/LuaChat/icons/ic-search-gray.png
-[291 bytes]
+[308 bytes]
 
 content/textures/ui/LuaChat/icons/ic-search-gray@2x.png
-[527 bytes]
+[553 bytes]
 
 content/textures/ui/LuaChat/icons/ic-search-gray@3x.png
-[726 bytes]
+[770 bytes]
 
 content/textures/ui/LuaChat/icons/ic-send.png
-[242 bytes]
+[247 bytes]
 
 content/textures/ui/LuaChat/icons/ic-send@2x.png
-[427 bytes]
+[447 bytes]
 
 content/textures/ui/LuaChat/icons/ic-send@3x.png
-[609 bytes]
+[644 bytes]
 
 content/textures/ui/LuaChat/icons/share-game-thumbnail.png
-[529 bytes]
+[551 bytes]
 
 content/textures/ui/Menu/buttonActive.png
-[1325 bytes]
+[1379 bytes]
 
 content/textures/ui/Menu/buttonBackground.png
-[844 bytes]
+[897 bytes]
 
 content/textures/ui/Menu/buttonHover.png
-[1670 bytes]
+[1762 bytes]
 
 content/textures/ui/Menu/Hamburger.png
-[178 bytes]
+[182 bytes]
 
 content/textures/ui/Menu/Hamburger@2x.png
-[324 bytes]
+[332 bytes]
 
 content/textures/ui/Menu/hamburger3D.png
-[191 bytes]
+[198 bytes]
 
 content/textures/ui/Menu/HamburgerDown.png
-[210 bytes]
+[215 bytes]
 
 content/textures/ui/Menu/HamburgerDown@2x.png
-[402 bytes]
+[418 bytes]
 
 content/textures/ui/Menu/hoverPopupLeft.png
-[152 bytes]
+[156 bytes]
 
 content/textures/ui/Menu/hoverPopupMid.png
-[269 bytes]
+[284 bytes]
 
 content/textures/ui/Menu/hoverPopupRight.png
-[155 bytes]
+[156 bytes]
 
 content/textures/ui/Menu/rectBackground.png
-[132 bytes]
+[135 bytes]
 
 content/textures/ui/Menu/rectBackgroundWhite.png
-[132 bytes]
+[134 bytes]
 
 content/textures/ui/Modal.png
-[15495 bytes]
+[15517 bytes]
 
 content/textures/ui/Motor.png
-[839 bytes]
+[880 bytes]
 
 content/textures/ui/mouseLock_off.png
-[1055 bytes]
+[1119 bytes]
 
 content/textures/ui/mouseLock_off@2x.png
-[2701 bytes]
+[2817 bytes]
 
 content/textures/ui/mouseLock_on.png
-[1304 bytes]
+[1383 bytes]
 
 content/textures/ui/mouseLock_on@2x.png
-[3237 bytes]
+[3418 bytes]
 
 content/textures/ui/move.png
-[9563 bytes]
+[10057 bytes]
 
 content/textures/ui/newBkg_square.png
-[14709 bytes]
+[14721 bytes]
 
 content/textures/ui/newBkg_square@2x.png
-[15011 bytes]
+[15038 bytes]
 
 content/textures/ui/PerformanceStats/BackgroundRounded.png
-[889 bytes]
+[938 bytes]
 
 content/textures/ui/PerformanceStats/OvalKey.png
-[121 bytes]
+[124 bytes]
 
 content/textures/ui/PerformanceStats/TargetFiller.png
-[127 bytes]
+[129 bytes]
 
 content/textures/ui/PerformanceStats/TargetKey.png
 [90 bytes]
@@ -4487,493 +4487,493 @@ content/textures/ui/PerformanceStats/TargetLine.png
 [104 bytes]
 
 content/textures/ui/Plastic.png
-[1060 bytes]
+[1121 bytes]
 
 content/textures/ui/PlayerList/BlockedIcon.png
-[249 bytes]
+[255 bytes]
 
 content/textures/ui/PlayerList/CharacterImageBackground.png
-[441 bytes]
+[449 bytes]
 
 content/textures/ui/PlayerList/TileShadowMissingTop.png
-[380 bytes]
+[395 bytes]
 
 content/textures/ui/RecordDown.png
-[1407 bytes]
-
-content/textures/ui/ResetIcon.png
-[1973 bytes]
-
-content/textures/ui/RobloxNameIcon.png
-[518 bytes]
-
-content/textures/ui/RobuxIcon.png
-[1129 bytes]
-
-content/textures/ui/Scroll/scroll-bottom.png
-[967 bytes]
-
-content/textures/ui/Scroll/scroll-bottom@2x.png
-[1010 bytes]
-
-content/textures/ui/Scroll/scroll-middle.png
-[919 bytes]
-
-content/textures/ui/Scroll/scroll-middle@2x.png
-[922 bytes]
-
-content/textures/ui/Scroll/scroll-top.png
-[971 bytes]
-
-content/textures/ui/Scroll/scroll-top@2x.png
-[1031 bytes]
-
-content/textures/ui/scrollbar.png
-[924 bytes]
-
-content/textures/ui/scroll-bottom.png
-[143 bytes]
-
-content/textures/ui/scroll-bottom@2x.png
-[14581 bytes]
-
-content/textures/ui/scrollbuttonDown.png
-[1010 bytes]
-
-content/textures/ui/scrollbuttonDown_dn.png
-[1007 bytes]
-
-content/textures/ui/scrollbuttonDown_ds.png
-[1011 bytes]
-
-content/textures/ui/scrollbuttonDown_ovr.png
-[1007 bytes]
-
-content/textures/ui/scrollbuttonUp.png
-[1020 bytes]
-
-content/textures/ui/scrollbuttonUp_dn.png
-[1015 bytes]
-
-content/textures/ui/scrollbuttonUp_ds.png
-[1014 bytes]
-
-content/textures/ui/scrollbuttonUp_ovr.png
-[1015 bytes]
-
-content/textures/ui/scroll-middle.png
-[106 bytes]
-
-content/textures/ui/scroll-middle@2x.png
-[109 bytes]
-
-content/textures/ui/scroll-top.png
-[142 bytes]
-
-content/textures/ui/scroll-top@2x.png
-[14584 bytes]
-
-content/textures/ui/SearchIcon.png
-[1178 bytes]
-
-content/textures/ui/SelectionBox.png
-[1069 bytes]
-
-content/textures/ui/SelectionBox@2x.png
-[4413 bytes]
-
-content/textures/ui/Settings/DropDown/DropDown.png
-[256 bytes]
-
-content/textures/ui/Settings/DropDown/DropDown@2x.png
-[369 bytes]
-
-content/textures/ui/Settings/Help/AButtonDark.png
-[3564 bytes]
-
-content/textures/ui/Settings/Help/AButtonDark@2x.png
-[8336 bytes]
-
-content/textures/ui/Settings/Help/AButtonLight.png
-[2789 bytes]
-
-content/textures/ui/Settings/Help/AButtonLight@2x.png
-[6652 bytes]
-
-content/textures/ui/Settings/Help/AButtonLightSmall.png
-[731 bytes]
-
-content/textures/ui/Settings/Help/BButtonDark.png
-[3480 bytes]
-
-content/textures/ui/Settings/Help/BButtonDark@2x.png
-[8256 bytes]
-
-content/textures/ui/Settings/Help/BButtonLight.png
-[2897 bytes]
-
-content/textures/ui/Settings/Help/BButtonLight@2x.png
-[6783 bytes]
-
-content/textures/ui/Settings/Help/EscapeIcon.png
-[587 bytes]
-
-content/textures/ui/Settings/Help/GenericController.png
-[27313 bytes]
-
-content/textures/ui/Settings/Help/GenericController@2x.png
-[67653 bytes]
-
-content/textures/ui/Settings/Help/LeaveIcon.png
-[229 bytes]
-
-content/textures/ui/Settings/Help/OldGenericController.png
-[19268 bytes]
-
-content/textures/ui/Settings/Help/OldGenericController@2x.png
-[46974 bytes]
-
-content/textures/ui/Settings/Help/OldXboxController.png
-[57873 bytes]
-
-content/textures/ui/Settings/Help/ResetIcon.png
-[347 bytes]
-
-content/textures/ui/Settings/Help/RotateCameraGesture.png
-[4509 bytes]
-
-content/textures/ui/Settings/Help/UseToolGesture.png
-[2169 bytes]
-
-content/textures/ui/Settings/Help/XboxController.png
-[33041 bytes]
-
-content/textures/ui/Settings/Help/XboxController@2x.png
-[82736 bytes]
-
-content/textures/ui/Settings/Help/XButtonDark.png
-[3661 bytes]
-
-content/textures/ui/Settings/Help/XButtonDark@2x.png
-[8584 bytes]
-
-content/textures/ui/Settings/Help/XButtonLight.png
-[2832 bytes]
-
-content/textures/ui/Settings/Help/XButtonLight@2x.png
-[6748 bytes]
-
-content/textures/ui/Settings/Help/YButtonDark.png
-[3503 bytes]
-
-content/textures/ui/Settings/Help/YButtonDark@2x.png
-[8212 bytes]
-
-content/textures/ui/Settings/Help/YButtonLight.png
-[2715 bytes]
-
-content/textures/ui/Settings/Help/YButtonLight@2x.png
-[6468 bytes]
-
-content/textures/ui/Settings/Help/ZoomGesture.png
-[3559 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuBackground.png
-[214 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuButton.png
-[528 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuButton@2x.png
-[1213 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png
-[540 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuButtonSelected@2x.png
-[1227 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuSelection.png
-[184 bytes]
-
-content/textures/ui/Settings/MenuBarAssets/MenuSelection@2x.png
-[239 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/GameSettingsTab.png
-[1848 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png
-[4376 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/HelpTab.png
-[1794 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/HelpTab@2x.png
-[4039 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/HomeTab.png
-[799 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/HomeTab@2x.png
-[1697 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png
-[665 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png
-[968 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/RecordTab.png
-[1165 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/RecordTab@2x.png
-[2465 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png
-[782 bytes]
-
-content/textures/ui/Settings/MenuBarIcons/ReportAbuseTab@2x.png
-[1474 bytes]
-
-content/textures/ui/Settings/Players/AddFriendIcon.png
-[333 bytes]
-
-content/textures/ui/Settings/Players/AddFriendIcon@2x.png
-[597 bytes]
-
-content/textures/ui/Settings/Players/FriendIcon.png
-[451 bytes]
-
-content/textures/ui/Settings/Players/FriendIcon@2x.png
-[927 bytes]
-
-content/textures/ui/Settings/Players/ReportFlagIcon.png
-[154 bytes]
-
-content/textures/ui/Settings/Players/ReportFlagIcon@2x.png
-[239 bytes]
-
-content/textures/ui/Settings/Radial/Alert.png
-[1729 bytes]
-
-content/textures/ui/Settings/Radial/Alert@2x.png
-[3745 bytes]
-
-content/textures/ui/Settings/Radial/Backpack.png
-[1398 bytes]
-
-content/textures/ui/Settings/Radial/Backpack@2x.png
-[3079 bytes]
-
-content/textures/ui/Settings/Radial/Bottom.png
-[4595 bytes]
-
-content/textures/ui/Settings/Radial/BottomLeft.png
-[4338 bytes]
-
-content/textures/ui/Settings/Radial/BottomLeftSelected.png
-[6166 bytes]
-
-content/textures/ui/Settings/Radial/BottomRight.png
-[4397 bytes]
-
-content/textures/ui/Settings/Radial/BottomRightSelected.png
-[6122 bytes]
-
-content/textures/ui/Settings/Radial/BottomSelected.png
-[5696 bytes]
-
-content/textures/ui/Settings/Radial/Chat.png
-[1205 bytes]
-
-content/textures/ui/Settings/Radial/Chat@2x.png
-[2594 bytes]
-
-content/textures/ui/Settings/Radial/EmptyBottom.png
-[6416 bytes]
-
-content/textures/ui/Settings/Radial/EmptyBottomLeft.png
-[6135 bytes]
-
-content/textures/ui/Settings/Radial/EmptyBottomRight.png
-[6216 bytes]
-
-content/textures/ui/Settings/Radial/EmptyTop.png
-[6195 bytes]
-
-content/textures/ui/Settings/Radial/EmptyTopLeft.png
-[6151 bytes]
-
-content/textures/ui/Settings/Radial/EmptyTopRight.png
-[6236 bytes]
-
-content/textures/ui/Settings/Radial/Leave.png
-[1242 bytes]
-
-content/textures/ui/Settings/Radial/Leave@2x.png
-[2889 bytes]
-
-content/textures/ui/Settings/Radial/Menu.png
-[645 bytes]
-
-content/textures/ui/Settings/Radial/Menu@2x.png
 [1488 bytes]
 
-content/textures/ui/Settings/Radial/PlayerList.png
-[784 bytes]
+content/textures/ui/ResetIcon.png
+[2032 bytes]
 
-content/textures/ui/Settings/Radial/PlayerList@2x.png
-[1768 bytes]
+content/textures/ui/RobloxNameIcon.png
+[550 bytes]
 
-content/textures/ui/Settings/Radial/RadialLabel.png
-[643 bytes]
+content/textures/ui/RobuxIcon.png
+[1200 bytes]
 
-content/textures/ui/Settings/Radial/RadialLabel@2x.png
-[1492 bytes]
+content/textures/ui/Scroll/scroll-bottom.png
+[973 bytes]
 
-content/textures/ui/Settings/Radial/Top.png
-[4346 bytes]
+content/textures/ui/Scroll/scroll-bottom@2x.png
+[1018 bytes]
 
-content/textures/ui/Settings/Radial/TopLeft.png
-[4220 bytes]
-
-content/textures/ui/Settings/Radial/TopLeftSelected.png
-[5861 bytes]
-
-content/textures/ui/Settings/Radial/TopRight.png
-[4338 bytes]
-
-content/textures/ui/Settings/Radial/TopRightSelected.png
-[5848 bytes]
-
-content/textures/ui/Settings/Radial/TopSelected.png
-[5703 bytes]
-
-content/textures/ui/Settings/Slider/BarLeft.png
-[145 bytes]
-
-content/textures/ui/Settings/Slider/BarLeft@2x.png
-[221 bytes]
-
-content/textures/ui/Settings/Slider/BarRight.png
-[145 bytes]
-
-content/textures/ui/Settings/Slider/BarRight@2x.png
-[213 bytes]
-
-content/textures/ui/Settings/Slider/Left.png
-[256 bytes]
-
-content/textures/ui/Settings/Slider/Left@2x.png
-[418 bytes]
-
-content/textures/ui/Settings/Slider/Less.png
-[1199 bytes]
-
-content/textures/ui/Settings/Slider/More.png
-[1585 bytes]
-
-content/textures/ui/Settings/Slider/Right.png
-[247 bytes]
-
-content/textures/ui/Settings/Slider/Right@2x.png
-[419 bytes]
-
-content/textures/ui/Settings/Slider/SelectedBarLeft.png
-[139 bytes]
-
-content/textures/ui/Settings/Slider/SelectedBarLeft@2x.png
-[213 bytes]
-
-content/textures/ui/Settings/Slider/SelectedBarRight.png
-[134 bytes]
-
-content/textures/ui/Settings/Slider/SelectedBarRight@2x.png
-[202 bytes]
-
-content/textures/ui/SingleButton.png
-[384 bytes]
-
-content/textures/ui/SingleButtonDown.png
-[511 bytes]
-
-content/textures/ui/Slider.png
-[1149 bytes]
-
-content/textures/ui/Slider_dn.png
-[1127 bytes]
-
-content/textures/ui/slider_new_tab.png
-[714 bytes]
-
-content/textures/ui/slider_new_tab@2x.png
-[1674 bytes]
-
-content/textures/ui/Slider_sel.png
-[1127 bytes]
-
-content/textures/ui/Slider-BKG-Center.png
-[923 bytes]
-
-content/textures/ui/Slider-BKG-Center@2x.png
+content/textures/ui/Scroll/scroll-middle.png
 [924 bytes]
 
-content/textures/ui/Slider-BKG-Left-Cap.png
-[958 bytes]
+content/textures/ui/Scroll/scroll-middle@2x.png
+[924 bytes]
 
-content/textures/ui/Slider-BKG-Left-Cap@2x.png
-[1013 bytes]
+content/textures/ui/Scroll/scroll-top.png
+[976 bytes]
 
-content/textures/ui/Slider-BKG-Right-Cap.png
-[959 bytes]
+content/textures/ui/Scroll/scroll-top@2x.png
+[1037 bytes]
 
-content/textures/ui/Slider-BKG-Right-Cap@2x.png
-[1007 bytes]
+content/textures/ui/scrollbar.png
+[928 bytes]
 
-content/textures/ui/Slider-Fill-Center.png
-[923 bytes]
+content/textures/ui/scroll-bottom.png
+[145 bytes]
 
-content/textures/ui/Slider-Fill-Center@2x.png
-[923 bytes]
+content/textures/ui/scroll-bottom@2x.png
+[14586 bytes]
 
-content/textures/ui/Slider-Fill-Left-Cap.png
-[959 bytes]
+content/textures/ui/scrollbuttonDown.png
+[1018 bytes]
 
-content/textures/ui/Slider-Fill-Left-Cap@2x.png
+content/textures/ui/scrollbuttonDown_dn.png
 [1015 bytes]
 
+content/textures/ui/scrollbuttonDown_ds.png
+[1016 bytes]
+
+content/textures/ui/scrollbuttonDown_ovr.png
+[1015 bytes]
+
+content/textures/ui/scrollbuttonUp.png
+[1024 bytes]
+
+content/textures/ui/scrollbuttonUp_dn.png
+[1019 bytes]
+
+content/textures/ui/scrollbuttonUp_ds.png
+[1021 bytes]
+
+content/textures/ui/scrollbuttonUp_ovr.png
+[1019 bytes]
+
+content/textures/ui/scroll-middle.png
+[107 bytes]
+
+content/textures/ui/scroll-middle@2x.png
+[110 bytes]
+
+content/textures/ui/scroll-top.png
+[145 bytes]
+
+content/textures/ui/scroll-top@2x.png
+[14588 bytes]
+
+content/textures/ui/SearchIcon.png
+[1191 bytes]
+
+content/textures/ui/SelectionBox.png
+[1133 bytes]
+
+content/textures/ui/SelectionBox@2x.png
+[4673 bytes]
+
+content/textures/ui/Settings/DropDown/DropDown.png
+[259 bytes]
+
+content/textures/ui/Settings/DropDown/DropDown@2x.png
+[379 bytes]
+
+content/textures/ui/Settings/Help/AButtonDark.png
+[3783 bytes]
+
+content/textures/ui/Settings/Help/AButtonDark@2x.png
+[8902 bytes]
+
+content/textures/ui/Settings/Help/AButtonLight.png
+[2967 bytes]
+
+content/textures/ui/Settings/Help/AButtonLight@2x.png
+[7059 bytes]
+
+content/textures/ui/Settings/Help/AButtonLightSmall.png
+[758 bytes]
+
+content/textures/ui/Settings/Help/BButtonDark.png
+[3684 bytes]
+
+content/textures/ui/Settings/Help/BButtonDark@2x.png
+[8755 bytes]
+
+content/textures/ui/Settings/Help/BButtonLight.png
+[3070 bytes]
+
+content/textures/ui/Settings/Help/BButtonLight@2x.png
+[7185 bytes]
+
+content/textures/ui/Settings/Help/EscapeIcon.png
+[612 bytes]
+
+content/textures/ui/Settings/Help/GenericController.png
+[28881 bytes]
+
+content/textures/ui/Settings/Help/GenericController@2x.png
+[71243 bytes]
+
+content/textures/ui/Settings/Help/LeaveIcon.png
+[234 bytes]
+
+content/textures/ui/Settings/Help/OldGenericController.png
+[20547 bytes]
+
+content/textures/ui/Settings/Help/OldGenericController@2x.png
+[49835 bytes]
+
+content/textures/ui/Settings/Help/OldXboxController.png
+[61420 bytes]
+
+content/textures/ui/Settings/Help/ResetIcon.png
+[354 bytes]
+
+content/textures/ui/Settings/Help/RotateCameraGesture.png
+[4757 bytes]
+
+content/textures/ui/Settings/Help/UseToolGesture.png
+[2259 bytes]
+
+content/textures/ui/Settings/Help/XboxController.png
+[34815 bytes]
+
+content/textures/ui/Settings/Help/XboxController@2x.png
+[87380 bytes]
+
+content/textures/ui/Settings/Help/XButtonDark.png
+[3883 bytes]
+
+content/textures/ui/Settings/Help/XButtonDark@2x.png
+[9112 bytes]
+
+content/textures/ui/Settings/Help/XButtonLight.png
+[2994 bytes]
+
+content/textures/ui/Settings/Help/XButtonLight@2x.png
+[7138 bytes]
+
+content/textures/ui/Settings/Help/YButtonDark.png
+[3715 bytes]
+
+content/textures/ui/Settings/Help/YButtonDark@2x.png
+[8697 bytes]
+
+content/textures/ui/Settings/Help/YButtonLight.png
+[2866 bytes]
+
+content/textures/ui/Settings/Help/YButtonLight@2x.png
+[6892 bytes]
+
+content/textures/ui/Settings/Help/ZoomGesture.png
+[3776 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuBackground.png
+[216 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButton.png
+[550 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButton@2x.png
+[1281 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png
+[563 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuButtonSelected@2x.png
+[1289 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuSelection.png
+[185 bytes]
+
+content/textures/ui/Settings/MenuBarAssets/MenuSelection@2x.png
+[241 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/GameSettingsTab.png
+[1942 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png
+[4633 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HelpTab.png
+[1895 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HelpTab@2x.png
+[4262 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HomeTab.png
+[840 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/HomeTab@2x.png
+[1797 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png
+[698 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png
+[1015 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/RecordTab.png
+[1232 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/RecordTab@2x.png
+[2578 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png
+[816 bytes]
+
+content/textures/ui/Settings/MenuBarIcons/ReportAbuseTab@2x.png
+[1560 bytes]
+
+content/textures/ui/Settings/Players/AddFriendIcon.png
+[346 bytes]
+
+content/textures/ui/Settings/Players/AddFriendIcon@2x.png
+[630 bytes]
+
+content/textures/ui/Settings/Players/FriendIcon.png
+[465 bytes]
+
+content/textures/ui/Settings/Players/FriendIcon@2x.png
+[967 bytes]
+
+content/textures/ui/Settings/Players/ReportFlagIcon.png
+[155 bytes]
+
+content/textures/ui/Settings/Players/ReportFlagIcon@2x.png
+[247 bytes]
+
+content/textures/ui/Settings/Radial/Alert.png
+[1829 bytes]
+
+content/textures/ui/Settings/Radial/Alert@2x.png
+[3974 bytes]
+
+content/textures/ui/Settings/Radial/Backpack.png
+[1477 bytes]
+
+content/textures/ui/Settings/Radial/Backpack@2x.png
+[3243 bytes]
+
+content/textures/ui/Settings/Radial/Bottom.png
+[4892 bytes]
+
+content/textures/ui/Settings/Radial/BottomLeft.png
+[4627 bytes]
+
+content/textures/ui/Settings/Radial/BottomLeftSelected.png
+[6566 bytes]
+
+content/textures/ui/Settings/Radial/BottomRight.png
+[4683 bytes]
+
+content/textures/ui/Settings/Radial/BottomRightSelected.png
+[6552 bytes]
+
+content/textures/ui/Settings/Radial/BottomSelected.png
+[6084 bytes]
+
+content/textures/ui/Settings/Radial/Chat.png
+[1263 bytes]
+
+content/textures/ui/Settings/Radial/Chat@2x.png
+[2763 bytes]
+
+content/textures/ui/Settings/Radial/EmptyBottom.png
+[6774 bytes]
+
+content/textures/ui/Settings/Radial/EmptyBottomLeft.png
+[6541 bytes]
+
+content/textures/ui/Settings/Radial/EmptyBottomRight.png
+[6562 bytes]
+
+content/textures/ui/Settings/Radial/EmptyTop.png
+[6553 bytes]
+
+content/textures/ui/Settings/Radial/EmptyTopLeft.png
+[6527 bytes]
+
+content/textures/ui/Settings/Radial/EmptyTopRight.png
+[6596 bytes]
+
+content/textures/ui/Settings/Radial/Leave.png
+[1305 bytes]
+
+content/textures/ui/Settings/Radial/Leave@2x.png
+[3070 bytes]
+
+content/textures/ui/Settings/Radial/Menu.png
+[672 bytes]
+
+content/textures/ui/Settings/Radial/Menu@2x.png
+[1558 bytes]
+
+content/textures/ui/Settings/Radial/PlayerList.png
+[826 bytes]
+
+content/textures/ui/Settings/Radial/PlayerList@2x.png
+[1856 bytes]
+
+content/textures/ui/Settings/Radial/RadialLabel.png
+[681 bytes]
+
+content/textures/ui/Settings/Radial/RadialLabel@2x.png
+[1581 bytes]
+
+content/textures/ui/Settings/Radial/Top.png
+[4612 bytes]
+
+content/textures/ui/Settings/Radial/TopLeft.png
+[4515 bytes]
+
+content/textures/ui/Settings/Radial/TopLeftSelected.png
+[6270 bytes]
+
+content/textures/ui/Settings/Radial/TopRight.png
+[4621 bytes]
+
+content/textures/ui/Settings/Radial/TopRightSelected.png
+[6221 bytes]
+
+content/textures/ui/Settings/Radial/TopSelected.png
+[6122 bytes]
+
+content/textures/ui/Settings/Slider/BarLeft.png
+[149 bytes]
+
+content/textures/ui/Settings/Slider/BarLeft@2x.png
+[228 bytes]
+
+content/textures/ui/Settings/Slider/BarRight.png
+[150 bytes]
+
+content/textures/ui/Settings/Slider/BarRight@2x.png
+[217 bytes]
+
+content/textures/ui/Settings/Slider/Left.png
+[268 bytes]
+
+content/textures/ui/Settings/Slider/Left@2x.png
+[442 bytes]
+
+content/textures/ui/Settings/Slider/Less.png
+[1265 bytes]
+
+content/textures/ui/Settings/Slider/More.png
+[1665 bytes]
+
+content/textures/ui/Settings/Slider/Right.png
+[258 bytes]
+
+content/textures/ui/Settings/Slider/Right@2x.png
+[451 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarLeft.png
+[141 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarLeft@2x.png
+[219 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarRight.png
+[139 bytes]
+
+content/textures/ui/Settings/Slider/SelectedBarRight@2x.png
+[206 bytes]
+
+content/textures/ui/SingleButton.png
+[388 bytes]
+
+content/textures/ui/SingleButtonDown.png
+[519 bytes]
+
+content/textures/ui/Slider.png
+[1165 bytes]
+
+content/textures/ui/Slider_dn.png
+[1145 bytes]
+
+content/textures/ui/slider_new_tab.png
+[746 bytes]
+
+content/textures/ui/slider_new_tab@2x.png
+[1770 bytes]
+
+content/textures/ui/Slider_sel.png
+[1145 bytes]
+
+content/textures/ui/Slider-BKG-Center.png
+[925 bytes]
+
+content/textures/ui/Slider-BKG-Center@2x.png
+[926 bytes]
+
+content/textures/ui/Slider-BKG-Left-Cap.png
+[961 bytes]
+
+content/textures/ui/Slider-BKG-Left-Cap@2x.png
+[1020 bytes]
+
+content/textures/ui/Slider-BKG-Right-Cap.png
+[962 bytes]
+
+content/textures/ui/Slider-BKG-Right-Cap@2x.png
+[1012 bytes]
+
+content/textures/ui/Slider-Fill-Center.png
+[925 bytes]
+
+content/textures/ui/Slider-Fill-Center@2x.png
+[926 bytes]
+
+content/textures/ui/Slider-Fill-Left-Cap.png
+[963 bytes]
+
+content/textures/ui/Slider-Fill-Left-Cap@2x.png
+[1020 bytes]
+
 content/textures/ui/Slider-Fill-Right-Cap.png
-[956 bytes]
+[962 bytes]
 
 content/textures/ui/Slider-Fill-Right-Cap@2x.png
-[1005 bytes]
+[1014 bytes]
 
 content/textures/ui/TixIcon.png
-[554 bytes]
+[582 bytes]
 
 content/textures/ui/TopBar/dropshadow.png
-[144 bytes]
+[145 bytes]
 
 content/textures/ui/TopBar/dropshadow@2x.png
-[179 bytes]
+[182 bytes]
 
 content/textures/ui/TopBar/Round.png
-[176 bytes]
+[187 bytes]
 
 content/textures/ui/TouchControlsSheet.png
-[76740 bytes]
+[80793 bytes]
 
 content/textures/ui/Vehicle/SpeedBar.png
-[296 bytes]
+[313 bytes]
 
 content/textures/ui/Vehicle/SpeedBar@2x.png
-[334 bytes]
+[343 bytes]
 
 content/textures/ui/Vehicle/SpeedBarBKG.png
-[172 bytes]
+[177 bytes]
 
 content/textures/ui/Vehicle/SpeedBarBKG@2x.png
-[304 bytes]
+[314 bytes]
 
 content/textures/ui/Vehicle/SpeedBarEmpty.png
 [96 bytes]
@@ -4982,220 +4982,220 @@ content/textures/ui/Vehicle/SpeedBarEmpty@2x.png
 [115 bytes]
 
 content/textures/ui/VR/button.png
-[266 bytes]
+[275 bytes]
 
 content/textures/ui/VR/buttonActive.png
-[1325 bytes]
+[1379 bytes]
 
 content/textures/ui/VR/buttonBackground.png
-[844 bytes]
+[897 bytes]
 
 content/textures/ui/VR/buttonHover.png
-[1670 bytes]
+[1762 bytes]
 
 content/textures/ui/VR/buttonSelected.png
-[256 bytes]
+[264 bytes]
 
 content/textures/ui/VR/chat.png
-[694 bytes]
+[722 bytes]
 
 content/textures/ui/VR/circleWhite.png
-[454 bytes]
+[471 bytes]
 
 content/textures/ui/VR/closeButtonPadded.png
-[391 bytes]
+[409 bytes]
 
 content/textures/ui/VR/hamburger.png
-[191 bytes]
+[198 bytes]
 
 content/textures/ui/VR/hoverPopupLeft.png
-[152 bytes]
+[156 bytes]
 
 content/textures/ui/VR/hoverPopupMid.png
-[269 bytes]
+[284 bytes]
 
 content/textures/ui/VR/hoverPopupRight.png
-[155 bytes]
+[156 bytes]
 
 content/textures/ui/VR/notifications.png
-[1475 bytes]
+[1571 bytes]
 
 content/textures/ui/VR/notifier_glow.png
-[66810 bytes]
+[70911 bytes]
 
 content/textures/ui/VR/Radial/Icons/2DUI.png
-[4718 bytes]
+[5036 bytes]
 
 content/textures/ui/VR/Radial/Icons/Backpack.png
-[5459 bytes]
+[5803 bytes]
 
 content/textures/ui/VR/Radial/Icons/Recenter.png
-[5162 bytes]
+[5472 bytes]
 
 content/textures/ui/VR/Radial/SliceActive.png
-[16840 bytes]
+[17237 bytes]
 
 content/textures/ui/VR/Radial/SliceBackground.png
-[16571 bytes]
+[16958 bytes]
 
 content/textures/ui/VR/Radial/SliceDisabled.png
-[20049 bytes]
+[20707 bytes]
 
 content/textures/ui/VR/recenter.png
-[2229 bytes]
+[2326 bytes]
 
 content/textures/ui/VR/recenterFrame.png
-[4344 bytes]
+[4347 bytes]
 
 content/textures/ui/VR/rectBackground.png
-[132 bytes]
+[135 bytes]
 
 content/textures/ui/VR/rectBackgroundWhite.png
-[132 bytes]
+[136 bytes]
 
 content/textures/ui/VR/toggle2D.png
-[698 bytes]
+[743 bytes]
 
 content/textures/ui/VR/VRPointerDiscBlue.png
-[41581 bytes]
+[43867 bytes]
 
 content/textures/ui/VR/VRPointerDiscRed.png
-[59830 bytes]
+[62894 bytes]
 
 content/textures/ui/vr_active.png
-[3987 bytes]
+[4214 bytes]
 
 content/textures/ui/vr_idle.png
-[5104 bytes]
+[5454 bytes]
 
 content/textures/UnAnchorCursor.png
-[1528 bytes]
+[1608 bytes]
 
 content/textures/UnlockCursor.png
-[565 bytes]
+[579 bytes]
 
 content/textures/WeldCursor.png
-[413 bytes]
+[421 bytes]
 
 content/textures/whiteCircle.png
-[3929 bytes]
+[4040 bytes]
 
 content/translations/ChatLocalization.json
-[21705 bytes]
+[25096 bytes]
 
 content/translations/CorescriptLocalization.json
-[111981 bytes]
+[127647 bytes]
 
 PlatformContent/pc/fonts/NotoSansCJKjp-Regular.otf
-[16018281 bytes]
+[16427228 bytes]
 
 PlatformContent/pc/terrain/diffuse.dds
-[2562991 bytes]
+[2796344 bytes]
 
 PlatformContent/pc/terrain/diffusearray.dds
-[5763825 bytes]
+[6292084 bytes]
 
 PlatformContent/pc/terrain/materials.json
 [5574 bytes]
 
 PlatformContent/pc/terrain/normal.dds
-[5384181 bytes]
+[5592560 bytes]
 
 PlatformContent/pc/terrain/normalarray.dds
-[12124037 bytes]
+[12584020 bytes]
 
 PlatformContent/pc/terrain/specular.dds
-[2735397 bytes]
+[2796344 bytes]
 
 PlatformContent/pc/terrain/speculararray.dds
-[6163865 bytes]
+[6292084 bytes]
 
 PlatformContent/pc/textures/aluminum/diffuse.dds
 [152 bytes]
 
 PlatformContent/pc/textures/aluminum/normal.dds
-[339520 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/aluminum/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/aluminum/specular.dds
-[151 bytes]
+[152 bytes]
 
 PlatformContent/pc/textures/brick/diffuse.dds
-[1310157 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/brick/normal.dds
-[1357058 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/brick/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/brick/specular.dds
-[687467 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/cobblestone/diffuse.dds
-[1319027 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/cobblestone/normal.dds
-[1344521 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/cobblestone/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/cobblestone/specular.dds
-[685490 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/concrete/diffuse.dds
-[643261 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/concrete/normal.dds
-[1358361 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/concrete/normaldetail.dds
-[340331 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/concrete/specular.dds
-[171623 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/diamondplate/diffuse.dds
-[164334 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/diamondplate/normal.dds
-[341408 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/diamondplate/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/diamondplate/specular.dds
-[168004 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/fabric/diffuse.dds
-[341572 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/fabric/normal.dds
-[336596 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/fabric/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/fabric/specular.dds
-[171590 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/glass/diffuse.dds
-[348372 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/glass/normal.dds
-[336118 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/glass/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/glass/specular.dds
-[633390 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/granite/diffuse.dds
-[675614 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/granite/normal.dds
 [176 bytes]
@@ -5204,58 +5204,58 @@ PlatformContent/pc/textures/granite/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/granite/specular.dds
-[684798 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/grass/diffuse.dds
-[661313 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/grass/normal.dds
-[1346646 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/grass/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/grass/specular.dds
-[687955 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/ice/diffuse.dds
 [152 bytes]
 
 PlatformContent/pc/textures/ice/normal.dds
-[347896 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/ice/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/ice/specular.dds
-[681824 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/marble/diffuse.dds
-[637816 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/marble/normal.dds
-[1354267 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/marble/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/marble/specular.dds
-[675034 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/metal/diffuse.dds
-[168465 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/metal/normal.dds
-[340602 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/metal/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/metal/specular.dds
-[167904 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/pebble/diffuse.dds
-[164675 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/pebble/normal.dds
 [176 bytes]
@@ -5264,188 +5264,188 @@ PlatformContent/pc/textures/pebble/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/pebble/specular.dds
-[171623 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/plastic/diffuse.dds
-[160111 bytes]
+[174984 bytes]
 
 PlatformContent/pc/textures/plastic/normal.dds
-[347085 bytes]
+[349840 bytes]
 
 PlatformContent/pc/textures/plastic/normaldetail.dds
-[336328 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/rust/diffuse.dds
-[1311623 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/rust/normal.dds
-[1357305 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/rust/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/rust/specular.dds
-[683005 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sand/diffuse.dds
-[628826 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sand/normal.dds
-[333632 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/sand/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/sand/specular.dds
-[688434 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sky/sky512_bk.tex
-[675709 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sky/sky512_dn.tex
-[686000 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sky/sky512_ft.tex
-[676111 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sky/sky512_lf.tex
-[676440 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sky/sky512_rt.tex
-[675198 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/sky/sky512_up.tex
-[684066 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/slate/diffuse.dds
-[630212 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/slate/normal.dds
-[1353006 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/slate/normaldetail.dds
-[336496 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/slate/specular.dds
-[169987 bytes]
+[174904 bytes]
 
 PlatformContent/pc/textures/studs.dds
-[165021 bytes]
+[174984 bytes]
 
 PlatformContent/pc/textures/wangIndex.dds
 [32896 bytes]
 
 PlatformContent/pc/textures/water/normal_01.dds
-[84957 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_02.dds
-[84872 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_03.dds
-[84918 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_04.dds
-[84988 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_05.dds
-[84863 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_06.dds
-[84887 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_07.dds
-[84861 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_08.dds
-[84935 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_09.dds
-[84910 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_10.dds
-[84927 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_11.dds
-[84843 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_12.dds
-[84861 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_13.dds
-[84850 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_14.dds
-[84804 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_15.dds
-[84899 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_16.dds
-[84778 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_17.dds
-[84766 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_18.dds
-[84722 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_19.dds
-[84848 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_20.dds
-[84883 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_21.dds
-[84935 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_22.dds
-[84857 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_23.dds
-[84846 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_24.dds
-[84813 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/water/normal_25.dds
-[84969 bytes]
+[87536 bytes]
 
 PlatformContent/pc/textures/wood/diffuse.dds
-[635284 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/wood/normal.dds
-[344973 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/wood/normaldetail.dds
-[343912 bytes]
+[349680 bytes]
 
 PlatformContent/pc/textures/wood/specular.dds
-[682095 bytes]
+[699192 bytes]
 
 PlatformContent/pc/textures/woodplanks/diffuse.dds
-[1346503 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/woodplanks/normal.dds
-[1357232 bytes]
+[1398256 bytes]
 
 PlatformContent/pc/textures/woodplanks/normaldetail.dds
 [176 bytes]
 
 PlatformContent/pc/textures/woodplanks/specular.dds
-[684723 bytes]
+[699192 bytes]
 
 shaders/keepme
 [0 bytes]
 
 shaders/shaders_glsl.pack
-[318186 bytes]
+[318326 bytes]
 
 shaders/shaders_glsl3.pack
-[334692 bytes]
+[334852 bytes]
 
 shaders/shaders_metal_osx.pack
-[893433 bytes]
+[922201 bytes]
 
 shaders/shaders_metal_osx_old.pack
-[1035274 bytes]
+[1069661 bytes]
 
