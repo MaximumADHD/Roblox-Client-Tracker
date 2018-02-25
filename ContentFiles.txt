@@ -5056,6 +5056,12 @@ content/textures/WeldCursor.png
 content/textures/whiteCircle.png
 [3929 bytes]
 
+content/translations/ChatLocalization.json
+[21705 bytes]
+
+content/translations/CorescriptLocalization.json
+[111981 bytes]
+
 PlatformContent/pc/fonts/NotoSansCJKjp-Regular.otf
 [16018281 bytes]
 
