@@ -71,17 +71,20 @@
           </ActionGroup>
         </MenuButton>
       </Group>
+      <Group name="Terrain"  fflag="StudioTerrainToolsInLuaWidget">
+          <addaction name="viewTerrainToolsAction" text="Terrain Tools" type="plugin" style="textundericon" icon=":/images/TerrainToolsIcon.png" tooltip="Add, remove, and modify terrain" height="32" width="32"/>
+      </Group>
       <Group name="Insert">
-        <addaction name="viewToolboxAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-        <addseparator visible="false"/>
-        <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Part" tooltip="Place a part into the workspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
-          <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
-            <addaction name="PartLargeAction" text="Block" value="Part" tooltip="Insert block part" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32" />
-            <addaction name="SphereLargeAction" text="Sphere" value="Sphere" tooltip="Insert sphere part" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" width="32" height="32" />
-            <addaction name="WedgeLargeAction" text="Wedge" value="WedgePart" tooltip="Insert wedge part" icon=":/RibbonBar/images/RibbonIcons/Insert/Wedge.png" width="32" height="32" />
-            <addaction name="CylinderLargeAction" text="Cylinder" value="Cylinder" tooltip="Insert cylinder part" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" width="32" height="32" />
-          </ActionGroup>
-        </MenuPopupButton>
+          <addaction name="viewToolboxAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+          <addseparator visible="false"/>
+          <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Part" tooltip="Place a part into the workspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
+              <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
+                  <addaction name="PartLargeAction" text="Block" value="Part" tooltip="Insert block part" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32" />
+                  <addaction name="SphereLargeAction" text="Sphere" value="Sphere" tooltip="Insert sphere part" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" width="32" height="32" />
+                  <addaction name="WedgeLargeAction" text="Wedge" value="WedgePart" tooltip="Insert wedge part" icon=":/RibbonBar/images/RibbonIcons/Insert/Wedge.png" width="32" height="32" />
+                  <addaction name="CylinderLargeAction" text="Cylinder" value="Cylinder" tooltip="Insert cylinder part" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" width="32" height="32" />
+              </ActionGroup>
+          </MenuPopupButton>
       </Group>
       <Group name="Edit" options="true">
         <groupoptionsmenu tooltip="Actions as Tools" handleMenuTrigger="true">
@@ -125,8 +128,8 @@
         </MenuPopupButton>
         <addaction name="anchorAction" text="Anchor " icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" style="textbesideicon" tooltip="Anchor/Unanchor the selected parts" width="16" height="16" />
       </Group>
-      <Group name="Terrain">
-        <addaction name="Generate" isProxy="true" text="Generate" style="textbesideicon" tooltip="Generate landscapes of terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="16" height="16"/>
+      <Group name="Terrain" fflag="!StudioTerrainToolsInLuaWidget">
+        <addaction name="Generate" isProxy="true" text="Generate" style="textbesideicon" tooltip="Generate landscapes of terrain 2222." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="16" height="16"/>
         <addaction name="Add" isProxy="true" text="Add" style="textbesideicon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="16" height="16"/>
         <addaction name="Paint" isProxy="true" text="Paint" tooltip="Paint the material of the terrain." type="plugin" style="textbesideicon"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/paint.png" width="16" height="16"/>
         <addaction name="Grow" isProxy="true" text="Grow" style="textbesideicon" type="plugin" tooltip="Click and hold to grow and expand terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/grow.png" width="16" height="16"/>
@@ -306,7 +309,7 @@
     <!--
       RIBBON BAR TERRAIN TAB
       -->
-    <TabPage name="Terrain">
+    <TabPage name="Terrain" fflag="!StudioTerrainToolsInLuaWidget">
       <Group name="Terrain">
         <addaction name="Generate" instancename="Generate" text="Generate" style="textundericon" tooltip="Generate landscapes of terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="32" height="32"/>
         <addaction name="Add" instancename="Add" text="Add" style="textundericon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="32" height="32"/>

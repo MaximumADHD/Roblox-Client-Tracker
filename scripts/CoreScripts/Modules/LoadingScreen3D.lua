@@ -97,7 +97,7 @@ local surfaceGuiAdorn = Util:Create'Part'
 	Archivable = false;
 	FormFactor = Enum.FormFactor.Custom;
 	RobloxLocked = true;
-	Parent = workspace.CurrentCamera;
+	Parent = RobloxGui;
 }
 
 local loadingSurfaceGui = Util:Create'SurfaceGui'

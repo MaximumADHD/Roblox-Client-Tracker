@@ -2,22 +2,22 @@ BuiltInPlugins/AnimationEditor.rbxmx
 [593591 bytes]
 
 BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
-[249262 bytes]
+[249415 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[5253 bytes]
+[4901 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[274869 bytes]
+[134720 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [210497 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[132707 bytes]
+[133323 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -170,7 +170,7 @@ content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
 [19248 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[32599 bytes]
+[32463 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
 [1307 bytes]
@@ -1679,7 +1679,7 @@ content/internal/Chat/Modules/LuaChat/Models/User.lua
 [1707 bytes]
 
 content/internal/Chat/Modules/LuaChat/NotificationBroadcaster.lua
-[838 bytes]
+[1267 bytes]
 
 content/internal/Chat/Modules/LuaChat/OrderedMap.lua
 [5537 bytes]
@@ -2303,7 +2303,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerConsole.lu
 [22502 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerMobile.lua
-[24031 bytes]
+[24035 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ParticleScreen.lua
 [2224 bytes]
@@ -2570,7 +2570,7 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [23540 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[38556 bytes]
+[38581 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6319 bytes]
@@ -2651,7 +2651,7 @@ content/scripts/CoreScripts/Modules/HttpAnalyticsTab.lua
 [17316 bytes]
 
 content/scripts/CoreScripts/Modules/LoadingScreen3D.lua
-[9664 bytes]
+[9650 bytes]
 
 content/scripts/CoreScripts/Modules/NewChat.lua
 [10145 bytes]
@@ -2774,16 +2774,13 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/TransparencyTweener.lua
 [5916 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCamera.lua
-[10382 bytes]
+[13095 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCameraInstaller.lua
-[3116 bytes]
-
-content/scripts/CoreScripts/Modules/Server/FreeCamera/Maid.lua
-[895 bytes]
+[6006 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/Spring.lua
-[845 bytes]
+[1156 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatChannel.lua
 [21694 bytes]
@@ -2795,7 +2792,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
 [3055 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
-[12685 bytes]
+[13053 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatLocalization.lua
 [31418 bytes]
@@ -2846,7 +2843,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[44536 bytes]
+[44365 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [31090 bytes]
@@ -2960,7 +2957,7 @@ content/scripts/CoreScripts/Modules/VR/NotifierHint3D.lua
 [2025 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Panel3D.lua
-[28852 bytes]
+[29218 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Recenter.lua
 [2934 bytes]
@@ -3482,16 +3479,16 @@ content/textures/sparkle.png
 [1127 bytes]
 
 content/textures/StudioUIEditor/placeholderResizeDiagonalDown.png
-[1447 bytes]
+[1223 bytes]
 
 content/textures/StudioUIEditor/placeholderResizeDiagonalUp.png
-[1427 bytes]
+[1153 bytes]
 
 content/textures/StudioUIEditor/placeholderResizeHorizontal.png
-[1219 bytes]
+[1112 bytes]
 
 content/textures/StudioUIEditor/placeholderResizeVertical.png
-[1268 bytes]
+[1103 bytes]
 
 content/textures/StudioUIEditor/sizeBoxRoundedRectangle.png
 [218 bytes]
@@ -5083,6 +5080,9 @@ content/textures/whiteCircle.png
 content/translations/ChatLocalization.json
 [25096 bytes]
 
+content/translations/CoreScriptLocalization.csv
+[91862 bytes]
+
 content/translations/CorescriptLocalization.json
 [127647 bytes]
 
@@ -5438,14 +5438,11 @@ shaders/keepme
 [0 bytes]
 
 shaders/shaders_glsl.pack
-[318326 bytes]
+[339108 bytes]
 
 shaders/shaders_glsl3.pack
-[334852 bytes]
+[359924 bytes]
 
 shaders/shaders_metal_osx.pack
-[922201 bytes]
-
-shaders/shaders_metal_osx_old.pack
-[1069661 bytes]
+[970678 bytes]
 

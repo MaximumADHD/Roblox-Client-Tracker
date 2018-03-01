@@ -416,7 +416,7 @@ removeNotification = function(notification)
 
 		insertNotification(nextNotification)
 
-		if (#OverflowQueue > 0) then
+		if (#OverflowQueue > 0 and NotificationQueue[1]) then
 			NotificationQueue[1].Duration = 0
 		end
 	else

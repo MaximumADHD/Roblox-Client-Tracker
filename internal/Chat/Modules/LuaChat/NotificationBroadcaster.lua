@@ -1,4 +1,5 @@
 local GuiService = game:GetService("GuiService")
+local NotificationService = game:GetService("NotificationService")
 
 local NotificationBroadcaster = {}
 NotificationBroadcaster.__index = NotificationBroadcaster
@@ -10,6 +11,7 @@ function NotificationBroadcaster.new(appState)
 	setmetatable(self, NotificationBroadcaster)
 
 	self.unreadConversationCount = 0
+	self.hasLoadedConversations = false
 
 	appState.store.Changed:Connect(function(state, oldState)
 		self:Update(state, oldState)
@@ -27,6 +29,14 @@ function NotificationBroadcaster:Update(state, oldState)
 
 		local string = state.UnreadConversationCount > 0 and tostring(state.UnreadConversationCount) or ""
 		GuiService:BroadcastNotification(string, GuiService:GetNotificationTypeList().UNREAD_COUNT)
+	end
+
+	if (not self.hasLoadedConversations) and state.Conversations ~= oldState.Conversations then
+		local hasLoadedConversations = next(state.Conversations) ~= nil
+		if hasLoadedConversations then
+			NotificationService:ActionEnabled(Enum.AppShellActionType.TapConversationEntry)
+			self.hasLoadedConversations = true
+		end
 	end
 end
 

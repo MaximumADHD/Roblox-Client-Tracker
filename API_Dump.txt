@@ -105,6 +105,7 @@ Class Attachment : Instance
 	Property Vector3 Attachment.SecondaryAxis
 	Property bool Attachment.Visible
 	Property Vector3 Attachment.WorldAxis [readonly]
+	Property CoordinateFrame Attachment.WorldCFrame [readonly]
 	Property Vector3 Attachment.WorldOrientation [readonly]
 	Property Vector3 Attachment.WorldPosition [readonly]
 	Property Vector3 Attachment.WorldRotation [deprecated] [readonly]
@@ -255,6 +256,7 @@ Class Camera : Instance
 	Property CoordinateFrame Camera.Focus
 	Property bool Camera.HeadLocked
 	Property float Camera.HeadScale
+	Property float Camera.NearPlaneZ [readonly]
 	Property Vector2 Camera.ViewportSize [readonly]
 	Property CoordinateFrame Camera.focus [deprecated]
 	Function float Camera:GetLargestCutoffDistance(Objects ignoreList)
@@ -897,6 +899,7 @@ Class BillboardGui : LayerCollector
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
 Class PluginGui : LayerCollector
 	Property bool PluginGui.HostWidgetWasRestored [readonly]
+	Property string PluginGui.Title
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.ResetOnSpawn
@@ -1498,6 +1501,8 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.UsePhysicsPacketCache
 	Property int NetworkSettings.WaitingForCharacterLogRate [deprecated] [hidden]
 Class NotificationService : Instance [notCreatable]
+	Function void NotificationService:ActionEnabled(AppShellActionType actionType) [RobloxScriptSecurity]
+	Function void NotificationService:ActionTaken(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:CancelAllNotification(int64 userId) [LocalUserSecurity]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) [LocalUserSecurity]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
@@ -1778,7 +1783,6 @@ Class PathfindingService : Instance [notCreatable]
 	YieldFunction Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
 	YieldFunction Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
 	YieldFunction Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish)
-Class PersonalServerService : Instance
 Class PhysicsPacketCache : Instance
 Class PhysicsService : Instance
 	Function bool PhysicsService:CollisionGroupContainsPart(string name, Instance part)
@@ -2103,6 +2107,7 @@ Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
 	Function string RunService:GetRobloxVersion() [RobloxScriptSecurity]
 	Function bool RunService:IsClient()
+	Function bool RunService:IsEdit() [RobloxScriptSecurity]
 	Function bool RunService:IsRunMode()
 	Function bool RunService:IsRunning()
 	Function bool RunService:IsServer()
@@ -2725,6 +2730,13 @@ Enum AnimationPriority
 	EnumItem AnimationPriority.Movement : 1
 	EnumItem AnimationPriority.Action : 2
 	EnumItem AnimationPriority.Core : 1000
+Enum AppShellActionType
+	EnumItem AppShellActionType.None : 0
+	EnumItem AppShellActionType.OpenApp : 1
+	EnumItem AppShellActionType.TapChatTab : 2
+	EnumItem AppShellActionType.TapConversationEntry : 3
+	EnumItem AppShellActionType.TapAvatarTab : 4
+	EnumItem AppShellActionType.ReadConversation : 5
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1

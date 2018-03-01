@@ -29,6 +29,12 @@ if (not EventFolder) then
 	EventFolder.Parent = EventFolderParent
 end
 
+--// No-opt connect Server>Client RemoteEvents to ensure they cannot be called
+--// to fill the remote event queue.
+local function emptyFunction()
+	--intentially empty
+end
+
 local function GetObjectWithNameAndType(parentObject, objectName, objectType)
 	for i, child in pairs(parentObject:GetChildren()) do
 		if (child:IsA(objectType) and child.Name == objectName) then
@@ -51,24 +57,30 @@ local function CreateIfDoesntExist(parentObject, objectName, objectType)
 	return obj
 end
 
-CreateIfDoesntExist(EventFolder, "OnNewMessage", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnMessageDoneFiltering", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnNewSystemMessage", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnChannelJoined", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnChannelLeft", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnMuted", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnUnmuted", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "OnMainChannelSet", "RemoteEvent")
-CreateIfDoesntExist(EventFolder, "ChannelNameColorUpdated", "RemoteEvent")
+--// All remote events will have a no-opt OnServerEvent connecdted on construction
+local function CreateEventIfItDoesntExist(parentObject, objectName)
+	local obj = CreateIfDoesntExist(parentObject, objectName, "RemoteEvent")
+	obj.OnServerEvent:Connect(emptyFunction)
+	return obj
+end
 
-CreateIfDoesntExist(EventFolder, "SayMessageRequest", "RemoteEvent")
+CreateEventIfItDoesntExist(EventFolder, "OnNewMessage")
+CreateEventIfItDoesntExist(EventFolder, "OnMessageDoneFiltering")
+CreateEventIfItDoesntExist(EventFolder, "OnNewSystemMessage")
+CreateEventIfItDoesntExist(EventFolder, "OnChannelJoined")
+CreateEventIfItDoesntExist(EventFolder, "OnChannelLeft")
+CreateEventIfItDoesntExist(EventFolder, "OnMuted")
+CreateEventIfItDoesntExist(EventFolder, "OnUnmuted")
+CreateEventIfItDoesntExist(EventFolder, "OnMainChannelSet")
+CreateEventIfItDoesntExist(EventFolder, "ChannelNameColorUpdated")
+
+CreateEventIfItDoesntExist(EventFolder, "SayMessageRequest")
+CreateEventIfItDoesntExist(EventFolder, "SetBlockedUserIdsRequest")
 CreateIfDoesntExist(EventFolder, "GetInitDataRequest", "RemoteFunction")
 CreateIfDoesntExist(EventFolder, "MutePlayerRequest", "RemoteFunction")
 CreateIfDoesntExist(EventFolder, "UnMutePlayerRequest", "RemoteFunction")
-CreateIfDoesntExist(EventFolder, "SetBlockedUserIdsRequest", "RemoteEvent")
 
 EventFolder = useEvents
-
 
 local function CreatePlayerSpeakerObject(playerObj)
 	--// If a developer already created a speaker object with the

@@ -8,7 +8,7 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local PlayersService = game:GetService("Players")
+local Players = game:GetService("Players")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 
 --Panel3D State variables
@@ -999,6 +999,12 @@ local function onRenderStep()
 	lastClosest = currentClosest
 end
 
+local isCameraReady = false
+local function putFoldersIn(parent)
+	partFolder.Parent = parent
+	effectFolder.Parent = parent
+end
+
 local headscaleChangedConn = nil
 local function onHeadScaleChanged()
 	local currentHeadScale = workspace.CurrentCamera.HeadScale
@@ -1014,9 +1020,8 @@ local function onCurrentCameraChanged()
 	end
 	headscaleChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("HeadScale"):connect(onHeadScaleChanged)
 
-	if VRService.VREnabled then
-		partFolder.Parent = workspace.CurrentCamera
-		effectFolder.Parent = workspace.CurrentCamera
+	if VRService.VREnabled and isCameraReady then
+		putFoldersIn(workspace.CurrentCamera)
 	end
 end
 
@@ -1024,14 +1029,17 @@ local currentCameraChangedConn = nil
 local renderStepFuncBound = false
 local function onVREnabledChanged()
 	if VRService.VREnabled then
+		while not isCameraReady do
+			wait()
+		end
+
 		if workspace.CurrentCamera then
 			onCurrentCameraChanged()
 		end
 		currentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):connect(onCurrentCameraChanged)
 
-		partFolder.Parent = workspace.CurrentCamera
-		effectFolder.Parent = workspace.CurrentCamera
-		
+		putFoldersIn(workspace.CurrentCamera)
+				
 		if not renderStepFuncBound then
 			RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, onRenderStep)
 			renderStepFuncBound = true
@@ -1041,8 +1049,7 @@ local function onVREnabledChanged()
 			currentCameraChangedConn:disconnect()
 			currentCameraChangedConn = nil
 		end
-		partFolder.Parent = nil
-		effectFolder.Parent = nil
+		putFoldersIn(nil)
 		
 		if renderStepFuncBound then
 			RunService:UnbindFromRenderStep(renderStepName)
@@ -1051,6 +1058,21 @@ local function onVREnabledChanged()
 	end
 end
 VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
-onVREnabledChanged()
+spawn(onVREnabledChanged)
+
+coroutine.wrap(function()
+	while true do
+		if workspace.CurrentCamera then
+			if workspace.CurrentCamera.CameraSubject ~= nil or workspace.CurrentCamera.CameraType == Enum.CameraType.Scriptable then
+				break
+			end
+			workspace.CurrentCamera.Changed:wait()
+		else
+			wait()
+		end
+	end
+
+	isCameraReady = true
+end)()
 
 return Panel3D

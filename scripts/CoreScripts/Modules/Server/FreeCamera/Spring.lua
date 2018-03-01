@@ -1,32 +1,49 @@
+------------------------------------------------------------------------
+-- Spring.lua
+-- Simulates the motion of a critically damped spring.
+-- Author: fractality
+--
+-- API:
+--   Spring Spring.new(double freq, vector pos)
+--   vector Spring:Update(double dt, vector goal)
+--   void Spring:Reset(vector state)
+--
+-- Notes:
+--   The state vector type must implement the following metamethods:
+--     vector __mul(vector, double)
+--     vector __add(vector, vector)
+--     vector __sub(vector, vector)
+------------------------------------------------------------------------
 
 local Spring = {}
 Spring.__index = Spring
 
-function Spring:Update(dt)
-	local t, k, d, x0, v0 = self.t, self.k, self.d, self.x, self.v
-	local a0 = k*(t - x0) + v0*d
-	local v1 = v0 + a0*(dt/2)
-	local a1 = k*(t - (x0 + v0*(dt/2))) + v1*d
-	local v2 = v0 + a1*(dt/2)
-	local a2 = k*(t - (x0 + v1*(dt/2))) + v2*d
-	local v3 = v0 + a2*dt
-	local x4 = x0 + (v0 + 2*(v1 + v2) + v3)*(dt/6)
-	self.x, self.v = x4, v0 + (a0 + 2*(a1 + a2) + k*(t - (x0 + v2*dt)) + v3*d)*(dt/6)
-	return x4
+function Spring.new(freq, pos)
+	local self = setmetatable({}, Spring)
+	self.dxdt = pos*0
+	self.freq = freq
+	self.x = pos
+	return self
 end
 
-function Spring.new(stiffness, dampingCoeff, dampingRatio, initialPos)
-	local self = setmetatable({}, Spring)
+function Spring:Update(dt, goal)
+	local dxdt = self.dxdt
+	local freq = self.freq*2*math.pi
+	local x = self.x
+	
+	local offset = goal - x
+	local step = freq*dt
+	x = goal + (dxdt*dt - offset*(step + 1))*math.exp(-step)
+	dxdt = ((offset*freq - dxdt)*step + dxdt)*math.exp(-step)
+	
+	self.x = x
+	self.dxdt = dxdt
+	return x
+end
 
-	dampingRatio = dampingRatio or 1
-	local m = dampingCoeff*dampingCoeff/(4*stiffness*dampingRatio*dampingRatio)
-	self.k = stiffness/m
-	self.d = -dampingCoeff/m
-	self.x = initialPos
-	self.t = initialPos
-	self.v = initialPos*0
-
-	return self
+function Spring:Reset(pos)
+	self.dxdt = pos*0
+	self.x = pos
 end
 
 return Spring

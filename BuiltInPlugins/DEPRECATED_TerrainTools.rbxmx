@@ -30,7 +30,14 @@
 -- FIXME(dbanks)
 -- 2018/02/09
 -- Delete this whole file once StudioTerrainToolsInLuaWidget is on for good.
-local StudioTerrainToolsInLuaWidget = settings():GetFFlag("StudioTerrainToolsInLuaWidget")
+local StudioTerrainToolsInLuaWidget = false
+local successFlagFetch, flagResult = pcall(function()
+    return settings():GetFFlag("StudioTerrainToolsInLuaWidget")
+end)
+if successFlagFetch then
+    StudioTerrainToolsInLuaWidget = flagResult
+end
+
 if (StudioTerrainToolsInLuaWidget) then
     return
 end

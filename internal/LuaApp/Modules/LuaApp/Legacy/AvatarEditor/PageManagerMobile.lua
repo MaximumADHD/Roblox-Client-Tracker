@@ -206,7 +206,7 @@ end
 
 local function makeShopPressFunction(url)
 	return function()
-		local url = "https://" .. Urls.domainUrl .. (url or "/catalog")
+		local url = "https://www." .. Urls.domainUrl .. (url or "/catalog")
 		GuiService:OpenNativeOverlay( "Catalog", url )
 	end
 end

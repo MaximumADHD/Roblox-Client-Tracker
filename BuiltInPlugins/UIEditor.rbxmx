@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Model" referent="RBXFA1B361896824BB2A0AB99652E2B9815">
+	<Item class="Model" referent="RBXC75DEC2837364AA49434F17E3A285DA6">
 		<Properties>
 			<CoordinateFrame name="ModelInPrimary">
 				<X>0</X>
@@ -21,7 +21,7 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBXF24BDC9A38D44C4FA3F9CA7310CF9529">
+		<Item class="Script" referent="RBXCC08D2452EFE4FCC9707F02AB077CEA6">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -378,7 +378,7 @@ loaded = true]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXD15FFA1484954ABF94385AC9867B595E">
+		<Item class="ModuleScript" referent="RBX17771780C1934291ACE2A75944338EC0">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rubberband</string>
@@ -467,7 +467,7 @@ return Rubberband
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX24D0BD6852324F948EF1FC83E6F31E88">
+		<Item class="ModuleScript" referent="RBXC70380D6B9BD465FB018AE9A39CE730E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CoreGuiManager</string>
@@ -528,7 +528,7 @@ return CoreGuiManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1CA09B36010D4E9789769A483CB11B97">
+		<Item class="ModuleScript" referent="RBXA5BF5F06ACC04F38AA50F2FA6E8C4710">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Utility</string>
@@ -571,6 +571,11 @@ end
 -- int Utility:mathattanDistance(Vector2 v)
 function Utility:manhattanDistance(v)
 	return math.abs(v.X) + math.abs(v.Y)
+end
+
+-- Vector2 Utility:floorVector2(Vector2 v)
+function Utility:floorVector2(v)
+	return Vector2.new(math.floor(v.X), math.floor(v.Y))
 end
 
 -- Vector2 Utility:minVector2(Vector2 v1, Vector2 v2)
@@ -675,7 +680,7 @@ return Utility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXE494C837C2E745418A14E7213968788F">
+		<Item class="ModuleScript" referent="RBXA48C694A7E8C4B4588E6957A95D3473D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DoubleClickDetector</string>
@@ -703,7 +708,7 @@ return DoubleClickDetector
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4E18B844AB2D424DBF8A26CD8139C31B">
+		<Item class="ModuleScript" referent="RBX010E2F94B3CB44FC9E5B60A432D9881C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TextEditor</string>
@@ -821,7 +826,7 @@ return TextEditor
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX591BB7F001084C4297CE35C553AF39DC">
+		<Item class="ModuleScript" referent="RBX2AD3B3E88C6344FDA160084482F611DC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Resize</string>
@@ -1463,7 +1468,7 @@ return Resize
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX58CA4056A9204B79965F723E31721E6D">
+		<Item class="ModuleScript" referent="RBXE5E680CAD59644FF864243D59CEEBBB0">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Error</string>
@@ -1480,7 +1485,7 @@ return Error
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXD9FE9B529C5849329B9CC7982F1C286E">
+		<Item class="ModuleScript" referent="RBX88B40D3014444056A3209D4BC4F167A1">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">AdornmentModule</string>
@@ -1616,7 +1621,7 @@ return AdornmentModule
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX31DF0468682D40EC86530C235F578EAE">
+		<Item class="ModuleScript" referent="RBX9E975775878B4B04ADD1413805F82928">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SelectionManager</string>
@@ -1751,7 +1756,7 @@ return SelectionManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXDB17562A824543F4AAC9029AEB475C60">
+		<Item class="ModuleScript" referent="RBX136F768D8B3B430091DFAFA82E296EA4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Move</string>
@@ -2028,8 +2033,15 @@ function Move:updateDrag(location)
 		AdornmentModule:showSnappingLine(snappingLines[i])
 	end
 	
-	local positionOffset = extents.TopLeft - m_originalExtents.TopLeft 
-		
+	local positionOffset
+	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		-- The extents centers can be non-integers. Floor them so we always have a consistent
+		-- center. We had an issue with frames with an odd size would snap on different sides
+		-- of the "middle" of the screen depending on how you moved the mouse. See CLISTUDIO-14120
+		positionOffset = Utility:floorVector2(extents.TopLeft - m_originalExtents.TopLeft)
+	else
+		positionOffset = extents.TopLeft - m_originalExtents.TopLeft
+	end
 	dragElements(m_originalMousePosition + positionOffset)
 	Resize:hide()
 	--[[ Commenting out reparenting functionality until we have better flow
@@ -2065,7 +2077,7 @@ return Move
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX71821F8EE00D4AD7A3DC2E3FA2947D24">
+		<Item class="ModuleScript" referent="RBX06C6FA857FD445DAA531FB5ECB1D04E6">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rotate</string>
@@ -2077,7 +2089,7 @@ return Rotate
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX02D3D3288B184FC49B82301A125CE7DC">
+		<Item class="ModuleScript" referent="RBX4CD9C56DCE8F4108BD6BAF1D480DDEC4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Select</string>
@@ -2329,7 +2341,7 @@ return Select
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX55B3C48E91C94035AEE9FA49E27A8186">
+		<Item class="ModuleScript" referent="RBXDCC846A1644149F5B312A442FFD42C4C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GlobalValues</string>
@@ -2386,7 +2398,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBXB37A28D9CE5B4C9682AA4249D64F3E47">
+		<Item class="Script" referent="RBXC911FE1961594C58BA07B50E2FF06FFD">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2428,7 +2440,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0C2AF0D7AAF2449CAF40D1AD34CBFE24">
+		<Item class="ModuleScript" referent="RBXD797824F61BF446C8073C5A0B59C887E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">InstanceInfo</string>
@@ -2534,7 +2546,7 @@ return InstanceInfo
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXD1D81DE1EFC749538E51F2806B6A45E8">
+		<Item class="ModuleScript" referent="RBXBF7D4B1A6FD8425A8D324661E603B253">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SnappingPointManager</string>
@@ -2881,7 +2893,7 @@ return SnappingPointManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFDE5C344595242E4987A02E750280917">
+		<Item class="ModuleScript" referent="RBXF51A2CBCB778408AB56B5578C6DC9DBF">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Set</string>
@@ -2976,7 +2988,7 @@ return Set
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2524EF7B0B3642C28A69FFDAD45108D0">
+		<Item class="ModuleScript" referent="RBXB1917F0D3CC140F69D45F31AA29C2D34">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">UniqueArrayMap</string>
@@ -3029,7 +3041,7 @@ return UniqueArrayMap
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2043D4BFB23747F489B8F187B53BA051">
+		<Item class="ModuleScript" referent="RBX2330F4A3903440B2933255D03EBB2A3B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Analytics</string>
@@ -3050,7 +3062,7 @@ return Analytics
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX02062DAFFA6046F8A5ADC0CCFD430721">
+		<Item class="ModuleScript" referent="RBX19D9F5E9825A4E75A246EA0610812151">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Convert</string>
@@ -3092,7 +3104,7 @@ return Convert
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6ED03EBE9E714630A1FC9A3BAA866C0A">
+		<Item class="ModuleScript" referent="RBXEE77761B0DC041549775A623E3B5E5EB">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">FFlag</string>
@@ -3123,7 +3135,7 @@ return FFlag
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX79C907F044A24C2B8246F7198E652129">
+		<Item class="ModuleScript" referent="RBX02D5CE3FDA5B4CD1BB46C75C67195B09">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Extents2D</string>
@@ -3375,12 +3387,12 @@ return Extents2D
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBXED5EC345B3C2472C8C840DD49A9EEAA2">
+		<Item class="Folder" referent="RBXCFBBB236C3B442EBAFF7A989E632DA6E">
 			<Properties>
 				<string name="Name">Enum</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX4EC4C0903BE64E81817BFC668B60E60B">
+			<Item class="ModuleScript" referent="RBX10E997C3A4C948578ECAE71AA5BE128E">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SnappingType</string>
@@ -3427,7 +3439,7 @@ return SnappingType
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXD9512DC90F004A168F5595BD2E9966EB">
+			<Item class="ModuleScript" referent="RBX506AB461AFC3412F865210E05FCC426E">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Axis</string>
@@ -3444,7 +3456,7 @@ return Axis
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX70889574AB1D424398D1B2BE1FBE9817">
+			<Item class="ModuleScript" referent="RBX579BB214E7144F26AC7103560120B68A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Direction</string>
@@ -3473,7 +3485,7 @@ return Direction]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF2B53BE8A6A0427C9CDB44F0178F8D00">
+		<Item class="ModuleScript" referent="RBXDE32266CEA704A4CB70B6AB01A4E3D2F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Log</string>
@@ -3505,7 +3517,7 @@ return Log]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1029049816784304BE5D215B76A89267">
+		<Item class="ModuleScript" referent="RBX4B048C335680452387E5719A9D5D84EF">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SizeBox</string>
@@ -3690,7 +3702,7 @@ return SizeBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX593CEFB953AF424F9815ADBB983D4A65">
+		<Item class="ModuleScript" referent="RBX965789D46D6A4D81848F92AB214A3A49">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLinesManager</string>
@@ -3799,7 +3811,7 @@ return DistanceLinesManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX31035DB556444E8992EB6EF5B11DEFCC">
+		<Item class="ModuleScript" referent="RBX6237983BB46146C08602B04DA76EFBC9">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RectUtility</string>
@@ -3853,12 +3865,12 @@ return RectUtility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX0D646A847C8945D6BFAB00983A3359FB">
+		<Item class="Folder" referent="RBX66F32ADC0D3949BFA7B19CF8BC7E6934">
 			<Properties>
 				<string name="Name">Tests</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBXAC0A0BAAA0144D8BB93ECAE8E234BF18">
+			<Item class="Script" referent="RBXB3925186853E422F8C27F531746CA999">
 				<Properties>
 					<bool name="Disabled">true</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -3932,7 +3944,7 @@ rectUtilityTestSuite()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBXCBCD8878C05148D4817C75D9DD0D8941">
+		<Item class="ModuleScript" referent="RBX57A8633F4E66409B9A0C7AE7659D127E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLine</string>
@@ -4112,12 +4124,13 @@ end
 --
 -- void updateX(GuiBase2d selectedObject, GuiBase2d parent, Frame distanceFrame, TextLabel distanceLabel)
 local function updateX(selectedObject, parent, distanceFrame, distanceLabel)
-	-- Determine if the mid points are inside the parent
+	-- Determine if the mid points are inside the parent. Floor center values
+	-- otherwise the line will appear to jerk for objects with odd sizes.
 	local parentRect = Rect.new(parent.AbsolutePosition, parent.AbsolutePosition + parent.AbsoluteSize)
 	local leftMidPoint = Vector2.new(selectedObject.AbsolutePosition.X,
-									  selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y/2.0)
+									  math.floor(selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y/2.0))
 	local rightMidPoint = Vector2.new(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X,
-									   selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y/2.0)
+									   math.floor(selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y/2.0))
 	local leftMidPointInside = RectUtility:containsPoint(parentRect, leftMidPoint)
 	local rightMidPointInside = RectUtility:containsPoint(parentRect, rightMidPoint)
 	
@@ -4171,11 +4184,12 @@ end
 --
 -- void updateX(GuiBase2d selectedObject, GuiBase2d parent, Frame distanceFrame, TextLabel distanceLabel)
 local function updateY(selectedObject, parent, distanceFrame, distanceLabel)
-	-- Determine if the mid points are inside the parent	
+	-- Determine if the mid points are inside the parent. Floor center values
+	-- otherwise the line will appear to jerk for objects with odd sizes.
 	local parentRect = Rect.new(parent.AbsolutePosition, parent.AbsolutePosition + parent.AbsoluteSize)
-	local topMidPoint = Vector2.new(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0,
+	local topMidPoint = Vector2.new(math.floor(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0),
 									selectedObject.AbsolutePosition.Y)
-	local bottomMidPoint = Vector2.new(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0,
+	local bottomMidPoint = Vector2.new(math.floor(selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0),
 									   selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y)
 	local topMidPointInside = RectUtility:containsPoint(parentRect, topMidPoint)
 	local bottomMidPointInside = RectUtility:containsPoint(parentRect, bottomMidPoint)
@@ -4196,10 +4210,10 @@ local function updateY(selectedObject, parent, distanceFrame, distanceLabel)
 		distanceFrame.Size = UDim2.new(0, LINE_WIDTH, 0, distance)
 		if topDistance <= bottomDistance then
 			distanceFrame.AnchorPoint = topAnchor
-			distanceFrame.Position = UDim2.new(0, selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0, 0, selectedObject.AbsolutePosition.Y)
+			distanceFrame.Position = UDim2.new(0, topMidPoint.X, 0, topMidPoint.Y)
 		else
 			distanceFrame.AnchorPoint = bottomAnchor
-			distanceFrame.Position = UDim2.new(0, selectedObject.AbsolutePosition.X + selectedObject.AbsoluteSize.X/2.0, 0, selectedObject.AbsolutePosition.Y + selectedObject.AbsoluteSize.Y)
+			distanceFrame.Position = UDim2.new(0, bottomMidPoint.X, 0, bottomMidPoint.Y)
 		end	
 	elseif topMidPointInside then
 		-- The top mid point is inside but the bottom is outside. The closest parent
@@ -4247,7 +4261,7 @@ return DistanceLine
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA671A71034414D039ABA9ECE6E65CB7B">
+		<Item class="ModuleScript" referent="RBX2EC419F7A94B4B9593042DF6F1F5F86F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MouseIconManager</string>

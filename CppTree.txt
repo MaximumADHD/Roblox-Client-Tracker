@@ -895,7 +895,6 @@ RBX
 	PathfindingJob
 	PathfindingService
 	PathWaypoint
-	PersonalServerService
 	physics_receiver_exception
 	PhysicsJob
 	PhysicsService

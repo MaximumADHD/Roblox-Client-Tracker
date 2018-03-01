@@ -2443,7 +2443,30 @@
         </Properties>
     </Item>
     
+    
     <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">PluginGuiService</string>
+            <string name="ExplorerOrder">3</string>
+            <string name="ExplorerImageIndex">46</string>
+        </Properties>
+    </Item>
+
+
+    <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">Studio</string>
+        </Properties>
+        <Item class="ReflectionMetadataProperties">
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">Show Plugin GUI Service in Explorer</string>
+                </Properties>
+            </Item>
+        </Item>
+    </Item>
+
+<Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">UIGridStyleLayout</string>
             <string name="ClassCategory">GUI</string>
@@ -4627,6 +4650,12 @@
           <Properties>
             <string name="Name">ViewportSize</string>
             <string name="summary">Holds the x,y screen resolution of the viewport the camera is presenting (note: this can differ from the AbsoluteSize property of a full screen gui).</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NearPlaneZ</string>
+            <string name="summary">The negative z-offset of the view frustum's near clipping plane.</string>
           </Properties>
         </Item>
       </Item>
