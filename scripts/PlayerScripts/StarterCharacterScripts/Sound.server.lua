@@ -7,10 +7,31 @@
 	The default Sound script loaded for every character will then be replaced with your copy of the script.
 ]]--
 
+local useSoundDispatcher = UserSettings():IsUserFeatureEnabled("UserUseSoundDispatcher")
+local soundEventFolderName = "DefaultSoundEvents"
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local soundEventFolder = ReplicatedStorage:FindFirstChild(soundEventFolderName)
 local DefaultServerSoundEvent = nil
-DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+
+if useSoundDispatcher then
+	if not soundEventFolder then
+		soundEventFolder = Instance.new("Folder", ReplicatedStorage)
+		soundEventFolder.Name = soundEventFolderName
+		soundEventFolder.Archivable = false
+	end
+
+	DefaultServerSoundEvent = soundEventFolder:FindFirstChild("DefaultServerSoundEvent")
+else
+	DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+end
+
 if DefaultServerSoundEvent == nil then
-	DefaultServerSoundEvent = Instance.new("RemoteEvent", game:GetService("ReplicatedStorage"))
+	if useSoundDispatcher then
+		DefaultServerSoundEvent = Instance.new("RemoteEvent", soundEventFolder)
+	else
+		DefaultServerSoundEvent = Instance.new("RemoteEvent", game:GetService("ReplicatedStorage"))
+	end
+
 	DefaultServerSoundEvent.Name = "DefaultServerSoundEvent"
 end
 
@@ -26,7 +47,7 @@ function CreateNewSound(name, id, looped, pitch, parent)
 	sound.MinDistance = 5
 	sound.MaxDistance = 150
 	sound.Volume = 0.65
-	
+
 	if DefaultServerSoundEvent then
 		local CharacterSoundEvent = Instance.new("RemoteEvent", sound)
 		CharacterSoundEvent.Name = "CharacterSoundEvent"
@@ -37,7 +58,13 @@ function CreateNewSound(name, id, looped, pitch, parent)
 			end
 			for _, p in pairs(Players:GetPlayers()) do
 				if p ~= player then
-					DefaultServerSoundEvent:FireClient(p, sound, playing, resetPosition)
+					-- Connect to the dispatcher to check if the player has loaded.
+					if useSoundDispatcher then
+						soundEventFolder:FindFirstChild("SoundDispatcher"):Fire(p, sound, playing, resetPosition)
+					else
+						DefaultServerSoundEvent:FireClient(p, sound, playing, resetPosition)
+					end
+					
 				end
 			end
 		end)

@@ -2,7 +2,6 @@ local Modules = script.Parent.Parent
 
 local WebApi = require(Modules.WebApi)
 local ActionType = require(Modules.ActionType)
-local Constants = require(Modules.Constants)
 local ThumbnailModel = require(Modules.Models.ThumbnailModel)
 
 local RETRY_COUNT  = 3
@@ -12,12 +11,11 @@ return function(imageToken, width, height)
 	return function(store)
 		spawn(function()
 			local state = store:GetState()
-			if state.PlaceThumbnails and state.PlaceThumbnails[imageToken]
-				and state.PlaceThumbnails[imageToken].status ~= Constants.WebStatus.FAILED then
+			if state.PlaceThumbnailsAsync[imageToken] then
 				return
 			end
 			store:Dispatch({
-				type = ActionType.FetchingImageToken,
+				type = ActionType.RequestPlaceThumbnail,
 				imageToken = imageToken,
 			})
 
@@ -29,6 +27,10 @@ return function(imageToken, width, height)
 				local status, result = WebApi.GetPlaceThumbnail(imageToken, width, height)
 				if status ~= WebApi.Status.OK then
 					warn("WebApi failure in GetPlaceThumbnail")
+					store:Dispatch({
+						type = ActionType.FailedToFetchPlaceThumbnail,
+						imageToken = imageToken,
+					})
 					break
 				else
 					local placeThumbnailData = result[1]
@@ -48,7 +50,7 @@ return function(imageToken, width, height)
 			local thumbnailModel = ThumbnailModel.fromWeb(thumbnail)
 
 			store:Dispatch({
-				type = ActionType.FetchedPlaceThumbnail,
+				type = ActionType.ReceivedPlaceThumbnail,
 				imageToken = imageToken,
 				thumbnail = thumbnailModel,
 			})

@@ -14,7 +14,9 @@ local ToggleChatPaused = require(Modules.Reducers.ToggleChatPaused)
 local TabBarVisible = require(Modules.Reducers.TabBarVisible)
 local UnreadConversationCount = require(Modules.Reducers.UnreadConversationCount)
 local PlaceInfos = require(Modules.Reducers.PlaceInfos)
+local PlaceInfosAsync = require(Modules.Reducers.PlaceInfosAsync)
 local PlaceThumbnails = require(Modules.Reducers.PlaceThumbnails)
+local PlaceThumbnailsAsync = require(Modules.Reducers.PlaceThumbnailsAsync)
 local Toast = require(Modules.Reducers.Toast)
 
 return function(state, action)
@@ -38,7 +40,9 @@ return function(state, action)
 		TabBarVisible = TabBarVisible(state.TabBarVisible, action),
 		UnreadConversationCount = UnreadConversationCount(state.UnreadConversationCount, action),
 		PlaceInfos = PlaceInfos(state.PlaceInfos, action),
+		PlaceInfosAsync = PlaceInfosAsync(state.PlaceInfosAsync, action),
 		PlaceThumbnails = PlaceThumbnails(state.PlaceThumbnails, action),
+		PlaceThumbnailsAsync = PlaceThumbnailsAsync(state.PlaceThumbnailsAsync, action),
 		Toast = Toast(state.Toast, action),
 	}
 end

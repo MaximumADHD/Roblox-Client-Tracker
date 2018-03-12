@@ -96,7 +96,7 @@ end
 function PlaceInfoCard:FillThumbnail()
 	self.placeThumbnail = Create.new "ImageLabel" {
 		Name = "PlaceThumbnail",
-		Image = self.thumbnail,
+		Image = self.thumbnail.image,
 		Size = UDim2.new(0, 48, 0, 48),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),

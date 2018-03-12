@@ -10,8 +10,6 @@ local AvatarEditorFlags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local AppGui = require(Modules.LuaApp.Legacy.AvatarEditor.AppGui)
 
-local AvatarEditorUseModernHeader = AvatarEditorFlags:GetFlag("AvatarEditorUseModernHeader2")
-
 local AvatarEditorSetup = {}
 
 function AvatarEditorSetup:Initialize(notifyAppReady)
@@ -96,59 +94,47 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 	end
 
 	spawn(function()
-		if AvatarEditorUseModernHeader then
-			local header
-			local appGui
 
-			if not UserSettings().GameSettings:InStudioMode() then
-				header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
-					UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
+		local header
+		local appGui
 
-				local headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
-				appGui = AppGui(
-					UDim2.new(0, 0, 0,  headerHeight),
-					UDim2.new(1, 0, 1, -headerHeight))
+		if not UserSettings().GameSettings:InStudioMode() then
+			header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
+				UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
 
-				local function updateUIDimensions()
-					header:SetNavAndStatusBarHeight(UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
-					local headerHeight = UserInputService.NavBarSize.Y + UserInputService.StatusBarSize.Y
-					appGui:setDimensions(
-						UDim2.new(0, 0, 0,  headerHeight),
-						UDim2.new(1, 0, 1, -headerHeight))
-				end
+			local headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
+			appGui = AppGui(
+				UDim2.new(0, 0, 0,  headerHeight),
+				UDim2.new(1, 0, 1, -headerHeight))
 
-				UserInputService:GetPropertyChangedSignal("NavBarSize"):Connect( updateUIDimensions )
-				UserInputService:GetPropertyChangedSignal("StatusBarSize"):Connect( updateUIDimensions )
-			else
-				local navBarHeight = 44
-				local statusBarHeight = 20
-
-				header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
-					navBarHeight, statusBarHeight)
-
-				local headerHeight = navBarHeight + statusBarHeight
-				appGui = AppGui(
+			local function updateUIDimensions()
+				header:SetNavAndStatusBarHeight(UserInputService.NavBarSize.Y, UserInputService.StatusBarSize.Y)
+				local headerHeight = UserInputService.NavBarSize.Y + UserInputService.StatusBarSize.Y
+				appGui:setDimensions(
 					UDim2.new(0, 0, 0,  headerHeight),
 					UDim2.new(1, 0, 1, -headerHeight))
 			end
 
-			header.rbx.Parent = appGui.ScreenGui
-
-			AvatarEditorMain =
-				require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
-					.new(appGui)
+			UserInputService:GetPropertyChangedSignal("NavBarSize"):Connect( updateUIDimensions )
+			UserInputService:GetPropertyChangedSignal("StatusBarSize"):Connect( updateUIDimensions )
 		else
-			local headerHeight
-			if not UserSettings().GameSettings:InStudioMode() then
-				headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
-			else
-				headerHeight = 49
-			end
+			local navBarHeight = 44
+			local statusBarHeight = 20
 
-			AvatarEditorMain =
-				require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
-					.new(headerHeight)
+			header = require(Modules.LuaApp.Legacy.AvatarEditor.Header).new("Avatar",
+				navBarHeight, statusBarHeight)
+
+			local headerHeight = navBarHeight + statusBarHeight
+			appGui = AppGui(
+				UDim2.new(0, 0, 0,  headerHeight),
+				UDim2.new(1, 0, 1, -headerHeight))
 		end
+
+		header.rbx.Parent = appGui.ScreenGui
+
+		AvatarEditorMain =
+			require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
+				.new(appGui)
 
 		local function startAvatarEditor()
 			screenGui.HackBody.Visible = false

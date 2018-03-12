@@ -30,6 +30,41 @@ local Head = nil
 --SFX ID to Sound object
 local Sounds = {}
 local SoundService = game:GetService("SoundService")
+local soundEventFolderName = "DefaultSoundEvents"
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local AddCharacterLoadedEvent = nil
+local RemoveCharacterEvent = nil
+local soundEventFolder = ReplicatedStorage:FindFirstChild(soundEventFolderName)
+local useSoundDispatcher = UserSettings():IsUserFeatureEnabled("UserUseSoundDispatcher")
+
+if useSoundDispatcher then
+	if not soundEventFolder then
+		soundEventFolder = Instance.new("Folder", ReplicatedStorage)
+		soundEventFolder.Name = soundEventFolderName
+		soundEventFolder.Archivable = false
+	end
+	
+	-- Load the RemoveCharacterEvent
+	RemoveCharacterEvent = soundEventFolder:FindFirstChild("RemoveCharacterEvent")
+	if RemoveCharacterEvent == nil then
+		RemoveCharacterEvent = Instance.new("RemoteEvent", soundEventFolder)
+		RemoveCharacterEvent.Name = "RemoveCharacterEvent"
+	end
+
+	AddCharacterLoadedEvent = soundEventFolder:FindFirstChild("AddCharacterLoadedEvent")
+	if AddCharacterLoadedEvent == nil then
+		AddCharacterLoadedEvent = Instance.new("RemoteEvent", soundEventFolder)
+		AddCharacterLoadedEvent.Name = "AddCharacterLoadedEvent"
+	end
+
+	-- Notify the server a new character has been loaded
+	AddCharacterLoadedEvent:FireServer()
+
+	-- Notify the sound dispatcher this character has left.
+	game.Players.LocalPlayer.CharacterRemoving:connect(function(character)
+		RemoveCharacterEvent:FireServer(game.Players.LocalPlayer)
+	end)
+end
 
 do
 	local Figure = script.Parent.Parent
@@ -54,7 +89,13 @@ do
 	Sounds[SFX.Landing] = 		Head:WaitForChild("Landing")
 	Sounds[SFX.Splash] = 		Head:WaitForChild("Splash")
 
-	local DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+	local DefaultServerSoundEvent = nil
+	if useSoundDispatcher then
+		DefaultServerSoundEvent = soundEventFolder:FindFirstChild("DefaultServerSoundEvent")
+	else
+		DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
+	end
+
 	if DefaultServerSoundEvent then
 		DefaultServerSoundEvent.OnClientEvent:connect(function(sound, playing, resetPosition)
 			if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") then
@@ -110,7 +151,7 @@ Util = {
 
 	--Setting Playing/TimePosition values directly result in less network traffic than Play/Pause/Resume/Stop
 	--If these properties are enabled, use them.
-	Play = function(sound)		
+	Play = function(sound)	
 		if IsSoundFilteringEnabled() then
 			sound.CharacterSoundEvent:FireServer(true, true)
 		end

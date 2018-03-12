@@ -55,11 +55,12 @@ local ActionType = {
 	IncrementUnreadConversationCount = "IncrementUnreadConversationCount",
 	DecrementUnreadConversationCount = "DecrementUnreadConversationCount",
 	FetchedAssetCardInfo = "FetchedAssetCardInfo",
-	FetchedPlaceInfo = "FetchedPlaceInfo",
-	FetchingPlaceInfo = "FetchingPlaceInfo",
+	RequestPlaceInfo = "RequestPlaceInfo",
+	ReceivedPlaceInfo = "ReceivedPlaceInfo",
 	FailedToFetchPlaceInfo = "FailedToFetchPlaceInfo",
-	FetchedPlaceThumbnail = "FetchedPlaceThumbnail",
-	FetchingImageToken = "FetchingImageToken",
+	RequestPlaceThumbnail = "RequestPlaceThumbnail",
+	ReceivedPlaceThumbnail = "ReceivedPlaceThumbnail",
+	FailedToFetchPlaceThumbnail = "FailedToFetchPlaceThumbnail",
 }
 
 setmetatable(ActionType, {

@@ -114,11 +114,6 @@ local Constants = {
 		},
 	},
 
-	WebStatus = {
-		SUCCESS = "SUCCESS",
-		FAILED = "FAILED",
-		FETCHING = "FETCHING",
-	},
 }
 
 if Device.Platform == Enum.Platform.Android then

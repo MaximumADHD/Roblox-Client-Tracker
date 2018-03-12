@@ -43,7 +43,7 @@ function AssetCard.new(appState, message, assetId)
 	self.message = message
 	self.bubbleType = "AssetCard"
 	self.connections = {}
-	self.viewDetailsClick = nil
+	self.cardBodyClick = nil
 	self.assetId = assetId
 
 	self.tail = Create.new "ImageLabel" {
@@ -65,7 +65,7 @@ function AssetCard.new(appState, message, assetId)
 		Text = "View Details",
 	}
 
-	self.actionButton = Create.new "ImageButton" {
+	self.actionButton = Create.new "ImageLabel" {
 		Name = "Action",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -120,7 +120,8 @@ function AssetCard.new(appState, message, assetId)
 		BorderSizePixel = 0,
 	}
 
-	self.Content = Create.new "Frame" {
+
+	self.Content = Create.new "ImageButton" {
 		Name = "Content",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, -BUBBLE_PADDING * 2, 1, -BUBBLE_PADDING * 2),
@@ -256,37 +257,33 @@ function AssetCard:Update(newState)
 		self:ShowLoadingIndicator(true)
 		self.appState.store:Dispatch(GetPlaceInfo(self.assetId))
 	else
-		if placeInfo.status == Constants.WebStatus.SUCCESS then
-			self.Title.Text = placeInfo.name
-			self.Details.Text = placeInfo.description:gsub("%s", " ")
-			if UrlSupportNewGamesAPI then
-				local thumbnail = newState.PlaceThumbnails[placeInfo.imageToken]
-				if thumbnail == nil then
-					self.appState.store:Dispatch(GetPlaceThumbnail(
-						placeInfo.imageToken, PLACE_INFO_THUMBNAIL_SIZE, PLACE_INFO_THUMBNAIL_SIZE
-					))
-				else
-					if thumbnail.status == Constants.WebStatus.SUCCESS then
-						if thumbnail.image == '' then
-							self.thumbnail = DEFAULT_THUMBNAIL
-						else
-							self.thumbnail = thumbnail.image
-						end
-						self:FillThumbnail()
-						self:Show()
-					end
-				end
+		self.Title.Text = placeInfo.name
+		self.Details.Text = placeInfo.description:gsub("%s", " ")
+		if UrlSupportNewGamesAPI then
+			local thumbnail = newState.PlaceThumbnails[placeInfo.imageToken]
+			if thumbnail == nil then
+				self.appState.store:Dispatch(GetPlaceThumbnail(
+					placeInfo.imageToken, PLACE_INFO_THUMBNAIL_SIZE, PLACE_INFO_THUMBNAIL_SIZE
+				))
 			else
-				self.thumbnail = DEFAULT_THUMBNAIL
+				if thumbnail.image == '' then
+					self.thumbnail = DEFAULT_THUMBNAIL
+				else
+					self.thumbnail = thumbnail.image
+				end
+				self:FillThumbnail()
 				self:Show()
 			end
+		else
+			self.thumbnail = DEFAULT_THUMBNAIL
+			self:Show()
 		end
 	end
-	if self.viewDetailsClick then self.viewDetailsClick:Disconnect() end
+	if self.cardBodyClick then self.cardBodyClick:Disconnect() end
 
-	self.viewDetailsClick = self.actionButton.MouseButton1Click:Connect(function()
+	self.cardBodyClick = self.Content.MouseButton1Click:Connect(function()
 		GuiService:BroadcastNotification(self.assetId,
-		GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
+			GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
 	end)
 	self:Resize()
 end

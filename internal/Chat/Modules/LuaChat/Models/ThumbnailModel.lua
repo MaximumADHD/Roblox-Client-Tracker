@@ -1,7 +1,3 @@
-local LuaChat = script.Parent.Parent
-
-local Constants = require(LuaChat.Constants)
-
 local ThumbnailModel = {}
 
 function ThumbnailModel.new()
@@ -22,8 +18,8 @@ end
 
 function ThumbnailModel.fromWeb(data)
 	local self = {}
-	self.image = data
-	self.status = Constants.WebStatus.SUCCESS
+	self.image = data or ""
+
 	return self
 end
 

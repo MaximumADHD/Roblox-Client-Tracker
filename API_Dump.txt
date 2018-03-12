@@ -334,6 +334,7 @@ Class ClickDetector : Instance
 	Event ClickDetector.MouseHoverLeave(Instance playerWhoHovered)
 	Event ClickDetector.RightMouseClick(Instance playerWhoClicked)
 	Event ClickDetector.mouseClick(Instance playerWhoClicked) [deprecated]
+Class ClusterPacketCache : Instance [notCreatable]
 Class CollectionService : Instance
 	Function void CollectionService:AddTag(Instance instance, string tag)
 	Function Objects CollectionService:GetCollection(string class) [deprecated]
@@ -704,9 +705,9 @@ Class GuiBase2d : GuiBase [notbrowsable]
 	Property Vector2 GuiBase2d.AbsolutePosition [readonly]
 	Property float GuiBase2d.AbsoluteRotation [readonly]
 	Property Vector2 GuiBase2d.AbsoluteSize [readonly]
-	Property bool GuiBase2d.AutoLocalize [hidden]
+	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [deprecated] [hidden]
-	Property Object GuiBase2d.RootLocalizationTable [hidden]
+	Property Object GuiBase2d.RootLocalizationTable
 Class GuiObject : GuiBase2d [notbrowsable]
 	Property bool GuiObject.Active
 	Property Vector2 GuiObject.AnchorPoint
@@ -1196,7 +1197,7 @@ Class InsertService : Instance [notCreatable]
 	YieldFunction Instance InsertService:LoadAsset(int64 assetId)
 	YieldFunction Instance InsertService:LoadAssetVersion(int64 assetVersionId)
 	YieldFunction Instance InsertService:loadAsset(int64 assetId) [deprecated]
-Class InstancePacketCache : Instance
+Class InstancePacketCache : Instance [notCreatable]
 Class IntConstrainedValue : Instance [deprecated]
 	Property int IntConstrainedValue.ConstrainedValue [hidden]
 	Property int IntConstrainedValue.MaxValue
@@ -1312,10 +1313,10 @@ Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
-	Function void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
-	Function void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
+	YieldFunction void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
+	YieldFunction void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
 Class LocalizationTable : Instance
 	Property string LocalizationTable.DevelopmentLanguage [deprecated] [hidden]
 	Property Object LocalizationTable.Root [deprecated] [hidden]
@@ -1517,7 +1518,6 @@ Class ObjectValue : Instance
 	Property Object ObjectValue.Value
 	Event ObjectValue.Changed(Instance value)
 	Event ObjectValue.changed(Instance value) [deprecated]
-Class OneQuarterClusterPacketCacheBase : Instance
 Class PVInstance : Instance [notbrowsable]
 	Property CoordinateFrame PVInstance.CoordinateFrame [deprecated] [writeonly]
 Class BasePart : PVInstance [notbrowsable]
@@ -1537,8 +1537,8 @@ Class BasePart : PVInstance [notbrowsable]
 	Property int BasePart.CollisionGroupId
 	Property Color3 BasePart.Color
 	Property PhysicalProperties BasePart.CustomPhysicalProperties
-	Property float BasePart.Elasticity
-	Property float BasePart.Friction
+	Property float BasePart.Elasticity [deprecated] [hidden]
+	Property float BasePart.Friction [deprecated] [hidden]
 	Property float BasePart.FrontParamA
 	Property float BasePart.FrontParamB
 	Property SurfaceType BasePart.FrontSurface
@@ -1775,15 +1775,12 @@ Class Path : Instance
 	Function Array Path:GetPointCoordinates() [deprecated]
 	Function Array Path:GetWaypoints()
 	YieldFunction int Path:CheckOcclusionAsync(int start)
-Class PathWaypoint : Instance
-	Property PathWaypointAction PathWaypoint.Action [readonly]
-	Property Vector3 PathWaypoint.Position [readonly]
 Class PathfindingService : Instance [notCreatable]
 	Property float PathfindingService.EmptyCutoff [deprecated]
 	YieldFunction Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
 	YieldFunction Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
 	YieldFunction Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish)
-Class PhysicsPacketCache : Instance
+Class PhysicsPacketCache : Instance [notCreatable]
 Class PhysicsService : Instance
 	Function bool PhysicsService:CollisionGroupContainsPart(string name, Instance part)
 	Function void PhysicsService:CollisionGroupSetCollidable(string name1, string name2, bool collidable)
@@ -2001,10 +1998,8 @@ Class Plugin : Instance
 Class PluginGuiService : Instance [notCreatable]
 Class PluginManager : Instance
 	Function Instance PluginManager:CreatePlugin() [PluginSecurity]
-	Function Instance PluginManager:EndUntranslatedStringCollect() [PluginSecurity]
 	Function void PluginManager:ExportPlace(string filePath = ) [PluginSecurity]
 	Function void PluginManager:ExportSelection(string filePath = ) [PluginSecurity]
-	Function void PluginManager:StartUntranslatedStringCollect() [PluginSecurity]
 Class PointsService : Instance [notCreatable]
 	Function int PointsService:GetAwardablePoints() [deprecated]
 	YieldFunction Tuple PointsService:AwardPoints(int64 userId, int amount)
@@ -2107,13 +2102,13 @@ Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
 	Function string RunService:GetRobloxVersion() [RobloxScriptSecurity]
 	Function bool RunService:IsClient()
-	Function bool RunService:IsEdit() [RobloxScriptSecurity]
 	Function bool RunService:IsRunMode()
 	Function bool RunService:IsRunning()
 	Function bool RunService:IsServer()
 	Function bool RunService:IsStudio()
 	Function void RunService:Pause() [PluginSecurity]
 	Function void RunService:Reset() [deprecated] [PluginSecurity]
+	Function bool RunService:RobloxOnlyIsEdit() [RobloxScriptSecurity]
 	Function void RunService:Run() [PluginSecurity]
 	Function void RunService:Set3dRenderingEnabled(bool enable) [RobloxScriptSecurity]
 	Function void RunService:Stop() [PluginSecurity]

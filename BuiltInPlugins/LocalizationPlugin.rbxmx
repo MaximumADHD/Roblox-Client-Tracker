@@ -27,18 +27,15 @@
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">PluginScript</string>
 				<string name="ScriptGuid">{23c184c9-73de-4b2d-9bd7-55d0a70adf12}</string>
-				<ProtectedString name="Source"><![CDATA[if not settings():GetFFlag("StudioEnableBuiltInGameLocalizationPlugin2") then
+				<ProtectedString name="Source"><![CDATA[if not settings():GetFFlag("StudioEnableBuiltInGameLocalizationPlugin3") then
 	return
 end
 
 local runService = game:GetService("RunService")
 local localizationService = game:GetService("LocalizationService")
-local enabled = runService:IsEdit()
+local enabled = runService:RobloxOnlyIsEdit()
 
-local toolbar = plugin:CreateToolbar("Game Localization Tools")
-
-local forceLocales = { {"en-us", "English"}, {"es", "Spanish"} }
-local forceLocaleButtons = {}
+local toolbar = plugin:CreateToolbar("Localization Tools")
 
 function getTextScraperAsset()
 	return localizationService.IsTextScraperRunning 
@@ -69,11 +66,16 @@ local importButton = toolbar:CreateButton(
 
 local targetButton
 if settings():GetFFlag("ForceRobloxLocaleEnabled") then
+	local testToolbar = plugin:CreateToolbar("Test Language")
+
+	local forceLocales = { {"en-us", "English"}, {"es-es", "Spanish"} }
+	local forceLocaleButtons = {}
+
 	for _, locale in pairs(forceLocales) do
 		local localeId = locale[1]
 		local commonName = locale[2]
-		local butt = toolbar:CreateButton(
-			"Play in "..commonName,
+		local butt = testToolbar:CreateButton(
+			commonName,
 			"LocalizationService.RobloxLocaleId will return \""..localeId.."\" and in-game text will displayed in "..commonName,
 			"rbxasset://textures/localizationTarget"..commonName..".png"
 		)
@@ -82,12 +84,7 @@ if settings():GetFFlag("ForceRobloxLocaleEnabled") then
 		end
 		butt.Enabled = enabled
 		butt.Click:connect(function()
-			if runService:IsRunning() then
-				-- Only has an effect from the edit DataModel
-				error("Can't change locale while the game is running!")
-			end
-
-			if localizationService.RobloxForcePlayModeRobloxLocaleId ~= localeId and localizationService.RobloxLocaleId ~= localeId then
+			if localizationService.RobloxForcePlayModeRobloxLocaleId ~= localeId then
 				localizationService.RobloxForcePlayModeRobloxLocaleId = localeId
 				print("Forcing play locale to \""..localizationService.RobloxForcePlayModeRobloxLocaleId.."\"")
 				butt:SetActive(true)
@@ -108,18 +105,8 @@ if settings():GetFFlag("TextScraper2Enabled2") then
 	captureButton.Enabled = enabled
 	captureButton.Click:connect(function()
 		if not localizationService.IsTextScraperRunning then
-			if runService:IsRunning() then
-				-- Text scraper should be started before hitting play for maximum effectiveness
-				error("LocalizationService text scraper should be started before running the game.")
-			end
-
 			localizationService:StartTextScraper()
 		else
-			if runService:IsRunning() then
-				-- Text scraper an only be stopped from the same DataModel it was started on (the edit mode one in this case)
-				error("LocalizationService text scraper can't be stopped while the game is running.")
-			end
-
 			localizationService:StopTextScraper()
 		end
 		captureButton.Icon = getTextScraperAsset()
@@ -128,20 +115,12 @@ end
 
 exportButton.Enabled = enabled
 exportButton.Click:connect(function()
-	if not runService:IsRunning() then
-		localizationService:PromptExportToCSVs()
-	else
-		print("Cannot export to CSVs while the game is running!")
-	end
+	localizationService:PromptExportToCSVs()
 end)
 
 importButton.Enabled = enabled
 importButton.Click:connect(function()
-	if not runService:IsRunning() then
-		localizationService:PromptImportFromCSVs()
-	else
-		print("Cannot import from CSVs while the game is running!")
-	end
+	localizationService:PromptImportFromCSVs()
 end)
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>

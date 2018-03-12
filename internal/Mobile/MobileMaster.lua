@@ -12,7 +12,6 @@ local AvatarEditorFlags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local AppGui = require(Modules.LuaApp.Legacy.AvatarEditor.AppGui)
 
-local AvatarEditorUseModernHeader = AvatarEditorFlags:GetFlag("AvatarEditorUseModernHeader2")
 local RefactoringAvatarEditorSetup = AvatarEditorFlags:GetFlag("RefactoringAvatarEditorSetup")
 
 local ChatMaster = nil
@@ -170,7 +169,6 @@ if not RefactoringAvatarEditorSetup then
 
 spawn(function()
 
-if AvatarEditorUseModernHeader then
 	local header
 	local appGui
 
@@ -211,18 +209,6 @@ if AvatarEditorUseModernHeader then
 	AvatarEditorMain =
 		require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
 			.new(appGui)
-else
-	local headerHeight
-	if not UserSettings().GameSettings:InStudioMode() then
-		headerHeight = UserInputService.StatusBarSize.Y + UserInputService.NavBarSize.Y
-	else
-		headerHeight = 49
-	end
-
-	AvatarEditorMain =
-		require(Modules.LuaApp.Legacy.AvatarEditor.AvatarEditorMain)
-			.new(headerHeight)
-end
 
 	local function startAvatarEditor()
 		screenGui.HackBody.Visible = false

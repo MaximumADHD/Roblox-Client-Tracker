@@ -291,6 +291,7 @@ RBX
 		}
 		CFrameAcknowledgementItem
 		Client
+		ClusterPacketCache
 		DeserializedAacChallengeItem
 		DeserializedChangePropertyItem
 		DeserializedClusterItem
@@ -315,7 +316,6 @@ RBX
 		InstancePacketCache
 		Item
 		NetworkOwnerJob
-		OneQuarterClusterPacketCache
 		PacketReceiveJob
 		Peer
 		PeerStatsItem
@@ -894,7 +894,6 @@ RBX
 	Path
 	PathfindingJob
 	PathfindingService
-	PathWaypoint
 	physics_receiver_exception
 	PhysicsJob
 	PhysicsService

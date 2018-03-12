@@ -62,7 +62,7 @@ ConstructIsInGroups()
 
 local Players = game:GetService("Players")
 
-function GetSpecialChatColor(speakerName)
+local function GetSpecialChatColor(speakerName)
 	if SpecialChatColors.Players then
 		local playerFromSpeaker = Players:FindFirstChild(speakerName)
 		if playerFromSpeaker then
@@ -126,7 +126,7 @@ local function Run(ChatService)
 		return ComputeNameColor(speaker.Name)
 	end
 
-	ChatService.SpeakerAdded:connect(function(speakerName)
+	local function onNewSpeaker(speakerName)
 		local speaker = ChatService:GetSpeaker(speakerName)
 		if not speaker:GetExtraData("NameColor") then
 			speaker:SetExtraData("NameColor", GetNameColor(speaker))
@@ -154,7 +154,13 @@ local function Run(ChatService)
 			]]
 			speaker:SetExtraData("Tags", {})
 		end
-	end)
+	end
+
+	ChatService.SpeakerAdded:connect(onNewSpeaker)
+
+	for _, speakerName in pairs(ChatService:GetSpeakerList()) do
+		onNewSpeaker(speakerName)
+	end
 
 	local PlayerChangedConnections = {}
 	Players.PlayerAdded:connect(function(player)

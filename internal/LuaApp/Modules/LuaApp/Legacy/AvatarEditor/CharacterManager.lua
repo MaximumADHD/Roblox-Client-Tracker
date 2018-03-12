@@ -102,6 +102,9 @@ local AvatarEditorAnthroSliders =
 local FixApplyTShirtOnR6Character = Flags:GetFlag("FixApplyTShirtOnR6Character")
 local AvatarEditorSelectivelyUseDefaultAsset = Flags:GetFlag("AvatarEditorSelectivelyUseDefaultAsset")
 
+local AvatarEditorRecomputeCameraLookAt =
+	Flags:GetFlag("AvatarEditorRecomputeCameraLookAt")
+
 if AvatarEditorAnthroSliders then
 	DEFAULT_SCALES = {
 		Height = 1.00,
@@ -154,6 +157,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 	local characterNode = nil
 	local currentCharacter
 
+	-- Can delete partRestingOffsets along with AvatarEditorRecomputeCameraLookAt clean up
 	local partRestingOffsets = {}
 	local toolHoldAnimationTrack = nil
 	local itemsOnR15 = {}
@@ -469,11 +473,12 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 		end
 	end
 
-
+	-- Can delete along with AvatarEditorRecomputeCameraLookAt clean up
 	local function getRestingPartOffset(partName)
 		return partRestingOffsets[partName] or CFrame.new()
 	end
 
+	-- Can delete along with AvatarEditorRecomputeCameraLookAt clean up
 	local function recalculateRestingPartOffsets()
 		local root = currentCharacter:FindFirstChild('HumanoidRootPart')
 
@@ -1045,7 +1050,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 			end
 
 			updateCharacterBodyColors()
-		end			
+		end
 	end
 
 
@@ -1104,7 +1109,9 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 			local hrp = newCharacter:WaitForChild('HumanoidRootPart')
 			hrp.Anchored = true
 
+if not AvatarEditorRecomputeCameraLookAt then
 			recalculateRestingPartOffsets()
+end
 		end
 	end
 
@@ -1633,7 +1640,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 		startAnimationPreviewFromAssets(getAnimationAssets(assetId))
 	end
 
-	local function deleteAssetR6(assetId)				
+	local function deleteAssetR6(assetId)
 		--Destroy rendered content
 		local currentAssetContent = assetsLinkedContent[assetId]
 		if currentAssetContent then
@@ -2040,8 +2047,36 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 		end
 	end
 
+	local function getPartPosition(partName)
+		local root = currentCharacter:FindFirstChild('HumanoidRootPart')
+
+		for _, v in next, Utilities.getDescendants(currentCharacter) do
+			if v.Name == partName then
+				local result = v.cFrame
+				return result
+			end
+		end
+
+		return CFrame.new()
+	end
 
 	local function getFocusPoint(partNames)
+if AvatarEditorRecomputeCameraLookAt then
+		local numParts = #partNames
+
+		if numParts == 0 then
+			local humanoid = currentCharacter:WaitForChild('Humanoid')
+			return humanoid.Torso.CFrame.p
+		end
+
+		local sumOfPartPositions = Vector3.new()
+
+		for _, partName in next, partNames do
+			sumOfPartPositions = sumOfPartPositions + getPartPosition(partName).p
+		end
+
+		return sumOfPartPositions / numParts
+else
 		local focusPointRelative = Vector3.new()
 
 		for _, partName in next, partNames do
@@ -2050,6 +2085,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 		local humanoid = currentCharacter:WaitForChild('Humanoid')
 		return humanoid.Torso.CFrame * focusPointRelative
+end
 	end
 
 
@@ -2142,7 +2178,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 						local isAnimationAssetType = string.find(assetType, 'Animation')
 
 						if getAvatarType() == 'R15' then
-							for _, assetId in pairs(addTheseAssets) do					
+							for _, assetId in pairs(addTheseAssets) do
 								equipAsset(currentCharacter, assetId, false)
 								if isAnimationAssetType then
 									animationId = assetId
@@ -2155,8 +2191,8 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 							end
 						else
 							if isAnimationAssetType then
-								for _, assetId in pairs(addTheseAssets) do								
-									animationId = assetId								
+								for _, assetId in pairs(addTheseAssets) do
+									animationId = assetId
 								end
 							end
 							if addTheseAssetsHasItems then
@@ -2167,7 +2203,7 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 								end
 							end
 						end
-					else					
+					else
 						for _, assetId in pairs(addTheseAssets) do
 							equipAsset(currentCharacter, assetId, true)
 							didUpdate = true

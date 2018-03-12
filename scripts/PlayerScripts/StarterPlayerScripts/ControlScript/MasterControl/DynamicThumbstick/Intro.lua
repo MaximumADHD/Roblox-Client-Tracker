@@ -130,7 +130,7 @@ function Intro.setup(isBigScreen, parentFrame, thumbstickFrame, startImage, endI
 		ImageRectSize = Vector2.new(IntroMoveSpriteSize, IntroMoveSpriteSize),
 		Position = UDim2.new(0.75, 0, -0.6, 0),
 		Size = UDim2.new(0, IntroMoveImageSize, 0, IntroMoveImageSize),
-		AnchorPoint = Vector2.new(0.5, 0.5),
+		AnchorPoint = Vector2.new(0.5, 0),
 		ZIndex = 10,
 		Visible = false,
 		Parent = ThumbstickFrame
@@ -142,7 +142,7 @@ function Intro.setup(isBigScreen, parentFrame, thumbstickFrame, startImage, endI
 		Image = IMAGE_INTRO_CAMERA_PINCH,
 		ImageRectOffset = Vector2.new(0, 0),
 		ImageRectSize = Vector2.new(IntroMoveSpriteSize, IntroMoveSpriteSize),
-		Position = UDim2.new(1, 0, -1, 0),
+		Position = UDim2.new(0.95, 0, -0.85, 0),
 		Size = UDim2.new(0, IntroMoveImageSize, 0, IntroMoveImageSize),
 		AnchorPoint = Vector2.new(1, 0),
 		Rotation = 50,
@@ -224,7 +224,7 @@ function Intro.onThumbstickMoved(dist)
 				while StartImage.ImageTransparency ~= 1 do
 					wait()
 				end
-				if Intro.states.MoveThumbstick.counter > 1 then
+				if Intro.states.MoveThumbstick.counter == 2 then
 					Intro.setState(Intro.states.Jump)
 				else
 					Intro.setState(Intro.states.MoveThumbstick)
@@ -232,10 +232,6 @@ function Intro.onThumbstickMoved(dist)
 			end)
 		else
 			Intro.states.MoveThumbstick.startedMoving = false
-			local moveTween = Intro.states.MoveThumbstick.moveTween
-			if moveTween then
-				moveTween:Play()
-			end
 		end
 	end
 end
@@ -271,6 +267,7 @@ function Intro.play()
 	for _, state in pairs(Intro.states) do
 		state.counter = 0
 	end
+	Intro.currentState = nil
 	Intro.setState(Intro.states.MoveThumbstick)
 end
 
@@ -308,7 +305,9 @@ Intro.addState("MoveThumbstick") do
 						Intro.fadeThumbstickFrame(moveTweenInfo.Time, 0.05)
 					end
 
+					StartImage.Position = UDim2.new(0.5, 0, 0.6, 0)
 					EndImage.Position = UDim2.new(0.5, 0, 0.6, 0)
+
 					self.moveTween:Play()
 					Intro.fadeThumbstick(true)
 					fadeInTween:Play()

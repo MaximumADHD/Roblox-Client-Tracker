@@ -81,6 +81,8 @@ local VR_SEAT_OFFSET = Vector3.new(0, 4, 0)
 local HEAD_OFFSET = Vector3.new(0, 1.5, 0)
 local R15_HEAD_OFFSET = Vector3.new(0, 2.0, 0)
 
+local PORTRAIT_MODE_CAMERA_OFFSET = 2
+
 -- Reset the camera look vector when the camera is enabled for the first time
 local SetCameraOnSpawn = true
 
@@ -296,6 +298,10 @@ local function CreateCamera()
 						local heightOffset = ZERO_VECTOR3
 						if humanoidStateType ~= STATE_DEAD then
 							heightOffset = cameraSubject.RigType == Enum.HumanoidRigType.R15 and R15HeadHeight or HEAD_OFFSET
+						end
+
+						if PortraitMode then
+							heightOffset = heightOffset + Vector3.new(0, PORTRAIT_MODE_CAMERA_OFFSET, 0)
 						end
 
 						result = subjectCFrame.p +

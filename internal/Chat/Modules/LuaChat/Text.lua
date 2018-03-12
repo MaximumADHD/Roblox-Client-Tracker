@@ -12,6 +12,10 @@ local INFINITE_WIDTH = Vector2.new(HUGE, HUGE) -- Text prioritizes width vs heig
 
 -- Wrapper function for GetTextSize with infinite bounds
 function Text.GetTextBounds(text, font, fontSize, bounds)
+	if settings():GetFFlag("TextMeasureTemporaryPatch") then
+		local ret = TextService:GetTextSize(text, fontSize, font, bounds) + Vector2.new(1, 1)
+		return ret
+	end
 	-- bonus 1px cause sometimes last char is cut off. that's a (documented) bug for another day
 	local ret = TextService:GetTextSize(text, fontSize, font, bounds) + Vector2.new(1, 0)
 	return ret

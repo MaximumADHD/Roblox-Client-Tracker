@@ -9,8 +9,6 @@
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
 local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
 
-local flipperEnabled = settings():GetFFlag("FlipperEnabled")
-
 --[[ END OF FFLAG VALUES ]]
 
 
@@ -950,12 +948,8 @@ local function CreateUnreadMessagesNotifier(ChatModule)
 end
 
 local function GetChatIcon(chatIconName)
-    if flipperEnabled then
-        if Player:GetUnder13() then
-            return "rbxasset://textures/ui/Chat/" .. chatIconName .. "Flip.png"
-        else
-            return "rbxasset://textures/ui/Chat/" .. chatIconName .. ".png"
-        end
+    if Player:GetUnder13() then
+        return "rbxasset://textures/ui/Chat/" .. chatIconName .. "Flip.png"
     else
         return "rbxasset://textures/ui/Chat/" .. chatIconName .. ".png"
     end

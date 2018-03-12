@@ -1,6 +1,5 @@
 local LuaChat = script.Parent.Parent
 
-local Constants = require(LuaChat.Constants)
 local MockId = require(LuaChat.MockId)
 
 local PlaceInfoModel = {}
@@ -30,9 +29,9 @@ function PlaceInfoModel.mock()
 end
 
 function PlaceInfoModel.fromWeb(data)
-	local self = data
+	local self = data or {}
 	self.placeId = tostring(self.placeId)
-	self.status = Constants.WebStatus.SUCCESS
+
 	return self
 end
 

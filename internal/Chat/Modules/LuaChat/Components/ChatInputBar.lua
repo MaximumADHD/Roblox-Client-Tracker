@@ -10,6 +10,7 @@ local Create = require(Modules.Create)
 local Text = require(Modules.Text)
 local Constants = require(Modules.Constants)
 local Signal = require(Modules.Signal)
+local FFlagLuaChatResetKeyboardMode = settings():GetFFlag("LuaChatResetKeyboardMode")
 
 local function isMessageValid(text)
 	if #text >= 160 then
@@ -174,7 +175,9 @@ end
 function ChatInputBar:Reset()
 	self.blockUserChangedText = true
 	self.textBox.Text = ""
-	self.textBox:ResetKeyboardMode()
+	if FFlagLuaChatResetKeyboardMode then
+		self.textBox:ResetKeyboardMode()
+	end
 	self.blockUserChangedText = false
 end
 

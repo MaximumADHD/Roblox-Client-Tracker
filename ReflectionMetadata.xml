@@ -1293,6 +1293,7 @@
         <string name="summary">Makes two attachments emit trail when moving</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">93</string>
+        <string name="PreferredParent">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1354,6 +1355,7 @@
         <string name="summary">Makes beam between two attachments</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">96</string>
+        <string name="PreferredParent">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1422,7 +1424,7 @@
         <string name="summary">A generic particle system.</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">80</string>
-        <string name="PreferredParent">Part</string>
+        <string name="PreferredParent">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1505,6 +1507,7 @@
         <string name="summary">Makes the parent part or model object fantastic</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">42</string>
+        <string name="PreferredParent">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1514,7 +1517,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">36</string>
         <string name="summary">Creates an Explosion! This can be used as a purely graphical effect, or can be made to damage objects.</string>
-        <string name="PreferredParent">Workspace</string>
+        <string name="PreferredParent">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">

@@ -19,24 +19,13 @@ local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local CameraController = require(Modules.LuaApp.Legacy.AvatarEditor.CameraController)
 
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-local AvatarEditorUseModernHeader = Flags:GetFlag("AvatarEditorUseModernHeader2")
 
 while not game:GetService('Players').LocalPlayer do wait() end
 
 
 return { new = function(topOffset_or_AppGui)
 
-local appGui
-
-if AvatarEditorUseModernHeader then
-	appGui = topOffset_or_AppGui
-else
-	local topOffset = topOffset_or_AppGui or 0
-
-	appGui = AppGui(
-		UDim2.new(0, 0, 0,  topOffset),
-		UDim2.new(1, 0, 1, -topOffset))
-end
+local appGui = topOffset_or_AppGui
 
 local camera = game.Workspace.CurrentCamera
 local topFrame = appGui.RootGui:WaitForChild('TopFrame')
@@ -140,10 +129,6 @@ local function updateViewMode(desiredViewMode)
 			tween(topFrame, tweenInfo, { Size = UDim2.new(1, 0, 0.5, -18) })
 		end
 	end
-end
-
-if not AvatarEditorUseModernHeader then
-	require(Modules.LuaApp.Legacy.AvatarEditor.OldHeader).new("Avatar").rbx.Parent = appGui.RootGui
 end
 
 require(Modules.LuaApp.Legacy.AvatarEditor.AvatarTypeSwitch)(

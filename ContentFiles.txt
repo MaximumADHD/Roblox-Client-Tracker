@@ -5,13 +5,13 @@ BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
 [249415 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[4901 bytes]
+[4082 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[134720 bytes]
+[134999 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [210497 bytes]
@@ -186,12 +186,6 @@ content/fonts/arialbd.ttf
 
 content/fonts/Balthazar-Regular.ttf
 [28224 bytes]
-
-content/fonts/characterCameraScript.rbxmx
-[149131 bytes]
-
-content/fonts/characterControlScript.rbxmx
-[80335 bytes]
 
 content/fonts/ComicNeue-Angular-Bold.ttf
 [62916 bytes]
@@ -1421,10 +1415,10 @@ content/internal/Chat/Modules/LuaChat/Actions/GetFriendCount.lua
 [550 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/GetPlaceInfo.lua
-[1053 bytes]
+[921 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/GetPlaceThumbnail.lua
-[1461 bytes]
+[1434 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/GetUsername.lua
 [925 bytes]
@@ -1436,10 +1430,10 @@ content/internal/Chat/Modules/LuaChat/Actions/SetTabBarVisible.lua
 [256 bytes]
 
 content/internal/Chat/Modules/LuaChat/ActionType.lua
-[2391 bytes]
+[2461 bytes]
 
 content/internal/Chat/Modules/LuaChat/AppReducer.lua
-[2105 bytes]
+[2398 bytes]
 
 content/internal/Chat/Modules/LuaChat/AppState.lua
 [1872 bytes]
@@ -1451,7 +1445,7 @@ content/internal/Chat/Modules/LuaChat/Components/ActionEntry.lua
 [3126 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/AssetCard.lua
-[9791 bytes]
+[9619 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/BaseHeader.lua
 [4793 bytes]
@@ -1463,10 +1457,10 @@ content/internal/Chat/Modules/LuaChat/Components/ChatDisabledIndicator.lua
 [3069 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatInputBar.lua
-[5737 bytes]
+[5868 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatInputBarTablet.lua
-[4525 bytes]
+[4690 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatLoadingIndicator.lua
 [1058 bytes]
@@ -1562,7 +1556,7 @@ content/internal/Chat/Modules/LuaChat/Components/PaddedImageButton.lua
 [880 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/PlaceInfoCard.lua
-[3506 bytes]
+[3512 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ResponseIndicator.lua
 [1728 bytes]
@@ -1604,7 +1598,7 @@ content/internal/Chat/Modules/LuaChat/Config.spec.lua
 [314 bytes]
 
 content/internal/Chat/Modules/LuaChat/Constants.lua
-[4037 bytes]
+[3949 bytes]
 
 content/internal/Chat/Modules/LuaChat/Constants.spec.lua
 [401 bytes]
@@ -1667,10 +1661,10 @@ content/internal/Chat/Modules/LuaChat/Models/Message.lua
 [1624 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/PlaceInfoModel.lua
-[763 bytes]
+[682 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/ThumbnailModel.lua
-[479 bytes]
+[359 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/ToastModel.lua
 [223 bytes]
@@ -1730,10 +1724,16 @@ content/internal/Chat/Modules/LuaChat/Reducers/Location.spec.lua
 [6248 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/PlaceInfos.lua
-[768 bytes]
+[333 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/PlaceInfosAsync.lua
+[576 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/PlaceThumbnails.lua
-[671 bytes]
+[331 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/PlaceThumbnailsAsync.lua
+[600 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/TabBarVisible.lua
 [257 bytes]
@@ -1793,7 +1793,7 @@ content/internal/Chat/Modules/LuaChat/Store.spec.lua
 [2991 bytes]
 
 content/internal/Chat/Modules/LuaChat/Text.lua
-[2483 bytes]
+[2647 bytes]
 
 content/internal/Chat/Modules/LuaChat/Text.spec.lua
 [8134 bytes]
@@ -2231,7 +2231,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AssetTypeNames.lua
 [1329 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AvatarEditorMain.lua
-[14831 bytes]
+[14422 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AvatarTypeSwitch.lua
 [2645 bytes]
@@ -2255,7 +2255,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CategoryMenuConsole.l
 [9112 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CharacterManager.lua
-[66012 bytes]
+[67054 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ConsoleButtonIndicators.lua
 [7124 bytes]
@@ -2312,7 +2312,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Slider.lua
 [10372 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/SliderConsole.lua
-[11903 bytes]
+[12671 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/SpriteSheetManager.lua
 [84471 bytes]
@@ -2450,7 +2450,7 @@ content/internal/LuaApp/Modules/LuaApp/TableUtilities.lua
 [2721 bytes]
 
 content/internal/Mobile/MobileMaster.lua
-[9937 bytes]
+[9503 bytes]
 
 content/internal/Mobile/MobileStarterScript.lua
 [190 bytes]
@@ -2468,7 +2468,7 @@ content/internal/Mobile/Modules/Mobile/AppState.lua
 [488 bytes]
 
 content/internal/Mobile/Modules/Mobile/AvatarEditorSetup.lua
-[5601 bytes]
+[5111 bytes]
 
 content/internal/Mobile/Modules/Mobile/Constants.lua
 [2252 bytes]
@@ -2579,7 +2579,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [64296 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[41058 bytes]
+[40860 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5650 bytes]
@@ -2705,7 +2705,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [712 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[512 bytes]
+[844 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
 [4584 bytes]
@@ -2807,7 +2807,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatMes
 [2430 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDataInitializer.lua
-[4715 bytes]
+[4851 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
 [2106 bytes]
@@ -2838,6 +2838,12 @@ content/scripts/CoreScripts/Modules/Server/ServerPlayer/DefaultServerPlayerModul
 
 content/scripts/CoreScripts/Modules/Server/ServerPlayer/ServerPlayerInstaller.lua
 [461 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerSound/SoundDispatcher.lua
+[2434 bytes]
+
+content/scripts/CoreScripts/Modules/Server/ServerSound/SoundDispatcherInstaller.lua
+[987 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
@@ -2978,16 +2984,16 @@ content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
 [7695 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
-[3153 bytes]
+[3330 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
 [3940 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[2487 bytes]
+[3415 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
-[11399 bytes]
+[12959 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
 [11113 bytes]
@@ -3005,7 +3011,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5151 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
-[47807 bytes]
+[47968 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
 [2157 bytes]
@@ -3056,7 +3062,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/D
 [21063 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick/Intro.lua
-[13773 bytes]
+[13750 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Gamepad.lua
 [6731 bytes]
@@ -3365,10 +3371,10 @@ content/textures/localizationImport.png
 [1104 bytes]
 
 content/textures/localizationTargetEnglish.png
-[914 bytes]
+[740 bytes]
 
 content/textures/localizationTargetSpanish.png
-[927 bytes]
+[755 bytes]
 
 content/textures/localizationUIScrapingOff.png
 [1007 bytes]
