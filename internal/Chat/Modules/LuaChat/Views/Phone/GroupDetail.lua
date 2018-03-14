@@ -7,12 +7,15 @@ local StringsLocale = require(LuaApp.StringsLocale)
 local Modules = script.Parent.Parent.Parent
 local BaseScreen = require(script.Parent.BaseScreen)
 local Constants = require(Modules.Constants)
-local ActionType = require(Modules.ActionType)
 local ToastModel = require(Modules.Models.ToastModel)
 local DialogInfo = require(Modules.DialogInfo)
 
 local Components = Modules.Components
 local GroupDetailComponent = require(Components.GroupDetail)
+
+local PopRoute = require(Modules.Actions.PopRoute)
+local SetRoute = require(Modules.Actions.SetRoute)
+local ShowToast = require(Modules.Actions.ShowToast)
 
 local Intent = DialogInfo.Intent
 
@@ -32,9 +35,7 @@ function GroupDetail.new(appState, route)
 	setmetatable(self, GroupDetail)
 
 	local backButtonConnection = self.groupDetailComponent.BackButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		self.appState.store:Dispatch(PopRoute())
 	end)
 	table.insert(self.connections, backButtonConnection)
 
@@ -50,18 +51,11 @@ function GroupDetail.new(appState, route)
 				MAX_GROUP_SIZE = tostring(Constants.MAX_PARTICIPANT_COUNT+1),
 			}
 			local toastModel = ToastModel.new(Constants.ToastIDs.TOO_MANY_PEOPLE, messageKey, messageArguments)
-			self.appState.store:Dispatch({
-				type = ActionType.ShowToast,
-				toast = toastModel,
-			})
+			self.appState.store:Dispatch(ShowToast(toastModel))
 		else
-			self.appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.EditChatGroup,
-				parameters = {
-					conversationId = self.groupDetailComponent.conversation.id,
-				},
-			})
+			self.appState.store:Dispatch(SetRoute(Intent.EditChatGroup, {
+				conversationId = self.groupDetailComponent.conversation.id
+			}))
 		end
 	end)
 	table.insert(self.connections, addFriendsConnection)
@@ -74,17 +68,12 @@ function GroupDetail:Start()
 
 	do
 		local connection = self.appState.store.Changed:Connect(function(current, previous)
-			local conversation = current.Conversations[current.Location.current.parameters.conversationId]
+			local conversation = current.ChatAppReducer.Conversations[current.ChatAppReducer.Location.current.parameters.conversationId]
 			if current ~= previous and conversation then
 				self.groupDetailComponent:Update(current, previous)
 			else
 				if self.appState.screenManager:GetCurrentView() == self then
-					self.appState.store:Dispatch({
-						type = ActionType.SetRoute,
-						intent = nil,
-						popToIntent = Intent.ConversationHub,
-						parameters = {},
-					})
+					self.appState.store:Dispatch(SetRoute(nil, {}, Intent.ConversationHub))
 				end
 			end
 		end)
@@ -97,7 +86,7 @@ function GroupDetail:Pause()
 	local state = self.appState.store:GetState()
 	local dialogType = DialogInfo.GetTypeBasedOnIntent(
 		self.appState.store:GetState().FormFactor,
-		state.Location.current.intent
+		state.ChatAppReducer.Location.current.intent
 	)
 
 	if dialogType == DialogInfo.DialogType.Popup then

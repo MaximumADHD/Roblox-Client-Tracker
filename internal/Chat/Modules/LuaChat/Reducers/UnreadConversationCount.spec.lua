@@ -1,15 +1,14 @@
 return function()
 	local LuaChat = script.Parent.Parent
 	local UnreadConversationCount = require(LuaChat.Reducers.UnreadConversationCount)
-	local ActionType = require(LuaChat.ActionType)
+	local SetUnreadConversationCount = require(LuaChat.Actions.SetUnreadConversationCount)
+	local IncrementUnreadConversationCount = require(LuaChat.Actions.IncrementUnreadConversationCount)
+	local DecrementUnreadConversationCount = require(LuaChat.Actions.DecrementUnreadConversationCount)
 
 	describe("Action SetUnreadConversationCount", function()
 		it("should set the value of UnreadConversationCount", function()
 			local state = nil
-			local action = {
-				type = ActionType.SetUnreadConversationCount,
-				count = 5,
-			}
+			local action = SetUnreadConversationCount(5)
 
 			state = UnreadConversationCount(state, action)
 
@@ -20,16 +19,11 @@ return function()
 	describe("Action IncrementUnreadConversationCount", function()
 		it("should increment the value of UnreadConversationCount", function()
 			local state = nil
-			local action = {
-				type = ActionType.SetUnreadConversationCount,
-				count = 5,
-			}
+			local action = SetUnreadConversationCount(5)
 
 			state = UnreadConversationCount(state, action)
 
-			action = {
-				type = ActionType.IncrementUnreadConversationCount,
-			}
+			action = IncrementUnreadConversationCount()
 
 			state = UnreadConversationCount(state, action)
 
@@ -40,16 +34,11 @@ return function()
 	describe("Action DecrementUnreadConversationCount", function()
 		it("should decrement the value of UnreadConversationCount", function()
 			local state = nil
-			local action = {
-				type = ActionType.SetUnreadConversationCount,
-				count = 5,
-			}
+			local action = SetUnreadConversationCount(5)
 
 			state = UnreadConversationCount(state, action)
 
-			action = {
-				type = ActionType.DecrementUnreadConversationCount,
-			}
+			action = DecrementUnreadConversationCount()
 
 			state = UnreadConversationCount(state, action)
 

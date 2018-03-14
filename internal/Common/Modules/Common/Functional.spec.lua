@@ -164,11 +164,32 @@ return function()
 			expect(b[3]).to.equal(3)
 		end)
 
-		it("should not copy when taking past the end of a list", function()
+		it("should copy all values when taking past the end of a list", function()
 			local a = {1, 2, 3}
 			local b = Functional.Take(a, 4)
 
-			expect(b).to.equal(a)
+			expect(#b).to.equal(#a)
+			expect(a[1]).to.equal(b[1])
+			expect(a[2]).to.equal(b[2])
+			expect(a[3]).to.equal(b[3])
+		end)
+
+		it("should take values from a starting index when provided", function()
+			local a = {1, 2, 3, 4}
+			local b = Functional.Take(a, 2, 2)
+
+			expect(#b).to.equal(2)
+			expect(b[1]).to.equal(2)
+			expect(b[2]).to.equal(3)
+		end)
+
+		it("should not take past the end of a list when the starting index is provided", function()
+			local a = {1, 2, 3, 4}
+			local b = Functional.Take(a, 3, 3)
+
+			expect(#b).to.equal(2)
+			expect(b[1]).to.equal(3)
+			expect(b[2]).to.equal(4)
 		end)
 	end)
 

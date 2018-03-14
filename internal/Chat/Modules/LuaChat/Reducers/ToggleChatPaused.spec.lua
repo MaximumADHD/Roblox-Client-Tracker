@@ -1,7 +1,7 @@
 return function()
 	local LuaChat = script.Parent.Parent
 	local ToggleChatPaused = require(script.Parent.ToggleChatPaused)
-	local ActionType = require(LuaChat.ActionType)
+	local ActionToggleChatPaused = require(LuaChat.Actions.ToggleChatPaused)
 
 	describe("Action ToggleChatPaused", function()
 		it("sets the ToggleChatPaused flag", function()
@@ -9,17 +9,11 @@ return function()
 
 			expect(state).to.equal(false)
 
-			state = ToggleChatPaused(state, {
-				type = ActionType.ToggleChatPaused,
-				value = false,
-			})
+			state = ToggleChatPaused(state, ActionToggleChatPaused(false))
 
 			expect(state).to.equal(false)
 
-			state = ToggleChatPaused(state, {
-				type = ActionType.ToggleChatPaused,
-				value = true,
-			})
+			state = ToggleChatPaused(state, ActionToggleChatPaused(true))
 
 			expect(state).to.equal(true)
 		end)

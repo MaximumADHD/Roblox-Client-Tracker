@@ -1,14 +1,14 @@
-local Modules = script.Parent.Parent
+local CoreGui = game:GetService("CoreGui")
 
-local ActionType = require(Modules.ActionType)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
 
-return function(visible)
-	return function(store)
-		spawn(function()
-			store:Dispatch({
-				type = ActionType.SetTabBarVisible,
-				value = visible,
-			})
-		end)
-	end
-end
+local ActionType = require(LuaChat.ActionType)
+local Action = require(Common.Action)
+
+return Action(ActionType.SetTabBarVisible, function(isVisible)
+	return {
+		value = isVisible,
+	}
+end)

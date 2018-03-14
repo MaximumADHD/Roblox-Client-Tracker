@@ -5,7 +5,6 @@ local Components = Modules.Components
 
 local DialogComponents = require(Components.DialogComponents)
 local ConversationActions = require(Modules.Actions.ConversationActions)
-local ResponseIndicator = require(Components.ResponseIndicator)
 
 local LeaveGroupDialog = {}
 
@@ -15,22 +14,12 @@ function LeaveGroupDialog.new(appState, titleKey, messageKey, cancelTitleKey, co
 
 	self.dialog = DialogComponents.ConfirmationDialog.new(appState, titleKey, messageKey, cancelTitleKey, confirmTitleKey)
 
-	-- Setup ResponseIndicator
-	self.responseIndicator = ResponseIndicator.new(appState)
-	self.responseIndicator:SetVisible(false)
-	self.responseIndicator.rbx.Parent = self.dialog.rbx
-
 	self.conversation = conversation
 
 	self.dialog.saved:Connect(function()
 		local userId = tostring(Players.LocalPlayer.UserId)
 		local convoId = self.conversation.id
-
-		self.responseIndicator:SetVisible(true)
-
-		local action = ConversationActions.RemoveUserFromConversation(userId, convoId, function()
-			self.responseIndicator:SetVisible(false)
-		end)
+		local action = ConversationActions.RemoveUserFromConversation(userId, convoId)
 		appState.store:Dispatch(action)
 	end)
 
@@ -38,7 +27,6 @@ function LeaveGroupDialog.new(appState, titleKey, messageKey, cancelTitleKey, co
 end
 
 function LeaveGroupDialog:Destruct()
-	self.responseIndicator:Destruct()
 	self.dialog:Destruct()
 end
 

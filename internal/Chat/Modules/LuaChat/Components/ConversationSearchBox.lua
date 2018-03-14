@@ -1,15 +1,15 @@
-
 local CoreGui = game:GetService("CoreGui")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
-
-local Modules = script.Parent.Parent
-
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local Signal = require(Modules.Signal)
-local Text = require(Modules.Text)
+local Text = require(LuaChat.Text)
 
 local FFlagTextBoxOverrideManualFocusRelease = settings():GetFFlag("TextBoxOverrideManualFocusRelease")
 

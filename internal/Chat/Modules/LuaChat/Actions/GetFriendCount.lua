@@ -1,22 +1,17 @@
 local Modules = script.Parent.Parent
 
 local WebApi = require(Modules.WebApi)
-local ActionType = require(Modules.ActionType)
+
+local SetFriendCount = require(Modules.Actions.SetFriendCount)
 
 return function()
 	return function(store)
 		spawn(function()
 			local status, totalCount = WebApi.GetFriendCount()
 			if status ~= WebApi.Status.OK then
-				store:Dispatch({
-					type = ActionType.SetFriendCount,
-					count = 0, -- Remember to come back and add status instead of setting to zero
-				})
+				store:Dispatch(SetFriendCount(0)) -- Remember to come back and add status instead of setting to zero
 			else
-				store:Dispatch({
-					type = ActionType.SetFriendCount,
-					count = totalCount,
-				})
+				store:Dispatch(SetFriendCount(totalCount))
 			end
 		end)
 	end

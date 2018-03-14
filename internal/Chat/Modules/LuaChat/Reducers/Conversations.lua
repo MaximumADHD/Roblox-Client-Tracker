@@ -1,8 +1,13 @@
-local LuaChat = script.Parent.Parent
+local CoreGui = game:GetService("CoreGui")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local ActionType = require(LuaChat.ActionType)
-local Immutable = require(LuaChat.Immutable)
-local OrderedMap = require(LuaChat.OrderedMap)
 local ConversationModel = require(LuaChat.Models.Conversation)
+local Immutable = require(Common.Immutable)
+local OrderedMap = require(LuaChat.OrderedMap)
 
 return function(state, action)
 	state = state or {}
@@ -196,6 +201,13 @@ return function(state, action)
 		local conversation = state[action.conversationId]
 		local newConversation = Immutable.Set(conversation, "initialLoadingStatus", action.value)
 		state = Immutable.Set(state, newConversation.id, newConversation)
+
+	elseif action.type == ActionType.SetUserLeavingConversation then
+		local conversation = state[action.id]
+		if conversation then
+			local newConversation = Immutable.Set(conversation, "isUserLeaving", action.isLeaving)
+			state = Immutable.Set(state, newConversation.id, newConversation)
+		end
 	end
 
 	return state

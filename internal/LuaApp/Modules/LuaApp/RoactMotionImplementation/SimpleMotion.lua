@@ -50,7 +50,17 @@ function SimpleMotion:init()
 		end
 	end
 
+	-- Setting resting to false will trigger the spring to re-evaluate its
+	-- position and velocity based on newest props. When the spring enters a
+	-- resting position, resting will be set to true.
 	self.resting = false
+
+	-- When wasResting = false and resting = true, the callback function
+	-- onRested will be called.
+	-- Setting it to true here because we don't want to trigger onRested
+	-- when the spring is initialized and went to resting immediately.
+	self.wasResting = true
+	
 	self.accumulator = 0
 	self.state = {
 		values = startValues,
@@ -125,6 +135,12 @@ function SimpleMotion:didMount()
 			values = newValues,
 			velocities = newVelocities,
 		})
+
+		if not self.wasResting and self.resting and self.props.onRested then
+			self.props.onRested()
+		end
+
+		self.wasResting = self.resting
 	end)
 end
 

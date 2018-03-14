@@ -24,6 +24,7 @@ function PlaceInfoModel.mock()
 	self.url = "url"
 	self.universeId = MockId()
 	self.builderId = MockId()
+	self.reasonProhibited = nil
 
 	return self
 end

@@ -1,12 +1,12 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX9eaf3494dd194ba78cfab82ab707ff14">
+	<Item class="Folder" referent="RBXE19AD192CF9548F099017836D6F33F47">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX2ad432ce383342a1907f6321e5a8cb41">
+		<Item class="ModuleScript" referent="RBX49EBFD39E8AA4975A7A2E4EACE8EB1FE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -47,1044 +47,864 @@ return materialsTable
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX68f7bd72b942419ea3618d8ddebbbe11">
+		<Item class="ModuleScript" referent="RBX1C02901C9EEF4FD8938C7940B45A786E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">TerrainRegionEditor</string>
+				<string name="Name">TerrainGeneration</string>
 				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
+				<ProtectedString name="Source"><![CDATA[--Stickmasterluke
 
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
---[[todo:
-	-fill region (with material, action)
-	-optimize resize scaling code more
-]]
+local coreGui = game:GetService('CoreGui')
+local changeHistoryService = game:GetService('ChangeHistoryService')
+local terrain = game.Workspace.Terrain
 
-local Terrain = workspace:WaitForChild('Terrain', 86400) or workspace:WaitForChild('Terrain')
-while not Terrain.IsSmooth do
-	Terrain.Changed:wait()
-end
+local pluginGui
+local screenGui
+
+local mainFrame 
+local progressFrame 
+local pauseButton
+local cancelButton 
+local barFill 
+local multipleChoiceFrame 
+
+local kProgressFrameWidth = 400
+local kProgressFrameContentHeight = 135
+
+local kBiomesCheckboxSectionHeight = 275
+local kBiomesCheckboxSectionLabelHeight = 20
+
+local allBiomes = {
+	['Mountains'] = true,
+	['Canyons'] = false,
+	['Dunes'] = false,
+	['Arctic'] = false,
+	['Lavaflow'] = false,
+	['Hills'] = true,
+	['Plains'] = true,
+	['Marsh'] = false,
+	['Water'] = false,
+}
+
 
 local on = false
-local setup = false
-local currentTool = 'Create'
-
-local pluginGui = nil
-local terrainRegionFrame = nil
-local fillFrame = nil
-
---[[local toolBar = plugin:CreateToolbar('Smooth Terrain')
-regionEditButton = toolBar:CreateButton(
-	'Region Edit',	--button title
-	'Manipulate regions of smoothterrain.',	--hover text
-	'http://www.roblox.com/asset/?id=180084957'	--icon
-)
-regionEditButton.Click:connect(function()
-	if not on then
-		if not setup then
-			FirstTimeSetUp()
-		end
-		Selected()
-	else
-		Deselected()
-	end
-end)]]
-
-
-function FirstTimeSetUp()
-	-- If the plugin gui is disabled, we should definitely be deselected.
-	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
-		if (not pluginGui.Enabled) then 
-			Deselected()
-		end
-	end) 
-
-	setup = true
-	local changeHistory = game:GetService('ChangeHistoryService')
-	local terrain = game.Workspace.Terrain
-	local coreGui = game:GetService('CoreGui')
-
-	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "TerrainRegionGui"
-
-	terrainRegionFrame = pluginGui:WaitForChild('TerrainRegionFrame')
-
-	local buttonFillAir = terrainRegionFrame:WaitForChild('ButtonFillAir')
-	local buttonFillWater = terrainRegionFrame:WaitForChild('ButtonFillWater')
-	local buttonSelect = terrainRegionFrame:WaitForChild('ButtonSelect')
-	local buttonMove = terrainRegionFrame:WaitForChild('ButtonMove')
-	local buttonResize = terrainRegionFrame:WaitForChild('ButtonResize')
-	local buttonRotate = terrainRegionFrame:WaitForChild('ButtonRotate')
-	local buttonCopy = terrainRegionFrame:WaitForChild('ButtonCopy')
-	local buttonPaste = terrainRegionFrame:WaitForChild('ButtonPaste')
-	local buttonDelete = terrainRegionFrame:WaitForChild('ButtonDelete')
-	local buttonFill = terrainRegionFrame:WaitForChild('ButtonFill')
-
-	fillFrame = pluginGui:WaitForChild('FillFrame')
-	local materialsTable = require(script.Parent.MaterialsList)
-	local buttonFillConfirm = fillFrame:WaitForChild('ButtonFillConfirm')
-	local library = assert(LoadLibrary('RbxGui'))
-	--local mouse = plugin:GetMouse()
-
-	----SETTINGS----
-	local mode = 'Select'	--Select, Edit
-	local tool = 'None'		--None, Resize, Move, Rotate
-	local button = 'Select'	--Select, Move, Resize, Rotate
-	local fillAir = true
-	local fillWater = true
-	----------------
-
-	--SUB SETTINGS--
-	local resolution = 4			--This is the size of voxels on Roblox. Why is this a variable? ;)
-	local textSelectColor = Color3.new(72/255, 145/255, 212/255)
-	local white = Color3.new(238/255, 238/255, 238/255)
-	local editColor1 = 'Institutional white'
-	local editColor2 = 'Light stone grey'
-	local rotationInterval = math.pi * .5
-	local regionLengthLimit = 125
-	----------------
-
-	--Variables--
-	local faceToNormal = {
-		[Enum.NormalId.Top] = Vector3.new(0, 1, 0),
-		[Enum.NormalId.Bottom] = Vector3.new(0, -1, 0),
-		[Enum.NormalId.Left] = Vector3.new(-1, 0, 0),
-		[Enum.NormalId.Right] = Vector3.new(1, 0, 0),
-		[Enum.NormalId.Front] = Vector3.new(0, 0, -1),
-		[Enum.NormalId.Back] = Vector3.new(0, 0, 1),
-	}
-	local undefined=0/0
-	local selectionStart = nil
-	local selectionEnd = nil
-	local selectionPart = nil
-	local selectionObject = nil
-	local selectionHandles = nil
-	local materialSelection = materialsTable[5]
-	local downLoop = nil
-	local clickStart = Vector3.new(0, 0, 0)
-	local dragVector = nil
-	local dragStart = true
-	local lockedMaterials, lockedOccupancies = nil, nil
-	local lockedRegion = nil
-	local behindThis = nil
-	local axis = 'X'
-	local materialAir = Enum.Material.Air
-	local materialWater = Enum.Material.Water
-	local floor = math.floor		--Scaling linear resize
-	local ceil = math.ceil
-	-------------
-
-	local function setMaterialSelection(newMaterialSelection)
-		materialSelection = newMaterialSelection
-		for _, v in pairs(fillFrame:GetChildren()) do
-			if string.sub(v.Name,1,14) == 'MaterialButton' then
-				if v.Name == 'MaterialButton' .. materialSelection.enum.Name then
-					v.BackgroundTransparency = .1
-				else
-					v.BackgroundTransparency = 1
-				end
-			end
-		end
-	end
-
-	for i,materialSubTable in pairs(materialsTable) do
-		local newMaterialButton = Instance.new('ImageButton')
-		newMaterialButton.Name = 'MaterialButton' .. materialSubTable.enum.Name
-		newMaterialButton.BorderSizePixel = 2
-		newMaterialButton.BorderColor3 = Color3.new(.2, 1, 1)
-		newMaterialButton.BackgroundColor3 = Color3.new(.2, 1, 1)
-		newMaterialButton.BackgroundTransparency = 1
-		newMaterialButton.Image = materialSubTable.image
-		newMaterialButton.Size = UDim2.new(0, 35, 0, 35)
-		newMaterialButton.Position = UDim2.new(0, 5 + ((i-1) % 4) * 40, 0, -5 + ceil(i/4) * 40)
-		newMaterialButton.MouseButton1Down:connect(function()
-			setMaterialSelection(materialsTable[i])
-		end)
-		newMaterialButton.Parent = fillFrame
-	end
-	fillFrame.Size = UDim2.new(0, 180, 0, 95 + ceil(#materialsTable / 4) * 40)
-	setMaterialSelection(materialSelection)
-
-	function setButton(newButton)
-		lockInMap()
-		buttonSelect.Style = newButton == 'Select' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
-		buttonSelect.TextColor3 = newButton == 'Select' and textSelectColor or white
-		buttonMove.Style = newButton == 'Move' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
-		buttonMove.TextColor3 = newButton == 'Move' and textSelectColor or white
-		buttonResize.Style = newButton == 'Resize' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
-		buttonResize.TextColor3 = newButton == 'Resize' and textSelectColor or white
-		buttonRotate.Style = newButton == 'Rotate' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
-		buttonRotate.TextColor3 = newButton == 'Rotate' and textSelectColor or white
-		if newButton == 'Select' then
-			mode = 'Select'
-			tool = 'Resize'
-		elseif newButton == 'Move' then
-			mode = 'Edit'
-			tool = 'Move'
-		elseif newButton == 'Resize' then
-			mode = 'Edit'
-			tool = 'Resize'
-		elseif newButton == 'Rotate' then
-			mode = 'Edit'
-			tool = 'Rotate'
-		end
-		button = newButton
-		renderSelection()
-	end
-
-	buttonSelect.MouseButton1Down:connect(function()
-		setButton('Select')
-	end)
-	buttonMove.MouseButton1Down:connect(function()
-		setButton('Move')
-	end)
-	buttonResize.MouseButton1Down:connect(function()
-		setButton('Resize')
-	end)
-	buttonRotate.MouseButton1Down:connect(function()
-		setButton('Rotate')
-	end)
-
-	buttonFillAir.MouseButton1Down:connect(function()
-		fillAir = not fillAir
-		buttonFillAir.Text = fillAir and 'X' or ''
-		if button=='Move' or button=='Resize' then
-			updateDragOperation()
-		elseif button=='Rotate' then
-			updateRotateOperation()
-		end
-	end)
-	buttonFillWater.MouseButton1Down:connect(function()
-		fillWater = not fillWater
-		buttonFillWater.Text = fillWater and 'X' or ''
-		if button=='Move' or button=='Resize' then
-			updateDragOperation()
-		elseif button=='Rotate' then
-			updateRotateOperation()
-		end
-	end)
-
-	function lockInMap()	--Should call this every time the terrain under your selection changes. Don't for resize though, it uses the original lockin for rescaling.
-		if selectionStart and selectionEnd then
-			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-			lockedRegion = region
-			lockedMaterials, lockedOccupancies = terrain:ReadVoxels(region, resolution)
-		end
-	end
-
-	do
-		local runService = game:GetService('RunService').RenderStepped
-		function quickWait(waitTime)
-			if not waitTime then
-				runService:wait()
-			elseif waitTime < .033333 then
-				local startTick = tick()
-				runService:wait()
-				local delta = tick() - startTick
-				if delta <= waitTime * .5 then
-					quickWait(waitTime - delta)
-				end
-			else
-				wait(waitTime)
-			end
-		end
-	end
-
-	function clearSelection()
-		if selectionArcHandles then
-			selectionArcHandles:Destroy()
-			selectionArcHandles = nil
-		end
-		if selectionHandles then
-			selectionHandles:Destroy()
-			selectionHandles = nil
-		end
-		if selectionObject then
-			selectionObject:Destroy()
-			selectionObject = nil
-		end
-		if selectionPart then
-			selectionPart:Destroy()
-			selectionPart = nil
-		end
-	end
-
-	local function round(n)
-		return n + .5 - ((n + .5)%1)
-	end
-
-	local function positionWorldToVoxel(pos)
-		return Vector3.new(ceil(pos.x / resolution), ceil(pos.y / resolution), ceil(pos.z / resolution))
-	end
-
-	local function make3DTable(size,fill)
-		local size = size or Vector3.new(1,1,1)
-		local newTable = {}
-		for x = 1, size.x do
-			local xt = {}
-			for y = 1, size.y do
-				local yt = {}
-				for z = 1, size.z do
-					yt[z] = fill
-				end
-				xt[y] = yt
-			end
-			newTable[x] = xt
-		end
-		return newTable
-	end
-
-	local function linInterp(a,b,p)
-		return a+(b-a)*p
-	end
-
-	local function exaggerate(n,exaggeration)
-		return (n-.5)*exaggeration + .5		--optimized
-		--return n*exaggeration - exaggeration*.5 + .5
-	end
-	local function exaggeratedLinInterp(a,b,p,exaggeration)
-		local unclamped = (a+(b-a)*p-.5)*exaggeration+.5
-		return (unclamped < 0 and 0) or (unclamped > 1 and 1) or unclamped
-
-		--At first I thought this didn't need to be clamped because the terrain clamps that anways.
-		--But I then realized I am using this number a bit more before handing it to terrain.
-		--After doing some tests. Clamping is necessary for artificial structures being streched. If unclamped, rounding of artificial edges occurs.
-		--return (a+(b-a)*p-.5)*exaggeration+.5
-		--Maybe this extra dimension of unclamping might be desired for natural terrain, but not artificuial?
-	end
-
-	function updateDragOperation()
-		local dragVector = dragVector or Vector3.new(0,0,0)
-		local temporaryStart = selectionStart
-		local temporaryEnd = selectionEnd
-		if tool == 'Resize' then
-			if dragStart then
-				temporaryStart = Vector3.new(
-					math.min(
-						math.max(temporaryStart.x+dragVector.x,temporaryEnd.x-regionLengthLimit),
-						temporaryEnd.x),
-					math.min(
-						math.max(temporaryStart.y+dragVector.y,temporaryEnd.y-regionLengthLimit),
-						temporaryEnd.y),
-					math.min(
-						math.max(temporaryStart.z+dragVector.z,temporaryEnd.z-regionLengthLimit),
-						temporaryEnd.z)
-				)
-			else
-				temporaryEnd = Vector3.new(
-					math.max(
-						math.min(temporaryEnd.x+dragVector.x,temporaryStart.x+regionLengthLimit),
-						temporaryStart.x),
-					math.max(
-						math.min(temporaryEnd.y+dragVector.y,temporaryStart.y+regionLengthLimit),
-						temporaryStart.y),
-					math.max(
-						math.min(temporaryEnd.z+dragVector.z,temporaryStart.z+regionLengthLimit),
-						temporaryStart.z)
-				)
-			end
-			if mode == 'Edit' then
-				--[[local loopx = #lockedMaterials		--Tiling resize		--fun but not too many use cases with natural terrain.
-				local loopy = #lockedMaterials[1]
-				local loopz = #lockedMaterials[1][1]
-				local tempRegionSize = Vector3.new(1,1,1) + temporaryEnd - temporaryStart
-				local newMat = {}
-				local newOcc = {}
-				local offsetx = -1
-				local offsety = -1
-				local offsetz = -1
-				if dragStart then
-					offsetx = offsetx + (-tempRegionSize.x % loopx)
-					offsety = offsety + (-tempRegionSize.y % loopy)
-					offsetz = offsetz + (-tempRegionSize.z % loopz)
-				end
-				for x=1, tempRegionSize.x do
-					local targetx = (offsetx + x) % loopx + 1
-					local xtm = {}
-					local xto = {}
-					for y=1, tempRegionSize.y do
-						local targety = (offsety + y) % loopy + 1
-						local ytm = {}
-						local yto = {}
-						for z=1, tempRegionSize.z do
-							local targetz = (offsetz + z) % loopz + 1
-							ytm[z] = lockedMaterials[targetx][targety][targetz]
-							yto[z] = lockedOccupancies[targetx][targety][targetz]
-						end
-						xtm[y] = ytm
-						xto[y] = yto
-					end
-					newMat[x] = xtm
-					newOcc[x] = xto
-				end]]
-		
-				--[[local loopx = #lockedMaterials		--Scaling closest neightbor resize --not perfect
-				local loopy = #lockedMaterials[1]
-				local loopz = #lockedMaterials[1][1]
-				local tempRegionSize = Vector3.new(1,1,1) + temporaryEnd - temporaryStart
-				local tempSizeX = tempRegionSize.x
-				local tempSizeY = tempRegionSize.y
-				local tempSizeZ = tempRegionSize.z
-				local roundx = tempSizeX < loopx and math.floor or math.ceil
-				local roundy = tempSizeY < loopy and math.floor or math.ceil
-				local roundz = tempSizeZ < loopz and math.floor or math.ceil
-				local newMat = {}
-				local newOcc = {}
-				for x=1, tempSizeX do
-					local targetx = roundx(x/tempSizeX*loopx)
-					local xtm = {}
-					local xto = {}
-					for y=1, tempSizeY do
-						local targety = roundy(y/tempSizeY*loopy)
-						local ytm = {}
-						local yto = {}
-						for z=1, tempSizeZ do
-							local targetz = roundz(z/tempSizeZ*loopz)
-							ytm[z] = lockedMaterials[targetx][targety][targetz]
-							yto[z] = lockedOccupancies[targetx][targety][targetz]
-						end
-						xtm[y] = ytm
-						xto[y] = yto
-					end
-					newMat[x] = xtm
-					newOcc[x] = xto
-				end]]
-		
-				local region = Region3.new((temporaryStart - Vector3.new(1,1,1)) * resolution, temporaryEnd * resolution)
-				if behindThis then
-					terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
-				else
-					if selectionStart and selectionEnd then
-						local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-						local regionSize = region.Size / resolution
-						terrain:WriteVoxels(region, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
-					end
-				end
-				behindThis = {}
-				behindThis.region = region
-				behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
-
-				local behindMaterials, behindOccupancies = behindThis.materials, behindThis.occupancies
-
-				local loopx = #lockedMaterials - 1
-				local loopy = #lockedMaterials[1] - 1
-				local loopz = #lockedMaterials[1][1] - 1
-				local tempRegionSize = Vector3.new(1,1,1) + temporaryEnd - temporaryStart
-				local tempSizeX = tempRegionSize.x
-				local tempSizeY = tempRegionSize.y
-				local tempSizeZ = tempRegionSize.z
-				local newMat = {}
-				local newOcc = {}
-				for x=1, tempSizeX do
-					local scalex = (x-1)/(tempSizeX-1)*loopx
-					if scalex ~= scalex then
-						scalex = 0
-					end
-					local startx = floor(scalex)+1
-					local endx = startx+1
-					local interpScalex = scalex-startx+1
-					if startx > loopx then
-						endx = startx
-					end
-		
-					local xtm = {}
-					local xto = {}
-					for y=1, tempSizeY do
-						local scaley = (y-1)/(tempSizeY-1)*loopy
-						if scaley ~= scaley then
-							scaley = 0
-						end
-						local starty = floor(scaley)+1
-						local endy = starty+1
-						local interpScaley = scaley-starty+1
-						if starty > loopy then
-							endy = starty
-						end
-		
-						local ytm = {}
-						local yto = {}
-						for z=1, tempSizeZ do
-							local scalez = (z-1)/(tempSizeZ-1)*loopz	--consider adding 1 here and removing +1's elsewhere
-							if scalez ~= scalez then		--undefined check
-								scalez = 0
-							end
-							local startz = floor(scalez)+1
-							local endz = startz+1
-							local interpScalez = scalez-startz+1
-							if startz > loopz then
-								endz = startz
-							end
-		
-							local interpz1 = exaggeratedLinInterp(lockedOccupancies[startx][starty][startz],lockedOccupancies[startx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
-							local interpz2 = exaggeratedLinInterp(lockedOccupancies[startx][endy][startz],lockedOccupancies[startx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
-							local interpz3 = exaggeratedLinInterp(lockedOccupancies[endx][starty][startz],lockedOccupancies[endx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
-							local interpz4 = exaggeratedLinInterp(lockedOccupancies[endx][endy][startz],lockedOccupancies[endx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
-		
-							local interpy1 = exaggeratedLinInterp(interpz1,interpz2,interpScaley, tempSizeY/(loopy+1))
-							local interpy2 = exaggeratedLinInterp(interpz3,interpz4,interpScaley, tempSizeY/(loopy+1))
-		
-							local interpx1 = exaggeratedLinInterp(interpy1,interpy2,interpScalex, tempSizeX/(loopx+1))
-		
-							local newMaterial = lockedMaterials[round(scalex)+1][round(scaley)+1][round(scalez)+1]
-		
-							if fillAir and newMaterial == materialAir then
-								ytm[z]=behindMaterials[x][y][z]
-								yto[z]=behindOccupancies[x][y][z]
-							elseif fillWater and newMaterial == materialWater and behindMaterials[x][y][z] ~= materialAir then
-								ytm[z]=behindMaterials[x][y][z]
-								yto[z]=behindOccupancies[x][y][z]
-							else
-								ytm[z]=newMaterial
-								yto[z]=interpx1
-							end
-						end
-						xtm[y] = ytm
-						xto[y] = yto
-					end
-					newMat[x] = xtm
-					newOcc[x] = xto
-				end
-		
-				terrain:WriteVoxels(region, resolution, newMat, newOcc)
-			else
-				behindThis = nil
-			end
-		elseif tool == 'Move' then
-			temporaryStart = temporaryStart + dragVector
-			temporaryEnd = temporaryEnd + dragVector
-			if mode == 'Edit' then
-				local region = Region3.new((temporaryStart - Vector3.new(1,1,1)) * resolution, temporaryEnd * resolution)
-				if behindThis then
-					terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
-				else
-					if selectionStart and selectionEnd then
-						local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-						local regionSize = region.Size / resolution
-						terrain:WriteVoxels(region, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
-					end
-				end
-				behindThis = {}
-				behindThis.region = region
-				behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
-
-				local behindMaterials, behindOccupancies = behindThis.materials, behindThis.occupancies
-		
-				if not (fillAir or fillWater) then
-					terrain:WriteVoxels(region, resolution, lockedMaterials, lockedOccupancies)
-				else
-					local newMat = {}
-					local newOcc = {}
-		
-					for x,xv in ipairs(lockedMaterials) do
-						local xtm = {}
-						local xto = {}
-						for y,yv in ipairs(xv) do
-							local ytm = {}
-							local yto = {}
-							for z,zv in ipairs(yv) do
-								if fillAir and zv == materialAir then
-									ytm[z]=behindMaterials[x][y][z]
-									yto[z]=behindOccupancies[x][y][z]
-								elseif fillWater and zv == materialWater and behindMaterials[x][y][z] ~= materialAir then
-									ytm[z]=behindMaterials[x][y][z]
-									yto[z]=behindOccupancies[x][y][z]
-								else
-									ytm[z]=lockedMaterials[x][y][z]
-									yto[z]=lockedOccupancies[x][y][z]
-								end
-							end
-							xtm[y] = ytm
-							xto[y] = yto
-						end
-						newMat[x] = xtm
-						newOcc[x] = xto
-					end
-					terrain:WriteVoxels(region, resolution, newMat, newOcc)
-				end
-			end
-		end
-		renderSelection(temporaryStart,temporaryEnd)
-	end
-
-	function dragHandles(face, delta)
-		local normal = faceToNormal[face]
-		local delta = delta
-		local newDragVector = normal * floor((delta + .5) / resolution)
-		dragStart = normal.x < 0 or normal.y < 0 or normal.z < 0	--This determines if we are dragging a side on the min or max bounds
-		if newDragVector ~= dragVector then
-			dragVector = newDragVector
-			updateDragOperation()
-		end
-	end
-
-	local function rotate(mx,x,my,y,rotation)
-		if rotation == 1 then
-			return my + 1 - y, x 
-		elseif rotation == 2 then
-			return mx + 1 - x, my + 1 - y
-		elseif rotation == 3 then
-			return y, mx + 1 - x
-		end
-		return x,y
-	end
-
-	function updateRotateOperation()
-		local dragAngle = dragAngle or 0
-		local rotationCFrame = CFrame.Angles(
-			axis ~= 'X' and 0 or dragAngle * rotationInterval,
-			axis ~= 'Y' and 0 or dragAngle * rotationInterval,
-			axis ~= 'Z' and 0 or dragAngle * rotationInterval
-		)
-		local temporarySize = Vector3.new(1,1,1) + selectionEnd - selectionStart
-		local centerOffset = Vector3.new(ceil(temporarySize.x * .5), ceil(temporarySize.y * .5), ceil(temporarySize.z * .5))
-
-		temporarySize = rotationCFrame * temporarySize
-		local temporarySizeX = round(math.abs(temporarySize.x))	--I need to round these because of floating point imprecision
-		local temporarySizeY = round(math.abs(temporarySize.y))
-		local temporarySizeZ = round(math.abs(temporarySize.z))
-		centerOffset = centerOffset - Vector3.new(ceil(temporarySizeX * .5), ceil(temporarySizeY * .5), ceil(temporarySizeZ * .5))
-
-		local temporaryEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
-		local temporaryStart = selectionStart + centerOffset
-
-		if mode == 'Edit' then
-		local region = Region3.new((temporaryStart - Vector3.new(1,1,1)) * resolution, temporaryEnd * resolution)
-			if behindThis then
-				terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
-			else
-				if selectionStart and selectionEnd then
-					local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-					local regionSize = region.Size / resolution
-					terrain:WriteVoxels(region, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
-				end
-				--local regionSize = lockedRegion.Size / resolution
-				--terrain:WriteVoxels(lockedRegion, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
-			end
-			behindThis = {}
-			behindThis.region = region
-			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
-
-			local newMat = {}
-			local newOcc = {}
-
-			for x=1, temporarySizeX do
-				local xtm = {}
-				local xto = {}
-				for y=1, temporarySizeY do
-					local ytm = {}
-					local yto = {}
-					for z=1, temporarySizeZ do
-						local targetx = x
-						local targety = y
-						local targetz = z
-						if axis == 'Y' then	--prioritize y because I know this is the primary rotation axis
-							targetx, targetz = rotate(temporarySizeX, x, temporarySizeZ, z, dragAngle)
-						elseif axis == 'X' then
-							targetz, targety = rotate(temporarySizeZ, z, temporarySizeY, y, dragAngle)
-						elseif axis == 'Z' then
-							targety, targetx = rotate(temporarySizeY, y, temporarySizeX, x, dragAngle)
-						end
-						local newMaterial = lockedMaterials[targetx][targety][targetz]
-
-						if fillAir and newMaterial == materialAir then
-							ytm[z]=behindThis.materials[x][y][z]
-							yto[z]=behindThis.occupancies[x][y][z]
-						elseif fillWater and newMaterial == materialWater and behindThis.materials[x][y][z] ~= materialAir then
-							ytm[z]=behindThis.materials[x][y][z]
-							yto[z]=behindThis.occupancies[x][y][z]
-						else
-							ytm[z]=newMaterial
-							yto[z]=lockedOccupancies[targetx][targety][targetz]
-						end
-					end
-					xtm[y] = ytm
-					xto[y] = yto
-				end
-				newMat[x] = xtm
-				newOcc[x] = xto
-			end
-
-			terrain:WriteVoxels(region, resolution, newMat, newOcc)
-		end
-		renderSelection(temporaryStart,temporaryEnd,rotationCFrame)
-	end
-
-	function dragArcHandles(rotationAxis,relativeAngle,deltaRadius)
-		axis = rotationAxis.Name
-		local newDragAngle = round(relativeAngle / rotationInterval) % 4
-		if newDragAngle ~= dragAngle then
-			dragAngle = newDragAngle
-			updateRotateOperation()
-		end
-	end
-
-	buttonCopy.MouseButton1Down:connect(function()
-		if selectionStart and selectionEnd then
-			local selectionStartInt16=Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1)
-			local selectionEndInt16=Vector3int16.new(selectionEnd.x-1,selectionEnd.y-1,selectionEnd.z-1)
-			local region = Region3int16.new(selectionStartInt16,selectionEndInt16)
-			copyRegion = terrain:CopyRegion(region)
-			selectionEffect(nil,nil,'New Yeller',1,1.2,.5)
-		end
-	end)
-
-	buttonPaste.MouseButton1Down:connect(function()
-		if copyRegion then
-			selectionEnd=selectionStart+copyRegion.SizeInCells-Vector3.new(1,1,1)
-
-			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-			behindThis = {}
-			behindThis.region = region
-			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
-
-			terrain:PasteRegion(copyRegion,Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1),true)
-			setButton('Move')
-			changeHistory:SetWaypoint('Terrain Paste')
-			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
-		end
-	end)
-
-	buttonDelete.MouseButton1Down:connect(function()
-		if selectionStart and selectionEnd then
-			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-			local regionSize = region.Size / resolution
-			local emptyMaterialMap = make3DTable(regionSize,materialAir)
-			local emptyOccupancyMap = make3DTable(regionSize,0)
-
-			--[[behindThis = {}
-			behindThis.region = region
-			behindThis.materials, behindThis.occupancies = emptyMaterialMap, emptyOccupancyMap
-
-			terrain:WriteVoxels(region, resolution, emptyMaterialMap, emptyOccupancyMap)]]
-			if behindThis then
-				terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
-			else
-				if selectionStart and selectionEnd then
-					terrain:WriteVoxels(region, resolution, emptyMaterialMap, emptyOccupancyMap)
-				end
-			end
-			behindThis = {}
-			behindThis.region = region
-			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
-
-			--[[lockedRegion = region
-			lockedMaterials, lockedOccupancies = emptyMaterialMap, emptyOccupancyMap]]
-			local oldStart, oldEnd = selectionStart, selectionEnd
-			selectionStart, selectionEnd = nil, nil
-			setButton('Select')
-
-			changeHistory:SetWaypoint('Terrain Delete')
-			selectionEffect(oldStart,oldEnd,'Really red',1,1.2,.5)
-		end
-	end)
-
-	buttonFill.MouseButton1Down:connect(function()
-		fillFrame.Visible = not fillFrame.Visible
-	end)
-
-	buttonFillConfirm.MouseButton1Down:connect(function()
-		if selectionStart and selectionEnd then
-			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
-			local regionSize = region.Size / resolution
-
-			local beforeMaterialMap, beforeOccupancyMap = terrain:ReadVoxels(region, resolution)
-			local newMaterialMap = {}
-			local newOccupancyMap = {}
-			for x = 1, regionSize.x do
-				local xtm = {}
-				local xto = {}
-				for y = 1, regionSize.y do
-					local ytm = {}
-					local yto = {}
-					for z = 1, regionSize.z do
-						local beforeMaterial = beforeMaterialMap[x][y][z]
-
-						if beforeMaterial == materialAir or beforeOccupancyMap[x][y][z] == 0 or not fillAir then	--'fillAir' variable is actually 'Merge Empty' to the user
-							ytm[z] = materialSelection.enum
-						else
-							ytm[z] = beforeMaterial
-						end
-
-						yto[z] = 1
-					end
-					xtm[y] = ytm
-					xto[y] = yto
-				end
-				newMaterialMap[x] = xtm
-				newOccupancyMap[x] = xto
-			end
-
-
-			terrain:WriteVoxels(region, resolution, newMaterialMap, newOccupancyMap)
-
-			behindThis = {}
-			behindThis.region = region
-			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
-
-			fillFrame.Visible = false
-
-			changeHistory:SetWaypoint('Terrain Fill')
-			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
-		end
-	end)
-
-	function selectionEffect(temporaryStart,temporaryEnd,color,sizeFrom,sizeTo,effectTime)
-		local temporaryStart = temporaryStart or selectionStart
-		local temporaryEnd = temporaryEnd or selectionEnd
-
-		local effectPart = Instance.new('Part')
-		effectPart.Name = 'EffectPart'
-		effectPart.Transparency = 1
-		effectPart.TopSurface = 'Smooth'
-		effectPart.BottomSurface = 'Smooth'
-		effectPart.Anchored = true
-		effectPart.CanCollide = false
-		effectPart.Parent = screenGui
-
-		local selectionEffectObject = Instance.new('SelectionBox')
-		selectionEffectObject.Name = 'SelectionObject'
-		selectionEffectObject.Transparency = 1
-		selectionEffectObject.SurfaceTransparency = .75
-		selectionEffectObject.SurfaceColor = BrickColor.new(color)
-		selectionEffectObject.Adornee = effectPart
-		selectionEffectObject.Parent = effectPart
-
-		local baseSize = ((temporaryEnd - temporaryStart + Vector3.new(1,1,1)) * resolution + Vector3.new(.21,.21,.21))
-		effectPart.CFrame = CFrame.new((temporaryStart + temporaryEnd - Vector3.new(1, 1, 1)) * .5 * resolution)
-		effectPart.Size = baseSize * sizeFrom
-		local endTick=tick()+effectTime
-		while endTick>tick() do
-			local percent=1-(endTick-tick())/effectTime
-			selectionEffectObject.SurfaceTransparency = .75 + percent*.25
-			effectPart.Size = baseSize * (sizeFrom+(sizeTo-sizeFrom)*percent)
-			wait()
-		end
-		effectPart:Destroy()
-	end
-
-	function renderSelection(temporaryStart,temporaryEnd,rotation)
-		local temporaryStart = temporaryStart or selectionStart
-		local temporaryEnd = temporaryEnd or selectionEnd
-		local seeable = false
-		if temporaryStart and temporaryEnd and selectionPart then
-			seeable = true
-			local temporarySize = ((temporaryEnd - temporaryStart + Vector3.new(1,1,1)) * resolution + Vector3.new(.2,.2,.2))
-			if rotation then
-				local rotatedSize = rotation * temporarySize
-				temporarySize = Vector3.new(math.abs(rotatedSize.x), math.abs(rotatedSize.y), math.abs(rotatedSize.z))
-			end
-			selectionPart.Size = temporarySize
-			selectionPart.CFrame = CFrame.new((temporaryStart + temporaryEnd - Vector3.new(1, 1, 1)) * .5 * resolution) * (rotation or CFrame.new(0,0,0))
-		end
-		if selectionObject then
-			selectionObject.Visible = seeable
-			selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-			selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-		end
-		if selectionHandles then
-			selectionHandles.Visible = seeable and (tool == 'Move' or tool == 'Resize')
-			selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
-			selectionHandles.Style = tool == 'Move' and Enum.HandlesStyle.Movement or Enum.HandlesStyle.Resize
-		end
-		if selectionArcHandles then
-			selectionArcHandles.Visible = seeable and tool == 'Rotate'
-			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
-		end
-	end
-	
-	function Selected()
-		--plugin:Activate(true)
-		--regionEditButton:SetActive(true)
-		on = true
-		screenGui.Parent = coreGui
-		terrainRegionFrame.Visible = true
-
-		if not selectionPart then
-			selectionPart = Instance.new('Part')
-			selectionPart.Name = 'SelectionPart'
-			selectionPart.Transparency = 1
-			selectionPart.TopSurface = 'Smooth'
-			selectionPart.BottomSurface = 'Smooth'
-			selectionPart.Anchored = true
-			selectionPart.CanCollide = false
-			selectionPart.Parent = screenGui
-		end
-		if not selectionObject then
-			selectionObject = Instance.new('SelectionBox')
-			selectionObject.Name = 'SelectionObject'
-			selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-			selectionObject.SurfaceTransparency = .85
-			selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-			selectionObject.Adornee = selectionPart
-			selectionObject.Visible = false
-			selectionObject.Parent = selectionPart
-		end
-		if not selectionHandles then
-			selectionHandles = Instance.new('Handles')
-			selectionHandles.Name = 'SelectionHandles'
-			selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
-			selectionHandles.Adornee = selectionPart
-			selectionHandles.Visible = false
-			selectionHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
-			selectionHandles.MouseDrag:connect(dragHandles)
-		end
-		if not selectionArcHandles then
-			selectionArcHandles = Instance.new('ArcHandles')
-			selectionArcHandles.Name = 'SelectionArcHandles'
-			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
-			selectionArcHandles.Adornee = selectionPart
-			selectionArcHandles.Visible = false
-			selectionArcHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
-			selectionArcHandles.MouseDrag:connect(dragArcHandles)
-		end
-		renderSelection()
-		setButton(button)
-	end
-	
-	function Deselected()
-		setButton('Select')
-		screenGui.Parent = script.Parent
-		terrainRegionFrame.Visible = false		
-		
-		clearSelection()
-		--regionEditButton:SetActive(false)
-		behindThis = nil
-		on = false
-		if turnOff then
-			turnOff()
-		end
-	end
-
-	mouse.Button1Down:connect(function()
-		if on and mode == 'Select' then
-			mouseDown = true
-			behindThis = nil
-			local mousePos = mouse.Hit.p + mouse.UnitRay.Direction * .05
-			if mouse.Target == nil then	--cage the cursor so that it does not fly away
-				mousePos = game.Workspace.CurrentCamera.CoordinateFrame.p + mouse.UnitRay.Direction * 100
-			end
-			clickStart = positionWorldToVoxel(mousePos)
-			local thisDownLoop = {}
-			downLoop = thisDownLoop
-			while thisDownLoop == downLoop and mouseDown and on and mode == 'Select' do
-				local mousePos = mouse.Hit.p + mouse.UnitRay.Direction * .05
-				if mouse.Target == nil then	--cage the cursor so that it does not fly away
-					mousePos = game.Workspace.CurrentCamera.CoordinateFrame.p + mouse.UnitRay.Direction * 100
-				end
-				local voxelCurrent = positionWorldToVoxel(mousePos)
-				voxelCurrent = Vector3.new(
-					math.max(math.min(voxelCurrent.x,clickStart.x+regionLengthLimit),clickStart.x-regionLengthLimit),
-					math.max(math.min(voxelCurrent.y,clickStart.y+regionLengthLimit),clickStart.y-regionLengthLimit),
-					math.max(math.min(voxelCurrent.z,clickStart.z+regionLengthLimit),clickStart.z-regionLengthLimit))
-				selectionStart = Vector3.new(math.min(clickStart.x, voxelCurrent.x), math.min(clickStart.y, voxelCurrent.y), math.min(clickStart.z, voxelCurrent.z))
-				selectionEnd = Vector3.new(math.max(clickStart.x, voxelCurrent.x), math.max(clickStart.y, voxelCurrent.y), math.max(clickStart.z, voxelCurrent.z))
-				renderSelection()
-				quickWait()
-			end
-		end
-	end)
-	mouse.Button1Up:connect(function()
-		mouseDown = false
-		if dragVector and dragVector.magnitude > 0 then
-			if tool == 'Resize' then
-				--[[if dragStart then
-					selectionStart = Vector3.new(math.min(selectionStart.x+dragVector.x,selectionEnd.x),math.min(selectionStart.y+dragVector.y,selectionEnd.y),math.min(selectionStart.z+dragVector.z,selectionEnd.z))
-				else
-					selectionEnd = Vector3.new(math.max(selectionEnd.x+dragVector.x,selectionStart.x),math.max(selectionEnd.y+dragVector.y,selectionStart.y),math.max(selectionEnd.z+dragVector.z,selectionStart.z))
-				end]]
-				if dragStart then
-					selectionStart = Vector3.new(
-						math.min(
-							math.max(selectionStart.x+dragVector.x,selectionEnd.x-regionLengthLimit),
-							selectionEnd.x),
-						math.min(
-							math.max(selectionStart.y+dragVector.y,selectionEnd.y-regionLengthLimit),
-							selectionEnd.y),
-						math.min(
-							math.max(selectionStart.z+dragVector.z,selectionEnd.z-regionLengthLimit),
-							selectionEnd.z)
-					)
-				else
-					selectionEnd = Vector3.new(
-						math.max(
-							math.min(selectionEnd.x+dragVector.x,selectionStart.x+regionLengthLimit),
-							selectionStart.x),
-						math.max(
-							math.min(selectionEnd.y+dragVector.y,selectionStart.y+regionLengthLimit),
-							selectionStart.y),
-						math.max(
-							math.min(selectionEnd.z+dragVector.z,selectionStart.z+regionLengthLimit),
-							selectionStart.z)
-					)
-				end
-			elseif tool == 'Move' then
-				selectionStart = selectionStart + dragVector
-				selectionEnd = selectionEnd + dragVector
-			end
-			
-			changeHistory:SetWaypoint('Terrain '..button)
-		end
-		if dragAngle and dragAngle ~= 0 then
-			local rotationCFrame = CFrame.Angles(
-				axis ~= 'X' and 0 or dragAngle * rotationInterval,
-				axis ~= 'Y' and 0 or dragAngle * rotationInterval,
-				axis ~= 'Z' and 0 or dragAngle * rotationInterval
-			)
-			local temporarySize = Vector3.new(1,1,1) + selectionEnd - selectionStart
-			local centerOffset = Vector3.new(ceil(temporarySize.x * .5), ceil(temporarySize.y * .5), ceil(temporarySize.z * .5))
-			temporarySize = rotationCFrame * temporarySize
-			local temporarySizeX = round(math.abs(temporarySize.x))	--I need to round these because of floating point imprecision
-			local temporarySizeY = round(math.abs(temporarySize.y))
-			local temporarySizeZ = round(math.abs(temporarySize.z))
-			centerOffset = centerOffset - Vector3.new(ceil(temporarySizeX * .5), ceil(temporarySizeY * .5), ceil(temporarySizeZ * .5))
-			
-			selectionEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
-			selectionStart = selectionStart + centerOffset
-			lockInMap()
-			changeHistory:SetWaypoint('Terrain '..button)
-		end
-
-		dragVector = nil
-		dragAngle = nil
-		renderSelection()
-		--lockInMap()
-	end)
-
-	local function historyChanged()
-		selectionStart = nil
-		selectionEnd = nil
-		lockedMaterials = nil
-		lockedOccupancies = nil
-		setButton('Select')
-	end
-	
-	changeHistory.OnUndo:connect(historyChanged)
-	changeHistory.OnRedo:connect(historyChanged)
+local mouse = nil
+local turnOff = nil 
+local generating = false
+local clearing = false
+local paused = false
+local cancelIt = false
+
+local noise = math.noise
+local min = math.min
+local max = math.max
+local sin = math.sin
+local cos = math.cos
+local floor = math.floor
+local ceil = math.ceil
+local sqrt = math.sqrt
+local randomseed = math.randomseed
+local random = math.random
+local pi = math.pi
+local tau = math.pi*2
+
+
+---------Directly used in Generation---------
+local masterSeed = 618033988
+local mapWidth = 256
+local mapHeight = 128
+local biomeSize = 100
+local generateCaves = false
+local waterLevel = .48
+local surfaceThickness = .018
+local biomes = {}
+---------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+
+local rock = Enum.Material.Rock
+local snow = Enum.Material.Snow
+local ice = Enum.Material.Glacier
+local grass = Enum.Material.Grass
+local ground = Enum.Material.Ground
+local mud = Enum.Material.Mud
+local slate = Enum.Material.Slate
+local concrete = Enum.Material.Concrete
+local lava = Enum.Material.CrackedLava
+local basalt = Enum.Material.Basalt
+local air = Enum.Material.Air
+local sand = Enum.Material.Sand
+local sandstone = Enum.Material.Sandstone
+local water = Enum.Material.Water
+
+local fill = rock
+
+local range = {}
+randomseed(6180339)
+theseed={}
+for i=1,999 do
+	table.insert(theseed,math.random())
 end
 
-function On(mouseHandMeDown,turnOffHandMeDown)
-	mouse = mouseHandMeDown
-	turnOff = turnOffHandMeDown
-	if not setup then	--I do this so that things only get set up when this plugin is used.
-		FirstTimeSetUp()
+local function MakeProgressFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "ProgressFrame", "Progress", kProgressFrameWidth, kProgressFrameContentHeight)
+
+	local bar = Instance.new("Frame")
+	bar.Parent = section
+	bar.Name = "Bar"
+	bar.BorderSizePixel = 2
+	bar.BorderColor3 = Color3.new(0.7, 0.7, 0.7)
+	bar.BackgroundColor3 = Color3.new(1, 1, 1)
+	bar.BackgroundTransparency = 0.5
+	bar.ZIndex = 1
+	bar.Size = UDim2.new(1, -20, 0, 25)
+	bar.Position = UDim2.new(0, 10, 0.39, 0)
+
+	local fill = Instance.new("ImageLabel")
+	fill.Parent = bar
+	fill.Name = "Fill"
+	fill.Image = "rbxassetid://67599350"
+	fill.ImageColor3 = Color3.new(0, 0.8, 0.2)
+	fill.ImageRectOffset = Vector2.new(0, 256)
+	fill.ImageRectSize = Vector2.new(0, -100)
+	fill.ScaleType = Enum.ScaleType.Stretch
+	bar.ZIndex = 2
+
+	local pauseButton = GuiUtilities.MakeTextButton("PauseButton", "Pause", section)
+	pauseButton.Size = UDim2.new(0.5, -20, 0, 30)
+	pauseButton.Position = UDim2.new(0, 12, 1, -35)
+
+	local cancelButton = GuiUtilities.MakeTextButton("CancelButton", "Cancel", section)
+	cancelButton.Size = UDim2.new(0.5, -20, 0, 30)
+	cancelButton.Position = UDim2.new(0.5, 8, 1, -35)
+
+	section.Position = UDim2.new(0.5, -200, 0, 0)
+	section.Visible = false
+
+	return section
+end
+
+function Initialize(thePluginGui)
+	
+	pluginGui = thePluginGui
+	screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "TerrainBrushGui"
+	
+	mainFrame = pluginGui:WaitForChild('TerrainGenerationFrame')
+
+	progressFrame = MakeProgressFrame(screenGui)
+	pauseButton = progressFrame:WaitForChild('PauseButton')
+	cancelButton = progressFrame:WaitForChild('CancelButton')
+	barFill = progressFrame:WaitForChild('Bar'):WaitForChild('Fill')
+
+	multipleChoiceFrame = pluginGui:WaitForChild('MultipleChoiceFrame')
+
+	pauseButton.MouseButton1Down:connect(function()
+		paused = not paused
+		updatePausedButton()
+	end)
+	
+	cancelButton.MouseButton1Down:connect(function()
+		if not cancelIt then
+			cancelIt = true
+			print('Canceled')
+		end
+	end)
+
+	mainFrame:WaitForChild('GenerateButton').MouseButton1Down:connect(function()
+		generate()
+	end)
+	
+	mainFrame:WaitForChild('ClearButton').MouseButton1Down:connect(function()
+		clearTerrain()
+	end)
+
+	SetupUserInterface()
+end
+
+function createBiomesCheckboxSection(yOffset, parent)
+    local textLabel  = Instance.new("TextLabel")
+    textLabel.Parent = parent
+    textLabel.Name = "BiomesLabel"
+    textLabel.Text = "Biomes"
+    textLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+    textLabel.BackgroundTransparency = 0.75
+    textLabel.BorderSizePixel = 0
+    textLabel.Size = UDim2.new(1, 0, 0, kBiomesCheckboxSectionLabelHeight)
+	textLabel.Position = UDim2.new(0, 0, 0, yOffset)
+    textLabel.TextXAlignment = Enum.TextXAlignment.Left
+	
+    local frame = Instance.new("Frame")
+    frame.Parent = parent
+    frame.Name = "Frame"
+    frame.BackgroundColor3 = Color3.new(1, 1, 1)
+    frame.BackgroundTransparency = 0.9
+    frame.Size = UDim2.new(1, 0, 0, kBiomesCheckboxSectionHeight)
+    frame.Position = UDim2.new(0, 0, 0, yOffset + kBiomesCheckboxSectionLabelHeight)
+	
+	return textLabel, frame
+end
+
+function createTextBox(name, pos, parent, setting, changedFunction)
+	local setting = setting and tostring(setting) or ''
+	local frame = GuiUtilities.MakeTextBoxWithLabel('TextInputBox'..name, '   '..name..':', parent)
+	local field = frame:WaitForChild('TextBox')
+	field.Text = setting
+	field.Changed:connect(function(prop)
+		if prop == 'Text' then
+			changedFunction(field.Text)
+		end
+	end)
+	changedFunction(field.Text)
+	frame.Position = UDim2.new(0,0,0,pos)
+	frame.Visible = true
+	return frame
+end
+
+local currentMultiChoiceOpen = nil
+function closeMultiChoiceFrame()
+	if currentMultiChoiceOpen then
+		currentMultiChoiceOpen.Style = 'RobloxRoundDefaultButton'
 	end
-	Selected()
+	currentMultiChoiceOpen = nil
+	multipleChoiceFrame.Visible = false
+end
+function createMultiChoice(name, pos, parent, choices, setting, changedFunction)
+	local setting = setting
+	local frame = GuiUtilities.MakeMultiChoice('MultipleChoice'..name, name, parent)
+	frame.Position = UDim2.new(0,0,0,pos)
+	local button = frame:WaitForChild('Button')
+	button.Text = choices[setting]
+	button.MouseButton1Down:connect(function()
+		if currentMultiChoiceOpen ~= button then
+			currentMultiChoiceOpen = button
+			--button.Style = 'RobloxRoundButton'	--would be nice, but with autobuttoncolor, not so much.
+			multipleChoiceFrame.TitleLabel.Text = name
+			for _,item in pairs(multipleChoiceFrame:GetChildren()) do
+				if string.sub(item.Name,1,6) == 'Choice' then
+					item:Destroy()
+				end
+			end
+			for i, text in ipairs(choices) do
+				local choiceButton = GuiUtilities.MakeTextButton("Choice"..text, text, multipleChoiceFrame)
+				choiceButton.Visible = true
+				choiceButton.Position = UDim2.new(0,10,0,-3+i*35)
+				choiceButton.Size = UDim2.new(1,-20,0,30)
+				choiceButton.MouseButton1Down:connect(function()
+					if setting ~= i then
+						setting = i
+						button.Text = text
+						changedFunction(i, text)
+					end
+					closeMultiChoiceFrame()
+				end)
+			end
+			multipleChoiceFrame.Size = UDim2.new(0,180,0,50 + #choices*35)
+			multipleChoiceFrame.Visible = true
+		else
+			closeMultiChoiceFrame()
+		end
+	end)
+	frame.Visible = true
+	return frame
+end
+
+function createCheckBox(name, pos, parent, setting, changedFunction)
+	local setting = setting
+	local checkBoxGui = GuiUtilities.MakeCheckBox('CheckBox'..name, name, parent)
+	checkBoxGui.Text = setting and 'X' or ''
+	checkBoxGui.Position = UDim2.new(0,4,0,pos)
+	checkBoxGui.Visible = true
+	checkBoxGui.MouseButton1Down:connect(function()
+		setting = not setting
+		checkBoxGui.Text = setting and 'X' or ''
+		changedFunction(setting)
+	end)
+	return checkBoxGui
+end
+
+
+
+function checkRange(v)
+	if not range.min or v < range.min then
+		range.min = v
+	end
+	if not range.max or v > range.max then
+		range.max = v
+	end
+end
+
+local function getPerlin(x,y,z,seed,scale,raw)
+	local seed = seed or 0
+	local scale = scale or 1
+	if not raw then
+		return noise(x/scale+(seed*17)+masterSeed,y/scale-masterSeed,z/scale-seed*seed)*.5 + .5 -- accounts for bleeding from interpolated line
+	else
+		return noise(x/scale+(seed*17)+masterSeed,y/scale-masterSeed,z/scale-seed*seed)
+	end
+end
+
+
+local function getNoise(x,y,z,seed1)
+	local x = x or 0
+	local y = y or 0
+	local z = z or 0
+	local seed1 = seed1 or 7
+	local wtf=x+y+z+seed1+masterSeed + (masterSeed-x)*(seed1+z) + (seed1-y)*(masterSeed+z)		-- + x*(y+z) + z*(masterSeed+seed1) + seed1*(x+y)			--x+y+z+seed1+masterSeed + x*y*masterSeed-y*z+(z+masterSeed)*x	--((x+y)*(y-seed1)*seed1)-(x+z)*seed2+x*11+z*23-y*17
+	return theseed[(floor(wtf%(#theseed)))+1]
+end
+
+local function thresholdFilter(value, bottom, size)
+	if value <= bottom then
+		return 0
+	elseif value >= bottom+size then
+		return 1
+	else
+		return (value-bottom)/size
+	end
+end
+
+local function ridgedFilter(value)	--absolute and flip for ridges. and normalize
+	return value<.5 and value*2 or 2-value*2
+end
+
+local function ridgedFlippedFilter(value)					--unflipped
+	return value < .5 and 1-value*2 or value*2-1
+end
+
+local function advancedRidgedFilter(value, cutoff)
+	local cutoff = cutoff or .5
+	value = value - cutoff
+	return 1 - (value < 0 and -value or value) * 1/(1-cutoff)
+end
+
+
+local function fractalize(operation,x,y,z, operationCount, scale, offset, gain)
+	local operationCount = operationCount or 3
+	local scale = scale or .5
+	local offset = 0
+	local gain = gain or 1
+	local totalValue = 0
+	local totalScale = 0
+	for i=1, operationCount do
+		local thisScale = scale^(i-1)
+		totalScale = totalScale + thisScale
+		totalValue = totalValue + (offset + gain * operation(x,y,z,i))*thisScale
+	end
+	return totalValue/totalScale
+end
+
+
+local function mountainsOperation(x,y,z,i)
+	return ridgedFilter(getPerlin(x,y,z,100+i,(1/i)*160))
+end
+
+local canyonBandingMaterial = {rock,mud,sand,sand,sandstone,sandstone,sandstone,sandstone,sandstone,sandstone,}
+
+local function findBiomeInfo(choiceBiome,x,y,z,verticalGradientTurbulence)
+	local choiceBiomeValue = .5
+	local choiceBiomeSurface = grass
+	local choiceBiomeFill = rock
+	if choiceBiome == 'City' then
+		choiceBiomeValue = .55
+		choiceBiomeSurface = concrete
+		choiceBiomeFill = slate
+	elseif choiceBiome == 'Water' then
+		choiceBiomeValue = .36+getPerlin(x,y,z,2,50)*.08
+		choiceBiomeSurface = 
+			(1-verticalGradientTurbulence < .44 and slate)
+			or sand
+	elseif choiceBiome == 'Marsh' then
+		local preLedge = getPerlin(x+getPerlin(x,0,z,5,7,true)*10+getPerlin(x,0,z,6,30,true)*50,0,z+getPerlin(x,0,z,9,7,true)*10+getPerlin(x,0,z,10,30,true)*50,2,70)	--could use some turbulence
+		local grassyLedge = thresholdFilter(preLedge,.65,0)
+		local largeGradient = getPerlin(x,y,z,4,100)
+		local smallGradient = getPerlin(x,y,z,3,20)
+		local smallGradientThreshold = thresholdFilter(smallGradient,.5,0)
+		choiceBiomeValue = waterLevel-.04
+			+preLedge*grassyLedge*.025
+			+largeGradient*.035
+			+smallGradient*.025
+		choiceBiomeSurface =
+			(grassyLedge >= 1 and grass)
+			or (1-verticalGradientTurbulence < waterLevel-.01 and mud)
+			or (1-verticalGradientTurbulence < waterLevel+.01 and ground)
+			or grass
+		choiceBiomeFill = slate
+	elseif choiceBiome == 'Plains' then
+		local rivulet = ridgedFlippedFilter(getPerlin(x+getPerlin(x,y,z,17,40)*25,0,z+getPerlin(x,y,z,19,40)*25,2,200))
+		local rivuletThreshold = thresholdFilter(rivulet,.01,0)
+
+		local rockMap = thresholdFilter(ridgedFlippedFilter(getPerlin(x,0,z,101,7)),.3,.7)		--rocks
+			 * thresholdFilter(getPerlin(x,0,z,102,50),.6,.05)									--zoning
+
+		choiceBiomeValue = .5			--.51
+		+getPerlin(x,y,z,2,100)*.02		--.05
+		+rivulet*.05					--.02
+		+rockMap*.05		--.03
+		+rivuletThreshold*.005
+
+		local verticalGradient = 1-((y-1)/(mapHeight-1))
+		local surfaceGradient = verticalGradient*.5 + choiceBiomeValue*.5
+		local thinSurface = surfaceGradient > .5-surfaceThickness*.4 and surfaceGradient < .5+surfaceThickness*.4
+		choiceBiomeSurface =
+			(rockMap>0 and rock)
+			or (not thinSurface and mud)
+			or (thinSurface and rivuletThreshold <=0 and water)
+			or (1-verticalGradientTurbulence < waterLevel-.01 and sand)
+			or grass
+		choiceBiomeFill =
+			(rockMap>0 and rock)
+			or sandstone
+	elseif choiceBiome == 'Canyons' then
+		local canyonNoise = ridgedFlippedFilter(getPerlin(x,0,z,2,200))
+		local canyonNoiseTurbed = ridgedFlippedFilter(getPerlin(x+getPerlin(x,0,z,5,20,true)*20,0,z+getPerlin(x,0,z,9,20,true)*20,2,200))
+		local sandbank = thresholdFilter(canyonNoiseTurbed,0,.05)
+		local canyonTop = thresholdFilter(canyonNoiseTurbed,.125,0)
+		local mesaSlope = thresholdFilter(canyonNoise,.33,.12)
+		local mesaTop = thresholdFilter(canyonNoiseTurbed,.49,0)
+		choiceBiomeValue = .42
+			+getPerlin(x,y,z,2,70)*.05
+			+canyonNoise*.05
+			+sandbank*.04										--canyon bottom slope
+			+thresholdFilter(canyonNoiseTurbed,.05,0)*.08		--canyon cliff
+			+thresholdFilter(canyonNoiseTurbed,.05,.075)*.04	--canyon cliff top slope
+			+canyonTop*.01										--canyon cliff top ledge
+
+			+thresholdFilter(canyonNoiseTurbed,.0575,.2725)*.01	--plane slope
+
+			+mesaSlope*.06			--mesa slope
+			+thresholdFilter(canyonNoiseTurbed,.45,0)*.14		--mesa cliff
+			+thresholdFilter(canyonNoiseTurbed,.45,.04)*.025	--mesa cap
+			+mesaTop*.02										--mesa top ledge
+		choiceBiomeSurface =
+			(1-verticalGradientTurbulence < waterLevel+.015 and sand)		--this for biome blending in to lakes
+			or (sandbank>0 and sandbank<1 and sand)							--this for canyonbase sandbanks
+			--or (canyonTop>0 and canyonTop<=1 and mesaSlope<=0 and grass)		--this for grassy canyon tops
+			--or (mesaTop>0 and mesaTop<=1 and grass)							--this for grassy mesa tops
+			or sandstone
+		choiceBiomeFill = canyonBandingMaterial[ceil((1-getNoise(1,y,2))*10)]
+	elseif choiceBiome == 'Hills' then
+		local rivulet = ridgedFlippedFilter(getPerlin(x+getPerlin(x,y,z,17,20)*20,0,z+getPerlin(x,y,z,19,20)*20,2,200))^(1/2)
+		local largeHills = getPerlin(x,y,z,3,60)
+		choiceBiomeValue = .48
+			+largeHills*.05
+				+(.05
+				+largeHills*.1
+				+getPerlin(x,y,z,4,25)*.125)
+				*rivulet
+		local surfaceMaterialGradient = (1-verticalGradientTurbulence)*.9 + rivulet*.1
+		choiceBiomeSurface =
+			(surfaceMaterialGradient < waterLevel-.015 and mud)
+			or (surfaceMaterialGradient < waterLevel and ground)
+			or grass
+		choiceBiomeFill = slate
+	elseif choiceBiome == 'Dunes' then
+		local duneTurbulence = getPerlin(x,0,z,227,20)*24
+		local layer1 = ridgedFilter(getPerlin(x,0,z,201,40))
+		local layer2 = ridgedFilter(getPerlin(x/10+duneTurbulence,0,z+duneTurbulence,200,48))
+		choiceBiomeValue = .4+.1*(layer1 + layer2)
+		choiceBiomeSurface = sand
+		choiceBiomeFill = sandstone
+	elseif choiceBiome == 'Mountains' then
+		local rivulet = ridgedFlippedFilter(getPerlin(x+getPerlin(x,y,z,17,20)*20,0,z+getPerlin(x,y,z,19,20)*20,2,200))
+		choiceBiomeValue = -.4		--.3
+			+fractalize(mountainsOperation,x,y/20,z, 8, .65)*1.2
+			+rivulet*.2
+		choiceBiomeSurface =
+			(verticalGradientTurbulence < .275 and snow)
+			or (verticalGradientTurbulence < .35 and rock)
+			or (verticalGradientTurbulence < .4 and ground)
+			or (1-verticalGradientTurbulence < waterLevel and rock)
+			or (1-verticalGradientTurbulence < waterLevel+.01 and mud)
+			or (1-verticalGradientTurbulence < waterLevel+.015 and ground)
+			or grass
+	elseif choiceBiome == 'Lavaflow' then
+		local crackX = x+getPerlin(x,y*.25,z,21,8,true)*5
+		local crackY = y+getPerlin(x,y*.25,z,22,8,true)*5
+		local crackZ = z+getPerlin(x,y*.25,z,23,8,true)*5
+		local crack1 = ridgedFilter(getPerlin(crackX+getPerlin(x,y,z,22,30,true)*30,crackY,crackZ+getPerlin(x,y,z,24,30,true)*30,2,120))
+		local crack2 = ridgedFilter(getPerlin(crackX,crackY,crackZ,3,40))*(crack1*.25+.75)
+		local crack3 = ridgedFilter(getPerlin(crackX,crackY,crackZ,4,20))*(crack2*.25+.75)
+
+		local generalHills = thresholdFilter(getPerlin(x,y,z,9,40),.25,.5)*getPerlin(x,y,z,10,60)
+
+		local cracks = max(0,1-thresholdFilter(crack1,.975,0)-thresholdFilter(crack2,.925,0)-thresholdFilter(crack3,.9,0))
+
+		local spireVec = CFrame.Angles(.7,.7,0)*Vector3.new(crackX,crackY,crackZ)
+		local spires = thresholdFilter(getPerlin(spireVec.x/40,spireVec.y/300,spireVec.z/30,123,1),.6,.4)
+
+		choiceBiomeValue = waterLevel+.02
+			+cracks*(.5+generalHills*.5)*.02
+			+generalHills*.05
+			+spires*.3
+			+((1-verticalGradientTurbulence > waterLevel+.01 or spires>0) and .04 or 0)			--This lets it lip over water
+
+		choiceBiomeFill = (spires>0 and rock) or (cracks<1 and lava) or basalt
+		choiceBiomeSurface = (choiceBiomeFill == lava and 1-verticalGradientTurbulence < waterLevel and basalt) or choiceBiomeFill
+	elseif choiceBiome == 'Arctic' then
+		local preBoundary = getPerlin(x+getPerlin(x,0,z,5,8,true)*5,y/8,z+getPerlin(x,0,z,9,8,true)*5,2,20)
+		--local cliffs = thresholdFilter(preBoundary,.5,0)
+		local boundary = ridgedFilter(preBoundary)
+		local roughChunks = getPerlin(x,y/4,z,436,2)
+		local boundaryMask = thresholdFilter(boundary,.8,.1)	--,.7,.25)
+		local boundaryTypeMask = getPerlin(x,0,z,6,74)-.5
+		local boundaryComp = 0
+		if boundaryTypeMask < 0 then							--divergent
+			boundaryComp = (boundary > (1+boundaryTypeMask*.5) and -.17 or 0)
+							--* boundaryTypeMask*-2
+		else													--convergent
+			boundaryComp = boundaryMask*.1*roughChunks
+							* boundaryTypeMask
+		end
+		choiceBiomeValue = .55
+			+boundary*.05*boundaryTypeMask		--.1	--soft slope up or down to boundary
+			+boundaryComp								--convergent/divergent effects
+			+getPerlin(x,0,z,123,25)*.025	--*cliffs	--gentle rolling slopes
+
+		choiceBiomeSurface = (1-verticalGradientTurbulence < waterLevel-.1 and ice) or (boundaryMask>.6 and boundaryTypeMask>.1 and roughChunks>.5 and ice) or snow
+		choiceBiomeFill = ice
+	end
+	return choiceBiomeValue, choiceBiomeSurface, choiceBiomeFill
+end
+
+function findBiomeTransitionValue(biome,weight,value,averageValue)
+	if biome == 'Arctic' then
+		return (weight>.2 and 1 or 0)*value
+	elseif biome == 'Canyons' then
+		return (weight>.7 and 1 or 0)*value
+	elseif biome == 'Mountains' then
+		local weight = weight^3			--This improves the ease of mountains transitioning to other biomes
+		return averageValue*(1-weight)+value*weight
+	else
+		return averageValue*(1-weight)+value*weight
+	end
+end
+
+function updatePausedButton()
+	pauseButton.Style = paused and 'RobloxRoundButton' or 'RobloxRoundDefaultButton'
+	pauseButton.Text = paused and 'Resume' or 'Pause'
+end
+
+function generate()
+	if not generating and not clearing then
+		generating = true
+		paused = false
+		updatePausedButton()
+		cancelIt = false
+		progressFrame.Visible = true
+
+		local mapWidth = mapWidth
+		local biomeSize = biomeSize
+		local biomeBlendPercent = .25	--(biomeSize==50 or biomeSize == 100) and .5 or .25
+		local biomeBlendPercentInverse = 1-biomeBlendPercent
+		local biomeBlendDistortion = biomeBlendPercent
+		local smoothScale = .5/mapHeight
+
+		local startTime = tick()
+		biomes = {}
+		for i,v in pairs(allBiomes) do
+			if v then
+				table.insert(biomes,i)
+			end
+		end
+		if #biomes<=0 then
+			table.insert(biomes,'Hills')
+		end
+		--local oMap = {}
+		--local mMap = {}
+		for x = 1, mapWidth do
+			local oMapX = {}
+			--oMap[x] = oMapX
+			local mMapX = {}
+			--mMap[x] = mMapX
+			for z = 1, mapWidth do
+				local biomeNoCave = false
+				local cellToBiomeX = x/biomeSize + getPerlin(x,0,z,233,biomeSize*.3)*.25 + getPerlin(x,0,z,235,biomeSize*.05)*.075
+				local cellToBiomeZ = z/biomeSize + getPerlin(x,0,z,234,biomeSize*.3)*.25 + getPerlin(x,0,z,236,biomeSize*.05)*.075
+				local closestPoint = Vector3.new(0,0,0)
+				local closestDistance = 1000000
+				local biomePoints = {}
+				for vx=-1,1 do
+					for vz=-1,1 do
+						local gridPointX = floor(cellToBiomeX+vx+.5)
+						local gridPointZ = floor(cellToBiomeZ+vz+.5)
+						--local pointX, pointZ = getBiomePoint(gridPointX,gridPointZ)
+						local pointX = gridPointX+(getNoise(gridPointX,gridPointZ,53)-.5)*.75	--de-uniforming grid for vornonoi
+						local pointZ = gridPointZ+(getNoise(gridPointX,gridPointZ,73)-.5)*.75
+
+						local dist = sqrt((pointX-cellToBiomeX)^2 + (pointZ-cellToBiomeZ)^2)
+						if dist < closestDistance then
+							closestPoint = Vector3.new(pointX,0,pointZ)
+							closestDistance = dist
+						end
+						table.insert(biomePoints,{
+							x = pointX,
+							z = pointZ,
+							dist = dist,
+							biomeNoise = getNoise(gridPointX,gridPointZ),
+							weight = 0
+						})
+					end
+				end
+				local weightTotal = 0
+				local weightPoints = {}
+				for _,point in pairs(biomePoints) do
+					local weight = point.dist == closestDistance and 1 or ((closestDistance / point.dist)-biomeBlendPercentInverse)/biomeBlendPercent
+					if weight > 0 then
+						local weight = weight^2.1		--this smooths the biome transition from linear to cubic InOut
+						weightTotal = weightTotal + weight
+						local biome = biomes[ceil(#biomes*(1-point.biomeNoise))]	--inverting the noise so that it is limited as (0,1]. One less addition operation when finding a random list index
+						weightPoints[biome] = {
+							weight = weightPoints[biome] and weightPoints[biome].weight + weight or weight
+						}
+					end
+				end
+				for biome,info in pairs(weightPoints) do
+					info.weight = info.weight / weightTotal
+					if biome == 'Arctic' then		--biomes that don't have caves that breach the surface
+						biomeNoCave = true
+					end
+				end
+
+
+				for y = 1, mapHeight do
+					local oMapY = oMapX[y] or {}
+					oMapX[y] = oMapY
+					local mMapY = mMapX[y] or {}
+					mMapX[y] = mMapY
+
+					--[[local oMapY = {}
+					oMapX[y] = oMapY
+					local mMapY = {}
+					mMapX[z] = mMapY]]
+
+
+					local verticalGradient = 1-((y-1)/(mapHeight-1))
+					local caves = 0
+					local verticalGradientTurbulence = verticalGradient*.9 + .1*getPerlin(x,y,z,107,15)
+					local choiceValue = 0
+					local choiceSurface = lava
+					local choiceFill = rock
+	
+					if verticalGradient > .65 or verticalGradient < .1 then
+						--under surface of every biome; don't get biome data; waste of time.
+						choiceValue = .5
+					elseif #biomes == 1 then
+						choiceValue, choiceSurface, choiceFill = findBiomeInfo(biomes[1],x,y,z,verticalGradientTurbulence)
+					else
+						local averageValue = 0
+						--local findChoiceMaterial = -getNoise(x,y,z,19)
+						for biome,info in pairs(weightPoints) do
+							local biomeValue, biomeSurface, biomeFill = findBiomeInfo(biome,x,y,z,verticalGradientTurbulence)
+							info.biomeValue = biomeValue
+							info.biomeSurface = biomeSurface
+							info.biomeFill = biomeFill
+							local value = biomeValue * info.weight
+							averageValue = averageValue + value
+							--[[if findChoiceMaterial < 0 and findChoiceMaterial + weight >= 0 then
+								choiceMaterial = biomeMaterial
+							end
+							findChoiceMaterial = findChoiceMaterial + weight]]
+						end
+						for biome,info in pairs(weightPoints) do
+							local value = findBiomeTransitionValue(biome,info.weight,info.biomeValue,averageValue)
+							if value > choiceValue then
+								choiceValue = value
+								choiceSurface = info.biomeSurface
+								choiceFill = info.biomeFill
+							end
+						end
+					end
+
+					local preCaveComp = verticalGradient*.5 + choiceValue*.5
+
+					local surface = preCaveComp > .5-surfaceThickness and preCaveComp < .5+surfaceThickness
+
+					if generateCaves																--user wants caves
+						and (not biomeNoCave or verticalGradient > .65)								--biome allows caves or deep enough
+							and not (surface and (1-verticalGradient) < waterLevel+.005)			--caves only breach surface above waterlevel
+								and not (surface and (1-verticalGradient) > waterLevel+.58) then	--caves don't go too high so that they don't cut up mountain tops
+									local ridged2 = ridgedFilter(getPerlin(x,y,z,4,30))
+									local caves2 = thresholdFilter(ridged2,.84,.01)
+									local ridged3 = ridgedFilter(getPerlin(x,y,z,5,30))
+									local caves3 = thresholdFilter(ridged3,.84,.01)
+									local ridged4 = ridgedFilter(getPerlin(x,y,z,6,30))
+									local caves4 = thresholdFilter(ridged4,.84,.01)
+									local caveOpenings = (surface and 1 or 0) * thresholdFilter(getPerlin(x,0,z,143,62),.35,0)	--.45
+									caves = caves2 * caves3 * caves4 - caveOpenings
+									caves = caves < 0 and 0 or caves > 1 and 1 or caves
+					end
+
+					local comp = preCaveComp - caves
+
+					local smoothedResult = thresholdFilter(comp,.5,smoothScale)
+
+					---below water level				  -above surface		-no terrain
+					if 1-verticalGradient < waterLevel and preCaveComp <= .5 and smoothedResult <= 0 then
+						smoothedResult = 1
+						choiceSurface = water
+						choiceFill = water
+						surface = true
+					end
+
+					oMapY[z] = (y == 1 and 1) or smoothedResult
+					mMapY[z] = (y == 1 and lava) or (smoothedResult <= 0 and air) or (surface and choiceSurface) or choiceFill
+				end
+			end
+
+			local regionStart = Vector3.new(mapWidth*-2+(x-1)*4,mapHeight*-2,mapWidth*-2)
+			local regionEnd = Vector3.new(mapWidth*-2+x*4,mapHeight*2,mapWidth*2)
+			local mapRegion = Region3.new(regionStart, regionEnd)
+			terrain:WriteVoxels(mapRegion, 4, {mMapX}, {oMapX})
+
+			local completionPercent = x/mapWidth
+			barFill.Size = UDim2.new(completionPercent,0,1,0)
+
+			wait()
+			while paused and not cancelIt do
+				wait()
+			end
+			if cancelIt then
+				break
+			end
+		end
+		changeHistoryService:SetWaypoint('Terrain Generation')
+		progressFrame.Visible = false
+		generating = false
+		print('Generation Complete',tick()-startTime)
+	end
+end
+
+
+--------------------------------------------------------------------------------------------------------------------
+------------------------------------------------Setup User Interface------------------------------------------------
+
+function SetupUserInterface()
+	local mapSizes = {128,256,512,1024}
+	local mapSizeChangeFunction = function(index,text)
+		mapWidth = mapSizes[index]
+	end
+	createMultiChoice('Map Size', 35, mainFrame, {'Small (128)','Medium (256)','Large (512)','Massive (1024)'}, 2, mapSizeChangeFunction)
+
+	local seedChangeFunction = function(text)
+		local compositeNumber = 0
+		for i=1,#text do
+			local character = string.sub(text,i,i)
+			local number = tonumber(character)
+			if number then
+				compositeNumber = (compositeNumber+6)*(number+5)
+			else
+				compositeNumber = (compositeNumber+7)*(string.byte(character)+3)
+			end
+			compositeNumber = compositeNumber%61803	--yes, this does need to be done after every character iteration, otherwise number loses precision by the end
+		end
+		masterSeed = compositeNumber
+	end
+	createTextBox('Seed', 95, mainFrame, masterSeed, seedChangeFunction)
+
+	local cavesChangeFunction = function(value)
+		generateCaves = value
+	end
+	local cavesCheckBox = createCheckBox('Caves', 130, mainFrame, generateCaves, cavesChangeFunction)
+
+	local biomeSizes = {50,100,200,500}
+	local biomeSizeChangeFunction = function(index,text)
+		biomeSize = biomeSizes[index]
+	end
+	createMultiChoice('Biome Size', 165, mainFrame, {'Small (50)','Medium (100)','Large (200)','Massive (500)'}, 2, biomeSizeChangeFunction)
+
+	local biomesSettingsLabel, biomesFrame = createBiomesCheckboxSection(230, mainFrame)
+
+	local waterChangeFunction = function(value)
+		allBiomes['Water'] = value
+	end
+	local waterCheckBox = createCheckBox('Water', 5, biomesFrame, allBiomes['Water'], waterChangeFunction)
+
+	local marshChangeFunction = function(value)
+		allBiomes['Marsh'] = value
+	end
+	local marshCheckBox = createCheckBox('Marsh', 35, biomesFrame, allBiomes['Marsh'], marshChangeFunction)
+
+	local plainsChangeFunction = function(value)
+		allBiomes['Plains'] = value
+	end
+	local plainsCheckBox = createCheckBox('Plains', 65, biomesFrame, allBiomes['Plains'], plainsChangeFunction)
+
+	local hillsChangeFunction = function(value)
+		allBiomes['Hills'] = value
+	end
+	local hillsCheckBox = createCheckBox('Hills', 95, biomesFrame, allBiomes['Hills'], hillsChangeFunction)
+
+	local dunesChangeFunction = function(value)
+		allBiomes['Dunes'] = value
+	end
+	local dunesCheckBox = createCheckBox('Dunes', 125, biomesFrame, allBiomes['Dunes'], dunesChangeFunction)
+
+	local canyonsChangeFunction = function(value)
+		allBiomes['Canyons'] = value
+	end
+	local canyonsCheckBox = createCheckBox('Canyons', 155, biomesFrame, allBiomes['Canyons'], canyonsChangeFunction)
+
+	local mountainsChangeFunction = function(value)
+		allBiomes['Mountains'] = value
+	end
+	local mountainsCheckBox = createCheckBox('Mountains', 185, biomesFrame, allBiomes['Mountains'], mountainsChangeFunction)
+
+	local lavaflowChangeFunction = function(value)
+		allBiomes['Lavaflow'] = value
+	end
+	local lavaflowCheckBox = createCheckBox('Lavascape', 215, biomesFrame, allBiomes['Lavaflow'], lavaflowChangeFunction)
+
+	local arcticChangeFunction = function(value)
+		allBiomes['Arctic'] = value
+	end
+	local arcticCheckBox = createCheckBox('Arctic', 245, biomesFrame, allBiomes['Arctic'], arcticChangeFunction)
+end
+
+--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+
+
+function On(mouseHandMeDown,turnOffHandMeDown)
+	screenGui.Parent = coreGui
+	mainFrame.Visible = true
+
+	on = true
+	if mouseHandMeDown then
+		mouse = mouseHandMeDown
+	end
+	if turnOffHandMeDown then
+		turnOff = turnOffHandMeDown
+	end
 end
 
 function Off()
-	if Deselected then
-		Deselected()
+	closeMultiChoiceFrame()
+	if turnOff then
+		turnOff()
+	end
+	on = false
+	screenGui.Parent = nil
+	mainFrame.Visible = false
+end
+
+function clearTerrain()
+	if not generating and not clearing then
+		clearing = true
+		terrain:Clear()
+		changeHistoryService:SetWaypoint('Terrain Clear')
+		clearing = false
 	end
 end
 
-function Initialize(thePluginGui) 
-	pluginGui = thePluginGui
-end
 
 return {
 	['On'] = On,
 	['Off'] = Off,
-	['Initialize'] = Initialize,
+	["Initialize"] = Initialize,
 }
 
 
@@ -1092,12 +912,13 @@ return {
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6df65c8a3b8a4bf49e13f434ea56d416">
+		<Item class="ModuleScript" referent="RBXF1E2CBD4139A4EC5ABC0FD8A6DE0EAB0">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GuiUtilities</string>
 				<string name="ScriptGuid"></string>
 				<ProtectedString name="Source"><![CDATA[local module = {}
+
 
 module.kTitleBarHeight = 25
 module.kStandardContentAreaWidth = 180
@@ -1115,11 +936,11 @@ end
 
 
 -- Creates frame with optional title bar.
--- Width will fixed.
+-- Width will be full scale
 -- Height will be contentHeight + titleBarHeight (if TB is present)
 -- Handles all the styling for margins, fonts, etc.
 -- Returns the frame.
-function module.MakeSection(parentGui, name, title, width, contentHeight) 
+function module.MakeSection(parentGui, name, title, width, contentHeight)   -- We may want to remove the width parameter since it does not seem to have a purpose.
     local frame = Instance.new("Frame")
     frame.Name = name
     frame.Parent = parentGui
@@ -1139,8 +960,8 @@ function module.MakeSection(parentGui, name, title, width, contentHeight)
         contentYOffset = contentYOffset + module.kTitleBarHeight
     end
 
-    frame.Size = UDim2.new(0, width, 
-        0, contentYOffset + contentHeight)
+    --frame.Size = UDim2.new(0, width, 0, contentYOffset + contentHeight)
+    frame.Size = UDim2.new(1, 0, 0, contentYOffset + contentHeight)
 
     return frame
 end
@@ -1285,28 +1106,6 @@ function module.MakeMultiChoice(name, text, parent)
     return main
 end
 
--- A section/button thingy as used by Generation code.
-function module.MakeSectionButton(name, text, parent)
-    local main  = Instance.new("TextButton")
-    main.Parent = parent
-    main.Name = name
-    main.Text = text
-    main.BackgroundColor3 = Color3.new(1, 1, 1)
-    main.BackgroundTransparency = 0.75
-    main.BorderSizePixel = 0
-    main.Size = UDim2.new(1, 0, 0, 20)
-    main.TextXAlignment = Enum.TextXAlignment.Left
-
-    local frame = Instance.new("Frame")
-    frame.Parent = main
-    frame.Name = "Frame"
-    frame.BackgroundColor3 = Color3.new(1, 1, 1)
-    frame.BackgroundTransparency = 0.9
-    frame.Size = UDim2.new(1, 0, 0, 70)
-    frame.Position = UDim2.new(0, 60, 0, 2)
-    return main
-end
-
 -- A text box thingy as used by Generation code.
 function module.MakeTextBoxWithLabel(name, text, parent)
     local main  = Instance.new("TextLabel")
@@ -1327,429 +1126,22 @@ function module.MakeTextBoxWithLabel(name, text, parent)
 end
 
 function module.StyleScrollingFrame(scrollingFrame)
-	scrollingFrame.ClipsDescendants = true
+    scrollingFrame.ClipsDescendants = true
     scrollingFrame.ScrollingEnabled = true
-	scrollingFrame.BottomImage = "rbxasset://textures/ui/studs.png"
-	scrollingFrame.TopImage = "rbxasset://textures/ui/studs.png"
+    scrollingFrame.BottomImage = "rbxasset://textures/ui/studs.png"
+    scrollingFrame.TopImage = "rbxasset://textures/ui/studs.png"
     scrollingFrame.MidImage = "rbxasset://textures/ui/smooth.png"
     scrollingFrame.ScrollBarThickness = 12
     scrollingFrame.HorizontalScrollBarInset = Enum.ScrollBarInset.None
     scrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.None
     scrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
-    
 end
 
 return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXb815476321e44e939a34a0b23b8708c3">
-			<Properties>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">MainPanel</string>
-				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[local module = {}
-
-local GuiUtilities = require(script.Parent.GuiUtilities)
-
-local kMargin = 10
-
-module.kTerrainBrushFrameContentHeight = 300
-module.kTerrainGenerationContentHeight = 405
-module.kMultipleChoiceContentHeight = 270
-module.kTerrainRegionsContentHeight = 345
-module.kFillSelectionContentHeight = 270
-
-module.MainButtonDatas = 
-{
-    {
-        name = "Generate",
-    }, 
-    {
-        name = "Add",
-    }, 
-    {
-        name = "Subtract",
-    }, 
-    {
-        name = "Paint",
-    }, 
-    {
-        name = "Grow",
-    }, 
-    {
-        name = "Erode",
-    }, 
-    {
-        name = "Smooth",
-    }, 
-    {
-        name = "Regions",
-    }, 
-}
-
-local kNumRows = math.ceil(#module.MainButtonDatas/2)
-local kButtonRowHeight = 50
-
-
-local function addButtonToMainPanel(contentFrame, luaButtonIndex)
-    local buttonData = module.MainButtonDatas[luaButtonIndex];
-    local niceButtonIndex = luaButtonIndex - 1
-
-    local button = GuiUtilities.MakeTextButton(buttonData.name, buttonData.name, contentFrame)
-
-    local column = (niceButtonIndex % 2)
-    local row = math.floor(niceButtonIndex / 2)
-
-    button.Position = UDim2.new((column * 0.5), kMargin,
-                                row * (1.0 / kNumRows), kMargin)
-    button.Size = UDim2.new(0.5, -2 * kMargin, (1.0 / kNumRows), -2 * kMargin)
-
-    return button
-end
-
-function module.GetMainPanelHeight()
-    return kButtonRowHeight * kNumRows
-end
-
-
-function module.GetTerrainGenerationHeight()
-    return module.kTerrainGenerationContentHeight + GuiUtilities.kTitleBarHeight
-end
-
-function module.GetRegionsFrameHeight()
-	return module.kTerrainRegionsContentHeight + GuiUtilities.kTitleBarHeight
-end
-
-function module.MakeMainPanel(parentGui)
-    -- Make a frame
-    local section = GuiUtilities.MakeSection(parentGui, "MainPanel", nil, GuiUtilities.kStandardContentAreaWidth,  module.GetMainPanelHeight())
-
-    -- Make a button for each top-level function.  Add it to module.MainButtonDatas.
-    for luaButtonIndex = 1, #module.MainButtonDatas do 
-        local button = addButtonToMainPanel(section, luaButtonIndex)
-        module.MainButtonDatas[luaButtonIndex].button = button
-    end
-
-    section.Position = UDim2.new(0, 0, 0, 0)
-
-    return section
-end
-
--- Create the "TerrainBrush" main frame, complete with all the widgets & whatnot inside.
-function module.MakeTerrainBrushFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "TerrainBrushFrame", "Terrain Brush", GuiUtilities.kStandardContentAreaWidth, module.kTerrainBrushFrameContentHeight)
-
-	local shapeButton1 = GuiUtilities.MakeShapeButton("ShapeButton1", 
-		"http://www.roblox.com/asset/?id=225799533", 
-		section)
-	shapeButton1.Position = UDim2.new(0, 73, 0, 81)
-
-	local shapeButton2 = GuiUtilities.MakeShapeButton("ShapeButton2", 
-		"http://www.roblox.com/asset/?id=225799696", 
-		section)
-	shapeButton2.Position = UDim2.new(0, 118, 0, 81)
-	
-	local checkBox1 = GuiUtilities.MakeCheckBox("CheckBox1", 
-		"Plane Lock", 
-		section)
-	checkBox1.Position = UDim2.new(0, 10, 0, 130)
-	
-	local checkBox2 = GuiUtilities.MakeCheckBox("CheckBox2", 
-		"Snap to Grid", 
-		section)
-	checkBox2.Position = UDim2.new(0, 10, 0, 160)
-
-	local checkBox3 = GuiUtilities.MakeCheckBox("CheckBox3", 
-		"Auto", 
-		section)
-	checkBox3.Position = UDim2.new(0, 90, 0, 230)
-
-
-	local checkBox4 = GuiUtilities.MakeCheckBox("CheckBox4", 
-		"Ignore Water", 
-		section)
-	checkBox4.Position = UDim2.new(0, 10, 0, 190)
-
-	local divider1 = GuiUtilities.MakeDivider("Divider1", 
-        section)
-	divider1.Position = UDim2.new(0, 0, 0, 120)
-	
-	local divider2 = GuiUtilities.MakeDivider("Divider2", 
-        section)
-	divider2.Position = UDim2.new(0, 0, 0, 225)
-	
-	local sizeLabel = GuiUtilities.MakeSmallLabel("Label1", 
-		"Size",
-		section)
-	sizeLabel.Position = UDim2.new(0, 10, 0, 30)
-	
-	local strengthLabel = GuiUtilities.MakeSmallLabel("Label2", 
-		"Strength", 
-		section)
-	strengthLabel.Position = UDim2.new(0, 10, 0, 55)
-
-	local shapeLabel = GuiUtilities.MakeSmallLabel("Label3", 
-		"Shape", 
-		section)
-	shapeLabel.Position = UDim2.new(0, 10, 0, 85)
-
-	local materialLabel = GuiUtilities.MakeLargeLabel("Label4", 
-		"Material", 
-		section)
-	materialLabel.Position = UDim2.new(0, 10, 0, 233)
-
-	local toolTip1 = GuiUtilities.MakeToolTip("ToolTip1", 
-		"Shift + mouse wheel", 
-		section)
-	toolTip1.Position = UDim2.new(0, 10, 0, 30)
-
-	local toolTip2 = GuiUtilities.MakeToolTip("ToolTip2", 
-		"Ctrl + mouse wheel", 
-		section)
-	toolTip2.Position = UDim2.new(0, 10, 0, 55)
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
-	section.Visible = false
-
-    return section
-end
-
--- Create the "TerrainGeneration" main frame, complete with all the widgets & whatnot inside.
-function module.MakeTerrainGenerationFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "TerrainGenerationFrame", "Generation", GuiUtilities.kStandardContentAreaWidth, module.kTerrainGenerationContentHeight)
-
-	local scrollBackground = Instance.new("Frame")
-	scrollBackground.Parent = section
-	scrollBackground.Name = "ScrollBackground"
-	scrollBackground.BackgroundColor3 = Color3.new(0, 0, 0)
-	scrollBackground.BackgroundTransparency = 0.7
-	scrollBackground.BorderSizePixel = 0
-	scrollBackground.ZIndex = 1
-	scrollBackground.Size = UDim2.new(0, 12, 1, -115)
-	scrollBackground.Position = UDim2.new(1, -12, 0, 30)
-
-	local scrollingFrame = Instance.new("ScrollingFrame")
-	scrollingFrame.Parent = section
-	scrollingFrame.Name = "ScrollingFrame"
-	scrollingFrame.BackgroundColor3 = Color3.new(1, 1, 1)
-	scrollingFrame.BackgroundTransparency = 1
-	scrollingFrame.BorderSizePixel = 0
-	scrollingFrame.ZIndex = 2
-	scrollingFrame.Size = UDim2.new(1, 0, 1, -115)
-	scrollingFrame.Position = UDim2.new(0, 0, 0, 30)
-	scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 495)
-	GuiUtilities.StyleScrollingFrame(scrollingFrame)
-
-	local canvas = Instance.new("Frame")
-	canvas.Parent = scrollingFrame
-	canvas.Name = "Canvas"
-	canvas.BackgroundColor3 = Color3.new(1, 1, 1)
-	canvas.BackgroundTransparency = 1
-	canvas.BorderSizePixel = 0
-	canvas.ZIndex = 1
-	canvas.Size = UDim2.new(1, -13, 1, 0)
-	canvas.Position = UDim2.new(0, 0, 0, 0)
-
-	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", section)
-	generateButton.Size = UDim2.new(1, -20, 0, 30)
-	generateButton.Position = UDim2.new(0, 10, 1, -70)
-
-	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", section)
-	clearButton.Size = UDim2.new(1, -20, 0, 30)
-	clearButton.Position = UDim2.new(0, 10, 1, -35)
-
-	local divider = GuiUtilities.MakeDivider("Divider", section)
-	divider.Position = UDim2.new(0, 0, 1, -80)
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
-	section.Visible = false
-
-	return section
-end
-
-function module.MakeMultipleChoiceFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "MultipleChoiceFrame", "Multiple Choice", GuiUtilities.kStandardContentAreaWidth, module.kMultipleChoiceContentHeight)
-
-	section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight() + module.GetTerrainGenerationHeight())
-	section.Visible = false
-
-	return section
-end
-
-function module.MakeRegionsFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "TerrainRegionFrame", "Regions", GuiUtilities.kStandardContentAreaWidth, module.kTerrainRegionsContentHeight)
-
-	local selectButton = GuiUtilities.MakeTextButton("ButtonSelect", "Select", section)
-	selectButton.Size = UDim2.new(1, -20, 0, 30)
-	selectButton.Position = UDim2.new(0, 10, 0, 35)
-
-	local moveButton = GuiUtilities.MakeTextButton("ButtonMove", "Move", section)
-	moveButton.Size = UDim2.new(1, -20, 0, 30)
-	moveButton.Position = UDim2.new(0, 10, 0, 65)
-
-	local resizeButton = GuiUtilities.MakeTextButton("ButtonResize", "Resize", section)
-	resizeButton.Size = UDim2.new(1, -20, 0, 30)
-	resizeButton.Position = UDim2.new(0, 10, 0, 95)
-
-	local rotateButton = GuiUtilities.MakeTextButton("ButtonRotate", "Rotate", section)
-	rotateButton.Size = UDim2.new(1, -20, 0, 30)
-	rotateButton.Position = UDim2.new(0, 10, 0, 125)
-
-	local divider2 = GuiUtilities.MakeDivider("Divider2", section)
-	divider2.Position = UDim2.new(0, 0, 0, 165)
-
-	local copyButton = GuiUtilities.MakeTextButton("ButtonCopy", "Copy", section)
-	copyButton.Size = UDim2.new(1, -20, 0, 30)
-	copyButton.Position = UDim2.new(0, 10, 0, 175)
-
-	local pasteButton = GuiUtilities.MakeTextButton("ButtonPaste", "Paste", section)
-	pasteButton.Size = UDim2.new(1, -20, 0, 30)
-	pasteButton.Position = UDim2.new(0, 10, 0, 205)
-
-	local deleteButton = GuiUtilities.MakeTextButton("ButtonDelete", "Delete", section)
-	deleteButton.Size = UDim2.new(1, -20, 0, 30)
-	deleteButton.Position = UDim2.new(0, 10, 0, 235)
-
-	local fillButton = GuiUtilities.MakeTextButton("ButtonFill", "Fill", section)
-	fillButton.Size = UDim2.new(1, -20, 0, 30)
-	fillButton.Position = UDim2.new(0, 10, 0, 265)
-
-	local divider3 = GuiUtilities.MakeDivider("Divider3", section)
-	divider3.Position = UDim2.new(0, 0, 0, 305)
-	
-
-	local checkbox1 = GuiUtilities.MakeCheckBox("ButtonFillWater", "Fill Water", section)
-	checkbox1.Position = UDim2.new(0, 10, 0, 315)
-	checkbox1.Visible = false
-
-	local checkbox2 = GuiUtilities.MakeCheckBox("ButtonFillAir", "Merge Empty", section)
-	checkbox2.Position = UDim2.new(0, 10, 0, 315)
-
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
-	section.Visible = false
-
-	return section
-end
-	
-function module.MakeRegionsFillFrame(pluginGui)
-	local section = GuiUtilities.MakeSection(pluginGui, "FillFrame", "Fill Selection", GuiUtilities.kStandardContentAreaWidth, module.kFillSelectionContentHeight)
-
-	local fillButton = GuiUtilities.MakeTextButton("ButtonFillConfirm", "Fill", section)
-	fillButton.Size = UDim2.new(1, -20, 0, 30)
-	fillButton.Position = UDim2.new(1, 10, 1, -40)
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight() + module.GetRegionsFrameHeight())
-	section.Visible = false
-
-	return section
-end
-
-
-return module]]></ProtectedString>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-		</Item>
-		<Item class="Script" referent="RBX4fa418c0e94f4cd2ade43fee02deb416">
-			<Properties>
-				<bool name="Disabled">false</bool>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">main</string>
-				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[local mainPanelModule = require(script.parent.MainPanel)
-local terrainBrushScriptModule = require(script.parent.TerrainBrush)
-
--- A function to sync toolbar button 'active' state with plugin gui
--- visibility.
-local function updateButtonActive(button, plugin)
-    if plugin.Enabled then 
-      button:SetActive(true)
-    else
-      button:SetActive(false)
-    end
-end
-
-local function IsTerrainToolsInLuaWidgetEnabled()
-    local StudioTerrainToolsInLuaWidget = false
-    local successFlagFetch, flagResult = pcall(function()
-        return settings():GetFFlag("StudioTerrainToolsInLuaWidget")
-    end)
-    if successFlagFetch then
-        StudioTerrainToolsInLuaWidget = flagResult
-    end
-    
-    return StudioTerrainToolsInLuaWidget
-end
-
--- If we are not using new-school terrain tools, bail immediately.
-if (not IsTerrainToolsInLuaWidgetEnabled()) then 
-    return
-end
-
--- Create the toolbar, create the button to toggle terrain tools plugin GUI on/off.
-local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
-local toggleVisibilityButton = toolbar:CreateButton('Terrain Tools',
-                'Add, remove, and modify terrain',
-                'http://www.roblox.com/asset/?id=225329641')
-
-local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false)
-
-local pluginGui = plugin:CreateDockWidgetPluginGui("TerrainTools_PluginGui", dockWidgetPluginGuiInfo)
-pluginGui.Title = "Terrain Tools"
-
-toggleVisibilityButton.Click:connect(function()
-    if pluginGui.Enabled then
-        pluginGui.Enabled = false
-    else
-        pluginGui.Enabled = true
-    end
-end)
-
-
--- Immediately sync toolbar button active state with plugin gui visibility.   
-updateButtonActive(toggleVisibilityButton, pluginGui)
-
--- Listen for changes in plugin gui visibility to keep toolbar button
--- active state synced.
-pluginGui.Changed:connect(function(property)
-    if (property == "Enabled") then 
-       updateButtonActive(toggleVisibilityButton, pluginGui)
-    end
- end)     
-
--- Make sure plugin and pluginGui have nice user-facing names.
-plugin.Name = "Terrain"
-pluginGui.Name = "Tools"
-
-
--- Some craziness I don't fully understand.
-local Terrain = workspace:WaitForChild('Terrain', 86400) or workspace:WaitForChild('Terrain')
-while not Terrain.IsSmooth do
-	Terrain.Changed:wait()
-end
-
--- Add the main panel.
-mainPanelModule.MakeMainPanel(pluginGui)
-
--- Add the Terrain Brush Frame
-mainPanelModule.MakeTerrainBrushFrame(pluginGui)
-
--- Add Terrain Generation Frame(s)
-mainPanelModule.MakeTerrainGenerationFrame(pluginGui)
-mainPanelModule.MakeMultipleChoiceFrame(pluginGui)
-
--- Add Terrain Regions Frame(s)
-mainPanelModule.MakeRegionsFrame(pluginGui)
-mainPanelModule.MakeRegionsFillFrame(pluginGui)
-
-
--- Have legacy code Set Things Up.
-terrainBrushScriptModule.Initialize(plugin, pluginGui, mainPanelModule.MainButtonDatas)]]></ProtectedString>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-		</Item>
-		<Item class="ModuleScript" referent="RBX1d1eaa26999d43e5b1c1006226d4e6e5">
+		<Item class="ModuleScript" referent="RBXC412F6AE529C436B94E14FB4D99D39AB">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainSmoother</string>
@@ -1895,7 +1287,442 @@ return {
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXa9f45f1860304edfa6886ca1c29f6397">
+		<Item class="Script" referent="RBXB733BBD8695D4AC2A861F9B90E6D36F7">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">main</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[local mainPanelModule = require(script.parent.MainPanel)
+local terrainBrushScriptModule = require(script.parent.TerrainBrush)
+
+-- A function to sync toolbar button 'active' state with plugin gui
+-- visibility.
+local function updateButtonActive(button, plugin)
+    if plugin.Enabled then 
+      button:SetActive(true)
+    else
+      button:SetActive(false)
+    end
+end
+
+local function IsTerrainToolsInLuaWidgetEnabled()
+    local StudioTerrainToolsInLuaWidget = false
+    local successFlagFetch, flagResult = pcall(function()
+        return settings():GetFFlag("StudioTerrainToolsInLuaWidget")
+    end)
+    if successFlagFetch then
+        StudioTerrainToolsInLuaWidget = flagResult
+    end
+    
+    return StudioTerrainToolsInLuaWidget
+end
+
+-- If we are not using new-school terrain tools, bail immediately.
+if (not IsTerrainToolsInLuaWidgetEnabled()) then 
+    return
+end
+
+-- Create the toolbar, create the button to toggle terrain tools plugin GUI on/off.
+local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
+local toggleVisibilityButton = toolbar:CreateButton('Terrain Tools',
+                'Add, remove, and modify terrain',
+                'http://www.roblox.com/asset/?id=225329641')
+
+local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false)
+
+local pluginGui = plugin:CreateDockWidgetPluginGui("TerrainTools_PluginGui", dockWidgetPluginGuiInfo)
+pluginGui.Title = "Terrain Tools"
+
+toggleVisibilityButton.Click:connect(function()
+    if pluginGui.Enabled then
+        pluginGui.Enabled = false
+    else
+        pluginGui.Enabled = true
+    end
+end)
+
+
+-- Immediately sync toolbar button active state with plugin gui visibility.   
+updateButtonActive(toggleVisibilityButton, pluginGui)
+
+-- Listen for changes in plugin gui visibility to keep toolbar button
+-- active state synced.
+pluginGui.Changed:connect(function(property)
+    if (property == "Enabled") then 
+       updateButtonActive(toggleVisibilityButton, pluginGui)
+    end
+ end)     
+
+-- Make sure plugin and pluginGui have nice user-facing names.
+plugin.Name = "Terrain"
+pluginGui.Name = "Tools"
+
+
+-- Some craziness I don't fully understand.
+local Terrain = workspace:WaitForChild('Terrain', 86400) or workspace:WaitForChild('Terrain')
+while not Terrain.IsSmooth do
+	Terrain.Changed:wait()
+end
+
+-- Add the main panel.
+local mainPanelButtons, mainSpaceScrollingFrame = mainPanelModule.MakeMainPanel(pluginGui)
+
+-- Add the Terrain Brush Frame
+mainPanelModule.MakeTerrainBrushFrame(pluginGui)
+
+-- Add Terrain Generation Frame(s)
+mainPanelModule.MakeTerrainGenerationFrame(pluginGui)
+mainPanelModule.MakeMultipleChoiceFrame(pluginGui)
+
+-- Add Terrain Regions Frame(s)
+mainPanelModule.MakeRegionsFrame(pluginGui)
+mainPanelModule.MakeRegionsFillFrame(pluginGui)
+
+
+-- Have legacy code Set Things Up.
+terrainBrushScriptModule.Initialize(plugin, pluginGui, mainPanelModule.MainButtonDatas)]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX94F2DFCD2934451981FFEF78B86CE6C8">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">MainPanel</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[local module = {}
+
+local GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kMargin = 10
+
+local kMainButtonSize = UDim2.new(0,51,0,51)
+local kMainButtonFramePadding = UDim.new(0,4)
+
+module.kTerrainBrushFrameContentHeight = 300
+module.kTerrainGenerationContentHeight = 610
+module.kMultipleChoiceContentHeight = 270
+module.kTerrainRegionsContentHeight = 345
+module.kFillSelectionContentHeight = 270
+
+module.MainButtonDatas = 
+{
+    {
+        name = "Generate",
+    }, 
+    {
+        name = "Add",
+    }, 
+    {
+        name = "Subtract",
+    }, 
+    {
+        name = "Paint",
+    }, 
+    {
+        name = "Grow",
+    }, 
+    {
+        name = "Erode",
+    }, 
+    {
+        name = "Smooth",
+    }, 
+    {
+        name = "Regions",
+    }, 
+}
+
+local kNumRows = math.ceil(#module.MainButtonDatas/2)
+local kButtonRowHeight = 50
+
+
+local function addButtonToMainPanel(contentFrame, luaButtonIndex)
+	local buttonData = module.MainButtonDatas[luaButtonIndex]
+
+	local button = Instance.new("ImageButton")
+	button.Name = buttonData.name
+
+	local buttonIcon = Instance.new("ImageLabel")
+	buttonIcon.BackgroundTransparency = 1
+	buttonIcon.Image = buttonData.icon or ""
+	buttonIcon.Size = UDim2.new(0,26,0,26)
+	buttonIcon.Position = UDim2.new(0,13,0,3)
+	buttonIcon.Parent = button
+
+	local textLabel = Instance.new("TextLabel")
+	textLabel.BackgroundTransparency = 1
+	textLabel.Text = buttonData.name
+	textLabel.Position = UDim2.new(0,0,1,-22)
+	textLabel.Size = UDim2.new(1,0,0,22)
+	textLabel.TextScaled = true
+	textLabel.Font = Enum.Font.SourceSans
+
+	local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
+	uiTextSizeConstraint.MaxTextSize = 15		-- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
+													--Note: For this font the Roblox text size is 25.7% larger than the design spec. 
+	uiTextSizeConstraint.Parent = textLabel
+
+	textLabel.Parent = button
+
+	button.Parent = contentFrame
+
+	return button
+end
+
+function module.GetMainPanelHeight()
+    return kButtonRowHeight * kNumRows
+end
+
+
+function module.GetTerrainGenerationHeight()
+    return module.kTerrainGenerationContentHeight + GuiUtilities.kTitleBarHeight
+end
+
+function module.GetRegionsFrameHeight()
+	return module.kTerrainRegionsContentHeight + GuiUtilities.kTitleBarHeight
+end
+
+
+-- Creates the main panel for tools, and creates the scrolling frame for sub-content section.
+-- The main panel will be resized dynamically when widget is stretched horizontally
+-- The sub-content section will resize to fill the rest of the vertical space that the main panel is not using.
+-- Returns the main panel, and returns the sub-content section
+function module.MakeMainPanel(parentGui)
+    -- Make a frame
+    local section = GuiUtilities.MakeSection(parentGui, "MainPanel", nil, 100,  100)	-- Both width and height do not matter as the frame will be resized dynamically.
+
+	local buttonListFrame = Instance.new("Frame")
+	buttonListFrame.Name = "ButtonListFrame"
+	buttonListFrame.BackgroundTransparency = 1
+	buttonListFrame.Size = UDim2.new(1, 0, 1, 0)
+	buttonListFrame.Position = UDim2.new(0, 0, 0, 0)
+
+	local uiGridLayout = Instance.new("UIGridLayout")
+	uiGridLayout.CellSize = kMainButtonSize
+	uiGridLayout.CellPadding = UDim2.new(0,0,0,0)
+	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+	uiGridLayout.Parent = buttonListFrame
+
+	local uiPadding = Instance.new("UIPadding")
+	uiPadding.PaddingBottom = kMainButtonFramePadding
+	uiPadding.PaddingLeft = kMainButtonFramePadding
+	uiPadding.PaddingRight = kMainButtonFramePadding
+	uiPadding.PaddingTop = kMainButtonFramePadding
+	uiPadding.Parent = buttonListFrame
+
+	for luaButtonIndex, mainButtonData in ipairs(module.MainButtonDatas) do 
+		 mainButtonData.button = addButtonToMainPanel(buttonListFrame, luaButtonIndex)
+	end
+
+	buttonListFrame.Parent = section
+
+    section.Position = UDim2.new(0, 0, 0, 0)
+
+	-- Make the sub-content section
+	local mainSpaceScrollingFrame = Instance.new("ScrollingFrame")
+	mainSpaceScrollingFrame.Name = "MainDetailsSpace"
+	mainSpaceScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+	--GuiUtilities.StyleScrollingFrame(mainSpaceScrollingFrame)
+	mainSpaceScrollingFrame.Parent = parentGui
+
+	-- Adjust the vertical size of the main buttons panel and the main panel details space when the main panel buttons change the number of rows are being rendered
+	local function updateMainSectionsSizesAndPositions()
+		section.Size = UDim2.new(1, 0, 0, uiGridLayout.AbsoluteContentSize.Y+kMainButtonFramePadding.Offset*2)
+		mainSpaceScrollingFrame.Size = UDim2.new(1, 0, 1, -section.AbsoluteSize.Y)
+		mainSpaceScrollingFrame.Position = UDim2.new(0, 0, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y)
+	end
+	uiGridLayout.Changed:connect(updateMainSectionsSizesAndPositions)
+	updateMainSectionsSizesAndPositions()
+
+    return section, mainSpaceScrollingFrame
+end
+
+-- Create the "TerrainBrush" main frame, complete with all the widgets & whatnot inside.
+function module.MakeTerrainBrushFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "TerrainBrushFrame", "Terrain Brush", GuiUtilities.kStandardContentAreaWidth, module.kTerrainBrushFrameContentHeight)
+
+	local shapeButton1 = GuiUtilities.MakeShapeButton("ShapeButton1", 
+		"http://www.roblox.com/asset/?id=225799533", 
+		section)
+	shapeButton1.Position = UDim2.new(0, 73, 0, 81)
+
+	local shapeButton2 = GuiUtilities.MakeShapeButton("ShapeButton2", 
+		"http://www.roblox.com/asset/?id=225799696", 
+		section)
+	shapeButton2.Position = UDim2.new(0, 118, 0, 81)
+	
+	local checkBox1 = GuiUtilities.MakeCheckBox("CheckBox1", 
+		"Plane Lock", 
+		section)
+	checkBox1.Position = UDim2.new(0, 10, 0, 130)
+	
+	local checkBox2 = GuiUtilities.MakeCheckBox("CheckBox2", 
+		"Snap to Grid", 
+		section)
+	checkBox2.Position = UDim2.new(0, 10, 0, 160)
+
+	local checkBox3 = GuiUtilities.MakeCheckBox("CheckBox3", 
+		"Auto", 
+		section)
+	checkBox3.Position = UDim2.new(0, 90, 0, 230)
+
+
+	local checkBox4 = GuiUtilities.MakeCheckBox("CheckBox4", 
+		"Ignore Water", 
+		section)
+	checkBox4.Position = UDim2.new(0, 10, 0, 190)
+
+	local divider1 = GuiUtilities.MakeDivider("Divider1", 
+        section)
+	divider1.Position = UDim2.new(0, 0, 0, 120)
+	
+	local divider2 = GuiUtilities.MakeDivider("Divider2", 
+        section)
+	divider2.Position = UDim2.new(0, 0, 0, 225)
+	
+	local sizeLabel = GuiUtilities.MakeSmallLabel("Label1", 
+		"Size",
+		section)
+	sizeLabel.Position = UDim2.new(0, 10, 0, 30)
+	
+	local strengthLabel = GuiUtilities.MakeSmallLabel("Label2", 
+		"Strength", 
+		section)
+	strengthLabel.Position = UDim2.new(0, 10, 0, 55)
+
+	local shapeLabel = GuiUtilities.MakeSmallLabel("Label3", 
+		"Shape", 
+		section)
+	shapeLabel.Position = UDim2.new(0, 10, 0, 85)
+
+	local materialLabel = GuiUtilities.MakeLargeLabel("Label4", 
+		"Material", 
+		section)
+	materialLabel.Position = UDim2.new(0, 10, 0, 233)
+
+	local toolTip1 = GuiUtilities.MakeToolTip("ToolTip1", 
+		"Shift + mouse wheel", 
+		section)
+	toolTip1.Position = UDim2.new(0, 10, 0, 30)
+
+	local toolTip2 = GuiUtilities.MakeToolTip("ToolTip2", 
+		"Ctrl + mouse wheel", 
+		section)
+	toolTip2.Position = UDim2.new(0, 10, 0, 55)
+
+    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
+	section.Visible = false
+
+    return section
+end
+
+-- Create the "TerrainGeneration" main frame, complete with all the widgets & whatnot inside.
+function module.MakeTerrainGenerationFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "TerrainGenerationFrame", "Generation", GuiUtilities.kStandardContentAreaWidth, module.kTerrainGenerationContentHeight)
+
+	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", section)
+	generateButton.Size = UDim2.new(1, -20, 0, 30)
+	generateButton.Position = UDim2.new(0, 10, 1, -70)
+
+	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", section)
+	clearButton.Size = UDim2.new(1, -20, 0, 30)
+	clearButton.Position = UDim2.new(0, 10, 1, -35)
+
+	local divider = GuiUtilities.MakeDivider("Divider", section)
+	divider.Position = UDim2.new(0, 0, 1, -80)
+
+    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
+	section.Visible = false
+
+	return section
+end
+
+function module.MakeMultipleChoiceFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "MultipleChoiceFrame", "Multiple Choice", GuiUtilities.kStandardContentAreaWidth, module.kMultipleChoiceContentHeight)
+
+	section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight() + module.GetTerrainGenerationHeight())
+	section.Visible = false
+
+	return section
+end
+
+function module.MakeRegionsFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "TerrainRegionFrame", "Regions", GuiUtilities.kStandardContentAreaWidth, module.kTerrainRegionsContentHeight)
+
+	local selectButton = GuiUtilities.MakeTextButton("ButtonSelect", "Select", section)
+	selectButton.Size = UDim2.new(1, -20, 0, 30)
+	selectButton.Position = UDim2.new(0, 10, 0, 35)
+
+	local moveButton = GuiUtilities.MakeTextButton("ButtonMove", "Move", section)
+	moveButton.Size = UDim2.new(1, -20, 0, 30)
+	moveButton.Position = UDim2.new(0, 10, 0, 65)
+
+	local resizeButton = GuiUtilities.MakeTextButton("ButtonResize", "Resize", section)
+	resizeButton.Size = UDim2.new(1, -20, 0, 30)
+	resizeButton.Position = UDim2.new(0, 10, 0, 95)
+
+	local rotateButton = GuiUtilities.MakeTextButton("ButtonRotate", "Rotate", section)
+	rotateButton.Size = UDim2.new(1, -20, 0, 30)
+	rotateButton.Position = UDim2.new(0, 10, 0, 125)
+
+	local divider2 = GuiUtilities.MakeDivider("Divider2", section)
+	divider2.Position = UDim2.new(0, 0, 0, 165)
+
+	local copyButton = GuiUtilities.MakeTextButton("ButtonCopy", "Copy", section)
+	copyButton.Size = UDim2.new(1, -20, 0, 30)
+	copyButton.Position = UDim2.new(0, 10, 0, 175)
+
+	local pasteButton = GuiUtilities.MakeTextButton("ButtonPaste", "Paste", section)
+	pasteButton.Size = UDim2.new(1, -20, 0, 30)
+	pasteButton.Position = UDim2.new(0, 10, 0, 205)
+
+	local deleteButton = GuiUtilities.MakeTextButton("ButtonDelete", "Delete", section)
+	deleteButton.Size = UDim2.new(1, -20, 0, 30)
+	deleteButton.Position = UDim2.new(0, 10, 0, 235)
+
+	local fillButton = GuiUtilities.MakeTextButton("ButtonFill", "Fill", section)
+	fillButton.Size = UDim2.new(1, -20, 0, 30)
+	fillButton.Position = UDim2.new(0, 10, 0, 265)
+
+	local divider3 = GuiUtilities.MakeDivider("Divider3", section)
+	divider3.Position = UDim2.new(0, 0, 0, 305)
+	
+
+	local checkbox1 = GuiUtilities.MakeCheckBox("ButtonFillWater", "Fill Water", section)
+	checkbox1.Position = UDim2.new(0, 10, 0, 315)
+	checkbox1.Visible = false
+
+	local checkbox2 = GuiUtilities.MakeCheckBox("ButtonFillAir", "Merge Empty", section)
+	checkbox2.Position = UDim2.new(0, 10, 0, 315)
+
+
+    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
+	section.Visible = false
+
+	return section
+end
+	
+function module.MakeRegionsFillFrame(pluginGui)
+	local section = GuiUtilities.MakeSection(pluginGui, "FillFrame", "Fill Selection", GuiUtilities.kStandardContentAreaWidth, module.kFillSelectionContentHeight)
+
+	local fillButton = GuiUtilities.MakeTextButton("ButtonFillConfirm", "Fill", section)
+	fillButton.Size = UDim2.new(1, -20, 0, 30)
+	fillButton.Position = UDim2.new(1, 10, 1, -40)
+
+    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight() + module.GetRegionsFrameHeight())
+	section.Visible = false
+
+	return section
+end
+
+
+return module]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXA80ACAFF2D4A4736A1A869CC519CC41C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainBrush</string>
@@ -3021,850 +2848,1044 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX8cbe4d08f0a74df5b28bd369a68312d9">
+		<Item class="ModuleScript" referent="RBX81CFC708AB1549F0892E199DE5DEE669">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">TerrainGeneration</string>
+				<string name="Name">TerrainRegionEditor</string>
 				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[--Stickmasterluke
+				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
 
-local GuiUtilities = require(script.Parent.GuiUtilities)
 
-local coreGui = game:GetService('CoreGui')
-local changeHistoryService = game:GetService('ChangeHistoryService')
-local terrain = game.Workspace.Terrain
+--[[todo:
+	-fill region (with material, action)
+	-optimize resize scaling code more
+]]
 
-local pluginGui
-local screenGui
-
-local mainFrame 
-local scrollingFrame 
-local canvas 
-local progressFrame 
-local pauseButton
-local cancelButton 
-local barFill 
-local multipleChoiceFrame 
-
-local kProgressFrameWidth = 400
-local kProgressFrameContentHeight = 135
-
-local allBiomes = {
-	['Mountains'] = true,
-	['Canyons'] = false,
-	['Dunes'] = false,
-	['Arctic'] = false,
-	['Lavaflow'] = false,
-	['Hills'] = true,
-	['Plains'] = true,
-	['Marsh'] = false,
-	['Water'] = false,
-}
-
+local Terrain = workspace:WaitForChild('Terrain', 86400) or workspace:WaitForChild('Terrain')
+while not Terrain.IsSmooth do
+	Terrain.Changed:wait()
+end
 
 local on = false
-local mouse = nil
-local turnOff = nil 
-local generating = false
-local clearing = false
-local paused = false
-local cancelIt = false
+local setup = false
+local currentTool = 'Create'
 
-local noise = math.noise
-local min = math.min
-local max = math.max
-local sin = math.sin
-local cos = math.cos
-local floor = math.floor
-local ceil = math.ceil
-local sqrt = math.sqrt
-local randomseed = math.randomseed
-local random = math.random
-local pi = math.pi
-local tau = math.pi*2
+local pluginGui = nil
+local terrainRegionFrame = nil
+local fillFrame = nil
 
-
----------Directly used in Generation---------
-local masterSeed = 618033988
-local mapWidth = 256
-local mapHeight = 128
-local biomeSize = 100
-local generateCaves = false
-local waterLevel = .48
-local surfaceThickness = .018
-local biomes = {}
----------------------------------------------
-
--------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------
-
-local rock = Enum.Material.Rock
-local snow = Enum.Material.Snow
-local ice = Enum.Material.Glacier
-local grass = Enum.Material.Grass
-local ground = Enum.Material.Ground
-local mud = Enum.Material.Mud
-local slate = Enum.Material.Slate
-local concrete = Enum.Material.Concrete
-local lava = Enum.Material.CrackedLava
-local basalt = Enum.Material.Basalt
-local air = Enum.Material.Air
-local sand = Enum.Material.Sand
-local sandstone = Enum.Material.Sandstone
-local water = Enum.Material.Water
-
-local fill = rock
-
-local range = {}
-randomseed(6180339)
-theseed={}
-for i=1,999 do
-	table.insert(theseed,math.random())
-end
-
-local function MakeProgressFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "ProgressFrame", "Progress", kProgressFrameWidth, kProgressFrameContentHeight)
-
-	local bar = Instance.new("Frame")
-	bar.Parent = section
-	bar.Name = "Bar"
-	bar.BorderSizePixel = 2
-	bar.BorderColor3 = Color3.new(0.7, 0.7, 0.7)
-	bar.BackgroundColor3 = Color3.new(1, 1, 1)
-	bar.BackgroundTransparency = 0.5
-	bar.ZIndex = 1
-	bar.Size = UDim2.new(1, -20, 0, 25)
-	bar.Position = UDim2.new(0, 10, 0.39, 0)
-
-	local fill = Instance.new("ImageLabel")
-	fill.Parent = bar
-	fill.Name = "Fill"
-	fill.Image = "rbxassetid://67599350"
-	fill.ImageColor3 = Color3.new(0, 0.8, 0.2)
-	fill.ImageRectOffset = Vector2.new(0, 256)
-	fill.ImageRectSize = Vector2.new(0, -100)
-	fill.ScaleType = Enum.ScaleType.Stretch
-	bar.ZIndex = 2
-
-	local pauseButton = GuiUtilities.MakeTextButton("PauseButton", "Pause", section)
-	pauseButton.Size = UDim2.new(0.5, -20, 0, 30)
-	pauseButton.Position = UDim2.new(0, 12, 1, -35)
-
-	local cancelButton = GuiUtilities.MakeTextButton("CancelButton", "Cancel", section)
-	cancelButton.Size = UDim2.new(0.5, -20, 0, 30)
-	cancelButton.Position = UDim2.new(0.5, 8, 1, -35)
-
-	section.Position = UDim2.new(0.5, -200, 0, 0)
-	section.Visible = false
-
-	return section
-end
-
-function Initialize(thePluginGui)
-	
-	pluginGui = thePluginGui
-	screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "TerrainBrushGui"
-	
-	mainFrame = pluginGui:WaitForChild('TerrainGenerationFrame')
-	scrollingFrame = mainFrame:WaitForChild('ScrollingFrame')
-	canvas = scrollingFrame:WaitForChild('Canvas')
-
-	progressFrame = MakeProgressFrame(screenGui)
-	pauseButton = progressFrame:WaitForChild('PauseButton')
-	cancelButton = progressFrame:WaitForChild('CancelButton')
-	barFill = progressFrame:WaitForChild('Bar'):WaitForChild('Fill')
-
-	multipleChoiceFrame = pluginGui:WaitForChild('MultipleChoiceFrame')
-
-	pauseButton.MouseButton1Down:connect(function()
-		paused = not paused
-		updatePausedButton()
-	end)
-	
-	cancelButton.MouseButton1Down:connect(function()
-		if not cancelIt then
-			cancelIt = true
-			print('Canceled')
+--[[local toolBar = plugin:CreateToolbar('Smooth Terrain')
+regionEditButton = toolBar:CreateButton(
+	'Region Edit',	--button title
+	'Manipulate regions of smoothterrain.',	--hover text
+	'http://www.roblox.com/asset/?id=180084957'	--icon
+)
+regionEditButton.Click:connect(function()
+	if not on then
+		if not setup then
+			FirstTimeSetUp()
 		end
-	end)
-
-	mainFrame:WaitForChild('GenerateButton').MouseButton1Down:connect(function()
-		generate()
-	end)
-	
-	mainFrame:WaitForChild('ClearButton').MouseButton1Down:connect(function()
-		clearTerrain()
-	end)
-
-	SetupUserInterface()
-end
-
-function createSection(name, pos, size, parent)
-	local sectionGui = GuiUtilities.MakeSectionButton('Section'..name, name, parent)
-	sectionGui.Position = UDim2.new(0,0,0,pos)
-	sectionGui.Frame.Size = UDim2.new(1,0,0,size)
-	sectionGui.Visible = true
-	return sectionGui, sectionGui.Frame
-end
-
-function createTextBox(name, pos, parent, setting, changedFunction)
-	local setting = setting and tostring(setting) or ''
-	local frame = GuiUtilities.MakeTextBoxWithLabel('TextInputBox'..name, '   '..name..':', parent)
-	local field = frame:WaitForChild('TextBox')
-	field.Text = setting
-	field.Changed:connect(function(prop)
-		if prop == 'Text' then
-			changedFunction(field.Text)
-		end
-	end)
-	changedFunction(field.Text)
-	frame.Position = UDim2.new(0,0,0,pos)
-	frame.Visible = true
-	return frame
-end
-
-local currentMultiChoiceOpen = nil
-function closeMultiChoiceFrame()
-	if currentMultiChoiceOpen then
-		currentMultiChoiceOpen.Style = 'RobloxRoundDefaultButton'
-	end
-	currentMultiChoiceOpen = nil
-	multipleChoiceFrame.Visible = false
-end
-function createMultiChoice(name, pos, parent, choices, setting, changedFunction)
-	local setting = setting
-	local frame = GuiUtilities.MakeMultiChoice('MultipleChoice'..name, name, parent)
-	frame.Position = UDim2.new(0,0,0,pos)
-	local button = frame:WaitForChild('Button')
-	button.Text = choices[setting]
-	button.MouseButton1Down:connect(function()
-		if currentMultiChoiceOpen ~= button then
-			currentMultiChoiceOpen = button
-			--button.Style = 'RobloxRoundButton'	--would be nice, but with autobuttoncolor, not so much.
-			multipleChoiceFrame.TitleLabel.Text = name
-			for _,item in pairs(multipleChoiceFrame:GetChildren()) do
-				if string.sub(item.Name,1,6) == 'Choice' then
-					item:Destroy()
-				end
-			end
-			for i, text in ipairs(choices) do
-				local choiceButton = GuiUtilities.MakeTextButton("Choice"..text, text, multipleChoiceFrame)
-				choiceButton.Visible = true
-				choiceButton.Position = UDim2.new(0,10,0,-3+i*35)
-				choiceButton.Size = UDim2.new(1,-20,0,30)
-				choiceButton.MouseButton1Down:connect(function()
-					if setting ~= i then
-						setting = i
-						button.Text = text
-						changedFunction(i, text)
-					end
-					closeMultiChoiceFrame()
-				end)
-			end
-			multipleChoiceFrame.Size = UDim2.new(0,180,0,50 + #choices*35)
-			multipleChoiceFrame.Visible = true
-		else
-			closeMultiChoiceFrame()
-		end
-	end)
-	frame.Visible = true
-	return frame
-end
-
-function createCheckBox(name, pos, parent, setting, changedFunction)
-	local setting = setting
-	local checkBoxGui = GuiUtilities.MakeCheckBox('CheckBox'..name, name, parent)
-	checkBoxGui.Text = setting and 'X' or ''
-	checkBoxGui.Position = UDim2.new(0,4,0,pos)
-	checkBoxGui.Visible = true
-	checkBoxGui.MouseButton1Down:connect(function()
-		setting = not setting
-		checkBoxGui.Text = setting and 'X' or ''
-		changedFunction(setting)
-	end)
-	return checkBoxGui
-end
-
-
-
-function checkRange(v)
-	if not range.min or v < range.min then
-		range.min = v
-	end
-	if not range.max or v > range.max then
-		range.max = v
-	end
-end
-
-local function getPerlin(x,y,z,seed,scale,raw)
-	local seed = seed or 0
-	local scale = scale or 1
-	if not raw then
-		return noise(x/scale+(seed*17)+masterSeed,y/scale-masterSeed,z/scale-seed*seed)*.5 + .5 -- accounts for bleeding from interpolated line
+		Selected()
 	else
-		return noise(x/scale+(seed*17)+masterSeed,y/scale-masterSeed,z/scale-seed*seed)
+		Deselected()
 	end
-end
+end)]]
 
 
-local function getNoise(x,y,z,seed1)
-	local x = x or 0
-	local y = y or 0
-	local z = z or 0
-	local seed1 = seed1 or 7
-	local wtf=x+y+z+seed1+masterSeed + (masterSeed-x)*(seed1+z) + (seed1-y)*(masterSeed+z)		-- + x*(y+z) + z*(masterSeed+seed1) + seed1*(x+y)			--x+y+z+seed1+masterSeed + x*y*masterSeed-y*z+(z+masterSeed)*x	--((x+y)*(y-seed1)*seed1)-(x+z)*seed2+x*11+z*23-y*17
-	return theseed[(floor(wtf%(#theseed)))+1]
-end
-
-local function thresholdFilter(value, bottom, size)
-	if value <= bottom then
-		return 0
-	elseif value >= bottom+size then
-		return 1
-	else
-		return (value-bottom)/size
-	end
-end
-
-local function ridgedFilter(value)	--absolute and flip for ridges. and normalize
-	return value<.5 and value*2 or 2-value*2
-end
-
-local function ridgedFlippedFilter(value)					--unflipped
-	return value < .5 and 1-value*2 or value*2-1
-end
-
-local function advancedRidgedFilter(value, cutoff)
-	local cutoff = cutoff or .5
-	value = value - cutoff
-	return 1 - (value < 0 and -value or value) * 1/(1-cutoff)
-end
-
-
-local function fractalize(operation,x,y,z, operationCount, scale, offset, gain)
-	local operationCount = operationCount or 3
-	local scale = scale or .5
-	local offset = 0
-	local gain = gain or 1
-	local totalValue = 0
-	local totalScale = 0
-	for i=1, operationCount do
-		local thisScale = scale^(i-1)
-		totalScale = totalScale + thisScale
-		totalValue = totalValue + (offset + gain * operation(x,y,z,i))*thisScale
-	end
-	return totalValue/totalScale
-end
-
-
-local function mountainsOperation(x,y,z,i)
-	return ridgedFilter(getPerlin(x,y,z,100+i,(1/i)*160))
-end
-
-local canyonBandingMaterial = {rock,mud,sand,sand,sandstone,sandstone,sandstone,sandstone,sandstone,sandstone,}
-
-local function findBiomeInfo(choiceBiome,x,y,z,verticalGradientTurbulence)
-	local choiceBiomeValue = .5
-	local choiceBiomeSurface = grass
-	local choiceBiomeFill = rock
-	if choiceBiome == 'City' then
-		choiceBiomeValue = .55
-		choiceBiomeSurface = concrete
-		choiceBiomeFill = slate
-	elseif choiceBiome == 'Water' then
-		choiceBiomeValue = .36+getPerlin(x,y,z,2,50)*.08
-		choiceBiomeSurface = 
-			(1-verticalGradientTurbulence < .44 and slate)
-			or sand
-	elseif choiceBiome == 'Marsh' then
-		local preLedge = getPerlin(x+getPerlin(x,0,z,5,7,true)*10+getPerlin(x,0,z,6,30,true)*50,0,z+getPerlin(x,0,z,9,7,true)*10+getPerlin(x,0,z,10,30,true)*50,2,70)	--could use some turbulence
-		local grassyLedge = thresholdFilter(preLedge,.65,0)
-		local largeGradient = getPerlin(x,y,z,4,100)
-		local smallGradient = getPerlin(x,y,z,3,20)
-		local smallGradientThreshold = thresholdFilter(smallGradient,.5,0)
-		choiceBiomeValue = waterLevel-.04
-			+preLedge*grassyLedge*.025
-			+largeGradient*.035
-			+smallGradient*.025
-		choiceBiomeSurface =
-			(grassyLedge >= 1 and grass)
-			or (1-verticalGradientTurbulence < waterLevel-.01 and mud)
-			or (1-verticalGradientTurbulence < waterLevel+.01 and ground)
-			or grass
-		choiceBiomeFill = slate
-	elseif choiceBiome == 'Plains' then
-		local rivulet = ridgedFlippedFilter(getPerlin(x+getPerlin(x,y,z,17,40)*25,0,z+getPerlin(x,y,z,19,40)*25,2,200))
-		local rivuletThreshold = thresholdFilter(rivulet,.01,0)
-
-		local rockMap = thresholdFilter(ridgedFlippedFilter(getPerlin(x,0,z,101,7)),.3,.7)		--rocks
-			 * thresholdFilter(getPerlin(x,0,z,102,50),.6,.05)									--zoning
-
-		choiceBiomeValue = .5			--.51
-		+getPerlin(x,y,z,2,100)*.02		--.05
-		+rivulet*.05					--.02
-		+rockMap*.05		--.03
-		+rivuletThreshold*.005
-
-		local verticalGradient = 1-((y-1)/(mapHeight-1))
-		local surfaceGradient = verticalGradient*.5 + choiceBiomeValue*.5
-		local thinSurface = surfaceGradient > .5-surfaceThickness*.4 and surfaceGradient < .5+surfaceThickness*.4
-		choiceBiomeSurface =
-			(rockMap>0 and rock)
-			or (not thinSurface and mud)
-			or (thinSurface and rivuletThreshold <=0 and water)
-			or (1-verticalGradientTurbulence < waterLevel-.01 and sand)
-			or grass
-		choiceBiomeFill =
-			(rockMap>0 and rock)
-			or sandstone
-	elseif choiceBiome == 'Canyons' then
-		local canyonNoise = ridgedFlippedFilter(getPerlin(x,0,z,2,200))
-		local canyonNoiseTurbed = ridgedFlippedFilter(getPerlin(x+getPerlin(x,0,z,5,20,true)*20,0,z+getPerlin(x,0,z,9,20,true)*20,2,200))
-		local sandbank = thresholdFilter(canyonNoiseTurbed,0,.05)
-		local canyonTop = thresholdFilter(canyonNoiseTurbed,.125,0)
-		local mesaSlope = thresholdFilter(canyonNoise,.33,.12)
-		local mesaTop = thresholdFilter(canyonNoiseTurbed,.49,0)
-		choiceBiomeValue = .42
-			+getPerlin(x,y,z,2,70)*.05
-			+canyonNoise*.05
-			+sandbank*.04										--canyon bottom slope
-			+thresholdFilter(canyonNoiseTurbed,.05,0)*.08		--canyon cliff
-			+thresholdFilter(canyonNoiseTurbed,.05,.075)*.04	--canyon cliff top slope
-			+canyonTop*.01										--canyon cliff top ledge
-
-			+thresholdFilter(canyonNoiseTurbed,.0575,.2725)*.01	--plane slope
-
-			+mesaSlope*.06			--mesa slope
-			+thresholdFilter(canyonNoiseTurbed,.45,0)*.14		--mesa cliff
-			+thresholdFilter(canyonNoiseTurbed,.45,.04)*.025	--mesa cap
-			+mesaTop*.02										--mesa top ledge
-		choiceBiomeSurface =
-			(1-verticalGradientTurbulence < waterLevel+.015 and sand)		--this for biome blending in to lakes
-			or (sandbank>0 and sandbank<1 and sand)							--this for canyonbase sandbanks
-			--or (canyonTop>0 and canyonTop<=1 and mesaSlope<=0 and grass)		--this for grassy canyon tops
-			--or (mesaTop>0 and mesaTop<=1 and grass)							--this for grassy mesa tops
-			or sandstone
-		choiceBiomeFill = canyonBandingMaterial[ceil((1-getNoise(1,y,2))*10)]
-	elseif choiceBiome == 'Hills' then
-		local rivulet = ridgedFlippedFilter(getPerlin(x+getPerlin(x,y,z,17,20)*20,0,z+getPerlin(x,y,z,19,20)*20,2,200))^(1/2)
-		local largeHills = getPerlin(x,y,z,3,60)
-		choiceBiomeValue = .48
-			+largeHills*.05
-				+(.05
-				+largeHills*.1
-				+getPerlin(x,y,z,4,25)*.125)
-				*rivulet
-		local surfaceMaterialGradient = (1-verticalGradientTurbulence)*.9 + rivulet*.1
-		choiceBiomeSurface =
-			(surfaceMaterialGradient < waterLevel-.015 and mud)
-			or (surfaceMaterialGradient < waterLevel and ground)
-			or grass
-		choiceBiomeFill = slate
-	elseif choiceBiome == 'Dunes' then
-		local duneTurbulence = getPerlin(x,0,z,227,20)*24
-		local layer1 = ridgedFilter(getPerlin(x,0,z,201,40))
-		local layer2 = ridgedFilter(getPerlin(x/10+duneTurbulence,0,z+duneTurbulence,200,48))
-		choiceBiomeValue = .4+.1*(layer1 + layer2)
-		choiceBiomeSurface = sand
-		choiceBiomeFill = sandstone
-	elseif choiceBiome == 'Mountains' then
-		local rivulet = ridgedFlippedFilter(getPerlin(x+getPerlin(x,y,z,17,20)*20,0,z+getPerlin(x,y,z,19,20)*20,2,200))
-		choiceBiomeValue = -.4		--.3
-			+fractalize(mountainsOperation,x,y/20,z, 8, .65)*1.2
-			+rivulet*.2
-		choiceBiomeSurface =
-			(verticalGradientTurbulence < .275 and snow)
-			or (verticalGradientTurbulence < .35 and rock)
-			or (verticalGradientTurbulence < .4 and ground)
-			or (1-verticalGradientTurbulence < waterLevel and rock)
-			or (1-verticalGradientTurbulence < waterLevel+.01 and mud)
-			or (1-verticalGradientTurbulence < waterLevel+.015 and ground)
-			or grass
-	elseif choiceBiome == 'Lavaflow' then
-		local crackX = x+getPerlin(x,y*.25,z,21,8,true)*5
-		local crackY = y+getPerlin(x,y*.25,z,22,8,true)*5
-		local crackZ = z+getPerlin(x,y*.25,z,23,8,true)*5
-		local crack1 = ridgedFilter(getPerlin(crackX+getPerlin(x,y,z,22,30,true)*30,crackY,crackZ+getPerlin(x,y,z,24,30,true)*30,2,120))
-		local crack2 = ridgedFilter(getPerlin(crackX,crackY,crackZ,3,40))*(crack1*.25+.75)
-		local crack3 = ridgedFilter(getPerlin(crackX,crackY,crackZ,4,20))*(crack2*.25+.75)
-
-		local generalHills = thresholdFilter(getPerlin(x,y,z,9,40),.25,.5)*getPerlin(x,y,z,10,60)
-
-		local cracks = max(0,1-thresholdFilter(crack1,.975,0)-thresholdFilter(crack2,.925,0)-thresholdFilter(crack3,.9,0))
-
-		local spireVec = CFrame.Angles(.7,.7,0)*Vector3.new(crackX,crackY,crackZ)
-		local spires = thresholdFilter(getPerlin(spireVec.x/40,spireVec.y/300,spireVec.z/30,123,1),.6,.4)
-
-		choiceBiomeValue = waterLevel+.02
-			+cracks*(.5+generalHills*.5)*.02
-			+generalHills*.05
-			+spires*.3
-			+((1-verticalGradientTurbulence > waterLevel+.01 or spires>0) and .04 or 0)			--This lets it lip over water
-
-		choiceBiomeFill = (spires>0 and rock) or (cracks<1 and lava) or basalt
-		choiceBiomeSurface = (choiceBiomeFill == lava and 1-verticalGradientTurbulence < waterLevel and basalt) or choiceBiomeFill
-	elseif choiceBiome == 'Arctic' then
-		local preBoundary = getPerlin(x+getPerlin(x,0,z,5,8,true)*5,y/8,z+getPerlin(x,0,z,9,8,true)*5,2,20)
-		--local cliffs = thresholdFilter(preBoundary,.5,0)
-		local boundary = ridgedFilter(preBoundary)
-		local roughChunks = getPerlin(x,y/4,z,436,2)
-		local boundaryMask = thresholdFilter(boundary,.8,.1)	--,.7,.25)
-		local boundaryTypeMask = getPerlin(x,0,z,6,74)-.5
-		local boundaryComp = 0
-		if boundaryTypeMask < 0 then							--divergent
-			boundaryComp = (boundary > (1+boundaryTypeMask*.5) and -.17 or 0)
-							--* boundaryTypeMask*-2
-		else													--convergent
-			boundaryComp = boundaryMask*.1*roughChunks
-							* boundaryTypeMask
+function FirstTimeSetUp()
+	-- If the plugin gui is disabled, we should definitely be deselected.
+	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
+		if (not pluginGui.Enabled) then 
+			Deselected()
 		end
-		choiceBiomeValue = .55
-			+boundary*.05*boundaryTypeMask		--.1	--soft slope up or down to boundary
-			+boundaryComp								--convergent/divergent effects
-			+getPerlin(x,0,z,123,25)*.025	--*cliffs	--gentle rolling slopes
+	end) 
 
-		choiceBiomeSurface = (1-verticalGradientTurbulence < waterLevel-.1 and ice) or (boundaryMask>.6 and boundaryTypeMask>.1 and roughChunks>.5 and ice) or snow
-		choiceBiomeFill = ice
-	end
-	return choiceBiomeValue, choiceBiomeSurface, choiceBiomeFill
-end
+	setup = true
+	local changeHistory = game:GetService('ChangeHistoryService')
+	local terrain = game.Workspace.Terrain
+	local coreGui = game:GetService('CoreGui')
 
-function findBiomeTransitionValue(biome,weight,value,averageValue)
-	if biome == 'Arctic' then
-		return (weight>.2 and 1 or 0)*value
-	elseif biome == 'Canyons' then
-		return (weight>.7 and 1 or 0)*value
-	elseif biome == 'Mountains' then
-		local weight = weight^3			--This improves the ease of mountains transitioning to other biomes
-		return averageValue*(1-weight)+value*weight
-	else
-		return averageValue*(1-weight)+value*weight
-	end
-end
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "TerrainRegionGui"
 
-function updatePausedButton()
-	pauseButton.Style = paused and 'RobloxRoundButton' or 'RobloxRoundDefaultButton'
-	pauseButton.Text = paused and 'Resume' or 'Pause'
-end
+	terrainRegionFrame = pluginGui:WaitForChild('TerrainRegionFrame')
 
-function generate()
-	if not generating and not clearing then
-		generating = true
-		paused = false
-		updatePausedButton()
-		cancelIt = false
-		progressFrame.Visible = true
+	local buttonFillAir = terrainRegionFrame:WaitForChild('ButtonFillAir')
+	local buttonFillWater = terrainRegionFrame:WaitForChild('ButtonFillWater')
+	local buttonSelect = terrainRegionFrame:WaitForChild('ButtonSelect')
+	local buttonMove = terrainRegionFrame:WaitForChild('ButtonMove')
+	local buttonResize = terrainRegionFrame:WaitForChild('ButtonResize')
+	local buttonRotate = terrainRegionFrame:WaitForChild('ButtonRotate')
+	local buttonCopy = terrainRegionFrame:WaitForChild('ButtonCopy')
+	local buttonPaste = terrainRegionFrame:WaitForChild('ButtonPaste')
+	local buttonDelete = terrainRegionFrame:WaitForChild('ButtonDelete')
+	local buttonFill = terrainRegionFrame:WaitForChild('ButtonFill')
 
-		local mapWidth = mapWidth
-		local biomeSize = biomeSize
-		local biomeBlendPercent = .25	--(biomeSize==50 or biomeSize == 100) and .5 or .25
-		local biomeBlendPercentInverse = 1-biomeBlendPercent
-		local biomeBlendDistortion = biomeBlendPercent
-		local smoothScale = .5/mapHeight
+	fillFrame = pluginGui:WaitForChild('FillFrame')
+	local materialsTable = require(script.Parent.MaterialsList)
+	local buttonFillConfirm = fillFrame:WaitForChild('ButtonFillConfirm')
+	local library = assert(LoadLibrary('RbxGui'))
+	--local mouse = plugin:GetMouse()
 
-		local startTime = tick()
-		biomes = {}
-		for i,v in pairs(allBiomes) do
-			if v then
-				table.insert(biomes,i)
-			end
-		end
-		if #biomes<=0 then
-			table.insert(biomes,'Hills')
-		end
-		--local oMap = {}
-		--local mMap = {}
-		for x = 1, mapWidth do
-			local oMapX = {}
-			--oMap[x] = oMapX
-			local mMapX = {}
-			--mMap[x] = mMapX
-			for z = 1, mapWidth do
-				local biomeNoCave = false
-				local cellToBiomeX = x/biomeSize + getPerlin(x,0,z,233,biomeSize*.3)*.25 + getPerlin(x,0,z,235,biomeSize*.05)*.075
-				local cellToBiomeZ = z/biomeSize + getPerlin(x,0,z,234,biomeSize*.3)*.25 + getPerlin(x,0,z,236,biomeSize*.05)*.075
-				local closestPoint = Vector3.new(0,0,0)
-				local closestDistance = 1000000
-				local biomePoints = {}
-				for vx=-1,1 do
-					for vz=-1,1 do
-						local gridPointX = floor(cellToBiomeX+vx+.5)
-						local gridPointZ = floor(cellToBiomeZ+vz+.5)
-						--local pointX, pointZ = getBiomePoint(gridPointX,gridPointZ)
-						local pointX = gridPointX+(getNoise(gridPointX,gridPointZ,53)-.5)*.75	--de-uniforming grid for vornonoi
-						local pointZ = gridPointZ+(getNoise(gridPointX,gridPointZ,73)-.5)*.75
+	----SETTINGS----
+	local mode = 'Select'	--Select, Edit
+	local tool = 'None'		--None, Resize, Move, Rotate
+	local button = 'Select'	--Select, Move, Resize, Rotate
+	local fillAir = true
+	local fillWater = true
+	----------------
 
-						local dist = sqrt((pointX-cellToBiomeX)^2 + (pointZ-cellToBiomeZ)^2)
-						if dist < closestDistance then
-							closestPoint = Vector3.new(pointX,0,pointZ)
-							closestDistance = dist
-						end
-						table.insert(biomePoints,{
-							x = pointX,
-							z = pointZ,
-							dist = dist,
-							biomeNoise = getNoise(gridPointX,gridPointZ),
-							weight = 0
-						})
-					end
-				end
-				local weightTotal = 0
-				local weightPoints = {}
-				for _,point in pairs(biomePoints) do
-					local weight = point.dist == closestDistance and 1 or ((closestDistance / point.dist)-biomeBlendPercentInverse)/biomeBlendPercent
-					if weight > 0 then
-						local weight = weight^2.1		--this smooths the biome transition from linear to cubic InOut
-						weightTotal = weightTotal + weight
-						local biome = biomes[ceil(#biomes*(1-point.biomeNoise))]	--inverting the noise so that it is limited as (0,1]. One less addition operation when finding a random list index
-						weightPoints[biome] = {
-							weight = weightPoints[biome] and weightPoints[biome].weight + weight or weight
-						}
-					end
-				end
-				for biome,info in pairs(weightPoints) do
-					info.weight = info.weight / weightTotal
-					if biome == 'Arctic' then		--biomes that don't have caves that breach the surface
-						biomeNoCave = true
-					end
-				end
+	--SUB SETTINGS--
+	local resolution = 4			--This is the size of voxels on Roblox. Why is this a variable? ;)
+	local textSelectColor = Color3.new(72/255, 145/255, 212/255)
+	local white = Color3.new(238/255, 238/255, 238/255)
+	local editColor1 = 'Institutional white'
+	local editColor2 = 'Light stone grey'
+	local rotationInterval = math.pi * .5
+	local regionLengthLimit = 125
+	----------------
 
+	--Variables--
+	local faceToNormal = {
+		[Enum.NormalId.Top] = Vector3.new(0, 1, 0),
+		[Enum.NormalId.Bottom] = Vector3.new(0, -1, 0),
+		[Enum.NormalId.Left] = Vector3.new(-1, 0, 0),
+		[Enum.NormalId.Right] = Vector3.new(1, 0, 0),
+		[Enum.NormalId.Front] = Vector3.new(0, 0, -1),
+		[Enum.NormalId.Back] = Vector3.new(0, 0, 1),
+	}
+	local undefined=0/0
+	local selectionStart = nil
+	local selectionEnd = nil
+	local selectionPart = nil
+	local selectionObject = nil
+	local selectionHandles = nil
+	local materialSelection = materialsTable[5]
+	local downLoop = nil
+	local clickStart = Vector3.new(0, 0, 0)
+	local dragVector = nil
+	local dragStart = true
+	local lockedMaterials, lockedOccupancies = nil, nil
+	local lockedRegion = nil
+	local behindThis = nil
+	local axis = 'X'
+	local materialAir = Enum.Material.Air
+	local materialWater = Enum.Material.Water
+	local floor = math.floor		--Scaling linear resize
+	local ceil = math.ceil
+	-------------
 
-				for y = 1, mapHeight do
-					local oMapY = oMapX[y] or {}
-					oMapX[y] = oMapY
-					local mMapY = mMapX[y] or {}
-					mMapX[y] = mMapY
-
-					--[[local oMapY = {}
-					oMapX[y] = oMapY
-					local mMapY = {}
-					mMapX[z] = mMapY]]
-
-
-					local verticalGradient = 1-((y-1)/(mapHeight-1))
-					local caves = 0
-					local verticalGradientTurbulence = verticalGradient*.9 + .1*getPerlin(x,y,z,107,15)
-					local choiceValue = 0
-					local choiceSurface = lava
-					local choiceFill = rock
-	
-					if verticalGradient > .65 or verticalGradient < .1 then
-						--under surface of every biome; don't get biome data; waste of time.
-						choiceValue = .5
-					elseif #biomes == 1 then
-						choiceValue, choiceSurface, choiceFill = findBiomeInfo(biomes[1],x,y,z,verticalGradientTurbulence)
-					else
-						local averageValue = 0
-						--local findChoiceMaterial = -getNoise(x,y,z,19)
-						for biome,info in pairs(weightPoints) do
-							local biomeValue, biomeSurface, biomeFill = findBiomeInfo(biome,x,y,z,verticalGradientTurbulence)
-							info.biomeValue = biomeValue
-							info.biomeSurface = biomeSurface
-							info.biomeFill = biomeFill
-							local value = biomeValue * info.weight
-							averageValue = averageValue + value
-							--[[if findChoiceMaterial < 0 and findChoiceMaterial + weight >= 0 then
-								choiceMaterial = biomeMaterial
-							end
-							findChoiceMaterial = findChoiceMaterial + weight]]
-						end
-						for biome,info in pairs(weightPoints) do
-							local value = findBiomeTransitionValue(biome,info.weight,info.biomeValue,averageValue)
-							if value > choiceValue then
-								choiceValue = value
-								choiceSurface = info.biomeSurface
-								choiceFill = info.biomeFill
-							end
-						end
-					end
-
-					local preCaveComp = verticalGradient*.5 + choiceValue*.5
-
-					local surface = preCaveComp > .5-surfaceThickness and preCaveComp < .5+surfaceThickness
-
-					if generateCaves																--user wants caves
-						and (not biomeNoCave or verticalGradient > .65)								--biome allows caves or deep enough
-							and not (surface and (1-verticalGradient) < waterLevel+.005)			--caves only breach surface above waterlevel
-								and not (surface and (1-verticalGradient) > waterLevel+.58) then	--caves don't go too high so that they don't cut up mountain tops
-									local ridged2 = ridgedFilter(getPerlin(x,y,z,4,30))
-									local caves2 = thresholdFilter(ridged2,.84,.01)
-									local ridged3 = ridgedFilter(getPerlin(x,y,z,5,30))
-									local caves3 = thresholdFilter(ridged3,.84,.01)
-									local ridged4 = ridgedFilter(getPerlin(x,y,z,6,30))
-									local caves4 = thresholdFilter(ridged4,.84,.01)
-									local caveOpenings = (surface and 1 or 0) * thresholdFilter(getPerlin(x,0,z,143,62),.35,0)	--.45
-									caves = caves2 * caves3 * caves4 - caveOpenings
-									caves = caves < 0 and 0 or caves > 1 and 1 or caves
-					end
-
-					local comp = preCaveComp - caves
-
-					local smoothedResult = thresholdFilter(comp,.5,smoothScale)
-
-					---below water level				  -above surface		-no terrain
-					if 1-verticalGradient < waterLevel and preCaveComp <= .5 and smoothedResult <= 0 then
-						smoothedResult = 1
-						choiceSurface = water
-						choiceFill = water
-						surface = true
-					end
-
-					oMapY[z] = (y == 1 and 1) or smoothedResult
-					mMapY[z] = (y == 1 and lava) or (smoothedResult <= 0 and air) or (surface and choiceSurface) or choiceFill
+	local function setMaterialSelection(newMaterialSelection)
+		materialSelection = newMaterialSelection
+		for _, v in pairs(fillFrame:GetChildren()) do
+			if string.sub(v.Name,1,14) == 'MaterialButton' then
+				if v.Name == 'MaterialButton' .. materialSelection.enum.Name then
+					v.BackgroundTransparency = .1
+				else
+					v.BackgroundTransparency = 1
 				end
 			end
-
-			local regionStart = Vector3.new(mapWidth*-2+(x-1)*4,mapHeight*-2,mapWidth*-2)
-			local regionEnd = Vector3.new(mapWidth*-2+x*4,mapHeight*2,mapWidth*2)
-			local mapRegion = Region3.new(regionStart, regionEnd)
-			terrain:WriteVoxels(mapRegion, 4, {mMapX}, {oMapX})
-
-			local completionPercent = x/mapWidth
-			barFill.Size = UDim2.new(completionPercent,0,1,0)
-
-			wait()
-			while paused and not cancelIt do
-				wait()
-			end
-			if cancelIt then
-				break
-			end
 		end
-		changeHistoryService:SetWaypoint('Terrain Generation')
-		progressFrame.Visible = false
-		generating = false
-		print('Generation Complete',tick()-startTime)
 	end
-end
 
-
---------------------------------------------------------------------------------------------------------------------
-------------------------------------------------Setup User Interface------------------------------------------------
-
-function SetupUserInterface()
-	local mapSizes = {128,256,512,1024}
-	local mapSizeChangeFunction = function(index,text)
-		mapWidth = mapSizes[index]
+	for i,materialSubTable in pairs(materialsTable) do
+		local newMaterialButton = Instance.new('ImageButton')
+		newMaterialButton.Name = 'MaterialButton' .. materialSubTable.enum.Name
+		newMaterialButton.BorderSizePixel = 2
+		newMaterialButton.BorderColor3 = Color3.new(.2, 1, 1)
+		newMaterialButton.BackgroundColor3 = Color3.new(.2, 1, 1)
+		newMaterialButton.BackgroundTransparency = 1
+		newMaterialButton.Image = materialSubTable.image
+		newMaterialButton.Size = UDim2.new(0, 35, 0, 35)
+		newMaterialButton.Position = UDim2.new(0, 5 + ((i-1) % 4) * 40, 0, -5 + ceil(i/4) * 40)
+		newMaterialButton.MouseButton1Down:connect(function()
+			setMaterialSelection(materialsTable[i])
+		end)
+		newMaterialButton.Parent = fillFrame
 	end
-	createMultiChoice('Map Size', 5, canvas, {'Small (128)','Medium (256)','Large (512)','Massive (1024)'}, 2, mapSizeChangeFunction)
+	fillFrame.Size = UDim2.new(0, 180, 0, 95 + ceil(#materialsTable / 4) * 40)
+	setMaterialSelection(materialSelection)
 
-	local seedChangeFunction = function(text)
-		local compositeNumber = 0
-		for i=1,#text do
-			local character = string.sub(text,i,i)
-			local number = tonumber(character)
-			if number then
-				compositeNumber = (compositeNumber+6)*(number+5)
+	function setButton(newButton)
+		lockInMap()
+		buttonSelect.Style = newButton == 'Select' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
+		buttonSelect.TextColor3 = newButton == 'Select' and textSelectColor or white
+		buttonMove.Style = newButton == 'Move' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
+		buttonMove.TextColor3 = newButton == 'Move' and textSelectColor or white
+		buttonResize.Style = newButton == 'Resize' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
+		buttonResize.TextColor3 = newButton == 'Resize' and textSelectColor or white
+		buttonRotate.Style = newButton == 'Rotate' and Enum.ButtonStyle.RobloxRoundDropdownButton or Enum.ButtonStyle.RobloxRoundDefaultButton
+		buttonRotate.TextColor3 = newButton == 'Rotate' and textSelectColor or white
+		if newButton == 'Select' then
+			mode = 'Select'
+			tool = 'Resize'
+		elseif newButton == 'Move' then
+			mode = 'Edit'
+			tool = 'Move'
+		elseif newButton == 'Resize' then
+			mode = 'Edit'
+			tool = 'Resize'
+		elseif newButton == 'Rotate' then
+			mode = 'Edit'
+			tool = 'Rotate'
+		end
+		button = newButton
+		renderSelection()
+	end
+
+	buttonSelect.MouseButton1Down:connect(function()
+		setButton('Select')
+	end)
+	buttonMove.MouseButton1Down:connect(function()
+		setButton('Move')
+	end)
+	buttonResize.MouseButton1Down:connect(function()
+		setButton('Resize')
+	end)
+	buttonRotate.MouseButton1Down:connect(function()
+		setButton('Rotate')
+	end)
+
+	buttonFillAir.MouseButton1Down:connect(function()
+		fillAir = not fillAir
+		buttonFillAir.Text = fillAir and 'X' or ''
+		if button=='Move' or button=='Resize' then
+			updateDragOperation()
+		elseif button=='Rotate' then
+			updateRotateOperation()
+		end
+	end)
+	buttonFillWater.MouseButton1Down:connect(function()
+		fillWater = not fillWater
+		buttonFillWater.Text = fillWater and 'X' or ''
+		if button=='Move' or button=='Resize' then
+			updateDragOperation()
+		elseif button=='Rotate' then
+			updateRotateOperation()
+		end
+	end)
+
+	function lockInMap()	--Should call this every time the terrain under your selection changes. Don't for resize though, it uses the original lockin for rescaling.
+		if selectionStart and selectionEnd then
+			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+			lockedRegion = region
+			lockedMaterials, lockedOccupancies = terrain:ReadVoxels(region, resolution)
+		end
+	end
+
+	do
+		local runService = game:GetService('RunService').RenderStepped
+		function quickWait(waitTime)
+			if not waitTime then
+				runService:wait()
+			elseif waitTime < .033333 then
+				local startTick = tick()
+				runService:wait()
+				local delta = tick() - startTick
+				if delta <= waitTime * .5 then
+					quickWait(waitTime - delta)
+				end
 			else
-				compositeNumber = (compositeNumber+7)*(string.byte(character)+3)
+				wait(waitTime)
 			end
-			compositeNumber = compositeNumber%61803	--yes, this does need to be done after every character iteration, otherwise number loses precision by the end
 		end
-		masterSeed = compositeNumber
 	end
-	createTextBox('Seed', 65, canvas, masterSeed, seedChangeFunction)
 
-	local cavesChangeFunction = function(value)
-		generateCaves = value
+	function clearSelection()
+		if selectionArcHandles then
+			selectionArcHandles:Destroy()
+			selectionArcHandles = nil
+		end
+		if selectionHandles then
+			selectionHandles:Destroy()
+			selectionHandles = nil
+		end
+		if selectionObject then
+			selectionObject:Destroy()
+			selectionObject = nil
+		end
+		if selectionPart then
+			selectionPart:Destroy()
+			selectionPart = nil
+		end
 	end
-	local cavesCheckBox = createCheckBox('Caves', 100, canvas, generateCaves, cavesChangeFunction)
 
-	local biomeSizes = {50,100,200,500}
-	local biomeSizeChangeFunction = function(index,text)
-		biomeSize = biomeSizes[index]
+	local function round(n)
+		return n + .5 - ((n + .5)%1)
 	end
-	createMultiChoice('Biome Size', 135, canvas, {'Small (50)','Medium (100)','Large (200)','Massive (500)'}, 2, biomeSizeChangeFunction)
 
-	local biomesSettingsButton, biomesFrame = createSection('Biomes',200,275,canvas)
-
-	local waterChangeFunction = function(value)
-		allBiomes['Water'] = value
+	local function positionWorldToVoxel(pos)
+		return Vector3.new(ceil(pos.x / resolution), ceil(pos.y / resolution), ceil(pos.z / resolution))
 	end
-	local waterCheckBox = createCheckBox('Water', 5, biomesFrame, allBiomes['Water'], waterChangeFunction)
 
-	local marshChangeFunction = function(value)
-		allBiomes['Marsh'] = value
+	local function make3DTable(size,fill)
+		local size = size or Vector3.new(1,1,1)
+		local newTable = {}
+		for x = 1, size.x do
+			local xt = {}
+			for y = 1, size.y do
+				local yt = {}
+				for z = 1, size.z do
+					yt[z] = fill
+				end
+				xt[y] = yt
+			end
+			newTable[x] = xt
+		end
+		return newTable
 	end
-	local marshCheckBox = createCheckBox('Marsh', 35, biomesFrame, allBiomes['Marsh'], marshChangeFunction)
 
-	local plainsChangeFunction = function(value)
-		allBiomes['Plains'] = value
+	local function linInterp(a,b,p)
+		return a+(b-a)*p
 	end
-	local plainsCheckBox = createCheckBox('Plains', 65, biomesFrame, allBiomes['Plains'], plainsChangeFunction)
 
-	local hillsChangeFunction = function(value)
-		allBiomes['Hills'] = value
+	local function exaggerate(n,exaggeration)
+		return (n-.5)*exaggeration + .5		--optimized
+		--return n*exaggeration - exaggeration*.5 + .5
 	end
-	local hillsCheckBox = createCheckBox('Hills', 95, biomesFrame, allBiomes['Hills'], hillsChangeFunction)
+	local function exaggeratedLinInterp(a,b,p,exaggeration)
+		local unclamped = (a+(b-a)*p-.5)*exaggeration+.5
+		return (unclamped < 0 and 0) or (unclamped > 1 and 1) or unclamped
 
-	local dunesChangeFunction = function(value)
-		allBiomes['Dunes'] = value
+		--At first I thought this didn't need to be clamped because the terrain clamps that anways.
+		--But I then realized I am using this number a bit more before handing it to terrain.
+		--After doing some tests. Clamping is necessary for artificial structures being streched. If unclamped, rounding of artificial edges occurs.
+		--return (a+(b-a)*p-.5)*exaggeration+.5
+		--Maybe this extra dimension of unclamping might be desired for natural terrain, but not artificuial?
 	end
-	local dunesCheckBox = createCheckBox('Dunes', 125, biomesFrame, allBiomes['Dunes'], dunesChangeFunction)
 
-	local canyonsChangeFunction = function(value)
-		allBiomes['Canyons'] = value
-	end
-	local canyonsCheckBox = createCheckBox('Canyons', 155, biomesFrame, allBiomes['Canyons'], canyonsChangeFunction)
+	function updateDragOperation()
+		local dragVector = dragVector or Vector3.new(0,0,0)
+		local temporaryStart = selectionStart
+		local temporaryEnd = selectionEnd
+		if tool == 'Resize' then
+			if dragStart then
+				temporaryStart = Vector3.new(
+					math.min(
+						math.max(temporaryStart.x+dragVector.x,temporaryEnd.x-regionLengthLimit),
+						temporaryEnd.x),
+					math.min(
+						math.max(temporaryStart.y+dragVector.y,temporaryEnd.y-regionLengthLimit),
+						temporaryEnd.y),
+					math.min(
+						math.max(temporaryStart.z+dragVector.z,temporaryEnd.z-regionLengthLimit),
+						temporaryEnd.z)
+				)
+			else
+				temporaryEnd = Vector3.new(
+					math.max(
+						math.min(temporaryEnd.x+dragVector.x,temporaryStart.x+regionLengthLimit),
+						temporaryStart.x),
+					math.max(
+						math.min(temporaryEnd.y+dragVector.y,temporaryStart.y+regionLengthLimit),
+						temporaryStart.y),
+					math.max(
+						math.min(temporaryEnd.z+dragVector.z,temporaryStart.z+regionLengthLimit),
+						temporaryStart.z)
+				)
+			end
+			if mode == 'Edit' then
+				--[[local loopx = #lockedMaterials		--Tiling resize		--fun but not too many use cases with natural terrain.
+				local loopy = #lockedMaterials[1]
+				local loopz = #lockedMaterials[1][1]
+				local tempRegionSize = Vector3.new(1,1,1) + temporaryEnd - temporaryStart
+				local newMat = {}
+				local newOcc = {}
+				local offsetx = -1
+				local offsety = -1
+				local offsetz = -1
+				if dragStart then
+					offsetx = offsetx + (-tempRegionSize.x % loopx)
+					offsety = offsety + (-tempRegionSize.y % loopy)
+					offsetz = offsetz + (-tempRegionSize.z % loopz)
+				end
+				for x=1, tempRegionSize.x do
+					local targetx = (offsetx + x) % loopx + 1
+					local xtm = {}
+					local xto = {}
+					for y=1, tempRegionSize.y do
+						local targety = (offsety + y) % loopy + 1
+						local ytm = {}
+						local yto = {}
+						for z=1, tempRegionSize.z do
+							local targetz = (offsetz + z) % loopz + 1
+							ytm[z] = lockedMaterials[targetx][targety][targetz]
+							yto[z] = lockedOccupancies[targetx][targety][targetz]
+						end
+						xtm[y] = ytm
+						xto[y] = yto
+					end
+					newMat[x] = xtm
+					newOcc[x] = xto
+				end]]
+		
+				--[[local loopx = #lockedMaterials		--Scaling closest neightbor resize --not perfect
+				local loopy = #lockedMaterials[1]
+				local loopz = #lockedMaterials[1][1]
+				local tempRegionSize = Vector3.new(1,1,1) + temporaryEnd - temporaryStart
+				local tempSizeX = tempRegionSize.x
+				local tempSizeY = tempRegionSize.y
+				local tempSizeZ = tempRegionSize.z
+				local roundx = tempSizeX < loopx and math.floor or math.ceil
+				local roundy = tempSizeY < loopy and math.floor or math.ceil
+				local roundz = tempSizeZ < loopz and math.floor or math.ceil
+				local newMat = {}
+				local newOcc = {}
+				for x=1, tempSizeX do
+					local targetx = roundx(x/tempSizeX*loopx)
+					local xtm = {}
+					local xto = {}
+					for y=1, tempSizeY do
+						local targety = roundy(y/tempSizeY*loopy)
+						local ytm = {}
+						local yto = {}
+						for z=1, tempSizeZ do
+							local targetz = roundz(z/tempSizeZ*loopz)
+							ytm[z] = lockedMaterials[targetx][targety][targetz]
+							yto[z] = lockedOccupancies[targetx][targety][targetz]
+						end
+						xtm[y] = ytm
+						xto[y] = yto
+					end
+					newMat[x] = xtm
+					newOcc[x] = xto
+				end]]
+		
+				local region = Region3.new((temporaryStart - Vector3.new(1,1,1)) * resolution, temporaryEnd * resolution)
+				if behindThis then
+					terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
+				else
+					if selectionStart and selectionEnd then
+						local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+						local regionSize = region.Size / resolution
+						terrain:WriteVoxels(region, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
+					end
+				end
+				behindThis = {}
+				behindThis.region = region
+				behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
 
-	local mountainsChangeFunction = function(value)
-		allBiomes['Mountains'] = value
-	end
-	local mountainsCheckBox = createCheckBox('Mountains', 185, biomesFrame, allBiomes['Mountains'], mountainsChangeFunction)
+				local behindMaterials, behindOccupancies = behindThis.materials, behindThis.occupancies
 
-	local lavaflowChangeFunction = function(value)
-		allBiomes['Lavaflow'] = value
-	end
-	local lavaflowCheckBox = createCheckBox('Lavascape', 215, biomesFrame, allBiomes['Lavaflow'], lavaflowChangeFunction)
+				local loopx = #lockedMaterials - 1
+				local loopy = #lockedMaterials[1] - 1
+				local loopz = #lockedMaterials[1][1] - 1
+				local tempRegionSize = Vector3.new(1,1,1) + temporaryEnd - temporaryStart
+				local tempSizeX = tempRegionSize.x
+				local tempSizeY = tempRegionSize.y
+				local tempSizeZ = tempRegionSize.z
+				local newMat = {}
+				local newOcc = {}
+				for x=1, tempSizeX do
+					local scalex = (x-1)/(tempSizeX-1)*loopx
+					if scalex ~= scalex then
+						scalex = 0
+					end
+					local startx = floor(scalex)+1
+					local endx = startx+1
+					local interpScalex = scalex-startx+1
+					if startx > loopx then
+						endx = startx
+					end
+		
+					local xtm = {}
+					local xto = {}
+					for y=1, tempSizeY do
+						local scaley = (y-1)/(tempSizeY-1)*loopy
+						if scaley ~= scaley then
+							scaley = 0
+						end
+						local starty = floor(scaley)+1
+						local endy = starty+1
+						local interpScaley = scaley-starty+1
+						if starty > loopy then
+							endy = starty
+						end
+		
+						local ytm = {}
+						local yto = {}
+						for z=1, tempSizeZ do
+							local scalez = (z-1)/(tempSizeZ-1)*loopz	--consider adding 1 here and removing +1's elsewhere
+							if scalez ~= scalez then		--undefined check
+								scalez = 0
+							end
+							local startz = floor(scalez)+1
+							local endz = startz+1
+							local interpScalez = scalez-startz+1
+							if startz > loopz then
+								endz = startz
+							end
+		
+							local interpz1 = exaggeratedLinInterp(lockedOccupancies[startx][starty][startz],lockedOccupancies[startx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
+							local interpz2 = exaggeratedLinInterp(lockedOccupancies[startx][endy][startz],lockedOccupancies[startx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
+							local interpz3 = exaggeratedLinInterp(lockedOccupancies[endx][starty][startz],lockedOccupancies[endx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
+							local interpz4 = exaggeratedLinInterp(lockedOccupancies[endx][endy][startz],lockedOccupancies[endx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
+		
+							local interpy1 = exaggeratedLinInterp(interpz1,interpz2,interpScaley, tempSizeY/(loopy+1))
+							local interpy2 = exaggeratedLinInterp(interpz3,interpz4,interpScaley, tempSizeY/(loopy+1))
+		
+							local interpx1 = exaggeratedLinInterp(interpy1,interpy2,interpScalex, tempSizeX/(loopx+1))
+		
+							local newMaterial = lockedMaterials[round(scalex)+1][round(scaley)+1][round(scalez)+1]
+		
+							if fillAir and newMaterial == materialAir then
+								ytm[z]=behindMaterials[x][y][z]
+								yto[z]=behindOccupancies[x][y][z]
+							elseif fillWater and newMaterial == materialWater and behindMaterials[x][y][z] ~= materialAir then
+								ytm[z]=behindMaterials[x][y][z]
+								yto[z]=behindOccupancies[x][y][z]
+							else
+								ytm[z]=newMaterial
+								yto[z]=interpx1
+							end
+						end
+						xtm[y] = ytm
+						xto[y] = yto
+					end
+					newMat[x] = xtm
+					newOcc[x] = xto
+				end
+		
+				terrain:WriteVoxels(region, resolution, newMat, newOcc)
+			else
+				behindThis = nil
+			end
+		elseif tool == 'Move' then
+			temporaryStart = temporaryStart + dragVector
+			temporaryEnd = temporaryEnd + dragVector
+			if mode == 'Edit' then
+				local region = Region3.new((temporaryStart - Vector3.new(1,1,1)) * resolution, temporaryEnd * resolution)
+				if behindThis then
+					terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
+				else
+					if selectionStart and selectionEnd then
+						local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+						local regionSize = region.Size / resolution
+						terrain:WriteVoxels(region, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
+					end
+				end
+				behindThis = {}
+				behindThis.region = region
+				behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
 
-	local arcticChangeFunction = function(value)
-		allBiomes['Arctic'] = value
+				local behindMaterials, behindOccupancies = behindThis.materials, behindThis.occupancies
+		
+				if not (fillAir or fillWater) then
+					terrain:WriteVoxels(region, resolution, lockedMaterials, lockedOccupancies)
+				else
+					local newMat = {}
+					local newOcc = {}
+		
+					for x,xv in ipairs(lockedMaterials) do
+						local xtm = {}
+						local xto = {}
+						for y,yv in ipairs(xv) do
+							local ytm = {}
+							local yto = {}
+							for z,zv in ipairs(yv) do
+								if fillAir and zv == materialAir then
+									ytm[z]=behindMaterials[x][y][z]
+									yto[z]=behindOccupancies[x][y][z]
+								elseif fillWater and zv == materialWater and behindMaterials[x][y][z] ~= materialAir then
+									ytm[z]=behindMaterials[x][y][z]
+									yto[z]=behindOccupancies[x][y][z]
+								else
+									ytm[z]=lockedMaterials[x][y][z]
+									yto[z]=lockedOccupancies[x][y][z]
+								end
+							end
+							xtm[y] = ytm
+							xto[y] = yto
+						end
+						newMat[x] = xtm
+						newOcc[x] = xto
+					end
+					terrain:WriteVoxels(region, resolution, newMat, newOcc)
+				end
+			end
+		end
+		renderSelection(temporaryStart,temporaryEnd)
 	end
-	local arcticCheckBox = createCheckBox('Arctic', 245, biomesFrame, allBiomes['Arctic'], arcticChangeFunction)
+
+	function dragHandles(face, delta)
+		local normal = faceToNormal[face]
+		local delta = delta
+		local newDragVector = normal * floor((delta + .5) / resolution)
+		dragStart = normal.x < 0 or normal.y < 0 or normal.z < 0	--This determines if we are dragging a side on the min or max bounds
+		if newDragVector ~= dragVector then
+			dragVector = newDragVector
+			updateDragOperation()
+		end
+	end
+
+	local function rotate(mx,x,my,y,rotation)
+		if rotation == 1 then
+			return my + 1 - y, x 
+		elseif rotation == 2 then
+			return mx + 1 - x, my + 1 - y
+		elseif rotation == 3 then
+			return y, mx + 1 - x
+		end
+		return x,y
+	end
+
+	function updateRotateOperation()
+		local dragAngle = dragAngle or 0
+		local rotationCFrame = CFrame.Angles(
+			axis ~= 'X' and 0 or dragAngle * rotationInterval,
+			axis ~= 'Y' and 0 or dragAngle * rotationInterval,
+			axis ~= 'Z' and 0 or dragAngle * rotationInterval
+		)
+		local temporarySize = Vector3.new(1,1,1) + selectionEnd - selectionStart
+		local centerOffset = Vector3.new(ceil(temporarySize.x * .5), ceil(temporarySize.y * .5), ceil(temporarySize.z * .5))
+
+		temporarySize = rotationCFrame * temporarySize
+		local temporarySizeX = round(math.abs(temporarySize.x))	--I need to round these because of floating point imprecision
+		local temporarySizeY = round(math.abs(temporarySize.y))
+		local temporarySizeZ = round(math.abs(temporarySize.z))
+		centerOffset = centerOffset - Vector3.new(ceil(temporarySizeX * .5), ceil(temporarySizeY * .5), ceil(temporarySizeZ * .5))
+
+		local temporaryEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
+		local temporaryStart = selectionStart + centerOffset
+
+		if mode == 'Edit' then
+		local region = Region3.new((temporaryStart - Vector3.new(1,1,1)) * resolution, temporaryEnd * resolution)
+			if behindThis then
+				terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
+			else
+				if selectionStart and selectionEnd then
+					local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+					local regionSize = region.Size / resolution
+					terrain:WriteVoxels(region, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
+				end
+				--local regionSize = lockedRegion.Size / resolution
+				--terrain:WriteVoxels(lockedRegion, resolution, make3DTable(regionSize,materialAir), make3DTable(regionSize,0))
+			end
+			behindThis = {}
+			behindThis.region = region
+			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
+
+			local newMat = {}
+			local newOcc = {}
+
+			for x=1, temporarySizeX do
+				local xtm = {}
+				local xto = {}
+				for y=1, temporarySizeY do
+					local ytm = {}
+					local yto = {}
+					for z=1, temporarySizeZ do
+						local targetx = x
+						local targety = y
+						local targetz = z
+						if axis == 'Y' then	--prioritize y because I know this is the primary rotation axis
+							targetx, targetz = rotate(temporarySizeX, x, temporarySizeZ, z, dragAngle)
+						elseif axis == 'X' then
+							targetz, targety = rotate(temporarySizeZ, z, temporarySizeY, y, dragAngle)
+						elseif axis == 'Z' then
+							targety, targetx = rotate(temporarySizeY, y, temporarySizeX, x, dragAngle)
+						end
+						local newMaterial = lockedMaterials[targetx][targety][targetz]
+
+						if fillAir and newMaterial == materialAir then
+							ytm[z]=behindThis.materials[x][y][z]
+							yto[z]=behindThis.occupancies[x][y][z]
+						elseif fillWater and newMaterial == materialWater and behindThis.materials[x][y][z] ~= materialAir then
+							ytm[z]=behindThis.materials[x][y][z]
+							yto[z]=behindThis.occupancies[x][y][z]
+						else
+							ytm[z]=newMaterial
+							yto[z]=lockedOccupancies[targetx][targety][targetz]
+						end
+					end
+					xtm[y] = ytm
+					xto[y] = yto
+				end
+				newMat[x] = xtm
+				newOcc[x] = xto
+			end
+
+			terrain:WriteVoxels(region, resolution, newMat, newOcc)
+		end
+		renderSelection(temporaryStart,temporaryEnd,rotationCFrame)
+	end
+
+	function dragArcHandles(rotationAxis,relativeAngle,deltaRadius)
+		axis = rotationAxis.Name
+		local newDragAngle = round(relativeAngle / rotationInterval) % 4
+		if newDragAngle ~= dragAngle then
+			dragAngle = newDragAngle
+			updateRotateOperation()
+		end
+	end
+
+	buttonCopy.MouseButton1Down:connect(function()
+		if selectionStart and selectionEnd then
+			local selectionStartInt16=Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1)
+			local selectionEndInt16=Vector3int16.new(selectionEnd.x-1,selectionEnd.y-1,selectionEnd.z-1)
+			local region = Region3int16.new(selectionStartInt16,selectionEndInt16)
+			copyRegion = terrain:CopyRegion(region)
+			selectionEffect(nil,nil,'New Yeller',1,1.2,.5)
+		end
+	end)
+
+	buttonPaste.MouseButton1Down:connect(function()
+		if copyRegion then
+			selectionEnd=selectionStart+copyRegion.SizeInCells-Vector3.new(1,1,1)
+
+			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+			behindThis = {}
+			behindThis.region = region
+			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
+
+			terrain:PasteRegion(copyRegion,Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1),true)
+			setButton('Move')
+			changeHistory:SetWaypoint('Terrain Paste')
+			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
+		end
+	end)
+
+	buttonDelete.MouseButton1Down:connect(function()
+		if selectionStart and selectionEnd then
+			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+			local regionSize = region.Size / resolution
+			local emptyMaterialMap = make3DTable(regionSize,materialAir)
+			local emptyOccupancyMap = make3DTable(regionSize,0)
+
+			--[[behindThis = {}
+			behindThis.region = region
+			behindThis.materials, behindThis.occupancies = emptyMaterialMap, emptyOccupancyMap
+
+			terrain:WriteVoxels(region, resolution, emptyMaterialMap, emptyOccupancyMap)]]
+			if behindThis then
+				terrain:WriteVoxels(behindThis.region, resolution, behindThis.materials, behindThis.occupancies)
+			else
+				if selectionStart and selectionEnd then
+					terrain:WriteVoxels(region, resolution, emptyMaterialMap, emptyOccupancyMap)
+				end
+			end
+			behindThis = {}
+			behindThis.region = region
+			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
+
+			--[[lockedRegion = region
+			lockedMaterials, lockedOccupancies = emptyMaterialMap, emptyOccupancyMap]]
+			local oldStart, oldEnd = selectionStart, selectionEnd
+			selectionStart, selectionEnd = nil, nil
+			setButton('Select')
+
+			changeHistory:SetWaypoint('Terrain Delete')
+			selectionEffect(oldStart,oldEnd,'Really red',1,1.2,.5)
+		end
+	end)
+
+	buttonFill.MouseButton1Down:connect(function()
+		fillFrame.Visible = not fillFrame.Visible
+	end)
+
+	buttonFillConfirm.MouseButton1Down:connect(function()
+		if selectionStart and selectionEnd then
+			local region = Region3.new((selectionStart - Vector3.new(1,1,1)) * resolution, selectionEnd * resolution)
+			local regionSize = region.Size / resolution
+
+			local beforeMaterialMap, beforeOccupancyMap = terrain:ReadVoxels(region, resolution)
+			local newMaterialMap = {}
+			local newOccupancyMap = {}
+			for x = 1, regionSize.x do
+				local xtm = {}
+				local xto = {}
+				for y = 1, regionSize.y do
+					local ytm = {}
+					local yto = {}
+					for z = 1, regionSize.z do
+						local beforeMaterial = beforeMaterialMap[x][y][z]
+
+						if beforeMaterial == materialAir or beforeOccupancyMap[x][y][z] == 0 or not fillAir then	--'fillAir' variable is actually 'Merge Empty' to the user
+							ytm[z] = materialSelection.enum
+						else
+							ytm[z] = beforeMaterial
+						end
+
+						yto[z] = 1
+					end
+					xtm[y] = ytm
+					xto[y] = yto
+				end
+				newMaterialMap[x] = xtm
+				newOccupancyMap[x] = xto
+			end
+
+
+			terrain:WriteVoxels(region, resolution, newMaterialMap, newOccupancyMap)
+
+			behindThis = {}
+			behindThis.region = region
+			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
+
+			fillFrame.Visible = false
+
+			changeHistory:SetWaypoint('Terrain Fill')
+			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
+		end
+	end)
+
+	function selectionEffect(temporaryStart,temporaryEnd,color,sizeFrom,sizeTo,effectTime)
+		local temporaryStart = temporaryStart or selectionStart
+		local temporaryEnd = temporaryEnd or selectionEnd
+
+		local effectPart = Instance.new('Part')
+		effectPart.Name = 'EffectPart'
+		effectPart.Transparency = 1
+		effectPart.TopSurface = 'Smooth'
+		effectPart.BottomSurface = 'Smooth'
+		effectPart.Anchored = true
+		effectPart.CanCollide = false
+		effectPart.Parent = screenGui
+
+		local selectionEffectObject = Instance.new('SelectionBox')
+		selectionEffectObject.Name = 'SelectionObject'
+		selectionEffectObject.Transparency = 1
+		selectionEffectObject.SurfaceTransparency = .75
+		selectionEffectObject.SurfaceColor = BrickColor.new(color)
+		selectionEffectObject.Adornee = effectPart
+		selectionEffectObject.Parent = effectPart
+
+		local baseSize = ((temporaryEnd - temporaryStart + Vector3.new(1,1,1)) * resolution + Vector3.new(.21,.21,.21))
+		effectPart.CFrame = CFrame.new((temporaryStart + temporaryEnd - Vector3.new(1, 1, 1)) * .5 * resolution)
+		effectPart.Size = baseSize * sizeFrom
+		local endTick=tick()+effectTime
+		while endTick>tick() do
+			local percent=1-(endTick-tick())/effectTime
+			selectionEffectObject.SurfaceTransparency = .75 + percent*.25
+			effectPart.Size = baseSize * (sizeFrom+(sizeTo-sizeFrom)*percent)
+			wait()
+		end
+		effectPart:Destroy()
+	end
+
+	function renderSelection(temporaryStart,temporaryEnd,rotation)
+		local temporaryStart = temporaryStart or selectionStart
+		local temporaryEnd = temporaryEnd or selectionEnd
+		local seeable = false
+		if temporaryStart and temporaryEnd and selectionPart then
+			seeable = true
+			local temporarySize = ((temporaryEnd - temporaryStart + Vector3.new(1,1,1)) * resolution + Vector3.new(.2,.2,.2))
+			if rotation then
+				local rotatedSize = rotation * temporarySize
+				temporarySize = Vector3.new(math.abs(rotatedSize.x), math.abs(rotatedSize.y), math.abs(rotatedSize.z))
+			end
+			selectionPart.Size = temporarySize
+			selectionPart.CFrame = CFrame.new((temporaryStart + temporaryEnd - Vector3.new(1, 1, 1)) * .5 * resolution) * (rotation or CFrame.new(0,0,0))
+		end
+		if selectionObject then
+			selectionObject.Visible = seeable
+			selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+			selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+		end
+		if selectionHandles then
+			selectionHandles.Visible = seeable and (tool == 'Move' or tool == 'Resize')
+			selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
+			selectionHandles.Style = tool == 'Move' and Enum.HandlesStyle.Movement or Enum.HandlesStyle.Resize
+		end
+		if selectionArcHandles then
+			selectionArcHandles.Visible = seeable and tool == 'Rotate'
+			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
+		end
+	end
+	
+	function Selected()
+		--plugin:Activate(true)
+		--regionEditButton:SetActive(true)
+		on = true
+		screenGui.Parent = coreGui
+		terrainRegionFrame.Visible = true
+
+		if not selectionPart then
+			selectionPart = Instance.new('Part')
+			selectionPart.Name = 'SelectionPart'
+			selectionPart.Transparency = 1
+			selectionPart.TopSurface = 'Smooth'
+			selectionPart.BottomSurface = 'Smooth'
+			selectionPart.Anchored = true
+			selectionPart.CanCollide = false
+			selectionPart.Parent = screenGui
+		end
+		if not selectionObject then
+			selectionObject = Instance.new('SelectionBox')
+			selectionObject.Name = 'SelectionObject'
+			selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+			selectionObject.SurfaceTransparency = .85
+			selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+			selectionObject.Adornee = selectionPart
+			selectionObject.Visible = false
+			selectionObject.Parent = selectionPart
+		end
+		if not selectionHandles then
+			selectionHandles = Instance.new('Handles')
+			selectionHandles.Name = 'SelectionHandles'
+			selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
+			selectionHandles.Adornee = selectionPart
+			selectionHandles.Visible = false
+			selectionHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
+			selectionHandles.MouseDrag:connect(dragHandles)
+		end
+		if not selectionArcHandles then
+			selectionArcHandles = Instance.new('ArcHandles')
+			selectionArcHandles.Name = 'SelectionArcHandles'
+			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
+			selectionArcHandles.Adornee = selectionPart
+			selectionArcHandles.Visible = false
+			selectionArcHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
+			selectionArcHandles.MouseDrag:connect(dragArcHandles)
+		end
+		renderSelection()
+		setButton(button)
+	end
+	
+	function Deselected()
+		setButton('Select')
+		screenGui.Parent = script.Parent
+		terrainRegionFrame.Visible = false		
+		
+		clearSelection()
+		--regionEditButton:SetActive(false)
+		behindThis = nil
+		on = false
+		if turnOff then
+			turnOff()
+		end
+	end
+
+	mouse.Button1Down:connect(function()
+		if on and mode == 'Select' then
+			mouseDown = true
+			behindThis = nil
+			local mousePos = mouse.Hit.p + mouse.UnitRay.Direction * .05
+			if mouse.Target == nil then	--cage the cursor so that it does not fly away
+				mousePos = game.Workspace.CurrentCamera.CoordinateFrame.p + mouse.UnitRay.Direction * 100
+			end
+			clickStart = positionWorldToVoxel(mousePos)
+			local thisDownLoop = {}
+			downLoop = thisDownLoop
+			while thisDownLoop == downLoop and mouseDown and on and mode == 'Select' do
+				local mousePos = mouse.Hit.p + mouse.UnitRay.Direction * .05
+				if mouse.Target == nil then	--cage the cursor so that it does not fly away
+					mousePos = game.Workspace.CurrentCamera.CoordinateFrame.p + mouse.UnitRay.Direction * 100
+				end
+				local voxelCurrent = positionWorldToVoxel(mousePos)
+				voxelCurrent = Vector3.new(
+					math.max(math.min(voxelCurrent.x,clickStart.x+regionLengthLimit),clickStart.x-regionLengthLimit),
+					math.max(math.min(voxelCurrent.y,clickStart.y+regionLengthLimit),clickStart.y-regionLengthLimit),
+					math.max(math.min(voxelCurrent.z,clickStart.z+regionLengthLimit),clickStart.z-regionLengthLimit))
+				selectionStart = Vector3.new(math.min(clickStart.x, voxelCurrent.x), math.min(clickStart.y, voxelCurrent.y), math.min(clickStart.z, voxelCurrent.z))
+				selectionEnd = Vector3.new(math.max(clickStart.x, voxelCurrent.x), math.max(clickStart.y, voxelCurrent.y), math.max(clickStart.z, voxelCurrent.z))
+				renderSelection()
+				quickWait()
+			end
+		end
+	end)
+	mouse.Button1Up:connect(function()
+		mouseDown = false
+		if dragVector and dragVector.magnitude > 0 then
+			if tool == 'Resize' then
+				--[[if dragStart then
+					selectionStart = Vector3.new(math.min(selectionStart.x+dragVector.x,selectionEnd.x),math.min(selectionStart.y+dragVector.y,selectionEnd.y),math.min(selectionStart.z+dragVector.z,selectionEnd.z))
+				else
+					selectionEnd = Vector3.new(math.max(selectionEnd.x+dragVector.x,selectionStart.x),math.max(selectionEnd.y+dragVector.y,selectionStart.y),math.max(selectionEnd.z+dragVector.z,selectionStart.z))
+				end]]
+				if dragStart then
+					selectionStart = Vector3.new(
+						math.min(
+							math.max(selectionStart.x+dragVector.x,selectionEnd.x-regionLengthLimit),
+							selectionEnd.x),
+						math.min(
+							math.max(selectionStart.y+dragVector.y,selectionEnd.y-regionLengthLimit),
+							selectionEnd.y),
+						math.min(
+							math.max(selectionStart.z+dragVector.z,selectionEnd.z-regionLengthLimit),
+							selectionEnd.z)
+					)
+				else
+					selectionEnd = Vector3.new(
+						math.max(
+							math.min(selectionEnd.x+dragVector.x,selectionStart.x+regionLengthLimit),
+							selectionStart.x),
+						math.max(
+							math.min(selectionEnd.y+dragVector.y,selectionStart.y+regionLengthLimit),
+							selectionStart.y),
+						math.max(
+							math.min(selectionEnd.z+dragVector.z,selectionStart.z+regionLengthLimit),
+							selectionStart.z)
+					)
+				end
+			elseif tool == 'Move' then
+				selectionStart = selectionStart + dragVector
+				selectionEnd = selectionEnd + dragVector
+			end
+			
+			changeHistory:SetWaypoint('Terrain '..button)
+		end
+		if dragAngle and dragAngle ~= 0 then
+			local rotationCFrame = CFrame.Angles(
+				axis ~= 'X' and 0 or dragAngle * rotationInterval,
+				axis ~= 'Y' and 0 or dragAngle * rotationInterval,
+				axis ~= 'Z' and 0 or dragAngle * rotationInterval
+			)
+			local temporarySize = Vector3.new(1,1,1) + selectionEnd - selectionStart
+			local centerOffset = Vector3.new(ceil(temporarySize.x * .5), ceil(temporarySize.y * .5), ceil(temporarySize.z * .5))
+			temporarySize = rotationCFrame * temporarySize
+			local temporarySizeX = round(math.abs(temporarySize.x))	--I need to round these because of floating point imprecision
+			local temporarySizeY = round(math.abs(temporarySize.y))
+			local temporarySizeZ = round(math.abs(temporarySize.z))
+			centerOffset = centerOffset - Vector3.new(ceil(temporarySizeX * .5), ceil(temporarySizeY * .5), ceil(temporarySizeZ * .5))
+			
+			selectionEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
+			selectionStart = selectionStart + centerOffset
+			lockInMap()
+			changeHistory:SetWaypoint('Terrain '..button)
+		end
+
+		dragVector = nil
+		dragAngle = nil
+		renderSelection()
+		--lockInMap()
+	end)
+
+	local function historyChanged()
+		selectionStart = nil
+		selectionEnd = nil
+		lockedMaterials = nil
+		lockedOccupancies = nil
+		setButton('Select')
+	end
+	
+	changeHistory.OnUndo:connect(historyChanged)
+	changeHistory.OnRedo:connect(historyChanged)
 end
-
---------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
 
 function On(mouseHandMeDown,turnOffHandMeDown)
-	screenGui.Parent = coreGui
-	mainFrame.Visible = true
-
-	on = true
-	if mouseHandMeDown then
-		mouse = mouseHandMeDown
+	mouse = mouseHandMeDown
+	turnOff = turnOffHandMeDown
+	if not setup then	--I do this so that things only get set up when this plugin is used.
+		FirstTimeSetUp()
 	end
-	if turnOffHandMeDown then
-		turnOff = turnOffHandMeDown
-	end
+	Selected()
 end
 
 function Off()
-	closeMultiChoiceFrame()
-	if turnOff then
-		turnOff()
-	end
-	on = false
-	screenGui.Parent = nil
-	mainFrame.Visible = false
-end
-
-function clearTerrain()
-	if not generating and not clearing then
-		clearing = true
-		terrain:Clear()
-		changeHistoryService:SetWaypoint('Terrain Clear')
-		clearing = false
+	if Deselected then
+		Deselected()
 	end
 end
 
+function Initialize(thePluginGui) 
+	pluginGui = thePluginGui
+end
 
 return {
 	['On'] = On,
 	['Off'] = Off,
-	["Initialize"] = Initialize,
+	['Initialize'] = Initialize,
 }
 
 

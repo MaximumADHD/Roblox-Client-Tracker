@@ -1,20 +1,35 @@
-local Modules = script.Parent
-
-local WebApi = require(Modules.WebApi)
-local ActionType = require(Modules.ActionType)
-local ConversationActions = require(Modules.Actions.ConversationActions)
-local FetchChatEnabled = require(Modules.Actions.FetchChatEnabled)
-local ReceivedUserTyping = require(Modules.Actions.ReceivedUserTyping)
-local DialogInfo = require(Modules.DialogInfo)
-local Config = require(Modules.Config)
-
-local Intent = DialogInfo.Intent
-
+local CoreGui = game:GetService("CoreGui")
 local HttpService = game:GetService("HttpService")
 local NotificationService = game:GetService("NotificationService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
+
+local Modules = CoreGui.RobloxGui.Modules
+local LuaChat = Modules.LuaChat
+local LuaApp = Modules.LuaApp
+
+local Constants = require(LuaChat.Constants)
+local WebApi = require(LuaChat.WebApi)
+local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local FetchChatEnabled = require(LuaChat.Actions.FetchChatEnabled)
+local ReceivedUserTyping = require(LuaChat.Actions.ReceivedUserTyping)
+local DialogInfo = require(LuaChat.DialogInfo)
+local Config = require(LuaChat.Config)
+local ToastModel = require(LuaChat.Models.ToastModel)
+
+local ChangedParticipants = require(LuaChat.Actions.ChangedParticipants)
+local PopRoute = require(LuaChat.Actions.PopRoute)
+local RemovedConversation = require(LuaChat.Actions.RemovedConversation)
+local RenamedGroupConversation = require(LuaChat.Actions.RenamedGroupConversation)
+local SetChatEnabled = require(LuaChat.Actions.SetChatEnabled)
+local SetConnectionState = require(LuaChat.Actions.SetConnectionState)
+local SetRoute = require(LuaChat.Actions.SetRoute)
+local ShowToast = require(LuaChat.Actions.ShowToast)
+
+local StringsLocale = require(LuaApp.StringsLocale)
+
+local Intent = DialogInfo.Intent
 
 local function jsonDecode(data)
 	return HttpService:JSONDecode(data)
@@ -30,23 +45,28 @@ local function getNewestWithNilPreviousMessageId(messages)
 end
 
 local RobloxEventReceiver = {}
-
 function RobloxEventReceiver:init(appState)
 	local function onChatNotifications(eventData)
 		local detail = jsonDecode(eventData.detail)
 		local detailType = eventData.detailType
 		if detailType == "RemovedFromConversation" then
 			local conversationId = tostring(detail.ConversationId)
-			appState.store:Dispatch({
-				type = ActionType.RemovedConversation,
-				conversationId = conversationId,
-			})
+			appState.store:Dispatch(RemovedConversation(conversationId))
+
+			local chatReducer = appState.store:GetState().ChatAppReducer
+			if chatReducer and chatReducer.Location then
+				local currentLocation = chatReducer.Location.current
+				if currentLocation and currentLocation.parameters then
+					if currentLocation.parameters.conversationId == conversationId then
+						local messageKey = StringsLocale.Keys.REMOVED_FROM_CONVERSATION
+						local toastModel = ToastModel.new(Constants.ToastIDs.REMOVED_FROM_CONVERSATION, messageKey, {})
+						appState.store:Dispatch(ShowToast(toastModel))
+					end
+				end
+			end
 		elseif detailType == "ConversationRemoved" then
 			local conversationId = tostring(detail.ConversationId)
-			appState.store:Dispatch({
-				type = ActionType.RemovedConversation,
-				conversationId = conversationId,
-			})
+			appState.store:Dispatch(RemovedConversation(conversationId))
 		elseif detailType == "ConversationTitleChanged" then
 			local conversationId = tostring(detail.ConversationId)
 			local userId = tostring(detail.ActorTargetId)
@@ -64,14 +84,11 @@ function RobloxEventReceiver:init(appState)
 					local conversation = conversations[1]
 					local title = conversation.title
 					local isDefaultTitle = conversation.isDefaultTitle
-					appState.store:Dispatch({
-						type = ActionType.RenamedGroupConversation,
-						conversationId = conversationId,
-						userId = userId,
-						title = title,
-						isDefaultTitle = isDefaultTitle,
-						lastUpdated = conversation.lastUpdated,
-					})
+					appState.store:Dispatch(
+						RenamedGroupConversation(
+							conversationId, userId, title, isDefaultTitle, conversation.lastUpdated
+						)
+					)
 				end
 			end)
 		elseif detailType == "ParticipantAdded" then
@@ -89,13 +106,7 @@ function RobloxEventReceiver:init(appState)
 				if #conversations > 0 then
 					local conversation = conversations[1]
 					local participants = conversation.participants
-					appState.store:Dispatch({
-						type = ActionType.ChangedParticipants,
-						conversationId = convoId,
-						participants = participants,
-						lastUpdated = conversation.lastUpdated,
-						title = conversation.title,
-					})
+					appState.store:Dispatch(ChangedParticipants(convoId, participants, conversation.title, conversation.lastUpdated))
 				end
 			end)
 		elseif detailType == "ParticipantLeft" then
@@ -113,13 +124,7 @@ function RobloxEventReceiver:init(appState)
 				if #conversations > 0 then
 					local conversation = conversations[1]
 					local participants = conversation.participants
-					appState.store:Dispatch({
-						type = ActionType.ChangedParticipants,
-						conversationId = convoId,
-						participants = participants,
-						lastUpdated = conversation.lastUpdated,
-						title = conversation.title,
-					})
+					appState.store:Dispatch(ChangedParticipants(convoId, participants, conversation.title, conversation.lastUpdated))
 				end
 			end)
 		elseif detailType == "AddedToConversation" then
@@ -171,7 +176,7 @@ function RobloxEventReceiver:init(appState)
 					return
 				end
 
-				if appState.store:GetState().Conversations[result.id] == nil then
+				if appState.store:GetState().ChatAppReducer.Conversations[result.id] == nil then
 					--Call GetConversations to make sure we hit the user and presence
 					--endpoints if need be. Being a bit lazy I suppose
 					local status = appState.store:Dispatch(
@@ -184,18 +189,11 @@ function RobloxEventReceiver:init(appState)
 					end
 				end
 
-				appState.store:Dispatch({
-					type = ActionType.SetRoute,
-					intent = Intent.Conversation,
-					popToIntent = Intent.ConversationHub,
-					parameters = {
-						conversationId = result.id,
-					},
-				})
+				appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = result.id}, Intent.ConversationHub))
 			end)
 		elseif detailType == "StartConversationWithId" then
 			local convoId = eventData.detail
-			if appState.store:GetState().Conversations[convoId] == nil then
+			if appState.store:GetState().ChatAppReducer.Conversations[convoId] == nil then
 				local status = appState.store:Dispatch(
 					ConversationActions.GetConversations({convoId})
 				)
@@ -206,28 +204,15 @@ function RobloxEventReceiver:init(appState)
 				end
 			end
 
-			appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.Conversation,
-				popToIntent = Intent.ConversationHub,
-				parameters = {
-					conversationId = convoId,
-				},
-			})
+			appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = convoId}, Intent.ConversationHub))
 		end
 	end
 
 	local function onPrivacyNotifications(eventData)
 		if eventData.detailType == "ChatDisabled" then
-			appState.store:Dispatch({
-				type = ActionType.SetChatEnabled,
-				value = false
-			})
+			appState.store:Dispatch(SetChatEnabled(false))
 		elseif eventData.detailType == "ChatEnabled" then
-			appState.store:Dispatch({
-				type = ActionType.SetChatEnabled,
-				value = true
-			})
+			appState.store:Dispatch(SetChatEnabled(true))
 		end
 	end
 
@@ -257,10 +242,7 @@ function RobloxEventReceiver:init(appState)
 	local lastSeqNum = nil
 	local function onRobloxConnectionChanged(connectionHubName, connectionState, seqNum)
 		if connectionHubName == "signalR" then
-			appState.store:Dispatch({
-				type = ActionType.SetConnectionState,
-				connectionState = connectionState,
-			})
+			appState.store:Dispatch(SetConnectionState(connectionState))
 			if connectionState == Enum.ConnectionState.Connected then
 				if seqNum ~= lastSeqNum then
 					appState.store:Dispatch(FetchChatEnabled(function(chatEnabled)
@@ -272,7 +254,7 @@ function RobloxEventReceiver:init(appState)
 					end))
 					lastSeqNum = seqNum
 				end
-				local conversations = appState.store:GetState().Conversations
+				local conversations = appState.store:GetState().ChatAppReducer.Conversations
 				for conversationId, conversation in pairs(conversations) do
 					if conversation.fetchingOlderMessages then
 						local messages = conversation.messages
@@ -286,10 +268,8 @@ function RobloxEventReceiver:init(appState)
 	end
 
 	local function onBackButtonPressed()
-		if #appState.store:GetState().Location.history > 1 then
-			appState.store:Dispatch({
-				type = ActionType.PopRoute,
-			})
+		if #appState.store:GetState().ChatAppReducer.Location.history > 1 then
+			appState.store:Dispatch(PopRoute())
 		else
 			GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().BACK_BUTTON_NOT_CONSUMED)
 		end

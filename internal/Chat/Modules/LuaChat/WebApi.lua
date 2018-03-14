@@ -1,16 +1,19 @@
-local Modules = script.Parent
-local Conversation = require(Modules.Models.Conversation)
-local User = require(Modules.Models.User)
-local Message = require(Modules.Models.Message)
-local Functional = require(Modules.Functional)
-local Config = require(Modules.Config)
-local Constants = require(Modules.Constants)
-
-local HttpDebug = require(Modules.Debug.HttpDebug)
-
+local ContentProvider = game:GetService("ContentProvider")
+local CoreGui = game:GetService("CoreGui")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
-local ContentProvider = game:GetService("ContentProvider")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
+local Config = require(LuaChat.Config)
+local Constants = require(LuaChat.Constants)
+local Conversation = require(LuaChat.Models.Conversation)
+local Functional = require(Common.Functional)
+local HttpDebug = require(LuaChat.Debug.HttpDebug)
+local Message = require(LuaChat.Models.Message)
+local User = require(LuaChat.Models.User)
 
 local WebApi = {}
 
@@ -22,9 +25,9 @@ elseif BASE_URL:find("http://www.") then
 end
 
 --In the future, maybe change this to broom setting for Chat URL
+local API_URL = "https://api.".. BASE_URL
 local CHAT_URL = "https://chat." .. BASE_URL .. "v2/"
 local WEB_URL = "https://www." .. BASE_URL
-local API_URL = "https://api.".. BASE_URL
 local GAMES_URL = "https://games." .. BASE_URL .. "v1/"
 
 local GET_FRIENDS_MAX_RETRIES = 4
@@ -255,24 +258,6 @@ function WebApi.GetUserPresences(userIds)
 
 	return status, result
 end
-
-function WebApi.GetUsername(userId)
-	local url = API_URL .. "/users/" .. userId
-
-	local parsed, status = httpGetJson(url)
-
-	if status ~= WebApi.Status.OK then
-		return status, nil
-	end
-
-	local result =
-	{
-		username = parsed.Username,
-	}
-
-	return status, result
-end
-
 
 function WebApi.GetFriendCount()
 	--Endpoint documented here:

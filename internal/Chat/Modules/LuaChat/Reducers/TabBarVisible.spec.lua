@@ -1,7 +1,7 @@
 return function()
 	local LuaChat = script.Parent.Parent
 	local TabBarVisible = require(script.Parent.TabBarVisible)
-	local ActionType = require(LuaChat.ActionType)
+	local SetTabBarVisible = require(LuaChat.Actions.SetTabBarVisible)
 
 	describe("Action TabBarVisible", function()
 		it("sets the TabBarVisible flag", function()
@@ -9,17 +9,11 @@ return function()
 
 			expect(state).to.equal(true)
 
-			state = TabBarVisible(state, {
-				type = ActionType.SetTabBarVisible,
-				value = false,
-			})
+			state = TabBarVisible(state, SetTabBarVisible(false))
 
 			expect(state).to.equal(false)
 
-			state = TabBarVisible(state, {
-				type = ActionType.SetTabBarVisible,
-				value = true,
-			})
+			state = TabBarVisible(state, SetTabBarVisible(true))
 
 			expect(state).to.equal(true)
 		end)

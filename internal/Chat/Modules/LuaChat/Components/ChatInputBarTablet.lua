@@ -1,15 +1,19 @@
-
 local CoreGui = game:GetService("CoreGui")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
 
-local Modules = script.Parent.Parent
-local Create = require(Modules.Create)
-local Text = require(Modules.Text)
-local Constants = require(Modules.Constants)
-local Signal = require(Modules.Signal)
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
+local StringsLocale = require(LuaApp.StringsLocale)
+local Text = require(LuaChat.Text)
 local FFlagLuaChatResetKeyboardMode = settings():GetFFlag("LuaChatResetKeyboardMode")
+
+local MIN_TEXT_HEIGHT = 36
+local TEXT_FRAME_HEIGHT_DIFF = 28
 
 local function isMessageValid(text)
 	if #text >= 160 then
@@ -25,8 +29,6 @@ local function isMessageValid(text)
 end
 
 local ChatInputBar = {}
-local MIN_TEXT_HEIGHT = 36
-local TEXT_FRAME_HEIGHT_DIFF = 28
 
 function ChatInputBar.new(appState)
 	local self = {}

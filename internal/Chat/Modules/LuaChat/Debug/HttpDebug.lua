@@ -1,9 +1,14 @@
-local LuaChat = script.Parent.Parent
-local Signal = require(LuaChat.Signal)
-local Create = require(LuaChat.Create)
+local CoreGui = game:GetService("CoreGui")
 
-local COLOR_BUTTON_ENABLED = Color3.new(0.85, 0.85, 0.85)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
+
 local COLOR_BUTTON_DISABLED = Color3.new(0.6, 0.6, 0.6)
+local COLOR_BUTTON_ENABLED = Color3.new(0.85, 0.85, 0.85)
 
 local function reportButton(order, displayName, value)
 	local enabled = (value ~= nil)

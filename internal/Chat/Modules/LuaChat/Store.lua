@@ -1,8 +1,12 @@
+local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 
-local Modules = script.Parent
-local Signal = require(Modules.Signal)
-local ActionDebug = require(Modules.Debug.ActionDebug)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
+local ActionDebug = require(LuaChat.Debug.ActionDebug)
+local Signal = require(Common.Signal)
 
 local Store = {}
 

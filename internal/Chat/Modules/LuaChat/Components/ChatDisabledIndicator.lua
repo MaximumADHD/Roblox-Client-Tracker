@@ -1,14 +1,15 @@
-
 local CoreGui = game:GetService("CoreGui")
 local Workspace = game:GetService("Workspace")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
 
-local LuaChat = script.Parent.Parent
-local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
-local Signal = require(LuaChat.Signal)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
+local StringsLocale = require(LuaApp.StringsLocale)
 local Text = require(LuaChat.Text)
 
 local ChatDisabledIndicator = {}

@@ -1,22 +1,20 @@
-
-local function getAsset(name)
-	return "rbxasset://textures/ui/LuaChat/"..name..".png"
-end
-
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local Modules = script.Parent.Parent
-local Signal = require(Modules.Signal)
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local Functional = require(Modules.Functional)
-local DialogInfo = require(Modules.DialogInfo)
+local Signal = require(Common.Signal)
+local Create = require(LuaChat.Create)
+local Constants = require(LuaChat.Constants)
+local Functional = require(Common.Functional)
+local DialogInfo = require(LuaChat.DialogInfo)
 
-local Components = Modules.Components
+local Components = LuaChat.Components
 local HeaderLoader = require(Components.HeaderLoader)
 local SectionComponent = require(Components.ListSection)
 local ActionEntryComponent = require(Components.ActionEntry)
@@ -25,15 +23,19 @@ local ListEntryComponent = require(Components.ListEntry)
 local ResponseIndicator = require(Components.ResponseIndicator)
 local GenericDialogType = require(Components.GroupDetailDialogs.GenericDialogType)
 
-local ConversationModel = require(Modules.Models.Conversation)
+local ConversationModel = require(LuaChat.Models.Conversation)
 
-local ActionType = require(Modules.ActionType)
+local SetRoute = require(LuaChat.Actions.SetRoute)
 
 local Intent = DialogInfo.Intent
 
 local PARTICIPANT_VIEW = 1
 local PARTICIPANT_REPORT = 2
 local PARTICIPANT_REMOVE = 3
+
+local function getAsset(name)
+	return "rbxasset://textures/ui/LuaChat/"..name..".png"
+end
 
 local SeeMoreButton = {}
 SeeMoreButton.__index = SeeMoreButton
@@ -125,9 +127,6 @@ function GroupDetail.new(appState, convoId)
 	scrollingFrame.Position = UDim2.new(0, 0, 0, self.header.rbx.Size.Y.Offset)
 	scrollingFrame.Size = UDim2.new(1, 0, 1, -self.header.rbx.Size.Y.Offset)
 
-	self.responseIndicator = ResponseIndicator.new(appState)
-	self.responseIndicator:SetVisible(false)
-
 	self.general = SectionComponent.new(appState, StringsLocale.Keys.GENERAL)
 	self.general.rbx.LayoutOrder = 1
 	self.general.rbx.Parent = content
@@ -136,10 +135,7 @@ function GroupDetail.new(appState, convoId)
 	self.groupName.rbx.LayoutOrder = 2
 	self.groupName.rbx.Parent = content
 	local groupNameConnection = self.groupName.tapped.Event:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.GenericDialog,
-			parameters = {
+		self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 				dialog = GenericDialogType.EditChatGroupNameDialog,
 				dialogParameters = {
 					titleLocalizationKey = StringsLocale.Keys.CHAT_GROUP_NAME,
@@ -147,7 +143,7 @@ function GroupDetail.new(appState, convoId)
 					conversation = self.conversation,
 				}
 			}
-		})
+		))
 	end)
 	table.insert(self.connections, groupNameConnection)
 
@@ -172,10 +168,7 @@ function GroupDetail.new(appState, convoId)
 	self.participantsList.rbx.Parent = content
 	local userSelectedConnection = self.participantsList.userSelected:Connect(function(user)
 		if user.id ~= tostring(Players.LocalPlayer.UserId) then
-			self.appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.GenericDialog,
-				parameters = {
+			self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 					dialog = GenericDialogType.ParticipantDialog,
 					dialogParameters = {
 						titleKey = StringsLocale.Keys.OPTION,
@@ -189,7 +182,7 @@ function GroupDetail.new(appState, convoId)
 						userId = user.id
 					}
 				}
-			})
+			))
 		end
 	end)
 	table.insert(self.connections, userSelectedConnection)
@@ -217,10 +210,7 @@ function GroupDetail.new(appState, convoId)
 	self.leaveGroup.rbx.LayoutOrder = 11
 	self.leaveGroup.rbx.Parent = content
 	local leaveGroupConnection = self.leaveGroup.tapped.Event:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.GenericDialog,
-			parameters = {
+		self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 				dialog = GenericDialogType.LeaveGroupDialog,
 				dialogParameters = {
 					titleKey = StringsLocale.Keys.LEAVE_GROUP,
@@ -230,7 +220,7 @@ function GroupDetail.new(appState, convoId)
 					conversation = self.conversation
 				}
 			}
-		})
+		))
 	end)
 	table.insert(self.connections, leaveGroupConnection)
 
@@ -244,11 +234,15 @@ function GroupDetail.new(appState, convoId)
 end
 
 function GroupDetail:Update(state)
-	local conversation = state.Conversations[state.Location.current.parameters.conversationId]
+	local conversation = state.ChatAppReducer.Conversations[state.ChatAppReducer.Location.current.parameters.conversationId]
 	self.header:SetConnectionState(state.ConnectionState)
 	if conversation ~= nil then --if conversation ~= self.conversation then
 		if conversation.id ~= self.conversation.id then
 			self.showAllParticipants = false
+		end
+
+		if conversation.isUserLeaving ~= self.conversation.isUserLeaving then
+			self.responseIndicator:SetVisible(conversation.isUserLeaving)
 		end
 
 		if conversation.isDefaultTitle then
@@ -294,11 +288,11 @@ function GroupDetail:Update(state)
 
 		self.conversation = conversation
 	end
-	if self.oldState == nil or state.Location.current ~= self.oldState.Location.current then
-		if self.oldState ~= nil and state.Location.current.intent == Intent.GroupDetail then
+	if self.oldState == nil or state.ChatAppReducer.Location.current ~= self.oldState.ChatAppReducer.Location.current then
+		if self.oldState ~= nil and state.ChatAppReducer.Location.current.intent == Intent.GroupDetail then
 			-- If any Dialog is mounted on ModalBase, close them.
-			if self.oldState.Location.current.intent == Intent.GenericDialog then
-				self.oldState.Location.current.parameters.dialog:Close()
+			if self.oldState.ChatAppReducer.Location.current.intent == Intent.GenericDialog then
+				self.oldState.ChatAppReducer.Location.current.parameters.dialog:Close()
 			end
 		end
 	end

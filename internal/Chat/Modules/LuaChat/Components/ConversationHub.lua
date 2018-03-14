@@ -1,32 +1,33 @@
-local GuiService = game:GetService("GuiService")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local DialogInfo = require(LuaChat.DialogInfo)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local LuaChat = script.Parent.Parent
-
-local Signal = require(LuaChat.Signal)
-local Create = require(LuaChat.Create)
-local Constants = require(LuaChat.Constants)
-local ActionType = require(LuaChat.ActionType)
-local DialogInfo = require(LuaChat.DialogInfo)
-
 local Components = LuaChat.Components
-local PaddedImageButton = require(Components.PaddedImageButton)
-local ConversationSearchBox = require(Components.ConversationSearchBox)
+local ChatDisabledIndicator = require(Components.ChatDisabledIndicator)
+local ChatLoadingIndicator = require(Components.ChatLoadingIndicator)
 local ConversationList = require(Components.ConversationList)
+local ConversationSearchBox = require(Components.ConversationSearchBox)
 local ConversationEntry = require(Components.ConversationEntry)
 local HeaderLoader = require(Components.HeaderLoader)
 local NoFriendsIndicator = require(Components.NoFriendsIndicator)
-local ChatDisabledIndicator = require(Components.ChatDisabledIndicator)
-local ChatLoadingIndicator = require(Components.ChatLoadingIndicator)
+local PaddedImageButton = require(Components.PaddedImageButton)
 
 local ConversationActions = require(LuaChat.Actions.ConversationActions)
 local FetchChatEnabled = require(LuaChat.Actions.FetchChatEnabled)
 local GetFriendCount = require(LuaChat.Actions.GetFriendCount)
+local SetAppLoaded = require(LuaChat.Actions.SetAppLoaded)
 
 local Intent = DialogInfo.Intent
 
@@ -38,18 +39,18 @@ local LuaChatNotificationButtonEnabled = settings():GetFFlag("LuaChatNotificatio
 
 local function requestOlderConversations(appState)
 	-- Don't fetch older conversations if the oldest conversation has already been fetched.
-	if appState.store:GetState().ConversationsAsync.oldestConversationIsFetched then
+	if appState.store:GetState().ChatAppReducer.ConversationsAsync.oldestConversationIsFetched then
 		return
 	end
 
 	-- Don't fetch older conversations if the oldest conversation is  fetched.
-	if appState.store:GetState().ConversationsAsync.pageConversationsIsFetching then
+	if appState.store:GetState().ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 		return
 	end
 
 	-- Ask for new conversations
 	local convoCount = 0
-	for _, _ in pairs(appState.store:GetState().Conversations) do
+	for _, _ in pairs(appState.store:GetState().ChatAppReducer.Conversations) do
 		convoCount = convoCount + 1
 	end
 	local pageSize = Constants.PageSize.GET_CONVERSATIONS
@@ -67,10 +68,7 @@ function ConversationHub.new(appState)
 	appState.store:Dispatch(ConversationActions.GetUnreadConversationCount())
 	appState.store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS,
 		function()
-			appState.store:Dispatch({
-				type = ActionType.SetAppLoaded,
-				value = true,
-			})
+			appState.store:Dispatch(SetAppLoaded(true))
 		end))
 	appState.store:Dispatch(GetFriendCount())
 
@@ -153,7 +151,7 @@ function ConversationHub.new(appState)
 		GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().PRIVACY_SETTINGS)
 	end)
 
-	local list = ConversationList.new(appState, appState.store:GetState().Conversations, ConversationEntry)
+	local list = ConversationList.new(appState, appState.store:GetState().ChatAppReducer.Conversations, ConversationEntry)
 	self.list = list
 	list.rbx.Size = UDim2.new(1, 0, 1, -header.rbx.Size.Y.Offset)
 	list.rbx.Parent = self.rbx
@@ -194,8 +192,8 @@ function ConversationHub.new(appState)
 
 		self:Update(state, oldState)
 
-		if state.Conversations ~= oldState.Conversations
-			or state.Location.current ~= oldState.Location.current then
+		if state.ChatAppReducer.Conversations ~= oldState.ChatAppReducer.Conversations
+			or state.ChatAppReducer.Location.current ~= oldState.ChatAppReducer.Location.current then
 			list:Update(state, oldState)
 		end
 	end)
@@ -212,7 +210,7 @@ function ConversationHub:Start()
 	table.insert(self.connections, inputServiceConnection)
 
 	local statusBarTappedConnection = UserInputService.StatusBarTapped:connect(function(pos)
-		if self.appState.store:GetState().Location.current.intent ~= Intent.ConversationHub then
+		if self.appState.store:GetState().ChatAppReducer.Location.current.intent ~= Intent.ConversationHub then
 			return
 		end
 		self.list.rbx:ScrollToTop()
@@ -231,15 +229,15 @@ end
 function ConversationHub:Update(state, oldState)
 	self.header:SetConnectionState(state.ConnectionState)
 
-	local conversations = state.Conversations
-	local appLoaded = state.AppLoaded
+	local conversations = state.ChatAppReducer.Conversations
+	local appLoaded = state.ChatAppReducer.AppLoaded
 
 	local haveConversations = next(conversations) ~= nil
 
-	if state.ChatEnabled then
+	if state.ChatAppReducer.ChatEnabled then
 		self.chatDisabledIndicator.rbx.Visible = false
 
-		if state.ChatEnabled ~= oldState.ChatEnabled then
+		if state.ChatAppReducer.ChatEnabled ~= oldState.ChatAppReducer.ChatEnabled then
 			self.appState.store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS))
 		end
 	else
@@ -275,7 +273,7 @@ function ConversationHub:Update(state, oldState)
 		self.createGroupButton:SetVisible(true)
 	end
 
-	if state.ConversationsAsync.pageConversationsIsFetching ~= oldState.ConversationsAsync.pageConversationsIsFetching then
+	if state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching ~= oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 		self.list:Update(state, oldState)
 		self:getOlderConversationsForSearchIfNecessary()
 	end
@@ -290,8 +288,8 @@ function ConversationHub:getOlderConversationsForSearchIfNecessary(appState)
 	-- Note that we already try to load more conversations if we scroll down to the bottom of the list
 	local state = self.appState.store:GetState()
 	if not self.isSearchOpen
-		or state.ConversationsAsync.oldestConversationIsFetched
-		or state.ConversationsAsync.pageConversationsIsFetching then
+		or state.ChatAppReducer.ConversationsAsync.oldestConversationIsFetched
+		or state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 		return
 	end
 

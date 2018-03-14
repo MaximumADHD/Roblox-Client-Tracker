@@ -1,15 +1,15 @@
-
 local LuaChat = script.Parent.Parent.Parent
 
 local Constants = require(LuaChat.Constants)
-local DialogInfo = require(LuaChat.DialogInfo)
-local ActionType = require(LuaChat.ActionType)
 local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local DialogInfo = require(LuaChat.DialogInfo)
 
 local BaseScreen = require(script.Parent.Parent.Phone.BaseScreen)
 
 local ConversationHubComponent = require(LuaChat.Components.ConversationHub)
 local ConversationComponent = require(LuaChat.Components.Conversation)
+
+local SetRoute = require(LuaChat.Actions.SetRoute)
 
 local Intent = DialogInfo.Intent
 
@@ -34,50 +34,38 @@ function ConversationHub.new(appState, route)
 
 	self.conversationComponent = ConversationComponent.new(appState, nil)
 	self.conversationToGroupDetailsConnection = self.conversationComponent.GroupDetailsButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.GroupDetail,
-			parameters = {
-				conversationId = self.conversationComponent.conversationId,
-			},
-		})
+		self.appState.store:Dispatch(SetRoute(Intent.GroupDetail, {
+			conversationId = self.conversationComponent.conversationId,
+		}))
 	end)
 
 	self.conversationHubComponent.ConversationTapped:Connect(function(convoId)
-		local conversation = self.appState.store:GetState().Conversations[convoId]
+		local conversation = self.appState.store:GetState().ChatAppReducer.Conversations[convoId]
 		if conversation == nil then
 			return
 		end
 
 		if conversation.serverState == Constants.ServerState.NONE then
-			self.appState.store:Dispatch(ConversationActions.StartOneToOneConversation(conversation, function(serverConversation)
-				self.appState.store:Dispatch({
-					type = ActionType.SetRoute,
-					intent = Intent.Conversation,
-					popToIntent = Intent.ConversationHub,
-					parameters = {
-						conversationId = serverConversation.id,
-					},
-				})
-			end))
+			self.appState.store:Dispatch(ConversationActions.StartOneToOneConversation(conversation,
+				function(serverConversation)
+					self.appState.store:Dispatch(SetRoute(
+						Intent.Conversation,
+						{conversationId = serverConversation.id},
+						Intent.ConversationHub
+					))
+				end)
+			)
 		else
-			self.appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.Conversation,
-				popToIntent = Intent.ConversationHub,
-				parameters = {
-					conversationId = convoId,
-				}
-			})
+			self.appState.store:Dispatch(SetRoute(
+				Intent.Conversation,
+				{conversationId = convoId},
+				Intent.ConversationHub
+			))
 		end
 	end)
 
 	self.conversationHubComponent.CreateGroupButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.NewChatGroup,
-			parameters = {},
-		})
+		self.appState.store:Dispatch(SetRoute(Intent.NewChatGroup, {}))
 	end)
 
 	return self

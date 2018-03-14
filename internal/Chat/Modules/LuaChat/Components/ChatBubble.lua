@@ -75,7 +75,7 @@ function ChatBubble.new(appState, message)
 	setmetatable(self, ChatBubble)
 
 	local conversationId = message.conversationId
-	local isSending = isMessageSending(appState.store:GetState().Conversations[conversationId], message)
+	local isSending = isMessageSending(appState.store:GetState().ChatAppReducer.Conversations[conversationId], message)
 
 	self.appState = appState
 	self.message = message

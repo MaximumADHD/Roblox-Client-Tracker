@@ -1,11 +1,12 @@
 local Modules = script.Parent.Parent.Parent
 local Components = Modules.Components
 
-local ActionType = require(Modules.ActionType)
 local BaseScreen = require(Modules.Views.Phone.BaseScreen)
 local Create = require(Modules.Create)
 local Constants = require(Modules.Constants)
 local GameShareComponent = require(Components.GameShareComponent)
+
+local SetTabBarVisible = require(Modules.Actions.SetTabBarVisible)
 
 local GameShareView = BaseScreen:Template()
 GameShareView.__index = GameShareView
@@ -40,14 +41,11 @@ end
 
 function GameShareView:Start()
 	self.gameShareComponent:Start()
-	self.prevTabBarVisibility = self.appState.store:GetState().TabBarVisible
+	self.prevTabBarVisibility = self.appState.store:GetState().ChatAppReducer.TabBarVisible
 
 	BaseScreen.Start(self)
 
-	self.appState.store:Dispatch({
-		type = ActionType.SetTabBarVisible,
-		value = false,
-	})
+	self.appState.store:Dispatch(SetTabBarVisible(false))
 end
 
 function GameShareView:Stop()
@@ -55,10 +53,7 @@ function GameShareView:Stop()
 
 	BaseScreen.Stop(self)
 
-	self.appState.store:Dispatch({
-		type = ActionType.SetTabBarVisible,
-		value = self.prevTabBarVisibility,
-	})
+	self.appState.store:Dispatch(SetTabBarVisible(self.prevTabBarVisibility))
 end
 
 function GameShareView:Destruct()

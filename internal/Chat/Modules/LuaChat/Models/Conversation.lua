@@ -63,6 +63,7 @@ function Conversation.mock(mergeTable)
 	self.conversationType = Conversation.Type.MULTI_USER_CONVERSATION
 	self.participants = {}
 	self.usersTyping = {}
+	self.isUserLeaving = false
 	self.fetchingOlderMessages = false
 	self.fetchedOldestMessage = false
 	self.serverState = Constants.ServerState.NONE
@@ -93,6 +94,7 @@ function Conversation.fromUser(user)
 	self.conversationType = Conversation.Type.ONE_TO_ONE_CONVERSATION
 	self.participants = { tostring(Players.LocalPlayer.UserId), user.id }
 	self.usersTyping = {}
+	self.isUserLeaving = false
 	self.fetchingOlderMessages = false
 	self.fetchedOldestMessage = false
 	self.serverState = Constants.ServerState.NONE
@@ -118,6 +120,7 @@ function Conversation.empty(mergeTable)
 	self.conversationType = Conversation.Type.MULTI_USER_CONVERSATION
 	self.participants = {}
 	self.usersTyping = {}
+	self.isUserLeaving = false
 	self.fetchingOlderMessages = false
 	self.serverState = Constants.ServerState.NONE
 
@@ -147,6 +150,7 @@ function Conversation.fromWeb(data, clientId)
 	self.conversationType = data.conversationType
 	self.participants = {}
 	self.usersTyping = {}
+	self.isUserLeaving = false
 	self.fetchingOlderMessages = false
 	self.serverState = Constants.ServerState.CREATED
 

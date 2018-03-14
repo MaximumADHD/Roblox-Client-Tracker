@@ -1,25 +1,26 @@
-local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local ConversationModel = require(LuaChat.Models.Conversation)
+local Create = require(LuaChat.Create)
+local DialogInfo = require(LuaChat.DialogInfo)
+local Immutable = require(Common.Immutable)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local Modules = script.Parent.Parent
-local Components = Modules.Components
-
-local Signal = require(Modules.Signal)
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local ConversationActions = require(Modules.Actions.ConversationActions)
-local ActionType = require(Modules.ActionType)
-local Immutable = require(Modules.Immutable)
-local DialogInfo = require(Modules.DialogInfo)
-
-local ConversationModel = require(Modules.Models.Conversation)
-
-local HeaderLoader = require(Components.HeaderLoader)
+local Components = LuaChat.Components
 local FriendSearchBoxComponent = require(Components.FriendSearchBox)
+local HeaderLoader = require(Components.HeaderLoader)
 local ResponseIndicator = require(Components.ResponseIndicator)
+
+local SetRoute = require(LuaChat.Actions.SetRoute)
 
 local Intent = DialogInfo.Intent
 
@@ -38,7 +39,7 @@ function EditChatGroup.new(appState, maxSize, convoId)
 	self.conversation = ConversationModel.empty()
 	self.alreadyParticipants = {}
 
-	local oldConversation = self.appState.store:GetState().Conversations[self.convoId]
+	local oldConversation = self.appState.store:GetState().ChatAppReducer.Conversations[self.convoId]
 	self.fromType = oldConversation.conversationType
 	for _, userId in pairs(oldConversation.participants) do
 		self.alreadyParticipants[userId] = true
@@ -107,20 +108,17 @@ function EditChatGroup.new(appState, maxSize, convoId)
 			self.appState.store:Dispatch(
 				ConversationActions.AddUsersToConversation(self.convoId, self.conversation.participants, function()
 					self.responseIndicator:SetVisible(false)
-					self.appState.store:Dispatch({
-						type = ActionType.SetRoute,
-						popToIntent = Intent.ConversationHub,
-						intent = Intent.Conversation,
-						parameters = {
-							conversationId = self.convoId,
-						},
-					})
+					self.appState.store:Dispatch(SetRoute(
+						Intent.Conversation,
+						{conversationId = self.convoId},
+						Intent.ConversationHub
+					))
 				end)
 			)
 		elseif self.fromType == ConversationModel.Type.ONE_TO_ONE_CONVERSATION then
 			self.responseIndicator:SetVisible(true)
 
-			local originalConvo = self.appState.store:GetState().Conversations[self.convoId]
+			local originalConvo = self.appState.store:GetState().ChatAppReducer.Conversations[self.convoId]
 			local allParticipants = Immutable.Append(self.conversation.participants)
 			for _, userId in ipairs(originalConvo.participants) do
 				if userId ~= tostring(Players.LocalPlayer.UserId) then
@@ -136,14 +134,7 @@ function EditChatGroup.new(appState, maxSize, convoId)
 			self.appState.store:Dispatch(
 				ConversationActions.CreateConversation(newConvo,function(convoId)
 					self.responseIndicator:SetVisible(false)
-					self.appState.store:Dispatch({
-						type = ActionType.SetRoute,
-						popToIntent = Intent.ConversationHub,
-						intent = Intent.Conversation,
-						parameters = {
-							conversationId = convoId,
-						},
-					})
+					self.appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = convoId}, Intent.ConversationHub))
 				end)
 			)
 		end

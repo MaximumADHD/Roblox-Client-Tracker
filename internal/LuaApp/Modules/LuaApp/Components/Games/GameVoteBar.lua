@@ -5,6 +5,7 @@ local Roact = require(Modules.Common.Roact)
 local Constants = require(Modules.LuaApp.Constants)
 
 local VOTE_MASK_SIZE = 1
+local VOTE_MASK_HALF_SIZE = VOTE_MASK_SIZE / 2
 local VOTE_BAR_BACKGROUND_COLOR = Constants.Color.GRAY3
 local VOTE_BAR_FOREGROUND_COLOR = Constants.Color.GRAY2
 
@@ -26,32 +27,36 @@ function GameVoteBar:render()
 			Size = UDim2.new(votePercentage, 0, 1, 0),
 			BackgroundColor3 = VOTE_BAR_FOREGROUND_COLOR,
 			BorderSizePixel = 0,
-		}, {
-			VoteMask1 = Roact.createElement("Frame", {
-				Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
-				Position = UDim2.new(0.2 * 1/votePercentage, -VOTE_MASK_SIZE/2, 0, 0),
-				BackgroundColor3 = maskColor,
-				BorderSizePixel = 0,
-			}),
-			VoteMask2 = Roact.createElement("Frame", {
-				Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
-				Position = UDim2.new(0.4 * 1/votePercentage, -VOTE_MASK_SIZE/2, 0, 0),
-				BackgroundColor3 = maskColor,
-				BorderSizePixel = 0,
-			}),
-			VoteMask3 = Roact.createElement("Frame", {
-				Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
-				Position = UDim2.new(0.6 * 1/votePercentage, -VOTE_MASK_SIZE/2, 0, 0),
-				BackgroundColor3 = maskColor,
-				BorderSizePixel = 0,
-			}),
-			VoteMask4 = Roact.createElement("Frame", {
-				Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
-				Position = UDim2.new(0.8 * 1/votePercentage, -VOTE_MASK_SIZE/2, 0, 0),
-				BackgroundColor3 = maskColor,
-				BorderSizePixel = 0,
-			}),
-		})
+			ZIndex = 1,
+		}),
+		VoteMask1 = Roact.createElement("Frame", {
+			Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
+			Position = UDim2.new(0.2, -VOTE_MASK_HALF_SIZE, 0, 0),
+			BackgroundColor3 = maskColor,
+			BorderSizePixel = 0,
+			ZIndex = 2,
+		}),
+		VoteMask2 = Roact.createElement("Frame", {
+			Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
+			Position = UDim2.new(0.4, -VOTE_MASK_HALF_SIZE, 0, 0),
+			BackgroundColor3 = maskColor,
+			BorderSizePixel = 0,
+			ZIndex = 2,
+		}),
+		VoteMask3 = Roact.createElement("Frame", {
+			Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
+			Position = UDim2.new(0.6, -VOTE_MASK_HALF_SIZE, 0, 0),
+			BackgroundColor3 = maskColor,
+			BorderSizePixel = 0,
+			ZIndex = 2,
+		}),
+		VoteMask4 = Roact.createElement("Frame", {
+			Size = UDim2.new(0, VOTE_MASK_SIZE, 1, 0),
+			Position = UDim2.new(0.8, -VOTE_MASK_HALF_SIZE, 0, 0),
+			BackgroundColor3 = maskColor,
+			BorderSizePixel = 0,
+			ZIndex = 2,
+		}),
 	})
 end
 

@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Model" referent="RBXC75DEC2837364AA49434F17E3A285DA6">
+	<Item class="Model" referent="RBX1AEF083C77BC41E6A85611D24249A4A3">
 		<Properties>
 			<CoordinateFrame name="ModelInPrimary">
 				<X>0</X>
@@ -21,7 +21,7 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBXCC08D2452EFE4FCC9707F02AB077CEA6">
+		<Item class="Script" referent="RBX4CF39434617B4A348091B49C1EA12125">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -48,6 +48,7 @@ local InstanceInfo			= require(script.Parent.InstanceInfo)
 
 local Select				= require(script.Parent.Select)
 local Resize				= require(script.Parent.Resize)
+local Rotate				= require(script.Parent.Rotate)
 local Move					= require(script.Parent.Move)
 local MouseIconManager		= require(script.Parent.MouseIconManager)
 
@@ -74,6 +75,7 @@ local inputChangedEvent = nil
 local inputEndedEvent = nil
 local selectionChangedEvent = nil
 local deactivationEvent = nil
+local dragEnterEvent = nil
 
 local undoEvent = nil
 local redoEvent = nil
@@ -123,6 +125,10 @@ local function onInstanceChanged(instance, property)
 			DistanceLinesManager:update()
 		end
 	end
+	
+	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		Rotate:update()
+	end
 end
 
 local function onInputBegan(inputObject)
@@ -147,6 +153,9 @@ local function onInputBegan(inputObject)
 		--Check if over resize handle
 		if (Resize:isOverHandle(location)) then
 			Resize:startDrag(location)
+			return
+		elseif FFlag:isEnabled("StudioUIEditorV2Alpha") and Rotate:isOverAHandle() then
+			Rotate:onMouseDown(location)
 			return
 		end
 		
@@ -232,13 +241,16 @@ local function onInputEnded(inputObject)
 		if not selectedInstancesPropertyChangedEvent then
 			selectedInstancesPropertyChangedEvent = SelectionManager:connectSelectionInstancesChanged(onInstanceChanged)
 		end
+		
+		if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+			Rotate:onMouseUp()
+		end
 	end
 	
 	
 end
 
 local function onInputChanged(inputObject)
-	
 	if (TextEditor:isCurrentlyEditing()) then return end
 	
 	if (inputObject.UserInputType == Enum.UserInputType.MouseMovement) then
@@ -273,6 +285,18 @@ local function onInputChanged(inputObject)
 		
 		if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 			Resize:onMouseMove(location)
+			Rotate:onMouseMove(location)
+		
+			-- Handle mouse icon updates. Resize takes precedence over rotate.
+			if Resize:isOverAHandle() and not Rotate:isRotating() then
+				Resize:updateMouseIcon()
+			elseif Rotate:isOverAHandle() then
+				Rotate:updateMouseIcon()
+			elseif not Rotate:isRotating() then
+				MouseIconManager:setToDefaultIcon()
+			end
+			
+			Resize:updateHandleHighlight(Rotate:isRotating())
 		else
 			Resize:DEPRECATED_highlightHandles(location)
 		end
@@ -286,9 +310,18 @@ local function onSelectionChanged()
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		SizeBox:onSelectionChanged()
 		DistanceLinesManager:onSelectionChanged()
+		Rotate:onSelectionChanged()
 	end
 	
 	SnappingPointManager:generateSnappingLines()
+end
+
+function onDragEnter(instances)	
+	m_mouseDown = true	
+	local location = Vector2.new(plugin:GetMouse().X, plugin:GetMouse().Y)
+	SelectionManager:setSelection(instances)
+	SelectionManager:onSelectionChanged()
+	Move:startDrag(location)
 end
 
 local function onUndo(waypoint)
@@ -320,6 +353,7 @@ function Off()
 	inputEndedEvent:disconnect()
 	selectionChangedEvent:disconnect()
 	deactivationEvent:disconnect()
+	dragEnterEvent:disconnect()
 	
 	selectedInstancesPropertyChangedEvent = SelectionManager:disconnectSelectionInstancesChanged(selectedInstancesPropertyChangedEvent)
 	
@@ -328,6 +362,7 @@ function Off()
 		SizeBox:Off()
 		DistanceLinesManager:Off()
 		MouseIconManager:Off()
+		Rotate:Off()
 	end
 	
 	toolbarButton:SetActive(false)
@@ -345,6 +380,7 @@ function On()
 	inputChangedEvent = UserInputService.InputChanged:connect(onInputChanged)
 	inputEndedEvent = UserInputService.InputEnded:connect(onInputEnded)
 	selectionChangedEvent = SelectionService.SelectionChanged:connect(onSelectionChanged)
+	dragEnterEvent = plugin:GetMouse().DragEnter:connect(onDragEnter)
 	
 	deactivationEvent = plugin.Deactivation:connect(Off)
 	
@@ -359,6 +395,11 @@ function On()
 		SizeBox:On()
 		DistanceLinesManager:On()
 		MouseIconManager:On(plugin:GetMouse())
+		Rotate:On()
+		
+		-- Must do onSelectionChanged, otherwise you can select an object before
+		-- the UI Editor is turned on and it won't be registered.	
+		onSelectionChanged()
 	end
 	
 	on = true
@@ -378,7 +419,7 @@ loaded = true]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX17771780C1934291ACE2A75944338EC0">
+		<Item class="ModuleScript" referent="RBXCB05F3F230234AE291BD5E7B10A0765B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rubberband</string>
@@ -467,7 +508,7 @@ return Rubberband
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC70380D6B9BD465FB018AE9A39CE730E">
+		<Item class="ModuleScript" referent="RBX0C6CC53ADBC141CD892AA9C25F7E587F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CoreGuiManager</string>
@@ -528,7 +569,7 @@ return CoreGuiManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA5BF5F06ACC04F38AA50F2FA6E8C4710">
+		<Item class="ModuleScript" referent="RBXC56C1460EE2C4C40B487245078FC2F25">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Utility</string>
@@ -571,6 +612,23 @@ end
 -- int Utility:mathattanDistance(Vector2 v)
 function Utility:manhattanDistance(v)
 	return math.abs(v.X) + math.abs(v.Y)
+end
+
+-- Returns the cross product between two vectors.
+--
+-- double Utility:crossVector2(Vector2 v1, Vector2 v2)
+function Utility:crossVector2(v1, v2)
+	return v1.X*v2.Y - v1.Y*v2.X
+end
+
+-- Returns the angle in radians between two vectors. 
+--
+-- double Utility:angleVector2(Vector2 v1, Vector2 v2)
+function Utility:angleVector2(v1, v2)
+	-- We use this for when rotating the selected object. This method
+	-- works better than the method we use in the transform dragger tool.
+	-- See https://stackoverflow.com/questions/21483999/using-atan2-to-find-angle-between-two-vectors
+	return math.atan2(Utility:crossVector2(v1, v2), v1:Dot(v2))
 end
 
 -- Vector2 Utility:floorVector2(Vector2 v)
@@ -680,7 +738,7 @@ return Utility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA48C694A7E8C4B4588E6957A95D3473D">
+		<Item class="ModuleScript" referent="RBX99C9F87EF12C4327A6B30842F396A57D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DoubleClickDetector</string>
@@ -708,7 +766,7 @@ return DoubleClickDetector
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX010E2F94B3CB44FC9E5B60A432D9881C">
+		<Item class="ModuleScript" referent="RBXFDFAAB7DDFDC4EA081788337557C955D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TextEditor</string>
@@ -826,7 +884,7 @@ return TextEditor
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2AD3B3E88C6344FDA160084482F611DC">
+		<Item class="ModuleScript" referent="RBX32CC322DF0F540269DC7BD97B03973FC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Resize</string>
@@ -856,6 +914,7 @@ local Extents2D				= require(script.Parent.Extents2D)
 local FFlag					= require(script.Parent.FFlag)
 local GlobalValues			= require(script.Parent.GlobalValues)
 local MouseIconManager		= require(script.Parent.MouseIconManager)
+local Rotate				= require(script.Parent.Rotate)
 local SelectionManager		= require(script.Parent.SelectionManager)
 local SizeBox				= require(script.Parent.SizeBox)
 local SnappingPointManager	= require(script.Parent.SnappingPointManager)
@@ -885,7 +944,7 @@ local HANDLE_OFFSET = Vector2.new(1, 1)
 
 local BOUNDING_BOX_WIDTH = 3
 
-local HANDLE_NOTSET = 0
+local HANDLE_NOTSET = Direction.NOT_SET
 local HANDLE_NW = FFlag:isEnabled("StudioUIEditorV2Alpha") and Direction.NW or 1
 local HANDLE_N  = FFlag:isEnabled("StudioUIEditorV2Alpha") and Direction.N  or 2
 local HANDLE_NE = FFlag:isEnabled("StudioUIEditorV2Alpha") and Direction.NE or 3
@@ -926,7 +985,8 @@ local m_currentlyDragging = false
 local m_isHidden = false
 
  -- Is Direction.NW, Direction.N, ..., zero if no handle is moused over.
-local m_lastHandleIndex = HANDLE_NOTSET
+local m_hoveredHandle = HANDLE_NOTSET
+local m_previousHoveredHandle = HANDLE_NOTSET
 
 -----------------------------------
 -------------FUNCTIONS-------------
@@ -1127,29 +1187,6 @@ function highlightHandles(location)
 	end
 end
 
--- Updates the mouse cursor icon depending on the location of the
--- mouse cursor. If the mouse cursor is over a resize handle then
--- it will be changed to one of the four resize mouse cursor icons.
--- If the mouse cursor was previously over a resize handle and is
--- no longer over one, then it will reset the mouse cursor icon to
--- the default.
---
--- void updateMouseIcon(Vector2 location)
-function updateMouseIcon(location)
-	local handleOverIndex = getHandleOverIndex(location)
-	if handleOverIndex ~= HANDLE_NOTSET then
-		-- Only update mouse cursor icon if the handle changed.	
-		if handleOverIndex ~= m_lastHandleIndex then
-			MouseIconManager:setToResizeIcon(handleOverIndex)
-			m_lastHandleIndex = handleOverIndex
-		end
-	elseif HANDLE_NOTSET ~= m_lastHandleIndex then
-		-- No handles were hovered
-		MouseIconManager:setToDefaultIcon()
-		m_lastHandleIndex = HANDLE_NOTSET
-	end
-end
-
 -----------------------------------
 -----------ENCAPSULATION-----------
 -----------------------------------
@@ -1181,8 +1218,39 @@ function Resize:update()
 	updatePosition()
 end
 
+-- Returns true if the mouse is currently over one of the resize handles.
+--
+-- bool Resize:isOverAHandle()
+function Resize:isOverAHandle()
+	return m_hoveredHandle ~= HANDLE_NOTSET 
+end
+
 function Resize:isOverHandle(location)
-	return getHandleOver(location) ~= nil
+	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		return getHandleOverIndex(location) ~= HANDLE_NOTSET	
+	else
+		return getHandleOver(location) ~= nil
+	end
+end
+
+-- Updates the handle highlight. The previously hovered handles highlight will be
+-- cleared.  If a handle is hovered, then it will be highlighted. The hovered
+-- handle will not be highlighted if noHighlight is true. That's used when the 
+-- mouse is over the handle, but it should not be highlighted, e.g when rotating.
+--
+-- Resize:updateHandleHighlight(bool noHighlight)
+function Resize:updateHandleHighlight(noHighlight)
+	-- Clear previously highlighted handle
+	if m_previousHoveredHandle ~= HANDLE_NOTSET then
+		m_handles[m_previousHoveredHandle].BackgroundColor3 = BASE_COLOR
+	end
+		
+	if not noHighlight and m_hoveredHandle ~= HANDLE_NOTSET then
+		m_handles[m_hoveredHandle].BackgroundColor3 = HOVER_COLOR
+		m_previousHoveredHandle = m_hoveredHandle
+	else
+		m_previousHoveredHandle = HANDLE_NOTSET
+	end
 end
 
 -- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
@@ -1201,8 +1269,13 @@ function Resize:onMouseMove(location)
 		return
 	end
 	
-	highlightHandles(location)
-	updateMouseIcon(location)
+	m_hoveredHandle = getHandleOverIndex(location)
+end
+
+function Resize:updateMouseIcon()
+	if m_hoveredHandle ~= HANDLE_NOTSET then
+		MouseIconManager:setToResizeIcon(m_hoveredHandle)
+	end
 end
 
 --Move this function to a different module script
@@ -1424,6 +1497,7 @@ function Resize:updateDrag(location)
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		SizeBox:update()
 		DistanceLinesManager:update()
+		Rotate:update()
 	end
 end
 
@@ -1468,7 +1542,7 @@ return Resize
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXE5E680CAD59644FF864243D59CEEBBB0">
+		<Item class="ModuleScript" referent="RBX944FC9FDD9D247219863CCA31085231B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Error</string>
@@ -1485,7 +1559,7 @@ return Error
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX88B40D3014444056A3209D4BC4F167A1">
+		<Item class="ModuleScript" referent="RBXC0A3F4A398334E79A72CA935363FEDA6">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">AdornmentModule</string>
@@ -1621,7 +1695,7 @@ return AdornmentModule
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX9E975775878B4B04ADD1413805F82928">
+		<Item class="ModuleScript" referent="RBX1E318A3F82E042278F146B0C6B65604E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SelectionManager</string>
@@ -1756,7 +1830,7 @@ return SelectionManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX136F768D8B3B430091DFAFA82E296EA4">
+		<Item class="ModuleScript" referent="RBXAC61829FC28E43E3A2AA369CAEDA2F7F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Move</string>
@@ -1775,6 +1849,7 @@ local FFlag					= require(script.Parent.FFlag)
 local GlobalValues			= require(script.Parent.GlobalValues)
 local MouseIconManager		= require(script.Parent.MouseIconManager)
 local Resize				= require(script.Parent.Resize)
+local Rotate				= require(script.Parent.Rotate)
 local Select 				= require(script.Parent.Select)
 local SelectionManager		= require(script.Parent.SelectionManager)
 local SizeBox 				= require(script.Parent.SizeBox)
@@ -2005,7 +2080,7 @@ function Move:updateDrag(location)
 	if not m_currentlyDragging and Utility:manhattanDistance(location - m_originalMousePosition) <= MANHATTAN_DRAG_START_DELTA then
 		return
 	end
-	
+
 	m_currentlyDragging = true
 	
 	AdornmentModule:hideSnappingLines()
@@ -2058,6 +2133,7 @@ function Move:updateDrag(location)
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		SizeBox:updatePosition()
 		DistanceLinesManager:update()
+		Rotate:update()
 	end
 end
 
@@ -2077,19 +2153,394 @@ return Move
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX06C6FA857FD445DAA531FB5ECB1D04E6">
+		<Item class="ModuleScript" referent="RBX483F37DC4A3944BCB37B4ED698EB5C1F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rotate</string>
 				<string name="ScriptGuid">{92882F28-8124-4DC8-9C73-D41393974D28}</string>
-				<ProtectedString name="Source"><![CDATA[local Rotate = {}
+				<ProtectedString name="Source"><![CDATA[--[[
+	The Rotate module handles rotating a selected object. It changes the mouse cursor
+	when you hover outside the corners or the mid-points of the selected object. On
+	mouse down it starts the rotation. The rotation is changed as the mouse is
+	moved. The rotation stops on mouse up.
+--]]
+
+local Rotate = {}
+
+-- Modules
+local CoreGuiManager = require(script.Parent.CoreGuiManager)
+local Direction = require(script.Parent.Enum.Direction)
+local MouseIconManager = require(script.Parent.MouseIconManager)
+local SelectionManager = require(script.Parent.SelectionManager)
+local Utility = require(script.Parent.Utility)
+
+-- Services
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
+
+-- Constants
+local ROTATION_HANDLE_SIZE = 20
+
+-- Variables
+local m_selectedObject = nil
+local m_rotationHandles = {}
+local m_isMouseOverHandle = {}
+local m_isRotating = false
+local m_originalRotation = 0
+local m_referenceRotation = 0
+local m_accumulatedAngle = 0
+local m_debugMode = false -- Show handles in debug mode
+
+local m_center = nil -- The center of the selected object in absolute coordinates
+local m_previousMouseVec = nil -- The vector from the center to where the mouse was previously 
+
+local m_originalMousePosition = nil
+
+local m_handleParent = nil -- The rotation handles are positioned relative to the m_handleParent
+local m_handles = {}
+
+-- Functions
+
+-- A frame is used as a parent for all the rotation handles. The rotation
+-- handles are positioned relative to the handle parent.  The handle parent's
+-- position, size and rotation is made to match the selected object. That
+-- ensures that the rotation handles show up in the right place. All the
+-- frames are transparent so the user can't see them.
+--
+-- void createHandleParent()
+local function createHandleParent()
+	m_handleParent = Instance.new("Frame")
+	m_handleParent.Name = "UIEditorRotationHandleParent"
+	
+	-- Handle parent should only show in debug mode
+	m_handleParent.BackgroundTransparency = m_debugMode and 0 or 1
+	m_handleParent.BackgroundColor3 = Color3.new(0, 0, 255)
+	m_handleParent.BorderSizePixel = m_debugMode and 1 or 0
+	
+	-- Add to core ScreenGui
+	m_handleParent.Parent = CoreGuiManager:findOrCreateScreenGui("RotationHandles")
+end
+
+-- Destroys the frame that all rotation the handles are parented to. It
+-- also automatically destroys all the rotation handles since Destroy
+-- will also call Destroy on all the children.
+--
+-- void destroyHandleParentAndRotationHandles(void)
+local function destroyHandleParentAndRotationHandles()
+	if m_handleParent then
+		m_handleParent:Destroy()
+	end
+end
+
+local function onHandleMouseEnter(handleDirection)
+	m_isMouseOverHandle[handleDirection] = true
+end
+
+local function onHandleMouseLeave(handleDirection)
+	m_isMouseOverHandle[handleDirection] = false
+end
+
+-- Returns the index of the rotate handle that the mouse is over. It returns
+-- the lowest index if the mouse is over multiple rotate handles. 
+--
+-- Returns Direction.NOT_SET if the mouse was not over any handles.
+--
+-- int getMouseOverHandleIndex()
+local function getMouseOverHandleIndex()
+	local mouseOverIndex = Direction.NOT_SET
+	for i = Direction.FIRST, Direction.LAST do
+		if m_isMouseOverHandle[i] then
+			mouseOverIndex = i
+			break
+		end	
+	end
+	
+	return mouseOverIndex
+end
+
+-- Sets all the values in m_isMouseOverHandle to false.
+--
+-- void resetIsMouseOverHandle()
+local function resetIsMouseOverHandle()
+	for i = Direction.FIRST, Direction.LAST do
+		m_isMouseOverHandle[i] = false		
+	end
+end
+
+-- Creates the rotation handles. Called when the plugin is turned on and off.
+local function createRotationHandles()
+	if not m_handleParent then
+		error("Could not create the rotation handles because the parent was nil.")
+	end
+
+	--[[
+		Then handles should appear at the corners and the middle of the sides. Using
+		the anchors points simplifies this, as we can just use those positions directly. 
+	--]]
+	local anchorPoints = {
+		[Direction.E]  = Vector2.new(0, 0.5),
+		[Direction.SE] = Vector2.new(0, 0),
+		[Direction.S]  = Vector2.new(0.5, 0),
+		[Direction.SW] = Vector2.new(1, 0),
+		[Direction.W]  = Vector2.new(1, 0.5),
+		[Direction.NW] = Vector2.new(1, 1),
+		[Direction.N]  = Vector2.new(0.5, 1),
+		[Direction.NE] = Vector2.new(0, 1)
+	}
+	
+	--[[
+		The rotation handles are positioned using Scale relative to the m_handleParent.
+		That way their position will be updated automatically as the parent is resized.
+	--]]
+	local positions = {
+		[Direction.E]  = UDim2.new(1, 0, 0.5, 0),
+		[Direction.SE] = UDim2.new(1, 0, 1, 0),
+		[Direction.S]  = UDim2.new(0.5, 0, 1, 0),
+		[Direction.SW] = UDim2.new(0, 0, 1, 0),
+		[Direction.W]  = UDim2.new(0, 0, 0.5, 0),
+		[Direction.NW] = UDim2.new(0, 0, 0, 0),
+		[Direction.N]  = UDim2.new(0.5, 0, 0, 0),
+		[Direction.NE] = UDim2.new(1, 0, 0, 0)
+	}	
+	
+	-- Create each rotation handle
+	for i = Direction.FIRST, Direction.LAST do
+		local rotationHandle = Instance.new("Frame")
+		rotationHandle.Name = "RotationHandle_" .. Direction:toShortName(i)
+		rotationHandle.AnchorPoint = anchorPoints[i]
+		rotationHandle.Size = UDim2.new(0, ROTATION_HANDLE_SIZE, 0, ROTATION_HANDLE_SIZE)
+		rotationHandle.Position = positions[i]
+		-- Rotation handle only shows in debug mode
+		rotationHandle.BackgroundColor3 = Color3.new(0, 255, 0)
+		rotationHandle.BackgroundTransparency = m_debugMode and 0 or 1
+		rotationHandle.BorderSizePixel = m_debugMode and 1 or 0
+		
+		-- Callbacks for when the handle is hovered		
+		rotationHandle.MouseEnter:connect(function(x, y)
+			onHandleMouseEnter(i)
+		end)
+		rotationHandle.MouseLeave:connect(function(x, y)
+			onHandleMouseLeave(i)
+		end)
+		
+		-- Add rotation handle
+		rotationHandle.Parent = m_handleParent
+		m_handles[i] = rotationHandle
+	end
+end
+
+-- Creates the handle parent and the rotation handles
+local function createHandles()
+	createHandleParent()
+	createRotationHandles()
+end
+
+-- Returns which direction the hovered handle corresponds to with
+-- the current rotation. It's used to figure out which mouse curosor
+-- icon to use when the object is rotated.
+--
+-- Direction calcMouseIconDirection(Direction handle)
+local function calcMouseIconDirection(handle)
+	local handleAngle = Direction:directionToAngle(handle)	
+	return Direction:angleToDirection(handleAngle + m_selectedObject.AbsoluteRotation)
+end
+
+-- Changes the mouse cursor to the relevant rotate cursor.
+--
+-- bool Rotate:updateMouseIcon()
+function Rotate:updateMouseIcon()	
+	if m_isRotating then
+		return
+	end	
+	
+	local handle = getMouseOverHandleIndex()
+	if handle ~= Direction.NOT_SET then
+		local mouseIconDirection = calcMouseIconDirection(handle)
+		MouseIconManager:setToRotateIcon(mouseIconDirection)
+	end
+end
+
+-- Returns true if the mouse cursor is over one of the rotation handles.
+--
+-- bool Rotate:isOverAHandle()
+function Rotate:isOverAHandle()
+	return getMouseOverHandleIndex() ~= Direction.NOT_SET
+end
+
+-- Returns the center in absolute pixels of a GuiObject, e.g. frame.
+--
+-- Vector2 calcCenter(GuiObject guiObject)
+local function calcCenter(guiObject)
+	local x = guiObject.AbsolutePosition.X + math.floor(guiObject.AbsoluteSize.X/2.0)
+	local y = guiObject.AbsolutePosition.Y + math.floor(guiObject.AbsoluteSize.Y/2.0)
+	
+	return Vector2.new(x, y)
+end
+
+-- Starts rotating the selected object if the mouse is over a rotate handle.
+--
+-- void Rotate:onMouseDown(Vector2 location)
+function Rotate:onMouseDown(location)
+	if not m_selectedObject then
+		return
+	end	
+	
+	local mouseOverHandleIndex = getMouseOverHandleIndex()
+	-- Don't start a rotation if the mouse is not over a rotation handle
+	if not Direction:isValid(mouseOverHandleIndex) then
+		return
+	end
+	
+	m_isRotating = true
+	m_originalRotation = m_selectedObject.Rotation
+	m_referenceRotation = m_selectedObject.Rotation
+	m_center = calcCenter(m_selectedObject)
+	m_accumulatedAngle = 0
+	-- Calculate the where the mouse is so that it can be used when the mouse is moved.
+	m_previousMouseVec = location - m_center
+end
+
+-- Rounds the rotation angle to "something nice". We can later 
+-- decide if that something needs to be changed.
+-- 
+-- double roundRotationAngle(double angle)
+local function roundRotationAngle(angle)
+	-- Use quarter degree as the minimum and floor.
+	local denominator = 4
+	return math.floor(angle * denominator) / denominator
+end
+
+-- Constrains the rotation angle to between -360 and 360 degrees.
+-- 
+-- double constrainRotationAngle(double angle)
+local function constrainRotationAngle(angle)
+	local maxRotation = 360
+	if angle >= 0 then
+		return angle % maxRotation
+	else
+		return -(-angle % maxRotation)
+	end
+end
+
+-- Rotates the selected object if rotation has been started.
+--
+-- void Rotate:onMouseMove(Vector2 location)
+function Rotate:onMouseMove(location)
+	if not m_isRotating then
+		return
+	end
+			
+	local mouseMoveVec = location - m_center -- From center to new mouse location
+	local angleRadians = Utility:angleVector2(m_previousMouseVec, mouseMoveVec)
+	local angle = math.deg(angleRadians)
+	
+	-- We want the user to be able to rotate the object counter-clockwise
+	-- and get negative values all the way up to -360. Then it should roll
+	-- over back to 0. When rotating clock-wise we want the user to get
+	-- positive values all the way up to 360, and then roll over to 0. We
+	-- ran into an issue where when the rotation became sufficiently large
+	-- we could not know if the user had rotated one way or the other way.
+	-- If we "reset" the vectors we meassure the angles between every so
+	-- often, e.g. every 90 degrees, then we'll always get a small enough
+	-- angle so the rotation remains positive or negative.
+	m_accumulatedAngle = m_accumulatedAngle + angle
+	local roundedRotation = roundRotationAngle(m_referenceRotation + m_accumulatedAngle)
+	m_selectedObject.Rotation = constrainRotationAngle(roundedRotation)
+	m_previousMouseVec = mouseMoveVec
+	
+	if math.abs(m_accumulatedAngle) > 90 then
+		-- Make the current angle the reference angle, so we never have a
+		-- large angle between the vectors. The 90 degrees was chosen 
+		-- arbitrarily as something less than 180 degrees.
+		m_referenceRotation = m_selectedObject.Rotation
+		m_accumulatedAngle = 0
+	end
+	
+	Rotate:update()
+end
+
+-- Ends rotating the selected object if rotation was started.
+--
+-- void Rotate:onMouseUp()
+function Rotate:onMouseUp()
+	if not m_isRotating then
+		return
+	end
+
+	-- Add undo point if the selected object was rotated
+	if m_selectedObject.Rotation ~= m_originalRotation then 	
+		ChangeHistoryService:SetWaypoint("Rotate object")
+	end
+	
+	m_isRotating = false
+	m_center = nil
+	m_previousMouseVec = nil
+	Rotate:update()
+	if not Rotate:isOverAHandle() then
+		MouseIconManager:setToDefaultIcon()
+	else
+		Rotate:updateMouseIcon()
+	end
+end
+
+-- Returns true is the selected object is being rotated.
+--
+-- bool Rotate:isRotating()
+function Rotate:isRotating()
+	return m_isRotating
+end
+
+-- Updates the position of the rotate handles when the selected object's position,
+-- anchor point, size or rotation changes. It can be either from from Properties
+-- widget or by using the tools. 
+function Rotate:update()
+	if not m_selectedObject then
+		return
+	end
+	
+	m_handleParent.AnchorPoint = m_selectedObject.AnchorPoint
+	local position = m_selectedObject.AbsolutePosition
+	m_handleParent.Position = UDim2.new(0, position.X, 0, position.Y)
+	local size = m_selectedObject.AbsoluteSize
+	m_handleParent.Size = UDim2.new(0, size.X, 0, size.Y)
+	m_handleParent.Rotation = m_selectedObject.AbsoluteRotation
+end
+
+function Rotate:onSelectionChanged()
+	local filteredSelection = SelectionManager:getFilteredSelection()
+	-- The SelectionManager also sends GuiBase2d but they don't have a size. React only to GuiObject.
+	if #filteredSelection == 1 and filteredSelection[1]:IsA("GuiObject") then
+		m_selectedObject = filteredSelection[1]
+		Rotate:update()
+		-- The m_handleParent is completely transparent, so it's still not "visible" to
+		-- the user. Setting it to visible enables the handles mouseEnter and mouseLeave
+		-- events. It also looks better when m_debugMode is enabled.
+		m_handleParent.Visible = true
+	else
+		m_selectedObject = nil
+		m_handleParent.Visible = false
+	end
+end
+
+-- Turns the Rotate feature on and performs initialization. Called when the plugin is turned on.
+function Rotate:On()
+	createHandles()
+	resetIsMouseOverHandle()
+	m_isRotating = false
+	Rotate:update()
+end
+
+-- Turns the Rotate feature off and performs de-initialization. Called when the plugin is turned off.
+function Rotate:Off()
+	destroyHandleParentAndRotationHandles()
+	m_isRotating = false
+end
 
 return Rotate
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4CD9C56DCE8F4108BD6BAF1D480DDEC4">
+		<Item class="ModuleScript" referent="RBX77E076B1F446471A966749D185C6296C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Select</string>
@@ -2341,7 +2792,7 @@ return Select
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXDCC846A1644149F5B312A442FFD42C4C">
+		<Item class="ModuleScript" referent="RBX989B79B42F4148FC8D03B8348DC098C2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GlobalValues</string>
@@ -2398,7 +2849,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBXC911FE1961594C58BA07B50E2FF06FFD">
+		<Item class="Script" referent="RBX37372BFFB4904834A0C227AA2A85023C">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2440,7 +2891,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXD797824F61BF446C8073C5A0B59C887E">
+		<Item class="ModuleScript" referent="RBX455B8F10128042D4A6D5264C13F366DC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">InstanceInfo</string>
@@ -2546,7 +2997,7 @@ return InstanceInfo
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXBF7D4B1A6FD8425A8D324661E603B253">
+		<Item class="ModuleScript" referent="RBX22C1793CBD164583B9A4693F99E1DEB0">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SnappingPointManager</string>
@@ -2893,7 +3344,7 @@ return SnappingPointManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF51A2CBCB778408AB56B5578C6DC9DBF">
+		<Item class="ModuleScript" referent="RBXF37FD41E5CFC47D2A3EAE5541EE0B01E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Set</string>
@@ -2988,7 +3439,7 @@ return Set
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB1917F0D3CC140F69D45F31AA29C2D34">
+		<Item class="ModuleScript" referent="RBX8ADDA502D12D4323B69461F8FDAA982E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">UniqueArrayMap</string>
@@ -3041,7 +3492,7 @@ return UniqueArrayMap
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2330F4A3903440B2933255D03EBB2A3B">
+		<Item class="ModuleScript" referent="RBXE89F4FE9D8DC4BA081954B718EF68560">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Analytics</string>
@@ -3062,7 +3513,7 @@ return Analytics
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX19D9F5E9825A4E75A246EA0610812151">
+		<Item class="ModuleScript" referent="RBX14BF219A6D064123802F0B34BFEDB670">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Convert</string>
@@ -3104,7 +3555,7 @@ return Convert
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXEE77761B0DC041549775A623E3B5E5EB">
+		<Item class="ModuleScript" referent="RBX63CF5F06B8C84661B71B2B258DACD857">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">FFlag</string>
@@ -3135,7 +3586,7 @@ return FFlag
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX02D5CE3FDA5B4CD1BB46C75C67195B09">
+		<Item class="ModuleScript" referent="RBX0ECA496A18AB48C196FC99D7EC2369B8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Extents2D</string>
@@ -3387,12 +3838,12 @@ return Extents2D
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBXCFBBB236C3B442EBAFF7A989E632DA6E">
+		<Item class="Folder" referent="RBXB775F4544FBA4A408576C515D636FA94">
 			<Properties>
 				<string name="Name">Enum</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX10E997C3A4C948578ECAE71AA5BE128E">
+			<Item class="ModuleScript" referent="RBX6FE654DEF60142FBB6EF9DFDD98A69DA">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SnappingType</string>
@@ -3439,7 +3890,7 @@ return SnappingType
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX506AB461AFC3412F865210E05FCC426E">
+			<Item class="ModuleScript" referent="RBXECC6C9FAEF7649998A2CABAFED4E4F3A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Axis</string>
@@ -3456,7 +3907,7 @@ return Axis
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX579BB214E7144F26AC7103560120B68A">
+			<Item class="ModuleScript" referent="RBXAA42BF4DC14D4E12AE2340DE4B92A5DE">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Direction</string>
@@ -3467,17 +3918,94 @@ return Axis
 
 local Direction = {}
 
-Direction.NW  = 1
-Direction.N   = 2
-Direction.NE  = 3
-Direction.E   = 4
-Direction.SE  = 5
-Direction.S   = 6
-Direction.SW  = 7
-Direction.W   = 8
+-- Constants
+local DEGREES_IN_CIRCLE = 360
+local NUM_DIRECTIONS = 8
+local INV_DEGREES_IN_CIRCLE = 1/DEGREES_IN_CIRCLE
+local SPAN_IN_DEGREES = DEGREES_IN_CIRCLE/NUM_DIRECTIONS
+local INV_SPAN_IN_DEGREES = 1/SPAN_IN_DEGREES
+local HALF_SPAN_IN_DEGREES = SPAN_IN_DEGREES/2
 
+-- The directions
+-- NOTE: The functions Direction:angleToDirection and Direction:directionToAngle depend
+-- on the current direction values. They will need to be changed if the values change.
+Direction.NOT_SET = 0
+Direction.E   = 1
+Direction.SE  = 2
+Direction.S   = 3
+Direction.SW  = 4
+Direction.W   = 5
+Direction.NW  = 6
+Direction.N   = 7
+Direction.NE  = 8
+
+-- You can use the FIRST and LAST to iterate over the directions
+Direction.FIRST = Direction.E
+Direction.LAST  = Direction.NE
+
+local m_shortNames = {
+	[Direction.E]  = "E",
+	[Direction.SE] = "SE",
+	[Direction.S]  = "S",
+	[Direction.SW] = "SW",
+	[Direction.W]  = "W",
+	[Direction.NW] = "NW",
+	[Direction.N]  = "N",
+	[Direction.NE] = "NE"
+}
+
+-- Returns true if the passed in direction(as an integer) is valid. Returns
+-- false otherwise.
+--
+-- bool Direction:isValid(int direction)
 function Direction:isValid(direction)
-	return Direction.NW <= direction and direction <= Direction.W 
+	return Direction.FIRST <= direction and direction <= Direction.LAST 
+end
+
+-- Returns the short name, e.g. N, S, E, W,... given a direction.
+--
+-- string Direction:toShortName(int direction)
+function Direction:toShortName(direction)
+	if not Direction:isValid(direction) then
+		error("Direction", direction, "is not valid. Cannot convert to short name.")
+	end
+	
+	return m_shortNames[direction]
+end
+
+-- Normalizes an angle in degrees to 0..360 degress.
+--
+-- double normalizeAngle(double angle)
+function normalizeAngle(angle)
+	-- Using INV_DEGREES_IN_CIRCLE to avoid division
+	return angle + math.ceil(-angle*INV_DEGREES_IN_CIRCLE)*DEGREES_IN_CIRCLE
+end
+
+-- Returns the closest direction from an angle.
+--
+-- For example, 15 degrees returns Direction.E.
+--
+-- Direction Direction:angleToDirection(double angle)
+function Direction:angleToDirection(angle)	
+	-- The first handle direction is 1. It spans 45 degrees from 337.5 to 22.5 degrees,
+	-- which is why we first need to add 22.5 and then divide by 45. We need mod 8 so
+	-- the maximum handle is 8. Finally the plus one is to start at one insted of zero. 
+	local normalizedAngle = normalizeAngle(angle)
+	return (math.floor((normalizedAngle + HALF_SPAN_IN_DEGREES) * INV_SPAN_IN_DEGREES) % NUM_DIRECTIONS) + 1
+end
+
+-- Returns the angle to a direction.
+--
+-- For example, Direction.E returns 0, Direction.SE returns 45 and so forth.
+--
+-- double Direction:directionToAngle(Direction direction)
+function Direction:directionToAngle(direction)
+	assert(Direction.E == 1, "Direction.E was not the first direction.")
+	assert(Direction.NE == 8, "Direction.NE was not the last direction.")
+	assert(Direction:isValid(direction))	
+	
+	-- There are eight directions, 360/8 is 45.
+	return (direction - 1) * SPAN_IN_DEGREES
 end
 
 return Direction]]></ProtectedString>
@@ -3485,7 +4013,7 @@ return Direction]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBXDE32266CEA704A4CB70B6AB01A4E3D2F">
+		<Item class="ModuleScript" referent="RBX90444EEA9E0947F2ADEA95886C040B1D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Log</string>
@@ -3517,7 +4045,7 @@ return Log]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4B048C335680452387E5719A9D5D84EF">
+		<Item class="ModuleScript" referent="RBXFEE779F5BCF24BFD8D963FD4D3913538">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SizeBox</string>
@@ -3702,7 +4230,7 @@ return SizeBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX965789D46D6A4D81848F92AB214A3A49">
+		<Item class="ModuleScript" referent="RBXA91602EA150D4D4DAD5865A2C5EC6283">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLinesManager</string>
@@ -3811,7 +4339,7 @@ return DistanceLinesManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6237983BB46146C08602B04DA76EFBC9">
+		<Item class="ModuleScript" referent="RBXFD76F901A6844603A47C58378411BDA1">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RectUtility</string>
@@ -3865,12 +4393,12 @@ return RectUtility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX66F32ADC0D3949BFA7B19CF8BC7E6934">
+		<Item class="Folder" referent="RBXC700DCEF145B4E57B6E3AEA75115B830">
 			<Properties>
 				<string name="Name">Tests</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBXB3925186853E422F8C27F531746CA999">
+			<Item class="Script" referent="RBX83BC467C824C45FB972A4AD54A005B59">
 				<Properties>
 					<bool name="Disabled">true</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -3944,7 +4472,7 @@ rectUtilityTestSuite()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX57A8633F4E66409B9A0C7AE7659D127E">
+		<Item class="ModuleScript" referent="RBX0A3E2A789B8A4CD8A9959ED40A836715">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLine</string>
@@ -4261,12 +4789,17 @@ return DistanceLine
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2EC419F7A94B4B9593042DF6F1F5F86F">
+		<Item class="ModuleScript" referent="RBXAEFCB551646343AB97795C767078CAEE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MouseIconManager</string>
 				<string name="ScriptGuid">{389A6BD1-9BBA-44F8-AF5D-196044924711}</string>
-				<ProtectedString name="Source"><![CDATA[local MouseIconManager = {}
+				<ProtectedString name="Source"><![CDATA[--[[
+	The MouseIconManager is used for changing the mouse cursor icon. It
+	keeps the current state so it knows not to change the cursor icon
+	unless it needs to be changed.
+--]]
+local MouseIconManager = {}
 
 -- Modules
 local Direction = require(script.Parent.Enum.Direction)
@@ -4278,18 +4811,38 @@ local MOUSE_MOVE_ICON = "rbxasset://textures/advClosed-hand.png"
 -- both ensures it.
 -- TODO: Replace placeholder icons with real assets once we get them.
 local MOUSE_RESIZE_ICONS = {
-	[Direction.NW] = "rbxasset://textures/StudioUIEditor/placeholderResizeDiagonalDown.png", -- HANDLE_NW
-	[Direction.N]  = "rbxasset://textures/StudioUIEditor/placeholderResizeVertical.png",     -- HANDLE_N
-	[Direction.NE] = "rbxasset://textures/StudioUIEditor/placeholderResizeDiagonalUp.png",   -- HANDLE_NE
 	[Direction.E]  = "rbxasset://textures/StudioUIEditor/placeholderResizeHorizontal.png",   -- HANDLE_E
 	[Direction.SE] = "rbxasset://textures/StudioUIEditor/placeholderResizeDiagonalDown.png", -- HANDLE_SE
 	[Direction.S]  = "rbxasset://textures/StudioUIEditor/placeholderResizeVertical.png",     -- HANDLE_S
 	[Direction.SW] = "rbxasset://textures/StudioUIEditor/placeholderResizeDiagonalUp.png",   -- HANDLE_SW
 	[Direction.W]  = "rbxasset://textures/StudioUIEditor/placeholderResizeHorizontal.png",   -- HANDLE_W
+	[Direction.NW] = "rbxasset://textures/StudioUIEditor/placeholderResizeDiagonalDown.png", -- HANDLE_NW
+	[Direction.N]  = "rbxasset://textures/StudioUIEditor/placeholderResizeVertical.png",     -- HANDLE_N
+	[Direction.NE] = "rbxasset://textures/StudioUIEditor/placeholderResizeDiagonalUp.png"    -- HANDLE_NE
 }
+
+local MOUSE_ROTATE_ICONS = {
+	[Direction.E]  = "rbxasset://textures/StudioUIEditor/icon_rotate1.png",
+	[Direction.SE] = "rbxasset://textures/StudioUIEditor/icon_rotate2.png",
+	[Direction.S]  = "rbxasset://textures/StudioUIEditor/icon_rotate3.png",
+	[Direction.SW] = "rbxasset://textures/StudioUIEditor/icon_rotate4.png",
+	[Direction.W]  = "rbxasset://textures/StudioUIEditor/icon_rotate5.png",
+	[Direction.NW] = "rbxasset://textures/StudioUIEditor/icon_rotate6.png",
+	[Direction.N]  = "rbxasset://textures/StudioUIEditor/icon_rotate7.png",
+	[Direction.NE] = "rbxasset://textures/StudioUIEditor/icon_rotate8.png",
+}
+
+-- Enums
+local IconType = {}
+IconType.DEFAULT = 0 
+IconType.MOVE = 1
+IconType.RESIZE = 2
+IconType.ROTATE = 3
 
 -- Variables
 local m_defaultIcon = nil
+local m_iconType = IconType.DEFAULT
+local m_handleDirection = Direction.NOT_SET
 
 -- Functions
 
@@ -4297,14 +4850,22 @@ local m_defaultIcon = nil
 --
 -- void MouseIconManager:setToDefaultIcon()
 function MouseIconManager:setToDefaultIcon()
-	m_mouse.Icon = m_defaultIcon
+	if m_iconType ~= IconType.DEFAULT then
+		m_iconType = IconType.DEFAULT
+		m_mouse.Icon = m_defaultIcon
+		m_handleDirection = Direction.NOT_SET
+	end
 end
 
 -- Set the mouse cursor icon to the hand when you move an object.
 --
 -- void MouseIconManager:setToMoveIcon()
 function MouseIconManager:setToMoveIcon()
-	m_mouse.Icon = MOUSE_MOVE_ICON
+	if m_iconType ~= IconType.MOVE then
+		m_iconType = IconType.MOVE
+		m_mouse.Icon = MOUSE_MOVE_ICON
+		m_handleDirection = Direction.NOT_SET
+	end
 end
 
 -- Sets the resize icon depending on the handle. There are eight handles
@@ -4315,7 +4876,24 @@ end
 function MouseIconManager:setToResizeIcon(handleDirection)
 	assert(Direction:isValid(handleDirection), "The handle direction was not valid.")
 	
-	m_mouse.Icon = MOUSE_RESIZE_ICONS[handleDirection]
+	if (m_iconType == IconType.RESIZE and m_handleDirection ~= handleDirection)
+		or m_iconType ~= IconType.RESIZE then
+		m_iconType = IconType.RESIZE
+		m_mouse.Icon = MOUSE_RESIZE_ICONS[handleDirection]
+		m_handleDirection = handleDirection
+	end
+end
+
+-- void MouseIconManager:setToRotateIcon(Enum.Direction handleDirection)
+function MouseIconManager:setToRotateIcon(handleDirection)
+	assert(Direction:isValid(handleDirection), "The handle direction was not valid.")
+	
+	if (m_iconType == IconType.ROTATE and m_handleDirection ~= handleDirection)
+		or m_iconType ~= IconType.ROTATE then
+		m_iconType = IconType.ROTATE
+		m_mouse.Icon = MOUSE_ROTATE_ICONS[handleDirection]
+		m_handleDirection = handleDirection
+	end
 end
 
 -- Call this when turning the plugin off. It de-initializes the module.
@@ -4337,6 +4915,8 @@ function MouseIconManager:On(mouse)
 	
 	m_mouse = mouse
 	m_defaultIcon = mouse.Icon
+	m_iconType = IconType.DEFAULT
+	m_handleDirection = Direction.NOT_SET
 end
 
 return MouseIconManager

@@ -1,4 +1,52 @@
+local TextService = game:GetService("TextService")
+
 local Text = {}
+
+--[[
+	Kill these truncate functions once we have official support for text truncation
+]]
+
+--Constants
+local HUGE = 10000
+local INFINITE_WIDTH = Vector2.new(HUGE, HUGE) -- Text prioritizes width vs height when given both
+
+-- Wrapper function for GetTextSize with infinite bounds
+function Text.GetTextBounds(text, font, fontSize, bounds)
+	-- bonus 1px cause sometimes last char is cut off. that's a (documented) bug for another day
+	local ret = TextService:GetTextSize(text, fontSize, font, bounds) + Vector2.new(1, 0)
+	return ret
+end
+
+function Text.GetTextWidth(text, font, fontSize)
+	return Text.GetTextBounds(text, font, fontSize, INFINITE_WIDTH).X
+end
+
+function Text.GetTextHeight(text, font, fontSize, widthCap)
+	return Text.GetTextBounds(text, font, fontSize, Vector2.new(widthCap, HUGE)).Y
+end
+
+function Text.Truncate(text, font, fontSize, widthInPixels, overflowMarker)
+	overflowMarker = overflowMarker or ""
+
+	if Text.GetTextWidth(text, font, fontSize) > widthInPixels then
+		-- A binary search may be more efficient
+		for len = #text, 1, -1 do
+			local newText = string.sub(text, 1, len) .. overflowMarker
+			if Text.GetTextWidth(newText, font, fontSize) <= widthInPixels then
+				return newText
+			end
+		end
+	else -- No truncation needed
+		return text
+	end
+
+	return ""
+end
+
+function Text.TruncateTextLabel(textLabel, overflowMarker)
+	textLabel.Text = Text.Truncate(textLabel.Text, textLabel.Font,
+			textLabel.TextSize, textLabel.AbsoluteSize.X, overflowMarker)
+end
 
 -- Remove whitespace from the beginning of the string
 function Text.TrimLeading(str)

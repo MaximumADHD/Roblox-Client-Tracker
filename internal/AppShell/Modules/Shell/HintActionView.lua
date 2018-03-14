@@ -109,7 +109,6 @@ local function createHintActionView(parent, actionName, positionMult)
     end
 
     function this:SetText(newText)
-        newText = Utility.Upper(newText)
         if newText == text.Text then
             return
         end

@@ -6,10 +6,21 @@ return function()
 		local state = AppReducer(nil, {})
 
 		local expectedKeys = {
-			PagePaused = true,
 			GameSorts = true,
-			HomeGameSorts = true,
 			Games = true,
+			GameSortGroups = true,
+			GamesInSort = true,
+			GameThumbnails = true,
+			Users = true,
+			UsersAsync = true,
+			LocalUser = true,
+			AppRouter = true,
+			PlaceInfos = true,
+			PlaceThumbnails = true,
+			FriendCount = true,
+			ConnectionState = true,
+			FormFactor = true,
+			ChatAppReducer = true,
 		}
 
 		for key in pairs(expectedKeys) do

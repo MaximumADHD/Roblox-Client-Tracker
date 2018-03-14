@@ -1,8 +1,12 @@
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService")
+local HttpService = game:GetService("HttpService")
 
 local LuaChat = script.Parent.Parent
+local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local StringsLocale = require(LuaApp.StringsLocale)
 
 local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
@@ -12,6 +16,8 @@ local LoadingIndicator = require(script.Parent.LoadingIndicator)
 
 local GetPlaceInfo = require(LuaChat.Actions.GetPlaceInfo)
 local GetPlaceThumbnail = require(LuaChat.Actions.GetPlaceThumbnail)
+
+local GameParams = require(LuaChat.Models.GameParams)
 
 local BUBBLE_PADDING = 10
 local DEFAULT_THUMBNAIL = "rbxasset://textures/ui/LuaChat/icons/share-game-thumbnail.png"
@@ -26,6 +32,7 @@ local function isOutgoingMessage(message)
 end
 
 local UrlSupportNewGamesAPI = settings():GetFFlag("UrlSupportNewGamesAPI")
+local LuaChatAssetCardsCanShowPlayButton = settings():GetFFlag("LuaChatAssetCardsCanShowPlayButton")
 
 local AssetCard = {}
 AssetCard.__index = AssetCard
@@ -62,10 +69,10 @@ function AssetCard.new(appState, message, assetId)
 		TextSize = Constants.Font.FONT_SIZE_20,
 		TextColor3 = Constants.Color.GRAY1,
 		Font = Enum.Font.SourceSans,
-		Text = "View Details",
+		Text = self.appState.localization:Format(StringsLocale.Keys.VIEW_ASSET_DETAILS),
 	}
 
-	self.actionButton = Create.new "ImageLabel" {
+	self.actionButton = Create.new "ImageButton" {
 		Name = "Action",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -257,6 +264,7 @@ function AssetCard:Update(newState)
 		self:ShowLoadingIndicator(true)
 		self.appState.store:Dispatch(GetPlaceInfo(self.assetId))
 	else
+		self.placeInfo = placeInfo
 		self.Title.Text = placeInfo.name
 		self.Details.Text = placeInfo.description:gsub("%s", " ")
 		if UrlSupportNewGamesAPI then
@@ -280,12 +288,52 @@ function AssetCard:Update(newState)
 		end
 	end
 	if self.cardBodyClick then self.cardBodyClick:Disconnect() end
+	if self.detailsButtonClick then self.detailsButtonClick:Disconnect() end
+
+	if LuaChatAssetCardsCanShowPlayButton then
+		self:StyleViewDetailsAsPlay(self.placeInfo ~= nil and self.placeInfo.isPlayable)
+	end
 
 	self.cardBodyClick = self.Content.MouseButton1Click:Connect(function()
-		GuiService:BroadcastNotification(self.assetId,
-			GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
+		if self.placeInfo then
+			GuiService:BroadcastNotification(self.assetId,
+				GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
+		end
 	end)
+
+	self.detailsButtonClick = self.actionButton.MouseButton1Click:Connect(function()
+		if self.placeInfo then
+			if LuaChatAssetCardsCanShowPlayButton then
+				if self.placeInfo.isPlayable then
+					local gameParams = GameParams.fromPlaceId(self.assetId)
+					local payload = HttpService:JSONEncode(gameParams)
+
+					GuiService:BroadcastNotification(payload,
+						GuiService:GetNotificationTypeList().LAUNCH_GAME)
+				else
+					GuiService:BroadcastNotification(self.assetId,
+						GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
+				end
+			else
+				GuiService:BroadcastNotification(self.assetId,
+					GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
+			end
+		end
+	end)
+
 	self:Resize()
+end
+
+function AssetCard:StyleViewDetailsAsPlay(isShowingAsPlay)
+	if isShowingAsPlay then
+		self.actionButton.ImageColor3 = Constants.Color.GREEN_PRIMARY
+		self.actionLabel.Text = self.appState.localization:Format(StringsLocale.Keys.PLAY_GAME)
+		self.actionLabel.TextColor3 = Constants.Color.WHITE
+	else
+		self.actionButton.ImageColor3 = Constants.Color.WHITE
+		self.actionLabel.Text = self.appState.localization:Format(StringsLocale.Keys.VIEW_ASSET_DETAILS)
+		self.actionLabel.TextColor3 = Constants.Color.GRAY1
+	end
 end
 
 function AssetCard:Show()

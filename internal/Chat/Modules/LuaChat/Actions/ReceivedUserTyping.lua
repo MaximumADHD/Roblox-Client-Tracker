@@ -1,5 +1,5 @@
 local LuaChat = script.Parent.Parent
-local ActionType = require(LuaChat.ActionType)
+local SetUserTyping = require(LuaChat.Actions.SetUserTyping)
 
 local typingCount = 0
 
@@ -9,22 +9,12 @@ return function(conversationId, userId)
 			typingCount = typingCount + 1
 			local thisTypingCount = typingCount
 
-			store:Dispatch({
-				type = ActionType.SetUserTyping,
-				conversationId = conversationId,
-				userId = userId,
-				value = true
-			})
+			store:Dispatch(SetUserTyping(conversationId, userId, true))
 
 			wait(5)
 
 			if typingCount == thisTypingCount then
-				store:Dispatch({
-					type = ActionType.SetUserTyping,
-					conversationId = conversationId,
-					userId = userId,
-					value = false
-				})
+				store:Dispatch(SetUserTyping(conversationId, userId, false))
 			end
 		end)
 	end

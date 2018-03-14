@@ -1,25 +1,29 @@
-local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 
-local LuaChat = script.Parent.Parent
-local Signal = require(LuaChat.Signal)
-local Create = require(LuaChat.Create)
-local WebApi = require(LuaChat.WebApi)
-local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Constants = require(LuaChat.Constants)
-local Text = require(LuaChat.Text)
 local Conversation = require(LuaChat.Models.Conversation)
+local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local Create = require(LuaChat.Create)
 local Device = require(LuaChat.Device)
 local DialogInfo = require(LuaChat.DialogInfo)
+local Signal = require(Common.Signal)
+local Text = require(LuaChat.Text)
+local WebApi = require(LuaChat.WebApi)
 
 local Components = LuaChat.Components
-local PaddedImageButton = require(Components.PaddedImageButton)
-local HeaderLoader = require(Components.HeaderLoader)
-local MessageList = require(Components.MessageList)
 local ChatInputBar = require(Components.ChatInputBar)
 local ChatInputBarTablet = require(Components.ChatInputBarTablet)
-local UserTypingIndicator = require(Components.UserTypingIndicator)
+local HeaderLoader = require(Components.HeaderLoader)
 local LoadingIndicator = require(Components.LoadingIndicator)
+local MessageList = require(Components.MessageList)
+local PaddedImageButton = require(Components.PaddedImageButton)
+local UserTypingIndicator = require(Components.UserTypingIndicator)
 
 local Intent = DialogInfo.Intent
 
@@ -172,12 +176,13 @@ function ConversationView:Start()
 	table.insert(self.connections, absoluteSizeConnection)
 
 	local statusBarTappedConnection = UserInputService.StatusBarTapped:connect(function(pos)
-		if self.appState.store:GetState().Location.current.intent ~= Intent.Conversation then
+		if self.appState.store:GetState().ChatAppReducer.Location.current.intent ~= Intent.Conversation then
 			return
 		end
 		self.messageList.rbx:ScrollToTop()
 	end)
 	table.insert(self.connections, statusBarTappedConnection)
+	self:Update(self.appState.store:GetState())
 end
 
 function ConversationView:Stop()
@@ -210,11 +215,11 @@ function ConversationView:Resume()
 end
 
 function ConversationView:Update(state, oldState)
-	self.header:SetConnectionState(self.appState.store:GetState().ConnectionState)
+	self.header:SetConnectionState(state.ConnectionState)
 
-	local currentConversationId = state.Location.current.parameters.conversationId
+	local currentConversationId = state.ChatAppReducer.Location.current.parameters.conversationId
 
-	local conversation = state.Conversations[currentConversationId]
+	local conversation = state.ChatAppReducer.Conversations[currentConversationId]
 
 	if not conversation then
 		return
@@ -250,7 +255,7 @@ function ConversationView:Update(state, oldState)
 		end)
 
 		local function onRequestOlderMessages()
-			local conversation = self.appState.store:GetState().Conversations[self.conversationId]
+			local conversation = self.appState.store:GetState().ChatAppReducer.Conversations[self.conversationId]
 			if conversation == nil then
 				return
 			end

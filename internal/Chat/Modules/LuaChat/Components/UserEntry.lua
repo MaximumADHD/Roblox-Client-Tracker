@@ -1,19 +1,18 @@
-
-local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
+local User = require(LuaChat.Models.User)
 
-local Modules = script.Parent.Parent
-local Components = Modules.Components
-local Constants = require(Modules.Constants)
-local Create = require(Modules.Create)
-
-local Signal = require(Modules.Signal)
-
-local User = require(Modules.Models.User)
-
+local Components = LuaChat.Components
 local ListEntry = require(Components.ListEntry)
 local UserThumbnail = require(Components.UserThumbnail)
 

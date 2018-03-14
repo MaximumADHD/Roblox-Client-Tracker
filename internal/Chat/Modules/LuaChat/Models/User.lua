@@ -29,6 +29,7 @@ function User.mock()
 	self.presence = User.PresenceType.OFFLINE
 	self.lastLocation = nil
 	self.isFriend = false
+	self.isFetching = false
 
 	return self
 end
@@ -42,6 +43,7 @@ function User.fromData(id, name, isFriend)
 		or User.PresenceType.OFFLINE
 	self.lastLocation = nil
 	self.isFriend = isFriend
+	self.isFetching = false
 
 	return self
 end

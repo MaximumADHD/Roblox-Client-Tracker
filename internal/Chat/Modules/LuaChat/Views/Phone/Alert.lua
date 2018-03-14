@@ -4,10 +4,11 @@ local Components = Modules.Components
 local BaseView = require(Modules.Views.Phone.BaseScreen)
 
 local Create = require(Modules.Create)
-local ActionType = require(Modules.ActionType)
 local AlertModel = require(Modules.Models.Alert)
 
 local DialogComponents = require(Components.DialogComponents)
+
+local DeleteAlert = require(Modules.Actions.DeleteAlert)
 
 local Alert = BaseView:Template()
 
@@ -32,16 +33,13 @@ function Alert.new(appState, route)
 
 	self.alertDialog.accepted.Event:Connect(function()
 		if self.alert ~= nil then
-			self.appState.store:Dispatch({
-				type = ActionType.DeleteAlert,
-				alert = self.alert,
-			})
+			self.appState.store:Dispatch(DeleteAlert(self.alert))
 		end
 	end)
 
 	self.appState.store.Changed:Connect(function(current, previous)
 		if current ~= previous then
-			self:Update(current.AppState.alerts)
+			self:Update(current.ChatAppReducer.AppState.alerts)
 		end
 	end)
 

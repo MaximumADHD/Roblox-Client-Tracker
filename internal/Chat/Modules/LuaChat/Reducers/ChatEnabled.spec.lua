@@ -1,8 +1,10 @@
 return function()
-	local ChatEnabled = require(script.Parent.ChatEnabled)
+	local CoreGui = game:GetService("CoreGui")
+	local Modules = CoreGui.RobloxGui.Modules
+	local LuaChat = Modules.LuaChat
+	local SetChatEnabled = require(LuaChat.Actions.SetChatEnabled)
 
-	local LuaChat = script.Parent.Parent
-	local ActionType = require(LuaChat.ActionType)
+	local ChatEnabled = require(script.Parent.ChatEnabled)
 
 	it("should be enabled by default", function()
 		local state = ChatEnabled(nil, {})
@@ -13,17 +15,11 @@ return function()
 	it("should be changed using SetChatEnabled", function()
 		local state = ChatEnabled(nil, {})
 
-		state = ChatEnabled(state, {
-			type = ActionType.SetChatEnabled,
-			value = false
-		})
+		state = ChatEnabled(state, SetChatEnabled(false))
 
 		expect(state).to.equal(false)
 
-		state = ChatEnabled(state, {
-			type = ActionType.SetChatEnabled,
-			value = true
-		})
+		state = ChatEnabled(state, SetChatEnabled(true))
 
 		expect(state).to.equal(true)
 	end)

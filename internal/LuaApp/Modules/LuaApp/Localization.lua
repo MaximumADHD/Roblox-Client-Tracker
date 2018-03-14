@@ -1,8 +1,7 @@
-
-local HttpService = game:GetService("HttpService")
-
 local Localization = {}
 Localization.__index = Localization
+
+local HttpService = game:GetService("HttpService")
 
 function Localization.new(stringsLocale, locale)
 
@@ -20,12 +19,21 @@ function Localization.new(stringsLocale, locale)
 	table:SetContents(content)
 	self.table = table
 
-	self.keyToFallbackLanguage = {}
-	for _, entry in ipairs(self.stringsLocale.Content) do
-		self.keyToFallbackLanguage[entry.key] = self:FindFallback(locale, entry.values)
-	end
+	self:BuildFallbackTable()
 
 	return self
+end
+
+function Localization:SetLocale(locale)
+	self.locale = locale
+	self:BuildFallbackTable()
+end
+
+function Localization:BuildFallbackTable()
+	self.keyToFallbackLanguage = {}
+	for _, entry in ipairs(self.stringsLocale.Content) do
+		self.keyToFallbackLanguage[entry.key] = self:FindFallback(self.locale, entry.values)
+	end
 end
 
 function Localization:GetLocale(locale, languages)

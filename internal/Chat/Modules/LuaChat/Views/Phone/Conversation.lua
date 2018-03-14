@@ -4,8 +4,10 @@ local BaseScreen = require(script.Parent.BaseScreen)
 local Components = LuaChat.Components
 local ConversationComponent = require(Components.Conversation)
 
-local ActionType = require(LuaChat.ActionType)
 local DialogInfo = require(LuaChat.DialogInfo)
+
+local PopRoute = require(LuaChat.Actions.PopRoute)
+local SetRoute = require(LuaChat.Actions.SetRoute)
 
 local Intent = DialogInfo.Intent
 
@@ -44,35 +46,31 @@ function ConversationView:Start()
 	BaseScreen.Start(self)
 
 	local backButtonConnection = self.conversationComponent.BackButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		self.appState.store:Dispatch(PopRoute())
 	end)
 	table.insert(self.connections, backButtonConnection)
 
 	local groupDetailConnection = self.conversationComponent.GroupDetailsButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.GroupDetail,
-			parameters = {
+		self.appState.store:Dispatch(SetRoute(
+			Intent.GroupDetail,
+			{
 				conversationId = self.conversationId,
-			},
-		})
+			}
+		))
 	end)
 	table.insert(self.connections, groupDetailConnection)
 
 	do
 		local connection = self.appState.store.Changed:Connect(function(state, oldState)
-			local conversation = state.Conversations[self.conversationId]
+			local conversation = state.ChatAppReducer.Conversations[self.conversationId]
 
 			if not conversation then
 				if self.appState.screenManager:GetCurrentView() == self then
-					self.appState.store:Dispatch({
-						type = ActionType.SetRoute,
-						intent = nil,
-						popToIntent = Intent.ConversationHub,
-						parameters = {},
-					})
+					self.appState.store:Dispatch(SetRoute(
+						nil,
+						{},
+						Intent.ConversationHub
+					))
 				end
 				self:Stop()
 				self.viewCache[self.conversationId] = nil

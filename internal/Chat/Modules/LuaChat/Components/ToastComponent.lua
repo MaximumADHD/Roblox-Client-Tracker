@@ -2,7 +2,8 @@ local Modules = script.Parent.Parent
 
 local Create = require(Modules.Create)
 local Constants = require(Modules.Constants)
-local ActionType = require(Modules.ActionType)
+
+local ToastComplete = require(Modules.Actions.ToastComplete)
 
 local ToastComponent = {}
 ToastComponent.__index = ToastComponent
@@ -43,7 +44,7 @@ function ToastComponent.new(appState, route)
 
 	self.appState.store.Changed:Connect(function(current, previous)
 		if current ~= previous then
-			self:Update(current.Toast)
+			self:Update(current.ChatAppReducer.Toast)
 		end
 	end)
 
@@ -68,10 +69,7 @@ function ToastComponent:Hide()
 	self.rbx:TweenPosition(POSITION_HIDE, Enum.EasingDirection.In,
 			Enum.EasingStyle.Quad, 0.25, false, function(status)
 
-		self.appState.store:Dispatch({
-			type = ActionType.ToastComplete,
-			toast = self.toast,
-		})
+		self.appState.store:Dispatch(ToastComplete(self.toast))
 		self.toast = nil
 	end)
 end

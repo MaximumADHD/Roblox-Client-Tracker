@@ -6,7 +6,6 @@ local Modules = script.Parent.Parent.Parent
 local Components = Modules.Components
 
 local WebApi = require(Modules.WebApi)
-local ActionType = require(Modules.ActionType)
 local DialogInfo = require(Modules.DialogInfo)
 local ConversationModel = require(Modules.Models.Conversation)
 
@@ -16,6 +15,8 @@ local Intent = DialogInfo.Intent
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
 local StringsLocale = require(LuaApp.StringsLocale)
+
+local SetRoute = require(Modules.Actions.SetRoute)
 
 local PARTICIPANT_VIEW = 1
 local PARTICIPANT_REPORT = 2
@@ -67,10 +68,7 @@ function ParticipantDialog.new(appState, titleKey, options, conversationId, conv
 			local messageArguments = {
 				USERNAME = user.name,
 			}
-			self.appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.GenericDialog,
-				parameters = {
+			self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 					dialog = GenericDialogType.RemoveUserDialog,
 					dialogParameters = {
 						titleKey = StringsLocale.Keys.REMOVE_USER,
@@ -82,7 +80,7 @@ function ParticipantDialog.new(appState, titleKey, options, conversationId, conv
 						messageArguments = messageArguments
 					}
 				}
-			})
+			))
 
 		end
 	end)

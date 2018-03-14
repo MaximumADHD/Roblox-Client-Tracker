@@ -1,5 +1,12 @@
 return function()
-	local Store = require(script.Parent.Store)
+	local CoreGui = game:GetService("CoreGui")
+
+	local Modules = CoreGui.RobloxGui.Modules
+	local Common = Modules.Common
+	local LuaChat = Modules.LuaChat
+
+	local Action = require(Common.Action)
+	local Store = require(LuaChat.Store)
 
 	describe("new", function()
 		it("should instantiate with a reducer", function()
@@ -150,6 +157,31 @@ return function()
 			store:Flush()
 
 			expect(changeCount).to.equal(2)
+
+			store:Destruct()
+		end)
+
+		it("should handle actions dispatched with /Common/Action", function()
+			local store = Store.new(function(state, action)
+				state = state or "foo"
+
+				if action.type == "act" then
+					return "bar"
+				end
+
+				return state
+			end)
+
+			expect(store).to.be.ok()
+			expect(store:GetState()).to.equal("foo")
+
+			store:Dispatch(Action("act", function()
+				return {}
+			end)())
+
+			store:Flush()
+
+			expect(store:GetState()).to.equal("bar")
 
 			store:Destruct()
 		end)

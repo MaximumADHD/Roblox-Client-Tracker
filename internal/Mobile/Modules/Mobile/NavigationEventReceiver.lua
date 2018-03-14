@@ -7,16 +7,12 @@ local HttpService = game:GetService("HttpService")
 
 local NavigationEventReceiver = {}
 
-local function jsonDecode(data)
-	return HttpService:JSONDecode(data)
-end
-
 function NavigationEventReceiver:init(appState)
 
 	local function onNaviationNotifications(eventData)
 		if eventData.detailType == "Destination" then
-			local success, decodedDetail = pcall(jsonDecode, eventData.detail)
-			if success then
+			local decodedDetail = HttpService:JSONDecode(eventData.detail)
+			if decodedDetail.appName then
 				appState.store:Dispatch( {type = ActionType.OpenApp, appName = decodedDetail.appName, parameters = decodedDetail.parameters} )
 			else
 				appState.store:Dispatch( {type = ActionType.OpenApp, appName = eventData.detail, parameters = {}} )

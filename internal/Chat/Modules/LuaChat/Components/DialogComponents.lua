@@ -1,21 +1,23 @@
+-- TweenService and UserInputService required by TextInputDialog
 local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Device = require(LuaChat.Device)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local Modules = script.Parent.Parent
-local Components = Modules.Components
+local Components = LuaChat.Components
 local TextInputEntryComponent = require(Components.TextInputEntry)
-local Constants = require(Modules.Constants)
-local Create = require(Modules.Create)
-local Signal = require(Modules.Signal)
-local ActionType = require(Modules.ActionType)
-local Device = require(Modules.Device)
 
--- Only required by TextInputDialog
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
+local PopRoute = require(LuaChat.Actions.PopRoute)
 
 local OptionDialog = {}
 local TextInputDialog = {}
@@ -124,9 +126,7 @@ local function outerFrameAndHeader(appState, title, color, event)
 	--Seems to be necessary to make sure clicks get sunk and don't fall through when dialog is open
 	rbx.MouseButton1Click:Connect(function()
 		rbx.Visible = false
-		appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		appState.store:Dispatch(PopRoute())
 		if event ~= nil then
 			event:Fire()
 		end
@@ -356,9 +356,7 @@ function ConfirmationDialog.new(appState, titleKey, messageKey, cancelTitleKey, 
 
 	saveButton.MouseButton1Click:Connect(function()
 		self.rbx.Visible = false
-		appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		appState.store:Dispatch(PopRoute())
 		self.saved:Fire(self.data)
 	end)
 
@@ -371,9 +369,7 @@ function ConfirmationDialog.new(appState, titleKey, messageKey, cancelTitleKey, 
 end
 
 function ConfirmationDialog:Close()
-	self.appState.store:Dispatch({
-		type = ActionType.PopRoute,
-	})
+	self.appState.store:Dispatch(PopRoute())
 end
 
 function ConfirmationDialog:Update(messageKey, data, messageArguments)
@@ -535,9 +531,7 @@ end
 
 function TextInputDialog:Close()
 	self.textInputComponent.rbx.TextBox:ReleaseFocus()
-	self.appState.store:Dispatch({
-		type = ActionType.PopRoute,
-	})
+	self.appState.store:Dispatch(PopRoute())
 end
 
 function TextInputDialog:Update(value)
@@ -611,9 +605,7 @@ function OptionDialog.new(appState, titleKey, options, userId)
 
 		optionGui.MouseButton1Click:Connect(function()
 			self.rbx.Visible = false
-			appState.store:Dispatch({
-				type = ActionType.PopRoute,
-			})
+			appState.store:Dispatch(PopRoute())
 			self.selected:Fire(optionId, self.data or {})
 		end)
 
@@ -669,9 +661,7 @@ function OptionDialog:Resize()
 end
 
 function OptionDialog:Close()
-	self.appState.store:Dispatch({
-		type = ActionType.PopRoute,
-	})
+	self.appState.store:Dispatch(PopRoute())
 
 end
 

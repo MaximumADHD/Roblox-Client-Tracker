@@ -13,12 +13,11 @@ local testStringsLocale = {
 
 	Content = {
 		{
-
 			key = "HELLO",
 			values = {
-				["en-us"] = "Hello",
-				["es-mx"] = "Hola!",
-				["es"] = "Hola",
+				["en-us"] = "Hello in American English",
+				["es-mx"] = "Hello in Mexican Spanish",
+				["es"] = "Hello in Spanish",
 			},
 		},
 	},
@@ -38,11 +37,16 @@ return function()
 			local language = localization:FindFallback("es-uy", testStringsLocale.Content[1].values)
 			expect(language).to.equal("es")
 		end)
-		it("should return an alternative dialect of a language if specific locale"
-			.." is not supported and no default dialect is specified", function()
-			local localization = Localization.new(testStringsLocale, "")
-			local language = localization:FindFallback("en-uk", testStringsLocale.Content[1].values)
-			expect(language).to.equal("en-us")
+	end)
+
+	describe("SetLocale", function()
+		it("should change the locale", function()
+			local localization = Localization.new(testStringsLocale, "en-us")
+			local translation = localization:Format(testStringsLocale.Keys.HELLO)
+			expect(translation).to.equal("Hello in American English")
+			localization:SetLocale("es")
+			translation = localization:Format(testStringsLocale.Keys.HELLO)
+			expect(translation).to.equal("Hello in Spanish")
 		end)
 	end)
 end

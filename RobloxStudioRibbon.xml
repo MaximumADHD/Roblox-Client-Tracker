@@ -3,7 +3,7 @@
   <QuickAccessBar tooltip ="Customize Quick Access Bar" visible="true">
     <addaction name="fileNewAction" visible="true"/>
     <addaction name="fileOpenAction" visible="false"/>
-    <addaction fflag="OpenRecentOpensNativeStartPage" name="fileOpenRecentAction" visible="false"/>
+    <addaction name="fileOpenRecentAction" visible="false"/>
     <addaction name="fileSaveAction" visible="false"/>
     <addaction name="undoAction" visible="true" />
     <addaction name="redoAction" visible="true" />
@@ -18,8 +18,7 @@
     <SystemPopup>
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
-      <addaction fflag="OpenRecentOpensNativeStartPage" name="fileOpenRecentAction"/>
-      <addaction fflag="!RemoveFilePublishedProjectsButton" name="filePublishedProjectsAction"/>
+      <addaction name="fileOpenRecentAction"/>
       <addaction name="fileCloseAction" style="textundericon"/>
       <addseparator />
       <addaction name="fileSaveAction"/>
@@ -35,7 +34,7 @@
         <addaction name="exportPlaceAction"/>
         <addaction name="shortcutHelpAction"/>
         <addaction name="fastLogDumpAction"/>
-        <addaction fflag="StudioManagePluginsInStartPage" name="managePluginsAction"/>
+        <addaction name="managePluginsAction"/>
         <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
       </submenu>
       <addseparator />
@@ -331,11 +330,11 @@
       <Group name=" ">
         <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/frame.png" width="32" height="32"/>
         <addaction name="createScrollingFrameAction" text="Scrolling Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/scrollingframe.png" width="32" height="32"/>
-        <addaction name="createTextAction" text="Text" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/text.png" width="32" height="32"/>
+        <addaction name="createTextLabelAction" text="Text Label" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/text.png" width="32" height="32"/>
         <addaction name="createTextButtonAction" text="Text Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbutton.png" width="32" height="32"/>
         <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbox.png" width="32" height="32"/>
         <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/imagebutton.png"  width="32" height="32"/>
-        <addaction name="createImageAction" text="Image" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/image.png"  width="32" height="32"/>
+        <addaction name="createImageLabelAction" text="Image Label" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/image.png"  width="32" height="32"/>
       </Group>
     </TabPage>
     <!--

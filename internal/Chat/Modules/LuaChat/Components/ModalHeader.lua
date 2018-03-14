@@ -1,23 +1,24 @@
-local PlayerService = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local PlayerService = game:GetService("Players")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local Modules = script.Parent.Parent
-local Components = Modules.Components
-
-local Create = require(Modules.Create)
-local Signal = require(Modules.Signal)
-local Constants = require(Modules.Constants)
-
-local ModalTextButton = require(Components.ModalTextButton)
+local Components = LuaChat.Components
 local BaseHeader = require(Components.BaseHeader)
+local ModalTextButton = require(Components.ModalTextButton)
 
-local ICON_CELL_WIDTH = 60
-local HEIGHT_OF_HEADER = 44
-local HEIGHT_OF_DISCONNECTED = 32
 local HEIGHT_OF_BORDER = 1
+local HEIGHT_OF_DISCONNECTED = 32
+local HEIGHT_OF_HEADER = 44
+local ICON_CELL_WIDTH = 60
 
 local TOTAL_HEIGHT_OF_HEADER = HEIGHT_OF_HEADER + HEIGHT_OF_BORDER
 

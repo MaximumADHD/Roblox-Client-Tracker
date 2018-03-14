@@ -1,13 +1,17 @@
 local CoreGui = game:GetService("CoreGui")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local LuaChat = script.Parent.Parent
-local Signal = require(LuaChat.Signal)
-local Create = require(LuaChat.Create)
-local Constants = require(LuaChat.Constants)
-local LoadingIndicator = require(LuaChat.Components.LoadingIndicator)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
 
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
+
+local Components = LuaChat.Components
+local LoadingIndicator = require(Components.LoadingIndicator)
 
 local ConversationList = {}
 
@@ -124,11 +128,11 @@ function ConversationList.new(appState, conversations, entryCard)
 	self.noResultsFrame.Parent = self.rbx
 
 	local appStateConnection = appState.store.Changed:Connect(function(state, oldState)
-		if not oldState.ConversationsAsync.pageConversationsIsFetching
-			and state.ConversationsAsync.pageConversationsIsFetching then
+		if not oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
+			and state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 			self:StartFetchingConversationsAnimation()
-		elseif oldState.ConversationsAsync.pageConversationsIsFetching
-			and not state.ConversationsAsync.pageConversationsIsFetching then
+		elseif oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
+			and not state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 			self:StopFetchingConversationsAnimation()
 		end
 		self:CheckToShowNoSearchResults()
@@ -146,7 +150,7 @@ end
 
 function ConversationList:Update(current, previous)
 	local users = current.Users
-	local conversations = current.Conversations
+	local conversations = current.ChatAppReducer.Conversations
 
 	for _, conversation in pairs(conversations) do
 		local existing = self.conversations[conversation.id]
@@ -155,7 +159,7 @@ function ConversationList:Update(current, previous)
 
 		local doUpdate = false
 
-		if conversation ~= existing or current.Location.current ~= previous.Location.current then
+		if conversation ~= existing or current.ChatAppReducer.Location.current ~= previous.ChatAppReducer.Location.current then
 			doUpdate = true
 		else
 			if userCache then

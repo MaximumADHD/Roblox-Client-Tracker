@@ -8,7 +8,7 @@ return function(placeId)
 	return function(store)
 		spawn(function()
 			local state = store:GetState()
-			if state.PlaceInfosAsync[placeId] then
+			if state.ChatAppReducer.PlaceInfosAsync[placeId] then
 				return
 			end
 			store:Dispatch({

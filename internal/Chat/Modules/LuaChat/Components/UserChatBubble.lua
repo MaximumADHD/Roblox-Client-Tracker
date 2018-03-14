@@ -36,7 +36,7 @@ function UserChatBubble.new(appState, message, newContent)
 	setmetatable(self, UserChatBubble)
 
 	local conversationId = message.conversationId
-	local isSending = isMessageSending(appState.store:GetState().Conversations[conversationId], message)
+	local isSending = isMessageSending(appState.store:GetState().ChatAppReducer.Conversations[conversationId], message)
 
 	local state = appState.store:GetState()
 	local user = state.Users[message.senderTargetId]

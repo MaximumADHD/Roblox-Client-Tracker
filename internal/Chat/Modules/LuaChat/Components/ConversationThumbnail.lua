@@ -1,13 +1,17 @@
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
-local LuaChat = script.Parent.Parent
-local Create = require(LuaChat.Create)
-local Functional = require(LuaChat.Functional)
-local UserThumbnail = require(script.Parent.UserThumbnail)
-local Device = require(LuaChat.Device)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Constants = require(LuaChat.Constants)
 local Conversation = require(LuaChat.Models.Conversation)
+local Create = require(LuaChat.Create)
+local Device = require(LuaChat.Device)
+local Functional = require(Common.Functional)
 local HeadshotLoader = require(LuaChat.HeadshotLoader)
+local UserThumbnail = require(LuaChat.Components.UserThumbnail)
 
 local MAX_USERS_IN_THUMBNAIL = 4
 
@@ -200,7 +204,7 @@ function ConversationThumbnail:Update(conversation)
 
 	local state = self.appState.store:GetState()
 	if state.FormFactor == Device.FormFactor.TABLET then
-		local currentConversationId = state.Location.current.parameters.conversationId
+		local currentConversationId = state.ChatAppReducer.Location.current.parameters.conversationId
 		if currentConversationId == conversation.id then
 			self.rbx.Mask.ImageColor3 = Constants.Color.GRAY5
 		else

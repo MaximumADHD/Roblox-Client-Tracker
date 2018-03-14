@@ -1,17 +1,22 @@
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
-local LuaChat = script.Parent.Parent
-local Create = require(LuaChat.Create)
-local Signal = require(LuaChat.Signal)
-local Text = require(LuaChat.Text)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Constants = require(LuaChat.Constants)
 local Conversation = require(LuaChat.Models.Conversation)
-local TypingIndicator = require(script.Parent.TypingIndicator)
-local UserThumbnail = require(script.Parent.UserThumbnail)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
+local Text = require(LuaChat.Text)
+
+local Components = LuaChat.Components
+local TypingIndicator = require(Components.TypingIndicator)
+local UserThumbnail = require(Components.UserThumbnail)
 
 local BUBBLE_PADDING = 10
 local DEFAULT_SPACER_BETWEEN_BUBBLES = 2
-
 local RECEIVED_BUBBLE_WITH_TAIL = "rbxasset://textures/ui/LuaChat/9-slice/chat-bubble.png"
 local RECEIVED_TAIL = "rbxasset://textures/ui/LuaChat/9-slice/chat-bubble-tip.png"
 

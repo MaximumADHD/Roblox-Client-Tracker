@@ -1,11 +1,25 @@
 return function()
 	local LuaChat = script.Parent.Parent
-	local ActionType = require(LuaChat.ActionType)
 	local Conversation = require(LuaChat.Models.Conversation)
 	local Message = require(LuaChat.Models.Message)
 	local User = require(LuaChat.Models.User)
 	local DateTime = require(LuaChat.DateTime)
 	local Constants = require(LuaChat.Constants)
+
+	local ChangedParticipants = require(LuaChat.Actions.ChangedParticipants)
+	local FetchedOldestMessage = require(LuaChat.Actions.FetchedOldestMessage)
+	local FetchingOlderMessages = require(LuaChat.Actions.FetchingOlderMessages)
+	local MessageFailedToSend = require(LuaChat.Actions.MessageFailedToSend)
+	local MessageModerated = require(LuaChat.Actions.MessageModerated)
+	local ReadConversation = require(LuaChat.Actions.ReadConversation)
+	local ReceivedConversation = require(LuaChat.Actions.ReceivedConversation)
+	local ReceivedMessages = require(LuaChat.Actions.ReceivedMessages)
+	local RemovedConversation = require(LuaChat.Actions.RemovedConversation)
+	local RenamedGroupConversation = require(LuaChat.Actions.RenamedGroupConversation)
+	local SendingMessage = require(LuaChat.Actions.SendingMessage)
+	local SentMessage = require(LuaChat.Actions.SentMessage)
+	local SetConversationLoadingStatus = require(LuaChat.Actions.SetConversationLoadingStatus)
+	local SetUserTyping = require(LuaChat.Actions.SetUserTyping)
 
 	local Conversations = require(script.Parent.Conversations)
 
@@ -20,10 +34,7 @@ return function()
 		it("should add a conversation to the store", function()
 			local conversation = Conversation.mock()
 			local state = nil
-			local action = {
-				type = ActionType.ReceivedConversation,
-				conversation = conversation
-			}
+			local action = ReceivedConversation(conversation)
 
 			state = Conversations(state, action)
 
@@ -40,11 +51,7 @@ return function()
 			local state = {
 				[conversation.id] = conversation
 			}
-			local action = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = {message}
-			}
+			local action = ReceivedMessages(conversation.id, {message})
 
 			state = Conversations(state, action)
 
@@ -62,11 +69,7 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local action = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = { message1, message2 }
-			}
+			local action = ReceivedMessages(conversation.id, { message1, message2 })
 			state = Conversations(state, action)
 
 			do
@@ -78,12 +81,7 @@ return function()
 
 			local message3 = Message.mock({ sent = DateTime.new(1991) })
 
-			action = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = { message3 }
-			}
-
+			action = ReceivedMessages(conversation.id, { message3 })
 			state = Conversations(state, action)
 
 			do
@@ -106,12 +104,7 @@ return function()
 
 			expect(state[conversation.id].hasUnreadMessages).to.equal(false)
 
-			local action = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = { message1, message2 },
-				shouldMarkConversationUnread = true,
-			}
+			local action = ReceivedMessages(conversation.id, { message1, message2 }, true)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].hasUnreadMessages).to.equal(true)
@@ -128,12 +121,7 @@ return function()
 
 			expect(state[conversation.id].hasUnreadMessages).to.equal(false)
 
-			local action = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = { message1, message2 },
-				shouldMarkConversationUnread = false,
-			}
+			local action = ReceivedMessages(conversation.id, { message1, message2 }, false)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].hasUnreadMessages).to.equal(false)
@@ -148,11 +136,7 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local action = {
-				type = ActionType.SendingMessage,
-				conversationId = conversation.id,
-				message = message
-			}
+			local action = SendingMessage(conversation.id, message)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id)).to.be.ok()
@@ -167,20 +151,12 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local action1 = {
-				type = ActionType.SendingMessage,
-				conversationId = conversation.id,
-				message = message
-			}
+			local action1 = SendingMessage(conversation.id, message)
 			state = Conversations(state, action1)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id)).to.be.ok()
 
-			local action2 = {
-				type = ActionType.SentMessage,
-				conversationId = conversation.id,
-				messageId = message.id
-			}
+			local action2 = SentMessage(conversation.id, message.id)
 			state = Conversations(state, action2)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id)).to.never.be.ok()
@@ -193,12 +169,7 @@ return function()
 			local state = {
 				[conversation.id] = conversation
 			}
-
-			local action = {
-				type = ActionType.RenamedGroupConversation,
-				conversationId = conversation.id,
-				title = "Fleebledegoop, Ham Sammich and Lemur Face"
-			}
+			local action = RenamedGroupConversation(conversation.id, nil, "Fleebledegoop, Ham Sammich and Lemur Face")
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].title).to.equal("Fleebledegoop, Ham Sammich and Lemur Face")
@@ -214,22 +185,14 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local action = {
-				type = ActionType.ChangedParticipants,
-				conversationId = conversation.id,
-				participants = { user1.id, user2.id }
-			}
+			local action = ChangedParticipants(conversation.id, { user1.id, user2.id })
 			state = Conversations(state, action)
 
 			expect(#state[conversation.id].participants).to.equal(2)
 			expect(state[conversation.id].participants[1]).to.equal(user1.id)
 			expect(state[conversation.id].participants[2]).to.equal(user2.id)
 
-			action = {
-				type = ActionType.ChangedParticipants,
-				conversationId = conversation.id,
-				participants = { user2.id }
-			}
+			action = ChangedParticipants(conversation.id, { user2.id })
 			state = Conversations(state, action)
 
 			expect(#state[conversation.id].participants).to.equal(1)
@@ -246,10 +209,7 @@ return function()
 				[conversation2.id] = conversation2
 			}
 
-			local action = {
-				type = ActionType.RemovedConversation,
-				conversationId = conversation1.id
-			}
+			local action = RemovedConversation(conversation1.id)
 			state = Conversations(state, action)
 
 			expect(state[conversation1.id]).to.equal(nil)
@@ -269,22 +229,12 @@ return function()
 
 			expect(state[conversation.id].usersTyping[user.id]).to.never.be.ok()
 
-			local action1 = {
-				type = ActionType.SetUserTyping,
-				conversationId = conversation.id,
-				userId = user.id,
-				value = true
-			}
+			local action1 = SetUserTyping(conversation.id, user.id, true)
 			state = Conversations(state, action1)
 
 			expect(state[conversation.id].usersTyping[user.id]).to.equal(true)
 
-			local action2 = {
-				type = ActionType.SetUserTyping,
-				conversationId = conversation.id,
-				userId = user.id,
-				value = false
-			}
+			local action2 = SetUserTyping(conversation.id, user.id, false)
 			state = Conversations(state, action2)
 
 			expect(state[conversation.id].usersTyping[user.id]).to.equal(false)
@@ -300,20 +250,12 @@ return function()
 
 			expect(state[conversation.id].fetchingOlderMessages).to.equal(false)
 
-			local action1 = {
-				type = ActionType.FetchingOlderMessages,
-				conversationId = conversation.id,
-				fetchingOlderMessages = true;
-			}
+			local action1 = FetchingOlderMessages(conversation.id, true)
 			state = Conversations(state, action1)
 
 			expect(state[conversation.id].fetchingOlderMessages).to.equal(true)
 
-			local action2 = {
-				type = ActionType.FetchingOlderMessages,
-				conversationId = conversation.id,
-				fetchingOlderMessages = false;
-			}
+			local action2 = FetchingOlderMessages(conversation.id, false)
 			state = Conversations(state, action2)
 
 			expect(state[conversation.id].fetchingOlderMessages).to.equal(false)
@@ -329,20 +271,12 @@ return function()
 
 			expect(state[conversation.id].fetchedOldestMessage).to.equal(false)
 
-			local action1 = {
-				type = ActionType.FetchedOldestMessage,
-				conversationId = conversation.id,
-				fetchedOldestMessage = true;
-			}
+			local action1 = FetchedOldestMessage(conversation.id, true)
 			state = Conversations(state, action1)
 
 			expect(state[conversation.id].fetchedOldestMessage).to.equal(true)
 
-			local action2 = {
-				type = ActionType.FetchedOldestMessage,
-				conversationId = conversation.id,
-				fetchedOldestMessage = false;
-			}
+			local action2 = FetchedOldestMessage(conversation.id, false)
 			state = Conversations(state, action2)
 
 			expect(state[conversation.id].fetchedOldestMessage).to.equal(false)
@@ -362,20 +296,12 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local actionAddMessages = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = { message1, message2, message3, message4 },
-				shouldMarkConversationUnread = true,
-			}
+			local actionAddMessages = ReceivedMessages(conversation.id, { message1, message2, message3, message4 }, true)
 			state = Conversations(state, actionAddMessages)
 
 			expect(state[conversation.id].hasUnreadMessages).to.equal(true)
 
-			local actionReadAll = {
-				type = ActionType.ReadConversation,
-				conversationId = conversation.id
-			}
+			local actionReadAll = ReadConversation(conversation.id)
 			state = Conversations(state, actionReadAll)
 
 			do
@@ -386,12 +312,7 @@ return function()
 				expect(messages.values[message3.id].read).to.equal(true)
 			end
 
-			local action2 = {
-				type = ActionType.ReceivedMessages,
-				conversationId = conversation.id,
-				messages = { message4, message5 },
-				shouldMarkConversationUnread = true,
-			}
+			local action2 = ReceivedMessages(conversation.id, { message4, message5 }, true)
 
 			state = Conversations(state, action2)
 
@@ -405,11 +326,7 @@ return function()
 				expect(messages.values[message5.id].read).to.equal(false)
 			end
 
-			local actionReadAll2 = {
-				type = ActionType.ReadConversation,
-				conversationId = conversation.id
-			}
-
+			local actionReadAll2 = ReadConversation(conversation.id)
 			state = Conversations(state, actionReadAll2)
 
 			do
@@ -431,20 +348,12 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local action = {
-				type = ActionType.SendingMessage,
-				conversationId = conversation.id,
-				message = message
-			}
+			local action = SendingMessage(conversation.id, message)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id).moderated).to.never.be.ok()
 
-			action = {
-				type = ActionType.MessageModerated,
-				conversationId = conversation.id,
-				messageId = message.id
-			}
+			action = MessageModerated(conversation.id, message.id)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id).moderated).to.equal(true)
@@ -459,20 +368,12 @@ return function()
 				[conversation.id] = conversation
 			}
 
-			local action = {
-				type = ActionType.SendingMessage,
-				conversationId = conversation.id,
-				message = message
-			}
+			local action = SendingMessage(conversation.id, message)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id).failed).to.equal(nil)
 
-			action = {
-				type = ActionType.MessageFailedToSend,
-				conversationId = conversation.id,
-				messageId = message.id
-			}
+			action = MessageFailedToSend(conversation.id, message.id)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].sendingMessages:Get(message.id).failed).to.equal(true)
@@ -488,20 +389,12 @@ return function()
 
 			expect(state[conversation.id].initialLoadingStatus).to.never.be.ok()
 
-			local action = {
-				type = ActionType.SetConversationLoadingStatus,
-				conversationId = conversation.id,
-				value = Constants.ConversationLoadingState.LOADING
-			}
+			local action = SetConversationLoadingStatus(conversation.id, Constants.ConversationLoadingState.LOADING)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].initialLoadingStatus).to.equal(Constants.ConversationLoadingState.LOADING)
 
-			action = {
-				type = ActionType.SetConversationLoadingStatus,
-				conversationId = conversation.id,
-				value = Constants.ConversationLoadingState.DONE
-			}
+			action = SetConversationLoadingStatus(conversation.id, Constants.ConversationLoadingState.DONE)
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].initialLoadingStatus).to.equal(Constants.ConversationLoadingState.DONE)

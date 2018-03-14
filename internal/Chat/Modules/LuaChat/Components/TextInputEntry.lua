@@ -1,7 +1,12 @@
-local LuaChat = script.Parent.Parent
-local Create = require(LuaChat.Create)
+local CoreGui = game:GetService("CoreGui")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Constants = require(LuaChat.Constants)
-local Signal = require(LuaChat.Signal)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 
 local ListEntry = require(LuaChat.Components.ListEntry)
 

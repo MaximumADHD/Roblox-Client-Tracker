@@ -5,6 +5,8 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 
 local Constants = require(Modules.LuaApp.Constants)
+local FitChildren = require(Modules.LuaApp.FitChildren)
+local FitTextLabel = require(Modules.LuaApp.Components.FitTextLabel)
 
 local SectionHeader = Roact.Component:extend("SectionHeader")
 
@@ -26,15 +28,19 @@ function SectionHeader:render()
 	local width = self.props.width
 	local layoutOrder = self.props.LayoutOrder
 
-	local totalHeight = SectionHeader.height(text, width)
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(0, width, 0, totalHeight),
+	return Roact.createElement(FitChildren.FitFrame, {
+		Size = UDim2.new(0, width, 0, 0),
+		fitAxis = FitChildren.FitAxis.Height,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		Title = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, -SIDE_PADDING*2, 1, 0),
-			Position = UDim2.new(0, SIDE_PADDING, 0, 0),
+		Padding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, TEXT_PADDING_BOTTOM),
+			PaddingLeft = UDim.new(0, SIDE_PADDING),
+			PaddingRight = UDim.new(0, SIDE_PADDING),
+		}),
+		Title = Roact.createElement(FitTextLabel, {
+			Size = UDim2.new(1, 0, 0, 0),
 			BackgroundTransparency = 1,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Constants.Color.GRAY1,

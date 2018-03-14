@@ -1,7 +1,7 @@
 return function()
 	local LuaChat = script.Parent.Parent
 	local FriendCount = require(script.Parent.FriendCount)
-	local ActionType = require(LuaChat.ActionType)
+	local SetFriendCount = require(LuaChat.Actions.SetFriendCount)
 
 	it("should be zero by default", function()
 		local state = FriendCount(nil, {})
@@ -11,10 +11,7 @@ return function()
 
 	it("should respond to SetFriendCount", function()
 		local state = FriendCount(nil, {})
-		state = FriendCount(state, {
-			type = ActionType.SetFriendCount,
-			count = 520,
-		})
+		state = FriendCount(state, SetFriendCount(520))
 
 		expect(state).to.equal(520)
 	end)

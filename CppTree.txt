@@ -452,11 +452,13 @@ RBX
 		}
 		ChorusSoundEffect
 		CompressorSoundEffect
+		DetachedSoundPlayback
 		DistortionSoundEffect
 		EchoSoundEffect
 		EqualizerSoundEffect
 		FlangeSoundEffect
 		PitchShiftSoundEffect
+		PlaybackChannelOwner
 		ReverbSoundEffect
 		SoundChannel
 		SoundEffect

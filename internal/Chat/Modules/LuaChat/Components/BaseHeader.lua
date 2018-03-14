@@ -2,7 +2,7 @@ local PlayerService = game:GetService("Players")
 
 local Modules = script.Parent.Parent
 local Text = require(Modules.Text)
-local GetUsername = require(Modules.Actions.GetUsername)
+local GetUser = require(Modules.Actions.GetUser)
 local PaddedImageButton = require(Modules.Components.PaddedImageButton)
 local Constants = require(Modules.Constants)
 local DialogInfo = require(Modules.DialogInfo)
@@ -42,14 +42,14 @@ function BaseHeader:SetDefaultSubtitle()
 	if player then
 		local userId = tostring(player.UserId)
 		local localUser = self.appState.store:GetState().Users[userId]
-		if localUser then
+		if localUser and not localUser.isFetching then
 			if player:GetUnder13() then
 				displayText = string.format("%s: <13", localUser.name)
 			else
 				displayText = string.format("%s: 13+", localUser.name)
 			end
 		else
-			self.appState.store:Dispatch(GetUsername(userId))
+			self.appState.store:Dispatch(GetUser(userId))
 			return
 		end
 	end

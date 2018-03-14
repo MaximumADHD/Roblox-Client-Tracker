@@ -1,11 +1,16 @@
-local Modules = script.Parent.Parent
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local Signal = require(Modules.Signal)
-local HeadshotLoader = require(Modules.HeadshotLoader)
+local CoreGui = game:GetService("CoreGui")
 
-local OVERLAY_IMAGE_SMALL = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-36x36.png"
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local HeadshotLoader = require(LuaChat.HeadshotLoader)
+local Signal = require(Common.Signal)
+
 local OVERLAY_IMAGE_BIG = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-48x48.png"
+local OVERLAY_IMAGE_SMALL = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-36x36.png"
 
 local UserThumbnail = {}
 

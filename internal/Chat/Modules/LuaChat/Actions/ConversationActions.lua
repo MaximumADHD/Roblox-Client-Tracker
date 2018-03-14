@@ -4,20 +4,50 @@ local CoreGui = game:GetService("CoreGui")
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local Modules = script.Parent.Parent
+local Modules = CoreGui.RobloxGui.Modules
+local LuaChat = Modules.LuaChat
 
-local Functional = require(Modules.Functional)
-local WebApi = require(Modules.WebApi)
-local ActionType = require(Modules.ActionType)
-local DateTime = require(Modules.DateTime)
-local MockId = require(Modules.MockId)
-local Constants = require(Modules.Constants)
-local Alert = require(Modules.Models.Alert)
-local ToastModel = require(Modules.Models.ToastModel)
-local ConversationModel = require(Modules.Models.Conversation)
-local UserModel = require(Modules.Models.User)
+local Functional = require(Modules.Common.Functional)
+local WebApi = require(LuaChat.WebApi)
+local DateTime = require(LuaChat.DateTime)
+local MockId = require(LuaChat.MockId)
+local Constants = require(LuaChat.Constants)
+local Alert = require(LuaChat.Models.Alert)
+local ToastModel = require(LuaChat.Models.ToastModel)
+local ConversationModel = require(LuaChat.Models.Conversation)
+local UserModel = require(LuaChat.Models.User)
 
-local GetFriendCount = require(script.Parent.GetFriendCount)
+local AddUser = require(Modules.LuaApp.Actions.AddUser)
+local ChangedParticipants = require(LuaChat.Actions.ChangedParticipants)
+local DecrementUnreadConversationCount = require(LuaChat.Actions.DecrementUnreadConversationCount)
+local FetchingOlderMessages = require(LuaChat.Actions.FetchingOlderMessages)
+local FetchedOldestMessage = require(LuaChat.Actions.FetchedOldestMessage)
+local GetFriendCount = require(LuaChat.Actions.GetFriendCount)
+local RequestAllFriends = require(LuaChat.Actions.RequestAllFriends)
+local ReceivedAllFriends = require(LuaChat.Actions.ReceivedAllFriends)
+local IncrementUnreadConversationCount = require(LuaChat.Actions.IncrementUnreadConversationCount)
+local MessageFailedToSend = require(LuaChat.Actions.MessageFailedToSend)
+local MessageModerated = require(LuaChat.Actions.MessageModerated)
+local ReadConversation = require(LuaChat.Actions.ReadConversation)
+local ReceivedConversation = require(LuaChat.Actions.ReceivedConversation)
+local ReceivedOldestConversation = require(LuaChat.Actions.ReceivedOldestConversation)
+local RequestPageConversations = require(LuaChat.Actions.RequestPageConversations)
+local ReceivedPageConversations = require(LuaChat.Actions.ReceivedPageConversations)
+local ReceivedMessages = require(LuaChat.Actions.ReceivedMessages)
+local RequestLatestMessages = require(LuaChat.Actions.RequestLatestMessages)
+local ReceivedLatestMessages = require(LuaChat.Actions.ReceivedLatestMessages)
+local RequestUserPresence = require(LuaChat.Actions.RequestUserPresence)
+local ReceivedUserPresence = require(LuaChat.Actions.ReceivedUserPresence)
+local RemovedConversation = require(LuaChat.Actions.RemovedConversation)
+local RenamedGroupConversation = require(LuaChat.Actions.RenamedGroupConversation)
+local SendingMessage = require(LuaChat.Actions.SendingMessage)
+local SentMessage = require(LuaChat.Actions.SentMessage)
+local SetConversationLoadingStatus = require(LuaChat.Actions.SetConversationLoadingStatus)
+local SetUnreadConversationCount = require(LuaChat.Actions.SetUnreadConversationCount)
+local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
+local ShowAlert = require(LuaChat.Actions.ShowAlert)
+local ShowToast = require(LuaChat.Actions.ShowToast)
+local SetUserLeavingConversation = require(LuaChat.Actions.SetUserLeavingConversation)
 
 local GET_MESSAGES_PAGE_SIZE = Constants.PageSize.GET_MESSAGES
 
@@ -44,19 +74,13 @@ local function processConversations(store, status, result)
 	local convoIds = {}
 	local userIds = {}
 	for _, convo in ipairs(conversations) do
-		store:Dispatch({
-			type = ActionType.ReceivedConversation,
-			conversation = convo,
-		})
+		store:Dispatch(ReceivedConversation(convo))
 		table.insert(convoIds, convo.id)
 	end
 
 	for _, user in pairs(users) do
 		if state.Users[user.id] == nil then
-			store:Dispatch({
-				type = ActionType.AddUser,
-				user = user,
-			})
+			store:Dispatch(AddUser(user))
 			table.insert(userIds, user.id)
 		end
 	end
@@ -73,10 +97,7 @@ local function getUserConversations(store, pageNumber, pageSize)
 	end
 
 	if #result.conversations < pageSize then
-		store:Dispatch({
-			type = ActionType.ReceivedOldestConversation,
-			value = true,
-		})
+		store:Dispatch(ReceivedOldestConversation(true))
 		store:Dispatch(ConversationActions.CreateMockOneOnOneConversations())
 	end
 
@@ -84,7 +105,7 @@ local function getUserConversations(store, pageNumber, pageSize)
 end
 
 local function shouldFetchPageConversations(state)
-	if state.ConversationsAsync.pageConversationsIsFetching then
+	if state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 		return false
 	end
 	return true
@@ -96,17 +117,13 @@ function ConversationActions.GetLocalUserConversations(pageNumber, pageSize, cal
 			return
 		end
 
-		store:Dispatch({
-			type = ActionType.RequestPageConversations,
-		})
+		store:Dispatch(RequestPageConversations())
 
 		spawn(function()
 			local status, result = getUserConversations(store, pageNumber, pageSize)
 			processConversations(store, status, result)
 
-			store:Dispatch({
-				type = ActionType.ReceivedPageConversations,
-			})
+			store:Dispatch(ReceivedPageConversations())
 
 			if callback then
 				callback()
@@ -124,7 +141,7 @@ local function refreshMessages(conversationId, store)
 		return true
 	end
 
-	local conversation = store:GetState().Conversations[conversationId]
+	local conversation = store:GetState().ChatAppReducer.Conversations[conversationId]
 	if not conversation then
 		return false
 	end
@@ -183,10 +200,7 @@ local function refreshConversations(pageNumber, store)
 
 	for _, user in pairs(users) do
 		if state.Users[user.id] == nil then
-			store:Dispatch({
-				type = ActionType.AddUser,
-				user = user,
-			})
+			store:Dispatch(AddUser(user))
 		end
 	end
 
@@ -194,33 +208,22 @@ local function refreshConversations(pageNumber, store)
 
 	for _, convo in ipairs(conversations) do
 		local convoIsIdentical = true
-		if state.Conversations[convo.id] then
-			local existing = state.Conversations[convo.id]
+		if state.ChatAppReducer.Conversations[convo.id] then
+			local existing = state.ChatAppReducer.Conversations[convo.id]
 			if existing.title ~= convo.title then
 				convoIsIdentical = false
-				store:Dispatch({
-					type = ActionType.RenamedGroupConversation,
-					conversationId = convo.id,
-					title = convo.title
-				})
+				store:Dispatch(RenamedGroupConversation(convo.id, convo.title))
 			end
 			if not hasSameParticipants(convo, existing) then
 				convoIsIdentical = false
-				store:Dispatch({
-					type = ActionType.ChangedParticipants,
-					conversationId = convo.id,
-					participants = convo.participants,
-				})
+				store:Dispatch(ChangedParticipants(convo.id, convo.participants))
 			end
 			if not existing.fetchingOlderMessages then
 				convoIsIdentical = convoIsIdentical and refreshMessages(existing.id, store)
 			end
 		else
 			convoIsIdentical = false
-			store:Dispatch({
-				type = ActionType.ReceivedConversation,
-				conversation = convo,
-			})
+			store:Dispatch(ReceivedConversation(convo))
 			table.insert(needInitialMessages, convo.id)
 		end
 		if convoIsIdentical then
@@ -268,16 +271,9 @@ function ConversationActions.StartOneToOneConversation(conversation, onSuccess)
 			end
 
 			local serverConversation = result.conversations[1]
-			store:Dispatch({
-				type = ActionType.ReceivedConversation,
-				conversation = serverConversation,
-			})
+			store:Dispatch(ReceivedConversation(serverConversation))
 
-			store:Dispatch({
-				type = ActionType.RemovedConversation,
-				conversationId = conversation.id,
-			})
-
+			store:Dispatch(RemovedConversation(conversation.id))
 			if onSuccess then
 				onSuccess(serverConversation)
 			end
@@ -296,7 +292,7 @@ function ConversationActions.CreateMockOneOnOneConversations()
 				end
 			end
 
-			for _, conversation in pairs(state.Conversations) do
+			for _, conversation in pairs(state.ChatAppReducer.Conversations) do
 				if conversation.conversationType == ConversationModel.Type.ONE_TO_ONE_CONVERSATION then
 					for _, userId in ipairs(conversation.participants) do
 						needsMockConversation[userId] = nil
@@ -306,10 +302,7 @@ function ConversationActions.CreateMockOneOnOneConversations()
 
 			for _, user in pairs(needsMockConversation) do
 				local conversation = ConversationModel.fromUser(user)
-				store:Dispatch({
-					type = ActionType.ReceivedConversation,
-					conversation = conversation,
-				})
+				store:Dispatch(ReceivedConversation(conversation))
 			end
 		end
 
@@ -321,7 +314,7 @@ end
 function ConversationActions.RefreshConversations()
 	return function(store)
 		local state = store:GetState()
-		if next(state.Conversations) == nil then
+		if next(state.ChatAppReducer.Conversations) == nil then
 			store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS))
 		else
 			spawn(function()
@@ -353,9 +346,7 @@ function ConversationActions.GetAllFriends()
 			return
 		end
 
-		store:Dispatch({
-			type = ActionType.RequestAllFriends,
-		})
+		store:Dispatch(RequestAllFriends())
 
 		spawn(function()
 			local state = store:GetState()
@@ -377,17 +368,10 @@ function ConversationActions.GetAllFriends()
 				for userId, user in pairs(result) do
 					count = count + 1
 					if state.Users[userId] == nil then
-						store:Dispatch({
-							type = ActionType.AddUser,
-							user = user,
-						})
+						store:Dispatch(AddUser(user))
 						table.insert(needsPresence, userId)
 					else
-						store:Dispatch({
-							type = ActionType.SetUserIsFriend,
-							isFriend = user.isFriend,
-							userId = userId,
-						})
+						store:Dispatch(SetUserIsFriend(userId, user.isFriend))
 					end
 				end
 				if lastCount == count then
@@ -395,9 +379,7 @@ function ConversationActions.GetAllFriends()
 				end
 			end
 
-			store:Dispatch({
-				type = ActionType.ReceivedAllFriends,
-			})
+			store:Dispatch(ReceivedAllFriends())
 			store:Dispatch(ConversationActions.GetUserPresences(needsPresence))
 		end)
 	end
@@ -416,16 +398,13 @@ function ConversationActions.FriendshipCreated(userId)
 			store:Dispatch(GetFriendCount())
 
 			local user = UserModel.fromData(userId, result.Username, true)
-			store:Dispatch({
-				type = ActionType.AddUser,
-				user = user,
-			})
+			store:Dispatch(AddUser(user))
 			store:Dispatch(ConversationActions.GetUserPresences({userId}))
 
 			local state = store:GetState()
 
 			local needsMockConversation = true
-			for _, conversation in pairs(state.Conversations) do
+			for _, conversation in pairs(state.ChatAppReducer.Conversations) do
 				if conversation.conversationType == ConversationModel.Type.ONE_TO_ONE_CONVERSATION then
 					for _, participantId in ipairs(conversation.participants) do
 						if participantId == userId then
@@ -438,10 +417,7 @@ function ConversationActions.FriendshipCreated(userId)
 
 			if needsMockConversation then
 				local conversation = ConversationModel.fromUser(user)
-				store:Dispatch({
-					type = ActionType.ReceivedConversation,
-					conversation = conversation,
-				})
+				store:Dispatch(ReceivedConversation(conversation))
 			end
 		end)
 	end
@@ -484,10 +460,7 @@ function ConversationActions.GetUserPresences(userIds)
 		end
 
 		for _, v in ipairs(newUserIds) do
-			store:Dispatch({
-				type = ActionType.RequestUserPresence,
-				userId = v,
-			})
+			store:Dispatch(RequestUserPresence(v))
 		end
 
 		spawn(function()
@@ -499,19 +472,14 @@ function ConversationActions.GetUserPresences(userIds)
 			end
 
 			for userId, result in pairs(result) do
-				store:Dispatch({
-					type = ActionType.ReceivedUserPresence,
-					userId = userId,
-					presence = result.presence,
-					lastLocation = result.lastLocation,
-				})
+				store:Dispatch(ReceivedUserPresence(userId, result.presence, result.lastLocation))
 			end
 		end)
 	end
 end
 
 local function shouldFetchLatestMessages(state)
-	if state.ConversationsAsync.latestMessagesIsFetching then
+	if state.ChatAppReducer.ConversationsAsync.latestMessagesIsFetching then
 		return false
 	end
 	return true
@@ -523,9 +491,7 @@ function ConversationActions.GetLatestMessages(convoIds)
 			return
 		end
 
-		store:Dispatch({
-			type = ActionType.RequestLatestMessages,
-		})
+		store:Dispatch(RequestLatestMessages())
 
 		spawn(function()
 			local status, messages = WebApi.GetLatestMessages(convoIds)
@@ -537,22 +503,16 @@ function ConversationActions.GetLatestMessages(convoIds)
 
 			local state = store:GetState()
 			for _, message in ipairs(messages) do
-				local conversation = state.Conversations[message.conversationId]
+				local conversation = state.ChatAppReducer.Conversations[message.conversationId]
 				if conversation.messages:Get(message.id) == nil then
 					if conversation.messages:Last() ~= nil then
 						message.previousMessageId = conversation.messages:Last().id
 					end
-					store:Dispatch({
-						type = ActionType.ReceivedMessages,
-						conversationId = message.conversationId,
-						messages = {message},
-					})
+					store:Dispatch(ReceivedMessages(message.conversationId, {message}))
 				end
 			end
 
-			store:Dispatch({
-				type = ActionType.ReceivedLatestMessages,
-			})
+			store:Dispatch(ReceivedLatestMessages())
 		end)
 	end
 end
@@ -564,7 +524,7 @@ function ConversationActions.GetNewMessages(convoId, fromSelf)
 
 	return function(store)
 		spawn(function()
-			local conversation = store:GetState().Conversations[convoId]
+			local conversation = store:GetState().ChatAppReducer.Conversations[convoId]
 			if not conversation then
 				-- If we have not previously cached the conversation, we should first get it.
 				local status = store:Dispatch(ConversationActions.GetConversations({convoId}))
@@ -572,7 +532,7 @@ function ConversationActions.GetNewMessages(convoId, fromSelf)
 					warn("WebApi failure in GetNewMessages")
 					return
 				end
-				conversation = store:GetState().Conversations[convoId]
+				conversation = store:GetState().ChatAppReducer.Conversations[convoId]
 				if not conversation then
 					warn("Was not able to GetConversation in GetNewMessages")
 					return
@@ -626,15 +586,10 @@ function ConversationActions.GetNewMessages(convoId, fromSelf)
 			local shouldMarkConversationUnread = (not conversation.hasUnreadMessages)
 				and (not fromSelf) and hasUnreadMessages
 
-			store:Dispatch({
-				type = ActionType.ReceivedMessages,
-				conversationId = convoId,
-				messages = messages,
-				shouldMarkConversationUnread = shouldMarkConversationUnread,
-			})
+			store:Dispatch(ReceivedMessages(convoId, messages, shouldMarkConversationUnread))
 
 			if shouldMarkConversationUnread then
-				store:Dispatch({ type = ActionType.IncrementUnreadConversationCount })
+				store:Dispatch(IncrementUnreadConversationCount())
 			end
 		end)
 	end
@@ -642,11 +597,7 @@ end
 
 function ConversationActions.GetInitialMessages(convoId, exclusiveMessageStartId)
 	return function(store)
-		store:Dispatch({
-			type = ActionType.SetConversationLoadingStatus,
-			conversationId = convoId,
-			value = Constants.ConversationLoadingState.LOADING
-		})
+		store:Dispatch(SetConversationLoadingStatus(convoId, Constants.ConversationLoadingState.LOADING))
 
 		spawn(function()
 			local status, messages = WebApi.GetMessages(convoId, GET_MESSAGES_PAGE_SIZE, exclusiveMessageStartId)
@@ -655,17 +606,9 @@ function ConversationActions.GetInitialMessages(convoId, exclusiveMessageStartId
 				return
 			end
 
-			store:Dispatch({
-				type = ActionType.ReceivedMessages,
-				conversationId = convoId,
-				messages = messages,
-			})
+			store:Dispatch(ReceivedMessages(convoId, messages))
 
-			store:Dispatch({
-				type = ActionType.SetConversationLoadingStatus,
-				conversationId = convoId,
-				value = Constants.ConversationLoadingState.DONE
-			})
+			store:Dispatch(SetConversationLoadingStatus(convoId, Constants.ConversationLoadingState.DONE))
 
 		end)
 	end
@@ -673,42 +616,41 @@ end
 
 function ConversationActions.RemoveUserFromConversation(userId, convoId, callback)
 	return function(store)
-		spawn(function()
-			local status = WebApi.RemoveUserFromConversation(userId, convoId)
+		local conversation = store:GetState().ChatAppReducer.Conversations[convoId]
+		if conversation and not conversation.isUserLeaving then
+			store:Dispatch(SetUserLeavingConversation(convoId, true))
+			spawn(function()
+				local status = WebApi.RemoveUserFromConversation(userId, convoId)
 
-			if status ~= WebApi.Status.OK then
-				warn("WebApi.RemoveUserFromConversation failure", status)
-				local conversation = store:GetState().Conversations[convoId]
-				if userId == tostring(Players.LocalPlayer.UserId) then
-					local titleKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP
-					local messageKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP_MESSAGE
-					local messageArguments = {
-						CONVERSATION_TITLE = conversation.title,
-					}
-					local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
-					store:Dispatch({
-						type = ActionType.ShowAlert,
-						alert = alert,
-					})
-				else
-					local user = store:GetState().Users[userId]
-					local titleKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER
-					local messageKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER_MESSAGE
-					local messageArguments = {
-						CONVERSATION_TITLE = conversation.title,
-						USERNAME = user.name,
-					}
-					local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
-					store:Dispatch({
-						type = ActionType.ShowAlert,
-						alert = alert,
-					})
+				if status ~= WebApi.Status.OK then
+					warn("WebApi.RemoveUserFromConversation failure", status)
+					local conversation = store:GetState().ChatAppReducer.Conversations[convoId]
+					if userId == tostring(Players.LocalPlayer.UserId) then
+						local titleKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP
+						local messageKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP_MESSAGE
+						local messageArguments = {
+							CONVERSATION_TITLE = conversation.title,
+						}
+						local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
+						store:Dispatch(ShowAlert(alert))
+					else
+						local user = store:GetState().Users[userId]
+						local titleKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER
+						local messageKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER_MESSAGE
+						local messageArguments = {
+							CONVERSATION_TITLE = conversation.title,
+							USERNAME = user.name,
+						}
+						local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
+						store:Dispatch(ShowAlert(alert))
+					end
 				end
-			end
-			if callback then
-				callback(status == WebApi.Status.OK)
-			end
-		end)
+				if callback then
+					callback(status == WebApi.Status.OK)
+				end
+				store:Dispatch(SetUserLeavingConversation(convoId, false))
+			end)
+		end
 	end
 end
 
@@ -722,12 +664,9 @@ function ConversationActions.RenameGroupConversation(convoId, newName, callback)
 				warn("Message was moderated")
 				local messageKey = StringsLocale.Keys.GROUP_NAME_MODERATED
 				local toastModel = ToastModel.new(Constants.ToastIDs.GROUP_NAME_MODERATED, messageKey)
-				store:Dispatch({
-					type = ActionType.ShowToast,
-					toast = toastModel,
-				})
+				store:Dispatch(ShowToast(toastModel))
 			elseif status ~= WebApi.Status.OK then
-				local conversation = store:GetState().Conversations[convoId]
+				local conversation = store:GetState().ChatAppReducer.Conversations[convoId]
 				local titleKey = StringsLocale.Keys.FAILED_TO_RENAME_TITLE
 				local messageKey = StringsLocale.Keys.FAILED_TO_RENAME_MESSAGE
 				local messageArguments = {
@@ -735,10 +674,7 @@ function ConversationActions.RenameGroupConversation(convoId, newName, callback)
 					NEW_NAME = newName,
 				}
 				local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
-				store:Dispatch({
-					type = ActionType.ShowAlert,
-					alert = alert,
-				})
+				store:Dispatch(ShowAlert(alert))
 			end
 
 			if callback then
@@ -751,7 +687,7 @@ end
 function ConversationActions.SendMessage(conversationId, messageText)
 	return function(store)
 		spawn(function()
-			local conversation = store:GetState().Conversations[conversationId]
+			local conversation = store:GetState().ChatAppReducer.Conversations[conversationId]
 
 			local function GetSpoofedLatestMessageTime()
 				-- Get the most recent message date of our messages so we can create a fake date after those
@@ -787,11 +723,7 @@ function ConversationActions.SendMessage(conversationId, messageText)
 				previousMessageId = previousMessageId,
 			}
 
-			store:Dispatch({
-				type = ActionType.SendingMessage,
-				conversationId = conversationId,
-				message = message
-			})
+			store:Dispatch(SendingMessage(conversationId, message))
 
 			--Making the assumption that when a message is sent, there are no new messages
 			--not already in the store... potential race condition
@@ -801,30 +733,14 @@ function ConversationActions.SendMessage(conversationId, messageText)
 				if conversation.messages:Length() > 0 then
 					result.previousMessageId = conversation.messages:Last().id
 				end
-				store:Dispatch({
-					type = ActionType.SentMessage,
-					conversationId = conversationId,
-					messageId = message.id
-				})
+				store:Dispatch(SentMessage(conversationId, message.id))
 
-				store:Dispatch({
-					type = ActionType.ReceivedMessages,
-					conversationId = conversationId,
-					messages = {result}
-				})
+				store:Dispatch(ReceivedMessages(conversationId, {result}))
 			elseif status == WebApi.Status.MODERATED then
-				store:Dispatch({
-					type = ActionType.MessageModerated,
-					conversationId = conversationId,
-					messageId = message.id
-				})
+				store:Dispatch(MessageModerated(conversationId, message.id))
 				warn("Message was moderated.")
 			else
-				store:Dispatch({
-					type = ActionType.MessageFailedToSend,
-					conversationId = conversationId,
-					messageId = message.id
-				})
+				store:Dispatch(MessageFailedToSend(conversationId, message.id))
 				warn("Message could not be sent.")
 			end
 		end)
@@ -843,15 +759,9 @@ function ConversationActions.CreateConversation(conversation, callback)
 					warn("Group name was moderated")
 					local messageKey = StringsLocale.Keys.GROUP_NAME_MODERATED
 					local toastModel = ToastModel.new(Constants.ToastIDs.GROUP_NAME_MODERATED, messageKey)
-					store:Dispatch({
-						type = ActionType.ShowToast,
-						toast = toastModel,
-					})
+					store:Dispatch(ShowToast(toastModel))
 				end
-				store:Dispatch({
-					type = ActionType.ReceivedConversation,
-					conversation = realConversation,
-				})
+				store:Dispatch(ReceivedConversation(realConversation))
 				if callback then
 					callback(realConversation.id)
 				end
@@ -881,64 +791,46 @@ end
 
 function ConversationActions.GetOlderMessages(convoId, messageId) -- Message ID of the message to collect more after
 	return function(store)
-		store:Dispatch({
-			type = ActionType.FetchingOlderMessages,
-			conversationId = convoId,
-			fetchingOlderMessages = true
-		})
+		store:Dispatch(FetchingOlderMessages(convoId, true))
 		spawn(function()
 			local status, messages = WebApi.GetMessages(convoId, GET_MESSAGES_PAGE_SIZE, messageId)
-			store:Dispatch({
-				type = ActionType.FetchingOlderMessages,
-				conversationId = convoId,
-				fetchingOlderMessages = false
-			})
+			store:Dispatch(FetchingOlderMessages(convoId, false))
 			if status ~= WebApi.Status.OK then
 				warn("WebApi failure in GetMessages, with status:", status)
 				return
 			end
 
 			if #messages < GET_MESSAGES_PAGE_SIZE then
-				store:Dispatch({
-					type = ActionType.FetchedOldestMessage,
-					conversationId = convoId,
-					fetchedOldestMessage = true
-				})
+				store:Dispatch(FetchedOldestMessage(convoId, true))
 			end
 
 			if #messages <= 0 then
 				return
 			end
 
-			store:Dispatch({
-				type = ActionType.ReceivedMessages,
-				conversationId = convoId,
-				messages = messages,
-				exclusiveStartMessageId = messageId,
-			})
+			store:Dispatch(ReceivedMessages(convoId, messages, nil, messageId))
 		end)
 	end
 end
 
 function ConversationActions.GetUnreadConversationCount()
 	return function(store)
-		local status, unreadConversationCount = WebApi.GetUnreadConversationCount()
+		spawn(function()
+			local status, unreadConversationCount = WebApi.GetUnreadConversationCount()
 
-		if status ~= WebApi.Status.OK then
-			warn("WebApi failure in GetUnreadConversationCount, with status", status)
-			return
-		end
+			if status ~= WebApi.Status.OK then
+				warn("WebApi failure in GetUnreadConversationCount, with status", status)
+				return
+			end
 
-		store:Dispatch({
-			type = ActionType.SetUnreadConversationCount,
-			count = unreadConversationCount,
-		})
+			store:Dispatch(SetUnreadConversationCount(unreadConversationCount))
+		end)
 	end
 end
 
 function ConversationActions.MarkConversationAsRead(conversationId)
 	return function(store)
-		local conversation = store:GetState().Conversations[conversationId]
+		local conversation = store:GetState().ChatAppReducer.Conversations[conversationId]
 
 		if not conversation then
 			warn("Conversation not found in MarkConversationAsRead")
@@ -977,12 +869,10 @@ function ConversationActions.MarkConversationAsRead(conversationId)
 			return
 		end
 
-		store:Dispatch({ type = ActionType.DecrementUnreadConversationCount })
+		store:Dispatch(DecrementUnreadConversationCount())
 
-		store:Dispatch({
-			type = ActionType.ReadConversation,
-			conversationId = conversationId,
-		})
+		store:Dispatch(ReadConversation(conversationId))
+
 	end
 end
 

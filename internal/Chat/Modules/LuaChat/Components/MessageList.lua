@@ -1,17 +1,19 @@
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 
-local LuaChat = script.Parent.Parent
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
 
-local Create = require(LuaChat.Create)
-local Constants = require(LuaChat.Constants)
-local Signal = require(LuaChat.Signal)
-local OrderedMap = require(LuaChat.OrderedMap)
 local ChatBubble = require(LuaChat.Components.ChatBubble)
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local OrderedMap = require(LuaChat.OrderedMap)
+local Signal = require(Common.Signal)
 
 local ChatTimestamp = require(LuaChat.Components.ChatTimestamp)
 local Conversation = require(LuaChat.Models.Conversation)
-
 local LoadingIndicator = require(LuaChat.Components.LoadingIndicator)
 
 local IS_BOTTOM_BUFFER = 5

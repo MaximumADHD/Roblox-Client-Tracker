@@ -5180,7 +5180,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">PGSPhysicsSolverEnabled</string>
-            <string name="summary">Boolean used to enable the experimental physics solver</string>
+            <string name="summary">Boolean used to enable the new physics solver</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6879,6 +6879,72 @@
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Confusion</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">InputType</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">LeftTread</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">RightTread</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Steer</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Throttle</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">UpDown</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Action1</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Action2</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Action3</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Action4</string>
+          <bool name="Deprecated">true</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Action5</string>
           <bool name="Deprecated">true</bool>
         </Properties>
       </Item>

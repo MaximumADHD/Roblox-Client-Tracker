@@ -1,33 +1,32 @@
-local LocalizationService = game:GetService("LocalizationService")
 local CoreGui = game:GetService("CoreGui")
+local LocalizationService = game:GetService("LocalizationService")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local Localization = require(LuaApp.Localization)
-local StringsLocale = require(LuaApp.StringsLocale)
+local Modules = CoreGui.RobloxGui.Modules
 
-local Modules = script.Parent
+local Localization = require(Modules.LuaApp.Localization)
+local StringsLocale = require(Modules.LuaApp.StringsLocale)
 
-local ScreenManager = require(Modules.ScreenManager)
-local ScreenRouter = require(Modules.ScreenRouter)
-local WebApi = require(Modules.WebApi)
-local NotificationBroadcaster = require(Modules.NotificationBroadcaster)
-local Device = require(Modules.Device)
+local ScreenManager = require(Modules.LuaChat.ScreenManager)
+local ScreenRouter = require(Modules.LuaChat.ScreenRouter)
+local WebApi = require(Modules.LuaChat.WebApi)
+local NotificationBroadcaster = require(Modules.LuaChat.NotificationBroadcaster)
+local Device = require(Modules.LuaChat.Device)
 
-local AppReducer = require(Modules.AppReducer)
-local Store = require(Modules.Store)
-local RobloxEventReceiver = require(Modules.RobloxEventReceiver)
+local AppReducer = require(Modules.LuaApp.AppReducer)
+local Store = require(Modules.LuaChat.Store)
+local RobloxEventReceiver = require(Modules.LuaChat.RobloxEventReceiver)
 
-local AlertView = require(Modules.Views.Phone.Alert)
-local ToastView = require(Modules.Views.ToastView)
+local AlertView = require(Modules.LuaChat.Views.Phone.Alert)
+local ToastView = require(Modules.LuaChat.Views.ToastView)
 
 local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
 
 local AppState = {}
 
-function AppState.new(chatGui)
+function AppState.new(chatGui, store)
 	local state = {}
 
-	state.store = Store.new(AppReducer)
+	state.store = store or Store.new(AppReducer)
 
 	state.webApi = WebApi
 
@@ -53,8 +52,10 @@ function AppState.new(chatGui)
 		screenGui.Parent = chatGui
 		state.alertView = AlertView.new(state)
 		state.alertView.rbx.Parent = screenGui
+		state.alertView.rbx.Name = "AlertView"
 		state.toastView = ToastView.new(state)
 		state.toastView.rbx.Parent = screenGui
+		state.toastView.rbx.Name = "ToastView"
 	end
 
 	return state

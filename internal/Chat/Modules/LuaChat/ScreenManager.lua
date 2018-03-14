@@ -44,13 +44,13 @@ function ScreenManager:Update(current, previous)
 		return
 	end
 
-	if self.paused ~= self.appState.store:GetState().ToggleChatPaused then
-		self.paused = self.appState.store:GetState().ToggleChatPaused
+	if self.paused ~= self.appState.store:GetState().ChatAppReducer.ToggleChatPaused then
+		self.paused = self.appState.store:GetState().ChatAppReducer.ToggleChatPaused
 		if self.paused then
 			self:DisableAllViews()
 		else
 			self:EnableAllViews()
-			self:SetTabBarVisible(current.TabBarVisible)
+			self:SetTabBarVisible(current.ChatAppReducer.TabBarVisible)
 		end
 	end
 
@@ -58,18 +58,18 @@ function ScreenManager:Update(current, previous)
 		return
 	end
 
-	if current.TabBarVisible ~= previous.TabBarVisible then
-		self:SetTabBarVisible(current.TabBarVisible)
+	if current.ChatAppReducer.TabBarVisible ~= previous.ChatAppReducer.TabBarVisible then
+		self:SetTabBarVisible(current.ChatAppReducer.TabBarVisible)
 	end
 
-	if not next(current.Location.current) then
+	if not next(current.ChatAppReducer.Location.current) then
 		for _, view in ipairs(self._stack) do
 			self:PopView(view)
 		end
 		return
 	end
 
-	if current.Location.current == self.route then
+	if current.ChatAppReducer.Location.current == self.route then
 
 		return
 	end
@@ -80,34 +80,34 @@ function ScreenManager:Update(current, previous)
 
 	local routeMap = ScreenRouter.RouteMaps[current.FormFactor]
 
-	if routeMap[current.Location.current.intent] == nil then
+	if routeMap[current.ChatAppReducer.Location.current.intent] == nil then
 		return
 	end
 
 	--If a view representing this route already exists on the stack, we'll just pop down to it
 	local viewInStack = false
 	for _, view in ipairs(self._stack) do
-		if ScreenRouter:Compare(view.route, current.Location.current) then
+		if ScreenRouter:Compare(view.route, current.ChatAppReducer.Location.current) then
 			viewInStack = true
 			break
 		end
 	end
 
 	if viewInStack then
-		while not ScreenRouter:Compare(self:GetCurrentView().route, current.Location.current) do
+		while not ScreenRouter:Compare(self:GetCurrentView().route, current.ChatAppReducer.Location.current) do
 			self:PopView(self:GetCurrentView())
 		end
 	else
-		if current.Location.current.popToIntent ~= nil then
-			while #self._stack > 1 and current.Location.current.popToIntent ~= self:GetCurrentView().route.intent do
+		if current.ChatAppReducer.Location.current.popToIntent ~= nil then
+			while #self._stack > 1 and current.ChatAppReducer.Location.current.popToIntent ~= self:GetCurrentView().route.intent do
 				self:PopView(self:GetCurrentView())
 			end
 		end
-		local newView = ScreenRouter:GetView(self.appState, current.Location.current, routeMap)
-		self:PushView(newView, current.Location.current.intent)
+		local newView = ScreenRouter:GetView(self.appState, current.ChatAppReducer.Location.current, routeMap)
+		self:PushView(newView, current.ChatAppReducer.Location.current.intent)
 	end
 
-	self.route = current.Location.current
+	self.route = current.ChatAppReducer.Location.current
 end
 
 function ScreenManager:GetViewOrderMap()

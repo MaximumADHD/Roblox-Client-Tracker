@@ -48,6 +48,7 @@ StringsLocale.Keys = {
 	FAILED_TO_REMOVE_USER = "FAILED_TO_REMOVE_USER",
 	FAILED_TO_REMOVE_USER_MESSAGE = "FAILED_TO_REMOVE_USER_MESSAGE",
 	TOO_MANY_PEOPLE = "TOO_MANY_PEOPLE",
+	REMOVED_FROM_CONVERSATION = "REMOVED_FROM_CONVERSATION",
 	NAME_THIS_CHAT_GROUP = "NAME_THIS_CHAT_GROUP",
 	SAVE = "SAVE",
 	SAVE_NEW_GROUP = "SAVE_NEW_GROUP",
@@ -57,6 +58,14 @@ StringsLocale.Keys = {
 	OFFLINE = "OFFLINE",
 	ONLINE = "ONLINE",
 	BY_BUILDER = "BY_BUILDER",
+
+	VIEW_ASSET_DETAILS = "VIEW_ASSET_DETAILS",
+	PLAY_GAME = "PLAY_GAME",
+	MY_FEED = "MY_FEED",
+	FRIENDS_COUNT = "FRIENDS_COUNT",
+	SEE_ALL = "SEE_ALL",
+	GAMES = "GAMES",
+	HOME = "HOME",
 }
 
 StringsLocale.Languages = {
@@ -436,6 +445,14 @@ StringsLocale.Content = {
 	},
 	{
 
+		key = StringsLocale.Keys.REMOVED_FROM_CONVERSATION,
+		values = {
+			[StringsLocale.Languages.EN_US] = "You have been removed from the group.",
+		},
+		comment = "Informs the user that they have been removed from a conversation.",
+	},
+	{
+
 		key = StringsLocale.Keys.NAME_THIS_CHAT_GROUP,
 		values = {
 			[StringsLocale.Languages.EN_US] = "Name this chat group",
@@ -513,6 +530,60 @@ StringsLocale.Content = {
 			[StringsLocale.Languages.EN_US] = "By {USERNAME}",
 		},
 		comment = "Informs that a game is made by a certain builder.",
+	},
+
+	{
+
+		key = StringsLocale.Keys.VIEW_ASSET_DETAILS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "View Details",
+		},
+		comment = "Labels a button that will show the user more information on an asset.",
+	},
+
+	{
+
+		key = StringsLocale.Keys.PLAY_GAME,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Play",
+		},
+		comment = "Labels a button that will send the player into a game.",
+	},
+	{
+		key = StringsLocale.Keys.MY_FEED,
+		values = {
+			[StringsLocale.Languages.EN_US] = "My Feed",
+		},
+		comment = "Header on the section of the home page that shows the user's feed",
+	},
+	{
+		key = StringsLocale.Keys.FRIENDS_COUNT,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Friends ({COUNT})",
+		},
+		comment = "Header on the section of the home page that shows the user's friends",
+	},
+	{
+		key = StringsLocale.Keys.SEE_ALL,
+		values = {
+			[StringsLocale.Languages.EN_US] = "See All",
+		},
+		comment = "Button that goes on carousels of throughout the UI, which allows the user to go to a separate"
+			.." page which displays the entire list of things that would go in the carousel",
+	},
+	{
+		key = StringsLocale.Keys.HOME,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Home",
+		},
+		comment = "Title text for application's home page",
+	},
+	{
+		key = StringsLocale.Keys.GAMES,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Games",
+		},
+		comment = "Title text for page that contains a list of games",
 	},
 }
 

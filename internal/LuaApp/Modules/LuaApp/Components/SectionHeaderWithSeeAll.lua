@@ -3,7 +3,10 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 
 local Constants = require(Modules.LuaApp.Constants)
+local FitChildren = require(Modules.LuaApp.FitChildren)
 local SectionHeader = require(Modules.LuaApp.Components.SectionHeader)
+local LocalizedTextButton = require(Modules.LuaApp.Components.LocalizedTextButton)
+local StringsLocale = require(Modules.LuaApp.StringsLocale)
 
 local SectionHeaderWithSeeAll = Roact.Component:extend("SectionHeaderWithSeeAll")
 
@@ -29,9 +32,9 @@ function SectionHeaderWithSeeAll:render()
 	local onActivated = self.props.onActivated
 	local layoutOrder = self.props.LayoutOrder
 
-	local totalHeight = SectionHeaderWithSeeAll.height(text, width)
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(0, width, 0, totalHeight),
+	return Roact.createElement(FitChildren.FitFrame, {
+		Size = UDim2.new(0, width, 0, 0),
+		fitAxis = FitChildren.FitAxis.Height,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
@@ -39,18 +42,18 @@ function SectionHeaderWithSeeAll:render()
 			text = text,
 			width = width - BUTTON_WIDTH,
 		}),
-		Button = Roact.createElement("TextButton", {
+		Button = Roact.createElement(LocalizedTextButton, {
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			AnchorPoint = Vector2.new(1, 1),
 			Position = UDim2.new(1, -SIDE_PADDING, 1, -BUTTON_PADDING_BOTTOM),
-			Text = "See All",
+			Text = { StringsLocale.Keys.SEE_ALL },
 			TextColor3 = Constants.Color.WHITE,
 			TextSize = BUTTON_TEXT_SIZE,
 			Font = BUTTON_FONT,
 			BackgroundColor3 = Constants.Color.BLUE_PRIMARY,
 			BorderSizePixel = 0,
 
-			[Roact.Event.MouseButton1Click] = function()
+			[Roact.Event.Activated] = function()
 				if onActivated then
 					onActivated()
 				end

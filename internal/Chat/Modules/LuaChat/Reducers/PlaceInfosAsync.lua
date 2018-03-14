@@ -1,19 +1,20 @@
-local LuaChat = script.Parent.Parent
-local ActionType = require(LuaChat.ActionType)
-local Immutable = require(LuaChat.Immutable)
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+local ActionType = require(Modules.LuaChat.ActionType)
+local Immutable = require(Modules.Common.Immutable)
 
 return function(state, action)
 	state = state or {}
 	if action.type == ActionType.RequestPlaceInfo then
-		return Immutable.Join(state, {
+		return Immutable.JoinDictionaries(state, {
 			[action.placeId] = true,
 		})
 	elseif action.type == ActionType.ReceivedPlaceInfo then
-		return Immutable.Join(state, {
+		return Immutable.JoinDictionaries(state, {
 			[action.placeId] = false,
 		})
 	elseif action.type == ActionType.FailedToFetchPlaceInfo then
-		return Immutable.Join(state, {
+		return Immutable.JoinDictionaries(state, {
 			[action.placeId] = false,
 		})
 	end

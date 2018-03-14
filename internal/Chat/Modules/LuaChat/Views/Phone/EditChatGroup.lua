@@ -1,7 +1,6 @@
 local Modules = script.Parent.Parent.Parent
 local Components = Modules.Components
 
-local ActionType = require(Modules.ActionType)
 local Constants = require(Modules.Constants)
 
 local BaseScreen = require(Modules.Views.Phone.BaseScreen)
@@ -10,6 +9,9 @@ local EditChatGroupComponent = require(Components.EditChatGroup)
 
 local DialogInfo = require(Modules.DialogInfo)
 local Intent = DialogInfo.Intent
+
+local PopRoute = require(Modules.Actions.PopRoute)
+local SetRoute = require(Modules.Actions.SetRoute)
 
 local EditChatGroup = BaseScreen:Template()
 EditChatGroup.__index = EditChatGroup
@@ -23,15 +25,13 @@ function EditChatGroup.new(appState, route)
 	}
 	setmetatable(self, EditChatGroup)
 
-	local participantCount = #appState.store:GetState().Conversations[self.convoId].participants
+	local participantCount = #appState.store:GetState().ChatAppReducer.Conversations[self.convoId].participants
 	local maxSize = Constants.MAX_PARTICIPANT_COUNT + 1 - participantCount
 	self.editChatGroupComponent = EditChatGroupComponent.new(appState, maxSize, self.convoId)
 	self.rbx = self.editChatGroupComponent.rbx
 
 	local backButtonConnection = self.editChatGroupComponent.BackButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		self.appState.store:Dispatch(PopRoute())
 	end)
 	table.insert(self.connections, backButtonConnection)
 
@@ -43,17 +43,12 @@ function EditChatGroup:Start()
 
 	do
 		local connection = self.appState.store.Changed:Connect(function(current, previous)
-			local conversation = current.Conversations[current.Location.current.parameters.conversationId]
+			local conversation = current.ChatAppReducer.Conversations[current.ChatAppReducer.Location.current.parameters.conversationId]
 			if current ~= previous and conversation then
 				self:Update(current, previous)
 			else
 				if self.appState.screenManager:GetCurrentView() == self then
-					self.appState.store:Dispatch({
-						type = ActionType.SetRoute,
-						intent = nil,
-						popToIntent = Intent.ConversationHub,
-						parameters = {},
-					})
+					self.appState.store:Dispatch(SetRoute(nil, {}, Intent.ConversationHub))
 				end
 			end
 			self:Update(current, previous)

@@ -1,6 +1,11 @@
-local LuaChat = script.Parent.Parent
-local Signal = require(LuaChat.Signal)
+local CoreGui = game:GetService("CoreGui")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 
 local COLOR_BUTTON_ENABLED = Color3.new(0.85, 0.85, 0.85)
 

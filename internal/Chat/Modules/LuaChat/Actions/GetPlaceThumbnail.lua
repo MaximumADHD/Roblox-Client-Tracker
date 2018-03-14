@@ -11,7 +11,7 @@ return function(imageToken, width, height)
 	return function(store)
 		spawn(function()
 			local state = store:GetState()
-			if state.PlaceThumbnailsAsync[imageToken] then
+			if state.ChatAppReducer.PlaceThumbnailsAsync[imageToken] then
 				return
 			end
 			store:Dispatch({

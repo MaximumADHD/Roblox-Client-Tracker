@@ -9,13 +9,15 @@ local StringsLocale = require(LuaApp.StringsLocale)
 local Create = require(Modules.Create)
 local Constants = require(Modules.Constants)
 local DialogInfo = require(Modules.DialogInfo)
-local ActionType = require(Modules.ActionType)
 local ConversationActions = require(Modules.Actions.ConversationActions)
 local GetPlaceInfo = require(Modules.Actions.GetPlaceInfo)
 local HeaderLoader = require(Components.HeaderLoader)
 local PlaceInfoCard = require(Components.PlaceInfoCard)
 local GameShareCard = require(Components.GameShareCard)
 local ConversationList = require(Components.ConversationList)
+
+local PopRoute = require(Modules.Actions.PopRoute)
+local SetAppLoaded = require(Modules.Actions.SetAppLoaded)
 
 local Intent = DialogInfo.Intent
 
@@ -29,13 +31,13 @@ local PLACE_INFO_FRAME_HEIGHT = 84
 
 local function requestOlderConversations(appState)
 	-- Don't fetch older conversations if the oldest conversation has already been fetched.
-	if appState.store:GetState().ConversationsAsync.oldestConversationIsFetched then
+	if appState.store:GetState().ChatAppReducer.ConversationsAsync.oldestConversationIsFetched then
 		return
 	end
 
 	-- Ask for new conversations
 	local convoCount = 0
-	for _, _ in pairs(appState.store:GetState().Conversations) do
+	for _, _ in pairs(appState.store:GetState().ChatAppReducer.Conversations) do
 		convoCount = convoCount + 1
 	end
 	local pageSize = Constants.PageSize.GET_CONVERSATIONS
@@ -156,13 +158,10 @@ function GameShareComponent.new(appState, placeId, innerFrame)
 		innerFrame,
 	}
 
-	if not appState.AppLoaded then
+	if not appState.store:GetState().ChatAppReducer.AppLoaded then
 		appState.store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS,
 		function()
-			appState.store:Dispatch({
-				type = ActionType.SetAppLoaded,
-				value = true,
-			})
+			appState.store:Dispatch(SetAppLoaded(true))
 		end))
 	end
 
@@ -174,9 +173,7 @@ function GameShareComponent:Start()
 
 	-- back button
 	local backButtonConnection = self.header.BackButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		self.appState.store:Dispatch(PopRoute())
 		GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().CLOSE_MODAL)
 	end)
 	table.insert(self.connections, backButtonConnection)
@@ -220,30 +217,30 @@ function GameShareComponent:Start()
 		self.appState.store:Dispatch(GetPlaceInfo(self.placeId))
 	end
 
-	if self.appState.store:GetState().AppLoaded and self.placeInfo then
+	if self.appState.store:GetState().ChatAppReducer.AppLoaded and self.placeInfo then
 		self:FillContent()
 	end
 end
 
 function GameShareComponent:Update(newState, oldState)
-	if (not oldState.AppLoaded) and newState.AppLoaded and self.placeInfo then
+	if (not oldState.ChatAppReducer.AppLoaded) and newState.ChatAppReducer.AppLoaded and self.placeInfo then
 		self:FillContent()
 	end
 
 	if (not self.placeInfo) and (newState.PlaceInfos[self.placeId]) then
 		self.placeInfo = newState.PlaceInfos[self.placeId]
-		if newState.AppLoaded then
+		if newState.ChatAppReducer.AppLoaded then
 			self:FillContent()
 		end
 	end
 
-	if newState.ConversationsAsync.pageConversationsIsFetching ~= oldState.ConversationsAsync.pageConversationsIsFetching
+	if newState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching ~= oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
 		and self.list then
 		self.list:Update(newState, oldState)
 		self:getOlderConversationsForSearchIfNecessary()
 	end
 
-	if newState.Conversations ~= oldState.Conversations and self.list then
+	if newState.ChatAppReducer.Conversations ~= oldState.ChatAppReducer.Conversations and self.list then
 		self.list:Update(newState, oldState)
 	end
 end
@@ -264,7 +261,7 @@ function GameShareComponent:FillPlaceInfo()
 end
 
 function GameShareComponent:FillConversations()
-	local list = ConversationList.new(self.appState, self.appState.store:GetState().Conversations, GameShareCard)
+	local list = ConversationList.new(self.appState, self.appState.store:GetState().ChatAppReducer.Conversations, GameShareCard)
 	list:SetSortWithConversationEntry(true)
 	self.list = list
 	list.rbx.Size = UDim2.new(1, 0, 1, 0)
@@ -289,8 +286,8 @@ function GameShareComponent:getOlderConversationsForSearchIfNecessary(appState)
 	-- Note that we already try to load more conversations if we scroll down to the bottom of the list
 	local state = self.appState.store:GetState()
 	local isSearchOpen = (self.searchBox.Text) ~= nil and (self.searchBox.Text ~= "")
-	if (not isSearchOpen) or state.ConversationsAsync.oldestConversationIsFetched
-		or state.ConversationsAsync.pageConversationsIsFetching then
+	if (not isSearchOpen) or state.ChatAppReducer.ConversationsAsync.oldestConversationIsFetched
+		or state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 		return
 	end
 

@@ -25,14 +25,14 @@ function NotificationBroadcaster:Update(state, oldState)
 		return
 	end
 
-	if state.UnreadConversationCount ~= oldState.UnreadConversationCount then
+	if state.ChatAppReducer.UnreadConversationCount ~= oldState.ChatAppReducer.UnreadConversationCount then
 
-		local string = state.UnreadConversationCount > 0 and tostring(state.UnreadConversationCount) or ""
+		local string = state.ChatAppReducer.UnreadConversationCount > 0 and tostring(state.ChatAppReducer.UnreadConversationCount) or ""
 		GuiService:BroadcastNotification(string, GuiService:GetNotificationTypeList().UNREAD_COUNT)
 	end
 
-	if (not self.hasLoadedConversations) and state.Conversations ~= oldState.Conversations then
-		local hasLoadedConversations = next(state.Conversations) ~= nil
+	if (not self.hasLoadedConversations) and state.ChatAppReducer.Conversations ~= oldState.ChatAppReducer.Conversations then
+		local hasLoadedConversations = next(state.ChatAppReducer.Conversations) ~= nil
 		if hasLoadedConversations then
 			NotificationService:ActionEnabled(Enum.AppShellActionType.TapConversationEntry)
 			self.hasLoadedConversations = true

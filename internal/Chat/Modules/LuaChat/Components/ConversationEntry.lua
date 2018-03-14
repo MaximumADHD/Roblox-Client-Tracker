@@ -1,10 +1,15 @@
-local LuaChat = script.Parent.Parent
-local Signal = require(LuaChat.Signal)
-local Create = require(LuaChat.Create)
+local CoreGui = game:GetService("CoreGui")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Constants = require(LuaChat.Constants)
-local OrderedMap = require(LuaChat.OrderedMap)
-local Text = require(LuaChat.Text)
+local Create = require(LuaChat.Create)
 local Device = require(LuaChat.Device)
+local OrderedMap = require(LuaChat.OrderedMap)
+local Signal = require(Common.Signal)
+local Text = require(LuaChat.Text)
 
 local Components = LuaChat.Components
 local ConversationThumbnail = require(Components.ConversationThumbnail)
@@ -171,7 +176,7 @@ function ConversationEntry:Update(conversation)
 
 	local state = self.appState.store:GetState()
 	if state.FormFactor == Device.FormFactor.TABLET then
-		local currentConversationId = state.Location.current.parameters.conversationId
+		local currentConversationId = state.ChatAppReducer.Location.current.parameters.conversationId
 		if currentConversationId == conversation.id then
 			self:SetBackgroundColor(Constants.Color.GRAY5)
 		else

@@ -7,8 +7,11 @@ local AppNameEnum = require(Modules.Mobile.AppNameEnum)
 local Create = require(Modules.Mobile.Create)
 local Constants = require(Modules.Mobile.Constants)
 local AvatarEditorFlags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local AppGui = require(Modules.LuaApp.Legacy.AvatarEditor.AppGui)
+
+local UseRoactLuaApp = AvatarEditorFlags:GetFlag("UseTempRoactLuaVersionOfHomePage")
+						or AvatarEditorFlags:GetFlag("UseTempRoactLuaVersionOfGamesPage")
+local RemoveLoadingHUDOniOS = AvatarEditorFlags:GetFlag("RemoveLoadingHUDOniOS")
 
 local AvatarEditorSetup = {}
 
@@ -76,6 +79,10 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 
 	screenGui.Parent = CoreGui
 
+	if UseRoactLuaApp then
+		screenGui.Enabled = false
+	end
+
 	--[[
 		As long as initializing AvatarEditorMain requires a yield, it has to run in a
 		spawned task.  It is then possible for the user to switch apps in the middle of
@@ -93,6 +100,7 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 		startAvatarEditorAfterInitializing = false
 	end
 
+	local function avatarEditorInitialization()
 	spawn(function()
 
 		local header
@@ -137,9 +145,14 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 				.new(appGui)
 
 		local function startAvatarEditor()
+			if UseRoactLuaApp then
+				screenGui.Enabled = true
+			end
 			screenGui.HackBody.Visible = false
 			AvatarEditorMain:Start()
-			notifyAppReady(AppNameEnum.AvatarEditor)
+			if not RemoveLoadingHUDOniOS then
+				notifyAppReady(AppNameEnum.AvatarEditor)
+			end
 		end
 
 		if startAvatarEditorAfterInitializing then
@@ -151,8 +164,28 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 		self.closeAvatarEditor = function()
 			screenGui.HackBody.Visible = true
 			AvatarEditorMain:Stop()
+			if UseRoactLuaApp then
+				screenGui.Enabled = false
+			end
 		end
 	end)
+end
+
+	if settings():GetFFlag("AppShellManagementRefactor") then
+		local hasRunInitialization = false
+		local renderSteppedConnection = nil
+		renderSteppedConnection = game:GetService("RunService").RenderStepped:connect(function()
+			if not hasRunInitialization then
+				hasRunInitialization = true
+				if renderSteppedConnection then
+					renderSteppedConnection:Disconnect()
+				end
+				avatarEditorInitialization()
+			end
+		end)
+	else
+		avatarEditorInitialization()
+	end
 end
 
 function AvatarEditorSetup:Open()

@@ -1,20 +1,25 @@
-local Modules = script.Parent.Parent
+local CoreGui = game:GetService("CoreGui")
 
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local Signal = require(Modules.Signal)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
 
-local UserThumbnail = require(Modules.Components.UserThumbnail)
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 
-local ICON_CELL_WIDTH = 60
+local UserThumbnail = require(LuaChat.Components.UserThumbnail)
+
 local GROUP_ICON_SIZE = 24
-local THUMBNAIL_SIZE = 48
+local ICON_CELL_WIDTH = 60
+local REMOVE_BUTTON_SIZE = 16
 local THUMBNAIL_LABEL_HEIGHT = 15
 local THUMBNAIL_PADDING_HEIGHT = 10
 local THUMBNAIL_PADDING_WIDTH = 16
-local THUMBNAIL_PLUS_WIDTH = THUMBNAIL_SIZE + THUMBNAIL_PADDING_WIDTH
+local THUMBNAIL_SIZE = 48
+
 local THUMBNAIL_PLUS_HEIGHT = THUMBNAIL_SIZE + THUMBNAIL_LABEL_HEIGHT + THUMBNAIL_PADDING_HEIGHT * 2
-local REMOVE_BUTTON_SIZE = 16
+local THUMBNAIL_PLUS_WIDTH = THUMBNAIL_SIZE + THUMBNAIL_PADDING_WIDTH
 
 local UserThumbnailPlus = {}
 UserThumbnailPlus.__index = UserThumbnailPlus

@@ -96,16 +96,20 @@ end
 --[[
 	Returns a list that contains at most `count` values from the given list.
 ]]
-function Functional.Take(list, count)
-	if count >= #list then
-		return list
+function Functional.Take(list, count, startingIndex)
+	startingIndex = startingIndex or 1
+
+	local maxIndex = count + (startingIndex - 1)
+	if maxIndex > #list then
+		maxIndex = #list
 	end
 
 	local new = {}
 
-	for i = 1, count do
+	for i = startingIndex, maxIndex do
 		local value = list[i]
-		new[i] = value
+		local newIndex = i - (startingIndex - 1)
+		new[newIndex] = value
 	end
 
 	return new

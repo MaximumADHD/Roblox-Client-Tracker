@@ -1,12 +1,14 @@
 local Modules = script.Parent.Parent.Parent
 local Components = Modules.Components
 
-local ActionType = require(Modules.ActionType)
 local DialogInfo = require(Modules.DialogInfo)
 
 local BaseScreen = require(Modules.Views.Phone.BaseScreen)
 
 local NewChatGroupComponent = require(Components.NewChatGroup)
+
+local PopRoute = require(Modules.Actions.PopRoute)
+local SetRoute = require(Modules.Actions.SetRoute)
 
 local Intent = DialogInfo.Intent
 
@@ -25,21 +27,12 @@ function NewChatGroup.new(appState, route)
 	self.rbx = self.newChatGroupComponent.rbx
 
 	local backButtonPressedConnection = self.newChatGroupComponent.BackButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.PopRoute,
-		})
+		self.appState.store:Dispatch(PopRoute())
 	end)
 	table.insert(self.connections, backButtonPressedConnection)
 
 	local conversationSavedConnection = self.newChatGroupComponent.ConversationSaved:Connect(function(id)
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.Conversation,
-			popToIntent = Intent.ConversationHub,
-			parameters = {
-				conversationId = id,
-			},
-		})
+		self.appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = id}, Intent.ConversationHub))
 	end)
 	table.insert(self.connections, conversationSavedConnection)
 

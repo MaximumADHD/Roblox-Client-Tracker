@@ -5,19 +5,19 @@ BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
 [249415 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[4082 bytes]
+[3908 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[134999 bytes]
+[136576 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [210497 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[133323 bytes]
+[152872 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -461,7 +461,7 @@ content/internal/AppShell/Modules/Shell/HeroStatsManager.lua
 [3573 bytes]
 
 content/internal/AppShell/Modules/Shell/HintActionView.lua
-[3864 bytes]
+[3823 bytes]
 
 content/internal/AppShell/Modules/Shell/HomePane.lua
 [17581 bytes]
@@ -1403,40 +1403,184 @@ content/internal/Chat/MobileChatStarterScript.lua
 [507 bytes]
 
 content/internal/Chat/Modules/ChatMaster.lua
-[3191 bytes]
+[3077 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/AddUser.lua
+[316 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ChangedParticipants.lua
+[445 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/ConversationActions.lua
-[27111 bytes]
+[27460 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/DecrementUnreadConversationCount.lua
+[345 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/DeleteAlert.lua
+[323 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/FetchChatEnabled.lua
-[533 bytes]
+[508 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchedOldestConversation.lua
+[381 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchedOldestMessage.lua
+[432 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchedPlaceInfo.lua
+[370 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchedPlaceThumbnail.lua
+[384 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchingOlderMessages.lua
+[436 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/FetchingUser.lua
+[327 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/GetFriendCount.lua
-[550 bytes]
+[477 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/GetPlaceInfo.lua
-[921 bytes]
+[936 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/GetPlaceThumbnail.lua
-[1434 bytes]
+[1449 bytes]
 
-content/internal/Chat/Modules/LuaChat/Actions/GetUsername.lua
-[925 bytes]
+content/internal/Chat/Modules/LuaChat/Actions/GetUser.lua
+[749 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/IncrementUnreadConversationCount.lua
+[320 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/MessageFailedToSend.lua
+[394 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/MessageModerated.lua
+[391 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/PopRoute.lua
+[296 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReadConversation.lua
+[355 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedAllFriends.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedConversation.lua
+[339 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedLatestMessages.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedMessages.lua
+[540 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedOldestConversation.lua
+[186 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedPageConversations.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ReceivedUserPresence.lua
+[267 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/ReceivedUserTyping.lua
-[624 bytes]
+[483 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RemovedConversation.lua
+[358 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RemoveRoute.lua
+[326 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RenamedGroupConversation.lua
+[507 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RequestAllFriends.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RequestLatestMessages.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RequestPageConversations.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RequestUsername.lua
+[162 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/RequestUserPresence.lua
+[188 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SendingMessage.lua
+[382 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SentMessage.lua
+[385 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetAppLoaded.lua
+[330 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetChatEnabled.lua
+[334 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetConnectionState.lua
+[360 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetConversationLoadingStatus.lua
+[414 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetFetchingConversations.lua
+[372 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetFormFactor.lua
+[340 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetFriendCount.lua
+[326 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetRoute.lua
+[410 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/SetTabBarVisible.lua
-[256 bytes]
+[336 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetUnreadConversationCount.lua
+[374 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetUserIsFriend.lua
+[363 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetUserLeavingConversation.lua
+[389 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/SetUserTyping.lua
+[417 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ShowAlert.lua
+[321 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ShowToast.lua
+[321 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ToastComplete.lua
+[325 bytes]
+
+content/internal/Chat/Modules/LuaChat/Actions/ToggleChatPaused.lua
+[334 bytes]
 
 content/internal/Chat/Modules/LuaChat/ActionType.lua
-[2461 bytes]
+[2472 bytes]
 
 content/internal/Chat/Modules/LuaChat/AppReducer.lua
-[2398 bytes]
+[1671 bytes]
 
 content/internal/Chat/Modules/LuaChat/AppState.lua
-[1872 bytes]
+[2029 bytes]
 
 content/internal/Chat/Modules/LuaChat/BaseView.lua
 [430 bytes]
@@ -1445,22 +1589,22 @@ content/internal/Chat/Modules/LuaChat/Components/ActionEntry.lua
 [3126 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/AssetCard.lua
-[9619 bytes]
+[11516 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/BaseHeader.lua
-[4793 bytes]
+[4810 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatBubble.lua
-[7813 bytes]
+[7828 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatDisabledIndicator.lua
-[3069 bytes]
+[3116 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatInputBar.lua
-[5868 bytes]
+[5914 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatInputBarTablet.lua
-[4690 bytes]
+[4738 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatLoadingIndicator.lua
 [1058 bytes]
@@ -1469,43 +1613,43 @@ content/internal/Chat/Modules/LuaChat/Components/ChatTimestamp.lua
 [1694 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/Conversation.lua
-[13199 bytes]
+[13389 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationEntry.lua
-[6724 bytes]
+[6850 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationHub.lua
-[10591 bytes]
+[10878 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationList.lua
-[10496 bytes]
+[10680 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationSearchBox.lua
-[4316 bytes]
+[4362 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationThumbnail.lua
-[5782 bytes]
+[5912 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/DefaultScreen.lua
 [1263 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/DialogComponents.lua
-[19463 bytes]
+[19392 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/EditChatGroup.lua
-[6308 bytes]
+[6205 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/FriendSearchBox.lua
-[8812 bytes]
+[8839 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GameShareCard.lua
-[6229 bytes]
+[6235 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GameShareComponent.lua
-[10366 bytes]
+[10589 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetail.lua
-[10504 bytes]
+[10544 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/EditChatGroupNameDialog.lua
 [1512 bytes]
@@ -1514,22 +1658,22 @@ content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/GenericDialo
 [231 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/LeaveGroupDialog.lua
-[1372 bytes]
+[985 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/ParticipantDialog.lua
-[3148 bytes]
+[3098 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/RemoveUserDialog.lua
 [1381 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/Header.lua
-[6679 bytes]
+[6726 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/HeaderLoader.lua
 [718 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ListEntry.lua
-[2007 bytes]
+[1946 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ListSection.lua
 [1539 bytes]
@@ -1538,22 +1682,22 @@ content/internal/Chat/Modules/LuaChat/Components/LoadingIndicator.lua
 [2761 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/MessageList.lua
-[11715 bytes]
+[11823 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ModalHeader.lua
-[5810 bytes]
+[5857 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ModalTextButton.lua
-[1484 bytes]
+[1595 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/NewChatGroup.lua
-[6960 bytes]
+[6968 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/NoFriendsIndicator.lua
 [1508 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/PaddedImageButton.lua
-[880 bytes]
+[991 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/PlaceInfoCard.lua
 [3512 bytes]
@@ -1562,34 +1706,34 @@ content/internal/Chat/Modules/LuaChat/Components/ResponseIndicator.lua
 [1728 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/TextButton.lua
-[1405 bytes]
+[1516 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/TextInputEntry.lua
-[4409 bytes]
+[4520 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ToastComponent.lua
-[2445 bytes]
+[2436 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/TypingIndicator.lua
 [2405 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/UserChatBubble.lua
-[8058 bytes]
+[8073 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/UserEntry.lua
-[4697 bytes]
+[4742 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/UserList.lua
-[3605 bytes]
+[3543 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/UserThumbnail.lua
-[2897 bytes]
+[3008 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/UserThumbnailBar.lua
-[5764 bytes]
+[5875 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/UserTypingIndicator.lua
-[3774 bytes]
+[3916 bytes]
 
 content/internal/Chat/Modules/LuaChat/Config.lua
 [435 bytes]
@@ -1598,7 +1742,7 @@ content/internal/Chat/Modules/LuaChat/Config.spec.lua
 [314 bytes]
 
 content/internal/Chat/Modules/LuaChat/Constants.lua
-[3949 bytes]
+[4008 bytes]
 
 content/internal/Chat/Modules/LuaChat/Constants.spec.lua
 [401 bytes]
@@ -1616,34 +1760,22 @@ content/internal/Chat/Modules/LuaChat/DateTime.spec.lua
 [11093 bytes]
 
 content/internal/Chat/Modules/LuaChat/Debug/ActionDebug.lua
-[4611 bytes]
+[4722 bytes]
 
 content/internal/Chat/Modules/LuaChat/Debug/DebugManager.lua
 [3601 bytes]
 
 content/internal/Chat/Modules/LuaChat/Debug/HttpDebug.lua
-[4421 bytes]
+[4532 bytes]
 
 content/internal/Chat/Modules/LuaChat/Device.lua
-[2487 bytes]
+[2504 bytes]
 
 content/internal/Chat/Modules/LuaChat/DialogInfo.lua
 [2646 bytes]
 
-content/internal/Chat/Modules/LuaChat/Functional.lua
-[2231 bytes]
-
-content/internal/Chat/Modules/LuaChat/Functional.spec.lua
-[3354 bytes]
-
 content/internal/Chat/Modules/LuaChat/HeadshotLoader.lua
-[1013 bytes]
-
-content/internal/Chat/Modules/LuaChat/Immutable.lua
-[1932 bytes]
-
-content/internal/Chat/Modules/LuaChat/Immutable.spec.lua
-[5509 bytes]
+[1123 bytes]
 
 content/internal/Chat/Modules/LuaChat/MockId.lua
 [154 bytes]
@@ -1655,13 +1787,16 @@ content/internal/Chat/Modules/LuaChat/Models/AssetInfo.lua
 [534 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/Conversation.lua
-[4611 bytes]
+[4723 bytes]
+
+content/internal/Chat/Modules/LuaChat/Models/GameParams.lua
+[218 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/Message.lua
 [1624 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/PlaceInfoModel.lua
-[682 bytes]
+[711 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/ThumbnailModel.lua
 [359 bytes]
@@ -1670,10 +1805,10 @@ content/internal/Chat/Modules/LuaChat/Models/ToastModel.lua
 [223 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/User.lua
-[1707 bytes]
+[1757 bytes]
 
 content/internal/Chat/Modules/LuaChat/NotificationBroadcaster.lua
-[1267 bytes]
+[1372 bytes]
 
 content/internal/Chat/Modules/LuaChat/OrderedMap.lua
 [5537 bytes]
@@ -1684,26 +1819,32 @@ content/internal/Chat/Modules/LuaChat/OrderedMap.spec.lua
 content/internal/Chat/Modules/LuaChat/Reducers/AppLoaded.lua
 [234 bytes]
 
+content/internal/Chat/Modules/LuaChat/Reducers/AppLoaded.spec.lua
+[692 bytes]
+
 content/internal/Chat/Modules/LuaChat/Reducers/AppState.lua
-[904 bytes]
+[1027 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ChatEnabled.lua
 [254 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ChatEnabled.spec.lua
-[634 bytes]
+[656 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ConnectionState.lua
 [276 bytes]
 
+content/internal/Chat/Modules/LuaChat/Reducers/ConnectionState.spec.lua
+[707 bytes]
+
 content/internal/Chat/Modules/LuaChat/Reducers/Conversations.lua
-[7944 bytes]
+[8350 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/Conversations.spec.lua
-[15332 bytes]
+[14264 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ConversationsAsync.lua
-[901 bytes]
+[1030 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ConversationsAsync.spec.lua
 [1970 bytes]
@@ -1715,64 +1856,67 @@ content/internal/Chat/Modules/LuaChat/Reducers/FriendCount.lua
 [232 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/FriendCount.spec.lua
-[495 bytes]
+[472 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/Location.lua
-[1721 bytes]
+[1831 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/Location.spec.lua
-[6248 bytes]
+[5147 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/PlaceInfos.lua
-[333 bytes]
+[444 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/PlaceInfos.spec.lua
+[850 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/PlaceInfosAsync.lua
-[576 bytes]
+[652 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/PlaceThumbnails.lua
-[331 bytes]
+[442 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/PlaceThumbnails.spec.lua
+[840 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/PlaceThumbnailsAsync.lua
-[600 bytes]
+[676 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/TabBarVisible.lua
 [257 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/TabBarVisible.spec.lua
-[612 bytes]
+[548 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/Toast.lua
 [297 bytes]
+
+content/internal/Chat/Modules/LuaChat/Reducers/Toast.spec.lua
+[1220 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ToggleChatPaused.lua
 [239 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ToggleChatPaused.spec.lua
-[634 bytes]
+[588 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/UnreadConversationCount.lua
 [428 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/UnreadConversationCount.spec.lua
-[1461 bytes]
-
-content/internal/Chat/Modules/LuaChat/Reducers/Users.lua
-[1250 bytes]
-
-content/internal/Chat/Modules/LuaChat/Reducers/Users.spec.lua
-[2416 bytes]
+[1519 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.lua
-[1411 bytes]
+[1329 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.spec.lua
 [2372 bytes]
 
 content/internal/Chat/Modules/LuaChat/RobloxEventReceiver.lua
-[10482 bytes]
+[11057 bytes]
 
 content/internal/Chat/Modules/LuaChat/ScreenManager.lua
-[6037 bytes]
+[6277 bytes]
 
 content/internal/Chat/Modules/LuaChat/ScreenManager.spec.lua
 [2292 bytes]
@@ -1780,17 +1924,11 @@ content/internal/Chat/Modules/LuaChat/ScreenManager.spec.lua
 content/internal/Chat/Modules/LuaChat/ScreenRouter.lua
 [3280 bytes]
 
-content/internal/Chat/Modules/LuaChat/Signal.lua
-[667 bytes]
-
-content/internal/Chat/Modules/LuaChat/Signal.spec.lua
-[1253 bytes]
-
 content/internal/Chat/Modules/LuaChat/Store.lua
-[2598 bytes]
+[2715 bytes]
 
 content/internal/Chat/Modules/LuaChat/Store.spec.lua
-[2991 bytes]
+[3647 bytes]
 
 content/internal/Chat/Modules/LuaChat/Text.lua
 [2647 bytes]
@@ -1811,40 +1949,40 @@ content/internal/Chat/Modules/LuaChat/Views/GenericDialog.lua
 [3086 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/Alert.lua
-[1547 bytes]
+[1532 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/BaseScreen.lua
 [411 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/Conversation.lua
-[2808 bytes]
+[2744 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/ConversationHub.lua
-[3077 bytes]
+[2815 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/EditChatGroup.lua
-[2324 bytes]
+[2311 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/GameShareView.lua
-[1690 bytes]
+[1654 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/GroupDetail.lua
-[3731 bytes]
+[3666 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Phone/NewChatGroup.lua
-[1968 bytes]
+[1915 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Tablet/ConversationHub.lua
-[2823 bytes]
+[2594 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/Tablet/GameShareView.lua
-[1809 bytes]
+[1758 bytes]
 
 content/internal/Chat/Modules/LuaChat/Views/ToastView.lua
 [530 bytes]
 
 content/internal/Chat/Modules/LuaChat/WebApi.lua
-[15536 bytes]
+[15384 bytes]
 
 content/internal/Common/.luacheckrc
 [678 bytes]
@@ -1910,10 +2048,10 @@ content/internal/Common/Modules/Common/Examples/Roact-stress.lua
 [1230 bytes]
 
 content/internal/Common/Modules/Common/Functional.lua
-[2301 bytes]
+[2471 bytes]
 
 content/internal/Common/Modules/Common/Functional.spec.lua
-[4453 bytes]
+[5033 bytes]
 
 content/internal/Common/Modules/Common/Immutable.lua
 [2335 bytes]
@@ -2009,7 +2147,7 @@ content/internal/Common/Modules/Common/Symbol.spec.lua
 [1051 bytes]
 
 content/internal/Common/Modules/Common/Text.lua
-[1968 bytes]
+[3496 bytes]
 
 content/internal/Common/Modules/Common/Text.spec.lua
 [6922 bytes]
@@ -2024,13 +2162,22 @@ content/internal/LuaApp/MobileHomeStarterScript.lua
 [244 bytes]
 
 content/internal/LuaApp/Modules/GamesMaster.lua
-[1614 bytes]
+[2626 bytes]
 
 content/internal/LuaApp/Modules/HomeMaster.lua
-[1421 bytes]
+[6708 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ActionType.lua
 [592 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/AddGames.lua
+[569 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/AddGameSorts.lua
+[623 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/AddUser.lua
+[181 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/EquipAsset.lua
 [658 bytes]
@@ -2055,6 +2202,9 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategoryTab.lua
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategoryTab.spec.lua
 [1156 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetAppPage.lua
+[239 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAssets.lua
 [578 bytes]
@@ -2116,23 +2266,41 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SetConsoleMenuLevel.lua
 content/internal/LuaApp/Modules/LuaApp/Actions/SetConsoleMenuLevel.spec.lua
 [903 bytes]
 
+content/internal/LuaApp/Modules/LuaApp/Actions/SetFriendCount.lua
+[233 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetGamesInSort.lua
+[368 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetGameSortsInGroup.lua
+[326 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetGameThumbnails.lua
+[453 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetLocalUser.lua
+[221 bytes]
+
 content/internal/LuaApp/Modules/LuaApp/Actions/SetOutfit.lua
 [658 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetOutfit.spec.lua
 [2798 bytes]
 
-content/internal/LuaApp/Modules/LuaApp/Actions/SetPagePaused.lua
-[206 bytes]
-
-content/internal/LuaApp/Modules/LuaApp/Actions/SetPagePaused.spec.lua
-[1040 bytes]
-
 content/internal/LuaApp/Modules/LuaApp/Actions/SetScales.lua
 [577 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetScales.spec.lua
 [1756 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetUserHeadshot.lua
+[308 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetUserIsFriend.lua
+[221 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Actions/SetUserPresence.lua
+[276 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarEditorFullView.lua
 [556 bytes]
@@ -2152,62 +2320,218 @@ content/internal/LuaApp/Modules/LuaApp/Actions/UnequipAsset.lua
 content/internal/LuaApp/Modules/LuaApp/Actions/UnequipAsset.spec.lua
 [958 bytes]
 
+content/internal/LuaApp/Modules/LuaApp/AppPage.lua
+[212 bytes]
+
 content/internal/LuaApp/Modules/LuaApp/AppReducer.lua
-[580 bytes]
+[1953 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/AppReducer.spec.lua
-[600 bytes]
+[856 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/App.lua
+[4141 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/AppRouter.lua
+[2869 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Avatar/RoactAvatarEditorWrapper.lua
+[1377 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Chat/RoactChatWrapper.lua
+[1849 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/DropDownList.lua
+[6690 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/DropDownList.spec.lua
+[1122 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/DropshadowFrame.lua
-[1484 bytes]
+[1557 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/DropshadowFrame.spec.lua
 [513 bytes]
 
+content/internal/LuaApp/Modules/LuaApp/Components/FitTextLabel.lua
+[2485 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/FitTextLabel.spec.lua
+[1788 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/FramePopOut.lua
+[6958 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/FramePopOut.spec.lua
+[616 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/FramePopup.lua
+[4419 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/FramePopup.spec.lua
+[475 bytes]
+
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCard.lua
-[4075 bytes]
+[5138 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCard.spec.lua
-[568 bytes]
+[872 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCarousel.lua
-[2163 bytes]
+[2424 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GameCarousel.spec.lua
-[739 bytes]
+[1540 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameGrid.lua
+[3151 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GameGrid.spec.lua
+[1122 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GamesHub.lua
-[1875 bytes]
+[3641 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GamesHub.spec.lua
-[733 bytes]
+[1728 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GamesList.lua
+[6010 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Games/GamesList.spec.lua
+[1614 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Games/GameVoteBar.lua
-[1851 bytes]
+[1879 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/GameThumbnail.lua
+[1126 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/GameThumbnail.spec.lua
+[752 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Home/HomePage.lua
-[5780 bytes]
+[10285 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Home/HomePage.spec.lua
-[417 bytes]
+[3092 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Home/UserCarousel.lua
+[2204 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Home/UserCarousel.spec.lua
+[472 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/Home/UserCarouselEntry.lua
+[1813 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/ListPicker.lua
+[3117 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/ListPicker.spec.lua
+[731 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/LoadableImage.lua
+[1755 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/LocalizedSectionHeader.lua
+[261 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/LocalizedSectionHeaderWithSeeAll.lua
+[291 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/LocalizedTextButton.lua
+[189 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/LocalizedTextLabel.lua
+[188 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/SectionHeader.lua
-[1447 bytes]
+[1694 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/SectionHeader.spec.lua
 [441 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/SectionHeaderWithSeeAll.lua
-[1878 bytes]
+[2075 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/SectionHeaderWithSeeAll.spec.lua
-[524 bytes]
+[950 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/TopBar.lua
+[8903 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/TopBar.spec.lua
+[1297 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/UserThumbnail.lua
+[4788 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Components/UserThumbnail.spec.lua
+[465 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Constants.lua
 [993 bytes]
 
+content/internal/LuaApp/Modules/LuaApp/FitChildren.lua
+[4720 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/FitChildren.spec.lua
+[8429 bytes]
+
 content/internal/LuaApp/Modules/LuaApp/GeneratedStrings.lua
 [3240 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/HttpResponse.lua
+[411 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/HttpResponse.spec.lua
+[697 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Networking.lua
+[4503 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetAllFiltersGame.lua
+[596 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetAllFiltersGenre.lua
+[495 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetAllFiltersTime.lua
+[494 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetAllSorts.lua
+[627 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetList.lua
+[1783 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetPageMetadata.lua
+[1089 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/GamesGetThumbnails.lua
+[1412 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/UsersGetFriendCount.lua
+[667 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/UsersGetFriendPage.lua
+[810 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/UsersGetHeadshot.lua
+[739 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Requests/UsersGetPresence.lua
+[891 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/StatusCodes.lua
+[360 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Url.lua
+[3049 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Http/Url.spec.lua
+[280 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AccessoriesColumn.lua
 [6544 bytes]
@@ -2339,13 +2663,40 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/WarningWidget.lua
 [17118 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Localization.lua
-[1972 bytes]
+[2145 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Localization.spec.lua
-[1359 bytes]
+[1504 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/MockId.lua
+[154 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Models/Game.lua
+[1234 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Models/GameSort.lua
+[2403 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Models/GameSortGroup.lua
+[272 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Models/User.lua
+[1074 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/NavigationEventReceiver.lua
+[1503 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/PerformanceTesting.lua
 [5255 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Promise.lua
+[8070 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Promise.spec.lua
+[6678 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/AppRouter.lua
+[419 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Assets.lua
 [4175 bytes]
@@ -2405,19 +2756,49 @@ content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/TabsInfo.spec.lua
 [1369 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/Games.lua
-[2090 bytes]
+[460 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/Games.spec.lua
+[2096 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/GamesInSort.lua
+[713 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/GamesInSort.spec.lua
+[2170 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/GameSortGroups.lua
+[691 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/GameSortGroups.spec.lua
+[2308 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/GameSorts.lua
-[477 bytes]
+[532 bytes]
 
-content/internal/LuaApp/Modules/LuaApp/Reducers/HomeGameSorts.lua
-[322 bytes]
+content/internal/LuaApp/Modules/LuaApp/Reducers/GameSorts.spec.lua
+[2670 bytes]
 
-content/internal/LuaApp/Modules/LuaApp/Reducers/PagePaused.lua
-[275 bytes]
+content/internal/LuaApp/Modules/LuaApp/Reducers/GameThumbnails.lua
+[617 bytes]
 
-content/internal/LuaApp/Modules/LuaApp/Reducers/PagePaused.spec.lua
-[815 bytes]
+content/internal/LuaApp/Modules/LuaApp/Reducers/GameThumbnails.spec.lua
+[2038 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/LocalUser.lua
+[407 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/Users.lua
+[2287 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Reducers/Users.spec.lua
+[3246 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactLocalization.lua
+[2734 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/RoactLocalization.spec.lua
+[3586 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/RoactMotion.lua
 [460 bytes]
@@ -2435,13 +2816,13 @@ content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/MotionType.lua
 [203 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/SimpleMotion.lua
-[3783 bytes]
+[4381 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/RoactMotionImplementation/stepSpring.lua
 [1005 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/StringsLocale.lua
-[14497 bytes]
+[16397 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/StringsLocale.spec.lua
 [923 bytes]
@@ -2449,8 +2830,38 @@ content/internal/LuaApp/Modules/LuaApp/StringsLocale.spec.lua
 content/internal/LuaApp/Modules/LuaApp/TableUtilities.lua
 [2721 bytes]
 
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchAllUsersFriends.lua
+[862 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchGamesData.lua
+[1580 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchGamesInSort.lua
+[1841 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchGameThumbnails.lua
+[2063 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchUsersData.lua
+[571 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchUsersFriendCount.lua
+[555 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchUsersFriendPage.lua
+[841 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchUsersHeadshots.lua
+[875 bytes]
+
+content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchUsersPresences.lua
+[910 bytes]
+
+content/internal/Mobile/LuaAppStarterScript.lua
+[754 bytes]
+
 content/internal/Mobile/MobileMaster.lua
-[9503 bytes]
+[10002 bytes]
 
 content/internal/Mobile/MobileStarterScript.lua
 [190 bytes]
@@ -2468,7 +2879,7 @@ content/internal/Mobile/Modules/Mobile/AppState.lua
 [488 bytes]
 
 content/internal/Mobile/Modules/Mobile/AvatarEditorSetup.lua
-[5111 bytes]
+[6022 bytes]
 
 content/internal/Mobile/Modules/Mobile/Constants.lua
 [2252 bytes]
@@ -2477,7 +2888,7 @@ content/internal/Mobile/Modules/Mobile/Create.lua
 [1527 bytes]
 
 content/internal/Mobile/Modules/Mobile/NavigationEventReceiver.lua
-[1063 bytes]
+[999 bytes]
 
 content/internal/Test/.luacheckrc
 [672 bytes]
@@ -2789,7 +3200,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
 [13710 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
-[3055 bytes]
+[3108 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
 [13053 bytes]
@@ -2840,7 +3251,7 @@ content/scripts/CoreScripts/Modules/Server/ServerPlayer/ServerPlayerInstaller.lu
 [461 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerSound/SoundDispatcher.lua
-[2434 bytes]
+[2228 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerSound/SoundDispatcherInstaller.lua
 [987 bytes]
@@ -2990,7 +3401,7 @@ content/scripts/CoreScripts/StarterScript.lua
 [3940 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[3415 bytes]
+[3612 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
 [12959 bytes]
@@ -3310,6 +3721,9 @@ content/textures/explosion.png
 content/textures/face.png
 [893 bytes]
 
+content/textures/FillCursor.png
+[433 bytes]
+
 content/textures/FlatCursor.png
 [451 bytes]
 
@@ -3384,6 +3798,9 @@ content/textures/localizationUIScrapingOn.png
 
 content/textures/LockCursor.png
 [560 bytes]
+
+content/textures/MaterialCursor.png
+[7456 bytes]
 
 content/textures/meshPartFallback.png
 [243 bytes]
@@ -3483,6 +3900,30 @@ content/textures/shadowblurmask.png
 
 content/textures/sparkle.png
 [1127 bytes]
+
+content/textures/StudioUIEditor/icon_rotate1.png
+[1598 bytes]
+
+content/textures/StudioUIEditor/icon_rotate2.png
+[1380 bytes]
+
+content/textures/StudioUIEditor/icon_rotate3.png
+[1526 bytes]
+
+content/textures/StudioUIEditor/icon_rotate4.png
+[1414 bytes]
+
+content/textures/StudioUIEditor/icon_rotate5.png
+[1571 bytes]
+
+content/textures/StudioUIEditor/icon_rotate6.png
+[1365 bytes]
+
+content/textures/StudioUIEditor/icon_rotate7.png
+[1524 bytes]
+
+content/textures/StudioUIEditor/icon_rotate8.png
+[1424 bytes]
 
 content/textures/StudioUIEditor/placeholderResizeDiagonalDown.png
 [1223 bytes]
@@ -3898,6 +4339,258 @@ content/textures/ui/LuaApp/9-slice/gr-shadow@2x.png
 content/textures/ui/LuaApp/9-slice/gr-shadow@3x.png
 [3361 bytes]
 
+content/textures/ui/LuaApp/category/ic-bc.png
+[637 bytes]
+
+content/textures/ui/LuaApp/category/ic-bc@2x.png
+[1303 bytes]
+
+content/textures/ui/LuaApp/category/ic-bc@3x.png
+[1738 bytes]
+
+content/textures/ui/LuaApp/category/ic-cancel.png
+[389 bytes]
+
+content/textures/ui/LuaApp/category/ic-cancel@2x.png
+[586 bytes]
+
+content/textures/ui/LuaApp/category/ic-cancel@3x.png
+[796 bytes]
+
+content/textures/ui/LuaApp/category/ic-default.png
+[577 bytes]
+
+content/textures/ui/LuaApp/category/ic-default@2x.png
+[1011 bytes]
+
+content/textures/ui/LuaApp/category/ic-default@3x.png
+[1473 bytes]
+
+content/textures/ui/LuaApp/category/ic-featured.png
+[800 bytes]
+
+content/textures/ui/LuaApp/category/ic-featured@2x.png
+[1629 bytes]
+
+content/textures/ui/LuaApp/category/ic-featured@3x.png
+[2489 bytes]
+
+content/textures/ui/LuaApp/category/ic-friend activity.png
+[861 bytes]
+
+content/textures/ui/LuaApp/category/ic-friend activity@2x.png
+[1880 bytes]
+
+content/textures/ui/LuaApp/category/ic-friend activity@3x.png
+[3048 bytes]
+
+content/textures/ui/LuaApp/category/ic-my favorite.png
+[644 bytes]
+
+content/textures/ui/LuaApp/category/ic-my favorite@2x.png
+[1348 bytes]
+
+content/textures/ui/LuaApp/category/ic-my favorite@3x.png
+[2023 bytes]
+
+content/textures/ui/LuaApp/category/ic-my recent.png
+[630 bytes]
+
+content/textures/ui/LuaApp/category/ic-my recent@2x.png
+[1313 bytes]
+
+content/textures/ui/LuaApp/category/ic-my recent@3x.png
+[2014 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular in country.png
+[818 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular in country@2x.png
+[1707 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular in country@3x.png
+[2819 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular in VR.png
+[486 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular in VR@2x.png
+[1021 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular in VR@3x.png
+[1169 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular.png
+[808 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular@2x.png
+[1802 bytes]
+
+content/textures/ui/LuaApp/category/ic-popular@3x.png
+[2782 bytes]
+
+content/textures/ui/LuaApp/category/ic-purchased.png
+[707 bytes]
+
+content/textures/ui/LuaApp/category/ic-purchased@2x.png
+[1436 bytes]
+
+content/textures/ui/LuaApp/category/ic-purchased@3x.png
+[2157 bytes]
+
+content/textures/ui/LuaApp/category/ic-recommended.png
+[637 bytes]
+
+content/textures/ui/LuaApp/category/ic-recommended@2x.png
+[1008 bytes]
+
+content/textures/ui/LuaApp/category/ic-recommended@3x.png
+[1368 bytes]
+
+content/textures/ui/LuaApp/category/ic-top earning.png
+[714 bytes]
+
+content/textures/ui/LuaApp/category/ic-top earning@2x.png
+[1730 bytes]
+
+content/textures/ui/LuaApp/category/ic-top earning@3x.png
+[2709 bytes]
+
+content/textures/ui/LuaApp/category/ic-top favorite.png
+[523 bytes]
+
+content/textures/ui/LuaApp/category/ic-top favorite@2x.png
+[1093 bytes]
+
+content/textures/ui/LuaApp/category/ic-top favorite@3x.png
+[1489 bytes]
+
+content/textures/ui/LuaApp/category/ic-top paid.png
+[942 bytes]
+
+content/textures/ui/LuaApp/category/ic-top paid@2x.png
+[2056 bytes]
+
+content/textures/ui/LuaApp/category/ic-top paid@3x.png
+[3185 bytes]
+
+content/textures/ui/LuaApp/category/ic-top rated.png
+[429 bytes]
+
+content/textures/ui/LuaApp/category/ic-top rated@2x.png
+[597 bytes]
+
+content/textures/ui/LuaApp/category/ic-top rated@3x.png
+[710 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-contextual menu.png
+[207 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-contextual menu@2x.png
+[418 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-contextual menu@3x.png
+[576 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-down.png
+[148 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-down@2x.png
+[219 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-down@3x.png
+[296 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-left.png
+[158 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-left@2x.png
+[263 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-left@3x.png
+[368 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-right.png
+[159 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-right@2x.png
+[266 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-right@3x.png
+[372 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-up.png
+[146 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-up@2x.png
+[212 bytes]
+
+content/textures/ui/LuaApp/dropdown/gr-tip-up@3x.png
+[294 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-card.png
+[151 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-card@2x.png
+[256 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-card@3x.png
+[341 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-friend.png
+[3056 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-friend@2x.png
+[7765 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-friend@3x.png
+[13925 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-friend-on.png
+[3489 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-friend-on@2x.png
+[8675 bytes]
+
+content/textures/ui/LuaApp/graphic/gr-friend-on@3x.png
+[15832 bytes]
+
+content/textures/ui/LuaApp/graphic/ph-avatar-portrait.png
+[1314 bytes]
+
+content/textures/ui/LuaApp/graphic/ph-avatar-portrait@2x.png
+[2633 bytes]
+
+content/textures/ui/LuaApp/graphic/ph-avatar-portrait@3x.png
+[4531 bytes]
+
+content/textures/ui/LuaApp/icons/ic-arrow-down.png
+[183 bytes]
+
+content/textures/ui/LuaApp/icons/ic-arrow-down@2x.png
+[302 bytes]
+
+content/textures/ui/LuaApp/icons/ic-arrow-down@3x.png
+[325 bytes]
+
+content/textures/ui/LuaApp/icons/ic-avatar.png
+[610 bytes]
+
+content/textures/ui/LuaApp/icons/ic-avatar@2x.png
+[1245 bytes]
+
+content/textures/ui/LuaApp/icons/ic-avatar@3x.png
+[1724 bytes]
+
+content/textures/ui/LuaApp/icons/ic-avatar-on.png
+[501 bytes]
+
+content/textures/ui/LuaApp/icons/ic-avatar-on@2x.png
+[938 bytes]
+
+content/textures/ui/LuaApp/icons/ic-avatar-on@3x.png
+[1348 bytes]
+
 content/textures/ui/LuaApp/icons/ic-bc.png
 [607 bytes]
 
@@ -3906,6 +4599,168 @@ content/textures/ui/LuaApp/icons/ic-bc@2x.png
 
 content/textures/ui/LuaApp/icons/ic-bc@3x.png
 [1671 bytes]
+
+content/textures/ui/LuaApp/icons/ic-bc-small.png
+[715 bytes]
+
+content/textures/ui/LuaApp/icons/ic-bc-small@2x.png
+[1650 bytes]
+
+content/textures/ui/LuaApp/icons/ic-bc-small@3x.png
+[2512 bytes]
+
+content/textures/ui/LuaApp/icons/ic-blue-dot.png
+[279 bytes]
+
+content/textures/ui/LuaApp/icons/ic-blue-dot@2x.png
+[503 bytes]
+
+content/textures/ui/LuaApp/icons/ic-blue-dot@3x.png
+[765 bytes]
+
+content/textures/ui/LuaApp/icons/ic-blue-online.png
+[1002 bytes]
+
+content/textures/ui/LuaApp/icons/ic-blue-online@2x.png
+[2348 bytes]
+
+content/textures/ui/LuaApp/icons/ic-blue-online@3x.png
+[3752 bytes]
+
+content/textures/ui/LuaApp/icons/ic-catalog.png
+[416 bytes]
+
+content/textures/ui/LuaApp/icons/ic-catalog@2x.png
+[774 bytes]
+
+content/textures/ui/LuaApp/icons/ic-catalog@3x.png
+[1086 bytes]
+
+content/textures/ui/LuaApp/icons/ic-catalog-on.png
+[338 bytes]
+
+content/textures/ui/LuaApp/icons/ic-catalog-on@2x.png
+[580 bytes]
+
+content/textures/ui/LuaApp/icons/ic-catalog-on@3x.png
+[895 bytes]
+
+content/textures/ui/LuaApp/icons/ic-chat.png
+[312 bytes]
+
+content/textures/ui/LuaApp/icons/ic-chat@2x.png
+[542 bytes]
+
+content/textures/ui/LuaApp/icons/ic-chat@3x.png
+[759 bytes]
+
+content/textures/ui/LuaApp/icons/ic-chat-on.png
+[257 bytes]
+
+content/textures/ui/LuaApp/icons/ic-chat-on@2x.png
+[401 bytes]
+
+content/textures/ui/LuaApp/icons/ic-chat-on@3x.png
+[588 bytes]
+
+content/textures/ui/LuaApp/icons/ic-friend.png
+[617 bytes]
+
+content/textures/ui/LuaApp/icons/ic-friend@2x.png
+[1172 bytes]
+
+content/textures/ui/LuaApp/icons/ic-friend@3x.png
+[1790 bytes]
+
+content/textures/ui/LuaApp/icons/ic-friend-on.png
+[496 bytes]
+
+content/textures/ui/LuaApp/icons/ic-friend-on@2x.png
+[988 bytes]
+
+content/textures/ui/LuaApp/icons/ic-friend-on@3x.png
+[1428 bytes]
+
+content/textures/ui/LuaApp/icons/ic-game.png
+[1058 bytes]
+
+content/textures/ui/LuaApp/icons/ic-game@2x.png
+[1929 bytes]
+
+content/textures/ui/LuaApp/icons/ic-game@3x.png
+[3067 bytes]
+
+content/textures/ui/LuaApp/icons/ic-games.png
+[405 bytes]
+
+content/textures/ui/LuaApp/icons/ic-games@2x.png
+[664 bytes]
+
+content/textures/ui/LuaApp/icons/ic-games@3x.png
+[926 bytes]
+
+content/textures/ui/LuaApp/icons/ic-games-on.png
+[337 bytes]
+
+content/textures/ui/LuaApp/icons/ic-games-on@2x.png
+[601 bytes]
+
+content/textures/ui/LuaApp/icons/ic-games-on@3x.png
+[864 bytes]
+
+content/textures/ui/LuaApp/icons/ic-green-dot.png
+[301 bytes]
+
+content/textures/ui/LuaApp/icons/ic-green-dot@2x.png
+[550 bytes]
+
+content/textures/ui/LuaApp/icons/ic-green-dot@3x.png
+[863 bytes]
+
+content/textures/ui/LuaApp/icons/ic-green-ingame.png
+[1063 bytes]
+
+content/textures/ui/LuaApp/icons/ic-green-ingame@2x.png
+[2512 bytes]
+
+content/textures/ui/LuaApp/icons/ic-green-ingame@3x.png
+[3661 bytes]
+
+content/textures/ui/LuaApp/icons/ic-home.png
+[394 bytes]
+
+content/textures/ui/LuaApp/icons/ic-home@2x.png
+[623 bytes]
+
+content/textures/ui/LuaApp/icons/ic-home@3x.png
+[835 bytes]
+
+content/textures/ui/LuaApp/icons/ic-home-on.png
+[293 bytes]
+
+content/textures/ui/LuaApp/icons/ic-home-on@2x.png
+[472 bytes]
+
+content/textures/ui/LuaApp/icons/ic-home-on@3x.png
+[696 bytes]
+
+content/textures/ui/LuaApp/icons/ic-more.png
+[160 bytes]
+
+content/textures/ui/LuaApp/icons/ic-more@2x.png
+[205 bytes]
+
+content/textures/ui/LuaApp/icons/ic-more@3x.png
+[290 bytes]
+
+content/textures/ui/LuaApp/icons/ic-more-on.png
+[140 bytes]
+
+content/textures/ui/LuaApp/icons/ic-more-on@2x.png
+[187 bytes]
+
+content/textures/ui/LuaApp/icons/ic-more-on@3x.png
+[274 bytes]
 
 content/textures/ui/LuaApp/icons/ic-obc.png
 [735 bytes]
@@ -3916,6 +4771,33 @@ content/textures/ui/LuaApp/icons/ic-obc@2x.png
 content/textures/ui/LuaApp/icons/ic-obc@3x.png
 [2092 bytes]
 
+content/textures/ui/LuaApp/icons/ic-obc-small.png
+[858 bytes]
+
+content/textures/ui/LuaApp/icons/ic-obc-small@2x.png
+[1985 bytes]
+
+content/textures/ui/LuaApp/icons/ic-obc-small@3x.png
+[3102 bytes]
+
+content/textures/ui/LuaApp/icons/ic-orange-dot.png
+[305 bytes]
+
+content/textures/ui/LuaApp/icons/ic-orange-dot@2x.png
+[541 bytes]
+
+content/textures/ui/LuaApp/icons/ic-orange-dot@3x.png
+[851 bytes]
+
+content/textures/ui/LuaApp/icons/ic-orange-instudio.png
+[1094 bytes]
+
+content/textures/ui/LuaApp/icons/ic-orange-instudio@2x.png
+[2376 bytes]
+
+content/textures/ui/LuaApp/icons/ic-orange-instudio@3x.png
+[3241 bytes]
+
 content/textures/ui/LuaApp/icons/ic-tbc.png
 [663 bytes]
 
@@ -3924,6 +4806,15 @@ content/textures/ui/LuaApp/icons/ic-tbc@2x.png
 
 content/textures/ui/LuaApp/icons/ic-tbc@3x.png
 [1800 bytes]
+
+content/textures/ui/LuaApp/icons/ic-tbc-small.png
+[833 bytes]
+
+content/textures/ui/LuaApp/icons/ic-tbc-small@2x.png
+[1971 bytes]
+
+content/textures/ui/LuaApp/icons/ic-tbc-small@3x.png
+[3056 bytes]
 
 content/textures/ui/LuaApp/icons/ic-thumbup.png
 [264 bytes]

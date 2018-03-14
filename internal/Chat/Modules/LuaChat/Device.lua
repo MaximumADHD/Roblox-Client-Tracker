@@ -3,10 +3,14 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local CoreGui = game:GetService("CoreGui")
-local LuaChat = script.Parent
-local ActionType = require(LuaChat.ActionType)
+
+local Modules = CoreGui.RobloxGui.Modules
+local LuaChat = Modules.LuaChat
+
 local Config = require(LuaChat.Config)
 local Create = require(LuaChat.Create)
+
+local SetFormFactor = require(LuaChat.Actions.SetFormFactor)
 
 local Device = {}
 
@@ -72,10 +76,7 @@ function Device.Init(store)
 		else
 			formFactor = Device.FormFactor.TABLET
 		end
-		store:Dispatch({
-			type = ActionType.SetFormFactor,
-			formFactor = formFactor,
-		})
+		store:Dispatch(SetFormFactor(formFactor))
 	end
 	local camera = game.Workspace:WaitForChild("Camera")
 	setFormFactor(camera.ViewportSize)

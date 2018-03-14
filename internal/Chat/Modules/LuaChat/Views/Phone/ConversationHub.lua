@@ -8,10 +8,12 @@ local Create = require(LuaChat.Create)
 local Components = LuaChat.Components
 local ConversationHubComponent = require(Components.ConversationHub)
 
-local ActionType = require(LuaChat.ActionType)
 local DialogInfo = require(LuaChat.DialogInfo)
 local Constants = require(LuaChat.Constants)
 local ConversationActions = require(LuaChat.Actions.ConversationActions)
+
+local SetRoute = require(LuaChat.Actions.SetRoute)
+local SetTabBarVisible = require(LuaChat.Actions.SetTabBarVisible)
 
 local Intent = DialogInfo.Intent
 
@@ -45,7 +47,7 @@ function ConversationHub.new(appState, route)
 			return
 		end
 
-		local conversation = self.appState.store:GetState().Conversations[convoId]
+		local conversation = self.appState.store:GetState().ChatAppReducer.Conversations[convoId]
 
 		if conversation == nil then
 			return
@@ -53,31 +55,15 @@ function ConversationHub.new(appState, route)
 
 		if conversation.serverState == Constants.ServerState.NONE then
 			self.appState.store:Dispatch(ConversationActions.StartOneToOneConversation(conversation, function(serverConversation)
-				self.appState.store:Dispatch({
-					type = ActionType.SetRoute,
-					intent = Intent.Conversation,
-					parameters = {
-						conversationId = serverConversation.id,
-					},
-				})
+				self.appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = serverConversation.id}))
 			end))
 		else
-			self.appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.Conversation,
-				parameters = {
-					conversationId = convoId,
-				}
-			})
+			self.appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = convoId}))
 		end
 	end)
 
 	self.ConversationHubComponent.CreateGroupButtonPressed:Connect(function()
-		self.appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.NewChatGroup,
-			parameters = {},
-		})
+		self.appState.store:Dispatch(SetRoute(Intent.NewChatGroup, {}))
 	end)
 
 	return self
@@ -86,35 +72,23 @@ end
 function ConversationHub:Start()
 	BaseScreen.Start(self)
 	self.ConversationHubComponent:Start()
-	self.appState.store:Dispatch({
-		type = ActionType.SetTabBarVisible,
-		value = true,
-	})
+	self.appState.store:Dispatch(SetTabBarVisible(true))
 end
 
 function ConversationHub:Stop()
 	BaseScreen.Stop(self)
 	self.ConversationHubComponent:Stop()
-	self.appState.store:Dispatch({
-		type = ActionType.SetTabBarVisible,
-		value = false,
-	})
+	self.appState.store:Dispatch(SetTabBarVisible(false))
 end
 
 function ConversationHub:Resume()
 	BaseScreen.Resume(self)
-	self.appState.store:Dispatch({
-		type = ActionType.SetTabBarVisible,
-		value = true,
-	})
+	self.appState.store:Dispatch(SetTabBarVisible(true))
 end
 
 function ConversationHub:Pause()
 	BaseScreen.Pause(self)
-	self.appState.store:Dispatch({
-		type = ActionType.SetTabBarVisible,
-		value = false,
-	})
+	self.appState.store:Dispatch(SetTabBarVisible(false))
 end
 
 function ConversationHub:Update(state, oldState)

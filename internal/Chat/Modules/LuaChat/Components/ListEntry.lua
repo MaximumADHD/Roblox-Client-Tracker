@@ -1,15 +1,12 @@
-local function findAncestor(child, name)
-	local parent = child.Parent
-	while parent and parent.Name ~= name do
-		parent = parent.Parent
-	end
-	return parent
-end
+local CoreGui = game:GetService("CoreGui")
 
-local LuaChat = findAncestor(script, "LuaChat")
-local Signal = require(LuaChat.Signal)
-local Create = require(LuaChat.Create)
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
 local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
 
 local ListEntry = {}
 

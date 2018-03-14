@@ -1,19 +1,17 @@
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local Modules = script.Parent.Parent
-local Components = Modules.Components
+local Modules = CoreGui.RobloxGui.Modules
 
-local StringsLocale = require(LuaApp.StringsLocale)
-local Signal = require(Modules.Signal)
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local User = require(Modules.Models.User)
-local Text = require(Modules.Text)
-local DateTime = require(Modules.DateTime)
-local ConversationThumbnail = require(Components.ConversationThumbnail)
-local TextButton = require(Components.TextButton)
+local StringsLocale = require(Modules.LuaApp.StringsLocale)
+local Signal = require(Modules.Common.Signal)
+local Create = require(Modules.LuaChat.Create)
+local Constants = require(Modules.LuaChat.Constants)
+local User = require(Modules.LuaChat.Models.User)
+local Text = require(Modules.LuaChat.Text)
+local DateTime = require(Modules.LuaChat.DateTime)
+local ConversationThumbnail = require(Modules.LuaChat.Components.ConversationThumbnail)
+local TextButton = require(Modules.LuaChat.Components.TextButton)
 
 local GameShareCard = {}
 

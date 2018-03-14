@@ -1,27 +1,28 @@
-local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local ConversationModel = require(LuaChat.Models.Conversation)
+local Create = require(LuaChat.Create)
+local DialogInfo = require(LuaChat.DialogInfo)
+local Immutable = require(Common.Immutable)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 
-local Modules = script.Parent.Parent
-local Components = Modules.Components
-
-local Signal = require(Modules.Signal)
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local ConversationActions = require(Modules.Actions.ConversationActions)
-local Immutable = require(Modules.Immutable)
-local ActionType = require(Modules.ActionType)
-local DialogInfo = require(Modules.DialogInfo)
-
-local ConversationModel = require(Modules.Models.Conversation)
-
-local HeaderLoader = require(Components.HeaderLoader)
-local TextInputEntry = require(Components.TextInputEntry)
-local SectionComponent = require(Components.ListSection)
+local Components = LuaChat.Components
 local FriendSearchBoxComponent = require(Components.FriendSearchBox)
+local HeaderLoader = require(Components.HeaderLoader)
 local ResponseIndicator = require(Components.ResponseIndicator)
+local SectionComponent = require(Components.ListSection)
+local TextInputEntry = require(Components.TextInputEntry)
+
+local RemoveRoute = require(LuaChat.Actions.RemoveRoute)
 
 local Intent = DialogInfo.Intent
 
@@ -132,10 +133,7 @@ function NewChatGroup.new(appState)
 					if id ~= nil then
 						self.ConversationSaved:Fire(id)
 					end
-					self.appState.store:Dispatch({
-						type = ActionType.RemoveRoute,
-						intent = Intent.NewChatGroup
-					})
+					self.appState.store:Dispatch(RemoveRoute(Intent.NewChatGroup))
 				end)
 			)
 		end

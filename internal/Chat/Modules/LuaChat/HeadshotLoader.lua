@@ -1,5 +1,10 @@
+local CoreGui = game:GetService("CoreGui")
 local PlayersService = game:GetService("Players")
-local Functional = require(script.Parent.Functional)
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+
+local Functional = require(Common.Functional)
 
 local THUMB_TYPE = Enum.ThumbnailType.HeadShot
 local THUMB_SIZE = Enum.ThumbnailSize.Size48x48

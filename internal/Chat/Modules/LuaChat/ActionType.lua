@@ -6,7 +6,6 @@ local ActionType = {
 	RenamedGroupConversation = "RenamedGroupConversation",
 	ChangedParticipants = "ChangedParticipants",
 	RemovedConversation = "RemovedConversation",
-	FetchLocalUserConversations = "FetchLocalUserConversations",
 
 	RequestLatestMessages = "RequestLatestMessages",
 	ReceivedLatestMessages = "ReceivedLatestMessages",
@@ -28,9 +27,9 @@ local ActionType = {
 	SetChatEnabled = "SetChatEnabled",
 	SetUserTyping = "SetUserTyping",
 	SetAppLoaded = "SetAppLoaded",
-
+	FetchingUser = "FetchingUser",
+	GetUser = "GetUser",
 	RequestUsername = "RequestUsername",
-	ReceivedUsername = "ReceivedUsername",
 
 	RequestAllFriends = "RequestAllFriends",
 	ReceivedAllFriends = "ReceivedAllFriends",
@@ -47,6 +46,7 @@ local ActionType = {
 	SetRoute = "SetRoute",
 	PopRoute = "PopRoute",
 	RemoveRoute = "RemoveRoute",
+	SetUserLeavingConversation = "SetUserLeavingConversation",
 	SetFormFactor = "SetFormFactor",
 	ToggleChatPaused = "ToggleChatPaused",
 	SetTabBarVisible = "SetTabBarVisible",

@@ -1,27 +1,29 @@
 local CoreGui = game:GetService("CoreGui")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Functional = require(Common.Functional)
+local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
+local ToastModel = require(LuaChat.Models.ToastModel)
 
-local Modules = script.Parent.Parent
+local Components = LuaChat.Components
+local ListSection = require(Components.ListSection)
+local UserList = require(Components.UserList)
+local UserThumbnailBar = require(Components.UserThumbnailBar)
 
-local Functional = require(Modules.Functional)
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local Signal = require(Modules.Signal)
-local ActionType = require(Modules.ActionType)
-
-local ToastModel = require(Modules.Models.ToastModel)
-
-local UserThumbnailBar = require(Modules.Components.UserThumbnailBar)
-local ListSection = require(Modules.Components.ListSection)
-local UserList = require(Modules.Components.UserList)
+local ShowToast = require(LuaChat.Actions.ShowToast)
 
 local FFlagTextBoxOverrideManualFocusRelease = settings():GetFFlag("TextBoxOverrideManualFocusRelease")
 
+local CLEAR_TEXT_WIDTH = 44
 local ICON_CELL_WIDTH = 60
 local SEARCH_BOX_HEIGHT = 48
-local CLEAR_TEXT_WIDTH = 44
 
 local FriendSearchBox = {}
 FriendSearchBox.__index = FriendSearchBox
@@ -233,10 +235,7 @@ function FriendSearchBox:AddParticipant(userId)
 			self.tooManyFriendsToastModel = toastModel
 		end
 
-		self.appState.store:Dispatch({
-			type = ActionType.ShowToast,
-			toast = self.tooManyFriendsToastModel,
-		})
+		self.appState.store:Dispatch(ShowToast(self.tooManyFriendsToastModel))
 	else
 		self.addParticipant:Fire(userId)
 	end

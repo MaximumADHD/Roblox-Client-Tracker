@@ -1,8 +1,13 @@
-local Modules = script.Parent.Parent
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local Signal = require(Modules.Signal)
-local Text = require(Modules.Text)
+local CoreGui = game:GetService("CoreGui")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
+local Constants = require(LuaChat.Constants)
+local Create = require(LuaChat.Create)
+local Signal = require(Common.Signal)
+local Text = require(LuaChat.Text)
 
 local FONT = Constants.Font.TITLE
 local TEXT_SIZE = Constants.Font.FONT_SIZE_18

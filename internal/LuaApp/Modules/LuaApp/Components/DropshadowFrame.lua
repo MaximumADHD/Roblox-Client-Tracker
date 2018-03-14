@@ -10,18 +10,20 @@ local SHADOW_SPREAD_LEFT = 6
 local SHADOW_SPREAD_RIGHT = 6
 
 function DropshadowFrame:render()
-	local size = self.props.Size
-	local position = self.props.Position
-	local layoutOrder = self.props.LayoutOrder
-	local children = self.props[Roact.Children]
+	local anchorPoint = self.props.AnchorPoint
 	local backgroundColor3 = self.props.BackgroundColor3
+	local children = self.props[Roact.Children]
+	local layoutOrder = self.props.LayoutOrder
+	local position = self.props.Position
+	local size = self.props.Size
 
 	return Roact.createElement("Frame", {
-		Size = size,
-		Position = position,
+		AnchorPoint = anchorPoint,
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		LayoutOrder = layoutOrder,
+		Position = position,
+		Size = size,
 	}, {
 		Shadow = Roact.createElement("ImageLabel", {
 			Size = UDim2.new(1, SHADOW_SPREAD_LEFT + SHADOW_SPREAD_RIGHT, 1, SHADOW_SPREAD_TOP + SHADOW_SPREAD_BOTTOM),

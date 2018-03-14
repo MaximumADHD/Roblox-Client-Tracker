@@ -1,7 +1,12 @@
-local Chat = script.Parent.Parent
-local ActionType = require(Chat.ActionType)
-local Immutable = require(Chat.Immutable)
-local OrderedMap = require(Chat.OrderedMap)
+local CoreGui = game:GetService("CoreGui")
+
+local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
+local LuaChat = Modules.LuaChat
+
+local ActionType = require(LuaChat.ActionType)
+local Immutable = require(Common.Immutable)
+local OrderedMap = require(LuaChat.OrderedMap)
 
 local function getAlertId(alert)
 	return alert.id

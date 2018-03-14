@@ -6,7 +6,6 @@ local LuaChat = CoreGui.RobloxGui.Modules.LuaChat
 local Config = require(LuaChat.Config)
 local AppState = require(LuaChat.AppState)
 local DebugManager = require(LuaChat.Debug.DebugManager)
-local ActionType = require(LuaChat.ActionType)
 local DialogInfo = require(LuaChat.DialogInfo)
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
@@ -14,6 +13,9 @@ local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
 local PerformanceTesting = require(LuaApp.PerformanceTesting)
 
 local Intent = DialogInfo.Intent
+
+local SetRoute = require(LuaChat.Actions.SetRoute)
+local ToggleChatPaused = require(LuaChat.Actions.ToggleChatPaused)
 
 local ChatMaster = {}
 ChatMaster.__index = ChatMaster
@@ -23,17 +25,12 @@ ChatMaster.Type = {
 	GameShare = "GameShare",
 }
 
-function ChatMaster.new()
+function ChatMaster.new(roduxStore)
 	local self = {}
 	setmetatable(self, ChatMaster)
 
 	if Players.NumPlayers == 0 then
 		Players.PlayerAdded:Wait()
-	end
-
-	-- Get rid of this once we can detect if play solo or not
-	if CoreGui:FindFirstChild("MobileChat") then
-		CoreGui.MobileChat:Destroy()
 	end
 
 	-- In debug mode, load the DebugManager overlay and logging system
@@ -44,9 +41,19 @@ function ChatMaster.new()
 	end
 
 	-- Reduce render quality to optimize performance
-	settings().Rendering.QualityLevel = 1
+	if settings():GetFFlag("AppShellManagementRefactor") then
+		local renderSteppedConnection = nil
+		renderSteppedConnection = game:GetService("RunService").RenderStepped:connect(function()
+			if renderSteppedConnection then
+				renderSteppedConnection:Disconnect()
+			end
+			settings().Rendering.QualityLevel = 1
+		end)
+	else
+		settings().Rendering.QualityLevel = 1
+	end
 
-	self._appState = AppState.new(CoreGui)
+	self._appState = AppState.new(CoreGui, roduxStore)
 	self._chatRunning = false
 	self._gameShareRunning = false
 
@@ -60,38 +67,21 @@ function ChatMaster:Start(startType, parameters)
 		startType = ChatMaster.Type.Default
 	end
 
-	if (settings():GetFFlag("UpdateRenderViewStatsEvenThrottling")) then
-		RunService:setThrottleFramerateEnabled(true)
-	else
-		RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
-	end
+	RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
 
 	RunService:Set3dRenderingEnabled(false)
-	self._appState.store:Dispatch({
-		type = ActionType.ToggleChatPaused,
-		screenManager = self._appState.screenManager,
-		value = false,
-	})
+	self._appState.store:Dispatch(ToggleChatPaused(false))
 
 	if startType == ChatMaster.Type.Default then
 
-		if not next(self._appState.store:GetState().Location.current) then
-			self._appState.store:Dispatch({
-				type = ActionType.SetRoute,
-				intent = Intent.ConversationHub,
-				parameters = {},
-			})
+		if not next(self._appState.store:GetState().ChatAppReducer.Location.current) then
+			self._appState.store:Dispatch(SetRoute(Intent.ConversationHub, {}))
 		end
 		self._chatRunning = true
 
 	elseif startType == ChatMaster.Type.GameShare then
 
-		self._appState.store:Dispatch({
-			type = ActionType.SetRoute,
-			intent = Intent.GameShare,
-			parameters = parameters
-		})
-
+		self._appState.store:Dispatch(SetRoute(Intent.GameShare, parameters))
 		self._gameShareRunning = true
 	end
 end
@@ -118,11 +108,7 @@ function ChatMaster:Stop(stopType)
 
 	RunService:setThrottleFramerateEnabled(false)
 	RunService:Set3dRenderingEnabled(true)
-	self._appState.store:Dispatch({
-		type = ActionType.ToggleChatPaused,
-		screenManager = self._appState.screenManager,
-		value = true,
-	})
+	self._appState.store:Dispatch(ToggleChatPaused(true))
 end
 
 return ChatMaster
