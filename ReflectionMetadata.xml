@@ -4308,7 +4308,13 @@
         <string name="ClassCategory">Scripting</string>
         <string name="ExplorerOrder">4</string>
         <string name="ExplorerImageIndex">18</string>
-        <string name="summary">A script that runs on clients, NOT servers.  LocalScripts can only run when parented under the PlayerGui currently.</string>
+        <string name="summary">A script that runs on clients, NOT servers.  LocalScripts can only run when parented under one of the following: 
+        1) A player's Backpack.
+        2) A player's Character model.
+        3) A player's PlayerGui.
+        4) A player's PlayerScripts.
+        5) The ReplicatedFirst service.
+      </string>
       </Properties>
     </Item>
 
@@ -5809,6 +5815,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Draggable</string>
+            <bool name="Deprecated">true</bool>
             <string name="summary">If true, allows a GuiObject to be dragged by the user's mouse. The events 'DragBegin' and 'DragStopped' are fired when the appropriate action happens, and only will fire on Draggable=true GuiObjects.</string>
           </Properties>
         </Item>
@@ -5862,12 +5869,14 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">DragBegin</string>
+            <bool name="Deprecated">true</bool>
             <string name="summary">Fired when a GuiObject with Draggable set to true starts to be dragged. 'InitialPosition' is a UDim2 value of the position of the GuiObject before any drag operation began.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">DragStopped</string>
+            <bool name="Deprecated">true</bool>
             <string name="summary">Always fired after a DragBegin event, DragStopped is fired when the user releases the mouse button causing a drag operation on the GuiObject. Arguments 'x', and 'y' specify the top-left absolute position of the GuiObject when the event is fired.</string>
           </Properties>
         </Item>

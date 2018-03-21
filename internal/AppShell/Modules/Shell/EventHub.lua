@@ -77,6 +77,7 @@ do
 		UnlinkAccountConfirmation = "rbxNotificationUnlinkAccountConfirmation";
 		OpenSettingsScreen = "rbxNotificationOpenSettingsScreen";
 		OpenAvatarEditorScreen = "rbxNotificationOpenAvatarEditorScreen";
+		OpenAccountSettingsScreen = "rbxNotificationOpenAccountSettingsScreen";
 		NavigateToEquippedAvatar = "rbxNotificationNavigateToEquippedAvatar";
 		NavigateToRobuxScreen = "rbxNotificationNavigateToRobuxScreen";
 		RobuxCatalogPurchaseInitiated = "rbxRobuxCatalogPurchaseInitiated";

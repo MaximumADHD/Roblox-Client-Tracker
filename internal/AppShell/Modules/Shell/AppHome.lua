@@ -29,6 +29,7 @@ local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local GameGenreScreen = require(ShellModules:FindFirstChild('GameGenreScreen'))
 local EngagementScreenModule = require(ShellModules:FindFirstChild('EngagementScreen'))
 local BadgeScreenModule = require(ShellModules:FindFirstChild('BadgeScreen'))
+local AccountScreen = require(ShellModules:FindFirstChild('AccountScreen'))
 
 local FriendsData = require(ShellModules:FindFirstChild('FriendsData'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
@@ -136,6 +137,13 @@ local function onAuthenticationSuccess(isNewLinkedAccount)
 			ScreenManager:OpenScreen(screen);
 		end)
 
+	EventHub:addEventListener(EventHub.Notifications["OpenAccountSettingsScreen"], "accountSettingsScreen",
+		function(errorCode)
+			local accountScreen = AccountScreen(errorCode)
+			accountScreen:SetParent(TitleSafeContainer);
+			ScreenManager:OpenScreen(accountScreen);
+		end)
+
 	Utility.DebugLog("User and Event initialization finished. Opening AppHub")
 	ScreenManager:OpenScreen(AppHub);
 
@@ -167,6 +175,7 @@ local function onReAuthentication(reauthenticationReason)
 	EventHub:removeEventListener(EventHub.Notifications["OpenBadgeScreen"], "gameBadges")
 	EventHub:removeEventListener(EventHub.Notifications["OpenSettingsScreen"], "settingsScreen")
 	EventHub:removeEventListener(EventHub.Notifications["OpenAvatarEditorScreen"], "avatarEditorScreen")
+	EventHub:removeEventListener(EventHub.Notifications["OpenAccountSettingsScreen"], "accountSettingsScreen")
 
 	Utility.DebugLog("Reauth complete. Return to engagement screen.")
 

@@ -16,15 +16,10 @@ local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local AccountLinkingView = require(ShellModules:FindFirstChild('AccountLinkingView'))
 local GameplaySettingsView = require(ShellModules:FindFirstChild('GameplaySettingsView'))
 
-local function createAccountScreen()
+local function createAccountScreen(errorCode)
 	local this = BaseScreen()
 
 	this:SetTitle(Strings:LocalizedString("AccountSettingsTitle"))
-
-	local dummySelection = Utility.Create'Frame'
-	{
-		BackgroundTransparency = 1;
-	}
 
 	local AccountLinkingViewContainer = Utility.Create'Frame'
 	{
@@ -39,7 +34,6 @@ local function createAccountScreen()
 	local accountLinkingView = AccountLinkingView()
 	accountLinkingView:SetParent(AccountLinkingViewContainer)
 
-
 	local ScreenDivide = Utility.Create'Frame'
 	{
 		Name = "ScreenDivide";
@@ -52,7 +46,7 @@ local function createAccountScreen()
 
 	local gameplaySettingsViewContainer = Utility.Create'Frame'
 	{
-		Name = "gameSettingsViewContainer";
+		Name = "GameplaySettingsViewContainer";
 		Position = UDim2.new(0, 840, 0, 275);
 		Size = UDim2.new(0, 765, 0, 630);
 		BorderSizePixel = 0;
@@ -60,29 +54,8 @@ local function createAccountScreen()
 		Parent = this.Container;
 	}
 
-	local unlinkButton = accountLinkingView:GetUnlinkButton()
-
-	local function connectSelection(gameplaySettingsView)
-		local enabledStatusButton = gameplaySettingsView:GetEnabledStatusButton()
-
-		unlinkButton.NextSelectionLeft = unlinkButton
-		unlinkButton.NextSelectionRight = enabledStatusButton
-		unlinkButton.NextSelectionUp = enabledStatusButton
-		unlinkButton.NextSelectionDown = unlinkButton
-
-		enabledStatusButton.NextSelectionLeft = unlinkButton
-		enabledStatusButton.NextSelectionRight = enabledStatusButton
-		enabledStatusButton.NextSelectionUp = enabledStatusButton
-		enabledStatusButton.NextSelectionDown = unlinkButton
-	end
-
-	unlinkButton.NextSelectionLeft = unlinkButton
-	unlinkButton.NextSelectionRight = unlinkButton
-	unlinkButton.NextSelectionUp = unlinkButton
-	unlinkButton.NextSelectionDown = unlinkButton
-
-	GameplaySettingsView(connectSelection):SetParent(gameplaySettingsViewContainer)
-
+	local gameplaySettingsView = GameplaySettingsView(errorCode)
+	gameplaySettingsView:SetParent(gameplaySettingsViewContainer)
 
 	--[[ Public API ]]--
 	function this:GetAnalyticsInfo()
@@ -99,6 +72,7 @@ local function createAccountScreen()
 	function this:Focus()
 		baseFocus(self)
 		accountLinkingView:Focus()
+		gameplaySettingsView:Focus()
 	end
 
 	-- Override

@@ -144,7 +144,7 @@ function Conversation.fromWeb(data, clientId)
 	self.sendingMessages = OrderedMap.new(getMessageId, sendingMessageSortPredicate)
 	self.id = tostring(data.id)
 	self.clientId = clientId or MockId()
-	self.title = data.title
+	self.title = data.title:gsub("\n", "")
 	self.initiator = tostring(data.initiator.targetId)
 	self.hasUnreadMessages = data.hasUnreadMessages
 	self.conversationType = data.conversationType

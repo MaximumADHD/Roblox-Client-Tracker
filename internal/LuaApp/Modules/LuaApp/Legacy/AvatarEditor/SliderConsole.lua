@@ -5,7 +5,6 @@ local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-local FFlagXboxSliderDpadSupport = Flags:GetFlag('XboxSliderDpadSupport')
 local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
 local XboxFastSliderScrollingOnStick = Flags:GetFlag("XboxFastSliderScrollingOnStick")
 
@@ -364,10 +363,9 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 		if XboxScrollingInScalesPage then
 			checkScroll()
 		end
-		if FFlagXboxSliderDpadSupport then
-			inputBeganListener = UserInputService.InputBegan:connect(inputBegan)
-			inputEndedListener = UserInputService.InputEnded:connect(inputEnded)
-		end
+
+		inputBeganListener = UserInputService.InputBegan:connect(inputBegan)
+		inputEndedListener = UserInputService.InputEnded:connect(inputEnded)
 		inputChangedListener = UserInputService.InputChanged:connect(inputChanged)
 		renderStepListener = game:GetService("RunService").RenderStepped:connect(function()
 			if lastMoveDirection == 0 or repeatMoveTimer == nil then

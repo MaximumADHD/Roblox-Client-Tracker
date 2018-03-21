@@ -56,9 +56,19 @@ function NewChatGroup.new(appState)
 	local placeholderText = appState.localization:Format(StringsLocale.Keys.NAME_THIS_CHAT_GROUP)
 	self.groupName = TextInputEntry.new(appState, getAsset("icons/ic-nametag"), placeholderText)
 	self.groupName.rbx.LayoutOrder = 1
-	self.groupName.textBoxChanged:Connect(function(groupName)
-		self.conversation.title = groupName
+
+	local sanitizeGroupName = function(input)
+		return input:gsub("\n", "")
+	end
+	local textboxChangedConnection = self.groupName.textBoxChanged:Connect(function(newGroupName)
+		self.conversation.title = sanitizeGroupName(newGroupName)
 	end)
+	table.insert(self.connections, textboxChangedConnection)
+
+	local textboxFocusLostConnection = self.groupName.textBoxFocusLost:Connect(function()
+		self.groupName:SanitizeInput(sanitizeGroupName)
+	end)
+	table.insert(self.connections, textboxFocusLostConnection)
 
 	-- Search for friends:
 	self.searchComponent = FriendSearchBoxComponent.new(

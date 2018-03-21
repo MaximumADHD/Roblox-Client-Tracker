@@ -9,6 +9,8 @@
 local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
 local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
 
+local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript2")
+
 --[[ END OF FFLAG VALUES ]]
 
 
@@ -1423,7 +1425,7 @@ TopBar:UpdateBackgroundTransparency()
 LeftMenubar:SetDock(TopBar:GetInstance())
 RightMenubar:SetDock(TopBar:GetInstance())
 
-if not isTenFootInterface then
+if not isTenFootInterface and not FFlagSetGuiInsetInLoadingScript then
 	Util.SetGUIInsetBounds(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
 end
 

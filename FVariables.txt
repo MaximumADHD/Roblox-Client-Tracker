@@ -19,6 +19,7 @@ AllowClientFallback
 AllowISOStringFormatParmaters
 AllowMoreAngles
 AllowMultipleHangReports
+AllowRenderSteppedInPluginScripts
 AlwaysProcessBillboards
 AnalyticsDeferredEphemeralReportingDiagnostic
 AnalyticsDeferredEphemeralReportingIntervalSeconds
@@ -51,8 +52,11 @@ AppBridgePlaceLaunchMaxRetries
 AppBridgePlaceLaunchMaxSleepBetweenRequests
 AppBridgePlaceLaunchMaxTotalSleepTime
 AppBridgePlaceLaunchRetryWaitInSec
+AppShellFPSReportPeriod
 AppShellManagementRefactor
 AppShellReporter
+AppShellReporterMonitorFrameTimeAndroid
+AppShellReporterMonitorFrameTimeIOS
 AssetFetchFromAssetgame
 AssetFetchUrlConstruction
 AssetPurchasePath
@@ -90,7 +94,7 @@ BgUpdateRedirectsHttpErrInfluxHundredthsPercentage
 BgUpdateRedirectsRejectInfluxHundredthsPercentage
 BodyColorsColor3PropertyReplicationEnabled
 BodyColorsColor3PropertyReplicationLogicEnabled
-BroadPhaseIslandBufferZone4
+BroadPhaseIslandBufferZone5
 BroadPhaseIslandBufferZoneApplyPartLimit
 BroadPhaseIslandBufferZoneCharactersAlwaysPhysicsMode
 BroadPhaseIslandBufferZoneExpansionFactorHundredth
@@ -130,7 +134,6 @@ ClientInstanceQuotaCap
 ClientInstanceQuotaInitial
 ClientNetworkErrorInfluxHundredthsPercentage
 ClientNetworkInfluxHundredthsPercentage
-ClientSendRecvBytesOnFailureToJoin
 ClientSettings
 ClientUseNewClientTicket
 CloseDataModel
@@ -157,6 +160,9 @@ CorrectNumAccessories
 CountryActivityMetrics
 CrashReporterInit
 CrashReporterNew
+CrashUploadErrorInfluxHundredthsPercentage
+CrashUploadErrorReporting
+CrashUploadMaxDumpFiles
 CreatePlacePerMinute
 CreatePlacePerPlayerPerMinute
 CSGAllowUnorderedProperties
@@ -274,6 +280,7 @@ DebugStudioImprovedTestServiceFunc
 DebugStudioRigImporter
 DebugTaskSchedulerProfiling
 DebugThumbnailForceFailure
+DebugTracebackOptionalCoroutineArg
 DebugVisualizationImprovements
 DefaultBalanceD
 DefaultBalanceP
@@ -281,6 +288,7 @@ DefaultCustomAnimationType
 DeferredVoxelUpdates
 DeferRefPropUpdate
 DelayLocalPlayerParenting
+DelayPurchasePromptActivation
 DelaySwitchingFromRunningToFreefallInHundredths
 DEPRECATED_BaseSetsUrlPiece
 DEPRECATED_CollectionUrlPiece
@@ -320,7 +328,6 @@ DoNotApplySmallFloorVelocity
 DoNotRunAnimationEditorInPlayMode
 DontCallOnMovingAssemblyRoot
 DontPresentMeaninglessTeleportErrors
-DontRenderFullyTransparent
 DontResizeChildrenIfHasChildLayout
 DontSendOnContactBuffer
 DontUsePhysicsCache
@@ -388,11 +395,13 @@ FixBodyAndAccessoryScaling
 FixBoundSocket
 FixBulletFloatingPointErrorsAgainButForDecompThisTime
 FixBulletMaxDotNanOutOfBounds
+FixButtonR2MouseClickOnGui
 FixCharacterAppearanceLoadedEvent
 FixCharacterJitterDownStairs
 FixCharacterStuckInFreefall
 FixCharacterStutterInFreefall
 FixCharacterStutterInFreefall2
+FixCollectionServiceEventOrdering
 FixCurrentScreenOrientation
 FixCustomWeldSeatPart
 FixDataStoreMetrics
@@ -407,9 +416,11 @@ FixHandlesMouseEvents
 FixHumanoidEmbeddedInGround3
 FixIAdornableCollectorCrash3
 FixInactiveSelectorArrows
+FixInputCanSinkCAS
 FixInputForLayerCollectorsInFolders2
 FixInterpolationTargetFrame
 FixJointDestroyedPrimitiveInsert2
+FixLineHandleAdornmentsNearPlane
 FixLoadingScreenJankiness
 FixMeshPartInitialSizeDivisionByZero
 FixMissingStandardAnthroParts
@@ -423,6 +434,7 @@ FixPlaceFilter0
 FixPlayerActionTypeOverride
 FixPlayerGuiSelectionImage
 FixPlayerlistFollowing
+FixPluginActivate
 FixR15ShirtGraphicScale
 FixRandomSpawnLocationShape
 FixRemoveAsyncReturnValueBug
@@ -437,6 +449,7 @@ FixSurfaceGuisBreakingAfterRespawn
 FixSwappedBodypartsColoring
 FixTextAsserts3
 FixTextLayoutWithUIScaleAssert
+FixTilingNotRespectingUIScale
 FixUIScaleInFolder
 FixVRGamepadInputEvents
 FixVRScrollingFrames
@@ -446,7 +459,6 @@ FixXboxAlternateName
 FMODSoundChannels
 FontSizePadding
 ForceSaveSelection
-ForceUpdateOffset
 ForceUseProductionForAssetFetching
 FreeCameraAPI
 FreeCameraForAdmins
@@ -478,6 +490,7 @@ GAThrottlingEventThresholdHundredthCat1
 GAThrottlingEventThresholdHundredthCat2
 GAThrottlingEventThresholdHundredthCat3
 GenericJobHasShutdownTask
+GetDefaultClothesFromWeb
 GetFriendsUrl
 GetLatestAssetVersionErrors
 GetLocaleIdFromJoinBlob
@@ -600,7 +613,9 @@ InterpolationAwareTargetTime
 InterpolationAwareTargetTimeLerpHundredth
 InterpolationMaxDelayMSec
 IntersectingOthersCallsAllowedOnSpawn
+InvalidSoundErrorLink
 IPV6RobloxStudioCleanUp
+IsGamepadButtonDownEnabled
 ISteppedLifetime
 JoinDataBonus
 JoinDataCompressionLevel
@@ -624,7 +639,6 @@ JointLifetime
 JointTime_TextureCooldown
 JumpingTorsoShouldCollide
 JustBecauseItMovesFastDoesntMeanItsAProjectile
-JustInCaseClusterPacketCacheCrashes
 KeyframeSequenceCacheMemoryOptimization
 KeyframeSequenceEnableFrozen
 KillZombieGame
@@ -634,6 +648,7 @@ LandedBalanceP
 LatencyErrorMultiplierTennths
 LayoutErrors
 LegacyLock
+LetSleepingPartsLie
 LinearToVSquaredVelocityThresholdMaxTenths
 LinearToVSquaredVelocityThresholdMinTenths
 LineHeightEnabled
@@ -683,7 +698,6 @@ LuaMathLibUseNewRNG
 LuaMemoryPool
 LuaPluginAPIChanges
 LuaScriptTimeoutSeconds
-LuaStringFormatSupportsInt64
 LuaStrlibLimitMatchDepth
 LuaToNumberInt64
 LuaTypeErrors
@@ -731,12 +745,6 @@ MegaClusterNetworkInit
 MemoryPlaceIDReportThreshold
 MinimumFreefallMoveDistanceInTenths
 MinSoundStreamSizeBytes
-Mk2ItemDebug
-Mk2ItemDebugDump
-Mk2ItemDebugEnabled
-Mk2ItemDebugLastCount
-Mk2ItemDebugReportHundredthsPercentage
-MobileJoinRateFormatUrl
 ModerationFilterTextUrlV2
 ModuleScriptFetchFromAssetgame
 MoreViewCreationFailureHandling
@@ -746,7 +754,6 @@ MouseCommand
 MouseCommandLifetime
 MoveTeleportThreadImplToPlaceLauncher1
 MsecBetweenTextureMemoryUsageArrayRefresh
-MultipleAppShellDataModels
 MutexLifetime
 NamedMutex
 NameGameExplorerContextMenu
@@ -776,14 +783,13 @@ NavigationUseDetailedMovementCallback
 NavigationUseJumpLinksV2
 NavigationUseLinkPool
 NavigationUseTileExtentsToProjectPoint
-NetworkBoolByte
 NetworkCache
 NetworkCloexec
 NetworkClusterByte2
 NetworkCompressorNewRotation
 NetworkCompressorNewTranslation
 NetworkCompressorNewVelocity
-NetworkFamilyAnalytics
+NetworkDontRescheduleSend
 NetworkFamilyToFavor
 NetworkFixLinger
 NetworkInstances
@@ -798,6 +804,8 @@ NetworkStatRefreshRate
 NetworkStatsReport
 NetworkStepsMultipliers
 NetworkStreaming
+NetworkStreamingFasterQuery
+NetworkStreamingFasterWorldExtents
 NetworkStreamingGCMaxMicroSecondLimit
 NetworkStreamRemoveDependency
 NetworkStudioMacForceReusePort
@@ -832,7 +840,7 @@ OptimizedContactPipelineSpatialHashOverlapToleranceMicro
 OptimizedContactWakeDepth
 OptimizedUIListLayoutUpdate
 OptimizedUIListLayoutUpdate2
-OptimizePointerUIProcessing
+OptimizePointerUIProcessing2
 OtherUrlConstruction
 OutlineBrightnessMax
 OutlineBrightnessMin
@@ -920,9 +928,9 @@ PlaceLauncherUsePOST
 PlaneEffectLightInfluence
 PlayerAcceptPlayerScriptsStatus
 PlayerChatInfoExponentialBackoffLimitMultiplier
-PlayerConfigurerMobileJoinRateUrlConstructionLibrary
 PlayerShutdownLuaTimeoutSeconds
 PluginButtonProperty
+PluginManagerSignalOnDelete
 PluginWidgetGraphicsChanges
 PointBalanceCacheInvalidateTimeMs
 PointsServiceBatchingImplMaxDelaySeconds
@@ -939,7 +947,6 @@ ProtectNullRakPeer
 PurchaseErrorReportRate
 PurchaseMismatchReportRate
 PushPixels
-QuickHttpWhenGameClose
 RaiseCSGMinSize
 RakNetConnectionStartWindow_HundredthsPercentage
 RakNetDatagramMessageIdArrayLength
@@ -948,20 +955,14 @@ RakNetFixBwCollapse
 RakNetGoodAcks
 RakNetGoodPayload
 RakNetGoodSplit
-RakNetHasAckTimestamps
-RakNetHdrLenBits
 RakNetLoopMs
 RakNetNakResendDelayMs
 RakNetNakResendDelayMsMax
 RakNetNakResendDelayRttPercent
-RakNetRangeListFix
-RakNetRangeSizeFix
 RakNetResendBufferArrayLength
 RakNetResendMaxThresholdTimeInUs
 RakNetResendScaleBackFactorHundredthsPercent
-RakNetSendNow
 RakNetSupportIpV6
-RakNetUnreliableAck
 RakNetUseSlidingWindow2_maxSpeed
 RakNetUseSlidingWindow2_minRtt
 RakNetUseSlidingWindow2_minSpeed
@@ -971,9 +972,9 @@ RakNetUseSlidingWindow2_startInitSpeed
 RakNetUseSlidingWindow2_startUpdateMs
 RakNetUseSlidingWindow2_trackLengthMs
 RakNetUseSlidingWindow4
-RakPeerCapabilitiesInt64AbuseReportId
 RandomSpawnRetryTimes
 RandomType
+RbxFormatStringCleanup
 RbxMegaClusterInit
 RbxMegaClustersUpdate
 RCCBWLimitedPlatforms
@@ -982,6 +983,7 @@ RCCCCBasedOnUserPlatform
 RCCCCPlatforms
 RCCInfluxHundredthsPercentage
 RCCKickDuplicatePlayersOnJoin
+RCCKickNow
 RCCSupportCloudEdit
 RCCSupportTeamTest
 RCCUseMarketplaceApiClient2
@@ -1004,7 +1006,6 @@ RenderFixSteppedDelta
 RenderGlassMaterial
 RenderingThrottleDelayInMS
 RenderInstancedCluster
-RenderInstancingDeferUpdates2
 RenderInstancingEnabled8
 RenderLightGrid
 RenderLightGridAgeProportion
@@ -1015,6 +1016,7 @@ RenderQueueInvalidatedFastClusters
 RenderRequest
 RenderShadowIntensity
 RenderStatsOnLogs
+RenderTerrainFixChunkExtents
 RenderTextureCompositor
 RenderTextureCompositorBudget
 RenderTextureManagerBudget
@@ -1033,7 +1035,6 @@ ReportFeOnStartup
 ReportFeOnStartupPermyriad
 ReportInfluxHundredthsPercentage
 ReportInGameAssetSales
-ReportLuaUnsignedNegativeFormat
 ReportRobuxUpsellEnabled
 ReportSolverUsageStats
 ReportTeamCreatePostFailurePermyriad
@@ -1095,11 +1096,10 @@ ServerGeneratesPlayer
 ServerNotifyPlayerScriptsStatus
 ServerPlayerFilterConfig
 ServerPlayerFilterPermyriad
-ServerReportAllPlayers
 ServiceAskSetParent
 ServiceVsp2
 SetBWLimitByPlatform
-SetGuiInsetInLoadingScript
+SetGuiInsetInLoadingScript2
 SetPlayerNameWhenCreatingPlayerObject
 SetSecureFlag
 SetSecureFlag2
@@ -1110,7 +1110,7 @@ ShowBufferCount
 ShowTeleportFailedMessage
 ShowTeleportFailedMessageTimeInMillisecond
 SignalRUrlConstruction
-SimplifiedSoundLoading
+SimplifiedSoundLoading2
 SimplifyOpaqueGlass
 SimplifyRakNetConnectionHandshake
 SimToInterBufferClearFactorTenths
@@ -1137,7 +1137,6 @@ SpeedCountCap
 SpeedTestPeriodMillis
 SSAOMipLevels
 StartupInfluxHundredthsPercentage
-StopReportingPressenceAfterDisconnect
 StreamedRegionGCFactor
 StreamingCriticalLowMemWatermarkMB
 StreamingLowMemWatermarkMB
@@ -1164,7 +1163,7 @@ StudioCheckForLocalFileDeletedWhenOpening
 StudioCheckForUpgradeEnabled
 StudioCheckTeamServerExistsFrequency
 StudioClientPresenceUpdateInterval
-StudioCloseCaptchaInstance
+StudioCloseCaptchaInstanceV2
 StudioContextualHelpDraggingFixEnabled
 StudioCookieConstraintUrlFragment
 StudioCrashOnDocCloseWhenBusyFixEnabled
@@ -1180,18 +1179,16 @@ StudioDebuggerValidateBreakpointCondition
 StudioDebugLog
 StudioDefaultNewTemplatePlaceId
 StudioDelayQmlDataInitialization
-StudioDeleteLaterRobloxIDEDoc
 StudioDeprecateBrowserArgument
 StudioDisableQmlOnWindowsXP
 StudioDockWidgetQueuedDeleteEnabled
+StudioDoNotQuitStudioOnLastDocClose
 StudioDoubleSpinBoxTrailingZeros
 StudioEnableBuiltInGameLocalizationPlugin3
 StudioEnableWebKitPlugins
-StudioExperimentNeverDeleteRobloxIDEDoc
 StudioExternalCaptchaV2
 StudioFbxImportVerboseErrorOnLoad
 StudioFilterPreferredParent
-StudioFixAllowHttpRequestsOn
 StudioFixGroupComboBoxStealingFromGameWidget
 StudioFixInsertImageFromGameExplorer
 StudioFixOpeningLocalFileWhenNotLoggedIn
@@ -1202,12 +1199,14 @@ StudioFixUniverseRenaming
 StudioFixUpdateNativeMouseIconVisibilityCrash
 StudioFlagEditor
 StudioForceLayoutSaveOnAppClose
+StudioForceReloadImagesOnMainThread
 StudioFunctionFilterEnabled
 StudioGamePageHandfulSize
 StudioGameSettingsExperimentalModeToolTip
 StudioGrabWriteLockOnUpdateToolbars
 StudioGuidMappingForScriptsFix
 StudioGuiObjectSecondRectOffset
+StudioHandlePlaceCreationFailure
 StudioHideWebStartPage
 StudioHighlightMatchingMirroredCharacter
 StudioHomogenizeUserAgent
@@ -1237,6 +1236,7 @@ StudioOrganizeIdleMouseCall
 StudioPartSizeCameraDistRatio
 StudioPercentScaleRepeatCount
 StudioPlaySoloGuestCharacterAppearance
+StudioPluginButtonEnabledState
 StudioPluginWidgetsRetinaFix
 StudioPreventDoubleClickingGameWidget
 StudioPreventMeshPublishOnErrorEnabled
@@ -1289,7 +1289,6 @@ StudioThrottleCacheScriptIssueReporting
 StudioThrottleNewEmulationMetrics
 StudioTrackDeadRobloxIDEDocs
 StudioTrackDeadRobloxIDEDocsThrottleEvents
-StudioTrackSwitchWindowAction
 StudioTreeWidgetEventProcessingTime
 StudioTreeWidgetFilterTime
 StudioTreeWidgetProcessingTime
@@ -1301,6 +1300,7 @@ StudioUIEditorV2Alpha
 StudioUndockScriptRecoveryWidgetWhenAppear
 StudioUseMarketplaceApiClient
 StudioUseMutexForTreeWidgetInstanceMapAccess
+StudioUseNativeDetachedProcessForMac
 StudioUsernameButtonTruncation
 StudioUserNotificationMaxReconnectTimerMs
 StudioUserNotificationMinReconnectTimerMs
@@ -1368,6 +1368,8 @@ ThrottleGetUserThumbnailAsync
 ThrowOnCompressionError
 ThumbnailRender
 ThumbnailUrlConstruction
+ThwartPurchasePromptScams
+ThwartPurchasePromptScamsGamepad
 TimeBetweenCheckingApiAccessMillis
 TimePermyriad
 TrackAverageSessionsThrottling
@@ -1386,6 +1388,7 @@ UIScaleComponentEnabled
 UIScalingDeferredRounding
 UIScrollingImprovement
 UIScrollingNewElastic2
+UnclampGuiObjectZIndex
 UnlockedTopbarTransparency
 UnlockMouseIfKicked
 UnstickForceAttackInTenths
@@ -1406,9 +1409,7 @@ UseCorrectCoreCase1Devices
 UseDeltaForFBAdorn
 UseDevelopAPIForPlaceNameUpdate
 UseDistanceThinning
-UseFakeMoonPosition
 UseGamePerfMonitorWithAppShell
-UsegetFamilyandMapAddress
 UseHttpDefaultUrlSchema
 UseHttpRobloxHost
 UseHttpsAnalyticsUrls
@@ -1429,7 +1430,6 @@ UseNewSFFSyncBit
 UseNotificationsLocalization
 UseOldClientTicketNameForNewClientTicket
 UseOptimizedGetPartsObscuringTarget
-UsePasiveOnlyForBind
 UsePurchasePromptLocalization
 UseR15PartsCache2
 UserAllCamerasInLua
@@ -1456,6 +1456,7 @@ UseTempRoactLuaVersionOfGamesPage
 UseTempRoactLuaVersionOfHomePage
 UseTextLayout3
 VerifyIncomingFriendRequestsBeforeNotifying
+VideoCapture
 VideoDocumentationPluginEnabled
 ViewRbxBase
 ViewRbxInit
@@ -1486,14 +1487,13 @@ WorldStepsBehind
 WorldStepsBehindG
 WorldStepsOffsetAdjustRate
 WriteFullDmpPercent
+XboxAccountSettings
+XboxAccountSettingsUserId
 XboxAvatarEditorUseScrollingScalesPage
+XboxEnableCPPSettingFailure
 XboxFastSliderScrollingOnStick
 XboxFixSkyboxCycle2
 XboxNewEngagementFlow
-XboxRoactOverscan
-XboxSFXPolish
-XboxSliderDpadSupport
-XboxUpdateUnlinkAccountPrompt
 XboxUseNewScrollingGrid
 XboxUseNewValidUsernameCheck2
 XboxUseRobloxInput

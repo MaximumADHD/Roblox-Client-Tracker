@@ -383,6 +383,7 @@ RBX
 		Hole
 		Humanoid
 		Instance
+		LocalizationTable
 		MemberDescriptor
 		ModelInstance
 		PartInstance

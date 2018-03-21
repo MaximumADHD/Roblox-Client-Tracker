@@ -302,6 +302,26 @@ local enUS =
 	-- Cross-Platform Play Welcome Popup
 	["CPPWelcomeTitle"] = "Welcome to Cross-Platform Play!";
 	["CPPWelcomePhrase"] = "You can now play Roblox on Xbox One with players on every platform including Desktop, Phone, and Tablet!\n\nThis means you?ll see more players in more games, and you can play with ALL of your friends, no matter what device they are using! Gameplay options can be updated in Account Settings.";
+	["SetCPPSettingErrorPhrase"] = "Could not toggle Cross-Platform setting. Please try again later.";
+
+	--Privilege Settings
+	["ErrorWord"] = "Error";
+	["BannedWord"] = "Banned";
+	["DeniedWord"] = "Denied";
+	["AllowedWord"] = "Allowed";
+	["SharedContentWord"] = "Shared Content";
+	["MultiplayerWord"] = "Multiplayer";
+	["XboxAccountSettingsPhrase"] = "Xbox Account Settings";
+	["PurchaseRequiredPhrase"] = "Gold Required";
+	["PrivilegeAllowedPhrase"] = "Your Xbox Settings are correctly set and you are ready to play!";
+	["PrivilegeErrorPhrase"] = "There was an error retrieving your Xbox Settings. This is likely due to a temporary outage. Please try again later.";
+	["PrivilegeBannedPhrase"] = "Your Xbox account is currently banned from Xbox Live. You won't be able to play games until the ban is lifted.";
+	["PrivilegePurchaseRequiredPhrase"] = "Xbox Live Gold is required to play online multiplayer games on Xbox.";
+	["PrivilegeDeniedPhrase"] = table.concat{"Your Xbox Settings are blocking you from playing games. Select a red option above to go to your Xbox Settings.",
+		"\n\nThe settings should be:",
+		"\n\"You can join multiplayer games\" > Allow",
+		"\n\"You can see and share content\" > Everybody"};
+	["GoToSettingsPhrase"] = "Go to Settings";
 }
 
 return enUS

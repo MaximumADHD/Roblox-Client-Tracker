@@ -236,7 +236,8 @@ function AssetCard.new(appState, message, assetId)
 end
 
 function AssetCard:Resize()
-	self.bubble.Size = UDim2.new(0, 267, 0, 92 + ICON_SIZE)
+	local formFactor = self.appState.store:GetState().FormFactor
+	self.bubble.Size = UDim2.new(1, -Constants:GetFormFactorSpecific(formFactor).ASSET_CARD_HORIZONTAL_MARGIN, 0, 92 + ICON_SIZE)
 
 	local containerHeight = self.bubble.AbsoluteSize.Y
 

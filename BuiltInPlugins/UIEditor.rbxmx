@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Model" referent="RBX1AEF083C77BC41E6A85611D24249A4A3">
+	<Item class="Model" referent="RBXAEB0155A120B4A2990750D6A48EAE0CE">
 		<Properties>
 			<CoordinateFrame name="ModelInPrimary">
 				<X>0</X>
@@ -21,7 +21,7 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBX4CF39434617B4A348091B49C1EA12125">
+		<Item class="Script" referent="RBXFC3C77DA09654A53AD310A8E7F0B438B">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -35,9 +35,11 @@ local versionString = "v1.1"
 -----------MODULE SCRIPTS----------
 -----------------------------------
 
+local ActionMediator		= require(script.Parent.ActionMediator)
 local CoreGuiManager		= require(script.Parent.CoreGuiManager)
 local DoubleClickDetector	= require(script.Parent.DoubleClickDetector)
 local FFlag					= require(script.Parent.FFlag)
+local RotationBox			= require(script.Parent.RotationBox)
 local Rubberband			= require(script.Parent.Rubberband)
 local SizeBox				= require(script.Parent.SizeBox)
 local DistanceLinesManager	= require(script.Parent.DistanceLinesManager)
@@ -94,6 +96,21 @@ local BUFFER_SIZE_MINIMUM = 5
 -------------FUNCTIONS-------------
 -----------------------------------
 
+-- Injects all the modules that the ActionMediator needs.
+local function configureActionMediator()
+	Move:setActionMediator(ActionMediator)
+	Resize:setActionMediator(ActionMediator)
+	Rotate:setActionMediator(ActionMediator)
+	
+	ActionMediator:setMove(Move)
+	ActionMediator:setResize(Resize)
+	ActionMediator:setRotate(Rotate)
+	
+	ActionMediator:setDistanceLinesManager(DistanceLinesManager)
+	ActionMediator:setRotationBox(RotationBox)
+	ActionMediator:setSizeBox(SizeBox)
+end
+
 -----------------------------------
 ---------------EVENTS--------------
 -----------------------------------
@@ -118,16 +135,12 @@ end
 
 local function onInstanceChanged(instance, property)
 	Resize:update()
-	if property == "AbsolutePosition" or property == "AbsoluteSize" then
-		if FFlag:isEnabled("StudioUIEditorV2Alpha") then
-			--Update when the user edits the properties in the Property widget.
-			SizeBox:update()
-			DistanceLinesManager:update()
-		end
-	end
 	
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		DistanceLinesManager:update()
+		DistanceLinesManager:setVisible(true)
 		Rotate:update()
+		SizeBox:update()
 	end
 end
 
@@ -243,7 +256,7 @@ local function onInputEnded(inputObject)
 		end
 		
 		if FFlag:isEnabled("StudioUIEditorV2Alpha") then
-			Rotate:onMouseUp()
+			Rotate:onMouseUp(location)
 		end
 	end
 	
@@ -363,6 +376,7 @@ function Off()
 		DistanceLinesManager:Off()
 		MouseIconManager:Off()
 		Rotate:Off()
+		RotationBox:Off()
 	end
 	
 	toolbarButton:SetActive(false)
@@ -396,10 +410,13 @@ function On()
 		DistanceLinesManager:On()
 		MouseIconManager:On(plugin:GetMouse())
 		Rotate:On()
+		RotationBox:On()
 		
 		-- Must do onSelectionChanged, otherwise you can select an object before
 		-- the UI Editor is turned on and it won't be registered.	
 		onSelectionChanged()
+		
+		configureActionMediator()
 	end
 	
 	on = true
@@ -419,7 +436,7 @@ loaded = true]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXCB05F3F230234AE291BD5E7B10A0765B">
+		<Item class="ModuleScript" referent="RBX4A1909743DC44ED3BCDCA5D12063DC00">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rubberband</string>
@@ -508,7 +525,7 @@ return Rubberband
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0C6CC53ADBC141CD892AA9C25F7E587F">
+		<Item class="ModuleScript" referent="RBXFF93115EAF6C4C84B779D2A88DFA4C1B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CoreGuiManager</string>
@@ -569,7 +586,7 @@ return CoreGuiManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC56C1460EE2C4C40B487245078FC2F25">
+		<Item class="ModuleScript" referent="RBXF6ADF93A87C94FD4B934CBB994846380">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Utility</string>
@@ -738,7 +755,7 @@ return Utility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX99C9F87EF12C4327A6B30842F396A57D">
+		<Item class="ModuleScript" referent="RBXEF5D4285D2FA42E983035AFA8D9B25ED">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DoubleClickDetector</string>
@@ -766,7 +783,7 @@ return DoubleClickDetector
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFDFAAB7DDFDC4EA081788337557C955D">
+		<Item class="ModuleScript" referent="RBXFCB0194492BF47CE81D9ACADB790EF7E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TextEditor</string>
@@ -884,7 +901,7 @@ return TextEditor
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX32CC322DF0F540269DC7BD97B03973FC">
+		<Item class="ModuleScript" referent="RBX155053031AA942AF8CBBAD93433DC496">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Resize</string>
@@ -909,14 +926,11 @@ local Analytics				= require(script.Parent.Analytics)
 local CoreGuiManager		= require(script.Parent.CoreGuiManager)
 local Convert				= require(script.Parent.Convert)
 local Direction				= require(script.Parent.Enum.Direction)
-local DistanceLinesManager	= require(script.Parent.DistanceLinesManager)
 local Extents2D				= require(script.Parent.Extents2D)
 local FFlag					= require(script.Parent.FFlag)
 local GlobalValues			= require(script.Parent.GlobalValues)
 local MouseIconManager		= require(script.Parent.MouseIconManager)
-local Rotate				= require(script.Parent.Rotate)
 local SelectionManager		= require(script.Parent.SelectionManager)
-local SizeBox				= require(script.Parent.SizeBox)
 local SnappingPointManager	= require(script.Parent.SnappingPointManager)
 local Utility				= require(script.Parent.Utility)
 
@@ -963,6 +977,8 @@ local DATA_SIZE = 5
 -----------------------------------
 -------------VARIABLES-------------
 -----------------------------------
+local m_actionMediator = nil
+
 local m_selectionManagerEvent = nil
 
 local HANDLE_SIZE = 9
@@ -1314,6 +1330,10 @@ function Resize:startDrag(location)
 	
 	
 	m_originalMousePosition = location
+	
+	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		m_actionMediator:onResizeBegan(location)
+	end
 end
 
 --void retainAspectRatio(table(mt Extents2D)& extents, Vector2 mouseLocation, bool hasSnappedX, bool hasSnappedY)
@@ -1495,9 +1515,7 @@ function Resize:updateDrag(location)
 	updateHandlePositionFromExtents(newExtents)
 
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
-		SizeBox:update()
-		DistanceLinesManager:update()
-		Rotate:update()
+		m_actionMediator:onResizeChanged(location)
 	end
 end
 
@@ -1524,6 +1542,8 @@ function Resize:finishDrag(location)
 	for i = 1, #m_handles do
 		m_handles[i].Visible = true
 	end
+	
+	m_actionMediator:onResizeEnded(location)
 end
 
 Resize.updatePosition = updatePosition
@@ -1537,12 +1557,16 @@ function Resize:show()
 	end
 end
 
+function Resize:setActionMediator(actionMediator)
+	m_actionMediator = actionMediator
+end
+
 return Resize
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX944FC9FDD9D247219863CCA31085231B">
+		<Item class="ModuleScript" referent="RBX842545D7F3A94F25B2347F676EC61BE3">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Error</string>
@@ -1559,7 +1583,7 @@ return Error
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC0A3F4A398334E79A72CA935363FEDA6">
+		<Item class="ModuleScript" referent="RBXF5AC2EE4D27547DBB2826F194B6962D7">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">AdornmentModule</string>
@@ -1695,7 +1719,7 @@ return AdornmentModule
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1E318A3F82E042278F146B0C6B65604E">
+		<Item class="ModuleScript" referent="RBX40754A6AD8F541568F3A5D5DA515FBEC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SelectionManager</string>
@@ -1830,7 +1854,7 @@ return SelectionManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXAC61829FC28E43E3A2AA369CAEDA2F7F">
+		<Item class="ModuleScript" referent="RBX24D04E1FC39349A1BA69EC52E805F4E7">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Move</string>
@@ -1843,16 +1867,13 @@ return SelectionManager
 local AdornmentModule		= require(script.Parent.AdornmentModule)
 local Analytics				= require(script.Parent.Analytics)
 local Convert				= require(script.Parent.Convert)
-local DistanceLinesManager	= require(script.Parent.DistanceLinesManager)
 local Extents2D				= require(script.Parent.Extents2D)
 local FFlag					= require(script.Parent.FFlag)
 local GlobalValues			= require(script.Parent.GlobalValues)
 local MouseIconManager		= require(script.Parent.MouseIconManager)
-local Resize				= require(script.Parent.Resize)
-local Rotate				= require(script.Parent.Rotate)
+local Resize				= require(script.Parent.Resize) -- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
 local Select 				= require(script.Parent.Select)
 local SelectionManager		= require(script.Parent.SelectionManager)
-local SizeBox 				= require(script.Parent.SizeBox)
 local SnappingPointManager	= require(script.Parent.SnappingPointManager)
 local Utility				= require(script.Parent.Utility)
 
@@ -1868,6 +1889,8 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 -----------------------------------
 -------------VARIABLES-------------
 -----------------------------------
+
+local m_actionMediator = nil
 
 local m_originalMousePosition = nil
 
@@ -2041,6 +2064,7 @@ function Move:startDrag(location)
 	m_originalExtents = Extents2D:getExtentsFromGuis(draggableElements)
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		MouseIconManager:setToMoveIcon()
+		m_actionMediator:onMoveBegan(location)
 	end
 end
 
@@ -2071,6 +2095,7 @@ function Move:finishDrag(location)
 	
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		MouseIconManager:setToDefaultIcon()
+		m_actionMediator:onMoveEnded(location)
 	end
 end
 
@@ -2118,7 +2143,9 @@ function Move:updateDrag(location)
 		positionOffset = extents.TopLeft - m_originalExtents.TopLeft
 	end
 	dragElements(m_originalMousePosition + positionOffset)
-	Resize:hide()
+	if not FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		Resize:hide()
+	end
 	--[[ Commenting out reparenting functionality until we have better flow
 	if (#m_originalSelectionData == 1) then
 			
@@ -2131,9 +2158,7 @@ function Move:updateDrag(location)
 	--]]
 	
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
-		SizeBox:updatePosition()
-		DistanceLinesManager:update()
-		Rotate:update()
+		m_actionMediator:onMoveChanged(location)
 	end
 end
 
@@ -2141,6 +2166,10 @@ function Move:bump(direction)
 	Move:startDrag(Vector2.new(0,0))
 	dragElementsBy(directionToDirectionVector(direction))
 	Move:finishDrag(direction)
+end
+
+function Move:setActionMediator(actionMediator)
+	m_actionMediator = actionMediator
 end
 
 Move.UP = UP
@@ -2153,7 +2182,7 @@ return Move
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX483F37DC4A3944BCB37B4ED698EB5C1F">
+		<Item class="ModuleScript" referent="RBX744E9D0FC7BE498BA2CCB5A7E9527A57">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rotate</string>
@@ -2181,6 +2210,7 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local ROTATION_HANDLE_SIZE = 20
 
 -- Variables
+local m_actionMediator = nil
 local m_selectedObject = nil
 local m_rotationHandles = {}
 local m_isMouseOverHandle = {}
@@ -2344,6 +2374,14 @@ local function calcMouseIconDirection(handle)
 	return Direction:angleToDirection(handleAngle + m_selectedObject.AbsoluteRotation)
 end
 
+function Rotate:getRotation()
+	if not m_selectedObject then
+		return 0.0
+	end
+	
+	return m_selectedObject.AbsoluteRotation
+end
+
 -- Changes the mouse cursor to the relevant rotate cursor.
 --
 -- bool Rotate:updateMouseIcon()
@@ -2397,16 +2435,15 @@ function Rotate:onMouseDown(location)
 	m_accumulatedAngle = 0
 	-- Calculate the where the mouse is so that it can be used when the mouse is moved.
 	m_previousMouseVec = location - m_center
+
+	m_actionMediator:onRotateBegan(location)
 end
 
--- Rounds the rotation angle to "something nice". We can later 
--- decide if that something needs to be changed.
+-- Rounds the rotation angle to one degree.
 -- 
 -- double roundRotationAngle(double angle)
-local function roundRotationAngle(angle)
-	-- Use quarter degree as the minimum and floor.
-	local denominator = 4
-	return math.floor(angle * denominator) / denominator
+local function roundRotationAngle(angle)	
+	return math.floor(angle + 0.5)
 end
 
 -- Constrains the rotation angle to between -360 and 360 degrees.
@@ -2456,12 +2493,14 @@ function Rotate:onMouseMove(location)
 	end
 	
 	Rotate:update()
+	
+	m_actionMediator:onRotateChanged(location)
 end
 
 -- Ends rotating the selected object if rotation was started.
 --
--- void Rotate:onMouseUp()
-function Rotate:onMouseUp()
+-- void Rotate:onMouseUp(Vector2 location)
+function Rotate:onMouseUp(location)
 	if not m_isRotating then
 		return
 	end
@@ -2480,6 +2519,8 @@ function Rotate:onMouseUp()
 	else
 		Rotate:updateMouseIcon()
 	end
+	
+	m_actionMediator:onRotateEnded(location)
 end
 
 -- Returns true is the selected object is being rotated.
@@ -2535,12 +2576,16 @@ function Rotate:Off()
 	m_isRotating = false
 end
 
+function Rotate:setActionMediator(actionMediator)
+	m_actionMediator = actionMediator
+end
+
 return Rotate
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX77E076B1F446471A966749D185C6296C">
+		<Item class="ModuleScript" referent="RBXBA63690940C44EB5BA301334718344FE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Select</string>
@@ -2792,7 +2837,7 @@ return Select
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX989B79B42F4148FC8D03B8348DC098C2">
+		<Item class="ModuleScript" referent="RBX3802FF71336D43E48ACABF99D43B3AC3">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GlobalValues</string>
@@ -2849,7 +2894,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX37372BFFB4904834A0C227AA2A85023C">
+		<Item class="Script" referent="RBX58EEA75F262149E0A60E0BE89275FF8D">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2891,7 +2936,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX455B8F10128042D4A6D5264C13F366DC">
+		<Item class="ModuleScript" referent="RBX9AFC01C6E02042C4B7F6BE7E782BA9EF">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">InstanceInfo</string>
@@ -2997,7 +3042,7 @@ return InstanceInfo
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX22C1793CBD164583B9A4693F99E1DEB0">
+		<Item class="ModuleScript" referent="RBXE1289A8EA8F648B5B7F316EC702CEB18">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SnappingPointManager</string>
@@ -3344,7 +3389,7 @@ return SnappingPointManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF37FD41E5CFC47D2A3EAE5541EE0B01E">
+		<Item class="ModuleScript" referent="RBXE063BA112CED4FE18B060C9C7CD69026">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Set</string>
@@ -3439,7 +3484,7 @@ return Set
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX8ADDA502D12D4323B69461F8FDAA982E">
+		<Item class="ModuleScript" referent="RBXD5A0656F0D194538AE8800F170C812BC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">UniqueArrayMap</string>
@@ -3492,7 +3537,7 @@ return UniqueArrayMap
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXE89F4FE9D8DC4BA081954B718EF68560">
+		<Item class="ModuleScript" referent="RBXA6FBE78F91F84AB9B53CE3C769BDB608">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Analytics</string>
@@ -3513,7 +3558,7 @@ return Analytics
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX14BF219A6D064123802F0B34BFEDB670">
+		<Item class="ModuleScript" referent="RBX6D5CD9C001EA47B9A4866D2931BEA8BF">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Convert</string>
@@ -3555,7 +3600,7 @@ return Convert
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX63CF5F06B8C84661B71B2B258DACD857">
+		<Item class="ModuleScript" referent="RBXBBB9F5FA216B47D884A396B10C9DE4FE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">FFlag</string>
@@ -3586,7 +3631,7 @@ return FFlag
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0ECA496A18AB48C196FC99D7EC2369B8">
+		<Item class="ModuleScript" referent="RBX496428B3C4F84DA08E5ABD6DC559271A">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Extents2D</string>
@@ -3838,12 +3883,12 @@ return Extents2D
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBXB775F4544FBA4A408576C515D636FA94">
+		<Item class="Folder" referent="RBX98059186BDC540D780419472D4421042">
 			<Properties>
 				<string name="Name">Enum</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX6FE654DEF60142FBB6EF9DFDD98A69DA">
+			<Item class="ModuleScript" referent="RBXAA614B25A91C4B2E80D829E0517146E5">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SnappingType</string>
@@ -3890,7 +3935,7 @@ return SnappingType
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXECC6C9FAEF7649998A2CABAFED4E4F3A">
+			<Item class="ModuleScript" referent="RBX4A35AA59035541CBAEBFB4A25C2CA1BD">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Axis</string>
@@ -3907,7 +3952,7 @@ return Axis
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXAA42BF4DC14D4E12AE2340DE4B92A5DE">
+			<Item class="ModuleScript" referent="RBXD81B081D6F714743936CC93E623EBF9A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Direction</string>
@@ -4013,7 +4058,7 @@ return Direction]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX90444EEA9E0947F2ADEA95886C040B1D">
+		<Item class="ModuleScript" referent="RBX530105B5DFCD4442B5F6955A4AC610EE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Log</string>
@@ -4045,74 +4090,56 @@ return Log]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFEE779F5BCF24BFD8D963FD4D3913538">
+		<Item class="ModuleScript" referent="RBX4BD8D1EC50134A01B444AD5B28654F17">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SizeBox</string>
 				<string name="ScriptGuid">{D6073BB5-9075-40A6-8654-BC86985670BC}</string>
-				<ProtectedString name="Source"><![CDATA[-----------------------------------
---------------SizeBox--------------
------------------------------------
---[[
+				<ProtectedString name="Source"><![CDATA[--[[
 	The SizeBox is displayed when the user selects an object in the UI Editor. It
 	doesn't show if multiple objects are selected.
 	
 	The SizeBox updates its size as the selected object is resized. It also updates
 	its position as the selected object is moved.
 	
-	The SizeBox is implemented using an ImageLabel and a TextLabel. The ImageLabel
-	displayes a rounded rectangle and the TextLabel displays size of the selected
-	object.
+	The SizeBox is using the ValueBox to display the size.
 --]]
 local SizeBox = {}
 
------------------------------------
------------MODULE SCRIPTS----------
------------------------------------
-local CoreGuiManager = require(script.Parent.CoreGuiManager)
+-- Module scripts
 local SelectionManager = require(script.Parent.SelectionManager)
+local ValueBox = require(script.Parent.ValueBox)
 
------------------------------------
---------------SERVICES-------------
------------------------------------
-local TextService = game:GetService("TextService")
-
------------------------------------
---------------VARIABLES------------
------------------------------------
+-- Variables
 local m_selectedObject = nil
-local m_sizeImageLabel = nil
-local m_sizeLabel = nil
+local m_valueBox = nil
 
------------------------------------
---------------CONSTANTS------------
------------------------------------
-local IMAGE_LABEL_MARGIN = Vector2.new(2, 6) -- Margin between the selected object and m_sizeImageLabel 
-local IMAGE_LABEL_PADDING = Vector2.new(12, 4) -- Padding inside the m_sizeImageLabel
+-- Constants
+local VALUE_BOX_MARGIN = Vector2.new(2, 6) -- Margin between the selected object and ValueBox
 
------------------------------------
--------------FUNCTIONS-------------
------------------------------------
+-- Functions
 
 -- Takes a GUI object and returns a UDim2 with the position of
 -- where the SizeBox should be positioned.
 --
 -- UDim2 calcSizeBoxPosition(GuiObject object)
-function calcSizeBoxPosition(object)
+local function calcSizeBoxPosition(object)
 	local objectSize = object.AbsoluteSize
 	local objectPosition = object.AbsolutePosition
+	local valueBoxSize = m_valueBox:getSize()
 
 	-- Use max x so that when an object is very narrow the SizeBox always appears to the
 	-- right of the left side.
-	local newX = math.max(objectPosition.X + objectSize.X - m_sizeImageLabel.Size.X.Offset - IMAGE_LABEL_MARGIN.X, 
-		objectPosition.X + IMAGE_LABEL_MARGIN.X)
-	local newY = objectPosition.Y + objectSize.Y + IMAGE_LABEL_MARGIN.Y
+	local newX = math.max(objectPosition.X + objectSize.X - valueBoxSize.X.Offset - VALUE_BOX_MARGIN.X, 
+		objectPosition.X + VALUE_BOX_MARGIN.X)
+	local newY = objectPosition.Y + objectSize.Y + VALUE_BOX_MARGIN.Y
+	
 	return UDim2.new(0, newX, 0, newY)
 end
 
 -- Updates the text, size and the position of the SizeBox from the GUI object. It needs to
 -- be called when the selected object is changed or resized.
-function SizeBox:update()	
+function SizeBox:update()
 	if not m_selectedObject then
 		return
 	end
@@ -4120,22 +4147,21 @@ function SizeBox:update()
 	-- Set label text to the size of the selected object. The properties widget
 	-- truncates to an integer so we'll do the same here.
 	local objectSize = m_selectedObject.AbsoluteSize
-	m_sizeLabel.Text = ("%d x %d"):format(objectSize.X, objectSize.Y)
-	
-	-- Update the size of the text label to the painted size of the text.
-	local textSize = TextService:GetTextSize(m_sizeLabel.Text, m_sizeLabel.TextSize, m_sizeLabel.Font, Vector2.new(0, 0))
-	m_sizeLabel.Size = UDim2.new(0, textSize.X, 0, textSize.Y)
-	m_sizeImageLabel.Size = UDim2.new(0, textSize.X + 2*IMAGE_LABEL_PADDING.X, 0, textSize.Y + 2*IMAGE_LABEL_PADDING.Y)
+	local newText = ("%d x %d"):format(objectSize.X, objectSize.Y)
+	m_valueBox:setText(newText)
 	
 	SizeBox:updatePosition()
 end
 
 -- Shows or hides the SizeBox.
 --
--- void setVisibility(bool visible)
-function setVisibility(visible)
-	m_sizeImageLabel.Visible = visible
-	m_sizeLabel.Visible = visible
+-- void SizeBox:setVisible(bool visible)
+function SizeBox:setVisible(visible)
+	if not m_selectedObject then
+		return
+	end	
+	
+	m_valueBox:setVisible(visible)
 end
 
 function SizeBox:onSelectionChanged()
@@ -4144,85 +4170,35 @@ function SizeBox:onSelectionChanged()
 	-- The SelectionManager also sends GuiBase2d but they don't have a size. React only to GuiObject.
 	if #filteredSelection == 1 and filteredSelection[1]:IsA("GuiObject") then
 		m_selectedObject = filteredSelection[1]
-		setVisibility(true)
 		SizeBox:update()
+		SizeBox:setVisible(true)
 	else
-		setVisibility(false)
+		SizeBox:setVisible(false)
 		m_selectedObject = nil
 	end
 end
 
 -- Updates the position of the SizeBox. Used when moving the selected object around
 -- without re-sizing it.
-function SizeBox:updatePosition()		
+function SizeBox:updatePosition()
 	if not m_selectedObject then
 		return
 	end
-
-	m_sizeImageLabel.Position = calcSizeBoxPosition(m_selectedObject)
-end
-
-function createSizeBox()
-	if m_sizeImageLabel then
-		return
-	end
-
-	-- The SizeBox consists of an ImageLabel and a TextLabel. The ImageLabel draws the rounded corners
-	-- and the TextLabel draws the text. The SizeBox is created and deleted when the plugin is turned
-	-- on and off.
-	m_sizeImageLabel = Instance.new("ImageLabel")
-	m_sizeImageLabel.Name = "UIEditorSizeImageLabel"
-	m_sizeImageLabel.Visible = false
-	m_sizeImageLabel.Parent = CoreGuiManager:findOrCreateScreenGui("SizeBoxes")
-	m_sizeImageLabel.BackgroundTransparency = 1.0
-	m_sizeImageLabel.Image = "rbxasset://textures/StudioUIEditor/sizeBoxRoundedRectangle.png"
-	-- The m_sizeImageLabel uses a 9-patch image to make the corners round. The Enum.ScaleType.Slice
-	-- makes it slice the image into 9 parts.
-	m_sizeImageLabel.ScaleType = Enum.ScaleType.Slice
-	 -- Image is 16x16 with border-radius 3, so the end corner is at 16-3 = 13
-	m_sizeImageLabel.SliceCenter = Rect.new(3, 3, 13, 13)
-
-	m_sizeLabel = Instance.new("TextLabel")
-	m_sizeLabel.Name = "UIEditorSizeLabel"
-	m_sizeLabel.Visible = false
-	m_sizeLabel.TextColor3 = Color3.new(1.0, 1.0, 1.0)
-	m_sizeLabel.BackgroundColor3 = Color3.fromRGB(118, 118, 118)
-	m_sizeLabel.BackgroundTransparency = 1.0
-	m_sizeLabel.BorderSizePixel = 0
-	m_sizeLabel.Font = Enum.Font.SourceSans
-	m_sizeLabel.TextXAlignment = Enum.TextXAlignment.Center
-	m_sizeLabel.TextYAlignment = Enum.TextYAlignment.Center
-	m_sizeLabel.TextSize = 15
-	-- The m_sizeLabel TextLabel is centered inside the ImageLabel using a Scale
-	-- and an AnchorPoint. The text inside the TextLabel is not completely
-	-- centered though, so we have to subtract a couple of pixels to center the text.
-	local offCenterYPaddingFix = -2
-	m_sizeLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	m_sizeLabel.Position = UDim2.new(0.5, 0, 0.5, offCenterYPaddingFix)	
-	m_sizeLabel.Parent = m_sizeImageLabel
-end
-
-function deleteSizeBox()
-	if m_sizeLabel then
-		m_sizeLabel:Destroy()
-		m_sizeLabel = nil
-	end
 	
-	if m_sizeImageLabel then
-		m_sizeImageLabel:Destroy()
-		m_sizeImageLabel = nil
-	end
+	local newPosition = calcSizeBoxPosition(m_selectedObject)
+	m_valueBox:setPosition(newPosition)
 end
 
 -- Turns the SizeBox on and performs initialization. Called when the plugin is turned on.
-function SizeBox:On()	
-	createSizeBox()
+function SizeBox:On()
+	m_valueBox = ValueBox.new()
 end
 
 -- Turns the SizeBox off and performs de-initialization. Called when the plugin is turned off.
 function SizeBox:Off()	
-	m_selectedObject = nil	
-	deleteSizeBox()
+	m_selectedObject = nil
+	m_valueBox:Destroy()	
+	m_valueBox = nil
 end
 
 return SizeBox
@@ -4230,7 +4206,7 @@ return SizeBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA91602EA150D4D4DAD5865A2C5EC6283">
+		<Item class="ModuleScript" referent="RBX14309C03C51C4775B2D4A662949138E8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLinesManager</string>
@@ -4258,8 +4234,7 @@ local m_yDistanceLine = nil
 
 -- void doDeselect(void)
 local function doDeselect()
-	m_xDistanceLine:hide()
-	m_yDistanceLine:hide()	
+	DistanceLinesManager:setVisible(false)
 	
 	m_selectedObject = nil
 end
@@ -4288,19 +4263,10 @@ function DistanceLinesManager:onSelectionChanged()
 		return
 	end
 	
-	-- We dont support showing the distance lines when there is a rotation
- 	-- because we haven't specified what the distance to the parent edge
-	-- means in that case.
-	local minimumRotation = 0.001
-	local isRotated = math.abs(selectedObject.AbsoluteRotation) >= minimumRotation
-	if isRotated then
-		doDeselect()
-		return
-	end
-	
 	-- We can potentially draw the distance lines of the selected object
 	m_selectedObject = selectedObject
 	DistanceLinesManager:update()
+	DistanceLinesManager:setVisible(true)
 end
 
 -- Peforms initialization when the UI Editor plugin is turned on.
@@ -4334,12 +4300,32 @@ function DistanceLinesManager:update()
 	m_yDistanceLine:update(m_selectedObject)
 end
 
+function DistanceLinesManager:setVisible(visible)
+	if not m_selectedObject then
+		return
+	end	
+	
+	-- We dont support showing the distance lines when there is a rotation
+ 	-- because we haven't specified what the distance to the parent edge
+	-- means in that case.
+	local minimumRotation = 0.001	 
+	local isRotated = math.abs(m_selectedObject.AbsoluteRotation) >= minimumRotation
+	if visible and isRotated then
+		m_xDistanceLine:setVisible(false)
+		m_yDistanceLine:setVisible(false)
+		return
+	end
+	
+	m_xDistanceLine:setVisible(visible)
+	m_yDistanceLine:setVisible(visible)
+end
+
 return DistanceLinesManager
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFD76F901A6844603A47C58378411BDA1">
+		<Item class="ModuleScript" referent="RBX8C81A8BD13A24E9E830A45EF92703E32">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RectUtility</string>
@@ -4393,12 +4379,12 @@ return RectUtility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBXC700DCEF145B4E57B6E3AEA75115B830">
+		<Item class="Folder" referent="RBX616AD9F303E6466ABE8CFF5A9B54E6D9">
 			<Properties>
 				<string name="Name">Tests</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBX83BC467C824C45FB972A4AD54A005B59">
+			<Item class="Script" referent="RBX7956FF8A0CAE4B679391920B7035761C">
 				<Properties>
 					<bool name="Disabled">true</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -4472,7 +4458,7 @@ rectUtilityTestSuite()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0A3E2A789B8A4CD8A9959ED40A836715">
+		<Item class="ModuleScript" referent="RBX4193DFC7D3C4472DB6A78858681F7A25">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLine</string>
@@ -4579,6 +4565,8 @@ function DistanceLine.new(axis)
 	-- in the same class for now.
 	newDistanceLine.m_distanceLabel = createDistanceLabel(axis)
 	newDistanceLine.m_distanceLabel.Parent = newDistanceLine.m_distanceFrame
+	-- If child object is very far outside its parent then we can't show the distance line.
+	newDistanceLine.m_canShow = false
 	
 	return setmetatable(newDistanceLine, DistanceLine)
 end
@@ -4593,13 +4581,6 @@ function DistanceLine:destroy()
 	
 	self.m_distanceLabel = nil
 	self.m_distanceFrame = nil
-end
-
--- Hides the distance line and its associated distance label (through parenting).
---
--- void DistanceLine:hide()
-function DistanceLine:hide()
-	self.m_distanceFrame.Visible = false
 end
 
 -- Calculates the distance from the left of the object to the
@@ -4650,8 +4631,8 @@ end
 -- Figures out how to draw the distance line on the x axis. It then draws
 -- the line and updates the distance label.
 --
--- void updateX(GuiBase2d selectedObject, GuiBase2d parent, Frame distanceFrame, TextLabel distanceLabel)
-local function updateX(selectedObject, parent, distanceFrame, distanceLabel)
+-- void updateX(DistanceLine self, GuiBase2d selectedObject, GuiBase2d parent, Frame distanceFrame, TextLabel distanceLabel)
+local function updateX(self, selectedObject, parent, distanceFrame, distanceLabel)
 	-- Determine if the mid points are inside the parent. Floor center values
 	-- otherwise the line will appear to jerk for objects with odd sizes.
 	local parentRect = Rect.new(parent.AbsolutePosition, parent.AbsolutePosition + parent.AbsoluteSize)
@@ -4670,7 +4651,6 @@ local function updateX(selectedObject, parent, distanceFrame, distanceLabel)
 	if leftMidPointInside and rightMidPointInside then
 		-- Both mid points are inside the parent. It just needs to draw the distance
 		-- to the parent side which is closer.
-		distanceFrame.Visible = true
 		local leftDistance = calcLeftDistance(selectedObject, parent)
 		local rightDistance = calcRightDistance(selectedObject, parent)
 		distance = math.min(leftDistance, rightDistance)
@@ -4698,11 +4678,11 @@ local function updateX(selectedObject, parent, distanceFrame, distanceLabel)
 		distanceFrame.Size = UDim2.new(0, distance, 0, LINE_WIDTH)
 	else
 		-- The mid points are both outside the parent. This will be handled in a later story.
-		distanceFrame.Visible = false
+		self.m_canShow = false
 		return
 	end
 
-	distanceFrame.Visible = true
+	self.m_canShow = true
 	
 	updateDistanceLabelText(distanceLabel, distance)
 end
@@ -4710,8 +4690,8 @@ end
 -- Figures out how to draw the distance line on the y axis. It then draws
 -- the line and updates the distance label.
 --
--- void updateX(GuiBase2d selectedObject, GuiBase2d parent, Frame distanceFrame, TextLabel distanceLabel)
-local function updateY(selectedObject, parent, distanceFrame, distanceLabel)
+-- void updateY(DistanceLine self, GuiBase2d selectedObject, GuiBase2d parent, Frame distanceFrame, TextLabel distanceLabel)
+local function updateY(self, selectedObject, parent, distanceFrame, distanceLabel)
 	-- Determine if the mid points are inside the parent. Floor center values
 	-- otherwise the line will appear to jerk for objects with odd sizes.
 	local parentRect = Rect.new(parent.AbsolutePosition, parent.AbsolutePosition + parent.AbsoluteSize)
@@ -4728,10 +4708,8 @@ local function updateY(selectedObject, parent, distanceFrame, distanceLabel)
 	
 	local distance
 	if topMidPointInside and bottomMidPointInside then
-		--Log:log("Both y mid points are inside")
 		-- Both mid points are inside the parent. We just need to draw the distance
 		-- to the parent side which is closer.
-		distanceFrame.Visible = true
 		local topDistance = calcTopDistance(selectedObject, parent)
 		local bottomDistance = calcBottomDistance(selectedObject, parent)
 		distance = math.min(topDistance, bottomDistance)
@@ -4761,9 +4739,11 @@ local function updateY(selectedObject, parent, distanceFrame, distanceLabel)
 		distanceFrame.Size = UDim2.new(0, LINE_WIDTH, 0, distance)
 	else
 		-- The mid points are both outside the parent. This will be handled in a later story.
-		distanceFrame.Visible = false
+		self.m_canShow = false
 		return
 	end	
+	
+	self.m_canShow = true	
 	
 	-- Update y distance label
 	updateDistanceLabelText(distanceLabel, distance)
@@ -4776,11 +4756,25 @@ function DistanceLine:update(selectedObject)
 	local parent = selectedObject.Parent
 	
 	if self.m_axis == Axis.X then
-		updateX(selectedObject, parent, self.m_distanceFrame, self.m_distanceLabel)
+		updateX(self, selectedObject, parent, self.m_distanceFrame, self.m_distanceLabel)
 	elseif self.m_axis == Axis.Y then
-		updateY(selectedObject, parent, self.m_distanceFrame, self.m_distanceLabel)
+		updateY(self, selectedObject, parent, self.m_distanceFrame, self.m_distanceLabel)
 	else
 		error("Could not update the DistanceLine. The axis must be either X or Y")
+	end
+end
+
+-- Sets the visibilty of the distance line and its associated distance label (through parenting).
+--
+-- It only shows the distance lines if they can be shown, e.g. the child is not too
+-- far outside the parent.
+--
+-- void DistanceLine:setVisible(bool visible)
+function DistanceLine:setVisible(visible)
+	if visible then
+		self.m_distanceFrame.Visible = self.m_canShow
+	else
+		self.m_distanceFrame.Visible = false
 	end
 end
 
@@ -4789,7 +4783,7 @@ return DistanceLine
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXAEFCB551646343AB97795C767078CAEE">
+		<Item class="ModuleScript" referent="RBX0926C478D4384EA8902AEB9AF5ED20CD">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MouseIconManager</string>
@@ -4920,6 +4914,301 @@ function MouseIconManager:On(mouse)
 end
 
 return MouseIconManager
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXF50A220F8C6E450A9536FF8654A83C8E">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">ValueBox</string>
+				<string name="ScriptGuid">{48540BF7-11EF-4D0C-A2B5-6EFBC3AC2D5D}</string>
+				<ProtectedString name="Source"><![CDATA[--[[
+	A box with rounded corners that displays a value. It's used by the SizeBox and the RotationBox.
+--]]
+local ValueBox = {}
+
+-- Module scripts
+local CoreGuiManager = require(script.Parent.CoreGuiManager)
+
+-- Services
+local TextService = game:GetService("TextService")
+
+-- Constants
+local IMAGE_LABEL_PADDING = Vector2.new(12, 4) -- Padding inside the m_imageLabel
+
+-- Functions
+
+-- Returns the current size of the ValueBox.
+--
+-- UDim2 ValueBox:getSize()
+function ValueBox:getSize()
+	return self.m_imageLabel.Size
+end
+
+-- void ValueBox:setPosition(UDim2 position)
+function ValueBox:setPosition(position)
+	self.m_imageLabel.Position = position
+end
+
+-- Returns the painted size of the text label's text in pixels.
+--
+-- Vector2 calcTextSize(TextLabel textLabel) 
+local function calcTextSize(textLabel)
+	return TextService:GetTextSize(textLabel.Text, textLabel.TextSize, textLabel.Font, Vector2.new(0, 0))
+end
+
+-- Sets the text and updates the size of the ValueBox. 
+function ValueBox:setText(text)
+	self.m_textLabel.Text = text
+	
+	-- Update the size of the text label and image label to fit the text in the text label.
+	local textSize = calcTextSize(self.m_textLabel)
+	self.m_textLabel.Size = UDim2.new(0, textSize.X, 0, textSize.Y)
+	local newWidth = textSize.X + 2*IMAGE_LABEL_PADDING.X
+	local newHeight = textSize.Y + 2*IMAGE_LABEL_PADDING.Y
+	self.m_imageLabel.Size = UDim2.new(0, newWidth, 0, newHeight)
+end
+
+-- Shows or hides the ValueBox.
+--
+-- void ValueBox:setVisible(bool visible)
+function ValueBox:setVisible(visible)
+	self.m_imageLabel.Visible = visible
+	self.m_textLabel.Visible = visible
+end
+
+-- ImageLabel createImageLabel()
+local function createImageLabel()
+	local imageLabel = Instance.new("ImageLabel")
+	imageLabel.Name = "UIEditorValueBoxImageLabel"
+	imageLabel.Parent = CoreGuiManager:findOrCreateScreenGui("ValueBoxes")
+	imageLabel.BackgroundTransparency = 1.0
+	imageLabel.Image = "rbxasset://textures/StudioUIEditor/valueBoxRoundedRectangle.png"
+	-- The m_imageLabel uses a 9-patch image to make the corners round. The Enum.ScaleType.Slice
+	-- makes it slice the image into 9 parts.
+	imageLabel.ScaleType = Enum.ScaleType.Slice
+	 -- Image is 16x16 with border-radius 3, so the end corner is at 16-3 = 13
+	imageLabel.SliceCenter = Rect.new(3, 3, 13, 13)
+	
+	return imageLabel
+end
+
+-- TextLabel createTextLabel()
+local function createTextLabel()
+	local textLabel = Instance.new("TextLabel")
+	textLabel.Name = "UIEditorValueBoxTexLabel"
+	textLabel.TextColor3 = Color3.new(1.0, 1.0, 1.0)
+	textLabel.BackgroundColor3 = Color3.fromRGB(118, 118, 118)
+	textLabel.BackgroundTransparency = 1.0
+	textLabel.BorderSizePixel = 0
+	textLabel.Font = Enum.Font.SourceSans
+	textLabel.TextXAlignment = Enum.TextXAlignment.Center
+	textLabel.TextYAlignment = Enum.TextYAlignment.Center
+	textLabel.TextSize = 15
+	-- The m_textLabel TextLabel is centered inside the ImageLabel using a Scale
+	-- and an AnchorPoint. The text inside the TextLabel is not completely
+	-- centered though, so we have to subtract a couple of pixels to center the text.
+	local offCenterYPaddingFix = -2
+	textLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	textLabel.Position = UDim2.new(0.5, 0, 0.5, offCenterYPaddingFix)
+
+	return textLabel	
+end
+
+function ValueBox.new(name)
+	local newValueBox = {}	
+	
+	-- The ValueBox consists of an ImageLabel and a TextLabel. The ImageLabel draws the rounded corners
+	-- and the TextLabel draws the text.
+	newValueBox.m_imageLabel = createImageLabel()
+	newValueBox.m_textLabel = createTextLabel()
+	newValueBox.m_textLabel.Parent = newValueBox.m_imageLabel
+	
+	return setmetatable(newValueBox, ValueBox)
+end
+ValueBox.__index = ValueBox
+
+function ValueBox:Destroy()
+	-- The m_textLabel is parented to the m_imageLabel and will be destroyed with it.
+	self.m_imageLabel:Destroy()
+end
+
+return ValueBox
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXC43F40D48533453B9B256CBEC8D039CE">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">RotationBox</string>
+				<string name="ScriptGuid">{6E982974-84B0-4C6C-A931-19590033338B}</string>
+				<ProtectedString name="Source"><![CDATA[local RotationBox = {}
+
+-- Modules
+local ValueBox = require(script.Parent.ValueBox)
+
+-- Constants
+local MOUSE_POSITION_OFFSET = Vector2.new(4, 20)
+
+-- Variables
+local m_valueBox = nil
+
+-- Functions
+
+-- Updates where the box is shown (close to the mouse cursor), and updates
+-- the rotation value in the box.
+--
+-- void RotationBox:update(Vector2 mousePosition, double rotation)
+function RotationBox:update(mousePosition, rotation)
+	local newPosition = mousePosition + MOUSE_POSITION_OFFSET
+	m_valueBox:setPosition(UDim2.new(0, newPosition.X, 0, newPosition.Y))
+	local newText = string.format("%d?", rotation)
+	m_valueBox:setText(newText)
+end
+
+-- Shows or hides the RotationBox.
+--
+-- void SizeBox:setVisible(bool visible)
+function RotationBox:setVisible(visible)
+	m_valueBox:setVisible(visible)
+end
+
+function RotationBox:On()
+	m_valueBox = ValueBox.new()
+end
+
+-- Turns the RotationBox off and performs de-initialization.
+function RotationBox:Off()
+	m_valueBox:Destroy()	
+	m_valueBox = nil
+end
+
+return RotationBox
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXEFD170BCF0B24FA485E71DFAC6E51806">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">ActionMediator</string>
+				<string name="ScriptGuid">{68ECCB4F-CB88-48F4-A685-63B3EB6B9316}</string>
+				<ProtectedString name="Source"><![CDATA[--[[
+	The ActionMediator decouples the interaction between the Move, Resize and Rotate modules.
+	The modules call the event handlers through a reference instead of 	direct inclusion. We
+	avoid having to use BindableEvents and their performance issues, but still decouple the
+	modules to a degree.
+
+	The ActionMediator should be injected into the modules that need them. That way there will
+	not be a direct circular dependency between the module scripts.
+	
+	The modules associated with Move, Resize and Rotate are updated here, e.g. the 
+	DistanceLinesManager, RotationBox and SizeBox. That way it's easier to see when
+	they're updated and when their visibility change.
+--]]
+
+local ActionMediator = {}
+
+-- Variables
+local m_move = nil
+local m_resize = nil
+local m_rotate = nil
+
+local m_distanceLinesManager = nil
+local m_rotationBox = nil
+local m_sizeBox = nil
+
+-- void ActionMediator:onMoveBegan(Vector2 location)
+function ActionMediator:onMoveBegan(location)
+	m_sizeBox:setVisible(false)
+end
+
+-- void ActionMediator:onMoveChanged(Vector2 location)
+function ActionMediator:onMoveChanged(location)
+	m_resize:hide()
+	m_rotate:update()
+	m_distanceLinesManager:update()
+	m_distanceLinesManager:setVisible(true)
+end
+
+-- void ActionMediator:onMoveEnded(Vector2 location)
+function ActionMediator:onMoveEnded(location)
+	m_sizeBox:updatePosition()
+	m_sizeBox:setVisible(true)
+end
+
+-- void ActionMediator:onResizeBegan(Vector2 location)
+function ActionMediator:onResizeBegan(location)
+end
+
+-- void ActionMediator:onResizeChanged(Vector2 location)
+function ActionMediator:onResizeChanged(location)
+	m_distanceLinesManager:update()
+	m_rotate:update()
+	m_sizeBox:update()
+end
+
+-- void ActionMediator:onResizeEnded(Vector2 location)
+function ActionMediator:onResizeEnded(location)
+end
+
+-- void ActionMediator:onRotateBegan(Vector2 location)
+function ActionMediator:onRotateBegan(location)
+	m_distanceLinesManager:setVisible(false)
+	m_rotationBox:update(location, m_rotate:getRotation())
+	m_rotationBox:setVisible(true)
+	m_resize:hide()
+	m_sizeBox:setVisible(false)
+end
+
+-- void ActionMediator:onRotateChanged(Vector2 location)
+function ActionMediator:onRotateChanged(location)
+	m_rotationBox:update(location, m_rotate:getRotation())
+end
+
+-- void ActionMediator:onRotateEnded(Vector2 location)
+function ActionMediator:onRotateEnded(location)
+	m_resize:show()
+	
+	m_rotationBox:setVisible(false)
+	m_sizeBox:setVisible(true)
+	m_distanceLinesManager:update()
+	m_distanceLinesManager:setVisible(true)
+end
+
+-- For setting the Move module
+function ActionMediator:setMove(move)
+	m_move = move
+end
+
+-- For setting the Rotate module
+function ActionMediator:setRotate(rotate)
+	m_rotate = rotate
+end
+
+-- For setting the Resize module
+function ActionMediator:setResize(resize)
+	m_resize = resize
+end
+
+-- For setting the DistanceLinesManager module
+function ActionMediator:setDistanceLinesManager(distanceLinesManager)
+	m_distanceLinesManager = distanceLinesManager
+end
+
+-- For setting the RotationBox module
+function ActionMediator:setRotationBox(rotationBox)
+	m_rotationBox = rotationBox
+end
+
+-- For setting the SizeBox module
+function ActionMediator:setSizeBox(sizeBox)
+	m_sizeBox = sizeBox	
+end
+
+return ActionMediator
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>

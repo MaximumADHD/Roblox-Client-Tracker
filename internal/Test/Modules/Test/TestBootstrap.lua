@@ -96,6 +96,8 @@ function TestBootstrap:run(root, reporter, showTimingInfo)
 
 		print(table.concat(timing, "\n"))
 	end
+
+	return results
 end
 
 return TestBootstrap

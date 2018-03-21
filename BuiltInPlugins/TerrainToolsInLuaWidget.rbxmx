@@ -1,58 +1,165 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXE19AD192CF9548F099017836D6F33F47">
+	<Item class="Folder" referent="RBXc0a86200b9784974a6020efe0978b941">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX49EBFD39E8AA4975A7A2E4EACE8EB1FE">
+		<Item class="ModuleScript" referent="RBXd8401e5f6c1440a880d4ef6aca660604">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">MaterialsList</string>
+				<string name="Name">TerrainSmoother</string>
 				<string name="ScriptGuid"></string>
 				<ProtectedString name="Source"><![CDATA[--
 
+local module = {}
+
+module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
+	print('first time setup smoother')
+	local terrain = game.Workspace.Terrain
+
+	local function getCell(list, x, y, z)
+		return list and list[x] and list[x][y] and list[x][y][z]
+	end
+
+	local function extendRange(x)		--This is very important. It allows cells to fully diminish or fully fill by lying to the algorithm
+		return x * 1.5 - .25
+	end
+
+	function getNeighborOccupanciesFast(list, x, y, z, includeSelf)
+		local fullNeighbor = false
+		local emptyNeighbor = false
+		local neighborOccupancies = includeSelf and extendRange(getCell(list, x, y, z)) or 0
+		local totalNeighbors = includeSelf and 1 or 0
+		for axis = 1, 3 do
+			for offset = -1, 1, 2 do
+				local neighbor = nil
+				if axis == 1 then
+					neighbor = list[x + offset] and list[x + offset][y][z]
+				elseif axis == 2 then
+					neighbor = list[x][y + offset] and list[x][y + offset][z]
+				elseif axis == 3 then
+					neighbor = list[x][y][z + offset]
+				end
+				if neighbor then
+					if neighbor >= 1 then
+						fullNeighbor = true
+					end
+					if neighbor <= 0 then
+						emptyNeighbor = true
+					end
+					neighbor = extendRange(neighbor)
+					totalNeighbors = totalNeighbors + 1
+					neighborOccupancies = neighborOccupancies + neighbor
+				end
+			end
+		end
+		return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
+	end
+
+	function getNeighborOccupancies(list, x, y, z, includeSelf, range)
+		local fullNeighbor = false
+		local emptyNeighbor = false
+		local range = range or 1
+		local neighborOccupancies = 0
+		local totalNeighbors = 0
+		local sqrt = math.sqrt
+		for ix = -range, range do
+			for iy = -range, range do
+				for iz = -range, range do
+					if includeSelf or not (ix == 0 and iy == 0 and iz == 0) then
+						local neighbor = getCell(list, x + ix, y + iy, z + iz)
+						if neighbor then
+							local distanceScale = 1 - (sqrt(ix * ix + iy * iy + iz * iz) / (range * 2))
+							if neighbor >= 1 then
+								fullNeighbor = true
+							end
+							if neighbor <= 0 then
+								emptyNeighbor = true
+							end
+							neighbor = extendRange(neighbor)
+							totalNeighbors = totalNeighbors + 1 * distanceScale
+							neighborOccupancies = neighborOccupancies + neighbor * distanceScale
+						end
+					end
+				end
+			end
+		end
+		return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
+	end
 
 
-local materialsTable = {	--Interface order is defined by order here
-	{enum = Enum.Material.Grass, image = 'http://www.roblox.com/asset/?id=225314676'},
-	{enum = Enum.Material.Sand, image = 'http://www.roblox.com/asset/?id=225315607'},
-	{enum = Enum.Material.Rock, image = 'http://www.roblox.com/asset/?id=225315178'},
-	{enum = Enum.Material.Water, image = 'http://www.roblox.com/asset/?id=225315529', forceIgnoreWater = true, forceIgnoreWaterTo = false},
-	{enum = Enum.Material.Ground, image = 'http://www.roblox.com/asset/?id=254542189'},
-	{enum = Enum.Material.Sandstone, image = 'http://www.roblox.com/asset/?id=254541350'},
-	{enum = Enum.Material.Slate, image = 'http://www.roblox.com/asset/?id=225315290'},
-	{enum = Enum.Material.Snow, image = 'http://www.roblox.com/asset/?id=254541898'},
-	{enum = Enum.Material.Mud, image = 'http://www.roblox.com/asset/?id=254541862'},
-	{enum = Enum.Material.Brick, image = 'http://www.roblox.com/asset/?id=225315419', forceSnapToGrid = true},
-	{enum = Enum.Material.Concrete, image = 'http://www.roblox.com/asset/?id=225314983'},
-	{enum = Enum.Material.Glacier, image = 'http://www.roblox.com/asset/?id=254541572'},
-	{enum = Enum.Material.WoodPlanks, image = 'http://www.roblox.com/asset/?id=225315705', forceSnapToGrid = true},
-	{enum = Enum.Material.CrackedLava, image = 'http://www.roblox.com/asset/?id=254541726'},
-	{enum = Enum.Material.Basalt, image = 'http://www.roblox.com/asset/?id=254542066'},
-	{enum = Enum.Material.Ice, image = 'rbxassetid://397352205'},
-	{enum = Enum.Material.Salt, image = 'rbxassetid://397352299'},
-	{enum = Enum.Material.Cobblestone, image = 'rbxassetid://397352378'},
-	{enum = Enum.Material.Limestone, image = 'rbxassetid://397352474'},
-	{enum = Enum.Material.Asphalt, image = 'rbxassetid://397352644'},
-	{enum = Enum.Material.LeafyGrass, image = 'rbxassetid://397720681'},
-	{enum = Enum.Material.Pavement, image = 'rbxassetid://397727024'},
-}
+	function operation(centerPoint, materials, occupancies, resolution, selectionSize, strength, desiredMaterial, brushType, minBounds, maxBounds)
+		local region = Region3.new(minBounds, maxBounds)
+		local readMaterials, readOccupancies = terrain:ReadVoxels(region, resolution)
 
-return materialsTable
+		local radius = selectionSize * .5 * resolution
 
+		local materialAir = Enum.Material.Air
+
+		for ix, vx in ipairs(readOccupancies) do
+			local cellVectorX = minBounds.x + (ix - .5) * resolution - centerPoint.x
+
+			for iy, vy in pairs(vx) do
+				local cellVectorY = minBounds.y + (iy - .5) * resolution - centerPoint.y
+
+				for iz, cellOccupancy in pairs(vy) do
+					local cellVectorZ = minBounds.z + (iz - .5) * resolution - centerPoint.z
+
+					local cellMaterial = materials[ix][iy][iz]
+					local distance = math.sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
+		
+					local magnitudePercent = 1
+					local brushOccupancy = 1
+					if brushType == 'Sphere' then
+						magnitudePercent = math.cos(math.min(1, distance / (radius + resolution * .5)) * math.pi * .5)
+						brushOccupancy = math.max(0, math.min(1, (radius + .5 * resolution - distance) / resolution))
+					elseif brushType == 'Box' then
+						--leave as default
+					end
+
+					if brushOccupancy >= .5 then
+						local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(readOccupancies, ix, iy, iz, true, 1)
+						local difference = (neighborOccupancies - cellOccupancy) * (strength + .1) * .5 * brushOccupancy * magnitudePercent
+
+						if not fullNeighbor and difference > 0 then
+							difference = 0
+						elseif not emptyNeighbor and difference < 0 then
+							difference = 0
+						end
+
+						if readMaterials[ix][iy][iz] == materialAir or cellOccupancy <= 0 and difference > 0 then
+							materials[ix][iy][iz] = desiredMaterial
+						end
+						if difference ~= 0 then
+							occupancies[ix][iy][iz] = math.max(0, math.min(1, cellOccupancy + difference))
+						end
+					end
+				end
+			end
+		end
+	end
+
+	module.BrushOperation = operation
+	print('smoother setup', module.BrushOperation)
+
+end
+
+return module
 
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1C02901C9EEF4FD8938C7940B45A786E">
+		<Item class="ModuleScript" referent="RBX77f4406742c74830b8099f4cc776fb5f">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
 				<string name="ScriptGuid"></string>
 				<ProtectedString name="Source"><![CDATA[--Stickmasterluke
+
+local module = {}
 
 local GuiUtilities = require(script.Parent.GuiUtilities)
 
@@ -63,7 +170,7 @@ local terrain = game.Workspace.Terrain
 local pluginGui
 local screenGui
 
-local mainFrame 
+local terrainGenerationFrame 
 local progressFrame 
 local pauseButton
 local cancelButton 
@@ -91,7 +198,6 @@ local allBiomes = {
 
 local on = false
 local mouse = nil
-local turnOff = nil 
 local generating = false
 local clearing = false
 local paused = false
@@ -187,20 +293,48 @@ local function MakeProgressFrame(parentGui)
 	return section
 end
 
-function Initialize(thePluginGui)
-	
+function makeTerrainGenerationFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "TerrainGenerationFrame", "Generation", 100, 610)		--Width is unecessary
+
+	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", section)
+	generateButton.Size = UDim2.new(1, -20, 0, 30)
+	generateButton.Position = UDim2.new(0, 10, 1, -70)
+
+	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", section)
+	clearButton.Size = UDim2.new(1, -20, 0, 30)
+	clearButton.Position = UDim2.new(0, 10, 1, -35)
+
+	local divider = GuiUtilities.MakeDivider("Divider", section)
+	divider.Position = UDim2.new(0, 0, 1, -80)
+
+	section.Visible = false
+	return section
+end
+
+function makeMultipleChoiceFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "MultipleChoiceFrame", "Multiple Choice", 100, 270)		--Width is unecessary
+
+	section.Visible = false
+	return section
+end
+
+module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
+	mouse = theMouse
 	pluginGui = thePluginGui
+	contentFrame = theContentFrame
+
 	screenGui = Instance.new("ScreenGui")
 	screenGui.Name = "TerrainBrushGui"
-	
-	mainFrame = pluginGui:WaitForChild('TerrainGenerationFrame')
+
+	-- Add Terrain Generation Frame(s)
+	terrainGenerationFrame = makeTerrainGenerationFrame(contentFrame)
+	multipleChoiceFrame = makeMultipleChoiceFrame(contentFrame)
+
 
 	progressFrame = MakeProgressFrame(screenGui)
 	pauseButton = progressFrame:WaitForChild('PauseButton')
 	cancelButton = progressFrame:WaitForChild('CancelButton')
 	barFill = progressFrame:WaitForChild('Bar'):WaitForChild('Fill')
-
-	multipleChoiceFrame = pluginGui:WaitForChild('MultipleChoiceFrame')
 
 	pauseButton.MouseButton1Down:connect(function()
 		paused = not paused
@@ -214,11 +348,11 @@ function Initialize(thePluginGui)
 		end
 	end)
 
-	mainFrame:WaitForChild('GenerateButton').MouseButton1Down:connect(function()
+	terrainGenerationFrame:WaitForChild('GenerateButton').MouseButton1Down:connect(function()
 		generate()
 	end)
 	
-	mainFrame:WaitForChild('ClearButton').MouseButton1Down:connect(function()
+	terrainGenerationFrame:WaitForChild('ClearButton').MouseButton1Down:connect(function()
 		clearTerrain()
 	end)
 
@@ -787,7 +921,7 @@ function SetupUserInterface()
 	local mapSizeChangeFunction = function(index,text)
 		mapWidth = mapSizes[index]
 	end
-	createMultiChoice('Map Size', 35, mainFrame, {'Small (128)','Medium (256)','Large (512)','Massive (1024)'}, 2, mapSizeChangeFunction)
+	createMultiChoice('Map Size', 35, terrainGenerationFrame, {'Small (128)','Medium (256)','Large (512)','Massive (1024)'}, 2, mapSizeChangeFunction)
 
 	local seedChangeFunction = function(text)
 		local compositeNumber = 0
@@ -803,20 +937,20 @@ function SetupUserInterface()
 		end
 		masterSeed = compositeNumber
 	end
-	createTextBox('Seed', 95, mainFrame, masterSeed, seedChangeFunction)
+	createTextBox('Seed', 95, terrainGenerationFrame, masterSeed, seedChangeFunction)
 
 	local cavesChangeFunction = function(value)
 		generateCaves = value
 	end
-	local cavesCheckBox = createCheckBox('Caves', 130, mainFrame, generateCaves, cavesChangeFunction)
+	local cavesCheckBox = createCheckBox('Caves', 130, terrainGenerationFrame, generateCaves, cavesChangeFunction)
 
 	local biomeSizes = {50,100,200,500}
 	local biomeSizeChangeFunction = function(index,text)
 		biomeSize = biomeSizes[index]
 	end
-	createMultiChoice('Biome Size', 165, mainFrame, {'Small (50)','Medium (100)','Large (200)','Massive (500)'}, 2, biomeSizeChangeFunction)
+	createMultiChoice('Biome Size', 165, terrainGenerationFrame, {'Small (50)','Medium (100)','Large (200)','Massive (500)'}, 2, biomeSizeChangeFunction)
 
-	local biomesSettingsLabel, biomesFrame = createBiomesCheckboxSection(230, mainFrame)
+	local biomesSettingsLabel, biomesFrame = createBiomesCheckboxSection(230, terrainGenerationFrame)
 
 	local waterChangeFunction = function(value)
 		allBiomes['Water'] = value
@@ -868,27 +1002,17 @@ end
 --------------------------------------------------------------------------------------------------------------------
 
 
-function On(mouseHandMeDown,turnOffHandMeDown)
+module.On = function(theTool)
 	screenGui.Parent = coreGui
-	mainFrame.Visible = true
-
+	terrainGenerationFrame.Visible = true
 	on = true
-	if mouseHandMeDown then
-		mouse = mouseHandMeDown
-	end
-	if turnOffHandMeDown then
-		turnOff = turnOffHandMeDown
-	end
 end
 
-function Off()
+module.Off = function()
 	closeMultiChoiceFrame()
-	if turnOff then
-		turnOff()
-	end
 	on = false
 	screenGui.Parent = nil
-	mainFrame.Visible = false
+	terrainGenerationFrame.Visible = false
 end
 
 function clearTerrain()
@@ -901,18 +1025,14 @@ function clearTerrain()
 end
 
 
-return {
-	['On'] = On,
-	['Off'] = Off,
-	["Initialize"] = Initialize,
-}
+return module
 
 
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF1E2CBD4139A4EC5ABC0FD8A6DE0EAB0">
+		<Item class="ModuleScript" referent="RBXcb5de0e32e2641a9a81a0c557157d933">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GuiUtilities</string>
@@ -944,7 +1064,9 @@ function module.MakeSection(parentGui, name, title, width, contentHeight)   -- W
     local frame = Instance.new("Frame")
     frame.Name = name
     frame.Parent = parentGui
-
+    frame.BackgroundTransparency = 1
+    frame.BorderSizePixel = 0
+    
     -- If title is "nil', no title bar.
     local contentYOffset = 0
     local titleBar = nil
@@ -960,7 +1082,6 @@ function module.MakeSection(parentGui, name, title, width, contentHeight)   -- W
         contentYOffset = contentYOffset + module.kTitleBarHeight
     end
 
-    --frame.Size = UDim2.new(0, width, 0, contentYOffset + contentHeight)
     frame.Size = UDim2.new(1, 0, 0, contentYOffset + contentHeight)
 
     return frame
@@ -1141,153 +1262,304 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC412F6AE529C436B94E14FB4D99D39AB">
+		<Item class="ModuleScript" referent="RBX0c5c9d7ea20d4f49b397b8a964e8ca99">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">TerrainSmoother</string>
+				<string name="Name">MainPanel</string>
 				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[--
+				<ProtectedString name="Source"><![CDATA[local module = {}
+
+local GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kMainButtonOuterSize = 51
+local kMainButtonBorderSize = 1
+local kMainButtonActualSize = (kMainButtonOuterSize - 2 * kMainButtonBorderSize)
+
+local kMainButtonActualSizeUDim2 = UDim2.new(0, kMainButtonActualSize, 0, kMainButtonActualSize)
+local kMainButtonOuterSizeUDim2 = UDim2.new(0, kMainButtonOuterSize, 0, kMainButtonOuterSize)
+
+local kMainButtonFramePadding = UDim.new(0, 4)
 
 
-local terrain = game.Workspace.Terrain
+--[[
+	How tool modules work:
+		Your ModuleScript should return a table. The table can contain the following functions
+			On	= This function will be called when your tool is selected. Will hand in the mouse object, and the tool.
+			Off	= This function will be called when your tool is deselected.
+			BrushOperation = If this function is present, the tool will use the basic brushing functionality, and use this function as the operation
+				operation(centerPoint, materialsTable, occupanciesTable, resolution, selectionSize, strength, desiredMaterial, brushShape, minBounds, maxBounds)
+			FirstTimeSetup = A function that can hold back the majority of the code from being setup until the tool is used for the first time
+]]
 
 
-local function getCell(list, x, y, z)
-	return list and list[x] and list[x][y] and list[x][y][z]
-end
-
-local function extendRange(x)		--This is very important. It allows cells to fully diminish or fully fill by lying to the algorithm
-	return x * 1.5 - .25
-end
-
-function getNeighborOccupanciesFast(list, x, y, z, includeSelf)
-	local fullNeighbor = false
-	local emptyNeighbor = false
-	local neighborOccupancies = includeSelf and extendRange(getCell(list, x, y, z)) or 0
-	local totalNeighbors = includeSelf and 1 or 0
-	for axis = 1, 3 do
-		for offset = -1, 1, 2 do
-			local neighbor = nil
-			if axis == 1 then
-				neighbor = list[x + offset] and list[x + offset][y][z]
-			elseif axis == 2 then
-				neighbor = list[x][y + offset] and list[x][y + offset][z]
-			elseif axis == 3 then
-				neighbor = list[x][y][z + offset]
-			end
-			if neighbor then
-				if neighbor >= 1 then
-					fullNeighbor = true
-				end
-				if neighbor <= 0 then
-					emptyNeighbor = true
-				end
-				neighbor = extendRange(neighbor)
-				totalNeighbors = totalNeighbors + 1
-				neighborOccupancies = neighborOccupancies + neighbor
-			end
-		end
-	end
-	return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
-end
-
-function getNeighborOccupancies(list, x, y, z, includeSelf, range)
-	local fullNeighbor = false
-	local emptyNeighbor = false
-	local range = range or 1
-	local neighborOccupancies = 0
-	local totalNeighbors = 0
-	local sqrt = math.sqrt
-	for ix = -range, range do
-		for iy = -range, range do
-			for iz = -range, range do
-				if includeSelf or not (ix == 0 and iy == 0 and iz == 0) then
-					local neighbor = getCell(list, x + ix, y + iy, z + iz)
-					if neighbor then
-						local distanceScale = 1 - (sqrt(ix * ix + iy * iy + iz * iz) / (range * 2))
-						if neighbor >= 1 then
-							fullNeighbor = true
-						end
-						if neighbor <= 0 then
-							emptyNeighbor = true
-						end
-						neighbor = extendRange(neighbor)
-						totalNeighbors = totalNeighbors + 1 * distanceScale
-						neighborOccupancies = neighborOccupancies + neighbor * distanceScale
-					end
-				end
-			end
-		end
-	end
-	return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
-end
-
-
-function operation(centerPoint, materials, occupancies, resolution, selectionSize, strength, desiredMaterial, brushType, minBounds, maxBounds)
-	local region = Region3.new(minBounds, maxBounds)
-	local readMaterials, readOccupancies = terrain:ReadVoxels(region, resolution)
-
-	local radius = selectionSize * .5 * resolution
-
-	local materialAir = Enum.Material.Air
-
-	for ix, vx in ipairs(readOccupancies) do
-		local cellVectorX = minBounds.x + (ix - .5) * resolution - centerPoint.x
-
-		for iy, vy in pairs(vx) do
-			local cellVectorY = minBounds.y + (iy - .5) * resolution - centerPoint.y
-
-			for iz, cellOccupancy in pairs(vy) do
-				local cellVectorZ = minBounds.z + (iz - .5) * resolution - centerPoint.z
-
-				local cellMaterial = materials[ix][iy][iz]
-				local distance = math.sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
-	
-				local magnitudePercent = 1
-				local brushOccupancy = 1
-				if brushType == 'Sphere' then
-					magnitudePercent = math.cos(math.min(1, distance / (radius + resolution * .5)) * math.pi * .5)
-					brushOccupancy = math.max(0, math.min(1, (radius + .5 * resolution - distance) / resolution))
-				elseif brushType == 'Box' then
-					--leave as default
-				end
-
-				if brushOccupancy >= .5 then
-					local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(readOccupancies, ix, iy, iz, true, 1)
-					local difference = (neighborOccupancies - cellOccupancy) * (strength + .1) * .5 * brushOccupancy * magnitudePercent
-
-					if not fullNeighbor and difference > 0 then
-						difference = 0
-					elseif not emptyNeighbor and difference < 0 then
-						difference = 0
-					end
-
-					if readMaterials[ix][iy][iz] == materialAir or cellOccupancy <= 0 and difference > 0 then
-						materials[ix][iy][iz] = desiredMaterial
-					end
-					if difference ~= 0 then
-						occupancies[ix][iy][iz] = math.max(0, math.min(1, cellOccupancy + difference))
-					end
-				end
-			end
-		end
-	end
-end
-
-function Initialize(thePluginGui)
-	-- Nothing for now.
-end
-
-return {
-	['operation'] = operation,
-	['Initialize'] = Initialize,
+local modules =
+{
+	Brush = require(script.Parent.TerrainBrush),
+	TerrainGeneration = require(script.Parent.TerrainGeneration),
+	TerrainSmoother = require(script.Parent.TerrainSmoother),
+	TerrainRegionEditor = require(script.Parent.TerrainRegionEditor)
+}
+local tools = 
+{
+    {
+        Name = "Generate",
+		Tip = 'Generate landscapes of terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=236006872',
+		Modules = {modules.TerrainGeneration},
+    }, 
+    {
+        Name = "Add",
+		Tip = 'Click and hold to add terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=225328572',
+		Modules = {modules.Brush,},
+		UsesMaterials = true,
+    }, 
+    {
+        Name = "Subtract",
+		Tip = 'Click and hold to remove terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=225328818',
+		Modules = {modules.Brush,},
+    }, 
+    {
+        Name = "Paint",
+		Tip = 'Paint the material of the terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=225328954',
+		Modules = {modules.Brush,},
+		UsesMaterials = true,
+    }, 
+    {
+        Name = "Grow",
+		Tip = 'Click and hold to grow and expand terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=225329153',
+		Modules = {modules.Brush,},
+		UsesMaterials = true,
+    }, 
+    {
+        Name = "Erode",
+		Tip = 'Click and hold to erode and remove terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=225329301',
+		Modules = {modules.Brush,},
+    }, 
+    {
+        Name = "Smooth",
+		Tip = 'Brush to smooth out rough or jagged terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=225329641',
+		Modules = {modules.Brush, modules.TerrainSmoother,},
+    }, 
+    {
+        Name = "Regions",
+		Tip = 'Manipulate regions of smooth terrain.',
+		Icon = 'http://www.roblox.com/asset/?id=240631063',
+		Modules = {modules.TerrainRegionEditor,},
+    }, 
 }
 
-]]></ProtectedString>
+
+local function createToolButton(tool, toolIndex)
+	local button = Instance.new("ImageButton")
+	button.Name = tool.Name
+	button.LayoutOrder = toolIndex
+	button.AutoButtonColor = false
+	button.Size = kMainButtonActualSizeUDim2
+	button.BorderSizePixel = 1
+	button.BackgroundTransparency = 1 
+
+	local buttonIcon = Instance.new("ImageLabel")
+	buttonIcon.BackgroundTransparency = 1
+	buttonIcon.Image = tool.Icon or ""
+	buttonIcon.Size = UDim2.new(0,26,0,26)
+	buttonIcon.Position = UDim2.new(0,13,0,3)
+	buttonIcon.Parent = button
+
+	local textLabel = Instance.new("TextLabel")
+	textLabel.BackgroundTransparency = 1
+	textLabel.Text = tool.Name
+	textLabel.Position = UDim2.new(0,0,1,-22)
+	textLabel.Size = UDim2.new(1,0,0,22)
+	textLabel.TextScaled = true
+	textLabel.Font = Enum.Font.SourceSans
+
+	local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
+	uiTextSizeConstraint.MaxTextSize = 15		-- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
+													--Note: For this font the Roblox text size is 25.7% larger than the design spec. 
+	uiTextSizeConstraint.Parent = textLabel
+
+	textLabel.Parent = button
+	button.Parent = toolListFrame
+	tool.Button = button
+end
+
+
+-- Creates the main panel for tools, and creates the scrolling frame for sub-content section.
+-- The main panel will be resized dynamically when widget is stretched horizontally
+-- The content section will resize to fill the rest of the vertical space that the main panel is not using.
+-- Returns the main panel, and returns the sub-content section
+function makeMainPanel()
+    -- Make the main panel for tool buttons
+    local section = GuiUtilities.MakeSection(pluginGui, "MainPanel", nil, 100,  100)	-- Both width and height do not matter as the frame will be resized dynamically.
+	section.Position = UDim2.new(0, 0, 0, 0)
+
+	local buttonListFrame = Instance.new("Frame")
+	buttonListFrame.Name = "ButtonListFrame"
+	buttonListFrame.BackgroundTransparency = 1
+	buttonListFrame.BorderSizePixel = 0
+	buttonListFrame.Size = UDim2.new(1, 0, 1, 0)
+	buttonListFrame.Position = UDim2.new(0, 0, 0, 0)
+
+	local uiGridLayout = Instance.new("UIGridLayout")
+	uiGridLayout.CellSize = kMainButtonOuterSizeUDim2
+	uiGridLayout.CellPadding = UDim2.new(0,0,0,0)
+	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+	uiGridLayout.Parent = buttonListFrame
+
+	local uiPadding = Instance.new("UIPadding")
+	uiPadding.PaddingBottom = kMainButtonFramePadding
+	uiPadding.PaddingLeft = kMainButtonFramePadding
+	uiPadding.PaddingRight = kMainButtonFramePadding
+	uiPadding.PaddingTop = kMainButtonFramePadding
+	uiPadding.Parent = buttonListFrame
+
+	buttonListFrame.Parent = section
+
+	-- Make the content section scrolling frame
+	local mainSpaceScrollingFrame = Instance.new("ScrollingFrame")
+	mainSpaceScrollingFrame.Name = "MainSpace"
+	mainSpaceScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+	mainSpaceScrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+	mainSpaceScrollingFrame.BackgroundTransparency = 1
+
+	local uiListLayout = Instance.new("UIListLayout")
+	uiListLayout.Parent = mainSpaceScrollingFrame
+
+	mainSpaceScrollingFrame.Parent = pluginGui
+
+
+	-- Adjust the vertical size of the main buttons panel and the main panel details space when the main panel buttons change the number of rows are being rendered
+	local function updateMainSectionsSizesAndPositions()
+		section.Size = UDim2.new(1, 0, 0, uiGridLayout.AbsoluteContentSize.Y+kMainButtonFramePadding.Offset*2)
+		mainSpaceScrollingFrame.Size = UDim2.new(1, 0, 1, -section.AbsoluteSize.Y)
+		mainSpaceScrollingFrame.Position = UDim2.new(0, 0, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y)
+	end
+	uiGridLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateMainSectionsSizesAndPositions)
+	updateMainSectionsSizesAndPositions()
+
+	-- Update the canvas size of the scrolling frame to fit the size of it's contents
+	local function updateScrollingFrameCanvas()
+		mainSpaceScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+	end
+	uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateScrollingFrameCanvas)
+	updateScrollingFrameCanvas()
+
+	contentFrame = mainSpaceScrollingFrame
+	toolListFrame = buttonListFrame
+end
+
+local function fastSpawn(func)	-- Creates a new thread like Spawn() but executes the code immediately, without a frame delay.
+	coroutine.wrap(func)()
+end
+
+
+module.Initialize = function(thePlugin, thePluginGui)
+	on = false
+	currentTool = nil
+	plugin = thePlugin
+	pluginGui = thePluginGui
+	makeMainPanel()
+	local mouse = plugin:GetMouse()
+	local userInput = game:GetService('UserInputService')
+	local prevCameraType = game.Workspace.CurrentCamera.CameraType
+
+
+	for toolIndex, tool in ipairs(tools) do
+
+		createToolButton(tool, toolIndex)
+		tool.Button.MouseButton1Click:connect(function()
+			if not on or (currentTool ~= nil and tool ~= currentTool) then	--if off or on but current tool isn't the desired tool, then select this tool.
+				Selected(tool)
+			else
+				Deselected()
+			end
+		end)
+
+	end
+
+
+	-- If the plugin gui is disabled, we should definitely be deselected.
+	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
+		if (not pluginGui.Enabled) then 
+			Deselected()
+		end
+	end)
+
+	function Selected(tool)
+		if plugin then
+			plugin:Activate(true)
+		end
+
+		if not userInput.MouseEnabled then
+			prevCameraType = game.Workspace.CurrentCamera.CameraType
+			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed	
+		end
+
+		GuiUtilities.SetSelectedState(tool.Button, true)
+
+		on = true
+		currentTool = tool
+
+		--local toolModule = tool.Module or module.Brush
+		for _, toolModule in pairs(tool.Modules) do
+			fastSpawn(function()
+				if toolModule.FirstTimeSetup and not toolModule.isSetup then
+					toolModule.FirstTimeSetup(mouse, pluginGui, contentFrame)
+					toolModule.isSetup = true
+				end
+				if toolModule.On then
+					toolModule.On(tool)
+				end
+			end)
+		end
+	end
+	
+	function Deselected()
+		if not userInput.MouseEnabled then
+			game.Workspace.CurrentCamera.CameraType = prevCameraType		
+		end
+
+		on = false
+		local lastTool = currentTool
+		currentTool = nil
+
+		if lastTool then
+			GuiUtilities.SetSelectedState(lastTool.Button, false)
+
+			--local lastToolModule = lastTool.Module or module.Brush
+			for _, lastToolModule in pairs(lastTool.Modules) do
+				fastSpawn(function()
+					if lastToolModule.Off then
+						lastToolModule.Off()
+					end
+				end)
+			end
+		end
+	end
+
+	if plugin then
+		plugin.Deactivation:connect(function()
+			if on then
+				Deselected()
+			end
+		end)
+	end
+
+end
+
+
+return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBXB733BBD8695D4AC2A861F9B90E6D36F7">
+		<Item class="Script" referent="RBXeca58b9e0d9c403398274f235ab73921">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -1348,11 +1620,9 @@ updateButtonActive(toggleVisibilityButton, pluginGui)
 
 -- Listen for changes in plugin gui visibility to keep toolbar button
 -- active state synced.
-pluginGui.Changed:connect(function(property)
-    if (property == "Enabled") then 
-       updateButtonActive(toggleVisibilityButton, pluginGui)
-    end
- end)     
+pluginGui:GetPropertyChangedSignal("Enabled"):connect(function(property)
+    updateButtonActive(toggleVisibilityButton, pluginGui)
+end)     
 
 -- Make sure plugin and pluginGui have nice user-facing names.
 plugin.Name = "Terrain"
@@ -1366,182 +1636,37 @@ while not Terrain.IsSmooth do
 end
 
 -- Add the main panel.
-local mainPanelButtons, mainSpaceScrollingFrame = mainPanelModule.MakeMainPanel(pluginGui)
-
--- Add the Terrain Brush Frame
-mainPanelModule.MakeTerrainBrushFrame(pluginGui)
-
--- Add Terrain Generation Frame(s)
-mainPanelModule.MakeTerrainGenerationFrame(pluginGui)
-mainPanelModule.MakeMultipleChoiceFrame(pluginGui)
-
--- Add Terrain Regions Frame(s)
-mainPanelModule.MakeRegionsFrame(pluginGui)
-mainPanelModule.MakeRegionsFillFrame(pluginGui)
+mainPanelModule.Initialize(plugin, pluginGui)
 
 
--- Have legacy code Set Things Up.
-terrainBrushScriptModule.Initialize(plugin, pluginGui, mainPanelModule.MainButtonDatas)]]></ProtectedString>
+
+
+
+]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX94F2DFCD2934451981FFEF78B86CE6C8">
+		<Item class="ModuleScript" referent="RBX6b6628e745d347489949cb0bd01fa4a8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">MainPanel</string>
+				<string name="Name">TerrainBrush</string>
 				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[local module = {}
+				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
 
-local GuiUtilities = require(script.Parent.GuiUtilities)
+local module = {}
 
-local kMargin = 10
-
-local kMainButtonSize = UDim2.new(0,51,0,51)
-local kMainButtonFramePadding = UDim.new(0,4)
-
-module.kTerrainBrushFrameContentHeight = 300
-module.kTerrainGenerationContentHeight = 610
-module.kMultipleChoiceContentHeight = 270
-module.kTerrainRegionsContentHeight = 345
-module.kFillSelectionContentHeight = 270
-
-module.MainButtonDatas = 
-{
-    {
-        name = "Generate",
-    }, 
-    {
-        name = "Add",
-    }, 
-    {
-        name = "Subtract",
-    }, 
-    {
-        name = "Paint",
-    }, 
-    {
-        name = "Grow",
-    }, 
-    {
-        name = "Erode",
-    }, 
-    {
-        name = "Smooth",
-    }, 
-    {
-        name = "Regions",
-    }, 
-}
-
-local kNumRows = math.ceil(#module.MainButtonDatas/2)
-local kButtonRowHeight = 50
+GuiUtilities = require(script.Parent.GuiUtilities)
 
 
-local function addButtonToMainPanel(contentFrame, luaButtonIndex)
-	local buttonData = module.MainButtonDatas[luaButtonIndex]
+local on
+local tool
+local plugin
+local pluginGui 
 
-	local button = Instance.new("ImageButton")
-	button.Name = buttonData.name
-
-	local buttonIcon = Instance.new("ImageLabel")
-	buttonIcon.BackgroundTransparency = 1
-	buttonIcon.Image = buttonData.icon or ""
-	buttonIcon.Size = UDim2.new(0,26,0,26)
-	buttonIcon.Position = UDim2.new(0,13,0,3)
-	buttonIcon.Parent = button
-
-	local textLabel = Instance.new("TextLabel")
-	textLabel.BackgroundTransparency = 1
-	textLabel.Text = buttonData.name
-	textLabel.Position = UDim2.new(0,0,1,-22)
-	textLabel.Size = UDim2.new(1,0,0,22)
-	textLabel.TextScaled = true
-	textLabel.Font = Enum.Font.SourceSans
-
-	local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
-	uiTextSizeConstraint.MaxTextSize = 15		-- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
-													--Note: For this font the Roblox text size is 25.7% larger than the design spec. 
-	uiTextSizeConstraint.Parent = textLabel
-
-	textLabel.Parent = button
-
-	button.Parent = contentFrame
-
-	return button
-end
-
-function module.GetMainPanelHeight()
-    return kButtonRowHeight * kNumRows
-end
-
-
-function module.GetTerrainGenerationHeight()
-    return module.kTerrainGenerationContentHeight + GuiUtilities.kTitleBarHeight
-end
-
-function module.GetRegionsFrameHeight()
-	return module.kTerrainRegionsContentHeight + GuiUtilities.kTitleBarHeight
-end
-
-
--- Creates the main panel for tools, and creates the scrolling frame for sub-content section.
--- The main panel will be resized dynamically when widget is stretched horizontally
--- The sub-content section will resize to fill the rest of the vertical space that the main panel is not using.
--- Returns the main panel, and returns the sub-content section
-function module.MakeMainPanel(parentGui)
-    -- Make a frame
-    local section = GuiUtilities.MakeSection(parentGui, "MainPanel", nil, 100,  100)	-- Both width and height do not matter as the frame will be resized dynamically.
-
-	local buttonListFrame = Instance.new("Frame")
-	buttonListFrame.Name = "ButtonListFrame"
-	buttonListFrame.BackgroundTransparency = 1
-	buttonListFrame.Size = UDim2.new(1, 0, 1, 0)
-	buttonListFrame.Position = UDim2.new(0, 0, 0, 0)
-
-	local uiGridLayout = Instance.new("UIGridLayout")
-	uiGridLayout.CellSize = kMainButtonSize
-	uiGridLayout.CellPadding = UDim2.new(0,0,0,0)
-	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
-	uiGridLayout.Parent = buttonListFrame
-
-	local uiPadding = Instance.new("UIPadding")
-	uiPadding.PaddingBottom = kMainButtonFramePadding
-	uiPadding.PaddingLeft = kMainButtonFramePadding
-	uiPadding.PaddingRight = kMainButtonFramePadding
-	uiPadding.PaddingTop = kMainButtonFramePadding
-	uiPadding.Parent = buttonListFrame
-
-	for luaButtonIndex, mainButtonData in ipairs(module.MainButtonDatas) do 
-		 mainButtonData.button = addButtonToMainPanel(buttonListFrame, luaButtonIndex)
-	end
-
-	buttonListFrame.Parent = section
-
-    section.Position = UDim2.new(0, 0, 0, 0)
-
-	-- Make the sub-content section
-	local mainSpaceScrollingFrame = Instance.new("ScrollingFrame")
-	mainSpaceScrollingFrame.Name = "MainDetailsSpace"
-	mainSpaceScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
-	--GuiUtilities.StyleScrollingFrame(mainSpaceScrollingFrame)
-	mainSpaceScrollingFrame.Parent = parentGui
-
-	-- Adjust the vertical size of the main buttons panel and the main panel details space when the main panel buttons change the number of rows are being rendered
-	local function updateMainSectionsSizesAndPositions()
-		section.Size = UDim2.new(1, 0, 0, uiGridLayout.AbsoluteContentSize.Y+kMainButtonFramePadding.Offset*2)
-		mainSpaceScrollingFrame.Size = UDim2.new(1, 0, 1, -section.AbsoluteSize.Y)
-		mainSpaceScrollingFrame.Position = UDim2.new(0, 0, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y)
-	end
-	uiGridLayout.Changed:connect(updateMainSectionsSizesAndPositions)
-	updateMainSectionsSizesAndPositions()
-
-    return section, mainSpaceScrollingFrame
-end
 
 -- Create the "TerrainBrush" main frame, complete with all the widgets & whatnot inside.
-function module.MakeTerrainBrushFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "TerrainBrushFrame", "Terrain Brush", GuiUtilities.kStandardContentAreaWidth, module.kTerrainBrushFrameContentHeight)
+function makeTerrainBrushFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "TerrainBrushFrame", "Terrain Brush", 100, 300)	--Width does not matter
 
 	local shapeButton1 = GuiUtilities.MakeShapeButton("ShapeButton1", 
 		"http://www.roblox.com/asset/?id=225799533", 
@@ -1612,193 +1737,16 @@ function module.MakeTerrainBrushFrame(parentGui)
 		section)
 	toolTip2.Position = UDim2.new(0, 10, 0, 55)
 
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
+    section.Position = UDim2.new(0, 0, 0, 0)
 	section.Visible = false
-
     return section
 end
 
--- Create the "TerrainGeneration" main frame, complete with all the widgets & whatnot inside.
-function module.MakeTerrainGenerationFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "TerrainGenerationFrame", "Generation", GuiUtilities.kStandardContentAreaWidth, module.kTerrainGenerationContentHeight)
 
-	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", section)
-	generateButton.Size = UDim2.new(1, -20, 0, 30)
-	generateButton.Position = UDim2.new(0, 10, 1, -70)
-
-	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", section)
-	clearButton.Size = UDim2.new(1, -20, 0, 30)
-	clearButton.Position = UDim2.new(0, 10, 1, -35)
-
-	local divider = GuiUtilities.MakeDivider("Divider", section)
-	divider.Position = UDim2.new(0, 0, 1, -80)
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
-	section.Visible = false
-
-	return section
-end
-
-function module.MakeMultipleChoiceFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "MultipleChoiceFrame", "Multiple Choice", GuiUtilities.kStandardContentAreaWidth, module.kMultipleChoiceContentHeight)
-
-	section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight() + module.GetTerrainGenerationHeight())
-	section.Visible = false
-
-	return section
-end
-
-function module.MakeRegionsFrame(parentGui)
-	local section = GuiUtilities.MakeSection(parentGui, "TerrainRegionFrame", "Regions", GuiUtilities.kStandardContentAreaWidth, module.kTerrainRegionsContentHeight)
-
-	local selectButton = GuiUtilities.MakeTextButton("ButtonSelect", "Select", section)
-	selectButton.Size = UDim2.new(1, -20, 0, 30)
-	selectButton.Position = UDim2.new(0, 10, 0, 35)
-
-	local moveButton = GuiUtilities.MakeTextButton("ButtonMove", "Move", section)
-	moveButton.Size = UDim2.new(1, -20, 0, 30)
-	moveButton.Position = UDim2.new(0, 10, 0, 65)
-
-	local resizeButton = GuiUtilities.MakeTextButton("ButtonResize", "Resize", section)
-	resizeButton.Size = UDim2.new(1, -20, 0, 30)
-	resizeButton.Position = UDim2.new(0, 10, 0, 95)
-
-	local rotateButton = GuiUtilities.MakeTextButton("ButtonRotate", "Rotate", section)
-	rotateButton.Size = UDim2.new(1, -20, 0, 30)
-	rotateButton.Position = UDim2.new(0, 10, 0, 125)
-
-	local divider2 = GuiUtilities.MakeDivider("Divider2", section)
-	divider2.Position = UDim2.new(0, 0, 0, 165)
-
-	local copyButton = GuiUtilities.MakeTextButton("ButtonCopy", "Copy", section)
-	copyButton.Size = UDim2.new(1, -20, 0, 30)
-	copyButton.Position = UDim2.new(0, 10, 0, 175)
-
-	local pasteButton = GuiUtilities.MakeTextButton("ButtonPaste", "Paste", section)
-	pasteButton.Size = UDim2.new(1, -20, 0, 30)
-	pasteButton.Position = UDim2.new(0, 10, 0, 205)
-
-	local deleteButton = GuiUtilities.MakeTextButton("ButtonDelete", "Delete", section)
-	deleteButton.Size = UDim2.new(1, -20, 0, 30)
-	deleteButton.Position = UDim2.new(0, 10, 0, 235)
-
-	local fillButton = GuiUtilities.MakeTextButton("ButtonFill", "Fill", section)
-	fillButton.Size = UDim2.new(1, -20, 0, 30)
-	fillButton.Position = UDim2.new(0, 10, 0, 265)
-
-	local divider3 = GuiUtilities.MakeDivider("Divider3", section)
-	divider3.Position = UDim2.new(0, 0, 0, 305)
-	
-
-	local checkbox1 = GuiUtilities.MakeCheckBox("ButtonFillWater", "Fill Water", section)
-	checkbox1.Position = UDim2.new(0, 10, 0, 315)
-	checkbox1.Visible = false
-
-	local checkbox2 = GuiUtilities.MakeCheckBox("ButtonFillAir", "Merge Empty", section)
-	checkbox2.Position = UDim2.new(0, 10, 0, 315)
-
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight())
-	section.Visible = false
-
-	return section
-end
-	
-function module.MakeRegionsFillFrame(pluginGui)
-	local section = GuiUtilities.MakeSection(pluginGui, "FillFrame", "Fill Selection", GuiUtilities.kStandardContentAreaWidth, module.kFillSelectionContentHeight)
-
-	local fillButton = GuiUtilities.MakeTextButton("ButtonFillConfirm", "Fill", section)
-	fillButton.Size = UDim2.new(1, -20, 0, 30)
-	fillButton.Position = UDim2.new(1, 10, 1, -40)
-
-    section.Position = UDim2.new(0, 0, 0, module.GetMainPanelHeight() + module.GetRegionsFrameHeight())
-	section.Visible = false
-
-	return section
-end
-
-
-return module]]></ProtectedString>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-		</Item>
-		<Item class="ModuleScript" referent="RBXA80ACAFF2D4A4736A1A869CC519CC41C">
-			<Properties>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">TerrainBrush</string>
-				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
-
-local module = {}
-
-GuiUtilities = require(script.Parent.GuiUtilities)
-
-
-local on
-local setup
-local currentTool
-local plugin
-local pluginGui 
-local modules
-
--- thePlugin = "plugin", the Plugin class.
--- pluginGui = the pluginGui for the main plugin.
--- plugins = array of button structs.
--- Each struct has 'name' and 'button' fields.
-function module.Initialize(thePlugin, thePluginGui, plugins)
-	on = false
-	setup = false
-	currentTool = nil
-	plugin = thePlugin
+module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
+	mouse = theMouse
 	pluginGui = thePluginGui
-
-	--[[
-		How to add a module:
-			1. Add the require to the modules table below.
-			2. Add a plugin button for it into the pluginButtons table, with the same index as used in the modules table.
-
-		How modules work
-			Your ModuleScript should return a table. The table can contain the following functions
-				On	= This function will be called when your tool is selected. Will hand in the mouse object, and a Deselect function to turn it off.
-				Off	= This function will be called when your tool is deselected.
-				operation = This function will be called when this toolset's brushing functionality is used
-					operation(centerPoint, materialsTable, occupanciesTable, resolution, selectionSize, strength, desiredMaterial, brushShape, minBounds, maxBounds)
-				Initialize - called once at the beginning to pass in Useful Stuff.
-	]]
-	modules = {
-		['Smooth'] = require(script.Parent.TerrainSmoother),
-		['Generate'] = require(script.Parent.TerrainGeneration),
-		['Regions'] = require(script.Parent.TerrainRegionEditor),
-	}
-
-	for i, module in pairs(modules) do 
-		module.Initialize(pluginGui)
-	end
-
-	for i,tool in pairs(plugins) do
-		tool.button.MouseButton1Click:connect(function()
-			if not on or (currentTool ~= nil and tool ~= currentTool) then	--if off or on but current tool isn't the desired tool, then select this tool.
-				if not setup then	--I do this so that things only get set up when this plugin is used.
-					FirstTimeSetUp()
-				end
-				Selected(tool)
-			else
-				Deselected()
-			end
-		end)
-	end	
-end
-
-
-function FirstTimeSetUp()
-	-- If the plugin gui is disabled, we should definitely be deselected.
-	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
-		if (not pluginGui.Enabled) then 
-			Deselected()
-		end
-	end) 
-
-	setup = true
+	contentFrame = theContentFrame
 	local changeHistory = game:GetService('ChangeHistoryService')
 	local terrain = game.Workspace.Terrain
 	local coreGui = game:GetService("CoreGui")
@@ -1806,7 +1754,7 @@ function FirstTimeSetUp()
 	local screenGui = Instance.new("ScreenGui") 
 	screenGui.Name = "TerrainBrushGui"
 
-	local guiFrame = pluginGui:WaitForChild('TerrainBrushFrame')
+	local guiFrame = makeTerrainBrushFrame(contentFrame)
 	local titlelabel = guiFrame:WaitForChild('TitleLabel')
 	local checkBox1 = guiFrame:WaitForChild('CheckBox1')
 	local checkBox2 = guiFrame:WaitForChild('CheckBox2')
@@ -1817,7 +1765,6 @@ function FirstTimeSetUp()
 	local label4 = guiFrame:WaitForChild('Label4')
 	local divider2 = guiFrame:WaitForChild('Divider2')
 	local library = assert(LoadLibrary('RbxGui'))
-	local mouse = plugin:GetMouse()
 	local userInput = game:GetService('UserInputService')
 	local prevCameraType = game.Workspace.CurrentCamera.CameraType
 
@@ -2031,7 +1978,7 @@ function FirstTimeSetUp()
 			materialsDynamic = forceDynamicMaterialTo
 		end
 		local desiredSize = UDim2.new(0, 180, 0, 240)
-		if currentTool and currentTool.usesMaterials then
+		if tool and tool.UsesMaterials then
 			checkBox3.Visible=true
 			label4.Visible=true
 			divider2.Visible=true
@@ -2295,27 +2242,27 @@ function FirstTimeSetUp()
 	end
 
 	function updateUsabilityLocks()
-		if currentTool then
-			forceSnapToGrid = currentTool.usesMaterials and materialSelection.forceSnapToGrid
+		if tool then
+			forceSnapToGrid = tool.UsesMaterials and materialSelection.forceSnapToGrid
 			updateSnapToGrid()
 	
-			forcePlaneLock = currentTool.name == 'Add' or currentTool.name == 'Subtract'
+			forcePlaneLock = tool.Name == 'Add' or tool.Name == 'Subtract'
 			updatePlaneLock()
 	
-			forceDynamicMaterial = currentTool.name == 'Subtract' or currentTool.name == 'Erode' or currentTool.name == 'Paint' or currentTool.name == 'Smooth' or currentTool.name == 'Smoother'
-			forceDynamicMaterialTo = not (forceDynamicMaterial and currentTool.name == 'Paint')
+			forceDynamicMaterial = tool.Name == 'Subtract' or tool.Name == 'Erode' or tool.Name == 'Paint' or tool.Name == 'Smooth' or tool.Name == 'Smoother'
+			forceDynamicMaterialTo = not (forceDynamicMaterial and tool.Name == 'Paint')
 	
 			isDynamic = dynamicMaterial
 			if forceDynamicMaterial then
 				isDynamic = forceDynamicMaterialTo
 			end
 
-			forceIgnoreWater = (materialSelection.forceIgnoreWater and not isDynamic) or currentTool.name == 'Smooth'
+			forceIgnoreWater = (materialSelection.forceIgnoreWater and not isDynamic) or tool.Name == 'Smooth'
 			if materialSelection.forceIgnoreWater then
 				forceIgnoreWaterTo = materialSelection.forceIgnoreWaterTo
 			end
 			
-			if forceIgnoreWater and currentTool.name == 'Smooth' then
+			if forceIgnoreWater and tool.Name == 'Smooth' then
 				forceIgnoreWaterTo = false
 			end
 
@@ -2344,28 +2291,31 @@ function FirstTimeSetUp()
 		local region = Region3.new(minBounds, maxBounds)
 
 		local materials, occupancies = terrain:ReadVoxels(region, resolution)
-
-		if modules[currentTool.name] then
-			if modules[currentTool.name]['operation'] then
-
-				local middle = materials[ceil(#materials * .5)]	--This little section of code sets nearMaterial to middle of matrix
-				if middle then	--dig X
+		local toolBrushOperation = nil
+		for _, toolModule in pairs(tool.Modules) do
+			if toolModule.BrushOperation then
+				toolBrushOperation = toolModule.BrushOperation
+				break
+			end
+		end
+		if toolBrushOperation then
+			local middle = materials[ceil(#materials * .5)]	--This little section of code sets nearMaterial to middle of matrix
+			if middle then	--dig X
+				local middle = middle[ceil(#middle * .5)]
+				if middle then	--dig Y
 					local middle = middle[ceil(#middle * .5)]
-					if middle then	--dig Y
-						local middle = middle[ceil(#middle * .5)]
-						if middle and middle ~= materialAir and middle ~= materialWater then	--dig Z
-							nearMaterial = middle
-							desiredMaterial = isDynamic and nearMaterial or desiredMaterial
-						end
+					if middle and middle ~= materialAir and middle ~= materialWater then	--dig Z
+						nearMaterial = middle
+						desiredMaterial = isDynamic and nearMaterial or desiredMaterial
 					end
 				end
-
-				modules[currentTool.name]['operation'](centerPoint, materials, occupancies, resolution, selectionSize, strength, desiredMaterial, brushShape, minBounds, maxBounds)
 			end
+
+			toolBrushOperation(centerPoint, materials, occupancies, resolution, selectionSize, strength, desiredMaterial, brushShape, minBounds, maxBounds)
 		else
 			local airFillerMaterial = materialAir
 			local waterHeight = 0
-			if isIgnoreWater and (currentTool.name == 'Erode' or currentTool.name == 'Subtract') then
+			if isIgnoreWater and (tool.Name == 'Erode' or tool.Name == 'Subtract') then
 				--[[local centerPointCell = Vector3.new(floor((centerPoint.x+.5)/resolution) * resolution, floor((centerPoint.y+.5)/resolution) * resolution, floor((centerPoint.z+.5)/resolution) * resolution)
 				local sampleRegion = Region3.new(centerPointCell - Vector3.new(resolution,resolution,resolution), centerPointCell + Vector3.new(resolution,resolution,resolution))
 				local sampleMaterials, sampleOccupancies = terrain:ReadVoxels(sampleRegion, resolution)]]
@@ -2423,7 +2373,7 @@ function FirstTimeSetUp()
 						end
 						local airFillerMaterial = waterHeight >= iy and airFillerMaterial or materialAir
 	
-						if currentTool.name == 'Add' then
+						if tool.Name == 'Add' then
 							if selectionSize <= 2 then
 								if brushOccupancy >= .5 then
 									if cellMaterial == materialAir or cellOccupancy <= 0 then
@@ -2439,7 +2389,7 @@ function FirstTimeSetUp()
 									materials[ix][iy][iz] = desiredMaterial
 								end
 							end
-						elseif currentTool.name == 'Subtract' then
+						elseif tool.Name == 'Subtract' then
 							if cellMaterial ~= materialAir then
 								if selectionSize <= 2 then
 									if brushOccupancy >= .5 then
@@ -2458,7 +2408,7 @@ function FirstTimeSetUp()
 									end
 								end
 							end
-						elseif currentTool.name == 'Grow' then
+						elseif tool.Name == 'Grow' then
 							if brushOccupancy >= .5 then --working on
 								local desiredOccupancy = cellOccupancy
 								local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(occupancies, ix, iy, iz, isIgnoreWater and materials)
@@ -2472,7 +2422,7 @@ function FirstTimeSetUp()
 									occupancies[ix][iy][iz] = desiredOccupancy
 								end
 							end
-						elseif currentTool.name == 'Erode' then
+						elseif tool.Name == 'Erode' then
 							if cellMaterial ~= materialAir then
 								local flippedBrushOccupancy = 1 - brushOccupancy
 								if flippedBrushOccupancy <= .5 then
@@ -2515,7 +2465,7 @@ function FirstTimeSetUp()
 									end
 								end
 							end
-						elseif currentTool.name == 'Paint' then
+						elseif tool.Name == 'Paint' then
 							if brushOccupancy > 0 and cellOccupancy > 0 then
 								materials[ix][iy][iz] = desiredMaterial
 							end
@@ -2528,176 +2478,146 @@ function FirstTimeSetUp()
 	end
 
 	
-	function Selected(tool)
-		if plugin then
-			plugin:Activate(true)
-		end
-		if tool.button then
-			GuiUtilities.SetSelectedState(tool.button, true)
-			lastTool = tool
-		end
-		if not userInput.MouseEnabled then
-			prevCameraType = game.Workspace.CurrentCamera.CameraType
-			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed	
-		end
+	module.On = function(theTool)
+		tool = theTool
+		resizeGuiFrame()
+		titlelabel.Text = tool.Name
+		screenGui.Parent = coreGui
+		guiFrame.Visible = true
 		on = true
-		currentTool = tool
 
 		updateUsabilityLocks()
 
-		if modules[tool.name] and modules[tool.name]['On'] then
-			modules[tool.name].On(mouse,Deselected)
-		end
-		if not modules[tool.name] or modules[tool.name]['operation'] then
+		local loopTag = {}	--using table as a unique value for debouncing
+		currentLoopTag = loopTag
 
-			resizeGuiFrame()
-			titlelabel.Text = tool.name
-			screenGui.Parent = coreGui
-			guiFrame.Visible = true
+		while currentLoopTag and currentLoopTag == loopTag do
+			local t = tick()
+			local radius = selectionSize * .5 * resolution
+			local cameraPos = mouse.Origin.p
+			
+			local ignoreModel = nil
+			if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+				ignoreModel = game.Players.LocalPlayer.Character
+			end
+			local mouseRay = Ray.new(cameraPos, mouse.UnitRay.Direction*10000)
+			local hitObject, mainPoint = game.Workspace:FindPartOnRay(mouseRay, ignoreModel, false, isIgnoreWater)
 
-	
-			local loopTag = {}	--using table as a unique value for debouncing
-			currentLoopTag = loopTag
-	
-			while currentLoopTag and currentLoopTag == loopTag do
-				local t = tick()
-				local radius = selectionSize * .5 * resolution
-				local cameraPos = mouse.Origin.p
+			if tool.Name == 'Add' then
+				mainPoint = mainPoint - mouse.UnitRay.Direction * .05
+			elseif tool.Name == 'Subtract' or tool.Name == 'Paint' or tool.Name == 'Grow' then
+				mainPoint = mainPoint + mouse.UnitRay.Direction * .05
+			end
+
+			if mouse.Target == nil then	--cage the cursor so that it does not fly away
+				mainPoint = cameraPos + mouse.UnitRay.Direction * lastCursorDistance --limits the distance of the mainPoint if the mouse is not hitting an object
+			end
+
+			if not mouseDown or click then
+				lastPlanePoint = mainPoint
+				lastNormal = findFace()
+			end
+
+			if planeLock or forcePlaneLock then
+				mainPoint = lineToPlaneIntersection(cameraPos, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)
+			end
+
+			if snapToGrid or forceSnapToGrid then
+				local snapOffset = Vector3.new(1, 1, 1) * (radius % resolution)		--in studs
+				local tempMainPoint = (mainPoint - snapOffset) / resolution + Vector3.new(.5, .5, .5)	--in voxels
+				mainPoint = Vector3.new(floor(tempMainPoint.x), floor(tempMainPoint.y), floor(tempMainPoint.z)) * resolution + snapOffset
+			end
+
+			if mouseDown then
+				if click then
+					firstOperation = t
+					lastMainPoint = mainPoint
+				end
 				
-				local ignoreModel = nil
-				if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
-					ignoreModel = game.Players.LocalPlayer.Character
-				end
-				local mouseRay = Ray.new(cameraPos, mouse.UnitRay.Direction*10000)
-				local hitObject, mainPoint = game.Workspace:FindPartOnRay(mouseRay, ignoreModel, false, isIgnoreWater)
-	
-				if tool.name == 'Add' then
-					mainPoint = mainPoint - mouse.UnitRay.Direction * .05
-				elseif tool.name == 'Subtract' or tool.name == 'Paint' or tool.name == 'Grow' then
-					mainPoint = mainPoint + mouse.UnitRay.Direction * .05
-				end
-	
-				if mouse.Target == nil then	--cage the cursor so that it does not fly away
-					mainPoint = cameraPos + mouse.UnitRay.Direction * lastCursorDistance --limits the distance of the mainPoint if the mouse is not hitting an object
-				end
-	
-				if not mouseDown or click then
-					lastPlanePoint = mainPoint
-					lastNormal = findFace()
-				end
-	
-				if planeLock or forcePlaneLock then
-					mainPoint = lineToPlaneIntersection(cameraPos, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)
-				end
-	
-				if snapToGrid or forceSnapToGrid then
-					local snapOffset = Vector3.new(1, 1, 1) * (radius % resolution)		--in studs
-					local tempMainPoint = (mainPoint - snapOffset) / resolution + Vector3.new(.5, .5, .5)	--in voxels
-					mainPoint = Vector3.new(floor(tempMainPoint.x), floor(tempMainPoint.y), floor(tempMainPoint.z)) * resolution + snapOffset
-				end
-	
-				if mouseDown then
-					if click then
-						firstOperation = t
+				if click or t > firstOperation + clickThreshold then
+					click = false
+					if downKeys[Enum.KeyCode.LeftAlt] or downKeys[Enum.KeyCode.RightAlt] then
+						--pick color
+						local function filterNonTerrain(thing)
+							if thing and thing == terrain then
+								return false
+							end
+							return true
+						end
+						local hit, hitPosition, normal, foundMaterial = deepCast(cameraPos, cameraPos + mouse.UnitRay.Direction*10000, {}, filterNonTerrain, true)
+						if hit then
+							for _, materialTable in pairs(materialsTable) do
+								if materialTable.enum == foundMaterial then
+									setMaterialSelection(materialTable)
+									break
+								end
+							end
+						end
+					else
+						local difference = mainPoint - lastMainPoint
+						local dragDistance = (difference).magnitude
+						local crawlDistance = radius * .5			--Maybe adjustable setting? Considering using a different method of crawling, with a percent rather than a finite distance.
+						if dragDistance > crawlDistance then
+							local differenceVector = difference.unit
+							local dragDistance = min(dragDistance, crawlDistance * 2 + 20)	--limiting this so that it does not attempt too many operations within a single drag.
+							local samples = ceil(dragDistance / crawlDistance - .1)
+							for i = 1, samples do
+								operation(lastMainPoint + differenceVector * dragDistance * (i / samples))
+							end
+							mainPoint = lastMainPoint + differenceVector * dragDistance
+						else
+							operation(mainPoint)
+						end
 						lastMainPoint = mainPoint
 					end
-					
-					if click or t > firstOperation + clickThreshold then
-						click = false
-						if downKeys[Enum.KeyCode.LeftAlt] or downKeys[Enum.KeyCode.RightAlt] then
-							--pick color
-							local function filterNonTerrain(thing)
-								if thing and thing == terrain then
-									return false
-								end
-								return true
-							end
-							local hit, hitPosition, normal, foundMaterial = deepCast(cameraPos, cameraPos + mouse.UnitRay.Direction*10000, {}, filterNonTerrain, true)
-							if hit then
-								for _, materialTable in pairs(materialsTable) do
-									if materialTable.enum == foundMaterial then
-										setMaterialSelection(materialTable)
-										break
-									end
-								end
-							end
-						else
-							local difference = mainPoint - lastMainPoint
-							local dragDistance = (difference).magnitude
-							local crawlDistance = radius * .5			--Maybe adjustable setting? Considering using a different method of crawling, with a percent rather than a finite distance.
-							if dragDistance > crawlDistance then
-								local differenceVector = difference.unit
-								local dragDistance = min(dragDistance, crawlDistance * 2 + 20)	--limiting this so that it does not attempt too many operations within a single drag.
-								local samples = ceil(dragDistance / crawlDistance - .1)
-								for i = 1, samples do
-									operation(lastMainPoint + differenceVector * dragDistance * (i / samples))
-								end
-								mainPoint = lastMainPoint + differenceVector * dragDistance
-							else
-								operation(mainPoint)
-							end
-							lastMainPoint = mainPoint
-						end
-					end
 				end
-	
-				if not selectionPart then
-					selectionPart = Instance.new('Part')
-					selectionPart.Name = 'SelectionPart'
-					selectionPart.Transparency = 1
-					selectionPart.TopSurface = 'Smooth'
-					selectionPart.BottomSurface = 'Smooth'
-					selectionPart.Anchored = true
-					selectionPart.CanCollide = false
-					selectionPart.Size = Vector3.new(1, 1, 1) * selectionSize * resolution + Vector3.new(.1, .1, .1)
-					selectionPart.Parent = screenGui
-				end
-				if not selectionObject then
-					selectionObject = Instance.new(brushShape == 'Sphere' and 'SelectionSphere' or 'SelectionBox')
-					selectionObject.Name = 'SelectionObject'
-					selectionObject.Color = BrickColor.new('Toothpaste')
-					selectionObject.SurfaceTransparency = .95 - strength * .3
-					selectionObject.SurfaceColor = BrickColor.new('Toothpaste')
-					selectionObject.Adornee = selectionPart
-					selectionObject.Parent = selectionPart
-				end
-				
-				if not userInput.TouchEnabled or mouseDown then
-					selectionPart.CFrame = CFrame.new(mainPoint)
-					
-					if planeLock or forcePlaneLock then
-						local mainPointIntersect = lineToPlaneIntersection(mainPoint, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)	--we need to get this otherwise the plane can shift whiel drawing
-						drawGrid(mainPointIntersect, lastNormal, mouseDown and .8)
-					end
-				end
-	
-				lastCursorDistance = max(20 + selectionSize * resolution * 1.5,(mainPoint - cameraPos).magnitude)
-	
-				quickWait()
 			end
+
+			if not selectionPart then
+				selectionPart = Instance.new('Part')
+				selectionPart.Name = 'SelectionPart'
+				selectionPart.Transparency = 1
+				selectionPart.TopSurface = 'Smooth'
+				selectionPart.BottomSurface = 'Smooth'
+				selectionPart.Anchored = true
+				selectionPart.CanCollide = false
+				selectionPart.Size = Vector3.new(1, 1, 1) * selectionSize * resolution + Vector3.new(.1, .1, .1)
+				selectionPart.Parent = screenGui
+			end
+			if not selectionObject then
+				selectionObject = Instance.new(brushShape == 'Sphere' and 'SelectionSphere' or 'SelectionBox')
+				selectionObject.Name = 'SelectionObject'
+				selectionObject.Color = BrickColor.new('Toothpaste')
+				selectionObject.SurfaceTransparency = .95 - strength * .3
+				selectionObject.SurfaceColor = BrickColor.new('Toothpaste')
+				selectionObject.Adornee = selectionPart
+				selectionObject.Parent = selectionPart
+			end
+			
+			if not userInput.TouchEnabled or mouseDown then
+				selectionPart.CFrame = CFrame.new(mainPoint)
+				
+				if planeLock or forcePlaneLock then
+					local mainPointIntersect = lineToPlaneIntersection(mainPoint, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)	--we need to get this otherwise the plane can shift whiel drawing
+					drawGrid(mainPointIntersect, lastNormal, mouseDown and .8)
+				end
+			end
+
+			lastCursorDistance = max(20 + selectionSize * resolution * 1.5,(mainPoint - cameraPos).magnitude)
+
+			quickWait()
 		end
 	end
 	
-	function Deselected()
-		if not userInput.MouseEnabled then
-			game.Workspace.CurrentCamera.CameraType = prevCameraType		
-		end
+	module.Off = function()
 		currentLoopTag = nil
 		screenGui.Parent = script.Parent
 		guiFrame.Visible = false
+		on = false
 		
 		clearSelection()
 		clearGrid()
-		if lastTool then
-			GuiUtilities.SetSelectedState(lastTool.button, false)
-		end
 		mouseDown = false
-		on = false
-		local lastCurrentTool = currentTool
-		currentTool = nil
-		if lastCurrentTool and modules[lastCurrentTool.name] and modules[lastCurrentTool.name]['Off'] then
-			modules[lastCurrentTool.name].Off()
-		end
 	end
 
 	--Touch controls
@@ -2793,7 +2713,7 @@ function FirstTimeSetUp()
 		if event.UserInputType == Enum.UserInputType.MouseButton1 and mouseDown then
 			mouseDown = false
 			if changeHistory then
-				changeHistory:SetWaypoint('Terrain '..currentTool.name)
+				changeHistory:SetWaypoint('Terrain '..tool.Name)
 			end
 		elseif event.UserInputType == Enum.UserInputType.Touch then
 			OnTouchEnded(event, soaked)
@@ -2821,14 +2741,6 @@ function FirstTimeSetUp()
 		scrollwheel(-1)
 	end)
 
-	if plugin then
-		plugin.Deactivation:connect(function()
-			if on then
-				Deselected()
-			end
-		end)
-	end
-
 	setBrushShape(brushShape)
 	setMaterialSelection(materialSelection)
 	updatePlaneLock()
@@ -2839,22 +2751,20 @@ function FirstTimeSetUp()
 	userInput.WindowFocusReleased:connect(function()
 		downKeys = {}
 	end)
-
 end
-
 
 
 return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX81CFC708AB1549F0892E199DE5DEE669">
+		<Item class="ModuleScript" referent="RBX1ac59deaede24265bf5bc8abfcadbcb9">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
 				<string name="ScriptGuid"></string>
 				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
-
+local module = {}
 
 --[[todo:
 	-fill region (with material, action)
@@ -2867,48 +2777,91 @@ while not Terrain.IsSmooth do
 end
 
 local on = false
-local setup = false
 local currentTool = 'Create'
 
 local pluginGui = nil
+local contentFrame = nil
 local terrainRegionFrame = nil
 local fillFrame = nil
 
---[[local toolBar = plugin:CreateToolbar('Smooth Terrain')
-regionEditButton = toolBar:CreateButton(
-	'Region Edit',	--button title
-	'Manipulate regions of smoothterrain.',	--hover text
-	'http://www.roblox.com/asset/?id=180084957'	--icon
-)
-regionEditButton.Click:connect(function()
-	if not on then
-		if not setup then
-			FirstTimeSetUp()
-		end
-		Selected()
-	else
-		Deselected()
-	end
-end)]]
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 
-function FirstTimeSetUp()
-	-- If the plugin gui is disabled, we should definitely be deselected.
-	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
-		if (not pluginGui.Enabled) then 
-			Deselected()
-		end
-	end) 
+function makeRegionsFrame(parentGui)
+	local section = GuiUtilities.MakeSection(parentGui, "TerrainRegionFrame", "Regions", WidthUnecessary, 345)
 
-	setup = true
+	local selectButton = GuiUtilities.MakeTextButton("ButtonSelect", "Select", section)
+	selectButton.Size = UDim2.new(1, -20, 0, 30)
+	selectButton.Position = UDim2.new(0, 10, 0, 35)
+
+	local moveButton = GuiUtilities.MakeTextButton("ButtonMove", "Move", section)
+	moveButton.Size = UDim2.new(1, -20, 0, 30)
+	moveButton.Position = UDim2.new(0, 10, 0, 65)
+
+	local resizeButton = GuiUtilities.MakeTextButton("ButtonResize", "Resize", section)
+	resizeButton.Size = UDim2.new(1, -20, 0, 30)
+	resizeButton.Position = UDim2.new(0, 10, 0, 95)
+
+	local rotateButton = GuiUtilities.MakeTextButton("ButtonRotate", "Rotate", section)
+	rotateButton.Size = UDim2.new(1, -20, 0, 30)
+	rotateButton.Position = UDim2.new(0, 10, 0, 125)
+
+	local divider2 = GuiUtilities.MakeDivider("Divider2", section)
+	divider2.Position = UDim2.new(0, 0, 0, 165)
+
+	local copyButton = GuiUtilities.MakeTextButton("ButtonCopy", "Copy", section)
+	copyButton.Size = UDim2.new(1, -20, 0, 30)
+	copyButton.Position = UDim2.new(0, 10, 0, 175)
+
+	local pasteButton = GuiUtilities.MakeTextButton("ButtonPaste", "Paste", section)
+	pasteButton.Size = UDim2.new(1, -20, 0, 30)
+	pasteButton.Position = UDim2.new(0, 10, 0, 205)
+
+	local deleteButton = GuiUtilities.MakeTextButton("ButtonDelete", "Delete", section)
+	deleteButton.Size = UDim2.new(1, -20, 0, 30)
+	deleteButton.Position = UDim2.new(0, 10, 0, 235)
+
+	local fillButton = GuiUtilities.MakeTextButton("ButtonFill", "Fill", section)
+	fillButton.Size = UDim2.new(1, -20, 0, 30)
+	fillButton.Position = UDim2.new(0, 10, 0, 265)
+
+	local divider3 = GuiUtilities.MakeDivider("Divider3", section)
+	divider3.Position = UDim2.new(0, 0, 0, 305)
+	
+
+	local checkbox1 = GuiUtilities.MakeCheckBox("ButtonFillWater", "Fill Water", section)
+	checkbox1.Position = UDim2.new(0, 10, 0, 315)
+	checkbox1.Visible = false
+
+	local checkbox2 = GuiUtilities.MakeCheckBox("ButtonFillAir", "Merge Empty", section)
+	checkbox2.Position = UDim2.new(0, 10, 0, 315)
+
+	section.Visible = false
+	return section
+end
+
+function MakeRegionsFillFrame(pluginGui)
+	local section = GuiUtilities.MakeSection(pluginGui, "FillFrame", "Fill Selection", 100, 270)	-- Width is unecessary
+
+	local fillButton = GuiUtilities.MakeTextButton("ButtonFillConfirm", "Fill", section)
+	fillButton.Size = UDim2.new(1, -20, 0, 30)
+	fillButton.Position = UDim2.new(1, 10, 1, -40)
+
+	section.Visible = false
+	return section
+end
+
+module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
+	mouse = theMouse
+	pluginGui = thePluginGui
+	contentFrame = theContentFrame
 	local changeHistory = game:GetService('ChangeHistoryService')
 	local terrain = game.Workspace.Terrain
 	local coreGui = game:GetService('CoreGui')
 
-	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "TerrainRegionGui"
+	screenGui = Instance.new("ScreenGui")
 
-	terrainRegionFrame = pluginGui:WaitForChild('TerrainRegionFrame')
+	terrainRegionFrame = makeRegionsFrame(contentFrame)
 
 	local buttonFillAir = terrainRegionFrame:WaitForChild('ButtonFillAir')
 	local buttonFillWater = terrainRegionFrame:WaitForChild('ButtonFillWater')
@@ -2921,7 +2874,7 @@ function FirstTimeSetUp()
 	local buttonDelete = terrainRegionFrame:WaitForChild('ButtonDelete')
 	local buttonFill = terrainRegionFrame:WaitForChild('ButtonFill')
 
-	fillFrame = pluginGui:WaitForChild('FillFrame')
+	fillFrame = MakeRegionsFillFrame(contentFrame)
 	local materialsTable = require(script.Parent.MaterialsList)
 	local buttonFillConfirm = fillFrame:WaitForChild('ButtonFillConfirm')
 	local library = assert(LoadLibrary('RbxGui'))
@@ -3629,7 +3582,7 @@ function FirstTimeSetUp()
 		end
 	end)
 
-	function selectionEffect(temporaryStart,temporaryEnd,color,sizeFrom,sizeTo,effectTime)
+	function selectionEffect(temporaryStart, temporaryEnd, color, sizeFrom, sizeTo, effectTime)
 		local temporaryStart = temporaryStart or selectionStart
 		local temporaryEnd = temporaryEnd or selectionEnd
 
@@ -3690,69 +3643,6 @@ function FirstTimeSetUp()
 		if selectionArcHandles then
 			selectionArcHandles.Visible = seeable and tool == 'Rotate'
 			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Cyan' or editColor2)
-		end
-	end
-	
-	function Selected()
-		--plugin:Activate(true)
-		--regionEditButton:SetActive(true)
-		on = true
-		screenGui.Parent = coreGui
-		terrainRegionFrame.Visible = true
-
-		if not selectionPart then
-			selectionPart = Instance.new('Part')
-			selectionPart.Name = 'SelectionPart'
-			selectionPart.Transparency = 1
-			selectionPart.TopSurface = 'Smooth'
-			selectionPart.BottomSurface = 'Smooth'
-			selectionPart.Anchored = true
-			selectionPart.CanCollide = false
-			selectionPart.Parent = screenGui
-		end
-		if not selectionObject then
-			selectionObject = Instance.new('SelectionBox')
-			selectionObject.Name = 'SelectionObject'
-			selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-			selectionObject.SurfaceTransparency = .85
-			selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
-			selectionObject.Adornee = selectionPart
-			selectionObject.Visible = false
-			selectionObject.Parent = selectionPart
-		end
-		if not selectionHandles then
-			selectionHandles = Instance.new('Handles')
-			selectionHandles.Name = 'SelectionHandles'
-			selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
-			selectionHandles.Adornee = selectionPart
-			selectionHandles.Visible = false
-			selectionHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
-			selectionHandles.MouseDrag:connect(dragHandles)
-		end
-		if not selectionArcHandles then
-			selectionArcHandles = Instance.new('ArcHandles')
-			selectionArcHandles.Name = 'SelectionArcHandles'
-			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
-			selectionArcHandles.Adornee = selectionPart
-			selectionArcHandles.Visible = false
-			selectionArcHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
-			selectionArcHandles.MouseDrag:connect(dragArcHandles)
-		end
-		renderSelection()
-		setButton(button)
-	end
-	
-	function Deselected()
-		setButton('Select')
-		screenGui.Parent = script.Parent
-		terrainRegionFrame.Visible = false		
-		
-		clearSelection()
-		--regionEditButton:SetActive(false)
-		behindThis = nil
-		on = false
-		if turnOff then
-			turnOff()
 		end
 	end
 
@@ -3861,32 +3751,106 @@ function FirstTimeSetUp()
 	
 	changeHistory.OnUndo:connect(historyChanged)
 	changeHistory.OnRedo:connect(historyChanged)
-end
 
-function On(mouseHandMeDown,turnOffHandMeDown)
-	mouse = mouseHandMeDown
-	turnOff = turnOffHandMeDown
-	if not setup then	--I do this so that things only get set up when this plugin is used.
-		FirstTimeSetUp()
+	module.On = function()
+		on = true
+		screenGui.Parent = coreGui
+		terrainRegionFrame.Visible = true
+
+		if not selectionPart then
+			selectionPart = Instance.new('Part')
+			selectionPart.Name = 'SelectionPart'
+			selectionPart.Transparency = 1
+			selectionPart.TopSurface = 'Smooth'
+			selectionPart.BottomSurface = 'Smooth'
+			selectionPart.Anchored = true
+			selectionPart.CanCollide = false
+			selectionPart.Parent = screenGui
+		end
+		if not selectionObject then
+			selectionObject = Instance.new('SelectionBox')
+			selectionObject.Name = 'SelectionObject'
+			selectionObject.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+			selectionObject.SurfaceTransparency = .85
+			selectionObject.SurfaceColor = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor1)
+			selectionObject.Adornee = selectionPart
+			selectionObject.Visible = false
+			selectionObject.Parent = selectionPart
+		end
+		if not selectionHandles then
+			selectionHandles = Instance.new('Handles')
+			selectionHandles.Name = 'SelectionHandles'
+			selectionHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
+			selectionHandles.Adornee = selectionPart
+			selectionHandles.Visible = false
+			selectionHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
+			selectionHandles.MouseDrag:connect(dragHandles)
+		end
+		if not selectionArcHandles then
+			selectionArcHandles = Instance.new('ArcHandles')
+			selectionArcHandles.Name = 'SelectionArcHandles'
+			selectionArcHandles.Color = BrickColor.new(mode == 'Select' and 'Toothpaste' or editColor2)
+			selectionArcHandles.Adornee = selectionPart
+			selectionArcHandles.Visible = false
+			selectionArcHandles.Parent = coreGui--game.Workspace--terrainRegionFrame--selectionPart
+			selectionArcHandles.MouseDrag:connect(dragArcHandles)
+		end
+		renderSelection()
+		setButton(button)
 	end
-	Selected()
-end
 
-function Off()
-	if Deselected then
-		Deselected()
+	module.Off = function()
+		setButton('Select')
+		terrainRegionFrame.Visible = false
+		clearSelection()
+		behindThis = nil
+		on = false
 	end
 end
 
-function Initialize(thePluginGui) 
-	pluginGui = thePluginGui
-end
 
-return {
-	['On'] = On,
-	['Off'] = Off,
-	['Initialize'] = Initialize,
+return module
+
+
+]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXcf25781ecf6c4377b2a4ed1aacad35c8">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">MaterialsList</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[--
+
+
+
+local materialsTable = {	--Interface order is defined by order here
+	{enum = Enum.Material.Grass, image = 'http://www.roblox.com/asset/?id=225314676'},
+	{enum = Enum.Material.Sand, image = 'http://www.roblox.com/asset/?id=225315607'},
+	{enum = Enum.Material.Rock, image = 'http://www.roblox.com/asset/?id=225315178'},
+	{enum = Enum.Material.Water, image = 'http://www.roblox.com/asset/?id=225315529', forceIgnoreWater = true, forceIgnoreWaterTo = false},
+	{enum = Enum.Material.Ground, image = 'http://www.roblox.com/asset/?id=254542189'},
+	{enum = Enum.Material.Sandstone, image = 'http://www.roblox.com/asset/?id=254541350'},
+	{enum = Enum.Material.Slate, image = 'http://www.roblox.com/asset/?id=225315290'},
+	{enum = Enum.Material.Snow, image = 'http://www.roblox.com/asset/?id=254541898'},
+	{enum = Enum.Material.Mud, image = 'http://www.roblox.com/asset/?id=254541862'},
+	{enum = Enum.Material.Brick, image = 'http://www.roblox.com/asset/?id=225315419', forceSnapToGrid = true},
+	{enum = Enum.Material.Concrete, image = 'http://www.roblox.com/asset/?id=225314983'},
+	{enum = Enum.Material.Glacier, image = 'http://www.roblox.com/asset/?id=254541572'},
+	{enum = Enum.Material.WoodPlanks, image = 'http://www.roblox.com/asset/?id=225315705', forceSnapToGrid = true},
+	{enum = Enum.Material.CrackedLava, image = 'http://www.roblox.com/asset/?id=254541726'},
+	{enum = Enum.Material.Basalt, image = 'http://www.roblox.com/asset/?id=254542066'},
+	{enum = Enum.Material.Ice, image = 'rbxassetid://397352205'},
+	{enum = Enum.Material.Salt, image = 'rbxassetid://397352299'},
+	{enum = Enum.Material.Cobblestone, image = 'rbxassetid://397352378'},
+	{enum = Enum.Material.Limestone, image = 'rbxassetid://397352474'},
+	{enum = Enum.Material.Asphalt, image = 'rbxassetid://397352644'},
+	{enum = Enum.Material.LeafyGrass, image = 'rbxassetid://397720681'},
+	{enum = Enum.Material.Pavement, image = 'rbxassetid://397727024'},
 }
+
+return materialsTable
 
 
 ]]></ProtectedString>

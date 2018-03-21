@@ -252,8 +252,6 @@ local function CreateHomePane(parent)
 		friendScrollerContainer.Visible = true
 	end)
 
-	GameplaySettingsData.Initialize()
-
 	local SortsContainer = Utility.Create'Frame'
 	{
 		Name = 'SortsContainer';

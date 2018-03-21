@@ -41,22 +41,8 @@ local function createAccountLinkingView()
 		Size = UDim2.new(0, 765, 0, 630);
 		BackgroundTransparency = 1;
 		BorderSizePixel = 0;
-		Parent = nil;
-	}
-
-	local SectionTitleText = Utility.Create'TextLabel'
-	{
-		Name = "SectionTitleText";
-		TextXAlignment = 'Left';
-		TextYAlignment = 'Bottom';
-		Size = UDim2.new(0, 0, 0, 0);
-		Position = UDim2.new(0, 40, 0, 0);
-		BackgroundTransparency = 1;
-		Font = GlobalSettings.RegularFont;
-		FontSize = GlobalSettings.SubHeaderSize;
-		TextColor3 = GlobalSettings.WhiteTextColor;
-		Text = Strings:LocalizedString('AccountLinkingTitle');
-		Parent = Container;
+		Selectable = true;
+		SelectionImageObject = dummySelection;
 	}
 
 	local GamerPic = Utility.Create'ImageLabel'
@@ -92,11 +78,10 @@ local function createAccountLinkingView()
 	}
 
 	if rbxuid then
-		local thumbnailSize = ThumbnailLoader.AvatarSizes.Size352x352
-		local thumbLoader = ThumbnailLoader:LoadAvatarThumbnailAsync(ProfileImage, rbxuid,
-			Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size352x352, true)
-
 		spawn(function()
+			local thumbnailSize = ThumbnailLoader.AvatarSizes.Size352x352
+			local thumbLoader = ThumbnailLoader:LoadAvatarThumbnailAsync(ProfileImage, rbxuid,
+				Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size352x352, true)
 			thumbLoader:LoadAsync()
 			ProfileImage.ImageRectSize = Vector2.new(thumbnailSize.X, (1) * thumbnailSize.X)
 		end)
@@ -141,11 +126,9 @@ local function createAccountLinkingView()
 		Name = "LinkedAsText";
 		Position = UDim2.new(0, 40, 0, 395);
 		Size = UDim2.new(0, 686, 0, 120);
-
 		Text = linkedAsPhrase;
-		TextXAlignment = 'Left';
+		TextXAlignment = 'Center';
 		TextYAlignment = 'Top';
-
 		BackgroundTransparency = 1;
 		Font = GlobalSettings.RegularFont;
 		TextColor3 = GlobalSettings.GreyTextColor;
@@ -159,7 +142,6 @@ local function createAccountLinkingView()
 		Name = "UnlinkButton";
 		Position = UDim2.new(0, 220, 0, 520);
 		Size = UDim2.new(0, 320, 0, 80);
-
 		BackgroundTransparency = 1;
 		ImageColor3 = GlobalSettings.GreySelectedButtonColor;
 		Image = GlobalSettings.RoundCornerButtonImage;
@@ -167,7 +149,6 @@ local function createAccountLinkingView()
 		SliceCenter = Rect.new(Vector2.new(4, 4), Vector2.new(28, 28));
 		ZIndex = 2;
 		Parent = Container;
-
 		SoundManager:CreateSound('MoveSelection');
 		AssetManager.CreateShadow(1)
 	}
@@ -190,6 +171,10 @@ local function createAccountLinkingView()
 		Parent = UnlinkButton;
 	}
 	Utility.ResizeButtonWithText(UnlinkButton, UnlinkText, GlobalSettings.TextHorizontalPadding)
+
+	Container.SelectionGained:connect(function()
+		Utility.SetSelectedCoreObject(UnlinkButton)
+	end)
 
 	UnlinkButton.SelectionGained:connect(function()
 		UnlinkButton.ImageColor3 = SelectedButtonColor

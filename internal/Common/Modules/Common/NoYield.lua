@@ -7,6 +7,8 @@
 	given function will be returned.
 ]]
 
+local FFlagDebugTracebackOptionalCoroutineArg = settings():GetFFlag("DebugTracebackOptionalCoroutineArg")
+
 local function resultHandler(co, ok, ...)
 	if not ok then
 		local err = (...)
@@ -14,7 +16,11 @@ local function resultHandler(co, ok, ...)
 	end
 
 	if coroutine.status(co) ~= "dead" then
-		error("Attempted to yield inside Changed event!", 2)
+		if FFlagDebugTracebackOptionalCoroutineArg then
+			error(debug.traceback(co, "Attempted to yield inside Changed event!"), 2)
+		else
+			error("Attempted to yield inside Changed event!", 2)
+		end
 	end
 
 	return ...

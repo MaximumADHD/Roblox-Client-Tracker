@@ -707,7 +707,7 @@ Class GuiBase2d : GuiBase [notbrowsable]
 	Property Vector2 GuiBase2d.AbsoluteSize [readonly]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [deprecated] [hidden]
-	Property Instance GuiBase2d.RootLocalizationTable
+	Property LocalizationTable GuiBase2d.RootLocalizationTable
 Class GuiObject : GuiBase2d [notbrowsable]
 	Property bool GuiObject.Active
 	Property Vector2 GuiObject.AnchorPoint
@@ -718,7 +718,7 @@ Class GuiObject : GuiBase2d [notbrowsable]
 	Property Color3 GuiObject.BorderColor3
 	Property int GuiObject.BorderSizePixel
 	Property bool GuiObject.ClipsDescendants
-	Property bool GuiObject.Draggable
+	Property bool GuiObject.Draggable [deprecated]
 	Property int GuiObject.LayoutOrder
 	Property GuiObject GuiObject.NextSelectionDown
 	Property GuiObject GuiObject.NextSelectionLeft
@@ -737,8 +737,8 @@ Class GuiObject : GuiBase2d [notbrowsable]
 	Function bool GuiObject:TweenPosition(UDim2 endPosition, EasingDirection easingDirection = Out, EasingStyle easingStyle = Quad, float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSize(UDim2 endSize, EasingDirection easingDirection = Out, EasingStyle easingStyle = Quad, float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSizeAndPosition(UDim2 endSize, UDim2 endPosition, EasingDirection easingDirection = Out, EasingStyle easingStyle = Quad, float time = 1, bool override = false, Function callback = nil)
-	Event GuiObject.DragBegin(UDim2 initialPosition)
-	Event GuiObject.DragStopped(int x, int y)
+	Event GuiObject.DragBegin(UDim2 initialPosition) [deprecated]
+	Event GuiObject.DragStopped(int x, int y) [deprecated]
 	Event GuiObject.InputBegan(Instance input)
 	Event GuiObject.InputChanged(Instance input)
 	Event GuiObject.InputEnded(Instance input)
@@ -1979,12 +1979,15 @@ Class Plugin : Instance
 	Property float Plugin.GridSize [readonly]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
+	Function void Plugin:Deactivate() [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
 	Function Instance Plugin:GetMouse() [PluginSecurity]
 	Function RibbonTool Plugin:GetSelectedRibbonTool() [PluginSecurity]
 	Function Variant Plugin:GetSetting(string key) [PluginSecurity]
 	Function int64 Plugin:GetStudioUserId() [PluginSecurity]
 	Function void Plugin:ImportFbxAnimation(Instance rigModel) [PluginSecurity]
+	Function bool Plugin:IsActivated() [PluginSecurity]
+	Function bool Plugin:IsActivatedWithExclusiveMouse() [PluginSecurity]
 	Function Objects Plugin:Negate(Objects objects) [PluginSecurity]
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) [PluginSecurity]
 	Function void Plugin:OpenWikiPage(string url) [PluginSecurity]
@@ -2632,6 +2635,7 @@ Class UserInputService : Instance [notCreatable]
 	Function Platform UserInputService:GetPlatform() [RobloxScriptSecurity]
 	Function Array UserInputService:GetSupportedGamepadKeyCodes(UserInputType gamepadNum)
 	Function CoordinateFrame UserInputService:GetUserCFrame(UserCFrame type)
+	Function bool UserInputService:IsGamepadButtonDown(UserInputType gamepadNum, KeyCode gamepadKeyCode)
 	Function bool UserInputService:IsKeyDown(KeyCode keyCode)
 	Function bool UserInputService:IsMouseButtonPressed(UserInputType mouseButton)
 	Function bool UserInputService:IsNavigationGamepad(UserInputType gamepadEnum)

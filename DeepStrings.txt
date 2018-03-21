@@ -178,6 +178,7 @@ AllowInsertFreeModels
 AllowISOStringFormatParmaters
 AllowMoreAngles
 AllowMultipleHangReports
+AllowRenderSteppedInPluginScripts
 AllowSleep
 AllowTeamChangeOnTouch
 AllowThirdPartySales
@@ -209,7 +210,6 @@ AM_KSPROPSETID_DvdKaraoke
 AM_KSPROPSETID_DvdSubPic
 AM_KSPROPSETID_FrameStep
 AM_KSPROPSETID_TSRateChange
-AManualFocusRelease
 AmbientReverb
 AmdPowerXpressRequestHighPerformance
 AMPROPSETID_Pin
@@ -289,8 +289,11 @@ ApplySpecificImpulse
 ApproveAssetId
 ApproveAssetVersionId
 AppShellActionType
+AppShellFPSReportPeriod
 AppShellManagementRefactor
 AppShellReporter
+AppShellReporterMonitorFrameTimeAndroid
+AppShellReporterMonitorFrameTimeIOS
 AppStarted
 AppStarterPlace
 AppStarterScript
@@ -508,6 +511,7 @@ AVAacResponseItem
 AVabstract_variables_map
 AVAccessory
 AVAccoutrement
+AVActivationRequest
 AVAdornBillboarder
 AVAdornRender
 AVAdornSurface
@@ -546,6 +550,7 @@ AvatarBust
 AvatarClusterTime
 AvatarContextMenuEnabled
 AvatarContextMenuOption
+AvatarEditor
 AvatarEditorAnalytics2
 AvatarEditorAnthroSlidersUIOnly
 AvatarEditorCatalogRecommended
@@ -594,6 +599,7 @@ AVBallSocketConstraint
 AVBallVertexConnector
 AVBasePlayerGui
 AVBaseRenderJob
+AVBaseRequest
 AVBaseScript
 AVBaseThreadPool
 AVBasicPartInstance
@@ -852,6 +858,7 @@ AVDataStore
 AVDataStoreJob
 AVDataStorePages
 AVDataStoreService
+AVDeactivationRequest
 AVDebrisService
 AVDebuggerBreakpoint
 AVDebuggerManager
@@ -915,7 +922,6 @@ AVEdgeEdgeConnector
 AVEdgeEdgePair
 AVEdgeStage
 AVEditSelectionVerb
-AVEncryptedFastDllStream
 AVEngineStatsCommand
 AVEnumDescriptor
 AVEnumItem
@@ -1019,7 +1025,6 @@ AVGeometryGL
 AVGeometryService
 AVGeometryVulkan
 AVGeoPairConnector
-AVGetBlock_CC
 AVGettingUp
 AVGfxBinding
 AvgHttpApiCallsPerSecInClient
@@ -1058,7 +1063,6 @@ AVHingeAutoJointSurfacePair
 AVHingeConstraint
 AVHingeTool
 AVHitTestFilter
-AVHookManager
 AVHopperBin
 AVhttp_status_error
 AVHttpRbxApiJob
@@ -1080,13 +1084,10 @@ AVICombinedSignalData
 AVICreator
 AVIDataState
 AVideoCapture
-AVIDllStream
 AVIdResponseItem
 AVIdSerializer
 AVIEquipable
-AVIGetBlock
 AVIHasLocation
-AVIHookManager
 AVIHostNotifier
 AVIJointOwner
 AVImageHandleAdornment
@@ -1129,9 +1130,7 @@ AVIReferenceBinder
 AVIScriptFilter
 AVISelectionBase
 AVIStepped
-AVIUrlBuilderSource
 AVIVideoCapture
-AVIVirtualAllocationManager
 AVIWorldStage
 AVJoinCommand
 AVJoinDataItem
@@ -1222,7 +1221,6 @@ AVmultiple_occurrences
 AVmultiple_values
 AVMultiScannerJob
 AVMultiWaitBlock
-AVMyActivationSource
 AVMyNumPunct
 AVNavigationContext
 AVNavigationService
@@ -1922,6 +1920,7 @@ BEPAVFolder
 BEPAVGuiObject
 BEPAVHumanoid
 BEPAVInstance
+BEPAVLocalizationTable
 BEPAVModelInstance
 BEPAVPartInstance
 BEPAVPVInstance
@@ -2040,6 +2039,7 @@ BoxBoxCollisionAlgorithm
 BoxHandleAdornment
 BoxSelectCommand
 BPAUIUnknown
+BQLPlsjlG36JS
 BrcAddSpan
 BreakJoints
 Breakpoint
@@ -2053,7 +2053,7 @@ BridgeStyleSupports
 Brightness
 BroadcastNotification
 Broadphase
-BroadPhaseIslandBufferZone4
+BroadPhaseIslandBufferZone5
 BroadPhaseIslandBufferZoneApplyPartLimit
 BroadPhaseIslandBufferZoneCharactersAlwaysPhysicsMode
 BroadPhaseIslandBufferZoneExpansionFactorHundredth
@@ -2396,7 +2396,6 @@ ClientRealtimePhysicsFPS_
 ClientReplicator
 ClientReplicatorDisconnect
 ClientReport
-ClientSendRecvBytesOnFailureToJoin
 ClientSettings
 ClientStartTime
 ClientTicket
@@ -2645,7 +2644,7 @@ CollideInnerBox
 CollideOuterBox
 CollisionEnabled
 CollisionFidelity
-CollisionGeometry5
+CollisionGeometryPipe6
 CollisionGroupContainsPart
 CollisionGroupId
 CollisionGroups
@@ -2833,7 +2832,6 @@ CookieStoreEnabled
 CookieStoreFirstTimePlayKey
 CookieStoreFiveMinutePlayKey
 CoordinateFrame
-COORDINATEFRAME
 CopyImageSubDataNV
 CopyInterface
 CopyRegion
@@ -2888,13 +2886,19 @@ CounterWidth
 CountryCode
 CountShifted
 CountWidth
+CQR3dzjQFjPWX
 CrackedLava
+CrashDumpFileName
 CrashEvent
 CrashReport
 CrashReporter
 CrashReporter_WatcherThreadFunc
 CrashReporterInit
 CrashReporterNew
+CrashUploadError
+CrashUploadErrorInfluxHundredthsPercentage
+CrashUploadErrorReporting
+CrashUploadMaxDumpFiles
 CratersAndDebris
 CreateAcceleratorTableA
 CreateAffinityDCNV
@@ -2914,7 +2918,7 @@ CreateContextAttribsARB
 CreateDebugReportCallbackEXT
 CreateDescriptorPool
 CreateDescriptorSetLayout
-CreateDescriptorUpdateTemplateKHR
+CreateDescriptorUpdateTemplate
 CreateDevice
 CreateDialogIndirectParamA
 CreateDirectoryW
@@ -3304,6 +3308,7 @@ DebugSSAOForce
 DebugStudioRigImporter
 DebugTaskSchedulerProfiling
 DebugThumbnailForceFailure
+DebugTracebackOptionalCoroutineArg
 DebugUseDefaultGlobalSettings
 DebugVisualizationImprovements
 DecalTexture
@@ -3337,6 +3342,7 @@ DelayedInvocationQueue
 DelayedInvocationXferQueue
 DelayLocalPlayerParenting
 DelayMillis
+DelayPurchasePromptActivation
 DelaySwitchingFromRunningToFreefallInHundredths
 DeleteAssociatedContextAMD
 DeleteBase
@@ -3408,7 +3414,7 @@ DestroyCommandPool
 DestroyDebugReportCallbackEXT
 DestroyDescriptorPool
 DestroyDescriptorSetLayout
-DestroyDescriptorUpdateTemplateKHR
+DestroyDescriptorUpdateTemplate
 DestroyDevice
 DestroyDisplayColorTableEXT
 DestroyEvent
@@ -3549,7 +3555,10 @@ Distributed
 DistributedGameTime
 DistToShowBufferCountSqr
 DListenerAttributes
+DllInstall
+DllRegisterServer
 DMinMaxDistance
+DnK2eMlvSw
 DockWidgetPluginGuiInfo
 DoLocalizationServiceOverrideLocale
 DominantAxis
@@ -3578,6 +3587,7 @@ DownSample4x4VS
 DPERF_BeginEvent
 DPERF_EndEvent
 DPERF_GetStatus
+DPilRox9gS
 DragBeginConnectionCount
 DragCursor
 DraggerMaxMovePercent
@@ -3627,6 +3637,7 @@ DS_MemoryPool
 DS_RangeList
 DS_ThreadsafeAllocatingQueue
 DSVideoCaptureEngine
+DumpFileCount
 DumpUtcCaptureTime
 DuplicateHandle
 DuplicatePlayer
@@ -3635,6 +3646,7 @@ DurationArray
 DurationArrays
 DurationWidth
 Durbanville1
+DWzMdCryEKX80E
 DX_interop
 DX_interop2
 DXCloseDeviceNV
@@ -3683,6 +3695,8 @@ ElapsedTime
 ElasticBehavior
 Elasticity
 ElasticityWeight
+Electrical
+Electronics
 ElementById
 ElementsByTagName
 ElevatedOnServer
@@ -3698,6 +3712,7 @@ EmitterSize
 EmptyAlgorithm
 EmptyCells
 EmptyCutoff
+EmptyDumpFile
 EnableCollisionGroups
 EnabledAppShell3D
 EnableDebugging
@@ -3767,6 +3782,7 @@ EnumerateDeviceExtensionProperties
 EnumerateDeviceLayerProperties
 EnumerateInstanceExtensionProperties
 EnumerateInstanceLayerProperties
+EnumerateInstanceVersion
 EnumeratePhysicalDevices
 EnumerateVideoCaptureDevicesNV
 EnumerateVideoDevicesNV
@@ -3905,6 +3921,7 @@ FaceAccessory
 FaceCamera
 FaceInstance
 FAILED_PRECONDITION
+FailedToArchiveDumpFile
 FailFinishNotEmpty
 FailStartNotEmpty
 FailSysCreate
@@ -4042,11 +4059,13 @@ FixBodyAndAccessoryScaling
 FixBoundSocket
 FixBulletFloatingPointErrorsAgainButForDecompThisTime
 FixBulletMaxDotNanOutOfBounds
+FixButtonR2MouseClickOnGui
 FixCharacterAppearanceLoadedEvent
 FixCharacterJitterDownStairs
 FixCharacterStuckInFreefall
 FixCharacterStutterInFreefall
 FixCharacterStutterInFreefall2
+FixCollectionServiceEventOrdering
 FixCurrentScreenOrientation
 FixCustomWeldSeatPart
 FixDataStoreMetrics
@@ -4063,9 +4082,11 @@ FixHandlesMouseEvents
 FixHumanoidEmbeddedInGround3
 FixIAdornableCollectorCrash3
 FixInactiveSelectorArrows
+FixInputCanSinkCAS
 FixInputForLayerCollectorsInFolders2
 FixInterpolationTargetFrame
 FixJointDestroyedPrimitiveInsert2
+FixLineHandleAdornmentsNearPlane
 FixLoadingScreenJankiness
 FixMeshPartInitialSizeDivisionByZero
 FixMissingStandardAnthroParts
@@ -4079,6 +4100,7 @@ FixPlaceFilter0
 FixPlayerActionTypeOverride
 FixPlayerGuiSelectionImage
 FixPlayerlistFollowing
+FixPluginActivate
 FixR15ShirtGraphicScale
 FixRandomSpawnLocationShape
 FixRemoveAsyncReturnValueBug
@@ -4094,6 +4116,7 @@ FixSwappedBodypartsColoring
 FixTeleportVideoRecordingCrash
 FixTextAsserts3
 FixTextLayoutWithUIScaleAssert
+FixTilingNotRespectingUIScale
 FixUIScaleInFolder
 FixVRGamepadInputEvents
 FixVRScrollingFrames
@@ -4151,6 +4174,7 @@ FMODInitFailure
 FMODPlaybackChannel
 FMODReportDeviceInfo
 FMODSoundChannels
+FNetworkDontRescheduleSend
 FogCoorddv
 FogCoordfv
 FogCoordPointer
@@ -4170,7 +4194,6 @@ Forcefield
 ForceField
 ForcePlayModeRobloxLocaleId
 ForceRemove
-ForceUpdateOffset
 ForceUseProductionForAssetFetching
 ForDataReady
 FORMAT_AnalogVideo
@@ -4362,6 +4385,7 @@ FXCompositing
 FXCompositingFS
 FXComposition
 FyvqrePbafbyr
+GA7EUdKPlm
 GainMakeup
 GameAnnounce
 GameAvatarType
@@ -4561,6 +4585,7 @@ GetDateFormatW
 GetDebuggers
 GetDebugId
 GetDebugMessageLogARB
+GetDefaultClothesFromWeb
 GetDescendants
 GetDesktopWindow
 GetDevCaps
@@ -4685,7 +4710,6 @@ GetLogicalProcessorInformationEx
 GetMaterialColor
 GetMaxCollisionGroups
 GetMaxQualityLevel
-GetMemoryForDLL
 GetMemoryUsageMbForTag
 GetMessage
 GetMessageW
@@ -4913,6 +4937,7 @@ GetUserIdFromName
 GetUserIdFromNameAsync
 GetUserIdUrl
 GetUserObjectInformationA
+GetUserObjectInformationW
 GetUserPlatformId
 GetUserPointBalance
 GetUserPointBalanceInUniverse
@@ -5013,7 +5038,7 @@ GraphicsFeatureLevelEx
 GraphicsGeometry
 GraphicsGeometryPacked
 GraphicsGL3InstancingEnabled2
-GraphicsGL3UseUBO2
+GraphicsGL3UseUBO3
 GraphicsInitError
 GraphicsInitErrorNoModes
 GraphicsMeshParts
@@ -5028,11 +5053,13 @@ GraphicsSpatialHash
 GraphicsTerrain
 GraphicsTexture
 GraphicsTextureCharacter
+GraphicsVulkan11
 GraphicsVulkanBlacklist
 GraphicsVulkanBlacklistPVR
+GraphicsVulkanGpuTime
 GraphicsVulkanMinAndroidVersion
-GraphicsVulkanUseDescriptorTemplates
 GraphicsVulkanUseNewPacks
+GraphicsVulkanUsePersistentDynamicBuffers
 GraSbbgVagresnpr
 Gravesmall
 GreaterThan
@@ -5094,7 +5121,6 @@ HangDetection
 HangDetectionTimeoutMs
 HapticService
 HardhvcNffrg
-HardwareID
 HardwareMouse
 HarfbuzzEnabled3
 HasAppearanceLoaded
@@ -5115,7 +5141,6 @@ HayvaxNppbhagBireynl
 HayvaxNppbhagFperra
 HB_OPTIONS
 HB_SHAPER_LIST
-HCRelativeTo
 HeadColor3
 HeaderData
 HeaderLeft
@@ -5151,6 +5176,7 @@ HfreGuhzoanvyOne
 HfrePnebhfry
 HfrePnebhfryRagel
 HfrePungOhooyr
+Hg1FBwNUHX_
 HgvyvglByq
 HIDE_TAB_BAR
 HideChatWindow
@@ -5202,6 +5228,7 @@ HPADHPAUFMOD_GUID
 HPAUlua_State
 HPBUFMOD_REVERB_PROPERTIES
 HPBUFMOD_VECTOR
+HPIMllLQB8
 HtluMgnuHwngSmldAskhBcraMaweNegsOgnaTmeasuring
 HTTPAccumulatedBytes
 HttpAnalyticsMaxHistory
@@ -5548,6 +5575,8 @@ IPV6RobloxStudioCleanUp
 IruvpyrPbagebyyre
 IruvpyrUhq
 Is30FpsThrottleEnabled
+IsActivated
+IsActivatedWithExclusiveMouse
 IsAncestorOf
 IsBadgeDisabled
 IsBaseFont
@@ -5570,6 +5599,8 @@ IsFixedPitch
 IsFmodProfilingEnabled
 IsFramebuffer
 IsFriendsWith
+IsGamepadButtonDown
+IsGamepadButtonDownEnabled
 IsGearTypeAllowed
 IsGrounded
 IsMemoryTrackerEnabled
@@ -5626,6 +5657,8 @@ IWorldStage
 JanFebMarAprMayJunJulAugSepOctNovDec
 JasmineUPC
 JB4inOQ3Zn4DFPDs7dB7lfheg3Z7UQQuApot27FkCcC6m
+JcQQeKJt3amH
+JDur9tEJiyZ1
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JneavatJvqtrg
 JngpuPnzren
@@ -5671,6 +5704,7 @@ JointLifetime
 JoinToOutsiders
 JointsService
 JointTime_TextureCooldown
+JqT3nmxXAQ
 JrypbzrZrffntr
 JsonBodyBase64
 JSONDecode
@@ -5682,7 +5716,6 @@ JumpReplicate
 JumpRequest
 JumpToIndex
 JustBecauseItMovesFastDoesntMeanItsAProjectile
-JustInCaseClusterPacketCacheCrashes
 JuvfcreZrffntr
 JW4FriendService_FriendStatus
 JW4InfoType
@@ -5726,6 +5759,8 @@ KNYGK0zeGg
 KobkHfreErqhpre
 KodchiangUPC
 KoMs5ey75dlx0KsdJjp1Gc4
+KqNxvXjoVB
+KqU5bZBmtz
 LabelArray
 LandedBalanceD
 LandedBalanceP
@@ -5752,8 +5787,6 @@ LCIDToLocaleName
 LCMapStringA
 LCMapStringEx
 LCMapStringW
-LdrAccessResource
-LdrFindResource_U
 LdrLoadDll
 LeafBodies
 LeafyGrass
@@ -5784,6 +5817,7 @@ LegacyController
 LegacyLock
 LegacyNamingScheme
 LegacyPartType
+LetSleepingPartsLie
 LevelOfDetailSetting
 Lf9C0uFf9C
 Lf9K0uFf9K
@@ -5815,6 +5849,7 @@ LinkProgram
 ListenerType
 LiveThreadRef
 LivingRoom
+LjP_LAE5fk
 LLLLLABCLLLLLDL
 LLLLLLLLLLL
 LLLLLLLLLLLL
@@ -5929,6 +5964,8 @@ LowQMaterialFS
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
 LowResolution
+LPMf9KWP_pE
+LSdynpg53V
 Lslashsmall
 Lu9RLIHszN
 LuaAppsDiagErrorCounter
@@ -5966,11 +6003,9 @@ LuaSetTimePosition
 LuaSettings
 LuaShellErrors
 LuaSourceContainer
-LuaStringFormatSupportsInt64
 LuaStrlibLimitMatchDepth
 LuaToNumberInt64
 LuaTypeErrors
-LuaUnsignedNegativeFormat
 LuaWebService
 LuaWidgetsUI
 MachineAddress
@@ -5989,6 +6024,7 @@ MakeTeleportServiceReplicated
 MakeTimesExtra
 MallocaArrayHolder
 ManualActivationOnly
+ManualFocusRelease
 ManualGlue
 ManualMapDll
 ManualSurfaceJointInstance
@@ -6079,6 +6115,7 @@ MaxVelocity
 MaxViscousForceGravityTimesMult
 MaxWaitTimeBeforeForcePacketProcessMS
 MbarZnantre
+MBKgHxcbeCn
 MdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrt
 MeasureFont
 Measurement
@@ -6302,13 +6339,13 @@ MinusOneToOneDepth
 MinutesAfterMidnight
 MinWidthPan
 Miscellaneous
+MissingDumpFile
 Mk2ItemDebug
 Mk2ItemDebugDump
 Mk2ItemDebugEnabled
 Mk2ItemDebugLastCount
 Mk2ItemDebugReportHundredthsPercentage
 MMW4UserInputState
-MobileJoinRateFormatUrl
 ModalDialog
 ModalEnabled
 ModeCounters
@@ -6437,6 +6474,7 @@ MovingNoPhysicsBase
 MovingPrimitives
 MovingPrimitivesCount
 MP8PartInstance
+MqdQFqBE5dy
 MsecBetweenTextureMemoryUsageArrayRefresh
 MsToScreen
 MTU_Platform_
@@ -6445,7 +6483,6 @@ MULE_RELATIVE_COMPOSE
 MultiByteToWideChar
 MultiDrawArrays
 MultiDrawElements
-MultipleAppShellDataModels
 MultiplePlayers
 Multiplexed
 Multirocket
@@ -6550,7 +6587,6 @@ NeckAccessory
 NegateOperation
 NegativePart
 Network1B0
-NetworkBoolByte
 NetworkCache
 NetworkClient
 NetworkCloexec
@@ -6559,8 +6595,6 @@ NetworkCompressorNewRotation
 NetworkCompressorNewTranslation
 NetworkCompressorNewVelocity
 NetworkedObjects
-NetworkFamily
-NetworkFamilyAnalytics
 NetworkFamilyToFavor
 NetworkFilteringEnabled
 NetworkFixLinger
@@ -6596,6 +6630,8 @@ NetworkStatsReport
 NetworkStepsMultipliers
 NetworkStreaming
 NetworkStreamingEnabled
+NetworkStreamingFasterQuery
+NetworkStreamingFasterWorldExtents
 NetworkStreamingGCMaxMicroSecondLimit
 NetworkStreamRemoveDependency
 NetworkStudioMacForceReusePort
@@ -6676,16 +6712,15 @@ NppbhagZnantre
 NpprffbevrfPbyhza
 NpuvrirzragZnantre
 NqqTnzrFbegf
+NQTw3y01Rc
 NtCreateFile
 NtDeviceIoControlFile
 Ntildesmall
 NtNotifyChangeMultipleKeys
 NtOpenFile
-NtQueryAttributesFile
 NtQueryInformationProcess
 NtQueryInformationThread
 NtQueryObject
-NtQuerySection
 NtQuerySystemInformation
 NtQuerySystemTime
 NtRenameKey
@@ -6693,7 +6728,6 @@ NtSetInformationObject
 NtSetInformationProcess
 NtSetInformationThread
 NtSetSystemInformation
-NtUnmapViewOfSection
 NtWaitForSingleObject
 NullCheckInReEnableWeldConstraint
 NullPlaceholders
@@ -6808,6 +6842,7 @@ OnServerInvoke
 OnSetTimePosition
 OnTeleport
 OnTeleportInternal
+OOE0Thf_0E
 OpenBrowserWindow
 OpenClipboard
 OpenEventA
@@ -6829,7 +6864,7 @@ OptimizedContactPipelineSpatialHashOverlapToleranceMicro
 OptimizedContactWakeDepth
 OptimizedUIListLayoutUpdate
 OptimizedUIListLayoutUpdate2
-OptimizePointerUIProcessing
+OptimizePointerUIProcessing2
 OptionsMenu
 OrCharacter
 OrComputeDirtyChunks
@@ -6855,7 +6890,6 @@ OtherTexture
 OtherTextureOrphan
 OtherUrlConstruction
 Otildesmall
-OUserInputType
 OUT_OF_RANGE
 OutBufferHealth
 OutClusters
@@ -7417,6 +7451,7 @@ Pbzcbaragf
 PbzzbaHgvy
 PbzznaqCebprffbe
 PbzznaqZbqhyrf
+Pd8OHax8PJymr
 PeekMessageW
 PeekNamedPipe
 PendingAttachments
@@ -7591,7 +7626,6 @@ PlayerChatted
 PlayerChatType
 PlayerChoice
 PlayerConfigure
-PlayerConfigurerMobileJoinRateUrlConstructionLibrary
 PlayerConfigureTime
 PlayerConnecting
 PlayerCount
@@ -7623,6 +7657,7 @@ PlayStockSound
 PluginButtonProperty
 PluginGuiService
 PluginManager
+PluginManagerSignalOnDelete
 PluginMouse
 PluginSecurity
 PluginWidgetGraphicsChanges
@@ -7827,8 +7862,10 @@ PyvpxGbZbir
 PyvpxGbZbirPbagebyyre
 PyvragPung
 PyvragZrzbelNanylmre
+Qd5GAvcMdJ
 QebcfunqbjSenzr
 QebcQbjaYvfg
+QFYMiqeNcF
 QlanzvpGuhzofgvpx
 QnexPbireZnantre
 QrirybcrePbafbyr
@@ -7884,13 +7921,13 @@ QueueIndex
 QueuePresentKHR
 QueueSubmit
 QueueWaitIdle
-QuickHttpWhenGameClose
 QuitDialog
 QuotedDouble
 QvfnoyrPebffcynlBireynl
 QvnybtPbzcbaragf
 QvnybtSenzr
 QvnybtVasb
+QX7fJAYpCy
 RadialBlurFS
 RaiseCSGMinSize
 RaiseException
@@ -7902,8 +7939,6 @@ RakNetFixBwCollapse
 RakNetGoodAcks
 RakNetGoodPayload
 RakNetGoodSplit
-RakNetHasAckTimestamps
-RakNetHdrLenBits
 RakNetHealthStats
 RakNetIgnoredPercent_Platform_
 RakNetLoopMs
@@ -7913,18 +7948,14 @@ RakNetNakResendDelayRttPercent
 RakNetPasswordAccepted
 RakNetPasswordRejected
 RakNetPing
-RakNetRangeListFix
-RakNetRangeSizeFix
 RakNetResendBufferArrayLength
 RakNetResendMaxThresholdTimeInUs
 RakNetResendMsgLen_Platform_
 RakNetResendScaleBackFactorHundredthsPercent
 RakNetResentPercent_Platform_
-RakNetSendNow
 RakNetStartupFailed
 RakNetStartupFailure
 RakNetSupportIpV6
-RakNetUnreliableAck
 RakNetUseSlidingWindow2_maxSpeed
 RakNetUseSlidingWindow2_minRtt
 RakNetUseSlidingWindow2_minSpeed
@@ -7934,7 +7965,6 @@ RakNetUseSlidingWindow2_startInitSpeed
 RakNetUseSlidingWindow2_startUpdateMs
 RakNetUseSlidingWindow2_trackLengthMs
 RakNetUseSlidingWindow4
-RakPeerCapabilitiesInt64AbuseReportId
 RakRecvBeforeFail
 RakRecvBeforeFailWithPlace_
 RandomSpawnRetryTimes
@@ -8027,6 +8057,7 @@ RBX_WARN_NE
 RBX_WARN_NO_THROW
 RBX_WARN_THROW
 RBXAuthenticationNegotiation
+RbxFormatStringCleanup
 RbxLibrary
 RBXMAINWND
 RbxMegaClusterInit
@@ -8040,6 +8071,7 @@ RCCCCBasedOnUserPlatform
 RCCCCPlatforms
 RCCInfluxHundredthsPercentage
 RCCKickDuplicatePlayersOnJoin
+RCCKickNow
 RCCLoadFailure
 RCCLoadFMOD
 RCCService
@@ -8155,6 +8187,7 @@ ReJoinFromSameDataModel
 RELATIVE_SETWIDTH
 RELATIVE_WEIGHT
 RelativePanel
+RelativeTo
 RelativeXX
 RelativeXY
 RelativeYY
@@ -8229,6 +8262,7 @@ RenderConstraintsWithDepth
 RenderCSGTrianglesDebug
 RenderFastCluster
 RenderGlassMaterial
+RenderImageOriginalWidthHeight
 RenderingThrottleDelayInMS
 RenderInstancedCluster
 RenderInstancingDeferUpdates2
@@ -8268,6 +8302,7 @@ RenderStatsTM
 RenderStepEarlyFunctions
 RenderStepped
 RenderStreamedRegions
+RenderTerrainFixChunkExtents
 RenderTextureCompositor
 RenderTextureCompositorBudget
 RenderTextureManagerBudget
@@ -8307,7 +8342,6 @@ ReportInfluxHundredthsPercentage
 ReportInfluxSeries
 ReportInGameAssetSales
 ReportInGoogleAnalytics
-ReportLuaUnsignedNegativeFormat
 ReportRobuxUpsellEnabled
 ReportRobuxUpsellStarted
 ReportSolverUsageStats
@@ -8404,6 +8438,7 @@ ReverbProperties
 ReverbSoundEffect
 ReverbType
 RevokeFriendship
+RG7aJv3vrXt9p
 RGB_decode
 RibbonTool
 RigAttachment
@@ -8457,6 +8492,8 @@ RobloxLocale
 RobloxLocaleId
 RobloxLocked
 RobloxOnlyIsEdit
+RobloxOriginalHeight
+RobloxOriginalWidth
 RobloxPlayer
 ROBLOXPlayer
 RobloxPlayerBeta
@@ -8495,6 +8532,7 @@ RotationType
 RotVelocity
 RoundRobin
 RoUninitialize
+Rpe2AS1eUmq
 RqvgPungTebhc
 RqvgPungTebhcAnzrQvnybt
 Rtl7InfluxHundredthsPercentage
@@ -8804,7 +8842,6 @@ ServerPort
 ServerPurchaseVerification
 ServerReplicator
 ServerReplicatorDisconnect
-ServerReportAllPlayers
 ServerScriptService
 ServerStarterScript
 ServerStatsItem
@@ -8872,7 +8909,7 @@ SetGlobalGuiInset
 SetGridSizeToFour
 SetGridSizeToSixteen
 SetGridSizeToTwo
-SetGuiInsetInLoadingScript
+SetGuiInsetInLoadingScript2
 SetHandleCount
 SetHoverToken
 SetIdentityOrientation
@@ -8907,6 +8944,7 @@ SetPlayerNameWhenCreatingPlayerObject
 SetPosition
 SetPrimaryCFrame
 SetPrimaryPartCFrame
+SetProcessAffinityMask
 SetProcessDEPPolicy
 SetProcessUserModeExceptionPolicy
 SetRBXEvent
@@ -9020,7 +9058,7 @@ SigningScripts
 SilentCrashReport
 SimpleJson
 Simplified
-SimplifiedSoundLoading
+SimplifiedSoundLoading2
 SimplifyOpaqueGlass
 SimplifyRakNetConnectionHandshake
 SimToInterBufferClearFactorTenths
@@ -9239,7 +9277,6 @@ StickyWheels
 StoneCorridor
 StoppedTouching
 StopRecording
-StopReportingPressenceAfterDisconnect
 StopTextScraper
 StrafingNoPhysics
 StrAverage
@@ -9519,6 +9556,7 @@ TextYAlignment
 TGenericSlotWrapper
 ThatCausedFocusLoss
 ThawteTimestampingCA
+TheInstituteofElectricalandElectronicsEngineersIncIEEERootCA
 ThirdPartyPurchaseFinished
 ThirdPartyUserService
 Thornsmall
@@ -9564,6 +9602,8 @@ ThumbnailUrlConstruction
 Thumbstick
 Thumbstick1
 Thumbstick2
+ThwartPurchasePromptScams
+ThwartPurchasePromptScamsGamepad
 TickCountPreciseOverride
 TickCountSampleMethod
 Tildesmall
@@ -9583,6 +9623,7 @@ TimePermyriad
 TimePosition
 TimePositionUpdatedFromClient
 TimePositionUpdatedFromServer
+TimeQueryPool
 TimerArray
 TimerIndex
 TimerQuery
@@ -9655,6 +9696,7 @@ ToolButton_ds
 ToolMouseCommand
 ToolPunchThroughDistance
 ToolTipStr
+TooManyDumpFiles
 Toothpaste
 TopbarTransparencyChangedSignal
 TopHatPurple
@@ -9892,6 +9934,7 @@ UnbindAllActions
 UnbindButton
 UnbindCoreAction
 UnbindFromRenderStep
+UnclampGuiObjectZIndex
 Uncompressed
 UNDERLINE_POSITION
 UNDERLINE_THICKNESS
@@ -9949,6 +9992,8 @@ Unmodified
 UNonBlockingFmodSoundLoader
 Unprotected
 UNREAD_COUNT
+Unreadable
+UnreadableDumpFile
 Unrecognized
 Unrecoverable
 UnregisterClassA
@@ -9980,7 +10025,7 @@ UpdateChunkPerform
 UpdateChunkPrepare
 UpdateChunkSkylight
 UpdateDescriptorSets
-UpdateDescriptorSetWithTemplateKHR
+UpdateDescriptorSetWithTemplate
 UpdateGroupColors
 UpdateGroupMenu
 UpdateHeartbeatObject
@@ -10005,6 +10050,7 @@ UploadSetting
 UpperAngle
 UpperLimit
 UpperTorso
+UQes0iY3yS
 UrebFgngfZnantre
 UReplicatorPeerInfo
 UrlMkSetSessionOption
@@ -10030,7 +10076,6 @@ UseDistanceThinning
 UsedMemoryKB
 UseFakeMoonPosition
 UseGamePerfMonitorWithAppShell
-UsegetFamilyandMapAddress
 UseGsiFilePath
 UseHttpDefaultUrlSchema
 UseHttpRobloxHost
@@ -10054,7 +10099,6 @@ UseNotificationsLocalization
 UseOldClientTicketNameForNewClientTicket
 UseOptimizedGetPartsObscuringTarget
 UsePartColor
-UsePasiveOnlyForBind
 UsePhysicsPacketCache
 UseProgram
 UsePurchasePromptLocalization
@@ -10187,6 +10231,7 @@ VBrickColor
 Vbroken_promise
 VBufferD3D11
 VBufferVulkan
+VC1bYwMWKC
 VCacheableContentProvider
 VCachedBitStream
 VCachedItem
@@ -10304,6 +10349,7 @@ VerifyIncomingFriendRequestsBeforeNotifying
 VerifyResponse
 VerifyScriptHash
 VerifyVersionInfoA
+VeriSignMPKI
 VerQueryValueA
 VerQueryValueW
 VerSetConditionMask
@@ -10481,7 +10527,6 @@ VIPServerID
 VIPServerOwnerId
 VIPServerOwnerID
 VirtualAlloc
-VirtualAllocationManager
 VirtualFree
 VirtualInputManager
 VirtualInputMode
@@ -10497,7 +10542,6 @@ VisualTrussStyle
 VJointInstance
 VJointsService
 VK_EXT_debug_report
-VK_KHR_descriptor_update_template
 VK_KHR_surface
 VK_KHR_swapchain
 VK_KHR_win32_surface
@@ -10505,9 +10549,11 @@ VK_LAYER_LUNARG_standard_validation
 VK_NULL_HANDLE
 VKeyframeSequence
 VKeyframeSequenceProvider
+VlAYRBxzD9
 VLeftMotorTool
 VLegacyCharacterAppearance
 Vlength_error
+VLhJyGwuZs
 VLineForce
 VLineHandleAdornment
 VLocalizationService
@@ -10616,7 +10662,6 @@ VRAppShellStarterScript
 VRbxWebView
 VRClientCoreFactory
 VRDeviceName
-VRealAllocationStrategy
 VReflection
 VRegion3int16
 Vremote_signal
@@ -10876,6 +10921,7 @@ VWeakFunctionRef
 VWeakThreadRef
 VWeldConstraint
 VWorkspace
+VXBBtU5yK2
 VXmlElement
 VYieldFunctions
 VYieldFunctionStateObject
@@ -10929,6 +10975,7 @@ WaterViscosityDragFudgeFactor
 WaterWaveSize
 WaterWaveSpeed
 WBlbUdQijI6YOS
+Wc9KF0vLFLE
 WDU_Mbstatet
 WeakFunctionRef
 WeakThreadRef
@@ -11040,10 +11087,12 @@ WinRawInput
 WinRTInitialization
 WinVerifyTrust
 WireRadius
+WJCi8NgXpp
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
 WndProcessCheck
+WNKbIS8mEOp
 WoodPlanks
 WorldCFrame
 WorldOrientation
@@ -11070,6 +11119,7 @@ WorldToScreenPoint
 WorldToViewportPoint
 Wow64DisableWow64FsRedirection
 Wow64RevertWow64FsRedirection
+WPcn3zq5Cf
 WriteConsoleA
 WriteConsoleW
 WriteCookie
@@ -11081,19 +11131,19 @@ WriteVoxels
 WrongVersion
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
+WTSSendMessageW
 WwAZlsEjvzHXQpulpasNFhC1U6tBX6c8Qey2fiRBXHpqbh7vAC7u2niT6dMLLqY
 XABUPlaceLauncherRequestInfo
 XAlignment
+XboxAccountSettings
+XboxAccountSettingsUserId
 XBoxAppSettings
 XboxAvatarEditorUseScrollingScalesPage
+XboxEnableCPPSettingFailure
 XboxFastSliderScrollingOnStick
 XboxFixSkyboxCycle2
 XboxGamerTag
 XboxNewEngagementFlow
-XboxRoactOverscan
-XboxSFXPolish
-XboxSliderDpadSupport
-XboxUpdateUnlinkAccountPrompt
 XboxUseNewScrollingGrid
 XboxUseNewValidUsernameCheck2
 XboxUseRobloxInput
@@ -11103,6 +11153,7 @@ XInputGetBatteryInformation
 XInputGetCapabilities
 XInputGetState
 XInputSetState
+XJr8AliC9jZmS
 XP6AXABUTextFilterResult
 XP6AXABVContentId
 XP6AXPAUlua_State
@@ -11121,6 +11172,8 @@ XP6AXVWeakThreadRef
 XP6AXW4HttpRequestResult
 XP6AXXZVlist0
 XrlobneqZbirzrag
+XSWMdIYVxv4
+XtT44O1yO8
 XVAccoutrement
 XVApplication
 XVAssetService
@@ -11179,7 +11232,6 @@ XVVehicleSeat
 XVVideoControl
 XVVideoRecord
 XVYieldFunctionStateObject
-XYZYPRDegrees
 XZP8CoreGuiService
 XZP8CRenderSettingsItem
 XZP8GuiObject
@@ -11210,6 +11262,7 @@ YbpnyvmrqGrkgYnory
 YbpxrqTnzrFbegIvrj
 YbpxrqTnzrPnebhfryIvrj
 Ydieresissmall
+YGWUNkWbtE
 YhnNccFgnegreFpevcg
 YhnReebeErcbegre
 YieldFuncDesc
@@ -11238,6 +11291,7 @@ ZgnhKhWhci
 ZhgrFcrnxre
 ZIndexBehavior
 ZIndexBehaviorEnabled
+ZmC26KxzfEd
 ZnfgrePbageby
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTad
 ZnvaObgPungFpevcg2
@@ -11254,6 +11308,3 @@ ZrffntrZbqrengrq
 ZrPbzznaqZrffntr
 ZVspecial_equipped_signal
 ZVTouchedSignal
-ZwCreateSection
-ZwMapViewOfSection
-ZwQueryVirtualMemory

@@ -10,7 +10,6 @@ local CoreGui = Game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local XboxSFXPolish = settings():GetFFlag("XboxSFXPolish")
 
 
 local Utility = require(ShellModules:FindFirstChild('Utility'))
@@ -167,9 +166,7 @@ GetSoundManager = function()
 			if currentSelection and lastSelection then
 				local moveSelectionSound = currentSelection:FindFirstChild('MoveSelection')
 				if moveSelectionSound and moveSelectionSound:IsA('Sound') then
-					if XboxSFXPolish then
-						moveSelectionSound.Volume = 0.35
-					end
+					moveSelectionSound.Volume = 0.35
 					moveSelectionSound:Play()
 				end
 			end

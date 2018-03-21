@@ -12,9 +12,7 @@ local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local Categories = require(Modules.LuaApp.Legacy.AvatarEditor.Categories)
 local TweenController = require(Modules.LuaApp.Legacy.AvatarEditor.TweenInstanceController)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-
-local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
-local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
+local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 
 local BUTTON_INTERVAL = LayoutInfo.CategoryButtonDefaultSize.Y.Offset + LayoutInfo.CategoryButtonsPadding
 
@@ -199,10 +197,8 @@ local function createTabList(container, pageManager)
 			Parent = TabList;
 		}
 
-		if XboxSFXPolish then
-			local MoveSelectionSound = SoundManager:CreateSound('MoveSelection')
-			MoveSelectionSound.Parent = TabButton
-		end
+		local MoveSelectionSound = SoundManager:CreateSound('MoveSelection')
+		MoveSelectionSound.Parent = TabButton
 
 		Utilities.create'TextLabel'
 		{
@@ -229,9 +225,7 @@ local function createTabList(container, pageManager)
 
 		TabButton.MouseButton1Click:connect(function()
 			if pageManager:hasAssets() then
-				if XboxSFXPolish then
-					SoundManager:Play('OverlayOpen')
-				end
+				SoundManager:Play('OverlayOpen')
 				AppState.Store:Dispatch(SetConsoleMenuLevel(LayoutInfo.ConsoleMenuLevel.AssetsPage))
 			end
 		end)

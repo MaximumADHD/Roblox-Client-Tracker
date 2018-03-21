@@ -12,9 +12,8 @@ local Categories = require(Modules.LuaApp.Legacy.AvatarEditor.Categories)
 local TweenController = require(Modules.LuaApp.Legacy.AvatarEditor.TweenInstanceController)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
-local XboxSFXPolish = Flags:GetFlag("XboxSFXPolish")
 local ShellModules = Modules:FindFirstChild("Shell")
-local SoundManager = XboxSFXPolish and require(ShellModules:FindFirstChild('SoundManager'))
+local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 
 local function createCategoryMenu(container)
 	local this = {}
@@ -170,10 +169,8 @@ local function createCategoryMenu(container)
 			SelectionImageObject = buttonSelector;
 		}
 
-		if XboxSFXPolish then
-			local MoveSelectionSound = SoundManager:CreateSound('MoveSelection')
-			MoveSelectionSound.Parent = CategoryButton
-		end
+		local MoveSelectionSound = SoundManager:CreateSound('MoveSelection')
+		MoveSelectionSound.Parent = CategoryButton
 
 		Utilities.create'ImageLabel'
 		{
@@ -212,9 +209,7 @@ local function createCategoryMenu(container)
 		end)
 
 		CategoryButton.MouseButton1Click:connect(function()
-			if XboxSFXPolish then
-				SoundManager:Play('OverlayOpen')
-			end
+			SoundManager:Play('OverlayOpen')
 			AppState.Store:Dispatch(SetConsoleMenuLevel(LayoutInfo.ConsoleMenuLevel.TabList))
 		end)
 

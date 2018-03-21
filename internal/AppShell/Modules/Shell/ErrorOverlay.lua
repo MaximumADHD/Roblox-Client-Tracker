@@ -19,6 +19,8 @@ local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local BaseOverlay = require(ShellModules:FindFirstChild('BaseOverlay'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
+local EventHub = require(ShellModules:FindFirstChild('EventHub'))
+local UserData = require(ShellModules:FindFirstChild('UserData'))
 
 local createErrorOverlay = function(errorType)
 	if not errorType then
@@ -93,6 +95,14 @@ local createErrorOverlay = function(errorType)
 
 		SoundManager:CreateSound('MoveSelection');
 	}
+
+	--if the user can't join game b/c xbox settings, the button will open the xbox account settings page
+	local EnableXboxAccountSettings = Utility.IsFastFlagEnabled("XboxAccountSettings") or tostring(UserData.GetRbxUserId()) == Utility.GetFastVariable("XboxAccountSettingsUserId")
+	local goToSettings = EnableXboxAccountSettings and errorCode and (errorCode == 113 or errorCode == 116)
+	if goToSettings then
+		okButton.Text = Utility.Upper(Strings:LocalizedString("GoToSettingsPhrase"));
+	end
+
 	Utility.ResizeButtonWithText(okButton, okButton, GlobalSettings.TextHorizontalPadding)
 
 	-- Override
@@ -116,6 +126,9 @@ local createErrorOverlay = function(errorType)
 	--[[ Input Events ]]--
 	okButton.MouseButton1Click:connect(function()
 		this:Close()
+		if goToSettings then
+			EventHub:dispatchEvent(EventHub.Notifications["OpenAccountSettingsScreen"], errorCode)
+		end
 	end)
 	local baseFocus = this.Focus
 	function this:Focus()

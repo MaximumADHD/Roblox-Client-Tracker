@@ -115,12 +115,29 @@ local Constants = {
 		},
 	},
 
+	FormFactor = {
+		PHONE = {
+			ASSET_CARD_HORIZONTAL_MARGIN = 108,
+		},
+		TABLET = {
+			ASSET_CARD_HORIZONTAL_MARGIN = 224,
+		}
+	},
+
 }
 
 if Device.Platform == Enum.Platform.Android then
 	Constants.PlatformSpecific = Constants.Platforms.Android
 else
 	Constants.PlatformSpecific = Constants.Platforms.Default
+end
+
+function Constants:GetFormFactorSpecific(formFactor)
+	if formFactor == Device.FormFactor.TABLET then
+		return Constants.FormFactor.TABLET
+	else
+		return Constants.FormFactor.PHONE
+	end
 end
 
 return Constants

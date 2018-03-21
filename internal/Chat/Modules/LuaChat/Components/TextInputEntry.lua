@@ -113,6 +113,7 @@ function TextInputEntry.new(appState, icon, placeholder)
 	self.textBoxComponent = textBox
 	self.value = textBox.Text
 	self.textBoxChanged = Signal.new()
+	self.textBoxFocusLost = Signal.new()
 
 	local function updateClearButtonVisibility()
 		local visible = (self.textBoxComponent.Text ~= "")
@@ -130,10 +131,19 @@ function TextInputEntry.new(appState, icon, placeholder)
 
 	local focusedConnection = textBox.Focused:Connect(updateClearButtonVisibility)
 	table.insert(self.connections, focusedConnection)
-	local focusLostConnection = textBox.FocusLost:Connect(updateClearButtonVisibility)
+	local focusLostConnection = textBox.FocusLost:Connect(function()
+		self.textBoxFocusLost:Fire()
+		updateClearButtonVisibility()
+	end)
 	table.insert(self.connections, focusLostConnection)
 
 	return self
+end
+
+function TextInputEntry:SanitizeInput(sanitizeFunc)
+	self.value = sanitizeFunc(self.value)
+	self.textBoxComponent.Text = self.value
+	return self.value
 end
 
 function TextInputEntry:ReleaseFocus()

@@ -15,7 +15,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 
-local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript")
+local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript2")
 local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
 
 if FFlagSetGuiInsetInLoadingScript then

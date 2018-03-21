@@ -105,6 +105,9 @@ local AvatarEditorSelectivelyUseDefaultAsset = Flags:GetFlag("AvatarEditorSelect
 local AvatarEditorRecomputeCameraLookAt =
 	Flags:GetFlag("AvatarEditorRecomputeCameraLookAt")
 
+local GetDefaultClothesFromWeb =
+	Flags:GetFlag("GetDefaultClothesFromWeb")
+
 if AvatarEditorAnthroSliders then
 	DEFAULT_SCALES = {
 		Height = 1.00,
@@ -148,6 +151,9 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 	local myDefaultShirtTemplate = nil
 	local myDefaultPantsTemplate = nil
+	local myDefaultShirtTemplateTemp = nil
+	local myDefaultPantsTemplateTemp = nil
+	local useCurrentlyLoadedDefaultClothesAssets = false
 
 	local templateCharacterR6 = characterTemplates['CharacterR6']
 	local templateCharacterR15 = characterTemplates['CharacterR15']
@@ -178,16 +184,66 @@ return function(webServer, characterTemplates, defaultClothesIndex)
 
 	ParticleScreen.init()
 
-	-- initDefaultClothes
-	Utilities.fastSpawn(function()
-		local myColorIndex = ((defaultClothesIndex-1) % DefaultClothesIds.getDefaultClothesCount()) + 1
-		myDefaultShirtTemplate = InsertService:LoadAsset(
-			DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
-		myDefaultShirtTemplate.Name = 'ShirtDefault'
-		myDefaultPantsTemplate = InsertService:LoadAsset(
-			DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
-		myDefaultPantsTemplate.Name = 'PantsDefault'
-	end)
+	if not GetDefaultClothesFromWeb then
+		-- initDefaultClothes
+		Utilities.fastSpawn(function()
+			local myColorIndex = ((defaultClothesIndex-1) % DefaultClothesIds.getDefaultClothesCount()) + 1
+			myDefaultShirtTemplate = InsertService:LoadAsset(
+				DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
+			myDefaultShirtTemplate.Name = 'ShirtDefault'
+			myDefaultPantsTemplate = InsertService:LoadAsset(
+				DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
+			myDefaultPantsTemplate.Name = 'PantsDefault'
+		end)
+	else
+		-- Keep these default clothes for efficiency on prod
+		Utilities.fastSpawn(function()
+			local myColorIndex = ((defaultClothesIndex-1) % DefaultClothesIds.getDefaultClothesCount()) + 1
+			
+			myDefaultShirtTemplateTemp = InsertService:LoadAsset(
+				DefaultClothesIds.getDefaultShirtIds()[myColorIndex]):GetChildren()[1]
+			myDefaultPantsTemplateTemp = InsertService:LoadAsset(
+				DefaultClothesIds.getDefaultPantIds()[myColorIndex]):GetChildren()[1]
+
+			-- If the web call returned first, then set the templates immediately.
+			if useCurrentlyLoadedDefaultClothesAssets then
+				myDefaultShirtTemplate = myDefaultShirtTemplateTemp
+				myDefaultShirtTemplate.Name = 'ShirtDefault'
+				myDefaultPantsTemplate = myDefaultPantsTemplateTemp
+				myDefaultPantsTemplate.Name = 'PantsDefault'
+			end
+		end)
+
+		-- Initialize the default clothes from the web
+		Utilities.fastSpawn(function()
+			local avatarFetchRequest = Utilities.httpGet(Urls.avatarUrlPrefix.."/v1/avatar-rules")
+			avatarFetchRequest = Utilities.decodeJSON(avatarFetchRequest)
+
+			if avatarFetchRequest then
+				local defaultClothingAssetLists = avatarFetchRequest['defaultClothingAssetLists']
+				local defaultShirtAssetIds = defaultClothingAssetLists['defaultShirtAssetIds']
+				local defaultPantsAssetIds = defaultClothingAssetLists['defaultPantAssetIds']
+				local myColorIndex = ((defaultClothesIndex-1) % #defaultShirtAssetIds) + 1
+
+				-- If the id's are the same, don't call LoadAsset again. Dump cached values in case
+				-- LoadAsset already finished first.
+				if defaultShirtAssetIds[myColorIndex] == DefaultClothesIds.getDefaultShirtIds()[myColorIndex]
+					and defaultPantsAssetIds[myColorIndex] == DefaultClothesIds.getDefaultPantIds()[myColorIndex] then
+					useCurrentlyLoadedDefaultClothesAssets = true
+					myDefaultShirtTemplate = myDefaultShirtTemplateTemp
+					myDefaultPantsTemplate = myDefaultPantsTemplateTemp
+				else
+					myDefaultShirtTemplate = InsertService:LoadAsset(defaultShirtAssetIds[myColorIndex]):GetChildren()[1]
+					myDefaultPantsTemplate = InsertService:LoadAsset(defaultPantsAssetIds[myColorIndex]):GetChildren()[1]
+				end
+
+				if myDefaultShirtTemplate and myDefaultPantsTemplate then
+					myDefaultShirtTemplate.Name = 'ShirtDefault'
+					myDefaultPantsTemplate.Name = 'PantsDefault'
+				end
+			end
+		end)
+	end
 
 	local function getRecentAssetList(name)
 		return recentAssetLists[name]

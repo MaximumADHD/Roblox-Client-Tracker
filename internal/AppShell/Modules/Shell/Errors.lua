@@ -138,6 +138,11 @@ local Errors =
 	{
 		PopupPartyUI = { Title = Strings:LocalizedString("ErrorOccurredTitle"), Msg = Strings:LocalizedString("PopupPartyUIErrorPhrase"), Code = 1201 };
 	};
+
+	CPPSettingError =
+	{
+		SetCPPSettingError = { Title = Strings:LocalizedString("ErrorOccurredTitle"), Msg = Strings:LocalizedString("SetCPPSettingErrorPhrase"), Code = 1401 };
+	};
 }
 
 return Errors

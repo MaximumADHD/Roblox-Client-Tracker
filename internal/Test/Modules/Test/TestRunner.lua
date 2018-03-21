@@ -10,6 +10,8 @@ local Expectation = require(script.Parent.Expectation)
 local TestEnum = require(script.Parent.TestEnum)
 local TestSession = require(script.Parent.TestSession)
 
+local RUNNING_GLOBAL = "__TESTEZ_RUNNING_TEST__"
+
 local TestRunner = {
 	environment = {}
 }
@@ -58,9 +60,13 @@ function TestRunner.runPlanNode(session, planNode, noXpcall)
 				-- As a workaround, you can mark nodes as "not xpcallable"
 				local call = noXpcall and pcall or xpcall
 
+				_G[RUNNING_GLOBAL] = true
+
 				local ok, err = call(childPlanNode.callback, function(err)
 					return err .. "\n" .. debug.traceback()
 				end)
+
+				_G[RUNNING_GLOBAL] = nil
 
 				if ok then
 					childResultNode.status = TestEnum.TestStatus.Success

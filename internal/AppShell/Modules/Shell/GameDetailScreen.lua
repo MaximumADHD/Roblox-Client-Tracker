@@ -35,7 +35,6 @@ local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local WidgetModules = ShellModules:FindFirstChild("Widgets")
 local MoreButtonModule = require(WidgetModules:FindFirstChild("MoreButton"))
 local AchievementManager = require(ShellModules:FindFirstChild('AchievementManager'))
-local XboxSFXPolish = settings():GetFFlag("XboxSFXPolish")
 
 local function CreateGameDetail(placeId)
 	local this = BaseScreen()
@@ -778,11 +777,7 @@ local function CreateGameDetail(placeId)
 		local loader = ThumbnailLoader:Create(image, thumbIds[index], ThumbnailLoader.Sizes.Large,
 			ThumbnailLoader.AssetType.Icon, false)
 		image.MouseButton1Click:connect(function()
-			if XboxSFXPolish then
-				SoundManager:Play('OverlayOpen')
-			else
-				SoundManager:Play('ScreenChange')
-			end
+			SoundManager:Play('OverlayOpen')
 			ScreenManager:OpenScreen(ImageOverlayModule(thumbIds, index), false)
 		end)
 		spawn(function()
@@ -798,11 +793,7 @@ local function CreateGameDetail(placeId)
 			if #thumbIds > 3 then
 				MoreThumbsButton.Visible = true
 				MoreThumbsButton.MouseButton1Click:connect(function()
-					if XboxSFXPolish then
-						SoundManager:Play('OverlayOpen')
-					else
-						SoundManager:Play('ScreenChange')
-					end
+					SoundManager:Play('OverlayOpen')
 					ScreenManager:OpenScreen(ImageOverlayModule(thumbIds, 1), false)
 				end)
 			end
