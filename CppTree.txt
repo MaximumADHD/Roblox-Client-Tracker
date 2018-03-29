@@ -387,6 +387,7 @@ RBX
 		MemberDescriptor
 		ModelInstance
 		PartInstance
+		PlayerJoinData
 		PropertyDescriptor
 		PVInstance
 		RefPropertyDescriptor
@@ -568,6 +569,7 @@ RBX
 	BoolPropertyVerb
 	BoxHandleAdornment
 	BoxSelectCommand
+	BSPMesh
 	BulletCellContact
 	BulletConnector
 	BulletContact
@@ -907,6 +909,7 @@ RBX
 	Player
 	PlayerConfigurer
 	PlayerGui
+	PlayerJoinData
 	PlayerLocaleLocalizationServiceTranslatorInstance
 	PlayerMouse
 	Players

@@ -11,13 +11,13 @@ BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[135972 bytes]
+[162584 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [210497 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[160486 bytes]
+[168340 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -229,9 +229,6 @@ content/fonts/SourceSansPro-Semibold.ttf
 content/fonts/zekton_rg.ttf
 [86964 bytes]
 
-content/internal/AppShell/Modules/Shell/AccountAgeWidget.lua
-[1959 bytes]
-
 content/internal/AppShell/Modules/Shell/AccountLinkingView.lua
 [8732 bytes]
 
@@ -272,7 +269,7 @@ content/internal/AppShell/Modules/Shell/AppContainer.lua
 [2052 bytes]
 
 content/internal/AppShell/Modules/Shell/AppHome.lua
-[8331 bytes]
+[8248 bytes]
 
 content/internal/AppShell/Modules/Shell/AppHub.lua
 [15310 bytes]
@@ -535,17 +532,17 @@ content/internal/AppShell/Modules/Shell/Reducers/AppShellReducer.lua
 content/internal/AppShell/Modules/Shell/Reducers/AppShellReducer.spec.lua
 [318 bytes]
 
-content/internal/AppShell/Modules/Shell/Reducers/RobloxUserReducer.lua
+content/internal/AppShell/Modules/Shell/Reducers/RobloxUser.lua
 [447 bytes]
 
-content/internal/AppShell/Modules/Shell/Reducers/RobloxUserReducer.spec.lua
-[1487 bytes]
+content/internal/AppShell/Modules/Shell/Reducers/RobloxUser.spec.lua
+[1480 bytes]
 
-content/internal/AppShell/Modules/Shell/Reducers/XboxUserReducer.lua
+content/internal/AppShell/Modules/Shell/Reducers/XboxUser.lua
 [362 bytes]
 
-content/internal/AppShell/Modules/Shell/Reducers/XboxUserReducer.spec.lua
-[1264 bytes]
+content/internal/AppShell/Modules/Shell/Reducers/XboxUser.spec.lua
+[1257 bytes]
 
 content/internal/AppShell/Modules/Shell/ReloaderManager.lua
 [4895 bytes]
@@ -630,9 +627,6 @@ content/internal/AppShell/Modules/Shell/ThumbnailLoader.lua
 
 content/internal/AppShell/Modules/Shell/UnlinkAccountOverlay.lua
 [4969 bytes]
-
-content/internal/AppShell/Modules/Shell/UnlinkAccountScreen.lua
-[6535 bytes]
 
 content/internal/AppShell/Modules/Shell/UserData.lua
 [5999 bytes]
@@ -1595,7 +1589,7 @@ content/internal/Chat/Modules/LuaChat/Components/ActionEntry.lua
 [3126 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/AssetCard.lua
-[11648 bytes]
+[12302 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/BaseHeader.lua
 [4810 bytes]
@@ -1652,7 +1646,7 @@ content/internal/Chat/Modules/LuaChat/Components/GameShareCard.lua
 [6235 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GameShareComponent.lua
-[10589 bytes]
+[11289 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetail.lua
 [10544 bytes]
@@ -2173,9 +2167,6 @@ content/internal/LuaApp/Modules/GamesMaster.lua
 content/internal/LuaApp/Modules/HomeMaster.lua
 [6708 bytes]
 
-content/internal/LuaApp/Modules/LuaApp/Actions/ActionType.lua
-[592 bytes]
-
 content/internal/LuaApp/Modules/LuaApp/Actions/AddGames.lua
 [569 bytes]
 
@@ -2186,25 +2177,25 @@ content/internal/LuaApp/Modules/LuaApp/Actions/AddUser.lua
 [181 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/EquipAsset.lua
-[658 bytes]
+[245 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/EquipAsset.spec.lua
 [940 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ResetCategory.lua
-[530 bytes]
+[184 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ResetCategory.spec.lua
 [742 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategory.lua
-[628 bytes]
+[231 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategory.spec.lua
 [866 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategoryTab.lua
-[771 bytes]
+[302 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SelectCategoryTab.spec.lua
 [1156 bytes]
@@ -2213,7 +2204,7 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SetAppPage.lua
 [239 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAssets.lua
-[578 bytes]
+[207 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAssets.spec.lua
 [1885 bytes]
@@ -2225,19 +2216,19 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarBodyType.spec.lua
 [889 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarEditorFullView.lua
-[618 bytes]
+[226 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarEditorFullView.spec.lua
 [1152 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeadSize.lua
-[582 bytes]
+[209 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeadSize.spec.lua
 [884 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeight.lua
-[590 bytes]
+[213 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarHeight.spec.lua
 [870 bytes]
@@ -2249,19 +2240,19 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarProportion.spec.lua
 [911 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarType.lua
-[610 bytes]
+[222 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarType.spec.lua
 [1058 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarWidth.lua
-[632 bytes]
+[233 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetAvatarWidth.spec.lua
 [967 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetBodyColors.lua
-[610 bytes]
+[222 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetBodyColors.spec.lua
 [1928 bytes]
@@ -2288,13 +2279,13 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SetLocalUser.lua
 [221 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetOutfit.lua
-[658 bytes]
+[245 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetOutfit.spec.lua
 [2798 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetScales.lua
-[577 bytes]
+[206 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/SetScales.spec.lua
 [1756 bytes]
@@ -2309,19 +2300,19 @@ content/internal/LuaApp/Modules/LuaApp/Actions/SetUserPresence.lua
 [276 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarEditorFullView.lua
-[556 bytes]
+[196 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarEditorFullView.spec.lua
 [859 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarType.lua
-[536 bytes]
+[186 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/ToggleAvatarType.spec.lua
 [769 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/UnequipAsset.lua
-[664 bytes]
+[248 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Actions/UnequipAsset.spec.lua
 [958 bytes]
@@ -2552,7 +2543,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AppScene.lua
 [444 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AppState.lua
-[649 bytes]
+[484 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/AssetInfo.lua
 [993 bytes]
@@ -2585,7 +2576,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CategoryMenuConsole.l
 [8976 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CharacterManager.lua
-[69639 bytes]
+[69585 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ConsoleButtonIndicators.lua
 [7124 bytes]
@@ -2627,13 +2618,13 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PaddedImageButton.lua
 [1018 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerBase.lua
-[6078 bytes]
+[6024 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerConsole.lua
 [22393 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerMobile.lua
-[24035 bytes]
+[23981 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ParticleScreen.lua
 [2224 bytes]
@@ -2705,7 +2696,7 @@ content/internal/LuaApp/Modules/LuaApp/Reducers/AppRouter.lua
 [419 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Assets.lua
-[4175 bytes]
+[2172 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Assets.spec.lua
 [5210 bytes]
@@ -2714,13 +2705,13 @@ content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Avatar.lua
 [512 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/AvatarType.lua
-[962 bytes]
+[438 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/AvatarType.spec.lua
 [1094 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/BodyColors.lua
-[1347 bytes]
+[643 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/BodyColors.spec.lua
 [2710 bytes]
@@ -2729,7 +2720,7 @@ content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Category.lua
 [309 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/CategoryIndex.lua
-[901 bytes]
+[406 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/CategoryIndex.spec.lua
 [971 bytes]
@@ -2744,19 +2735,19 @@ content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/ConsoleMenuLevel.sp
 [796 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/FullView.lua
-[1050 bytes]
+[501 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/FullView.spec.lua
 [1246 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Scales.lua
-[2461 bytes]
+[1470 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/Scales.spec.lua
 [4829 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/TabsInfo.lua
-[1329 bytes]
+[643 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Reducers/AvatarEditor/TabsInfo.spec.lua
 [1369 bytes]
@@ -2966,7 +2957,7 @@ content/places/MobileGamesPlace.rbxl
 [15047 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
-[10996 bytes]
+[11031 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6601 bytes]
@@ -2987,7 +2978,7 @@ content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
 [23540 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[38581 bytes]
+[33564 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6319 bytes]
@@ -2996,7 +2987,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [69746 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[40992 bytes]
+[40762 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5650 bytes]
@@ -3020,16 +3011,16 @@ content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
 [14177 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuGui.lua
-[8621 bytes]
+[8702 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuItems.lua
-[10607 bytes]
+[10284 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuUtil.lua
-[8104 bytes]
+[8122 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/PlayerCarousel.lua
-[7489 bytes]
+[7703 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator.lua
 [2865 bytes]
@@ -3074,10 +3065,10 @@ content/scripts/CoreScripts/Modules/NewChat.lua
 [10145 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[23040 bytes]
+[23108 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[63445 bytes]
+[66310 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1147 bytes]
@@ -3122,7 +3113,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [712 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[844 bytes]
+[1208 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
 [4584 bytes]
@@ -3209,7 +3200,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
 [13710 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
-[3108 bytes]
+[3598 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
 [13322 bytes]
@@ -3269,7 +3260,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[42596 bytes]
+[42297 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [31090 bytes]
@@ -3281,7 +3272,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4702 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21002 bytes]
+[21587 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5632 bytes]
@@ -3299,10 +3290,7 @@ content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [10263 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[77665 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/UtilityOld.lua
-[74381 bytes]
+[76932 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
 [3960 bytes]
@@ -3365,7 +3353,7 @@ content/scripts/CoreScripts/Modules/TopbarConstants.lua
 [1188 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Controllers/ViveController.lua
-[11226 bytes]
+[10858 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Dialog.lua
 [5894 bytes]
@@ -3398,13 +3386,13 @@ content/scripts/CoreScripts/Modules/VR/VRControllerModel.lua
 [5170 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VRHub.lua
-[5608 bytes]
+[4926 bytes]
 
 content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
 [7695 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
-[3330 bytes]
+[2993 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
 [3940 bytes]
@@ -3488,7 +3476,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/G
 [6731 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/KeyboardMovement.lua
-[5610 bytes]
+[5786 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbpad.lua
 [8574 bytes]
@@ -5983,14 +5971,8 @@ content/textures/WeldCursor.png
 content/textures/whiteCircle.png
 [4040 bytes]
 
-content/translations/ChatLocalization.json
-[25096 bytes]
-
 content/translations/CoreScriptLocalization.csv
 [91862 bytes]
-
-content/translations/CorescriptLocalization.json
-[127647 bytes]
 
 PlatformContent/pc/fonts/NotoSansCJKjp-Regular.otf
 [16427228 bytes]
@@ -6344,11 +6326,11 @@ shaders/keepme
 [0 bytes]
 
 shaders/shaders_glsl.pack
-[339086 bytes]
+[336833 bytes]
 
 shaders/shaders_glsl3.pack
-[359902 bytes]
+[357727 bytes]
 
 shaders/shaders_metal_osx.pack
-[970662 bytes]
+[960852 bytes]
 

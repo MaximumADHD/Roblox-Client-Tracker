@@ -95,45 +95,29 @@ local playerMovementEnabled = true
 function ContextMenuUtil:DisablePlayerMovement()
 	if not playerMovementEnabled then return end
 	playerMovementEnabled = false
+    
+    local noOpFunc = function(actionName, actionState)
+        if actionState == Enum.UserInputState.End then
+            return Enum.ContextActionResult.Pass
+        end
+        return Enum.ContextActionResult.Sink
+    end
 
-	local noOpFunc = function() end
 	ContextActionService:BindCoreAction(STOP_MOVEMENT_ACTION_NAME, noOpFunc, false,
 		Enum.PlayerActions.CharacterForward,
 		Enum.PlayerActions.CharacterBackward,
 		Enum.PlayerActions.CharacterLeft,
 		Enum.PlayerActions.CharacterRight,
 		Enum.PlayerActions.CharacterJump,
-		Enum.KeyCode.LeftShift,
-		Enum.KeyCode.RightShift,
-		Enum.KeyCode.Tab,
 		Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
 	)
-
-	if LocalPlayer.Character then
-		local humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-		if humanoid then
-			self.OldJumpPower = humanoid.JumpPower
-			self.OldWalkSpeed = humanoid.WalkSpeed
-			humanoid.JumpPower = 0
-			humanoid.WalkSpeed = 0
-		end
-	end
 end
 
 function ContextMenuUtil:EnablePlayerMovement()
 	if playerMovementEnabled then return end
 	playerMovementEnabled = true
-
+    
 	ContextActionService:UnbindCoreAction(STOP_MOVEMENT_ACTION_NAME)
-	if LocalPlayer.Character then
-		local humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-		if humanoid then
-			if self.OldJumpPower and self.OldWalkSpeed then
-				humanoid.JumpPower = self.OldJumpPower
-				humanoid.WalkSpeed = self.OldWalkSpeed
-			end
-		end
-	end
 end
 
 function ContextMenuUtil:GetFriendStatus(player)
@@ -196,10 +180,15 @@ local function MakeDefaultButton(name, size, clickFunc)
 	button.InputBegan:Connect(function(inputObject)
 		if button.Selectable and isPointerInput(inputObject) then
 			selectButton()
-		end
+            inputObject:GetPropertyChangedSignal("UserInputState"):connect(function()
+                                                                             if inputObject.UserInputState == Enum.UserInputState.End then
+                                                                                deselectButton()
+                                                                             end
+                                                                         end)
+        end
 	end)
 	button.InputEnded:Connect(function(inputObject)
-		if button.Selectable and GuiService.SelectedCoreObject ~= button and isPointerInput(inputObject) then
+        if button.Selectable and GuiService.SelectedCoreObject ~= button and isPointerInput(inputObject) then
 			deselectButton()
 		end
 	end)
@@ -282,9 +271,6 @@ function ContextMenuUtil.new()
 	local obj = setmetatable({}, ContextMenuUtil)
 
 	obj.HeadShotUrlCache = {}
-
-	obj.OldJumpPower = nil
-	obj.OldWalkSpeed = nil
 
 	return obj
 end

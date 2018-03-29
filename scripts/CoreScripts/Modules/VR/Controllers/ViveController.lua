@@ -4,9 +4,6 @@ local CoreGui 		= game:GetService("CoreGui")
 local RobloxGui 	= CoreGui.RobloxGui
 local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
 
-local EnableVRServiceTouchpadAPISuccess, EnableVRServiceTouchpadAPIValue = pcall(function() return settings():GetFFlag("EnableVRServiceTouchpadAPI") end)
-local FFlagEnableVRServiceTouchpadAPI = EnableVRServiceTouchpadAPISuccess, EnableVRServiceTouchpadAPIValue
-
 local PARTS_INFO = {
 	Body = {
 		size = Vector3.new(0.391, 0.277, 0.731),
@@ -85,16 +82,12 @@ local SCALE = Vector3.new(0.033, 0.033, 0.033)
 local ViveController = {}
 ViveController.__index = ViveController
 
-local touchpadForUserCFrame = FFlagEnableVRServiceTouchpadAPI and {
+local touchpadForUserCFrame = {
 	[Enum.UserCFrame.LeftHand] = Enum.VRTouchpad.Left,
 	[Enum.UserCFrame.RightHand] = Enum.VRTouchpad.Right
-} or {}
+}
 
 function ViveController.new(userCFrame)
-	if not FFlagEnableVRServiceTouchpadAPI then
-		return nil
-	end
-
 	local self = setmetatable({}, ViveController)
 	self.userCFrame = userCFrame
 	self.touchpad = touchpadForUserCFrame[self.userCFrame]

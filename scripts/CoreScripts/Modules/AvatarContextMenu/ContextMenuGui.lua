@@ -61,7 +61,7 @@ function ContextMenuGui:CreateLeaveMenuButton(frame)
 	closeMenuButton.Size = UDim2.new(0.05, 0, 0.1, 0)
 	closeMenuButton.Image = "rbxasset://textures/loading/cancelButton.png"
 	closeMenuButton.Selectable = false
-	closeMenuButton.MouseButton1Click:Connect(closeMenu)
+	closeMenuButton.Activated:Connect(closeMenu)
 
 	local aspectConstraint = Instance.new("UIAspectRatioConstraint")
 	aspectConstraint.AspectType = Enum.AspectType.FitWithinMaxSize
@@ -103,12 +103,15 @@ function ContextMenuGui:CreateMenuFrame()
 	menu.Position = UDim2.new(0.5, 0, 1 - BOTTOM_SCREEN_PADDING_PERCENT, 0)
 	menu.AnchorPoint = Vector2.new(0.5, 1)
 	menu.BackgroundTransparency = 1
+	menu.Selectable = false
 	menu.Image = "rbxasset://textures/blackBkg_round.png"
 	menu.ScaleType = Enum.ScaleType.Slice
 	menu.SliceCenter = Rect.new(12,12,12,12)
 	menu.Visible = false
 	menu.Active = true
 	menu.ClipsDescendants = true
+
+	GuiService:AddSelectionParent("AvatarContextMenuGroup", menu)
 
 		local aspectConstraint = Instance.new("UIAspectRatioConstraint")
 		aspectConstraint.AspectType = Enum.AspectType.ScaleWithParentSize

@@ -30,9 +30,6 @@ RemoteFunction_GetServerVersion.Parent = RobloxReplicatedStorage
 --[[ Event Connections ]]--
 local playerDialogMap = {}
 
-local dialogInUseFixFlagSuccess, dialogInUseFixValue = pcall(function() return settings():GetFFlag("DialogInUseFix") end)
-local dialogInUseFixFlag = (dialogInUseFixFlagSuccess and dialogInUseFixValue)
-
 local freeCameraFlagSuccess, freeCameraFlagValue = pcall(function() return settings():GetFFlag("FreeCameraForAdmins") end)
 local freeCameraFlag = (freeCameraFlagSuccess and freeCameraFlagValue)
 
@@ -55,14 +52,7 @@ local function setDialogInUse(player, dialog, value, waitTime)
 	end
 	if dialog ~= nil then
 		dialog:SetPlayerIsUsing(player, value)
-
-		if dialogInUseFixFlag then
-			if value == true then
-				playerDialogMap[player] = dialog
-			else
-				playerDialogMap[player] = nil
-			end
-		end
+		playerDialogMap[player] = value and dialog or nil
 	end
 end
 RemoteEvent_SetDialogInUse.OnServerEvent:connect(setDialogInUse)
@@ -85,13 +75,11 @@ end
 RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 
 game:GetService("Players").PlayerRemoving:connect(function(player)
-	if dialogInUseFixFlag then
-		if player then
-			local dialog = playerDialogMap[player]
-			if dialog then
-				dialog:SetPlayerIsUsing(player, false)
-				playerDialogMap[player] = nil
-			end
+	if player then
+		local dialog = playerDialogMap[player]
+		if dialog then
+			dialog:SetPlayerIsUsing(player, false)
+			playerDialogMap[player] = nil
 		end
 	end
 end)

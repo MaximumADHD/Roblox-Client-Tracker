@@ -61,7 +61,7 @@
         <addaction name="advRotateAction" style="textundericon" text="Rotate" tooltip="Rotate an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32"/>
         <addseparator visible="false"/>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions " tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
-        <addaction fflag="IkDraggerEnabled" name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
+        <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Choose how parts are joined together" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Always join adjacent parts" width="32" height="32"/>
@@ -115,13 +115,11 @@
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Select color and apply to parts" width="32" height="32"/>
         <addseparator visible="false"/>
-        <MenuPopupButton fflag="IkDraggerEnabled" name="groupSelectionAction" style="textbesideicon" text="Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Group the selected parts into a model" width="16" height="16">
+        <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Group the selected parts into a model" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
         </MenuPopupButton>
-        <addaction fflag="!IkDraggerEnabled" name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
-        <addaction fflag="!IkDraggerEnabled" name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
-        <MenuPopupButton fflag="IkDraggerEnabled" name="lockAction" style="textbesideicon" text="Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="32" height="32">
+        <MenuPopupButton name="lockAction" style="textbesideicon" text="Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="32" height="32">
           <addaction name="lockAction" text="Lock Tool" />
           <addaction name="unlockAllAction" />
         </MenuPopupButton>
@@ -161,12 +159,8 @@
         <addaction name="advRotateAction" style="textundericon" text="Rotate" tooltip="Rotate an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32" />
         <addaction name="Transform" instancename="Transform" style="textundericon" text="Transform" tooltip="Precisely Manipulate an Object" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/Plane.png" width="32" height="32" />
         <addseparator visible="false"/>
-        <MenuButton fflag="!IkDraggerEnabled" name="lockMenu" style="textbesideicon" text="Lock" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="16" height="16">
-          <addaction name="lockAction" text="Lock Tool" />
-          <addaction name="unlockAllAction" />
-        </MenuButton>
         <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions " tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
-        <addaction fflag="IkDraggerEnabled" name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
+        <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Choose how parts are joined together" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Always join adjacent parts" width="32" height="32"/>
@@ -235,13 +229,11 @@
           <!--   <addaction name="hingeAction" text="Add Hinge"/> -->
         </MenuButton>
         <addseparator visible="false"/>
-        <MenuPopupButton fflag="IkDraggerEnabled" name="groupSelectionAction" style="textbesideicon" text="Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Group the selected parts into a model" width="16" height="16">
+        <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Group" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" tooltip="Group the selected parts into a model" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
         </MenuPopupButton>
-        <addaction fflag="!IkDraggerEnabled" name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" style="textbesideicon" tooltip="Group the selected parts into a model" width="16" height="16" />
-        <addaction fflag="!IkDraggerEnabled" name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" style="textbesideicon" tooltip="Ungroup the model into the original parts" width="16" height="16" />
-        <MenuPopupButton fflag="IkDraggerEnabled" name="lockAction" style="textbesideicon" text="Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="32" height="32">
+        <MenuPopupButton name="lockAction" style="textbesideicon" text="Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" tooltip="Click on parts to lock/unlock" width="32" height="32">
           <addaction name="lockAction" text="Lock Tool" />
           <addaction name="unlockAllAction" />
         </MenuPopupButton>
@@ -325,16 +317,16 @@
       -->
     <TabPage name="UI" fflag="StudioUIEditorV2Alpha">
       <Group name="">
-        <addaction name="createScreenGuiAction" text="ScreenGUI" style="textundericon" iscommonslot="true" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/screengui.png" width="32" height="32"/>
+        <addaction name="createScreenGuiAction" text="ScreenGUI" style="textundericon" iscommonslot="true" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_screenGUI.png" width="32" height="32"/>
       </Group>
       <Group name=" ">
-        <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/frame.png" width="32" height="32"/>
-        <addaction name="createScrollingFrameAction" text="Scrolling Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/scrollingframe.png" width="32" height="32"/>
-        <addaction name="createTextLabelAction" text="Text Label" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/text.png" width="32" height="32"/>
-        <addaction name="createTextButtonAction" text="Text Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbutton.png" width="32" height="32"/>
-        <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/textbox.png" width="32" height="32"/>
-        <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/imagebutton.png"  width="32" height="32"/>
-        <addaction name="createImageLabelAction" text="Image Label" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/image.png"  width="32" height="32"/>
+        <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_frame.png" width="32" height="32"/>
+        <addaction name="createScrollingFrameAction" text="Scrolling Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
+        <addaction name="createTextLabelAction" text="Text Label" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textLabel.png" width="32" height="32"/>
+        <addaction name="createTextButtonAction" text="Text Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textButton.png" width="32" height="32"/>
+        <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textBox.png" width="32" height="32"/>
+        <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageButton.png"  width="32" height="32"/>
+        <addaction name="createImageLabelAction" text="Image Label" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageLabel.png"  width="32" height="32"/>
       </Group>
     </TabPage>
     <!--

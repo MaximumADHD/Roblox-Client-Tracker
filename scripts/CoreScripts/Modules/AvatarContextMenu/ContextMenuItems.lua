@@ -152,9 +152,8 @@ end
 
 -- PUBLIC METHODS
 
-local friendRequestPendingString = "Friend Request Pending"
 local addFriendString = "Add Friend"
-local friendString = "Friend"
+local addFriendDisabledTransparency = 0.85
 local friendStatusChangedConn = nil
 function ContextMenuItems:CreateFriendButton(status)
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
@@ -168,32 +167,33 @@ function ContextMenuItems:CreateFriendButton(status)
 	local friendLabelText = nil
 
 	local addFriendFunc = function()
-		if friendLabelText then
+		if friendLabelText and friendLabel.Selectable then
 			AnalyticsService:ReportCounter("AvatarContextMenu-RequestFriendship")
         	AnalyticsService:TrackEvent("Game", "RequestFriendship", "AvatarContextMenu")
 			LocalPlayer:RequestFriendship(self.SelectedPlayer)
 		end
 	end
 
-	if status == Enum.FriendStatus.Friend or status == Enum.FriendStatus.FriendRequestSent then
-		friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", friendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), function() end)
-		if status == Enum.FriendStatus.Friend then
-			friendLabelText.Text = friendString
-		else
-			friendLabelText.Text = friendRequestPendingString
-		end
-	elseif status == Enum.FriendStatus.Unknown or status == Enum.FriendStatus.NotFriend or status == Enum.FriendStatus.FriendRequestReceived then
-		friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
-        friendLabelText.Text = addFriendString
+	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
+
+	if status == Enum.FriendStatus.Unknown or status == Enum.FriendStatus.NotFriend then
+		friendLabel.Selectable = true
+		friendLabelText.TextTransparency = 0
+	else
+		friendLabel.Selectable = false
+		friendLabelText.TextTransparency = addFriendDisabledTransparency
 	end
 
     friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
         if player == self.SelectedPlayer and friendLabelText then
-            if friendStatus == Enum.FriendStatus.Friend then
-                friendLabelText.Text = friendString
-            elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
-                friendLabelText.Text = friendRequestPendingString
-            end
+
+        	if friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
+        		friendLabel.Selectable = true
+				friendLabelText.TextTransparency = 0
+        	else
+        		friendLabel.Selectable = false
+				friendLabelText.TextTransparency = addFriendDisabledTransparency
+        	end
         end
     end)
 

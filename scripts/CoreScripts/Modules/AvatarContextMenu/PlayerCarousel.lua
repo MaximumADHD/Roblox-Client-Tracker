@@ -115,10 +115,12 @@ local function CreateMenuCarousel()
 		nextButton.MouseButton1Click:Connect(function() moveChangePage(true) end)
 		prevButton.MouseButton1Click:Connect(function() moveChangePage(false) end)
 
+		local defaultChildrenSize = 3 -- aspectRatioConstraint, PageLayout, first button in pagelayout
+
 		local function checkButtonVisibility()
 			local lastInputIsTouch = UserInputService:GetLastInputType() == Enum.UserInputType.Touch
-			prevButton.Visible = not lastInputIsTouch
-			nextButton.Visible = not lastInputIsTouch
+			prevButton.Visible = not lastInputIsTouch and (#selectedPlayer:GetChildren() > defaultChildrenSize)
+			nextButton.Visible = not lastInputIsTouch and (#selectedPlayer:GetChildren() > defaultChildrenSize)
 		end
 		checkButtonVisibility()
 		UserInputService.LastInputTypeChanged:Connect(checkButtonVisibility)

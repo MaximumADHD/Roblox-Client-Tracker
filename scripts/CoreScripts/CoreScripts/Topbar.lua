@@ -6,9 +6,6 @@
 
 --[[ FFLAG VALUES ]]
 
-local getNewNotificationPathSuccess, newNotificationPathValue = pcall(function() return settings():GetFFlag("UseNewNotificationPathLua") end)
-local newNotificationPath = getNewNotificationPathSuccess and newNotificationPathValue
-
 local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript2")
 
 --[[ END OF FFLAG VALUES ]]

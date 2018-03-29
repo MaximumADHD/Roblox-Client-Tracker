@@ -69,7 +69,7 @@ function KeyboardMovement:Enable()
 	local moveForwardFunc = function(actionName, inputState, inputObject)			
 		if inputState == Enum.UserInputState.Begin then
 			forwardValue = -1
-		elseif inputState == Enum.UserInputState.End then
+		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
 			forwardValue = 0
 		end
 		updateMovement(inputState)
@@ -78,7 +78,7 @@ function KeyboardMovement:Enable()
 	local moveBackwardFunc = function(actionName, inputState, inputObject)	
 		if inputState == Enum.UserInputState.Begin then
 			backwardValue = 1
-		elseif inputState == Enum.UserInputState.End then
+		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
 			backwardValue = 0
 		end
 		updateMovement(inputState)
@@ -87,7 +87,7 @@ function KeyboardMovement:Enable()
 	local moveLeftFunc = function(actionName, inputState, inputObject)	
 		if inputState == Enum.UserInputState.Begin then
 			leftValue = -1
-		elseif inputState == Enum.UserInputState.End then
+		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
 			leftValue = 0
 		end
 		updateMovement(inputState)
@@ -96,7 +96,7 @@ function KeyboardMovement:Enable()
 	local moveRightFunc = function(actionName, inputState, inputObject)	
 		if inputState == Enum.UserInputState.Begin then
 			rightValue = 1
-		elseif inputState == Enum.UserInputState.End then
+		elseif inputState == Enum.UserInputState.End or inputState == Enum.UserInputState.Cancel then
 			rightValue = 0
 		end
 		updateMovement(inputState)

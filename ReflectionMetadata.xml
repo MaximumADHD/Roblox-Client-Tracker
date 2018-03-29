@@ -1956,6 +1956,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
+        <bool name="Deprecated">true</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6972,6 +6973,18 @@
     </Item>
     <Item class="ReflectionMetadataEnum">
       <Properties>
+        <string name="Name">Genre</string>
+        <bool name="Deprecated">true</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">GearGenreSetting</string>
+        <bool name="Deprecated">true</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
         <string name="Name">SortOrder</string>
         <string name="summary">The ordering to use for sorting an array of GuiObjects.</string>
       </Properties>
@@ -7009,6 +7022,42 @@
         <Properties>
           <string name="Name">Sibling</string>
           <string name="summary">The ZIndex property will control the order that the GuiObject will be rendered relative to its siblings.</string>
+        </Properties>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">ScaleType</string>
+        <string name="summary">Controls how an image is displayed.</string>
+      </Properties>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Stretch</string>
+          <string name="summary">Force the image to fill the available space.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Slice</string>
+          <string name="summary">Use the SliceCenter property to stretch the middle of the image but maintain crisp borders.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Tile</string>
+          <string name="summary">Tile the image using the TileSize property.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Fit</string>
+          <string name="summary">Size the image to the largest size that will fit in the available space while maintaining aspect ratio.</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Crop</string>
+          <string name="summary">Fill the available space, maintaining aspect ratio by cropping the edges if necessary.</string>
         </Properties>
       </Item>
     </Item>

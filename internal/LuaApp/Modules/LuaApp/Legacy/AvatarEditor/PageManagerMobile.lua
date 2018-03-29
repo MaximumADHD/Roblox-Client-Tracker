@@ -3,9 +3,7 @@ local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
 -------------- FFLAGS --------------
 local AvatarEditorCatalogRecommended = Flags:GetFlag("AvatarEditorCatalogRecommended")
-local AvatarEditorAnthroSliders =
-	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
-	Flags:GetFlag("AvatarEditorUseNewCommonAction")
+local AvatarEditorAnthroSliders = Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly")
 
 local AvatarEditorSliderUIAdjustments =
 	Flags:GetFlag("AvatarEditorSliderUIAdjustments")

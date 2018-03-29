@@ -4,8 +4,10 @@ local GuiService = game:GetService("GuiService")
 local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 
+local Modules = CoreGui.RobloxGui.Modules
+local Analytics = require(Modules.Common.Analytics)
 local LuaChat = script.Parent.Parent
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
+local LuaApp = Modules.LuaApp
 local StringsLocale = require(LuaApp.StringsLocale)
 
 local Create = require(LuaChat.Create)
@@ -24,7 +26,9 @@ local DEFAULT_THUMBNAIL = "rbxasset://textures/ui/LuaChat/icons/share-game-thumb
 local EXTERIOR_PADDING = 3
 local INTERIOR_PADDING = 12
 local ICON_SIZE = 64
+local LINK_CARD_CLICKED_EVENT = "clickLinkCardInChat"
 local PLACE_INFO_THUMBNAIL_SIZE = 50
+local VIEW_DETAILS_BUTTON_CLICKED_EVENT = "clickBtnFromLinkCardInChat"
 
 local function isOutgoingMessage(message)
 	local localUserId = tostring(Players.LocalPlayer.UserId)
@@ -45,6 +49,7 @@ function AssetCard.new(appState, message, assetId)
 	local user = state.Users[message.senderTargetId]
 	local username = user and user.name or "unknown user"
 
+	self._analytics = Analytics.new()
 	self.appState = appState
 	self.paddingObject = nil
 	self.message = message
@@ -52,6 +57,7 @@ function AssetCard.new(appState, message, assetId)
 	self.connections = {}
 	self.cardBodyClick = nil
 	self.assetId = assetId
+	self.conversationId = message.conversationId
 
 	self.tail = Create.new "ImageLabel" {
 		Name = "Tail",
@@ -296,6 +302,7 @@ function AssetCard:Update(newState)
 	end
 
 	self.cardBodyClick = self.Content.MouseButton1Click:Connect(function()
+		self:ReportTouchEvent(LINK_CARD_CLICKED_EVENT)
 		if self.placeInfo then
 			GuiService:BroadcastNotification(self.assetId,
 				GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS_ANIMATED)
@@ -303,6 +310,7 @@ function AssetCard:Update(newState)
 	end)
 
 	self.detailsButtonClick = self.actionButton.MouseButton1Click:Connect(function()
+		self:ReportTouchEvent(VIEW_DETAILS_BUTTON_CLICKED_EVENT)
 		if self.placeInfo then
 			if LuaChatAssetCardsCanShowPlayButton then
 				if self.placeInfo.isPlayable then
@@ -323,6 +331,15 @@ function AssetCard:Update(newState)
 	end)
 
 	self:Resize()
+end
+
+function AssetCard:ReportTouchEvent(eventName)
+	local eventContext = "touch"
+	local additionalArgs = {
+		conversationId = self.conversationId,
+		assetId = self.assetId
+	}
+	self._analytics.EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 end
 
 function AssetCard:StyleViewDetailsAsPlay(isShowingAsPlay)

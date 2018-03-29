@@ -1,6 +1,8 @@
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
+local PlayerService = game:GetService("Players")
 
+local Analytics = require(CoreGui.RobloxGui.Modules.Common.Analytics)
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
 local Modules = script.Parent.Parent
 local Components = Modules.Components
@@ -47,6 +49,7 @@ end
 
 function GameShareComponent.new(appState, placeId, innerFrame)
 	local self = {}
+	self._analytics = Analytics.new()
 	self.appState = appState
 	self.placeId = placeId
 	self.placeInfo = appState.store:GetState().PlaceInfos[placeId]
@@ -143,7 +146,9 @@ function GameShareComponent.new(appState, placeId, innerFrame)
 	divider.Parent = innerFrame
 	self.conversationListFrame.Parent = innerFrame
 
-	self.rbx = Create.new"Frame" {
+	self.rbx = Create.new"ImageButton" {
+		Active = true,
+		AutoButtonColor = false,
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = Constants.Color.GRAY5,
 		BorderSizePixel = 0,
@@ -267,6 +272,7 @@ function GameShareComponent:FillConversations()
 	list.rbx.Size = UDim2.new(1, 0, 1, 0)
 	list.rbx.Parent = self.conversationListFrame
 	local tappedConnection = list.ConversationTapped:Connect(function(convoId)
+		self:ReportSendButtonTappedEvent(convoId)
 		self.appState.store:Dispatch(ConversationActions.SendMessage(convoId, self.placeInfo.url))
 	end)
 	table.insert(self.connections, tappedConnection)
@@ -296,6 +302,24 @@ function GameShareComponent:getOlderConversationsForSearchIfNecessary(appState)
 	end
 
 	requestOlderConversations(self.appState)
+end
+
+function GameShareComponent:ReportSendButtonTappedEvent(convoId)
+	local eventName = "clickSendBtnFromGameShareCard"
+	local eventContext = "touch"
+
+	local player = PlayerService.LocalPlayer
+	local userId = "UNKNOWN"
+	if player then
+		userId = tostring(player.UserId)
+	end
+
+	local additionalArgs = {
+		uid = userId,
+		placeid = self.placeId,
+		cid = convoId
+	}
+	self._analytics.EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 end
 
 function GameShareComponent:Stop()

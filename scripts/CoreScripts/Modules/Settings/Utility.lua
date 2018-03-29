@@ -35,8 +35,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 
 --------------- FLAGS ----------------
-local fixSettingsMenuDropdownsSuccess, fixSettingsMenuDropdownsValue = pcall(function() return settings():GetFFlag("FixSettingsMenuDropdowns") end)
-local fixSettingsMenuDropdowns = fixSettingsMenuDropdownsSuccess and fixSettingsMenuDropdownsValue
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
@@ -656,11 +654,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		if name ~= nil and inputState ~= Enum.UserInputState.Begin then return end
 		this.DropDownFrame.Selectable = interactable
 
-		if fixSettingsMenuDropdowns then
-			--Make sure to set the hub to Active again so selecting the
-			--dropdown button will highlight it
-			settingsHub:SetActive(true)
-		end
+		--Make sure to set the hub to Active again so selecting the
+		--dropdown button will highlight it
+		settingsHub:SetActive(true)
 
 		if DropDownFullscreenFrame.Visible and usesSelectedObject() then
 			GuiService.SelectedCoreObject = lastSelectedCoreObject
@@ -669,12 +665,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		if guiServiceChangeCon then guiServiceChangeCon:Disconnect() end
 		ContextActionService:UnbindCoreAction(guid .. "Action")
 		ContextActionService:UnbindCoreAction(guid .. "FreezeAction")
-
-		if not fixSettingsMenuDropdowns then
-			--Setting this late will cause the dropdown button to not be highlighted correctly
-			--so we're going to move this upward
-			settingsHub:SetActive(true)
-		end
 
 		dropDownButtonEnabled.Value = interactable
 		active = false
@@ -967,11 +957,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			hideDropDownSelection()
 		end
 	end)
-
-	if not fixSettingsMenuDropdowns then
-		UserInputService.InputBegan:Connect(processInput)
-		UserInputService.InputEnded:Connect(processInput)
-	end
 
 	return this
 end
@@ -2463,7 +2448,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		Size = UDim2.new(1,0,0,ROW_HEIGHT),
 		Position = UDim2.new(0,0,0,nextRowPositionY),
 		ZIndex = 2,
-		Selectable = not fixSettingsMenuDropdowns, --this should be false after removing FFlagFixSettingsMenuDropdowns
+		Selectable = false,
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};

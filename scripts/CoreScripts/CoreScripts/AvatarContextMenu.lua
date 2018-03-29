@@ -5,7 +5,7 @@
 ]]
 
 -- OPTIONS
-local DEBUG_MODE = false -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
+local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
 -- CONSTANTS

@@ -96,9 +96,7 @@ local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local TableUtilities = require(Modules.LuaApp.TableUtilities)
 
 -------------- FFLAGS --------------
-local AvatarEditorAnthroSliders =
-	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
-	Flags:GetFlag("AvatarEditorUseNewCommonAction")
+local AvatarEditorAnthroSliders = Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly")
 local FixApplyTShirtOnR6Character = Flags:GetFlag("FixApplyTShirtOnR6Character")
 local AvatarEditorSelectivelyUseDefaultAsset = Flags:GetFlag("AvatarEditorSelectivelyUseDefaultAsset")
 

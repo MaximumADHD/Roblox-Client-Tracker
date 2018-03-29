@@ -4,6 +4,7 @@
   // Written by: jmargh
   // Description: Implementation of in game player list and leaderboard
 ]]
+local XboxToggleVoiceChatHotkey = settings():GetFFlag("XboxToggleVoiceChatHotkey")
 
 local CoreGui = game:GetService('CoreGui')
 local GuiService = game:GetService('GuiService')	-- NOTE: Can only use in core scripts
@@ -408,6 +409,61 @@ PopupClipFrame.BackgroundTransparency = 1
 PopupClipFrame.ClipsDescendants = true
 PopupClipFrame.Parent = Container
 
+-- Xbox exclusive functions, need to declare here so they can be used elsewhere in file
+local xboxSetShieldVisibility = nil
+local xboxEnableHotkeys = nil
+local xboxDisableHotkeys = nil
+
+-- Area to set up Xbox features
+if isTenFootInterface and XboxToggleVoiceChatHotkey then
+  local CreateHintActionView = require(RobloxGui.Modules.Shell.HintActionView)
+  local voiceChatService = game:GetService('VoiceChatService')
+
+  -- Set up Semitransparent black underlay below the Playerlist
+  local xboxPlayerlistShield = Instance.new("Frame", RobloxGui)
+  xboxPlayerlistShield.Size = UDim2.new(1, 0, 1, 0)
+  xboxPlayerlistShield.BackgroundColor3 = Color3.fromRGB(41, 41, 41)  -- Copied from: SETTINGS_SHIELD_COLOR in SettingsHub.lua
+  xboxPlayerlistShield.BackgroundTransparency = 0.2  -- Copied from: SETTINGS_SHIELD_TRANSPARENCY in SettingsHub.lua
+  xboxPlayerlistShield.Visible = false
+
+  local xboxMuteAllState = false
+  local seenYButtonPressed = false
+
+  local function getVoiceEnabledString()
+    return xboxMuteAllState and "Enable Voice Chat" or "Disable Voice Chat" -- TODO: localized strings go here
+  end
+
+  -- Set up "toggle voice" hotkey using HintActionView module from the xbox AppShell
+  local xboxToggleVoiceHotkey = CreateHintActionView(xboxPlayerlistShield, "ToggleVoiceChat", UDim2.new(0.96, -1, 0.96, -1))
+  xboxToggleVoiceHotkey:SetText(getVoiceEnabledString())
+  xboxToggleVoiceHotkey:SetImage('rbxasset://textures/ui/Shell/ButtonIcons/YButton.png')
+
+  -- Callback for when the "toggle voice" hotkey is activated
+  local function onToggleVoice(actionName, inputState, inputObject)
+    if inputState == Enum.UserInputState.Begin then
+      seenYButtonPressed = true
+    elseif inputState == Enum.UserInputState.End and seenYButtonPressed then
+      xboxMuteAllState = not xboxMuteAllState
+      voiceChatService:VoiceChatSetMuteAllState(xboxMuteAllState)
+      xboxToggleVoiceHotkey:SetText(getVoiceEnabledString())
+      seenYButtonPressed = false
+    end
+  end
+
+  -- Define the Functions that can be used outside of this block
+  xboxSetShieldVisibility = function(state)
+    xboxPlayerlistShield.Visible = state
+  end
+
+  xboxEnableHotkeys = function()
+    xboxToggleVoiceHotkey:BindAction(onToggleVoice, Enum.KeyCode.ButtonY)
+  end
+
+  xboxDisableHotkeys = function()
+    xboxToggleVoiceHotkey:UnbindAction()
+    seenYButtonPressed = false
+  end
+end
 
 --[[ Creation Helper Functions ]]--
 local function createEntryFrame(name, sizeYOffset, isTopStat)
@@ -1805,6 +1861,10 @@ local closeListFunc = function(name, state, input)
 
   isOpen = false
   Container.Visible = false
+  if isTenFootInterface and XboxToggleVoiceChatHotkey then
+    xboxSetShieldVisibility(false)
+    xboxDisableHotkeys()
+  end
   spawn(function() GuiService:SetMenuIsOpen(false) end)
   ContextActionService:UnbindCoreAction("CloseList")
   ContextActionService:UnbindCoreAction("StopAction")
@@ -1815,6 +1875,9 @@ end
 
 setVisible = function(state)
   Container.Visible = state
+  if isTenFootInterface and XboxToggleVoiceChatHotkey then
+    xboxSetShieldVisibility(state)
+  end
   local lastInputType = UserInputService:GetLastInputType()
   local isUsingGamepad = (lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or
     lastInputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4)
@@ -1842,6 +1905,9 @@ setVisible = function(state)
       ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
       ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
     end
+    if isTenFootInterface and XboxToggleVoiceChatHotkey then
+      xboxEnableHotkeys()
+    end
   else
     if isUsingGamepad then
       UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
@@ -1849,6 +1915,9 @@ setVisible = function(state)
 
     ContextActionService:UnbindCoreAction("CloseList")
     ContextActionService:UnbindCoreAction("StopAction")
+    if isTenFootInterface and XboxToggleVoiceChatHotkey then
+      xboxDisableHotkeys()
+    end
 
     if GuiService.SelectedCoreObject and GuiService.SelectedCoreObject:IsDescendantOf(Container) then
       GuiService.SelectedCoreObject = nil

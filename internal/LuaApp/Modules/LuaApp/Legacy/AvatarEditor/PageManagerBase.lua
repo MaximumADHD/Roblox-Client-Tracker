@@ -13,9 +13,7 @@ local SetAvatarBodyType = require(Modules.LuaApp.Actions.SetAvatarBodyType)
 local SetAvatarProportion = require(Modules.LuaApp.Actions.SetAvatarProportion)
 
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-local AvatarEditorAnthroSliders =
-	Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly") and
-	Flags:GetFlag("AvatarEditorUseNewCommonAction")
+local AvatarEditorAnthroSliders = Flags:GetFlag("AvatarEditorAnthroSlidersUIOnly")
 
 
 local SKIN_COLORS = {

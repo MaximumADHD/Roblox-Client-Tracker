@@ -5,27 +5,34 @@ local ChatLocalization = {
 	_hasFetchedLocalization = false,
 }
 
-function ChatLocalization:_getLocalizationTable()
-	if not self._localizationTable then
-		if not self._hasFetchedLocalization then
-			self._hasFetchedLocalization = true
-			self._localizationTable = ChatService:WaitForChild("ChatLocalization", 4)
+function ChatLocalization:_getTranslator()
+	if not self._translator and not self._hasFetchedLocalization then
+		-- Don't keep retrying if this fails.
+		self._hasFetchedLocalization = true
+		
+		local localizationTable = ChatService:WaitForChild("ChatLocalization", 4)
+		if localizationTable then
+			self._translator = localizationTable:GetTranslator(LocalizationService.RobloxLocaleId)
+			LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function()
+				-- If RobloxLocaleId changes invalidate the cached Translator.
+				self._hasFetchedLocalization = false
+				self._translator = nil
+			end)
+		else
+			warn("Missing ChatLocalization. Chat interface will not be localized.")
 		end
 	end
-
-	return self._localizationTable
+	return self._translator
 end
 
 function ChatLocalization:Get(key, default)
 	local rtv = default
 	pcall(function()
-		local localizationTable = self:_getLocalizationTable()
-		if localizationTable then
-			rtv = localizationTable:GetString(
-				LocalizationService.RobloxLocaleId, key
-			)
+		local translator = self:_getTranslator()
+		if translator then
+			rtv = translator:FormatByKey(key)
 		else
-			warn("Missing ChatLocalization. Used default for", key)
+			warn("Missing Translator. Used default for", key)
 		end
 	end)
 	return rtv

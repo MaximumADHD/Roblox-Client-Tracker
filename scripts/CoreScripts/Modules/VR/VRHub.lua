@@ -14,12 +14,6 @@ local Util = require(RobloxGui.Modules.Settings.Utility)
 local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
-local useLaserPointerSuccess, useLaserPointerValue = pcall(function() return settings():GetFFlag("UseLaserPointerVR") end)
-local useLaserPointerFlag = useLaserPointerSuccess and useLaserPointerValue
-
-local useVRControllerModelsSuccess, useVRControllerModelsValue = pcall(function() return settings():GetFFlag("UseControllerModelsVR") end)
-local useVRControllerModelsFlag = useVRControllerModelsSuccess and useVRControllerModelsValue
-
 local VRHub = {}
 local RegisteredModules = {}
 local OpenModules = {}
@@ -34,9 +28,6 @@ VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 
 StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
-	if not useLaserPointerFlag then
-		return
-	end
 	if not VRHub.LaserPointer then
 		return
 	end
@@ -72,9 +63,6 @@ local function enableControllerModels(enabled)
 end
 local enableControllerModelsSetByDeveloper = false
 StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
-	if not useVRControllerModelsFlag then
-		return
-	end
 	enableControllerModelsSetByDeveloper = true
 	enableControllerModels(enabled)
 end)
@@ -106,20 +94,16 @@ local function onVREnabled(property)
 		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 
-		if useLaserPointerFlag then
-			if not VRHub.LaserPointer then
-				VRHub.LaserPointer = LaserPointer.new()
-			end
-
-			--Check again in case creating the laser pointer gracefully failed (instance hasn't shipped to some platforms yet for example)
-			if VRHub.LaserPointer then
-				VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
-			end
+		if not VRHub.LaserPointer then
+			VRHub.LaserPointer = LaserPointer.new()
 		end
-		if useVRControllerModelsFlag then
-			if not enableControllerModelsSetByDeveloper then
-				enableControllerModels(true)
-			end
+
+		--Check again in case creating the laser pointer gracefully failed
+		if VRHub.LaserPointer then
+			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
+		end
+		if not enableControllerModelsSetByDeveloper then
+			enableControllerModels(true)
 		end
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
 	else

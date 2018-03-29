@@ -37,8 +37,6 @@ local AchievementManager = require(ShellModules:FindFirstChild('AchievementManag
 local HeroStatsManager = require(ShellModules:FindFirstChild('HeroStatsManager'))
 local ControllerStateManager = require(ShellModules:FindFirstChild('ControllerStateManager'))
 local Alerts = require(ShellModules:FindFirstChild('Alerts'))
-
-local AccountAgeWidget = require(ShellModules:FindFirstChild('AccountAgeWidget'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 
 local SiteInfoWidget = nil

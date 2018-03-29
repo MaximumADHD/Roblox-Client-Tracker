@@ -22,7 +22,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
 local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
 
-local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers")
+local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers2")
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -548,12 +548,34 @@ local function Initialize()
 				for index=1, #sortedPlayers do
 					if sortedPlayers[index] == player then
 						local playerLabel = existingPlayerLabels[index]
-						if not playerLabel then break end
+						if not playerLabel then
+							break
+						end
 
 						local buttons = playerLabel:FindFirstChild("RightSideButtons")
-						if not buttons then break end
+						if not buttons then
+							break
+						end
 
-						buttons:Destroy()
+						local friendStatus = buttons:FindFirstChild("FriendStatus")
+						if friendStatus then
+							if GuiService.SelectedCoreObject == friendStatus then
+								friendSelectionFound = nil
+								GuiService.SelectedCoreObject = nil
+							end
+							friendStatus:Destroy()
+						end
+
+						local reportPlayer = buttons:FindFirstChild("ReportPlayer")
+						if reportPlayer then
+							if GuiService.SelectedCoreObject == reportPlayer then
+								reportSelectionFound = nil
+								GuiService.SelectedCoreObject = nil
+							end
+							reportPlayer:Destroy()
+						end
+
+						break
 					end
 				end
 			end

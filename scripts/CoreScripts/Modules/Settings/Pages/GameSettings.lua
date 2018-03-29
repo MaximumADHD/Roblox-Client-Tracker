@@ -68,8 +68,6 @@ local FFlagUseNotificationsLocalization = success and result
 --------------- FLAGS ----------------
 local GamepadCameraSensitivitySuccess, GamepadCameraSensitivityEnabled = pcall(function() return settings():GetFFlag("GamepadCameraSensitivityEnabled") end)
 local GamepadCameraSensitivityFastFlag = GamepadCameraSensitivitySuccess and GamepadCameraSensitivityEnabled
-local FFlagAddVRToggleSuccess, FFlagAddVRToggleResult = pcall(function() return settings():GetFFlag("AddVRToggle") end)
-local FFlagAddVRToggle = FFlagAddVRToggleSuccess and FFlagAddVRToggleResult
 
 ----------- CLASS DECLARATION --------------
 
@@ -471,46 +469,44 @@ local function Initialize()
     ------------------------------------------------------
     ------------------
     ------------------ VR Mode -----------------------
-    if FFlagAddVRToggle then
-      local createdVROption = false
-      local function createVROption()
-        if not createdVROption then
-          createdVROption = true
+    local createdVROption = false
+    local function createVROption()
+      if not createdVROption then
+        createdVROption = true
 
-          local optionNames
-          if GameSettings.VREnabled then
-            optionNames = { "On", "Off (restart pending)" }
-          else
-            optionNames = { "On (restart pending)", "Off" }
-          end
-
-          this.VREnabledFrame,
-          this.VREnabledLabel,
-          this.VREnabledSelector = utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
-
-          this.VREnabledSelector.IndexChanged:connect(function(newIndex)
-            local vrEnabledSetting = (newIndex == 1)
-            if GameSettings.VREnabled ~= vrEnabledSetting then
-              GameSettings.VREnabled = vrEnabledSetting
-            end
-          end)
-
-        end
-      end
-
-      local function onVREnabledChanged()
-        if VRService.VREnabled then
-          GameSettings.HasEverUsedVR = true
-          createVROption()
+        local optionNames
+        if GameSettings.VREnabled then
+          optionNames = { "On", "Off (restart pending)" }
         else
-          if GameSettings.HasEverUsedVR then
-            createVROption()
+          optionNames = { "On (restart pending)", "Off" }
+        end
+
+        this.VREnabledFrame,
+        this.VREnabledLabel,
+        this.VREnabledSelector = utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
+
+        this.VREnabledSelector.IndexChanged:connect(function(newIndex)
+          local vrEnabledSetting = (newIndex == 1)
+          if GameSettings.VREnabled ~= vrEnabledSetting then
+            GameSettings.VREnabled = vrEnabledSetting
           end
+        end)
+
+      end
+    end
+
+    local function onVREnabledChanged()
+      if VRService.VREnabled then
+        GameSettings.HasEverUsedVR = true
+        createVROption()
+      else
+        if GameSettings.HasEverUsedVR then
+          createVROption()
         end
       end
-      onVREnabledChanged()
-      VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
     end
+    onVREnabledChanged()
+    VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
 
     ------------------------------------------------------
     ------------------
