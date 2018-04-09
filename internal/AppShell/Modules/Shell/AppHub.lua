@@ -66,11 +66,11 @@ local function CreateAppHub()
 	}
 
 	AppTabDock:SetParent(HubContainer)
-	local HomeTab = AppTabDock:AddTab(AppTabDockItemModule(Utility.Upper(Strings:LocalizedString('HomeWord')), HomePaneModule(PaneContainer)))
-	local AvatarTab = AppTabDock:AddTab(AppTabDockItemModule(Utility.Upper(Strings:LocalizedString('AvatarWord')), AvatarPaneModule(PaneContainer)))
-	local GameTab = AppTabDock:AddTab(AppTabDockItemModule(Utility.Upper(Strings:LocalizedString('GamesWord')), GamesPaneModule(PaneContainer)))
-	local SocialTab = AppTabDock:AddTab(AppTabDockItemModule(Utility.Upper(Strings:LocalizedString('FriendsWord')), SocialPaneModule(PaneContainer)))
-	local StoreTab = AppTabDock:AddTab(AppTabDockItemModule(Utility.Upper(Strings:LocalizedString('CatalogWord')), StorePaneModule(PaneContainer)))
+	local HomeTab = AppTabDock:AddTab(AppTabDockItemModule(Strings:LocalizedString('HomeWord'), HomePaneModule(PaneContainer)))
+	local AvatarTab = AppTabDock:AddTab(AppTabDockItemModule(Strings:LocalizedString('AvatarWord'), AvatarPaneModule(PaneContainer)))
+	local GameTab = AppTabDock:AddTab(AppTabDockItemModule(Strings:LocalizedString('GamesWord'), GamesPaneModule(PaneContainer)))
+	local SocialTab = AppTabDock:AddTab(AppTabDockItemModule(Strings:LocalizedString('FriendsWord'), SocialPaneModule(PaneContainer)))
+	local StoreTab = AppTabDock:AddTab(AppTabDockItemModule(Strings:LocalizedString('CatalogWord'), StorePaneModule(PaneContainer)))
 
 
 	local RobloxLogo = Utility.Create'ImageLabel'
@@ -140,7 +140,7 @@ local function CreateAppHub()
 			seenXButtonPressed = true
 		elseif inputState == Enum.UserInputState.End and seenXButtonPressed then
 			if PlatformService then
-				PlatformService:ShowKeyboard(Utility.Upper(Strings:LocalizedString("SearchGamesPhrase")), "", "", Enum.XboxKeyBoardType.Default)
+				PlatformService:ShowKeyboard(Strings:LocalizedString("SearchGamesPhrase"), "", "", Enum.XboxKeyBoardType.Default)
 			end
 			seenXButtonPressed = false
 		end

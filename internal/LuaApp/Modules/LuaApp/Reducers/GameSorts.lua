@@ -1,7 +1,6 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Immutable = require(Modules.Common.Immutable)
 local AddGameSorts = require(Modules.LuaApp.Actions.AddGameSorts)
-local SetGamesInSort = require(Modules.LuaApp.Actions.SetGamesInSort)
 
 return function(state, action)
 	state = state or {}

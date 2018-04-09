@@ -166,7 +166,7 @@ local function createAccountLinkingView()
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = Color3.new(0,0,0);
-		Text = Utility.Upper(Strings:LocalizedString("UnlinkGamerTagWord"));
+		Text = Strings:LocalizedString("UnlinkGamerTagWord");
 		ZIndex = 2;
 		Parent = UnlinkButton;
 	}

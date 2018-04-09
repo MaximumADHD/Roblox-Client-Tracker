@@ -153,7 +153,11 @@ end
 -- PUBLIC METHODS
 
 local addFriendString = "Add Friend"
-local addFriendDisabledTransparency = 0.85
+local friendsString = "Friends"
+local friendRequestPendingString = "Friend Request Pending"
+local acceptFriendRequestString = "Accept Friend Request"
+
+local addFriendDisabledTransparency = 0.75
 local friendStatusChangedConn = nil
 function ContextMenuItems:CreateFriendButton(status)
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
@@ -168,6 +172,9 @@ function ContextMenuItems:CreateFriendButton(status)
 
 	local addFriendFunc = function()
 		if friendLabelText and friendLabel.Selectable then
+            friendLabel.Selectable = false
+            friendLabelText.TextTransparency = addFriendDisabledTransparency
+            friendLabelText.Text = friendRequestPendingString
 			AnalyticsService:ReportCounter("AvatarContextMenu-RequestFriendship")
         	AnalyticsService:TrackEvent("Game", "RequestFriendship", "AvatarContextMenu")
 			LocalPlayer:RequestFriendship(self.SelectedPlayer)
@@ -176,24 +183,26 @@ function ContextMenuItems:CreateFriendButton(status)
 
 	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
 
-	if status == Enum.FriendStatus.Unknown or status == Enum.FriendStatus.NotFriend then
+	if status ~= Enum.FriendStatus.Friend then
 		friendLabel.Selectable = true
 		friendLabelText.TextTransparency = 0
 	else
 		friendLabel.Selectable = false
 		friendLabelText.TextTransparency = addFriendDisabledTransparency
+        friendLabelText.Text = friendsString
 	end
 
     friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
         if player == self.SelectedPlayer and friendLabelText then
-
-        	if friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
-        		friendLabel.Selectable = true
-				friendLabelText.TextTransparency = 0
-        	else
-        		friendLabel.Selectable = false
-				friendLabelText.TextTransparency = addFriendDisabledTransparency
-        	end
+            if not friendLabel.Selectable then
+                if friendStatus == Enum.FriendStatus.Friend then
+                   friendLabelText.Text = friendsString
+                end
+            else
+                if friendStatus == Enum.FriendStatus.FriendRequestReceived then
+                    friendLabelText.Text = acceptFriendRequestString
+                end
+            end
         end
     end)
 

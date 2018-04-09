@@ -54,6 +54,10 @@ return function(state, action)
 		local current
 		local history = state.history
 
+		if #history <= 1 then
+			return state
+		end
+
 		history = Immutable.RemoveFromList(history, #history)
 		current = history[#history]
 		if not current then

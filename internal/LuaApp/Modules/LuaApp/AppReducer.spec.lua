@@ -6,6 +6,7 @@ return function()
 		local state = AppReducer(nil, {})
 
 		local expectedKeys = {
+			DeviceOrientation = true,
 			GameSorts = true,
 			Games = true,
 			GameSortGroups = true,

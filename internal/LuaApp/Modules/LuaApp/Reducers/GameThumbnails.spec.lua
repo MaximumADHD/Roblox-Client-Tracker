@@ -1,9 +1,7 @@
 return function()
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local GameThumbnails = require(script.Parent.GameThumbnails)
-	local AddGames = require(Modules.LuaApp.Actions.AddGames)
 	local SetGameThumbnails = require(Modules.LuaApp.Actions.SetGameThumbnails)
-	local Action = require(Modules.Common.Action)
 	local MockId = require(Modules.LuaApp.MockId)
 
 	local function createFakeThumbnail(placeId)

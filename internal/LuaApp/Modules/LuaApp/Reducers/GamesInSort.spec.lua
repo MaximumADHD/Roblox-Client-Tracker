@@ -1,7 +1,6 @@
 return function()
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local GamesInSort = require(script.Parent.GamesInSort)
-	local Action = require(Modules.Common.Action)
 	local SetGamesInSort = require(Modules.LuaApp.Actions.SetGamesInSort)
 	local AddGameSorts = require(Modules.LuaApp.Actions.AddGameSorts)
 	local GameSort = require(Modules.LuaApp.Models.GameSort)

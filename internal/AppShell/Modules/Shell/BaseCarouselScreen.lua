@@ -93,7 +93,7 @@ local function CreateBaseCarouselScreen()
 		Name = "PlayText";
 		Size = UDim2.new(1, 0, 1, 0);
 		BackgroundTransparency = 1;
-		Text = Utility.Upper(Strings:LocalizedString("PlayWord"));
+		Text = Strings:LocalizedString("PlayWord");
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = buttonTextColor;
@@ -123,7 +123,7 @@ local function CreateBaseCarouselScreen()
 		Name = "FavoriteText";
 		Size = UDim2.new(1, 0, 1, 0);
 		BackgroundTransparency = 1;
-		Text = Utility.Upper(Strings:LocalizedString("FavoriteWord"));
+		Text = Strings:LocalizedString("FavoriteWord");
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = buttonTextColor;
@@ -144,7 +144,7 @@ local function CreateBaseCarouselScreen()
 	}
 
 	--Make it big enough to hold the star and text
-	Utility.ResizeButtonWithDynamicText(favoriteButton, favoriteText, {Utility.Upper(Strings:LocalizedString("FavoritedWord"))},
+	Utility.ResizeButtonWithDynamicText(favoriteButton, favoriteText, {Strings:LocalizedString("FavoritedWord")},
 		GlobalSettings.TextHorizontalPadding + (favoriteStarImage.Position.X.Offset + favoriteStarImage.Size.X.Offset + 12) / 2)
 
 	-- begin game details content
@@ -276,12 +276,12 @@ local function CreateBaseCarouselScreen()
 		if isFavorited == true then
 			favoriteStarImage.Visible = true
 			favoriteText.Position = UDim2.new(0, favoriteStarImage.Position.X.Offset + favoriteStarImage.Size.X.Offset + 12, 0, 0)
-			favoriteText.Text = Utility.Upper(Strings:LocalizedString("FavoritedWord"))
+			favoriteText.Text = Strings:LocalizedString("FavoritedWord")
 			favoriteText.TextXAlignment = Enum.TextXAlignment.Left
 		else
 			favoriteStarImage.Visible = false
 			favoriteText.Position = UDim2.new(0, 0, 0, 0)
-			favoriteText.Text = Utility.Upper(Strings:LocalizedString("FavoriteWord"))
+			favoriteText.Text = Strings:LocalizedString("FavoriteWord")
 			favoriteText.TextXAlignment = Enum.TextXAlignment.Center
 		end
 	end

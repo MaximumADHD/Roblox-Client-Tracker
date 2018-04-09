@@ -2,8 +2,6 @@ return function()
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local GameSortGroups = require(script.Parent.GameSortGroups)
 	local SetGameSortsInGroup = require(Modules.LuaApp.Actions.SetGameSortsInGroup)
-	local Action = require(Modules.Common.Action)
-	local TableUtilities = require(Modules.LuaApp.TableUtilities)
 
 	local function countChildObjects(aTable)
 		local numChildren = 0

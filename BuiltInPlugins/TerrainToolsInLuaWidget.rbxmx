@@ -1,12 +1,12 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXd644834dce3045fb97d9cf02014f0653">
+	<Item class="Folder" referent="RBXa23d4d83aabd410dbb9bbeb7f0a0ccc7">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX5ba8e5b3121e4eecbb6e57dc7cce4940">
+		<Item class="ModuleScript" referent="RBXaa2e215aa48941478ada4afad123eb20">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainBrush</string>
@@ -606,7 +606,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 						elseif kCurrentTool.Name == 'Grow' then
 							if brushOccupancy >= .5 then --working on
 								local desiredOccupancy = cellOccupancy
-								local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(occupancies, ix, iy, iz, ignoreWaterInfo.Value and materials)
+								local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(occupancies, ix, iy, iz, ignoreWaterObj:GetValue() and materials)
 								if cellOccupancy > 0 or fullNeighbor then	--problem if selection size is small.
 									desiredOccupancy = desiredOccupancy + neighborOccupancies * (kStrength + .1) * .25 * brushOccupancy * magnitudePercent
 								end
@@ -943,7 +943,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXa6d5b6bcbc314e0497d021f52227e39e">
+		<Item class="ModuleScript" referent="RBXaf07187c71ca426394504ca51a05ce3c">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
@@ -958,6 +958,7 @@ local CollapsibleTitledSection = require(script.Parent.CollapsibleTitledSection)
 local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 local LabeledTextInput = require(script.Parent.LabeledTextInput)
 local ProgressFrame = require(script.Parent.ProgressFrame)
+local LabeledMultiChoice = require(script.Parent.LabeledMultiChoice)
 
 local coreGui = game:GetService('CoreGui')
 local changeHistoryService = game:GetService('ChangeHistoryService')
@@ -971,13 +972,12 @@ local progressFrame
 local pauseButton
 local cancelButton 
 local barFill 
-local multipleChoiceFrame 
 
 
 local kBiomesCheckboxHPadding = 24
 
-local kBottomButtonsWidth = 80
-local kBottomButtonsPadding = 16
+local kBottomButtonsWidth = 100
+local kBottomButtonsPadding = 20
 
 local kProgressFrameObj = nil
 
@@ -1017,6 +1017,52 @@ kBiomeData = {
 	Water = {
 		LayoutOrder = 9,
 		Text = "Water",
+	},
+}
+
+local kBiomeSizeChoices = {
+	{
+		Id = "Small", 
+		Data = 50, 
+		Text = "Small (50)"
+	},
+	{
+		Id = "Medium", 
+		Data = 100, 
+		Text = "Medium (100)"
+	},
+	{
+		Id = "Large", 
+		Data = 200, 
+		Text = "Large (200)"
+	},
+	{
+		Id = "Massive", 
+		Data = 500, 
+		Text = "Massive (500)"
+	},
+}
+
+local kMapSizeChoices = {
+	{
+		Id = "Small", 
+		Data = 128, 
+		Text = "Small (128)"
+	},
+	{
+		Id = "Medium", 
+		Data = 256, 
+		Text = "Medium (256)"
+	},
+	{
+		Id = "Large", 
+		Data = 512, 
+		Text = "Large (512)"
+	},
+	{
+		Id = "Massive", 
+		Data = 1024, 
+		Text = "Massive (1024)"
 	},
 }
 
@@ -1100,16 +1146,12 @@ local function MakeMapSettingsFrame()
 	  true)
 
 	-- The 'Map size' dropdown.
-	local sizeFrame = GuiUtilities.MakeFixedHeightFrame("SizeFrame", GuiUtilities.kDropDownHeight)
-	local mapSizes = {128,256,512,1024}
-	local mapSizeChangeFunction = function(index,text)
-		mapWidth = mapSizes[index]
-	end
-	createMultiChoice('Map Size', 
-		sizeFrame,
-		{'Small (128)','Medium (256)','Large (512)','Massive (1024)'}, 
-		2,
-		mapSizeChangeFunction)
+	-- The "Size" dropdown.	
+	local sizeMultiChoiceObj = LabeledMultiChoice.new("MapSize", "Map Size", kMapSizeChoices)
+	sizeMultiChoiceObj:SetValueChangedFunction(function(index) 
+		mapWidth = kMapSizeChoices[index].Data
+	end)
+	sizeMultiChoiceObj:SetSelectedIndex(2)
 		
 	-- The 'Seed' text box.
 	local seedTextBoxObj = LabeledTextInput.new("Seed", "Seed", masterSeed)
@@ -1140,7 +1182,7 @@ local function MakeMapSettingsFrame()
 
 	-- Add these as striped fields in parent 
 	GuiUtilities.AddStripedChildrenToListFrame(mapSettingsObj:GetContentsFrame(), 
-		{sizeFrame, seedFrame, cavesObj:GetFrame()})
+		{sizeMultiChoiceObj:GetFrame(), seedFrame, cavesObj:GetFrame()})
 
 	return mapSettingsObj:GetSectionFrame()
 end
@@ -1197,7 +1239,7 @@ local function MakeBiomesCheckboxesWithTitle()
 
 	return vsl:GetFrame()
 end
-	
+
 local function MakeBiomesSettingsFrame()
 	-- Height will be updated dynamically.
 	local biomesSettingsObj = CollapsibleTitledSection.new('BiomesSettingsFrame', 
@@ -1205,17 +1247,12 @@ local function MakeBiomesSettingsFrame()
 		true, 
 		true)
 	
-	-- The "Size" dropdown.
-	local sizeFrame = GuiUtilities.MakeFixedHeightFrame("SizeFrame", GuiUtilities.kDropDownHeight)
-	local biomeSizes = {50,100,200,500}
-	local biomeSizeChangeFunction = function(index,text)
-		biomeSize = biomeSizes[index]
-	end
-	createMultiChoice('Biome Size',
-		sizeFrame, 
-		{'Small (50)','Medium (100)','Large (200)','Massive (500)'}, 
-		2, 
-		biomeSizeChangeFunction)
+	-- The "Size" dropdown.	
+	local sizeMultiChoiceObj = LabeledMultiChoice.new("SizeFrame", "Biome Size", kBiomeSizeChoices)
+	sizeMultiChoiceObj:SetValueChangedFunction(function(index) 
+		biomeSize = kBiomeSizeChoices[index].Data
+	end)
+	sizeMultiChoiceObj:SetSelectedIndex(2)
 
 	-- The "Biomes" checkbox frame.
 	local biomeCheckboxesFrame = MakeBiomesCheckboxesWithTitle()
@@ -1224,7 +1261,8 @@ local function MakeBiomesSettingsFrame()
 	GuiUtilities.MakeFrameAutoScalingList(biomesSettingsObj:GetContentsFrame())
 
 	-- add these as striped fields in parent.
-	GuiUtilities.AddStripedChildrenToListFrame(biomesSettingsObj:GetContentsFrame(), {sizeFrame, biomeCheckboxesFrame})
+	GuiUtilities.AddStripedChildrenToListFrame(biomesSettingsObj:GetContentsFrame(), {sizeMultiChoiceObj:GetFrame(), 
+		biomeCheckboxesFrame})
 
 	return biomesSettingsObj:GetSectionFrame()
 end
@@ -1233,11 +1271,11 @@ local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight)
 
 	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", frame)
-	clearButton.Size = UDim2.new(0, kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsFrameHeight)
+	clearButton.Size = UDim2.new(0, kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	clearButton.Position = UDim2.new(0.5, -kBottomButtonsWidth - kBottomButtonsPadding/2, 0.5, -GuiUtilities.kBottomButtonsHeight/2)
 
 	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", frame)
-	generateButton.Size = UDim2.new(0, kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsFrameHeight)
+	generateButton.Size = UDim2.new(0, kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	generateButton.Position = UDim2.new(0.5, kBottomButtonsPadding/2, 0.5, -GuiUtilities.kBottomButtonsHeight/2)
 	
 	return frame
@@ -1264,14 +1302,6 @@ function MakeTerrainGenerationFrame()
 	return verticallyScalingListFrame
 end
 
-function MakeMultipleChoiceFrame()
-	--Width is unecessary
-	local section = GuiUtilities.MakeSectionWithTitleBar(nil, "MultipleChoiceFrame", "Multiple Choice", 270)	
-
-	section.Visible = false
-	return section
-end
-
 module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 	mouse = theMouse
 	pluginGui = thePluginGui
@@ -1283,9 +1313,6 @@ module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 	-- Add Terrain Generation Frame(s)
 	terrainGenerationFrame = MakeTerrainGenerationFrame()
 	terrainGenerationFrame.Parent = contentFrame
-
-	multipleChoiceFrame = MakeMultipleChoiceFrame()
-	multipleChoiceFrame.Parent = contentFrame
 
 	kProgressFrameObj = ProgressFrame.new()
 	progressFrame = kProgressFrameObj:GetFrame()
@@ -1308,76 +1335,14 @@ module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 	end)
 
 	terrainGenerationFrame.Buttons.GenerateButton.MouseButton1Down:connect(function()
+		-- A frame delay allows time for the button image to visually respond before the generation starts chugging away with processing.
+		wait()
 		generate()
 	end)
 	
 	terrainGenerationFrame.Buttons.ClearButton.MouseButton1Down:connect(function()
 		clearTerrain()
 	end)
-end
-
-function createTextBox(name, parent, setting, changedFunction)
-	local setting = setting and tostring(setting) or ''
-	local frame = GuiUtilities.MakeTextBoxWithLabel('TextInputBox'..name, '   '..name..':', parent)
-	local field = frame:WaitForChild('TextBox')
-	field.Text = setting
-	field.Changed:connect(function(prop)
-		if prop == 'Text' then
-			changedFunction(field.Text)
-		end
-	end)
-	changedFunction(field.Text)
-	frame.Position = UDim2.new(0,0,0,0)
-	frame.Visible = true
-	return frame
-end
-
-local currentMultiChoiceOpen = nil
-function closeMultiChoiceFrame()
-	if currentMultiChoiceOpen then
-		currentMultiChoiceOpen.Style = 'RobloxRoundDefaultButton'
-	end
-	currentMultiChoiceOpen = nil
-	multipleChoiceFrame.Visible = false
-end
-function createMultiChoice(name, parent, choices, setting, changedFunction)
-	local setting = setting
-	local frame = GuiUtilities.MakeMultiChoice('MultipleChoice'..name, name, parent)
-	frame.Position = UDim2.new(0,0,0,0)
-	local button = frame:WaitForChild('Button')
-	button.Text = choices[setting]
-	button.MouseButton1Down:connect(function()
-		if currentMultiChoiceOpen ~= button then
-			currentMultiChoiceOpen = button
-			--button.Style = 'RobloxRoundButton'	--would be nice, but with autobuttoncolor, not so much.
-			multipleChoiceFrame.TitleBarFrame.TitleBarLabel.Text = name
-			for _,item in pairs(multipleChoiceFrame:GetChildren()) do
-				if string.sub(item.Name,1,6) == 'Choice' then
-					item:Destroy()
-				end
-			end
-			for i, text in ipairs(choices) do
-				local choiceButton = GuiUtilities.MakeTextButton("Choice"..text, text, multipleChoiceFrame)
-				choiceButton.Visible = true
-				choiceButton.Position = UDim2.new(0,10,0,-3+i*35)
-				choiceButton.Size = UDim2.new(1,-20,0,30)
-				choiceButton.MouseButton1Down:connect(function()
-					if setting ~= i then
-						setting = i
-						button.Text = text
-						changedFunction(i, text)
-					end
-					closeMultiChoiceFrame()
-				end)
-			end
-			multipleChoiceFrame.Size = UDim2.new(1, 0, 0, 50 + #choices*35)
-			multipleChoiceFrame.Visible = true
-		else
-			closeMultiChoiceFrame()
-		end
-	end)
-	frame.Visible = true
-	return frame
 end
 
 function checkRange(v)
@@ -1838,7 +1803,6 @@ module.On = function(theTool)
 end
 
 module.Off = function()
-	closeMultiChoiceFrame()
 	on = false
 	screenGui.Parent = nil
 	terrainGenerationFrame.Visible = false
@@ -1861,7 +1825,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1cb690d37fda4df49e0c92daf595d09b">
+		<Item class="ModuleScript" referent="RBX79e76b9a4c8d42648c667ba66c56ce98">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GuiUtilities</string>
@@ -1876,7 +1840,6 @@ module.kStandardContentAreaWidth = 180
 
 module.kStandardPropertyHeight = 30
 module.kSubSectionLabelHeight = 20
-local kSelectedImageWithTextButtonColor = Color3.new(0.85, 0.85, 0.85)
 
 module.kStandardVMargin = 7
 module.kStandardHMargin = 16
@@ -1889,14 +1852,16 @@ module.kDropDownHeight = 55
 
 module.kStandardTextColor = Color3.new(0, 0, 0)                      --todo: input spec text color
 module.kDisabledTextColor = Color3.new(.4, .4, .4)                   --todo: input spec disabled text color
+module.kStandardButtonTextColor = Color3.new(0, 0, 0)                --todo: input spec disabled text color
+module.kPressedButtonTextColor = Color3.new(1, 1, 1)                 --todo: input spec disabled text color
 
-module.kButtonStandardBackgroundColor = Color3.new(1, 1, 1)         --todo: sync with spec
+module.kButtonStandardBackgroundColor = Color3.new(1, 1, 1)          --todo: sync with spec
 module.kButtonStandardBorderColor = Color3.new(.4,.4,.4)             --todo: sync with spec
 module.kButtonDisabledBackgroundColor = Color3.new(.7,.7,.7)         --todo: sync with spec
 module.kButtonDisabledBorderColor = Color3.new(.6,.6,.6)             --todo: sync with spec
 
 module.kBottomButtonsFrameHeight = 40
-module.kBottomButtonsHeight = 20
+module.kBottomButtonsHeight = 28
 
 module.kShapeButtonSize = 32
 
@@ -1912,6 +1877,18 @@ local kRowStripeColor = Color3.new(0.95, 0.95, 0.95)
 local kRowStripeColors = {}
 kRowStripeColors[0] = kRowStripeColor
 kRowStripeColors[1] = module.kStandardWhite
+
+local kButtonImageIdDefault = 1532597154
+local kButtonImageIdHovered = 1532596912
+local kButtonImageIdPressed = 1532596488
+
+module.kMainFrame = nil
+
+
+function module.SetMainFrame(frame)
+    module.kMainFrame = frame
+end
+
 
 -- A frame with standard styling.
 function module.MakeFrame(name)
@@ -2102,20 +2079,64 @@ function module.MakeFrameWithSubSectionLabel(name, text)
     return row
 end
 
--- Creates a text button with standard look & feel.
-function module.MakeTextButton(name, title, parent)
-    local textButton = Instance.new("TextButton")
-    textButton.BackgroundColor3 = Color3.new(1, 1, 1)
-    textButton.Parent = parent
-    textButton.Text = title
-    textButton.Name = name
-
-    textButton.BackgroundColor3 = kDeselectedButtonColor
-
-    -- pass it back.
-    return textButton
+local function updateButtonVisual(button, clickedDown, hovered)
+    if button then
+        print("Hi oo1")
+        button.Image = 'http://www.roblox.com/asset/?id=' .. (
+            (clickedDown and kButtonImageIdPressed) or (hovered and kButtonImageIdHovered) or kButtonImageIdDefault
+        )
+        local textLabel = button:FindFirstChild('TextLabel')
+        if textLabel then
+            textLabel.TextColor3 = clickedDown and module.kPressedButtonTextColor or module.kStandardButtonTextColor
+        end
+    end
 end
 
+-- Creates a text button with standard look & feel.
+function module.MakeTextButton(name, title, parent)
+    local button = Instance.new('ImageButton')
+    button.Name = name
+    print("Hi oo2")
+    button.Image = 'http://www.roblox.com/asset/?id=' .. kButtonImageIdDefault
+    button.BackgroundTransparency = 1
+    button.ScaleType = Enum.ScaleType.Slice
+    button.SliceCenter = Rect.new(7, 7, 156, 36)
+    button.AutoButtonColor = false
+
+    local label = Instance.new('TextLabel')
+    label.Text = title
+    label.BackgroundTransparency = 1
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.Font = Enum.Font.SourceSans                    --todo: input spec font
+    label.TextSize = 18                                  --todo: input spec font size
+    label.Parent = button
+
+    local hovered = false
+    local clickedDown = false
+    button.MouseEnter:connect(function()
+        hovered = true
+        updateButtonVisual(button, clickedDown, hovered)
+    end)
+    button.MouseLeave:connect(function()
+        hovered = false
+        clickedDown = false
+        updateButtonVisual(button, clickedDown, hovered)
+    end)
+    updateButtonVisual(button, clickedDown, hovered)
+    button.MouseButton1Down:connect(function()
+        clickedDown = true
+        updateButtonVisual(button, clickedDown, hovered)
+    end)
+    button.MouseButton1Up:connect(function()
+        clickedDown = false
+        updateButtonVisual(button, clickedDown, hovered)
+    end)
+    updateButtonVisual(button, clickedDown, hovered)
+
+    button.Parent = parent
+
+    return button
+end
 
 -- Create a button to define brush shape.
 function module.MakeShapeButton(name, imageAsset, parent)
@@ -2126,36 +2147,6 @@ function module.MakeShapeButton(name, imageAsset, parent)
     button.Name = name
 
     return button
-end
-
--- make a multi-choice dropdown thingy as used by Generation code.
-function module.MakeMultiChoice(name, text, parent)
-    local main = Instance.new("TextButton")
-    main.Parent = parent
-    main.Name = name
-    main.Text = text
-    main.BackgroundTransparency = 0.9
-    main.Size = UDim2.new(1, 0, 0,kDropDownHeight)
-    main.BorderSizePixel = 0
-    main.TextYAlignment = Enum.TextYAlignment.Top
-
-    local button = Instance.new("TextButton")
-    button.Parent = main
-    button.Name = "Button"
-    button.Size = UDim2.new(1, -20, 0, 30)
-    button.Position = UDim2.new(0, 10, 0, 20)
-    button.ZIndex = 2
-
-    local arrow = Instance.new("ImageLabel")
-    arrow.Parent = button
-    arrow.Name = "ArrowLabel"
-    arrow.Size = UDim2.new(0, 16, 0, 10)
-    arrow.Position = UDim2.new(1, -13, 0.5, -4)
-    arrow.Image = "rbxasset://textures/ui/dropdown_arrow.png"
-    arrow.BackgroundTransparency = 1
-    arrow.ZIndex = 3
-
-    return main
 end
 
 function module.StyleScrollingFrame(scrollingFrame)
@@ -2183,7 +2174,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX75994ad02bc44e0d87b275e151d75db4">
+		<Item class="ModuleScript" referent="RBX547c539f22d34a15a07a7c5e8b11c3e4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MainPanel</string>
@@ -2320,6 +2311,8 @@ function makeMainPanel()
 	section.Parent = pluginGui
 	section.Position = UDim2.new(0, 0, 0, 0)
 
+	GuiUtilities.SetMainFrame(section)
+
 	local buttonListFrame = Instance.new("Frame")
 	buttonListFrame.Name = "ButtonListFrame"
 	buttonListFrame.BackgroundTransparency = 1
@@ -2344,13 +2337,26 @@ function makeMainPanel()
 	uiPadding.PaddingTop = kMainButtonFramePadding
 	uiPadding.Parent = buttonListFrame
 
+	-- Make the visual that sits behind the scrollbar and gives the scrollbar thumb visual contrast
+	local scrollbarBackground = Instance.new('Frame')
+	scrollbarBackground.Name = 'ScrollbarBackground'
+	scrollbarBackground.BackgroundColor3 = Color3.fromRGB(238, 238, 238)
+	scrollbarBackground.BorderColor3 = Color3.fromRGB(182, 182, 182)
+	scrollbarBackground.Parent = pluginGui
 
 	-- Make the content section scrolling frame
 	local mainSpaceScrollingFrame = Instance.new("ScrollingFrame")
 	mainSpaceScrollingFrame.Name = "MainSpace"
 	mainSpaceScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
 	mainSpaceScrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+	mainSpaceScrollingFrame.ElasticBehavior = Enum.ElasticBehavior.Never
+	mainSpaceScrollingFrame.ScrollBarThickness = 17
+	mainSpaceScrollingFrame.BorderSizePixel = 0
 	mainSpaceScrollingFrame.BackgroundTransparency = 1
+	mainSpaceScrollingFrame.ZIndex = 2
+	mainSpaceScrollingFrame.TopImage = "http://www.roblox.com/asset/?id=1533255544"
+	mainSpaceScrollingFrame.MidImage = "http://www.roblox.com/asset/?id=1535685612"
+	mainSpaceScrollingFrame.BottomImage = "http://www.roblox.com/asset/?id=1533256504"
 
 	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.Parent = mainSpaceScrollingFrame
@@ -2358,12 +2364,19 @@ function makeMainPanel()
 
 	mainSpaceScrollingFrame.Parent = pluginGui
 
+	-- The scrollbar backing should only be visible when the scrollbar is visible
+	local function updateScrollbarBackingVisibility()
+		scrollbarBackground.Visible = mainSpaceScrollingFrame.CanvasSize.Y.Offset > mainSpaceScrollingFrame.AbsoluteSize.Y
+	end
 
 	-- Adjust the vertical size of the main buttons panel and the main panel details space when the main panel buttons change the number of rows are being rendered
 	local function updateMainSectionsSizesAndPositions()
 		section.Size = UDim2.new(1, 0, 0, uiGridLayout.AbsoluteContentSize.Y+kMainButtonFramePadding.Offset*2)
 		mainSpaceScrollingFrame.Size = UDim2.new(1, 0, 1, -section.AbsoluteSize.Y)
 		mainSpaceScrollingFrame.Position = UDim2.new(0, 0, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y)
+		scrollbarBackground.Size = UDim2.new(0, mainSpaceScrollingFrame.ScrollBarThickness-2, 1, -section.AbsoluteSize.Y-2)
+		scrollbarBackground.Position = UDim2.new(1, -mainSpaceScrollingFrame.ScrollBarThickness+1, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y+1)
+		updateScrollbarBackingVisibility()
 	end
 	uiGridLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateMainSectionsSizesAndPositions)
 	updateMainSectionsSizesAndPositions()
@@ -2371,6 +2384,7 @@ function makeMainPanel()
 	-- Update the canvas size of the scrolling frame to fit the size of it's contents
 	local function updateScrollingFrameCanvas()
 		mainSpaceScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+		updateScrollbarBackingVisibility()
 	end
 	uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateScrollingFrameCanvas)
 	updateScrollingFrameCanvas()
@@ -2481,7 +2495,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX349b5a80fc7f4f9293690840f020a57f">
+		<Item class="Script" referent="RBX2375ab4d9469492b8163512bfd383fc6">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2570,7 +2584,7 @@ mainPanelModule.Initialize(plugin, pluginGui)
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0bd534f520604c04a52f1d62ed781328">
+		<Item class="ModuleScript" referent="RBXe08ae87da37c4aac83f0576532f66686">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainSmoother</string>
@@ -2580,7 +2594,6 @@ mainPanelModule.Initialize(plugin, pluginGui)
 local module = {}
 
 module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
-	print('first time setup smoother')
 	local terrain = game.Workspace.Terrain
 
 	local function getCell(list, x, y, z)
@@ -2706,7 +2719,6 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	end
 
 	module.BrushOperation = operation
-	print('smoother setup', module.BrushOperation)
 
 end
 
@@ -2716,7 +2728,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7a34af3cda1f41faa54f875355125ef9">
+		<Item class="ModuleScript" referent="RBXddaba16a358749708bb7322b7434ee4c">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
@@ -3787,7 +3799,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX78818b16d30f44df952281838af5c104">
+		<Item class="ModuleScript" referent="RBXbd9426082fe242898a75b7d49ed89f2a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -3799,29 +3811,120 @@ GuiUtilities = require(script.Parent.GuiUtilities)
 local kMaterialCellSize = 35
 local kMaterialCellPadding = 5
 
+local kMaterialTooltipHeight = 30
+
 MaterialsListClass.MaterialsTable = {	--Interface order is defined by order here
-	{enum = Enum.Material.Grass, image = 'http://www.roblox.com/asset/?id=225314676'},
-	{enum = Enum.Material.Sand, image = 'http://www.roblox.com/asset/?id=225315607'},
-	{enum = Enum.Material.Rock, image = 'http://www.roblox.com/asset/?id=225315178'},
-	{enum = Enum.Material.Water, image = 'http://www.roblox.com/asset/?id=225315529', forceIgnoreWater = true, forceIgnoreWaterTo = false},
-	{enum = Enum.Material.Ground, image = 'http://www.roblox.com/asset/?id=254542189'},
-	{enum = Enum.Material.Sandstone, image = 'http://www.roblox.com/asset/?id=254541350'},
-	{enum = Enum.Material.Slate, image = 'http://www.roblox.com/asset/?id=225315290'},
-	{enum = Enum.Material.Snow, image = 'http://www.roblox.com/asset/?id=254541898'},
-	{enum = Enum.Material.Mud, image = 'http://www.roblox.com/asset/?id=254541862'},
-	{enum = Enum.Material.Brick, image = 'http://www.roblox.com/asset/?id=225315419', forceSnapToGrid = true},
-	{enum = Enum.Material.Concrete, image = 'http://www.roblox.com/asset/?id=225314983'},
-	{enum = Enum.Material.Glacier, image = 'http://www.roblox.com/asset/?id=254541572'},
-	{enum = Enum.Material.WoodPlanks, image = 'http://www.roblox.com/asset/?id=225315705', forceSnapToGrid = true},
-	{enum = Enum.Material.CrackedLava, image = 'http://www.roblox.com/asset/?id=254541726'},
-	{enum = Enum.Material.Basalt, image = 'http://www.roblox.com/asset/?id=254542066'},
-	{enum = Enum.Material.Ice, image = 'rbxassetid://397352205'},
-	{enum = Enum.Material.Salt, image = 'rbxassetid://397352299'},
-	{enum = Enum.Material.Cobblestone, image = 'rbxassetid://397352378'},
-	{enum = Enum.Material.Limestone, image = 'rbxassetid://397352474'},
-	{enum = Enum.Material.Asphalt, image = 'rbxassetid://397352644'},
-	{enum = Enum.Material.LeafyGrass, image = 'rbxassetid://397720681'},
-	{enum = Enum.Material.Pavement, image = 'rbxassetid://397727024'},
+	{
+		enum = Enum.Material.Grass, 
+		image = 'http://www.roblox.com/asset/?id=225314676', 
+		text = "Grass", 
+	},
+	{
+		enum = Enum.Material.Sand, 
+		image = 'http://www.roblox.com/asset/?id=225315607', 
+		text = "Sand", 
+	},
+	{
+		enum = Enum.Material.Rock,
+		image = 'http://www.roblox.com/asset/?id=225315178', 
+		text = "Rock", 
+	},
+	{
+		enum = Enum.Material.Water, 
+		image = 'http://www.roblox.com/asset/?id=225315529', forceIgnoreWater = true, forceIgnoreWaterTo = false, 
+		text = "Water", 
+	},
+	{
+		enum = Enum.Material.Ground, 
+		image = 'http://www.roblox.com/asset/?id=254542189', 
+		text = "Ground", 
+	},
+	{
+		enum = Enum.Material.Sandstone, 
+		image = 'http://www.roblox.com/asset/?id=254541350', 
+		text = "Sandstone", 
+	},
+	{
+		enum = Enum.Material.Slate, 
+		image = 'http://www.roblox.com/asset/?id=225315290', 
+		text = "Slate", 
+	},
+	{
+		enum = Enum.Material.Snow, 
+		image = 'http://www.roblox.com/asset/?id=254541898', 
+		text = "Snow", 
+	},
+	{
+		enum = Enum.Material.Mud, 
+		image = 'http://www.roblox.com/asset/?id=254541862', 
+		text = "Mud", 
+	},
+	{
+		enum = Enum.Material.Brick, 
+		image = 'http://www.roblox.com/asset/?id=225315419', forceSnapToGrid = true, 
+		text = "Brick", 
+	},
+	{
+		enum = Enum.Material.Concrete, 
+		image = 'http://www.roblox.com/asset/?id=225314983', 
+		text = "Concrete", 
+	},
+	{
+		enum = Enum.Material.Glacier, 
+		image = 'http://www.roblox.com/asset/?id=254541572', 
+		text = "Glacier", 
+	},
+	{
+		enum = Enum.Material.WoodPlanks, 
+		image = 'http://www.roblox.com/asset/?id=225315705', 
+		forceSnapToGrid = true, 
+		text = "Wood Planks", 
+	},
+	{
+		enum = Enum.Material.CrackedLava, 
+		image = 'http://www.roblox.com/asset/?id=254541726', 
+		text = "Cracked Lava", 
+	},
+	{
+		enum = Enum.Material.Basalt, 
+		image = 'http://www.roblox.com/asset/?id=254542066', 
+		text = "Basalt", 
+	},
+	{
+		enum = Enum.Material.Ice,
+		image = 'http://www.roblox.com/asset/?id=397352205', 
+		text = "Ice", 
+	},
+	{
+		enum = Enum.Material.Salt, 
+		image = 'http://www.roblox.com/asset/?id=397352299', 
+		text = "Salt", 
+	},
+	{
+		enum = Enum.Material.Cobblestone, 
+		image = 'http://www.roblox.com/asset/?id=397352378', 
+		text = "Cobblestone", 
+	},
+	{
+		enum = Enum.Material.Limestone, 
+		image = 'http://www.roblox.com/asset/?id=397352474', 
+		text = "Limestone", 
+	},
+	{
+		enum = Enum.Material.Asphalt, 
+		image = 'http://www.roblox.com/asset/?id=397352644',
+		text = "Asphalt", 
+	},
+	{
+		enum = Enum.Material.LeafyGrass, 
+		image = 'http://www.roblox.com/asset/?id=397720681',
+		text = "Leafy Grass", 
+	},
+	{
+		enum = Enum.Material.Pavement, 
+		image = 'http://www.roblox.com/asset/?id=397727024',
+		text = "Pavement", 
+	},
 }
 
 MaterialsListClass.__index = MaterialsListClass
@@ -3936,23 +4039,68 @@ function MaterialsListClass:_AddNewMaterialsButton(materialSubTable)
 	end)
 
 	newMaterialButton.Parent = self._materialsFrame
-	self:_MakeToolTip(newMaterialButton,
-		materialSubTable.enum.Name:gsub("([A-Z])", " %1"):gsub("^%s", "")) -- Add spaces to names
+	-- Add spaces to names
+		self:_MakeToolTip(newMaterialButton,
+		materialSubTable.text) 
 end
 
 function MaterialsListClass:_MakeToolTip(guiElement, text)
 	local Name = tostring(guiElement:GetFullName() .. text)
 
-	local Frame = Instance.new("Frame", guiElement)
+	local Frame = Instance.new("Frame")
 	Frame.BackgroundTransparency = 0.3
 	Frame.BackgroundColor3 = Color3.new(0, 0, 0)
-	Frame.Size = UDim2.new(0, 100, 0, 30)
+	Frame.Size = UDim2.new(0, 100, 0, kMaterialTooltipHeight)
 	Frame.SizeConstraint = "RelativeYY"
 	Frame.ZIndex = guiElement.ZIndex + 1
 	Frame.Style = "DropShadow"
-	Frame.AnchorPoint = Vector2.new(0.5, 1)
-	Frame.Position = UDim2.new(0.5, 0, 0.1, 0)
+	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	-- We will set position down below...
 
+	-- Parent to main frame so it doesn't get clipped by anything.
+	Frame.Parent = GuiUtilities.kMainFrame
+
+	self._tweakingTooltipFrame = nil
+
+	-- Tooltips are positioned as children of main screen.
+	-- The buttons they describe are in a scroll widget, so they can 
+	-- move around.
+	-- So we need to watch the buttons and dynmically reposition.
+	-- Also, we need to worry about slopping over right/left edges.
+	local function updateTooltipPosition()
+		-- Don't let this be re-entrant.
+		if (self._tweakingTooltipFrame == Frame) then 
+			return
+		end
+		self._tweakingTooltipFrame = Frame
+
+		local materialSquareAbsPosition = guiElement.AbsolutePosition
+		local materialSquareAbsSize = guiElement.AbsoluteSize
+
+		local absSize = Frame.AbsoluteSize
+
+		local targetLocationX = materialSquareAbsPosition.X + materialSquareAbsSize.X/2
+		local targetLocationY = materialSquareAbsPosition.Y - kMaterialTooltipHeight/2
+
+		local containerSize = self._materialsFrame.AbsoluteSize
+
+		-- Worry about slopping over either side.
+		if (targetLocationX < absSize.X/2) then 
+			targetLocationX = absSize.X/2
+		end
+
+		if (targetLocationX > containerSize.X - absSize.X/2) then 
+			targetLocationX = containerSize.X - absSize.X/2
+		end
+
+		Frame.Position = UDim2.new(0, targetLocationX, 0, targetLocationY)
+
+		self._tweakingTooltipFrame = nil
+	end
+	Frame:GetPropertyChangedSignal("AbsolutePosition"):connect(updateTooltipPosition)
+	Frame:GetPropertyChangedSignal("AbsoluteSize"):connect(updateTooltipPosition)
+	guiElement:GetPropertyChangedSignal("AbsolutePosition"):connect(updateTooltipPosition)
+	updateTooltipPosition()
 
 	local TextLabel = Instance.new("TextLabel", Frame)
 	TextLabel.BackgroundTransparency = 1
@@ -3991,7 +4139,7 @@ return MaterialsListClass
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX654a87c23e8a4c5786c39b146d966a38">
+		<Item class="ModuleScript" referent="RBXbd2d02a4fa4840b897c2a6ab59891bcc">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ProgressFrame</string>
@@ -4040,7 +4188,7 @@ function ProgressFrameClass.new(nameSuffix, labelText, initValue, initDisabled)
     self._fill = Instance.new("ImageLabel")
     self._fill.Name = "ImageLabel"
     self._fill.Parent = self._bar
-    self._fill.Image = "rbxassetid://67599350"
+    self._fill.Image = "http://www.roblox.com/asset/?id=67599350"
     self._fill.ImageColor3 = Color3.new(0, 0.9, 0.4)
     self._fill.ImageRectOffset = Vector2.new(0, 256)
     self._fill.ImageRectSize = Vector2.new(0, -100)
@@ -4104,7 +4252,7 @@ return ProgressFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX598464451f544b18a78f501e273dd8b3">
+		<Item class="ModuleScript" referent="RBXaef9fd845d744485bc728c63387cf1fb">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledCheckbox</string>
@@ -4138,8 +4286,8 @@ local kMinCheckImageWidth = 16
 local kCheckImageSize = UDim2.new(0, kCheckImageWidth, 0, kCheckImageWidth)
 local kMinCheckImageSize = UDim2.new(0, kMinCheckImageWidth, 0, kMinCheckImageWidth)
 
-local kEnabledCheckImage = "rbxassetid://1530112162"
-local kDisabledCheckImage = "rbxassetid://1530112767"
+local kEnabledCheckImage = "http://www.roblox.com/asset/?id=1530112162"
+local kDisabledCheckImage = "http://www.roblox.com/asset/?id=1530112767"
 
 LabeledCheckboxClass = {}
 LabeledCheckboxClass.__index = LabeledCheckboxClass
@@ -4151,7 +4299,6 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	local self = {}
 	setmetatable(self, LabeledCheckboxClass)
 
-
     local initValue = not not initValue
     local initDisabled = not not initDisabled
 
@@ -4160,14 +4307,13 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
     local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
     label.Parent = frame
 
-    local button = Instance.new('TextButton')
+    local button = Instance.new('ImageButton')
     button.Name = 'Button'
     button.Size = UDim2.new(0, kCheckboxWidth, 0, kCheckboxWidth)
     button.AnchorPoint = Vector2.new(0, .5)
     button.BackgroundColor3 = GuiUtilities.kStandardWhite
     button.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
     button.Parent = frame
-    button.Text = ""
 
     local checkImage = Instance.new("ImageLabel")
     checkImage.Name = "CheckImage"
@@ -4191,13 +4337,18 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
     self._value = not initValue
     self:SetValue(initValue)
 
-    button.MouseButton1Down:connect(function()
+    self:_SetupMouseClickHandling()
+
+    return self
+end
+
+
+function LabeledCheckboxClass:_SetupMouseClickHandling()
+    self._button.MouseButton1Down:connect(function()
         if not self._disabled then
             self:SetValue(not self._value)
         end
     end)
-
-    return self
 end
 
 -- Small checkboxes are a different entity.
@@ -4216,6 +4367,7 @@ function LabeledCheckboxClass:UseSmallSize()
     self._checkImage.Size = kMinCheckImageSize
 
     self._frame.Size = LabeledCheckboxClass.kMinFrameSize
+    self._frame.BackgroundTransparency = 1
 end
 
 function LabeledCheckboxClass:GetFrame()
@@ -4250,7 +4402,6 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
         end
 
         self._label.TextColor3 = self._disabled and GuiUtilities.kDisabledTextColor or GuiUtilities.kStandardTextColor
-        self._button.TextColor3 = self._disabled and GuiUtilities.kDisabledTextColor or GuiUtilities.kStandardTextColor
         self._button.BackgroundColor3 = self._disabled and GuiUtilities.kButtonDisabledBackgroundColor or GuiUtilities.kButtonStandardBackgroundColor
         self._button.BorderColor3 = self._disabled and GuiUtilities.kButtonDisabledBorderColor or GuiUtilities.kButtonStandardBorderColor
         if self._disabledChangedFunction then
@@ -4281,7 +4432,7 @@ return LabeledCheckboxClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3a3679bceb0d4955bdb8555df9f6d1fd">
+		<Item class="ModuleScript" referent="RBX7689df7cd8f943b1a6016b78ae6b67c2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CollapsibleTitledSection</string>
@@ -4379,10 +4530,8 @@ function CollapsibleTitledSectionClass:_UpdateMinimizeButton()
     -- :(
     if (self._minimized) then 
         self._minimizeButton.Image = kRightButtonAsset
-        self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight*.25, 0, self._titleBarHeight*.25)
     else
         self._minimizeButton.Image = kDownButtonAsset
-        self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight*.25, 0, self._titleBarHeight*.45)
     end
 end
 
@@ -4433,7 +4582,7 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXad36636fbbc645dab3135ab63f34213f">
+		<Item class="ModuleScript" referent="RBX25b0c77511c44b80ada88a69b2f0bd11">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledSlider</string>
@@ -4511,7 +4660,7 @@ return LabeledSliderClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXa0f10711752444d9b8b8a710745d51a7">
+		<Item class="ModuleScript" referent="RBX280f89632479457f844811a0b652087a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledTextInput</string>
@@ -4610,7 +4759,7 @@ return LabeledTextInputClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6894ffd1d2e3454bb13f770d0600ffed">
+		<Item class="ModuleScript" referent="RBXa53c834734504f128a6b32ce97e9e941">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">VerticallyScalingListFrame</string>
@@ -4680,6 +4829,194 @@ function VerticallyScalingListFrameClass:SetCallbackOnResize(callback)
 end
 
 return VerticallyScalingListFrameClass]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX2c9ace526011406494b2be1cfd1c7622">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">LabeledMultiChoice</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledMultiChoice.lua
+--
+-- Creates a frame containing a label and list of choices, of which exactly one 
+-- is always selected.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+LabeledRadioButton = require(script.Parent.LabeledRadioButton)
+LabeledCheckbox = require(script.Parent.LabeledCheckbox)
+VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
+
+local kRadioButtonsHPadding = 24
+
+LabeledMultiChoiceClass = {}
+LabeledMultiChoiceClass.__index = LabeledMultiChoiceClass
+
+
+
+function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceIndex)
+	local self = {}
+	setmetatable(self, LabeledMultiChoiceClass)
+
+    self._buttonObjsByIndex = {}
+
+    if (not initChoiceIndex ) then 
+        initChoiceIndex = 1
+    end
+    if (initChoiceIndex > #choices) then 
+        initChoiceIndex = #choices
+    end
+
+
+    local vsl = VerticallyScalingListFrame.new("MCC_" .. nameSuffix)
+
+	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText)
+	vsl:AddChild(titleLabel)
+
+	-- Container for cells.
+	local cellFrame = self:_MakeRadioButtons(choices)
+	vsl:AddChild(cellFrame)
+
+    self._vsl = vsl
+
+    self:SetSelectedIndex(initChoiceIndex)
+
+    return self
+end
+
+function LabeledMultiChoiceClass:SetSelectedIndex(selectedIndex) 
+    self._selectedIndex = selectedIndex
+    for i = 1, #self._buttonObjsByIndex do 
+        self._buttonObjsByIndex[i]:SetValue(i == selectedIndex)
+    end
+
+    if (self._valueChangedFunction) then 
+        self._valueChangedFunction(self._selectedIndex)
+    end
+end
+
+function LabeledMultiChoiceClass:GetSelectedIndex()
+    return self._selectedIndex
+end
+
+function LabeledMultiChoiceClass:SetValueChangedFunction(vcf)
+    self._valueChangedFunction = vcf
+end
+
+function LabeledMultiChoiceClass:GetFrame()
+    return self._vsl:GetFrame()
+end
+
+
+-- Small checkboxes are a different entity.
+-- All the bits are smaller.
+-- Fixed width instead of flood-fill.
+-- Box comes first, then label.
+function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
+    local frame = GuiUtilities.MakeFrame("RadioButtons")
+    frame.BackgroundTransparency = 1
+
+	local padding = Instance.new("UIPadding")
+	padding.PaddingLeft = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
+	padding.PaddingRight = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
+	padding.Parent = frame
+	
+	-- Make a grid to put checkboxes in.
+	local uiGridLayout = Instance.new("UIGridLayout")
+	uiGridLayout.CellSize = LabeledCheckbox.kMinFrameSize
+	uiGridLayout.CellPadding = UDim2.new(0, 
+        kRadioButtonsHPadding,
+		0,
+		GuiUtilities.kStandardVMargin)
+	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+	uiGridLayout.Parent = frame
+	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	for i, choiceData in ipairs(choices) do 
+		self:_AddRadioButton(frame, i, choiceData)
+	end
+
+		-- Sync size with content size.
+	GuiUtilities.AdjustHeightDynamicallyToLayout(frame, uiGridLayout)
+
+	return frame
+end
+
+function LabeledMultiChoiceClass:_AddRadioButton(parentFrame, index, choiceData)
+    local radioButtonObj = LabeledRadioButton.new(choiceData.Id, choiceData.Text)
+    self._buttonObjsByIndex[index] = radioButtonObj
+
+    radioButtonObj:SetValueChangedFunction(function(value)
+        -- If we notice the button going from off to on, and it disagrees with 
+        -- our current notion of selection, update selection.
+        if (value and self._selectedIndex ~= index) then 
+            self:SetSelectedIndex(index)
+        end
+    end)
+    
+	radioButtonObj:GetFrame().LayoutOrder = index
+	radioButtonObj:GetFrame().Parent = parentFrame
+end
+
+
+return LabeledMultiChoiceClass]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX7b0aeda461124078ac12c7137cf7e2d9">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">LabeledRadioButton</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledRadioButton.lua
+--
+-- Creates a frame containing a label and a radio button.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+LabeledCheckbox = require(script.Parent.LabeledCheckbox)
+
+local kButtonImage = "http://www.roblox.com/asset/?id=1532774327"
+local kBulletImage = "http://www.roblox.com/asset/?id=1532775081"
+
+LabeledRadioButtonClass = {}
+LabeledRadioButtonClass.__index = LabeledRadioButtonClass
+setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
+
+function LabeledRadioButtonClass.new(nameSuffix, labelText)
+	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
+    setmetatable(newButton, LabeledRadioButtonClass)
+
+    newButton:UseSmallSize()
+    newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+    newButton._checkImage.Image = kBulletImage
+
+    newButton._button.Image = kButtonImage
+    newButton._button.BackgroundTransparency = 1
+
+    return newButton
+end
+
+function LabeledRadioButtonClass:_SetupMouseClickHandling()
+    -- We are only allowed to toggle from off to on.
+    self._button.MouseButton1Down:connect(function()
+        if not self._disabled then
+            if (not self._value) then 
+                self:SetValue(not self._value)
+            end
+        end
+    end)
+end
+
+
+
+return LabeledRadioButtonClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>

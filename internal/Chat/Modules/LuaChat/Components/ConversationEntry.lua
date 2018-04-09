@@ -37,7 +37,7 @@ function ConversationEntry.new(appState, conversation)
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Bottom,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1, -58, 0, 18),
+		Size = UDim2.new(1, -58, 0, Constants.Font.FONT_SIZE_16),
 		Position = UDim2.new(0, 0, 1, -14),
 		TextSize = Constants.Font.FONT_SIZE_16,
 		Font = Enum.Font.SourceSans,

@@ -32,10 +32,10 @@ local function CreateSocialPane(parent)
 	local BREAK_COLOR = Color3.new(78/255, 78/255, 78/255)
 	local DISPLAY_FRIEND_COUNT = 15
 	local SIDE_BAR_ITEMS = {
-		Utility.Upper(Strings:LocalizedString("JoinGameWord"));
-		Utility.Upper(Strings:LocalizedString("ViewGameDetailsWord"));
-		Utility.Upper(Strings:LocalizedString("InviteToPartyWord"));
-		Utility.Upper(Strings:LocalizedString("ViewGamerCardWord"));
+		Strings:LocalizedString("JoinGameWord");
+		Strings:LocalizedString("ViewGameDetailsWord");
+		Strings:LocalizedString("InviteToPartyWord");
+		Strings:LocalizedString("ViewGamerCardWord");
 	}
 
 	local moreFriendsScreen = nil
@@ -67,7 +67,7 @@ local function CreateSocialPane(parent)
 		FontSize = GlobalSettings.SubHeaderSize;
 		TextColor3 = GlobalSettings.WhiteTextColor;
 		TextXAlignment = Enum.TextXAlignment.Left;
-		Text = Utility.Upper(Strings:LocalizedString("OnlineFriendsWords"));
+		Text = Strings:LocalizedString("OnlineFriendsWords");
 		Visible = false;
 		Parent = SocialPaneContainer;
 	}

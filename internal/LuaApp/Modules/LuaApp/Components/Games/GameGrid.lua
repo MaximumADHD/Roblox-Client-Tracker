@@ -18,8 +18,7 @@ local WIDTH_REDUCE = ((MARGIN_DESIRED - MARGIN_CARD) * 2)
 
 function GameGrid:render()
 	local games = self.props.games
-	local gameIDs = self.props.gameIDs
-	if not games or not gameIDs then
+	if not games then
 		return nil
 	end
 
@@ -60,8 +59,7 @@ function GameGrid:render()
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
 
-	for index, gameID in ipairs(gameIDs) do
-		local game = games[gameID]
+	for index, game in ipairs(games) do
 		local newGameCard = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			LayoutOrder = index,

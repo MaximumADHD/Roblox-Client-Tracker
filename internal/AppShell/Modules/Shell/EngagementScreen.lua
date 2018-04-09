@@ -1,3 +1,5 @@
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
 local CoreGui = Game:GetService("CoreGui")
 local GuiService = game:GetService('GuiService')
 local PlayersService = game:GetService("Players")
@@ -18,6 +20,7 @@ if not XboxNewEngagementFlow then
 	return require(ShellModules:FindFirstChild('LegacyEngagementScreen'))
 end
 
+local AppState = require(ShellModules.AppState)
 local AccountManager = require(ShellModules:FindFirstChild('AccountManager'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
@@ -169,6 +172,24 @@ local function CreateHomePane(parent)
 		ScreenManager:OpenScreen(ErrorOverlay(err), false)
 	end
 
+	local function setXboxUserState()
+		if not XboxUserStateRoduxEnabled then
+			return
+		end
+
+		local userInfo = {}
+		if ThirdPartyUserService then
+			userInfo.gamertag = ThirdPartyUserService:GetUserDisplayName()
+			userInfo.xuid = ThirdPartyUserService:GetUserPlatformId()
+		else
+			userInfo.gamertag = "InStudioNoGamertag"
+			userInfo.xuid = -1
+		end
+
+		local SetXboxUser = require(ShellModules.Actions.SetXboxUser)
+		AppState.store:Dispatch(SetXboxUser(userInfo))
+	end
+
 	-- new flow with new service
 	-- TODO: Will need to revist this if we move other calls into new services as errors may be handled differently
 	local function beginAuthenticationAsync2(gamepad)
@@ -191,6 +212,8 @@ local function CreateHomePane(parent)
 				displayErrorScreen(Errors.RegisterActiveUser[result])
 				return
 			end
+
+			setXboxUserState()
 
 			-- check for linked account
 			local hasLinkedAccountResult = AccountManager:HasLinkedAccountAsync()

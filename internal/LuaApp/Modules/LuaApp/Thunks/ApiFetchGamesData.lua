@@ -1,17 +1,23 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Actions = Modules.LuaApp.Actions
 local Requests = Modules.LuaApp.Http.Requests
-local GamesGetPageMetadata = require(Requests.GamesGetPageMetadata)
+local GamesGetSorts = require(Requests.GamesGetSorts)
 local AddGameSorts = require(Actions.AddGameSorts)
 local SetGameSortsInGroup = require(Actions.SetGameSortsInGroup)
 local ApiFetchGamesInSort = require(Modules.LuaApp.Thunks.ApiFetchGamesInSort)
 local Promise = require(Modules.LuaApp.Promise)
 local GameSort = require(Modules.LuaApp.Models.GameSort)
+local Constants = require(Modules.LuaApp.Constants)
 
 -- create a thunk that fetches all the information we'll need for the games page
-return function(networkImpl)
+return function(networkImpl, sortCategory)
+
+	-- Default fetching for Games Page data
+	if not sortCategory then
+		sortCategory = Constants.GameSortGroups.Games
+	end
 	return function(store)
-		return GamesGetPageMetadata(networkImpl):andThen(function(result)
+		return GamesGetSorts(networkImpl, sortCategory):andThen(function(result)
 			local fetchPromises = {}
 
 			local data = result.responseBody
@@ -22,7 +28,7 @@ return function(networkImpl)
 					local gameSort = GameSort.fromJsonData(gameSortJson)
 					table.insert(decodedDataSorts, gameSort)
 				end
-				
+
 				store:Dispatch(AddGameSorts(decodedDataSorts))
 
 				-- with the information about what sorts we have on the Games Page,
@@ -36,7 +42,7 @@ return function(networkImpl)
 				end
 
 				-- update the games page with the the sorts to display
-				store:Dispatch(SetGameSortsInGroup("Games", gameSorts))
+				store:Dispatch(SetGameSortsInGroup(sortCategory, gameSorts))
 			end
 
 			return Promise.all(fetchPromises)

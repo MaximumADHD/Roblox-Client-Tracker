@@ -35,9 +35,9 @@ local myFriendsData = nil
 local FOLLOW_MODE = 2
 
 local SIDE_BAR_ITEMS = {
-	JoinGame =  Utility.Upper(Strings:LocalizedString("JoinGameWord"));
-	ViewDetails = Utility.Upper(Strings:LocalizedString("ViewGameDetailsWord"));
-	ViewProfile = Utility.Upper(Strings:LocalizedString("ViewGamerCardWord"));
+	JoinGame = Strings:LocalizedString("JoinGameWord");
+	ViewDetails = Strings:LocalizedString("ViewGameDetailsWord");
+	ViewProfile = Strings:LocalizedString("ViewGamerCardWord");
 }
 
 -- side bar is shared between all views

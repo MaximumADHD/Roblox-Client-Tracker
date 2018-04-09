@@ -7,10 +7,12 @@ local SetGamesInSort = require(Actions.SetGamesInSort)
 local ApiFetchGameThumbnails = require(Modules.LuaApp.Thunks.ApiFetchGameThumbnails)
 local Game = require(Modules.LuaApp.Models.Game)
 
-
 return function(networkImpl, sort)
 	return function(store)
-		return GamesGetList(networkImpl, sort.token):andThen(function(result)
+		local argTableSortToken = {
+			sortToken = sort.token,
+		}
+		return GamesGetList(networkImpl, argTableSortToken):andThen(function(result)
 			-- parse out the games and thumbnails
 			local totalGames = 0
 			local games = {}

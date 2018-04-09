@@ -96,7 +96,7 @@ if XboxNewEngagementFlow then
 		FontSize = GlobalSettings.ButtonSize;
 		TextXAlignment = Enum.TextXAlignment.Left;
 		TextColor3 = GlobalSettings.WhiteTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("BackWord"));
+		Text = Strings:LocalizedString("BackWord");
 		Parent = Container;
 	}
 end
@@ -141,7 +141,7 @@ end
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = DefaultButtonTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("SignInPhrase"));
+		Text = Strings:LocalizedString("SignInPhrase");
 		ZIndex = 2;
 		Parent = LinkAccountButton;
 	}
@@ -149,7 +149,7 @@ end
 	LinkAccountButton.Position = UDim2.new(0.5, -LinkAccountButton.Size.X.Offset/2, 1, LinkAccountButton.Position.Y.Offset)
 
 	local CreateAccountText = LinkAccountText:Clone()
-	CreateAccountText.Text = Utility.Upper(createAccountText)
+	CreateAccountText.Text = createAccountText
 	CreateAccountText.Parent = CreateAccountButton
 	local createAccountTextSize = TextService:GetTextSize(createAccountText, Utility.ConvertFontSizeEnumToInt(CreateAccountText.FontSize),
 		CreateAccountText.Font, Vector2.new(0, 0))

@@ -18,6 +18,7 @@ AllowClientFallback
 AllowISOStringFormatParmaters
 AllowMoreAngles
 AllowMultipleHangReports
+AllowPlayerArgs
 AllowRenderSteppedInPluginScripts
 AlwaysProcessBillboards
 AnalyticsDeferredEphemeralReportingDiagnostic
@@ -31,15 +32,12 @@ AnchoredSendPositionUpdate
 AnthroPercentInHundredths
 AnthroStandardPartIds
 ApiABTestUrlConstruction
-ApiAnalyticsUrlConstructionFixed
 ApiBadgesUrlConstruction
 ApiDeveloperProductsUrlConstructionFixed
 ApiPointsUrlConstructionFixed
 ApiRateLimit
 ApiUniversesUrlConstructionFixed
 ApiUploadUrlConstructionFixed
-ApiUsersUrlConstructionFixed
-ApiUsersUrlNoDoubleSlash
 ApiVersionInfoUrlConstruction
 AppBridgePlaceLaunchExponentialBaseFraction
 AppBridgePlaceLaunchMaxRetries
@@ -51,13 +49,9 @@ AppShellManagementRefactor
 AppShellReporter
 AppShellReporterMonitorFrameTimeAndroid
 AppShellReporterMonitorFrameTimeIOS
-AssetFetchFromAssetgame
-AssetFetchUrlConstruction
 AssetPurchasePath
 AssetTypeHeaderForSounds
 AuthenticationHelper
-AuthenticationUrlConstruction
-AutoJointDefinedDuringCTor
 AvatarContextMenuEnabled
 AvatarEditorAnthroSlidersUIOnly
 AvatarEditorCatalogRecommended
@@ -232,6 +226,7 @@ DebugGameLoadDataStatisticsPerPlace
 DebugGraphics
 DebugGraphicsCrashOnLeaks
 DebugGraphicsD3D9ForceSWVP
+DebugGraphicsDisableVulkan
 DebugGraphicsForceGL2
 DebugGraphicsVsync
 DebugHttpAsyncCallsForStatsReporting
@@ -263,6 +258,8 @@ DebugReportAnchoredSimBodyUpdatedFromSolver
 DebugRestrictGCDistance
 DebugScriptAnalyzer
 DebugSendAttemptsToDiagCase1
+DebugSendDistInSteps
+DebugSendMomentInSteps
 DebugShowTextBounds
 DebugSSAOForce
 DebugStartPageRefreshOnF5
@@ -348,7 +345,6 @@ EnableWeldConstraint3
 EnsafenBuildJointsFromAttachments
 ErrorDescription
 ErrorForFailedRequestsInThumbnailLogic
-ExecutableConfigurationUrlConstruction
 ExpireMarketPlaceServiceCacheSeconds
 ExternalHttpRequestSizeLimitKB
 ExternalHttpResponseSizeLimitKB
@@ -386,6 +382,7 @@ FixDestroyedTorsoCrash
 FixFirstPersonSwimmingStateChange
 FixFolderDescendantSelection
 FixFreefallStuckIgnoreSelfContact
+FixFriendCacheUpdate
 FixGamepadNavigationInVR
 FixGetAsyncThrottleMsg
 FixGetMemoryUsageMbForTag
@@ -393,6 +390,7 @@ FixHandlesMouseEvents
 FixHumanoidEmbeddedInGround3
 FixIAdornableCollectorCrash3
 FixInactiveSelectorArrows
+FixIncorrectScrollingFrameBounds
 FixInputCanSinkCAS
 FixInputForLayerCollectorsInFolders2
 FixInterpolationTargetFrame
@@ -453,7 +451,6 @@ FullWindowMessages
 GameExplorer
 GameExplorerCopyPath
 GameLoadDataStatistics
-GamepadCameraSensitivityEnabled
 GamePerfMonitorPercentage
 GamePerfMonitorReportTimer
 GameViewItemCap
@@ -463,7 +460,6 @@ GAReportThrottledSessions
 GAThrottlingEventThresholdHundredthCat1
 GAThrottlingEventThresholdHundredthCat2
 GAThrottlingEventThresholdHundredthCat3
-GenericJobHasShutdownTask
 GetDefaultClothesFromWeb
 GetLatestAssetVersionErrors
 GetLocaleIdFromJoinBlob
@@ -491,9 +487,7 @@ GoogleAnalyticsTracking
 GraphicsDX11InstancingEnabled
 GraphicsGL3InstancingEnabled2
 GraphicsGL3UseUBO3
-GraphicsVulkanBlacklist
-GraphicsVulkanBlacklistPVR
-GraphicsVulkanUseNewPacks
+GroupTeleportMetricsSuccessAndFailure
 GuestFriendCheckFailImmediate
 GuiLayerCollectorUseViewport
 GuiTargetLifetime
@@ -623,6 +617,7 @@ KillZombieGame3
 LandedBalanceD
 LandedBalanceP
 LatencyErrorMultiplierTennths
+LayoutClipRectStopUsingCamera
 LayoutErrors
 LegacyLock
 LetSleepingPartsLie
@@ -634,6 +629,7 @@ LoadAvatarEditorTranslations
 LoadTheLoadingScreenFaster
 LoadTimesFromAppShellReporter
 LocalizationFormatStrings
+LocalizationServiceLocalizeTextCatch
 LocalizationServiceOverrideLocale
 LocalizationServiceSortTableRegistrationByName
 LocalizationSessionEvent2
@@ -909,11 +905,6 @@ PlayerChatInfoExponentialBackoffLimitMultiplier
 PlayerShutdownLuaTimeoutSeconds
 PluginButtonProperty
 PluginManagerSignalOnDelete
-PluginWidgetGraphicsChanges
-PluginWidgetGraphicsChangesDX11
-PluginWidgetGraphicsChangesDX9
-PluginWidgetGraphicsChangesGL
-PluginWidgetGraphicsChangesVulkan
 PointBalanceCacheInvalidateTimeMs
 PointsServiceBatchingImplMaxDelaySeconds
 PointsServiceBatchingImplMinuteSeconds
@@ -984,6 +975,7 @@ RemoteEventTeleportInitFailed
 RemoveDeadCode
 RemoveKeyFromDataStoreEnable
 RemoveLoadingHUDOniOS
+RemoveUselessEnvelope
 RenderBreakdown
 RenderBreakdownDetails
 RenderConstraintsWithDepth
@@ -1010,7 +1002,6 @@ RenderTextureCompositor
 RenderTextureCompositorBudget
 RenderTextureManagerBudget
 RenderTextureManagerBudgetFor4k
-RenderVisualEngineCreateAdornRender
 ReplicationDataLifetime
 ReplicatorMaxPacketBytesSentToInfluxOnError
 ReportCharacterLoadTimeMetrics2
@@ -1085,6 +1076,7 @@ ServerGeneratesPlayer2
 ServerNotifyPlayerScriptsStatus
 ServerPlayerFilterConfig
 ServerPlayerFilterPermyriad
+ServerStopSendOwnerOwned
 ServiceAskSetParent
 ServiceVsp2
 SetBWLimitByPlatform
@@ -1099,7 +1091,7 @@ ShowBufferCount
 ShowTeleportFailedMessage
 ShowTeleportFailedMessageTimeInMillisecond
 SignalRUrlConstruction
-SimplifiedSoundLoading2
+SimplifiedSoundLoading3
 SimplifyOpaqueGlass
 SimplifyRakNetConnectionHandshake
 SimToInterBufferClearFactorTenths
@@ -1182,11 +1174,9 @@ StudioExternalCaptchaV2
 StudioFbxImportVerboseErrorOnLoad
 StudioFilterPreferredParent
 StudioFixGroupComboBoxStealingFromGameWidget
-StudioFixInsertImageFromGameExplorer
 StudioFixOpeningLocalFileWhenNotLoggedIn
 StudioFixPlaceIdentifierForAdjunctFileCalculation
 StudioFixStartPageModelsEditedOutsideBeginEnd
-StudioFixToolboxFirstDrag
 StudioFixUniverseRenaming
 StudioFlagEditor
 StudioForceLayoutSaveOnAppClose
@@ -1195,7 +1185,7 @@ StudioFunctionFilterEnabled
 StudioGamePageHandfulSize
 StudioGameSettingsExperimentalModeToolTip
 StudioGrabWriteLockOnUpdateToolbars
-StudioGuidMappingForScriptsFix
+StudioGuidMappingForScriptsFixV2
 StudioGuiObjectSecondRectOffset
 StudioHandlePlaceCreationFailure
 StudioHideWebStartPage
@@ -1238,6 +1228,7 @@ StudioPullModelOutOfRobloxIDEDoc
 StudioRecentActionCacheSize
 StudioRecordIDEStateDeprecateV1
 StudioRefactorRobloxGameExplorer
+StudioRememberLastImageOpenLocation
 StudioRemoveEventFilterOnIDEDocDelete
 StudioRemoveInsertEvent
 StudioRemoveManagePluginsAddressBar
@@ -1259,14 +1250,16 @@ StudioSaveLayoutBeforeStartPageShow
 StudioSaveRestoreStartPageTab
 StudioScriptEditorPerfFixEnabled
 StudioSecondsBeforeInactive
-StudioSendStartupAnalyticsAfterUserIdIsSet
 StudioShareOnStartPage
 StudioShowScriptRecoveryCrashFix
 StudioShowTutorialsByDefault
 StudioSimplifyQmlResourceLoading
-StudioSortAndSearchOnStartPage
 StudioSortAndSearchOnStartPageLastUpdatedOption
+StudioSortAndSearchOnStartPageV2
+StudioStartPageDetectFocusLost
+StudioStartPageUiFixes
 StudioStartServerBoyGuestCharacterAppearance
+StudioStartServerGirlGuestCharacterAppearance
 StudioStartServerGuestAppearance
 StudioStopLoggingTeamCreateLocalCacheScriptIssues
 StudioStopOSXReportingForOSAtAndBeforeMajor
@@ -1276,9 +1269,11 @@ StudioSupportOfflineMode
 StudioSyntaxCheckTimerInterval
 StudioTabOrDownMovesSelectToTreeWidget
 StudioTeamCreateHelpUrl
+StudioTellUsersWhenPlaySoloDataModelFailsToLoad
 StudioTerrainColorsEnabled
 StudioTerrainColorsWaypointFix
 StudioTerrainToolsInLuaWidget
+StudioTestableCheckbox
 StudioTestTrackDeadRobloxIDEDocs
 StudioThrottleCacheScriptIssueReporting
 StudioThrottleNewEmulationMetrics
@@ -1415,7 +1410,9 @@ UseHttpsAnalyticsUrlsPt2
 UseInputObjectSignalsForCoreInputEnded
 UseLargerFontAtlasOn3xDevices
 UseLuaAppStarterScriptOniOS
+UseLuaBottomBar
 UseMatrix3ForInertiaTensor2
+UseMomentumThinning
 UseNativePathWaypoint
 UseNDKFunctionMarshaller
 UseNewAppBridgeXbone2
@@ -1435,6 +1432,7 @@ UserFixCharacterSoundIssues
 UserHttpRequestsPerMinuteLimit
 UserInGameChatUseNewFilterAPIV2
 UserInputProfile
+UserNavigationFixClickToMoveInterruption
 UserNoCameraClickToMove
 UserNotificationClient
 UseRobloxServiceHost
@@ -1453,6 +1451,7 @@ UseTempRoactLuaVersionOfGamesPage
 UseTempRoactLuaVersionOfHomePage
 UseTextLayout3
 UseTSLv1_2
+UseVelocityGateForMoment
 Vector2Cross
 VerifyIncomingFriendRequestsBeforeNotifying
 VideoCapture
@@ -1471,7 +1470,6 @@ WebChatFiltering
 WebkitDeveloperToolsEnabled
 WeldPermyriad
 WellRounded
-White2dBackground
 WhiteListChatFilter
 WhitelistUserInputEvents
 WideToNarrowScaleInHundredths
@@ -1493,8 +1491,10 @@ XboxEnableCPPSettingFailure
 XboxFastSliderScrollingOnStick
 XboxFixSkyboxCycle2
 XboxNewEngagementFlow
+XboxPlayerlistUseGetUserThumbnailAsync
 XboxToggleVoiceChatHotkey
 XboxUseNewScrollingGrid
 XboxUseNewValidUsernameCheck2
 XboxUseRobloxInput
+XboxUserStateRodux
 ZIndexBehaviorEnabled

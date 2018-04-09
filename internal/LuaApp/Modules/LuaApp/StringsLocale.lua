@@ -4,11 +4,34 @@ local GeneratedStrings = require(script.Parent.GeneratedStrings)
 local StringsLocale = {}
 
 StringsLocale.Keys = {
+	PLAYING = "PLAYING",
+	VISITS = "VISITS",
+	CREATED = "CREATED",
+	UPDATED = "UPDATED",
+	MAX_PLAYERS = "MAX_PLAYERS",
+	GENRE = "GENRE",
+	ALLOWED_GEAR = "ALLOWED_GEAR",
+	REPORT_ABUSE = "REPORT_ABUSE",
+	COPYLOCKED = "COPYLOCKED",
+	DETAILS = "DETAILS",
+	VIP_SERVERS = "VIP_SERVERS",
+	GAME_BADGES = "GAME_BADGES",
+	PASSES_FOR_THIS_GAME = "PASSES_FOR_THIS_GAME",
+	GEAR_FOR_THIS_GAME = "GEAR_FOR_THIS_GAME",
+	PLAYERS = "PLAYERS",
+	CLANS = "CLANS",
+	SERVERS_MY_FRIENDS_ARE_IN = "SERVERS_MY_FRIENDS_ARE_IN",
+	OTHER_SERVERS = "OTHER_SERVERS",
+	ABOUT = "ABOUT",
+	STORE = "STORE",
+	LEADERBOARDS = "LEADERBOARDS",
+	SERVERS = "SERVERS",
 	SEARCH = "SEARCH",
 	TURN_ON_CHAT = "TURN_ON_CHAT",
 	PRIVACY_SETTINGS = "PRIVACY_SETTINGS",
 	CANCEL = "CANCEL",
 	CONFIRM = "CONFIRM",
+	SEARCH_GAMES = "SEARCH_GAMES",
 	SEARCH_FOR_FRIENDS = "SEARCH_FOR_FRIENDS",
 	SEARCH_FOR_FRIENDS_AND_CHAT = "SEARCH_FOR_FRIENDS_AND_CHAT",
 	NO_RESULTS_FOUND = "NO_RESULTS_FOUND",
@@ -66,6 +89,10 @@ StringsLocale.Keys = {
 	SEE_ALL = "SEE_ALL",
 	GAMES = "GAMES",
 	HOME = "HOME",
+	CATALOG = "CATALOG",
+	AVATAR = "AVATAR",
+	FRIENDS = "FRIENDS",
+	MORE = "MORE",
 }
 
 StringsLocale.Languages = {
@@ -90,6 +117,182 @@ StringsLocale.Languages = {
 StringsLocale.DefaultLanguage = StringsLocale.Languages.EN_US
 
 StringsLocale.Content = {
+	{
+
+		key = StringsLocale.Keys.COPYLOCKED,
+		values = {
+			[StringsLocale.Languages.EN_US] = "This place is copylocked",
+		},
+		comment = "Notification that a game is locked.",
+	},
+	{
+
+		key = StringsLocale.Keys.REPORT_ABUSE,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Report Abuse",
+		},
+		comment = "Clickable text to report a game details page for bad content.",
+	},
+	{
+
+		key = StringsLocale.Keys.PLAYING,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Playing",
+		},
+		comment = "Label for the number of players playing a game.",
+	},
+	{
+
+		key = StringsLocale.Keys.VISITS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Visits",
+		},
+		comment = "Label for the number of visits a game has.",
+	},
+	{
+
+		key = StringsLocale.Keys.CREATED,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Created",
+		},
+		comment = "Label for the creation date of a game.",
+	},
+	{
+
+		key = StringsLocale.Keys.UPDATED,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Updated",
+		},
+		comment = "Label for the date of the last update to a game.",
+	},
+	{
+
+		key = StringsLocale.Keys.MAX_PLAYERS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Max Players",
+		},
+		comment = "Label for the maximum number of players in a game.",
+	},
+	{
+
+		key = StringsLocale.Keys.GENRE,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Genre",
+		},
+		comment = "Label for the game genre.",
+	},
+	{
+
+		key = StringsLocale.Keys.ALLOWED_GEAR,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Allowed Gear",
+		},
+		comment = "Label for the allowed gear for a game.",
+	},
+	{
+
+		key = StringsLocale.Keys.OTHER_SERVERS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Other Servers",
+		},
+		comment = "The other servers section header in the servers tab on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.SERVERS_MY_FRIENDS_ARE_IN,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Servers my friends are in",
+		},
+		comment = "The servers my friends are in section in the servers tab on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.CLANS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Clans",
+		},
+		comment = "The group leaderboard header in the leaderboards tab on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.PLAYERS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Players",
+		},
+		comment = "The players section header in the leaderboards tab on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.GEAR_FOR_THIS_GAME,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Gear for this game",
+		},
+		comment = "The gear section header in the store tab on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.PASSES_FOR_THIS_GAME,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Passes for this game",
+		},
+		comment = "The passes section header in the store tab on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.GAME_BADGES,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Game Badges",
+		},
+		comment = "The game badges section header on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.VIP_SERVERS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "VIP Servers",
+		},
+		comment = "The VIP servers section header in the about and servers tabs on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.DETAILS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Details",
+		},
+		comment = "The game details section header on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.ABOUT,
+		values = {
+			[StringsLocale.Languages.EN_US] = "About",
+		},
+		comment = "The About tab's text on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.STORE,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Store",
+		},
+		comment = "The Store tab's text on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.LEADERBOARDS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Leaderboards",
+		},
+		comment = "The Leaderboards tab's text on the game details page.",
+	},
+	{
+
+		key = StringsLocale.Keys.SERVERS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Servers",
+		},
+		comment = "The Servers tab's text on the game details page.",
+	},
 	{
 
 		key = StringsLocale.Keys.SEARCH,
@@ -129,6 +332,14 @@ StringsLocale.Content = {
 			[StringsLocale.Languages.EN_US] = "Okay",
 		},
 		comment = "Used for buttons that confirm an action or dismiss an informational pop-up.",
+	},
+	{
+
+		key = StringsLocale.Keys.SEARCH_GAMES,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Search games",
+		},
+		comment = "Placeholder text when searching for games.",
 	},
 	{
 
@@ -552,7 +763,7 @@ StringsLocale.Content = {
 	{
 		key = StringsLocale.Keys.MY_FEED,
 		values = {
-			[StringsLocale.Languages.EN_US] = "My Feed",
+			[StringsLocale.Languages.EN_US] = "View My Feed",
 		},
 		comment = "Header on the section of the home page that shows the user's feed",
 	},
@@ -584,6 +795,34 @@ StringsLocale.Content = {
 			[StringsLocale.Languages.EN_US] = "Games",
 		},
 		comment = "Title text for page that contains a list of games",
+	},
+	{
+		key = StringsLocale.Keys.CATALOG,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Catalog",
+		},
+		comment = "Title text for page that contains catalog",
+	},
+	{
+		key = StringsLocale.Keys.AVATAR,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Avatar",
+		},
+		comment = "Title text for page that contains avatar editor",
+	},
+	{
+		key = StringsLocale.Keys.FRIENDS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Friends",
+		},
+		comment = "Title text for page that contains friends info",
+	},
+	{
+		key = StringsLocale.Keys.MORE,
+		values = {
+			[StringsLocale.Languages.EN_US] = "More",
+		},
+		comment = "Title text for page that contains a list of other pages",
 	},
 }
 

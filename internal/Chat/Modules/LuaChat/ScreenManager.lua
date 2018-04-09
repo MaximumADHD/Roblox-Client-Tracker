@@ -6,6 +6,8 @@ local ScreenRouter = require(Modules.ScreenRouter)
 local Device = require(Modules.Device)
 local DialogFrame = require(Modules.Views.DialogFrame)
 
+local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
+
 local ScreenManager = {}
 
 --[[
@@ -246,6 +248,10 @@ function ScreenManager:DisableAllViews()
 end
 
 function ScreenManager:SetTabBarVisible(visible)
+	if UseLuaBottomBar then
+		return
+	end
+
 	if visible then
 		GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().SHOW_TAB_BAR)
 	else

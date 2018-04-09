@@ -14,7 +14,6 @@ return function(state, action)
 		state = Immutable.JoinDictionaries(state, tmpTable)
 
 	elseif action.type == SetGamesInSort.name then
-		
 		-- store the universeIds associated with their sort
 		state = Immutable.Set(state, action.sort, action.games)
 	end

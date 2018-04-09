@@ -13,11 +13,11 @@ return function()
 	local HomePage = require(Modules.LuaApp.Components.Home.HomePage)
 	local User = require(Modules.LuaApp.Models.User)
 
-	local function MockStore(userCount, membership)
+	local function MockStore(eachUserIsFriend, membership)
 		local store = Rodux.Store.new(AppReducer)
-		if userCount then
-			for _ = 1, userCount do
-				store:Dispatch(AddUser(User.mock()))
+		if eachUserIsFriend then
+			for i, isFriend in ipairs(eachUserIsFriend) do
+				store:Dispatch(AddUser(User.fromData(i, "User " .. i, isFriend)))
 			end
 		end
 		if membership then
@@ -48,18 +48,17 @@ return function()
 		store:Destruct()
 	end)
 
-	it("should show the friends section if there are users", function()
-		local store = MockStore(5)
+	it("should show the friends section if there are friends", function()
+		local store = MockStore({false, true, true})
 		local element = MockHomepage(store)
 		local container = Instance.new("Folder")
 		Roact.reify(element, container, "Test")
-
 		expect(container.Test:FindFirstChild("FriendSection", true)).to.be.ok()
 		store:Destruct()
 	end)
 
-	it("should hide the friends section if there are no users", function()
-		local store = MockStore()
+	it("should hide the friends section if there are no friends", function()
+		local store = MockStore({false, false, false})
 		local element = MockHomepage(store)
 		local container = Instance.new("Folder")
 		Roact.reify(element, container, "Test")
@@ -69,7 +68,7 @@ return function()
 	end)
 
 	it("should show the builders club icon if the local user is builders club", function()
-		local store = MockStore(0, Enum.MembershipType.BuildersClub)
+		local store = MockStore(nil, Enum.MembershipType.BuildersClub)
 		local element = MockHomepage(store)
 		local container = Instance.new("Folder")
 		Roact.reify(element, container, "Test")

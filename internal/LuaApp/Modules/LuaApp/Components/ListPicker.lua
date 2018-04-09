@@ -82,19 +82,13 @@ function ListPicker:render()
 		})
 	end
 
-	-- Change the fit axis if we have a fixed width (or want fill our parent):
-	local fitAxis = FitChildren.FitAxis.Height
-	local fitSize = UDim2.new(1, 0, 0, 0)
-	if itemWidth > 0 then
-		fitAxis = FitChildren.FitAxis.Both
-		fitSize = nil
-	end
-
-	return Roact.createElement(FitChildren.FitFrame, {
+	-- Using a regular frame instead of a FitFrame because: right now the 
+	-- ListPicker is used by the Popout menu which have animation-controlled
+	-- size and FitFrame doesn't work very well with that.
+	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		fitAxis = fitAxis,
-		Size = fitSize,
+		Size = UDim2.new(1, 0, 1, 0),
 	}, listContents)
 end
 

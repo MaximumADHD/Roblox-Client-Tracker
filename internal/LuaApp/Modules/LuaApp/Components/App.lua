@@ -17,9 +17,9 @@ local StringsLocale = require(Modules.LuaApp.StringsLocale)
 local AppRouter = require(Modules.LuaApp.Components.AppRouter)
 local AppReducer = require(Modules.LuaApp.AppReducer)
 
-local AppPage = require(Modules.LuaApp.AppPage)
-local SetAppPage = require(Modules.LuaApp.Actions.SetAppPage)
-
+local Constants = require(Modules.LuaApp.Constants)
+local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
+local SetDeviceOrientation = require(Modules.LuaApp.Actions.SetDeviceOrientation)
 local SetLocalUser = require(Modules.LuaApp.Actions.SetLocalUser)
 local Analytics = require(Modules.Common.Analytics)
 local Networking = require(Modules.LuaApp.Http.Networking)
@@ -28,6 +28,7 @@ local ApiFetchAllUsersFriends = require(Modules.LuaApp.Thunks.ApiFetchAllUsersFr
 
 -- flag dependencies
 local diagCounterPageLoadTimes = settings():GetFVariable("LuaAppsDiagPageLoadTimeGames")
+local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
 
 local App = Roact.Component:extend("App")
 
@@ -35,42 +36,48 @@ function App:init()
 	self.state = {
 		store = Rodux.Store.new(AppReducer)
 	}
-	-- Setting the view size to consider bottom bar space.
-	-- TODO Needs to be checked if this will be necessary after integrating
-	-- Lua bottom bar.
-	GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
-	self.bottomBarSizeListener = UserInputService:GetPropertyChangedSignal("BottomBarSize"):Connect(function()
-		GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
-	end)
 
 	self._localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)
 	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function(newLocale)
 		self._localization:SetLocale(newLocale)
 	end)
-
-	if UserSettings().GameSettings:InStudioMode() then
-		local keyToPageMapping = {
-			[Enum.KeyCode.One] = AppPage.Home,
-			[Enum.KeyCode.Two] = AppPage.Games,
-			[Enum.KeyCode.Three] = AppPage.AvatarEditor,
-			[Enum.KeyCode.Four] = AppPage.Chat,
-		}
-		print("")
-		print("To switch between pages, use numbers on the keyboard:")
-		print(".   1: Home Page")
-		print(".   2: Games Page")
-		print(".   3: Avatar Editor")
-		print(".   4: Chat Page")
-		print("")
-		self.inputListenerForStudioMode = UserInputService.InputBegan:connect(function(inputObject, gameProcessedEvent)
-			if keyToPageMapping[inputObject.KeyCode] then
-				self.state.store:Dispatch(SetAppPage(keyToPageMapping[inputObject.KeyCode]))
-			end
-		end)
-	end
 end
 
 function App:didMount()
+	-- Setting the view size to consider bottom bar space.
+	-- TODO Needs to be checked if this will be necessary after integrating
+	-- Lua bottom bar.
+	if UserSettings().GameSettings:InStudioMode() or UseLuaBottomBar then
+		GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().HIDE_TAB_BAR)
+	else
+		GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
+		self.bottomBarSizeListener = UserInputService:GetPropertyChangedSignal("BottomBarSize"):Connect(function()
+			GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
+		end)
+	end
+
+	local function checkDeviceOrientation(viewportSize)
+		-- Hacky code awaits underlying mechanism fix.
+		-- Viewport will get a 0,0,1,1 rect before it is properly set.
+		if viewportSize.x <= 1 or viewportSize.y <= 1 then
+			return
+		end
+
+		local deviceOrientation = viewportSize.x > viewportSize.y and
+			DeviceOrientationMode.Landscape or DeviceOrientationMode.Portrait
+		if self._deviceOrientation ~= deviceOrientation then
+			self._deviceOrientation = deviceOrientation
+			self.state.store:Dispatch(SetDeviceOrientation(self._deviceOrientation))
+		end
+	end
+
+	--Setting the device orientation
+	local camera = game.Workspace.CurrentCamera
+	checkDeviceOrientation(camera.ViewportSize)
+	self.viewportSizeListener = camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+		checkDeviceOrientation(camera.ViewportSize)
+	end)
+
 	local updateLocalPlayer = function()
 		self.state.store:Dispatch(SetLocalUser(Players.LocalPlayer.Name, Players.LocalPlayer.MembershipType))
 	end
@@ -84,14 +91,16 @@ function App:didMount()
 
 	-- start loading information for the Games Page
 	local startTime = tick()
-	self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl)):andThen(function(result)
+	self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.Games)):andThen(function(result)
 		local endTime = tick()
 		local deltaMs = (endTime - startTime) * 1000
 
 		self._analytics.Diag:reportStats(diagCounterPageLoadTimes, deltaMs)
 	end)
 
+	-- start loading information for Home Page
 	self.state.store:Dispatch(ApiFetchAllUsersFriends(self._networkImpl))
+	self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.HomeGames))
 end
 
 function App:render()
@@ -107,9 +116,12 @@ function App:render()
 end
 
 function App:willUnmount()
-	self.bottomBarSizeListener:Disconnect()
-	if UserSettings().GameSettings:InStudioMode() then
-		self.inputListenerForStudioMode:Disconnect()
+	if self.bottomBarSizeListener then
+		self.bottomBarSizeListener:Disconnect()
+	end
+
+	if self.viewportSizeListener then
+		self.viewportSizeListener:Disconnect()
 	end
 end
 

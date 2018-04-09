@@ -156,7 +156,7 @@ local function CreateHomePane(parent)
 	local existingThumbnailLoader = nil
 	local function UpdateProfileInfo()
 		local playerName = UserData:GetDisplayName()
-		NameLabel.Text = playerName and Utility.Upper(playerName) or ''
+		NameLabel.Text = playerName and playerName or ''
 		-- ProfileImage.Image = UserData:GetAvatarUrl(420, 420)..'&cb='..tostring(tick())
 
 		local rbxuid = UserData:GetRbxUserId()
@@ -193,7 +193,7 @@ local function CreateHomePane(parent)
 	local FriendActivityTitle = Utility.Create'TextLabel'
 	{
 		Name = 'FriendActivityTitle';
-		Text = Utility.Upper(Strings:LocalizedString('FriendActivityWord'));
+		Text = Strings:LocalizedString('FriendActivityWord');
 		Size = UDim2.new(1,0,0,50);
 		Position = UDim2.new(0,0,0,10);
 		TextXAlignment = 'Left';

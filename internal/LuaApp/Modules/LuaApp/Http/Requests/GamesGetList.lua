@@ -4,74 +4,59 @@ local Url = require(Modules.LuaApp.Http.Url)
 --[[
   This endpoint returns a promise that resolves to:
 
-  [
+{
+  "games": [
     {
       "creatorId": 0,
       "creatorName": "string",
       "creatorType": "string",
-      "totalUpvotes": 0,
+      "totalUpVotes": 0,
       "totalDownVotes": 0,
       "universeId": 0,
       "name": "string",
       "placeId": 0,
       "playerCount": 0,
-      "imageToken": "string"
-    }, {...}, ...
-  ]
+      "imageToken": "string",
+      "imageTokenExpiryInSeconds": 0,
+      "users": [
+        {
+          "userId": 0,
+          "gameId": "string"
+        }
+      ],
+      "isSponsored": true,
+      "nativeAdData": "string"
+    }
+  ],
+  "suggestedKeyword": "string",
+  "correctedKeyword": "string",
+  "filteredKeyword": "string",
+  "hasMoreRows": true
+}
+
+ networkImpl - (Service) an object that implements httpGetJson
+ argTable - (Table) of argument that is passed into the request
+
+ A sample argTable:
+ {
+  sortToken = "SOME_SORT_TOKEN",
+  gameFilter = "SOME_GAME_FILTER",
+  timeFilter = "SOME_TIMER_FILTER",
+  genreFilter = "SOME_GENRE_FILTER",
+  exclusiveStartId = 1298471975,
+  sortOrder = 1,
+  keyword = "WHAT_YOU_SEARCH_FOR",
+  startRows = 10,
+  maxRows = 100,
+  isKeywordSuggestionEnabled = true,
+  contextCountryRegionId = 50,
+  contextUniverseId = 192146914,
+ }
 
 ]]--
 
--- networkImpl - (Service) an object that implements httpGetJson
--- sortId - (string)
--- gameFilterId - (string, optional)
--- timeFilterId - (string, optional)
--- genreFilterId - (string, optional)
--- exclusiveStartId - (long, optional)
--- sortOrder - (int, optional)
--- keyword - (string, optional)
--- useFakeResults - (bool, optional) returns fake results on the test sites
-return function(networkImpl,
-  sortId,
-  gameFilterId,
-  timeFilterId,
-  genreFilterId,
-  exclusiveStartId,
-  sortOrder,
-  keyword,
-  useFakeResults)
 
-   local argTable = {
-    sortToken = sortId
-  }
-
-  -- append optional parameters
-  if gameFilterId then
-    argTable.gameFilter = gameFilterId
-  end
-
-  if timeFilterId then
-    argTable.timeFilter = timeFilterId
-  end
-
-  if genreFilterId then
-    argTable.genreFilter = genreFilterId
-  end
-
-  if exclusiveStartId then
-    argTable.exclusiveStartId = exclusiveStartId
-  end
-
-  if sortOrder then
-    argTable.sortOrder = sortOrder
-  end
-
-  if keyword then
-    argTable.keyword = keyword
-  end
-
-  if useFakeResults then
-    argTable.useFakeResults = useFakeResults
-  end
+return function(networkImpl, argTable)
 
   -- construct the url
   local args = Url:makeQueryString(argTable)

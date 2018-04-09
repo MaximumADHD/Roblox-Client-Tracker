@@ -107,7 +107,7 @@ local createBadgeOverlay = function(badgeData)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.TextSelectedColor;
-		Text = Utility.Upper(Strings:LocalizedString("OkWord"));
+		Text = Strings:LocalizedString("OkWord");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');

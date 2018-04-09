@@ -3,8 +3,6 @@ return function()
 	local Games = require(script.Parent.Games)
 	local Game = require(Modules.LuaApp.Models.Game)
 	local AddGames = require(Modules.LuaApp.Actions.AddGames)
-	local SetGameThumbnails = require(Modules.LuaApp.Actions.SetGameThumbnails)
-	local Action = require(Modules.Common.Action)
 	local MockId = require(Modules.LuaApp.MockId)
 
 	local function countChildObjects(aTable)

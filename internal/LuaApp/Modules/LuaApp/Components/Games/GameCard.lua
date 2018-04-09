@@ -52,6 +52,7 @@ function GameCard:render()
 	local game = self.props.game
 	local iconSize = self.props.iconSize
 	local anchorPoint = self.props.AnchorPoint
+	local layoutOrder = self.props.LayoutOrder
 	local position = self.props.Position
 
 	local name = game.name
@@ -78,6 +79,7 @@ function GameCard:render()
 		BackgroundColor3 = CARD_BACKGROUND_COLOR,
 		Position = position,
 		Size = UDim2.new(0, dimensions.cardWidth, 0, dimensions.cardHeight),
+		LayoutOrder = layoutOrder,
 	}, {
 		ButtonContainer = Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),

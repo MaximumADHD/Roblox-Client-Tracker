@@ -1,19 +1,29 @@
 local GuiService = game:GetService("GuiService")
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local Components = LuaApp.Components
 
-local Roact = require(Modules.Common.Roact)
-local RoactRodux = require(Modules.Common.RoactRodux)
+local Roact = require(Common.Roact)
+local RoactRodux = require(Common.RoactRodux)
 
-local Constants = require(Modules.LuaApp.Constants)
-local DropshadowFrame = require(Modules.LuaApp.Components.DropshadowFrame)
-local FitChildren = require(Modules.LuaApp.FitChildren)
-local GameCarousel = require(Modules.LuaApp.Components.Games.GameCarousel)
-local LocalizedSectionHeader = require(Modules.LuaApp.Components.LocalizedSectionHeader)
-local LocalizedSectionHeaderWithSeeAll = require(Modules.LuaApp.Components.LocalizedSectionHeaderWithSeeAll)
-local LocalizedTextButton = require(Modules.LuaApp.Components.LocalizedTextButton)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
-local TopBar = require(Modules.LuaApp.Components.TopBar)
-local UserCarousel = require(Modules.LuaApp.Components.Home.UserCarousel)
+local LocalizedSectionHeaderWithSeeAll = require(Components.LocalizedSectionHeaderWithSeeAll)
+local SectionHeaderWithSeeAll = require(Components.SectionHeaderWithSeeAll)
+local UserCarouselEntry = require(Components.Home.UserCarouselEntry)
+local LocalizedTextButton = require(Components.LocalizedTextButton)
+local DropshadowFrame = require(Components.DropshadowFrame)
+local GameCard = require(Components.Games.GameCard)
+local Carousel = require(Components.Carousel)
+local TopBar = require(Components.TopBar)
+local GamesList = require(Components.Games.GamesList)
+local StringsLocale = require(LuaApp.StringsLocale)
+local User = require(LuaApp.Models.User)
+local Constants = require(LuaApp.Constants)
+local FitChildren = require(LuaApp.FitChildren)
+local Functional = require(Common.Functional)
+local memoize = require(Common.memoize)
+
+local Url = require(Modules.LuaApp.Http.Url)
 
 local function Spacer(props)
 	local height = props.height
@@ -26,11 +36,12 @@ local function Spacer(props)
 	})
 end
 
-local HomePage = Roact.Component:extend("HomePage")
+local HomePage = Roact.PureComponent:extend("HomePage")
 
 local SIDE_PADDING = 15
 local SECTION_PADDING = 15
 local CAROUSEL_PADDING = 20
+local CAROUSEL_PADDING_DIM = UDim.new(0, CAROUSEL_PADDING)
 
 local BUILDERCLUB_LOGO_WIDTH = 24
 local BUILDERCLUB_LOGO_HEIGHT = 24
@@ -58,86 +69,103 @@ local FEED_SECTION_PADDING = 60
 local FEED_BUTTON_HEIGHT = 32
 local FEED_SECTION_HEIGHT = FEED_SECTION_PADDING*2 + FEED_BUTTON_HEIGHT
 
--- This is a SUPER HACKY way of getting the screen resolution, as part of the work-around for lacking SizeFromContents.
---   MPowell 10/2017
-local function GetScreenRes()
-	local screenGui = Instance.new("ScreenGui", game.StarterGui)
-	local screenRes = screenGui.AbsoluteSize
-	screenGui:Destroy()
-	return screenRes
+local PRESENCE_WEIGHTS = {
+	[User.PresenceType.IN_GAME] = 3,
+	[User.PresenceType.ONLINE] = 2,
+	[User.PresenceType.IN_STUDIO] = 1,
+	[User.PresenceType.OFFLINE] = 0,
+}
+
+local function newCounter()
+	local count = 1
+	return function ()
+		count = count + 1
+		return count
+	end
 end
 
-local function GameCarousels(props)
-	local games = props.games
-	local gameSorts = props.gameSorts
-	local gameSortGroups = props.gameSortGroups
-	local width = props.width
-	local layoutOrder = props.layoutOrder
+local onSeeAll
 
-	local curLayoutOrder = 1
-	local function nextLayoutOrder()
-		local oldLayoutOrder = curLayoutOrder
-		curLayoutOrder = curLayoutOrder + 1
-		return oldLayoutOrder
-	end
+local function createGameCard(game, gameCardLayoutOrder)
+	return Roact.createElement(GameCard, {
+		game = game,
+		LayoutOrder = gameCardLayoutOrder,
+	})
+end
 
-	local homeSorts = gameSortGroups["HomeGames"].sorts
-	local content = {
-		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = "LayoutOrder",
-		}),
-	}
-	if homeSorts then
-		for index, sortToken in ipairs(homeSorts) do
-			local sort = gameSorts[sortToken]
-			if not sort then
-				error("Erroneous sort token found in HomeGames sort group")
-			end
-			content["Carousel" .. index] = Roact.createElement(GameCarousel, {
-				sort = sort,
-				games = games,
-				width = width,
-				LayoutOrder = nextLayoutOrder(),
-			})
-
-			content["CarouselPadding" .. index] = Roact.createElement(Spacer, {
-				height = CAROUSEL_PADDING,
-				LayoutOrder = nextLayoutOrder(),
-			})
-		end
-	end
-
+local function createGameSort(gameSort, gameSortLayoutOrder)
 	return Roact.createElement(FitChildren.FitFrame, {
-		LayoutOrder = layoutOrder,
-	}, content)
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 0, 0),
+		fitFields = {
+			Size = FitChildren.FitAxis.Height,
+		},
+		LayoutOrder = gameSortLayoutOrder
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+		["Sort Title: " .. gameSort.displayName] = Roact.createElement(SectionHeaderWithSeeAll, {
+			text = gameSort.displayName,
+			LayoutOrder = 1,
+			onActivated = function() onSeeAll(gameSort.displayName) end,
+		}),
+		["Sort: " .. gameSort.displayName] = Roact.createElement(Carousel, {
+			LayoutOrder = 2,
+		}, Functional.Map(gameSort, createGameCard)),
+	})
+end
+
+function HomePage:init()
+	onSeeAll = function(sort)
+		self:setState({
+			seeAllSort = sort
+		})
+	end
 end
 
 function HomePage:render()
-	local games = self.props.games
 	local gameSorts = self.props.gameSorts
-	local gameSortGroups = self.props.gameSortGroups
-	local users = self.props.users
+	local friends = self.props.friends
 	local localUser = self.props.localUser
 	local formFactor = self.props.formFactor
 	local friendCount = self.props.friendCount
+	local seeAllSort = self.state.seeAllSort
 
-	local userCount = 0
-	for _ in pairs(users) do
-		userCount = userCount + 1
+	-- TODO: Could use a state stack to move to the games list page, but for now
+	-- this is all we need to get the base-level functionality:
+	if seeAllSort then
+		return Roact.createElement(GamesList, {
+			showSort = seeAllSort,
+			onBack = function() onSeeAll(false) end,
+		})
 	end
 
-	local width = GetScreenRes().x
-
-	local curLayoutOrder = 1
-	local function nextLayoutOrder()
-		local oldLayoutOrder = curLayoutOrder
-		curLayoutOrder = curLayoutOrder + 1
-		return oldLayoutOrder
+	local function createUserEntry(user, count)
+		return Roact.createElement(UserCarouselEntry, {
+			user = user,
+			formFactor = formFactor,
+			count = count,
+			highlightColor = Constants.Color.WHITE,
+			thumbnailType = Constants.AvatarThumbnailTypes.AvatarThumbnail,
+		})
 	end
 
-	local function isLocalPlayerBC()
-		return localUser.membership ~= Enum.MembershipType.None
-	end
+	local isLocalPlayerBC = localUser.membership ~= Enum.MembershipType.None
+	local nextLayoutOrder = newCounter()
+	local gameCarousels = Functional.Map(gameSorts, createGameSort)
+	gameCarousels.Layout = Roact.createElement("UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = CAROUSEL_PADDING_DIM,
+	})
+	gameCarousels.Padding = Roact.createElement("UIPadding", {
+		PaddingTop = CAROUSEL_PADDING_DIM,
+		PaddingBottom = CAROUSEL_PADDING_DIM,
+		PaddingLeft = CAROUSEL_PADDING_DIM,
+		PaddingRight = CAROUSEL_PADDING_DIM,
+	})
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -157,7 +185,7 @@ function HomePage:render()
 			textKey = { StringsLocale.Keys.HOME },
 		}),
 		Scroller = Roact.createElement(FitChildren.FitScrollingFrame, {
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.new(1, 0, 1, -TopBar.getHeight()),
 			CanvasSize = UDim2.new(1, 0, 0, 0),
 			BackgroundColor3 = Constants.Color.GRAY4,
 			BorderSizePixel = 0,
@@ -166,7 +194,7 @@ function HomePage:render()
 			fitFields = { CanvasSize = FitChildren.FitAxis.Height },
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = "LayoutOrder",
+				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 			Padding1 = Roact.createElement(Spacer, {
 				height = SIDE_PADDING,
@@ -183,24 +211,24 @@ function HomePage:render()
 					BackgroundTransparency = 1,
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
-						SortOrder = "LayoutOrder",
+						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Horizontal,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
-					BuildersClub = isLocalPlayerBC() and Roact.createElement("ImageLabel", {
+					BuildersClub = isLocalPlayerBC and Roact.createElement("ImageLabel", {
 							Size = UDim2.new(0, BUILDERCLUB_LOGO_WIDTH, 0, BUILDERCLUB_LOGO_HEIGHT),
 							Image = BUILDERCLUB_LOGOS[localUser.membership],
 							BackgroundTransparency = 1,
 							BorderSizePixel = 0,
 						LayoutOrder = 1,
 					}) or nil,
-					Padding = isLocalPlayerBC() and Roact.createElement("Frame", {
+					Padding = isLocalPlayerBC and Roact.createElement("Frame", {
 						Size = UDim2.new(0, TITLE_SECTION_USERNAME_BC_PADDING, 1, 0),
 						BackgroundTransparency = 1,
 						LayoutOrder = 2,
 					}) or nil,
 					Username = Roact.createElement("TextLabel", {
-						Size = isLocalPlayerBC() and
+						Size = isLocalPlayerBC and
 							UDim2.new(1, -BUILDERCLUB_LOGO_WIDTH-TITLE_SECTION_USERNAME_BC_PADDING, 0, TITLE_USERNAME_TEXT_SIZE)
 							or UDim2.new(1, 0, 0, TITLE_USERNAME_TEXT_SIZE),
 						BackgroundTransparency = 1,
@@ -211,14 +239,14 @@ function HomePage:render()
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextScaled = true,
 						LayoutOrder = 3,
-						}),
+					}),
 				})
 			}),
 			Padding2 = Roact.createElement(Spacer, {
 				height = SECTION_PADDING,
 				LayoutOrder = nextLayoutOrder(),
 			}),
-			FriendSection = userCount ~= 0 and
+			FriendSection = #friends > 0 and
 				Roact.createElement(FitChildren.FitFrame, {
 					Size = UDim2.new(1, 0, 0, 0),
 					fitAxis = FitChildren.FitAxis.Height,
@@ -226,45 +254,61 @@ function HomePage:render()
 					LayoutOrder = nextLayoutOrder(),
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
-						SortOrder = "LayoutOrder",
+						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
-					Header = Roact.createElement(LocalizedSectionHeaderWithSeeAll, {
-						text = {
-							StringsLocale.Keys.FRIENDS_COUNT,
-							COUNT = friendCount,
+					Container = Roact.createElement(FitChildren.FitFrame, {
+						Size = UDim2.new(1, 0, 0, 0),
+						BackgroundTransparency = 1,
+						fitFields = {
+							Size = FitChildren.FitAxis.Height,
 						},
-						width = width,
-						LayoutOrder = 1,
+					}, {
+						SidePadding = Roact.createElement("UIPadding", {
+							PaddingLeft = CAROUSEL_PADDING_DIM,
+							PaddingRight = CAROUSEL_PADDING_DIM,
+						}),
+						Header = Roact.createElement(LocalizedSectionHeaderWithSeeAll, {
+							text = {
+								StringsLocale.Keys.FRIENDS_COUNT,
+								COUNT = friendCount,
+							},
+							LayoutOrder = 1,
+							onActivated = function()
+								local url = string.format("%susers/friends", Url.BASE_URL)
+								GuiService:BroadcastNotification(url,
+									GuiService:GetNotificationTypeList().VIEW_PROFILE)
+							end,
+						}),
 					}),
 					CarouselFrame = Roact.createElement(DropshadowFrame, {
 						Size = UDim2.new(1, 0, 0, FRIEND_SECTION_HEIGHT),
 						BackgroundColor3 = Constants.Color.WHITE,
 						LayoutOrder = 2,
 					}, {
-						Carousel = Roact.createElement(UserCarousel, {
-							users = users,
-							formFactor = formFactor,
-						})
+						Carousel = Roact.createElement(Carousel, {},
+							Functional.Map(friends, createUserEntry)
+						)
 					}),
 				}) or nil,
 			Padding4 = Roact.createElement(Spacer, {
 				height = SECTION_PADDING,
 				LayoutOrder = nextLayoutOrder(),
 			}),
-			GameCarousels = Roact.createElement(GameCarousels, {
-				games = games,
-				gameSorts = gameSorts,
-				gameSortGroups = gameSortGroups,
-				width = width,
-				layoutOrder = nextLayoutOrder(),
-			}),
+			GameCarousels = Roact.createElement(FitChildren.FitFrame, {
+				Size = UDim2.new(1, 0, 0, 0),
+				BackgroundTransparency = 1,
+				LayoutOrder = nextLayoutOrder(),
+				fitFields = {
+					Size = FitChildren.FitAxis.Height,
+				},
+			}, gameCarousels),
 			FeedSection = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, FEED_SECTION_HEIGHT),
 				BackgroundTransparency = 1,
 				LayoutOrder = nextLayoutOrder(),
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = "LayoutOrder",
+					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				FeedPadding1 = Roact.createElement(Spacer, {
 					height = FEED_SECTION_PADDING,
@@ -303,14 +347,68 @@ function HomePage:render()
 	})
 end
 
+local selectSorts = memoize(function(sortsId, sortsInfo, sortsGames, games)
+	if not sortsId then
+		return
+	end
+
+	local sorts = {}
+	for _, sortId in ipairs(sortsId) do
+		local sortInfo = sortsInfo[sortId]
+
+		if sortInfo then
+			local sortGames = sortsGames[sortInfo.name]
+			local sort = {
+				displayName = sortInfo.displayName,
+			}
+
+			for gameLayoutOrder, gameId in ipairs(sortGames) do
+				sort[gameLayoutOrder] = games[gameId]
+			end
+
+			sorts[#sorts + 1] = sort
+		end
+	end
+
+	return sorts
+end)
+
+local selectFriends = memoize(function(users)
+	local friends = {}
+	local function friendPreference(friend1, friend2)
+		local friend1Weight = PRESENCE_WEIGHTS[friend1.presence]
+		local friend2Weight = PRESENCE_WEIGHTS[friend2.presence]
+
+		if friend1Weight == friend2Weight then
+			return friend1.name < friend2.name
+		else
+			return friend1Weight > friend2Weight
+		end
+	end
+
+	for _, user in pairs(users) do
+		if user.isFriend then
+			friends[#friends + 1] = user
+		end
+	end
+
+	table.sort(friends, friendPreference)
+
+	return friends
+end)
+
 local connector = RoactRodux.connect(function(store, props)
 	local state = store:GetState()
-
 	return {
-		games = state.Games,
-		gameSorts = state.GameSorts,
-		gameSortGroups = state.GameSortGroups,
-		users = state.Users,
+		gameSorts = selectSorts(
+			state.GameSortGroups["HomeGames"].sorts,
+			state.GameSorts,
+			state.GamesInSort,
+			state.Games
+		),
+		friends = selectFriends(
+			state.Users
+		),
 		localUser = state.LocalUser,
 		formFactor = state.FormFactor,
 		friendCount = state.FriendCount,

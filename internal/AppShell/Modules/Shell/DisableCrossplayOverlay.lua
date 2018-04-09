@@ -71,7 +71,7 @@ local function createDisableCrossplayOverlay(overlayInfo)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.BlackTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("KeepEnabledPhrase"));
+		Text = Strings:LocalizedString("KeepEnabledPhrase");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');
@@ -88,7 +88,7 @@ local function createDisableCrossplayOverlay(overlayInfo)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.WhiteTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("DisableWord"));
+		Text = Strings:LocalizedString("DisableWord");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');

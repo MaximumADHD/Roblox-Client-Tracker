@@ -1,11 +1,9 @@
 return function()
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local GameSorts = require(script.Parent.GameSorts)
-	local Game = require(Modules.LuaApp.Models.Game)
 	local GameSort = require(Modules.LuaApp.Models.GameSort)
 
 	local AddGameSorts = require(Modules.LuaApp.Actions.AddGameSorts)
-	local MockId = require(Modules.LuaApp.MockId)
 
 	local function countChildObjects(aTable)
 		local numChildren = 0
@@ -15,22 +13,7 @@ return function()
 
 		return numChildren
 	end
-	local function createFakeGame()
-		local game = Game.mock()
-		game.universeId = MockId()
-		game.placeId = MockId()
 
-		return game
-	end
-	local function createFakeGameTable(numGames)
-		local someGames = {}
-		for _ = 1, numGames, 1 do
-			local aGame = createFakeGame()
-			table.insert(someGames, aGame.placeId)
-		end
-
-		return someGames
-	end
 	local function createFakeGameSorts(numSorts)
 		local gameSorts = {}
 		for i = 1, numSorts do

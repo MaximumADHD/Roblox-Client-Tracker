@@ -5,16 +5,22 @@ local Modules = CoreGui.RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 local RoactRodux = require(Modules.Common.RoactRodux)
 
-local AppPage = require(Modules.LuaApp.AppPage)
+local Constants = require(Modules.LuaApp.Constants)
 
+local AppPage = require(Modules.LuaApp.AppPage)
+local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
 local NavigationEventReceiver = require(Modules.LuaApp.NavigationEventReceiver)
 
 local HomePage = require(Modules.LuaApp.Components.Home.HomePage)
 local GamesHub = require(Modules.LuaApp.Components.Games.GamesHub)
 local RoactAvatarEditorWrapper = require(Modules.LuaApp.Components.Avatar.RoactAvatarEditorWrapper)
 local RoactChatWrapper = require(Modules.LuaApp.Components.Chat.RoactChatWrapper)
+local BottomBar = require(Modules.LuaApp.Components.BottomBar)
+local RoactDummyPageWrap = require(Modules.LuaApp.Components.RoactDummyPageWrap)
 
 local RemoveLoadingHUDOniOS = settings():GetFFlag("RemoveLoadingHUDOniOS")
+local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
+
 
 local APP_READY = GuiService:GetNotificationTypeList().APP_READY
 
@@ -45,38 +51,79 @@ function RoactScreenGuiWrap:didUpdate(prevProps, prevState)
 	end
 end
 
-local function AppRouter(props)
-	return Roact.createElement(Roact.Portal, {
-		target = CoreGui,
-	}, {
+
+local AppRouter = Roact.Component:extend("AppRouter")
+
+function AppRouter:render()
+	local deviceOrientation = self.props.deviceOrientation
+	if deviceOrientation == DeviceOrientationMode.Invalid then
+		return Roact.createElement(NavigationEventReceiver)
+	end
+
+	local currentPage = self.props.currentPage
+	local parameters = self.props.parameters
+	local bottomBarVisible = self.props.bottomBarVisible
+
+	local elements = {
 		NavigationEventReceiver = Roact.createElement(NavigationEventReceiver),
 		Home = Roact.createElement(RoactScreenGuiWrap, {
 			element = HomePage,
-			isVisible = props.currentPage == AppPage.Home,
+			isVisible = currentPage == AppPage.Home,
 			pageType = AppPage.Home,
 		}),
 		Games = Roact.createElement(RoactScreenGuiWrap, {
 			element = GamesHub,
-			isVisible = props.currentPage == AppPage.Games,
+			isVisible = currentPage == AppPage.Games,
 			pageType = AppPage.Games,
 		}),
 		Avatar = Roact.createElement(RoactAvatarEditorWrapper, {
-			isVisible = props.currentPage == AppPage.AvatarEditor,
+			isVisible = currentPage == AppPage.AvatarEditor,
 			pageType = AppPage.AvatarEditor,
 		}),
 		Chat = Roact.createElement(RoactChatWrapper, {
-			isVisible = props.currentPage == AppPage.Chat or props.currentPage == AppPage.ShareGameToChat,
-			pageType = props.currentPage,
-			parameters = props.parameters,
+			isVisible = currentPage == AppPage.Chat or currentPage == AppPage.ShareGameToChat,
+			pageType = currentPage,
+			parameters = parameters,
 		}),
-	})
+		More = Roact.createElement(RoactDummyPageWrap, {
+			isVisible = currentPage == AppPage.More,
+			pageType = AppPage.More,
+		}),
+	}
+	if deviceOrientation == DeviceOrientationMode.Landscape then
+		elements["Catalog"] = Roact.createElement(RoactDummyPageWrap, {
+			isVisible = currentPage == AppPage.Catalog,
+			pageType = AppPage.Catalog,
+		})
+		elements["Friends"] = Roact.createElement(RoactDummyPageWrap, {
+			isVisible = currentPage == AppPage.Friends,
+			pageType = AppPage.Friends,
+		})
+	end
+	if  UserSettings().GameSettings:InStudioMode() or UseLuaBottomBar then
+		elements["BottomBar"] = Roact.createElement(BottomBar, {
+			isVisible = bottomBarVisible,
+			displayOrder = 4,
+		})
+		if bottomBarVisible then
+			GuiService:SetGlobalGuiInset(0, 0, 0, Constants.TAB_BAR_SIZE)
+		else
+			GuiService:SetGlobalGuiInset(0, 0, 0, 0)
+		end
+	end
+
+	return Roact.createElement(Roact.Portal, {
+		target = CoreGui,
+	}, elements)
 end
 
 AppRouter = RoactRodux.connect(function(store)
-	local appRouter = store:GetState().AppRouter
+	local state = store:GetState()
 	return {
-		currentPage = appRouter.currentPage,
-		parameters = appRouter.parameters,
+		currentPage = state.AppRouter.currentPage,
+		parameters = state.AppRouter.parameters,
+		bottomBarVisible = state.ChatAppReducer.TabBarVisible,
+		deviceOrientation = state.DeviceOrientation,
 	}
 end)(AppRouter)
 

@@ -6,6 +6,7 @@ local Constants = {
 		GRAY4 = Color3.fromRGB(227, 227, 227),
 		GRAY5 = Color3.fromRGB(242, 242, 242),
 		GRAY6 = Color3.fromRGB(245, 245, 245),
+		GRAY_SEPARATOR = Color3.fromRGB(172, 170, 161),
 		WHITE = Color3.fromRGB(255, 255, 255),
 		BLUE_PRIMARY = Color3.fromRGB(0, 162, 255),
 		BLUE_HOVER = Color3.fromRGB(50, 181, 255),
@@ -21,6 +22,22 @@ local Constants = {
 		RED_PRESSED = Color3.fromRGB(172, 30, 45),
 		ALPHA_SHADOW_PRIMARY = 0.3, -- Used with Gray1
 		ALPHA_SHADOW_HOVER = 0.75, -- Used with Gray1
+	},
+	TAB_BAR_SIZE = 49,
+	GameSortGroups = {
+		Games = "Games",
+		HomeGames = "HomeGames",
+	},
+	ApiUsedForSorts = {
+		Games = "GamesAllSort",
+		HomeGames = "HomeSorts",
+	},
+	AvatarThumbnailTypes = {
+		AvatarThumbnail = "AvatarThumbnail",
+		HeadShot = "HeadShot",
+	},
+	AvatarThumbnailSizes = {
+		Size150x150 = "Size150x150",
 	},
 }
 

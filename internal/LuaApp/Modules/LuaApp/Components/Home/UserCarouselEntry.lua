@@ -1,3 +1,5 @@
+local GuiService = game:GetService("GuiService")
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(Modules.Common.Roact)
@@ -5,6 +7,7 @@ local Roact = require(Modules.Common.Roact)
 local UserThumbnail = require(Modules.LuaApp.Components.UserThumbnail)
 local UserCarouselEntry = Roact.Component:extend("UserCarouselEntry")
 local Constants = require(Modules.LuaApp.Constants)
+local Url = require(Modules.LuaApp.Http.Url)
 
 local USER_ENTRY_WIDTH = 105
 local INNER_PADDING = 7.5
@@ -22,8 +25,10 @@ function UserCarouselEntry:render()
 	local formFactor = self.props.formFactor
 	local highlightColor = self.state.highlighted and Constants.Color.GRAY5
 		or Constants.Color.WHITE
+	local thumbnailType = self.props.thumbnailType
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement("ImageButton", {
+		AutoButtonColor = false,
 		Size = UDim2.new(0, USER_ENTRY_WIDTH, 1, 0),
 		BackgroundColor3 = highlightColor,
 		BorderSizePixel = 0,
@@ -39,13 +44,20 @@ function UserCarouselEntry:render()
 				highlighted = false,
 			})
 		end,
-
 		--when Touch is used for scrolling, InputEnded gets sunk into scrolling action
 		[Roact.Event.InputChanged] = function(rbx, inputObject)
 			if inputObject.UserInputType == Enum.UserInputType.Touch then
 				self:setState({
 					highlighted = false,
 				})
+			end
+		end,
+
+		[Roact.Event.Activated] = function(rbx, inputObject)
+			if inputObject.UserInputState == Enum.UserInputState.End then
+				local url = string.format("%susers/%s/profile", Url.BASE_URL, user.id)
+				GuiService:BroadcastNotification(url,
+					GuiService:GetNotificationTypeList().VIEW_PROFILE)
 			end
 		end,
 		}, {
@@ -60,6 +72,7 @@ function UserCarouselEntry:render()
 					formFactor = formFactor,
 					maskColor = Constants.Color.WHITE,
 					highlightColor = highlightColor,
+					thumbnailType = thumbnailType,
 			}),
 		}),
 	})

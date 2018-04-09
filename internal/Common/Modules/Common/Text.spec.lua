@@ -1,6 +1,98 @@
 return function()
 	local Text = require(script.Parent.Text)
 
+	describe("GetTextBounds", function()
+		it("should return a bounds of 1 width and font-size height when the string is empty", function()
+			local bounds = Text.GetTextBounds("", Enum.Font.SourceSans, 18, Vector2.new(1000, 1000))
+			expect(bounds.X).to.equal(1)
+			expect(bounds.Y).to.equal(18)
+		end)
+		it("should return the height and width of a string as one line with large bounds", function()
+			local bounds = Text.GetTextBounds("One Two Three", Enum.Font.SourceSans, 18, Vector2.new(1000, 1000))
+			expect(bounds.Y).to.equal(18)
+		end)
+
+		it("should return the height of the string as multiple lines with short bounds", function()
+			local bounds = Text.GetTextBounds("One Two Three Four", Enum.Font.SourceSans, 18, Vector2.new(32, 1000))
+			expect(bounds.Y > 18).to.equal(true)
+		end)
+	end)
+
+	describe("GetTextHeight", function()
+		it("should return height equal to font size when string is empty", function()
+			local height = Text.GetTextHeight("", Enum.Font.SourceSans, 18, 0)
+			expect(height).to.equal(18)
+		end)
+	end)
+
+	describe("GetTextWidth", function()
+		it("should return width equal to 1 when string is empty", function()
+			local width = Text.GetTextWidth("", Enum.Font.SourceSans, 18, 18)
+			expect(width).to.equal(1)
+		end)
+	end)
+
+	describe("Truncate", function()
+		it("should return empty string", function()
+			local emptyQuery = Text.Truncate("", Enum.Font.SourceSans, 18, 0, "...")
+			expect(emptyQuery).to.be.a("string")
+			expect(emptyQuery).to.equal("")
+		end)
+
+		it("should return empty string for not empty box", function()
+			local emptyQuery = Text.Truncate("", Enum.Font.SourceSans, 18, 50, "...")
+			expect(emptyQuery).to.be.a("string")
+			expect(emptyQuery).to.equal("")
+		end)
+
+		it("should truncate with ...", function()
+			local reallyLongQuery = Text.Truncate(
+				"One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve", Enum.Font.SourceSans, 18, 100, "...")
+			expect(reallyLongQuery).to.equal("One Two Thre...")
+		end)
+
+		it("should truncate without a ...", function()
+			local reallyLongQueryNoOverflowMarker = Text.Truncate(
+				"One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve", Enum.Font.SourceSans, 18, 100)
+			expect(reallyLongQueryNoOverflowMarker).to.equal("One Two Three ")
+		end)
+
+		it("should not truncate", function()
+			local shouldFitQuery = Text.Truncate("One Two", Enum.Font.SourceSans, 18, 100)
+			expect(shouldFitQuery).to.equal("One Two")
+		end)
+
+		it("should not truncate, off by one check", function()
+			local oneCharQuery = Text.Truncate("O", Enum.Font.SourceSans, 18, 100)
+			expect(oneCharQuery).to.equal("O")
+		end)
+
+		it("should truncate, off by one check", function()
+			local oneCharNoRoomQuery = Text.Truncate("O", Enum.Font.SourceSans, 18, 0)
+			expect(oneCharNoRoomQuery).to.equal("")
+		end)
+
+		it("should perform a negative width check", function()
+			local shouldFitQuery = Text.Truncate("One Two", Enum.Font.SourceSans, 18, -100, "...")
+			expect(shouldFitQuery).to.equal("")
+		end)
+	end)
+
+	describe("TruncateTextLabel", function()
+		it("should use text label attributes to truncate text", function()
+			local screenGui = Instance.new("ScreenGui")
+			local textLabel = Instance.new("TextLabel")
+			textLabel.Size = UDim2.new(0, 100, 0, 32)
+			textLabel.Text = "One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve"
+			textLabel.Font = Enum.Font.SourceSans
+			textLabel.TextSize = 18
+			textLabel.Parent = screenGui
+			Text.TruncateTextLabel(textLabel)
+
+			expect(textLabel.Text).to.equal("One Two Three ")
+		end)
+	end)
+
 	describe("TrimLeading", function()
 		it("should return a string without the leading whitespace", function()
 			local a = " 	 	SpaceTabSpaceTab"
@@ -118,6 +210,30 @@ return function()
 			expect(function()
 				Text.Trim(a)
 			end).to.throw()
+		end)
+
+		it("should trim the string surronded by escape sequences properly", function()
+			local trimmedInput = Text.Trim("\r\n\t\f a\r\n\t\f ")
+			local expected = "a"
+			expect(trimmedInput).to.equal(expected)
+		end)
+
+		it("should trim the string with unicode characters properly", function()
+			local trimmedInput = Text.Trim("???????????????????????????")
+			local expected = "???????????????????????????"
+			expect(trimmedInput).to.equal(expected)
+		end)
+
+		it("should trim the string with unicode characters and whitespace properly", function()
+			local trimmedInput = Text.Trim("    ???????????????????????????    ")
+			local expected = "???????????????????????????"
+			expect(trimmedInput).to.equal(expected)
+		end)
+
+		it("should trim the string with unicode characters and newlines properly", function()
+			local trimmedInput = Text.Trim("\n    ?????????????? \n?????????????    \n")
+			local expected = "?????????????? \n?????????????"
+			expect(trimmedInput).to.equal(expected)
 		end)
 	end)
 

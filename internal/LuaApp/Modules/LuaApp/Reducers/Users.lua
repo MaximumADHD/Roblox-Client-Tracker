@@ -7,7 +7,7 @@ local AddUser = require(Modules.LuaApp.Actions.AddUser)
 local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
 local SetUserPresence = require(Modules.LuaApp.Actions.SetUserPresence)
 local FetchingUser = require(Modules.LuaChat.Actions.FetchingUser)
-local SetUserHeadshot = require(Modules.LuaApp.Actions.SetUserHeadshot)
+local SetUserThumbnail = require(Modules.LuaApp.Actions.SetUserThumbnail)
 local UserModel = require(Modules.LuaChat.Models.User)
 
 return function(state, action)
@@ -49,13 +49,15 @@ return function(state, action)
 		local newUser = UserModel.fromData(action.userId, nil, nil)
 		newUser.isFetching = true
 		state = Immutable.Set(state, action.userId, newUser)
-	elseif action.type == SetUserHeadshot.name then
+	elseif action.type == SetUserThumbnail.name then
 		local user = state[action.userId]
 		if user then
 			state = Immutable.JoinDictionaries(state, {
 				[action.userId] = Immutable.JoinDictionaries(user, {
-					headshotThumbnails = Immutable.JoinDictionaries(user.headshotThumbnails, {
-						[action.thumbnailSize] = action.image,
+					thumbnails = Immutable.JoinDictionaries(user.thumbnails, {
+						[action.thumbnailType] = Immutable.JoinDictionaries(user.thumbnails[action.thumbnailType] or {}, {
+							[action.thumbnailSize] = action.image,
+						}),
 					}),
 				}),
 			})

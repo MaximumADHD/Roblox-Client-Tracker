@@ -66,8 +66,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 --------------- FLAGS ----------------
-local GamepadCameraSensitivitySuccess, GamepadCameraSensitivityEnabled = pcall(function() return settings():GetFFlag("GamepadCameraSensitivityEnabled") end)
-local GamepadCameraSensitivityFastFlag = GamepadCameraSensitivitySuccess and GamepadCameraSensitivityEnabled
 
 ----------- CLASS DECLARATION --------------
 
@@ -776,7 +774,7 @@ local function Initialize()
 
   -- TODO: remove "advancedEnabled" when clean up FFlagAdvancedMouseSensitivityEnabled
   local function setCameraSensitivity(newValue, advancedEnabled)
-    if GamepadCameraSensitivityFastFlag and UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
+    if UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
       GameSettings.GamepadCameraSensitivity = newValue
     end
     if UserInputService.MouseEnabled then
@@ -1070,7 +1068,7 @@ local function Initialize()
 
   if UserInputService.MouseEnabled then
     createMouseOptions()
-  elseif GamepadCameraSensitivityFastFlag then
+  else
     if UserInputService.GamepadEnabled then
       checkGamepadOptions()
     else

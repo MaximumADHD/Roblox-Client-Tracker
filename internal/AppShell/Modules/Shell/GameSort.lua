@@ -39,7 +39,7 @@ local function createSortTitle(name)
 		TextXAlignment = Enum.TextXAlignment.Left;
 		TextYAlignment = Enum.TextYAlignment.Top;
 		TextColor3 = GlobalSettings.WhiteTextColor;
-		Text = Utility.Upper(name);
+		Text = name;
 	}
 
 	return sortTitleLabel
@@ -234,7 +234,7 @@ local function createBaseGrid(size, images, imageContainerSizeY)
 		self.Container.Position = newPosition
 	end
 	function this:SetTitle(newTitle)
-		titleLabel.Text = Utility.Upper(newTitle)
+		titleLabel.Text = newTitle
 	end
 	function this:SetVisible(value)
 		self.Container.Visible = value

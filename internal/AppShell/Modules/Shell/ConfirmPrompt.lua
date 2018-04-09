@@ -186,7 +186,7 @@ local function CreateConfirmPrompt(confirmDetails, properties)
 					};
 
 				if confirmDetails and confirmDetails.Cost and confirmDetails.Cost == 0 then
-					PackageCost.Text = Utility.Upper(Strings:LocalizedString('FreeWord'))
+					PackageCost.Text = Strings:LocalizedString('FreeWord')
 				end
 
 
@@ -244,7 +244,7 @@ local function CreateConfirmPrompt(confirmDetails, properties)
 				local ConfirmText = Utility.Create'TextLabel'
 				{
 					Name = 'ConfirmText';
-					Text = Utility.Upper(Strings:LocalizedString('ConfirmWord'));
+					Text = Strings:LocalizedString('ConfirmWord');
 					Size = UDim2.new(1,0,1,0);
 					TextColor3 = GlobalSettings.TextSelectedColor;
 					Font = GlobalSettings.HeadingFont;

@@ -64,7 +64,7 @@ local function createBaseScreen(usingMVC)
 		return GetView().TitleText.Text
 	end
 	function this:SetTitle(newTitle)
-		GetView().TitleText.Text = Utility.Upper(newTitle)
+		GetView().TitleText.Text = newTitle
 	end
 	function this:SetTitleZIndex(newZIndex)
 		-- this needs some explantion...

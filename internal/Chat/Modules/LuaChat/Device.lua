@@ -5,12 +5,16 @@ local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
 
 local Modules = CoreGui.RobloxGui.Modules
+local Constants = require(Modules.LuaApp.Constants)
+
 local LuaChat = Modules.LuaChat
 
 local Config = require(LuaChat.Config)
 local Create = require(LuaChat.Create)
 
 local SetFormFactor = require(LuaChat.Actions.SetFormFactor)
+
+local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
 
 local Device = {}
 
@@ -37,7 +41,7 @@ Device.FormFactor = {
 local function simulateIOS()
 	local statusBarSize = Vector2.new(0, 20)
 	local navBarSize = Vector2.new(0, 44)
-	local bottomBarSize = Vector2.new(0, 49)
+	local bottomBarSize = Vector2.new(0, Constants.TAB_BAR_SIZE)
 	UserInputService:SendAppUISizes(statusBarSize, navBarSize, bottomBarSize)
 end
 
@@ -45,7 +49,7 @@ local function simulateAndroid()
 
 	local statusBarSize = Vector2.new(0, 24)
 	local navBarSize = Vector2.new(0, 48)
-	local bottomBarSize = Vector2.new(0, 60)
+	local bottomBarSize = Vector2.new(0, UseLuaBottomBar and Constants.TAB_BAR_SIZE or 60)
 	UserInputService:SendAppUISizes(statusBarSize, navBarSize, bottomBarSize)
 
 	local screenGui = Create.new "ScreenGui" {

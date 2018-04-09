@@ -134,7 +134,7 @@ local function createBaseAccountScreen()
 	end
 
 	local SignInButton, SignInText = CreateSlicedTextButton("SignIn",
-		Utility.Upper(Strings:LocalizedString("SignInPhrase")),
+		Strings:LocalizedString("SignInPhrase"),
 		UDim2.new(0, PasswordSelection.Position.X.Offset, 0,
 		          PasswordSelection.Position.Y.Offset + PasswordSelection.Size.Y.Offset + 66))
 	Utility.ResizeButtonWithText(SignInButton, SignInText, GlobalSettings.TextHorizontalPadding)
@@ -142,7 +142,7 @@ local function createBaseAccountScreen()
 
 	local tosButtonY = SignInButton.Position.Y.Offset -- + SignInButton.Size.Y.Offset + 30
 	local ToSButton, ToSText = CreateSlicedTextButton("ToS",
-		Utility.Upper(Strings:LocalizedString("ToSPhrase")),
+		Strings:LocalizedString("ToSPhrase"),
 		UDim2.new(0, SignInButton.Position.X.Offset + SignInButton.Size.X.Offset + 10,
 			      0, tosButtonY))
 	ToSButton.Size = UDim2.new(0, 270, 0, ToSButton.Size.Y.Offset)
@@ -156,7 +156,7 @@ local function createBaseAccountScreen()
 	end)
 --[[
 	local PrivacyButton, PrivacyText = CreateSlicedTextButton("Privacy",
-		Utility.Upper(Strings:LocalizedString("PrivacyPhrase")),
+		Strings:LocalizedString("PrivacyPhrase"),
 		UDim2.new(0, ToSButton.Position.X.Offset + ToSButton.Size.X.Offset + 5,
 			      0, tosButtonY))
 	PrivacyButton.MouseButton1Click:connect(function()
@@ -202,7 +202,7 @@ local function createBaseAccountScreen()
 	end
 
 	function this:SetButtonText(newText)
-		SignInText.Text = Utility.Upper(newText)
+		SignInText.Text = newText
 	end
 
 	return this

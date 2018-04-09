@@ -162,7 +162,7 @@ local function CreateOverscanAdjustmentScreen(parent)
 			local AcceptHint = Utility.Create'TextLabel'
 			{
 				Name = 'AcceptHint';
-				Text = Utility.Upper(Strings:LocalizedString('AcceptWord'));
+				Text = Strings:LocalizedString('AcceptWord');
 				Size = UDim2.new(0,0,1,0);
 				Position = UDim2.new(1, 5, 0, -3);
 				TextXAlignment = 'Left';
@@ -184,7 +184,7 @@ local function CreateOverscanAdjustmentScreen(parent)
 			local ResetHint = Utility.Create'TextLabel'
 			{
 				Name = 'ResetHint';
-				Text = Utility.Upper(Strings:LocalizedString('ResetWord'));
+				Text = Strings:LocalizedString('ResetWord');
 				Size = UDim2.new(0,0,1,0);
 				Position = UDim2.new(1, 5, 0, -3);
 				TextXAlignment = 'Left';

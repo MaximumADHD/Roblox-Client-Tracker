@@ -80,6 +80,7 @@ function EditChatGroup.new(appState, maxSize, convoId)
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = Constants.Color.GRAY5,
 		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
 
 		self.header.rbx,
 		Create.new"Frame" {

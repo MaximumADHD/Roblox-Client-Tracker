@@ -1,5 +1,6 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
+local DeviceOrientation = require(Modules.LuaApp.Reducers.DeviceOrientation)
 local Games = require(Modules.LuaApp.Reducers.Games)
 local GameSorts = require(Modules.LuaApp.Reducers.GameSorts)
 local GameSortGroups = require(Modules.LuaApp.Reducers.GameSortGroups)
@@ -22,6 +23,8 @@ return function(state, action)
 	state = state or {}
 
 	return {
+		DeviceOrientation = DeviceOrientation(state.DeviceOrientation, action),
+		
 		-- Users
 		Users = Users(state.Users, action),
 		UsersAsync = UsersAsync(state.UsersAsync, action),

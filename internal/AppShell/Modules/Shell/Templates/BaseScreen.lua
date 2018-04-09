@@ -76,7 +76,6 @@ local function createBaseScreen(controller)
 	function this:SetBackText(newText)
 		local TextService = game:GetService('TextService')
 
-		newText = Utility.Upper(newText)
 		local textSize = TextService:GetTextSize(
 			newText,
 			Utility.ConvertFontSizeEnumToInt(backText.FontSize),

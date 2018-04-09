@@ -90,7 +90,7 @@ local createErrorOverlay = function(errorType)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.TextSelectedColor;
-		Text = Utility.Upper(Strings:LocalizedString("OkWord"));
+		Text = Strings:LocalizedString("OkWord");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');
@@ -100,7 +100,7 @@ local createErrorOverlay = function(errorType)
 	local EnableXboxAccountSettings = Utility.IsFastFlagEnabled("XboxAccountSettings") or tostring(UserData.GetRbxUserId()) == Utility.GetFastVariable("XboxAccountSettingsUserId")
 	local goToSettings = EnableXboxAccountSettings and errorCode and (errorCode == 113 or errorCode == 116)
 	if goToSettings then
-		okButton.Text = Utility.Upper(Strings:LocalizedString("GoToSettingsPhrase"));
+		okButton.Text = Strings:LocalizedString("GoToSettingsPhrase");
 	end
 
 	Utility.ResizeButtonWithText(okButton, okButton, GlobalSettings.TextHorizontalPadding)

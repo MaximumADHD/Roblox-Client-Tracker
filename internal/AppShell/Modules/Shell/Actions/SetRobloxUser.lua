@@ -2,6 +2,7 @@ local CoreGui = Game:GetService("CoreGui")
 local Action = require(CoreGui.RobloxGui.Modules.Common.Action)
 
 return Action("SetRobloxUser", function(userInfo)
+	userInfo = userInfo or {}
 	return {
 		robloxName = userInfo.robloxName,
 		rbxuid = userInfo.rbxuid,

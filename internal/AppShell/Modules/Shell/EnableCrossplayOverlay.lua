@@ -70,7 +70,7 @@ local function createEnableCrossplayOverlay(overlayInfo)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.BlackTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("OkWord"));
+		Text = Strings:LocalizedString("OkWord");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');

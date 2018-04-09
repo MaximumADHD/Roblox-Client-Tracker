@@ -9,7 +9,7 @@ local User = require(Modules.LuaApp.Models.User)
 local UserThumbnail = Roact.Component:extend("UserThumbnail")
 
 local THUMBNAIL_SIZE = 90
-local HEADSHOT_SIZE_ENUM = Enum.ThumbnailSize.Size150x150
+local THUMBNAIL_IMAGE_SIZE_ENUM = Constants.AvatarThumbnailSizes.Size150x150
 local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
 local DROPSHADOW_SIZE = 94
 local DROPSHADOW_MARGIN = (DROPSHADOW_SIZE - THUMBNAIL_SIZE) / 2
@@ -46,6 +46,7 @@ function UserThumbnail:render()
 	local user = self.props.user
 	local formFactor = self.props.formFactor
 	local highlightColor = self.props.highlightColor
+	local thumbnailType = self.props.thumbnailType
 
 	local presenceIconSize = formFactor == Device.FormFactor.PHONE and PRESENCE_ICON_SIZE_PHONE
 		or PRESENCE_ICON_SIZE_TABLET
@@ -63,7 +64,8 @@ function UserThumbnail:render()
 			Position = position,
 			BackgroundColor3 = Constants.Color.WHITE,
 			BorderSizePixel = 0,
-			Image = user and user.headshotThumbnails[HEADSHOT_SIZE_ENUM] or DEFAULT_THUMBNAIL_ICON,
+			Image = user and user.thumbnails and user.thumbnails[thumbnailType]
+				and user.thumbnails[thumbnailType][THUMBNAIL_IMAGE_SIZE_ENUM] or DEFAULT_THUMBNAIL_ICON,
 		}, {
 			MaskFrame = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(0, DROPSHADOW_SIZE, 0, DROPSHADOW_SIZE),

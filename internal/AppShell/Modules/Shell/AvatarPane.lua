@@ -173,7 +173,7 @@ local function CreateAvatarPane(parent)
 		local MyCollectionTitle = Utility.Create'TextLabel'
 		{
 			Name = 'MyCollectionTitle';
-			Text = Utility.Upper(Strings:LocalizedString('AvatarOutfitsTitle'));
+			Text = Strings:LocalizedString('AvatarOutfitsTitle');
 			Size = UDim2.new(1,0,0,40);
 			TextXAlignment = 'Left';
 			TextColor3 = GlobalSettings.WhiteTextColor;
@@ -196,7 +196,7 @@ local function CreateAvatarPane(parent)
 		local CatalogTitle = Utility.Create'TextLabel'
 		{
 			Name = 'CatalogTitle';
-			Text = Utility.Upper(Strings:LocalizedString('AvatarCatalogTitle'));
+			Text = Strings:LocalizedString('AvatarCatalogTitle');
 			Size = UDim2.new(1,0,0,40);
 			Position = UDim2.new(0,0,0,0);
 			TextXAlignment = 'Left';

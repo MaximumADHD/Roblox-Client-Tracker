@@ -96,14 +96,10 @@ function NewChatGroup.new(appState)
 
 	-- Assemble the dialog from components we just made:
 	self.sectionComponent = SectionComponent.new(appState, nil, 2)
-	self.rbx = Create.new"ImageLabel" {
+	self.rbx = Create.new"Frame" {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-
-		ScaleType = "Slice",
-		SliceCenter = Rect.new(5,5,6,6),
-		Image = "rbxasset://textures/ui/LuaChat/9-slice/modal.png",
 
 		Create.new("UIListLayout") {
 			Name = "ListLayout",
@@ -178,8 +174,7 @@ end
 
 function NewChatGroup:Resize()
 	-- Content frame must resize if the header changes size (which happens when it shows the "Connecting" message):
-	local sizeContent = UDim2.new(1, 0, 1, -(self.header.rbx.AbsoluteSize.Y +
-		Constants.ModalDialog.CLEARANCE_CORNER_ROUNDING))
+	local sizeContent = UDim2.new(1, 0, 1, -self.header.rbx.AbsoluteSize.Y)
 	self.rbx.Content.Size = sizeContent
 
 	-- Friends Search frame must resize to fit properly with their peers:

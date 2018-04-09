@@ -5241,6 +5241,7 @@ local function createImageLabel()
 	imageLabel.Parent = screenGui
 	imageLabel.BackgroundTransparency = 1.0
 	imageLabel.Image = "rbxasset://textures/StudioUIEditor/valueBoxRoundedRectangle.png"
+        imageLabel.ImageColor3 = Color3.fromRGB(255, 205, 0)
 	-- The m_imageLabel uses a 9-patch image to make the corners round. The Enum.ScaleType.Slice
 	-- makes it slice the image into 9 parts.
 	imageLabel.ScaleType = Enum.ScaleType.Slice
@@ -5254,7 +5255,7 @@ end
 local function createTextLabel()
 	local textLabel = Instance.new("TextLabel")
 	textLabel.Name = "UIEditorValueBoxTexLabel"
-	textLabel.TextColor3 = Color3.new(1.0, 1.0, 1.0)
+	textLabel.TextColor3 = Color3.new(0, 0, 0)
 	textLabel.BackgroundColor3 = Color3.fromRGB(118, 118, 118)
 	textLabel.BackgroundTransparency = 1.0
 	textLabel.BorderSizePixel = 0

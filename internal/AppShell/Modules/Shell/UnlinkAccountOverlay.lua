@@ -76,7 +76,7 @@ local function createUnlinkAccountOverlay(titleAndMsg)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.WhiteTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("ConfirmWord"));
+		Text = Strings:LocalizedString("ConfirmWord");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');
@@ -93,7 +93,7 @@ local function createUnlinkAccountOverlay(titleAndMsg)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = GlobalSettings.TextSelectedColor;
-		Text = Utility.Upper(Strings:LocalizedString("CancelWord"));
+		Text = Strings:LocalizedString("CancelWord");
 		Parent = this.Container;
 
 		SoundManager:CreateSound('MoveSelection');

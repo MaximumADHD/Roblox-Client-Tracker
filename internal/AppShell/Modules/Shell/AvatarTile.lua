@@ -102,7 +102,7 @@ local function createAvatarInfoContainer(packageInfo)
 		local newText = ""
 		local price = packageInfo:GetRobuxPrice()
 		if price == 0 then
-			newText = Utility.Upper(Strings:LocalizedString('FreeWord'))
+			newText = Strings:LocalizedString('FreeWord')
 		elseif price then
 			newText = "R$ " .. Utility.FormatNumberString(price)
 		end

@@ -66,9 +66,8 @@ function DropDownList:render()
 	local textColor = self.props.textColor or DEFAULT_TEXT_COLOR
 	local textFont = self.props.font or DEFAULT_TEXT_FONT
 	local textSize = self.props.textSize or DEFAULT_TEXT_SIZE
-
 	local currentItem = items[itemSelected] or ""
-	local displayText = currentItem.text or ""
+	local displayText = currentItem.text or itemSelected
 	local isTablet = (formFactor == Device.FormFactor.TABLET)
 
 	-- Build up our drop-down items here for display inside our main element:
@@ -110,6 +109,7 @@ function DropDownList:render()
 			portalContents = Roact.createElement(FramePopOut, {
 				heightAllItems = itemHeight * itemCount,
 				itemWidth = itemWidth,
+				isAnimated = true,
 				onCancel = callbackCancel,
 				parentShape = screenShape,
 			}, listContents)
@@ -117,6 +117,7 @@ function DropDownList:render()
 			portalContents = Roact.createElement(FramePopup, {
 				heightAllItems = itemHeight * itemCount,
 				heightScrollContainer = itemHeight * math.min(itemCount, VISIBLE_ITEMS),
+				isAnimated = true,
 				onCancel = callbackCancel,
 			}, listContents)
 		end
@@ -151,7 +152,7 @@ function DropDownList:render()
 		ScaleType = Enum.ScaleType.Slice,
 		Size = size,
 		SliceCenter = Rect.new(3, 3, 4, 4),
-		[Roact.Event.MouseButton1Click] = function(rbx)
+		[Roact.Event.Activated] = function(rbx)
 			-- We need to know the size of the screen, so we can position the
 			-- popout component appropriately. So we climb up the object
 			-- heirachy until we find the current ScreenGui:

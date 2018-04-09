@@ -52,7 +52,7 @@ local function CreateGameSearchScreen(searchKeyword)
 			seenYButtonPressed = true
 		elseif inputState == Enum.UserInputState.End and seenYButtonPressed then
 			if PlatformService then
-				PlatformService:ShowKeyboard(Utility.Upper(Strings:LocalizedString("SearchGamesPhrase")), "", currentSearchWord, Enum.XboxKeyBoardType.Default)
+				PlatformService:ShowKeyboard(Strings:LocalizedString("SearchGamesPhrase"), "", currentSearchWord, Enum.XboxKeyBoardType.Default)
 			end
 			seenYButtonPressed = false
 		end

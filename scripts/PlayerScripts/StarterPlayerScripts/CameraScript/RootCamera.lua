@@ -1256,13 +1256,11 @@ local function CreateCamera()
 	end
 
 	function this.getGamepadPan(name, state, input)
-		if input.UserInputType == this.activeGamepad and input.KeyCode == Enum.KeyCode.Thumbstick2 then
-			
-			if state == Enum.UserInputState.Cancel then
-				this.GamepadPanningCamera = ZERO_VECTOR2
-				return
-			end		
-			
+		if state == Enum.UserInputState.Cancel then
+			this.GamepadPanningCamera = ZERO_VECTOR2
+			return
+		end		
+		if input.UserInputType == this.activeGamepad and input.KeyCode == Enum.KeyCode.Thumbstick2 then			
 			local inputVector = Vector2.new(input.Position.X, -input.Position.Y)
 			if inputVector.magnitude > THUMBSTICK_DEADZONE then
 				this.GamepadPanningCamera = Vector2_new(input.Position.X, -input.Position.Y)

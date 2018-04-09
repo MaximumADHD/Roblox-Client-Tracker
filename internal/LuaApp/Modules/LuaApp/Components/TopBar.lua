@@ -11,6 +11,7 @@ local RoactRodux = require(Modules.Common.RoactRodux)
 
 local Constants = require(Modules.LuaApp.Constants)
 local LocalizedTextLabel = require(Modules.LuaApp.Components.LocalizedTextLabel)
+local SearchBar = require(Modules.LuaApp.Components.SearchBar)
 
 local TOP_BAR_ICON_SIZE = 28
 local TOP_BAR_ICON_MARGIN = 12
@@ -31,6 +32,7 @@ local DEFAULT_SUBTITLE_HEIGHT = 12
 
 local DEFAULT_TOP_BAR_HEIGHT = 42
 local DEFAULT_TOP_SYSTEM_PADDING = 21
+local DEFAULT_ZINDEX = 2
 
 -- Note: This function can fail when called, StatusBarSize & NavBarSize
 -- require restricted permissions.
@@ -46,15 +48,6 @@ pcall(function()
 end)
 
 local TopBar = Roact.Component:extend("TopBar")
-
-function TopBar.getHeight()
-	-- Accessing some specific UserInputService properties throws an error in
-	-- tests, so wrap:
-	pcall(function()
-		TopBar.setDefaultSystem()
-	end)
-	return DEFAULT_TOP_SYSTEM_PADDING + DEFAULT_TOP_BAR_HEIGHT
-end
 
 function TopBar:getFancyPlayerName()
 	local playerName = self.props.localUserName or ""
@@ -81,7 +74,7 @@ function TopBar.getLeftAlignTitle()
 	-- Note: This function can fail when called, GetPlatform requires restricted
 	-- permissions.
 	local ok, platform = pcall(function()
-		return UserInputService.GetPlatform()
+		return UserInputService:GetPlatform()
 	end)
 
 	if ok then
@@ -92,13 +85,13 @@ function TopBar.getLeftAlignTitle()
 end
 
 function TopBar:init()
-	-- There are a few specific variables that need to be set up ahead of time,
-	-- do so here and pass them through in state.
+	self.state = {
+		onSearch = false,
+	}
 
-	-- Set constant variables:
-	pcall(function()
-		self.setDefaultSystem()
-	end)
+	self.confirmSearch = function(keyword)
+		-- function callback when "Enter" on keyboard is pressed  when searching
+	end
 end
 
 function TopBar:render()
@@ -116,6 +109,9 @@ function TopBar:render()
 	local showBuyRobux = self.props.showBuyRobux or false
 	local showNotifications = self.props.showNotifications or false
 	local showSearch = self.props.showSearch or false
+
+	local zIndex = self.props.ZIndex or DEFAULT_ZINDEX
+	local confirmSearch = self.confirmSearch
 
 	-- The design calls for left-aligning the title on Android, but not on iOS:
 	local leftAlign = self.getLeftAlignTitle()
@@ -136,123 +132,138 @@ function TopBar:render()
 			leftStart = TOP_BAR_ICON_SIZE + TOP_BAR_ICON_MARGIN
 		end
 	end
-
-	if showBackButton then
-		-- Android-like back button in the top-left of the screen layout:
-		listBarLayout["ButtonBack"] = Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			AutoButtonColor = false,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Image = "rbxasset://textures/ui/LuaChat/icons/ic-back.png",
-			LayoutOrder = 1,
-			Position = UDim2.new(0, TOP_BAR_ICON_MARGIN, 0.5, 0),
-			Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
-			[Roact.Event.Activated] = self.props.onBack,
+	if self.state.onSearch then
+		listBarLayout["SearchBar"] = Roact.createElement(SearchBar, {
+			exitSearch = function()
+				self:setState({
+					onSearch = false,
+				})
+			end,
+			confirmSearch = confirmSearch,
 		})
-	end
+	else
+		if showBackButton then
+			-- Android-like back button in the top-left of the screen layout:
+			listBarLayout["ButtonBack"] = Roact.createElement("ImageButton", {
+				AnchorPoint = Vector2.new(0, 0.5),
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Image = "rbxasset://textures/ui/LuaChat/icons/ic-back.png",
+				LayoutOrder = 1,
+				Position = UDim2.new(0, TOP_BAR_ICON_MARGIN, 0.5, 0),
+				Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
+				[Roact.Event.Activated] = self.props.onBack,
+			})
+		end
 
-	-- Title of our current location:
-	listBarLayout["Title"] = Roact.createElement("Frame", {
-		AnchorPoint = Vector2.new(0, 0.5),
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		LayoutOrder = 2,
-		Position = UDim2.new(0, 0, 0.5, 0),
-		Size = UDim2.new(1, 0, 0, DEFAULT_TITLE_HEIGHT + DEFAULT_SUBTITLE_HEIGHT),
-	}, {
-		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, TOP_BAR_ICON_MARGIN + leftStart),
-			PaddingRight = UDim.new(0, TOP_BAR_ICON_MARGIN),
-		}),
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
-
-		SectionName = Roact.createElement(LocalizedTextLabel, {
+		-- Title of our current location:
+		listBarLayout["Title"] = Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(0, 0.5),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Font = textTitleFont,
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, DEFAULT_TITLE_HEIGHT),
-			Text = textKey,
-			TextColor3 = textColor,
-			TextSize = textTitleFontSize,
-			TextXAlignment = alignText,
-			TextYAlignment = Enum.TextYAlignment.Center,
-		}),
-
-		PlayerName = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Font = textSubtitleFont,
 			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 0, DEFAULT_SUBTITLE_HEIGHT),
-			Text = playerName,
-			TextColor3 = textColor,
-			TextSize = textSubtitleFontSize,
-			TextXAlignment = alignText,
-			TextYAlignment = Enum.TextYAlignment.Center,
-		}),
-	})
+			Position = UDim2.new(0, 0, 0.5, 0),
+			Size = UDim2.new(1, 0, 0, DEFAULT_TITLE_HEIGHT + DEFAULT_SUBTITLE_HEIGHT),
+		},{
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, TOP_BAR_ICON_MARGIN + leftStart),
+				PaddingRight = UDim.new(0, TOP_BAR_ICON_MARGIN),
+			}),
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
 
-	-- Icons on the right side:
-	local functionButtons = {}
-	functionButtons["Layout"] = Roact.createElement("UIListLayout", {
-		FillDirection = Enum.FillDirection.Horizontal,
-		HorizontalAlignment = Enum.HorizontalAlignment.Right,
-		Padding = UDim.new(0, TOP_BAR_ICON_PADDING),
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		VerticalAlignment = Enum.VerticalAlignment.Center,
-	})
+			SectionName = Roact.createElement(LocalizedTextLabel, {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Font = textTitleFont,
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 0, DEFAULT_TITLE_HEIGHT),
+				Text = textKey,
+				TextColor3 = textColor,
+				TextSize = textTitleFontSize,
+				TextXAlignment = alignText,
+				TextYAlignment = Enum.TextYAlignment.Center,
+			}),
 
-	if showSearch then
-		functionButtons["Search"] = Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(0, 0.5),
+			PlayerName = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Font = textSubtitleFont,
+				LayoutOrder = 2,
+				Size = UDim2.new(1, 0, 0, DEFAULT_SUBTITLE_HEIGHT),
+				Text = playerName,
+				TextColor3 = textColor,
+				TextSize = textSubtitleFontSize,
+				TextXAlignment = alignText,
+				TextYAlignment = Enum.TextYAlignment.Center,
+			}),
+		})
+
+		-- Icons on the right side:
+		local functionButtons = {}
+		functionButtons["Layout"] = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			Padding = UDim.new(0, TOP_BAR_ICON_PADDING),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+		})
+
+		if showSearch then
+			functionButtons["Search"] = Roact.createElement("ImageButton", {
+				AnchorPoint = Vector2.new(0, 0.5),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Image = "rbxasset://textures/ui/LuaChat/icons/ic-search.png",
+				LayoutOrder = 3,
+				Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
+				[Roact.Event.Activated] = function()
+					self:setState({
+						onSearch = true,
+					})
+				end,
+			})
+		end
+
+		if showBuyRobux then
+			functionButtons["Robux"] = Roact.createElement("ImageButton", {
+				AnchorPoint = Vector2.new(0, 0.5),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Image = "rbxasset://textures/icon_ROBUX.png",
+				LayoutOrder = 4,
+				Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
+				[Roact.Event.Activated] = function()
+					GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().PURCHASE_ROBUX)
+				end,
+			})
+		end
+
+		if showNotifications then
+			functionButtons["Notifications"] = Roact.createElement("ImageButton", {
+				AnchorPoint = Vector2.new(0, 0.5),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Image = "rbxasset://textures/Icon_Stream_Off.png",
+				LayoutOrder = 5,
+				Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
+				[Roact.Event.Activated] = function()
+					GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().VIEW_NOTIFICATIONS)
+				end,
+			})
+		end
+
+		listBarLayout["Right Icons"] = Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(1, 0.5),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Image = "rbxasset://textures/ui/LuaChat/icons/ic-search.png",
-			LayoutOrder = 3,
-			Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
-		})
+			Position = UDim2.new(1, -TOP_BAR_ICON_MARGIN, 0.5, 0),
+		}, functionButtons)
 	end
-
-	if showBuyRobux then
-		functionButtons["Robux"] = Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Image = "rbxasset://textures/icon_ROBUX.png",
-			LayoutOrder = 4,
-			Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
-			[Roact.Event.Activated] = function()
-				GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().PURCHASE_ROBUX)
-			end,
-		})
-	end
-
-	if showNotifications then
-		functionButtons["Notifications"] = Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Image = "rbxasset://textures/Icon_Stream_Off.png",
-			LayoutOrder = 5,
-			Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
-			[Roact.Event.Activated] = function()
-				GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().VIEW_NOTIFICATIONS)
-			end,
-		})
-	end
-
-	listBarLayout["Right Icons"] = Roact.createElement("Frame", {
-		AnchorPoint = Vector2.new(1, 0.5),
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Position = UDim2.new(1, -TOP_BAR_ICON_MARGIN, 0.5, 0),
-	}, functionButtons)
 
 	-- Return the outer frame with all items:
 	return Roact.createElement("Frame", {
@@ -261,6 +272,7 @@ function TopBar:render()
 		BorderSizePixel = 0,
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, DEFAULT_TOP_BAR_HEIGHT + DEFAULT_TOP_SYSTEM_PADDING),
+		ZIndex = zIndex,
 	}, {
 		Layout = Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 1),
@@ -280,5 +292,9 @@ TopBar = RoactRodux.connect(function(store, props)
 		localUserName = state.LocalUser.name,
 	}
 end)(TopBar)
+
+function TopBar.getHeight()
+	return DEFAULT_TOP_SYSTEM_PADDING + DEFAULT_TOP_BAR_HEIGHT
+end
 
 return TopBar

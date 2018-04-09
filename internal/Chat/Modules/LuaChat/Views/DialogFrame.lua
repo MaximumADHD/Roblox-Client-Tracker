@@ -93,12 +93,20 @@ function DialogFrame.new(appState, route)
 				BackgroundTransparency = 1
 			},
 
-			Create.new "Frame" {
+			Create.new "ImageLabel" {
 				Name = "ModalFrame",
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Size = UDim2.new(1, -360, 1, -36 -36),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
-				BackgroundTransparency = 1
+				BackgroundTransparency = 1,
+
+				ScaleType = "Slice",
+				SliceCenter = Rect.new(5,5,6,6),
+				Image = "rbxasset://textures/ui/LuaChat/9-slice/modal.png",
+
+				Create.new "UIPadding" {
+					PaddingBottom = UDim.new(0, Constants.ModalDialog.CLEARANCE_CORNER_ROUNDING)
+				}
 			}
 		}
 	}
@@ -151,8 +159,15 @@ function DialogFrame:AddDialogFrame(intent)
 end
 
 function DialogFrame:ConfigureModalFrame()
-	local children = self.modalFrame:GetChildren()
-	if #children > 0 then
+	local hasGuis = false
+	for _, child in pairs(self.modalFrame:GetChildren()) do
+		if child:IsA("GuiBase") then
+			hasGuis = true
+			break
+		end
+	end
+
+	if hasGuis then
 		self.modalFrameBase.Visible = true
 	else
 		self.modalFrameBase.Visible = false

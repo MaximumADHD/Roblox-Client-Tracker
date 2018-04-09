@@ -17,7 +17,7 @@ local Overscan = Roact.Component:extend("Overscan")
 function Overscan:render()
 	-- We should really have a better API to handle text fits
 	local resetOffset = TextService:GetTextSize(
-		Utility.Upper(Strings:LocalizedString('ResetWord')),
+		Strings:LocalizedString('ResetWord'),
 		Utility.ConvertFontSizeEnumToInt(GlobalSettings.ButtonSize),
 		GlobalSettings.RegularFont,
 		Vector2.new(0, 0)
@@ -63,13 +63,13 @@ function Overscan:render()
 		AcceptHint = Roact.createElement(ButtonHint, {
 			Position = UDim2.new(0.5, 25, 0.75, 0),
 			Image = "rbxasset://textures/ui/Shell/ButtonIcons/AButton.png",
-			Text = Utility.Upper(Strings:LocalizedString('AcceptWord')),
+			Text = Strings:LocalizedString('AcceptWord'),
 		}),
 
 		ResetHint = Roact.createElement(ButtonHint, {
 			Position = UDim2.new(0.5, -25 - 65 - resetOffset.x, 0.75, 0),
 			Image = "rbxasset://textures/ui/Shell/ButtonIcons/XButton.png",
-			Text = Utility.Upper(Strings:LocalizedString('ResetWord')),
+			Text = Strings:LocalizedString('ResetWord'),
 		}),
 
 		EdgeSelector = Roact.createElement(Edges, {

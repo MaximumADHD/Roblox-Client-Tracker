@@ -19,6 +19,8 @@ local GameSettings = Settings.GameSettings
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
+local XboxPlayerlistUseGetUserThumbnailAsyncEnabled = settings():GetFFlag("XboxPlayerlistUseGetUserThumbnailAsync")
+
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
 	-- because it caused a bug where the local players name would show as Player in game.
@@ -237,9 +239,15 @@ local function setAvatarIconAsync(player, iconImage)
 
   local isFinalSuccess = false
   if thumbnailLoader then
-    local loader = thumbnailLoader:Create(iconImage, math.max(1, player.UserId),
-      thumbnailLoader.Sizes.Small, thumbnailLoader.AssetType.Avatar, true)
-    isFinalSuccess = loader:LoadAsync(false, true, nil)
+    if XboxPlayerlistUseGetUserThumbnailAsyncEnabled then
+      local loader = thumbnailLoader:LoadAvatarThumbnailAsync(iconImage, math.max(1, player.UserId),
+        Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size100x100, true)
+      isFinalSuccess = loader:LoadAsync(false, true, nil)
+    else
+      local loader = thumbnailLoader:Create(iconImage, math.max(1, player.UserId),
+        thumbnailLoader.Sizes.Small, thumbnailLoader.AssetType.Avatar, true)
+      isFinalSuccess = loader:LoadAsync(false, true, nil)
+    end
   end
 
   if not isFinalSuccess then
@@ -856,14 +864,12 @@ local function createPlayerSideBarOption(player)
       --Get modules
       local screenManagerModule = RobloxGui.Modules:FindFirstChild('ScreenManager') or RobloxGui.Modules.Shell.ScreenManager
       local ScreenManager = require(screenManagerModule)
-      local utilModule = RobloxGui.Modules:FindFirstChild('Utility') or RobloxGui.Modules.Shell.Utility
-      local Util = require(utilModule)
       local stringsModule = RobloxGui.Modules:FindFirstChild('LocalizedStrings') or RobloxGui.Modules.Shell.LocalizedStrings
       local Strings = require(stringsModule)
 
       SideBar:RemoveAllItems()
       if addGamerCardItem then
-        SideBar:AddItem(Util.Upper(Strings:LocalizedString("ViewGamerCardWord")), function()
+        SideBar:AddItem(Strings:LocalizedString("ViewGamerCardWord"), function()
           openPlatformProfileUI(player.UserId)
         end)
       end
@@ -874,7 +880,7 @@ local function createPlayerSideBarOption(player)
 
       --We can't report guests/localplayer
       if addReportItem then
-        SideBar:AddItem(Util.Upper(Strings:LocalizedString("Report Player")), function()
+        SideBar:AddItem(Strings:LocalizedString("Report Player"), function()
           --Force closing player list before open the report tab
           isOpen = false
           setVisible(false)

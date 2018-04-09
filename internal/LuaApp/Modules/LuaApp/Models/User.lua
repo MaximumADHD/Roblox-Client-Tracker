@@ -26,7 +26,7 @@ function User.mock()
 	self.lastLocation = nil
 	self.isFriend = false
 	self.isFetching = false
-	self.headshotThumbnails = {}
+	self.thumbnails = {}
 
 	return self
 end
@@ -40,7 +40,7 @@ function User.fromData(id, name, isFriend)
 	self.lastLocation = nil
 	self.isFriend = isFriend
 	self.isFetching = false
-	self.headshotThumbnails = {}
+	self.thumbnails = {}
 
 	return self
 end

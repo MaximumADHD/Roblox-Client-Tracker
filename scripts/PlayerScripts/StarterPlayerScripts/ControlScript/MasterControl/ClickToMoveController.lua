@@ -1,6 +1,9 @@
 -- Written By Kip Turner, Copyright Roblox 2014
 -- Updated by Garnold to utilize the new PathfindingService API, 2017
 
+local FFlagUserNavigationFixClickToMoveInterruptionSuccess, FFlagUserNavigationFixClickToMoveInterruptionResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveInterruption") end)
+local FFlagUserNavigationFixClickToMoveInterruption = FFlagUserNavigationFixClickToMoveInterruptionSuccess and FFlagUserNavigationFixClickToMoveInterruptionResult
+
 local DEBUG_NAME = "ClickToMoveController"
 
 local UIS = game:GetService("UserInputService")
@@ -337,6 +340,8 @@ local function Pather(character, endPoint, surfaceNormal)
 	this.TargetPoint = endPoint
 	this.TargetSurfaceNormal = surfaceNormal
 	
+	this.DiedConn = nil
+	this.SeatedConn = nil
 	this.MoveToConn = nil
 	this.CurrentPoint = 0
 
@@ -348,7 +353,16 @@ local function Pather(character, endPoint, surfaceNormal)
 		if this.MoveToConn then
 			this.MoveToConn:Disconnect()
 			this.MoveToConn = nil
-			this.humanoid = nil
+		end
+
+		if this.DiedConn then
+			this.DiedConn:Disconnect()
+			this.DiedConn = nil
+		end
+
+		if this.SeatedConn then
+			this.SeatedConn:Disconnect()
+			this.SeatedConn = nil
 		end
 
 		this.humanoid = nil
@@ -358,7 +372,13 @@ local function Pather(character, endPoint, surfaceNormal)
 		this.Cancelled = true
 		this:Cleanup()
 	end
-	
+
+	function this:OnPathInterrupted()
+		-- Stop moving
+		this.Cancelled = true
+		this:OnPointReached(false)
+	end
+
 	function this:ComputePath()
 		local humanoid = findPlayerHumanoid(Player)
 		local torso = humanoid and humanoid.Torso
@@ -442,6 +462,11 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 		
 		this.humanoid = findPlayerHumanoid(Player)
+		if FFlagUserNavigationFixClickToMoveInterruption and not this.humanoid then
+			this.PathFailed:Fire()
+			return
+		end
+
 		if this.Started then return end
 		this.Started = true
 		
@@ -451,6 +476,10 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 
 		if #this.pointList > 0 then
+			if FFlagUserNavigationFixClickToMoveInterruption then
+				this.SeatedConn = this.humanoid.Seated:Connect(function(reached) this:OnPathInterrupted() end)
+				this.DiedConn = this.humanoid.Died:Connect(function(reached) this:OnPathInterrupted() end)
+			end
 			this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
 			this:OnPointReached(true) -- Move to first point
@@ -664,6 +693,9 @@ local function OnTap(tapPositions, goToPoint)
 						end
 					end)
 					PathFailedListener = thisPather.PathFailed.Event:Connect(function()
+						if FFlagUserNavigationFixClickToMoveInterruption then
+							CleanupPath()
+						end
 						if failurePopup then
 							failurePopup:Place(hitPt, Vector3_new(0,hitPt.y,0))
 							local failTweenIn = failurePopup:TweenIn()

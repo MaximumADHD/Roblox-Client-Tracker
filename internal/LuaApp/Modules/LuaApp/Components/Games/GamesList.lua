@@ -10,82 +10,32 @@ local GameGrid = require(Modules.LuaApp.Components.Games.GameGrid)
 local SectionHeader = require(Modules.LuaApp.Components.SectionHeader)
 local StringsLocale = require(Modules.LuaApp.StringsLocale)
 local TopBar = require(Modules.LuaApp.Components.TopBar)
+local memoize = require(Modules.Common.memoize)
 
 local OUTSIDE_MARGIN = 15
-local VERTICAL_PADDING = 12
+local VERTICAL_PADDING = 16
+local INNER_PADDING = 10
+local TOP_SECTION_HEIGHT = 97
 
 local GamesList = Roact.Component:extend("GamesList")
 
-function GamesList:init()
-	self.state = {
-		parentSize = Vector2.new(0, 0),
-		selectedIndex = 0,
-	}
-	self.onSignalAbsoluteSize = nil
-end
-
 function GamesList:render()
-	local gameSorts = self.props.gameSorts or {}
-	local gamesInSort = self.props.gamesInSort
-	local games = self.props.games or {}
 	local parentSize = self.state.parentSize
+	local selectedIndex = self.state.selectedIndex
+	local defaultSort = self.props.showSort
+	local sorts = self.props.sorts
 
-	local defaultSort = self.props.showSort -- Default category to use.
-	local selectedIndex = self.state.selectedIndex -- Currently selected category.
+	local sort = sorts[selectedIndex or defaultSort]
 
-	-- Built a sorted list that contains all required information for the dropdown:
-	local listGameInfo = {}
-	for gameIndex, gameSort in pairs(gameSorts) do
-		local gameInfo = {
-			icon = gameSort.displayIcon,
-			index = gameIndex,
-			name = gameSort.name,
-			text = gameSort.displayName or gameSort.name,
-		}
-		table.insert(listGameInfo, gameInfo)
-	end
-
-	-- Sort elements in place, so the order is stable when rendered:
-	table.sort(listGameInfo, function(a, b)
-		return a.text < b.text
-	end)
-
-	-- If selectedIndex is zero then search for the default sort that was passed
-	-- in as a property:
-	if selectedIndex == 0 then
-		selectedIndex = 1
-		for i, item in ipairs(listGameInfo) do
-			if defaultSort == item.name then
-				selectedIndex = i
-				break
-			end
-		end
-	end
-
-	-- Defensively select our first item if we had a bad default value:
-	if (selectedIndex == 0) and (#listGameInfo > 0) then
-		selectedIndex = 1
-	end
-
-	-- Create the main elements of this page, but only if we have valid data:
-	local elements = {}
-	if (parentSize.X > 0) and (parentSize.Y > 0) and (selectedIndex ~= 0) then
-		-- Extract category information:
-		local thisInfo = listGameInfo[selectedIndex]
-		local textCategory = thisInfo.text
-		local thisGameSort = gameSorts[thisInfo.index]
-
-		elements["Layout"] = Roact.createElement("UIListLayout", {
+	local elements = parentSize and {
+		Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
-
-		elements["DropListCategory"] = Roact.createElement(FitChildren.FitFrame, {
+		}),
+		TopSection = Roact.createElement(FitChildren.FitFrame, {
 			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, 0),
+			Size = UDim2.new(1, 0, 0, TOP_SECTION_HEIGHT),
 			fitFields = {
 				Size = FitChildren.FitAxis.Height,
 			},
@@ -96,39 +46,36 @@ function GamesList:render()
 				PaddingRight = UDim.new(0, OUTSIDE_MARGIN),
 				PaddingTop = UDim.new(0, OUTSIDE_MARGIN),
 			}),
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, INNER_PADDING),
+			}),
 			DropDown = Roact.createElement(DropDownList, {
-				itemSelected = selectedIndex,
-				items = listGameInfo,
+				itemSelected = selectedIndex or defaultSort,
+				items = sorts,
 				onSelected = function(index)
 					self:setState({
 						selectedIndex = index
 					})
 				end,
 			}),
-		})
-
-		if textCategory then
-			-- Text header with category text:
-			elements["Header"] = Roact.createElement(SectionHeader, {
+			Header = Roact.createElement(SectionHeader, {
 				LayoutOrder = 2,
-				text = textCategory,
-				width = parentSize.x,
-			})
-		end
-
-		if thisGameSort then
-			-- Make the grid of cards for all our games:
-			elements["GameGrid"] = Roact.createElement(GameGrid, {
-				AnchorPoint = Vector2.new(0.5, 0),
-				gameIDs = gamesInSort[thisGameSort.name],
-				games = games,
-				LayoutOrder = 3,
-				ParentSize = parentSize,
-				Position = UDim2.new(0.5, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
-			})
-		end
-	end
+				text = sort.text,
+				width = UDim.new(0, parentSize.x),
+			}) or nil,
+		}),
+		GameGrid = Roact.createElement(GameGrid, {
+			AnchorPoint = Vector2.new(0.5, 0),
+			games = sort,
+			LayoutOrder = 3,
+			ParentSize = parentSize,
+			Position = UDim2.new(0.5, 0, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0),
+		})
+	} or {}
 
 	-- Build up the outer frame of the page, to include our components:
 	return Roact.createElement("Frame", {
@@ -182,7 +129,7 @@ function GamesList:render()
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundColor3 = Constants.Color.GRAY4,
 			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.new(1, 0, 1, -TopBar.getHeight()),
 			fitFields = {
 				CanvasSize = FitChildren.FitAxis.Height,
 			},
@@ -190,14 +137,40 @@ function GamesList:render()
 	})
 end
 
+local selectSorts = memoize(function(sortsInfo, sortsGames, games)
+	local sorts = {}
+
+	for _, sortInfo in pairs(sortsInfo) do
+		local sortGames = sortsGames[sortInfo.name]
+		local sort = {
+			text = sortInfo.displayName,
+			icon = sortInfo.displayIcon,
+		}
+
+		for gameLayoutOrder, gameId in ipairs(sortGames) do
+			sort[gameLayoutOrder] = games[gameId]
+		end
+
+		table.insert(sorts, sort)
+		sorts[sort.text] = sort
+	end
+
+	table.sort(sorts, function(a, b)
+		return a.text < b.text
+	end)
+
+	return sorts
+end)
+
 GamesList = RoactRodux.connect(function(store, props)
 	local state = store:GetState()
 
 	return {
-		gameSortGroups = state.GameSortGroups,
-		gameSorts = state.GameSorts,
-		games = state.Games,
-		gamesInSort = state.GamesInSort,
+		sorts = selectSorts(
+			state.GameSorts,
+			state.GamesInSort,
+			state.Games
+		),
 	}
 end)(GamesList)
 

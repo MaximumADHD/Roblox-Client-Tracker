@@ -223,7 +223,7 @@ local function CreateGameDetail(placeId)
 		Name = "PlayText";
 		Size = UDim2.new(1, 0, 1, 0);
 		BackgroundTransparency = 1;
-		Text = Utility.Upper(Strings:LocalizedString("PlayWord"));
+		Text = Strings:LocalizedString("PlayWord");
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = baseButtonTextColor;
@@ -259,7 +259,7 @@ local function CreateGameDetail(placeId)
 		Name = "FavoriteText";
 		Size = UDim2.new(1, 0, 1, 0);
 		BackgroundTransparency = 1;
-		Text = Utility.Upper(Strings:LocalizedString("FavoriteWord"));
+		Text = Strings:LocalizedString("FavoriteWord");
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = baseButtonTextColor;
@@ -279,7 +279,7 @@ local function CreateGameDetail(placeId)
 	}
 	FavoriteStarImage.Position = UDim2.new(0, 16, 0.5, -FavoriteStarImage.Size.Y.Offset / 2)
 	--Make it big enough to hold the star and text
-	Utility.ResizeButtonWithDynamicText(FavoriteButton, FavoriteText, {Utility.Upper(Strings:LocalizedString("FavoritedWord"))},
+	Utility.ResizeButtonWithDynamicText(FavoriteButton, FavoriteText, {Strings:LocalizedString("FavoritedWord")},
 		GlobalSettings.TextHorizontalPadding + (FavoriteStarImage.Position.X.Offset + FavoriteStarImage.Size.X.Offset + 12) / 2)
 
 	local FavoriteRedirectFrame = Utility.Create'Frame'
@@ -342,7 +342,7 @@ local function CreateGameDetail(placeId)
 		Size = UDim2.new(0, 0, 0, 33);
 		Position = UDim2.new(0, 0, 0, 0);
 		BackgroundTransparency = 1;
-		Text = Utility.Upper(Strings:LocalizedString("RatingDescriptionTitle"));
+		Text = Strings:LocalizedString("RatingDescriptionTitle");
 		TextXAlignment = Enum.TextXAlignment.Left;
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.SubHeaderSize;
@@ -420,7 +420,7 @@ local function CreateGameDetail(placeId)
 
 	local ThumbsTitle = RatingDescriptionTitle:Clone()
 	ThumbsTitle.Name = "ThumbsTitle"
-	ThumbsTitle.Text = Utility.Upper(Strings:LocalizedString("GameImagesTitle"))
+	ThumbsTitle.Text = Strings:LocalizedString("GameImagesTitle")
 	ThumbsTitle.Parent = ThumbsContainer
 
 	local ThumbsContent = Utility.Create'Frame'
@@ -487,7 +487,7 @@ local function CreateGameDetail(placeId)
 	MyContentManager:AddItem(BadgeContainer, Vector2.new(52, 0))
 	local BadgeTitle = RatingDescriptionTitle:Clone()
 	BadgeTitle.Name = "BadgeTitle"
-	BadgeTitle.Text = Utility.Upper(Strings:LocalizedString("GameBadgesTitle"))
+	BadgeTitle.Text = Strings:LocalizedString("GameBadgesTitle")
 	BadgeTitle.Parent = BadgeContainer
 
 	--[[ Related Games ]]--
@@ -505,7 +505,7 @@ local function CreateGameDetail(placeId)
 
 	local RelatedGamesTitle = BadgeTitle:Clone()
 	RelatedGamesTitle.Name = "RelatedGamesTitle"
-	RelatedGamesTitle.Text = Utility.Upper(Strings:LocalizedString("RelatedGamesTitle"))
+	RelatedGamesTitle.Text = Strings:LocalizedString("RelatedGamesTitle")
 	RelatedGamesTitle.Parent = RelatedGamesContainer
 
 	local RelatedGamesImageFrame = Utility.Create'Frame'
@@ -558,7 +558,7 @@ local function CreateGameDetail(placeId)
 
 	local MoreDetailsTitle = RelatedGamesTitle:Clone()
 	MoreDetailsTitle.Name = "MoreDetailsTitle"
-	MoreDetailsTitle.Text = Utility.Upper(Strings:LocalizedString("MoreDetailsTitle"))
+	MoreDetailsTitle.Text = Strings:LocalizedString("MoreDetailsTitle")
 	MoreDetailsTitle.Parent = MoreDetailsContainer
 
 	local MoreDetailsContent = Utility.Create'Frame'
@@ -710,12 +710,12 @@ local function CreateGameDetail(placeId)
 		if value == true then
 			FavoriteStarImage.Visible = true
 			FavoriteText.Position = UDim2.new(0, FavoriteStarImage.Position.X.Offset + FavoriteStarImage.Size.X.Offset + 12, 0, 0)
-			FavoriteText.Text = Utility.Upper(Strings:LocalizedString("FavoritedWord"))
+			FavoriteText.Text = Strings:LocalizedString("FavoritedWord")
 			FavoriteText.TextXAlignment = Enum.TextXAlignment.Left
 		elseif value == false then
 			FavoriteStarImage.Visible = false
 			FavoriteText.Position = UDim2.new(0, 0, 0, 0)
-			FavoriteText.Text = Utility.Upper(Strings:LocalizedString("FavoriteWord"))
+			FavoriteText.Text = Strings:LocalizedString("FavoriteWord")
 			FavoriteText.TextXAlignment = Enum.TextXAlignment.Center
 		end
 	end

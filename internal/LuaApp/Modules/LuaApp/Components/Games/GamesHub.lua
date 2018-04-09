@@ -4,89 +4,87 @@ local Roact = require(Modules.Common.Roact)
 local RoactRodux = require(Modules.Common.RoactRodux)
 
 local Constants = require(Modules.LuaApp.Constants)
-local GameCarousel = require(Modules.LuaApp.Components.Games.GameCarousel)
+local Carousel = require(Modules.LuaApp.Components.Carousel)
 local GamesList = require(Modules.LuaApp.Components.Games.GamesList)
 local StringsLocale = require(Modules.LuaApp.StringsLocale)
+local FitChildren = require(Modules.LuaApp.FitChildren)
 local TopBar = require(Modules.LuaApp.Components.TopBar)
+local GameCard = require(Modules.LuaApp.Components.Games.GameCard)
+local SectionHeaderWithSeeAll = require(Modules.LuaApp.Components.SectionHeaderWithSeeAll)
+local memoize = require(Modules.Common.memoize)
 
-local GamesHub = Roact.Component:extend("GamesHub")
+local GamesHub = Roact.PureComponent:extend("GamesHub")
 
-local SIDE_PADDING = 15
-local INTERNAL_PADDING = 20
+local INTERNAL_PADDING = 15
+local CAROUSEL_AND_HEADER_HEIGHT = 187
 
--- This is a SUPER HACKY way of getting the screen resolution, as part of the work-around for lacking SizeFromContents.
---   MPowell 10/2017
-local function GetScreenRes()
-	local screenGui = Instance.new("ScreenGui", game.StarterGui)
-	local screenRes = screenGui.AbsoluteSize
-	screenGui:Destroy()
-	return screenRes
-end
+local onSeeAll
 
 function GamesHub:init()
-	self.state = {
-		seeAllSort = "",
-	}
+	onSeeAll = function(sort)
+		self:setState({
+			seeAllSort = sort
+		})
+	end
 end
 
 function GamesHub:render()
-	local gameSortGroups = self.props.gameSortGroups
-	local gameSorts = self.props.gameSorts
-	local games = self.props.games
-	local gamesInSort = self.props.gamesInSort
+	local sorts = self.props.sorts
+	local seeAllSort = self.state.seeAllSort
 
 	-- TODO: Could use a state stack to move to the games list page, but for now
 	-- this is all we need to get the base-level functionality:
-	if self.state.seeAllSort ~= "" then
+	if seeAllSort then
 		return Roact.createElement(GamesList, {
-			showSort = self.state.seeAllSort.name,
-			onBack = function()
-				self:setState( { seeAllSort = "" })
-			end
+			showSort = seeAllSort,
+			onBack = function() onSeeAll(false) end,
 		})
 	end
 
-	local gamesHubSorts = gameSortGroups["Games"].sorts
-
-	local width = GetScreenRes().x
-
 	local elements = {
 		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = "LayoutOrder",
-			FillDirection = "Vertical",
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
 			Padding = UDim.new(0, INTERNAL_PADDING),
-			VerticalAlignment = Enum.VerticalAlignment.Center,
+		}),
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, INTERNAL_PADDING),
+			PaddingBottom = UDim.new(0, INTERNAL_PADDING),
+			PaddingLeft = UDim.new(0, INTERNAL_PADDING),
+			PaddingRight = UDim.new(0, INTERNAL_PADDING),
 		}),
 	}
-	local height = 0
-	local curLayoutOrder = 1
-	local function NextLayoutOrder()
-		local oldLayoutOrder = curLayoutOrder
-		curLayoutOrder = curLayoutOrder + 1
-		return oldLayoutOrder
-	end
 
-	local count = 0
-
-	for _, sortId in ipairs(gamesHubSorts) do
-		local sort = gameSorts[sortId]
-		if sort then
-			if sort.isDefaultSort then
-				elements["Sort " .. sort.name] = Roact.createElement(GameCarousel, {
-					sort = sort,
-					games = games,
-					gamesInSort = gamesInSort,
-					width = width,
-					LayoutOrder = NextLayoutOrder(),
-					onSeeAll = function() self:setState({ seeAllSort = sort }) end,
-				})
-				height = height + GameCarousel.height(sort.name, width)
-				count = count + 1
-			end
+	for sortLayoutOrder, sort in ipairs(sorts) do
+		local gameCards = {}
+		for gameLayoutOrder, game in ipairs(sort) do
+			gameCards["Card " .. game.name] = Roact.createElement(GameCard, {
+				game = game,
+				LayoutOrder = gameLayoutOrder,
+			})
 		end
+		elements["Sort: " .. sort.displayName] = Roact.createElement(FitChildren.FitFrame, {
+			LayoutOrder = sortLayoutOrder,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, CAROUSEL_AND_HEADER_HEIGHT),
+			fitFields = {
+				Size = FitChildren.FitAxis.Height
+			}
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+			}),
+			Title = Roact.createElement(SectionHeaderWithSeeAll, {
+				LayoutOrder = 1,
+				text = sort.displayName,
+				onActivated = function() onSeeAll(sort.displayName) end,
+			}),
+			Carousel = Roact.createElement(Carousel, {
+				LayoutOrder = 2,
+			}, gameCards),
+		})
 	end
-
-	height = height + INTERNAL_PADDING*(count-1)
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -105,25 +103,48 @@ function GamesHub:render()
 			showSearch = true,
 			textKey = { StringsLocale.Keys.GAMES },
 		}),
-		Scroller = Roact.createElement("ScrollingFrame", {
+		Scroller = Roact.createElement(FitChildren.FitScrollingFrame, {
 			BackgroundColor3 = Constants.Color.GRAY4,
 			BorderSizePixel = 0,
-			CanvasSize = UDim2.new(1, 0, 0, height + SIDE_PADDING*2),
+			CanvasSize = UDim2.new(1, 0, 0, 0),
+			fitFields = {
+				CanvasSize = FitChildren.FitAxis.Height,
+			},
 			LayoutOrder = 2,
 			ScrollBarThickness = 0,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.new(1, 0, 1, -TopBar.getHeight()),
 		}, elements),
 	})
 end
 
+local selectSorts = memoize(function(state)
+	local sortsId = state.GameSortGroups["Games"].sorts
+	local sortsInfo = state.GameSorts
+	local sortsGames = state.GamesInSort
+	local games = state.Games
+
+	local sorts = {}
+	for _, sortId in ipairs(sortsId) do
+		local sortInfo = sortsInfo[sortId]
+		if sortInfo then
+			local sortGames = sortsGames[sortInfo.name]
+			local sort = {
+				displayName = sortInfo.displayName,
+			}
+			for gameLayoutOrder, gameId in ipairs(sortGames) do
+				sort[gameLayoutOrder] = games[gameId]
+			end
+			table.insert(sorts, sort)
+		end
+	end
+
+	return sorts
+end)
+
 GamesHub = RoactRodux.connect(function(store, props)
 	local state = store:GetState()
-
 	return {
-		gameSortGroups = state.GameSortGroups,
-		gameSorts = state.GameSorts,
-		games = state.Games,
-		gamesInSort = state.GamesInSort,
+		sorts = selectSorts(state)
 	}
 end)(GamesHub)
 

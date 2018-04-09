@@ -56,7 +56,7 @@ function ReportOverlay:CreateReportOverlay(reportType, assetId)
 		Font = GlobalSettings.RegularFont;
 		FontSize = GlobalSettings.ButtonSize;
 		TextColor3 = DefaultButtonTextColor;
-		Text = Utility.Upper(Strings:LocalizedString("SubmitWord"));
+		Text = Strings:LocalizedString("SubmitWord");
 		ZIndex = submitButton.ZIndex;
 	}
 	Utility.ResizeButtonWithText(submitButton, submitText, GlobalSettings.TextHorizontalPadding)
@@ -66,7 +66,7 @@ function ReportOverlay:CreateReportOverlay(reportType, assetId)
 
 	cancelButton.Position = UDim2.new(cancelButton.Position.X.Scale, submitButton.Position.X.Offset + submitButton.Size.X.Offset + 10,
 		cancelButton.Position.Y.Scale, cancelButton.Position.Y.Offset)
-	cancelText.Text = Utility.Upper(Strings:LocalizedString("CancelWord"));
+	cancelText.Text = Strings:LocalizedString("CancelWord");
 	Utility.ResizeButtonWithText(cancelButton, cancelText, GlobalSettings.TextHorizontalPadding)
 
 	submitText.Parent = submitButton

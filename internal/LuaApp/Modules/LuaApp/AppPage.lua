@@ -1,5 +1,3 @@
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
-
 return {
 	None = "None",
 	Home = "Home",
@@ -7,4 +5,7 @@ return {
 	AvatarEditor = "AvatarEditor",
 	Chat = "ChatPage",
 	ShareGameToChat = "ShareGameToChat",
+	Catalog = "Catalog",
+	Friends = "Friends",
+	More = "More",
 }

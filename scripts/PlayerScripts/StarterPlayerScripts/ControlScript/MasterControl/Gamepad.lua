@@ -56,14 +56,14 @@ function Gamepad:Enable()
 	local gamepadSupports = UserInputService.GamepadSupports
 	
 	local controlCharacterGamepad = function(actionName, inputState, inputObject)
-		if activateGamepad ~= inputObject.UserInputType then return end
-		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
-		
 		if inputState == Enum.UserInputState.Cancel then
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
 			currentMoveVector =  Vector3.new(0,0,0)
 			return
 		end
+
+		if activateGamepad ~= inputObject.UserInputType then return end
+		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 		
 		if inputObject.Position.magnitude > thumbstickDeadzone then
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
@@ -76,13 +76,13 @@ function Gamepad:Enable()
 	end
 	
 	local jumpCharacterGamepad = function(actionName, inputState, inputObject)
-		if activateGamepad ~= inputObject.UserInputType then return end
-		if inputObject.KeyCode ~= Enum.KeyCode.ButtonA then return end
-		
 		if inputState == Enum.UserInputState.Cancel then
 			MasterControl:SetIsJumping(false)
 			return
 		end
+
+		if activateGamepad ~= inputObject.UserInputType then return end
+		if inputObject.KeyCode ~= Enum.KeyCode.ButtonA then return end
 		
 		MasterControl:SetIsJumping(inputObject.UserInputState == Enum.UserInputState.Begin)
 	end

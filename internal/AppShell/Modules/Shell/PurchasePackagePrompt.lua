@@ -270,22 +270,22 @@ local function CreatePurchasePackagePrompt(packageInfo)
 
 			--V1: Show buy button for Xbox add ons (boy/girl avatar) if they aren't owned
 			if packageInfo:IsXboxAddOn() and not packageInfo:IsOwned() then
-				BuyText.Text = Utility.Upper(Strings:LocalizedString('BuyWord'))
+				BuyText.Text = Strings:LocalizedString('BuyWord')
 			end
 		else
 			if robuxPrice and robuxPrice == 0 then
-				PackageCost.Text = Utility.Upper(Strings:LocalizedString('FreeWord'));
+				PackageCost.Text = Strings:LocalizedString('FreeWord');
 			else
 				PackageCost.Text = robuxPrice and Utility.FormatNumberString(tostring(robuxPrice)) or '-';
 			end
 			RobuxIcon.Visible = true
 			AlreadyOwnTextLabel.Visible = false
 			if robuxPrice == 0 then
-				BuyText.Text = Utility.Upper(Strings:LocalizedString('TakeWord'));
+				BuyText.Text = Strings:LocalizedString('TakeWord');
 			elseif balance and robuxPrice > balance then
-				BuyText.Text = Utility.Upper(Strings:LocalizedString('GetRobuxPhrase'));
+				BuyText.Text = Strings:LocalizedString('GetRobuxPhrase');
 			else
-				BuyText.Text = Utility.Upper(Strings:LocalizedString('BuyWord'));
+				BuyText.Text = Strings:LocalizedString('BuyWord');
 			end
 		end
 	end

@@ -168,6 +168,31 @@ return function()
 			expect(state.history[1].intent).to.equal(state.current.intent)
 		end)
 
+		it("should never pop routes where the history is empty", function()
+			local state = Location(nil, SetRoute(
+				Intent.ConversationHub,
+				{}
+			))
+
+			state = Location(state, SetRoute(Intent.Conversation,
+				{
+					conversationId = "testConvoId",
+				}
+			))
+
+			state = Location(state, PopRoute())
+
+			expect(state.current.intent).to.equal(Intent.ConversationHub)
+			expect(#state.history).to.equal(1)
+			expect(state.history[1].intent).to.equal(state.current.intent)
+
+			state = Location(state, PopRoute())
+
+			expect(state.current.intent).to.equal(Intent.ConversationHub)
+			expect(#state.history).to.equal(1)
+			expect(state.history[1].intent).to.equal(state.current.intent)
+		end)
+
 		it("should remove from history properly", function()
 			local state = Location(nil, SetRoute(
 				Intent.ConversationHub,

@@ -1,5 +1,7 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
 -- App's Main
 local CoreGui = Game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
@@ -39,13 +41,7 @@ local ControllerStateManager = require(ShellModules:FindFirstChild('ControllerSt
 local Alerts = require(ShellModules:FindFirstChild('Alerts'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 
-local SiteInfoWidget = nil
-local SiteInfoWidgetRefactor = Utility.IsFastFlagEnabled("SiteInfoWidgetRefactor")
-if SiteInfoWidgetRefactor then
-	SiteInfoWidget = require(ShellModules:FindFirstChild('SiteInfoWidget'))
-else
-	SiteInfoWidget = require(ShellModules:FindFirstChild('SiteInfoWidgetOld'))
-end
+local SiteInfoWidget = require(ShellModules:FindFirstChild('SiteInfoWidget'))
 
 local GameDetailModule = require(ShellModules:FindFirstChild('GameDetailScreen'))
 
@@ -59,20 +55,7 @@ local EngagementScreen = EngagementScreenModule()
 EngagementScreen:SetParent(TitleSafeContainer)
 
 -- Site Info View
-if SiteInfoWidgetRefactor then
-	SiteInfoWidget.new()
-else
-	if PlatformService then
-		spawn(function()
-			local text = PlatformService:GetSiteInfo();
-			if text and text ~= "" then
-				local siteInfoWidget = SiteInfoWidget()
-				siteInfoWidget:SetText(text)
-				siteInfoWidget:SetParent(TitleSafeContainer)
-			end
-		end)
-	end
-end
+SiteInfoWidget.new()
 
 -- Account Age View
 local AccountAgeStatus = require(ShellModules.Components.AccountAgeStatus).new(AppState.store, TitleSafeContainer)
@@ -95,6 +78,15 @@ local function onAuthenticationSuccess(isNewLinkedAccount)
 	-- Set UserData
 	UserData:Initialize()
 
+	if XboxUserStateRoduxEnabled then
+		local SetRobloxUser = require(ShellModules.Actions.SetRobloxUser)
+		AppState.store:Dispatch(SetRobloxUser( {
+			robloxName = Players.LocalPlayer.Name,
+			rbxuid = Players.LocalPlayer.UserId,
+			under13 = Players.LocalPlayer:GetUnder13(),
+		} ))
+	end
+
 	-- Unwind Screens if needed - this will be needed once we put in account linking
 	returnToEngagementScreen()
 
@@ -102,8 +94,10 @@ local function onAuthenticationSuccess(isNewLinkedAccount)
 	AppHub:SetParent(TitleSafeContainer)
 
 	-- Account Age Setting
-	local SetUnder13 = require(ShellModules.Actions.SetUnder13)
-	AppState.store:Dispatch(SetUnder13(Players.LocalPlayer:GetUnder13()))
+	if not XboxUserStateRoduxEnabled then
+		local SetUnder13 = require(ShellModules.Actions.SetUnder13)
+		AppState.store:Dispatch(SetUnder13(Players.LocalPlayer:GetUnder13()))
+	end
 
 	EventHub:addEventListener(EventHub.Notifications["OpenGameDetail"], "gameDetail",
 		function(placeId)
@@ -160,9 +154,17 @@ local function onReAuthentication(reauthenticationReason)
 	Utility.DebugLog("Beging Reauth, cleaning things up")
 	-- unwind ScreenManager
 
-	-- Account Age View
-	local SetUnder13 = require(ShellModules.Actions.SetUnder13)
-	AppState.store:Dispatch(SetUnder13(nil))
+	if XboxUserStateRoduxEnabled then
+		local SetRobloxUser = require(ShellModules.Actions.SetRobloxUser)
+		AppState.store:Dispatch(SetRobloxUser())
+
+		local SetXboxUser = require(ShellModules.Actions.SetXboxUser)
+		AppState.store:Dispatch(SetXboxUser())
+	else
+		-- Account Age View
+		local SetUnder13 = require(ShellModules.Actions.SetUnder13)
+		AppState.store:Dispatch(SetUnder13(nil))
+	end
 
 	returnToEngagementScreen()
 
