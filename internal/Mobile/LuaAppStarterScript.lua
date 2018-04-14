@@ -11,7 +11,7 @@ if game.Players.NumPlayers == 0 then
 end
 
 -- Reduce render quality to optimize performance
-if settings():GetFFlag("AppShellManagementRefactor") then
+if settings():GetFFlag("AppShellManagementRefactor2") then
 	local renderSteppedConnection = nil
 	renderSteppedConnection = game:GetService("RunService").RenderStepped:connect(function()
 		if renderSteppedConnection then

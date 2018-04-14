@@ -14,6 +14,7 @@ local Utility = require(ShellModules:FindFirstChild('Utility'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
+local XboxRecommendedPeople = Utility.IsFastFlagEnabled('XboxRecommendedPeople')
 
 local FAIL_IMG = 'rbxasset://textures/ui/Shell/Icons/DefaultProfileIcon.png'
 
@@ -34,11 +35,16 @@ local function FriendPresenceItem(size, idStr)
 
 		SoundManager:CreateSound('MoveSelection');
 	}
+	local containerTween = nil
 	container.SelectionGained:connect(function()
-		local startTween = Utility.PropertyTweener(container, "BackgroundTransparency", 1, GlobalSettings.AvatarBoxBackgroundSelectedTransparency, 0,
+		containerTween = Utility.PropertyTweener(container, "BackgroundTransparency", 1, GlobalSettings.AvatarBoxBackgroundSelectedTransparency, 0,
 			Utility.EaseInOutQuad, true, nil)
 	end)
 	container.SelectionLost:connect(function()
+		if containerTween then
+			containerTween:Cancel()
+			containerTween = nil
+		end
 		container.BackgroundTransparency = 1
 	end)
 		local avatarImage = Utility.Create'ImageLabel'
@@ -78,7 +84,7 @@ local function FriendPresenceItem(size, idStr)
 		{
 			Name = "GamertagLabel";
 			Text = "";
-			Size = UDim2.new(0, 0, 0, 24);
+			Size = UDim2.new(1, 0, 0, 24);
 			Position = UDim2.new(0, 0, 0, 0);
 			TextXAlignment = Enum.TextXAlignment.Left;
 			TextColor3 = GlobalSettings.WhiteTextColor;
@@ -109,8 +115,8 @@ local function FriendPresenceItem(size, idStr)
 		{
 			Name = "RobloxNameLabel";
 			Text = "";
-			Size = UDim2.new(0, 0, 0, 0);
-			Position = UDim2.new(0, robloxIcon.Size.X.Offset + 10, 0, robloxIcon.Size.Y.Offset / 2 - 4);
+			Size = UDim2.new(1, -robloxIcon.Size.X.Offset - 10, 1, 0);
+			Position = UDim2.new(0, robloxIcon.Size.X.Offset + 10, 0, -1);
 			TextXAlignment = Enum.TextXAlignment.Left;
 			TextColor3 = GlobalSettings.WhiteTextColor;
 			Font = GlobalSettings.RegularFont;
@@ -140,8 +146,8 @@ local function FriendPresenceItem(size, idStr)
 		{
 			Name = "PresenceLabel";
 			Text = "";
-			Size = UDim2.new(0, 0, 0, 0);
-			Position = UDim2.new(0, presenceStatusImage.Position.X.Offset + presenceStatusImage.Size.X.Offset + 12, 0, presenceStatusImage.Size.Y.Offset / 2 - 1);
+			Size = UDim2.new(1, -presenceStatusImage.Position.X.Offset - presenceStatusImage.Size.X.Offset, 1, 0);
+			Position = UDim2.new(0, presenceStatusImage.Position.X.Offset + presenceStatusImage.Size.X.Offset + 12, 0, 0);
 			TextXAlignment = Enum.TextXAlignment.Left;
 			TextColor3 = GlobalSettings.LightGreyTextColor;
 			Font = GlobalSettings.RegularFont;
@@ -183,9 +189,9 @@ local function FriendPresenceItem(size, idStr)
 			return
 		end
 
-		local loader = ThumbnailLoader:LoadAvatarThumbnailAsync(avatarImage, userId,
-			Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size100x100)
 		spawn(function()
+			local loader = ThumbnailLoader:LoadAvatarThumbnailAsync(avatarImage, userId,
+				Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size100x100)
 			if not loader:LoadAsync(true, false) then
 				failImage.Parent = avatarImage
 			else
@@ -199,6 +205,12 @@ local function FriendPresenceItem(size, idStr)
 		presenceStatusImage.ImageColor3 = isInRobloxGame and GlobalSettings.GreenTextColor
 			or GlobalSettings.GreySelectedButtonColor
 
+		presenceStatusImage.Visible = str ~= ""
+	end
+
+	local function setPresence2(str, statusColor)
+		presenceLabel.Text = str or ""
+		presenceStatusImage.ImageColor3 = statusColor
 		presenceStatusImage.Visible = str ~= ""
 	end
 
@@ -234,20 +246,44 @@ local function FriendPresenceItem(size, idStr)
 		if isNotConsole then
 			setPresence(data.LastLocation, data.PlaceId ~= nil)
 		else
-			if data.LastLocation and data.PlaceId then
-				setPresence(data.LastLocation, true)
-			elseif data.rich then
-				local richTbl = data.rich
-				if #richTbl > 0 then
-					local presence = richTbl[#richTbl]
-					-- should probably compare to titleId, but shouldn't expose titleId in case we open source this
-					if presence.title == "ROBLOX" then
-						setPresence("Roblox", false)
+			if not XboxRecommendedPeople then
+				if data.LastLocation and data.PlaceId then
+					setPresence(data.LastLocation, true)
+				elseif data.rich then
+					local richTbl = data.rich
+					if #richTbl > 0 then
+						local presence = richTbl[#richTbl]
+						-- should probably compare to titleId, but shouldn't expose titleId in case we open source this
+						if presence.title == "ROBLOX" then
+							setPresence("Roblox", false)
+						else
+							setPresence(Strings:LocalizedString("OnlineWord"), false)
+						end
 					else
-						setPresence(Strings:LocalizedString("OnlineWord"), false)
+						setPresence("", false)
+					end
+				end
+			else
+				if data.robloxuid and data.robloxuid > 0 then
+					if data.RobloxStatus == "InGame" then
+						setPresence2(data.LastLocation, GlobalSettings.GreenTextColor)
+					elseif data.RobloxStatus == "InStudio" then
+						setPresence2(data.LastLocation, GlobalSettings.OrangeTextColor)
+					elseif data.RobloxStatus == "Online" then
+						setPresence2("Roblox", GlobalSettings.BlueTextColor)
+					else
+						if data.status and data.status == "Online" then
+							setPresence2(Strings:LocalizedString("OnlineWord"), GlobalSettings.BlueTextColor)
+						else
+							setPresence2(Strings:LocalizedString("OfflineWord"), GlobalSettings.GreyTextColor)
+						end
 					end
 				else
-					setPresence("", false)
+					if data.status and data.status == "Online" then
+						setPresence2(Strings:LocalizedString("OnlineWord"), GlobalSettings.BlueTextColor)
+					else
+						setPresence2(Strings:LocalizedString("OfflineWord"), GlobalSettings.GreyTextColor)
+					end
 				end
 			end
 		end

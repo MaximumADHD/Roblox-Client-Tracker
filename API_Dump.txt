@@ -706,6 +706,7 @@ Class GuiBase2d : GuiBase [notbrowsable]
 	Property float GuiBase2d.AbsoluteRotation [readonly]
 	Property Vector2 GuiBase2d.AbsoluteSize [readonly]
 	Property bool GuiBase2d.AutoLocalize
+	Property bool GuiBase2d.IsNotOccluded [hidden] [readonly] [RobloxSecurity]
 	Property bool GuiBase2d.Localize [deprecated] [hidden]
 	Property Class:LocalizationTable GuiBase2d.RootLocalizationTable
 Class GuiObject : GuiBase2d [notbrowsable]
@@ -1867,6 +1868,7 @@ Class Player : Instance
 	Function float Player:DistanceFromCharacter(Vector3 point)
 	Function FriendStatus Player:GetFriendStatus(Instance player) [RobloxScriptSecurity]
 	Function string Player:GetGameSessionID() [RobloxSecurity]
+	Function Dictionary Player:GetJoinData()
 	Function Instance Player:GetMouse()
 	Function bool Player:GetUnder13() [RobloxScriptSecurity]
 	Function bool Player:HasAppearanceLoaded()

@@ -71,7 +71,14 @@
         </MenuButton>
       </Group>
       <Group name="Terrain"  fflag="StudioTerrainToolsInLuaWidget">
-          <addaction name="viewTerrainToolsAction" text="Terrain Tools" type="plugin" style="textundericon" icon=":/images/TerrainToolsIcon.png" tooltip="Add, remove, and modify terrain" height="32" width="32"/>
+          <addaction name="viewTerrainToolsAction"
+          text="Editor"
+          type="plugin"
+          style="textundericon"
+          icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
+          tooltip="Add, remove, and modify terrain"
+          height="32"
+          width="32"/>
       </Group>
       <Group name="Insert">
           <addaction name="viewToolboxAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
@@ -401,7 +408,20 @@
         <addaction name="viewScriptPerformanceAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="View script performance information" height="32" width="32"/>
         <addaction name="viewFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Find results window" height="32" width="32"/>
         <addaction name="viewTeamCreateAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="View Team Create Window" height="32" width="32"/>
-        <addaction name="viewScriptRecoveryAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png" tooltip="View Recovered Scripts" height="32" width ="32"/>
+        <addaction name="viewScriptRecoveryAction"
+            style="textbesideicon"
+            icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"
+            tooltip="View Recovered Scripts"
+            height="32"
+            width ="32"/>
+        <addaction name="viewTerrainToolsAction"
+            fflag="StudioTerrainToolsInLuaWidget"
+            style="textbesideicon"
+            icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
+            tooltip="Add, remove, and modify terrain"
+            height="32"
+            width="32"/>
+
       </Group>
       <Group name="Actions">
         <addaction name="toggleAxisWidgetAction" style="textundericon" text="Display Axis" icon=":/RibbonBar/images/RibbonIcons/View/Display-Axis.png" tooltip="Show world-space aligned coordinate axis" height="32" width="32" />

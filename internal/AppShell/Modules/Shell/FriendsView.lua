@@ -27,6 +27,7 @@ local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
+local XboxRecommendedPeople = Utility.IsFastFlagEnabled('XboxRecommendedPeople')
 
 -- Array of tables
 	-- see FriendsData - fetchXboxFriends() for full documentation
@@ -38,6 +39,7 @@ local SIDE_BAR_ITEMS = {
 	JoinGame = Strings:LocalizedString("JoinGameWord");
 	ViewDetails = Strings:LocalizedString("ViewGameDetailsWord");
 	ViewProfile = Strings:LocalizedString("ViewGamerCardWord");
+	EmptyFriendSideBar = Strings:LocalizedString("EmptyFriendSideBarWord");
 }
 
 -- side bar is shared between all views
@@ -49,9 +51,8 @@ end
 
 -- viewGridContainer - ScrollingGrid
 -- friendData - FriendsData
--- sizeConstraint - limit view to this many items
 -- updateFunc - function that will be called when FriendData update
-local createFriendsView = function(viewGridContainer, friendsData, sizeConstraint, updateFunc)
+local createFriendsView = function(viewGridContainer, friendsData, updateFunc)
 	local this = {}
 	-- map of userId to presenceItem, for dynamic scrolling grid, we generate
 	-- the presenceItem for the user until the user's grid item is shown on screen
@@ -70,28 +71,63 @@ local createFriendsView = function(viewGridContainer, friendsData, sizeConstrain
 				function SideBar:GetAnalyticsInfo()
 					return {[Analytics.WidgetNames('WidgetId')] = "FriendsSideBar"}
 				end
-				local inGame = data["PlaceId"] ~= nil
-				if inGame and not data["IsPrivateSession"] then
-					SideBar:AddItem(SIDE_BAR_ITEMS.JoinGame, function()
-						GameJoinModule:StartGame(GameJoinModule.JoinType.Follow, data["robloxuid"])
-					end)
-					SideBar:AddItem(SIDE_BAR_ITEMS.ViewDetails, function()
-						-- pass nil for iconId, gameDetail will fetch
-						EventHub:dispatchEvent(EventHub.Notifications["OpenGameDetail"], data["PlaceId"], data["LastLocation"], nil)
-					end)
-				end
-				SideBar:AddItem(SIDE_BAR_ITEMS.ViewProfile, function()
-					if PlatformService and data["xuid"] then
-						local success, result = pcall(function()
-							PlatformService:PopupProfileUI(Enum.UserInputType.Gamepad1, data["xuid"])
+				if not XboxRecommendedPeople then
+					local inGame = data["PlaceId"] ~= nil
+					if inGame and not data["IsPrivateSession"] then
+						SideBar:AddItem(SIDE_BAR_ITEMS.JoinGame, function()
+							GameJoinModule:StartGame(GameJoinModule.JoinType.Follow, data["robloxuid"])
 						end)
-						-- NOTE: This will try to pop up the xbox system gamer card, failure will be handled
-						-- by the xbox.
-						if not success then
-							Utility.DebugLog("PlatformService:PopupProfileUI failed because,", result)
-						end
+						SideBar:AddItem(SIDE_BAR_ITEMS.ViewDetails, function()
+							-- pass nil for iconId, gameDetail will fetch
+							EventHub:dispatchEvent(EventHub.Notifications["OpenGameDetail"], data["PlaceId"], data["LastLocation"], nil)
+						end)
 					end
-				end)
+					SideBar:AddItem(SIDE_BAR_ITEMS.ViewProfile, function()
+						if PlatformService and data["xuid"] then
+							local success, result = pcall(function()
+								PlatformService:PopupProfileUI(Enum.UserInputType.Gamepad1, data["xuid"])
+							end)
+							-- NOTE: This will try to pop up the xbox system gamer card, failure will be handled
+							-- by the xbox.
+							if not success then
+								Utility.DebugLog("PlatformService:PopupProfileUI failed because,", result)
+							end
+						end
+					end)
+				else
+					local emptySideBar = true
+					if data.robloxuid and data.robloxuid > 0 and data.RobloxStatus == "InGame" then
+						local placeId = data["PlaceId"]
+						local lastLocation = data["LastLocation"]
+						local robloxuid = data["robloxuid"]
+						SideBar:AddItem(SIDE_BAR_ITEMS.JoinGame, function()
+							GameJoinModule:StartGame(GameJoinModule.JoinType.Follow, robloxuid)
+						end)
+						SideBar:AddItem(SIDE_BAR_ITEMS.ViewDetails, function()
+							-- pass nil for iconId, gameDetail will fetch
+							EventHub:dispatchEvent(EventHub.Notifications["OpenGameDetail"], placeId, lastLocation, nil)
+						end)
+						emptySideBar = false
+					end
+					if data.xuid and #data.xuid > 0  and PlatformService then
+						local xuid = data.xuid
+						SideBar:AddItem(SIDE_BAR_ITEMS.ViewProfile, function()
+							local success, result = pcall(function()
+								PlatformService:PopupProfileUI(Enum.UserInputType.Gamepad1, xuid)
+							end)
+							-- NOTE: This will try to pop up the xbox system gamer card, failure will be handled
+							-- by the xbox.
+							if not success then
+								Utility.DebugLog("PlatformService:PopupProfileUI failed because,", result)
+							end
+						end)
+						emptySideBar = false
+					end
+
+					if emptySideBar then
+						SideBar:SetText(SIDE_BAR_ITEMS.EmptyFriendSideBar)
+					end
+				end
 				ScreenManager:OpenScreen(SideBar, false)
 			else
 				ScreenManager:OpenScreen(ErrorOverlayModule(Errors.Default), false)
@@ -103,6 +139,11 @@ local createFriendsView = function(viewGridContainer, friendsData, sizeConstrain
 		local data = currentFriendsData[i]
 		if data then
 			local idStr = tostring(data.xuid and data.xuid or data["robloxuid"])
+			if XboxRecommendedPeople then
+				local xuid = data.xuid or ""
+				local robloxuid = data.robloxuid or ""
+				idStr = tostring(xuid.."#"..robloxuid)
+			end
 			local presenceItem = presenceItems[idStr]
 			if presenceItem == nil then
 				presenceItem = FriendPresenceItem(UDim2.new(0, 446, 0, 114), idStr)
@@ -127,13 +168,17 @@ local createFriendsView = function(viewGridContainer, friendsData, sizeConstrain
 			local data = currentFriendsData[i]
 			if data then
 				local idStr = tostring(data.xuid and data.xuid or data["robloxuid"])
+				if XboxRecommendedPeople then
+					local xuid = data.xuid or ""
+					local robloxuid = data.robloxuid or ""
+					idStr = tostring(xuid.."#"..robloxuid)
+					if data.NeedUpdate then --State changed
+						presenceItemDirty[idStr] = true
+					end
+				end
 				validEntries[idStr] = true
 			end
 		end
-
-		--Update scrolling grid with new list
-		viewGridContainer:SetItemCallback(getPresenceItemByIndex)
-		viewGridContainer:RecalcLayout(#currentFriendsData)
 
 		-- remove items if needed
 		for idStr, presenceItem in pairs(presenceItems) do
@@ -145,6 +190,10 @@ local createFriendsView = function(viewGridContainer, friendsData, sizeConstrain
 				presenceItem = nil
 			end
 		end
+
+		--Update scrolling grid with new list
+		viewGridContainer:SetItemCallback(getPresenceItemByIndex)
+		viewGridContainer:RecalcLayout(#currentFriendsData)
 
 		if updateFunc then
 			updateFunc(#currentFriendsData)

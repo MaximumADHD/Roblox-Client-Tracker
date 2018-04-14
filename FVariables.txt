@@ -29,6 +29,7 @@ AnalyticsMaxDeferredStats
 AnalyticsMaxSendWaitTimeMs
 AnalyticsMaxShutdownWaitTimeMs
 AnchoredSendPositionUpdate
+AnchorsAway
 AnthroPercentInHundredths
 AnthroStandardPartIds
 ApiABTestUrlConstruction
@@ -45,7 +46,9 @@ AppBridgePlaceLaunchMaxSleepBetweenRequests
 AppBridgePlaceLaunchMaxTotalSleepTime
 AppBridgePlaceLaunchRetryWaitInSec
 AppShellFPSReportPeriod
-AppShellManagementRefactor
+AppShellManagementRefactor2
+AppShellMemoryReportInitialDelay
+AppShellMemoryReportPeriodicity
 AppShellReporter
 AppShellReporterMonitorFrameTimeAndroid
 AppShellReporterMonitorFrameTimeIOS
@@ -69,6 +72,7 @@ AvoidFindFirstChildCallsInGuiBase2d
 BadCoreScriptCrashFixEnabled
 BadLogInfluxHundredthsPercentage
 BadLogMask
+BadServiceAgain
 BestProximatePartFix
 BetterInputObjectProjection
 BgUpdateRedirects
@@ -225,9 +229,6 @@ DebugForceRegenerateSchemaBitStream
 DebugGameLoadDataStatisticsPerPlace
 DebugGraphics
 DebugGraphicsCrashOnLeaks
-DebugGraphicsD3D9ForceSWVP
-DebugGraphicsDisableVulkan
-DebugGraphicsForceGL2
 DebugGraphicsVsync
 DebugHttpAsyncCallsForStatsReporting
 DebugHumanoidRendering
@@ -238,7 +239,6 @@ DebugInternetSimulatorPacketlossHundredth
 DebugLocalRccServerConnection
 DebugLogStaleInstanceCacheEntry
 DebugMechanismInterpolationWorldSpace
-DebugMovementPathNumTotalWayPoint
 DebugNavigationDrawCompactHeightfield
 DebugNavigationDrawCompactHeightfieldLayerSet
 DebugNavigationDrawEnable
@@ -248,7 +248,6 @@ DebugNavigationDrawNavMeshConnections
 DebugNavigationDrawTileBounds
 DebugNavigationMaxMemoryUsageInBytes
 DebugNetworkPacketAgeHistory
-DebugPhysicsSenderLogCacheMissToGA
 DebugPrintGuiStateTransitions
 DebugRakNetNoTimestampInUdt
 DebugRakNetUseUdt
@@ -263,6 +262,7 @@ DebugSendMomentInSteps
 DebugShowTextBounds
 DebugSSAOForce
 DebugStartPageRefreshOnF5
+DebugStreamingFastRecovery
 DebugStudioImprovedTestServiceFunc
 DebugStudioRigImporter
 DebugTaskSchedulerProfiling
@@ -302,6 +302,7 @@ DistanceThinningTooThin
 DistToShowBufferCountSqr
 DoLocalizationServiceOverrideLocale
 DoNotApplySmallFloorVelocity
+DoNotCalculateSpawnEarlyForSteaming
 DoNotRunAnimationEditorInPlayMode
 DontBlacklistTouchEventsWhenParentInertialScrolling
 DontCallOnMovingAssemblyRoot
@@ -360,6 +361,7 @@ FilterCheckMap
 FilterTextSubdomain
 FindClosestHandleHitTestFixEnabled
 FireCharacterAddedAfterSpawn
+FireReplicatedLocaleId
 FixActivatedEventInScrollingFrame
 FixAnchorPointInsideFolder
 FixApplyTShirtOnR6Character
@@ -386,6 +388,7 @@ FixFriendCacheUpdate
 FixGamepadNavigationInVR
 FixGetAsyncThrottleMsg
 FixGetMemoryUsageMbForTag
+FixGiraffes
 FixHandlesMouseEvents
 FixHumanoidEmbeddedInGround3
 FixIAdornableCollectorCrash3
@@ -410,6 +413,7 @@ FixPlaceFilter0
 FixPlayerActionTypeOverride
 FixPlayerlistFollowing
 FixPluginActivate
+FixPreferredSoundDeviceVR
 FixR15ShirtGraphicScale
 FixRandomSpawnLocationShape
 FixRemoveAsyncReturnValueBug
@@ -417,6 +421,7 @@ FixScrollingFrameClipRect
 FixSmallSurfaceGuiMouseInput
 FixStaleBillboardGuiPosition
 FixStaleBillboardGuiPosition2
+FixStreamingExtraPackets
 FixSunRaysFlickering
 FixSurfaceGuisBreakingAfterRespawn
 FixSwappedBodypartsColoring
@@ -461,6 +466,7 @@ GAThrottlingEventThresholdHundredthCat1
 GAThrottlingEventThresholdHundredthCat2
 GAThrottlingEventThresholdHundredthCat3
 GetDefaultClothesFromWeb
+GetJoinDataEnable
 GetLatestAssetVersionErrors
 GetLocaleIdFromJoinBlob
 GetPlayerImageDefaultTimeout
@@ -484,9 +490,6 @@ GoogleAnalyticsAccountPropertyIDLuaShell
 GoogleAnalyticsAccountPropertyLuaTest
 GoogleAnalyticsLoadLuaShell
 GoogleAnalyticsTracking
-GraphicsDX11InstancingEnabled
-GraphicsGL3InstancingEnabled2
-GraphicsGL3UseUBO3
 GroupTeleportMetricsSuccessAndFailure
 GuestFriendCheckFailImmediate
 GuiLayerCollectorUseViewport
@@ -515,7 +518,6 @@ HttpCacheSendStatsEveryXSeconds
 HttpConnectDefaultTimeoutMillis
 HttpConnectExtendedTimeoutMillis
 HttpCurlDeepErrorReportingCount
-HttpCurlDomainTrimmingWithBaseURL
 HttpCurlMaxCachedHandlesPerHost
 HttpCurlProxyHostAndPort
 HttpDataSendDefaultTimeoutMillis
@@ -616,6 +618,7 @@ KillZombieGame
 KillZombieGame3
 LandedBalanceD
 LandedBalanceP
+LastIsntFirst
 LatencyErrorMultiplierTennths
 LayoutClipRectStopUsingCamera
 LayoutErrors
@@ -671,6 +674,7 @@ LuaScriptTimeoutSeconds
 LuaStrlibLimitMatchDepth
 LuaToNumberInt64
 LuaTypeErrors
+LuaWebServiceCheckCorrectCacheWhenDoingRawRequests
 LuaWidgetsUI
 MachineIdUploader
 MakeTeleportServiceReplicated
@@ -712,14 +716,12 @@ MaxWaitTimeBeforeForcePacketProcessMS
 MegaClusterInit
 MegaClusterNetwork
 MegaClusterNetworkInit
+MemoryFromAppShellReporterAndroid
+MemoryFromAppShellReporterIOS
 MemoryPlaceIDReportThreshold
 MinimumFreefallMoveDistanceInTenths
 MinSoundStreamSizeBytes
 Mk2ItemDebug
-Mk2ItemDebugDump
-Mk2ItemDebugEnabled
-Mk2ItemDebugLastCount
-Mk2ItemDebugReportHundredthsPercentage
 ModerationFilterTextUrlV2
 ModuleScriptFetchFromAssetgame
 MoreViewCreationFailureHandling
@@ -764,7 +766,6 @@ NetworkClusterByte2
 NetworkCompressorNewRotation
 NetworkCompressorNewTranslation
 NetworkCompressorNewVelocity
-NetworkDontRescheduleSend
 NetworkFamilyToFavor
 NetworkFixLinger
 NetworkInstances
@@ -779,7 +780,6 @@ NetworkStatRefreshRate
 NetworkStatsReport
 NetworkStepsMultipliers
 NetworkStreaming
-NetworkStreamingFasterQuery
 NetworkStreamingFasterWorldExtents
 NetworkStreamingGCMaxMicroSecondLimit
 NetworkStreamRemoveDependency
@@ -800,7 +800,6 @@ NumberFramesSubmergedBeforeVSquareBlendFrames
 NumberFramesSubmergedBeforeVSquaredViscocity
 NumDummyJobs
 NumFramesAllowedToBeAboveError
-NumPhysicsPacketsPerStep
 NumPhysicsTouchPacketsPerStep
 ObjectsWeldedToCharactersBreakPhysics
 OnCloseTimeoutInSeconds
@@ -815,7 +814,7 @@ OptimizedContactWakeDepth
 OptimizedUIListLayoutUpdate
 OptimizedUIListLayoutUpdate2
 OptimizedUIListLayoutUpdate3
-OptimizePointerUIProcessing2
+OptimizePointerUIProcessing3
 OtherUrlConstruction
 OutlineBrightnessMax
 OutlineBrightnessMin
@@ -879,6 +878,7 @@ PGSVStageStiffnessEasingUpToAggressive
 PGSVStageStiffnessWorseFitnessThreshold
 PGSWakeOtherAssemblyForJoints
 PGSWakeOtherIfOneAssemblyIsAwake
+Phy2DiscardSleepingStat
 PhysicsBulletManifoldPoolSize
 PhysicsCompressionSizeFilter
 PhysicsDecompForceUpgradeVersion
@@ -890,9 +890,6 @@ PhysicsImprovedCyclicExecutiveThrottleThresholdTenth
 PhysicsNetwork
 PhysicsPacketsPerStepAdjustPeriodTenths
 PhysicsResetOsp
-PhysicsSenderBufferHealthThreasholdPercent
-PhysicsSenderRate
-PhysicsSenderRotationThresholdThousandth
 PhysicsSkipNonRealTimeHumanoidForceCalc
 PhysicsStepsPerSecond
 PlaceLauncher
@@ -912,6 +909,8 @@ PointsServiceBatchingImplOnUpdateDelaySeconds
 PpjCapacity
 PpjClientBreak
 PpjEtrFill
+PpjEtrThreshold
+PpjPmThreshold
 PpjServerBreak
 PreloadLinkedScriptsTiming
 PreloadTextureTimeBuget
@@ -997,7 +996,6 @@ RenderRequest
 RenderResolveConstraintDepth
 RenderShadowIntensity
 RenderStatsOnLogs
-RenderTerrainFixChunkExtents
 RenderTextureCompositor
 RenderTextureCompositorBudget
 RenderTextureManagerBudget
@@ -1027,7 +1025,6 @@ RetryBaseTimeMSec
 RobloxAnalyticsSubDomain
 RobloxAnalyticsURL
 RobloxCookieJar
-RobloxWndInit
 RotationalViscocityEnabled2
 Rtl7InfluxHundredthsPercentage
 RunningBaseAltitudeD
@@ -1081,12 +1078,14 @@ ServiceAskSetParent
 ServiceVsp2
 SetBWLimitByPlatform
 SetGuiInsetInLoadingScript2
+SetMouseInputStateLater
 SetPlayerNameWhenCreatingPlayerObject
 SetSecureFlag
 SetSecureFlag2
 SetSecureFlag3
 SetSimulationRadiusInPhysicsSender
 SetSurfaceTypeTheFutureIsNow
+ShareOnStartPageAnalyticsFix
 ShowBufferCount
 ShowTeleportFailedMessage
 ShowTeleportFailedMessageTimeInMillisecond
@@ -1101,7 +1100,6 @@ SkipGuiObjectsWithNoConnections2
 SlowHttpRequest
 SmartRoundUIObjects
 SmootherVehicleSeatControlSystem
-SmoothTerrainFixDuplicateTriangles
 SmoothTerrainMaterialColoring
 SmoothTerrainMaxCppRegion
 SmoothTerrainMaxLuaRegion
@@ -1124,6 +1122,8 @@ StreamingCriticalLowMemWatermarkMB
 StreamingLowMemWatermarkMB
 StreamingMemoryUsagePercent
 StreamingSafeMemWatermarkMB
+StreamJobMaxBufferHealthThresholdHundredths
+StreamJobMinBufferHealthThresholdHundredths
 StreamJobPriorityAmplifierRadius
 StreamOutCompressionIdListLengthThreshold
 StudioAbortStartPageRequestsV2
@@ -1152,6 +1152,7 @@ StudioCookieConstraintUrlFragment
 StudioCrashOnDocCloseWhenBusyFixEnabled
 StudioCreatePluginWidgets
 StudioCSGChildDataNoSizeLimit
+StudioCtrlShiftProcess
 StudioDebugBTID
 StudioDebuggerFixBreakpointActions
 StudioDebuggerFixCurrentThreadSetting
@@ -1177,6 +1178,7 @@ StudioFixGroupComboBoxStealingFromGameWidget
 StudioFixOpeningLocalFileWhenNotLoggedIn
 StudioFixPlaceIdentifierForAdjunctFileCalculation
 StudioFixStartPageModelsEditedOutsideBeginEnd
+StudioFixStartPageThumbnails
 StudioFixUniverseRenaming
 StudioFlagEditor
 StudioForceLayoutSaveOnAppClose
@@ -1297,7 +1299,6 @@ StudioUserNotificationMinReconnectTimerMs
 StudioUserNotificationPath
 StudioUserNotificationReconnectTimerIncrementMs
 StudioUserNotificationTopSubdomain
-StudioWASDCtrlShiftFocusFixV4
 StudioWebDialogMinimumHeight
 StudioWebDialogMinimumWidth
 StudioWorkspaceFilteringEnabledOnNewPlaces
@@ -1495,6 +1496,5 @@ XboxPlayerlistUseGetUserThumbnailAsync
 XboxToggleVoiceChatHotkey
 XboxUseNewScrollingGrid
 XboxUseNewValidUsernameCheck2
-XboxUseRobloxInput
 XboxUserStateRodux
 ZIndexBehaviorEnabled

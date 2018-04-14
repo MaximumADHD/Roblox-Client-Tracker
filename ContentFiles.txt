@@ -11,7 +11,7 @@ BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[171350 bytes]
+[175025 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [210497 bytes]
@@ -404,13 +404,13 @@ content/internal/AppShell/Modules/Shell/EventHub.lua
 [5933 bytes]
 
 content/internal/AppShell/Modules/Shell/FriendPresenceItem.lua
-[8339 bytes]
+[9732 bytes]
 
 content/internal/AppShell/Modules/Shell/FriendsData.lua
-[7168 bytes]
+[8975 bytes]
 
 content/internal/AppShell/Modules/Shell/FriendsView.lua
-[5687 bytes]
+[7579 bytes]
 
 content/internal/AppShell/Modules/Shell/GameCarouselItem.lua
 [9453 bytes]
@@ -452,7 +452,7 @@ content/internal/AppShell/Modules/Shell/GamesView.lua
 [15624 bytes]
 
 content/internal/AppShell/Modules/Shell/GlobalSettings.lua
-[3988 bytes]
+[4044 bytes]
 
 content/internal/AppShell/Modules/Shell/HeroStatsManager.lua
 [3573 bytes]
@@ -464,7 +464,7 @@ content/internal/AppShell/Modules/Shell/HomePane.lua
 [17515 bytes]
 
 content/internal/AppShell/Modules/Shell/Http.lua
-[26965 bytes]
+[26402 bytes]
 
 content/internal/AppShell/Modules/Shell/ImageOverlay.lua
 [7253 bytes]
@@ -578,7 +578,7 @@ content/internal/AppShell/Modules/Shell/SettingsScreen.lua
 [4002 bytes]
 
 content/internal/AppShell/Modules/Shell/SideBar.lua
-[5688 bytes]
+[6405 bytes]
 
 content/internal/AppShell/Modules/Shell/SignInScreen.lua
 [8683 bytes]
@@ -590,7 +590,7 @@ content/internal/AppShell/Modules/Shell/SiteInfoWidgetOld.lua
 [1930 bytes]
 
 content/internal/AppShell/Modules/Shell/SocialPane.lua
-[6874 bytes]
+[6347 bytes]
 
 content/internal/AppShell/Modules/Shell/SortsData.lua
 [36289 bytes]
@@ -653,7 +653,7 @@ content/internal/AppShellLocalization/Modules/de.lua
 [18564 bytes]
 
 content/internal/AppShellLocalization/Modules/en-US.lua
-[18127 bytes]
+[18222 bytes]
 
 content/internal/AppShellLocalization/Modules/es.lua
 [18174 bytes]
@@ -1403,7 +1403,7 @@ content/internal/Chat/MobileChatStarterScript.lua
 [507 bytes]
 
 content/internal/Chat/Modules/ChatMaster.lua
-[3077 bytes]
+[3078 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/AddUser.lua
 [316 bytes]
@@ -2026,6 +2026,144 @@ content/internal/Common/Modules/Common/AnalyticsReporters/Influx.lua
 content/internal/Common/Modules/Common/AnalyticsReporters/Influx.spec.lua
 [4971 bytes]
 
+content/internal/Common/Modules/Common/Dependencies/Roact/Component.lua
+[5720 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Component.spec.lua
+[7986 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Config.lua
+[3601 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Config.spec.lua
+[1909 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Core.lua
+[2054 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Core.spec.lua
+[1251 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Event.lua
+[606 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Event.spec.lua
+[380 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/getDefaultPropertyValue.lua
+[1020 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/getDefaultPropertyValue.spec.lua
+[952 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/GlobalConfig.lua
+[145 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/GlobalConfig.spec.lua
+[291 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/init.lua
+[1035 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/init.spec.lua
+[11359 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/PureComponent.lua
+[811 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/PureComponent.spec.lua
+[1361 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Reconciler.lua
+[15462 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Reconciler.spec.lua
+[220 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/SingleEventManager.lua
+[2001 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/SingleEventManager.spec.lua
+[4468 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Symbol.lua
+[899 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Symbol.spec.lua
+[1051 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/connect.lua
+[2315 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/connect.spec.lua
+[2482 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/init.lua
+[156 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/storeKey.lua
+[79 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/StoreProvider.lua
+[491 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/StoreProvider.spec.lua
+[487 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/Symbol.lua
+[899 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/Symbol.spec.lua
+[1051 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/combineReducers.lua
+[471 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/combineReducers.spec.lua
+[1129 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/createReducer.lua
+[248 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/createReducer.spec.lua
+[1394 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/init.lua
+[428 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/init.spec.lua
+[170 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/loggerMiddleware.lua
+[1146 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/loggerMiddleware.spec.lua
+[582 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/NoYield.lua
+[613 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/NoYield.spec.lua
+[934 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/Signal.lua
+[1216 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/Signal.spec.lua
+[2202 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/Store.lua
+[3124 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/Store.spec.lua
+[5435 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/thunkMiddleware.lua
+[431 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Rodux/thunkMiddleware.spec.lua
+[1266 bytes]
+
 content/internal/Common/Modules/Common/Examples/Roact-asteroids.lua
 [11228 bytes]
 
@@ -2062,6 +2200,9 @@ content/internal/Common/Modules/Common/Immutable.lua
 content/internal/Common/Modules/Common/Immutable.spec.lua
 [6041 bytes]
 
+content/internal/Common/Modules/Common/initify.lua
+[662 bytes]
+
 content/internal/Common/Modules/Common/LuaErrorReporter.lua
 [9111 bytes]
 
@@ -2081,10 +2222,7 @@ content/internal/Common/Modules/Common/NoYield.spec.lua
 [684 bytes]
 
 content/internal/Common/Modules/Common/Roact.lua
-[1135 bytes]
-
-content/internal/Common/Modules/Common/Roact.spec.lua
-[10812 bytes]
+[138 bytes]
 
 content/internal/Common/Modules/Common/RoactImplementation/Component.lua
 [4062 bytes]
@@ -2126,10 +2264,7 @@ content/internal/Common/Modules/Common/RoactImplementation/SingleEventManager.sp
 [4468 bytes]
 
 content/internal/Common/Modules/Common/RoactRodux.lua
-[2339 bytes]
-
-content/internal/Common/Modules/Common/RoactRodux.spec.lua
-[2487 bytes]
+[148 bytes]
 
 content/internal/Common/Modules/Common/RoactUtilities/ExternalEventConnection.lua
 [1300 bytes]
@@ -2138,10 +2273,7 @@ content/internal/Common/Modules/Common/RoactUtilities/ExternalEventConnection.sp
 [1866 bytes]
 
 content/internal/Common/Modules/Common/Rodux.lua
-[2773 bytes]
-
-content/internal/Common/Modules/Common/Rodux.spec.lua
-[3525 bytes]
+[1525 bytes]
 
 content/internal/Common/Modules/Common/Signal.lua
 [943 bytes]
@@ -2951,10 +3083,10 @@ content/internal/LuaApp/Modules/LuaApp/Thunks/ApiFetchUsersThumbnail.lua
 [963 bytes]
 
 content/internal/Mobile/LuaAppStarterScript.lua
-[754 bytes]
+[756 bytes]
 
 content/internal/Mobile/MobileMaster.lua
-[10002 bytes]
+[10003 bytes]
 
 content/internal/Mobile/MobileStarterScript.lua
 [190 bytes]
@@ -2972,7 +3104,7 @@ content/internal/Mobile/Modules/Mobile/AppState.lua
 [488 bytes]
 
 content/internal/Mobile/Modules/Mobile/AvatarEditorSetup.lua
-[6022 bytes]
+[6024 bytes]
 
 content/internal/Mobile/Modules/Mobile/Constants.lua
 [2252 bytes]
@@ -3053,7 +3185,7 @@ content/places/MobileGamesPlace.rbxl
 [15047 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
-[11180 bytes]
+[11245 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
 [6601 bytes]
@@ -4035,6 +4167,171 @@ content/textures/StudioUIEditor/valueBoxRoundedRectangle.png
 
 content/textures/SurfacesDefault.png
 [154 bytes]
+
+content/textures/TerrainTools/button_arrow.png
+[1109 bytes]
+
+content/textures/TerrainTools/button_arrow_down.png
+[290 bytes]
+
+content/textures/TerrainTools/button_default.png
+[476 bytes]
+
+content/textures/TerrainTools/button_hover.png
+[437 bytes]
+
+content/textures/TerrainTools/button_pressed.png
+[303 bytes]
+
+content/textures/TerrainTools/checkbox_square.png
+[985 bytes]
+
+content/textures/TerrainTools/icon_regions_copy.png
+[1656 bytes]
+
+content/textures/TerrainTools/icon_regions_delete.png
+[1805 bytes]
+
+content/textures/TerrainTools/icon_regions_fill.png
+[2255 bytes]
+
+content/textures/TerrainTools/icon_regions_move.png
+[2047 bytes]
+
+content/textures/TerrainTools/icon_regions_paste.png
+[1812 bytes]
+
+content/textures/TerrainTools/icon_regions_resize.png
+[1848 bytes]
+
+content/textures/TerrainTools/icon_regions_rotate.png
+[2567 bytes]
+
+content/textures/TerrainTools/icon_regions_select.png
+[1798 bytes]
+
+content/textures/TerrainTools/icon_shape_cube.png
+[3571 bytes]
+
+content/textures/TerrainTools/icon_shape_sphere.png
+[4001 bytes]
+
+content/textures/TerrainTools/icon_terrain_big.png
+[4446 bytes]
+
+content/textures/TerrainTools/icon_tick.png
+[364 bytes]
+
+content/textures/TerrainTools/icon_tick_grey.png
+[1156 bytes]
+
+content/textures/TerrainTools/mt_add.png
+[4049 bytes]
+
+content/textures/TerrainTools/mt_erode.png
+[4142 bytes]
+
+content/textures/TerrainTools/mt_generate.png
+[20659 bytes]
+
+content/textures/TerrainTools/mt_grow.png
+[4333 bytes]
+
+content/textures/TerrainTools/mt_paint.png
+[4684 bytes]
+
+content/textures/TerrainTools/mt_regions.png
+[18670 bytes]
+
+content/textures/TerrainTools/mt_smooth.png
+[3791 bytes]
+
+content/textures/TerrainTools/mt_subtract.png
+[3977 bytes]
+
+content/textures/TerrainTools/mtrl_asphalt.png
+[7918 bytes]
+
+content/textures/TerrainTools/mtrl_basalt.png
+[9208 bytes]
+
+content/textures/TerrainTools/mtrl_brick.png
+[8629 bytes]
+
+content/textures/TerrainTools/mtrl_cobblestone.png
+[7454 bytes]
+
+content/textures/TerrainTools/mtrl_concrete.png
+[8741 bytes]
+
+content/textures/TerrainTools/mtrl_crackedlava.png
+[9623 bytes]
+
+content/textures/TerrainTools/mtrl_glacier.png
+[9730 bytes]
+
+content/textures/TerrainTools/mtrl_grass.png
+[9015 bytes]
+
+content/textures/TerrainTools/mtrl_ground.png
+[10313 bytes]
+
+content/textures/TerrainTools/mtrl_ice.png
+[6922 bytes]
+
+content/textures/TerrainTools/mtrl_leafygrass.png
+[6975 bytes]
+
+content/textures/TerrainTools/mtrl_limestone.png
+[7404 bytes]
+
+content/textures/TerrainTools/mtrl_mud.png
+[9914 bytes]
+
+content/textures/TerrainTools/mtrl_pavement.png
+[6603 bytes]
+
+content/textures/TerrainTools/mtrl_rock.png
+[9491 bytes]
+
+content/textures/TerrainTools/mtrl_salt.png
+[6978 bytes]
+
+content/textures/TerrainTools/mtrl_sand.png
+[8330 bytes]
+
+content/textures/TerrainTools/mtrl_sandstone.png
+[8249 bytes]
+
+content/textures/TerrainTools/mtrl_slate.png
+[9392 bytes]
+
+content/textures/TerrainTools/mtrl_snow.png
+[8167 bytes]
+
+content/textures/TerrainTools/mtrl_water.png
+[6218 bytes]
+
+content/textures/TerrainTools/mtrl_woodplanks.png
+[8573 bytes]
+
+content/textures/TerrainTools/progress_bar.png
+[10262 bytes]
+
+content/textures/TerrainTools/radio_button_bullet.png
+[1052 bytes]
+
+content/textures/TerrainTools/radio_button_frame.png
+[1238 bytes]
+
+content/textures/TerrainTools/sliderbar_blue.png
+[127 bytes]
+
+content/textures/TerrainTools/sliderbar_button.png
+[309 bytes]
+
+content/textures/TerrainTools/sliderbar_grey.png
+[136 bytes]
 
 content/textures/transformFiveDegrees.png
 [2358 bytes]

@@ -171,7 +171,7 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 	end)
 end
 
-	if settings():GetFFlag("AppShellManagementRefactor") then
+	if settings():GetFFlag("AppShellManagementRefactor2") then
 		local hasRunInitialization = false
 		local renderSteppedConnection = nil
 		renderSteppedConnection = game:GetService("RunService").RenderStepped:connect(function()

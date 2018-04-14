@@ -44,6 +44,7 @@ local enUS =
 	["NoFriendsOnlinePhrase"] = "Your friends are not online";
 	["JoinGameWord"] = "Join Game";
 	["ViewGameDetailsWord"] = "View Game Details";
+	["EmptyFriendSideBarWord"] = "When this user is playing a game, you can join them from here";
 	["InviteToPartyWord"] = "Invite To Party";
 	["ViewGamerCardWord"] = "View Gamer Card";
 

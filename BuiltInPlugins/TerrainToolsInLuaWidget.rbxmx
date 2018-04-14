@@ -1,16 +1,16 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXa23d4d83aabd410dbb9bbeb7f0a0ccc7">
+	<Item class="Folder" referent="RBX995996b32f4449d0a7f22c203eab6a0a">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBXaa2e215aa48941478ada4afad123eb20">
+		<Item class="ModuleScript" referent="RBXf9472974c48f486d9611b043b4c178f3">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainBrush</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{84bf9e05-6fa5-4e56-a9be-da93519eedad}</string>
 				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
 
 local module = {}
@@ -39,6 +39,9 @@ local kStrength = .5
 
 local kShapeButtonRowHeight = 50
 
+local kShapeButtonSphereAssetId = "rbxasset://textures/TerrainTools/icon_shape_sphere.png"
+local kShapeButtonCubeAssetId = "rbxasset://textures/TerrainTools/icon_shape_cube.png"
+
 local function MakeShapeButtonsRow()
 	local row = GuiUtilities.MakeFixedHeightFrame("ShapeButtonRow", kShapeButtonRowHeight)
 
@@ -48,13 +51,13 @@ local function MakeShapeButtonsRow()
 	shapeLabel.Position = UDim2.new(0, GuiUtilities.StandardLineLabelLeftMargin, 0, kShapeButtonRowHeight/2)
 
 	local shapeButton1 = GuiUtilities.MakeShapeButton("ShapeButton1", 
-		"http://www.roblox.com/asset/?id=225799533", 
+		kShapeButtonSphereAssetId, 
 		row)
 	shapeButton1.AnchorPoint = Vector2.new(0, 0.5)
 	shapeButton1.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, kShapeButtonRowHeight/2)
 
 	local shapeButton2 = GuiUtilities.MakeShapeButton("ShapeButton2", 
-		"http://www.roblox.com/asset/?id=225799696", 
+		kShapeButtonCubeAssetId, 
 		row)
 	shapeButton2.AnchorPoint = Vector2.new(0, 0.5)
 	shapeButton2.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin, 
@@ -65,6 +68,7 @@ end
 
 local function MakeMaterialsSectionWithTitle()
 	local vsl = VerticallyScalingListFrame.new("mwt")
+	vsl:AddBottomPadding()
 
 	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material", "Material")
 	vsl:AddChild(titleLabel)
@@ -170,14 +174,10 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		['Sphere'] = {
 			name = 'Sphere',
 			button = shapeButtonsRow.ShapeButton1,
-			image = 'http://www.roblox.com/asset/?id=225799533',
-			selectedImage = 'http://www.roblox.com/asset/?id=225801914',
 		},
 		['Box'] = {
 			name = 'Box',
 			button = shapeButtonsRow.ShapeButton2,
-			image = 'http://www.roblox.com/asset/?id=225799696',
-			selectedImage = 'http://www.roblox.com/asset/?id=225802254',
 		},
 	}
 	----------------
@@ -850,10 +850,10 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 				if StartingDiff and startingSelectionSize then
 					local scale = difference/max(0.01, StartingDiff)
 					kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, startingSelectionSize/scale))
-					selectionSizeValue.Value = kSelectionSize
+					kSizeSliderObj:SetValue(kSelectionSize)
 				else
 					StartingDiff = difference
-					startingSelectionSize = selectionSizeValue.Value
+					startingSelectionSize = kSizeSliderObj:GetValue()
 				end
 			end
 		else
@@ -909,23 +909,30 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	end)
 
 	function scrollwheel(change)
+		print("DBANKS 003")
 		if on then
+			print("DBANKS 004")
 			if downKeys[Enum.KeyCode.LeftShift] or downKeys[Enum.KeyCode.RightShift] then
+				print("DBANKS 006")
 				kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, kSelectionSize + change))
-				selectionSizeValue.Value = kSelectionSize
+				kSizeSliderObj:SetValue(kSelectionSize)
 			end
+			print("DBANKS 005")
 			if downKeys[Enum.KeyCode.LeftControl] or downKeys[Enum.KeyCode.RightControl] then
+				print("DBANKS 007")
 				kStrength = max(0, min(1, kStrength + change * (1/(kMaxSelectionSize-kMinSelectionSize))))
-				strengthValue.Value = round(kStrength * 100 + 1)
+				kStrengthSliderObj:SetValue(round(kStrength * 100 + 1))
 			end
 		end
 	end
 	
 	mouse.WheelForward:connect(function()
+		print("DBANKS 001")
 		scrollwheel(1)
 	end)
 	
 	mouse.WheelBackward:connect(function()
+		print("DBANKS 002")
 		scrollwheel(-1)
 	end)
 
@@ -943,7 +950,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXaf07187c71ca426394504ca51a05ce3c">
+		<Item class="ModuleScript" referent="RBX5c64989fbaf549ec9d409097b3b824a9">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
@@ -976,7 +983,6 @@ local barFill
 
 local kBiomesCheckboxHPadding = 24
 
-local kBottomButtonsWidth = 100
 local kBottomButtonsPadding = 20
 
 local kProgressFrameObj = nil
@@ -1229,7 +1235,8 @@ end
 
 local function MakeBiomesCheckboxesWithTitle()
 	local vsl = VerticallyScalingListFrame.new("bcwt")
-
+	vsl:AddBottomPadding()
+	
 	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", "Biomes")
 	vsl:AddChild(titleLabel)
 
@@ -1269,14 +1276,17 @@ end
 
 local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight)
+	frame.BackgroundTransparency = 1
 
 	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", frame)
-	clearButton.Size = UDim2.new(0, kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	clearButton.Position = UDim2.new(0.5, -kBottomButtonsWidth - kBottomButtonsPadding/2, 0.5, -GuiUtilities.kBottomButtonsHeight/2)
+	clearButton.Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+	clearButton.Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
+		 1, -GuiUtilities.kBottomButtonsHeight)
 
 	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", frame)
-	generateButton.Size = UDim2.new(0, kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	generateButton.Position = UDim2.new(0.5, kBottomButtonsPadding/2, 0.5, -GuiUtilities.kBottomButtonsHeight/2)
+	generateButton.Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+	generateButton.Position = UDim2.new(0.5, kBottomButtonsPadding/2, 
+		1, -GuiUtilities.kBottomButtonsHeight)
 	
 	return frame
 end
@@ -1825,11 +1835,11 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX79e76b9a4c8d42648c667ba66c56ce98">
+		<Item class="ModuleScript" referent="RBXa43b8dc48d7d4d3c83b33dfc66b044c4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GuiUtilities</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{4f693662-780f-400f-8ec2-518c355d6edc}</string>
 				<ProtectedString name="Source"><![CDATA[local module = {}
 
 
@@ -1839,7 +1849,7 @@ module.kInlineTitleBarHeight = 24
 module.kStandardContentAreaWidth = 180
 
 module.kStandardPropertyHeight = 30
-module.kSubSectionLabelHeight = 20
+module.kSubSectionLabelHeight = 30
 
 module.kStandardVMargin = 7
 module.kStandardHMargin = 16
@@ -1849,6 +1859,17 @@ module.StandardLineElementLeftMargin = 90
 module.StandardLineLabelWidth = (module.StandardLineElementLeftMargin - module.StandardLineLabelLeftMargin - 10 )
 
 module.kDropDownHeight = 55
+
+module.kBottomButtonsFrameHeight = 50
+module.kBottomButtonsHeight = 28
+
+module.kShapeButtonSize = 32
+module.kTextVerticalFudge = -3
+module.kButtonVerticalFudge = -5
+
+module.kStandardWhite = Color3.new(1, 1, 1)
+
+module.kBottomButtonsWidth = 100
 
 module.kStandardTextColor = Color3.new(0, 0, 0)                      --todo: input spec text color
 module.kDisabledTextColor = Color3.new(.4, .4, .4)                   --todo: input spec disabled text color
@@ -1860,27 +1881,20 @@ module.kButtonStandardBorderColor = Color3.new(.4,.4,.4)             --todo: syn
 module.kButtonDisabledBackgroundColor = Color3.new(.7,.7,.7)         --todo: sync with spec
 module.kButtonDisabledBorderColor = Color3.new(.6,.6,.6)             --todo: sync with spec
 
-module.kBottomButtonsFrameHeight = 40
-module.kBottomButtonsHeight = 28
-
-module.kShapeButtonSize = 32
-
-module.kStandardWhite = Color3.new(1, 1, 1)
-
-local kSelectedImageWithTextButtonColor = Color3.new(0.85, 0.85, 0.85)
+module.kWidgetBorderColor = Color3.fromRGB(182, 182, 182)
+module.kStripeBorderColor = Color3.fromRGB(238, 238, 238)
 
 local kDeselectedButtonColor = Color3.new(1, 1, 1)
-
-
+local kSelectedImageWithTextButtonColor = Color3.new(0.85, 0.85, 0.85)
 local kRowStripeColor = Color3.new(0.95, 0.95, 0.95)
 
 local kRowStripeColors = {}
 kRowStripeColors[0] = kRowStripeColor
 kRowStripeColors[1] = module.kStandardWhite
 
-local kButtonImageIdDefault = 1532597154
-local kButtonImageIdHovered = 1532596912
-local kButtonImageIdPressed = 1532596488
+local kButtonImageIdDefault = "button_default.png"
+local kButtonImageIdHovered = "button_hover.png"
+local kButtonImageIdPressed = "button_pressed.png"
 
 module.kMainFrame = nil
 
@@ -1937,6 +1951,8 @@ function module.AddStripedChildrenToListFrame(listFrame, frames)
         frame.LayoutOrder = index
         frame.BackgroundColor3 = kRowStripeColors[(index + 1) % 2]
         frame.BackgroundTransparency = 0
+        frame.BorderSizePixel = 1
+        frame.BorderColor3 = module.kStripeBorderColor 
     end
 end
 
@@ -2063,7 +2079,7 @@ function module.MakeStandardPropertyLabel(text)
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.Text = text
     label.AnchorPoint = Vector2.new(0, 0.5)
-    label.Position = UDim2.new(0, module.StandardLineLabelLeftMargin, 0.5, 0)
+    label.Position = UDim2.new(0, module.StandardLineLabelLeftMargin, 0.5, module.kTextVerticalFudge)
     label.Size = UDim2.new(0, module.StandardLineLabelWidth, 1, 0)
     return label
 end
@@ -2081,9 +2097,10 @@ end
 
 local function updateButtonVisual(button, clickedDown, hovered)
     if button then
-        print("Hi oo1")
-        button.Image = 'http://www.roblox.com/asset/?id=' .. (
-            (clickedDown and kButtonImageIdPressed) or (hovered and kButtonImageIdHovered) or kButtonImageIdDefault
+        button.Image = "rbxasset://textures/TerrainTools/" .. (
+            (clickedDown and kButtonImageIdPressed) or 
+            (hovered and kButtonImageIdHovered) or 
+            kButtonImageIdDefault
         )
         local textLabel = button:FindFirstChild('TextLabel')
         if textLabel then
@@ -2096,19 +2113,18 @@ end
 function module.MakeTextButton(name, title, parent)
     local button = Instance.new('ImageButton')
     button.Name = name
-    print("Hi oo2")
-    button.Image = 'http://www.roblox.com/asset/?id=' .. kButtonImageIdDefault
+    button.Image = "rbxasset://textures/TerrainTools/" .. kButtonImageIdDefault
     button.BackgroundTransparency = 1
     button.ScaleType = Enum.ScaleType.Slice
     button.SliceCenter = Rect.new(7, 7, 156, 36)
     button.AutoButtonColor = false
-
+    
     local label = Instance.new('TextLabel')
     label.Text = title
     label.BackgroundTransparency = 1
-    label.Size = UDim2.new(1, 0, 1, 0)
+    label.Size = UDim2.new(1, 0, 1, module.kButtonVerticalFudge)
     label.Font = Enum.Font.SourceSans                    --todo: input spec font
-    label.TextSize = 18                                  --todo: input spec font size
+    label.TextSize = 15                                  --todo: input spec font size
     label.Parent = button
 
     local hovered = false
@@ -2143,22 +2159,12 @@ function module.MakeShapeButton(name, imageAsset, parent)
     local button = Instance.new("ImageButton")
     button.Parent = parent
     button.Image = imageAsset
+    button.BackgroundTransparency = 1
+    button.BorderSizePixel = 0
     button.Size = UDim2.new(0, module.kShapeButtonSize, 0, module.kShapeButtonSize)
     button.Name = name
 
     return button
-end
-
-function module.StyleScrollingFrame(scrollingFrame)
-    scrollingFrame.ClipsDescendants = true
-    scrollingFrame.ScrollingEnabled = true
-    scrollingFrame.BottomImage = "rbxasset://textures/ui/studs.png"
-    scrollingFrame.TopImage = "rbxasset://textures/ui/studs.png"
-    scrollingFrame.MidImage = "rbxasset://textures/ui/smooth.png"
-    scrollingFrame.ScrollBarThickness = 12
-    scrollingFrame.HorizontalScrollBarInset = Enum.ScrollBarInset.None
-    scrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.None
-    scrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
 end
 
 function module.MakeFrameAutoScalingList(frame)
@@ -2174,7 +2180,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX547c539f22d34a15a07a7c5e8b11c3e4">
+		<Item class="ModuleScript" referent="RBX256378af7d9b407e9fe61a50595e7bfe">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MainPanel</string>
@@ -2183,7 +2189,7 @@ return module]]></ProtectedString>
 
 local GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kMainButtonOuterSize = 51
+local kMainButtonOuterSize = 53
 local kMainButtonBorderSize = 1
 local kMainButtonActualSize = (kMainButtonOuterSize - 2 * kMainButtonBorderSize)
 
@@ -2219,7 +2225,7 @@ local kMainButtonConfigs =
         Name = "Generate",
         Text = "Generate",
 		Tip = 'Generate landscapes of terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=236006872',
+		Icon = "rbxasset://textures/TerrainTools/mt_generate.png",
 		Modules = {modules.TerrainGeneration},
 		LayoutOrder = 1,
     }, 
@@ -2227,7 +2233,7 @@ local kMainButtonConfigs =
         Name = "Add",
         Text = "Add",
 		Tip = 'Click and hold to add terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=225328572',
+		Icon = "rbxasset://textures/TerrainTools/mt_add.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
 		LayoutOrder = 2,
@@ -2236,7 +2242,7 @@ local kMainButtonConfigs =
         Name = "Subtract",
         Text = "Subtract",
 		Tip = 'Click and hold to remove terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=225328818',
+		Icon = "rbxasset://textures/TerrainTools/mt_subtract.png",
 		Modules = {modules.Brush,},
 		LayoutOrder = 3,
     }, 
@@ -2244,7 +2250,7 @@ local kMainButtonConfigs =
         Name = "Paint",
         Text = "Paint",
 		Tip = 'Paint the material of the terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=225328954',
+		Icon = "rbxasset://textures/TerrainTools/mt_paint.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
 		LayoutOrder = 4,
@@ -2253,7 +2259,7 @@ local kMainButtonConfigs =
         Name = "Grow",
         Text = "Grow",
 		Tip = 'Click and hold to grow and expand terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=225329153',
+		Icon = "rbxasset://textures/TerrainTools/mt_grow.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
 		LayoutOrder = 5,
@@ -2262,7 +2268,7 @@ local kMainButtonConfigs =
         Name = "Erode",
         Text = "Erode",
 		Tip = 'Click and hold to erode and remove terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=225329301',
+		Icon = "rbxasset://textures/TerrainTools/mt_erode.png",
 		Modules = {modules.Brush,},
 		LayoutOrder = 6,
     }, 
@@ -2270,7 +2276,7 @@ local kMainButtonConfigs =
         Name = "Smooth",
         Text = "Smooth",
 		Tip = 'Brush to smooth out rough or jagged terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=225329641',
+		Icon = "rbxasset://textures/TerrainTools/mt_smooth.png",
 		Modules = {modules.Brush, modules.TerrainSmoother,},
 		LayoutOrder = 7,
     }, 
@@ -2278,7 +2284,7 @@ local kMainButtonConfigs =
         Name = "Regions",
         Text = "Regions",
 		Tip = 'Manipulate regions of smooth terrain.',
-		Icon = 'http://www.roblox.com/asset/?id=240631063',
+		Icon = "rbxasset://textures/TerrainTools/mt_regions.png",
 		Modules = {modules.TerrainRegionEditor,},
 		LayoutOrder = 8,
     }, 
@@ -2323,7 +2329,7 @@ function makeMainPanel()
 
 	local uiGridLayout = Instance.new("UIGridLayout")
 	uiGridLayout.CellSize = kMainButtonOuterSizeUDim2
-	uiGridLayout.CellPadding = UDim2.new(0,0,0,0)
+	uiGridLayout.CellPadding = UDim2.new(0,3,0,0)
 	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
 	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -2495,7 +2501,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX2375ab4d9469492b8163512bfd383fc6">
+		<Item class="Script" referent="RBX063ff1525ecf4fd49d06c3f98869e274">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2535,14 +2541,14 @@ end
 
 -- Create the toolbar, create the button to toggle terrain tools plugin GUI on/off.
 local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
-local toggleVisibilityButton = toolbar:CreateButton('Terrain Tools',
+local toggleVisibilityButton = toolbar:CreateButton('Editor',
                 'Add, remove, and modify terrain',
-                'http://www.roblox.com/asset/?id=225329641')
+                "rbxasset://textures/TerrainTools/icon_terrain_big.png")
 
 local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 0, 0, kMinWidthWidth)
 
 local pluginGui = plugin:CreateDockWidgetPluginGui("TerrainTools_PluginGui", dockWidgetPluginGuiInfo)
-pluginGui.Title = "Terrain Tools"
+pluginGui.Title = "Terrain Editor"
 
 toggleVisibilityButton.Click:connect(function()
     if pluginGui.Enabled then
@@ -2562,7 +2568,7 @@ pluginGui:GetPropertyChangedSignal("Enabled"):connect(function(property)
     updateButtonActive(toggleVisibilityButton, pluginGui)
 end)     
 
--- Make sure plugin and pluginGui have nice user-facing names.
+-- Make sure plugin and pluginGui have nice names.
 plugin.Name = "Terrain"
 pluginGui.Name = "Tools"
 
@@ -2584,7 +2590,7 @@ mainPanelModule.Initialize(plugin, pluginGui)
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXe08ae87da37c4aac83f0576532f66686">
+		<Item class="ModuleScript" referent="RBX188d14ff7c834816bedeea8bdbc56dc1">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainSmoother</string>
@@ -2728,7 +2734,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXddaba16a358749708bb7322b7434ee4c">
+		<Item class="ModuleScript" referent="RBXb41495e51135425cb8c1da1129c51918">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
@@ -2771,13 +2777,14 @@ local kRegionButtonOuterSizeUDim2 = UDim2.new(0, kRegionButtonOuterWidth, 0, kRe
 local kFillConfirmButtonWidth = 44
 local kFillConfirmButtonHeight = 25
 local kMaterialsListObject = nil
+local kBottomButtonMargin = 10
 
 local kRegionModeButtonConfigs = 
 {
     Select = {
         Text = "Select",
         Name = "ButtonSelect",
-		Icon = 'http://www.roblox.com/asset/?id=1509930186',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_select.png",
 		LayoutOrder = 1,
 		Mode = 'Select',
 		Tool = 'Resize',
@@ -2785,7 +2792,7 @@ local kRegionModeButtonConfigs =
     Move = {
         Text = "Move",
         Name = "ButtonMove",
-		Icon = 'http://www.roblox.com/asset/?id=1509929310',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_move.png",
 		LayoutOrder = 2,
 		Mode = 'Edit',
 		Tool = 'Move',
@@ -2793,7 +2800,7 @@ local kRegionModeButtonConfigs =
     Resize = {
         Text = "Resize",
         Name = "ButtonResize",
-		Icon = 'http://www.roblox.com/asset/?id=1509929759',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_resize.png",
 		LayoutOrder = 3,
 		Mode = 'Edit',
 		Tool = 'Resize',
@@ -2801,7 +2808,7 @@ local kRegionModeButtonConfigs =
     Rotate = {
         Text = "Rotate",
         Name = "ButtonRotate",
-		Icon = 'http://www.roblox.com/asset/?id=1509929974',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_rotate.png",
 		LayoutOrder = 4,
 		Mode = 'Edit',
 		Tool = 'Rotate',
@@ -2813,25 +2820,25 @@ local kRegionOperationButtonConfigs =
     Copy = {
         Text = "Copy",
         Name = "ButtonCopy",
-		Icon = 'http://www.roblox.com/asset/?id=1509928608',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_copy.png",
 		LayoutOrder = 5,
     }, 
     Paste = {
         Text = "Paste",
         Name = "ButtonPaste",
-		Icon = 'http://www.roblox.com/asset/?id=1509929519',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_paste.png",
 		LayoutOrder = 6,
     }, 
 	Delete = {
         Text = "Delete",
         Name = "ButtonDelete",
-		Icon = 'http://www.roblox.com/asset/?id=1509928878',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_delete.png",
 		LayoutOrder = 7,
     }, 
 	Fill = {
         Text = "Fill",
         Name = "ButtonFill",
-		Icon = 'http://www.roblox.com/asset/?id=1509929069',
+		Icon = "rbxasset://textures/TerrainTools/icon_regions_fill.png",
 		LayoutOrder = 8,
     }, 
 }
@@ -2853,11 +2860,12 @@ end
 
 function MakeButtonGridInFrameWithTitle(buttonConfigs, name, title) 
 	local vsf = VerticallyScalingListFrame.new(name)
+	vsf:AddBottomPadding()
 
 	local labelFrame = GuiUtilities.MakeFrameWithSubSectionLabel("Label", title)
 	vsf:AddChild(labelFrame)
 
-	local buttonListFrame = GuiUtilities.MakeFixedHeightFrame("grid", kRegionButtonOuterHeight + 2 * GuiUtilities.kStandardVMargin)
+	local buttonListFrame = GuiUtilities.MakeFixedHeightFrame("grid", kRegionButtonOuterHeight)
 	vsf:AddChild(buttonListFrame)
 	buttonListFrame.BackgroundTransparency = 1
 
@@ -2870,8 +2878,8 @@ function MakeButtonGridInFrameWithTitle(buttonConfigs, name, title)
 	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	local uiPadding = Instance.new("UIPadding")
-	uiPadding.PaddingBottom = UDim.new(0, GuiUtilities.kStandardVMargin)
-	uiPadding.PaddingTop = UDim.new(0, GuiUtilities.kStandardVMargin)
+	uiPadding.PaddingBottom = UDim.new(0, 0)
+	uiPadding.PaddingTop = UDim.new(0, 0)
 	uiPadding.PaddingLeft = UDim.new(0, GuiUtilities.kStandardHMargin)
 	uiPadding.PaddingRight = UDim.new(0, GuiUtilities.kStandardHMargin)
 	uiPadding.Parent = buttonListFrame
@@ -2899,11 +2907,13 @@ function AddToFrameInOrder(childElement, parentFrame, order)
 end
 
 local function MakeButtonsFrame()
-	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight)
+	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight + kBottomButtonMargin)
+	frame.BackgroundTransparency = 1
 
 	local okButton = GuiUtilities.MakeTextButton("OkButton", "OK", frame)
-	okButton.Size = UDim2.new(0, kFillConfirmButtonWidth, 0, GuiUtilities.kBottomButtonsFrameHeight)
-	okButton.Position = UDim2.new(0.5, -kFillConfirmButtonWidth/2, 0.5, -GuiUtilities.kBottomButtonsHeight/2)
+	okButton.Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+	okButton.Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,
+		 1, -GuiUtilities.kBottomButtonsHeight - kBottomButtonMargin)
 	
 	return frame
 end
@@ -2911,6 +2921,7 @@ end
 
 function MakeFillFrame(pluginGui)
 	local vsl = VerticallyScalingListFrame.new("mwt")
+	vsl:AddBottomPadding()
 
 	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material", "Fill Selection")
 	vsl:AddChild(titleLabel)
@@ -3799,7 +3810,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXbd9426082fe242898a75b7d49ed89f2a">
+		<Item class="ModuleScript" referent="RBX71e93548e68846c5816637158271011a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -3808,121 +3819,126 @@ return module
 
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kMaterialCellSize = 35
-local kMaterialCellPadding = 5
+local kMaterialCellSize = 31
+local kMaterialCellPadding = 9
 
 local kMaterialTooltipHeight = 30
+local kHighlightSize = 4
+local kHighlightColor = Color3.fromRGB(117, 167, 246)
 
 MaterialsListClass.MaterialsTable = {	--Interface order is defined by order here
 	{
 		enum = Enum.Material.Grass, 
-		image = 'http://www.roblox.com/asset/?id=225314676', 
+		image = "rbxasset://textures/TerrainTools/mtrl_grass.png", 
 		text = "Grass", 
 	},
 	{
 		enum = Enum.Material.Sand, 
-		image = 'http://www.roblox.com/asset/?id=225315607', 
+		image = "rbxasset://textures/TerrainTools/mtrl_sand.png", 
 		text = "Sand", 
 	},
 	{
 		enum = Enum.Material.Rock,
-		image = 'http://www.roblox.com/asset/?id=225315178', 
+		image = "rbxasset://textures/TerrainTools/mtrl_rock.png", 
 		text = "Rock", 
 	},
 	{
 		enum = Enum.Material.Water, 
-		image = 'http://www.roblox.com/asset/?id=225315529', forceIgnoreWater = true, forceIgnoreWaterTo = false, 
+		image = "rbxasset://textures/TerrainTools/mtrl_water.png",
+		forceIgnoreWater = true, 
+		forceIgnoreWaterTo = false, 
 		text = "Water", 
 	},
 	{
 		enum = Enum.Material.Ground, 
-		image = 'http://www.roblox.com/asset/?id=254542189', 
+		image = "rbxasset://textures/TerrainTools/mtrl_ground.png", 
 		text = "Ground", 
 	},
 	{
 		enum = Enum.Material.Sandstone, 
-		image = 'http://www.roblox.com/asset/?id=254541350', 
+		image = "rbxasset://textures/TerrainTools/mtrl_sandstone.png", 
 		text = "Sandstone", 
 	},
 	{
 		enum = Enum.Material.Slate, 
-		image = 'http://www.roblox.com/asset/?id=225315290', 
+		image = "rbxasset://textures/TerrainTools/mtrl_slate.png", 
 		text = "Slate", 
 	},
 	{
 		enum = Enum.Material.Snow, 
-		image = 'http://www.roblox.com/asset/?id=254541898', 
+		image = "rbxasset://textures/TerrainTools/mtrl_snow.png", 
 		text = "Snow", 
 	},
 	{
 		enum = Enum.Material.Mud, 
-		image = 'http://www.roblox.com/asset/?id=254541862', 
+		image = "rbxasset://textures/TerrainTools/mtrl_mud.png", 
 		text = "Mud", 
 	},
 	{
 		enum = Enum.Material.Brick, 
-		image = 'http://www.roblox.com/asset/?id=225315419', forceSnapToGrid = true, 
+		image = "rbxasset://textures/TerrainTools/mtrl_brick.png", 
+		forceSnapToGrid = true, 
 		text = "Brick", 
 	},
 	{
 		enum = Enum.Material.Concrete, 
-		image = 'http://www.roblox.com/asset/?id=225314983', 
+		image = "rbxasset://textures/TerrainTools/mtrl_concrete.png", 
 		text = "Concrete", 
 	},
 	{
 		enum = Enum.Material.Glacier, 
-		image = 'http://www.roblox.com/asset/?id=254541572', 
+		image = "rbxasset://textures/TerrainTools/mtrl_glacier.png", 
 		text = "Glacier", 
 	},
 	{
 		enum = Enum.Material.WoodPlanks, 
-		image = 'http://www.roblox.com/asset/?id=225315705', 
+		image = "rbxasset://textures/TerrainTools/mtrl_woodplanks.png", 
 		forceSnapToGrid = true, 
 		text = "Wood Planks", 
 	},
 	{
 		enum = Enum.Material.CrackedLava, 
-		image = 'http://www.roblox.com/asset/?id=254541726', 
+		image = "rbxasset://textures/TerrainTools/mtrl_crackedlava.png", 
 		text = "Cracked Lava", 
 	},
 	{
 		enum = Enum.Material.Basalt, 
-		image = 'http://www.roblox.com/asset/?id=254542066', 
+		image = "rbxasset://textures/TerrainTools/mtrl_basalt.png", 
 		text = "Basalt", 
 	},
 	{
 		enum = Enum.Material.Ice,
-		image = 'http://www.roblox.com/asset/?id=397352205', 
+		image = "rbxasset://textures/TerrainTools/mtrl_ice.png", 
 		text = "Ice", 
 	},
 	{
 		enum = Enum.Material.Salt, 
-		image = 'http://www.roblox.com/asset/?id=397352299', 
+		image = "rbxasset://textures/TerrainTools/mtrl_salt.png", 
 		text = "Salt", 
 	},
 	{
 		enum = Enum.Material.Cobblestone, 
-		image = 'http://www.roblox.com/asset/?id=397352378', 
+		image = "rbxasset://textures/TerrainTools/mtrl_cobblestone.png", 
 		text = "Cobblestone", 
 	},
 	{
 		enum = Enum.Material.Limestone, 
-		image = 'http://www.roblox.com/asset/?id=397352474', 
+		image = "rbxasset://textures/TerrainTools/mtrl_limestone.png", 
 		text = "Limestone", 
 	},
 	{
 		enum = Enum.Material.Asphalt, 
-		image = 'http://www.roblox.com/asset/?id=397352644',
+		image = "rbxasset://textures/TerrainTools/mtrl_asphalt.png",
 		text = "Asphalt", 
 	},
 	{
 		enum = Enum.Material.LeafyGrass, 
-		image = 'http://www.roblox.com/asset/?id=397720681',
+		image = "rbxasset://textures/TerrainTools/mtrl_leafygrass.png",
 		text = "Leafy Grass", 
 	},
 	{
 		enum = Enum.Material.Pavement, 
-		image = 'http://www.roblox.com/asset/?id=397727024',
+		image = "rbxasset://textures/TerrainTools/mtrl_pavement.png",
 		text = "Pavement", 
 	},
 }
@@ -4027,8 +4043,8 @@ end
 function MaterialsListClass:_AddNewMaterialsButton(materialSubTable)
 	local newMaterialButton = Instance.new('ImageButton')
 	newMaterialButton.Name = 'MaterialButton' .. materialSubTable.enum.Name
-	newMaterialButton.BorderSizePixel = 2
-	newMaterialButton.BorderColor3 = Color3.new(.2, 1, 1)
+	newMaterialButton.BorderSizePixel = kHighlightSize
+	newMaterialButton.BorderColor3 = kHighlightColor
 	newMaterialButton.BackgroundColor3 = Color3.new(.2, 1, 1)
 	newMaterialButton.BackgroundTransparency = 1
 	newMaterialButton.Image = materialSubTable.image
@@ -4139,11 +4155,11 @@ return MaterialsListClass
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXbd2d02a4fa4840b897c2a6ab59891bcc">
+		<Item class="ModuleScript" referent="RBX98cb237eb0c541a98620cdb57c3383ea">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ProgressFrame</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{2cede3d4-c5be-495c-9399-7d35e0b50390}</string>
 				<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
 -- ProgressFrame.lua
@@ -4188,7 +4204,7 @@ function ProgressFrameClass.new(nameSuffix, labelText, initValue, initDisabled)
     self._fill = Instance.new("ImageLabel")
     self._fill.Name = "ImageLabel"
     self._fill.Parent = self._bar
-    self._fill.Image = "http://www.roblox.com/asset/?id=67599350"
+    self._fill.Image = "rbxasset://textures/TerrainTools/progress_bar.png"
     self._fill.ImageColor3 = Color3.new(0, 0.9, 0.4)
     self._fill.ImageRectOffset = Vector2.new(0, 256)
     self._fill.ImageRectSize = Vector2.new(0, -100)
@@ -4252,11 +4268,11 @@ return ProgressFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXaef9fd845d744485bc728c63387cf1fb">
+		<Item class="ModuleScript" referent="RBX2ad5df1f163c4412a1cebdef1ac98a4d">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledCheckbox</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{afab87cc-90ac-4f57-9386-2c16ed394b0b}</string>
 				<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
 -- LabeledCheckbox.lua
@@ -4266,13 +4282,13 @@ return ProgressFrameClass]]></ProtectedString>
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kCheckboxWidth = 15
+local kCheckboxWidth = 12
 
-local kMinTextSize = 12
+local kMinTextSize = 14
 local kMinHeight = 24
-local kMinLabelWidth = 42
+local kMinLabelWidth = 52
 local kMinMargin = 12
-local kMinButtonWidth = 12;
+local kMinButtonWidth = kCheckboxWidth;
 
 local kMinLabelSize = UDim2.new(0, kMinLabelWidth, 0, kMinHeight)
 local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight/2)
@@ -4280,15 +4296,15 @@ local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight/2)
 local kMinButtonSize = UDim2.new(0, kMinButtonWidth, 0, kMinButtonWidth)
 local kMinButtonPos = UDim2.new(0, 0, 0, kMinHeight/2)
 
-local kCheckImageWidth = 20
-local kMinCheckImageWidth = 16
+local kCheckImageWidth = 8
+local kMinCheckImageWidth = kCheckImageWidth
 
 local kCheckImageSize = UDim2.new(0, kCheckImageWidth, 0, kCheckImageWidth)
 local kMinCheckImageSize = UDim2.new(0, kMinCheckImageWidth, 0, kMinCheckImageWidth)
 
-local kEnabledCheckImage = "http://www.roblox.com/asset/?id=1530112162"
-local kDisabledCheckImage = "http://www.roblox.com/asset/?id=1530112767"
-
+local kEnabledCheckImage = "rbxasset://textures/TerrainTools/icon_tick.png"
+local kDisabledCheckImage = "rbxasset://textures/TerrainTools/icon_tick_grey.png"
+local kCheckboxFrameImage = "rbxasset://textures/TerrainTools/checkbox_square.png"
 LabeledCheckboxClass = {}
 LabeledCheckboxClass.__index = LabeledCheckboxClass
 
@@ -4311,9 +4327,11 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
     button.Name = 'Button'
     button.Size = UDim2.new(0, kCheckboxWidth, 0, kCheckboxWidth)
     button.AnchorPoint = Vector2.new(0, .5)
-    button.BackgroundColor3 = GuiUtilities.kStandardWhite
+    button.BackgroundTransparency = 0
     button.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
     button.Parent = frame
+    button.Image = kCheckboxFrameImage
+    button.BorderSizePixel = 0
 
     local checkImage = Instance.new("ImageLabel")
     checkImage.Name = "CheckImage"
@@ -4322,7 +4340,7 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
     checkImage.Visible = false
     checkImage.Size = kCheckImageSize
     checkImage.AnchorPoint = Vector2.new(0.5, 0.5)
-    checkImage.Position = UDim2.new(0.65, 0, 0.25, 0)
+    checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
     checkImage.BackgroundTransparency = 1
     checkImage.BorderSizePixel = 0
 
@@ -4432,11 +4450,11 @@ return LabeledCheckboxClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7689df7cd8f943b1a6016b78ae6b67c2">
+		<Item class="ModuleScript" referent="RBX482ad399984749a8916476f1d6abf217">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CollapsibleTitledSection</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{1a3b9616-913e-4036-a506-99f1d4fd4d15}</string>
 				<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
 -- CollapsibleTitledSectionClass
@@ -4458,8 +4476,10 @@ return LabeledCheckboxClass]]></ProtectedString>
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kRightButtonAsset = 'http://www.roblox.com/asset/?id=1526305310'
-local kDownButtonAsset = 'http://www.roblox.com/asset/?id=1530219759'
+local kRightButtonAsset = "rbxasset://textures/TerrainTools/button_arrow.png"
+local kDownButtonAsset = "rbxasset://textures/TerrainTools/button_arrow_down.png"
+
+local kArrowSize = 9
 
 CollapsibleTitledSectionClass = {}
 CollapsibleTitledSectionClass.__index = CollapsibleTitledSectionClass
@@ -4556,15 +4576,17 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
     titleLabel.TextXAlignment = Enum.TextXAlignment.Left
     titleLabel.Text = titleText
     titleLabel.Position = UDim2.new(0, titleTextOffset, 0, 0)
-    titleLabel.Size = UDim2.new(1, -titleTextOffset, 1, 0)
+    titleLabel.Size = UDim2.new(1, -titleTextOffset, 1, GuiUtilities.kTextVerticalFudge)
     titleLabel.Parent = titleBar
 
     if self._minimizable then
         self._minimizeButton = Instance.new('ImageButton')
         self._minimizeButton.Name = 'MinimizeSectionButton'
         self._minimizeButton.Image = kRightButtonAsset              --todo: input arrow image from spec
-        self._minimizeButton.Size = UDim2.new(0, self._titleBarHeight*.5, 0, self._titleBarHeight*.5)
-        self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight*.25, 0, self._titleBarHeight*.25)
+        self._minimizeButton.Size = UDim2.new(0, kArrowSize, 0, kArrowSize)
+        self._minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+        self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight*.5,
+             0, self._titleBarHeight*.5)
         self._minimizeButton.BackgroundTransparency = 1
 
         self._minimizeButton.MouseButton1Down:connect(function()
@@ -4582,11 +4604,11 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX25b0c77511c44b80ada88a69b2f0bd11">
+		<Item class="ModuleScript" referent="RBX5791392799944de1830623061061a3d1">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledSlider</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{89777f29-dd03-4e8c-b035-afa3278855b5}</string>
 				<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
 -- LabeledSlider.lua
@@ -4597,6 +4619,14 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kSliderWidth = 100
+
+local kSliderThumbImage = "rbxasset://textures/TerrainTools/sliderbar_button.png"
+local kPreThumbImage = "rbxasset://textures/TerrainTools/sliderbar_blue.png"
+local kPostThumbImage = "rbxasset://textures/TerrainTools/sliderbar_grey.png"
+
+local kThumbSize = 13
+
+local kSteps = 100
 
 LabeledSliderClass = {}
 LabeledSliderClass.__index = LabeledSliderClass
@@ -4611,8 +4641,7 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
     local sliderIntervals = sliderIntervals or 100
     local defaultValue = defaultValue or 1
 
-    local frame = GuiUtilities.MakeStandardFixedHeightFrame('Slider ' .. nameSuffix)
-    frame.Parent = parent
+    local frame = GuiUtilities.MakeStandardFixedHeightFrame('Slider' .. nameSuffix)
     self._frame = frame
 
     local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
@@ -4621,12 +4650,55 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 
     self._value = defaultValue
 
-    local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, 90, UDim2.new(0, 0, .5, -3)) --steps, width, position
+     --steps, width, position
+     local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, 
+        kSteps, 
+        UDim2.new(0, 0, .5, -3))
     self._slider = slider
     self._sliderValue = sliderValue
+    -- Some tweaks to make slider look nice.
+    -- Hide the existing bar.
+    slider.Bar.BackgroundTransparency = 1
+    -- Replace slider thumb image.
+    self._thumb = slider.Bar.Slider
+    self._thumb.Image = kSliderThumbImage
+    self._thumb.AnchorPoint = Vector2.new(0.5, 0.5)
+    self._thumb.Size = UDim2.new(0, kThumbSize, 0, kThumbSize)
+    
+    -- Add images on bar.
+    self._preThumbImage = Instance.new("ImageLabel")
+    self._preThumbImage.Name = "PreThumb"
+    self._preThumbImage.Parent = slider.Bar
+    self._preThumbImage.Size = UDim2.new(1, 0, 1, 0)
+    self._preThumbImage.Position = UDim2.new(0, 0, 0, 0)
+    self._preThumbImage.Image = kPreThumbImage
+    self._preThumbImage.BorderSizePixel = 0
+
+    self._postThumbImage = Instance.new("ImageLabel")
+    self._postThumbImage.Name = "PostThumb"
+    self._postThumbImage.Parent = slider.Bar
+    self._postThumbImage.Size = UDim2.new(1, 0, 1, 0)
+    self._postThumbImage.Position = UDim2.new(0, 0, 0, 0)
+    self._postThumbImage.Image = kPostThumbImage
+    self._postThumbImage.BorderSizePixel = 0
 
     sliderValue.Changed:connect(function()
         self._value = sliderValue.Value
+        print ("self._value = ", self._value)
+
+        -- Min value is 1.
+        -- Max value is sliderIntervals.
+        -- So scale is...
+        local scale = (self._value - 1)/(sliderIntervals-1)
+        print ("scale = ", scale)
+
+        self._preThumbImage.Size = UDim2.new(scale, 0, 1, 0)
+        self._postThumbImage.Size = UDim2.new(1 - scale, 0, 1, 0)
+        self._postThumbImage.Position = UDim2.new(scale, 0, 0, 0)
+        
+        self._thumb.Position = UDim2.new(scale, 0, 
+            0.5, 0)
+
         if self._valueChangedFunction then 
             self._valueChangedFunction(self._value)
         end
@@ -4637,7 +4709,7 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
     slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
     slider.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, GuiUtilities.kStandardPropertyHeight/2)
     slider.Parent = frame
-
+    
     return self
 end
 
@@ -4655,12 +4727,16 @@ function LabeledSliderClass:SetValue(newValue)
     end
 end
 
+function LabeledSliderClass:GetValue()
+    return self._sliderValue.Value
+end
+
 
 return LabeledSliderClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX280f89632479457f844811a0b652087a">
+		<Item class="ModuleScript" referent="RBX764057df26c54be8a7d25c340c119c19">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledTextInput</string>
@@ -4704,18 +4780,21 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
     local textBoxWrapperFrame = Instance.new("Frame")
     textBoxWrapperFrame.Name = "Wrapper"
     textBoxWrapperFrame.BackgroundColor3 = GuiUtilities.kStandardWhite
-    textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.7, 0)
+    textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
     textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
     textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
     textBoxWrapperFrame.Parent = frame
+    textBoxWrapperFrame.BorderColor3 = GuiUtilities.kWidgetBorderColor 
 
     local textBox = Instance.new("TextBox")
     textBox.Parent = textBoxWrapperFrame
     textBox.Name = "TextBox"
     textBox.Text = defaultValue
+    textBox.Font = Enum.Font.SourceSans
+    textBox.TextSize = 15
     textBox.BackgroundTransparency = 1
     textBox.TextXAlignment = Enum.TextXAlignment.Left
-    textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, 0)
+    textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
     textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
     textBox.ClipsDescendants = true
     
@@ -4759,7 +4838,7 @@ return LabeledTextInputClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXa53c834734504f128a6b32ce97e9e941">
+		<Item class="ModuleScript" referent="RBX7f362ee2792d467ba47c3f85d07c77ed">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">VerticallyScalingListFrame</string>
@@ -4777,14 +4856,13 @@ GuiUtilities = require(script.Parent.GuiUtilities)
 VerticallyScalingListFrameClass = {}
 VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
 
+local kBottomPadding = 10
 
 function VerticallyScalingListFrameClass.new(nameSuffix)
 	local self = {}
 	setmetatable(self, VerticallyScalingListFrameClass)
 
     self._resizeCallback = nil
-
-    showTitle = showTitle or showTitle == nil
     
     local frame = Instance.new('Frame')
     frame.Name = 'VSLFrame' .. nameSuffix
@@ -4814,6 +4892,15 @@ function VerticallyScalingListFrameClass.new(nameSuffix)
     return self
 end
 
+function VerticallyScalingListFrameClass:AddBottomPadding()
+    local frame = Instance.new("Frame")
+    frame.Name = "BottomPadding"
+    frame.BackgroundTransparency = 1
+    frame.Size = UDim2.new(1, 0, 0, kBottomPadding)
+    frame.LayoutOrder = 1000
+    frame.Parent = self._frame
+end
+
 function VerticallyScalingListFrameClass:GetFrame()
     return self._frame
 end
@@ -4832,11 +4919,11 @@ return VerticallyScalingListFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2c9ace526011406494b2be1cfd1c7622">
+		<Item class="ModuleScript" referent="RBX2ca7ff46f20c4af0aeeb7f48ccf1150d">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledMultiChoice</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{780b662b-98f6-4d41-a0fd-9372e420afdd}</string>
 				<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
 -- LabeledMultiChoice.lua
@@ -4872,6 +4959,7 @@ function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceI
 
 
     local vsl = VerticallyScalingListFrame.new("MCC_" .. nameSuffix)
+	vsl:AddBottomPadding()
 
 	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText)
 	vsl:AddChild(titleLabel)
@@ -4967,11 +5055,11 @@ return LabeledMultiChoiceClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7b0aeda461124078ac12c7137cf7e2d9">
+		<Item class="ModuleScript" referent="RBX0426e9366fdc493cbac8ecdd9be67bd3">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledRadioButton</string>
-				<string name="ScriptGuid"></string>
+				<string name="ScriptGuid">{5614c3a3-87e5-412a-987b-d604fccfbfeb}</string>
 				<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
 -- LabeledRadioButton.lua
@@ -4982,8 +5070,11 @@ return LabeledMultiChoiceClass]]></ProtectedString>
 GuiUtilities = require(script.Parent.GuiUtilities)
 LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 
-local kButtonImage = "http://www.roblox.com/asset/?id=1532774327"
-local kBulletImage = "http://www.roblox.com/asset/?id=1532775081"
+local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
+local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
+
+local kFrameSize = 12
+local kBulletSize = 14
 
 LabeledRadioButtonClass = {}
 LabeledRadioButtonClass.__index = LabeledRadioButtonClass
@@ -4996,8 +5087,10 @@ function LabeledRadioButtonClass.new(nameSuffix, labelText)
     newButton:UseSmallSize()
     newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
     newButton._checkImage.Image = kBulletImage
+    newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
 
     newButton._button.Image = kButtonImage
+    newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
     newButton._button.BackgroundTransparency = 1
 
     return newButton

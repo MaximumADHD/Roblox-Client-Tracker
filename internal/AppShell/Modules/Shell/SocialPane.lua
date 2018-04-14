@@ -19,6 +19,7 @@ local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
+local XboxRecommendedPeople = Utility.IsFastFlagEnabled('XboxRecommendedPeople')
 
 --[[ Constants ]]--
 local GRID_SIZE = UDim2.new(1, 0, 1, 0)
@@ -30,17 +31,10 @@ local function CreateSocialPane(parent)
 	local this = {}
 
 	local BREAK_COLOR = Color3.new(78/255, 78/255, 78/255)
-	local DISPLAY_FRIEND_COUNT = 15
-	local SIDE_BAR_ITEMS = {
-		Strings:LocalizedString("JoinGameWord");
-		Strings:LocalizedString("ViewGameDetailsWord");
-		Strings:LocalizedString("InviteToPartyWord");
-		Strings:LocalizedString("ViewGamerCardWord");
-	}
-
 	local moreFriendsScreen = nil
 	local myFriendsView = nil
 	local isPaneFocused = false
+	local savedSelectedObject = nil
 
 	local noSelectionObject = Utility.Create'ImageLabel'
 	{
@@ -57,25 +51,10 @@ local function CreateSocialPane(parent)
 		Parent = parent;
 	}
 	--[[ Online Friends ]]--
-	local onlineFriendsTitle = Utility.Create'TextLabel'
+	local FriendsContainer = Utility.Create'Frame'
 	{
-		Name = "OnlineFriendsTitle";
-		Size = UDim2.new(0, 0, 0, 33);
-		Position = UDim2.new();
-		BackgroundTransparency = 1;
-		Font = GlobalSettings.RegularFont;
-		FontSize = GlobalSettings.SubHeaderSize;
-		TextColor3 = GlobalSettings.WhiteTextColor;
-		TextXAlignment = Enum.TextXAlignment.Left;
-		Text = Strings:LocalizedString("OnlineFriendsWords");
-		Visible = false;
-		Parent = SocialPaneContainer;
-	}
-	local onlineFriendsContainer = Utility.Create'Frame'
-	{
-		Name = "OnlineFriendsContainer";
 		Size = UDim2.new(0, 1720, 0, 610);
-		Position = UDim2.new(0, 0, 0, onlineFriendsTitle.Size.Y.Offset);
+		Position = UDim2.new(0, 0, 0, 33);
 		BackgroundTransparency = 1;
 		Parent = SocialPaneContainer;
 	}
@@ -88,7 +67,7 @@ local function CreateSocialPane(parent)
 	friendsScrollingGrid:SetPosition(UDim2.new(0, 0, 0, 0))
 	local friendsScrollingGridContainer = friendsScrollingGrid:GetGuiObject()
 	friendsScrollingGridContainer.Visible = false
-	friendsScrollingGrid:SetParent(onlineFriendsContainer)
+	friendsScrollingGrid:SetParent(FriendsContainer)
 
 	--[[ No Friends Online ]]--
 	local noFriendsIcon = Utility.Create'ImageLabel'
@@ -122,8 +101,6 @@ local function CreateSocialPane(parent)
 	local function setPaneContentVisible(hasOnlineFriends)
 		noFriendsIcon.Visible = not hasOnlineFriends
 		noFriendsText.Visible = not hasOnlineFriends
-		--
-		onlineFriendsTitle.Visible = hasOnlineFriends
 	end
 
 	local function onFriendsUpdated(friendCount)
@@ -131,18 +108,26 @@ local function CreateSocialPane(parent)
 		setPaneContentVisible(hasOnlineFriends)
 	end
 
-	local function loadFriendsView()
-		local friendsData = FriendsData.GetOnlineFriendsAsync()
-		local displayCount = math.min(#friendsData, DISPLAY_FRIEND_COUNT)
-		myFriendsView = FriendsView(friendsScrollingGrid, friendsData, DISPLAY_FRIEND_COUNT, onFriendsUpdated)
-		onFriendsUpdated(#friendsData)
-
+	local function setSelectedObject()
 		if isPaneFocused then
-			local focusItem = myFriendsView:GetDefaultFocusItem()
+			local focusItem = myFriendsView and myFriendsView:GetDefaultFocusItem()
+			if XboxRecommendedPeople then
+				if savedSelectedObject and savedSelectedObject:IsDescendantOf(SocialPaneContainer) then
+					focusItem = savedSelectedObject
+					savedSelectedObject = nil
+				end
+			end
 			if focusItem then
 				Utility.SetSelectedCoreObject(focusItem)
 			end
 		end
+	end
+
+	local function loadFriendsView()
+		local friendsData = FriendsData.GetOnlineFriendsAsync()
+		myFriendsView = FriendsView(friendsScrollingGrid, friendsData, onFriendsUpdated)
+		onFriendsUpdated(#friendsData)
+		setSelectedObject()
 	end
 
 	local loader = LoadingWidget(
@@ -184,17 +169,19 @@ local function CreateSocialPane(parent)
 		-- TODO: Hook in the hidden selection after figuring how how to know how
 		-- panes take focus (ie, bumper, tab, etc)
 		isPaneFocused = true
-		local focusItem = myFriendsView and myFriendsView:GetDefaultFocusItem()
-		if focusItem then
-			Utility.SetSelectedCoreObject(focusItem)
-		end
+		setSelectedObject()
 	end
 
-	function this:RemoveFocus()
+	function this:RemoveFocus(fromAppHub)
 		isPaneFocused = false
-		local selectedObject = GuiService.SelectedCoreObject
-		if selectedObject and selectedObject:IsDescendantOf(SocialPaneContainer) then
-			Utility.SetSelectedCoreObject(nil)
+		if not fromAppHub then
+			local selectedObject = GuiService.SelectedCoreObject
+			if selectedObject and selectedObject:IsDescendantOf(SocialPaneContainer) then
+				savedSelectedObject = selectedObject
+				Utility.SetSelectedCoreObject(nil)
+			end
+		else
+			savedSelectedObject = nil
 		end
 	end
 

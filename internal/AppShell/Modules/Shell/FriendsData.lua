@@ -23,6 +23,8 @@ local UserData = require(ShellModules:FindFirstChild('UserData'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
+local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
+local TableUtilities = require(Modules.LuaApp.TableUtilities)
 
 local FriendService = nil
 pcall(function() FriendService = game:GetService('FriendService') end)
@@ -32,6 +34,8 @@ pcall(function() ThirdPartyUserService = game:GetService('ThirdPartyUserService'
 -- NOTE: This is just required for fixing Usernames in auto-generatd games
 local GameData = require(ShellModules:FindFirstChild('GameData'))
 local ConvertMyPlaceNameInXboxAppFlag = Utility.IsFastFlagEnabled("ConvertMyPlaceNameInXboxApp")
+local XboxRecommendedPeople = Utility.IsFastFlagEnabled('XboxRecommendedPeople')
+
 local FriendsData = {}
 
 local UserChangedCount = 0
@@ -50,6 +54,7 @@ end
 local isOnlineFriendsPolling = false
 local isFriendEventsConnected = false
 local cachedFriendsData = nil
+local cachedFriendsDataMap = {}
 local friendsDataConns = {}
 
 local function filterFriends(friendsData)
@@ -66,6 +71,18 @@ local function filterFriends(friendsData)
 
 		if data["RobloxName"] == "" then
 			data["RobloxName"] = nil
+		end
+
+		if XboxRecommendedPeople then
+			if data["xuid"] == "" then
+				data["xuid"] = nil
+			end
+			if data["robloxuid"] <= 0 then
+				data["robloxuid"] = nil
+			end
+			if data["display"] == "" then
+				data["display"] = nil
+			end
 		end
 
 		local placeId = data["PlaceId"]
@@ -87,6 +104,7 @@ local function filterFriends(friendsData)
 	return friendsData
 end
 
+--TODO Remove when remove FFlag XboxRecommendedPeople
 local function sortFriendsData(tempFriendsData)
 	table.sort(tempFriendsData, function(a, b)
 		if a["PlaceId"] and b["PlaceId"] then
@@ -103,24 +121,28 @@ local function sortFriendsData(tempFriendsData)
 	end)
 end
 
+--TODO Remove when remove FFlag XboxRecommendedPeople
 local function uploadFriendsAnalytics(friendsData)
-	local numPlaying = 0
-	for xuid, data in pairs(friendsData) do
-		if data["PlaceId"] then
-			numPlaying = numPlaying + 1
+	if friendsData then
+		local numPlaying = 0
+		for i, data in pairs(friendsData) do
+			if data["PlaceId"] then
+				numPlaying = numPlaying + 1
+			end
 		end
-	end
 
-	Analytics.UpdateHeartbeatObject({
-		FriendsPlaying = numPlaying;
-		FriendsOnline = #friendsData;
-	});
+		Analytics.UpdateHeartbeatObject({
+			FriendsPlaying = numPlaying;
+			FriendsOnline = #friendsData;
+		});
+	end
 end
 
 --[[ Public API ]]--
 FriendsData.OnFriendsDataUpdated = Utility.Signal()
 local isFetchingFriends = false
 
+--TODO Remove when remove FFlag XboxRecommendedPeople
 local function processNewFriendsData(newFriendsData)
 	local myOnlineFriends = {}
 	if newFriendsData then
@@ -158,6 +180,31 @@ function FriendsData.Reset()
 	isFriendEventsConnected = false
 
 	cachedFriendsData = nil
+	cachedFriendsDataMap = {}
+end
+
+local function CheckEntryUpdate(newFriendsData)
+	local validEntries = {}
+	for i = 1, #newFriendsData do
+		local data = newFriendsData[i]
+		local xuid = data.xuid or ""
+		local robloxuid = data.robloxuid or ""
+		local idStr = tostring(xuid.."#"..robloxuid)
+		validEntries[idStr] = true
+		if cachedFriendsDataMap[idStr] then --check whether entry changed
+			local differentAttributes = TableUtilities.TableDifference(cachedFriendsDataMap[idStr], data)
+			if next(differentAttributes) ~= nil then
+				data.NeedUpdate = true
+			end
+		end
+		cachedFriendsDataMap[idStr] = data
+	end
+
+	for idStr, data in pairs(cachedFriendsDataMap) do
+		if not validEntries[idStr] then
+			cachedFriendsDataMap[idStr] = nil
+		end
+	end
 end
 
 function FriendsData.Setup()
@@ -167,8 +214,15 @@ function FriendsData.Setup()
 	if PlatformService and FriendService then
 		--Connect FriendsUpdated event to get newFriendsData at intervals
 		table.insert(friendsDataConns, FriendService.FriendsUpdated:connect(function(newFriendsData)
-			cachedFriendsData = processNewFriendsData(newFriendsData)
-			uploadFriendsAnalytics(cachedFriendsData)
+			if not XboxRecommendedPeople then
+				cachedFriendsData = processNewFriendsData(newFriendsData)
+				uploadFriendsAnalytics(cachedFriendsData)
+			else
+				newFriendsData = filterFriends(newFriendsData)
+				CheckEntryUpdate(newFriendsData)
+				cachedFriendsData = newFriendsData
+			end
+
 			FriendsData.OnFriendsDataUpdated:fire(cachedFriendsData)
 		end))
 
@@ -179,7 +233,13 @@ function FriendsData.Setup()
 			return FriendService:GetPlatformFriends()
 		end)
 		if success then
-			cachedFriendsData = result
+			if not XboxRecommendedPeople then
+				cachedFriendsData = processNewFriendsData(result)
+			else
+				result = filterFriends(result)
+				CheckEntryUpdate(result)
+				cachedFriendsData = result
+			end
 		end
 	else
 		-- Roblox Friends - leaving this in for testing purposes in studio
@@ -188,6 +248,7 @@ function FriendsData.Setup()
 			if not isOnlineFriendsPolling then
 				local startCount = UserChangedCount
 				isOnlineFriendsPolling = true
+				isFriendEventsConnected = true
 				spawn(function()
 					local requesterId = UserData:GetRbxUserId()
 					while startCount == UserChangedCount and requesterId == UserData:GetRbxUserId() do

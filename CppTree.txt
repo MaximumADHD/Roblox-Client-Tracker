@@ -244,11 +244,6 @@ RBX
 			PacketJob
 			StatsUpdateJob
 		}
-		PhysicsSender
-		{
-			Job
-			TouchJob
-		}
 		PhysicsSenderS2
 		{
 			JobS2
@@ -309,8 +304,7 @@ RBX
 		DeserializedStreamDataItem
 		DeserializedTagItem
 		DeserializedTimeoutInfoRequestItem
-		DeserializedTouchItem
-		DirectPhysicsReceiver
+		DeserializedTouchItemS2
 		GuidRegistryService
 		IdSerializer
 		InstancePacketCache
@@ -320,13 +314,10 @@ RBX
 		Peer
 		PeerStatsItem
 		PhysicsPacketCache
-		PhysicsReceiver
 		PooledItem
 		RakStatsItem
 		ReplicatorJob
-		RoundRobinPhysicsSender
 		Server
-		TopNErrorsPhysicsSender
 	}
 	PART
 	{

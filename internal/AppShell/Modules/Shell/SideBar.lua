@@ -57,6 +57,22 @@ local CreateSideBar = function()
 
 		SoundManager:CreateSound('MoveSelection');
 	}
+	local textLabel = Utility.Create'TextLabel'
+	{
+		Name = "Text";
+		Size = UDim2.new(1, -INSET_X - 100, 1, -INSET_Y); --make it inside the TitleSafeContainer
+		Position = UDim2.new(0, INSET_X, 0, INSET_Y);
+		BorderSizePixel = 0;
+		BackgroundTransparency = 1;
+		ZIndex = 6;
+		Text = "";
+		TextXAlignment = Enum.TextXAlignment.Left;
+		TextYAlignment = Enum.TextYAlignment.Top;
+		TextColor3 = GlobalSettings.WhiteTextColor;
+		Font = GlobalSettings.RegularFont;
+		FontSize = GlobalSettings.DescriptionSize;
+		TextWrapped = true;
+	}
 
 	local function recalcPositions()
 		for i = 1, #buttons do
@@ -104,6 +120,7 @@ local CreateSideBar = function()
 			ZIndex = 7;
 			Parent = button;
 		}
+
 		button.MouseButton1Click:connect(function()
 			SoundManager:Play('ButtonPress')
 			ScreenManager:CloseCurrent()
@@ -123,7 +140,18 @@ local CreateSideBar = function()
 		recalcPositions()
 	end
 
+	function this:SetText(text)
+		textLabel.Text = text
+		textLabel.Parent = container
+	end
+
+	function this:ResetText()
+		textLabel.Text = ""
+		textLabel.Parent = nil
+	end
+
 	function this:RemoveAllItems()
+		this:ResetText()
 		for i,button in pairs(buttons) do
 			button:Destroy()
 			buttons[i] = nil

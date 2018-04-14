@@ -16,6 +16,7 @@ local Settings =
 	BlackTextColor = Color3.new(0,0,0);
 	GreenTextColor = Color3.new(2/255, 183/255, 87/255);
 	RedTextColor = Color3.new(216/255, 104/255, 104/255);
+	OrangeTextColor = Color3.new(246/255, 136/255, 2/255);
 	TextSelectedColor = Color3.new(19/255, 19/255, 19/255);
 
 	LineBreakColor = Color3.new(78/255, 78/255, 78/255);

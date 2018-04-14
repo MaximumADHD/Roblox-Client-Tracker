@@ -705,12 +705,6 @@ function Http.GetUserOwnedPackagesAsync(userId, currentPage)
 		'&assetTypeId='..tostring(packageAssetIdType)..'&pageNumber='..tostring(currentPage))
 end
 
-function Http.GetMyUserOutfitsAsync(startIndex, count)
-	startIndex = startIndex or 0
-	count = count or 20
-	local url = string.format('appearance/get-my-user-outfits?startIndex=%d&count=%d', startIndex, count)
-	return rbxApiGetAsync(url)
-end
 
 --Get all wearing assetids
 function Http.GetWornAssetsAsync(userId)
@@ -735,18 +729,9 @@ function Http.GetAssetIdsForPackageIdAsync(packageId)
 	return rbxGetAsync(url)
 end
 
-function Http.GetCharactersAssetsAsync(userId)
-	local url = string.format(AssetGameBaseUrl..'asset/characterfetch.ashx?userId=%d', userId)
-	return rbxGetAsync(url, true)
-end
 
 function Http.PostCrossplayStatusAsync(value)
 	return rbxApiPostAsync('user/CrossPlayStatus?isEnabled='..(value and 'true' or 'false'), '')
-end
-
-function Http.PostWearUserOutfitAsync(id)
-	local url = string.format('appearance/wear-user-outfit?id=%d', id)
-	return rbxApiPostAsync(url, '')
 end
 
 function Http.PostWearAssetAsync(assetId)
