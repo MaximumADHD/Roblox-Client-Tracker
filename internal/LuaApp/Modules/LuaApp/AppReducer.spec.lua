@@ -14,6 +14,7 @@ return function()
 			GameThumbnails = true,
 			Users = true,
 			UsersAsync = true,
+			UserStatuses = true,
 			LocalUser = true,
 			AppRouter = true,
 			PlaceInfos = true,
@@ -22,6 +23,7 @@ return function()
 			ConnectionState = true,
 			FormFactor = true,
 			ChatAppReducer = true,
+			Startup = true,
 		}
 
 		for key in pairs(expectedKeys) do

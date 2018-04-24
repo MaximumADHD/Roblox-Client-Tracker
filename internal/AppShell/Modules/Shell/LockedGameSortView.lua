@@ -4,7 +4,7 @@
 			// Creates a locked view for game sorts. This is for UGC. Sorts will remained in a
 			// locked state until the user plays 5 games.
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")

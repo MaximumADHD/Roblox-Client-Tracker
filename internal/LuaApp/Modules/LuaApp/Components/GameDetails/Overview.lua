@@ -2,12 +2,16 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(Modules.Common.Roact)
 
-local FitChildren = require(Modules.LuaApp.FitChildren)
 local SnappingCarousel = "ImageLabel" -- require(Modules.LuaApp.Components.SnappingCarousel)
 local ShareButton = "ImageButton" -- require(Modules.LuaApp.Components.ShareButton)
 local Line = require(Modules.LuaApp.Components.Line)
 local LargeGameVoteBar = require(Modules.LuaApp.Components.LargeGameVoteBar)
 local Constants = require(Modules.LuaApp.Constants)
+local FitTextLabel = require(Modules.LuaApp.Components.FitTextLabel)
+local FitChildren = require(Modules.LuaApp.FitChildren)
+local StringsLocale = require(Modules.LuaApp.StringsLocale)
+local LocalizedFitTextLabel = require(Modules.LuaApp.Components.LocalizedFitTextLabel)
+local LocalizedTextButton = require(Modules.LuaApp.Components.LocalizedTextButton)
 
 local Overview = Roact.Component:extend("Overview")
 
@@ -25,16 +29,19 @@ local OVERVIEW_LANDSCAPE_HEIGHT = 360
 local IMAGE_RATIO = OVERVIEW_LANDSCAPE_HEIGHT / IMAGE_MAX_WIDTH
 local CALLS_TO_ACTION_WIDTH = 302
 local CALLS_TO_ACTION_HEIGHT = 190
-local TITLE_HEIGHT = 30
+local TITLE_HEIGHT = 20
 local VOTE_BAR_WIDTH = 162
 local ICON_SIZE = 24
 local PLAY_BUTTON_WIDTH = 270
 local PLAY_BUTTON_HEIGHT = 53
+local PLAY_BUTTON_FONT_SIZE = 15
 local GAME_BUTTONS_PORTRAIT_HEIGHT = 80
 local GAME_BUTTONS_LANDSCAPE_HEIGHT = 140
 local SHARE_BUTTON_WIDTH = 24
 local SHARE_BUTTON_SIZE = UDim2.new(0, SHARE_BUTTON_WIDTH, 0, SHARE_BUTTON_WIDTH)
 local SHARE_BUTTON_PADDING = 2
+local BY_CREATOR_PADDING = 3
+local CREATOR_LINE_HEIGHT = 20
 
 function Overview:render()
 	local game = self.props.game
@@ -60,6 +67,7 @@ function Overview:render()
 			Position = UDim2.new(0, ICON_SIZE, 1, -offset),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
+			TextColor3 = Constants.Color.ORANGE_FAVORITE,
 			Text = "0",
 		}),
 		Votes = Roact.createElement(LargeGameVoteBar, {
@@ -170,33 +178,52 @@ function Overview:render()
 				Size = UDim2.new(1, 0, 1, -ICON_SIZE -gameButtonsHeight -2*padding),
 				BackgroundTransparency = 1,
 			}, {
-				Title = Roact.createElement("TextLabel", {
+				ListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, padding),
+				}),
+				Title = Roact.createElement(FitTextLabel, {
 					BackgroundTransparency = 1,
 					TextSize = TITLE_HEIGHT,
+					TextWrapped = true,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					Text = game.name,
 					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+					LayoutOrder = 1,
 				}),
-				By = Roact.createElement("TextLabel", {
+				ByCreatorLine = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					Size = UDim2.new(0, 0, 0, 20),
-					Position = UDim2.new(0, 3, 0, TITLE_HEIGHT),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					Text = "By",
-				}),
-				Creator = Roact.createElement("TextButton", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, 0, 0, 20),
-					Position = UDim2.new(0, 20, 0, TITLE_HEIGHT),
-					TextColor3 = Constants.Color.BLUE_PRIMARY,
-					Text = game.creatorName,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					[Roact.Event.MouseButton1Click] = function()
-						-- TODO: navigate to group or user page depending on game.creatorType and Id.
-					end,
-				}),
+					Size = UDim2.new(0, 0, 0, CREATOR_LINE_HEIGHT),
+					LayoutOrder = 2,
+				}, {
+					ListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, BY_CREATOR_PADDING),
+					}),
+					By = Roact.createElement(LocalizedFitTextLabel, {
+						fitAxis = FitChildren.FitAxis.Width,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(0, 0, 1, 0),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						Text = {StringsLocale.Keys.BY},
+						LayoutOrder = 1,
+					}),
+					Creator = Roact.createElement("TextButton", { -- TODO: make this button fit to contents
+						BackgroundTransparency = 1,
+						Size = UDim2.new(0, 300, 1, 0),
+						TextColor3 = Constants.Color.BLUE_PRIMARY,
+						Text = game.creatorName,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						LayoutOrder = 2,
+						[Roact.Event.MouseButton1Click] = function()
+							-- TODO: navigate to group or user page depending on game.creatorType and Id.
+						end,
+					}),
+				})
 			}),
 			GameButtons = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -204,7 +231,7 @@ function Overview:render()
 				LayoutOrder = 2,
 			}, joinDictionaries({
 				TopLine = Roact.createElement(Line),
-				Play = Roact.createElement("TextButton", {
+				Play = Roact.createElement(LocalizedTextButton, {
 					Size = UDim2.new(0, PLAY_BUTTON_WIDTH, 0, PLAY_BUTTON_HEIGHT),
 					Position = UDim2.new(
 						0.5,
@@ -213,9 +240,9 @@ function Overview:render()
 						-PLAY_BUTTON_HEIGHT/2 -(isMaxWidth and ICON_SIZE/2 or 0)
 					),
 					BackgroundColor3 = Constants.Color.GREEN_PRIMARY,
-					TextSize = 15,
+					TextSize = PLAY_BUTTON_FONT_SIZE,
 					TextColor3 = Color3.new(1, 1, 1),
-					Text = "Play",
+					Text = {StringsLocale.Keys.PLAY_GAME},
 					BorderSizePixel = 0,
 					[Roact.Event.MouseButton1Click] = function()
 						-- TODO: jump into the game!

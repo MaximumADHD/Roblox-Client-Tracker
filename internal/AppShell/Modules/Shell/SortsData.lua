@@ -2,7 +2,9 @@
 // SortsData.lua
 //-- Written by Bo Zhang, Copyright Roblox 2017
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -20,6 +22,7 @@ local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local ReloaderManager = require(ShellModules:FindFirstChild('ReloaderManager'))
 local FFlagXboxUseCuratedGameSort = Utility.IsFastFlagEnabled('XboxUseCuratedGameSort2')
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 --SortsData
 --Stores all the sorts
@@ -881,7 +884,7 @@ do
 			while debounceUpdateCachedData do wait() end
 		end
 		debounceUpdateCachedData = true
-		local userId = UserData:GetRbxUserId()
+		local userId = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 		local startCount = UserChangedCount
 		local newSorts = GetSortsAsync(userId)
 		--If BG update is suspended, the update shouldn't replace the internal data

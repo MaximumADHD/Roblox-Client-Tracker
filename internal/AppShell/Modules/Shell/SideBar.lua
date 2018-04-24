@@ -5,7 +5,7 @@
 				// GameGenre
 				// Friends
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")

@@ -8,6 +8,7 @@ local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
 local Text = require(LuaChat.Text)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local FONT = Constants.Font.TITLE
 local TEXT_SIZE = Constants.Font.FONT_SIZE_18
@@ -47,7 +48,7 @@ function TextButton.new(appState, name, textKey)
 
 	self.Pressed = Signal.new()
 
-	self.rbx.MouseButton1Click:Connect(function()
+	getInputEvent(self.rbx):Connect(function()
 		if not self.enabled then
 			return
 		end

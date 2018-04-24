@@ -30,6 +30,26 @@ local PageTitleStrings = {
 	[AppPage.More] = StringsLocale.Keys.MORE,
 }
 
+local dispatch
+
+local function bind(self, func)
+	return function (...)
+		return func(self, ...)
+	end
+end
+
+function BottomBarButton:init()
+	self.onButtonActivated = function()
+		if self.props.currentPage ~= self.props.associatedPageType then
+			if dispatch then
+				dispatch(SetAppPage(self.props.associatedPageType))
+			end
+		-- else
+			-- refresh page
+		end
+	end
+end
+
 function BottomBarButton:render()
 	local defaultImage = self.props.defaultImage
 	local selectedImage = self.props.selectedImage
@@ -37,7 +57,6 @@ function BottomBarButton:render()
 
 	local deviceOrientation = self.props.deviceOrientation
 	local currentPage = self.props.currentPage
-	local onPageSwitch = self.props.onPageSwitch
 
 	local totalPages = PageIndex.GetTotalPages(deviceOrientation)
 	local pageIndex = PageIndex.GetIndexByPageType(associatedPageType,
@@ -59,21 +78,16 @@ function BottomBarButton:render()
 			UDim2.new((pageIndex - 1) * 0.92/totalPages + 0.04, 0, 1, 0) or
 			UDim2.new((pageIndex - 1) * 1/totalPages, 0, 1, 0),
 		Size = isLandscape and
-			UDim2.new(0.92/totalPages, 0, 1, 0) or
-			UDim2.new(1/totalPages, 0, 1, 0),
+			UDim2.new(0.92/totalPages, 0, 1, -1) or
+			UDim2.new(1/totalPages, 0, 1, -1),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		ImageTransparency = 1,
 		AutoButtonColor = false,
 		LayoutOrder = pageIndex,
 
-		[Roact.Event.MouseButton1Click] = function(rbx)
-			if currentPage ~= associatedPageType then
-				onPageSwitch(associatedPageType)
-			else
-				--refresh page
-			end
-		end,
+		-- Change MouseButton1Click to Activated when Activated is working in Studio
+		[Roact.Event.MouseButton1Click] = self.onButtonActivated,
 	}, {
 		ButtonFrame = Roact.createElement(FitChildren.FitFrame, {
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -112,6 +126,9 @@ function BottomBarButton:render()
 				TextXAlignment = isLandscape and
 					Enum.TextXAlignment.Left or
 					Enum.TextXAlignment.Center,
+				TextYAlignment = isLandscape and
+					Enum.TextYAlignment.Center or
+					Enum.TextYAlignment.Bottom,
 				Font = Enum.Font.SourceSans,
 
 				fitAxis = FitChildren.FitAxis.Width,
@@ -122,12 +139,11 @@ end
 
 BottomBarButton = RoactRodux.connect(function(store)
 	local state = store:GetState()
+	dispatch = bind(store, store.Dispatch)
+
 	return {
 		deviceOrientation = state.DeviceOrientation,
 		currentPage = state.AppRouter.currentPage,
-		onPageSwitch = function(newCurrentPage)
-			store:Dispatch(SetAppPage(newCurrentPage))
-		end
 	}
 end)(BottomBarButton)
 

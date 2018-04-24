@@ -39,7 +39,8 @@ local Constants = require(Modules.LuaApp.Constants)
 -- sortCategory - (string/Constants.GameSortGroups.Games/HomeGames) which GameSortGroup does the sort belong to
 return function(networkImpl, sortCategory)
 
-	local url = string.format("%sv1/games/sorts?gameSortsContext=%s", Url.GAME_URL, Constants.ApiUsedForSorts[sortCategory])
+	local url = string.format("%sv1/games/sorts?gameSortsContext=%s",
+		Url.GAME_URL, Constants.ApiUsedForSorts[sortCategory])
 
 	-- return a promise of the result listed above
 	return networkImpl:httpGetJson(url)

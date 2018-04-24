@@ -1,11 +1,10 @@
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
+local NotificationService = game:GetService("NotificationService")
 
 local Modules = CoreGui.RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 local RoactRodux = require(Modules.Common.RoactRodux)
-
-local Constants = require(Modules.LuaApp.Constants)
 
 local AppPage = require(Modules.LuaApp.AppPage)
 local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
@@ -15,11 +14,9 @@ local HomePage = require(Modules.LuaApp.Components.Home.HomePage)
 local GamesHub = require(Modules.LuaApp.Components.Games.GamesHub)
 local RoactAvatarEditorWrapper = require(Modules.LuaApp.Components.Avatar.RoactAvatarEditorWrapper)
 local RoactChatWrapper = require(Modules.LuaApp.Components.Chat.RoactChatWrapper)
-local BottomBar = require(Modules.LuaApp.Components.BottomBar)
 local RoactDummyPageWrap = require(Modules.LuaApp.Components.RoactDummyPageWrap)
 
 local RemoveLoadingHUDOniOS = settings():GetFFlag("RemoveLoadingHUDOniOS")
-local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
 
 
 local APP_READY = GuiService:GetNotificationTypeList().APP_READY
@@ -62,7 +59,6 @@ function AppRouter:render()
 
 	local currentPage = self.props.currentPage
 	local parameters = self.props.parameters
-	local bottomBarVisible = self.props.bottomBarVisible
 
 	local elements = {
 		NavigationEventReceiver = Roact.createElement(NavigationEventReceiver),
@@ -100,21 +96,20 @@ function AppRouter:render()
 			pageType = AppPage.Friends,
 		})
 	end
-	if  UserSettings().GameSettings:InStudioMode() or UseLuaBottomBar then
-		elements["BottomBar"] = Roact.createElement(BottomBar, {
-			isVisible = bottomBarVisible,
-			displayOrder = 4,
-		})
-		if bottomBarVisible then
-			GuiService:SetGlobalGuiInset(0, 0, 0, Constants.TAB_BAR_SIZE)
-		else
-			GuiService:SetGlobalGuiInset(0, 0, 0, 0)
-		end
-	end
 
 	return Roact.createElement(Roact.Portal, {
 		target = CoreGui,
 	}, elements)
+end
+
+function AppRouter:didUpdate(prevProps, prevState)
+	if self.props.currentPage == AppPage.Games and self.props.fetchedGamesPageData
+		and not (prevProps.currentPage == AppPage.Games and prevProps.fetchedGamesPageData) then
+		NotificationService:ActionEnabled(Enum.AppShellActionType.GamePageLoaded)
+	elseif self.props.currentPage == AppPage.Home and self.props.fetchedHomePageData
+		and not (prevProps.currentPage == AppPage.Home and prevProps.fetchedHomePageData) then
+		NotificationService:ActionEnabled(Enum.AppShellActionType.HomePageLoaded)
+	end
 end
 
 AppRouter = RoactRodux.connect(function(store)
@@ -124,6 +119,8 @@ AppRouter = RoactRodux.connect(function(store)
 		parameters = state.AppRouter.parameters,
 		bottomBarVisible = state.ChatAppReducer.TabBarVisible,
 		deviceOrientation = state.DeviceOrientation,
+		fetchedGamesPageData = state.Startup.FetchedGamesPageData,
+		fetchedHomePageData = state.Startup.FetchedHomePageData,
 	}
 end)(AppRouter)
 

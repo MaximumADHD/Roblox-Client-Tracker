@@ -7,16 +7,13 @@
 				// Current this supports a focus that is aligned to the left (0, 0), in the future we
 				// could do other alignments if we need them
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
-local UserInputService = game:GetService('UserInputService')
-
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local GameData = require(ShellModules:FindFirstChild('GameData'))
-
 
 local function createCarouselView()
 	local this = {}

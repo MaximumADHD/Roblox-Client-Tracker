@@ -1,12 +1,12 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX995996b32f4449d0a7f22c203eab6a0a">
+	<Item class="Folder" referent="RBX4b5c44c119c040d4b34162bce034bc38">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBXf9472974c48f486d9611b043b4c178f3">
+		<Item class="ModuleScript" referent="RBX695ae45fafb44145bae4dac12f0c5694">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainBrush</string>
@@ -21,6 +21,7 @@ VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
 MaterialsListClass = require(script.Parent.MaterialsList)
 LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 LabeledSlider = require(script.Parent.LabeledSlider)
+StatefulImageButton = require(script.Parent.StatefulImageButton)
 
 local on
 local kCurrentTool
@@ -42,6 +43,29 @@ local kShapeButtonRowHeight = 50
 local kShapeButtonSphereAssetId = "rbxasset://textures/TerrainTools/icon_shape_sphere.png"
 local kShapeButtonCubeAssetId = "rbxasset://textures/TerrainTools/icon_shape_cube.png"
 
+local kBrushShapes = {
+	{
+		Name = 'Sphere',
+		Image = kShapeButtonSphereAssetId,
+	},
+	{
+		Name = 'Box',
+		Image = kShapeButtonCubeAssetId,
+	},
+}
+
+local function MakeNthBrushShapeButton(index, position)
+	local config = kBrushShapes[index]
+
+	local shapeButtonObj = StatefulImageButton.new(config.Name, 
+		config.Image, 
+		UDim2.new(0, GuiUtilities.kShapeButtonSize, 0, GuiUtilities.kShapeButtonSize))
+	shapeButtonObj:getButton().AnchorPoint = Vector2.new(0, 0.5)
+	shapeButtonObj:getButton().Position = position
+
+	config.ButtonObj = shapeButtonObj
+end
+
 local function MakeShapeButtonsRow()
 	local row = GuiUtilities.MakeFixedHeightFrame("ShapeButtonRow", kShapeButtonRowHeight)
 
@@ -50,18 +74,13 @@ local function MakeShapeButtonsRow()
 	shapeLabel.AnchorPoint = Vector2.new(0, 0.5)
 	shapeLabel.Position = UDim2.new(0, GuiUtilities.StandardLineLabelLeftMargin, 0, kShapeButtonRowHeight/2)
 
-	local shapeButton1 = GuiUtilities.MakeShapeButton("ShapeButton1", 
-		kShapeButtonSphereAssetId, 
-		row)
-	shapeButton1.AnchorPoint = Vector2.new(0, 0.5)
-	shapeButton1.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, kShapeButtonRowHeight/2)
+	MakeNthBrushShapeButton(1, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin,
+		0, kShapeButtonRowHeight/2))
+	MakeNthBrushShapeButton(2, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin, 
+		0, kShapeButtonRowHeight/2))
 
-	local shapeButton2 = GuiUtilities.MakeShapeButton("ShapeButton2", 
-		kShapeButtonCubeAssetId, 
-		row)
-	shapeButton2.AnchorPoint = Vector2.new(0, 0.5)
-	shapeButton2.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin, 
-		0, kShapeButtonRowHeight/2)
+	kBrushShapes[1].ButtonObj:getButton().Parent = row
+	kBrushShapes[2].ButtonObj:getButton().Parent = row
 
 	return row
 end
@@ -170,16 +189,6 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	local clickThreshold = .1
 	local toolTipShowTime = 3.5
 	local materialsTable = MaterialsListClass.MaterialsTable
-	local brushShapes = {
-		['Sphere'] = {
-			name = 'Sphere',
-			button = shapeButtonsRow.ShapeButton1,
-		},
-		['Box'] = {
-			name = 'Box',
-			button = shapeButtonsRow.ShapeButton2,
-		},
-	}
 	----------------
 
 	----SETTINGS----	(Interface Settings)
@@ -233,16 +242,15 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	function setBrushShape(newBrushShape)
 		brushShape = newBrushShape
-		for _,v in pairs(brushShapes) do
-			--v.button.Image = (newBrushShape == v) and v.selectedImage or v.image
-			v.button.ImageTransparency = (newBrushShape == v.name) and 0 or .5
-			v.button.ImageColor3 = (newBrushShape == v.name) and Color3.new(1,1,1) or Color3.new(.5,.5,.5)
+		for _,v in ipairs(kBrushShapes) do
+			v.ButtonObj:setSelected(newBrushShape == v.Name)
 		end
 		clearSelection()
 	end
-	for _,v in pairs(brushShapes) do
-		v.button.MouseButton1Down:connect(function()
-			setBrushShape(v.name)
+
+	for _,v in ipairs(kBrushShapes) do
+		v.ButtonObj:getButton().MouseButton1Down:connect(function()
+			setBrushShape(v.Name)
 		end)
 	end
 
@@ -909,17 +917,12 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	end)
 
 	function scrollwheel(change)
-		print("DBANKS 003")
 		if on then
-			print("DBANKS 004")
 			if downKeys[Enum.KeyCode.LeftShift] or downKeys[Enum.KeyCode.RightShift] then
-				print("DBANKS 006")
 				kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, kSelectionSize + change))
 				kSizeSliderObj:SetValue(kSelectionSize)
 			end
-			print("DBANKS 005")
 			if downKeys[Enum.KeyCode.LeftControl] or downKeys[Enum.KeyCode.RightControl] then
-				print("DBANKS 007")
 				kStrength = max(0, min(1, kStrength + change * (1/(kMaxSelectionSize-kMinSelectionSize))))
 				kStrengthSliderObj:SetValue(round(kStrength * 100 + 1))
 			end
@@ -927,12 +930,10 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	end
 	
 	mouse.WheelForward:connect(function()
-		print("DBANKS 001")
 		scrollwheel(1)
 	end)
 	
 	mouse.WheelBackward:connect(function()
-		print("DBANKS 002")
 		scrollwheel(-1)
 	end)
 
@@ -950,7 +951,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX5c64989fbaf549ec9d409097b3b824a9">
+		<Item class="ModuleScript" referent="RBX82155c76aab2470382f1d9d2e63d2e5a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
@@ -966,6 +967,7 @@ local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 local LabeledTextInput = require(script.Parent.LabeledTextInput)
 local ProgressFrame = require(script.Parent.ProgressFrame)
 local LabeledMultiChoice = require(script.Parent.LabeledMultiChoice)
+local CustomTextButton = require(script.Parent.CustomTextButton)
 
 local coreGui = game:GetService('CoreGui')
 local changeHistoryService = game:GetService('ChangeHistoryService')
@@ -1162,7 +1164,7 @@ local function MakeMapSettingsFrame()
 	-- The 'Seed' text box.
 	local seedTextBoxObj = LabeledTextInput.new("Seed", "Seed", masterSeed)
 	local seedFrame = seedTextBoxObj:GetFrame()
-	seedTextBoxObj:SetValueChangedFunction(function(text)
+	local function computeMasterSeed(text)
 		local compositeNumber = 0
 		for i=1,#text do
 			local character = string.sub(text,i,i)
@@ -1175,7 +1177,9 @@ local function MakeMapSettingsFrame()
 			compositeNumber = compositeNumber%61803	--yes, this does need to be done after every character iteration, otherwise number loses precision by the end
 		end
 		masterSeed = compositeNumber
-	end)
+	end
+	seedTextBoxObj:SetValueChangedFunction(computeMasterSeed)
+	computeMasterSeed(tostring(masterSeed))
 
 	-- The 'Caves' check box.
 	local cavesObj = LabeledCheckbox.new("CavesFrame", "Caves", generateCaves)
@@ -1278,14 +1282,16 @@ local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight)
 	frame.BackgroundTransparency = 1
 
-	local clearButton = GuiUtilities.MakeTextButton("ClearButton", "Clear", frame)
-	clearButton.Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	clearButton.Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
+	local clearButtonObj = CustomTextButton.new("ClearButton", "Clear")
+	clearButtonObj:getButton().Parent = frame
+	clearButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+	clearButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
 		 1, -GuiUtilities.kBottomButtonsHeight)
 
-	local generateButton = GuiUtilities.MakeTextButton("GenerateButton", "Generate", frame)
-	generateButton.Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	generateButton.Position = UDim2.new(0.5, kBottomButtonsPadding/2, 
+	local generateButtonObj = CustomTextButton.new("GenerateButton", "Generate")
+	generateButtonObj:getButton().Parent = frame
+	generateButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+	generateButtonObj:getButton().Position = UDim2.new(0.5, kBottomButtonsPadding/2, 
 		1, -GuiUtilities.kBottomButtonsHeight)
 	
 	return frame
@@ -1835,7 +1841,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXa43b8dc48d7d4d3c83b33dfc66b044c4">
+		<Item class="ModuleScript" referent="RBX8af4c1445ac442f9bdc4f94deca4bbc8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GuiUtilities</string>
@@ -1892,9 +1898,6 @@ local kRowStripeColors = {}
 kRowStripeColors[0] = kRowStripeColor
 kRowStripeColors[1] = module.kStandardWhite
 
-local kButtonImageIdDefault = "button_default.png"
-local kButtonImageIdHovered = "button_hover.png"
-local kButtonImageIdPressed = "button_pressed.png"
 
 module.kMainFrame = nil
 
@@ -1956,65 +1959,6 @@ function module.AddStripedChildrenToListFrame(listFrame, frames)
     end
 end
 
-
-function module.SetImageWithTextButtonSelectedState(button, selected)
-    -- Image-with-text buttons have translucent background by default.
-    -- When selected, the background becomes opaque(r), so we can see highlight
-    -- color.
-    if (selected) then
-        button.BackgroundTransparency = 0.5
-    else
-        button.BackgroundTransparency = 1
-    end
-end
-
--- Create a button with image and text.
-function module.MakeImageWithTextButton(name, 
-      layoutOrder, 
-      icon, 
-      text, 
-      buttonSize,
-      imageSize, 
-      imagePos, 
-      textSize, 
-     textPos)
-    local button = Instance.new("ImageButton")
-    button.Name = name
-    button.AutoButtonColor = false
-    button.Size = buttonSize
-    button.BorderSizePixel = 1
-    -- Image-with-text button has translucent background and "selected" background color.
-    -- When selected we set transluency to not-zero so we see selected color.
-    button.BackgroundTransparency = 1 
-    button.BackgroundColor3 = kSelectedImageWithTextButtonColor
-
-    button.LayoutOrder = layoutOrder
-
-    local buttonIcon = Instance.new("ImageLabel")
-    buttonIcon.BackgroundTransparency = 1
-    buttonIcon.Image = icon or ""
-    buttonIcon.Size = imageSize
-    buttonIcon.Position = imagePos
-    buttonIcon.Parent = button
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.BackgroundTransparency = 1
-    textLabel.Text = text
-    textLabel.Size = textSize
-    textLabel.Position = textPos
-    textLabel.TextScaled = true
-    textLabel.Font = Enum.Font.SourceSans
-    textLabel.Parent = button
-
-    local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
-    -- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
-    --Note: For this font the Roblox text size is 25.7% larger than the design spec. 
-    uiTextSizeConstraint.MaxTextSize = 15		                                          
-    uiTextSizeConstraint.Parent = textLabel
-
-    return button
-end
-
 local function MakeSectionInternal(parentGui, name, title, contentHeight)
     local frame = Instance.new("Frame")
     frame.Name = name
@@ -2048,28 +1992,6 @@ local function MakeSectionInternal(parentGui, name, title, contentHeight)
     return frame
 end
 
--- FIXME(DBANKS)
--- 2018/03/19
--- This is temporary: remove it once we figure out multi-choice and we fix progress bar.
--- Creates frame with optional title bar.
--- Width will be full scale
--- Height will be contentHeight + titleBarHeight (if TB is present)
--- Handles all the styling for margins, fonts, etc.
--- Returns the frame.
-function module.MakeSectionWithTitleBar(parentGui, name, title, contentHeight)  
-    local frame = MakeSectionInternal(parentGui, name, title, contentHeight)
-    if (title ~= nil) then 
-        -- Tweaks for major title bar.
-        frame.TitleBarFrame.Size = UDim2.new(1, 0, 0, module.kTitleBarHeight)
-        frame.TitleBarFrame.BackgroundColor3 = Color3.new(0.85, 0.85, 0.85)
-        frame.TitleBarFrame.BackgroundTransparency = 0
-        frame.TitleBarFrame.TitleBarLabel.TextXAlignment = Enum.TextXAlignment.Center
-        frame.TitleBarFrame.TitleBarLabel.Size = UDim2.new(1, -2 * module.kStandardHMargin, 0, module.kTitleBarHeight)
-    end
-
-    return frame
-end
-
 function module.MakeStandardPropertyLabel(text)
     local label = Instance.new('TextLabel')
     label.Name = 'Label'
@@ -2095,78 +2017,6 @@ function module.MakeFrameWithSubSectionLabel(name, text)
     return row
 end
 
-local function updateButtonVisual(button, clickedDown, hovered)
-    if button then
-        button.Image = "rbxasset://textures/TerrainTools/" .. (
-            (clickedDown and kButtonImageIdPressed) or 
-            (hovered and kButtonImageIdHovered) or 
-            kButtonImageIdDefault
-        )
-        local textLabel = button:FindFirstChild('TextLabel')
-        if textLabel then
-            textLabel.TextColor3 = clickedDown and module.kPressedButtonTextColor or module.kStandardButtonTextColor
-        end
-    end
-end
-
--- Creates a text button with standard look & feel.
-function module.MakeTextButton(name, title, parent)
-    local button = Instance.new('ImageButton')
-    button.Name = name
-    button.Image = "rbxasset://textures/TerrainTools/" .. kButtonImageIdDefault
-    button.BackgroundTransparency = 1
-    button.ScaleType = Enum.ScaleType.Slice
-    button.SliceCenter = Rect.new(7, 7, 156, 36)
-    button.AutoButtonColor = false
-    
-    local label = Instance.new('TextLabel')
-    label.Text = title
-    label.BackgroundTransparency = 1
-    label.Size = UDim2.new(1, 0, 1, module.kButtonVerticalFudge)
-    label.Font = Enum.Font.SourceSans                    --todo: input spec font
-    label.TextSize = 15                                  --todo: input spec font size
-    label.Parent = button
-
-    local hovered = false
-    local clickedDown = false
-    button.MouseEnter:connect(function()
-        hovered = true
-        updateButtonVisual(button, clickedDown, hovered)
-    end)
-    button.MouseLeave:connect(function()
-        hovered = false
-        clickedDown = false
-        updateButtonVisual(button, clickedDown, hovered)
-    end)
-    updateButtonVisual(button, clickedDown, hovered)
-    button.MouseButton1Down:connect(function()
-        clickedDown = true
-        updateButtonVisual(button, clickedDown, hovered)
-    end)
-    button.MouseButton1Up:connect(function()
-        clickedDown = false
-        updateButtonVisual(button, clickedDown, hovered)
-    end)
-    updateButtonVisual(button, clickedDown, hovered)
-
-    button.Parent = parent
-
-    return button
-end
-
--- Create a button to define brush shape.
-function module.MakeShapeButton(name, imageAsset, parent)
-    local button = Instance.new("ImageButton")
-    button.Parent = parent
-    button.Image = imageAsset
-    button.BackgroundTransparency = 1
-    button.BorderSizePixel = 0
-    button.Size = UDim2.new(0, module.kShapeButtonSize, 0, module.kShapeButtonSize)
-    button.Name = name
-
-    return button
-end
-
 function module.MakeFrameAutoScalingList(frame)
     local uiListLayout = Instance.new("UIListLayout")
     uiListLayout.Parent = frame
@@ -2180,7 +2030,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX256378af7d9b407e9fe61a50595e7bfe">
+		<Item class="ModuleScript" referent="RBX58505b864aef499bbe25a0e5c1744475">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MainPanel</string>
@@ -2188,6 +2038,7 @@ return module]]></ProtectedString>
 				<ProtectedString name="Source"><![CDATA[local module = {}
 
 local GuiUtilities = require(script.Parent.GuiUtilities)
+local ImageButtonWithText = require(script.Parent.ImageButtonWithText)
 
 local kMainButtonOuterSize = 53
 local kMainButtonBorderSize = 1
@@ -2292,7 +2143,7 @@ local kMainButtonConfigs =
 
 
 local function createMainButton(mainButtonConfig)	
-	local button = GuiUtilities.MakeImageWithTextButton(mainButtonConfig.Name, 
+	local buttonObj = ImageButtonWithText.new(mainButtonConfig.Name, 
 		mainButtonConfig.LayoutOrder, 
 		mainButtonConfig.Icon, 
 		mainButtonConfig.Text, 
@@ -2302,8 +2153,8 @@ local function createMainButton(mainButtonConfig)
 		UDim2.new(1,0,0,22), 
 		UDim2.new(0,0,1,-22))
 
-	button.Parent = kMainButtonListFrame
-	mainButtonConfig.Button = button
+	buttonObj:getButton().Parent = kMainButtonListFrame
+	mainButtonConfig.ButtonObj = buttonObj
 end
 
 
@@ -2416,7 +2267,7 @@ module.Initialize = function(thePlugin, thePluginGui)
 
 	for mainButtonIndex, mainButtonConfig in ipairs(kMainButtonConfigs) do
 		createMainButton(mainButtonConfig)
-		mainButtonConfig.Button.MouseButton1Click:connect(function()
+		mainButtonConfig.ButtonObj:getButton().MouseButton1Click:connect(function()
 			if not on or (currentMainButtonConfig ~= nil and mainButtonConfig ~= currentMainButtonConfig) then	--if off or on but current tool isn't the desired tool, then select this tool.
 				Selected(mainButtonConfig)
 			else
@@ -2444,7 +2295,7 @@ module.Initialize = function(thePlugin, thePluginGui)
 			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed	
 		end
 
-		GuiUtilities.SetImageWithTextButtonSelectedState(tool.Button, true)
+		tool.ButtonObj:setSelected(true)
 
 		on = true
 		currentMainButtonConfig = tool
@@ -2473,7 +2324,7 @@ module.Initialize = function(thePlugin, thePluginGui)
 		currentMainButtonConfig = nil
 
 		if lastTool then
-			GuiUtilities.SetImageWithTextButtonSelectedState (lastTool.Button, false)
+			lastTool.ButtonObj:setSelected(false)
 
 			--local lastToolModule = lastTool.Module or module.Brush
 			for _, lastToolModule in pairs(lastTool.Modules) do
@@ -2501,7 +2352,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX063ff1525ecf4fd49d06c3f98869e274">
+		<Item class="Script" referent="RBXd58ce7aae959454db2f5c84c0f6b3e71">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2509,6 +2360,8 @@ return module]]></ProtectedString>
 				<string name="ScriptGuid"></string>
 				<ProtectedString name="Source"><![CDATA[local mainPanelModule = require(script.parent.MainPanel)
 local terrainBrushScriptModule = require(script.parent.TerrainBrush)
+
+local kToolbarButtonText = "Editor"
 
 local kMinWidthWidth = 232
 
@@ -2541,7 +2394,7 @@ end
 
 -- Create the toolbar, create the button to toggle terrain tools plugin GUI on/off.
 local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
-local toggleVisibilityButton = toolbar:CreateButton('Editor',
+local toggleVisibilityButton = toolbar:CreateButton(kToolbarButtonText,
                 'Add, remove, and modify terrain',
                 "rbxasset://textures/TerrainTools/icon_terrain_big.png")
 
@@ -2590,7 +2443,7 @@ mainPanelModule.Initialize(plugin, pluginGui)
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX188d14ff7c834816bedeea8bdbc56dc1">
+		<Item class="ModuleScript" referent="RBXf49d6ae09ed94ed2815909ac75421e74">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainSmoother</string>
@@ -2734,7 +2587,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXb41495e51135425cb8c1da1129c51918">
+		<Item class="ModuleScript" referent="RBXd6694bea8c7f444684c25c9af1cf3036">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
@@ -2747,10 +2600,12 @@ local module = {}
 	-optimize resize scaling code more
 ]]
 local GuiUtilities = require(script.Parent.GuiUtilities)
+local CustomTextButton = require(script.Parent.CustomTextButton)
 local MaterialsListClass = require(script.Parent.MaterialsList)
 local VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
 local CollapsibleTitledSection = require(script.Parent.CollapsibleTitledSection)
 local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
+local ImageButtonWithText = require(script.Parent.ImageButtonWithText)
 
 local Terrain = workspace:WaitForChild('Terrain', 86400) or workspace:WaitForChild('Terrain')
 while not Terrain.IsSmooth do
@@ -2844,7 +2699,7 @@ local kRegionOperationButtonConfigs =
 }
 
 local function createRegionButton(parent, buttonConfig)
-	local button = GuiUtilities.MakeImageWithTextButton(buttonConfig.Name, 
+	local buttonObj = ImageButtonWithText.new(buttonConfig.Name, 
 		buttonConfig.LayoutOrder, 
 		buttonConfig.Icon, 
 		buttonConfig.Text, 
@@ -2854,8 +2709,8 @@ local function createRegionButton(parent, buttonConfig)
 		UDim2.new(1,0,0,22), 
 		UDim2.new(0,0,1,-22))
 
-	button.Parent = parent
-	buttonConfig.Button = button
+	buttonObj:getButton().Parent = parent
+	buttonConfig.ButtonObj = buttonObj
 end
 
 function MakeButtonGridInFrameWithTitle(buttonConfigs, name, title) 
@@ -2910,9 +2765,10 @@ local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight + kBottomButtonMargin)
 	frame.BackgroundTransparency = 1
 
-	local okButton = GuiUtilities.MakeTextButton("OkButton", "OK", frame)
-	okButton.Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	okButton.Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,
+	local okButtonObj = CustomTextButton.new("OkButton", "OK")
+	okButtonObj:getButton().Parent = frame
+	okButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+	okButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,
 		 1, -GuiUtilities.kBottomButtonsHeight - kBottomButtonMargin)
 	
 	return frame
@@ -3036,7 +2892,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	-------------
 
 	function updateButtonSelectionState(newButtonId, buttonId)
-		GuiUtilities.SetImageWithTextButtonSelectedState(kRegionModeButtonConfigs[buttonId].Button, newButtonId == buttonId)
+		kRegionModeButtonConfigs[buttonId].ButtonObj:setSelected(newButtonId == buttonId)
 	end
 
 	function setButton(newButtonId)
@@ -3810,7 +3666,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX71e93548e68846c5816637158271011a">
+		<Item class="ModuleScript" referent="RBX92e7fb2f0458497db69b1b5a25316c7a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -4155,7 +4011,7 @@ return MaterialsListClass
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX98cb237eb0c541a98620cdb57c3383ea">
+		<Item class="ModuleScript" referent="RBXe97c15c4440a46a4956780bfa0bef69c">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ProgressFrame</string>
@@ -4268,7 +4124,7 @@ return ProgressFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2ad5df1f163c4412a1cebdef1ac98a4d">
+		<Item class="ModuleScript" referent="RBX4582e461289c43f69de69ec4954598cf">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledCheckbox</string>
@@ -4332,7 +4188,8 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
     button.Parent = frame
     button.Image = kCheckboxFrameImage
     button.BorderSizePixel = 0
-
+    button.AutoButtonColor = false
+    
     local checkImage = Instance.new("ImageLabel")
     checkImage.Name = "CheckImage"
     checkImage.Parent = button
@@ -4450,7 +4307,7 @@ return LabeledCheckboxClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX482ad399984749a8916476f1d6abf217">
+		<Item class="ModuleScript" referent="RBX706210b5fd9540f0b5dab6b6da356c18">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CollapsibleTitledSection</string>
@@ -4604,7 +4461,7 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX5791392799944de1830623061061a3d1">
+		<Item class="ModuleScript" referent="RBX0405fe5f2d7c49268768297c09a1e61b">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledSlider</string>
@@ -4684,13 +4541,11 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 
     sliderValue.Changed:connect(function()
         self._value = sliderValue.Value
-        print ("self._value = ", self._value)
 
         -- Min value is 1.
         -- Max value is sliderIntervals.
         -- So scale is...
         local scale = (self._value - 1)/(sliderIntervals-1)
-        print ("scale = ", scale)
 
         self._preThumbImage.Size = UDim2.new(scale, 0, 1, 0)
         self._postThumbImage.Size = UDim2.new(1 - scale, 0, 1, 0)
@@ -4736,7 +4591,7 @@ return LabeledSliderClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX764057df26c54be8a7d25c340c119c19">
+		<Item class="ModuleScript" referent="RBX3c8b5265fa654832b365b0790a8d58ac">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledTextInput</string>
@@ -4838,7 +4693,7 @@ return LabeledTextInputClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7f362ee2792d467ba47c3f85d07c77ed">
+		<Item class="ModuleScript" referent="RBXa13b9e32b1304a3a93af61bc1736264c">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">VerticallyScalingListFrame</string>
@@ -4919,7 +4774,7 @@ return VerticallyScalingListFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2ca7ff46f20c4af0aeeb7f48ccf1150d">
+		<Item class="ModuleScript" referent="RBX6a24b5c0cfa84296a24a6da1d83eb605">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledMultiChoice</string>
@@ -5055,7 +4910,7 @@ return LabeledMultiChoiceClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0426e9366fdc493cbac8ecdd9be67bd3">
+		<Item class="ModuleScript" referent="RBX02def28573b94be79fe22ff9f4ac1468">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">LabeledRadioButton</string>
@@ -5110,6 +4965,335 @@ end
 
 
 return LabeledRadioButtonClass]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX44a515b533df4ecc93833836a4351c42">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">CustomTextButton</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- CustomTextButton.lua
+--
+-- Creates text button with custom look & feel, hover/click effects.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kButtonImageIdDefault = "rbxasset://textures/TerrainTools/button_default.png"
+local kButtonImageIdHovered = "rbxasset://textures/TerrainTools/button_hover.png"
+local kButtonImageIdPressed = "rbxasset://textures/TerrainTools/button_pressed.png"
+
+CustomTextButtonClass = {}
+CustomTextButtonClass.__index = CustomTextButtonClass
+
+function CustomTextButtonClass.new(buttonName, labelText)
+	local self = {}
+	setmetatable(self, CustomTextButtonClass)
+
+    local button = Instance.new('ImageButton')
+    button.Name = buttonName
+    button.Image = kButtonImageIdDefault
+    button.BackgroundTransparency = 1
+    button.ScaleType = Enum.ScaleType.Slice
+    button.SliceCenter = Rect.new(7, 7, 156, 36)
+    button.AutoButtonColor = false
+
+    local label = Instance.new('TextLabel')
+    label.Text = labelText
+    label.BackgroundTransparency = 1
+    label.Size = UDim2.new(1, 0, 1, GuiUtilities.kButtonVerticalFudge)
+    label.Font = Enum.Font.SourceSans                  
+    label.TextSize = 15                           
+    label.Parent = button
+
+    self._label = label
+    self._button = button
+
+    self._clicked = false
+    self._hovered = false
+
+    button.InputBegan:connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+            self._hovered = true
+            self:_updateButtonVisual()
+        end
+    end)
+
+
+    button.InputEnded:connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+            self._hovered = false
+            self._clicked = false
+            self:_updateButtonVisual()
+        end
+    end)    
+
+    button.MouseButton1Down:connect(function()
+        self._clicked = true
+        self:_updateButtonVisual()
+    end)
+
+    button.MouseButton1Up:connect(function()
+        self._clicked = false
+        self:_updateButtonVisual()
+    end)
+    
+    self:_updateButtonVisual()
+
+    return self
+end
+
+function CustomTextButtonClass:_updateButtonVisual()
+    if (self._clicked) then 
+        self._button.Image = kButtonImageIdPressed
+        self._label.TextColor3 = GuiUtilities.kPressedButtonTextColor
+    elseif (self._hovered) then 
+        self._button.Image = kButtonImageIdHovered
+        self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+    else
+        self._button.Image = kButtonImageIdDefault
+        self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+    end
+end
+
+function CustomTextButtonClass:getButton()
+    return self._button
+end
+
+return CustomTextButtonClass]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBXe9e7cab9673b48cc80b07d516e8640a6">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">ImageButtonWithText</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- ImageButtonWithText.lua
+--
+-- An image button with text underneath.  Standardized hover, clicked, and 
+-- selected states.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+ImageButtonWithTextClass = {}
+ImageButtonWithTextClass.__index = ImageButtonWithTextClass
+
+local kSelectedBaseTransparency = 0.85
+
+function ImageButtonWithTextClass.new(name, 
+        layoutOrder, 
+        icon, 
+        text, 
+        buttonSize,
+        imageSize, 
+        imagePos, 
+        textSize, 
+        textPos)
+    local self = {}
+    setmetatable(self, ImageButtonWithTextClass)
+
+    local button = Instance.new("ImageButton")
+    button.Name = name
+    button.AutoButtonColor = false
+    button.Size = buttonSize
+    button.BorderSizePixel = 1
+    -- Image-with-text button has translucent background and "selected" background color.
+    -- When selected we set transluency to not-zero so we see selected color.
+    button.BackgroundTransparency = 1 
+    button.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
+
+    button.LayoutOrder = layoutOrder
+
+    local buttonIcon = Instance.new("ImageLabel")
+    buttonIcon.BackgroundTransparency = 1
+    buttonIcon.Image = icon or ""
+    buttonIcon.Size = imageSize
+    buttonIcon.Position = imagePos
+    buttonIcon.Parent = button
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = text
+    textLabel.Size = textSize
+    textLabel.Position = textPos
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.Parent = button
+
+    local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
+    -- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
+    --Note: For this font the Roblox text size is 25.7% larger than the design spec. 
+    uiTextSizeConstraint.MaxTextSize = 15		                                          
+    uiTextSizeConstraint.Parent = textLabel
+
+    self._button = button
+    self._clicked = false
+    self._hovered = false
+    self._selected = false
+
+    button.InputBegan:connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+            self._hovered = true
+            self:_updateButtonVisual()
+        end
+    end)
+
+
+    button.InputEnded:connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+            self._hovered = false
+            self._clicked = false
+            self:_updateButtonVisual()
+        end
+    end)    
+
+    button.MouseButton1Down:connect(function()
+        self._clicked = true
+        self:_updateButtonVisual()
+    end)
+
+    button.MouseButton1Up:connect(function()
+        self._clicked = false
+        self:_updateButtonVisual()
+    end)
+    
+    self:_updateButtonVisual()
+
+    return self
+end
+
+function ImageButtonWithTextClass:_updateButtonVisual()
+    local base = self._selected and kSelectedBaseTransparency or 1
+    if (self._clicked) then 
+        self._button.BackgroundTransparency = base - 0.2
+    elseif (self._hovered) then 
+        self._button.BackgroundTransparency = base - 0.1
+    else
+        self._button.BackgroundTransparency = base
+    end
+end
+
+function ImageButtonWithTextClass:getButton()
+    return self._button
+end
+
+function ImageButtonWithTextClass:setSelected(selected)
+    self._selected = selected
+    self:_updateButtonVisual()
+end
+ 
+function ImageButtonWithTextClass:getSelected()
+    return self._selected
+end
+
+
+return ImageButtonWithTextClass]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX1ed18a1483f74cc6952db31e32c4229e">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">StatefulImageButton</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- StatefulImageButton.lua
+--
+-- Image button.
+-- Has custom image for when "selected"
+-- Uses shading to indicate hover and click states.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+StatefulImageButtonClass = {}
+StatefulImageButtonClass.__index = StatefulImageButtonClass
+
+function StatefulImageButtonClass.new(buttonName, imageAsset, buttonSize)
+	local self = {}
+	setmetatable(self, StatefulImageButtonClass)
+
+    local button = Instance.new("ImageButton")
+    button.Parent = parent
+    button.Image = imageAsset
+    button.BackgroundTransparency = 1
+    button.BorderSizePixel = 0
+    button.Size = buttonSize
+    button.Name = buttonName
+
+    self._button = button
+
+    self._hovered = false
+    self._clicked = false
+    self._selected = false
+
+    button.InputBegan:connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+            self._hovered = true
+            self:_updateButtonVisual()
+        end
+    end)
+
+
+    button.InputEnded:connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+            self._hovered = false
+            self._clicked = false
+            self:_updateButtonVisual()
+        end
+    end)    
+
+    button.MouseButton1Down:connect(function()
+        self._clicked = true
+        self:_updateButtonVisual()
+    end)
+
+    button.MouseButton1Up:connect(function()
+        self._clicked = false
+        self:_updateButtonVisual()
+    end)
+    
+    self:_updateButtonVisual()
+
+    return self
+end
+
+function StatefulImageButtonClass:_updateButtonVisual()
+    if (self._selected) then 
+        self._button.ImageTransparency = 0
+        self._button.ImageColor3 = Color3.new(1,1,1) 
+    else 
+        self._button.ImageTransparency = 0.5
+        self._button.ImageColor3 = Color3.new(.5,.5,.5)
+    end
+
+    if (self._clicked) then 
+        self._button.BackgroundTransparency = 0.8
+    elseif (self._hovered) then 
+        self._button.BackgroundTransparency = 0.9
+    else
+        self._button.BackgroundTransparency = 1
+    end
+end
+
+function StatefulImageButtonClass:setSelected(selected)
+    self._selected = selected
+    self:_updateButtonVisual()
+end
+
+function StatefulImageButtonClass:getButton()
+    return self._button
+end
+
+return StatefulImageButtonClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>

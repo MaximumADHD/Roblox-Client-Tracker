@@ -11,11 +11,11 @@ local Store = require(Common.Rodux).Store
 local AppState = {}
 
 function AppState:Init()
-    self.store = Store.new(AppShellReducer)
+	self.store = Store.new(AppShellReducer)
 end
 
 function AppState:Destruct()
-    self.store:Destruct()
+	self.store:Destruct()
 end
 
 AppState:Init()

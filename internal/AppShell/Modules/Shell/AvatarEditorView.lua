@@ -5,7 +5,6 @@ local THUMBSTICK_DEADZONE = 0.2
 -------------- SERVICES --------------
 local ContextActionService = game:GetService("ContextActionService")
 local ReplicatedStorage = game:GetService('ReplicatedStorage')
-local Players = game:GetService('Players')
 local CoreGui = game:GetService('CoreGui')
 
 ------------ MODULES -------------------
@@ -25,6 +24,7 @@ local CreateTabList = require(Modules.LuaApp.Legacy.AvatarEditor.TabListConsole)
 local ConsoleButtonIndicators = require(Modules.LuaApp.Legacy.AvatarEditor.ConsoleButtonIndicators)
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
+local XboxAppState = require(Modules.Shell.AppState)
 
 ----------- UTILITIES --------------
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
@@ -34,14 +34,13 @@ local TableUtilities = require(Modules.LuaApp.TableUtilities)
 local ShellModules = script.Parent
 local UserData = require(ShellModules:FindFirstChild('UserData'))
 local CameraManager = require(ShellModules:FindFirstChild('CameraManager'))
-local Utility = require(ShellModules:FindFirstChild('Utility'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 
 -------------- FFLAGS --------------
-local AvatarEditorUseNewScene = Flags:GetFlag("AvatarEditorUseNewScene")
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 ------------ VARIABLES -------------------
 local characterTemplates = {
@@ -101,9 +100,7 @@ local function createAvatarEditorView()
 		Size = UDim2.new(1, 0, 1, 0);
 		BackgroundTransparency = 1;
 		Visible = true;
-		Image = AvatarEditorUseNewScene and
-			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay merge.png' or
-			'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay.png';
+		Image = 'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-background overlay merge.png';
 		ZIndex = LayoutInfo.BackgroundLayer;
 		Parent = Container;
 	}
@@ -150,22 +147,6 @@ local function createAvatarEditorView()
 		Parent = Container;
 	}
 
-	local BottomOverlay
-	if not AvatarEditorUseNewScene then
-		BottomOverlay = Utilities.create'ImageLabel'
-		{
-			Name = 'BottomOverlay';
-			AnchorPoint = Vector2.new(0, 1);
-			Position = UDim2.new(0, 0, 1, 0);
-			Size = UDim2.new(1, 0, 0, 190);
-			BackgroundTransparency = 1;
-			Visible = true;
-			Image = 'rbxasset://textures/ui/Shell/AvatarEditor/graphic/gr-bottom overlay.png';
-			ZIndex = LayoutInfo.ShadingOverlayLayer;
-			Parent = Container;
-		}
-	end
-
 	local CameraController = require(Modules.LuaApp.Legacy.AvatarEditor.CameraController)(
 		cameraTweenerObject, LayoutInfo.CameraCenterScreenPosition)
 
@@ -182,7 +163,7 @@ local function createAvatarEditorView()
 	local WarningWidget = require(Modules.LuaApp.Legacy.AvatarEditor.WarningWidget)(warningFrame, characterManager, true)
 
 	local PageManager = CreatePageManager(
-		UserData:GetRbxUserId(),
+		XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId(),
 		scrollingFrame,
 		characterManager
 	)
@@ -292,14 +273,8 @@ local function createAvatarEditorView()
 				false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonA, Enum.KeyCode.ButtonL2, Enum.KeyCode.ButtonR2)
 
 			BackgroundOverlay.Visible = false
-			if not AvatarEditorUseNewScene then
-				BottomOverlay.Visible = false
-			end
 		elseif fullView == false then
 			BackgroundOverlay.Visible = true
-			if not AvatarEditorUseNewScene then
-				BottomOverlay.Visible = true
-			end
 		end
 	end
 

@@ -1,6 +1,6 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local Modules = RobloxGui:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -11,9 +11,7 @@ local Utility = require(ShellModules:FindFirstChild('Utility'))
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 
-
 local PlatformInterface = {}
-
 
 local gettingFriends = false
 function PlatformInterface:GetPartyMembersAsync()
@@ -32,13 +30,8 @@ function PlatformInterface:GetPartyMembersAsync()
 	return partyMembers
 end
 
-
-
 function PlatformInterface:IsInAParty(partyMembers)
 	return (partyMembers and #partyMembers > 1)
 end
-
-
-
 
 return PlatformInterface

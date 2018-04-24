@@ -4,16 +4,12 @@
 			// Created by Kip Turner
 			// Copyright Roblox 2015
 ]]
-
-
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local GuiService = game:GetService('GuiService')
 
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-
 
 local function CreateLoadingWidget(properties, loadingFunctions)
 	properties = properties or {}

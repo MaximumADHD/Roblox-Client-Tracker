@@ -11,6 +11,7 @@ local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 local Text = require(LuaChat.Text)
 local FFlagLuaChatResetKeyboardMode = settings():GetFFlag("LuaChatResetKeyboardMode")
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local MIN_TEXT_HEIGHT = 36
 local TEXT_FRAME_HEIGHT_DIFF = 28
@@ -142,7 +143,7 @@ function ChatInputBar.new(appState)
 		end
 	end)
 
-	self.rbx.SendButton.MouseButton1Click:Connect(function()
+	getInputEvent(self.rbx.SendButton):Connect(function()
 		self:SendMessage()
 	end)
 

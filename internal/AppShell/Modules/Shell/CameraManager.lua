@@ -1,16 +1,13 @@
-
 local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService('UserInputService')
 local Lighting = game:GetService('Lighting')
 
 local XboxFixSkyboxCycle2 = settings():GetFFlag("XboxFixSkyboxCycle2")
-local AvatarEditorUseNewScene = settings():GetFFlag("AvatarEditorUseNewScene")
 
 local BackgroundTintColor = Color3.new(0.0784, 0.1686, 0.2353)
 
@@ -36,8 +33,8 @@ local Bloom = Utility.Create'BloomEffect'
 	Intensity = 0.05;
 	Size = 24;
 	Threshold = 0.95;
-	Enabled = AvatarEditorUseNewScene and true or false;
-	Parent = AvatarEditorUseNewScene and Lighting or nil;
+	Enabled = true;
+	Parent = Lighting;
 }
 
 local function GetCameraParts(model)
@@ -149,9 +146,7 @@ local function transitionToCameraAnimator(cameraAnimator, transitionDuration, ta
 	function()
 		getFrameInfo = cameraAnimator:get_getFrameInfo()
 		Blur.Enabled = targetBlurEnabled
-		if AvatarEditorUseNewScene then
-			Bloom.Enabled = targetBloomEnabled
-		end
+		Bloom.Enabled = targetBloomEnabled
 		Utility.PropertyTweener(ColorCorrection, "Brightness", ColorCorrection.Brightness,
 			targetBrightness, transitionDuration, Utility.EaseInOutQuad, true)
 	end)
@@ -244,7 +239,7 @@ local function CameraSeriesAnimator(cameraSeries, length)
 
 				wait(transitionDuration)
 				advance()
-				
+
 				if not isRunning then
 					return
 				end
@@ -340,26 +335,16 @@ local function CameraZoomAnimator(cframes, length, pathFunc)
 		timestamp0 = tick()
 	end
 
-	function myGetFrameInfo()
+	local function myGetFrameInfo()
 		local t = Utility.Clamp(0, 1, (tick() - timestamp0) / length)
 
-		if AvatarEditorUseNewScene then
-			return {
-				CFrame = CFrameBezierLerp(cframes, pathFunc(t));
-				Contrast = 0.35;
-				Saturation = 0.175;
-				TintColor = Color3.fromRGB(255, 255, 255);
-				BlurSize = 1;
-			}
-		else
-			return {
-				CFrame = CFrameBezierLerp(cframes, pathFunc(t));
-				Contrast = 0;
-				Saturation = 0;
-				TintColor = Color3.new(1,1,1);
-				BlurSize = 1;
-			}
-		end
+		return {
+			CFrame = CFrameBezierLerp(cframes, pathFunc(t));
+			Contrast = 0.35;
+			Saturation = 0.175;
+			TintColor = Color3.fromRGB(255, 255, 255);
+			BlurSize = 1;
+		}
 	end
 
 	function this:get_getFrameInfo()
@@ -447,7 +432,7 @@ function CameraManager:SwitchToAvatarEditor()
 	ZoneManager:SetZone("AvatarEditor")
 	avatarEditorCameraAnimator:Reset()
 
-	transitionToCameraAnimator(avatarEditorCameraAnimator, 0.25, AvatarEditorUseNewScene and 0.02 or 0.0, false, true)
+	transitionToCameraAnimator(avatarEditorCameraAnimator, 0.25, 0.02, false, true)
 end
 
 local targetCFrame = avatarEditorZoomCFrames[2]

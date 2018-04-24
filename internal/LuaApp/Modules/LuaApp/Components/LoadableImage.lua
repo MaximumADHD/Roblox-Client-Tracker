@@ -2,58 +2,61 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ContentProvider = game:GetService("ContentProvider")
 
 local Roact = require(Modules.Common.Roact)
-local Immutable = require(Modules.Common.Immutable)
 
-local LoadableImage = Roact.Component:extend("LoadableImage")
+local preloadAsync = ContentProvider.PreloadAsync
+local decal = Instance.new("Decal")
+local decalList = {decal}
 
-local LOADING_STATUS = {
-	NOT_LOADED = 1,
-	LOADING = 2,
-	LOADED = 3,
-}
+local LoadableImage = Roact.PureComponent:extend("LoadableImage")
 
 function LoadableImage:init()
-	self.state = { loadingStatus = LOADING_STATUS.NOT_LOADED }
+	self.onRef = function(rbx)
+		self.rbx = rbx
+	end
 end
 
 function LoadableImage:render()
-	local imageLabelProps = Immutable.RemoveFromDictionary(self.props, "loadingImage")
-	imageLabelProps.Image = self.state.loadingStatus == LOADING_STATUS.LOADED and self.props.Image or self.props.loadingImage
-	return Roact.createElement("ImageLabel", imageLabelProps)
+	local size = self.props.Size
+	local position = self.props.Position
+	local borderSizePixel = self.props.BorderSizePixel
+	local backgroundColor3 = self.props.BackgroundColor3
+
+	return Roact.createElement("ImageLabel", {
+		Position = position,
+		BorderSizePixel = borderSizePixel,
+		BackgroundColor3 = backgroundColor3,
+		Size = size,
+		[Roact.Ref] = self.onRef,
+	})
 end
 
-function LoadableImage:didMount()
-	return self:_loadImage()
-end
+function LoadableImage:didUpdate(oldProps)
+	local image = self.props.Image
 
-function LoadableImage:didUpdate(oldProps, oldState)
-	if oldProps.Image ~= self.props.Image and oldState.loadingStatus ~= LOADING_STATUS.NOT_LOADED then
-		return self:setState({ loadingStatus = LOADING_STATUS.NOT_LOADED })
+	if image == oldProps.Image then
+		return
 	end
+
 	return self:_loadImage()
 end
 
 function LoadableImage:_loadImage()
 	local image = self.props.Image
-	if image ~= nil and image:len() > 0 and self.state.loadingStatus == LOADING_STATUS.NOT_LOADED then
+	self.rbx.Image = self.props.loadingImage
 
-		self:setState({ loadingStatus = LOADING_STATUS.LOADING })
-
-		return spawn(function()
-			local tmpDecal = Instance.new("Decal")
-			tmpDecal.Texture = image
-
-			ContentProvider:PreloadAsync({ tmpDecal })
-			-- Note: ~99.9 computer years later, properties may have changed!
-
-			tmpDecal:Destroy()
-
-			-- Do a last check to make sure the image hasn't been updated
-			if self.props.Image == image then
-				return self:setState({ loadingStatus = LOADING_STATUS.LOADED })
-			end
-		end)
+	if image == nil or image == "" then
+		return
 	end
+
+	return spawn(function()
+		decal.Texture = image
+		preloadAsync(ContentProvider, decalList)
+		if self.props.Image == image and self.rbx then
+			self.rbx.Image = image
+		end
+	end)
 end
+
+LoadableImage.didMount = LoadableImage._loadImage
 
 return LoadableImage

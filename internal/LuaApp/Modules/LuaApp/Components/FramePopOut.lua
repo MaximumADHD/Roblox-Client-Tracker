@@ -91,7 +91,7 @@ function FramePopOut:findPosition(parentShape, widthContainer, heightContainer)
 		end
 
 		positionInfo.pointerY = centerShapeVertical - (positionInfo.pointerHeight * 0.5)
-		positionInfo.menuStartY = 
+		positionInfo.menuStartY =
 				positionInfo.pointerY + positionInfo.pointerHeight / 2 - animatedMenuStartSize / 2
 
 		if centershapeHorizontal <= (parentShape.parentWidth * 0.5) then
@@ -174,11 +174,9 @@ end
 -- Returns a frame for our list in the style of an anywhere-on-the-screen popup.
 -- Intended use is to wrap the ListPicker control, inside a DropDownList control.
 function FramePopOut:render()
-
 	local children = self.props[Roact.Children]
 	local heightAllItems = self.props.heightAllItems
 	local itemWidth = self.props.itemWidth or DEFAULT_WIDTH
-	local onCancel = self.props.onCancel
 	local parentShape = self.props.parentShape
 
 	-- Figure out where we're going to display our list on screen:

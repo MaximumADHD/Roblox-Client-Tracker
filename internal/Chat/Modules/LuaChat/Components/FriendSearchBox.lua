@@ -11,6 +11,7 @@ local Functional = require(Common.Functional)
 local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 local ToastModel = require(LuaChat.Models.ToastModel)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local Components = LuaChat.Components
 local ListSection = require(Components.ListSection)
@@ -89,7 +90,8 @@ function FriendSearchBox.new(appState, participants, maxParticipantCount, filter
 				Size = UDim2.new(0, 24, 0, 24),
 				Position = UDim2.new(0, ICON_CELL_WIDTH/2, 0.5, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				Image = "rbxasset://textures/ui/LuaChat/icons/ic-search-gray.png",
+				ImageColor3 = Constants.Color.GRAY3,
+				Image = "rbxasset://textures/ui/LuaChat/icons/ic-search.png",
 			},
 			Create.new"TextBox" {
 				Name = "Search",
@@ -148,7 +150,7 @@ function FriendSearchBox.new(appState, participants, maxParticipantCount, filter
 		search.ManualFocusRelease = true
 	end
 
-	local clearButtonConnection = clearButton.MouseButton1Click:Connect(function()
+	local clearButtonConnection = getInputEvent(clearButton):Connect(function()
 		self:ClearText()
 	end)
 	table.insert(self.connections, clearButtonConnection)

@@ -6,7 +6,6 @@ local TextService = game:GetService('TextService')
 local PlatformService;
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 
-
 local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
@@ -21,10 +20,8 @@ local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 
 local EventHubConnectCount = 0
 
-
 local InternalPlatformRobuxAmountChangedSignal = Utility.Signal()
 local InternalTotalRobuxAmountChangedSignal = Utility.Signal()
-
 
 local function CreateCurrencyWidget(properties)
 	properties = properties or {}

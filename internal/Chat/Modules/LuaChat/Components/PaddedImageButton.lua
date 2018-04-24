@@ -3,6 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
 local Common = Modules.Common
 local LuaChat = Modules.LuaChat
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
@@ -29,7 +30,7 @@ function PaddedImageButton.new(appState, name, imageUrl)
 
 	self.Pressed = Signal.new()
 
-	self.rbx.MouseButton1Click:Connect(function()
+	getInputEvent(self.rbx):Connect(function()
 		self.Pressed:Fire()
 	end)
 

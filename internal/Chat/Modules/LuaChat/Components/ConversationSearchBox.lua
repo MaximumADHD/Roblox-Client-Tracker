@@ -10,6 +10,7 @@ local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 local Text = require(LuaChat.Text)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local FFlagTextBoxOverrideManualFocusRelease = settings():GetFFlag("TextBoxOverrideManualFocusRelease")
 
@@ -78,7 +79,8 @@ function ConversationSearchBox.new(appState)
 			Size = UDim2.new(0, 16, 0, 16),
 			Position = UDim2.new(0, 8, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
-			Image = "rbxasset://textures/ui/LuaChat/icons/ic-search-gray.png",
+			ImageColor3 = Constants.Color.GRAY3,
+			Image = "rbxasset://textures/ui/LuaChat/icons/ic-search.png",
 		},
 	}
 	searchBoxBackground.Parent = searchBoxContainer
@@ -129,11 +131,11 @@ function ConversationSearchBox.new(appState)
 		self.SearchChanged:Fire(search.Text)
 	end)
 
-	cancelButton.MouseButton1Click:connect(function()
+	getInputEvent(cancelButton):connect(function()
 		self:Cancel()
 	end)
 
-	clearSearchButton.MouseButton1Click:connect(function()
+	getInputEvent(clearSearchButton):connect(function()
 		search.Text = ""
 	end)
 

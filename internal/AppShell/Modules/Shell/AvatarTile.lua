@@ -6,10 +6,7 @@
 ]]
 
 local TextService = game:GetService('TextService')
-
-local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
-local ContentProvider = game:GetService("ContentProvider")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -23,14 +20,10 @@ local Errors = require(ShellModules:FindFirstChild('Errors'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local ErrorOverlayModule = require(ShellModules:FindFirstChild('ErrorOverlay'))
-local PopupText = require(ShellModules:FindFirstChild('PopupText'))
 local PurchasePackagePrompt = require(ShellModules:FindFirstChild('PurchasePackagePrompt'))
 
 local BaseTile = require(ShellModules:FindFirstChild('BaseTile'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
-
-local ACTIVE_AVATAR_BACKGROUND_COLOR = Color3.new(45 / 255, 96 / 255, 128 / 255)
-local INACTIVE_AVATAR_BACKGROUND_COLOR = Color3.new(106 / 255, 120 / 255, 129 / 255)
 
 local function createAvatarInfoContainer(packageInfo)
 	local this = BaseTile()

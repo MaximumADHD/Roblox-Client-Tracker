@@ -10,9 +10,6 @@ local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local Players = game:GetService('Players')
-local HttpService = game:GetService('HttpService')
-local PlatformService = nil
-pcall(function() PlatformService = game:GetService('PlatformService') end)
 local ThirdPartyUserService = nil
 pcall(function() ThirdPartyUserService = game:GetService("ThirdPartyUserService") end)
 
@@ -20,20 +17,11 @@ local AccountManager = require(ShellModules:FindFirstChild('AccountManager'))
 local Http = require(ShellModules:FindFirstChild('Http'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 
-local BaseUrl = Http.BaseUrl
-
 local UserData = {}
 
 local currentUserData = nil
 
 local CONSTANT_RETRY_TIME = 30
-
--- Account Age Settings for family safety feature
-local AgeBracket =
-{
-	Over13 = 0;
-	Under13 = 1;
-}
 
 UserData.AccountAgeResult =
 {

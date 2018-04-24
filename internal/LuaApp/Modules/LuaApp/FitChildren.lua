@@ -13,9 +13,16 @@ FitChildren.FitAxis = {
 }
 
 function FitChildren.wrap(component)
-	local connection = Roact.Component:extend(("FitChildren(%s)"):format(tostring(component)))
+	local connection = Roact.PureComponent:extend(("FitChildren(%s)"):format(tostring(component)))
+
+	function connection:disconnectSignals()
+		for _, signal in ipairs(self.signals) do
+			signal:Disconnect()
+		end
+	end
 
 	function connection:resize()
+		debug.profilebegin("FitChildren resize")
 		local fitFields = self.props.fitFields
 		if not fitFields then
 			if self.props.fitAxis then
@@ -29,9 +36,7 @@ function FitChildren.wrap(component)
 			end
 		end
 
-		for _, signal in ipairs(self.signals) do
-			signal:Disconnect()
-		end
+		self:disconnectSignals()
 		self.signals = {}
 
 		local uiLayout = self.frame:FindFirstChildWhichIsA("UIGridStyleLayout")
@@ -64,6 +69,7 @@ function FitChildren.wrap(component)
 				end
 			end
 		end
+		debug.profileend()
 	end
 
 	function connection:resizeFromChildren(fitFields)
@@ -126,13 +132,13 @@ function FitChildren.wrap(component)
 	function connection:render()
 		local frameProps = Immutable.RemoveFromDictionary(self.props, "fitAxis", "fitFields")
 
-		return Roact.createElement(component,
-			Immutable.JoinDictionaries(frameProps, {
-				[Roact.Ref] = function(rbx)
-					self.frame = rbx
-				end
-			})
-		)
+		frameProps[Roact.Ref] = function(rbx)
+			self.frame = rbx
+			if self.props[Roact.Ref] then
+				self.props[Roact.Ref](rbx)
+			end
+		end
+		return Roact.createElement(component, frameProps)
 	end
 
 	function connection:didMount()
@@ -141,6 +147,10 @@ function FitChildren.wrap(component)
 
 	function connection:didUpdate()
 		self:resize()
+	end
+
+	function connection:willUnmount()
+		self:disconnectSignals()
 	end
 
 	return connection

@@ -6,9 +6,7 @@ local ActionType = require(Modules.LuaChat.ActionType)
 local AddUser = require(Modules.LuaApp.Actions.AddUser)
 local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
 local SetUserPresence = require(Modules.LuaApp.Actions.SetUserPresence)
-local FetchingUser = require(Modules.LuaChat.Actions.FetchingUser)
 local SetUserThumbnail = require(Modules.LuaApp.Actions.SetUserThumbnail)
-local UserModel = require(Modules.LuaChat.Models.User)
 
 return function(state, action)
 	state = state or {}
@@ -45,10 +43,6 @@ return function(state, action)
 				}),
 			})
 		end
-	elseif action.type == FetchingUser.name then
-		local newUser = UserModel.fromData(action.userId, nil, nil)
-		newUser.isFetching = true
-		state = Immutable.Set(state, action.userId, newUser)
 	elseif action.type == SetUserThumbnail.name then
 		local user = state[action.userId]
 		if user then

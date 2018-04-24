@@ -6,9 +6,6 @@ local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
-local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
-local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
-local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 

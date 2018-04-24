@@ -2,13 +2,12 @@
 			// ImageOverlay.lua
 			// Creates an image overlay. Used with the game details page to see more thumbnails
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local GuiService = game:GetService('GuiService')
 local ContextActionService = game:GetService("ContextActionService")
-local UserInputService = game:GetService('UserInputService')
 
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))

@@ -6,7 +6,6 @@ return function()
 	local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
 	local SetUserPresence = require(Modules.LuaApp.Actions.SetUserPresence)
 	local Constants = require(Modules.LuaChat.Constants)
-	local FetchingUser = require(Modules.LuaChat.Actions.FetchingUser)
 	local ReceivedUserPresence = require(Modules.LuaChat.Actions.ReceivedUserPresence)
 
 	describe("initial state", function()
@@ -78,28 +77,6 @@ return function()
 
 			expect(user.presence).to.equal(existingPresence)
 			expect(state[user.id].presence).to.equal(newPresence)
-		end)
-	end)
-
-	describe("FetchingUser", function()
-		it("should set User isFetching to false by default", function()
-			local user1 = User.mock()
-			expect(user1.isFetching).to.equal(false)
-
-			local user2 = User.fromData()
-			expect(user2.isFetching).to.equal(false)
-		end)
-		it("should set User isFetching on an existing user", function()
-			local user = User.mock()
-			local state = {
-				[user.id] = user
-			}
-
-			local startFetching = user.isFetching
-			state = Users(state, FetchingUser(user.id, true))
-
-			expect(user.isFetching).to.equal(startFetching)
-			expect(state[user.id].isFetching).to.equal(true)
 		end)
 	end)
 end

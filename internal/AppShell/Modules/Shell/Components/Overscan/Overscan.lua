@@ -1,4 +1,3 @@
-local GuiService = game:GetService("GuiService")
 local TextService = game:GetService('TextService')
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 

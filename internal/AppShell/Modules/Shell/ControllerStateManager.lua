@@ -3,7 +3,9 @@
 
 				// Handles controller state changes
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -20,6 +22,7 @@ local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Alerts = require(ShellModules:FindFirstChild('Alerts'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local ControllerStateManager = {}
 
@@ -102,8 +105,12 @@ end
 
 local function onLostUserGamepad(dataModelType)
 	local userDisplayName = ""
-	if ThirdPartyUserService then
-		userDisplayName = ThirdPartyUserService:GetUserDisplayName()
+	if XboxUserStateRoduxEnabled then
+		userDisplayName = XboxAppState.store:getState().XboxUser.gamertag
+	else
+		if ThirdPartyUserService then
+			userDisplayName = ThirdPartyUserService:GetUserDisplayName()
+		end
 	end
 
 	-- create alert

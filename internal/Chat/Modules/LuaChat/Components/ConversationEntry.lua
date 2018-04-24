@@ -10,6 +10,7 @@ local Device = require(LuaChat.Device)
 local OrderedMap = require(LuaChat.OrderedMap)
 local Signal = require(Common.Signal)
 local Text = require(LuaChat.Text)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local Components = LuaChat.Components
 local ConversationThumbnail = require(Components.ConversationThumbnail)
@@ -141,7 +142,7 @@ function ConversationEntry.new(appState, conversation)
 		},
 	}
 
-	self.rbx.MouseButton1Click:Connect(function()
+	getInputEvent(self.rbx):Connect(function()
 		self.Tapped:Fire()
 	end)
 

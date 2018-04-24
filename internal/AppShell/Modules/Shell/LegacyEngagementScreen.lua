@@ -1,12 +1,7 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
-local CoreGui = Game:GetService("CoreGui")
-local GuiService = game:GetService('GuiService')
-local PlayersService = game:GetService("Players")
-local ContextActionService = game:GetService("ContextActionService")
+local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
-local PlatformService = nil
-pcall(function() PlatformService = game:GetService('PlatformService') end)
 local ThirdPartyUserService = nil
 pcall(function() ThirdPartyUserService = game:GetService("ThirdPartyUserService") end)
 local AnalyticsService = game:GetService("AnalyticsService")

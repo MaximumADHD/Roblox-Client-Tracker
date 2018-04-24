@@ -4,6 +4,7 @@ local Roact = require(Modules.Common.Roact)
 local RoactRodux = require(Modules.Common.RoactRodux)
 
 local Constants = require(Modules.LuaApp.Constants)
+local AppPage = require(Modules.LuaApp.AppPage)
 local Carousel = require(Modules.LuaApp.Components.Carousel)
 local GamesList = require(Modules.LuaApp.Components.Games.GamesList)
 local StringsLocale = require(Modules.LuaApp.StringsLocale)
@@ -11,12 +12,16 @@ local FitChildren = require(Modules.LuaApp.FitChildren)
 local TopBar = require(Modules.LuaApp.Components.TopBar)
 local GameCard = require(Modules.LuaApp.Components.Games.GameCard)
 local SectionHeaderWithSeeAll = require(Modules.LuaApp.Components.SectionHeaderWithSeeAll)
+local RefreshScrollingFrame = require(Modules.LuaApp.Components.RefreshScrollingFrame)
+local Networking = require(Modules.LuaApp.Http.Networking)
+local ApiFetchGamesData = require(Modules.LuaApp.Thunks.ApiFetchGamesData)
 local memoize = require(Modules.Common.memoize)
 
 local GamesHub = Roact.PureComponent:extend("GamesHub")
 
 local INTERNAL_PADDING = 15
 local CAROUSEL_AND_HEADER_HEIGHT = 187
+local CURRENT_PAGE = AppPage.Games
 
 local onSeeAll
 
@@ -31,6 +36,7 @@ end
 function GamesHub:render()
 	local sorts = self.props.sorts
 	local seeAllSort = self.state.seeAllSort
+	local refresh = self.props.refresh
 
 	-- TODO: Could use a state stack to move to the games list page, but for now
 	-- this is all we need to get the base-level functionality:
@@ -38,6 +44,7 @@ function GamesHub:render()
 		return Roact.createElement(GamesList, {
 			showSort = seeAllSort,
 			onBack = function() onSeeAll(false) end,
+			currentPage = CURRENT_PAGE,
 		})
 	end
 
@@ -81,6 +88,7 @@ function GamesHub:render()
 				onActivated = function() onSeeAll(sort.displayName) end,
 			}),
 			Carousel = Roact.createElement(Carousel, {
+				childPadding = Constants.GAME_CAROUSEL_CHILD_PADDING,
 				LayoutOrder = 2,
 			}, gameCards),
 		})
@@ -90,11 +98,6 @@ function GamesHub:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		BorderSizePixel = 0,
 	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
 		TopBar = Roact.createElement(TopBar, {
 			LayoutOrder = 1,
 			showBackButton = false,
@@ -102,17 +105,15 @@ function GamesHub:render()
 			showNotifications = true,
 			showSearch = true,
 			textKey = { StringsLocale.Keys.GAMES },
+			ZIndex = 2,
 		}),
-		Scroller = Roact.createElement(FitChildren.FitScrollingFrame, {
-			BackgroundColor3 = Constants.Color.GRAY4,
-			BorderSizePixel = 0,
-			CanvasSize = UDim2.new(1, 0, 0, 0),
-			fitFields = {
-				CanvasSize = FitChildren.FitAxis.Height,
-			},
-			LayoutOrder = 2,
-			ScrollBarThickness = 0,
+		Scroller = Roact.createElement(RefreshScrollingFrame, {
+			Position = UDim2.new(0, 0, 0, TopBar.getHeight()),
 			Size = UDim2.new(1, 0, 1, -TopBar.getHeight()),
+			BackgroundColor3 = Constants.Color.GRAY4,
+			CanvasSize = UDim2.new(1, 0, 0, 0),
+			currentPage = CURRENT_PAGE,
+			refresh = refresh,
 		}, elements),
 	})
 end
@@ -144,7 +145,10 @@ end)
 GamesHub = RoactRodux.connect(function(store, props)
 	local state = store:GetState()
 	return {
-		sorts = selectSorts(state)
+		sorts = selectSorts(state),
+		refresh = function()
+			return store:Dispatch(ApiFetchGamesData(Networking.new()))
+		end,
 	}
 end)(GamesHub)
 

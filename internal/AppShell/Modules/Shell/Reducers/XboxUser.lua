@@ -1,5 +1,4 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
-local Immutable = require(Modules.Common.Immutable)
 local SetXboxUser = require(Modules.Shell.Actions.SetXboxUser)
 
 return function(state, action)

@@ -6,7 +6,6 @@ local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local GuiService = game:GetService('GuiService')
-local ContextActionService = game:GetService("ContextActionService")
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 

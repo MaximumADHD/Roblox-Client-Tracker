@@ -4,7 +4,9 @@
 			// Fetches data for a game to be used to fill out
 			// the details of that game
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -17,6 +19,7 @@ local ConvertMyPlaceNameInXboxAppFlag = Utility.IsFastFlagEnabled("ConvertMyPlac
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local CreateCacheData = require(ShellModules:FindFirstChild('CachedData'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local ThirdPartyUserService = nil
 pcall(function()ThirdPartyUserService = game:GetService('ThirdPartyUserService') end)
@@ -48,7 +51,7 @@ function GameData:GetFilteredGameName(gameName, creatorName)
 	if ConvertMyPlaceNameInXboxAppFlag and gameName and type(gameName) == 'string' then
 		local tempUsername = self:ExtractGeneratedUsername(gameName)
 		if tempUsername then
-			local realUsername = creatorName or UserData:GetRobloxName()
+			local realUsername = creatorName or (XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.robloxName or UserData:GetRobloxName())
 			if realUsername then
 				local newGameName = string.gsub(gameName, tempUsername, realUsername, 1)
 				if newGameName then

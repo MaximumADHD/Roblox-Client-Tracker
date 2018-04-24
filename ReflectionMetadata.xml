@@ -3592,6 +3592,21 @@
             <string name="Name">TargetPoint</string>
             <string name="summary">The location that the Humanoid is trying to walk to.</string>
           </Properties>
+           <Properties>
+            <string name="Name">Torso</string>
+            <string name="summary">Humanoid.RootPart will be the preferred way of getting a character's humanoid root part.</string>
+            <bool name="Deprecated">true</bool>
+          </Properties>
+          <Properties>
+            <string name="Name">LeftLeg</string>
+            <string name="summary">In R6 this property get the player's left leg. In R15 this gets nothing.</string>
+            <bool name="Deprecated">true</bool>
+          </Properties>
+          <Properties>
+            <string name="Name">RightLeg</string>
+            <string name="summary">In R6 this property get the player's right leg. In R15 this gets nothing.</string>
+            <bool name="Deprecated">true</bool>
+          </Properties>
         </Item>
       </Item>
     </Item>

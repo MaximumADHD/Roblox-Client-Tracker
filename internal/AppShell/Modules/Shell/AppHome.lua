@@ -3,7 +3,7 @@
 local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 -- App's Main
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local Modules = RobloxGui:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -16,13 +16,10 @@ local ThirdPartyUserService = nil
 pcall(function() ThirdPartyUserService = game:GetService('ThirdPartyUserService') end)
 local Players = game:GetService("Players")
 
-local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
-
 -- Start up background scene before anything else
 require(ShellModules.BackgroundSceneManager)
 
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local AppHubModule = require(ShellModules:FindFirstChild('AppHub'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Errors = require(ShellModules:FindFirstChild('Errors'))
@@ -32,14 +29,9 @@ local GameGenreScreen = require(ShellModules:FindFirstChild('GameGenreScreen'))
 local EngagementScreenModule = require(ShellModules:FindFirstChild('EngagementScreen'))
 local BadgeScreenModule = require(ShellModules:FindFirstChild('BadgeScreen'))
 local AccountScreen = require(ShellModules:FindFirstChild('AccountScreen'))
-
-local FriendsData = require(ShellModules:FindFirstChild('FriendsData'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
-local AchievementManager = require(ShellModules:FindFirstChild('AchievementManager'))
-local HeroStatsManager = require(ShellModules:FindFirstChild('HeroStatsManager'))
 local ControllerStateManager = require(ShellModules:FindFirstChild('ControllerStateManager'))
 local Alerts = require(ShellModules:FindFirstChild('Alerts'))
-local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 
 local SiteInfoWidget = require(ShellModules:FindFirstChild('SiteInfoWidget'))
 
@@ -57,8 +49,8 @@ EngagementScreen:SetParent(TitleSafeContainer)
 -- Site Info View
 SiteInfoWidget.new()
 
--- Account Age View
-local AccountAgeStatus = require(ShellModules.Components.AccountAgeStatus).new(AppState.store, TitleSafeContainer)
+-- Initialzie Account Age View
+require(ShellModules.Components.AccountAgeStatus).new(AppState.store, TitleSafeContainer)
 
 local function returnToEngagementScreen()
 	if ScreenManager:ContainsScreen(EngagementScreen) then

@@ -1,7 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
-local GuiService = game:GetService("GuiService")
-local UserInputService = game:GetService("UserInputService")
 local LocalizationService = game:GetService("LocalizationService")
 
 local Modules = CoreGui.RobloxGui.Modules
@@ -10,6 +8,7 @@ local Roact = require(Modules.Common.Roact)
 local Rodux = require(Modules.Common.Rodux)
 local RoactRodux = require(Modules.Common.RoactRodux)
 
+local Promise = require(Modules.LuaApp.Promise)
 local Localization = require(Modules.LuaApp.Localization)
 local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
 local StringsLocale = require(Modules.LuaApp.StringsLocale)
@@ -21,14 +20,18 @@ local Constants = require(Modules.LuaApp.Constants)
 local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
 local SetDeviceOrientation = require(Modules.LuaApp.Actions.SetDeviceOrientation)
 local SetLocalUser = require(Modules.LuaApp.Actions.SetLocalUser)
+local SetFetchedGamesPageData = require(Modules.LuaApp.Actions.SetFetchedGamesPageData)
+local SetFetchedHomePageData = require(Modules.LuaApp.Actions.SetFetchedHomePageData)
 local Analytics = require(Modules.Common.Analytics)
 local Networking = require(Modules.LuaApp.Http.Networking)
 local ApiFetchGamesData = require(Modules.LuaApp.Thunks.ApiFetchGamesData)
 local ApiFetchAllUsersFriends = require(Modules.LuaApp.Thunks.ApiFetchAllUsersFriends)
+local BottomBar = require(Modules.LuaApp.Components.BottomBar)
 
 -- flag dependencies
 local diagCounterPageLoadTimes = settings():GetFVariable("LuaAppsDiagPageLoadTimeGames")
-local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
+local UseTempRoactLuaVersionOfHomePage = settings():GetFFlag("UseTempRoactLuaVersionOfHomePage")
+local UseTempRoactLuaVersionOfGamesPage = settings():GetFFlag("UseTempRoactLuaVersionOfGamesPage")
 
 local App = Roact.Component:extend("App")
 
@@ -44,18 +47,6 @@ function App:init()
 end
 
 function App:didMount()
-	-- Setting the view size to consider bottom bar space.
-	-- TODO Needs to be checked if this will be necessary after integrating
-	-- Lua bottom bar.
-	if UserSettings().GameSettings:InStudioMode() or UseLuaBottomBar then
-		GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().HIDE_TAB_BAR)
-	else
-		GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
-		self.bottomBarSizeListener = UserInputService:GetPropertyChangedSignal("BottomBarSize"):Connect(function()
-			GuiService:SetGlobalGuiInset(0, 0, 0, UserInputService.BottomBarSize.Y)
-		end)
-	end
-
 	local function checkDeviceOrientation(viewportSize)
 		-- Hacky code awaits underlying mechanism fix.
 		-- Viewport will get a 0,0,1,1 rect before it is properly set.
@@ -90,17 +81,29 @@ function App:didMount()
 	self._networkImpl = Networking.new()
 
 	-- start loading information for the Games Page
-	local startTime = tick()
-	self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.Games)):andThen(function(result)
-		local endTime = tick()
-		local deltaMs = (endTime - startTime) * 1000
+	if UseTempRoactLuaVersionOfGamesPage then
+		local startTime = tick()
+		self.state.store:Dispatch(
+			ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.Games)
+		):andThen(function(result)
+			local endTime = tick()
+			local deltaMs = (endTime - startTime) * 1000
 
-		self._analytics.Diag:reportStats(diagCounterPageLoadTimes, deltaMs)
-	end)
+			self._analytics.Diag:reportStats(diagCounterPageLoadTimes, deltaMs)
+			self.state.store:Dispatch(SetFetchedGamesPageData(true))
+		end)
+	end
 
 	-- start loading information for Home Page
-	self.state.store:Dispatch(ApiFetchAllUsersFriends(self._networkImpl))
-	self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.HomeGames))
+	if UseTempRoactLuaVersionOfHomePage then
+		Promise.all({
+			self.state.store:Dispatch(ApiFetchAllUsersFriends(self._networkImpl)),
+			self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.HomeGames)),
+		}):andThen(function(result)
+			self.state.store:Dispatch(SetFetchedHomePageData(true))
+		end)
+	end
+
 end
 
 function App:render()
@@ -110,7 +113,12 @@ function App:render()
 		localization = Roact.createElement(RoactLocalization.LocalizationProvider, {
 			localization = self._localization,
 		}, {
-			AppRouter = Roact.createElement(AppRouter),
+			PageWrapper = Roact.createElement("Folder", {}, {
+				BottomBar = Roact.createElement(BottomBar, {
+					displayOrder = 4,
+				}),
+				AppRouter = Roact.createElement(AppRouter),
+			})
 		}),
 	})
 end

@@ -1,6 +1,5 @@
 -- Written by Kip Turner and Bo Zhang, Copyright Roblox 2017
-
-local TextService = game:GetService('TextService')
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService('GuiService')
@@ -19,13 +18,13 @@ local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
-local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 
 local HintActionView = require(ShellModules:FindFirstChild('HintActionView'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local GLOW_BASE_RPM = 2
 local GLOW_TOP_RPM = -0.5
@@ -318,7 +317,7 @@ local function CreateAvatarPane(parent)
 	end
 
 	local function UpdateProfileImage(imageSource)
-		MyNameLabel.Text = UserData:GetDisplayName()
+		MyNameLabel.Text = XboxUserStateRoduxEnabled and XboxAppState.store:getState().XboxUser.gamertag or UserData:GetDisplayName()
 		CrossfadeAvatarImage(ProfileImage, CrossfadeProfileImage, imageSource)
 	end
 

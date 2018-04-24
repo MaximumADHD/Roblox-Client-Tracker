@@ -9,7 +9,6 @@ return function()
 	local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
 	local Localization = require(Modules.LuaApp.Localization)
 	local StringsLocale = require(Modules.LuaApp.StringsLocale)
-	local TextTable = require(Modules.LuaApp.Components.TextTable)
 
 	it("should create and destroy without errors", function()
 		local localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)

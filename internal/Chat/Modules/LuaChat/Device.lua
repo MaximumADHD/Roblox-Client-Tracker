@@ -1,11 +1,8 @@
-
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-
 local CoreGui = game:GetService("CoreGui")
 
 local Modules = CoreGui.RobloxGui.Modules
-local Constants = require(Modules.LuaApp.Constants)
 
 local LuaChat = Modules.LuaChat
 
@@ -14,7 +11,12 @@ local Create = require(LuaChat.Create)
 
 local SetFormFactor = require(LuaChat.Actions.SetFormFactor)
 
-local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
+local STATUS_BAR_HEIGHT_IOS = 20
+local NAV_BAR_HEIGHT_IOS = 44
+local TAB_BAR_HEIGHT_IOS = 0
+local STATUS_BAR_HEIGHT_ANDROID = 24
+local NAV_BAR_HEIGHT_ANDROID = 48
+local TAB_BAR_HEIGHT_ANDROID = 0
 
 local Device = {}
 
@@ -39,18 +41,20 @@ Device.FormFactor = {
 }
 
 local function simulateIOS()
-	local statusBarSize = Vector2.new(0, 20)
-	local navBarSize = Vector2.new(0, 44)
-	local bottomBarSize = Vector2.new(0, Constants.TAB_BAR_SIZE)
-	UserInputService:SendAppUISizes(statusBarSize, navBarSize, bottomBarSize)
+	local statusBarSize = Vector2.new(0, STATUS_BAR_HEIGHT_IOS)
+	local navBarSize = Vector2.new(0, NAV_BAR_HEIGHT_IOS)
+	local bottomBarSize = Vector2.new(0, TAB_BAR_HEIGHT_IOS)
+	--Pcall because Tests have a lower security context
+	pcall(function() UserInputService:SendAppUISizes(statusBarSize, navBarSize, bottomBarSize) end)
 end
 
 local function simulateAndroid()
 
-	local statusBarSize = Vector2.new(0, 24)
-	local navBarSize = Vector2.new(0, 48)
-	local bottomBarSize = Vector2.new(0, UseLuaBottomBar and Constants.TAB_BAR_SIZE or 60)
-	UserInputService:SendAppUISizes(statusBarSize, navBarSize, bottomBarSize)
+	local statusBarSize = Vector2.new(0, STATUS_BAR_HEIGHT_ANDROID)
+	local navBarSize = Vector2.new(0, NAV_BAR_HEIGHT_ANDROID)
+	local bottomBarSize = Vector2.new(0, TAB_BAR_HEIGHT_ANDROID)
+	--Pcall because Tests have a lower security context
+	pcall(function() UserInputService:SendAppUISizes(statusBarSize, navBarSize, bottomBarSize) end)
 
 	local screenGui = Create.new "ScreenGui" {
 		Name = "StudioShellSimulation",

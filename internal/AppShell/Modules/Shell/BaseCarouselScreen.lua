@@ -7,13 +7,10 @@
 			// Creates a Play and Favorite Button, details view (votes, description), and
 			// a carousel view
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local ContextActionService = game:GetService("ContextActionService")
-local GuiService = game:GetService('GuiService')
-local UserInputService = game:GetService('UserInputService')
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 

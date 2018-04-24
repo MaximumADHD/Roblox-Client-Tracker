@@ -12,11 +12,9 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			App = Roact.createElement(GameThumbnail,{
+			App = Roact.createElement(GameThumbnail, {
 				placeId = 10,
-				gamesThumbnails = {
-					[10] = "someUrl",
-				}
+				loadingImage = "someUrl",
 			})
 		})
 

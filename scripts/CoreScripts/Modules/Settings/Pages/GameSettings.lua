@@ -54,7 +54,7 @@ local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 
------------- Variables -------------------
+------------ Variables -------------------                                                        
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 RobloxGui:WaitForChild("Modules"):WaitForChild("Settings"):WaitForChild("SettingsHub")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -64,6 +64,8 @@ local platform = UserInputService:GetPlatform()
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+
+local UseMicroProfiler = settings():GetFFlag("EnableMobileMicroProfilerWebServerApi")
 
 --------------- FLAGS ----------------
 
@@ -292,6 +294,107 @@ local function Initialize()
         end
       end)
   end  -- of createPerformanceStats
+
+  local function createMicroProfilerWebServerInformationRow()
+    this.InformationFrame,
+    this.InformationLabel,
+    this.InformationTextBox = utility:AddNewRow(this,
+      "MicroProfiler Information",
+      "TextBox",
+      nil,
+      nil,
+      5)
+    
+    -- Override the default position
+    -- todo replace this with TextX and TextYAlignment to centerlise the text
+    this.InformationFrame.Position = UDim2.new(0.5,0,0.5,0)
+
+    this.InformationText = utility:Create'TextLabel'
+    {
+      Name = "InformationLabel",
+      Text = "Information Loading",
+      Font = Enum.Font.SourceSans,
+      FontSize = Enum.FontSize.Size14,
+      BackgroundTransparency = 1,
+      Size = UDim2.new(0,800,1,0),
+      Position = UDim2.new(1,-650,0,20),
+      Visible = true,
+      ZIndex = 2,
+      Parent = this.InformationFrame
+    }
+    return this.InformationFrame, this.InformationText
+  end
+
+  local function createMicroProfilerWebServerOptions()
+    ------------------
+    ------------------ Micro Profiler Web Server -----------------
+    this.MicroProfilerFrame,
+    this.MicroProfilerLabel,
+    this.MicroProfilerMode,
+    this.MicroProfilerOverrideText = nil
+
+	  -- This should be off default.
+    local function GetDesiredWebServerIndex()
+      if GameSettings.MicroProfilerEnabled then
+        return 1
+      else
+        return 2
+      end
+    end
+
+    this.WebServerInformationText = nil
+
+    this.MicroProfilerFrame,
+    this.MicroProfilerLabel,
+    this.MicroProfilerMode = utility:AddNewRow(this,
+      "Micro Profiler",
+      "Selector",
+      {"On", "Off"},
+      GetDesiredWebServerIndex()) -- This can be set to override defualt micro profiler state
+
+    this.MicroProfilerMode.IndexChanged:connect(function(newIndex)
+      if newIndex == 1 then -- Show Web Server Conetent Label
+        GameSettings.MicroProfilerEnabled = true
+
+        -- Try poll every 0.1 secons until 3 seconds passed
+        local tryPollCount = 30
+        local port = 0
+        while(tryPollCount > 1) do
+          wait(0.1)
+          port = GameSettings.MicroProfilerWebServerPort;
+          if port ~= 0 then
+            -- Need to create this each time.
+            this.InformationFrame, this.InformationText = createMicroProfilerWebServerInformationRow()
+            this.InformationText.Text = GameSettings.MicroProfilerWebServerIP .. port;
+            break
+          end
+
+        tryPollCount = tryPollCount - 1
+      end
+
+      if tryPollCount <= 0 or port == 0 then
+        -- if the web server has not been started, we will just set the switch and try to stop the
+        -- web server
+        this.MicroProfilerMode:SetSelectionIndex(2)
+        GameSettings.MicroProfilerEnabled = false
+
+        if this.InformationFrame or this.InformationText then
+          this.InformationFrame.Visible = false
+          this.InformationFrame = nil
+          this.InformationText = nil
+        end
+      end
+    
+    else -- Hide Web Server Content Label
+      GameSettings.MicroProfilerEnabled = false
+       
+      this.InformationFrame.Visible = false
+      this.InformationFrame = nil
+      this.InformationText = nil
+    end
+  end)
+
+  end  -- of create Micro Profiler Web Server
 
   local function createCameraModeOptions(movementModeEnabled)
     ------------------------------------------------------
@@ -1104,6 +1207,11 @@ local function Initialize()
   end
 
   createPerformanceStatsOptions()
+
+  -- create micro profiler option in the end, so the ip and port can be shown next to the row
+  if UseMicroProfiler then
+    createMicroProfilerWebServerOptions()
+  end
 
   if isTenFootInterface then
     createOverscanOption()

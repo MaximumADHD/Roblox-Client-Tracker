@@ -10,6 +10,9 @@ local GameGrid = require(Modules.LuaApp.Components.Games.GameGrid)
 local SectionHeader = require(Modules.LuaApp.Components.SectionHeader)
 local StringsLocale = require(Modules.LuaApp.StringsLocale)
 local TopBar = require(Modules.LuaApp.Components.TopBar)
+local RefreshScrollingFrame = require(Modules.LuaApp.Components.RefreshScrollingFrame)
+local Networking = require(Modules.LuaApp.Http.Networking)
+local ApiFetchGamesData = require(Modules.LuaApp.Thunks.ApiFetchGamesData)
 local memoize = require(Modules.Common.memoize)
 
 local OUTSIDE_MARGIN = 15
@@ -26,6 +29,11 @@ function GamesList:render()
 	local sorts = self.props.sorts
 
 	local sort = sorts[selectedIndex or defaultSort]
+	local currentPage = self.props.currentPage
+	local refresh = self.props.refresh
+	local refreshThisSort = function()
+		return refresh(sort.name)
+	end
 
 	local elements = parentSize and {
 		Layout = Roact.createElement("UIListLayout", {
@@ -109,11 +117,6 @@ function GamesList:render()
 			end
 		end
 	},{
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
 		TopBar = Roact.createElement(TopBar, {
 			LayoutOrder = 1,
 			onBack = self.props.onBack,
@@ -122,17 +125,15 @@ function GamesList:render()
 			showNotifications = true,
 			showSearch = true,
 			textKey = { StringsLocale.Keys.GAMES },
+			ZIndex = 2,
 		}),
-		Scroller = Roact.createElement(FitChildren.FitScrollingFrame, {
-			BorderSizePixel = 0,
-			CanvasSize = UDim2.new(1, 0, 1, 0),
-			Position = UDim2.new(0, 0, 0, 0),
-			BackgroundColor3 = Constants.Color.GRAY4,
-			LayoutOrder = 2,
+		Scroller = Roact.createElement(RefreshScrollingFrame, {
+			Position = UDim2.new(0, 0, 0, TopBar.getHeight()),
 			Size = UDim2.new(1, 0, 1, -TopBar.getHeight()),
-			fitFields = {
-				CanvasSize = FitChildren.FitAxis.Height,
-			},
+			BackgroundColor3 = Constants.Color.GRAY4,
+			CanvasSize = UDim2.new(1, 0, 0, 0),
+			currentPage = currentPage,
+			refresh = refreshThisSort,
 		}, elements),
 	})
 end
@@ -145,6 +146,7 @@ local selectSorts = memoize(function(sortsInfo, sortsGames, games)
 		local sort = {
 			text = sortInfo.displayName,
 			icon = sortInfo.displayIcon,
+			name = sortInfo.name,
 		}
 
 		for gameLayoutOrder, gameId in ipairs(sortGames) do
@@ -171,6 +173,9 @@ GamesList = RoactRodux.connect(function(store, props)
 			state.GamesInSort,
 			state.Games
 		),
+		refresh = function(sortname)
+			return store:Dispatch(ApiFetchGamesData(Networking.new(), nil, sortname))
+		end,
 	}
 end)(GamesList)
 

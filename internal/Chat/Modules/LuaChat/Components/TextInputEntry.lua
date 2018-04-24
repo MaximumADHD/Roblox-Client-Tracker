@@ -7,6 +7,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local ListEntry = require(LuaChat.Components.ListEntry)
 
@@ -96,7 +97,7 @@ function TextInputEntry.new(appState, icon, placeholder)
 
 	clearButton.Parent = self.rbx
 
-	local clearButtonConnection = clearButton.MouseButton1Click:Connect(function()
+	local clearButtonConnection = getInputEvent(clearButton):Connect(function()
 		self.textBoxComponent.Text = ""
 	end)
 	table.insert(self.connections, clearButtonConnection)

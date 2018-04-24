@@ -1463,24 +1463,17 @@ Class ClientReplicator : NetworkReplicator [notCreatable]
 Class ServerReplicator : NetworkReplicator [notCreatable]
 Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.ArePhysicsRejectionsReported
-	Property int NetworkSettings.CanSendPacketBufferLimit
 	Property float NetworkSettings.ClientPhysicsSendRate
 	Property float NetworkSettings.DataGCRate
 	Property int NetworkSettings.DataMtuAdjust
 	Property PacketPriority NetworkSettings.DataSendPriority [hidden]
 	Property float NetworkSettings.DataSendRate
-	Property bool NetworkSettings.EnableHeavyCompression [hidden]
 	Property int NetworkSettings.ExtraMemoryUsed [hidden] [PluginSecurity]
 	Property float NetworkSettings.FreeMemoryMBytes [hidden] [readonly] [PluginSecurity]
 	Property double NetworkSettings.IncommingReplicationLag
 	Property bool NetworkSettings.IsQueueErrorComputed
-	Property bool NetworkSettings.IsThrottledByCongestionControl
-	Property bool NetworkSettings.IsThrottledByOutgoingBandwidthLimit
-	Property int NetworkSettings.MaxDataModelSendBuffer [deprecated]
 	Property float NetworkSettings.NetworkOwnerRate
 	Property int NetworkSettings.PhysicsMtuAdjust
-	Property PhysicsReceiveMethod NetworkSettings.PhysicsReceive
-	Property PhysicsSendMethod NetworkSettings.PhysicsSend
 	Property PacketPriority NetworkSettings.PhysicsSendPriority [hidden]
 	Property float NetworkSettings.PhysicsSendRate
 	Property int NetworkSettings.PreferredClientPort
@@ -1495,15 +1488,12 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.PrintTouches
 	Property double NetworkSettings.ReceiveRate
 	Property bool NetworkSettings.RenderStreamedRegions
-	Property string NetworkSettings.ReportStatURL [deprecated] [hidden]
-	Property int NetworkSettings.SendPacketBufferLimit
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property float NetworkSettings.TouchSendRate
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
 	Property bool NetworkSettings.UseInstancePacketCache
 	Property bool NetworkSettings.UsePhysicsPacketCache
-	Property int NetworkSettings.WaitingForCharacterLogRate [deprecated] [hidden]
 Class NotificationService : Instance [notCreatable]
 	Function void NotificationService:ActionEnabled(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:ActionTaken(AppShellActionType actionType) [RobloxScriptSecurity]
@@ -2115,6 +2105,7 @@ Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
 	Function string RunService:GetRobloxVersion() [RobloxScriptSecurity]
 	Function bool RunService:IsClient()
+	Function bool RunService:IsEdit() [PluginSecurity]
 	Function bool RunService:IsRunMode()
 	Function bool RunService:IsRunning()
 	Function bool RunService:IsServer()
@@ -2535,7 +2526,7 @@ Class UIListLayout : UIGridStyleLayout
 Class UIPageLayout : UIGridStyleLayout
 	Property bool UIPageLayout.Animated
 	Property bool UIPageLayout.Circular
-	Property Class:Instance UIPageLayout.CurrentPage [readonly]
+	Property Class:GuiObject UIPageLayout.CurrentPage [readonly]
 	Property EasingDirection UIPageLayout.EasingDirection
 	Property EasingStyle UIPageLayout.EasingStyle
 	Property bool UIPageLayout.GamepadInputEnabled
@@ -2576,11 +2567,14 @@ Class UserGameSettings : Instance
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
+	Property bool UserGameSettings.MicroProfilerEnabled [hidden] [RobloxScriptSecurity]
+	Property string UserGameSettings.MicroProfilerWebServerIP [hidden] [readonly] [RobloxScriptSecurity]
+	Property int UserGameSettings.MicroProfilerWebServerPort [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson [hidden] [RobloxScriptSecurity]
 	Property Vector2 UserGameSettings.MouseSensitivityThirdPerson [hidden] [RobloxScriptSecurity]
 	Property string UserGameSettings.OnboardingsCompleted [RobloxScriptSecurity]
-	Property bool UserGameSettings.PerformanceStatsVisible [RobloxScriptSecurity]
+	Property bool UserGameSettings.PerformanceStatsVisible [hidden] [RobloxScriptSecurity]
 	Property RotationType UserGameSettings.RotationType
 	Property SavedQualitySetting UserGameSettings.SavedQualityLevel
 	Property TouchCameraMovementMode UserGameSettings.TouchCameraMovementMode
@@ -2610,6 +2604,7 @@ Class UserInputService : Instance [notCreatable]
 	Property bool UserInputService.GazeSelectionEnabled [hidden] [RobloxScriptSecurity]
 	Property bool UserInputService.GyroscopeEnabled [readonly]
 	Property bool UserInputService.KeyboardEnabled [readonly]
+	Property bool UserInputService.LegacyInputEventsEnabled [RobloxScriptSecurity]
 	Property bool UserInputService.ModalEnabled
 	Property MouseBehavior UserInputService.MouseBehavior
 	Property float UserInputService.MouseDeltaSensitivity
@@ -2746,6 +2741,10 @@ Enum AppShellActionType
 	EnumItem AppShellActionType.TapConversationEntry : 3
 	EnumItem AppShellActionType.TapAvatarTab : 4
 	EnumItem AppShellActionType.ReadConversation : 5
+	EnumItem AppShellActionType.TapGamePageTab : 6
+	EnumItem AppShellActionType.TapHomePageTab : 7
+	EnumItem AppShellActionType.GamePageLoaded : 8
+	EnumItem AppShellActionType.HomePageLoaded : 9
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1
@@ -3617,12 +3616,6 @@ Enum PacketPriority
 	EnumItem PacketPriority.HIGH_PRIORITY : 1
 	EnumItem PacketPriority.MEDIUM_PRIORITY : 2
 	EnumItem PacketPriority.LOW_PRIORITY : 3
-Enum PacketReliability
-	EnumItem PacketReliability.UNRELIABLE : 0
-	EnumItem PacketReliability.UNRELIABLE_SEQUENCED : 1
-	EnumItem PacketReliability.RELIABLE : 2
-	EnumItem PacketReliability.RELIABLE_ORDERED : 3
-	EnumItem PacketReliability.RELIABLE_SEQUENCED : 4
 Enum PartType
 	EnumItem PartType.Ball : 0
 	EnumItem PartType.Block : 1
@@ -3637,14 +3630,6 @@ Enum PathStatus
 Enum PathWaypointAction
 	EnumItem PathWaypointAction.Walk : 0
 	EnumItem PathWaypointAction.Jump : 1
-Enum PhysicsReceiveMethod
-	EnumItem PhysicsReceiveMethod.Direct : 0
-	EnumItem PhysicsReceiveMethod.Interpolation : 1
-Enum PhysicsSendMethod
-	EnumItem PhysicsSendMethod.ErrorComputation : 0
-	EnumItem PhysicsSendMethod.ErrorComputation2 : 1
-	EnumItem PhysicsSendMethod.RoundRobin : 2
-	EnumItem PhysicsSendMethod.TopNErrors : 3
 Enum Platform
 	EnumItem Platform.Windows : 0
 	EnumItem Platform.OSX : 1

@@ -1,8 +1,7 @@
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local GuiService = game:GetService('GuiService')
 
 local BaseOverlay = require(ShellModules:FindFirstChild('BaseOverlay'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))

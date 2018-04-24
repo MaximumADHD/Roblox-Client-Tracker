@@ -13,6 +13,7 @@ local StringsLocale = require(LuaApp.StringsLocale)
 local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
 local Text = require(LuaChat.Text)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local LoadingIndicator = require(script.Parent.LoadingIndicator)
 
@@ -301,7 +302,7 @@ function AssetCard:Update(newState)
 		self:StyleViewDetailsAsPlay(self.placeInfo ~= nil and self.placeInfo.isPlayable)
 	end
 
-	self.cardBodyClick = self.Content.MouseButton1Click:Connect(function()
+	self.cardBodyClick = getInputEvent(self.Content):Connect(function()
 		self:ReportTouchEvent(LINK_CARD_CLICKED_EVENT)
 		if self.placeInfo then
 			GuiService:BroadcastNotification(self.assetId,
@@ -309,7 +310,7 @@ function AssetCard:Update(newState)
 		end
 	end)
 
-	self.detailsButtonClick = self.actionButton.MouseButton1Click:Connect(function()
+	self.detailsButtonClick = getInputEvent(self.actionButton):Connect(function()
 		self:ReportTouchEvent(VIEW_DETAILS_BUTTON_CLICKED_EVENT)
 		if self.placeInfo then
 			if LuaChatAssetCardsCanShowPlayButton then

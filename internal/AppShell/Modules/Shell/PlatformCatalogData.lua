@@ -1,17 +1,11 @@
-local CoreGui = Game:GetService("CoreGui")
-local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
-local Modules = GuiRoot:FindFirstChild("Modules")
-local ShellModules = Modules:FindFirstChild("Shell")
-
-local PlatformService;
-pcall(function() PlatformService = Game:GetService('PlatformService') end)
+local PlatformService = nil
+pcall(function() PlatformService = game:GetService('PlatformService') end)
 
 local PlatformCatalogData = {}
 
 local function getStudioDummyData()
 	return {{ReducedName = 'Default Short Title', Description = 'Default Description', DisplayListPrice = '$199.99', IsPartOfAnyBundle = false, DisplayPrice = '$0.80', ProductId = '210d1d69-5189-40f4-a59b-ecfb4f849847', Name = '22,500 Robux', TitleId = 0, IsBundle = false}, {ReducedName = 'Default Short Title', Description = 'Default Description', DisplayListPrice = '$3.00', IsPartOfAnyBundle = false, DisplayPrice = '$3.00', ProductId = '70c2075d-5e2f-4ffd-8de5-8a6d2f5e65ad', Name = '400 Robux', TitleId = 0, IsBundle = false}, {ReducedName = 'Default Short Title', Description = 'Default Description', DisplayListPrice = '$2.20', IsPartOfAnyBundle = false, DisplayPrice = '$2.20', ProductId = '878c642b-cb27-4d5e-a150-a408ea40c41c', Name = '240 Robux', TitleId = 0, IsBundle = false}}
 end
-
 
 function PlatformCatalogData:GetCatalogInfoAsync()
 	if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then

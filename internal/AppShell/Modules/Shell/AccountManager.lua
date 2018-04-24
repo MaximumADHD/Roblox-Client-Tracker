@@ -5,7 +5,7 @@
 ]]
 local IsNewUsernameCheckEnabled = settings():GetFFlag("XboxUseNewValidUsernameCheck2")
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -57,7 +57,7 @@ end
 
 --[[ Signup/Login ]]--
 function AccountManager:LoginAsync()
-	if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+	if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 		return authenticateStudio()
 	end
 
@@ -139,7 +139,7 @@ function AccountManager:UnlinkAccountAsync()
 end
 
 function AccountManager:HasLinkedAccountAsync()
-	if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+	if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 		return AccountManager.AuthResults.Success
 	end
 
@@ -156,7 +156,7 @@ function AccountManager:HasLinkedAccountAsync()
 end
 
 function AccountManager:HasRobloxCredentialsAsync()
-	if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+	if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 		return AccountManager.AuthResults.Success
 	end
 

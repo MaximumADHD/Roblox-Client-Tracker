@@ -25,14 +25,12 @@ local ErrorOverlayModule = require(ShellModules:FindFirstChild('ErrorOverlay'))
 local Errors = require(ShellModules:FindFirstChild('Errors'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 
-
 local TextService = game:GetService('TextService')
 local GuiService = game:GetService('GuiService')
 local PlatformService;
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 
 --[[ Constants ]]--
-local GRID_ROWS = 2
 local GRID_COLUMNS = 3
 local GRID_SIZE = UDim2.new(0, 1620, 0, 610)
 local GRID_POSITION = UDim2.new(0, 40, 0, 65)
@@ -70,7 +68,6 @@ local ROBUX_ASSETS =
 		Square = 'RobuxSquare06.png';
 	};
 }
-
 
 local function createGridItem(productInfo)
 	local this = {}

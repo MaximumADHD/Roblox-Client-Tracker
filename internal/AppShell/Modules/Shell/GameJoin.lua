@@ -3,7 +3,9 @@
 
 			// Handles game join logic
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -14,10 +16,9 @@ local GameOptionsSettings = settings():FindFirstChild("Game Options")
 
 local Errors = require(ShellModules:FindFirstChild('Errors'))
 local ErrorOverlayModule = require(ShellModules:FindFirstChild('ErrorOverlay'))
-local OverscanScreenModule = require(ShellModules:FindFirstChild('OverscanScreen'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
-local Utility = require(ShellModules:FindFirstChild('Utility'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local GameJoin = {}
 
@@ -48,7 +49,7 @@ function GameJoin:StartGame(joinType, joinId, creatorUserId)
 		else
 			local success, result = pcall(function()
 				-- check if we are the creator for normal joins
-				if joinType == GameJoin.JoinType.Normal and creatorUserId == UserData:GetRbxUserId() then
+				if joinType == GameJoin.JoinType.Normal and creatorUserId == (XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()) then
 					joinType = GameJoin.JoinType.PMPCreator
 				end
 	

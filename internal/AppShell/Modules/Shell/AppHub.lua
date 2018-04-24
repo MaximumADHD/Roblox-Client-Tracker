@@ -12,7 +12,6 @@ local ShellModules = Modules:FindFirstChild("Shell")
 
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local AppTabDockModule = require(ShellModules:FindFirstChild('TabDock'))
 local AppTabDockItemModule = require(ShellModules:FindFirstChild('TabDockItem'))
 local HomePaneModule = require(ShellModules:FindFirstChild('HomePane'))
@@ -121,7 +120,7 @@ local function CreateAppHub()
 		if inputState == Enum.UserInputState.Begin then
 			seenXButtonPressed = true
 		elseif inputState == Enum.UserInputState.End and seenXButtonPressed then
-			if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+			if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 				ScreenManager:OpenScreen(ErrorOverlay(Errors.Test.FeatureNotAvailableInStudio), false)
 			else
 				local success, result = pcall(function()

@@ -20,10 +20,13 @@ local Constants = {
 		RED_NEGATIVE = Color3.fromRGB(216, 104, 104),
 		RED_HOVER = Color3.fromRGB(226, 118, 118),
 		RED_PRESSED = Color3.fromRGB(172, 30, 45),
+		ORANGE_FAVORITE = Color3.fromRGB(246, 183, 2),
 		ALPHA_SHADOW_PRIMARY = 0.3, -- Used with Gray1
 		ALPHA_SHADOW_HOVER = 0.75, -- Used with Gray1
 	},
 	TAB_BAR_SIZE = 49,
+	GAME_CAROUSEL_PADDING = 15,
+	GAME_CAROUSEL_CHILD_PADDING = 12,
 	GameSortGroups = {
 		Games = "Games",
 		HomeGames = "HomeGames",

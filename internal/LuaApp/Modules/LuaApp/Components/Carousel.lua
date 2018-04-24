@@ -5,21 +5,19 @@ local Roact = require(Modules.Common.Roact)
 local FitChildren = require(Modules.LuaApp.FitChildren)
 local Immutable = require(Modules.Common.Immutable)
 
-local CARD_MARGIN = 12
 local ESTIMATED_HEIGHT = 150
 
-local Carousel = Roact.PureComponent:extend("Carousel")
-
-function Carousel:render()
-	local layoutOrder = self.props.LayoutOrder
-	local position = self.props.Position
-	local children = self.props[Roact.Children] or {}
+local function Carousel(props)
+	local layoutOrder = props.LayoutOrder
+	local position = props.Position
+	local children = props[Roact.Children] or {}
+	local childPadding = props.childPadding
 
 	local carouselItems = {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = UDim.new(0, CARD_MARGIN),
+			Padding = UDim.new(0, childPadding),
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		}),
 	}

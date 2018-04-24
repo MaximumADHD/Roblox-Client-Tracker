@@ -8,6 +8,7 @@ local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local HeadshotLoader = require(LuaChat.HeadshotLoader)
 local Signal = require(Common.Signal)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local OVERLAY_IMAGE_BIG = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-48x48.png"
 local OVERLAY_IMAGE_SMALL = "rbxasset://textures/ui/LuaChat/graphic/gr-profile-border-36x36.png"
@@ -90,7 +91,7 @@ function UserThumbnail.new(appState, userId, small)
 	end
 
 	table.insert(self.connections,
-		self.rbx.MouseButton1Click:Connect(function()
+		getInputEvent(self.rbx):Connect(function()
 			self.clicked:Fire(self.user)
 		end))
 

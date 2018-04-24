@@ -3,14 +3,12 @@
 -- local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 
 local GuiService = game:GetService('GuiService')
-local SoundService = Game:GetService("SoundService")
 local runService = game:GetService("RunService")
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-
 
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 

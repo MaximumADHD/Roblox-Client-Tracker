@@ -7,14 +7,12 @@
 			TODO:
 				Connect selected/deselected to change color
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
-local UserInputService = game:GetService('UserInputService')
-local GuiService = game:GetService('GuiService')
 
 local FriendsData = require(ShellModules:FindFirstChild('FriendsData'))
 local FriendPresenceItem = require(ShellModules:FindFirstChild('FriendPresenceItem'))
@@ -28,12 +26,6 @@ local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local XboxRecommendedPeople = Utility.IsFastFlagEnabled('XboxRecommendedPeople')
-
--- Array of tables
-	-- see FriendsData - fetchXboxFriends() for full documentation
-local myFriendsData = nil
-
-local FOLLOW_MODE = 2
 
 local SIDE_BAR_ITEMS = {
 	JoinGame = Strings:LocalizedString("JoinGameWord");

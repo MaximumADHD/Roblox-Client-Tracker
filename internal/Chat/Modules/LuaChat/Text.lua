@@ -9,11 +9,12 @@ local TextService = game:GetService("TextService")
 --Constants
 local HUGE = 10000
 local INFINITE_WIDTH = Vector2.new(HUGE, HUGE) -- Text prioritizes width vs height when given both
+local TEXT_MEASURE_PATCH_PADDING = Vector2.new(2, 2)
 
 -- Wrapper function for GetTextSize with infinite bounds
 function Text.GetTextBounds(text, font, fontSize, bounds)
 	if settings():GetFFlag("TextMeasureTemporaryPatch") then
-		local ret = TextService:GetTextSize(text, fontSize, font, bounds) + Vector2.new(1, 1)
+		local ret = TextService:GetTextSize(text, fontSize, font, bounds) + TEXT_MEASURE_PATCH_PADDING
 		return ret
 	end
 	-- bonus 1px cause sometimes last char is cut off. that's a (documented) bug for another day

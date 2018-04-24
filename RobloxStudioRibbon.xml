@@ -71,17 +71,15 @@
         </MenuButton>
       </Group>
       <Group name="Terrain"  fflag="StudioTerrainToolsInLuaWidget">
-          <addaction name="viewTerrainToolsAction"
-          text="Editor"
+          <addaction name="toggleTerrainToolsDockAction"
           type="plugin"
           style="textundericon"
           icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
-          tooltip="Add, remove, and modify terrain"
           height="32"
           width="32"/>
       </Group>
       <Group name="Insert">
-          <addaction name="viewToolboxAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+          <addaction name="toggleToolboxDockAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
           <addseparator visible="false"/>
           <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Part" tooltip="Place a part into the workspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
               <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
@@ -387,38 +385,37 @@
       -->
     <TabPage name="View">
       <Group name="Show">
-        <addaction name="viewObjectExplorerAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View a list of objects in the workspace" height="32" width="32"/>
+        <addaction name="toggleObjectExplorerDockAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View a list of objects in the workspace" height="32" width="32"/>
         <addseparator visible="false"/>
-        <addaction name="viewPropertiesAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Properties.png" tooltip="View properties of objects" height="32" width="32"/>
+        <addaction name="togglePropertiesDockAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Properties.png" tooltip="View properties of objects" height="32" width="32"/>
         <addseparator visible="false"/>
         <addaction name="actionStartPage" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Start-Page.png"  tooltip="Login, view places you own, browse your roblox catalog" height="32" width="32"/>
-        <addaction name="gameExplorerAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View Game Explorer" height="32" width="32"/>
-        <addaction name="viewToolboxAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-        <addaction name="viewContextualHelpAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="View context-sensitive help" height="32" width="32"/>
-        <addaction fflag="StudioShowTutorialsByDefault" name="viewTutorialsAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="View Tutorials" height="32" width="32"/>
+        <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View Game Explorer" height="32" width="32"/>
+        <addaction name="toggleToolboxDockAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+        <addaction name="toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="View context-sensitive help" height="32" width="32"/>
+        <addaction fflag="StudioShowTutorialsByDefault" name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="View Tutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="View Lua API objects that can be accessed through scripting" height="32" width="32"/>
-        <addaction name="viewOutputWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="See the output feed of your scripts" text="Output" height="32" width="32"/>
-        <addaction name="viewScriptAnalysisAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="View Script Analysis" height="32" width="32"/>
+        <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="See the output feed of your scripts" text="Output" height="32" width="32"/>
+        <addaction name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="View Script Analysis" height="32" width="32"/>
         <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Command Bar" height="32" width="32"/>
         <addaction fflag="LuaDebugger" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" tooltip="View existing breakpoints" height="32" width="32"/>
         <addaction fflag="LuaDebugger" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" tooltip="View current call stack" height="32" width="32"/>
         <addaction fflag="LuaDebugger" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" tooltip="View currently watched variables" height="32" width="32"/>
-        <addaction name="viewDiagnosticsAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="View diagnostic information of your game" height="32" width="32"/>
-        <addaction name="viewTaskSchedulerAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="View task execution information" height="32" width="32"/>
-        <addaction name="viewScriptPerformanceAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="View script performance information" height="32" width="32"/>
-        <addaction name="viewFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Find results window" height="32" width="32"/>
-        <addaction name="viewTeamCreateAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="View Team Create Window" height="32" width="32"/>
-        <addaction name="viewScriptRecoveryAction"
+        <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="View diagnostic information of your game" height="32" width="32"/>
+        <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="View task execution information" height="32" width="32"/>
+        <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="View script performance information" height="32" width="32"/>
+        <addaction name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Find results window" height="32" width="32"/>
+        <addaction name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="View Team Create Window" height="32" width="32"/>
+        <addaction name="toggleScriptRecoveryDockAction"
             style="textbesideicon"
             icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"
             tooltip="View Recovered Scripts"
             height="32"
             width ="32"/>
-        <addaction name="viewTerrainToolsAction"
+        <addaction name="toggleTerrainToolsDockAliasAction"
             fflag="StudioTerrainToolsInLuaWidget"
             style="textbesideicon"
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
-            tooltip="Add, remove, and modify terrain"
             height="32"
             width="32"/>
 
@@ -460,6 +457,16 @@
         <addaction name="pasteAction" style="textundericon" tooltip="Paste item in clipboard" icon=":/RibbonBar/images/RibbonIcons/Home/Paste.png" width="32" height="32" />
         <addaction name="cutAction" style="textbesideicon" tooltip="Cut selected text" icon=":/RibbonBar/images/RibbonIcons/Home/Cut-16x16.png" />
         <addaction name="copyAction" style="textbesideicon" tooltip="Copy selected text" icon=":/RibbonBar/images/RibbonIcons/Home/Copy-16x16.png" />
+      </Group>
+      <Group name="Navigate" fflag="StudioScriptNavigation">
+          <addaction name="goToPreviousScriptLocation" text="Back" style="textundericon"
+          tooltip="Jump to previous script location"
+          icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png"
+          width="32" height="32" />
+          <addaction name="goToNextScriptLocation" text="Fwd" style="textundericon"
+          tooltip="Jump to next script location"
+          icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png"
+          width="32" height="32" />
       </Group>
       <Group name="Edit">
         <MenuButton name="actionFindMenu" style ="textundericon" text="Find"  icon=":/RibbonBar/images/RibbonIcons/Home/Find.png" tooltip="Find text..." width="32" height="32" >

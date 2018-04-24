@@ -3,16 +3,12 @@
 			// Kip Turner
 			// Copyright Roblox 2015
 ]]
-
 local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService('GuiService')
-local MarketplaceService = game:GetService('MarketplaceService')
-local PlatformService;
-pcall(function() PlatformService = game:GetService('PlatformService') end)
 
 local UserDataModule = require(ShellModules:FindFirstChild('UserData'))
 local Http = require(ShellModules:FindFirstChild('Http'))
@@ -54,14 +50,7 @@ local DESCRIPTION_HEIGHT = 320
 local BUY_BUTTON_WIDTH = 320
 local BUY_BUTTON_HEIGHT = 64
 
-local TEXT_START_OFFSET = Vector2.new(0, 70)
-local TEXT_SPACING = Vector2.new(0, 20)
-local ROBUX_TEXT_OFFSET = Vector2.new(0, 25)
-local DETAIL_TEXT_OFFSET = Vector2.new(0, 30)
-
 local BUY_BUTTON_OFFSET = Vector2.new(0, -50)
-
-local ROBUX_BALANCE_OFFSET = Vector2.new(100, -130)
 
 local function CreatePurchasePackagePrompt(packageInfo)
 	local this = {}
@@ -167,7 +156,6 @@ local function CreatePurchasePackagePrompt(packageInfo)
 				{
 					Name = 'PackageName';
 					Text = packageName or "Unknown Package";
-					-- Position = UDim2.new(TEXT_START_OFFSET.X/DETAILS_CONTAINER_WIDTH, 0, TEXT_START_OFFSET.Y/DETAILS_CONTAINER_HEIGHT, 0);
 					Position = UDim2.new(0, 0, 0, 66);
 					Size = UDim2.new(1,0,0,25);
 					TextXAlignment = 'Left';
@@ -181,7 +169,6 @@ local function CreatePurchasePackagePrompt(packageInfo)
 				{
 					Name = 'RobuxIcon';
 					Position = UDim2.new(0,0,0,125);
-					-- Position = PackageName.Position + UDim2.new(ROBUX_TEXT_OFFSET.X/DETAILS_CONTAINER_WIDTH,0,ROBUX_TEXT_OFFSET.Y/DETAILS_CONTAINER_HEIGHT + PackageName.Size.Y.Scale, PackageName.Size.Y.Offset);
 					Size = UDim2.new(0,50,0,50);
 					BackgroundTransparency = 1;
 					Parent = DetailsContent;
@@ -209,7 +196,6 @@ local function CreatePurchasePackagePrompt(packageInfo)
 					Text = '';
 					Size = UDim2.new(0,0,0,50);
 					Position = UDim2.new(0,0,0,125);
-					-- Position = PackageName.Position + UDim2.new(ROBUX_TEXT_OFFSET.X/DETAILS_CONTAINER_WIDTH,0,ROBUX_TEXT_OFFSET.Y/DETAILS_CONTAINER_HEIGHT + PackageName.Size.Y.Scale, PackageName.Size.Y.Offset);
 					TextXAlignment = 'Left';
 					TextColor3 = GlobalSettings.GreenTextColor;
 					Font = GlobalSettings.ItalicFont;
@@ -220,7 +206,6 @@ local function CreatePurchasePackagePrompt(packageInfo)
 				};
 
 				local descriptionScrollingTextBox = ScrollingTextBox(UDim2.new(DESCRIPTION_WIDTH/DETAILS_CONTAINER_WIDTH, 0, DESCRIPTION_HEIGHT/DETAILS_CONTAINER_HEIGHT, 0),
-					-- RobuxIcon.Position + UDim2.new(DETAIL_TEXT_OFFSET.X/DETAILS_CONTAINER_WIDTH,0,DETAIL_TEXT_OFFSET.Y/DETAILS_CONTAINER_HEIGHT + RobuxIcon.Size.Y.Scale, RobuxIcon.Size.Y.Offset),
 					UDim2.new(0, 0, 0, 200),
 					DetailsContent)
 				descriptionScrollingTextBox:SetFontSize(GlobalSettings.TitleSize)

@@ -1,6 +1,6 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -10,7 +10,6 @@ local Utility = require(ShellModules:FindFirstChild('Utility'))
 local GuiService = game:GetService('GuiService')
 
 local DEFAULT_WINDOW_SIZE = UDim2.new(1,0,1,0)
-
 
 local function ScrollingGrid(config)
 

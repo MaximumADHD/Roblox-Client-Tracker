@@ -11,6 +11,7 @@ local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
 local Text = require(LuaChat.Text)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local ChatDisabledIndicator = {}
 
@@ -96,7 +97,7 @@ function ChatDisabledIndicator.new(appState)
 	}
 
 	self.openPrivacySettings = Signal.new()
-	self.rbx.IndicatorInner.PrivacySettings.MouseButton1Click:Connect(function()
+	getInputEvent(self.rbx.IndicatorInner.PrivacySettings):Connect(function()
 		self.openPrivacySettings:Fire()
 	end)
 

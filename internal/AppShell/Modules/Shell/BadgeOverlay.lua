@@ -4,14 +4,11 @@
 			// Displays information for a single badge
 			// Used by GameDetail and BadgeScreen
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local GuiService = game:GetService('GuiService')
-local ContextActionService = game:GetService("ContextActionService")
 
-local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local ScrollingTextBox = require(ShellModules:FindFirstChild('ScrollingTextBox'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))

@@ -3,7 +3,7 @@
 
 			// Creates a base screen with breadcrumbs and title. Do not use for a pane/tab
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -11,8 +11,6 @@ local ShellModules = Modules:FindFirstChild("Shell")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService('GuiService')
 
-local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
-local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))

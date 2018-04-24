@@ -1,13 +1,14 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
 -- Achievement Manager
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 local ThirdPartyUserService = nil
 pcall(function() ThirdPartyUserService = game:GetService('ThirdPartyUserService') end)
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -22,6 +23,7 @@ local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 
 local SortsData = require(ShellModules:FindFirstChild('SortsData'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 
 --[[ ACHIEVEMENT NAMES --]]
@@ -137,7 +139,7 @@ end
 local function OnPlayedGamesChanged()
 	EventHub:dispatchEvent(EventHub.Notifications["PlayedGamesChanged"])
 	spawn(function()
-		local myUserId = UserData:GetRbxUserId()
+		local myUserId = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 		if myUserId then
 			local recentCollection
 			-- TODO: is this the right way of getting num of played games?
@@ -266,9 +268,9 @@ EventHub:addEventListener(EventHub.Notifications["UnlockedUGC"], "ShowUnlockedUG
 EventHub:addEventListener(EventHub.Notifications["AuthenticationSuccess"], "AchievementManager",
 	function()
 		spawn(function()
-			local myUserId = UserData:GetRbxUserId()
+			local myUserId = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 			local function stillLoggedIn()
-				local newUserId = UserData:GetRbxUserId()
+				local newUserId = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 				return newUserId ~= nil and myUserId == newUserId
 			end
 

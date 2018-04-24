@@ -3,12 +3,10 @@
 
 			// Displays a 2xN grid of badges for a game
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local ContextActionService = game:GetService("ContextActionService")
-local GuiService = game:GetService('GuiService')
 
 local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
 local BadgeOverlayModule = require(ShellModules:FindFirstChild('BadgeOverlay'))

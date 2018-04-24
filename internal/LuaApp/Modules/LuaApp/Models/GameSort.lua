@@ -48,6 +48,7 @@ function GameSort.mock()
 	self.numberOfRows = 1
 	self.timeOptionsAvailable = false
 	self.token = ""
+	self.contextUniverseId = ""
 
 	return self
 end
@@ -61,6 +62,7 @@ function GameSort.fromJsonData(gameSortJson)
 	self.numberOfRows = gameSortJson.numberOfRows
 	self.timeOptionsAvailable = gameSortJson.timeOptionsAvailable
 	self.token = gameSortJson.token
+	self.contextUniverseId = gameSortJson.contextUniverseId
 
 	-- Assign the icon:
 	if self.name ~= nil then

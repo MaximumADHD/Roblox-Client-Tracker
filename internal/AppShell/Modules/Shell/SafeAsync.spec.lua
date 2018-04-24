@@ -1,11 +1,20 @@
 return function()
     local MakeSafeAsync = require(script.Parent.SafeAsync)
-    
+
 	describe("initial state", function()
 		it("should return an initial table when init with async function", function()
 			local safeAsync = MakeSafeAsync({asyncFunc = function() end})
 			expect(safeAsync).to.be.a("table")
 		end)
+    end)
+
+	describe("async function", function()
+		it("async function gets called after calling the safeAsync object", function()
+            local asyncCalledCounter = 0
+            local safeAsync = MakeSafeAsync({asyncFunc = function() asyncCalledCounter = asyncCalledCounter + 1 end})
+            safeAsync()
+			expect(asyncCalledCounter).to.equal(1)
+        end)
     end)
 
     --TODO: add more unit tests like: "if async function gets called multiple times before return, only the latest callback will be called"
@@ -14,7 +23,7 @@ return function()
         it("callback gets called after async function returns", function()
             local callbackCalledCounter = 0
 			local safeAsync = MakeSafeAsync({
-                asyncFunc = function() end, 
+                asyncFunc = function() end,
                 callback = function() callbackCalledCounter = callbackCalledCounter + 1 end
             })
             safeAsync()
@@ -23,7 +32,7 @@ return function()
 
         it("async function return values will be passed to callback as arguments", function()
 			local safeAsync = MakeSafeAsync({
-                asyncFunc = function() return true, 1, {} end, 
+                asyncFunc = function() return true, 1, {} end,
                 callback = function(b, n, t)
                     expect(b).to.equal(true)
                     expect(n).to.equal(1)
@@ -35,13 +44,13 @@ return function()
     end)
 
     describe("cancel", function()
-        it("callback won't get called after if cancelled the task", function()
+        it("callback won't get called if the task was cancelled", function()
             local callbackCalledCounter = 0
             local safeAsync = nil
             safeAsync = MakeSafeAsync({
                 asyncFunc = function()
                     safeAsync:Cancel()
-                end, 
+                end,
                 callback = function() callbackCalledCounter = callbackCalledCounter + 1 end
             })
             safeAsync()

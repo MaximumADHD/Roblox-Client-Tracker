@@ -16,7 +16,7 @@
 local HttpService = game:GetService('HttpService')
 local HttpRbxApiService = game:GetService('HttpRbxApiService')
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local Modules = RobloxGui:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")

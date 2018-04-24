@@ -11,6 +11,7 @@ return function(networkImpl, sort)
 	return function(store)
 		local argTableSortToken = {
 			sortToken = sort.token,
+			contextUniverseId = sort.contextUniverseId,
 		}
 		return GamesGetList(networkImpl, argTableSortToken):andThen(function(result)
 			-- parse out the games and thumbnails

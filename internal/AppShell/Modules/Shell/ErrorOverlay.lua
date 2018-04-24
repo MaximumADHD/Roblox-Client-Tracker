@@ -7,7 +7,9 @@
 			// using the same module to make both. If in the future this
 			// changes, we'll need to move alert to it's own module.
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -21,6 +23,7 @@ local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local createErrorOverlay = function(errorType)
 	if not errorType then
@@ -97,7 +100,8 @@ local createErrorOverlay = function(errorType)
 	}
 
 	--if the user can't join game b/c xbox settings, the button will open the xbox account settings page
-	local EnableXboxAccountSettings = Utility.IsFastFlagEnabled("XboxAccountSettings") or tostring(UserData.GetRbxUserId()) == Utility.GetFastVariable("XboxAccountSettingsUserId")
+	local rbxid = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
+	local EnableXboxAccountSettings = Utility.IsFastFlagEnabled("XboxAccountSettings") or tostring(rbxid) == Utility.GetFastVariable("XboxAccountSettingsUserId")
 	local goToSettings = EnableXboxAccountSettings and errorCode and (errorCode == 113 or errorCode == 116)
 	if goToSettings then
 		okButton.Text = Strings:LocalizedString("GoToSettingsPhrase");

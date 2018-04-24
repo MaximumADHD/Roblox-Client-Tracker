@@ -1,11 +1,8 @@
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local PlatformService = nil
-pcall(function() PlatformService = game:GetService('PlatformService') end)
-local UserInputService = game:GetService('UserInputService')
 local GuiService = game:GetService('GuiService')
 
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))

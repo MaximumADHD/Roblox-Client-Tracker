@@ -30,11 +30,12 @@ return function()
 		end)
 
 		it("should expand horizontally to fit if told to", function()
+			local textSize = 16
 			-- Need an extra containing frame, because it doesn't seem to set AbsoluteSize on the root UI element
 			local element = Roact.createElement("Frame", {}, {
 				Text = Roact.createElement(FitTextLabel, {
-					Size = UDim2.new(0, 100, 0, 0),
-					TextSize = 16,
+					Size = UDim2.new(0, 100, 0, textSize),
+					TextSize = textSize,
 					Font = "SourceSans",
 					Text = "More than 100 pixels of text",
 					fitAxis = FitChildren.FitAxis.Width,

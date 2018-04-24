@@ -4,30 +4,29 @@
 // Created by Kip Turner, Bo Zhang
 // Copyright Roblox 2017
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
-
-local Utility = require(ShellModules:FindFirstChild('Utility'))
-
-local Http = require(ShellModules:FindFirstChild('Http'))
-local UserData = require(ShellModules:FindFirstChild('UserData'))
-local EventHub = require(ShellModules:FindFirstChild('EventHub'))
-
-
 local ContentProvider = game:GetService("ContentProvider")
-local MarketplaceService = Game:GetService('MarketplaceService')
-local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
-local ReloaderManager = require(ShellModules:FindFirstChild('ReloaderManager'))
-local CreateCacheData = require(ShellModules:FindFirstChild('CachedData'))
-local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
+local MarketplaceService = game:GetService('MarketplaceService')
 local PlatformService = nil
 pcall(function()PlatformService = game:GetService('PlatformService') end)
 local ThirdPartyUserService = nil
 pcall(function()ThirdPartyUserService = game:GetService('ThirdPartyUserService') end)
 
+local Utility = require(ShellModules:FindFirstChild('Utility'))
+local Http = require(ShellModules:FindFirstChild('Http'))
+local UserData = require(ShellModules:FindFirstChild('UserData'))
+local EventHub = require(ShellModules:FindFirstChild('EventHub'))
+local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
+local ReloaderManager = require(ShellModules:FindFirstChild('ReloaderManager'))
+local CreateCacheData = require(ShellModules:FindFirstChild('CachedData'))
+local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local RequestingWearAsset = false
 local function AwaitWearAssetRequest()
@@ -380,7 +379,7 @@ do
 
 	local function getCatalogPackagesAsync()
 		local xboxCatalogPackages = GetAvailableXboxCatalogPackagesAsync()
-		local myPackages = GetOwnedCatalogPackageIdsByUserAsync(UserData:GetRbxUserId())
+		local myPackages = GetOwnedCatalogPackageIdsByUserAsync(XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId())
 
 		if xboxCatalogPackages and myPackages then
 			local result = {}
@@ -447,9 +446,9 @@ do
 		local startCount = UserChangedCount
 		local newWearingAssetId = nil
 
-		if UserData:GetRbxUserId() then
+		if XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId() then
 			if packages then
-				local WornAssetIds = Http.GetWornAssetsAsync(UserData:GetRbxUserId())
+				local WornAssetIds = Http.GetWornAssetsAsync(XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId())
 				--Compare package assetids with wearing assetids
 				for _, package in pairs(packages) do
 					if CompareAssetIdArrays(package:GetPartIdsAsync(), WornAssetIds) then
@@ -473,7 +472,7 @@ do
 		if ProfileImageThumbnailLoader then
 			ProfileImageThumbnailLoader:Cancel()
 		end
-		ProfileImageThumbnailLoader = ThumbnailLoader:Create(newProfileImage, UserData:GetRbxUserId(),
+		ProfileImageThumbnailLoader = ThumbnailLoader:Create(newProfileImage, XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId(),
 			ThumbnailLoader.AvatarSizes.Size352x352, ThumbnailLoader.AssetType.Avatar, true)
 		ProfileImageThumbnailLoader:LoadAsync(false, false)
 

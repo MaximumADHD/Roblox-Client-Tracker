@@ -5,6 +5,8 @@
   // Description: Implementation of in game player list and leaderboard
 ]]
 local XboxToggleVoiceChatHotkey = settings():GetFFlag("XboxToggleVoiceChatHotkey")
+local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 local CoreGui = game:GetService('CoreGui')
 local GuiService = game:GetService('GuiService')	-- NOTE: Can only use in core scripts
@@ -13,6 +15,7 @@ local TeamsService = game:FindService('Teams')
 local ContextActionService = game:GetService('ContextActionService')
 local StarterGui = game:GetService('StarterGui')
 local PlayersService = game:GetService('Players')
+local AnalyticsService = game:GetService("AnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -184,6 +187,19 @@ local MUTUAL_FOLLOWING_ICON = 'rbxasset://textures/ui/icon_mutualfollowing-16.pn
 local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterImageBackground.png'
 
 --[[ Helper Functions ]]--
+
+local function LocalizedGetString(key, rtv)
+	pcall(function()
+		local LocalizationService = game:GetService("LocalizationService")
+		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+		if FFlagClientAppsUseRobloxLocale then
+			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		else
+			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
+		end
+	end)
+	return rtv
+end
 
 local function rbx_profilebegin(name)
   debug.profilebegin(name)
@@ -417,18 +433,25 @@ PopupClipFrame.BackgroundTransparency = 1
 PopupClipFrame.ClipsDescendants = true
 PopupClipFrame.Parent = Container
 
--- Xbox exclusive functions, need to declare here so they can be used elsewhere in file
+-- Xbox exclusive functions/variables, need to declare here so they can be used elsewhere in file
 local xboxSetShieldVisibility = nil
 local xboxEnableHotkeys = nil
 local xboxDisableHotkeys = nil
+local isUnder13 = PlayersService.LocalPlayer:GetUnder13()
 
--- Area to set up Xbox features
-if isTenFootInterface and XboxToggleVoiceChatHotkey then
+-- Checks if user is on correct platform and has permissions to use disable voice chat hotkey
+local canUseEnableVoiceChat = function()
+  return isTenFootInterface and not isUnder13 and XboxToggleVoiceChatHotkey
+end
+
+-- Area to set up Xbox disable voice chat
+if canUseEnableVoiceChat() then
   local CreateHintActionView = require(RobloxGui.Modules.Shell.HintActionView)
   local voiceChatService = game:GetService('VoiceChatService')
 
-  -- Set up Semitransparent black underlay below the Playerlist
+  -- Player shield
   local xboxPlayerlistShield = Instance.new("Frame", RobloxGui)
+  xboxPlayerlistShield.AutoLocalize = false
   xboxPlayerlistShield.Size = UDim2.new(1, 0, 1, 0)
   xboxPlayerlistShield.BackgroundColor3 = Color3.fromRGB(41, 41, 41)  -- Copied from: SETTINGS_SHIELD_COLOR in SettingsHub.lua
   xboxPlayerlistShield.BackgroundTransparency = 0.2  -- Copied from: SETTINGS_SHIELD_TRANSPARENCY in SettingsHub.lua
@@ -437,8 +460,13 @@ if isTenFootInterface and XboxToggleVoiceChatHotkey then
   local xboxMuteAllState = false
   local seenYButtonPressed = false
 
+  local EnableVoicePhrase = "Enable Voice Chat"
+  local DisableVoicePhrase = "Disable Voice Chat"
+  EnableVoicePhrase = LocalizedGetString("EnableVoiceKey", EnableVoicePhrase)
+  DisableVoicePhrase = LocalizedGetString("DisableVoiceKey", DisableVoicePhrase)
+
   local function getVoiceEnabledString()
-    return xboxMuteAllState and "Enable Voice Chat" or "Disable Voice Chat" -- TODO: localized strings go here
+    return xboxMuteAllState and EnableVoicePhrase or DisableVoicePhrase
   end
 
   -- Set up "toggle voice" hotkey using HintActionView module from the xbox AppShell
@@ -455,6 +483,11 @@ if isTenFootInterface and XboxToggleVoiceChatHotkey then
       voiceChatService:VoiceChatSetMuteAllState(xboxMuteAllState)
       xboxToggleVoiceHotkey:SetText(getVoiceEnabledString())
       seenYButtonPressed = false
+
+      -- Analytics
+      local eventName = xboxMuteAllState and "XboxDisableVoiceChat" or "XboxEnableVoiceChat"
+      AnalyticsService:ReportCounter(eventName, 1)
+      AnalyticsService:SetRBXEventStream("console", "XboxOne", eventName, {})
     end
   end
 
@@ -1867,7 +1900,7 @@ local closeListFunc = function(name, state, input)
 
   isOpen = false
   Container.Visible = false
-  if isTenFootInterface and XboxToggleVoiceChatHotkey then
+  if canUseEnableVoiceChat() then
     xboxSetShieldVisibility(false)
     xboxDisableHotkeys()
   end
@@ -1881,7 +1914,7 @@ end
 
 setVisible = function(state)
   Container.Visible = state
-  if isTenFootInterface and XboxToggleVoiceChatHotkey then
+  if canUseEnableVoiceChat() then
     xboxSetShieldVisibility(state)
   end
   local lastInputType = UserInputService:GetLastInputType()
@@ -1911,7 +1944,7 @@ setVisible = function(state)
       ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
       ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
     end
-    if isTenFootInterface and XboxToggleVoiceChatHotkey then
+    if canUseEnableVoiceChat() then
       xboxEnableHotkeys()
     end
   else
@@ -1921,7 +1954,7 @@ setVisible = function(state)
 
     ContextActionService:UnbindCoreAction("CloseList")
     ContextActionService:UnbindCoreAction("StopAction")
-    if isTenFootInterface and XboxToggleVoiceChatHotkey then
+    if canUseEnableVoiceChat() then
       xboxDisableHotkeys()
     end
 

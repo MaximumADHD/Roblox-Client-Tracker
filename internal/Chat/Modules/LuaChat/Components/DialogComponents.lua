@@ -13,6 +13,7 @@ local Create = require(LuaChat.Create)
 local Device = require(LuaChat.Device)
 local Signal = require(Common.Signal)
 local StringsLocale = require(LuaApp.StringsLocale)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local Components = LuaChat.Components
 local TextInputEntryComponent = require(Components.TextInputEntry)
@@ -124,7 +125,7 @@ local function outerFrameAndHeader(appState, title, color, event)
 	}
 
 	--Seems to be necessary to make sure clicks get sunk and don't fall through when dialog is open
-	rbx.MouseButton1Click:Connect(function()
+	getInputEvent(rbx):Connect(function()
 		rbx.Visible = false
 		appState.store:Dispatch(PopRoute())
 		if event ~= nil then
@@ -132,7 +133,7 @@ local function outerFrameAndHeader(appState, title, color, event)
 		end
 	end)
 
-	rbx.Dialog.MouseButton1Click:Connect(function() end)
+	getInputEvent(rbx.Dialog):Connect(function() end)
 
 	return rbx
 end
@@ -148,7 +149,7 @@ local function addCancelButtonCallbacks(dialogComponent, cancelButton, event)
 	end
 	cancelButton.InputEnded:Connect(onInputEnded)
 
-	cancelButton.MouseButton1Click:connect(function()
+	getInputEvent(cancelButton):connect(function()
 		dialogComponent:Close()
 		if event ~= nil then
 			event:Fire()
@@ -354,7 +355,7 @@ function ConfirmationDialog.new(appState, titleKey, messageKey, cancelTitleKey, 
 	saveButton.InputBegan:Connect(onInputBegan)
 	saveButton.InputEnded:Connect(onInputEnded)
 
-	saveButton.MouseButton1Click:Connect(function()
+	getInputEvent(saveButton):Connect(function()
 		self.rbx.Visible = false
 		appState.store:Dispatch(PopRoute())
 		self.saved:Fire(self.data)
@@ -474,7 +475,7 @@ function TextInputDialog.new(appState, titleLocalizationKey, maxChar)
 	saveButton.MouseButton1Down:Connect(onInputBegan)
 	saveButton.MouseButton1Up:Connect(onInputEnded)
 
-	saveButton.MouseButton1Click:Connect(function()
+	getInputEvent(saveButton):Connect(function()
 		if isSubmitable() then
 			self:Close()
 			self.saved:Fire(self.value)
@@ -603,7 +604,7 @@ function OptionDialog.new(appState, titleKey, options, userId)
 		end
 		optionGui.InputEnded:Connect(onInputEnded)
 
-		optionGui.MouseButton1Click:Connect(function()
+		getInputEvent(optionGui):Connect(function()
 			self.rbx.Visible = false
 			appState.store:Dispatch(PopRoute())
 			self.selected:Fire(optionId, self.data or {})

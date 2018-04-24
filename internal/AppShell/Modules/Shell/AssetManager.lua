@@ -1,7 +1,6 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
-local GuiService = game:GetService('GuiService')
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local Modules = RobloxGui:FindFirstChild("Modules")

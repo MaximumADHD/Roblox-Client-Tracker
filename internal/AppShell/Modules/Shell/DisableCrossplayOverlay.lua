@@ -1,12 +1,9 @@
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local GuiService = game:GetService('GuiService')
 
-local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
 local BaseOverlay = require(ShellModules:FindFirstChild('BaseOverlay'))
-local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))

@@ -13,7 +13,6 @@ return function()
 
 		return numChildren
 	end
-
 	local function createFakeGameSorts(numSorts)
 		local gameSorts = {}
 		for i = 1, numSorts do

@@ -7,9 +7,11 @@ local GameSortGroups = require(Modules.LuaApp.Reducers.GameSortGroups)
 local LocalUser = require(Modules.LuaApp.Reducers.LocalUser)
 local Users = require(Modules.LuaApp.Reducers.Users)
 local UsersAsync = require(Modules.LuaChat.Reducers.UsersAsync)
+local UserStatuses = require(Modules.LuaApp.Reducers.UserStatuses)
 local AppRouter = require(Modules.LuaApp.Reducers.AppRouter)
 local GameThumbnails = require(Modules.LuaApp.Reducers.GameThumbnails)
 local GamesInSort = require(Modules.LuaApp.Reducers.GamesInSort)
+local Startup = require(Modules.LuaApp.Reducers.Startup)
 
 local PlaceInfos = require(Modules.LuaChat.Reducers.PlaceInfos)
 local PlaceThumbnails = require(Modules.LuaChat.Reducers.PlaceThumbnails)
@@ -24,10 +26,11 @@ return function(state, action)
 
 	return {
 		DeviceOrientation = DeviceOrientation(state.DeviceOrientation, action),
-		
+
 		-- Users
 		Users = Users(state.Users, action),
 		UsersAsync = UsersAsync(state.UsersAsync, action),
+		UserStatuses = UserStatuses(state.UserStatuses, action),
 		LocalUser = LocalUser(state.LocalUser, action),
 
 		-- Game Data
@@ -46,5 +49,7 @@ return function(state, action)
 		FormFactor = FormFactor(state.FormFactor, action),
 
 		ChatAppReducer = ChatAppReducer(state.ChatAppReducer, action),
+
+		Startup = Startup(state.Startup, action),
 	}
 end

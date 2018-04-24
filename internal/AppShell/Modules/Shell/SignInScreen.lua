@@ -2,15 +2,14 @@
 			// SignInScreen.lua
 ]]
 local XboxNewEngagementFlow = settings():GetFFlag("XboxNewEngagementFlow")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
 local GuiService = game:GetService('GuiService')
-local PlatformService = nil
-pcall(function() PlatformService = game:GetService('PlatformService') end)
 local ThirdPartyUserService = nil
 pcall(function() ThirdPartyUserService = game:GetService("ThirdPartyUserService") end)
 local TextService = game:GetService('TextService')
@@ -25,7 +24,7 @@ local Utility = require(ShellModules:FindFirstChild('Utility'))
 local LinkAccountScreen = require(ShellModules:FindFirstChild('LinkAccountScreen'))
 local SetAccountCredentialsScreen = require(ShellModules:FindFirstChild('SetAccountCredentialsScreen'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
-
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local function createSignInScreen()
 	local this = {}
@@ -39,9 +38,14 @@ local function createSignInScreen()
 
 	-- get gamertag and set display text
 	local createAccountText = Strings:LocalizedString("PlayAsPhrase")
-	if ThirdPartyUserService then
-		local gamertag = ThirdPartyUserService:GetUserDisplayName()
+	if XboxUserStateRoduxEnabled then
+		local gamertag = XboxAppState.store:getState().XboxUser.gamertag
 		createAccountText = string.format(createAccountText, gamertag)
+	else
+		if ThirdPartyUserService then
+			local gamertag = ThirdPartyUserService:GetUserDisplayName()
+			createAccountText = string.format(createAccountText, gamertag)
+		end
 	end
 
 	local ModalOverlay = Utility.Create'Frame'

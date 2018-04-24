@@ -1,4 +1,6 @@
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -19,14 +21,14 @@ local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
 local UnlinkAccountOverlay = require(ShellModules:FindFirstChild('UnlinkAccountOverlay'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
-local Analytics = require(ShellModules:FindFirstChild('Analytics'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local function createAccountLinkingView()
 	local this = {}
 
-	local gamerTag = UserData:GetDisplayName() or ""
-	local robloxName = UserData:GetRobloxName() or ""
-	local rbxuid = UserData:GetRbxUserId()
+	local gamerTag = XboxUserStateRoduxEnabled and XboxAppState.store:getState().XboxUser.gamertag or UserData:GetDisplayName()
+	local robloxName = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.robloxName or UserData:GetRobloxName()
+	local rbxuid = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 	local linkedAsPhrase = string.format(Strings:LocalizedString('LinkedAsPhrase'), gamerTag, robloxName)
 
 	local dummySelection = Utility.Create'Frame'

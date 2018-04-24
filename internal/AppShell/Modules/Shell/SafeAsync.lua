@@ -23,7 +23,7 @@ end
 	Set userRelated as true if want to cancel callback if user switch happens.
 	Call Cancel() if you want to cancel the callback manually.
 
-	Example:	
+	Example:
 		local httpAsync = makeSafeAsync
 		{
 			asyncFunc = local function() return http.getAsync() end,  --This is the async function
@@ -59,15 +59,15 @@ local function makeSafeAsync(input)
 
 			local lastUserState = currentUserState
 			local results = {asyncFunc(...)}
-	
+
 			if currentFuncState ~= lastFuncState then
 				return
 			end
-	
+
 			if userRelated and lastUserState ~= currentUserState then
 				return
 			end
-	
+
 			if cancelled then
 				return
 			end

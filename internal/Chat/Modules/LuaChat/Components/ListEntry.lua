@@ -7,6 +7,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local ListEntry = {}
 
@@ -58,7 +59,7 @@ function ListEntry.new(appState, height)
 	local inputEndedConnection = self.rbx.InputEnded:Connect(onInputEnded)
 	table.insert(self.connections, inputEndedConnection)
 
-	local mouseClickedConnection = self.rbx.MouseButton1Click:connect(function()
+	local mouseClickedConnection = getInputEvent(self.rbx):connect(function()
 		self.tapped:Fire()
 	end)
 	table.insert(self.connections, mouseClickedConnection)

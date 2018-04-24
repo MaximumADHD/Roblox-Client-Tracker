@@ -1,4 +1,4 @@
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -15,10 +15,8 @@ pcall(function() ThirdPartyUserService = game:GetService('ThirdPartyUserService'
 local BaseScreen = require(ShellModules:FindFirstChild('BaseScreen'))
 local Errors = require(ShellModules:FindFirstChild('Errors'))
 local ErrorOverlay = require(ShellModules:FindFirstChild('ErrorOverlay'))
-local OverscanScreenModule = require(ShellModules:FindFirstChild('OverscanScreen'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
-local Utility = require(ShellModules:FindFirstChild('Utility'))
 local AccountScreen = require(ShellModules:FindFirstChild('AccountScreen'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 
@@ -28,7 +26,7 @@ local function createSettingsScreen()
 	local userInputServiceChangedCn = nil
 
 	function this:GetVersionInfo()
-		if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+		if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 			return {Major = 1, Minor = 0, Build = 0, Revision = 0}
 		elseif PlatformService then
 			return PlatformService:GetVersionIdInfo();
@@ -48,7 +46,7 @@ local function createSettingsScreen()
 	end
 
 	function this:OpenSwitchProfileScreen()
-		if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+		if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 			ScreenManager:OpenScreen(ErrorOverlay(Errors.Test.FeatureNotAvailableInStudio), false)
 			return
 		end
@@ -70,7 +68,7 @@ local function createSettingsScreen()
 	end
 
 	function this:OpenHelpScreen()
-		if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+		if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 			ScreenManager:OpenScreen(ErrorOverlay(Errors.Test.FeatureNotAvailableInStudio), false)
 		else
 			local success, result = pcall(function()

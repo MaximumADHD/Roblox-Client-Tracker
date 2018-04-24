@@ -6,11 +6,10 @@
 				// Displays 2x2 of badges on game details page
 				// Displays individual information about each badge (overlay)
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local GuiService = game:GetService('GuiService')
 
 local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
 local BadgeOverlayModule = require(ShellModules:FindFirstChild('BadgeOverlay'))
@@ -21,9 +20,6 @@ local Utility = require(ShellModules:FindFirstChild('Utility'))
 local PopupText = require(ShellModules:FindFirstChild('PopupText'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
-
-local WidgetModules = ShellModules:FindFirstChild("Widgets")
-local MoreButtonModule = require(WidgetModules:FindFirstChild("MoreButton"))
 
 local CreateBadgeSort = function(placeName, size, position, parent)
 	local this = {}

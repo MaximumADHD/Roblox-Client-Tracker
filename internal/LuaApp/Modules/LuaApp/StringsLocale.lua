@@ -4,6 +4,8 @@ local GeneratedStrings = require(script.Parent.GeneratedStrings)
 local StringsLocale = {}
 
 StringsLocale.Keys = {
+	BY = "BY",
+	RECOMMENDED_GAMES = "RECOMMENDED_GAMES",
 	PLAYING = "PLAYING",
 	VISITS = "VISITS",
 	CREATED = "CREATED",
@@ -81,7 +83,6 @@ StringsLocale.Keys = {
 	OFFLINE = "OFFLINE",
 	ONLINE = "ONLINE",
 	BY_BUILDER = "BY_BUILDER",
-
 	VIEW_ASSET_DETAILS = "VIEW_ASSET_DETAILS",
 	PLAY_GAME = "PLAY_GAME",
 	MY_FEED = "MY_FEED",
@@ -117,6 +118,22 @@ StringsLocale.Languages = {
 StringsLocale.DefaultLanguage = StringsLocale.Languages.EN_US
 
 StringsLocale.Content = {
+	{
+
+		key = StringsLocale.Keys.BY,
+		values = {
+			[StringsLocale.Languages.EN_US] = "By",
+		},
+		comment = "The preposition after the game title to introduce the game creator.",
+	},
+	{
+
+		key = StringsLocale.Keys.RECOMMENDED_GAMES,
+		values = {
+			[StringsLocale.Languages.EN_US] = "Recommended Games",
+		},
+		comment = "Recommended Games section header for the About Tab on the game details page.",
+	},
 	{
 
 		key = StringsLocale.Keys.COPYLOCKED,

@@ -1,6 +1,4 @@
-local ContextActionService = game:GetService("ContextActionService")
 local GameOptionsSettings = settings():FindFirstChild("Game Options")
-local RunService = game:GetService('RunService')
 local UserInputService = game:GetService("UserInputService")
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService("PlatformService") end)

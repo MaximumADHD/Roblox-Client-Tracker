@@ -1,4 +1,6 @@
-local CoreGui = Game:GetService("CoreGui")
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -15,6 +17,7 @@ local UserData = require(ShellModules:FindFirstChild('UserData'))
 local GuiService = game:GetService('GuiService')
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local MULTIPLAYER_SETTING_URI = "ms-settings://CustomizePrivacyMultiplayer"
 local GAME_CONTENT_SETTING_URI = "ms-settings://CustomizePrivacyGameContent"
@@ -410,7 +413,8 @@ local function createGameplaySettingsView(errorCode)
 	end
 
 	createCPPSettingsView()
-	local EnableXboxAccountSettings = Utility.IsFastFlagEnabled("XboxAccountSettings") or tostring(UserData.GetRbxUserId()) == Utility.GetFastVariable("XboxAccountSettingsUserId")
+	local rbxid = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
+	local EnableXboxAccountSettings = Utility.IsFastFlagEnabled("XboxAccountSettings") or tostring(rbxid) == Utility.GetFastVariable("XboxAccountSettingsUserId")
 	if EnableXboxAccountSettings then
 		createPrivilegeSettingsView()
 	end

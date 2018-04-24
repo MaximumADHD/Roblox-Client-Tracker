@@ -93,8 +93,6 @@ function FramePopup:render()
 	local heightAllItems = self.props.heightAllItems
 	local heightScrollContainer = self.props.heightScrollContainer
 	local children = self.props[Roact.Children]
-	local onCancel = self.props.onCancel
-	local isAnimated = self.props.isAnimated
 
 	-- Text offset to make space for the cancel icon (padding doesn't work for text):
 	local iconSpacing = ICON_SIZE + (ICON_HORIZONTAL_SPACE * 2)
@@ -202,7 +200,7 @@ function FramePopup:render()
 							end,
 						}), -- Cancel Button
 					}), -- Cancel Frame
-				}) -- Popup Frame 
+				}) -- Popup Frame
 			end -- Render Function
 		}) -- Animated Popup
 	}) -- Transparent Popup Background

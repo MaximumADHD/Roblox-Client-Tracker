@@ -1,8 +1,8 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(Modules.Common.Roact)
+local RoactRodux = require(Modules.Common.RoactRodux)
 
-local Game = require(Modules.LuaApp.Models.Game)
 local Overview = require(Modules.LuaApp.Components.GameDetails.Overview)
 local FitChildren = require(Modules.LuaApp.FitChildren)
 local TabbedFrame = require(Modules.LuaApp.Components.TabbedFrame)
@@ -12,8 +12,11 @@ local LocalizedTextLabel = require(Modules.LuaApp.Components.LocalizedTextLabel)
 local DropshadowFrame = require(Modules.LuaApp.Components.DropshadowFrame)
 local Functional = require(Modules.Common.Functional)
 local Constants = require(Modules.LuaApp.Constants)
+local Carousel = require(Modules.LuaApp.Components.Carousel)
+local GameCard = require(Modules.LuaApp.Components.Games.GameCard)
 local Game = require(Modules.LuaApp.Models.Game)
-local GameDetail = require(Modules.LuaApp.Models.GameDetail)
+local Immutable = require(Modules.Common.Immutable)
+local memoize = require(Modules.Common.memoize)
 
 local GameDetailsPage = Roact.Component:extend("GameDetailsPage")
 
@@ -42,6 +45,17 @@ end
 
 local function AboutTab(props)
 	local gameDetail = props.gameDetail
+	local recommendedGames = props.recommendedGames
+	local navGameDetails = props.navGameDetails
+
+	local recommendedGameCards = {}
+	for gameLayoutOrder, game in ipairs(recommendedGames) do
+		recommendedGameCards["Card " .. game.name] = Roact.createElement(GameCard, {
+			game = game,
+			navGameDetails = navGameDetails,
+			LayoutOrder = gameLayoutOrder,
+		})
+	end
 
 	return {
 		Layout = Roact.createElement(Layout),
@@ -63,6 +77,14 @@ local function AboutTab(props)
 			Text = {StringsLocale.Keys.GAME_BADGES},
 			LayoutOrder = 5,
 		}),
+		RecommendedGamesTitle = Roact.createElement(Title, {
+			Text = {StringsLocale.Keys.RECOMMENDED_GAMES},
+			LayoutOrder = 6,
+		}),
+		RecommendedGames = Roact.createElement(Carousel, {
+			childPadding = Constants.GAME_CAROUSEL_CHILD_PADDING,
+			LayoutOrder = 7,
+		}, recommendedGameCards)
 	}
 end
 
@@ -174,6 +196,7 @@ end
 
 function GameDetailsPage:render()
 	local game = self.props.game
+
 	self.props.passes = {{ -- Dummy data until we get thunks for these
 		name = "Epic Content",
 	}, {
@@ -186,55 +209,75 @@ function GameDetailsPage:render()
 	}, {
 		name = "Darkheart",
 	}}
-	self.props.game = Game.mock()
 	self:recalcWidth()
 
-	return Roact.createElement(FitChildren.FitScrollingFrame, {
-		ScrollBarThickness = 0,
-		Position = UDim2.new(0.5, -self.props.width/2, 0, 0),
-		Size = UDim2.new(0, self.props.width, 1, 0),
-		fitFields = {
-			CanvasSize = FitChildren.FitAxis.Height,
-		},
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = Constants.Color.GRAY4,
+		Size = UDim2.new(1, 0, 1, 0),
 	}, {
-		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = PADDING_UDIM,
-			PaddingRight = PADDING_UDIM,
-			PaddingBottom = PADDING_UDIM,
-			PaddingLeft = PADDING_UDIM,
-		}),
-		Layout = Roact.createElement(Layout),
-		Overview = Roact.createElement(Overview, {
-			game = game,
-			padding = PADDING,
-			isMaxWidth = self.props.width == MAX_WIDTH,
-			showShare = self.props.width > SHOW_SHARE_WIDTH,
-
-			LayoutOrder = 1,
-		}),
-		TabbedFrame = Roact.createElement(TabbedFrame, {
-			props = {
-				Size = UDim2.new(1, 0, 0, 0),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-
-				fitAxis = FitChildren.FitAxis.Height,
+		Roact.createElement(FitChildren.FitScrollingFrame, {
+			ScrollBarThickness = 0,
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0.5, -self.props.width/2, 0, 0),
+			Size = UDim2.new(0, self.props.width, 1, 0),
+			fitFields = {
+				CanvasSize = FitChildren.FitAxis.Height,
 			},
-			tabs = {{
-				label = {StringsLocale.Keys.ABOUT},
-				content = function () return AboutTab(self.props) end,
-			}, {
-				label = {StringsLocale.Keys.STORE},
-				content = function () return StoreTab(self.props) end,
-			}, {
-				label = {StringsLocale.Keys.LEADERBOARDS},
-				content = function () return LeaderboardsTab(self.props) end,
-			}, {
-				label = {StringsLocale.Keys.SERVERS},
-				content = function () return ServersTab(self.props) end,
-			}},
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingTop = PADDING_UDIM,
+				PaddingRight = PADDING_UDIM,
+				PaddingBottom = PADDING_UDIM,
+				PaddingLeft = PADDING_UDIM,
+			}),
+			Layout = Roact.createElement(Layout),
+			Overview = Roact.createElement(Overview, {
+				game = game,
+				padding = PADDING,
+				isMaxWidth = self.props.width == MAX_WIDTH,
+				showShare = self.props.width > SHOW_SHARE_WIDTH,
+
+				LayoutOrder = 1,
+			}),
+			TabbedFrame = Roact.createElement(TabbedFrame, {
+				props = {
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					LayoutOrder = 2,
+
+					fitAxis = FitChildren.FitAxis.Height,
+				},
+				tabs = {{
+					label = {StringsLocale.Keys.ABOUT},
+					content = function () return AboutTab(self.props) end,
+				}, {
+					label = {StringsLocale.Keys.STORE},
+					content = function () return StoreTab(self.props) end,
+				}, {
+					label = {StringsLocale.Keys.LEADERBOARDS},
+					content = function () return LeaderboardsTab(self.props) end,
+				}, {
+					label = {StringsLocale.Keys.SERVERS},
+					content = function () return ServersTab(self.props) end,
+				}},
+			}),
 		})
 	})
 end
+
+local selectRecommendedSort = memoize(function ()
+	local mockGame = Game.mock()
+	local sort = {}
+	for i = 1, 10 do
+		sort[i] = Game.fromJsonData(Immutable.Set(mockGame, "name", "Game " .. i))
+	end
+	return sort
+end)
+
+GameDetailsPage = RoactRodux.connect(function(store, props)
+	return {
+		recommendedGames = selectRecommendedSort()
+	}
+end)(GameDetailsPage)
 
 return GameDetailsPage

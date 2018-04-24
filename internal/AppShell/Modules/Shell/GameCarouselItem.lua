@@ -1,6 +1,5 @@
-
-local CoreGui = Game:GetService("CoreGui")
-local GuiService = Game:GetService('GuiService')
+local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService('GuiService')
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")

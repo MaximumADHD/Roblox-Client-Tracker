@@ -1,14 +1,12 @@
 --[[
 			// SocialPane.lua
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local GuiService = game:GetService('GuiService')
 
-local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
-local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local FriendsData = require(ShellModules:FindFirstChild('FriendsData'))
 local FriendsView = require(ShellModules:FindFirstChild('FriendsView'))
@@ -17,15 +15,8 @@ local ScrollingGridModule = require(ShellModules:FindFirstChild('ScrollingGrid')
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
-local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local XboxRecommendedPeople = Utility.IsFastFlagEnabled('XboxRecommendedPeople')
-
---[[ Constants ]]--
-local GRID_SIZE = UDim2.new(1, 0, 1, 0)
-local GRID_ROWS = 5
-local GRID_COLUMNS = 4
-local GRID_DIRECTION = 'Horizontal'
 
 local function CreateSocialPane(parent)
 	local this = {}

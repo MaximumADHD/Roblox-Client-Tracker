@@ -4,38 +4,21 @@
 			// Created by Kip Turner
 			// Copyright Roblox 2015
 ]]
-
-
-local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
-
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
-local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
-local Errors = require(ShellModules:FindFirstChild('Errors'))
-local ErrorOverlayModule = require(ShellModules:FindFirstChild('ErrorOverlay'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
-
-
 local BaseTile = require(ShellModules:FindFirstChild('BaseTile'))
-
 
 local function createOutfitTileContainer(outfitData)
 	local this = BaseTile()
 
 	local function wearOutfitAsync()
 		local result = outfitData:WearAsync()
-
-		-- if result and result['success'] == true then
-		-- else
-		-- 	local err = Errors.OutfitEquip['Default']
-		-- 	ScreenManager:OpenScreen(ErrorOverlayModule(err), false)
-		-- end
 	end
 
 	local thumbnailLoader = ThumbnailLoader:Create(this.AvatarImage, outfitData:GetOutfitId(), ThumbnailLoader.Sizes.Medium, ThumbnailLoader.AssetType.Outfit, true)
@@ -91,22 +74,11 @@ local function createOutfitTileContainer(outfitData)
 	local baseFocus = this.Focus
 	function this:Focus()
 		baseFocus(self)
-
-		-- ContextActionService:BindCoreAction("WearSelectedOutfitItem",
-		-- function(actionName, inputState, inputObject)
-		-- 	if inputState == Enum.UserInputState.End then
-		-- 		SoundManager:Play('ButtonPress')
-		-- 		wearOutfitAsync()
-		-- 	end
-		-- end,
-		-- false,
-		-- Enum.KeyCode.ButtonX)
 	end
 
 	local baseRemoveFocus = this.RemoveFocus
 	function this:RemoveFocus()
 		baseRemoveFocus(self)
-		-- ContextActionService:UnbindCoreAction("WearSelectedOutfitItem")
 	end
 
 	return this

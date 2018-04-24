@@ -25,7 +25,6 @@ function User.mock()
 	self.presence = User.PresenceType.OFFLINE
 	self.lastLocation = nil
 	self.isFriend = false
-	self.isFetching = false
 	self.thumbnails = {}
 
 	return self
@@ -39,7 +38,6 @@ function User.fromData(id, name, isFriend)
 	self.presence = id == Players.LocalPlayer.UserId and User.PresenceType.ONLINE or User.PresenceType.OFFLINE
 	self.lastLocation = nil
 	self.isFriend = isFriend
-	self.isFetching = false
 	self.thumbnails = {}
 
 	return self

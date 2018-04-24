@@ -1,10 +1,9 @@
 -- Written by Kip Turner, Copyright Roblox 2015
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService('GuiService')
-local PlayersService = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local ContextActionService = game:GetService('ContextActionService')
 
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
@@ -17,7 +16,6 @@ local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local FriendsData = require(ShellModules:FindFirstChild('FriendsData'))
 local FriendsView = require(ShellModules:FindFirstChild('FriendsView'))
 local ScrollingGridModule = require(ShellModules:FindFirstChild('ScrollingGrid'))
-local GameplaySettingsData = require(ShellModules:FindFirstChild('GameplaySettingsData'))
 local GameSort = require(ShellModules:FindFirstChild('GameSort'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
@@ -27,13 +25,13 @@ local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local ThumbnailLoader = require(ShellModules:FindFirstChild('ThumbnailLoader'))
 local SortsData = require(ShellModules:FindFirstChild('SortsData'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local MOCKUP_SIZE = Vector2.new(1920, 1080)
 local PROFILE_SIZE = Vector2.new(450, 343)
 local PROFILE_NAME_SIZE = Vector2.new(450, 38)
 local PROFILE_BUTTON_SIZE = Vector2.new(450, 300)
 local PROFILE_IMAGE_SIZE = Vector2.new(450, 300)
-local PROFILE_AVATAR_BRUSH_SIZE = Vector2.new(301, 149)
 local SORTS_SIZE = Vector2.new(1234, 608)
 
 local function CreateHomePane(parent)
@@ -155,11 +153,11 @@ local function CreateHomePane(parent)
 
 	local existingThumbnailLoader = nil
 	local function UpdateProfileInfo()
-		local playerName = UserData:GetDisplayName()
+		local playerName = XboxUserStateRoduxEnabled and XboxAppState.store:getState().XboxUser.gamertag or UserData:GetDisplayName()
 		NameLabel.Text = playerName and playerName or ''
 		-- ProfileImage.Image = UserData:GetAvatarUrl(420, 420)..'&cb='..tostring(tick())
 
-		local rbxuid = UserData:GetRbxUserId()
+		local rbxuid = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 
 		if rbxuid then
 			if existingThumbnailLoader then

@@ -3,6 +3,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 
 local GameVoteBar = require(Modules.LuaApp.Components.Games.GameVoteBar)
+local Constants = require(Modules.LuaApp.Constants)
 
 local VOTE_BAR_SIZE = 6
 local VOTE_BAR_Y = 2
@@ -34,6 +35,7 @@ local function LargeGameVoteBar(props)
 			Size = UDim2.new(0, 0, 0, COUNT_SIZE),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
+			TextColor3 = Constants.Color.GREEN_PRIMARY,
 			Text = tostring(upVotes),
 		}),
 		VoteBar = Roact.createElement(GameVoteBar, {
@@ -53,6 +55,7 @@ local function LargeGameVoteBar(props)
 			Size = UDim2.new(0, 0, 0, COUNT_SIZE),
 			TextXAlignment = Enum.TextXAlignment.Right,
 			TextYAlignment = Enum.TextYAlignment.Center,
+			TextColor3 = Constants.Color.RED_NEGATIVE,
 			Text = tostring(downVotes),
 		}),
 	})

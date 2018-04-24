@@ -275,10 +275,13 @@ function RobloxEventReceiver:init(appState)
 		end
 	end
 
-	NotificationService.RobloxEventReceived:connect(onRobloxEventReceived)
-	NotificationService.RobloxConnectionChanged:connect(onRobloxConnectionChanged)
+	--Protect this call because Tests run in a downgraded security context
+	pcall(function()
+		NotificationService.RobloxEventReceived:connect(onRobloxEventReceived)
+		NotificationService.RobloxConnectionChanged:connect(onRobloxConnectionChanged)
+		GuiService.ShowLeaveConfirmation:Connect(onBackButtonPressed)
+	end)
 
-	GuiService.ShowLeaveConfirmation:Connect(onBackButtonPressed)
 	if Config.Debug then
 		UserInputService.InputEnded:Connect(function(input, gameProcessed)
 			if input.UserInputType == Enum.UserInputType.Keyboard then

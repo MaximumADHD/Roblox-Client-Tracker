@@ -31,6 +31,14 @@ local MotionSpecifier = require(script.Parent.MotionSpecifier)
 
 local SimpleMotion = Roact.Component:extend("SimpleMotion")
 
+local renderSteppedCallbacks = {}
+
+RunService.RenderStepped:Connect(function(dt)
+	for callback in pairs(renderSteppedCallbacks) do
+		callback(dt)
+	end
+end)
+
 function SimpleMotion:init()
 	-- Build up a list of initial values to use
 	-- First, we pull from 'style', which is a dictionary of specifiers
@@ -60,12 +68,11 @@ function SimpleMotion:init()
 	-- Setting it to true here because we don't want to trigger onRested
 	-- when the spring is initialized and went to resting immediately.
 	self.wasResting = true
-	
+
 	self.accumulator = 0
 	self.state = {
 		values = startValues,
 		velocities = velocities,
-		targetSpecifiers = self.props.style,
 	}
 end
 
@@ -73,79 +80,93 @@ function SimpleMotion:render()
 	return self.props.render(self.state.values)
 end
 
-function SimpleMotion:didMount()
-	self.connection = RunService.RenderStepped:Connect(function(dt)
-		if self.resting then
-			return
-		end
+function SimpleMotion:update(dt)
+	if self.resting then
+		return
+	end
 
-		local newValues = merge(self.state.values)
-		local newVelocities = merge(self.state.velocities)
+	local newValues = merge(self.state.values)
+	local newVelocities = merge(self.state.velocities)
+	local stateChanged = false
 
-		-- We use a fixed update rate to make sure our springs are predictable.
-		self.accumulator = self.accumulator + dt % Config.MAX_ACCUMULATION
+	-- We use a fixed update rate to make sure our springs are predictable.
+	self.accumulator = self.accumulator + dt % Config.MAX_ACCUMULATION
 
-		while self.accumulator >= Config.UPDATE_RATE do
-			self.accumulator = self.accumulator - Config.UPDATE_RATE
+	while self.accumulator >= Config.UPDATE_RATE do
+		self.accumulator = self.accumulator - Config.UPDATE_RATE
 
-			-- We should only rest if all values have almost reached their goals
-			local shouldRest = true
+		-- We should only rest if all values have almost reached their goals
+		local shouldRest = true
 
-			for key, targetSpecifier in pairs(self.state.targetSpecifiers) do
-				local targetType = MotionSpecifier.getType(targetSpecifier)
+		for key, targetSpecifier in pairs(self.props.style) do
+			local targetType = MotionSpecifier.getType(targetSpecifier)
 
-				local newPosition, newVelocity
+			local newPosition, newVelocity
 
-				if targetType == MotionType.Instant then
-					newPosition = targetSpecifier
-					newVelocity = 0
-				elseif targetType == MotionType.Spring then
-					newPosition, newVelocity = stepSpring(
-						Config.UPDATE_RATE * Config.TIME_FACTOR,
-						newValues[key],
-						newVelocities[key],
-						targetSpecifier.value,
-						targetSpecifier.stiffness,
-						targetSpecifier.damping,
-						Config.SPRING_PRECISION
-					)
-				else
-					error(("Unsupported MotionType %q"):format(targetType))
-				end
-
-				newValues[key] = newPosition
-				newVelocities[key] = newVelocity
-
-				-- Because 'stepSpring' does rounding for us, we don't have to
-				-- worry about floating point errors.
-				local realTargetValue = MotionSpecifier.extractValue(targetSpecifier)
-				if newPosition ~= realTargetValue or newVelocity ~= 0 then
-					shouldRest = false
-				end
+			if targetType == MotionType.Instant then
+				newPosition = targetSpecifier
+				newVelocity = 0
+			elseif targetType == MotionType.Spring then
+				newPosition, newVelocity = stepSpring(
+					Config.UPDATE_RATE * Config.TIME_FACTOR,
+					newValues[key],
+					newVelocities[key],
+					targetSpecifier.value,
+					targetSpecifier.stiffness,
+					targetSpecifier.damping,
+					targetSpecifier.precision
+				)
+			else
+				error(("Unsupported MotionType %q"):format(targetType))
 			end
 
-			if shouldRest then
-				self.resting = true
+			newValues[key] = newPosition
+			newVelocities[key] = newVelocity
 
-				break
+			if newPosition ~= self.state.values[key] or
+				newVelocity ~= self.state.velocities[key] then
+				stateChanged = true
+			end
+
+			-- Because 'stepSpring' does rounding for us, we don't have to
+			-- worry about floating point errors.
+			local realTargetValue = MotionSpecifier.extractValue(targetSpecifier)
+			if newPosition ~= realTargetValue or newVelocity ~= 0 then
+				shouldRest = false
 			end
 		end
 
+		if shouldRest then
+			self.resting = true
+			self.accumulator = 0
+
+			break
+		end
+	end
+
+	if stateChanged then
 		self:setState({
 			values = newValues,
 			velocities = newVelocities,
 		})
+	end
 
-		if not self.wasResting and self.resting and self.props.onRested then
-			self.props.onRested()
-		end
+	if not self.wasResting and self.resting and self.props.onRested then
+		self.props.onRested()
+	end
 
-		self.wasResting = self.resting
-	end)
+	self.wasResting = self.resting
+end
+
+function SimpleMotion:didMount()
+	self.renderCallback = function(dt)
+		self:update(dt)
+	end
+	renderSteppedCallbacks[self.renderCallback] = true
 end
 
 function SimpleMotion:willUnmount()
-	self.connection:Disconnect()
+	renderSteppedCallbacks[self.renderCallback] = nil
 end
 
 function SimpleMotion:willUpdate(newProps)
@@ -153,9 +174,6 @@ function SimpleMotion:willUpdate(newProps)
 		return
 	end
 
-	self:setState({
-		targetSpecifiers = newProps.style,
-	})
 	self.resting = false
 end
 

@@ -13,7 +13,7 @@ local Constants = require(Modules.LuaApp.Constants)
 local LocalizedTextLabel = require(Modules.LuaApp.Components.LocalizedTextLabel)
 local SearchBar = require(Modules.LuaApp.Components.SearchBar)
 
-local TOP_BAR_ICON_SIZE = 28
+local TOP_BAR_ICON_SIZE = 24
 local TOP_BAR_ICON_MARGIN = 12
 local TOP_BAR_ICON_PADDING = 6
 
@@ -91,6 +91,8 @@ function TopBar:init()
 
 	self.confirmSearch = function(keyword)
 		-- function callback when "Enter" on keyboard is pressed  when searching
+		local notificationType = GuiService:GetNotificationTypeList().SEARCH_GAMES
+		GuiService:BroadcastNotification(keyword, notificationType)
 	end
 end
 
@@ -234,7 +236,7 @@ function TopBar:render()
 				AnchorPoint = Vector2.new(0, 0.5),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Image = "rbxasset://textures/icon_ROBUX.png",
+				Image = "rbxasset://textures/ui/LuaApp/icons/ic-ROBUX.png",
 				LayoutOrder = 4,
 				Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
 				[Roact.Event.Activated] = function()
@@ -248,7 +250,7 @@ function TopBar:render()
 				AnchorPoint = Vector2.new(0, 0.5),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Image = "rbxasset://textures/Icon_Stream_Off.png",
+				Image = "rbxasset://textures/ui/LuaApp/icons/ic-notification.png",
 				LayoutOrder = 5,
 				Size = UDim2.new(0, TOP_BAR_ICON_SIZE, 0, TOP_BAR_ICON_SIZE),
 				[Roact.Event.Activated] = function()

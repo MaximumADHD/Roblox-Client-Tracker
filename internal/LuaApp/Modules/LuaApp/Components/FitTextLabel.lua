@@ -9,6 +9,7 @@ local FitChildren = require(Modules.LuaApp.FitChildren)
 local FitTextLabel = Roact.Component:extend("FitTextLabel")
 
 local MAXINT = 2^30 -- Any larger that 2^30 and TextService:GetTextSize stops giving valid results
+local ORIGIN_UDIM = UDim.new()
 
 function FitTextLabel:init()
 	self.signals = {}
@@ -37,12 +38,13 @@ function FitTextLabel:didMount()
 		-- is to have a set width with an unknown number of lines depending on the length of the text.
 		if fitAxis == FitChildren.FitAxis.Width or fitAxis == FitChildren.FitAxis.Both then
 			local maxDimensions = Vector2.new(MAXINT, self.frame.TextSize)
-			local width = TextService:GetTextSize(self.frame.Text, self.frame.TextSize, self.frame.Font, maxDimensions).x
-			self.frame.Size = UDim2.new(0, width, 0, self.frame.TextSize)
+			local width = UDim.new(0, TextService:GetTextSize(self.frame.Text, self.frame.TextSize, self.frame.Font, maxDimensions).x)
+			local height = fitAxis == FitChildren.FitAxis.Both and UDim.new(0, self.frame.TextSize) or self.frame.Size.Height
+			self.frame.Size = UDim2.new(width,  height)
 		else
 			local maxDimensions = Vector2.new(self.frame.AbsoluteSize.X, MAXINT)
-			local height = TextService:GetTextSize(self.frame.Text, self.frame.TextSize, self.frame.Font, maxDimensions).y
-			self.frame.Size = UDim2.new(self.frame.Size.X.Scale, self.frame.Size.X.Offset, 0, height)
+			local height = UDim.new(0, TextService:GetTextSize(self.frame.Text, self.frame.TextSize, self.frame.Font, maxDimensions).y)
+			self.frame.Size = UDim2.new(self.frame.Size.Width, height)
 		end
 	end
 	resize()

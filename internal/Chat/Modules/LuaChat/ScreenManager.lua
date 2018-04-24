@@ -6,7 +6,7 @@ local ScreenRouter = require(Modules.ScreenRouter)
 local Device = require(Modules.Device)
 local DialogFrame = require(Modules.Views.DialogFrame)
 
-local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar")
+local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar") or UserSettings().GameSettings:InStudioMode()
 
 local ScreenManager = {}
 

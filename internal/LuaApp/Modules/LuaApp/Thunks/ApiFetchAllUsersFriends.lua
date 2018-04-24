@@ -5,23 +5,26 @@ local ApiFetchUsersFriendCount = require(Modules.LuaApp.Thunks.ApiFetchUsersFrie
 
 return function(networkImpl)
 	return function(store)
-		return Promise.new(function()
-			store:Dispatch(ApiFetchUsersFriendCount(networkImpl)):andThen(function(friendCount)
+		return store:Dispatch(ApiFetchUsersFriendCount(networkImpl)):andThen(function(friendCount)
+			local fetchPromises = {}
 
-				local retrievedFriends = 0
-				local page = 0
-				local function callNextPage()
-					page = page + 1
-					store:Dispatch(ApiFetchUsersFriendPage(networkImpl, page)):andThen(function(userIds)
-						retrievedFriends = retrievedFriends + #userIds
-						if retrievedFriends < friendCount and #userIds > 0 then
-							callNextPage()
-						end
-					end)
-				end
+			local retrievedFriends = 0
+			local page = 0
+			local function callNextPage()
+				page = page + 1
+				local fetchPage = ApiFetchUsersFriendPage(networkImpl, page)
+				local promise = store:Dispatch(fetchPage):andThen(function(userIds)
+					retrievedFriends = retrievedFriends + #userIds
+					if retrievedFriends < friendCount and #userIds > 0 then
+						callNextPage()
+					end
+				end)
+				table.insert(fetchPromises, promise)
+			end
 
-				callNextPage()
-			end)
+			callNextPage()
+
+			return Promise.all(fetchPromises)
 		end)
 	end
 end

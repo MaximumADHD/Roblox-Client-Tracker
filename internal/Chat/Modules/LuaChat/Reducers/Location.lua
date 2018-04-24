@@ -81,7 +81,7 @@ return function(state, action)
 			end
 		end
 
-		local current = history[#history]
+		local current = history[#history] or {}
 
 		return {
 			current = current,

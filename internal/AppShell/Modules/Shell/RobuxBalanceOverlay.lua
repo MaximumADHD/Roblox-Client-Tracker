@@ -1,11 +1,10 @@
 --[[
 				// RobuxBalanceOverlay.lua
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-local GuiService = game:GetService('GuiService')
 local TextService = game:GetService('TextService')
 
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))

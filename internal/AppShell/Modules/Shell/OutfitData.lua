@@ -5,18 +5,18 @@
 			// Created by Kip Turner
 			// Copyright Roblox 2015
 ]]
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
-
-
 local Http = require(ShellModules:FindFirstChild('Http'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local OutfitData = {}
 
@@ -79,12 +79,12 @@ function OutfitData:GetMyOutfitsAsync()
 	debounceGetGetMyOutfitsAsync = true
 	UserData.GetLocalPlayerAsync()
 
-	if RbxUid ~= UserData:GetRbxUserId() then
+	if RbxUid ~= (XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()) then
 		OutfitCache = nil
 	end
 
 	while not OutfitCache do
-		local startRbxUid = UserData:GetRbxUserId()
+		local startRbxUid = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 		local outfits = {}
 		local index = 0
 		local count = 20
@@ -109,7 +109,7 @@ function OutfitData:GetMyOutfitsAsync()
 			index = index + count
 		until result == nil or result['FinalPage']
 
-		local nowRbxUid = UserData:GetRbxUserId()
+		local nowRbxUid = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 		if startRbxUid == nowRbxUid then
 			OutfitCache = outfits
 		end

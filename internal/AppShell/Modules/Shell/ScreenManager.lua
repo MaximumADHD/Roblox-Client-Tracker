@@ -1,14 +1,10 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-
-local PlatformService = nil
-pcall(function() PlatformService = game:GetService('PlatformService') end)
-local UserInputService = game:GetService('UserInputService')
 
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))

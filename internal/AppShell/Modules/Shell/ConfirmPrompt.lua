@@ -9,10 +9,8 @@ local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService('GuiService')
-local MarketplaceService = game:GetService('MarketplaceService')
 
 local UserDataModule = require(ShellModules:FindFirstChild('UserData'))
-local Http = require(ShellModules:FindFirstChild('Http'))
 
 local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
 local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
@@ -39,20 +37,10 @@ local CONTENT_POSITION = Vector2.new(0, 225)
 local DETAILS_CONTAINER_WIDTH = 1140 --CONTENT_WIDTH - PACKAGE_CONTAINER_WIDTH
 local DETAILS_CONTAINER_HEIGHT = 690
 
-local DESCRIPTION_WIDTH = 800
-local DESCRIPTION_HEIGHT = 265
-
 local BUY_BUTTON_WIDTH = 320
 local BUY_BUTTON_HEIGHT = 64
 
-local TEXT_START_OFFSET = Vector2.new(0, 135)
-local TEXT_SPACING = Vector2.new(0, 20)
-
 local BUY_BUTTON_OFFSET = Vector2.new(0, -50)
-
-local ROBUX_BALANCE_OFFSET = Vector2.new(100, -130)
-
-local DELAY_BEFORE_PURCHASE = 1
 
 local function CreateConfirmPrompt(confirmDetails, properties)
 	local this = {}
@@ -115,7 +103,7 @@ local function CreateConfirmPrompt(confirmDetails, properties)
 					{
 						Name = 'PackageImage';
 						Size = UDim2.new(1,0,1,0);
-						Image = ''; --Http.GetThumbnailUrlForAsset(assetId);
+						Image = '';
 						BackgroundTransparency = 1;
 						ZIndex = PackageBackground.ZIndex;
 						Parent = PackageBackground;
@@ -421,12 +409,9 @@ local function CreateConfirmPrompt(confirmDetails, properties)
 		end)
 
 		GuiService:AddSelectionParent("ConfirmOptionsSelectionGroup", ContentContainer)
-		-- spawn(function()
-		-- 	wait(DELAY_BEFORE_PURCHASE) -- Stop quick a-button smashing from purchasing items
 			if InFocus and GuiService.SelectedCoreObject == nil then
 				Utility.SetSelectedCoreObject(self:GetDefaultSelectableObject())
 			end
-		-- end)
 	end
 
 	function this:RemoveFocus()

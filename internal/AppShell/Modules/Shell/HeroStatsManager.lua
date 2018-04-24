@@ -1,22 +1,22 @@
 -- Written by Kip Turner, Copyright Roblox 2015
 
 -- Herostats Manager
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
-
 
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local Http = require(ShellModules:FindFirstChild('Http'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
 local PlatformInterface = require(ShellModules:FindFirstChild('PlatformInterface'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
-
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local VIEW_GAMETYPE_ENUM =
 {
@@ -24,10 +24,7 @@ local VIEW_GAMETYPE_ENUM =
 	Game = 1;
 }
 
-
 local HeroStatsManager = {}
-
-
 
 function HeroStatsManager:SendHeroStatsEventAsync(heroStatName, setValue)
 	Utility.DebugLog("HeroStatsManager - event name:" , heroStatName , "event value:" , setValue)
@@ -46,13 +43,8 @@ function HeroStatsManager:SendHeroStatsEventAsync(heroStatName, setValue)
 	Utility.DebugLog("HeroStatsManager - event name:" , heroStatName , "event status:" , heroStatStatus)
 end
 
-
-
-
-
-
 local function UpdateEquippedPackagesAsync()
-	local myUserId = UserData:GetRbxUserId()
+	local myUserId = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
 	local packages = myUserId and Http.GetUserOwnedPackagesAsync(myUserId)
 	local data = packages and packages['IsValid'] and packages['Data']
 	local items = data and data['Items']
@@ -71,7 +63,6 @@ local function OnJoinedGameAsync()
 	HeroStatsManager:SendHeroStatsEventAsync("GamesCount")
 	joinDebounce = false
 end
-
 
 EventHub:addEventListener(EventHub.Notifications["DonnedDifferentPackage"], "HeroStatsManager",
 	function(packageId)
@@ -122,7 +113,5 @@ spawn(function()
 		wait(60)
 	end
 end)
-
-
 
 return HeroStatsManager

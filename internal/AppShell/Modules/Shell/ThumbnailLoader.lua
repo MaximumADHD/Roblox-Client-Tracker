@@ -7,7 +7,7 @@
 			// Thumbnails may not yet be generated, so this will retry generation and
 			// assign the final thumbnail
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -20,7 +20,6 @@ local Utility = require(ShellModules:FindFirstChild('Utility'))
 
 local ThumbnailLoader = {}
 
-local BaseUrl = Http.BaseUrl
 local AssetGameBaseUrl = Http.AssetGameBaseUrl
 
 local RETRIES = 6

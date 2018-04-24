@@ -2,24 +2,27 @@ local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local PlayerService = game:GetService("Players")
 
-local Analytics = require(CoreGui.RobloxGui.Modules.Common.Analytics)
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local Modules = script.Parent.Parent
-local Components = Modules.Components
+local Modules = CoreGui.RobloxGui.Modules
 
+local Common = Modules.Common
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local Analytics = require(Common.Analytics)
 local StringsLocale = require(LuaApp.StringsLocale)
-local Create = require(Modules.Create)
-local Constants = require(Modules.Constants)
-local DialogInfo = require(Modules.DialogInfo)
-local ConversationActions = require(Modules.Actions.ConversationActions)
-local GetPlaceInfo = require(Modules.Actions.GetPlaceInfo)
-local HeaderLoader = require(Components.HeaderLoader)
-local PlaceInfoCard = require(Components.PlaceInfoCard)
-local GameShareCard = require(Components.GameShareCard)
-local ConversationList = require(Components.ConversationList)
+local Create = require(LuaChat.Create)
+local Constants = require(LuaChat.Constants)
+local DialogInfo = require(LuaChat.DialogInfo)
+local ConversationActions = require(LuaChat.Actions.ConversationActions)
+local GetPlaceInfo = require(LuaChat.Actions.GetPlaceInfo)
+local HeaderLoader = require(LuaChat.Components.HeaderLoader)
+local PlaceInfoCard = require(LuaChat.Components.PlaceInfoCard)
+local GameShareCard = require(LuaChat.Components.GameShareCard)
+local ConversationList = require(LuaChat.Components.ConversationList)
+local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
-local PopRoute = require(Modules.Actions.PopRoute)
-local SetAppLoaded = require(Modules.Actions.SetAppLoaded)
+local RemoveRoute = require(LuaChat.Actions.RemoveRoute)
+local SetAppLoaded = require(LuaChat.Actions.SetAppLoaded)
 
 local Intent = DialogInfo.Intent
 
@@ -86,7 +89,8 @@ function GameShareComponent.new(appState, placeId, innerFrame)
 			Size = UDim2.new(0, 24, 0, 24),
 			Position = UDim2.new(0, ICON_CELL_WIDTH/2, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Image = "rbxasset://textures/ui/LuaChat/icons/ic-search-gray.png",
+			ImageColor3 = Constants.Color.GRAY3,
+			Image = "rbxasset://textures/ui/LuaChat/icons/ic-search.png",
 		},
 		Create.new"TextBox" {
 			Name = "Search",
@@ -178,7 +182,7 @@ function GameShareComponent:Start()
 
 	-- back button
 	local backButtonConnection = self.header.BackButtonPressed:Connect(function()
-		self.appState.store:Dispatch(PopRoute())
+		self.appState.store:Dispatch(RemoveRoute(DialogInfo.Intent.GameShare))
 		GuiService:BroadcastNotification("", GuiService:GetNotificationTypeList().CLOSE_MODAL)
 	end)
 	table.insert(self.connections, backButtonConnection)
@@ -190,7 +194,7 @@ function GameShareComponent:Start()
 	table.insert(self.connections, appStateConnection)
 
 	-- search clear button
-	local clearButtonConnection = self.clearSearchButton.MouseButton1Click:Connect(function()
+	local clearButtonConnection = getInputEvent(self.clearSearchButton):Connect(function()
 		self.searchBox.Text = ""
 	end)
 	table.insert(self.connections, clearButtonConnection)

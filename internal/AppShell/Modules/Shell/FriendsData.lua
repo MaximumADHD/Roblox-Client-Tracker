@@ -7,12 +7,13 @@
 				Need polling to update friends. How are we going to handle all the cases
 					like the person you're selecting going offline, etc..
 ]]
+local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
+
 local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 local Players = game:GetService('Players')
-local HttpService = game:GetService('HttpService')
 local PlatformService = nil
 pcall(function() PlatformService = game:GetService('PlatformService') end)
 local UserInputService = game:GetService('UserInputService')
@@ -20,11 +21,11 @@ local UserInputService = game:GetService('UserInputService')
 local Http = require(ShellModules:FindFirstChild('Http'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local UserData = require(ShellModules:FindFirstChild('UserData'))
-local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local Analytics = require(ShellModules:FindFirstChild('Analytics'))
 local EventHub = require(ShellModules:FindFirstChild('EventHub'))
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local TableUtilities = require(Modules.LuaApp.TableUtilities)
+local XboxAppState = require(ShellModules:FindFirstChild('AppState'))
 
 local FriendService = nil
 pcall(function() FriendService = game:GetService('FriendService') end)
@@ -243,15 +244,15 @@ function FriendsData.Setup()
 		end
 	else
 		-- Roblox Friends - leaving this in for testing purposes in studio
-		if UserSettings().GameSettings:InStudioMode() or game:GetService('UserInputService'):GetPlatform() == Enum.Platform.Windows then
+		if UserSettings().GameSettings:InStudioMode() or UserInputService:GetPlatform() == Enum.Platform.Windows then
 			local POLL_DELAY = 30
 			if not isOnlineFriendsPolling then
 				local startCount = UserChangedCount
 				isOnlineFriendsPolling = true
 				isFriendEventsConnected = true
 				spawn(function()
-					local requesterId = UserData:GetRbxUserId()
-					while startCount == UserChangedCount and requesterId == UserData:GetRbxUserId() do
+					local requesterId = XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()
+					while startCount == UserChangedCount and requesterId == (XboxUserStateRoduxEnabled and XboxAppState.store:getState().RobloxUser.rbxuid or UserData:GetRbxUserId()) do
 						local myOnlineFriends = {}
 						local result = Http.GetOnlineFriendsAsync()
 						if result then

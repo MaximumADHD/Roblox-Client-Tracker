@@ -51,6 +51,7 @@ end
 function GameCard:render()
 	local game = self.props.game
 	local iconSize = self.props.iconSize
+	local navGameDetails = self.props.navGameDetails
 	local anchorPoint = self.props.AnchorPoint
 	local layoutOrder = self.props.LayoutOrder
 	local position = self.props.Position
@@ -87,8 +88,12 @@ function GameCard:render()
 			AutoButtonColor = false,
 
 			[Roact.Event.Activated] = function()
-				local notificationType = GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS
-				GuiService:BroadcastNotification(string.format("%d", placeId), notificationType)
+				if navGameDetails then
+					navGameDetails(game)
+				else
+					local notificationType = GuiService:GetNotificationTypeList().VIEW_GAME_DETAILS
+					GuiService:BroadcastNotification(string.format("%d", placeId), notificationType)
+				end
 			end,
 		}, {
 			Icon = Roact.createElement(GameThumbnail, {

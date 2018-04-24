@@ -2,6 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local LuaChat = CoreGui.RobloxGui.Modules.LuaChat
+local UserInputService = game:GetService("UserInputService")
 
 local Config = require(LuaChat.Config)
 local AppState = require(LuaChat.AppState)
@@ -16,6 +17,7 @@ local Intent = DialogInfo.Intent
 
 local SetRoute = require(LuaChat.Actions.SetRoute)
 local ToggleChatPaused = require(LuaChat.Actions.ToggleChatPaused)
+local FFLuaChatLegacyInputDisabled = settings():GetFFlag('LuaChatLegacyInputDisabled')
 
 local ChatMaster = {}
 ChatMaster.__index = ChatMaster
@@ -67,10 +69,17 @@ function ChatMaster:Start(startType, parameters)
 		startType = ChatMaster.Type.Default
 	end
 
-	RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
+	--pcall since tests run at a lower security context
+	pcall(function()
+		RunService:setThrottleFramerateEnabled(Config.PerformanceTestingMode == Enum.VirtualInputMode.None)
+		RunService:Set3dRenderingEnabled(false)
+	end)
 
-	RunService:Set3dRenderingEnabled(false)
 	self._appState.store:Dispatch(ToggleChatPaused(false))
+
+	if FFLuaChatLegacyInputDisabled then
+		UserInputService.LegacyInputEventsEnabled = false
+	end
 
 	if startType == ChatMaster.Type.Default then
 
@@ -106,8 +115,16 @@ function ChatMaster:Stop(stopType)
 	self._chatRunning = false
 	self._gameShareRunning = false
 
-	RunService:setThrottleFramerateEnabled(false)
-	RunService:Set3dRenderingEnabled(true)
+	--pcall since tests run at a lower security context
+	pcall(function()
+		RunService:setThrottleFramerateEnabled(false)
+		RunService:Set3dRenderingEnabled(true)
+	end)
+
+	if FFLuaChatLegacyInputDisabled then
+		UserInputService.LegacyInputEventsEnabled = true
+	end
+
 	self._appState.store:Dispatch(ToggleChatPaused(true))
 end
 

@@ -15,15 +15,17 @@ local MotionSpecifier = {}
 	Creates a new spring specifier with the given target value, stiffness,
 	and damping.
 ]]
-function MotionSpecifier.spring(value, stiffness, damping)
+function MotionSpecifier.spring(value, stiffness, damping, precision)
 	stiffness = stiffness or Config.DEFAULT_STIFFNESS
 	damping = damping or Config.DEFAULT_DAMPING
+	precision = precision or Config.SPRING_PRECISION
 
 	return {
 		type = MotionType.Spring,
 		value = value,
 		stiffness = stiffness,
 		damping = damping,
+		precision = precision,
 	}
 end
 

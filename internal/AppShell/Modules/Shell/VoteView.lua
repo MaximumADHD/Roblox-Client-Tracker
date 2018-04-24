@@ -3,7 +3,7 @@
 
 			// Manages the vote view for the game details page
 ]]
-local CoreGui = Game:GetService("CoreGui")
+local CoreGui = game:GetService("CoreGui")
 local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
@@ -13,7 +13,6 @@ local GlobalSettings = require(ShellModules:FindFirstChild('GlobalSettings'))
 local Strings = require(ShellModules:FindFirstChild('LocalizedStrings'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local VoteFrame = require(ShellModules:FindFirstChild('VoteFrame'))
-local AssetManager = require(ShellModules:FindFirstChild('AssetManager'))
 local ScreenManager = require(ShellModules:FindFirstChild('ScreenManager'))
 local ErrorOverlayModule = require(ShellModules:FindFirstChild('ErrorOverlay'))
 local Errors = require(ShellModules:FindFirstChild('Errors'))

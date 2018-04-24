@@ -3,7 +3,6 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 
 local Constants = require(Modules.LuaApp.Constants)
-local FitChildren = require(Modules.LuaApp.FitChildren)
 
 local DEFAULT_ITEM_HEIGHT = 54
 local DEFAULT_TEXT_COLOR = Constants.Color.GRAY1
@@ -82,7 +81,7 @@ function ListPicker:render()
 		})
 	end
 
-	-- Using a regular frame instead of a FitFrame because: right now the 
+	-- Using a regular frame instead of a FitFrame because: right now the
 	-- ListPicker is used by the Popout menu which have animation-controlled
 	-- size and FitFrame doesn't work very well with that.
 	return Roact.createElement("Frame", {
