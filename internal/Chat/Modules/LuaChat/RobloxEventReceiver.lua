@@ -26,6 +26,7 @@ local SetChatEnabled = require(LuaChat.Actions.SetChatEnabled)
 local SetConnectionState = require(LuaChat.Actions.SetConnectionState)
 local SetRoute = require(LuaChat.Actions.SetRoute)
 local ShowToast = require(LuaChat.Actions.ShowToast)
+local SetPreloading = require(LuaApp.Actions.SetPreloading)
 
 local StringsLocale = require(LuaApp.StringsLocale)
 
@@ -205,6 +206,9 @@ function RobloxEventReceiver:init(appState)
 			end
 
 			appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = convoId}, Intent.ConversationHub))
+		elseif detailType == "Preloading" then
+			local isPreloading = eventData.detail == "true"
+			appState.store:Dispatch(SetPreloading(isPreloading))
 		end
 	end
 

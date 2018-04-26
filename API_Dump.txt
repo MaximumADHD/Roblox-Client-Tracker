@@ -54,6 +54,7 @@ Class AdService : Instance [notCreatable]
 	Event AdService.VideoAdClosed(bool adShown) [deprecated]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [notCreatable]
+	Function void AnalyticsService:ReleaseRBXEventStream(string target) [RobloxScriptSecurity]
 	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
 	Function void AnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) [RobloxScriptSecurity]
 	Function void AnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
@@ -163,8 +164,6 @@ Class Beam : Instance
 	Property float Beam.Width1
 	Property float Beam.ZOffset
 	Function void Beam:SetTextureOffset(float offset = 0)
-Class BinaryStringValue : Instance
-	Event BinaryStringValue.Changed(BinaryString value)
 Class BindableEvent : Instance
 	Function void BindableEvent:Fire(Tuple arguments)
 	Event BindableEvent.Event(Tuple arguments)
@@ -227,23 +226,11 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Fire()
 	Function void RocketPropulsion:fire() [deprecated]
 	Event RocketPropulsion.ReachedTarget()
-Class BoolValue : Instance
-	Property bool BoolValue.Value
-	Event BoolValue.Changed(bool value)
-	Event BoolValue.changed(bool value) [deprecated]
-Class BrickColorValue : Instance
-	Property BrickColor BrickColorValue.Value
-	Event BrickColorValue.Changed(BrickColor value)
-	Event BrickColorValue.changed(BrickColor value) [deprecated]
 Class Button : Instance
 	Property bool Button.Enabled
 	Property Content Button.Icon
 	Function void Button:SetActive(bool active) [PluginSecurity]
 	Event Button.Click() [PluginSecurity]
-Class CFrameValue : Instance
-	Property CoordinateFrame CFrameValue.Value
-	Event CFrameValue.Changed(CoordinateFrame value)
-	Event CFrameValue.changed(CoordinateFrame value) [deprecated]
 Class CacheableContentProvider : Instance
 Class MeshContentProvider : CacheableContentProvider
 Class SolidModelContentProvider : CacheableContentProvider
@@ -346,10 +333,6 @@ Class CollectionService : Instance
 	Function void CollectionService:RemoveTag(Instance instance, string tag)
 	Event CollectionService.ItemAdded(Instance instance) [deprecated]
 	Event CollectionService.ItemRemoved(Instance instance) [deprecated]
-Class Color3Value : Instance
-	Property Color3 Color3Value.Value
-	Event Color3Value.Changed(Color3 value)
-	Event Color3Value.changed(Color3 value) [deprecated]
 Class Configuration : Instance
 Class Constraint : Instance
 	Property Class:Attachment Constraint.Attachment0
@@ -602,13 +585,6 @@ Class DialogChoice : Instance
 	Property string DialogChoice.GoodbyeDialog
 	Property string DialogChoice.ResponseDialog
 	Property string DialogChoice.UserDialog
-Class DoubleConstrainedValue : Instance [deprecated]
-	Property double DoubleConstrainedValue.ConstrainedValue [hidden]
-	Property double DoubleConstrainedValue.MaxValue
-	Property double DoubleConstrainedValue.MinValue
-	Property double DoubleConstrainedValue.Value
-	Event DoubleConstrainedValue.Changed(double value)
-	Event DoubleConstrainedValue.changed(double value) [deprecated]
 Class Dragger : Instance
 	Function void Dragger:AxisRotate(Axis axis = X)
 	Function void Dragger:MouseDown(Instance mousePart, Vector3 pointOnMousePart, Objects parts)
@@ -706,7 +682,6 @@ Class GuiBase2d : GuiBase [notbrowsable]
 	Property float GuiBase2d.AbsoluteRotation [readonly]
 	Property Vector2 GuiBase2d.AbsoluteSize [readonly]
 	Property bool GuiBase2d.AutoLocalize
-	Property bool GuiBase2d.IsNotOccluded [hidden] [readonly] [RobloxSecurity]
 	Property bool GuiBase2d.Localize [deprecated] [hidden]
 	Property Class:LocalizationTable GuiBase2d.RootLocalizationTable
 Class GuiObject : GuiBase2d [notbrowsable]
@@ -1201,17 +1176,6 @@ Class InsertService : Instance [notCreatable]
 	YieldFunction Instance InsertService:LoadAssetVersion(int64 assetVersionId)
 	YieldFunction Instance InsertService:loadAsset(int64 assetId) [deprecated]
 Class InstancePacketCache : Instance [notCreatable]
-Class IntConstrainedValue : Instance [deprecated]
-	Property int IntConstrainedValue.ConstrainedValue [hidden]
-	Property int IntConstrainedValue.MaxValue
-	Property int IntConstrainedValue.MinValue
-	Property int IntConstrainedValue.Value
-	Event IntConstrainedValue.Changed(int value)
-	Event IntConstrainedValue.changed(int value) [deprecated]
-Class IntValue : Instance
-	Property int IntValue.Value
-	Event IntValue.Changed(int value)
-	Event IntValue.changed(int value) [deprecated]
 Class JointInstance : Instance
 	Property CoordinateFrame JointInstance.C0
 	Property CoordinateFrame JointInstance.C1
@@ -1503,14 +1467,6 @@ Class NotificationService : Instance [notCreatable]
 	YieldFunction Array NotificationService:GetScheduledNotifications(int64 userId) [LocalUserSecurity]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
-Class NumberValue : Instance
-	Property double NumberValue.Value
-	Event NumberValue.Changed(double value)
-	Event NumberValue.changed(double value) [deprecated]
-Class ObjectValue : Instance
-	Property Class:Instance ObjectValue.Value
-	Event ObjectValue.Changed(Instance value)
-	Event ObjectValue.changed(Instance value) [deprecated]
 Class PVInstance : Instance [notbrowsable]
 	Property CoordinateFrame PVInstance.CoordinateFrame [deprecated] [writeonly]
 Class BasePart : PVInstance [notbrowsable]
@@ -1579,6 +1535,7 @@ Class BasePart : PVInstance [notbrowsable]
 	Function void BasePart:MakeJoints()
 	Function Instance BasePart:Negate() [LocalUserSecurity]
 	Function bool BasePart:Resize(NormalId normalId, int deltaAmount)
+	Function Objects BasePart:Separate() [LocalUserSecurity]
 	Function void BasePart:SetNetworkOwner(Instance playerInstance = nil)
 	Function void BasePart:SetNetworkOwnershipAuto()
 	Function Instance BasePart:UnionWith(Instance part) [LocalUserSecurity]
@@ -1843,7 +1800,6 @@ Class Player : Instance
 	Property float Player.NameDisplayDistance
 	Property bool Player.Neutral
 	Property string Player.OsPlatform [RobloxScriptSecurity]
-	Property Class:PlayerJoinData Player.PlayerJoinData [readonly]
 	Property Class:Instance Player.ReplicationFocus
 	Property Class:SpawnLocation Player.RespawnLocation
 	Property float Player.SimulationRadius [LocalUserSecurity]
@@ -1912,9 +1868,6 @@ Class Player : Instance
 	Event Player.Idled(double time)
 	Event Player.OnTeleport(TeleportState teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) [LocalUserSecurity]
-Class PlayerJoinData : Instance [notCreatable]
-	Property int64 PlayerJoinData.SourcePlaceId [readonly]
-	Function Array PlayerJoinData:GetPartyUserIds()
 Class PlayerScripts : Instance [notCreatable]
 	Function void PlayerScripts:ClearComputerCameraMovementModes()
 	Function void PlayerScripts:ClearComputerMovementModes()
@@ -2034,10 +1987,6 @@ Class ColorCorrectionEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
-Class RayValue : Instance
-	Property Ray RayValue.Value
-	Event RayValue.Changed(Ray value)
-	Event RayValue.changed(Ray value) [deprecated]
 Class ReflectionMetadata : Instance
 Class ReflectionMetadataCallbacks : Instance
 Class ReflectionMetadataClasses : Instance
@@ -2370,10 +2319,6 @@ Class RunningAverageItemDouble : StatsItem
 Class RunningAverageItemInt : StatsItem
 Class RunningAverageTimeIntervalItem : StatsItem
 Class TotalCountTimeIntervalItem : StatsItem
-Class StringValue : Instance
-	Property string StringValue.Value
-	Event StringValue.Changed(string value)
-	Event StringValue.changed(string value) [deprecated]
 Class TaskScheduler : Instance
 	Property bool TaskScheduler.AreArbitersThrottled
 	Property ConcurrencyModel TaskScheduler.Concurrency
@@ -2684,7 +2629,60 @@ Class VRService : Instance
 	Event VRService.TouchpadModeChanged(VRTouchpad pad, VRTouchpadMode mode)
 	Event VRService.UserCFrameChanged(UserCFrame type, CoordinateFrame value)
 	Event VRService.UserCFrameEnabled(UserCFrame type, bool enabled)
-Class Vector3Value : Instance
+Class ValueBase : Instance
+Class BinaryStringValue : ValueBase
+	Event BinaryStringValue.Changed(BinaryString value)
+Class BoolValue : ValueBase
+	Property bool BoolValue.Value
+	Event BoolValue.Changed(bool value)
+	Event BoolValue.changed(bool value) [deprecated]
+Class BrickColorValue : ValueBase
+	Property BrickColor BrickColorValue.Value
+	Event BrickColorValue.Changed(BrickColor value)
+	Event BrickColorValue.changed(BrickColor value) [deprecated]
+Class CFrameValue : ValueBase
+	Property CoordinateFrame CFrameValue.Value
+	Event CFrameValue.Changed(CoordinateFrame value)
+	Event CFrameValue.changed(CoordinateFrame value) [deprecated]
+Class Color3Value : ValueBase
+	Property Color3 Color3Value.Value
+	Event Color3Value.Changed(Color3 value)
+	Event Color3Value.changed(Color3 value) [deprecated]
+Class DoubleConstrainedValue : ValueBase [deprecated]
+	Property double DoubleConstrainedValue.ConstrainedValue [hidden]
+	Property double DoubleConstrainedValue.MaxValue
+	Property double DoubleConstrainedValue.MinValue
+	Property double DoubleConstrainedValue.Value
+	Event DoubleConstrainedValue.Changed(double value)
+	Event DoubleConstrainedValue.changed(double value) [deprecated]
+Class IntConstrainedValue : ValueBase [deprecated]
+	Property int IntConstrainedValue.ConstrainedValue [hidden]
+	Property int IntConstrainedValue.MaxValue
+	Property int IntConstrainedValue.MinValue
+	Property int IntConstrainedValue.Value
+	Event IntConstrainedValue.Changed(int value)
+	Event IntConstrainedValue.changed(int value) [deprecated]
+Class IntValue : ValueBase
+	Property int IntValue.Value
+	Event IntValue.Changed(int value)
+	Event IntValue.changed(int value) [deprecated]
+Class NumberValue : ValueBase
+	Property double NumberValue.Value
+	Event NumberValue.Changed(double value)
+	Event NumberValue.changed(double value) [deprecated]
+Class ObjectValue : ValueBase
+	Property Class:Instance ObjectValue.Value
+	Event ObjectValue.Changed(Instance value)
+	Event ObjectValue.changed(Instance value) [deprecated]
+Class RayValue : ValueBase
+	Property Ray RayValue.Value
+	Event RayValue.Changed(Ray value)
+	Event RayValue.changed(Ray value) [deprecated]
+Class StringValue : ValueBase
+	Property string StringValue.Value
+	Event StringValue.Changed(string value)
+	Event StringValue.changed(string value) [deprecated]
+Class Vector3Value : ValueBase
 	Property Vector3 Vector3Value.Value
 	Event Vector3Value.Changed(Vector3 value)
 	Event Vector3Value.changed(Vector3 value) [deprecated]
@@ -2745,6 +2743,7 @@ Enum AppShellActionType
 	EnumItem AppShellActionType.TapHomePageTab : 7
 	EnumItem AppShellActionType.GamePageLoaded : 8
 	EnumItem AppShellActionType.HomePageLoaded : 9
+	EnumItem AppShellActionType.AvatarEditorPageLoaded : 10
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1

@@ -99,6 +99,13 @@ function EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 end
 
 
+function EventStream:releaseRBXEventStream()
+	assert(self._isEnabled, "This reporting service is disabled")
+
+	self._reporter:ReleaseRBXEventStream(getPlatformTarget())
+end
+
+
 -- additionalArgs : (optional, map<string, string>) table for extra keys to appear in the event stream.
 function EventStream:updateHeartbeatObject(additionalArgs)
 	additionalArgs = additionalArgs or {}

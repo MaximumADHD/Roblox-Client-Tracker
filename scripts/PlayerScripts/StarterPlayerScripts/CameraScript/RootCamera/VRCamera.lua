@@ -174,8 +174,7 @@ local function CreateVRCamera()
 	local function onCameraSubjectChanged()
 		local camera = workspace.CurrentCamera
 		if camera and camera.CameraSubject then
-			wait(1)
-			forceSnap = true
+			delay(1, function () forceSnap = true end)
 		end
 	end
 

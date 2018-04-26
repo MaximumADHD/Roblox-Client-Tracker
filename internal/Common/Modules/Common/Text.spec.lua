@@ -76,6 +76,25 @@ return function()
 			local shouldFitQuery = Text.Truncate("One Two", Enum.Font.SourceSans, 18, -100, "...")
 			expect(shouldFitQuery).to.equal("")
 		end)
+
+		it("should truncate long graphemes properly", function()
+			-- 11-byte rainbow flag grapheme
+			-- Flag, zero-space-joiner, rainbow
+			local rainbowFlag = utf8.char(127987) .. utf8.char(8205) .. utf8.char(127752)
+			local oneFlagWithinLimit = Text.Truncate(
+				rainbowFlag, Enum.Font.SourceSans, 18, 100, "...")
+			expect(oneFlagWithinLimit).to.equal(rainbowFlag)
+
+			local twoRainbowFlags = rainbowFlag .. rainbowFlag
+			local twoFlagsAreFine = Text.Truncate(
+				twoRainbowFlags, Enum.Font.SourceSans, 18, 100, "...")
+			expect(twoFlagsAreFine).to.equal(twoRainbowFlags)
+
+			local fourRainbowFlags = twoRainbowFlags .. twoRainbowFlags
+			local fourFlagsIsTooLong = Text.Truncate(
+				fourRainbowFlags, Enum.Font.SourceSans, 18, 100, "...")
+			expect(fourFlagsIsTooLong).to.equal(twoRainbowFlags .. "...")
+		end)
 	end)
 
 	describe("TruncateTextLabel", function()

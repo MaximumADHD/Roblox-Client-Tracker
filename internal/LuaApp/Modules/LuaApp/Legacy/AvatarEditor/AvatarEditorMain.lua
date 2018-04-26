@@ -1,3 +1,4 @@
+local NotificationService = game:GetService("NotificationService")
 local userInputService = game:GetService('UserInputService')
 local sharedStorage = game:GetService('ReplicatedStorage')
 local CoreGui = game:GetService("CoreGui")
@@ -19,6 +20,7 @@ local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfo)
 local CameraController = require(Modules.LuaApp.Legacy.AvatarEditor.CameraController)
 
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
+local UseNewAELoadTimeMetrics = settings():GetFFlag("UseNewAELoadTimeMetrics")
 
 while not game:GetService('Players').LocalPlayer do wait() end
 
@@ -441,6 +443,10 @@ function AppMain:Start()
 	cameraController:Focus()
 	characterManager.show()
 	WarningWidget:Focus()
+
+	if UseNewAELoadTimeMetrics then
+		NotificationService:ActionEnabled(Enum.AppShellActionType.AvatarEditorPageLoaded)
+	end
 end
 
 function AppMain:Stop()

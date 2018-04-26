@@ -7,8 +7,6 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService('UserInputService')
 local Lighting = game:GetService('Lighting')
 
-local XboxFixSkyboxCycle2 = settings():GetFFlag("XboxFixSkyboxCycle2")
-
 local BackgroundTintColor = Color3.new(0.0784, 0.1686, 0.2353)
 
 local ColorCorrection = Utility.Create'ColorCorrectionEffect'
@@ -211,66 +209,25 @@ local function CameraSeriesAnimator(cameraSeries, length)
 		timestamp0 = tick()
 	end
 
-	local runCameraSeries = function() end
-	if not XboxFixSkyboxCycle2 then
-		runCameraSeries = function(transitionDuration)
-			local tween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, 0.5, 4, Utility.EaseInOutQuad, true)
-			table.insert(tweenTable, tween)
-			tween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize,  10, 4, Utility.EaseInOutQuad, true)
-			table.insert(tweenTable, tween)
-			advance()
-			while isRunning do
-				for i = #tweenTable, 1, -1 do
-					if tweenTable[i]:IsFinished() then
-						table.remove(tweenTable, i)
-					end
-				end
-
-				wait(length-transitionDuration)
-
-				if not isRunning then
-					return
-				end
-
-				local newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, -1, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-				newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize, 50, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-
-				wait(transitionDuration)
-				advance()
-
-				if not isRunning then
-					return
-				end
-
-				newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, 0.5, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-				newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize,  10, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
+	runCameraSeries = function(transitionDuration)
+		local timePassed = tick() - timestamp0
+		for i = #tweenTable, 1, -1 do
+			if tweenTable[i]:IsFinished() then
+				table.remove(tweenTable, i)
 			end
 		end
-	else
-		runCameraSeries = function(transitionDuration)
-			local timePassed = tick() - timestamp0
-			for i = #tweenTable, 1, -1 do
-				if tweenTable[i]:IsFinished() then
-					table.remove(tweenTable, i)
-				end
-			end
 
-			if timePassed >= length then
-				local newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, 0.5, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-				newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize,  10, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-				advance()
-			elseif timePassed >= length - transitionDuration and #tweenTable == 0 then
-				local newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, -1, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-				newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize, 50, transitionDuration, Utility.EaseInOutQuad, true)
-				table.insert(tweenTable, newTween)
-			end
+		if timePassed >= length then
+			local newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, 0.5, transitionDuration, Utility.EaseInOutQuad, true)
+			table.insert(tweenTable, newTween)
+			newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize,  10, transitionDuration, Utility.EaseInOutQuad, true)
+			table.insert(tweenTable, newTween)
+			advance()
+		elseif timePassed >= length - transitionDuration and #tweenTable == 0 then
+			local newTween = Utility.PropertyTweener(animationInfo, "Contrast", animationInfo.Contrast, -1, transitionDuration, Utility.EaseInOutQuad, true)
+			table.insert(tweenTable, newTween)
+			newTween = Utility.PropertyTweener(animationInfo, "BlurSize", animationInfo.BlurSize, 50, transitionDuration, Utility.EaseInOutQuad, true)
+			table.insert(tweenTable, newTween)
 		end
 	end
 
@@ -286,16 +243,10 @@ local function CameraSeriesAnimator(cameraSeries, length)
 
 	function this:Start()
 		isRunning = true
-		if XboxFixSkyboxCycle2 then
-			startCameraSeries()
-			RunService:BindToRenderStep("runCameraSeries", Enum.RenderPriority.Camera.Value + 1, function()
-				runCameraSeries(1.7)
-			end)
-		else
-			spawn(function()
-				runCameraSeries(1.7)
-			end)
-		end
+		startCameraSeries()
+		RunService:BindToRenderStep("runCameraSeries", Enum.RenderPriority.Camera.Value + 1, function()
+			runCameraSeries(1.7)
+		end)
 	end
 
 	function this:Stop()
@@ -308,9 +259,7 @@ local function CameraSeriesAnimator(cameraSeries, length)
 			Contrast = 0.5;
 			BlurSize = 10;
 		}
-		if XboxFixSkyboxCycle2 then
-			RunService:UnbindFromRenderStep("runCameraSeries")
-		end
+		RunService:UnbindFromRenderStep("runCameraSeries")
 	end
 
 	function this:get_getFrameInfo()

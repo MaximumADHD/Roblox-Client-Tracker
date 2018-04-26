@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Model" referent="RBXD51FABEB01854553BC95CC90799D5AA2">
+	<Item class="Model" referent="RBXb0aa0d73604341ec9a05e66aaa79aaef">
 		<Properties>
 			<CoordinateFrame name="ModelInPrimary">
 				<X>0</X>
@@ -21,7 +21,7 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBXFC23DE816E1D4A519D783D738681D08E">
+		<Item class="Script" referent="RBX0704a2b9afc542328295f9d992bb46df">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -64,6 +64,7 @@ local SelectionService		= game:GetService("Selection")
 
 -- Flags
 local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
+local FFlagStudioUIEditorRotateV1 = FFlag:isEnabled("StudioUIEditorRotateV1")
 
 -- Variables
 local inputBeganEvent = nil
@@ -93,18 +94,24 @@ local BUFFER_SIZE_MINIMUM = 5
 local function configureActionMediator()
 	Move:setActionMediator(ActionMediator)
 	Resize:setActionMediator(ActionMediator)
-	Rotate:setActionMediator(ActionMediator)
+	if FFlagStudioUIEditorRotateV1 then
+		Rotate:setActionMediator(ActionMediator)
+	end
 	Rubberband:setActionMediator(ActionMediator)
 	TextEditor:setActionMediator(ActionMediator)
 	
 	ActionMediator:setMove(Move)
 	ActionMediator:setResize(Resize)
-	ActionMediator:setRotate(Rotate)
+	if FFlagStudioUIEditorRotateV1 then
+		ActionMediator:setRotate(Rotate)
+	end
 	ActionMediator:setRubberband(Rubberband)
 	ActionMediator:setTextEditor(TextEditor)
 	
 	ActionMediator:setDistanceLinesManager(DistanceLinesManager)
-	ActionMediator:setRotationBox(RotationBox)
+	if FFlagStudioUIEditorRotateV1 then
+		ActionMediator:setRotationBox(RotationBox)
+	end
 	ActionMediator:setSizeBox(SizeBox)
 end
 
@@ -134,7 +141,9 @@ local function onInstanceChanged(instance, property)
 	if FFlagStudioUIEditorV2Alpha then
 		DistanceLinesManager:update()
 		DistanceLinesManager:setVisible(true)
-		Rotate:update()
+		if FFlagStudioUIEditorRotateV1 then
+			Rotate:update()
+		end
 		SizeBox:update()
 	end
 end
@@ -162,7 +171,7 @@ local function onInputBegan(inputObject)
 			if Resize:isOverAHandle() then
 				Resize:startDrag(location)
 				return
-			elseif Rotate:isOverAHandle() then
+			elseif FFlagStudioUIEditorRotateV1 and Rotate:isOverAHandle() then
 				Rotate:onMouseDown(location)
 				return
 			end
@@ -270,11 +279,13 @@ local function onInputEnded(inputObject)
 		end
 		
 		if FFlagStudioUIEditorV2Alpha then
-			Rotate:onMouseUp(location)
+			if FFlagStudioUIEditorRotateV1 then
+				Rotate:onMouseUp(location)
+			end
 			
 			if Resize:isOverAHandle() then
 				Resize:updateMouseIcon()
-			elseif Rotate:isOverAHandle() then
+			elseif FFlagStudioUIEditorRotateV1 and Rotate:isOverAHandle() then
 				Rotate:updateMouseIcon()
 			else
 				MouseIconManager:setToDefaultIcon()
@@ -323,18 +334,30 @@ local function onInputChanged(inputObject)
 		end
 		
 		if FFlagStudioUIEditorV2Alpha then
-			Rotate:onMouseMove(location)
-		
-			-- Handle mouse icon updates. Resize takes precedence over rotate.
-			if Resize:isOverAHandle() and not Rotate:isRotating() then
-				Resize:updateMouseIcon()
-			elseif Rotate:isOverAHandle() then
-				Rotate:updateMouseIcon()
-			elseif not Rotate:isRotating() then
-				MouseIconManager:setToDefaultIcon()
+			if FFlagStudioUIEditorRotateV1 then
+				Rotate:onMouseMove(location)
 			end
-			
-			Resize:updateHandleHighlight(Rotate:isRotating())
+		
+			if FFlagStudioUIEditorRotateV1 then
+				-- Handle mouse icon updates. Resize takes precedence over rotate.
+				if Resize:isOverAHandle() and not Rotate:isRotating() then
+					Resize:updateMouseIcon()
+				elseif Rotate:isOverAHandle() then
+					Rotate:updateMouseIcon()
+				elseif not Rotate:isRotating() then
+					MouseIconManager:setToDefaultIcon()
+				end
+				
+				Resize:updateHandleHighlight(Rotate:isRotating())
+			else
+				if Resize:isOverAHandle() then
+					Resize:updateMouseIcon()
+				else
+					MouseIconManager:setToDefaultIcon()
+				end
+				
+				Resize:updateHandleHighlight(false)
+			end
 		else
 			Resize:DEPRECATED_highlightHandles(location)
 		end
@@ -353,7 +376,9 @@ local function onSelectionChanged()
 			Resize:onSelectionChanged()
 			SizeBox:onSelectionChanged()
 			DistanceLinesManager:onSelectionChanged()
-			Rotate:onSelectionChanged()
+			if FFlagStudioUIEditorRotateV1 then
+				Rotate:onSelectionChanged()
+			end
 		end
 	end
 	
@@ -410,8 +435,10 @@ function Off()
 		DistanceLinesManager:Off()
 		MouseIconManager:Off()
 		Resize:Off()
-		Rotate:Off()
-		RotationBox:Off()
+		if FFlagStudioUIEditorRotateV1 then
+			Rotate:Off()
+			RotationBox:Off()
+		end
 	end
 	
 	toolbarButton:SetActive(false)
@@ -448,8 +475,10 @@ function On()
 		DistanceLinesManager:On()
 		MouseIconManager:On(plugin:GetMouse())
 		Resize:On()
-		Rotate:On()
-		RotationBox:On()
+		if FFlagStudioUIEditorRotateV1 then
+			Rotate:On()
+			RotationBox:On()
+		end
 		
 		-- Must do onSelectionChanged, otherwise you can select an object before
 		-- the UI Editor is turned on and it won't be registered.	
@@ -475,7 +504,7 @@ loaded = true]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7CB779110CF445989608141959C0AC0B">
+		<Item class="ModuleScript" referent="RBX0d3640fcbaf14230b18b231b57b76def">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rubberband</string>
@@ -589,7 +618,7 @@ return Rubberband
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3B8C87BFE0714FF4ADEDC4E44F4FDBEF">
+		<Item class="ModuleScript" referent="RBX987bdfe8a263457392130620a67ef41d">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CoreGuiManager</string>
@@ -650,7 +679,7 @@ return CoreGuiManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA70D8F36C5F348BBA6EF3264E65B22B0">
+		<Item class="ModuleScript" referent="RBXb22ccb73f405415288bcdfca30a4dbdc">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Utility</string>
@@ -819,7 +848,7 @@ return Utility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3A56D8519F33432F9E2262415BBE6449">
+		<Item class="ModuleScript" referent="RBX4997ae39da5d4677aa8474e8cbd83cdb">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DoubleClickDetector</string>
@@ -847,7 +876,7 @@ return DoubleClickDetector
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX116BD5675199438281F5A179322DEB84">
+		<Item class="ModuleScript" referent="RBX136442bff620467e996cf4fb3d76d9e8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TextEditor</string>
@@ -986,7 +1015,7 @@ return TextEditor
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXDF841536E15C4DF8BB6A375E58705EA0">
+		<Item class="ModuleScript" referent="RBXabdfe0c462554a3c819f700877508996">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Resize</string>
@@ -997,9 +1026,7 @@ return TextEditor
 	handles when one or more GUI objects are selected.
 --]]
 
------------------------------------
---------------MODULES--------------
------------------------------------
+-- Modules
 local AdornmentModule		= require(script.Parent.AdornmentModule)
 local Analytics				= require(script.Parent.Analytics)
 local CoreGuiManager		= require(script.Parent.CoreGuiManager)
@@ -1015,31 +1042,25 @@ local Utility				= require(script.Parent.Utility)
 
 local SnappingType			= require(script.Parent.Enum.SnappingType)
 
------------------------------------
--------------SERVICES--------------
------------------------------------
-
+-- Services
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local UserInputService = game:GetService("UserInputService")
 
 -- Flags
 local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 
------------------------------------
--------------CONSTANTS-------------
------------------------------------
-
+-- Constants
 local MINIMUM_SIZE = 1
 local HANDLE_POSITION_OFFSET = 3
 
-local HOVER_COLOR = Color3.new(1,1,1)
-local BASE_COLOR = Color3.new(0.8, 0.8, 0.8)
-local BOUNDING_BOX_COLOR = Color3.new(0, 0, 0)
-
+local HOVER_COLOR = FFlagStudioUIEditorV2Alpha and Color3.fromRGB(255, 255, 255) or Color3.new(1,1,1)
+local BASE_COLOR = FFlagStudioUIEditorV2Alpha and Color3.fromRGB(255, 255, 255) or Color3.new(0.8, 0.8, 0.8)
+local HANDLE_BORDER_COLOR = Color3.fromRGB(136, 136, 136)
+local BOUNDING_BOX_COLOR = FFlagStudioUIEditorV2Alpha and Color3.fromRGB(222, 222, 222) or Color3.new(0, 0, 0)
 local HANDLE_OFFSET = Vector2.new(1, 1)
+local HANDLE_SIZE = FFlagStudioUIEditorV2Alpha and 8 or 9
 
-local BORDER_SIZE = 1 -- The border is 1 pixel wide by default
-local BOUNDING_BOX_WIDTH = 3
+local BOUNDING_BOX_WIDTH = FFlagStudioUIEditorV2Alpha and 1 or 3
 
 local HANDLE_NOTSET = Direction.NOT_SET
 local HANDLE_NW = FFlagStudioUIEditorV2Alpha and Direction.NW or 1
@@ -1057,15 +1078,11 @@ local DATA_POSITION = 3
 local DATA_ABSSIZE = 4
 local DATA_SIZE = 5
 
------------------------------------
--------------VARIABLES-------------
------------------------------------
+-- Variables
 local m_actionMediator = nil
 
 local m_debugMode = false -- Shows m_handleParent so you can check its transformation
 local m_selectionManagerEvent = nil
-
-local HANDLE_SIZE = 9
 
 local m_screenGui = nil
 
@@ -1089,9 +1106,7 @@ local m_isHidden = FFlagStudioUIEditorV2Alpha and true or false
 
 local m_mouseOverHandle = HANDLE_NOTSET
 
------------------------------------
--------------FUNCTIONS-------------
------------------------------------
+-- Functions
 
 -- Callback for when the mouse enters a resize handle. 
 --
@@ -1171,7 +1186,29 @@ local function createResizeHandles()
 		handle.Size = UDim2.new(0, HANDLE_SIZE, 0, HANDLE_SIZE)
 		handle.Position = positions[i]
 		handle.BackgroundColor3 = BASE_COLOR
-		handle.ZIndex = 2
+		handle.BorderColor3 = HANDLE_BORDER_COLOR
+		handle.ZIndex = 3
+		
+		-- Create drop shadow
+		local dropShadow = Instance.new("ImageLabel")
+		dropShadow.Image = "rbxasset://textures/StudioUIEditor/resizeHandleDropShadow.png"
+		dropShadow.Name = "ResizeHandleDropShadow_" .. Direction:toShortName(i)
+		-- We want to show four pixels of drop shadow on each side of the resize handle, 
+		-- which is why we add 8 to the size.
+		dropShadow.Size = UDim2.new(0, HANDLE_SIZE + 8, 0, HANDLE_SIZE + 8)
+		-- The image's first four pixels is the blured edge, so move it over by 4 pixels. We want
+		-- more to show at the bottom than top, so move it by a little less in y.  
+		dropShadow.Position = UDim2.new(0, -4, 0, -3)
+		dropShadow.BackgroundTransparency = 1
+		dropShadow.BorderSizePixel = 0
+		dropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		dropShadow.ImageTransparency = 0.6
+		dropShadow.ScaleType = Enum.ScaleType.Slice
+		-- The image was created so four pixels around the border is the blurred edge. We
+		-- want those edges and corners to not be stretched in the 9-patch.
+		dropShadow.SliceCenter = Rect.new(4, 4, 12, 12)
+		dropShadow.ZIndex = 2
+		dropShadow.Parent = handle
 		
 		-- Callbacks for when the handle is hovered		
 		handle.MouseEnter:connect(function(x, y)
@@ -1197,22 +1234,21 @@ local function createBoundingBox()
 		Vector2.new(0.5, 1)
 	}	
 	
+	-- the selection box is on top of the gui object border
 	local positions = {
-		UDim2.new(1, BORDER_SIZE, 0.5, 0),
-		UDim2.new(0.5, 0, 1, BORDER_SIZE),
-		UDim2.new(0, -BORDER_SIZE, 0.5, 0),
-		UDim2.new(0.5, 0, 0, -BORDER_SIZE)
+		UDim2.new(1, 0, 0.5, 0),
+		UDim2.new(0.5, 0, 1, 0),
+		UDim2.new(0, 0, 0.5, 0),
+		UDim2.new(0.5, 0, 0, 0)
 	}	
 	
-	
 	--[[		
-		The frames in the bounding box needs to larger than the selected
-		objects because they're displayed on the outside. We need to add
+		The frames in the bounding box is equivalent to the selected
+		objects because they're displayed on top of it. We need to add
 		the bounding box width at both ends, hence the multiplication by
-		two. We finally need to add 2 because there's at least a one
-		pixel border on each side from the object itself.
+		two. 
 	--]]
-	local extraBoundingBoxSize = 2*BOUNDING_BOX_WIDTH + 2*BORDER_SIZE
+	local extraBoundingBoxSize = 2 * BOUNDING_BOX_WIDTH
 	local sizes = {
 		UDim2.new(0, BOUNDING_BOX_WIDTH, 1, extraBoundingBoxSize),
 		UDim2.new(1, extraBoundingBoxSize, 0, BOUNDING_BOX_WIDTH), 		
@@ -1896,7 +1932,7 @@ return Resize
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA1E4DD15D4864CB59B5C66F896D22E6F">
+		<Item class="ModuleScript" referent="RBX4cb51ea674734ed2b78819b5e00ad285">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Error</string>
@@ -1913,7 +1949,7 @@ return Error
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB8AB754B0A344B16A1293F5D456DDBA1">
+		<Item class="ModuleScript" referent="RBXd13f21ea475e47b2a6ebf83115594323">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">AdornmentModule</string>
@@ -1921,6 +1957,9 @@ return Error
 				<ProtectedString name="Source"><![CDATA[
 
 local CoreGuiManager = require(script.Parent.CoreGuiManager)
+local Direction				= require(script.Parent.Enum.Direction)
+local Extents2D				= require(script.Parent.Extents2D)
+local SelectionManager		= require(script.Parent.SelectionManager)
 
 local Utility		= require(script.Parent.Utility)
 
@@ -1930,6 +1969,84 @@ local m_reparentOverlay = nil
 local m_xSnappingLine = nil
 local m_ySnappingLine = nil
 
+-- For Move adornments
+local m_debugMode = false -- Shows m_handleParent so you can check its transformation
+
+local m_screenGui = nil
+local m_handleParent = nil
+local m_handles = {}
+local m_boundingBox = {}
+
+local BASE_COLOR = Color3.fromRGB(255, 255, 255)
+
+local HANDLE_SIZE = 8
+local HANDLE_BORDER_COLOR = Color3.fromRGB(136, 136, 136)
+
+local BOUNDING_BOX_WIDTH = 1
+local BOUNDING_BOX_COLOR = Color3.fromRGB(222, 222, 222)
+
+--[[
+	Then handles should appear at the corners and the middle of the sides. Using
+	the anchors points simplifies this, as we can just use those positions directly. 
+--]]
+local selectionHandleAnchors = {
+	[Direction.E]  = Vector2.new(0, 0.5),
+	[Direction.SE] = Vector2.new(0, 0),
+	[Direction.S]  = Vector2.new(0.5, 0),
+	[Direction.SW] = Vector2.new(1, 0),
+	[Direction.W]  = Vector2.new(1, 0.5),
+	[Direction.NW] = Vector2.new(1, 1),
+	[Direction.N]  = Vector2.new(0.5, 1),
+	[Direction.NE] = Vector2.new(0, 1)
+}
+
+--[[
+	The handles are positioned using Scale relative to the m_handleParent. That way
+	their position will be updated automatically as the parent is resized.
+--]]
+local selectionHandleOffset = 2
+local selectionHandlePositions = {
+	[Direction.E]  = UDim2.new(1, -selectionHandleOffset, 0.5, 0),
+	[Direction.SE] = UDim2.new(1, -selectionHandleOffset, 1, -selectionHandleOffset),
+	[Direction.S]  = UDim2.new(0.5, 0, 1, -selectionHandleOffset),
+	[Direction.SW] = UDim2.new(0, selectionHandleOffset, 1, -selectionHandleOffset),
+	[Direction.W]  = UDim2.new(0, selectionHandleOffset, 0.5, 0),
+	[Direction.NW] = UDim2.new(0, selectionHandleOffset, 0, selectionHandleOffset),
+	[Direction.N]  = UDim2.new(0.5, 0, 0, selectionHandleOffset),
+	[Direction.NE] = UDim2.new(1, -selectionHandleOffset, 0, selectionHandleOffset)
+}
+
+-- The winding order is East and clockwise.
+local selectionBBoxAnchors = {
+	Vector2.new(0, 0.5),
+	Vector2.new(0.5, 0),
+	Vector2.new(1, 0.5),
+	Vector2.new(0.5, 1)
+}	
+
+-- the selection box is on top of the gui object border
+local selectionBBoxPositions = {
+	UDim2.new(1, 0, 0.5, 0),
+	UDim2.new(0.5, 0, 1, 0),
+	UDim2.new(0, 0, 0.5, 0),
+	UDim2.new(0.5, 0, 0, 0)
+}	
+
+--[[		
+	The frames in the bounding box is equivalent to the selected
+	objects because they're displayed on top of it. We need to add
+	the bounding box width at both ends, hence the multiplication by
+	two. 
+--]]
+local extraBoundingBoxSize = 2 * BOUNDING_BOX_WIDTH
+local selectionBBoxSizes = {
+	UDim2.new(0, BOUNDING_BOX_WIDTH, 1, extraBoundingBoxSize),
+	UDim2.new(1, extraBoundingBoxSize, 0, BOUNDING_BOX_WIDTH), 		
+	UDim2.new(0, BOUNDING_BOX_WIDTH, 1, extraBoundingBoxSize),				
+	UDim2.new(1, extraBoundingBoxSize, 0, BOUNDING_BOX_WIDTH)	
+}	
+	
+	
 -- ImageLabel createSnappingLine()
 local function createSnappingLine()
 	local line = Instance.new("ImageLabel")
@@ -1953,6 +2070,88 @@ local function createFrame()
 	return frame
 end
 
+local function handlesExist()
+	return #m_handles > 0
+end
+
+-- void createSelectionHandleParent(string parentName)
+--[[
+	Create the parent for handles so that we can group handles
+	and manipulate them more easily.
+		
+	[parentName]: object name of parent
+--]]
+local function createSelectionHandleParent(parentName)
+	m_handleParent = Instance.new("Frame")
+	m_handleParent.Name = parentName
+	
+	-- Handle parent should only show in debug mode
+	m_handleParent.AnchorPoint = Vector2.new(0, 0)
+	m_handleParent.BackgroundTransparency = m_debugMode and 0.5 or 1	
+	m_handleParent.BackgroundColor3 = Color3.new(0, 0, 255)
+	m_handleParent.BorderSizePixel = 0	
+end
+
+-- void createSelectionHandles(string action)
+--[[
+	Create handles for selection box.
+	
+	[action]: used to set object name of handles
+--]]
+local function createSelectionHandles(action)
+	-- Create each selection handle
+	for i = Direction.FIRST, Direction.LAST do
+		local handle = Instance.new("Frame")
+		handle.Name = action .. "Handle_" .. Direction:toShortName(i)
+		handle.AnchorPoint = selectionHandleAnchors[i]
+		handle.Size = UDim2.new(0, HANDLE_SIZE, 0, HANDLE_SIZE)
+		handle.Position = selectionHandlePositions[i]
+		handle.BackgroundColor3 = BASE_COLOR
+		handle.BorderColor3 = HANDLE_BORDER_COLOR
+		handle.ZIndex = 3
+		
+		-- Create drop shadow
+		local dropShadow = Instance.new("ImageLabel")
+		dropShadow.Image = "rbxasset://textures/StudioUIEditor/resizeHandleDropShadow.png"
+		dropShadow.Name = "ResizeHandleDropShadow_" .. Direction:toShortName(i)
+		-- We want to show four pixels of drop shadow on each side of the resize handle, 
+		-- which is why we add 8 to the size.
+		dropShadow.Size = UDim2.new(0, HANDLE_SIZE + 8, 0, HANDLE_SIZE + 8)
+		-- The image's first four pixels is the blured edge, so move it over by 4 pixels. We want
+		-- more to show at the bottom than top, so move it by a little less in y.  
+		dropShadow.Position = UDim2.new(0, -4, 0, -3)
+		dropShadow.BackgroundTransparency = 1
+		dropShadow.BorderSizePixel = 0
+		dropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+		dropShadow.ImageTransparency = 0.6
+		dropShadow.ScaleType = Enum.ScaleType.Slice
+		-- The image was created so four pixels around the border is the blurred edge. We
+		-- want those edges and corners to not be stretched in the 9-patch.
+		dropShadow.SliceCenter = Rect.new(4, 4, 12, 12)
+		dropShadow.ZIndex = 2
+		dropShadow.Parent = handle
+				
+		-- Add selection handle
+		handle.Parent = m_handleParent
+		m_handles[i] = handle
+	end	
+end
+
+-- void createSelectionBoundingBox()
+local function createSelectionBoundingBox()
+	for i = 1, 4 do
+		local frame = Instance.new("Frame")
+		frame.AnchorPoint = selectionBBoxAnchors[i]
+		frame.BackgroundColor3 = BOUNDING_BOX_COLOR
+		frame.BorderSizePixel = 0
+		frame.Position = selectionBBoxPositions[i]
+		frame.Size = selectionBBoxSizes[i]
+		
+		-- Add bounding box frame
+		m_boundingBox[i] = frame
+		m_boundingBox[i].Parent = m_handleParent
+	end	
+end	
 
 local AdornmentModule = {}
 
@@ -2044,12 +2243,77 @@ function AdornmentModule:hideOfferReparent()
 end
 
 
+function AdornmentModule:createMoveAdorns()
+	if (handlesExist()) then 
+		return 
+	end
+	
+	local container = CoreGuiManager:findOrCreateFolder("m_handles")
+	
+	if not m_screenGui then
+		m_screenGui = Instance.new("ScreenGui", container)
+		m_screenGui.Enabled = false
+	end
+	
+	createSelectionHandleParent("UIEditorMoveHandleParent")
+	m_handleParent.Parent = m_screenGui
+	createSelectionHandles("Move")
+	createSelectionBoundingBox()
+	
+	AdornmentModule:updateMoveAdorns(Extents2D:getExtentsFromGuis(SelectionManager:getFilteredSelection()))
+	m_screenGui.Enabled = true
+end
+
+function AdornmentModule:updateMoveAdorns(extents)
+	local size = extents.Size
+	local position = extents.TopLeft
+	
+	--[[
+		Update the m_handleParent so the resize handles and bounding box
+		frames are transformed.
+	--]] 
+	m_handleParent.Position = UDim2.new(0, position.X, 0, position.Y)
+	m_handleParent.Size = UDim2.new(0, size.X, 0, size.Y)
+	
+	local m_filteredSelection = SelectionManager:getFilteredSelection()
+	if (#m_filteredSelection == 1) then
+		-- Only one object is selected so we can rotate the bounding box and resize handles
+		m_handleParent.Rotation = m_filteredSelection[1].AbsoluteRotation	
+	else
+		m_handleParent.Rotation = 0
+	end	
+end
+
+function AdornmentModule:deleteMoveAdorns()
+	for i = 1, #m_handles do
+		m_handles[i]:Destroy()
+	end
+	
+	for i = 1, #m_boundingBox do
+		m_boundingBox[i]:Destroy()
+	end
+
+	m_handles = {}
+	m_boundingBox = {}
+	
+		
+	if m_handleParent then
+		m_handleParent:Destroy()
+		m_handleParent = nil
+	end
+	
+	if m_screenGui then
+		m_screenGui:Destroy()
+		m_screenGui = nil
+	end		
+end
+
 return AdornmentModule
 ]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXBBD88D724CAD4BBFAAC6B44E92CA5D70">
+		<Item class="ModuleScript" referent="RBXb1a64a7cb902496680bba87a874837ad">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SelectionManager</string>
@@ -2201,7 +2465,7 @@ return SelectionManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7317D635317D47DB8604FECB47598309">
+		<Item class="ModuleScript" referent="RBX263b940688114eda8b6b888be1d767dd">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Move</string>
@@ -2368,6 +2632,7 @@ local function isDescendantOf(item, potentialAncestor)
 	return false
 end
 
+
 function getHighestZIndexOfSelfAndDescendants(instance, original)
 	
 	if instance == original then return 0 end
@@ -2407,6 +2672,7 @@ function Move:isDragInProgress()
 	return m_draggingStarted
 end
 
+
 --void Move:startDrag(Vector2 location)
 function Move:startDrag(location)
 	m_originalSelectionData = {}
@@ -2425,6 +2691,7 @@ function Move:startDrag(location)
 	m_originalExtents = Extents2D:getExtentsFromGuis(draggableElements)
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		MouseIconManager:setToMoveIcon()
+		AdornmentModule:createMoveAdorns()
 		m_actionMediator:onMoveBegan(location)
 	end
 end
@@ -2456,6 +2723,7 @@ function Move:finishDrag(location)
 	
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
 		MouseIconManager:setToDefaultIcon()
+		AdornmentModule:deleteMoveAdorns()
 		m_actionMediator:onMoveEnded(location)
 	end
 end
@@ -2519,6 +2787,7 @@ function Move:updateDrag(location)
 	--]]
 	
 	if FFlag:isEnabled("StudioUIEditorV2Alpha") then
+		AdornmentModule:updateMoveAdorns(extents)
 		m_actionMediator:onMoveChanged(location)
 	end
 end
@@ -2543,7 +2812,7 @@ return Move
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3815E386B9C84FEA952564DA7ECADF2F">
+		<Item class="ModuleScript" referent="RBX09c5fe2fd666490cbdc69bd26b537e82">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rotate</string>
@@ -2931,7 +3200,7 @@ return Rotate
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF75F759D992F497D921B06956CB7357A">
+		<Item class="ModuleScript" referent="RBX60fe851cc9484dd8a09083261249d94a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Select</string>
@@ -3183,7 +3452,7 @@ return Select
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB4D65174501640A6965917133C12E5BF">
+		<Item class="ModuleScript" referent="RBXd7d51d24eb7545cb9162d9a59ecd2b0a">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GlobalValues</string>
@@ -3240,7 +3509,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX3C5760E9696A405EAD22F30BC7335663">
+		<Item class="Script" referent="RBX578719a8437c4f28bbb20aaa4a6460a3">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -3282,7 +3551,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF415EABA748841ECBB4D8692C5465362">
+		<Item class="ModuleScript" referent="RBXf86f37e950584d3c874f88da25d45318">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">InstanceInfo</string>
@@ -3388,7 +3657,7 @@ return InstanceInfo
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA1199B11CA184A20B5263288279E125D">
+		<Item class="ModuleScript" referent="RBX5da14db66def4dfcb3af219ba86f42f4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SnappingPointManager</string>
@@ -3735,7 +4004,7 @@ return SnappingPointManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC639BD7EF34C4842B717CE6F2D84B7DF">
+		<Item class="ModuleScript" referent="RBX3c43657204b44b80b8e29b01e7092667">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Set</string>
@@ -3830,7 +4099,7 @@ return Set
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA8AFDD07CE474F4B9A73C82C4C8DEB0F">
+		<Item class="ModuleScript" referent="RBX9aafe35e29904de79a1bdd300912a3c8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">UniqueArrayMap</string>
@@ -3883,7 +4152,7 @@ return UniqueArrayMap
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6A617FA051264E96854DFC6F6ACA4D18">
+		<Item class="ModuleScript" referent="RBX3ec3eb8b2b33492b983973f4baa4ea55">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Analytics</string>
@@ -3904,7 +4173,7 @@ return Analytics
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX079463B9051D49588C9FA3EAB35E5049">
+		<Item class="ModuleScript" referent="RBX85f53fcc9a7548c59926fff9037900bc">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Convert</string>
@@ -3946,7 +4215,7 @@ return Convert
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX9D39F28AC6864FAA9EDA67EC2DFE490E">
+		<Item class="ModuleScript" referent="RBXd090cc7bddcc4e32a42651e2b1b05b74">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">FFlag</string>
@@ -3977,7 +4246,7 @@ return FFlag
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4DD23607D73A436AA3A6D395273F650E">
+		<Item class="ModuleScript" referent="RBX01a3ce489503435d8a5ebe575cad4cfb">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Extents2D</string>
@@ -4247,12 +4516,12 @@ return Extents2D
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX44F93CA650F944B9A2A4A17FEFF1ECBD">
+		<Item class="Folder" referent="RBXefac639fec224c2f851cacf33f5a9d86">
 			<Properties>
 				<string name="Name">Enum</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX3B18786FE1BD49AA8640B4DE59750AC2">
+			<Item class="ModuleScript" referent="RBXd3ad13b14e0c43a6bb0ca9e457fbdca3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SnappingType</string>
@@ -4299,7 +4568,7 @@ return SnappingType
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX631EDF1DB0544AA6935E354AB87C1D49">
+			<Item class="ModuleScript" referent="RBX6b5ef125be804d9684cd00f1f37ada96">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Axis</string>
@@ -4316,7 +4585,7 @@ return Axis
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7A60D0FBF81D45A08085A588241712F9">
+			<Item class="ModuleScript" referent="RBX4729fefda2804a798c6348289b2d6160">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Direction</string>
@@ -4422,7 +4691,7 @@ return Direction]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX71F83035DD0E425EAB91C0D5DF0CF12F">
+		<Item class="ModuleScript" referent="RBX82be86153115411fb9034275a2b31eba">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Log</string>
@@ -4454,7 +4723,7 @@ return Log]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX9B14AEA02D1B4D61B7D0CE13C843F045">
+		<Item class="ModuleScript" referent="RBXecf5b178878d4486837e3c713576e942">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SizeBox</string>
@@ -4569,7 +4838,7 @@ return SizeBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFD87CBB317934E0E99BDBEEA3DEEC8F0">
+		<Item class="ModuleScript" referent="RBXba06770db33b4246a58bf4bd9fac6bf2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLinesManager</string>
@@ -4682,7 +4951,7 @@ return DistanceLinesManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC39D04933D9C499789159282A17ABC2D">
+		<Item class="ModuleScript" referent="RBX34d4441089a34b23a6f55ffbc6d1d435">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RectUtility</string>
@@ -4736,12 +5005,12 @@ return RectUtility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX5D6FD0F49AE740499F0F84E2C9974B53">
+		<Item class="Folder" referent="RBX7365170ea3aa4a7d89cb10007a5348fa">
 			<Properties>
 				<string name="Name">Tests</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBX8F238EDAAE8842E3B26DF00A851C13CE">
+			<Item class="Script" referent="RBXaf44cf7c35b94ad88575bd8163d88cb1">
 				<Properties>
 					<bool name="Disabled">true</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -4815,7 +5084,7 @@ rectUtilityTestSuite()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBXCD0C7C7DFC52493285A51CDBFC3E6194">
+		<Item class="ModuleScript" referent="RBX57d470338a014fef941fe730cf04e9d6">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLine</string>
@@ -5175,7 +5444,7 @@ return DistanceLine
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX43F6E98AB44E4557A30A9B1C9CB583EC">
+		<Item class="ModuleScript" referent="RBX7bfba0bacb1f44aa9e22cc8e1b26f0a6">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MouseIconManager</string>
@@ -5320,7 +5589,7 @@ return MouseIconManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1FA9C0B880B243AC8AFC0E16CE09BF2B">
+		<Item class="ModuleScript" referent="RBX3f2a35eeb5a94dd1841feb7a510a5da0">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ValueBox</string>
@@ -5453,7 +5722,7 @@ return ValueBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0A260C66B1E74C8FBE6386E4C86EF517">
+		<Item class="ModuleScript" referent="RBX06b457002f5345b3b822d6985ee03c83">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RotationBox</string>
@@ -5504,7 +5773,7 @@ return RotationBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1A4AFB1F31344B0A9640E4D5E56C7AB5">
+		<Item class="ModuleScript" referent="RBXb9409cc92918479b99d1420b1a82cf45">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ActionMediator</string>
@@ -5527,6 +5796,12 @@ return RotationBox
 
 local ActionMediator = {}
 
+-- Module scripts
+local FFlag	= require(script.Parent.FFlag)
+
+-- Flags
+local FFlagStudioUIEditorRotateV1 = FFlag:isEnabled("StudioUIEditorRotateV1")
+
 -- Variables
 local m_move = nil
 local m_resize = nil
@@ -5546,7 +5821,9 @@ end
 
 -- void ActionMediator:onMoveChanged(Vector2 location)
 function ActionMediator:onMoveChanged(location)
-	m_rotate:update()
+	if FFlagStudioUIEditorRotateV1 then
+		m_rotate:update()
+	end
 	m_distanceLinesManager:update()
 	m_distanceLinesManager:setVisible(true)
 end
@@ -5566,7 +5843,9 @@ end
 -- void ActionMediator:onResizeChanged(Vector2 location)
 function ActionMediator:onResizeChanged(location)
 	m_distanceLinesManager:update()
-	m_rotate:update()
+	if FFlagStudioUIEditorRotateV1 then
+		m_rotate:update()
+	end
 	m_sizeBox:update()
 end
 
@@ -5577,8 +5856,10 @@ end
 -- void ActionMediator:onRotateBegan(Vector2 location)
 function ActionMediator:onRotateBegan(location)
 	m_distanceLinesManager:setVisible(false)
-	m_rotationBox:update(location, m_rotate:getRotation())
-	m_rotationBox:setVisible(true)
+	if FFlagStudioUIEditorRotateV1 then
+		m_rotationBox:update(location, m_rotate:getRotation())
+		m_rotationBox:setVisible(true)
+	end
 	m_resize:hide()
 	m_sizeBox:setVisible(false)
 end
@@ -5592,8 +5873,9 @@ end
 function ActionMediator:onRotateEnded(location)
 	m_resize:updatePosition()
 	m_resize:show()
-	
-	m_rotationBox:setVisible(false)
+	if FFlagStudioUIEditorRotateV1 then
+		m_rotationBox:setVisible(false)
+	end
 	m_sizeBox:setVisible(true)
 	m_distanceLinesManager:update()
 	m_distanceLinesManager:setVisible(true)
@@ -5616,7 +5898,9 @@ function ActionMediator:onRubberbandEnded()
 	-- selection.
 	m_distanceLinesManager:onSelectionChanged()	
 	m_resize:onSelectionChanged()
-	m_rotate:onSelectionChanged()
+	if FFlagStudioUIEditorRotateV1 then
+		m_rotate:onSelectionChanged()
+	end
 	m_sizeBox:onSelectionChanged()
 end
 

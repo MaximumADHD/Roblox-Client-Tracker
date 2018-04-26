@@ -237,7 +237,7 @@ function clickedOnPoint(screenPoint)
 
 	local ray = camera:ScreenPointToRay(screenPoint.X, screenPoint.Y)
 	ray = Ray.new(ray.Origin, ray.Direction * MAX_CONTEXT_MENU_DISTANCE)
-	local hitPart, hitPoint = workspace:FindPartOnRay(ray, (not DEBUG_MODE) and LocalPlayer.Character or nil, false, true)
+	local hitPart, hitPoint = workspace:FindPartOnRay(ray, nil, false, true)
 	local player = ContextMenuUtil:FindPlayerFromPart(hitPart)
 
 	if player and ((DEBUG_MODE and player ~= LocalPlayer) or (player ~= LocalPlayer and player.UserId > 0)) then

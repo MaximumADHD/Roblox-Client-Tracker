@@ -72,6 +72,8 @@ function ConversationList.new(appState, conversations, entryCard)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		ScrollBarThickness = 5,
+		ElasticBehavior = "Always",
+		ScrollingDirection = "Y",
 		BottomImage = "rbxasset://textures/ui/LuaChat/9-slice/scroll-bar.png",
 		MidImage = "rbxasset://textures/ui/LuaChat/9-slice/scroll-bar.png",
 		TopImage = "rbxasset://textures/ui/LuaChat/9-slice/scroll-bar.png",

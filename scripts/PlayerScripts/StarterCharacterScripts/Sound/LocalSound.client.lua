@@ -98,20 +98,11 @@ do
 
 	if DefaultServerSoundEvent then
 		DefaultServerSoundEvent.OnClientEvent:connect(function(sound, playing, resetPosition)
-			if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") then
-				if resetPosition and sound.TimePosition ~= 0 then
-					sound.TimePosition = 0
-				end
-				if sound.IsPlaying ~= playing then
-					sound.Playing = playing
-				end
-			else
-				if sound.TimePosition ~= 0 then
-					sound.TimePosition = 0
-				end
-				if not sound.IsPlaying then
-					sound.Playing = true
-				end
+			if resetPosition and sound.TimePosition ~= 0 then
+				sound.TimePosition = 0
+			end
+			if sound.IsPlaying ~= playing then
+				sound.Playing = playing
 			end
 		end)
 	end
@@ -164,7 +155,7 @@ Util = {
 	end;
 
 	Pause = function(sound)
-		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") and IsSoundFilteringEnabled() then
+		if IsSoundFilteringEnabled() then
 			sound.CharacterSoundEvent:FireServer(false, false)
 		end
 		if sound.IsPlaying then
@@ -173,7 +164,7 @@ Util = {
 	end;
 
 	Resume = function(sound)
-		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") and IsSoundFilteringEnabled() then
+		if IsSoundFilteringEnabled() then
 			sound.CharacterSoundEvent:FireServer(true, false)
 		end
 		if not sound.IsPlaying then
@@ -182,7 +173,7 @@ Util = {
 	end;
 
 	Stop = function(sound)
-		if UserSettings():IsUserFeatureEnabled("UserPlayCharacterLoopSoundWhenFE") and IsSoundFilteringEnabled() then
+		if IsSoundFilteringEnabled() then
 			sound.CharacterSoundEvent:FireServer(false, true)
 		end
 		if sound.IsPlaying then

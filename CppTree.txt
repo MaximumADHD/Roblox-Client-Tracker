@@ -378,7 +378,6 @@ RBX
 		MemberDescriptor
 		ModelInstance
 		PartInstance
-		PlayerJoinData
 		PropertyDescriptor
 		PVInstance
 		RefPropertyDescriptor
@@ -464,7 +463,6 @@ RBX
 	Stats
 	{
 		CoreMemoryStatsItem
-		DEPRECATED_MemoryConsumerChildItem
 		DeveloperTagStatsItem
 		Item
 		MemoryTrackerCategoryStatsItem
@@ -808,6 +806,13 @@ RBX
 	KeyframeSequence
 	KeyframeSequenceProvider
 	LatchedSignalBase
+	LayoutDefault
+	LayoutGrid
+	LayoutList
+	LayoutNode
+	LayoutPage
+	LayoutTable
+	LayoutTableMajor
 	LeftMotorTool
 	LegacyCharacterAppearance
 	Light
@@ -900,7 +905,6 @@ RBX
 	Player
 	PlayerConfigurer
 	PlayerGui
-	PlayerJoinData
 	PlayerLocaleLocalizationServiceTranslatorInstance
 	PlayerMouse
 	Players
@@ -1035,7 +1039,6 @@ RBX
 	TablePtrTranslator
 	TaskQueueJob
 	TaskSchedulerMk2
-	TaskSchedulerOld
 	TaskSchedulerSettings
 	Team
 	Teams
@@ -1091,6 +1094,7 @@ RBX
 	UnsecuredStudioGame
 	UserInputBase
 	UserInputService
+	ValueBase
 	VehicleController
 	VehicleSeat
 	VelocityMotor

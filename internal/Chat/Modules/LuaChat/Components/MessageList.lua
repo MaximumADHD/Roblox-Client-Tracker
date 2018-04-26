@@ -133,6 +133,8 @@ function MessageList.new(appState, conversation)
 
 	self.rbx = Create.new "ScrollingFrame" {
 		Name = "MessageList",
+		ElasticBehavior = "Always",
+		ScrollingDirection = "Y",
 		BackgroundTransparency = 0,
 		BorderSizePixel = 0,
 		BackgroundColor3 = Constants.Color.GRAY6,

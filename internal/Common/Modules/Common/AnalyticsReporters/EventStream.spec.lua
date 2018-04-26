@@ -64,6 +64,9 @@ return function()
 		function DebugReportingService:SetRBXEventStream(eventTarget, eventContext, eventName, additionalArgs)
 			validateInputs(eventTarget, eventContext, eventName, additionalArgs)
 		end
+		function DebugReportingService:ReleaseRBXEventStream(eventTarget)
+			assert(eventTarget, "no value found for eventTarget")
+		end
 		function DebugReportingService:UpdateHeartbeatObject(additionalArgs)
 			if additionalArgs and not isTableEqual(additionalArgs, {}) then
 				assert(isTableEqual(additionalArgs, testArgs), "unexpected value for additionalArgs")
@@ -95,7 +98,9 @@ return function()
 		function buttonReportingService:SetRBXEventStream(target, context, event, additionalArgs)
 			validateInputs(target, context, event, additionalArgs)
 		end
-
+		function buttonReportingService:ReleaseRBXEventStream(eventTarget)
+			assert(eventTarget, "no value found for eventTarget")
+		end
 		return buttonReportingService
 	end
 
@@ -119,6 +124,9 @@ return function()
 		function formReportingService:SetRBXEventStream(target, context, event, additionalArgs)
 			validateInputs(target, context, event, additionalArgs)
 		end
+		function formReportingService:ReleaseRBXEventStream(eventTarget)
+			assert(eventTarget, "no value found for eventTarget")
+		end
 
 		return formReportingService
 	end
@@ -138,6 +146,9 @@ return function()
 		end
 		function screenReportingService:SetRBXEventStream(target, context, event, additionalArgs)
 			validateInputs(target, context, event, additionalArgs)
+		end
+		function screenReportingService:ReleaseRBXEventStream(eventTarget)
+			assert(eventTarget, "no value found for eventTarget")
 		end
 		return screenReportingService
 	end
@@ -287,6 +298,25 @@ return function()
 			expect(function()
 				es:setRBXEventStream(testContext, testEvent, badTestArgs)
 			end).to.throw()
+		end)
+	end)
+
+	describe("releaseRBXEventStream()", function()
+		it("should succeed with valid input", function()
+			local es = EventStream.new(createDebugReportingService())
+			es:releaseRBXEventStream()
+		end)
+
+		it("should throw when disabled and succeed when enabled", function()
+			local es = EventStream.new(createDebugReportingService())
+
+			expect(function()
+				es:setEnabled(false)
+				es:releaseRBXEventStream()
+			end).to.throw()
+
+			es:setEnabled(true)
+			es:releaseRBXEventStream()
 		end)
 	end)
 

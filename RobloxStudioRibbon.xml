@@ -258,7 +258,7 @@
           <addaction name="createRopeConstraintAction" style="textundericon" iscommonslot="true" text="Rope" tooltip="Create rope constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rope-32x32.png" width="32" height="32" />
           <addaction name="createRodConstraintAction" style="textundericon" iscommonslot="true" text="Rod" tooltip="Create rod constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rod-32x32.png" width="32" height="32" />
           <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Spring" tooltip="Create spring constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/spring-32x32.png" width="32" height="32" />
-          <addaction fflag="EnableWeldConstraint2" name="createWeldConstraintAction" style="textundericon" iscommonslot="true" text="Weld" tooltip="Create weld constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="32" height="32" />
+          <addaction name="createWeldConstraintAction" style="textundericon" iscommonslot="true" text="Weld" tooltip="Create weld constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
           <addaction name="createAlignOrientationAction" style="textundericon" iscommonslot="true" text="Align Orientation" tooltip="Create align orientation" icon=":/RibbonBar/images/RibbonIcons/Physics/align-orientation-32x32.png" width="32" height="32" />
           <addaction name="createAlignPositionAction" style="textundericon" iscommonslot="true" text="Align Position" tooltip="Create align position" icon=":/RibbonBar/images/RibbonIcons/Physics/align-position-32x32.png" width="32" height="32" />

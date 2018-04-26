@@ -56,6 +56,22 @@ local function setRBXEventStream(eventName, additionalArgs)
 	return success
 end
 
+local function releaseRBXEventStream(eventName)
+	local target = nil
+	local success, result = pcall(function()
+		if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
+			target = "console"
+			AnalyticsService:ReleaseRBXEventStream(target)
+		end
+	end)
+
+	if not success then
+		Utility.DebugLog("releaseRBXEventStream() failed because", result, "Input: target:", target)
+	end
+
+	return success
+end
+
 local function updateHeartbeatObject(additionalArgs)
 	local success, result = pcall(function()
 		AnalyticsService:UpdateHeartbeatObject(additionalArgs)

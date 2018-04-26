@@ -31,9 +31,9 @@ function NotificationBroadcaster:Update(state, oldState)
 		GuiService:BroadcastNotification(string, GuiService:GetNotificationTypeList().UNREAD_COUNT)
 	end
 
-	if (not self.hasLoadedConversations) and state.ChatAppReducer.Conversations ~= oldState.ChatAppReducer.Conversations then
+	if not self.hasLoadedConversations then
 		local hasLoadedConversations = next(state.ChatAppReducer.Conversations) ~= nil
-		if hasLoadedConversations then
+		if hasLoadedConversations and not state.Startup.Preloading then
 			NotificationService:ActionEnabled(Enum.AppShellActionType.TapConversationEntry)
 			self.hasLoadedConversations = true
 		end

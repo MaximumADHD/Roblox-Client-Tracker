@@ -1925,6 +1925,15 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">ValueBase</string>
+        <string name="ClassCategory">Values</string>
+        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerImageIndex">4</string>
+        <string name="summary">The base class to all Value Objects.</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">ObjectValue</string>
         <string name="ClassCategory">Values</string>
         <string name="ExplorerOrder">3</string>

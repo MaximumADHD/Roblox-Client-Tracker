@@ -6,7 +6,6 @@ local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
-local XboxFastSliderScrollingOnStick = Flags:GetFlag("XboxFastSliderScrollingOnStick")
 
 
 local THUMBSTICK_MOVE_DEADZONE = 0.6
@@ -324,11 +323,8 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 						fastRepeatMoveTimer = nil
 						lastMoveDirection = newMoveDirection
 						dpadIsControlingSlider = false
-						if XboxFastSliderScrollingOnStick then
-							handleByPercent(lastMoveDirection, THUMBSTICK_MOVE_SLIDER_PERCENT)
-						else
-							handle(lastMoveDirection)
-						end
+						handleByPercent(lastMoveDirection, THUMBSTICK_MOVE_SLIDER_PERCENT)
+
 					end
 				else --thumbstick is not pressed(under THUMBSTICK_MOVE_DEADZONE, reset timer and lastMoveDirection)
 					lastMoveDirection = 0
@@ -375,7 +371,7 @@ function this.renderSlider(name, title, changedFunction, currentPercent, interva
 			if curTime - repeatMoveTimer >= THUMBSTICK_MOVE_INITIAL_REPEAT_TIME then
 				if not fastRepeatMoveTimer or curTime - fastRepeatMoveTimer >= THUMBSTICK_MOVE_REPEAT_TIME then
 					fastRepeatMoveTimer = curTime
-					if XboxFastSliderScrollingOnStick and not dpadIsControlingSlider then
+					if not dpadIsControlingSlider then
 						handleByPercent(lastMoveDirection, THUMBSTICK_MOVE_SLIDER_PERCENT)
 					else
 						handle(lastMoveDirection)
