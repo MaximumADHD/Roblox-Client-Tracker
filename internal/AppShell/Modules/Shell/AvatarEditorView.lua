@@ -39,7 +39,7 @@ local LoadingWidget = require(ShellModules:FindFirstChild('LoadingWidget'))
 
 -------------- FFLAGS --------------
 local SoundManager = require(ShellModules:FindFirstChild('SoundManager'))
-local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
+local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage2")
 local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 ------------ VARIABLES -------------------

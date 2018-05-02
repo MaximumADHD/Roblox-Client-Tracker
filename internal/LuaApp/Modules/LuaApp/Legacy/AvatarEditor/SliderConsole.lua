@@ -5,7 +5,7 @@ local Modules = game:GetService("CoreGui"):FindFirstChild("RobloxGui").Modules
 local LayoutInfo = require(Modules.LuaApp.Legacy.AvatarEditor.LayoutInfoConsole)
 local Utilities = require(Modules.LuaApp.Legacy.AvatarEditor.Utilities)
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
-local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
+local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage2")
 
 
 local THUMBSTICK_MOVE_DEADZONE = 0.6

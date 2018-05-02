@@ -3,7 +3,7 @@ local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 
 -------------- FFLAGS --------------
 local AvatarEditorUsesBrowserWindowCall = Flags:GetFlag("AvatarEditorUsesBrowserWindowCall")
-local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage")
+local XboxScrollingInScalesPage = Flags:GetFlag("XboxAvatarEditorUseScrollingScalesPage2")
 
 -------------- SERVICES --------------
 local GuiService = game:GetService("GuiService")
@@ -558,9 +558,9 @@ local function createPageManager(userId, scrollingFrame, characterManager)
 		local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 
 		if isFullview then
-			TweenController(scrollingFrame, tweenInfo, { Position = UDim2.new(1, 600, 0, 270) })
+			TweenController(scrollingFrame, tweenInfo, { Position = UDim2.new(1, 600, 0, XboxScrollingInScalesPage and 0 or 270) })
 		else
-			TweenController(scrollingFrame, tweenInfo, { Position = UDim2.new(1, -99, 0, 270) })
+			TweenController(scrollingFrame, tweenInfo, { Position = UDim2.new(1, -99, 0, XboxScrollingInScalesPage and 0 or 270) })
 		end
 	end
 

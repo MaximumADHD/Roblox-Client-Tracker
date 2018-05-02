@@ -1,0 +1,4871 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Folder" referent="RBX9E6DFA0761674E15BCBB5598AC6572E4">
+		<Properties>
+			<string name="Name">Toolbox</string>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="Folder" referent="RBX58667124F2E446AE9855BC160F5B5094">
+			<Properties>
+				<string name="Name">src</string>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="Script" referent="RBX0B92D1ABEA2A43F0A97018A377CED599">
+				<Properties>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">main</string>
+					<string name="ScriptGuid">{C12CB540-C6FD-4CEB-9BC4-D9E14C237348}</string>
+					<ProtectedString name="Source"><![CDATA[local function isToolboxInLuaWidgetEnabled()
+	local isEnabled = false
+	local success, flagOn = pcall(function ()
+		return settings():GetFFlag("StudioToolboxInLuaWidget")
+	end)
+	if (success) then
+		isEnabled = flagOn
+	end
+	return isEnabled
+end
+
+if (not plugin or not isToolboxInLuaWidgetEnabled()) then
+	return
+end
+
+local Roact = require(script.Parent.Parent.libs.Roact)
+local Toolbox = require(script.Parent.components.Toolbox)
+
+local kMinWidth = 280
+local kMinHeight = 200
+
+-- TODO: Get icons for the background selector buttons
+local kBackgrounds = {
+	{name = "White"; icon = ""};
+	{name = "Black"; icon = ""};
+	{name = "None"; icon = ""};
+};
+
+local function updateButtonActive(button, plugin)
+	button:SetActive(plugin.Enabled);
+end
+
+local function main()
+	plugin.Name = "Toolbox"
+
+	local toolbar = plugin:CreateToolbar("Toolbox")
+	local toggleVisibilityButton = toolbar:CreateButton("Toolbox", "Insert items from the toolbox", "rbxasset://textures/StudioToolbox/ToolboxIcon.png")
+
+	local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 0, 0, kMinWidth, kMinHeight)
+	local pluginGui = plugin:CreateDockWidgetPluginGui("Toolbox_PluginGui", dockWidgetPluginGuiInfo)
+	pluginGui.Name = "Toolbox"
+	pluginGui.Title = "Toolbox"
+	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	toggleVisibilityButton.Click:connect(function ()
+		pluginGui.Enabled = not pluginGui.Enabled
+	end)
+
+	updateButtonActive(toggleVisibilityButton, pluginGui)
+
+	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function ()
+		updateButtonActive(toggleVisibilityButton, pluginGui)
+	end)
+
+	local toolboxComponent = Roact.createElement(Toolbox, {
+		backgrounds = kBackgrounds;
+	})
+	local toolboxHandle = Roact.reify(toolboxComponent, pluginGui, "Toolbox")
+end
+
+main()]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="Folder" referent="RBXE7EEA383B02E47E69DCA29D4565E2017">
+				<Properties>
+					<string name="Name">components</string>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBX61198EAEB1E24979A0E0030C3E173E82">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Footer</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.libs.Roact)
+local Constants = require(script.Parent.Parent.util.Constants)
+
+local Padding = require(script.Parent.Parent.util.Padding)
+
+local Footer = Roact.Component:extend("Footer")
+
+Footer.render = function (self)
+	local backgrounds = self.props.backgrounds
+	local selectedBackgroundIndex = self.props.selectedBackgroundIndex
+	local hoveredBackgroundIndex = self.props.hoveredBackgroundIndex
+
+	local backgroundComponents = {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal;
+			SortOrder = Enum.SortOrder.LayoutOrder;
+			Padding = UDim.new(0, 5);	
+		});
+		BackgroundTextLabel = Roact.createElement("TextLabel", {
+			Size = UDim2.new(0, 65, 1, 0);
+			Text = "Background:";
+			Font = Constants.kFont;
+			TextSize = Constants.kFontSizeSmall;
+			TextXAlignment = Enum.TextXAlignment.Left;
+			BackgroundTransparency = 1;
+			TextColor3 = Constants.kGray1;
+		});
+	}
+
+	for i = 1, #backgrounds, 1 do
+		local name = backgrounds[i].name
+		local icon = backgrounds[i].icon
+
+		local isSelected = (i == selectedBackgroundIndex)
+		local isHovered = (i == hoveredBackgroundIndex)
+
+		-- TODO: The container frame for the button should have rounded corners
+		backgroundComponents[name] = Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(0, 0.5);
+			BackgroundColor3 = isSelected and Constants.kBluePrimary or Constants.kWhite;
+			BorderColor3 = (isSelected or isHovered) and Constants.kBluePrimary or Constants.kGray3;
+			LayoutOrder = i;
+			Size = UDim2.new(0, 58, 1, 0);
+
+			[Roact.Event.MouseEnter] = function (rbx, x, y)
+				self.props.onBackgroundSelectorHovered(i)
+			end;
+			[Roact.Event.MouseLeave] = function (rbx, x, y)
+				self.props.onBackgroundSelectorHoverEnded(i)
+			end;
+			[Roact.Event.InputBegan] = function (rbx, input)
+				if (input.UserInputType == Enum.UserInputType.MouseButton1) then
+					self.props.onBackgroundSelectorClicked(i)
+				end
+			end;
+			[Roact.Event.InputChanged] = function (rbx, input)
+				-- Sometimes the MouseEnter event isn't fired, but this is always fired
+				if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+					self.props.onBackgroundSelectorHovered(i);
+				end
+			end;
+		}, {
+			UIPadding = Padding(4, 5);
+
+			-- TODO: Replace this with an image label based on the icon field
+			Icon = Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(0, 0.5);
+				Position = UDim2.new(0, 0, 0.5, 0);
+				Size = UDim2.new(0, 10, 0, 10);
+				BackgroundColor3 = (name == "Black") and Constants.kGray1 or Constants.kWhite;
+				BorderColor3 = (name == "Black") and Constants.kGray1 or Constants.kGray3;
+			});
+
+			TextLabel = Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1;
+				BorderSizePixel = 0;
+				Position = UDim2.new(0, 14, 0, -1);
+				Size = UDim2.new(1, -14, 1, 0);
+				TextColor3 = isSelected and Constants.kWhite or Constants.kGray1;
+				Font = Constants.kFont;
+				Text = name;
+				TextSize = Constants.kFontSizeSmall;
+			});
+		})
+	end
+
+	return Roact.createElement("Frame", {
+		AnchorPoint = Vector2.new(0, 1);
+		Position = UDim2.new(0, 0, 1, 0);
+		Size = UDim2.new(1, 0, 0, Constants.kFooterHeight);
+		BackgroundColor3 = Constants.kFooterBackgroundColor;
+		BorderColor3 = Constants.kFooterBorderColor;
+		ZIndex = 2;
+	}, {
+		UIPadding = Padding(6);
+
+		Frame = Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(0, 0.5);
+			Position = UDim2.new(0, 0, 0.5, 0);
+			Size = UDim2.new(1, 0, 0, 21);
+			BackgroundTransparency = 1;
+		}, backgroundComponents);
+	})
+end
+
+return Footer]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXF8008D3878AA4C23A839DF5166C9DE44">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Header</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.libs.Roact)
+local Constants = require(script.Parent.Parent.util.Constants)
+
+local Header = Roact.Component:extend("Header")
+
+Header.render = function (self)
+	return Roact.createElement("Frame", {
+		Position = UDim2.new(0, 0, 0, 0);
+		Size = UDim2.new(1, 0, 0, Constants.kHeaderHeight);
+		BackgroundColor3 = Constants.kHeaderBackgroundColor;
+		BorderColor3 = Constants.kHeaderBorderColor;
+		ZIndex = 2;
+	})
+end
+
+return Header]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX4300F1305C0F47CE8A87B125419816CE">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Toolbox</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.libs.Roact)
+local Constants = require(script.Parent.Parent.util.Constants)
+
+local Header = require(script.Parent.Header);
+local MainView = require(script.Parent.MainView);
+local Footer = require(script.Parent.Footer);
+
+local Toolbox = Roact.Component:extend("Toolbox")
+
+function Toolbox.init(self, props)
+	self.state = {
+		selectedBackgroundIndex = 1;
+		hoveredBackgroundIndex = 0;
+	}
+end
+
+function Toolbox.render(self)
+	return Roact.createElement("Frame", {
+		Position = UDim2.new(0, 0, 0, 0);
+		Size = UDim2.new(1, 0, 1, 0);
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+	}, {
+		Header = Roact.createElement(Header);
+
+		MainView = Roact.createElement(MainView);
+
+		Footer = Roact.createElement(Footer, {
+			backgrounds = self.props.backgrounds;
+			selectedBackgroundIndex = self.state.selectedBackgroundIndex;
+			hoveredBackgroundIndex = self.state.hoveredBackgroundIndex;
+
+			-- TODO: Is there a nicer way to bind these to call a method on self?
+			onBackgroundSelectorClicked = function (index) self:onBackgroundSelectorClicked(index); end;
+			onBackgroundSelectorHovered = function (index) self:onBackgroundSelectorHovered(index); end;
+			onBackgroundSelectorHoverEnded = function (index) self:onBackgroundSelectorHoverEnded(index); end;
+		});
+	})
+end
+
+function Toolbox.onBackgroundSelectorClicked(self, index)
+	self:setState({
+		selectedBackgroundIndex = index;
+	})
+end
+
+function Toolbox.onBackgroundSelectorHovered(self, index)
+	if (self.state.hoveredBackgroundIndex ~= index) then
+		self:setState({
+			hoveredBackgroundIndex = index;
+		})
+	end
+end
+
+function Toolbox.onBackgroundSelectorHoverEnded(self, index)
+	self:setState({
+		hoveredBackgroundIndex = 0
+	})
+end
+
+return Toolbox]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX0A212E6DBD5445ADBAE16B4A582C5946">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">MainView</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.libs.Roact)
+local Constants = require(script.Parent.Parent.util.Constants)
+
+local MainView = Roact.Component:extend("MainView")
+
+-- TODO: The main view assumes too much about its position and size from the header/footer, find a better way to do this
+
+MainView.render = function (self)
+	return Roact.createElement("Frame", {
+		Position = UDim2.new(0, 0, 0, Constants.kHeaderHeight);
+		Size = UDim2.new(1, 0, 1, -(Constants.kHeaderHeight + Constants.kFooterHeight));
+		BackgroundTransparency = 1;
+	})
+end
+
+return MainView]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Folder" referent="RBX57709D0ECBAC471994097CE9B78041DE">
+				<Properties>
+					<string name="Name">util</string>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBX4484E7F6B6404F148C182734FE247352">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Padding</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.libs.Roact)
+local Constants = require(script.Parent.Constants)
+
+--[[
+Takes either between 0 and 4 parameters
+If 0: all directions use default padding
+If 1: all directions use same padding
+If 2: vertical use first parameter, horizontal use second parameter
+If 3: apply in bottom, left, right order, top uses the same as bottom
+If 4: apply in bottom, left, right, top order
+]]
+return function (p0, p1, p2, p3)
+	local defaultPadding = Constants.kDefaultPadding
+
+	p0 = p0 and tonumber(p0)
+	p1 = p1 and tonumber(p1)
+	p2 = p2 and tonumber(p2)
+	p3 = p3 and tonumber(p3)
+
+	local bottom = p0 or defaultPadding
+	local left = p1 or bottom
+	local right = p2 or left
+	local top = p3 or bottom
+	
+	return Roact.createElement("UIPadding", {
+		PaddingBottom = UDim.new(0, bottom);
+		PaddingLeft = UDim.new(0, left);
+		PaddingRight = UDim.new(0, right);
+		PaddingTop = UDim.new(0, top);
+	})
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX0ADE41AF469946B8A4990CDBB9DC7113">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Constants</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Constants = { }
+
+Constants.kDefaultPadding = 8
+
+-- These colour definitions match what are used on the Studio start page
+-- Defined in qml/RobloxStyle.qml
+Constants.kBluePrimary = Color3.fromRGB(  0, 162, 255)
+Constants.kBlueDisplay = Color3.fromRGB(183, 210, 255)
+Constants.kBlueHover   = Color3.fromRGB( 61, 180, 255)
+
+Constants.kGray1 = Color3.fromRGB( 25,  25,  25)
+Constants.kGray2 = Color3.fromRGB(117, 117, 117)
+Constants.kGray3 = Color3.fromRGB(184, 184, 184)
+Constants.kGray4 = Color3.fromRGB(227, 227, 227)
+Constants.kGray5 = Color3.fromRGB(242, 242, 242)
+Constants.kGray6 = Color3.fromRGB(245, 245, 245)
+
+Constants.kWhite = Color3.fromRGB(255, 255, 255)
+
+Constants.kFont = Enum.Font.SourceSans
+Constants.kFontSizeSmall = 14
+Constants.kFontSizeMedium = 16
+Constants.kFontSizeLarge = 18
+
+Constants.kHeaderHeight = 43
+-- Supposed to be (238, 238, 238) but changing to be consistent with the studio start page
+Constants.kHeaderBackgroundColor = Constants.kGray5
+Constants.kHeaderBorderColor = Constants.kGray3
+
+Constants.kFooterHeight = 35
+Constants.kFooterBackgroundColor = Constants.kGray4
+Constants.kFooterBorderColor = Constants.kGray3
+
+return Constants]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+		</Item>
+		<Item class="Folder" referent="RBXA1F531361256424BA50B9C48155162AC">
+			<Properties>
+				<string name="Name">libs</string>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="ModuleScript" referent="RBX48394F2627E44A369B58877540BCBC2C">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">RoactRodux</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[local StoreProvider = require(script.StoreProvider)
+local connect  = require(script.connect)
+
+return {
+	StoreProvider = StoreProvider,
+	connect = connect,
+}]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBXD75D869FEE6843B3881DFA64AC25711F">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">storeKey</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Symbol = require(script.Parent.Symbol)
+
+return Symbol.named("RoduxStore")]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXC4C4F3B0A87148E5AF98938A9B5BC17C">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Symbol</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	A 'Symbol' is an opaque marker type that can be used to signify unique
+	statuses. Symbols have the type 'userdata', but when printed to the console,
+	the name of the symbol is shown.
+]]
+
+local Symbol = {}
+
+--[[
+	Creates a Symbol with the given name.
+
+	When printed or coerced to a string, the symbol will turn into the string
+	given as its name.
+]]
+function Symbol.named(name)
+	assert(type(name) == "string", "Symbols must be created using a string name!")
+
+	local self = newproxy(true)
+
+	local wrappedName = ("Symbol(%s)"):format(name)
+
+	getmetatable(self).__tostring = function()
+		return wrappedName
+	end
+
+	return self
+end
+
+--[[
+	Create an unnamed Symbol. Usually, you should create a named Symbol using
+	Symbol.named(name)
+]]
+function Symbol.unnamed()
+	local self = newproxy(true)
+
+	getmetatable(self).__tostring = function()
+		return "Unnamed Symbol"
+	end
+
+	return self
+end
+
+return Symbol]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX0A4D2E3547F34C2F874C46CC02B4B3BA">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">StoreProvider</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Roact)
+
+local storeKey = require(script.Parent.storeKey)
+
+local StoreProvider = Roact.Component:extend("StoreProvider")
+
+function StoreProvider:init(props)
+	local store = props.store
+
+	if store == nil then
+		error("Error initializing StoreProvider. Expected a `store` prop to be a Rodux store.")
+	end
+
+	self._context[storeKey] = store
+end
+
+function StoreProvider:render()
+	return Roact.oneChild(self.props[Roact.Children])
+end
+
+return StoreProvider]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXD28B9A1F58D44E75B8FCBB215FB64311">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Symbol.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Symbol = require(script.Parent.Symbol)
+
+	describe("named", function()
+		it("should give an opaque object", function()
+			local symbol = Symbol.named("foo")
+
+			expect(symbol).to.be.a("userdata")
+		end)
+
+		it("should coerce to the given name", function()
+			local symbol = Symbol.named("foo")
+
+			expect(tostring(symbol):find("foo")).to.be.ok()
+		end)
+
+		it("should be unique when constructed", function()
+			local symbolA = Symbol.named("abc")
+			local symbolB = Symbol.named("abc")
+
+			expect(symbolA).never.to.equal(symbolB)
+		end)
+	end)
+
+	describe("unnamed", function()
+		it("should give an opaque object", function()
+			local symbol = Symbol.unnamed()
+
+			expect(symbol).to.be.a("userdata")
+		end)
+
+		it("should coerce to some string", function()
+			local symbol = Symbol.unnamed()
+
+			expect(tostring(symbol)).to.be.a("string")
+		end)
+
+		it("should be unique when constructed", function()
+			local symbolA = Symbol.unnamed()
+			local symbolB = Symbol.unnamed()
+
+			expect(symbolA).never.to.equal(symbolB)
+		end)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXA4534EAEAF764EB7B0F3D08A04551C84">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">StoreProvider.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local StoreProvider = require(script.Parent.StoreProvider)
+
+	local Roact = require(script.Parent.Parent.Roact)
+	local Rodux = require(script.Parent.Parent.Rodux)
+
+	it("should be instantiable as a component", function()
+		local store = Rodux.Store.new(function()
+			return 0
+		end)
+		local element = Roact.createElement(StoreProvider, {
+			store = store
+		})
+
+		expect(element).to.be.ok()
+
+		Roact.reify(element, nil, "StoreProvider-test")
+
+		store:destruct()
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX21FD5A948A3244BBB33B8F8397955D3C">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">connect</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Roact)
+
+local storeKey = require(script.Parent.storeKey)
+
+local function shallowEqual(a, b)
+	for key, value in pairs(a) do
+		if b[key] ~= value then
+			return false
+		end
+	end
+
+	for key, value in pairs(b) do
+		if a[key] ~= value then
+			return false
+		end
+	end
+
+	return true
+end
+
+--[[
+	Joins two tables together into a new table
+]]
+local function join(a, b)
+	local result = {}
+
+	for key, value in pairs(a) do
+		result[key] = value
+	end
+
+	for key, value in pairs(b) do
+		result[key] = value
+	end
+
+	return result
+end
+
+-- A version of 'error' that outputs over multiple lines
+local function errorLines(...)
+	error(table.concat({...}, "\n"))
+end
+
+local function connect(mapStoreToProps)
+	local rootTrace = debug.traceback()
+
+	local mapConnect = function(store, props)
+		local result = mapStoreToProps(store, props)
+
+		if type(result) ~= "table" then
+			errorLines(
+				"mapStoreToProps must return a table! Check the function passed into 'connect' at:",
+				rootTrace
+			)
+		end
+
+		return result
+	end
+
+	return function(component)
+		if component == nil then
+			error("Expected component to be passed to connection, got nil.")
+		end
+
+		local name = ("Connection(%s)"):format(
+			tostring(component)
+		)
+		local Connection = Roact.Component:extend(name)
+
+		function Connection:init(props)
+			local store = self._context[storeKey]
+
+			if not store then
+				errorLines(
+					"Cannot initialize Roact-Rodux component without being a descendent of StoreProvider!",
+					("Tried to wrap component %q"):format(tostring(component)),
+					"Make sure there is a StoreProvider above this component in the tree."
+				)
+			end
+
+			self.store = store
+
+			self.state = {
+				storeProps = mapConnect(store, props),
+			}
+		end
+
+		function Connection:didMount()
+			self.eventHandle = self.store.changed:connect(function(state)
+				local storeProps = mapConnect(self.store, self.props)
+
+				if not shallowEqual(self.state.storeProps, storeProps) then
+					self:setState({
+						storeProps = storeProps
+					})
+				end
+			end)
+		end
+
+		function Connection:willUnmount()
+			self.eventHandle:disconnect()
+		end
+
+		function Connection:render()
+			local props = join(self.props, self.state.storeProps)
+
+			return Roact.createElement(component, props)
+		end
+
+		return Connection
+	end
+end
+
+return connect]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX33CB7ED5707549B7B871E951700F566D">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">connect.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local connect = require(script.Parent.connect)
+
+	local StoreProvider = require(script.Parent.StoreProvider)
+
+	local Roact = require(script.Parent.Parent.Roact)
+	local Rodux = require(script.Parent.Parent.Rodux)
+
+	local function incrementReducer(state, action)
+		state = state or 0
+
+		if action.type == "increment" then
+			return state + 1
+		end
+
+		return state
+	end
+
+	it("should throw if not passed a component", function()
+		local selector = function(store)
+			return {}
+		end
+
+		expect(function()
+			connect(selector)(nil)
+		end).to.throw()
+	end)
+
+	it("should successfully connect when mounted under a StoreProvider", function()
+		local store = Rodux.Store.new(incrementReducer)
+
+		local function SomeComponent(props)
+			return nil
+		end
+
+		local ConnectedSomeComponent = connect(function(store)
+			return {}
+		end)(SomeComponent)
+
+		local tree = Roact.createElement(StoreProvider, {
+			store = store,
+		}, {
+			Child = Roact.createElement(ConnectedSomeComponent),
+		})
+
+		local handle = Roact.reify(tree)
+
+		expect(handle).to.be.ok()
+	end)
+
+	it("should fail to mount without a StoreProvider", function()
+		local function SomeComponent(props)
+			return nil
+		end
+
+		local ConnectedSomeComponent = connect(function(store)
+			return {}
+		end)(SomeComponent)
+
+		local tree = Roact.createElement(ConnectedSomeComponent)
+
+		expect(function()
+			Roact.reify(tree)
+		end).to.throw()
+	end)
+
+	it("should trigger renders on store changes only with shallow differences", function()
+		local callCount = 0
+
+		local store = Rodux.Store.new(incrementReducer)
+
+		local function SomeComponent(props)
+			callCount = callCount + 1
+
+			return nil
+		end
+
+		local ConnectedSomeComponent = connect(function(store)
+			return {
+				value = store:getState()
+			}
+		end)(SomeComponent)
+
+		local tree = Roact.createElement(StoreProvider, {
+			store = store,
+		}, {
+			Child = Roact.createElement(ConnectedSomeComponent),
+		})
+
+		local handle = Roact.reify(tree)
+
+		-- Our component should render initially
+		expect(store:getState()).to.equal(0)
+		expect(callCount).to.equal(1)
+
+		store:dispatch({
+			type = "increment",
+		})
+
+		store:flush()
+
+		-- Our component should re-render, state is different.
+		expect(store:getState()).to.equal(1)
+		expect(callCount).to.equal(2)
+
+		store:dispatch({
+			type = "SOME_UNHANDLED_ACTION",
+		})
+
+		store:flush()
+
+		-- Our component should not re-render, state is the same!
+		expect(store:getState()).to.equal(1)
+		expect(callCount).to.equal(2)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="ModuleScript" referent="RBX584BD959DF8945999EE006164FA667CD">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">Roact</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[--[[
+	Packages up the internals of Roact and exposes a public API for it.
+]]
+
+local Component = require(script.Component)
+local Core = require(script.Core)
+local Event = require(script.Event)
+local GlobalConfig = require(script.GlobalConfig)
+local PureComponent = require(script.PureComponent)
+local Reconciler = require(script.Reconciler)
+
+--[[
+	A utility to copy one module into another, erroring if there are
+	overlapping keys.
+
+	Any keys that begin with an underscore are considered private.
+]]
+local function apply(target, source)
+	for key, value in pairs(source) do
+		if target[key] ~= nil then
+			error(("Roact: key %q was overridden!"):format(key), 2)
+		end
+
+		-- Don't add internal values
+		if not key:find("^_") then
+			target[key] = value
+		end
+	end
+end
+
+local Roact = {}
+
+apply(Roact, Core)
+apply(Roact, Reconciler)
+
+apply(Roact, {
+	Component = Component,
+	PureComponent = PureComponent,
+	Event = Event,
+})
+
+apply(Roact, {
+	setGlobalConfig = GlobalConfig.set,
+	getGlobalConfigValue = GlobalConfig.getValue,
+})
+
+return Roact]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBXA2B284F8C8084E89B4E3DC5B33DBF053">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Reconciler.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Reconciler = require(script.Parent.Reconciler)
+
+	it("should reify booleans as nil", function()
+		local booleanReified = Reconciler.reify(false)
+		expect(booleanReified).to.never.be.ok()
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX75E9EC79BC6D460BBD468EF65838E135">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Reconciler</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	The reconciler uses the virtual DOM generated by components to create a real
+	tree of Roblox instances.
+
+	The reonciler has three basic modes of operation:
+	* reification (public as 'reify')
+	* reconciliation (private)
+	* teardown (public)
+
+	Reification is the process of creating new nodes in the tree. This is first
+	triggered when the user calls `Roact.reify` on a root element. This is where
+	the structure of the concrete tree is built, later used and modified by the
+	reconciliation step.
+
+	Reconciliation accepts an existing concrete instance tree (created by reify)
+	along with a new element that describes the desired new state.
+	The reconciler will do the minimum amount of work required to update the
+	instances to match the new element, sometimes invoking the reifier to create
+	new branches.
+
+	Teardown is the destructor for the tree. It will crawl through the tree,
+	destroying nodes in the correct order and invoking lifecycle methods.
+]]
+
+local Core = require(script.Parent.Core)
+local Event = require(script.Parent.Event)
+local getDefaultPropertyValue = require(script.Parent.getDefaultPropertyValue)
+local SingleEventManager = require(script.Parent.SingleEventManager)
+local Symbol = require(script.Parent.Symbol)
+
+local isInstanceHandle = Symbol.named("isInstanceHandle")
+
+local DEFAULT_SOURCE = "\n\t<Use Roact.setGlobalConfig with the 'elementTracing' key to enable detailed tracebacks>\n"
+
+local function isPortal(element)
+	if type(element) ~= "table" then
+		return false
+	end
+
+	return element.component == Core.Portal
+end
+
+local Reconciler = {}
+
+Reconciler._singleEventManager = SingleEventManager.new()
+
+--[[
+	Is this element backed by a Roblox instance directly?
+]]
+local function isPrimitiveElement(element)
+	if type(element) ~= "table" then
+		return false
+	end
+
+	return type(element.component) == "string"
+end
+
+--[[
+	Is this element defined by a pure function?
+]]
+local function isFunctionalElement(element)
+	if type(element) ~= "table" then
+		return false
+	end
+
+	return type(element.component) == "function"
+end
+
+--[[
+	Is this element defined by a component class?
+]]
+local function isStatefulElement(element)
+	if type(element) ~= "table" then
+		return false
+	end
+
+	return type(element.component) == "table"
+end
+
+--[[
+	Destroy the given Roact instance, all of its descendants, and associated
+	Roblox instances owned by the components.
+]]
+function Reconciler.teardown(instanceHandle)
+	local element = instanceHandle._element
+
+	if isPrimitiveElement(element) then
+		-- We're destroying a Roblox Instance-based object
+
+		-- Kill refs before we make changes, since any mutations past this point
+		-- aren't relevant to components.
+		if element.props[Core.Ref] then
+			element.props[Core.Ref](nil)
+		end
+
+		for _, child in pairs(instanceHandle._reifiedChildren) do
+			Reconciler.teardown(child)
+		end
+
+		-- Necessary to make sure SingleEventManager doesn't leak references
+		Reconciler._singleEventManager:disconnectAll(instanceHandle._rbx)
+
+		instanceHandle._rbx:Destroy()
+	elseif isFunctionalElement(element) then
+		-- Functional components can return nil
+		if instanceHandle._reified then
+			Reconciler.teardown(instanceHandle._reified)
+		end
+	elseif isStatefulElement(element) then
+		-- Stop the component from setting state in willUnmount or anywhere thereafter.
+		instanceHandle._instance._canSetState = false
+
+		-- Tell the component we're about to tear everything down.
+		-- This gives it some notice!
+		if instanceHandle._instance.willUnmount then
+			instanceHandle._instance:willUnmount()
+		end
+
+		-- Stateful components can return nil from render()
+		if instanceHandle._reified then
+			Reconciler.teardown(instanceHandle._reified)
+		end
+
+		-- Cut our circular reference between the instance and its handle
+		instanceHandle._instance = nil
+	elseif isPortal(element) then
+		for _, child in pairs(instanceHandle._reifiedChildren) do
+			Reconciler.teardown(child)
+		end
+	else
+		error(("Cannot teardown invalid Roact instance %q"):format(tostring(element)))
+	end
+end
+
+--[[
+	Public interface to reifier. Hides parameters used when recursing down the
+	component tree.
+]]
+function Reconciler.reify(element, parent, key)
+	return Reconciler._reifyInternal(element, parent, key)
+end
+
+--[[
+	Instantiates components to represent the given element.
+
+	Parameters:
+		- `element`: The element to reify.
+		- `parent`: The Roblox object to contain the contained instances
+		- `key`: The Name to give the Roblox instance that gets created
+		- `context`: Used to pass Roact context values down the tree
+
+	The structure created by this method is important to the functionality of
+	the reconciliation methods; they depend on this structure being well-formed.
+]]
+function Reconciler._reifyInternal(element, parent, key, context)
+	if isPrimitiveElement(element) then
+		-- Primitive elements are backed directly by Roblox Instances.
+
+		local rbx = Instance.new(element.component)
+
+		-- Update Roblox properties
+		for key, value in pairs(element.props) do
+			Reconciler._setRbxProp(rbx, key, value, element)
+		end
+
+		-- Create children!
+		local reifiedChildren = {}
+
+		if element.props[Core.Children] then
+			for key, childElement in pairs(element.props[Core.Children]) do
+				local childInstance = Reconciler._reifyInternal(childElement, rbx, key, context)
+
+				reifiedChildren[key] = childInstance
+			end
+		end
+
+		-- This name can be passed through multiple components.
+		-- What's important is the final Roblox Instance receives the name
+		-- It's solely for debugging purposes; Roact doesn't use it.
+		if key then
+			rbx.Name = key
+		end
+
+		rbx.Parent = parent
+
+		-- Attach ref values, since the instance is initialized now.
+		if element.props[Core.Ref] then
+			element.props[Core.Ref](rbx)
+		end
+
+		return {
+			[isInstanceHandle] = true,
+			_key = key,
+			_parent = parent,
+			_element = element,
+			_context = context,
+			_reifiedChildren = reifiedChildren,
+			_rbx = rbx,
+		}
+	elseif isFunctionalElement(element) then
+		-- Functional elements contain 0 or 1 children.
+
+		local instanceHandle = {
+			[isInstanceHandle] = true,
+			_key = key,
+			_parent = parent,
+			_element = element,
+			_context = context,
+		}
+
+		local vdom = element.component(element.props)
+		if vdom then
+			instanceHandle._reified = Reconciler._reifyInternal(vdom, parent, key, context)
+		end
+
+		return instanceHandle
+	elseif isStatefulElement(element) then
+		-- Stateful elements have 0 or 1 children, and also have a backing
+		-- instance that can keep state.
+
+		-- We separate the instance's implementation from our handle to it.
+		local instanceHandle = {
+			[isInstanceHandle] = true,
+			_key = key,
+			_parent = parent,
+			_element = element,
+			_reified = nil,
+		}
+
+		local instance = element.component._new(element.props, context)
+
+		instanceHandle._instance = instance
+		instance:_reify(instanceHandle)
+
+		return instanceHandle
+	elseif isPortal(element) then
+		-- Portal elements have one or more children.
+
+		local target = element.props.target
+		if not target then
+			error(("Cannot reify Portal without specifying a target."):format(tostring(element)))
+		elseif typeof(target) ~= "Instance" then
+			error(("Cannot reify Portal with target of type %q."):format(typeof(target)))
+		end
+
+		-- Create children!
+		local reifiedChildren = {}
+
+		if element.props[Core.Children] then
+			for key, childElement in pairs(element.props[Core.Children]) do
+				local childInstance = Reconciler._reifyInternal(childElement, target, key, context)
+
+				reifiedChildren[key] = childInstance
+			end
+		end
+
+		return {
+			[isInstanceHandle] = true,
+			_key = key,
+			_parent = parent,
+			_element = element,
+			_context = context,
+			_reifiedChildren = reifiedChildren,
+			_rbx = target,
+		}
+	elseif typeof(element) == "boolean" then
+		-- Ignore booleans of either value
+		-- See https://github.com/Roblox/roact/issues/14
+		return nil
+	end
+
+	error(("Cannot reify invalid Roact element %q"):format(tostring(element)))
+end
+
+--[[
+	A public interface around _reconcileInternal
+]]
+function Reconciler.reconcile(instanceHandle, newElement)
+	if instanceHandle == nil or not instanceHandle[isInstanceHandle] then
+		local message = (
+			"Bad argument #1 to Reconciler.reconcile, expected component instance handle, found %s"
+		):format(
+			typeof(instanceHandle)
+		)
+
+		error(message, 2)
+	end
+
+	return Reconciler._reconcileInternal(instanceHandle, newElement)
+end
+
+--[[
+	Applies the state given by newElement to an existing Roact instance.
+
+	reconcile will return the instance that should be used. This instance can
+	be different than the one that was passed in.
+]]
+function Reconciler._reconcileInternal(instanceHandle, newElement)
+	local oldElement = instanceHandle._element
+
+	-- Instance was deleted!
+	if not newElement then
+		Reconciler.teardown(instanceHandle)
+
+		return nil
+	end
+
+	-- If the element changes type, we assume its subtree will be substantially
+	-- different. This lets us skip comparisons of a large swath of nodes.
+	if oldElement.component ~= newElement.component then
+		local parent = instanceHandle._parent
+		local key = instanceHandle._key
+
+		local context
+		if isStatefulElement(oldElement) then
+			context = instanceHandle._instance._context
+		else
+			context = instanceHandle._context
+		end
+
+		Reconciler.teardown(instanceHandle)
+
+		local newInstance = Reconciler._reifyInternal(newElement, parent, key, context)
+
+		return newInstance
+	end
+
+	if isPrimitiveElement(newElement) then
+		-- Roblox Instance change
+
+		local oldRef = oldElement[Core.Ref]
+		local newRef = newElement[Core.Ref]
+		local refChanged = (oldRef ~= newRef)
+
+		-- Cancel the old ref before we make changes. Apply the new one after.
+		if refChanged and oldRef then
+			oldRef(nil)
+		end
+
+		-- Update properties and children of the Roblox object.
+		Reconciler._reconcilePrimitiveProps(oldElement, newElement, instanceHandle._rbx)
+		Reconciler._reconcilePrimitiveChildren(instanceHandle, newElement)
+
+		instanceHandle._element = newElement
+
+		-- Apply the new ref if there was a ref change.
+		if refChanged and newRef then
+			newRef(instanceHandle._rbx)
+		end
+
+		return instanceHandle
+	elseif isFunctionalElement(newElement) then
+		instanceHandle._element = newElement
+
+		local rendered = newElement.component(newElement.props)
+		local newChild
+
+		if instanceHandle._reified then
+			-- Transition from tree to tree, even if 'rendered' is nil
+			newChild = Reconciler._reconcileInternal(instanceHandle._reified, rendered)
+		elseif rendered then
+			-- Transition from nil to new tree
+			newChild = Reconciler._reifyInternal(
+				rendered,
+				instanceHandle._parent,
+				instanceHandle._key,
+				instanceHandle._context
+			)
+		end
+
+		instanceHandle._reified = newChild
+
+		return instanceHandle
+	elseif isStatefulElement(newElement) then
+		instanceHandle._element = newElement
+
+		-- Stateful elements can take care of themselves.
+		instanceHandle._instance:_update(newElement.props)
+
+		return instanceHandle
+	elseif isPortal(newElement) then
+		if instanceHandle._rbx ~= newElement.props.target then
+			local parent = instanceHandle._parent
+			local key = instanceHandle._key
+			local context = instanceHandle._context
+
+			Reconciler.teardown(instanceHandle)
+
+			local newInstance = Reconciler._reifyInternal(newElement, parent, key, context)
+
+			return newInstance
+		end
+
+		Reconciler._reconcilePrimitiveChildren(instanceHandle, newElement)
+
+		instanceHandle._element = newElement
+
+		return instanceHandle
+	end
+
+	error(("Cannot reconcile to match invalid Roact element %q"):format(tostring(newElement)))
+end
+
+--[[
+	Reconciles the children of an existing Roact instance and the given element.
+]]
+function Reconciler._reconcilePrimitiveChildren(instance, newElement)
+	local elementChildren = newElement.props[Core.Children]
+
+	-- Reconcile existing children that were changed or removed
+	for key, childInstance in pairs(instance._reifiedChildren) do
+		local childElement = elementChildren and elementChildren[key]
+
+		childInstance = Reconciler._reconcileInternal(childInstance, childElement)
+
+		instance._reifiedChildren[key] = childInstance
+	end
+
+	-- Create children that were just added!
+	if elementChildren then
+		for key, childElement in pairs(elementChildren) do
+			-- Update if we didn't hit the child in the previous loop
+			if not instance._reifiedChildren[key] then
+				local childInstance = Reconciler._reifyInternal(childElement, instance._rbx, key, instance._context)
+				instance._reifiedChildren[key] = childInstance
+			end
+		end
+	end
+end
+
+--[[
+	Reconciles the properties between two primitive Roact elements and applies
+	the differences to the given Roblox object.
+]]
+function Reconciler._reconcilePrimitiveProps(fromElement, toElement, rbx)
+	local seenProps = {}
+
+	-- Set properties that were set with fromElement
+	for key, oldValue in pairs(fromElement.props) do
+		seenProps[key] = true
+
+		local newValue = toElement.props[key]
+
+		-- Assume any property that can be set to nil has a default value of nil
+		if newValue == nil then
+			local _, value = getDefaultPropertyValue(rbx.ClassName, key)
+
+			-- We don't care if getDefaultPropertyValue fails, because
+			-- _setRbxProp will catch the error below.
+			newValue = value
+		end
+
+		-- Roblox does this check for normal values, but we have special
+		-- properties like events that warrant this.
+		if oldValue ~= newValue then
+			Reconciler._setRbxProp(rbx, key, newValue, toElement)
+		end
+	end
+
+	-- Set properties that are new in toElement
+	for key, newValue in pairs(toElement.props) do
+		if not seenProps[key] then
+			seenProps[key] = true
+
+			local oldValue = fromElement.props[key]
+
+			if oldValue ~= newValue then
+				Reconciler._setRbxProp(rbx, key, newValue, toElement)
+			end
+		end
+	end
+end
+
+--[[
+	Used in _setRbxProp to avoid creating a new closure for every property set.
+]]
+local function set(rbx, key, value)
+	rbx[key] = value
+end
+
+--[[
+	Sets a property on a Roblox object, following Roact's rules for special
+	case properties.
+
+	This function can throw a couple different errors. In the future, calls to
+	_setRbxProp should be wrapped in a pcall to give better errors to the user.
+
+	For that to be useful, we'll need to attach a 'source' property on every
+	element, created using debug.traceback(), that points to where the element
+	was created.
+]]
+function Reconciler._setRbxProp(rbx, key, value, element)
+	if type(key) == "string" then
+		-- Regular property
+
+		local success, err = pcall(set, rbx, key, value)
+
+		if not success then
+			local source = element.source or DEFAULT_SOURCE
+
+			local message = ("Failed to set property %s on primitive instance of class %s\n%s\n%s"):format(
+				key,
+				rbx.ClassName,
+				err,
+				source
+			)
+
+			error(message, 0)
+		end
+	elseif type(key) == "table" then
+		-- Special property with extra data attached.
+
+		if key.type == Event then
+			Reconciler._singleEventManager:connect(rbx, key.name, value)
+		else
+			local source = element.source or DEFAULT_SOURCE
+
+			-- luacheck: ignore 6
+			local message = ("Failed to set special property on primitive instance of class %s\nInvalid special property type %q\n%s"):format(
+				rbx.ClassName,
+				tostring(key.type),
+				source
+			)
+
+			error(message, 0)
+		end
+	elseif type(key) ~= "userdata" then
+		-- Userdata values are special markers, usually created by Symbol
+		-- They have no data attached other than being unique keys
+
+		local source = element.source or DEFAULT_SOURCE
+
+		local message = ("Properties with a key type of %q are not supported\n%s"):format(
+			type(key),
+			source
+		)
+
+		error(message, 0)
+	end
+end
+
+return Reconciler]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXCC90766BF70E4115BA9B15725483D5EC">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Config</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Exposes an interface to set global configuration values for Roact.
+
+	Configuration can only occur once, and should only be done by an application
+	using Roact, not a library.
+
+	Any keys that aren't recognized will cause errors. Configuration is only
+	intended for configuring Roact itself, not extensions or libraries.
+
+	Configuration is expected to be set immediately after loading Roact. Setting
+	configuration values after an application starts may produce unpredictable
+	behavior.
+]]
+
+-- Every valid configuration value should be non-nil in this table.
+local defaultConfig = {
+	-- Enables storage of `debug.traceback()` values on elements for debugging.
+	["elementTracing"] = false,
+}
+
+-- Build a list of valid configuration values up for debug messages.
+local defaultConfigKeys = {}
+for key in pairs(defaultConfig) do
+	table.insert(defaultConfigKeys, key)
+end
+
+--[[
+	Merges two tables together into a new table.
+]]
+local function join(a, b)
+	local new = {}
+
+	for key, value in pairs(a) do
+		new[key] = value
+	end
+
+	for key, value in pairs(b) do
+		new[key] = value
+	end
+
+	return new
+end
+
+local Config = {}
+
+function Config.new()
+	local self = {}
+
+	-- Once configuration has been set, we record a traceback.
+	-- That way, if the user mistakenly calls `set` twice, we can point to the
+	-- first place it was called.
+	self._lastConfigTraceback = nil
+
+	self._currentConfig = defaultConfig
+
+	-- We manually bind these methods here so that the Config's methods can be
+	-- used without passing in self, since they eventually get exposed on the
+	-- root Roact object.
+	self.set = function(...)
+		return Config.set(self, ...)
+	end
+
+	self.getValue = function(...)
+		return Config.getValue(self, ...)
+	end
+
+	self.reset = function(...)
+		return Config.reset(self, ...)
+	end
+
+	return self
+end
+
+function Config.set(self, configValues)
+	if self._lastConfigTraceback then
+		local message = (
+			"Global configuration can only be set once. Configuration was already set at:%s"
+		):format(
+			self._lastConfigTraceback
+		)
+
+		error(message, 3)
+	end
+
+	-- We use 3 as our traceback and error level because all of the methods are
+	-- manually bound to 'self', which creates an additional stack frame we want
+	-- to skip through.
+	self._lastConfigTraceback = debug.traceback("", 3)
+
+	-- Validate values without changing any configuration.
+	-- We only want to apply this configuration if it's valid!
+	for key, value in pairs(configValues) do
+		if defaultConfig[key] == nil then
+			local message = (
+				"Invalid global configuration key %q (type %s). Valid configuration keys are: %s"
+			):format(
+				tostring(key),
+				typeof(key),
+				table.concat(defaultConfigKeys, ", ")
+			)
+
+			error(message, 3)
+		end
+
+		-- Right now, all configuration values must be boolean.
+		if typeof(value) ~= "boolean" then
+			local message = (
+				"Invalid value %q (type %s) for global configuration key %q. Valid values are: true, false"
+			):format(
+				tostring(value),
+				typeof(value),
+				tostring(key)
+			)
+
+			error(message, 3)
+		end
+	end
+
+	-- Assign all of the (validated) configuration values in one go.
+	self._currentConfig = join(self._currentConfig, configValues)
+end
+
+function Config.getValue(self, key)
+	if defaultConfig[key] == nil then
+		local message = (
+			"Invalid global configuration key %q (type %s). Valid configuration keys are: %s"
+		):format(
+			tostring(key),
+			typeof(key),
+			table.concat(defaultConfigKeys, ", ")
+		)
+
+		error(message, 3)
+	end
+
+	return self._currentConfig[key]
+end
+
+function Config.reset(self)
+	self._lastConfigTraceback = nil
+	self._currentConfig = defaultConfig
+end
+
+return Config]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX32E1E464C1854F0A85FEA279163048FE">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Core.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Core = require(script.Parent.Core)
+
+	describe("createElement", function()
+		it("should create new primitive elements", function()
+			local element = Core.createElement("Frame")
+
+			expect(element).to.be.ok()
+		end)
+
+		it("should create new functional elements", function()
+			local element = Core.createElement(function()
+			end)
+
+			expect(element).to.be.ok()
+		end)
+
+		it("should create new stateful components", function()
+			local element = Core.createElement({})
+
+			expect(element).to.be.ok()
+		end)
+	end)
+
+	describe("oneChild", function()
+		it("should get zero children from a table", function()
+			local children = {}
+
+			expect(Core.oneChild(children)).to.equal(nil)
+		end)
+
+		it("should get exactly one child", function()
+			local child = Core.createElement("Frame")
+			local children = {
+				foo = child,
+			}
+
+			expect(Core.oneChild(children)).to.equal(child)
+		end)
+
+		it("should error with more than one child", function()
+			local children = {
+				a = Core.createElement("Frame"),
+				b = Core.createElement("Frame"),
+			}
+
+			expect(function()
+				Core.oneChild(children)
+			end).to.throw()
+		end)
+
+		it("should handle being passed nil", function()
+			expect(Core.oneChild(nil)).to.equal(nil)
+		end)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX2CE467E8E70541FBA8F93E4F1D0E2CA0">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Symbol.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Symbol = require(script.Parent.Symbol)
+
+	describe("named", function()
+		it("should give an opaque object", function()
+			local symbol = Symbol.named("foo")
+
+			expect(symbol).to.be.a("userdata")
+		end)
+
+		it("should coerce to the given name", function()
+			local symbol = Symbol.named("foo")
+
+			expect(tostring(symbol):find("foo")).to.be.ok()
+		end)
+
+		it("should be unique when constructed", function()
+			local symbolA = Symbol.named("abc")
+			local symbolB = Symbol.named("abc")
+
+			expect(symbolA).never.to.equal(symbolB)
+		end)
+	end)
+
+	describe("unnamed", function()
+		it("should give an opaque object", function()
+			local symbol = Symbol.unnamed()
+
+			expect(symbol).to.be.a("userdata")
+		end)
+
+		it("should coerce to some string", function()
+			local symbol = Symbol.unnamed()
+
+			expect(tostring(symbol)).to.be.a("string")
+		end)
+
+		it("should be unique when constructed", function()
+			local symbolA = Symbol.unnamed()
+			local symbolB = Symbol.unnamed()
+
+			expect(symbolA).never.to.equal(symbolB)
+		end)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXEC409BD87E5144B3AA1C73F87CC14F96">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">getDefaultPropertyValue</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Attempts to get the default value of a given property on a Roblox instance.
+]]
+
+local Symbol = require(script.Parent.Symbol)
+
+local Nil = Symbol.named("Nil")
+local _cachedPropertyValues = {}
+
+local function getDefaultPropertyValue(className, propertyName)
+	local classCache = _cachedPropertyValues[className]
+
+	if classCache then
+		local propValue = classCache[propertyName]
+
+		-- We have to use a marker here, because Lua doesn't distinguish
+		-- between 'nil' and 'not in a table'
+		if propValue == Nil then
+			return true, nil
+		end
+
+		if propValue ~= nil then
+			return true, propValue
+		end
+	else
+		classCache = {}
+		_cachedPropertyValues[className] = classCache
+	end
+
+	local created = Instance.new(className)
+	local ok, defaultValue = pcall(function()
+		return created[propertyName]
+	end)
+
+	created:Destroy()
+
+	if ok then
+		if defaultValue == nil then
+			classCache[propertyName] = Nil
+		else
+			classCache[propertyName] = defaultValue
+		end
+	end
+
+	return ok, defaultValue
+end
+
+return getDefaultPropertyValue]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX7845F9ED7ACD4F1C8B430986C5CA8F04">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">SingleEventManager</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	An interface to have one event listener at a time on an event.
+
+	One listener can be registered per SingleEventManager/Instance/Event triple.
+
+	For example:
+
+		myManager:connect(myPart, "Touched", touchedListener)
+		myManager:connect(myPart, "Touched", otherTouchedListener)
+
+	If myPart is touched, only `otherTouchedListener` will fire, because the
+	first listener was disconnected during the second connect call.
+
+	The hooks provided by SingleEventManager pass the associated Roblox object
+	as the first parameter to the callback. This differs from normal
+	Roblox events.
+]]
+
+local SingleEventManager = {}
+
+SingleEventManager.__index = SingleEventManager
+
+local function createHook(rbx, key, method)
+	local hook = {
+		method = method,
+		connection = rbx[key]:Connect(function(...)
+			method(rbx, ...)
+		end)
+	}
+
+	return hook
+end
+
+function SingleEventManager.new()
+	local self = {}
+
+	self._hookCache = {}
+
+	setmetatable(self, SingleEventManager)
+
+	return self
+end
+
+function SingleEventManager:connect(rbx, key, method)
+	local rbxHooks = self._hookCache[rbx]
+
+	if rbxHooks then
+		local existingHook = rbxHooks[key]
+
+		if existingHook then
+			if existingHook.method == method then
+				return
+			end
+
+			existingHook.connection:Disconnect()
+		end
+
+		rbxHooks[key] = createHook(rbx, key, method)
+	else
+		rbxHooks = {}
+		rbxHooks[key] = createHook(rbx, key, method)
+
+		self._hookCache[rbx] = rbxHooks
+	end
+end
+
+function SingleEventManager:disconnect(rbx, key)
+	local rbxHooks = self._hookCache[rbx]
+
+	if not rbxHooks then
+		return
+	end
+
+	local existingHook = rbxHooks[key]
+
+	if not existingHook then
+		return
+	end
+
+	existingHook.connection:Disconnect()
+	rbxHooks[key] = nil
+
+	if next(rbxHooks) == nil then
+		self._hookCache[rbx] = nil
+	end
+end
+
+function SingleEventManager:disconnectAll(rbx)
+	local rbxHooks = self._hookCache[rbx]
+
+	if not rbxHooks then
+		return
+	end
+
+	for _, hook in pairs(rbxHooks) do
+		hook.connection:Disconnect()
+	end
+
+	self._hookCache[rbx] = nil
+end
+
+return SingleEventManager]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX94FAC5D6CA6B4360B6582639714F7706">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Event.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Event = require(script.Parent.Event)
+
+	it("should yield event objects when indexed", function()
+		expect(Event.MouseButton1Click).to.be.ok()
+		expect(Event.Touched).to.be.ok()
+	end)
+
+	it("should yield the same object when indexed again", function()
+		local a = Event.MouseButton1Click
+		local b = Event.MouseButton1Click
+
+		expect(a).to.equal(b)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX7912EABCAA0D4ED481A628B9685828ED">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">getDefaultPropertyValue.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local getDefaultPropertyValue = require(script.Parent.getDefaultPropertyValue)
+
+	it("should get default name string values", function()
+		local _, defaultName = getDefaultPropertyValue("StringValue", "Name")
+
+		expect(defaultName).to.equal("Value")
+	end)
+
+	it("should get default empty string values", function()
+		local _, defaultValue = getDefaultPropertyValue("StringValue", "Value")
+
+		expect(defaultValue).to.equal("")
+	end)
+
+	it("should get default number values", function()
+		local _, defaultValue = getDefaultPropertyValue("IntValue", "Value")
+
+		expect(defaultValue).to.equal(0)
+	end)
+
+	it("should get nil default values", function()
+		local _, defaultValue = getDefaultPropertyValue("ObjectValue", "Value")
+
+		expect(defaultValue).to.equal(nil)
+	end)
+
+	it("should get bool default values", function()
+		local _, defaultValue = getDefaultPropertyValue("BoolValue", "Value")
+
+		expect(defaultValue).to.equal(false)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX6B36C794B16C47A39D5F1642F573EA18">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">GlobalConfig</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Exposes a single instance of a configuration as Roact's GlobalConfig.
+]]
+
+local Config = require(script.Parent.Config)
+
+return Config.new()]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX2BDE0BAC61C144CFBCFDF64CFEE9545A">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Event</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Index into 'Event' to get a prop key for attaching to an event on a
+	Roblox Instance.
+
+	Example:
+
+		Roact.createElement("TextButton", {
+			Text = "Hello, world!",
+
+			[Roact.Event.MouseButton1Click] = function(rbx)
+				print("Clicked", rbx)
+			end
+		})
+]]
+
+local Event = {}
+
+local eventMetatable = {
+	__tostring = function(self)
+		return ("Event(%s)"):format(self.name)
+	end
+}
+
+setmetatable(Event, {
+	__index = function(self, eventName)
+		local event = {
+			type = Event,
+			name = eventName
+		}
+
+		setmetatable(event, eventMetatable)
+
+		Event[eventName] = event
+
+		return event
+	end
+})
+
+return Event]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXE2A9F191E9984164B48CE3F839268723">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Symbol</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	A 'Symbol' is an opaque marker type that can be used to signify unique
+	statuses. Symbols have the type 'userdata', but when printed to the console,
+	the name of the symbol is shown.
+]]
+
+local Symbol = {}
+
+--[[
+	Creates a Symbol with the given name.
+
+	When printed or coerced to a string, the symbol will turn into the string
+	given as its name.
+]]
+function Symbol.named(name)
+	assert(type(name) == "string", "Symbols must be created using a string name!")
+
+	local self = newproxy(true)
+
+	local wrappedName = ("Symbol(%s)"):format(name)
+
+	getmetatable(self).__tostring = function()
+		return wrappedName
+	end
+
+	return self
+end
+
+--[[
+	Create an unnamed Symbol. Usually, you should create a named Symbol using
+	Symbol.named(name)
+]]
+function Symbol.unnamed()
+	local self = newproxy(true)
+
+	getmetatable(self).__tostring = function()
+		return "Unnamed Symbol"
+	end
+
+	return self
+end
+
+return Symbol]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXAF5600BC877347CC81C1BD256E2074AB">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">init.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Roact = require(script.Parent)
+
+	it("should load with all public APIs", function()
+		expect(Roact).to.be.ok()
+
+		-- Public functions
+		expect(Roact.createElement).to.be.a("function")
+		expect(Roact.reify).to.be.a("function")
+		expect(Roact.reconcile).to.be.a("function")
+		expect(Roact.oneChild).to.be.a("function")
+		expect(Roact.setGlobalConfig).to.be.a("function")
+		expect(Roact.getGlobalConfigValue).to.be.a("function")
+
+		-- Objects
+		expect(Roact.Component).to.be.ok()
+		expect(Roact.PureComponent).to.be.ok()
+		expect(Roact.Portal).to.be.ok()
+		expect(Roact.Children).to.be.ok()
+		expect(Roact.Event).to.be.ok()
+		expect(Roact.Ref).to.be.ok()
+		expect(Roact.None).to.be.ok()
+	end)
+
+	describe("Props", function()
+		it("should be passed to primitive components", function()
+			local container = Instance.new("IntValue")
+
+			local element = Roact.createElement("StringValue", {
+				Value = "foo",
+			})
+
+			Roact.reify(element, container, "TestStringValue")
+
+			local rbx = container:FindFirstChild("TestStringValue")
+
+			expect(rbx).to.be.ok()
+			expect(rbx.Value).to.equal("foo")
+		end)
+
+		it("should be passed to functional components", function()
+			local testProp = {}
+
+			local callCount = 0
+
+			local function TestComponent(props)
+				expect(props.testProp).to.equal(testProp)
+				callCount = callCount + 1
+			end
+
+			local element = Roact.createElement(TestComponent, {
+				testProp = testProp,
+			})
+
+			Roact.reify(element)
+
+			-- The only guarantee is that the function will be invoked at least once
+			expect(callCount > 0).to.equal(true)
+		end)
+
+		it("should be passed to stateful components", function()
+			local testProp = {}
+
+			local callCount = 0
+
+			local TestComponent = Roact.Component:extend("TestComponent")
+
+			function TestComponent:init(props)
+				expect(props.testProp).to.equal(testProp)
+				callCount = callCount + 1
+			end
+
+			function TestComponent:render()
+			end
+
+			local element = Roact.createElement(TestComponent, {
+				testProp = testProp,
+			})
+
+			Roact.reify(element)
+
+			expect(callCount).to.equal(1)
+		end)
+	end)
+
+	describe("State", function()
+		it("should trigger a re-render of child components", function()
+			local renderCount = 0
+			local listener = nil
+
+			local TestChild = Roact.Component:extend("TestChild")
+
+			function TestChild:render()
+				renderCount = renderCount + 1
+				return nil
+			end
+
+			local TestParent = Roact.Component:extend("TestParent")
+
+			function TestParent:init(props)
+				self.state = {
+					value = 0,
+				}
+			end
+
+			function TestParent:didMount()
+				listener = function()
+					self:setState({
+						value = self.state.value + 1,
+					})
+				end
+			end
+
+			function TestParent:render()
+				return Roact.createElement(TestChild, {
+					value = self.state.value,
+				})
+			end
+
+			local element = Roact.createElement(TestParent)
+			Roact.reify(element)
+
+			expect(renderCount >= 1).to.equal(true)
+			expect(listener).to.be.a("function")
+
+			listener()
+
+			expect(renderCount >= 2).to.equal(true)
+		end)
+	end)
+
+	describe("Context", function()
+		it("should be passed to children through primitive and functional components", function()
+			local testValue = {}
+
+			local callCount = 0
+
+			local ContextConsumer = Roact.Component:extend("ContextConsumer")
+
+			function ContextConsumer:init(props)
+				expect(self._context.testValue).to.equal(testValue)
+
+				callCount = callCount + 1
+			end
+
+			function ContextConsumer:render()
+				return
+			end
+
+			local function ContextBarrier(props)
+				return Roact.createElement(ContextConsumer)
+			end
+
+			local ContextProvider = Roact.Component:extend("ContextProvider")
+
+			function ContextProvider:init(props)
+				self._context.testValue = props.testValue
+			end
+
+			function ContextProvider:render()
+				return Roact.createElement("Frame", {}, {
+					Child = Roact.createElement(ContextBarrier),
+				})
+			end
+
+			local element = Roact.createElement(ContextProvider, {
+				testValue = testValue,
+			})
+
+			Roact.reify(element)
+
+			expect(callCount).to.equal(1)
+		end)
+	end)
+
+	describe("Ref", function()
+		it("should call back with a Roblox object after properties and children", function()
+			local callCount = 0
+
+			local function ref(rbx)
+				expect(rbx).to.be.ok()
+				expect(rbx.ClassName).to.equal("StringValue")
+				expect(rbx.Value).to.equal("Hey!")
+				expect(rbx.Name).to.equal("RefTest")
+				expect(#rbx:GetChildren()).to.equal(1)
+
+				callCount = callCount + 1
+			end
+
+			local element = Roact.createElement("StringValue", {
+				Value = "Hey!",
+				[Roact.Ref] = ref,
+			}, {
+				TestChild = Roact.createElement("StringValue"),
+			})
+
+			Roact.reify(element, nil, "RefTest")
+
+			expect(callCount).to.equal(1)
+		end)
+
+		it("should pass nil to refs for tearing down", function()
+			local callCount = 0
+			local currentRef
+
+			local function ref(rbx)
+				currentRef = rbx
+				callCount = callCount + 1
+			end
+
+			local element = Roact.createElement("StringValue", {
+				[Roact.Ref] = ref,
+			})
+
+			local instance = Roact.reify(element, nil, "RefTest")
+
+			expect(callCount).to.equal(1)
+			expect(currentRef).to.be.ok()
+			expect(currentRef.Name).to.equal("RefTest")
+
+			Roact.teardown(instance)
+
+			expect(callCount).to.equal(2)
+			expect(currentRef).to.equal(nil)
+		end)
+
+		it("should tear down refs when switched out of the tree", function()
+			local updateMethod
+			local refCount = 0
+			local currentRef
+
+			local function ref(rbx)
+				currentRef = rbx
+				refCount = refCount + 1
+			end
+
+			local function RefWrapper()
+				return Roact.createElement("StringValue", {
+					Value = "ooba ooba",
+					[Roact.Ref] = ref,
+				})
+			end
+
+			local Root = Roact.Component:extend("RefTestRoot")
+
+			function Root:init()
+				updateMethod = function(show)
+					self:setState({
+						show = show,
+					})
+				end
+			end
+
+			function Root:render()
+				if self.state.show then
+					return Roact.createElement(RefWrapper)
+				end
+			end
+
+			local element = Roact.createElement(Root)
+			Roact.reify(element)
+
+			expect(refCount).to.equal(0)
+			expect(currentRef).to.equal(nil)
+
+			updateMethod(true)
+
+			expect(refCount).to.equal(1)
+			expect(currentRef.Value).to.equal("ooba ooba")
+
+			updateMethod(false)
+
+			expect(refCount).to.equal(2)
+			expect(currentRef).to.equal(nil)
+		end)
+	end)
+
+	describe("Portal", function()
+		it("should place all children as children of the target Roblox instance", function()
+			local target = Instance.new("Folder")
+
+			local function FunctionalComponent(props)
+				local intValue = props.value
+
+				return Roact.createElement("IntValue", {
+					Value = intValue,
+				})
+			end
+
+			local portal = Roact.createElement(Roact.Portal, {
+				target = target
+			}, {
+				folderOne = Roact.createElement("Folder"),
+				folderTwo = Roact.createElement("Folder"),
+				intValueOne = Roact.createElement(FunctionalComponent, {
+					value = 42,
+				}),
+			})
+			Roact.reify(portal)
+
+			expect(target:FindFirstChild("folderOne")).to.be.ok()
+			expect(target:FindFirstChild("folderTwo")).to.be.ok()
+			expect(target:FindFirstChild("intValueOne")).to.be.ok()
+			expect(target:FindFirstChild("intValueOne").Value).to.equal(42)
+		end)
+
+		it("should error if the target is nil", function()
+			local portal = Roact.createElement(Roact.Portal, {}, {
+				folderOne = Roact.createElement("Folder"),
+				folderTwo = Roact.createElement("Folder"),
+			})
+
+			expect(function()
+				Roact.reify(portal)
+			end).to.throw()
+		end)
+
+		it("should error if the target is not a Roblox instance", function()
+			local portal = Roact.createElement(Roact.Portal, {
+					target = "NotARobloxInstance",
+				}, {
+				folderOne = Roact.createElement("Folder"),
+				folderTwo = Roact.createElement("Folder"),
+			})
+
+			expect(function()
+				Roact.reify(portal)
+			end).to.throw()
+		end)
+
+		it("should update if parent changes the target", function()
+			local targetOne = Instance.new("Folder")
+			local targetTwo = Instance.new("Folder")
+			local countWillUnmount = 0
+			local changeState
+
+			local TestUnmountComponent = Roact.Component:extend("TestUnmountComponent")
+
+			function TestUnmountComponent:render()
+				return nil
+			end
+
+			function TestUnmountComponent:willUnmount()
+				countWillUnmount = countWillUnmount + 1
+			end
+
+			local PortalContainer = Roact.Component:extend("PortalContainer")
+
+			function PortalContainer:init()
+				self.state = {
+					target = targetOne,
+				}
+			end
+
+			function PortalContainer:render()
+				return Roact.createElement(Roact.Portal, {
+					target = self.state.target,
+				}, {
+					folderOne = Roact.createElement("Folder"),
+					folderTwo = Roact.createElement("Folder"),
+					testUnmount = Roact.createElement(TestUnmountComponent),
+				})
+			end
+
+			function PortalContainer:didMount()
+				expect(self.state.target:FindFirstChild("folderOne")).to.be.ok()
+				expect(self.state.target:FindFirstChild("folderTwo")).to.be.ok()
+
+				changeState = function(newState)
+					self:setState(newState)
+				end
+			end
+
+			Roact.reify(Roact.createElement(PortalContainer))
+
+			expect(targetOne:FindFirstChild("folderOne")).to.be.ok()
+			expect(targetOne:FindFirstChild("folderTwo")).to.be.ok()
+
+			changeState({
+				target = targetTwo,
+			})
+
+			expect(countWillUnmount).to.equal(1)
+
+			expect(targetOne:FindFirstChild("folderOne")).never.to.be.ok()
+			expect(targetOne:FindFirstChild("folderTwo")).never.to.be.ok()
+			expect(targetTwo:FindFirstChild("folderOne")).to.be.ok()
+			expect(targetTwo:FindFirstChild("folderTwo")).to.be.ok()
+		end)
+
+		it("should update Roblox instance properties when relevant parent props are changed", function()
+			local target = Instance.new("Folder")
+			local changeState
+
+			local PortalContainer = Roact.Component:extend("PortalContainer")
+
+			function PortalContainer:init()
+				self.state = {
+					value = "initialStringValue",
+				}
+			end
+
+			function PortalContainer:render()
+				return Roact.createElement(Roact.Portal, {
+					target = target,
+				}, {
+					TestStringValue = Roact.createElement("StringValue", {
+						Value = self.state.value,
+					})
+				})
+			end
+
+			function PortalContainer:didMount()
+				changeState = function(newState)
+					self:setState(newState)
+				end
+			end
+
+			Roact.reify(Roact.createElement(PortalContainer))
+
+			expect(target:FindFirstChild("TestStringValue")).to.be.ok()
+			expect(target:FindFirstChild("TestStringValue").Value).to.equal("initialStringValue")
+
+			changeState({
+				value = "newStringValue",
+			})
+
+			expect(target:FindFirstChild("TestStringValue")).to.be.ok()
+			expect(target:FindFirstChild("TestStringValue").Value).to.equal("newStringValue")
+		end)
+
+		it("should properly teardown the Portal", function()
+			local target = Instance.new("Folder")
+
+			local portal = Roact.createElement(Roact.Portal, {
+				target = target
+			}, {
+				folderOne = Roact.createElement("Folder"),
+				folderTwo = Roact.createElement("Folder"),
+			})
+			local instance = Roact.reify(portal)
+
+			local folderThree = Instance.new("Folder")
+			folderThree.Name = "folderThree"
+			folderThree.Parent = target
+
+			expect(target:FindFirstChild("folderOne")).to.be.ok()
+			expect(target:FindFirstChild("folderTwo")).to.be.ok()
+			expect(target:FindFirstChild("folderThree")).to.be.ok()
+
+			Roact.teardown(instance)
+
+			expect(target:FindFirstChild("folderOne")).never.to.be.ok()
+			expect(target:FindFirstChild("folderTwo")).never.to.be.ok()
+			expect(target:FindFirstChild("folderThree")).to.be.ok()
+		end)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXD7642DD9315F4EBD983E14AE0CEE46F3">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">PureComponent</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	A version of Component with a `shouldUpdate` method that forces the
+	resulting component to be pure.
+
+	Exposed as Roact.PureComponent
+]]
+
+local Component = require(script.Parent.Component)
+
+local PureComponent = Component:extend("PureComponent")
+
+-- When extend()ing a component, you don't get an extend method.
+-- This is to promote composition over inheritance.
+PureComponent.extend = Component.extend
+
+function PureComponent:shouldUpdate(newProps, newState)
+	if newState ~= self.state then
+		return true
+	end
+
+	if newProps == self.props then
+		return false
+	end
+
+	for key, value in pairs(newProps) do
+		if self.props[key] ~= value then
+			return true
+		end
+	end
+
+	for key, value in pairs(self.props) do
+		if newProps[key] ~= value then
+			return true
+		end
+	end
+
+	return false
+end
+
+return PureComponent]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXB7990B08332D46D19FBC3EEE690A9CD7">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Core</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Provides methods and data core to the implementation of the Roact
+	Virtual DOM.
+
+	This module doesn't interact with the Roblox hierarchy and should have no
+	dependencies on other Roact modules.
+]]
+
+local Symbol = require(script.Parent.Symbol)
+local GlobalConfig = require(script.Parent.GlobalConfig)
+
+local Core = {}
+
+-- Marker used to specify children of a node.
+Core.Children = Symbol.named("Children")
+
+-- Marker used to specify a callback to receive the underlying Roblox object.
+Core.Ref = Symbol.named("Ref")
+
+-- Marker used to specify that a component is a Roact Portal.
+Core.Portal = Symbol.named("Portal")
+
+-- Marker used to specify that the value is nothing, because nil cannot be stored in tables.
+Core.None = Symbol.named("None")
+
+-- Marker used to specify that the table it is present within is a component.
+Core.Element = Symbol.named("Element")
+
+--[[
+	Utility to retrieve one child out the children passed to a component.
+
+	If passed nil or an empty table, will return nil.
+
+	Throws an error if passed more than one child, but can be passed zero.
+]]
+function Core.oneChild(children)
+	if not children then
+		return
+	end
+
+	local key, child = next(children)
+
+	if not child then
+		return
+	end
+
+	local after = next(children, key)
+
+	if after then
+		error("Expected at most child, had more than one child.", 2)
+	end
+
+	return child
+end
+
+--[[
+	Creates a new Roact element of the given type.
+
+	Does not create any concrete objects.
+]]
+function Core.createElement(elementType, props, children)
+	if elementType == nil then
+		error(("Expected elementType as an argument to createElement!"), 2)
+	end
+
+	props = props or {}
+
+	if children then
+		if props[Core.Children] then
+			warn("props[Children] was defined but was overridden by third parameter to createElement!")
+		end
+
+		props[Core.Children] = children
+	end
+
+	local element = {
+		component = elementType,
+		type = Core.Element,
+		props = props,
+	}
+
+	if GlobalConfig.getValue("elementTracing") then
+		element.source = ("\n%s\n"):format(debug.traceback())
+	end
+
+	return element
+end
+
+return Core]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXA0C9907616754375BF2571489C1EAE6F">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">SingleEventManager.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local SingleEventManager = require(script.Parent.SingleEventManager)
+
+	describe("new", function()
+		it("should create a SingleEventManager", function()
+			local manager = SingleEventManager.new()
+
+			expect(manager).to.be.ok()
+		end)
+	end)
+
+	describe("connect", function()
+		it("should connect to events on an object", function()
+			local target = Instance.new("BindableEvent")
+			local manager = SingleEventManager.new()
+
+			local callCount = 0
+
+			manager:connect(target, "Event", function(rbx, arg)
+				expect(rbx).to.equal(target)
+				expect(arg).to.equal("foo")
+				callCount = callCount + 1
+			end)
+
+			target:Fire("foo")
+
+			expect(callCount).to.equal(1)
+
+			target:Fire("foo")
+
+			expect(callCount).to.equal(2)
+		end)
+
+		it("should only connect one handler at a time", function()
+			local target = Instance.new("BindableEvent")
+			local manager = SingleEventManager.new()
+
+			local callCountA = 0
+			local callCountB = 0
+
+			manager:connect(target, "Event", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountA = callCountA + 1
+			end)
+
+			manager:connect(target, "Event", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountB = callCountB + 1
+			end)
+
+			target:Fire("foo")
+
+			expect(callCountA).to.equal(0)
+			expect(callCountB).to.equal(1)
+		end)
+
+		it("shouldn't conflate different event handlers", function()
+			local target = Instance.new("BindableEvent")
+			local manager = SingleEventManager.new()
+
+			local callCountEvent = 0
+			local callCountChanged = 0
+
+			manager:connect(target, "Event", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountEvent = callCountEvent + 1
+			end)
+
+			manager:connect(target, "Changed", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountChanged = callCountChanged + 1
+			end)
+
+			target:Fire()
+
+			expect(callCountEvent).to.equal(1)
+			expect(callCountChanged).to.equal(0)
+
+			target.Name = "unlimited power!"
+
+			expect(callCountEvent).to.equal(1)
+			expect(callCountChanged).to.equal(1)
+		end)
+	end)
+
+	describe("disconnect", function()
+		it("should disconnect handlers on an object", function()
+			local target = Instance.new("BindableEvent")
+			local manager = SingleEventManager.new()
+
+			local callCount = 0
+
+			manager:connect(target, "Event", function(rbx)
+				expect(rbx).to.equal(target)
+				callCount = callCount + 1
+			end)
+
+			target:Fire()
+
+			expect(callCount).to.equal(1)
+
+			manager:disconnect(target, "Event")
+
+			target:Fire()
+
+			expect(callCount).to.equal(1)
+		end)
+
+		it("should not disconnect unrelated connections", function()
+			local target = Instance.new("BindableEvent")
+			local manager = SingleEventManager.new()
+
+			local callCountEvent = 0
+			local callCountChanged = 0
+
+			manager:connect(target, "Event", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountEvent = callCountEvent + 1
+			end)
+
+			manager:connect(target, "Changed", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountChanged = callCountChanged + 1
+			end)
+
+			target:Fire()
+			target.Name = "bar"
+
+			expect(callCountEvent).to.equal(1)
+			expect(callCountChanged).to.equal(1)
+
+			manager:disconnect(target, "Event")
+
+			target:Fire()
+			target.Name = "foo"
+
+			expect(callCountEvent).to.equal(1)
+			expect(callCountChanged).to.equal(2)
+		end)
+
+		it("should succeed with no events attached", function()
+			local manager = SingleEventManager.new()
+			local target = Instance.new("StringValue")
+
+			manager:disconnect(target, "Event")
+		end)
+	end)
+
+	describe("disconnectAll", function()
+		it("should disconnect all listeners on an object", function()
+			local target = Instance.new("BindableEvent")
+			local manager = SingleEventManager.new()
+
+			local callCountEvent = 0
+			local callCountChanged = 0
+
+			manager:connect(target, "Event", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountEvent = callCountEvent + 1
+			end)
+
+			manager:connect(target, "Changed", function(rbx)
+				expect(rbx).to.equal(target)
+				callCountChanged = callCountChanged + 1
+			end)
+
+			target:Fire()
+			target.Name = "bar"
+
+			expect(callCountEvent).to.equal(1)
+			expect(callCountChanged).to.equal(1)
+
+			manager:disconnectAll(target)
+
+			target:Fire()
+			target.Name = "foo"
+
+			expect(callCountEvent).to.equal(1)
+			expect(callCountChanged).to.equal(1)
+		end)
+
+		it("should succeed with no events attached", function()
+			local target = Instance.new("StringValue")
+			local manager = SingleEventManager.new()
+
+			manager:disconnectAll(target)
+		end)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX8F7C8083735E483DB4C65FFD8AED3F87">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Config.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Config = require(script.Parent.Config)
+
+	it("should accept valid configuration", function()
+		local config = Config.new()
+
+		expect(config.getValue("elementTracing")).to.equal(false)
+
+		config.set({
+			elementTracing = true,
+		})
+
+		expect(config.getValue("elementTracing")).to.equal(true)
+	end)
+
+	it("should reject invalid configuration keys", function()
+		local config = Config.new()
+
+		local badKey = "garblegoop"
+
+		local ok, err = pcall(function()
+			config.set({
+				[badKey] = true,
+			})
+		end)
+
+		expect(ok).to.equal(false)
+
+		-- The error should mention our bad key somewhere.
+		expect(err:find(badKey)).to.be.ok()
+	end)
+
+	it("should reject invalid configuration values", function()
+		local config = Config.new()
+
+		local goodKey = "elementTracing"
+		local badValue = "Hello there!"
+
+		local ok, err = pcall(function()
+			config.set({
+				[goodKey] = badValue,
+			})
+		end)
+
+		expect(ok).to.equal(false)
+
+		-- The error should mention both our key and value
+		expect(err:find(goodKey)).to.be.ok()
+		expect(err:find(badValue)).to.be.ok()
+	end)
+
+	it("should prevent setting configuration more than once", function()
+		local config = Config.new()
+
+		-- We're going to use the name of this function to see if the traceback
+		-- was correct.
+		local function setEmptyConfig()
+			config.set({})
+		end
+
+		setEmptyConfig()
+
+		local ok, err = pcall(setEmptyConfig)
+
+		expect(ok).to.equal(false)
+
+		-- The error should mention the stack trace with the original set call.
+		expect(err:find("setEmptyConfig")).to.be.ok()
+	end)
+
+	it("should reset to default values after invoking reset()", function()
+		local config = Config.new()
+
+		expect(config.getValue("elementTracing")).to.equal(false)
+
+		config.set({
+			elementTracing = true,
+		})
+
+		expect(config.getValue("elementTracing")).to.equal(true)
+
+		config.reset()
+
+		expect(config.getValue("elementTracing")).to.equal(false)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX61879EF7B4D64C7CA0A55CA260BA702C">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Component.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Core = require(script.Parent.Core)
+	local Reconciler = require(script.Parent.Reconciler)
+	local Component = require(script.Parent.Component)
+
+	it("should be extendable", function()
+		local MyComponent = Component:extend("The Senate")
+
+		expect(MyComponent).to.be.ok()
+		expect(MyComponent._new).to.be.ok()
+	end)
+
+	it("should prevent extending a user component", function()
+		local MyComponent = Component:extend("Sheev")
+
+		expect(function()
+			MyComponent:extend("Frank")
+		end).to.throw()
+	end)
+
+	it("should use a given name", function()
+		local MyComponent = Component:extend("FooBar")
+
+		local name = tostring(MyComponent)
+
+		expect(name).to.be.a("string")
+		expect(name:find("FooBar")).to.be.ok()
+	end)
+
+	it("should throw on render with a useful message by default", function()
+		local MyComponent = Component:extend("Foo")
+
+		local instance = MyComponent._new({})
+
+		expect(instance).to.be.ok()
+
+		local ok, err = pcall(function()
+			instance:render()
+		end)
+
+		expect(ok).to.equal(false)
+		expect(err:find("Foo")).to.be.ok()
+	end)
+
+	it("should pass props to the initializer", function()
+		local MyComponent = Component:extend("Wazo")
+
+		local callCount = 0
+		local testProps = {}
+
+		function MyComponent:init(props)
+			expect(props).to.equal(testProps)
+			callCount = callCount + 1
+		end
+
+		MyComponent._new(testProps)
+
+		expect(callCount).to.equal(1)
+	end)
+
+	it("should fire didMount and willUnmount when reified", function()
+		local MyComponent = Component:extend("MyComponent")
+		local mounts = 0
+		local unmounts = 0
+
+		function MyComponent:render()
+			return nil
+		end
+
+		function MyComponent:didMount()
+			mounts = mounts + 1
+		end
+
+		function MyComponent:willUnmount()
+			unmounts = unmounts + 1
+		end
+
+		expect(mounts).to.equal(0)
+		expect(unmounts).to.equal(0)
+
+		local instance = Reconciler.reify(Core.createElement(MyComponent))
+
+		expect(mounts).to.equal(1)
+		expect(unmounts).to.equal(0)
+
+		Reconciler.teardown(instance)
+
+		expect(mounts).to.equal(1)
+		expect(unmounts).to.equal(1)
+	end)
+
+	it("should provide the proper arguments to willUpdate and didUpdate", function()
+		local willUpdateCount = 0
+		local didUpdateCount = 0
+		local prevProps
+		local prevState
+		local nextProps
+		local nextState
+		local setValue
+
+		local Child = Component:extend("PureChild")
+
+		function Child:willUpdate(newProps, newState)
+			nextProps = assert(newProps)
+			nextState = assert(newState)
+			prevProps = assert(self.props)
+			prevState = assert(self.state)
+			willUpdateCount = willUpdateCount + 1
+		end
+
+		function Child:didUpdate(oldProps, oldState)
+			assert(oldProps)
+			assert(oldState)
+			expect(prevProps.value).to.equal(oldProps.value)
+			expect(prevState.value).to.equal(oldState.value)
+			expect(nextProps.value).to.equal(self.props.value)
+			expect(nextState.value).to.equal(self.state.value)
+			didUpdateCount = didUpdateCount + 1
+		end
+
+		function Child:render()
+			return nil
+		end
+
+		local Container = Component:extend("Container")
+
+		function Container:init()
+			self.state = {
+				value = 0,
+			}
+		end
+
+		function Container:didMount()
+			setValue = function(value)
+				self:setState({
+					value = value,
+				})
+			end
+		end
+
+		function Container:willUnmount()
+			setValue = nil
+		end
+
+		function Container:render()
+			return Core.createElement(Child, {
+				value = self.state.value,
+			})
+		end
+
+		local element = Core.createElement(Container)
+		local instance = Reconciler.reify(element)
+
+		expect(willUpdateCount).to.equal(0)
+		expect(didUpdateCount).to.equal(0)
+
+		setValue(1)
+
+		expect(willUpdateCount).to.equal(1)
+		expect(didUpdateCount).to.equal(1)
+
+		setValue(1)
+
+		expect(willUpdateCount).to.equal(2)
+		expect(didUpdateCount).to.equal(2)
+
+		setValue(2)
+
+		expect(willUpdateCount).to.equal(3)
+		expect(didUpdateCount).to.equal(3)
+
+		setValue(1)
+
+		expect(willUpdateCount).to.equal(4)
+		expect(didUpdateCount).to.equal(4)
+
+		Reconciler.teardown(instance)
+	end)
+
+	describe("setState", function()
+		it("should throw when called in init", function()
+			local InitComponent = Component:extend("InitComponent")
+
+			function InitComponent:init()
+				self:setState({
+					a = 1
+				})
+			end
+
+			function InitComponent:render()
+				return nil
+			end
+
+			local initElement = Core.createElement(InitComponent)
+
+			expect(function()
+				Reconciler.reify(initElement)
+			end).to.throw()
+		end)
+
+		it("should throw when called in render", function()
+			local RenderComponent = Component:extend("RenderComponent")
+
+			function RenderComponent:render()
+				self:setState({
+					a = 1
+				})
+			end
+
+			local renderElement = Core.createElement(RenderComponent)
+
+			expect(function()
+				Reconciler.reify(renderElement)
+			end).to.throw()
+		end)
+
+		it("should throw when called in shouldUpdate", function()
+			local TestComponent = Component:extend("TestComponent")
+
+			local triggerTest
+
+			function TestComponent:init()
+				triggerTest = function()
+					self:setState({
+						a = 1
+					})
+				end
+			end
+
+			function TestComponent:render()
+				return nil
+			end
+
+			function TestComponent:shouldUpdate()
+				self:setState({
+					a = 1
+				})
+			end
+
+			local testElement = Core.createElement(TestComponent)
+
+			expect(function()
+				Reconciler.reify(testElement)
+				triggerTest()
+			end).to.throw()
+		end)
+
+		it("should throw when called in willUpdate", function()
+			local TestComponent = Component:extend("TestComponent")
+			local forceUpdate
+
+			function TestComponent:init()
+				forceUpdate = function()
+					self:_forceUpdate()
+				end
+			end
+
+			function TestComponent:render()
+				return nil
+			end
+
+			function TestComponent:willUpdate()
+				self:setState({
+					a = 1
+				})
+			end
+
+			local testElement = Core.createElement(TestComponent)
+
+			expect(function()
+				Reconciler.reify(testElement)
+				forceUpdate()
+			end).to.throw()
+		end)
+
+		it("should throw when called in willUnmount", function()
+			local TestComponent = Component:extend("TestComponent")
+
+			function TestComponent:render()
+				return nil
+			end
+
+			function TestComponent:willUnmount()
+				self:setState({
+					a = 1
+				})
+			end
+
+			local element = Core.createElement(TestComponent)
+			local instance = Reconciler.reify(element)
+
+			expect(function()
+				Reconciler.teardown(instance)
+			end).to.throw()
+		end)
+
+		it("should remove values from state when the value is Core.None", function()
+			local TestComponent = Component:extend("TestComponent")
+			local setStateCallback, getStateCallback
+
+			function TestComponent:init()
+				setStateCallback = function(newState)
+					self:setState(newState)
+				end
+
+				getStateCallback = function()
+					return self.state
+				end
+
+				self.state = {
+					value = 0
+				}
+			end
+
+			function TestComponent:render()
+				return nil
+			end
+
+			local element = Core.createElement(TestComponent)
+			local instance = Reconciler.reify(element)
+
+			expect(getStateCallback().value).to.equal(0)
+
+			setStateCallback({
+				value = Core.None
+			})
+
+			expect(getStateCallback().value).to.equal(nil)
+
+			Reconciler.teardown(instance)
+		end)
+
+		it("should invoke functions to compute a partial state", function()
+			local TestComponent = Component:extend("TestComponent")
+			local setStateCallback, getStateCallback, getPropsCallback
+
+			function TestComponent:init()
+				setStateCallback = function(newState)
+					self:setState(newState)
+				end
+
+				getStateCallback = function()
+					return self.state
+				end
+
+				getPropsCallback = function()
+					return self.props
+				end
+
+				self.state = {
+					value = 0
+				}
+			end
+
+			function TestComponent:render()
+				return nil
+			end
+
+			local element = Core.createElement(TestComponent)
+			local instance = Reconciler.reify(element)
+
+			expect(getStateCallback().value).to.equal(0)
+
+			setStateCallback(function(state, props)
+				expect(state).to.equal(getStateCallback())
+				expect(props).to.equal(getPropsCallback())
+
+				return {
+					value = state.value + 1
+				}
+			end)
+
+			expect(getStateCallback().value).to.equal(1)
+
+			Reconciler.teardown(instance)
+		end)
+	end)
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX79EB353BFA5C4C3AAECAE3286FA328B3">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">GlobalConfig.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local GlobalConfig = require(script.Parent.GlobalConfig)
+
+	it("should have the correct methods", function()
+		expect(GlobalConfig).to.be.ok()
+		expect(GlobalConfig.set).to.be.ok()
+		expect(GlobalConfig.getValue).to.be.ok()
+		expect(GlobalConfig.reset).to.be.ok()
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX7F9DF57A3FB545E1A5481883CFD91314">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">PureComponent.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Core = require(script.Parent.Core)
+	local Reconciler = require(script.Parent.Reconciler)
+	local PureComponent = require(script.Parent.PureComponent)
+
+	it("should be extendable", function()
+		local MyComponent = PureComponent:extend("MyComponent")
+
+		expect(MyComponent).to.be.ok()
+	end)
+
+	it("should skip updates for shallow-equal props", function()
+		local updateCount = 0
+		local setValue
+
+		local PureChild = PureComponent:extend("PureChild")
+
+		function PureChild:willUpdate(newProps, newState)
+			updateCount = updateCount + 1
+		end
+
+		function PureChild:render()
+		end
+
+		local PureContainer = PureComponent:extend("PureContainer")
+
+		function PureContainer:init()
+			self.state = {
+				value = 0,
+			}
+		end
+
+		function PureContainer:didMount()
+			setValue = function(value)
+				self:setState({
+					value = value,
+				})
+			end
+		end
+
+		function PureContainer:render()
+			return Core.createElement(PureChild, {
+				value = self.state.value,
+			})
+		end
+
+		local element = Core.createElement(PureContainer)
+		local instance = Reconciler.reify(element)
+
+		expect(updateCount).to.equal(0)
+
+		setValue(1)
+
+		expect(updateCount).to.equal(1)
+
+		setValue(1)
+
+		expect(updateCount).to.equal(1)
+
+		setValue(2)
+
+		expect(updateCount).to.equal(2)
+
+		setValue(1)
+
+		expect(updateCount).to.equal(3)
+
+		Reconciler.teardown(instance)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX4EEAFDBB1D064A78BB101B0FA7BA72B9">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Component</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	The base component implementation that is extended by users of Roact.
+
+	Exposed as Roact.Component
+]]
+
+local Reconciler = require(script.Parent.Reconciler)
+local Core = require(script.Parent.Core)
+
+local Component = {}
+
+Component.__index = Component
+
+-- The error message that is thrown when setState is called in the wrong place.
+-- This is declared here to avoid really messy indentation.
+local INVALID_SETSTATE_MESSAGE = [[
+setState cannot be used currently, are you calling setState from any of:
+* the willUpdate or willUnmount lifecycle hooks
+* the init function
+* the render function
+* the shouldUpdate function]]
+
+--[[
+	Create a new Roact stateful component class.
+
+	Not intended to be a general OO implementation, this function only intends
+	to let users extend Component and PureComponent.
+
+	Instead of using inheritance, use composition and props to extend components.
+]]
+function Component:extend(name)
+	assert(type(name) == "string", "A name must be provided to create a Roact Component")
+
+	local class = {}
+
+	for key, value in pairs(self) do
+		-- We don't want users using 'extend' to create component inheritance
+		-- see https://reactjs.org/docs/composition-vs-inheritance.html
+		if key ~= "extend" then
+			class[key] = value
+		end
+	end
+
+	class.__index = class
+
+	setmetatable(class, {
+		__tostring = function(self)
+			return name
+		end
+	})
+
+	function class._new(props, context)
+		local self = {}
+
+		self.props = props
+		-- Used for tracking whether the component is in a position to set state.
+		self._canSetState = false
+		self._context = {}
+
+		-- Shallow copy all context values from our parent element.
+		if context then
+			for key, value in pairs(context) do
+				self._context[key] = value
+			end
+		end
+
+		setmetatable(self, class)
+
+		-- Call the user-provided initializer, where state and _props are set.
+		if class.init then
+			class.init(self, props)
+		end
+
+		-- The user constructer might not set state, so we can.
+		if not self.state then
+			self.state = {}
+		end
+
+		-- Now that state has definitely been set, we can now allow it to be changed.
+		self._canSetState = true
+
+		return self
+	end
+
+	return class
+end
+
+--[[
+	Override this with a function that returns the elements that should
+	represent this component with the current state.
+]]
+function Component:render()
+	local message = (
+		"The component %q is missing the 'render' method.\n" ..
+		"render must be defined when creating a Roact component!"
+	):format(
+		tostring(getmetatable(self))
+	)
+
+	error(message, 0)
+end
+
+--[[
+	Used to tell Roact whether this component *might* need to be re-rendered
+	given a new set of props and state.
+
+	This method is an escape hatch for when the Roact element creation and
+	reconciliation algorithms are not fast enough for specific cases. Poorly
+	written shouldUpdate methods *will* cause hard-to-trace bugs.
+
+	If you're thinking of writing a shouldComponent function, consider using
+	PureComponent instead, which provides a good implementation.
+
+	This function must be faster than the render method in order to be a
+	performance improvement.
+]]
+function Component:shouldUpdate(newProps, newState)
+	return true
+end
+
+--[[
+	Applies new state to the component. `partialState` is merged into the
+	current state object.
+]]
+function Component:setState(partialState)
+	-- State cannot be set in any lifecycle hooks.
+	if not self._canSetState then
+		error(INVALID_SETSTATE_MESSAGE, 0)
+	end
+
+	-- If the partial state is a function, invoke it to get the actual partial state.
+	if type(partialState) == "function" then
+		partialState = partialState(self.state, self.props)
+	end
+
+	local newState = {}
+
+	for key, value in pairs(self.state) do
+		newState[key] = value
+	end
+
+	for key, value in pairs(partialState) do
+		if value == Core.None then
+			newState[key] = nil
+		else
+			newState[key] = value
+		end
+	end
+
+	self:_update(self.props, newState)
+end
+
+--[[
+	Notifies the component that new props and state are available.
+
+	If shouldUpdate returns true, this method will trigger a re-render and
+	reconciliation step.
+]]
+function Component:_update(newProps, newState)
+	self._canSetState = false
+	local doUpdate = self:shouldUpdate(newProps or self.props, newState or self.state)
+	self._canSetState = true
+
+	if doUpdate then
+		self:_forceUpdate(newProps, newState)
+	end
+end
+
+--[[
+	Forces the component to re-render itself and its children.
+
+	newProps and newState are optional.
+]]
+function Component:_forceUpdate(newProps, newState)
+	self._canSetState = false
+
+	if self.willUpdate then
+		self:willUpdate(newProps or self.props, newState or self.state)
+	end
+
+	local oldProps = self.props
+	local oldState = self.state
+
+	if newProps then
+		self.props = newProps
+	end
+
+	if newState then
+		self.state = newState
+	end
+
+	local newChildElement = self:render()
+
+	if self._handle._reified ~= nil then
+		-- We returned an element before, update it.
+		self._handle._reified = Reconciler._reconcileInternal(
+			self._handle._reified,
+			newChildElement
+		)
+	elseif newChildElement then
+		-- We returned nil last time, but not now, so construct a new tree.
+		self._handle._reified = Reconciler._reifyInternal(
+			newChildElement,
+			self._handle._parent,
+			self._handle._key,
+			self._context
+		)
+	end
+
+	self._canSetState = true
+
+	if self.didUpdate then
+		self:didUpdate(oldProps, oldState)
+	end
+end
+
+--[[
+	Initializes the component instance and attaches it to the given
+	instance handle, created by Reconciler._reify.
+]]
+function Component:_reify(handle)
+	self._handle = handle
+
+	local virtualTree = self:render()
+	if virtualTree then
+		handle._reified = Reconciler._reifyInternal(
+			virtualTree,
+			handle._parent,
+			handle._key,
+			self._context
+		)
+	end
+
+	if self.didMount then
+		self:didMount()
+	end
+end
+
+return Component
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="ModuleScript" referent="RBX94386AEF74F746E2B8FE08FAA05BB0B2">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">Rodux</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[local Store = require(script.Store)
+local createReducer = require(script.createReducer)
+local combineReducers = require(script.combineReducers)
+local loggerMiddleware = require(script.loggerMiddleware)
+local thunkMiddleware = require(script.thunkMiddleware)
+
+return {
+	Store = Store,
+	createReducer = createReducer,
+	combineReducers = combineReducers,
+	loggerMiddleware = loggerMiddleware,
+	thunkMiddleware = thunkMiddleware,
+}
+]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBX17B9582B4AC94D2F981EF029F3DF91CF">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">NoYield</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Calls a function and throws an error if it attempts to yield.
+
+	Pass any number of arguments to the function after the callback.
+
+	This function supports multiple return; all results returned from the
+	given function will be returned.
+]]
+
+local function resultHandler(co, ok, ...)
+	if not ok then
+		local err = (...)
+		error(err, 2)
+	end
+
+	if coroutine.status(co) ~= "dead" then
+		error("Attempted to yield inside Changed event!", 2)
+	end
+
+	return ...
+end
+
+local function NoYield(callback, ...)
+	local co = coroutine.create(callback)
+
+	return resultHandler(co, coroutine.resume(co, ...))
+end
+
+return NoYield]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX1DB686168C4A400C96AAA8098B550516">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Signal</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	A limited, simple implementation of a Signal.
+
+	Handlers are fired in order, and (dis)connections are properly handled when
+	executing an event.
+]]
+
+local function immutableAppend(list, ...)
+	local new = {}
+	local len = #list
+
+	for key = 1, len do
+		new[key] = list[key]
+	end
+
+	for i = 1, select("#", ...) do
+		new[len + i] = select(i, ...)
+	end
+
+	return new
+end
+
+local function immutableRemoveValue(list, removeValue)
+	local new = {}
+
+	for i = 1, #list do
+		if list[i] ~= removeValue then
+			table.insert(new, list[i])
+		end
+	end
+
+	return new
+end
+
+local Signal = {}
+
+Signal.__index = Signal
+
+function Signal.new()
+	local self = {
+		_listeners = {}
+	}
+
+	setmetatable(self, Signal)
+
+	return self
+end
+
+function Signal:connect(callback)
+	local listener = {
+		callback = callback,
+		disconnected = false,
+	}
+
+	self._listeners = immutableAppend(self._listeners, listener)
+
+	local function disconnect()
+		listener.disconnected = true
+		self._listeners = immutableRemoveValue(self._listeners, listener)
+	end
+
+	return {
+		disconnect = disconnect
+	}
+end
+
+function Signal:fire(...)
+	for _, listener in ipairs(self._listeners) do
+		if not listener.disconnected then
+			listener.callback(...)
+		end
+	end
+end
+
+return Signal]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX314AA19D41FC49B3AE806030942B1BB5">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">combineReducers</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	Create a composite reducer from a map of keys and sub-reducers.
+]]
+local function combineReducers(map)
+	return function(state, action)
+		-- If state is nil, substitute it with a blank table.
+		if state == nil then
+			state = {}
+		end
+
+		local newState = {}
+
+		for key, reducer in pairs(map) do
+			-- Each reducer gets its own state, not the entire state table
+			newState[key] = reducer(state[key], action)
+		end
+
+		return newState
+	end
+end
+
+return combineReducers
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXAB9DC6013CC941BDB9153A776991BB73">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">loggerMiddleware</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local indentStr = "    "
+
+local function prettyPrint(t, indent)
+	indent = indent or 1
+	local outputBuffer = {
+		"{\n",
+	}
+
+	for key, value in pairs(t) do
+		local strKey = tostring(key)
+
+		table.insert(outputBuffer, indentStr:rep(indent + 1))
+		table.insert(outputBuffer, strKey)
+		table.insert(outputBuffer, " = ")
+
+		if typeof(value) == "table" then
+			table.insert(outputBuffer, prettyPrint(value, indent + 1))
+			table.insert(outputBuffer, "\n")
+		else
+			table.insert(outputBuffer, tostring(value))
+			table.insert(outputBuffer, "; (")
+			table.insert(outputBuffer, typeof(value))
+			table.insert(outputBuffer, ")\n")
+		end
+	end
+
+	table.insert(outputBuffer, indentStr:rep(indent))
+	table.insert(outputBuffer, "}")
+
+	return table.concat(outputBuffer, "")
+end
+
+local function loggerMiddleware(outputFunction)
+	outputFunction = outputFunction or print
+
+	return function(next)
+		return function(store, action)
+			local result = next(store, action)
+
+			outputFunction(("Action dispatched: %s\nState changed to: %s"):format(
+				prettyPrint(action),
+				prettyPrint(store:getState()))
+			)
+
+			return result
+		end
+	end
+end
+
+return loggerMiddleware
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXE2A94695936640F3A068A5EE311D1651">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">createReducer.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local createReducer = require(script.Parent.createReducer)
+
+	it("should handle actions", function()
+		local reducer = createReducer({
+			a = 0,
+			b = 0,
+		}, {
+			a = function(state, action)
+				return {
+					a = state.a + 1,
+					b = state.b,
+				}
+			end,
+			b = function(state, action)
+				return {
+					a = state.a,
+					b = state.b + 2,
+				}
+			end,
+		})
+
+		local newState = reducer({
+			a = 0,
+			b = 0,
+		}, {
+			type = "a",
+		})
+
+		expect(newState.a).to.equal(1)
+
+		newState = reducer(newState, {
+			type = "b",
+		})
+
+		expect(newState.b).to.equal(2)
+	end)
+
+	it("should return the initial state if the state is nil", function()
+		local reducer = createReducer({
+			a = 0,
+			b = 0,
+		-- We don't care about the actions here
+		}, {})
+
+		local newState = reducer(nil, {})
+		expect(newState).to.be.ok()
+		expect(newState.a).to.equal(0)
+		expect(newState.b).to.equal(0)
+	end)
+
+	it("should return the same state if the action is not handled", function()
+		local initialState = {
+			a = 0,
+			b = 0,
+		}
+
+		local reducer = createReducer(initialState, {
+			a = function(state, action)
+				return {
+					a = state.a + 1,
+					b = state.b,
+				}
+			end,
+			b = function(state, action)
+				return {
+					a = state.a,
+					b = state.b + 2,
+				}
+			end,
+		})
+
+		local newState = reducer(initialState, {
+			type = "c",
+		})
+
+		expect(newState).to.equal(initialState)
+	end)
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX1D5694F6AD3F42B09225C346AE5CD4D7">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">init.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	describe("Rodux", function()
+		it("should load", function()
+			local Rodux = require(script.Parent)
+
+			expect(Rodux.Store).to.be.ok()
+		end)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX390ED67431DA41FEA7E2318F5D4E956D">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Store</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[local RunService = game:GetService("RunService")
+
+local Signal = require(script.Parent.Signal)
+local NoYield = require(script.Parent.NoYield)
+
+local Store = {}
+
+-- This value is exposed as a private value so that the test code can stay in
+-- sync with what event we listen to for dispatching the Changed event.
+-- It may not be Heartbeat in the future.
+Store._flushEvent = RunService.Heartbeat
+
+Store.__index = Store
+
+--[[
+	Create a new Store whose state is transformed by the given reducer function.
+
+	Each time an action is dispatched to the store, the new state of the store
+	is given by:
+
+		state = reducer(state, action)
+
+	Reducers do not mutate the state object, so the original state is still
+	valid.
+]]
+function Store.new(reducer, initialState, middlewares)
+	assert(typeof(reducer) == "function", "Bad argument #1 to Store.new, expected function.")
+	assert(middlewares == nil or typeof(middlewares) == "table", "Bad argument #3 to Store.new, expected nil or table.")
+
+	local self = {}
+
+	self._reducer = reducer
+	self._state = reducer(initialState, {
+		type = "@@INIT",
+	})
+	self._lastState = self._state
+
+	self._mutatedSinceFlush = false
+	self._connections = {}
+
+	self.changed = Signal.new()
+
+	setmetatable(self, Store)
+
+	local connection = self._flushEvent:Connect(function()
+		self:flush()
+	end)
+	table.insert(self._connections, connection)
+
+	if middlewares then
+		local dispatch = Store.dispatch
+		for _, middleware in ipairs(middlewares) do
+			dispatch = middleware(dispatch)
+		end
+
+		self.dispatch = dispatch
+	end
+
+	return self
+end
+
+--[[
+	Get the current state of the Store. Do not mutate this!
+]]
+function Store:getState()
+	return self._state
+end
+
+--[[
+	Dispatch an action to the store. This allows the store's reducer to mutate
+	the state of the application by creating a new copy of the state.
+
+	Listeners on the changed event of the store are notified when the state
+	changes, but not necessarily on every Dispatch.
+]]
+function Store:dispatch(action)
+	if typeof(action) == "table" then
+		if action.type == nil then
+			error("action does not have a type field", 2)
+		end
+
+		self._state = self._reducer(self._state, action)
+		self._mutatedSinceFlush = true
+	else
+		error(("actions of type %q are not permitted"):format(typeof(action)), 2)
+	end
+end
+
+--[[
+	Marks the store as deleted, disconnecting any outstanding connections.
+]]
+function Store:destruct()
+	for _, connection in ipairs(self._connections) do
+		connection:Disconnect()
+	end
+
+	self._connections = nil
+end
+
+--[[
+	Flush all pending actions since the last change event was dispatched.
+]]
+function Store:flush()
+	if not self._mutatedSinceFlush then
+		return
+	end
+
+	self._mutatedSinceFlush = false
+
+	-- On self.changed:fire(), further actions may be immediately dispatched, in
+	-- which case self._lastState will be set to the most recent self._state,
+	-- unless we cache this value first
+	local state = self._state
+
+	-- If a changed listener yields, *very* surprising bugs can ensue.
+	-- Because of that, changed listeners cannot yield.
+	NoYield(function()
+		self.changed:fire(state, self._lastState)
+	end)
+
+	self._lastState = state
+end
+
+return Store
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX6A98BDD02225499880C9A4235E75BA6A">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Store.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Store = require(script.Parent.Store)
+
+	describe("new", function()
+		it("should instantiate with a reducer", function()
+			local store = Store.new(function(state, action)
+				return "hello, world"
+			end)
+
+			expect(store).to.be.ok()
+			expect(store:getState()).to.equal("hello, world")
+
+			store:destruct()
+		end)
+
+		it("should instantiate with a reducer and an initial state", function()
+			local store = Store.new(function(state, action)
+				return state
+			end, "initial state")
+
+			expect(store).to.be.ok()
+			expect(store:getState()).to.equal("initial state")
+
+			store:destruct()
+		end)
+
+		it("should instantiate with a reducer, initial state, and middlewares", function()
+			local store = Store.new(function(state, action)
+				return state
+			end, "initial state", {})
+
+			expect(store).to.be.ok()
+			expect(store:getState()).to.equal("initial state")
+
+			store:destruct()
+		end)
+
+		it("should modify the dispatch method when middlewares are passed", function()
+			local middlewareInvokeCount = 0
+
+			local function reducer(state, action)
+				return state
+			end
+
+			local function testMiddleware(next)
+				return function(store, action)
+					middlewareInvokeCount = middlewareInvokeCount + 1
+					next(store, action)
+				end
+			end
+
+			local store = Store.new(reducer, "initial state", { testMiddleware })
+
+			store:dispatch({
+				type = "test",
+			})
+
+			expect(middlewareInvokeCount).to.equal(1)
+
+			store:destruct()
+		end)
+
+		it("should send an initial action with a 'type' field", function()
+			local lastAction
+			local callCount = 0
+
+			local store = Store.new(function(state, action)
+				lastAction = action
+				callCount = callCount + 1
+
+				return state
+			end)
+
+			expect(callCount).to.equal(1)
+			expect(lastAction).to.be.a("table")
+			expect(lastAction.type).to.be.ok()
+
+			store:destruct()
+		end)
+	end)
+
+	describe("GetState", function()
+		it("should get the current state", function()
+			local store = Store.new(function(state, action)
+				return "foo"
+			end)
+
+			local state = store:getState()
+
+			expect(state).to.equal("foo")
+
+			store:destruct()
+		end)
+	end)
+
+	describe("Dispatch", function()
+		it("should be sent through the reducer", function()
+			local store = Store.new(function(state, action)
+				state = state or "foo"
+
+				if action.type == "act" then
+					return "bar"
+				end
+
+				return state
+			end)
+
+			expect(store).to.be.ok()
+			expect(store:getState()).to.equal("foo")
+
+			store:dispatch({
+				type = "act",
+			})
+
+			store:flush()
+
+			expect(store:getState()).to.equal("bar")
+
+			store:destruct()
+		end)
+
+		it("should trigger the Changed event after a flush", function()
+			local store = Store.new(function(state, action)
+				state = state or 0
+
+				if action.type == "increment" then
+					return state + 1
+				end
+
+				return state
+			end)
+
+			local callCount = 0
+
+			store.changed:connect(function(state, oldState)
+				expect(oldState).to.equal(0)
+				expect(state).to.equal(1)
+
+				callCount = callCount + 1
+			end)
+
+			store:dispatch({
+				type = "increment",
+			})
+
+			store:flush()
+
+			expect(callCount).to.equal(1)
+
+			store:destruct()
+		end)
+
+		it("should handle actions dispatched within the changed event", function()
+			local store = Store.new(function(state, action)
+				state = state or {
+					value = 0,
+				}
+
+				if action.type == "increment" then
+					return {
+						value = state.value + 1,
+					}
+				elseif action.type == "decrement" then
+					return {
+						value = state.value - 1,
+					}
+				end
+
+				return state
+			end)
+
+			local changeCount = 0
+
+			store.changed:connect(function(state, oldState)
+				expect(state).never.to.equal(oldState)
+
+				if state.value > 0 then
+					store:dispatch({
+						type = "decrement",
+					})
+				end
+
+				changeCount = changeCount + 1
+			end)
+
+			store:dispatch({
+				type = "increment",
+			})
+			store:flush()
+			store:flush()
+
+			expect(changeCount).to.equal(2)
+
+			store:destruct()
+		end)
+
+		it("should prevent yielding from Changed handler", function()
+			local preCount = 0
+			local postCount = 0
+
+			local store = Store.new(function(state, action)
+				state = state or 0
+				return state + 1
+			end)
+
+			store.changed:connect(function(state, oldState)
+				preCount = preCount + 1
+				wait()
+				postCount = postCount + 1
+			end)
+
+			store:dispatch({
+				type = "increment",
+			})
+
+			expect(function()
+				store:flush()
+			end).to.throw()
+
+			expect(preCount).to.equal(1)
+			expect(postCount).to.equal(0)
+
+			store:destruct()
+		end)
+
+		it("should throw if an action is dispatched without a type field", function()
+			local store = Store.new(function(state, action)
+				return state
+			end)
+
+			expect(function()
+				store:dispatch({})
+			end).to.throw()
+
+			store:destruct()
+		end)
+
+		it("should throw if the action is not a function or table", function()
+			local store = Store.new(function(state, action)
+				return state
+			end)
+
+			expect(function()
+				store:dispatch(1)
+			end).to.throw()
+
+			store:destruct()
+		end)
+	end)
+
+	describe("Flush", function()
+		it("should not fire a Changed event if there were no dispatches", function()
+			local store = Store.new(function()
+			end)
+
+			local count = 0
+			store.changed:connect(function()
+				count = count + 1
+			end)
+
+			store:flush()
+
+			expect(count).to.equal(0)
+
+			store:dispatch({
+				type = "increment",
+			})
+			store:flush()
+
+			expect(count).to.equal(1)
+
+			store:flush()
+
+			expect(count).to.equal(1)
+
+			store:destruct()
+		end)
+	end)
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX790B10D439F94FB39F006C7EED09CBDE">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">thunkMiddleware</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[--[[
+	A middleware that allows for functions to be dispatched.
+	Functions will receive a single argument, the store itself.
+	This middleware consumes the function; middleware further down the chain
+	will not receive it.
+]]
+local function thunkMiddleware(next)
+	return function(store, action)
+		if typeof(action) == "function" then
+			return action(store)
+		else
+			return next(store, action)
+		end
+	end
+end
+
+return thunkMiddleware
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX59ED7875C77045DCBBC3756DAE9C8034">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">thunkMiddleware.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Store = require(script.Parent.Store)
+	local thunkMiddleware = require(script.Parent.thunkMiddleware)
+
+	it("should dispatch thunks", function()
+		local function reducer(state, action)
+			return state
+		end
+
+		local store = Store.new(reducer, {}, { thunkMiddleware })
+		local thunkCount = 0
+
+		local function thunk(store)
+			thunkCount = thunkCount + 1
+		end
+
+		store:dispatch(thunk)
+
+		expect(thunkCount).to.equal(1)
+	end)
+
+	it("should allow normal actions to pass through", function()
+		local reducerCount = 0
+
+		local function reducer(state, action)
+			reducerCount = reducerCount + 1
+			return state
+		end
+
+		local store = Store.new(reducer, {}, { thunkMiddleware })
+
+		store:dispatch({
+			type = "test",
+		})
+
+		-- Reducer will be invoked twice:
+		-- Once when creating the store (@@INIT action)
+		-- Once when the test action is dispatched
+		expect(reducerCount).to.equal(2)
+	end)
+
+	it("should return the value from the thunk", function()
+		local function reducer(state, action)
+			return state
+		end
+
+		local store = Store.new(reducer, {}, { thunkMiddleware })
+		local thunkValue = "test"
+
+		local function thunk(store)
+			return thunkValue
+		end
+
+		local result = store:dispatch(thunk)
+
+		expect(result).to.equal(thunkValue)
+	end)
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX35DC1690D03548ED8DD8BF75F911C2D3">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">NoYield.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local NoYield = require(script.Parent.NoYield)
+
+	it("should call functions normally", function()
+		local callCount = 0
+
+		local function test(a, b)
+			expect(a).to.equal(5)
+			expect(b).to.equal(6)
+
+			callCount = callCount + 1
+
+			return 11, "hello"
+		end
+
+		local a, b = NoYield(test, 5, 6)
+
+		expect(a).to.equal(11)
+		expect(b).to.equal("hello")
+	end)
+
+	it("should throw on yield", function()
+		local preCount = 0
+		local postCount = 0
+
+		local function test()
+			preCount = preCount + 1
+			wait()
+			postCount = postCount + 1
+		end
+
+		expect(function()
+			NoYield(test)
+		end).to.throw()
+
+		expect(preCount).to.equal(1)
+		expect(postCount).to.equal(0)
+	end)
+
+	it("should propagate error messages", function()
+		local count = 0
+
+		local function test()
+			count = count + 1
+			error("foo")
+		end
+
+		local ok, err = pcall(NoYield, test)
+
+		expect(ok).to.equal(false)
+		expect(err:find("foo")).to.be.ok()
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXFE62C851216A45FCAB9D8A6BD96EFF9D">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">createReducer</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function(initialState, handlers)
+	return function(state, action)
+		if state == nil then
+			return initialState
+		end
+
+		local handler = handlers[action.type]
+
+		if handler then
+			return handler(state, action)
+		end
+
+		return state
+	end
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXD026FE134D35469286EF719A63F8295F">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">combineReducers.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local combineReducers = require(script.Parent.combineReducers)
+
+	it("should invoke each sub-reducer for every action", function()
+		local aCount = 0
+		local bCount = 0
+
+		local reducer = combineReducers({
+			a = function(state, action)
+				aCount = aCount + 1
+			end,
+			b = function(state, action)
+				bCount = bCount + 1
+			end,
+		})
+
+		-- Mock reducer invocation
+		reducer({}, {})
+		expect(aCount).to.equal(1)
+		expect(bCount).to.equal(1)
+	end)
+
+	it("should assign each sub-reducer's value to the new state", function()
+		local reducer = combineReducers({
+			a = function(state, action)
+				return (state or 0) + 1
+			end,
+			b = function(state, action)
+				return (state or 0) + 3
+			end,
+		})
+
+		local newState = reducer({}, {})
+		expect(newState.a).to.equal(1)
+		expect(newState.b).to.equal(3)
+	end)
+
+	it("should not throw when state is nil", function()
+		local reducer = combineReducers({
+			a = function(state, action)
+				return (state or 0) + 1
+			end,
+			b = function(state, action)
+				return (state or 0) + 3
+			end,
+		})
+
+		expect(function()
+			reducer(nil, {})
+		end).to.never.throw()
+	end)
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX577BADF09FB742969CFAE1C4B86915C5">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Signal.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Signal = require(script.Parent.Signal)
+
+	it("should construct from nothing", function()
+		local signal = Signal.new()
+
+		expect(signal).to.be.ok()
+	end)
+
+	it("should fire connected callbacks", function()
+		local callCount = 0
+		local value1 = "Hello World"
+		local value2 = 7
+
+		local callback = function(arg1, arg2)
+			expect(arg1).to.equal(value1)
+			expect(arg2).to.equal(value2)
+			callCount = callCount + 1
+		end
+
+		local signal = Signal.new()
+
+		local connection = signal:connect(callback)
+		signal:fire(value1, value2)
+
+		expect(callCount).to.equal(1)
+
+		connection:disconnect()
+		signal:fire(value1, value2)
+
+		expect(callCount).to.equal(1)
+	end)
+
+	it("should disconnect handlers", function()
+		local callback = function()
+			error("Callback was called after disconnect!")
+		end
+
+		local signal = Signal.new()
+
+		local connection = signal:connect(callback)
+		connection:disconnect()
+
+		signal:fire()
+	end)
+
+	it("should fire handlers in order", function()
+		local signal = Signal.new()
+		local x = 0
+		local y = 0
+
+		local callback1 = function()
+			expect(x).to.equal(0)
+			expect(y).to.equal(0)
+			x = x + 1
+		end
+
+		local callback2 = function()
+			expect(x).to.equal(1)
+			expect(y).to.equal(0)
+			y = y + 1
+		end
+
+		signal:connect(callback1)
+		signal:connect(callback2)
+		signal:fire()
+
+		expect(x).to.equal(1)
+		expect(y).to.equal(1)
+	end)
+
+	it("should continue firing despite mid-event disconnection", function()
+		local signal = Signal.new()
+		local countA = 0
+		local countB = 0
+
+		local connectionA
+		connectionA = signal:connect(function()
+			connectionA:disconnect()
+			countA = countA + 1
+		end)
+
+		signal:connect(function()
+			countB = countB + 1
+		end)
+
+		signal:fire()
+
+		expect(countA).to.equal(1)
+		expect(countB).to.equal(1)
+	end)
+
+	it("should skip listeners that were disconnected during event evaluation", function()
+		local signal = Signal.new()
+		local countA = 0
+		local countB = 0
+
+		local connectionB
+
+		signal:connect(function()
+			countA = countA + 1
+			connectionB:disconnect()
+		end)
+
+		connectionB = signal:connect(function()
+			countB = countB + 1
+		end)
+
+		signal:fire()
+
+		expect(countA).to.equal(1)
+		expect(countB).to.equal(0)
+	end)
+end]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBXE3A9F35491E943A9B0A4FD97DA6124A3">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">loggerMiddleware.spec</string>
+						<string name="ScriptGuid"></string>
+						<ProtectedString name="Source"><![CDATA[return function()
+	local Store = require(script.Parent.Store)
+	local loggerMiddleware = require(script.Parent.loggerMiddleware)
+
+	it("should print whenever an action is dispatched", function()
+		local outputCount = 0
+
+		local function reducer(state, action)
+			return state
+		end
+
+		local function outputFunction()
+			outputCount = outputCount + 1
+		end
+
+		local logger = loggerMiddleware(outputFunction)
+
+		local store = Store.new(reducer, {
+			value = 0,
+			otherValue = {},
+		}, { logger })
+
+		store:dispatch({
+			type = "test",
+		})
+
+		expect(outputCount).to.equal(1)
+	end)
+end
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+		</Item>
+	</Item>
+</roblox>

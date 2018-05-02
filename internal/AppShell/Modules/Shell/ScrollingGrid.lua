@@ -8,12 +8,6 @@ local ShellModules = Modules:FindFirstChild("Shell")
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local GuiService = game:GetService('GuiService')
 
-local XboxUseNewScrollingGrid = settings():GetFFlag("XboxUseNewScrollingGrid")
-if not XboxUseNewScrollingGrid then
-	local ScrollingGridModule = require(ShellModules:FindFirstChild('ScrollingGridOld'))
-	return ScrollingGridModule
-end
-
 local function ScrollingGrid(config)
 	local this = {}
 	this.Enum =
@@ -785,7 +779,7 @@ local function ScrollingGrid(config)
 
 			local selectedObject = self:FindAncestorGridItem(GuiService.SelectedCoreObject)
 			if selectedObject and self:ContainsItem(selectedObject) then
-				--The selected object is still the scrolling grid
+				--The selected object is still in the scrolling grid
 				local thisPos = self:GetCanvasPositionForOffscreenItem(selectedObject)
 				if thisPos then
 					self.targetCanvasPosition = thisPos

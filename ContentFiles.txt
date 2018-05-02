@@ -11,13 +11,16 @@ BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[315835 bytes]
+[314078 bytes]
+
+BuiltInPlugins/Toolbox.rbxmx
+[125671 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
-[210497 bytes]
+[210441 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[183951 bytes]
+[192637 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -277,6 +280,12 @@ content/internal/AppShell/Modules/Shell/Actions/SetCrossPlayEnabled.lua
 content/internal/AppShell/Modules/Shell/Actions/SetCrossPlayEnabled.spec.lua
 [815 bytes]
 
+content/internal/AppShell/Modules/Shell/Actions/SetFriendsData.lua
+[602 bytes]
+
+content/internal/AppShell/Modules/Shell/Actions/SetFriendsData.spec.lua
+[1110 bytes]
+
 content/internal/AppShell/Modules/Shell/Actions/SetPrivilegeSettings.lua
 [358 bytes]
 
@@ -326,7 +335,7 @@ content/internal/AppShell/Modules/Shell/AvatarEditorScreen.lua
 [4662 bytes]
 
 content/internal/AppShell/Modules/Shell/AvatarEditorView.lua
-[16855 bytes]
+[16856 bytes]
 
 content/internal/AppShell/Modules/Shell/AvatarPane.lua
 [23643 bytes]
@@ -434,7 +443,7 @@ content/internal/AppShell/Modules/Shell/EnableCrossplayOverlay.lua
 [3126 bytes]
 
 content/internal/AppShell/Modules/Shell/EngagementScreen.lua
-[12104 bytes]
+[11904 bytes]
 
 content/internal/AppShell/Modules/Shell/ErrorOverlay.lua
 [5406 bytes]
@@ -449,7 +458,7 @@ content/internal/AppShell/Modules/Shell/FriendPresenceItem.lua
 [9732 bytes]
 
 content/internal/AppShell/Modules/Shell/FriendsData.lua
-[9143 bytes]
+[10341 bytes]
 
 content/internal/AppShell/Modules/Shell/FriendsView.lua
 [7336 bytes]
@@ -487,11 +496,8 @@ content/internal/AppShell/Modules/Shell/GamesPane.lua
 content/internal/AppShell/Modules/Shell/GamesPaneDetailsView.lua
 [11678 bytes]
 
-content/internal/AppShell/Modules/Shell/GamesScrollingGrid.lua
-[13759 bytes]
-
 content/internal/AppShell/Modules/Shell/GamesView.lua
-[15460 bytes]
+[14882 bytes]
 
 content/internal/AppShell/Modules/Shell/GlobalSettings.lua
 [4044 bytes]
@@ -510,9 +516,6 @@ content/internal/AppShell/Modules/Shell/Http.lua
 
 content/internal/AppShell/Modules/Shell/ImageOverlay.lua
 [7192 bytes]
-
-content/internal/AppShell/Modules/Shell/LegacyEngagementScreen.lua
-[7690 bytes]
 
 content/internal/AppShell/Modules/Shell/LinkAccountScreen.lua
 [5131 bytes]
@@ -589,6 +592,12 @@ content/internal/AppShell/Modules/Shell/Reducers/ErrorHandler.lua
 content/internal/AppShell/Modules/Shell/Reducers/ErrorHandler.spec.lua
 [1619 bytes]
 
+content/internal/AppShell/Modules/Shell/Reducers/Friends.lua
+[989 bytes]
+
+content/internal/AppShell/Modules/Shell/Reducers/Friends.spec.lua
+[2312 bytes]
+
 content/internal/AppShell/Modules/Shell/Reducers/PrivilegeSettingsState.lua
 [1012 bytes]
 
@@ -632,10 +641,7 @@ content/internal/AppShell/Modules/Shell/ScreenManager.lua
 [7236 bytes]
 
 content/internal/AppShell/Modules/Shell/ScrollingGrid.lua
-[30500 bytes]
-
-content/internal/AppShell/Modules/Shell/ScrollingGridOld.lua
-[29769 bytes]
+[30269 bytes]
 
 content/internal/AppShell/Modules/Shell/ScrollingTextBox.lua
 [6264 bytes]
@@ -650,7 +656,7 @@ content/internal/AppShell/Modules/Shell/SideBar.lua
 [6405 bytes]
 
 content/internal/AppShell/Modules/Shell/SignInScreen.lua
-[8907 bytes]
+[8697 bytes]
 
 content/internal/AppShell/Modules/Shell/SiteInfoWidget.lua
 [2249 bytes]
@@ -1487,7 +1493,7 @@ content/internal/Chat/Modules/LuaChat/Actions/ChangedParticipants.lua
 [445 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/ConversationActions.lua
-[27460 bytes]
+[27714 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/DecrementUnreadConversationCount.lua
 [345 bytes]
@@ -1673,7 +1679,10 @@ content/internal/Chat/Modules/LuaChat/Components/BaseHeader.lua
 [4810 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatBubble.lua
-[7828 bytes]
+[8562 bytes]
+
+content/internal/Chat/Modules/LuaChat/Components/ChatBubble.spec.lua
+[15602 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ChatDisabledIndicator.lua
 [3173 bytes]
@@ -1697,7 +1706,7 @@ content/internal/Chat/Modules/LuaChat/Components/ConversationEntry.lua
 [6932 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationHub.lua
-[10878 bytes]
+[11004 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationList.lua
 [10738 bytes]
@@ -1715,7 +1724,7 @@ content/internal/Chat/Modules/LuaChat/Components/DialogComponents.lua
 [19433 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/EditChatGroup.lua
-[6235 bytes]
+[6305 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/FriendSearchBox.lua
 [8932 bytes]
@@ -1724,7 +1733,7 @@ content/internal/Chat/Modules/LuaChat/Components/GameShareCard.lua
 [6235 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GameShareComponent.lua
-[11435 bytes]
+[11514 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetail.lua
 [10544 bytes]
@@ -1769,7 +1778,7 @@ content/internal/Chat/Modules/LuaChat/Components/ModalTextButton.lua
 [1652 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/NewChatGroup.lua
-[7187 bytes]
+[7217 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/NoFriendsIndicator.lua
 [1508 bytes]
@@ -1991,7 +2000,7 @@ content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.spec.lua
 [2372 bytes]
 
 content/internal/Chat/Modules/LuaChat/RobloxEventReceiver.lua
-[11364 bytes]
+[11406 bytes]
 
 content/internal/Chat/Modules/LuaChat/ScreenManager.lua
 [6427 bytes]
@@ -2104,14 +2113,20 @@ content/internal/Common/Modules/Common/AnalyticsReporters/Influx.lua
 content/internal/Common/Modules/Common/AnalyticsReporters/Influx.spec.lua
 [4971 bytes]
 
+content/internal/Common/Modules/Common/Dependencies/Roact/Change.lua
+[404 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Change.spec.lua
+[358 bytes]
+
 content/internal/Common/Modules/Common/Dependencies/Roact/Component.lua
-[5720 bytes]
+[8690 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/Component.spec.lua
-[7986 bytes]
+[9542 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/Config.lua
-[3601 bytes]
+[3724 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/Config.spec.lua
 [1909 bytes]
@@ -2141,10 +2156,19 @@ content/internal/Common/Modules/Common/Dependencies/Roact/GlobalConfig.spec.lua
 [291 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/init.lua
-[1035 bytes]
+[1340 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/init.spec.lua
-[11359 bytes]
+[11898 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Instrumentation.lua
+[2982 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/Instrumentation.spec.lua
+[2452 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/Roact/invalidSetStateMessages.lua
+[2092 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/PureComponent.lua
 [811 bytes]
@@ -2153,16 +2177,16 @@ content/internal/Common/Modules/Common/Dependencies/Roact/PureComponent.spec.lua
 [1361 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/Reconciler.lua
-[15462 bytes]
+[15088 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/Reconciler.spec.lua
 [220 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/SingleEventManager.lua
-[2001 bytes]
+[2933 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/SingleEventManager.spec.lua
-[4468 bytes]
+[6679 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/Roact/Symbol.lua
 [899 bytes]
@@ -2301,45 +2325,6 @@ content/internal/Common/Modules/Common/NoYield.spec.lua
 
 content/internal/Common/Modules/Common/Roact.lua
 [138 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/Component.lua
-[4062 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/Component.spec.lua
-[3828 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/Core.lua
-[2978 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/Core.spec.lua
-[1626 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/Debug.lua
-[1834 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/getDefaultPropertyValue.lua
-[1049 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/getDefaultPropertyValue.spec.lua
-[952 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/PureComponent.lua
-[811 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/PureComponent.spec.lua
-[1361 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/README.md
-[3820 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/Reconciler.lua
-[13100 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/SingleEventManager.lua
-[2001 bytes]
-
-content/internal/Common/Modules/Common/RoactImplementation/SingleEventManager.spec.lua
-[4468 bytes]
 
 content/internal/Common/Modules/Common/RoactRodux.lua
 [148 bytes]
@@ -2792,7 +2777,7 @@ content/internal/LuaApp/Modules/LuaApp/FitChildren.spec.lua
 [8429 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/GeneratedStrings.lua
-[3267 bytes]
+[3334 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Http/HttpResponse.lua
 [411 bytes]
@@ -2936,7 +2921,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerBase.lua
 [6024 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerConsole.lua
-[22393 bytes]
+[22464 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/PageManagerMobile.lua
 [23981 bytes]
@@ -2948,7 +2933,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/Slider.lua
 [10372 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/SliderConsole.lua
-[12332 bytes]
+[12333 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/SpriteSheetManager.lua
 [84471 bytes]
@@ -3335,7 +3320,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [69746 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[40762 bytes]
+[40802 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5650 bytes]
@@ -3350,7 +3335,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [35868 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[27484 bytes]
+[27707 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [775 bytes]
@@ -3416,7 +3401,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [23108 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[67895 bytes]
+[68046 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1147 bytes]
@@ -3809,7 +3794,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.l
 [4430 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/ClickToMoveController.lua
-[31231 bytes]
+[33879 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DPad.lua
 [4955 bytes]
@@ -4246,41 +4231,44 @@ content/textures/shadowblurmask.png
 content/textures/sparkle.png
 [1127 bytes]
 
+content/textures/StudioToolbox/ToolboxIcon.png
+[1165 bytes]
+
 content/textures/StudioUIEditor/icon_resize1.png
-[956 bytes]
+[981 bytes]
 
 content/textures/StudioUIEditor/icon_resize2.png
-[840 bytes]
+[961 bytes]
 
 content/textures/StudioUIEditor/icon_resize3.png
-[1009 bytes]
+[957 bytes]
 
 content/textures/StudioUIEditor/icon_resize4.png
-[825 bytes]
+[996 bytes]
 
 content/textures/StudioUIEditor/icon_rotate1.png
-[987 bytes]
+[1086 bytes]
 
 content/textures/StudioUIEditor/icon_rotate2.png
-[1055 bytes]
+[1077 bytes]
 
 content/textures/StudioUIEditor/icon_rotate3.png
-[958 bytes]
+[1021 bytes]
 
 content/textures/StudioUIEditor/icon_rotate4.png
-[1073 bytes]
+[1096 bytes]
 
 content/textures/StudioUIEditor/icon_rotate5.png
-[993 bytes]
+[1050 bytes]
 
 content/textures/StudioUIEditor/icon_rotate6.png
-[1040 bytes]
+[1074 bytes]
 
 content/textures/StudioUIEditor/icon_rotate7.png
-[943 bytes]
+[1024 bytes]
 
 content/textures/StudioUIEditor/icon_rotate8.png
-[1072 bytes]
+[1120 bytes]
 
 content/textures/StudioUIEditor/resizeHandleDropShadow.png
 [371 bytes]
@@ -6965,11 +6953,11 @@ shaders/keepme
 [0 bytes]
 
 shaders/shaders_glsl.pack
-[386013 bytes]
+[372147 bytes]
 
 shaders/shaders_glsl3.pack
-[406513 bytes]
+[392735 bytes]
 
 shaders/shaders_metal_osx.pack
-[1077034 bytes]
+[1052491 bytes]
 

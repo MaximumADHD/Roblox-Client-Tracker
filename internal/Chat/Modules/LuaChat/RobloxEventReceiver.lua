@@ -252,7 +252,9 @@ function RobloxEventReceiver:init(appState)
 					appState.store:Dispatch(FetchChatEnabled(function(chatEnabled)
 						if chatEnabled then
 							appState.store:Dispatch(ConversationActions.RefreshConversations())
-							appState.store:Dispatch(ConversationActions.GetAllFriends())
+							spawn(function()
+								appState.store:Dispatch(ConversationActions.GetAllFriendsAsync())
+							end)
 							appState.store:Dispatch(ConversationActions.GetAllUserPresences())
 						end
 					end))

@@ -133,9 +133,11 @@ function EditChatGroup.new(appState, maxSize, convoId)
 			})
 
 			self.appState.store:Dispatch(
-				ConversationActions.CreateConversation(newConvo,function(convoId)
+				ConversationActions.CreateConversation(newConvo, function(passedConversationId)
 					self.responseIndicator:SetVisible(false)
-					self.appState.store:Dispatch(SetRoute(Intent.Conversation, {conversationId = convoId}, Intent.ConversationHub))
+					self.appState.store:Dispatch(
+						SetRoute(Intent.Conversation, {conversationId = passedConversationId}, Intent.ConversationHub)
+					)
 				end)
 			)
 		end
@@ -151,7 +153,9 @@ function EditChatGroup.new(appState, maxSize, convoId)
 		self.BackButtonPressed:Fire()
 	end)
 
-	self.appState.store:Dispatch(ConversationActions.GetAllFriends())
+	spawn(function()
+		self.appState.store:Dispatch(ConversationActions.GetAllFriendsAsync())
+	end)
 
 	self.tooManyFriendsAlertId = nil
 

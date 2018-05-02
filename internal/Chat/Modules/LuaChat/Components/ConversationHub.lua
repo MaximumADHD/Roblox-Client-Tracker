@@ -55,7 +55,9 @@ local function requestOlderConversations(appState)
 	end
 	local pageSize = Constants.PageSize.GET_CONVERSATIONS
 	local currentPage = math.floor(convoCount / pageSize)
-	appState.store:Dispatch(ConversationActions.GetLocalUserConversations(currentPage + 1, pageSize))
+	spawn(function()
+		appState.store:Dispatch(ConversationActions.GetLocalUserConversationsAsync(currentPage + 1, pageSize))
+	end)
 end
 
 function ConversationHub.new(appState)
@@ -64,13 +66,16 @@ function ConversationHub.new(appState)
 
 	setmetatable(self, ConversationHub)
 
-	appState.store:Dispatch(FetchChatEnabled())
-	appState.store:Dispatch(ConversationActions.GetUnreadConversationCount())
-	appState.store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS,
-		function()
+	spawn(function()
+		appState.store:Dispatch(FetchChatEnabled())
+		appState.store:Dispatch(ConversationActions.GetUnreadConversationCountAsync())
+		appState.store:Dispatch(GetFriendCount())
+		appState.store:Dispatch(
+			ConversationActions.GetLocalUserConversationsAsync(1, Constants.PageSize.GET_CONVERSATIONS)
+		):andThen(function()
 			appState.store:Dispatch(SetAppLoaded(true))
-		end))
-	appState.store:Dispatch(GetFriendCount())
+		end)
+	end)
 
 	self.appState = appState
 
@@ -238,7 +243,11 @@ function ConversationHub:Update(state, oldState)
 		self.chatDisabledIndicator.rbx.Visible = false
 
 		if state.ChatAppReducer.ChatEnabled ~= oldState.ChatAppReducer.ChatEnabled then
-			self.appState.store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS))
+			spawn(function()
+				self.appState.store:Dispatch(
+					ConversationActions.GetLocalUserConversationsAsync(1, Constants.PageSize.GET_CONVERSATIONS)
+				)
+			end)
 		end
 	else
 		self.chatDisabledIndicator.rbx.Visible = true

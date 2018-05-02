@@ -154,7 +154,9 @@ function NewChatGroup.new(appState)
 	end)
 	self.ConversationSaved = Signal.new()
 
-	self.appState.store:Dispatch(ConversationActions.GetAllFriends())
+	spawn(function()
+		self.appState.store:Dispatch(ConversationActions.GetAllFriendsAsync())
+	end)
 
 	self.tooManyFriendsAlertId = nil
 

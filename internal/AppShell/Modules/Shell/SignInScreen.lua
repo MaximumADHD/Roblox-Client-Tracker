@@ -1,7 +1,6 @@
 --[[
 			// SignInScreen.lua
 ]]
-local XboxNewEngagementFlow = settings():GetFFlag("XboxNewEngagementFlow")
 local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 local CoreGui = game:GetService("CoreGui")
@@ -48,7 +47,7 @@ local function createSignInScreen()
 		end
 	end
 
-	local ModalOverlay = Utility.Create'Frame'
+	Utility.Create'Frame'
 	{
 		Name = "ModalOverlay";
 		Size = UDim2.new(1, 0, 1, 0);
@@ -77,7 +76,6 @@ local function createSignInScreen()
 		Position = UDim2.new(0.5, 0, 0.5, 0);
 	}
 
-if XboxNewEngagementFlow then
 	RobloxLogo.Image = 'rbxasset://textures/ui/Shell/Icons/SplashLogo.png'
 	RobloxLogo.Size = UDim2.new(0, 594, 0, 209)
 
@@ -90,7 +88,7 @@ if XboxNewEngagementFlow then
 		Parent = Container;
 	}
 
-	local BackText = Utility.Create'TextLabel'
+	Utility.Create'TextLabel'
 	{
 		Name = "BackText";
 		Size = UDim2.new(0, 0, 0, BackImage.Size.Y.Offset);
@@ -103,7 +101,6 @@ if XboxNewEngagementFlow then
 		Text = Strings:LocalizedString("BackWord");
 		Parent = Container;
 	}
-end
 
 	local FadeInFrame = Utility.Create'Frame'
 	{
@@ -155,11 +152,12 @@ end
 	local CreateAccountText = LinkAccountText:Clone()
 	CreateAccountText.Text = createAccountText
 	CreateAccountText.Parent = CreateAccountButton
-	local createAccountTextSize = TextService:GetTextSize(createAccountText, Utility.ConvertFontSizeEnumToInt(CreateAccountText.FontSize),
-		CreateAccountText.Font, Vector2.new(0, 0))
+	local createAccountTextSize = TextService:GetTextSize(createAccountText,
+		Utility.ConvertFontSizeEnumToInt(CreateAccountText.FontSize), CreateAccountText.Font, Vector2.new(0, 0))
 	CreateAccountButton.Size = UDim2.new(0, createAccountTextSize.X + 64, 0, CreateAccountButton.Size.Y.Offset)
 	Utility.ResizeButtonWithText(CreateAccountButton, CreateAccountText, GlobalSettings.TextHorizontalPadding)
-	CreateAccountButton.Position = UDim2.new(0.5, -CreateAccountButton.Size.X.Offset/2, 1, CreateAccountButton.Position.Y.Offset)
+	CreateAccountButton.Position = UDim2.new(0.5, -CreateAccountButton.Size.X.Offset/2, 1,
+		CreateAccountButton.Position.Y.Offset)
 
 	CreateAccountButton.SelectionGained:connect(function()
 		CreateAccountButton.ImageColor3 = SelectedButtonColor
@@ -225,7 +223,7 @@ end
 		isFocused = true
 		GuiService:AddSelectionParent("SignInScreen", FadeInFrame)
 		Utility.SetSelectedCoreObject(CreateAccountButton)
-		if XboxNewEngagementFlow and ThirdPartyUserService then
+		if ThirdPartyUserService then
 			ContextActionService:BindCoreAction("ReturnToEngagement",
 			function(actionName, inputState, inputObject)
 				if inputState == Enum.UserInputState.End then
@@ -239,9 +237,7 @@ end
 		isFocused = false
 		GuiService:RemoveSelectionGroup("SignInScreen")
 		Utility.SetSelectedCoreObject(nil)
-		if XboxNewEngagementFlow then
-			ContextActionService:UnbindCoreAction("ReturnToEngagement")
-		end
+		ContextActionService:UnbindCoreAction("ReturnToEngagement")
 	end
 
 	return this

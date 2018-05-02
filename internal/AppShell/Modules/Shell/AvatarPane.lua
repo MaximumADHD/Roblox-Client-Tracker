@@ -666,7 +666,6 @@ local function CreateAvatarPane(parent)
 		OnGuiServiceChangedConn = GuiService:GetPropertyChangedSignal('SelectedCoreObject'):connect(function()
 			OnSelectedCoreObjectChanged()
 		end)
-		OnSelectedCoreObjectChanged()
 
 		if self.SavedSelectObject and self.SavedSelectObject:IsDescendantOf(MainContainer) then
 			GuiService.SelectedCoreObject = self.SavedSelectObject
@@ -695,6 +694,7 @@ local function CreateAvatarPane(parent)
 				self.SavedSelectObject = lastSelectedObject
 			end
 		end
+		OnSelectedCoreObjectChanged()
 	end
 
 	function this:SetPosition(newPosition)

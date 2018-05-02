@@ -15,7 +15,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 
-local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript2")
+local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript3")
 local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
 
 if FFlagSetGuiInsetInLoadingScript then
@@ -271,9 +271,12 @@ function MainGui:GenerateMain()
 		Active = true,
 		Parent = screenGui
 	}
-	if debugMode then
-		mainBackgroundContainer.Size = UDim2.new(1, 0, 1, 36)
-		mainBackgroundContainer.Position = UDim2.new(0, 0, 0, -36)
+	if FFlagSetGuiInsetInLoadingScript then
+		coroutine.wrap(function()
+			local TopbarConstants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("TopbarConstants"))
+			mainBackgroundContainer.Size = UDim2.new(1, 0, 1, TopbarConstants.TOPBAR_THICKNESS)
+			mainBackgroundContainer.Position = UDim2.new(0, 0, 0, -TopbarConstants.TOPBAR_THICKNESS)
+		end)()
 	end
 
 	local closeButton =	create 'ImageButton' {

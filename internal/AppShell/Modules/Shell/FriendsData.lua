@@ -139,6 +139,42 @@ local function uploadFriendsAnalytics(friendsData)
 	end
 end
 
+-- Combine roblox uid and xbox id into a unique id that exists for all roblox and/or xbox friends
+local function uniqueId(friendEntry)
+	return tostring(friendEntry.robloxuid) .. "#" .. tostring(friendEntry.xuid)
+end
+
+-- Marks which friends have been updated or added in the newFriendsData table
+local function diffFriends(oldFriendsData, newFriendsData)
+	
+	-- Build lookup table of old friends using unique id
+	local oldFriendLookup = {}
+	if oldFriendsData and type(oldFriendsData) == "table" then
+		for _, friendEntry in pairs(oldFriendsData) do
+			oldFriendLookup[uniqueId(friendEntry)] = friendEntry
+		end
+	end
+
+	-- Check if any friends in new table have been updated
+	if newFriendsData and type(newFriendsData) == "table" then
+		for _, newFriendEntry in pairs(newFriendsData) do
+			local oldFriendEntry = oldFriendLookup[uniqueId(newFriendEntry)]
+			if oldFriendEntry then
+				local isUpdated = false
+				for friendFieldKey, friendFieldValue in pairs(newFriendEntry) do
+					if friendFieldValue ~= oldFriendEntry[friendFieldKey] then
+						isUpdated = true
+						break
+					end
+				end
+				newFriendEntry.isUpdated = isUpdated
+			else
+				newFriendEntry.isUpdated = true
+			end
+		end
+	end
+end
+
 --[[ Public API ]]--
 FriendsData.OnFriendsDataUpdated = Utility.Signal()
 local isFetchingFriends = false

@@ -1,10 +1,8 @@
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
-local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
-
 local Modules = CoreGui.RobloxGui.Modules
+local LuaApp = Modules.LuaApp
 local LuaChat = Modules.LuaChat
 
 local Functional = require(Modules.Common.Functional)
@@ -48,6 +46,9 @@ local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
 local ShowAlert = require(LuaChat.Actions.ShowAlert)
 local ShowToast = require(LuaChat.Actions.ShowToast)
 local SetUserLeavingConversation = require(LuaChat.Actions.SetUserLeavingConversation)
+
+local StringsLocale = require(LuaApp.StringsLocale)
+local Promise = require(LuaApp.Promise)
 
 local GET_MESSAGES_PAGE_SIZE = Constants.PageSize.GET_MESSAGES
 
@@ -98,7 +99,7 @@ local function getUserConversations(store, pageNumber, pageSize)
 
 	if #result.conversations < pageSize then
 		store:Dispatch(ReceivedOldestConversation(true))
-		store:Dispatch(ConversationActions.CreateMockOneOnOneConversations())
+		store:Dispatch(ConversationActions.CreateMockOneOnOneConversationsAsync())
 	end
 
 	return status, result
@@ -111,23 +112,20 @@ local function shouldFetchPageConversations(state)
 	return true
 end
 
-function ConversationActions.GetLocalUserConversations(pageNumber, pageSize, callback)
+function ConversationActions.GetLocalUserConversationsAsync(pageNumber, pageSize)
 	return function(store)
 		if not shouldFetchPageConversations(store:GetState()) then
 			return
 		end
-
+		-- sets status in state we are fetching pages
 		store:Dispatch(RequestPageConversations())
 
-		spawn(function()
+		return Promise.new(function(resolve)
 			local status, result = getUserConversations(store, pageNumber, pageSize)
 			processConversations(store, status, result)
-
 			store:Dispatch(ReceivedPageConversations())
 
-			if callback then
-				callback()
-			end
+			resolve()
 		end)
 	end
 end
@@ -281,7 +279,7 @@ function ConversationActions.StartOneToOneConversation(conversation, onSuccess)
 	end
 end
 
-function ConversationActions.CreateMockOneOnOneConversations()
+function ConversationActions.CreateMockOneOnOneConversationsAsync()
 	return function(store)
 		local onFetchedAllFriends = function()
 			local state = store:GetState()
@@ -306,8 +304,11 @@ function ConversationActions.CreateMockOneOnOneConversations()
 			end
 		end
 
-		store:Dispatch(ConversationActions.GetAllFriends())
-		onFetchedAllFriends()
+		return Promise.new(function(resolve)
+			store:Dispatch(ConversationActions.GetAllFriendsAsync())
+			onFetchedAllFriends()
+			resolve()
+		end)
 	end
 end
 
@@ -315,7 +316,9 @@ function ConversationActions.RefreshConversations()
 	return function(store)
 		local state = store:GetState()
 		if next(state.ChatAppReducer.Conversations) == nil then
-			store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS))
+			spawn(function()
+				store:Dispatch(ConversationActions.GetLocalUserConversationsAsync(1, Constants.PageSize.GET_CONVERSATIONS))
+			end)
 		else
 			spawn(function()
 				refreshConversations(1, store)
@@ -340,15 +343,15 @@ local function shouldGetAllFriends(state)
 	return true
 end
 
-function ConversationActions.GetAllFriends()
+function ConversationActions.GetAllFriendsAsync()
 	return function(store)
 		if not shouldGetAllFriends(store:GetState()) then
 			return
 		end
-
+		--marks in store we are fetching
 		store:Dispatch(RequestAllFriends())
 
-		spawn(function()
+		return Promise.new(function(resolve)
 			local state = store:GetState()
 			local getFriendCountStatus, totalCount = WebApi.GetFriendCount()
 			if getFriendCountStatus ~= WebApi.Status.OK then
@@ -381,6 +384,7 @@ function ConversationActions.GetAllFriends()
 
 			store:Dispatch(ReceivedAllFriends())
 			store:Dispatch(ConversationActions.GetUserPresences(needsPresence))
+			resolve()
 		end)
 	end
 end
@@ -813,9 +817,9 @@ function ConversationActions.GetOlderMessages(convoId, messageId) -- Message ID 
 	end
 end
 
-function ConversationActions.GetUnreadConversationCount()
+function ConversationActions.GetUnreadConversationCountAsync()
 	return function(store)
-		spawn(function()
+		return Promise.new(function()
 			local status, unreadConversationCount = WebApi.GetUnreadConversationCount()
 
 			if status ~= WebApi.Status.OK then

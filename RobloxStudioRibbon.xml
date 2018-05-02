@@ -78,6 +78,9 @@
           height="32"
           width="32"/>
       </Group>
+      <Group name="UI" fflag="StudioUIEditorV2Alpha">
+        <addaction name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32"/>
+      </Group>
       <Group name="Insert">
           <addaction name="toggleToolboxDockAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
           <addseparator visible="false"/>
@@ -318,23 +321,6 @@
       </Group>
     </TabPage>
     <!--
-      RIBBON BAR UI TAB
-      -->
-    <TabPage name="UI" fflag="StudioUIEditorV2Alpha">
-      <Group name="">
-        <addaction name="createScreenGuiAction" text="ScreenGUI" style="textundericon" iscommonslot="true" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_screenGUI.png" width="32" height="32"/>
-      </Group>
-      <Group name=" ">
-        <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_frame.png" width="32" height="32"/>
-        <addaction name="createScrollingFrameAction" text="Scrolling Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
-        <addaction name="createTextLabelAction" text="Text Label" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textLabel.png" width="32" height="32"/>
-        <addaction name="createTextButtonAction" text="Text Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textButton.png" width="32" height="32"/>
-        <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textBox.png" width="32" height="32"/>
-        <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageButton.png"  width="32" height="32"/>
-        <addaction name="createImageLabelAction" text="Image Label" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageLabel.png"  width="32" height="32"/>
-      </Group>
-    </TabPage>
-    <!--
       RIBBON BAR TEST TAB
       -->
     <TabPage name="Test">
@@ -389,7 +375,6 @@
         <addseparator visible="false"/>
         <addaction name="togglePropertiesDockAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Properties.png" tooltip="View properties of objects" height="32" width="32"/>
         <addseparator visible="false"/>
-        <addaction name="actionStartPage" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Start-Page.png"  tooltip="Login, view places you own, browse your roblox catalog" height="32" width="32"/>
         <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View Game Explorer" height="32" width="32"/>
         <addaction name="toggleToolboxDockAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
         <addaction name="toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="View context-sensitive help" height="32" width="32"/>
@@ -450,6 +435,23 @@
       <Group name="Tools">
         <addaction name="managePluginsAction" text="Manage Plugins" style="textundericon" height="32" width="32" tooltip="Manage plugins installed from roblox.com" icon=":/RibbonBar/images/RibbonIcons/AddOns/Manage-Plugins.png"/>
         <addaction name="openPluginsFolderAction" text="Plugins Folder" style="textundericon" height="32" width="32" tooltip="Open the local plugins folder" icon=":/RibbonBar/images/RibbonIcons/AddOns/Plugins-folder.png"/>
+      </Group>
+    </TabPage>
+    <!--
+      RIBBON BAR UI TAB
+      -->
+    <TabPage name="UI" fflag="StudioUIEditorV2Alpha" text="UI" contextcolor="4" contexttitle="UI" visible="false">
+      <Group name="">
+        <addaction name="createScreenGuiAction" text="ScreenGUI" style="textundericon" iscommonslot="true" tooltip="The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_screenGUI.png" width="32" height="32"/>
+      </Group>
+      <Group name=" ">
+        <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_frame.png" width="32" height="32"/>
+        <addaction name="createScrollingFrameAction" text="Scrolling Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
+        <addaction name="createTextLabelAction" text="Text Label" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textLabel.png" width="32" height="32"/>
+        <addaction name="createTextButtonAction" text="Text Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textButton.png" width="32" height="32"/>
+        <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textBox.png" width="32" height="32"/>
+        <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageButton.png"  width="32" height="32"/>
+        <addaction name="createImageLabelAction" text="Image Label" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageLabel.png"  width="32" height="32"/>
       </Group>
     </TabPage>
     <TabPage name="scriptMenu" text="Script Menu" contextcolor="4" contexttitle="Script tools" visible="false">

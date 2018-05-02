@@ -437,15 +437,17 @@ PopupClipFrame.Parent = Container
 local xboxSetShieldVisibility = nil
 local xboxEnableHotkeys = nil
 local xboxDisableHotkeys = nil
-local isUnder13 = PlayersService.LocalPlayer:GetUnder13()
 
--- Checks if user is on correct platform and has permissions to use disable voice chat hotkey
-local canUseEnableVoiceChat = function()
-  return isTenFootInterface and not isUnder13 and XboxToggleVoiceChatHotkey
+local hasPermissionToVoiceChat = false
+if isTenFootInterface then
+  pcall(function()
+    local platformService = game:GetService('PlatformService')
+    hasPermissionToVoiceChat = platformService:BeginCheckXboxPrivilege(252).PrivilegeCheckResult == "NoIssue"
+  end)
 end
 
 -- Area to set up Xbox disable voice chat
-if canUseEnableVoiceChat() then
+if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
   local CreateHintActionView = require(RobloxGui.Modules.Shell.HintActionView)
   local voiceChatService = game:GetService('VoiceChatService')
 
@@ -1900,7 +1902,7 @@ local closeListFunc = function(name, state, input)
 
   isOpen = false
   Container.Visible = false
-  if canUseEnableVoiceChat() then
+  if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
     xboxSetShieldVisibility(false)
     xboxDisableHotkeys()
   end
@@ -1914,7 +1916,7 @@ end
 
 setVisible = function(state)
   Container.Visible = state
-  if canUseEnableVoiceChat() then
+  if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
     xboxSetShieldVisibility(state)
   end
   local lastInputType = UserInputService:GetLastInputType()
@@ -1944,7 +1946,7 @@ setVisible = function(state)
       ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
       ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
     end
-    if canUseEnableVoiceChat() then
+    if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
       xboxEnableHotkeys()
     end
   else
@@ -1954,7 +1956,7 @@ setVisible = function(state)
 
     ContextActionService:UnbindCoreAction("CloseList")
     ContextActionService:UnbindCoreAction("StopAction")
-    if canUseEnableVoiceChat() then
+    if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
       xboxDisableHotkeys()
     end
 

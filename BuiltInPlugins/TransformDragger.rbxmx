@@ -2956,7 +2956,8 @@ local function togglePlaneSelection()
 end
 
 function keyPress(evt, processed)
-	if FFlag:isEnabled("TransformToolFilterProcessedInputs") and processed then return end
+	if processed then return end
+	
 	if evt.UserInputType == Enum.UserInputType.Keyboard then
 		if (evt.UserInputState == Enum.UserInputState.Begin) then
 			

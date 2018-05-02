@@ -989,7 +989,6 @@ RBX
 	Settings
 	Shirt
 	ShirtGraphic
-	SimpleThrottlingArbiter
 	SimulateStage
 	SingleLocaleTableTranslatorInstance
 	SkateboardController

@@ -37,6 +37,22 @@ local function isMessageSending(conversation, message)
 	return false
 end
 
+local PROTOCOL_IDENTIFIERS = {
+	"https?://", ""
+}
+
+local RESOURCE_NAMES = {
+	"www%.", "web%.", ""
+}
+
+local WHITELISTED_DOMAINS = {
+	"roblox", "sitetest%d%.robloxlabs", "gametest%d%.robloxlabs"
+}
+
+local MESSAGE_CONTENT_PATTERNS = {
+	GAME_LINK = "%.com/games[^%d]*(%d+)/?",
+}
+
 local ChatBubble = {}
 
 ChatBubble.__index = ChatBubble
@@ -99,26 +115,11 @@ function ChatBubble.new(appState, message)
 		if message.moderated or isSending then
 			self:AddBubble(UserChatBubble.new(appState, message), 1)
 
-		--Specifically whitelist strings with .com/games in the url
-		elseif message.content:match("roblox[labs]-%.com/games[^%d]*(%d+)/") then
-			local linkStart, endLink
+		-- Specifically whitelist strings with .com/games in the url
+		elseif message.content:lower():match(MESSAGE_CONTENT_PATTERNS.GAME_LINK) then
+			local text = self:FilterForLinks()
 
-			local text = message.content
-
-			for assetId in message.content:gmatch("roblox[labs]-%.com/[^%d]*(%d+)") do
-				linkStart, endLink = text:find("[^%s*]*roblox[labs]-%.com/[^%s%d]*(%d+)[^%s*]*")
-				linkStart = (linkStart and linkStart > 0) and linkStart or 1
-				local textBefore =  text:sub(1, linkStart-1)
-
-				if textBefore:gsub("%s+","") ~= "" then
-					self:AddBubble(UserChatBubble.new(appState, message, textBefore))
-				end
-
-				self:AddBubble(AssetCard.new(appState, message, assetId))
-
-				text = text:sub(endLink + 1)
-			end
-
+			-- Flush remaining text if it is not empty
 			if text:gsub("%s+","") ~= "" then
 				self:AddBubble(UserChatBubble.new(appState, message, text))
 			end
@@ -126,11 +127,42 @@ function ChatBubble.new(appState, message)
 			self:AddBubble(UserChatBubble.new(appState, message), 1)
 		end
 	else
+		-- Default if lua chat asset cards is off
 		self:AddBubble(UserChatBubble.new(appState, message), 1)
 	end
 
-
 	return self
+end
+
+function ChatBubble:FilterForLinks()
+	local text = self.message.content
+	for _, protocol in pairs(PROTOCOL_IDENTIFIERS) do
+		for _, resource in pairs(RESOURCE_NAMES) do
+			for _, domain in pairs(WHITELISTED_DOMAINS) do
+
+				local constructedUrlPattern = protocol .. resource .. domain .. MESSAGE_CONTENT_PATTERNS.GAME_LINK
+				for assetId in text:lower():gmatch(constructedUrlPattern) do
+					local linkStart, endLink = text:lower():find("[^%s*]*" .. constructedUrlPattern .. "[^%s*]*")
+					if linkStart then
+						local textBefore = text:sub(1, linkStart - 1)
+
+						if textBefore:gsub("%s+","") ~= "" then
+							self:AddBubble(UserChatBubble.new(self.appState, self.message, textBefore))
+						end
+
+						self:AddBubble(AssetCard.new(self.appState, self.message, assetId))
+
+						text = text:sub(endLink + 1)
+					else
+						return text
+					end
+				end
+
+			end
+		end
+	end
+
+	return text
 end
 
 function ChatBubble:AddBubble(bubble, placement)
@@ -189,8 +221,6 @@ function ChatBubble:SetTypingIndicatorVisible(value)
 		self.indicator = nil
 	end
 end
-
-
 
 function ChatBubble:SetThumbnailVisible(value)
 	if value then

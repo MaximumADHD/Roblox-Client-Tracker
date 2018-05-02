@@ -4,6 +4,9 @@
 local FFlagUserNavigationFixClickToMoveInterruptionSuccess, FFlagUserNavigationFixClickToMoveInterruptionResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveInterruption") end)
 local FFlagUserNavigationFixClickToMoveInterruption = FFlagUserNavigationFixClickToMoveInterruptionSuccess and FFlagUserNavigationFixClickToMoveInterruptionResult
 
+local FFlagUserNavigationFixClickToMoveJumpSuccess, FFlagUserNavigationFixClickToMoveJumpResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveJump") end)
+local FFlagUserNavigationFixClickToMoveJump = FFlagUserNavigationFixClickToMoveJumpSuccess and FFlagUserNavigationFixClickToMoveJumpResult
+
 local DEBUG_NAME = "ClickToMoveController"
 
 local UIS = game:GetService("UserInputService")
@@ -456,6 +459,74 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 	end
 
+	function this:OnPointReachedFixJump(reached)
+
+		if reached and not this.Cancelled then
+
+			local nextWaypointIdx = this.CurrentPoint + 1
+
+			if nextWaypointIdx > #this.pointList then
+				-- End of path reached
+				if this.stopTraverseFunc then
+					this.stopTraverseFunc()
+				end
+				this.Finished:Fire()
+				this:Cleanup()
+			else
+				local currentWaypoint = this.pointList[this.CurrentPoint]
+				local nextWaypoint = this.pointList[nextWaypointIdx]
+
+				-- If airborne, only allow to keep moving
+				-- if nextWaypoint.Action ~= Jump, or path mantains a direction
+				-- Otherwise, wait until the humanoid gets to the ground
+				local currentState = this.humanoid:GetState()
+				local isInAir = currentState == Enum.HumanoidStateType.FallingDown
+					or currentState == Enum.HumanoidStateType.Freefall
+					or currentState == Enum.HumanoidStateType.Jumping
+				
+				if isInAir then
+					local shouldWaitForGround = nextWaypoint.Action == Enum.PathWaypointAction.Jump
+					if not shouldWaitForGround and this.CurrentPoint > 1 then
+						local prevWaypoint = this.pointList[this.CurrentPoint - 1]
+
+						local prevDir = currentWaypoint.Position - prevWaypoint.Position
+						local currDir = nextWaypoint.Position - currentWaypoint.Position
+
+						local prevDirXZ = Vector2.new(prevDir.x, prevDir.z).Unit
+						local currDirXZ = Vector2.new(currDir.x, currDir.z).Unit
+
+						local THRESHOLD_COS = 0.996 -- ~cos(5 degrees)
+						shouldWaitForGround = prevDirXZ:Dot(currDirXZ) < THRESHOLD_COS
+					end
+
+					if shouldWaitForGround then
+						this.humanoid.FreeFalling:Wait()
+
+						-- Give time to the humanoid's state to change
+						-- Otherwise, the jump flag in Humanoid
+						-- will be reset by the state change
+						wait(0.1)
+					end
+				end
+
+				-- Move to the next point
+				if this.setPointFunc then
+					this.setPointFunc(nextWaypointIdx)
+				end
+				
+				if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
+					this.humanoid.Jump = true
+				end
+				this.humanoid:MoveTo(nextWaypoint.Position)
+
+				this.CurrentPoint = nextWaypointIdx
+			end
+		else
+			this.PathFailed:Fire()
+			this:Cleanup()
+		end
+	end
+
 	function this:Start()
 		if CurrentSeatPart then
 			return
@@ -480,7 +551,11 @@ local function Pather(character, endPoint, surfaceNormal)
 				this.SeatedConn = this.humanoid.Seated:Connect(function(reached) this:OnPathInterrupted() end)
 				this.DiedConn = this.humanoid.Died:Connect(function(reached) this:OnPathInterrupted() end)
 			end
-			this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
+			if FFlagUserNavigationFixClickToMoveJump then
+				this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReachedFixJump(reached) end)
+			else
+				this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
+			end
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
 			this:OnPointReached(true) -- Move to first point
 		else

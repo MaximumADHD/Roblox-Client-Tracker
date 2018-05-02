@@ -12,11 +12,6 @@ local GuiRoot = CoreGui:FindFirstChild("RobloxGui")
 local Modules = GuiRoot:FindFirstChild("Modules")
 local ShellModules = Modules:FindFirstChild("Shell")
 
-local XboxNewEngagementFlow = settings():GetFFlag("XboxNewEngagementFlow")
-if not XboxNewEngagementFlow then
-	return require(ShellModules:FindFirstChild('LegacyEngagementScreen'))
-end
-
 local AppState = require(ShellModules.AppState)
 local AccountManager = require(ShellModules:FindFirstChild('AccountManager'))
 local Utility = require(ShellModules:FindFirstChild('Utility'))
@@ -247,7 +242,6 @@ local function CreateHomePane(parent)
 			{ Parent = RobloxLogo, Position = UDim2.new(0.5, 0, 0, 415) }, { loginAsync })
 		loader:AwaitFinished()
 		loader:Cleanup()
-		loader = nil
 	end
 
 	local function onButtonAPressed(gamePad)

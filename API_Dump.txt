@@ -120,6 +120,7 @@ Class BadgeService : Instance [notCreatable]
 	YieldFunction bool BadgeService:IsDisabled(int64 badgeId)
 	YieldFunction bool BadgeService:IsLegal(int64 badgeId)
 	YieldFunction bool BadgeService:UserHasBadge(int64 userId, int64 badgeId)
+	YieldFunction bool BadgeService:UserHasBadgeAsync(int64 userId, int64 badgeId)
 	Event BadgeService.BadgeAwarded(string message, int64 userId, int64 badgeId) [RobloxScriptSecurity]
 Class BasePlayerGui : Instance
 Class CoreGui : BasePlayerGui [notCreatable]
@@ -1271,7 +1272,6 @@ Class Lighting : Instance [notCreatable]
 	Function double Lighting:getMinutesAfterMidnight() [deprecated]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
-Class LocalWorkspace : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.ForcePlayModeRobloxLocaleId [LocalUserSecurity]
 	Property bool LocalizationService.IsTextScraperRunning [hidden] [readonly] [RobloxScriptSecurity]
@@ -2320,19 +2320,14 @@ Class RunningAverageItemInt : StatsItem
 Class RunningAverageTimeIntervalItem : StatsItem
 Class TotalCountTimeIntervalItem : StatsItem
 Class TaskScheduler : Instance
-	Property bool TaskScheduler.AreArbitersThrottled
-	Property ConcurrencyModel TaskScheduler.Concurrency
 	Property double TaskScheduler.NumRunningJobs [readonly]
 	Property double TaskScheduler.NumSleepingJobs [readonly]
 	Property double TaskScheduler.NumWaitingJobs [readonly]
-	Property PriorityMethod TaskScheduler.PriorityMethod
 	Property double TaskScheduler.SchedulerDutyCycle [readonly]
 	Property double TaskScheduler.SchedulerRate [readonly]
-	Property SleepAdjustMethod TaskScheduler.SleepAdjustMethod
 	Property double TaskScheduler.ThreadAffinity [readonly]
 	Property ThreadPoolConfig TaskScheduler.ThreadPoolConfig
 	Property int TaskScheduler.ThreadPoolSize [readonly]
-	Property double TaskScheduler.ThrottledJobSleepTime
 Class Team : Instance
 	Property bool Team.AutoAssignable
 	Property bool Team.AutoColorCharacters [deprecated]
@@ -2901,11 +2896,6 @@ Enum ComputerMovementMode
 	EnumItem ComputerMovementMode.Default : 0
 	EnumItem ComputerMovementMode.KeyboardMouse : 1
 	EnumItem ComputerMovementMode.ClickToMove : 2
-Enum ConcurrencyModel
-	EnumItem ConcurrencyModel.Serial : 0
-	EnumItem ConcurrencyModel.Safe : 1
-	EnumItem ConcurrencyModel.Logical : 2
-	EnumItem ConcurrencyModel.Empirical : 3
 Enum ConnectionState
 	EnumItem ConnectionState.Connected : 0
 	EnumItem ConnectionState.Disconnected : 1
@@ -3677,10 +3667,6 @@ Enum PoseEasingStyle
 	EnumItem PoseEasingStyle.Elastic : 2
 	EnumItem PoseEasingStyle.Cubic : 3
 	EnumItem PoseEasingStyle.Bounce : 4
-Enum PriorityMethod
-	EnumItem PriorityMethod.LastError : 0
-	EnumItem PriorityMethod.AccumulatedError : 1
-	EnumItem PriorityMethod.FIFO : 2
 Enum PrivilegeType
 	EnumItem PrivilegeType.Owner : 255
 	EnumItem PrivilegeType.Admin : 240
@@ -3810,10 +3796,6 @@ Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
 	EnumItem SizeConstraint.RelativeYY : 2
-Enum SleepAdjustMethod
-	EnumItem SleepAdjustMethod.None : 0
-	EnumItem SleepAdjustMethod.LastSample : 1
-	EnumItem SleepAdjustMethod.AverageInterval : 2
 Enum SortOrder
 	EnumItem SortOrder.LayoutOrder : 2
 	EnumItem SortOrder.Name : 0

@@ -6,7 +6,7 @@
 
 --[[ FFLAG VALUES ]]
 
-local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript2")
+local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript3")
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -1453,7 +1453,7 @@ local function topbarEnabledChanged()
 	if VRService.VREnabled then
 		Util.SetGUIInsetBounds(0, 0, 0, 0)
 	else
-		if not isTenFootInterface then
+		if not isTenFootInterface and not FFlagSetGuiInsetInLoadingScript then
 			Util.SetGUIInsetBounds(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
 		end
 	end

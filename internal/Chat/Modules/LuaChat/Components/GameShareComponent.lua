@@ -47,7 +47,9 @@ local function requestOlderConversations(appState)
 	end
 	local pageSize = Constants.PageSize.GET_CONVERSATIONS
 	local currentPage = math.floor(convoCount / pageSize)
-	appState.store:Dispatch(ConversationActions.GetLocalUserConversations(currentPage + 1, pageSize))
+	spawn(function()
+		appState.store:Dispatch(ConversationActions.GetLocalUserConversationsAsync(currentPage + 1, pageSize))
+	end)
 end
 
 function GameShareComponent.new(appState, placeId, innerFrame)
@@ -168,10 +170,13 @@ function GameShareComponent.new(appState, placeId, innerFrame)
 	}
 
 	if not appState.store:GetState().ChatAppReducer.AppLoaded then
-		appState.store:Dispatch(ConversationActions.GetLocalUserConversations(1, Constants.PageSize.GET_CONVERSATIONS,
-		function()
-			appState.store:Dispatch(SetAppLoaded(true))
-		end))
+		spawn(function()
+			appState.store:Dispatch(
+				ConversationActions.GetLocalUserConversationsAsync(1, Constants.PageSize.GET_CONVERSATIONS)
+			):andThen(function()
+				appState.store:Dispatch(SetAppLoaded(true))
+			end)
+		end)
 	end
 
 	return self
