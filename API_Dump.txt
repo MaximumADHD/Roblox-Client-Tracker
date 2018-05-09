@@ -228,6 +228,7 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:fire() [deprecated]
 	Event RocketPropulsion.ReachedTarget()
 Class Button : Instance
+	Property bool Button.ClickableWhenViewportHidden
 	Property bool Button.Enabled
 	Property Content Button.Icon
 	Function void Button:SetActive(bool active) [PluginSecurity]
@@ -1304,6 +1305,7 @@ Class LocalizationTable : Instance
 	Function void LocalizationTable:SetEntryKey(string key, string source, string context, string newKey)
 	Function void LocalizationTable:SetEntrySource(string key, string source, string context, string newSource)
 	Function void LocalizationTable:SetEntryValue(string key, string source, string context, string localeId, string text)
+	Function void LocalizationTable:SetIsExemptFromUGCAnalytics(bool value) [RobloxScriptSecurity]
 Class LogService : Instance [notCreatable]
 	Function void LogService:ExecuteScript(string source) [RobloxScriptSecurity]
 	Function Array LogService:GetHttpResultHistory() [RobloxScriptSecurity]
@@ -1468,7 +1470,6 @@ Class NotificationService : Instance [notCreatable]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
 Class PVInstance : Instance [notbrowsable]
-	Property CoordinateFrame PVInstance.CoordinateFrame [deprecated] [writeonly]
 Class BasePart : PVInstance [notbrowsable]
 	Property bool BasePart.Anchored
 	Property float BasePart.BackParamA
@@ -2320,12 +2321,8 @@ Class RunningAverageItemInt : StatsItem
 Class RunningAverageTimeIntervalItem : StatsItem
 Class TotalCountTimeIntervalItem : StatsItem
 Class TaskScheduler : Instance
-	Property double TaskScheduler.NumRunningJobs [readonly]
-	Property double TaskScheduler.NumSleepingJobs [readonly]
-	Property double TaskScheduler.NumWaitingJobs [readonly]
 	Property double TaskScheduler.SchedulerDutyCycle [readonly]
 	Property double TaskScheduler.SchedulerRate [readonly]
-	Property double TaskScheduler.ThreadAffinity [readonly]
 	Property ThreadPoolConfig TaskScheduler.ThreadPoolConfig
 	Property int TaskScheduler.ThreadPoolSize [readonly]
 Class Team : Instance
@@ -2362,6 +2359,7 @@ Class TestService : Instance
 	Property bool TestService.AutoRuns
 	Property string TestService.Description
 	Property int TestService.ErrorCount [readonly]
+	Property bool TestService.ExecuteWithStudioRun
 	Property bool TestService.Is30FpsThrottleEnabled
 	Property bool TestService.IsPhysicsEnvironmentalThrottled
 	Property bool TestService.IsSleepAllowed
@@ -2508,6 +2506,7 @@ Class UserGameSettings : Instance
 	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
 	Property bool UserGameSettings.MicroProfilerEnabled [hidden] [RobloxScriptSecurity]
+	Property bool UserGameSettings.MicroProfilerWebServerEnabled [hidden] [RobloxScriptSecurity]
 	Property string UserGameSettings.MicroProfilerWebServerIP [hidden] [readonly] [RobloxScriptSecurity]
 	Property int UserGameSettings.MicroProfilerWebServerPort [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MouseSensitivity
@@ -2790,6 +2789,9 @@ Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
 	EnumItem AvatarContextMenuOption.Emote : 2
+Enum AvatarJointPositionType
+	EnumItem AvatarJointPositionType.Fixed : 0
+	EnumItem AvatarJointPositionType.ArtistIntent : 1
 Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1

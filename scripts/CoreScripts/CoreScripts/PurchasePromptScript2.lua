@@ -1192,8 +1192,7 @@ local function doesPlayerOwnGamePass()
 	end
 
 	local success, result = pcall(function()
-		local gamePassService = game:GetService("GamePassService")
-		return gamePassService:PlayerHasPass(game.Players.LocalPlayer, PurchaseData.GamePassId)
+		return MarketplaceService:UserOwnsGamePassAsync(Players.LocalPlayer.UserId, PurchaseData.GamePassId)
 	end)
 
 	if not success then

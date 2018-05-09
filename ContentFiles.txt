@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[593591 bytes]
+[611262 bytes]
 
 BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
 [249415 bytes]
@@ -11,16 +11,16 @@ BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[314078 bytes]
+[318628 bytes]
 
 BuiltInPlugins/Toolbox.rbxmx
-[125671 bytes]
+[166079 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [210441 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[192637 bytes]
+[202149 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -32,7 +32,7 @@ content/avatar/characterR15.rbxm
 [72148 bytes]
 
 content/avatar/characterR15V2.rbxm
-[8385 bytes]
+[10245 bytes]
 
 content/avatar/compositing/CompositExtraSlot0.mesh
 [817 bytes]
@@ -403,6 +403,12 @@ content/internal/AppShell/Modules/Shell/Components/AccountAgeStatus.lua
 content/internal/AppShell/Modules/Shell/Components/AccountAgeStatus.spec.lua
 [1080 bytes]
 
+content/internal/AppShell/Modules/Shell/Components/Common/RoundedButton.lua
+[5368 bytes]
+
+content/internal/AppShell/Modules/Shell/Components/Common/SoundComponent.lua
+[497 bytes]
+
 content/internal/AppShell/Modules/Shell/Components/ContextActionEvent.lua
 [1624 bytes]
 
@@ -500,7 +506,7 @@ content/internal/AppShell/Modules/Shell/GamesView.lua
 [14882 bytes]
 
 content/internal/AppShell/Modules/Shell/GlobalSettings.lua
-[4044 bytes]
+[6207 bytes]
 
 content/internal/AppShell/Modules/Shell/HeroStatsManager.lua
 [3787 bytes]
@@ -1493,7 +1499,7 @@ content/internal/Chat/Modules/LuaChat/Actions/ChangedParticipants.lua
 [445 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/ConversationActions.lua
-[27714 bytes]
+[27891 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/DecrementUnreadConversationCount.lua
 [345 bytes]
@@ -1583,7 +1589,7 @@ content/internal/Chat/Modules/LuaChat/Actions/RemoveRoute.lua
 [326 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/RenamedGroupConversation.lua
-[507 bytes]
+[480 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/RequestAllFriends.lua
 [162 bytes]
@@ -1592,9 +1598,6 @@ content/internal/Chat/Modules/LuaChat/Actions/RequestLatestMessages.lua
 [162 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/RequestPageConversations.lua
-[162 bytes]
-
-content/internal/Chat/Modules/LuaChat/Actions/RequestUsername.lua
 [162 bytes]
 
 content/internal/Chat/Modules/LuaChat/Actions/RequestUserPresence.lua
@@ -1664,7 +1667,7 @@ content/internal/Chat/Modules/LuaChat/AppReducer.lua
 [1671 bytes]
 
 content/internal/Chat/Modules/LuaChat/AppState.lua
-[2029 bytes]
+[2056 bytes]
 
 content/internal/Chat/Modules/LuaChat/BaseView.lua
 [430 bytes]
@@ -1700,16 +1703,16 @@ content/internal/Chat/Modules/LuaChat/Components/ChatTimestamp.lua
 [1694 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/Conversation.lua
-[13389 bytes]
+[13523 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationEntry.lua
-[6932 bytes]
+[7042 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationHub.lua
 [11004 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationList.lua
-[10738 bytes]
+[10941 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/ConversationSearchBox.lua
 [4450 bytes]
@@ -1730,13 +1733,13 @@ content/internal/Chat/Modules/LuaChat/Components/FriendSearchBox.lua
 [8932 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GameShareCard.lua
-[6235 bytes]
+[6369 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GameShareComponent.lua
 [11514 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetail.lua
-[10544 bytes]
+[10655 bytes]
 
 content/internal/Chat/Modules/LuaChat/Components/GroupDetailDialogs/EditChatGroupNameDialog.lua
 [1512 bytes]
@@ -1874,7 +1877,7 @@ content/internal/Chat/Modules/LuaChat/Models/AssetInfo.lua
 [534 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/Conversation.lua
-[4738 bytes]
+[4815 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/GameParams.lua
 [218 bytes]
@@ -1892,7 +1895,7 @@ content/internal/Chat/Modules/LuaChat/Models/ToastModel.lua
 [223 bytes]
 
 content/internal/Chat/Modules/LuaChat/Models/User.lua
-[1757 bytes]
+[1801 bytes]
 
 content/internal/Chat/Modules/LuaChat/NotificationBroadcaster.lua
 [1323 bytes]
@@ -1928,7 +1931,7 @@ content/internal/Chat/Modules/LuaChat/Reducers/Conversations.lua
 [8350 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/Conversations.spec.lua
-[14264 bytes]
+[15043 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/ConversationsAsync.lua
 [1030 bytes]
@@ -1994,13 +1997,13 @@ content/internal/Chat/Modules/LuaChat/Reducers/UnreadConversationCount.spec.lua
 [1519 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.lua
-[1329 bytes]
+[1301 bytes]
 
 content/internal/Chat/Modules/LuaChat/Reducers/UsersAsync.spec.lua
-[2372 bytes]
+[1909 bytes]
 
 content/internal/Chat/Modules/LuaChat/RobloxEventReceiver.lua
-[11406 bytes]
+[11433 bytes]
 
 content/internal/Chat/Modules/LuaChat/ScreenManager.lua
 [6427 bytes]
@@ -2010,12 +2013,6 @@ content/internal/Chat/Modules/LuaChat/ScreenManager.spec.lua
 
 content/internal/Chat/Modules/LuaChat/ScreenRouter.lua
 [3280 bytes]
-
-content/internal/Chat/Modules/LuaChat/Store.lua
-[2715 bytes]
-
-content/internal/Chat/Modules/LuaChat/Store.spec.lua
-[3647 bytes]
 
 content/internal/Chat/Modules/LuaChat/Text.lua
 [2709 bytes]
@@ -2028,6 +2025,9 @@ content/internal/Chat/Modules/LuaChat/TimeUnit.lua
 
 content/internal/Chat/Modules/LuaChat/TimeZone.lua
 [194 bytes]
+
+content/internal/Chat/Modules/LuaChat/Utils/getConversationDisplayTitle.lua
+[108 bytes]
 
 content/internal/Chat/Modules/LuaChat/Utils/getInputEvent.lua
 [251 bytes]
@@ -2198,10 +2198,22 @@ content/internal/Common/Modules/Common/Dependencies/RoactRodux/connect.lua
 [2315 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/RoactRodux/connect.spec.lua
-[2482 bytes]
+[2467 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/connect2.lua
+[4281 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/connect2.spec.lua
+[2073 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/RoactRodux/init.lua
-[156 bytes]
+[228 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/join.lua
+[246 bytes]
+
+content/internal/Common/Modules/Common/Dependencies/RoactRodux/shallowEqual.lua
+[241 bytes]
 
 content/internal/Common/Modules/Common/Dependencies/RoactRodux/storeKey.lua
 [79 bytes]
@@ -2573,7 +2585,7 @@ content/internal/LuaApp/Modules/LuaApp/Components/Carousel.spec.lua
 [371 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/Chat/RoactChatWrapper.lua
-[1849 bytes]
+[1769 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Components/DropDownList.lua
 [6737 bytes]
@@ -2876,7 +2888,7 @@ content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CategoryMenuConsole.l
 [8976 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/CharacterManager.lua
-[69595 bytes]
+[69596 bytes]
 
 content/internal/LuaApp/Modules/LuaApp/Legacy/AvatarEditor/ConsoleButtonIndicators.lua
 [7124 bytes]
@@ -3317,7 +3329,7 @@ content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6319 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[69746 bytes]
+[69698 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
 [40802 bytes]
@@ -3533,7 +3545,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
 [13710 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
-[3598 bytes]
+[4884 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
 [13322 bytes]
@@ -3593,7 +3605,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[45441 bytes]
+[49684 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [31090 bytes]
@@ -4231,6 +4243,12 @@ content/textures/shadowblurmask.png
 content/textures/sparkle.png
 [1127 bytes]
 
+content/textures/StudioToolbox/RoundedBackground.png
+[130 bytes]
+
+content/textures/StudioToolbox/RoundedBorder.png
+[239 bytes]
+
 content/textures/StudioToolbox/ToolboxIcon.png
 [1165 bytes]
 
@@ -4316,7 +4334,7 @@ content/textures/TerrainTools/icon_regions_resize.png
 [1848 bytes]
 
 content/textures/TerrainTools/icon_regions_rotate.png
-[2567 bytes]
+[2508 bytes]
 
 content/textures/TerrainTools/icon_regions_select.png
 [1798 bytes]

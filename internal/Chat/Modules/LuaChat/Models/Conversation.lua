@@ -70,6 +70,7 @@ function Conversation.mock(mergeTable)
 
 	self.lastUpdated = DateTime.now()
 
+	self.titleForViewer = "title"
 	self.isDefaultTitle = true
 
 	if mergeTable ~= nil then
@@ -144,7 +145,7 @@ function Conversation.fromWeb(data, clientId)
 	self.sendingMessages = OrderedMap.new(getMessageId, sendingMessageSortPredicate)
 	self.id = tostring(data.id)
 	self.clientId = clientId or MockId()
-	self.title = data.title:gsub("\n", "")
+	self.title = data.title
 	self.initiator = tostring(data.initiator.targetId)
 	self.hasUnreadMessages = data.hasUnreadMessages
 	self.conversationType = data.conversationType
@@ -156,6 +157,7 @@ function Conversation.fromWeb(data, clientId)
 
 	self.lastUpdated = DateTime.fromIsoDate(data.lastUpdated)
 
+	self.titleForViewer = data.conversationTitle.titleForViewer
 	self.isDefaultTitle = data.conversationTitle.isDefaultTitle
 
 	for _, webParticipant in ipairs(data.participants) do

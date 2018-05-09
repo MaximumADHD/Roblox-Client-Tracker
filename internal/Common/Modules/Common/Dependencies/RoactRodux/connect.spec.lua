@@ -87,7 +87,7 @@ return function()
 			Child = Roact.createElement(ConnectedSomeComponent),
 		})
 
-		local handle = Roact.reify(tree)
+		Roact.reify(tree)
 
 		-- Our component should render initially
 		expect(store:getState()).to.equal(0)

@@ -636,7 +636,6 @@ RBX
 	CylinderHandleAdornment
 	CylinderMesh
 	D6Link
-	DataModelArbiter
 	DataModelJob
 	DataModelMesh
 	DataStore
@@ -1037,7 +1036,6 @@ RBX
 	TableListPtrTranslator
 	TablePtrTranslator
 	TaskQueueJob
-	TaskSchedulerMk2
 	TaskSchedulerSettings
 	Team
 	Teams

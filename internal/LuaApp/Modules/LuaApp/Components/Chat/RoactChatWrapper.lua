@@ -30,7 +30,7 @@ function RoactChatWrapper:render()
 	return nil
 end
 
-function RoactChatWrapper:didUpdate(prevProps, prevState)
+function RoactChatWrapper:didUpdate()
 	self:updateChat()
 end
 
@@ -45,9 +45,7 @@ function RoactChatWrapper:updateChat()
 		self.isPageOpen = true
 		self.currentPageType = pageType
 
-		if pageType == ChatMaster.Type.Default then
-			GuiService:BroadcastNotification(pageType, APP_READY)
-		end
+		GuiService:BroadcastNotification(pageType, APP_READY)
 	elseif self.isPageOpen and not self.props.isVisible then
 		self.chatMaster:Stop(self.currentPageType)
 		self.isPageOpen = false
@@ -57,7 +55,7 @@ end
 
 -- While you should NOT pass around store like this, store was made visible as ChatMaster
 -- is not yet Roactified and expects a store reference to be passed down.
-RoactChatWrapper = RoactRodux.connect(function(store, props)
+RoactChatWrapper = RoactRodux.connect(function(store)
 	return {
 		store = store
 	}

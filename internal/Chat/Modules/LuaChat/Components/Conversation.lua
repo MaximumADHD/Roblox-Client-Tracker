@@ -25,6 +25,8 @@ local MessageList = require(Components.MessageList)
 local PaddedImageButton = require(Components.PaddedImageButton)
 local UserTypingIndicator = require(Components.UserTypingIndicator)
 
+local getConversationDisplayTitle = require(LuaChat.Utils.getConversationDisplayTitle)
+
 local Intent = DialogInfo.Intent
 
 local ConversationView = {}
@@ -231,7 +233,7 @@ function ConversationView:Update(state, oldState)
 
 		self.isFetchingOlderMessages = conversation.fetchingOlderMessages
 
-		self.header:SetTitle(conversation.title)
+		self.header:SetTitle(getConversationDisplayTitle(conversation))
 
 		if self.messageList then
 			self.messageList:Destruct()
@@ -333,7 +335,7 @@ function ConversationView:Update(state, oldState)
 	end
 
 	self.messageList:Update(conversation)
-	self.header:SetTitle(conversation.title)
+	self.header:SetTitle(getConversationDisplayTitle(conversation))
 
 	if self.typingIndicator then
 		self.typingIndicator:Update(conversation)

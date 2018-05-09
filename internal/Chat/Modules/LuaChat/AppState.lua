@@ -2,6 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local LocalizationService = game:GetService("LocalizationService")
 
 local Modules = CoreGui.RobloxGui.Modules
+local Common = Modules.Common
 
 local Localization = require(Modules.LuaApp.Localization)
 local StringsLocale = require(Modules.LuaApp.StringsLocale)
@@ -13,7 +14,7 @@ local NotificationBroadcaster = require(Modules.LuaChat.NotificationBroadcaster)
 local Device = require(Modules.LuaChat.Device)
 
 local AppReducer = require(Modules.LuaApp.AppReducer)
-local Store = require(Modules.LuaChat.Store)
+local Store = require(Common.Rodux).Store
 local RobloxEventReceiver = require(Modules.LuaChat.RobloxEventReceiver)
 
 local AlertView = require(Modules.LuaChat.Views.Phone.Alert)

@@ -14,6 +14,7 @@ local Alert = require(LuaChat.Models.Alert)
 local ToastModel = require(LuaChat.Models.ToastModel)
 local ConversationModel = require(LuaChat.Models.Conversation)
 local UserModel = require(LuaChat.Models.User)
+local getConversationDisplayTitle = require(LuaChat.Utils.getConversationDisplayTitle)
 
 local AddUser = require(Modules.LuaApp.Actions.AddUser)
 local ChangedParticipants = require(LuaChat.Actions.ChangedParticipants)
@@ -628,12 +629,12 @@ function ConversationActions.RemoveUserFromConversation(userId, convoId, callbac
 
 				if status ~= WebApi.Status.OK then
 					warn("WebApi.RemoveUserFromConversation failure", status)
-					local conversation = store:GetState().ChatAppReducer.Conversations[convoId]
+					local updatedConversation = store:GetState().ChatAppReducer.Conversations[convoId]
 					if userId == tostring(Players.LocalPlayer.UserId) then
 						local titleKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP
 						local messageKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP_MESSAGE
 						local messageArguments = {
-							CONVERSATION_TITLE = conversation.title,
+							CONVERSATION_TITLE = getConversationDisplayTitle(updatedConversation),
 						}
 						local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
 						store:Dispatch(ShowAlert(alert))
@@ -642,7 +643,7 @@ function ConversationActions.RemoveUserFromConversation(userId, convoId, callbac
 						local titleKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER
 						local messageKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER_MESSAGE
 						local messageArguments = {
-							CONVERSATION_TITLE = conversation.title,
+							CONVERSATION_TITLE = getConversationDisplayTitle(updatedConversation),
 							USERNAME = user.name,
 						}
 						local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)
@@ -674,7 +675,7 @@ function ConversationActions.RenameGroupConversation(convoId, newName, callback)
 				local titleKey = StringsLocale.Keys.FAILED_TO_RENAME_TITLE
 				local messageKey = StringsLocale.Keys.FAILED_TO_RENAME_MESSAGE
 				local messageArguments = {
-					EXISTING_NAME = conversation.title,
+					EXISTING_NAME = getConversationDisplayTitle(conversation),
 					NEW_NAME = newName,
 				}
 				local alert = Alert.new(titleKey, messageKey, messageArguments, Alert.AlertType.DIALOG)

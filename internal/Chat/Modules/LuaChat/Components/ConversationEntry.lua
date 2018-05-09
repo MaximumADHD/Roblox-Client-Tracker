@@ -11,6 +11,7 @@ local OrderedMap = require(LuaChat.OrderedMap)
 local Signal = require(Common.Signal)
 local Text = require(LuaChat.Text)
 local getInputEvent = require(LuaChat.Utils.getInputEvent)
+local getConversationDisplayTitle = require(LuaChat.Utils.getConversationDisplayTitle)
 
 local Components = LuaChat.Components
 local ConversationThumbnail = require(Components.ConversationThumbnail)
@@ -214,7 +215,7 @@ function ConversationEntry:Update(conversation)
 
 	self.lastMessageTime.Text = lastMessageTime
 
-	self.title.Text = conversation.title
+	self.title.Text = getConversationDisplayTitle(conversation)
 	Text.TruncateTextLabel(self.title, "...")
 
 	self.thumb:Update(conversation)

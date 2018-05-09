@@ -4,6 +4,7 @@ local installDirectory = game:GetService("Chat")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 local CreateChatLocalizationFirst = settings():GetFFlag("ChatServiceInstallerCreateChatLocalizationFirst")
+local ChatServiceInstallerExemptLocalizationFromAnalytics = settings():GetFFlag("ChatServiceInstallerExemptLocalizationFromAnalytics")
 
 local function LoadScript(name, parent)
 	local originalModule = script.Parent:WaitForChild(name)
@@ -33,15 +34,39 @@ local function GetBoolValue(parent, name, defaultValue)
 	return defaultValue
 end
 
+local function makeDefaultLocalizationTable(parent)
+	local defaultChatLocalization = Instance.new("LocalizationTable")
+	defaultChatLocalization.Name = "ChatLocalization"
+	defaultChatLocalization.Archivable = false
+	defaultChatLocalization.SourceLocaleId = "en-us"
+	defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
+	defaultChatLocalization:SetIsExemptFromUGCAnalytics(true)
+	defaultChatLocalization.Parent = parent;
+end
 
 local function Install()
-	if CreateChatLocalizationFirst and not installDirectory:FindFirstChild("ChatLocalization") then
-		local defaultChatLocalization = Instance.new("LocalizationTable")
-		defaultChatLocalization.Name = "ChatLocalization"
-		defaultChatLocalization.Archivable = false
-		defaultChatLocalization.SourceLocaleId = "en-us"
-		defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
-		defaultChatLocalization.Parent = installDirectory
+	local existingChatLocalization
+
+	if ChatServiceInstallerExemptLocalizationFromAnalytics then
+		existingChatLocalization = installDirectory:FindFirstChild("ChatLocalization")
+		if existingChatLocalization then
+			if existingChatLocalization:IsA("LocalizationTable" ) then
+				existingChatLocalization:SetIsExemptFromUGCAnalytics(true)
+			end
+		else
+			if CreateChatLocalizationFirst then
+				makeDefaultLocalizationTable(installDirectory)
+			end
+		end
+	else
+		if CreateChatLocalizationFirst and not installDirectory:FindFirstChild("ChatLocalization") then
+			local defaultChatLocalization = Instance.new("LocalizationTable")
+			defaultChatLocalization.Name = "ChatLocalization"
+			defaultChatLocalization.Archivable = false
+			defaultChatLocalization.SourceLocaleId = "en-us"
+			defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
+			defaultChatLocalization.Parent = installDirectory
+		end
 	end
 
 	local chatServiceRunnerArchivable = true
@@ -87,13 +112,19 @@ local function Install()
 		ChatServiceRunnerCopy.Parent = ServerScriptService
 	end
 
-	if not CreateChatLocalizationFirst and not installDirectory:FindFirstChild("ChatLocalization") then
-		local defaultChatLocalization = Instance.new("LocalizationTable")
-		defaultChatLocalization.Name = "ChatLocalization"
-		defaultChatLocalization.Archivable = false
-		defaultChatLocalization.SourceLocaleId = "en-us"
-		defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
-		defaultChatLocalization.Parent = installDirectory
+	if ChatServiceInstallerExemptLocalizationFromAnalytics then
+		if not CreateChatLocalizationFirst and not existingChatLocalization then
+			makeDefaultLocalizationTable(installDirectory)
+		end
+	else
+		if not CreateChatLocalizationFirst and not installDirectory:FindFirstChild("ChatLocalization") then
+			local defaultChatLocalization = Instance.new("LocalizationTable")
+			defaultChatLocalization.Name = "ChatLocalization"
+			defaultChatLocalization.Archivable = false
+			defaultChatLocalization.SourceLocaleId = "en-us"
+			defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
+			defaultChatLocalization.Parent = installDirectory
+		end
 	end
 
 	ChatServiceRunner.Archivable = chatServiceRunnerArchivable

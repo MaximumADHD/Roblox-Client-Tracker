@@ -15134,6 +15134,11 @@ function buildRigFromAttachments(last, part)
 	end
 end
 
+local newR15FlagExists, newR15FlagValue = pcall(function() return settings():GetFFlag("AnthroArtistIntentFBXImporterEnabled") end)
+local r15DefaultRigId = 516159357
+if (newR15FlagExists and newR15FlagValue == true) then
+	r15DefaultRigId = 1664543044 -- TODO Insert new ID HERE
+end
 
 function r15RigImported(R15Rig)
 	-- This wait is necessary because the imported rig is added to workspace 
@@ -15141,7 +15146,7 @@ function r15RigImported(R15Rig)
 	wait(.5)
 	
 	-- Not all packages have all their parts, we load MrGreyR15 first then substitute the parts we did load
-	local R15Dummy = game:GetService("InsertService"):LoadAsset(516159357):GetChildren()[1]
+	local R15Dummy = game:GetService("InsertService"):LoadAsset(r15DefaultRigId):GetChildren()[1]
 	
 	for _, part in pairs(R15Rig:GetChildren()) do
 		local matchingPart = R15Dummy:FindFirstChild(part.Name)
@@ -15817,6 +15822,7 @@ end)
 
 local toolbar = plugin:CreateToolbar("Animations")
 local fbxFlagExists, fbxFlagValue = pcall(function() return settings():GetFFlag("DebugStudioRigImporter") end)
+local newR15FlagExists, newR15FlagValue = pcall(function() return settings():GetFFlag("AnthroArtistIntentFBXImporterEnabled") end)
 
 local R15PartMapping = {
 	["Head"] = {"Head"},
@@ -16015,7 +16021,7 @@ function createConfigureGui(R15Folder, R6Folder)
 end
 
 -- Makes a copy of the rig in the export format
-function makeExportVersion(R15Model, R6Model)
+function makeExportVersion(R15Model, R6Model, R15FixedModel)
 	-- Remove existing export models
 	for _, model in pairs(game.ServerStorage:GetChildren()) do
 		if model.Name == "PackageExport" then
@@ -16035,15 +16041,35 @@ function makeExportVersion(R15Model, R6Model)
 			local partFolder = Instance.new("Folder", exportModel)
 			partFolder.Name = r6Name
 			
-			local R15subfolder = Instance.new("Folder", partFolder)
-			R15subfolder.Name = "R15"
+			if (R15FixedModel) then
+				local R15subfolder = Instance.new("Folder", partFolder)
+				R15subfolder.Name = "R15ArtistIntent"
+				
+				local R15FixedSubfolder = Instance.new("Folder", partFolder)
+				R15FixedSubfolder.Name = "R15Fixed"
 			
-			for _, r15Name in pairs(r15Names) do
-				local R15part = R15Model:FindFirstChild(r15Name)
-				if R15part then
-					R15part:Clone().Parent = R15subfolder
-				end
-			end			
+				for _, r15Name in pairs(r15Names) do
+					local R15part = R15Model:FindFirstChild(r15Name)
+					if R15part then
+						R15part:Clone().Parent = R15subfolder
+					end
+					
+					local R15FixedPart = R15FixedModel:FindFirstChild(r15Name)
+					if R15FixedPart then
+						R15FixedPart:Clone().Parent = R15FixedSubfolder
+					end
+				end	
+			else
+				local R15subfolder = Instance.new("Folder", partFolder)
+				R15subfolder.Name = "R15"
+			
+				for _, r15Name in pairs(r15Names) do
+					local R15part = R15Model:FindFirstChild(r15Name)
+					if R15part then
+						R15part:Clone().Parent = R15subfolder
+					end
+				end	
+			end		
 			
 			local R6subfolder = Instance.new("Folder", partFolder)
 			R6subfolder.Name = "R6"
@@ -16133,6 +16159,101 @@ end
 
 -- Mr Grey R15
 local r15DummyId = 516159357
+local r15NewSpecDummyId = 1664543044
+
+-- New ANTHRO-BASED R15 UTILS
+-- -- Recursively searches for attachment in a model
+local function findRigAttachment(model, name)		
+	for i,v in pairs(model:GetChildren()) do
+		local rigAttachment = findRigAttachment(v, name)
+		if (rigAttachment ~= nil) then
+			return rigAttachment
+		end
+	end
+	
+	if (model:IsA("Attachment") and model.Name == name) then
+		return model
+	else
+		return nil
+	end
+end
+
+-- -- Moves the entire model by the deltaCFrame by shifting all the part
+-- -- CFrames
+local function displaceModelRecursively( inst , deltaCFrame, rigged)
+	if ( inst:IsA("BasePart") ) then	
+		if (not rigged or inst.Name == "HumanoidRootPart") then
+			inst.CFrame =  deltaCFrame * inst.CFrame
+		end
+	end
+	
+	for i,v in pairs(inst:GetChildren()) do
+		displaceModelRecursively(v, deltaCFrame, rigged)
+	end
+end
+
+-- -- We want ALL FBX imports to have the RootRigAttachment be at 0,0,0
+local function adjustPackageToMoveRootToOrigin(model, rigged, posOffset)	
+	local rootAttachment = findRigAttachment(model, "RootRigAttachment")
+	if (rootAttachment) then
+		local waistJointParent = rootAttachment.Parent	
+		local CFramePos = CFrame.new(rootAttachment.Position) * waistJointParent.CFrame
+		if (posOffset) then
+			CFramePos = CFramePos + posOffset
+		end
+		displaceModelRecursively( model, CFramePos:inverse(), rigged)
+	else
+		spawn( function()
+			error(model.Name .. " Could Not Find RootRigAttachment ")
+		end)
+	end	
+end
+
+-- -- Folder Names -- --
+-- -- As Expected in C++ -- --
+local r15AIFolderName = "R15ArtistIntent"
+local r15FixedFolderName = "R15Fixed"
+
+-- Old R15 to new R15 Anthro Spec Adjustment Values/Map
+-- -- R15 Fixed Rig Attachment Pos Map
+local R15FixedRigAttachmentMap = {
+	["RootRigAttachment"] = 			Vector3.new( 0, 	0, 		0),	--HumanoidRootPart to LowerTorso
+	["WaistRigAttachment"] = 			Vector3.new( 0, 	0.4, 	0), --UpperTorso to LowerTorso
+	["NeckRigAttachment"] =				Vector3.new( 0,		2.0,	0), --UpperTorso to Head
+	["LeftShoulderRigAttachment"] =		Vector3.new( -1,	1.763,  0), --UpperTorso to LeftShoulder
+	["RightShoulderRigAttachment"] =	Vector3.new( 1,		1.763,	0),	--UpperTorso to RightUpperArm
+	["RightElbowRigAttachment"] =		Vector3.new( 1.5,	1.035,	0),	--RightUpperArm to RightLowerArm
+	["RightWristRigAttachment"] =		Vector3.new( 1.5,	0.275,  0), --RightLowerArm to RightHand
+	["LeftElbowRigAttachment"] =		Vector3.new( -1.5,  1.035,  0), --LeftUpperArm to LeftLowerArm
+	["LeftWristRigAttachment"] =		Vector3.new( -1.5,	0.275,  0), --LeftLowerArm to LeftHand
+	["RightHipRigAttachment"] = 		Vector3.new( 0.5,	0,		0), --LowerTorso to RightUpperLeg
+	["RightKneeRigAttachment"] =		Vector3.new( 0.5,	-0.822,	0), --RightUpperLeg to RightLowerLeg
+	["RightAnkleRigAttachment"] =		Vector3.new( 0.5,	-1.748, 0), --RightLowerLeg to RightFoot
+	["LeftHipRigAttachment"] =			Vector3.new( -0.5,	0,		0), --LowerTorso to LeftUpperLeg
+	["LeftKneeRigAttachment"] =			Vector3.new( -0.5,	-0.822,	0),	--LeftUpperLeg to LeftLowerLeg
+	["LeftAnkleRigAttachment"] = 		Vector3.new( -0.5,	-1.748,	0), --LeftLowerLeg to LeftFoot
+}
+
+-- -- Shift All Attachments to match the WorldSpace positions of the above map.
+-- -- We assume that RootRigAttachment is 0,0,0
+local function adjustModelAttachmentsToMatchR15Fixed( inst )
+	if inst:IsA("Motor6D") then
+		inst:Destroy() -- Remove Current Character Rigging
+	elseif inst:IsA("Attachment") then
+		local attachmentDesiredPos = R15FixedRigAttachmentMap[inst.Name]
+		if (attachmentDesiredPos) then
+			-- Found Valid Attachment
+			local parentPart = inst.Parent
+			local localSpaceDesiredPos = parentPart.CFrame:inverse() * CFrame.new( attachmentDesiredPos )
+			inst.Position = localSpaceDesiredPos.p 
+		end
+	end
+
+
+	for i,v in pairs(inst:GetChildren()) do
+		adjustModelAttachmentsToMatchR15Fixed( v )
+	end
+end
 
 function fbxRigImported(R15Rig)
 	-- This wait is necessary because the imported rig is added to workspace 
@@ -16140,7 +16261,12 @@ function fbxRigImported(R15Rig)
 	wait(.5)
 	
 	-- Not all packages have all their parts, we load MrGreyR15 first then substitute the parts we did load
-	local R15Dummy = game:GetService("InsertService"):LoadAsset(r15DummyId):GetChildren()[1]
+	local dummyId = r15DummyId
+	if (newR15FlagExists and newR15FlagValue == true) then
+		dummyId = r15NewSpecDummyId
+	end
+	
+	local R15Dummy = game:GetService("InsertService"):LoadAsset(dummyId):GetChildren()[1]
 	
 	for _, part in pairs(R15Rig:GetChildren()) do
 		local matchingPart = R15Dummy:FindFirstChild(part.Name)
@@ -16180,30 +16306,66 @@ function fbxRigImported(R15Rig)
 	R6Folder.Name = "R6"
 	R6Folder.Parent = rigModel
 	
-	local R15Folder = Instance.new("Model")
-	R15Folder.Name = "R15"
-	R15Folder.Parent = rigModel
-	
-	for _, obj in pairs(R15Rig:GetChildren()) do
-		obj.Parent = R15Folder
-	end
-	R15Rig:Destroy()
-	
-	local R6Rig = rigCreator.CreateR6Rig()
-	R6Rig.HumanoidRootPart.Transparency = 1
-	R6Rig:MoveTo(Vector3.new(5, 0, 0))
-	
-	local HeadMesh = Instance.new("SpecialMesh", R6Rig.Head)
-	HeadMesh.MeshType = 0
-	HeadMesh.Scale = Vector3.new(1.25, 1.25, 1.25)
-	
-	for _, obj in pairs(R6Rig:GetChildren()) do
-		obj.Parent = R6Folder
-	end
-	R6Rig:Destroy()
+	if newR15FlagExists and newR15FlagValue == true then
+		local R15Folder = Instance.new("Model")
+		R15Folder.Name = r15AIFolderName
+		R15Folder.Parent = rigModel
+		
+		for _, obj in pairs(R15Rig:GetChildren()) do
+			obj.Parent 			= R15Folder
+		end
+		R15Rig:Destroy()
+		
+		adjustPackageToMoveRootToOrigin(R15Folder, true)	
+		local R15FixedFolder = R15Folder:Clone()
+		R15FixedFolder.Name = r15FixedFolderName
+		R15FixedFolder.Parent = rigModel		
+		
+		adjustModelAttachmentsToMatchR15Fixed( R15FixedFolder )
+		buildRigFromAttachments( nil, R15FixedFolder.HumanoidRootPart )
+		adjustPackageToMoveRootToOrigin(R15FixedFolder, true)
+		
+		local R6Rig = rigCreator.CreateR6Rig()
+		R6Rig.HumanoidRootPart.Transparency = 1
+		R6Rig:MoveTo(Vector3.new(5, 0, 0))
+		
+		local HeadMesh = Instance.new("SpecialMesh", R6Rig.Head)
+		HeadMesh.MeshType = 0
+		HeadMesh.Scale = Vector3.new(1.25, 1.25, 1.25)
+		
+		for _, obj in pairs(R6Rig:GetChildren()) do
+			obj.Parent = R6Folder
+		end
+		R6Rig:Destroy()
 
-	createConfigureGui(R15Folder, R6Folder)
-	makeExportVersion(R15Folder, R6Folder)
+		createConfigureGui(R15Folder, R6Folder)
+		makeExportVersion(R15Folder, R6Folder, R15FixedFolder)
+	else
+		local R15Folder = Instance.new("Model")
+		R15Folder.Name = "R15"
+		R15Folder.Parent = rigModel
+		
+		for _, obj in pairs(R15Rig:GetChildren()) do
+			obj.Parent = R15Folder
+		end
+		R15Rig:Destroy()
+		
+		local R6Rig = rigCreator.CreateR6Rig()
+		R6Rig.HumanoidRootPart.Transparency = 1
+		R6Rig:MoveTo(Vector3.new(5, 0, 0))
+		
+		local HeadMesh = Instance.new("SpecialMesh", R6Rig.Head)
+		HeadMesh.MeshType = 0
+		HeadMesh.Scale = Vector3.new(1.25, 1.25, 1.25)
+		
+		for _, obj in pairs(R6Rig:GetChildren()) do
+			obj.Parent = R6Folder
+		end
+		R6Rig:Destroy()
+
+		createConfigureGui(R15Folder, R6Folder)
+		makeExportVersion(R15Folder, R6Folder)
+	end
 end
 
 -- Hook up events to make export copy of rig for already imported Fbx rigs
@@ -16216,6 +16378,332 @@ for _, obj in pairs(game.Workspace:GetChildren()) do
 		end
 	end
 end
+
+-----------------------------------------------------
+--- --- --- TEMP ASSET MIGRATION CODE --- --- --- ---
+-----------------------------------------------------
+--- DELETE THIS SECTION WHEN REMOVING R15ToArtistIntentAssetMigratorEnabled
+local migratorFlagExists, migratorFlagTrue =  pcall(function () return settings():GetFFlag("R15ToArtistIntentAssetMigratorEnabled") end) 
+-- -- We need to shift the top RightUpperArm down by 0.047.
+local shoulderShiftY = -0.047															-- Defined by Art Spec (New R15 compared to old R15)
+local originalR15UpperArmSize = Vector3.new(1, 1.4, 1); 								-- See Client\content\avatar\characterR15.rbxm
+local newR15UpperArmSize = originalR15UpperArmSize + Vector3.new(0, shoulderShiftY, 0)  
+local R15MigrationScales =
+{
+	["RightUpperArm"] = 	newR15UpperArmSize / originalR15UpperArmSize,
+	["LeftUpperArm"] =		newR15UpperArmSize / originalR15UpperArmSize
+}
+
+-- -- When we shrink and object is actually shrinks around its 0,0,0. This means we have to shift the part down by
+-- -- half the shrink margin to make sure that the part only shrinks from the top.
+local R15MigrationPartOffsets = {
+	["RightUpperArm"] = 	Vector3.new( 0, (shoulderShiftY / 2), 0),
+	["LeftUpperArm"] =		Vector3.new( 0, (shoulderShiftY / 2), 0),
+}
+
+-- --- Resizing using Part.Size does not automatically drag the attachment relatively with the part
+local R15AttachmentPositionOffsets = {
+	["RightShoulderAttachment"] = 		Vector3.new( 0, (shoulderShiftY / 2), 0),
+	["LeftShoulderAttachment"] =		Vector3.new( 0, (shoulderShiftY / 2), 0),
+}
+
+-- -- Old R15 Spec to new R15 Spec moves the RootRigJoint down by 0.350 (to the hip rig joints)
+local r15AnthroMigrationAdjust = Vector3.new(0, -0.350, 0)
+
+-- -- JOINT POSITION VERIFICATION MAP -- -- 
+-- -- This is technically Duplicate date (some of it anyway) to a map used in the
+-- -- FBX importer above.
+local r15FixedAttachmentVerificationMap = {
+		["RootRigAttachment"] = 			Vector3.new(0, 0, 0),
+		["WaistRigAttachment"] = 			Vector3.new(0, 0.4, 0),
+		["NeckRigAttachment"] = 			Vector3.new(0, 2, 0),
+		["LeftShoulderRigAttachment"] = 	Vector3.new(-1, 1.763, 0),
+		["RightShoulderRigAttachment"] =	Vector3.new(1, 1.763, 0),
+		["LeftElbowRigAttachment"] =		Vector3.new(-1.5, 1.035, 0),
+		["RightElbowRigAttachment"] =		Vector3.new(1.5, 1.035, 0),
+		["LeftWristRigAttachment"] =		Vector3.new(-1.5, 0.275, 0),
+		["RightWristRigAttachment"] =		Vector3.new(1.5, 0.275, 0),
+		["LeftHipRigAttachment"] =			Vector3.new(-0.5, 0, 0),	
+		["RightHipRigAttachment"] =			Vector3.new(0.5, 0, 0),	
+		["LeftKneeRigAttachment"] =			Vector3.new(-0.5, -0.822, 0),	
+		["RightKneeRigAttachment"] =		Vector3.new(0.5, -0.822, 0),	
+		["LeftAnkleRigAttachment"] =		Vector3.new(-0.5, -1.748, 0),	
+		["RightAnkleRigAttachment"] =		Vector3.new(0.5, -1.748, 0),
+		["RightShoulderAttachment"] = 		Vector3.new(1.5, 1.953, 0),
+		["LeftShoulderAttachment"] = 		Vector3.new(-1.5, 1.953, 0),
+		["FaceCenterAttachment"] = 			Vector3.new(0, 2.5, 0),
+		["FaceFrontAttachment"] = 			Vector3.new(0, 2.5, -0.6),
+		["HairAttachment"] = 				Vector3.new(0, 3.1, 0),
+		["HatAttachment"] = 				Vector3.new(0, 3.1, 0),
+		["NeckAttachment"] = 				Vector3.new(0, 2, 0),
+		["BodyFrontAttachment"] = 			Vector3.new(0, 1, -0.5),
+		["BodyBackAttachment"] = 			Vector3.new(0, 1, 0.5),
+		["LeftCollarAttachment"] = 			Vector3.new(-1, 2, 0),
+		["RightCollarAttachment"] = 		Vector3.new(1, 2, 0),
+		["WaistBackAttachment"] = 			Vector3.new(0, 0, 0.5),
+		["WaistCenterAttachment"] = 		Vector3.new(0, 0, 0),
+		["WaistFrontAttachment"] = 			Vector3.new(0, 0, -0.5)
+}
+-- -- Pre R15Fixed Process Steps
+-- -- When migrating packages from R15 to new R15 we must adjust Arms and Hands by 0.047 studs down, before reprojecting attachments.
+local function findAdjustArmParts( inst )
+	local scaleValue = R15MigrationScales[inst.Name]
+	if inst:IsA("BasePart") and scaleValue then
+		inst.Size = inst.Size * scaleValue
+	end
+
+	local offsetValue = R15MigrationPartOffsets[inst.Name]
+	if inst:IsA("BasePart") and offsetValue then
+		inst.CFrame = inst.CFrame + offsetValue
+	end
+	
+	local attachmentOffsetValue = R15AttachmentPositionOffsets[inst.Name]
+	if inst:IsA("Attachment") and attachmentOffsetValue then
+		inst.Position = inst.Position + attachmentOffsetValue
+	end
+	
+	for i,v in pairs(inst:GetChildren()) do
+		findAdjustArmParts( v )
+	end
+end
+
+local epsilon = 0.0001
+local function verifyAllAttachmentPositionsRecursively( inst )
+	local attachmentWorldSpace = r15FixedAttachmentVerificationMap[inst.Name]
+	if attachmentWorldSpace then
+	    local delta = (attachmentWorldSpace - inst.WorldPosition)
+		if (delta.Magnitude > epsilon) then
+			spawn( 
+				function() error("Attachment: " .. inst.Name .. " - Parent: " .. tostring(inst.Parent.Name) .. " Position Expected: " .. tostring(attachmentWorldSpace) .. " result " .. tostring(inst.WorldPosition)) 
+			end)
+			wait(1)
+		end
+	end
+	
+	for i,v in pairs(inst:GetChildren()) do
+		verifyAllAttachmentPositionsRecursively( v )
+	end
+end
+
+local function breakRigJointsRecursive( inst )
+	if inst:IsA("Motor6D") then
+		inst:Destroy()
+	end
+	
+	for i,v in pairs(inst:GetChildren()) do
+		breakRigJointsRecursive( v )
+	end
+end
+
+-- -- Main Functions for Shoulder Adjust
+local function adjustShouldersForNewR15( model )
+	breakRigJointsRecursive( model )
+	findAdjustArmParts( model )
+end
+
+-- -- Load Package from a Package ID
+local function loadPackage(id, processForAnthro)
+	local partIDs = game:GetService("AssetService"):GetAssetIdsForPackage(id)
+	local avatarModel = Instance.new("Model", exportModels)
+	avatarModel.Name = tostring(id)
+	local R15AIRig
+	local R15FixedRig
+	if (processForAnthro == true) then
+			R15AIRig = Instance.new("Model", avatarModel)
+			R15AIRig.Name = "R15AIRig"
+			local AIRoot = dummyRootPart:Clone()
+			AIRoot.Parent = R15AIRig			
+			
+			R15FixedRig = Instance.new("Model", avatarModel)
+			R15FixedRig.Name = "R15FixedRig"
+			local FixedRoot = dummyRootPart:Clone()
+			FixedRoot.Parent = R15FixedRig
+	end
+
+	for i,partID in pairs(partIDs) do
+		local model
+		local success, err = pcall(function()
+		  model = game:GetService("InsertService"):LoadAsset(partID)
+		end)
+		
+		if (success) then
+			model.Name = tostring(partID)
+			model.Parent = avatarModel
+			
+			if (processForAnthro == true) then
+				local R15 = model:FindFirstChild("R15")
+				if (R15) then
+					local R15AI = model:FindFirstChild(r15AIFolderName)
+					local R15Fixed = model:FindFirstChild(r15FixedFolderName)
+					if (R15AI) then
+						R15AI:Destroy()
+					end
+					
+					if (R15Fixed) then
+						R15Fixed:Destroy()
+					end
+				
+					R15AI = Instance.new("Folder", model)
+					R15AI.Name = r15AIFolderName
+					
+					R15Fixed = Instance.new("Folder", model)
+					R15Fixed.Name = r15FixedFolderName
+					
+					for j, inst in pairs(R15:GetChildren()) do
+						local AIClone = inst:Clone()
+						AIClone.Parent = R15AIRig
+						local aiPtr = Instance.new("ObjectValue", AIClone)
+						aiPtr.Value = R15AI
+						aiPtr.Name = "AssetPtr"
+						
+						local FixedClone = inst:Clone()
+						FixedClone.Parent = R15FixedRig
+						local fixedPtr = Instance.new("ObjectValue", FixedClone)
+						fixedPtr.Value = R15Fixed
+						fixedPtr.Name = "AssetPtr"
+					end 
+				end
+			end
+			
+		end
+	end
+	return avatarModel
+end
+
+-- -- Hack. Current system expects there to be a String Value to parse with PackageIDs
+local function getPackageListFromStringValue( stringValue )
+	local screenGui = Instance.new("ScreenGui",  game:GetService("CoreGui"))
+
+	local textBox = Instance.new("TextBox", screenGui)
+	textBox.Text = "Paste PackageID CSV here"
+	textBox.Size = UDim2.new(0, 400, 0, 50)
+	textBox.Position = UDim2.new(0.5, -200, 0.5, 0)
+	textBox.BackgroundColor3 = Color3.new(255, 255, 255)
+	
+	local confirmButton = Instance.new("TextButton", textBox)
+	confirmButton.Position = UDim2.new(0.25, 0, 1.2, 0)
+	confirmButton.Size = UDim2.new(0.5, 0, 0.5, 0)
+	confirmButton.BackgroundColor3 = Color3.new( 50, 50, 50)
+	confirmButton.Text = "Confirm"
+	
+	
+	local clicked = false
+	local stringOut = ""
+	confirmButton.MouseButton1Click:connect( function()
+		stringOut = textBox.Text
+		clicked = true
+		print(stringOut)
+		screenGui:Destroy()
+	end)
+	
+	while( not clicked ) do
+		wait()
+	end
+
+	local packageIds = {}
+	for word in string.gmatch(stringOut, '([^,]+)') do
+	    table.insert(packageIds, tonumber(word))
+	end
+	
+	return packageIds
+end
+
+-- -- Finds Humanoid Root Parts
+local function recursiveFindRootPart( model)
+	for i,v in pairs(model:GetChildren()) do
+		local root = recursiveFindRootPart(v)
+		if (root) then
+			return root
+		end
+	end	
+	
+	if ( model:IsA("BasePart") and model.Name == "HumanoidRootPart" ) then
+		return model
+	else 
+		return nil
+	end
+end
+
+-- -- Goes through newly allocated R15 Packages and puts them back into
+-- -- Export format.
+function recursivelyTryToRepackRigParts( inst )
+	if inst:IsA("BasePart") then
+		for i,v in pairs (inst:GetChildren()) do
+			if (v:IsA("Motor6D")) then
+				v:Destroy()
+			end
+		end
+		
+		local assetPtr = inst:FindFirstChild("AssetPtr")
+		if (assetPtr) then		
+			inst.Parent = assetPtr.Value
+			assetPtr:Destroy()
+		end
+	end	
+	
+	for i,v in pairs(inst:GetChildren()) do
+		recursivelyTryToRepackRigParts( v )
+	end
+end
+
+-- Reprocess Packages Main Functions
+function loadAssetsForAnthroDateUpdate()	
+	-- Cleanup
+	if (exportModels) then
+		exportModels:Destroy()
+	end
+	local packageIds = getPackageListFromStringValue( avatarPackages )
+	exportModels = Instance.new("Folder", workspace)
+	exportModels.Name = "ExportModels"
+	local R15Dummy = game:GetService("InsertService"):LoadAsset(r15NewSpecDummyId):GetChildren()[1]
+	dummyRootPart = recursiveFindRootPart(R15Dummy)
+	for i,v in pairs(packageIds) do
+		print("Processing Package: "..tostring(v))
+		local package = loadPackage(v, true)
+		package.Parent = exportModels
+		local R15AIRig = package:FindFirstChild("R15AIRig")
+		local R15FixedRig = package:FindFirstChild("R15FixedRig")
+		if (R15AIRig and R15FixedRig) then
+			local AIRoot = recursiveFindRootPart(R15AIRig)
+			buildRigFromAttachments(nil, AIRoot)
+			AIRoot.Anchored = true		
+			adjustPackageToMoveRootToOrigin( R15AIRig, true, r15AnthroMigrationAdjust)
+			adjustShouldersForNewR15( R15AIRig )
+			adjustModelAttachmentsToMatchR15Fixed( R15AIRig )
+			buildRigFromAttachments(nil, AIRoot)
+			verifyAllAttachmentPositionsRecursively( R15AIRig )
+			recursivelyTryToRepackRigParts( R15AIRig )
+			
+			local FixedRoot = recursiveFindRootPart(R15FixedRig)
+			buildRigFromAttachments(nil, FixedRoot)
+			FixedRoot.Anchored = true
+			adjustPackageToMoveRootToOrigin( R15FixedRig, true, r15AnthroMigrationAdjust)
+			adjustShouldersForNewR15( R15FixedRig )
+			adjustModelAttachmentsToMatchR15Fixed( R15FixedRig )
+			buildRigFromAttachments(nil, FixedRoot)
+			verifyAllAttachmentPositionsRecursively( R15FixedRig )
+			recursivelyTryToRepackRigParts( R15FixedRig )
+			
+			R15AIRig:Destroy()
+			R15FixedRig:Destroy()
+			
+			-- Save changes to File
+			for j, b in pairs (package:GetChildren()) do
+				local name = b.Name
+				game.Selection:Set(b:GetChildren())
+				plugin:PromptSaveSelection(name)
+			end
+		end
+		
+		package:Destroy()
+	end
+end
+
+local exportModels = nil
+local dummyRootPart = nil
+-----------------------------------------------------
+--- --- --- END TEMP ASSET MIGRATION CODE --- --- ---
+-----------------------------------------------------
 
 if fbxFlagExists and fbxFlagValue == true then
 	local button = toolbar:CreateButton(
@@ -16236,6 +16724,18 @@ if fbxFlagExists and fbxFlagValue == true then
 			fbxRigImported(importedRig)
 		end
 	end)
+	
+	if newR15FlagExists and newR15FlagValue == true and migratorFlagExists and migratorFlagTrue == true then
+		local batchReprocessButton = toolbar:CreateButton(
+			"",
+			"Reprocess Selected Rigs",
+			"http://roblox.com/asset/?id=467691760"
+		)
+		
+		batchReprocessButton.Click:connect(function()
+			loadAssetsForAnthroDateUpdate()
+		end)
+	end
 	
 	local configureButton = toolbar:CreateButton(
 		"",

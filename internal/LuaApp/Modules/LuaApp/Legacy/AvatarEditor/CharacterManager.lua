@@ -117,7 +117,7 @@ if AvatarEditorAnthroSliders then
 	}
 end
 
-local useAnthroValues = Flags:GetFlag("UseAdvancedCharacterScales")
+local useAnthroValues = Flags:GetFlag("UseAdvancedCharacterScales2")
 
 
 ----------- CLASS DECLARATION --------------

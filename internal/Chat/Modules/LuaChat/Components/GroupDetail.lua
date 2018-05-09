@@ -23,6 +23,8 @@ local ListEntryComponent = require(Components.ListEntry)
 local ResponseIndicator = require(Components.ResponseIndicator)
 local GenericDialogType = require(Components.GroupDetailDialogs.GenericDialogType)
 
+local getConversationDisplayTitle = require(LuaChat.Utils.getConversationDisplayTitle)
+
 local ConversationModel = require(LuaChat.Models.Conversation)
 
 local SetRoute = require(LuaChat.Actions.SetRoute)
@@ -249,7 +251,7 @@ function GroupDetail:Update(state)
 			local notSetLocalized = self.appState.localization:Format(StringsLocale.Keys.NOT_SET)
 			self.groupName:Update(notSetLocalized)
 		else
-			self.groupName:Update(conversation.title)
+			self.groupName:Update(getConversationDisplayTitle(conversation))
 		end
 
 		local count = 0

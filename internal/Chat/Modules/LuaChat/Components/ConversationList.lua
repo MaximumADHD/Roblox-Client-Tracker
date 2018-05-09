@@ -13,6 +13,8 @@ local StringsLocale = require(LuaApp.StringsLocale)
 local Components = LuaChat.Components
 local LoadingIndicator = require(Components.LoadingIndicator)
 
+local getConversationDisplayTitle = require(LuaChat.Utils.getConversationDisplayTitle)
+
 local ConversationList = {}
 
 local function conversationSortPredicate(a, b)
@@ -27,7 +29,7 @@ local function conversationSortPredicate(a, b)
 	elseif b.lastUpdated ~= nil then
 		return false
 	else
-		return a.title < b.title
+		return getConversationDisplayTitle(a) < getConversationDisplayTitle(b)
 	end
 end
 
@@ -43,7 +45,7 @@ local function conversationEntrySortPredicate(a, b)
 	elseif b.conversation.lastUpdated ~= nil then
 		return false
 	else
-		return a.conversation.title < b.conversation.title
+		return getConversationDisplayTitle(a.conversation) < getConversationDisplayTitle(b.conversation)
 	end
 end
 
@@ -241,7 +243,7 @@ function ConversationList:Filter()
 		local conversation = conversationEntry.conversation
 		local filterPredicate = self.filterPredicate
 		if filterPredicate and conversation then
-			visible = filterPredicate(conversation.title)
+			visible = filterPredicate(getConversationDisplayTitle(conversation))
 		else
 			visible = true
 		end

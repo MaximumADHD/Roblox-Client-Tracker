@@ -12,6 +12,7 @@ local Text = require(Modules.LuaChat.Text)
 local DateTime = require(Modules.LuaChat.DateTime)
 local ConversationThumbnail = require(Modules.LuaChat.Components.ConversationThumbnail)
 local TextButton = require(Modules.LuaChat.Components.TextButton)
+local getConversationDisplayTitle = require(Modules.LuaChat.Utils.getConversationDisplayTitle)
 
 local GameShareCard = {}
 
@@ -144,8 +145,7 @@ function GameShareCard.new(appState, conversation)
 	end)
 	table.insert(self.connections, sendButtonConnection)
 
-
-	 self.conversationTitle = Create.new"TextLabel" {
+	self.conversationTitle = Create.new"TextLabel" {
 		Name = "ConversationTitle",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, -ICON_CELL_WIDTH - sendButtonFrame.Size.X.Offset - 20, 0.75, 0),
@@ -153,14 +153,14 @@ function GameShareCard.new(appState, conversation)
 		TextSize = Constants.Font.FONT_SIZE_18,
 		TextColor3 = Constants.Color.GRAY1,
 		Font = Enum.Font.SourceSans,
-		Text = conversation.title,
+		Text = getConversationDisplayTitle(conversation),
 		TextXAlignment = Enum.TextXAlignment.Left,
 	}
 
 	self.conversationTitle.Parent = self.rbx
 
 	local convoTitleChanged = self.conversationTitle:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-		self.conversationTitle.Text = self.conversation.title
+		self.conversationTitle.Text = getConversationDisplayTitle(conversation)
 		Text.TruncateTextLabel(self.conversationTitle, "...")
 	end)
 	table.insert(self.connections, convoTitleChanged)

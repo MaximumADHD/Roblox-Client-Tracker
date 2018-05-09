@@ -86,9 +86,7 @@ function RobloxEventReceiver:init(appState)
 					local title = conversation.title
 					local isDefaultTitle = conversation.isDefaultTitle
 					appState.store:Dispatch(
-						RenamedGroupConversation(
-							conversationId, userId, title, isDefaultTitle, conversation.lastUpdated
-						)
+						RenamedGroupConversation(conversationId, title, isDefaultTitle, conversation.lastUpdated)
 					)
 				end
 			end)
@@ -107,7 +105,8 @@ function RobloxEventReceiver:init(appState)
 				if #conversations > 0 then
 					local conversation = conversations[1]
 					local participants = conversation.participants
-					appState.store:Dispatch(ChangedParticipants(convoId, participants, conversation.title, conversation.lastUpdated))
+					local title = conversation.title
+					appState.store:Dispatch(ChangedParticipants(convoId, participants, title, conversation.lastUpdated))
 				end
 			end)
 		elseif detailType == "ParticipantLeft" then
@@ -125,7 +124,8 @@ function RobloxEventReceiver:init(appState)
 				if #conversations > 0 then
 					local conversation = conversations[1]
 					local participants = conversation.participants
-					appState.store:Dispatch(ChangedParticipants(convoId, participants, conversation.title, conversation.lastUpdated))
+					local title = conversation.title
+					appState.store:Dispatch(ChangedParticipants(convoId, participants, title, conversation.lastUpdated))
 				end
 			end)
 		elseif detailType == "AddedToConversation" then

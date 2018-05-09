@@ -169,10 +169,37 @@ return function()
 			local state = {
 				[conversation.id] = conversation
 			}
-			local action = RenamedGroupConversation(conversation.id, nil, "Fleebledegoop, Ham Sammich and Lemur Face")
+			local action = RenamedGroupConversation(conversation.id, "Fleebledegoop, Ham Sammich and Lemur Face")
 			state = Conversations(state, action)
 
 			expect(state[conversation.id].title).to.equal("Fleebledegoop, Ham Sammich and Lemur Face")
+		end)
+
+		it("should update isDefaultTitle value", function()
+			local conversation = Conversation.mock({
+				isDefaultTitle = true,
+			})
+			local state = {
+				[conversation.id] = conversation
+			}
+			state = Conversations(state, RenamedGroupConversation(conversation.id, "test", false))
+
+			expect(state[conversation.id].isDefaultTitle).to.equal(false)
+		end)
+
+		it("should update lastUpdated value", function()
+			local oldTick = 0
+			local newTick = 1
+			local conversation = Conversation.mock({
+				isDefaultTitle = true,
+				lastUpdated = oldTick,
+			})
+			local state = {
+				[conversation.id] = conversation
+			}
+			state = Conversations(state, RenamedGroupConversation(conversation.id, "test", nil, newTick))
+
+			expect(state[conversation.id].lastUpdated).to.equal(newTick)
 		end)
 	end)
 
