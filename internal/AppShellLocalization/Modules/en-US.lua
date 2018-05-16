@@ -206,7 +206,7 @@ local enUS =
 	["DisableCrossplayOverlayTitle"] = "Disable Cross-Platform Play?";
 	["DisableCrossplayOverlayMessage"] = "Are you sure you want to disable cross-platform play?\nThis is not recommended. You will no longer join games with players on other platforms, and you will see less players in games.";
 	["EnableCrossplayOverlayTitle"] = "Cross-Platform Play is Now Enabled!";
-	["EnableCrossplayOverlayMessage"] = "You can now play Roblox on Xbox One with players on every platform including Desktop, Phone, and Tablet!\n\nThis means you?ll see more players in more games, and you can play with ALL of your friends, no matter what device they are using!";
+	["EnableCrossplayOverlayMessage"] = "You can now play Roblox on Xbox One with players on every platform including Desktop, Phone, and Tablet!\n\nThis means you’ll see more players in more games, and you can play with ALL of your friends, no matter what device they are using!";
 	["CrossplayEnabledDescription"] = "You will join games with players from all platforms, and you will see more players in more games.";
 	["CrossplayDisabledDescription"] = "This is not recommended. You will not join games with players on other platforms, and you will see less players in games.";
 
@@ -302,7 +302,7 @@ local enUS =
 
 	-- Cross-Platform Play Welcome Popup
 	["CPPWelcomeTitle"] = "Welcome to Cross-Platform Play!";
-	["CPPWelcomePhrase"] = "You can now play Roblox on Xbox One with players on every platform including Desktop, Phone, and Tablet!\n\nThis means you?ll see more players in more games, and you can play with ALL of your friends, no matter what device they are using! Gameplay options can be updated in Account Settings.";
+	["CPPWelcomePhrase"] = "You can now play Roblox on Xbox One with players on every platform including Desktop, Phone, and Tablet!\n\nThis means you’ll see more players in more games, and you can play with ALL of your friends, no matter what device they are using! Gameplay options can be updated in Account Settings.";
 	["SetCPPSettingErrorPhrase"] = "Could not toggle Cross-Platform setting. Please try again later.";
 
 	--Privilege Settings

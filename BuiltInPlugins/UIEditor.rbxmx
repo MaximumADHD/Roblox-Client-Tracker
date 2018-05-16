@@ -6210,7 +6210,7 @@ local m_valueBox = nil
 function RotationBox:update(mousePosition, rotation)
 	local newPosition = mousePosition + MOUSE_POSITION_OFFSET
 	m_valueBox:setPosition(UDim2.new(0, newPosition.X, 0, newPosition.Y))
-	local newText = string.format("%d?", rotation)
+	local newText = string.format("%d°", rotation)
 	m_valueBox:setText(newText)
 end
 

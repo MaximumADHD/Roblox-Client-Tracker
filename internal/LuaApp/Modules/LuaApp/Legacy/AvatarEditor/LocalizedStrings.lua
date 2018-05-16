@@ -29,7 +29,7 @@ local AvatarEditorStringsTable = createLocalizationTable({
 		values =
 		{
 			["en-us"] = "Return to edit";
-			["es"] = "Volver a edici?n";
+			["es"] = "Volver a edición";
 		}
 	},
 	{
@@ -77,7 +77,7 @@ local AvatarEditorStringsTable = createLocalizationTable({
 		values =
 		{
 			["en-us"] = "Animation";
-			["es"] = "Animaci?n";
+			["es"] = "Animación";
 		}
 	},
 	{
@@ -501,7 +501,7 @@ local AvatarEditorStringsTable = createLocalizationTable({
 		values =
 		{
 			["en-us"] = "Fall Animations";
-			["es"] = "Animaciones de ca?da";
+			["es"] = "Animaciones de caída";
 		}
 	},
 	{
@@ -557,7 +557,7 @@ local AvatarEditorStringsTable = createLocalizationTable({
 		values =
 		{
 			["en-us"] = "Fall";
-			["es"] = "Ca?da";
+			["es"] = "Caída";
 		}
 	},
 	{
@@ -685,7 +685,7 @@ local AvatarEditorStringsTable = createLocalizationTable({
 		values =
 		{
 			["en-us"] = "This feature is only available for R15";
-			["es"] = "Esta funci?n solo est? disponible con R15";
+			["es"] = "Esta función solo está disponible con R15";
 		}
 	},
 	{

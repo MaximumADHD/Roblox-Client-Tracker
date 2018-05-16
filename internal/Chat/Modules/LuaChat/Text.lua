@@ -55,7 +55,7 @@ end
 
 function Text.SendPreprocess(inputText)
 	if inputText == "/shrug" then
-		return "?\\_(?)_/?"
+		return "¯\\_(ツ)_/¯"
 	end
 
 	-- Future chat commands will go here

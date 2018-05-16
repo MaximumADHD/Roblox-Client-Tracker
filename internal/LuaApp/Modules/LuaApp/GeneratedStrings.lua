@@ -4,13 +4,13 @@ local HttpService = game:GetService('HttpService')
 return HttpService:JSONDecode([=[
 {
    "OPTION":{
-      "es":"Opci?n"
+      "es":"Opción"
    },
    "FAILED_TO_LEAVE_GROUP_MESSAGE":{
-      "es":"No se te ha podido eliminar de la conversaci?n {CONVERSATION_TITLE}."
+      "es":"No se te ha podido eliminar de la conversación {CONVERSATION_TITLE}."
    },
    "SEE_MORE_FRIENDS":{
-      "es":"Ver m?s ({NUMBER_OF_FRIENDS})"
+      "es":"Ver más ({NUMBER_OF_FRIENDS})"
    },
    "CHAT_GROUP_NAME":{
       "es":"Nombre del grupo de chat"
@@ -55,7 +55,7 @@ return HttpService:JSONDecode([=[
       "es":"Aceptar"
    },
    "REMOVE_USER_CONFIRMATION_MESSAGE":{
-      "es":"?Seguro que quieres eliminar a {USERNAME} de este grupo de chat?"
+      "es":"¿Seguro que quieres eliminar a {USERNAME} de este grupo de chat?"
    },
    "FAILED_TO_LEAVE_GROUP":{
       "es":"Error al salir del grupo"
@@ -64,7 +64,7 @@ return HttpService:JSONDecode([=[
       "es":"Buscar amigos"
    },
    "SAVE_ADDED_FRIENDS":{
-      "es":"A?adir"
+      "es":"Añadir"
    },
    "CHAT":{
       "es":"Chat"
@@ -79,7 +79,7 @@ return HttpService:JSONDecode([=[
       "es":"Puedes tener hasta {MAX_GROUP_SIZE} amigos en un grupo de chat."
    },
    "FAILED_TO_REMOVE_USER_MESSAGE":{
-      "es":"No se ha podido eliminar al usuario {USERNAME} de la conversaci?n {CONVERSATION_TITLE}."
+      "es":"No se ha podido eliminar al usuario {USERNAME} de la conversación {CONVERSATION_TITLE}."
    },
    "NO_NETWORK_CONNECTION":{
       "es":"Conectando..."
@@ -94,28 +94,28 @@ return HttpService:JSONDecode([=[
       "es":"Sin configurar"
    },
    "PRIVACY_SETTINGS":{
-      "es":"Configuraci?n de privacidad"
+      "es":"Configuración de privacidad"
    },
    "TURN_ON_CHAT":{
-      "es":"Para chatear con tus amigos, activa el chat en la configuraci?n de privacidad."
+      "es":"Para chatear con tus amigos, activa el chat en la configuración de privacidad."
    },
    "SAVE_NEW_GROUP":{
       "es":"Crear"
    },
    "FAILED_TO_RENAME_MESSAGE":{
-      "es":"No se ha podido cambiar el nombre de la conversaci?n de {EXISTING_NAME} a {NEW_NAME}."
+      "es":"No se ha podido cambiar el nombre de la conversación de {EXISTING_NAME} a {NEW_NAME}."
    },
    "FAILED_TO_RENAME_TITLE":{
-      "es":"Error al cambiar el nombre de la conversaci?n"
+      "es":"Error al cambiar el nombre de la conversación"
    },
    "NAME_THIS_CHAT_GROUP":{
       "es":"Ponle un nombre al grupo"
    },
    "ADD_FRIENDS":{
-      "es":"A?adir amigos"
+      "es":"Añadir amigos"
    },
    "LEAVE_GROUP_MESSAGE":{
-      "es":"No podr?s seguir chateando en este grupo."
+      "es":"No podrás seguir chateando en este grupo."
    },
    "FAILED_TO_REMOVE_USER":{
       "es":"Error al eliminar usuario"
@@ -145,7 +145,7 @@ return HttpService:JSONDecode([=[
       "es":"Notificaciones"
    },
    "OFFLINE":{
-      "es":"Sin conexi?n"
+      "es":"Sin conexión"
    },
    "STAY":{
       "es":"Quedarse"

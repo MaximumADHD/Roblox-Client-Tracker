@@ -255,7 +255,7 @@ function this.delta_CIEDE2000(c1, c2)
 		hPrime1 = math.atan2(lab1.b, a1Prime)
 		--/*
 		 --* This must be converted to a hue angle in degrees between 0
-		 --* and 360 by addition of 2?? to negative hue angles.
+		 --* and 360 by addition of 2􏰏 to negative hue angles.
 		 --*/
 		if (hPrime1 < 0) then
 			hPrime1 = hPrime1 + deg360InRad
@@ -269,7 +269,7 @@ function this.delta_CIEDE2000(c1, c2)
 		hPrime2 = math.atan2(lab2.b, a2Prime)
 		--/*
 		 --* This must be converted to a hue angle in degrees between 0
-		 --* and 360 by addition of 2?? to negative hue angles.
+		 --* and 360 by addition of 2􏰏 to negative hue angles.
 		 --*/
 		if (hPrime2 < 0) then
 			hPrime2 = hPrime2 + deg360InRad

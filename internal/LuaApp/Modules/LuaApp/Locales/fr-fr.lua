@@ -7,5 +7,5 @@ return{
 	["CommonUI.Features.Label.Home"] = [[Accueil]],
 	["CommonUI.Features.Label.More"] = [[Plus]],
 	["CommonUI.Features.Label.Players"] = [[Joueurs]],
-	["CommonUI.Features.Label.Create"] = [[Cr?er]],
+	["CommonUI.Features.Label.Create"] = [[Créer]],
 }
