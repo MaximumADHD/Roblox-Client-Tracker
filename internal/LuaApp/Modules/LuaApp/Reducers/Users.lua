@@ -7,13 +7,17 @@ local AddUser = require(Modules.LuaApp.Actions.AddUser)
 local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
 local SetUserPresence = require(Modules.LuaApp.Actions.SetUserPresence)
 local SetUserThumbnail = require(Modules.LuaApp.Actions.SetUserThumbnail)
+local SetUserMembershipType = require(Modules.LuaApp.Actions.SetUserMembershipType)
+local RemoveUser = require(Modules.LuaApp.Actions.RemoveUser)
 
 return function(state, action)
 	state = state or {}
 
 	if action.type == AddUser.name then
 		local user = action.user
-		state = Immutable.Set(state, user.id, user)
+		state = Immutable.JoinDictionaries(state, {
+			[user.id] = user,
+		})
 	elseif action.type == SetUserIsFriend.name then
 		local user = state[action.userId]
 		if user then
@@ -40,6 +44,7 @@ return function(state, action)
 				[action.userId] = Immutable.JoinDictionaries(user, {
 					presence = action.presence,
 					lastLocation = action.lastLocation,
+					placeId = action.placeId,
 				}),
 			})
 		end
@@ -55,6 +60,19 @@ return function(state, action)
 					}),
 				}),
 			})
+		end
+	elseif action.type == SetUserMembershipType.name then
+		local user = state[action.userId]
+		if user then
+			state = Immutable.JoinDictionaries(state, {
+				[action.userId] = Immutable.JoinDictionaries(user, {
+					membership = action.membershipType,
+				}),
+			})
+		end
+	elseif action.type == RemoveUser.name then
+		if state[action.userId] then
+			state = Immutable.RemoveFromDictionary(state, action.userId)
 		end
 	end
 

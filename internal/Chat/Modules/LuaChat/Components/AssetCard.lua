@@ -8,7 +8,6 @@ local Modules = CoreGui.RobloxGui.Modules
 local Analytics = require(Modules.Common.Analytics)
 local LuaChat = script.Parent.Parent
 local LuaApp = Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
 
 local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
@@ -76,7 +75,7 @@ function AssetCard.new(appState, message, assetId)
 		TextSize = Constants.Font.FONT_SIZE_20,
 		TextColor3 = Constants.Color.GRAY1,
 		Font = Enum.Font.SourceSans,
-		Text = self.appState.localization:Format(StringsLocale.Keys.VIEW_ASSET_DETAILS),
+		Text = self.appState.localization:Format("Feature.Chat.Action.ViewAssetDetails"),
 	}
 
 	self.actionButton = Create.new "ImageButton" {
@@ -244,7 +243,8 @@ end
 
 function AssetCard:Resize()
 	local formFactor = self.appState.store:GetState().FormFactor
-	self.bubble.Size = UDim2.new(1, -Constants:GetFormFactorSpecific(formFactor).ASSET_CARD_HORIZONTAL_MARGIN, 0, 92 + ICON_SIZE)
+	local bubbleSizeOffsetY = Constants:GetFormFactorSpecific(formFactor).ASSET_CARD_HORIZONTAL_MARGIN
+	self.bubble.Size = UDim2.new(1, -bubbleSizeOffsetY, 0, 92 + ICON_SIZE)
 
 	local containerHeight = self.bubble.AbsoluteSize.Y
 
@@ -340,17 +340,17 @@ function AssetCard:ReportTouchEvent(eventName)
 		conversationId = self.conversationId,
 		assetId = self.assetId
 	}
-	self._analytics.EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+	self._analytics.EventStream:setRBXEvent(eventContext, eventName, additionalArgs)
 end
 
 function AssetCard:StyleViewDetailsAsPlay(isShowingAsPlay)
 	if isShowingAsPlay then
 		self.actionButton.ImageColor3 = Constants.Color.GREEN_PRIMARY
-		self.actionLabel.Text = self.appState.localization:Format(StringsLocale.Keys.PLAY_GAME)
+		self.actionLabel.Text = self.appState.localization:Format("Common.VisitGame.Label.Play")
 		self.actionLabel.TextColor3 = Constants.Color.WHITE
 	else
 		self.actionButton.ImageColor3 = Constants.Color.WHITE
-		self.actionLabel.Text = self.appState.localization:Format(StringsLocale.Keys.VIEW_ASSET_DETAILS)
+		self.actionLabel.Text = self.appState.localization:Format("Feature.Chat.Action.ViewAssetDetails")
 		self.actionLabel.TextColor3 = Constants.Color.GRAY1
 	end
 end

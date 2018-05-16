@@ -1,60 +1,46 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
-local Actions = Modules.LuaApp.Actions
-local Requests = Modules.LuaApp.Http.Requests
 
+local Constants = require(Modules.LuaApp.Constants)
 local Promise = require(Modules.LuaApp.Promise)
-local GamesGetList = require(Requests.GamesGetList)
-local AddGames = require(Actions.AddGames)
-local SetGamesInSort = require(Actions.SetGamesInSort)
-local ApiFetchGameThumbnails = require(Modules.LuaApp.Thunks.ApiFetchGameThumbnails)
-local Game = require(Modules.LuaApp.Models.Game)
+local ApiFetchSearchInGames = require(Modules.LuaApp.Thunks.ApiFetchSearchInGames)
+-- local ApiFetchSearchInGroups = require(Modules.LuaApp.Thunks.ApiFetchSearchInGroups)
+-- local ApiFetchSearchInPlayers = require(Modules.LuaApp.Thunks.ApiFetchSearchInPlayers)
+-- local ApiFetchSearchInCatalog = require(Modules.LuaApp.Thunks.ApiFetchSearchInCatalog)
+-- local ApiFetchSearchInLibrary = require(Modules.LuaApp.Thunks.ApiFetchSearchInLibrary)
 
-return function(networkImpl, searchKeyword, optionalSettings)
+local thunkMap = {
+	[Constants.SearchTypes.Games] = function(store, ...)
+		return store:Dispatch(ApiFetchSearchInGames(...))
+	end,
+	-- [Constants.SearchTypes.Groups] = function(store, ...)
+	-- 	return store:Dispatch(ApiFetchSearchInGroups(...))
+	-- end,
+	-- [Constants.SearchTypes.Players] = function(store, ...)
+	-- 	return store:Dispatch(ApiFetchSearchInPlayers(...))
+	-- end,
+	-- [Constants.SearchTypes.Catalog] = function(store, ...)
+	-- 	return store:Dispatch(ApiFetchSearchInCatalog(...))
+	-- end,
+	-- [Constants.SearchTypes.Library] = function(store, ...)
+	-- 	return store:Dispatch(ApiFetchSearchInLibrary(...))
+	-- end,
+}
+
+return function(networkImpl, searchKeyword, searchType, optionalSettings)
 	if not searchKeyword then
-		return function(store)
+		return function()
 			Promise.reject("Must have a searchKeyword to search with.")
 		end
 	end
+	-- Default search Games, will need to update when design is done
+	if not searchType then
+		searchType = Constants.SearchTypes.Games
+	end
 	return function(store)
-		local argTableSearch = {
-			keyword = searchKeyword,
-		}
-		if optionalSettings then
-			for k, v in pairs(optionalSettings) do
-				argTableSearch[k] = v
-			end
+		if thunkMap[searchType] then
+			return thunkMap[searchType](store, networkImpl, searchKeyword, optionalSettings)
+		else
+			Promise.reject("We don't support this searchType.")
 		end
-
-		return GamesGetList(networkImpl, argTableSearch):andThen(function(result)
-			local totalGames = 0
-			local games = {}
-			local thumbnailTokens = {}
-			local placeIds = {}
-
-			for _,game in pairs(result.responseBody.games) do
-				totalGames = totalGames + 1
-				local gameIndex = tostring(game.placeId)
-				games[gameIndex] = game
-				table.insert(thumbnailTokens, game.imageToken)
-				table.insert(placeIds, gameIndex)
-			end
-
-			if totalGames == 0 then
-				warn("No Games found.")
-				return
-			end
-
-			local decodedGamesData = {}
-			for universeId, gameData in pairs(games) do
-				decodedGamesData[universeId] = Game.fromJsonData(gameData)
-			end
-
-			--adding the sets into "GameSorts"
-			store:Dispatch(AddGames(decodedGamesData))
-			store:Dispatch(SetGamesInSort("SearchResult", placeIds))
-
-			local fetchPromise = store:Dispatch(ApiFetchGameThumbnails(networkImpl, thumbnailTokens))
-			return fetchPromise
-		end)
 	end
 end

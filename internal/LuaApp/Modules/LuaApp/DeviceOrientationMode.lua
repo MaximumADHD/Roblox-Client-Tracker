@@ -1,7 +1,12 @@
+local LayoutClipRectStopUsingCamera = settings():GetFFlag("LayoutClipRectStopUsingCamera")
+
 local DeviceOrientationMode = {
 	Portrait = "Portrait",
 	Landscape = "Landscape",
-	Invalid = "Invalid",
 }
+
+if not LayoutClipRectStopUsingCamera then
+	DeviceOrientationMode.Invalid = "Invalid"
+end
 
 return DeviceOrientationMode

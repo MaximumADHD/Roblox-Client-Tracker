@@ -18,9 +18,8 @@ local Immutable = require(Modules.Common.Immutable)
 ]]
 
 return function(state, action)
-	
 	state = state or {
-		initialized = false, 
+		initialized = false,
 		friendsData = {}
 	}
 

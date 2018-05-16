@@ -244,6 +244,10 @@ RBX
 			PacketJob
 			StatsUpdateJob
 		}
+		DeserializePacketsJob
+		{
+			DummyArbiter
+		}
 		PhysicsSenderS2
 		{
 			JobS2
@@ -801,6 +805,7 @@ RBX
 	Kernel
 	KernelIndex
 	KernelJoint
+	KeyboardService
 	Keyframe
 	KeyframeSequence
 	KeyframeSequenceProvider
@@ -860,6 +865,7 @@ RBX
 	MotorJoint
 	Mouse
 	MouseCommand
+	MouseService
 	MoveDownSelectionVerb
 	MoveResizeJoinTool
 	MoveUpBrickVerb
@@ -909,6 +915,7 @@ RBX
 	Players
 	PlayerScripts
 	Plugin
+	PluginAction
 	PluginGui
 	PluginManager
 	PluginMouse

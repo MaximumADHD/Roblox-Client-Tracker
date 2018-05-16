@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 local Modules = CoreGui.RobloxGui.Modules
 
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+
 local Signal = require(Modules.Common.Signal)
 local Create = require(Modules.LuaChat.Create)
 local Constants = require(Modules.LuaChat.Constants)
@@ -79,7 +79,7 @@ function GameShareCard.new(appState, conversation)
 		sublabel.Parent = self.rbx
 	end
 
-	self.sendButton = TextButton.new(self.appState, "SendButton", StringsLocale.Keys.SEND)
+	self.sendButton = TextButton.new(self.appState, "SendButton", "Feature.Chat.Action.Send")
 	local label = self.sendButton.rbx.Label
 	label.TextColor3 = Constants.Color.GRAY1
 	label.TextSize = Constants.Font.FONT_SIZE_16
@@ -110,7 +110,7 @@ function GameShareCard.new(appState, conversation)
 		TextColor3 = Constants.Color.GRAY2,
 		Font = Enum.Font.SourceSans,
 		TextXAlignment = Enum.TextXAlignment.Right,
-		Text = self.appState.localization:Format(StringsLocale.Keys.SENT),
+		Text = self.appState.localization:Format("Feature.Chat.Label.Sent"),
 		Visible = false
 	}
 

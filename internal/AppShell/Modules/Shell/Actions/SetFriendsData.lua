@@ -1,7 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
 local Action = require(CoreGui.RobloxGui.Modules.Common.Action)
-local Immutable = require(CoreGui.RobloxGui.Modules.Common.Immutable)
-
 --[[
 	// friendsData is table
 	// Table keys:

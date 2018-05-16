@@ -9,7 +9,6 @@ local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Functional = require(Common.Functional)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
 local ToastModel = require(LuaChat.Models.ToastModel)
 local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
@@ -102,7 +101,7 @@ function FriendSearchBox.new(appState, participants, maxParticipantCount, filter
 				TextColor3 = Constants.Color.GRAY1,
 				Font = Enum.Font.SourceSans,
 				Text = "",
-				PlaceholderText = appState.localization:Format(StringsLocale.Keys.SEARCH_FOR_FRIENDS),
+				PlaceholderText = appState.localization:Format("Feature.Friends.Label.SearchFriends"),
 				PlaceholderColor3 = Constants.Color.GRAY3,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				OverlayNativeInput = true,
@@ -229,7 +228,7 @@ function FriendSearchBox:AddParticipant(userId)
 	if #self.participants >= self.maxParticipantCount then
 
 		if self.tooManyFriendsToastModel == nil then
-			local messageKey = StringsLocale.Keys.TOO_MANY_PEOPLE
+			local messageKey = "Feature.Chat.Message.ToastText"
 			local messageArguments = {
 				MAX_GROUP_SIZE = tostring(Constants.MAX_PARTICIPANT_COUNT+1),
 			}

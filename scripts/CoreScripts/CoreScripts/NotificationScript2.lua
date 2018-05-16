@@ -30,19 +30,13 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
-
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		if FFlagClientAppsUseRobloxLocale then
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		else
-			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-		end
+		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
 	end)
 	return rtv
 end

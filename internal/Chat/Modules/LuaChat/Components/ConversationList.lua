@@ -8,7 +8,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local Components = LuaChat.Components
 local LoadingIndicator = require(Components.LoadingIndicator)
@@ -126,7 +126,7 @@ function ConversationList.new(appState, conversations, entryCard)
 			Position = UDim2.new(0, 0, 1, -18),
 			TextSize = Constants.Font.FONT_SIZE_18,
 			TextColor3 = Constants.Color.GRAY3,
-			Text = appState.localization:Format(StringsLocale.Keys.NO_RESULTS_FOUND),
+			Text = appState.localization:Format("Feature.GameLeaderboard.Label.NoResults"),
 		}
 	}
 	self.noResultsFrame.Parent = self.rbx
@@ -163,7 +163,9 @@ function ConversationList:Update(current, previous)
 
 		local doUpdate = false
 
-		if conversation ~= existing or current.ChatAppReducer.Location.current ~= previous.ChatAppReducer.Location.current then
+		local didConversationChange = conversation ~= existing
+		local didLocationChange = current.ChatAppReducer.Location.current ~= previous.ChatAppReducer.Location.current
+		if didConversationChange or didLocationChange then
 			doUpdate = true
 		else
 			if userCache then

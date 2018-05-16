@@ -1,11 +1,10 @@
 return function()
+	local TabbedFrame = require(script.Parent.TabbedFrame)
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local Roact = require(Modules.Common.Roact)
-	local TabbedFrame = require(Modules.LuaApp.Components.TabbedFrame)
-	local StringsLocale = require(Modules.LuaApp.StringsLocale)
-	local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
-	local LocalizationService = game:GetService("LocalizationService")
-	local Localization = require(Modules.LuaApp.Localization)
+
+	local mockServices = require(Modules.LuaApp.TestHelpers.mockServices)
 
 	it("should create and destroy without errors if it has tabs", function()
 		local element = Roact.createElement(TabbedFrame, {
@@ -97,18 +96,17 @@ return function()
 	end)
 
 	it("should display localized text when provided", function ()
-		local text = StringsLocale.Keys.ABOUT
-		local localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)
-		local element = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = localization,
-		}, {
-			Roact.createElement(TabbedFrame, {
+		local text = "Feature.GameDetails.Label.About"
+
+		local element = mockServices({
+			TabbedFrame = Roact.createElement(TabbedFrame, {
 				tabs = {
 					{
-						label = {text},
-						content = function () return {
-							Decoy = Roact.createElement("Frame")
-						}
+						label = text,
+						content = function ()
+							return {
+								Decoy = Roact.createElement("Frame")
+							}
 						end,
 					}
 				},

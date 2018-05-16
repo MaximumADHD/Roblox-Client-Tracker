@@ -1,12 +1,13 @@
 local GuiService = game:GetService("GuiService")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
-local Modules = script.Parent
+local FlagSettings = require(Modules.LuaApp.FlagSettings)
 
-local ScreenRouter = require(Modules.ScreenRouter)
-local Device = require(Modules.Device)
-local DialogFrame = require(Modules.Views.DialogFrame)
+local ScreenRouter = require(Modules.LuaChat.ScreenRouter)
+local Device = require(Modules.LuaChat.Device)
+local DialogFrame = require(Modules.LuaChat.Views.DialogFrame)
 
-local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar") or UserSettings().GameSettings:InStudioMode()
+local UseLuaBottomBar = FlagSettings.IsLuaBottomBarEnabled()
 
 local ScreenManager = {}
 
@@ -101,7 +102,8 @@ function ScreenManager:Update(current, previous)
 		end
 	else
 		if current.ChatAppReducer.Location.current.popToIntent ~= nil then
-			while #self._stack > 1 and current.ChatAppReducer.Location.current.popToIntent ~= self:GetCurrentView().route.intent do
+			while #self._stack > 1
+				and current.ChatAppReducer.Location.current.popToIntent ~= self:GetCurrentView().route.intent do
 				self:PopView(self:GetCurrentView())
 			end
 		end

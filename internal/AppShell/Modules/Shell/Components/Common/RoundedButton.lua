@@ -27,7 +27,7 @@
 			OnSelectionGained : bool function() -
 								Fired when the GuiObject is being focused on with the Gamepad selector.
 								Return true if it should be focused. False otherwise.
-			OnSelectionLost : bool functon() -
+			OnSelectionLost : bool function() -
 								Fired when the Gamepad selector stops focusing on the GuiObject.
 								Return false if it should be un-focused. True otherwise.
 			OnActivated : function() - Fires when the button is activated.
@@ -128,7 +128,7 @@ function RoundedButton:render()
 
 	local textProps =
 	{
-		Text = text.Text,
+		Text = text.Text or "",
 		Size = text.Size or UDim2.new(1, 0, 1, 0),
 		Position = text.Position or UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = text.AnchorPoint or Vector2.new(0.5, 0.5),

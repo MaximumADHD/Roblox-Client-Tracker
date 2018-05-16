@@ -13,7 +13,7 @@ local Create = require(LuaChat.Create)
 local DialogInfo = require(LuaChat.DialogInfo)
 local Immutable = require(Common.Immutable)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local Components = LuaChat.Components
 local FriendSearchBoxComponent = require(Components.FriendSearchBox)
@@ -70,7 +70,7 @@ function EditChatGroup.new(appState, maxSize, convoId)
 	-- Header:
 	self.header = HeaderLoader.GetHeader(appState, Intent.EditChatGroup)
 	self.header:SetDefaultSubtitle()
-	self.header:SetTitle(appState.localization:Format(StringsLocale.Keys.ADD_FRIENDS))
+	self.header:SetTitle(appState.localization:Format("Feature.Chat.Label.AddFriends"))
 	self.header:SetBackButtonEnabled(true)
 
 	self.responseIndicator = ResponseIndicator.new(appState)
@@ -94,7 +94,7 @@ function EditChatGroup.new(appState, maxSize, convoId)
 		self.responseIndicator.rbx,
 	}
 
-	self.saveGroup = self.header:CreateHeaderButton("SaveGroup", StringsLocale.Keys.SAVE_ADDED_FRIENDS)
+	self.saveGroup = self.header:CreateHeaderButton("SaveGroup", "Feature.Chat.Action.Add")
 	self.saveGroup:SetEnabled(false)
 
 	self.header:AddButton(self.saveGroup)

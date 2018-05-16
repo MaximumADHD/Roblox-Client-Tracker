@@ -18,6 +18,8 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(Modules.Common.Roact)
 local ScreenManager = require(Modules.Shell.ScreenManager)
+local AppState = require(Modules.Shell.AppState)
+local RoactRodux = require(Modules.Common.RoactRodux)
 
 local RoactScreenManagerWrapper = {}
 RoactScreenManagerWrapper.__index = RoactScreenManagerWrapper
@@ -38,8 +40,11 @@ function RoactScreenManagerWrapper.new(roactComponent, parent, props, closeCallb
 	end
 
 	props.onUnmount = onUnmount
-
-	local element = Roact.createElement(roactComponent, props)
+	local element = Roact.createElement(RoactRodux.StoreProvider, {
+		store = AppState.store,
+	}, {
+		Roact.createElement(roactComponent, props)
+	})
 	self._instance = nil
 
 	function self:Show()

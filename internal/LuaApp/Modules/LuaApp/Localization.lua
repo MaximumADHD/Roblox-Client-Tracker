@@ -1,83 +1,47 @@
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+local LocaleTables = Modules.LuaApp.Locales
+local LocalizationContext = require(Modules.LuaApp.LocalizationContext)
+
+
+local function loadTables(locale)
+	local relevantLanguages = LocalizationContext.getRelevantLanguages(locale)
+	local translations = {}
+	for _,language in ipairs(relevantLanguages) do
+		local languageTable = LocaleTables:FindFirstChild(language)
+		if languageTable then
+			translations[language] = require(languageTable)
+		end
+	end
+	return translations
+end
+
 local Localization = {}
 Localization.__index = Localization
 
-local HttpService = game:GetService("HttpService")
-
-function Localization.new(stringsLocale, locale)
+function Localization.new(locale)
 
 	local self = {
-		stringsLocale = stringsLocale,
 		locale = locale,
 	}
 	setmetatable(self, {
 		__index = Localization,
 	})
 
-	local table = Instance.new("LocalizationTable")
-	table.SourceLocaleId = "en-us"
-	local content = HttpService:JSONEncode(self.stringsLocale.Content)
-	table:SetContents(content)
-	self.table = table
-
-	self:BuildFallbackTable()
-
+	local translations = loadTables(locale)
+	self.localizationContext = LocalizationContext.new(translations)
 	return self
+end
+
+function Localization.mock()
+	-- when running tests, use a mock object to get off the ground quickly
+	return Localization.new("en-us")
 end
 
 function Localization:SetLocale(locale)
 	self.locale = locale
-	self:BuildFallbackTable()
-end
-
-function Localization:BuildFallbackTable()
-	self.keyToFallbackLanguage = {}
-	for _, entry in ipairs(self.stringsLocale.Content) do
-		self.keyToFallbackLanguage[entry.key] = self:FindFallback(self.locale, entry.values)
-	end
-end
-
-function Localization:GetLocale(locale, languages)
-	if languages[locale] then
-		return locale
-	end
-	return nil
-end
-
-function Localization:GetDefaultDialect(locale, languages)
-	local language = locale:sub(1, 2)
-	for otherLanguage, _ in pairs(languages) do
-		if otherLanguage == language then
-			return language
-		end
-	end
-end
-
-function Localization:GetAlternativeDialect(locale, languages)
-	for otherLanguage, _ in pairs(languages) do
-		if otherLanguage:sub(1, 2) == locale then
-			return otherLanguage
-		end
-	end
-	return nil
-end
-
-function Localization:FindFallback(locale, languages)
-	local language = self:GetLocale(locale, languages)
-	if language ~= nil then
-		return language
-	end
-
-	language = self:GetDefaultDialect(locale, languages)
-	if language ~= nil then
-		return language
-	end
-
-	language = self:GetAlternativeDialect(locale, languages)
-	if language ~= nil then
-		return language
-	end
-
-	return self.stringsLocale.DefaultLanguage
+	local translations = loadTables(locale)
+	self.localizationContext:addTranslations(translations)
 end
 
 function Localization:Format(key, arguments)
@@ -85,12 +49,7 @@ function Localization:Format(key, arguments)
 		error("ERROR: NO STRING FOR KEY")
 	end
 
-	local string = self.table:GetString(self.keyToFallbackLanguage[key], key)
-	if arguments ~= nil then
-		for name, value in pairs(arguments) do
-			string = string:gsub("{%s*"..name.."%s*}", value)
-		end
-	end
+	local string = self.localizationContext:getString(self.locale, key, arguments)
 	return string
 end
 

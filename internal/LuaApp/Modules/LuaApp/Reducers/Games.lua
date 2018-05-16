@@ -7,10 +7,7 @@ return function(state, action)
 
 	if action.type == AddGames.name then
 		-- store the data from the games
-		for universeId, gameData in pairs(action.games) do
-			-- construct the store
-			state = Immutable.Set(state, universeId, gameData)
-		end
+		state = Immutable.JoinDictionaries(state, action.games)
 	end
 
 	return state

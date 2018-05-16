@@ -51,3 +51,7 @@ files["**/*.spec.lua"] = {
 files["**/*Locale.lua"] = {
 	ignore = { "631" }, --Line is too long
 }
+
+files["**/Locales/*.lua"] = {
+	ignore = { "631" }, --Line is too long
+}

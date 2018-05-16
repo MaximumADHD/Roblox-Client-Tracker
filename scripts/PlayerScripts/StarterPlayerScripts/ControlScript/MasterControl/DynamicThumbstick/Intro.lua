@@ -11,6 +11,7 @@ local IMAGE_INTRO_MOVE = "rbxasset://textures/ui/Input/IntroMove.png"
 local IMAGE_INTRO_CAMERA = "rbxasset://textures/ui/Input/IntroCamera.png"
 local IMAGE_INTRO_CAMERA_PINCH = "rbxasset://textures/ui/Input/IntroCameraPinch.png"
 local IMAGE_DASHED_LINE = "rbxasset://textures/ui/Input/DashedLine.png"
+local IMAGE_DASHED_LINE_90 = "rbxasset://textures/ui/Input/DashedLine90.png"
 local MIDDLE_TRANSPARENCIES = {
 	1 - 0.69,
 	1 - 0.50,
@@ -23,6 +24,7 @@ local MIDDLE_TRANSPARENCIES = {
 local MOVE_CAMERA_THRESHOLD = 50
 
 local ParentFrame = nil
+local GestureArea = nil
 local ThumbstickFrame = nil
 local StartImage, EndImage, MiddleImages = nil, nil, {}
 local IntroMoveImage = nil
@@ -30,7 +32,7 @@ local IntroJumpImage = nil
 local IntroJumpImageTap = nil
 local IntroCameraImage = nil
 local IntroCornerAnim = nil
-local IntroDashedLine = nil
+local IntroDashedLineTop, IntroDashedLineSide = nil
 local GenericFadeTweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 
 local IntroMoveSpriteSize = 128
@@ -58,6 +60,9 @@ local function create(className)
 end
 
 local Intro = {
+	running = false,
+	portraitMode = false,
+	
 	fadeThumbstick = nil,
 	fadeThumbstickFrame = nil,
 
@@ -69,8 +74,9 @@ local Intro = {
 	states = {},
 }
 
-function Intro.setup(isBigScreen, parentFrame, thumbstickFrame, startImage, endImage, middleImages)
+function Intro.setup(isBigScreen, parentFrame, gestureArea, thumbstickFrame, startImage, endImage, middleImages)
 	ParentFrame = parentFrame
+	GestureArea = gestureArea
 	ThumbstickFrame = thumbstickFrame
 	StartImage = startImage
 	EndImage = endImage
@@ -133,7 +139,7 @@ function Intro.setup(isBigScreen, parentFrame, thumbstickFrame, startImage, endI
 		AnchorPoint = Vector2.new(0.5, 0),
 		ZIndex = 10,
 		Visible = false,
-		Parent = ThumbstickFrame
+		Parent = GestureArea
 	}
 
 	IntroPinchImage = create("ImageLabel") {
@@ -142,20 +148,21 @@ function Intro.setup(isBigScreen, parentFrame, thumbstickFrame, startImage, endI
 		Image = IMAGE_INTRO_CAMERA_PINCH,
 		ImageRectOffset = Vector2.new(0, 0),
 		ImageRectSize = Vector2.new(IntroMoveSpriteSize, IntroMoveSpriteSize),
-		Position = UDim2.new(0.95, 0, -0.85, 0),
+		Position = UDim2.new(0.95, 0, 0.15, 0),
 		Size = UDim2.new(0, IntroMoveImageSize, 0, IntroMoveImageSize),
 		AnchorPoint = Vector2.new(1, 0),
 		Rotation = 50,
 		ZIndex = 10,
 		Visible = false,
-		Parent = ThumbstickFrame
+		Parent = GestureArea
 	}
 
-	IntroDashedLine = create("ImageLabel") {
+	IntroDashedLineTop = create("ImageLabel") {
 		Name = "DashedLine",
 		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 0, 0, -5),
-		Size = UDim2.new(1, 0, 0, 10),
+		Position = UDim2.new(0, 0, 0, 0),
+		Size = UDim2.new(1, -5, 0, 10),
+		AnchorPoint = Vector2.new(0, 0.5),
 		Image = IMAGE_DASHED_LINE,
 		ImageTransparency = 0.5, 
 		ScaleType = Enum.ScaleType.Tile,
@@ -163,6 +170,20 @@ function Intro.setup(isBigScreen, parentFrame, thumbstickFrame, startImage, endI
 		Visible = false,
 		Parent = ThumbstickFrame
 	}
+	
+	IntroDashedLineSide = IntroDashedLineTop:Clone()
+	IntroDashedLineSide.Image = IMAGE_DASHED_LINE_90
+	IntroDashedLineSide.Position = UDim2.new(1, 0, 0, -5)
+	IntroDashedLineSide.AnchorPoint = Vector2.new(0.5, 0)
+	IntroDashedLineSide.Size = UDim2.new(0, 10, 1, 0)
+	IntroDashedLineSide.TileSize = UDim2.new(0, 10, 0, 64)
+	IntroDashedLineSide.Parent = ThumbstickFrame
+end
+
+function Intro.setPortraitMode(portraitMode)
+	if not IntroDashedLineSide or not Intro.running then return end
+	Intro.portraitMode = portraitMode
+	IntroDashedLineSide.Visible = not portraitMode
 end
 
 function Intro.addState(stateName)
@@ -176,10 +197,15 @@ end
 function Intro.onCompleted()
 	--TODO: Remove this pcall when API is stable
 	pcall(function() GameSettings:SetOnboardingCompleted("DynamicThumbstick") end)
-	local fadeOut = TweenService:Create(IntroDashedLine, GenericFadeTweenInfo, { ImageTransparency = 1 })
-	fadeOut:Play()
-	fadeOut.Completed:wait()
-	IntroDashedLine.Visible = false
+	local fadeOutTop = TweenService:Create(IntroDashedLineTop, GenericFadeTweenInfo, { ImageTransparency = 1 })
+	local fadeOutSide = TweenService:Create(IntroDashedLineSide, GenericFadeTweenInfo, { ImageTransparency = 1})
+	fadeOutTop:Play()
+	fadeOutSide:Play()
+	fadeOutTop.Completed:wait()
+	IntroDashedLineTop.Visible = false
+	IntroDashedLineSide.Visible = false
+	
+	Intro.running = false
 end
 
 function Intro.setState(newState)
@@ -199,7 +225,7 @@ function Intro.repeatState()
 	Intro.currentState:start()
 end
 
-function Intro.stop()
+function Intro.pause()
 	if not Intro.currentState then return end
 	Intro.currentState:stop()
 	Intro.currentState = nil
@@ -218,14 +244,14 @@ end
 function Intro.onThumbstickMoved(dist)
 	if Intro.currentState == Intro.states.MoveThumbstick then
 		if dist > 100 then
-			Intro.stop()
+			Intro.pause()
 			spawn(function()
 				wait(0.5)
 				while StartImage.ImageTransparency ~= 1 do
 					wait()
 				end
 				if Intro.states.MoveThumbstick.counter == 2 then
-					Intro.setState(Intro.states.Jump)
+					Intro.setState(Intro.states.MoveCamera)
 				else
 					Intro.setState(Intro.states.MoveThumbstick)
 				end
@@ -238,7 +264,7 @@ end
 
 function Intro.onJumped()
 	if Intro.currentState == Intro.states.Jump then
-		Intro.stop()
+		Intro.pause()
 		spawn(function()
 			wait(1)
 			if Intro.states.Jump.counter > 1 then
@@ -259,7 +285,7 @@ end
 
 function Intro.onCameraZoomed()
 	if Intro.currentState == Intro.states.ZoomCamera then
-		Intro.stop()
+		Intro.pause()
 	end
 end
 
@@ -267,7 +293,17 @@ function Intro.play()
 	for _, state in pairs(Intro.states) do
 		state.counter = 0
 	end
+	Intro.running = true
 	Intro.currentState = nil
+	
+	local portraitMode = false
+	local currentCamera = workspace.CurrentCamera
+	if currentCamera then
+		portraitMode = currentCamera.ViewportSize.X < currentCamera.ViewportSize.Y
+	end
+	
+	Intro.setPortraitMode(portraitMode)
+	
 	Intro.setState(Intro.states.MoveThumbstick)
 end
 
@@ -277,8 +313,11 @@ Intro.addState("MoveThumbstick") do
 		EndImage.Visible = true
 		IntroMoveImage.Visible = true
 
-		IntroDashedLine.Visible = true
-		IntroDashedLine.ImageTransparency = 0.5
+		IntroDashedLineTop.Visible = true
+		
+		if not Intro.portraitMode then
+			IntroDashedLineSide.Visible = true
+		end
 
 		self.startedMoving = false
 
@@ -390,8 +429,8 @@ Intro.addState("MoveCamera") do
 		IntroCameraImage.Visible = true
 
 		local swipeInfo = TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut)
-		local swipeTweenLeft = TweenService:Create(IntroCameraImage, swipeInfo, { Position = UDim2.new(0.25, 0, -0.6, 0) })
-		local swipeTweenRight = TweenService:Create(IntroCameraImage, swipeInfo, { Position = UDim2.new(0.75, 0, -0.6, 0) })
+		local swipeTweenLeft = TweenService:Create(IntroCameraImage, swipeInfo, { Position = UDim2.new(0.25, 0, 0.25, 0) })
+		local swipeTweenRight = TweenService:Create(IntroCameraImage, swipeInfo, { Position = UDim2.new(0.75, 0, 0.25, 0) })
 
 		local camera = workspace.CurrentCamera
 		local cameraLookStart = camera.CFrame.lookVector
@@ -405,12 +444,10 @@ Intro.addState("MoveCamera") do
 		end)()
 
 		local function isInCameraArea(touchPos)
-			--if isPortraitMode then
-				if touchPos.Y < ThumbstickFrame.AbsolutePosition.Y then
-					return true
-				end
-
-			--end
+			return 
+				touchPos.X >= GestureArea.AbsolutePosition.X and touchPos.Y >= GestureArea.AbsolutePosition.Y and 
+				touchPos.X <  GestureArea.AbsolutePosition.X + GestureArea.AbsoluteSize.X and
+				touchPos.Y <  GestureArea.AbsolutePosition.Y + GestureArea.AbsoluteSize.Y
 		end
 
 		local touchObj = nil

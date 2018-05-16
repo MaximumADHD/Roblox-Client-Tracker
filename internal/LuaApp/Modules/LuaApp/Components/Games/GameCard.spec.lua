@@ -7,21 +7,39 @@ return function()
 	local AppReducer = require(Modules.LuaApp.AppReducer)
 	local GameCard = require(Modules.LuaApp.Components.Games.GameCard)
 
+	local Entry = require(Modules.LuaApp.Models.GameSortEntry)
+	local Game = require(Modules.LuaApp.Models.Game)
+
 	it("should create and destroy without errors", function()
 		local store = Rodux.Store.new(AppReducer)
+
+		local entry = Entry.mock()
+		entry.game = Game.mock()
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 			gameCard = Roact.createElement(GameCard, {
-				game = {
-					universeId = 1,
-					placeId = 1,
-					imageToken = "asdFGSAGwa23r",
-					name = "Murder Mystery 2",
-					playerCount = 4627,
-					totalUpVotes = 93,
-					totalDownVotes = 7,
-				},
+				entry = entry,
+			}),
+		})
+		local instance = Roact.reify(element)
+		Roact.teardown(instance)
+	end)
+
+	it("should create and destroy without errors when a game is sponsored", function()
+		local store = Rodux.Store.new(AppReducer)
+
+		local game = Game.mock()
+		local entry = Entry.fromJsonData({
+			placeId = game.placeId,
+			isSponsored = true,
+		})
+		entry.game = game
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+			gameCard = Roact.createElement(GameCard, {
+				entry = entry,
 			}),
 		})
 		local instance = Roact.reify(element)

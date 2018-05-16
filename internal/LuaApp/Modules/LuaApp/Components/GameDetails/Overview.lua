@@ -9,7 +9,7 @@ local LargeGameVoteBar = require(Modules.LuaApp.Components.LargeGameVoteBar)
 local Constants = require(Modules.LuaApp.Constants)
 local FitTextLabel = require(Modules.LuaApp.Components.FitTextLabel)
 local FitChildren = require(Modules.LuaApp.FitChildren)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+
 local LocalizedFitTextLabel = require(Modules.LuaApp.Components.LocalizedFitTextLabel)
 local LocalizedTextButton = require(Modules.LuaApp.Components.LocalizedTextButton)
 
@@ -208,7 +208,7 @@ function Overview:render()
 						Size = UDim2.new(0, 0, 1, 0),
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
-						Text = {StringsLocale.Keys.BY},
+						Text = "Feature.GameDetails.Label.By",
 						LayoutOrder = 1,
 					}),
 					Creator = Roact.createElement("TextButton", { -- TODO: make this button fit to contents
@@ -242,7 +242,7 @@ function Overview:render()
 					BackgroundColor3 = Constants.Color.GREEN_PRIMARY,
 					TextSize = PLAY_BUTTON_FONT_SIZE,
 					TextColor3 = Color3.new(1, 1, 1),
-					Text = {StringsLocale.Keys.PLAY_GAME},
+					Text = "Common.VisitGame.Label.Play",
 					BorderSizePixel = 0,
 					[Roact.Event.MouseButton1Click] = function()
 						-- TODO: jump into the game!

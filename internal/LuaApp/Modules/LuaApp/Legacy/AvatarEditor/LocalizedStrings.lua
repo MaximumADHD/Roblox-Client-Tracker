@@ -5,7 +5,6 @@ local CoreGui = game:GetService('CoreGui')
 local Modules = CoreGui:FindFirstChild("RobloxGui").Modules
 local Flags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local LoadAvatarEditorTranslations = Flags:GetFlag("LoadAvatarEditorTranslations")
-local FFlagClientAppsUseRobloxLocale = Flags:GetFlag('ClientAppsUseRobloxLocale')
 
 local this = {}
 
@@ -709,11 +708,7 @@ local AvatarEditorStringsTable = createLocalizationTable({
 
 function this:GetLocale()
 	if LoadAvatarEditorTranslations then
-		if FFlagClientAppsUseRobloxLocale then
-			return game:GetService("LocalizationService").RobloxLocaleId
-		else
-			return game:GetService("LocalizationService").SystemLocaleId
-		end
+		return game:GetService("LocalizationService").RobloxLocaleId
 	end
 	return "en-us"
 end

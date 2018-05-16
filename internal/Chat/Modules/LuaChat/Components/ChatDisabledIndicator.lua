@@ -9,7 +9,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 local Text = require(LuaChat.Text)
 local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
@@ -21,7 +21,7 @@ function ChatDisabledIndicator.new(appState)
 	local self = {}
 
 
-	local imageButtonText = appState.localization:Format(StringsLocale.Keys.PRIVACY_SETTINGS)
+	local imageButtonText = appState.localization:Format("Feature.Chat.Label.PrivacySettings")
 	local ibtWidth = Text.GetTextWidth(imageButtonText, Enum.Font.SourceSans, Constants.Font.FONT_SIZE_16)
 
 	local imageButton = Create.new "ImageButton" {
@@ -49,7 +49,7 @@ function ChatDisabledIndicator.new(appState)
 		}
 	}
 
-	local textLabelText = appState.localization:Format(StringsLocale.Keys.TURN_ON_CHAT)
+	local textLabelText = appState.localization:Format("Feature.Chat.Message.TurnOnChat")
 	local tltMaxWidth = 300
 	if Workspace.CurrentCamera then
 		tltMaxWidth = Workspace.CurrentCamera.ViewportSize.X-32

@@ -59,6 +59,7 @@ end
 local MIN_Y = math.rad(-80)
 local MAX_Y = math.rad(80)
 
+local DEFAULT_CAMERA_ANGLE = 25
 local VR_ANGLE = math.rad(15)
 
 local VR_LOW_INTENSITY_ROTATION = Vector2.new(math.rad(15), 0)
@@ -89,12 +90,13 @@ local SetCameraOnSpawn = true
 local hasGameLoaded = false
 
 local GestureArea = nil
+local GestureAreaManagedByControlScript = false
 
 --todo: remove this once TouchTapInWorld is on all platforms
 local touchWorkspaceEventEnabled = pcall(function() local test = UserInputService.TouchTapInWorld end)
 
 local function layoutGestureArea(portraitMode)
-	if GestureArea then
+	if GestureArea and not GestureAreaManagedByControlScript then
 		if portraitMode then
 			GestureArea.Size = UDim2.new(1, 0, .6, 0)
 			GestureArea.Position = UDim2.new(0, 0, 0, 0)
@@ -108,19 +110,6 @@ end
 -- Setup gesture area that camera uses while DynamicThumbstick is enabled
 local function OnCharacterAdded(character)
 	if UserInputService.TouchEnabled then
-		if PlayerGui then
-			local ScreenGui = Instance.new("ScreenGui")
-			ScreenGui.Name = "GestureArea"
-			ScreenGui.Parent = PlayerGui
-			
-			GestureArea = Instance.new("Frame")
-			GestureArea.BackgroundTransparency = 1.0
-			GestureArea.Visible = true
-			GestureArea.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-			layoutGestureArea(PortraitMode)
-			GestureArea.Parent = ScreenGui
-			
-		end
 		for _, child in ipairs(LocalPlayer.Character:GetChildren()) do
 			if child:IsA("Tool") then
 				IsAToolEquipped = true
@@ -136,6 +125,26 @@ local function OnCharacterAdded(character)
 				IsAToolEquipped = false
 			end
 		end)
+
+		if PlayerGui then
+			local TouchGui = PlayerGui:FindFirstChild("TouchGui")
+			if TouchGui and TouchGui:WaitForChild("GestureArea", 0.5) then
+				GestureArea = TouchGui.GestureArea
+				GestureAreaManagedByControlScript = true
+			else
+				GestureAreaManagedByControlScript = false
+				local ScreenGui = Instance.new("ScreenGui")
+				ScreenGui.Name = "GestureArea"
+				ScreenGui.Parent = PlayerGui
+				
+				GestureArea = Instance.new("Frame")
+				GestureArea.BackgroundTransparency = 1.0
+				GestureArea.Visible = true
+				GestureArea.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+				layoutGestureArea(PortraitMode)
+				GestureArea.Parent = ScreenGui
+			end
+		end
 	end
 end
 
@@ -215,6 +224,22 @@ local function CreateCamera()
 	local vrRotateKeyCooldown = {}
 	
 	local isDynamicThumbstickEnabled = false
+	local dynamicThumbstickFrame = nil
+	
+	local function getDynamicThumbstickFrame()
+		if dynamicThumbstickFrame and dynamicThumbstickFrame:IsDescendantOf(game) then
+			return dynamicThumbstickFrame
+		else
+			local touchGui = PlayerGui:FindFirstChild("TouchGui")
+			if not touchGui then return nil end
+			
+			local touchControlFrame = touchGui:FindFirstChild("TouchControlFrame")
+			if not touchControlFrame then return nil end
+			
+			dynamicThumbstickFrame = touchControlFrame:FindFirstChild("DynamicThumbstickFrame")
+			return dynamicThumbstickFrame
+		end
+	end
 	
 	-- Check for changes in ViewportSize to decide if PortraitMode
 	local CameraChangedConn = nil
@@ -747,7 +772,9 @@ local function CreateCamera()
 
 	local function OnTouchBegan(input, processed)
 		--If isDynamicThumbstickEnabled, then only process TouchBegan event if it starts in GestureArea
-		if (not touchWorkspaceEventEnabled and not isDynamicThumbstickEnabled) or positionIntersectsGuiObject(input.Position, GestureArea) then
+		
+		local dtFrame = getDynamicThumbstickFrame()
+		if (not touchWorkspaceEventEnabled and not isDynamicThumbstickEnabled) or positionIntersectsGuiObject(input.Position, GestureArea) and (not dtFrame or not positionIntersectsGuiObject(input.Position, dtFrame)) then
 			fingerTouches[input] = processed
 			if not processed then
 				inputStartPositions[input] = input.Position
@@ -821,7 +848,7 @@ local function CreateCamera()
 	
 	local function calcLookBehindRotateInput(torso)
 		if torso then
-			local newDesiredLook = (torso.CFrame.lookVector - Vector3.new(0,0.23,0)).unit
+			local newDesiredLook = (torso.CFrame.lookVector - Vector3.new(0, math.sin(math.rad(DEFAULT_CAMERA_ANGLE), 0))).unit
 			local horizontalShift = findAngleBetweenXZVectors(newDesiredLook, this:GetCameraLook())
 			local vertShift = math.asin(this:GetCameraLook().y) - math.asin(newDesiredLook.y)
 			if not IsFinite(horizontalShift) then
@@ -1260,7 +1287,8 @@ local function CreateCamera()
 			this.GamepadPanningCamera = ZERO_VECTOR2
 			return
 		end		
-		if input.UserInputType == this.activeGamepad and input.KeyCode == Enum.KeyCode.Thumbstick2 then			
+
+		if input.UserInputType == this.activeGamepad and input.KeyCode == Enum.KeyCode.Thumbstick2 then
 			local inputVector = Vector2.new(input.Position.X, -input.Position.Y)
 			if inputVector.magnitude > THUMBSTICK_DEADZONE then
 				this.GamepadPanningCamera = Vector2_new(input.Position.X, -input.Position.Y)
@@ -1325,53 +1353,6 @@ local function CreateCamera()
 				OnKeyUp(input, processed)
 			end
 		end)
-
-		if touchWorkspaceEventEnabled then
-			TouchActivateConn = UserInputService.TouchTapInWorld:connect(function(touchPos, processed)
-				if isDynamicThumbstickEnabled and not processed and not IsAToolEquipped and positionIntersectsGuiObject(touchPos, GestureArea) then
-					if lastTapTime and tick() - lastTapTime < MAX_TIME_FOR_DOUBLE_TAP then
-						local tween = {
-							from = this:GetCameraZoom(),
-							to = DefaultZoom,
-							start = tick(),
-							duration = 0.2,
-							func = function(from, to, alpha)
-								this:ZoomCamera(from + (to - from)*alpha)
-								return to
-							end
-						}
-						tweens["Zoom"] = tween
-					else
-						local humanoid = this:GetHumanoid()
-						if humanoid then
-							local player = PlayersService.LocalPlayer
-							if player and player.Character then
-								if humanoid and humanoid.Torso then
-									local tween = {
-										from = this.RotateInput,
-										to = calcLookBehindRotateInput(humanoid.Torso),
-										start = tick(),
-										duration = 0.2,
-										func = function(from, to, alpha)
-											to = calcLookBehindRotateInput(humanoid.Torso)
-											if to then
-												this.RotateInput = from + (to - from)*alpha
-											end
-											return to
-										end
-									}
-									tweens["Rotate"] = tween
-									
-									-- reset old camera info so follow cam doesn't rotate us
-									this.LastCameraTransform = nil
-								end
-							end
-						end
-					end
-					lastTapTime = tick()
-				end
-			end)
-		end
 
 		MenuOpenedConn = GuiService.MenuOpened:connect(function()
 			this:ResetInputStates()
@@ -1469,7 +1450,7 @@ local function CreateCamera()
 			end
 
 			if humanoid and humanoid.Torso and player.Character == newCharacter then
-				local newDesiredLook = (humanoid.Torso.CFrame.lookVector - Vector3.new(0,0.23,0)).unit
+				local newDesiredLook = (humanoid.Torso.CFrame.lookVector - Vector3.new(0, math.sin(math.rad(DEFAULT_CAMERA_ANGLE)), 0)).unit
 				local horizontalShift = findAngleBetweenXZVectors(newDesiredLook, this:GetCameraLook())
 				local vertShift = math.asin(this:GetCameraLook().y) - math.asin(newDesiredLook.y)
 				if not IsFinite(horizontalShift) then

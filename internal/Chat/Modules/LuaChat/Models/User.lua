@@ -4,7 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
 local LuaChat = script.Parent.Parent
 local MockId = require(LuaChat.MockId)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local User = {}
 
@@ -59,20 +59,20 @@ function User.userPresenceToText(localization, user)
 	end
 
 	if presence == User.PresenceType.OFFLINE then
-		return localization:Format(StringsLocale.Keys.OFFLINE)
+		return localization:Format("Common.Presence.Label.Offline")
 	elseif presence == User.PresenceType.ONLINE then
-		return localization:Format(StringsLocale.Keys.ONLINE)
+		return localization:Format("Common.Presence.Label.Online")
 	elseif presence == User.PresenceType.IN_GAME then
 		if lastLocation ~= nil then
 			return lastLocation
 		else
-			return localization:Format(StringsLocale.Keys.ONLINE)
+			return localization:Format("Common.Presence.Label.Online")
 		end
 	elseif presence == User.PresenceType.IN_STUDIO then
 		if lastLocation ~= nil then
 			return lastLocation
 		else
-			return localization:Format(StringsLocale.Keys.ONLINE)
+			return localization:Format("Common.Presence.Label.Online")
 		end
 	end
 end

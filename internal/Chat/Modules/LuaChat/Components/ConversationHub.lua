@@ -12,7 +12,6 @@ local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local DialogInfo = require(LuaChat.DialogInfo)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
 
 local Components = LuaChat.Components
 local ChatDisabledIndicator = require(Components.ChatDisabledIndicator)
@@ -95,7 +94,7 @@ function ConversationHub.new(appState)
 	self.isSearchOpen = false
 
 	local header = HeaderLoader.GetHeader(appState, Intent.ConversationHub)
-	header:SetTitle(appState.localization:Format(StringsLocale.Keys.CHAT))
+	header:SetTitle(appState.localization:Format("CommonUI.Features.Label.Chat"))
 	header:SetDefaultSubtitle()
 
 	header.rbx.Parent = self.rbx
@@ -282,7 +281,8 @@ function ConversationHub:Update(state, oldState)
 		self.createGroupButton:SetVisible(true)
 	end
 
-	if state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching ~= oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
+	if state.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
+		~= oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching then
 		self.list:Update(state, oldState)
 		self:getOlderConversationsForSearchIfNecessary()
 	end

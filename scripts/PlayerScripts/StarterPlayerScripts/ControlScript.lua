@@ -123,7 +123,7 @@ function getTouchModule()
 	if not IsUserChoice then
 		if DynamicThumbstickAvailable and DevMovementMode == Enum.DevTouchMovementMode.DynamicThumbstick then
 			module = DynamicThumbstickModule
-			isJumpEnabled = false
+			isJumpEnabled = true
 		elseif DevMovementMode == Enum.DevTouchMovementMode.Thumbstick then
 			module = ThumbstickModule
 			isJumpEnabled = true
@@ -146,7 +146,7 @@ function getTouchModule()
 	else
 		if DynamicThumbstickAvailable and UserMovementMode == Enum.TouchMovementMode.DynamicThumbstick then
 			module = DynamicThumbstickModule
-			isJumpEnabled = false
+			isJumpEnabled = true
 		elseif UserMovementMode == Enum.TouchMovementMode.Default or UserMovementMode == Enum.TouchMovementMode.Thumbstick then
 			module = ThumbstickModule
 			isJumpEnabled = true
@@ -434,7 +434,7 @@ local switchToInputType = function(newLastInputType)
 		ControlState:SwitchTo(ControlModules.VRNavigation)
 		return
 	end
-	
+
 	if lastInputType == Enum.UserInputType.Touch then
 				ControlState:SwitchTo(ControlModules.Touch)
 	elseif lastInputType == Enum.UserInputType.Keyboard or
@@ -480,11 +480,7 @@ end)
 switchToInputType(UserInputService:GetLastInputType())
 UserInputService.LastInputTypeChanged:connect(switchToInputType)
 
-VRService.Changed:connect(function(prop)
-	if prop ~= "VREnabled" then
-		return
-	end
-	
+VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()	
 	if VRService.VREnabled then
 		ControlState:SwitchTo(ControlModules.VRNavigation)
 	end

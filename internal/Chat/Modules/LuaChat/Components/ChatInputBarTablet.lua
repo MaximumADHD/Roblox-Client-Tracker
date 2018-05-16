@@ -8,7 +8,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 local Text = require(LuaChat.Text)
 local FFlagLuaChatResetKeyboardMode = settings():GetFFlag("LuaChatResetKeyboardMode")
 local getInputEvent = require(LuaChat.Utils.getInputEvent)
@@ -77,7 +77,7 @@ function ChatInputBar.new(appState)
 				ClearTextOnFocus = false,
 				ManualFocusRelease = true,
 				MultiLine = true,
-				PlaceholderText = appState.localization:Format(StringsLocale.Keys.CHAT_INPUT_PLACEHOLDER),
+				PlaceholderText = appState.localization:Format("Feature.Chat.Label.ChatInputPlaceholder"),
 				PlaceholderColor3 = Constants.Text.INPUT_PLACEHOLDER,
 			}
 		},

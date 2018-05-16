@@ -1,13 +1,18 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
-local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
-local SetDeviceOrientation = require(Modules.LuaApp.Actions.SetDeviceOrientation)
 
-return function(state, action)
-	state = state or DeviceOrientationMode.Invalid
+local LayoutClipRectStopUsingCamera = settings():GetFFlag("LayoutClipRectStopUsingCamera")
 
-	if action.type == SetDeviceOrientation.name then
-		return action.deviceOrientation
-	end
+-- When removing FFlag LayoutClipRectStopUsingCamera, DeviceOrientationOld.lua should
+-- be removed, and this file should be replaced with the contents of DeviceOrientationNew.lua
+-- then remove DeviceOrientationNew.lua
+-- This is to enable unit testing to cover all the cases with or without the
+-- flag set.
 
-	return state
+local DeviceOrientationFlagOff = require(Modules.LuaApp.Reducers.DeviceOrientationFlagOff)
+local DeviceOrientationFlagOn = require(Modules.LuaApp.Reducers.DeviceOrientationFlagOn)
+
+if LayoutClipRectStopUsingCamera then
+	return DeviceOrientationFlagOn
+else
+	return DeviceOrientationFlagOff
 end

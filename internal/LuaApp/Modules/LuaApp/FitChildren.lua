@@ -22,7 +22,6 @@ function FitChildren.wrap(component)
 	end
 
 	function connection:resize()
-		debug.profilebegin("FitChildren resize")
 		local fitFields = self.props.fitFields
 		if not fitFields then
 			if self.props.fitAxis then
@@ -69,7 +68,6 @@ function FitChildren.wrap(component)
 				end
 			end
 		end
-		debug.profileend()
 	end
 
 	function connection:resizeFromChildren(fitFields)
@@ -127,17 +125,19 @@ function FitChildren.wrap(component)
 
 	function connection:init()
 		self.signals = {}
-	end
 
-	function connection:render()
-		local frameProps = Immutable.RemoveFromDictionary(self.props, "fitAxis", "fitFields")
-
-		frameProps[Roact.Ref] = function(rbx)
+		self.ref = function(rbx)
 			self.frame = rbx
 			if self.props[Roact.Ref] then
 				self.props[Roact.Ref](rbx)
 			end
 		end
+	end
+
+	function connection:render()
+		local frameProps = Immutable.RemoveFromDictionary(self.props, "fitAxis", "fitFields")
+		frameProps[Roact.Ref] = self.ref
+
 		return Roact.createElement(component, frameProps)
 	end
 

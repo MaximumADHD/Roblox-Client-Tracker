@@ -8,7 +8,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 local Text = require(LuaChat.Text)
 local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
@@ -44,7 +44,7 @@ function ConversationSearchBox.new(appState)
 		TextSize = Constants.Font.FONT_SIZE_18,
 		TextColor3 = Constants.Color.WHITE,
 		Font = Enum.Font.SourceSans,
-		Text = appState.localization:Format(StringsLocale.Keys.CANCEL),
+		Text = appState.localization:Format("Feature.Chat.Action.Cancel"),
 		TextXAlignment = Enum.TextXAlignment.Center,
 		LayoutOrder = 1,
 	}
@@ -108,7 +108,7 @@ function ConversationSearchBox.new(appState)
 		TextColor3 = Constants.Color.GRAY1,
 		Font = Enum.Font.SourceSans,
 		Text = "",
-		PlaceholderText = appState.localization:Format(StringsLocale.Keys.SEARCH),
+		PlaceholderText = appState.localization:Format("Feature.Chat.Label.SearchWord"),
 		PlaceholderColor3 = Constants.Color.GRAY3,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		OverlayNativeInput = true,

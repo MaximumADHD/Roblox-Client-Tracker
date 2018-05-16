@@ -5,7 +5,6 @@
 		// Written by: jeditkacheff/jmargh
 		// Description: Handles in game purchases
 ]]--
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
 
 local success, result = pcall(function() return settings():GetFFlag('UsePurchasePromptLocalization') end)
 local FFlagUsePurchasePromptLocalization = success and result
@@ -23,11 +22,7 @@ local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		if FFlagClientAppsUseRobloxLocale then
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		else
-			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-		end
+		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
 	end)
 	return rtv
 end

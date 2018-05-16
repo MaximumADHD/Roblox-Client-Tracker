@@ -5,7 +5,6 @@
   // Description: Implementation of in game player list and leaderboard
 ]]
 local XboxToggleVoiceChatHotkey = settings():GetFFlag("XboxToggleVoiceChatHotkey")
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
 local XboxUserStateRoduxEnabled = settings():GetFFlag("XboxUserStateRodux")
 
 local CoreGui = game:GetService('CoreGui')
@@ -21,8 +20,6 @@ local GameSettings = Settings.GameSettings
 
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
-
-local XboxPlayerlistUseGetUserThumbnailAsyncEnabled = settings():GetFFlag("XboxPlayerlistUseGetUserThumbnailAsync")
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -192,11 +189,7 @@ local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		if FFlagClientAppsUseRobloxLocale then
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		else
-			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-		end
+		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
 	end)
 	return rtv
 end
@@ -246,8 +239,8 @@ local function getCustomPlayerIcon(player)
 end
 
 local function setAvatarIconAsync(player, iconImage)
-  -- this function is pretty much for xbox right now and makes use of modules that are part
-  -- of the xbox app. Please see Kip or Jason if you have any questions
+  -- this function is only used on Xbox
+  -- we require here with pcall because the module is only loaded on Xbox
   local thumbnailLoader = nil
   pcall(function()
     thumbnailLoader = require(RobloxGui.Modules.Shell.ThumbnailLoader)
@@ -255,15 +248,9 @@ local function setAvatarIconAsync(player, iconImage)
 
   local isFinalSuccess = false
   if thumbnailLoader then
-    if XboxPlayerlistUseGetUserThumbnailAsyncEnabled then
-      local loader = thumbnailLoader:LoadAvatarThumbnailAsync(iconImage, math.max(1, player.UserId),
-        Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size100x100, true)
-      isFinalSuccess = loader:LoadAsync(false, true, nil)
-    else
-      local loader = thumbnailLoader:Create(iconImage, math.max(1, player.UserId),
-        thumbnailLoader.Sizes.Small, thumbnailLoader.AssetType.Avatar, true)
-      isFinalSuccess = loader:LoadAsync(false, true, nil)
-    end
+    local loader = thumbnailLoader:LoadAvatarThumbnailAsync(iconImage, math.max(1, player.UserId),
+      Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size100x100, true)
+    isFinalSuccess = loader:LoadAsync(false, true, nil)
   end
 
   if not isFinalSuccess then

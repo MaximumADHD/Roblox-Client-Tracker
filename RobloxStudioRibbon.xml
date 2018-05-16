@@ -32,6 +32,7 @@
         <addaction name="fileOpenRecentSavesAction"/>
         <addaction name="publishGameAction"/>
         <addaction name="exportPlaceAction"/>
+        <addaction name="exportLuaApiAction"/>
         <addaction name="shortcutHelpAction"/>
         <addaction name="fastLogDumpAction"/>
         <addaction name="managePluginsAction"/>

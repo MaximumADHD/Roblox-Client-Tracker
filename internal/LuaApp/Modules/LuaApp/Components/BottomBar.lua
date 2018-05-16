@@ -10,10 +10,11 @@ local RoactRodux = require(Modules.Common.RoactRodux)
 local Constants = require(Modules.LuaApp.Constants)
 local AppPage = require(Modules.LuaApp.AppPage)
 local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
+local FlagSettings = require(Modules.LuaApp.FlagSettings)
 
 local BottomBarButton = require(Modules.LuaApp.Components.BottomBarButton)
 
-local UseLuaBottomBar = settings():GetFFlag("UseLuaBottomBar") or UserSettings().GameSettings:InStudioMode()
+local UseLuaBottomBar = FlagSettings.IsLuaBottomBarEnabled()
 
 local HomeButtonDefaultImage = "rbxasset://textures/ui/LuaApp/icons/ic-home.png"
 local GamesButtonDefaultImage = "rbxasset://textures/ui/LuaApp/icons/ic-games.png"
@@ -48,6 +49,14 @@ end
 local function broadcastNotification(notification, type)
 	if not _G.__TESTEZ_RUNNING_TEST__ then
 		GuiService:BroadcastNotification(notification, type)
+	end
+end
+
+local function getSystemBottomBarHeight()
+	if not _G.__TESTEZ_RUNNING_TEST__ then
+		return UserInputService.BottomBarSize.Y
+	else
+		return 0
 	end
 end
 
@@ -104,7 +113,13 @@ function BottomBar:render()
 		associatedPageType = AppPage.More,
 	})
 
+	local uiListLayout = Roact.createElement("UIListLayout", {
+		FillDirection = Enum.FillDirection.Horizontal,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+	})
+
 	local portraitButtons = {
+		UIListLayout = uiListLayout,
 		HomeButton = homeButton,
 		GamesButton = gamesButton,
 		AvatarButton = avatarButton,
@@ -113,6 +128,7 @@ function BottomBar:render()
 	}
 
 	local landscapeButtons = {
+		UIListLayout = uiListLayout,
 		HomeButton = homeButton,
 		GamesButton = gamesButton,
 		CatalogButton = catalogButton,
@@ -122,15 +138,21 @@ function BottomBar:render()
 		MoreButton = moreButton,
 	}
 
-	local children = deviceOrientation == DeviceOrientationMode.Landscape and
-		landscapeButtons or portraitButtons
+	local children = {}
 
-	children["TopLine"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, 1),
-		BorderSizePixel = 0,
-		BackgroundTransparency = 0,
-		BackgroundColor3 = Constants.Color.GRAY_SEPARATOR,
-	})
+	if deviceOrientation == DeviceOrientationMode.Portrait then
+		children = portraitButtons
+	elseif deviceOrientation == DeviceOrientationMode.Landscape then
+		children = {
+			Frame = Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(0.92, 0, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+			}, landscapeButtons),
+		}
+	end
 
 	return Roact.createElement(Roact.Portal, {
 		target = CoreGui,
@@ -139,6 +161,14 @@ function BottomBar:render()
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			DisplayOrder = displayOrder,
 		}, {
+			TopLine = Roact.createElement("Frame", {
+				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(1, 0, 0, 1),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 0,
+				BackgroundColor3 = Constants.Color.GRAY_SEPARATOR,
+				ZIndex = 2,
+			}),
 			Contents = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0.5, 0),
 				Position = UDim2.new(0.5, 0, 1, 0),
@@ -146,6 +176,7 @@ function BottomBar:render()
 				BorderSizePixel = 0,
 				BackgroundTransparency = 0,
 				BackgroundColor3 = Constants.Color.WHITE,
+				ZIndex = 1,
 			}, children)
 		}),
 	})
@@ -180,8 +211,8 @@ function BottomBar:updateInset(visible)
 	-- Android device might still have BottomBarSize when we HIDE_TAB_BAR
 	-- Which is for system virtual navigation bar
 	-- And BottomBarSize might also change while app is running depends on the device
-	setGlobalGuiInset(0, 0, 0, self.bottomBarSize + UserInputService.BottomBarSize.Y)
-	if not self.bottomBarSizeListener then
+	setGlobalGuiInset(0, 0, 0, self.bottomBarSize + getSystemBottomBarHeight())
+	if not self.bottomBarSizeListener and not _G.__TESTEZ_RUNNING_TEST__ then
 		self.bottomBarSizeListener = UserInputService:GetPropertyChangedSignal("BottomBarSize"):Connect(function()
 			setGlobalGuiInset(0, 0, 0, self.bottomBarSize + UserInputService.BottomBarSize.Y)
 		end)

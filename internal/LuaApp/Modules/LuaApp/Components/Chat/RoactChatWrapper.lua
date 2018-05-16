@@ -8,7 +8,7 @@ local RoactRodux = require(Modules.Common.RoactRodux)
 local ChatMaster = require(Modules.ChatMaster)
 local AppPage = require(Modules.LuaApp.AppPage)
 
-local RoactChatWrapper = Roact.Component:extend("RoactChatWrapper")
+local RoactChatWrapper = Roact.PureComponent:extend("RoactChatWrapper")
 local APP_READY = GuiService:GetNotificationTypeList().APP_READY
 
 local PageTypeToChatType = {
@@ -45,6 +45,9 @@ function RoactChatWrapper:updateChat()
 		self.isPageOpen = true
 		self.currentPageType = pageType
 
+		-- Staging broadcasting of APP_READY to accomodate for unpredictable
+		-- delay on the native side.
+		-- Once Lua tab bar is integrated, there will be no use for this
 		GuiService:BroadcastNotification(pageType, APP_READY)
 	elseif self.isPageOpen and not self.props.isVisible then
 		self.chatMaster:Stop(self.currentPageType)

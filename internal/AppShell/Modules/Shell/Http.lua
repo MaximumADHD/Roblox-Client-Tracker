@@ -7,14 +7,18 @@
 				// use rbxGetAsync() and rbxPostAsync()
 			// Any calls to api.roblox.com should use HttpRbxApiService
 				// use rbxApiGetAsync() and rbxApiPostAsync()
+			// For calls to new services like avatar.roblox.com use game:HttpGetAsync()
+				// user rbxGetAsync() and rbxPostAsync()
 
 			// NOTE: You cannot currently get thumbnails with this API (please see the Thumbnail module), because
 			// Roblox GUIs cannot accept rbxcnd.com for the Image property.
-]]
 
---[[ Services ]]--
-local HttpService = game:GetService('HttpService')
-local HttpRbxApiService = game:GetService('HttpRbxApiService')
+			// NOTE: game:HttpGetAsync() can no longer be used in networked DataModels.
+			// You may need to move endpoint call to C++ if you need to use an
+			// endpoint in-game
+]]
+local HttpService = game:GetService("HttpService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
@@ -26,9 +30,8 @@ local IsNewUsernameCheckEnabled = settings():GetFFlag("XboxUseNewValidUsernameCh
 
 local Http = {}
 
-local BaseUrl = game:GetService('ContentProvider').BaseUrl:lower()
+local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
 BaseUrl = string.gsub(BaseUrl, "/m.", "/www.")
--- TODO: There are some calls that fail when using https. Wait for web to fix.
 BaseUrl = string.gsub(BaseUrl, "http://", "https://")
 
 local AssetGameBaseUrl = string.gsub(BaseUrl, "https://www.", "https://assetgame.")
@@ -37,7 +40,7 @@ local AccountSettingsUrl = string.gsub(BaseUrl, "https://www.", "https://account
 Http.BaseUrl = BaseUrl
 Http.AssetGameBaseUrl = AssetGameBaseUrl
 
---[[ Helper Functions ]]--
+-- Helper Functions
 local function decodeJSON(json)
 	if json == nil or #json == 0 then
 		return nil
@@ -109,604 +112,555 @@ local function rbxApiPostAsync(path, params, throttlePriority, contentType)
 	return decodeJSON(result)
 end
 
---[[ Public API ]]--
-
---[[ Helper Functions ]]--
-function Http.DecodeJSON(json)
-	return decodeJSON(json)
+local function buildServiceUrl(service)
+	return string.format("https://%s.roblox.com", service)
 end
 
---[[ Games Endpoints ]]--
+-- Game Endpoints
 
 --[[
-		// Return Array of tables
-		// Table Keys
-			// Id - number
-			// Name - string
-			// TimeOptionsAvailable - boolean
-			// DefaultTimeOption - number
-			// GenresOptionsAvailable - boolean
-			// NumberOfRows - number
-			// GameSetTargetId - number
+	Response json
+	[
+		{
+			"Id": 0,
+			"Name": "string",
+			"TimeOptionsAvailable": false,
+			"DefaultTimeOption": 0,
+			"GenresOptionsAvailable": true,
+			"NumberOfRows": 0,
+			"GameSetTargetId": 0
+		},
+	]
 ]]
 function Http.GetGameSortsAsync()
-	return rbxGetAsync(BaseUrl..'games/default-sorts')
+	return rbxGetAsync(BaseUrl.."games/default-sorts")
 end
 
---[[ Curated Game sort Endpoints ]]--
-
 --[[
-		// Return table
-		// Table Keys
-			// Paging - table
-				// previousCursor - string
-				// previousUrl - string
-				// nextCursor - string
-				// nextUrl - string
-			// Data - Array of Tables
-			// Table Keys
-				// CreatorID - number
-				// CreatorName- string
-				// CreatorUrl - string
-				// Plays - number
-				// Price - number
-				// ProductID - number
-				// IsOwned - boolean
-				// IsVotingEnabled - boolean
-				// TotalUpVotes - number
-				// TotalDownVotes - number
-				// TotalBought - number
-				// UniverseID - number
-				// HasErrorOcurred - boolean
-				// GameDetailReferralUrl - string
-				// Url - string
-				// RetryUrl - string
-				// Final - boolean
-				// Name - string
-				// PlaceID - number
-				// PlayerCount - number
-				// ImageId - number
+	Respone json
+	{
+		"data": [
+			{
+				"CreatorID": 0,
+				"CreatorName": "string",
+				"CreatorUrl": "string",
+				"Plays": 0,
+				"Price": 0,
+				"ProductID": 0,
+				"IsOwned": false,
+				"IsVotingEnabled": true,
+				"TotalUpVotes": 0,
+				"TotalDownVotes": 0,
+				"TotalBought": 0,
+				"UniverseID": 0,
+				"HasErrorOcurred":false,
+				"GameDetailReferralUrl": "string",
+				"Url": "string",
+				"RetryUrl": "string",
+				"Final": true,
+				"Name": "string",
+				"PlaceID": 0,
+				"PlayerCount": 0,
+				"ImageId": 0,
+				"IsSecure": false,
+				"ShowExperimentalMode": false
+			},
+		]
+		"paging" {
+			"previousCursor": "string",
+			"previousUrl": "string",
+			"nextCursor": "string",
+			"nextUrl": "string"
+		}
+	}
 ]]
 function Http.GetCuratedSortAsync(gameSetTargetId, maxRows)
 	local path = string.format("%sgames/set?GameSetTargetId=%d&MaxRows=%d", BaseUrl, gameSetTargetId, maxRows)
---	Utility.DebugLog("Http.GetCuratedSortAsync path: ", path)
 	return rbxGetAsync(path)
 end
 
 -- the subsequent page request's maxRows depends on the first request (Http.GetCuratedSortAsync)
 -- the maxRows info is included in pageUrl
+-- this has the same response as Http.GetCuratedSortAsync
 function Http.GetCuratedSortByUrlAsync(pageUrl)
---	Utility.DebugLog("Http.GetCuratedSortByUrlAsync path: ", pageUrl)
 	return rbxGetAsync(pageUrl)
 end
 
 --[[
-	All Sorts return the following json
-
-		// Returns Array of Tables
-		// Table Keys
-			// CreatorID - number
-			// CreatorName- string
-			// CreatorUrl - string
-			// Plays - number
-			// Price - number
-			// ProductID - number
-			// IsOwned - boolean
-			// IsVotingEnabled - boolean
-			// TotalUpVotes - number
-			// TotalDownVotes - number
-			// TotalBought - number
-			// UniverseID - number
-			// HasErrorOcurred - boolean
-			// Name - string
-			// PlaceID - number
-			// PlayerCount - number
-			// ImageId - number
+	Response json
+	[
+		{
+			"CreatorID": 0,
+			"CreatorName": "string",
+			"CreatorUrl": "string",
+			"Plays": 0,
+			"Price": 0,
+			"ProductID": 0,
+			"IsOwned": false,
+			"IsVotingEnabled": true,
+			"TotalUpVotes": 0,
+			"TotalDownVotes": 0,
+			"TotalBought": 0,
+			"UniverseID": 0,
+			"HasErrorOcurred": false,
+			"GameDetailReferralUrl": "string",
+			"Url": "string",
+			"RetryUrl": "string",
+			"Final": true,
+			"Name": "string",
+			"PlaceID": 0,
+			"PlayerCount": 0,
+			"ImageId": 0,
+			"IsSecure": false,
+			"ShowExperimentalMode": false
+		},
+	]
 ]]
 function Http.GetSortAsync(startRows, maxRows, sortId, timeFilter)
-	local path = string.format("%sgames/list-json?sortFilter=%d&StartRows=%d&MaxRows=%d&searchAllGames=false&filterByDeviceType=true",
+	local path =
+		string.format("%sgames/list-json?sortFilter=%d&StartRows=%d&MaxRows=%d&searchAllGames=false&filterByDeviceType=true",
 		BaseUrl, sortId, startRows, maxRows)
 
 	if timeFilter then
 		path = string.format("%s&timeFilter=%d", path, timeFilter)
 	end
---	Utility.DebugLog("Http.GetSortAsync path: ", path)
+
 	return rbxGetAsync(path)
 end
 
+-- Response, see Http.GetSortAsync
 function Http.GetUserFavoritesAsync(startRows, maxRows)
-	local path = string.format("%sgames/moreresultsuncached-json?sortFilter=MyFavorite&StartRows=%d&MaxRows=%d&searchAllGames=true&filterByDeviceType=true",
+	local path = string.format("%sgames/moreresultsuncached-json?sortFilter=MyFavorite&StartRows=%d&"..
+		"MaxRows=%d&searchAllGames=true&filterByDeviceType=true",
 		BaseUrl, startRows, maxRows)
 
 	return rbxGetAsync(path)
 end
 
+-- Response, see Http.GetSortAsync
 function Http.GetUserRecentAsync(startRows, maxRows)
-	local path = string.format("%sgames/moreresultsuncached-json?sortFilter=MyRecent&StartRows=%d&MaxRows=%d&searchAllGames=true&filterByDeviceType=true",
+	local path = string.format("%sgames/moreresultsuncached-json?sortFilter=MyRecent&StartRows=%d&"..
+		"MaxRows=%d&searchAllGames=true&filterByDeviceType=true",
 		BaseUrl, startRows, maxRows)
 
 	return rbxGetAsync(path)
 end
 
+-- Response, see Http.GetSortAsync
 function Http.GetUserPlacesAsync(startIndex, pageSize, userid)
-	local path = string.format("%sgames/list-users-games-json?userid=%d&startIndex=%d&pageSize=%d", BaseUrl, userid, startIndex, pageSize)
+	local path = string.format("%sgames/list-users-games-json?userid=%d&startIndex=%d&pageSize=%d",
+		BaseUrl, userid, startIndex, pageSize)
 
 	return rbxGetAsync(path)
 end
 
--- Here for future use
+-- Response, see Http.GetSortAsync
 function Http.SearchGamesAsync(startRows, maxRows, keyword)
-	local path = string.format("%sgames/list-json?keyword=%s&StartRows=%d&MaxRows=%d&filterByDeviceType=true", BaseUrl, HttpService:UrlEncode(keyword), startRows, maxRows)
+	local path = string.format("%sgames/list-json?keyword=%s&StartRows=%d&MaxRows=%d&filterByDeviceType=true",
+		BaseUrl, HttpService:UrlEncode(keyword), startRows, maxRows)
 
 	return rbxGetAsync(path)
 end
 
---[[ Asset Endpoints ]]--
-
 --[[
-		// Returns Table
-		// Table Keys
-			// Url - string
-			// Final - boolean
-]]
-function Http.GetAssetThumbnailFinalAsync(assetId, width, height, format)
-	return rbxGetAsync(AssetGameBaseUrl..'asset-thumbnail/json?assetId='..tostring(assetId)..'&width='..tostring(width)..
-		'&height='..tostring(height)..'&format='..format)
-end
-
---[[
-		// See Above
-]]
-function Http.GetAssetAvatarFinalAsync(userId, width, height, format)
-	local result = rbxGetAsync(BaseUrl..'avatar-thumbnail/json?userId='..tostring(userId)..'&width='..tostring(width)..
-		'&height='..tostring(height)..'&format='..format)
-	return result
-end
-
-function Http.GetOutfitThumbnailFinalAsync(outfitId, width, height, format)
-	local requestData = {['userOutfitId'] = outfitId}
-	local requestDataJson = HttpService:JSONEncode(requestData)
-	local encodedRequestData = requestDataJson and HttpService:UrlEncode(requestDataJson) or ""
-
-	local url = string.format('%savatar-thumbnails?params=%s', BaseUrl, encodedRequestData)
-	Utility.DebugLog("Get outfit thumbnail url:", url)
-
-	local result = rbxGetAsync(url)
-	return result
-end
-
---[[ Game Endpoints ]]--
-
---[[
-		// Return Table
-		// Table Keys
-			// AssetId - number
-    		// Name - string
-    		// Description - string
-    		// Created - string date (m/dd/yyyy)
-    		// Updated - string date (m/dd/yyyy)
-    		// FavoritedCount - number
-    		// Url - string url ex : "/games/192800/Work-at-a-Pizza-Place"
-    		// ReportAbuseUrl - string url ex : "/abusereport/asset?id=192800&RedirectUrl=%2fgames%2f192800%2fWork-at-a-Pizza-Place",
-    		// IsFavoritedByUser - boolean
-    		// IsCreatedByUser - boolean
-    		// VisitedCount - number
-    		// MaxPlayers - number
-    		// Builder - string
-    		// BuilderId - number
-    		// BuilderUrl - string url ex: "/User.aspx?ID=82471"
-    		// IsPlayable - boolean
-    		// ReasonProhibited - string
-    		// ReasonProhibitedMessage - string
-    		// IsBuildersClubOnly - boolean
-    		// IsCopyLocked - boolean
-    		// IsPersonalServer - boolean
-    		// IsPersonalServerOverlay - boolean
-    		// BuildersClubOverlay - string
-    		// PlayButtonType - string (Enum?)
-    		// AssetGenre - string
-    		// AssetGenreViewModel - table
-    		//     DisplayName - string
-    		//     Id - number
-    		// OnlineCount - number
-    		// UniverseId - number
-    		// UniverseRootPlaceId - number
-    		// TotalUpVotes - number
-    		// TotalDownVotes - number
-    		// UserVote - null (?)
-    		// OverridesDefaultAvatar - boolean
-
+	Response json
+	{
+		"AssetId": 0,
+		"Name": "string",
+		"Description": "string",
+		"Created": "string",
+		"Updated": "string",
+		"FavoritedCount": 0,
+		"Url": "string",
+		"ReportAbuseAbsoluteUrl": "string",
+		"IsFavoritedByUser": false,
+		"IsFavoritesUnavailable": false,
+		"UserCanManagePlace": false,
+		"VisitedCount": 0,
+		"MaxPlayers": 8,
+		"Builder": "string",
+		"BuilderId": 0,
+		"BuilderAbsoluteUrl": "string",
+		"IsPlayable": true,
+		"ReasonProhibited": "string",
+		"ReasonProhibitedMessage": "string",
+		"IsBuildersClubOnly": false,
+		"IsCopyingAllowed": true,
+		"BuildersClubOverlay": "string",
+		"PlayButtonType": "string",
+		"AssetGenre": "string",
+		"AssetGenreViewModel": {
+			"DisplayName": "string",
+			"Id": 0
+		},
+		"OnlineCount": 0,
+		"UniverseId": 0,
+		"UniverseRootPlaceId": 0,
+		"TotalUpVotes": 0,
+		"TotalDownVotes": 0,
+		"UserVote": true,
+		"OverridesDefaultAvatar": false,
+		"UsePortraitMode": false,
+		"IsExperimental": false,
+		"Price": 0
+	}
 ]]
 function Http.GetGameDetailsAsync(placeId)
-	return rbxGetAsync(BaseUrl..'places/api-get-details?assetId='..tostring(placeId))
+	return rbxGetAsync(BaseUrl.."places/api-get-details?assetId="..tostring(placeId))
 end
 
 --[[
-		// Returns Table
-		// Table Keys
-			// Id - number
-			// PlaceId - number
-			// ImageId - number
-			// IconUrl - string
-			// IconFinal - boolean
-			// WikiUrl - string
-			// ReleaseDate - string
-			// IconUpdateSuccess - boolean
-			// IconUpdateMessage - string
+	Response json
+	{
+		"Id": 0,
+		"PlaceId": 0,
+		"ImageId": 0,
+		"IconUrl": "string",
+		"IconFinal": true,
+		"WikiUrl": "string",
+		"ReleaseDate": "string",
+		"IconUpdateSuccess": true,
+		"IconUpdateMessage": "string"
+	}
 ]]
 function Http.GetGameIconIdAsync(placeId)
-	return rbxGetAsync(BaseUrl..'places/icons/json?placeId='..tostring(placeId))
+	return rbxGetAsync(BaseUrl.."places/icons/json?placeId="..tostring(placeId))
 end
 
 --[[
-		// Return Table
-		// Table Keys
-			// ShowVotes - boolean
-			// VotingModel - table
-				// ShowVotes - boolean
-				// UpVotes - number
-				// DownVotes - number
-				// CanVote - boolean
-				// UserVote - boolean / null if user has not voted on this game
-				// ReasonForNotVoteable - string
-					// Will be empty if CanVote is true
-					// Otherwise, it can be InvalidAssetOrUser / AssetNotVoteable / FloodCheckThresholdMet / PlayGame / UseModel / InstallPlugin / BuyGamePass
+	Response json
+	{
+		"VotingModel":{
+			"ShowVotes": true,
+			"UpVotes": 0,
+			"DownVotes": 0,
+			"CanVote": false,
+			"UserVote": false,
+			"HasVoted": false,
+			"ReasonForNotVoteable": "string"
+		},
+		"ShowVotes": true
+	}
 ]]
 function Http.GetGameVotesAsync(placeId)
-	return rbxGetAsync(BaseUrl..'PlaceItem/GameDetailsVotingPanelJson?placeId='..tostring(placeId))
+	return rbxGetAsync(BaseUrl.."PlaceItem/GameDetailsVotingPanelJson?placeId="..tostring(placeId))
 end
 
 --[[
-		// Returns Array of tables - Length should always be 6
-		// Table Keys
-			// PlaceId - number
-			// GameName - string
-			// GameSeoUrl - string
-			// Creator - table
-				// CreatorName - string
-				// CreatorTargetId - number
-				// CreatorType - number
-			// GameThumbnail - table
-				// Url - string
-				// IsFinal - boolean
-				// AssetId - number
-				// AssetType - number
-				// AssetHash - can be null
-			// ImageId - number, NEW
+	Response json
+	[
+		{
+			"Creator":{
+				"CreatorName": "string",
+				"CreatorTargetId": 0,
+				"CreatorType": 0
+			},
+			"GameName": "string",
+			"GameSeoUrl": "string",
+			"GameThumbnail": {
+				"AssetId": 0,
+				"AssetHash": null,
+				"AssetTypeId": 0,
+				"Url": "string",
+				"IsFinal": true
+			},
+			"PlaceId": 0,
+			"ImageId": 0
+		},
+	]
 ]]
 function Http.GetRecommendedGamesAsync(currentPlaceId)
-	return rbxGetAsync(BaseUrl..'Games/GetRecommendedGamesJson?currentPlaceId='..tostring(currentPlaceId))
+	return rbxGetAsync(BaseUrl.."Games/GetRecommendedGamesJson?currentPlaceId="..tostring(currentPlaceId))
 end
 
 --[[
-		// Returns Table
-		// Table Keys
-			// IsMobile - boolean
-			// IsVideoAutoplayedOnReady - boolean
-			// thumbnailCount - number
-			// thumbnails - array of tables
-				// Tabke Keys
-					// AssetId - number
-					// AssetTypeId - number
-					// Url - string
-					// IsFinal - boolean
-					// AssetHash - can be null
+	Response json
+	{
+		"IsJpegThumbnailEnabled": true,
+		"PlaceId": 0,
+		"thumbnails": [
+			{
+				"AssetId": 0,
+				"AssetHash":null,
+				"AssetTypeId": 0,
+				"Url": "string",
+				"IsFinal": true
+			}
+		],
+		"thumbnailCount": 1,
+		"IsVideoAutoplayedOnReady": false,
+		"ShowYouTubeVideo": true,
+		"IsMobile": false,
+		"PlaceThumbnailsResources": {
+			"LabelNext": "string",
+			"LabelPrevious": "string",
+			"State": 0
+		}
+	}
 ]]
 function Http.GetGameThumbnailsAsync(placeId)
-	return rbxGetAsync(BaseUrl..'thumbnail/place-thumbnails?placeId='..tostring(placeId))
+	return rbxGetAsync(BaseUrl.."thumbnail/place-thumbnails?placeId="..tostring(placeId))
 end
 
 --[[
-		// Returns Table
-		// Table Keys
-			// PlaceId - number
-			// GameBadges - array of tables
-				// BadgeAssetId - number
-				// IsOwned - boolean
-				// Rarity - number
-				// RarityName - string
-				// TotalAwarded - number
-				// TotalAwardedYesterday - number
-				// Created - string
-				// Updated - string
-				// BadgeSeoUrl - string
-				// CreatorId - number
-				// ImageUrl - string (DO NOT USE)
-				// IsImageUrlFinal - boolean
-				// Name - string
-				// Description - string
+	Response json
+	{
+		"PlaceId": 0,
+		"GameBadges": [
+			{
+				"BadgeAssetId": 0,
+				"CreatorId": 0,
+				"IsOwned": true,
+				"Rarity": 0,
+				"RarityName": "string",
+				"TotalAwarded": 0,
+				"TotalAwardedYesterday": 0,
+				"Created": "string",
+				"Updated": "string",
+				"AssetSeoUrl": "string",
+				"Thumbnail": {
+					"Final": false,
+					"Url": "string",
+					"RetryUrl": "string",
+					"UserId": 0,
+					"EndpointType": "string"
+				},
+				"Name": "string",
+				"FormatName": "string",
+				"Description": "string",
+				"AssetRestrictionIcon": null
+			},
+		],
+			"GameBadgesResources": {
+				"HeadingGameBadges":"Game Badges",
+				"LabelRarityCakeWalk":"Cake Walk",
+				"LabelRarityChallenging":"Challenging",
+				"LabelRarityEasy":"Easy",
+				"LabelRarityExtreme":"Extreme",
+				"LabelRarityFreebie":"Freebie",
+				"LabelRarityHard":"Hard",
+				"LabelRarityImpossible":"Impossible",
+				"LabelRarityInsane":"Insane",
+				"LabelRarityModerate":"Moderate",
+				"LabelRarity":"Rarity",
+				"LabelSeeMore":"See More",
+				"LabelWonEver":"Won Ever",
+				"LabelWonYesterday":"Won Yesterday",
+				"State":0
+			}
+	}
 ]]
 function Http.GetGameBadgeDataAsync(placeId)
-	return rbxGetAsync(BaseUrl..'badges/list-badges-for-place/json?placeId='..tostring(placeId))
+	return rbxGetAsync(BaseUrl.."badges/list-badges-for-place/json?placeId="..tostring(placeId))
 end
 
 --[[
-		// Returns Table
-		// Table Keys
-			// PlaceId - number
-			// totalItems - number
-			// IsViewerPlaceOwner - boolean
-			// data - array of tables
-				// PassID - number
-				// PassName - string
-				// TotalSales - number
-				// PriceInRobux - number
-				// PriceInTickets - number
-				// Description - string
-				// UserOwns - boolean
-				// PassItemURL - string
-				// ProductID - number
-				// TotalUpVotes - number
-				// TotalDownVotes - number
-				// UserVote - null if user has not voted
-				// TotalFavorites - number
-				// IsFavoritedByUser - boolean
-				// PlaceOwnerId - number
-				// PlaceOwnerName - string
+	Response json
+	{
+		"success": true,
+		"message": "string"
+	}
 ]]
-function Http.GetGamePassesAsync(placeId, startIndex, maxRows)
-	return rbxGetAsync(BaseUrl..'Games/GetGamePassesPaged?placeId='..tostring(placeId)..
-		'&startIndex='..tostring(startIndex)..'&maxRows='..tostring(maxRows))
+function Http.PostFavoriteToggleAsync(assetId)
+	return rbxPostAsync(BaseUrl.."favorite/toggle?assetID="..tostring(assetId), "favoriteToggle")
 end
 
 --[[
-		// Returns table
-		// Table Keys
-			// PlaceId - number
-			// totalItems - number
-			// IsViewerPlaceOwner - boolean
-			// data - array of tables
-				// Name - string
-				// Description - string
-				// PriceInRobux - number
-				// PriceInTickets - number
-				// ProductID - number
-				// AssetID - number
-				// TotalSales - number
-				// UserOwns - boolean
-				// SellerID - number
-				// SellerName - string
-				// ItemUrl - string
-				// IsRentable - boolean
-				// PromotionID - number
-				// BCRequirement - number
-				// IsForSale - boolean
-				// TotalUpVotes - number
-				// TotalDownVotes - number
-				// UserVote - boolean, can be null if user has not voted
-				// TotalFavorites - number
-				// IsFavoritedByUser - boolean
-				// AffiliateSalePlaceId - number
+	Response json
+	{
+		"Success": true,
+		"Message": "string",
+		"ModalType": "string",
+		"Model": {
+			"ShowVotes": true,
+			"UpVotes": 0,
+			"DownVotes": 0,
+			"CanVote": true,
+			"UserVote": true,
+			"HasVoted": false,
+			"ReasonForNotVoteable": "string"
+		}
+	}
 ]]
-function Http.GetPlaceProductsAsync(placeId, startIndex, maxRows)
-	return rbxGetAsync(BaseUrl..'Games/GetPlaceProductPromotions?placeId='..tostring(placeId)..
-		'&startIndex='..tostring(startIndex)..'&maxRows='..tostring(maxRows))
-end
-
---[[
-		// Returns table
-		// Table Keys
-			// PlaceId - number
-			// TotalCollectionSize - number
-			// ShowShutdownAllButton - boolean
-			// Collection - Array of tables
-				// Table Keys
-					// PlaceId - number
-					// Capacity - number
-					// UserCanJoin - boolean
-					// ServerIpAddress - string
-					// Fps - number
-					// Guid - string
-					// JoinScript - string
-					// ShowSlowGameMessage - boolean
-					// Ping - number
-					// CurrentPlayers - array of tables
-						// Table Keys
-							// Id - number
-							// Username - string
-							// Thumbnail - table
-								// Table Keys
-									// AssetId - number
-									// AssetTypeId - number
-									// Url - string
-									// IsFinal - boolean
-									// AssetHash - can be null
-]]
-function Http.GetGameInstancesAsync(placeId, startIndex)
-	return rbxGetAsync(BaseUrl..'Games/GetGameInstancesJson?placeId='..tostring(placeId)..'&startIndex='..tostring(startIndex))
-end
-
---[[
-		// Returns table
-		// Table Keys
-			// success - boolean
-			// message - string (is Whoa. Slow Down.)
-]]
-function Http.PostFavoriteToggleAsync(assetID)
-	return rbxPostAsync(BaseUrl..'favorite/toggle?assetID='..tostring(assetID), 'favoriteToggle')
-end
-
--- TODO: Need to test flood check
---[[
-		// Returns Table
-		// Table Keys
-			// Success - boolean
-			// Model - table
-			// ModalType - string | Will be FloodCheckThresholdMet, PlayGame, EmailIsVerified
-			// Table Keys
-				// UserVote - boolean
-				// ShowVotes - boolean
-				// CanVote - boolean
-				// DownVotes - number
-				// UpVotes - number
-]]
--- status can be true, false or null (null is a neutral vote)
 function Http.PostGameVoteAsync(assetId, status)
-	return rbxPostAsync(BaseUrl..'voting/vote?assetId='..tostring(assetId)..'&vote='..tostring(status), 'vote')
+	return rbxPostAsync(BaseUrl.."voting/vote?assetId="..tostring(assetId).."&vote="..tostring(status), "vote")
 end
 
---[[ Social ]]--
+-- Social
 
 --[[
-		// Returns Table
-		// Table Keys
-			// GameId - number (can be null)
-			// IsOnline - boolean
-			// LastOnline - string
-			// LastLocation - string
-			// LocationType - number
-			// PlaceId - number (can be null)
+	Response json - none
 ]]
-function Http.GetUserPresenceAsync(userId)
-	return rbxApiGetAsync('users/'..tostring(userId)..'/onlinestatus')
-end
-
 function Http.RegisterAppPresence()
-	return rbxApiPostAsync('presence/register-app-presence', "",
+	return rbxApiPostAsync("presence/register-app-presence", "",
 		Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson)
 end
 
 --[[
-		// Returns table
-		// Table Keys
-			// UserPresences - array of tables
-				// Table Keys
-					// VisitorId - number
-					// GameId - number or null
-					// IsOnline - boolean
-					// LastOnline - string
-					// LastLocation - string
-					// LocationType - number/enum
-					// PlaceId - number
+	Response json
+	{
+		"userId": 0,
+		"isEnabled": true,
+		"created": "string",
+		"updated": "string"
+	}
 ]]
-function Http.GetUsersOnlinePresenceAsync(listOfUsers)
-	--rbxApiPostAsync(path, params, useHttps, throttlePriority, contentType)
-	return rbxApiPostAsync('users/online-status', listOfUsers,
-		Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson)
-end
-
---[[
-		// Returns Table
-		// Table Keys
-			// UserId - number
-			// TotalFriends - number
-			// CurrentPage - number
-			// PageSize - number
-			// TotalPages - number
-			// Friends - Array of Tables
-				// Table Keys
-					// UserId - number
-					// Username - string
-					// AvatarUri - string
-					// AvatarFinal - boolean
-					// InvitationId - number
-					// FriendshipStatus - number
-					// OnlineStatus - table
-						// Table Keys
-							// LocationOrLastSeen - string
-							// ImageUrl - string
-							// AlternateText - string
-]]
-function Http.GetFriendsAsync(userId, currentPage, pageSize)
-	return rbxGetAsync(BaseUrl..'friends/json?userId='..tostring(userId)..'&currentPage='..tostring(currentPage)..'&pageSize='..tostring(pageSize)..
-		'&friendsType=1')
-end
-
 function Http.GetCrossplayEnabledStatusAsync()
-	return rbxApiGetAsync('user/CrossPlayStatus')
+	return rbxApiGetAsync("user/CrossPlayStatus")
 end
 
 --[[
-		// See Http.GetFriendsAsync
+	Response json
+	{
+		"success": true
+	}
 ]]
-function Http.GetRequestedFriendsAsync(userId, currentPage, pageSize)
-	return rbxGetAsync(BaseUrl..'friends/json?userId='..tostring(userId)..'&currentPage='..tostring(currentPage)..'&pageSize='..tostring(pageSize)..
-		'&friendsType=3')
+function Http.PostCrossplayStatusAsync(value)
+	return rbxApiPostAsync("user/CrossPlayStatus?isEnabled="..tostring(value), "")
 end
 
 --[[
-		// Returns array of tables
-		// Table Keys
-			// VisitorId - number
-			// GameId - string (hash)
-			// IsOnline - boolean
-			// LastOnline - string
-			// LastLocation - string
-			// LocationType - number (enum)
-			// PlaceId - number
-
+	Response json
+	{
+		{
+			"VisitorId": 0,
+			"GameId": "string",
+			"IsOnline": true,
+			"LastOnline": "string",
+			"LastLocation": "string",
+			"LocationType": 0,
+			"PlaceId": 0,
+			"UserName": "string"
+		},
+	}
 ]]
 function Http.GetOnlineFriendsAsync()
-	return rbxApiGetAsync('my/friendsonline')
+	return rbxApiGetAsync("my/friendsonline")
 end
 
+-- Account
+
 --[[
-			// Returns Table
+	Response json
+	{
+		"Robux": 0
+	}
 ]]
 function Http.GetPlatformUserBalanceAsync()
-	return rbxApiGetAsync('my/platform-currency-budget')
-end
-function Http.GetTotalUserBalanceAsync()
-	return rbxApiGetAsync('currency/balance')
+	return rbxApiGetAsync("my/platform-currency-budget")
 end
 
 --[[
-			// Returns true if the user owns the asset, otherwise, returns false
+	Response json
+	{
+		"robux": 0
+	}
 ]]
-function Http.GetUserOwnsAssetAsync(userId, assetId)
-	-- local BaseUrl = 'http://api.sitetest2.robloxlabs.com/'
-	return rbxApiGetAsync(BaseUrl..'ownership/hasasset?userId='..tostring(userId)..'&assetId='..tostring(assetId))
+function Http.GetTotalUserBalanceAsync()
+	return rbxApiGetAsync("currency/balance")
 end
 
 --[[
-			// Returns Table
-			// Table Keys
-				// IsValid - boolean
-			 	// Data - Table of keys
-			 		// Table Keys
-			 			// TotalItems - number
-			 			// Start - number
-			 			// End - number
-			 			// Page - number
-			 			// Items - Array of tables
-			 				// Table Keys
-			 					// Item - Table
-			 						// Table Keys
-			 							// AssetId - number
-			 							// Name - string
-					  			// Creator - Table
-					  				// Table Keys
-					  					// Id - number
-					  					// Name - string
-					  					// Type - number
-					  			// Product - Table
-					  				// Table Keys
-					  					// PriceInRobux - number (nullable)
-					  					// PriceInTickets - - number (nullable)
-					  					// IsForSale - boolean
-					  					// IsPublicDomain - boolean
-					  					// IsResellable - boolean
-					  					// IsLimitedEdition - boolean
-					  					// IsUnique - boolean
-					  					// ExpireTime - time (nullable)
-					  					// IsExpired - boolean
-
-					  		// OTHER JUNK
-					  "PrivateServer":null,
-					  "Thumbnail": {"Final":true,"Url":"http://t4.rbxcdn.com/213527c418b9ea4fc7bbcfb79afd770f","RetryUrl":null}
-						},
+	Response json
+	{
+		"IsValid": true
+		"Data": {
+			"TotalItems": null,
+			"Start": 0,
+			"End": 0,
+			"Page": 0,
+			"nextPageCursor": "string",
+			"previousPageCursor": "string",
+			"ItemsPerPage":0 ,
+			"PageType": "string",
+			"Items": [
+				{
+					"AssetRestrictionIcon": {
+						"TooltipText": "string",
+						"CssTag": "string",
+						"LoadAssetRestrictionIconCss": true,
+						"HasTooltip": false
+					},
+					"Item":{
+						"AssetId": 0,
+						"Name": "string",
+						"AbsoluteUrl": "string",
+						"AssetType": 0,
+						"AssetTypeFriendlyLabel": "string",
+						"Description": "string",
+						"Genres": "string",
+						"GearAttributes": "string",
+						"AssetCategory": 0,
+						"CurrentVersionId": 0,
+						"IsApproved": false,
+						"LastUpdated": "string",
+						"LastUpdatedBy": "string",
+						"AudioUrl": "string"
+					},
+					"Creator":{
+						"Id": 1,
+						"Name": "string",
+						"Type": 1,
+						"CreatorProfileLink": "string"
+					},
+					"Product":{
+						"Id": 0,
+						"PriceInRobux": 0,
+						"IsForSale": false,
+						"IsPublicDomain": true,
+						"IsResellable": false,
+						"IsLimited": false,
+						"IsLimitedUnique": false,
+						"SerialNumber": 0,
+						"IsRental": false,
+						"RentalDurationInHours": 0,
+						"BcRequirement": 0,
+						"TotalPrivateSales": 0,
+						"SellerId": 0,
+						"SellerName": "string",
+						"LowestPrivateSaleUserAssetId": 0,
+						"IsXboxExclusiveItem": false,
+						"OffsaleDeadline": "string",
+						"NoPriceText": "string",
+						"IsFree": true
+					},
+					"PrivateServer": false,
+					"Thumbnail": {
+						"Final": true,
+						"Url": "string",
+						"RetryUrl": "string",
+						"IsApproved": false
+					},
+					"UserItem":{
+						"UserAsset": 0,
+						"IsItemOwned": false,
+						"ItemOwnedCount": 0,
+						"IsRentalExpired": false,
+						"IsItemCurrentlyRented": false,
+						"CanUserBuyItem": false,
+						"RentalExpireTime": "string",
+						"CanUserRentItem": false
+					}
+				}
+			]
+		}
+	}
 ]]
 function Http.GetUserOwnedPackagesAsync(userId, currentPage)
 	currentPage = currentPage or 1
 	local packageAssetIdType = 32
-	-- return rbxGetAsync('http://www.sitetest2.robloxlabs.com/' ..'users/inventory/list-json?userId='..tostring(userId)..
-	-- 	'&assetTypeId='..tostring(packageAssetIdType)..'&pageNumber='..tostring(currentPage))
-	return rbxGetAsync(BaseUrl..'users/inventory/list-json?userId='..tostring(userId)..
-		'&assetTypeId='..tostring(packageAssetIdType)..'&pageNumber='..tostring(currentPage))
+
+	return rbxGetAsync(BaseUrl.."users/inventory/list-json?userId="..tostring(userId)..
+		"&assetTypeId="..tostring(packageAssetIdType).."&pageNumber="..tostring(currentPage))
 end
 
 
---Get all wearing assetids
+--[[
+	Response
+
+	returns a semi-colon separated list of urls
+	this is why we need to parse out the assetIds
+]]
 function Http.GetWornAssetsAsync(userId)
 	local url = string.format(BaseUrl..'Asset/AvatarAccoutrements.ashx?userId=%d', userId)
 	local assetIdsStr = rbxGetAsync(url, true)
@@ -723,82 +677,146 @@ function Http.GetWornAssetsAsync(userId)
 	return assetIds
 end
 
---Get all assetids for pacakge
+-- Avatar/Inventory
+
+--[[
+	Response json - array of assetIds
+	[]
+]]
 function Http.GetAssetIdsForPackageIdAsync(packageId)
-	local url = string.format(BaseUrl..'Game/GetAssetIdsForPackageId?packageId=%d', packageId)
+	local url = string.format("%sGame/GetAssetIdsForPackageId?packageId=%d", BaseUrl, packageId)
 	return rbxGetAsync(url)
 end
 
-
-function Http.PostCrossplayStatusAsync(value)
-	return rbxApiPostAsync('user/CrossPlayStatus?isEnabled='..(value and 'true' or 'false'), '')
-end
-
+--[[
+	Response json
+	{
+		"success": true
+	}
+]]
 function Http.PostWearAssetAsync(assetId)
-	--local BaseUrl = 'http://api.gametest5.robloxlabs.com/'
-	return rbxApiPostAsync('appearance/set-clothing?assetIds='..tostring(assetId), '')
+	return rbxApiPostAsync("appearance/set-clothing?assetIds="..tostring(assetId), "")
 end
 
--- @ Params
--- productId - integer number of the id of the product (different from assetId)
--- expectedPrice - integer for how much of the currency is required to purchase
--- expectedSellerId - UserId integer for the seller of the product
--- expectedCurrency - integer denoting whether the currency is robux or tickets
---                    1 = robux
-
--- @ Example result is a table:
--- balanceAfterSale 197620
--- sl_translate title, errorMsg
--- AssetID 86500185
--- shortfallPrice -197620
--- errorMsg You already own this item.
--- statusCode 500
--- title Item Owned
--- currentPrice 25
--- expectedPrice 25
--- showDivID TransactionFailureView
--- expectedCurrency 1
--- currentCurrency 1
+--[[
+	Response json
+	{
+		"sl_translate": "string",
+		"AssetID": 0,
+		"AssetName": "string",
+		"AssetType": "string",
+		"AssetIsWearable": true,
+		"SellerName": "string",
+		"TransactionVerb": "string",
+		"Price": 0,
+		"Currency": 0,
+		"IsMultiPrivateSale": false
+	}
+]]
 function Http.PurchaseProductAsync(productId, expectedPrice, expectedSellerId, expectedCurrency)
-	-- local formattedUrl = BaseUrl .. 'API/Item.ashx?rqtype=purchase' ..
-	-- 					           '&productID=' .. tostring(productId) ..
-	-- 					           '&expectedCurrency=' .. tostring(expectedCurrency) ..
-	-- 					           '&expectedPrice=' .. tostring(expectedPrice) ..
-	-- 					           '&expectedSellerID=' .. tostring(expectedSellerId)
-	local formattedUrl = string.format('%sAPI/Item.ashx?rqtype=purchase&productID=%d&expectedCurrency=%d&expectedPrice=%d&expectedSellerID=%d', BaseUrl, productId, expectedCurrency, expectedPrice, expectedSellerId)
-	Utility.DebugLog('PurchaseProductAsync:' , formattedUrl)
-	return rbxPostAsync(formattedUrl, '')
-	-- path, params, contentType)
-	-- return http://www.roblox.com/API/Item.ashx?rqtype=purchase&productID=24805065&expectedCurrency=1&expectedPrice=88&expectedSellerID=1
+	local formattedUrl = string.format("%sAPI/Item.ashx?rqtype=purchase&productID=%d&expectedCurrency="..
+		"%d&expectedPrice=%d&expectedSellerID=%d",
+		BaseUrl, productId, expectedCurrency, expectedPrice, expectedSellerId)
+	return rbxPostAsync(formattedUrl, "")
 end
 
-
-
--- Sample response:
---[=[
-	{Products = {{AssetTypeId = 32, IconImageAssetId = 0, IsNew = false, Updated = '2015-08-03T22:26:25.447Z', IsLimitedUnique = false, ProductId = 9187002, MinimumMembershipLevel = 1, Created = '2011-08-05T21:50:20.67Z', Creator = {Name = 'Roblox', Id = 1}, IsLimited = false, ContentRatingTypeId = 0, AssetId = 58537634, IsPublicDomain = false, Name = 'Knight of the Splintered Sky', IsForSale = true, Description = 'He fights bravely along side his brothers and the Knights of Redcliff to defeat the evil Korblox and their zombies.', PriceInRobux = 1000, Sales = 19}}}
---]=]
+--[[
+	Response json
+	{
+		"Products": [
+			{
+				"TargetId": 0,
+				"ProductType": "string",
+				"AssetId": 0,
+				"ProductId": 0,
+				"Name": "string",
+				"Description": "string",
+				"AssetTypeId": 0,
+				"Creator": {
+					"Id": 0,
+					"Name": "string",
+					"CreatorType": "string",
+					"CreatorTargetId": 0
+				},
+				"IconImageAssetId": 0,
+				"Created": "string",
+				"Updated": "string",
+				"PriceInRobux": 0,
+				"PriceInTickets": null,
+				"Sales": 0,
+				"IsNew": false,
+				"IsForSale": true,
+				"IsPublicDomain": false,
+				"IsLimited": false,
+				"IsLimitedUnique": false,
+				"Remaining": 0,
+				"MinimumMembershipLevel": 0,
+				"ContentRatingTypeId": 0
+			},
+		]
+	}
+]]
 function Http.GetXboxProductsAsync(startIndex, count)
 	startIndex = startIndex or 0
 	count = count or 100
-	local url = string.format('xbox/catalog/contents?startIndex=%d&count=%d', startIndex, count)
+	local url = string.format("xbox/catalog/contents?startIndex=%d&count=%d", startIndex, count)
 	return rbxApiGetAsync(url)
 end
 
-function Http.GetXboxCurrentlyWearingPackageAsync()
-	local url = string.format('xbox/currently-wearing')
-	return rbxApiGetAsync(url)
-end
-
------
-
+--[[
+	Response - redirects to the cdn url; game engine takes care of this
+]]
 function Http.GetThumbnailUrlForAsset(assetId, width, height)
 	width = width or 420
 	height = height or 420
-	return AssetGameBaseUrl .. 'Thumbs/Asset.ashx?width='..tostring(width)..'&height='..tostring(height)..'&assetId='..tostring(assetId)
+
+	return AssetGameBaseUrl.."Thumbs/Asset.ashx?width="..tostring(width).."&height="..tostring(height)..
+		"&assetId="..tostring(assetId)
 end
 
--- Report Abuse
+--[[
+	Response json
+	{
+		"Url": "string",
+		"Final": true,
+		"SubstitutionType": 0
+	}
+]]
+function Http.GetAssetThumbnailFinalAsync(assetId, width, height, format)
+	return rbxGetAsync(AssetGameBaseUrl.."asset-thumbnail/json?assetId="..tostring(assetId).."&width="..tostring(width)..
+		"&height="..tostring(height).."&format="..format)
+end
+
+--[[
+	Response json
+	{
+		"Url": "string",
+		"Final": true,
+		"SubstitutionType": 0
+	}
+]]
+function Http.GetAssetAvatarFinalAsync(userId, width, height, format)
+	local result = rbxGetAsync(BaseUrl..'avatar-thumbnail/json?userId='..tostring(userId)..'&width='..tostring(width)..
+		'&height='..tostring(height)..'&format='..format)
+	return result
+end
+
+--[[
+]]
+function Http.GetOutfitThumbnailFinalAsync(outfitId, width, height, format)
+	local requestData = {["userOutfitId"] = outfitId}
+	local requestDataJson = HttpService:JSONEncode(requestData)
+	local encodedRequestData = requestDataJson and HttpService:UrlEncode(requestDataJson) or ""
+
+	local url = string.format("%savatar-thumbnails?params=%s", BaseUrl, encodedRequestData)
+
+	local result = rbxGetAsync(url)
+	return result
+end
+
+--[[
+	Response json - none
+]]
 function Http.ReportAbuseAsync(reportingItemTypeName, reportingItemId, reportCategoryId, comment)
 	local jsonPostBody = {
 		reportingItemTypeName = reportingItemTypeName;
@@ -808,27 +826,42 @@ function Http.ReportAbuseAsync(reportingItemTypeName, reportingItemId, reportCat
 	}
 	local params = HttpService:JSONEncode(jsonPostBody)
 	if params then
-		return rbxApiPostAsync('moderation/reportabuse', params,
+		return rbxApiPostAsync("moderation/reportabuse", params,
 			Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson)
 	end
 end
 
---- Achievements
+-- Achievements
+
+--[[
+	Response json
+	{
+		"count": 1
+	}
+]]
 function Http.GetConsecutiveDaysLoggedInAsync()
-	local url = string.format('/xbox/get-login-consecutive-days')
+	local url = string.format("/xbox/get-login-consecutive-days")
 	return rbxApiGetAsync(url)
 end
 
+--[[
+	Response json
+	{
+		"UserId": 0,
+		"TargetType": "string",
+		"PlatformTypeId": 0,
+		"VoteCount": 0
+	}
+]]
 function Http.GetVoteCountAsync()
-	local url = string.format('/user/get-vote-count?targetType=Place')
+	local url = string.format("/user/get-vote-count?targetType=Place")
 	return rbxApiGetAsync(url)
 end
+
 -- Account Linking
+
 --[[
-			// Returns table
-			// Table Keys
-				// IsValid - boolean
-				// ErrorMessage - string
+	Response - TODO
 ]]
 function Http.IsValidUsername(username)
 	if not username then
@@ -836,31 +869,30 @@ function Http.IsValidUsername(username)
 	end
 
 	if IsNewUsernameCheckEnabled then
-		local url = string.format("%sv1/xbox/is-username-valid?username=%s", AccountSettingsUrl, HttpService:UrlEncode(username))
+		local url = string.format("%sv1/xbox/is-username-valid?username=%s",
+			AccountSettingsUrl, HttpService:UrlEncode(username))
 		return rbxGetAsync(url)
 	else
-		local url = string.format('signup/is-username-valid?username=%s', HttpService:UrlEncode(username))
+		local url = string.format("signup/is-username-valid?username=%s", HttpService:UrlEncode(username))
 		return rbxApiGetAsync(url)
 	end
 end
 
 --[[
-			// Returns table
-			// Table Keys
-				// IsValid - boolean
-				// ErrorMessage - string
+	Response json
+	{
+		"IsValid": true,
+		"ErrorCode": 0,
+		"ErrorMessage": "string"
+	}
 ]]
 function Http.IsValidPassword(username, password)
 	if not username or not password then
 		return
 	end
-	local url = string.format('signup/is-password-valid?username=%s&password=%s', HttpService:UrlEncode(username), HttpService:UrlEncode(password))
+	local url = string.format("signup/is-password-valid?username=%s&password=%s",
+		HttpService:UrlEncode(username), HttpService:UrlEncode(password))
 	return rbxApiGetAsync(url)
 end
-
-function Http.GetRobloxAccountInfo()
-	return rbxApiGetAsync('users/account-info')
-end
-
 
 return Http

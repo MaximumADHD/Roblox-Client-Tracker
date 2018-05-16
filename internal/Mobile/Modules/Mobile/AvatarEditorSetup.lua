@@ -9,9 +9,8 @@ local Constants = require(Modules.Mobile.Constants)
 local AvatarEditorFlags = require(Modules.LuaApp.Legacy.AvatarEditor.Flags)
 local AppGui = require(Modules.LuaApp.Legacy.AvatarEditor.AppGui)
 
-local UseRoactLuaApp = AvatarEditorFlags:GetFlag("UseTempRoactLuaVersionOfHomePage")
-						or AvatarEditorFlags:GetFlag("UseTempRoactLuaVersionOfGamesPage")
-local RemoveLoadingHUDOniOS = AvatarEditorFlags:GetFlag("RemoveLoadingHUDOniOS")
+local FlagSettings = require(Modules.LuaApp.FlagSettings)
+local UseRoactLuaApp = FlagSettings.IsLuaHomePageEnabled() or FlagSettings.IsLuaGamesPageEnabled()
 
 local AvatarEditorSetup = {}
 
@@ -150,9 +149,11 @@ function AvatarEditorSetup:Initialize(notifyAppReady)
 			end
 			screenGui.HackBody.Visible = false
 			AvatarEditorMain:Start()
-			if not RemoveLoadingHUDOniOS then
-				notifyAppReady(AppNameEnum.AvatarEditor)
-			end
+
+			-- Staging broadcasting of APP_READY to accomodate for unpredictable
+			-- delay on the native side.
+			-- Once Lua tab bar is integrated, there will be no use for this
+			notifyAppReady(AppNameEnum.AvatarEditor)
 		end
 
 		if startAvatarEditorAfterInitializing then

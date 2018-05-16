@@ -13,7 +13,7 @@ local Create = require(LuaChat.Create)
 local DialogInfo = require(LuaChat.DialogInfo)
 local Immutable = require(Common.Immutable)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local Components = LuaChat.Components
 local FriendSearchBoxComponent = require(Components.FriendSearchBox)
@@ -48,12 +48,12 @@ function NewChatGroup.new(appState)
 	-- Header:
 	self.header = HeaderLoader.GetHeader(appState, Intent.NewChatGroup)
 	self.header:SetDefaultSubtitle()
-	self.header:SetTitle(appState.localization:Format(StringsLocale.Keys.NEW_CHAT_GROUP))
+	self.header:SetTitle(appState.localization:Format("Feature.Chat.Heading.NewChatGroup"))
 	self.header:SetBackButtonEnabled(true)
 	self.header:SetConnectionState(Enum.ConnectionState.Disconnected)
 
 	-- Name the group:
-	local placeholderText = appState.localization:Format(StringsLocale.Keys.NAME_THIS_CHAT_GROUP)
+	local placeholderText = appState.localization:Format("Feature.Chat.Description.NameGroupChat")
 	self.groupName = TextInputEntry.new(appState, getAsset("icons/ic-nametag"), placeholderText)
 	self.groupName.rbx.LayoutOrder = 1
 
@@ -126,7 +126,7 @@ function NewChatGroup.new(appState)
 	}
 
 	-- Wire up the save button to actually create our new chat group:
-	self.saveGroup = self.header:CreateHeaderButton("SaveGroup", StringsLocale.Keys.SAVE_NEW_GROUP)
+	self.saveGroup = self.header:CreateHeaderButton("SaveGroup", "Feature.Chat.Action.Create")
 	self.saveGroup:SetEnabled(false)
 	local saveGroupConnection = self.saveGroup.Pressed:Connect(function()
 		self.groupName:ReleaseFocus()

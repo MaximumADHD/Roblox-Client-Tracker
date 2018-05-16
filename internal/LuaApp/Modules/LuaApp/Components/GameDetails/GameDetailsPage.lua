@@ -7,16 +7,13 @@ local Overview = require(Modules.LuaApp.Components.GameDetails.Overview)
 local FitChildren = require(Modules.LuaApp.FitChildren)
 local TabbedFrame = require(Modules.LuaApp.Components.TabbedFrame)
 local Details = require(Modules.LuaApp.Components.GameDetails.Details)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+
 local LocalizedTextLabel = require(Modules.LuaApp.Components.LocalizedTextLabel)
 local DropshadowFrame = require(Modules.LuaApp.Components.DropshadowFrame)
 local Functional = require(Modules.Common.Functional)
 local Constants = require(Modules.LuaApp.Constants)
 local Carousel = require(Modules.LuaApp.Components.Carousel)
 local GameCard = require(Modules.LuaApp.Components.Games.GameCard)
-local Game = require(Modules.LuaApp.Models.Game)
-local Immutable = require(Modules.Common.Immutable)
-local memoize = require(Modules.Common.memoize)
 
 local GameDetailsPage = Roact.Component:extend("GameDetailsPage")
 
@@ -49,9 +46,9 @@ local function AboutTab(props)
 	local navGameDetails = props.navGameDetails
 
 	local recommendedGameCards = {}
-	for gameLayoutOrder, game in ipairs(recommendedGames) do
-		recommendedGameCards["Card " .. game.name] = Roact.createElement(GameCard, {
-			game = game,
+	for gameLayoutOrder, entry in ipairs(recommendedGames) do
+		recommendedGameCards[tostring(entry.placeId) .. tostring(entry.isSponsored)] = Roact.createElement(GameCard, {
+			entry = entry,
 			navGameDetails = navGameDetails,
 			LayoutOrder = gameLayoutOrder,
 		})
@@ -60,7 +57,7 @@ local function AboutTab(props)
 	return {
 		Layout = Roact.createElement(Layout),
 		DetailsTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.DETAILS},
+			Text = "Feature.GameDetails.Heading.Description",
 			LayoutOrder = 2,
 		}),
 		Details = Roact.createElement(Details, {
@@ -70,15 +67,15 @@ local function AboutTab(props)
 			isMaxWidth = props.width == MAX_WIDTH,
 		}),
 		VIPServersTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.VIP_SERVERS},
+			Text = "Feature.PrivateServers.Heading.VipServers",
 			LayoutOrder = 4,
 		}),
 		GameBadgesTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.GAME_BADGES},
+			Text = "Feature.GameBadges.HeadingGameBadges",
 			LayoutOrder = 5,
 		}),
 		RecommendedGamesTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.RECOMMENDED_GAMES},
+			Text = "Feature.GameDetails.Heading.RecommendedGames",
 			LayoutOrder = 6,
 		}),
 		RecommendedGames = Roact.createElement(Carousel, {
@@ -134,7 +131,7 @@ local function StoreTab(props)
 	return {
 		Layout = Roact.createElement(Layout),
 		PassesTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.PASSES_FOR_THIS_GAME},
+			Text = "Feature.GamePass.Heading.PassesForThisGame",
 			LayoutOrder = 2,
 		}),
 		Passes = Roact.createElement(GridDisplay, {
@@ -142,7 +139,7 @@ local function StoreTab(props)
 			cardData = passes,
 		}),
 		GearTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.GEAR_FOR_THIS_GAME},
+			Text = "Feature.GameGear.GearForThisGame",
 			LayoutOrder = 4,
 		}),
 		Gear = Roact.createElement(GridDisplay, {
@@ -156,11 +153,11 @@ local function LeaderboardsTab(props)
 	return {
 		Layout = Roact.createElement(Layout),
 		Players = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.PLAYERS},
+			Text = "CommonUI.Features.Label.Players",
 			LayoutOrder = 2,
 		}),
 		Groups = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.CLANS},
+			Text = "Fearture.GameLeaderboard.Label.Clans",
 			LayoutOrder = 3,
 		}),
 	}
@@ -170,15 +167,15 @@ local function ServersTab(props)
 	return {
 		Layout = Roact.createElement(Layout),
 		VIPTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.VIP_SERVERS},
+			Text = "Feature.PrivateServers.Heading.VipServers",
 			LayoutOrder = 2,
 		}),
 		FriendsTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.SERVERS_MY_FRIENDS_ARE_IN},
+			Text = "Feature.ServerList.Heading.ServersMyFriendsAreIn",
 			LayoutOrder = 3,
 		}),
 		OtherTitle = Roact.createElement(Title, {
-			Text = {StringsLocale.Keys.OTHER_SERVERS},
+			Text = "Feature.ServerList.Heading.OtherServers",
 			LayoutOrder = 4,
 		}),
 	}
@@ -248,16 +245,16 @@ function GameDetailsPage:render()
 					fitAxis = FitChildren.FitAxis.Height,
 				},
 				tabs = {{
-					label = {StringsLocale.Keys.ABOUT},
+					label = "Feature.GameDetails.Label.About",
 					content = function () return AboutTab(self.props) end,
 				}, {
-					label = {StringsLocale.Keys.STORE},
+					label = "Feature.GameDetails.Label.Store",
 					content = function () return StoreTab(self.props) end,
 				}, {
-					label = {StringsLocale.Keys.LEADERBOARDS},
+					label = "Feature.GameDetails.Label.Leaderboards",
 					content = function () return LeaderboardsTab(self.props) end,
 				}, {
-					label = {StringsLocale.Keys.SERVERS},
+					label = "Feature.GameDetails.Label.Servers",
 					content = function () return ServersTab(self.props) end,
 				}},
 			}),
@@ -265,18 +262,10 @@ function GameDetailsPage:render()
 	})
 end
 
-local selectRecommendedSort = memoize(function ()
-	local mockGame = Game.mock()
-	local sort = {}
-	for i = 1, 10 do
-		sort[i] = Game.fromJsonData(Immutable.Set(mockGame, "name", "Game " .. i))
-	end
-	return sort
-end)
-
-GameDetailsPage = RoactRodux.connect(function(store, props)
+GameDetailsPage = RoactRodux.connect(function(store)
+	local state = store:getState()
 	return {
-		recommendedGames = selectRecommendedSort()
+		recommendedGames = state.EntriesInSort.Recommended
 	}
 end)(GameDetailsPage)
 

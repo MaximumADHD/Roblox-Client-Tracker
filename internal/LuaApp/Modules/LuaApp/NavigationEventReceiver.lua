@@ -14,18 +14,12 @@ local SetAppPage = require(Modules.LuaApp.Actions.SetAppPage)
 local NavigationEventReceiver = Roact.Component:extend("NavigationEventReceiver")
 
 function NavigationEventReceiver:init()
-	local function onRobloxEventReceived(event)
+	self.onRobloxEventReceived = function(event)
 		if event.namespace == "Navigations" and event.detailType == "Destination" then
 			local eventDetails = HttpService:JSONDecode(event.detail)
-			if AppPage[eventDetails.appName] then
-				self.props.setAppPage(AppPage[eventDetails.appName], eventDetails.parameters)
-			else
-				self.props.setAppPage(AppPage.None, eventDetails.parameters)
-			end
+			self.props.setAppPage(AppPage[eventDetails.appName] or AppPage.None, eventDetails.parameters)
 		end
 	end
-
-	self.onRobloxEventReceived = onRobloxEventReceived
 end
 
 function NavigationEventReceiver:render()

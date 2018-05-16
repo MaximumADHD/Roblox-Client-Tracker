@@ -7,16 +7,18 @@ return function()
 
 		local expectedKeys = {
 			DeviceOrientation = true,
+			TopBar = true,
 			GameSorts = true,
 			Games = true,
 			GameSortGroups = true,
-			GamesInSort = true,
+			EntriesInSort = true,
 			GameThumbnails = true,
 			Users = true,
 			UsersAsync = true,
 			UserStatuses = true,
-			LocalUser = true,
+			LocalUserId = true,
 			AppRouter = true,
+			Search = true,
 			PlaceInfos = true,
 			PlaceThumbnails = true,
 			FriendCount = true,
@@ -24,6 +26,7 @@ return function()
 			FormFactor = true,
 			ChatAppReducer = true,
 			Startup = true,
+			NotificationBadgeCounts = true,
 		}
 
 		for key in pairs(expectedKeys) do

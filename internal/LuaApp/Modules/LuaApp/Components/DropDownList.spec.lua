@@ -15,14 +15,14 @@ return function()
 
 		local listItems = {
 			{
-				text = "Featured",
-				icon = "rbxasset://textures/ui/LuaApp/category/ic-featured.png",
+				displayName = "Featured",
+				displayIcon = "rbxasset://textures/ui/LuaApp/category/ic-featured.png",
 			}, {
-				text = "Popular",
-				icon = "rbxasset://textures/ui/LuaApp/category/ic-popular.png",
+				displayName = "Popular",
+				displayIcon = "rbxasset://textures/ui/LuaApp/category/ic-popular.png",
 			}, {
-				text = "Top Rated",
-				icon = "rbxasset://textures/ui/LuaApp/category/ic-top rated.png",
+				displayName = "Top Rated",
+				displayIcon = "rbxasset://textures/ui/LuaApp/category/ic-top rated.png",
 			}
 		}
 
@@ -30,10 +30,9 @@ return function()
 			store = store,
 		}, {
 			List = Roact.createElement(DropDownList, {
-				itemDefault = 1,
+				itemSelected = listItems[1],
 				items = listItems,
 				size = UDim2.new(0, 300, 0, 40),
-				text = "Default Text",
 			}),
 		})
 

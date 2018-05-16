@@ -6,8 +6,6 @@ local Common = Modules.Common
 local LuaApp = Modules.LuaApp
 local LuaChat = Modules.LuaChat
 
-local StringsLocale = require(LuaApp.StringsLocale)
-
 local Signal = require(Common.Signal)
 local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
@@ -60,7 +58,7 @@ function SeeMoreButton.new(appState)
 		TextColor3 = Constants.Color.BLUE_PRIMARY,
 		Font = Enum.Font.SourceSans,
 		TextXAlignment = Enum.TextXAlignment.Left,
-		Text = appState.localization:Format(StringsLocale.Keys.SEE_MORE_FRIENDS),
+		Text = appState.localization:Format("Feature.Chat.Action.SeeMoreFriends"),
 	}
 	label.Parent = self.rbx
 
@@ -94,7 +92,7 @@ function GroupDetail.new(appState, convoId)
 
 	self.oldState = nil
 	self.header = HeaderLoader.GetHeader(appState, Intent.GroupDetail)
-	self.header:SetTitle(appState.localization:Format(StringsLocale.Keys.CHAT_DETAILS))
+	self.header:SetTitle(appState.localization:Format("Feature.Chat.Label.ChatDetails"))
 	self.header:SetDefaultSubtitle()
 	self.header:SetBackButtonEnabled(true)
 
@@ -129,18 +127,18 @@ function GroupDetail.new(appState, convoId)
 	scrollingFrame.Position = UDim2.new(0, 0, 0, self.header.rbx.Size.Y.Offset)
 	scrollingFrame.Size = UDim2.new(1, 0, 1, -self.header.rbx.Size.Y.Offset)
 
-	self.general = SectionComponent.new(appState, StringsLocale.Keys.GENERAL)
+	self.general = SectionComponent.new(appState, "Feature.Chat.Label.General")
 	self.general.rbx.LayoutOrder = 1
 	self.general.rbx.Parent = content
 
-	self.groupName = ActionEntryComponent.new(appState, getAsset("icons/ic-nametag"), StringsLocale.Keys.CHAT_GROUP_NAME)
+	self.groupName = ActionEntryComponent.new(appState, getAsset("icons/ic-nametag"), "Feature.Chat.Label.ChatGroupName")
 	self.groupName.rbx.LayoutOrder = 2
 	self.groupName.rbx.Parent = content
 	local groupNameConnection = self.groupName.tapped.Event:Connect(function()
 		self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 				dialog = GenericDialogType.EditChatGroupNameDialog,
 				dialogParameters = {
-					titleLocalizationKey = StringsLocale.Keys.CHAT_GROUP_NAME,
+					titleLocalizationKey = "Feature.Chat.Label.ChatGroupName",
 					maxChar = 150,
 					conversation = self.conversation,
 				}
@@ -153,12 +151,12 @@ function GroupDetail.new(appState, convoId)
 	self.responseIndicator:SetVisible(false)
 	self.responseIndicator.rbx.Parent = self.rbx
 
-	local members = SectionComponent.new(appState, StringsLocale.Keys.MEMBERS)
+	local members = SectionComponent.new(appState, "Feature.Chat.Label.Members")
 	members.rbx.LayoutOrder = 5
 	members.rbx.Parent = content
 
 	self.addFriends = ActionEntryComponent.new(appState, getAsset("icons/ic-add-friends"),
-		StringsLocale.Keys.ADD_FRIENDS, 36)
+		"Feature.Chat.Label.AddFriends", 36)
 	self.addFriends.rbx.LayoutOrder = 6
 	self.addFriends:SetDividerOffset(60)
 	self.addFriends.rbx.Parent = content
@@ -173,11 +171,11 @@ function GroupDetail.new(appState, convoId)
 			self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 					dialog = GenericDialogType.ParticipantDialog,
 					dialogParameters = {
-						titleKey = StringsLocale.Keys.OPTION,
+						titleKey = "Feature.Chat.Heading.Option",
 						options = {
-							[PARTICIPANT_VIEW] = StringsLocale.Keys.VIEW_PROFILE,
-							[PARTICIPANT_REPORT] = StringsLocale.Keys.REPORT_USER,
-							[PARTICIPANT_REMOVE] = StringsLocale.Keys.REMOVE_FROM_GROUP,
+							[PARTICIPANT_VIEW] = "Feature.Chat.Label.ViewProfile",
+							[PARTICIPANT_REPORT] = "Feature.Chat.Action.ReportUser",
+							[PARTICIPANT_REMOVE] = "Feature.Chat.Action.RemoveFromGroup",
 							},
 						conversationId = self.conversationId,
 						conversation = self.conversation,
@@ -208,17 +206,17 @@ function GroupDetail.new(appState, convoId)
 	self.blankSection.rbx.LayoutOrder = 10
 	self.blankSection.rbx.Parent = content
 
-	self.leaveGroup = ActionEntryComponent.new(appState, getAsset("icons/ic-leave"), StringsLocale.Keys.LEAVE_GROUP)
+	self.leaveGroup = ActionEntryComponent.new(appState, getAsset("icons/ic-leave"), "Feature.Chat.Heading.LeaveGroup")
 	self.leaveGroup.rbx.LayoutOrder = 11
 	self.leaveGroup.rbx.Parent = content
 	local leaveGroupConnection = self.leaveGroup.tapped.Event:Connect(function()
 		self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 				dialog = GenericDialogType.LeaveGroupDialog,
 				dialogParameters = {
-					titleKey = StringsLocale.Keys.LEAVE_GROUP,
-					messageKey = StringsLocale.Keys.LEAVE_GROUP_MESSAGE,
-					cancelTitleKey = StringsLocale.Keys.STAY,
-					confirmationTitleKey = StringsLocale.Keys.LEAVE,
+					titleKey = "Feature.Chat.Heading.LeaveGroup",
+					messageKey = "Feature.Chat.Message.LeaveGroup",
+					cancelTitleKey = "Feature.Chat.Action.Stay",
+					confirmationTitleKey = "Feature.Chat.Action.Leave",
 					conversation = self.conversation
 				}
 			}
@@ -236,7 +234,8 @@ function GroupDetail.new(appState, convoId)
 end
 
 function GroupDetail:Update(state)
-	local conversation = state.ChatAppReducer.Conversations[state.ChatAppReducer.Location.current.parameters.conversationId]
+	local conversationId = state.ChatAppReducer.Location.current.parameters.conversationId
+	local conversation = state.ChatAppReducer.Conversations[conversationId]
 	self.header:SetConnectionState(state.ConnectionState)
 	if conversation ~= nil then --if conversation ~= self.conversation then
 		if conversation.id ~= self.conversation.id then
@@ -248,7 +247,7 @@ function GroupDetail:Update(state)
 		end
 
 		if conversation.isDefaultTitle then
-			local notSetLocalized = self.appState.localization:Format(StringsLocale.Keys.NOT_SET)
+			local notSetLocalized = self.appState.localization:Format("Feature.Chat.Label.NotSet")
 			self.groupName:Update(notSetLocalized)
 		else
 			self.groupName:Update(getConversationDisplayTitle(conversation))
@@ -264,11 +263,11 @@ function GroupDetail:Update(state)
 			local messageArguments = {
 				NUMBER_OF_FRIENDS = tostring(count-3)
 			}
-			local message = self.appState.localization:Format(StringsLocale.Keys.SEE_MORE_FRIENDS, messageArguments)
+			local message = self.appState.localization:Format("Feature.Chat.Action.SeeMoreFriends", messageArguments)
 			self.seeMore:Update(message)
 			self.seeMore.rbx.Visible = true
 		elseif count > 3 then
-			self.seeMore:Update(self.appState.localization:Format(StringsLocale.Keys.SEE_LESS_FRIENDS))
+			self.seeMore:Update(self.appState.localization:Format("Feature.Chat.Label.SeeLess"))
 			self.seeMore.rbx.Visible = true
 		else
 			self.seeMore.rbx.Visible = false

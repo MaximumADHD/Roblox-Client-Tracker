@@ -26,9 +26,9 @@ function NotificationBroadcaster:Update(state, oldState)
 	end
 
 	if state.ChatAppReducer.UnreadConversationCount ~= oldState.ChatAppReducer.UnreadConversationCount then
-
-		local string = state.ChatAppReducer.UnreadConversationCount > 0 and tostring(state.ChatAppReducer.UnreadConversationCount) or ""
-		GuiService:BroadcastNotification(string, GuiService:GetNotificationTypeList().UNREAD_COUNT)
+		local currentUnreadConversationCount = state.ChatAppReducer.UnreadConversationCount
+		local count = currentUnreadConversationCount > 0 and tostring(currentUnreadConversationCount) or ""
+		GuiService:BroadcastNotification(count, GuiService:GetNotificationTypeList().UNREAD_COUNT)
 	end
 
 	if not self.hasLoadedConversations then

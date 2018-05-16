@@ -43,7 +43,8 @@ function EditChatGroup:Start()
 
 	do
 		local connection = self.appState.store.Changed:Connect(function(current, previous)
-			local conversation = current.ChatAppReducer.Conversations[current.ChatAppReducer.Location.current.parameters.conversationId]
+			local currentConversationId = current.ChatAppReducer.Location.current.parameters.conversationId
+			local conversation = current.ChatAppReducer.Conversations[currentConversationId]
 			if current ~= previous and conversation then
 				self:Update(current, previous)
 			else

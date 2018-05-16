@@ -1,7 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local LuaChat = script.Parent.Parent
 local Create = require(LuaChat.Create)
@@ -46,7 +46,7 @@ function NoFriendsIndicator.new(appState)
 				TextColor3 = Constants.Color.GRAY2,
 				TextSize = Constants.Font.FONT_SIZE_18,
 				TextWrapped = true,
-				Text = appState.localization:Format(StringsLocale.Keys.MAKE_FRIENDS_TO_CHAT),
+				Text = appState.localization:Format("Feature.Chat.Message.MakeFriendsToChat"),
 			},
 		},
 	}

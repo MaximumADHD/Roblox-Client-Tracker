@@ -94,6 +94,7 @@ StringsLocale.Keys = {
 	AVATAR = "AVATAR",
 	FRIENDS = "FRIENDS",
 	MORE = "MORE",
+	CURRENT_PLAYERS = "CURRENT_PLAYERS",
 }
 
 StringsLocale.Languages = {
@@ -157,6 +158,14 @@ StringsLocale.Content = {
 			[StringsLocale.Languages.EN_US] = "Playing",
 		},
 		comment = "Label for the number of players playing a game.",
+	},
+	{
+
+		key = StringsLocale.Keys.CURRENT_PLAYERS,
+		values = {
+			[StringsLocale.Languages.EN_US] = "{NUMBER_OF_CURRENT_PLAYERS} Playing",
+		},
+		comment = "Label for the number of players that are currently playing a game.",
 	},
 	{
 

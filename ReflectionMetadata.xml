@@ -70,7 +70,8 @@
         <string name="summary">Prevents joint breakage from explosions, and stops Humanoids from taking damage</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">37</string>
-        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -109,6 +110,7 @@
       <Properties>
         <string name="Name">Glue</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -379,6 +381,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">32</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -404,6 +407,7 @@
 	    <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">81</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
       
       <Item class="ReflectionMetadataProperties">
@@ -441,6 +445,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">86</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -471,6 +476,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">86</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -525,6 +531,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">89</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -561,6 +568,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">90</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -591,6 +599,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">91</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -669,6 +678,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">94</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
     </Item>
     
@@ -679,6 +689,7 @@
 		    <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">87</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -769,6 +780,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">88</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -859,6 +871,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">88</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
 
@@ -869,6 +882,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">95</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -971,6 +985,7 @@
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -980,15 +995,17 @@
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">VectorForce</string>
         <string name="ClassCategory">Constraints</string>
-		<string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
-        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">BasePart,Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -998,6 +1015,7 @@
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1007,6 +1025,7 @@
 		<string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1165,12 +1184,14 @@
       <Properties>
         <string name="Name">RotateP</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RotateV</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1187,6 +1208,7 @@
       <Properties>
         <string name="Name">VelocityMotor</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1195,6 +1217,7 @@
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">34</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1221,12 +1244,14 @@
       <Properties>
         <string name="Name">Snap</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">FileMesh</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1236,7 +1261,8 @@
         <string name="summary">Raises mouse events for parent object</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">41</string>
-        <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1283,6 +1309,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">59</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     
@@ -1293,7 +1320,8 @@
         <string name="summary">Makes two attachments emit trail when moving</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">93</string>
-        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">BasePart,Model</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1356,6 +1384,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">96</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart,Model</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1425,6 +1454,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">80</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart,Attachment</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1508,6 +1538,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">42</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1518,6 +1549,7 @@
         <string name="ExplorerImageIndex">36</string>
         <string name="summary">Creates an Explosion! This can be used as a purely graphical effect, or can be made to damage objects.</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">Basepart,Model</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1554,6 +1586,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">61</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1615,6 +1648,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">35</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1624,6 +1658,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">17</string>
         <string name="PreferredParent">StarterPack</string>
+        <string name="PreferredParents">StarterPack,Backpack</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1670,6 +1705,7 @@
         <string name="ExplorerImageIndex">7</string>
         <string name="summary">Descibes a texture that is placed on one of the sides of the Part it is parented to.</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -1714,6 +1750,7 @@
         <string name="ExplorerImageIndex">33</string>
         <bool name="Deprecated">true</bool>
         <string name="PreferredParent">StarterGui</string>
+        <string name="PreferredParents">StarterGui</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1947,6 +1984,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1956,6 +1994,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1965,6 +2004,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
         <bool name="Deprecated">true</bool>
       </Properties>
     </Item>
@@ -1990,6 +2030,7 @@
         <string name="ExplorerOrder">4</string>
         <string name="ExplorerImageIndex">10</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1998,6 +2039,7 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">1</string>
         <string name="ExplorerImageIndex">11</string>
+        <string name="PreferredParents">SoundGroup</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">
@@ -2026,6 +2068,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
+        <string name="PreferredParents">Sound</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2071,6 +2114,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
+        <string name="PreferredParents">Sound</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -2423,6 +2467,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">20</string>
         <string name="Insertable">false</string>
+        <string name="PreferredParents">Player</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -2485,6 +2530,7 @@
             <string name="ClassCategory">GUI</string>
             <string name="Browsable">false</string>
             <string name="PreferredParent">GuiBase2d</string>
+            <string name="PreferredParents">GuiObject,GuiBase2d</string>
         </Properties>
         
         <Item class="ReflectionMetadataFunctions">
@@ -2539,6 +2585,7 @@
             <string name="ClassCategory">GUI</string>
             <string name="summary">Sets the position of UI elements in a list. You can use a UIListLayout by parenting it to a GuiObject. The UIListLayout will then apply itself to all of its GuiObject siblings.</string>
             <string name="PreferredParent">GuiBase2d</string>
+          <string name="PreferredParents">GuiObject,GuiBase2d</string>
         </Properties>
         
         <Item class="ReflectionMetadataProperties">
@@ -2559,6 +2606,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="summary">Sets the position of UI elements in a 2D grid (this can be modified to 1D grid for list layout). This will also set the elements to a particular size, although this can be overridden with particular constraints on elements. You can use a UIGridLayout by parenting it to a GuiObject. The UIGridLayout will then apply itself to all of its GuiObject siblings.</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
     
       <Item class="ReflectionMetadataProperties">
@@ -2604,6 +2652,7 @@
             <string name="ClassCategory">GUI</string>
             <string name="summary">Creates a paged viewing window, like the home screen of a mobile device. You can use a UIPageLayout by parenting it to a GuiObject. The UIPageLayout will then apply itself to all of its GuiObject siblings.</string>
             <string name="PreferredParent">GuiBase2d</string>
+           <string name="PreferredParents">GuiObject,GuiBase2d</string>
         </Properties>
         
         <Item class="ReflectionMetadataProperties">
@@ -2714,6 +2763,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="summary">Provides a layout of rows and columns that are sized based on the cells in them.</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -2755,6 +2805,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject does not become smaller or larger than the min and max size. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element?s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
     
       <Item class="ReflectionMetadataProperties">
@@ -2781,6 +2832,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject with text does not allow the font size to become larger or smaller than min and max text sizes. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element?s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
     
       <Item class="ReflectionMetadataProperties">
@@ -2806,7 +2858,7 @@
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject will always have a particular aspect ratio. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element?s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
-        <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -2839,6 +2891,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="summary">Uniformly scales a GUI object and all its children.</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -2859,6 +2912,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="Summary">Insets the children of the GuiObject this is parented to, by the specified padding.</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiObject,GuiBase2d</string>
       </Properties>
           
       <Item class="ReflectionMetadataProperties">
@@ -3417,6 +3471,7 @@
         <string name="ExplorerOrder">0</string>
         <string name="ExplorerImageIndex">28</string>
         <string name="PreferredParent">Lighting</string>
+        <string name="PreferredParents">Lighting</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3533,6 +3588,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="Insertable">false</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3542,6 +3598,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">9</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
 
@@ -3625,6 +3682,7 @@
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">2</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3634,6 +3692,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">43</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3643,6 +3702,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">44</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3652,6 +3712,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">40</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3991,6 +4052,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
 
@@ -4041,6 +4103,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
 
@@ -4092,6 +4155,7 @@
         <string name="ExplorerImageIndex">14</string>
         <string name="summary">A propulsion system that mimics a rocket</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -4101,6 +4165,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4144,6 +4209,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4178,6 +4244,7 @@
         <string name="ExplorerImageIndex">14</string>
         <string name="summary">When parented to a physical part, BodyForce will continually exert a force upon its parent object.</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4198,6 +4265,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
 
@@ -4249,6 +4317,8 @@
         <string name="summary">This Service-level object is the container for all Team objects in a level. A map that supports team games must have a Teams service. &lt;a href="http://wiki.roblox.com/index.php/Team" target="_blank"&gt;More info&lt;/a&gt;</string>
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">23</string>
+        <string name="PreferredParent">Teams</string>
+        <string name="PreferredParents">Teams</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">
@@ -4267,6 +4337,7 @@
         <string name="ExplorerOrder">1</string>
         <string name="ExplorerImageIndex">24</string>
         <string name="PreferredParent">Teams</string>
+        <string name="PreferredParents">Teams</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -4358,6 +4429,7 @@
         <string name="ExplorerImageIndex">2</string>
         <string name="summary">A construct used to group Parts and other objects together, also allows manipulation of multiple objects.</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">
@@ -4641,6 +4713,7 @@
         <string name="ExplorerOrder">0</string>
         <string name="ExplorerImageIndex">5</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -5047,6 +5120,8 @@
           <Properties>
             <string name="Name">CharacterAppearance</string>
             <bool name="Browsable">false</bool>
+            <string name="PreferredParent">Model</string>
+            <string name="PreferredParents">Model</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -5425,6 +5500,7 @@
         <string name="ExplorerOrder">11</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Workspace</string>
+        <string name="PreferredParents">Workspace</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5435,6 +5511,7 @@
         <string name="ExplorerOrder">12</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5445,6 +5522,7 @@
         <string name="ExplorerOrder">12</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5495,6 +5573,7 @@
         <string name="ExplorerOrder">12</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Workspace</string>
+        <string name="PreferredParents">Workspace,Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5576,6 +5655,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">47</string>
         <string name="PreferredParent">BasePlayerGui</string>
+        <string name="PreferredParents">BasePlayerGui</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5594,6 +5674,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">64</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -5682,6 +5763,7 @@
         <string name="ExplorerOrder">14</string>
         <string name="ExplorerImageIndex">64</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -5720,6 +5802,7 @@
       <Properties>
         <string name="Name">GuiBase2d</string>
         <bool name="Browsable">false</bool>
+        <string name="PreferredParents">LayerCollector,GuiBase2d</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -5991,6 +6074,7 @@
         <string name="ExplorerOrder">15</string>
         <string name="ExplorerImageIndex">48</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6009,6 +6093,7 @@
         <string name="ExplorerOrder">15</string>
         <string name="ExplorerImageIndex">48</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6069,6 +6154,7 @@
         <string name="ExplorerOrder">18</string>
         <string name="ExplorerImageIndex">49</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6105,6 +6191,7 @@
         <string name="ExplorerOrder">19</string>
         <string name="ExplorerImageIndex">50</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6124,6 +6211,7 @@
         <string name="ExplorerOrder">17</string>
         <string name="ExplorerImageIndex">51</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6143,6 +6231,7 @@
         <string name="ExplorerOrder">17</string>
         <string name="ExplorerImageIndex">51</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6231,6 +6320,7 @@
         <string name="ExplorerOrder">16</string>
         <string name="ExplorerImageIndex">52</string>
         <string name="PreferredParent">GuiBase2d</string>
+        <string name="PreferredParents">GuiBase2d</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6400,6 +6490,7 @@
         <string name="ExplorerOrder">22</string>
         <string name="ExplorerImageIndex">60</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6524,6 +6615,7 @@
         <string name="ExplorerOrder">2</string>
         <string name="ExplorerImageIndex">73</string>
         <string name="PreferredParent">Model</string>
+        <string name="PreferredParents">Model</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6595,6 +6687,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">Basepart,Attachment,PVInstance</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6615,6 +6708,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6634,6 +6728,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6660,6 +6755,7 @@
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
+        <string name="PreferredParents">PVInstance</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">

@@ -9,7 +9,7 @@ local VOTE_MASK_HALF_SIZE = VOTE_MASK_SIZE / 2
 local VOTE_BAR_BACKGROUND_COLOR = Constants.Color.GRAY3
 local VOTE_BAR_FOREGROUND_COLOR = Constants.Color.GRAY2
 
-local GameVoteBar = Roact.Component:extend("GameVoteBar")
+local GameVoteBar = Roact.PureComponent:extend("GameVoteBar")
 
 function GameVoteBar:render()
 	local size = self.props.Size

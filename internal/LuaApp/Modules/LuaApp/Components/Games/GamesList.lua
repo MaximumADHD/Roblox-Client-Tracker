@@ -2,164 +2,103 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(Modules.Common.Roact)
 local RoactRodux = require(Modules.Common.RoactRodux)
+local memoize = require(Modules.Common.memoize)
+local RoactServices = require(Modules.LuaApp.RoactServices)
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
 
 local Constants = require(Modules.LuaApp.Constants)
 local DropDownList = require(Modules.LuaApp.Components.DropDownList)
-local FitChildren = require(Modules.LuaApp.FitChildren)
 local GameGrid = require(Modules.LuaApp.Components.Games.GameGrid)
-local SectionHeader = require(Modules.LuaApp.Components.SectionHeader)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
 local TopBar = require(Modules.LuaApp.Components.TopBar)
 local RefreshScrollingFrame = require(Modules.LuaApp.Components.RefreshScrollingFrame)
-local Networking = require(Modules.LuaApp.Http.Networking)
 local ApiFetchGamesData = require(Modules.LuaApp.Thunks.ApiFetchGamesData)
-local memoize = require(Modules.Common.memoize)
+local AppPage = require(Modules.LuaApp.AppPage)
+local AppPageLocalizationKeys = require(Modules.LuaApp.AppPageLocalizationKeys)
 
 local OUTSIDE_MARGIN = 15
-local VERTICAL_PADDING = 16
-local INNER_PADDING = 10
-local TOP_SECTION_HEIGHT = 97
+local TOP_SECTION_HEIGHT = 65
 
-local GamesList = Roact.Component:extend("GamesList")
+local GamesList = Roact.PureComponent:extend("GamesList")
+
+function GamesList:init()
+	-- TODO: Remove this man-in-the-middle callback when
+	-- props in the connecion are handled correctly.
+	self.onSelected = function(sort)
+		self.props.onSelected(sort)
+		self.props.refresh()
+	end
+end
 
 function GamesList:render()
-	local parentSize = self.state.parentSize
-	local selectedIndex = self.state.selectedIndex
-	local defaultSort = self.props.showSort
+	local topBarHeight = self.props.topBarHeight
+	local sort = self.props.sort
 	local sorts = self.props.sorts
-
-	local sort = sorts[selectedIndex or defaultSort]
-	local currentPage = self.props.currentPage
+	local currentPage = self.props.currentPage or AppPage.Games
 	local refresh = self.props.refresh
-	local refreshThisSort = function()
-		return refresh(sort.name)
-	end
-
-	local elements = parentSize and {
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
-		TopSection = Roact.createElement(FitChildren.FitFrame, {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, TOP_SECTION_HEIGHT),
-			fitFields = {
-				Size = FitChildren.FitAxis.Height,
-			},
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, VERTICAL_PADDING),
-				PaddingLeft = UDim.new(0, OUTSIDE_MARGIN),
-				PaddingRight = UDim.new(0, OUTSIDE_MARGIN),
-				PaddingTop = UDim.new(0, OUTSIDE_MARGIN),
-			}),
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, INNER_PADDING),
-			}),
-			DropDown = Roact.createElement(DropDownList, {
-				itemSelected = selectedIndex or defaultSort,
-				items = sorts,
-				onSelected = function(index)
-					self:setState({
-						selectedIndex = index
-					})
-				end,
-			}),
-			Header = Roact.createElement(SectionHeader, {
-				LayoutOrder = 2,
-				text = sort.text,
-				width = UDim.new(0, parentSize.x),
-			}) or nil,
-		}),
-		GameGrid = Roact.createElement(GameGrid, {
-			AnchorPoint = Vector2.new(0.5, 0),
-			games = sort,
-			LayoutOrder = 3,
-			ParentSize = parentSize,
-			Position = UDim2.new(0.5, 0, 0, 0),
-			Size = UDim2.new(1, 0, 1, 0),
-		})
-	} or {}
+	local onBack = self.props.onBack
+	local analytics = self.props.analytics
 
 	-- Build up the outer frame of the page, to include our components:
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BorderSizePixel = 0,
-		[Roact.Ref] = function(rbx)
-			if rbx then
-				-- Don't leak signals if we're already connected:
-				if self.onSignalAbsoluteSize then
-					self.onSignalAbsoluteSize:Disconnect()
-				end
-
-				-- This tracks our size if it changes (device rotation, etc):
-				self.onSignalAbsoluteSize = rbx:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-					if (self.state.parentSize.X ~= rbx.AbsoluteSize.X) and (self.state.parentSize.Y ~= rbx.AbsoluteSize.Y) then
-						self:setState({
-							parentSize = rbx.AbsoluteSize,
-						})
-					end
-				end)
-
-				-- This sets our current size when the page is created:
-				spawn(function()
-					self:setState({
-						parentSize = rbx.AbsoluteSize,
-					})
-				end)
-			else
-				self.onSignalAbsoluteSize:Disconnect()
-				self.onSignalAbsoluteSize = nil
-			end
-		end
 	},{
 		TopBar = Roact.createElement(TopBar, {
 			LayoutOrder = 1,
-			onBack = self.props.onBack,
+			ZIndex = 2,
+			onBack = onBack,
 			showBackButton = true,
 			showBuyRobux = true,
 			showNotifications = true,
 			showSearch = true,
-			textKey = { StringsLocale.Keys.GAMES },
-			ZIndex = 2,
+			textKey = AppPageLocalizationKeys[currentPage],
 		}),
 		Scroller = Roact.createElement(RefreshScrollingFrame, {
-			Position = UDim2.new(0, 0, 0, TopBar.getHeight()),
-			Size = UDim2.new(1, 0, 1, -TopBar.getHeight()),
+			Position = UDim2.new(0, 0, 0, topBarHeight),
+			Size = UDim2.new(1, 0, 1, -topBarHeight),
 			BackgroundColor3 = Constants.Color.GRAY4,
 			CanvasSize = UDim2.new(1, 0, 0, 0),
 			currentPage = currentPage,
-			refresh = refreshThisSort,
-		}, elements),
+			refresh = refresh,
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			TopSection = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, -2*OUTSIDE_MARGIN, 0, TOP_SECTION_HEIGHT),
+			}, {
+				DropDown = Roact.createElement(DropDownList, {
+					position = UDim2.new(0, 0, 0, OUTSIDE_MARGIN),
+					itemSelected = sort,
+					items = sorts,
+					onSelected = self.onSelected,
+				}),
+			}),
+			GameGrid = Roact.createElement(GameGrid, {
+				LayoutOrder = 3,
+				Size = UDim2.new(1, 0, 1, 0),
+				sort = sort,
+				analytics = analytics,
+			})
+		}),
 	})
 end
 
-local selectSorts = memoize(function(sortsInfo, sortsGames, games)
+local function sortSorts(a, b)
+	return a.displayName < b.displayName
+end
+
+local selectSorts = memoize(function(gameSorts)
 	local sorts = {}
 
-	for _, sortInfo in pairs(sortsInfo) do
-		local sortGames = sortsGames[sortInfo.name]
-		local sort = {
-			text = sortInfo.displayName,
-			icon = sortInfo.displayIcon,
-			name = sortInfo.name,
-		}
-
-		for gameLayoutOrder, gameId in ipairs(sortGames) do
-			sort[gameLayoutOrder] = games[gameId]
-		end
-
-		table.insert(sorts, sort)
-		sorts[sort.text] = sort
+	for _, sortInfo in pairs(gameSorts) do
+		table.insert(sorts, sortInfo)
 	end
 
-	table.sort(sorts, function(a, b)
-		return a.text < b.text
-	end)
+	table.sort(sorts, sortSorts)
 
 	return sorts
 end)
@@ -168,15 +107,18 @@ GamesList = RoactRodux.connect(function(store, props)
 	local state = store:GetState()
 
 	return {
-		sorts = selectSorts(
-			state.GameSorts,
-			state.GamesInSort,
-			state.Games
-		),
-		refresh = function(sortname)
-			return store:Dispatch(ApiFetchGamesData(Networking.new(), nil, sortname))
+		sorts = selectSorts(state.GameSorts),
+		topBarHeight = state.TopBar.totalHeight,
+		refresh = function()
+			local networking = props.networking
+			local sortName = props.sort.name
+			return store:Dispatch(ApiFetchGamesData(networking, nil, sortName))
 		end,
 	}
 end)(GamesList)
+
+GamesList = RoactServices.connect({
+	networking = RoactNetworking,
+})(GamesList)
 
 return GamesList

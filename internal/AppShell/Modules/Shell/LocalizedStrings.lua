@@ -6,16 +6,10 @@ local ShellModules = Modules:FindFirstChild("Shell")
 local Utility = require(ShellModules:FindFirstChild('Utility'))
 local enUS = require(Modules:FindFirstChild('en-US'))
 
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
-
 local defaultLocale = nil
 local success = false
 local LocaleId = nil
-if (FFlagClientAppsUseRobloxLocale) then
-	success, LocaleId = pcall(function() return game:GetService("LocalizationService").RobloxLocaleId end)
-else
-	success, LocaleId = pcall(function() return game:GetService("LocalizationService").SystemLocaleId end)
-end
+success, LocaleId = pcall(function() return game:GetService("LocalizationService").RobloxLocaleId end)
 
 local this = {}
 

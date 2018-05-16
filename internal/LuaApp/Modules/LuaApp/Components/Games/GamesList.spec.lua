@@ -1,55 +1,41 @@
 return function()
+	local GamesList = require(script.Parent.GamesList)
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local LocalizationService = game:GetService("LocalizationService")
 
-	local Rodux = require(Modules.Common.Rodux)
 	local Roact = require(Modules.Common.Roact)
-	local RoactRodux = require(Modules.Common.RoactRodux)
-
+	local Rodux = require(Modules.Common.Rodux)
 	local AppReducer = require(Modules.LuaApp.AppReducer)
-	local GamesList = require(Modules.LuaApp.Components.Games.GamesList)
-
-	local Localization = require(Modules.LuaApp.Localization)
-	local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
-	local StringsLocale = require(Modules.LuaApp.StringsLocale)
+	local GameSortGroup = require(Modules.LuaApp.Models.GameSortGroup)
+	local GameSortEntry = require(Modules.LuaApp.Models.GameSortEntry)
+	local GameSort = require(Modules.LuaApp.Models.GameSort)
+	local Game = require(Modules.LuaApp.Models.Game)
+	local mockServices = require(Modules.LuaApp.TestHelpers.mockServices)
 
 	it("should create and destroy without errors", function()
-		local store = Rodux.Store.new(AppReducer)
+		local gameSortGroup = GameSortGroup.mock()
+		local gameSort = GameSort.mock()
+		local entry = GameSortEntry.mock()
+		gameSort.name = "Popular"
+		table.insert(gameSortGroup.sorts, gameSort.name)
+		local game = Game.mock()
 
-		local element = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId),
-		}, {
+		local store = Rodux.Store.new(AppReducer, {
+			GameSortGroups = { Games = gameSortGroup },
+			GameSorts = { [gameSort.name] = gameSort },
+			EntriesInSort = { [gameSort.name] = entry },
+			Games = { [entry.placeId] = game },
+		})
+		local element = mockServices({
 			GamesList = Roact.createElement(GamesList, {
-				gameSorts = {
-					popularToken = {
-						name = "PopularSort",
-						displayName = "Popular",
-						isDefaultSort = true,
-						games = { 10, },
-						sortToken = "popularToken"
-					},
-				},
-				games = {
-					[10] = {
-						universeId = 10,
-						placeId = 1,
-						imageToken = "asdFGSAGwa23r",
-						imageUrl = "",
-						name = "Murder Mystery 2",
-						playerCount = 4627,
-						totalUpVotes = 93,
-						totalDownVotes = 7,
-					},
-				},
-			}),
+				sort = gameSort,
+			})
+		}, {
+			includeStoreProvider = true,
+			store = store,
 		})
 
-		local screenGui = Instance.new("ScreenGui")
-		local instance = Roact.reify(Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			element
-		}), screenGui)
+		local instance = Roact.reify(element)
 		Roact.teardown(instance)
 	end)
 end

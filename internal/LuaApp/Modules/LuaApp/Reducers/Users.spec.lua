@@ -5,8 +5,10 @@ return function()
 	local AddUser = require(Modules.LuaApp.Actions.AddUser)
 	local SetUserIsFriend = require(Modules.LuaApp.Actions.SetUserIsFriend)
 	local SetUserPresence = require(Modules.LuaApp.Actions.SetUserPresence)
+	local SetUserMembershipType = require(Modules.LuaApp.Actions.SetUserMembershipType)
 	local Constants = require(Modules.LuaChat.Constants)
 	local ReceivedUserPresence = require(Modules.LuaChat.Actions.ReceivedUserPresence)
+	local MockId = require(Modules.LuaApp.MockId)
 
 	describe("initial state", function()
 		it("should return an initial table when passed nil", function()
@@ -72,11 +74,32 @@ return function()
 
 			local existingPresence = user.presence
 			local newPresence = Constants.PresenceType.ONLINE
+			local lastLocation = MockId()
+			local newPlaceId = MockId()
 
-			state = Users(state, ReceivedUserPresence(user.id, newPresence))
+			state = Users(state, ReceivedUserPresence(user.id, newPresence, lastLocation, newPlaceId))
 
 			expect(user.presence).to.equal(existingPresence)
 			expect(state[user.id].presence).to.equal(newPresence)
+			expect(user.lastLocation).to.equal(lastLocation)
+			expect(user.placeId).to.equal(newPlaceId)
+		end)
+	end)
+
+	describe("SetUserMembershipType", function()
+		it("should set membership on an existing user", function()
+			local user = User.mock()
+			local state = {
+				[user.id] = user
+			}
+
+			local existingMembership = user.membership
+			local newMembership = Enum.MembershipType.BuildersClub
+
+			state = Users(state, SetUserMembershipType(user.id, newMembership))
+
+			expect(user.membership).to.equal(existingMembership)
+			expect(state[user.id].membership).to.equal(newMembership)
 		end)
 	end)
 end

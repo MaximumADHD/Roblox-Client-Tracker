@@ -14,7 +14,7 @@ local ICON_HORIZONTAL_SPACE = 20
 local ICON_SIZE = 20
 local ICON_VERTICAL_SPACE = 17
 
-local ListPicker = Roact.Component:extend("ListPicker")
+local ListPicker = Roact.PureComponent:extend("ListPicker")
 
 -- Returns a list of items (with text and an icon) that the user can pick from.
 -- Intended to be the core functionality of the DropDownList control.
@@ -54,14 +54,14 @@ function ListPicker:render()
 			LayoutOrder = position,
 			Size = itemSize,
 			[Roact.Event.Activated] = function()
-				self.props.onSelectItem(position)
+				self.props.onSelectItem(item)
 			end,
 		}, {
 			Image = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ClipsDescendants = false,
-				Image = item.icon,
+				Image = item.displayIcon,
 				Position = UDim2.new(0, ICON_HORIZONTAL_SPACE, 0, ICON_VERTICAL_SPACE),
 				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 			}),
@@ -71,7 +71,7 @@ function ListPicker:render()
 				Font = textFont,
 				Position = UDim2.new(0, iconSpacing, 0, 0),
 				Size = UDim2.new(1, -(iconSpacing + DROPDOWN_TEXT_MARGIN), 1, 0),
-				Text = item.text,
+				Text = item.displayName,
 				TextColor3 = textColor,
 				TextSize = textSize,
 				TextXAlignment = Enum.TextXAlignment.Left,

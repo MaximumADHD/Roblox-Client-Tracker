@@ -105,24 +105,47 @@ function RefreshScrollingFrame:init()
 		CanvasSize = FitChildren.FitAxis.Height,
 	}
 
-	-- store ref so the [Roact.Ref] doesn't change everyupdate
 	self._refCallBack = function(rbx)
+		local statusBarTapConnection = self.statusBarTapConnection
+		if statusBarTapConnection then
+			statusBarTapConnection:Disconnect()
+			self.statusBarTapConnection = nil
+		end
+
+		local canvasSignalConnection = self.canvasSignalConnection
+		if canvasSignalConnection then
+			canvasSignalConnection:Disconnect()
+			self.canvasSignalConnection = nil
+		end
+
 		if not rbx then
 			return
-
-		-- if refresh is undefined, do not listen to canvasPosition changes
-		elseif not self.props.refresh then
-			return
 		end
-		self.canvasSignalConnection = rbx:GetPropertyChangedSignal("CanvasPosition"):connect(function()
-			self:setState({
-				offset = rbx.CanvasPosition.y,
-			})
-		end)
 
 		self.scrollBack = function()
 			rbx:ScrollToTop()
 		end
+
+		if not _G.__TESTEZ_RUNNING_TEST__ then
+			self.statusBarTapConnection = UserInputService.StatusBarTapped:connect(function()
+				return self.scrollBack()
+			end)
+		end
+
+		-- if refresh is undefined, do not listen to canvasPosition changes
+		if not self.props.refresh then
+			return
+		end
+
+		self.canvasSignalConnection = rbx:GetPropertyChangedSignal("CanvasPosition"):connect(function()
+			local newPosition = rbx.CanvasPosition.y
+
+			if newPosition < REFRESH_THRESHOLD or self.state.offset < REFRESH_THRESHOLD then
+				self:setState({
+					offset = newPosition,
+				})
+			end
+		end)
 	end
 
 	self.renderSteppedCallback = function(dt)
@@ -256,7 +279,14 @@ end
 
 -- Disconnect all the signals
 function RefreshScrollingFrame:willUnmount()
-	self.canvasSignalConnection:Disconnect()
+	if self.canvasSignalConnection then
+		self.canvasSignalConnection:Disconnect()
+		self.canvasSignalConnection = nil
+	end
+	if self.statusBarTapConnection then
+		self.statusBarTapConnection:Disconnect()
+		self.statusBarTapConnection = nil
+	end
 end
 
 return RefreshScrollingFrame

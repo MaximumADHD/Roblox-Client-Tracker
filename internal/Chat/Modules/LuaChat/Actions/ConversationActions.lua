@@ -631,8 +631,8 @@ function ConversationActions.RemoveUserFromConversation(userId, convoId, callbac
 					warn("WebApi.RemoveUserFromConversation failure", status)
 					local updatedConversation = store:GetState().ChatAppReducer.Conversations[convoId]
 					if userId == tostring(Players.LocalPlayer.UserId) then
-						local titleKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP
-						local messageKey = StringsLocale.Keys.FAILED_TO_LEAVE_GROUP_MESSAGE
+						local titleKey = "Feature.Chat.Heading.FailedToLeaveGroup"
+						local messageKey = "Feature.Chat.Message.FailedToLeaveGroup"
 						local messageArguments = {
 							CONVERSATION_TITLE = getConversationDisplayTitle(updatedConversation),
 						}
@@ -640,8 +640,8 @@ function ConversationActions.RemoveUserFromConversation(userId, convoId, callbac
 						store:Dispatch(ShowAlert(alert))
 					else
 						local user = store:GetState().Users[userId]
-						local titleKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER
-						local messageKey = StringsLocale.Keys.FAILED_TO_REMOVE_USER_MESSAGE
+						local titleKey = "Feature.Chat.Heading.FailedToRemoveUser"
+						local messageKey = "Feature.Chat.Message.FailedToRemoveUser"
 						local messageArguments = {
 							CONVERSATION_TITLE = getConversationDisplayTitle(updatedConversation),
 							USERNAME = user.name,
@@ -667,13 +667,13 @@ function ConversationActions.RenameGroupConversation(convoId, newName, callback)
 
 			if status == WebApi.Status.MODERATED then
 				warn("Message was moderated")
-				local messageKey = StringsLocale.Keys.GROUP_NAME_MODERATED
+				local messageKey = "Feature.Chat.Message.MessageFilterForReceivers"
 				local toastModel = ToastModel.new(Constants.ToastIDs.GROUP_NAME_MODERATED, messageKey)
 				store:Dispatch(ShowToast(toastModel))
 			elseif status ~= WebApi.Status.OK then
 				local conversation = store:GetState().ChatAppReducer.Conversations[convoId]
-				local titleKey = StringsLocale.Keys.FAILED_TO_RENAME_TITLE
-				local messageKey = StringsLocale.Keys.FAILED_TO_RENAME_MESSAGE
+				local titleKey = "Feature.Chat.Heading.FailedToRenameConversation"
+				local messageKey = "Feature.Chat.Message.FailedToRenameConversation"
 				local messageArguments = {
 					EXISTING_NAME = getConversationDisplayTitle(conversation),
 					NEW_NAME = newName,
@@ -762,7 +762,7 @@ function ConversationActions.CreateConversation(conversation, callback)
 					--No explicit feedback regarding whether or not conversation
 					--title was moderated, have to infer like this
 					warn("Group name was moderated")
-					local messageKey = StringsLocale.Keys.GROUP_NAME_MODERATED
+					local messageKey = "Feature.Chat.Response.ChatNameFullyModerated"
 					local toastModel = ToastModel.new(Constants.ToastIDs.GROUP_NAME_MODERATED, messageKey)
 					store:Dispatch(ShowToast(toastModel))
 				end

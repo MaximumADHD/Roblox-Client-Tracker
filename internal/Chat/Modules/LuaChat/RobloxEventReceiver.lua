@@ -28,8 +28,6 @@ local SetRoute = require(LuaChat.Actions.SetRoute)
 local ShowToast = require(LuaChat.Actions.ShowToast)
 local SetPreloading = require(LuaApp.Actions.SetPreloading)
 
-local StringsLocale = require(LuaApp.StringsLocale)
-
 local Intent = DialogInfo.Intent
 
 local function jsonDecode(data)
@@ -59,7 +57,7 @@ function RobloxEventReceiver:init(appState)
 				local currentLocation = chatReducer.Location.current
 				if currentLocation and currentLocation.parameters then
 					if currentLocation.parameters.conversationId == conversationId then
-						local messageKey = StringsLocale.Keys.REMOVED_FROM_CONVERSATION
+						local messageKey = "Feature.Chat.Message.RemovedFromConversation"
 						local toastModel = ToastModel.new(Constants.ToastIDs.REMOVED_FROM_CONVERSATION, messageKey, {})
 						appState.store:Dispatch(ShowToast(toastModel))
 					end
@@ -70,7 +68,6 @@ function RobloxEventReceiver:init(appState)
 			appState.store:Dispatch(RemovedConversation(conversationId))
 		elseif detailType == "ConversationTitleChanged" then
 			local conversationId = tostring(detail.ConversationId)
-			local userId = tostring(detail.ActorTargetId)
 			spawn(function()
 				local status, result = WebApi.GetConversations({conversationId})
 

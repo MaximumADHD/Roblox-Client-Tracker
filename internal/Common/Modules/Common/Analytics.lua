@@ -22,19 +22,36 @@ local InfluxDbReporter = require(Reporters.Influx)
 local Analytics = {}
 Analytics.__index = Analytics
 
-function Analytics.new()
-	-- All public reporting functions are exposed by the objects defined in the properties
+-- reportingService : (Service, optional) an object that exposes the same functions as AnalyticsService
+function Analytics.new(reportingService)
+	if not reportingService then
+		reportingService = AnalyticsService
+	end
 
+	-- All public reporting functions are exposed by the objects defined in the properties
 	local self = {}
-	self.Diag = DiagReporter.new(AnalyticsService)
-	self.EventStream = EventStreamReporter.new(AnalyticsService)
-	self.GoogleAnalytics = GoogleAnalyticsReporter.new(AnalyticsService)
-	self.InfluxDb = InfluxDbReporter.new(AnalyticsService)
+	self.Diag = DiagReporter.new(reportingService)
+	self.EventStream = EventStreamReporter.new(reportingService)
+	self.GoogleAnalytics = GoogleAnalyticsReporter.new(reportingService)
+	self.InfluxDb = InfluxDbReporter.new(reportingService)
 
 	setmetatable(self, Analytics)
 
 	return self
 end
 
+function Analytics.mock()
+	-- create a reporting service that does not fire any requests out to the world
+	local fakeReportingService = {}
+	function fakeReportingService.ReportCounter() end
+	function fakeReportingService.ReportInfluxSeries() end
+	function fakeReportingService.ReportStats() end
+	function fakeReportingService.SetRBXEvent() end
+	function fakeReportingService.SetRBXEventStream() end
+	function fakeReportingService.TrackEvent() end
+	function fakeReportingService.UpdateHeartbeatObject() end
+
+	return Analytics.new(fakeReportingService)
+end
 
 return Analytics

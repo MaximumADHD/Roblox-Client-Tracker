@@ -2,7 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
 local Modules = script.Parent.Parent
-local StringsLocale = require(LuaApp.StringsLocale)
+
 local Create = require(Modules.Create)
 local Constants = require(Modules.Constants)
 local GetPlaceThumbnail = require(Modules.Actions.GetPlaceThumbnail)
@@ -57,7 +57,7 @@ function PlaceInfoCard.new(appState, placeInfo)
 			TextSize = Constants.Font.FONT_SIZE_14,
 			TextColor3 = Constants.Color.GRAY2,
 			Font = Enum.Font.SourceSans,
-			Text = appState.localization:Format(StringsLocale.Keys.BY_BUILDER, { USERNAME = placeInfo.builder }),
+			Text = appState.localization:Format("Feature.Chat.Label.ByBuilder", { USERNAME = placeInfo.builder }),
 			TextXAlignment = Enum.TextXAlignment.Left,
 		},
 	}

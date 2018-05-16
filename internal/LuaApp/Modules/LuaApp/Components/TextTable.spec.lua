@@ -1,19 +1,12 @@
 return function()
-	local LocalizationService = game:GetService("LocalizationService")
+	local TextTable = require(script.parent.TextTable)
 
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local Roact = require(Modules.Common.Roact)
-
-	local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
-	local Localization = require(Modules.LuaApp.Localization)
-	local StringsLocale = require(Modules.LuaApp.StringsLocale)
-	local TextTable = require(Modules.LuaApp.Components.TextTable)
+	local mockServices = require(Modules.LuaApp.TestHelpers.mockServices)
 
 	it("should create and destroy without errors when empty", function()
-		local localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)
-		local root = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = localization,
-		}, {
+		local root = mockServices({
 			element = Roact.createElement(TextTable, {
 				table = {},
 			}),
@@ -23,14 +16,11 @@ return function()
 	end)
 
 	it("should create and destroy without errors with data", function()
-		local localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)
-		local root = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = localization,
-		}, {
+		local root = mockServices({
 			element = Roact.createElement(TextTable, {
 				table = {
-					{"this", "is"},
-					{"a", "test"},
+					{ "this", "is" },
+					{ "a", "test" },
 				},
 			}),
 		})
@@ -39,17 +29,14 @@ return function()
 	end)
 
 	it("should create and destroy without errors with data and props", function()
-		local localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)
-		local root = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = localization,
-		}, {
+		local root = mockServices({
 			element = Roact.createElement(TextTable, {
 				table = {
-					{"this", "is"},
-					{"a", "test", "hehe"},
+					{ "this", "is" },
+					{ "a", "test", "hehe" },
 				},
 				majorProps = {
-					{BackgroundTransparency = 0},
+					{ BackgroundTransparency = 0 },
 				},
 			}),
 		})

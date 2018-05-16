@@ -6,19 +6,16 @@ local Roact = require(Modules.Common.Roact)
 
 local AvatarEditorSetup = require(Modules.Mobile.AvatarEditorSetup)
 
-local RemoveLoadingHUDOniOS = settings():GetFFlag("RemoveLoadingHUDOniOS")
-
-local RoactAvatarEditorWrapper = Roact.Component:extend("RoactAvatarEditorWrapper")
+local RoactAvatarEditorWrapper = Roact.PureComponent:extend("RoactAvatarEditorWrapper")
 
 function RoactAvatarEditorWrapper:init()
-	if RemoveLoadingHUDOniOS then
-		AvatarEditorSetup:Initialize()
-	else
-		local function notifyAppReady()
-			GuiService:BroadcastNotification(self.props.pageType, GuiService:GetNotificationTypeList().APP_READY)
-		end
-		AvatarEditorSetup:Initialize(notifyAppReady)
+	local function notifyAppReady()
+		-- Staging broadcasting of APP_READY to accomodate for unpredictable
+		-- delay on the native side.
+		-- Once Lua tab bar is integrated, there will be no use for this
+		GuiService:BroadcastNotification(self.props.pageType, GuiService:GetNotificationTypeList().APP_READY)
 	end
+	AvatarEditorSetup:Initialize(notifyAppReady)
 	self.isPageOpen = false
 end
 

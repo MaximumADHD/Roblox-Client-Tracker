@@ -14,7 +14,7 @@ local DialogComponents = require(Components.DialogComponents)
 local Intent = DialogInfo.Intent
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local SetRoute = require(Modules.Actions.SetRoute)
 
@@ -71,10 +71,10 @@ function ParticipantDialog.new(appState, titleKey, options, conversationId, conv
 			self.appState.store:Dispatch(SetRoute(Intent.GenericDialog, {
 					dialog = GenericDialogType.RemoveUserDialog,
 					dialogParameters = {
-						titleKey = StringsLocale.Keys.REMOVE_USER,
-						messageKey = StringsLocale.Keys.REMOVE_USER_CONFIRMATION_MESSAGE,
-						cancelTitleKey = StringsLocale.Keys.CANCEL,
-						confirmationTitleKey = StringsLocale.Keys.REMOVE,
+						titleKey = "Feature.Chat.Action.RemoveUser",
+						messageKey = "Feature.Chat.Message.RemoveUser",
+						cancelTitleKey = "Feature.Chat.Action.Cancel",
+						confirmationTitleKey = "Feature.Chat.Action.Remove",
 						conversation = self.conversation,
 						user = user,
 						messageArguments = messageArguments

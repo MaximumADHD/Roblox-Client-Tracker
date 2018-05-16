@@ -5,7 +5,7 @@ local AddUser = require(Modules.LuaApp.Actions.AddUser)
 local UserModel = require(Modules.LuaApp.Models.User)
 local ApiFetchUsersData = require(Modules.LuaApp.Thunks.ApiFetchUsersData)
 
-return function(networkImpl, page)
+return function(networkImpl, page, thumbnailType)
 	return function(store)
 		return UsersGetFriendPage(networkImpl, page):andThen(function(result)
 			local data = result.responseBody
@@ -18,7 +18,7 @@ return function(networkImpl, page)
 				table.insert(userIds, newUser.id)
 			end
 
-			store:Dispatch(ApiFetchUsersData(networkImpl, userIds))
+			store:Dispatch(ApiFetchUsersData(networkImpl, userIds, thumbnailType))
 
 			return userIds
 		end)

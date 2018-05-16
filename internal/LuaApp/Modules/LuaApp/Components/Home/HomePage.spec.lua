@@ -1,16 +1,15 @@
 return function()
-	local LocalizationService = game:GetService("LocalizationService")
+	local HomePage = require(script.Parent.HomePage)
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+	local AddUser = require(Modules.LuaApp.Actions.AddUser)
+	local AppReducer = require(Modules.LuaApp.AppReducer)
 	local Roact = require(Modules.Common.Roact)
 	local Rodux = require(Modules.Common.Rodux)
-	local RoactRodux = require(Modules.Common.RoactRodux)
-	local Localization = require(Modules.LuaApp.Localization)
-	local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
-	local StringsLocale = require(Modules.LuaApp.StringsLocale)
-	local AppReducer = require(Modules.LuaApp.AppReducer)
-	local AddUser = require(Modules.LuaApp.Actions.AddUser)
-	local SetLocalUser = require(Modules.LuaApp.Actions.SetLocalUser)
-	local HomePage = require(Modules.LuaApp.Components.Home.HomePage)
+	local SetLocalUserId = require(Modules.LuaApp.Actions.SetLocalUserId)
+	local SetUserMembershipType = require(Modules.LuaApp.Actions.SetUserMembershipType)
+	local mockServices = require(Modules.LuaApp.TestHelpers.mockServices)
 	local User = require(Modules.LuaApp.Models.User)
 
 	local function MockStore(eachUserIsFriend, membership)
@@ -20,23 +19,23 @@ return function()
 				store:Dispatch(AddUser(User.fromData(i, "User " .. i, isFriend)))
 			end
 		end
+		local localUser = User.mock()
+		store:Dispatch(AddUser(localUser))
+		store:Dispatch(SetLocalUserId(localUser.id))
 		if membership then
-			store:Dispatch(SetLocalUser("filler", membership))
+			store:Dispatch(SetUserMembershipType(localUser.id, membership))
 		else
-			store:Dispatch(SetLocalUser("filler", Enum.MembershipType.None))
+			store:Dispatch(SetUserMembershipType(localUser.id, Enum.MembershipType.None))
 		end
 		return store
 	end
 
 	local function MockHomepage(store)
-		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
+		return mockServices({
+			HomePage = Roact.createElement(HomePage),
 		}, {
-			localization = Roact.createElement(RoactLocalization.LocalizationProvider, {
-				localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId),
-			}, {
-				Roact.createElement(HomePage),
-			}),
+			includeStoreProvider = true,
+			store = store,
 		})
 	end
 
@@ -74,6 +73,7 @@ return function()
 		Roact.reify(element, container, "Test")
 
 		expect(container.Test:FindFirstChild("BuildersClub", true)).to.be.ok()
+
 		store:Destruct()
 	end)
 

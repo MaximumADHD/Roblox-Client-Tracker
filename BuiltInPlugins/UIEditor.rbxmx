@@ -2762,6 +2762,7 @@ local SnappingType 			= require(script.Parent.Enum.SnappingType)
 -- Flags
 local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
+local FFlagQuantumGui = FFlag:isEnabled("QuantumGui")
 
 -----------------------------------
 --------------SERVICES-------------
@@ -2822,10 +2823,18 @@ local function DEPRECATED_dragElementsBy(vector)
 					if (element.Parent:IsA("ScrollingFrame")) then
 						scale = vector / element.Parent.AbsoluteWindowSize
 						if (element.Parent.CanvasSize.Width.Scale > 1) then
-							scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale + 1.0, 1)
+							if FFlagQuantumGui then
+								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale, 1)
+							else
+								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale + 0.5, 1)
+							end 
 						end
 						if (element.Parent.CanvasSize.Height.Scale > 1) then
-							scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale + 1.0)
+							if FFlagQuantumGui then
+								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale)
+							else
+								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale + 0.5)
+							end
 						end
 					end
 				end
@@ -2862,10 +2871,18 @@ local function dragElementsBy(vector)
 					if (element.Parent:IsA("ScrollingFrame")) then
 						scale = rotatedVector / element.Parent.AbsoluteWindowSize
 						if (element.Parent.CanvasSize.Width.Scale > 1) then
-							scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale + 1.0, 1)
+							if FFlagQuantumGui then
+								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale, 1)
+							else
+								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale + 0.5, 1)
+							end 
 						end
 						if (element.Parent.CanvasSize.Height.Scale > 1) then
-							scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale + 1.0)
+							if FFlagQuantumGui then
+								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale)
+							else
+								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale + 0.5)
+							end
 						end
 					end
 				end

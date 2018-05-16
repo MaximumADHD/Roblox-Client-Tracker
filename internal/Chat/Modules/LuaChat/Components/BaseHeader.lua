@@ -22,12 +22,12 @@ function BaseHeader:Template()
 end
 
 function BaseHeader:SetTitle(text)
+	local label = self.innerTitles:FindFirstChild("Title")
+	if label then
+		label.Text = text
 
-	local label = self.rbx.Header.Content.Titles.Title
-	label.Text = text
-
-	Text.TruncateTextLabel(label, "...")
-
+		Text.TruncateTextLabel(label, "...")
+	end
 	self.title = text
 end
 
@@ -71,10 +71,10 @@ function BaseHeader:SetSubtitle(displayText)
 	self.subtitle = displayText
 
 	if displayText == "" then
-		self.rbx.Header.Content.Titles.Subtitle.Visible = false
+		self.innerSubtitle.Visible = false
 	else
-		self.rbx.Header.Content.Titles.Subtitle.Visible = true
-		self.rbx.Header.Content.Titles.Subtitle.Text = displayText
+		self.innerSubtitle.Visible = true
+		self.innerSubtitle.Text = displayText
 	end
 end
 
@@ -85,12 +85,12 @@ end
 
 function BaseHeader:AddButton(button)
 	table.insert(self.buttons, button)
-	button.rbx.Parent = self.rbx.Header.Content.Buttons
+	button.rbx.Parent = self.innerButtons
 	button.rbx.LayoutOrder = #self.buttons
 end
 
 function BaseHeader:AddContent(content)
-	content.rbx.Parent = self.rbx.Header.Content
+	content.rbx.Parent = self.innerContent
 end
 
 function BaseHeader:SetConnectionState(connectionState)

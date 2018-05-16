@@ -10,7 +10,7 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local Components = LuaChat.Components
 local BaseHeader = require(Components.BaseHeader)
@@ -45,6 +45,82 @@ function Header.new(appState, dialogType)
 	end)
 	table.insert(self.connections, backButtonConnection)
 
+	self.innerSubtitle = Create.new "TextLabel" {
+		Name = "Subtitle",
+		BackgroundTransparency = 1,
+		TextSize = Constants.Font.FONT_SIZE_12,
+		TextColor3 = Constants.Color.WHITE,
+		Size = UDim2.new(0, 200, 0, 12),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		TextXAlignment = Constants.PlatformSpecific.HEADER_TEXT_X_ALIGNMENT,
+		Text = "",
+		Font = "SourceSans",
+		LayoutOrder = 1,
+	}
+
+	self.innerTitles = Create.new "Frame" {
+		Name = "Titles",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, 200, 1, 0),
+		Position = self:GetHeaderTitleFramePosition(),
+		AnchorPoint = Constants.PlatformSpecific.HEADER_TITLE_FRAME_ANCHOR_POINT,
+
+		Create.new "UIListLayout" {
+			SortOrder = "LayoutOrder",
+			VerticalAlignment = Constants.PlatformSpecific.HEADER_VERTICAL_ALIGNMENT,
+		},
+
+		Create.new "TextLabel" {
+			Name = "Title",
+			BackgroundTransparency = 1,
+			TextSize = Constants.Font.FONT_SIZE_20,
+			TextColor3 = Constants.Color.WHITE,
+			Size = UDim2.new(0, 200, 0, 25),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			TextXAlignment = Constants.PlatformSpecific.HEADER_TEXT_X_ALIGNMENT,
+			Text = "Title",
+			Font = "SourceSansBold",
+			LayoutOrder = 0,
+		},
+
+		self.innerSubtitle,
+	}
+
+	self.innerButtons = Create.new "Frame" {
+		Name = "Buttons",
+		BackgroundTransparency = 1,
+		Position = UDim2.new(1, -5, 0, 0),
+		Size = UDim2.new(0, 100, 1, 0),
+		AnchorPoint = Vector2.new(1, 0),
+
+		Create.new "UIListLayout" {
+			SortOrder = "LayoutOrder",
+			HorizontalAlignment = "Right",
+			FillDirection = "Horizontal",
+			VerticalAlignment = Constants.PlatformSpecific.HEADER_VERTICAL_ALIGNMENT,
+		},
+	}
+
+	self.innerContent = Create.new "Frame" {
+		Name = "Content",
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 0, 0, UserInputService.StatusBarSize.Y),
+		Size = UDim2.new(1, 0, 0, UserInputService.NavBarSize.Y),
+
+		self.backButton.rbx,
+		self.innerTitles,
+		self.innerButtons,
+	}
+
+	self.innerHeader = Create.new "Frame" {
+		Name = "Header",
+		BackgroundColor3 = Constants.Color.BLUE_PRESSED,
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 0, self.heightOfHeader),
+
+		self.innerContent,
+	}
+
 	self.rbx = Create.new "Frame" {
 		Name = "HeaderFrame",
 		BackgroundTransparency = 1,
@@ -67,81 +143,12 @@ function Header.new(appState, dialogType)
 				Size = UDim2.new(1, 0, 0, HEIGHT_OF_DISCONNECTED),
 				Position = UDim2.new(0.5, 0, 1, 0),
 				AnchorPoint = Vector2.new(0.5, 1),
-				Text = appState.localization:Format(StringsLocale.Keys.NO_NETWORK_CONNECTION),
+				Text = appState.localization:Format("Feature.Chat.Message.NoConnectionMsg"),
 				Font = "SourceSans",
 				LayoutOrder = 0,
 			},
 		},
-
-		Create.new "Frame" {
-			Name = "Header",
-			BackgroundColor3 = Constants.Color.BLUE_PRESSED,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, self.heightOfHeader),
-
-			Create.new "Frame" {
-				Name = "Content",
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 0, UserInputService.StatusBarSize.Y),
-				Size = UDim2.new(1, 0, 0, UserInputService.NavBarSize.Y),
-
-				self.backButton.rbx,
-
-				Create.new "Frame" {
-					Name = "Titles",
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, 200, 1, 0),
-					Position = self:GetHeaderTitleFramePosition(),
-					AnchorPoint = Constants.PlatformSpecific.HEADER_TITLE_FRAME_ANCHOR_POINT,
-
-					Create.new "UIListLayout" {
-						SortOrder = "LayoutOrder",
-						VerticalAlignment = Constants.PlatformSpecific.HEADER_VERTICAL_ALIGNMENT,
-					},
-
-					Create.new "TextLabel" {
-						Name = "Title",
-						BackgroundTransparency = 1,
-						TextSize = Constants.Font.FONT_SIZE_20,
-						TextColor3 = Constants.Color.WHITE,
-						Size = UDim2.new(0, 200, 0, 25),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						TextXAlignment = Constants.PlatformSpecific.HEADER_TEXT_X_ALIGNMENT,
-						Text = "Title",
-						Font = "SourceSansBold",
-						LayoutOrder = 0,
-					},
-
-					Create.new "TextLabel" {
-						Name = "Subtitle",
-						BackgroundTransparency = 1,
-						TextSize = Constants.Font.FONT_SIZE_12,
-						TextColor3 = Constants.Color.WHITE,
-						Size = UDim2.new(0, 200, 0, 12),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						TextXAlignment = Constants.PlatformSpecific.HEADER_TEXT_X_ALIGNMENT,
-						Text = "",
-						Font = "SourceSans",
-						LayoutOrder = 1,
-					},
-				},
-
-				Create.new "Frame" {
-					Name = "Buttons",
-					BackgroundTransparency = 1,
-					Position = UDim2.new(1, -5, 0, 0),
-					Size = UDim2.new(0, 100, 1, 0),
-					AnchorPoint = Vector2.new(1, 0),
-
-					Create.new "UIListLayout" {
-						SortOrder = "LayoutOrder",
-						HorizontalAlignment = "Right",
-						FillDirection = "Horizontal",
-						VerticalAlignment = Constants.PlatformSpecific.HEADER_VERTICAL_ALIGNMENT,
-					},
-				},
-			},
-		},
+		self.innerHeader,
 	}
 
 	local parentChangedConnection = self.rbx:GetPropertyChangedSignal("Parent"):Connect(function()
@@ -184,13 +191,12 @@ function Header.new(appState, dialogType)
 end
 
 function Header:AdjustLayout()
-
 	self.heightOfHeader = UserInputService.NavBarSize.Y + UserInputService.StatusBarSize.Y
 	self.rbx.Size = UDim2.new(1, 0, 0, self.heightOfHeader)
-	self.rbx.Header.Size = UDim2.new(1, 0, 0, self.heightOfHeader)
+	self.innerHeader.Size = UDim2.new(1, 0, 0, self.heightOfHeader)
 
-	self.rbx.Header.Content.Position = UDim2.new(0, 0, 0, UserInputService.StatusBarSize.Y)
-	self.rbx.Header.Content.Size = UDim2.new(1, 0, 0, UserInputService.NavBarSize.Y)
+	self.innerContent.Position = UDim2.new(0, 0, 0, UserInputService.StatusBarSize.Y)
+	self.innerContent.Size = UDim2.new(1, 0, 0, UserInputService.NavBarSize.Y)
 end
 
 function Header:CreateHeaderButton(name, textKey)
@@ -201,7 +207,7 @@ end
 
 function Header:SetBackButtonEnabled(enabled)
 	self.backButton.rbx.Visible = enabled
-	self.rbx.Header.Content.Titles.Position = self:GetHeaderTitleFramePosition()
+	self.innerTitles.Position = self:GetHeaderTitleFramePosition()
 end
 
 function Header:GetHeaderTitleFramePosition()

@@ -54,9 +54,6 @@ local _baseNotificationUrl = string.format("https://notifications.%s", _baseDoma
 local _baseRealtimeUrl = string.format("https://realtime.%s", _baseDomain)
 local _baseWebUrl = string.format("https://web.%s", _baseDomain)
 
-
-
-
 -- public api
 local Url = {
 	DOMAIN = _baseDomain,
@@ -71,6 +68,11 @@ local Url = {
 	REALTIME_URL = _baseRealtimeUrl,
 	WEB_URL = _baseWebUrl
 }
+
+function Url:getUserProfileUrl(userId)
+	return string.format("%susers/%s/profile", self.BASE_URL, userId)
+end
+
 function Url:isVanitySite()
 	return self.PREFIX ~= "www"
 end

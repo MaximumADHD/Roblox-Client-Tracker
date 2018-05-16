@@ -22,8 +22,6 @@ local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
-
 local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
 local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
 
@@ -40,11 +38,7 @@ local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		if FFlagClientAppsUseRobloxLocale then
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		else
-			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-		end
+		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
 	end)
 	return rtv
 end

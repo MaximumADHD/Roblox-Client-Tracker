@@ -4,8 +4,6 @@ local Roact = require(Modules.Common.Roact)
 local Constants = require(Modules.LuaApp.Constants)
 local RoactMotion = require(Modules.LuaApp.RoactMotion)
 
-local FramePopOut = Roact.Component:extend("FramePopOut")
-
 local DEFAULT_WIDTH = 320
 local SCREEN_MARGIN = 10
 
@@ -22,22 +20,13 @@ local FRAME_BACKGROUND = "rbxasset://textures/ui/LuaApp/dropdown/gr-contextual m
 
 local ANIMATED_MENU_START_SIZE_RATIO = 0.1 -- A percentage value relative to menu's size at full expansion.
 
--- == Rules for displaying the popout box ==
---
--- By default the position should be below when there's room available.
--- Not enough space below, it should flip to display on top.
--- When the list is very long and there's no room on top or bottom, display on the right.
--- If there's no room on the right, flip and display on the left side.
---
--- parentShape fields are:
---    x = rbx.AbsolutePosition.x, -- Position of the triggering shape (that the user clicked on to open this menu.)
---    y = rbx.AbsolutePosition.y,
---    width = rbx.AbsoluteSize.x, -- Size of the triggering shape.
---    height = rbx.AbsoluteSize.y,
---    parentWidth = rbx.Parent.AbsoluteSize.x, -- Absolute dimensions of the screen that we can fill.
---    parentHeight = rbx.Parent.AbsoluteSize.y,
---
-function FramePopOut:findPosition(parentShape, widthContainer, heightContainer)
+-- Returns an interpolation between position0 and position1.
+-- Returns position0 when t = 0, and position1 when t = 1.
+local function lerp(t, position0, position1)
+	return (1 - t) * position0 + t * position1
+end
+
+local function findPosition(parentShape, widthContainer, heightContainer)
 	local positionInfo = {}
 
 	-- Calculate the center of our trigger shape on screen:
@@ -124,6 +113,24 @@ function FramePopOut:findPosition(parentShape, widthContainer, heightContainer)
 	return positionInfo
 end
 
+-- == Rules for displaying the popout box ==
+--
+-- By default the position should be below when there's room available.
+-- Not enough space below, it should flip to display on top.
+-- When the list is very long and there's no room on top or bottom, display on the right.
+-- If there's no room on the right, flip and display on the left side.
+--
+-- parentShape fields are:
+--    x = rbx.AbsolutePosition.x, -- Position of the triggering shape (that the user clicked on to open this menu.)
+--    y = rbx.AbsolutePosition.y,
+--    width = rbx.AbsoluteSize.x, -- Size of the triggering shape.
+--    height = rbx.AbsoluteSize.y,
+--    parentWidth = rbx.Parent.AbsoluteSize.x, -- Absolute dimensions of the screen that we can fill.
+--    parentHeight = rbx.Parent.AbsoluteSize.y,
+--
+
+local FramePopOut = Roact.PureComponent:extend("FramePopOut")
+
 function FramePopOut:init()
 	self.state = {
 		hidden = self.props.isAnimated,
@@ -134,6 +141,10 @@ function FramePopOut:init()
 	self.stiffness = nil -- use default stiffness
 	self.damping = nil -- use default damping
 	self.onRested = nil
+
+	self.onActivated = function()
+		self:close()
+	end
 end
 
 function FramePopOut:open()
@@ -180,13 +191,7 @@ function FramePopOut:render()
 	local parentShape = self.props.parentShape
 
 	-- Figure out where we're going to display our list on screen:
-	local positionInfo = self:findPosition(parentShape, itemWidth, heightAllItems)
-
-	-- Returns an interpolation between position0 and position1.
-	-- Returns position0 when t = 0, and position1 when t = 1.
-	local function lerp(t, position0, position1)
-		return (1 - t) * position0 + t * position1
-	end
+	local positionInfo = findPosition(parentShape, itemWidth, heightAllItems)
 
 	return Roact.createElement("TextButton", {
 		AutoButtonColor = false,
@@ -194,9 +199,7 @@ function FramePopOut:render()
 		BackgroundTransparency = 0.5,
 		Size = UDim2.new(1, 0, 1, 0),
 		Text = "",
-		[Roact.Event.Activated] = function(rbx)
-			self:close()
-		end,
+		[Roact.Event.Activated] = self.onActivated,
 	}, {
 		Pointer = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,

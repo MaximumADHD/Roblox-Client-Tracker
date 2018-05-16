@@ -7,7 +7,7 @@ local FitTextLabel = require(Modules.LuaApp.Components.FitTextLabel)
 local Line = require(Modules.LuaApp.Components.Line)
 local TextTable = require(Modules.LuaApp.Components.TextTable)
 local Constants = require(Modules.LuaApp.Constants)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+
 local LocalizedTextLabel = require(Modules.LuaApp.Components.LocalizedTextLabel)
 
 local Details = Roact.Component:extend("Details")
@@ -71,12 +71,12 @@ function Details:render()
 			LayoutOrder = nextLayout(),
 
 			table = {
-				{{StringsLocale.Keys.PLAYING}, gameDetail.playing},
-				{{StringsLocale.Keys.VISITS}, gameDetail.visits},
-				{{StringsLocale.Keys.CREATED}, gameDetail.created},
-				{{StringsLocale.Keys.UPDATED}, gameDetail.updated},
-				{{StringsLocale.Keys.MAX_PLAYERS}, gameDetail.maxPlayers},
-				{{StringsLocale.Keys.GENRE}, gameDetail.genre},
+				{"Feature.GameDetails.Label.Playing", gameDetail.playing},
+				{"Feature.GameDetails.Label.Visits", gameDetail.visits},
+				{"Feature.GameDetails.Label.Created", gameDetail.created},
+				{"Feature.GameDetails.Label.Updated", gameDetail.updated},
+				{"Feature.GameDetails.Label.MaxPlayers", gameDetail.maxPlayers},
+				{"Feature.GameDetails.Label.Genre", gameDetail.genre},
 			},
 			minorAxisProps = {
 				{
@@ -94,7 +94,7 @@ function Details:render()
 		}, {
 			Copylock = Roact.createElement(LocalizedTextLabel, {
 				Size = UDim2.new(1, -100, 1, 0),
-				Text = {StringsLocale.Keys.COPYLOCKED},
+				Text = "Feature.GameDetails.Label.GameCopyLocked",
 				TextColor3 = Constants.Color.GRAY3,
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -102,7 +102,7 @@ function Details:render()
 			ReportAbuse = Roact.createElement(LocalizedTextLabel, {
 				Size = UDim2.new(0, 100, 1, 0),
 				Position = UDim2.new(1, -100, 0, 0),
-				Text = {StringsLocale.Keys.REPORT_ABUSE},
+				Text = "Feature.GameDetails.Label.ReportAbuse",
 				TextColor3 = Constants.Color.RED_PRIMARY,
 				TextXAlignment = Enum.TextXAlignment.Right,
 				BackgroundTransparency = 1,

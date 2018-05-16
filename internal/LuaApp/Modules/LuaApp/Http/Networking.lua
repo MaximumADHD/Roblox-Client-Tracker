@@ -114,15 +114,38 @@ end
 local Networking = {}
 Networking.__index = Networking
 
-function Networking.new()
-	-- _httpImpl - (Service) something that implements HttpGetAsync, and HttpPostAsync
+-- httpImpl : (Service, optional) something that implements HttpGetAsync, and HttpPostAsync
+function Networking.new(httpImpl)
+	if not httpImpl then
+		httpImpl = game
+	end
+
 	local networkObj = {
-		_httpImpl = game
+		_httpImpl = httpImpl
 	}
 	setmetatable(networkObj, Networking)
 
 	return networkObj
 end
+
+-- fakeResponse : (string, optional) something to return when a faked network response returns
+function Networking.mock(fakeResponse)
+	if not fakeResponse then
+		fakeResponse = "HTTP 0 (HTTP/1.1 0 No Connection)"
+	end
+
+	-- create a stub implementation that never calls out to the web
+	local fakeHttpImpl = {}
+	function fakeHttpImpl.HttpGetAsync(_)
+		return fakeResponse
+	end
+	function fakeHttpImpl.HttpPostAsync(_)
+		return fakeResponse
+	end
+
+	return Networking.new(fakeHttpImpl)
+end
+
 
 -- Response parsing utility functions
 function Networking:jsonEncode(data)

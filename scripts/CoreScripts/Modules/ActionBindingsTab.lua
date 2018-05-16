@@ -29,61 +29,43 @@ local inputTypesByHeaders = {}
 local headersByInputTypes = {}
 local inputTypesExpanded = {}
 
+local layoutOrderDirty = true
+
 local rowTypePrecedence = { 
 	BoundInputType = 3, 
 	TableHeader = 2, 
 	BoundAction = 1 
 } 
 
-local function sortByInputType(a, b)
-	return tostring(a) < tostring(b)
+local function sortInputTypeRows(a, b)
+	local inputTypeA = boundInputTypesByRows[a]
+	local inputTypeB = boundInputTypesByRows[b]
+	return tostring(inputTypeA) < tostring(inputTypeB)
 end
 
-local function getInputType(x) 
-	if x.Name == "BoundAction" then 
-		return inputTypesByActionRows[x] 
-	elseif x.Name == "BoundInputType" then 
-		return boundInputTypesByRows[x] 
-	elseif x.Name == "TableHeader" then 
-		return inputTypesByHeaders[x]
-	end 
-end 
-
 local function sortActionRows(a, b) 
-	if a.Name == "BoundAction" and b.Name == "BoundAction" then 
-		local actionA = boundActionInfoByRows[a] 
-		local actionB = boundActionInfoByRows[b] 
-		if actionA and actionB then 
-			local rowInputTypeA = inputTypesByActionRows[a] 
-			local rowInputTypeB = inputTypesByActionRows[b] 
-			if rowInputTypeA ~= rowInputTypeB then 
-				return sortByInputType(rowInputTypeA, rowInputTypeB) 
-			end 
-			if actionA.isCore and not actionB.isCore then 
-				return true 
-			elseif not actionA.isCore and actionB.isCore then 
-				return false 
-			end 
-			local stackOrderA = actionA.stackOrder 
-			local stackOrderB = actionB.stackOrder 
-			if stackOrderA and stackOrderB then 
-				return stackOrderA > stackOrderB --descending sort 
-			else 
-				return true 
-			end 
+	local actionA = boundActionInfoByRows[a] 
+	local actionB = boundActionInfoByRows[b] 
+	if actionA and actionB then 
+		local rowInputTypeA = inputTypesByActionRows[a] 
+		local rowInputTypeB = inputTypesByActionRows[b] 
+		if rowInputTypeA ~= rowInputTypeB then 
+			return tostring(rowInputTypeA) < tostring(rowInputTypeB)
+		end 
+		if actionA.isCore and not actionB.isCore then 
+			return true 
+		elseif not actionA.isCore and actionB.isCore then 
+			return false 
+		end 
+		local stackOrderA = actionA.stackOrder 
+		local stackOrderB = actionB.stackOrder 
+		if stackOrderA and stackOrderB then 
+			return stackOrderA > stackOrderB --descending sort 
 		else 
 			return true 
 		end 
 	else 
-		local inputTypeA = getInputType(a) 
-		local inputTypeB = getInputType(b)
-		if a.Name == b.Name then 
-			return sortByInputType(inputTypeA, inputTypeB) 
-		end 
-		if inputTypeA == inputTypeB then 
-			return rowTypePrecedence[a.Name] > rowTypePrecedence[b.Name] 
-		end 
-		return sortByInputType(inputTypeA, inputTypeB) 
+		return true 
 	end 
 	return true 
  end
@@ -217,13 +199,45 @@ local function createActionColumns(row, backgroundColor)
 end
 
 local function updateContainerCanvas()
-	local y = 0
-	for _, v in pairs(container:GetChildren()) do
-		if v:IsA("GuiObject") and v.Visible then
-			y = y + v.AbsoluteSize.Y + ROW_PADDING
+	debug.profilebegin("updateContainerCanvas")
+
+	if layoutOrderDirty then
+		layoutOrderDirty = false
+		local idx = 1
+
+		local inputTypeRowList = {}
+
+		for inputType, inputTypeRow in pairs(boundInputTypeRows) do
+			table.insert(inputTypeRowList, inputTypeRow)
+		end
+
+		table.sort(inputTypeRowList, sortInputTypeRows)
+
+		for i, inputTypeRow in pairs(inputTypeRowList) do
+			local inputType = boundInputTypesByRows[inputTypeRow]
+			inputTypeRow.LayoutOrder = idx; idx = idx + 1
+			local headerRow = headersByInputTypes[inputType]
+			if headerRow then
+				headerRow.LayoutOrder = idx; idx = idx + 1
+			end
+
+			local actionRows = boundInputTypeActionRows[inputType]
+			if actionRows then
+				local actionRowList = {}
+				for actionName, actionRow in pairs(actionRows) do
+					table.insert(actionRowList, actionRow)
+				end
+
+				table.sort(actionRowList, sortActionRows)
+
+				for i, actionRow in pairs(actionRowList) do
+					actionRow.LayoutOrder = idx; idx = idx + 1
+				end
+			end
 		end
 	end
-	container.CanvasSize = UDim2.new(0, 0, 0, y)
+
+	debug.profileend()
 end
 
 local function scrollContainerToRow(row)
@@ -251,18 +265,24 @@ function ActionBindingsTab.initializeGui(tabFrame)
 		Padding = UDim.new(0, ROW_PADDING),
 		Parent = scrollingFrame
 	}
-	listLayout:SetCustomSortFunction(sortActionRows)
-	listLayout.SortOrder = Enum.SortOrder.Custom
+	listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	listLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function() container.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y) end)
 
 	ActionBindingsTab.updateGuis()
 
 	ContextActionService.BoundActionAdded:connect(function(actionName, createTouchButton, actionInfo, isCore)
 		actionInfo.isCore = isCore
 		ActionBindingsTab.updateActionRows(actionName, actionInfo)
+
+		layoutOrderDirty = true
+		updateContainerCanvas()
 	end)
 	ContextActionService.BoundActionRemoved:connect(function(actionName, actionInfo, isCore)
 		actionInfo.isCore = isCore
 		ActionBindingsTab.removeActionRows(actionName, actionInfo)
+
+		layoutOrderDirty = true
+		updateContainerCanvas()
 	end)
 end
 
@@ -271,8 +291,9 @@ function ActionBindingsTab.updateBoundInputTypeRow(inputType)
 	if not existingRow then
 		local row = createButtonRow("BoundInputType", INPUT_TYPE_ROW_HEIGHT)
 
-		local expandImageCol = createImageColumn(row, "ExpandImage", "rbxasset://textures/ui/Icons/DownIndicatorIcon@1080.png", 1, 0.35)
-		expandImageCol.ColumnImage.Rotation = -90
+		local expandImageCol = createImageColumn(row, "ExpandImage", "rbxasset://textures/ui/ExpandArrowSheet.png", 1, 0.35)
+		expandImageCol.ColumnImage.ImageRectSize = Vector2.new(21, 21)
+		expandImageCol.ColumnImage.ImageRectOffset = Vector2.new(0, 0)
 
 		local inputTypeCol = createTextColumn(row, "InputType", tostring(inputType))
 		inputTypeCol.Size = UDim2.new(1, -INPUT_TYPE_ROW_HEIGHT - COLUMN_PADDING, 1, 0)
@@ -302,7 +323,7 @@ function ActionBindingsTab.updateBoundInputTypeRow(inputType)
 
 			local inputTypeActionRows = boundInputTypeActionRows[inputType]
 			if not inputTypesExpanded[inputType] then
-				TweenService:Create(expandImageCol.ColumnImage, EXPAND_ROTATE_IMAGE_TWEEN_OUT, { Rotation = -90 }):Play()
+				expandImageCol.ColumnImage.ImageRectOffset = Vector2.new(0, 0)
 				tableHeaderRow.Visible = false
 				if inputTypeActionRows then
 					for _, actionRow in pairs(inputTypeActionRows) do
@@ -310,7 +331,7 @@ function ActionBindingsTab.updateBoundInputTypeRow(inputType)
 					end
 				end
 			else
-				TweenService:Create(expandImageCol.ColumnImage, EXPAND_ROTATE_IMAGE_TWEEN_IN, { Rotation = 0 }):Play()
+				expandImageCol.ColumnImage.ImageRectOffset = Vector2.new(21, 0)
 				tableHeaderRow.Visible = true
 				if inputTypeActionRows then
 					for _, actionRow in pairs(inputTypeActionRows) do
@@ -371,6 +392,8 @@ function ActionBindingsTab.updateActionRowForInputType(actionName, actionInfo, i
 				TweenService:Create(inputTypeRow.InputType, ROW_PULSE, { BackgroundColor3 = Color3.new(0.5, 0.5, 0.5) }):Play()
 			end
 		end
+
+		existingRow = row
 	end
 end
 
@@ -379,7 +402,6 @@ function ActionBindingsTab.updateActionRows(actionName, actionInfo)
 		ActionBindingsTab.updateBoundInputTypeRow(inputType)
 		ActionBindingsTab.updateActionRowForInputType(actionName, actionInfo, inputType)
 	end
-	updateContainerCanvas()
 end
 
 function ActionBindingsTab.removeActionRows(actionName, actionInfo)
@@ -430,6 +452,8 @@ function ActionBindingsTab.updateGuis()
 		actionInfo.isCore = false
 		ActionBindingsTab.updateActionRows(actionName, actionInfo)
 	end
+
+	layoutOrderDirty = true
 	updateContainerCanvas()
 end
 

@@ -9,6 +9,7 @@ local THUMBNAIL_TYPE_BY_NAME = {
 }
 
 local THUMBNAIL_SIZE_BY_NAME = {
+	Size100x100 = Enum.ThumbnailSize.Size100x100,
 	Size150x150 = Enum.ThumbnailSize.Size150x150,
 }
 
@@ -17,24 +18,26 @@ return function(userId, thumbnailType, thumbnailSize)
 		--Async methods will yield the thread
 		spawn(function()
 			local result = {success = false}
-			pcall(function()
+			local success, message = pcall(function()
 				local image, isFinal = Players:GetUserThumbnailAsync(
 					userId, THUMBNAIL_TYPE_BY_NAME[thumbnailType], THUMBNAIL_SIZE_BY_NAME[thumbnailSize]
 				)
+
 				result = {
 					success = true,
 					id = userId,
 					thumbnailType = thumbnailType,
 					thumbnailSize = thumbnailSize,
 
-					image = image,
+					image = isFinal and image or nil,
 					isFinal = isFinal,
 				}
 			end)
 
-			if result.success then
+			if success then
 				resolve(result)
 			else
+				result.message = message
 				reject(result)
 			end
 		end)

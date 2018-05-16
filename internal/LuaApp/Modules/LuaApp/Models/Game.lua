@@ -39,6 +39,7 @@ function Game.mock()
 	self.playerCount = 150
 	self.creatorName = "Jaegerblox"
 	self.creatorType = CreatorType.User
+
 	return self
 end
 
@@ -51,10 +52,10 @@ function Game.fromJsonData(gameJson)
 	self.universeId = gameJson.universeId
 	self.imageToken = gameJson.imageToken
 	self.name = gameJson.name
-	self.isSponsored = gameJson.isSponsored
 	self.totalUpVotes = gameJson.totalUpVotes
 	self.totalDownVotes = gameJson.totalDownVotes
 	self.playerCount = gameJson.playerCount
+
 	return self
 end
 

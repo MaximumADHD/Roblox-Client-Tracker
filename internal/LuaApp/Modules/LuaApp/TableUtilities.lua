@@ -3,6 +3,46 @@
 ]]
 
 local TableUtilities = {}
+local defaultIgnore = {}
+
+--[[
+	Takes two tables A and B, returns if they have the same key-value pairs
+	Except ignored keys
+]]
+function TableUtilities.ShallowEqual(A, B, ignore)
+	if not A or not B then
+		return false
+	elseif A == B then
+		return true
+	end
+
+	if not ignore then
+		ignore = defaultIgnore
+	end
+
+	for key, value in pairs(A) do
+		if B[key] ~= value and not ignore[key] then
+			return false
+		end
+	end
+	for key, value in pairs(B) do
+		if A[key] ~= value and not ignore[key] then
+			return false
+		end
+	end
+
+	return true
+end
+
+--[[
+	Takes two tables A, B and a key, returns if two tables have the same value at key
+]]
+function TableUtilities.EqualKey(A, B, key)
+	if A and B and key and key ~= "" and A[key] and B[key] and A[key] == B[key] then
+		return true
+	end
+	return false
+end
 
 --[[
 	Takes two tables A and B, returns a new table with elements of A
@@ -11,7 +51,7 @@ local TableUtilities = {}
 function TableUtilities.TableDifference(A, B)
 	local new = {}
 
-	for key,value in pairs(A) do
+	for key, value in pairs(A) do
 		if B[key] ~= A[key] then
 			new[key] = value
 		end

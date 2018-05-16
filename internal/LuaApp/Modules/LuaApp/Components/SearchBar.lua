@@ -3,7 +3,7 @@ local Roact = require(Modules.Common.Roact)
 local Constants = require(Modules.LuaApp.Constants)
 local LocalizedTextBox = require(Modules.LuaApp.Components.LocalizedTextBox)
 local LocalizedTextButton = require(Modules.LuaApp.Components.LocalizedTextButton)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+
 
 local SEARCH_BAR_ICON_SIZE = 28
 local SEARCH_BAR_ICON_MARGIN = 12
@@ -69,7 +69,7 @@ function SearchBar:render()
 				LayoutOrder = 1,
 				Font = SEARCH_BAR_FONT,
 				PlaceholderColor3 = Constants.Color.GRAY3,
-				PlaceholderText = { StringsLocale.Keys.SEARCH_GAMES },
+				PlaceholderText = "Search.GlobalSearch.Example.SearchGames",
 				[Roact.Event.FocusLost] = function(rbx, enterPressed)
 					if enterPressed then
 						confirmSearch(rbx.Text)
@@ -88,7 +88,7 @@ function SearchBar:render()
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			Font = CANCEL_FONT,
-			Text = { StringsLocale.Keys.CANCEL },
+			Text = "Feature.GamePage.LabelCancelField",
 			TextSize = 24,
 			TextColor3 = Constants.Color.GRAY5,
 			Size = UDim2.new(0, CANCEL_BUTTON_WIDTH, 0, 20),

@@ -1,5 +1,9 @@
-local LuaChat = script.Parent.Parent
-local MockId = require(LuaChat.MockId)
+local CoreGui = game:GetService("CoreGui")
+local Modules = CoreGui.RobloxGui.Modules
+local LuaApp = Modules.LuaApp
+local LuaChat = Modules.LuaChat
+
+local MockId = require(LuaApp.MockId)
 local OrderedMap = require(LuaChat.OrderedMap)
 local Constants = require(LuaChat.Constants)
 local DateTime = require(LuaChat.DateTime)
@@ -67,6 +71,9 @@ function Conversation.mock(mergeTable)
 	self.fetchingOlderMessages = false
 	self.fetchedOldestMessage = false
 	self.serverState = Constants.ServerState.NONE
+	self.pinnedGame = {}
+	self.pinnedGame.universeId = MockId()
+	self.pinnedGame.rootPlaceId = MockId()
 
 	self.lastUpdated = DateTime.now()
 
@@ -124,6 +131,7 @@ function Conversation.empty(mergeTable)
 	self.isUserLeaving = false
 	self.fetchingOlderMessages = false
 	self.serverState = Constants.ServerState.NONE
+	self.pinnedGame = {}
 
 	self.lastUpdated = DateTime.now()
 
@@ -154,6 +162,11 @@ function Conversation.fromWeb(data, clientId)
 	self.isUserLeaving = false
 	self.fetchingOlderMessages = false
 	self.serverState = Constants.ServerState.CREATED
+	self.pinnedGame = {}
+	if data.conversationUniverse ~= nil then
+		self.pinnedGame.universeId = tostring(data.conversationUniverse.universeId)
+		self.pinnedGame.rootPlaceId = tostring(data.conversationUniverse.rootPlaceId)
+	end
 
 	self.lastUpdated = DateTime.fromIsoDate(data.lastUpdated)
 

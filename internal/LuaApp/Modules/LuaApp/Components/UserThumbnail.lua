@@ -6,13 +6,17 @@ local Roact = require(Modules.Common.Roact)
 local Text = require(Modules.Common.Text)
 local User = require(Modules.LuaApp.Models.User)
 
-local UserThumbnail = Roact.Component:extend("UserThumbnail")
 
 local THUMBNAIL_SIZE = 90
-local THUMBNAIL_IMAGE_SIZE_ENUM = Constants.AvatarThumbnailSizes.Size150x150
-local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
-local DROPSHADOW_SIZE = 94
+local THUMBNAIL_SIZE_PHONE = 84
+local THUMBNAIL_IMAGE_SIZE_ENUM = Constants.AvatarThumbnailSizes.Size100x100
+local DEFAULT_THUMBNAIL_ICON = Constants.AVATAR_PLACEHOLDER_IMAGE
+local DROPSHADOW_SIZE = 98
 local DROPSHADOW_MARGIN = (DROPSHADOW_SIZE - THUMBNAIL_SIZE) / 2
+
+local DROPSHADOW_SIZE_PHONE = 90
+local DROPSHADOW_MARGIN_PHONE = (DROPSHADOW_SIZE_PHONE - THUMBNAIL_SIZE_PHONE) / 2
+
 local OVERLAY_IMAGE_BIG = "rbxasset://textures/ui/LuaApp/graphic/gr-friend.png"
 local USER_NAME_TEXT_SIZE = 18
 local USER_NAME_TOP_PADDING = 6
@@ -37,6 +41,8 @@ local PRESENCE_ICON_SIZE_TABLET = 24
 
 local TOTAL_HEIGHT = THUMBNAIL_SIZE + USER_NAME_TEXT_SIZE + USER_NAME_TOP_PADDING
 
+local UserThumbnail = Roact.PureComponent:extend("UserThumbnail")
+
 function UserThumbnail.size()
 	return THUMBNAIL_SIZE
 end
@@ -48,10 +54,12 @@ function UserThumbnail:render()
 	local highlightColor = self.props.highlightColor
 	local thumbnailType = self.props.thumbnailType
 
-	local presenceIconSize = formFactor == Device.FormFactor.PHONE and PRESENCE_ICON_SIZE_PHONE
+	local isPhone = formFactor == Device.FormFactor.PHONE
+
+	local presenceIconSize = isPhone and PRESENCE_ICON_SIZE_PHONE
 		or PRESENCE_ICON_SIZE_TABLET
 
-	local presenceIconMargin = formFactor == Device.FormFactor.PHONE and PRESENCE_ICON_MARGIN_PHONE
+	local presenceIconMargin = isPhone and PRESENCE_ICON_MARGIN_PHONE
 		or PRESENCE_ICON_MARGIN_TABLET
 
 	return Roact.createElement("Frame", {
@@ -60,7 +68,8 @@ function UserThumbnail:render()
 		BackgroundTransparency = 1,
 	}, {
 		Image = Roact.createElement("ImageLabel", {
-			Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
+			Size = isPhone and UDim2.new(0, THUMBNAIL_SIZE_PHONE, 0, THUMBNAIL_SIZE_PHONE)
+				or UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
 			Position = position,
 			BackgroundColor3 = Constants.Color.WHITE,
 			BorderSizePixel = 0,
@@ -68,8 +77,10 @@ function UserThumbnail:render()
 				and user.thumbnails[thumbnailType][THUMBNAIL_IMAGE_SIZE_ENUM] or DEFAULT_THUMBNAIL_ICON,
 		}, {
 			MaskFrame = Roact.createElement("ImageLabel", {
-				Size = UDim2.new(0, DROPSHADOW_SIZE, 0, DROPSHADOW_SIZE),
-				Position = UDim2.new(0, -DROPSHADOW_MARGIN, 0, -DROPSHADOW_MARGIN),
+				Size = isPhone and UDim2.new(0, DROPSHADOW_SIZE_PHONE, 0, DROPSHADOW_SIZE_PHONE)
+					or UDim2.new(0, DROPSHADOW_SIZE, 0, DROPSHADOW_SIZE),
+				Position = isPhone and UDim2.new(0, -DROPSHADOW_MARGIN_PHONE, 0, -DROPSHADOW_MARGIN_PHONE)
+					or UDim2.new(0, -DROPSHADOW_MARGIN, 0, -DROPSHADOW_MARGIN),
 				BackgroundTransparency = 1,
 				Image = OVERLAY_IMAGE_BIG,
 				ImageColor3 = highlightColor,
@@ -87,7 +98,7 @@ function UserThumbnail:render()
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						BackgroundTransparency = 1,
-						Image = formFactor == Device.FormFactor.PHONE and PRESENCE_ICON_PHONE[user.presence]
+						Image = isPhone and PRESENCE_ICON_PHONE[user.presence]
 							or PRESENCE_ICON_TABLET[user.presence],
 					}),
 				}),

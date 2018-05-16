@@ -93,10 +93,8 @@ local Settings =
 	--Offset For Text
 	TextVerticalPadding = 10,
 	TextHorizontalPadding = 13,
-
 	--Image
 	RoundCornerButtonImage = BASE_IMAGE_URL.."Buttons/Generic9ScaleButton@720.png",
-
 	-- Font Types
 	Fonts =
 	{
@@ -111,8 +109,15 @@ local Settings =
 	{
 		BlueButton = Color3.fromRGB(0, 162, 255),
 		WhiteButton = Color3.fromRGB(255, 255, 255),
+		GreySelectedButton = Color3.fromRGB(50, 181, 255),
 		TextSelected = Color3.fromRGB(25, 25, 25),
-		WhiteText = Color3.fromRGB(255, 255, 255)
+		WhiteText = Color3.fromRGB(255, 255, 255),
+		GreenText = Color3.fromRGB(2, 183, 87),
+		BlueText = Color3.fromRGB(0, 116, 189),
+		OrangeText = Color3.fromRGB(246, 136, 2),
+		GreyText = Color3.fromRGB(127, 127, 127),
+		LightGreyText = Color3.fromRGB(184, 184, 184),
+		CharacterBackground = Color3.fromRGB(39, 69, 82),
 	},
 	-- Text Sizes
 	TextSizes =
@@ -144,7 +149,6 @@ local Settings =
 	{
 		-- [[ BGM ]] --
 		BackgroundLoop = "RobloxMusic.ogg",
-
 		-- [[ UI Sounds ]] --
 		Error = "Error.mp3",
 		ButtonPress = "ButtonPress.mp3",

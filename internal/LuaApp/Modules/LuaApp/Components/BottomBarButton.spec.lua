@@ -1,39 +1,24 @@
 return function()
+	local BottomBarButton = require(script.Parent.BottomBarButton)
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local LocalizationService = game:GetService("LocalizationService")
 
-	local Rodux = require(Modules.Common.Rodux)
-	local Roact = require(Modules.Common.Roact)
-	local RoactRodux = require(Modules.Common.RoactRodux)
-
-	local AppReducer = require(Modules.LuaApp.AppReducer)
-	local Localization = require(Modules.LuaApp.Localization)
-	local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
-	local StringsLocale = require(Modules.LuaApp.StringsLocale)
 	local AppPage = require(Modules.LuaApp.AppPage)
-
-	local BottomBarButton = require(Modules.LuaApp.Components.BottomBarButton)
+	local Roact = require(Modules.Common.Roact)
+	local mockServices = require(Modules.LuaApp.TestHelpers.mockServices)
 
 	it("should create and destroy without errors", function()
-		local store = Rodux.Store.new(AppReducer)
-
-		local element = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId),
-		}, {
+		local element = mockServices({
 			BottomBarButton = Roact.createElement(BottomBarButton, {
 				defaultImage = "",
 				selectedImage = "",
 				associatedPageType = AppPage.Home,
 			}),
+		}, {
+			includeStoreProvider = true,
 		})
 
-		local screenGui = Instance.new("ScreenGui")
-		local instance = Roact.reify(Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			element
-		}), screenGui)
-
+		local instance = Roact.reify(element)
 		Roact.teardown(instance)
 	end)
 end

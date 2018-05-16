@@ -12,7 +12,7 @@ local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Device = require(LuaChat.Device)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
+
 local getInputEvent = require(LuaChat.Utils.getInputEvent)
 
 local Components = LuaChat.Components
@@ -260,7 +260,7 @@ function AlertDialog.new(appState, titleKey, messageKey)
 			TextSize = Constants.Font.FONT_SIZE_18,
 			TextColor3 = Constants.Color.GRAY1,
 			BackgroundColor3 = Constants.Color.WHITE,
-			Text = appState.localization:Format(StringsLocale.Keys.CONFIRM),
+			Text = appState.localization:Format("Feature.Chat.Action.Confirm"),
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
 			AutoButtonColor = false,
@@ -398,7 +398,7 @@ function TextInputDialog.new(appState, titleLocalizationKey, maxChar)
 	self.cancel = Signal.new()
 	self.rbx = outerFrameAndHeader(appState, title, Constants.Color.BLUE_PRIMARY, self.cancel)
 
-	local placeholderText = appState.localization:Format(StringsLocale.Keys.NAME_THIS_CHAT_GROUP)
+	local placeholderText = appState.localization:Format("Feature.Chat.Description.NameGroupChat")
 	local textInput = TextInputEntryComponent.new(appState, nil, placeholderText)
 	textInput.rbx.BackgroundTransparency = 1
 	textInput.rbx.Size = UDim2.new(1,-10,1,0)
@@ -448,8 +448,8 @@ function TextInputDialog.new(appState, titleLocalizationKey, maxChar)
 	divider.LayoutOrder = 3
 	divider.Parent = self.rbx.Dialog
 
-	local cancelTitle = appState.localization:Format(StringsLocale.Keys.CANCEL)
-	local confirmTitle = appState.localization:Format(StringsLocale.Keys.SAVE)
+	local cancelTitle = appState.localization:Format("Feature.Chat.Action.Cancel")
+	local confirmTitle = appState.localization:Format("Feature.Chat.Action.Save")
 
 	local buttons = makeConfirmCancelButtons(cancelTitle, confirmTitle)
 	buttons.LayoutOrder = 4
@@ -637,7 +637,7 @@ function OptionDialog.new(appState, titleKey, options, userId)
 			TextSize = Constants.Font.FONT_SIZE_18,
 			TextColor3 = Constants.Color.GRAY1,
 			BackgroundColor3 = Constants.Color.WHITE,
-			Text = appState.localization:Format(StringsLocale.Keys.CANCEL),
+			Text = appState.localization:Format("Feature.Chat.Action.Cancel"),
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
 			AutoButtonColor = false,

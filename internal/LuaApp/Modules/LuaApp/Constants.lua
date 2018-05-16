@@ -27,20 +27,52 @@ local Constants = {
 	TAB_BAR_SIZE = 49,
 	GAME_CAROUSEL_PADDING = 15,
 	GAME_CAROUSEL_CHILD_PADDING = 12,
+	GAME_GRID_PADDING = 15,
+	GAME_GRID_CHILD_PADDING = 12,
+	MIN_CARD_WIDTH_TABLE = {82, 106, 148, 148, 148, 148, 148, 148, 148, 148},
+	CARD_NUM_TABLE = {3.25, 4.25, 4.25, 5.25, 6.25, 7.25, 8.25, 9.25, 10.25, 11.25},
 	GameSortGroups = {
 		Games = "Games",
 		HomeGames = "HomeGames",
 	},
 	ApiUsedForSorts = {
-		Games = "GamesAllSort",
+		Games = "GamesDefaultSorts",
 		HomeGames = "HomeSorts",
+	},
+	SearchTypes = {
+		Games = "Games",
+		Groups = "Groups",
+		Players = "Players",
+		Catalog = "Catalog",
+		Library = "Library",
 	},
 	AvatarThumbnailTypes = {
 		AvatarThumbnail = "AvatarThumbnail",
 		HeadShot = "HeadShot",
 	},
 	AvatarThumbnailSizes = {
+		Size100x100 = "Size100x100",
 		Size150x150 = "Size150x150",
+	},
+	AVATAR_PLACEHOLDER_IMAGE = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png",
+
+	LEGACY_GAME_SORT_IDS = {
+		default = 0,
+		BuildersClub = 14,
+		Featured = 3,
+		FriendActivity = 17,
+		MyFavorite = 5,
+		MyRecent = 6,
+		Popular = 1,
+		PopularInCountry = 20,
+		PopularInVr = 19,
+		Purchased = 10,
+		Recommended = 16,
+		TopFavorite = 2,
+		TopGrossing = 8,
+		TopPaid = 9,
+		TopRated = 11,
+		TopRetaining = 16,
 	},
 }
 

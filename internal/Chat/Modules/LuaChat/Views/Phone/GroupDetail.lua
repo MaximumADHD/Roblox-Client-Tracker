@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
+
 
 local Modules = script.Parent.Parent.Parent
 local BaseScreen = require(script.Parent.BaseScreen)
@@ -46,7 +46,7 @@ function GroupDetail.new(appState, route)
 
 		local participantCount = #self.groupDetailComponent.conversation.participants
 		if participantCount >= Constants.MAX_PARTICIPANT_COUNT + 1 then
-			local messageKey = StringsLocale.Keys.TOO_MANY_PEOPLE
+			local messageKey = "Feature.Chat.Message.ToastText"
 			local messageArguments = {
 				MAX_GROUP_SIZE = tostring(Constants.MAX_PARTICIPANT_COUNT+1),
 			}
@@ -68,7 +68,8 @@ function GroupDetail:Start()
 
 	do
 		local connection = self.appState.store.Changed:Connect(function(current, previous)
-			local conversation = current.ChatAppReducer.Conversations[current.ChatAppReducer.Location.current.parameters.conversationId]
+			local currentConversationId = current.ChatAppReducer.Location.current.parameters.conversationId
+			local conversation = current.ChatAppReducer.Conversations[currentConversationId]
 			if current ~= previous and conversation then
 				self.groupDetailComponent:Update(current, previous)
 			else

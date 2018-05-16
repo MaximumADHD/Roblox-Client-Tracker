@@ -33,6 +33,7 @@ local ToolEquipped = nil
 local RevertAutoJumpEnabledToFalse = false
 
 local ThumbstickFrame = nil
+local GestureArea = nil
 local StartImage = nil
 local EndImage = nil
 local MiddleImages = {}
@@ -92,20 +93,6 @@ local function enableAutoJump(humanoid)
 		shouldRevert = shouldRevert and LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
 		RevertAutoJumpEnabledToFalse = shouldRevert
 		humanoid.AutoJumpEnabled = true
-	end
-end
-
-local function doesToolHaveListeners()
-	if not ToolEquipped then
-		return false
-	end
-	local success, result = pcall(function()	
-		return ToolEquipped.HasActivatedListenersServer or ToolEquipped.HasActivatedListenersClient
-	end)
-	if not success then
-		return true --assume tool has listeners if the API doesn't exist
-	else
-		return result
 	end
 end
 
@@ -234,13 +221,24 @@ function Thumbstick:Create(parentFrame)
 	
 	local function layoutThumbstickFrame(portraitMode)
 		if portraitMode then
-			ThumbstickFrame.Size = UDim2.new(1, 0, .4, 0)
+			ThumbstickFrame.Size = UDim2.new(1, 0, 0.4, 0)
 			ThumbstickFrame.Position = UDim2.new(0, 0, 0.6, 0)
+			GestureArea.Size = UDim2.new(1, 0, 0.6, 0)
+			GestureArea.Position = UDim2.new(0, 0, 0, 0)
 		else
-			ThumbstickFrame.Size = UDim2.new(1, 0, .5, 18)
-			ThumbstickFrame.Position = UDim2.new(0, 0, 0.5, -18)
+			ThumbstickFrame.Size = UDim2.new(0.4, 0, 2/3, 0)
+			ThumbstickFrame.Position = UDim2.new(0, 0, 1/3, 0)
+			GestureArea.Size = UDim2.new(1, 0, 1, 0)
+			GestureArea.Position = UDim2.new(0, 0, 0, 0)
 		end
 	end
+
+	GestureArea = Instance.new("Frame")
+	GestureArea.Name = "GestureArea"
+	GestureArea.Active = false
+	GestureArea.Visible = true
+	GestureArea.BackgroundTransparency = 1
+	GestureArea.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		
 	ThumbstickFrame = Instance.new('Frame')
 	ThumbstickFrame.Name = "DynamicThumbstickFrame"
@@ -252,21 +250,23 @@ function Thumbstick:Create(parentFrame)
 
 	StartImage = Instance.new("ImageLabel")
 	StartImage.Name = "ThumbstickStart"
-	StartImage.Visible = false
+	StartImage.Visible = true
 	StartImage.BackgroundTransparency = 1
 	StartImage.Image = IMAGE_RING
 	StartImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	StartImage.Position = UDim2.new(0, ThumbstickRingSize * 2, 1, -ThumbstickRingSize * 2)
 	StartImage.Size = UDim2.new(0, ThumbstickRingSize, 0, ThumbstickRingSize)
 	StartImage.ZIndex = 10
 	StartImage.Parent = ThumbstickFrame
 	
 	EndImage = Instance.new("ImageLabel")
 	EndImage.Name = "ThumbstickEnd"
-	EndImage.Visible = false
+	EndImage.Visible = true
 	EndImage.BackgroundTransparency = 1
 	EndImage.Image = IMAGE_DISK
 	EndImage.ImageTransparency = 0.20
 	EndImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	EndImage.Position = StartImage.Position
 	EndImage.Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize)
 	EndImage.ZIndex = 10
 	EndImage.Parent = ThumbstickFrame
@@ -284,37 +284,34 @@ function Thumbstick:Create(parentFrame)
 	end
 
 	if FFlagUserEnableDynamicThumbstickIntro and Intro then
-		Intro.setup(isBigScreen, parentFrame, ThumbstickFrame, StartImage, EndImage, MiddleImages)
+		Intro.setup(isBigScreen, parentFrame, GestureArea, ThumbstickFrame, StartImage, EndImage, MiddleImages)
 	end
 
 	local CameraChangedConn = nil
-	local function onWorkspaceChanged(property)
-		if property == 'CurrentCamera' then
-			if CameraChangedConn then
-				CameraChangedConn:Disconnect()
-				CameraChangedConn = nil
-			end
-			local newCamera = workspace.CurrentCamera
-			if newCamera then
+	local function onCurrentCameraChanged()
+		if CameraChangedConn then
+			CameraChangedConn:Disconnect()
+			CameraChangedConn = nil
+		end
+		local newCamera = workspace.CurrentCamera
+		if newCamera then
+			local function onViewportSizeChanged()
 				local size = newCamera.ViewportSize
 				local portraitMode = size.X < size.Y
 				layoutThumbstickFrame(portraitMode)
-				CameraChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-					size = newCamera.ViewportSize
-					portraitMode = size.X < size.Y
-					layoutThumbstickFrame(portraitMode)
-				end)
+				
+				if FFlagUserEnableDynamicThumbstickIntro then
+					Intro.setPortraitMode(portraitMode)
+				end
 			end
+			CameraChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(onViewportSizeChanged)
+			onViewportSizeChanged()
 		end
 	end
-	workspace.Changed:Connect(onWorkspaceChanged)
+	workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
 	if workspace.CurrentCamera then
-		onWorkspaceChanged('CurrentCamera')
+		onCurrentCameraChanged()
 	end
-	
-	local JumpTouchObject = nil
-	local JumpTouchStartTime = nil
-	local JumpTouchStartPosition = nil
 	
 	local MoveTouchObject = nil
 	local MoveTouchStartTime = nil
@@ -442,11 +439,6 @@ function Thumbstick:Create(parentFrame)
 			return
 		end
 		if MoveTouchObject then
-			if not JumpTouchObject then
-				JumpTouchObject = inputObject
-				JumpTouchStartTime = tick()
-				JumpTouchStartPosition = inputObject.Position
-			end
 			return
 		end
 
@@ -546,72 +538,16 @@ function Thumbstick:Create(parentFrame)
 		end
 	end)
 
-	--todo: remove this pcall when TouchTapInWorld is on for all platforms
-	local success = pcall(function() 
-		local function positionIntersectsGuiObject(position, guiObject)
-			if position.X < guiObject.AbsolutePosition.X + guiObject.AbsoluteSize.X
-				and position.X > guiObject.AbsolutePosition.X
-				and position.Y < guiObject.AbsolutePosition.Y + guiObject.AbsoluteSize.Y
-				and position.Y > guiObject.AbsolutePosition.Y then
-				return true
-			end
-			return false
+	OnTouchEndedCn = UserInputService.TouchEnded:connect(function(inputObject, isProcessed)
+		if inputObject == MoveTouchObject then
+			OnMoveTouchEnded(inputObject)
 		end
-
-		local debounce = false
-		TouchActivateCn = UserInputService.TouchTapInWorld:connect(function(touchPos, processed)
-			if not processed and Enabled and not doesToolHaveListeners() and positionIntersectsGuiObject(touchPos, ThumbstickFrame) then
-				if not debounce then
-					debounce = true
-					MasterControl:DoJump()
-
-					if FFlagUserEnableDynamicThumbstickIntro and Intro then
-						Intro.onJumped()
-					end
-					wait(0.25)
-					debounce = false
-				end
-			end
-		end)
 	end)
-
-	if not success then
-		local function JumpIfTouchIsTap(startTime, startPosition, position)
-			if (not doesToolHaveListeners()) and tick() - startTime < TOUCH_IS_TAP_TIME_THRESHOLD then
-				if (position - startPosition).magnitude < TOUCH_IS_TAP_DISTANCE_THRESHOLD then
-					MasterControl:DoJump()
-					if FFlagUserEnableDynamicThumbstickIntro and Intro then
-						Intro.onJumped()
-					end
-				end
-			end
-		end
-		
-		OnTouchEndedCn = UserInputService.TouchEnded:connect(function(inputObject, isProcessed)
-			if inputObject == MoveTouchObject then
-				JumpIfTouchIsTap(MoveTouchStartTime, MoveTouchStartPosition, inputObject.Position) 
-				OnMoveTouchEnded(inputObject)
-			elseif inputObject == JumpTouchObject then
-				JumpIfTouchIsTap(JumpTouchStartTime, JumpTouchStartPosition, inputObject.Position)
-				JumpTouchObject = nil
-			end
-		end)
-	else
-		OnTouchEndedCn = UserInputService.TouchEnded:connect(function(inputObject, isProcessed)
-			if inputObject == MoveTouchObject then
-				OnMoveTouchEnded(inputObject)
-			elseif inputObject == JumpTouchObject then
-				JumpTouchObject = nil
-			end
-		end)
-	end
+	
 	
 	GuiService.MenuOpened:connect(function()
 		if MoveTouchObject then
 			OnMoveTouchEnded(nil)
-		end
-		if JumpTouchObject then
-			JumpTouchObject = nil
 		end
 	end)
 
@@ -647,6 +583,7 @@ function Thumbstick:Create(parentFrame)
 		end
 	end)
 	
+	GestureArea.Parent = parentFrame.Parent
 	ThumbstickFrame.Parent = parentFrame
 
 	spawn(function()

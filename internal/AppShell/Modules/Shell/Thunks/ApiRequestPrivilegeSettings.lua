@@ -12,7 +12,7 @@ local Privileges =
 	MULTIPLAYER_SESSIONS = 254
 }
 
-local GetCrossplayEnabledStatusAsync = MakeSafeAsyncRodux({
+local GetPrivilegeSettingsAsync = MakeSafeAsyncRodux({
 	asyncFunc = function(store)
 		local newPrivilegeSettings = {}
 
@@ -37,17 +37,19 @@ local GetCrossplayEnabledStatusAsync = MakeSafeAsyncRodux({
 		return newPrivilegeSettings
 	end,
 	callback = function(store, newPrivilegeSettings)
-        store:Dispatch(SetPrivilegeSettings(newPrivilegeSettings))
+		store:Dispatch(SetPrivilegeSettings(newPrivilegeSettings))
 	end,
 	userRelated = true
 })
 
 
 return function()
-    return function(store)
-        --Note: we don't check isRequesting state for privilege settings update,
-        --as we always want to fetch the latest privilege settings
-        store:Dispatch(FetchPrivilegeSettings())
-        GetCrossplayEnabledStatusAsync(store)
-    end
+	return function(store)
+		--Note: we don't check isRequesting state for privilege settings update,
+		--as we always want to fetch the latest privilege settings
+		store:Dispatch(FetchPrivilegeSettings())
+		spawn(function()
+			GetPrivilegeSettingsAsync(store)
+		end)
+	end
 end

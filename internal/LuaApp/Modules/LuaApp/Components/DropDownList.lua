@@ -34,22 +34,51 @@ function DropDownList:init()
 	self.state = {
 		isOpen = false,
 	}
-end
 
--- The user just selected an item, change to it:
-function DropDownList:onValueChange(index)
-	-- Fire our callback to notify parent of the new index + value:
-	if self.props.onSelected then
-		self.props.onSelected(index)
+	self.onActivated = function(rbx)
+		-- We need to know the size of the screen, so we can position the
+		-- popout component appropriately. So we climb up the object
+		-- heirachy until we find the current ScreenGui:
+		local screenWidth = 0
+		local screenHeight = 0
+		local screenGui = rbx:FindFirstAncestorOfClass("ScreenGui")
+		if screenGui ~= nil then
+			screenWidth = screenGui.AbsoluteSize.x
+			screenHeight = screenGui.AbsoluteSize.y
+		end
+
+		self:setState({
+			isOpen = true,
+			screenShape = {
+				x = rbx.AbsolutePosition.x,
+				y = rbx.AbsolutePosition.y,
+				width = rbx.AbsoluteSize.x,
+				height = rbx.AbsoluteSize.y,
+				parentWidth = screenWidth,
+				parentHeight = screenHeight,
+			},
+		})
 	end
 
-	-- Close the selector and use the new text value:
-	self:setState({
-		isOpen = false,
-	})
+	self.callbackCancel = function()
+		self:setState({ isOpen = false })
+	end
+
+	-- The user just selected an item, change to it:
+	self.callbackSelect = function(sort)
+		-- Close the selector
+		self:setState({
+			isOpen = false,
+		})
+		-- Fire our callback to notify parent of the new index + value:
+		if self.props.onSelected then
+			return self.props.onSelected(sort)
+		end
+	end
 end
 
 function DropDownList:render()
+	local position = self.props.position
 	local anchorPoint = self.props.anchorPoint
 	local formFactor = self.props.formFactor
 	local height = self.props.height or DROPDOWN_HEIGHT
@@ -66,8 +95,6 @@ function DropDownList:render()
 	local textColor = self.props.textColor or DEFAULT_TEXT_COLOR
 	local textFont = self.props.font or DEFAULT_TEXT_FONT
 	local textSize = self.props.textSize or DEFAULT_TEXT_SIZE
-	local currentItem = items[itemSelected] or ""
-	local displayText = currentItem.text or itemSelected
 	local isTablet = (formFactor == Device.FormFactor.TABLET)
 
 	-- Build up our drop-down items here for display inside our main element:
@@ -75,13 +102,6 @@ function DropDownList:render()
 
 	-- Show the drop down if it is enabled:
 	if self.state.isOpen then
-		local callbackSelect = function(index)
-			self:onValueChange(index)
-		end
-		local callbackCancel = function()
-			self:setState({ isOpen = false })
-		end
-
 		-- For phones, we want the width to stretch to the screen size.
 		-- For tablets, we want the width from the parent.
 		local listContentsWidth = 0
@@ -91,7 +111,7 @@ function DropDownList:render()
 		local itemCount = #items
 		local listContents = {
 			ListPicker = Roact.createElement(ListPicker, {
-				onSelectItem = callbackSelect,
+				onSelectItem = self.callbackSelect,
 				items = items,
 
 				itemHeight = itemHeight,
@@ -110,7 +130,7 @@ function DropDownList:render()
 				heightAllItems = itemHeight * itemCount,
 				itemWidth = itemWidth,
 				isAnimated = true,
-				onCancel = callbackCancel,
+				onCancel = self.callbackCancel,
 				parentShape = screenShape,
 			}, listContents)
 		else
@@ -118,7 +138,7 @@ function DropDownList:render()
 				heightAllItems = itemHeight * itemCount,
 				heightScrollContainer = itemHeight * math.min(itemCount, VISIBLE_ITEMS),
 				isAnimated = true,
-				onCancel = callbackCancel,
+				onCancel = self.callbackCancel,
 			}, listContents)
 		end
 
@@ -142,6 +162,7 @@ function DropDownList:render()
 
 	-- Create and return the main control itself:
 	return Roact.createElement("ImageButton", {
+		Position = position,
 		AnchorPoint = anchorPoint,
 		AutoButtonColor = false,
 		BackgroundTransparency = 1,
@@ -152,33 +173,7 @@ function DropDownList:render()
 		ScaleType = Enum.ScaleType.Slice,
 		Size = size,
 		SliceCenter = Rect.new(3, 3, 4, 4),
-		[Roact.Event.Activated] = function(rbx)
-			-- We need to know the size of the screen, so we can position the
-			-- popout component appropriately. So we climb up the object
-			-- heirachy until we find the current ScreenGui:
-			local screenWidth = 0
-			local screenHeight = 0
-			local screenGui = rbx
-			while (screenGui ~= nil) and not screenGui:IsA("ScreenGui") do
-				screenGui = screenGui.parent
-			end
-			if screenGui ~= nil then
-				screenWidth = screenGui.AbsoluteSize.x
-				screenHeight = screenGui.AbsoluteSize.y
-			end
-
-			self:setState({
-				isOpen = true,
-				screenShape = {
-					x = rbx.AbsolutePosition.x,
-					y = rbx.AbsolutePosition.y,
-					width = rbx.AbsoluteSize.x,
-					height = rbx.AbsoluteSize.y,
-					parentWidth = screenWidth,
-					parentHeight = screenHeight,
-				},
-			})
-		end,
+		[Roact.Event.Activated] = self.onActivated,
 	}, {
 		Text = Roact.createElement("TextLabel", {
 			BackgroundColor3 = Constants.Color.WHITE,
@@ -186,7 +181,7 @@ function DropDownList:render()
 			BorderSizePixel = 0,
 			Font = textFont,
 			Size = UDim2.new(1, textPadding, 0, height),
-			Text = displayText,
+			Text = itemSelected.displayName,
 			TextColor3 = textColor,
 			TextSize = textSize,
 			Position = UDim2.new(0, DROPDOWN_TEXT_MARGIN, 0, 0),
@@ -205,7 +200,7 @@ function DropDownList:render()
 	})
 end
 
-DropDownList = RoactRodux.connect(function(store, props)
+DropDownList = RoactRodux.connect(function(store)
 	local state = store:GetState()
 
 	return {

@@ -1,8 +1,6 @@
 -- Backpack Version 5.1
 -- OnlyTwentyCharacters, SolarCrane
 
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
-
 -------------------
 --| Exposed API |--
 -------------------
@@ -66,17 +64,10 @@ local SEARCH_TEXT = "   Search"
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
 	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-	if FFlagClientAppsUseRobloxLocale then
-		SEARCH_TEXT = CorescriptLocalization:GetString(
-			LocalizationService.RobloxLocaleId,
-			"BACKPACK_SEARCH"
-		)
-	else
-		SEARCH_TEXT = CorescriptLocalization:GetString(
-			LocalizationService.SystemLocaleId,
-			"BACKPACK_SEARCH"
-		)
-	end
+	SEARCH_TEXT = CorescriptLocalization:GetString(
+		LocalizationService.RobloxLocaleId,
+		"BACKPACK_SEARCH"
+	)
 end)
 
 local SEARCH_TEXT_OFFSET_FROMLEFT = 0

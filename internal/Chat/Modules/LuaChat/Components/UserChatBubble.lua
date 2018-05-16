@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 local LuaApp = CoreGui.RobloxGui.Modules.LuaApp
-local StringsLocale = require(LuaApp.StringsLocale)
+
 local LuaChat = script.Parent.Parent
 
 local Create = require(LuaChat.Create)
@@ -237,10 +237,10 @@ function UserChatBubble:Update(message)
 	local textColor
 	local filteringTextKey = nil
 	if message.moderated then
-		filteringTextKey = StringsLocale.Keys.THIS_MESSAGE_WAS_MODERATED
+		filteringTextKey = "Feature.Chat.Message.MessageContentModerated"
 		textColor = Constants.Color.RED_NEGATIVE
 	elseif message.filteredForReceivers then
-		filteringTextKey = StringsLocale.Keys.FILTERED_FOR_RECEIVERS
+		filteringTextKey = "Feature.Chat.Message.Default"
 		textColor = Constants.Color.GRAY3
 	end
 

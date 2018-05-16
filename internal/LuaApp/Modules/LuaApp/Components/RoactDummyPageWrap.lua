@@ -4,7 +4,7 @@ local Roact = require(Modules.Common.Roact)
 
 local Constants = require(Modules.LuaApp.Constants)
 
-local RoactDummyPageWrap = Roact.Component:extend("RoactDummyPageWrap")
+local RoactDummyPageWrap = Roact.PureComponent:extend("RoactDummyPageWrap")
 
 function RoactDummyPageWrap:render()
 	local isVisible = self.props.isVisible

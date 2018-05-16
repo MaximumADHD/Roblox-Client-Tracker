@@ -6,11 +6,15 @@ local LuaApp = Modules.LuaApp
 
 local Roact = require(Common.Roact)
 
-local StringsLocale = require(LuaApp.StringsLocale)
 local LocalizedTextLabel = require(LuaApp.Components.LocalizedTextLabel)
 
 local FEED_BUTTON_ASSET_DEFAULT = "rbxasset://textures/ui/LuaApp/9-slice/gr-btn-white-3px.png"
 local FEED_BUTTON_ASSET_PRESSED = "rbxasset://textures/ui/LuaApp/9-slice/gr-btn-white-3px-pressed.png"
+
+local onViewFeed = function()
+	local notificationType = GuiService:GetNotificationTypeList().VIEW_MY_FEED
+	GuiService:BroadcastNotification("", notificationType)
+end
 
 local MyFeedButton = Roact.PureComponent:extend("MyFeedButton")
 
@@ -18,6 +22,18 @@ function MyFeedButton:init()
 	self.state = {
 		isMyFeedButtonPressed = false,
 	}
+
+	self.onInputBegan = function()
+		self:setState({
+			isMyFeedButtonPressed = true
+		})
+	end
+
+	self.onInputEnded = function()
+		self:setState({
+			isMyFeedButtonPressed = false
+		})
+	end
 end
 
 function MyFeedButton:render()
@@ -46,27 +62,16 @@ function MyFeedButton:render()
 			SliceCenter = Rect.new(3,3,4,4),
 			Image = myFeedButtonAsset,
 			AutoButtonColor = true,
-			[Roact.Event.Activated] = function()
-				local notificationType = GuiService:GetNotificationTypeList().VIEW_MY_FEED
-				GuiService:BroadcastNotification("", notificationType)
-			end,
-			[Roact.Event.InputBegan] = function()
-				self:setState({
-					isMyFeedButtonPressed = true
-				})
-			end,
-			[Roact.Event.InputEnded] = function()
-				self:setState({
-					isMyFeedButtonPressed = false
-				})
-			end,
+			[Roact.Event.Activated] = onViewFeed,
+			[Roact.Event.InputBegan] = self.onInputBegan,
+			[Roact.Event.InputEnded] = self.onInputEnded,
 		}, {
 			Text = Roact.createElement(LocalizedTextLabel, {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Font = Enum.Font.SourceSans,
-				Text = { StringsLocale.Keys.MY_FEED },
+				Text = "Feature.Home.Action.ViewMyFeed",
 				TextSize = 20,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,

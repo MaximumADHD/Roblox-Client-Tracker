@@ -135,6 +135,7 @@ Class PlayerGui : BasePlayerGui [notCreatable]
 	Function void PlayerGui:SetTopbarTransparency(float transparency)
 	Event PlayerGui.TopbarTransparencyChangedSignal(float transparency)
 Class StarterGui : BasePlayerGui
+	Property bool StarterGui.ProcessUserInput [hidden] [PluginSecurity]
 	Property bool StarterGui.ResetPlayerGuiOnSpawn [deprecated]
 	Property ScreenOrientation StarterGui.ScreenOrientation
 	Property bool StarterGui.ShowDevelopmentGui
@@ -882,6 +883,8 @@ Class BillboardGui : LayerCollector
 Class PluginGui : LayerCollector
 	Property bool PluginGui.HostWidgetWasRestored [readonly]
 	Property string PluginGui.Title
+	Event PluginGui.WindowFocusReleased() [PluginSecurity]
+	Event PluginGui.WindowFocused() [PluginSecurity]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 Class GuiMain : ScreenGui [deprecated]
@@ -1217,6 +1220,7 @@ Class JointsService : Instance [notCreatable]
 	Function void JointsService:SetJoinAfterMoveInstance(Instance joinInstance)
 	Function void JointsService:SetJoinAfterMoveTarget(Instance joinTarget)
 	Function void JointsService:ShowPermissibleJoints()
+Class KeyboardService : Instance
 Class Keyframe : Instance
 	Property float Keyframe.Time
 	Function void Keyframe:AddPose(Instance pose)
@@ -1407,6 +1411,7 @@ Class Mouse : Instance
 Class PlayerMouse : Mouse
 Class PluginMouse : Mouse
 	Event PluginMouse.DragEnter(Objects instances) [PluginSecurity]
+Class MouseService : Instance [notCreatable]
 Class NetworkMarker : Instance [notbrowsable]
 	Event NetworkMarker.Received()
 Class NetworkPeer : Instance [notbrowsable]
@@ -1796,6 +1801,7 @@ Class Player : Instance
 	Property int64 Player.FollowUserId [readonly]
 	Property bool Player.Guest [readonly] [RobloxScriptSecurity]
 	Property float Player.HealthDisplayDistance
+	Property string Player.LocaleId [hidden] [readonly]
 	Property float Player.MaximumSimulationRadius [LocalUserSecurity]
 	Property MembershipType Player.MembershipType [readonly]
 	Property float Player.NameDisplayDistance
@@ -1820,7 +1826,6 @@ Class Player : Instance
 	Function bool Player:GetUnder13() [RobloxScriptSecurity]
 	Function bool Player:HasAppearanceLoaded()
 	Function bool Player:IsUserAvailableForExperiment() [deprecated]
-	Function void Player:JumpCharacter() [RobloxScriptSecurity]
 	Function void Player:Kick(string message = )
 	Function bool Player:LoadBoolean(string key) [deprecated]
 	Function void Player:LoadCharacterAppearance(Instance assetInstance)
@@ -1829,7 +1834,6 @@ Class Player : Instance
 	Function double Player:LoadNumber(string key) [deprecated]
 	Function string Player:LoadString(string key) [deprecated]
 	Function void Player:Move(Vector3 walkDirection, bool relativeToCamera = false)
-	Function void Player:MoveCharacter(Vector2 walkDirection, float maxWalkDelta) [RobloxScriptSecurity]
 	Function void Player:RemoveCharacter() [LocalUserSecurity]
 	Function void Player:RequestFriendship(Instance player) [RobloxScriptSecurity]
 	Function void Player:RevokeFriendship(Instance player) [RobloxScriptSecurity]
@@ -1929,6 +1933,7 @@ Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
+	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
 	Function void Plugin:Deactivate() [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
@@ -1952,6 +1957,11 @@ Class Plugin : Instance
 	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
 	Event Plugin.Deactivation() [PluginSecurity]
+Class PluginAction : Instance
+	Property string PluginAction.ActionId [readonly]
+	Property string PluginAction.StatusTip [readonly]
+	Property string PluginAction.Text [readonly]
+	Event PluginAction.Triggered() [PluginSecurity]
 Class PluginGuiService : Instance [notCreatable]
 Class PluginManager : Instance
 	Function Instance PluginManager:CreatePlugin() [PluginSecurity]

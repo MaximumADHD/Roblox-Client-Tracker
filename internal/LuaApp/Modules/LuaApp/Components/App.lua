@@ -1,6 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local LocalizationService = game:GetService("LocalizationService")
+local RunService = game:GetService("RunService")
 
 local Modules = CoreGui.RobloxGui.Modules
 
@@ -10,28 +11,37 @@ local RoactRodux = require(Modules.Common.RoactRodux)
 
 local Promise = require(Modules.LuaApp.Promise)
 local Localization = require(Modules.LuaApp.Localization)
-local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+local RoactServices = require(Modules.LuaApp.RoactServices)
+local RoactAnalytics = require(Modules.LuaApp.Services.RoactAnalytics)
+local RoactLocalization = require(Modules.LuaApp.Services.RoactLocalization)
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+local FlagSettings = require(Modules.LuaApp.FlagSettings)
 
 local AppRouter = require(Modules.LuaApp.Components.AppRouter)
 local AppReducer = require(Modules.LuaApp.AppReducer)
 
+local RobloxEventReceiver = require(Modules.LuaApp.RobloxEventReceiver)
+
 local Constants = require(Modules.LuaApp.Constants)
 local DeviceOrientationMode = require(Modules.LuaApp.DeviceOrientationMode)
 local SetDeviceOrientation = require(Modules.LuaApp.Actions.SetDeviceOrientation)
-local SetLocalUser = require(Modules.LuaApp.Actions.SetLocalUser)
+local SetLocalUserId = require(Modules.LuaApp.Actions.SetLocalUserId)
 local SetFetchedGamesPageData = require(Modules.LuaApp.Actions.SetFetchedGamesPageData)
 local SetFetchedHomePageData = require(Modules.LuaApp.Actions.SetFetchedHomePageData)
+local SetUserMembershipType = require(Modules.LuaApp.Actions.SetUserMembershipType)
+local AddUser = require(Modules.LuaApp.Actions.AddUser)
+local ApiFetchUsersThumbnail = require(Modules.LuaApp.Thunks.ApiFetchUsersThumbnail)
 local Analytics = require(Modules.Common.Analytics)
 local Networking = require(Modules.LuaApp.Http.Networking)
 local ApiFetchGamesData = require(Modules.LuaApp.Thunks.ApiFetchGamesData)
 local ApiFetchAllUsersFriends = require(Modules.LuaApp.Thunks.ApiFetchAllUsersFriends)
 local BottomBar = require(Modules.LuaApp.Components.BottomBar)
+local UserModel = require(Modules.LuaApp.Models.User)
 
 -- flag dependencies
 local diagCounterPageLoadTimes = settings():GetFVariable("LuaAppsDiagPageLoadTimeGames")
-local UseTempRoactLuaVersionOfHomePage = settings():GetFFlag("UseTempRoactLuaVersionOfHomePage")
-local UseTempRoactLuaVersionOfGamesPage = settings():GetFFlag("UseTempRoactLuaVersionOfGamesPage")
+local UseLuaHomePage = FlagSettings.IsLuaHomePageEnabled()
+local UseLuaGamesPage = FlagSettings.IsLuaGamesPageEnabled()
 
 local App = Roact.Component:extend("App")
 
@@ -40,13 +50,17 @@ function App:init()
 		store = Rodux.Store.new(AppReducer)
 	}
 
-	self._localization = Localization.new(StringsLocale, LocalizationService.RobloxLocaleId)
+	self._analytics = Analytics.new()
+	self._network = Networking.new()
+	self._localization = Localization.new(LocalizationService.RobloxLocaleId)
 	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function(newLocale)
 		self._localization:SetLocale(newLocale)
 	end)
 end
 
 function App:didMount()
+	RunService:setThrottleFramerateEnabled(true)
+
 	local function checkDeviceOrientation(viewportSize)
 		-- Hacky code awaits underlying mechanism fix.
 		-- Viewport will get a 0,0,1,1 rect before it is properly set.
@@ -69,22 +83,27 @@ function App:didMount()
 		checkDeviceOrientation(camera.ViewportSize)
 	end)
 
+	local localPlayer = Players.LocalPlayer
+	local userId = tostring(localPlayer.UserId)
+
+	self.state.store:Dispatch(AddUser(UserModel.fromData(userId, localPlayer.Name, false)))
+	self.state.store:Dispatch(ApiFetchUsersThumbnail(
+		self._network, {userId}, Constants.AvatarThumbnailTypes.HeadShot, Constants.AvatarThumbnailSizes.Size150x150
+	))
+
 	local updateLocalPlayer = function()
-		self.state.store:Dispatch(SetLocalUser(Players.LocalPlayer.Name, Players.LocalPlayer.MembershipType))
+		self.state.store:Dispatch(SetLocalUserId(userId))
+		self.state.store:Dispatch(SetUserMembershipType(userId, localPlayer.MembershipType))
 	end
 	updateLocalPlayer()
 	Players.LocalPlayer:GetPropertyChangedSignal("Name"):Connect(updateLocalPlayer)
 	Players.LocalPlayer:GetPropertyChangedSignal("MembershipType"):Connect(updateLocalPlayer)
 
-	-- Setup for GamesPage
-	self._analytics = Analytics.new()
-	self._networkImpl = Networking.new()
-
 	-- start loading information for the Games Page
-	if UseTempRoactLuaVersionOfGamesPage then
+	if UseLuaGamesPage then
 		local startTime = tick()
 		self.state.store:Dispatch(
-			ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.Games)
+			ApiFetchGamesData(self._network, Constants.GameSortGroups.Games)
 		):andThen(function(result)
 			local endTime = tick()
 			local deltaMs = (endTime - startTime) * 1000
@@ -95,10 +114,10 @@ function App:didMount()
 	end
 
 	-- start loading information for Home Page
-	if UseTempRoactLuaVersionOfHomePage then
+	if UseLuaHomePage then
 		Promise.all({
-			self.state.store:Dispatch(ApiFetchAllUsersFriends(self._networkImpl)),
-			self.state.store:Dispatch(ApiFetchGamesData(self._networkImpl, Constants.GameSortGroups.HomeGames)),
+			self.state.store:Dispatch(ApiFetchAllUsersFriends(self._network, Constants.AvatarThumbnailTypes.AvatarThumbnail)),
+			self.state.store:Dispatch(ApiFetchGamesData(self._network, Constants.GameSortGroups.HomeGames)),
 		}):andThen(function(result)
 			self.state.store:Dispatch(SetFetchedHomePageData(true))
 		end)
@@ -110,10 +129,15 @@ function App:render()
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.state.store,
 	}, {
-		localization = Roact.createElement(RoactLocalization.LocalizationProvider, {
-			localization = self._localization,
+		services = Roact.createElement(RoactServices.ServiceProvider, {
+			services = {
+				[RoactAnalytics] = self._analytics,
+				[RoactLocalization] = self._localization,
+				[RoactNetworking] = self._network,
+			}
 		}, {
 			PageWrapper = Roact.createElement("Folder", {}, {
+				RobloxEventReceiver = Roact.createElement(RobloxEventReceiver),
 				BottomBar = Roact.createElement(BottomBar, {
 					displayOrder = 4,
 				}),
@@ -124,6 +148,8 @@ function App:render()
 end
 
 function App:willUnmount()
+	RunService:setThrottleFramerateEnabled(false)
+
 	if self.bottomBarSizeListener then
 		self.bottomBarSizeListener:Disconnect()
 	end

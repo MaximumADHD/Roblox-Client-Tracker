@@ -14,7 +14,6 @@ local StarterGui = game:GetService("StarterGui")
 local AnalyticsService = game:GetService("AnalyticsService")
 
 --[[ Fast Flags ]]--
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
@@ -31,11 +30,7 @@ local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
 		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		if FFlagClientAppsUseRobloxLocale then
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		else
-			rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-		end
+		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
 	end)
 	return rtv
 end

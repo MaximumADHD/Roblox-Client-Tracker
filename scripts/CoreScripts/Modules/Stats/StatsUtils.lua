@@ -15,18 +15,12 @@ local GameSettings = Settings.GameSettings
 local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants)
 local StyleWidgets = require(CoreGuiService.RobloxGui.Modules.StyleWidgets)
 
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
-
 function LocalizedGetKey(key)
   local rtv = key
   pcall(function()
     local LocalizationService = game:GetService("LocalizationService")
     local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-    if FFlagClientAppsUseRobloxLocale then
-      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-    else
-      rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-    end
+    rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
   end)
   return rtv
 end
@@ -203,11 +197,7 @@ local function LocalizedGetString(key, rtv)
   pcall(function()
     local LocalizationService = game:GetService("LocalizationService")
     local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-    if FFlagClientAppsUseRobloxLocale then
-      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-    else
-      rtv = CorescriptLocalization:GetString(LocalizationService.SystemLocaleId, key)
-    end
+    rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
   end)
 
   return rtv

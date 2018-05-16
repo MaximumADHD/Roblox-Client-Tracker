@@ -9,7 +9,6 @@ local LuaApp = Modules.LuaApp
 local LuaChat = Modules.LuaChat
 
 local Analytics = require(Common.Analytics)
-local StringsLocale = require(LuaApp.StringsLocale)
 local Create = require(LuaChat.Create)
 local Constants = require(LuaChat.Constants)
 local DialogInfo = require(LuaChat.DialogInfo)
@@ -63,7 +62,7 @@ function GameShareComponent.new(appState, placeId, innerFrame)
 	-- Header
 	self.header = HeaderLoader.GetHeader(appState, Intent.GameShare)
 	self.header:SetDefaultSubtitle()
-	self.header:SetTitle(appState.localization:Format(StringsLocale.Keys.SHARE_GAME_TO_CHAT))
+	self.header:SetTitle(appState.localization:Format("Feature.Chat.Heading.ShareGameToChat"))
 	self.header:SetBackButtonEnabled(true)
 
 	-- Place Info Card Frame
@@ -103,7 +102,7 @@ function GameShareComponent.new(appState, placeId, innerFrame)
 			TextColor3 = Constants.Color.GRAY1,
 			Font = Enum.Font.SourceSans,
 			Text = "",
-			PlaceholderText = appState.localization:Format(StringsLocale.Keys.SEARCH_FOR_FRIENDS_AND_CHAT),
+			PlaceholderText = appState.localization:Format("Feature.Chat.Label.SearchForFriendsAndChat"),
 			PlaceholderColor3 = Constants.Color.GRAY3,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			OverlayNativeInput = true,
@@ -248,8 +247,9 @@ function GameShareComponent:Update(newState, oldState)
 		end
 	end
 
-	if newState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching ~= oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
-		and self.list then
+	local newPageConversationsIsFetching = newState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
+	local oldPageConversationsIsFetching = oldState.ChatAppReducer.ConversationsAsync.pageConversationsIsFetching
+	if newPageConversationsIsFetching ~= oldPageConversationsIsFetching and self.list then
 		self.list:Update(newState, oldState)
 		self:getOlderConversationsForSearchIfNecessary()
 	end
@@ -275,7 +275,8 @@ function GameShareComponent:FillPlaceInfo()
 end
 
 function GameShareComponent:FillConversations()
-	local list = ConversationList.new(self.appState, self.appState.store:GetState().ChatAppReducer.Conversations, GameShareCard)
+	local conversations = self.appState.store:GetState().ChatAppReducer.Conversations
+	local list = ConversationList.new(self.appState, conversations, GameShareCard)
 	list:SetSortWithConversationEntry(true)
 	self.list = list
 	list.rbx.Size = UDim2.new(1, 0, 1, 0)
@@ -328,7 +329,7 @@ function GameShareComponent:ReportSendButtonTappedEvent(convoId)
 		placeid = self.placeId,
 		cid = convoId
 	}
-	self._analytics.EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+	self._analytics.EventStream:setRBXEvent(eventContext, eventName, additionalArgs)
 end
 
 function GameShareComponent:Stop()

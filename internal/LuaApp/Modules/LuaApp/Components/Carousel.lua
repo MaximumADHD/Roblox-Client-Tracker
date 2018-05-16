@@ -5,11 +5,10 @@ local Roact = require(Modules.Common.Roact)
 local FitChildren = require(Modules.LuaApp.FitChildren)
 local Immutable = require(Modules.Common.Immutable)
 
-local ESTIMATED_HEIGHT = 150
+local ESTIMATED_HEIGHT = 150 -- TODO: Remove with quantum gui
 
 local function Carousel(props)
 	local layoutOrder = props.LayoutOrder
-	local position = props.Position
 	local children = props[Roact.Children] or {}
 	local childPadding = props.childPadding
 
@@ -25,7 +24,6 @@ local function Carousel(props)
 	return Roact.createElement(FitChildren.FitScrollingFrame, {
 		Size = UDim2.new(1, 0, 0, ESTIMATED_HEIGHT),
 		ScrollBarThickness = 0,
-		Position = position,
 		BackgroundTransparency = 1,
 		ClipsDescendants = false, -- Needed to display drop shadows
 		LayoutOrder = layoutOrder,

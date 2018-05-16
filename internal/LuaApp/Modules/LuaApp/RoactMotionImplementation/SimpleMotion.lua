@@ -106,6 +106,8 @@ function SimpleMotion:update(dt)
 			if targetType == MotionType.Instant then
 				newPosition = targetSpecifier
 				newVelocity = 0
+				-- Instant MotionType should callback instantly after the move
+				self.wasResting = false
 			elseif targetType == MotionType.Spring then
 				newPosition, newVelocity = stepSpring(
 					Config.UPDATE_RATE * Config.TIME_FACTOR,

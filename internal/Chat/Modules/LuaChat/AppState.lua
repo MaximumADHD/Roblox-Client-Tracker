@@ -5,7 +5,7 @@ local Modules = CoreGui.RobloxGui.Modules
 local Common = Modules.Common
 
 local Localization = require(Modules.LuaApp.Localization)
-local StringsLocale = require(Modules.LuaApp.StringsLocale)
+
 
 local ScreenManager = require(Modules.LuaChat.ScreenManager)
 local ScreenRouter = require(Modules.LuaChat.ScreenRouter)
@@ -19,8 +19,6 @@ local RobloxEventReceiver = require(Modules.LuaChat.RobloxEventReceiver)
 
 local AlertView = require(Modules.LuaChat.Views.Phone.Alert)
 local ToastView = require(Modules.LuaChat.Views.ToastView)
-
-local FFlagClientAppsUseRobloxLocale = settings():GetFFlag('ClientAppsUseRobloxLocale')
 
 local AppState = {}
 
@@ -37,13 +35,7 @@ function AppState.new(chatGui, store)
 	state.screenRouter = ScreenRouter
 	state.broadcaster = NotificationBroadcaster.new(state)
 
-	local locale
-	if (FFlagClientAppsUseRobloxLocale) then
-		locale = LocalizationService.RobloxLocaleId
-	else
-		locale = LocalizationService.SystemLocaleId
-	end
-	state.localization = Localization.new(StringsLocale, locale)
+	state.localization = Localization.new(LocalizationService.RobloxLocaleId)
 
 	state.RobloxEventReceiver = RobloxEventReceiver:init(state)
 

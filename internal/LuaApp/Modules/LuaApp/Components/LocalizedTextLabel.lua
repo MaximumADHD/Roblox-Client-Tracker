@@ -1,5 +1,5 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
-local RoactLocalization = require(Modules.LuaApp.RoactLocalization)
+local RoactLocalization = require(Modules.LuaApp.Services.RoactLocalization)
 
 return RoactLocalization.connect({ "Text" })("TextLabel")

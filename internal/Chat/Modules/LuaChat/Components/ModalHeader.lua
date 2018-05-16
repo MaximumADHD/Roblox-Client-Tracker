@@ -9,7 +9,6 @@ local LuaChat = Modules.LuaChat
 local Constants = require(LuaChat.Constants)
 local Create = require(LuaChat.Create)
 local Signal = require(Common.Signal)
-local StringsLocale = require(LuaApp.StringsLocale)
 
 local Components = LuaChat.Components
 local BaseHeader = require(Components.BaseHeader)
@@ -50,6 +49,89 @@ function ModalHeader.new(appState, dialogType)
 	end)
 	table.insert(self.connections, backButtonConnection)
 
+	self.innerSubtitle = Create.new "TextLabel" {
+		Name = "Subtitle",
+		BackgroundTransparency = 1,
+		TextSize = Constants.Font.FONT_SIZE_12,
+		TextColor3 = Constants.Color.GRAY1,
+		Size = UDim2.new(0, 200, 0, 18),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Text = "",
+		Font = "SourceSans",
+		LayoutOrder = 1,
+	}
+
+	self.innerTitles = Create.new "Frame" {
+		Name = "Titles",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, 200, 1, 0),
+		Position = UDim2.new(0.5, 0, 0, 0),
+		AnchorPoint = Vector2.new(0.5, 0),
+
+		Create.new "UIListLayout" {
+			SortOrder = "LayoutOrder",
+			VerticalAlignment = Enum.VerticalAlignment.Center
+		},
+
+		Create.new "TextLabel" {
+			Name = "Title",
+			BackgroundTransparency = 1,
+			TextSize = Constants.Font.FONT_SIZE_20,
+			TextColor3 = Constants.Color.GRAY1,
+			Size = UDim2.new(0, 200, 0, 18),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Text = "Title",
+			Font = "SourceSans",
+			LayoutOrder = 0,
+		},
+
+		self.innerSubtitle,
+	}
+
+	self.innerButtons = Create.new "Frame" {
+		Name = "Buttons",
+		BackgroundTransparency = 1,
+		Position = UDim2.new(1, -12, 0, 0),
+		Size = UDim2.new(0, 100, 1, 0),
+		AnchorPoint = Vector2.new(1, 0),
+
+		Create.new "UIListLayout" {
+			SortOrder = "LayoutOrder",
+			HorizontalAlignment = "Right",
+			FillDirection = "Horizontal",
+		},
+	}
+
+	self.innerContent = Create.new "Frame" {
+		Name = "Content",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 1, -4),
+		Position = UDim2.new(0, 0, 0, 4),
+
+		Create.new"Frame" {
+			Name = "Icon",
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.new(0, ICON_CELL_WIDTH, 1, 0),
+			Position = UDim2.new(0, 0, 0, 0),
+
+			self.backButton.rbx,
+		},
+
+		self.innerTitles,
+		self.innerButtons,
+	}
+
+	self.innerHeader = Create.new "Frame" {
+		Name = "Header",
+		BackgroundTransparency = 1, -- Set transparent so the rounded corners will show.
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 0, HEIGHT_OF_HEADER),
+		LayoutOrder = 0,
+
+		self.innerContent,
+	}
+
 	self.rbx = Create.new "Frame" {
 		Name = "HeaderFrame",
 		BackgroundTransparency = 1,
@@ -86,87 +168,13 @@ function ModalHeader.new(appState, dialogType)
 				Size = UDim2.new(1, 0, 0, HEIGHT_OF_DISCONNECTED),
 				Position = UDim2.new(0.5, 0, 1, 0),
 				AnchorPoint = Vector2.new(0.5, 1),
-				Text = appState.localization:Format(StringsLocale.Keys.NO_NETWORK_CONNECTION),
+				Text = appState.localization:Format("Feature.Chat.Message.NoConnectionMsg"),
 				Font = Constants.Font.TITLE,
 				LayoutOrder = 0,
 			},
 		},
 
-		Create.new "Frame" {
-			Name = "Header",
-			BackgroundTransparency = 1, -- Set transparent so the rounded corners will show.
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, HEIGHT_OF_HEADER),
-			LayoutOrder = 0,
-
-			Create.new "Frame" {
-				Name = "Content",
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, -4),
-				Position = UDim2.new(0, 0, 0, 4),
-
-				Create.new"Frame" {
-					Name = "Icon",
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Size = UDim2.new(0, ICON_CELL_WIDTH, 1, 0),
-					Position = UDim2.new(0, 0, 0, 0),
-
-					self.backButton.rbx,
-				},
-
-				Create.new "Frame" {
-					Name = "Titles",
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, 200, 1, 0),
-					Position = UDim2.new(0.5, 0, 0, 0),
-					AnchorPoint = Vector2.new(0.5, 0),
-
-					Create.new "UIListLayout" {
-						SortOrder = "LayoutOrder",
-						VerticalAlignment = Enum.VerticalAlignment.Center
-					},
-
-					Create.new "TextLabel" {
-						Name = "Title",
-						BackgroundTransparency = 1,
-						TextSize = Constants.Font.FONT_SIZE_20,
-						TextColor3 = Constants.Color.GRAY1,
-						Size = UDim2.new(0, 200, 0, 18),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Text = "Title",
-						Font = "SourceSans",
-						LayoutOrder = 0,
-					},
-
-					Create.new "TextLabel" {
-						Name = "Subtitle",
-						BackgroundTransparency = 1,
-						TextSize = Constants.Font.FONT_SIZE_12,
-						TextColor3 = Constants.Color.GRAY1,
-						Size = UDim2.new(0, 200, 0, 18),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Text = "",
-						Font = "SourceSans",
-						LayoutOrder = 1,
-					},
-				},
-
-				Create.new "Frame" {
-					Name = "Buttons",
-					BackgroundTransparency = 1,
-					Position = UDim2.new(1, -12, 0, 0),
-					Size = UDim2.new(0, 100, 1, 0),
-					AnchorPoint = Vector2.new(1, 0),
-
-					Create.new "UIListLayout" {
-						SortOrder = "LayoutOrder",
-						HorizontalAlignment = "Right",
-						FillDirection = "Horizontal",
-					},
-				},
-			},
-		},
+		self.innerHeader,
 	}
 
 	local parentChangedConnection = self.rbx:GetPropertyChangedSignal("Parent"):Connect(function()
