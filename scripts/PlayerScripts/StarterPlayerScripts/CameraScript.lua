@@ -156,6 +156,15 @@ local function getCameraOcclusionMode()
 	end
 end
 
+-- New for AllCameraInLua support
+local function shouldUseOcclusionModule()
+	local player = PlayersService.LocalPlayer
+	if player and game.Workspace.CurrentCamera and game.Workspace.CurrentCamera.CameraType == Enum.CameraType.Custom then
+		return true
+	end
+	return false
+end
+
 local function Update()
 	if EnabledCamera then
 		EnabledCamera:Update()
@@ -212,19 +221,24 @@ local function OnCameraMovementModeChange(newCameraMode)
 		end
 		ClickToMove:Stop()
 	end
-
+	
+	local useOcclusion = shouldUseOcclusionModule()
 	local newOcclusionMode = getCameraOcclusionMode()
-	if EnabledOcclusion == Invisicam and newOcclusionMode ~= Enum.DevCameraOcclusionMode.Invisicam then
+	if EnabledOcclusion == Invisicam and (newOcclusionMode ~= Enum.DevCameraOcclusionMode.Invisicam or (not useOcclusion)) then
 		Invisicam:Cleanup()
 	end
 	
 	-- PopperCam does not work with OrbitalCamera, as OrbitalCamera's distance can be fixed.
-	if newOcclusionMode == Enum.DevCameraOcclusionMode.Zoom and ( isOrbitalCameraEnabled and newCameraMode ~= Enum.ComputerCameraMovementMode.Orbital.Name ) then
-		EnabledOcclusion = PopperCam
-	elseif newOcclusionMode == Enum.DevCameraOcclusionMode.Invisicam then
-		EnabledOcclusion = Invisicam
+	if useOcclusion then	
+		if newOcclusionMode == Enum.DevCameraOcclusionMode.Zoom and ( isOrbitalCameraEnabled and newCameraMode ~= Enum.ComputerCameraMovementMode.Orbital.Name ) then
+			EnabledOcclusion = PopperCam
+		elseif newOcclusionMode == Enum.DevCameraOcclusionMode.Invisicam then
+			EnabledOcclusion = Invisicam
+		else
+			EnabledOcclusion = nil
+		end
 	else
-		EnabledOcclusion = false
+		EnabledOcclusion = nil
 	end
 end
 

@@ -117,6 +117,7 @@ Class Attachment : Instance
 	Function void Attachment:SetSecondaryAxis(Vector3 axis)
 Class BadgeService : Instance [notCreatable]
 	YieldFunction bool BadgeService:AwardBadge(int64 userId, int64 badgeId)
+	YieldFunction Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId)
 	YieldFunction bool BadgeService:IsDisabled(int64 badgeId)
 	YieldFunction bool BadgeService:IsLegal(int64 badgeId)
 	YieldFunction bool BadgeService:UserHasBadge(int64 userId, int64 badgeId)
@@ -494,6 +495,7 @@ Class SkateboardController : Controller
 Class VehicleController : Controller
 Class ControllerService : Instance [notCreatable]
 Class CookiesService : Instance
+Class CorePackages : Instance [notCreatable]
 Class CustomEvent : Instance [deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers()
 	Function void CustomEvent:SetValue(float newValue)
@@ -709,7 +711,6 @@ Class GuiObject : GuiBase2d [notbrowsable]
 	Property Class:GuiObject GuiObject.SelectionImageObject
 	Property UDim2 GuiObject.Size
 	Property SizeConstraint GuiObject.SizeConstraint
-	Property bool GuiObject.SizeFromContents
 	Property float GuiObject.Transparency [hidden]
 	Property bool GuiObject.Visible
 	Property int GuiObject.ZIndex
@@ -1038,6 +1039,7 @@ Class GuiService : Instance [notCreatable]
 	Function Tuple GuiService:GetGuiInset()
 	Function Dictionary GuiService:GetNotificationTypeList() [RobloxScriptSecurity]
 	Function int GuiService:GetResolutionScale() [LocalUserSecurity]
+	Function Dictionary GuiService:GetSafeZoneOffsets() [RobloxScriptSecurity]
 	Function string GuiService:GetUiMessage() [RobloxScriptSecurity]
 	Function bool GuiService:IsMemoryTrackerEnabled() [RobloxScriptSecurity]
 	Function bool GuiService:IsTenFootInterface()
@@ -1049,6 +1051,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:RemoveSpecialKey(SpecialKey key) [RobloxScriptSecurity]
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
 	Function void GuiService:SetMenuIsOpen(bool open) [RobloxScriptSecurity]
+	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) [RobloxScriptSecurity]
 	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage) [LocalUserSecurity]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function void GuiService:ToggleFullscreen() [RobloxScriptSecurity]
@@ -1058,6 +1061,7 @@ Class GuiService : Instance [notCreatable]
 	Event GuiService.KeyPressed(string key, string modifiers) [RobloxScriptSecurity]
 	Event GuiService.MenuClosed()
 	Event GuiService.MenuOpened()
+	Event GuiService.SafeZoneOffsetsChanged() [RobloxScriptSecurity]
 	Event GuiService.ShowLeaveConfirmation() [RobloxScriptSecurity]
 	Event GuiService.SpecialKeyPressed(SpecialKey key, string modifiers) [RobloxScriptSecurity]
 	Event GuiService.UiMessageChanged(UiMessageType msgType, string newUiMessage) [RobloxScriptSecurity]
@@ -2431,6 +2435,8 @@ Class Trail : Instance
 Class Translator : Instance [notCreatable]
 	Property string Translator.LocaleId [readonly]
 	Function string Translator:FormatByKey(string key, Variant args)
+	Function string Translator:RobloxOnlyTranslate(Instance context, string text) [RobloxScriptSecurity]
+	Function string Translator:Translate(Instance context, string text)
 Class TweenBase : Instance [notbrowsable]
 	Property PlaybackState TweenBase.PlaybackState [readonly]
 	Function void TweenBase:Cancel()

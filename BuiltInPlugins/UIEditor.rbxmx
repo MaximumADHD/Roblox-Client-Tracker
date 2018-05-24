@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Model" referent="RBXA274E39B76E748AF827BFE94CC5F9404">
+	<Item class="Model" referent="RBXB2382330E6D746C1A00CCF5703379DDD">
 		<Properties>
 			<CoordinateFrame name="ModelInPrimary">
 				<X>0</X>
@@ -21,7 +21,7 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBXDE090E65FED747BEAF4F86306B4F3F3D">
+		<Item class="Script" referent="RBXD011C3D2D5124BA1896C611E8FCB4DFD">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -563,7 +563,7 @@ loaded = true]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX62C03DAF9E47423C8EBE77FC18FA389C">
+		<Item class="ModuleScript" referent="RBX5ACD5787EA2F44C4B34AEC5C865DCD65">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rubberband</string>
@@ -677,7 +677,7 @@ return Rubberband
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX466CDD8724C94B96A3C22AC2C166DEF7">
+		<Item class="ModuleScript" referent="RBXE3775CA329BD4DED9E2BB9F3B4379511">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CoreGuiManager</string>
@@ -738,7 +738,7 @@ return CoreGuiManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX41E4EBF6CDE64B00B36441C709A2B86D">
+		<Item class="ModuleScript" referent="RBX61FBAC9A999C4C58B676CB0948615927">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Utility</string>
@@ -907,7 +907,7 @@ return Utility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX83360EB0426C451C99362398DB1FB4BE">
+		<Item class="ModuleScript" referent="RBXF71EA3D44458415183060E665AF22BD2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DoubleClickDetector</string>
@@ -935,7 +935,7 @@ return DoubleClickDetector
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX317D1D2BA7884D9CBE0C035404B6D684">
+		<Item class="ModuleScript" referent="RBX7FAF7B82984445A5AEE3D8D628E88342">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TextEditor</string>
@@ -1074,7 +1074,7 @@ return TextEditor
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX90892189E42D458386CC37BA417037CF">
+		<Item class="ModuleScript" referent="RBX4D55E156FB3143D5B904E30ADF68ED91">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Resize</string>
@@ -1991,7 +1991,7 @@ return Resize
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3137566BC2DF4AA8A25C0D12647CE08D">
+		<Item class="ModuleScript" referent="RBXCF94E8826190455EB4FB9E86AFCDDF6B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Error</string>
@@ -2008,7 +2008,7 @@ return Error
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXE0B2129DECD44DE995A217D615BC65D6">
+		<Item class="ModuleScript" referent="RBX1F2336B2481B4030B3499D5FFC14D8DC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">AdornmentModule</string>
@@ -2420,7 +2420,7 @@ return AdornmentModule
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXCF41FB110E354426B0904B65DC7D21DB">
+		<Item class="ModuleScript" referent="RBX00ED0453CE434F828F54243266F49BF4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SelectionManager</string>
@@ -2733,7 +2733,7 @@ return SelectionManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX083EF96DBE5D456396BF3E481B1BA353">
+		<Item class="ModuleScript" referent="RBXED5539176196420EBA2B0F0EF18E42A9">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Move</string>
@@ -2762,7 +2762,6 @@ local SnappingType 			= require(script.Parent.Enum.SnappingType)
 -- Flags
 local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-local FFlagQuantumGui = FFlag:isEnabled("QuantumGui")
 
 -----------------------------------
 --------------SERVICES-------------
@@ -2821,20 +2820,12 @@ local function DEPRECATED_dragElementsBy(vector)
 					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
 					-- to get accurate scale for position when dragging
 					if (element.Parent:IsA("ScrollingFrame")) then
-						scale = vector / element.Parent.AbsoluteWindowSize
-						if (element.Parent.CanvasSize.Width.Scale > 1) then
-							if FFlagQuantumGui then
-								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale, 1)
-							else
-								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale + 0.5, 1)
-							end 
+						-- bug in quantum gui, should use scrolling frame's parent size
+						if (element.Parent.CanvasSize.X.Scale >= 1) then
+							scale = Vector2.new(vector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
 						end
-						if (element.Parent.CanvasSize.Height.Scale > 1) then
-							if FFlagQuantumGui then
-								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale)
-							else
-								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale + 0.5)
-							end
+						if (element.Parent.CanvasSize.Y.Scale >= 1) then
+							scale = Vector2.new(scale.X , vector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
 						end
 					end
 				end
@@ -2869,20 +2860,12 @@ local function dragElementsBy(vector)
 					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
 					-- to get accurate scale for position when dragging
 					if (element.Parent:IsA("ScrollingFrame")) then
-						scale = rotatedVector / element.Parent.AbsoluteWindowSize
-						if (element.Parent.CanvasSize.Width.Scale > 1) then
-							if FFlagQuantumGui then
-								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale, 1)
-							else
-								scale = scale / Vector2.new(element.Parent.CanvasSize.Width.Scale + 0.5, 1)
-							end 
+						-- bug in quantum gui, should use scrolling frame's parent size
+						if (element.Parent.CanvasSize.X.Scale >= 1) then
+							scale = Vector2.new(rotatedVector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
 						end
-						if (element.Parent.CanvasSize.Height.Scale > 1) then
-							if FFlagQuantumGui then
-								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale)
-							else
-								scale = scale / Vector2.new(1, element.Parent.CanvasSize.Height.Scale + 0.5)
-							end
+						if (element.Parent.CanvasSize.Y.Scale >= 1) then
+							scale = Vector2.new(scale.X , rotatedVector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
 						end
 					end
 				end
@@ -3166,7 +3149,7 @@ return Move
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXDEBF09564D3F4F929B5E88A87C89EFFB">
+		<Item class="ModuleScript" referent="RBX63425353D37943419CCE219C27EFAF22">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rotate</string>
@@ -3554,7 +3537,7 @@ return Rotate
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFBD3FCCD9DD5499CBC7720DEE39175C1">
+		<Item class="ModuleScript" referent="RBX115A4990A7BE4943BA7EEEA5D573E840">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Select</string>
@@ -3806,7 +3789,7 @@ return Select
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1BFBAEA9944C402D80F89E2CFAC3846E">
+		<Item class="ModuleScript" referent="RBX589ED6654FA7407EAE2EF5E1663D1425">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GlobalValues</string>
@@ -3863,7 +3846,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBXDABC0F9C9D754445BEE62E77542F5A2D">
+		<Item class="Script" referent="RBXC30264941A24494F9761886D28AA2B41">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -3905,7 +3888,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXAC4ACB6BA6314F76A8D0D03E9FC0B2C3">
+		<Item class="ModuleScript" referent="RBXFA4AC5045A8146788F3A383BECDD4F02">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">InstanceInfo</string>
@@ -4011,7 +3994,7 @@ return InstanceInfo
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6608511798874FACB10380F546EDD15D">
+		<Item class="ModuleScript" referent="RBXC60423D2B00F49908B7525023557F727">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SnappingPointManager</string>
@@ -4427,7 +4410,7 @@ return SnappingPointManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7F8C38C7EDD444AF9A94AE82467029C7">
+		<Item class="ModuleScript" referent="RBX167981388D7A4841A50E24C37373BB49">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Set</string>
@@ -4522,7 +4505,7 @@ return Set
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX0F43ED4AD47D4ECDA18CCF173CAB9657">
+		<Item class="ModuleScript" referent="RBXD33099B832FF47B69A459AA762029A1A">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">UniqueArrayMap</string>
@@ -4575,7 +4558,7 @@ return UniqueArrayMap
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX936149ACB0474D5782F265CF3DC1BF69">
+		<Item class="ModuleScript" referent="RBXC62E1EA28F5846B289E28150C7302521">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Analytics</string>
@@ -4596,7 +4579,7 @@ return Analytics
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX5AA6D489E0034B66AE8514C060F10339">
+		<Item class="ModuleScript" referent="RBX76D41F976F344818AD2FF9129C7C2DC7">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Convert</string>
@@ -4638,7 +4621,7 @@ return Convert
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2EDBD8BE1AF8458D8565741E912A5952">
+		<Item class="ModuleScript" referent="RBXF88D82FBFD764C7A84150AE8B02A9D0C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">FFlag</string>
@@ -4669,7 +4652,7 @@ return FFlag
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX104CDD55B15E4FE8A3F83CB38CF610E3">
+		<Item class="ModuleScript" referent="RBX39BB0566D3BD47FEA6F773EC9DEE2DEC">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Extents2D</string>
@@ -4979,12 +4962,12 @@ return Extents2D
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX20C3BF341BB54D8883CC4ABE21932BA5">
+		<Item class="Folder" referent="RBX24FDC2830E5049C2A797AB1413BC070A">
 			<Properties>
 				<string name="Name">Enum</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX8BD1CB3145C44CC58FE0F725C4D8AFAC">
+			<Item class="ModuleScript" referent="RBX875568D7A8ED439B991910B06EE22183">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SnappingType</string>
@@ -5031,7 +5014,7 @@ return SnappingType
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX5F917C87DBAB455F9A2E836655AD727F">
+			<Item class="ModuleScript" referent="RBX9CE2E10A7D7C47A98FBB9ADDEDB48161">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Axis</string>
@@ -5048,7 +5031,7 @@ return Axis
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9AAB63F72A0B4B1D8A107D3297835F53">
+			<Item class="ModuleScript" referent="RBX8D9B5153717E48A893DDF619ED25FE58">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Direction</string>
@@ -5154,7 +5137,7 @@ return Direction]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX867DD6D32A64433C96DC7841EBCAFAF3">
+		<Item class="ModuleScript" referent="RBX35E643E4B7514352939B03C88EB0C97B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Log</string>
@@ -5186,7 +5169,7 @@ return Log]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX18D6F2687471469EA335806FD8509AB0">
+		<Item class="ModuleScript" referent="RBXB8851092AFC64F4E976066F9EE7B12BE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SizeBox</string>
@@ -5301,7 +5284,7 @@ return SizeBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXAB97E21BFC8A48A792F1C9CE416D055A">
+		<Item class="ModuleScript" referent="RBXF44B447B93C449C6BC5B5F8BA65BEA94">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLinesManager</string>
@@ -5414,7 +5397,7 @@ return DistanceLinesManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX77E030CF1E7B46BAA72EF59EACC60277">
+		<Item class="ModuleScript" referent="RBX9AED839D62514A2CAA68E831FAFFCD64">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RectUtility</string>
@@ -5468,12 +5451,12 @@ return RectUtility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBXBC96CF9457AB4111BAF57DCB460A1C90">
+		<Item class="Folder" referent="RBX38A876CA837D4A8E86A5BE3DB6C11182">
 			<Properties>
 				<string name="Name">Tests</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBXD55C181CCD614851BDB0C5A14108DC9C">
+			<Item class="Script" referent="RBXE41CE4CA09F04DFDAF014CA24706865F">
 				<Properties>
 					<bool name="Disabled">true</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -5547,7 +5530,7 @@ rectUtilityTestSuite()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX53BDA19521184710905DF140A384774B">
+		<Item class="ModuleScript" referent="RBX3C71633DABE842589AAEAC43F2C795FB">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLine</string>
@@ -5907,7 +5890,7 @@ return DistanceLine
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA19217BF857B477A958A455DC3B02CEA">
+		<Item class="ModuleScript" referent="RBXBA547D3BB2E3411C813CD5560008E2F4">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MouseIconManager</string>
@@ -6052,7 +6035,7 @@ return MouseIconManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1F9EB1AD9B4946B9929A2C633789B920">
+		<Item class="ModuleScript" referent="RBX93F52FA0B4394AB796EA2ED11687ACDF">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ValueBox</string>
@@ -6185,7 +6168,7 @@ return ValueBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX62517211433443099A5CDF7AF2F501E6">
+		<Item class="ModuleScript" referent="RBX6E134273CD1A4F8DB681A0E1A98F662F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RotationBox</string>
@@ -6236,7 +6219,7 @@ return RotationBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXE6358BCBAF144FD39A24671F03B2F806">
+		<Item class="ModuleScript" referent="RBXB99EC5506CA64A9790AF2283FB430F0C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ActionMediator</string>
@@ -6442,7 +6425,7 @@ return ActionMediator
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA6BB82139EEF465791E65F3697082AB5">
+		<Item class="ModuleScript" referent="RBXA9BF74219B6E49A19D9F7FC0C322267C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RotateUtility</string>

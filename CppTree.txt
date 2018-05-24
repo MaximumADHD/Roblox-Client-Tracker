@@ -437,8 +437,9 @@ RBX
 		ForceAngular
 		ForceLinear
 		InteractingPair
+		LDLPGSSolver
 		PGSSolver
-		PGSSolverInterface
+		SolverInterface
 	}
 	Soundscape
 	{
@@ -624,6 +625,7 @@ RBX
 	ControllerService
 	CookiesService
 	CoreGuiService
+	CorePackages
 	CoreScript
 	CorescriptConfigurer
 	CornerWedgeInstance

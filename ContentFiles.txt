@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[611262 bytes]
+[2189108 bytes]
 
 BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
 [249415 bytes]
@@ -20,7 +20,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [210441 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[202738 bytes]
+[202327 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -164,7 +164,7 @@ content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
 [19248 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[32463 bytes]
+[32992 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
 [1307 bytes]
@@ -671,7 +671,7 @@ content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lu
 [12489 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
-[11113 bytes]
+[11527 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
 [46175 bytes]
@@ -2428,6 +2428,24 @@ content/textures/ui/LuaApp/icons/ic-thumbup@3x.png
 content/textures/ui/LuaApp/icons/ic-twitter.png
 [690 bytes]
 
+content/textures/ui/LuaApp/voteBar/bar.png
+[108 bytes]
+
+content/textures/ui/LuaApp/voteBar/bar@2x.png
+[146 bytes]
+
+content/textures/ui/LuaApp/voteBar/bar@3x.png
+[196 bytes]
+
+content/textures/ui/LuaApp/voteBar/thumbup.png
+[262 bytes]
+
+content/textures/ui/LuaApp/voteBar/thumbup@2x.png
+[465 bytes]
+
+content/textures/ui/LuaApp/voteBar/thumbup@3x.png
+[632 bytes]
+
 content/textures/ui/LuaChat/9-slice/btn-control-sm.png
 [187 bytes]
 
@@ -2627,13 +2645,13 @@ content/textures/ui/LuaChat/graphic/gr-mask-game-icon-48x48@2x.png
 [485 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-overlay-shadow.png
-[103 bytes]
+[101 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-overlay-shadow@2x.png
-[157 bytes]
+[150 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-overlay-shadow@3x.png
-[643 bytes]
+[203 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-profile-border-36x36.png
 [444 bytes]
@@ -4016,5 +4034,5 @@ shaders/shaders_glsl3.pack
 [392735 bytes]
 
 shaders/shaders_metal_osx.pack
-[1052491 bytes]
+[1038459 bytes]
 

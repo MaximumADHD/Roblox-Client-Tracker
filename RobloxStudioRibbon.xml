@@ -461,7 +461,7 @@
         <addaction name="cutAction" style="textbesideicon" tooltip="Cut selected text" icon=":/RibbonBar/images/RibbonIcons/Home/Cut-16x16.png" />
         <addaction name="copyAction" style="textbesideicon" tooltip="Copy selected text" icon=":/RibbonBar/images/RibbonIcons/Home/Copy-16x16.png" />
       </Group>
-      <Group name="Navigate" fflag="StudioScriptNavigation">
+      <Group name="Navigate">
           <addaction name="goToPreviousScriptLocation" text="Back" style="textundericon"
           tooltip="Jump to previous script location"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png"
