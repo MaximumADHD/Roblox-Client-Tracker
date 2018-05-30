@@ -255,6 +255,11 @@ RBX
 		}
 		Replicator
 		{
+			ClientScanReportItem
+			{
+				HookScanReport
+				ScanReport
+			}
 			StreamJob
 			{
 				StreamDataItem

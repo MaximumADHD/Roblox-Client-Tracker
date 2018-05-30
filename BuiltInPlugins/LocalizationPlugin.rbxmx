@@ -27,11 +27,7 @@
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">PluginScript</string>
 				<string name="ScriptGuid">{23c184c9-73de-4b2d-9bd7-55d0a70adf12}</string>
-				<ProtectedString name="Source"><![CDATA[if not settings():GetFFlag("StudioEnableBuiltInGameLocalizationPlugin3") then
-	return
-end
-
-local runService = game:GetService("RunService")
+				<ProtectedString name="Source"><![CDATA[local runService = game:GetService("RunService")
 local localizationService = game:GetService("LocalizationService")
 local enabled = runService:RobloxOnlyIsEdit()
 
@@ -69,30 +65,44 @@ local testToolbar = plugin:CreateToolbar("Test Language")
 for _, locale in pairs(forceLocales) do
 	local localeId = locale[1]
 	local commonName = locale[2]
-	local butt = testToolbar:CreateButton(
+	local button = testToolbar:CreateButton(
 		commonName,
 		"LocalizationService.RobloxLocaleId will return \""..localeId.."\" and in-game text will displayed in "..commonName,
 		"rbxasset://textures/localizationTarget"..commonName..".png"
 	)
 	if localizationService.RobloxForcePlayModeRobloxLocaleId == localeId then
-		butt:SetActive(true)
+		button:SetActive(true)
 	end
-	butt.Enabled = enabled
-	butt.Click:connect(function()
+	button.Enabled = enabled
+	button.Click:connect(function()
+		if settings():GetFFlag("LocalizationUseGameLocaleId") then
+			if localizationService.RobloxForcePlayModeGameLocaleId ~= localeId then
+				localizationService.RobloxForcePlayModeGameLocaleId = localeId
+				print("Forcing game locale to \""..localizationService.RobloxForcePlayModeGameLocaleId.."\"")
+				button:SetActive(true)
+			else
+				localizationService.RobloxForcePlayModeGameLocaleId = ""
+				print("Reverted game locale to default")
+				for _, b in pairs(forceLocaleButtons) do
+					b:SetActive(false)
+				end
+			end
+		end
+
 		if localizationService.RobloxForcePlayModeRobloxLocaleId ~= localeId then
 			localizationService.RobloxForcePlayModeRobloxLocaleId = localeId
-			print("Forcing play locale to \""..localizationService.RobloxForcePlayModeRobloxLocaleId.."\"")
-			butt:SetActive(true)
+			print("Forcing roblox locale to \""..localizationService.RobloxForcePlayModeRobloxLocaleId.."\"")
+			button:SetActive(true)
 		else
 			localizationService.RobloxForcePlayModeRobloxLocaleId = ""
-			print("Reverted play locale to default \""..localizationService.RobloxLocaleId.."\"")
+			print("Reverted roblox locale to default \""..localizationService.RobloxLocaleId.."\"")
 			for _, b in pairs(forceLocaleButtons) do
 				b:SetActive(false)
 			end
 		end
 	end)
 
-	forceLocaleButtons[localeId] = butt
+	forceLocaleButtons[localeId] = button
 end
 
 captureButton.Enabled = enabled

@@ -19,10 +19,8 @@ local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
-local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
-
 local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers2")
+local fixPlayerRowLayout = settings():GetFFlag("FixPlayerRowLayout")
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -471,6 +469,10 @@ local function Initialize()
 
 	local sortedPlayers
 	local existingPlayerLabels = {}
+
+	-- fixPlayerRowLayout
+	local livePlayers = {}
+
 	this.Displayed.Event:connect(function(switchedFromGamepadInput)
 		sortedPlayers = PlayersService:GetPlayers()
 		table.sort(sortedPlayers, function(item1,item2)
@@ -488,30 +490,42 @@ local function Initialize()
 		-- iterate through players to reuse or create labels for players
 		for index=1, #sortedPlayers do
 			local player = sortedPlayers[index]
-			local frame = existingPlayerLabels[index]
+			local frame
+			if fixPlayerRowLayout then
+				frame = existingPlayerLabels[player.Name]
+			else
+				frame = existingPlayerLabels[index]
+			end
+
 			if player then
+				livePlayers[player.Name] = true
 				-- create label (frame) for this player index if one does not exist
 				if not frame or not frame.Parent then
 					frame = createPlayerRow((index - 1)*PLAYER_ROW_SPACING + extraOffset)
 					frame.Parent = this.Page
-					table.insert(existingPlayerLabels, index, frame)
+					if fixPlayerRowLayout then
+						existingPlayerLabels[player.Name] = frame
+					else
+						table.insert(existingPlayerLabels, index, frame)
+					end
 				end
 				frame.Name = "PlayerLabel" ..player.Name
-				if useNewUserThumbnailAPI then
-					-- Immediately assign the image to an image that isn't guaranteed to be generated
-					frame.Icon.Image = SocialUtil.GetFallbackPlayerImageUrl(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
-					-- Spawn a function to get the generated image
-					spawn(function()
-						local imageUrl = SocialUtil.GetPlayerImage(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
-						if frame and frame.Parent and frame.Parent == this.Page then
-							frame.Icon.Image = imageUrl
-						end
-					end)
-				else
-					frame.Icon.Image = "https://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&userId="..math.max(1, player.UserId)
-				end
+
+                -- Immediately assign the image to an image that isn't guaranteed to be generated
+                frame.Icon.Image = SocialUtil.GetFallbackPlayerImageUrl(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
+                -- Spawn a function to get the generated image
+                spawn(function()
+                    local imageUrl = SocialUtil.GetPlayerImage(math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
+                    if frame and frame.Parent and frame.Parent == this.Page then
+                        frame.Icon.Image = imageUrl
+                    end
+                end)
+
 				frame.NameLabel.Text = player.Name
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+				if fixPlayerRowLayout then
+					frame.LayoutOrder = index
+				end
 
 				managePlayerNameCutoff(frame, player)
 
@@ -522,13 +536,22 @@ local function Initialize()
 			end
 		end
 
-		-- iterate through existing labels in reverse to destroy and remove unused labels
-		for index=#existingPlayerLabels, 1, -1 do
-			local player = sortedPlayers[index]
-			local frame = existingPlayerLabels[index]
-			if frame and not player then
-				table.remove(existingPlayerLabels, index)
-				frame:Destroy()
+		if fixPlayerRowLayout then
+			for playerName, frame in pairs(existingPlayerLabels) do
+				if not livePlayers[playerName] then
+					frame:Destroy()
+					existingPlayerLabels[playerName] = nil
+				end
+			end
+		else
+			-- iterate through existing labels in reverse to destroy and remove unused labels
+			for index=#existingPlayerLabels, 1, -1 do
+				local player = sortedPlayers[index]
+				local frame = existingPlayerLabels[index]
+				if frame and not player then
+					table.remove(existingPlayerLabels, index)
+					frame:Destroy()
+				end
 			end
 		end
 
@@ -539,44 +562,56 @@ local function Initialize()
 			end
 			this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * #sortedPlayers - 5)
 		end)
-
 	end)
 
-	if preventFriendingRemovedPlayers then
+	if fixPlayerRowLayout or preventFriendingRemovedPlayers then
 		PlayersService.PlayerRemoving:Connect(function (player)
-			if sortedPlayers then
-				for index=1, #sortedPlayers do
-					if sortedPlayers[index] == player then
-						local playerLabel = existingPlayerLabels[index]
-						if not playerLabel then
-							break
-						end
+			if fixPlayerRowLayout then
+				livePlayers[player.Name] = nil
+			end
 
-						local buttons = playerLabel:FindFirstChild("RightSideButtons")
-						if not buttons then
-							break
-						end
-
-						local friendStatus = buttons:FindFirstChild("FriendStatus")
-						if friendStatus then
-							if GuiService.SelectedCoreObject == friendStatus then
-								friendSelectionFound = nil
-								GuiService.SelectedCoreObject = nil
-							end
-							friendStatus:Destroy()
-						end
-
-						local reportPlayer = buttons:FindFirstChild("ReportPlayer")
-						if reportPlayer then
-							if GuiService.SelectedCoreObject == reportPlayer then
-								reportSelectionFound = nil
-								GuiService.SelectedCoreObject = nil
-							end
-							reportPlayer:Destroy()
-						end
-
-						break
+			if preventFriendingRemovedPlayers then
+				local playerLabel
+				if fixPlayerRowLayout then
+					playerLabel = existingPlayerLabels[player.Name]
+				else
+					-- iterate through sorted list to search for removed player
+					if not sortedPlayers then
+						return
 					end
+					for index = 1, #sortedPlayers do
+						if sortedPlayers[index] == player then
+							playerLabel = existingPlayerLabels[index]
+							break
+						end
+					end
+				end
+
+				if not playerLabel then
+					return
+				end
+
+				local buttons = playerLabel:FindFirstChild("RightSideButtons")
+				if not buttons then
+					return
+				end
+
+				local friendStatus = buttons:FindFirstChild("FriendStatus")
+				if friendStatus then
+					if GuiService.SelectedCoreObject == friendStatus then
+						friendSelectionFound = nil
+						GuiService.SelectedCoreObject = nil
+					end
+					friendStatus:Destroy()
+				end
+
+				local reportPlayer = buttons:FindFirstChild("ReportPlayer")
+				if reportPlayer then
+					if GuiService.SelectedCoreObject == reportPlayer then
+						reportSelectionFound = nil
+						GuiService.SelectedCoreObject = nil
+					end
+					reportPlayer:Destroy()
 				end
 			end
 		end)

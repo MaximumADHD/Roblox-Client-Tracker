@@ -1,17 +1,14 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2189108 bytes]
-
-BuiltInPlugins/DEPRECATED_TerrainTools.rbxmx
-[249415 bytes]
+[2149610 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[3908 bytes]
+[4365 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [25640 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[320071 bytes]
+[318051 bytes]
 
 BuiltInPlugins/Toolbox.rbxmx
 [197707 bytes]
@@ -20,7 +17,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [210441 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[202327 bytes]
+[203668 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3801 bytes]
@@ -242,10 +239,10 @@ content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [9888 bytes]
 
 content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
-[23540 bytes]
+[23348 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[33337 bytes]
+[33955 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6319 bytes]
@@ -254,7 +251,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [69472 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[40802 bytes]
+[40916 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5650 bytes]
@@ -293,7 +290,7 @@ content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator
 [2865 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[63855 bytes]
+[64140 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
 [15363 bytes]
@@ -319,6 +316,9 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
 [100227 bytes]
 
+content/scripts/CoreScripts/Modules/GameTranslator.lua
+[2356 bytes]
+
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [683 bytes]
 
@@ -335,13 +335,13 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [22882 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[67354 bytes]
+[67542 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1147 bytes]
 
 content/scripts/CoreScripts/Modules/PromptCreator.lua
-[24143 bytes]
+[23884 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/BubbleChat/BubbleChat.lua
 [22394 bytes]
@@ -530,7 +530,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
 [49684 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[31090 bytes]
+[27025 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
 [2880 bytes]
@@ -539,7 +539,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4702 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[21587 bytes]
+[22269 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5632 bytes]
@@ -560,7 +560,7 @@ content/scripts/CoreScripts/Modules/Settings/Utility.lua
 [76932 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
-[3960 bytes]
+[3691 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
 [5578 bytes]
@@ -662,7 +662,7 @@ content/scripts/CoreScripts/ServerStarterScript.lua
 [2993 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
-[3940 bytes]
+[3650 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
 [3612 bytes]
@@ -1738,6 +1738,9 @@ content/textures/ui/Input/IntroMove@2x.png
 content/textures/ui/Input/Ring_padded.png
 [2863 bytes]
 
+content/textures/ui/Input/TouchControlsSheetV2.png
+[9759 bytes]
+
 content/textures/ui/Keyboard/close_button_background.png
 [909 bytes]
 
@@ -2106,6 +2109,24 @@ content/textures/ui/LuaApp/icons/ic-avatar-on@2x.png
 
 content/textures/ui/LuaApp/icons/ic-avatar-on@3x.png
 [1348 bytes]
+
+content/textures/ui/LuaApp/icons/ic-back.png
+[182 bytes]
+
+content/textures/ui/LuaApp/icons/ic-back@2x.png
+[299 bytes]
+
+content/textures/ui/LuaApp/icons/ic-back@3x.png
+[395 bytes]
+
+content/textures/ui/LuaApp/icons/ic-back-android.png
+[191 bytes]
+
+content/textures/ui/LuaApp/icons/ic-back-android@2x.png
+[318 bytes]
+
+content/textures/ui/LuaApp/icons/ic-back-android@3x.png
+[463 bytes]
 
 content/textures/ui/LuaApp/icons/ic-bc.png
 [607 bytes]
@@ -3220,15 +3241,6 @@ content/textures/ui/Settings/Help/GenericController@2x.png
 content/textures/ui/Settings/Help/LeaveIcon.png
 [234 bytes]
 
-content/textures/ui/Settings/Help/OldGenericController.png
-[20547 bytes]
-
-content/textures/ui/Settings/Help/OldGenericController@2x.png
-[49835 bytes]
-
-content/textures/ui/Settings/Help/OldXboxController.png
-[61420 bytes]
-
 content/textures/ui/Settings/Help/ResetIcon.png
 [354 bytes]
 
@@ -4028,11 +4040,11 @@ shaders/keepme
 [0 bytes]
 
 shaders/shaders_glsl.pack
-[372147 bytes]
+[365166 bytes]
 
 shaders/shaders_glsl3.pack
-[392735 bytes]
+[385821 bytes]
 
 shaders/shaders_metal_osx.pack
-[1038459 bytes]
+[1011002 bytes]
 

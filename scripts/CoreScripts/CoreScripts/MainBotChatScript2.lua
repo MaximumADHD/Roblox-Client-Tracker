@@ -30,8 +30,6 @@ local YPOS_OFFSET = -math.floor(STYLE_PADDING / 2)
 local usingGamepad = false
 
 local FlagHasReportedPlace = false
-local StatTrackingSuccess, StatTrackingEnabled = pcall(function() return settings():GetFFlag("EnableOldDialogueStatTracking") end)
-StatTrackingEnabled = StatTrackingEnabled and StatTrackingSuccess
 
 local localPlayer = playerService.LocalPlayer
 while localPlayer == nil do
@@ -99,6 +97,7 @@ local gui = nil
 
 local isTenFootInterface = require(RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")):IsEnabled()
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local isSmallTouchScreen = utility:IsSmallTouchScreen()
 
 if isTenFootInterface then
@@ -440,7 +439,7 @@ function presentDialogChoices(talkingPart, dialogChoices, parentDialog)
 		if pos <= #choices then
 			--3 lines is the maximum, set it to that temporarily
 			choices[pos].Size = UDim2.new(1, WIDTH_BONUS, 0, TEXT_HEIGHT * 3)
-			choices[pos].UserPrompt.Text = obj.UserDialog
+			choices[pos].UserPrompt.Text = GameTranslator:TranslateGameText(obj, obj.UserDialog)
 			local height = (math.ceil(choices[pos].UserPrompt.TextBounds.Y / TEXT_HEIGHT) * TEXT_HEIGHT) + CHOICE_PADDING
 
 			choices[pos].Position = UDim2.new(0, XPOS_OFFSET, 0, YPOS_OFFSET + yPosition)
@@ -542,9 +541,7 @@ end
 
 function startDialog(dialog)
 	if dialog.Parent and dialog.Parent:IsA("BasePart") then
-		if StatTrackingEnabled then
-			game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Conversation Initiated")
-		end
+		game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Conversation Initiated")
 		
 		if localPlayer:DistanceFromCharacter(dialog.Parent.Position) >= dialog.ConversationDistance then
 			showMessage(tooFarAwayMessage, tooFarAwaySize)
@@ -578,10 +575,8 @@ end
 function addDialog(dialog)
 	if dialog.Parent then
 		if dialog.Parent:IsA("BasePart") and dialog:IsDescendantOf(game.Workspace) then
-			if StatTrackingEnabled and (not FlagHasReportedPlace) then
-				FlagHasReportedPlace = true
-				game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Used In Place", nil, game.PlaceId)
-			end
+			FlagHasReportedPlace = true
+            game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Used In Place", nil, game.PlaceId)
 			
 			local chatGui = chatNotificationGui:clone()
 			chatGui.Adornee = dialog.Parent

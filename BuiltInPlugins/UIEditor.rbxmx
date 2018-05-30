@@ -79,12 +79,16 @@ local dragEnterEvent = nil
 local undoEvent = nil
 local redoEvent = nil
 
+local pluginOffInputBeganEvent = nil
+
 local selectedInstancesPropertyChangedEvent = nil
 local m_totalInputs = 0
 
 local m_mouseDown = false
 
 local m_previousSelection = {}
+
+local Camera = workspace.CurrentCamera
 
 -- Constants
 local BUFFER_SIZE_MINIMUM = 5
@@ -187,7 +191,6 @@ local function onInputBegan(inputObject)
 	end
 	
 	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
-				
 		if (UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or 
 			UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
 				m_previousSelection = SelectionManager:getRawSelection()
@@ -228,11 +231,23 @@ local function onInputBegan(inputObject)
 		end
 		
 		if (not item) then
-			Rubberband:startRubberbandDrag(location)
+			if (FFlagStudioUIEditorV2Alpha) then		
+				local ray = Camera:ScreenPointToRay(inputObject.Position.X, inputObject.Position.Y)	
+				ray = Ray.new(ray.Origin, ray.Direction * 5000)	
+				local part, position = workspace:FindPartOnRay(ray)
+				if (part and part.Name ~= "Baseplate") then
+					local instances = {part}
+					SelectionService:Set(instances)
+				else
+					Off()
+				end
+			else
+				Rubberband:startRubberbandDrag(location)
+			end
 		else
 			InstanceInfo:isVisible(item, true)
 		end
---		
+		
 	elseif (inputObject.UserInputType == Enum.UserInputType.Keyboard) then
 		
 		--[[
@@ -418,12 +433,28 @@ local function onSelectionChanged()
 	SnappingPointManager:generateSnappingLines()
 end
 
-function onDragEnter(instances)	
+local function onDragEnter(instances)
+	if (not instances[1]:IsA("GuiBase2d")) then
+		return;
+	end	
 	m_mouseDown = true	
 	local location = Vector2.new(plugin:GetMouse().X, plugin:GetMouse().Y)
-	SelectionManager:setSelection(instances)
+	SelectionService:Set(instances)
 	SelectionManager:onSelectionChanged()
 	Move:startDrag(location)
+end
+
+local function onPluginOffInputBegan(inputObject)
+	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
+		local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
+		-- try to select GuiObject if it is visible
+		local guiObjects = Select:getGuiObjectsAtPoint(location)
+		if (table.getn(guiObjects) ~= 0) then 
+			local instances = {guiObjects[1]}
+			SelectionService:Set(instances)
+			SelectionManager:onSelectionChanged()
+		end
+	end 
 end
 
 local function onUndo(waypoint)
@@ -454,6 +485,9 @@ function Off()
 		childAddedEvent:disconnect()
 	end
 	inputBeganEvent:disconnect()
+	if FFlagStudioUIEditorV2Alpha then
+		pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
+	end
 	inputChangedEvent:disconnect()
 	inputEndedEvent:disconnect()
 	selectionChangedEvent:disconnect()
@@ -500,6 +534,9 @@ function On()
 	
 	if FFlagStudioUIEditorMoveToWorkspace then	
 		childAddedEvent = game.StarterGui.DescendantAdded:connect(onDescendantAddedToStarterGui)
+	end
+	if FFlagStudioUIEditorV2Alpha then
+		pluginOffInputBeganEvent:disconnect()
 	end
 	inputBeganEvent = UserInputService.InputBegan:connect(onInputBegan)	
 	inputChangedEvent = UserInputService.InputChanged:connect(onInputChanged)
@@ -557,6 +594,10 @@ if toolbarButton then
 			On()
 		end
 	end)
+end
+
+if FFlagStudioUIEditorV2Alpha then
+	pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
 end
 
 loaded = true]]></ProtectedString>

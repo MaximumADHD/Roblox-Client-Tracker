@@ -872,6 +872,7 @@ Class BillboardGui : LayerCollector
 	Property bool BillboardGui.Active
 	Property Class:Instance BillboardGui.Adornee
 	Property bool BillboardGui.AlwaysOnTop
+	Property bool BillboardGui.ClipsDescendants
 	Property Vector3 BillboardGui.ExtentsOffset
 	Property Vector3 BillboardGui.ExtentsOffsetWorldSpace
 	Property float BillboardGui.LightInfluence
@@ -894,6 +895,7 @@ Class SurfaceGui : LayerCollector
 	Property Class:Instance SurfaceGui.Adornee
 	Property bool SurfaceGui.AlwaysOnTop
 	Property Vector2 SurfaceGui.CanvasSize
+	Property bool SurfaceGui.ClipsDescendants
 	Property NormalId SurfaceGui.Face
 	Property float SurfaceGui.LightInfluence
 	Property float SurfaceGui.ToolPunchThroughDistance
@@ -1282,8 +1284,10 @@ Class Lighting : Instance [notCreatable]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
 Class LocalizationService : Instance [notCreatable]
+	Property string LocalizationService.ForcePlayModeGameLocaleId [LocalUserSecurity]
 	Property string LocalizationService.ForcePlayModeRobloxLocaleId [LocalUserSecurity]
 	Property bool LocalizationService.IsTextScraperRunning [hidden] [readonly] [RobloxScriptSecurity]
+	Property string LocalizationService.RobloxForcePlayModeGameLocaleId [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxForcePlayModeRobloxLocaleId [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxLocaleId [readonly]
 	Property string LocalizationService.SystemLocaleId [readonly]

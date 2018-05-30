@@ -48,9 +48,6 @@ local WasCoreGuiNavigationEnabled = false
 local WasGuiNavigationEnabled = false
 local WasAutoSelectGuiEnabled = false
 
-local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
-local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
-
 -- Inital prompt options. These are passed to CreatePrompt.
 local DefaultPromptOptions = {
 	WindowTitle = "Confirm",
@@ -206,7 +203,7 @@ local function createImageLabel(name, size, position, image, fetchImageFunction)
 	imageLabel.Position = position
 	imageLabel.Image = image
 
-	if useNewUserThumbnailAPI and fetchImageFunction then
+	if fetchImageFunction then
 		fetchImageFunction(imageLabel)
 	end
 	

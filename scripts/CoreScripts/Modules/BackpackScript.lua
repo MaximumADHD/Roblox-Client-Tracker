@@ -105,6 +105,7 @@ local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local Utility = require(RobloxGui.Modules.Settings.Utility)
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local TopbarEnabled = true
 
 if IsTenFootInterface then
@@ -322,6 +323,9 @@ local function MakeSlot(parent, index)
 	slot.Index = index
 	slot.Frame = nil
 
+	local LocalizedName  = nil
+	local LocalizedToolTip = nil
+
 	local SlotFrameParent = nil
 	local SlotFrame = nil
 	local FakeSlotFrame = nil
@@ -380,11 +384,14 @@ local function MakeSlot(parent, index)
 		self.Tool = tool
 
 		local function assignToolData()
+			LocalizedName = GameTranslator:TranslateGameText(tool, tool.Name)
+			LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)
+
 			local icon = tool.TextureId
 			ToolIcon.Image = icon
-			ToolName.Text = (icon == '') and tool.Name or '' -- (Only show name if no icon)
+			ToolName.Text = (icon == '') and LocalizedName or '' -- (Only show name if no icon)
 			if ToolTip and tool:IsA('Tool') then --NOTE: HopperBin
-				ToolTip.Text = tool.ToolTip
+				ToolTip.Text = LocalizedToolTip
 				local width = ToolTip.TextBounds.X + TOOLTIP_BUFFER
 				ToolTip.Size = UDim2.new(0, width, 0, TOOLTIP_HEIGHT)
 				ToolTip.Position = UDim2.new(0.5, -width / 2, 0, TOOLTIP_OFFSET)
@@ -555,9 +562,9 @@ local function MakeSlot(parent, index)
 		local tool = self.Tool
 		if tool then
 			for term in pairs(terms) do
-				checkEm(tool.Name, term)
+				checkEm(LocalizedName, term)
 				if tool:IsA('Tool') then --NOTE: HopperBin
-					checkEm(tool.ToolTip, term)
+					checkEm(LocalizedToolTip, term)
 				end
 			end
 		end

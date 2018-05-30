@@ -41,10 +41,6 @@ local function LocalizedGetString(key, rtv)
 	return rtv
 end
 
---[[ Fast Flags ]]--
-local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
-local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
-
 --[[ Script Variables ]]--
 local LocalPlayer = nil
 while not Players.LocalPlayer do
@@ -69,6 +65,7 @@ local badgesNotificationsActive = true
 
 --[[ Modules ]]--
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 --[[ Constants ]]--
 local BG_TRANSPARENCY = 0.7
@@ -213,13 +210,9 @@ local insertNotification = nil
 local removeNotification = nil
 
 local function getFriendImage(playerId)
-	if useNewUserThumbnailAPI then
-		-- SocialUtil.GetPlayerImage can yield for up to  MAX_GET_FRIEND_IMAGE_YIELD_TIME seconds while waiting for thumbnail to be final.
-		-- It will just return an invalid thumbnail if a valid one can not be generated in time.
-		return SocialUtil.GetPlayerImage(playerId, Enum.ThumbnailSize.Size48x48, Enum.ThumbnailType.HeadShot, --[[timeOut = ]] MAX_GET_FRIEND_IMAGE_YIELD_TIME)
-	else
-		return ("http://www.roblox.com/thumbs/avatar.ashx?userId=%d&x=%d&y=%d"):format(playerId, 48, 48)
-	end
+    -- SocialUtil.GetPlayerImage can yield for up to  MAX_GET_FRIEND_IMAGE_YIELD_TIME seconds while waiting for thumbnail to be final.
+    -- It will just return an invalid thumbnail if a valid one can not be generated in time.
+    return SocialUtil.GetPlayerImage(playerId, Enum.ThumbnailSize.Size48x48, Enum.ThumbnailType.HeadShot, --[[timeOut = ]] MAX_GET_FRIEND_IMAGE_YIELD_TIME)
 end
 
 --
@@ -426,6 +419,8 @@ local function onSendNotificationInfo(notificationInfo)
 	local callback = notificationInfo.Callback
 	local button1Text = notificationInfo.Button1Text
 	local button2Text = notificationInfo.Button2Text
+	local localizedButton1Text = notificationInfo.Button1TextLocalized
+	local localizedButton2Text = notificationInfo.Button2TextLocalized
 
 	local notification = {}
 	local notificationFrame = createNotification(notificationInfo.Title, notificationInfo.Text, notificationInfo.Image)
@@ -434,7 +429,7 @@ local function onSendNotificationInfo(notificationInfo)
 	local button1 = nil
 	if button1Text and button1Text ~= "" then
 		notification.IsFriend = true -- Prevents other notifications overlapping the buttons
-		button1 = createTextButton("Button1", button1Text, UDim2.new(0, 0, 1, 2))
+		button1 = createTextButton("Button1", localizedButton1Text or button1Text, UDim2.new(0, 0, 1, 2))
 		button1.Parent = notificationFrame
 		local button1ClickedConnection = nil
 		button1ClickedConnection = button1.MouseButton1Click:connect(function()
@@ -453,7 +448,7 @@ local function onSendNotificationInfo(notificationInfo)
 
 	if button2Text and button2Text ~= "" then
 		notification.IsFriend = true
-		local button2 = createTextButton("Button1", button2Text, UDim2.new(0.5, 2, 1, 2))
+		local button2 = createTextButton("Button1", localizedButton2Text or button2Text, UDim2.new(0.5, 2, 1, 2))
 		button2.Parent = notificationFrame
 		local button2ClickedConnection = nil
 		button2ClickedConnection = button2.MouseButton1Click:connect(function()
@@ -807,15 +802,23 @@ local function createDeveloperNotification(notificationTable)
 			local bindable = (typeof(notificationTable.Callback) == "Instance" and notificationTable.Callback:IsA("BindableFunction") and notificationTable.Callback or nil)
 			local button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
 			local button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")
+			-- AutoLocalize allows developers to disable automatic localization if they have pre-localized it. Defaults true.
+			local autoLocalize = notificationTable.AutoLocalize == nil or notificationTable.AutoLocalize == true
+			local title = autoLocalize and GameTranslator:TranslateGameText(CoreGui, notificationTable.Title) or notificationTable.Title
+			local text = autoLocalize and GameTranslator:TranslateGameText(CoreGui, notificationTable.Text) or notificationTable.Text
+			local localizedButton1Text = autoLocalize and GameTranslator:TranslateGameText(CoreGui, button1Text) or nil
+			local localizedButton2Text = autoLocalize and GameTranslator:TranslateGameText(CoreGui, button2Text) or nil
 			sendNotificationInfo {
 				GroupName = "Developer",
-				Title = notificationTable.Title,
-				Text = notificationTable.Text,
+				Title = title,
+				Text = text,
 				Image = iconImage,
 				Duration = duration,
 				Callback = bindable,
 				Button1Text = button1Text,
-				Button2Text = button2Text
+				Button2Text = button2Text,
+				Button1TextLocalized = localizedButton1Text,
+				Button2TextLocalized = localizedButton2Text
 			}
 		end
 	end

@@ -1,12 +1,12 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX2872fde5f6bf47e8acfdb0cd1295547e">
+	<Item class="Folder" referent="RBXb4e09e96e2194bc8bfcdfd6bad0870dd">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX5955e2751f584617940576722b4e4e7d">
+		<Item class="ModuleScript" referent="RBX14176a057a4e4903ac2697dae2959634">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainBrush</string>
@@ -100,8 +100,6 @@ local function MakeMaterialsSectionWithTitle()
 end
 
 module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
-	local FFlagStudioFixTerrainToolsCheckBoxes = settings():GetFFlag("StudioFixTerrainToolsCheckBoxes")
-
 	mouse = theMouse
 	pluginGui = thePluginGui
 	contentFrame = theContentFrame
@@ -155,13 +153,10 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	GuiUtilities.AddStripedChildrenToListFrame(materialSettingsObj:GetContentsFrame(), 
 		{autoColorObj:GetFrame(), materialSectionWithTitle})
 		
-
-	if (FFlagStudioFixTerrainToolsCheckBoxes) then 
-		autoColorObj:SetValueChangedFunction(function()
-			-- When 'auto' material selection is on, hide material selection panel.
-			materialSectionWithTitle.Visible = (not autoColorObj:GetValue())
-		end)
-	end
+	autoColorObj:SetValueChangedFunction(function()
+		-- When 'auto' material selection is on, hide material selection panel.
+		materialSectionWithTitle.Visible = (not autoColorObj:GetValue())
+	end)
 
 	verticallyScalingListFrameObj:AddChild(materialSettingsObj:GetSectionFrame())
 
@@ -280,51 +275,21 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	local function updateUsabilityLocks()
 		if kCurrentTool then
-			if (FFlagStudioFixTerrainToolsCheckBoxes) then 
-				updateCheckboxDisabledStateWithOverride(snapToGridObj, 
-					kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid, 
-					true)
+			updateCheckboxDisabledStateWithOverride(snapToGridObj, 
+				kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid, 
+				true)
 
-				updateCheckboxDisabledStateWithOverride(planeLockObj, 
-     				kCurrentTool.DisablesPlaneLock, 
-					true)
+			updateCheckboxDisabledStateWithOverride(planeLockObj, 
+				kCurrentTool.DisablesPlaneLock, 
+				true)
 
-				updateCheckboxDisabledStateWithOverride(autoColorObj, 
-  				    kCurrentTool.DisablesAutoColor, 
-					  kCurrentTool.Name ~= 'Paint')
+			updateCheckboxDisabledStateWithOverride(autoColorObj, 
+				kCurrentTool.DisablesAutoColor, 
+					kCurrentTool.Name ~= 'Paint')
 
-				updateCheckboxDisabledStateWithOverride(ignoreWaterObj, 
-					(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth', 
-					(kCurrentTool.Name ~= 'Smooth' and kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWaterTo))
-			else
-				-- If the kCurrentTool uses materials, and the material selected, then force SnapToGrid to true.
-				snapToGridObj:SetDisabled(kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid)
-				if snapToGridObj:GetDisabled() then
-					snapToGridObj:SetValue(true)
-				end
-		
-				-- If the kCurrentTool as Add or Subtract then force planeLock for usability
-				planeLockObj:SetDisabled(kCurrentTool.Name == 'Add' or kCurrentTool.Name == 'Subtract')
-				if planeLockObj:GetDisabled() then
-					planeLockObj:SetValue(true)
-				end
-		
-				--
-				autoColorObj:SetDisabled(kCurrentTool.Name == 'Subtract' or kCurrentTool.Name == 'Erode' or kCurrentTool.Name == 'Paint' or kCurrentTool.Name == 'Smooth' or kCurrentTool.Name == 'Smoother')
-				if autoColorObj:GetDisabled() then
-					autoColorObj:SetValue(kCurrentTool.Name ~= 'Paint')
-				end
-		
-				--
-				ignoreWaterObj:SetDisabled((kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth')
-				if ignoreWaterObj:GetDisabled() then
-					if kCurrentTool.Name == 'Smooth' then
-						ignoreWaterObj:SetValue(false)
-					else
-						ignoreWaterObj:SetValue(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWaterTo)
-					end
-				end
-			end
+			updateCheckboxDisabledStateWithOverride(ignoreWaterObj, 
+				(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth', 
+				(kCurrentTool.Name ~= 'Smooth' and kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWaterTo))
 
 			autoColorObj:GetFrame().Visible = kCurrentTool.UsesMaterials
 			materialSettingsObj:GetSectionFrame().Visible = not not kCurrentTool.UsesMaterials
@@ -993,7 +958,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1ce0806063e04ce9975d771f4443a907">
+		<Item class="ModuleScript" referent="RBXde4398f9c39041e8bfd93cdffbebcdb2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
@@ -2081,7 +2046,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4f916a2838f24e43b6ad4f01a4816a6b">
+		<Item class="ModuleScript" referent="RBX86bae6cfe97f47698220a12171e194d7">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -2426,7 +2391,7 @@ return MaterialsListClass
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXe0303fd56ddf46de876eaa43014daa64">
+		<Item class="ModuleScript" referent="RBX1b55c29b329c4fb7bef9dde2197355ee">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MainPanel</string>
@@ -2771,7 +2736,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBXf22c4a099e0d443da1cbfe95856d5c95">
+		<Item class="Script" referent="RBX217fe40ec5fc43758465c7162fc29ba3">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2792,23 +2757,6 @@ local function updateButtonActive(button, plugin)
 	else
 	  button:SetActive(false)
 	end
-end
-
-local function IsTerrainToolsInLuaWidgetEnabled()
-	local StudioTerrainToolsInLuaWidget = false
-	local successFlagFetch, flagResult = pcall(function()
-		return settings():GetFFlag("StudioTerrainToolsInLuaWidget")
-	end)
-	if successFlagFetch then
-		StudioTerrainToolsInLuaWidget = flagResult
-	end
-	
-	return StudioTerrainToolsInLuaWidget
-end
-
--- If we are not using new-school terrain tools, bail immediately.
-if (not IsTerrainToolsInLuaWidgetEnabled()) then 
-	return
 end
 
 -- Create the toolbar, create the button to toggle terrain tools plugin GUI on/off.
@@ -2867,7 +2815,7 @@ mainPanelModule.Initialize(plugin, pluginGui)
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXc041c70ff6c94c35b2b8bb93e0c0a3c9">
+		<Item class="ModuleScript" referent="RBX3d0afce5792c4e4fa4a064fe7f554f17">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
@@ -3760,7 +3708,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX8cedcf6dfb15499bae7ffb6512ca1b31">
+		<Item class="ModuleScript" referent="RBXf2e09e5802a0436d95002e37f54beae9">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ProgressFrame</string>
@@ -3873,7 +3821,7 @@ return ProgressFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXc0ee176ab93e48beae94dea6a1b3e14e">
+		<Item class="ModuleScript" referent="RBX4a0197d5f7244fc3b0e4208ae9c12a28">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainSmoother</string>
@@ -4017,12 +3965,12 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX45496ddcdc62451d9fe337cd4a5f72b9">
+		<Item class="Folder" referent="RBX79958788a2f54cb59d470161173486d6">
 			<Properties>
 				<string name="Name">Libs</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX8f2309bfcebe4374845760174049acab">
+			<Item class="ModuleScript" referent="RBX75d4a757dfa2497c8beb0fbbc46a2eb3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledCheckbox</string>
@@ -4260,7 +4208,7 @@ return LabeledCheckboxClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXfc16af1bb576460e8735b8724569bb52">
+			<Item class="ModuleScript" referent="RBXe3dfaa9761b34ada80b75a9da4542d0a">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">CollapsibleTitledSection</string>
@@ -4431,7 +4379,7 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXff89aaed167b4f44b70bc4e06c925797">
+			<Item class="ModuleScript" referent="RBX37a81a9eb260412690068bf35f080f55">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ImageButtonWithText</string>
@@ -4584,7 +4532,7 @@ return ImageButtonWithTextClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX613c15fed9c247269b2438a89711e795">
+			<Item class="ModuleScript" referent="RBX7876a1bcec554a51984dad1a510dc3cf">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledSlider</string>
@@ -4714,60 +4662,7 @@ return LabeledSliderClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7f36b23737044aa3a41ce7e35e2a6514">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledRadioButton</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledRadioButton.lua
---
--- Creates a frame containing a label and a radio button.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-
-local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
-local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
-
-local kFrameSize = 12
-local kBulletSize = 14
-
-LabeledRadioButtonClass = {}
-LabeledRadioButtonClass.__index = LabeledRadioButtonClass
-setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
-
-function LabeledRadioButtonClass.new(nameSuffix, labelText)
-	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
-	setmetatable(newButton, LabeledRadioButtonClass)
-
-	newButton:UseSmallSize()
-	newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-	newButton._checkImage.Image = kBulletImage
-	newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
-
-	newButton._button.Image = kButtonImage
-	newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
-	newButton._button.BackgroundTransparency = 1
-
-	return newButton
-end
-
-function LabeledRadioButtonClass:_MaybeToggleState()
-	-- A checkbox can never be toggled off. 
-	-- Only turns off because another one turns on.
-	if (not self._disabled and not self._value) then 
-		self:SetValue(not self._value)
-	end
-end
-
-return LabeledRadioButtonClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBXafebc77dc02f4511926433a521a841c0">
+			<Item class="ModuleScript" referent="RBX82026a377f8b4552b9663172ab20f01f">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">CustomTextButton</string>
@@ -4866,7 +4761,136 @@ return CustomTextButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX17a1b8fb0edb405997476f6a3d3265cf">
+			<Item class="ModuleScript" referent="RBX1881c088a66e40568db156ea52a59c3a">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LabeledTextInput</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledTextInput.lua
+--
+-- Creates a frame containing a label and a text input control.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kTextInputWidth = 100
+local kTextBoxInternalPadding = 4
+
+LabeledTextInputClass = {}
+LabeledTextInputClass.__index = LabeledTextInputClass
+
+function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
+	local self = {}
+	setmetatable(self, LabeledTextInputClass)
+
+	-- Note: we are using "graphemes" instead of characters.
+	-- In modern text-manipulation-fu, what with internationalization, 
+	-- emojis, etc, it's not enough to count characters, particularly when 
+	-- concerned with "how many <things> am I rendering?".
+	-- We are using the 
+	self._MaxGraphemes = 10
+	
+	self._valueChangedFunction = nil
+
+	local defaultValue = defaultValue or ""
+
+	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
+	self._frame = frame
+
+	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	label.Parent = frame
+	self._label = label
+
+	self._value = defaultValue
+
+	-- Dumb hack to add padding to text box,
+	local textBoxWrapperFrame = Instance.new("Frame")
+	textBoxWrapperFrame.Name = "Wrapper"
+	textBoxWrapperFrame.BackgroundColor3 = GuiUtilities.kStandardWhite
+	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
+	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
+	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
+	textBoxWrapperFrame.Parent = frame
+	textBoxWrapperFrame.BorderColor3 = GuiUtilities.kWidgetBorderColor 
+
+	local textBox = Instance.new("TextBox")
+	textBox.Parent = textBoxWrapperFrame
+	textBox.Name = "TextBox"
+	textBox.Text = defaultValue
+	textBox.Font = Enum.Font.SourceSans
+	textBox.TextSize = 15
+	textBox.BackgroundTransparency = 1
+	textBox.TextXAlignment = Enum.TextXAlignment.Left
+	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
+	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
+	textBox.ClipsDescendants = true
+	
+	textBox:GetPropertyChangedSignal("Text"):connect(function()
+		-- Never let the text be too long.
+		-- Careful here: we want to measure number of graphemes, not characters, 
+		-- in the text, and we want to clamp on graphemes as well.
+		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
+			local count = 0
+			for start, stop in utf8.graphemes(self._textBox.Text) do
+				count = count + 1
+				if (count > self._MaxGraphemes) then 
+					-- We have gone one too far.
+					-- clamp just before the beginning of this grapheme.
+					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
+					break
+				end
+			end
+			-- Don't continue with rest of function: the resetting of "Text" field
+			-- above will trigger re-entry.  We don't need to trigger value
+			-- changed function twice.
+			return
+		end
+
+		self._value = self._textBox.Text
+		if (self._valueChangedFunction) then 
+			self._valueChangedFunction(self._value)
+		end
+	end)
+	
+	self._textBox = textBox
+
+	return self
+end
+
+function LabeledTextInputClass:SetValueChangedFunction(vcf)
+	self._valueChangedFunction = vcf
+end
+
+function LabeledTextInputClass:GetFrame()
+	return self._frame
+end
+
+function LabeledTextInputClass:GetValue()
+	return self._value
+end
+
+function LabeledTextInputClass:GetMaxGraphemes()
+	return self._MaxGraphemes
+end
+
+function LabeledTextInputClass:SetMaxGraphemes(newValue)
+	self._MaxGraphemes = newValue
+end
+
+function LabeledTextInputClass:SetValue(newValue)
+	if self._value ~= newValue then
+		self._textBox.Text = newValue
+	end
+end
+
+return LabeledTextInputClass
+]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX300e6eeebf0f4942a60de37b5cac6fb0">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">VerticallyScalingListFrame</string>
@@ -4947,7 +4971,7 @@ return VerticallyScalingListFrameClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX2ce7d67d303a49b69b741faf3e5f5807">
+			<Item class="ModuleScript" referent="RBX9b470f62008240b6ac25b06827f9c1a2">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">StatefulImageButton</string>
@@ -5046,7 +5070,7 @@ return StatefulImageButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX1e86121d081f41ed8374d306892e5e95">
+			<Item class="ModuleScript" referent="RBXd6d7be65f81e41dd8c23a43d4f226431">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">RbxGui</string>
@@ -9255,7 +9279,7 @@ return t
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXa4a700029a4749bf832ab9d57d2d65d4">
+			<Item class="ModuleScript" referent="RBX86a73b404fe848438202d0380cc938d6">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledMultiChoice</string>
@@ -9395,136 +9419,60 @@ return LabeledMultiChoiceClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXfa8bc06bb250479094e33f26f221936a">
+			<Item class="ModuleScript" referent="RBX529e9c935b5e443f83bbbbddbe0c94a8">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledTextInput</string>
+					<string name="Name">LabeledRadioButton</string>
 					<string name="ScriptGuid"></string>
 					<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
--- LabeledTextInput.lua
+-- LabeledRadioButton.lua
 --
--- Creates a frame containing a label and a text input control.
+-- Creates a frame containing a label and a radio button.
 --
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
+LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 
-local kTextInputWidth = 100
-local kTextBoxInternalPadding = 4
+local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
+local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
 
-LabeledTextInputClass = {}
-LabeledTextInputClass.__index = LabeledTextInputClass
+local kFrameSize = 12
+local kBulletSize = 14
 
-function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
-	local self = {}
-	setmetatable(self, LabeledTextInputClass)
+LabeledRadioButtonClass = {}
+LabeledRadioButtonClass.__index = LabeledRadioButtonClass
+setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
 
-	-- Note: we are using "graphemes" instead of characters.
-	-- In modern text-manipulation-fu, what with internationalization, 
-	-- emojis, etc, it's not enough to count characters, particularly when 
-	-- concerned with "how many <things> am I rendering?".
-	-- We are using the 
-	self._MaxGraphemes = 10
-	
-	self._valueChangedFunction = nil
+function LabeledRadioButtonClass.new(nameSuffix, labelText)
+	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
+	setmetatable(newButton, LabeledRadioButtonClass)
 
-	local defaultValue = defaultValue or ""
+	newButton:UseSmallSize()
+	newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+	newButton._checkImage.Image = kBulletImage
+	newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
 
-	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
-	self._frame = frame
+	newButton._button.Image = kButtonImage
+	newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
+	newButton._button.BackgroundTransparency = 1
 
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
-	label.Parent = frame
-	self._label = label
-
-	self._value = defaultValue
-
-	-- Dumb hack to add padding to text box,
-	local textBoxWrapperFrame = Instance.new("Frame")
-	textBoxWrapperFrame.Name = "Wrapper"
-	textBoxWrapperFrame.BackgroundColor3 = GuiUtilities.kStandardWhite
-	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
-	textBoxWrapperFrame.Parent = frame
-	textBoxWrapperFrame.BorderColor3 = GuiUtilities.kWidgetBorderColor 
-
-	local textBox = Instance.new("TextBox")
-	textBox.Parent = textBoxWrapperFrame
-	textBox.Name = "TextBox"
-	textBox.Text = defaultValue
-	textBox.Font = Enum.Font.SourceSans
-	textBox.TextSize = 15
-	textBox.BackgroundTransparency = 1
-	textBox.TextXAlignment = Enum.TextXAlignment.Left
-	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
-	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
-	textBox.ClipsDescendants = true
-	
-	textBox:GetPropertyChangedSignal("Text"):connect(function()
-		-- Never let the text be too long.
-		-- Careful here: we want to measure number of graphemes, not characters, 
-		-- in the text, and we want to clamp on graphemes as well.
-		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
-			local count = 0
-			for start, stop in utf8.graphemes(self._textBox.Text) do
-				count = count + 1
-				if (count > self._MaxGraphemes) then 
-					-- We have gone one too far.
-					-- clamp just before the beginning of this grapheme.
-					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
-					break
-				end
-			end
-			-- Don't continue with rest of function: the resetting of "Text" field
-			-- above will trigger re-entry.  We don't need to trigger value
-			-- changed function twice.
-			return
-		end
-
-		self._value = self._textBox.Text
-		if (self._valueChangedFunction) then 
-			self._valueChangedFunction(self._value)
-		end
-	end)
-	
-	self._textBox = textBox
-
-	return self
+	return newButton
 end
 
-function LabeledTextInputClass:SetValueChangedFunction(vcf)
-	self._valueChangedFunction = vcf
-end
-
-function LabeledTextInputClass:GetFrame()
-	return self._frame
-end
-
-function LabeledTextInputClass:GetValue()
-	return self._value
-end
-
-function LabeledTextInputClass:GetMaxGraphemes()
-	return self._MaxGraphemes
-end
-
-function LabeledTextInputClass:SetMaxGraphemes(newValue)
-	self._MaxGraphemes = newValue
-end
-
-function LabeledTextInputClass:SetValue(newValue)
-	if self._value ~= newValue then
-		self._textBox.Text = newValue
+function LabeledRadioButtonClass:_MaybeToggleState()
+	-- A checkbox can never be toggled off. 
+	-- Only turns off because another one turns on.
+	if (not self._disabled and not self._value) then 
+		self:SetValue(not self._value)
 	end
 end
 
-return LabeledTextInputClass
-]]></ProtectedString>
+return LabeledRadioButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9b072af4763b49febc6de2804efbf750">
+			<Item class="ModuleScript" referent="RBX25b2a20a4f4d480ab3995bed42f4d44e">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GuiUtilities</string>

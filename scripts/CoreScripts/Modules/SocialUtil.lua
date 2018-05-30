@@ -30,20 +30,15 @@ local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size100x100
 local DEFAULT_THUMBNAIL_TYPE = Enum.ThumbnailType.AvatarThumbnail
 local GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = 1
 
-local useNewThumbnailApiSuccess, useNewThumbnailApiValue = pcall(function() return settings():GetFFlag("CoreScriptsUseNewUserThumbnailAPI2") end)
-local useNewUserThumbnailAPI = useNewThumbnailApiSuccess and useNewThumbnailApiValue
+local gutartSuccess,gutart = pcall(function() return tonumber(settings():GetFVariable("GetUserThumbnailAsyncRetryTime")) end)
+local gpidtSuccess,gpidt = pcall(function() return tonumber(settings():GetFVariable("GetPlayerImageDefaultTimeout")) end)
 
-if useNewUserThumbnailAPI then
-	local gutartSuccess,gutart = pcall(function() return tonumber(settings():GetFVariable("GetUserThumbnailAsyncRetryTime")) end)
-	local gpidtSuccess,gpidt = pcall(function() return tonumber(settings():GetFVariable("GetPlayerImageDefaultTimeout")) end)
+if gutartSuccess then
+    GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = gutart
+end
 
-	if gutartSuccess then
-		GET_USER_THUMBNAIL_ASYNC_RETRY_TIME = gutart
-	end
-
-	if gpidtSuccess then
-		GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = gpidt
-	end
+if gpidtSuccess then
+    GET_PLAYER_IMAGE_DEFAULT_TIMEOUT = gpidt
 end
 
 --[[ Functions ]]--

@@ -43,6 +43,8 @@ local playerDropDown = playerDropDownModule:CreatePlayerDropDown()
 
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+
 --[[ Remotes ]]--
 local RemoveEvent_OnFollowRelationshipChanged = nil
 local RemoteFunc_GetFollowRelationships = nil
@@ -617,7 +619,7 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
   if isTopStat then
     local statName = statText:Clone()
     statName.Name = "StatName"
-    statName.Text = tostring(parent.Name)
+    statName.Text = GameTranslator:TranslateGameText(CoreGui, parent.Name)
     statName.Position = UDim2.new(0,0,0,0)
     statName.Font = Enum.Font.SourceSans
     statName.ClipsDescendants = true
@@ -1602,7 +1604,9 @@ local function createTeamEntry(team)
   entryFrame.Selectable = false	-- dont allow gamepad selection of team frames
   entryFrame.BackgroundColor3 = team.TeamColor.Color
 
-  local teamName = createEntryNameText("TeamName", team.Name,
+  local teamName = createEntryNameText(
+    "TeamName",
+    GameTranslator:TranslateGameText(team, team.Name),
     UDim2.new(0.01, 1, 0, 0),
     UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
 
@@ -1626,7 +1630,7 @@ local function createTeamEntry(team)
   team.Changed:connect(function(property)
       rbx_profilebegin("team.Changed")
       if property == 'Name' then
-        teamName.Text = team.Name
+        teamName.Text = GameTranslator:TranslateGameText(team, team.Name)
       elseif property == 'TeamColor' then
         for _,childFrame in pairs(containerFrame:GetChildren()) do
           if childFrame:IsA('GuiObject') then

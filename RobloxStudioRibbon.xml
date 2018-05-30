@@ -71,16 +71,13 @@
           </ActionGroup>
         </MenuButton>
       </Group>
-      <Group name="Terrain"  fflag="StudioTerrainToolsInLuaWidget">
+      <Group name="Terrain">
           <addaction name="toggleTerrainToolsDockAction"
           type="plugin"
           style="textundericon"
           icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
           height="32"
           width="32"/>
-      </Group>
-      <Group name="UI" fflag="StudioUIEditorV2Alpha">
-        <addaction name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32"/>
       </Group>
       <Group name="Insert">
           <addaction name="toggleToolboxDockAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
@@ -93,6 +90,7 @@
                   <addaction name="CylinderLargeAction" text="Cylinder" value="Cylinder" tooltip="Insert cylinder part" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" width="32" height="32" />
               </ActionGroup>
           </MenuPopupButton>
+        <addaction fflag="StudioUIEditorV2Alpha" name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32"/>
       </Group>
       <Group name="Edit" options="true">
         <groupoptionsmenu tooltip="Actions as Tools" handleMenuTrigger="true">
@@ -133,14 +131,6 @@
           <addaction name="unlockAllAction" />
         </MenuPopupButton>
         <addaction name="anchorAction" text="Anchor " icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" style="textbesideicon" tooltip="Anchor/Unanchor the selected parts" width="16" height="16" />
-      </Group>
-      <Group name="Terrain" fflag="!StudioTerrainToolsInLuaWidget">
-        <addaction name="Generate" isProxy="true" text="Generate" style="textbesideicon" tooltip="Generate landscapes of terrain 2222." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="16" height="16"/>
-        <addaction name="Add" isProxy="true" text="Add" style="textbesideicon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="16" height="16"/>
-        <addaction name="Paint" isProxy="true" text="Paint" tooltip="Paint the material of the terrain." type="plugin" style="textbesideicon"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/paint.png" width="16" height="16"/>
-        <addaction name="Grow" isProxy="true" text="Grow" style="textbesideicon" type="plugin" tooltip="Click and hold to grow and expand terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/grow.png" width="16" height="16"/>
-        <addaction name="Erode" isProxy="true" text="Erode" style="textbesideicon" type="plugin" tooltip="Click and hold to erode and remove terrain."  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/erode.png" width="16" height="16"/>
-        <addaction name="Smooth" isProxy="true" text="Smooth" style="textbesideicon" type="plugin" tooltip="Brush to smooth out rough or jagged terrain." icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/smooth.png"  width="16" height="16"/>
       </Group>
       <Group name="Test">
         <MenuPopupButton handleMenuTrigger="true"  selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Play" tooltip="Play the game inside the window" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
@@ -307,21 +297,6 @@
       </Group>
     </TabPage>
     <!--
-      RIBBON BAR TERRAIN TAB
-      -->
-    <TabPage name="Terrain" fflag="!StudioTerrainToolsInLuaWidget">
-      <Group name="Terrain">
-        <addaction name="Generate" instancename="Generate" text="Generate" style="textundericon" tooltip="Generate landscapes of terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/generate.png" width="32" height="32"/>
-        <addaction name="Add" instancename="Add" text="Add" style="textundericon" tooltip="Click and hold to add terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/add.png" width="32" height="32"/>
-        <addaction name="Subtract" instancename="Subtract" text="Subtract" style="textundericon" tooltip="Click and hold to remove terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/subtract.png" width="32" height="32"/>
-        <addaction name="Paint" instancename="Paint" text="Paint" style="textundericon" tooltip="Paint the material of the terrain." type="plugin" icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/paint.png" width="32" height="32"/>
-        <addaction name="Grow" instancename="Grow" text="Grow" style="textundericon" tooltip="Click and hold to grow and expand terrain." type="plugin" icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/grow.png" width="32" height="32"/>
-        <addaction name="Erode" instancename="Erode" text="Erode" style="textundericon" tooltip="Click and hold to erode and remove terrain." type="plugin" icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/erode.png" width="32" height="32"/>
-        <addaction name="Smooth" instancename="Smooth" text="Smooth" style="textundericon" tooltip="Brush to smooth out rough or jagged terrain." type="plugin" icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/smooth.png"  width="32" height="32"/>
-        <addaction name="Regions" instancename="Regions" text="Regions" style="textundericon" tooltip="Manipulate regions of smooth terrain." type="plugin"  icon=":/RibbonBar/images/RibbonIcons/Terrain/SmoothTerrain/regions.png"  width="32" height="32"/>
-      </Group>
-    </TabPage>
-    <!--
       RIBBON BAR TEST TAB
       -->
     <TabPage name="Test">
@@ -399,7 +374,6 @@
             height="32"
             width ="32"/>
         <addaction name="toggleTerrainToolsDockAliasAction"
-            fflag="StudioTerrainToolsInLuaWidget"
             style="textbesideicon"
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
             height="32"

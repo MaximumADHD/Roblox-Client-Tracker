@@ -30,6 +30,7 @@ local VRService = game:GetService('VRService')
 local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
 local TopbarConstants = require(GuiRoot.Modules.TopbarConstants)
 local Utility = require(GuiRoot.Modules.Settings.Utility)
+local GameTranslator = require(GuiRoot.Modules.GameTranslator)
 --[[ END OF MODULES ]]
 
 local topbarEnabled = true
@@ -681,6 +682,7 @@ end
 ----- END OF HEALTH -----
 
 ----- LEADERSTATS -----
+
 local function CreateLeaderstatsMenuItem()
 	local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
 
@@ -729,7 +731,7 @@ local function CreateLeaderstatsMenuItem()
 						Util.Create'TextLabel'
 						{
 							Name = "ColumnName";
-							Text = columnName;
+							Text = GameTranslator:TranslateGameText(CoreGuiService, columnName);
 							Size = UDim2.new(1, 0, 0, 10);
 							Position = UDim2.new(0, 0, 0, 4);
 							Font = Enum.Font.SourceSans;

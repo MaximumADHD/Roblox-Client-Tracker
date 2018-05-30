@@ -9,14 +9,12 @@
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagUpdateHelpScreenController = settings():GetFFlag("UpdateHelpScreenController")
-
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
 local GAMEPAD_TAG = "Gamepad"
 local PC_TABLE_SPACING = 4
-local XBOX_CONTROLLER_IMAGE_OFFSET = FFlagUpdateHelpScreenController and 30 or 50
+local XBOX_CONTROLLER_IMAGE_OFFSET = 30
 local TEXT_EDGE_DISTANCE = 20
 
 -------------- SERVICES --------------
@@ -225,26 +223,15 @@ local function Initialize()
 		local gamepadImage = nil
 		local imageSize = nil
 
-		if FFlagUpdateHelpScreenController then
-			gamepadImage = "rbxasset://textures/ui/Settings/Help/GenericController.png"
-			imageSize = UDim2.new(0, 473, 0, 287)
-		else
-			gamepadImage = "rbxasset://textures/ui/Settings/Help/OldGenericController.png"
-			imageSize = UDim2.new(0, 650, 0, 239)
-		end
+		gamepadImage = "rbxasset://textures/ui/Settings/Help/GenericController.png"
+		imageSize = UDim2.new(0, 473, 0, 287)
 
 		local imagePosition = UDim2.new(0.5, -imageSize.X.Offset/2, 0.5, -imageSize.Y.Offset/2)
 
 		if UserInputService:GetPlatform() == Enum.Platform.XBoxOne or UserInputService:GetPlatform() == Enum.Platform.XBox360 then
-			if FFlagUpdateHelpScreenController then
-				gamepadImage = "rbxasset://textures/ui/Settings/Help/XboxController.png"
-				imageSize = UDim2.new(0, 745, 0, 452)
-				imagePosition = UDim2.new(0.5, (-imageSize.X.Offset/2) + XBOX_CONTROLLER_IMAGE_OFFSET, 0.5, -imageSize.Y.Offset/2 + 7)
-			else
-				gamepadImage = "rbxasset://textures/ui/Settings/Help/OldXboxController.png"
-				imageSize = UDim2.new(0, 1334, 0, 570)
-				imagePosition = UDim2.new(0.5, (-imageSize.X.Offset/2) - XBOX_CONTROLLER_IMAGE_OFFSET, 0.5, -imageSize.Y.Offset/2)
-			end
+			gamepadImage = "rbxasset://textures/ui/Settings/Help/XboxController.png"
+			imageSize = UDim2.new(0, 745, 0, 452)
+			imagePosition = UDim2.new(0.5, (-imageSize.X.Offset/2) + XBOX_CONTROLLER_IMAGE_OFFSET, 0.5, -imageSize.Y.Offset/2 + 7)
 		elseif UserInputService:GetPlatform() == Enum.Platform.PS4 or UserInputService:GetPlatform() == Enum.Platform.PS3 then
 			gamepadImage = "rbxasset://textures/ui/Settings/Help/PSController.png"
 		end
@@ -299,118 +286,64 @@ local function Initialize()
 				};
 			end
 
-			if FFlagUpdateHelpScreenController then
-				nameLabel.TextWrapped = true
+			nameLabel.TextWrapped = true
 
-				local textSize = TextService:GetTextSize(text, textVerticalSize, Enum.Font.SourceSansBold, Vector2.new(0, 0))
-				local minSizeXOffset = textSize.X
-				local distanceToCenter = math.abs(position.X.Offset)
-				local parentGui = (gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png") and RobloxGui or parentFrame
+			local textSize = TextService:GetTextSize(text, textVerticalSize, Enum.Font.SourceSansBold, Vector2.new(0, 0))
+			local minSizeXOffset = textSize.X
+			local distanceToCenter = math.abs(position.X.Offset)
+			local parentGui = (gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png") and RobloxGui or parentFrame
 
-				local function updateNameLabelSize()
-					local nameLabelSizeXOffset = nameLabel.Size.X.Offset
-					if gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
-						nameLabelSizeXOffset = rightAligned and
-							RobloxGui.AbsoluteSize.X/2 + XBOX_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE or
-							RobloxGui.AbsoluteSize.X/2 - XBOX_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE
-					else
-						nameLabelSizeXOffset = parentFrame.AbsoluteSize.X/2 - distanceToCenter
-					end
-
-					if nameLabelSizeXOffset < minSizeXOffset then
-						nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize * 2)
-						nameLabel.TextScaled = true
-					else
-						nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize)
-						nameLabel.FontSize = gamepadFontSize
-						nameLabel.TextScaled = false
-					end
+			local function updateNameLabelSize()
+				local nameLabelSizeXOffset = nameLabel.Size.X.Offset
+				if gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
+					nameLabelSizeXOffset = rightAligned and
+						RobloxGui.AbsoluteSize.X/2 + XBOX_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE or
+						RobloxGui.AbsoluteSize.X/2 - XBOX_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE
+				else
+					nameLabelSizeXOffset = parentFrame.AbsoluteSize.X/2 - distanceToCenter
 				end
 
-				local nameLabelChangeCn = parentGui:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
-					updateNameLabelSize()
-				end)
-
-				updateNameLabelSize()
-
-			elseif gamepadImage == "rbxasset://textures/ui/Settings/Help/OldXboxController.png" then
-				nameLabel.TextWrapped = true
-
-				local textSize = TextService:GetTextSize(text, 36, Enum.Font.SourceSansBold, Vector2.new(0, 0))
-				local distanceToCenter = math.abs(position.X.Offset)
-
-				local function updateNameLabelSize()
-					local nameLabelSizeXOffset = rightAligned and
-						RobloxGui.AbsoluteSize.X/2 - XBOX_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE or
-						RobloxGui.AbsoluteSize.X/2 + XBOX_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE
-					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, nameLabel.Size.Y.Offset)
-
-					nameLabel.TextScaled = textSize.X > nameLabel.Size.X.Offset
+				if nameLabelSizeXOffset < minSizeXOffset then
+					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize * 2)
+					nameLabel.TextScaled = true
+				else
+					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize)
+					nameLabel.FontSize = gamepadFontSize
+					nameLabel.TextScaled = false
 				end
-
-				local nameLabelChangeCn = RobloxGui:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
-					updateNameLabelSize()
-				end)
-
-				updateNameLabelSize()
 			end
+
+			local nameLabelChangeCn = parentGui:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
+				updateNameLabelSize()
+			end)
+
+			updateNameLabelSize()
 		end
 
-		if FFlagUpdateHelpScreenController then
-			if gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
-				createGamepadLabel("Switch Tool", UDim2.new(0.5, -390, 0, 0), UDim2.new(0, 100, 0, textVerticalSize), true)
-				createGamepadLabel("Game Menu Toggle", UDim2.new(0.5, -390, 0.15, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
-				createGamepadLabel("Move", UDim2.new(0.5, -390, 0.31, 0), UDim2.new(0, 46, 0, textVerticalSize), true)
-				createGamepadLabel("Menu Navigation", UDim2.new(0.5, -390, 0.46, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
+		if gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png" then
+			createGamepadLabel("Switch Tool", UDim2.new(0.5, -390, 0, 0), UDim2.new(0, 100, 0, textVerticalSize), true)
+			createGamepadLabel("Game Menu Toggle", UDim2.new(0.5, -390, 0.15, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
+			createGamepadLabel("Move", UDim2.new(0.5, -390, 0.31, 0), UDim2.new(0, 46, 0, textVerticalSize), true)
+			createGamepadLabel("Menu Navigation", UDim2.new(0.5, -390, 0.46, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
 
-				createGamepadLabel("Use Tool", UDim2.new(0.5, 330, 0, 0), UDim2.new(0, 73, 0, textVerticalSize))
-				createGamepadLabel("Roblox Menu", UDim2.new(0.5, 330, 0.15, 0), UDim2.new(0, 122, 0, textVerticalSize))
-				createGamepadLabel("Back", UDim2.new(0.5, 330, 0.31, 0), UDim2.new(0, 43, 0, textVerticalSize))
-				createGamepadLabel("Jump", UDim2.new(0.5, 330, 0.46, 0), UDim2.new(0, 49, 0, textVerticalSize))
-				createGamepadLabel("Rotate Camera", UDim2.new(0.5, 380, 0.62, 0), UDim2.new(0, 132, 0, textVerticalSize))
-				createGamepadLabel("Camera Zoom", UDim2.new(0.5, 380, 0.77, 0), UDim2.new(0, 122, 0, textVerticalSize))
-			else
-				createGamepadLabel("Switch Tool", UDim2.new(0.5, -250, 0, 0), UDim2.new(0, 100, 0, textVerticalSize), true)
-				createGamepadLabel("Game Menu Toggle", UDim2.new(0.5, -250, 0.15, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
-				createGamepadLabel("Move", UDim2.new(0.5, -250, 0.31, 0), UDim2.new(0, 46, 0, textVerticalSize), true)
-				createGamepadLabel("Menu Navigation", UDim2.new(0.5, -250, 0.46, 0), UDim2.new(0, 143, 0, textVerticalSize), true)
-
-				createGamepadLabel("Use Tool", UDim2.new(0.5, 215, 0, 0), UDim2.new(0, 73, 0, textVerticalSize))
-				createGamepadLabel("Roblox Menu", UDim2.new(0.5, 215, 0.15, 0), UDim2.new(0, 122, 0, textVerticalSize))
-				createGamepadLabel("Back", UDim2.new(0.5, 215, 0.31, 0), UDim2.new(0, 43, 0, textVerticalSize))
-				createGamepadLabel("Jump", UDim2.new(0.5, 215, 0.46, 0), UDim2.new(0, 49, 0, textVerticalSize))
-				createGamepadLabel("Rotate Camera", UDim2.new(0.5, 255, 0.62, 0), UDim2.new(0, 132, 0, textVerticalSize))
-				createGamepadLabel("Camera Zoom", UDim2.new(0.5, 255, 0.77, 0), UDim2.new(0, 122, 0, textVerticalSize))
-			end
+			createGamepadLabel("Use Tool", UDim2.new(0.5, 330, 0, 0), UDim2.new(0, 73, 0, textVerticalSize))
+			createGamepadLabel("Roblox Menu", UDim2.new(0.5, 330, 0.15, 0), UDim2.new(0, 122, 0, textVerticalSize))
+			createGamepadLabel("Back", UDim2.new(0.5, 330, 0.31, 0), UDim2.new(0, 43, 0, textVerticalSize))
+			createGamepadLabel("Jump", UDim2.new(0.5, 330, 0.46, 0), UDim2.new(0, 49, 0, textVerticalSize))
+			createGamepadLabel("Rotate Camera", UDim2.new(0.5, 380, 0.62, 0), UDim2.new(0, 132, 0, textVerticalSize))
+			createGamepadLabel("Camera Zoom", UDim2.new(0.5, 380, 0.77, 0), UDim2.new(0, 122, 0, textVerticalSize))
 		else
-			if gamepadImage == "rbxasset://textures/ui/Settings/Help/OldXboxController.png" then
-				textVerticalSize = textVerticalSize * 2
-				createGamepadLabel("Switch Tool", UDim2.new(0.5,-470,0,0), UDim2.new(0,100,0,textVerticalSize), true)
-				createGamepadLabel("Game Menu Toggle", UDim2.new(0.5,-470,0.15,0), UDim2.new(0,164,0,textVerticalSize), true)
-				createGamepadLabel("Move", UDim2.new(0.5,-700,0.31,0), UDim2.new(0,46,0,textVerticalSize), true)
-				createGamepadLabel("Menu Navigation", UDim2.new(0.5,-520,0.46,0), UDim2.new(0,164,0,textVerticalSize), true)
-				createGamepadLabel("Use Tool", UDim2.new(0.5,600,0,0), UDim2.new(0,73,0,textVerticalSize))
-				createGamepadLabel("Roblox Menu", UDim2.new(0.5,600,0.15,0), UDim2.new(0,122,0,textVerticalSize))
-				createGamepadLabel("Back", UDim2.new(0.5,600,0.31,0), UDim2.new(0,43,0,textVerticalSize))
-				createGamepadLabel("Jump", UDim2.new(0.5,600,0.46,0), UDim2.new(0,49,0,textVerticalSize))
-				createGamepadLabel("Rotate Camera", UDim2.new(0.5,680,0.62,0), UDim2.new(0,132,0,textVerticalSize))
-				createGamepadLabel("Camera Zoom", UDim2.new(0.5,680,0.77,0), UDim2.new(0,122,0,textVerticalSize))
-			else
-				createGamepadLabel("Switch Tool", UDim2.new(-0.01,0,0,0), UDim2.new(0,100,0,textVerticalSize))
-				createGamepadLabel("Game Menu Toggle", UDim2.new(-0.11,0,0.15,0), UDim2.new(0,164,0,textVerticalSize))
-				createGamepadLabel("Move", UDim2.new(-0.08,0,0.31,0), UDim2.new(0,46,0,textVerticalSize))
-				if FFlagUseNotificationsLocalization == true then
-					createGamepadLabel("Menu Navigation", UDim2.new(-0.1,0,0.46,0), UDim2.new(0,143,0,textVerticalSize))
-				else
-					createGamepadLabel("Menu Navigation", UDim2.new(-0.125,0,0.46,0), UDim2.new(0,164,0,textVerticalSize))
-				end
-				createGamepadLabel("Use Tool", UDim2.new(0.96,0,0,0), UDim2.new(0,73,0,textVerticalSize))
-				createGamepadLabel("Roblox Menu", UDim2.new(0.9,0,0.15,0), UDim2.new(0,122,0,textVerticalSize))
-				createGamepadLabel("Back", UDim2.new(1.01,0,0.31,0), UDim2.new(0,43,0,textVerticalSize))
-				createGamepadLabel("Jump", UDim2.new(0.91,0,0.46,0), UDim2.new(0,49,0,textVerticalSize))
-				createGamepadLabel("Rotate Camera", UDim2.new(0.91,0,0.62,0), UDim2.new(0,132,0,textVerticalSize))
-				createGamepadLabel("Camera Zoom", UDim2.new(0.91,0,0.77,0), UDim2.new(0,122,0,textVerticalSize))
-			end
+			createGamepadLabel("Switch Tool", UDim2.new(0.5, -250, 0, 0), UDim2.new(0, 100, 0, textVerticalSize), true)
+			createGamepadLabel("Game Menu Toggle", UDim2.new(0.5, -250, 0.15, 0), UDim2.new(0, 164, 0, textVerticalSize), true)
+			createGamepadLabel("Move", UDim2.new(0.5, -250, 0.31, 0), UDim2.new(0, 46, 0, textVerticalSize), true)
+			createGamepadLabel("Menu Navigation", UDim2.new(0.5, -250, 0.46, 0), UDim2.new(0, 143, 0, textVerticalSize), true)
+
+			createGamepadLabel("Use Tool", UDim2.new(0.5, 215, 0, 0), UDim2.new(0, 73, 0, textVerticalSize))
+			createGamepadLabel("Roblox Menu", UDim2.new(0.5, 215, 0.15, 0), UDim2.new(0, 122, 0, textVerticalSize))
+			createGamepadLabel("Back", UDim2.new(0.5, 215, 0.31, 0), UDim2.new(0, 43, 0, textVerticalSize))
+			createGamepadLabel("Jump", UDim2.new(0.5, 215, 0.46, 0), UDim2.new(0, 49, 0, textVerticalSize))
+			createGamepadLabel("Rotate Camera", UDim2.new(0.5, 255, 0.62, 0), UDim2.new(0, 132, 0, textVerticalSize))
+			createGamepadLabel("Camera Zoom", UDim2.new(0.5, 255, 0.77, 0), UDim2.new(0, 122, 0, textVerticalSize))
 		end
 		-- NOTE: On consoles we put the dev console in the settings menu. Only place
 		-- owners can see this for now.
