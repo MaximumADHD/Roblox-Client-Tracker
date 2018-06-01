@@ -1,3 +1,27 @@
+BuiltInPlugins/AnimationEditor.rbxmx
+[2209520 bytes]
+
+BuiltInPlugins/LocalizationPlugin.rbxmx
+[4496 bytes]
+
+BuiltInPlugins/PhysicsAnalyzer.rbxmx
+[26474 bytes]
+
+BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
+[327725 bytes]
+
+BuiltInPlugins/Toolbox.rbxmx
+[204881 bytes]
+
+BuiltInPlugins/TransformDragger.rbxmx
+[217241 bytes]
+
+BuiltInPlugins/UIEditor.rbxmx
+[210165 bytes]
+
+BuiltInPlugins/VideoDocumentation.rbxmx
+[3937 bytes]
+
 content/avatar/character.rbxm
 [27838 bytes]
 
@@ -3663,4 +3687,13 @@ content/textures/whiteCircle.png
 
 content/translations/CoreScriptLocalization.csv
 [103176 bytes]
+
+ReflectionMetadata.xml
+[342928 bytes]
+
+RobloxStudioBeta.exe
+[26337280 bytes]
+
+RobloxStudioRibbon.xml
+[56735 bytes]
 
