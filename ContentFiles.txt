@@ -1,32 +1,8 @@
-BuiltInPlugins/AnimationEditor.rbxmx
-[2149610 bytes]
-
-BuiltInPlugins/LocalizationPlugin.rbxmx
-[4365 bytes]
-
-BuiltInPlugins/PhysicsAnalyzer.rbxmx
-[25640 bytes]
-
-BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[318051 bytes]
-
-BuiltInPlugins/Toolbox.rbxmx
-[197707 bytes]
-
-BuiltInPlugins/TransformDragger.rbxmx
-[210441 bytes]
-
-BuiltInPlugins/UIEditor.rbxmx
-[203668 bytes]
-
-BuiltInPlugins/VideoDocumentation.rbxmx
-[3801 bytes]
-
 content/avatar/character.rbxm
-[26887 bytes]
+[27838 bytes]
 
 content/avatar/characterR15.rbxm
-[72148 bytes]
+[74479 bytes]
 
 content/avatar/characterR15V2.rbxm
 [10245 bytes]
@@ -155,16 +131,16 @@ content/avatar/meshes/torso.mesh
 [2065 bytes]
 
 content/avatar/scripts/characterSound.rbxmx
-[11052 bytes]
+[11417 bytes]
 
 content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
-[19248 bytes]
+[19911 bytes]
 
 content/avatar/scripts/humanoidAnimateR15.rbxm
-[32992 bytes]
+[34023 bytes]
 
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
-[1307 bytes]
+[1338 bytes]
 
 content/fonts/AccanthisADFStd-Regular.otf
 [51728 bytes]
@@ -182,13 +158,13 @@ content/fonts/ComicNeue-Angular-Bold.ttf
 [62916 bytes]
 
 content/fonts/gamecontrollerdb.txt
-[23978 bytes]
+[24066 bytes]
 
 content/fonts/Guru-Regular.otf
 [695888 bytes]
 
 content/fonts/humanoidSoundNewLocal.rbxmx
-[5584 bytes]
+[5774 bytes]
 
 content/fonts/HWYGOTH.ttf
 [53012 bytes]
@@ -221,547 +197,547 @@ content/fonts/zekton_rg.ttf
 [86964 bytes]
 
 content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
-[11199 bytes]
+[11529 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
-[6601 bytes]
+[6771 bytes]
 
 content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
-[8712 bytes]
+[8991 bytes]
 
 content/scripts/CoreScripts/CoreScripts/FriendPlayerPrompt.lua
-[10459 bytes]
+[10719 bytes]
 
 content/scripts/CoreScripts/CoreScripts/GamepadMenu.lua
-[34344 bytes]
+[35355 bytes]
 
 content/scripts/CoreScripts/CoreScripts/HealthScript.lua
-[9888 bytes]
+[10198 bytes]
 
 content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
-[23348 bytes]
+[24101 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[33955 bytes]
+[34873 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
-[6319 bytes]
+[6524 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[69472 bytes]
+[71369 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[40916 bytes]
+[42431 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
-[5650 bytes]
+[5805 bytes]
 
 content/scripts/CoreScripts/Libraries/RbxGui.lua
-[135514 bytes]
+[139720 bytes]
 
 content/scripts/CoreScripts/Libraries/RbxStamper.lua
-[81623 bytes]
+[83818 bytes]
 
 content/scripts/CoreScripts/Libraries/RbxUtility.lua
-[35868 bytes]
+[37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[27707 bytes]
+[28666 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
-[775 bytes]
+[808 bytes]
 
 content/scripts/CoreScripts/Modules/ActionBindingsTab.lua
-[14684 bytes]
+[15143 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuGui.lua
-[8702 bytes]
+[8971 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuItems.lua
-[10685 bytes]
+[10999 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/ContextMenuUtil.lua
-[8122 bytes]
+[8400 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/PlayerCarousel.lua
-[7703 bytes]
+[7929 bytes]
 
 content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator.lua
-[2865 bytes]
+[2967 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[64140 bytes]
+[66155 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
-[15363 bytes]
+[15884 bytes]
 
 content/scripts/CoreScripts/Modules/BusinessLogic.lua
-[262 bytes]
+[281 bytes]
 
 content/scripts/CoreScripts/Modules/Chat.lua
-[98708 bytes]
+[101481 bytes]
 
 content/scripts/CoreScripts/Modules/ChatSelector.lua
-[5411 bytes]
+[5602 bytes]
 
 content/scripts/CoreScripts/Modules/ChatUtil.lua
-[678 bytes]
+[711 bytes]
 
 content/scripts/CoreScripts/Modules/Common/CommonUtil.lua
-[1217 bytes]
+[1277 bytes]
 
 content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
-[1511 bytes]
+[1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[100227 bytes]
+[103611 bytes]
 
 content/scripts/CoreScripts/Modules/GameTranslator.lua
-[2356 bytes]
+[2431 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
-[683 bytes]
+[701 bytes]
 
 content/scripts/CoreScripts/Modules/HttpAnalyticsTab.lua
-[17316 bytes]
+[17925 bytes]
 
 content/scripts/CoreScripts/Modules/LoadingScreen3D.lua
-[9650 bytes]
+[10022 bytes]
 
 content/scripts/CoreScripts/Modules/NewChat.lua
-[10145 bytes]
+[10439 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[22882 bytes]
+[23614 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[67542 bytes]
+[69600 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
-[1147 bytes]
+[1187 bytes]
 
 content/scripts/CoreScripts/Modules/PromptCreator.lua
-[23884 bytes]
+[24604 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/BubbleChat/BubbleChat.lua
-[22394 bytes]
+[23105 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsBar.lua
-[14131 bytes]
+[14531 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChannelsTab.lua
-[11703 bytes]
+[12013 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatBar.lua
-[16965 bytes]
+[17536 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatChannel.lua
-[4131 bytes]
+[4297 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatMain.lua
-[30296 bytes]
+[31337 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatScript.lua
-[4138 bytes]
+[4278 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindow.lua
-[19302 bytes]
+[19955 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindowInstaller.lua
-[6377 bytes]
+[6550 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/CommandProcessor.lua
-[2239 bytes]
+[2309 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/CurveUtil.lua
 [1832 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatConstants.lua
-[712 bytes]
+[740 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
-[1208 bytes]
+[1248 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatSettings.lua
-[4584 bytes]
+[4691 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/ClearMessages.lua
-[653 bytes]
+[674 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/DeveloperConsole.lua
-[887 bytes]
+[912 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/GetVersion.lua
-[791 bytes]
+[814 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwallowGuestChat.lua
-[1238 bytes]
+[1272 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwitchChannel.lua
-[1640 bytes]
+[1692 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Team.lua
-[3535 bytes]
+[3665 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Util.lua
-[1753 bytes]
+[1816 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/Whisper.lua
-[5274 bytes]
+[5448 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/DefaultChatMessage.lua
-[4282 bytes]
+[4394 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/MeCommandMessage.lua
-[2763 bytes]
+[2835 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/SetCoreMessage.lua
-[1695 bytes]
+[1740 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/SystemMessage.lua
-[2366 bytes]
+[2427 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/UnknownMessage.lua
-[668 bytes]
+[687 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/Util.lua
-[12289 bytes]
+[12664 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WelcomeMessage.lua
-[2371 bytes]
+[2432 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/MessageCreatorModules/WhisperMessage.lua
-[3749 bytes]
+[3846 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/MessageLabelCreator.lua
-[4172 bytes]
+[4288 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/MessageLogDisplay.lua
-[7235 bytes]
+[7498 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/MessageSender.lua
-[802 bytes]
+[835 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/README.md
-[1652 bytes]
+[1732 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/TransparencyTweener.lua
-[5916 bytes]
+[6111 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCamera.lua
-[10382 bytes]
+[10731 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/FreeCameraInstaller.lua
-[3116 bytes]
+[3208 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/Maid.lua
-[895 bytes]
+[950 bytes]
 
 content/scripts/CoreScripts/Modules/Server/FreeCamera/Spring.lua
-[845 bytes]
+[877 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatChannel.lua
-[21694 bytes]
+[22386 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
-[13710 bytes]
+[14165 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
-[4884 bytes]
+[5017 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
-[13322 bytes]
+[13765 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatLocalization.lua
-[31418 bytes]
+[31952 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatCommandsTeller.lua
-[3138 bytes]
+[3196 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatFloodDetector.lua
-[2716 bytes]
+[2808 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatMessageValidator.lua
-[2430 bytes]
+[2495 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ExtraDataInitializer.lua
-[4851 bytes]
+[5038 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/FriendJoinNotifier.lua
-[2106 bytes]
+[2173 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MeCommand.lua
-[767 bytes]
+[789 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/MuteSpeaker.lua
-[4122 bytes]
+[4249 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/PrivateMessaging.lua
-[6041 bytes]
+[6218 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/TeamChat.lua
-[6114 bytes]
+[6304 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/README.md
-[4174 bytes]
+[4308 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/Speaker.lua
-[8666 bytes]
+[8958 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/Util.lua
-[2694 bytes]
+[2804 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerPlayer/DefaultServerPlayerModules/PlayerSettings.lua
-[281 bytes]
+[288 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerPlayer/ServerPlayerInstaller.lua
-[461 bytes]
+[478 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerSound/SoundDispatcher.lua
-[2228 bytes]
+[2288 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerSound/SoundDispatcherInstaller.lua
-[987 bytes]
+[1018 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[49684 bytes]
+[51112 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
-[27025 bytes]
+[27678 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Home.lua
-[2880 bytes]
+[2969 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
-[4702 bytes]
+[4841 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[22269 bytes]
+[22895 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
-[5632 bytes]
+[5796 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
-[11970 bytes]
+[12345 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
-[5213 bytes]
+[5376 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[46227 bytes]
+[47721 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
-[10263 bytes]
+[10629 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Utility.lua
-[76932 bytes]
+[79581 bytes]
 
 content/scripts/CoreScripts/Modules/SocialUtil.lua
-[3691 bytes]
+[3803 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BarGraph.lua
-[5578 bytes]
+[5795 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/BaseMemoryAnalyzer.lua
-[10695 bytes]
+[11040 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ClientMemoryAnalyzer.lua
-[4189 bytes]
+[4317 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DecoratedValueLabel.lua
-[2974 bytes]
+[3071 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsolePrimitives.lua
-[2453 bytes]
+[2555 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/DeveloperConsoleStyle.lua
-[2643 bytes]
+[2736 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/ServerMemoryAnalyzer.lua
-[4419 bytes]
+[4552 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAggregator.lua
-[4057 bytes]
+[4213 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAggregatorManager.lua
-[1937 bytes]
+[2003 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsAnnotatedGraph.lua
-[6762 bytes]
+[7002 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsButton.lua
-[2967 bytes]
+[3068 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsMiniTextPanel.lua
-[4352 bytes]
+[4526 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsTextPanel.lua
-[7501 bytes]
+[7765 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
-[8965 bytes]
+[9218 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
-[3889 bytes]
+[4027 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/TreeViewItem.lua
-[1192 bytes]
+[1260 bytes]
 
 content/scripts/CoreScripts/Modules/StyleWidgets.lua
-[1129 bytes]
+[1168 bytes]
 
 content/scripts/CoreScripts/Modules/TenFootInterface.lua
-[11203 bytes]
+[11592 bytes]
 
 content/scripts/CoreScripts/Modules/TopbarConstants.lua
-[1188 bytes]
+[1225 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Controllers/ViveController.lua
-[10858 bytes]
+[11203 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Dialog.lua
-[5894 bytes]
+[6092 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Healthbar3D.lua
-[9010 bytes]
+[9301 bytes]
 
 content/scripts/CoreScripts/Modules/VR/LaserPointer.lua
-[21463 bytes]
+[22130 bytes]
 
 content/scripts/CoreScripts/Modules/VR/NotificationHub.lua
-[23738 bytes]
+[24526 bytes]
 
 content/scripts/CoreScripts/Modules/VR/NotifierHint3D.lua
-[2025 bytes]
+[2110 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Panel3D.lua
-[29218 bytes]
+[30295 bytes]
 
 content/scripts/CoreScripts/Modules/VR/Recenter.lua
-[2934 bytes]
+[3051 bytes]
 
 content/scripts/CoreScripts/Modules/VR/UserGui.lua
-[2147 bytes]
+[2222 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VirtualKeyboard.lua
-[38687 bytes]
+[40103 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VRControllerModel.lua
-[5170 bytes]
+[5328 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VRHub.lua
-[4926 bytes]
+[5106 bytes]
 
 content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
-[7695 bytes]
+[7940 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
-[2993 bytes]
+[3092 bytes]
 
 content/scripts/CoreScripts/StarterScript.lua
-[3650 bytes]
+[3749 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound.server.lua
-[3612 bytes]
+[3709 bytes]
 
 content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lua
-[12489 bytes]
+[12916 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
-[11527 bytes]
+[11849 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
-[46175 bytes]
+[47762 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove/NewClickToMove.lua
-[30263 bytes]
+[31362 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/Invisicam.lua
-[19551 bytes]
+[20135 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
-[5151 bytes]
+[5345 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
-[47627 bytes]
+[49182 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
-[2157 bytes]
+[2232 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ClassicCamera.lua
-[6597 bytes]
+[6792 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FixedCamera.lua
-[1363 bytes]
+[1411 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FollowCamera.lua
-[6774 bytes]
+[6966 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/OrbitalCamera.lua
-[17040 bytes]
+[17490 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/ScriptableCamera.lua
-[210 bytes]
+[222 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/TrackCamera.lua
-[1559 bytes]
+[1613 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/VRCamera.lua
-[7877 bytes]
+[8137 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/WatchCamera.lua
-[1817 bytes]
+[1884 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ShiftLockController.lua
-[5873 bytes]
+[6079 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/TransparencyController.lua
-[5353 bytes]
+[5543 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript.lua
-[17096 bytes]
+[17583 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl.lua
-[4430 bytes]
+[4604 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/ClickToMoveController.lua
-[33879 bytes]
+[35042 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DPad.lua
-[4955 bytes]
+[5125 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick.lua
-[19182 bytes]
+[19781 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick/Intro.lua
-[15206 bytes]
+[15727 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Gamepad.lua
-[6727 bytes]
+[6925 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/KeyboardMovement.lua
-[5786 bytes]
+[5961 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbpad.lua
-[8574 bytes]
+[8802 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbstick.lua
-[6480 bytes]
+[6658 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/TouchJump.lua
-[4495 bytes]
+[4667 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VehicleController.lua
-[6519 bytes]
+[6699 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VRNavigation.lua
-[12130 bytes]
+[12563 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/PathDisplay.lua
-[3076 bytes]
+[3207 bytes]
 
 content/sky/moon.jpg
 [7394 bytes]
@@ -3686,365 +3662,5 @@ content/textures/whiteCircle.png
 [4040 bytes]
 
 content/translations/CoreScriptLocalization.csv
-[102820 bytes]
-
-PlatformContent/pc/fonts/NotoSansCJKjp-Regular.otf
-[16427228 bytes]
-
-PlatformContent/pc/terrain/diffuse.dds
-[2796344 bytes]
-
-PlatformContent/pc/terrain/diffusearray.dds
-[6292084 bytes]
-
-PlatformContent/pc/terrain/materials.json
-[5574 bytes]
-
-PlatformContent/pc/terrain/normal.dds
-[5592560 bytes]
-
-PlatformContent/pc/terrain/normalarray.dds
-[12584020 bytes]
-
-PlatformContent/pc/terrain/specular.dds
-[2796344 bytes]
-
-PlatformContent/pc/terrain/speculararray.dds
-[6292084 bytes]
-
-PlatformContent/pc/textures/aluminum/diffuse.dds
-[152 bytes]
-
-PlatformContent/pc/textures/aluminum/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/aluminum/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/aluminum/specular.dds
-[152 bytes]
-
-PlatformContent/pc/textures/brick/diffuse.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/brick/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/brick/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/brick/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/cobblestone/diffuse.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/cobblestone/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/cobblestone/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/cobblestone/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/concrete/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/concrete/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/concrete/normaldetail.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/concrete/specular.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/diamondplate/diffuse.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/diamondplate/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/diamondplate/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/diamondplate/specular.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/fabric/diffuse.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/fabric/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/fabric/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/fabric/specular.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/glass/diffuse.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/glass/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/glass/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/glass/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/granite/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/granite/normal.dds
-[176 bytes]
-
-PlatformContent/pc/textures/granite/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/granite/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/grass/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/grass/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/grass/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/grass/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/ice/diffuse.dds
-[152 bytes]
-
-PlatformContent/pc/textures/ice/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/ice/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/ice/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/marble/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/marble/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/marble/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/marble/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/metal/diffuse.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/metal/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/metal/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/metal/specular.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/pebble/diffuse.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/pebble/normal.dds
-[176 bytes]
-
-PlatformContent/pc/textures/pebble/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/pebble/specular.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/plastic/diffuse.dds
-[174984 bytes]
-
-PlatformContent/pc/textures/plastic/normal.dds
-[349840 bytes]
-
-PlatformContent/pc/textures/plastic/normaldetail.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/rust/diffuse.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/rust/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/rust/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/rust/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/sand/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/sand/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/sand/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/sand/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/sky/sky512_bk.tex
-[699192 bytes]
-
-PlatformContent/pc/textures/sky/sky512_dn.tex
-[699192 bytes]
-
-PlatformContent/pc/textures/sky/sky512_ft.tex
-[699192 bytes]
-
-PlatformContent/pc/textures/sky/sky512_lf.tex
-[699192 bytes]
-
-PlatformContent/pc/textures/sky/sky512_rt.tex
-[699192 bytes]
-
-PlatformContent/pc/textures/sky/sky512_up.tex
-[699192 bytes]
-
-PlatformContent/pc/textures/slate/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/slate/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/slate/normaldetail.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/slate/specular.dds
-[174904 bytes]
-
-PlatformContent/pc/textures/studs.dds
-[174984 bytes]
-
-PlatformContent/pc/textures/wangIndex.dds
-[32896 bytes]
-
-PlatformContent/pc/textures/water/normal_01.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_02.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_03.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_04.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_05.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_06.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_07.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_08.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_09.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_10.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_11.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_12.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_13.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_14.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_15.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_16.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_17.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_18.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_19.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_20.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_21.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_22.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_23.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_24.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/water/normal_25.dds
-[87536 bytes]
-
-PlatformContent/pc/textures/wood/diffuse.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/wood/normal.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/wood/normaldetail.dds
-[349680 bytes]
-
-PlatformContent/pc/textures/wood/specular.dds
-[699192 bytes]
-
-PlatformContent/pc/textures/woodplanks/diffuse.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/woodplanks/normal.dds
-[1398256 bytes]
-
-PlatformContent/pc/textures/woodplanks/normaldetail.dds
-[176 bytes]
-
-PlatformContent/pc/textures/woodplanks/specular.dds
-[699192 bytes]
-
-shaders/keepme
-[0 bytes]
-
-shaders/shaders_glsl.pack
-[365166 bytes]
-
-shaders/shaders_glsl3.pack
-[385821 bytes]
-
-shaders/shaders_metal_osx.pack
-[1011002 bytes]
+[103176 bytes]
 
