@@ -3661,3 +3661,6 @@ content/textures/WeldCursor.png
 content/textures/whiteCircle.png
 [4040 bytes]
 
+content/translations/CoreScriptLocalization.csv
+[103176 bytes]
+
