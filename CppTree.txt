@@ -124,8 +124,13 @@ RBX
 		GeometryVulkan
 		IndexBufferD3D9
 		InstancedBinding
+		InstancedBinding2
+		InstancedBindingSpecialMesh
+		InstancedBindingTruss
 		InstancedCluster
+		InstancedCluster2
 		InstancedEntity
+		InstancedEntity2
 		LightGrid
 		LightGridCPU
 		LightObject

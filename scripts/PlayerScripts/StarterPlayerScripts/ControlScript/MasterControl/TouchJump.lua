@@ -28,7 +28,7 @@ local JumpPower = 0
 local JumpStateEnabled = true
 
 --[[ Constants ]]--
-local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
+local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 
 --[[ Private Functions ]]--
 
@@ -123,8 +123,8 @@ function TouchJump:Create(parentFrame)
 	JumpButton.Visible = false
 	JumpButton.BackgroundTransparency = 1
 	JumpButton.Image = TOUCH_CONTROL_SHEET
-	JumpButton.ImageRectOffset = Vector2.new(176, 222)
-	JumpButton.ImageRectSize = Vector2.new(174, 174)
+	JumpButton.ImageRectOffset = Vector2.new(1, 146)
+	JumpButton.ImageRectSize = Vector2.new(144, 144)
 	JumpButton.Size = UDim2.new(0, jumpButtonSize, 0, jumpButtonSize)
 
     JumpButton.Position = isSmallScreen and UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize - 20) or
@@ -140,14 +140,14 @@ function TouchJump:Create(parentFrame)
 		end
 		
 		touchObject = inputObject
-		JumpButton.ImageRectOffset = Vector2.new(0, 222)
+		JumpButton.ImageRectOffset = Vector2.new(146, 146)
 		MasterControl:SetIsJumping(true)
 	end)
 	
 	OnInputEnded = function()
 		touchObject = nil
 		MasterControl:SetIsJumping(false)
-		JumpButton.ImageRectOffset = Vector2.new(176, 222)
+		JumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
 	
 	JumpButton.InputEnded:connect(function(inputObject)

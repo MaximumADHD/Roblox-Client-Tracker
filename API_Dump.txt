@@ -882,7 +882,7 @@ Class BillboardGui : LayerCollector
 	Property Vector2 BillboardGui.SizeOffset
 	Property Vector3 BillboardGui.StudsOffset
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
-Class PluginGui : LayerCollector
+Class PluginGui : LayerCollector [notCreatable]
 	Property bool PluginGui.HostWidgetWasRestored [readonly]
 	Property string PluginGui.Title
 	Event PluginGui.WindowFocusReleased() [PluginSecurity]
@@ -1778,7 +1778,6 @@ Class PhysicsSettings : Instance
 	Property bool PhysicsSettings.DisableCSGv2
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
-	Property bool PhysicsSettings.ParallelPhysics
 	Property bool PhysicsSettings.PhysicsAnalyzerEnabled [readonly] [PluginSecurity]
 	Property EnviromentalPhysicsThrottle PhysicsSettings.PhysicsEnvironmentalThrottle
 	Property bool PhysicsSettings.ShowDecompositionGeometry
@@ -2403,7 +2402,7 @@ Class TextFilterResult : Instance [notCreatable]
 	YieldFunction string TextFilterResult:GetNonChatStringForUserAsync(int64 toUserId)
 Class TextService : Instance
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Font font, Vector2 frameSize)
-	YieldFunction Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId)
+	YieldFunction Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, TextFilterContext textContext = PrivateChat)
 Class ThirdPartyUserService : Instance [notCreatable]
 	Function string ThirdPartyUserService:GetUserDisplayName() [RobloxScriptSecurity]
 	Function string ThirdPartyUserService:GetUserPlatformId() [RobloxScriptSecurity]
@@ -3902,6 +3901,9 @@ Enum TeleportType
 	EnumItem TeleportType.ToPlace : 0
 	EnumItem TeleportType.ToInstance : 1
 	EnumItem TeleportType.ToReservedServer : 2
+Enum TextFilterContext
+	EnumItem TextFilterContext.PublicChat : 1
+	EnumItem TextFilterContext.PrivateChat : 2
 Enum TextTruncate
 	EnumItem TextTruncate.None : 0
 	EnumItem TextTruncate.AtEnd : 1

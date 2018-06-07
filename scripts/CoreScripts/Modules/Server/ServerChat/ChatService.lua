@@ -250,7 +250,7 @@ function methods:InternalNotifyFilterIssue()
 					ChatLocalization:Get(
 						"GameChat_ChatService_ChatFilterIssues",
 						"The chat filter is currently experiencing issues and messages may be slow to appear."
-					), 
+					),
 					errorExtraData
 				)
 			end
@@ -310,7 +310,7 @@ function methods:InternalApplyRobloxFilter(speakerName, message, toSpeakerName) 
 		--// There is only latency the first time the message is filtered, all following calls will be instant.
 		if not StudioMessageFilteredCache[message] then
 			StudioMessageFilteredCache[message] = true
-			wait(0.2)
+			wait()
 		end
 		return message
 	end
@@ -319,7 +319,7 @@ function methods:InternalApplyRobloxFilter(speakerName, message, toSpeakerName) 
 end
 
 --// Return values: bool filterSuccess, bool resultIsFilterObject, variant result
-function methods:InternalApplyRobloxFilterNewAPI(speakerName, message) --// USES FFLAG
+function methods:InternalApplyRobloxFilterNewAPI(speakerName, message, textFilterContext) --// USES FFLAG
 	local alwaysRunFilter = false
 	local runFilter = RunService:IsServer() and not RunService:IsStudio()
 	if (alwaysRunFilter or runFilter) then
@@ -327,7 +327,7 @@ function methods:InternalApplyRobloxFilterNewAPI(speakerName, message) --// USES
 		if fromSpeaker == nil then
 			return false, nil, nil
 		end
-		
+
 		local fromPlayerObj = fromSpeaker:GetPlayer()
 		if fromPlayerObj == nil then
 			return true, false, message
@@ -335,23 +335,21 @@ function methods:InternalApplyRobloxFilterNewAPI(speakerName, message) --// USES
 
 		local success, filterResult = pcall(function()
 			local ts = game:GetService("TextService")
-			local result = ts:FilterStringAsync(message, fromPlayerObj.UserId)
+			local result = ts:FilterStringAsync(message, fromPlayerObj.UserId, textFilterContext)
 			return result
 		end)
 		if (success) then
 			return true, true, filterResult
 		else
-			warn("Error filtering message:", message)
+			warn("Error filtering message:", message, filterResult)
 			self:InternalNotifyFilterIssue()
 			return false, nil, nil
 		end
-	else
-		--// Simulate filtering latency.
-		wait(0.2)
-		return true, false, message
 	end
 
-	return nil
+	--// Simulate filtering latency.
+	wait()
+	return true, false, message
 end
 
 function methods:InternalDoMessageFilter(speakerName, messageObj, channel)

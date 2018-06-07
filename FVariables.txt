@@ -34,7 +34,10 @@ AnalyticsSessionIdName
 AnalyticsThreadsafeTimestamp
 AnchoredSendPositionUpdate
 AnchorsAway
+AnimationEditorDeleteFix
 AnimationEditorLuaWidgetsVersion
+AnimationEditorMaxLengthRestriction
+AnimationEditorRenameKeyFrame
 AnimationEditorSnapIncrementsDivideByZeroFix
 AnimatorOnSteppedKeepAlive
 AnthroArtistIntentFBXImporterEnabled
@@ -87,7 +90,6 @@ BadLogInfluxHundredthsPercentage
 BadLogMask
 BadServiceAgain
 BestProximatePartFix
-BetterBacktraceCrashAttributes
 BetterFindWorkspace
 BgUpdateRedirects
 BgUpdateRedirectsDisable
@@ -113,6 +115,9 @@ CanHideGuiGroupId
 CFrameFromMatrix
 ChangeHistoryService
 ChangeLocalTimeoutMethod2
+CharacterControllerUseFloorSurfaceForMovementDirection
+CharacterControllerUseFloorSurfaceHinderUphillMotion
+CharacterForceClampsScaleWithMass
 CharacterLoadTime
 ChatFiltering
 ChatFilterMaxCachedRequestMilliseconds
@@ -128,6 +133,7 @@ ClampAnthroParameters
 ClampHeightAboveFloorForce
 CleanCacheMoveMutex
 CleanUpNearZeroTorqueHumanoids
+CLI120342p2
 CLI16089_2
 ClickDetectorCursorIconEnabled
 ClientExternalBrowserUserAgent
@@ -149,6 +155,7 @@ CollideInnerBox
 CollideOuterBox
 CollisionGroupsInTeamCreate
 ConnectionMTUSize
+ContactBufferZonePlatformsBug
 ContentProviderJobDutyCycleMicroseconds
 ContentProviderRequests
 ContentProviderTempDirWithPid2
@@ -164,7 +171,6 @@ CrashUploadArchiveAfterErrorsDelaySeconds
 CrashUploadCustomTimeout
 CrashUploadDontSendCrashEventsToBacktrace
 CrashUploadErrorInfluxHundredthsPercentage
-CrashUploadFixAttachments
 CrashUploadHttpResponseDefaultTimeoutMillis
 CrashUploadMaxDumpFiles
 CrashUploadToBacktraceBlackholeToken
@@ -189,6 +195,7 @@ CSGv2BalanceExponents
 CSGv2FixOrientationWhenSeparatingNegates
 CSGv2ForceEnabled
 CSGv2SnapPlanes
+CSGv2UnionOrientationFromFirstPart
 CSGv2UnparentPartsBeforeModifyingCFrames
 CSGv2UseImprovedSphereAndCylinder
 CSGv2UseIterativeSimplification
@@ -233,11 +240,9 @@ DataStoreRefetchPerPlayerRequestLimit
 DataStoreRetryWaitTimeMSec
 DataStoreSameKeyPerMinute
 DataStoreThrottleMsg
-DataStoreThrottleWarningMsgs
 DataStoreTouchTimeoutInSeconds
 DataStoreUseLRUCachedKeys
 DataStoreWaitOnYieldingRequestsExpiration
-DebugAdornsDisabled
 DebugAdvancedNetworkedVisualizer
 DebugAllowMultiRotationInterpolation
 DebugAnalyticsForceLotteryWin
@@ -267,9 +272,6 @@ DebugFastFlagEditor
 DebugForceChatDisabled
 DebugForceRegenerateSchemaBitStream
 DebugGameLoadDataStatisticsPerPlace
-DebugGraphics
-DebugGraphicsCrashOnLeaks
-DebugGraphicsVsync
 DebugHttpAsyncCallsForStatsReporting
 DebugHumanoidRendering
 DebugIgnoreVolumeIsZeroAssert
@@ -307,6 +309,7 @@ DebugStartPageRefreshOnF5
 DebugStreamingFastRecovery
 DebugStudioFlagState
 DebugStudioPlayerConnectToServerIPAddress
+DebugStudioReplaceOldToolboxWithNew
 DebugStudioRigImporter
 DebugThumbnailForceFailure
 DebugTracebackOptionalCoroutineArg
@@ -333,8 +336,6 @@ DisableFriendServiceLoadFriendRequests
 DisableHopperBin
 DisableInvalidateOnUnbind
 DisableListLayoutCacheCheck
-DisablePassiveClientLogProcessing
-DisableVRCheckInRecording
 DisconnectInfluxHundredthsPercentage
 DisconnectReportPermyriad
 DistanceMetricP1
@@ -367,7 +368,8 @@ EnableGuiLayerCollectorResetOnRespawn
 EnableImageTilingInGUI
 EnableLightObjectsInAttachments
 EnableLoadingScreenPlaceIconTween
-EnableMarketPlaceOwnGamePass
+EnableLuaAppFormFactorAndPlatform
+EnableLuaWidgetsV2
 EnableMobileMicroProfilerWebServerApi
 EnableOnboardingMemoryAPI
 EnableParticleEmittersInAttachments
@@ -376,9 +378,8 @@ EnableSitNilProtection
 EnableSpecialMeshTransformInVoxelizerDescriptors
 EnableTrackingAccessoryDestoyedWithLiveSignals
 EnableUserHasBadgeAsync
-EnableVoiceASR
-EnableVoiceRecording
 EnableWakingPGSJointsForNonSolverPrimitives
+EnforceSlaveStateEnabledStatus
 ErrorDescription
 ErrorForFailedRequestsInThumbnailLogic
 ExcludeRigidSimJointsFromBufferZone
@@ -394,6 +395,7 @@ FileSystemGetCacheDirectoryLikeAndroid
 FileWatcherDebugLog
 FilterAllPlayerPropChanges
 FilterCheckMap
+FilterStringForBroadcastConsideredPublic
 FilterTextSubdomain
 FindClosestHandleHitTestFixEnabled
 FireCharacterAddedAfterSpawn
@@ -403,21 +405,23 @@ FixBoundSocket
 FixButtonR2MouseClickOnGui
 FixCameraControlSetting
 FixCharacterAppearanceLoadedEvent
+FixCharacterAppearanceLoadedEvent2
 FixCharacterJitterDownStairs
 FixCharacterStuckInFreefall
 FixCurrentScreenOrientation
 FixCustomWeldSeatPart
-FixDataStoreMetrics
 FixDragonRoot
-FixDualGuiLayerCollectorRendering
+FixDualGuiLayerCollectorRendering2
 FixFirstPersonSwimmingStateChange
 FixFolderDescendantSelection
 FixFreefallStuckIgnoreSelfContact
+FixFreefallUpwardsWithLowGravity
 FixFriendCacheUpdate
+FixG3DFpChecks
 FixGameJoinTrying
 FixGamepadNavigationInVR
 FixGetAssemblyPrimitivePlatformsCrash
-FixGetAsyncThrottleMsg
+FixGetJoints
 FixGiraffes
 FixHandlesMouseEvents
 FixHeadScales
@@ -438,7 +442,6 @@ FixPlayerActionTypeOverride
 FixPlayerlistFollowing
 FixPlayerRowLayout
 FixPreferredSoundDeviceVR
-FixRandomSpawnLocationShape
 FixScalingValueRename
 FixScrollbarNotBeingDraggableWithUIPadding
 FixScrollingFrameClipRect
@@ -517,8 +520,8 @@ GroupTeleportMetricsByGroupSizeV2
 GroupTeleportMetricsSuccessAndFailure
 GuestFriendCheckFailImmediate
 GuiLayerCollectorClipping
+GuiPermyriad2
 GuiTargetLifetime
-Handle202EmptyResponse
 HangDetection
 HangDetectionTimeoutMs
 HardwareMouse
@@ -538,6 +541,7 @@ HttpCacheNoNamedMutex2
 HttpCachePrepForNoNamedMutex2
 HttpCacheRedirectsTimeout
 HttpCacheSendStatsEveryXSeconds
+HttpClientHandlerFixed
 HttpConnectDefaultTimeoutMillis
 HttpConnectExtendedTimeoutMillis
 HttpCurlDeepErrorReportingCount
@@ -565,6 +569,7 @@ HttpRbxApiRequestsPerMinutePerPlayerInServerLimit
 HttpRbxApiRequestsPerMinuteServerLimit
 HttpRbxApiSyncRetryWaitTimeMSec
 HttpReportStatisticsOnce
+HttpRequestImplType
 HttpResponseDefaultTimeoutMillis
 HttpResponseExtendedTimeoutMillis
 HttpResultsApprovedUserIDs
@@ -636,6 +641,7 @@ LastIsntFirst
 LatencyErrorMultiplierTennths
 LayoutErrors
 LegacyLock
+LimitReplicatorState
 LinearToVSquaredVelocityThresholdMaxTenths
 LinearToVSquaredVelocityThresholdMinTenths
 LineHeightEnabled
@@ -669,7 +675,9 @@ LogJoinTime
 LogMemoryStatsOnCompressionError
 LogStepTimeAndNetworkUsage
 LuaAPICreateActions
+LuaAppFriendshipCreatedSignalREnabled
 LuaAppLegacyInputDisabled
+LuaAppPeopleListV1
 LuaAppsDiagErrorCounter
 LuaAppsDiagPageLoadTimeGames
 LuaAppsDiagPageLoadTimeHome
@@ -680,7 +688,7 @@ LuaChatAssetCardsSelfTerminateConnection
 LuaChatDisplayInFront
 LuaChatLegacyInputDisabled
 LuaChatNotificationButtonEnabled
-LuaChatPlayTogether
+LuaChatPlayTogetherThrottle
 LuaChatResetKeyboardMode
 LuaChatSearchFeedBack
 LuaChatUseNewFriendsAndPresenceEndpoint
@@ -697,14 +705,12 @@ LuaGcMaxKb
 LuaMathLibUseNewRNG
 LuaMemoryPool
 LuaNewThreadCheckRoom
-LuaPluginAPIChanges
 LuaResumeEnsuresCiTopIncludesStateTop
 LuaScriptTimeoutSeconds
 LuaStrlibLimitMatchDepth
 LuaTypeErrors
 LuaUseUtf8TextTruncation
 LuaWebServiceCheckCorrectCacheWhenDoingRawRequests
-LuaWidgetsUI
 MachineIdUploader
 MakeStudioDefaultTextLabelColorBlack
 MarkTaintedCrashes
@@ -773,11 +779,9 @@ NavigationAgentRadius
 NavigationAgentWalkableClimb
 NavigationDetail
 NavigationFixCheckOcclusionAsyncV2
-NavigationIgnoreSpecialMesh
 NavigationJobMaxTimeBudgetMS
 NavigationJobRunsPerSecond
 NavigationPolygonMergePasses
-NavigationRasterizeDynamicParts
 NavigationRasterizeMeshWithTriangleMesh
 NavigationSearchTileOffset
 NavigationServiceAnalyticsIntervalMillisec
@@ -786,11 +790,7 @@ NavigationServicePercentStatsReported
 NavigationServiceTimingAnalytics
 NavigationUseDetailedMovementCallback
 NavigationUseJumpLinksV2
-NavigationUseLinkPool
-NavigationUseTileExtentsToProjectPoint
-NetworkCache
 NetworkDeserializePacketsInAJob
-NetworkFamilyToFavor
 NetworkInstances
 NetworkItemQueueDtor
 NetworkJoin
@@ -811,6 +811,7 @@ NewSortAndFilter
 NoCacheForLocalContent
 NoInfiniteLoopOnChatInfoLoadFailure
 NonJsonParseType
+NotChristmasToday
 NoTouchOneSecondYVelocityThresholdInHundredths
 NullCheckInReEnableWeldConstraint
 NumberFramesSubmergedBeforeVSquareBlendFrames
@@ -826,9 +827,6 @@ OptimizedContactOverlapGoalMicro
 OptimizedContactPipelineSpatialHashOverlapToleranceMicro
 OptimizedContactWakeDepth
 OtherUrlConstructionV2
-OutlineBrightnessMax
-OutlineBrightnessMin
-OutlineThickness
 OutputWidgetFindEnabled
 PacketErrorInfluxHundredthsPercentage
 PartInstanceCofMPropertyExposed
@@ -837,6 +835,7 @@ PartMinSizeMul1000
 PartSizeUnder0P2AnalyticsInfluxHundredthPct
 PartStreamingGCMinRegionLength
 PartStreamingRequests
+PassIsPublicChatOnFilterMessage
 PassUserLocaleOnFilterMessage
 PathfindingAgeToCollectChunks
 PathfindingAverageWindow
@@ -886,6 +885,7 @@ PGSWakeOtherAssemblyForJoints
 PGSWakeOtherIfOneAssemblyIsAwake
 Phy2DiscardSleepingStat
 Phy2DiscardUnknownPartPhysics
+PhysicsAnalyzerAnalyticsEnabled
 PhysicsBulletManifoldPoolSize
 PhysicsCompressionSizeFilter
 PhysicsDecompForceUpgradeVersion
@@ -907,8 +907,8 @@ PlayerAcceptPlayerScriptsStatus
 PlayerChatInfoExponentialBackoffLimitMultiplier
 PlayerGeneratedOnTheServerNoBacksies
 PlayerShutdownLuaTimeoutSeconds
+PlayHereFix
 PluginButtonClickableWhenViewportHidden
-PluginManagerSignalOnDelete
 PointBalanceCacheInvalidateTimeMs
 PointsServiceBatchingImplMaxDelaySeconds
 PointsServiceBatchingImplMinuteSeconds
@@ -957,6 +957,7 @@ RakNetUseSlidingWindow2_trackLengthMs
 RakNetUseSlidingWindow4
 RandomSpawnRetryTimes
 RandomType
+RapidJsonCopyString
 RatePermyriad
 RbxFormatPreventNegativeStringSize
 RbxFormatStringCleanup3
@@ -979,7 +980,7 @@ RecordInGameDeaths
 ReduceTrussSearchDistance
 ReenableWeldConstraintsBeforeAutoJoints
 RefactoringAvatarEditorSetup
-RefactorUserInputService
+RefactorUserInputService2
 ReflectionMetadata
 RemoteDelayedQueueLimit
 RemoteEventTeleportInitFailed
@@ -992,10 +993,7 @@ RenderBreakdownDetails
 RenderConstraintsWithDepth
 RenderingThrottleDelayInMS
 RenderMeshReturnsCorrectly
-RenderRemoveDuplicateWindowData
-RenderReportNewApi
 RenderRequest
-RenderShadowIntensity
 RenderStatsOnLogs
 ReplicationDataLifetime
 ReplicatorMaxPacketBytesSentToInfluxOnError
@@ -1023,6 +1021,8 @@ ReportTeamTestFailurePermyriad
 RequireRbxSig2
 ResetMouseDeltaFix
 RestrictSales
+RestrictXmGui
+RestrictXmGuiP2
 RetryBaseTimeMSec
 RobloxAnalyticsSubDomain
 RobloxAnalyticsURL
@@ -1034,6 +1034,7 @@ Rtl7InfluxHundredthsPercentage
 RunningBaseAltitudeD
 RunningBaseAltitudeP
 RunningBaseClampAcceleration
+RunningBaseGravityReductionFactorHundredth
 RunningBaseMaxAcceleration
 RunningBaseOrientationP
 RunningBaseUseNewAltitudePD
@@ -1042,6 +1043,7 @@ SavePlacePerMinute
 ScopedConnection
 ScriptAnalyzerIgnoreWarnings
 ScriptContext
+ScriptContextAdd
 ScriptContextClose
 ScriptContextInNewThreadCallsReturnEmptyResultsOnYield
 ScriptContextRemove
@@ -1074,7 +1076,6 @@ ServerGeneratesPlayer3
 ServerNotifyPlayerScriptsStatus
 ServerPlayerFilterConfig
 ServerPlayerFilterPermyriad
-ServerStopSendOwnerOwned
 ServiceAskSetParent
 ServiceVsp2
 SetBWLimitByPlatform
@@ -1086,9 +1087,9 @@ SetSimulationRadiusInPhysicsSender
 ShareOnStartPageAnalyticsFix
 ShareOnStartPageAnalyticsFixV2
 ShowBufferCount
-ShowTeleportFailedMessage
 ShowTeleportFailedMessageTimeInMillisecond
 SimplifiedSoundLoading5
+SimplifyIsManualJoint
 SimplifyRakNetConnectionHandshake
 SimToInterBufferClearFactorTenths
 SkipExtraInitClientSettingsInAndroid
@@ -1132,23 +1133,24 @@ StudioAnalytics
 StudioAuthenticationTimeoutMs
 StudioAutocompleteGlobalTablesRecursionCrashFix
 StudioAutocompleteNumMaxLineForParamSearch
+StudioAutomaticScriptRecoveryHashFix
 StudioAutomaticScriptRecoveryManagerTimeout
 StudioBetterRBXMessageBox
 StudioBlockAnalyticsBasedOnOS
 StudioBootstrapperVersionNumber
 StudioBreakOnInfiniteLoopsRunFixEnabled
+StudioBrickColorDoesNotRevertNormalColors
 StudioCacheRecentAction
 StudioCheckForUpgradeEnabled
 StudioCheckTeamServerExistsFrequency
 StudioCleanupPluginWidgetBeforeRemove
-StudioCleanUpRobloxIDEDocDelete2
 StudioClientPresenceUpdateInterval
 StudioCloseCaptchaInstanceV2
 StudioCloseFindAllDialog
+StudioCloseInsertServiceDialog
 StudioContextualHelpDraggingFixEnabled
 StudioCookieConstraintUrlFragment
 StudioCrashOnDocCloseWhenBusyFixEnabled
-StudioCreatePluginWidgets
 StudioCSGChildDataNoSizeLimit
 StudioCtrlShiftProcess
 StudioDebugBTID
@@ -1170,6 +1172,7 @@ StudioDoNotEnableTeamCreateWhenAddingNonFriendUser
 StudioDoNotQuitStudioOnLastDocClose
 StudioEditShowAddIcon
 StudioEnableWebKitPlugins
+StudioExplorerHoverPlusButtonOption
 StudioExternalCaptchaV2
 StudioFbxImportVerboseErrorOnLoad
 StudioFilterPreferredParent
@@ -1179,6 +1182,7 @@ StudioFixAutocompleteEnabledSetting
 StudioFixComboBoxScroll
 StudioFixCommandToolBarActionState
 StudioFixDataModelWriteLockAssertion
+StudioFixDockWidgets
 StudioFixInsertObjectWindowCrash
 StudioFixPlayersBackendProcessingAssert
 StudioFixPropertySyncIssues
@@ -1189,6 +1193,7 @@ StudioFixStartPageThumbnails
 StudioFixTransformCheckedState
 StudioFixWikiLookup
 StudioFlagEditor
+StudioFocusPartOnStartUpShortcut
 StudioForceLayoutSaveOnAppClose
 StudioForceReloadImagesOnMainThread
 StudioForwardForceLocaleIds
@@ -1218,6 +1223,7 @@ StudioMaximumPasswordLength
 StudioMeshPartScaleValue
 StudioMockPurchasesEnabled
 StudioModifierMacScanKeyCode
+StudioMoreRPCLogging
 StudioMouseMoveEventsQtFixEnabled
 StudioMouseOverGraphicsWindowCheckEnabled
 StudioNoLambdaForDebuggingSessionStateChange
@@ -1230,7 +1236,6 @@ StudioPlaySoloGuestCharacterAppearance
 StudioPreventEmptyAutocompleteTooltip
 StudioPreventMeshPublishOnErrorEnabled
 StudioPreventPluginSettingsCorruption
-StudioProperCleanupOfRenderingHelpers
 StudioPublishInTryCatchBlock
 StudioPublishToRobloxActionUXAlwaysAvailable
 StudioRecentActionCacheSize
@@ -1261,6 +1266,7 @@ StudioShareOnStartPage
 StudioShowGuestTicketErrorMessage
 StudioShowLocalFilePathOnStartPage
 StudioShowTutorialsByDefault
+StudioSimplifyPluginHost
 StudioSortAndSearchOnStartPageLastUpdatedOption
 StudioSortAndSearchOnStartPageV2
 StudioStartPageAnalyticsFinalFix
@@ -1296,10 +1302,7 @@ StudioTutorialSeeAll
 StudioTutorialsSeeAllUrl
 StudioTutorialsTOCUrl
 StudioTutorialsUrl
-StudioUIEditorFixNoScreenGui
 StudioUIEditorFixSnappingLines
-StudioUIEditorHideOldAction
-StudioUIEditorMoveToWorkspace
 StudioUIEditorRotateV2
 StudioUIEditorV2Alpha
 StudioUIEditorZoomPanel
@@ -1408,7 +1411,6 @@ UseGamePerfMonitorWithAppShell
 UseHttpDefaultUrlSchema
 UseHttpRobloxHost
 UseHttpsAnalyticsUrls
-UseInputObjectSignalsForCoreInputEnded
 UseLDLPGSSolver
 UseLuaAppStarterScriptOniOS
 UseLuaGamesPageOnAndroidPhone
@@ -1429,7 +1431,6 @@ UseNewSFFSyncBit
 UseNotificationsLocalization
 UseOldClientTicketNameForNewClientTicket
 UseOptimizedGetPartsObscuringTarget
-UsePostForTeleportNegotiateAshxRequests
 UsePurchasePromptLocalization
 UseR15PartsCache2
 UserAllCamerasInLua
@@ -1474,7 +1475,6 @@ WebChatFiltering
 WebkitDeveloperToolsEnabled
 WeldConstraintRemoveRedundantFindWorkspace
 WeldPermyriad
-WhiteListChatFilter
 WhitelistPurchaseFinish
 WhitelistUserInputEvents
 WideToNarrowScaleInHundredths

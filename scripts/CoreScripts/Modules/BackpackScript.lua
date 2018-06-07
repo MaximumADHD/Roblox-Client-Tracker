@@ -385,12 +385,13 @@ local function MakeSlot(parent, index)
 
 		local function assignToolData()
 			LocalizedName = GameTranslator:TranslateGameText(tool, tool.Name)
-			LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)
+			LocalizedToolTip = nil
 
 			local icon = tool.TextureId
 			ToolIcon.Image = icon
 			ToolName.Text = (icon == '') and LocalizedName or '' -- (Only show name if no icon)
 			if ToolTip and tool:IsA('Tool') then --NOTE: HopperBin
+				LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)				
 				ToolTip.Text = LocalizedToolTip
 				local width = ToolTip.TextBounds.X + TOOLTIP_BUFFER
 				ToolTip.Size = UDim2.new(0, width, 0, TOOLTIP_HEIGHT)

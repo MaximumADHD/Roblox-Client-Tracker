@@ -5,12 +5,13 @@
 local util = require(script.Parent:WaitForChild("Util"))
 local ChatConstants = require(script.Parent.Parent:WaitForChild("ChatConstants"))
 
-function ProcessMessage(message, ChatWindow, ChatSettings)
+local function ProcessMessage(message, ChatWindow, _)
 	if string.sub(message, 1,  8):lower() == "/version" or string.sub(message, 1, 9):lower() == "/version " then
 		util:SendSystemMessageToSelf(
-			string.format("This game is running chat version [%d.%d].", 
-				ChatConstants.MajorVersion, 
-				ChatConstants.MinorVersion),
+			string.format("This game is running chat version [%d.%d.%s].",
+				ChatConstants.MajorVersion,
+				ChatConstants.MinorVersion,
+				ChatConstants.BuildVersion),
 			ChatWindow:GetCurrentChannel(),
 			{})
 		return true

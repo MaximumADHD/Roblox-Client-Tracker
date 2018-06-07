@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2209520 bytes]
+[2257301 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
 [4496 bytes]
@@ -8,16 +8,16 @@ BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [26474 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[327725 bytes]
+[328149 bytes]
 
 BuiltInPlugins/Toolbox.rbxmx
-[204881 bytes]
+[204902 bytes]
 
 BuiltInPlugins/TransformDragger.rbxmx
 [217241 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[210165 bytes]
+[207963 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3937 bytes]
@@ -290,7 +290,7 @@ content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator
 [2967 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[66155 bytes]
+[66187 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
 [15884 bytes]
@@ -314,7 +314,7 @@ content/scripts/CoreScripts/Modules/Common/ObjectPool.lua
 [1562 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
-[103611 bytes]
+[102660 bytes]
 
 content/scripts/CoreScripts/Modules/GameTranslator.lua
 [2431 bytes]
@@ -377,7 +377,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/CurveUtil.lua
 [1832 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatConstants.lua
-[740 bytes]
+[774 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/ChatLocalization.lua
 [1248 bytes]
@@ -392,7 +392,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/C
 [912 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/GetVersion.lua
-[814 bytes]
+[843 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/DefaultClientChatModules/CommandModules/SwallowGuestChat.lua
 [1272 bytes]
@@ -461,10 +461,10 @@ content/scripts/CoreScripts/Modules/Server/FreeCamera/Spring.lua
 [877 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatChannel.lua
-[22386 bytes]
+[22635 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatService.lua
-[14165 bytes]
+[14185 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceInstaller.lua
 [5017 bytes]
@@ -647,7 +647,7 @@ content/scripts/CoreScripts/Modules/VR/UserGui.lua
 [2222 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VirtualKeyboard.lua
-[40103 bytes]
+[39842 bytes]
 
 content/scripts/CoreScripts/Modules/VR/VRControllerModel.lua
 [5328 bytes]
@@ -734,7 +734,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/D
 [5125 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick.lua
-[19781 bytes]
+[20434 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/DynamicThumbstick/Intro.lua
 [15727 bytes]
@@ -752,7 +752,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/T
 [6658 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/TouchJump.lua
-[4667 bytes]
+[4673 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/VehicleController.lua
 [6699 bytes]
@@ -3692,8 +3692,8 @@ ReflectionMetadata.xml
 [342928 bytes]
 
 RobloxStudioBeta.exe
-[26337280 bytes]
+[26449920 bytes]
 
 RobloxStudioRibbon.xml
-[56735 bytes]
+[57563 bytes]
 

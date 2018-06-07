@@ -46,20 +46,20 @@ local OnTouchEndedCn = nil
 local TouchActivateCn = nil
 local OnRenderSteppedCn = nil
 local currentMoveVector = Vector3.new(0,0,0)
+local IsFirstTouch = true
 
 --[[ Constants ]]--
 
-local IMAGE_DISK = "rbxasset://textures/ui/Input/Disk_padded.png"
-local IMAGE_RING = "rbxasset://textures/ui/Input/Ring_padded.png"
+local TOUCH_CONTROLS_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 
 local MIDDLE_TRANSPARENCIES = {
-	1 - 0.69,
+	1 - 0.89,
+	1 - 0.70,
+	1 - 0.60,
 	1 - 0.50,
 	1 - 0.40,
 	1 - 0.30,
-	1 - 0.20,
-	1 - 0.10,
-	1 - 0.05
+	1 - 0.25
 }
 local NUM_MIDDLE_IMAGES = #MIDDLE_TRANSPARENCIES
 
@@ -199,10 +199,10 @@ function Thumbstick:Create(parentFrame)
 		end
 	end
 	
-	local ThumbstickSize = 40
-	local ThumbstickRingSize = 58
-	local MiddleSize = 13
-	local MiddleSpacing = MiddleSize + 5
+	local ThumbstickSize = 45
+	local ThumbstickRingSize = 20
+	local MiddleSize = 10
+	local MiddleSpacing = MiddleSize + 4
 	local RadiusOfDeadZone = 2
 	local RadiusOfMaxSpeed = 50
 	
@@ -252,10 +252,14 @@ function Thumbstick:Create(parentFrame)
 	StartImage.Name = "ThumbstickStart"
 	StartImage.Visible = true
 	StartImage.BackgroundTransparency = 1
-	StartImage.Image = IMAGE_RING
+	
+	StartImage.Image = TOUCH_CONTROLS_SHEET
+	StartImage.ImageRectOffset = Vector2.new(1,1)
+	StartImage.ImageRectSize = Vector2.new(144, 144)
+	StartImage.ImageColor3 = Color3.new(0, 0, 0)
 	StartImage.AnchorPoint = Vector2.new(0.5, 0.5)
-	StartImage.Position = UDim2.new(0, ThumbstickRingSize * 2, 1, -ThumbstickRingSize * 2)
-	StartImage.Size = UDim2.new(0, ThumbstickRingSize, 0, ThumbstickRingSize)
+	StartImage.Position = UDim2.new(0, ThumbstickRingSize * 3.3, 1, -ThumbstickRingSize * 2.8)
+	StartImage.Size = UDim2.new(0, ThumbstickRingSize * 3.7, 0, ThumbstickRingSize * 3.7)
 	StartImage.ZIndex = 10
 	StartImage.Parent = ThumbstickFrame
 	
@@ -263,11 +267,12 @@ function Thumbstick:Create(parentFrame)
 	EndImage.Name = "ThumbstickEnd"
 	EndImage.Visible = true
 	EndImage.BackgroundTransparency = 1
-	EndImage.Image = IMAGE_DISK
-	EndImage.ImageTransparency = 0.20
+	EndImage.Image = TOUCH_CONTROLS_SHEET
+	EndImage.ImageRectOffset = Vector2.new(1,1)
+	EndImage.ImageRectSize =  Vector2.new(144, 144)
 	EndImage.AnchorPoint = Vector2.new(0.5, 0.5)
 	EndImage.Position = StartImage.Position
-	EndImage.Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize)
+	EndImage.Size = UDim2.new(0, ThumbstickSize * 0.8, 0, ThumbstickSize * 0.8)
 	EndImage.ZIndex = 10
 	EndImage.Parent = ThumbstickFrame
 	
@@ -276,7 +281,9 @@ function Thumbstick:Create(parentFrame)
 		MiddleImages[i].Name = "ThumbstickMiddle"
 		MiddleImages[i].Visible = false
 		MiddleImages[i].BackgroundTransparency = 1
-		MiddleImages[i].Image = IMAGE_DISK
+		MiddleImages[i].Image = TOUCH_CONTROLS_SHEET
+		MiddleImages[i].ImageRectOffset = Vector2.new(1,1)
+		MiddleImages[i].ImageRectSize = Vector2.new(144, 144)
 		MiddleImages[i].ImageTransparency = MIDDLE_TRANSPARENCIES[i]
 		MiddleImages[i].AnchorPoint = Vector2.new(0.5, 0.5)
 		MiddleImages[i].ZIndex = 9
@@ -322,6 +329,8 @@ function Thumbstick:Create(parentFrame)
 		if not visible and MoveTouchObject then
 			return
 		end
+		if IsFirstTouch then return end
+		
 		if startImageFadeTween then
 			startImageFadeTween:Cancel()
 		end
@@ -428,7 +437,6 @@ function Thumbstick:Create(parentFrame)
 		relativePosition = relativePosition*length
 		
 		EndImage.Position = UDim2.new(0, endPos.X, 0, endPos.Y)
-		EndImage.Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize)
 		
 		layoutMiddleImages(startPos, endPos)
 	end
@@ -440,6 +448,13 @@ function Thumbstick:Create(parentFrame)
 		end
 		if MoveTouchObject then
 			return
+		end
+		
+		if IsFirstTouch then
+			IsFirstTouch = false
+			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out,0,false,0)
+			TweenService:Create(StartImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
+			TweenService:Create(EndImage, tweenInfo, {Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize), ImageColor3 = Color3.new(0,0,0)}):Play()
 		end
 
 		if FFlagUserEnableDynamicThumbstickIntro and Intro then
@@ -455,8 +470,7 @@ function Thumbstick:Create(parentFrame)
 		StartImage.Position = UDim2.new(0, startPosVec2.X, 0, startPosVec2.Y)
 		EndImage.Visible = true
 		EndImage.Position = StartImage.Position
-		EndImage.Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize)
-
+		
 		fadeThumbstick(true)
 		moveStick(inputObject.Position)
 		

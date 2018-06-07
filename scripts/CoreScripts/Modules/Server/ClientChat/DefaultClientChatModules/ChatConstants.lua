@@ -15,7 +15,7 @@ module.MessageTypeWhisper = "Whisper"
 --[[ Version ]]
 module.MajorVersion = 0
 module.MinorVersion = 8
-
+module.BuildVersion = "2018.05.16"
 ---[[ Command/Filter Priorities ]]
 module.VeryLowPriority = -5
 module.LowPriority = 0

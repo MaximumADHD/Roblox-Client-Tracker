@@ -299,11 +299,6 @@ local function ExtendedInstance(instance)
 	return this
 end
 
-local function IsVoiceToTextEnabled()
-	local success, flagValue = pcall(function() return settings():GetFFlag("EnableVoiceRecording") end)
-	return success and flagValue == true
-end
-
 local function CreateVRButton(instance)
 	local newButton = ExtendedInstance(instance)
 
@@ -481,13 +476,6 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		onChanged('AbsoluteSize')
 	end
 
-	local function isEnabled()
-		if newKey:GetCurrentKeyValue() == "<Speaker>" then
-			return IsVoiceToTextEnabled()
-		end
-		return true
-	end
-
 	local function onClicked()
 		local keyValue = nil
 		local currentKeySetting = newKey:GetCurrentKeyValue()
@@ -549,7 +537,7 @@ local function CreateKeyboardKey(keyboard, layoutData, keyData)
 		end
 
 		if icon then
-			icon.ImageTransparency = isEnabled() and 0 or 0.5
+			icon.ImageTransparency = 0.5
 		end
 
 		keyText.Text = newKey:GetCurrentKeyValue()
@@ -1027,7 +1015,8 @@ local function ConstructKeyboardUI(keyboardLayoutDefinitions)
 	end)
 
 	rawset(newKeyboard, "SetVoiceMode", function(self, inVoiceMode)
-		inVoiceMode = inVoiceMode and IsVoiceToTextEnabled()
+		-- current Speech to Text solution is no longer enabled. If we find a new service provider we can hook it up through here
+		inVoiceMode = false  
 
 		local currentKeysetObject = self:GetCurrentKeyset()
 		if currentKeysetObject and currentKeysetObject.container then

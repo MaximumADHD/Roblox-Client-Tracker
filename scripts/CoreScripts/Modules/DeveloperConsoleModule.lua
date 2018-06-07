@@ -43,7 +43,6 @@ local function checkFFlag(flagName)
 	return (flagSuccess and flagValue)
 end
 
-local disablePassiveClientLogProcessing = checkFFlag("DisablePassiveClientLogProcessing")
 
 -- Eye candy uses RenderStepped
 local EYECANDY_ENABLED = true
@@ -750,12 +749,6 @@ function DeveloperConsole.new(screenGui, permissions, messagesAndStats)
 					body.Size = UDim2_new(1, 0, 0, output.Height)
 					
 					disconnector:connect(outputMessageSync.MessageAdded:connect(function(message)
-                        if disablePassiveClientLogProcessing then
-                            if not devConsole.Visible then
-                                output:SetMessagesDirty(#messages)
-                                return
-                            end
-                        end
 						output:RefreshMessages(#messages)
 					end))
 					
@@ -2334,21 +2327,6 @@ do
             output.MessagesDirty = true
             output.MessagesDirtyPosition = messageStartPosition
         end
-		
-        if disablePassiveClientLogProcessing then
-            -- Refresh messages if there are new messages when devConsole is re-opened
-            do
-                devConsole.VisibleChanged:connect(function(visible)
-                    if visible then
-                        if output.MessagesDirty then
-                            output.MessagesDirty = false
-                            output:RefreshMessages(output.MessagesDirtyPosition)
-                        end
-                    end
-                end)
-            end
-		end
-		
 
 		local refreshHandle;
 		function output.RefreshMessages(output, messageStartPosition)

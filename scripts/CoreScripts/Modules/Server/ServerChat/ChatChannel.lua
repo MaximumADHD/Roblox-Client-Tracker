@@ -14,7 +14,6 @@ end
 local module = {}
 
 local modulesFolder = script.Parent
-local HttpService = game:GetService("HttpService")
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
 local replicatedModules = Chat:WaitForChild("ClientChatModules")
@@ -125,7 +124,12 @@ function methods:SendMessageToSpeaker(message, speakerName, fromSpeakerName, ext
 		--// OLD BEHAVIOR
 		else
 		--// NEW BEHAVIOR
-			local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(messageObj.FromSpeaker, message)
+			local textContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
+			local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
+				messageObj.FromSpeaker,
+				message,
+				textContext
+			)
 			if (filterSuccess) then
 				messageObj.FilterResult = filteredMessage
 				messageObj.IsFilterResult = isFilterResult
@@ -445,7 +449,12 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 	--// OLD BEHAVIOR
 	else
 	--// NEW BEHAVIOR
-		local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(messageObj.FromSpeaker, message)
+		local textFilterContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
+		local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
+			messageObj.FromSpeaker,
+			message,
+			textFilterContext
+		)
 		if (filterSuccess) then
 			messageObj.FilterResult = filteredMessage
 			messageObj.IsFilterResult = isFilterResult
