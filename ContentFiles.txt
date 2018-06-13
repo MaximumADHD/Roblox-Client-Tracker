@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2257301 bytes]
+[2358396 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
 [4496 bytes]
@@ -8,7 +8,7 @@ BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [26474 bytes]
 
 BuiltInPlugins/TerrainToolsInLuaWidget.rbxmx
-[328149 bytes]
+[327837 bytes]
 
 BuiltInPlugins/Toolbox.rbxmx
 [204902 bytes]
@@ -17,7 +17,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [217241 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[207963 bytes]
+[208049 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3937 bytes]
@@ -335,7 +335,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [23614 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[69600 bytes]
+[69523 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1187 bytes]
@@ -473,7 +473,7 @@ content/scripts/CoreScripts/Modules/Server/ServerChat/ChatServiceRunner.lua
 [13765 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatLocalization.lua
-[31952 bytes]
+[44294 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ServerChat/DefaultChatModules/ChatCommandsTeller.lua
 [3196 bytes]
@@ -527,7 +527,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[51112 bytes]
+[52123 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [27678 bytes]
@@ -743,7 +743,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/G
 [6925 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/KeyboardMovement.lua
-[5961 bytes]
+[5967 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/Thumbpad.lua
 [8802 bytes]
@@ -762,6 +762,108 @@ content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/MasterControl/V
 
 content/scripts/PlayerScripts/StarterPlayerScripts/ControlScript/PathDisplay.lua
 [3207 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript.lua
+[276 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript.lua
+[22068 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/BaseCamera.lua
+[54039 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/BaseOcclusion.lua
+[1382 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/CameraUtils.lua
+[4082 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/ClassicCamera.lua
+[9286 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Invisicam.lua
+[20610 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/LegacyCamera.lua
+[5966 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/MouseLockController.lua
+[6800 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/OrbitalCamera.lua
+[19896 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam.rbxm
+[11943 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Rotate.lua
+[1074 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/SetTransparency.lua
+[445 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Subject.lua
+[2034 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Subject/AngleSpring.lua
+[1051 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Subject/Maid.lua
+[776 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom.lua
+[2298 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/ConstrainedSpring.lua
+[1169 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/Popper.lua
+[8050 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/Popper/Blacklist.lua
+[1065 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript.lua
+[12012 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/BaseCharacterController.lua
+[1168 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/ClickToMoveController.lua
+[32349 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/DynamicThumbstick.lua
+[23174 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/DynamicThumbstick/Intro.lua
+[14718 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/Gamepad.lua
+[7780 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/Keyboard.lua
+[5211 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/PathDisplay.lua
+[3338 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/TouchDPad.lua
+[5907 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/TouchJump.lua
+[6066 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/TouchThumbpad.lua
+[10376 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/TouchThumbstick.lua
+[7576 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/VehicleController.lua
+[3862 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/VRNavigation.lua
+[13623 bytes]
 
 content/sky/moon.jpg
 [7394 bytes]
@@ -1168,6 +1270,9 @@ content/textures/sparkle.png
 content/textures/StudioToolbox/ArrowDownIconWhite.png
 [391 bytes]
 
+content/textures/StudioToolbox/AudioPreview/play-audio.PNG
+[1487 bytes]
+
 content/textures/StudioToolbox/NoBackgroundIcon.png
 [243 bytes]
 
@@ -1188,6 +1293,18 @@ content/textures/StudioToolbox/ScrollBarTop.png
 
 content/textures/StudioToolbox/ToolboxIcon.png
 [1165 bytes]
+
+content/textures/StudioToolbox/Voting/thumb-down.png
+[278 bytes]
+
+content/textures/StudioToolbox/Voting/thumbs-down-filled.png
+[275 bytes]
+
+content/textures/StudioToolbox/Voting/thumbs-up-filled.png
+[265 bytes]
+
+content/textures/StudioToolbox/Voting/thumbup.png
+[457 bytes]
 
 content/textures/StudioUIEditor/icon_resize1.png
 [942 bytes]
@@ -2542,6 +2659,15 @@ content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@2x.png
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@3x.png
 [214 bytes]
 
+content/textures/ui/LuaChat/9-slice/gr-mask-game-icon.png
+[131 bytes]
+
+content/textures/ui/LuaChat/9-slice/gr-mask-game-icon@2x.png
+[203 bytes]
+
+content/textures/ui/LuaChat/9-slice/gr-mask-game-icon@3x.png
+[262 bytes]
+
 content/textures/ui/LuaChat/9-slice/input-default.png
 [132 bytes]
 
@@ -2631,6 +2757,15 @@ content/textures/ui/LuaChat/graphic/gr-game-border-24x24@2x.png
 
 content/textures/ui/LuaChat/graphic/gr-game-border-24x24@3x.png
 [997 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-game-border-60x60.png
+[235 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-game-border-60x60@2x.png
+[581 bytes]
+
+content/textures/ui/LuaChat/graphic/gr-game-border-60x60@3x.png
+[1020 bytes]
 
 content/textures/ui/LuaChat/graphic/gr-indicator-ingame.png
 [240 bytes]
@@ -2863,6 +2998,24 @@ content/textures/ui/LuaChat/icons/ic-friends@2x.png
 content/textures/ui/LuaChat/icons/ic-friends@3x.png
 [5407 bytes]
 
+content/textures/ui/LuaChat/icons/ic-game.png
+[544 bytes]
+
+content/textures/ui/LuaChat/icons/ic-game@2x.png
+[964 bytes]
+
+content/textures/ui/LuaChat/icons/ic-game@3x.png
+[1436 bytes]
+
+content/textures/ui/LuaChat/icons/ic-game-pressed-24x24.png
+[433 bytes]
+
+content/textures/ui/LuaChat/icons/ic-game-pressed-24x24@2x.png
+[805 bytes]
+
+content/textures/ui/LuaChat/icons/ic-game-pressed-24x24@3x.png
+[1191 bytes]
+
 content/textures/ui/LuaChat/icons/ic-group.png
 [516 bytes]
 
@@ -2916,6 +3069,24 @@ content/textures/ui/LuaChat/icons/ic-notification@2x.png
 
 content/textures/ui/LuaChat/icons/ic-notification@3x.png
 [963 bytes]
+
+content/textures/ui/LuaChat/icons/icon-share-game-24x24.png
+[810 bytes]
+
+content/textures/ui/LuaChat/icons/icon-share-game-24x24@2x.png
+[1796 bytes]
+
+content/textures/ui/LuaChat/icons/icon-share-game-24x24@3x.png
+[2856 bytes]
+
+content/textures/ui/LuaChat/icons/icon-share-game-pressed-24x24.png
+[691 bytes]
+
+content/textures/ui/LuaChat/icons/icon-share-game-pressed-24x24@2x.png
+[1305 bytes]
+
+content/textures/ui/LuaChat/icons/icon-share-game-pressed-24x24@3x.png
+[1983 bytes]
 
 content/textures/ui/LuaChat/icons/ic-pin.png
 [746 bytes]
@@ -3686,14 +3857,14 @@ content/textures/whiteCircle.png
 [4040 bytes]
 
 content/translations/CoreScriptLocalization.csv
-[103176 bytes]
+[137758 bytes]
 
 ReflectionMetadata.xml
 [342928 bytes]
 
 RobloxStudioBeta.exe
-[26449920 bytes]
+[26488320 bytes]
 
 RobloxStudioRibbon.xml
-[57563 bytes]
+[57573 bytes]
 

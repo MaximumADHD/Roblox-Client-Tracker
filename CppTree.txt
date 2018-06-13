@@ -412,12 +412,6 @@ RBX
 		StepOutBreakpoint
 		StepOverBreakpoint
 	}
-	Security
-	{
-		WmiInstance
-		WmiLocalInstance
-		WmiObject
-	}
 	Solver
 	{
 		Constraint
@@ -1001,9 +995,6 @@ RBX
 	SetGridSizeToFour
 	SetGridSizeToSixteen
 	SetGridSizeToTwo
-	SetManualJointToInfinite
-	SetManualJointToStrong
-	SetManualJointToWeak
 	Settings
 	Shirt
 	ShirtGraphic

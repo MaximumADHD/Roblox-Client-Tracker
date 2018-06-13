@@ -2524,13 +2524,13 @@ Class UserGameSettings : Instance
 	Property bool UserGameSettings.IsUsingCameraYInverted [hidden] [readonly] [RobloxScriptSecurity]
 	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MasterVolume
-	Property bool UserGameSettings.MicroProfilerEnabled [hidden] [RobloxScriptSecurity]
 	Property bool UserGameSettings.MicroProfilerWebServerEnabled [hidden] [RobloxScriptSecurity]
 	Property string UserGameSettings.MicroProfilerWebServerIP [hidden] [readonly] [RobloxScriptSecurity]
 	Property int UserGameSettings.MicroProfilerWebServerPort [hidden] [readonly] [RobloxScriptSecurity]
 	Property float UserGameSettings.MouseSensitivity
 	Property Vector2 UserGameSettings.MouseSensitivityFirstPerson [hidden] [RobloxScriptSecurity]
 	Property Vector2 UserGameSettings.MouseSensitivityThirdPerson [hidden] [RobloxScriptSecurity]
+	Property bool UserGameSettings.OnScreenProfilerEnabled [hidden] [RobloxScriptSecurity]
 	Property string UserGameSettings.OnboardingsCompleted [RobloxScriptSecurity]
 	Property bool UserGameSettings.PerformanceStatsVisible [hidden] [RobloxScriptSecurity]
 	Property RotationType UserGameSettings.RotationType

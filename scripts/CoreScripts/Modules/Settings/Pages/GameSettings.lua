@@ -82,6 +82,7 @@ elseif isDesktopClient then
   UseMicroProfiler = settings():GetFFlag("EnableDesktopMicroProfilerApi")
 end
 local FixCameraControlSetting = settings():GetFFlag("FixCameraControlSetting")
+local EnableWebServerOnStart = settings():GetFFlag("EnableWebServerOnStart")
 
 --------------- FLAGS ----------------
 
@@ -121,6 +122,7 @@ local function Initialize()
 
     this.FullscreenFrame, this.FullscreenLabel, this.FullscreenEnabler =
       utility:AddNewRow(this, "Fullscreen", "Selector", {"On", "Off"}, fullScreenInit)
+    this.FullscreenFrame.LayoutOrder = 6
 
     settingsDisabledInVR[this.FullscreenFrame] = true
 
@@ -162,10 +164,12 @@ local function Initialize()
 
     this.GraphicsEnablerFrame, this.GraphicsEnablerLabel, this.GraphicsQualityEnabler =
       utility:AddNewRow(this, "Graphics Mode", "Selector", {"Automatic", "Manual"}, graphicsEnablerStart)
+    this.GraphicsEnablerFrame.LayoutOrder = 7
 
     ------------------ Gfx Slider GUI Setup  ------------------
     this.GraphicsQualityFrame, this.GraphicsQualityLabel, this.GraphicsQualitySlider =
       utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
+    this.GraphicsQualityFrame.LayoutOrder = 8
     this.GraphicsQualitySlider:SetMinStep(1)
 
     ------------------------------------------------------
@@ -282,6 +286,7 @@ local function Initialize()
 
     this.PerformanceStatsFrame, this.PerformanceStatsLabel, this.PerformanceStatsMode =
       utility:AddNewRow(this, "Performance Stats", "Selector", {"On", "Off"}, startIndex)
+    this.PerformanceStatsFrame.LayoutOrder = 9
 
     this.PerformanceStatsOverrideText =
       utility:Create "TextLabel" {
@@ -323,6 +328,7 @@ local function Initialize()
   local function createWebServerInformationRow()
     this.InformationFrame, this.InformationLabel, this.InformationTextBox =
       utility:AddNewRow(this, "MicroProfiler Information", "TextBox", nil, nil, 5)
+    this.InformationFrame.LayoutOrder = 99 -- I want this always to be the last shown
 
     -- Override the default position
     -- todo replace this with TextX and TextYAlignment to centerlise the text
@@ -349,57 +355,20 @@ local function Initialize()
     ------------------ Micro Profiler Web Server -----------------
     this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode, this.MicroProfilerOverrideText = nil
 
-    -- This should be off default.
-    local function GetDesiredWebServerIndex()
-      if GameSettings.MicroProfilerEnabled then
-        return 1
-      else
-        return 2
+    local function tryContentLabel()
+      local port = GameSettings.MicroProfilerWebServerPort
+      if port ~= 0 then
+        -- Need to create this each time.
+        this.InformationFrame, this.InformationText = createWebServerInformationRow()
+        this.InformationText.Text = GameSettings.MicroProfilerWebServerIP .. port
+        return true
+      else 
+        return false
       end
     end
 
-    this.WebServerInformationText = nil
-
-    this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode =
-      utility:AddNewRow(this, "Micro Profiler", "Selector", {"On", "Off"}, GetDesiredWebServerIndex()) -- This can be set to override defualt micro profiler state
-
-    this.MicroProfilerMode.IndexChanged:connect(
-      function(newIndex)
-       if isMobileClient then
-        if newIndex == 1 then -- Show Web Server Content Label
-          GameSettings.MicroProfilerWebServerEnabled = true
-
-          -- Try poll every 0.1 seconds until 3 seconds passed
-          local tryPollCount = 30
-          local port = 0
-          while(tryPollCount > 1) do
-            port = GameSettings.MicroProfilerWebServerPort
-            if port ~= 0 then
-              -- Need to create this each time.
-              this.InformationFrame, this.InformationText = createWebServerInformationRow()
-              this.InformationText.Text = GameSettings.MicroProfilerWebServerIP .. port
-              break
-            end
-
-            tryPollCount = tryPollCount - 1
-            wait(0.1)
-          end
-
-          if tryPollCount <= 0 or port == 0 then
-            -- if the web server has not been started, we will just set the switch and try to stop the
-            -- web server
-            this.MicroProfilerMode:SetSelectionIndex(2)
-            GameSettings.MicroProfilerWebServerEnabled = false
-
-            if this.InformationFrame or this.InformationText then
-              this.InformationFrame.Visible = false
-              this.InformationFrame.Parent = nil
-              this.InformationText.Parent = nil
-              this.InformationFrame = nil
-              this.InformationText = nil
-            end
-          end
-        else -- Hide Web Server Content Label
+    local function setMicroProfilerIndex(newIndex)
+      local function hideContentLabel()
           GameSettings.MicroProfilerWebServerEnabled = false
            
           if this.InformationFrame or this.InformationText then 
@@ -409,11 +378,66 @@ local function Initialize()
             this.InformationFrame = nil
             this.InformationText = nil
           end
+      end
+
+      if isMobileClient then
+        if newIndex == 1 then -- Show Web Server Content Label
+          GameSettings.MicroProfilerWebServerEnabled = true
+
+          -- Try poll every 0.1 seconds until 3 seconds passed
+          local tryPollCount = 30
+          while(tryPollCount >= 1) do
+            if tryContentLabel() then
+              break
+            end
+
+            tryPollCount = tryPollCount - 1
+            wait(0.1)
+          end
+
+          if tryPollCount <= 0 then
+            -- if the web server has not been started, we will just set the switch and try to stop the
+            -- web server
+            this.MicroProfilerMode:SetSelectionIndex(2)
+            hideContentLabel()
+          end
+        else -- Hide Web Server Content Label
+            hideContentLabel()
         end
       elseif isDesktopClient then
-        GameSettings.MicroProfilerEnabled = (newIndex == 1)
+        GameSettings.OnScreenProfilerEnabled = (newIndex == 1)
       end
     end
+
+    -- This should be off default.
+    local function GetDesiredWebServerIndex()
+      if isMobileClient then
+        if GameSettings.MicroProfilerWebServerEnabled then
+          return 1
+        else
+          return 2
+        end
+      elseif isDesktopClient then
+        if GameSettings.OnScreenProfilerEnabled then
+          return 1
+        else
+          return 2
+        end
+      end
+    end
+
+    local webServerIndex = GetDesiredWebServerIndex()
+
+    this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode =
+      utility:AddNewRow(this, "Micro Profiler", "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
+    this.MicroProfilerFrame.LayoutOrder = 10
+
+    if EnableWebServerOnStart then
+      tryContentLabel()
+    end
+
+    this.MicroProfilerMode.IndexChanged:connect(
+      setMicroProfilerIndex
     )
   end -- of create Micro Profiler Web Server
 
@@ -432,6 +456,7 @@ local function Initialize()
 
         this.ShiftLockFrame, this.ShiftLockLabel, this.ShiftLockMode =
           utility:AddNewRow(this, "Shift Lock Switch", "Selector", {"On", "Off"}, startIndex)
+        this.ShiftLockFrame.LayoutOrder = 1
 
         settingsDisabledInVR[this.ShiftLockFrame] = true
 
@@ -589,6 +614,7 @@ local function Initialize()
         this.CameraModeFrame, this.CameraModeLabel, this.CameraMode =
           utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, startingCameraEnumItem)
       end
+        this.CameraModeFrame.LayoutOrder = 2
 
       settingsDisabledInVR[this.CameraMode] = true
 
@@ -652,6 +678,7 @@ local function Initialize()
 
         this.VREnabledFrame, this.VREnabledLabel, this.VREnabledSelector =
           utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
+        this.VREnabledFrame.LayoutOrder = 12
 
         this.VREnabledSelector.IndexChanged:connect(
           function(newIndex)
@@ -720,6 +747,7 @@ local function Initialize()
         this.MovementModeFrame, this.MovementModeLabel, this.MovementMode =
           utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
       end
+      this.MovementModeFrame.LayoutOrder = 3
 
       settingsDisabledInVR[this.MovementMode] = true
 
@@ -952,6 +980,7 @@ local function Initialize()
     local startVolumeLevel = math.floor(GameSettings.MasterVolume * 10)
     this.VolumeFrame, this.VolumeLabel, this.VolumeSlider =
       utility:AddNewRow(this, "Volume", "Slider", 10, startVolumeLevel)
+    this.VolumeFrame.LayoutOrder = 5
 
     local volumeSound = Instance.new("Sound", game:GetService("CoreGui").RobloxGui.Sounds)
     volumeSound.Name = "VolumeChangeSound"
@@ -984,6 +1013,7 @@ local function Initialize()
 
     this.CameraInvertedFrame, _, this.CameraInvertedSelector =
       utility:AddNewRow(this, "Camera Inverted", "Selector", {"Off", "On"}, initialIndex)
+    this.CameraInvertedFrame.LayoutOrder = 11
     settingsDisabledInVR[this.CameraInvertedFrame] = true
 
     this.CameraInvertedSelector.IndexChanged:connect(
@@ -1051,6 +1081,7 @@ local function Initialize()
 
       this.MouseSensitivityFrame, this.MouseSensitivityLabel, this.MouseSensitivitySlider =
         utility:AddNewRow(this, SliderLabel, "Slider", MouseSteps, startMouseLevel)
+      this.MouseSensitivityFrame.LayoutOrder = 4
 
       this.MouseSensitivitySlider.ValueChanged:connect(
         function(newValue)
@@ -1067,6 +1098,7 @@ local function Initialize()
 
       this.MouseAdvancedFrame, this.MouseAdvancedLabel, this.MouseAdvancedEntry =
         utility:AddNewRow(this, "Camera Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)
+      this.MouseAdvancedFrame.LayoutOrder = 4
       settingsDisabledInVR[this.MouseAdvancedFrame] = true
 
       this.MouseAdvancedEntry.SliderFrame.Size =
@@ -1204,6 +1236,7 @@ local function Initialize()
     local SliderLabel = "Camera Sensitivity"
     this.GamepadSensitivityFrame, this.GamepadSensitivityLabel, this.GamepadSensitivitySlider =
       utility:AddNewRow(this, SliderLabel, "Slider", GamepadSteps, startGamepadLevel)
+    this.GamepadSensitivityFrame.LayoutOrder = 4
     this.GamepadSensitivitySlider.ValueChanged:connect(
       function(newValue)
         setCameraSensitivity(translateGuiGamepadSensitivityToEngine(newValue))
@@ -1285,6 +1318,7 @@ local function Initialize()
       devConsoleText.Font = Enum.Font.SourceSans
       devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
       local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
+      row.LayoutOrder = 13
       setButtonRowRef(row)
     end
 

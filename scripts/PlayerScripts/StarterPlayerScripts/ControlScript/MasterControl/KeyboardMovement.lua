@@ -140,7 +140,7 @@ function KeyboardMovement:Enable()
 	TextFocusReleasedCn = UserInputService.TextBoxFocusReleased:connect(onFocusReleased)
 	TextFocusGainedCn = UserInputService.TextBoxFocused:connect(onTextFocusGained)
 	-- TODO: remove pcall when API is live
-	WindowFocusReleasedCn = UserInputService.WindowFocused:connect(onFocusReleased)
+	WindowFocusReleasedCn = UserInputService.WindowFocusReleased:connect(onFocusReleased)
 end
 
 function KeyboardMovement:Disable()

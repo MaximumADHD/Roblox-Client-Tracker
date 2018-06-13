@@ -9,7 +9,11 @@ return {
             ["it"] = "Scrivi \"/?\" o \"/help\" per avere l'elenco dei comandi della chat.",
             ["pt"] = "Digite '/?' ou '/help' no chat para ver uma lista de comandos.",
             ["ja"] = "チャットで '/?' または '/help' を入力するとチャットコマンドの一覧を表示します。",
-            ["es"] = "Envía \"/?\" o \"/help\" para obtener la lista de comandos del chat."
+            ["es"] = "Envía \"/?\" o \"/help\" para obtener la lista de comandos del chat.",
+            ["pt-br"] = "Digite '/?' ou '/help' no chat para ver uma lista de comandos.",
+            ["ko"] = "채팅창에 '/?' 또는 '/도움말'을 입력하면 채팅 명령어 목록을 볼 수 있어요.",
+            ["zh-tw"] = "Chat '/?' 或 '/help' 可取得聊天指令清單。",
+            ["zh-cn"] = "Chat '/?' 或 '/help' 可获取聊天指令清单。",
         }
     },
     {
@@ -22,7 +26,11 @@ return {
             ["it"] = "Crea un account gratuito per avere accesso ai permessi della chat!",
             ["pt"] = "Crie uma conta grátis para ter acesso a permissões de chat!",
             ["ja"] = "フリーアカウントを作ってチャットを始めましょう！",
-            ["es"] = "¡Crea una cuenta gratuita para obtener los permisos de acceso al chat!"
+            ["es"] = "¡Crea una cuenta gratuita para obtener los permisos de acceso al chat!",
+            ["pt-br"] = "Crie uma conta grátis para ter acesso a permissões de chat!",
+            ["ko"] = "무료 계정을 생성해 채팅 권한을 이용하세요!",
+            ["zh-tw"] = "請建立免費帳戶，以取得聊天權限！",
+            ["zh-cn"] = "创建免费帐户以获取聊天权限！",
         }
     },
     {
@@ -35,7 +43,11 @@ return {
             ["it"] = "/c <canale>: cambia scheda nel menu dei canali.",
             ["pt"] = "/c <canal> : trocar abas de menu de canal.",
             ["ja"] = "/c <channel> : チャンネルメニュータブを切り替える。",
-            ["es"] = "/c <canal>: alternar pestañas del menú del chat."
+            ["es"] = "/c <canal>: alternar pestañas del menú del chat.",
+            ["pt-br"] = "/c <canal> : trocar abas de menu de canal.",
+            ["ko"] = "/c <채널> : 채널 메뉴 탭 전환.",
+            ["zh-tw"] = "/c <channel> : 切換頻道選單標籤。",
+            ["zh-cn"] = "/c <channel> : 切换频道菜单标签。",
         }
     },
     {
@@ -48,7 +60,11 @@ return {
             ["it"] = "/me <testo>: comando per descrivere azioni e giocare di ruolo.",
             ["pt"] = "/me <texto> : comando de roleplaying para realizar ações.",
             ["ja"] = "/me <text> : アクションのためのロールプレイングコマンド。",
-            ["es"] = "/me <texto>: comando de rol para realizar acciones."
+            ["es"] = "/me <texto>: comando de rol para realizar acciones.",
+            ["pt-br"] = "/me <texto> : comando de roleplaying para realizar ações.",
+            ["ko"] = "/me <텍스트> : 작업 수행을 위한 역할 놀이 명령어.",
+            ["zh-tw"] = "/me <text> : 做動作的角色扮演指令。",
+            ["zh-cn"] = "/me <text> : 做动作的角色扮演指令。",
         }
     },
     {
@@ -61,7 +77,11 @@ return {
             ["it"] = "/mute <giocatore>: togli la parola a un giocatore.",
             ["pt"] = "/mute <pessoa> : silenciar uma pessoa.",
             ["ja"] = "/mute <speaker> :相手をミュート。",
-            ["es"] = "/mute <usuario>: silenciar a un usuario."
+            ["es"] = "/mute <usuario>: silenciar a un usuario.",
+            ["pt-br"] = "/mute <pessoa> : silenciar uma pessoa.",
+            ["ko"] = "/mute <스피커> : 스피커 음소거.",
+            ["zh-tw"] = "/mute <speaker> : 將使用者靜音。",
+            ["zh-cn"] = "/mute <usuario>：将发言者静音。",
         }
     },
     {
@@ -74,7 +94,11 @@ return {
             ["it"] = "/unmute <giocatore>: restituisci la parola a un giocatore.",
             ["pt"] = "/unmute <pessoa> : remover silêncio de uma pessoa.",
             ["ja"] = "/unmute <speaker> : 相手のミュートを解除.",
-            ["es"] = "/unmute <usuario>: cancelar silencio de un usuario."
+            ["es"] = "/unmute <usuario>: cancelar silencio de un usuario.",
+            ["pt-br"] = "/unmute <pessoa> : remover silêncio de uma pessoa.",
+            ["ko"] = "/unmute <스피커> : 스피커 음소거 해제.",
+            ["zh-tw"] = "/unmute <speaker> : 取消靜音講者。",
+            ["zh-cn"] = "/unmute <speaker> : 取消发言者静音。",
         }
     },
     {
@@ -87,7 +111,11 @@ return {
             ["it"] = "/whisper <giocatore> o /w <giocatore>: apri un canale privato con un giocatore.",
             ["pt"] = "/whisper <pessoa> ou /w <pessoa> : abrir um canal de mensagem privada com uma pessoa.",
             ["ja"] = "/whisper <speaker> または /w <speaker> : プライベートメッセージチャネルを開く",
-            ["es"] = "/whisper <usuario> o /w <usuario>: abrir canal de mensajes privados con un usuario."
+            ["es"] = "/whisper <usuario> o /w <usuario>: abrir canal de mensajes privados con un usuario.",
+            ["pt-br"] = "/whisper <pessoa> ou /w <pessoa> : abrir um canal de mensagem privada com uma pessoa.",
+            ["ko"] = "/whisper <스피커> 또는 /w <스피커> : 스피커 채널에서 비공개 메시지 열기.",
+            ["zh-tw"] = "/whisper <speaker> 或 /w <speaker> : 開啟與講者的私訊頻道。",
+            ["zh-cn"] = "/whisper <speaker> 或 /w <speaker> : 打开与发言者的私人消息频道。",
         }
     },
     {
@@ -100,7 +128,11 @@ return {
             ["it"] = "Hai tolto la parola al giocatore \"{RBX_NAME}\".",
             ["pt"] = "{RBX_NAME}' foi silenciado(a).",
             ["ja"] = "{RBX_NAME}' をミュートしました。",
-            ["es"] = "Se ha silenciado al usuario \"{RBX_NAME}\"."
+            ["es"] = "Se ha silenciado al usuario \"{RBX_NAME}\".",
+            ["pt-br"] = "{RBX_NAME}' foi silenciado(a).",
+            ["ko"] = "스피커 '{RBX_NAME}'이(가) 음소거되었어요.",
+            ["zh-tw"] = "講者「{RBX_NAME}」已遭靜音。",
+            ["zh-cn"] = "发言者“{RBX_NAME}”已被静音。",
         }
     },
     {
@@ -113,7 +145,11 @@ return {
             ["it"] = "Hai restituito la parola al giocatore \"{RBX_NAME}\".",
             ["pt"] = "O silêncio de '{RBX_NAME}' foi removido.",
             ["ja"] = "{RBX_NAME}' のミュートを解除しました。",
-            ["es"] = "Se ha cancelado el silencio del usuario \"{RBX_NAME}\"."
+            ["es"] = "Se ha cancelado el silencio del usuario \"{RBX_NAME}\".",
+            ["pt-br"] = "O silêncio de '{RBX_NAME}' foi removido.",
+            ["ko"] = "스피커 '{RBX_NAME}'의 음소거가 해제되었어요.",
+            ["zh-tw"] = "講者「{RBX_NAME}」已被取消靜音。",
+            ["zh-cn"] = "发言者“{RBX_NAME}”已被取消静音。",
         }
     },
     {
@@ -126,7 +162,11 @@ return {
             ["it"] = "Questi sono i comandi base della chat.",
             ["pt"] = "Esses são os comandos de chat básicos.",
             ["ja"] = "これらは基本的なチャットコマンドです。",
-            ["es"] = "Estos son los comandos básicos del chat."
+            ["es"] = "Estos son los comandos básicos del chat.",
+            ["pt-br"] = "Esses são os comandos de chat básicos.",
+            ["ko"] = "기본 채팅 명령어에요.",
+            ["zh-tw"] = "這些是基本聊天指令。",
+            ["zh-cn"] = "这些是基本聊天指令。",
         }
     },
     {
@@ -139,7 +179,11 @@ return {
             ["it"] = "Questo gioco usa la versione [{RBX_NUMBER}.{RBX_NUMBER}] della chat.",
             ["pt"] = "Este jogo está rodando a versão de chat [{RBX_NUMBER}.{RBX_NUMBER}].",
             ["ja"] = "このゲームはチャットバージョン [{RBX_NUMBER}.{RBX_NUMBER}]を実行しています。",
-            ["es"] = "Este juego utiliza la versión del chat [{RBX_NUMBER} {RBX_NUMBER}]."
+            ["es"] = "Este juego utiliza la versión del chat [{RBX_NUMBER} {RBX_NUMBER}].",
+            ["pt-br"] = "Este jogo está rodando a versão de chat [{RBX_NUMBER}.{RBX_NUMBER}].",
+            ["ko"] = "이 게임은 채팅 버전 [{RBX_NUMBER}.{RBX_NUMBER}]을(를) 실행합니다.",
+            ["zh-tw"] = "此遊戲正執行聊天版本 [{RBX_NUMBER}.{RBX_NUMBER}]。",
+            ["zh-cn"] = "此游戏正在运行聊天版本 [{RBX_NUMBER}.{RBX_NUMBER}]。",
         }
     },
     {
@@ -152,7 +196,11 @@ return {
             ["it"] = "Ora stai parlando nel canale: \"{RBX_NAME}\"",
             ["pt"] = "Você agora está no canal de chat: '{RBX_NAME}'",
             ["ja"] = "あなたの現在のチャットチャンネルは: '{RBX_NAME}' です。",
-            ["es"] = "Estás chateando en el canal \"{RBX_NAME}\"."
+            ["es"] = "Estás chateando en el canal \"{RBX_NAME}\".",
+            ["pt-br"] = "Você agora está no canal de chat: '{RBX_NAME}'",
+            ["ko"] = "{RBX_NAME}' 채널에서 채팅 중이에요",
+            ["zh-tw"] = "您此刻聊天的頻道在：「{RBX_NAME}」",
+            ["zh-cn"] = "你当前的聊天频道为：“{RBX_NAME}”",
         }
     },
     {
@@ -165,7 +213,11 @@ return {
             ["it"] = "Non ti trovi nel canale: \"{RBX_NAME}\"",
             ["pt"] = "Você não está no canal: '{RBX_NAME}'",
             ["ja"] = "あなたはチャネル: '{RBX_NAME}' にいません。",
-            ["es"] = "No estás en el canal \"{RBX_NAME}\"."
+            ["es"] = "No estás en el canal \"{RBX_NAME}\".",
+            ["pt-br"] = "Você não está no canal: '{RBX_NAME}'",
+            ["ko"] = "{RBX_NAME}' 채널에 있지 않아요",
+            ["zh-tw"] = "您未在頻道：「{RBX_NAME}」",
+            ["zh-cn"] = "你不在频道：“{RBX_NAME}”",
         }
     },
     {
@@ -178,7 +230,11 @@ return {
             ["it"] = "Per chattare, clicca qui o premi il tasto \"/\"",
             ["pt"] = "Para escrever clique aqui ou aperte a tecla \"/\"",
             ["ja"] = "チャットするにはここをクリックするか \"/\" キーを押します。",
-            ["es"] = "Para chatear, haz clic aquí o pulsa la tecla \"/\"."
+            ["es"] = "Para chatear, haz clic aquí o pulsa la tecla \"/\".",
+            ["pt-br"] = "Para escrever clique aqui ou aperte a tecla \"/\"",
+            ["ko"] = "채팅하려면 여기를 클릭하거나 \"/\" 키를 누르세요",
+            ["zh-tw"] = "若要聊天，按一下此處或按 \"/\" 鍵",
+            ["zh-cn"] = "若要聊天，请点按这里或按住“/”键",
         }
     },
     {
@@ -191,7 +247,11 @@ return {
             ["it"] = "Tocca qui per chattare",
             ["pt"] = "Toque aqui para escrever",
             ["ja"] = "タップしてチャットする",
-            ["es"] = "Toca aquí para chatear"
+            ["es"] = "Toca aquí para chatear",
+            ["pt-br"] = "Toque aqui para escrever",
+            ["ko"] = "채팅하려면 여기를 누르세요",
+            ["zh-tw"] = "輕觸此處以聊天",
+            ["zh-cn"] = "轻点此处以聊天",
         }
     },
     {
@@ -204,7 +264,11 @@ return {
             ["it"] = "Hai bloccato il giocatore \"{RBX_NAME}\".",
             ["pt"] = "{RBX_NAME}' foi bloqueado.",
             ["ja"] = "{RBX_NAME}' はブロック中です。",
-            ["es"] = "Se ha bloqueado al usuario \"{RBX_NAME}\"."
+            ["es"] = "Se ha bloqueado al usuario \"{RBX_NAME}\".",
+            ["pt-br"] = "{RBX_NAME}' foi bloqueado.",
+            ["ko"] = "스피커 '{RBX_NAME}' 님을 차단했어요.",
+            ["zh-tw"] = "講者「{RBX_NAME}」已遭封鎖。",
+            ["zh-cn"] = "发言者“{RBX_NAME}”已被屏蔽。",
         }
     },
     {
@@ -217,7 +281,11 @@ return {
             ["it"] = "Hai sbloccato il giocatore \"{RBX_NAME}\".",
             ["pt"] = "{RBX_NAME}' foi desbloqueado.",
             ["ja"] = "{RBX_NAME}' のブロックが解除されました。",
-            ["es"] = "Se ha desbloqueado al usuario \"{RBX_NAME}\"."
+            ["es"] = "Se ha desbloqueado al usuario \"{RBX_NAME}\".",
+            ["pt-br"] = "{RBX_NAME}' foi desbloqueado.",
+            ["ko"] = "스피커 '{RBX_NAME}' 님 차단을 해제했어요.",
+            ["zh-tw"] = "講者「{RBX_NAME}」已被解除封鎖。",
+            ["zh-cn"] = "发言者“{RBX_NAME}”已被取消屏蔽。",
         }
     },
     {
@@ -230,7 +298,11 @@ return {
             ["it"] = "/team <messaggio> o /t <messaggio>: invia un messaggio a tutti i giocatori della tua squadra.",
             ["pt"] = "/team <mensagem> ou /t <mensagem> : enviar um chat de equipe aos jogadores da sua equipe.",
             ["ja"] = "/team <message> または /t <message> : 自分のチームメンバーにチームチャットを送る。",
-            ["es"] = "/team <mensaje> o /t <mensaje>: enviar un mensaje de chat de equipo a los jugadores de tu equipo."
+            ["es"] = "/team <mensaje> o /t <mensaje>: enviar un mensaje de chat de equipo a los jugadores de tu equipo.",
+            ["pt-br"] = "/team <mensagem> ou /t <mensagem> : enviar um chat de equipe aos jogadores da sua equipe.",
+            ["ko"] = "/team <메시지> 또는 /t <메시지> : 팀 내 플레이어에게 팀 채팅 전송.",
+            ["zh-tw"] = "/team <message> 或 /t <message> : 傳送團隊聊天給隊伍中的玩家。",
+            ["zh-cn"] = "/team <message> 或 /t <message> : 向你团队的玩家发送团队聊天。",
         }
     },
     {
@@ -243,7 +315,11 @@ return {
             ["it"] = "Devi aspettare {RBX_NUMBER} secondi prima di inviare un altro messaggio!",
             ["pt"] = "Você precisa esperar {RBX_NUMBER} segundos antes de enviar outra mensagem!",
             ["ja"] = "{RBX_NUMBER} 秒待ってから次のメッセージを送ってください!",
-            ["es"] = "¡Debes esperar {RBX_NUMBER} segundos antes de enviar otro mensaje!"
+            ["es"] = "¡Debes esperar {RBX_NUMBER} segundos antes de enviar otro mensaje!",
+            ["pt-br"] = "Você precisa esperar {RBX_NUMBER} segundos antes de enviar outra mensagem!",
+            ["ko"] = "추가 메시지를 보내기 전에 {RBX_NUMBER}초 동안 기다려야 해요!",
+            ["zh-tw"] = "傳送另一則訊息之前您必須等候 {RBX_NUMBER} 秒！",
+            ["zh-cn"] = "发送另一条消息前你必须等待 {RBX_NUMBER} 秒！",
         }
     },
     {
@@ -256,7 +332,11 @@ return {
             ["it"] = "Devi aspettare prima di inviare un altro messaggio!",
             ["pt"] = "Você precisa esperar antes de enviar outra mensagem!",
             ["ja"] = "少し待ってから次のメッセージを送ってください!",
-            ["es"] = "¡Debes esperar antes de enviar otro mensaje!"
+            ["es"] = "¡Debes esperar antes de enviar otro mensaje!",
+            ["pt-br"] = "Você precisa esperar antes de enviar outra mensagem!",
+            ["ko"] = "추가 메시지를 보내기 전에 기다려야 해요!",
+            ["zh-tw"] = "傳送另一則訊息之前您必須等候！",
+            ["zh-cn"] = "发送另一条消息前你必须等待！",
         }
     },
     {
@@ -269,7 +349,11 @@ return {
             ["it"] = "Non puoi inviare messaggi per le impostazioni della tua chat.",
             ["pt"] = "Suas configurações de chat impedem que você envie mensagens.",
             ["ja"] = "メッセージが送れないチャット設定です。",
-            ["es"] = "Tu configuración de chat te impide enviar mensajes."
+            ["es"] = "Tu configuración de chat te impide enviar mensajes.",
+            ["pt-br"] = "Suas configurações de chat impedem que você envie mensagens.",
+            ["ko"] = "채팅 설정 때문에 메시지를 보낼 수 없어요.",
+            ["zh-tw"] = "您的聊天設定禁止您送出訊息。",
+            ["zh-cn"] = "你的聊天设置禁止你发送消息。",
         }
     },
     {
@@ -282,7 +366,11 @@ return {
             ["it"] = "Il tuo messaggio supera la lunghezza massima consentita.",
             ["pt"] = "Sua mensagem ultrapassa o tamanho máximo de mensagem.",
             ["ja"] = "メッセージが最大文字数を超えています。",
-            ["es"] = "Tu mensaje supera la longitud máxima permitida."
+            ["es"] = "Tu mensaje supera la longitud máxima permitida.",
+            ["pt-br"] = "Sua mensagem ultrapassa o tamanho máximo de mensagem.",
+            ["ko"] = "메시지 길이 한도를 초과했어요.",
+            ["zh-tw"] = "您的訊息超過最大訊息長度。",
+            ["zh-cn"] = "你的消息已超过最大长度限制。",
         }
     },
     {
@@ -295,7 +383,11 @@ return {
             ["it"] = "Il tuo messaggio contiene spazi vuoti non consentiti.",
             ["pt"] = "Sua mensagem contém um espaço em branco, que não é permitido.",
             ["ja"] = "メッセージに許可されていないスペースが含まれています。",
-            ["es"] = "Tu mensaje contiene espacios vacíos que no se permiten."
+            ["es"] = "Tu mensaje contiene espacios vacíos que no se permiten.",
+            ["pt-br"] = "Sua mensagem contém um espaço em branco, que não é permitido.",
+            ["ko"] = "메시지에 허용되지 않는 여백이 있어요.",
+            ["zh-tw"] = "您的訊息含有不允許的空格。",
+            ["zh-cn"] = "你的消息包含不被允许的空格。",
         }
     },
     {
@@ -308,7 +400,11 @@ return {
             ["it"] = "Non puoi togliere la parola a te stesso.",
             ["pt"] = "Você não pode silenciar a si mesmo.",
             ["ja"] = "自分をミュートすることは出来ません。",
-            ["es"] = "No puedes silenciarte a ti mismo."
+            ["es"] = "No puedes silenciarte a ti mismo.",
+            ["pt-br"] = "Você não pode silenciar a si mesmo.",
+            ["ko"] = "자신을 음소거할 수 없어요.",
+            ["zh-tw"] = "您無法將自己靜音。",
+            ["zh-cn"] = "你无法将自己静音。",
         }
     },
     {
@@ -321,7 +417,11 @@ return {
             ["it"] = "Il giocatore \"{RBX_NAME}\" non esiste.",
             ["pt"] = "{RBX_NAME}' não existe.",
             ["ja"] = "{RBX_NAME}' は存在しません。",
-            ["es"] = "El usuario \"{RBX_NAME}\" no existe."
+            ["es"] = "El usuario \"{RBX_NAME}\" no existe.",
+            ["pt-br"] = "{RBX_NAME}' não existe.",
+            ["ko"] = "스피커 '{RBX_NAME}'이(가) 없어요.",
+            ["zh-tw"] = "講者「{RBX_NAME}」不存在。",
+            ["zh-cn"] = "发言者“{RBX_NAME}”不存在。",
         }
     },
     {
@@ -334,7 +434,11 @@ return {
             ["it"] = "Non puoi chattare con questo giocatore.",
             ["pt"] = "Você não pode participar de chat com este jogador.",
             ["ja"] = "このプレーヤーとチャットすることは出来ません。",
-            ["es"] = "No puedes chatear con este jugador."
+            ["es"] = "No puedes chatear con este jugador.",
+            ["pt-br"] = "Você não pode participar de chat com este jogador.",
+            ["ko"] = "이 플레이어와 채팅할 수 없어요.",
+            ["zh-tw"] = "您無法與此玩家聊天。",
+            ["zh-cn"] = "你无法与此玩家聊天。",
         }
     },
     {
@@ -347,7 +451,11 @@ return {
             ["it"] = "Non puoi aprire un canale privato con te stesso.",
             ["pt"] = "Você não pode sussurrar para si mesmo.",
             ["ja"] = "自分自身に話しかけることは出来ません。",
-            ["es"] = "No puedes enviarte mensajes privados a ti mismo."
+            ["es"] = "No puedes enviarte mensajes privados a ti mismo.",
+            ["pt-br"] = "Você não pode sussurrar para si mesmo.",
+            ["ko"] = "자신에게 귓속말할 수 없어요.",
+            ["zh-tw"] = "您無法對自己耳語。",
+            ["zh-cn"] = "你无法向自己秘密发送消息。",
         }
     },
     {
@@ -360,7 +468,11 @@ return {
             ["it"] = "Ora stai chattando in privato con {RBX_NAME}",
             ["pt"] = "Você agora está em um chat privado com {RBX_NAME}",
             ["ja"] = "あなたは現在{RBX_NAME}とプライベートチャット中です。",
-            ["es"] = "Estás chateando en privado con {RBX_NAME}."
+            ["es"] = "Estás chateando en privado con {RBX_NAME}.",
+            ["pt-br"] = "Você agora está em um chat privado com {RBX_NAME}",
+            ["ko"] = "현재 {RBX_NAME} 님과 비공개 채팅 중이에요",
+            ["zh-tw"] = "您正在與{RBX_NAME}私聊",
+            ["zh-cn"] = "你正在与“{RBX_NAME}”私聊",
         }
     },
     {
@@ -373,7 +485,11 @@ return {
             ["it"] = "Questo è un canale privato tra te e i membri della tua squadra.",
             ["pt"] = "Este é um canal privado entre você e os membros da sua equipe.",
             ["ja"] = "これはあなたとあなたのチームメンバーとのプライベートチャンネルです。",
-            ["es"] = "Este es un canal privado entre tú y los miembros de tu equipo."
+            ["es"] = "Este es un canal privado entre tú y los miembros de tu equipo.",
+            ["pt-br"] = "Este é um canal privado entre você e os membros da sua equipe.",
+            ["ko"] = "회원님과 팀원 간의 비공개 채널이에요.",
+            ["zh-tw"] = "這是您與隊伍成員之間的私人頻道。",
+            ["zh-cn"] = "这是你与团队成员之间的私人频道。",
         }
     },
     {
@@ -386,7 +502,11 @@ return {
             ["it"] = "Non puoi chattare con la squadra se non sei in una squadra!",
             ["pt"] = "Você não pode participar de chat de equipe se não estiver em uma!",
             ["ja"] = "チームに所属していなければチームチャットは出来ません。",
-            ["es"] = "¡No puedes chatear con tu equipo si no formas parte de un equipo!"
+            ["es"] = "¡No puedes chatear con tu equipo si no formas parte de un equipo!",
+            ["pt-br"] = "Você não pode participar de chat de equipe se não estiver em uma!",
+            ["ko"] = "팀에 속하지 않으면 팀 채팅을 이용할 수 없어요!",
+            ["zh-tw"] = "若您不屬於隊伍，無法群聊！",
+            ["zh-cn"] = "如果你不在该团队，则无法进行团队聊天。",
         }
     },
     {
@@ -399,7 +519,11 @@ return {
             ["it"] = "Ora sei nella squadra \"{RBX_NAME}\".",
             ["pt"] = "Você agora está na equipe '{RBX_NAME}'.",
             ["ja"] = "あなたは現在 '{RBX_NAME}' チームに所属中です。",
-            ["es"] = "Ahora formas parte del equipo \"{RBX_NAME}\"."
+            ["es"] = "Ahora formas parte del equipo \"{RBX_NAME}\".",
+            ["pt-br"] = "Você agora está na equipe '{RBX_NAME}'.",
+            ["ko"] = "현재 '{RBX_NAME}'팀에 속해 있어요.",
+            ["zh-tw"] = "您目前在「{RBX_NAME}」隊。",
+            ["zh-cn"] = "你正在团队“{RBX_NAME}”中。",
         }
     },
     {
@@ -412,7 +536,11 @@ return {
             ["it"] = "Non hai più la parola e non puoi chattare in questo canale",
             ["pt"] = "Você está silenciado(a) e não pode falar neste canal",
             ["ja"] = "あなたはミュートされこのチャンネルで話すことは出来ません。",
-            ["es"] = "Se te ha silenciado y no puedes hablar en este canal."
+            ["es"] = "Se te ha silenciado y no puedes hablar en este canal.",
+            ["pt-br"] = "Você está silenciado(a) e não pode falar neste canal",
+            ["ko"] = "이 채널에서 음소거되어 이야기할 수 없어요",
+            ["zh-tw"] = "您遭靜音，無法在此頻道聊天",
+            ["zh-cn"] = "你已被静音，无法在此频道聊天",
         }
     },
     {
@@ -425,7 +553,11 @@ return {
             ["it"] = "Il filtro della chat sta riscontrando dei problemi e i messaggi potrebbero apparire in ritardo.",
             ["pt"] = "O filtro de chat está com problemas no momento e as mensagens podem demorar para aparecer.",
             ["ja"] = "現在チャットフィルターに問題があるためメッセージの表示が遅れています。",
-            ["es"] = "El filtro del chat sufre problemas en este momento y es posible que los mensajes tarden un poco en aparecer."
+            ["es"] = "El filtro del chat sufre problemas en este momento y es posible que los mensajes tarden un poco en aparecer.",
+            ["pt-br"] = "O filtro de chat está com problemas no momento e as mensagens podem demorar para aparecer.",
+            ["ko"] = "현재 채팅 필터에 문제가 있어 메시지 표시가 느릴 수 있어요.",
+            ["zh-tw"] = "此聊天篩選條件目前遇到問題，訊息可能較慢顯示。",
+            ["zh-cn"] = "聊天过滤器当前遇到问题，消息显示可能出现延迟。",
         }
     },
     {
@@ -438,7 +570,11 @@ return {
             ["it"] = "Hai lasciato il canale \"{RBX_NAME}\"",
             ["pt"] = "Você saiu do canal '{RBX_NAME}'",
             ["ja"] = "チャンネル '{RBX_NAME}' を退出しました。",
-            ["es"] = "Has salido del canal \"{RBX_NAME}\"."
+            ["es"] = "Has salido del canal \"{RBX_NAME}\".",
+            ["pt-br"] = "Você saiu do canal '{RBX_NAME}'",
+            ["ko"] = "{RBX_NAME}' 채널에서 나왔어요",
+            ["zh-tw"] = "您已離開頻道「{RBX_NAME}」",
+            ["zh-cn"] = "你已离开频道“{RBX_NAME}”",
         }
     },
     {
@@ -451,7 +587,11 @@ return {
             ["it"] = "Non puoi lasciare questo canale.",
             ["pt"] = "Você não pode sair deste canal.",
             ["ja"] = "このチャンネルを退出することは出来ません。",
-            ["es"] = "No puedes salir de este canal."
+            ["es"] = "No puedes salir de este canal.",
+            ["pt-br"] = "Você não pode sair deste canal.",
+            ["ko"] = "이 채널에서 나갈 수 없어요.",
+            ["zh-tw"] = "您無法離開此頻道。",
+            ["zh-cn"] = "你无法离开此频道。",
         }
     },
     {
@@ -464,7 +604,11 @@ return {
             ["it"] = "Non puoi accedere al canale {RBX_NAME}",
             ["pt"] = "Você não pode entrar no canal {RBX_NAME}",
             ["ja"] = "チャンネル {RBX_NAME} に参加することは出来ません。",
-            ["es"] = "No puedes unirte al canal {RBX_NAME}."
+            ["es"] = "No puedes unirte al canal {RBX_NAME}.",
+            ["pt-br"] = "Você não pode entrar no canal {RBX_NAME}",
+            ["ko"] = "{RBX_NAME} 채널에 가입할 수 없어요",
+            ["zh-tw"] = "您無法加入頻道{RBX_NAME}",
+            ["zh-cn"] = "你无法加入频道“{RBX_NAME}”",
         }
     },
     {
@@ -477,7 +621,11 @@ return {
             ["it"] = "Il canale {RBX_NAME} non esiste.",
             ["pt"] = "O canal {RBX_NAME} não existe.",
             ["ja"] = "チャンネル {RBX_NAME} は存在しません。",
-            ["es"] = "El canal {RBX_NAME} no existe."
+            ["es"] = "El canal {RBX_NAME} no existe.",
+            ["pt-br"] = "O canal {RBX_NAME} não existe.",
+            ["ko"] = "{RBX_NAME} 채널이 없어요.",
+            ["zh-tw"] = "頻道{RBX_NAME}不存在。",
+            ["zh-cn"] = "频道“{RBX_NAME}”不存在。",
         }
     },
     {
@@ -490,7 +638,11 @@ return {
             ["it"] = "Non puoi lasciare il canale {RBX_NAME}",
             ["pt"] = "Você não pode sair do canal {RBX_NAME}",
             ["ja"] = "チャンネル {RBX_NAME}を退出することは出来ません。",
-            ["es"] = "No puedes salir del canal {RBX_NAME}."
+            ["es"] = "No puedes salir del canal {RBX_NAME}.",
+            ["pt-br"] = "Você não pode sair do canal {RBX_NAME}",
+            ["ko"] = "{RBX_NAME} 채널에서 나갈 수 없어요",
+            ["zh-tw"] = "您無法離開頻道{RBX_NAME}",
+            ["zh-cn"] = "你无法离开频道“{RBX_NAME}”",
         }
     },
     {
@@ -503,7 +655,11 @@ return {
             ["it"] = "Non ti trovi nel canale {RBX_NAME}",
             ["pt"] = "Você não está no canal {RBX_NAME}",
             ["ja"] = "あなたはチャンネル {RBX_NAME} にいません。",
-            ["es"] = "No estás en el canal {RBX_NAME}."
+            ["es"] = "No estás en el canal {RBX_NAME}.",
+            ["pt-br"] = "Você não está no canal {RBX_NAME}",
+            ["ko"] = "{RBX_NAME} 채널에 있지 않아요",
+            ["zh-tw"] = "您未在頻道{RBX_NAME}",
+            ["zh-cn"] = "你不在频道“{RBX_NAME}”",
         }
     },
     {
@@ -516,7 +672,11 @@ return {
             ["it"] = "Questo canale è per le notifiche di gioco e del sistema.",
             ["pt"] = "Este canal é destinado a notificações do sistema e jogo.",
             ["ja"] = "このチャンネルはシステムとゲーム通知のためのものです。",
-            ["es"] = "Este canal es para notificaciones del sistema y del juego."
+            ["es"] = "Este canal es para notificaciones del sistema y del juego.",
+            ["pt-br"] = "Este canal é destinado a notificações do sistema e jogo.",
+            ["ko"] = "이 채널은 시스템 및 게임 알림용이에요.",
+            ["zh-tw"] = "此頻道是供系統及遊戲通知用。",
+            ["zh-cn"] = "此频道用于发送系统及游戏通知。",
         }
     },
     {
@@ -529,7 +689,11 @@ return {
             ["it"] = "Il tuo amico {RBX_NAME} è entrato nel gioco.",
             ["pt"] = "Seu amigo {RBX_NAME} juntou-se ao jogo.",
             ["ja"] = "あなたの友人{RBX_NAME}がゲームに参加しました。",
-            ["es"] = "Tu amigo {RBX_NAME} se ha unido al juego."
+            ["es"] = "Tu amigo {RBX_NAME} se ha unido al juego.",
+            ["pt-br"] = "Seu amigo {RBX_NAME} juntou-se ao jogo.",
+            ["ko"] = "친구 {RBX_NAME} 님이 게임에 가입했어요.",
+            ["zh-tw"] = "您的朋友{RBX_NAME}已加入遊戲。",
+            ["zh-cn"] = "你的朋友“{RBX_NAME}”已加入游戏。",
         }
     }
 }
