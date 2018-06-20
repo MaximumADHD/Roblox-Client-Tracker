@@ -73,6 +73,8 @@ local success, result =
 )
 local FFlagUseNotificationsLocalization = success and result
 
+local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
+
 local UseMicroProfiler = false 
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
@@ -323,7 +325,7 @@ local function Initialize()
     )
   end -- of createPerformanceStats
 
-  -- Create UI element to show IPs and port a player need to access the 
+  -- Create UI element to show IPs and port a player need to access the
   -- web server for micro profiler
   local function createWebServerInformationRow()
     this.InformationFrame, this.InformationLabel, this.InformationTextBox =
@@ -1302,13 +1304,24 @@ local function Initialize()
   local function createDeveloperConsoleOption()
     -- makes button in settings menu to open dev console
     local function makeDevConsoleOption()
-      local devConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
       local function onOpenDevConsole()
-        if devConsoleModule then
-          devConsoleModule:SetVisibility(true)
-          local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-          if MenuModule then
-            MenuModule:SetVisibility(false)
+        if FFlagEnableNewDevConsole then
+          local devConsoleMaster = require(script.Parent.Parent.Parent.DevConsoleMaster)
+          if devConsoleMaster then
+            devConsoleMaster:SetVisibility(true)
+            local MenuModule = require(script.Parent.Parent.SettingsHub)
+            if MenuModule then
+              MenuModule:SetVisibility(false)
+            end
+          end
+        else
+          local devConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
+          if devConsoleModule then
+            devConsoleModule:SetVisibility(true)
+            local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+            if MenuModule then
+              MenuModule:SetVisibility(false)
+            end
           end
         end
       end

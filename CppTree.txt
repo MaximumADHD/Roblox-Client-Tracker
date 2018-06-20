@@ -176,6 +176,10 @@ RBX
 		VertexLayoutVulkan
 		VisualEngine
 	}
+	HttpRequestMsxmlImpl
+	{
+		Stream
+	}
 	HUMAN
 	{
 		Balancing
@@ -761,6 +765,11 @@ RBX
 	http_status_error
 	HttpRbxApiJob
 	HttpRbxApiService
+	HttpRequest
+	HttpRequestCurl
+	HttpRequestMsxml
+	HttpResponse
+	HttpResponseImpl
 	HttpService
 	Humanoid
 	HumanoidController
@@ -936,6 +945,7 @@ RBX
 	PolyPolyContact
 	Pose
 	PostEffect
+	PresenceService
 	Primitive
 	PriorityThreadPool
 	PVAdornment

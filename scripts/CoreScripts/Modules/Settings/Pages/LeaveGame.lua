@@ -64,6 +64,8 @@ local function Initialize()
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "LeaveGamePage"
+	this.ShouldShowBottomBar = false
+	this.ShouldShowHubBar = false
 
 	local leaveGameText =  utility:Create'TextLabel'
 	{

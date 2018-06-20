@@ -1085,6 +1085,7 @@ Class HttpService : Instance [notCreatable]
 	Function string HttpService:UrlEncode(string input)
 	YieldFunction string HttpService:GetAsync(string url, bool nocache = false, Variant headers)
 	YieldFunction string HttpService:PostAsync(string url, string data, HttpContentType content_type = ApplicationJson, bool compress = false, Variant headers)
+	YieldFunction Dictionary HttpService:RequestAsync(Dictionary requestOptions)
 Class Humanoid : Instance
 	Property bool Humanoid.AutoJumpEnabled
 	Property bool Humanoid.AutoRotate
@@ -2005,6 +2006,8 @@ Class ColorCorrectionEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
+Class PresenceService : Instance [notCreatable]
+	YieldFunction Variant PresenceService:GetUsersAsync(Array userIds) [RobloxScriptSecurity]
 Class ReflectionMetadata : Instance
 Class ReflectionMetadataCallbacks : Instance
 Class ReflectionMetadataClasses : Instance

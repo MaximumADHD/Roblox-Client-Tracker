@@ -1,0 +1,190 @@
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
+
+local ShareGame = Modules.Settings.Pages.ShareGame
+local SearchBox = require(ShareGame.Components.SearchBox)
+local Constants = require(ShareGame.Constants)
+local Text = require(ShareGame.Text)
+
+local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
+local SetSearchText = require(ShareGame.Actions.SetSearchText)
+
+local SEARCH_ICON = "rbxasset://textures/ui/Settings/ShareGame/Search24x24.png"
+local SEARCH_ICON_SIZE = 22
+
+local SEARCH_BOX_WIDTH = 177
+local SEARCH_BOX_HEIGHT = 28
+
+local CANCEL_TEXT_FONT = Enum.Font.SourceSans
+local CANCEL_TEXT = "Cancel"
+local CANCEL_TEXT_COLOR = Constants.Color.GRAY3
+local CANCEL_TEXT_SIZE = 20
+
+local SearchArea = Roact.PureComponent:extend("SearchArea")
+
+function SearchArea:init()
+	self.state = {
+		cancelText = CANCEL_TEXT,
+	}
+	self.searchField = nil
+end
+
+function SearchArea:render()
+	local fullWidthSearchBar = self.props.fullWidthSearchBar
+	local searchBoxMargin = self.props.searchBoxMargin
+	local anchorPoint = self.props.anchorPoint
+	local position = self.props.position
+	local zIndex = self.props.zIndex
+	local searchAreaActive = self.props.searchAreaActive
+
+	local cancelText = self.state.cancelText
+	local cancelTextWidth = Text.GetTextWidth(cancelText, CANCEL_TEXT_FONT, CANCEL_TEXT_SIZE)
+	local searchBoxSizeOffset = searchBoxMargin + cancelTextWidth
+
+	local setSearchText = self.props.setSearchText
+
+	if fullWidthSearchBar then
+		-- When full-width is true, the search box spans the entire width of the
+		-- parent frame, and it becomes hidden behind a search button.
+		return Roact.createElement("Frame", {
+			AnchorPoint = anchorPoint,
+			Position = position,
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			ZIndex = zIndex,
+		}, {
+			-- Render the search button if the search area hasn't been activated
+			-- yet.
+			SearchButton = Roact.createElement("ImageButton", {
+				Visible = not searchAreaActive,
+				BackgroundTransparency = 1,
+				AnchorPoint = anchorPoint,
+				Position = position,
+				Size = UDim2.new(0, SEARCH_ICON_SIZE, 0, SEARCH_ICON_SIZE),
+				Image = SEARCH_ICON,
+				ZIndex = zIndex,
+				[Roact.Event.Activated] = function(rbx)
+					self.props.setSearchAreaActive(true)
+				end,
+			}),
+
+			-- Show search box with cancel button if the search area is active
+			SearchBox = Roact.createElement(SearchBox, {
+				anchorPoint = Vector2.new(0, 0.5),
+				position = UDim2.new(0, 0, 0.5, 0),
+				size = UDim2.new(1, -searchBoxSizeOffset, 0, SEARCH_BOX_HEIGHT),
+				zIndex = zIndex,
+				visible = searchAreaActive,
+				modalFocused = searchAreaActive,
+				onTextChanged = setSearchText,
+				onTextBoxFocusLost = function(text)
+					if text == "" then
+						self.props.setSearchAreaActive(false)
+					end
+				end,
+				searchFieldRef = function(rbx)
+					self.searchField = rbx
+				end,
+			}),
+			Cancel = Roact.createElement("TextButton", {
+				BackgroundTransparency = 1,
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, 0, 0.5, 0),
+				Size = UDim2.new(0, cancelTextWidth, 1, 0),
+				TextSize = CANCEL_TEXT_SIZE,
+				TextColor3 = CANCEL_TEXT_COLOR,
+				Font = CANCEL_TEXT_FONT,
+				ZIndex = zIndex,
+				Visible = searchAreaActive,
+
+				[Roact.Ref] = function(rbx)
+					if rbx then
+						-- Set initial text on this TextLabel
+						rbx.Text = cancelText
+
+						-- Listen to Text changed events in case of localization
+						-- (this is so we can trigger a resize)
+						if not self.textConnection then
+							local textChangedSignal = rbx:GetPropertyChangedSignal("Text")
+
+							self.textConnection = textChangedSignal:connect(function()
+								self:setState({
+									cancelText = rbx.Text
+								})
+							end)
+						end
+					end
+				end,
+				[Roact.Event.Activated] = function(rbx)
+					self.props.setSearchAreaActive(false)
+				end,
+			}),
+		})
+	else
+		-- Show a search box of a fixed size without any added behavior.
+		-- We don't bother setting SearchAreaActive here since we're not working
+		-- with a modal-style search box (i.e. nothing has to be shown or
+		-- hidden).
+		return Roact.createElement(SearchBox, {
+			anchorPoint = Vector2.new(1, 0.5),
+			position = UDim2.new(1, 0, 0.5, 0),
+			size = UDim2.new(0, SEARCH_BOX_WIDTH, 0, SEARCH_BOX_HEIGHT),
+			zIndex = zIndex,
+			onTextChanged = setSearchText,
+			searchFieldRef = function(rbx)
+				self.searchField = rbx
+			end,
+		})
+	end
+end
+
+function SearchArea:didUpdate(prevProps)
+	local fullWidthSearchBar = self.props.fullWidthSearchBar
+
+	if self.searchField then
+		-- Check if the page was closed so we can reset the search query
+		if not self.props.isPageOpen and prevProps.isPageOpen then
+			-- Spawn new thread so we don't trigger state updates from this
+			-- function
+			spawn(function()
+				-- Reset the entire search area
+				if fullWidthSearchBar then
+					self.props.setSearchAreaActive(false)
+				else
+					self.searchField.Text = ""
+				end
+			end)
+		end
+
+		-- Check if the search area has become active/inactive
+		if fullWidthSearchBar then
+			local searchAreaActive = self.props.searchAreaActive
+			local wasActive = prevProps.searchAreaActive
+
+			if searchAreaActive and not wasActive then
+				self.searchField:CaptureFocus()
+			elseif not searchAreaActive and wasActive then
+				self.searchField.Text = ""
+			end
+		end
+	end
+end
+
+SearchArea = RoactRodux.connect(function(store)
+	local state = store:getState()
+	return {
+		isPageOpen = state.Page.IsOpen,
+		searchAreaActive = state.ConversationsSearch.SearchAreaActive,
+		setSearchAreaActive = function(isActive)
+			store:dispatch(SetSearchAreaActive(isActive))
+		end,
+		setSearchText = function(text)
+			store:dispatch(SetSearchText(text))
+		end,
+	}
+end)(SearchArea)
+
+return SearchArea

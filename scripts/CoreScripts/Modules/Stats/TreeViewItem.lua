@@ -15,7 +15,7 @@ local TreeViewItem = {}
 TreeViewItem.__index = TreeViewItem
 
 
-function TreeViewItem.new(id, parent) 
+function TreeViewItem.new(id, parent)
 	local self = {}
 	setmetatable(self, TreeViewItem)
 
@@ -23,7 +23,7 @@ function TreeViewItem.new(id, parent)
 	self._parent = parent
 	self._children = {}
 	return self
-end  
+end
 
 function TreeViewItem:getValue()
 	return self._value
@@ -49,21 +49,42 @@ function TreeViewItem:getStackDepth()
 	end
 end
 
-function TreeViewItem:setLabelAndValue(label, value) 
+function TreeViewItem:setLabelAndValue(label, value)
 	self._label = label
 	self._value = value
 end
 
-function TreeViewItem:getOrMakeChildById(id) 
+function TreeViewItem:getOrMakeChildById(id)
 	for i, childTreeViewItem in ipairs(self._children) do
-		if (childTreeViewItem:getId() == id) then 
+		if (childTreeViewItem:getId() == id) then
 			return childTreeViewItem
 		end
 	end
-	
+
 	local newChild = TreeViewItem.new(id, self)
 	table.insert(self._children, newChild)
 	return newChild
+end
+
+function TreeViewItem:removeChildren()
+	if not self._children then return end
+	for i, childTreeViewItem in ipairs(self._children) do
+		childTreeViewItem:removeChildren()
+		childTreeViewItem = nil
+	end
+
+	self._id = nil
+	self._parent = nil
+	self._children = nil
+end
+
+function TreeViewItem:removeChild(id)
+	for i, childTreeViewItem in ipairs(self._children) do
+		if (childTreeViewItem:getId() == id) then
+			childTreeViewItem:removeChildren()
+			return
+		end
+	end
 end
 
 return TreeViewItem

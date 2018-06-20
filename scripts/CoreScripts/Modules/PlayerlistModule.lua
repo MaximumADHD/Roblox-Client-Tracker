@@ -4,8 +4,6 @@
   // Written by: jmargh
   // Description: Implementation of in game player list and leaderboard
 ]]
-local XboxToggleVoiceChatHotkey = settings():GetFFlag("XboxToggleVoiceChatHotkey")
-
 local CoreGui = game:GetService('CoreGui')
 local GuiService = game:GetService('GuiService')	-- NOTE: Can only use in core scripts
 local UserInputService = game:GetService('UserInputService')
@@ -435,7 +433,7 @@ if isTenFootInterface then
 end
 
 -- Area to set up Xbox disable voice chat
-if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
+if hasPermissionToVoiceChat then
   local CreateHintActionView = require(RobloxGui.Modules.Shell.HintActionView)
   local voiceChatService = game:GetService('VoiceChatService')
 
@@ -1892,7 +1890,7 @@ local closeListFunc = function(name, state, input)
 
   isOpen = false
   Container.Visible = false
-  if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
+  if hasPermissionToVoiceChat then
     xboxSetShieldVisibility(false)
     xboxDisableHotkeys()
   end
@@ -1906,7 +1904,7 @@ end
 
 setVisible = function(state)
   Container.Visible = state
-  if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
+  if hasPermissionToVoiceChat then
     xboxSetShieldVisibility(state)
   end
   local lastInputType = UserInputService:GetLastInputType()
@@ -1936,7 +1934,7 @@ setVisible = function(state)
       ContextActionService:BindCoreAction("StopAction", noOpFunc, false, Enum.UserInputType.Gamepad1)
       ContextActionService:BindCoreAction("CloseList", closeListFunc, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
     end
-    if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
+    if hasPermissionToVoiceChat then
       xboxEnableHotkeys()
     end
   else
@@ -1946,7 +1944,7 @@ setVisible = function(state)
 
     ContextActionService:UnbindCoreAction("CloseList")
     ContextActionService:UnbindCoreAction("StopAction")
-    if hasPermissionToVoiceChat and XboxToggleVoiceChatHotkey then
+    if hasPermissionToVoiceChat then
       xboxDisableHotkeys()
     end
 

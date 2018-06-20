@@ -38,6 +38,9 @@ local function Initialize()
 	this.TabPosition = 0
 	this.Active = false
 	this.OpenStateChangedCount = 0
+	this.ShouldShowBottomBar = true
+	this.ShouldShowHubBar = true
+	this.IsPageClipped = true
 	local rows = {}
 	local displayed = false
 

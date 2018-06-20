@@ -51,6 +51,8 @@ local function Initialize()
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ResetCharacter"
+	this.ShouldShowBottomBar = false
+	this.ShouldShowHubBar = false
 	
 	local resetCharacterText =  utility:Create'TextLabel'
 	{

@@ -26,8 +26,14 @@ local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
 
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
-local FFlagUseNotificationsLocalization = success and result
+-- [[ FAST FLAGS ]]
+local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
+local FFlagSettingsHubInviteToGame = settings():GetFFlag('SettingsHubInviteToGame')
+local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor')
+local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
+
+local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
+local FFlagEnableResponsiveUIFix = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -41,8 +47,6 @@ local VRService = game:GetService("VRService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
-local enableResponsiveUI = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
 
 --[[ REMOTES ]]
 local GetServerVersionRemote = nil
@@ -70,6 +74,16 @@ local chat = require(RobloxGui.Modules.ChatSelector)
 if utility:IsSmallTouchScreen() or isTenFootInterface then
 	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
 	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
+end
+
+local function GetCorePackagesLoaded(packageList)
+	local CorePackages = game:GetService("CorePackages")
+	for _, moduleName in pairs(packageList) do
+		if not CorePackages:FindFirstChild(moduleName) then
+			return false
+		end
+	end
+	return true
 end
 
 local function GetServerVersionBlocking()
@@ -106,17 +120,29 @@ local function CreateSettingsHub()
 	PoppedMenuEvent.Name = "PoppedMenu"
 	this.PoppedMenu = PoppedMenuEvent.Event
 
+	local function shouldShowHubBar(whichPage)
+		whichPage = whichPage or this.Pages.CurrentPage
+		return whichPage.ShouldShowBottomBar == true
+	end
+
 	local function shouldShowBottomBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
-		if whichPage == this.LeaveGamePage or whichPage == this.ResetCharacterPage then
-			return false
+
+		if not FFlagSettingsHubBarsRefactor then
+			if whichPage == this.LeaveGamePage or whichPage == this.ResetCharacterPage then
+				return false
+			end
 		end
 
 		if utility:IsPortrait() or utility:IsSmallTouchScreen() then
 			return false
 		end
 
-		return true
+		if FFlagSettingsHubBarsRefactor then
+			return whichPage.ShouldShowBottomBar == true
+		else
+			return true
+		end
 	end
 
 	local function setBottomBarBindings()
@@ -405,7 +431,7 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Parent = this.Shield
 		}
-		if enableResponsiveUI then
+		if FFlagEnableResponsiveUIFix then
 			this.MenuListLayout = utility:Create'UIListLayout'
 			{
 				Name = "MenuListLayout",
@@ -789,8 +815,13 @@ local function CreateSettingsHub()
 	local function toggleDevConsole(actionName, inputState, inputObject)
 		if actionName == DEV_CONSOLE_ACTION_NAME then	 -- ContextActionService->F9
 			if inputState and inputState == Enum.UserInputState.Begin then
-				local devConsoleVisible = DeveloperConsoleModule:GetVisibility()
-				DeveloperConsoleModule:SetVisibility(not devConsoleVisible)
+				if FFlagEnableNewDevConsole then
+					local DevConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
+					DevConsoleMaster:ToggleVisibility()
+				else
+					local devConsoleVisible = DeveloperConsoleModule:GetVisibility()
+					DeveloperConsoleModule:SetVisibility(not devConsoleVisible)
+				end
 			end
 		end
 	end
@@ -1035,13 +1066,27 @@ local function CreateSettingsHub()
 			end
 		end
 
+		-- set top & bottom bar visibility
 		if this.BottomButtonFrame then
 			if shouldShowBottomBar(pageToSwitchTo) then
 				setBottomBarBindings()
 			else
 				this.BottomButtonFrame.Visible = false
 			end
-			this.HubBar.Visible = not (pageToSwitchTo == this.LeaveGamePage or pageToSwitchTo == this.ResetCharacterPage)
+
+			if FFlagSettingsHubBarsRefactor then
+				this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
+			else
+				this.HubBar.Visible = not (pageToSwitchTo == this.LeaveGamePage or pageToSwitchTo == this.ResetCharacterPage)
+			end
+		end
+
+		if FFlagSettingsHubBarsRefactor then
+			-- set whether the page should be clipped
+			local isClipped = pageToSwitchTo.IsPageClipped == true
+			this.PageViewClipper.ClipsDescendants = isClipped
+			this.PageView.ClipsDescendants = isClipped
+			this.PageViewInnerFrame.ClipsDescendants = isClipped
 		end
 
 		-- make sure page is visible
@@ -1373,6 +1418,24 @@ local function CreateSettingsHub()
 		this.PlayersPage:SetHub(this)
 	end
 
+	if FFlagSettingsHubInviteToGame then
+		local shareGameCorePackages = {
+			"Roact",
+			"Rodux",
+			"RoactRodux",
+		}
+		if GetCorePackagesLoaded(shareGameCorePackages) then
+			this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePage)
+			this.ShareGamePage:SetHub(this)
+
+			-- Create the embedded Roact app for the ShareGame page
+			-- This is accomplished via a Roact Portal into the ShareGame page frame
+			local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
+			this.ShareGameApp = ShareGameMaster.createApp(this.ShareGamePage.Page)
+			this.ShareGamePage:ConnectToApp(this.ShareGameApp)
+		end
+	end
+	
 	-- page registration
 	if not isTenFootInterface then
 		this:AddPage(this.PlayersPage)
@@ -1386,6 +1449,10 @@ local function CreateSettingsHub()
 	this:AddPage(this.HelpPage)
 	if this.RecordPage then
 		this:AddPage(this.RecordPage)
+	end
+	
+	if FFlagSettingsHubInviteToGame and this.ShareGamePage then
+		this:AddPage(this.ShareGamePage)
 	end
 
 	if not isTenFootInterface then

@@ -14519,6 +14519,21 @@
                     "Tags": [
                         "Asynchronous"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RequestAsync",
+                    "Parameters": [
+                        {
+                            "Name": "requestOptions",
+                            "Type": "Dictionary"
+                        }
+                    ],
+                    "ReturnType": "Dictionary",
+                    "Security": "None",
+                    "Tags": [
+                        "Asynchronous"
+                    ]
                 }
             ],
             "MemoryCategory": "instance/object",
@@ -27060,6 +27075,33 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetUsersAsync",
+                    "Parameters": [
+                        {
+                            "Name": "userIds",
+                            "Type": "Array"
+                        }
+                    ],
+                    "ReturnType": "Variant",
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Asynchronous"
+                    ]
+                }
+            ],
+            "MemoryCategory": "instance/object",
+            "Name": "PresenceService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "instance/object",
             "Name": "ReflectionMetadata",
@@ -32102,6 +32144,20 @@
                         "CanSave": true
                     },
                     "ValueType": "bool"
+                },
+                {
+                    "Category": "General",
+                    "MemberType": "Property",
+                    "Name": "UI Theme",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": "UITheme"
                 },
                 {
                     "Category": "Script Editor Colors",
@@ -42785,6 +42841,19 @@
                 }
             ],
             "Name": "TweenStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Light",
+                    "Value": 0
+                },
+                {
+                    "Name": "Dark",
+                    "Value": 1
+                }
+            ],
+            "Name": "UITheme"
         },
         {
             "Items": [

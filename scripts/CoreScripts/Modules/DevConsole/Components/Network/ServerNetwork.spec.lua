@@ -1,0 +1,16 @@
+return function()
+	local CorePackages = game:GetService("CorePackages")
+	local Roact = require(CorePackages.Roact)
+
+	local DataProvider = require(script.Parent.Parent.DataProvider)
+	local ServerNetwork = require(script.Parent.ServerNetwork)
+
+	it("should create and destroy without errors", function()
+		local element = Roact.createElement(DataProvider, {},{
+			ServerNetwork = Roact.createElement(ServerNetwork)
+		})
+
+		local instance = Roact.reify(element)
+		Roact.teardown(instance)
+	end)
+end

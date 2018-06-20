@@ -9,14 +9,10 @@
 local success, result = pcall(function() return settings():GetFFlag('UsePurchasePromptLocalization') end)
 local FFlagUsePurchasePromptLocalization = success and result
 
-local FFlagEnableNewGamePassEndpoints do
-	local success, result = pcall(function() return settings():GetFFlag"EnableGamePassFunctions" end)
-	FFlagEnableNewGamePassEndpoints = success and result
-end
-
 local FFlagThwartPurchasePromptScams = settings():GetFFlag("ThwartPurchasePromptScams")
 local FFlagThwartPurchasePromptScamsGamepad = settings():GetFFlag("ThwartPurchasePromptScamsGamepad")
 local FFlagDelayPurchasePromptActivation = settings():GetFFlag("DelayPurchasePromptActivation")
+local FFlagFixDesktopRobuxUpsell = settings():GetFFlag("FixDesktopRobuxUpsell")
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -144,18 +140,8 @@ local PURCHASE_STATE = {
 
 local function studioMockPurchasesEnabled()
 	local result = false
-	pcall(function() result = settings():GetFFlag("StudioMockPurchasesEnabled") and settings():GetFFlag("StudioUseMarketplaceApiClient") and game:GetService("RunService"):IsStudio() end)
+	pcall(function() result = game:GetService("RunService"):IsStudio() end)
 	return result
-end
-
-local function useNewMarketplaceMethods()
-	local flagExists, flagValue = false, false
-	if game:GetService("RunService"):IsStudio() then
-		flagExists, flagValue = pcall(function() return settings():GetFFlag("StudioUseMarketplaceApiClient") end)
-	else
-		flagExists, flagValue = pcall(function() return settings():GetFFlag("RCCUseMarketplaceApiClient2") end)
-	end
-	return flagExists and flagValue
 end
 
 local BC_LVL_TO_STRING = {
@@ -619,10 +605,7 @@ local function setInitialPurchaseData(assetId, productId, gamePassId, currencyTy
 	PurchaseData.EquipOnPurchase = equipOnPurchase
 
 	IsPurchasingConsumable = productId ~= nil
-
-	if FFlagEnableNewGamePassEndpoints then
-		IsPurchasingGamePass = gamePassId ~= nil
-	end
+	IsPurchasingGamePass = gamePassId ~= nil
 end
 
 local function setCurrencyData(playerBalance)
@@ -1225,47 +1208,21 @@ local function isFreeItem()
 end
 
 local getPlayerBalance
-if useNewMarketplaceMethods() then
-	getPlayerBalance = function()
-		local success, result = pcall(function()
-			return MarketplaceService:GetRobuxBalance()
-		end)
 
-		if not success then
-			print("PurchasePromptScript: GetRobuxBalance() failed because", result)
-			return nil
-		end
+getPlayerBalance = function()
+    local success, result = pcall(function()
+        return MarketplaceService:GetRobuxBalance()
+    end)
 
-		local balance = {}
-		balance.robux = result
-		balance.tickets = 0
-		return balance
-	end
-else
-	getPlayerBalance = function()
-		local apiPath = platform == Enum.Platform.XBoxOne and 'my/platform-currency-budget' or 'currency/balance'
+    if not success then
+        print("PurchasePromptScript: GetRobuxBalance() failed because", result)
+        return nil
+    end
 
-		local success, result = pcall(function()
-			return HttpRbxApiService:GetAsync(apiPath,
-                Enum.ThrottlingPriority.Default,
-                Enum.HttpRequestType.MarketplaceService)
-		end)
-
-		if not success then
-			print("PurchasePromptScript: getPlayerBalance() failed because", result)
-			return nil
-		end
-
-		if result == '' then return end
-
-		result = HttpService:JSONDecode(result)
-		if platform == Enum.Platform.XBoxOne then
-			result["robux"] = result["Robux"]
-			result["tickets"] = "0"
-		end
-
-		return result
-	end
+    local balance = {}
+    balance.robux = result
+    balance.tickets = 0
+    return balance
 end
 
 local function isNotForSale()
@@ -1338,17 +1295,10 @@ end
 
 -- main validation function
 local function canPurchase(disableUpsell)
-	if useNewMarketplaceMethods() then
-		if not MarketplaceService:PlayerCanMakePurchases(Players.LocalPlayer) then
-			onPurchaseFailed(PURCHASE_FAILED.PROMPT_PURCHASE_ON_GUEST)
-			return false
-		end
-	else
-		if Players.LocalPlayer.UserId < 0 then
-			onPurchaseFailed(PURCHASE_FAILED.PROMPT_PURCHASE_ON_GUEST)
-			return false
-		end
-	end
+    if not MarketplaceService:PlayerCanMakePurchases(Players.LocalPlayer) then
+        onPurchaseFailed(PURCHASE_FAILED.PROMPT_PURCHASE_ON_GUEST)
+        return false
+    end
 
 	if isMarketplaceDown() then 	-- FFlag
 		onPurchaseFailed(PURCHASE_FAILED.IN_GAME_PURCHASE_DISABLED)
@@ -1564,18 +1514,11 @@ local function onAcceptPurchase()
 	end
 
 	local submitPurchase
-	if useNewMarketplaceMethods() then
-		local requestId = HttpService:GenerateGUID(false)
-		submitPurchase = function()
-			return game:GetService("MarketplaceService"):PerformPurchase(IsPurchasingConsumable and Enum.InfoType.Product or Enum.InfoType.Asset, productId, PurchaseData.CurrencyAmount or 0, requestId)
-		end
-	else
-		submitPurchase = function()
-			return HttpRbxApiService:PostAsync(apiPath, params,
-                Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationUrlEncoded,
-                Enum.HttpRequestType.MarketplaceService)
-		end
-	end
+
+    local requestId = HttpService:GenerateGUID(false)
+    submitPurchase = function()
+        return game:GetService("MarketplaceService"):PerformPurchase(IsPurchasingConsumable and Enum.InfoType.Product or Enum.InfoType.Asset, productId, PurchaseData.CurrencyAmount or 0, requestId)
+    end
 
 	local success, result = pcall(submitPurchase)
 	-- retry
@@ -1880,14 +1823,28 @@ MarketplaceService.ServerPurchaseVerification:connect(function(serverResponseTab
 	end
 end)
 
-
 GuiService.BrowserWindowClosed:connect(function()
-	if IsCheckingPlayerFunds then
-		retryPurchase(4)
-	end
+    if FFlagFixDesktopRobuxUpsell then
+        if IsCheckingPlayerFunds then
+            local isPurchasing = retryPurchase(4)
+            if isPurchasing then
+                onAcceptPurchase()
+            else
+                onPurchaseFailed(PURCHASE_FAILED.DEFAULT_ERROR)
+            end
+        else
+            onPurchaseFailed(PURCHASE_FAILED.DID_NOT_BUY_ROBUX)
+        end
 
-	onPurchaseFailed(PURCHASE_FAILED.DID_NOT_BUY_ROBUX)
-	stopPurchaseAnimation()
+        stopPurchaseAnimation()
+    else
+       if IsCheckingPlayerFunds then
+           retryPurchase(4)
+       end
+       
+       onPurchaseFailed(PURCHASE_FAILED.DID_NOT_BUY_ROBUX)
+       stopPurchaseAnimation()
+    end
 end)
 
 if IsNativePurchasing then

@@ -452,7 +452,15 @@ local function CreateCamera()
 	-- there are several cases to consider based on the state of input and camera rotation mode
 	function this:UpdateMouseBehavior()
 		-- first time transition to first person mode or shiftlock
-		if isFirstPerson or self:GetShiftLock() then
+		local camera = workspace.CurrentCamera
+		if camera.CameraType == Enum.CameraType.Scriptable then
+			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			pcall(function() 
+				if GameSettings.RotationType ~= Enum.RotationType.MovementRelative then
+					GameSettings.RotationType = Enum.RotationType.MovementRelative
+				end
+			end)
+		elseif isFirstPerson or self:GetShiftLock() then
 			pcall(function() GameSettings.RotationType = Enum.RotationType.CameraRelative end)
 			if UserInputService.MouseBehavior ~= Enum.MouseBehavior.LockCenter then
 				UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
@@ -1095,6 +1103,10 @@ local function CreateCamera()
 		end
 	end
 
+	local function onWindowFocusReleased()
+		this:ResetInputStates()
+	end
+
 	local lastThumbstickRotate = nil
 	local numOfSeconds = 0.7
 	local currentSpeed = 0
@@ -1189,7 +1201,7 @@ local function CreateCamera()
 		return ZERO_VECTOR2
 	end
 
-	local InputBeganConn, InputChangedConn, InputEndedConn, MenuOpenedConn, ShiftLockToggleConn, GamepadConnectedConn, GamepadDisconnectedConn, TouchActivateConn = nil, nil, nil, nil, nil, nil, nil, nil
+	local InputBeganConn, InputChangedConn, InputEndedConn, WindowUnfocusConn, MenuOpenedConn, ShiftLockToggleConn, GamepadConnectedConn, GamepadDisconnectedConn, TouchActivateConn = nil, nil, nil, nil, nil, nil, nil, nil, nil
 
 	function this:DisconnectInputEvents()
 		if InputBeganConn then
@@ -1204,6 +1216,10 @@ local function CreateCamera()
 			InputEndedConn:disconnect()
 			InputEndedConn = nil
 		end
+		if WindowUnfocusConn then
+			WindowUnfocusConn:disconnect()
+			WindowUnfocusConn = nil
+		end 
 		if MenuOpenedConn then
 			MenuOpenedConn:disconnect()
 			MenuOpenedConn = nil
@@ -1263,6 +1279,8 @@ local function CreateCamera()
 	function this:ResetInputStates()
 		isRightMouseDown = false
 		isMiddleMouseDown = false
+		this.TurningRight = false
+		this.TurningLeft = false
 		OnMousePanButtonReleased() -- this function doesn't seem to actually need parameters
 
 		if UserInputService.TouchEnabled then
@@ -1353,6 +1371,8 @@ local function CreateCamera()
 				OnKeyUp(input, processed)
 			end
 		end)
+
+		WindowUnfocusConn = UserInputService.WindowFocusReleased:connect(onWindowFocusReleased)
 
 		MenuOpenedConn = GuiService.MenuOpened:connect(function()
 			this:ResetInputStates()

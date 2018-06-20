@@ -66,6 +66,7 @@ local GameSettings = Settings.GameSettings
 --[[ END OF SERVICES ]]
 
 --[[ Fast Flags ]]--
+local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 
 --[[ SCRIPT VARIABLES ]]
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -2211,10 +2212,17 @@ local function CreateChat()
             -- allows dev console to be opened on mobile
             -- NOTE: Removed ToggleDevConsole bindable event, so engine no longer handles this
             if string.lower(chattedMessage) == "/console" then
-              local devConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
-              if devConsoleModule then
-                local devConsoleVisible = devConsoleModule:GetVisibility()
-                devConsoleModule:SetVisibility(not devConsoleVisible)
+              if FFlagEnableNewDevConsole then
+                local devConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
+                if devConsoleMaster then
+                    devConsoleMaster.ToggleVisibility()
+                end
+              else
+                local devConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
+                if devConsoleModule then
+                  local devConsoleVisible = devConsoleModule:GetVisibility()
+                  devConsoleModule:SetVisibility(not devConsoleVisible)
+                end
               end
             end
           end
