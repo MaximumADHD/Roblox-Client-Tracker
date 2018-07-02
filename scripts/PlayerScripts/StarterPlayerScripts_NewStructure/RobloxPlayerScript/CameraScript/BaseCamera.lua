@@ -1053,8 +1053,6 @@ function BaseCamera:OnKeyDown(input, processed)
 		end
 	end
 	
-	--print(input.KeyCode,self.panBeginLook,self.keyPanEnabled)
-	
 	if self.panBeginLook == nil and self.keyPanEnabled then
 		if input.KeyCode == Enum.KeyCode.Left then
 			self.turningLeft = true
@@ -1575,9 +1573,9 @@ function BaseCamera:Test()
 	print("BaseCamera:Test()")
 end
 
-function BaseCamera:Update()
-	print("BaseCamera:Update() This is a virtual function that should never be getting called.")
-	return game.Workspace.CurrentCamera.CFrame
+function BaseCamera:Update(dt)
+	warn("BaseCamera:Update() This is a virtual function that should never be getting called.")
+	return game.Workspace.CurrentCamera.CFrame, game.Workspace.CurrentCamera.Focus
 end
 
 return BaseCamera

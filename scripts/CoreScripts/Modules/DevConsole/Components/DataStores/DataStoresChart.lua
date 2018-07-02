@@ -39,12 +39,14 @@ local function constructHeader()
 	})
 	header["upperHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
-		BackgroundColor3 = LineColor
+		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	return Roact.createElement("Frame", {
@@ -78,6 +80,7 @@ end
 
 function DataStoresChart:render()
 	local elements = {}
+	local searchTerm = self.props.searchTerm
 	local layoutOrder = self.props.layoutOrder
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
@@ -94,33 +97,36 @@ function DataStoresChart:render()
 	local currLayoutOrder = 1
 	if datastoreBudget then
 		for name,data in pairs(datastoreBudget) do
-			currLayoutOrder = currLayoutOrder + 1
-			local row = {}
-			row[name] = Roact.createElement(CellLabel,{
-				text = name,
-				size = UDim2.new(1,-ValueCellWidth - CellPadding - ExpandArrowPadding, 1, 0),
-				pos = UDim2.new(0, CellPadding + ExpandArrowPadding, 0, 0),
-			})
+			if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
+				currLayoutOrder = currLayoutOrder + 1
+				local row = {}
+				row[name] = Roact.createElement(CellLabel,{
+					text = name,
+					size = UDim2.new(1,-ValueCellWidth - CellPadding - ExpandArrowPadding, 1, 0),
+					pos = UDim2.new(0, CellPadding + ExpandArrowPadding, 0, 0),
+				})
 
-			row["Data"] = Roact.createElement(CellLabel,{
-				text = data,
-				size = UDim2.new(0, ValueCellWidth - CellPadding, 1, 0),
-				pos = UDim2.new(1, -ValueCellWidth + CellPadding, 0, 0),
-			})
+				row["Data"] = Roact.createElement(CellLabel,{
+					text = data,
+					size = UDim2.new(0, ValueCellWidth - CellPadding, 1, 0),
+					pos = UDim2.new(1, -ValueCellWidth + CellPadding, 0, 0),
+				})
 
-			row["lowerHorizontalLine"] = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, LineWidth),
-				Position = UDim2.new(0, 0, 1, 0),
-				BackgroundColor3 = LineColor,
-			})
+				row["lowerHorizontalLine"] = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, LineWidth),
+					Position = UDim2.new(0, 0, 1, 0),
+					BackgroundColor3 = LineColor,
+					BorderSizePixel = 0,
+				})
 
-			elements[name] = Roact.createElement("Frame",{
-				Size = UDim2.new(1, 0, 0, EntryFrameHeight),
-				BackgroundTransparency = 1,
-				LayoutOrder = currLayoutOrder,
-			}, row)
+				elements[name] = Roact.createElement("Frame",{
+					Size = UDim2.new(1, 0, 0, EntryFrameHeight),
+					BackgroundTransparency = 1,
+					LayoutOrder = currLayoutOrder,
+				}, row)
 
-			componentHeight = componentHeight + EntryFrameHeight
+				componentHeight = componentHeight + EntryFrameHeight
+			end
 		end
 	end
 
@@ -140,6 +146,7 @@ function DataStoresChart:render()
 				Size = UDim2.new(0, LineWidth, 0, componentHeight),
 				Position = UDim2.new(1, -ValueCellWidth, 0, 0),
 				BackgroundColor3 = LineColor,
+				BorderSizePixel = 0,
 			})
 		})
 end

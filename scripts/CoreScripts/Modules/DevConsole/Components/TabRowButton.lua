@@ -1,10 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
-local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
-
-local TabRowPadding = Constants.Padding.TabRow
 
 local HighlightHeight = Constants.TabRowFormatting.HighlightHeight
 local TabRowHeight = Constants.TabRowFormatting.FrameHeight

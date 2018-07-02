@@ -17,6 +17,7 @@ local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess a
 
 local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript3")
 local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
+local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
 
 if FFlagSetGuiInsetInLoadingScript then
 	coroutine.wrap(function()
@@ -612,7 +613,14 @@ function MainGui:GenerateMain()
 			wait()
 		end
 	end
-	screenGui.Parent = game:GetService("CoreGui")
+
+	local CoreGui = game:GetService("CoreGui");
+	screenGui.Parent = CoreGui
+
+	if FFlagLoadingScreenUseLocalizationTable then
+		infoFrame.RootLocalizationTable = CoreGui:FindFirstChild("CoreScriptLocalization")
+	end
+
 	currScreenGui = screenGui
 
 	local function onResized()

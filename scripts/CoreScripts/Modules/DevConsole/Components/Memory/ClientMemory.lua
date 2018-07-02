@@ -18,7 +18,9 @@ local ClientMemory = Roact.Component:extend("ClientMemory")
 
 -- helper function to traverse tree of elements
 local function TreeViewItemTraversal(elementsList, currNode, depth)
-	if not currNode then return end
+	if not currNode then 
+		return
+	end
 
 	local newRootElement = Roact.createElement(StatsTreeComponent, {
 		stat = currNode,
@@ -34,25 +36,27 @@ local function TreeViewItemTraversal(elementsList, currNode, depth)
 	end
 end
 
-local function SearchTreeViewItemTraversal(elementsList, currNode, depth, searchTerm)
+-- search through the tree build the tree up from the valid leaves and up.
+local function SearchTreeViewItemTraversal(elementsList, currNode, depth, searchTerm, searchFound)
 	if not currNode then return end
 
-	local found = string.find(currNode:getId():lower(), searchTerm:lower()) ~= nil
+	local found = searchFound or string.find(currNode:getId():lower(), searchTerm:lower()) ~= nil
 
-	local children = currNode:getChildren()
-	if children then
-		for _, stat in pairs(children) do
-			found = SearchTreeViewItemTraversal(elementsList, stat, depth + 1, searchTerm) or found
-		end
-	end
-
-	if found and depth > 0 then -- to avoid inputting the
+	if found then -- to avoid inputting the root node
 		local newRootElement = Roact.createElement(StatsTreeComponent, {
 			stat = currNode,
 			depth = depth,
 		})
-		elementsList[#elementsList] = newRootElement
+		table.insert(elementsList, newRootElement)
 	end
+
+	local children = currNode:getChildren()
+	if children then
+		for _, stat in pairs(children) do
+			SearchTreeViewItemTraversal(elementsList, stat, depth + 1, searchTerm, found)
+		end
+	end
+
 	return found
 end
 
@@ -90,15 +94,19 @@ local function constructHeader()
 	elements["TopHorizontal"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, 1),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 	elements["LowerHorizontal"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 	elements["vertical"] = Roact.createElement("Frame",{
 		Size = UDim2.new(0, LineWidth, 1, 0),
 		Position = UDim2.new(1, -ValueCellWidth, 0, 0),
+		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	return Roact.createElement("Frame",{
@@ -114,7 +122,7 @@ function ClientMemory:render()
 
 	if self.state.rootTreeViewItem then
 		if searchTerm ~= nil and searchTerm ~= "" then
-			SearchTreeViewItemTraversal(elements, self.state.rootTreeViewItem, 0, searchTerm)
+			SearchTreeViewItemTraversal(elements, self.state.rootTreeViewItem, 0, searchTerm, false)
 		else
 			TreeViewItemTraversal(elements, self.state.rootTreeViewItem, 0)
 		end

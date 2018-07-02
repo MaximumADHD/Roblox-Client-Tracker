@@ -57,7 +57,7 @@ local LegacyCamera = require(script:WaitForChild("LegacyCamera"))
 
 -- Load character-occlusion modules
 local Invisicam = require(script:WaitForChild("Invisicam"))
-local Poppercam = require(script:WaitForChild("Poppercam"))
+local Poppercam = require(script:WaitForChild("Poppercam_Classic"))
 
 -- Load the near-field character transparency controller
 local TransparencyController = require(script:WaitForChild("TransparencyController"))
@@ -199,7 +199,6 @@ end
 -- Next, if userCameraCreator is passed in, that is used as the cameraCreator
 local function ActivateCameraController( cameraMovementMode, legacyCameraType )
 	
-	--print ("ActivateCameraController cameraMovementMode: ",cameraMovementMode," legacyCameraType: ",legacyCameraType)
 	local newCameraCreator = nil
 	
 	if legacyCameraType~=nil then
@@ -285,8 +284,6 @@ local function ActivateCameraController( cameraMovementMode, legacyCameraType )
 			activeCameraController:SetCameraType(legacyCameraType)
 		end
 	end
-	
-	--print("After - active: ",activeCameraController," new: ",newCameraController)
 end
 
 -- Note: The active transparency controller could be made to listen for this event itself.
@@ -434,7 +431,7 @@ local function Update(dt)
 	local newCameraFocus = nil
 	
 	if activeCameraController then
-		newCameraCFrame, newCameraFocus = activeCameraController:Update()
+		newCameraCFrame, newCameraFocus = activeCameraController:Update(dt)
 		activeCameraController:ApplyVRTransform()
 	else
 		newCameraCFrame = game.Workspace.CurrentCamera.CFrame
@@ -509,7 +506,6 @@ local function OnPlayerAdded(player)
 end
 
 local function OnMouseLockToggled()
-	--print("OnMouseLockToggled")
 	if activeMouseLockController then
 		local mouseLocked = activeMouseLockController:GetIsMouseLocked()
 		local mouseLockOffset = activeMouseLockController:GetMouseLockOffset()

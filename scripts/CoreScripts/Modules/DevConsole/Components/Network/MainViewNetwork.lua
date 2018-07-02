@@ -79,11 +79,13 @@ function MainViewNetwork:render()
 	if isClientView then
 		elements["ClientNetwork"] = Roact.createElement(ClientNetwork, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})
 	else
 		elements["ServerNetwork"] = Roact.createElement(ServerNetwork, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})
 	end

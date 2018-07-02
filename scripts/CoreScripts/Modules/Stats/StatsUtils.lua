@@ -127,7 +127,7 @@ if FFlagUseNotificationsLocalization then
   strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
 else
   strSentNetwork = "Sent\n(Network)"
-  strReceivedNetwok = "Received\n(Network)"
+  strReceivedNetwork = "Received\n(Network)"
 end
 
 StatsUtils.TypeToName = {

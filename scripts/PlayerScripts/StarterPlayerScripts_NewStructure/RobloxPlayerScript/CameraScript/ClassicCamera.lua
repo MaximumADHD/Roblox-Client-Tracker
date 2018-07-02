@@ -56,7 +56,6 @@ function ClassicCamera:Test()
 end
 
 function ClassicCamera:Update()
-	--self:ProcessTweens()
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
 	
@@ -71,7 +70,6 @@ function ClassicCamera:Update()
 	local isClimbing = humanoid and humanoid:GetState() == Enum.HumanoidStateType.Climbing
 	
 	if self.lastUpdate == nil or timeDelta > 1 then
-		--self:ResetCameraLook()
 		self.lastCameraTransform = nil
 	end	
 	
@@ -223,7 +221,7 @@ function ClassicCamera:Update()
 			newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, self:GetCameraHeight(), 0)
 		end
 
-		self.lastCameraTransform = camera.CFrame
+		self.lastCameraTransform = newCameraCFrame
 		self.lastCameraFocus = newCameraFocus
 		if (isInVehicle or isOnASkateboard) and cameraSubject:IsA('BasePart') then
 			self.lastSubjectCFrame = cameraSubject.CFrame

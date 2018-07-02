@@ -63,11 +63,13 @@ function NetworkSummary:render()
 	summaryHeader["UpperHorizontalLine"] = Roact.createElement("Frame",{
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 	summaryHeader["LowerHorizontalLine"] = Roact.createElement("Frame",{
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	for ind, name in ipairs(SummaryHeaderNames) do
@@ -132,9 +134,9 @@ function NetworkSummary:render()
 				Size = UDim2.new(1, 0, 0, LineWidth),
 				Position = UDim2.new(0, 0, 1, 0),
 				BackgroundColor3 = LineColor,
+				BorderSizePixel = 0,
 			}),
 		})
-
 	end
 
 	local summaryHeight = entryCount * EntryFrameHeight + HeaderFrameHeight
@@ -154,6 +156,7 @@ function NetworkSummary:render()
 				Size = UDim2.new(0, LineWidth, 0, summaryHeight),
 				Position = offset,
 				BackgroundColor3 = LineColor,
+				BorderSizePixel = 0,
 			})
 		end
 	end

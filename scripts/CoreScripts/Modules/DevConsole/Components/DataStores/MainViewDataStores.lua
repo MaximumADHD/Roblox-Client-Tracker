@@ -56,6 +56,7 @@ function MainViewDataStores:render()
 
 		DataStores = Roact.createElement(DataStoresChart, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})
 	})

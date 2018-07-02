@@ -224,7 +224,7 @@ content/scripts/CoreScripts/CoreScripts/AvatarContextMenu.lua
 [11529 bytes]
 
 content/scripts/CoreScripts/CoreScripts/BlockPlayerPrompt.lua
-[6771 bytes]
+[6854 bytes]
 
 content/scripts/CoreScripts/CoreScripts/ContextActionTouch.lua
 [8991 bytes]
@@ -266,7 +266,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[28666 bytes]
+[28945 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -389,7 +389,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Actions/UpdateAveragePing.lua
 [167 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsChart.lua
-[6628 bytes]
+[6885 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsChart.spec.lua
 [533 bytes]
@@ -398,7 +398,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionB
 [2554 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/MainViewActionBindings.lua
-[2689 bytes]
+[2718 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/MainViewActionBindings.spec.lua
 [883 bytes]
@@ -431,7 +431,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DataProvider.lua
 [1418 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresChart.lua
-[4945 bytes]
+[5204 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresChart.spec.lua
 [517 bytes]
@@ -440,7 +440,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresD
 [1662 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/MainViewDataStores.lua
-[2612 bytes]
+[2641 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/MainViewDataStores.spec.lua
 [861 bytes]
@@ -452,7 +452,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleTopBar.spec.
 [875 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.lua
-[7174 bytes]
+[7185 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.spec.lua
 [1314 bytes]
@@ -500,7 +500,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Log/ServerLog.spec.lua
 [712 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ClientMemory.lua
-[4810 bytes]
+[5018 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ClientMemory.spec.lua
 [505 bytes]
@@ -509,13 +509,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ClientMemoryDat
 [3303 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MainViewMemory.lua
-[3979 bytes]
+[4037 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MainViewMemory.spec.lua
 [931 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ServerMemory.lua
-[4399 bytes]
+[5570 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ServerMemory.spec.lua
 [507 bytes]
@@ -524,13 +524,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ServerMemoryDat
 [4266 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/StatsTreeComponent.lua
-[2772 bytes]
+[2422 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/StatsTreeComponent.spec.lua
 [566 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetwork.lua
-[2706 bytes]
+[2779 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetwork.spec.lua
 [509 bytes]
@@ -539,25 +539,25 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetworkD
 [3795 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/MainViewNetwork.lua
-[3918 bytes]
+[3976 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/MainViewNetwork.spec.lua
 [877 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChart.lua
-[5934 bytes]
+[7523 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChart.spec.lua
 [373 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkSummary.lua
-[5361 bytes]
+[5459 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkSummary.spec.lua
 [379 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetwork.lua
-[3035 bytes]
+[3108 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetwork.spec.lua
 [509 bytes]
@@ -566,13 +566,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetworkD
 [4056 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/MainViewScripts.lua
-[3763 bytes]
+[3792 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/MainViewScripts.spec.lua
 [849 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScripts.lua
-[6677 bytes]
+[6930 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScripts.spec.lua
 [533 bytes]
@@ -587,13 +587,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/SearchBar.spec.lua
 [364 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/MainViewServerJobs.lua
-[2611 bytes]
+[2640 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/MainViewServerJobs.spec.lua
 [857 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.lua
-[6007 bytes]
+[6262 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.spec.lua
 [517 bytes]
@@ -602,13 +602,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsD
 [1447 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/MainViewServerStats.lua
-[2632 bytes]
+[2661 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/MainViewServerStats.spec.lua
 [867 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsChart.lua
-[4874 bytes]
+[5134 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsChart.spec.lua
 [521 bytes]
@@ -616,14 +616,20 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStat
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsData.lua
 [1829 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Components/TabDropDown.lua
+[3633 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/TabDropDown.spec.lua
+[370 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowButton.lua
-[1540 bytes]
+[1438 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowButton.spec.lua
 [373 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowContainer.lua
-[3348 bytes]
+[3712 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowContainer.spec.lua
 [701 bytes]
@@ -632,7 +638,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Config.lua
 [352 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Constants.lua
-[6131 bytes]
+[6109 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Immutable.lua
 [2476 bytes]
@@ -713,7 +719,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Signal.lua
 [993 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsoleMaster.lua
-[7494 bytes]
+[7574 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
 [102660 bytes]
@@ -734,13 +740,13 @@ content/scripts/CoreScripts/Modules/NewChat.lua
 [10439 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerDropDown.lua
-[23614 bytes]
+[24928 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[69287 bytes]
+[69537 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
-[1187 bytes]
+[1268 bytes]
 
 content/scripts/CoreScripts/Modules/PromptCreator.lua
 [24604 bytes]
@@ -1151,7 +1157,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGamePage.lua
 [2351 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsHub.lua
-[49919 bytes]
+[51472 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/SettingsPageFactory.lua
 [10722 bytes]
@@ -1205,7 +1211,7 @@ content/scripts/CoreScripts/Modules/Stats/StatsTextPanel.lua
 [7765 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
-[9218 bytes]
+[9219 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
 [4027 bytes]
@@ -1259,7 +1265,7 @@ content/scripts/CoreScripts/Modules/VR/VRHub.lua
 [5106 bytes]
 
 content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
-[7940 bytes]
+[8702 bytes]
 
 content/scripts/CoreScripts/ServerStarterScript.lua
 [3092 bytes]
@@ -1298,7 +1304,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/Class
 [6792 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FixedCamera.lua
-[1411 bytes]
+[1404 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/FollowCamera.lua
 [6966 bytes]
@@ -1316,7 +1322,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/VRCam
 [8137 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/WatchCamera.lua
-[1884 bytes]
+[1737 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ShiftLockController.lua
 [6079 bytes]
@@ -1370,10 +1376,10 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [276 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript.lua
-[22068 bytes]
+[21843 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/BaseCamera.lua
-[54039 bytes]
+[54011 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/BaseOcclusion.lua
 [1382 bytes]
@@ -1382,22 +1388,22 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [4082 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/ClassicCamera.lua
-[9286 bytes]
+[9235 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Invisicam.lua
-[20610 bytes]
+[20502 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/LegacyCamera.lua
-[5966 bytes]
+[5776 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/MouseLockController.lua
 [6800 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/OrbitalCamera.lua
-[19896 bytes]
+[18213 bytes]
 
-content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam.rbxm
-[11943 bytes]
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam.lua
+[7920 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Rotate.lua
 [1074 bytes]
@@ -1425,6 +1431,12 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/Popper/Blacklist.lua
 [1065 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam_Classic.lua
+[5564 bytes]
+
+content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/TransparencyController.lua
+[5962 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript.lua
 [12012 bytes]
@@ -1545,6 +1557,30 @@ content/textures/advCursor-white.png
 
 content/textures/AnchorCursor.png
 [1150 bytes]
+
+content/textures/AnimationEditor/button_zoom_default_left.png
+[331 bytes]
+
+content/textures/AnimationEditor/button_zoom_default_left@2x.png
+[552 bytes]
+
+content/textures/AnimationEditor/button_zoom_default_right.png
+[331 bytes]
+
+content/textures/AnimationEditor/button_zoom_default_right@2x.png
+[552 bytes]
+
+content/textures/AnimationEditor/button_zoom_hoverpressed_left.png
+[314 bytes]
+
+content/textures/AnimationEditor/button_zoom_hoverpressed_left@2x.png
+[546 bytes]
+
+content/textures/AnimationEditor/button_zoom_hoverpressed_right.png
+[314 bytes]
+
+content/textures/AnimationEditor/button_zoom_hoverpressed_right@2x.png
+[546 bytes]
 
 content/textures/ArrowCursor.png
 [232 bytes]
@@ -1731,6 +1767,15 @@ content/textures/GlueCursor.png
 
 content/textures/gradient.png
 [174811 bytes]
+
+content/textures/grid16.png
+[3917 bytes]
+
+content/textures/grid2.png
+[3313 bytes]
+
+content/textures/grid4.png
+[3764 bytes]
 
 content/textures/HingeCursor.png
 [467 bytes]
@@ -2473,6 +2518,9 @@ content/textures/ui/icon_OBC-16.png
 content/textures/ui/icon_placeowner.png
 [1127 bytes]
 
+content/textures/ui/icon_star-16.png
+[287 bytes]
+
 content/textures/ui/icon_TBC-16.png
 [1054 bytes]
 
@@ -2592,6 +2640,24 @@ content/textures/ui/LuaApp/9-slice/gr-btn-white-3px-pressed@2x.png
 
 content/textures/ui/LuaApp/9-slice/gr-btn-white-3px-pressed@3x.png
 [570 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-loading-indicator.png
+[120 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-loading-indicator@2x.png
+[172 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-loading-indicator@3x.png
+[237 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-search.png
+[363 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-search@2x.png
+[870 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-search@3x.png
+[1501 bytes]
 
 content/textures/ui/LuaApp/9-slice/gr-shadow.png
 [822 bytes]
@@ -2881,15 +2947,6 @@ content/textures/ui/LuaApp/icons/ic-back@2x.png
 content/textures/ui/LuaApp/icons/ic-back@3x.png
 [395 bytes]
 
-content/textures/ui/LuaApp/icons/ic-back-android.png
-[191 bytes]
-
-content/textures/ui/LuaApp/icons/ic-back-android@2x.png
-[318 bytes]
-
-content/textures/ui/LuaApp/icons/ic-back-android@3x.png
-[463 bytes]
-
 content/textures/ui/LuaApp/icons/ic-bc.png
 [607 bytes]
 
@@ -3150,6 +3207,15 @@ content/textures/ui/LuaApp/icons/ic-ROBUX@2x.png
 
 content/textures/ui/LuaApp/icons/ic-ROBUX@3x.png
 [1427 bytes]
+
+content/textures/ui/LuaApp/icons/ic-search.png
+[676 bytes]
+
+content/textures/ui/LuaApp/icons/ic-search@2x.png
+[1425 bytes]
+
+content/textures/ui/LuaApp/icons/ic-search@3x.png
+[2212 bytes]
 
 content/textures/ui/LuaApp/icons/ic-tbc.png
 [663 bytes]
@@ -3669,6 +3735,15 @@ content/textures/ui/LuaChat/icons/ic-group@2x.png
 
 content/textures/ui/LuaChat/icons/ic-group@3x.png
 [1552 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group-16x16.png
+[431 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group-16x16@2x.png
+[1000 bytes]
+
+content/textures/ui/LuaChat/icons/ic-group-16x16@3x.png
+[1489 bytes]
 
 content/textures/ui/LuaChat/icons/ic-info.png
 [296 bytes]

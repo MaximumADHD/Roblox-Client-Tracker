@@ -65,12 +65,14 @@ local function constructHeader()
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 0, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	return Roact.createElement("Frame", {
@@ -114,12 +116,14 @@ local function constructScriptEntry(scriptName, scriptData)
 	row["upperHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	row["lowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	return Roact.createElement("Frame",{
@@ -152,6 +156,7 @@ end
 
 function ServerScripts:render()
 	local elements = {}
+	local searchTerm = self.props.searchTerm
 	local layoutOrder = self.props.layoutOrder
 
 	local serverData = self.state.serverScriptsData
@@ -166,7 +171,9 @@ function ServerScripts:render()
 
 	for i,v in pairs(serverData) do
 		if v then
-			table.insert(elements, constructScriptEntry(i,v)) -- currently all entries in scripts are active
+			if not searchTerm or string.find(i:lower(), searchTerm:lower()) ~= nil then
+				table.insert(elements, constructScriptEntry(i,v)) -- currently all entries in scripts are active
+			end
 		end
 	end
 
@@ -187,6 +194,7 @@ function ServerScripts:render()
 			Size = UDim2.new(0, LineWidth, 1, 0),
 			Position = verticalOffsets[i],
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		})
 	end
 

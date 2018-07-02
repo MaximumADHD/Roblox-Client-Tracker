@@ -147,13 +147,6 @@ function Invisicam.new()
 end
 
 function Invisicam:Enable(enable)
-	-- Debug
-	if enable then
-		print("Enabling Invisicam")	
-	else
-		print("Disabling Invisicam")
-	end
-	
 	self.enabled = enable
 	
 	if not enable then

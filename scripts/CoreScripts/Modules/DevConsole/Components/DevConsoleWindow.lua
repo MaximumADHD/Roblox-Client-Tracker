@@ -104,7 +104,7 @@ function DevConsoleWindow:render()
 		size = UDim2.new(1, 0, 1, 0)
 
 		windowPos = UDim2.new(0, 16, 0, 0)
-		windowSize = UDim2.new(1, -32, 0, 0)
+		windowSize = UDim2.new(1, -32, 1, 0)
 
 		borderSizePixel = 0
 	end
@@ -170,6 +170,8 @@ function DevConsoleWindow:render()
 		elements["TabRow"] = Roact.createElement(TabRowContainer, {
 			LayoutOrder = 2,
 			tabList = tabList,
+			windowWidth = size.X.Offset,
+			formFactor = formFactor,
 		})
 
 		if tabList and currTabIndex > 0 then
@@ -181,9 +183,7 @@ function DevConsoleWindow:render()
 		local window = Roact.createElement("Frame", {
 			Size = windowSize,
 			Position = windowPos,
-			Size = size,
 			Transparency = 1,
-			ZIndex = 9,
 		},elements)
 
 		return Roact.createElement("Frame", {
@@ -202,7 +202,6 @@ function DevConsoleWindow:render()
 				Position = UDim2.new(1, 0, 1, 0),
 				Size = UDim2.new(0, 16, 0, 16),
 				BackgroundColor3 = Color3.new(0, 0, 0),
-				ZIndex = 10,
 				Draggable = true,
 
 				[Roact.Event.InputBegan] = self.resizeInputBegan,

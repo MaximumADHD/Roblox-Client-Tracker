@@ -43,6 +43,7 @@ end
 
 function ClientNetwork:render()
 	local layoutOrder = self.props.layoutOrder
+	local searchTerm = self.props.searchTerm
 
 	local httpSummaryTable = self.state.httpSummaryTable
 	local httpEntryList = self.state.httpEntryList
@@ -70,6 +71,7 @@ function ClientNetwork:render()
 			Entries = Roact.createElement(NetworkChart,{
 				httpEntryList = httpEntryList,
 				summaryHeight = summaryHeight,
+				searchTerm = searchTerm,
 			})
 		})
 end

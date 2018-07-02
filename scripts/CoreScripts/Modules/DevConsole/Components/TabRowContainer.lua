@@ -5,10 +5,13 @@ local TextService = game:GetService("TextService")
 
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 
-local TabRowButton = require(script.Parent.Parent.Components.TabRowButton)
+local TabRowButton = require(script.Parent.TabRowButton)
+local TabDropDown = require(script.Parent.TabDropDown)
 
 local Constants = require(script.Parent.Parent.Constants)
 local tabBarHeight = Constants.TabRowFormatting.FrameHeight
+local tabDropDownWidth = Constants.TabRowFormatting.TabDropDownWidth
+local tabDropDownHeight = Constants.TabRowFormatting.TabDropDownHeight
 
 local TabRowContainer = Roact.Component:extend("TabRowContainer")
 
@@ -42,23 +45,6 @@ function TabRowContainer:init()
 		totalTabCount = count,
 		currContainerWidth = 0
 	}
-
-	self.attachListener = function(ref)
-		if not self.absSizeListener then
-			local signal = ref:GetPropertyChangedSignal("AbsoluteSize")
-			self.absSizeListener = signal:Connect( function()
-				self.onSizeChanged(ref.AbsoluteSize)
-			end)
-		elseif ref == nil then
-			self.absSizeListener:Disconnect()
-		end
-	end
-
-	self.onSizeChanged = function(abs)
-		self:setState({
-			currContainerWidth = abs.X
-		})
-	end
 end
 
 function TabRowContainer:render()
@@ -68,14 +54,35 @@ function TabRowContainer:render()
 	local textWidths = self.state.textWidths
 	local totalTextLength = self.state.totalTextLength
 	local totalTabCount = self.state.totalTabCount
-	local currContainerWidth = self.state.currContainerWidth
+
+	local formFactor = self.props.formFactor
+	local currWindowWidth = self.props.windowWidth
 
 	local nodes = {}
 
-	local padding = (currContainerWidth - totalTextLength)  / totalTabCount
+	local padding = (currWindowWidth - totalTextLength)  / totalTabCount
 
-	if padding < 0 then
-		-- do drop down menus
+	if (formFactor ~= Constants.FormFactor.Large) or
+		(padding < 0 and currWindowWidth > 0) then
+		local dropdownSize = UDim2.new()
+		if formFactor == Constants.FormFactor.Large then
+			dropdownSize = UDim2.new(0, tabDropDownWidth, 0, tabDropDownHeight)
+		end
+		-- hacky way to reformat ui for mobile
+		return Roact.createElement("Frame",{
+			Size = dropdownSize,
+			Transparency = 1,
+			LayoutOrder = 2,
+		}, {
+			button = Roact.createElement(TabDropDown, {
+				tabList = tabs,
+				currTabIndex = currTabIndex,
+				textWidths = textWidths,
+				onTabButtonClicked = function(tabIndex)
+					self:onTabButtonClicked(tabIndex)
+				end
+			})
+		})
 	end
 
 	if tabs then
@@ -106,8 +113,6 @@ function TabRowContainer:render()
 		Size = UDim2.new(1, 0, 0, tabBarHeight),
 		Transparency = 1,
 		LayoutOrder = 2,
-
-		[Roact.Ref] = self.attachListener,
 	}, nodes)
 end
 

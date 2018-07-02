@@ -56,6 +56,7 @@ function MainViewServerJobs:render()
 
 		ServerJobs = Roact.createElement(ServerJobsChart, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})
 	})

@@ -18,6 +18,8 @@ local GameSettings = Settings.GameSettings
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
+local FFlagTheStarsAreBright = settings():GetFFlag("TheStarsAreBright")
+
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
 	-- because it caused a bug where the local players name would show as Player in game.
@@ -167,6 +169,7 @@ local ABUSES = {
 local CHAT_ICON = 'rbxasset://textures/ui/chat_teamButton.png'
 local ADMIN_ICON = 'rbxasset://textures/ui/icon_admin-16.png'
 local INTERN_ICON = 'rbxasset://textures/ui/icon_intern-16.png'
+local STAR_ICON = 'rbxasset://textures/ui/icon_star-16.png'
 local PLACE_OWNER_ICON = 'rbxasset://textures/ui/icon_placeowner.png'
 local BC_ICON = 'rbxasset://textures/ui/icon_BC-16.png'
 local TBC_ICON = 'rbxasset://textures/ui/icon_TBC-16.png'
@@ -234,6 +237,8 @@ local function getCustomPlayerIcon(player)
     return ADMIN_ICON
   elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
     return INTERN_ICON
+  elseif FFlagTheStarsAreBright and PlayerPermissionsModule.IsPlayerStarAsync(player) then
+    return STAR_ICON
   end
 end
 

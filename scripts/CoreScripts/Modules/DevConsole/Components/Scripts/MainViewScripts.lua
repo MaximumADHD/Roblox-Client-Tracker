@@ -93,6 +93,7 @@ function MainViewScripts:render()
 
 		ServerScripts = Roact.createElement(ServerScripts, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		}),
 	})

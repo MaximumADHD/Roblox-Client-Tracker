@@ -10,8 +10,6 @@ local CellPadding = Constants.MemoryFormatting.CellPadding
 local EntryFrameHeight = Constants.MemoryFormatting.EntryFrameHeight
 
 local CellLabel = require(script.Parent.Parent.Parent.Components.CellLabel)
-local ExpandableRow = require(script.Parent.Parent.Parent.Components.ExpandableRow)
-local LineGraph = require(script.Parent.Parent.Parent.Components.LineGraph)
 
 local StatsTreeComponent = Roact.Component:extend("StatsTreeComponent")
 
@@ -39,7 +37,6 @@ function StatsTreeComponent:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, componentHeight),
 		BackgroundTransparency = 1,
-		BackgroundColor3 = LineColor,
 	}, {
 		id = Roact.createElement(CellLabel, {
 			text = id,
@@ -56,29 +53,23 @@ function StatsTreeComponent:render()
 		horizonal1 = Roact.createElement("Frame", {
 			Size = UDim2.new(1, -offset , 0, LineWidth),
 			Position = UDim2.new(0, offset, 0, 0),
+			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
 
 		horizonal2 = Roact.createElement("Frame", {
 			Size = UDim2.new(1, -offset, 0, LineWidth),
 			Position = UDim2.new(0, offset, 1, 0),
+			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
 
 		vertical = Roact.createElement("Frame",{
 			Size = UDim2.new(0, 1, 1, 0),
 			Position = UDim2.new(1, -ValueCellWidth, 0, 0),
+			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
-
-		rowButton = Roact.createElement(ExpandableRow,{
-			size = UDim2.new(1, 0, 0, EntryFrameHeight),
-			pos = UDim2.new(0, offset, 0, 0),
-			ifNowExpanded = function(isNowExpanded)
-				self:setState({
-					isExpanded = isNowExpanded
-				})
-			end,
-		}),
-
-		graph = self.state.isExpanded and Roact.createElement(LineGraph)
 	})
 end
 

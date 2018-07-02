@@ -220,7 +220,6 @@ function OrbitalCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	print("OrbitalCamera SetCameraToSubjectDistance ",desiredSubjectDistance)
 	local player = PlayersService.LocalPlayer
 	if player then
-		print("OrbitalCamera clamping ",self.minDistance,self.maxDistance)
 		self.currentSubjectDistance = Util.Clamp(self.minDistance, self.maxDistance, desiredSubjectDistance)
 		
 		-- OrbitalCamera is not allowed to go into the first-person range
@@ -296,7 +295,7 @@ end
 
 
 -- [[ Update ]]--
-function OrbitalCamera:Update()
+function OrbitalCamera:Update(dt)
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
 	local userPanningTheCamera = (self.UserPanningTheCamera == true)
@@ -356,38 +355,6 @@ function OrbitalCamera:Update()
 		if self.gamepadDollySpeedMultiplier ~= 1 then
 			self:SetCameraToSubjectDistance(self.currentSubjectDistance * self.gamepadDollySpeedMultiplier)
 		end
-		-- Auto rotate to align with vehicle doesn't really work for OrbitalCamera and it's being removed anyways
---		if not userPanningTheCamera and self.LastCameraTransform then
---			local isInFirstPerson = self:IsInFirstPerson()
---			if (isInVehicle or isOnASkateboard) and self.lastUpdate and humanoid and humanoid.Torso then
---				if isInFirstPerson then
---					if self.LastSubjectCFrame and (isInVehicle or isOnASkateboard) and cameraSubject:IsA('BasePart') then
---						local y = -1 * Util.GetAngleBetweenXZVectors(self.lastSubjectCFrame.lookVector, cameraSubject.CFrame.lookVector)
---						if Util.IsFinite(y) then
---							self.rotateInput = self.rotateInput + Vector2.new(y, 0)
---						end
---						tweenSpeed = 0
---					end
---				elseif not userRecentlyPannedCamera then
---					local forwardVector = humanoid.RootPart.CFrame.lookVector
---					if isOnASkateboard then
---						forwardVector = cameraSubject.CFrame.lookVector
---					end
---					
---					tweenSpeed = Util.Clamp(0, tweenMaxSpeed, tweenSpeed + tweenAcceleration * timeDelta)
---
---					local percent = Util.Clamp(0, 1, tweenSpeed * timeDelta)
---					if self:IsInFirstPerson() then
---						percent = 1
---					end
---					
---					local y = findAngleBetweenXZVectors(forwardVector, self:GetCameraLook())
---					if IsFinite(y) and math_abs(y) > 0.0001 then
---						self.RotateInput = self.RotateInput + Vector2.new(y * percent, 0)
---					end
---				end
---			end
---		end
 		
 		local VREnabled = VRService.VREnabled
 		newCameraFocus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame.new(subjectPosition)
@@ -404,7 +371,6 @@ function OrbitalCamera:Update()
 				
 				-- Note that CalculateNewLookVector is overriden from BaseCamera
 				vecToSubject = self:CalculateNewLookVector(vecToSubject.unit * X1_Y0_Z1, Vector2.new(self.rotateInput.x, 0)) * desiredDist
-				
 				
 				local newPos = cameraFocusP - vecToSubject
 				local desiredLookDir = camera.CFrame.lookVector
@@ -426,9 +392,6 @@ function OrbitalCamera:Update()
 				self.curAzimuthRad = (self.curAzimuthRad ~= 0) and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU)) or 0
 			end
 
-			-- Not sure why this is here
-			--self.currentSubjectDistance = Util.Clamp(self.minDistance, self.maxDistance, self.currentSubjectDistance)
-			
 			self.curElevationRad = Util.Clamp(self.minElevationRad, self.maxElevationRad, self.curElevationRad + self.rotateInput.y)
 			
 			local cameraPosVector = self.currentSubjectDistance * ( CFrame.fromEulerAnglesYXZ( -self.curElevationRad, self.curAzimuthRad, 0 ) * UNIT_Z ) 

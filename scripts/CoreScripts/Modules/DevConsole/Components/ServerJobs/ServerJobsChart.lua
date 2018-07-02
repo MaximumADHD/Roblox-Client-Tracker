@@ -77,6 +77,7 @@ end
 
 function ServerJobsChart:render()
 	local elements = {}
+	local searchTerm = self.props.searchTerm
 	local layoutOrder = self.props.layoutOrder
 
 	local serverJobsList = self.state.serverJobsList
@@ -104,40 +105,45 @@ function ServerJobsChart:render()
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 0, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	local numEntries = 0
 	for name,data in pairs(serverJobsList) do
-		numEntries = numEntries + 1
-		local entry = {}
-		entry[name] = Roact.createElement(CellLabel,{
-			text = name,
-			size = headerCellSize[1],
-			pos = cellOffset[1],
-		})
-		for i = 1,#data do
-			entry[ChartHeaderNames[i+1]] = Roact.createElement(CellLabel,{
-				text = ColumnTransformFunc[i](data[i]),
-				size = headerCellSize[i + 1],
-				pos = cellOffset[i + 1],
+		if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
+			numEntries = numEntries + 1
+			local entry = {}
+			entry[name] = Roact.createElement(CellLabel,{
+				text = name,
+				size = headerCellSize[1],
+				pos = cellOffset[1],
 			})
-		end
-		entry["lowerHorizontalLine"] = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, LineWidth),
-			Position = UDim2.new(0, 0, 1, 0),
-			BackgroundColor3 = LineColor,
-		})
+			for i = 1,#data do
+				entry[ChartHeaderNames[i+1]] = Roact.createElement(CellLabel,{
+					text = ColumnTransformFunc[i](data[i]),
+					size = headerCellSize[i + 1],
+					pos = cellOffset[i + 1],
+				})
+			end
+			entry["lowerHorizontalLine"] = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, LineWidth),
+				Position = UDim2.new(0, 0, 1, 0),
+				BackgroundColor3 = LineColor,
+				BorderSizePixel = 0,
+			})
 
-		elements[name] = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, EntryFrameHeight),
-			BackgroundTransparency = 1,
-		}, entry)
+			elements[name] = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, EntryFrameHeight),
+				BackgroundTransparency = 1,
+			}, entry)
+		end
 	end
 
 	local finalFrame = {}
@@ -166,6 +172,7 @@ function ServerJobsChart:render()
 				Size = UDim2.new(0, LineWidth, 1, 0),
 				Position = offset,
 				BackgroundColor3 = LineColor,
+				BorderSizePixel = 0,
 			})
 		end
 	end

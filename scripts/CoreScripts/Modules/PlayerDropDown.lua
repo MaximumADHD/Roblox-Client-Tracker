@@ -12,6 +12,7 @@ local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local PlayersService = game:GetService('Players')
 local StarterGui = game:GetService("StarterGui")
 local AnalyticsService = game:GetService("AnalyticsService")
+local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 
 --[[ Fast Flags ]]--
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
@@ -26,6 +27,8 @@ end
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagHandlePlayerBlockListsInternalPermissive = settings():GetFFlag('HandlePlayerBlockListsInternalPermissive')
+
 local function LocalizedGetString(key, rtv)
 	pcall(function()
 		local LocalizationService = game:GetService("LocalizationService")
@@ -65,11 +68,15 @@ end)
 
 --[[ Remotes ]]--
 local RemoteEvent_NewFollower = nil
+local RemoteEvent_UpdatePlayerBlockList = nil
 
 spawn(function()
-	local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 	RemoteEvent_NewFollower = RobloxReplicatedStorage:WaitForChild('NewFollower', 86400) or RobloxReplicatedStorage:WaitForChild('NewFollower')
+	if FFlagHandlePlayerBlockListsInternalPermissive then
+		RemoteEvent_UpdatePlayerBlockList = RobloxReplicatedStorage:WaitForChild('UpdatePlayerBlockList')
+	end
 end)
+
 
 --[[ Utility Functions ]]--
 local function createSignal()
@@ -229,10 +236,12 @@ local function GetBlockedPlayersAsync()
 	return {}
 end
 
-spawn(function()
-	BlockedList = GetBlockedPlayersAsync()
-	GetBlockedPlayersCompleted = true
-end)
+if FFlagHandlePlayerBlockListsInternalPermissive == false then
+	spawn(function()
+		BlockedList = GetBlockedPlayersAsync()
+		GetBlockedPlayersCompleted = true
+	end)
+end
 
 local function getBlockedUserIdsFromBlockedList()
 	local userIdList = {}
@@ -258,6 +267,19 @@ local function getBlockedUserIds()
 	return {}
 end
 
+local function initializeBlockList()
+	if FFlagHandlePlayerBlockListsInternalPermissive then
+		spawn(function()
+			BlockedList = GetBlockedPlayersAsync()
+			GetBlockedPlayersCompleted = true
+
+			local RemoteEvent_SetPlayerBlockList = RobloxReplicatedStorage:WaitForChild('SetPlayerBlockList')
+			local blockedUserIds = getBlockedUserIds()
+			RemoteEvent_SetPlayerBlockList:FireServer(blockedUserIds)
+		end)
+	end
+end
+
 local function isBlocked(userId)
 	if (BlockedList[userId]) then
 		return true
@@ -279,6 +301,13 @@ local function BlockPlayerAsync(playerToBlock)
 			if not isBlocked(blockUserId) then
 				BlockedList[blockUserId] = true
 				BlockStatusChanged:fire(blockUserId, true)
+
+				if FFlagHandlePlayerBlockListsInternalPermissive then
+					if RemoteEvent_UpdatePlayerBlockList then
+						RemoteEvent_UpdatePlayerBlockList:FireServer(blockUserId, true)
+					end
+				end
+
 				local success, wasBlocked = pcall(function()
 					local apiPath = "userblock/block"
 					local params = "userId=" ..tostring(playerToBlock.UserId)
@@ -302,6 +331,13 @@ local function UnblockPlayerAsync(playerToUnblock)
 		if isBlocked(unblockUserId) then
 			BlockedList[unblockUserId] = nil
 			BlockStatusChanged:fire(unblockUserId, false)
+
+			if FFlagHandlePlayerBlockListsInternalPermissive then
+				if RemoteEvent_UpdatePlayerBlockList then
+					RemoteEvent_UpdatePlayerBlockList:FireServer(unblockUserId, false)
+				end
+			end
+
 			local success, wasUnBlocked = pcall(function()
 				local apiPath = "userblock/unblock"
 				local params = "userId=" ..tostring(playerToUnblock.UserId)
@@ -676,6 +712,10 @@ do
 
 	function moduleApiTable:GetFriendCountAsync(player)
 		return getFriendCountAsync(player.UserId)
+	end
+
+	function moduleApiTable:InitBlockListAsync()
+		initializeBlockList()
 	end
 
 	function moduleApiTable:MaxFriendCount()

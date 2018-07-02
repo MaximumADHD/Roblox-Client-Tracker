@@ -4,13 +4,12 @@ local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService('GuiService')
 local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local HttpService = game:GetService('HttpService')
+local RunService = game:GetService('RunService')
+local CorePackages = game:GetService("CorePackages")
 
-local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
-local Modules = RobloxGui:FindFirstChild("Modules")
-local Common = Modules.Common
-local Roact = require(Common.Roact)
-local Rodux = require(Common.Rodux)
-local RoactRodux = require(Common.RoactRodux)
+local Roact = require(CorePackages.Roact)
+local Rodux = require(CorePackages.Rodux)
+local RoactRodux = require(CorePackages.RoactRodux)
 
 local DevConsole = script.Parent.DevConsole
 local Constants = require(DevConsole.Constants)
@@ -127,11 +126,14 @@ local platformConversion = {
 }
 
 local function isDeveloper()
+	if RunService:IsStudio() then
+		return true
+	end
+
 	local canManageSuccess, canManageResult = pcall(function()
 		local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
 		return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
 	end)
-
 	if canManageSuccess and type(canManageResult) == "string" then
 		-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
 		-- Convert from JSON to a table
@@ -139,7 +141,6 @@ local function isDeveloper()
 		local success, result = pcall(function()
 			return HttpService:JSONDecode(canManageResult)
 		end)
-
 		if success and result.CanManage == true then
 			return true
 		end
@@ -157,6 +158,7 @@ function DevConsoleMaster.new()
 	local formFactor = platformConversion[platformEnum]
 	local screenSizePixel = GuiService:GetScreenResolution()
 
+--	formFactor = Constants.FormFactor.Small
 	local developerConsoleView = isDeveloper()
 
 	startDataCollection()
@@ -197,8 +199,8 @@ function DevConsoleMaster:Stop()
 end
 
 function DevConsoleMaster:ToggleVisibility()
-	self.isVisible = not self.store:GetState().DisplayOptions.isVisible
-	self.store:Dispatch(SetDevConsoleVisibility(self.isVisible))
+	self.isVisible = not self.store:getState().DisplayOptions.isVisible
+	self.store:dispatch(SetDevConsoleVisibility(self.isVisible))
 end
 
 function DevConsoleMaster:GetVisibility()
@@ -215,6 +217,7 @@ end
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
 	return DevConsoleMaster:GetVisibility()
 end)
+
 StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DevConsoleVisible must be given a boolean value.")

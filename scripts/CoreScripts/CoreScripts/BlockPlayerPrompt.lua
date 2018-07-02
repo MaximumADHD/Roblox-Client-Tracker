@@ -31,6 +31,9 @@ local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
 local REGULAR_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.HeadShot
 local CONSOLE_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.AvatarThumbnail
 
+-- fetch and store player block list
+PlayerDropDownModule:InitBlockListAsync()
+
 function createFetchImageFunction(...)
 	local args = {...}
 	return function(imageLabel)

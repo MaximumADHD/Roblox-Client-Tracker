@@ -37,5 +37,6 @@ end
 
 PlayerPermissionsModule.IsPlayerAdminAsync = IsInGroupFunctionFactory(1200769)
 PlayerPermissionsModule.IsPlayerInternAsync = HasRankInGroupFunctionFactory(2868472, 100)
+PlayerPermissionsModule.IsPlayerStarAsync = IsInGroupFunctionFactory(4199740)
 
 return PlayerPermissionsModule

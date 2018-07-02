@@ -56,6 +56,7 @@ function MainViewActionBindings:render()
 
 		ActionBindings = Roact.createElement(ActionBindingsChart, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		}),
 	})

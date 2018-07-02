@@ -35,6 +35,14 @@ local RemoteFunc_GetFollowRelationships = Instance.new('RemoteFunction')
 RemoteFunc_GetFollowRelationships.Name = "GetFollowRelationships"
 RemoteFunc_GetFollowRelationships.Parent = RobloxReplicatedStorage
 
+local RemoteEvent_SetPlayerBlockList = Instance.new('RemoteEvent')
+RemoteEvent_SetPlayerBlockList.Name = 'SetPlayerBlockList'
+RemoteEvent_SetPlayerBlockList.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_UpdatePlayerBlockList = Instance.new('RemoteEvent')
+RemoteEvent_UpdatePlayerBlockList.Name = 'UpdatePlayerBlockList'
+RemoteEvent_UpdatePlayerBlockList.Parent = RobloxReplicatedStorage
+
 --[[ Helper Functions ]]--
 local function decodeJSON(json)
 	local success, result = pcall(function()
@@ -231,6 +239,16 @@ local function onPlayerAdded(newPlayer)
 	end
 end
 
+if settings():GetFFlag('HandlePlayerBlockListsInternalPermissive') == true then
+	RemoteEvent_SetPlayerBlockList.OnServerEvent:Connect(function(player, blockList)
+		player:AddToBlockList(blockList)
+	end)
+
+	RemoteEvent_UpdatePlayerBlockList.OnServerEvent:Connect(function(player, userId, block)
+		player:UpdatePlayerBlocked(userId, block)
+	end)
+end
+
 Players.PlayerAdded:connect(onPlayerAdded)
 for _,player in pairs(Players:GetPlayers()) do
 	onPlayerAdded(player)
@@ -243,3 +261,4 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 		FollowNotificationsBetweenMap[uid] = nil
 	end
 end)
+

@@ -72,12 +72,14 @@ local function constructHeader()
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 0, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LineWidth),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LineColor,
+		BorderSizePixel = 0,
 	})
 
 	return Roact.createElement("Frame", {
@@ -135,12 +137,14 @@ local function constructEntry(name, actionInfo)
 		upperHorizontalLine = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LineWidth),
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
 
 		lowerHorizontalLine = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LineWidth),
 			Position = UDim2.new(0, 0, 1, 0),
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
 	})
 end
@@ -167,6 +171,7 @@ end
 
 function ActionBindingsChart:render()
 	local entries = {}
+	local searchTerm = self.props.searchTerm
 	local layoutOrder = self.props.layoutOrder
 
 	local entryList = self.state.actionBindingEntries
@@ -179,8 +184,10 @@ function ActionBindingsChart:render()
 
 	local count = 0
 	for name, actionInfo in pairs(entryList) do
-		entries[name] = constructEntry(name, actionInfo)
-		count = count + 1
+		if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
+			entries[name] = constructEntry(name, actionInfo)
+			count = count + 1
+		end
 	end
 	local canvasHeight = count * EntryFrameHeight
 
@@ -202,6 +209,7 @@ function ActionBindingsChart:render()
 			Size = UDim2.new(0,LineWidth,1,0),
 			Position = verticalOffsets[i],
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		})
 	end
 

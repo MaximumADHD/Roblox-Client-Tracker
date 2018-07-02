@@ -36,7 +36,7 @@ local function CreateFixedCamera()
 			local newLookVector = self:RotateCamera(self:GetCameraLook(), self.RotateInput)
 			self.RotateInput = ZERO_VECTOR2
 			
-			camera.CoordinateFrame = CFrame_new(camera.Focus.p - (zoom * newLookVector), camera.Focus.p)
+			camera.CFrame = CFrame_new(camera.CFrame.p, camera.CFrame.p + (zoom * newLookVector))
 			self.LastCameraTransform = camera.CFrame
 		end
 		lastUpdate = now

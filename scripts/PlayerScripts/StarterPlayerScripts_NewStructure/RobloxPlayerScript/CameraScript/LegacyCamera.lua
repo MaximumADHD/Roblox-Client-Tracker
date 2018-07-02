@@ -54,7 +54,7 @@ function LegacyCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	return BaseCamera.SetCameraToSubjectDistance(self,desiredSubjectDistance)
 end
 
-function LegacyCamera:Update()
+function LegacyCamera:Update(dt)
 	
 	-- Cannot update until cameraType has been set
 	if not self.cameraType then return end	
@@ -72,16 +72,11 @@ function LegacyCamera:Update()
 	local isClimbing = humanoid and humanoid:GetState() == Enum.HumanoidStateType.Climbing
 	
 	if self.lastUpdate == nil or timeDelta > 1 then
-		self.lastCameraTransform = nil
 		self.lastDistanceToSubject = nil
 	end
 	local subjectPosition = self:GetSubjectPosition()	
 	
-	
-	
 	if self.cameraType == Enum.CameraType.Fixed then
-		
-		
 		if self.lastUpdate then
 			-- Cap out the delta to 0.1 so we don't get some crazy things when we re-resume from
 			local delta = math.min(0.1, now - self.lastUpdate)
@@ -89,14 +84,13 @@ function LegacyCamera:Update()
 			self.rotateInput = self.rotateInput + (gamepadRotation * delta)
 		end		
 		
-			
 		if subjectPosition and player and camera then
 			local distanceToSubject = self:GetCameraToSubjectDistance()
 			local newLookVector = self:CalculateNewLookVector()
 			self.rotateInput = ZERO_VECTOR2
 			
-			camera.CoordinateFrame = CFrame.new(camera.Focus.p - (distanceToSubject * newLookVector), camera.Focus.p)
-			self.lastCameraTransform = camera.CFrame
+			newCameraFocus = camera.Focus -- Fixed camera does not change focus
+			newCameraCFrame = CFrame.new(camera.CFrame.p, camera.CFrame.p + (distanceToSubject * newLookVector))
 		end
 	elseif self.cameraType == Enum.CameraType.Attach then
 		if subjectPosition and camera then
@@ -121,27 +115,24 @@ function LegacyCamera:Update()
 			local newLookVector = self:CalculateNewLookVector()
 			self.rotateInput = ZERO_VECTOR2
 
-			camera.Focus = CFrame.new(subjectPosition)
+			newCameraFocus = CFrame.new(subjectPosition)
 			newCameraCFrame = CFrame.new(subjectPosition - (distanceToSubject * newLookVector), subjectPosition)
-			self.lastCameraTransform = newCameraCFrame
 		end
 	elseif self.cameraType == Enum.CameraType.Watch then
 		if subjectPosition and player and camera then
 			local cameraLook = nil
 
-			if self.lastCameraTransform then
-				local humanoid = self:GetHumanoid()
-				if humanoid and humanoid.RootPart then
-					-- TODO: let the paging buttons move the camera but not the mouse/touch
-					-- currently neither do
-					local diffVector = subjectPosition - self.lastCameraTransform.p
-					cameraLook = diffVector.unit
+			local humanoid = self:GetHumanoid()
+			if humanoid and humanoid.RootPart then
+				-- TODO: let the paging buttons move the camera but not the mouse/touch
+				-- currently neither do
+				local diffVector = subjectPosition - camera.CFrame.p
+				cameraLook = diffVector.unit
 
-					if self.lastDistanceToSubject and self.lastDistanceToSubject == self:GetCameraToSubjectDistance() then
-						-- Don't clobber the zoom if they zoomed the camera
-						local newDistanceToSubject = diffVector.magnitude
-						self:SetCameraToSubjectDistance(newDistanceToSubject)
-					end
+				if self.lastDistanceToSubject and self.lastDistanceToSubject == self:GetCameraToSubjectDistance() then
+					-- Don't clobber the zoom if they zoomed the camera
+					local newDistanceToSubject = diffVector.magnitude
+					self:SetCameraToSubjectDistance(newDistanceToSubject)
 				end
 			end
 			
@@ -150,9 +141,8 @@ function LegacyCamera:Update()
 			self.rotateInput = ZERO_VECTOR2
 			
 			newCameraFocus = CFrame.new(subjectPosition)
-			newCameraCFrame = CFrame.new(newCameraFocus.p - (distanceToSubject * newLookVector), subjectPosition)
+			newCameraCFrame = CFrame.new(subjectPosition - (distanceToSubject * newLookVector), subjectPosition)
 
-			self.lastCameraTransform = newCameraCFrame
 			self.lastDistanceToSubject = distanceToSubject
 		end
 	else

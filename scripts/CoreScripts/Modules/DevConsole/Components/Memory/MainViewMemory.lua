@@ -78,11 +78,13 @@ function MainViewMemory:render()
 	if isClientView then
 		elements["ClientMemory"] = Roact.createElement(ClientMemory, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})
 	else
 		elements["ServerMemory"] = Roact.createElement(ServerMemory, {
 			size = UDim2.new(1, 0, 1, -utilBarHeight),
+			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})
 	end

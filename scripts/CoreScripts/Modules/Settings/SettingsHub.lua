@@ -31,6 +31,7 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagSettingsHubInviteToGame = settings():GetFFlag('SettingsHubInviteToGame')
 local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
+local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
 local FFlagEnableResponsiveUIFix = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
@@ -44,6 +45,8 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local VRService = game:GetService("VRService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local HttpService = game:GetService("HttpService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -97,6 +100,19 @@ local function GetServerVersionBlocking()
 	end
 	connectedServerVersion = GetServerVersionRemote:InvokeServer()
 	return connectedServerVersion
+end
+
+local function GetPlaceVersionText()
+	local text = game.PlaceVersion
+
+	pcall(function()
+		local json = HttpRbxApiService:GetAsync(string.format("assets/%d/versions", game.PlaceId))
+		local versionData = HttpService:JSONDecode(json)
+		local latestVersion = versionData[1].VersionNumber
+		text = string.format("%s (Latest: %d)", text, latestVersion)
+	end)
+
+	return text
 end
 
 local function CreateSettingsHub()
@@ -362,6 +378,16 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
+		local size = UDim2.new(0.5, -6, 1, -6)
+		local clientPosition = UDim2.new(0.5, 3, 0, 3)
+		local clientTextAlignment = Enum.TextXAlignment.Right
+
+		if FFlagHelpMenuShowPlaceVersion then
+			size = UDim2.new(0.333, -6, 1, -6)
+			clientPosition = UDim2.new(0.333, 3, 0, 3)
+			clientTextAlignment = Enum.TextXAlignment.Center
+		end
+
 		this.ServerVersionLabel = utility:Create("TextLabel") {
 			Name = "ServerVersionLabel",
 			Parent = this.VersionContainer,
@@ -370,7 +396,7 @@ local function CreateSettingsHub()
 			TextColor3 = Color3.new(1,1,1),
 			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
 			Text = "Server Version: ...",
-			Size = UDim2.new(.5,-6,1,-6),
+			Size = size,
 			Font = Enum.Font.SourceSans,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 5
@@ -382,16 +408,35 @@ local function CreateSettingsHub()
 		this.ClientVersionLabel = utility:Create("TextLabel") {
 			Name = "ClientVersionLabel",
 			Parent = this.VersionContainer,
-			Position = UDim2.new(0.5,3,0,3),
+			Position = clientPosition,
 			BackgroundTransparency = 1,
 			TextColor3 = Color3.new(1,1,1),
 			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
 			Text = "Client Version: "..RunService:GetRobloxVersion(),
-			Size = UDim2.new(.5,-6,1,-6),
+			Size = size,
 			Font = Enum.Font.SourceSans,
-			TextXAlignment = Enum.TextXAlignment.Right,
+			TextXAlignment = clientTextAlignment,
 			ZIndex = 5
 		}
+
+		if FFlagHelpMenuShowPlaceVersion then
+			this.PlaceVersionLabel = utility:Create("TextLabel") {
+				Name = "PlaceVersionLabel",
+				Parent = this.VersionContainer,
+				Position = UDim2.new(0.666, 3, 0, 3),
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1, 1, 1),
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+				Text = "Place Version: ...",
+				Size = UDim2.new(.333, -6, 1, -6),
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				ZIndex = 5,
+			}
+			spawn(function()
+				this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
+			end)
+		end
 
 		this.EnvironmentLabel = utility:Create("TextLabel") {
 			Name = "EnvironmentLabel",

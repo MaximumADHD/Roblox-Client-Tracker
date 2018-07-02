@@ -42,6 +42,7 @@ end
 
 function ServerStats:render()
 	local elements = {}
+	local searchTerm = self.props.searchTerm
 	local layoutOrder = self.props.layoutOrder
 	local serverStatsData = self.state.serverStatsData
 
@@ -75,11 +76,13 @@ function ServerStats:render()
 		upperHorizontalLine = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LineWidth),
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
 		lowerHorizontalLine = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LineWidth),
 			Position = UDim2.new(0, 0, 1, 0),
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		}),
 	})
 
@@ -88,35 +91,38 @@ function ServerStats:render()
 	-- insert all stats entries
 	local currLayoutIndex = 1
 	if serverStatsData then
-		for name,data in pairs(serverStatsData) do
-			currLayoutIndex = currLayoutIndex + 1
+		for name, data in pairs(serverStatsData) do
+			if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
+				currLayoutIndex = currLayoutIndex + 1
 
-			local row = {}
-			row[name] = Roact.createElement(CellLabel,{
-				text = name,
-				size = UDim2.new(1, -ValueCellWidth - CellPadding - ExpandArrowPadding, 1, 0),
-				pos = UDim2.new(0, CellPadding + ExpandArrowPadding, 0, 0),
-			})
+				local row = {}
+				row[name] = Roact.createElement(CellLabel,{
+					text = name,
+					size = UDim2.new(1, -ValueCellWidth - CellPadding - ExpandArrowPadding, 1, 0),
+					pos = UDim2.new(0, CellPadding + ExpandArrowPadding, 0, 0),
+				})
 
-			row["Data"] = Roact.createElement(CellLabel,{
-				text =string.format("%.3f",data),
-				size = UDim2.new(0, ValueCellWidth - CellPadding, 1, 0),
-				pos = UDim2.new(1, -ValueCellWidth + CellPadding, 0, 0),
-			})
+				row["Data"] = Roact.createElement(CellLabel,{
+					text =string.format("%.3f",data),
+					size = UDim2.new(0, ValueCellWidth - CellPadding, 1, 0),
+					pos = UDim2.new(1, -ValueCellWidth + CellPadding, 0, 0),
+				})
 
-			row["lowerHorizontalLine"] = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, LineWidth),
-				Position = UDim2.new(0, 0, 1, 0),
-				BackgroundColor3 = LineColor,
-			})
+				row["lowerHorizontalLine"] = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, LineWidth),
+					Position = UDim2.new(0, 0, 1, 0),
+					BackgroundColor3 = LineColor,
+					BorderSizePixel = 0,
+				})
 
-			elements[name] = Roact.createElement("Frame",{
-				Size = UDim2.new(1, 0, 0, EntryFrameHeight),
-				BackgroundTransparency = 1,
-				LayoutOrder = currLayoutIndex,
-			}, row)
+				elements[name] = Roact.createElement("Frame",{
+					Size = UDim2.new(1, 0, 0, EntryFrameHeight),
+					BackgroundTransparency = 1,
+					LayoutOrder = currLayoutIndex,
+				}, row)
 
-			componentHeight = componentHeight + EntryFrameHeight
+				componentHeight = componentHeight + EntryFrameHeight
+			end
 		end
 	end
 
@@ -137,6 +143,7 @@ function ServerStats:render()
 			Size = UDim2.new(0, LineWidth, 0, componentHeight),
 			Position = UDim2.new(1, -ValueCellWidth, 0, 0),
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		})
 	})
 end

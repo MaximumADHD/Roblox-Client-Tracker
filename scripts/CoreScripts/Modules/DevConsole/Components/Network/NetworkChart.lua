@@ -51,6 +51,8 @@ local NetworkChart = Roact.Component:extend("NetworkChart")
 function NetworkChart:render()
 	local httpEntryList = self.props.httpEntryList or {}
 	local summaryHeight = self.props.summaryHeight or 0
+	local searchTerm = self.props.searchTerm
+	local layoutOrder = self.props.layoutOrder
 
 	local headerCells = {}
 	for ind, name in ipairs(ChartHeaderNames) do
@@ -74,7 +76,16 @@ function NetworkChart:render()
 		})
 
 	for _, entry in pairs(httpEntryList) do
-		if not (entry.RequestType == "Default") then
+		-- this is a very dumb way to implement search because every cycle will involve filtering out all entries
+		-- a better way is to have a base list and a filtered list that is managed by at the dataprovider
+		-- and passing in the search version when the search term is active
+		local valid = true
+		if searchTerm then
+			valid = string.find(entry.RequestType:lower(), searchTerm:lower()) ~= nil or
+					string.find(entry.URL:lower(), searchTerm:lower()) ~= nil
+		end
+
+		if not (entry.RequestType == "Default") and valid then
 			-- insert header elements into a frame so that we can use the UIListLayout to keep everything in order
 			table.insert(entries, Roact.createElement("Frame",{
 				Size = UDim2.new(1, 0, 0, EntryFrameHeight),
@@ -114,11 +125,42 @@ function NetworkChart:render()
 				LowerHorizontalLine = Roact.createElement("Frame",{
 					Size = UDim2.new(1, 0, 0, 1),
 					BackgroundColor3 = LineColor,
+					BorderSizePixel = 0,
 				}),
 			}))
 
 			entryCount = entryCount + 1
 		end
+	end
+
+	if entryCount == 0 then
+		return Roact.createElement("TextLabel",{
+			Size = UDim2.new(1, 0, 1, -summaryHeight),
+			Text = "No Network Entries Found",
+			TextColor3 = Constants.Color.Text,
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+		},{
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			Header = Roact.createElement("Frame",{
+				Size = UDim2.new(1, 0, 0, HeaderFrameHeight),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			},headerCells),
+
+			HorizontalLine_1 = Roact.createElement("Frame",{
+				Size = UDim2.new(1, 0, 0, LineWidth),
+				BackgroundColor3 = LineColor,
+				BorderSizePixel = 0,
+				BackgroundTransparency = 0,
+				LayoutOrder = 2,
+			}),
+		})
 	end
 
 	local scrollingFrameHeight = entryCount*EntryFrameHeight
@@ -144,6 +186,7 @@ function NetworkChart:render()
 		HorizontalLine_1 = Roact.createElement("Frame",{
 			Size = UDim2.new(1, 0, 0, LineWidth),
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 			BackgroundTransparency = 0,
 			LayoutOrder = 2,
 		}),
@@ -166,6 +209,7 @@ function NetworkChart:render()
 			Size = UDim2.new(0, LineWidth, 1, 0),
 			Position = verticalOffsets[i],
 			BackgroundColor3 = LineColor,
+			BorderSizePixel = 0,
 		})
 	end
 
