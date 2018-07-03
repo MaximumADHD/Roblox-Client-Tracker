@@ -24725,6 +24725,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "AddToBlockList",
+                    "Parameters": [
+                        {
+                            "Name": "userIds",
+                            "Type": "Array"
+                        }
+                    ],
+                    "ReturnType": "void",
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ClearCharacterAppearance",
                     "Parameters": [
                     ],
@@ -25088,6 +25100,22 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdatePlayerBlocked",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": "int64"
+                        },
+                        {
+                            "Name": "blocked",
+                            "Type": "bool"
+                        }
+                    ],
+                    "ReturnType": "void",
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -27351,6 +27379,20 @@
                     "Category": "Reflection",
                     "MemberType": "Property",
                     "Name": "PreferredParent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": "string"
+                },
+                {
+                    "Category": "Reflection",
+                    "MemberType": "Property",
+                    "Name": "PreferredParents",
                     "Security": {
                         "Read": "None",
                         "Write": "None"

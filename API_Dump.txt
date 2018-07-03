@@ -1825,6 +1825,7 @@ Class Player : Instance
 	Property int64 Player.UserId
 	Property string Player.VRDevice [RobloxScriptSecurity]
 	Property int64 Player.userId [deprecated]
+	Function void Player:AddToBlockList(Array userIds) [RobloxScriptSecurity]
 	Function void Player:ClearCharacterAppearance()
 	Function float Player:DistanceFromCharacter(Vector3 point)
 	Function FriendStatus Player:GetFriendStatus(Instance player) [RobloxScriptSecurity]
@@ -1854,6 +1855,7 @@ Class Player : Instance
 	Function void Player:SetMembershipType(MembershipType membershipType) [RobloxScriptSecurity]
 	Function void Player:SetSuperSafeChat(bool value) [PluginSecurity]
 	Function void Player:SetUnder13(bool value) [deprecated] [RobloxSecurity]
+	Function void Player:UpdatePlayerBlocked(int64 userId, bool blocked) [RobloxScriptSecurity]
 	Function bool Player:loadBoolean(string key) [deprecated]
 	Function Instance Player:loadInstance(string key) [deprecated]
 	Function double Player:loadNumber(string key) [deprecated]
@@ -2031,6 +2033,7 @@ Class ReflectionMetadataClass : ReflectionMetadataItem
 	Property int ReflectionMetadataClass.ExplorerOrder
 	Property bool ReflectionMetadataClass.Insertable
 	Property string ReflectionMetadataClass.PreferredParent
+	Property string ReflectionMetadataClass.PreferredParents
 Class ReflectionMetadataEnum : ReflectionMetadataItem
 Class ReflectionMetadataEnumItem : ReflectionMetadataItem
 Class ReflectionMetadataMember : ReflectionMetadataItem

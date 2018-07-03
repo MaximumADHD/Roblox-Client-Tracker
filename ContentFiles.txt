@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2655996 bytes]
+[2667347 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
 [4496 bytes]
@@ -17,7 +17,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [217241 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[208245 bytes]
+[208275 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3937 bytes]
@@ -4580,11 +4580,11 @@ content/translations/CoreScriptLocalization.csv
 [137758 bytes]
 
 ReflectionMetadata.xml
-[342928 bytes]
+[344537 bytes]
 
 RobloxStudioBeta.exe
-[26828288 bytes]
+[26931712 bytes]
 
 RobloxStudioRibbon.xml
-[57705 bytes]
+[58519 bytes]
 
