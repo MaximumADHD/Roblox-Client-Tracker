@@ -10,7 +10,7 @@ local Actions = script.Parent.Parent.Parent.Actions
 local ServerScriptsUpdateSearchFilter = require(Actions.ServerScriptsUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local BOX_NAMES = {
 	"Active",
@@ -75,7 +75,7 @@ function MainViewScripts:render()
 		LayoutOrder = 3,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, MainRowPadding),
+			Padding = UDim.new(0, PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 

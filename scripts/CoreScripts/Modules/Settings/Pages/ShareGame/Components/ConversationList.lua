@@ -39,7 +39,7 @@ local function searchFilterPredicate(query, other)
 	if query == "" then
 		return true
 	end
-	return string.find(string.lower(other), query, 1, true) ~= nil
+	return string.find(string.lower(other), query:lower(), 1, true) ~= nil
 end
 
 function ConversationList:render()
@@ -48,6 +48,7 @@ function ConversationList:render()
 	local layoutOrder = self.props.layoutOrder
 	local zIndex = self.props.zIndex
 	local children = self.props[Roact.Children] or {}
+	local topPadding = self.props.topPadding
 
 	local searchText = self.props.searchText
 	local inviteUser = self.props.inviteUser
@@ -85,11 +86,16 @@ function ConversationList:render()
 
 	return numEntries > 0 and Roact.createElement("ScrollingFrame", {
 		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
 		LayoutOrder = layoutOrder,
+		Position = UDim2.new(0, 0, 0, topPadding),
 		Size = size,
 		CanvasSize = UDim2.new(0, 0, 0, numEntries * (ENTRY_HEIGHT + ENTRY_PADDING)),
-		ScrollBarThickness = 0,
 		ZIndex = zIndex,
+
+		ScrollBarThickness = 12,
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
 	}, children) or Roact.createElement("TextLabel", {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
@@ -110,7 +116,7 @@ local selectFriends = memoize(function(users)
 		local friend2Weight = PRESENCE_WEIGHTS[friend2.presence]
 
 		if friend1Weight == friend2Weight then
-			return friend1.name < friend2.name
+			return friend1.name:lower() < friend2.name:lower()
 		else
 			return friend1Weight > friend2Weight
 		end

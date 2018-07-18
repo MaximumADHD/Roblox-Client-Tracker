@@ -11,10 +11,6 @@ return function()
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
-				TopBarLiveUpdate = {
-					LogWarningCount = 0,
-					LogErrorCount = 0
-				}
 			}
 		end)
 
@@ -22,12 +18,14 @@ return function()
 			store = store,
 		}, {
 			DataProvider = Roact.createElement(DataProvider, nil, {
-				LiveUpdateElement = Roact.createElement(LiveUpdateElement)
+				LiveUpdateElement = Roact.createElement(LiveUpdateElement, {
+					size = UDim2.new(),
+					position = UDim2.new(),
+				})
 			})
-
 		})
 
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

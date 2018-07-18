@@ -10,7 +10,7 @@ local Actions = script.Parent.Parent.Parent.Actions
 local ActionBindingsUpdateSearchFilter = require(Actions.ActionBindingsUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MainViewActionBindings = Roact.Component:extend("MainViewActionBindings")
 
@@ -63,7 +63,7 @@ function MainViewActionBindings:render()
 		LayoutOrder = 3,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, MainRowPadding),
+			Padding = UDim.new(0, PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 

@@ -1,7 +1,7 @@
 local LogService = game:GetService("LogService")
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local EnumToMsgTypeName = Constants.EnumToMsgTypeName
+local MESSAGE_TO_TYPENAME = Constants.EnumToMsgTypeName
 
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Signal = require(script.Parent.Parent.Parent.Signal)
@@ -49,7 +49,7 @@ local function isMessageFiltered(message, filterTypes, filterTerm)
 	end
 
 	if next(filterTypes) then
-		if not filterTypes[EnumToMsgTypeName[message.Type]] then
+		if not filterTypes[MESSAGE_TO_TYPENAME[message.Type]] then
 			return false
 		end
 	end
@@ -134,10 +134,6 @@ function LogData:Signal()
 	return self._logDataUpdate
 end
 
-function LogData:Signal2()
-	return self._logDataUpdate2
-end
-
 function LogData:errorWarningSignal()
 	return self._errorWarningSignal
 end
@@ -166,13 +162,13 @@ function LogData:getSearchTerm()
 end
 
 function LogData:setFilters(filters)
+	self._filters = filters
+
 	if not validActiveFilters(filters) then
-		self._filters = {}
 		self._logDataSearched:reset()
 		self._logDataUpdate:Fire(self._logData)
 		return
 	end
-	self._filters = filters
 
 	filterMessages(
 		self._logDataSearched,
@@ -247,10 +243,10 @@ function LogData:start()
 				if #self._logDataSearched:getData() > 0 then
 					if isMessageFiltered(message, self._Filters, self._SearchTerm) then
 						self._logDataSearched:push_back(message)
-						self._logDataUpdate:Fire(self._logDataSearched:front())
+						self._logDataUpdate:Fire(self._logDataSearched)
 					end
 				else
-					self._logDataUpdate:Fire(self._logData:front())
+					self._logDataUpdate:Fire(self._logData)
 				end
 			end
 		end)

@@ -91,7 +91,11 @@ function LayoutProvider:checkDeviceLayout()
 			deviceLayout = Constants.DeviceLayout.PHONE_PORTRAIT
 		end
 	elseif UserInputService.TouchEnabled then
-		deviceLayout = Constants.DeviceLayout.TABLET
+		if self._deviceOrientation == Constants.DeviceOrientation.LANDSCAPE then
+			deviceLayout = Constants.DeviceLayout.TABLET_LANDSCAPE
+		else
+			deviceLayout = Constants.DeviceLayout.TABLET_PORTRAIT
+		end
 	else
 		deviceLayout = Constants.DeviceLayout.DESKTOP
 	end

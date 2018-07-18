@@ -4,23 +4,35 @@
   Description: Common work in the performance stats world.
 --]]
 
---[[ Services ]]--
 local CoreGuiService = game:GetService('CoreGui')
 local PlayersService = game:GetService("Players")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-
---[[ Modules ]]--
 local TopbarConstants = require(CoreGuiService.RobloxGui.Modules.TopbarConstants)
 local StyleWidgets = require(CoreGuiService.RobloxGui.Modules.StyleWidgets)
+
+local FFlagStatUtilsUseFormatByKey = settings():GetFFlag('StatUtilsUseFormatByKey')
+local RobloxTranslator
+if FFlagStatUtilsUseFormatByKey then
+  RobloxTranslator = require(CoreGuiService.RobloxGui.Modules.RobloxTranslator)
+end
 
 function LocalizedGetKey(key)
   local rtv = key
   pcall(function()
     local LocalizationService = game:GetService("LocalizationService")
     local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-    rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+
+    if FFlagStatUtilsUseFormatByKey then
+        rtv = RobloxTranslator:FormatByKey(key)
+    else
+       pcall(function()
+         local LocalizationService = game:GetService("LocalizationService")
+         local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+         rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+       end)
+    end
   end)
   return rtv
 end
@@ -122,7 +134,7 @@ StatsUtils.NumButtonTypes = table.getn(StatsUtils.AllStatTypes)
 
 local strSentNetwork = ""
 local strReceivedNetwork = ""
-if FFlagUseNotificationsLocalization then
+if FFlagUseNotificationsLocalization or FFlagStatUtilsUseFormatByKey then
   strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
   strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
 else

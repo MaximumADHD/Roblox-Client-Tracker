@@ -28,8 +28,8 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
-local FFlagSettingsHubInviteToGame = settings():GetFFlag('SettingsHubInviteToGame')
-local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor')
+local FFlagSettingsHubInviteToGame2 = settings():GetFFlag('SettingsHubInviteToGame2')
+local FFlagSettingsHubBarsRefactor2 = settings():GetFFlag('SettingsHubBarsRefactor2')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 
@@ -144,7 +144,7 @@ local function CreateSettingsHub()
 	local function shouldShowBottomBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
 
-		if not FFlagSettingsHubBarsRefactor then
+		if not FFlagSettingsHubBarsRefactor2 then
 			if whichPage == this.LeaveGamePage or whichPage == this.ResetCharacterPage then
 				return false
 			end
@@ -154,7 +154,7 @@ local function CreateSettingsHub()
 			return false
 		end
 
-		if FFlagSettingsHubBarsRefactor then
+		if FFlagSettingsHubBarsRefactor2 then
 			return whichPage.ShouldShowBottomBar == true
 		else
 			return true
@@ -433,9 +433,11 @@ local function CreateSettingsHub()
 				TextXAlignment = Enum.TextXAlignment.Right,
 				ZIndex = 5,
 			}
-			spawn(function()
+			local function setPlaceVersionText()
 				this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
-			end)
+			end
+			game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
+			spawn(setPlaceVersionText)
 		end
 
 		this.EnvironmentLabel = utility:Create("TextLabel") {
@@ -1119,14 +1121,14 @@ local function CreateSettingsHub()
 				this.BottomButtonFrame.Visible = false
 			end
 
-			if FFlagSettingsHubBarsRefactor then
+			if FFlagSettingsHubBarsRefactor2 then
 				this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
 			else
 				this.HubBar.Visible = not (pageToSwitchTo == this.LeaveGamePage or pageToSwitchTo == this.ResetCharacterPage)
 			end
 		end
 
-		if FFlagSettingsHubBarsRefactor then
+		if FFlagSettingsHubBarsRefactor2 then
 			-- set whether the page should be clipped
 			local isClipped = pageToSwitchTo.IsPageClipped == true
 			this.PageViewClipper.ClipsDescendants = isClipped
@@ -1463,21 +1465,23 @@ local function CreateSettingsHub()
 		this.PlayersPage:SetHub(this)
 	end
 
-	if FFlagSettingsHubInviteToGame then
+	if FFlagSettingsHubInviteToGame2 then
 		local shareGameCorePackages = {
 			"Roact",
 			"Rodux",
 			"RoactRodux",
 		}
 		if GetCorePackagesLoaded(shareGameCorePackages) then
-			this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePage)
-			this.ShareGamePage:SetHub(this)
-
 			-- Create the embedded Roact app for the ShareGame page
 			-- This is accomplished via a Roact Portal into the ShareGame page frame
 			local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
-			this.ShareGameApp = ShareGameMaster.createApp(this.ShareGamePage.Page)
-			this.ShareGamePage:ConnectToApp(this.ShareGameApp)
+			this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper)
+
+
+			this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePlaceholderPage)
+			this.ShareGamePage:ConnectHubToApp(this, this.ShareGameApp)
+
+			this:AddPage(this.ShareGamePage)
 		end
 	end
 	
@@ -1494,10 +1498,6 @@ local function CreateSettingsHub()
 	this:AddPage(this.HelpPage)
 	if this.RecordPage then
 		this:AddPage(this.RecordPage)
-	end
-	
-	if FFlagSettingsHubInviteToGame and this.ShareGamePage then
-		this:AddPage(this.ShareGamePage)
 	end
 
 	if not isTenFootInterface then

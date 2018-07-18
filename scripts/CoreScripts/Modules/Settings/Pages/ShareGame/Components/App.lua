@@ -15,7 +15,7 @@ local request = require(AppTempCommon.LuaApp.Http.request)
 local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
-local PageFrame = require(ShareGame.Components.PageFrame)
+local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
 
 local ShareGameApp = Roact.PureComponent:extend("App")
 
@@ -27,13 +27,18 @@ end
 function ShareGameApp:render()
 	local pageTarget = self.props.pageTarget
 
+	local pageFrame = nil
+	if self.props.isPageOpen then 
+		pageFrame = Roact.createElement(ShareGamePageFrame, {
+			zIndex = Constants.SHARE_GAME_Z_INDEX,
+		})
+	end
+
 	return Roact.createElement(LayoutProvider, nil, {
 		Roact.createElement(Roact.Portal, {
 			target = pageTarget,
 		}, {
-			PageFrame = Roact.createElement(PageFrame, {
-				zIndex = Constants.SHARE_GAME_Z_INDEX,
-			})
+			ShareGamePageFrame = pageFrame
 		})
 	})
 end
@@ -42,6 +47,7 @@ local connector = RoactRodux.connect(function(store)
 	local userId = tostring(Players.LocalPlayer.UserId)
 
 	return {
+		isPageOpen = store:getState().Page.IsOpen,
 		initialFetch = function(networkImpl)
 			Promise.all({
 				store:dispatch(ApiFetchUsersFriends(

@@ -10,7 +10,7 @@ return function()
 			ServerNetwork = Roact.createElement(ServerNetwork)
 		})
 
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

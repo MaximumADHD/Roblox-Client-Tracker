@@ -5,17 +5,16 @@
 		Description: Takes care of the report abuse page in Settings Menu
 --]]
 
--------------- SERVICES --------------
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
+local LocalizationService = game:GetService("LocalizationService")
 
------------ UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
------------- CONSTANTS -------------------
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
 	"Inappropriate Username",
@@ -27,9 +26,12 @@ local ABUSE_TYPES_PLAYER = {
 	"Offsite Links",
 }
 
+local FFlagReportAbuseMenuDescriptionFix = settings():GetFFlag('ReportAbuseMenuDescriptionFix')
+
 local ABUSE_TYPES_GAME = {
 	"Inappropriate Content"
 }
+
 local DEFAULT_ABUSE_DESC_TEXT = "   Short Description (Optional)"
 if utility:IsSmallTouchScreen() then
 	DEFAULT_ABUSE_DESC_TEXT = "   (Optional)"
@@ -38,12 +40,20 @@ end
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
 	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-	DEFAULT_ABUSE_DESC_TEXT = CorescriptLocalization:GetString(
-		LocalizationService.RobloxLocaleId,
-		"KEY_DESCRIPTION_OPTIONAL")
+
+	if FFlagReportAbuseMenuDescriptionFix then
+		if utility:IsSmallTouchScreen() then
+			DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_OPTIONAL")
+		else
+			DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_SHORT_DECRIPTION_OPTIONAL")
+		end
+	else
+		DEFAULT_ABUSE_DESC_TEXT = CorescriptLocalization:GetString(
+			LocalizationService.RobloxLocaleId,
+			"KEY_DESCRIPTION_OPTIONAL")
+	end
 end)
 
------------- VARIABLES -------------------
 local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)

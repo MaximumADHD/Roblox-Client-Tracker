@@ -9,7 +9,7 @@ local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 
 --[[ Constants ]]--
-local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
+local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
@@ -18,7 +18,7 @@ TouchJump.__index = TouchJump
 
 function TouchJump.new()
 	local self = setmetatable(BaseCharacterController.new(), TouchJump)
-	
+
 	self.parentUIFrame = nil
 	self.jumpButton = nil
 	self.characterAddedConn = nil
@@ -28,9 +28,7 @@ function TouchJump.new()
 	self.externallyEnabled = false
 	self.jumpPower = 0
 	self.jumpStateEnabled = true
-	
 	self.isJumping = false
-	
 	self.humanoid = nil -- saved reference because property change connections are made using it
 
 	return self
@@ -90,18 +88,18 @@ function TouchJump:CharacterAdded(char)
 		self.humanoidChangeConn:Disconnect()
 		self.humanoidChangeConn = nil
 	end
-	
+
 	self.humanoid = char:FindFirstChildOfClass("Humanoid")
 	while not self.humanoid do
 		char.ChildAdded:wait()
 		self.humanoid = char:FindFirstChildOfClass("Humanoid")
 	end
-	
+
 	self.humanoidJumpPowerConn = self.humanoid:GetPropertyChangedSignal("JumpPower"):Connect(function()
 		self.jumpPower =  self.humanoid.JumpPower
 		self:UpdateEnabled()
 	end)
-	
+
 	self.humanoidParentConn = self.humanoid:GetPropertyChangedSignal("Parent"):Connect(function()
 		if not self.humanoid.Parent then
 			self.humanoidJumpPowerConn:Disconnect()
@@ -110,7 +108,7 @@ function TouchJump:CharacterAdded(char)
 			self.humanoidParentConn = nil
 		end
 	end)
-	
+
 	self.humanoidStateEnabledChangedConn = self.humanoid.StateEnabledChanged:Connect(function(state, enabled)
 		self:HumanoidStateEnabledChanged(state, enabled)
 	end)
@@ -140,29 +138,29 @@ function TouchJump:Create()
 	if not self.parentUIFrame then
 		return
 	end
-	
+
 	if self.jumpButton then
 		self.jumpButton:Destroy()
 		self.jumpButton = nil
 	end
-	
+
 	local minAxis = math.min(self.parentUIFrame.AbsoluteSize.x, self.parentUIFrame.AbsoluteSize.y)
 	local isSmallScreen = minAxis <= 500
 	local jumpButtonSize = isSmallScreen and 70 or 120
-	
+
 	self.jumpButton = Instance.new("ImageButton")
 	self.jumpButton.Name = "JumpButton"
 	self.jumpButton.Visible = false
 	self.jumpButton.BackgroundTransparency = 1
 	self.jumpButton.Image = TOUCH_CONTROL_SHEET
-	self.jumpButton.ImageRectOffset = Vector2.new(176, 222)
-	self.jumpButton.ImageRectSize = Vector2.new(174, 174)
+	self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+	self.jumpButton.ImageRectSize = Vector2.new(144, 144)
 	self.jumpButton.Size = UDim2.new(0, jumpButtonSize, 0, jumpButtonSize)
 
     self.jumpButton.Position = isSmallScreen and UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize - 20) or
         UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize * 1.75)
-	
-	local touchObject = nil	
+
+	local touchObject = nil
 	self.jumpButton.InputBegan:connect(function(inputObject)
 		--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
 		--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
@@ -170,35 +168,34 @@ function TouchJump:Create()
 			or inputObject.UserInputState ~= Enum.UserInputState.Begin then
 			return
 		end
-		
-		
+
 		touchObject = inputObject
-		self.jumpButton.ImageRectOffset = Vector2.new(0, 222)
+		self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
 		self.isJumping = true
 	end)
-	
-	OnInputEnded = function()
+
+	local OnInputEnded = function()
 		touchObject = nil
 		self.isJumping = false
-		self.jumpButton.ImageRectOffset = Vector2.new(176, 222)
+		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
-	
+
 	self.jumpButton.InputEnded:connect(function(inputObject)
 		if inputObject == touchObject then
 			OnInputEnded()
 		end
 	end)
-	
+
 	GuiService.MenuOpened:connect(function()
 		if touchObject then
 			OnInputEnded()
 		end
 	end)
-	
+
 	if not self.characterAddedConn then
 		self:SetupCharacterAddedFunction()
 	end
-	
+
 	self.jumpButton.Parent = self.parentUIFrame
 end
 

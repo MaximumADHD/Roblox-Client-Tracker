@@ -10,7 +10,7 @@ local Actions = script.Parent.Parent.Parent.Actions
 local DataStoresUpdateSearchFilter = require(Actions.DataStoresUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MainViewDataStores = Roact.PureComponent:extend("MainViewDataStores")
 
@@ -63,7 +63,7 @@ function MainViewDataStores:render()
 		LayoutOrder = 3,
 	}, {
 		UIListLayout = 	Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, MainRowPadding),
+			Padding = UDim.new(0, PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 

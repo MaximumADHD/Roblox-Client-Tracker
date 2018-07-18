@@ -9,6 +9,9 @@ local ICON_PADDING = Constants.LogFormatting.IconHeight
 local FRAME_HEIGHT = Constants.LogFormatting.TextFrameHeight
 local LINE_PADDING = Constants.LogFormatting.TextFramePadding
 
+local MAX_STRING_SIZE = 16384
+local MAX_STR_MSG = "Could not display entire %d character message because message exceeds max displayable length of %d"
+
 local LogOutput = Roact.Component:extend("LogOutput")
 
 function LogOutput:init(props)
@@ -91,7 +94,14 @@ function LogOutput:render()
 		local msgIter = logData:iterator()
 		local message = msgIter:next()
 		while message do
-			local fmtMessage = string.format("%s -- %s", message.Time, message.Message)
+			local fmtMessage
+			if #message.Message < MAX_STRING_SIZE then
+				fmtMessage = string.format("%s -- %s", message.Time, message.Message)
+
+			else
+				fmtMessage = string.format("%s -- %s", message.Time, string.sub(message.Message, 1, MAX_STRING_SIZE))
+			end
+
 			local msgDims = TextService:GetTextSize(fmtMessage, FONT_SIZE, FONT, maxSize)
 			messageCount = messageCount + 1
 
@@ -147,7 +157,16 @@ function LogOutput:render()
 			end
 
 			scrollingFrameHeight = scrollingFrameHeight + msgDims.Y + LINE_PADDING
-			message = msgIter:next()
+
+			if #message.Message < MAX_STRING_SIZE then
+				message = msgIter:next()
+			else
+				message = {
+					Message = string.format(MAX_STR_MSG, #message.Message, MAX_STRING_SIZE),
+					Time = "",
+					Type = message.Type,
+				}
+			end
 		end
 		elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,

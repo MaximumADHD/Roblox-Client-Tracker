@@ -57,7 +57,14 @@ local LegacyCamera = require(script:WaitForChild("LegacyCamera"))
 
 -- Load character-occlusion modules
 local Invisicam = require(script:WaitForChild("Invisicam"))
-local Poppercam = require(script:WaitForChild("Poppercam_Classic"))
+local Poppercam do
+	local success, useNewPoppercam = pcall(UserSettings().IsUserFeatureEnabled, UserSettings(), "UserNewPoppercam")
+	if success and useNewPoppercam then
+		Poppercam = require(script:WaitForChild("Poppercam"))
+	else
+		Poppercam = require(script:WaitForChild("Poppercam_Classic"))
+	end
+end
 
 -- Load the near-field character transparency controller
 local TransparencyController = require(script:WaitForChild("TransparencyController"))

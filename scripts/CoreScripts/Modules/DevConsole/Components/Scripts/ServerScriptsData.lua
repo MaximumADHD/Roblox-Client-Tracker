@@ -94,16 +94,20 @@ function ServerScriptsData:updateScriptsData(scriptsStats)
 			local overwrittenEntry = self._serverScriptsData[key].dataSet:push_back(update)
 
 			if overwrittenEntry then
+				local iter = self._serverScriptsData[key].dataSet:iterator()
+				local dat = iter:next()
 				if currMax == overwrittenEntry.data then
 					currMax = currMin
-					for _, dat in pairs(self._serverScriptsData[key].dataSet:getData()) do
+					while dat do
 						currMax = maxOfTable(dat, currMax)
+						dat = iter:next()
 					end
 				end
 				if currMin == overwrittenEntry.data then
 					currMin = currMax
-					for _, dat in pairs(self._serverScriptsData[key].dataSet:getData()) do
+					while dat do
 						currMin = minOfTable(dat, currMin)
+						dat = iter:next()
 					end
 				end
 			end

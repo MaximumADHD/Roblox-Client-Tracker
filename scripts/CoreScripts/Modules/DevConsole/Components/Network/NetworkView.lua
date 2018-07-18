@@ -2,9 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local HeaderFrameHeight = Constants.NetworkFormatting.HeaderFrameHeight
-local EntryFrameHeight = Constants.NetworkFormatting.EntryFrameHeight
-local SummaryButtonHeight = Constants.NetworkFormatting.SummaryButtonHeight
+local HEADER_HEIGHT = Constants.NetworkFormatting.HeaderFrameHeight
+local ENTRY_HEIGHT = Constants.NetworkFormatting.EntryFrameHeight
+local SUMMARY_HEIGHT = Constants.NetworkFormatting.SummaryButtonHeight
 local MIN_WIDTH = Constants.NetworkFormatting.MinFrameWidth
 
 local INDENT = 30
@@ -117,9 +117,9 @@ function NetworkView:render()
 	local absWidth = math.max(MIN_WIDTH, self.state.absWidth)
 
 	-- for both the detail button and summary button
-	local summaryHeight = SummaryButtonHeight * 2
+	local summaryHeight = SUMMARY_HEIGHT * 2
 	if summaryExpanded then
-		summaryHeight = summaryHeight + httpSummaryCount * EntryFrameHeight + HeaderFrameHeight
+		summaryHeight = summaryHeight + httpSummaryCount * ENTRY_HEIGHT + HEADER_HEIGHT
 	end
 
 	return Roact.createElement("Frame", {
@@ -136,7 +136,7 @@ function NetworkView:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 		SummaryButton = Roact.createElement(BannerButton, {
-			size = UDim2.new(1, 0, 0, SummaryButtonHeight),
+			size = UDim2.new(1, 0, 0, SUMMARY_HEIGHT),
 			pos = UDim2.new(),
 			isExpanded = summaryExpanded,
 			onButtonPress = self.onSummaryButton,
@@ -148,7 +148,7 @@ function NetworkView:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = BANNER_FONT_SIZE,
 
-				Size = UDim2.new(1,-INDENT,0,SummaryButtonHeight),
+				Size = UDim2.new(1,-INDENT,0,SUMMARY_HEIGHT),
 				Position = UDim2.new(0, INDENT, 0, 0),
 				BackgroundTransparency = 1,
 			})
@@ -159,7 +159,7 @@ function NetworkView:render()
 			layoutOrder = 2,
 		}),
 		DetailsButton = Roact.createElement(BannerButton, {
-			size = UDim2.new(1, 0, 0, SummaryButtonHeight),
+			size = UDim2.new(1, 0, 0, SUMMARY_HEIGHT),
 			pos = UDim2.new(),
 			isExpanded = entriesExpanded,
 			onButtonPress = self.onDetailButton,
@@ -171,7 +171,7 @@ function NetworkView:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = BANNER_FONT_SIZE,
 
-				Size = UDim2.new(1,-INDENT,0,SummaryButtonHeight),
+				Size = UDim2.new(1,-INDENT,0,SUMMARY_HEIGHT),
 				Position = UDim2.new(0, INDENT, 0, 0),
 				BackgroundTransparency = 1,
 			})

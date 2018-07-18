@@ -12,7 +12,7 @@ local ClientNetworkUpdateSearchFilter = require(Actions.ClientNetworkUpdateSearc
 local ServerNetworkUpdateSearchFilter = require(Actions.ServerNetworkUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MainViewNetwork = Roact.Component:extend("MainViewNetwork")
 
@@ -75,7 +75,7 @@ function MainViewNetwork:render()
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, MainRowPadding),
+		Padding = UDim.new(0, PADDING),
 	})
 
 	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab,{
@@ -115,6 +115,7 @@ function MainViewNetwork:render()
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
 		LayoutOrder = 3,
+
 	}, elements)
 end
 

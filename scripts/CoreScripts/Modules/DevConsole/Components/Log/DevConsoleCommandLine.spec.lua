@@ -7,7 +7,7 @@ return function()
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(DevConsoleCommandLine)
 
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

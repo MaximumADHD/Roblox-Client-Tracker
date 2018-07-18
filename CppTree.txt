@@ -176,6 +176,11 @@ RBX
 		VertexLayoutVulkan
 		VisualEngine
 	}
+	HttpRbxApiService
+	{
+		DefaultHttpRequestExecutionPolicy
+		HttpRequestExecutionPolicy
+	}
 	HttpRequestMsxmlImpl
 	{
 		Stream
@@ -765,7 +770,6 @@ RBX
 	HopperBin
 	http_status_error
 	HttpRbxApiJob
-	HttpRbxApiService
 	HttpRequest
 	HttpRequestCurl
 	HttpRequestMsxml
@@ -946,7 +950,6 @@ RBX
 	PolyPolyContact
 	Pose
 	PostEffect
-	PresenceService
 	Primitive
 	PriorityThreadPool
 	PVAdornment

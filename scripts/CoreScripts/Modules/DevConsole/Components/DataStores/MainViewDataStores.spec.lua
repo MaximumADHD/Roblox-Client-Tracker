@@ -10,6 +10,9 @@ return function()
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
+				MainView = {
+					currTabIndex = 0
+				},
 				DataStoresData = {
 					storesSearchTerm = ""
 				}
@@ -20,11 +23,14 @@ return function()
 			store = store,
 		}, {
 			DataProvider = Roact.createElement(DataProvider, {},{
-				MainViewDataStores = Roact.createElement(MainViewDataStores)
+				MainViewDataStores = Roact.createElement(MainViewDataStores,{
+					size = UDim2.new(),
+					tabList = {},
+				})
 			})
 		})
 
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

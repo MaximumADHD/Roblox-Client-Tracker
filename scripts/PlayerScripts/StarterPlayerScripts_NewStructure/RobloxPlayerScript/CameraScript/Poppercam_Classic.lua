@@ -86,6 +86,7 @@ function Poppercam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 		-- currently is
 		local prevCameraCFrame = self.camera.CFrame
 		self.camera.CFrame = desiredCameraCFrame
+		self.camera.Focus = desiredCameraFocus
 		local largest = self.camera:GetLargestCutoffDistance(ignoreList)
 
 		-- Then check if the player zoomed since the last frame,
@@ -132,6 +133,8 @@ end
 
 function Poppercam:OnCameraSubjectChanged(newSubject)
 	self.vehicleParts = {}
+
+	self.lastPopAmount = 0
 
 	if newSubject then
 		-- Determine if we should be popping at all

@@ -18283,10 +18283,115 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetAsyncFullUrl",
+                    "Parameters": [
+                        {
+                            "Name": "apiUrl",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ThrottlingPriority"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "httpRequestType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpRequestType"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "doNotAllowDiabolicalMode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PostAsync",
                     "Parameters": [
                         {
                             "Name": "apiUrlPath",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "data",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ThrottlingPriority"
+                            }
+                        },
+                        {
+                            "Default": "ApplicationJson",
+                            "Name": "content_type",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpContentType"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "httpRequestType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpRequestType"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "doNotAllowDiabolicalMode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PostAsyncFullUrl",
+                    "Parameters": [
+                        {
+                            "Name": "apiUrl",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -25299,6 +25404,48 @@
         {
             "Members": [
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IsLuaGamesPageEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IsLuaHomePageEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "ActionEnabled",
                     "Parameters": [
@@ -25376,28 +25523,6 @@
                         "Name": "void"
                     },
                     "Security": "LocalUserSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "IsLuaGamesPageEnabled",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "IsLuaHomePageEnabled",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -35049,39 +35174,6 @@
             "MemoryCategory": "Instances",
             "Name": "SunRaysEffect",
             "Superclass": "PostEffect"
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "GetUsersAsync",
-                    "Parameters": [
-                        {
-                            "Name": "userIds",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Variant"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ]
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "PresenceService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
         },
         {
             "Members": [

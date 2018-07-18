@@ -2,29 +2,29 @@ local ContextActionService = game:GetService("ContextActionService")
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local ChartHeaderNames = Constants.ActionBindingsFormatting.ChartHeaderNames
+local HEADER_NAMES = Constants.ActionBindingsFormatting.ChartHeaderNames
 
 local SORT_COMPARATOR = {
-	[ChartHeaderNames[1]] = function(a,b) -- "Name"
+	[HEADER_NAMES[1]] = function(a,b) -- "Name"
 		return a.counter < b.counter
 	end,
-	[ChartHeaderNames[2]] = function(a,b) -- "Priority"
+	[HEADER_NAMES[2]] = function(a,b) -- "Priority"
 		if a.actionInfo.priorityLevel == b.actionInfo.priorityLevel then
 			return a.counter < b.counter
 		end
 		return a.actionInfo.priorityLevel < b.actionInfo.priorityLevel
 	end,
-	[ChartHeaderNames[3]] = function(a,b) -- "Security"
+	[HEADER_NAMES[3]] = function(a,b) -- "Security"
 		if a.actionInfo.isCore == b.actionInfo.isCore then
 			return a.counter < b.counter
 		else
 			return a.actionInfo.isCore
 		end
 	end,
-	[ChartHeaderNames[4]] = function(a,b) -- "Action Name"
+	[HEADER_NAMES[4]] = function(a,b) -- "Action Name"
 		return a.name:lower() < b.name:lower()
 	end,
-	[ChartHeaderNames[5]] = function(a,b) -- "Input Types"
+	[HEADER_NAMES[5]] = function(a,b) -- "Input Types"
 		return tostring(a.actionInfo.inputTypes[1]) < tostring(b.actionInfo.inputTypes[1])
 	end,
 }
@@ -40,7 +40,7 @@ function ActionBindingsData.new()
 	self._bindingsData = {}
 	self._bindingCounter = 0
 	self._sortedBindingData = {}
-	self._sortType = ChartHeaderNames[1] -- Name
+	self._sortType = HEADER_NAMES[1] -- Name
 	return self
 end
 

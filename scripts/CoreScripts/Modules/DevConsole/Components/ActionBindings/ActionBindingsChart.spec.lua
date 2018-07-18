@@ -9,7 +9,7 @@ return function()
 		local element = Roact.createElement(DataProvider, nil, {
 			ActionBindingsChart = Roact.createElement(ActionBindingsChart)
 		})
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

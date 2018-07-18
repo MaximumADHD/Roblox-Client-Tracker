@@ -10,7 +10,7 @@ local Actions = script.Parent.Parent.Parent.Actions
 local ServerJobsUpdateSearchFilter = require(Actions.ServerJobsUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MainViewServerJobs = Roact.Component:extend("MainViewServerJobs")
 
@@ -64,7 +64,7 @@ function MainViewServerJobs:render()
 		LayoutOrder = 3
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, MainRowPadding),
+			Padding = UDim.new(0, PADDING),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 

@@ -9,7 +9,7 @@ local TabRowButton = require(script.Parent.TabRowButton)
 local FullScreenDropDownButton = require(script.Parent.FullScreenDropDownButton)
 
 local Constants = require(script.Parent.Parent.Constants)
-local tabDropDownWidth = Constants.TabRowFormatting.TabDropDownWidth
+local DROP_DOWN_WIDTH = Constants.TabRowFormatting.TabDropDownWidth
 
 local TabRowContainer = Roact.Component:extend("TabRowContainer")
 
@@ -69,7 +69,7 @@ function TabRowContainer:render()
 		end
 
 		return Roact.createElement(FullScreenDropDownButton, {
-			buttonSize = UDim2.new(0, tabDropDownWidth, 0, frameHeight),
+			buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
 			dropDownList = names,
 			selectedIndex = currTabIndex,
 			onSelection = self.onTabButtonClicked,

@@ -5,17 +5,16 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local Constants = require(script.Parent.Parent.Constants)
-local topBarHeight = Constants.TopBarFormatting.FrameHeight
-local iconSize = .5 * topBarHeight
-local iconPadding = (topBarHeight - iconSize) / 2
-
-local LiveUpdateElement = require(script.Parent.Parent.Components.LiveUpdateElement)
-
-local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
+local FRAME_HEIGHT = Constants.TopBarFormatting.FrameHeight
+local ICON_SIZE = .5 * FRAME_HEIGHT
+local ICON_PADDING = (FRAME_HEIGHT - ICON_SIZE) / 2
 
 local DEVCONSOLE_TEXT = "Developer Console"
 local DEVCONSOLE_TEXT_FRAMESIZE = TextService:GetTextSize(DEVCONSOLE_TEXT, Constants.DefaultFontSize.TopBar,
 	Constants.Font.TopBar, Vector2.new(0, 0))
+
+local LiveUpdateElement = require(script.Parent.Parent.Components.LiveUpdateElement)
+local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
 
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
@@ -69,7 +68,7 @@ function DevConsoleTopBar:render()
 		TextSize = Constants.DefaultFontSize.TopBar,
 		TextColor3 = Color3.new(1, 1, 1),
 		Font = Constants.Font.TopBar,
-		Size = UDim2.new(0, DEVCONSOLE_TEXT_FRAMESIZE.X, 0, topBarHeight),
+		Size = UDim2.new(0, DEVCONSOLE_TEXT_FRAMESIZE.X, 0, FRAME_HEIGHT),
 		Position = UDim2.new(0, 0, 0, 0),
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
@@ -77,14 +76,14 @@ function DevConsoleTopBar:render()
 	})
 
 	local liveStatsModulePos = UDim2.new(0, DEVCONSOLE_TEXT_FRAMESIZE.X, 0, 0)
-	local liveStatsModuleSize = UDim2.new(1, -2*DEVCONSOLE_TEXT_FRAMESIZE.X, 0, topBarHeight)
+	local liveStatsModuleSize = UDim2.new(1, -2*DEVCONSOLE_TEXT_FRAMESIZE.X, 0, FRAME_HEIGHT)
 
 	if self.ref.current then
 		liveStatsModuleSize = UDim2.new(
 			0,
 			self.ref.current.AbsoluteSize.X - (2 * DEVCONSOLE_TEXT_FRAMESIZE.X),
 			0,
-			topBarHeight
+			FRAME_HEIGHT
 		)
 	end
 
@@ -100,8 +99,8 @@ function DevConsoleTopBar:render()
 	if formFactor == Constants.FormFactor.Large then
 		if not isMinimized then
 			elements["MinButton"] = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, iconSize, 0, iconSize),
-				Position = UDim2.new(1, -2 * topBarHeight + iconPadding, 0, iconPadding),
+				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+				Position = UDim2.new(1, -2 * FRAME_HEIGHT + ICON_PADDING, 0, ICON_PADDING),
 				BorderColor3 = Color3.new(1, 0, 0),
 				BackgroundColor3 = Constants.Color.BaseGray,
 				BackgroundTransparency = 1,
@@ -111,8 +110,8 @@ function DevConsoleTopBar:render()
 			})
 		else
 			elements["MaxButton"] = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, iconSize, 0, iconSize),
-				Position = UDim2.new(1, -2 * topBarHeight + iconPadding, 0, iconPadding),
+				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+				Position = UDim2.new(1, -2 * FRAME_HEIGHT + ICON_PADDING, 0, ICON_PADDING),
 				BorderColor3 = Color3.new(0, 0, 1),
 				BackgroundColor3 = Constants.Color.BaseGray,
 				BackgroundTransparency = 1,
@@ -124,8 +123,8 @@ function DevConsoleTopBar:render()
 	end
 
 	elements["CloseButton"] = Roact.createElement("ImageButton", {
-		Size = UDim2.new(0, iconSize, 0, iconSize),
-		Position = UDim2.new(1, -topBarHeight + iconPadding, 0, iconPadding),
+		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		Position = UDim2.new(1, -FRAME_HEIGHT + ICON_PADDING, 0, ICON_PADDING),
 		BorderColor3 = Color3.new(0, 1, 0),
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
@@ -154,7 +153,7 @@ function DevConsoleTopBar:render()
 	})
 
 	return Roact.createElement("ImageButton", {
-		Size = UDim2.new(1, 0, 0, topBarHeight),
+		Size = UDim2.new(1, 0, 0, FRAME_HEIGHT),
 		BackgroundColor3 = Constants.Color.Black,
 		BackgroundTransparency = .5,
 		AutoButtonColor = false,

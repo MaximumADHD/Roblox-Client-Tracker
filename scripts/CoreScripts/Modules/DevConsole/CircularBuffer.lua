@@ -57,11 +57,11 @@ end
 
 function CircularBuffer:front()
 	local front = self:getFrontIndex()
-	return self._data[front]
+	return self._data[front].entry
 end
 
 function CircularBuffer:iterator()
-	local front = self:front()
+	local front =  self._data[self:getFrontIndex()]
 
 	local iterator = {
 		data = front,
@@ -70,7 +70,7 @@ function CircularBuffer:iterator()
 			if retVal then
 				self.data = self.data._next
 			end
-			return retVal
+			return retVal and retVal.entry
 		end
 	}
 
@@ -78,7 +78,7 @@ function CircularBuffer:iterator()
 end
 
 function CircularBuffer:back()
-	return self._data[self._backIndex]
+	return self._data[self._backIndex].entry
 end
 
 function CircularBuffer:getData()
@@ -95,7 +95,9 @@ function CircularBuffer:push_back(newData)
 	end
 
 	local overwrittenData = self._data[newBackIndex]
-	self._data[newBackIndex] = newData
+	self._data[newBackIndex] = {
+		entry = newData
+	}
 
 	if currBackIndex > 0 then
 		self._data[currBackIndex]._next = self._data[newBackIndex]
@@ -105,7 +107,7 @@ function CircularBuffer:push_back(newData)
 	end
 
 	self._backIndex = newBackIndex
-	return overwrittenData
+	return overwrittenData and overwrittenData.entry
 end
 
 return CircularBuffer

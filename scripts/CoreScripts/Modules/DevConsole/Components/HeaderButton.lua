@@ -2,8 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
-local textSize = Constants.DefaultFontSize.MainWindowHeader
-local textColor = Constants.Color.Text
+local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
+local TEXT_COLOR = Constants.Color.Text
 
 local function HeaderButton(props)
 	local text = props.text
@@ -13,8 +13,8 @@ local function HeaderButton(props)
 
 	return Roact.createElement("TextButton", {
 		Text = text,
-		TextSize = textSize,
-		TextColor3 = textColor,
+		TextSize = TEXT_SIZE,
+		TextColor3 = TEXT_COLOR,
 		TextXAlignment = Enum.TextXAlignment.Left,
 
 		Size = size,

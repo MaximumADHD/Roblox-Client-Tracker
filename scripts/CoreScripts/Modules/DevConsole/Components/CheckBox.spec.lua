@@ -5,8 +5,14 @@ return function()
 	local CheckBox = require(script.Parent.CheckBox)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(CheckBox)
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local element = Roact.createElement(CheckBox, {
+			name = "",
+			fontSize = 0,
+			font = 0,
+			frameHeight = 0,
+			checkBoxHeight = 0,
+		})
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

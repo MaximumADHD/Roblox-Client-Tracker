@@ -13,7 +13,7 @@ local ClientLogUpdateSearchFilter = require(Actions.ClientLogUpdateSearchFilter)
 local ServerLogUpdateSearchFilter = require(Actions.ServerLogUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MAIN_ROW_PADDING = Constants.GeneralFormatting.MAIN_ROW_PADDING
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MsgTypeNamesOrdered = Constants.MsgTypeNamesOrdered
 
@@ -60,7 +60,6 @@ end
 
 function MainViewLog:didMount()
 	local utilSize = self.utilRef.current.Size
-
 	self:setState({
 		utilTabHeight = utilSize.Y.Offset
 	})
@@ -68,11 +67,9 @@ end
 
 function MainViewLog:didUpdate()
 	local utilSize = self.utilRef.current.Size
-	local height = utilSize.Y.Offset
-
-	if height ~= self.state.utilTabHeight then
+	if utilSize.Y.Offset ~= self.state.utilTabHeight then
 		self:setState({
-			utilTabHeight = height,
+			utilTabHeight = utilSize.Y.Offset
 		})
 	end
 end
@@ -97,7 +94,7 @@ function MainViewLog:render()
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, MAIN_ROW_PADDING),
+		Padding = UDim.new(0, PADDING),
 	})
 
 	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab,{
@@ -137,7 +134,6 @@ function MainViewLog:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = 3,
 
-		[Roact.Ref] = self.ref,
 	}, elements)
 end
 

@@ -10,7 +10,7 @@ return function()
 			ServerJobsChart = Roact.createElement(ServerJobsChart)
 		})
 
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

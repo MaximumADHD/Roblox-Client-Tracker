@@ -51,16 +51,20 @@ function DataStoresData:updateValue(key, value)
 		local overwrittenEntry = self._dataStoresData[key].dataSet:push_back(update)
 
 		if overwrittenEntry then
-			if currMax == overwrittenEntry.value then
+			local iter = self._dataStoresData[key].dataSet:iterator()
+			local dat = iter:next()
+			if currMax == overwrittenEntry.data then
 				currMax = currMin
-				for _, dat in pairs(dataEntry.dataSet:getData()) do
+				while dat do
 					currMax	= dat.value < currMax and currMax or dat.value
+					dat = iter:next()
 				end
 			end
-			if currMin == overwrittenEntry.value then
+			if currMin == overwrittenEntry.data then
 				currMin = currMax
-				for _, dat in pairs(dataEntry.dataSet:getData()) do
+				while dat do
 					currMin	= currMin < dat.value and currMin or dat.value
+					dat = iter:next()
 				end
 			end
 		end

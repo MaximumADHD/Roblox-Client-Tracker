@@ -50,9 +50,9 @@ end
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagSettingsHubInviteToGame = settings():GetFFlag('SettingsHubInviteToGame')
-local FFlagSettingsHubInviteToGameInStudio = settings():GetFFlag('SettingsHubInviteToGameInStudio')
-local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor')
+local FFlagSettingsHubInviteToGame2 = settings():GetFFlag('SettingsHubInviteToGame2')
+local FFlagSettingsHubInviteToGameInStudio2 = settings():GetFFlag('SettingsHubInviteToGameInStudio2')
+local FFlagSettingsHubBarsRefactor2 = settings():GetFFlag('SettingsHubBarsRefactor2')
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -352,7 +352,7 @@ local function Initialize()
 
 	local createShareGameButton = nil
 	local createPlayerRow = nil
-	if FFlagSettingsHubBarsRefactor then
+	if FFlagSettingsHubBarsRefactor2 then
 		local function createRow(frameClassName)
 			local frame = Instance.new(frameClassName)
 			frame.Image = "rbxasset://textures/ui/dialog_white.png"
@@ -609,11 +609,11 @@ local function Initialize()
 			extraOffset = 85
 		end
 			
-		if FFlagSettingsHubInviteToGame then
+		if FFlagSettingsHubInviteToGame2 then
 			-- Create "invite friends" button if it doesn't exist yet
 			-- We shouldn't create this button if we're not in a live game
 			if canShareCurrentGame() and not shareGameButton 
-				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio) then
+				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio2) then
 				shareGameButton = createShareGameButton()
 				shareGameButton.MouseButton1Click:connect(function()
 					this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
@@ -621,7 +621,7 @@ local function Initialize()
 				end)
 
 				-- Ensure the button is always at the top of the list
-				shareGameButton.LayoutOrder = 0
+				shareGameButton.LayoutOrder = 1
 				shareGameButton.Parent = this.Page
 			end
 		end
@@ -666,7 +666,12 @@ local function Initialize()
 				frame.NameLabel.Text = player.Name
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 				if fixPlayerRowLayout then
-					frame.LayoutOrder = index
+					if FFlagSettingsHubInviteToGame2 then
+						-- extra index room for shareGameButton
+						frame.LayoutOrder = index + 1
+					else
+						frame.LayoutOrder = index
+					end
 				end
 
 				managePlayerNameCutoff(frame, player)

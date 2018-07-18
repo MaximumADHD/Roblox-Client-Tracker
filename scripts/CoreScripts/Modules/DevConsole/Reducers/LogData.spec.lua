@@ -5,13 +5,9 @@ return function()
 		local state = LogData(nil, {})
 
 		local expectedKeys = {
-			clientData = {},
-			clientDataFiltered = {},
 			clientSearchTerm = "",
 			clientTypeFilters = {},
 
-			serverData = {},
-			serverDataFiltered = {},
 			serverSearchTerm = "",
 			serverTypeFilters = {},
 		}

@@ -3,16 +3,16 @@ local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
-local tabBarHeight = Constants.TabRowFormatting.FrameHeight
-local tabDropDownWidth= Constants.TabRowFormatting.TabDropDownWidth
+local TAB_HEIGHT = Constants.TabRowFormatting.FrameHeight
+local DROP_DOWN_WIDTH = Constants.TabRowFormatting.TabDropDownWidth
 
-local utilBarHeight = Constants.UtilityBarFormatting.FrameHeight
-local smallUtilBarHeight = Constants.UtilityBarFormatting.SmallFrameHeight
-local smallUtilPadding = Constants.UtilityBarFormatting.SmallUtilPadding
-local clientServerButtonWidth = Constants.UtilityBarFormatting.ClientServerButtonWidth
-local smallCSWidth = Constants.UtilityBarFormatting.ClientServerDropDownWidth
+local UTIL_HEIGHT = Constants.UtilityBarFormatting.FrameHeight
+local SMALL_UTIL_HEIGHT = Constants.UtilityBarFormatting.SmallFrameHeight
+local SMALL_PADDING = Constants.UtilityBarFormatting.SmallUtilPadding
+local CS_BUTTON_WIDTH = Constants.UtilityBarFormatting.ClientServerButtonWidth
+local SMALL_CS_BUTTON_WIDTH = Constants.UtilityBarFormatting.ClientServerDropDownWidth
 
-local mainRowPadding = Constants.GeneralFormatting.MainRowPadding
+local PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local Components = script.Parent
 local ClientServerButton = require(Components.ClientServerButton)
@@ -88,17 +88,17 @@ function UtilAndTab:render()
 
 	if (formFactor == Constants.FormFactor.Small) or
 		(tabOverLap < 0 and windowWidth > 0) then
-		local frameHeight = smallUtilBarHeight
+		local frameHeight = SMALL_UTIL_HEIGHT + SMALL_PADDING
 		if activeSearchTerm then
-			frameHeight = frameHeight + utilBarHeight
+			frameHeight = frameHeight + SMALL_UTIL_HEIGHT + SMALL_PADDING
 		end
 
 		local useCSButton = onClientButton and onServerButton
 
-		local endFrameWidth = windowWidth - smallUtilBarHeight - tabDropDownWidth
+		local endFrameWidth = windowWidth - SMALL_UTIL_HEIGHT - DROP_DOWN_WIDTH
 
 		if useCSButton then
-			endFrameWidth = endFrameWidth - smallCSWidth
+			endFrameWidth = endFrameWidth - SMALL_CS_BUTTON_WIDTH
 		end
 
 		return Roact.createElement("Frame",{
@@ -109,7 +109,7 @@ function UtilAndTab:render()
 			[Roact.Ref] = self.props.refForParent
 		}, {
 			MainFrame = Roact.createElement("Frame",{
-				Size = UDim2.new(1, 0, 0, smallUtilBarHeight),
+				Size = UDim2.new(1, 0, 0, SMALL_UTIL_HEIGHT),
 				BackgroundTransparency = 1,
 				[Roact.Ref] = self.utilRef,
 			}, {
@@ -122,19 +122,19 @@ function UtilAndTab:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
 						FillDirection = Enum.FillDirection.Horizontal,
-						Padding = UDim.new(0,smallUtilPadding),
+						Padding = UDim.new(0,SMALL_PADDING),
 					}),
 
 					Tabs = Roact.createElement(TabRowContainer, {
 						tabList = tabList,
 						windowWidth = windowWidth,
-						frameHeight = smallUtilBarHeight,
+						frameHeight = SMALL_UTIL_HEIGHT,
 						formFactor = formFactor,
 						layoutOrder = 1,
 					}),
 
 					ClientServerButton = useCSButton and Roact.createElement(ClientServerButton, {
-						frameHeight = smallUtilBarHeight,
+						frameHeight = SMALL_UTIL_HEIGHT,
 						useFullScreenDropDown = true,
 						isClientView = isClientView,
 						layoutOrder = 2,
@@ -145,8 +145,8 @@ function UtilAndTab:render()
 					FilterCheckBoxes = onCheckBoxesChanged and Roact.createElement(CheckBoxContainer, {
 						boxNames = checkBoxNames,
 						frameWidth  = endFrameWidth,
-						frameHeight =  smallUtilBarHeight,
-						pos = UDim2.new(0, 2 * (clientServerButtonWidth) + mainRowPadding, 0, 0),
+						frameHeight =  SMALL_UTIL_HEIGHT,
+						pos = UDim2.new(0, 2 * (CS_BUTTON_WIDTH) + PADDING, 0, 0),
 						layoutOrder = 3,
 						onCheckBoxesChanged = onCheckBoxesChanged,
 					}),
@@ -154,8 +154,8 @@ function UtilAndTab:render()
 				}),
 
 				SearchButton = Roact.createElement("ImageButton", {
-					Size = UDim2.new(0, smallUtilBarHeight, 0, smallUtilBarHeight),
-					Position = UDim2.new(1,-smallUtilBarHeight, 0, 0),
+					Size = UDim2.new(0, SMALL_UTIL_HEIGHT, 0, SMALL_UTIL_HEIGHT),
+					Position = UDim2.new(1,-SMALL_UTIL_HEIGHT, 0, 0),
 					BackgroundTransparency = 1,
 					Image = Constants.Image.Search,
 
@@ -164,8 +164,8 @@ function UtilAndTab:render()
 			}),
 
 			SearchBar = activeSearchTerm and Roact.createElement(SearchBar, {
-				size = UDim2.new(1, 0, 0, utilBarHeight),
-				pos = UDim2.new(0, 0, 0, utilBarHeight),
+				size = UDim2.new(1, 0, 0, SMALL_UTIL_HEIGHT),
+				pos = UDim2.new(0, 0, 0, SMALL_UTIL_HEIGHT + SMALL_PADDING),
 				searchTerm = searchTerm,
 				textSize = Constants.DefaultFontSize.UtilBar,
 				frameHeight = Constants.UtilityBarFormatting.FrameHeight,
@@ -177,36 +177,30 @@ function UtilAndTab:render()
 	else
 		local useCSButton = onClientButton and onServerButton
 
-		local endFrameWidth = windowWidth - (smallUtilPadding * 3) - (2 * clientServerButtonWidth)
+		local endFrameWidth = windowWidth - (SMALL_PADDING * 3) - (2 * CS_BUTTON_WIDTH)
 
 		if useCSButton then
-			endFrameWidth = endFrameWidth - clientServerButtonWidth
+			endFrameWidth = endFrameWidth - CS_BUTTON_WIDTH
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, utilBarHeight + tabBarHeight + mainRowPadding),
+			Size = UDim2.new(1, 0, 0, TAB_HEIGHT + UTIL_HEIGHT + PADDING),
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
 
 			[Roact.Ref] = self.props.refForParent,
 		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, mainRowPadding),
-			}),
-
 			Tabs = Roact.createElement(TabRowContainer, {
 				tabList = tabList,
 				windowWidth = windowWidth,
-				frameHeight = tabBarHeight,
+				frameHeight = TAB_HEIGHT,
 				formFactor = formFactor,
-				layoutOrder = 1,
 			}),
 
 			UtilBar = Roact.createElement("Frame",{
-				Size = UDim2.new(1, 0, 0, utilBarHeight),
+				Position = UDim2.new(0, 0, 0, TAB_HEIGHT + PADDING),
+				Size = UDim2.new(1, 0, 0, UTIL_HEIGHT),
 				BackgroundTransparency = 1,
-				LayoutOrder = 2,
 
 				[Roact.Ref] = self.utilRef,
 			}, {
@@ -219,7 +213,7 @@ function UtilAndTab:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
 						FillDirection = Enum.FillDirection.Horizontal,
-						Padding = UDim.new(0,smallUtilPadding),
+						Padding = UDim.new(0,SMALL_PADDING),
 					}),
 
 					ClientServerButton = useCSButton and Roact.createElement(ClientServerButton, {
@@ -232,16 +226,16 @@ function UtilAndTab:render()
 					FilterCheckBoxes = onCheckBoxesChanged and Roact.createElement(CheckBoxContainer, {
 						boxNames = checkBoxNames,
 						frameWidth  = endFrameWidth,
-						frameHeight =  utilBarHeight,
-						pos = UDim2.new(0, 2 * (clientServerButtonWidth) + mainRowPadding, 0, 0),
+						frameHeight =  UTIL_HEIGHT,
+						pos = UDim2.new(0, 2 * (CS_BUTTON_WIDTH) + PADDING, 0, 0),
 						onCheckBoxesChanged = onCheckBoxesChanged,
 					}),
 
 				}),
 
 				SearchBar = onSearchTermChanged and Roact.createElement(SearchBar, {
-					size = UDim2.new(0, 2 * clientServerButtonWidth, 0, utilBarHeight),
-					pos = UDim2.new(1, -2 * clientServerButtonWidth, 0, 0),
+					size = UDim2.new(0, 2 * CS_BUTTON_WIDTH, 0, UTIL_HEIGHT),
+					pos = UDim2.new(1, -2 * CS_BUTTON_WIDTH, 0, 0),
 					searchTerm = searchTerm,
 					textSize = Constants.DefaultFontSize.UtilBar,
 					frameHeight = Constants.UtilityBarFormatting.FrameHeight,

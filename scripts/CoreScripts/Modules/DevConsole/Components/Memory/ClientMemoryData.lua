@@ -88,16 +88,20 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 		local overwrittenEntry = entryList[name].dataSet:push_back(update)
 
 		if overwrittenEntry then
+			local iter = entryList[name].dataSet:iterator()
+			local dat = iter:next()
 			if currMax == overwrittenEntry.data then
 				currMax = currMin
-				for _, dat in pairs(entryList[name].dataSet:getData()) do
+				while dat do
 					currMax	= dat.data < currMax and currMax or dat.data
+					dat = iter:next()
 				end
 			end
 			if currMin == overwrittenEntry.data then
 				currMin = currMax
-				for _, dat in pairs(entryList[name].dataSet:getData()) do
+				while dat do
 					currMin	= currMin < dat.data and currMin or dat.data
+					dat = iter:next()
 				end
 			end
 		end

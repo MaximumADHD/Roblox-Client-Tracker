@@ -5,7 +5,6 @@ return function()
 	local DevConsoleDisplayOptions = require(Reducers.DevConsoleDisplayOptions)
 	local MainView = require(Reducers.MainView)
 
-	local LogData = require(Reducers.LogData)
 	local MemoryData = require(Reducers.MemoryData)
 	local NetworkData = require(Reducers.NetworkData)
 	local ScriptsData = require(Reducers.ScriptsData)
@@ -21,7 +20,6 @@ return function()
 			DisplayOptions = DevConsoleDisplayOptions(nil,{}),
 			MainView = MainView(nil,{}),
 
-			LogData = LogData(nil,{}),
 			MemoryData = MemoryData(nil,{}),
 			NetworkData = NetworkData(nil,{}),
 			ScriptsData = ScriptsData(nil,{}),

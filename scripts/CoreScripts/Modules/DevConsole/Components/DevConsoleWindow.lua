@@ -80,18 +80,16 @@ function DevConsoleWindow:init()
 end
 
 function DevConsoleWindow:didMount()
-	if self.ref.current then
-		-- we need to run this delay before grabbing the size of the frame
-		-- because the DevconsoleWindow is mounted before the ScreenGui
-		-- is resized to the correct screen size.
-		delay(0, function ()
+	-- we need to run this delay before grabbing the size of the frame
+	-- because the DevconsoleWindow is mounted before the ScreenGui
+	-- is resized to the correct screen size.
+	delay(0, function ()
+		if self.ref.current then
 			local absPos1 = self.ref.current.AbsolutePosition
 			local absPos2 = self.ref.current.ResizeButton.AbsolutePosition
 			self:setDevConsoleSize(absPos1, absPos2)
-		end)
-	else
-		error("bad devconsole size init, delay the resize more")
-	end
+		end
+	end)
 end
 
 function DevConsoleWindow:render()

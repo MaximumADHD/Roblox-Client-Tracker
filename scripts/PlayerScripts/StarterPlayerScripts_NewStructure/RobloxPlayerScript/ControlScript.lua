@@ -62,6 +62,9 @@ local movementEnumToModuleMap = {
 	[Enum.DevTouchMovementMode.DynamicThumbstick] = DynamicThumbstick,	
 	[Enum.TouchMovementMode.ClickToMove] = ClickToMove,
 	[Enum.DevTouchMovementMode.ClickToMove] = ClickToMove,
+	
+	-- Current default
+	[Enum.TouchMovementMode.Default] = TouchThumbstick,
 
 	[Enum.ComputerMovementMode.Default] = Keyboard,
 	[Enum.ComputerMovementMode.KeyboardMouse] = Keyboard,
@@ -125,6 +128,7 @@ local function SelectTouchModule()
 	else
 		touchModule = movementEnumToModuleMap[DevMovementMode]
 	end
+	
 	return touchModule, true
 end
 
@@ -184,7 +188,6 @@ end
 -- and then enable the requested controller. The argument to this function must be
 -- a reference to one of the control modules, i.e. Keyboard, Gamepad, etc.
 local function SwitchToController(controlModule)
-	--print("SwitchToController ",controlModule)
 	if not controlModule then
 		if activeController then
 			activeController:Enable(false)
@@ -228,7 +231,7 @@ local function OnLastInputTypeChanged(newLastInputType)
 	if lastInputType == newLastInputType then
 		warn("LastInputType Change listener called with current type.")
 	end
-	--print("LastInputType: ",lastInputType.Name," newLastInputType: ",newLastInputType.Name)
+	
 	lastInputType = newLastInputType
 	
 	if lastInputType == Enum.UserInputType.Touch then
@@ -307,13 +310,13 @@ local function createTouchGuiContainer()
 end
 
 if UserInputService.TouchEnabled then
-	PlayerGui = Players.LocalPlayer:FindFirstChild("PlayerGui")
+	PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
 	if PlayerGui then
 		createTouchGuiContainer()
 		OnLastInputTypeChanged(UserInputService:GetLastInputType())
 	else
 		playerGuiAddedConn = Players.LocalPlayer.ChildAdded:Connect(function(child)
-			if child:IsA("ScreenGui") and child.Name=="PlayerGui" then
+			if child:IsA("PlayerGui") then
 				PlayerGui = child
 				createTouchGuiContainer()
 				playerGuiAddedConn:Disconnect()
@@ -323,5 +326,6 @@ if UserInputService.TouchEnabled then
 		end)
 	end
 end
+
 
 return ControlScript

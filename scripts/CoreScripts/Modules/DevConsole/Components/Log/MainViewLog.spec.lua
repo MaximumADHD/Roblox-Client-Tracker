@@ -4,11 +4,16 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Store = require(CorePackages.Rodux).Store
 
+	local DataProvider = require(script.Parent.Parent.DataProvider)
+
 	local MainViewLog = require(script.Parent.MainViewLog)
 
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
+				MainView = {
+					currTabIndex = 0
+				},
 				LogData = {
 					clientSearchTerm = "",
 					clientTypeFilters = {},
@@ -21,10 +26,15 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			MainViewLog = Roact.createElement(MainViewLog)
+			DataProvider = Roact.createElement(DataProvider, {},{
+				MainViewLog = Roact.createElement(MainViewLog,{
+					size = UDim2.new(),
+					tabList = {},
+				})
+			})
 		})
 
-		local instance = Roact.reify(element)
-		Roact.teardown(instance)
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
 	end)
 end

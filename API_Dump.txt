@@ -1077,7 +1077,9 @@ Class HapticService : Instance [notCreatable]
 	Function void HapticService:SetMotor(UserInputType inputType, VibrationMotor vibrationMotor, Tuple vibrationValues)
 Class HttpRbxApiService : Instance [notCreatable]
 	YieldFunction string HttpRbxApiService:GetAsync(string apiUrlPath, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
+	YieldFunction string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:PostAsync(string apiUrlPath, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
+	YieldFunction string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 Class HttpService : Instance [notCreatable]
 	Property bool HttpService.HttpEnabled [LocalUserSecurity]
 	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true)
@@ -1476,12 +1478,12 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.UseInstancePacketCache
 	Property bool NetworkSettings.UsePhysicsPacketCache
 Class NotificationService : Instance [notCreatable]
+	Property bool NotificationService.IsLuaGamesPageEnabled [readonly] [RobloxScriptSecurity]
+	Property bool NotificationService.IsLuaHomePageEnabled [readonly] [RobloxScriptSecurity]
 	Function void NotificationService:ActionEnabled(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:ActionTaken(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:CancelAllNotification(int64 userId) [LocalUserSecurity]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) [LocalUserSecurity]
-	Function bool NotificationService:IsLuaGamesPageEnabled() [RobloxScriptSecurity]
-	Function bool NotificationService:IsLuaHomePageEnabled() [RobloxScriptSecurity]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
 	YieldFunction Array NotificationService:GetScheduledNotifications(int64 userId) [LocalUserSecurity]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
@@ -2015,8 +2017,6 @@ Class ColorCorrectionEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
-Class PresenceService : Instance [notCreatable]
-	YieldFunction Variant PresenceService:GetUsersAsync(Array userIds) [RobloxScriptSecurity]
 Class ReflectionMetadata : Instance
 Class ReflectionMetadataCallbacks : Instance
 Class ReflectionMetadataClasses : Instance
