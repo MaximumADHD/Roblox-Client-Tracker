@@ -21,7 +21,9 @@ local function HeaderButton(props)
 		Position = pos,
 		BackgroundTransparency = 1,
 
-		[Roact.Event.Activated] = sortfunction,
+		[Roact.Event.Activated] = function()
+			sortfunction(text)
+		end,
 	})
 end
 

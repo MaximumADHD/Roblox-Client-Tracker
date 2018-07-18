@@ -1,20 +1,27 @@
 local LogService = game:GetService("LogService")
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
 
-local Actions = script.Parent.Parent.Parent.Actions
-local ClientLogSetData = require(Actions.ClientLogSetData)
-local ServerLogSetData = require(Actions.ServerLogSetData)
-local ClientLogAppendMessage = require(Actions.ClientLogAppendMessage)
-local ClientLogAppendFilteredMessage = require(Actions.ClientLogAppendFilteredMessage)
-local ServerLogAppendMessage = require(Actions.ServerLogAppendMessage)
-local ServerLogAppendFilteredMessage = require(Actions.ServerLogAppendFilteredMessage)
+local Constants = require(script.Parent.Parent.Parent.Constants)
+local EnumToMsgTypeName = Constants.EnumToMsgTypeName
 
-local EnumToMsgTypeName = require(script.Parent.Parent.Parent.Constants).EnumToMsgTypeName
+local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
+local Signal = require(script.Parent.Parent.Parent.Signal)
+
+-- 500 is max kept in history in C++ as of 7/2/2018
+local MAX_LOG_SIZE = tonumber(settings():GetFVariable("NewDevConsoleMaxLogCount"))
 local WARNING_TO_FILTER = {"ClassDescriptor failed to learn", "EventDescriptor failed to learn", "Type failed to learn"}
 
-local LogData = Roact.Component:extend("LogData")
+local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
+
+local LogData = {}
+LogData.__index = LogData
+
+local function messageEntry(msg, timeAsStr, type)
+	return {
+		Message = msg,
+		Time = timeAsStr,
+		Type = type,
+	}
+end
 
 -- MOST if not all of this code is copied from the
 -- Filter "ClassDescriptor failed to learn" errors
@@ -32,46 +39,21 @@ local function ignoreWarningMessageOnAdd(message)
 	return found
 end
 
-local function numberWithZero(num)
-	return (num < 10 and "0" or "") .. num
-end
-
-local function ConvertTimeStamp(timeStamp)
-	local localTime = timeStamp - os.time() + math.floor(tick())
-	local dayTime = localTime % 86400
-
-	local hour = math.floor(dayTime / 3600)
-
-	dayTime = dayTime - (hour * 3600)
-	local minute = math.floor(dayTime / 60)
-
-	dayTime = dayTime - (minute * 60)
-
-	local h = numberWithZero(hour)
-	local m = numberWithZero(minute)
-	local s = numberWithZero(dayTime)
-
-	return string.format("%s:%s:%s", h, m, s)
-end
-
-
 -- if a message if filtered that means we need to put it into the filtered messages
 -- this is defined as the messages that we are searching for when the search
 -- feature is being used
-local function isMessageFiltered(message, filterTypes, filterTerm, validFilters)
+local function isMessageFiltered(message, filterTypes, filterTerm)
 	-- if any types are flagged on, then we need to check against it
-	if #filterTerm == 0 and not validFilters then
+	if #filterTerm == 0 and not next(filterTypes) then
 		return false
 	end
 
-	-- check filter type
-	if validFilters then
+	if next(filterTypes) then
 		if not filterTypes[EnumToMsgTypeName[message.Type]] then
 			return false
 		end
 	end
 
-	-- check filter term
 	if #filterTerm > 0 then
 		if string.find(message.Message:lower(), filterTerm:lower()) == nil then
 			return false
@@ -81,182 +63,208 @@ local function isMessageFiltered(message, filterTypes, filterTerm, validFilters)
 	return true
 end
 
-local function FilterMessages(messages, filterTypes, filterTerm)
-	local filteredMessages = {}
+local function validActiveFilters(filterTypes)
 	local validFilters = false
-	for _,filterActive in pairs(filterTypes) do
+	for _, filterActive in pairs(filterTypes) do
 		validFilters = validFilters or filterActive
 	end
+	return validFilters
+end
+
+local function filterMessages(buffer, msgIter, filterTypes, filterTerm)
+	buffer:reset()
+
+	local validFilters = validActiveFilters(filterTypes)
 
 	if #filterTerm == 0 and not validFilters then
-		return {}
+		return
 	end
 
-	-- filter all messages existing messages
-	for i,msg in pairs(messages) do
-		if isMessageFiltered(msg, filterTypes, filterTerm, validFilters) then
-			filteredMessages[#filteredMessages + 1] = messages[i]
+	local counter = 0
+	local msg = msgIter:next()
+	while msg do
+		if isMessageFiltered(msg, filterTypes, filterTerm) then
+			counter = counter + 1
+			buffer:push_back(msg)
 		end
+		msg = msgIter:next()
 	end
 
-	if #filteredMessages == 0 then
+	if counter == 0 then
 		if #filterTerm > 0 then
-			filteredMessages[1] = {
-				Message = string.format ("\"%s\" was not found", filterTerm);
-				Time = "";
-				Type = 0;
-			}
+			local errorMsg = messageEntry(string.format ("\"%s\" was not found", filterTerm), "", 0)
+			buffer:push_back(errorMsg)
 		else
-			filteredMessages[1] = {
-				Message = string.format ("No Messages were found");
-				Time = "";
-				Type = 0;
-			}
+			local errorMsg = messageEntry("No Messages were found", "", 0)
+			buffer:push_back(errorMsg)
 		end
 	end
-	return filteredMessages
 end
 
-local function initClientLog()
-	local clientMessages = {}
-	if #clientMessages == 0 then
-		local history = LogService:GetLogHistory()
-		for _, msg in ipairs(history) do
-			local message = {
-				Message = msg.message or "[DevConsole Error 1]";
-				Time = ConvertTimeStamp(msg.timestamp);
-				Type = msg.messageType.Value;
-			}
+function LogData:checkErrorWarningCounter(msgType)
+	if msgType == Enum.MessageType.MessageWarning.Value then
+		self._warningCount = self._warningCount + 1
+		self._errorWarningSignal:Fire(self._errorCount, self._warningCount)
+	elseif msgType == Enum.MessageType.MessageError.Value then
+		self._errorCount = self._errorCount + 1
+		self._errorWarningSignal:Fire(self._errorCount, self._warningCount)
+	end
+end
+
+function LogData.new(isClient)
+	local self = {}
+	setmetatable(self, LogData)
+
+	self._initialized = false
+	self._isClient = isClient
+
+	self._logData = CircularBuffer.new(MAX_LOG_SIZE)
+	self._logDataSearched = CircularBuffer.new(MAX_LOG_SIZE)
+	self._searchTerm = ""
+	self._filters = {}
+	self._errorCount = isClient and 0
+	self._warningCount = isClient and 0
+	self._logDataUpdate = Signal.new()
+	self._errorWarningSignal = isClient and Signal.new()
+
+	return self
+end
+
+function LogData:Signal()
+	return self._logDataUpdate
+end
+
+function LogData:Signal2()
+	return self._logDataUpdate2
+end
+
+function LogData:errorWarningSignal()
+	return self._errorWarningSignal
+end
+
+function LogData:setSearchTerm(targetSearchTerm)
+	if self._searchTerm ~= targetSearchTerm then
+		self._searchTerm = targetSearchTerm
+
+		if self._searchTerm == "" then
+			self._logDataSearched:reset()
+			self._logDataUpdate:Fire(self._logData)
+		else
+			filterMessages(
+				self._logDataSearched,
+				self._logData:iterator(),
+				self._filters,
+				self._searchTerm
+			)
+			self._logDataUpdate:Fire(self._logDataSearched)
+		end
+	end
+end
+
+function LogData:getSearchTerm()
+	return self._searchTerm
+end
+
+function LogData:setFilters(filters)
+	if not validActiveFilters(filters) then
+		self._filters = {}
+		self._logDataSearched:reset()
+		self._logDataUpdate:Fire(self._logData)
+		return
+	end
+	self._filters = filters
+
+	filterMessages(
+		self._logDataSearched,
+		self._logData:iterator(),
+		self._filters,
+		self._searchTerm
+	)
+	self._logDataUpdate:Fire(self._logDataSearched)
+end
+
+function LogData:getLogData()
+	return self._logData
+end
+
+function LogData:getErrorWarningCount()
+	return self._errorCount, self._warningCount
+end
+
+function LogData:start()
+	if self._isClient then
+		if not self._initialized then
+			self._initialized = true
+			local Messages = {}
+			if #Messages == 0 then
+				local history = LogService:GetLogHistory()
+				for _, msg in ipairs(history) do
+					local message = messageEntry(
+						msg.message or "[DevConsole Error 1]",
+						convertTimeStamp(msg.timestamp),
+						msg.messageType.Value
+					)
+					if not ignoreWarningMessageOnAdd(message) then
+						self:checkErrorWarningCounter(msg.messageType.Value)
+						self._logData:push_back(message)
+					end
+				end
+			end
+		end
+
+		self._connection = LogService.MessageOut:connect(function(text, messageType)
+			local message = messageEntry(
+				text or "[DevConsole Error 2]",
+				convertTimeStamp(os.time()),
+				messageType.Value
+			)
+
 			if not ignoreWarningMessageOnAdd(message) then
-				clientMessages[#clientMessages + 1] = message
+				self:checkErrorWarningCounter(messageType.Value)
+				self._logData:push_back(message)
+
+				if #self._logDataSearched:getData() > 0 then
+					if isMessageFiltered(message, self._filters, self._searchTerm) then
+						self._logDataSearched:push_back(message)
+						self._logDataUpdate:Fire(self._logDataSearched)
+					end
+				else
+					self._logDataUpdate:Fire(self._logData)
+				end
 			end
-		end
-	end
-	return clientMessages
-end
+		end)
+	else
+		self._connection = LogService.ServerMessageOut:connect(function(text, messageType, timestamp)
+			local message = messageEntry(
+				text or "[DevConsole Error 3]",
+				convertTimeStamp(timestamp),
+				messageType.Value
+			)
 
---[[ Message Format
+			if not ignoreWarningMessageOnAdd(message) then
+				self._logData:push_back(message)
 
-	local message = {
-		Message = text,
-		Time = time,
-		Type = messageType.Value
-	}
---]]
-function LogData:didMount()
-	local initialClientLog = initClientLog()
-	self.props.dispatchClientLogSetData(initialClientLog, {})
-
-	self.clientConnection = LogService.MessageOut:connect(function(text, messageType)
-		local message = {
-			Message = text or "[DevConsole Error 2]",
-			Time = ConvertTimeStamp(os.time()),
-			Type = messageType.Value,
-		}
-
-		if not ignoreWarningMessageOnAdd(message) then
-			if isMessageFiltered(message, self.props.clientTypeFilters, self.props.clientFilterTerm) then
-				self.props.dispatchClientLogAppendFilteredMessage(message)
-			else
-				self.props.dispatchClientLogAppendMessage(message)
+				if #self._logDataSearched:getData() > 0 then
+					if isMessageFiltered(message, self._Filters, self._SearchTerm) then
+						self._logDataSearched:push_back(message)
+						self._logDataUpdate:Fire(self._logDataSearched:front())
+					end
+				else
+					self._logDataUpdate:Fire(self._logData:front())
+				end
 			end
-		end
-	end)
+		end)
 
-	-- need to block server log permissions if not accessible TODO
-	self.serverConnection = LogService.ServerMessageOut:connect(function(text, messageType, timestamp)
-		local message = {
-			Message = text or "[DevConsole Error 3]";
-			Time = ConvertTimeStamp(timestamp);
-			Type = messageType.Value;
-		}
-
-		if not ignoreWarningMessageOnAdd(message) then
-			if isMessageFiltered(message, self.props.clientTypeFilters, self.props.clientFilterTerm) then
-				self.props.dispatchServerLogAppendFilteredMessage(message)
-			else
-				self.props.dispatchServerLogAppendMessage(message)
-			end
-		end
-	end)
-	LogService:RequestServerOutput()
-
-end
-
-function LogData:willUnmount()
-	self.clientConnection:Disconnect()
-	self.serverConnection:Disconnect()
-	self.clientConnection = nil
-	self.serverConnection = nil
-end
-
-function LogData:shouldUpdate(prevProps, prevState)
-	if prevProps.clientTypeFilters ~= self.props.clientTypeFilters or
-		prevProps.clientFilterTerm ~= self.props.clientFilterTerm or
-		prevProps.serverTypeFilters ~= self.props.serverTypeFilters or
-		prevProps.serverFilterTerm ~= self.props.serverFilterTerm then
-		return true
-	end
-	return false
-end
-
-function LogData:render()
-	return nil
-end
-
-function LogData:didUpdate(prevProps, prevState)
-	if prevProps.clientTypeFilters ~= self.props.clientTypeFilters or
-		prevProps.clientFilterTerm ~= self.props.clientFilterTerm then
-
-		local newFilteredMessages = FilterMessages(self.props.clientData,
-			self.props.clientTypeFilters, self.props.clientFilterTerm)
-		self.props.dispatchClientLogSetData(nil, newFilteredMessages)
-	end
-
-	if prevProps.serverTypeFilters ~= self.props.serverTypeFilters or
-		prevProps.serverFilterTerm ~= self.props.serverFilterTerm then
-
-		local newFilteredMessages = FilterMessages(self.props.serverData,
-			self.props.serverTypeFilters, self.props.serverFilterTerm)
-		self.props.dispatchServerLogSetData(nil, newFilteredMessages)
+		LogService:RequestServerOutput()
 	end
 end
 
-local function mapStateToProps(state, props)
-	return {
-		clientData = state.LogData.clientData,
-		clientDataFiltered = state.LogData.clientDataFiltered,
-		clientTypeFilters = state.LogData.clientTypeFilters,
-		clientFilterTerm = state.LogData.clientSearchTerm,
+function LogData:stop()
+	self._initialized = false
 
-		serverData = state.LogData.serverData,
-		serverDataFiltered = state.LogData.serverDataFiltered,
-		serverTypeFilters = state.LogData.serverTypeFilters,
-		serverFilterTerm = state.LogData.serverSearchTerm,
-	}
+	if self._connection then
+		self._connection:Disconnect()
+	end
 end
 
-local function mapDispatchToProps(dispatch)
-	return {
-		dispatchClientLogSetData = function(messages, filteredMessages)
-			dispatch(ClientLogSetData(messages, filteredMessages))
-		end,
-		dispatchServerLogSetData = function(messages, filteredMessages)
-			dispatch(ServerLogSetData(messages, filteredMessages))
-		end,
-		dispatchClientLogAppendMessage = function(message)
-			dispatch(ClientLogAppendMessage(message))
-		end,
-		dispatchClientLogAppendFilteredMessage = function(message)
-			dispatch(ClientLogAppendFilteredMessage(message))
-		end,
-		dispatchServerLogAppendMessage = function(message)
-			dispatch(ServerLogAppendMessage(message))
-		end,
-		dispatchServerLogAppendFilteredMessage = function(message)
-			dispatch(ServerLogAppendFilteredMessage(message))
-		end,
-	}
-end
-
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(LogData)
+return LogData

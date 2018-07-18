@@ -5,21 +5,24 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Components = script.Parent.Parent.Parent.Components
 local ClientMemory = require(Components.Memory.ClientMemory)
 local ServerMemory = require(Components.Memory.ServerMemory)
-local ClientServerButton = require(Components.ClientServerButton)
-local SearchBar = require(Components.SearchBar)
+local UtilAndTab = require(Components.UtilAndTab)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local ClientMemoryUpdateSearchFilter = require(Actions.ClientMemoryUpdateSearchFilter)
 local ServerMemoryUpdateSearchFilter = require(Actions.ServerMemoryUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
-local buttonWidth = Constants.UtilityBarFormatting.ClientServerButtonWidth
-local utilBarHeight = Constants.UtilityBarFormatting.FrameHeight
+local MAIN_ROW_PADDING = Constants.GeneralFormatting.MainRowPadding
 
 local MainViewMemory = Roact.Component:extend("MainViewMemory")
 
 function MainViewMemory:init()
+	self.onUtilTabHeightChanged = function(utilTabHeight)
+		self:setState({
+			utilTabHeight = utilTabHeight
+		})
+	end
+
 	self.onClientButton = function()
 		self:setState({isClientView = true})
 	end
@@ -36,57 +39,79 @@ function MainViewMemory:init()
 		end
 	end
 
+	self.utilRef = Roact.createRef()
+
 	self.state = {
+		utilTabHeight = 0,
 		isClientView = true,
 	}
+end
+
+function MainViewMemory:didMount()
+	local utilSize = self.utilRef.current.Size
+	self:setState({
+		utilTabHeight = utilSize.Y.Offset,
+	})
+end
+
+function MainViewMemory:didUpdate()
+	local utilSize = self.utilRef.current.Size
+	local height = utilSize.Y.Offset
+
+	if height ~= self.state.utilTabHeight then
+		self:setState({
+			utilTabHeight = height,
+		})
+	end
 end
 
 function MainViewMemory:render()
 	local elements = {}
 	local size = self.props.size
+	local isdeveloperView = self.props.isdeveloperView
+	local formFactor = self.props.formFactor
+	local tabList = self.props.tabList
+
+	local utilTabHeight = self.state.utilTabHeight
 	local isClientView = self.state.isClientView
 	local searchTerm = isClientView and self.props.clientSearchTerm or self.props.serverSearchTerm
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
-		Padding = UDim.new(0, MainRowPadding),
 		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, MAIN_ROW_PADDING),
 	})
 
-	elements["UtilBar"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, utilBarHeight),
-		BackgroundTransparency = 1,
-		LayoutOrder = 1,
-	}, {
-		ClientServerButton = Roact.createElement(ClientServerButton, {
-			isClientView = isClientView,
-			onClientButton = self.onClientButton,
-			onServerButton = self.onServerButton,
-		}),
+	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab,{
+		windowWidth = size.X.Offset,
+		formFactor = formFactor,
+		tabList = tabList,
+		isClientView = isClientView,
+		searchTerm = searchTerm,
+		layoutOrder = 1,
 
-		SearchBox = Roact.createElement(SearchBar, {
-			size = UDim2.new(0, 2 * buttonWidth, 0, utilBarHeight),
-			pos = UDim2.new(1, -2 * buttonWidth, 0, 0),
-			searchTerm = searchTerm,
-			textSize = Constants.DefaultFontSize.UtilBar,
-			frameHeight = Constants.UtilityBarFormatting.FrameHeight,
-			borderColor = Constants.Color.BorderGray,
-			textBoxColor = Constants.Color.UnselectedGray,
-			onTextEntered = self.onSearchTermChanged,
-		}),
+		refForParent = self.utilRef,
+
+		onHeightChanged = self.onUtilTabHeightChanged,
+		onClientButton = isdeveloperView and self.onClientButton,
+		onServerButton = isdeveloperView and self.onServerButton,
+		onSearchTermChanged = self.onSearchTermChanged,
 	})
 
-	if isClientView then
-		elements["ClientMemory"] = Roact.createElement(ClientMemory, {
-			size = UDim2.new(1, 0, 1, -utilBarHeight),
-			searchTerm = searchTerm,
-			layoutOrder = 2,
-		})
-	else
-		elements["ServerMemory"] = Roact.createElement(ServerMemory, {
-			size = UDim2.new(1, 0, 1, -utilBarHeight),
-			searchTerm = searchTerm,
-			layoutOrder = 2,
-		})
+
+	if utilTabHeight > 0 then
+		if isClientView then
+			elements["ClientMemory"] = Roact.createElement(ClientMemory, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+				searchTerm = searchTerm,
+				layoutOrder = 2,
+			})
+		else
+			elements["ServerMemory"] = Roact.createElement(ServerMemory, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+				searchTerm = searchTerm,
+				layoutOrder = 2,
+			})
+		end
 	end
 
 	return Roact.createElement("Frame",{

@@ -1,4 +1,7 @@
+local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -7,9 +10,9 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 
-local Promise = require(ShareGame.Promise)
-local Networking = require(ShareGame.Http.Networking)
-local ApiFetchAllUsersFriends = require(ShareGame.Thunks.ApiFetchAllUsersFriends)
+local Promise = require(AppTempCommon.LuaApp.Promise)
+local request = require(AppTempCommon.LuaApp.Http.request)
+local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
 local PageFrame = require(ShareGame.Components.PageFrame)
@@ -17,7 +20,7 @@ local PageFrame = require(ShareGame.Components.PageFrame)
 local ShareGameApp = Roact.PureComponent:extend("App")
 
 function ShareGameApp:didMount()
-	self._networkImpl = Networking.new()
+	self._networkImpl = request
 	self.props.initialFetch(self._networkImpl)
 end
 
@@ -36,11 +39,13 @@ function ShareGameApp:render()
 end
 
 local connector = RoactRodux.connect(function(store)
+	local userId = tostring(Players.LocalPlayer.UserId)
+
 	return {
 		initialFetch = function(networkImpl)
 			Promise.all({
-				store:dispatch(ApiFetchAllUsersFriends(
-					networkImpl, Constants.AvatarThumbnailTypes.HeadShot
+				store:dispatch(ApiFetchUsersFriends(
+					networkImpl, userId, Constants.ThumbnailRequest.InviteToGameHeadshot
 				)),
 				-- V2: Add a fetch for conversations in this promise list
 			}):andThen(function(result)

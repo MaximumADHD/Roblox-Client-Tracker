@@ -1,25 +1,24 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui").RobloxGui
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local DevConsole = script.Parent.Parent
 
-local Config = require(DevConsole.Config)
 local Constants = require(DevConsole.Constants)
-local topBarHeight = Constants.TopBarFormatting.FrameHeight
-local tabRowHeight = Constants.TabRowFormatting.FrameHeight
-local utilityBarHeight = Constants.UtilityBarFormatting.FrameHeight
-local rowPadding = Constants.Padding.WindowPadding
+local TOPBAR_HEIGHT = Constants.TopBarFormatting.FrameHeight
+local ROW_PADDING = Constants.Padding.WindowPadding
+local MIN_SIZE = Constants.MainWindowInit.MinSize
 
 local Components = DevConsole.Components
 local DevConsoleTopBar = require(Components.DevConsoleTopBar)
-local TabRowContainer = require(Components.TabRowContainer)
-local LogData = require(Components.Log.LogData)
 
 local Actions = script.Parent.Parent.Actions
 local ChangeDevConsoleSize = require(Actions.ChangeDevConsoleSize)
 local SetDevConsoleVisibility = require(Actions.SetDevConsoleVisibility)
 local SetDevConsoleMinimized = require(Actions.SetDevConsoleMinimized)
+
+local BORDER_SIZE = 16
 
 local DevConsoleWindow = Roact.PureComponent:extend("DevConsoleWindow")
 
@@ -33,13 +32,23 @@ end
 
 function DevConsoleWindow:onCloseClicked()
 	self.props.dispatchSetDevConsolVisibility(false)
+
 end
 
 function DevConsoleWindow:init()
+	self.setDevConsoleSize = function (self, topLeft, bottomRight)
+		local x = bottomRight.X - topLeft.X
+		local y = bottomRight.Y - topLeft.Y
+
+		x = x < MIN_SIZE.X and MIN_SIZE.X or x
+		y = y < MIN_SIZE.Y and MIN_SIZE.Y or y
+
+		self.props.dispatchChangeDevConsoleSize(UDim2.new(0, x, 0, y))
+	end
+
 	self.resizeInputBegan = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			self:setState({
-				resizeWindowSize = self.props.size,
 				resizing = true,
 			})
 		end
@@ -47,38 +56,48 @@ function DevConsoleWindow:init()
 
 	self.resizeInputChanged = function(rbx,input)
 		if self.state.resizing then
-			local currPosition = rbx.Parent.Position
-			local cornerPos = rbx.AbsolutePosition
-			local x = cornerPos.X - currPosition.X.Offset
-			local y = cornerPos.Y - currPosition.Y.Offset
+			local currPosition = self.ref.current.AbsolutePosition
+			local cornerPos = input.Position
 
-			local newSize = UDim2.new(0, x, 0, y)
-			self:setState({
-				resizeWindowSize = newSize
-			})
-			rbx.Position = UDim2.new(1, 0, 1, 0)
+			self:setDevConsoleSize(currPosition, cornerPos)
 		end
 	end
 
 	self.resizeInputEnded = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			--reset resize-dragger
-			rbx.Position = UDim2.new(1, 0, 1, 0)
-			self.props.dispatchChangeDevConsoleSize(self.state.resizeWindowSize)
 			self:setState({
 				resizing = false
 			})
 		end
 	end
 
+	self.ref = Roact.createRef()
+
 	self.state = {
 		resizing = false,
 	}
 end
 
+function DevConsoleWindow:didMount()
+	if self.ref.current then
+		-- we need to run this delay before grabbing the size of the frame
+		-- because the DevconsoleWindow is mounted before the ScreenGui
+		-- is resized to the correct screen size.
+		delay(0, function ()
+			local absPos1 = self.ref.current.AbsolutePosition
+			local absPos2 = self.ref.current.ResizeButton.AbsolutePosition
+			self:setDevConsoleSize(absPos1, absPos2)
+		end)
+	else
+		error("bad devconsole size init, delay the resize more")
+	end
+end
+
 function DevConsoleWindow:render()
 	local isVisible = self.props.isVisible
 	local formFactor = self.props.formFactor
+	local isdeveloperView = self.props.isdeveloperView
 	local currTabIndex = self.props.currTabIndex
 	local tabList = self.props.tabList
 
@@ -88,35 +107,30 @@ function DevConsoleWindow:render()
 
 	local resizing = self.state.resizing
 
-	if resizing then
-		size = self.state.resizeWindowSize
-	end
 	local windowSize = size
 	local windowPos = UDim2.new()
 
 	local elements = {}
 
-	local borderSizePixel = 16
+	local borderSizePixel = BORDER_SIZE
 
 	if formFactor ~= Constants.FormFactor.Large then
 		-- none desktop/Large are full screen devconsoles
+		local absSize = CoreGui.AbsoluteSize
+		size = UDim2.new(0, absSize.X, 0, absSize.Y)
 		pos = UDim2.new(0, 0, 0, 0)
-		size = UDim2.new(1, 0, 1, 0)
 
 		windowPos = UDim2.new(0, 16, 0, 0)
-		windowSize = UDim2.new(1, -32, 1, 0)
+		windowSize = size + UDim2.new(0, -32, 0, 0)
 
 		borderSizePixel = 0
 	end
-
-	-- currently the only data module that is entirely roact/rodux
-	elements["LogData"] = Roact.createElement(LogData)
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		Padding = UDim.new(0, rowPadding),
+		Padding = UDim.new(0, ROW_PADDING),
 	})
 
 	if isMinimized then
@@ -136,12 +150,11 @@ function DevConsoleWindow:render()
 		})
 
 		return Roact.createElement("Frame", {
-			Position = UDim2.new(1, -500, 1, -2 * topBarHeight),
-			Size = UDim2.new(0, 500, 0, 2 * topBarHeight),
+			Position = UDim2.new(1, -500, 1, -2 * TOPBAR_HEIGHT),
+			Size = UDim2.new(0, 500, 0, 2 * TOPBAR_HEIGHT),
 			BackgroundColor3 = Color3.new(0, 0, 0),
-			Transparency = Config.MainWindowElement.Transparency,
-			Draggable = (formFactor == Constants.FormFactor.Large),
-			Active = (formFactor == Constants.FormFactor.Large),
+			Transparency = Constants.MainWindowInit.Transparency,
+			Active = true,
 			Visible = isVisible,
 			BorderColor3 = Constants.Color.BaseGray,
 		}, elements)
@@ -161,52 +174,64 @@ function DevConsoleWindow:render()
 			end,
 		})
 
-		local mainViewSize = size
+		local mainViewSize = windowSize
 
-		local TopSectionHeight = topBarHeight + tabRowHeight + utilityBarHeight + 3 * rowPadding
+		local TopSectionHeight = TOPBAR_HEIGHT + 2 * ROW_PADDING
 		local mainViewSizeOffset = UDim2.new(0, 0, 0, TopSectionHeight)
 		mainViewSize = mainViewSize - mainViewSizeOffset
 
-		elements["TabRow"] = Roact.createElement(TabRowContainer, {
-			LayoutOrder = 2,
-			tabList = tabList,
-			windowWidth = size.X.Offset,
-			formFactor = formFactor,
-		})
-
-		if tabList and currTabIndex > 0 then
+		if tabList and (currTabIndex > 0) and self.ref.current then
 			elements["MainView"] = Roact.createElement(tabList[currTabIndex].tab,{
 				size = mainViewSize,
+				formFactor = formFactor,
+				isdeveloperView = isdeveloperView,
+				tabList = tabList,
+				currTabIndex = currTabIndex,
 			})
 		end
-
-		local window = Roact.createElement("Frame", {
-			Size = windowSize,
-			Position = windowPos,
-			Transparency = 1,
-		},elements)
 
 		return Roact.createElement("Frame", {
 			Position = pos,
 			Size = size,
 			BackgroundColor3 = Color3.new(0, 0, 0),
-			Transparency = Config.MainWindowElement.Transparency,
-			Draggable = (formFactor == Constants.FormFactor.Large),
-			Active = (formFactor == Constants.FormFactor.Large),
+			Transparency = Constants.MainWindowInit.Transparency,
 			Visible = isVisible,
 			BorderColor3 = Constants.Color.BaseGray,
 			BorderSizePixel = borderSizePixel,
+
+			[Roact.Ref] = self.ref,
 		}, {
-			DevConsoleUI = window,
+			DevConsoleUI = Roact.createElement("Frame", {
+				Size = windowSize,
+				Position = windowPos,
+				BackgroundTransparency = 1,
+			},elements),
+
 			ResizeButton = 	Roact.createElement("ImageButton", {
-				Position = UDim2.new(1, 0, 1, 0),
-				Size = UDim2.new(0, 16, 0, 16),
+				Position =  UDim2.new(1, 0, 1, 0),
+				Size = UDim2.new(0, borderSizePixel, 0, borderSizePixel),
 				BackgroundColor3 = Color3.new(0, 0, 0),
-				Draggable = true,
 
 				[Roact.Event.InputBegan] = self.resizeInputBegan,
-				[Roact.Event.InputChanged] = self.resizeInputChanged,
-				[Roact.Event.InputEnded] = self.resizeInputEnded,
+			}),
+			--[[ we do this to catch all inputchanged events
+				if we can handle LARGE distances of continuous MouseMovmement input events
+				for dragging then we might be able to remove the portal
+			]]--
+			ResizeCatchAll = resizing and Roact.createElement(Roact.Portal, {
+				target = CoreGui,
+			}, {
+				InputCatcher = Roact.createElement("ScreenGui", {}, {
+					GreyOutFrame = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundColor3 = Constants.Color.Black,
+						BackgroundTransparency = .99,
+						Active = true,
+
+						[Roact.Event.InputChanged] = self.resizeInputChanged,
+						[Roact.Event.InputEnded] = self.resizeInputEnded,
+					})
+				})
 			})
 		})
 	end

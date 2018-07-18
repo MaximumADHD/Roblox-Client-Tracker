@@ -1,7 +1,10 @@
+local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local Immutable = require(ShareGame.Immutable)
+local Immutable = require(AppTempCommon.Common.Immutable)
 local SetUserInvited = require(ShareGame.Actions.SetUserInvited)
 
 return function(state, action)

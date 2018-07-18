@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -6,17 +8,23 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
+local Constants = require(ShareGame.Constants)
 
-local User = require(ShareGame.Models.User)
+local User = require(AppTempCommon.LuaApp.Models.User)
 local SetUserInvited = require(ShareGame.Actions.SetUserInvited)
-local memoize = require(ShareGame.memoize)
+local memoize = require(AppTempCommon.LuaApp.memoize)
 
-local Networking = require(ShareGame.Http.Networking)
-local ApiSendGameInvite = require(ShareGame.Thunks.ApiSendGameInvite)
-local ApiFetchPlaceInfos = require(ShareGame.Thunks.ApiFetchPlaceInfos)
+local request = require(AppTempCommon.LuaApp.Http.request)
+local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
+local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfos)
 
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
+
+local NO_RESULTS_FONT = Enum.Font.SourceSans
+local NO_RESULTS_TEXTCOLOR = Constants.Color.GRAY3
+local NO_RESULTS_TEXTSIZE = 19
+local NO_RESULTS_TRANSPRENCY = 0.22
 
 local PRESENCE_WEIGHTS = {
 	[User.PresenceType.ONLINE] = 3,
@@ -75,14 +83,24 @@ function ConversationList:render()
 		end
 	end
 
-	return Roact.createElement("ScrollingFrame", {
+	return numEntries > 0 and Roact.createElement("ScrollingFrame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = size,
 		CanvasSize = UDim2.new(0, 0, 0, numEntries * (ENTRY_HEIGHT + ENTRY_PADDING)),
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,
-	}, children)
+	}, children) or Roact.createElement("TextLabel", {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		Font = NO_RESULTS_FONT,
+		Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+		Text = "No results found",
+		TextColor3 = NO_RESULTS_TEXTCOLOR,
+		TextSize = NO_RESULTS_TEXTSIZE,
+		TextTransparency = NO_RESULTS_TRANSPRENCY,
+		ZIndex = zIndex,
+	})
 end
 
 local selectFriends = memoize(function(users)
@@ -126,7 +144,7 @@ local connector = RoactRodux.connect(function(store, props)
 				return
 			end
 
-			local networking = Networking.new()
+			local requestImpl = request
 			local placeInfo = latestState.PlaceInfos[placeId]
 
 			-- Log that we've tried inviting this user
@@ -135,17 +153,17 @@ local connector = RoactRodux.connect(function(store, props)
 			-- Send invite if we already have the current game's place info
 			if placeInfo then
 				store:dispatch(
-					ApiSendGameInvite(networking, userId, placeInfo)
+					ApiSendGameInvite(requestImpl, userId, placeInfo)
 				)
 			else
 				-- Fetch place info of current game if we don't have it, then
 				-- send the invite
 				store:dispatch(
-					ApiFetchPlaceInfos(networking, {placeId})
+					ApiFetchPlaceInfos(requestImpl, {placeId})
 				):andThen(function(placeInfos)
 					if placeInfos[1] ~= nil then
 						store:dispatch(
-							ApiSendGameInvite(networking, userId, placeInfos[1])
+							ApiSendGameInvite(requestImpl, userId, placeInfos[1])
 						)
 					end
 				end)

@@ -276,7 +276,6 @@ end
 RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, OnRenderStepped)
 
 UserInputService.LastInputTypeChanged:Connect(OnLastInputTypeChanged)
---OnLastInputTypeChanged(UserInputService:GetLastInputType()) -- Initialization
 
 propertyChangeListeners = {
 	GameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(OnTouchMovementModeChange),
@@ -311,6 +310,7 @@ if UserInputService.TouchEnabled then
 	PlayerGui = Players.LocalPlayer:FindFirstChild("PlayerGui")
 	if PlayerGui then
 		createTouchGuiContainer()
+		OnLastInputTypeChanged(UserInputService:GetLastInputType())
 	else
 		playerGuiAddedConn = Players.LocalPlayer.ChildAdded:Connect(function(child)
 			if child:IsA("ScreenGui") and child.Name=="PlayerGui" then
@@ -318,6 +318,7 @@ if UserInputService.TouchEnabled then
 				createTouchGuiContainer()
 				playerGuiAddedConn:Disconnect()
 				playerGuiAddedConn = nil
+				OnLastInputTypeChanged(UserInputService:GetLastInputType())
 			end
 		end)
 	end

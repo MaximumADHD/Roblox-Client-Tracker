@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2667347 bytes]
+[2666331 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
 [4496 bytes]
@@ -17,7 +17,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [217241 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[208275 bytes]
+[195739 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3937 bytes]
@@ -248,7 +248,7 @@ content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [6524 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
-[69996 bytes]
+[70788 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
 [42431 bytes]
@@ -266,7 +266,7 @@ content/scripts/CoreScripts/Libraries/RbxUtility.lua
 [37002 bytes]
 
 content/scripts/CoreScripts/LoadingScript.lua
-[28945 bytes]
+[29960 bytes]
 
 content/scripts/CoreScripts/MergeSort.lua
 [808 bytes]
@@ -322,15 +322,6 @@ content/scripts/CoreScripts/Modules/DevConsole/Actions/ActionBindingsUpdateSearc
 content/scripts/CoreScripts/Modules/DevConsole/Actions/ChangeDevConsoleSize.lua
 [152 bytes]
 
-content/scripts/CoreScripts/Modules/DevConsole/Actions/ClientLogAppendFilteredMessage.lua
-[171 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Actions/ClientLogAppendMessage.lua
-[163 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Actions/ClientLogSetData.lua
-[203 bytes]
-
 content/scripts/CoreScripts/Modules/DevConsole/Actions/ClientLogUpdateSearchFilter.lua
 [211 bytes]
 
@@ -348,15 +339,6 @@ content/scripts/CoreScripts/Modules/DevConsole/Actions/DataStoresUpdateSearchFil
 
 content/scripts/CoreScripts/Modules/DevConsole/Actions/ServerJobsUpdateSearchFilter.lua
 [212 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Actions/ServerLogAppendFilteredMessage.lua
-[171 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Actions/ServerLogAppendMessage.lua
-[163 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Actions/ServerLogSetData.lua
-[203 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Actions/ServerLogUpdateSearchFilter.lua
 [211 bytes]
@@ -379,47 +361,59 @@ content/scripts/CoreScripts/Modules/DevConsole/Actions/SetActiveTab.lua
 content/scripts/CoreScripts/Modules/DevConsole/Actions/SetDevConsoleMinimized.lua
 [160 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Actions/SetDevConsolePosition.lua
+[146 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Actions/SetDevConsoleVisibility.lua
 [163 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Actions/SetLogErrorWarningCount.lua
-[210 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Actions/UpdateAveragePing.lua
 [167 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/CircularBuffer.lua
+[2171 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsChart.lua
-[6885 bytes]
+[9909 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsChart.spec.lua
 [533 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsData.lua
-[2554 bytes]
+[4607 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/MainViewActionBindings.lua
-[2718 bytes]
+[3031 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/MainViewActionBindings.spec.lua
 [883 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Components/BannerButton.lua
+[1781 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/CellLabel.lua
-[618 bytes]
+[781 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/CheckBox.lua
-[2249 bytes]
+[2203 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/CheckBox.spec.lua
 [361 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/CheckBoxContainer.lua
-[1915 bytes]
+[5280 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/CheckBoxContainer.spec.lua
 [413 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Components/CheckBoxDropDown.lua
+[1694 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/CheckBoxDropDown.spec.lua
+[385 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/ClientServerButton.lua
-[1921 bytes]
+[2940 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ClientServerButton.spec.lua
 [388 bytes]
@@ -428,55 +422,61 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DataConsumer.lua
 [1193 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataProvider.lua
-[1418 bytes]
+[1809 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresChart.lua
-[5204 bytes]
+[7230 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresChart.spec.lua
 [517 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresData.lua
-[1662 bytes]
+[2966 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/MainViewDataStores.lua
-[2641 bytes]
+[2958 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/MainViewDataStores.spec.lua
 [861 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleTopBar.lua
-[3443 bytes]
+[5811 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleTopBar.spec.lua
 [875 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.lua
-[7185 bytes]
+[7856 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.spec.lua
 [1314 bytes]
 
-content/scripts/CoreScripts/Modules/DevConsole/Components/ExpandableRow.lua
-[1305 bytes]
+content/scripts/CoreScripts/Modules/DevConsole/Components/FullScreenDropDownButton.lua
+[4332 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/FullScreenDropDownButton.spec.lua
+[409 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/HeaderButton.lua
-[719 bytes]
+[747 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LineGraph.lua
-[565 bytes]
+[8693 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/LineGraphHoverDisplay.lua
+[1976 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LiveUpdateElement.lua
-[7105 bytes]
+[8630 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LiveUpdateElement.spec.lua
 [881 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/ClientLog.lua
-[3780 bytes]
+[693 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/ClientLog.spec.lua
-[712 bytes]
+[366 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/DevConsoleCommandLine.lua
 [1726 bytes]
@@ -485,142 +485,163 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Log/DevConsoleCommandL
 [402 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/LogData.lua
-[8175 bytes]
+[7205 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Log/LogOutput.lua
+[5341 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Log/LogOutput.spec.lua
+[366 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/MainViewLog.lua
-[4710 bytes]
+[4369 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/MainViewLog.spec.lua
 [784 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/ServerLog.lua
-[3778 bytes]
+[1035 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/ServerLog.spec.lua
-[712 bytes]
+[366 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ClientMemory.lua
-[5018 bytes]
+[633 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ClientMemory.spec.lua
 [505 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ClientMemoryData.lua
-[3303 bytes]
+[4974 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MainViewMemory.lua
-[4037 bytes]
+[4313 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MainViewMemory.spec.lua
 [931 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryView.lua
+[8569 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryView.spec.lua
+[497 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryViewEntry.lua
+[3194 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryViewEntry.spec.lua
+[517 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ServerMemory.lua
-[5570 bytes]
+[633 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ServerMemory.spec.lua
 [507 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/ServerMemoryData.lua
-[4266 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/StatsTreeComponent.lua
-[2422 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/StatsTreeComponent.spec.lua
-[566 bytes]
+[6226 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetwork.lua
-[2779 bytes]
+[842 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetwork.spec.lua
 [509 bytes]
 
-content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetworkData.lua
-[3795 bytes]
-
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/MainViewNetwork.lua
-[3976 bytes]
+[4109 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/MainViewNetwork.spec.lua
 [877 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChart.lua
-[7523 bytes]
+[9242 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChart.spec.lua
 [373 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChartEntry.lua
+[3743 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChartEntry.spec.lua
+[388 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkData.lua
+[5501 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkSummary.lua
-[5459 bytes]
+[5617 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkSummary.spec.lua
 [379 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkView.lua
+[5910 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkView.spec.lua
+[501 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetwork.lua
-[3108 bytes]
+[842 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetwork.spec.lua
 [509 bytes]
 
-content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetworkData.lua
-[4056 bytes]
-
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/MainViewScripts.lua
-[3792 bytes]
+[3382 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/MainViewScripts.spec.lua
 [849 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScripts.lua
-[6930 bytes]
+[10222 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScripts.spec.lua
 [533 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScriptsData.lua
-[1660 bytes]
+[4197 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScriptsEntry.lua
+[4430 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScriptsEntry.spec.lua
+[553 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/SearchBar.lua
-[1682 bytes]
+[2511 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/SearchBar.spec.lua
 [364 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/MainViewServerJobs.lua
-[2640 bytes]
+[2947 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/MainViewServerJobs.spec.lua
 [857 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.lua
-[6262 bytes]
+[12346 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.spec.lua
 [517 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsData.lua
-[1447 bytes]
+[4127 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/MainViewServerStats.lua
-[2661 bytes]
+[2968 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/MainViewServerStats.spec.lua
 [867 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsChart.lua
-[5134 bytes]
+[7239 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsChart.spec.lua
 [521 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsData.lua
-[1829 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Components/TabDropDown.lua
-[3633 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Components/TabDropDown.spec.lua
-[370 bytes]
+[3105 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowButton.lua
 [1438 bytes]
@@ -629,16 +650,19 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowButton.spec.lua
 [373 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowContainer.lua
-[3712 bytes]
+[3442 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowContainer.spec.lua
 [701 bytes]
 
-content/scripts/CoreScripts/Modules/DevConsole/Config.lua
-[352 bytes]
+content/scripts/CoreScripts/Modules/DevConsole/Components/UtilAndTab.lua
+[8474 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Components/UtilAndTab.spec.lua
+[367 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Constants.lua
-[6109 bytes]
+[6613 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Immutable.lua
 [2476 bytes]
@@ -656,19 +680,19 @@ content/scripts/CoreScripts/Modules/DevConsole/Reducers/DataStoresData.spec.lua
 [524 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/DevConsoleDisplayOptions.lua
-[1478 bytes]
+[1643 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/DevConsoleDisplayOptions.spec.lua
 [825 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/DevConsoleReducer.lua
-[1539 bytes]
+[1298 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/DevConsoleReducer.spec.lua
-[1640 bytes]
+[1529 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/LogData.lua
-[2485 bytes]
+[2389 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/LogData.spec.lua
 [690 bytes]
@@ -709,17 +733,20 @@ content/scripts/CoreScripts/Modules/DevConsole/Reducers/ServerStatsData.lua
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/ServerStatsData.spec.lua
 [526 bytes]
 
-content/scripts/CoreScripts/Modules/DevConsole/Reducers/TopBarLiveUpdate.lua
-[568 bytes]
-
-content/scripts/CoreScripts/Modules/DevConsole/Reducers/TopBarLiveUpdate.spec.lua
-[551 bytes]
-
 content/scripts/CoreScripts/Modules/DevConsole/Signal.lua
 [993 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Util/convertTimeStamp.lua
+[571 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Util/maxOfTable.lua
+[281 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/Util/minOfTable.lua
+[281 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsoleMaster.lua
-[7574 bytes]
+[6442 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
 [102660 bytes]
@@ -947,7 +974,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/LeaveGame.lua
 [4908 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Players.lua
-[28183 bytes]
+[28218 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Record.lua
 [5796 bytes]
@@ -958,200 +985,86 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ReportAbuseMenu.lua
 content/scripts/CoreScripts/Modules/Settings/Pages/ResetCharacter.lua
 [5443 bytes]
 
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Action.lua
-[1972 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/AddUser.lua
-[235 bytes]
-
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/ClosePage.lua
-[239 bytes]
+[193 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/OpenPage.lua
-[239 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/ReceivedConversation.lua
-[246 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/ReceivedPlaceInfo.lua
-[251 bytes]
+[193 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetDeviceLayout.lua
-[260 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetDeviceOrientation.lua
-[275 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetFriendCount.lua
-[239 bytes]
+[214 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetIsSmallTouchScreen.lua
-[278 bytes]
+[232 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetSearchAreaActive.lua
-[248 bytes]
+[202 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetSearchText.lua
-[254 bytes]
+[208 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetUserInvited.lua
-[289 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetUserIsFriend.lua
-[276 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetUserPresence.lua
-[332 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetUserThumbnail.lua
-[365 bytes]
+[243 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/AppReducer.lua
-[845 bytes]
+[978 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/App.lua
-[1603 bytes]
+[1780 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/BackButton.lua
-[1497 bytes]
+[1765 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationDetails.lua
-[2265 bytes]
+[2328 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationEntry.lua
-[2969 bytes]
+[2971 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationList.lua
-[4505 bytes]
+[5181 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationThumbnail.lua
-[5100 bytes]
+[5102 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/Header.lua
-[2139 bytes]
+[2141 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/InviteButton.lua
-[1849 bytes]
+[1912 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/LayoutProvider.lua
-[4126 bytes]
+[4189 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/PageFrame.lua
-[3464 bytes]
+[3466 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/RectangleButton.lua
-[2630 bytes]
+[2632 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/SearchArea.lua
-[6040 bytes]
+[6373 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/SearchBox.lua
-[4015 bytes]
+[4884 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Constants.lua
-[2480 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Functional.lua
-[2601 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/HttpResponse.lua
-[432 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Networking.lua
-[4706 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/ChatSendMessage.lua
-[447 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/ChatStartOneToOneConversation.lua
-[422 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/GetPlaceInfos.lua
-[425 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/UsersGetFriendCount.lua
-[714 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/UsersGetFriendPage.lua
-[861 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/UsersGetPresence.lua
-[1019 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Requests/UsersGetThumbnail.lua
-[1127 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/StatusCodes.lua
-[380 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Http/Url.lua
-[2813 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Immutable.lua
-[2476 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/memoize.lua
-[2557 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/MockId.lua
-[163 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Models/PlaceInfoModel.lua
-[827 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Models/User.lua
-[1077 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Promise.lua
-[8407 bytes]
+[2746 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/ConversationsSearch.lua
-[699 bytes]
+[814 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/DeviceInfo.lua
-[1054 bytes]
+[1182 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/Invites.lua
-[424 bytes]
+[541 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/Page.lua
-[801 bytes]
+[918 bytes]
 
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/PlaceInfos.lua
-[444 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/Users.lua
-[1788 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/TableUtilities.lua
-[2854 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Text.lua
-[4026 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchAllUsersFriends.lua
-[1067 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchPlaceInfos.lua
-[837 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchUsersData.lua
-[710 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchUsersFriendCount.lua
-[565 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchUsersFriendPage.lua
-[930 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchUsersPresences.lua
-[993 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiFetchUsersThumbnail.lua
-[1027 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Thunks/ApiSendGameInvite.lua
-[1156 bytes]
+content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Spritesheets/ShareGameIcons.lua
+[1093 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGamePage.lua
 [2351 bytes]
@@ -1280,7 +1193,7 @@ content/scripts/PlayerScripts/StarterCharacterScripts/Sound/LocalSound.client.lu
 [12916 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript.lua
-[11849 bytes]
+[11766 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/ClickToMove.lua
 [47762 bytes]
@@ -1295,7 +1208,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/PopperCam.lua
 [5345 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera.lua
-[49887 bytes]
+[49655 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts/CameraScript/RootCamera/AttachCamera.lua
 [2232 bytes]
@@ -1382,7 +1295,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [54011 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/BaseOcclusion.lua
-[1382 bytes]
+[1351 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/CameraUtils.lua
 [4082 bytes]
@@ -1394,13 +1307,13 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [20502 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/LegacyCamera.lua
-[5776 bytes]
+[5746 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/MouseLockController.lua
 [6800 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/OrbitalCamera.lua
-[18213 bytes]
+[18182 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam.lua
 [7920 bytes]
@@ -1421,16 +1334,13 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [776 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom.lua
-[2298 bytes]
+[2587 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/ConstrainedSpring.lua
 [1169 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/Popper.lua
-[8050 bytes]
-
-content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam/Zoom/Popper/Blacklist.lua
-[1065 bytes]
+[9209 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/CameraScript/Poppercam_Classic.lua
 [5564 bytes]
@@ -1439,7 +1349,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [5962 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript.lua
-[12012 bytes]
+[12059 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/BaseCharacterController.lua
 [1168 bytes]
@@ -1466,7 +1376,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [5907 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/TouchJump.lua
-[6066 bytes]
+[6128 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/TouchThumbpad.lua
 [10376 bytes]
@@ -3028,6 +2938,15 @@ content/textures/ui/LuaApp/icons/ic-chat-on@2x.png
 content/textures/ui/LuaApp/icons/ic-chat-on@3x.png
 [588 bytes]
 
+content/textures/ui/LuaApp/icons/ic-clear.png
+[398 bytes]
+
+content/textures/ui/LuaApp/icons/ic-clear@2x.png
+[763 bytes]
+
+content/textures/ui/LuaApp/icons/ic-clear@3x.png
+[1168 bytes]
+
 content/textures/ui/LuaApp/icons/ic-facebook.png
 [518 bytes]
 
@@ -4345,6 +4264,15 @@ content/textures/ui/Settings/Radial/TopRightSelected.png
 content/textures/ui/Settings/Radial/TopSelected.png
 [6122 bytes]
 
+content/textures/ui/Settings/ShareGame/icons.png
+[1619 bytes]
+
+content/textures/ui/Settings/ShareGame/icons@2x.png
+[6799 bytes]
+
+content/textures/ui/Settings/ShareGame/icons@3x.png
+[11007 bytes]
+
 content/textures/ui/Settings/Slider/BarLeft.png
 [149 bytes]
 
@@ -4580,11 +4508,11 @@ content/translations/CoreScriptLocalization.csv
 [137758 bytes]
 
 ReflectionMetadata.xml
-[344537 bytes]
+[344904 bytes]
 
 RobloxStudioBeta.exe
-[26931712 bytes]
+[27039744 bytes]
 
 RobloxStudioRibbon.xml
-[58519 bytes]
+[58488 bytes]
 

@@ -1,16 +1,16 @@
 local Constants = {
+	MainWindowInit = {
+		Position = UDim2.new(.5, -486, .02, 16),
+		Size = UDim2.new(0, 992, .96, -32),
+		Transparency = .36,
+		Padding = UDim.new(0, 5),
+		MinSize = Vector2.new(400, 250),
+	},
 	FormFactor = {
 		Large = 0,
 		Middle = 1,
 		Small = 2,
 		Console = 3,
-	},
-	Platform = {
-		Desktop = 0,	-- MasterRace
-		Tablet = 1,		-- Tablet Devices
-		Portrait = 2,	-- Phone Portrait
-		Landscape = 3,	-- Phone Landscape
-		Console = 4,	-- Xbox
 	},
 	Color = {
 		Black = Color3.fromRGB(0, 0, 0),
@@ -21,6 +21,8 @@ local Constants = {
 		WarningYellow = Color3.fromRGB(255, 218, 68),
 		SelectedBlue = Color3.fromRGB(50, 181, 255),
 		UnselectedGray = Color3.fromRGB(78, 84, 96),
+		-- HoverGreen = Color3.fromRGB(25, 78, 47 ), -- this is the color the Specs ask for but it's too dork IMO
+		HoverGreen = Color3.fromRGB(85, 138, 107),
 		TabUnselectedGray = Color3.fromRGB(102, 108, 119),
 		BorderGray = Color3.fromRGB(184, 184, 184),
 		Text = Color3.fromRGB(255, 255, 255),
@@ -48,7 +50,8 @@ local Constants = {
 		Warning = "rbxasset://textures/DevConsole/Warning.png",
 		Info = "rbxasset://textures/DevConsole/Info.png",
 		Check = "rbxasset://textures/ui/LuaChat/icons/ic-check.png",
-		Arrow = "rbxasset://textures/DevConsole/Arrow.png", -- we rotate this for the over effects
+		Arrow = "rbxasset://textures/DevConsole/Arrow.png", -- we want rotate this for the over effects
+		Arrow2 = "rbxasset://textures/TerrainTools/button_arrow_down.png", -- current use a down arrow because we can't rotate
 	},
 	Padding = {
 		WindowPadding = 8,
@@ -56,7 +59,6 @@ local Constants = {
 		LinePadding = 2,
 		MemoryIndent = 24,
 	},
-
 	-- the commented numbers here are the font sizes given by the design spec
 	-- they were changed because the sizing did not match the the visuals in the design spec
 	DefaultFontSize = {
@@ -79,18 +81,20 @@ local Constants = {
 		LineColor = Color3.new(1, 1, 1),
 		ArrowWidth = 8,
 		MainRowPadding = 8,
-		LineGraphHeight = 160,
+		LineGraphHeight = 200,
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
+
+		DropDownEntryHeight = 40,
+		DropDownEntryWidth = 375,
+		DropDownArrowHeight = 12,
 	},
 	TopBarFormatting = {
 		BarTransparency = .64,
 		FrameHeight = 30,
 	},
 	TabRowFormatting = {
-		TabDropDownWidth = 128,
-		TabDropDownHeight = 28,
-		TabDropDownBorderWidth = 375,
+		TabDropDownWidth = 144,
 		FrameHeight = 40,
 		HighlightHeight = 6,
 		SelectedTextTransparency = 0,
@@ -98,8 +102,12 @@ local Constants = {
 	},
 	UtilityBarFormatting = {
 		FrameHeight = 30,
+		SmallFrameHeight = 24,
+		SmallUtilPadding = 6, -- horizontal padding
 		ClientServerButtonWidth = 100,
+		ClientServerDropDownWidth = 74,
 		CheckBoxHeight = 16,
+		CheckBoxInnerPadding = 6
 	},
 	LogFormatting = {
 		IconHeight = 14,
@@ -123,23 +131,30 @@ local Constants = {
 	},
 
 	MemoryFormatting = {
-		ValueCellWidth = 200,
+		ChartHeaderNames = {"Name", "Value MB"},
+		ValueCellWidth = .2,
 		DepthIndent = 24,
 		CellPadding = 24,
+		ValuePadding = 12,
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
 	},
-	ClientNetworkFormatting = {
+
+	NetworkFormatting = {
 		SummaryHeaderNames = {"RequestType", "RequestCount", "FailedCount", "AvgTime(ms)", "MinTime(ms)", "MaxTime(ms)"},
 		HttpAnalyticsKeys = {"RequestType", "RequestCount", "FailedCount", "AverageTime", "MinTime", "MaxTime"},
 		ChartHeaderNames = {"No.", "Method", "Status", "Time(ms).", "RequestType", "URL"},
 		SummaryCellWidths = {120, 120, 120, 120, 120}, -- width of cells 2-6; cell 1 fills remainder
 		ChartCellWidths = {72, 72, 72, 84, 140}, -- widths of cells 1-5; cell 6 is the filler
-		GraphPadding = 16,
-		BannerFrameHeight = 30,
+		CellPadding = 16,
+		SummaryButtonHeight = 30,
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
+		ResponseWidthRatio = .8,
+		ResponseStrHeight = 15,
+		MinFrameWidth = 750,
 	},
+
 	ServerScriptsFormatting	 = {
 		ChartHeaderNames = {"Name", "Activity (%)", "Rate (/s)"},
 		ChartCellWidths = {200, 200}, -- width of cells 2-3; cell 1 fills remainder
@@ -149,6 +164,7 @@ local Constants = {
 		ActivityBoxWidth = 12,
 		ActivityBoxPadding = 14,
 	},
+
 	DataStoresFormatting = {
 		ChartHeaderNames = {"Name", "Value"},
 		ValueCellWidth = 200,
@@ -157,40 +173,45 @@ local Constants = {
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
 	},
+
 	ServerStatsFormatting = {
 		ChartHeaderNames = {"Name", "Value"},
-		ValueCellWidth = 200,
-		CellPadding = 16,
+		ValueCellWidth = .2,
+		CellPadding = 14,
 		ExpandArrowPadding = 12,
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
 	},
+
 	ActionBindingsFormatting = {
 		ChartHeaderNames = {"Name", "Priority", "Security", "Action Name", "Input Types"},
-		ChartCellWidths = {80, 100, 185, 270}, -- width of cells 2-4; cell 1 fills remainder
+		ChartCellWidths = {80, 100, 185}, -- width of cells 2-4; cell 1 fills remainder
 		CellPadding = 16,
 		ExpandArrowPadding = 12,
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
+		MinFrameWidth = 654,
 	},
+
 	ServerJobsFormatting = {
 		ChartHeaderNames = {"Name", "DutyCycle(%)", "Steps Per Sec (/s)", "Step Time (ms)"},
-		ColumnTransformFunc = {
-			function(point) return point and math.floor(point * 10000000 + 0.5) / 100000 .. "%" or "" end,
-			function(point) return point and (math.floor(point * 10000 + 0.5) / 10000) .. "/s" or "" end,
-			function(point) return point and (math.floor(point * 10000000 + 0.5) / 10000) .. "ms" or ""end
-		},
-		ValueCellWidth = {200, 200, 200}, -- width of cells 2-4; cell 1 fills remainder
+		ValueCellWidth = {.31, .23, .23, .23}, -- width of cells 2-4; cell 1 fills remainder
 		CellPadding = 16,
 		ExpandArrowPadding = 12,
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
+		MinFrameWidth = 654,
 	},
+
+	Graph = {
+		PointWidth = 4,
+		PointOffset = 2, -- should be 1/2 pointwidth
+		Padding = 0.15,
+		Scale = 0.7, -- should be 1 - (2 * Padding)
+		InnerPaddingY = 0.1,
+		InnerScaleY = 0.8, -- should be 1 - (2 * innerPaddingY)
+		TextPadding = 10,
+	}
 }
-
-local function modifyConstantsByPlatform()
-
-end
-modifyConstantsByPlatform()
 
 return Constants

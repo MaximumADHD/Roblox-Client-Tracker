@@ -1,11 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
-local User = require(ShareGame.Models.User)
+local User = require(AppTempCommon.LuaApp.Models.User)
 
 local LIST_PADDING = 2
 

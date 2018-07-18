@@ -13,19 +13,10 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local DevConsole = script.Parent.DevConsole
 local Constants = require(DevConsole.Constants)
-local Config = require(DevConsole.Config)
 
 local Components = DevConsole.Components
 local DevConsoleWindow = require(Components.DevConsoleWindow)
 local DataProvider = require(Components.DataProvider)
-local ClientMemoryData = require(Components.Memory.ClientMemoryData)
-local ServerMemoryData = require(Components.Memory.ServerMemoryData)
-local ClientNetworkData = require(Components.Network.ClientNetworkData)
-local ServerScriptsData = require(Components.Scripts.ServerScriptsData)
-local DataStoresData = require(Components.DataStores.DataStoresData)
-local ServerStatsData = require(Components.ServerStats.ServerStatsData)
-local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
-local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
 local Log = require(Components.Log.MainViewLog)
 local Memory = require(Components.Memory.MainViewMemory)
 local Network = require(Components.Network.MainViewNetwork)
@@ -76,28 +67,6 @@ local PLAYER_TAB_LIST = {
 		tab = Memory,
 	},
 }
-
-local function startDataCollection()
-	ClientMemoryData:start()
-	ServerMemoryData:start()
-	ClientNetworkData:start()
-	ServerScriptsData:start()
-	DataStoresData:start()
-	ServerStatsData:start()
-	ActionBindingsData:start()
-	ServerJobsData:start()
-end
-
-local function stopDataCollection()
-	ClientMemoryData:stop()
-	ServerMemoryData:stop()
-	ClientNetworkData:stop()
-	ServerScriptsData:stop()
-	DataStoresData:stop()
-	ServerStatsData:stop()
-	ActionBindingsData:stop()
-	ServerJobsData:stop()
-end
 
 local DevConsoleMaster = {}
 DevConsoleMaster.__index = DevConsoleMaster
@@ -158,10 +127,7 @@ function DevConsoleMaster.new()
 	local formFactor = platformConversion[platformEnum]
 	local screenSizePixel = GuiService:GetScreenResolution()
 
---	formFactor = Constants.FormFactor.Small
 	local developerConsoleView = isDeveloper()
-
-	startDataCollection()
 
 	-- create store
 	self.store = Rodux.Store.new(DevConsoleReducer)
@@ -171,14 +137,17 @@ function DevConsoleMaster.new()
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
 	}, {
-		DataProvider = Roact.createElement(DataProvider, {}, {
+		DataProvider = Roact.createElement(DataProvider, {
+			isDeveloperView = developerConsoleView,
+		}, {
 			App = Roact.createElement("ScreenGui", {}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
+					isdeveloperView = developerConsoleView,
 					isVisible = false,  -- determines if visible or not
 					isMinimized = false, -- false means windowed, otherwise shows up as a minimized bar
-					position = Config.MainWindowElement.Position,
-					size = Config.MainWindowElement.Size,
+					position = Constants.MainWindowInit.Position,
+					size = Constants.MainWindowInit.Size,
 					tabList = developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST
 				})
 			}),
@@ -195,7 +164,7 @@ function DevConsoleMaster:Start()
 end
 
 function DevConsoleMaster:Stop()
-	stopDataCollection()
+
 end
 
 function DevConsoleMaster:ToggleVisibility()

@@ -244,9 +244,7 @@ end
 
 local function OnCameraTypeChanged(newCameraType)
 	if newCameraType == Enum.CameraType.Scriptable then
-		if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-		end
+		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 	end
 end
 

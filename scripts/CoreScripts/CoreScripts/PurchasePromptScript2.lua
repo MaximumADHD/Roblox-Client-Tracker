@@ -1106,13 +1106,7 @@ local function checkMarketplaceAvailable() 	-- FFlag
 end
 
 local function areThirdPartySalesRestricted() 	-- FFlag
-	local success, result = pcall(function() return settings():GetFFlag("RestrictSales") end)
-	if not success then
-		print("PurchasePromptScript: areThirdPartySalesRestricted failed because", result)
-		return false
-	end
-
-	return result
+	return settings():GetFFlag("RestrictSales2")
 end
 
 
@@ -1331,6 +1325,7 @@ local function canPurchase(disableUpsell)
 
 	-- check if owned by player; dev products are not owned
 	local isRestrictedThirdParty = false
+	local thirdPartyRestrictions = areThirdPartySalesRestricted()
 	if not IsPurchasingConsumable then
 		local success, doesOwnItem = doesPlayerOwnItem()
 		if not success then
@@ -1350,18 +1345,34 @@ local function canPurchase(disableUpsell)
 		end
 
 		-- most places will not need to sell third party assets.
-		if areThirdPartySalesRestricted() and not game:GetService("Workspace").AllowThirdPartySales then
-			local ProductCreator = tonumber(PurchaseData.ProductInfo["Creator"]["Id"])
+		if thirdPartyRestrictions  and not game:GetService("Workspace").AllowThirdPartySales then
+			local isGroupGame = (game.CreatorType == Enum.CreatorType.Group)
+			local isGroupAsset = (PurchaseData.ProductInfo["Creator"]["CreatorType"] == "Group")
 			local RobloxCreator = 1
-			if ProductCreator ~= game.CreatorId and ProductCreator ~= RobloxCreator then
+			local ProductCreator = tonumber(PurchaseData.ProductInfo["Creator"]["CreatorTargetId"])
+			if (ProductCreator == RobloxCreator) then
+				isRestrictedThirdParty = false
+			elseif (isGroupGame == isGroupAsset) then
+				if (ProductCreator ~= game.CreatorId) then
+					isRestrictedThirdParty = true
+					warn(("AllowThirdPartySales has blocked the purchase prompt for " 
+						.. PurchaseData.ProductInfo["AssetId"] .. " created by " .. ProductCreator 
+						.. ".  To sell this asset made by a different ") .. (isGroupGame and "group" or "user") 
+						.. ", you will need to enable AllowThirdPartySales.")
+				end
+			else
 				isRestrictedThirdParty = true
+				warn(("AllowThirdPartySales has blocked the purchase prompt for " 
+					.. PurchaseData.ProductInfo["AssetId"] .. " created by " .. ProductCreator 
+					.. ".  To sell this asset made by a different ") .. (isGroupGame and "group" or "user") 
+					.. ", you will need to enable AllowThirdPartySales.")
 			end
 		end
 	end
 
 	local isFree = isFreeItem()
 
-	if not isFree and isRestrictedThirdParty then
+	if isRestrictedThirdParty then 
 		onPurchaseFailed(PURCHASE_FAILED.THIRD_PARTY_DISABLED)
 		return false
 	end

@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local UserInputService = game:GetService("UserInputService")
 
@@ -8,7 +10,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 
-local SetDeviceOrientation = require(ShareGame.Actions.SetDeviceOrientation)
+local SetDeviceOrientation = require(AppTempCommon.LuaApp.Actions.SetDeviceOrientation)
 local SetIsSmallTouchScreen = require(ShareGame.Actions.SetIsSmallTouchScreen)
 local SetDeviceLayout = require(ShareGame.Actions.SetDeviceLayout)
 

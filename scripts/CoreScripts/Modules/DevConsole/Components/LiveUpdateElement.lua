@@ -9,12 +9,20 @@ local Actions = script.Parent.Parent.Actions
 local SetActiveTab = require(Actions.SetActiveTab)
 
 local Constants = require(script.Parent.Parent.Constants)
+local MEM_STAT_STR_SMALL = "Client Mem:"
+local memStatStrSmallWidth = TextService:GetTextSize(MEM_STAT_STR_SMALL, Constants.DefaultFontSize.TopBar,
+	Constants.Font.TopBar, Vector2.new(0, 0))
 local MEM_STAT_STR = "Client Memory Usage:"
 local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, Constants.DefaultFontSize.TopBar,
 	Constants.Font.TopBar, Vector2.new(0, 0))
 local AVG_PING_STR = "Avg. Ping:"
 local avgPingStrWidth = TextService:GetTextSize(AVG_PING_STR, Constants.DefaultFontSize.TopBar,
 	Constants.Font.TopBar, Vector2.new(0, 0))
+
+-- supposed to be the calculated width of the frame, but
+-- doing this for now due to time constraints.
+local MIN_LARGE_FORMFACTOR_WIDTH = 380
+local INNNER_PADDING = 6
 
 local LiveUpdateElement = Roact.PureComponent:extend("LiveUpdateElement")
 
@@ -27,53 +35,122 @@ function LiveUpdateElement:didMount()
 	self.avgPingConnector = self.props.ServerStatsData:avgPing():Connect(function(averagePing)
 		self:setState({averagePing = averagePing})
 	end)
+
+	self.logWarningErrorConnector = self.props.ClientLogData:errorWarningSignal():Connect(function(error, warning)
+		self:setState({
+			numErrors = error,
+			numWarnings = warning,
+		})
+	end)
 end
 
 function LiveUpdateElement:willUnmount()
 	self.totalMemConnector:Disconnect()
 	self.totalMemConnector = nil
+
+	self.avgPingConnector:Disconnect()
+	self.avgPingConnector = nil
+
+	self.logWarningErrorConnector:Disconnect()
+	self.logWarningErrorConnector = nil
+
 end
 
 function LiveUpdateElement:init()
+	self.onLogWarningButton = function()
+		local WarningFilters = {
+			Warning = true,
+		}
+		self.props.ClientLogData:setFilters(WarningFilters)
+		self.props.dispatchChangeTabClientLog()
+	end
+
+	self.onLogErrorButton = function()
+		local ErrorFilters = {
+			Error = true,
+		}
+		self.props.ClientLogData:setFilters(ErrorFilters)
+		self.props.dispatchChangeTabClientLog()
+	end
+
+	self.ref = Roact.createRef()
+
 	self.state = {
+		numErrors = 0,
+		numWarnings = 0,
 		totalClientMemory = 0,
 		averagePing = 0,
+		formFactorThreshold = MIN_LARGE_FORMFACTOR_WIDTH,
 	}
 end
 
 function LiveUpdateElement:render()
 	local size = self.props.size
 	local position = self.props.position
-	local numErrors = self.props.numErrors
-	local numWarnings = self.props.numWarnings
+	local formFactor = self.props.formFactor
+
+	local numErrors = self.state.numErrors
+	local numWarnings = self.state.numWarnings
 	local clientMemoryUsage = self.state.totalClientMemory
 	local averagePing = self.state.averagePing
+	local formFactorThreshold = self.state.formFactorThreshold
+
+	local useSmallForm = false
+	local currMemStrWidth = memStatStrWidth.X
+	local alignment = Enum.HorizontalAlignment.Center
+
+	if formFactor == Constants.FormFactor.Small or
+		size.X.Offset < formFactorThreshold then
+
+		position = position + UDim2.new(0, INNNER_PADDING * 2, 0, 0)
+		currMemStrWidth = memStatStrSmallWidth.X
+		useSmallForm = true
+		alignment = Enum.HorizontalAlignment.Left
+	end
 
 	local imageSize = UDim2.new(0, Constants.DefaultFontSize.TopBar, 0, Constants.DefaultFontSize.TopBar)
+
 	local logErrorStat = string.format("%d", numErrors)
-	local logErrorStatVector = TextService:GetTextSize(logErrorStat,
-		Constants.DefaultFontSize.TopBar, Constants.Font.TopBar, Vector2.new(0, 0))
+	local logErrorStatVector = TextService:GetTextSize(
+		logErrorStat,
+		Constants.DefaultFontSize.TopBar,
+		Constants.Font.TopBar,
+		Vector2.new(0, 0)
+	)
 
 	local logWarningStat = string.format("%d", numWarnings)
-	local logWarningStatVector = TextService:GetTextSize(logWarningStat,
-		Constants.DefaultFontSize.TopBar, Constants.Font.TopBar, Vector2.new(0, 0))
+	local logWarningStatVector = TextService:GetTextSize(
+		logWarningStat,
+		Constants.DefaultFontSize.TopBar,
+		Constants.Font.TopBar,
+		Vector2.new(0, 0)
+	)
 
 	local memUsageString = string.format("%d MB", clientMemoryUsage)
-	local memUsageStringVector = TextService:GetTextSize(memUsageString, Constants.DefaultFontSize.TopBar,
-		Constants.Font.TopBar, Vector2.new(0, 0))
+	local memUsageStringVector = TextService:GetTextSize(
+		memUsageString,
+		Constants.DefaultFontSize.TopBar,
+		Constants.Font.TopBar,
+		Vector2.new(0, 0)
+	)
 
 	local avgPingString = string.format("%d ms", averagePing)
-	local avgPingStringVector = TextService:GetTextSize(avgPingString, Constants.DefaultFontSize.TopBar,
-		Constants.Font.TopBar, Vector2.new(0, 0))
+	local avgPingStringVector = TextService:GetTextSize(avgPingString,
+		Constants.DefaultFontSize.TopBar,
+		Constants.Font.TopBar,
+		Vector2.new(0, 0)
+	)
 
 	return Roact.createElement("Frame",{
 		Position = position,
 		Size = size,
 		BackgroundTransparency = 1,
+
+		[Roact.Ref] = self.ref,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, Constants.DefaultFontSize.TopBar / 6),
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, INNNER_PADDING),
+			HorizontalAlignment = alignment,
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -85,7 +162,7 @@ function LiveUpdateElement:render()
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
 
-			[Roact.Event.Activated] = self.props.dispatchChangeTabClientError,
+			[Roact.Event.Activated] = self.onLogErrorButton,
 		}),
 
 		LogErrorCount = Roact.createElement("TextButton", {
@@ -97,7 +174,7 @@ function LiveUpdateElement:render()
 			Size = UDim2.new(0, logErrorStatVector.X, 1, 0),
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
-			[Roact.Event.Activated] = self.props.dispatchChangeTabClientError,
+			[Roact.Event.Activated] = self.onLogErrorButton,
 		}),
 
 		LogWarningIcon = Roact.createElement("ImageButton", {
@@ -105,7 +182,7 @@ function LiveUpdateElement:render()
 			Size = imageSize,
 			BackgroundTransparency = 1,
 			LayoutOrder = 3,
-			[Roact.Event.Activated] = self.props.dispatchChangeTabClientWarning,
+			[Roact.Event.Activated] = self.onLogWarningButton,
 		}),
 
 		LogWarningCount = Roact.createElement("TextButton", {
@@ -117,16 +194,17 @@ function LiveUpdateElement:render()
 			Size = UDim2.new(0, logWarningStatVector.X, 1, 0),
 			BackgroundTransparency = 9,
 			LayoutOrder = 4,
-			[Roact.Event.Activated] = self.props.dispatchChangeTabClientWarning,
+			[Roact.Event.Activated] = self.onLogWarningButton,
 		}),
 
+
 		MemoryUsage = Roact.createElement("TextButton", {
-			Text = MEM_STAT_STR,
+			Text = useSmallForm and MEM_STAT_STR_SMALL or MEM_STAT_STR,
 			TextSize = Constants.DefaultFontSize.TopBar,
 			TextColor3 = Constants.Color.WarningYellow,
 			TextXAlignment = Enum.TextXAlignment.Right,
 			Font = Constants.Font.TopBar,
-			Size = UDim2.new(0, memStatStrWidth.X, 1, 0),
+			Size = UDim2.new(0, currMemStrWidth, 1, 0),
 			BackgroundTransparency = 1,
 			LayoutOrder = 5,
 			[Roact.Event.Activated] = self.props.dispatchChangeTabClientMemory,
@@ -144,7 +222,8 @@ function LiveUpdateElement:render()
 			[Roact.Event.Activated] = self.props.dispatchChangeTabClientMemory,
 		}),
 
-		AvgPing = Roact.createElement("TextButton", {
+
+		AvgPing = not useSmallForm and Roact.createElement("TextButton", {
 			Text = AVG_PING_STR,
 			TextSize = Constants.DefaultFontSize.TopBar,
 			TextColor3 = Constants.Color.WarningYellow,
@@ -156,7 +235,7 @@ function LiveUpdateElement:render()
 			[Roact.Event.Activated] = self.props.dispatchChangeTabNetworkPing,
 		}),
 
-		AvgPing_ms = Roact.createElement("TextButton", {
+		AvgPing_ms = not useSmallForm and Roact.createElement("TextButton", {
 			Text = avgPingString,
 			TextSize = Constants.DefaultFontSize.TopBar,
 			TextColor3 = Constants.Color.Text,
@@ -170,19 +249,9 @@ function LiveUpdateElement:render()
 	})
 end
 
-local function mapStateToProps(state, props)
-	return {
-		numErrors = state.TopBarLiveUpdate.LogErrorCount,
-		numWarnings = state.TopBarLiveUpdate.LogWarningCount,
-	}
-end
-
 local function mapDispatchToProps(dispatch)
 	return {
-		dispatchChangeTabClientError = function()
-			dispatch(SetActiveTab(1, true))
-		end,
-		dispatchChangeTabClientWarning = function()
+		dispatchChangeTabClientLog = function()
 			dispatch(SetActiveTab(1, true))
 		end,
 		dispatchChangeTabClientMemory = function()
@@ -194,6 +263,6 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(
-	DataConsumer(LiveUpdateElement, "ServerStatsData", "ClientMemoryData" )
+return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(
+	DataConsumer(LiveUpdateElement, "ServerStatsData", "ClientMemoryData", "ClientLogData" )
 )

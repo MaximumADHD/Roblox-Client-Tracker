@@ -454,13 +454,10 @@ local function CreateCamera()
 		-- first time transition to first person mode or shiftlock
 		local camera = workspace.CurrentCamera
 		if camera.CameraType == Enum.CameraType.Scriptable then
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-			pcall(function() 
-				if GameSettings.RotationType ~= Enum.RotationType.MovementRelative then
-					GameSettings.RotationType = Enum.RotationType.MovementRelative
-				end
-			end)
-		elseif isFirstPerson or self:GetShiftLock() then
+			return
+		end
+		
+		if isFirstPerson or self:GetShiftLock() then
 			pcall(function() GameSettings.RotationType = Enum.RotationType.CameraRelative end)
 			if UserInputService.MouseBehavior ~= Enum.MouseBehavior.LockCenter then
 				UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter

@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -7,12 +9,14 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local ShareGame = Modules.Settings.Pages.ShareGame
 local SearchBox = require(ShareGame.Components.SearchBox)
 local Constants = require(ShareGame.Constants)
-local Text = require(ShareGame.Text)
+local Text = require(AppTempCommon.Common.Text)
 
 local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
+local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
-local SEARCH_ICON = "rbxasset://textures/ui/Settings/ShareGame/Search24x24.png"
+local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
+local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")
 local SEARCH_ICON_SIZE = 22
 
 local SEARCH_BOX_WIDTH = 177
@@ -64,7 +68,9 @@ function SearchArea:render()
 				AnchorPoint = anchorPoint,
 				Position = position,
 				Size = UDim2.new(0, SEARCH_ICON_SIZE, 0, SEARCH_ICON_SIZE),
-				Image = SEARCH_ICON,
+				Image = SEARCH_ICON_SPRITE_PATH,
+				ImageRectOffset = SEARCH_ICON_SPRITE_FRAME.offset,
+				ImageRectSize = SEARCH_ICON_SPRITE_FRAME.size,
 				ZIndex = zIndex,
 				[Roact.Event.Activated] = function(rbx)
 					self.props.setSearchAreaActive(true)

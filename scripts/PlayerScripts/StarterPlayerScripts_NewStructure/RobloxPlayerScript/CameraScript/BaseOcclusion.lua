@@ -9,7 +9,6 @@ BaseOcclusion.__index = BaseOcclusion
 setmetatable(BaseOcclusion, { __call = function(_, ...) return BaseOcclusion.new(...) end})
 
 function BaseOcclusion.new()
-	print("BaseOcclusion.new()")
 	local self = setmetatable({}, BaseOcclusion)
 	return self
 end

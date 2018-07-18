@@ -4,27 +4,58 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent.Parent.Parent.Components
 local ServerJobsChart = require(Components.ServerJobs.ServerJobsChart)
-local SearchBar = require(Components.SearchBar)
+local UtilAndTab = require(Components.UtilAndTab)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local ServerJobsUpdateSearchFilter = require(Actions.ServerJobsUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
-local buttonWidth = Constants.UtilityBarFormatting.ClientServerButtonWidth
-local utilBarHeight = Constants.UtilityBarFormatting.FrameHeight
 
 local MainViewServerJobs = Roact.Component:extend("MainViewServerJobs")
 
 function MainViewServerJobs:init()
+	self.onUtilTabHeightChanged = function(utilTabHeight)
+		self:setState({
+			utilTabHeight = utilTabHeight
+		})
+	end
+
 	self.onSearchTermChanged = function(newSearchTerm)
 		self.props.dispatchServerJobsUpdateSearchFilter(newSearchTerm, {})
 	end
+
+	self.utilRef = Roact.createRef()
+
+	self.state = {
+		utilTabHeight = 0
+	}
 end
+
+function MainViewServerJobs:didMount()
+	local utilSize = self.utilRef.current.Size
+	self:setState({
+		utilTabHeight = utilSize.Y.Offset
+	})
+end
+
+function MainViewServerJobs:didUpdate()
+	local utilSize = self.utilRef.current.Size
+	if utilSize.Y.Offset ~= self.state.utilTabHeight then
+		self:setState({
+			utilTabHeight = utilSize.Y.Offset
+		})
+	end
+end
+
 
 function MainViewServerJobs:render()
 	local size = self.props.size
+	local formFactor = self.props.formFactor
+	local tabList = self.props.tabList
 	local searchTerm = self.props.jobsSearchTerm
+
+	local utilTabHeight = self.state.utilTabHeight
 
 	return Roact.createElement("Frame",{
 		Size = size,
@@ -37,25 +68,21 @@ function MainViewServerJobs:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		UtilBar = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, utilBarHeight),
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-		}, {
-			SearchBox = Roact.createElement(SearchBar, {
-				size = UDim2.new(0, 2 * buttonWidth, 0, utilBarHeight),
-				pos = UDim2.new(1, -2 * buttonWidth, 0, 0),
-				searchTerm = searchTerm,
-				textSize = Constants.DefaultFontSize.UtilBar,
-				frameHeight = Constants.UtilityBarFormatting.FrameHeight,
-				borderColor = Constants.Color.BorderGray,
-				textBoxColor = Constants.Color.UnselectedGray,
-				onTextEntered = self.onSearchTermChanged,
-			})
+		UtilAndTab = Roact.createElement(UtilAndTab,{
+			windowWidth = size.X.Offset,
+			formFactor = formFactor,
+			tabList = tabList,
+			searchTerm = searchTerm,
+			layoutOrder = 1,
+
+			refForParent = self.utilRef,
+
+			onHeightChanged = self.onUtilTabHeightChanged,
+			onSearchTermChanged = self.onSearchTermChanged,
 		}),
 
-		ServerJobs = Roact.createElement(ServerJobsChart, {
-			size = UDim2.new(1, 0, 1, -utilBarHeight),
+		ServerJobs = utilTabHeight > 0  and Roact.createElement(ServerJobsChart, {
+			size = UDim2.new(1, 0, 1, -utilTabHeight),
 			searchTerm = searchTerm,
 			layoutOrder = 2,
 		})

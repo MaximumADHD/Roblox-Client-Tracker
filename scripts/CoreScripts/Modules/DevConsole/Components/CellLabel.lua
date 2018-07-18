@@ -2,23 +2,28 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
-local textSize = Constants.DefaultFontSize.MainWindow
-local textColor = Constants.Color.Text
+local TEXT_SIZE = Constants.DefaultFontSize.MainWindow
+local TEXT_COLOR = Constants.Color.Text
+local MAIN_FONT = Constants.Font.MainWindow
 
 local function CellLabel(props)
 	local text = props.text
 	local size = props.size
 	local pos = props.pos
+	local layoutOrder = props.layoutOrder
 
 	return Roact.createElement("TextLabel",{
 		Text = text,
-		TextSize = textSize,
-		TextColor3 = textColor,
+		TextSize = TEXT_SIZE,
+		TextColor3 = TEXT_COLOR,
 		TextXAlignment = Enum.TextXAlignment.Left,
+		TextWrapped = true,
+		Font = MAIN_FONT,
 
 		Size = size,
 		Position = pos,
 		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
 	})
 end
 

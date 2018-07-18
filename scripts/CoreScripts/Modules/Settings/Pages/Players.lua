@@ -18,6 +18,7 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
+local ShareGameIcons = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers2")
@@ -34,7 +35,6 @@ local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_SPACING = 80
 
 local INVITE_FRIENDS_TEXT = "Invite friends to play"
-local INVITE_FRIENDS_IMAGE = "rbxasset://textures/ui/Settings/ShareGame/Invite.png"
 
 ------------ Variables -------------------
 local platform = UserInputService:GetPlatform()
@@ -394,9 +394,9 @@ local function Initialize()
 			textLabel.Font = Enum.Font.SourceSansSemibold
 			textLabel.Text = INVITE_FRIENDS_TEXT
 
-			icon.Image = INVITE_FRIENDS_IMAGE
 			icon.Size = UDim2.new(0, 24, 0, 24)
 			icon.Position = UDim2.new(0, 18, 0, 18)
+			ShareGameIcons:ApplyImage(icon, "invite")
 
 			return frame
 		end

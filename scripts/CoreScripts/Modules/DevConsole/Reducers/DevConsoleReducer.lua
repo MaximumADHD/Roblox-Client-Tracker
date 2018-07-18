@@ -1,9 +1,7 @@
 local Reducers = script.Parent
 local DevConsoleDisplayOptions = require(Reducers.DevConsoleDisplayOptions)
 local MainView = require(Reducers.MainView)
-local TopBarLiveUpdate = require(Reducers.TopBarLiveUpdate)
 
-local LogData = require(Reducers.LogData)
 local MemoryData = require(Reducers.MemoryData)
 local NetworkData = require(Reducers.NetworkData)
 local ScriptsData = require(Reducers.ScriptsData)
@@ -17,9 +15,7 @@ return function(state, action)
 	return {
 		DisplayOptions = DevConsoleDisplayOptions(devConsoleState.DisplayOptions, action),
 		MainView = MainView(devConsoleState.MainView, action),
-		TopBarLiveUpdate = TopBarLiveUpdate(devConsoleState.TopBarLiveUpdate, action),
 
-		LogData = LogData(devConsoleState.LogData, action),
 		MemoryData = MemoryData(devConsoleState.MemoryData, action),
 		NetworkData = NetworkData(devConsoleState.NetworkData, action),
 		ScriptsData = ScriptsData(devConsoleState.ScriptsData, action),

@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local ShareGame = Modules.Settings.Pages.ShareGame
@@ -6,8 +7,10 @@ local RectangleButton = require(ShareGame.Components.RectangleButton)
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(ShareGame.Constants)
+local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
-local BACK_ICON = "rbxasset://textures/ui/Settings/ShareGame/Back.png"
+local BACK_IMAGE_SPRITE_PATH = ShareGameIcons:GetImagePath()
+local BACK_IMAGE_SPRITE_FRAME = ShareGameIcons:GetFrame("back")
 local BACK_BUTTON_TEXT = "Back"
 local BACK_BUTTON_TEXT_SIZE = 24
 
@@ -29,7 +32,9 @@ function BackButton:render()
 			AnchorPoint = anchorPoint,
 			Position = position,
 			Size = size,
-			Image = BACK_ICON,
+			Image = BACK_IMAGE_SPRITE_PATH,
+			ImageRectOffset = BACK_IMAGE_SPRITE_FRAME.offset,
+			ImageRectSize = BACK_IMAGE_SPRITE_FRAME.size,
 			ZIndex = zIndex,
 			[Roact.Event.Activated] = onClick,
 		})

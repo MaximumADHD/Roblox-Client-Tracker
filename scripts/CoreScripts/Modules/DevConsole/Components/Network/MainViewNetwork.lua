@@ -5,8 +5,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Components = script.Parent.Parent.Parent.Components
 local ClientNetwork = require(Components.Network.ClientNetwork)
 local ServerNetwork = require(Components.Network.ServerNetwork)
-local ClientServerButton = require(Components.ClientServerButton)
-local SearchBar = require(Components.SearchBar)
+local UtilAndTab = require(Components.UtilAndTab)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local ClientNetworkUpdateSearchFilter = require(Actions.ClientNetworkUpdateSearchFilter)
@@ -14,12 +13,16 @@ local ServerNetworkUpdateSearchFilter = require(Actions.ServerNetworkUpdateSearc
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
-local buttonWidth = Constants.UtilityBarFormatting.ClientServerButtonWidth
-local utilBarHeight = Constants.UtilityBarFormatting.FrameHeight
 
 local MainViewNetwork = Roact.Component:extend("MainViewNetwork")
 
 function MainViewNetwork:init()
+	self.onUtilTabHeightChanged = function(utilTabHeight)
+		self:setState({
+			utilTabHeight = utilTabHeight
+		})
+	end
+
 	self.onClientButton = function()
 		self:setState({isClientView = true})
 	end
@@ -36,58 +39,75 @@ function MainViewNetwork:init()
 		end
 	end
 
+	self.utilRef = Roact.createRef()
+
 	self.state = {
+		utilTabHeight = 0,
 		isClientView = true,
 	}
+end
+
+function MainViewNetwork:didMount()
+	local utilSize = self.utilRef.current.Size
+	self:setState({
+		utilTabHeight = utilSize.Y.Offset
+	})
+end
+
+function MainViewNetwork:didUpdate()
+	local utilSize = self.utilRef.current.Size
+	if utilSize.Y.Offset ~= self.state.utilTabHeight then
+		self:setState({
+			utilTabHeight = utilSize.Y.Offset
+		})
+	end
 end
 
 function MainViewNetwork:render()
 	local elements = {}
 	local size = self.props.size
+	local formFactor = self.props.formFactor
+	local tabList = self.props.tabList
+
+	local utilTabHeight = self.state.utilTabHeight
 	local isClientView = self.state.isClientView
 	local searchTerm = isClientView and self.props.clientSearchTerm or self.props.serverSearchTerm
 
-	local utilBar = {}
-	utilBar["ClientServerButton"] = Roact.createElement(ClientServerButton, {
+	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, MainRowPadding),
+	})
+
+	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab,{
+		windowWidth = size.X.Offset,
+		formFactor = formFactor,
+		tabList = tabList,
 		isClientView = isClientView,
+		searchTerm = searchTerm,
+		layoutOrder = 1,
+
+		refForParent = self.utilRef,
+
+		onHeightChanged = self.onUtilTabHeightChanged,
 		onClientButton = self.onClientButton,
 		onServerButton = self.onServerButton,
+		onSearchTermChanged = self.onSearchTermChanged,
 	})
 
-	utilBar["SearchBox"] = Roact.createElement(SearchBar, {
-		size = UDim2.new(0, 2 * buttonWidth, 0, utilBarHeight),
-		pos = UDim2.new(1, -2 * buttonWidth, 0, 0),
-		searchTerm = searchTerm,
-		textSize = Constants.DefaultFontSize.UtilBar,
-		frameHeight = Constants.UtilityBarFormatting.FrameHeight,
-		borderColor = Constants.Color.BorderGray,
-		textBoxColor = Constants.Color.UnselectedGray,
-		onTextEntered = self.onSearchTermChanged,
-	})
-
-	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
-		Padding = UDim.new(0, MainRowPadding),
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
-
-	elements["UtilBar"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, utilBarHeight),
-		BackgroundTransparency = 1,
-		LayoutOrder = 1,
-	}, utilBar)
-
-	if isClientView then
-		elements["ClientNetwork"] = Roact.createElement(ClientNetwork, {
-			size = UDim2.new(1, 0, 1, -utilBarHeight),
-			searchTerm = searchTerm,
-			layoutOrder = 2,
-		})
-	else
-		elements["ServerNetwork"] = Roact.createElement(ServerNetwork, {
-			size = UDim2.new(1, 0, 1, -utilBarHeight),
-			searchTerm = searchTerm,
-			layoutOrder = 2,
-		})
+	if utilTabHeight > 0  then
+		if isClientView then
+			elements["ClientNetwork"] = Roact.createElement(ClientNetwork, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+				searchTerm = searchTerm,
+				layoutOrder = 2,
+			})
+		else
+			elements["ServerNetwork"] = Roact.createElement(ServerNetwork, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+				searchTerm = searchTerm,
+				layoutOrder = 2,
+			})
+		end
 	end
 
 	return Roact.createElement("Frame",{

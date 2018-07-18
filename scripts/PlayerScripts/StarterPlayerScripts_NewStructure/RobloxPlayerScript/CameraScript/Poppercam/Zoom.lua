@@ -3,16 +3,12 @@
 -- Controls the distance between the focus and the camera.
 --------------------------------------------------------------------------------
 
-local DIST_MIN = 0.5 -- Player.CameraMinZoomDistance
-local DIST_MAX = 256 -- Player.CameraMaxZoomDistance
-
 local ZOOM_STIFFNESS    = 4.5
 local ZOOM_DEFAULT      = 16
 local ZOOM_ACCELERATION = 0.0375
 
 local ZOOM_OPAQUE       = 2
 local ZOOM_TRANSPARENT  = 0.5
-
 
 local ConstrainedSpring = require(script:WaitForChild("ConstrainedSpring"))
 local Popper = require(script:WaitForChild("Popper"))
@@ -21,6 +17,20 @@ local cframe = CFrame.new
 local clamp = math.clamp
 local min = math.min
 local max = math.max
+
+local DIST_MIN, DIST_MAX do
+	local Player = game:GetService("Players").LocalPlayer
+
+	local function updateBounds()
+		DIST_MIN = Player.CameraMinZoomDistance
+		DIST_MAX = Player.CameraMaxZoomDistance
+	end
+
+	updateBounds()
+
+	Player:GetPropertyChangedSignal('CameraMinZoomDistance'):Connect(updateBounds)
+	Player:GetPropertyChangedSignal('CameraMaxZoomDistance'):Connect(updateBounds)
+end
 
 --------------------------------------------------------------------------------
 

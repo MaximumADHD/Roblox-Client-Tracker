@@ -4,7 +4,6 @@ return function()
 	local DevConsoleReducer = require(Reducers.DevConsoleReducer)
 	local DevConsoleDisplayOptions = require(Reducers.DevConsoleDisplayOptions)
 	local MainView = require(Reducers.MainView)
-	local TopBarLiveUpdate = require(Reducers.TopBarLiveUpdate)
 
 	local LogData = require(Reducers.LogData)
 	local MemoryData = require(Reducers.MemoryData)
@@ -21,7 +20,6 @@ return function()
 		local expectedKeys = {
 			DisplayOptions = DevConsoleDisplayOptions(nil,{}),
 			MainView = MainView(nil,{}),
-			TopBarLiveUpdate = TopBarLiveUpdate(nil,{}),
 
 			LogData = LogData(nil,{}),
 			MemoryData = MemoryData(nil,{}),

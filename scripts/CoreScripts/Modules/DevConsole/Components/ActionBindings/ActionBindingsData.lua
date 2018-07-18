@@ -1,7 +1,34 @@
 local ContextActionService = game:GetService("ContextActionService")
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
-local instance
+local Constants = require(script.Parent.Parent.Parent.Constants)
+local ChartHeaderNames = Constants.ActionBindingsFormatting.ChartHeaderNames
+
+local SORT_COMPARATOR = {
+	[ChartHeaderNames[1]] = function(a,b) -- "Name"
+		return a.counter < b.counter
+	end,
+	[ChartHeaderNames[2]] = function(a,b) -- "Priority"
+		if a.actionInfo.priorityLevel == b.actionInfo.priorityLevel then
+			return a.counter < b.counter
+		end
+		return a.actionInfo.priorityLevel < b.actionInfo.priorityLevel
+	end,
+	[ChartHeaderNames[3]] = function(a,b) -- "Security"
+		if a.actionInfo.isCore == b.actionInfo.isCore then
+			return a.counter < b.counter
+		else
+			return a.actionInfo.isCore
+		end
+	end,
+	[ChartHeaderNames[4]] = function(a,b) -- "Action Name"
+		return a.name:lower() < b.name:lower()
+	end,
+	[ChartHeaderNames[5]] = function(a,b) -- "Input Types"
+		return tostring(a.actionInfo.inputTypes[1]) < tostring(b.actionInfo.inputTypes[1])
+	end,
+}
+
 local ActionBindingsData = {}
 ActionBindingsData.__index = ActionBindingsData
 
@@ -11,7 +38,24 @@ function ActionBindingsData.new()
 
 	self._bindingsUpdated = Signal.new()
 	self._bindingsData = {}
+	self._bindingCounter = 0
+	self._sortedBindingData = {}
+	self._sortType = ChartHeaderNames[1] -- Name
 	return self
+end
+
+function ActionBindingsData:setSortType(sortType)
+	if SORT_COMPARATOR[sortType] then
+		self._sortType = sortType
+		table.sort(self._sortedBindingData, SORT_COMPARATOR[self._sortType])
+		self._bindingsUpdated:Fire(self._sortedBindingData)
+	else
+		error(string.format("attempted to pass invalid sortType: %s", tostring(sortType)), 2)
+	end
+end
+
+function ActionBindingsData:getSortType()
+	return self._sortType
 end
 
 function ActionBindingsData:Signal()
@@ -19,29 +63,49 @@ function ActionBindingsData:Signal()
 end
 
 function ActionBindingsData:getCurrentData()
-	return self._bindingsData
+	return self._sortedBindingData
+end
+
+-- this funciton will require some extra work to handle  the
+-- case a entry insert occurs during the end of the list
+function ActionBindingsData:updateBindingDataEntry(name, info)
+	if info == nil then
+		--remove element and clean up sorted
+		self._bindingsData[name] = nil
+
+	elseif not self._bindingsData[name] then
+		self._bindingCounter = self._bindingCounter + 1
+		self._bindingsData[name] = info
+		local newEntry = {
+			name = name,
+			actionInfo = self._bindingsData[name],
+			counter = self._bindingCounter,
+		}
+		table.insert(self._sortedBindingData, newEntry)
+	else
+		self._bindingsData[name] = info
+	end
 end
 
 function ActionBindingsData:start()
 	local boundActions = ContextActionService:GetAllBoundActionInfo()
 	for actionName, actionInfo in pairs(boundActions) do
 		actionInfo.isCore = false
-		self._bindingsData[actionName] = actionInfo
+		self:updateBindingDataEntry(actionName, actionInfo)
 	end
 
 	local boundCoreActions = ContextActionService:GetAllBoundCoreActionInfo()
 	for actionName, actionInfo in pairs(boundCoreActions) do
 		actionInfo.isCore = true
-		self._bindingsData[actionName] = actionInfo
+		self:updateBindingDataEntry(actionName, actionInfo)
 	end
 
 	if not self._actionChangedConnection then
 		self._actionChangedConnection = ContextActionService.BoundActionChanged:connect(
 			function(actionName, changeName, changeTable)
-				self._bindingsData[actionName] = nil
-
-				self._bindingsData[changeName] = changeTable
-				self._bindingsUpdated:Fire(self._bindingsData)
+				self:updateBindingDataEntry(actionName, nil)
+				self:updateBindingDataEntry(changeName, changeTable)
+				self._bindingsUpdated:Fire(self._sortedBindingData)
 			end)
 	end
 
@@ -49,16 +113,16 @@ function ActionBindingsData:start()
 		self._actionAddedConnection = ContextActionService.BoundActionAdded:connect(
 			function(actionName, createTouchButton, actionInfo, isCore)
 				actionInfo.isCore = isCore
-				self._bindingsData[actionName] = actionInfo
-				self._bindingsUpdated:Fire(self._bindingsData)
+				self:updateBindingDataEntry(actionName, actionInfo)
+				self._bindingsUpdated:Fire(self._sortedBindingData)
 			end)
 
 	end
 	if not self._actionRemovedConnection then
 		self._actionRemovedConnection = ContextActionService.BoundActionRemoved:connect(
 			function(actionName, actionInfo, isCore)
-				self._bindingsData[actionName] = nil
-				self._bindingsUpdated:Fire(self._bindingsData)
+				self:updateBindingDataEntry(actionName, nil)
+				self._bindingsUpdated:Fire(self._sortedBindingData)
 			end)
 	end
 end
@@ -78,11 +142,4 @@ function ActionBindingsData:stop()
 	end
 end
 
-local function GetInstance()
-	if not instance then
-		instance = ActionBindingsData.new()
-	end
-	return instance
-end
-
-return GetInstance()
+return ActionBindingsData

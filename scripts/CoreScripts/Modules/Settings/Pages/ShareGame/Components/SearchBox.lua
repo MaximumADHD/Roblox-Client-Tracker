@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -6,11 +7,19 @@ local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
 
 local SearchBox = Roact.Component:extend("SearchBox")
 
-local SEARCH_BORDER = "rbxasset://textures/ui/Settings/ShareGame/SearchBorder.png"
-local SEARCH_BORDER_SLICE = Rect.new(3, 3, 5, 5)
-local SEARCH_ICON = "rbxasset://textures/ui/Settings/ShareGame/Search16x16.png"
+local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
+local SHARE_GAME_SPRITE_PATH = ShareGameIcons:GetImagePath()
+
+local SEARCH_BORDER_SPRITE_IMAGE = SHARE_GAME_SPRITE_PATH
+local SEARCH_BORDER_SPRITE_FRAME = ShareGameIcons:GetFrame("search_border")
+local SEARCH_BORDER_SLICE = Rect.new(3, 3, 4, 4)
+
+local SEARCH_ICON_SPRITE_IMAGE = SHARE_GAME_SPRITE_PATH
+local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_small")
 local SEARCH_ICON_SIZE = 16
-local CLEAR_ICON = "rbxasset://textures/ui/Settings/ShareGame/Clear.png"
+
+local CLEAR_ICON_SPRITE_IMAGE = SHARE_GAME_SPRITE_PATH
+local CLEAR_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("clear")
 local CLEAR_ICON_SIZE = 16
 
 local SEARCH_MARGINS_HORIZONTAL = 8
@@ -29,24 +38,24 @@ end
 
 function SearchBox:render()
 	local anchorPoint = self.props.anchorPoint
+	local onTextBoxFocusLost = self.props.onTextBoxFocusLost
 	local position = self.props.position
+	local searchFieldRef = self.props.searchFieldRef
 	local size = self.props.size
 	local visible = self.props.visible
 	local zIndex = self.props.zIndex
 
+
 	local isTextWritten = self.state.isTextWritten
-
-	local onTextChanged = self.props.onTextChanged
-	local onTextBoxFocusLost = self.props.onTextBoxFocusLost
-	local searchFieldRef = self.props.searchFieldRef
-
 	return Roact.createElement("ImageLabel", {
 		BackgroundTransparency = 1,
 		AnchorPoint = anchorPoint,
 		Position = position,
 		Size = size,
 		Visible = visible,
-		Image = SEARCH_BORDER,
+		Image = SEARCH_BORDER_SPRITE_IMAGE,
+		ImageRectOffset = SEARCH_BORDER_SPRITE_FRAME.offset,
+		ImageRectSize = SEARCH_BORDER_SPRITE_FRAME.size,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = SEARCH_BORDER_SLICE,
 		ZIndex = zIndex,
@@ -59,7 +68,9 @@ function SearchBox:render()
 		}),
 		SearchIcon = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
-			Image = SEARCH_ICON,
+			Image = SEARCH_ICON_SPRITE_IMAGE,
+			ImageRectOffset = SEARCH_ICON_SPRITE_FRAME.offset,
+			ImageRectSize = SEARCH_ICON_SPRITE_FRAME.size,
 			Size = UDim2.new(0, SEARCH_ICON_SIZE, 0, SEARCH_ICON_SIZE),
 			ZIndex = zIndex
 		}),
@@ -74,6 +85,7 @@ function SearchBox:render()
 			ClearTextOnFocus = false,
 			PlaceholderColor3 = Constants.Color.GREY3,
 			PlaceholderText = SEARCH_PLACEHOLDER_TEXT,
+			Text = "",
 			TextColor3 = Constants.Color.WHITE,
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -82,17 +94,6 @@ function SearchBox:render()
 			ZIndex = zIndex,
 			[Roact.Ref] = function(rbx)
 				self.searchField = rbx
-
-				if rbx then
-					rbx.Text = "" -- Set initial text on this field
-					rbx:GetPropertyChangedSignal("Text"):connect(function()
-						local text = rbx.Text
-						self:setState({
-							isTextWritten = text:len() > 0
-						})
-						onTextChanged(text)
-					end)
-				end
 
 				-- Check if a higher reference function has been passed in and
 				-- then call it.
@@ -111,7 +112,9 @@ function SearchBox:render()
 			AnchorPoint = Vector2.new(1, 0),
 			Position = UDim2.new(1, 0, 0, 0),
 			Size = UDim2.new(0, CLEAR_ICON_SIZE, 0, SEARCH_ICON_SIZE),
-			Image = CLEAR_ICON,
+			Image = CLEAR_ICON_SPRITE_IMAGE,
+			ImageRectOffset = CLEAR_ICON_SPRITE_FRAME.offset,
+			ImageRectSize = CLEAR_ICON_SPRITE_FRAME.size,
 			ZIndex = zIndex,
 			Visible = isTextWritten,
 			[Roact.Event.Activated] = function()
@@ -125,6 +128,27 @@ function SearchBox:render()
 			end
 		})
 	})
+end
+
+function SearchBox:didMount()
+	local searchField = self.searchField
+	local onTextChanged = self.props.onTextChanged
+
+	if searchField then
+		self.textBoxChangedConnection = searchField:GetPropertyChangedSignal("Text"):Connect(function()
+			local text = searchField.Text
+			self:setState({
+				isTextWritten = text:len() > 0
+			})
+			onTextChanged(text)
+		end)
+	end
+end
+
+function SearchBox:willUnmount()
+	if self.textBoxChangedConnection then
+		self.textBoxChangedConnection:Disconnect()
+	end
 end
 
 return SearchBox

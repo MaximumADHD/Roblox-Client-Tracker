@@ -4,13 +4,9 @@ local Immutable = require(script.Parent.Parent.Immutable)
 
 return function(state, action)
 	return Rodux.createReducer( {
-		clientData = {},
-		clientDataFiltered = {},
 		clientSearchTerm = "",
 		clientTypeFilters = {},
 
-		serverData = {},
-		serverDataFiltered = {},
 		serverSearchTerm = "",
 		serverTypeFilters = {},
 	}, {

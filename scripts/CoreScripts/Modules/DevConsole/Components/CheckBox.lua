@@ -3,7 +3,7 @@ local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
-local PADDING = 6
+local PADDING = Constants.UtilityBarFormatting.CheckBoxInnerPadding
 
 local CheckBox = Roact.Component:extend("CheckBox")
 
@@ -35,12 +35,16 @@ function CheckBox:render()
 	local textVector = TextService:GetTextSize(name, fontSize, font, Vector2.new(0, frameHeight))
 	local textWidth = textVector.X
 
-	return Roact.createElement("Frame",{
-		Size = UDim2.new(0, checkBoxHeight + textWidth + PADDING * 2, 0, frameHeight),
+	return Roact.createElement("ImageButton",{
+		Size = UDim2.new(0, checkBoxHeight + textWidth + (PADDING * 2), 0, frameHeight),
 		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder
+		LayoutOrder = layoutOrder,
+
+		[Roact.Event.Activated] = function(rbx)
+			onCheckBoxClicked(name, not isSelected)
+		end,
 	}, {
-		Icon = Roact.createElement("ImageButton", {
+		Icon = Roact.createElement("ImageLabel", {
 			Image = image,
 			Size = UDim2.new(0, checkBoxHeight, 0, checkBoxHeight),
 			Position = UDim2.new(0, 0, .5, -checkBoxHeight / 2),
@@ -48,12 +52,8 @@ function CheckBox:render()
 			BackgroundTransparency = 0,
 			BorderColor3 = Constants.Color.Text,
 			BorderSizePixel = borderSize,
-
-			[Roact.Event.Activated] = function(rbx)
-				onCheckBoxClicked(name, not isSelected)
-			end,
 		}),
-		Text = Roact.createElement("TextButton",{
+		Text = Roact.createElement("TextLabel",{
 			Text = name,
 			TextColor3 = Constants.Color.Text,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -63,10 +63,6 @@ function CheckBox:render()
 			Size = UDim2.new(1, -frameHeight, 1, 0),
 			Position = UDim2.new(0, checkBoxHeight + PADDING, 0, 0),
 			BackgroundTransparency = 1,
-
-			[Roact.Event.Activated] = function(rbx)
-				onCheckBoxClicked(name, not isSelected)
-			end,
 		})
 	})
 end

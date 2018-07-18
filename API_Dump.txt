@@ -120,7 +120,7 @@ Class BadgeService : Instance [notCreatable]
 	YieldFunction Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId)
 	YieldFunction bool BadgeService:IsDisabled(int64 badgeId)
 	YieldFunction bool BadgeService:IsLegal(int64 badgeId)
-	YieldFunction bool BadgeService:UserHasBadge(int64 userId, int64 badgeId)
+	YieldFunction bool BadgeService:UserHasBadge(int64 userId, int64 badgeId) [deprecated]
 	YieldFunction bool BadgeService:UserHasBadgeAsync(int64 userId, int64 badgeId)
 	Event BadgeService.BadgeAwarded(string message, int64 userId, int64 badgeId) [RobloxScriptSecurity]
 Class BasePlayerGui : Instance
@@ -889,6 +889,7 @@ Class PluginGui : LayerCollector [notCreatable]
 	Event PluginGui.WindowFocused() [PluginSecurity]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
+	Property bool ScreenGui.OnTopOfCoreBlur [hidden] [RobloxScriptSecurity]
 Class GuiMain : ScreenGui [deprecated]
 Class SurfaceGui : LayerCollector
 	Property bool SurfaceGui.Active
@@ -1479,6 +1480,8 @@ Class NotificationService : Instance [notCreatable]
 	Function void NotificationService:ActionTaken(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:CancelAllNotification(int64 userId) [LocalUserSecurity]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) [LocalUserSecurity]
+	Function bool NotificationService:IsLuaGamesPageEnabled() [RobloxScriptSecurity]
+	Function bool NotificationService:IsLuaHomePageEnabled() [RobloxScriptSecurity]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
 	YieldFunction Array NotificationService:GetScheduledNotifications(int64 userId) [LocalUserSecurity]
 	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
@@ -1943,7 +1946,7 @@ Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
-	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip) [PluginSecurity]
+	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = ) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
 	Function void Plugin:Deactivate() [PluginSecurity]
 	Function JointCreationMode Plugin:GetJoinMode() [PluginSecurity]
@@ -1957,10 +1960,14 @@ Class Plugin : Instance
 	Function Objects Plugin:Negate(Objects objects) [PluginSecurity]
 	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) [PluginSecurity]
 	Function void Plugin:OpenWikiPage(string url) [PluginSecurity]
+	Function void Plugin:PauseSound(Instance soundChannel) [RobloxScriptSecurity]
+	Function void Plugin:PlaySound(Instance soundChannel) [RobloxScriptSecurity]
+	Function void Plugin:ResumeSound(Instance soundChannel) [RobloxScriptSecurity]
 	Function void Plugin:SaveSelectedToRoblox() [PluginSecurity]
 	Function void Plugin:SelectRibbonTool(RibbonTool tool, UDim2 position) [PluginSecurity]
 	Function Objects Plugin:Separate(Objects objects) [PluginSecurity]
 	Function void Plugin:SetSetting(string key, Variant value) [PluginSecurity]
+	Function void Plugin:StopAllSounds() [RobloxScriptSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]
 	YieldFunction Instance Plugin:ImportFbxRig() [PluginSecurity]
@@ -2064,6 +2071,15 @@ Class RenderSettings : Instance [notbrowsable]
 	Property bool RenderSettings.RenderCSGTrianglesDebug
 	Property bool RenderSettings.ShowBoundingBoxes
 	Function int RenderSettings:GetMaxQualityLevel()
+Class RenderingTest : Instance
+	Property CoordinateFrame RenderingTest.CFrame
+	Property int RenderingTest.ComparisonDiffThreshold
+	Property RenderingTestComparisonMethod RenderingTest.ComparisonMethod
+	Property float RenderingTest.ComparisonPsnrThreshold
+	Property float RenderingTest.FieldOfView
+	Property Vector3 RenderingTest.Orientation
+	Property Vector3 RenderingTest.Position
+	Property int RenderingTest.QualityLevel
 Class ReplicatedFirst : Instance [notCreatable]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Function bool ReplicatedFirst:IsFinishedReplicating() [RobloxScriptSecurity]
@@ -2088,6 +2104,7 @@ Class RunService : Instance
 	Function bool RunService:RobloxOnlyIsEdit() [RobloxScriptSecurity]
 	Function void RunService:Run() [PluginSecurity]
 	Function void RunService:Set3dRenderingEnabled(bool enable) [RobloxScriptSecurity]
+	Function void RunService:SetRobloxGuiFocused(bool focus) [RobloxScriptSecurity]
 	Function void RunService:Stop() [PluginSecurity]
 	Function void RunService:UnbindFromRenderStep(string name)
 	Function void RunService:setThrottleFramerateEnabled(bool enable) [RobloxScriptSecurity]
@@ -2675,16 +2692,16 @@ Class DoubleConstrainedValue : ValueBase [deprecated]
 	Event DoubleConstrainedValue.Changed(double value)
 	Event DoubleConstrainedValue.changed(double value) [deprecated]
 Class IntConstrainedValue : ValueBase [deprecated]
-	Property int IntConstrainedValue.ConstrainedValue [hidden]
-	Property int IntConstrainedValue.MaxValue
-	Property int IntConstrainedValue.MinValue
-	Property int IntConstrainedValue.Value
-	Event IntConstrainedValue.Changed(int value)
-	Event IntConstrainedValue.changed(int value) [deprecated]
+	Property int64 IntConstrainedValue.ConstrainedValue [hidden]
+	Property int64 IntConstrainedValue.MaxValue
+	Property int64 IntConstrainedValue.MinValue
+	Property int64 IntConstrainedValue.Value
+	Event IntConstrainedValue.Changed(int64 value)
+	Event IntConstrainedValue.changed(int64 value) [deprecated]
 Class IntValue : ValueBase
-	Property int IntValue.Value
-	Event IntValue.Changed(int value)
-	Event IntValue.changed(int value) [deprecated]
+	Property int64 IntValue.Value
+	Event IntValue.Changed(int64 value)
+	Event IntValue.changed(int64 value) [deprecated]
 Class NumberValue : ValueBase
 	Property double NumberValue.Value
 	Event NumberValue.Changed(double value)
@@ -3735,6 +3752,9 @@ Enum RenderPriority
 	EnumItem RenderPriority.Camera : 200
 	EnumItem RenderPriority.Character : 300
 	EnumItem RenderPriority.Last : 2000
+Enum RenderingTestComparisonMethod
+	EnumItem RenderingTestComparisonMethod.psnr : 0
+	EnumItem RenderingTestComparisonMethod.diff : 1
 Enum ReverbType
 	EnumItem ReverbType.NoReverb : 0
 	EnumItem ReverbType.GenericReverb : 1

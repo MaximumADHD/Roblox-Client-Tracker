@@ -167,7 +167,7 @@ RBX
 		TextureProxy
 		TextureVulkan
 		TrailNode
-		TypesetterDynamic
+		TypesetterDynamicDEPRECATED
 		VertexBufferD3D9
 		VertexLayout
 		VertexLayoutD3D11
@@ -445,6 +445,7 @@ RBX
 		ForceAngular
 		ForceLinear
 		InteractingPair
+		LDLDecompositionTask
 		LDLPGSSolver
 		PGSSolver
 		SolverInterface
@@ -914,7 +915,6 @@ RBX
 	PartOperationAsset
 	PartTool
 	Path
-	PathfindingJob
 	PathfindingService
 	physics_receiver_exception
 	PhysicsJob
@@ -954,6 +954,7 @@ RBX
 	RelativePanel
 	RemoteEvent
 	RemoteFunction
+	RenderingTest
 	RenderStatsCommand
 	ReplicatedFirst
 	ReplicatedStorage
@@ -1090,7 +1091,7 @@ RBX
 	Tween
 	TweenBase
 	TweenService
-	Typesetter
+	TypesetterDEPRECATED
 	UIAspectRatioConstraint
 	UIBase
 	UIComponent

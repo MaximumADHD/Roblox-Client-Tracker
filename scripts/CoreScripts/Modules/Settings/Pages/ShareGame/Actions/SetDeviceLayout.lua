@@ -1,6 +1,5 @@
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
-local ShareGame = Modules.Settings.Pages.ShareGame
-local Action = require(ShareGame.Action)
+local Modules = game:GetService("CorePackages").AppTempCommon
+local Action = require(Modules.Common.Action)
 
 return Action(script.Name, function(deviceLayout)
 	return {

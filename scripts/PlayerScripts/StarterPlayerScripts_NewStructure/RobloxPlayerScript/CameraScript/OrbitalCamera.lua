@@ -61,7 +61,6 @@ OrbitalCamera.__index = OrbitalCamera
 
 
 function OrbitalCamera.new()
-	print("OrbitalCamera.new()")
 	local self = setmetatable(BaseCamera.new(), OrbitalCamera)
 	
 	self.lastUpdate = tick()

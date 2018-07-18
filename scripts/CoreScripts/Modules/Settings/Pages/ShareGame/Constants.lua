@@ -1,6 +1,8 @@
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
-local ShareGame = Modules.Settings.Pages.ShareGame
-local User = require(ShareGame.Models.User)
+local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
+local User = require(AppTempCommon.LuaApp.Models.User)
+local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
 
 local DeviceLayout = {
 	PHONE_PORTRAIT = "PHONE_PORTRAIT",
@@ -91,6 +93,12 @@ local Constants = {
 			BACK_BUTTON_WIDTH = 154,
 		},
 	},
+}
+
+Constants.ThumbnailRequest = {
+	InviteToGameHeadshot = {ThumbnailRequest.fromData(
+		Constants.AvatarThumbnailTypes.HeadShot, Constants.AvatarThumbnailSizes.Size100x100
+	)},
 }
 
 return Constants

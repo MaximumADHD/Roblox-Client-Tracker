@@ -31,7 +31,6 @@ local LegacyCamera = setmetatable({}, BaseCamera)
 LegacyCamera.__index = LegacyCamera
 
 function LegacyCamera.new()
-	print("LegacyCamera.new()")
 	local self = setmetatable(BaseCamera.new(), LegacyCamera)
 	
 	self.cameraType = Enum.CameraType.Fixed

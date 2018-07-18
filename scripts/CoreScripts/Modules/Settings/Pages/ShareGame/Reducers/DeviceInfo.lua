@@ -1,11 +1,14 @@
+local CorePackages = game:GetService("CorePackages")
+local AppTempCommon = CorePackages.AppTempCommon
+
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local Immutable = require(ShareGame.Immutable)
+local Immutable = require(AppTempCommon.Common.Immutable)
 local Constants = require(ShareGame.Constants)
 
 local SetDeviceLayout = require(ShareGame.Actions.SetDeviceLayout)
-local SetDeviceOrientation = require(ShareGame.Actions.SetDeviceOrientation)
+local SetDeviceOrientation = require(AppTempCommon.LuaApp.Actions.SetDeviceOrientation)
 local SetIsSmallTouchScreen = require(ShareGame.Actions.SetIsSmallTouchScreen)
 
 return function(state, action)

@@ -5,24 +5,27 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Components = script.Parent.Parent.Parent.Components
 local ClientLog = require(Components.Log.ClientLog)
 local ServerLog = require(Components.Log.ServerLog)
-local ClientServerButton = require(Components.ClientServerButton)
-local CheckBoxContainer = require(Components.CheckBoxContainer)
-local SearchBar = require(Components.SearchBar)
+local UtilAndTab = require(Components.UtilAndTab)
+local DataConsumer = require(Components.DataConsumer)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local ClientLogUpdateSearchFilter = require(Actions.ClientLogUpdateSearchFilter)
 local ServerLogUpdateSearchFilter = require(Actions.ServerLogUpdateSearchFilter)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local MainRowPadding = Constants.GeneralFormatting.MainRowPadding
-local buttonWidth = Constants.UtilityBarFormatting.ClientServerButtonWidth
-local utilBarHeight = Constants.UtilityBarFormatting.FrameHeight
+local MAIN_ROW_PADDING = Constants.GeneralFormatting.MAIN_ROW_PADDING
 
 local MsgTypeNamesOrdered = Constants.MsgTypeNamesOrdered
 
 local MainViewLog = Roact.PureComponent:extend("MainViewLog")
 
 function MainViewLog:init()
+	self.onUtilTabHeightChanged = function(utilTabHeight)
+		self:setState({
+			utilTabHeight = utilTabHeight
+		})
+	end
+
 	self.onClientButton = function()
 		self:setState({isClientView = true})
 	end
@@ -33,79 +36,99 @@ function MainViewLog:init()
 
 	self.onCheckBoxesChanged = function(newFilters)
 		if self.state.isClientView then
-			self.props.dispatchClientLogUpdateSearchFilter(nil, newFilters)
+			self.props.ClientLogData:setFilters(newFilters)
 		else
-			self.props.dispatchServerLogUpdateSearchFilter(nil, newFilters)
+			self.props.ServerLogData:setFilters(newFilters)
 		end
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)
 		if self.state.isClientView then
-			self.props.dispatchClientLogUpdateSearchFilter(newSearchTerm, {})
+			self.props.ClientLogData:setSearchTerm(newSearchTerm)
 		else
-			self.props.dispatchServerLogUpdateSearchFilter(newSearchTerm, {})
+			self.props.ServerLogData:setSearchTerm(newSearchTerm)
 		end
 	end
 
+	self.utilRef = Roact.createRef()
+
 	self.state = {
+		utilTabHeight = 0,
 		isClientView = true
 	}
 end
 
+function MainViewLog:didMount()
+	local utilSize = self.utilRef.current.Size
+
+	self:setState({
+		utilTabHeight = utilSize.Y.Offset
+	})
+end
+
+function MainViewLog:didUpdate()
+	local utilSize = self.utilRef.current.Size
+	local height = utilSize.Y.Offset
+
+	if height ~= self.state.utilTabHeight then
+		self:setState({
+			utilTabHeight = height,
+		})
+	end
+end
+
 function MainViewLog:render()
-	local elements = {}
 	local size = self.props.size
+	local formFactor = self.props.formFactor
+	local isdeveloperView = self.props.isdeveloperView
+	local tabList = self.props.tabList
+
+	local utilTabHeight = self.state.utilTabHeight
 	local isClientView = self.state.isClientView
-	local searchTerm = isClientView and self.props.clientSearchTerm or self.props.serverSearchTerm
 
-	-- we create the util bar here rather than make it it's own component because
-	-- each tab has different requirements for the util bar
-	local utilBar = {}
-	utilBar["ClientServerButton"] = Roact.createElement(ClientServerButton, {
-		isClientView = isClientView,
-		onClientButton = self.onClientButton,
-		onServerButton = self.onServerButton,
-	})
+	local searchTerm
+	if isClientView then
+		searchTerm = self.props.ClientLogData:getSearchTerm()
+	else
+		searchTerm = self.props.ServerLogData:getSearchTerm()
+	end
 
-	utilBar["FilterCheckBoxes"] = Roact.createElement(CheckBoxContainer, {
-		boxNames = MsgTypeNamesOrdered,
-		size = UDim2.new(.5, 0, 0, utilBarHeight),
-		pos = UDim2.new(0, 2 * (buttonWidth) + MainRowPadding, 0, 0),
-		onCheckBoxesChanged = self.onCheckBoxesChanged,
-	})
-
-	utilBar["SearchBox"] = Roact.createElement(SearchBar, {
-		size = UDim2.new(0, 2 * buttonWidth, 0, utilBarHeight),
-		pos = UDim2.new(1, -2 * buttonWidth, 0, 0),
-		searchTerm = searchTerm,
-		textSize = Constants.DefaultFontSize.UtilBar,
-		frameHeight = Constants.UtilityBarFormatting.FrameHeight,
-		borderColor = Constants.Color.BorderGray,
-		textBoxColor = Constants.Color.UnselectedGray,
-		onTextEntered = self.onSearchTermChanged,
-	})
+	local elements = {}
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, MainRowPadding),
+		Padding = UDim.new(0, MAIN_ROW_PADDING),
 	})
 
-	elements["UtilBar"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, utilBarHeight),
-		BackgroundTransparency = 1,
-		LayoutOrder = 1,
-	}, utilBar)
+	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab,{
+		windowWidth = size.X.Offset,
+		formFactor = formFactor,
+		tabList = tabList,
+		checkBoxNames = MsgTypeNamesOrdered,
+		isClientView = isClientView,
+		searchTerm = searchTerm,
+		layoutOrder = 1,
 
-	if isClientView then
-		elements["ClientLog"] = Roact.createElement(ClientLog, {
-			Size = UDim2.new(1, 0, 1, -utilBarHeight),
-			layoutOrder = 2,
-		})
-	else
-		elements["ServerLog"] = Roact.createElement(ServerLog, {
-			Size = UDim2.new(1, 0, 1, -utilBarHeight),
-			layoutOrder = 2,
-		})
+		refForParent = self.utilRef,
+
+		onClientButton = isdeveloperView and self.onClientButton,
+		onServerButton = isdeveloperView and self.onServerButton,
+		onCheckBoxesChanged = self.onCheckBoxesChanged,
+		onSearchTermChanged = self.onSearchTermChanged,
+	})
+
+	if utilTabHeight > 0 then
+		if isClientView then
+			elements["ClientLog"] = Roact.createElement(ClientLog, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+				layoutOrder = 2,
+			})
+		else
+			elements["ServerLog"] = Roact.createElement(ServerLog, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+				layoutOrder = 2,
+			})
+		end
 	end
 
 	return Roact.createElement("Frame",{
@@ -113,16 +136,9 @@ function MainViewLog:render()
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
 		LayoutOrder = 3,
-	}, elements)
-end
 
-local function mapStateToProps(state, props)
-	return {
-		clientSearchTerm = state.LogData.clientSearchTerm,
-		clientTypeFilters = state.LogData.clientTypeFilters,
-		serverSearchTerm = state.LogData.serverSearchTerm,
-		serverTypeFilters = state.LogData.serverTypeFilters,
-	}
+		[Roact.Ref] = self.ref,
+	}, elements)
 end
 
 local function mapDispatchToProps(dispatch)
@@ -137,4 +153,6 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(MainViewLog)
+return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(
+	DataConsumer(MainViewLog, "ClientLogData", "ServerLogData")
+)

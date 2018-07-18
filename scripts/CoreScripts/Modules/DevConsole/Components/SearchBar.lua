@@ -9,22 +9,37 @@ local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
 
-local function SearchBar(props)
-	local size = props.size
-	local pos = props.pos
-	local frameHeight = props.frameHeight
+local SearchBar = Roact.Component:extend("SearchBar")
 
-	local borderColor = props.borderColor
-	local textBoxColor = props.textBoxColor
-	local textSize = props.textSize
-	local searchTerm = props.searchTerm
-	local onTextEntered = props.onTextEntered
+function SearchBar:init()
+	self.cancelInput = function(rbx, input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or
+			(input.UserInputType == Enum.UserInputType.Touch and
+			input.UserInputState == Enum.UserInputState.End) then
+			self.props.onTextEntered("")
+		end
+	end
+end
+
+function SearchBar:render()
+	local size = self.props.size
+	local pos = self.props.pos
+	local frameHeight = self.props.frameHeight
+
+	local borderColor = self.props.borderColor
+	local textBoxColor = self.props.textBoxColor
+	local textSize = self.props.textSize
+	local searchTerm = self.props.searchTerm
+	local layoutOrder = self.props.layoutOrder
+
+	local onTextEntered = self.props.onTextEntered
 
 	return Roact.createElement("Frame", {
 		Size = size,
 		Position = pos,
 		BackgroundColor3 = textBoxColor,
 		BorderColor3 = borderColor,
+		LayoutOrder = layoutOrder,
 	},{
 		SearchImage = Roact.createElement("ImageLabel", {
 			Name = "SearchIcon",
@@ -35,7 +50,7 @@ local function SearchBar(props)
 		}),
 
 		TextBox = Roact.createElement("TextBox", {
-			Text = searchTerm,
+			Text = searchTerm and searchTerm or "",
 			TextSize = textSize,
 			Size = UDim2.new(1, -frameHeight, 1, 0),
 			Position = UDim2.new(0, frameHeight, 0, 0),
@@ -51,7 +66,17 @@ local function SearchBar(props)
 					onTextEntered(rbx.text)
 				end
 			end,
+		}),
+
+		CancelButton = searchTerm ~= "" and Roact.createElement("ImageButton", {
+			Size = UDim2.new(0, -frameHeight / 2, 0, frameHeight / 2),
+			Position = UDim2.new(1, -frameHeight / 4, .5, -frameHeight / 4),
+			BackgroundTransparency = 1,
+			Image = Constants.Image.Close,
+
+			[Roact.Event.InputEnded] = self.cancelInput,
 		})
+
 	})
 end
 

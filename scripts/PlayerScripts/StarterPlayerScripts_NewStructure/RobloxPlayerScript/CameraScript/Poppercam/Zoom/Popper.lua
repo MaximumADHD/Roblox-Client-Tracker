@@ -1,9 +1,8 @@
 --------------------------------------------------------------------------------
 -- Popper.lua
--- Author: Parker Stebbins <pstebbins@roblox.com>
+-- Prevents your camera from clipping through walls.
 --------------------------------------------------------------------------------
 
-local Blacklist = require(script:WaitForChild("Blacklist"))
 local Rotate = require(script.Parent.Parent:WaitForChild("Rotate"))
 
 local camera = game.Workspace.CurrentCamera
@@ -21,8 +20,6 @@ local function eraseFromEnd(t, toSize)
 end
 
 local nearZ, projX, projY do
-	-- @todo handle changing camera
-	
 	local function updateProjection()
 		local fov = rad(camera.FieldOfView)
 		local view = camera.ViewportSize
@@ -37,23 +34,57 @@ local nearZ, projX, projY do
 	
 	updateProjection()
 
-	--[[ @todo enable when NearPlaneZ is fixed
 	nearZ = camera.NearZ
 	camera:GetPropertyChangedSignal('NearPlaneZ'):Connect(function()
 		nearZ = camera.NearPlaneZ
 	end)
-	--]]
+end
 
-	coroutine.wrap(function()
-		-- hack! don't ship this
-		nearZ = 0.1
-		wait()
-		local originalCFrame = camera.CFrame
-		camera.CFrame = CFrame.new()
-		local center = camera.ViewportSize/2
-		nearZ = camera:ViewportPointToRay(center.X, center.Y).Origin.Z
-		camera.CFrame = originalCFrame
-	end)()
+local blacklist = {} do
+	local charMap = {}
+
+	local function refreshIgnoreList()
+		local n = 1
+		blacklist = {}
+		for player, character in pairs(charMap) do
+			blacklist[n] = character
+			n = n + 1
+		end
+	end
+
+	local function playerAdded(player)
+		local function characterAdded(character)
+			charMap[player] = character
+			refreshIgnoreList()
+		end
+		local function characterRemoving()
+			charMap[player] = nil
+			refreshIgnoreList()
+		end
+		
+		player.CharacterAdded:Connect(characterAdded)
+		player.CharacterRemoving:Connect(characterRemoving)
+		if player.Character then
+			characterAdded(player.Character)
+		end
+	end
+
+	local function playerRemoving(player)
+		charMap[player] = nil
+		refreshIgnoreList()
+	end
+
+	do
+		local Players = game:GetService('Players')
+		
+		Players.PlayerAdded:Connect(playerAdded)
+		Players.PlayerRemoving:Connect(playerRemoving)
+		
+		for _, player in ipairs(Players:GetPlayers()) do
+			playerAdded(player)
+		end
+		refreshIgnoreList()
+	end
 end
 
 --------------------------------------------------------------------------------------------
@@ -88,6 +119,15 @@ local function canOcclude(part)
 		not part:IsA('TrussPart')
 end
 
+-- Offsets for the volume visibility test
+local SCAN_SAMPLE_OFFSETS = {
+	Vector2.new( 0.4, 0.0),
+	Vector2.new(-0.4, 0.0),
+	Vector2.new( 0.0,-0.4),
+	Vector2.new( 0.0, 0.4),
+	Vector2.new( 0.0, 0.2),
+}
+
 --------------------------------------------------------------------------------
 -- Piercing raycasts
 
@@ -113,7 +153,7 @@ end
 
 --------------------------------------------------------------------------------
 
-local function queryPoint(origin, unitDir, dist, blacklist, lastPos)
+local function queryPoint(origin, unitDir, dist, lastPos)
 	debug.profilebegin('queryPoint')
 	
 	local originalSize = #blacklist
@@ -144,14 +184,14 @@ local function queryPoint(origin, unitDir, dist, blacklist, lastPos)
 					end
 					
 					if promote then
-						-- Target passed through the part, promote to a hard limit
+						-- Ostensibly a soft limit, but the camera has passed through it in the last frame, so promote to a hard limit.
 						hardLimit = lim
 					elseif dist < softLimit then
-						-- So it's a soft limit
+						-- Trivial soft limit
 						softLimit = lim
 					end
 				else
-					-- Target is within the part, so it's a hard limit
+					-- Trivial hard limit
 					hardLimit = lim
 				end
 			end
@@ -167,7 +207,7 @@ local function queryPoint(origin, unitDir, dist, blacklist, lastPos)
 	return softLimit - nearZ, hardLimit - nearZ
 end
 
-local function queryViewport(focus, dist, blacklist)
+local function queryViewport(focus, dist)
 	debug.profilebegin('queryViewport')
 	
 	local fP =  focus.p
@@ -175,7 +215,7 @@ local function queryViewport(focus, dist, blacklist)
 	local fY =  focus.upVector
 	local fZ = -focus.lookVector
 	
-	local viewport = game.Workspace.CurrentCamera.ViewportSize
+	local viewport = camera.ViewportSize
 	
 	local hardBoxLimit = inf
 	local softBoxLimit = inf
@@ -192,12 +232,8 @@ local function queryViewport(focus, dist, blacklist)
 				viewport.x*viewX,
 				viewport.y*viewY
 			).Origin
-			--[[
-			if viewX + viewY == 0 then
-				print((origin - lastPos).magnitude)
-			end
-			--]]
-			local softPointLimit, hardPointLimit = queryPoint(origin, fZ, dist, blacklist, lastPos)
+
+			local softPointLimit, hardPointLimit = queryPoint(origin, fZ, dist, lastPos)
 			
 			if hardPointLimit < hardBoxLimit then
 				hardBoxLimit = hardPointLimit
@@ -212,15 +248,15 @@ local function queryViewport(focus, dist, blacklist)
 	return softBoxLimit, hardBoxLimit
 end
 
-local SCAN_SAMPLE_OFFSETS = {
-	Vector2.new( 0.6, 0.0),
-	Vector2.new(-0.6, 0.0),
-	Vector2.new( 0.0,-0.4),
-	Vector2.new( 0.0, 0.4),
-	Vector2.new( 0.0, 0.2),
-}
+local function getBodyScale(humanoid, scaleName)
+	local scaleValue = humanoid:FindFirstChild(scaleName)
+	if scaleValue and scaleValue:IsA('NumberValue') then
+		return scaleValue.Value
+	end
+	return 1
+end
 
-local function testPromotion(focus, dist, blacklist)
+local function testPromotion(focus, dist)
 	debug.profilebegin('testPromotion')
 	
 	local fP =  focus.p
@@ -229,20 +265,21 @@ local function testPromotion(focus, dist, blacklist)
 	local fZ = -focus.lookVector
 	
 	do
+		-- Dead reckoning the camera rotation and focus
 		debug.profilebegin('extrapolate')
-		
+
 		local SAMPLE_DT = 0.0625
 		local SAMPLE_MAX_T = 1.25
 		
 		local vel = subjectRootPart.Velocity
 		local speed = vel.Magnitude
-		local maxDist = (getCollisionPoint(fP, vel*SAMPLE_MAX_T, blacklist) - fP).Magnitude
+		local maxDist = (getCollisionPoint(fP, vel*SAMPLE_MAX_T) - fP).Magnitude
 		
 		for dt = 0, min(SAMPLE_MAX_T, maxDist/speed), SAMPLE_DT do
 			local origin = fP + vel*dt
 			local dir = -(focus*Rotate:GetDelta(dt)).lookVector
 			
-			if queryPoint(origin, dir, dist, blacklist) >= dist then
+			if queryPoint(origin, dir, dist) >= dist then
 				return false
 			end
 		end
@@ -251,12 +288,24 @@ local function testPromotion(focus, dist, blacklist)
 	end
 	
 	do
+		-- Test screen-space offsets from the focus for the presence of soft limits
 		debug.profilebegin('testOffsets')
 		
-		for _, point in ipairs(SCAN_SAMPLE_OFFSETS) do
-			local pos, isHit = getCollisionPoint(fP, fX*point.x + fY*point.y, blacklist)
-			if queryPoint(pos, (fP + fZ*dist - pos).Unit, dist, blacklist) == inf then
-				return false
+		local humanoid = subjectRootPart.Parent:FindFirstChildOfClass('Humanoid')
+		
+		if humanoid then
+			local scaleX = getBodyScale(humanoid, 'BodyWidthScale')
+			local scaleY = getBodyScale(humanoid, 'BodyHeightScale')
+			local scaleZ = getBodyScale(humanoid, 'BodyDepthScale')
+			
+			local sampleScale = Vector2.new(math.sqrt(scaleX*scaleX + scaleZ*scaleZ), scaleY)
+			
+			for _, offset in ipairs(SCAN_SAMPLE_OFFSETS) do
+				local scaledOffset = offset*sampleScale
+				local pos, isHit = getCollisionPoint(fP, fX*scaledOffset.x + fY*scaledOffset.y)
+				if queryPoint(pos, (fP + fZ*dist - pos).Unit, dist) == inf then
+					return false
+				end
 			end
 		end
 		
@@ -274,14 +323,12 @@ function Popper(focus, targetDist, _subjectRootPart)
 	
 	subjectRootPart = _subjectRootPart
 	
-	local blacklist = Blacklist()
-	
 	local dist = targetDist
-	local soft, hard = queryViewport(focus, targetDist, blacklist)
+	local soft, hard = queryViewport(focus, targetDist)
 	if hard < dist then
 		dist = hard
 	end
-	if soft < dist and testPromotion(focus, targetDist, blacklist) then
+	if soft < dist and testPromotion(focus, targetDist) then
 		dist = soft
 	end
 

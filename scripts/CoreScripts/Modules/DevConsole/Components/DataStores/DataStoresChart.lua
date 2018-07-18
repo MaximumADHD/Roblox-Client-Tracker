@@ -5,62 +5,58 @@ local Components = script.Parent.Parent.Parent.Components
 local DataConsumer = require(Components.DataConsumer)
 local HeaderButton = require(Components.HeaderButton)
 local CellLabel = require(Components.CellLabel)
+local BannerButton = require(Components.BannerButton)
+local LineGraph = require(Components.LineGraph)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local LineWidth = Constants.GeneralFormatting.LineWidth
-local LineColor = Constants.GeneralFormatting.LineColor
-local ChartHeaderNames = Constants.DataStoresFormatting.ChartHeaderNames
-local ValueCellWidth = Constants.DataStoresFormatting.ValueCellWidth
-local CellPadding = Constants.DataStoresFormatting.CellPadding
-local ExpandArrowPadding = Constants.DataStoresFormatting.ExpandArrowPadding
-local HeaderFrameHeight = Constants.DataStoresFormatting.HeaderFrameHeight
-local EntryFrameHeight = Constants.DataStoresFormatting.EntryFrameHeight
+local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
+local LINE_COLOR = Constants.GeneralFormatting.LineColor
+local HEADER_NAMES = Constants.DataStoresFormatting.ChartHeaderNames
+local VALUE_CELL_WIDTH = Constants.DataStoresFormatting.ValueCellWidth
+local CELL_PADDING = Constants.DataStoresFormatting.CellPadding
+local ARROW_PADDING = Constants.DataStoresFormatting.ExpandArrowPadding
+local HEADER_HEIGHT = Constants.DataStoresFormatting.HeaderFrameHeight
+local ENTRY_HEIGHT = Constants.DataStoresFormatting.EntryFrameHeight
+
+local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
+
+local NO_DATA_MSG = "Initialize DataStoresService to view DataStore Budget."
+
+local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
 
 local DataStoresChart = Roact.Component:extend("DataStoresChart")
 
-local function constructHeader()
-	local header = {}
+local function getX(entry)
+	return entry.time
+end
 
-	header[ChartHeaderNames[1]] = Roact.createElement(HeaderButton,{
-		text = ChartHeaderNames[1],
-		size = UDim2.new(1, -ValueCellWidth - CellPadding - ExpandArrowPadding, 1, 0),
-		pos = UDim2.new(0, CellPadding + ExpandArrowPadding, 0, 0),
-		sortfunction = function()
-			print(ChartHeaderNames[1], " header button pressed")
-		end,
-	})
-	header[ChartHeaderNames[2]] = Roact.createElement(HeaderButton,{
-		text = ChartHeaderNames[2],
-		size = UDim2.new(0, ValueCellWidth - CellPadding, 1, 0),
-		pos = UDim2.new(1, -ValueCellWidth + CellPadding, 0, 0),
-		sortfunction = function()
-			print(ChartHeaderNames[2], " header button pressed")
-		end,
-	})
-	header["upperHorizontalLine"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, LineWidth),
-		BackgroundColor3 = LineColor,
-		BorderSizePixel = 0,
-	})
-	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, LineWidth),
-		Position = UDim2.new(0, 0, 1, 0),
-		BackgroundColor3 = LineColor,
-		BorderSizePixel = 0,
-	})
+local function getY(entry)
+	return entry.value
+end
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, HeaderFrameHeight),
-		BackgroundTransparency = 1,
-		LayoutOrder = 1,
-	}, header)
+local function stringFormatY(value)
+	return math.ceil(value)
 end
 
 function DataStoresChart:init(props)
 	local currStoresData, currStoresDataCount = props.DataStoresData:getCurrentData()
+
+	self.getOnButtonPress = function (name)
+		return function(rbx, input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or
+				(input.UserInputType == Enum.UserInputType.Touch and
+				input.UserInputState == Enum.UserInputState.End) then
+				self:setState({
+					expandedEntry = self.state.expandedEntry ~= name and name
+				})
+			end
+		end
+	end
+
 	self.state = {
 		dataStoresData = currStoresData,
 		dataStoresDataCount = currStoresDataCount,
+		expandedEntry = nil
 	}
 end
 
@@ -81,7 +77,10 @@ end
 function DataStoresChart:render()
 	local elements = {}
 	local searchTerm = self.props.searchTerm
+	local size = self.props.size
 	local layoutOrder = self.props.layoutOrder
+
+	local expandedEntry = self.state.expandedEntry
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		FillDirection = Enum.FillDirection.Vertical,
@@ -90,64 +89,140 @@ function DataStoresChart:render()
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
 
-	elements["Header"] = constructHeader()
-	local componentHeight = HeaderFrameHeight
+	local componentHeight = HEADER_HEIGHT
 
 	local datastoreBudget = self.state.dataStoresData
 	local currLayoutOrder = 1
 	if datastoreBudget then
-		for name,data in pairs(datastoreBudget) do
+		for name, data in pairs(datastoreBudget) do
 			if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
 				currLayoutOrder = currLayoutOrder + 1
-				local row = {}
-				row[name] = Roact.createElement(CellLabel,{
-					text = name,
-					size = UDim2.new(1,-ValueCellWidth - CellPadding - ExpandArrowPadding, 1, 0),
-					pos = UDim2.new(0, CellPadding + ExpandArrowPadding, 0, 0),
-				})
 
-				row["Data"] = Roact.createElement(CellLabel,{
-					text = data,
-					size = UDim2.new(0, ValueCellWidth - CellPadding, 1, 0),
-					pos = UDim2.new(1, -ValueCellWidth + CellPadding, 0, 0),
-				})
+				local showGraph = expandedEntry == name
+				local frameHeight = showGraph and ENTRY_HEIGHT + GRAPH_HEIGHT or ENTRY_HEIGHT
 
-				row["lowerHorizontalLine"] = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, LineWidth),
-					Position = UDim2.new(0, 0, 1, 0),
-					BackgroundColor3 = LineColor,
-					BorderSizePixel = 0,
-				})
-
-				elements[name] = Roact.createElement("Frame",{
-					Size = UDim2.new(1, 0, 0, EntryFrameHeight),
+				elements[name] = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, frameHeight),
 					BackgroundTransparency = 1,
 					LayoutOrder = currLayoutOrder,
-				}, row)
+				}, {
 
-				componentHeight = componentHeight + EntryFrameHeight
+					DataButton = Roact.createElement(BannerButton,{
+						size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+						pos = UDim2.new(),
+						isExpanded = showGraph,
+
+						onButtonPress = self.getOnButtonPress(name),
+					}, {
+						[name] =  Roact.createElement(CellLabel,{
+							text = name,
+							size = UDim2.new(1,-VALUE_CELL_WIDTH - CELL_PADDING - ARROW_PADDING, 1, 0),
+							pos = UDim2.new(0, CELL_PADDING + ARROW_PADDING, 0, 0),
+						}),
+
+						Data = Roact.createElement(CellLabel,{
+							text = data.dataSet:back().value,
+							size = UDim2.new(0, VALUE_CELL_WIDTH - CELL_PADDING, 1, 0),
+							pos = UDim2.new(1, -VALUE_CELL_WIDTH + CELL_PADDING, 0, 0),
+						}),
+
+						VerticalLine = Roact.createElement("Frame", {
+							Size = UDim2.new(0, LINE_WIDTH, 0, ENTRY_HEIGHT),
+							Position = UDim2.new(1, -VALUE_CELL_WIDTH, 0, 0),
+							BackgroundColor3 = LINE_COLOR,
+							BorderSizePixel = 0,
+						}),
+
+						lowerHorizontalLine = Roact.createElement("Frame", {
+							Size = UDim2.new(1, 0, 0, LINE_WIDTH),
+							Position = UDim2.new(0, 0, 1, 0),
+							BackgroundColor3 = LINE_COLOR,
+							BorderSizePixel = 0,
+						}),
+					}),
+
+					Graph = showGraph and Roact.createElement(LineGraph, {
+						pos = UDim2.new(0, 0, 0, ENTRY_HEIGHT),
+						size = UDim2.new(1, 0, 1, -ENTRY_HEIGHT),
+						graphData = data.dataSet,
+						maxY = data.max,
+						minY = data.min,
+
+						getX = getX,
+						getY = getY,
+
+						axisLabelX = "Timestamp",
+						axisLabelY = name,
+
+						stringFormatX = convertTimeStamp,
+						stringFormatY = stringFormatY,
+
+					}),
+				})
+				componentHeight = componentHeight + ENTRY_HEIGHT
 			end
 		end
 	end
 
+	if currLayoutOrder == 1 then
+		return Roact.createElement("TextLabel",{
+			Size = size,
+			Text = NO_DATA_MSG,
+			TextColor3 = Constants.Color.Text,
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+		})
+	end
+
 	return Roact.createElement("Frame", {
-			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = size,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
 		},{
-			mainFrame = Roact.createElement("Frame", {
-				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
+			Header = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			}, {
+				[HEADER_NAMES[1]] = Roact.createElement(CellLabel,{
+					text = HEADER_NAMES[1],
+					size = UDim2.new(1, -VALUE_CELL_WIDTH - CELL_PADDING - ARROW_PADDING, 1, 0),
+					pos = UDim2.new(0, CELL_PADDING + ARROW_PADDING, 0, 0),
+				}),
+
+				[HEADER_NAMES[2]] = Roact.createElement(CellLabel,{
+					text = HEADER_NAMES[2],
+					size = UDim2.new(0, VALUE_CELL_WIDTH - CELL_PADDING, 1, 0),
+					pos = UDim2.new(1, -VALUE_CELL_WIDTH + CELL_PADDING, 0, 0),
+				}),
+
+				upperHorizontalLine = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, LINE_WIDTH),
+					BackgroundColor3 = LINE_COLOR,
+					BorderSizePixel = 0,
+				}),
+
+				vertical = Roact.createElement("Frame", {
+					Size = UDim2.new(0, LINE_WIDTH, 1, 0),
+					Position = UDim2.new(1, -VALUE_CELL_WIDTH, 0, 0),
+					BackgroundColor3 = LINE_COLOR,
+					BorderSizePixel = 0,
+				}),
+
+				lowerHorizontalLine = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, LINE_WIDTH),
+					Position = UDim2.new(0, 0, 1, 0),
+					BackgroundColor3 = LINE_COLOR,
+					BorderSizePixel = 0,
+				}),
+			}),
+			mainFrame = Roact.createElement("ScrollingFrame", {
+				Position = UDim2.new(0, 0, 0, HEADER_HEIGHT),
+				Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
+				ScrollBarThickness = 5,
+
 				BackgroundTransparency = 1,
 			}, elements),
-
-			VerticalLine = Roact.createElement("Frame", {
-				Size = UDim2.new(0, LineWidth, 0, componentHeight),
-				Position = UDim2.new(1, -ValueCellWidth, 0, 0),
-				BackgroundColor3 = LineColor,
-				BorderSizePixel = 0,
-			})
 		})
 end
 
