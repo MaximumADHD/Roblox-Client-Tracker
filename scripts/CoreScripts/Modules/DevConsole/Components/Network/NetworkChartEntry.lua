@@ -5,8 +5,6 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local ENTRY_HEIGHT = Constants.NetworkFormatting.EntryFrameHeight
 local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
 local LINE_COLOR = Constants.GeneralFormatting.LineColor
-local FONT_SIZE = Constants.DefaultFontSize.MainWindow
-local FONT_COLOR = Constants.Color.Text
 
 local RESPONSE_STR_TEXT_HEIGHT = Constants.NetworkFormatting.ResponseStrHeight
 local RESPONSE_WIDTH_RATIO = Constants.NetworkFormatting.ResponseWidthRatio
@@ -16,6 +14,7 @@ local RESPONSE_STR_TEXT = "Response Body:"
 
 local Components = script.Parent.Parent.Parent.Components
 local CellLabel = require(Components.CellLabel)
+local HeaderButton = require(Components.HeaderButton)
 local BannerButton = require(Components.BannerButton)
 
 return function(props)
@@ -32,37 +31,37 @@ return function(props)
 	local onButtonPress = props.onButtonPress
 
 	local row = {}
-	row["Num"] = Roact.createElement(CellLabel,{
+	row["Num"] = Roact.createElement(CellLabel, {
 		text = entry.Num,
 		size = entryCellSize[1],
 		pos = cellOffset[1],
 	})
-	row["Method"] = Roact.createElement(CellLabel,{
+	row["Method"] = Roact.createElement(CellLabel, {
 		text = entry.Method,
 		size = entryCellSize[2],
 		pos = cellOffset[2],
 	})
-	row["Status"] = Roact.createElement(CellLabel,{
+	row["Status"] = Roact.createElement(CellLabel, {
 		text = entry.Status,
 		size = entryCellSize[3],
 		pos = cellOffset[3],
 	})
-	row["Time"] = Roact.createElement(CellLabel,{
+	row["Time"] = Roact.createElement(CellLabel, {
 		text = string.format("%.3f", entry.Time),
 		size = entryCellSize[4],
 		pos = cellOffset[4],
 	})
-	row["RequestType"] = Roact.createElement(CellLabel,{
+	row["RequestType"] = Roact.createElement(CellLabel, {
 		text = entry.RequestType,
 		size = entryCellSize[5],
 		pos = cellOffset[5],
 	})
-	row["Url"] = Roact.createElement(CellLabel,{
+	row["Url"] = Roact.createElement(CellLabel, {
 		text = entry.Url,
 		size = entryCellSize[6],
 		pos = cellOffset[6],
 	})
-	row["LowerHorizontalLine"] = Roact.createElement("Frame",{
+	row["LowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, 1),
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
@@ -83,7 +82,7 @@ return function(props)
 		BackgroundTransparency = 1,
 		-- to make room for the windowing padding
 		LayoutOrder = layoutOrder,
-	},{
+	}, {
 		Button = Roact.createElement(BannerButton, {
 			size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
 			pos = UDim2.new(),
@@ -92,24 +91,19 @@ return function(props)
 			onButtonPress = onButtonPress,
 		}, row),
 
-		Response = showResponse and Roact.createElement("Frame",{
+		Response = showResponse and Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, responseBodyHeight),
 			Position = UDim2.new(RESPONSE_X_OFFSET, 0, 0, ENTRY_HEIGHT),
 			BackgroundTransparency = 1,
-		},{
-			Text = Roact.createElement("TextLabel", {
-				Text = RESPONSE_STR_TEXT,
-				TextSize = FONT_SIZE,
-				TextColor3 = FONT_COLOR,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Size = UDim2.new(1, 0, 0, RESPONSE_STR_TEXT_HEIGHT),
-				Position = UDim2.new(-RESPONSE_STR_X_OFFSET, 0, 0, 0),
-				BackgroundTransparency = 1,
+		}, {
+			Text = Roact.createElement(HeaderButton, {
+				text = RESPONSE_STR_TEXT,
+				size = UDim2.new(1, 0, 0, RESPONSE_STR_TEXT_HEIGHT),
+				pos = UDim2.new(-RESPONSE_STR_X_OFFSET, 0, 0, 0),
 			}),
-
 			ResponseBody = Roact.createElement(CellLabel, {
 				text = entry.Response,
-				size = UDim2.new(1, 0, 1, -RESPONSE_STR_TEXT_HEIGHT),
+				size = UDim2.new(.8, 0, 1, -RESPONSE_STR_TEXT_HEIGHT),
 				pos = UDim2.new(0, 0, 0, RESPONSE_STR_TEXT_HEIGHT),
 			})
 		})

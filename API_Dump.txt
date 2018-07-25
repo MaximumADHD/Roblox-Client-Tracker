@@ -1038,7 +1038,9 @@ Class GuiService : Instance [notCreatable]
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function int GuiService:GetBrickCount() [RobloxScriptSecurity]
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) [RobloxScriptSecurity]
+	Function ConnectionError GuiService:GetErrorCode() [RobloxScriptSecurity]
 	Function string GuiService:GetErrorMessage() [deprecated] [RobloxScriptSecurity]
+	Function ConnectionError GuiService:GetErrorType() [RobloxScriptSecurity]
 	Function Tuple GuiService:GetGuiInset()
 	Function Dictionary GuiService:GetNotificationTypeList() [RobloxScriptSecurity]
 	Function int GuiService:GetResolutionScale() [LocalUserSecurity]
@@ -1055,7 +1057,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
 	Function void GuiService:SetMenuIsOpen(bool open) [RobloxScriptSecurity]
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) [RobloxScriptSecurity]
-	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage) [LocalUserSecurity]
+	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage = errorCode) [LocalUserSecurity]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function void GuiService:ToggleFullscreen() [RobloxScriptSecurity]
 	YieldFunction Vector2 GuiService:GetScreenResolution() [RobloxScriptSecurity]
@@ -2101,7 +2103,6 @@ Class RunService : Instance
 	Function bool RunService:IsStudio()
 	Function void RunService:Pause() [PluginSecurity]
 	Function void RunService:Reset() [deprecated] [PluginSecurity]
-	Function bool RunService:RobloxOnlyIsEdit() [RobloxScriptSecurity]
 	Function void RunService:Run() [PluginSecurity]
 	Function void RunService:Set3dRenderingEnabled(bool enable) [RobloxScriptSecurity]
 	Function void RunService:SetRobloxGuiFocused(bool focus) [RobloxScriptSecurity]
@@ -2380,6 +2381,7 @@ Class TeleportService : Instance
 	Property bool TeleportService.CustomizedTeleportUI [deprecated]
 	Function Variant TeleportService:GetLocalPlayerTeleportData()
 	Function Variant TeleportService:GetTeleportSetting(string setting)
+	Function void TeleportService:SetTeleportGui(Instance gui)
 	Function void TeleportService:SetTeleportSetting(string setting, Variant value)
 	Function void TeleportService:Teleport(int64 placeId, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportCancel() [RobloxScriptSecurity]
@@ -2940,6 +2942,53 @@ Enum ComputerMovementMode
 	EnumItem ComputerMovementMode.Default : 0
 	EnumItem ComputerMovementMode.KeyboardMouse : 1
 	EnumItem ComputerMovementMode.ClickToMove : 2
+Enum ConnectionError
+	EnumItem ConnectionError.OK : 0
+	EnumItem ConnectionError.DisconnectErrors : 256
+	EnumItem ConnectionError.DisconnectBadhash : 257
+	EnumItem ConnectionError.DisconnectSecurityKeyMismatch : 258
+	EnumItem ConnectionError.DisconnectNewSecurityKeyMismatch : 259
+	EnumItem ConnectionError.DisconnectProtocolMismatch : 260
+	EnumItem ConnectionError.DisconnectReceivePacketError : 261
+	EnumItem ConnectionError.DisconnectReceivePacketStreamError : 262
+	EnumItem ConnectionError.DisconnectSendPacketError : 263
+	EnumItem ConnectionError.DisconnectIllegalTeleport : 264
+	EnumItem ConnectionError.DisconnectDuplicatePlayer : 265
+	EnumItem ConnectionError.DisconnectDuplicateTicket : 266
+	EnumItem ConnectionError.DisconnectTimeout : 267
+	EnumItem ConnectionError.DisconnectLuaKick : 268
+	EnumItem ConnectionError.DisconnectOnRemoteSysStats : 269
+	EnumItem ConnectionError.DisconnectHashTimeout : 270
+	EnumItem ConnectionError.DisconnectCloudEditKick : 271
+	EnumItem ConnectionError.DisconnectPlayerless : 272
+	EnumItem ConnectionError.DisconnectEvicted : 273
+	EnumItem ConnectionError.DisconnectDevMaintenance : 274
+	EnumItem ConnectionError.DisconnectRobloxMaintenance : 275
+	EnumItem ConnectionError.DisconnectRejoin : 276
+	EnumItem ConnectionError.DisconnectConnectionLost : 277
+	EnumItem ConnectionError.PlacelaunchErrors : 512
+	EnumItem ConnectionError.PlacelaunchDisabled : 515
+	EnumItem ConnectionError.PlacelauchError : 516
+	EnumItem ConnectionError.PlacelaunchGameEnded : 517
+	EnumItem ConnectionError.PlacelaunchGameFull : 518
+	EnumItem ConnectionError.PlacelaunchUserLeft : 522
+	EnumItem ConnectionError.PlacelaunchRestricted : 523
+	EnumItem ConnectionError.PlacelaunchUnauthorized : 524
+	EnumItem ConnectionError.PlacelaunchFlooded : 525
+	EnumItem ConnectionError.PlacelaunchHashExpired : 526
+	EnumItem ConnectionError.PlacelaunchHashException : 527
+	EnumItem ConnectionError.PlacelaunchPartyCannotFit : 528
+	EnumItem ConnectionError.PlacelaunchHttpError : 529
+	EnumItem ConnectionError.PlacelaunchCustomMessage : 610
+	EnumItem ConnectionError.PlacelaunchOtherError : 611
+	EnumItem ConnectionError.TeleportErrors : 768
+	EnumItem ConnectionError.TeleportFailure : 769
+	EnumItem ConnectionError.TeleportGameNotFound : 770
+	EnumItem ConnectionError.TeleportGameEnded : 771
+	EnumItem ConnectionError.TeleportGameFull : 772
+	EnumItem ConnectionError.TeleportUnauthorized : 773
+	EnumItem ConnectionError.TeleportFlooded : 774
+	EnumItem ConnectionError.TeleportIsTeleporting : 775
 Enum ConnectionState
 	EnumItem ConnectionState.Connected : 0
 	EnumItem ConnectionState.Disconnected : 1

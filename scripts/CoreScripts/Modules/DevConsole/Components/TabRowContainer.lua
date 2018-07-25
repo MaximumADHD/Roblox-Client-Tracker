@@ -6,6 +6,7 @@ local TextService = game:GetService("TextService")
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 
 local TabRowButton = require(script.Parent.TabRowButton)
+local DropDown = require(script.Parent.DropDown)
 local FullScreenDropDownButton = require(script.Parent.FullScreenDropDownButton)
 
 local Constants = require(script.Parent.Parent.Constants)
@@ -61,20 +62,35 @@ function TabRowContainer:render()
 
 	local padding = (currWindowWidth - totalTextLength)  / totalTabCount
 
-	if (formFactor ~= Constants.FormFactor.Large) or
-		(padding < 0 and currWindowWidth > 0) then
+	-- the remainder is used to center the row of tabs so the
+	-- snap when crossing integer boundaries is less noticeable
+	local remainder = (padding % 1) * totalTabCount / 2
+
+	local useDropDown = padding < 0 and currWindowWidth > 0
+	local useFullScreenDropDown = formFactor == Constants.FormFactor.Small
+
+	if useDropDown or useFullScreenDropDown then
 		local names = {}
 		for ind,tab in ipairs(tabs) do
 			names[ind] = tab.label
 		end
 
-		return Roact.createElement(FullScreenDropDownButton, {
-			buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
-			dropDownList = names,
-			selectedIndex = currTabIndex,
-			onSelection = self.onTabButtonClicked,
-			layoutOrder = layoutOrder,
-		})
+		if useFullScreenDropDown then
+			return Roact.createElement(FullScreenDropDownButton, {
+				buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
+				dropDownList = names,
+				selectedIndex = currTabIndex,
+				onSelection = self.onTabButtonClicked,
+				layoutOrder = layoutOrder,
+			})
+		elseif useDropDown then
+			return Roact.createElement(DropDown, {
+				buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
+				dropDownList = names,
+				selectedIndex = currTabIndex,
+				onSelection = self.onTabButtonClicked,
+			})
+		end
 	end
 
 	if tabs then
@@ -83,7 +99,7 @@ function TabRowContainer:render()
 				index = ind,
 				name = tab.label,
 				padding = padding,
-				textWidth = textWidths[ind],
+				textWidth = useDropDown and DROP_DOWN_WIDTH or textWidths[ind],
 				isSelected = (ind == currTabIndex),
 				LayoutOrder = ind,
 
@@ -99,8 +115,9 @@ function TabRowContainer:render()
 		FillDirection = Enum.FillDirection.Horizontal,
 	})
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, frameHeight),
+		Position = UDim2.new(0, remainder, 0, 0),
 		Transparency = 1,
 		LayoutOrder = layoutOrder,
 	}, nodes)

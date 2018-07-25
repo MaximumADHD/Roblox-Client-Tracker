@@ -22,6 +22,14 @@ local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 
+local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
+local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerPromptUseFormatByKey')
+
+local RobloxTranslator
+if FFlagCoreScriptsUseLocalizationModule then
+	RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
+end
+
 local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
 local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
 
@@ -36,9 +44,13 @@ local FFlagUseNotificationsLocalization = success and result
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
-		local LocalizationService = game:GetService("LocalizationService")
-		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		if FFlagCoreScriptsUseLocalizationModule then
+			rtv = RobloxTranslator:FormatByKey(key)
+		else
+			local LocalizationService = game:GetService("LocalizationService")
+			local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		end
 	end)
 	return rtv
 end
@@ -101,8 +113,13 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 				if AtFriendLimit(playerToFriend) then
 
 					local mainText = string.format("You can not send a friend request to %s because they are at the max friend limit.",  playerToFriend.Name)
-					if FFlagUseNotificationsLocalization then
-						mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",mainText),"{RBX_NAME}",playerToFriend.Name)
+
+					if FFlagFriendPlayerPromptUseFormatByKey then
+						mainText = RobloxTranslator:FormatByKey("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit", {RBX_NAME = playerToFriend.Name})
+					else
+						if FFlagUseNotificationsLocalization then
+							mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.AtFriendLimit",mainText),"{RBX_NAME}",playerToFriend.Name)
+						end
 					end
 
 					PromptCreator:CreatePrompt({
@@ -124,8 +141,12 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 						end
 
 						local mainText = string.format("An error occurred while sending %s a friend request. Please try again later.", playerToFriend.Name)
-						if FFlagUseNotificationsLocalization then
-							mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToFriend.Name)
+						if FFlagFriendPlayerPromptUseFormatByKey then
+							mainText = RobloxTranslator:FormatByKey("FriendPlayerPrompt.promptCompletedCallback.UnknownError", {RBX_NAME = playerToFriend.Name})
+						else
+							if FFlagUseNotificationsLocalization then
+								mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.promptCompletedCallback.UnknownError",mainText),"{RBX_NAME}",playerToFriend.Name)
+							end
 						end
 
 						PromptCreator:CreatePrompt({
@@ -146,8 +167,13 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 	end
 
 	local mainText = string.format("Would you like to send %s a Friend Request?", playerToFriend.Name)
-	if FFlagUseNotificationsLocalization then
-		mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptRequestFriendPlayer",mainText),"{RBX_NAME}",playerToFriend.Name)
+
+	if FFlagFriendPlayerPromptUseFormatByKey then
+		mainText = RobloxTranslator:FormatByKey("FriendPlayerPrompt.DoPromptRequestFriendPlayer", {RBX_NAME = playerToFriend.Name})
+	else
+		if FFlagUseNotificationsLocalization then
+			mainText = string.gsub(LocalizedGetString("FriendPlayerPrompt.DoPromptRequestFriendPlayer",mainText),"{RBX_NAME}",playerToFriend.Name)
+		end
 	end
 
 	PromptCreator:CreatePrompt({

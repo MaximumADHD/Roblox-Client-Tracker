@@ -8,6 +8,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local SearchBox = require(ShareGame.Components.SearchBox)
+local IconButton = require(ShareGame.Components.IconButton)
 local Constants = require(ShareGame.Constants)
 local Text = require(AppTempCommon.Common.Text)
 
@@ -17,7 +18,7 @@ local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.Sha
 
 local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")
-local SEARCH_ICON_SIZE = 22
+local SEARCH_ICON_SIZE = 44
 
 local SEARCH_BOX_WIDTH = 177
 local SEARCH_BOX_HEIGHT = 28
@@ -62,17 +63,17 @@ function SearchArea:render()
 		}, {
 			-- Render the search button if the search area hasn't been activated
 			-- yet.
-			SearchButton = Roact.createElement("ImageButton", {
-				Visible = not searchAreaActive,
-				BackgroundTransparency = 1,
-				AnchorPoint = anchorPoint,
-				Position = position,
-				Size = UDim2.new(0, SEARCH_ICON_SIZE, 0, SEARCH_ICON_SIZE),
-				Image = SEARCH_ICON_SPRITE_PATH,
-				ImageRectOffset = SEARCH_ICON_SPRITE_FRAME.offset,
-				ImageRectSize = SEARCH_ICON_SPRITE_FRAME.size,
-				ZIndex = zIndex,
-				[Roact.Event.Activated] = function(rbx)
+			SearchButton = Roact.createElement(IconButton, {
+				visible = not searchAreaActive,
+				anchorPoint = anchorPoint,
+				position = position,
+				size = UDim2.new(0, SEARCH_ICON_SIZE, 0, SEARCH_ICON_SIZE),
+				zIndex = zIndex,
+
+				iconHorizontalAlignment = Enum.HorizontalAlignment.Right,
+				iconSpritePath = SEARCH_ICON_SPRITE_PATH,
+				iconSpriteFrame = SEARCH_ICON_SPRITE_FRAME,
+				onClick = function(rbx)
 					self.props.setSearchAreaActive(true)
 				end,
 			}),

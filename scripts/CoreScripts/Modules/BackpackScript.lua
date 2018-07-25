@@ -1,10 +1,6 @@
 -- Backpack Version 5.1
 -- OnlyTwentyCharacters, SolarCrane
 
--------------------
---| Exposed API |--
--------------------
-
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
 BackpackScript.IsOpen = false
@@ -14,10 +10,6 @@ BackpackScript.ModuleName = "Backpack"
 BackpackScript.KeepVRTopbarOpen = true
 BackpackScript.VRIsExclusive = true
 BackpackScript.VRClosesNonExclusive = true
-
----------------------
---| Configurables |--
----------------------
 
 local ICON_SIZE = 60
 local FONT_SIZE = Enum.FontSize.Size14
@@ -61,14 +53,6 @@ local INVENTORY_ARROWS_BUFFER_VR = 40
 local SEARCH_BUFFER = 5
 local SEARCH_WIDTH = 200
 local SEARCH_TEXT = "   Search"
-pcall(function()
-	local LocalizationService = game:GetService("LocalizationService")
-	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-	SEARCH_TEXT = CorescriptLocalization:GetString(
-		LocalizationService.RobloxLocaleId,
-		"BACKPACK_SEARCH"
-	)
-end)
 
 local SEARCH_TEXT_OFFSET_FROMLEFT = 0
 local SEARCH_BACKGROUND_COLOR = Color3.new(0.37, 0.37, 0.37)
@@ -91,9 +75,6 @@ local GAMEPAD_INPUT_TYPES =
 	[Enum.UserInputType.Gamepad8] = true;
 }
 
------------------
---| Variables |--
------------------
 local PlayersService = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local StarterGui = game:GetService('StarterGui')
@@ -106,6 +87,24 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+
+local FFlagBackpackScriptUseFormatByKey = settings():GetFFlag('BackpackScriptUseFormatByKey')
+
+if FFlagBackpackScriptUseFormatByKey then
+	SEARCH_TEXT_OFFSET_FROMLEFT = 3
+	local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+	SEARCH_TEXT = RobloxTranslator:FormatByKey("BACKPACK_SEARCH")
+else
+	pcall(function()
+		local LocalizationService = game:GetService("LocalizationService")
+		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+		SEARCH_TEXT = CorescriptLocalization:GetString(
+			LocalizationService.RobloxLocaleId,
+			"BACKPACK_SEARCH"
+		)
+	end)
+end
+
 local TopbarEnabled = true
 
 if IsTenFootInterface then
@@ -157,10 +156,6 @@ local NumberOfInventoryRows = IsVR and INVENTORY_ROWS_VR or (IS_PHONE and INVENT
 local BackpackPanel = nil
 
 local lastEquippedSlot = nil
-
------------------
---| Functions |--
------------------
 
 local function EvaluateBackpackPanelVisibility(enabled)
 	return enabled and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack) and TopbarEnabled and VRService.VREnabled
@@ -1035,9 +1030,6 @@ local function OnUISChanged(property)
 	end
 end
 
--------------------------
---| Gamepad Functions |--
--------------------------
 local lastChangeToolInputObject = nil
 local lastChangeToolInputTime = nil
 local maxEquipDeltaTime = 0.06
@@ -1337,9 +1329,6 @@ function gamepadConnected()
 		enableGamepadInventoryControl()
 	end
 end
------------------------------
---| End Gamepad Functions |--
------------------------------
 
 local function OnCoreGuiChanged(coreGuiType, enabled)
 	-- Check for enabling/disabling the whole thing
@@ -1388,10 +1377,6 @@ local function MakeVRRoundButton(name, image)
 	return newButton, buttonIcon, buttonSelectionObject
 end
 
-
---------------------
---| Script Logic |--
---------------------
 
 -- Make the main frame, which (mostly) covers the screen
 MainFrame = NewGui('Frame', 'Backpack')

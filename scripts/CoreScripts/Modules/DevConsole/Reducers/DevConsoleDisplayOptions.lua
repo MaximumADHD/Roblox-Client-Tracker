@@ -5,6 +5,7 @@ local SetDevConsoleVisibility = require(script.Parent.Parent.Actions.SetDevConso
 local SetDevConsoleMinimized = require(script.Parent.Parent.Actions.SetDevConsoleMinimized)
 local ChangeDevConsoleSize = require(script.Parent.Parent.Actions.ChangeDevConsoleSize)
 local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
+local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 
 return function(DisplayOptions, action)
 	local displayOptions = DisplayOptions or {
@@ -33,6 +34,8 @@ return function(DisplayOptions, action)
 		if displayOptions.formFactor == Constants.FormFactor.Large then
 			return Immutable.Set(displayOptions, "size", action.newSize)
 		end
+	elseif action.type == SetActiveTab.name then
+		return Immutable.Set(displayOptions, "isMinimized", false)
 	end
 
 	return displayOptions

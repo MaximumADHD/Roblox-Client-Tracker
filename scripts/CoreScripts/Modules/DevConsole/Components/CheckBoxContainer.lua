@@ -9,6 +9,8 @@ local CheckBoxDropDown = require(Components.CheckBoxDropDown)
 local Constants = require(script.Parent.Parent.Constants)
 local CHECK_BOX_HEIGHT = Constants.UtilityBarFormatting.CheckBoxHeight
 local CHECK_BOX_PADDING = Constants.UtilityBarFormatting.CheckBoxInnerPadding * 2
+local FILTER_ICON_UNFILLED = Constants.Image.FilterUnfilled
+local FILTER_ICON_FILLED = Constants.Image.FilterFilled
 
 local DROP_DOWN_Y_ADJUST = 3
 
@@ -63,7 +65,7 @@ function CheckBoxContainer:init()
 		)
 		textWidths[ind] = textVector.X
 		totalLength = totalLength + textVector.X + CHECK_BOX_HEIGHT + CHECK_BOX_PADDING
-		boxState[name] = false
+		boxState[name] = true
 		count = count + 1
 	end
 
@@ -131,9 +133,8 @@ function CheckBoxContainer:render()
 			Size = UDim2.new(0, frameHeight, 0, frameHeight),
 			LayoutOrder = layoutOrder,
 
-			Image = Constants.Image.Check,
-			BackgroundColor3 = anySelected and Constants.Color.SelectedBlue or Constants.Color.UnselectedGray,
-			BackgroundTransparency = 0,
+			Image = showDropDown and FILTER_ICON_FILLED or FILTER_ICON_UNFILLED,
+			BackgroundTransparency = 1,
 			BorderColor3 = Constants.Color.Text,
 
 			[Roact.Event.InputEnded] = self.onCheckBoxExpanded,
@@ -156,7 +157,7 @@ function CheckBoxContainer:render()
 			FillDirection = Enum.FillDirection.Horizontal,
 		})
 
-		return Roact.createElement("Frame",{
+		return Roact.createElement("Frame", {
 			Size = UDim2.new(0,frameWidth,0,frameHeight),
 			Position = pos,
 			BackgroundTransparency = 1,

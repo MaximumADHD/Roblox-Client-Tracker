@@ -1,9 +1,10 @@
-local NetworkClient = game:GetService("NetworkClient")
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
 local AVG_PING_MS = "Avg Ping ms"
+
+local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local ServerStatsData = {}
 ServerStatsData.__index = ServerStatsData
@@ -81,8 +82,7 @@ function ServerStatsData:updateValue(key, value)
 end
 
 function ServerStatsData:start()
-	local clientReplicator = NetworkClient:GetChildren()[1]
-
+	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
 		self._statsListenerConnection = clientReplicator.StatsReceived:connect(function(stats)
 			if stats then
@@ -104,6 +104,7 @@ function ServerStatsData:start()
 		end)
 		clientReplicator:RequestServerStats(true)
 	end
+
 end
 
 function ServerStatsData:stop()

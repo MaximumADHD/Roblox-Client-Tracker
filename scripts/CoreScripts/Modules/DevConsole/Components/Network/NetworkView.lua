@@ -7,8 +7,10 @@ local ENTRY_HEIGHT = Constants.NetworkFormatting.EntryFrameHeight
 local SUMMARY_HEIGHT = Constants.NetworkFormatting.SummaryButtonHeight
 local MIN_WIDTH = Constants.NetworkFormatting.MinFrameWidth
 
+local BANNER_FONT_SIZE = Constants.DefaultFontSize.MainWindow
+local BANNER_FONT = Constants.Font.MainWindowHeader
+
 local INDENT = 30
-local BANNER_FONT_SIZE = 10
 
 local Components = script.Parent.Parent.Parent.Components
 local BannerButton = require(Components.BannerButton)
@@ -147,6 +149,7 @@ function NetworkView:render()
 				TextColor3 = Constants.Color.Text,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = BANNER_FONT_SIZE,
+				Font = BANNER_FONT,
 
 				Size = UDim2.new(1,-INDENT,0,SUMMARY_HEIGHT),
 				Position = UDim2.new(0, INDENT, 0, 0),
@@ -170,13 +173,14 @@ function NetworkView:render()
 				TextColor3 = Constants.Color.Text,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = BANNER_FONT_SIZE,
+				Font = BANNER_FONT,
 
 				Size = UDim2.new(1,-INDENT,0,SUMMARY_HEIGHT),
 				Position = UDim2.new(0, INDENT, 0, 0),
 				BackgroundTransparency = 1,
 			})
 		}),
-		Entries = entriesExpanded and Roact.createElement(NetworkChart,{
+		Entries = entriesExpanded and Roact.createElement(NetworkChart, {
 			httpEntryList = httpEntryList,
 			summaryHeight = summaryHeight,
 			width = absWidth,

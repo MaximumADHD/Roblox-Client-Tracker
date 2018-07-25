@@ -3,7 +3,6 @@ local runnerScriptName = "ChatServiceRunner"
 local installDirectory = game:GetService("Chat")
 local ServerScriptService = game:GetService("ServerScriptService")
 
-local CreateChatLocalizationFirst = settings():GetFFlag("ChatServiceInstallerCreateChatLocalizationFirst")
 local ChatServiceInstallerExemptLocalizationFromAnalytics = settings():GetFFlag("ChatServiceInstallerExemptLocalizationFromAnalytics")
 
 local function LoadScript(name, parent)
@@ -54,12 +53,10 @@ local function Install()
 				existingChatLocalization:SetIsExemptFromUGCAnalytics(true)
 			end
 		else
-			if CreateChatLocalizationFirst then
-				makeDefaultLocalizationTable(installDirectory)
-			end
+			makeDefaultLocalizationTable(installDirectory)
 		end
 	else
-		if CreateChatLocalizationFirst and not installDirectory:FindFirstChild("ChatLocalization") then
+		if not installDirectory:FindFirstChild("ChatLocalization") then
 			local defaultChatLocalization = Instance.new("LocalizationTable")
 			defaultChatLocalization.Name = "ChatLocalization"
 			defaultChatLocalization.Archivable = false
@@ -110,21 +107,6 @@ local function Install()
 		local ChatServiceRunnerCopy = ChatServiceRunner:Clone()
 		ChatServiceRunnerCopy.Archivable = false
 		ChatServiceRunnerCopy.Parent = ServerScriptService
-	end
-
-	if ChatServiceInstallerExemptLocalizationFromAnalytics then
-		if not CreateChatLocalizationFirst and not existingChatLocalization then
-			makeDefaultLocalizationTable(installDirectory)
-		end
-	else
-		if not CreateChatLocalizationFirst and not installDirectory:FindFirstChild("ChatLocalization") then
-			local defaultChatLocalization = Instance.new("LocalizationTable")
-			defaultChatLocalization.Name = "ChatLocalization"
-			defaultChatLocalization.Archivable = false
-			defaultChatLocalization.SourceLocaleId = "en-us"
-			defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
-			defaultChatLocalization.Parent = installDirectory
-		end
 	end
 
 	ChatServiceRunner.Archivable = chatServiceRunnerArchivable

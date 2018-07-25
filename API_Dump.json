@@ -17593,6 +17593,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetErrorCode",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "ConnectionError"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetErrorMessage",
                     "Parameters": [
                     ],
@@ -17604,6 +17615,17 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetErrorType",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "ConnectionError"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -17905,6 +17927,7 @@
                             }
                         },
                         {
+                            "Default": "errorCode",
                             "Name": "uiMessage",
                             "Type": {
                                 "Category": "Primitive",
@@ -36359,17 +36382,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "RobloxOnlyIsEdit",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "Run",
                     "Parameters": [
                     ],
@@ -41702,6 +41714,23 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Use Accurate Play Solo",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Warning Color",
@@ -42024,6 +42053,24 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Variant"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetTeleportGui",
+                    "Parameters": [
+                        {
+                            "Name": "gui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "None"
                 },
@@ -49355,6 +49402,195 @@
                 }
             ],
             "Name": "ComputerMovementMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "OK",
+                    "Value": 0
+                },
+                {
+                    "Name": "DisconnectErrors",
+                    "Value": 256
+                },
+                {
+                    "Name": "DisconnectBadhash",
+                    "Value": 257
+                },
+                {
+                    "Name": "DisconnectSecurityKeyMismatch",
+                    "Value": 258
+                },
+                {
+                    "Name": "DisconnectNewSecurityKeyMismatch",
+                    "Value": 259
+                },
+                {
+                    "Name": "DisconnectProtocolMismatch",
+                    "Value": 260
+                },
+                {
+                    "Name": "DisconnectReceivePacketError",
+                    "Value": 261
+                },
+                {
+                    "Name": "DisconnectReceivePacketStreamError",
+                    "Value": 262
+                },
+                {
+                    "Name": "DisconnectSendPacketError",
+                    "Value": 263
+                },
+                {
+                    "Name": "DisconnectIllegalTeleport",
+                    "Value": 264
+                },
+                {
+                    "Name": "DisconnectDuplicatePlayer",
+                    "Value": 265
+                },
+                {
+                    "Name": "DisconnectDuplicateTicket",
+                    "Value": 266
+                },
+                {
+                    "Name": "DisconnectTimeout",
+                    "Value": 267
+                },
+                {
+                    "Name": "DisconnectLuaKick",
+                    "Value": 268
+                },
+                {
+                    "Name": "DisconnectOnRemoteSysStats",
+                    "Value": 269
+                },
+                {
+                    "Name": "DisconnectHashTimeout",
+                    "Value": 270
+                },
+                {
+                    "Name": "DisconnectCloudEditKick",
+                    "Value": 271
+                },
+                {
+                    "Name": "DisconnectPlayerless",
+                    "Value": 272
+                },
+                {
+                    "Name": "DisconnectEvicted",
+                    "Value": 273
+                },
+                {
+                    "Name": "DisconnectDevMaintenance",
+                    "Value": 274
+                },
+                {
+                    "Name": "DisconnectRobloxMaintenance",
+                    "Value": 275
+                },
+                {
+                    "Name": "DisconnectRejoin",
+                    "Value": 276
+                },
+                {
+                    "Name": "DisconnectConnectionLost",
+                    "Value": 277
+                },
+                {
+                    "Name": "PlacelaunchErrors",
+                    "Value": 512
+                },
+                {
+                    "Name": "PlacelaunchDisabled",
+                    "Value": 515
+                },
+                {
+                    "Name": "PlacelauchError",
+                    "Value": 516
+                },
+                {
+                    "Name": "PlacelaunchGameEnded",
+                    "Value": 517
+                },
+                {
+                    "Name": "PlacelaunchGameFull",
+                    "Value": 518
+                },
+                {
+                    "Name": "PlacelaunchUserLeft",
+                    "Value": 522
+                },
+                {
+                    "Name": "PlacelaunchRestricted",
+                    "Value": 523
+                },
+                {
+                    "Name": "PlacelaunchUnauthorized",
+                    "Value": 524
+                },
+                {
+                    "Name": "PlacelaunchFlooded",
+                    "Value": 525
+                },
+                {
+                    "Name": "PlacelaunchHashExpired",
+                    "Value": 526
+                },
+                {
+                    "Name": "PlacelaunchHashException",
+                    "Value": 527
+                },
+                {
+                    "Name": "PlacelaunchPartyCannotFit",
+                    "Value": 528
+                },
+                {
+                    "Name": "PlacelaunchHttpError",
+                    "Value": 529
+                },
+                {
+                    "Name": "PlacelaunchCustomMessage",
+                    "Value": 610
+                },
+                {
+                    "Name": "PlacelaunchOtherError",
+                    "Value": 611
+                },
+                {
+                    "Name": "TeleportErrors",
+                    "Value": 768
+                },
+                {
+                    "Name": "TeleportFailure",
+                    "Value": 769
+                },
+                {
+                    "Name": "TeleportGameNotFound",
+                    "Value": 770
+                },
+                {
+                    "Name": "TeleportGameEnded",
+                    "Value": 771
+                },
+                {
+                    "Name": "TeleportGameFull",
+                    "Value": 772
+                },
+                {
+                    "Name": "TeleportUnauthorized",
+                    "Value": 773
+                },
+                {
+                    "Name": "TeleportFlooded",
+                    "Value": 774
+                },
+                {
+                    "Name": "TeleportIsTeleporting",
+                    "Value": 775
+                }
+            ],
+            "Name": "ConnectionError"
         },
         {
             "Items": [

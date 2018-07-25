@@ -65,7 +65,7 @@ local function constructHeader(onSortChanged, width)
 	local header = {}
 
 	for ind, name in ipairs(HEADER_NAMES) do
-		header[name] = Roact.createElement(HeaderButton,{
+		header[name] = Roact.createElement(HeaderButton, {
 			text = name,
 			size = headerCellSize[ind],
 			pos = cellOffset[ind],
@@ -86,6 +86,16 @@ local function constructHeader(onSortChanged, width)
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
 	})
+
+	for ind = 2, #verticalOffsets do
+		local key = string.format("VerticalLine_%d",ind)
+		header[key] = Roact.createElement("Frame", {
+			Size = UDim2.new(0, LINE_WIDTH, 1, 0),
+			Position = verticalOffsets[ind],
+			BackgroundColor3 = LINE_COLOR,
+			BorderSizePixel = 0,
+		})
+	end
 
 	return Roact.createElement("ScrollingFrame", {
 		Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
@@ -165,7 +175,7 @@ local function constructEntry(entry, width, layoutOrder)
 	})
 
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, width, 0, ENTRY_HEIGHT),
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,

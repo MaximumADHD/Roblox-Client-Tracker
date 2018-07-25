@@ -15,6 +15,7 @@ local SHEET_MODEL = {
 		search_border = createFrameModel(Vector2.new(11, 11), Vector2.new(7, 7)),
 		search_large = createFrameModel(Vector2.new(3, 143), Vector2.new(22, 22)),
 		search_small = createFrameModel(Vector2.new(6, 117), Vector2.new(16, 16)),
+		friends = createFrameModel(Vector2.new(0, 170), Vector2.new(72, 72)),
 	},
 }
 

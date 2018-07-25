@@ -6,7 +6,7 @@ local StarterGui = game:GetService("StarterGui")
 local util = require(script.Parent:WaitForChild("Util"))
 
 function ProcessMessage(message, ChatWindow, ChatSettings)
-	if string.sub(message, 1, 8):lower() == "/newconsole" then
+	if string.sub(message, 1, 11):lower() == "/newconsole" then
 		local success, developerConsoleVisible = pcall(function() return StarterGui:GetCore("DevConsoleVisible") end)
 		if success then
 			local success, err = pcall(function() StarterGui:SetCore("DevConsoleVisible", not developerConsoleVisible) end)

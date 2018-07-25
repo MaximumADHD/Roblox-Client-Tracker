@@ -132,6 +132,7 @@ function DevConsoleMaster.new()
 	-- create store
 	self.store = Rodux.Store.new(DevConsoleReducer)
 	self.init = false
+	self.isVisible = false
 
 	-- use connector to wrap store and root together
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
@@ -179,22 +180,22 @@ end
 function DevConsoleMaster:SetVisibility(value)
 	if type(value) == "boolean" then
 		self.isVisible = value
-		self.store:Dispatch(SetDevConsoleVisibility(self.isVisible))
+		self.store:dispatch(SetDevConsoleVisibility(self.isVisible))
 	end
 end
 
+local master = DevConsoleMaster.new()
+master:Start()
+
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
-	return DevConsoleMaster:GetVisibility()
+	return master:GetVisibility()
 end)
 
 StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DevConsoleVisible must be given a boolean value.")
 	end
-	DevConsoleMaster:SetVisibility(visible)
+	master:SetVisibility(visible)
 end)
-
-local master = DevConsoleMaster.new()
-master:Start()
 
 return master

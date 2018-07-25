@@ -15,6 +15,7 @@ local TEXT_COLOR = Constants.Color.Text
 local NON_DATA_STR = "No Summary Data Found"
 
 local CellLabel = require(script.Parent.Parent.Parent.Components.CellLabel)
+local HeaderButton = require(script.Parent.Parent.Parent.Components.HeaderButton)
 
 local totalSummaryWidth = 0
 for _, v in pairs(CELL_WIDTH) do
@@ -64,26 +65,36 @@ function NetworkSummary:render()
 	})
 
 	local summaryHeader = {}
-	summaryHeader["UpperHorizontalLine"] = Roact.createElement("Frame",{
+	summaryHeader["UpperHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
 	})
-	summaryHeader["LowerHorizontalLine"] = Roact.createElement("Frame",{
+	summaryHeader["LowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
 	})
 
+	for i = 2, #verticalOffsets do
+		local key = string.format("VerticalLine_%d",i)
+		summaryHeader[key] = Roact.createElement("Frame", {
+			Size = UDim2.new(0, LINE_WIDTH, 0, ENTRY_HEIGHT),
+			Position = verticalOffsets[i],
+			BackgroundColor3 = LINE_COLOR,
+			BorderSizePixel = 0,
+		})
+	end
+
 	for ind, name in ipairs(HEADER_NAMES) do
-		summaryHeader[name] = Roact.createElement(CellLabel,{
+		summaryHeader[name] = Roact.createElement(HeaderButton, {
 			text = name,
 			size = headerCellSize[ind],
 			pos = cellOffset[ind],
 		})
 	end
-	elements["Header"] = Roact.createElement("Frame",{
+	elements["Header"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 		BackgroundTransparency = 1,
 		LayoutOrder = 1,
@@ -95,43 +106,43 @@ function NetworkSummary:render()
 
 		local row = {}
 
-		row.RequestType = Roact.createElement(CellLabel,{
+		row.RequestType = Roact.createElement(CellLabel, {
 			text = dataEntry.RequestType,
 			size = headerCellSize[1],
 			pos = cellOffset[1],
 		})
 
-		row.RequestCount = Roact.createElement(CellLabel,{
+		row.RequestCount = Roact.createElement(CellLabel, {
 			text = dataEntry.RequestCount,
 			size = headerCellSize[2],
 			pos = cellOffset[2],
 		})
 
-		row.FailedCount = Roact.createElement(CellLabel,{
+		row.FailedCount = Roact.createElement(CellLabel, {
 			text = dataEntry.FailedCount,
 			size = headerCellSize[3],
 			pos = cellOffset[3],
 		})
 
-		row.AverageTime = Roact.createElement(CellLabel,{
+		row.AverageTime = Roact.createElement(CellLabel, {
 			text = string.format("%.3f", dataEntry.AverageTime),
 			size = headerCellSize[4],
 			pos = cellOffset[4],
 		})
 
-		row.MinTime = Roact.createElement(CellLabel,{
+		row.MinTime = Roact.createElement(CellLabel, {
 			text = string.format("%.3f", dataEntry.MinTime),
 			size = headerCellSize[5],
 			pos = cellOffset[5],
 		})
 
-		row.MaxTime = Roact.createElement(CellLabel,{
+		row.MaxTime = Roact.createElement(CellLabel, {
 			text = string.format("%.3f", dataEntry.MaxTime),
 			size = headerCellSize[6],
 			pos = cellOffset[6],
 		})
 
-		row.LowerHorizontalLine = Roact.createElement("Frame",{
+		row.LowerHorizontalLine = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 			Position = UDim2.new(0, 0, 1, 0),
 			BackgroundColor3 = LINE_COLOR,
@@ -148,7 +159,7 @@ function NetworkSummary:render()
 			})
 		end
 
-		elements[dataEntry.RequestType] = Roact.createElement("Frame",{
+		elements[dataEntry.RequestType] = Roact.createElement("Frame", {
 			Size = UDim2.new(0, width, 0, ENTRY_HEIGHT),
 			BackgroundTransparency = 1,
 			LayoutOrder = entryCount + 1
@@ -161,6 +172,7 @@ function NetworkSummary:render()
 			Text = NON_DATA_STR,
 			TextColor3 = TEXT_COLOR,
 			BackgroundTransparency = 1,
+			LayoutOrder = 2
 		})
 		entryCount = 1
 	end

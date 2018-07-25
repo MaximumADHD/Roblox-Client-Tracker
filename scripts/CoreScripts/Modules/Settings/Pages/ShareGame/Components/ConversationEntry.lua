@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local Players = game:GetService("Players")
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
@@ -8,6 +9,7 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail)
 local ConversationDetails = require(ShareGame.Components.ConversationDetails)
 local InviteButton = require(ShareGame.Components.InviteButton)
+local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -18,6 +20,10 @@ local INVITE_BUTTON_WIDTH = 69
 local CONTENTS_PADDING = 12
 
 local ConversationEntry = Roact.PureComponent:extend("ConversationEntry")
+
+function ConversationEntry:init()
+	self.eventStream = EventStream.new()
+end
 
 function ConversationEntry:render()
 	local visible = self.props.visible
@@ -81,7 +87,35 @@ function ConversationEntry:render()
 			onInvite = function()
 				-- Check if this is a one-on-one convo
 				if #users == 1 then
-					inviteUser(users[1].id)
+					inviteUser(users[1].id):andThen(function(results)
+						if not results then
+							return
+						end
+
+						-- Pluck the userIds out of the user list
+						local participants = {}
+						for _, user in pairs(users) do
+							table.insert(participants, user.id)
+						end
+
+						local localPlayer = Players.LocalPlayer
+						local senderId = tostring(localPlayer.UserId)
+
+						local eventContext = "inGame"
+						local eventName = "clickShareGameInviteSent"
+						local participantsString = table.concat(participants, ",")
+						local additionalArgs = {
+							btn = "settingsHub",
+							placeId = tostring(results.placeId),
+							senderId = senderId,
+							conversationId = tostring(results.conversationId),
+							participants = participantsString,
+							wasModerated = results.wasModerated,
+						}
+
+						self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+						-- TODO: SOC-722 Show error if link is moderated
+					end)
 				end
 			end,
 			alreadyInvited = alreadyInvited,

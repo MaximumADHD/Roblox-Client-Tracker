@@ -14,16 +14,6 @@ local FFlagThwartPurchasePromptScamsGamepad = settings():GetFFlag("ThwartPurchas
 local FFlagDelayPurchasePromptActivation = settings():GetFFlag("DelayPurchasePromptActivation")
 local FFlagFixDesktopRobuxUpsell = settings():GetFFlag("FixDesktopRobuxUpsell")
 
-local function LocalizedGetString(key, rtv)
-	pcall(function()
-		local LocalizationService = game:GetService("LocalizationService")
-		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-	end)
-	return rtv
-end
-
---[[ Services ]]--
 local AssetService = game:GetService('AssetService')
 local GuiService = game:GetService('GuiService')
 local HttpService = game:GetService('HttpService')
@@ -34,11 +24,28 @@ local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local RunService = game:GetService("RunService")
 
---[[ Script Variables ]]--
 local RobloxGui = script.Parent
 local ThirdPartyProductName = nil
 
---[[ Flags ]]--
+local RobloxTranslator
+local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
+if FFlagCoreScriptsUseLocalizationModule then
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
+
+local function LocalizedGetString(key, rtv)
+	pcall(function()
+		if FFlagCoreScriptsUseLocalizationModule then
+			rtv = RobloxTranslator:FormatByKey(key)
+		else
+			local LocalizationService = game:GetService("LocalizationService")
+			local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		end
+	end)
+	return rtv
+end
+
 local platform = UserInputService:GetPlatform()
 local IsNativePurchasing = platform == Enum.Platform.XBoxOne or
 							platform == Enum.Platform.IOS or
@@ -62,7 +69,6 @@ local scaleFactor = 3
 local purchaseState = nil
 local buttonsActive = false
 
---[[ Purchase Data ]]--
 local PurchaseData = {
 	AssetId = nil,
 	ProductId = nil,
@@ -72,7 +78,6 @@ local PurchaseData = {
 	ItemDescription = nil,
 }
 
---[[ Constants ]]--
 local BASE_URL = game:GetService('ContentProvider').BaseUrl:lower()
 BASE_URL = string.gsub(BASE_URL, "/m.", "/www.")
 local THUMBNAIL_URL = BASE_URL.."thumbs/asset.ashx?assetid="
@@ -91,7 +96,7 @@ local ERROR_ICON = 'rbxasset://textures/ui/ErrorIcon.png'
 local A_BUTTON = "rbxasset://textures/ui/Settings/Help/AButtonDark.png"
 local B_BUTTON = "rbxasset://textures/ui/Settings/Help/BButtonDark.png"
 local DEFAULT_XBOX_IMAGE = 'rbxasset://textures/ui/Shell/Icons/ROBUXIcon@1080.png'
---Context Actions
+
 local CONTROLLER_CONFIRM_ACTION_NAME = "CoreScriptPurchasePromptControllerConfirm"
 local CONTROLLER_CANCEL_ACTION_NAME = "CoreScriptPurchasePromptControllerCancel"
 local GAMEPAD_BUTTONS = {}
@@ -224,7 +229,6 @@ local BTN_L_POS_TENFOOT = UDim2.new(0, 0, 0, 136*scaleFactor)
 local BTN_R_POS = UDim2.new(0.5, 0, 0, 136)
 local BTN_R_POS_TENFOOT = UDim2.new(0.5, 0, 0, 136*scaleFactor)
 
---[[ Utility Functions ]]--
 local function lerp( start, finish, t)
 	return (1 - t) * start + t * finish
 end
@@ -233,7 +237,6 @@ local function formatNumber(value)
 	return tostring(tostring(value):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", ""))
 end
 
---[[ Gui Creation Functions ]]--
 local function createFrame(name, size, position, bgTransparency, bgColor)
 	local frame = Instance.new('Frame')
 	frame.Name = name
@@ -312,7 +315,6 @@ local function createImageButtonWithText(name, position, image, imageDown, text,
 	return imageButton
 end
 
---[[ Begin Gui Creation ]]--
 local PurchaseDialog = isTenFootInterface and createFrame("PurchaseDialog", DIALOG_SIZE_TENFOOT, HIDE_POSITION_TENFOOT, 1, nil) or createFrame("PurchaseDialog", DIALOG_SIZE, HIDE_POSITION, 1, nil)
 PurchaseDialog.Visible = false
 PurchaseDialog.Parent = RobloxGui
@@ -592,7 +594,6 @@ local isClickerScam do
 	end
 end
 
---[[ Purchase Data Functions ]]--
 local function getCurrencyString(currencyType)
 	return currencyType == Enum.CurrencyType.Tix and "Tix" or "R$"
 end
@@ -670,7 +671,6 @@ local function clearPurchaseData()
 	CostText.Visible = false
 end
 
---[[ Show Functions ]]--
 local function setButtonsVisible(...)
 	local args = {...}
 	local argCount = select('#', ...)
@@ -947,7 +947,6 @@ local function showPurchasePrompt()
 	enableControllerInput()
 end
 
---[[ Close and Cancel Functions ]]--
 local function onPurchaseFailed(failType)
 	setButtonsVisible(OkButton)
 	ItemPreviewImage.Image = ERROR_ICON
@@ -955,6 +954,7 @@ local function onPurchaseFailed(failType)
 
 	local itemName = PurchaseData.ProductInfo and PurchaseData.ProductInfo["Name"] or ""
 	local failedText = ""
+
 	if FFlagUsePurchasePromptLocalization then
 		failedText = string.gsub(LocalizedGetString("PurchasePromptScript.PURCHASE_MSG.FAILED",PURCHASE_MSG.FAILED), "{RBX_NAME1}", string.sub(itemName, 1, 20))
 		if itemName == "" then
@@ -1084,7 +1084,6 @@ local function onPromptEnded(isSuccess)
 	disableControllerInput()
 end
 
---[[ Purchase Validation ]]--
 local function isMarketplaceDown() 		-- FFlag
 	local success, result = pcall(function() return settings():GetFFlag('Order66') end)
 	if not success then
@@ -1434,7 +1433,6 @@ local function canPurchase(disableUpsell)
 	return true
 end
 
---[[ Purchase Functions ]]--
 local function getToolAsset(assetId)
 	local tool = InsertService:LoadAsset(assetId)
 	if not tool then return nil end
@@ -1791,7 +1789,6 @@ UserInputService.InputChanged:connect(onInputChanged)
 UserInputService.InputBegan:connect(onInputChanged)
 hideGamepadButtons()
 
---[[ Event Connections ]]--
 CancelButton.MouseButton1Click:connect(function()
 	if not buttonsActive and FFlagDelayPurchasePromptActivation then return end
 	if IsCurrentlyPurchasing then return end

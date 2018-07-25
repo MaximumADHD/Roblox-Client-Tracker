@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
@@ -8,13 +9,15 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
+local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 local Constants = require(ShareGame.Constants)
+local httpRequest = require(AppTempCommon.Temp.httpRequest)
 
 local User = require(AppTempCommon.LuaApp.Models.User)
 local SetUserInvited = require(ShareGame.Actions.SetUserInvited)
 local memoize = require(AppTempCommon.LuaApp.memoize)
+local Promise = require(AppTempCommon.LuaApp.Promise)
 
-local request = require(AppTempCommon.LuaApp.Http.request)
 local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
 local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfos)
 
@@ -43,16 +46,16 @@ local function searchFilterPredicate(query, other)
 end
 
 function ConversationList:render()
-	local friends = self.props.friends
-	local size = self.props.size
-	local layoutOrder = self.props.layoutOrder
-	local zIndex = self.props.zIndex
 	local children = self.props[Roact.Children] or {}
+	local friends = self.props.friends
+	local layoutOrder = self.props.layoutOrder
+	local size = self.props.size
+	local zIndex = self.props.zIndex
 	local topPadding = self.props.topPadding
 
-	local searchText = self.props.searchText
-	local inviteUser = self.props.inviteUser
 	local invites = self.props.invites
+	local inviteUser = self.props.inviteUser
+	local searchText = self.props.searchText
 
 	children["RowListLayout"] = Roact.createElement("UIListLayout", {
 		FillDirection = Enum.FillDirection.Vertical,
@@ -64,7 +67,7 @@ function ConversationList:render()
 
 	local numEntries = 0
 	-- Populate list of conversations with friends
-	for i, user in pairs(friends) do
+	for i, user in ipairs(friends) do
 		local isEntryShown = searchFilterPredicate(searchText, user.name)
 
 		children["User-"..user.name] = Roact.createElement(ConversationEntry, {
@@ -84,29 +87,37 @@ function ConversationList:render()
 		end
 	end
 
-	return numEntries > 0 and Roact.createElement("ScrollingFrame", {
-		BackgroundTransparency = 1,
+	if #friends == 0 then
+		return Roact.createElement(NoFriendsPage, {
 		BorderSizePixel = 0,
-		LayoutOrder = layoutOrder,
+			LayoutOrder = layoutOrder,
 		Position = UDim2.new(0, 0, 0, topPadding),
+			ZIndex = zIndex,
+		})
+	else
+		if numEntries == 0 then
+			return Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = layoutOrder,
+				Font = NO_RESULTS_FONT,
+				Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+				Text = "No results found",
+				TextColor3 = NO_RESULTS_TEXTCOLOR,
+				TextSize = NO_RESULTS_TEXTSIZE,
+				TextTransparency = NO_RESULTS_TRANSPRENCY,
+				ZIndex = zIndex,
+			})
+		end
+	end
+
+	return Roact.createElement("ScrollingFrame", {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
 		Size = size,
 		CanvasSize = UDim2.new(0, 0, 0, numEntries * (ENTRY_HEIGHT + ENTRY_PADDING)),
+		ScrollBarThickness = 0,
 		ZIndex = zIndex,
-
-		ScrollBarThickness = 12,
-		ScrollingDirection = Enum.ScrollingDirection.Y,
-		VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
-	}, children) or Roact.createElement("TextLabel", {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-		Font = NO_RESULTS_FONT,
-		Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
-		Text = "No results found",
-		TextColor3 = NO_RESULTS_TEXTCOLOR,
-		TextSize = NO_RESULTS_TEXTSIZE,
-		TextTransparency = NO_RESULTS_TRANSPRENCY,
-		ZIndex = zIndex,
-	})
+	}, children)
 end
 
 local selectFriends = memoize(function(users)
@@ -142,38 +153,31 @@ local connector = RoactRodux.connect(function(store, props)
 		invites = state.Invites,
 
 		inviteUser = function(userId)
-			local latestState = store:getState()
-			local placeId = tostring(game.PlaceId)
-
-			-- Check that we haven't already invited this user
-			if latestState.Invites[tostring(userId)] == true then
-				return
-			end
-
-			local requestImpl = request
-			local placeInfo = latestState.PlaceInfos[placeId]
-
-			-- Log that we've tried inviting this user
-			store:dispatch(SetUserInvited(userId, true))
-
-			-- Send invite if we already have the current game's place info
-			if placeInfo then
-				store:dispatch(
-					ApiSendGameInvite(requestImpl, userId, placeInfo)
-				)
-			else
-				-- Fetch place info of current game if we don't have it, then
-				-- send the invite
-				store:dispatch(
-					ApiFetchPlaceInfos(requestImpl, {placeId})
-				):andThen(function(placeInfos)
-					if placeInfos[1] ~= nil then
-						store:dispatch(
-							ApiSendGameInvite(requestImpl, userId, placeInfos[1])
-						)
-					end
-				end)
-			end
+			return Promise.new(function(resolve, reject)
+				local latestState = store:getState()
+				local placeId = tostring(game.PlaceId)
+				-- Check that we haven't already invited this user
+				if latestState.Invites[tostring(userId)] == true then
+					reject()
+					return
+				end
+				local requestImpl = httpRequest(HttpRbxApiService)
+				local placeInfo = latestState.PlaceInfos[placeId]
+				-- Log that we've tried inviting this user
+				store:dispatch(SetUserInvited(userId, true))
+				-- Send invite if we already have the current game's place info
+				if placeInfo then
+					store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfo)):andThen(resolve)
+				else
+					-- Fetch place info of current game if we don't have it, then
+					-- send the invite
+					store:dispatch(ApiFetchPlaceInfos(requestImpl, {placeId})):andThen(function(placeInfos)
+						if placeInfos[1] ~= nil then
+							store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfos[1])):andThen(resolve)
+						end
+					end)
+				end
+			end)
 		end
 	}
 end)

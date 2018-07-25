@@ -135,6 +135,16 @@ function NetworkChart:render()
 		})
 	end
 
+	for i = 2, #verticalOffsets do
+		local key = string.format("VerticalLine_%d",i)
+		headerCells[key] = Roact.createElement("Frame", {
+			Size = UDim2.new(0, LINE_WIDTH, 0, ENTRY_HEIGHT),
+			Position = verticalOffsets[i],
+			BackgroundColor3 = LINE_COLOR,
+			BorderSizePixel = 0,
+		})
+	end
+
 	local entries = {}
 	local canvasHeight = 0
 	local paddingHeight = -1
@@ -210,26 +220,26 @@ function NetworkChart:render()
 	end
 
 	if totalEntries == 0 then
-		return Roact.createElement("TextLabel",{
+		return Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, -summaryHeight),
 			Text = "No Network Entries Found",
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-		},{
+		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
-			Header = Roact.createElement("Frame",{
+			Header = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 			},headerCells),
 
-			HorizontalLine_1 = Roact.createElement("Frame",{
+			HorizontalLine_1 = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 				BackgroundColor3 = LINE_COLOR,
 				BorderSizePixel = 0,
@@ -239,13 +249,13 @@ function NetworkChart:render()
 		})
 	end
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, -summaryHeight),
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 
 		[Roact.Ref] = self.ref,
-	},{
+	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -253,13 +263,13 @@ function NetworkChart:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		Header = Roact.createElement("Frame",{
+		Header = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
 		},headerCells),
 
-		HorizontalLine_1 = Roact.createElement("Frame",{
+		HorizontalLine_1 = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, LINE_WIDTH),
 			BackgroundColor3 = LINE_COLOR,
 			BorderSizePixel = 0,
@@ -267,7 +277,7 @@ function NetworkChart:render()
 			LayoutOrder = 2,
 		}),
 
-		scrollingFrameEntries = Roact.createElement("ScrollingFrame",{
+		scrollingFrameEntries = Roact.createElement("ScrollingFrame", {
 			Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
 			CanvasSize = UDim2.new(0, width, 0, canvasHeight),
 			ScrollBarThickness = 6,

@@ -4,6 +4,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local RectangleButton = require(ShareGame.Components.RectangleButton)
+local IconButton = require(ShareGame.Components.IconButton)
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(ShareGame.Constants)
@@ -26,17 +27,16 @@ function BackButton:render()
 	local onClick = self.props.onClick
 
 	if isArrow then
-		return Roact.createElement("ImageButton", {
-			Visible = visible,
-			BackgroundTransparency = 1,
-			AnchorPoint = anchorPoint,
-			Position = position,
-			Size = size,
-			Image = BACK_IMAGE_SPRITE_PATH,
-			ImageRectOffset = BACK_IMAGE_SPRITE_FRAME.offset,
-			ImageRectSize = BACK_IMAGE_SPRITE_FRAME.size,
-			ZIndex = zIndex,
-			[Roact.Event.Activated] = onClick,
+		return Roact.createElement(IconButton, {
+			visible = visible,
+			anchorPoint = anchorPoint,
+			position = position,
+			size = size,
+			zIndex = zIndex,
+			onClick = onClick,
+			iconHorizontalAlignment = Enum.HorizontalAlignment.Left,
+			iconSpritePath = BACK_IMAGE_SPRITE_PATH,
+			iconSpriteFrame = BACK_IMAGE_SPRITE_FRAME,
 		})
 	else
 		return Roact.createElement(RectangleButton, self.props, {

@@ -38,24 +38,24 @@ function this:ConnectHubToApp(settingsHub, shareGameApp)
 			-- Close the page to sync up Settings Hub with the state change
 			this.HubRef:PopMenu(nil, true)
 		end
+	end)
 
-		this.Displayed.Event:Connect(function()
-			local state = shareGameApp.store:getState()
-			if not state.Page.IsOpen then
-				-- Tell Roact app that the page was opened via Settings Hub
-				shareGameApp.store:dispatch(OpenPage(Constants.PageRoute.SETTINGS_HUB))
-			end
-		end)
+	this.Displayed.Event:Connect(function()
+		local state = shareGameApp.store:getState()
+		if not state.Page.IsOpen then
+			-- Tell Roact app that the page was opened via Settings Hub
+			shareGameApp.store:dispatch(OpenPage(Constants.PageRoute.SETTINGS_HUB))
+		end
+	end)
 
-		this.Hidden.Event:Connect(function()
-			-- The user closed the page via the Settings Hub (instead of
-			-- pressing back on the page), so we have to sync the app state up
-			-- with the Settings Hub action.
-			local state = shareGameApp.store:getState()
-			if state.Page.IsOpen then
-				shareGameApp.store:dispatch(ClosePage(Constants.PageRoute.SETTINGS_HUB))
-			end
-		end)
+	this.Hidden.Event:Connect(function()
+		-- The user closed the page via the Settings Hub (instead of
+		-- pressing back on the page), so we have to sync the app state up
+		-- with the Settings Hub action.
+		local state = shareGameApp.store:getState()
+		if state.Page.IsOpen then
+			shareGameApp.store:dispatch(ClosePage(Constants.PageRoute.SETTINGS_HUB))
+		end
 	end)
 
 	shareGameApp.store:dispatch(ClosePage(Constants.PageRoute.SETTINGS_HUB))

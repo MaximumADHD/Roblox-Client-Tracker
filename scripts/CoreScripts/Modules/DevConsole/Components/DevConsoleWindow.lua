@@ -155,6 +155,8 @@ function DevConsoleWindow:render()
 			Active = true,
 			Visible = isVisible,
 			BorderColor3 = Constants.Color.BaseGray,
+
+			[Roact.Ref] = self.ref,
 		}, elements)
 	else
 		elements["TopBar"] = Roact.createElement(DevConsoleTopBar, {
@@ -179,7 +181,7 @@ function DevConsoleWindow:render()
 		mainViewSize = mainViewSize - mainViewSizeOffset
 
 		if tabList and (currTabIndex > 0) and self.ref.current then
-			elements["MainView"] = Roact.createElement(tabList[currTabIndex].tab,{
+			elements["MainView"] = Roact.createElement(tabList[currTabIndex].tab, {
 				size = mainViewSize,
 				formFactor = formFactor,
 				isdeveloperView = isdeveloperView,

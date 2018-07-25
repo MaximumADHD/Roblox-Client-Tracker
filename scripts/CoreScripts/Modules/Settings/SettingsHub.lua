@@ -32,6 +32,7 @@ local FFlagSettingsHubInviteToGame2 = settings():GetFFlag('SettingsHubInviteToGa
 local FFlagSettingsHubBarsRefactor2 = settings():GetFFlag('SettingsHubBarsRefactor2')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
+local FFlagSettingsHubPlayersHorizontalScroll = settings():GetFFlag("SettingsHubPlayersHorizontalScroll")
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
 local FFlagEnableResponsiveUIFix = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
@@ -65,6 +66,7 @@ local platform = UserInputService:GetPlatform()
 local baseUrl = ContentProvider.BaseUrl
 local isTestEnvironment = not string.find(baseUrl, "www.roblox.com")
 local DeveloperConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
+local DevConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
 
 local lastInputChangedCon = nil
 local chatWasVisible = false
@@ -563,6 +565,9 @@ local function CreateSettingsHub()
 			Selectable = false,
 			Parent = this.PageViewClipper,
 		};
+		if FFlagSettingsHubPlayersHorizontalScroll then
+			this.PageView.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+		end
 
 		this.PageViewInnerFrame = utility:Create'Frame'
 		{
@@ -863,7 +868,6 @@ local function CreateSettingsHub()
 		if actionName == DEV_CONSOLE_ACTION_NAME then	 -- ContextActionService->F9
 			if inputState and inputState == Enum.UserInputState.Begin then
 				if FFlagEnableNewDevConsole then
-					local DevConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
 					DevConsoleMaster:ToggleVisibility()
 				else
 					local devConsoleVisible = DeveloperConsoleModule:GetVisibility()
@@ -1143,20 +1147,24 @@ local function CreateSettingsHub()
 
 		local pageSize = this.Pages.CurrentPage:GetSize()
 		this.PageView.CanvasSize = UDim2.new(0,pageSize.X,0,pageSize.Y)
-		if this.PageView.CanvasSize.Y.Offset > this.PageView.AbsoluteSize.Y then
-			this.PageViewInnerFrame.Size = UDim2.new(1, -this.PageView.ScrollBarThickness, 1, 0)
-		else
-			this.PageViewInnerFrame.Size = UDim2.new(1, 0, 1, 0)
+		if not FFlagSettingsHubPlayersHorizontalScroll then
+			if this.PageView.CanvasSize.Y.Offset > this.PageView.AbsoluteSize.Y then
+				this.PageViewInnerFrame.Size = UDim2.new(1, -this.PageView.ScrollBarThickness, 1, 0)
+			else
+				this.PageViewInnerFrame.Size = UDim2.new(1, 0, 1, 0)
+			end
 		end
 
 		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
 			if prop == "AbsoluteSize" then
 				local pageSize = this.Pages.CurrentPage:GetSize()
 				this.PageView.CanvasSize = UDim2.new(0,pageSize.X,0,pageSize.Y)
-				if this.PageView.CanvasSize.Y.Offset > this.PageView.AbsoluteSize.Y then
-					this.PageViewInnerFrame.Size = UDim2.new(1, -this.PageView.ScrollBarThickness, 1, 0)
-				else
-					this.PageViewInnerFrame.Size = UDim2.new(1, 0, 1, 0)
+				if not FFlagSettingsHubPlayersHorizontalScroll then
+					if this.PageView.CanvasSize.Y.Offset > this.PageView.AbsoluteSize.Y then
+						this.PageViewInnerFrame.Size = UDim2.new(1, -this.PageView.ScrollBarThickness, 1, 0)
+					else
+						this.PageViewInnerFrame.Size = UDim2.new(1, 0, 1, 0)
+					end
 				end
 			end
 		end)

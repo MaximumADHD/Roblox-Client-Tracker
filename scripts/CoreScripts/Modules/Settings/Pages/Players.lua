@@ -6,6 +6,7 @@
 --]]
 -------------- SERVICES --------------
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
@@ -18,6 +19,7 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
+local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local ShareGameIcons = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
@@ -608,14 +610,22 @@ local function Initialize()
 		if utility:IsSmallTouchScreen() or utility:IsPortrait() then
 			extraOffset = 85
 		end
-			
+
 		if FFlagSettingsHubInviteToGame2 then
 			-- Create "invite friends" button if it doesn't exist yet
 			-- We shouldn't create this button if we're not in a live game
-			if canShareCurrentGame() and not shareGameButton 
+			if canShareCurrentGame() and not shareGameButton
 				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio2) then
+				local eventStream = EventStream.new()
 				shareGameButton = createShareGameButton()
 				shareGameButton.MouseButton1Click:connect(function()
+					local eventContext = "inGame"
+					local eventName = "inputShareGameEntryPoint"
+					local additionalArgs = {
+						buttonName = "settingsHub",
+					}
+					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+
 					this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
 					this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)
 				end)
@@ -707,7 +717,16 @@ local function Initialize()
 			if utility:IsSmallTouchScreen() or utility:IsPortrait() then
 				extraOffset = 85
 			end
-			this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * #sortedPlayers - 5)
+
+			if FFlagSettingsHubInviteToGame2 then
+				local inviteToGameRow = 1
+				local playerListRowsCount = #sortedPlayers + inviteToGameRow
+
+				this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * playerListRowsCount - 5)
+			else
+				this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * #sortedPlayers - 5)
+			end
+
 		end)
 	end)
 

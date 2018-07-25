@@ -865,8 +865,6 @@ RBX
 	MarketplaceService
 	MaterialTool
 	MaterialVerb
-	MD5Hasher
-	MD5HasherImpl
 	MechanicalJoint
 	Mechanism
 	MechToAssemblyStage

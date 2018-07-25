@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
+local FONT = Constants.Font.MainWindowHeader
 local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
 local TEXT_COLOR = Constants.Color.Text
 
@@ -15,6 +16,7 @@ local function HeaderButton(props)
 		Text = text,
 		TextSize = TEXT_SIZE,
 		TextColor3 = TEXT_COLOR,
+		Font = FONT,
 		TextXAlignment = Enum.TextXAlignment.Left,
 
 		Size = size,
@@ -22,7 +24,9 @@ local function HeaderButton(props)
 		BackgroundTransparency = 1,
 
 		[Roact.Event.Activated] = function()
-			sortfunction(text)
+			if sortfunction then
+				sortfunction(text)
+			end
 		end,
 	})
 end

@@ -1,8 +1,9 @@
-local NetworkClient = game:GetService("NetworkClient")
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
+
+local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local DataStoresData = {}
 DataStoresData.__index = DataStoresData
@@ -75,8 +76,7 @@ function DataStoresData:updateValue(key, value)
 end
 
 function DataStoresData:start()
-	local clientReplicator = NetworkClient:GetChildren()[1]
-
+	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
 		self._statsListenerConnection = clientReplicator.StatsReceived:connect(function(stats)
 			local dataStoreBudget = stats.DataStoreBudget

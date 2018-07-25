@@ -1,4 +1,3 @@
-local NetworkClient = game:GetService("NetworkClient")
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
@@ -24,6 +23,7 @@ local SORT_COMPARATOR = {
 
 local minOfTable = require(script.Parent.Parent.Parent.Util.minOfTable)
 local maxOfTable = require(script.Parent.Parent.Parent.Util.maxOfTable)
+local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local ServerJobsData = {}
 ServerJobsData.__index = ServerJobsData
@@ -122,8 +122,7 @@ function ServerJobsData:updateServerJobsData(updatedJobs)
 end
 
 function ServerJobsData:start()
-	local clientReplicator = NetworkClient:GetChildren()[1]
-
+	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
 		self._statsListenerConnection = clientReplicator.StatsReceived:connect(function(stats)
 			local serverJobsList = stats.Jobs

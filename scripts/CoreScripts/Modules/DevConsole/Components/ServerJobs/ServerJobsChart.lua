@@ -193,7 +193,7 @@ function ServerJobsChart:render()
 	local totalEntries = #serverJobsList
 
 	if totalEntries == 0 then
-		return Roact.createElement("TextLabel",{
+		return Roact.createElement("TextLabel", {
 			Size = size,
 			Position = UDim2.new(0, 0, 0, 0),
 			Text = NO_DATA_MSG,
@@ -223,14 +223,14 @@ function ServerJobsChart:render()
 						local entryLayoutOrder = reverseSort and (totalEntries - ind) or ind
 
 						local entry = {}
-						entry[name] = Roact.createElement(CellLabel,{
+						entry[name] = Roact.createElement(CellLabel, {
 							text = name,
 							size = headerCellSize[1],
 							pos = cellOffset[1],
 						})
 
 						for i, v in pairs(currEntry.data) do
-							entry[HEADER_NAMES[i] ] = Roact.createElement(CellLabel,{
+							entry[HEADER_NAMES[i] ] = Roact.createElement(CellLabel, {
 								text = COLUMN_TRANSFORM_FUNC[i](v),
 								size = headerCellSize[i + 1],
 								pos = cellOffset[i + 1],
@@ -238,17 +238,14 @@ function ServerJobsChart:render()
 						end
 
 						-- add vertical lines over components
-						for offsetInd, offset in ipairs(verticalOffsets) do
-							-- we dont need a vertical line on the left side of the leftmost column
-							if offsetInd ~= 1 then
-								local key = string.format("VerticalLine_%d",offsetInd)
-								entry[key] = Roact.createElement("Frame", {
-									Size = UDim2.new(0, LINE_WIDTH, 1, 0),
-									Position = offset,
-									BackgroundColor3 = LINE_COLOR,
-									BorderSizePixel = 0,
-								})
-							end
+						for offsetInd = 2, #verticalOffsets do
+							local key = string.format("VerticalLine_%d",offsetInd)
+							entry[key] = Roact.createElement("Frame", {
+								Size = UDim2.new(0, LINE_WIDTH, 1, 0),
+								Position = verticalOffsets[offsetInd],
+								BackgroundColor3 = LINE_COLOR,
+								BorderSizePixel = 0,
+							})
 						end
 
 						entry["lowerHorizontalLine"] = Roact.createElement("Frame", {
@@ -359,11 +356,21 @@ function ServerJobsChart:render()
 	})
 
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, LINE_WIDTH),
+		Size = UDim2.new(1, 0, 1, LINE_WIDTH),
 		Position = UDim2.new(0, 0, 1, 0),
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
 	})
+
+	for ind = 2, #verticalOffsets do
+		local key = string.format("VerticalLine_%d",ind)
+		header[key] = Roact.createElement("Frame", {
+			Size = UDim2.new(0, LINE_WIDTH, 1, 0),
+			Position = verticalOffsets[ind],
+			BackgroundColor3 = LINE_COLOR,
+			BorderSizePixel = 0,
+		})
+	end
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		FillDirection = Enum.FillDirection.Vertical,
@@ -372,11 +379,11 @@ function ServerJobsChart:render()
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-	},{
+	}, {
 		Header = Roact.createElement("ScrollingFrame", {
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			CanvasSize = UDim2.new(0, absWidth, 1, 0),

@@ -22,10 +22,9 @@ return function(props)
 		BackgroundTransparency = 1,
 	}, {
 		hoverLine = Roact.createElement("Frame", {
-			Size = UDim2.new(0, LINE_WIDTH, 1, TEXT_PADDING),
+			Size = UDim2.new(0, LINE_WIDTH, 1, 0),
 			Position = UDim2.new(0, hoverLineX, 0, 0),
 			BackgroundColor3 = HOVER_LINE_COLOR,
-			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 		}),
 
@@ -33,7 +32,6 @@ return function(props)
 			Size = UDim2.new(0, hoverLineX + TEXT_PADDING, 0, LINE_WIDTH),
 			Position = UDim2.new(0, -TEXT_PADDING, 1 - GRAPH_Y_INNER_PADDING, -hoverLineY),
 			BackgroundColor3 = HOVER_LINE_COLOR,
-			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 		}),
 
@@ -51,7 +49,7 @@ return function(props)
 			TextColor3 = HOVER_LINE_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Center,
 
-			Position = UDim2.new(0, hoverLineX, 1, 2 * TEXT_PADDING + 2),
+			Position = UDim2.new(0, hoverLineX, 1, TEXT_PADDING),
 			BackgroundTransparency = 1,
 		}),
 	})

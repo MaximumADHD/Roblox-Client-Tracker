@@ -14,6 +14,9 @@ local SMALL_CS_BUTTON_WIDTH = Constants.UtilityBarFormatting.ClientServerDropDow
 
 local PADDING = Constants.GeneralFormatting.MainRowPadding
 
+local CANCEL_BUTTON_TEXT = "Cancel"
+local CANCEL_BUTTON_PADDING = 6
+
 local Components = script.Parent
 local ClientServerButton = require(Components.ClientServerButton)
 local CheckBoxContainer = require(Components.CheckBoxContainer)
@@ -40,29 +43,54 @@ function UtilAndTab:init()
 
 	self.showSearchBar = function()
 		self:setState({
-			activeSearchTerm = true
+			activeSearchTerm = true,
 		})
 	end
 
-	self.closeSearchBar = function(searchTerm)
-		local onSearchTermChanged = self.props.onSearchTermChanged
-		if onSearchTermChanged then
-			onSearchTermChanged(searchTerm)
-		end
-		if searchTerm == "" then
+	self.cancelInput = function(rbx, input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or
+			(input.UserInputType == Enum.UserInputType.Touch and
+			input.UserInputState == Enum.UserInputState.End) then
+			if self.searchRef.current then
+				self.searchRef.current.Text = ""
+			end
+
+			local onSearchTermChanged = self.props.onSearchTermChanged
+			if onSearchTermChanged then
+				onSearchTermChanged("")
+			end
+
+			-- the clear button displays based on if the
 			self:setState({
 				activeSearchTerm = false
 			})
 		end
 	end
 
+	self.focusLost = function(rbx, enterPressed, inputThatCausedFocusLoss)
+		if enterPressed then
+			local searchTerm = rbx.text
+			local onSearchTermChanged = self.props.onSearchTermChanged
+			if onSearchTermChanged then
+				onSearchTermChanged(searchTerm)
+			end
+			local hasSearchTerm = searchTerm ~= ""
+			if self.state.activeSearchTerm ~= hasSearchTerm then
+				self:setState({
+					activeSearchTerm = hasSearchTerm,
+				})
+			end
+		end
+	end
+
 	self.state = {
 		totalTabWidth = totalTabWidth,
 		totalTabCount = tabCount,
-		activeSearchTerm = false
+		activeSearchTerm = false,
 	}
 
 	self.utilRef = Roact.createRef()
+	self.searchRef = Roact.createRef()
 end
 
 function UtilAndTab:render()
@@ -83,11 +111,12 @@ function UtilAndTab:render()
 	local totalTabCount = self.state.totalTabCount
 	local activeSearchTerm = self.state.activeSearchTerm
 
-
 	local tabOverLap = (windowWidth - totalTabWidth)  / totalTabCount
 
+	local useDropDown = tabOverLap < 0 and windowWidth > 0
+
 	if (formFactor == Constants.FormFactor.Small) or
-		(tabOverLap < 0 and windowWidth > 0) then
+		useDropDown then
 		local frameHeight = SMALL_UTIL_HEIGHT + SMALL_PADDING
 		if activeSearchTerm then
 			frameHeight = frameHeight + SMALL_UTIL_HEIGHT + SMALL_PADDING
@@ -101,14 +130,23 @@ function UtilAndTab:render()
 			endFrameWidth = endFrameWidth - SMALL_CS_BUTTON_WIDTH
 		end
 
-		return Roact.createElement("Frame",{
+		local cancelButtonWidth = TextService:GetTextSize(
+			CANCEL_BUTTON_TEXT,
+			Constants.DefaultFontSize.UtilBar,
+			Constants.Font.UtilBar,
+			Vector2.new(0, 0)
+		).X
+
+		cancelButtonWidth = cancelButtonWidth + (2 * CANCEL_BUTTON_PADDING)
+
+		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, frameHeight),
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
 
 			[Roact.Ref] = self.props.refForParent
 		}, {
-			MainFrame = Roact.createElement("Frame",{
+			MainFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, SMALL_UTIL_HEIGHT),
 				BackgroundTransparency = 1,
 				[Roact.Ref] = self.utilRef,
@@ -135,7 +173,8 @@ function UtilAndTab:render()
 
 					ClientServerButton = useCSButton and Roact.createElement(ClientServerButton, {
 						frameHeight = SMALL_UTIL_HEIGHT,
-						useFullScreenDropDown = true,
+						formFactor = formFactor,
+						useDropDown = useDropDown,
 						isClientView = isClientView,
 						layoutOrder = 2,
 						onClientButton = onClientButton,
@@ -158,26 +197,52 @@ function UtilAndTab:render()
 					Position = UDim2.new(1,-SMALL_UTIL_HEIGHT, 0, 0),
 					BackgroundTransparency = 1,
 					Image = Constants.Image.Search,
+					Visible = not activeSearchTerm,
 
 					[Roact.Event.Activated] = self.showSearchBar,
 				}),
 			}),
 
-			SearchBar = activeSearchTerm and Roact.createElement(SearchBar, {
-				size = UDim2.new(1, 0, 0, SMALL_UTIL_HEIGHT),
-				pos = UDim2.new(0, 0, 0, SMALL_UTIL_HEIGHT + SMALL_PADDING),
-				searchTerm = searchTerm,
-				textSize = Constants.DefaultFontSize.UtilBar,
-				frameHeight = Constants.UtilityBarFormatting.FrameHeight,
-				borderColor = Constants.Color.BorderGray,
-				textBoxColor = Constants.Color.UnselectedGray,
-				onTextEntered = self.closeSearchBar,
+			-- the searchBar is only visible when there is an active searchterm in the textbox
+			SearchBarFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, SMALL_UTIL_HEIGHT),
+				Position = UDim2.new(0, 0, 0, SMALL_UTIL_HEIGHT + SMALL_PADDING),
+				Visible = activeSearchTerm,
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+
+			}, {
+				SearchBar = Roact.createElement(SearchBar, {
+					size = UDim2.new(1, -cancelButtonWidth , 0, SMALL_UTIL_HEIGHT),
+					searchTerm = searchTerm,
+					showClear = activeSearchTerm,
+					textSize = Constants.DefaultFontSize.UtilBar,
+					font = Constants.Font.UtilBar,
+					frameHeight = SMALL_UTIL_HEIGHT,
+
+					refForParent = self.searchRef,
+					cancelInput = self.cancelInput,
+					focusLost = self.focusLost,
+				}),
+
+				CancelButton = Roact.createElement("TextButton", {
+					Size = UDim2.new(0, cancelButtonWidth, 1, 0),
+					Position = UDim2.new(1, -cancelButtonWidth, 0, 0),
+					Text = CANCEL_BUTTON_TEXT,
+					TextSize = Constants.DefaultFontSize.UtilBar,
+					TextColor3 = Constants.Color.Text,
+					Font = Constants.Font.UtilBar,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+
+					[Roact.Event.Activated] = self.cancelInput,
+				})
 			})
 		})
 	else
 		local useCSButton = onClientButton and onServerButton
 
-		local endFrameWidth = windowWidth - (SMALL_PADDING * 3) - (2 * CS_BUTTON_WIDTH)
+		local endFrameWidth = windowWidth - (SMALL_PADDING * 3) - (3 * CS_BUTTON_WIDTH)
 
 		if useCSButton then
 			endFrameWidth = endFrameWidth - CS_BUTTON_WIDTH
@@ -197,7 +262,7 @@ function UtilAndTab:render()
 				formFactor = formFactor,
 			}),
 
-			UtilBar = Roact.createElement("Frame",{
+			UtilBar = Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, TAB_HEIGHT + PADDING),
 				Size = UDim2.new(1, 0, 0, UTIL_HEIGHT),
 				BackgroundTransparency = 1,
@@ -217,7 +282,7 @@ function UtilAndTab:render()
 					}),
 
 					ClientServerButton = useCSButton and Roact.createElement(ClientServerButton, {
-						useFullScreenDropDown = false,
+						formFactor = formFactor,
 						isClientView = isClientView,
 						onClientButton = onClientButton,
 						onServerButton = onServerButton,
@@ -237,11 +302,14 @@ function UtilAndTab:render()
 					size = UDim2.new(0, 2 * CS_BUTTON_WIDTH, 0, UTIL_HEIGHT),
 					pos = UDim2.new(1, -2 * CS_BUTTON_WIDTH, 0, 0),
 					searchTerm = searchTerm,
+					showClear = activeSearchTerm,
 					textSize = Constants.DefaultFontSize.UtilBar,
+					font = Constants.Font.UtilBar,
 					frameHeight = Constants.UtilityBarFormatting.FrameHeight,
-					borderColor = Constants.Color.BorderGray,
-					textBoxColor = Constants.Color.UnselectedGray,
-					onTextEntered = onSearchTermChanged,
+
+					refForParent = self.searchRef,
+					cancelInput = self.cancelInput,
+					focusLost = self.focusLost,
 				}),
 			}),
 		})

@@ -3,11 +3,16 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local httpRequest = require(AppTempCommon.Temp.httpRequest)
+local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 
@@ -20,6 +25,10 @@ local ClosePage = require(ShareGame.Actions.ClosePage)
 local USER_LIST_PADDING = 10
 
 local ShareGamePageFrame = Roact.PureComponent:extend("ShareGamePageFrame")
+
+function ShareGamePageFrame:didMount()
+	self.props.reFetch()
+end
 
 function ShareGamePageFrame:render()
 	local isSmallTouchScreen = self.props.isSmallTouchScreen
@@ -70,6 +79,12 @@ ShareGamePageFrame = RoactRodux.connect(function(store)
 
 		closePage = function()
 			store:dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
+		end,
+
+		reFetch = function()
+			local userId = tostring(Players.LocalPlayer.UserId)
+			local networkImpl = httpRequest(HttpRbxApiService)
+			store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGameHeadshot))
 		end
 	}
 end)(ShareGamePageFrame)

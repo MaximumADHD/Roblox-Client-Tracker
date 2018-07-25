@@ -20,22 +20,25 @@ local function TabRowButton(props)
 		textTransparency = Constants.TabRowFormatting.SelectedTextTransparency
 	end
 
-	return Roact.createElement("TextButton",{
+	return Roact.createElement("TextButton", {
 		Text = name,
 		TextSize = Constants.DefaultFontSize.TabBar,
 		Font = Constants.Font.TabBar,
 		TextScaled = false,
 		TextTransparency = textTransparency,
 		Size = UDim2.new(0, textWidth, 0, FRAME_HEIGHT),
+		AutoButtonColor = false,
 		TextColor3 = Constants.Color.Text,
 		BackgroundColor3 = Constants.Color.UnselectedGray,
+		BorderSizePixel = 0,
 		[Roact.Event.Activated] = function(rbx)
 			onTabButtonClicked(index)
 		end,
-	},{
-		BlueHighlight = isSelected and Roact.createElement("Frame",{
+	}, {
+		BlueHighlight = isSelected and Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, -HIGHLIGHT_HEIGHT),
 			Position = UDim2.new(0, 0, 1, 0),
+			BorderSizePixel = 0,
 			BackgroundColor3 = Constants.Color.HighlightBlue,
 		})
 	})

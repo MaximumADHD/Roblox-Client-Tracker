@@ -92,7 +92,7 @@ function DynamicThumbstick:EnableAutoJump(enable)
 			humanoid.AutoJumpEnabled = true
 		elseif self.shouldRevertAutoJumpOnDisable then
 			humanoid.AutoJumpEnabled = false
-		end 
+		end
 	end
 end
 
@@ -156,8 +156,8 @@ end
 function DynamicThumbstick:OnInputEnded()
 	self.moveTouchObject = nil
 	self.moveVector = ZERO_VECTOR3
-
 	self:FadeThumbstick(false)
+	self.thumbstickFrame.Active = true
 end
 
 function DynamicThumbstick:FadeThumbstick(visible)
@@ -236,7 +236,7 @@ function DynamicThumbstick:Create(parentFrame)
 	local MiddleSize = 10
 	local MiddleSpacing = MiddleSize + 4
 	local RadiusOfDeadZone = 2
-	local RadiusOfMaxSpeed = 20	
+	local RadiusOfMaxSpeed = 20
 
 	local screenSize = parentFrame.AbsoluteSize
 	local isBigScreen = math.min(screenSize.x, screenSize.y) > 500
@@ -259,9 +259,9 @@ function DynamicThumbstick:Create(parentFrame)
 		end
 	end
 
-	self.thumbstickFrame = Instance.new("Frame")
+	self.thumbstickFrame = Instance.new("TextButton")
+	self.thumbstickFrame.Text = ""
 	self.thumbstickFrame.Name = "Dynamicself.thumbstickFrame"
-	self.thumbstickFrame.Active = false
 	self.thumbstickFrame.Visible = false
 	self.thumbstickFrame.BackgroundTransparency = 1.0
 	self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -367,7 +367,7 @@ function DynamicThumbstick:Create(parentFrame)
 		for i = 1, NUM_MIDDLE_IMAGES do
 			local image = self.middleImages[i]
 			local distWithout = startDist + (spacing * (i - 2))
-			local currentDist = startDist + (spacing * (i - 1))	
+			local currentDist = startDist + (spacing * (i - 1))
 
 			if distWithout < distAvailable then
 				local pos = endPos - direction * currentDist
@@ -423,7 +423,7 @@ function DynamicThumbstick:Create(parentFrame)
 
 			-- only fade in/out the background once per orientation
 			if playerGui then
-				if playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeLeft or 
+				if playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeLeft or
 					playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeRight then
 						hasFadedBackgroundInOrientation = self.hasFadedBackgroundInLandscape
 						self.hasFadedBackgroundInLandscape = true
@@ -443,6 +443,7 @@ function DynamicThumbstick:Create(parentFrame)
 
 	self.onTouchMovedConn = UserInputService.TouchMoved:connect(function(inputObject)
 		if inputObject == self.moveTouchObject then
+			self.thumbstickFrame.Active = false
 			local direction = Vector2.new(inputObject.Position.x - self.moveTouchStartPosition.x, inputObject.Position.y - self.moveTouchStartPosition.y)
 			if math.abs(direction.x) > 0 or math.abs(direction.y) > 0 then
 				doMove(direction)
@@ -472,13 +473,13 @@ function DynamicThumbstick:Create(parentFrame)
 
 	self.onTouchEndedConn = UserInputService.TouchEnded:connect(function(inputObject)
 		if inputObject == self.moveTouchObject then
-			self:OnInputEnded(inputObject)
+			self:OnInputEnded()
 		end
 	end)
 
 	GuiService.MenuOpened:connect(function()
 		if self.moveTouchObject then
-			self:OnInputEnded(nil)
+			self:OnInputEnded()
 		end
 	end)
 

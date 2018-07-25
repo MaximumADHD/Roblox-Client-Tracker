@@ -6,8 +6,8 @@ local Constants = require(script.Parent.Parent.Constants)
 local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
 local LINE_COLOR = Constants.GeneralFormatting.LineColor
 local ARROW_WIDTH = Constants.GeneralFormatting.ArrowWidth
-local CLOSE_ARROW = Constants.Image.Arrow
-local OPEN_ARROW = Constants.Image.Arrow2
+local CLOSE_ARROW = Constants.Image.RightArrow
+local OPEN_ARROW = Constants.Image.DownArrow
 
 local BannerButton = Roact.Component:extend("BannerButton")
 

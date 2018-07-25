@@ -27,14 +27,12 @@ local humanoidSeatedConn = nil
 local vehicleController = nil
 
 local touchControlFrame = nil
-local propertyChangeListeners = {}
 
 -- Modules - each returns a new() constructor function used to create controllers as needed
 local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local TouchDPad = require(script:WaitForChild("TouchDPad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
-local VRNavigation = require(script:WaitForChild("VRNavigation"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
 -- TouchJump controller if any of these are active
@@ -53,16 +51,16 @@ local controllers = {}
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
 	[Enum.TouchMovementMode.DPad] = TouchDPad,
-	[Enum.DevTouchMovementMode.DPad] = TouchDPad,	
+	[Enum.DevTouchMovementMode.DPad] = TouchDPad,
 	[Enum.TouchMovementMode.Thumbpad] = TouchThumbpad,
-	[Enum.DevTouchMovementMode.Thumbpad] = TouchThumbpad,	
+	[Enum.DevTouchMovementMode.Thumbpad] = TouchThumbpad,
 	[Enum.TouchMovementMode.Thumbstick] = TouchThumbstick,
-	[Enum.DevTouchMovementMode.Thumbstick] = TouchThumbstick,	
+	[Enum.DevTouchMovementMode.Thumbstick] = TouchThumbstick,
 	[Enum.TouchMovementMode.DynamicThumbstick] = DynamicThumbstick,
-	[Enum.DevTouchMovementMode.DynamicThumbstick] = DynamicThumbstick,	
+	[Enum.DevTouchMovementMode.DynamicThumbstick] = DynamicThumbstick,
 	[Enum.TouchMovementMode.ClickToMove] = ClickToMove,
 	[Enum.DevTouchMovementMode.ClickToMove] = ClickToMove,
-	
+
 	-- Current default
 	[Enum.TouchMovementMode.Default] = TouchThumbstick,
 
@@ -71,12 +69,12 @@ local movementEnumToModuleMap = {
 	[Enum.DevComputerMovementMode.KeyboardMouse] = Keyboard,
 	[Enum.DevComputerMovementMode.Scriptable] = nil,
 	[Enum.ComputerMovementMode.ClickToMove] = ClickToMove,
-	[Enum.DevComputerMovementMode.ClickToMove] = ClickToMove,	
+	[Enum.DevComputerMovementMode.ClickToMove] = ClickToMove,
 }
 
 -- Keyboard controller is really keyboard and mouse controller
 local computerInputTypeToModuleMap = {
-	[Enum.UserInputType.Keyboard] = Keyboard,	
+	[Enum.UserInputType.Keyboard] = Keyboard,
 	[Enum.UserInputType.MouseButton1] = Keyboard,
 	[Enum.UserInputType.MouseButton2] = Keyboard,
 	[Enum.UserInputType.MouseButton3] = Keyboard,
@@ -110,7 +108,7 @@ local function SelectComputerMovementModule()
 			computerModule = movementEnumToModuleMap[DevMovementMode]
 		end
 	end
-	return computerModule, true	
+	return computerModule, true
 end
 
 -- Choose current Touch control module based on settings (user, dev)
@@ -128,24 +126,23 @@ local function SelectTouchModule()
 	else
 		touchModule = movementEnumToModuleMap[DevMovementMode]
 	end
-	
 	return touchModule, true
 end
 
 local function OnRenderStepped()
 	if activeController and activeController.enabled and humanoid then
 		local moveVector = activeController:GetMoveVector()
-		
+
 		local vehicleConsumedInput = false
 		if vehicleController then
 			moveVector, vehicleConsumedInput = vehicleController:Update(moveVector, activeControlModule==Gamepad)
-		end		
-		
+		end
+
 		-- User of vehicleConsumedInput is commented out to preserve legacy behavior, in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
-		--if not vehicleConsumedInput then		
+		--if not vehicleConsumedInput then
 			moveFunction(Players.LocalPlayer, moveVector, cameraRelative)
 		--end
-		
+
 		humanoid.Jump = activeController:GetIsJumping() or (touchJumpController and touchJumpController:GetIsJumping())
 	end
 end
@@ -171,7 +168,7 @@ local function OnCharacterAdded(char)
 		char.ChildAdded:wait()
 		humanoid = char:FindFirstChildOfClass("Humanoid")
 	end
-	
+
 	if humanoidSeatedConn then
 		humanoidSeatedConn:Disconnect()
 		humanoidSeatedConn = nil
@@ -191,14 +188,14 @@ local function SwitchToController(controlModule)
 	if not controlModule then
 		if activeController then
 			activeController:Enable(false)
-		end	
+		end
 		activeController = nil
-		activeControlModule = nil	
+		activeControlModule = nil
 	else
 		if not controllers[controlModule] then
 			controllers[controlModule] = controlModule.new()
 		end
-	
+
 		if activeController ~= controllers[controlModule] then
 			if activeController then
 				activeController:Enable(false)
@@ -212,8 +209,9 @@ local function SwitchToController(controlModule)
 			end
 			if touchControlFrame and (activeControlModule == TouchThumbpad
 									or activeControlModule == TouchThumbstick
-									or activeControlModule == ClickToMove) then
-				touchJumpController = controllers[TouchJump]				
+									or activeControlModule == ClickToMove
+									or activeControlModule == DynamicThumbstick) then
+				touchJumpController = controllers[TouchJump]
 				if not touchJumpController then
 					touchJumpController = TouchJump.new()
 				end
@@ -231,9 +229,8 @@ local function OnLastInputTypeChanged(newLastInputType)
 	if lastInputType == newLastInputType then
 		warn("LastInputType Change listener called with current type.")
 	end
-	
 	lastInputType = newLastInputType
-	
+
 	if lastInputType == Enum.UserInputType.Touch then
 		-- TODO: Check if touch module already active
 		local touchModule, success = SelectTouchModule()
@@ -280,10 +277,10 @@ RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input
 
 UserInputService.LastInputTypeChanged:Connect(OnLastInputTypeChanged)
 
-propertyChangeListeners = {
+local propertyChangeListeners = {
 	GameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(OnTouchMovementModeChange),
 	Players.LocalPlayer:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(OnTouchMovementModeChange),
-	
+
 	GameSettings:GetPropertyChangedSignal("ComputerMovementMode"):Connect(OnComputerMovementModeChange),
 	Players.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(OnComputerMovementModeChange),
 }
@@ -295,18 +292,19 @@ local playerGuiAddedConn = nil
 
 local function createTouchGuiContainer()
 	if touchGui then touchGui:Destroy() end
-	
+
 	-- Container for all touch device guis
 	touchGui = Instance.new('ScreenGui')
 	touchGui.Name = "TouchGui"
 	touchGui.ResetOnSpawn = false
-	touchGui.Parent = PlayerGui
-	
+
 	touchControlFrame = Instance.new("Frame")
 	touchControlFrame.Name = "TouchControlFrame"
 	touchControlFrame.Size = UDim2.new(1, 0, 1, 0)
 	touchControlFrame.BackgroundTransparency = 1
 	touchControlFrame.Parent = touchGui
+
+	touchGui.Parent = PlayerGui
 end
 
 if UserInputService.TouchEnabled then
@@ -326,6 +324,5 @@ if UserInputService.TouchEnabled then
 		end)
 	end
 end
-
 
 return ControlScript

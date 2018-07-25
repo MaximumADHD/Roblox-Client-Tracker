@@ -76,9 +76,13 @@ function DevConsoleTopBar:render()
 	})
 
 	local liveStatsModulePos = UDim2.new(0, DEVCONSOLE_TEXT_FRAMESIZE.X, 0, 0)
-	local liveStatsModuleSize = UDim2.new(1, -2*DEVCONSOLE_TEXT_FRAMESIZE.X, 0, FRAME_HEIGHT)
+	local liveStatsModuleSize = UDim2.new(1, -2 * DEVCONSOLE_TEXT_FRAMESIZE.X, 0, FRAME_HEIGHT)
 
-	if self.ref.current then
+	if isMinimized then
+		liveStatsModulePos = UDim2.new(0, 0, 1, 0)
+		liveStatsModuleSize = UDim2.new(1, 0, 1, 0)
+
+	elseif self.ref.current then
 		liveStatsModuleSize = UDim2.new(
 			0,
 			self.ref.current.AbsoluteSize.X - (2 * DEVCONSOLE_TEXT_FRAMESIZE.X),

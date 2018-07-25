@@ -1,6 +1,4 @@
-local NetworkClient = game:GetService("NetworkClient")
 local Signal = require(script.Parent.Parent.Parent.Signal)
-
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local HEADER_NAMES = Constants.MemoryFormatting.ChartHeaderNames
@@ -16,6 +14,8 @@ local SORT_COMPARATOR = {
 		return a.dataStats.dataSet:back().data < b.dataStats.dataSet:back().data
 	end,
 }
+
+local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local ServerMemoryData = {}
 ServerMemoryData.__index = ServerMemoryData
@@ -201,8 +201,7 @@ function ServerMemoryData:getMemoryData()
 end
 
 function ServerMemoryData:start()
-	local clientReplicator = NetworkClient:GetChildren()[1]
-
+	local clientReplicator = getClientReplicator()
 	if clientReplicator and not self._statsListenerConnection then
 		self._statsListenerConnection = clientReplicator.StatsReceived:connect(function(stats)
 			if not stats.ServerMemoryTree then
@@ -223,7 +222,7 @@ end
 
 function ServerMemoryData:stop()
 	-- listeners are responsible for disconnecting themselves
-	local clientReplicator = NetworkClient:GetChildren()[1]
+	local clientReplicator = getClientReplicator()
 	if clientReplicator then
 		clientReplicator:RequestServerStats(false)
 		self._statsListenerConnection:Disconnect()

@@ -38,6 +38,7 @@ local StartImage = nil
 local EndImage = nil
 local MiddleImages = {}
 
+local MoveTouchObject = nil
 local IsFollowStick = false
 local ThumbstickFrame = nil
 local OnMoveTouchEnded = nil		-- defined in Create()
@@ -175,6 +176,10 @@ function Thumbstick:Disable()
 	end
 	ThumbstickFrame.Visible = false
 	OnMoveTouchEnded()
+end
+
+function Thumbstick:GetInputObject()
+    return MoveTouchObject
 end
 
 function Thumbstick:Create(parentFrame)
@@ -320,7 +325,7 @@ function Thumbstick:Create(parentFrame)
 		onCurrentCameraChanged()
 	end
 	
-	local MoveTouchObject = nil
+	MoveTouchObject = nil
 	local MoveTouchStartTime = nil
 	local MoveTouchStartPosition = nil
 

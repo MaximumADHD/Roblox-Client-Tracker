@@ -9,20 +9,23 @@ local Actions = script.Parent.Parent.Actions
 local SetActiveTab = require(Actions.SetActiveTab)
 
 local Constants = require(script.Parent.Parent.Constants)
+local TOP_BAR_FONT_SIZE = Constants.DefaultFontSize.TopBar
+local TEXT_COLOR = Constants.Color.Text
+local FONT = Constants.Font.TopBar
+
+local IMAGE_SIZE = UDim2.new(0, TOP_BAR_FONT_SIZE, 0, TOP_BAR_FONT_SIZE)
+
 local MEM_STAT_STR_SMALL = "Client Mem:"
-local memStatStrSmallWidth = TextService:GetTextSize(MEM_STAT_STR_SMALL, Constants.DefaultFontSize.TopBar,
-	Constants.Font.TopBar, Vector2.new(0, 0))
+local memStatStrSmallWidth = TextService:GetTextSize(MEM_STAT_STR_SMALL, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 local MEM_STAT_STR = "Client Memory Usage:"
-local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, Constants.DefaultFontSize.TopBar,
-	Constants.Font.TopBar, Vector2.new(0, 0))
+local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 local AVG_PING_STR = "Avg. Ping:"
-local avgPingStrWidth = TextService:GetTextSize(AVG_PING_STR, Constants.DefaultFontSize.TopBar,
-	Constants.Font.TopBar, Vector2.new(0, 0))
+local avgPingStrWidth = TextService:GetTextSize(AVG_PING_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 
 -- supposed to be the calculated width of the frame, but
 -- doing this for now due to time constraints.
 local MIN_LARGE_FORMFACTOR_WIDTH = 380
-local INNNER_PADDING = 6
+local INNER_PADDING = 6
 
 local LiveUpdateElement = Roact.PureComponent:extend("LiveUpdateElement")
 
@@ -99,49 +102,50 @@ function LiveUpdateElement:render()
 	local currMemStrWidth = memStatStrWidth.X
 	local alignment = Enum.HorizontalAlignment.Center
 
-	if formFactor == Constants.FormFactor.Small or
-		size.X.Offset < formFactorThreshold then
+	local sizeCheck
+	if self.ref.current then
+		sizeCheck = self.ref.current.AbsoluteSize.X < formFactorThreshold
+	end
 
-		position = position + UDim2.new(0, INNNER_PADDING * 2, 0, 0)
+	if formFactor == Constants.FormFactor.Small or sizeCheck then
+		position = position + UDim2.new(0, INNER_PADDING * 2, 0, 0)
 		currMemStrWidth = memStatStrSmallWidth.X
 		useSmallForm = true
 		alignment = Enum.HorizontalAlignment.Left
 	end
 
-	local imageSize = UDim2.new(0, Constants.DefaultFontSize.TopBar, 0, Constants.DefaultFontSize.TopBar)
-
 	local logErrorStat = string.format("%d", numErrors)
 	local logErrorStatVector = TextService:GetTextSize(
 		logErrorStat,
-		Constants.DefaultFontSize.TopBar,
-		Constants.Font.TopBar,
+		TOP_BAR_FONT_SIZE,
+		FONT,
 		Vector2.new(0, 0)
 	)
 
 	local logWarningStat = string.format("%d", numWarnings)
 	local logWarningStatVector = TextService:GetTextSize(
 		logWarningStat,
-		Constants.DefaultFontSize.TopBar,
-		Constants.Font.TopBar,
+		TOP_BAR_FONT_SIZE,
+		FONT,
 		Vector2.new(0, 0)
 	)
 
 	local memUsageString = string.format("%d MB", clientMemoryUsage)
 	local memUsageStringVector = TextService:GetTextSize(
 		memUsageString,
-		Constants.DefaultFontSize.TopBar,
-		Constants.Font.TopBar,
+		TOP_BAR_FONT_SIZE,
+		FONT,
 		Vector2.new(0, 0)
 	)
 
 	local avgPingString = string.format("%d ms", averagePing)
 	local avgPingStringVector = TextService:GetTextSize(avgPingString,
-		Constants.DefaultFontSize.TopBar,
-		Constants.Font.TopBar,
+		TOP_BAR_FONT_SIZE,
+		FONT,
 		Vector2.new(0, 0)
 	)
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Position = position,
 		Size = size,
 		BackgroundTransparency = 1,
@@ -149,7 +153,7 @@ function LiveUpdateElement:render()
 		[Roact.Ref] = self.ref,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, INNNER_PADDING),
+			Padding = UDim.new(0, INNER_PADDING),
 			HorizontalAlignment = alignment,
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -158,7 +162,7 @@ function LiveUpdateElement:render()
 
 		LogErrorIcon = Roact.createElement("ImageButton", {
 			Image = Constants.Image.Error,
-			Size = imageSize,
+			Size = IMAGE_SIZE,
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
 
@@ -167,83 +171,96 @@ function LiveUpdateElement:render()
 
 		LogErrorCount = Roact.createElement("TextButton", {
 			Text = logErrorStat,
-			TextSize = Constants.DefaultFontSize.TopBar,
-			TextColor3 = Constants.Color.Text,
+			TextSize = TOP_BAR_FONT_SIZE,
+			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = Constants.Font.TopBar,
+			Font = FONT,
 			Size = UDim2.new(0, logErrorStatVector.X, 1, 0),
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 			[Roact.Event.Activated] = self.onLogErrorButton,
 		}),
 
-		LogWarningIcon = Roact.createElement("ImageButton", {
-			Image = Constants.Image.Warning,
-			Size = imageSize,
+		ErrorWarningPad = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			LayoutOrder = 3,
+		}),
+
+		LogWarningIcon = Roact.createElement("ImageButton", {
+			Image = Constants.Image.Warning,
+			Size = IMAGE_SIZE,
+			BackgroundTransparency = 1,
+			LayoutOrder = 4,
 			[Roact.Event.Activated] = self.onLogWarningButton,
 		}),
 
 		LogWarningCount = Roact.createElement("TextButton", {
 			Text = logWarningStat,
-			TextSize = Constants.DefaultFontSize.TopBar,
-			TextColor3 = Constants.Color.Text,
+			TextSize = TOP_BAR_FONT_SIZE,
+			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = Constants.Font.TopBar,
+			Font = FONT,
 			Size = UDim2.new(0, logWarningStatVector.X, 1, 0),
 			BackgroundTransparency = 9,
-			LayoutOrder = 4,
+			LayoutOrder = 5,
 			[Roact.Event.Activated] = self.onLogWarningButton,
 		}),
 
+		WarningMemoryPad = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = 6,
+		}),
 
 		MemoryUsage = Roact.createElement("TextButton", {
 			Text = useSmallForm and MEM_STAT_STR_SMALL or MEM_STAT_STR,
-			TextSize = Constants.DefaultFontSize.TopBar,
+			TextSize = TOP_BAR_FONT_SIZE,
 			TextColor3 = Constants.Color.WarningYellow,
 			TextXAlignment = Enum.TextXAlignment.Right,
-			Font = Constants.Font.TopBar,
+			Font = FONT,
 			Size = UDim2.new(0, currMemStrWidth, 1, 0),
 			BackgroundTransparency = 1,
-			LayoutOrder = 5,
+			LayoutOrder = 7,
 			[Roact.Event.Activated] = self.props.dispatchChangeTabClientMemory,
 		}),
 
 		MemoryUsage_MB = Roact.createElement("TextButton", {
 			Text = memUsageString,
-			TextSize = Constants.DefaultFontSize.TopBar,
-			TextColor3 = Constants.Color.Text,
+			TextSize = TOP_BAR_FONT_SIZE,
+			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = Constants.Font.TopBar,
+			Font = FONT,
 			Size = UDim2.new(0, memUsageStringVector.X, 1, 0),
 			BackgroundTransparency = 1,
-			LayoutOrder = 6,
+			LayoutOrder = 8,
 			[Roact.Event.Activated] = self.props.dispatchChangeTabClientMemory,
 		}),
 
+		MemoryPingPad = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = 9,
+		}),
 
 		AvgPing = not useSmallForm and Roact.createElement("TextButton", {
 			Text = AVG_PING_STR,
-			TextSize = Constants.DefaultFontSize.TopBar,
+			TextSize = TOP_BAR_FONT_SIZE,
 			TextColor3 = Constants.Color.WarningYellow,
 			TextXAlignment = Enum.TextXAlignment.Right,
-			Font = Constants.Font.TopBar,
+			Font = FONT,
 			Size = UDim2.new(0, avgPingStrWidth.X, 1, 0),
 			BackgroundTransparency = 1,
-			LayoutOrder = 7,
+			LayoutOrder = 10,
 			[Roact.Event.Activated] = self.props.dispatchChangeTabNetworkPing,
 		}),
 
 		AvgPing_ms = not useSmallForm and Roact.createElement("TextButton", {
 			Text = avgPingString,
-			TextSize = Constants.DefaultFontSize.TopBar,
-			TextColor3 = Constants.Color.Text,
+			TextSize = TOP_BAR_FONT_SIZE,
+			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = Constants.Font.TopBar,
+			Font = FONT,
 			Size = UDim2.new(0, avgPingStringVector.X, 1, 0),
 			BackgroundTransparency = 1,
-			LayoutOrder = 8,
+			LayoutOrder = 11,
 			[Roact.Event.Activated] = self.props.dispatchChangeTabNetworkPing,
 		})
 	})

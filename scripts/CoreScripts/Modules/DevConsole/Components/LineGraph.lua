@@ -170,7 +170,7 @@ function LineGraph:render()
 						local hoverValX = (aDataX - bDataX) * ratio + bDataX
 						local hoverValY = (aDataY - bDataY) * ratio + bDataY
 
-						elements["HoverDetails"] = Roact.createElement(LineGraphHoverDisplay,{
+						elements["HoverDetails"] = Roact.createElement(LineGraphHoverDisplay, {
 							hoverLineX = hoverLineX,
 							hoverLineY = hoverLineY,
 							hoverValX = hoverValX,
@@ -231,10 +231,10 @@ function LineGraph:render()
 	return Roact.createElement("Frame", {
 		Size = size,
 		Position = pos,
-		BackgroundTransparency = .8,
+		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		name = Roact.createElement("TextLabel",{
+		name = Roact.createElement("TextLabel", {
 			Text = axisLabelY,
 			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -266,7 +266,8 @@ function LineGraph:render()
 			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Center,
 
-			Position = UDim2.new(.5, 0, GRAPH_PADDING + GRAPH_SCALE, TEXT_PADDING),
+			-- adding 2 to padding to push the label away from the axis line
+			Position = UDim2.new(.5, 0, GRAPH_PADDING + GRAPH_SCALE, 2 * TEXT_PADDING + 2),
 			BackgroundTransparency = 1,
 		}),
 

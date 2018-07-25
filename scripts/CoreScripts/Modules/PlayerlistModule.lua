@@ -44,20 +44,16 @@ local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModul
 
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
---[[ Remotes ]]--
 local RemoveEvent_OnFollowRelationshipChanged = nil
 local RemoteFunc_GetFollowRelationships = nil
 
---[[ Start Module ]]--
 local Playerlist = {}
 
---[[ Public Event API ]]--
 -- Parameters: Sorted Array - see GameStats below
 Playerlist.OnLeaderstatsChanged = Instance.new('BindableEvent')
 -- Parameters: nameOfStat(string), formatedStringOfStat(string)
 Playerlist.OnStatChanged = Instance.new('BindableEvent')
 
---[[ Client Stat Table ]]--
 -- Sorted Array of tables
 local GameStats = {}
 -- Fields
@@ -69,7 +65,6 @@ local GameStats = {}
 -- NOTE: IsPrimary and Priority are unofficially supported. They are left over legacy from the old player list.
 -- They can be un-supported at anytime. You should prefer using child add order to order your stats in the leader board.
 
---[[ Script Variables ]]--
 local topbarEnabled = true
 local playerlistCoreGuiEnabled = true
 local MyPlayerEntryTopFrame = nil
@@ -124,7 +119,6 @@ local setVisible = nil
 --Whether the playerlist is still open (isOpen is true if the playerlist is hidden in the background)
 local isOpen = not isTenFootInterface
 
---[[ Constants ]]--
 local ENTRY_PAD = 2
 local BG_TRANSPARENCY = 0.5
 local BG_COLOR = Color3.new(31/255, 31/255, 31/255)
@@ -165,7 +159,6 @@ local ABUSES = {
   "Bad Username",
 }
 
---[[ Images ]]--
 local CHAT_ICON = 'rbxasset://textures/ui/chat_teamButton.png'
 local ADMIN_ICON = 'rbxasset://textures/ui/icon_admin-16.png'
 local INTERN_ICON = 'rbxasset://textures/ui/icon_intern-16.png'
@@ -185,15 +178,23 @@ local MUTUAL_FOLLOWING_ICON = 'rbxasset://textures/ui/icon_mutualfollowing-16.pn
 
 local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterImageBackground.png'
 
---[[ Helper Functions ]]--
+local RobloxTranslator
+local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
+if FFlagCoreScriptsUseLocalizationModule then
+  RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
 
 local function LocalizedGetString(key, rtv)
-	pcall(function()
-		local LocalizationService = game:GetService("LocalizationService")
-		local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-		rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-	end)
-	return rtv
+	if FFlagCoreScriptsUseLocalizationModule then
+		return RobloxTranslator:FormatByKey(key)
+	else
+		pcall(function()
+			local LocalizationService = game:GetService("LocalizationService")
+			local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+		end)
+		return rtv
+	end
 end
 
 local function rbx_profilebegin(name)
@@ -499,7 +500,6 @@ if hasPermissionToVoiceChat then
   end
 end
 
---[[ Creation Helper Functions ]]--
 local function createEntryFrame(name, sizeYOffset, isTopStat)
   local containerFrame = Instance.new('Frame')
   containerFrame.Name = name
@@ -700,7 +700,6 @@ local function formatStatString(text)
   end
 end
 
---[[ Resize Functions ]]--
 local LastMaxScrollSize = 0
 local function setScrollListSize()
   local teamSize = #TeamEntries * TeamEntrySizeY
@@ -722,7 +721,6 @@ local function setScrollListSize()
   LastMaxScrollSize = newScrollListSize
 end
 
---[[ Re-position Functions ]]--
 local function setPlayerEntryPositions()
   local position = 0
   for i = 1, #PlayerEntries do
@@ -1003,7 +1001,6 @@ if not isTenFootInterface then
   Player.FriendStatusChanged:connect(onFriendshipChanged)
 end
 
---[[ Begin New Server Followers ]]--
 local function setFollowRelationshipsView(relationshipTable)
   if not relationshipTable then
     return
@@ -1049,8 +1046,6 @@ local function getFollowRelationships()
   end
   return result
 end
-
---[[ End New Server Followers ]]--
 
 local function updateAllTeamScores()
   local teamScores = {}
@@ -1661,7 +1656,6 @@ local function createNeutralTeam()
   end
 end
 
---[[ Insert/Remove Player Functions ]]--
 local function setupEntry(player, newEntry, isTopStat)
   setLeaderStats(newEntry)
 
@@ -1724,7 +1718,6 @@ local function removePlayerEntry(player)
   setScrollListSize()
 end
 
---[[ Team Functions ]]--
 local function onTeamAdded(team)
   for i = 1, #TeamEntries do
     if TeamEntries[i].Team.TeamColor == team.TeamColor then
@@ -1769,7 +1762,6 @@ local function onTeamRemoved(removedTeam)
   setScrollListSize()
 end
 
---[[ Resize/Position Functions ]]--
 local function clampCanvasPosition()
   local maxCanvasPosition = ScrollList.CanvasSize.Y.Offset - ScrollList.Size.Y.Offset
   if maxCanvasPosition >= 0 and ScrollList.CanvasPosition.y > maxCanvasPosition then
@@ -1807,7 +1799,6 @@ UserInputService.InputBegan:connect(function(inputObject, isProcessed)
 
 -- NOTE: Core script only
 
---[[ Player Add/Remove Connections ]]--
 PlayersService.PlayerAdded:connect(function(child)
   rbx_profilebegin("PlayersService.PlayerAdded")
   insertPlayerEntry(child)
@@ -1818,7 +1809,6 @@ for _, player in ipairs(PlayersService:GetPlayers()) do
   insertPlayerEntry(player)
 end
 
---[[ Begin new Server Followers ]]--
 -- Don't listen/show rbx followers status on console
 if not isTenFootInterface then
   -- spawn so we don't block script
@@ -1849,7 +1839,6 @@ PlayersService.ChildRemoved:connect(function(child)
   rbx_profileend()
 end)
 
---[[ Teams ]]--
 local function initializeTeams(teams)
   for _,team in pairs(teams:GetTeams()) do
     onTeamAdded(team)
@@ -1881,7 +1870,6 @@ game.ChildAdded:connect(function(child)
     rbx_profileend()
   end)
 
---[[ Public API ]]--
 Playerlist.GetStats = function()
   return GameStats
 end
@@ -1997,7 +1985,6 @@ if isTenFootInterface then
   topStat = TenFootInterface:SetupTopStat()
 end
 
---[[ Core Gui Changed events ]]--
 -- NOTE: Core script only
 local function onCoreGuiChanged(coreGuiType, enabled)
   rbx_profilebegin("onCoreGuiChanged")

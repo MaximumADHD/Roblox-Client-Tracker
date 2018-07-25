@@ -1,8 +1,11 @@
-local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local Players = game:GetService("Players")
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+local AppTempCommon = CorePackages.AppTempCommon
+local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -10,8 +13,9 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 
+local EventStream = require(AppTempCommon.Temp.EventStream)
 local Promise = require(AppTempCommon.LuaApp.Promise)
-local request = require(AppTempCommon.LuaApp.Http.request)
+local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
@@ -19,16 +23,11 @@ local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
 
 local ShareGameApp = Roact.PureComponent:extend("App")
 
-function ShareGameApp:didMount()
-	self._networkImpl = request
-	self.props.initialFetch(self._networkImpl)
-end
-
 function ShareGameApp:render()
 	local pageTarget = self.props.pageTarget
 
 	local pageFrame = nil
-	if self.props.isPageOpen then 
+	if self.props.isPageOpen then
 		pageFrame = Roact.createElement(ShareGamePageFrame, {
 			zIndex = Constants.SHARE_GAME_Z_INDEX,
 		})
@@ -41,6 +40,16 @@ function ShareGameApp:render()
 			ShareGamePageFrame = pageFrame
 		})
 	})
+end
+
+function ShareGameApp:didMount()
+	self._networkImpl = httpRequest(HttpRbxApiService)
+	self.props.initialFetch(self._networkImpl)
+	self.eventStream = EventStream.new()
+end
+
+function ShareGameApp:willUnmount()
+	self.eventStream:releaseRBXEventStream()
 end
 
 local connector = RoactRodux.connect(function(store)

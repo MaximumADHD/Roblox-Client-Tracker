@@ -1,15 +1,11 @@
 --[[
 	BaseCamera - Abstract base class for camera control modules
-	2018 Camera Update - AllYourBlox		
+	2018 Camera Update - AllYourBlox
 --]]
 
 --[[ Local Constants ]]--
-local UNIT_X = Vector3.new(1,0,0)
-local UNIT_Y = Vector3.new(0,1,0)
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
-local ZERO_VECTOR2 = Vector2.new(0,0)
 
 local THUMBSTICK_DEADZONE = 0.2
 local DEFAULT_DISTANCE = 12.5	-- Studs
@@ -53,31 +49,28 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
--- Temporary Check: Remove this once TouchTapInWorld is on all platforms
-local TEMP_TOUCH_WORKSPACE_EVENT_EXISTS = pcall(function() local test = UserInputService.TouchTapInWorld end)
-
 --[[ The Module ]]--
 local BaseCamera = {}
 BaseCamera.__index = BaseCamera
 
 function BaseCamera.new()
 	local self = setmetatable({}, BaseCamera)
-	
+
 	-- So that derived classes have access to this
 	self.FIRST_PERSON_DISTANCE_THRESHOLD = FIRST_PERSON_DISTANCE_THRESHOLD
-	
+
 	self.cameraType = nil
 	self.cameraMovementMode = nil
-	
+
 	local player = Players.LocalPlayer
 	self.lastCameraTransform = nil
 	self.rotateInput = ZERO_VECTOR2
 	self.userPanningCamera = false
 	self.lastUserPanCamera = tick()
-	
+
 	self.humanoidRootPart = nil
 	self.humanoidCache = {}
-	
+
 	-- Subject and position on last update call
 	self.lastSubject = nil
 	self.lastSubjectPosition = Vector3.new(0,5,0)
@@ -88,32 +81,31 @@ function BaseCamera.new()
 	-- to be sure the default is always in range and appropriate for the orientation.
 	self.defaultSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, DEFAULT_DISTANCE)
 	self.currentSubjectDistance = Util.Clamp(player.CameraMinZoomDistance, player.CameraMaxZoomDistance, DEFAULT_DISTANCE)
-	
+
 	self.inFirstPerson = false
 	self.inMouseLockedMode = false
 	self.portraitMode = false
-	
+
 	self.enabled = false
-	
+
 	-- Input Event Connections
 	self.inputBeganConn = nil
 	self.inputChangedConn = nil
 	self.inputEndedConn = nil
-	
+
 	self.startPos = nil
 	self.lastPos = nil
 	self.panBeginLook = nil
-	
+
 	self.panEnabled = true
 	self.keyPanEnabled = true
 	self.distanceChangeEnabled = true
-	
-	self.gestureArea = nil
+
 	self.PlayerGui = nil
-	
+
 	self.cameraChangedConn = nil
 	self.viewportSizeChangedConn = nil
-	
+
 	-- VR Support
 	self.shouldUseVRRotation = false
 	self.VRRotationIntensityAvailable = false
@@ -129,7 +121,7 @@ function BaseCamera.new()
 	self.subjectStateChangedConn = nil
 	self.humanoidChildAddedConn = nil
 	self.humanoidChildRemovedConn = nil
-	
+
 	-- Gamepad support
 	self.activeGamepad = nil
 	self.gamepadPanningCamera = false
@@ -147,7 +139,7 @@ function BaseCamera.new()
 	self.L3ButtonDown = false
 	self.dpadLeftDown = false
 	self.dpadRightDown = false
-	
+
 	-- Touch input support
 	self.isDynamicThumbstickEnabled = false
 	self.fingerTouches = {}
@@ -158,51 +150,57 @@ function BaseCamera.new()
 	self.pinchBeginZoom = nil
 	self.userPanningTheCamera = false
 	self.touchActivateConn = nil
-	
+
 	-- Mouse locked formerly known as shift lock mode
 	self.mouseLockOffset = ZERO_VECTOR3
 
 	-- [[ NOTICE ]] --
 	-- Initialization things used to always execute at game load time, but now these camera modules are instantiated
 	-- when needed, so the code here may run well after the start of the game
-	
+
 	if player.Character then
 		self:OnCharacterAdded(player.Character)
 	end
-	
+
 	player.CharacterAdded:Connect(function(char)
 		self:OnCharacterAdded(char)
 	end)
-	
+
+	if self.cameraChangedConn then self.cameraChangedConn:Disconnect() end
 	self.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 		self:OnCurrentCameraChanged()
 	end)
-	
+
+	if self.playerCameraModeChangeConn then self.playerCameraModeChangeConn:Disconnect() end
 	self.playerCameraModeChangeConn = player:GetPropertyChangedSignal("CameraMode"):Connect(function()
 		self:OnPlayerCameraPropertyChange()
 	end)
-	
+
+	if self.minDistanceChangeConn then self.minDistanceChangeConn:Disconnect() end
 	self.minDistanceChangeConn = player:GetPropertyChangedSignal("CameraMinZoomDistance"):Connect(function()
 		self:OnPlayerCameraPropertyChange()
 	end)
-	
+
+	if self.maxDistanceChangeConn then self.maxDistanceChangeConn:Disconnect() end
 	self.maxDistanceChangeConn = player:GetPropertyChangedSignal("CameraMaxZoomDistance"):Connect(function()
 		self:OnPlayerCameraPropertyChange()
 	end)
-	
+
+	if self.playerDevTouchMoveModeChangeConn then self.playerDevTouchMoveModeChangeConn:Disconnect() end
 	self.playerDevTouchMoveModeChangeConn = player:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(function()
 		self:OnDevTouchMovementModeChanged()
 	end)
 	self:OnDevTouchMovementModeChanged() -- Init
-	
+
+	if self.gameSettingsTouchMoveMoveChangeConn then self.gameSettingsTouchMoveMoveChangeConn:Disconnect() end
 	self.gameSettingsTouchMoveMoveChangeConn = UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function()
 		self:OnGameSettingsTouchMovementModeChanged()
 	end)
 	self:OnGameSettingsTouchMovementModeChanged() -- Init
-	
+
 	UserGameSettings:SetCameraYInvertVisible()
-	pcall(function() UserGameSettings:SetGamepadCameraSensitivityVisible() end)
-	
+	UserGameSettings:SetGamepadCameraSensitivityVisible()
+
 	self.hasGameLoaded = game:IsLoaded()
 	if not self.hasGameLoaded then
 		self.gameLoadedConn = game.Loaded:Connect(function()
@@ -211,7 +209,7 @@ function BaseCamera.new()
 			self.gameLoadedConn = nil
 		end)
 	end
-	
+
 	return self
 end
 
@@ -225,13 +223,6 @@ function BaseCamera:OnCharacterAdded(char)
 		if self.PlayerGui then
 			local screenGui = Instance.new("ScreenGui")
 			screenGui.Parent = self.PlayerGui
-			
-			self.gestureArea = Instance.new("Frame")
-			self.gestureArea.BackgroundTransparency = 1.0
-			self.gestureArea.Visible = true
-			self.gestureArea.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-			self:LayoutGestureArea(self.portraitMode)
-			self.gestureArea.Parent = screenGui
 		end
 		for _, child in ipairs(char:GetChildren()) do
 			if child:IsA("Tool") then
@@ -272,7 +263,7 @@ function BaseCamera:GetBodyPartToFollow(humanoid, isDead)
 			return character:FindFirstChild("Head") or humanoid.RootPart
 		end
 	end
-	
+
 	return humanoid.RootPart
 end
 
@@ -280,49 +271,44 @@ function BaseCamera:GetSubjectPosition()
 	local result = self.lastSubjectPosition
 	local camera = game.Workspace.CurrentCamera
 	local cameraSubject = camera and camera.CameraSubject
-	
+
 	if cameraSubject then
 		if cameraSubject:IsA("Humanoid") then
 			local humanoid = cameraSubject
 			local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
-			
+
 			if VRService.VREnabled and humanoidIsDead and humanoid == self.lastSubject then
 				result = self.lastSubjectPosition
 			else
 				local bodyPartToFollow = humanoid.RootPart
-				
+
 				-- If the humanoid is dead, prefer their head part as a follow target, if it exists
 				if humanoidIsDead then
 					if humanoid.Parent and humanoid.Parent:IsA("Model") then
 						bodyPartToFollow = humanoid.Parent:FindFirstChild("Head") or bodyPartToFollow
 					end
-				end				
-				
-				
+				end
+
 				if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
 					local heightOffset = humanoid.RigType == Enum.HumanoidRigType.R15 and R15_HEAD_OFFSET or HEAD_OFFSET
-					
 					if humanoidIsDead then
 						heightOffset = ZERO_VECTOR3
 					end
 
 					result = bodyPartToFollow.CFrame.p + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + humanoid.CameraOffset)
 				end
-			end	
-			
+			end
+
 		elseif cameraSubject:IsA("VehicleSeat") then
 			local offset = SEAT_OFFSET
 			if VRService.VREnabled then
 				offset = VR_SEAT_OFFSET
 			end
 			result = cameraSubject.CFrame.p + cameraSubject.CFrame:vectorToWorldSpace(offset)
-			
 		elseif cameraSubject:IsA("SkateboardPlatform") then
 			result = cameraSubject.CFrame.p + SEAT_OFFSET
-			
 		elseif cameraSubject:IsA("BasePart") then
 			result = cameraSubject.CFrame.p
-			
 		elseif cameraSubject:IsA("Model") then
 			if cameraSubject.PrimaryPart then
 				result = cameraSubject:GetPrimaryPartCFrame().p
@@ -335,12 +321,12 @@ function BaseCamera:GetSubjectPosition()
 		-- Note: Previous RootCamera did not have this else case and let self.lastSubject and self.lastSubjectPosition
 		-- both get set to nil in the case of cameraSubject being nil. This function now exits here to preserve the
 		-- last set valid values for these, as nil values are not handled cases
-		return		
+		return
 	end
-	
+
 	self.lastSubject = cameraSubject
 	self.lastSubjectPosition = result
-	
+
 	return result
 end
 
@@ -357,7 +343,6 @@ function BaseCamera:OnViewportSizeChanged()
 	local camera = game.Workspace.CurrentCamera
 	local size = camera.ViewportSize
 	self.portraitMode = size.X < size.Y
-	self:LayoutGestureArea()
 	self:UpdateDefaultSubjectDistance()
 end
 
@@ -368,7 +353,7 @@ function BaseCamera:OnCurrentCameraChanged()
 			self.viewportSizeChangedConn:Disconnect()
 			self.viewportSizeChangedConn = nil
 		end
-		
+
 		local newCamera = game.Workspace.CurrentCamera
 
 		if newCamera then
@@ -378,13 +363,13 @@ function BaseCamera:OnCurrentCameraChanged()
 			end)
 		end
 	end
-	
+
 	-- VR support additions
 	if self.cameraSubjectChangedConn then
 		self.cameraSubjectChangedConn:Disconnect()
 		self.cameraSubjectChangedConn = nil
 	end
-	
+
 	local camera = game.Workspace.CurrentCamera
 	if camera then
 		self.cameraSubjectChangedConn = camera:GetPropertyChangedSignal("CameraSubject"):Connect(function()
@@ -448,7 +433,7 @@ function BaseCamera:Enable(enable)
 		self.enabled = enable
 		if self.enabled then
 			self:ConnectInputEvents()
-			
+
 			if Players.LocalPlayer.CameraMode == Enum.CameraMode.LockFirstPerson then
 				self.currentSubjectDistance = 0.5
 				if not self.inFirstPerson then
@@ -457,7 +442,6 @@ function BaseCamera:Enable(enable)
 			end
 		else
 			self:DisconnectInputEvents()
-			
 			-- Clean up additional event listeners and reset a bunch of properties
 			self:Cleanup()
 		end
@@ -510,21 +494,19 @@ function BaseCamera:ConnectInputEvents()
 	self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
 		self:OnInputBegan(input, processed)
 	end)
-	
+
 	self.inputChangedConn = UserInputService.InputChanged:Connect(function(input, processed)
 		self:OnInputChanged(input, processed)
 	end)
-	
+
 	self.inputEndedConn = UserInputService.InputEnded:Connect(function(input, processed)
 		self:OnInputEnded(input, processed)
 	end)
-	
-	if TEMP_TOUCH_WORKSPACE_EVENT_EXISTS then
-		self.touchActivateConn = UserInputService.TouchTapInWorld:Connect(function(touchPos, processed)
-			self:OnTouchTap(touchPos)
-		end)
-	end
-	
+
+	self.touchActivateConn = UserInputService.TouchTapInWorld:Connect(function(touchPos, processed)
+		self:OnTouchTap(touchPos)
+	end)
+
 	self.menuOpenedConn = GuiService.MenuOpened:connect(function()
 		self:ResetInputStates()
 	end)
@@ -599,10 +581,6 @@ function BaseCamera:Cleanup()
 		self.subjectStateChangedConn:Disconnect()
 		self.subjectStateChangedConn = nil
 	end
-	if self.cameraChangedConn then
-		self.cameraChangedConn:Disconnect()
-		self.cameraChangedConn = nil
-	end
 	if self.viewportSizeChangedConn then
 		self.viewportSizeChangedConn:Disconnect()
 		self.viewportSizeChangedConn = nil
@@ -610,26 +588,6 @@ function BaseCamera:Cleanup()
 	if self.touchActivateConn then
 		self.touchActivateConn:Disconnect()
 		self.touchActivateConn = nil
-	end
-	if self.playerCameraModeChangeConn then
-		self.playerCameraModeChangeConn:Disconnect()
-		self.playerCameraModeChangeConn = nil
-	end
-	if self.minDistanceChangeConn then
-		self.minDistanceChangeConn:Disconnect()
-		self.minDistanceChangeConn = nil
-	end
-	if self.maxDistanceChangeConn then
-		self.maxDistanceChangeConn:Disconnect()
-		self.maxDistanceChangeConn = nil
-	end
-	if self.playerDevTouchMoveModeChangeConn then
-		self.playerDevTouchMoveModeChangeConn:Disconnect()
-		self.playerDevTouchMoveModeChangeConn = nil
-	end
-	if self.gameSettingsTouchMoveMoveChangeConn then
-		self.gameSettingsTouchMoveMoveChangeConn:Disconnect()
-		self.gameSettingsTouchMoveMoveChangeConn = nil
 	end
 
 	self.turningLeft = false
@@ -669,7 +627,7 @@ function BaseCamera:ResetInputStates()
 		--[[menu opening was causing serious touch issues
 		this should disable all active touch events if
 		they're active when menu opens.]]
-		for inputObject, value in pairs(self.fingerTouches) do
+		for inputObject in pairs(self.fingerTouches) do
 			self.fingerTouches[inputObject] = nil
 		end
 		self.panBeginLook = nil
@@ -697,8 +655,8 @@ function BaseCamera:GetGamepadPan(name, state, input)
 			if state == Enum.UserInputState.Cancel then
 				self.gamepadPanningCamera = ZERO_VECTOR2
 				return
-			end		
-			
+			end
+
 			local inputVector = Vector2.new(input.Position.X, -input.Position.Y)
 			if inputVector.magnitude > THUMBSTICK_DEADZONE then
 				self.gamepadPanningCamera = Vector2.new(input.Position.X, -input.Position.Y)
@@ -722,11 +680,11 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 				end
 			end
 		elseif input.KeyCode == Enum.KeyCode.DPadLeft then
-			self.dpadLeftDown = (state == Enum.UserInputState.Begin)	
+			self.dpadLeftDown = (state == Enum.UserInputState.Begin)
 		elseif input.KeyCode == Enum.KeyCode.DPadRight then
 			self.dpadRightDown = (state == Enum.UserInputState.Begin)
 		end
-		
+
 		if self.dpadLeftDown then
 			self.currentZoomSpeed = 1.04
 		elseif self.dpadRightDown then
@@ -753,19 +711,9 @@ function BaseCamera:BindGamepadInputActions()
 	ContextActionService:BindAction("RootGamepadZoomIn", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadRight)
 end
 
-local function PositionIntersectsGuiObject(position, guiObject)
-	if position.X < guiObject.AbsolutePosition.X + guiObject.AbsoluteSize.X
-		and position.X > guiObject.AbsolutePosition.X
-		and position.Y < guiObject.AbsolutePosition.Y + guiObject.AbsoluteSize.Y
-		and position.Y > guiObject.AbsolutePosition.Y then
-		return true
-	end
-	return false
-end	
-
 function BaseCamera:OnTouchBegan(input, processed)
-	--If isDynamicThumbstickEnabled, then only process TouchBegan event if it starts in GestureArea
-	if (not self.touchWorkspaceEventEnabled and not self.isDynamicThumbstickEnabled) or PositionIntersectsGuiObject(input.Position, self.gestureArea) then
+	local canUseDynamicTouch = self.isDynamicThumbstickEnabled and not processed
+	if canUseDynamicTouch then
 		self.fingerTouches[input] = processed
 		if not processed then
 			self.inputStartPositions[input] = input.Position
@@ -793,15 +741,12 @@ function BaseCamera:OnTouchChanged(input, processed)
 			self.lastPos = self.lastPos or self.startPos
 			self.userPanningTheCamera = true
 
-			local delta = input.Position - self.lastPos		
-			
+			local delta = input.Position - self.lastPos
 			delta = Vector2.new(delta.X, delta.Y * UserGameSettings:GetCameraYInvertValue())
-			
 			if self.panEnabled then
 				local desiredXYVector = self:InputTranslationToCameraAngleChange(delta, TOUCH_SENSITIVTY)
 				self.rotateInput = self.rotateInput + desiredXYVector
 			end
-
 			self.lastPos = input.Position
 		end
 	else
@@ -840,7 +785,7 @@ function BaseCamera:CalcLookBehindRotateInput()
 	if not self.humanoidRootPart or not game.Workspace.CurrentCamera then
 		return nil
 	end
-	
+
 	local cameraLookVector = game.Workspace.CurrentCamera.CFrame.lookVector
 	local newDesiredLook = (self.humanoidRootPart.CFrame.lookVector - Vector3.new(0,0.23,0)).unit
 	local horizontalShift = Util.GetAngleBetweenXZVectors(newDesiredLook, cameraLookVector)
@@ -851,15 +796,11 @@ function BaseCamera:CalcLookBehindRotateInput()
 	if not Util.IsFinite(vertShift) then
 		vertShift = 0
 	end
-	
+
 	return Vector2.new(horizontalShift, vertShift)
 end
 
 function BaseCamera:OnTouchTap(position)
-	if not TEMP_TOUCH_WORKSPACE_EVENT_EXISTS then
-		return
-	end
-	
 	if self.isDynamicThumbstickEnabled and not self.isAToolEquipped then
 		if self.lastTapTime and tick() - self.lastTapTime < MAX_TIME_FOR_DOUBLE_TAP then
 --			local tween = {
@@ -881,7 +822,7 @@ function BaseCamera:OnTouchTap(position)
 				-- camera looking from behind the character
 				self.rotateInput = self:CalcLookBehindRotateInput()
 			end
-			
+
 --			local humanoid = self:GetHumanoid()
 --			if humanoid then
 --				local player = Players.LocalPlayer
@@ -901,7 +842,7 @@ function BaseCamera:OnTouchTap(position)
 --							end
 --						}
 --						tweens["Rotate"] = tween
---						
+--
 --						-- reset old camera info so follow cam doesn't rotate us
 --						this.LastCameraTransform = nil
 --					end
@@ -933,7 +874,7 @@ function BaseCamera:OnTouchEnded(input, processed)
 			self.startPos = nil
 			self.lastPos = nil
 			self.userPanningTheCamera = false
-			if not self.touchWorkspaceEventEnabled and self:IsTouchTap(input) then
+			if self:IsTouchTap(input) then
 				self:OnTouchTap(input.Position)
 			end
 		elseif self.numUnsunkTouches == 2 then
@@ -978,19 +919,17 @@ function BaseCamera:OnMouseMoved(input, processed)
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return
 	end
-	
+
 	local inputDelta = input.Delta
 	inputDelta = Vector2.new(inputDelta.X, inputDelta.Y * UserGameSettings:GetCameraYInvertValue())
-	
+
 	if self.panEnabled and ((self.startPos and self.lastPos and self.panBeginLook) or self.inFirstPerson or self.inMouseLockedMode) then
 		local desiredXYVector = self:InputTranslationToCameraAngleChange(inputDelta,MOUSE_SENSITIVITY)
 		self.rotateInput = self.rotateInput + desiredXYVector
 	end
-	
+
 	if self.startPos and self.lastPos and self.panBeginLook then
-		local currPos = self.lastPos + input.Delta
-		local totalTrans = currPos - self.startPos
-		self.lastPos = currPos
+		self.lastPos = self.lastPos + input.Delta
 	end
 end
 
@@ -1020,7 +959,7 @@ function BaseCamera:OnMouseWheel(input, processed)
 	if not processed then
 		if self.distanceChangeEnabled then
 			local wheelInput = Util.Clamp(-1, 1, -input.Position.Z)
-			
+
 			local newDistance
 			if self.inFirstPerson and wheelInput > 0 then
 				newDistance = FIRST_PERSON_DISTANCE_THRESHOLD
@@ -1030,7 +969,7 @@ function BaseCamera:OnMouseWheel(input, processed)
 				-- which was linear as it was being used. These constants preserve the status quo behavior.
 				newDistance = self.currentSubjectDistance + 0.156 * self.currentSubjectDistance * wheelInput + 1.7 * math.sign(wheelInput)
 			end
-			
+
 			self:SetCameraToSubjectDistance(newDistance)
 		end
 	end
@@ -1040,11 +979,11 @@ function BaseCamera:OnKeyDown(input, processed)
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return
 	end
-	
+
 	if processed then
 		return
 	end
-	
+
 	if self.distanceChangeEnabled then
 		if input.KeyCode == Enum.KeyCode.I then
 			self:SetCameraToSubjectDistance( self.currentSubjectDistance - 5 )
@@ -1052,7 +991,7 @@ function BaseCamera:OnKeyDown(input, processed)
 			self:SetCameraToSubjectDistance( self.currentSubjectDistance + 5 )
 		end
 	end
-	
+
 	if self.panBeginLook == nil and self.keyPanEnabled then
 		if input.KeyCode == Enum.KeyCode.Left then
 			self.turningLeft = true
@@ -1073,11 +1012,9 @@ function BaseCamera:OnKeyDown(input, processed)
 				self.lastCameraTransform = nil
 			end
 		elseif input.KeyCode == Enum.KeyCode.PageUp then
-		--elseif input.KeyCode == Enum.KeyCode.Home then
 			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(15))
 			self.lastCameraTransform = nil
 		elseif input.KeyCode == Enum.KeyCode.PageDown then
-		--elseif input.KeyCode == Enum.KeyCode.End then
 			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(-15))
 			self.lastCameraTransform = nil
 		end
@@ -1117,11 +1054,11 @@ end
 
 function BaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	local player = Players.LocalPlayer
-	
+
 	-- By default, camera modules will respect LockFirstPerson and override the currentSubjectDistance with 0
 	-- regardless of what Player.CameraMinZoomDistance is set to, so that first person can be made
 	-- available by the developer without needing to allow players to mousewheel dolly into first person.
-	-- Some modules will override this function to remove or change first-person capability.	
+	-- Some modules will override this function to remove or change first-person capability.
 	if player.CameraMode == Enum.CameraMode.LockFirstPerson then
 		self.currentSubjectDistance = 0.5
 		if not self.inFirstPerson then
@@ -1138,10 +1075,10 @@ function BaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 			self.currentSubjectDistance = newSubjectDistance
 			if self.inFirstPerson then
 				self:LeaveFirstPerson()
-			end	
+			end
 		end
 	end
-	
+
 	-- Returned only for convenience to the caller to know the outcome
 	return self.currentSubjectDistance
 end
@@ -1151,7 +1088,7 @@ function BaseCamera:SetCameraType( cameraType )
 	self.cameraType = cameraType
 end
 
-function BaseCamera:GetCameraType( cameraType )
+function BaseCamera:GetCameraType()
 	return self.cameraType
 end
 
@@ -1195,7 +1132,7 @@ end
 
 -- Nominal distance, set by dollying in and out with the mouse wheel or equivalent, not measured distance
 function BaseCamera:GetCameraToSubjectDistance()
-	return self.currentSubjectDistance	
+	return self.currentSubjectDistance
 end
 
 -- Actual measured distance to the camera Focus point, which may be needed in special circumstances, but should
@@ -1219,7 +1156,7 @@ function BaseCamera:CalculateNewLookCFrame(suppliedLookVector)
 	local currLookVector = suppliedLookVector or self:GetCameraLookVector()
 	local currPitchAngle = math.asin(currLookVector.y)
 	local yTheta = Util.Clamp(-MAX_Y + currPitchAngle, -MIN_Y + currPitchAngle, self.rotateInput.y)
-	local constrainedRotateInput = Vector2.new(self.rotateInput.x, yTheta)	
+	local constrainedRotateInput = Vector2.new(self.rotateInput.x, yTheta)
 	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
 	local newLookCFrame = CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)
 	return newLookCFrame
@@ -1327,9 +1264,8 @@ function BaseCamera:ApplyVRTransform()
 	if not VRService.VREnabled then
 		return
 	end
-	
+
 	--we only want this to happen in first person VR
-	local player = Players.LocalPlayer
 	local rootJoint = self.humanoidRootPart and self.humanoidRootPart:FindFirstChild("RootJoint")
 	if not rootJoint then
 		return
@@ -1355,13 +1291,13 @@ function BaseCamera:ShouldUseVRRotation()
 	if not VRService.VREnabled then
 		return false
 	end
-	
+
 	if not self.VRRotationIntensityAvailable and tick() - self.lastVRRotationIntensityCheckTime < 1 then
 		return false
 	end
 
 	local success, vrRotationIntensity = pcall(function() return StarterGui:GetCore("VRRotationIntensity") end)
-	self.VRRotationIntensityAvailable = success and vrRotationIntensity ~= nil	
+	self.VRRotationIntensityAvailable = success and vrRotationIntensity ~= nil
 	self.lastVRRotationIntensityCheckTime = tick()
 
 	self.shouldUseVRRotation = success and vrRotationIntensity ~= nil and vrRotationIntensity ~= "Smooth"
@@ -1372,7 +1308,7 @@ end
 function BaseCamera:GetVRRotationInput()
 	local vrRotateSum = ZERO_VECTOR2
 	local success, vrRotationIntensity = pcall(function() return StarterGui:GetCore("VRRotationIntensity") end)
-	
+
 	if not success then
 		return
 	end
@@ -1505,13 +1441,12 @@ function BaseCamera:OnNewCameraSubject()
 end
 
 function BaseCamera:GetVRFocus(subjectPosition, timeDelta)
-	local newFocus = nil
-
-	local camera = workspace.CurrentCamera
 	local lastFocus = self.LastCameraFocus or subjectPosition
 	if not self.cameraFrozen then
 		self.cameraTranslationConstraints = Vector3.new(self.cameraTranslationConstraints.x, math.min(1, self.cameraTranslationConstraints.y + 0.42 * timeDelta), self.cameraTranslationConstraints.z)
 	end
+
+	local newFocus
 	if self.cameraFrozen and self.humanoidJumpOrigin and self.humanoidJumpOrigin.y > lastFocus.y then
 		newFocus = CFrame.new(Vector3.new(subjectPosition.x, math.min(self.humanoidJumpOrigin.y, lastFocus.y + 5 * timeDelta), subjectPosition.z))
 	else
@@ -1555,18 +1490,6 @@ function BaseCamera:GetRepeatDelayValue(vrRotationIntensity)
 		end
 	end
 	return 0
-end
-
-function BaseCamera:LayoutGestureArea()
-	if self.gestureArea then
-		if self.portraitMode then
-			self.gestureArea.Size = UDim2.new(1, 0, .6, 0)
-			self.gestureArea.Position = UDim2.new(0, 0, 0, 0)
-		else
-			self.gestureArea.Size = UDim2.new(1, 0, .5, -18)
-			self.gestureArea.Position = UDim2.new(0, 0, 0, 0)
-		end
-	end
 end
 
 function BaseCamera:Test()
