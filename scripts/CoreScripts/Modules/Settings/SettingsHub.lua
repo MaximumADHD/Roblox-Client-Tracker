@@ -12,6 +12,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 --[[ UTILITIES ]]
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local FlagSettings = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.FlagSettings)
 
 --[[ CONSTANTS ]]
 local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
@@ -28,8 +29,7 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
-local FFlagSettingsHubInviteToGame2 = settings():GetFFlag('SettingsHubInviteToGame2')
-local FFlagSettingsHubBarsRefactor2 = settings():GetFFlag('SettingsHubBarsRefactor2')
+local FFlagSettingsHubBarsRefactor3 = settings():GetFFlag('SettingsHubBarsRefactor3')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 local FFlagSettingsHubPlayersHorizontalScroll = settings():GetFFlag("SettingsHubPlayersHorizontalScroll")
@@ -51,7 +51,6 @@ local HttpService = game:GetService("HttpService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-
 --[[ REMOTES ]]
 local GetServerVersionRemote = nil
 spawn(function()
@@ -72,6 +71,8 @@ local lastInputChangedCon = nil
 local chatWasVisible = false
 
 local connectedServerVersion = nil
+
+local IsShareGamePageEnabledByPlatform = FlagSettings.IsShareGamePageEnabledByPlatform(platform)
 
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
@@ -146,7 +147,7 @@ local function CreateSettingsHub()
 	local function shouldShowBottomBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
 
-		if not FFlagSettingsHubBarsRefactor2 then
+		if not FFlagSettingsHubBarsRefactor3 then
 			if whichPage == this.LeaveGamePage or whichPage == this.ResetCharacterPage then
 				return false
 			end
@@ -156,7 +157,7 @@ local function CreateSettingsHub()
 			return false
 		end
 
-		if FFlagSettingsHubBarsRefactor2 then
+		if FFlagSettingsHubBarsRefactor3 then
 			return whichPage.ShouldShowBottomBar == true
 		else
 			return true
@@ -705,7 +706,7 @@ local function CreateSettingsHub()
 	end
 
 	local function onScreenSizeChanged()
-		
+
 		local largestPageSize = 600
 		local fullScreenSize = RobloxGui.AbsoluteSize.y
 		local bufferSize = (1-0.95) * fullScreenSize
@@ -1125,14 +1126,14 @@ local function CreateSettingsHub()
 				this.BottomButtonFrame.Visible = false
 			end
 
-			if FFlagSettingsHubBarsRefactor2 then
+			if FFlagSettingsHubBarsRefactor3 then
 				this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
 			else
 				this.HubBar.Visible = not (pageToSwitchTo == this.LeaveGamePage or pageToSwitchTo == this.ResetCharacterPage)
 			end
 		end
 
-		if FFlagSettingsHubBarsRefactor2 then
+		if FFlagSettingsHubBarsRefactor3 then
 			-- set whether the page should be clipped
 			local isClipped = pageToSwitchTo.IsPageClipped == true
 			this.PageViewClipper.ClipsDescendants = isClipped
@@ -1471,28 +1472,28 @@ local function CreateSettingsHub()
 	if not isTenFootInterface then
 		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 		this.PlayersPage:SetHub(this)
-	end
 
-	if FFlagSettingsHubInviteToGame2 then
-		local shareGameCorePackages = {
-			"Roact",
-			"Rodux",
-			"RoactRodux",
-		}
-		if GetCorePackagesLoaded(shareGameCorePackages) then
-			-- Create the embedded Roact app for the ShareGame page
-			-- This is accomplished via a Roact Portal into the ShareGame page frame
-			local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
-			this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper)
+		if IsShareGamePageEnabledByPlatform then
+			local shareGameCorePackages = {
+				"Roact",
+				"Rodux",
+				"RoactRodux",
+			}
+			if GetCorePackagesLoaded(shareGameCorePackages) then
+				-- Create the embedded Roact app for the ShareGame page
+				-- This is accomplished via a Roact Portal into the ShareGame page frame
+				local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
+				this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper)
 
 
-			this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePlaceholderPage)
-			this.ShareGamePage:ConnectHubToApp(this, this.ShareGameApp)
+				this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePlaceholderPage)
+				this.ShareGamePage:ConnectHubToApp(this, this.ShareGameApp)
 
-			this:AddPage(this.ShareGamePage)
+				this:AddPage(this.ShareGamePage)
+			end
 		end
 	end
-	
+
 	-- page registration
 	if not isTenFootInterface then
 		this:AddPage(this.PlayersPage)

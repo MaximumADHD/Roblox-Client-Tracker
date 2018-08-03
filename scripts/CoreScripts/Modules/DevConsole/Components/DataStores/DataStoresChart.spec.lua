@@ -6,7 +6,7 @@ return function()
 	local DataStoresChart = require(script.Parent.DataStoresChart)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(DataProvider, {},{
+		local element = Roact.createElement(DataProvider, {}, {
 			DataStoresChart = Roact.createElement(DataStoresChart)
 		})
 

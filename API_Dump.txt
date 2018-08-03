@@ -58,6 +58,8 @@ Class AnalyticsService : Instance [notCreatable]
 	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
 	Function void AnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) [RobloxScriptSecurity]
 	Function void AnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
+	Function void AnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
+	Function void AnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) [RobloxScriptSecurity]
@@ -824,6 +826,8 @@ Class ScrollingFrame : GuiObject
 	Property ElasticBehavior ScrollingFrame.ElasticBehavior
 	Property ScrollBarInset ScrollingFrame.HorizontalScrollBarInset
 	Property Content ScrollingFrame.MidImage
+	Property Color3 ScrollingFrame.ScrollBarImageColor3
+	Property float ScrollingFrame.ScrollBarImageTransparency
 	Property int ScrollingFrame.ScrollBarThickness
 	Property ScrollingDirection ScrollingFrame.ScrollingDirection
 	Property bool ScrollingFrame.ScrollingEnabled
@@ -889,6 +893,7 @@ Class PluginGui : LayerCollector [notCreatable]
 	Event PluginGui.WindowFocused() [PluginSecurity]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
+	Property bool ScreenGui.IgnoreGuiInset
 	Property bool ScreenGui.OnTopOfCoreBlur [hidden] [RobloxScriptSecurity]
 Class GuiMain : ScreenGui [deprecated]
 Class SurfaceGui : LayerCollector
@@ -1128,6 +1133,7 @@ Class Humanoid : Instance
 	Function void Humanoid:ChangeState(HumanoidStateType state = None)
 	Function void Humanoid:EquipTool(Instance tool)
 	Function Array Humanoid:GetAccessories()
+	Function BodyPartR15 Humanoid:GetBodyPartR15(Instance part)
 	Function Limb Humanoid:GetLimb(Instance part)
 	Function Array Humanoid:GetPlayingAnimationTracks()
 	Function HumanoidStateType Humanoid:GetState()
@@ -1141,6 +1147,7 @@ Class Humanoid : Instance
 	Function void Humanoid:RemoveAccessories()
 	Function bool Humanoid:RemoveCustomStatus(string status) [deprecated]
 	Function bool Humanoid:RemoveStatus(Status status = Poison) [deprecated]
+	Function bool Humanoid:ReplaceBodyPartR15(BodyPartR15 bodyPart, Instance part)
 	Function void Humanoid:SetClickToWalkEnabled(bool enabled) [RobloxScriptSecurity]
 	Function void Humanoid:SetStateEnabled(HumanoidStateType state, bool enabled)
 	Function void Humanoid:TakeDamage(float amount)
@@ -2727,6 +2734,19 @@ Class Vector3Value : ValueBase
 Class VirtualInputManager : Instance
 	Property string VirtualInputManager.AdditionalLuaState [RobloxScriptSecurity]
 	Function void VirtualInputManager:Dump() [RobloxScriptSecurity]
+	Function void VirtualInputManager:HandleGamepadAxisInput(int objectId, KeyCode keyCode, float x, float y, float z) [RobloxScriptSecurity]
+	Function void VirtualInputManager:HandleGamepadButtonInput(int deviceId, KeyCode keyCode, int buttonState) [RobloxScriptSecurity]
+	Function void VirtualInputManager:HandleGamepadConnect(int deviceId) [RobloxScriptSecurity]
+	Function void VirtualInputManager:HandleGamepadDisconnect(int deviceId) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendAccelerometerEvent(float x, float y, float z) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendGravityEvent(float x, float y, float z) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendGyroscopeEvent(float quatX, float quatY, float quatZ, float quatW) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendKeyEvent(bool isPressed, KeyCode keyCode, bool isRepeatedKey) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendMouseMoveEvent(float x, float y) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendTextInputCharacterEvent(string str) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendTouchEvent(int64 touchId, int state, float x, float y) [RobloxScriptSecurity]
 	Function void VirtualInputManager:StartPlaying(string fileName) [RobloxScriptSecurity]
 	Function void VirtualInputManager:StartRecording() [RobloxScriptSecurity]
 	Function void VirtualInputManager:StopRecording() [RobloxScriptSecurity]
@@ -2829,6 +2849,10 @@ Enum AssetType
 	EnumItem AssetType.PoseAnimation : 56
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
+Enum AutoJointsMode
+	EnumItem AutoJointsMode.Default : 0
+	EnumItem AutoJointsMode.Explicit : 1
+	EnumItem AutoJointsMode.LegacyImplicit : 2
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -2853,6 +2877,24 @@ Enum BodyPart
 	EnumItem BodyPart.RightArm : 3
 	EnumItem BodyPart.LeftLeg : 4
 	EnumItem BodyPart.RightLeg : 5
+Enum BodyPartR15
+	EnumItem BodyPartR15.Head : 0
+	EnumItem BodyPartR15.UpperTorso : 1
+	EnumItem BodyPartR15.LowerTorso : 2
+	EnumItem BodyPartR15.LeftFoot : 3
+	EnumItem BodyPartR15.LeftLowerLeg : 4
+	EnumItem BodyPartR15.LeftUpperLeg : 5
+	EnumItem BodyPartR15.RightFoot : 6
+	EnumItem BodyPartR15.RightLowerLeg : 7
+	EnumItem BodyPartR15.RightUpperLeg : 8
+	EnumItem BodyPartR15.LeftHand : 9
+	EnumItem BodyPartR15.LeftLowerArm : 10
+	EnumItem BodyPartR15.LeftUpperArm : 11
+	EnumItem BodyPartR15.RightHand : 12
+	EnumItem BodyPartR15.RightLowerArm : 13
+	EnumItem BodyPartR15.RightUpperArm : 14
+	EnumItem BodyPartR15.RootPart : 15
+	EnumItem BodyPartR15.Unknown : 17
 Enum Button
 	EnumItem Button.Jump : 32
 	EnumItem Button.Dismount : 8

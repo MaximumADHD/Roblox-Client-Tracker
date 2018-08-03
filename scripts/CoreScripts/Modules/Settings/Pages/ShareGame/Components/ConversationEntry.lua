@@ -6,10 +6,11 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(CorePackages.Roact)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
-local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail)
+
 local ConversationDetails = require(ShareGame.Components.ConversationDetails)
-local InviteButton = require(ShareGame.Components.InviteButton)
+local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail)
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+local InviteButton = require(ShareGame.Components.InviteButton)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -33,7 +34,7 @@ function ConversationEntry:render()
 	local title = self.props.title
 	local users = self.props.users
 	local inviteUser = self.props.inviteUser
-	local alreadyInvited = self.props.alreadyInvited
+	local inviteStatus = self.props.inviteStatus
 
 	-- Presence gets passed in if there's only one user
 	local presence = self.props.presence
@@ -114,11 +115,10 @@ function ConversationEntry:render()
 						}
 
 						self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
-						-- TODO: SOC-722 Show error if link is moderated
 					end)
 				end
 			end,
-			alreadyInvited = alreadyInvited,
+			inviteStatus = inviteStatus,
 		}),
 	})
 end

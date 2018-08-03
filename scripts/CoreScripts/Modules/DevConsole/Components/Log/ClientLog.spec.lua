@@ -6,7 +6,7 @@ return function()
 	local ClientLog = require(script.Parent.ClientLog)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(DataProvider, {},{
+		local element = Roact.createElement(DataProvider, {}, {
 			ClientLog = Roact.createElement(ClientLog)
 		})
 

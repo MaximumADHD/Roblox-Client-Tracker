@@ -20,7 +20,7 @@ return function()
 	}
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(MemoryView,{
+		local element = Roact.createElement(MemoryView, {
 			targetMemoryData = dummmyMemoryData,
 		})
 

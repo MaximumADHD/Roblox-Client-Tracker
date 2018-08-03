@@ -35,7 +35,7 @@ function CheckBox:render()
 	local textVector = TextService:GetTextSize(name, fontSize, font, Vector2.new(0, frameHeight))
 	local textWidth = textVector.X
 
-	return Roact.createElement("ImageButton",{
+	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(0, checkBoxHeight + textWidth + (PADDING * 2), 0, frameHeight),
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
@@ -53,7 +53,7 @@ function CheckBox:render()
 			BorderColor3 = Constants.Color.Text,
 			BorderSizePixel = borderSize,
 		}),
-		Text = Roact.createElement("TextLabel",{
+		Text = Roact.createElement("TextLabel", {
 			Text = name,
 			TextColor3 = Constants.Color.Text,
 			TextXAlignment = Enum.TextXAlignment.Left,

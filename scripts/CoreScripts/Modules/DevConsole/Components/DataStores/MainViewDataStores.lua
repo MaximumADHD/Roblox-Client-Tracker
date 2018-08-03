@@ -56,7 +56,7 @@ function MainViewDataStores:render()
 
 	local utilTabHeight = self.state.utilTabHeight
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
@@ -67,7 +67,7 @@ function MainViewDataStores:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		UtilAndTab = Roact.createElement(UtilAndTab,{
+		UtilAndTab = Roact.createElement(UtilAndTab, {
 			windowWidth = size.X.Offset,
 			formFactor = formFactor,
 			tabList = tabList,

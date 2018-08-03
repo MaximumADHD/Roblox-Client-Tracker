@@ -21,6 +21,7 @@ local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJank
 local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
 local FFlagPresetInGameGuiInset = settings():GetFFlag("PresetInGameGuiInset")
 local FFlagLoadingScreenNewTextLayout = settings():GetFFlag("LoadingScreenNewTextLayout")
+local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 
 -- Remove when removing PresetInGameGuiInset
 if FFlagSetGuiInsetInLoadingScript then
@@ -784,7 +785,19 @@ GuiService.ErrorMessageChanged:connect(function()
 		elseif utility:IsSmallTouchScreen() then
 			currScreenGui.ErrorFrame.Size = UDim2.new(0.5, 0, 0, 40)
 		end
-		currScreenGui.ErrorFrame.ErrorText.Text = GuiService:GetErrorMessage()
+
+		local errorCode = GuiService:GetErrorCode()
+		local errorMessage = GuiService:GetErrorMessage()
+		if not FFlagShowConnectionErrorCode then
+			currScreenGui.ErrorFrame.ErrorText.Text = errorMessage
+		else
+			if not errorCode then
+				currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: -1)"):format(errorMessage)
+			else
+				currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(errorMessage, errorCode.Value)
+			end
+		end
+
 		currScreenGui.ErrorFrame.Visible = true
 		local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
 		if blackFrame then

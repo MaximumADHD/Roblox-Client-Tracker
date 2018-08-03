@@ -1,13 +1,15 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Roact = require(CorePackages.Roact)
-local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
+local Constants = require(RobloxGui.Modules.Settings.Pages.ShareGame.Constants)
 
 local SearchBox = Roact.Component:extend("SearchBox")
 
-local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
+local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 local SHARE_GAME_SPRITE_PATH = ShareGameIcons:GetImagePath()
 
 local SEARCH_BORDER_SPRITE_IMAGE = SHARE_GAME_SPRITE_PATH
@@ -27,7 +29,6 @@ local SEARCH_MARGINS_VERTICAL = 6
 local SEARCH_FIELD_MARGINS = 12
 
 local SEARCH_BOX_TEXT_SIZE = 16
-local SEARCH_PLACEHOLDER_TEXT = "Search for friends"
 
 function SearchBox:init()
 	self.state = {
@@ -84,7 +85,7 @@ function SearchBox:render()
 			),
 			ClearTextOnFocus = false,
 			PlaceholderColor3 = Constants.Color.GREY3,
-			PlaceholderText = SEARCH_PLACEHOLDER_TEXT,
+			PlaceholderText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SearchForFriendsPlaceholder"),
 			Text = "",
 			TextColor3 = Constants.Color.WHITE,
 			TextWrapped = true,

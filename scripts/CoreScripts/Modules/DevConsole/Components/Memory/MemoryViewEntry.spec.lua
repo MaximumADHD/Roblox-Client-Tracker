@@ -27,7 +27,7 @@ return function()
 			}
 		}
 
-		local element = Roact.createElement(DataProvider, {},{
+		local element = Roact.createElement(DataProvider, {}, {
 			MemoryViewEntry = Roact.createElement(MemoryViewEntry, {
 				depth = 0,
 				entry = dummyEntry,

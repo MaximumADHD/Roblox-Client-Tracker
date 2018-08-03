@@ -97,7 +97,7 @@ function MainViewLog:render()
 		Padding = UDim.new(0, PADDING),
 	})
 
-	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab,{
+	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab, {
 		windowWidth = size.X.Offset,
 		formFactor = formFactor,
 		tabList = tabList,
@@ -128,7 +128,7 @@ function MainViewLog:render()
 		end
 	end
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,

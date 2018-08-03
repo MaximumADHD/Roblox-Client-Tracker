@@ -20,11 +20,12 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+local FlagSettings = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.FlagSettings)
 local ShareGameIcons = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers2")
-local fixPlayerRowLayout = settings():GetFFlag("FixPlayerRowLayout")
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -35,8 +36,6 @@ local FRIEND_IMAGE = isTenFootInterface and "rbxasset://textures/ui/Settings/Pla
 
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_SPACING = 80
-
-local INVITE_FRIENDS_TEXT = "Invite friends to play"
 
 ------------ Variables -------------------
 local platform = UserInputService:GetPlatform()
@@ -52,9 +51,9 @@ end
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagSettingsHubInviteToGame2 = settings():GetFFlag('SettingsHubInviteToGame2')
-local FFlagSettingsHubInviteToGameInStudio2 = settings():GetFFlag('SettingsHubInviteToGameInStudio2')
-local FFlagSettingsHubBarsRefactor2 = settings():GetFFlag('SettingsHubBarsRefactor2')
+local IsShareGamePageEnabledByPlatform = FlagSettings.IsShareGamePageEnabledByPlatform(platform)
+local FFlagSettingsHubInviteToGameInStudio3 = settings():GetFFlag('SettingsHubInviteToGameInStudio3')
+local FFlagSettingsHubBarsRefactor3 = settings():GetFFlag('SettingsHubBarsRefactor3')
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -66,7 +65,7 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
 	this.TabHeader.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png"
-	
+
 	if FFlagUseNotificationsLocalization then
 		this.TabHeader.Title.Text = "Players"
 	else
@@ -90,7 +89,7 @@ local function Initialize()
 	this.Page.Name = "Players"
 
 	local function showRightSideButtons(player)
-		return player and player ~= localPlayer and player.UserId > 1 and localPlayer.UserId > 1
+		return player and player ~= localPlayer and player.UserId > 0 and localPlayer.UserId > 0
 	end
 
 	local function createFriendStatusTextLabel(status, player)
@@ -123,7 +122,7 @@ local function Initialize()
 					if localPlayer and player then
                         AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
                         AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
-                        
+
 						localPlayer:RequestFriendship(player)
 					end
 				end
@@ -177,7 +176,7 @@ local function Initialize()
 					if localPlayer and player then
                         AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
                         AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
-                        
+
 						localPlayer:RequestFriendship(player)
 					end
 				end
@@ -308,7 +307,7 @@ local function Initialize()
 		end
 	end)
 
-	
+
 	if FFlagUseNotificationsLocalization then
 		local function ApplyLocalizeTextSettingsToLabel(label)
 			label.AnchorPoint = Vector2.new(0.5,0.5)
@@ -354,7 +353,7 @@ local function Initialize()
 
 	local createShareGameButton = nil
 	local createPlayerRow = nil
-	if FFlagSettingsHubBarsRefactor2 then
+	if FFlagSettingsHubBarsRefactor3 then
 		local function createRow(frameClassName)
 			local frame = Instance.new(frameClassName)
 			frame.Image = "rbxasset://textures/ui/dialog_white.png"
@@ -394,11 +393,29 @@ local function Initialize()
 			local icon = frame.Icon
 
 			textLabel.Font = Enum.Font.SourceSansSemibold
-			textLabel.Text = INVITE_FRIENDS_TEXT
+			textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
 
 			icon.Size = UDim2.new(0, 24, 0, 24)
 			icon.Position = UDim2.new(0, 18, 0, 18)
 			ShareGameIcons:ApplyImage(icon, "invite")
+
+			local function onHover(isHovering)
+				if isHovering then
+					frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
+				else
+					frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+				end
+			end
+
+			frame.InputBegan:Connect(function() onHover(true) end)
+			frame.InputEnded:Connect(function() onHover(false) end)
+			frame.Activated:Connect(function() onHover(false) end)
+			frame.TouchPan:Connect(function(_, totalTranslation)
+				local TAP_ACCURACY_THREASHOLD = 20
+				if math.abs(totalTranslation.Y) > TAP_ACCURACY_THREASHOLD then
+					onHover(false)
+				end
+			 end)
 
 			return frame
 		end
@@ -590,14 +607,12 @@ local function Initialize()
 	end
 
 	local function canShareCurrentGame()
-		return this.HubRef.ShareGamePage ~= nil
+		return this.HubRef.ShareGamePage ~= nil and localPlayer.UserId > 0
 	end
 
 	local shareGameButton
 	local sortedPlayers
 	local existingPlayerLabels = {}
-
-	-- fixPlayerRowLayout
 	local livePlayers = {}
 
 	this.Displayed.Event:connect(function(switchedFromGamepadInput)
@@ -611,14 +626,14 @@ local function Initialize()
 			extraOffset = 85
 		end
 
-		if FFlagSettingsHubInviteToGame2 then
+		if IsShareGamePageEnabledByPlatform then
 			-- Create "invite friends" button if it doesn't exist yet
 			-- We shouldn't create this button if we're not in a live game
 			if canShareCurrentGame() and not shareGameButton
-				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio2) then
+				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio3) then
 				local eventStream = EventStream.new()
 				shareGameButton = createShareGameButton()
-				shareGameButton.MouseButton1Click:connect(function()
+				shareGameButton.Activated:connect(function()
 					local eventContext = "inGame"
 					local eventName = "inputShareGameEntryPoint"
 					local additionalArgs = {
@@ -643,11 +658,7 @@ local function Initialize()
 		for index=1, #sortedPlayers do
 			local player = sortedPlayers[index]
 			local frame
-			if fixPlayerRowLayout then
-				frame = existingPlayerLabels[player.Name]
-			else
-				frame = existingPlayerLabels[index]
-			end
+			frame = existingPlayerLabels[player.Name]
 
 			if player then
 				livePlayers[player.Name] = true
@@ -655,11 +666,7 @@ local function Initialize()
 				if not frame or not frame.Parent then
 					frame = createPlayerRow((index - 1)*PLAYER_ROW_SPACING + extraOffset)
 					frame.Parent = this.Page
-					if fixPlayerRowLayout then
-						existingPlayerLabels[player.Name] = frame
-					else
-						table.insert(existingPlayerLabels, index, frame)
-					end
+					existingPlayerLabels[player.Name] = frame
 				end
 				frame.Name = "PlayerLabel" ..player.Name
 
@@ -675,13 +682,11 @@ local function Initialize()
 
 				frame.NameLabel.Text = player.Name
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
-				if fixPlayerRowLayout then
-					if FFlagSettingsHubInviteToGame2 then
-						-- extra index room for shareGameButton
-						frame.LayoutOrder = index + 1
-					else
-						frame.LayoutOrder = index
-					end
+				if IsShareGamePageEnabledByPlatform then
+					-- extra index room for shareGameButton
+					frame.LayoutOrder = index + 1
+				else
+					frame.LayoutOrder = index
 				end
 
 				managePlayerNameCutoff(frame, player)
@@ -693,22 +698,10 @@ local function Initialize()
 			end
 		end
 
-		if fixPlayerRowLayout then
-			for playerName, frame in pairs(existingPlayerLabels) do
-				if not livePlayers[playerName] then
-					frame:Destroy()
-					existingPlayerLabels[playerName] = nil
-				end
-			end
-		else
-			-- iterate through existing labels in reverse to destroy and remove unused labels
-			for index=#existingPlayerLabels, 1, -1 do
-				local player = sortedPlayers[index]
-				local frame = existingPlayerLabels[index]
-				if frame and not player then
-					table.remove(existingPlayerLabels, index)
-					frame:Destroy()
-				end
+		for playerName, frame in pairs(existingPlayerLabels) do
+			if not livePlayers[playerName] then
+				frame:Destroy()
+				existingPlayerLabels[playerName] = nil
 			end
 		end
 
@@ -718,7 +711,7 @@ local function Initialize()
 				extraOffset = 85
 			end
 
-			if FFlagSettingsHubInviteToGame2 then
+			if IsShareGamePageEnabledByPlatform then
 				local inviteToGameRow = 1
 				local playerListRowsCount = #sortedPlayers + inviteToGameRow
 
@@ -730,55 +723,37 @@ local function Initialize()
 		end)
 	end)
 
-	if fixPlayerRowLayout or preventFriendingRemovedPlayers then
+	if preventFriendingRemovedPlayers then
 		PlayersService.PlayerRemoving:Connect(function (player)
-			if fixPlayerRowLayout then
-				livePlayers[player.Name] = nil
+			livePlayers[player.Name] = nil
+
+			local playerLabel = existingPlayerLabels[player.Name]
+
+			if not playerLabel then
+				return
 			end
 
-			if preventFriendingRemovedPlayers then
-				local playerLabel
-				if fixPlayerRowLayout then
-					playerLabel = existingPlayerLabels[player.Name]
-				else
-					-- iterate through sorted list to search for removed player
-					if not sortedPlayers then
-						return
-					end
-					for index = 1, #sortedPlayers do
-						if sortedPlayers[index] == player then
-							playerLabel = existingPlayerLabels[index]
-							break
-						end
-					end
-				end
+			local buttons = playerLabel:FindFirstChild("RightSideButtons")
+			if not buttons then
+				return
+			end
 
-				if not playerLabel then
-					return
+			local friendStatus = buttons:FindFirstChild("FriendStatus")
+			if friendStatus then
+				if GuiService.SelectedCoreObject == friendStatus then
+					friendSelectionFound = nil
+					GuiService.SelectedCoreObject = nil
 				end
+				friendStatus:Destroy()
+			end
 
-				local buttons = playerLabel:FindFirstChild("RightSideButtons")
-				if not buttons then
-					return
+			local reportPlayer = buttons:FindFirstChild("ReportPlayer")
+			if reportPlayer then
+				if GuiService.SelectedCoreObject == reportPlayer then
+					reportSelectionFound = nil
+					GuiService.SelectedCoreObject = nil
 				end
-
-				local friendStatus = buttons:FindFirstChild("FriendStatus")
-				if friendStatus then
-					if GuiService.SelectedCoreObject == friendStatus then
-						friendSelectionFound = nil
-						GuiService.SelectedCoreObject = nil
-					end
-					friendStatus:Destroy()
-				end
-
-				local reportPlayer = buttons:FindFirstChild("ReportPlayer")
-				if reportPlayer then
-					if GuiService.SelectedCoreObject == reportPlayer then
-						reportSelectionFound = nil
-						GuiService.SelectedCoreObject = nil
-					end
-					reportPlayer:Destroy()
-				end
+				reportPlayer:Destroy()
 			end
 		end)
 	end

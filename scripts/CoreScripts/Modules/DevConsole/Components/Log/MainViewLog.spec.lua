@@ -26,8 +26,8 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			DataProvider = Roact.createElement(DataProvider, {},{
-				MainViewLog = Roact.createElement(MainViewLog,{
+			DataProvider = Roact.createElement(DataProvider, {}, {
+				MainViewLog = Roact.createElement(MainViewLog, {
 					size = UDim2.new(),
 					tabList = {},
 				})

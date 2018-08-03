@@ -32,8 +32,8 @@ return function()
 			UDim2.new(),
 			UDim2.new(),
 		}
-		local element = Roact.createElement(DataProvider, {},{
-			ServerScriptsEntry = Roact.createElement(ServerScriptsEntry,{
+		local element = Roact.createElement(DataProvider, {}, {
+			ServerScriptsEntry = Roact.createElement(ServerScriptsEntry, {
 				scriptData = scriptDummyData,
 				entryCellSize = dummyCellSizes,
 				cellOffset = dummyCellSizes,

@@ -23,8 +23,8 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			DataProvider = Roact.createElement(DataProvider, {},{
-				MainViewScripts = Roact.createElement(MainViewScripts,{
+			DataProvider = Roact.createElement(DataProvider, {}, {
+				MainViewScripts = Roact.createElement(MainViewScripts, {
 					size = UDim2.new(),
 					tabList = {},
 				})

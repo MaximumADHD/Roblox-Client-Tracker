@@ -17,16 +17,16 @@ return function()
 		local state = DevConsoleReducer(nil, {})
 
 		local expectedKeys = {
-			DisplayOptions = DevConsoleDisplayOptions(nil,{}),
-			MainView = MainView(nil,{}),
+			DisplayOptions = DevConsoleDisplayOptions(nil, {}),
+			MainView = MainView(nil, {}),
 
-			MemoryData = MemoryData(nil,{}),
-			NetworkData = NetworkData(nil,{}),
-			ScriptsData = ScriptsData(nil,{}),
-			DataStoresData = DataStoresData(nil,{}),
-			ServerStatsData = ServerStatsData(nil,{}),
-			ServerJobsData = ServerJobsData(nil,{}),
-			ActionBindingsData = ActionBindingsData(nil,{})
+			MemoryData = MemoryData(nil, {}),
+			NetworkData = NetworkData(nil, {}),
+			ScriptsData = ScriptsData(nil, {}),
+			DataStoresData = DataStoresData(nil, {}),
+			ServerStatsData = ServerStatsData(nil, {}),
+			ServerJobsData = ServerJobsData(nil, {}),
+			ActionBindingsData = ActionBindingsData(nil, {})
 		}
 
 		for key in pairs(expectedKeys) do

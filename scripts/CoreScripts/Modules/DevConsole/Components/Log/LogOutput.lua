@@ -123,18 +123,18 @@ function LogOutput:render()
 						image = Constants.Image.Errors
 					end
 
-					elements[messageCount] = Roact.createElement("Frame",{
+					elements[messageCount] = Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 0, msgDims.Y),
 						BackgroundTransparency = 1,
 						LayoutOrder = messageCount,
 					}, {
-						image = Roact.createElement("ImageLabel",{
+						image = Roact.createElement("ImageLabel", {
 							Image = image,
 							Size = UDim2.new(0, ICON_PADDING , 0, ICON_PADDING),
 							Position = UDim2.new(0, ICON_PADDING / 4, .5, -ICON_PADDING / 2),
 							BackgroundTransparency = 1,
 						}),
-						msg = Roact.createElement("TextLabel",{
+						msg = Roact.createElement("TextLabel", {
 							Text = fmtMessage,
 							TextColor3 = color,
 							TextSize = FONT_SIZE,
@@ -182,7 +182,7 @@ function LogOutput:render()
 		})
 	end
 
-	return Roact.createElement("ScrollingFrame",{
+	return Roact.createElement("ScrollingFrame", {
 		Size = size,
 		BackgroundTransparency = 1,
 		VerticalScrollBarInset = 1,

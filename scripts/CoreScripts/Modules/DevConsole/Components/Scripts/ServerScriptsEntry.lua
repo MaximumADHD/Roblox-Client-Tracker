@@ -39,7 +39,7 @@ return function(props)
 	local scriptDataStats = scriptData.dataStats
 	local currEntry = scriptDataStats.dataSet:back()
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, frameHeight),
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
@@ -56,17 +56,17 @@ return function(props)
 				Position = UDim2.new(0, ACTIVITYBOX_PADDING, 0, (ENTRY_HEIGHT - ACTIVITYBOX_WIDTH) / 2),
 				BackgroundColor3 = activityBoxColor,
 			}),
-			ScriptName = Roact.createElement(CellLabel,{
+			ScriptName = Roact.createElement(CellLabel, {
 				text = scriptData.name,
 				size = entryCellSize[1],
 				pos = cellOffset[1],
 			}),
-			ScriptAcitivity = Roact.createElement(CellLabel,{
+			ScriptAcitivity = Roact.createElement(CellLabel, {
 				text = formatScriptsData(currEntry.data[1]),
 				size = entryCellSize[2],
 				pos = cellOffset[2],
 			}),
-			scriptFreqStr = Roact.createElement(CellLabel,{
+			scriptFreqStr = Roact.createElement(CellLabel, {
 				text = formatScriptsData(currEntry.data[2]),
 				size = entryCellSize[3],
 				pos = cellOffset[3],
@@ -100,7 +100,7 @@ return function(props)
 			}),
 		}),
 
-		ActivityGraph = showGraph and Roact.createElement(LineGraph,{
+		ActivityGraph = showGraph and Roact.createElement(LineGraph, {
 			pos = UDim2.new(0, 0, 0, ENTRY_HEIGHT),
 			size = UDim2.new(1, 0, 0, GRAPH_HEIGHT),
 			graphData = scriptDataStats.dataSet,
@@ -117,7 +117,7 @@ return function(props)
 			axisLabelY = HEADER_NAMES[2],
 		}),
 
-		RateGraph = showGraph and Roact.createElement(LineGraph,{
+		RateGraph = showGraph and Roact.createElement(LineGraph, {
 			pos = UDim2.new(0, 0, 0, ENTRY_HEIGHT + GRAPH_HEIGHT),
 			size = UDim2.new(1, 0, 0, GRAPH_HEIGHT),
 			graphData = scriptDataStats.dataSet,

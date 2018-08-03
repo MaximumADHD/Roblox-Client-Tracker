@@ -76,7 +76,7 @@ return function(props)
 			pos = UDim2.new(1 - VALUE_CELL_WIDTH, VALUE_PADDING, 0, 0),
 		}),
 
-		vertical = Roact.createElement("Frame",{
+		vertical = Roact.createElement("Frame", {
 			Size = UDim2.new(0, 1, 0, ENTRY_HEIGHT),
 			Position = UDim2.new(1 - VALUE_CELL_WIDTH, 0, 0, 0),
 			BackgroundColor3 = LINE_COLOR,

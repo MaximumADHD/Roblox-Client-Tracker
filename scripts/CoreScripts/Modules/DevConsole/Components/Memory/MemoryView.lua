@@ -208,14 +208,14 @@ function MemoryView:render()
 	end
 
 	if layoutOrder == 1 then
-		return Roact.createElement("TextLabel",{
+		return Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
 			Text = "Awaiting Memory Stats",
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-		},{
+		}, {
 			Entries = Roact.createElement("ScrollingFrame", {
 				Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
 				BackgroundTransparency = 1,
@@ -225,15 +225,15 @@ function MemoryView:render()
 		})
 	end
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-	},{
-		Header = 	Roact.createElement("Frame",{
+	}, {
+		Header = 	Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
-		},{
+		}, {
 			Name = Roact.createElement(HeaderButton, {
 				text = HEADER_NAMES[1],
 				size = UDim2.new(VALUE_CELL_WIDTH, CELL_PADDING, 0, HEADER_HEIGHT),
@@ -257,7 +257,7 @@ function MemoryView:render()
 				BackgroundColor3 = LINE_COLOR,
 				BorderSizePixel = 0,
 			}),
-			vertical = Roact.createElement("Frame",{
+			vertical = Roact.createElement("Frame", {
 				Size = UDim2.new(0, LINE_WIDTH, 1, 0),
 				Position = UDim2.new(1 - VALUE_CELL_WIDTH, 0, 0, 0),
 				BackgroundColor3 = LINE_COLOR,

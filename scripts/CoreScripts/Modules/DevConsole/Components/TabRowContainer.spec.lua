@@ -18,7 +18,7 @@ local TabRowContainer = require(script.Parent.TabRowContainer)
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			TabRowContainer = Roact.createElement(TabRowContainer,{
+			TabRowContainer = Roact.createElement(TabRowContainer, {
 				tabList = {},
 				windowWidth = 0,
 			})

@@ -9,15 +9,9 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Roact = require(CorePackages.Roact)
 local Constants = require(ShareGame.Constants)
 
-local ShareGameIcons = require(ShareGame.Spritesheets.ShareGameIcons)
-local FRIENDS_ICON_FRAME = ShareGameIcons:GetFrame("friends")
-local SHARE_GAME_ICONS_IMAGE = ShareGameIcons:GetImagePath()
+local FriendsErrorPage = Roact.PureComponent:extend("FriendsErrorPage")
 
-local ICON_TO_SUBTITLE_PADDING = 34
-
-local NoFriendsPage = Roact.PureComponent:extend("NoFriendsPage")
-
-function NoFriendsPage:render()
+function FriendsErrorPage:render()
 	local layoutOrder = self.props.LayoutOrder
 	local zIndex = self.props.ZIndex
 
@@ -39,24 +33,9 @@ function NoFriendsPage:render()
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
-		friendsIcon = Roact.createElement("ImageLabel", {
-			BackgroundTransparency = 1,
-			Image = SHARE_GAME_ICONS_IMAGE,
-			ImageRectOffset = FRIENDS_ICON_FRAME.offset,
-			ImageRectSize = FRIENDS_ICON_FRAME.size,
-			Size = UDim2.new(0, 72, 0, 72),
-			LayoutOrder = incrementLayoutOrder(),
-			ZIndex = zIndex,
-		}),
-		iconToSubtitleSpacer = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 0, 0, ICON_TO_SUBTITLE_PADDING),
-			LayoutOrder = incrementLayoutOrder(),
-			ZIndex = zIndex,
-		}),
 		subtitle = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
-			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.NoFriendsScreen"),
+			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.LoadingFriendsListFailed"),
 			TextColor3 = Constants.Color.GRAY5,
 			TextTransparency = 0.22,
 			TextSize = 21,
@@ -67,13 +46,7 @@ function NoFriendsPage:render()
 			TextYAlignment = Enum.TextYAlignment.Top,
 			ZIndex = zIndex,
 		}),
-		bottomSpacer = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 0, 0, 120),
-			LayoutOrder = incrementLayoutOrder(),
-			ZIndex = zIndex,
-		}),
 	})
 end
 
-return NoFriendsPage
+return FriendsErrorPage

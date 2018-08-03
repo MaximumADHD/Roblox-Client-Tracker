@@ -8,7 +8,7 @@ local MemoryView = require(Components.Memory.MemoryView)
 local ServerMemory = Roact.Component:extend("ServerMemory")
 
 function ServerMemory:render()
-	return Roact.createElement(MemoryView,{
+	return Roact.createElement(MemoryView, {
 		layoutOrder = self.props.layoutOrder,
 		size = self.props.size,
 		searchTerm = self.props.searchTerm,

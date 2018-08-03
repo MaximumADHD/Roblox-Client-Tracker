@@ -940,7 +940,7 @@ local function onEntryFrameSelected(selectedFrame, selectedPlayer)
     return
   end
 
-  if selectedPlayer ~= Player and selectedPlayer.UserId > 1 and Player.UserId > 1 then
+  if selectedPlayer ~= Player and selectedPlayer.UserId > 0 and Player.UserId > 0 then
     if LastSelectedFrame ~= selectedFrame then
       if LastSelectedFrame then
         for _,childFrame in pairs(LastSelectedFrame:GetChildren()) do

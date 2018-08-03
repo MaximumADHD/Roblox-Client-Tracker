@@ -5,7 +5,7 @@ return function()
 	local CheckBoxContainer = require(script.Parent.CheckBoxContainer)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(CheckBoxContainer,{
+		local element = Roact.createElement(CheckBoxContainer, {
 			boxNames = {},
 			frameWidth = 0,
 		})

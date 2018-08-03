@@ -6,6 +6,7 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local PlaceInfos = require(AppTempCommon.LuaChat.Reducers.PlaceInfos)
 local Users = require(AppTempCommon.LuaApp.Reducers.Users)
+local Friends = require(AppTempCommon.LuaApp.Reducers.Friends)
 
 local ConversationsSearch = require(ShareGame.Reducers.ConversationsSearch)
 local DeviceInfo = require(ShareGame.Reducers.DeviceInfo)
@@ -23,5 +24,6 @@ return function(state, action)
 		Page = Page(state.Page, action),
 		PlaceInfos = PlaceInfos(state.PlaceInfos, action),
 		Users = Users(state.Users, action),
+		Friends = Friends(state.Friends, action),
 	}
 end

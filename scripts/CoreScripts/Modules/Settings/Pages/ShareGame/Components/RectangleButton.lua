@@ -50,16 +50,14 @@ function RectangleButton:render()
 		AnchorPoint = anchorPoint,
 		LayoutOrder = layoutOrder,
 		ZIndex = zIndex,
-		[Roact.Event.MouseEnter] = function()
-			if not UserInputService.TouchEnabled then
-				self:setState({isHovering = true})
-			end
+
+		[Roact.Event.InputBegan] = function()
+			self:setState({isHovering = true})
 		end,
-		[Roact.Event.MouseLeave] = function()
-			if not UserInputService.TouchEnabled then
-				self:setState({isHovering = false})
-			end
+		[Roact.Event.InputEnded] = function()
+			self:setState({isHovering = false})
 		end,
+
 		[Roact.Event.Activated] = function()
 			if onClick then
 				self:setState({isHovering = false})

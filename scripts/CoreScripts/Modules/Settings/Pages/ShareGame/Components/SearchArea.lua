@@ -1,20 +1,22 @@
 local CorePackages = game:GetService("CorePackages")
 local AppTempCommon = CorePackages.AppTempCommon
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
-local ShareGame = Modules.Settings.Pages.ShareGame
+local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local SearchBox = require(ShareGame.Components.SearchBox)
 local IconButton = require(ShareGame.Components.IconButton)
 local Constants = require(ShareGame.Constants)
 local Text = require(AppTempCommon.Common.Text)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
-local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
+local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
 local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")
@@ -24,7 +26,6 @@ local SEARCH_BOX_WIDTH = 177
 local SEARCH_BOX_HEIGHT = 28
 
 local CANCEL_TEXT_FONT = Enum.Font.SourceSans
-local CANCEL_TEXT = "Cancel"
 local CANCEL_TEXT_COLOR = Constants.Color.GRAY3
 local CANCEL_TEXT_SIZE = 20
 
@@ -32,7 +33,7 @@ local SearchArea = Roact.PureComponent:extend("SearchArea")
 
 function SearchArea:init()
 	self.state = {
-		cancelText = CANCEL_TEXT,
+		cancelText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.CancelSearch"),
 	}
 	self.searchField = nil
 end

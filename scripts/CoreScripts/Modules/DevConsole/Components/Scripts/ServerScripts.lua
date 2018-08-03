@@ -55,7 +55,7 @@ local function constructHeader(onSortChanged)
 	local header = {}
 	-- NameButton
 	for i = 1, #HEADER_NAMES do
-		header[HEADER_NAMES[i]] = Roact.createElement(HeaderButton,{
+		header[HEADER_NAMES[i]] = Roact.createElement(HeaderButton, {
 			text = HEADER_NAMES[i],
 			size = headerCellSize[i],
 			pos = cellOffset[i],
@@ -211,7 +211,7 @@ function ServerScripts:render()
 	local totalEntries = #scriptData
 
 	if totalEntries == 0 then
-		return Roact.createElement("TextLabel",{
+		return Roact.createElement("TextLabel", {
 			Size = size,
 			Position = UDim2.new(0, 0, 0, 0),
 			Text = NO_DATA_MSG,

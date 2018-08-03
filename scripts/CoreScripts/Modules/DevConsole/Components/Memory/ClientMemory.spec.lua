@@ -6,7 +6,7 @@ return function()
 	local ClientMemory = require(script.Parent.ClientMemory)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(DataProvider, {},{
+		local element = Roact.createElement(DataProvider, {}, {
 			ClientMemory = Roact.createElement(ClientMemory)
 		})
 

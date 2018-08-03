@@ -1,18 +1,19 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local ShareGame = Modules.Settings.Pages.ShareGame
+local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local RectangleButton = require(ShareGame.Components.RectangleButton)
 local IconButton = require(ShareGame.Components.IconButton)
 local Roact = require(CorePackages.Roact)
 
 local Constants = require(ShareGame.Constants)
-local ShareGameIcons = require(Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
+local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
 local BACK_IMAGE_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local BACK_IMAGE_SPRITE_FRAME = ShareGameIcons:GetFrame("back")
-local BACK_BUTTON_TEXT = "Back"
 local BACK_BUTTON_TEXT_SIZE = 24
 
 local BackButton = Roact.PureComponent:extend("BackButton")
@@ -42,7 +43,7 @@ function BackButton:render()
 		return Roact.createElement(RectangleButton, self.props, {
 			TextLabel = Roact.createElement("TextLabel", {
 				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Text = BACK_BUTTON_TEXT,
+				Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsBack"),
 				TextSize = BACK_BUTTON_TEXT_SIZE,
 				TextColor3 = Constants.Color.WHITE,
 				Font = Enum.Font.SourceSansSemibold,

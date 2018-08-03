@@ -1,15 +1,15 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 
-local ShareGame = Modules.Settings.Pages.ShareGame
+local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 local BackButton = require(ShareGame.Components.BackButton)
 local SearchArea = require(ShareGame.Components.SearchArea)
-
-local PAGE_TITLE = "Invite Friends"
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Header = Roact.PureComponent:extend("Header")
 
@@ -36,7 +36,7 @@ function Header:render()
 			BackgroundTransparency = 1,
 			Visible = not isSearchingOnMobile,
 			Position = UDim2.new(0.5, 0, 0.5, 0),
-			Text = PAGE_TITLE,
+			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.InviteFriends"),
 			TextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE,
 			TextColor3 = Constants.Color.WHITE,
 			Font = Enum.Font.SourceSansSemibold,

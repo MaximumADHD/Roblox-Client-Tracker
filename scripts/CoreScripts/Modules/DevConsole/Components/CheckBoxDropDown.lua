@@ -30,7 +30,7 @@ function CheckBoxDropDown:render()
 				BackgroundTransparency = 1,
 
 				[Roact.Event.InputEnded] = onCloseCheckBox,
-			},{
+			}, {
 				OuterFrame = Roact.createElement("ImageButton", {
 					Size = outerFrameSize,
 					AutoButtonColor = false,

@@ -40,7 +40,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			DataProvider = Roact.createElement(DataProvider,{},{
+			DataProvider = Roact.createElement(DataProvider, {}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow)
 			})
 		})

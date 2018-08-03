@@ -68,7 +68,7 @@ function MainViewScripts:render()
 
 	local searchTerm =  self.props.serverSearchTerm
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
@@ -79,7 +79,7 @@ function MainViewScripts:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		UtilAndTab = Roact.createElement(UtilAndTab,{
+		UtilAndTab = Roact.createElement(UtilAndTab, {
 			windowWidth = size.X.Offset,
 			formFactor = formFactor,
 			tabList = tabList,

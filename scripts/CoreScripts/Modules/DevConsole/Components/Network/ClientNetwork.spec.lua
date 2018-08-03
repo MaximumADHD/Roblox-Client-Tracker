@@ -6,7 +6,7 @@ return function()
 	local ClientNetwork = require(script.Parent.ClientNetwork)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(DataProvider, {},{
+		local element = Roact.createElement(DataProvider, {}, {
 			ClientNetwork = Roact.createElement(ClientNetwork)
 		})
 

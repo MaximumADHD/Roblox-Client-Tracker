@@ -2,24 +2,30 @@ local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local AppTempCommon = CorePackages.AppTempCommon
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
-local ShareGame = Modules.Settings.Pages.ShareGame
+local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
+local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
+local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
 local Constants = require(ShareGame.Constants)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 
 local User = require(AppTempCommon.LuaApp.Models.User)
-local SetUserInvited = require(ShareGame.Actions.SetUserInvited)
-local memoize = require(AppTempCommon.LuaApp.memoize)
+local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)
+local memoize = require(AppTempCommon.Common.memoize)
 local Promise = require(AppTempCommon.LuaApp.Promise)
 
 local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
 local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfos)
+local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
@@ -28,6 +34,8 @@ local NO_RESULTS_FONT = Enum.Font.SourceSans
 local NO_RESULTS_TEXTCOLOR = Constants.Color.GRAY3
 local NO_RESULTS_TEXTSIZE = 19
 local NO_RESULTS_TRANSPRENCY = 0.22
+
+local InviteStatus = Constants.InviteStatus
 
 local PRESENCE_WEIGHTS = {
 	[User.PresenceType.ONLINE] = 3,
@@ -48,6 +56,7 @@ end
 function ConversationList:render()
 	local children = self.props[Roact.Children] or {}
 	local friends = self.props.friends
+	local friendsRetrievalStatus = self.props.friendsRetrievalStatus
 	local layoutOrder = self.props.layoutOrder
 	local size = self.props.size
 	local zIndex = self.props.zIndex
@@ -79,7 +88,7 @@ function ConversationList:render()
 			presence = user.presence,
 			users = {user},
 			inviteUser = inviteUser,
-			alreadyInvited = invites[user.id] == true,
+			inviteStatus = invites[user.id],
 		})
 
 		if isEntryShown then
@@ -88,10 +97,19 @@ function ConversationList:render()
 	end
 
 	if #friends == 0 then
-		return Roact.createElement(NoFriendsPage, {
-		BorderSizePixel = 0,
+		local zeroFriendsComponent = LoadingFriendsPage
+		if friendsRetrievalStatus == RetrievalStatus.Fetching then
+			zeroFriendsComponent = LoadingFriendsPage
+		elseif friendsRetrievalStatus == RetrievalStatus.Done then
+			zeroFriendsComponent = NoFriendsPage
+		elseif friendsRetrievalStatus == RetrievalStatus.Failed then
+			zeroFriendsComponent = FriendsErrorPage
+		end
+
+		return Roact.createElement(zeroFriendsComponent, {
+			BorderSizePixel = 0,
 			LayoutOrder = layoutOrder,
-		Position = UDim2.new(0, 0, 0, topPadding),
+			Position = UDim2.new(0, 0, 0, topPadding),
 			ZIndex = zIndex,
 		})
 	else
@@ -101,7 +119,7 @@ function ConversationList:render()
 				LayoutOrder = layoutOrder,
 				Font = NO_RESULTS_FONT,
 				Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
-				Text = "No results found",
+				Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.InviteSearchNoResults"),
 				TextColor3 = NO_RESULTS_TEXTCOLOR,
 				TextSize = NO_RESULTS_TEXTSIZE,
 				TextTransparency = NO_RESULTS_TRANSPRENCY,
@@ -150,33 +168,47 @@ local connector = RoactRodux.connect(function(store, props)
 		friends = selectFriends(
 			state.Users
 		),
+		friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
 		invites = state.Invites,
 
 		inviteUser = function(userId)
+			local requestImpl = httpRequest(HttpRbxApiService)
+			local latestState = store:getState()
+
 			return Promise.new(function(resolve, reject)
-				local latestState = store:getState()
-				local placeId = tostring(game.PlaceId)
 				-- Check that we haven't already invited this user
-				if latestState.Invites[tostring(userId)] == true then
+				if latestState.Invites[tostring(userId)] == InviteStatus.Pending then
 					reject()
-					return
-				end
-				local requestImpl = httpRequest(HttpRbxApiService)
-				local placeInfo = latestState.PlaceInfos[placeId]
-				-- Log that we've tried inviting this user
-				store:dispatch(SetUserInvited(userId, true))
-				-- Send invite if we already have the current game's place info
-				if placeInfo then
-					store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfo)):andThen(resolve)
 				else
-					-- Fetch place info of current game if we don't have it, then
-					-- send the invite
-					store:dispatch(ApiFetchPlaceInfos(requestImpl, {placeId})):andThen(function(placeInfos)
-						if placeInfos[1] ~= nil then
-							store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfos[1])):andThen(resolve)
-						end
-					end)
+					resolve()
 				end
+			end):andThen(function()
+				local placeId = tostring(game.PlaceId)
+				local maybePlaceInfo = latestState.PlaceInfos[placeId]
+
+				-- TODO: This should be a Thunk
+				return Promise.new(function(resolve, reject)
+					-- Log that we've tried inviting this user
+					store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Pending))
+
+					if maybePlaceInfo then
+						resolve(maybePlaceInfo)
+					else
+						store:dispatch(ApiFetchPlaceInfos(requestImpl, {placeId})):andThen(function(placeInfos)
+							if placeInfos[1] ~= nil then
+								resolve(placeInfos[1])
+							else
+								reject()
+							end
+						end)
+					end
+				end):andThen(function(placeInfo)
+					return store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfo))
+				end):andThen(function(results)
+					store:dispatch(ReceivedUserInviteStatus(userId, results.resultType))
+				end, function()
+					store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Failed))
+				end)
 			end)
 		end
 	}

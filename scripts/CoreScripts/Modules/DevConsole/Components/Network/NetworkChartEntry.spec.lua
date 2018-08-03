@@ -23,7 +23,7 @@ return function()
 			UDim2.new(),
 		}
 
-		local element = Roact.createElement(NetworkChartEntry,{
+		local element = Roact.createElement(NetworkChartEntry, {
 			entry = dummyEntry,
 			entryCellSize = dummyCellSizes,
 			cellOffset = dummyCellSizes,

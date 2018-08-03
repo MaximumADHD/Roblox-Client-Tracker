@@ -1,11 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
 local AppTempCommon = CorePackages.AppTempCommon
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Roact = require(CorePackages.Roact)
 
-local ShareGame = Modules.Settings.Pages.ShareGame
+local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 local User = require(AppTempCommon.LuaApp.Models.User)
 
@@ -29,11 +31,11 @@ function ConversationDetails:render()
 
 	-- Show user presence if it was passed in
 	local presenceTextComponent
-	if presence ~= nil and presence ~= User.PresenceType.OFFLINE then
+	if presence ~= nil then
 		presenceTextComponent = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, PRESENCE_TEXT_SIZE),
-			Text = Constants.PresenceText[presence],
+			Text =  RobloxTranslator:FormatByKey(Constants.PresenceTextKey[presence]),
 			Font = PRESENCE_FONT,
 			TextColor3 = Constants.PresenceColors[presence],
 			TextSize = PRESENCE_TEXT_SIZE,

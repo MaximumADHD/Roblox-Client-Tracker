@@ -107,20 +107,20 @@ function DataStoresChart:render()
 					LayoutOrder = currLayoutOrder,
 				}, {
 
-					DataButton = Roact.createElement(BannerButton,{
+					DataButton = Roact.createElement(BannerButton, {
 						size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
 						pos = UDim2.new(),
 						isExpanded = showGraph,
 
 						onButtonPress = self.getOnButtonPress(name),
 					}, {
-						[name] =  Roact.createElement(CellLabel,{
+						[name] =  Roact.createElement(CellLabel, {
 							text = name,
 							size = UDim2.new(1,-VALUE_CELL_WIDTH - CELL_PADDING - ARROW_PADDING, 1, 0),
 							pos = UDim2.new(0, CELL_PADDING + ARROW_PADDING, 0, 0),
 						}),
 
-						Data = Roact.createElement(CellLabel,{
+						Data = Roact.createElement(CellLabel, {
 							text = data.dataSet:back().value,
 							size = UDim2.new(0, VALUE_CELL_WIDTH - CELL_PADDING, 1, 0),
 							pos = UDim2.new(1, -VALUE_CELL_WIDTH + CELL_PADDING, 0, 0),
@@ -165,7 +165,7 @@ function DataStoresChart:render()
 	end
 
 	if currLayoutOrder == 1 then
-		return Roact.createElement("TextLabel",{
+		return Roact.createElement("TextLabel", {
 			Size = size,
 			Text = NO_DATA_MSG,
 			TextColor3 = Constants.Color.Text,
@@ -178,19 +178,19 @@ function DataStoresChart:render()
 			Size = size,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-		},{
+		}, {
 			Header = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 			}, {
-				[HEADER_NAMES[1]] = Roact.createElement(CellLabel,{
+				[HEADER_NAMES[1]] = Roact.createElement(CellLabel, {
 					text = HEADER_NAMES[1],
 					size = UDim2.new(1, -VALUE_CELL_WIDTH - CELL_PADDING - ARROW_PADDING, 1, 0),
 					pos = UDim2.new(0, CELL_PADDING + ARROW_PADDING, 0, 0),
 				}),
 
-				[HEADER_NAMES[2]] = Roact.createElement(CellLabel,{
+				[HEADER_NAMES[2]] = Roact.createElement(CellLabel, {
 					text = HEADER_NAMES[2],
 					size = UDim2.new(0, VALUE_CELL_WIDTH - CELL_PADDING, 1, 0),
 					pos = UDim2.new(1, -VALUE_CELL_WIDTH + CELL_PADDING, 0, 0),

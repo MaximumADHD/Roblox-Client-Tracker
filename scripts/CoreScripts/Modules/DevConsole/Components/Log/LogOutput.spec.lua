@@ -6,7 +6,7 @@ return function()
 	local LogOutput = require(script.Parent.LogOutput)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(LogOutput,{
+		local element = Roact.createElement(LogOutput, {
 			targetSignal = Signal.new()
 		})
 

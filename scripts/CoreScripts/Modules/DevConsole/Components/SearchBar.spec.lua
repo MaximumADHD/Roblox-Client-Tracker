@@ -5,7 +5,7 @@ return function()
 	local SearchBar = require(script.Parent.SearchBar)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(SearchBar,{
+		local element = Roact.createElement(SearchBar, {
 			frameHeight = 0,
 		})
 		local instance = Roact.mount(element)
