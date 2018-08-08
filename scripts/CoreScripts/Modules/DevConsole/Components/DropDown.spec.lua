@@ -6,8 +6,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(DropDown, {
-			elementHeight = 0,
-			numElements = 0,
+			dropDownList = {},
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

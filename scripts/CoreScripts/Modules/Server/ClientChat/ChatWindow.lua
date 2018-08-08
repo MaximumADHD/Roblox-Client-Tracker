@@ -52,6 +52,7 @@ function methods:CreateGuiObjects(targetParent)
 	BaseFrame.BackgroundTransparency = 1
 	BaseFrame.Active = ChatSettings.WindowDraggable
 	BaseFrame.Parent = targetParent
+    BaseFrame.AutoLocalize = false
 
 	local ChatBarParentFrame = Instance.new("Frame")
 	ChatBarParentFrame.Selectable = false

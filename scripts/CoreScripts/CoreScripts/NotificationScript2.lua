@@ -103,6 +103,8 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 	FRIEND_REQUEST_NOTIFICATION_THROTTLE = friendRequestNotificationFIntValue
 end
 
+local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
+
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
 local FRIEND_IMAGE = 'https://www.roblox.com/thumbs/avatar.ashx?userId='
@@ -117,7 +119,8 @@ local function createFrame(name, size, position, bgt)
 	return frame
 end
 
-local function createTextButton(name, text, position)
+--remove along with FFlagCoreScriptTranslateGameText2
+local function createTextButtonOld(name, text, position)
 	local button = Instance.new('TextButton')
 	button.Name = name
 	button.Size = UDim2.new(0.5, -2, 0.5, 0)
@@ -128,6 +131,20 @@ local function createTextButton(name, text, position)
 	button.FontSize = Enum.FontSize.Size18
 	button.TextColor3 = Color3.new(1, 1, 1)
 	button.Text = text
+
+	return button
+end
+
+local function createTextButton(name, position)
+	local button = Instance.new('TextButton')
+	button.Name = name
+	button.Size = UDim2.new(0.5, -2, 0.5, 0)
+	button.Position = position
+	button.BackgroundTransparency = BG_TRANSPARENCY
+	button.BackgroundColor3 = Color3.new(0, 0, 0)
+	button.Font = Enum.Font.SourceSansBold
+	button.FontSize = Enum.FontSize.Size18
+	button.TextColor3 = Color3.new(1, 1, 1)
 
 	return button
 end
@@ -221,11 +238,11 @@ local function getFriendImage(playerId)
     return SocialUtil.GetPlayerImage(playerId, Enum.ThumbnailSize.Size48x48, Enum.ThumbnailType.HeadShot, --[[timeOut = ]] MAX_GET_FRIEND_IMAGE_YIELD_TIME)
 end
 
---
+
 local function createNotification(title, text, image)
 	local notificationFrame = DefaultNotification:Clone()
 	notificationFrame.Position = UDim2.new(1, 4, 1, -NOTIFICATION_Y_OFFSET - 4)
-	--
+
 	local notificationTitle = NotificationTitle:Clone()
 	notificationTitle.Text = title
 	notificationTitle.Parent = notificationFrame
@@ -297,6 +314,7 @@ local function createNotification(title, text, image)
 
 	return notificationFrame
 end
+
 
 local function findNotification(notification)
 	local index = nil
@@ -419,19 +437,38 @@ local function onSendNotificationInfo(notificationInfo)
 		return
 	end
 	local callback = notificationInfo.Callback
+
 	local button1Text = notificationInfo.Button1Text
 	local button2Text = notificationInfo.Button2Text
-	local localizedButton1Text = notificationInfo.Button1TextLocalized
-	local localizedButton2Text = notificationInfo.Button2TextLocalized
+	local localizedButton1Text = notificationInfo.Button1TextLocalized --remove along with FFlagCoreScriptTranslateGameText2
+	local localizedButton2Text = notificationInfo.Button2TextLocalized --remove along with FFlagCoreScriptTranslateGameText2
 
 	local notification = {}
-	local notificationFrame = createNotification(notificationInfo.Title, notificationInfo.Text, notificationInfo.Image)
-	--
+	local notificationFrame
 
-	local button1 = nil
+	if FFlagCoreScriptTranslateGameText2 then
+		notificationFrame = createNotification(
+			GameTranslator:TranslateGameText(CoreGui, notificationInfo.Title),
+			GameTranslator:TranslateGameText(CoreGui, notificationInfo.Text),
+			notificationInfo.Image)
+	else
+		notificationFrame = createNotification(notificationInfo.Title, notificationInfo.Text, notificationInfo.Image)
+	end
+
+	local button1
 	if button1Text and button1Text ~= "" then
 		notification.IsFriend = true -- Prevents other notifications overlapping the buttons
-		button1 = createTextButton("Button1", localizedButton1Text or button1Text, UDim2.new(0, 0, 1, 2))
+		if FFlagCoreScriptTranslateGameText2 then
+			button1 = createTextButton("Button1", UDim2.new(0, 0, 1, 2))
+			if notificationInfo.AutoLocalize then
+				GameTranslator:TranslateAndRegister(button1, CoreGui, button1Text)
+			else
+				button1.Text = button1Text
+			end
+		else
+			button1 = createTextButtonOld("Button1", localizedButton1Text or button1Text, UDim2.new(0, 0, 1, 2))
+		end
+
 		button1.Parent = notificationFrame
 		local button1ClickedConnection = nil
 		button1ClickedConnection = button1.MouseButton1Click:connect(function()
@@ -448,9 +485,22 @@ local function onSendNotificationInfo(notificationInfo)
 		end)
 	end
 
+	local button2
 	if button2Text and button2Text ~= "" then
 		notification.IsFriend = true
-		local button2 = createTextButton("Button1", localizedButton2Text or button2Text, UDim2.new(0.5, 2, 1, 2))
+
+		if FFlagCoreScriptTranslateGameText2 then
+			button2 = createTextButton("Button2", UDim2.new(0.5, 2, 1, 2))
+
+			if notificationInfo.AutoLocalize then
+				GameTranslator:TranslateAndRegister(button2, CoreGui, button2Text)
+			else
+				button2.Text = button2Text
+			end
+		else
+			button2 = createTextButtonOld("Button1", localizedButton2Text or button2Text, UDim2.new(0.5, 2, 1, 2))
+		end
+
 		button2.Parent = notificationFrame
 		local button2ClickedConnection = nil
 		button2ClickedConnection = button2.MouseButton1Click:connect(function()
@@ -848,12 +898,12 @@ local function createDeveloperNotification(notificationTable)
 			local bindable = (typeof(notificationTable.Callback) == "Instance" and notificationTable.Callback:IsA("BindableFunction") and notificationTable.Callback or nil)
 			local button1Text = (type(notificationTable.Button1) == "string" and notificationTable.Button1 or "")
 			local button2Text = (type(notificationTable.Button2) == "string" and notificationTable.Button2 or "")
+
 			-- AutoLocalize allows developers to disable automatic localization if they have pre-localized it. Defaults true.
 			local autoLocalize = notificationTable.AutoLocalize == nil or notificationTable.AutoLocalize == true
-			local title = autoLocalize and GameTranslator:TranslateGameText(CoreGui, notificationTable.Title) or notificationTable.Title
-			local text = autoLocalize and GameTranslator:TranslateGameText(CoreGui, notificationTable.Text) or notificationTable.Text
-			local localizedButton1Text = autoLocalize and GameTranslator:TranslateGameText(CoreGui, button1Text) or nil
-			local localizedButton2Text = autoLocalize and GameTranslator:TranslateGameText(CoreGui, button2Text) or nil
+			local title = notificationTable.Title
+			local text = notificationTable.Text
+
 			sendNotificationInfo {
 				GroupName = "Developer",
 				Title = title,
@@ -863,8 +913,7 @@ local function createDeveloperNotification(notificationTable)
 				Callback = bindable,
 				Button1Text = button1Text,
 				Button2Text = button2Text,
-				Button1TextLocalized = localizedButton1Text,
-				Button2TextLocalized = localizedButton2Text
+				AutoLocalize = autoLocalize,
 			}
 		end
 	end

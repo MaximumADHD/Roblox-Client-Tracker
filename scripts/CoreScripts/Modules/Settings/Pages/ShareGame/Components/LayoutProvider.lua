@@ -116,6 +116,7 @@ function LayoutProvider:render()
 	return Roact.oneChild(self.props[Roact.Children])
 end
 
+-- TODO: Update to use RoactRodux.UNSTABLE_connect2
 local connector = RoactRodux.connect(function(store)
 	return {
 		setDeviceOrientation = function(orientation)

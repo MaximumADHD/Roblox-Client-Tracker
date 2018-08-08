@@ -21,6 +21,7 @@ local Color = {
 	GRAY4 = Color3.fromRGB(227, 227, 227),
 	GRAY5 = Color3.fromRGB(242, 242, 242),
 	GRAY6 = Color3.fromRGB(245, 245, 245),
+	RED = Color3.fromRGB(254, 68, 72),
 }
 
 local Constants = {
@@ -79,6 +80,7 @@ local Constants = {
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 0,
+			TOAST_HEIGHT = 40,
 		},
 		[DeviceLayout.PHONE_PORTRAIT] = {
 			HEADER_HEIGHT = 40,
@@ -88,6 +90,7 @@ local Constants = {
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 0,
+			TOAST_HEIGHT = 40,
 		},
 		[DeviceLayout.TABLET_PORTRAIT] = {
 			HEADER_HEIGHT = 40,
@@ -97,6 +100,7 @@ local Constants = {
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 0,
+			TOAST_HEIGHT = 80,
 		},
 		[DeviceLayout.TABLET_LANDSCAPE] = {
 			HEADER_HEIGHT = 60,
@@ -106,6 +110,7 @@ local Constants = {
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 68,
+			TOAST_HEIGHT = 80,
 		},
 		[DeviceLayout.DESKTOP] = {
 			HEADER_HEIGHT = 60,
@@ -115,6 +120,7 @@ local Constants = {
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 154,
 			EXTEND_BOTTOM_SIZE = 68,
+			TOAST_HEIGHT = 80,
 		},
 	},
 }

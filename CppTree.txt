@@ -670,9 +670,11 @@ RBX
 	DecalTool
 	DeleteBase
 	DeleteSelectionVerb
+	DiagThrottlingHelper
 	DialogChoice
 	DialogRoot
 	DisallowedJointSurfacePair
+	DockWidgetPluginGui
 	DropperTool
 	DSVideoCaptureEngine
 	DynamicRotate
@@ -1074,6 +1076,7 @@ RBX
 	TextService
 	TextureProxyBase
 	ThreadPool
+	ThrottlingHelper
 	TiltSelectionVerb
 	TimerService
 	ToggleViewMode

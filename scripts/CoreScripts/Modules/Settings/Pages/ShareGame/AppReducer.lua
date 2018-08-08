@@ -10,9 +10,9 @@ local Friends = require(AppTempCommon.LuaApp.Reducers.Friends)
 
 local ConversationsSearch = require(ShareGame.Reducers.ConversationsSearch)
 local DeviceInfo = require(ShareGame.Reducers.DeviceInfo)
-local Page = require(ShareGame.Reducers.Page)
-
 local Invites = require(ShareGame.Reducers.Invites)
+local Page = require(ShareGame.Reducers.Page)
+local Toasts = require(ShareGame.Reducers.Toasts)
 
 return function(state, action)
 	state = state or {}
@@ -23,6 +23,7 @@ return function(state, action)
 		Invites = Invites(state.Invites, action),
 		Page = Page(state.Page, action),
 		PlaceInfos = PlaceInfos(state.PlaceInfos, action),
+		Toasts = Toasts(state.Toasts, action),
 		Users = Users(state.Users, action),
 		Friends = Friends(state.Friends, action),
 	}
