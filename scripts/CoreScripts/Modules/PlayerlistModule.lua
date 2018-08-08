@@ -18,7 +18,7 @@ local GameSettings = Settings.GameSettings
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
-local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
+local FFlagTheStarsAreBright = settings():GetFFlag("TheStarsAreBright")
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -238,7 +238,7 @@ local function getCustomPlayerIcon(player)
     return ADMIN_ICON
   elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
     return INTERN_ICON
-  elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+  elseif FFlagTheStarsAreBright and PlayerPermissionsModule.IsPlayerStarAsync(player) then
     return STAR_ICON
   end
 end
@@ -621,12 +621,7 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
   if isTopStat then
     local statName = statText:Clone()
     statName.Name = "StatName"
-
-    if FFlagCoreScriptTranslateGameText2 then
-        GameTranslator:TranslateAndRegister(statName, CoreGui, parent.Name)
-    else
-        statName.Text = GameTranslator:TranslateGameText(CoreGui, parent.Name)
-    end
+    statName.Text = GameTranslator:TranslateGameText(CoreGui, parent.Name)
     statName.Position = UDim2.new(0,0,0,0)
     statName.Font = Enum.Font.SourceSans
     statName.ClipsDescendants = true
@@ -1606,23 +1601,11 @@ local function createTeamEntry(team)
   entryFrame.Selectable = false	-- dont allow gamepad selection of team frames
   entryFrame.BackgroundColor3 = team.TeamColor.Color
 
-  local teamName
-
-  if FFlagCoreScriptTranslateGameText2 then
-    teamName = createEntryNameText(
-      "TeamName",
-      team.Name,
-      UDim2.new(0.01, 1, 0, 0),
-      UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
-
-    GameTranslator:TranslateAndRegister(teamName, team, team.Name)
-  else
-    teamName = createEntryNameText(
-      "TeamName",
-      GameTranslator:TranslateGameText(team, team.Name),
-      UDim2.new(0.01, 1, 0, 0),
-      UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
-  end
+  local teamName = createEntryNameText(
+    "TeamName",
+    GameTranslator:TranslateGameText(team, team.Name),
+    UDim2.new(0.01, 1, 0, 0),
+    UDim2.new(-0.01, entryFrame.AbsoluteSize.x, 1, 0))
 
   teamName.Parent = entryFrame
 
@@ -1644,11 +1627,7 @@ local function createTeamEntry(team)
   team.Changed:connect(function(property)
       rbx_profilebegin("team.Changed")
       if property == 'Name' then
-      if FFlagCoreScriptTranslateGameText2 then
-          GameTranslator:TranslateAndRegister(teamName, team, team.Name)
-      else
-          teamName.Text = GameTranslator:TranslateGameText(team, team.Name)
-      end
+        teamName.Text = GameTranslator:TranslateGameText(team, team.Name)
       elseif property == 'TeamColor' then
         for _,childFrame in pairs(containerFrame:GetChildren()) do
           if childFrame:IsA('GuiObject') then

@@ -887,11 +887,10 @@ Class BillboardGui : LayerCollector
 	Property Vector3 BillboardGui.StudsOffset
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
 Class PluginGui : LayerCollector [notCreatable]
+	Property bool PluginGui.HostWidgetWasRestored [readonly]
 	Property string PluginGui.Title
-Class DockWidgetPluginGui : PluginGui [notCreatable]
-	Property bool DockWidgetPluginGui.HostWidgetWasRestored [readonly]
-	Event DockWidgetPluginGui.WindowFocusReleased() [PluginSecurity]
-	Event DockWidgetPluginGui.WindowFocused() [PluginSecurity]
+	Event PluginGui.WindowFocusReleased() [PluginSecurity]
+	Event PluginGui.WindowFocused() [PluginSecurity]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.IgnoreGuiInset
@@ -1100,7 +1099,6 @@ Class HttpService : Instance [notCreatable]
 Class Humanoid : Instance
 	Property bool Humanoid.AutoJumpEnabled
 	Property bool Humanoid.AutoRotate
-	Property bool Humanoid.AutomaticScalingEnabled
 	Property Vector3 Humanoid.CameraOffset
 	Property HumanoidDisplayDistanceType Humanoid.DisplayDistanceType
 	Property Material Humanoid.FloorMaterial [readonly]
@@ -1312,7 +1310,6 @@ Class LocalizationService : Instance [notCreatable]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
 	YieldFunction void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
 	YieldFunction void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
-	Event LocalizationService.AutoTranslateWillRun() [RobloxScriptSecurity]
 Class LocalizationTable : Instance
 	Property string LocalizationTable.DevelopmentLanguage [deprecated] [hidden]
 	Property Class:Instance LocalizationTable.Root [deprecated] [hidden]
@@ -1490,7 +1487,6 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.UseInstancePacketCache
 	Property bool NetworkSettings.UsePhysicsPacketCache
 Class NotificationService : Instance [notCreatable]
-	Property bool NotificationService.IsLuaChatEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaGamesPageEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaHomePageEnabled [readonly] [RobloxScriptSecurity]
 	Function void NotificationService:ActionEnabled(AppShellActionType actionType) [RobloxScriptSecurity]
@@ -1696,7 +1692,6 @@ Class Workspace : RootInstance
 	Property bool Workspace.FilteringEnabled [ScriptWriteRestricted: [PluginSecurity]]
 	Property float Workspace.Gravity
 	Property bool Workspace.StreamingEnabled
-	Property bool Workspace.TemporaryLegacyPhysicsSolverOverride
 	Property Class:Instance Workspace.Terrain [readonly]
 	Function void Workspace:BreakJoints(Objects objects) [PluginSecurity]
 	Function bool Workspace:ExperimentalSolverIsEnabled() [LocalUserSecurity]
@@ -2994,20 +2989,20 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectErrors : 256
 	EnumItem ConnectionError.DisconnectBadhash : 257
 	EnumItem ConnectionError.DisconnectSecurityKeyMismatch : 258
-	EnumItem ConnectionError.DisconnectNewSecurityKeyMismatch : 272
-	EnumItem ConnectionError.DisconnectProtocolMismatch : 259
-	EnumItem ConnectionError.DisconnectReceivePacketError : 260
-	EnumItem ConnectionError.DisconnectReceivePacketStreamError : 261
-	EnumItem ConnectionError.DisconnectSendPacketError : 262
-	EnumItem ConnectionError.DisconnectIllegalTeleport : 263
-	EnumItem ConnectionError.DisconnectDuplicatePlayer : 264
-	EnumItem ConnectionError.DisconnectDuplicateTicket : 265
-	EnumItem ConnectionError.DisconnectTimeout : 266
-	EnumItem ConnectionError.DisconnectLuaKick : 267
-	EnumItem ConnectionError.DisconnectOnRemoteSysStats : 268
-	EnumItem ConnectionError.DisconnectHashTimeout : 269
-	EnumItem ConnectionError.DisconnectCloudEditKick : 270
-	EnumItem ConnectionError.DisconnectPlayerless : 271
+	EnumItem ConnectionError.DisconnectNewSecurityKeyMismatch : 259
+	EnumItem ConnectionError.DisconnectProtocolMismatch : 260
+	EnumItem ConnectionError.DisconnectReceivePacketError : 261
+	EnumItem ConnectionError.DisconnectReceivePacketStreamError : 262
+	EnumItem ConnectionError.DisconnectSendPacketError : 263
+	EnumItem ConnectionError.DisconnectIllegalTeleport : 264
+	EnumItem ConnectionError.DisconnectDuplicatePlayer : 265
+	EnumItem ConnectionError.DisconnectDuplicateTicket : 266
+	EnumItem ConnectionError.DisconnectTimeout : 267
+	EnumItem ConnectionError.DisconnectLuaKick : 268
+	EnumItem ConnectionError.DisconnectOnRemoteSysStats : 269
+	EnumItem ConnectionError.DisconnectHashTimeout : 270
+	EnumItem ConnectionError.DisconnectCloudEditKick : 271
+	EnumItem ConnectionError.DisconnectPlayerless : 272
 	EnumItem ConnectionError.DisconnectEvicted : 273
 	EnumItem ConnectionError.DisconnectDevMaintenance : 274
 	EnumItem ConnectionError.DisconnectRobloxMaintenance : 275

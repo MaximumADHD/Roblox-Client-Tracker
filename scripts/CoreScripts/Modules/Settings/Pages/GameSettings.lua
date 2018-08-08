@@ -83,6 +83,7 @@ if isMobileClient then
 elseif isDesktopClient then
   UseMicroProfiler = settings():GetFFlag("EnableDesktopMicroProfilerApi")
 end
+local FixCameraControlSetting = settings():GetFFlag("FixCameraControlSetting")
 local EnableWebServerOnStart = settings():GetFFlag("EnableWebServerOnStart")
 
 --------------- FLAGS ----------------
@@ -502,6 +503,8 @@ local function Initialize()
     end
 
     do
+      local startingCameraEnumItem = 1 --todo: remove with FixCameraControlSetting
+
       local PlayerScripts = LocalPlayer:WaitForChild("PlayerScripts")
 
       local cameraEnumNames = {}
@@ -535,10 +538,16 @@ local function Initialize()
           enumsToAdd = PlayerScripts:GetRegisteredComputerCameraMovementModes()
         end
 
-        cameraEnumNames = {}
-        cameraEnumNameToItem = {}
+        if FixCameraControlSetting then
+          cameraEnumNames = {}
+          cameraEnumNameToItem = {}
+        end
 
         if #enumsToAdd <= 0 then
+          if not FixCameraControlSetting then
+            cameraEnumNames = {}
+            cameraEnumNameToItem = {}
+          end
           setCameraModeVisible(false)
           return
         end
@@ -552,6 +561,18 @@ local function Initialize()
             displayName = CAMERA_MODE_DEFAULT_STRING
           end
 
+          if not FixCameraControlSetting then
+            if UserInputService.TouchEnabled then
+              if GameSettings.TouchCameraMovementMode == newCameraMode then
+                startingCameraEnumItem = i
+              end
+            else
+              if GameSettings.ComputerCameraMovementMode == newCameraMode then
+                startingCameraEnumItem = i
+              end
+            end
+          end
+
           cameraEnumNames[#cameraEnumNames + 1] = displayName
           cameraEnumNameToItem[displayName] = newCameraMode.Value
         end
@@ -560,27 +581,42 @@ local function Initialize()
           this.CameraMode:UpdateOptions(cameraEnumNames)
         end
 
-        local currentSavedMode = -1
+        if FixCameraControlSetting then
+          local currentSavedMode = -1
 
-        if UserInputService.TouchEnabled then
-          currentSavedMode = GameSettings.TouchCameraMovementMode.Value
-        else
-          currentSavedMode = GameSettings.ComputerCameraMovementMode.Value
-        end
-
-        if currentSavedMode > -1 then
-          currentSavedMode = currentSavedMode + 1
-          local savedEnum = nil
-          local exists = pcall(function() savedEnum = enumsToAdd[currentSavedMode] end)
-          if exists and savedEnum then
-            updateCurrentCameraMovementIndex(savedEnum.Value + 1)
-            this.CameraMode:SetSelectionIndex(savedEnum.Value + 1)
+          if UserInputService.TouchEnabled then
+            currentSavedMode = GameSettings.TouchCameraMovementMode.Value
+          else
+            currentSavedMode = GameSettings.ComputerCameraMovementMode.Value
           end
+
+          if currentSavedMode > -1 then
+            currentSavedMode = currentSavedMode + 1
+            local savedEnum = nil
+            local exists =
+              pcall(
+              function()
+                savedEnum = enumsToAdd[currentSavedMode]
+              end
+            )
+            if exists and savedEnum then
+              updateCurrentCameraMovementIndex(savedEnum.Value + 1)
+              this.CameraMode:SetSelectionIndex(savedEnum.Value + 1)
+            end
+          end
+        else
+          updateCurrentCameraMovementIndex(this.CameraMode.CurrentIndex)
         end
       end
 
-      this.CameraModeFrame, this.CameraModeLabel, this.CameraMode = utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, 1)
-      this.CameraModeFrame.LayoutOrder = 2
+      if FixCameraControlSetting then
+        this.CameraModeFrame, this.CameraModeLabel, this.CameraMode =
+          utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, 1)
+      else
+        this.CameraModeFrame, this.CameraModeLabel, this.CameraMode =
+          utility:AddNewRow(this, "Camera Mode", "Selector", cameraEnumNames, startingCameraEnumItem)
+      end
+        this.CameraModeFrame.LayoutOrder = 2
 
       settingsDisabledInVR[this.CameraMode] = true
 
@@ -685,6 +721,7 @@ local function Initialize()
     end
 
     if movementModeEnabled then
+      local startingMovementEnumItem = 1 --todo: remove with FixCameraControlSetting
       local movementEnumNames = {}
       local movementEnumNameToItem = {}
 
@@ -705,7 +742,13 @@ local function Initialize()
         return displayName
       end
 
-      this.MovementModeFrame, this.MovementModeLabel, this.MovementMode = utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, 1)
+      if FixCameraControlSetting then
+        this.MovementModeFrame, this.MovementModeLabel, this.MovementMode =
+          utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, 1)
+      else
+        this.MovementModeFrame, this.MovementModeLabel, this.MovementMode =
+          utility:AddNewRow(this, "Movement Mode", "Selector", movementEnumNames, startingMovementEnumItem)
+      end
       this.MovementModeFrame.LayoutOrder = 3
 
       settingsDisabledInVR[this.MovementMode] = true
@@ -769,6 +812,18 @@ local function Initialize()
 
           local displayName = getDisplayName(movementMode.Name)
 
+          if not FixCameraControlSetting then
+            if UserInputService.TouchEnabled then
+              if GameSettings.TouchMovementMode == movementMode then
+                startingMovementEnumItem = movementMode.Value + 1
+              end
+            else
+              if GameSettings.ComputerMovementMode == movementModes[i] then
+                startingMovementEnumItem = movementMode.Value + 1
+              end
+            end
+          end
+
           movementEnumNames[#movementEnumNames + 1] = displayName
           movementEnumNameToItem[displayName] = movementMode
         end
@@ -777,22 +832,31 @@ local function Initialize()
           this.MovementMode:UpdateOptions(movementEnumNames)
         end
 
-        local currentSavedMode = -1
+        if FixCameraControlSetting then
+          local currentSavedMode = -1
 
-        if UserInputService.TouchEnabled then
-          currentSavedMode = GameSettings.TouchMovementMode.Value
-        else
-          currentSavedMode = GameSettings.ComputerMovementMode.Value
-        end
-
-        if currentSavedMode > -1 then
-          currentSavedMode = currentSavedMode + 1
-          local savedEnum = nil
-          local exists = pcall(function() savedEnum = movementEnumNameToItem[movementEnumNames[currentSavedMode]] end)
-          if exists and savedEnum then
-            setMovementModeToIndex(savedEnum.Value + 1)
-            this.MovementMode:SetSelectionIndex(savedEnum.Value + 1)
+          if UserInputService.TouchEnabled then
+            currentSavedMode = GameSettings.TouchMovementMode.Value
+          else
+            currentSavedMode = GameSettings.ComputerMovementMode.Value
           end
+
+          if currentSavedMode > -1 then
+            currentSavedMode = currentSavedMode + 1
+            local savedEnum = nil
+            local exists =
+              pcall(
+              function()
+                savedEnum = movementEnumNameToItem[movementEnumNames[currentSavedMode]]
+              end
+            )
+            if exists and savedEnum then
+              setMovementModeToIndex(savedEnum.Value + 1)
+              this.MovementMode:SetSelectionIndex(savedEnum.Value + 1)
+            end
+          end
+        else
+          setMovementModeToIndex(this.MovementMode.CurrentIndex)
         end
       end
 

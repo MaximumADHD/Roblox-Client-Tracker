@@ -162,7 +162,6 @@ local selectFriends = memoize(function(users)
 	return friends
 end)
 
--- TODO: Update to use RoactRodux.UNSTABLE_connect2
 local connector = RoactRodux.connect(function(store, props)
 	local state = store:getState()
 	return {
@@ -201,8 +200,6 @@ local connector = RoactRodux.connect(function(store, props)
 							else
 								reject()
 							end
-						end, function()
-							reject()
 						end)
 					end
 				end):andThen(function(placeInfo)

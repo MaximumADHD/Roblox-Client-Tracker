@@ -1,5 +1,5 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2986829 bytes]
+[2902607 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
 [4486 bytes]
@@ -17,7 +17,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [217241 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[197038 bytes]
+[196567 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3937 bytes]
@@ -166,9 +166,6 @@ content/avatar/scripts/humanoidAnimateLocalKeyframe.rbxm
 content/avatar/scripts/humanoidAnimateR15.rbxm
 [34023 bytes]
 
-content/avatar/scripts/humanoidAnimateR15Scaled.rbxm
-[8564 bytes]
-
 content/avatar/scripts/humanoidHealthRegenScript.rbxmx
 [1338 bytes]
 
@@ -245,10 +242,10 @@ content/scripts/CoreScripts/CoreScripts/HealthScript.lua
 [10198 bytes]
 
 content/scripts/CoreScripts/CoreScripts/MainBotChatScript2.lua
-[24385 bytes]
+[24101 bytes]
 
 content/scripts/CoreScripts/CoreScripts/NotificationScript2.lua
-[37881 bytes]
+[36759 bytes]
 
 content/scripts/CoreScripts/CoreScripts/PerformanceStatsManagerScript.lua
 [7059 bytes]
@@ -257,7 +254,7 @@ content/scripts/CoreScripts/CoreScripts/PurchasePromptScript2.lua
 [70737 bytes]
 
 content/scripts/CoreScripts/CoreScripts/Topbar.lua
-[43176 bytes]
+[42431 bytes]
 
 content/scripts/CoreScripts/CoreScripts/VehicleHud.lua
 [5805 bytes]
@@ -296,7 +293,7 @@ content/scripts/CoreScripts/Modules/AvatarContextMenu/SelectedCharacterIndicator
 [2967 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript.lua
-[67096 bytes]
+[66025 bytes]
 
 content/scripts/CoreScripts/Modules/BackpackScript3D.lua
 [15884 bytes]
@@ -452,7 +449,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleTopBar.spec.
 [874 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.lua
-[7813 bytes]
+[7817 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.spec.lua
 [1315 bytes]
@@ -461,7 +458,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DropDown.lua
 [4444 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DropDown.spec.lua
-[391 bytes]
+[412 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/FullScreenDropDownButton.lua
 [4828 bytes]
@@ -761,13 +758,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Util/minOfTable.lua
 [281 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsoleMaster.lua
-[6640 bytes]
+[6447 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
 [102660 bytes]
 
 content/scripts/CoreScripts/Modules/GameTranslator.lua
-[4029 bytes]
+[2431 bytes]
 
 content/scripts/CoreScripts/Modules/GoogleAnalyticsUtils.lua
 [701 bytes]
@@ -785,7 +782,7 @@ content/scripts/CoreScripts/Modules/PlayerDropDown.lua
 [24820 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerlistModule.lua
-[69877 bytes]
+[69266 bytes]
 
 content/scripts/CoreScripts/Modules/PlayerPermissionsModule.lua
 [1268 bytes]
@@ -818,7 +815,7 @@ content/scripts/CoreScripts/Modules/Server/ClientChat/ChatScript.lua
 [4278 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindow.lua
-[19991 bytes]
+[19955 bytes]
 
 content/scripts/CoreScripts/Modules/Server/ClientChat/ChatWindowInstaller.lua
 [6550 bytes]
@@ -980,7 +977,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[50300 bytes]
+[52649 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [27678 bytes]
@@ -1024,14 +1021,11 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetSearchAr
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/SetSearchText.lua
 [208 bytes]
 
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Actions/StoppedToastTimer.lua
-[167 bytes]
-
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/AppReducer.lua
-[1178 bytes]
+[1087 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/App.lua
-[2304 bytes]
+[2251 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/BackButton.lua
 [1940 bytes]
@@ -1043,7 +1037,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/Conversa
 [4064 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationList.lua
-[7231 bytes]
+[7138 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationThumbnail.lua
 [5102 bytes]
@@ -1061,13 +1055,10 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/InviteBu
 [2346 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/LayoutProvider.lua
-[4402 bytes]
+[4349 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/LoadingFriendsPage.lua
 [1670 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ModeratedToaster.lua
-[3324 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/NoFriendsPage.lua
 [2630 bytes]
@@ -1076,16 +1067,16 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/Rectangl
 [2526 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/SearchArea.lua
-[6605 bytes]
+[6552 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/SearchBox.lua
 [5017 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ShareGamePageFrame.lua
-[3166 bytes]
+[3095 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Constants.lua
-[3665 bytes]
+[3513 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/FlagSettings.lua
 [1217 bytes]
@@ -1101,9 +1092,6 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/Invites.lu
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/Page.lua
 [918 bytes]
-
-content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Reducers/Toasts.lua
-[1220 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Spritesheets/ShareGameIcons.lua
 [1166 bytes]
@@ -1166,7 +1154,7 @@ content/scripts/CoreScripts/Modules/Stats/StatsTextPanel.lua
 [7765 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsUtils.lua
-[10061 bytes]
+[9770 bytes]
 
 content/scripts/CoreScripts/Modules/Stats/StatsViewer.lua
 [4027 bytes]
@@ -1531,26 +1519,11 @@ content/textures/AnimationEditor/button_zoom_hoverpressed_right.png
 content/textures/AnimationEditor/button_zoom_hoverpressed_right@2x.png
 [546 bytes]
 
-content/textures/AnimationEditor/Checkmark.png
-[569 bytes]
-
-content/textures/AnimationEditor/Close.png
-[456 bytes]
-
 content/textures/AnimationEditor/icon_keyIndicator.png
 [2293 bytes]
 
 content/textures/AnimationEditor/icon_keyIndicator_selected.png
 [2525 bytes]
-
-content/textures/AnimationEditor/ScrollbarBottom.png
-[1663 bytes]
-
-content/textures/AnimationEditor/ScrollbarMiddle.png
-[433 bytes]
-
-content/textures/AnimationEditor/ScrollbarTop.png
-[1664 bytes]
 
 content/textures/ArrowCursor.png
 [232 bytes]
@@ -4718,14 +4691,14 @@ content/textures/whiteCircle.png
 [4040 bytes]
 
 content/translations/CoreScriptLocalization.csv
-[199065 bytes]
+[198962 bytes]
 
 ReflectionMetadata.xml
 [345655 bytes]
 
 RobloxStudioBeta.exe
-[27191296 bytes]
+[27142656 bytes]
 
 RobloxStudioRibbon.xml
-[59526 bytes]
+[58527 bytes]
 

@@ -1,11 +1,11 @@
 local LocalizationService = game:GetService("LocalizationService")
 local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
 
-local CoreScriptTranslateGameText = settings():GetFFlag("CoreScriptTranslateGameText2")
+local CoreScriptTranslateGameText = settings():GetFFlag("CoreScriptTranslateGameText")
 
 local playerTranslator = nil
 local player = nil
+local didWarn = false
 local localeId = nil
 local localeIdConnection = nil
 local localeChangedEvent = Instance.new("BindableEvent")
@@ -20,6 +20,7 @@ end
 local function reset()
     playerTranslator = nil
     player = nil
+    didWarn = false
 
     if localeIdConnection then
         localeIdConnection:Disconnect()
@@ -40,48 +41,9 @@ local function getTranslator()
     return playerTranslator
 end
 
-local registryInfoMap = {}
-
-local function unregisterGui(element)
-    registryInfoMap[element].connection:Disconnect()
-    registryInfoMap[element] = nil
-end
-
-local function makeAncestryChangedHandler(element, info)
-    return function(child, parent)
-        if not game:IsAncestorOf(element) then
-            if info.hasBeenAdded then
-                unregisterGui(element)
-            end
-        else
-            info.hasBeenAdded = true
-        end
-    end
-end
-
-local function updateRegistryInfo(info, context, text)
-    info.context = context
-    info.text = text
-end
-
-local function makeRegistryInfo(element, context, text)
-    local info = { hasBeenAdded = game:IsAncestorOf(element) }
-    updateRegistryInfo(info, context, text)
-    info.connection = element.AncestryChanged:Connect(
-        makeAncestryChangedHandler(element, info))
-    return info
-end
-
-local function registerGui(element, context, text)
-    if registryInfoMap[element] == nil then
-        registryInfoMap[element] = makeRegistryInfo(element, context, text)
-    else
-        updateRegistryInfo(registryInfoMap[element], context, text)
-    end
-end
-
 if CoreScriptTranslateGameText then
     Players:GetPropertyChangedSignal("LocalPlayer"):Connect(function()
+        -- LocalPlayer changed
         reset()
         getTranslator()
     end)
@@ -97,34 +59,15 @@ GameTranslator.LocaleChanged = localeChangedEvent.Event
 -- DO NOT USE THIS TO TRANSLATE ROBLOX TEXT IN ROBLOX GUIS!!!
 -- Text from Roblox in Roblox guis should use LocalizationService.RobloxLocaleId
 -- and the CoreScriptLocalization table, NOT user tables with the game locale ID.
-
 function GameTranslator:TranslateGameText(context, text)
     if CoreScriptTranslateGameText then
         local translator = getTranslator()
         if translator then
             return translator:RobloxOnlyTranslate(context, text)
-        else
-            return text
+        elseif not didWarn then
+            warn("CoreScript failed to translate text. Translator not ready.")
+            didWarn = true
         end
-    else
-        return text
-    end
-end
-
-local function retranslateAll()
-    for element, info in pairs(registryInfoMap) do
-        element.Text = GameTranslator:TranslateGameText(info.context, info.text)
-    end
-end
-
-if CoreScriptTranslateGameText then
-    LocalizationService.AutoTranslateWillRun:Connect(retranslateAll)
-end
-
-function GameTranslator:TranslateAndRegister(element, context, text)
-    if CoreScriptTranslateGameText then
-        element.Text = self:TranslateGameText(context, text)
-        registerGui(element, context, text)
     end
 
     return text

@@ -101,7 +101,7 @@ StatsUtils.StatType_CPU =               "st_CPU"
 StatsUtils.StatType_GPU =               "st_GPU"
 StatsUtils.StatType_NetworkSent =       "st_NetworkSent"
 StatsUtils.StatType_NetworkReceived =   "st_NetworkReceived"
-StatsUtils.StatType_Ping =              "st_Ping"
+StatsUtils.StatType_Physics =           "st_Physics"
 
 StatsUtils.AllStatTypes = {
   StatsUtils.StatType_Memory,
@@ -109,7 +109,7 @@ StatsUtils.AllStatTypes = {
   StatsUtils.StatType_GPU,
   StatsUtils.StatType_NetworkSent,
   StatsUtils.StatType_NetworkReceived,
-  StatsUtils.StatType_Ping,
+  StatsUtils.StatType_Physics,
 }
 
 StatsUtils.StatNames = {
@@ -118,7 +118,7 @@ StatsUtils.StatNames = {
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = "NetworkSent",
   [StatsUtils.StatType_NetworkReceived] = "NetworkReceived",
-  [StatsUtils.StatType_Ping] = "Ping",
+  [StatsUtils.StatType_Physics] = "Physics",
 }
 
 StatsUtils.StatMaxNames = {
@@ -127,7 +127,7 @@ StatsUtils.StatMaxNames = {
   [StatsUtils.StatType_GPU] = "MaxGPU",
   [StatsUtils.StatType_NetworkSent] = "MaxNetworkSent",
   [StatsUtils.StatType_NetworkReceived] = "MaxNetworkReceived",
-  [StatsUtils.StatType_Ping] = "MaxPing",
+  [StatsUtils.StatType_Physics] = "MaxPhysics",
 }
 
 StatsUtils.NumButtonTypes = table.getn(StatsUtils.AllStatTypes)
@@ -142,16 +142,13 @@ else
   strReceivedNetwork = "Received\n(Network)"
 end
 
-local success, result = pcall(function() return settings():GetFFlag('PerfWidgetReportPing') end)
-local FFlagPerfWidgetReportPing = success and result
-
 StatsUtils.TypeToName = {
   [StatsUtils.StatType_Memory] = "Memory",
   [StatsUtils.StatType_CPU] = "CPU",
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = strSentNetwork,
   [StatsUtils.StatType_NetworkReceived] = strReceivedNetwork,
-  [StatsUtils.StatType_Ping] = "Phys",
+  [StatsUtils.StatType_Physics] = "Physics",
 }
 
 StatsUtils.TypeToShortName = {
@@ -160,13 +157,8 @@ StatsUtils.TypeToShortName = {
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = "Sent",
   [StatsUtils.StatType_NetworkReceived] = "Recv",
-  [StatsUtils.StatType_Ping] = "Phys",
+  [StatsUtils.StatType_Physics] = "Phys",
 }
-
-if FFlagPerfWidgetReportPing then
-  StatsUtils.TypeToName[StatsUtils.StatType_Ping] = "Ping"
-  StatsUtils.TypeToShortName[StatsUtils.StatType_Ping] = "Ping"
-end
 
 StatsUtils.MemoryAnalyzerTypeToName = {
   ["HumanoidTexture"] = "Humanoid Textures",
@@ -244,7 +236,7 @@ function StatsUtils.FormatTypedValue(value, statType)
     return string.format("%.2f KB/s", value)
   elseif statType == StatsUtils.StatType_NetworkReceived then
     return string.format("%.2f KB/s", value)
-  elseif statType == StatsUtils.StatType_Ping then
+  elseif statType == StatsUtils.StatType_Physics then
     return string.format("%.2f ms", value)
   end
 end
