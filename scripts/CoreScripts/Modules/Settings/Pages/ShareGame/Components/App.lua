@@ -52,6 +52,7 @@ function ShareGameApp:willUnmount()
 	self.eventStream:releaseRBXEventStream()
 end
 
+-- TODO: Update to use RoactRodux.UNSTABLE_connect2
 local connector = RoactRodux.connect(function(store)
 	local userId = tostring(Players.LocalPlayer.UserId)
 

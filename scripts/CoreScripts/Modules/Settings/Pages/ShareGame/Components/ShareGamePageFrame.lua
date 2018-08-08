@@ -2,12 +2,13 @@
 	Container for both the Share Game Page contents and header
 ]]
 
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local AppTempCommon = CorePackages.AppTempCommon
-
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Players = game:GetService("Players")
+
+local AppTempCommon = CorePackages.AppTempCommon
+local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -18,6 +19,7 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
+local ModeratedToaster = require(ShareGame.Components.ModeratedToaster)
 local Constants = require(ShareGame.Constants)
 
 local ClosePage = require(ShareGame.Actions.ClosePage)
@@ -31,8 +33,6 @@ function ShareGamePageFrame:didMount()
 end
 
 function ShareGamePageFrame:render()
-	local isSmallTouchScreen = self.props.isSmallTouchScreen
-	local deviceOrientation = self.props.deviceOrientation
 	local deviceLayout = self.props.deviceLayout
 	local zIndex = self.props.zIndex
 	local closePage = self.props.closePage
@@ -48,6 +48,12 @@ function ShareGamePageFrame:render()
 		Position = UDim2.new(0, 0, 0, 0),
 		ZIndex = zIndex,
 	}, {
+		toasterPortal = Roact.createElement(Roact.Portal, {
+			target = CoreGui,
+		}, {
+			ModeratedToaster = Roact.createElement(ModeratedToaster),
+		}),
+
 		Header = Roact.createElement(Header, {
 			deviceLayout = deviceLayout,
 			size = UDim2.new(1, 0, 0, headerHeight),
@@ -67,11 +73,10 @@ function ShareGamePageFrame:render()
 	})
 end
 
+-- TODO: Update to use RoactRodux.UNSTABLE_connect2
 ShareGamePageFrame = RoactRodux.connect(function(store)
 	local state = store:getState()
 	return {
-		isSmallTouchScreen = state.DeviceInfo.IsSmallTouchScreen,
-		deviceOrientation = state.DeviceInfo.DeviceOrientation,
 		deviceLayout = state.DeviceInfo.DeviceLayout,
 
 		searchAreaActive = state.ConversationsSearch.SearchAreaActive,

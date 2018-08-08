@@ -112,6 +112,10 @@ function DevConsoleWindow:render()
 
 	local borderSizePixel = BORDER_SIZE
 
+	if not isVisible then
+		return nil
+	end
+
 	if formFactor ~= Constants.FormFactor.Large then
 		-- none desktop/Large are full screen devconsoles
 		local absSize = CoreGui.AbsoluteSize
@@ -153,7 +157,6 @@ function DevConsoleWindow:render()
 			BackgroundColor3 = Color3.new(0, 0, 0),
 			Transparency = Constants.MainWindowInit.Transparency,
 			Active = true,
-			Visible = isVisible,
 			BorderColor3 = Constants.Color.BaseGray,
 
 			[Roact.Ref] = self.ref,
@@ -195,7 +198,6 @@ function DevConsoleWindow:render()
 			Size = size,
 			BackgroundColor3 = Color3.new(0, 0, 0),
 			Transparency = Constants.MainWindowInit.Transparency,
-			Visible = isVisible,
 			BorderColor3 = Constants.Color.BaseGray,
 			BorderSizePixel = borderSizePixel,
 

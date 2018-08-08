@@ -181,6 +181,7 @@ function SearchArea:didUpdate(prevProps)
 	end
 end
 
+-- TODO: Update to use RoactRodux.UNSTABLE_connect2
 SearchArea = RoactRodux.connect(function(store)
 	local state = store:getState()
 	return {

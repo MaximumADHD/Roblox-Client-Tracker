@@ -15394,6 +15394,34 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "Title",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PluginGui",
+            "Superclass": "LayerCollector",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "HostWidgetWasRestored",
                     "Security": {
                         "Read": "None",
@@ -15413,23 +15441,6 @@
                     }
                 },
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Title",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
                     "MemberType": "Event",
                     "Name": "WindowFocusReleased",
                     "Parameters": [
@@ -15445,8 +15456,8 @@
                 }
             ],
             "MemoryCategory": "Instances",
-            "Name": "PluginGui",
-            "Superclass": "LayerCollector",
+            "Name": "DockWidgetPluginGui",
+            "Superclass": "PluginGui",
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
@@ -18839,6 +18850,23 @@
                     "Category": "Control",
                     "MemberType": "Property",
                     "Name": "AutoRotate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Game",
+                    "MemberType": "Property",
+                    "Name": "AutomaticScalingEnabled",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -22330,6 +22358,13 @@
                     "Tags": [
                         "Yields"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "AutoTranslateWillRun",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -25598,6 +25633,27 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IsLuaChatEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
@@ -29321,9 +29377,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -29378,6 +29431,26 @@
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "TemporaryLegacyPhysicsSolverOverride",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "Tags": [
                         "NotReplicated"
@@ -43456,6 +43529,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Theme",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "GetUserDisplayName",
@@ -50107,59 +50191,59 @@
                 },
                 {
                     "Name": "DisconnectNewSecurityKeyMismatch",
-                    "Value": 259
+                    "Value": 272
                 },
                 {
                     "Name": "DisconnectProtocolMismatch",
-                    "Value": 260
+                    "Value": 259
                 },
                 {
                     "Name": "DisconnectReceivePacketError",
-                    "Value": 261
+                    "Value": 260
                 },
                 {
                     "Name": "DisconnectReceivePacketStreamError",
-                    "Value": 262
+                    "Value": 261
                 },
                 {
                     "Name": "DisconnectSendPacketError",
-                    "Value": 263
+                    "Value": 262
                 },
                 {
                     "Name": "DisconnectIllegalTeleport",
-                    "Value": 264
+                    "Value": 263
                 },
                 {
                     "Name": "DisconnectDuplicatePlayer",
-                    "Value": 265
+                    "Value": 264
                 },
                 {
                     "Name": "DisconnectDuplicateTicket",
-                    "Value": 266
+                    "Value": 265
                 },
                 {
                     "Name": "DisconnectTimeout",
-                    "Value": 267
+                    "Value": 266
                 },
                 {
                     "Name": "DisconnectLuaKick",
-                    "Value": 268
+                    "Value": 267
                 },
                 {
                     "Name": "DisconnectOnRemoteSysStats",
-                    "Value": 269
+                    "Value": 268
                 },
                 {
                     "Name": "DisconnectHashTimeout",
-                    "Value": 270
+                    "Value": 269
                 },
                 {
                     "Name": "DisconnectCloudEditKick",
-                    "Value": 271
+                    "Value": 270
                 },
                 {
                     "Name": "DisconnectPlayerless",
-                    "Value": 272
+                    "Value": 271
                 },
                 {
                     "Name": "DisconnectEvicted",
@@ -54350,6 +54434,216 @@
             "Tags": [
                 "Deprecated"
             ]
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Button",
+                    "Value": 16
+                },
+                {
+                    "Name": "MainButton",
+                    "Value": 17
+                },
+                {
+                    "Name": "RibbonButton",
+                    "Value": 18
+                },
+                {
+                    "Name": "MainText",
+                    "Value": 21
+                },
+                {
+                    "Name": "TitlebarText",
+                    "Value": 22
+                },
+                {
+                    "Name": "HighlightText",
+                    "Value": 23
+                },
+                {
+                    "Name": "DimmerText",
+                    "Value": 24
+                },
+                {
+                    "Name": "LinkText",
+                    "Value": 25
+                },
+                {
+                    "Name": "WarningText",
+                    "Value": 26
+                },
+                {
+                    "Name": "ErrorText",
+                    "Value": 27
+                },
+                {
+                    "Name": "InfoText",
+                    "Value": 28
+                },
+                {
+                    "Name": "SensitiveText",
+                    "Value": 29
+                },
+                {
+                    "Name": "RibbonTab",
+                    "Value": 8
+                },
+                {
+                    "Name": "RibbonTabTopBar",
+                    "Value": 9
+                },
+                {
+                    "Name": "Item",
+                    "Value": 3
+                },
+                {
+                    "Name": "TableItem",
+                    "Value": 4
+                },
+                {
+                    "Name": "TabBar",
+                    "Value": 5
+                },
+                {
+                    "Name": "Tab",
+                    "Value": 6
+                },
+                {
+                    "Name": "Notification",
+                    "Value": 1
+                },
+                {
+                    "Name": "Tooltip",
+                    "Value": 2
+                },
+                {
+                    "Name": "InputField",
+                    "Value": 15
+                },
+                {
+                    "Name": "Menu",
+                    "Value": 7
+                },
+                {
+                    "Name": "ScrollBar",
+                    "Value": 12
+                },
+                {
+                    "Name": "ScrollBarBackground",
+                    "Value": 13
+                },
+                {
+                    "Name": "EmulatorBar",
+                    "Value": 10
+                },
+                {
+                    "Name": "EmulatorDropDown",
+                    "Value": 11
+                },
+                {
+                    "Name": "Border",
+                    "Value": 19
+                },
+                {
+                    "Name": "Shadow",
+                    "Value": 20
+                },
+                {
+                    "Name": "MainSection",
+                    "Value": 0
+                },
+                {
+                    "Name": "ScriptBackground",
+                    "Value": 30
+                },
+                {
+                    "Name": "ScriptText",
+                    "Value": 31
+                },
+                {
+                    "Name": "ScriptSelectionText",
+                    "Value": 32
+                },
+                {
+                    "Name": "ScriptSelectionBackground",
+                    "Value": 33
+                },
+                {
+                    "Name": "ScriptFindSelectionBackground",
+                    "Value": 34
+                },
+                {
+                    "Name": "ScriptMachtingWordSelectionBackground",
+                    "Value": 35
+                },
+                {
+                    "Name": "ScriptOperator",
+                    "Value": 36
+                },
+                {
+                    "Name": "ScriptNumber",
+                    "Value": 37
+                },
+                {
+                    "Name": "ScriptString",
+                    "Value": 38
+                },
+                {
+                    "Name": "ScriptComment",
+                    "Value": 39
+                },
+                {
+                    "Name": "ScriptPreprocessor",
+                    "Value": 40
+                },
+                {
+                    "Name": "ScriptKeyword",
+                    "Value": 41
+                },
+                {
+                    "Name": "ScriptBuiltInFunction",
+                    "Value": 42
+                },
+                {
+                    "Name": "ScriptWarning",
+                    "Value": 43
+                },
+                {
+                    "Name": "ScriptError",
+                    "Value": 44
+                },
+                {
+                    "Name": "ViewPortBackground",
+                    "Value": 14
+                }
+            ],
+            "Name": "StudioStyleGuideColor"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Selected",
+                    "Value": 1
+                },
+                {
+                    "Name": "Pressed",
+                    "Value": 2
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 3
+                },
+                {
+                    "Name": "Hover",
+                    "Value": 4
+                }
+            ],
+            "Name": "StudioStyleGuideModifier"
         },
         {
             "Items": [

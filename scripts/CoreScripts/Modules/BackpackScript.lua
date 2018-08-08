@@ -89,6 +89,7 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local FFlagBackpackScriptUseFormatByKey = settings():GetFFlag('BackpackScriptUseFormatByKey')
+local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag('CoreScriptTranslateGameText2')
 
 if FFlagBackpackScriptUseFormatByKey then
 	SEARCH_TEXT_OFFSET_FROMLEFT = 3
@@ -318,8 +319,8 @@ local function MakeSlot(parent, index)
 	slot.Index = index
 	slot.Frame = nil
 
-	local LocalizedName  = nil
-	local LocalizedToolTip = nil
+	local LocalizedName = nil --remove with FFlagCoreScriptTranslateGameText2
+	local LocalizedToolTip = nil --remove with FFlagCoreScriptTranslateGameText2
 
 	local SlotFrameParent = nil
 	local SlotFrame = nil
@@ -379,18 +380,36 @@ local function MakeSlot(parent, index)
 		self.Tool = tool
 
 		local function assignToolData()
-			LocalizedName = GameTranslator:TranslateGameText(tool, tool.Name)
-			LocalizedToolTip = nil
+			if FFlagCoreScriptTranslateGameText2 then
+				local icon = tool.TextureId
+				ToolIcon.Image = icon
 
-			local icon = tool.TextureId
-			ToolIcon.Image = icon
-			ToolName.Text = (icon == '') and LocalizedName or '' -- (Only show name if no icon)
-			if ToolTip and tool:IsA('Tool') then --NOTE: HopperBin
-				LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)				
-				ToolTip.Text = LocalizedToolTip
-				local width = ToolTip.TextBounds.X + TOOLTIP_BUFFER
-				ToolTip.Size = UDim2.new(0, width, 0, TOOLTIP_HEIGHT)
-				ToolTip.Position = UDim2.new(0.5, -width / 2, 0, TOOLTIP_OFFSET)
+				if icon ~= "" then
+					ToolName.Visible = false
+				end
+
+				GameTranslator:TranslateAndRegister(ToolName, tool, tool.Name)
+
+				if ToolTip and tool:IsA('Tool') then --NOTE: HopperBin
+					GameTranslator:TranslateAndRegister(ToolTip, tool, tool.ToolTip)
+					local width = ToolTip.TextBounds.X + TOOLTIP_BUFFER
+					ToolTip.Size = UDim2.new(0, width, 0, TOOLTIP_HEIGHT)
+					ToolTip.Position = UDim2.new(0.5, -width / 2, 0, TOOLTIP_OFFSET)
+				end
+			else
+				LocalizedName = GameTranslator:TranslateGameText(tool, tool.Name)
+				LocalizedToolTip = nil
+
+				local icon = tool.TextureId
+				ToolIcon.Image = icon
+				ToolName.Text = (icon == '') and LocalizedName or '' -- (Only show name if no icon)
+				if ToolTip and tool:IsA('Tool') then --NOTE: HopperBin
+					LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)				
+					ToolTip.Text = LocalizedToolTip
+					local width = ToolTip.TextBounds.X + TOOLTIP_BUFFER
+					ToolTip.Size = UDim2.new(0, width, 0, TOOLTIP_HEIGHT)
+					ToolTip.Position = UDim2.new(0.5, -width / 2, 0, TOOLTIP_OFFSET)
+				end
 			end
 		end
 		assignToolData()
@@ -558,9 +577,17 @@ local function MakeSlot(parent, index)
 		local tool = self.Tool
 		if tool then
 			for term in pairs(terms) do
-				checkEm(LocalizedName, term)
-				if tool:IsA('Tool') then --NOTE: HopperBin
-					checkEm(LocalizedToolTip, term)
+				if FFlagCoreScriptTranslateGameText2 then
+					checkEm(ToolName.Text, term)
+					if tool:IsA('Tool') then --NOTE: HopperBin
+						local toolTipText = ToolTip and ToolTip.Text or ""
+						checkEm(toolTipText, term)
+					end
+				else
+					checkEm(LocalizedName, term)
+					if tool:IsA('Tool') then --NOTE: HopperBin
+						checkEm(LocalizedToolTip, term)
+					end
 				end
 			end
 		end
@@ -1552,6 +1579,7 @@ local function addGamepadHint(hintImage, hintImageLarge, hintText)
 		Text = hintText,
 		TextColor3 = Color3.new(1,1,1),
 		TextXAlignment = Enum.TextXAlignment.Left,
+		TextWrapped = true,
 		Parent = hintFrame
 	}
 	local textSizeConstraint = Instance.new("UITextSizeConstraint", hintText)

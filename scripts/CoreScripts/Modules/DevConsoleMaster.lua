@@ -30,6 +30,8 @@ local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
 
 local SetDevConsoleVisibility = require(DevConsole.Actions.SetDevConsoleVisibility)
 
+local START_DATA_ON_INIT = settings():GetFVariable("EnableNewDevConsoleDataOnInit")
+
 local DEV_TAB_LIST = {
 	{
 		label = "Log",
@@ -157,6 +159,8 @@ function DevConsoleMaster.new()
 	return self
 end
 
+local master = DevConsoleMaster.new()
+
 function DevConsoleMaster:Start()
 	if not self.init then
 		self.init = true
@@ -164,11 +168,15 @@ function DevConsoleMaster:Start()
 	end
 end
 
-function DevConsoleMaster:Stop()
-
+if START_DATA_ON_INIT then
+	master:Start()
 end
 
 function DevConsoleMaster:ToggleVisibility()
+	if not self.init then
+		master:Start()
+	end
+
 	self.isVisible = not self.store:getState().DisplayOptions.isVisible
 	self.store:dispatch(SetDevConsoleVisibility(self.isVisible))
 end
@@ -179,13 +187,14 @@ end
 
 function DevConsoleMaster:SetVisibility(value)
 	if type(value) == "boolean" then
+		if not self.init and value then
+			master:Start()
+		end
+
 		self.isVisible = value
 		self.store:dispatch(SetDevConsoleVisibility(self.isVisible))
 	end
 end
-
-local master = DevConsoleMaster.new()
-master:Start()
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
 	return master:GetVisibility()
