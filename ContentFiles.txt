@@ -1,8 +1,11 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[2986829 bytes]
+[3124773 bytes]
+
+BuiltInPlugins/CollisionGroupsEditor.rbxmx
+[157105 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[4486 bytes]
+[4406 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [26474 bytes]
@@ -17,7 +20,7 @@ BuiltInPlugins/TransformDragger.rbxmx
 [217241 bytes]
 
 BuiltInPlugins/UIEditor.rbxmx
-[197038 bytes]
+[197239 bytes]
 
 BuiltInPlugins/VideoDocumentation.rbxmx
 [3937 bytes]
@@ -377,16 +380,19 @@ content/scripts/CoreScripts/Modules/DevConsole/Actions/UpdateAveragePing.lua
 [167 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/CircularBuffer.lua
-[2264 bytes]
+[3145 bytes]
+
+content/scripts/CoreScripts/Modules/DevConsole/CircularBuffer.spec.lua
+[3643 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsChart.lua
-[10200 bytes]
+[10557 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsChart.spec.lua
 [532 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/ActionBindingsData.lua
-[4579 bytes]
+[4728 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ActionBindings/MainViewActionBindings.lua
 [3019 bytes]
@@ -431,13 +437,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DataProvider.lua
 [1809 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresChart.lua
-[7237 bytes]
+[7240 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresChart.spec.lua
 [517 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/DataStoresData.lua
-[3050 bytes]
+[3052 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/MainViewDataStores.lua
 [2946 bytes]
@@ -446,13 +452,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/DataStores/MainViewDat
 [966 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleTopBar.lua
-[5947 bytes]
+[6008 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleTopBar.spec.lua
 [874 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.lua
-[7813 bytes]
+[8066 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/DevConsoleWindow.spec.lua
 [1315 bytes]
@@ -473,7 +479,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/HeaderButton.lua
 [847 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LineGraph.lua
-[8771 bytes]
+[9660 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LineGraphHoverDisplay.lua
 [1891 bytes]
@@ -491,16 +497,16 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Log/ClientLog.spec.lua
 [493 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/DevConsoleCommandLine.lua
-[1802 bytes]
+[4287 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/DevConsoleCommandLine.spec.lua
 [401 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/LogData.lua
-[7108 bytes]
+[7672 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/LogOutput.lua
-[5905 bytes]
+[6020 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Log/LogOutput.spec.lua
 [466 bytes]
@@ -533,7 +539,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MainViewMemory.
 [1036 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryView.lua
-[8576 bytes]
+[8590 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryView.spec.lua
 [709 bytes]
@@ -566,7 +572,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Network/MainViewNetwor
 [982 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChart.lua
-[9550 bytes]
+[9761 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkChart.spec.lua
 [403 bytes]
@@ -581,13 +587,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkData.lu
 [5501 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkSummary.lua
-[6036 bytes]
+[6010 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkSummary.spec.lua
 [378 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkView.lua
-[6004 bytes]
+[6247 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkView.spec.lua
 [707 bytes]
@@ -605,22 +611,22 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/MainViewScript
 [954 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScripts.lua
-[10224 bytes]
+[9713 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScripts.spec.lua
 [533 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScriptsData.lua
-[4250 bytes]
+[4734 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScriptsEntry.lua
-[4436 bytes]
+[4566 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/ServerScriptsEntry.spec.lua
 [1215 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/SearchBar.lua
-[2293 bytes]
+[2273 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/SearchBar.spec.lua
 [392 bytes]
@@ -632,13 +638,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/MainViewSer
 [962 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.lua
-[12517 bytes]
+[12442 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.spec.lua
 [517 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsData.lua
-[4183 bytes]
+[4664 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/MainViewServerStats.lua
 [2956 bytes]
@@ -653,7 +659,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStat
 [521 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerStats/ServerStatsData.lua
-[3192 bytes]
+[3194 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowButton.lua
 [1520 bytes]
@@ -662,19 +668,19 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowButton.spec.lua
 [416 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowContainer.lua
-[4127 bytes]
+[4225 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/TabRowContainer.spec.lua
 [750 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/UtilAndTab.lua
-[10300 bytes]
+[10398 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/UtilAndTab.spec.lua
 [738 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Constants.lua
-[6738 bytes]
+[6758 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Immutable.lua
 [2476 bytes]
@@ -692,7 +698,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Reducers/DataStoresData.spec.lua
 [524 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/DevConsoleDisplayOptions.lua
-[1825 bytes]
+[1823 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Reducers/DevConsoleDisplayOptions.spec.lua
 [774 bytes]
@@ -760,8 +766,11 @@ content/scripts/CoreScripts/Modules/DevConsole/Util/maxOfTable.lua
 content/scripts/CoreScripts/Modules/DevConsole/Util/minOfTable.lua
 [281 bytes]
 
+content/scripts/CoreScripts/Modules/DevConsole/Util/setMouseVisibility.lua
+[583 bytes]
+
 content/scripts/CoreScripts/Modules/DevConsoleMaster.lua
-[6640 bytes]
+[6801 bytes]
 
 content/scripts/CoreScripts/Modules/DeveloperConsoleModule.lua
 [102660 bytes]
@@ -1507,6 +1516,51 @@ content/textures/advCursor-white.png
 content/textures/AnchorCursor.png
 [1150 bytes]
 
+content/textures/AnimationEditor/button_control_end.png
+[1399 bytes]
+
+content/textures/AnimationEditor/button_control_next.png
+[1239 bytes]
+
+content/textures/AnimationEditor/button_control_play.png
+[1175 bytes]
+
+content/textures/AnimationEditor/button_control_previous.png
+[1262 bytes]
+
+content/textures/AnimationEditor/button_control_start.png
+[1359 bytes]
+
+content/textures/AnimationEditor/button_hierarchy_closed.png
+[1113 bytes]
+
+content/textures/AnimationEditor/button_hierarchy_opened.png
+[1107 bytes]
+
+content/textures/AnimationEditor/button_lock.png
+[1202 bytes]
+
+content/textures/AnimationEditor/button_loop.png
+[1556 bytes]
+
+content/textures/AnimationEditor/button_pause_white@2x.png
+[995 bytes]
+
+content/textures/AnimationEditor/button_popup_close.png
+[1054 bytes]
+
+content/textures/AnimationEditor/button_radio_background.png
+[283 bytes]
+
+content/textures/AnimationEditor/button_radio_default.png
+[395 bytes]
+
+content/textures/AnimationEditor/button_radio_innercircle.png
+[1054 bytes]
+
+content/textures/AnimationEditor/button_zoom.png
+[1241 bytes]
+
 content/textures/AnimationEditor/button_zoom_default_left.png
 [331 bytes]
 
@@ -1537,11 +1591,146 @@ content/textures/AnimationEditor/Checkmark.png
 content/textures/AnimationEditor/Close.png
 [456 bytes]
 
+content/textures/AnimationEditor/ic-checkbox-active.png
+[763 bytes]
+
+content/textures/AnimationEditor/ic-checkbox-off.png
+[648 bytes]
+
+content/textures/AnimationEditor/icon_checkmark.png
+[1142 bytes]
+
+content/textures/AnimationEditor/icon_close.png
+[1092 bytes]
+
+content/textures/AnimationEditor/icon_dark_warning.png
+[1169 bytes]
+
+content/textures/AnimationEditor/icon_delete.png
+[1093 bytes]
+
+content/textures/AnimationEditor/icon_delete_disabled.png
+[1175 bytes]
+
+content/textures/AnimationEditor/icon_hierarchy_end_white.png
+[995 bytes]
+
 content/textures/AnimationEditor/icon_keyIndicator.png
 [2293 bytes]
 
 content/textures/AnimationEditor/icon_keyIndicator_selected.png
 [2525 bytes]
+
+content/textures/AnimationEditor/icon_warning.png
+[1830 bytes]
+
+content/textures/AnimationEditor/icon_whitetriangle_down.png
+[1023 bytes]
+
+content/textures/AnimationEditor/icon_whitetriangle_up.png
+[1017 bytes]
+
+content/textures/AnimationEditor/image_keyframe_bounce_selected.png
+[1109 bytes]
+
+content/textures/AnimationEditor/image_keyframe_bounce_unselected.png
+[1205 bytes]
+
+content/textures/AnimationEditor/image_keyframe_constant_selected.png
+[1109 bytes]
+
+content/textures/AnimationEditor/image_keyframe_constant_unselected.png
+[1205 bytes]
+
+content/textures/AnimationEditor/image_keyframe_cubic_selected.png
+[1094 bytes]
+
+content/textures/AnimationEditor/image_keyframe_cubic_unselected.png
+[1192 bytes]
+
+content/textures/AnimationEditor/image_keyframe_elastic_selected.png
+[1109 bytes]
+
+content/textures/AnimationEditor/image_keyframe_elastic_unselected.png
+[1174 bytes]
+
+content/textures/AnimationEditor/image_keyframe_linear_selected.png
+[1108 bytes]
+
+content/textures/AnimationEditor/image_keyframe_linear_unselected.png
+[1190 bytes]
+
+content/textures/AnimationEditor/image_scrollbar_vertical_bot.png
+[948 bytes]
+
+content/textures/AnimationEditor/image_scrollbar_vertical_mid.png
+[938 bytes]
+
+content/textures/AnimationEditor/image_scrollbar_vertical_top.png
+[954 bytes]
+
+content/textures/AnimationEditor/img_dark_scalebar_arrows.png
+[1175 bytes]
+
+content/textures/AnimationEditor/img_dark_scalebar_bar.png
+[378 bytes]
+
+content/textures/AnimationEditor/img_dark_scrubberhead.png
+[464 bytes]
+
+content/textures/AnimationEditor/img_dark_timetag_bg.png
+[811 bytes]
+
+content/textures/AnimationEditor/img_forwardslash.png
+[1167 bytes]
+
+content/textures/AnimationEditor/img_key_border.png
+[212 bytes]
+
+content/textures/AnimationEditor/img_key_indicator_border.png
+[212 bytes]
+
+content/textures/AnimationEditor/img_key_indicator_inner.png
+[163 bytes]
+
+content/textures/AnimationEditor/img_key_indicator_selected_border.png
+[188 bytes]
+
+content/textures/AnimationEditor/img_key_indicator_selected_inner.png
+[163 bytes]
+
+content/textures/AnimationEditor/img_key_inner.png
+[155 bytes]
+
+content/textures/AnimationEditor/img_key_selected_border.png
+[205 bytes]
+
+content/textures/AnimationEditor/img_key_selected_inner.png
+[155 bytes]
+
+content/textures/AnimationEditor/img_scrubberhead.png
+[337 bytes]
+
+content/textures/AnimationEditor/img_triangle.png
+[158 bytes]
+
+content/textures/AnimationEditor/menu_shadow_bottom.png
+[2304 bytes]
+
+content/textures/AnimationEditor/menu_shadow_side_left.png
+[1855 bytes]
+
+content/textures/AnimationEditor/menu_shadow_side_right.png
+[1886 bytes]
+
+content/textures/AnimationEditor/menu_shadow_top.png
+[1323 bytes]
+
+content/textures/AnimationEditor/RoundedBackground.png
+[130 bytes]
+
+content/textures/AnimationEditor/RoundedBorder.png
+[239 bytes]
 
 content/textures/AnimationEditor/ScrollbarBottom.png
 [1663 bytes]
@@ -1629,6 +1818,42 @@ content/textures/blockUpperLeft.png
 
 content/textures/chatBubble_bot_notifyGray_dotDotDot.png
 [253 bytes]
+
+content/textures/CollisionGroupsEditor/assign.png
+[739 bytes]
+
+content/textures/CollisionGroupsEditor/assign-hover.png
+[706 bytes]
+
+content/textures/CollisionGroupsEditor/checked-bluebg.png
+[612 bytes]
+
+content/textures/CollisionGroupsEditor/checked-whitebg.png
+[565 bytes]
+
+content/textures/CollisionGroupsEditor/delete.png
+[755 bytes]
+
+content/textures/CollisionGroupsEditor/delete-hover.png
+[735 bytes]
+
+content/textures/CollisionGroupsEditor/manage.png
+[1036 bytes]
+
+content/textures/CollisionGroupsEditor/manage-hover.png
+[977 bytes]
+
+content/textures/CollisionGroupsEditor/rename.png
+[1007 bytes]
+
+content/textures/CollisionGroupsEditor/rename-hover.png
+[936 bytes]
+
+content/textures/CollisionGroupsEditor/ToolbarIcon.png
+[1262 bytes]
+
+content/textures/CollisionGroupsEditor/unchecked.png
+[356 bytes]
 
 content/textures/ConstraintCursor.png
 [170 bytes]
@@ -2620,6 +2845,15 @@ content/textures/ui/LuaApp/9-slice/gr-btn-white-3px-pressed@2x.png
 content/textures/ui/LuaApp/9-slice/gr-btn-white-3px-pressed@3x.png
 [570 bytes]
 
+content/textures/ui/LuaApp/9-slice/gr-capsule-circle.png
+[612 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-capsule-circle@2x.png
+[1345 bytes]
+
+content/textures/ui/LuaApp/9-slice/gr-capsule-circle@3x.png
+[2118 bytes]
+
 content/textures/ui/LuaApp/9-slice/gr-loading-indicator.png
 [120 bytes]
 
@@ -2836,6 +3070,12 @@ content/textures/ui/LuaApp/dropdown/gr-tip-up@2x.png
 content/textures/ui/LuaApp/dropdown/gr-tip-up@3x.png
 [294 bytes]
 
+content/textures/ui/LuaApp/graphic/bkg.png
+[1737 bytes]
+
+content/textures/ui/LuaApp/graphic/bkg@2x.png
+[4328 bytes]
+
 content/textures/ui/LuaApp/graphic/gr-card.png
 [151 bytes]
 
@@ -2844,15 +3084,6 @@ content/textures/ui/LuaApp/graphic/gr-card@2x.png
 
 content/textures/ui/LuaApp/graphic/gr-card@3x.png
 [341 bytes]
-
-content/textures/ui/LuaApp/graphic/gr-friend.png
-[3056 bytes]
-
-content/textures/ui/LuaApp/graphic/gr-friend@2x.png
-[7765 bytes]
-
-content/textures/ui/LuaApp/graphic/gr-friend@3x.png
-[13925 bytes]
 
 content/textures/ui/LuaApp/graphic/gr-friend-on.png
 [3489 bytes]
@@ -3357,6 +3588,15 @@ content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@2x.png
 
 content/textures/ui/LuaChat/9-slice/chat-bubble-tip-right@3x.png
 [214 bytes]
+
+content/textures/ui/LuaChat/9-slice/error-toast.png
+[262 bytes]
+
+content/textures/ui/LuaChat/9-slice/error-toast@2x.png
+[408 bytes]
+
+content/textures/ui/LuaChat/9-slice/error-toast@3x.png
+[642 bytes]
 
 content/textures/ui/LuaChat/9-slice/gr-mask-game-icon.png
 [131 bytes]
@@ -4724,8 +4964,8 @@ ReflectionMetadata.xml
 [345655 bytes]
 
 RobloxStudioBeta.exe
-[27191296 bytes]
+[27215872 bytes]
 
 RobloxStudioRibbon.xml
-[59526 bytes]
+[59723 bytes]
 

@@ -17,6 +17,7 @@ local GRAPH_Y_INNER_PADDING = Constants.Graph.InnerPaddingY
 local GRAPH_Y_INNER_SCALE = Constants.Graph.InnerScaleY
 local TEXT_PADDING = Constants.Graph.TextPadding
 
+local INVIS_LINE_THRESHOLD = 10
 local LineGraph = Roact.Component:extend("LineGraph")
 
 function LineGraph:init()
@@ -99,6 +100,8 @@ function LineGraph:render()
 	local maxY = self.props.maxY
 	local minY = self.props.minY
 
+	local hoverLineY
+
 	local elements = {}
 	if absGraphSize then
 		local dataPoints = {}
@@ -165,7 +168,7 @@ function LineGraph:render()
 						local bDataY = getY(dataPoints[i - 1].data)
 
 						local ratio = (hoverLineX - bX) / vecX
-						local hoverLineY = bY + (vecY * ratio)
+						hoverLineY = bY + (vecY * ratio)
 
 						local hoverValX = (aDataX - bDataX) * ratio + bDataX
 						local hoverValY = (aDataY - bDataY) * ratio + bDataY
@@ -188,31 +191,44 @@ function LineGraph:render()
 			local lastEntryHeight = dataPoints[#dataPoints].Y * absGraphSize.Y * GRAPH_Y_INNER_SCALE
 			local currValue = getY(dataPoints[#dataPoints].data)
 
-			elements["LatestEntryLine"] = Roact.createElement("Frame", {
-				Size = UDim2.new(1, TEXT_PADDING, 0, LINE_WIDTH),
-				Position = UDim2.new(0, -TEXT_PADDING, 1 - GRAPH_Y_INNER_PADDING, -lastEntryHeight),
-				BackgroundColor3 = LINE_COLOR,
-				BackgroundTransparency = .5,
-				BorderSizePixel = 0,
-			})
+			-- calc if the hovered Y position is very close to the last input entry (within the invis-threshold).
+			-- If it's NOT within the "invis threshold" then we can show the line and "last entry value"
+			local showCurrValue = not (hoverLineY and math.abs(lastEntryHeight - hoverLineY) < INVIS_LINE_THRESHOLD)
 
-			elements["LatestEntryText"] = Roact.createElement("TextLabel", {
-				Text = stringFormatY and stringFormatY(currValue) or currValue,
-				TextColor3 = TEXT_COLOR,
-				TextXAlignment = Enum.TextXAlignment.Right,
+			-- calc if the hovered Y position is very close to the lower Y bound value (within the invis-threshold).
+			-- If it's NOT within the "invis threshold" then we can show the lowerbound Y value
+			local hoverLineCheck = (hoverLineY and math.abs(hoverLineY) < INVIS_LINE_THRESHOLD)
+			local showLeastValue = not (hoverLineCheck or math.abs(lastEntryHeight) < INVIS_LINE_THRESHOLD)
 
-				Position = UDim2.new(0, -TEXT_PADDING - 2, 1 - GRAPH_Y_INNER_PADDING, -lastEntryHeight),
-				BackgroundTransparency = 1,
-			})
+			if showCurrValue then
+				elements["LatestEntryLine"] = Roact.createElement("Frame", {
+					Size = UDim2.new(1, TEXT_PADDING, 0, LINE_WIDTH),
+					Position = UDim2.new(0, -TEXT_PADDING, 1 - GRAPH_Y_INNER_PADDING, -lastEntryHeight),
+					BackgroundColor3 = LINE_COLOR,
+					BackgroundTransparency = .5,
+					BorderSizePixel = 0,
+				})
 
-			elements["AxisTextY0"] = Roact.createElement("TextLabel", {
-				Text = stringFormatY and stringFormatY(minY) or minY,
-				TextColor3 = TEXT_COLOR,
-				TextXAlignment = Enum.TextXAlignment.Right,
+				elements["LatestEntryText"] = Roact.createElement("TextLabel", {
+					Text = stringFormatY and stringFormatY(currValue) or currValue,
+					TextColor3 = TEXT_COLOR,
+					TextXAlignment = Enum.TextXAlignment.Right,
 
-				Position = UDim2.new(0, -TEXT_PADDING - 2, 1 - GRAPH_Y_INNER_PADDING,0),
-				BackgroundTransparency = 1,
-			})
+					Position = UDim2.new(0, -TEXT_PADDING - 2, 1 - GRAPH_Y_INNER_PADDING, -lastEntryHeight),
+					BackgroundTransparency = 1,
+				})
+			end
+
+			if showLeastValue then
+				elements["AxisTextY0"] = Roact.createElement("TextLabel", {
+					Text = stringFormatY and stringFormatY(minY) or minY,
+					TextColor3 = TEXT_COLOR,
+					TextXAlignment = Enum.TextXAlignment.Right,
+
+					Position = UDim2.new(0, -TEXT_PADDING - 2, 1 - GRAPH_Y_INNER_PADDING,0),
+					BackgroundTransparency = 1,
+				})
+			end
 
 			elements["AxisX"] = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, LINE_WIDTH),
@@ -227,6 +243,8 @@ function LineGraph:render()
 			})
 		end
 	end
+
+	local axisTextPadding = 2 * TEXT_PADDING + 2
 
 	return Roact.createElement("Frame", {
 		Size = size,
@@ -248,7 +266,7 @@ function LineGraph:render()
 			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Center,
 
-			Position = UDim2.new(GRAPH_PADDING, 0, GRAPH_PADDING + GRAPH_SCALE, TEXT_PADDING),
+			Position = UDim2.new(GRAPH_PADDING, 0, GRAPH_PADDING + GRAPH_SCALE, axisTextPadding),
 			BackgroundTransparency = 1,
 		}),
 
@@ -257,7 +275,7 @@ function LineGraph:render()
 			TextColor3 = TEXT_COLOR,
 			TextXAlignment = Enum.TextXAlignment.Center,
 
-			Position = UDim2.new(GRAPH_PADDING + GRAPH_SCALE, 0, GRAPH_PADDING + GRAPH_SCALE, TEXT_PADDING),
+			Position = UDim2.new(GRAPH_PADDING + GRAPH_SCALE, 0, GRAPH_PADDING + GRAPH_SCALE, axisTextPadding),
 			BackgroundTransparency = 1,
 		}),
 
@@ -267,7 +285,7 @@ function LineGraph:render()
 			TextXAlignment = Enum.TextXAlignment.Center,
 
 			-- adding 2 to padding to push the label away from the axis line
-			Position = UDim2.new(.5, 0, GRAPH_PADDING + GRAPH_SCALE, 2 * TEXT_PADDING + 2),
+			Position = UDim2.new(.5, 0, GRAPH_PADDING + GRAPH_SCALE, axisTextPadding),
 			BackgroundTransparency = 1,
 		}),
 

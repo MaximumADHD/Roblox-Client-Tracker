@@ -1,4 +1,3 @@
-
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
@@ -22,6 +21,7 @@ local MIN_FRAME_WIDTH = ActionBindingsFormatting.MinFrameWidth
 
 local IS_CORE_STR = "Core"
 local IS_DEVELOPER_STR = "Developer"
+local NON_FOUND_ENTRIES_STR = "No ActionBindings Found"
 
 -- create table of offsets and sizes for each cell
 local totalCellWidth = 0
@@ -82,7 +82,7 @@ local function constructHeader(onSortChanged, width)
 
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, LINE_WIDTH),
-		Position = UDim2.new(0, 0, 1, 0),
+		Position = UDim2.new(0, 0, 1, -LINE_WIDTH),
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
 	})
@@ -97,12 +97,10 @@ local function constructHeader(onSortChanged, width)
 		})
 	end
 
-	return Roact.createElement("ScrollingFrame", {
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
-		CanvasSize = UDim2.new(0, width, 0, HEADER_HEIGHT),
 		BackgroundTransparency = 1,
-		ScrollingEnabled = false,
-		ScrollBarThickness = 0,
+		ClipsDescendants = true,
 	}, header)
 end
 
@@ -159,12 +157,6 @@ local function constructEntry(entry, width, layoutOrder)
 		text = enumStr,
 		size = entryCellSize[5],
 		pos = cellOffset[5],
-	})
-
-	row.upperHorizontalLine = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, LINE_WIDTH),
-		BackgroundColor3 = LINE_COLOR,
-		BorderSizePixel = 0,
 	})
 
 	row.lowerHorizontalLine = Roact.createElement("Frame", {
@@ -286,13 +278,19 @@ function ActionBindingsChart:render()
 	local canvasHeight = 0
 
 	if absScrollSize and canvasPos then
-
 		local paddingHeight = -1
 		local usedFrameSpace = 0
-
+		local count = 0
 
 		for ind, entry in ipairs(entryList) do
-			if not searchTerm or string.find(entry.name:lower(), searchTerm:lower()) ~= nil then
+			local foundTerm = false
+			if searchTerm then
+				local enumStr = tostring(entry.actionInfo["inputTypes"][1])
+				foundTerm = string.find(enumStr:lower(), searchTerm:lower()) ~= nil
+				foundTerm = foundTerm or string.find(entry.name:lower(), searchTerm:lower()) ~= nil
+			end
+
+			if not searchTerm or foundTerm then
 				if canvasHeight + ENTRY_HEIGHT >= canvasPos.Y then
 					if usedFrameSpace < absScrollSize.Y then
 						local entryLayoutOrder = reverseSort and (totalEntries - ind) or ind
@@ -303,17 +301,31 @@ function ActionBindingsChart:render()
 					else
 						usedFrameSpace = usedFrameSpace + ENTRY_HEIGHT
 					end
+					count = count + 1
 				end
 
 				canvasHeight = canvasHeight + ENTRY_HEIGHT
 			end
 		end
 
-		entries["WindowingPadding"] = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, paddingHeight),
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-		})
+		if count == 0 then
+			entries["NoneFound"] = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = NON_FOUND_ENTRIES_STR,
+				TextColor3 = LINE_COLOR,
+
+				BackgroundTransparency = 1,
+
+				LayoutOrder = 1,
+			})
+		else
+
+			entries["WindowingPadding"] = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, paddingHeight),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			})
+		end
 	end
 
 	return Roact.createElement("Frame", {

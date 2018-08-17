@@ -9685,7 +9685,7 @@
             "Name": "DebugSettings",
             "Superclass": "Instance",
             "Tags": [
-                "Service",
+                "Settings",
                 "NotBrowsable"
             ]
         },
@@ -11434,7 +11434,7 @@
             "Name": "GameSettings",
             "Superclass": "Instance",
             "Tags": [
-                "Service",
+                "Settings",
                 "NotBrowsable"
             ]
         },
@@ -13140,6 +13140,23 @@
                 {
                     "Category": "Image",
                     "MemberType": "Property",
+                    "Name": "HoverImage",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
                     "Name": "Image",
                     "Security": {
                         "Read": "None",
@@ -13241,6 +13258,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
+                    "Name": "PressedImage",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -23281,7 +23315,7 @@
             "Name": "LuaSettings",
             "Superclass": "Instance",
             "Tags": [
-                "Service"
+                "Settings"
             ]
         },
         {
@@ -31425,7 +31459,7 @@
             "Name": "PhysicsSettings",
             "Superclass": "Instance",
             "Tags": [
-                "Service"
+                "Settings"
             ]
         },
         {
@@ -41964,6 +41998,23 @@
                 {
                     "Category": "General",
                     "MemberType": "Property",
+                    "Name": "Theme",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "General",
+                    "MemberType": "Property",
                     "Name": "UI Theme",
                     "Security": {
                         "Read": "None",
@@ -42011,6 +42062,42 @@
                         "Category": "DataType",
                         "Name": "Color3"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FindTheme",
+                    "Parameters": [
+                        {
+                            "Name": "themeName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAvailableThemes",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ThemeChanged",
+                    "Parameters": [
+                    ],
+                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -42018,6 +42105,69 @@
             "Superclass": "Instance",
             "Tags": [
                 "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetColor",
+                    "Parameters": [
+                        {
+                            "Name": "styleguideitem",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioStyleGuideColor"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "modifier",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioStyleGuideModifier"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPath",
+                    "Parameters": [
+                        {
+                            "Name": "assetid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "modifier",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioStyleGuideModifier"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "PluginSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioTheme",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
                 "NotReplicated"
             ]
         },
@@ -42291,6 +42441,17 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetArrivingTeleportGui",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",
@@ -43524,17 +43685,6 @@
             "Tags": [
                 "NotCreatable",
                 "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Theme",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
                 "NotReplicated"
             ]
         },
@@ -54438,184 +54588,224 @@
         {
             "Items": [
                 {
-                    "Name": "Button",
-                    "Value": 16
-                },
-                {
-                    "Name": "MainButton",
-                    "Value": 17
-                },
-                {
-                    "Name": "RibbonButton",
-                    "Value": 18
-                },
-                {
-                    "Name": "MainText",
-                    "Value": 21
-                },
-                {
-                    "Name": "TitlebarText",
-                    "Value": 22
-                },
-                {
-                    "Name": "HighlightText",
-                    "Value": 23
-                },
-                {
-                    "Name": "DimmerText",
-                    "Value": 24
-                },
-                {
-                    "Name": "LinkText",
-                    "Value": 25
-                },
-                {
-                    "Name": "WarningText",
-                    "Value": 26
-                },
-                {
-                    "Name": "ErrorText",
-                    "Value": 27
-                },
-                {
-                    "Name": "InfoText",
-                    "Value": 28
-                },
-                {
-                    "Name": "SensitiveText",
-                    "Value": 29
-                },
-                {
-                    "Name": "RibbonTab",
-                    "Value": 8
-                },
-                {
-                    "Name": "RibbonTabTopBar",
-                    "Value": 9
-                },
-                {
-                    "Name": "Item",
-                    "Value": 3
-                },
-                {
-                    "Name": "TableItem",
-                    "Value": 4
-                },
-                {
-                    "Name": "TabBar",
-                    "Value": 5
-                },
-                {
-                    "Name": "Tab",
-                    "Value": 6
-                },
-                {
-                    "Name": "Notification",
-                    "Value": 1
-                },
-                {
-                    "Name": "Tooltip",
-                    "Value": 2
-                },
-                {
-                    "Name": "InputField",
-                    "Value": 15
-                },
-                {
-                    "Name": "Menu",
-                    "Value": 7
-                },
-                {
-                    "Name": "ScrollBar",
-                    "Value": 12
-                },
-                {
-                    "Name": "ScrollBarBackground",
-                    "Value": 13
-                },
-                {
-                    "Name": "EmulatorBar",
-                    "Value": 10
-                },
-                {
-                    "Name": "EmulatorDropDown",
-                    "Value": 11
-                },
-                {
-                    "Name": "Border",
-                    "Value": 19
-                },
-                {
-                    "Name": "Shadow",
-                    "Value": 20
-                },
-                {
-                    "Name": "MainSection",
+                    "Name": "MainBackground",
                     "Value": 0
                 },
                 {
-                    "Name": "ScriptBackground",
-                    "Value": 30
+                    "Name": "Titlebar",
+                    "Value": 1
                 },
                 {
-                    "Name": "ScriptText",
-                    "Value": 31
+                    "Name": "Dropdown",
+                    "Value": 2
                 },
                 {
-                    "Name": "ScriptSelectionText",
-                    "Value": 32
+                    "Name": "Tooltip",
+                    "Value": 3
                 },
                 {
-                    "Name": "ScriptSelectionBackground",
-                    "Value": 33
+                    "Name": "Notification",
+                    "Value": 4
                 },
                 {
-                    "Name": "ScriptFindSelectionBackground",
-                    "Value": 34
+                    "Name": "ScrollBar",
+                    "Value": 5
                 },
                 {
-                    "Name": "ScriptMachtingWordSelectionBackground",
-                    "Value": 35
+                    "Name": "ScrollBarBackground",
+                    "Value": 6
                 },
                 {
-                    "Name": "ScriptOperator",
-                    "Value": 36
+                    "Name": "TabBar",
+                    "Value": 7
                 },
                 {
-                    "Name": "ScriptNumber",
-                    "Value": 37
+                    "Name": "Tab",
+                    "Value": 8
                 },
                 {
-                    "Name": "ScriptString",
-                    "Value": 38
+                    "Name": "RibbonTab",
+                    "Value": 9
                 },
                 {
-                    "Name": "ScriptComment",
-                    "Value": 39
+                    "Name": "RibbonTabTopBar",
+                    "Value": 10
                 },
                 {
-                    "Name": "ScriptPreprocessor",
-                    "Value": 40
+                    "Name": "Button",
+                    "Value": 11
                 },
                 {
-                    "Name": "ScriptKeyword",
-                    "Value": 41
+                    "Name": "MainButton",
+                    "Value": 12
                 },
                 {
-                    "Name": "ScriptBuiltInFunction",
-                    "Value": 42
-                },
-                {
-                    "Name": "ScriptWarning",
-                    "Value": 43
-                },
-                {
-                    "Name": "ScriptError",
-                    "Value": 44
+                    "Name": "RibbonButton",
+                    "Value": 13
                 },
                 {
                     "Name": "ViewPortBackground",
                     "Value": 14
+                },
+                {
+                    "Name": "InputFieldBackground",
+                    "Value": 15
+                },
+                {
+                    "Name": "Item",
+                    "Value": 16
+                },
+                {
+                    "Name": "TableItem",
+                    "Value": 17
+                },
+                {
+                    "Name": "CategoryItem",
+                    "Value": 18
+                },
+                {
+                    "Name": "GameSettingsTableItem",
+                    "Value": 19
+                },
+                {
+                    "Name": "GameSettingsTooltip",
+                    "Value": 20
+                },
+                {
+                    "Name": "EmulatorBar",
+                    "Value": 21
+                },
+                {
+                    "Name": "EmulatorDropDown",
+                    "Value": 22
+                },
+                {
+                    "Name": "ColorPickerFrame",
+                    "Value": 23
+                },
+                {
+                    "Name": "CurrentMarker",
+                    "Value": 24
+                },
+                {
+                    "Name": "Border",
+                    "Value": 25
+                },
+                {
+                    "Name": "Shadow",
+                    "Value": 26
+                },
+                {
+                    "Name": "Light",
+                    "Value": 27
+                },
+                {
+                    "Name": "Dark",
+                    "Value": 28
+                },
+                {
+                    "Name": "MainText",
+                    "Value": 29
+                },
+                {
+                    "Name": "SubText",
+                    "Value": 30
+                },
+                {
+                    "Name": "TitlebarText",
+                    "Value": 31
+                },
+                {
+                    "Name": "BrightText",
+                    "Value": 32
+                },
+                {
+                    "Name": "DimmedText",
+                    "Value": 33
+                },
+                {
+                    "Name": "LinkText",
+                    "Value": 34
+                },
+                {
+                    "Name": "WarningText",
+                    "Value": 35
+                },
+                {
+                    "Name": "ErrorText",
+                    "Value": 36
+                },
+                {
+                    "Name": "InfoText",
+                    "Value": 37
+                },
+                {
+                    "Name": "SensitiveText",
+                    "Value": 38
+                },
+                {
+                    "Name": "ScriptSideWidget",
+                    "Value": 39
+                },
+                {
+                    "Name": "ScriptBackground",
+                    "Value": 40
+                },
+                {
+                    "Name": "ScriptText",
+                    "Value": 41
+                },
+                {
+                    "Name": "ScriptSelectionText",
+                    "Value": 42
+                },
+                {
+                    "Name": "ScriptSelectionBackground",
+                    "Value": 43
+                },
+                {
+                    "Name": "ScriptFindSelectionBackground",
+                    "Value": 44
+                },
+                {
+                    "Name": "ScriptMachtingWordSelectionBackground",
+                    "Value": 45
+                },
+                {
+                    "Name": "ScriptOperator",
+                    "Value": 46
+                },
+                {
+                    "Name": "ScriptNumber",
+                    "Value": 47
+                },
+                {
+                    "Name": "ScriptString",
+                    "Value": 48
+                },
+                {
+                    "Name": "ScriptComment",
+                    "Value": 49
+                },
+                {
+                    "Name": "ScriptPreprocessor",
+                    "Value": 50
+                },
+                {
+                    "Name": "ScriptKeyword",
+                    "Value": 51
+                },
+                {
+                    "Name": "ScriptBuiltInFunction",
+                    "Value": 52
+                },
+                {
+                    "Name": "ScriptWarning",
+                    "Value": 53
+                },
+                {
+                    "Name": "ScriptError",
+                    "Value": 54
                 }
             ],
             "Name": "StudioStyleGuideColor"

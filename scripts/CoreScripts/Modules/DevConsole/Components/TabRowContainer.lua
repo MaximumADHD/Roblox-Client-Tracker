@@ -11,6 +11,7 @@ local FullScreenDropDownButton = require(script.Parent.FullScreenDropDownButton)
 
 local Constants = require(script.Parent.Parent.Constants)
 local DROP_DOWN_WIDTH = Constants.TabRowFormatting.TabDropDownWidth
+local TAB_OVERALAP_THESHOLD = Constants.TabRowFormatting.TabOverlapThreshold
 
 local TabRowContainer = Roact.Component:extend("TabRowContainer")
 
@@ -66,7 +67,7 @@ function TabRowContainer:render()
 	-- snap when crossing integer boundaries is less noticeable
 	local remainder = (padding % 1) * totalTabCount / 2
 
-	local useDropDown = padding < 0 and currWindowWidth > 0
+	local useDropDown = padding < TAB_OVERALAP_THESHOLD and currWindowWidth > 0
 	local useFullScreenDropDown = formFactor == Constants.FormFactor.Small
 
 	if useDropDown or useFullScreenDropDown then

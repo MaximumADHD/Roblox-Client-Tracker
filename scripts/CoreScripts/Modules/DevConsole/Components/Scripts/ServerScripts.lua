@@ -21,25 +21,16 @@ local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 
 local NO_DATA_MSG = "Awaiting Server Scripts Information."
 
--- create table of offsets and sizes for each cell
-local totalCellWidth = 0
-for _, cellWidth in ipairs(CELL_WIDTHS) do
-	totalCellWidth = totalCellWidth + cellWidth
-end
-
-local currOffset = -totalCellWidth
 local cellOffset = {}
 local headerCellSize = {}
 local entryCellSize = {}
 
-table.insert(cellOffset, UDim2.new(0, CELL_PADDING + ACTIVITYBOX_PADDING, 0, 0))
-table.insert(headerCellSize, UDim2.new(1, -totalCellWidth - CELL_PADDING - ACTIVITYBOX_PADDING, 0, HEADER_HEIGHT))
-table.insert(entryCellSize, UDim2.new(1, -totalCellWidth - CELL_PADDING - ACTIVITYBOX_PADDING, 0, ENTRY_HEIGHT))
+local currOffset = 0
 
 for _, cellWidth in ipairs(CELL_WIDTHS) do
-	table.insert(cellOffset,UDim2.new(1, currOffset + CELL_PADDING, 0, 0))
-	table.insert(headerCellSize, UDim2.new(0, cellWidth - CELL_PADDING, 0, HEADER_HEIGHT))
-	table.insert(entryCellSize, UDim2.new(0, cellWidth - CELL_PADDING, 0, ENTRY_HEIGHT))
+	table.insert(cellOffset,UDim2.new(currOffset, CELL_PADDING, 0, 0))
+	table.insert(headerCellSize, UDim2.new(cellWidth, -CELL_PADDING, 0, HEADER_HEIGHT))
+	table.insert(entryCellSize, UDim2.new(cellWidth, -CELL_PADDING, 0, ENTRY_HEIGHT))
 	currOffset = currOffset + cellWidth
 end
 

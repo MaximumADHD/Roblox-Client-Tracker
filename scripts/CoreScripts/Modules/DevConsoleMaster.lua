@@ -30,7 +30,7 @@ local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
 
 local SetDevConsoleVisibility = require(DevConsole.Actions.SetDevConsoleVisibility)
 
-local START_DATA_ON_INIT = settings():GetFVariable("EnableNewDevConsoleDataOnInit")
+local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 
 local DEV_TAB_LIST = {
 	{
@@ -134,7 +134,7 @@ function DevConsoleMaster.new()
 	-- create store
 	self.store = Rodux.Store.new(DevConsoleReducer)
 	self.init = false
-	self.isVisible = false
+	local isVisible = self.store:getState().DisplayOptions.isVisible
 
 	-- use connector to wrap store and root together
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
@@ -147,7 +147,7 @@ function DevConsoleMaster.new()
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
 					isdeveloperView = developerConsoleView,
-					isVisible = false,  -- determines if visible or not
+					isVisible = isVisible,  -- determines if visible or not
 					isMinimized = false, -- false means windowed, otherwise shows up as a minimized bar
 					position = Constants.MainWindowInit.Position,
 					size = Constants.MainWindowInit.Size,
@@ -177,12 +177,17 @@ function DevConsoleMaster:ToggleVisibility()
 		master:Start()
 	end
 
-	self.isVisible = not self.store:getState().DisplayOptions.isVisible
-	self.store:dispatch(SetDevConsoleVisibility(self.isVisible))
+	local isVisible = not self.store:getState().DisplayOptions.isVisible
+	self.store:dispatch(SetDevConsoleVisibility(isVisible))
 end
 
 function DevConsoleMaster:GetVisibility()
-	return self.isVisible
+	local state = self.store:getState()
+	if state then
+		if state.DisplayOptions then
+			return state.DisplayOptions.isVisible and not state.DisplayOptions.isMinimized
+		end
+	end
 end
 
 function DevConsoleMaster:SetVisibility(value)
@@ -191,8 +196,7 @@ function DevConsoleMaster:SetVisibility(value)
 			master:Start()
 		end
 
-		self.isVisible = value
-		self.store:dispatch(SetDevConsoleVisibility(self.isVisible))
+		self.store:dispatch(SetDevConsoleVisibility(value))
 	end
 end
 

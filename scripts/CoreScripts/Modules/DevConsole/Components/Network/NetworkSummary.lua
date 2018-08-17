@@ -182,8 +182,8 @@ function NetworkSummary:render()
 	-- update offsets to remove padding so we can use for vertical line
 	return Roact.createElement("ScrollingFrame", {
 		Size = UDim2.new(1, 0, 0, summaryHeight),
-		CanvasSize = UDim2.new(0, width, 0, summaryHeight),
-		ScrollBarThickness = 6,
+		ScrollingEnabled = false,
+		ScrollBarThickness = 0,
 		BackgroundTransparency = 1,
 
 		LayoutOrder = layoutOrder,

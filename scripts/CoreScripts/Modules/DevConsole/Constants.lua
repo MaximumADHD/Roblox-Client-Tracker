@@ -54,7 +54,7 @@ local Constants = {
 		FilterUnfilled = "rbxasset://textures/DevConsole/Filter-stroke.png",
 		FilterFilled = "rbxasset://textures/DevConsole/Filter-filled.png",
 		RightArrow = "rbxasset://textures/DevConsole/Arrow.png", -- we want rotate this for the over effects
-		DownArrow = "rbxasset://textures/TerrainTools/button_arrow_down.png", -- current use a down arrow because we can't rotate
+		DownArrow = "rbxasset://textures/TerrainTools/button_arrow_down.png", -- we can't rotate so we define this
 	},
 	Padding = {
 		WindowPadding = 8,
@@ -79,6 +79,7 @@ local Constants = {
 		UtilBar = Enum.Font.SourceSans,
 		MainWindowHeader = Enum.Font.SourceSansBold,
 		MainWindow = Enum.Font.SourceSans,
+		Log = Enum.Font.Code,
 	},
 	GeneralFormatting = {
 		LineWidth = 1,
@@ -103,6 +104,7 @@ local Constants = {
 		HighlightHeight = 6,
 		SelectedTextTransparency = 0,
 		UnselectedTextTransparency = .5,
+		TabOverlapThreshold = 10,
 	},
 	UtilityBarFormatting = {
 		FrameHeight = 30,
@@ -114,6 +116,7 @@ local Constants = {
 		CheckBoxInnerPadding = 6
 	},
 	LogFormatting = {
+		MaxStringSize = 16384,
 		IconHeight = 14,
 		TextFrameHeight = 20,
 		TextFramePadding = 2,
@@ -161,7 +164,7 @@ local Constants = {
 
 	ServerScriptsFormatting	 = {
 		ChartHeaderNames = {"Name", "Activity (%)", "Rate (/s)"},
-		ChartCellWidths = {200, 200}, -- width of cells 2-3; cell 1 fills remainder
+		ChartCellWidths = {.6, .2, .2},
 		HeaderFrameHeight = 20,
 		EntryFrameHeight = 30,
 		CellPadding = 16,
@@ -171,7 +174,7 @@ local Constants = {
 
 	DataStoresFormatting = {
 		ChartHeaderNames = {"Name", "Value"},
-		ValueCellWidth = 200,
+		ValueCellWidth = .2,
 		CellPadding = 16,
 		ExpandArrowPadding = 12,
 		HeaderFrameHeight = 20,

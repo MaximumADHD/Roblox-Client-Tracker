@@ -95,6 +95,13 @@ function NetworkChart:didUpdate()
 	if self.scrollingRef.current then
 		local signal = self.scrollingRef.current:GetPropertyChangedSignal("CanvasPosition")
 		self.canvasPosConnector = signal:Connect(self.onCanvasPosChanged)
+
+		local absScrollSize = self.scrollingRef.current.AbsoluteSize
+		if self.state.absScrollSize ~= absScrollSize then
+			self:setState({
+				absScrollSize = absScrollSize,
+			})
+		end
 	end
 end
 
@@ -112,7 +119,7 @@ end
 
 function NetworkChart:render()
 	local httpEntryList = self.props.httpEntryList or {}
-	local summaryHeight = self.props.summaryHeight
+	local chartHeight = self.props.chartHeight
 	local width = self.props.width
 	local searchTerm = self.props.searchTerm
 	local layoutOrder = self.props.layoutOrder
@@ -138,7 +145,7 @@ function NetworkChart:render()
 	for i = 2, #verticalOffsets do
 		local key = string.format("VerticalLine_%d",i)
 		headerCells[key] = Roact.createElement("Frame", {
-			Size = UDim2.new(0, LINE_WIDTH, 0, ENTRY_HEIGHT),
+			Size = UDim2.new(0, LINE_WIDTH, 0, HEADER_HEIGHT),
 			Position = verticalOffsets[i],
 			BackgroundColor3 = LINE_COLOR,
 			BorderSizePixel = 0,
@@ -221,7 +228,7 @@ function NetworkChart:render()
 
 	if totalEntries == 0 then
 		return Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, -summaryHeight),
+			Size = UDim2.new(1, 0, 0, chartHeight),
 			Text = "No Network Entries Found",
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
@@ -250,8 +257,10 @@ function NetworkChart:render()
 	end
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, -summaryHeight),
+		Size = UDim2.new(1, 0, 0, chartHeight),
 		BackgroundTransparency = 1,
+		ClipsDescendants = true,
+
 		LayoutOrder = layoutOrder,
 
 		[Roact.Ref] = self.ref,
@@ -284,7 +293,7 @@ function NetworkChart:render()
 			BackgroundTransparency = 1,
 			LayoutOrder = 3,
 
-			[Roact.Ref] = self.scrollingRef
+			[Roact.Ref] = self.scrollingRef,
 		}, entries),
 	})
 end

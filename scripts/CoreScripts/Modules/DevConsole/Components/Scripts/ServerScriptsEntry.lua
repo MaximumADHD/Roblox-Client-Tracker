@@ -11,8 +11,10 @@ local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
 local LINE_COLOR = Constants.GeneralFormatting.LineColor
 local HEADER_NAMES = Constants.ServerScriptsFormatting.ChartHeaderNames
 local ENTRY_HEIGHT = Constants.ServerScriptsFormatting.EntryFrameHeight
-local ACTIVITYBOX_PADDING = Constants.ServerScriptsFormatting.ActivityBoxPadding
 local ACTIVITYBOX_WIDTH = Constants.ServerScriptsFormatting.ActivityBoxWidth
+local ACTIVITYBOX_PADDING = Constants.ServerScriptsFormatting.ActivityBoxPadding
+
+local ACTIVITYBOX_PADDING_UDIM = UDim2.new(0, ACTIVITYBOX_PADDING, 0, 0)
 
 local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 
@@ -58,8 +60,8 @@ return function(props)
 			}),
 			ScriptName = Roact.createElement(CellLabel, {
 				text = scriptData.name,
-				size = entryCellSize[1],
-				pos = cellOffset[1],
+				size = entryCellSize[1] - ACTIVITYBOX_PADDING_UDIM,
+				pos = cellOffset[1] + ACTIVITYBOX_PADDING_UDIM,
 			}),
 			ScriptAcitivity = Roact.createElement(CellLabel, {
 				text = formatScriptsData(currEntry.data[1]),

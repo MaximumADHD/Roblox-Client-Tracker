@@ -2,10 +2,8 @@ local CircularBuffer = {}
 CircularBuffer.__index = CircularBuffer
 
 function CircularBuffer.new(size)
-	-- just dont do this
-	if size == 0 then
-		return nil
-	end
+	assert(size, "Cannot initialize CircularBuffer with nil")
+	assert(size > 0, "Cannot initialize CircularBuffer to size < 1")
 
 	local self = {}
 	setmetatable(self, CircularBuffer)
@@ -26,24 +24,38 @@ function CircularBuffer:getSize()
 	return #self._data
 end
 
+function CircularBuffer:getMaxSize()
+	return self._maxSize
+end
+
 function CircularBuffer:setSize(newSize)
-	if newSize == self._maxSize or newSize == 0 then
+	assert(newSize, "Cannot set CircularBuffer with nil")
+	assert(newSize > 0, "Cannot set CircularBuffer to size < 1")
+	if newSize == self._maxSize then
 		return
 	end
 
-	local sorted = self:getOrdered()
-	if newSize > self._maxSize then
-		self._data = sorted
-		self._backIndex = self._maxSize
-	else
-		local newDataSet = {}
-		for i = 1, newSize do
-			newDataSet[i] = sorted[i]
+	local it = self:iterator()
+	local msg = it:next()
+	local sorted = {}
+	local ind = 0
+	while msg and ind < newSize do
+		local nextInd = ind + 1
+
+		sorted[nextInd] = {
+			entry = msg
+		}
+
+		if sorted[ind] then
+			sorted[ind]._next = sorted[nextInd]
 		end
-		self._data = newDataSet
-		self._backIndex = newSize
+
+		ind = nextInd
+		msg = it:next()
 	end
 
+	self._data = sorted
+	self._backIndex = ind
 	self._maxSize = newSize
 end
 
@@ -57,7 +69,17 @@ end
 
 function CircularBuffer:front()
 	local front = self:getFrontIndex()
-	return self._data[front].entry
+	if self._data[front] then
+		return self._data[front].entry
+	end
+	return nil
+end
+
+function CircularBuffer:back()
+	if self._data[self._backIndex] then
+		return self._data[self._backIndex].entry
+	end
+	return nil
 end
 
 function CircularBuffer:iterator()
@@ -77,12 +99,28 @@ function CircularBuffer:iterator()
 	return iterator
 end
 
-function CircularBuffer:back()
-	return self._data[self._backIndex].entry
-end
-
 function CircularBuffer:getData()
 	return self._data
+end
+
+function CircularBuffer:at(ind)
+	assert(ind, "Cannot index CircularBuffer with nil")
+
+	local index = self:getFrontIndex()
+	index = (index + ind - 2) % self._maxSize + 1
+	if self._data[index] then
+		return self._data[index].entry
+	end
+	return nil
+end
+
+function CircularBuffer:reverseAt(ind)
+	local index = self._backIndex
+	index = (index - ind) % self._maxSize + 1
+	if self._data[index] then
+		return self._data[index].entry
+	end
+	return nil
 end
 
 -- returns the ejected element if newData overwrites

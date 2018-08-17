@@ -1,6 +1,11 @@
 local LogService = game:GetService("LogService")
+local TextService = game:GetService("TextService")
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
+local FONT_SIZE = Constants.DefaultFontSize.MainWindow
+local FONT = Constants.Font.Log
+local MAX_STRING_SIZE = Constants.LogFormatting.MaxStringSize
+
 local MESSAGE_TO_TYPENAME = Constants.EnumToMsgTypeName
 
 local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
@@ -16,10 +21,21 @@ local LogData = {}
 LogData.__index = LogData
 
 local function messageEntry(msg, timeAsStr, type)
+	local fmtMessage
+	local charCount = #msg
+	if charCount < MAX_STRING_SIZE then
+		fmtMessage = string.format("%s -- %s", timeAsStr, msg)
+	else
+		fmtMessage = string.format("%s -- %s", timeAsStr, string.sub(msg, 1, MAX_STRING_SIZE))
+	end
+
+	local dims = TextService:GetTextSize(fmtMessage, FONT_SIZE, FONT, Vector2.new())
+
 	return {
-		Message = msg,
-		Time = timeAsStr,
+		Message = fmtMessage,
+		CharCount = charCount,
 		Type = type,
+		Dims = dims,
 	}
 end
 
@@ -241,7 +257,7 @@ function LogData:start()
 				self._logData:push_back(message)
 
 				if #self._logDataSearched:getData() > 0 then
-					if isMessageFiltered(message, self._Filters, self._SearchTerm) then
+					if isMessageFiltered(message, self._filters, self._searchTerm) then
 						self._logDataSearched:push_back(message)
 						self._logDataUpdate:Fire(self._logDataSearched)
 					end

@@ -4,13 +4,12 @@ local Roact = require(CorePackages.Roact)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local FONT_SIZE = Constants.DefaultFontSize.MainWindow
-local FONT = Constants.Font.MainWindow
+local FONT = Constants.Font.Log
 local ICON_PADDING = Constants.LogFormatting.IconHeight
 local FRAME_HEIGHT = Constants.LogFormatting.TextFrameHeight
 local LINE_PADDING = Constants.LogFormatting.TextFramePadding
-
-local MAX_STRING_SIZE = 16384
-local MAX_STR_MSG = "Could not display entire %d character message because message exceeds max displayable length of %d"
+local MAX_STRING_SIZE = Constants.LogFormatting.MaxStringSize
+local MAX_STR_MSG = " -- Could not display entire %d character message because message exceeds max displayable length of %d"
 
 local LogOutput = Roact.Component:extend("LogOutput")
 
@@ -30,10 +29,12 @@ function LogOutput:init(props)
 
 	self.state = {
 		logData = initLogOutput,
+		absSize = Vector2.new(),
+		canvasPos = UDim2.new(),
 	}
 end
 
-function LogOutput:willUpdate()
+function LogOutput:willUpdate(nextProps, nextState)
 	self._canvasSignal:Disconnect()
 end
 
@@ -60,6 +61,7 @@ function LogOutput:didMount()
 	self:setState({
 		absSize = self.ref.current.AbsoluteSize,
 		canvasPos = self.ref.current.CanvasPosition,
+		wordWrap = true,
 	})
 end
 
@@ -75,6 +77,7 @@ function LogOutput:render()
 	local logData = self.state.logData
 	local absSize = self.state.absSize
 	local canvasPos = self.state.canvasPos
+	local wordWrap = self.state.wordWrap
 
 	if self.ref.current then
 		canvasPos = self.ref.current.CanvasPosition
@@ -87,25 +90,24 @@ function LogOutput:render()
 
 	if self.ref.current and logData then
 		-- FRAME_HEIGHT is used to offset the text for the icon
-		local maxSize = Vector2.new(absSize.X - FRAME_HEIGHT, 1000000)
+		local frameWidth = absSize.X - FRAME_HEIGHT
 		local paddingHeight = -1
 		local usedFrameSpace = 0
 
 		local msgIter = logData:iterator()
 		local message = msgIter:next()
 		while message do
-			local fmtMessage
-			if #message.Message < MAX_STRING_SIZE then
-				fmtMessage = string.format("%s -- %s", message.Time, message.Message)
+			local fmtMessage = message.Message
+			local charCount = message.CharCount
 
-			else
-				fmtMessage = string.format("%s -- %s", message.Time, string.sub(message.Message, 1, MAX_STRING_SIZE))
+			local msgDimsY = message.Dims.Y
+			if wordWrap then
+				msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
 			end
 
-			local msgDims = TextService:GetTextSize(fmtMessage, FONT_SIZE, FONT, maxSize)
 			messageCount = messageCount + 1
 
-			if scrollingFrameHeight + msgDims.Y >= canvasPos.Y then
+			if scrollingFrameHeight + msgDimsY >= canvasPos.Y then
 				if usedFrameSpace < absSize.Y then
 					local color = Constants.Color.Text
 					local image = ""
@@ -124,7 +126,7 @@ function LogOutput:render()
 					end
 
 					elements[messageCount] = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, msgDims.Y),
+						Size = UDim2.new(1, 0, 0, msgDimsY),
 						BackgroundTransparency = 1,
 						LayoutOrder = messageCount,
 					}, {
@@ -141,30 +143,33 @@ function LogOutput:render()
 							Font = FONT,
 							TextXAlignment = Enum.TextXAlignment.Left,
 
-							TextWrapped = true,
+							TextWrapped = wordWrap,
 
-							Size = UDim2.new(0, msgDims.X, 0, msgDims.Y),
+							Size = UDim2.new(1, 0, 0, msgDimsY),
 							Position = UDim2.new(0, FRAME_HEIGHT, 0, 0),
 							BackgroundTransparency = 1,
 						})
 					})
 				end
+
 				if paddingHeight < 0 then
 					paddingHeight = scrollingFrameHeight
 				else
-					usedFrameSpace = usedFrameSpace + msgDims.Y + LINE_PADDING
+					usedFrameSpace = usedFrameSpace + msgDimsY + LINE_PADDING
 				end
 			end
 
-			scrollingFrameHeight = scrollingFrameHeight + msgDims.Y + LINE_PADDING
+			scrollingFrameHeight = scrollingFrameHeight + msgDimsY + LINE_PADDING
 
-			if #message.Message < MAX_STRING_SIZE then
+			if charCount < MAX_STRING_SIZE then
 				message = msgIter:next()
 			else
+				local maxStrMsg = string.format(MAX_STR_MSG, charCount, MAX_STRING_SIZE)
 				message = {
-					Message = string.format(MAX_STR_MSG, #message.Message, MAX_STRING_SIZE),
-					Time = "",
+					Message = maxStrMsg,
+					CharCount = #maxStrMsg,
 					Type = message.Type,
+					Dims = TextService:GetTextSize(maxStrMsg, FONT_SIZE, FONT, Vector2.new())
 				}
 			end
 		end

@@ -5,6 +5,7 @@ local Roact = require(CorePackages.Roact)
 local Constants = require(script.Parent.Parent.Constants)
 local TAB_HEIGHT = Constants.TabRowFormatting.FrameHeight
 local DROP_DOWN_WIDTH = Constants.TabRowFormatting.TabDropDownWidth
+local TAB_OVERALAP_THESHOLD = Constants.TabRowFormatting.TabOverlapThreshold
 
 local UTIL_HEIGHT = Constants.UtilityBarFormatting.FrameHeight
 local SMALL_UTIL_HEIGHT = Constants.UtilityBarFormatting.SmallFrameHeight
@@ -113,7 +114,7 @@ function UtilAndTab:render()
 
 	local tabOverLap = (windowWidth - totalTabWidth)  / totalTabCount
 
-	local useDropDown = tabOverLap < 0 and windowWidth > 0
+	local useDropDown = tabOverLap < TAB_OVERALAP_THESHOLD and windowWidth > 0
 
 	if (formFactor == Constants.FormFactor.Small) or
 		useDropDown then

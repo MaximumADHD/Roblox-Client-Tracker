@@ -123,10 +123,19 @@ function NetworkView:render()
 	if summaryExpanded then
 		summaryHeight = summaryHeight + httpSummaryCount * ENTRY_HEIGHT + HEADER_HEIGHT
 	end
+	local chartHeight = 0
+	if self.ref.current then
+		chartHeight = self.ref.current.AbsoluteSize.Y - summaryHeight
+	else
+		chartHeight = size.Y.Offset - summaryHeight
+	end
+	chartHeight = math.max(0, chartHeight)
 
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
+		ClipsDescendants = true,
+
 		LayoutOrder = layoutOrder,
 
 		[Roact.Ref] = self.ref,
@@ -182,7 +191,7 @@ function NetworkView:render()
 		}),
 		Entries = entriesExpanded and Roact.createElement(NetworkChart, {
 			httpEntryList = httpEntryList,
-			summaryHeight = summaryHeight,
+			chartHeight = chartHeight,
 			width = absWidth,
 			searchTerm = searchTerm,
 			reverseSort = reverseSort,

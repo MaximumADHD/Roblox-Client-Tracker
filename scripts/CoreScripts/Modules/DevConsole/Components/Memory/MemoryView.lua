@@ -207,7 +207,7 @@ function MemoryView:render()
 		})
 	end
 
-	if layoutOrder == 1 then
+	if windowingInfo.layoutOrder == 1 then
 		return Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),

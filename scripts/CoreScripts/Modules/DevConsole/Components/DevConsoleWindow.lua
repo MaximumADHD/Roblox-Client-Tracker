@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui").RobloxGui
 
+local setMouseVisibility = require(script.Parent.Parent.Util.setMouseVisibility)
+
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local DevConsole = script.Parent.Parent
@@ -90,6 +92,11 @@ function DevConsoleWindow:didMount()
 			self:setDevConsoleSize(absPos1, absPos2)
 		end
 	end)
+	setMouseVisibility(self.props.isVisible)
+end
+
+function DevConsoleWindow:didUpdate()
+	setMouseVisibility(self.props.isVisible)
 end
 
 function DevConsoleWindow:render()
@@ -111,10 +118,6 @@ function DevConsoleWindow:render()
 	local elements = {}
 
 	local borderSizePixel = BORDER_SIZE
-
-	if not isVisible then
-		return nil
-	end
 
 	if formFactor ~= Constants.FormFactor.Large then
 		-- none desktop/Large are full screen devconsoles
@@ -183,7 +186,9 @@ function DevConsoleWindow:render()
 		local mainViewSizeOffset = UDim2.new(0, 0, 0, TopSectionHeight)
 		mainViewSize = mainViewSize - mainViewSizeOffset
 
-		if tabList and (currTabIndex > 0) and self.ref.current then
+		if self.ref.current and tabList and
+			(currTabIndex > 0) and isVisible then
+
 			elements["MainView"] = Roact.createElement(tabList[currTabIndex].tab, {
 				size = mainViewSize,
 				formFactor = formFactor,
@@ -196,10 +201,12 @@ function DevConsoleWindow:render()
 		return Roact.createElement("Frame", {
 			Position = pos,
 			Size = size,
+			Visible = isVisible,
 			BackgroundColor3 = Color3.new(0, 0, 0),
 			Transparency = Constants.MainWindowInit.Transparency,
 			BorderColor3 = Constants.Color.BaseGray,
 			BorderSizePixel = borderSizePixel,
+			Active = true,
 
 			[Roact.Ref] = self.ref,
 		}, {
@@ -213,6 +220,7 @@ function DevConsoleWindow:render()
 				Position =  UDim2.new(1, 0, 1, 0),
 				Size = UDim2.new(0, borderSizePixel, 0, borderSizePixel),
 				BackgroundColor3 = Color3.new(0, 0, 0),
+				Modal = true,
 
 				[Roact.Event.InputBegan] = self.resizeInputBegan,
 			}),

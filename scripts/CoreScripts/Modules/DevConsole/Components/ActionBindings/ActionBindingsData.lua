@@ -72,6 +72,12 @@ function ActionBindingsData:updateBindingDataEntry(name, info)
 	if info == nil then
 		--remove element and clean up sorted
 		self._bindingsData[name] = nil
+		for i, v in pairs(self._sortedBindingData) do
+			if v.name == name then
+				table.remove(self._sortedBindingData, i)
+				return
+			end
+		end
 
 	elseif not self._bindingsData[name] then
 		self._bindingCounter = self._bindingCounter + 1

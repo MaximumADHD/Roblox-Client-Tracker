@@ -753,12 +753,14 @@ Class GuiButton : GuiObject [notbrowsable]
 	Event GuiButton.MouseButton2Down(int x, int y)
 	Event GuiButton.MouseButton2Up(int x, int y)
 Class ImageButton : GuiButton
+	Property Content ImageButton.HoverImage
 	Property Content ImageButton.Image
 	Property Color3 ImageButton.ImageColor3
 	Property Vector2 ImageButton.ImageRectOffset
 	Property Vector2 ImageButton.ImageRectSize
 	Property float ImageButton.ImageTransparency
 	Property bool ImageButton.IsLoaded [readonly]
+	Property Content ImageButton.PressedImage
 	Property ScaleType ImageButton.ScaleType
 	Property Rect2D ImageButton.SliceCenter
 	Property UDim2 ImageButton.TileSize
@@ -2391,6 +2393,7 @@ Class Teams : Instance [notCreatable]
 	Function void Teams:RebalanceTeams() [deprecated]
 Class TeleportService : Instance
 	Property bool TeleportService.CustomizedTeleportUI [deprecated]
+	Function Instance TeleportService:GetArrivingTeleportGui()
 	Function Variant TeleportService:GetLocalPlayerTeleportData()
 	Function Variant TeleportService:GetTeleportSetting(string setting)
 	Function void TeleportService:SetTeleportGui(Instance gui)

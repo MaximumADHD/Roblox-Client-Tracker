@@ -141,11 +141,11 @@ function ServerStats:render()
 						getX = getX,
 						getY = getY,
 
-						stringFormatX = convertTimeStamp,
-						stringFormatY = formatData,
-
 						axisLabelX = "Timestamp",
 						axisLabelY = name,
+
+						stringFormatX = convertTimeStamp,
+						stringFormatY = formatData,
 					}),
 				})
 			end

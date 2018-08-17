@@ -10,6 +10,7 @@ local ICON_SIZE = .5 * FRAME_HEIGHT
 local ICON_PADDING = (FRAME_HEIGHT - ICON_SIZE) / 2
 
 local DEVCONSOLE_TEXT = "Developer Console"
+local DEVCONSOLE_TEXT_X_PADDING = 4
 local DEVCONSOLE_TEXT_FRAMESIZE = TextService:GetTextSize(DEVCONSOLE_TEXT, Constants.DefaultFontSize.TopBar,
 	Constants.Font.TopBar, Vector2.new(0, 0))
 
@@ -69,7 +70,7 @@ function DevConsoleTopBar:render()
 		TextColor3 = Color3.new(1, 1, 1),
 		Font = Constants.Font.TopBar,
 		Size = UDim2.new(0, DEVCONSOLE_TEXT_FRAMESIZE.X, 0, FRAME_HEIGHT),
-		Position = UDim2.new(0, 0, 0, 0),
+		Position = UDim2.new(0, DEVCONSOLE_TEXT_X_PADDING, 0, 0),
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
 		TextXAlignment = Enum.TextXAlignment.Left,

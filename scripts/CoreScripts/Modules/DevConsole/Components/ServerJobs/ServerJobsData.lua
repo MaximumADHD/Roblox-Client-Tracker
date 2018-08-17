@@ -86,8 +86,15 @@ function ServerJobsData:updateServerJobsData(updatedJobs)
 
 			table.insert(self._sortedJobsData, newEntry)
 		else
-			local currMax = self._serverJobsData[key].max
-			local currMin = self._serverJobsData[key].min
+			local currMax = {}
+			for i,v in pairs(self._serverJobsData[key].max) do
+				currMax[i] = v
+			end
+
+			local currMin = {}
+			for i, v in pairs(self._serverJobsData[key].min) do
+				currMin[i] = v
+			end
 
 			local update = {
 				data = data,
@@ -97,20 +104,28 @@ function ServerJobsData:updateServerJobsData(updatedJobs)
 			local overwrittenEntry = self._serverJobsData[key].dataSet:push_back(update)
 
 			if overwrittenEntry then
-				local iter = self._serverJobsData[key].dataSet:iterator()
-				local dat = iter:next()
-				if currMax == overwrittenEntry.data then
-					currMax = currMin
-					while dat do
-						currMax = maxOfTable(dat, currMax)
-						dat = iter:next()
+				for index, value in pairs(overwrittenEntry.data) do
+					if currMax[index] == value then
+						local iter = self._serverJobsData[key].dataSet:iterator()
+						local dat = iter:next()
+						currMax[index] = currMin[index]
+
+						while dat do
+							currMax[index]	= dat.data[index] < currMax[index] and currMax[index] or dat.data[index]
+							dat = iter:next()
+						end
 					end
 				end
-				if currMin == overwrittenEntry.data then
-					currMin = currMax
-					while dat do
-						currMin = minOfTable(dat, currMin)
-						dat = iter:next()
+				for index, value in pairs(overwrittenEntry.data) do
+					if currMin[index] == value then
+						local iter = self._serverJobsData[key].dataSet:iterator()
+						local dat = iter:next()
+						currMin[index] = currMax[index]
+
+						while dat do
+							currMin[index]	= currMin[index] < dat.data[index] and currMin[index] or dat.data[index]
+							dat = iter:next()
+						end
 					end
 				end
 			end

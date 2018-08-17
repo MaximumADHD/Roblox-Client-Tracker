@@ -20,7 +20,8 @@ return function(DisplayOptions, action)
 		local update = {
 			isVisible = action.isVisible
 		}
-		if not update.isVisible then
+
+		if update.isVisible then
 			update.isMinimized = false
 		end
 		return Immutable.JoinDictionaries(displayOptions, update)

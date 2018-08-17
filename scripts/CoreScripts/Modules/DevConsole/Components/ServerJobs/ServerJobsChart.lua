@@ -356,8 +356,8 @@ function ServerJobsChart:render()
 	})
 
 	header["lowerHorizontalLine"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, LINE_WIDTH),
-		Position = UDim2.new(0, 0, 1, 0),
+		Size = UDim2.new(1, 0, 0, LINE_WIDTH),
+		Position = UDim2.new(0, 0, 1, -LINE_WIDTH),
 		BackgroundColor3 = LINE_COLOR,
 		BorderSizePixel = 0,
 	})
@@ -384,11 +384,9 @@ function ServerJobsChart:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		Header = Roact.createElement("ScrollingFrame", {
+		Header = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
-			CanvasSize = UDim2.new(0, absWidth, 1, 0),
-			ScrollingEnabled = false,
-			ScrollBarThickness = 0,
+			ClipsDescendants = true,
 			BackgroundTransparency = 1,
 		}, header),
 

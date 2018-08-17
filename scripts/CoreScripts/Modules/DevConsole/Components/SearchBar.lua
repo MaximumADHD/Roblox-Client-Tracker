@@ -62,7 +62,6 @@ function SearchBar:render()
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
 			TextXAlignment = 0,
-			Active = false,
 
 			ClearTextOnFocus = false,
 			PlaceholderText = "Search",
