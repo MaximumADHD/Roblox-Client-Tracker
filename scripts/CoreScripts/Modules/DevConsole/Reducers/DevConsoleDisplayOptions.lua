@@ -25,8 +25,10 @@ return function(DisplayOptions, action)
 			update.isMinimized = false
 		end
 		return Immutable.JoinDictionaries(displayOptions, update)
+
 	elseif action.type == SetDevConsolePosition.name then
 		return Immutable.Set(displayOptions, "position", action.position)
+
 	elseif action.type == SetDevConsoleMinimized.name then
 		return Immutable.Set(displayOptions, "isMinimized", action.isMinimized)
 

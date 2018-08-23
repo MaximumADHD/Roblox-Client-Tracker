@@ -19,16 +19,11 @@ local TIMER_LENGTH = 4
 
 local ModeratedToaster = Roact.PureComponent:extend("ModeratedToaster")
 
-
-
 function ModeratedToaster:restartTimer()
 	if not self.timerConnection then
 		self.timerConnection = RunService.RenderStepped:Connect(function()
 			local moderatedToasts = self.props.moderatedToasts
 
-			local toJson = function(x) return game:GetService("HttpService"):JSONEncode(x) end
-
-			print("moderatedToasts", toJson(moderatedToasts))
 			if #moderatedToasts == 0 then
 				self:stopTimer()
 				return

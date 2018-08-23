@@ -103,7 +103,7 @@ function DevConsoleWindow:render()
 	local isVisible = self.props.isVisible
 	local formFactor = self.props.formFactor
 	local isdeveloperView = self.props.isdeveloperView
-	local currTabIndex = self.props.currTabIndex
+	local currTab = self.props.currTab
 	local tabList = self.props.tabList
 
 	local isMinimized = self.props.isMinimized
@@ -186,15 +186,12 @@ function DevConsoleWindow:render()
 		local mainViewSizeOffset = UDim2.new(0, 0, 0, TopSectionHeight)
 		mainViewSize = mainViewSize - mainViewSizeOffset
 
-		if self.ref.current and tabList and
-			(currTabIndex > 0) and isVisible then
-
-			elements["MainView"] = Roact.createElement(tabList[currTabIndex].tab, {
+		if self.ref.current and currTab and isVisible then
+			elements["MainView"] = Roact.createElement(currTab.tab, {
 				size = mainViewSize,
 				formFactor = formFactor,
 				isdeveloperView = isdeveloperView,
 				tabList = tabList,
-				currTabIndex = currTabIndex,
 			})
 		end
 
@@ -253,7 +250,8 @@ local function mapStateToProps(state, props)
 		isMinimized = state.DisplayOptions.isMinimized,
 		position = state.DisplayOptions.position,
 		size = state.DisplayOptions.size,
-		currTabIndex = state.MainView.currTabIndex,
+		currTab = state.MainView.currTab,
+		tabList = state.MainView.tabList,
 	}
 end
 

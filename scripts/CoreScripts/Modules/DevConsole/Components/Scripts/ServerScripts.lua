@@ -15,11 +15,11 @@ local HEADER_NAMES = Constants.ServerScriptsFormatting.ChartHeaderNames
 local HEADER_HEIGHT = Constants.ServerScriptsFormatting.HeaderFrameHeight
 local ENTRY_HEIGHT = Constants.ServerScriptsFormatting.EntryFrameHeight
 local CELL_PADDING = Constants.ServerScriptsFormatting.CellPadding
-local ACTIVITYBOX_PADDING = Constants.ServerScriptsFormatting.ActivityBoxPadding
 
 local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 
 local NO_DATA_MSG = "Awaiting Server Scripts Information."
+local NO_RESULT_SEARCH_STR = Constants.GeneralFormatting.NoResultSearchStr
 
 local cellOffset = {}
 local headerCellSize = {}
@@ -215,11 +215,13 @@ function ServerScripts:render()
 	local canvasHeight = 0
 	local paddingHeight = -1
 	local usedFrameSpace = 0
+	local searchCount = 0
 
 	if canvasPos and absScrollSize then
 		for ind, scriptData in pairs(scriptData) do
 
 			if not searchTerm or string.find(scriptData.name:lower(), searchTerm:lower()) ~= nil then
+				searchCount = searchCount + 1
 				local includeEntry = true
 				local isActiveChecked = scriptFilters["Active"]
 				local isInactiveChecked = scriptFilters["Inactive"]
@@ -281,11 +283,21 @@ function ServerScripts:render()
 				end
 			end
 		end
-		entries["WindowingPadding"] = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, paddingHeight),
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-		})
+		if searchCount > 0 then
+			entries["WindowingPadding"] = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, paddingHeight),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			})
+		else
+			local emptySearchStr = string.format(NO_RESULT_SEARCH_STR, searchTerm)
+			entries["emptySearch"] = Roact.createElement("TextLabel", {
+				Size = size,
+				Text = emptySearchStr,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+			})
+		end
 	end
 
 	entries["UIListLayout"] = Roact.createElement("UIListLayout", {

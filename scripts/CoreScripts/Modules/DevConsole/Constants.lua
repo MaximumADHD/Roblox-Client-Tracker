@@ -82,6 +82,7 @@ local Constants = {
 		Log = Enum.Font.Code,
 	},
 	GeneralFormatting = {
+		NoResultSearchStr = "Did not find results for \"%s.\"",
 		LineWidth = 1,
 		LineColor = Color3.new(1, 1, 1),
 		ArrowWidth = 8,

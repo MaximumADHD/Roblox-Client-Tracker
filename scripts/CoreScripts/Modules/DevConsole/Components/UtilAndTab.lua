@@ -31,9 +31,9 @@ function UtilAndTab:init()
 	local totalTabWidth = 0
 	local tabCount = 0
 
-	for _, tab in ipairs(tabList) do
+	for name,_ in pairs(tabList) do
 		local textVector = TextService:GetTextSize(
-			tab.label,
+			name,
 			Constants.DefaultFontSize.TabBar,
 			Constants.Font.TabBar,
 			Vector2.new(0, 0)

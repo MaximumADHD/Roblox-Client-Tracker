@@ -33,7 +33,6 @@ function DevConsoleTopBar:init()
 	end
 	self.inputChanged = function(rbx,input)
 		if self.state.moving then
-
 			local offset = self.state.startPos - self.state.startOffset
 			offset = offset + input.Position
 			local position = UDim2.new(0, offset.X, 0, offset.Y)

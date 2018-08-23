@@ -779,13 +779,13 @@ local function DisconnectEvent(event)
 end
 
 --[[ The ClickToMove Controller Class ]]--
-local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
-local ClickToMove = setmetatable({}, BaseCharacterController)
+local KeyboardController = require(script.Parent:WaitForChild("Keyboard"))
+local ClickToMove = setmetatable({}, KeyboardController)
 ClickToMove.__index = ClickToMove
 
 function ClickToMove.new()
-	print("Instantiating Keyboard Controller")
-	local self = setmetatable(BaseCharacterController.new(), ClickToMove)
+	local self = setmetatable(KeyboardController.new(), ClickToMove)
+	print("Instantiating ClickToMove Controller")
 	
 	self.fingerTouches = {}
 	self.numUnsunkTouches = 0
@@ -810,6 +810,8 @@ function ClickToMove.new()
 	self.humanoidSeatedConn = nil
 	
 	self.running = false
+	
+	self.wasdEnabled = false
 	
 	return self
 end
@@ -909,7 +911,7 @@ function ClickToMove:OnCharacterAdded(character)
 		if input.UserInputType == Enum.UserInputType.MouseButton2 then
 			self.mouse2UpTime = tick()
 			local currPos = input.Position
-			if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).magnitude < 5 then
+			if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).magnitude < 5 and self.moveVector.Magnitude<=0 then
 				local positions = {currPos}
 				OnTap(positions)
 			end
@@ -1038,7 +1040,7 @@ function ClickToMove:Stop()
 	self:Enable(false)
 end
 
-function ClickToMove:Enable(enable)
+function ClickToMove:Enable(enable, enableWASD)
 	if enable then
 		if not self.running then
 			if Player.Character then -- retro-listen
@@ -1068,7 +1070,35 @@ function ClickToMove:Enable(enable)
 			self.running = false
 		end
 	end
+	
+	-- Extension for initializing Keyboard input as this class now derives from Keyboard
+	if UserInputService.KeyboardEnabled and enable ~= self.enabled then
+	
+		self.forwardValue  = 0
+		self.backwardValue = 0
+		self.leftValue = 0
+		self.rightValue = 0
+		
+		if enable then
+			self:BindContextActions()
+			self:ConnectFocusEventListeners()
+		else
+			self:UnbindContextActions()
+			self:DisconnectFocusEventListeners()
+		end	
+	end
+	
+	self.wasdEnabled = enable and enableWASD or false
 	self.enabled = enable
+end
+
+-- Overrides Keyboard:UpdateMovement(inputState) to conditionally consider self.wasdEnabled
+function ClickToMove:UpdateMovement(inputState)
+	if inputState == Enum.UserInputState.Cancel then
+		self.moveVector = ZERO_VECTOR3
+	elseif self.wasdEnabled then
+		self.moveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
+	end
 end
 
 return ClickToMove

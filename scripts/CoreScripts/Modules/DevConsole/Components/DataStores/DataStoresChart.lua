@@ -20,6 +20,7 @@ local ENTRY_HEIGHT = Constants.DataStoresFormatting.EntryFrameHeight
 local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 
 local NO_DATA_MSG = "Initialize DataStoresService to view DataStore Budget."
+local NO_RESULT_SEARCH_STR = Constants.GeneralFormatting.NoResultSearchStr
 
 local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
 
@@ -91,9 +92,11 @@ function DataStoresChart:render()
 	local componentHeight = HEADER_HEIGHT
 
 	local datastoreBudget = self.state.dataStoresData
+	local totalCount = 0
 	local currLayoutOrder = 1
 	if datastoreBudget then
 		for name, data in pairs(datastoreBudget) do
+			totalCount = totalCount + 1
 			if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
 				currLayoutOrder = currLayoutOrder + 1
 
@@ -164,13 +167,23 @@ function DataStoresChart:render()
 	end
 
 	if currLayoutOrder == 1 then
-		return Roact.createElement("TextLabel", {
-			Size = size,
-			Text = NO_DATA_MSG,
-			TextColor3 = Constants.Color.Text,
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		})
+		if totalCount == 0 then
+			return Roact.createElement("TextLabel", {
+				Size = size,
+				Text = NO_DATA_MSG,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+				LayoutOrder = layoutOrder,
+			})
+		else
+			local noResultSearchStr = string.format(NO_RESULT_SEARCH_STR, searchTerm)
+			elements["emptyResult"] = Roact.createElement("TextLabel", {
+				Size = size,
+				Text = noResultSearchStr,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+			})
+		end
 	end
 
 	return Roact.createElement("Frame", {

@@ -7,12 +7,10 @@
 local ControlScript = {}
 
 --[[ Roblox Services ]]--
-local a = shared
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
-local Settings = UserSettings()
-local GameSettings = Settings.GameSettings
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local activeControlModule = nil	-- Used to prevent unnecessarily expensive checks on each input event
 local activeController = nil
@@ -93,22 +91,35 @@ local function SelectComputerMovementModule()
 	end
 	local computerModule = nil
 	local DevMovementMode = Players.LocalPlayer.DevComputerMovementMode
+	
 	if DevMovementMode == Enum.DevComputerMovementMode.UserChoice then
 		computerModule = computerInputTypeToModuleMap[lastInputType]
-		if not computerModule then
-			computerModule = movementEnumToModuleMap[GameSettings.ComputerMovementMode]
+		if UserGameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove and computerModule == Keyboard then
+			-- User has ClickToMove set in Settings, prefer ClickToMove controller for keyboard and mouse lastInputTypes
+			computerModule = ClickToMove
+--		elseif not computerModule then
+--			computerModule = movementEnumToModuleMap[UserGameSettings.ComputerMovementMode]
 		end
-	elseif DevMovementMode == Enum.DevComputerMovementMode.Scriptable then
-		return nil, true
-	elseif DevMovementMode == Enum.DevComputerMovementMode.ClickToMove then
-		computerModule = ClickToMove
 	else
-		computerModule = computerInputTypeToModuleMap[lastInputType]
-		if not computerModule then
-			computerModule = movementEnumToModuleMap[DevMovementMode]
+		-- Developer has selected a mode that must be used.
+		computerModule = movementEnumToModuleMap[DevMovementMode]
+		
+		-- computerModule is expected to be nil here only when developer has selected Scriptable
+		if (not computerModule) and DevMovementMode ~= Enum.DevComputerMovementMode.Scriptable then
+			warn("No character control module is associated with DevComputerMovementMode ", DevMovementMode)
 		end
 	end
-	return computerModule, true
+	
+	if computerModule then
+		return computerModule, true
+	elseif DevMovementMode == Enum.DevComputerMovementMode.Scriptable then
+		-- Special case where nil is returned and we actually want to set activeController to nil for Scriptable
+		return nil, true
+	else
+		-- This case is for when computerModule is nil because of an error and no suitable control module could
+		-- be found.
+		return nil, false
+	end
 end
 
 -- Choose current Touch control module based on settings (user, dev)
@@ -120,7 +131,7 @@ local function SelectTouchModule()
 	local touchModule = nil
 	local DevMovementMode = Players.LocalPlayer.DevTouchMovementMode
 	if DevMovementMode == Enum.DevTouchMovementMode.UserChoice then
-		touchModule = movementEnumToModuleMap[GameSettings.TouchMovementMode]
+		touchModule = movementEnumToModuleMap[UserGameSettings.TouchMovementMode]
 	elseif DevMovementMode == Enum.DevTouchMovementMode.Scriptable then
 		return nil, true	
 	else
@@ -205,7 +216,13 @@ local function SwitchToController(controlModule)
 			if touchControlFrame then
 				activeController:Enable(true, touchControlFrame)
 			else
-				activeController:Enable(true)
+				if activeControlModule == ClickToMove then
+					-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
+					-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only spacebar to jump.
+					activeController:Enable(true, Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice)
+				else				
+					activeController:Enable(true)
+				end
 			end
 			if touchControlFrame and (activeControlModule == TouchThumbpad
 									or activeControlModule == TouchThumbstick
@@ -240,8 +257,8 @@ local function OnLastInputTypeChanged(newLastInputType)
 			end
 			SwitchToController(touchModule)
 		end
-	else
-		local computerModule = computerInputTypeToModuleMap[lastInputType]
+	elseif computerInputTypeToModuleMap[lastInputType] ~= nil then
+		local computerModule = SelectComputerMovementModule()
 		if computerModule then
 			SwitchToController(computerModule)
 		end
@@ -278,10 +295,10 @@ RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input
 UserInputService.LastInputTypeChanged:Connect(OnLastInputTypeChanged)
 
 local propertyChangeListeners = {
-	GameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(OnTouchMovementModeChange),
+	UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(OnTouchMovementModeChange),
 	Players.LocalPlayer:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(OnTouchMovementModeChange),
 
-	GameSettings:GetPropertyChangedSignal("ComputerMovementMode"):Connect(OnComputerMovementModeChange),
+	UserGameSettings:GetPropertyChangedSignal("ComputerMovementMode"):Connect(OnComputerMovementModeChange),
 	Players.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(OnComputerMovementModeChange),
 }
 
@@ -323,6 +340,8 @@ if UserInputService.TouchEnabled then
 			end
 		end)
 	end
+else
+	OnLastInputTypeChanged(UserInputService:GetLastInputType())
 end
 
 return ControlScript

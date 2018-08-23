@@ -35,6 +35,7 @@ local COLUMN_TRANSFORM_FUNC = {
 }
 
 local NO_DATA_MSG = "Awaiting Server Jobs Information"
+local NO_RESULT_SEARCH_STR = Constants.GeneralFormatting.NoResultSearchStr
 
 -- create table of offsets and sizes for each cell
 local currOffset = 0
@@ -331,11 +332,22 @@ function ServerJobsChart:render()
 			end
 		end
 
-		elements["WindowingPadding"] = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, paddingHeight),
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-		})
+		-- if we never set padding height that means we never found any entries when the search
+		if paddingHeight == -1 then
+			local noResultSearchStr = string.format(NO_RESULT_SEARCH_STR, searchTerm)
+			elements["emptyResult"] = Roact.createElement("TextLabel", {
+				Size = size,
+				Text = noResultSearchStr,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+			})
+		else
+			elements["WindowingPadding"] = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, paddingHeight),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			})
+		end
 	end
 
 	local header = {}

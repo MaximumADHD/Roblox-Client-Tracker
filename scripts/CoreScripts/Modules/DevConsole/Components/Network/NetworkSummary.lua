@@ -80,7 +80,7 @@ function NetworkSummary:render()
 	for i = 2, #verticalOffsets do
 		local key = string.format("VerticalLine_%d",i)
 		summaryHeader[key] = Roact.createElement("Frame", {
-			Size = UDim2.new(0, LINE_WIDTH, 0, ENTRY_HEIGHT),
+			Size = UDim2.new(0, LINE_WIDTH, 0, HEADER_HEIGHT),
 			Position = verticalOffsets[i],
 			BackgroundColor3 = LINE_COLOR,
 			BorderSizePixel = 0,

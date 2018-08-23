@@ -22,14 +22,14 @@ function TabRowContainer:init()
 	local count = 0
 
 	if tabs then
-		for ind, tab in ipairs(tabs) do
+		for name,_ in pairs(tabs) do
 			local textVector = TextService:GetTextSize(
-				tab.label,
+				name,
 				Constants.DefaultFontSize.TabBar,
 				Constants.Font.TabBar,
 				Vector2.new(0, 0)
 			)
-			textWidths[ind] = textVector.X
+			textWidths[name] = textVector.X
 			totalLength = totalLength + textVector.X
 			count = count + 1
 		end
@@ -43,13 +43,18 @@ function TabRowContainer:init()
 	}
 
 	self.onTabButtonClicked = function(tabIndex)
-		self.props.dispatchSetActiveTab(tabIndex)
+		for name, tab in pairs(self.props.tabList) do
+			if tab.layoutOrder  == tabIndex then
+				self.props.dispatchSetActiveTab(name)
+				return
+			end
+		end
 	end
 end
 
 function TabRowContainer:render()
 	local tabs = self.props.tabList
-	local currTabIndex = self.props.currTabIndex
+	local currTab = self.props.currTab
 	local formFactor = self.props.formFactor
 	local currWindowWidth = self.props.windowWidth
 	local frameHeight = self.props.frameHeight
@@ -70,51 +75,58 @@ function TabRowContainer:render()
 	local useDropDown = padding < TAB_OVERALAP_THESHOLD and currWindowWidth > 0
 	local useFullScreenDropDown = formFactor == Constants.FormFactor.Small
 
-	if useDropDown or useFullScreenDropDown then
-		local names = {}
-		for ind,tab in ipairs(tabs) do
-			names[ind] = tab.label
-		end
-
-		if useFullScreenDropDown then
-			return Roact.createElement(FullScreenDropDownButton, {
-				buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
-				dropDownList = names,
-				selectedIndex = currTabIndex,
-				onSelection = self.onTabButtonClicked,
-				layoutOrder = layoutOrder,
-			})
-		elseif useDropDown then
-			return Roact.createElement(DropDown, {
-				buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
-				dropDownList = names,
-				selectedIndex = currTabIndex,
-				onSelection = self.onTabButtonClicked,
-			})
-		end
-	end
-
 	if tabs then
-		for ind,tab in ipairs(tabs) do
-			nodes[ind] = Roact.createElement(TabRowButton, {
-				index = ind,
-				name = tab.label,
-				padding = padding,
-				textWidth = useDropDown and DROP_DOWN_WIDTH or textWidths[ind],
-				isSelected = (ind == currTabIndex),
-				LayoutOrder = ind,
+		if useDropDown or useFullScreenDropDown then
+			local names = {}
+			local selectedIndex
+			for name,tab in pairs(tabs) do
+				-- ind is the order of these labels
+				names[tab.layoutOrder] = name
+				if not selectedIndex and tab == currTab then
+					selectedIndex = tab.layoutOrder
+				end
+			end
 
-				onTabButtonClicked = self.onTabButtonClicked,
-			})
+			if useFullScreenDropDown then
+				return Roact.createElement(FullScreenDropDownButton, {
+					buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
+					dropDownList = names,
+					selectedIndex = selectedIndex,
+					onSelection = self.onTabButtonClicked,
+					layoutOrder = layoutOrder,
+				})
+			elseif useDropDown then
+				return Roact.createElement(DropDown, {
+					buttonSize = UDim2.new(0, DROP_DOWN_WIDTH, 0, frameHeight),
+					dropDownList = names,
+					selectedIndex = selectedIndex,
+					onSelection = self.onTabButtonClicked,
+				})
+			end
+
+		else
+
+			for name,tab in pairs(tabs) do
+				nodes[name] = Roact.createElement(TabRowButton, {
+					index = tab.layoutOrder,
+					name = name,
+					padding = padding,
+					textWidth = useDropDown and DROP_DOWN_WIDTH or textWidths[name],
+					isSelected = (tab == currTab),
+					layoutOrder = tab.layoutOrder,
+
+					onTabButtonClicked = self.onTabButtonClicked,
+				})
+			end
 		end
-	end
 
-	nodes["UIListLayout"] = Roact.createElement("UIListLayout", {
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		VerticalAlignment = Enum.VerticalAlignment.Top,
-		FillDirection = Enum.FillDirection.Horizontal,
-	})
+		nodes["UIListLayout"] = Roact.createElement("UIListLayout", {
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			FillDirection = Enum.FillDirection.Horizontal,
+		})
+	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, frameHeight),
@@ -126,7 +138,8 @@ end
 
 local function mapStateToProps(state, props)
 	return {
-		currTabIndex = state.MainView.currTabIndex,
+		tabList = state.MainView.tabList,
+		currTab = state.MainView.currTab,
 	}
 end
 

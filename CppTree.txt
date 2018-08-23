@@ -248,9 +248,9 @@ RBX
 			BadAppCheckerJob
 			ClientCapacityUpdateItem
 			ClientStatsItem
+			CsrJob
 			MemoryCheckerCheckerJob
 			MemoryCheckerJob
-			MultiScannerJob
 			RequestCharacterItem
 		}
 		ConcurrentRakPeer
@@ -269,17 +269,13 @@ RBX
 		}
 		Replicator
 		{
-			ClientScanReportItem
-			{
-				HookScanReport
-				ScanReport
-			}
 			StreamJob
 			{
 				StreamDataItem
 			}
 			AacResponseItem
 			ChangePropertyItem
+			CsrItem
 			DeleteInstanceItem
 			EventInvocationItem
 			HashItem
@@ -334,6 +330,7 @@ RBX
 		Item
 		Marker
 		NetworkOwnerJob
+		NetworkStream
 		PacketReceiveJob
 		Peer
 		PeerStatsItem
@@ -421,6 +418,14 @@ RBX
 		StepInBreakpoint
 		StepOutBreakpoint
 		StepOverBreakpoint
+	}
+	Security
+	{
+		Csr
+		CsrBm
+		CsrHkTp
+		CsrThTp
+		Pe
 	}
 	Solver
 	{
@@ -670,7 +675,6 @@ RBX
 	DecalTool
 	DeleteBase
 	DeleteSelectionVerb
-	DiagThrottlingHelper
 	DialogChoice
 	DialogRoot
 	DisallowedJointSurfacePair
@@ -841,6 +845,7 @@ RBX
 	LayoutTable
 	LayoutTableMajor
 	LeftMotorTool
+	LegacyAdorn
 	LegacyCharacterAppearance
 	Light
 	Lighting
@@ -910,6 +915,7 @@ RBX
 	OnDemandInstance
 	OrderedDataStore
 	OscillateMotorTool
+	PackageLink
 	Pages
 	Pants
 	ParabolaAdornment
@@ -955,6 +961,7 @@ RBX
 	PriorityThreadPool
 	PVAdornment
 	PVInstance
+	QWidgetPluginGui
 	RelativePanel
 	RemoteEvent
 	RemoteFunction
@@ -1076,7 +1083,6 @@ RBX
 	TextService
 	TextureProxyBase
 	ThreadPool
-	ThrottlingHelper
 	TiltSelectionVerb
 	TimerService
 	ToggleViewMode

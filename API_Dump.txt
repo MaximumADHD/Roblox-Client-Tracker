@@ -817,9 +817,6 @@ Class TextLabel : GuiLabel
 	Property TextXAlignment TextLabel.TextXAlignment
 	Property TextYAlignment TextLabel.TextYAlignment
 	Function void TextLabel:SetTextFromInput(string text) [RobloxScriptSecurity]
-Class Scale9Frame : GuiObject
-	Property Vector2int16 Scale9Frame.ScaleEdgeSize
-	Property string Scale9Frame.SlicePrefix
 Class ScrollingFrame : GuiObject
 	Property Vector2 ScrollingFrame.AbsoluteWindowSize [readonly]
 	Property Content ScrollingFrame.BottomImage
@@ -894,6 +891,7 @@ Class DockWidgetPluginGui : PluginGui [notCreatable]
 	Property bool DockWidgetPluginGui.HostWidgetWasRestored [readonly]
 	Event DockWidgetPluginGui.WindowFocusReleased() [PluginSecurity]
 	Event DockWidgetPluginGui.WindowFocused() [PluginSecurity]
+Class QWidgetPluginGui : PluginGui [notCreatable]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
 	Property bool ScreenGui.IgnoreGuiInset
@@ -1090,11 +1088,14 @@ Class HttpRbxApiService : Instance [notCreatable]
 	YieldFunction string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:PostAsync(string apiUrlPath, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
+	YieldFunction string HttpRbxApiService:RequestAsync(Dictionary requestOptions, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 Class HttpService : Instance [notCreatable]
 	Property bool HttpService.HttpEnabled [LocalUserSecurity]
 	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true)
+	Function bool HttpService:GetHttpEnabled() [RobloxScriptSecurity]
 	Function Variant HttpService:JSONDecode(string input)
 	Function string HttpService:JSONEncode(Variant input)
+	Function void HttpService:SetHttpEnabled(bool enabled) [RobloxScriptSecurity]
 	Function string HttpService:UrlEncode(string input)
 	YieldFunction string HttpService:GetAsync(string url, bool nocache = false, Variant headers)
 	YieldFunction string HttpService:PostAsync(string url, string data, HttpContentType content_type = ApplicationJson, bool compress = false, Variant headers)
@@ -1689,8 +1690,8 @@ Class Model : PVInstance
 	Function void Model:makeJoints() [deprecated]
 	Function void Model:move(Vector3 location) [deprecated]
 	Function void Model:moveTo(Vector3 location) [deprecated]
-Class RootInstance : Model [notbrowsable]
-Class Workspace : RootInstance
+Class Status : Model [deprecated] [notCreatable]
+Class Workspace : Model
 	Property bool Workspace.AllowThirdPartySales
 	Property Class:Camera Workspace.CurrentCamera
 	Property double Workspace.DistributedGameTime
@@ -1725,7 +1726,9 @@ Class Workspace : RootInstance
 	Function Tuple Workspace:findPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [deprecated]
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [deprecated]
 	Event Workspace.PhysicsAnalyzerIssuesFound(int count) [PluginSecurity]
-Class Status : Model [deprecated] [notCreatable]
+Class PackageLink : Instance [notCreatable]
+	Property int PackageLink.PackageId [readonly]
+	Property int PackageLink.VersionId [readonly]
 Class Pages : Instance
 	Property bool Pages.IsFinished [readonly]
 	Function Array Pages:GetCurrentPage()
@@ -1988,6 +1991,7 @@ Class Plugin : Instance
 	Function void Plugin:StopAllSounds() [RobloxScriptSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]
+	YieldFunction Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) [RobloxScriptSecurity]
 	YieldFunction Instance Plugin:ImportFbxRig() [PluginSecurity]
 	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
@@ -2092,10 +2096,13 @@ Class RenderingTest : Instance
 	Property int RenderingTest.ComparisonDiffThreshold
 	Property RenderingTestComparisonMethod RenderingTest.ComparisonMethod
 	Property float RenderingTest.ComparisonPsnrThreshold
+	Property string RenderingTest.Description
 	Property float RenderingTest.FieldOfView
 	Property Vector3 RenderingTest.Orientation
 	Property Vector3 RenderingTest.Position
 	Property int RenderingTest.QualityLevel
+	Property bool RenderingTest.ShouldSkip
+	Property string RenderingTest.Ticket
 Class ReplicatedFirst : Instance [notCreatable]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Function bool ReplicatedFirst:IsFinishedReplicating() [RobloxScriptSecurity]

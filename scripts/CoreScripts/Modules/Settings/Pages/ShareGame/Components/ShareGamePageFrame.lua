@@ -14,6 +14,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
+local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 
@@ -87,9 +88,14 @@ ShareGamePageFrame = RoactRodux.connect(function(store)
 		end,
 
 		reFetch = function()
-			local userId = tostring(Players.LocalPlayer.UserId)
-			local networkImpl = httpRequest(HttpRbxApiService)
-			store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGameHeadshot))
+			spawn(function()
+				local friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)]
+				if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
+					local userId = tostring(Players.LocalPlayer.UserId)
+					local networkImpl = httpRequest(HttpRbxApiService)
+					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGameHeadshot))
+				end
+			end)
 		end
 	}
 end)(ShareGamePageFrame)

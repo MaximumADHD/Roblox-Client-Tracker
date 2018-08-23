@@ -6,10 +6,8 @@ return function()
 
 		local expectedKeys = {
 			isClientView = true,
-			activeSearchTerm = nil,
-			currSearchFilter = nil,
-			contextualSearchAction = nil,
-			currTabIndex = 1,
+			tabList = {},
+			currTab = nil,
 		}
 
 		for key in pairs(expectedKeys) do

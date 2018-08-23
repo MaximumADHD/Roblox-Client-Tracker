@@ -1,8 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local Players = game:GetService("Players")
-
 
 local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
@@ -14,9 +11,6 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 
 local EventStream = require(AppTempCommon.Temp.EventStream)
-local Promise = require(AppTempCommon.LuaApp.Promise)
-local httpRequest = require(AppTempCommon.Temp.httpRequest)
-local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
 local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
@@ -43,8 +37,6 @@ function ShareGameApp:render()
 end
 
 function ShareGameApp:didMount()
-	self._networkImpl = httpRequest(HttpRbxApiService)
-	self.props.initialFetch(self._networkImpl)
 	self.eventStream = EventStream.new()
 end
 
@@ -52,22 +44,9 @@ function ShareGameApp:willUnmount()
 	self.eventStream:releaseRBXEventStream()
 end
 
--- TODO: Update to use RoactRodux.UNSTABLE_connect2
-local connector = RoactRodux.connect(function(store)
-	local userId = tostring(Players.LocalPlayer.UserId)
-
+local connector = RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
-		isPageOpen = store:getState().Page.IsOpen,
-		initialFetch = function(networkImpl)
-			Promise.all({
-				store:dispatch(ApiFetchUsersFriends(
-					networkImpl, userId, Constants.ThumbnailRequest.InviteToGameHeadshot
-				)),
-				-- V2: Add a fetch for conversations in this promise list
-			}):andThen(function(result)
-				-- TODO: This: self.state.store:dispatch(SetFetchedShareGameData(true))
-			end)
-		end,
+		isPageOpen = state.Page.IsOpen,
 	}
 end)
 

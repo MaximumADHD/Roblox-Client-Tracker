@@ -18,6 +18,8 @@ local VALUE_PADDING = Constants.MemoryFormatting.ValuePadding
 local ENTRY_HEIGHT = Constants.GeneralFormatting.EntryFrameHeight
 local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 
+local NO_RESULT_SEARCH_STR = Constants.GeneralFormatting.NoResultSearchStr
+
 local MemoryView = Roact.Component:extend("MemoryView")
 
 local function getX(entry)
@@ -178,6 +180,7 @@ function MemoryView:render()
 	local elements = {}
 	local layoutOrder = self.props.layoutOrder
 	local size = self.props.size
+	local searchTerm = self.props.searchTerm
 
 	-- we pass this table into the recursion to keep sum up
 	-- height totals for windowing
@@ -208,21 +211,27 @@ function MemoryView:render()
 	end
 
 	if windowingInfo.layoutOrder == 1 then
-		return Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, 0),
-			Position = UDim2.new(0, 0, 0, 0),
-			Text = "Awaiting Memory Stats",
-			TextColor3 = Constants.Color.Text,
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, {
-			Entries = Roact.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
+		if searchTerm == "" then
+			elements["noDataMessage"] = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0, 0, 0, 0),
+				Text = "Awaiting Memory Stats",
+				TextColor3 = Constants.Color.Text,
 				BackgroundTransparency = 1,
+				LayoutOrder = layoutOrder,
+			})
+		else
+			local noResultSearchStr = string.format(NO_RESULT_SEARCH_STR, searchTerm )
 
-				[Roact.Ref] = self.scrollingRef,
-			}),
-		})
+			elements["noDataMessage"] = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0, 0, 0, 0),
+				Text = noResultSearchStr,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+				LayoutOrder = layoutOrder,
+			})
+		end
 	end
 
 	return Roact.createElement("Frame", {

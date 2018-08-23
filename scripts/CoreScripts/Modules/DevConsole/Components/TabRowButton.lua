@@ -12,6 +12,7 @@ local function TabRowButton(props)
 	local textWidth = props.textWidth
 	local padding = props.padding
 	local isSelected = props.isSelected
+	local layoutOrder = props.layoutOrder
 	local onTabButtonClicked = props.onTabButtonClicked
 
 	textWidth = textWidth + padding
@@ -31,6 +32,8 @@ local function TabRowButton(props)
 		TextColor3 = Constants.Color.Text,
 		BackgroundColor3 = Constants.Color.UnselectedGray,
 		BorderSizePixel = 0,
+		LayoutOrder = layoutOrder,
+
 		[Roact.Event.Activated] = function(rbx)
 			onTabButtonClicked(index)
 		end,

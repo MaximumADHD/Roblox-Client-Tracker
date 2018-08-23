@@ -60,36 +60,36 @@ function Keyboard:Enable(enable)
 	return true
 end
 
-function Keyboard:BindContextActions()
-
-	local updateMovement = function(inputState)
-		if inputState == Enum.UserInputState.Cancel then
-			self.moveVector = ZERO_VECTOR3
-		else
-			self.moveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
-		end
+function Keyboard:UpdateMovement(inputState)
+	if inputState == Enum.UserInputState.Cancel then
+		self.moveVector = ZERO_VECTOR3
+	else
+		self.moveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
 	end
+end
+
+function Keyboard:BindContextActions()
 	
 	-- Note: In the previous version of this code, the movement values were not zeroed-out on UserInputState. Cancel, now they are,
 	-- which fixes them from getting stuck on.
 	local handleMoveForward = function(actionName, inputState, inputObject)			
 		self.forwardValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
-		updateMovement(inputState)
+		self:UpdateMovement(inputState)
 	end
 	
 	local handleMoveBackward = function(actionName, inputState, inputObject)	
 		self.backwardValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
-		updateMovement(inputState)
+		self:UpdateMovement(inputState)
 	end
 	
 	local handleMoveLeft = function(actionName, inputState, inputObject)	
 		self.leftValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
-		updateMovement(inputState)
+		self:UpdateMovement(inputState)
 	end
 	
 	local handleMoveRight = function(actionName, inputState, inputObject)	
 		self.rightValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
-		updateMovement(inputState)
+		self:UpdateMovement(inputState)
 	end
 	
 	local handleJumpAction = function(actionName, inputState, inputObject)

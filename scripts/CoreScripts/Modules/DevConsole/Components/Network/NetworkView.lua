@@ -123,7 +123,7 @@ function NetworkView:render()
 	if summaryExpanded then
 		summaryHeight = summaryHeight + httpSummaryCount * ENTRY_HEIGHT + HEADER_HEIGHT
 	end
-	local chartHeight = 0
+	local chartHeight
 	if self.ref.current then
 		chartHeight = self.ref.current.AbsoluteSize.Y - summaryHeight
 	else

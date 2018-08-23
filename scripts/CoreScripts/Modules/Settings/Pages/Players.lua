@@ -52,8 +52,8 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local IsShareGamePageEnabledByPlatform = FlagSettings.IsShareGamePageEnabledByPlatform(platform)
-local FFlagSettingsHubInviteToGameInStudio3 = settings():GetFFlag('SettingsHubInviteToGameInStudio3')
-local FFlagSettingsHubBarsRefactor3 = settings():GetFFlag('SettingsHubBarsRefactor3')
+local FFlagSettingsHubInviteToGameInStudio = settings():GetFFlag('SettingsHubInviteToGameInStudio4')
+local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor4')
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -353,7 +353,7 @@ local function Initialize()
 
 	local createShareGameButton = nil
 	local createPlayerRow = nil
-	if FFlagSettingsHubBarsRefactor3 then
+	if FFlagSettingsHubBarsRefactor then
 		local function createRow(frameClassName)
 			local frame = Instance.new(frameClassName)
 			frame.Image = "rbxasset://textures/ui/dialog_white.png"
@@ -630,7 +630,7 @@ local function Initialize()
 			-- Create "invite friends" button if it doesn't exist yet
 			-- We shouldn't create this button if we're not in a live game
 			if canShareCurrentGame() and not shareGameButton
-				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio3) then
+				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio) then
 				local eventStream = EventStream.new()
 				shareGameButton = createShareGameButton()
 				shareGameButton.Activated:connect(function()

@@ -158,6 +158,7 @@ function NetworkChart:render()
 	local usedFrameSpace = 0
 
 	local totalEntries = #httpEntryList
+	local searchCount = 0
 	entries["UIListLayout"] = Roact.createElement("UIListLayout", {
 		FillDirection = Enum.FillDirection.Vertical,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -174,6 +175,7 @@ function NetworkChart:render()
 			end
 
 			if not (entry.RequestType == "Default") and valid then
+				searchCount = searchCount + 1
 				-- insert header elements into a frame so that we can use the UIListLayout to keep everything in order
 				local showResponse = expandIndex == entry.Num
 				local frameHeight = ENTRY_HEIGHT
@@ -218,6 +220,8 @@ function NetworkChart:render()
 				end
 				canvasHeight = canvasHeight + frameHeight
 			end
+		end
+		if searchCount > 0 then
 			entries["WindowingPadding"] = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, paddingHeight),
 				BackgroundTransparency = 1,
@@ -226,33 +230,12 @@ function NetworkChart:render()
 		end
 	end
 
-	if totalEntries == 0 then
-		return Roact.createElement("TextLabel", {
+	if totalEntries == 0 or searchCount == 0 then
+		entries["NONE FOUND"] = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 0, chartHeight),
 			Text = "No Network Entries Found",
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-			Header = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-			},headerCells),
-
-			HorizontalLine_1 = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, LINE_WIDTH),
-				BackgroundColor3 = LINE_COLOR,
-				BorderSizePixel = 0,
-				BackgroundTransparency = 0,
-				LayoutOrder = 2,
-			}),
 		})
 	end
 

@@ -79,7 +79,7 @@ function ConversationList:render()
 	for i, user in ipairs(friends) do
 		local isEntryShown = searchFilterPredicate(searchText, user.name)
 
-		children["User-"..user.name] = Roact.createElement(ConversationEntry, {
+		children["User-" .. user.name] = Roact.createElement(ConversationEntry, {
 			visible = isEntryShown,
 			size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
 			layoutOrder = i,
@@ -96,11 +96,10 @@ function ConversationList:render()
 		end
 	end
 
-	if #friends == 0 then
+	if #friends == 0 or friendsRetrievalStatus == RetrievalStatus.Fetching then
 		local zeroFriendsComponent = LoadingFriendsPage
-		if friendsRetrievalStatus == RetrievalStatus.Fetching then
-			zeroFriendsComponent = LoadingFriendsPage
-		elseif friendsRetrievalStatus == RetrievalStatus.Done then
+
+		if friendsRetrievalStatus == RetrievalStatus.Done then
 			zeroFriendsComponent = NoFriendsPage
 		elseif friendsRetrievalStatus == RetrievalStatus.Failed then
 			zeroFriendsComponent = FriendsErrorPage

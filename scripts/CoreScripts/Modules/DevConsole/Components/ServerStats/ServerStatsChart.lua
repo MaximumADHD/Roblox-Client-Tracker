@@ -19,6 +19,7 @@ local ENTRY_HEIGHT = Constants.ServerStatsFormatting.EntryFrameHeight
 
 local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 local NO_DATA_MSG = "Awaiting Server Stats"
+local NO_RESULT_SEARCH_STR = Constants.GeneralFormatting.NoResultSearchStr
 
 local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
 
@@ -83,13 +84,13 @@ function ServerStats:render()
 	local graphCount = 0
 	if serverStatsData then
 		for name, data in pairs(serverStatsData) do
+			entryCount = entryCount + 1
 			if not searchTerm or string.find(name:lower(), searchTerm:lower()) ~= nil then
 				currLayoutIndex = currLayoutIndex + 1
 
 				local showGraph = expandedEntry == name
 				local frameHeight = showGraph and ENTRY_HEIGHT + GRAPH_HEIGHT or ENTRY_HEIGHT
 
-				entryCount = entryCount + 1
 				graphCount = showGraph and graphCount + 1 or graphCount
 
 				elements[name] = Roact.createElement("Frame", {
@@ -153,14 +154,24 @@ function ServerStats:render()
 	end
 
 	if currLayoutIndex == 1 then
-		return Roact.createElement("TextLabel", {
-			Size = size,
-			Position = UDim2.new(0, 0, 0, 0),
-			Text = NO_DATA_MSG,
-			TextColor3 = Constants.Color.Text,
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-		})
+		if entryCount == 0 then
+			return Roact.createElement("TextLabel", {
+				Size = size,
+				Position = UDim2.new(0, 0, 0, 0),
+				Text = NO_DATA_MSG,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+				LayoutOrder = layoutOrder,
+			})
+		else
+			local noResultSearchStr = string.format(NO_RESULT_SEARCH_STR, searchTerm)
+			elements["emptyResult"] = Roact.createElement("TextLabel", {
+				Size = size,
+				Text = noResultSearchStr,
+				TextColor3 = Constants.Color.Text,
+				BackgroundTransparency = 1,
+			})
+		end
 	end
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {

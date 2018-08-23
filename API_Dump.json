@@ -14258,50 +14258,6 @@
         {
             "Members": [
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "ScaleEdgeSize",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector2int16"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "SlicePrefix",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Scale9Frame",
-            "Superclass": "GuiObject",
-            "Tags": [
-                "NotCreatable"
-            ]
-        },
-        {
-            "Members": [
-                {
                     "Category": "Scrolling",
                     "MemberType": "Property",
                     "Name": "AbsoluteWindowSize",
@@ -15491,6 +15447,17 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "DockWidgetPluginGui",
+            "Superclass": "PluginGui",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "QWidgetPluginGui",
             "Superclass": "PluginGui",
             "Tags": [
                 "NotCreatable",
@@ -18642,6 +18609,59 @@
                     "Tags": [
                         "Yields"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RequestAsync",
+                    "Parameters": [
+                        {
+                            "Name": "requestOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ThrottlingPriority"
+                            }
+                        },
+                        {
+                            "Default": "ApplicationJson",
+                            "Name": "content_type",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpContentType"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "httpRequestType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HttpRequestType"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "doNotAllowDiabolicalMode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -18692,6 +18712,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetHttpEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "JSONDecode",
                     "Parameters": [
                         {
@@ -18725,6 +18756,24 @@
                         "Name": "string"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetHttpEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -26225,7 +26274,7 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "Hidden",
@@ -26247,7 +26296,7 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "Hidden",
@@ -29293,11 +29342,11 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "RootInstance",
+            "Name": "Status",
             "Superclass": "Model",
             "Tags": [
                 "NotCreatable",
-                "NotBrowsable"
+                "Deprecated"
             ]
         },
         {
@@ -30091,7 +30140,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "Workspace",
-            "Superclass": "RootInstance",
+            "Superclass": "Model",
             "Tags": [
                 "NotCreatable",
                 "Service"
@@ -30099,13 +30148,54 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Link",
+                    "MemberType": "Property",
+                    "Name": "PackageId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Link",
+                    "MemberType": "Property",
+                    "Name": "VersionId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
-            "Name": "Status",
-            "Superclass": "Model",
+            "Name": "PackageLink",
+            "Superclass": "Instance",
             "Tags": [
-                "NotCreatable",
-                "Deprecated"
+                "NotCreatable"
             ]
         },
         {
@@ -34774,6 +34864,34 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateQWidgetPluginGui",
+                    "Parameters": [
+                        {
+                            "Name": "pluginGuiId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "pluginGuiOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ImportFbxRig",
                     "Parameters": [
                     ],
@@ -36368,6 +36486,23 @@
                 {
                     "Category": "RenderingTest",
                     "MemberType": "Property",
+                    "Name": "Description",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "RenderingTest",
+                    "MemberType": "Property",
                     "Name": "FieldOfView",
                     "Security": {
                         "Read": "None",
@@ -36437,6 +36572,40 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
+                    }
+                },
+                {
+                    "Category": "RenderingTest",
+                    "MemberType": "Property",
+                    "Name": "ShouldSkip",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "RenderingTest",
+                    "MemberType": "Property",
+                    "Name": "Ticket",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 }
             ],
@@ -54768,7 +54937,7 @@
                     "Value": 44
                 },
                 {
-                    "Name": "ScriptMachtingWordSelectionBackground",
+                    "Name": "ScriptMatchingWordSelectionBackground",
                     "Value": 45
                 },
                 {

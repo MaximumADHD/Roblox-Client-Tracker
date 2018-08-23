@@ -26,47 +26,57 @@ local ServerStats = require(Components.ServerStats.MainViewServerStats)
 local ActionBindings = require(Components.ActionBindings.MainViewActionBindings)
 local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 
+local MainView = require(DevConsole.Reducers.MainView)
 local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
 
 local SetDevConsoleVisibility = require(DevConsole.Actions.SetDevConsoleVisibility)
+local SetTabList = require(DevConsole.Actions.SetTabList)
 
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 
 local DEV_TAB_LIST = {
-	{
-		label = "Log",
+	Log = {
 		tab = Log,
-	}, {
-		label = "Memory",
+		layoutOrder = 1,
+	},
+	Memory = {
 		tab = Memory,
-	}, {
-		label = "Network",
+		layoutOrder = 2,
+	},
+	Network = {
 		tab = Network,
-	}, {
-		label = "Scripts",
+		layoutOrder = 3,
+	},
+	Scripts = {
 		tab = Scripts,
-	}, {
-		label = "DataStores",
+		layoutOrder = 4,
+	},
+	DataStores = {
 		tab = DataStores,
-	}, {
-		label = "ServerStats",
+		layoutOrder = 5,
+	},
+	ServerStats = {
 		tab = ServerStats,
-	}, {
-		label = "ActionBindings",
+		layoutOrder = 6,
+	},
+	ActionBindings = {
 		tab = ActionBindings,
-	}, {
-		label = "ServerJobs",
+		layoutOrder = 7,
+	},
+	ServerJobs = {
 		tab = ServerJobs,
+		layoutOrder = 8,
 	}
 }
 
 local PLAYER_TAB_LIST = {
-	{
-		label = "Log",
+	Log = {
 		tab = Log,
-	}, {
-		label = "Memory",
+		layoutOrder = 1,
+	},
+	Memory = {
 		tab = Memory,
+		layoutOrder = 2,
 	},
 }
 
@@ -131,8 +141,12 @@ function DevConsoleMaster.new()
 
 	local developerConsoleView = isDeveloper()
 
+	local initTabListForStore = {
+		MainView = MainView(nil, SetTabList(developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST, "Log")),
+	}
+
 	-- create store
-	self.store = Rodux.Store.new(DevConsoleReducer)
+	self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore)
 	self.init = false
 	local isVisible = self.store:getState().DisplayOptions.isVisible
 

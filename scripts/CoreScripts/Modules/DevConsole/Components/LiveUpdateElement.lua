@@ -269,13 +269,13 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		dispatchChangeTabClientLog = function()
-			dispatch(SetActiveTab(1, true))
+			dispatch(SetActiveTab("Log", true))
 		end,
 		dispatchChangeTabClientMemory = function()
-			dispatch(SetActiveTab(2, true))
+			dispatch(SetActiveTab("Memory", true))
 		end,
 		dispatchChangeTabNetworkPing = function()
-			dispatch(SetActiveTab(6, true))
+			dispatch(SetActiveTab("Network", true))
 		end,
 	}
 end
