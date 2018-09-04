@@ -780,7 +780,6 @@ RBX
 	HttpRequest
 	HttpRequestCurl
 	HttpRequestMsxml
-	HttpRequestWrapper
 	HttpResponse
 	HttpResponseImpl
 	HttpService
@@ -1114,7 +1113,6 @@ RBX
 	UIListLayout
 	UIPadding
 	UIPageLayout
-	UIRelayoutRecursionOverflowException
 	UIScale
 	UISizeConstraint
 	UITableLayout

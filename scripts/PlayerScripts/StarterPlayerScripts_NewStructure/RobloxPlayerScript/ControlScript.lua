@@ -46,13 +46,6 @@ local VehicleController = require(script:WaitForChild("VehicleController"))
 -- table is a map from Module to the instance created from it
 local controllers = {}
 
-local FFlagUserIsNowADynamicThumbstick = false
-local status = pcall(function()
-	FFlagUserIsNowADynamicThumbstick = UserSettings():IsUserFeatureEnabled("UserIsNowADynamicThumbstick")
-end)
-
-FFlagUserIsNowADynamicThumbstick = status and FFlagUserIsNowADynamicThumbstick
-
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
 	[Enum.TouchMovementMode.DPad] = TouchDPad,
@@ -67,7 +60,7 @@ local movementEnumToModuleMap = {
 	[Enum.DevTouchMovementMode.ClickToMove] = ClickToMove,
 
 	-- Current default
-	[Enum.TouchMovementMode.Default] = FFlagUserIsNowADynamicThumbstick and DynamicThumbstick or TouchThumbstick,
+	[Enum.TouchMovementMode.Default] = TouchThumbstick,
 
 	[Enum.ComputerMovementMode.Default] = Keyboard,
 	[Enum.ComputerMovementMode.KeyboardMouse] = Keyboard,

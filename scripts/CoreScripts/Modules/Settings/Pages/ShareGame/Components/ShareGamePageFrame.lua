@@ -89,11 +89,11 @@ ShareGamePageFrame = RoactRodux.connect(function(store)
 
 		reFetch = function()
 			spawn(function()
-				local userId = tostring(Players.LocalPlayer.UserId)
-				local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
+				local friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)]
 				if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
+					local userId = tostring(Players.LocalPlayer.UserId)
 					local networkImpl = httpRequest(HttpRbxApiService)
-					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
+					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGameHeadshot))
 				end
 			end)
 		end

@@ -24,13 +24,13 @@ local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeSta
 
 local COLUMN_TRANSFORM_FUNC = {
 	function(point)
-		return point and string.format("%.4f%%", point) or ""
+		return point and math.floor(point * 10000000 + 0.5) / 100000 .. "%" or ""
 	end,
 	function(point)
-		return point and string.format("%.4f/s", point) or ""
+		return point and (math.floor(point * 10000 + 0.5) / 10000) .. "/s" or ""
 	end,
 	function(point)
-		return point and string.format("%.4fms", point) or ""
+		return point and (math.floor(point * 10000000 + 0.5) / 10000) .. "ms" or ""
 	end,
 }
 

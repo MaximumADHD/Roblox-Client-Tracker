@@ -1,14 +1,11 @@
 BuiltInPlugins/AnimationEditor.rbxmx
-[3296565 bytes]
+[3272947 bytes]
 
 BuiltInPlugins/CollisionGroupsEditor.rbxmx
 [159452 bytes]
 
 BuiltInPlugins/LocalizationPlugin.rbxmx
-[4567 bytes]
-
-BuiltInPlugins/MasterPlugin.rbxmx
-[1358 bytes]
+[4406 bytes]
 
 BuiltInPlugins/PhysicsAnalyzer.rbxmx
 [26474 bytes]
@@ -491,7 +488,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/LineGraphHoverDisplay.
 [1891 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LiveUpdateElement.lua
-[9255 bytes]
+[8726 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/LiveUpdateElement.spec.lua
 [860 bytes]
@@ -545,7 +542,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MainViewMemory.
 [1036 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryView.lua
-[8969 bytes]
+[8957 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Memory/MemoryView.spec.lua
 [709 bytes]
@@ -569,7 +566,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetwork.
 [842 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ClientNetwork.spec.lua
-[543 bytes]
+[509 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/MainViewNetwork.lua
 [4099 bytes]
@@ -602,13 +599,13 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkView.lu
 [6243 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/NetworkView.spec.lua
-[734 bytes]
+[707 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetwork.lua
 [842 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Network/ServerNetwork.spec.lua
-[542 bytes]
+[509 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/Scripts/MainViewScripts.lua
 [3370 bytes]
@@ -644,7 +641,7 @@ content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/MainViewSer
 [962 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.lua
-[12871 bytes]
+[12932 bytes]
 
 content/scripts/CoreScripts/Modules/DevConsole/Components/ServerJobs/ServerJobsChart.spec.lua
 [517 bytes]
@@ -995,7 +992,7 @@ content/scripts/CoreScripts/Modules/Server/ServerUtil.lua
 [9 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/GameSettings.lua
-[50466 bytes]
+[50300 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/Help.lua
 [27678 bytes]
@@ -1061,7 +1058,7 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/Conversa
 [7177 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ConversationThumbnail.lua
-[5293 bytes]
+[5102 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/FriendsErrorPage.lua
 [1690 bytes]
@@ -1097,10 +1094,10 @@ content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/SearchBo
 [5017 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Components/ShareGamePageFrame.lua
-[3429 bytes]
+[3468 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/Constants.lua
-[4298 bytes]
+[3665 bytes]
 
 content/scripts/CoreScripts/Modules/Settings/Pages/ShareGame/FlagSettings.lua
 [1905 bytes]
@@ -1406,7 +1403,7 @@ content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScri
 [5962 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript.lua
-[13490 bytes]
+[13157 bytes]
 
 content/scripts/PlayerScripts/StarterPlayerScripts_NewStructure/RobloxPlayerScript/ControlScript/BaseCharacterController.lua
 [1168 bytes]
@@ -2053,9 +2050,6 @@ content/textures/localizationTargetEnglish.png
 content/textures/localizationTargetSpanish.png
 [565 bytes]
 
-content/textures/localizationTestingIcon.png
-[1679 bytes]
-
 content/textures/localizationUIScrapingOff.png
 [1007 bytes]
 
@@ -2067,9 +2061,6 @@ content/textures/LockCursor.png
 
 content/textures/MaterialCursor.png
 [7456 bytes]
-
-content/textures/menuDownArrow.png
-[146 bytes]
 
 content/textures/meshPartFallback.png
 [243 bytes]
@@ -2173,18 +2164,6 @@ content/textures/sparkle.png
 content/textures/StudioToolbox/ArrowDownIconWhite.png
 [391 bytes]
 
-content/textures/StudioToolbox/AudioPreview/light_pause.png
-[641 bytes]
-
-content/textures/StudioToolbox/AudioPreview/light_pause_hover.png
-[632 bytes]
-
-content/textures/StudioToolbox/AudioPreview/light_play.png
-[997 bytes]
-
-content/textures/StudioToolbox/AudioPreview/light_play_hover.png
-[749 bytes]
-
 content/textures/StudioToolbox/AudioPreview/pause.png
 [621 bytes]
 
@@ -2199,12 +2178,6 @@ content/textures/StudioToolbox/AudioPreview/play_hover.png
 
 content/textures/StudioToolbox/AudioPreview/play-audio.PNG
 [1487 bytes]
-
-content/textures/StudioToolbox/Clear.png
-[538 bytes]
-
-content/textures/StudioToolbox/ClearHover.png
-[399 bytes]
 
 content/textures/StudioToolbox/EndorsedBadge.png
 [792 bytes]
@@ -2226,9 +2199,6 @@ content/textures/StudioToolbox/ScrollBarMiddle.png
 
 content/textures/StudioToolbox/ScrollBarTop.png
 [427 bytes]
-
-content/textures/StudioToolbox/Search.png
-[466 bytes]
 
 content/textures/StudioToolbox/ToolboxIcon.png
 [1165 bytes]
@@ -5030,8 +5000,8 @@ ReflectionMetadata.xml
 [345907 bytes]
 
 RobloxStudioBeta.exe
-[27283968 bytes]
+[27144704 bytes]
 
 RobloxStudioRibbon.xml
-[60177 bytes]
+[59701 bytes]
 

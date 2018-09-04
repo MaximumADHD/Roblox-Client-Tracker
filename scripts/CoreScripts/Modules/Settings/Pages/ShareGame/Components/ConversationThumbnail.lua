@@ -6,13 +6,11 @@ local Roact = require(CorePackages.Roact)
 
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
 
-local FFlagSettingsHubInviteToGameNoBackground = settings():GetFFlag("SettingsHubInviteToGameThumbnailNoBackground")
-
 local BORDER_SIZE = 1
 local BORDER_COLOR = Constants.Color.GRAY3
 
-local THUMBNAIL_IMAGE_SIZE = Constants.InviteAvatarThumbnailSize
-local THUMBNAIL_IMAGE_TYPE = Constants.InviteAvatarThumbnailType
+local THUMBNAIL_IMAGE_SIZE = Constants.AvatarThumbnailSizes.Size100x100
+local THUMBNAIL_IMAGE_TYPE = Constants.AvatarThumbnailTypes.HeadShot
 local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
 
 -- (Borrowed values from LuaChat)
@@ -161,7 +159,6 @@ function ConversationThumbnail:render()
 	}, {
 		ContentsContainer = Roact.createElement("Frame", {
 			-- Render the border inwards instead of outwards
-			BackgroundTransparency = FFlagSettingsHubInviteToGameNoBackground and 1 or 0,
 			Size = UDim2.new(1, -BORDER_SIZE, 1, -BORDER_SIZE),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),

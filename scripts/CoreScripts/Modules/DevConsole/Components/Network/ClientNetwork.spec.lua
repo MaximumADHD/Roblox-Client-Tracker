@@ -7,9 +7,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(DataProvider, {}, {
-			ClientNetwork = Roact.createElement(ClientNetwork, {
-				size = UDim2.new(),
-			})
+			ClientNetwork = Roact.createElement(ClientNetwork)
 		})
 
 		local instance = Roact.mount(element)

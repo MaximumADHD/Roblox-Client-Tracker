@@ -887,8 +887,6 @@ Class BillboardGui : LayerCollector
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
 Class PluginGui : LayerCollector [notCreatable]
 	Property string PluginGui.Title
-	Function void PluginGui:BindToClose(Function function = nil)
-	Function Vector2 PluginGui:GetRelativeMousePosition() [PluginSecurity]
 Class DockWidgetPluginGui : PluginGui [notCreatable]
 	Property bool DockWidgetPluginGui.HostWidgetWasRestored [readonly]
 	Event DockWidgetPluginGui.WindowFocusReleased() [PluginSecurity]
@@ -1091,16 +1089,12 @@ Class HttpRbxApiService : Instance [notCreatable]
 	YieldFunction string HttpRbxApiService:PostAsync(string apiUrlPath, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:PostAsyncFullUrl(string apiUrl, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:RequestAsync(Dictionary requestOptions, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
-Class HttpRequest : Instance
-	Function void HttpRequest:Cancel() [RobloxScriptSecurity]
-	Function void HttpRequest:Start(Function callback) [RobloxScriptSecurity]
 Class HttpService : Instance [notCreatable]
 	Property bool HttpService.HttpEnabled [LocalUserSecurity]
 	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true)
 	Function bool HttpService:GetHttpEnabled() [RobloxScriptSecurity]
 	Function Variant HttpService:JSONDecode(string input)
 	Function string HttpService:JSONEncode(Variant input)
-	Function Instance HttpService:RequestInternal(Dictionary options) [RobloxScriptSecurity]
 	Function void HttpService:SetHttpEnabled(bool enabled) [RobloxScriptSecurity]
 	Function string HttpService:UrlEncode(string input)
 	YieldFunction string HttpService:GetAsync(string url, bool nocache = false, Variant headers)
@@ -1575,15 +1569,16 @@ Class BasePart : PVInstance [notbrowsable]
 	Function Objects BasePart:GetTouchingParts()
 	Function bool BasePart:IsGrounded()
 	Function void BasePart:MakeJoints()
+	Function Instance BasePart:Negate() [LocalUserSecurity]
 	Function bool BasePart:Resize(NormalId normalId, int deltaAmount)
+	Function Objects BasePart:Separate() [LocalUserSecurity]
 	Function void BasePart:SetNetworkOwner(Instance playerInstance = nil)
 	Function void BasePart:SetNetworkOwnershipAuto()
+	Function Instance BasePart:UnionWith(Instance part) [LocalUserSecurity]
 	Function void BasePart:breakJoints() [deprecated]
 	Function float BasePart:getMass() [deprecated]
 	Function void BasePart:makeJoints() [deprecated]
 	Function bool BasePart:resize(NormalId normalId, int deltaAmount) [deprecated]
-	YieldFunction Instance BasePart:SubtractAsync(Objects parts, CollisionFidelity collisionfidelity = Default)
-	YieldFunction Instance BasePart:UnionAsync(Objects parts, CollisionFidelity collisionfidelity = Default)
 	Event BasePart.LocalSimulationTouched(Instance part) [deprecated]
 	Event BasePart.OutfitChanged() [deprecated]
 	Event BasePart.StoppedTouching(Instance otherPart) [deprecated]
@@ -2197,10 +2192,8 @@ Class DataModel : ServiceProvider
 	Property string DataModel.JobId [readonly]
 	Property int64 DataModel.PlaceId [readonly]
 	Property int DataModel.PlaceVersion [readonly]
-	Property string DataModel.PrivateServerId [readonly]
-	Property int64 DataModel.PrivateServerOwnerId [readonly]
-	Property string DataModel.VIPServerId [deprecated] [hidden] [readonly]
-	Property int64 DataModel.VIPServerOwnerId [deprecated] [hidden] [readonly]
+	Property string DataModel.VIPServerId [readonly]
+	Property int64 DataModel.VIPServerOwnerId [readonly]
 	Property Class:Workspace DataModel.Workspace [readonly]
 	Property Class:Instance DataModel.lighting [deprecated] [readonly]
 	Property Class:Workspace DataModel.workspace [deprecated] [readonly]
@@ -2418,7 +2411,7 @@ Class TeleportService : Instance
 	Function void TeleportService:TeleportToPrivateServer(int64 placeId, string reservedServerAccessCode, Objects players, string spawnName = , Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportToSpawnByName(int64 placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
 	YieldFunction Tuple TeleportService:GetPlayerPlaceInstanceAsync(int64 userId)
-	YieldFunction Tuple TeleportService:ReserveServer(int64 placeId)
+	YieldFunction string TeleportService:ReserveServer(int64 placeId)
 	YieldFunction string TeleportService:TeleportPartyAsync(int64 placeId, Objects players, Variant teleportData, Instance customLoadingScreen = nil)
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.TeleportInitFailed(Instance player, TeleportResult teleportResult, string errorMessage)
@@ -3312,19 +3305,6 @@ Enum HttpContentType
 	EnumItem HttpContentType.ApplicationUrlEncoded : 2
 	EnumItem HttpContentType.TextPlain : 3
 	EnumItem HttpContentType.TextXml : 4
-Enum HttpError
-	EnumItem HttpError.OK : 0
-	EnumItem HttpError.InvalidUrl : 1
-	EnumItem HttpError.DnsResolve : 2
-	EnumItem HttpError.ConnectFail : 3
-	EnumItem HttpError.OutOfMemory : 4
-	EnumItem HttpError.TimedOut : 5
-	EnumItem HttpError.TooManyRedirects : 6
-	EnumItem HttpError.InvalidRedirect : 7
-	EnumItem HttpError.NetFail : 8
-	EnumItem HttpError.Aborted : 9
-	EnumItem HttpError.SslConnectFail : 10
-	EnumItem HttpError.Unknown : 11
 Enum HttpRequestType
 	EnumItem HttpRequestType.Default : 0
 	EnumItem HttpRequestType.MarketplaceService : 2
