@@ -23,6 +23,7 @@ return function()
 
 		local element = Roact.createElement(NetworkView, {
 			targetNetworkData = dummmyNetworkData,
+			size = UDim2.new(0,0),
 		})
 
 		local instance = Roact.mount(element)
