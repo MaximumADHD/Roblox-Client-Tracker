@@ -121,7 +121,7 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 	assert(self.scrollingRef.current, "ScrollingFrame not initialized yet")
 
 	local expandIndex = self.state.expandIndex
-	local searchTerm = self.props.searchTerm
+	local searchTerm = self.props.searchTerm or ""
 	local reverseSort = self.state.reverseSort
 	local canvasPos = self.scrollingRef.current.CanvasPosition
 	local absScrollSize = self.scrollingRef.current.AbsoluteSize
@@ -180,7 +180,7 @@ function MemoryView:render()
 	local elements = {}
 	local layoutOrder = self.props.layoutOrder
 	local size = self.props.size
-	local searchTerm = self.props.searchTerm
+	local searchTerm = self.props.searchTerm or ""
 
 	-- we pass this table into the recursion to keep sum up
 	-- height totals for windowing

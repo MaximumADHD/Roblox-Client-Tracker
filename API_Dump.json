@@ -15397,6 +15397,36 @@
                         "Category": "Primitive",
                         "Name": "string"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "BindToClose",
+                    "Parameters": [
+                        {
+                            "Default": "nil",
+                            "Name": "function",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetRelativeMousePosition",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    },
+                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -18675,6 +18705,45 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "Cancel",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Start",
+                    "Parameters": [
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "HttpRequest",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "HttpEnabled",
@@ -18756,6 +18825,24 @@
                         "Name": "string"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RequestInternal",
+                    "Parameters": [
+                        {
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -27056,17 +27143,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "Negate",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "LocalUserSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "Resize",
                     "Parameters": [
                         {
@@ -27089,17 +27165,6 @@
                         "Name": "bool"
                     },
                     "Security": "None"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Separate",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
-                    },
-                    "Security": "LocalUserSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -27130,24 +27195,6 @@
                         "Name": "void"
                     },
                     "Security": "None"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "UnionWith",
-                    "Parameters": [
-                        {
-                            "Name": "part",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "LocalUserSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -27218,6 +27265,64 @@
                     "Security": "None",
                     "Tags": [
                         "Deprecated"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubtractAsync",
+                    "Parameters": [
+                        {
+                            "Name": "parts",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "collisionfidelity",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CollisionFidelity"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UnionAsync",
+                    "Parameters": [
+                        {
+                            "Name": "parts",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "collisionfidelity",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CollisionFidelity"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
                     ]
                 },
                 {
@@ -37998,7 +38103,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "VIPServerId",
+                    "Name": "PrivateServerId",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -38019,7 +38124,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "VIPServerOwnerId",
+                    "Name": "PrivateServerOwnerId",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -38031,6 +38136,52 @@
                     "Tags": [
                         "ReadOnly",
                         "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "VIPServerId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "VIPServerOwnerId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ValueType": {
                         "Category": "Primitive",
@@ -42939,8 +43090,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
+                        "Category": "Group",
+                        "Name": "Tuple"
                     },
                     "Security": "None",
                     "Tags": [
@@ -51792,6 +51943,59 @@
         {
             "Items": [
                 {
+                    "Name": "OK",
+                    "Value": 0
+                },
+                {
+                    "Name": "InvalidUrl",
+                    "Value": 1
+                },
+                {
+                    "Name": "DnsResolve",
+                    "Value": 2
+                },
+                {
+                    "Name": "ConnectFail",
+                    "Value": 3
+                },
+                {
+                    "Name": "OutOfMemory",
+                    "Value": 4
+                },
+                {
+                    "Name": "TimedOut",
+                    "Value": 5
+                },
+                {
+                    "Name": "TooManyRedirects",
+                    "Value": 6
+                },
+                {
+                    "Name": "InvalidRedirect",
+                    "Value": 7
+                },
+                {
+                    "Name": "NetFail",
+                    "Value": 8
+                },
+                {
+                    "Name": "Aborted",
+                    "Value": 9
+                },
+                {
+                    "Name": "SslConnectFail",
+                    "Value": 10
+                },
+                {
+                    "Name": "Unknown",
+                    "Value": 11
+                }
+            ],
+            "Name": "HttpError"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Default",
                     "Value": 0
                 },
@@ -54975,6 +55179,62 @@
                 {
                     "Name": "ScriptError",
                     "Value": 54
+                },
+                {
+                    "Name": "DiffFilePathText",
+                    "Value": 55
+                },
+                {
+                    "Name": "DiffTextHunkInfo",
+                    "Value": 56
+                },
+                {
+                    "Name": "DiffTextNoChange",
+                    "Value": 57
+                },
+                {
+                    "Name": "DiffTextAddition",
+                    "Value": 58
+                },
+                {
+                    "Name": "DiffTextDeletion",
+                    "Value": 59
+                },
+                {
+                    "Name": "DiffTextSeparatorBackground",
+                    "Value": 60
+                },
+                {
+                    "Name": "DiffTextNoChangeBackground",
+                    "Value": 61
+                },
+                {
+                    "Name": "DiffTextAdditionBackground",
+                    "Value": 62
+                },
+                {
+                    "Name": "DiffTextDeletionBackground",
+                    "Value": 63
+                },
+                {
+                    "Name": "DiffLineNum",
+                    "Value": 64
+                },
+                {
+                    "Name": "DiffLineNumSeparatorBackground",
+                    "Value": 65
+                },
+                {
+                    "Name": "DiffLineNumNoChangeBackground",
+                    "Value": 66
+                },
+                {
+                    "Name": "DiffLineNumAdditionBackground",
+                    "Value": 67
+                },
+                {
+                    "Name": "DiffLineNumDeletionBackground",
+                    "Value": 68
                 }
             ],
             "Name": "StudioStyleGuideColor"

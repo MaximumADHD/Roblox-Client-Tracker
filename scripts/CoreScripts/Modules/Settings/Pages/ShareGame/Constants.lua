@@ -4,6 +4,9 @@ local AppTempCommon = CorePackages.AppTempCommon
 local User = require(AppTempCommon.LuaApp.Models.User)
 local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
 
+local FStringSettingsHubInviteToGameThumbnailType = settings():GetFVariable("SettingsHubInviteToGameThumbnailType")
+local FStringSettingsHubInviteToGameThumbnailSize = settings():GetFVariable("SettingsHubInviteToGameThumbnailSize")
+
 local DeviceLayout = {
 	PHONE_PORTRAIT = "PHONE_PORTRAIT",
 	PHONE_LANDSCAPE = "PHONE_LANDSCAPE",
@@ -11,7 +14,6 @@ local DeviceLayout = {
 	TABLET_LANDSCAPE = "TABLET_LANDSCAPE",
 	DESKTOP = "DESKTOP",
 }
-
 
 local Color = {
 	WHITE = Color3.fromRGB(255, 255, 255),
@@ -60,8 +62,11 @@ local Constants = {
 		HeadShot = "HeadShot",
 	},
 	AvatarThumbnailSizes = {
-		Size150x150 = "Size150x150",
+		Size48x48 = "Size48x48",
+		Size60x60 = "Size60x60",
 		Size100x100 = "Size100x100",
+		Size150x150 = "Size150x150",
+		Size352x352 = "Size352x352",
 	},
 
 	SHARE_GAME_Z_INDEX = 2,
@@ -125,9 +130,16 @@ local Constants = {
 	},
 }
 
+Constants.InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes[FStringSettingsHubInviteToGameThumbnailType]
+	or Constants.AvatarThumbnailTypes.HeadShot
+
+Constants.InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes[FStringSettingsHubInviteToGameThumbnailSize]
+	or Constants.AvatarThumbnailSizes.Size100x100
+
 Constants.ThumbnailRequest = {
-	InviteToGameHeadshot = {ThumbnailRequest.fromData(
-		Constants.AvatarThumbnailTypes.HeadShot, Constants.AvatarThumbnailSizes.Size100x100
+	InviteToGame = {ThumbnailRequest.fromData(
+		Constants.InviteAvatarThumbnailType,
+		Constants.InviteAvatarThumbnailSize
 	)},
 }
 

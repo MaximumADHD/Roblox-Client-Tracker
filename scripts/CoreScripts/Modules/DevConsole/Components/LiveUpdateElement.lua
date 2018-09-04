@@ -60,6 +60,7 @@ function LiveUpdateElement:willUnmount()
 end
 
 function LiveUpdateElement:init()
+	local errorInit, warningInit = self.props.ClientLogData:getErrorWarningCount()
 	self.onLogWarningButton = function()
 		local WarningFilters = {
 			Warning = true,
@@ -79,8 +80,8 @@ function LiveUpdateElement:init()
 	self.ref = Roact.createRef()
 
 	self.state = {
-		numErrors = 0,
-		numWarnings = 0,
+		numErrors = errorInit,
+		numWarnings = warningInit,
 		totalClientMemory = 0,
 		averagePing = 0,
 		formFactorThreshold = MIN_LARGE_FORMFACTOR_WIDTH,
@@ -144,6 +145,20 @@ function LiveUpdateElement:render()
 		FONT,
 		Vector2.new(0, 0)
 	)
+
+	local sizeCheck
+	if self.ref.current then
+		sizeCheck = self.ref.current.AbsoluteSize.X < formFactorThreshold
+	end
+
+	if formFactor == Constants.FormFactor.Small or sizeCheck then
+		position = position + UDim2.new(0, INNER_PADDING * 2, 0, 0)
+		currMemStrWidth = memStatStrSmallWidth.X
+		useSmallForm = true
+		alignment = Enum.HorizontalAlignment.Left
+	end
+
+	local showNetworkPing = useSmallForm and averagePing > 0
 
 	return Roact.createElement("Frame", {
 		Position = position,
