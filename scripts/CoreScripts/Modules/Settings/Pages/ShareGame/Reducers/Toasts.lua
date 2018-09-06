@@ -11,68 +11,32 @@ local StoppedToastTimer = require(ShareGame.Actions.StoppedToastTimer)
 local Constants = require(ShareGame.Constants)
 local InviteStatus = Constants.InviteStatus
 
-local FFlagShareGameFromGameErrorToaster = settings():GetFFlag("ShareGameFromGameErrorToaster")
+return function(state, action)
+	state = state or {
+		moderated = {},
+	}
 
-if FFlagShareGameFromGameErrorToaster then
-	return function(state, action)
-		state = state or {
-			failedInvites = {},
-		}
+	if action.type == ReceivedUserInviteStatus.name then
+		local inviteStatus = action.inviteStatus
+		if inviteStatus == InviteStatus.Moderated then
+			local moderationModel = {
+				timeStamp = tick(),
+				id = action.userId,
+				subjectType = "user",
+			}
 
-		if action.type == ReceivedUserInviteStatus.name then
-			local inviteStatus = action.inviteStatus
-
-			if inviteStatus == InviteStatus.Moderated
-				or inviteStatus == InviteStatus.Failed then
-				local inviteStatusModel = {
-					timeStamp = tick(),
-					userId = action.userId,
-					status = inviteStatus,
-				}
-
-				state = Immutable.JoinDictionaries(state, {
-					failedInvites = Immutable.JoinDictionaries(
-						state.failedInvites, Immutable.Append(state.failedInvites, inviteStatusModel)
-					),
-				})
-			end
-
-		elseif action.type == StoppedToastTimer.name then
 			state = Immutable.JoinDictionaries(state, {
-				failedInvites = {},
+				moderated = Immutable.JoinDictionaries(
+					state.moderated, Immutable.Append(state.moderated, moderationModel)
+				),
 			})
 		end
 
-		return state
-	end
-else
-	return function(state, action)
-		state = state or {
+	elseif action.type == StoppedToastTimer.name then
+		state = Immutable.JoinDictionaries(state, {
 			moderated = {},
-		}
-
-		if action.type == ReceivedUserInviteStatus.name then
-			local inviteStatus = action.inviteStatus
-			if inviteStatus == InviteStatus.Moderated then
-				local moderationModel = {
-					timeStamp = tick(),
-					id = action.userId,
-					subjectType = "user",
-				}
-
-				state = Immutable.JoinDictionaries(state, {
-					moderated = Immutable.JoinDictionaries(
-						state.moderated, Immutable.Append(state.moderated, moderationModel)
-					),
-				})
-			end
-
-		elseif action.type == StoppedToastTimer.name then
-			state = Immutable.JoinDictionaries(state, {
-				moderated = {},
-			})
-		end
-
-		return state
+		})
 	end
+
+	return state
 end

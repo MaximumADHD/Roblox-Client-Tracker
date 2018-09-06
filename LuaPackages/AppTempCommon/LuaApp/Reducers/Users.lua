@@ -68,7 +68,6 @@ return function(state, action)
 					rootPlaceId = action.rootPlaceId,
 					gameInstanceId = action.gameInstanceId,
 					lastOnline = action.lastOnline,
-					universeId = action.universeId,
 				}),
 			})
 		end
