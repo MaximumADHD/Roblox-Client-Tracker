@@ -34,12 +34,16 @@ function MainViewLog:init()
 		self:setState({isClientView = false})
 	end
 
-	self.onCheckBoxesChanged = function(newFilters)
+	self.onCheckBoxChanged = function(boxName, newState)
 		if self.state.isClientView then
-			self.props.ClientLogData:setFilters(newFilters)
+			self.props.ClientLogData:setFilter(boxName, newState)
 		else
-			self.props.ServerLogData:setFilters(newFilters)
+			self.props.ServerLogData:setFilter(boxName, newState)
 		end
+	end
+
+	self.filterUpdated = function()
+		self:setState({})
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)
@@ -49,6 +53,12 @@ function MainViewLog:init()
 			self.props.ServerLogData:setSearchTerm(newSearchTerm)
 		end
 	end
+
+	local clientFilterSignal = self.props.ClientLogData:filterUpdatedSignal()
+	self.clientFilterConnection = clientFilterSignal:Connect(self.filterUpdated)
+
+	local serverFilterSignal = self.props.ServerLogData:filterUpdatedSignal()
+	self.serverFilterConnection = serverFilterSignal:Connect(self.filterUpdated)
 
 	self.utilRef = Roact.createRef()
 
@@ -71,6 +81,17 @@ function MainViewLog:didUpdate()
 		self:setState({
 			utilTabHeight = utilSize.Y.Offset
 		})
+	end
+end
+
+function MainViewLog:willUnmount()
+	if self.clientFilterConnection then
+		self.clientFilterConnection:Disconnect()
+		self.clientFilterConnection = nil
+	end
+	if self.serverFilterConnection then
+		self.serverFilterConnection:Disconnect()
+		self.serverFilterConnection = nil
 	end
 end
 
@@ -97,11 +118,26 @@ function MainViewLog:render()
 		Padding = UDim.new(0, PADDING),
 	})
 
+	local currCheckBoxState
+	if isClientView then
+		currCheckBoxState = self.props.ClientLogData:getFilters()
+	else
+		currCheckBoxState = self.props.ServerLogData:getFilters()
+	end
+
+	local initCheckBoxes = {}
+	for i, v in  ipairs(MsgTypeNamesOrdered) do
+		initCheckBoxes[i] = {
+			name = v,
+			state = currCheckBoxState[v],
+		}
+	end
+
 	elements ["UtilAndTab"] = Roact.createElement(UtilAndTab, {
 		windowWidth = size.X.Offset,
 		formFactor = formFactor,
 		tabList = tabList,
-		checkBoxNames = MsgTypeNamesOrdered,
+		orderedCheckBoxState = initCheckBoxes,
 		isClientView = isClientView,
 		searchTerm = searchTerm,
 		layoutOrder = 1,
@@ -110,7 +146,7 @@ function MainViewLog:render()
 
 		onClientButton = isdeveloperView and self.onClientButton,
 		onServerButton = isdeveloperView and self.onServerButton,
-		onCheckBoxesChanged = self.onCheckBoxesChanged,
+		onCheckBoxChanged = self.onCheckBoxChanged,
 		onSearchTermChanged = self.onSearchTermChanged,
 	})
 

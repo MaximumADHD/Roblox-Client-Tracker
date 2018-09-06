@@ -98,14 +98,14 @@ function UtilAndTab:render()
 	local windowWidth = self.props.windowWidth
 	local formFactor = self.props.formFactor
 	local tabList = self.props.tabList
-	local checkBoxNames = self.props.checkBoxNames
+	local orderedCheckBoxState = self.props.orderedCheckBoxState
 	local layoutOrder = self.props.layoutOrder
 	local isClientView = self.props.isClientView
 	local searchTerm = self.props.searchTerm
 
 	local onClientButton = self.props.onClientButton
 	local onServerButton = self.props.onServerButton
-	local onCheckBoxesChanged = self.props.onCheckBoxesChanged
+	local onCheckBoxChanged = self.props.onCheckBoxChanged
 	local onSearchTermChanged = self.props.onSearchTermChanged
 
 	local totalTabWidth = self.state.totalTabWidth
@@ -182,13 +182,13 @@ function UtilAndTab:render()
 						onServerButton = onServerButton,
 					}),
 
-					FilterCheckBoxes = onCheckBoxesChanged and Roact.createElement(CheckBoxContainer, {
-						boxNames = checkBoxNames,
+					FilterCheckBoxes = onCheckBoxChanged and Roact.createElement(CheckBoxContainer, {
+						orderedCheckBoxState = orderedCheckBoxState,
 						frameWidth  = endFrameWidth,
 						frameHeight =  SMALL_UTIL_HEIGHT,
 						pos = UDim2.new(0, 2 * (CS_BUTTON_WIDTH) + PADDING, 0, 0),
 						layoutOrder = 3,
-						onCheckBoxesChanged = onCheckBoxesChanged,
+						onCheckBoxChanged = onCheckBoxChanged,
 					}),
 
 				}),
@@ -289,12 +289,12 @@ function UtilAndTab:render()
 						onServerButton = onServerButton,
 					}),
 
-					FilterCheckBoxes = onCheckBoxesChanged and Roact.createElement(CheckBoxContainer, {
-						boxNames = checkBoxNames,
+					FilterCheckBoxes = onCheckBoxChanged and Roact.createElement(CheckBoxContainer, {
+						orderedCheckBoxState = orderedCheckBoxState,
 						frameWidth  = endFrameWidth,
 						frameHeight =  UTIL_HEIGHT,
 						pos = UDim2.new(0, 2 * (CS_BUTTON_WIDTH) + PADDING, 0, 0),
-						onCheckBoxesChanged = onCheckBoxesChanged,
+						onCheckBoxChanged = onCheckBoxChanged,
 					}),
 
 				}),

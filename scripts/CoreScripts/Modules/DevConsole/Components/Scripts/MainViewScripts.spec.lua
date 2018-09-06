@@ -15,7 +15,8 @@ return function()
 					currTabIndex = 0
 				},
 				ScriptsData = {
-					scriptsSearchTerm = ""
+					scriptsSearchTerm = "",
+					serverTypeFilters = {},
 				}
 			}
 		end)

@@ -137,11 +137,17 @@ function LogData.new(isClient)
 	self._logData = CircularBuffer.new(MAX_LOG_SIZE)
 	self._logDataSearched = CircularBuffer.new(MAX_LOG_SIZE)
 	self._searchTerm = ""
+
 	self._filters = {}
+	for _, v in pairs(MESSAGE_TO_TYPENAME) do
+		self._filters[v] = true
+	end
+
 	self._errorCount = isClient and 0
 	self._warningCount = isClient and 0
 	self._logDataUpdate = Signal.new()
 	self._errorWarningSignal = isClient and Signal.new()
+	self._filterUpdated = Signal.new()
 
 	return self
 end
@@ -152,6 +158,10 @@ end
 
 function LogData:errorWarningSignal()
 	return self._errorWarningSignal
+end
+
+function LogData:filterUpdatedSignal()
+	return self._filterUpdated
 end
 
 function LogData:setSearchTerm(targetSearchTerm)
@@ -177,6 +187,29 @@ function LogData:getSearchTerm()
 	return self._searchTerm
 end
 
+function LogData:getFilters()
+	return self._filters
+end
+
+function LogData:setFilter(name, newState)
+	self._filters[name] = newState
+
+	if not validActiveFilters(self._filters) then
+		self._logDataSearched:reset()
+		self._logDataUpdate:Fire(self._logData)
+		return
+	end
+
+	filterMessages(
+		self._logDataSearched,
+		self._logData:iterator(),
+		self._filters,
+		self._searchTerm
+	)
+	self._logDataUpdate:Fire(self._logDataSearched)
+	self._filterUpdated:Fire()
+end
+
 function LogData:setFilters(filters)
 	self._filters = filters
 
@@ -193,9 +226,13 @@ function LogData:setFilters(filters)
 		self._searchTerm
 	)
 	self._logDataUpdate:Fire(self._logDataSearched)
+	self._filterUpdated:Fire()
 end
 
 function LogData:getLogData()
+	if #self._logDataSearched:getData() > 0 then
+		return self._logDataSearched
+	end
 	return self._logData
 end
 

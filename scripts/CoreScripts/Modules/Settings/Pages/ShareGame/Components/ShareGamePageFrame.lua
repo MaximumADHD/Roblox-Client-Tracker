@@ -20,7 +20,6 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
-local ModeratedToaster = require(ShareGame.Components.ModeratedToaster)
 local Constants = require(ShareGame.Constants)
 
 local ClosePage = require(ShareGame.Actions.ClosePage)
@@ -29,8 +28,24 @@ local USER_LIST_PADDING = 10
 
 local ShareGamePageFrame = Roact.PureComponent:extend("ShareGamePageFrame")
 
-function ShareGamePageFrame:didMount()
-	self.props.reFetch()
+local FFlagShareGameFromGameFlickerFix = settings():GetFFlag("ShareGameFromGameFlickerFix")
+local FFlagShareGameFromGameErrorToaster = settings():GetFFlag("ShareGameFromGameErrorToaster")
+
+local ToasterComponent
+if FFlagShareGameFromGameErrorToaster then
+	ToasterComponent = require(ShareGame.Components.ErrorToaster)
+else
+	ToasterComponent = require(ShareGame.Components.ModeratedToaster)
+end
+
+if FFlagShareGameFromGameFlickerFix then
+	function ShareGamePageFrame:init()
+		self.props.reFetch()
+	end
+else
+	function ShareGamePageFrame:didMount()
+		self.props.reFetch()
+	end
 end
 
 function ShareGamePageFrame:render()
@@ -52,7 +67,7 @@ function ShareGamePageFrame:render()
 		toasterPortal = Roact.createElement(Roact.Portal, {
 			target = CoreGui,
 		}, {
-			ModeratedToaster = Roact.createElement(ModeratedToaster),
+			Toaster = Roact.createElement(ToasterComponent),
 		}),
 
 		Header = Roact.createElement(Header, {
@@ -88,14 +103,19 @@ ShareGamePageFrame = RoactRodux.connect(function(store)
 		end,
 
 		reFetch = function()
-			spawn(function()
+			local function reFetchImpl()
 				local userId = tostring(Players.LocalPlayer.UserId)
 				local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
 				if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
 					local networkImpl = httpRequest(HttpRbxApiService)
 					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
 				end
-			end)
+			end
+			if FFlagShareGameFromGameFlickerFix then
+				reFetchImpl()
+			else
+				spawn(reFetchImpl)
+			end
 		end
 	}
 end)(ShareGamePageFrame)

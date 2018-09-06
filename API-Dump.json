@@ -20634,6 +20634,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "LoadPackageAsset",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetBaseCategories",
                     "Parameters": [
                     ],
@@ -30270,8 +30288,8 @@
                         "NotReplicated"
                     ],
                     "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -30292,7 +30310,7 @@
                     ],
                     "ValueType": {
                         "Category": "Primitive",
-                        "Name": "int"
+                        "Name": "int64"
                     }
                 }
             ],
@@ -51918,6 +51936,31 @@
         {
             "Items": [
                 {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "Full",
+                    "Value": 1
+                },
+                {
+                    "Name": "DataOnly",
+                    "Value": 2
+                },
+                {
+                    "Name": "Default",
+                    "Value": 3
+                },
+                {
+                    "Name": "InternalRedirectRefresh",
+                    "Value": 4
+                }
+            ],
+            "Name": "HttpCachePolicy"
+        },
+        {
+            "Items": [
+                {
                     "Name": "ApplicationJson",
                     "Value": 0
                 },
@@ -55077,164 +55120,176 @@
                     "Value": 28
                 },
                 {
-                    "Name": "MainText",
+                    "Name": "Mid",
                     "Value": 29
                 },
                 {
-                    "Name": "SubText",
+                    "Name": "MainText",
                     "Value": 30
                 },
                 {
-                    "Name": "TitlebarText",
+                    "Name": "SubText",
                     "Value": 31
                 },
                 {
-                    "Name": "BrightText",
+                    "Name": "TitlebarText",
                     "Value": 32
                 },
                 {
-                    "Name": "DimmedText",
+                    "Name": "BrightText",
                     "Value": 33
                 },
                 {
-                    "Name": "LinkText",
+                    "Name": "DimmedText",
                     "Value": 34
                 },
                 {
-                    "Name": "WarningText",
+                    "Name": "LinkText",
                     "Value": 35
                 },
                 {
-                    "Name": "ErrorText",
+                    "Name": "WarningText",
                     "Value": 36
                 },
                 {
-                    "Name": "InfoText",
+                    "Name": "ErrorText",
                     "Value": 37
                 },
                 {
-                    "Name": "SensitiveText",
+                    "Name": "InfoText",
                     "Value": 38
                 },
                 {
-                    "Name": "ScriptSideWidget",
+                    "Name": "SensitiveText",
                     "Value": 39
                 },
                 {
-                    "Name": "ScriptBackground",
+                    "Name": "ScriptSideWidget",
                     "Value": 40
                 },
                 {
-                    "Name": "ScriptText",
+                    "Name": "ScriptBackground",
                     "Value": 41
                 },
                 {
-                    "Name": "ScriptSelectionText",
+                    "Name": "ScriptText",
                     "Value": 42
                 },
                 {
-                    "Name": "ScriptSelectionBackground",
+                    "Name": "ScriptSelectionText",
                     "Value": 43
                 },
                 {
-                    "Name": "ScriptFindSelectionBackground",
+                    "Name": "ScriptSelectionBackground",
                     "Value": 44
                 },
                 {
-                    "Name": "ScriptMatchingWordSelectionBackground",
+                    "Name": "ScriptFindSelectionBackground",
                     "Value": 45
                 },
                 {
-                    "Name": "ScriptOperator",
+                    "Name": "ScriptMatchingWordSelectionBackground",
                     "Value": 46
                 },
                 {
-                    "Name": "ScriptNumber",
+                    "Name": "ScriptOperator",
                     "Value": 47
                 },
                 {
-                    "Name": "ScriptString",
+                    "Name": "ScriptNumber",
                     "Value": 48
                 },
                 {
-                    "Name": "ScriptComment",
+                    "Name": "ScriptString",
                     "Value": 49
                 },
                 {
-                    "Name": "ScriptPreprocessor",
+                    "Name": "ScriptComment",
                     "Value": 50
                 },
                 {
-                    "Name": "ScriptKeyword",
+                    "Name": "ScriptPreprocessor",
                     "Value": 51
                 },
                 {
-                    "Name": "ScriptBuiltInFunction",
+                    "Name": "ScriptKeyword",
                     "Value": 52
                 },
                 {
-                    "Name": "ScriptWarning",
+                    "Name": "ScriptBuiltInFunction",
                     "Value": 53
                 },
                 {
-                    "Name": "ScriptError",
+                    "Name": "ScriptWarning",
                     "Value": 54
                 },
                 {
-                    "Name": "DiffFilePathText",
+                    "Name": "ScriptError",
                     "Value": 55
                 },
                 {
-                    "Name": "DiffTextHunkInfo",
+                    "Name": "DebuggerCurrentLine",
                     "Value": 56
                 },
                 {
-                    "Name": "DiffTextNoChange",
+                    "Name": "DebuggerErrorLine",
                     "Value": 57
                 },
                 {
-                    "Name": "DiffTextAddition",
+                    "Name": "DiffFilePathText",
                     "Value": 58
                 },
                 {
-                    "Name": "DiffTextDeletion",
+                    "Name": "DiffTextHunkInfo",
                     "Value": 59
                 },
                 {
-                    "Name": "DiffTextSeparatorBackground",
+                    "Name": "DiffTextNoChange",
                     "Value": 60
                 },
                 {
-                    "Name": "DiffTextNoChangeBackground",
+                    "Name": "DiffTextAddition",
                     "Value": 61
                 },
                 {
-                    "Name": "DiffTextAdditionBackground",
+                    "Name": "DiffTextDeletion",
                     "Value": 62
                 },
                 {
-                    "Name": "DiffTextDeletionBackground",
+                    "Name": "DiffTextSeparatorBackground",
                     "Value": 63
                 },
                 {
-                    "Name": "DiffLineNum",
+                    "Name": "DiffTextNoChangeBackground",
                     "Value": 64
                 },
                 {
-                    "Name": "DiffLineNumSeparatorBackground",
+                    "Name": "DiffTextAdditionBackground",
                     "Value": 65
                 },
                 {
-                    "Name": "DiffLineNumNoChangeBackground",
+                    "Name": "DiffTextDeletionBackground",
                     "Value": 66
                 },
                 {
-                    "Name": "DiffLineNumAdditionBackground",
+                    "Name": "DiffLineNum",
                     "Value": 67
                 },
                 {
-                    "Name": "DiffLineNumDeletionBackground",
+                    "Name": "DiffLineNumSeparatorBackground",
                     "Value": 68
+                },
+                {
+                    "Name": "DiffLineNumNoChangeBackground",
+                    "Value": 69
+                },
+                {
+                    "Name": "DiffLineNumAdditionBackground",
+                    "Value": 70
+                },
+                {
+                    "Name": "DiffLineNumDeletionBackground",
+                    "Value": 71
                 }
             ],
             "Name": "StudioStyleGuideColor"
