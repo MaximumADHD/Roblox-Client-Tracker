@@ -6,7 +6,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(CheckBoxContainer, {
-			orderedCheckBoxState = {},
+			boxNames = {},
 			frameWidth = 0,
 		})
 		local instance = Roact.mount(element)
