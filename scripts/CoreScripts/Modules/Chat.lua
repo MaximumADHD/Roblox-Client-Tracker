@@ -2229,6 +2229,12 @@ local function CreateChat()
               if devConsoleMaster then
                   devConsoleMaster.ToggleVisibility()
               end
+            elseif string.lower(chattedMessage) == "/oldconsole" then
+              local devConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
+              if devConsoleModule then
+                local devConsoleVisible = devConsoleModule:GetVisibility()
+                devConsoleModule:SetVisibility(not devConsoleVisible)
+              end
             end
           end
         end)
