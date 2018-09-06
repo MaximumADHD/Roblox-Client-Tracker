@@ -12,7 +12,6 @@ local FFlagUsePurchasePromptLocalization = success and result
 local FFlagThwartPurchasePromptScams = settings():GetFFlag("ThwartPurchasePromptScams")
 local FFlagThwartPurchasePromptScamsGamepad = settings():GetFFlag("ThwartPurchasePromptScamsGamepad")
 local FFlagDelayPurchasePromptActivation = settings():GetFFlag("DelayPurchasePromptActivation")
-local FFlagFixDesktopRobuxUpsell = settings():GetFFlag("FixDesktopRobuxUpsell")
 
 local AssetService = game:GetService('AssetService')
 local GuiService = game:GetService('GuiService')
@@ -1832,27 +1831,18 @@ MarketplaceService.ServerPurchaseVerification:connect(function(serverResponseTab
 end)
 
 GuiService.BrowserWindowClosed:connect(function()
-    if FFlagFixDesktopRobuxUpsell then
-        if IsCheckingPlayerFunds then
-            local isPurchasing = retryPurchase(4)
-            if isPurchasing then
-                onAcceptPurchase()
-            else
-                onPurchaseFailed(PURCHASE_FAILED.DEFAULT_ERROR)
-            end
-        else
-            onPurchaseFailed(PURCHASE_FAILED.DID_NOT_BUY_ROBUX)
-        end
+	if IsCheckingPlayerFunds then
+		local isPurchasing = retryPurchase(4)
+		if isPurchasing then
+			onAcceptPurchase()
+		else
+			onPurchaseFailed(PURCHASE_FAILED.DEFAULT_ERROR)
+		end
+	else
+		onPurchaseFailed(PURCHASE_FAILED.DID_NOT_BUY_ROBUX)
+	end
 
-        stopPurchaseAnimation()
-    else
-       if IsCheckingPlayerFunds then
-           retryPurchase(4)
-       end
-       
-       onPurchaseFailed(PURCHASE_FAILED.DID_NOT_BUY_ROBUX)
-       stopPurchaseAnimation()
-    end
+	stopPurchaseAnimation()
 end)
 
 if IsNativePurchasing then

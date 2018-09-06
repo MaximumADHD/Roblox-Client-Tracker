@@ -18,16 +18,11 @@ local CheckBoxContainer = Roact.PureComponent:extend("CheckBoxContainer")
 
 function CheckBoxContainer:init()
 	self.onCheckBoxClicked = function(field, newState)
-		local onCheckBoxesChanged = self.props.onCheckBoxesChanged
-		local currState = self.state.checkBoxStates
-		currState[field] = newState
-
-		self:setState({
-			checkBoxStates = currState,
-		})
-		onCheckBoxesChanged(self.state.checkBoxStates)
+		local onCheckBoxChanged = self.props.onCheckBoxChanged
+		onCheckBoxChanged(field, newState)
 	end
 
+	-- this is part of the dropdown logic
 	self.onCheckBoxExpanded = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or
 			(input.UserInputType == Enum.UserInputType.Touch and
@@ -38,6 +33,7 @@ function CheckBoxContainer:init()
 		end
 	end
 
+	-- this is part of the dropdown logic
 	self.onCloseCheckBox = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or
 			(input.UserInputType == Enum.UserInputType.Touch and
@@ -48,31 +44,28 @@ function CheckBoxContainer:init()
 		end
 	end
 
-	if not self.props.boxNames then
+	if not self.props.orderedCheckBoxState then
 		warn("CheckBoxContainer must be passed a list of Box Names or else it only creates an empty frame")
 	end
 
-	local boxState = {}
 	local textWidths = {}
 	local totalLength = 0
 	local count = 0
-	for ind, name in ipairs(self.props.boxNames) do
+	for ind, box in ipairs(self.props.orderedCheckBoxState) do
 		local textVector = TextService:GetTextSize(
-			name,
+			box.name,
 			Constants.DefaultFontSize.UtilBar,
 			Constants.Font.UtilBar,
 			Vector2.new(0, 0)
 		)
 		textWidths[ind] = textVector.X
 		totalLength = totalLength + textVector.X + CHECK_BOX_HEIGHT + CHECK_BOX_PADDING
-		boxState[name] = true
 		count = count + 1
 	end
 
 	self.ref = Roact.createRef()
 
 	self.state = {
-		checkBoxStates = boxState,
 		expanded = false,
 		textWidths = textWidths,
 		numCheckBoxes = count,
@@ -86,31 +79,30 @@ function CheckBoxContainer:render()
 	local frameHeight =  self.props.frameHeight
 	local pos = self.props.pos
 
-	local boxOrder = self.props.boxNames
 	local layoutOrder = self.props.layoutOrder
+	local orderedCheckBoxState = self.props.orderedCheckBoxState
 
-	local boxStates = self.state.checkBoxStates
 	local minFullLength = self.state.minFullLength
 	local expanded = self.state.expanded
 	local numCheckBoxes = self.state.numCheckBoxes
 
 	local anySelected = false
-	for layoutOrder, name in ipairs(boxOrder) do
-		elements[name] = Roact.createElement(CheckBox, {
-			name = name,
+	for layoutOrder, box in ipairs(orderedCheckBoxState) do
+		elements[box.name] = Roact.createElement(CheckBox, {
+			name = box.name,
 			font = Constants.Font.UtilBar,
 			fontSize = Constants.DefaultFontSize.UtilBar,
 			checkBoxHeight = CHECK_BOX_HEIGHT,
 			frameHeight = frameHeight,
 			layoutOrder = layoutOrder,
 
-			isSelected = boxStates[name],
+			isSelected = box.state,
 			selectedColor = Constants.Color.SelectedBlue,
 			unselectedColor = Constants.Color.UnselectedGray,
 
 			onCheckBoxClicked = self.onCheckBoxClicked,
 		})
-		anySelected = anySelected or boxStates[name]
+		anySelected = anySelected or box.state
 	end
 
 	if frameWidth < minFullLength then

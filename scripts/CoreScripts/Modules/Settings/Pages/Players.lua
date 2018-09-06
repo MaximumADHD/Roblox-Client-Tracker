@@ -25,8 +25,6 @@ local ShareGameIcons = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGam
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local preventFriendingRemovedPlayers = settings():GetFFlag("PreventFriendingRemovedPlayers2")
-
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
 local FRAME_SELECTED_TRANSPARENCY = .65
@@ -723,40 +721,38 @@ local function Initialize()
 		end)
 	end)
 
-	if preventFriendingRemovedPlayers then
-		PlayersService.PlayerRemoving:Connect(function (player)
-			livePlayers[player.Name] = nil
+	PlayersService.PlayerRemoving:Connect(function (player)
+		livePlayers[player.Name] = nil
 
-			local playerLabel = existingPlayerLabels[player.Name]
+		local playerLabel = existingPlayerLabels[player.Name]
 
-			if not playerLabel then
-				return
+		if not playerLabel then
+			return
+		end
+
+		local buttons = playerLabel:FindFirstChild("RightSideButtons")
+		if not buttons then
+			return
+		end
+
+		local friendStatus = buttons:FindFirstChild("FriendStatus")
+		if friendStatus then
+			if GuiService.SelectedCoreObject == friendStatus then
+				friendSelectionFound = nil
+				GuiService.SelectedCoreObject = nil
 			end
+			friendStatus:Destroy()
+		end
 
-			local buttons = playerLabel:FindFirstChild("RightSideButtons")
-			if not buttons then
-				return
+		local reportPlayer = buttons:FindFirstChild("ReportPlayer")
+		if reportPlayer then
+			if GuiService.SelectedCoreObject == reportPlayer then
+				reportSelectionFound = nil
+				GuiService.SelectedCoreObject = nil
 			end
-
-			local friendStatus = buttons:FindFirstChild("FriendStatus")
-			if friendStatus then
-				if GuiService.SelectedCoreObject == friendStatus then
-					friendSelectionFound = nil
-					GuiService.SelectedCoreObject = nil
-				end
-				friendStatus:Destroy()
-			end
-
-			local reportPlayer = buttons:FindFirstChild("ReportPlayer")
-			if reportPlayer then
-				if GuiService.SelectedCoreObject == reportPlayer then
-					reportSelectionFound = nil
-					GuiService.SelectedCoreObject = nil
-				end
-				reportPlayer:Destroy()
-			end
-		end)
-	end
+			reportPlayer:Destroy()
+		end
+	end)
 
 	return this
 end

@@ -26,8 +26,11 @@ function MainViewScripts:init()
 		})
 	end
 
-	self.onCheckBoxesChanged = function(newFilters)
-		self.props.dispatchServerScriptsUpdateSearchFilter(nil, newFilters)
+	self.onCheckBoxChanged = function(field, newState)
+		local update = {
+			[field] = newState
+		}
+		self.props.dispatchServerScriptsUpdateSearchFilter(nil, update)
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)
@@ -68,6 +71,18 @@ function MainViewScripts:render()
 
 	local searchTerm =  self.props.serverSearchTerm
 
+	local initBoxState = {}
+	for i, name in ipairs(BOX_NAMES) do
+		local boxState = scriptFilters[name]
+		if boxState == nil then
+			boxState = true
+		end
+		initBoxState[i] = {
+			name = name,
+			state =  boxState,
+		}
+	end
+
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundColor3 = Constants.Color.BaseGray,
@@ -83,14 +98,14 @@ function MainViewScripts:render()
 			windowWidth = size.X.Offset,
 			formFactor = formFactor,
 			tabList = tabList,
-			checkBoxNames = BOX_NAMES,
+			orderedCheckBoxState = initBoxState,
 			searchTerm = searchTerm,
 			layoutOrder = 1,
 
 			refForParent = self.utilRef,
 
 			onHeightChanged = self.onUtilTabHeightChanged,
-			onCheckBoxesChanged = self.onCheckBoxesChanged,
+			onCheckBoxChanged = self.onCheckBoxChanged,
 			onSearchTermChanged = self.onSearchTermChanged,
 		}),
 

@@ -9,6 +9,8 @@ local Actions = script.Parent.Parent.Actions
 local SetActiveTab = require(Actions.SetActiveTab)
 
 local Constants = require(script.Parent.Parent.Constants)
+local MsgTypeNamesOrdered = Constants.MsgTypeNamesOrdered
+
 local TOP_BAR_FONT_SIZE = Constants.DefaultFontSize.TopBar
 local TEXT_COLOR = Constants.Color.Text
 local FONT = Constants.Font.TopBar
@@ -62,18 +64,24 @@ end
 function LiveUpdateElement:init()
 	local errorInit, warningInit = self.props.ClientLogData:getErrorWarningCount()
 	self.onLogWarningButton = function()
-		local WarningFilters = {
-			Warning = true,
-		}
-		self.props.ClientLogData:setFilters(WarningFilters)
+		local warningFilters = {}
+		for _, name in pairs(MsgTypeNamesOrdered) do
+			warningFilters[name] = false
+		end
+
+		warningFilters["Warning"] = true
+		self.props.ClientLogData:setFilters(warningFilters)
 		self.props.dispatchChangeTabClientLog()
 	end
 
 	self.onLogErrorButton = function()
-		local ErrorFilters = {
-			Error = true,
-		}
-		self.props.ClientLogData:setFilters(ErrorFilters)
+		local errorFilters = {}
+		for _, name in pairs(MsgTypeNamesOrdered) do
+			errorFilters[name] = false
+		end
+
+		errorFilters["Error"] = true
+		self.props.ClientLogData:setFilters(errorFilters)
 		self.props.dispatchChangeTabClientLog()
 	end
 
@@ -255,7 +263,7 @@ function LiveUpdateElement:render()
 			LayoutOrder = 9,
 		}),
 
-		AvgPing = not useSmallForm and Roact.createElement("TextButton", {
+		AvgPing = not useSmallForm and showNetworkPing and Roact.createElement("TextButton", {
 			Text = AVG_PING_STR,
 			TextSize = TOP_BAR_FONT_SIZE,
 			TextColor3 = Constants.Color.WarningYellow,
@@ -267,7 +275,7 @@ function LiveUpdateElement:render()
 			[Roact.Event.Activated] = self.props.dispatchChangeTabNetworkPing,
 		}),
 
-		AvgPing_ms = not useSmallForm and Roact.createElement("TextButton", {
+		AvgPing_ms = not useSmallForm and showNetworkPing and Roact.createElement("TextButton", {
 			Text = avgPingString,
 			TextSize = TOP_BAR_FONT_SIZE,
 			TextColor3 = TEXT_COLOR,
