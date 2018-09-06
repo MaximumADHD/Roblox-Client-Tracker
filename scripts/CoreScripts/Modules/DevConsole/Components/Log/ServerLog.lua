@@ -11,12 +11,6 @@ local LogOutput = require(script.Parent.LogOutput)
 
 local ServerLog = Roact.Component:extend("ServerLog")
 
-function ServerLog:init()
-	self.initServerLogData = function()
-		return self.props.ServerLogData:getLogData()
-	end
-end
-
 function ServerLog:render()
 	return Roact.createElement("Frame", {
 		Size = self.props.size,
@@ -26,7 +20,6 @@ function ServerLog:render()
 		Scroll = Roact.createElement(LogOutput, {
 			size = UDim2.new(1, 0 , 1, -COMMANDLINE_HEIGHT),
 			targetSignal = self.props.ServerLogData:Signal(),
-			initLogOutput = self.initServerLogData,
 		}),
 
 		CommandLine = Roact.createElement(DevConsoleCommandLine, {

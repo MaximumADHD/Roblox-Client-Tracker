@@ -15,9 +15,21 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 
+-- Remove when remove PresetInGameGuiInset
+local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript3")
 local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
 local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
+local FFlagPresetInGameGuiInset = settings():GetFFlag("PresetInGameGuiInset")
+local FFlagLoadingScreenNewTextLayout = settings():GetFFlag("LoadingScreenNewTextLayout")
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
+
+-- Remove when removing PresetInGameGuiInset
+if FFlagSetGuiInsetInLoadingScript then
+	coroutine.wrap(function()
+		local TopbarConstants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("TopbarConstants"))
+		GuiService:SetGlobalGuiInset(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
+	end)()
+end
 
 local debugMode = false
 
@@ -257,17 +269,37 @@ function MainGui:GenerateMain()
 	--
 	-- create descendant frames
 	local mainBackgroundContainer
+	if FFlagPresetInGameGuiInset then
+		local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
+		mainBackgroundContainer = create 'Frame' {
+			Name = 'BlackFrame',
+			BackgroundColor3 = COLORS.BACKGROUND_COLOR,
+			BackgroundTransparency = 0,
+			Size = UDim2.new(1, 0, 1, inGameGlobalGuiInset),
+			Position = UDim2.new(0, 0, 0, -inGameGlobalGuiInset),
+			Active = true,
+			Parent = screenGui
+		}
+	else
+		mainBackgroundContainer = create 'Frame' {
+			Name = 'BlackFrame',
+			BackgroundColor3 = COLORS.BACKGROUND_COLOR,
+			BackgroundTransparency = 0,
+			Size = UDim2.new(1, 0, 1, 0),
+			Position = UDim2.new(0, 0, 0, 0),
+			Active = true,
+			Parent = screenGui
+		}
+	end
 
-	local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
-	mainBackgroundContainer = create 'Frame' {
-		Name = 'BlackFrame',
-		BackgroundColor3 = COLORS.BACKGROUND_COLOR,
-		BackgroundTransparency = 0,
-		Size = UDim2.new(1, 0, 1, inGameGlobalGuiInset),
-		Position = UDim2.new(0, 0, 0, -inGameGlobalGuiInset),
-		Active = true,
-		Parent = screenGui
-	}
+	-- Remove when remove FFlagPresetInGameGuiInset
+	if FFlagSetGuiInsetInLoadingScript then
+		coroutine.wrap(function()
+			local TopbarConstants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("TopbarConstants"))
+			mainBackgroundContainer.Size = UDim2.new(1, 0, 1, TopbarConstants.TOPBAR_THICKNESS)
+			mainBackgroundContainer.Position = UDim2.new(0, 0, 0, -TopbarConstants.TOPBAR_THICKNESS)
+		end)()
+	end
 
 	local closeButton =	create 'ImageButton' {
 		Name = 'CloseButton',
@@ -344,7 +376,7 @@ function MainGui:GenerateMain()
 		Size = UDim2.new(0.75, 0, 1, 0),
 		ZIndex = 2,
 		Parent = mainBackgroundContainer,
-		create 'UIPadding' {
+		FFlagLoadingScreenNewTextLayout and create 'UIPadding' {
 			Name = 'UiMessagePadding',
 			PaddingBottom = UDim.new(0, 25),
 		} or nil
@@ -363,7 +395,7 @@ function MainGui:GenerateMain()
 		create 'TextLabel' {
 			Name = 'UiMessage',
 			BackgroundTransparency = 1,
-			Position = UDim2.new(0, 0, 0, 5),
+			Position = UDim2.new(0, 0, 0, FFlagLoadingScreenNewTextLayout and 5 or 10),
 			Size = UDim2.new(1, 0, 0, 25),
 			Font = Enum.Font.SourceSansLight,
 			FontSize = Enum.FontSize.Size18,
@@ -711,6 +743,21 @@ renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 		end
 	end
 end)
+
+--TODO: Evaluate whether or not this is still necessary
+-- Remove when remove FFlagPresetInGameGuiInset
+coroutine.wrap(function()
+	local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+	local guiInsetChangedEvent = Instance.new("BindableEvent")
+	guiInsetChangedEvent.Name = "GuiInsetChanged"
+	guiInsetChangedEvent.Event:connect(function(x1, y1, x2, y2)
+		if currScreenGui and currScreenGui:FindFirstChild("BlackFrame") then
+			currScreenGui.BlackFrame.Position = UDim2.new(0, -x1, 0, -y1)
+			currScreenGui.BlackFrame.Size = UDim2.new(1, x1 + x2, 1, y1 + y2)
+		end
+	end)
+	guiInsetChangedEvent.Parent = RobloxGui
+end)()
 
 local leaveGameButton, leaveGameTextLabel, errorImage = nil
 
