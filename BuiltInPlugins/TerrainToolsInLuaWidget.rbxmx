@@ -1,12 +1,12 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXb4e09e96e2194bc8bfcdfd6bad0870dd">
+	<Item class="Folder" referent="RBX6e1f616f32ce489fbe9bc9fc0f0e63f9">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX14176a057a4e4903ac2697dae2959634">
+		<Item class="ModuleScript" referent="RBXa74b30228b9649d1ae10073f2f55fdbd">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainBrush</string>
@@ -958,7 +958,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXde4398f9c39041e8bfd93cdffbebcdb2">
+		<Item class="ModuleScript" referent="RBX6ccbe8d0dd544d31944454c4160f272d">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
@@ -2046,7 +2046,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX86bae6cfe97f47698220a12171e194d7">
+		<Item class="ModuleScript" referent="RBX2686e3fb477e4a6cb525de09d70a737e">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -2391,7 +2391,7 @@ return MaterialsListClass
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1b55c29b329c4fb7bef9dde2197355ee">
+		<Item class="ModuleScript" referent="RBXc6b9a1d5cc7c487caea825762f3b5356">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MainPanel</string>
@@ -2411,6 +2411,8 @@ local kMainButtonOuterSizeUDim2 = UDim2.new(0, kMainButtonOuterSize, 0, kMainBut
 local kMainButtonFramePadding = UDim.new(0, 4)
 
 local kMainButtonListFrame
+
+local FFlagStudioReactivateNormalToolAfterDeactivatingPlugin = settings():GetFFlag("StudioReactivateNormalToolAfterDeactivatingPlugin")
 
 --[[
 	How tool modules work:
@@ -2525,19 +2527,16 @@ local function createMainButton(thePlugin, thePluginGui, mainButtonConfig, toggl
 
 	mainButtonConfig.ButtonObj:getButton().MouseButton1Click:connect(toggleFunction);
 
-	local FFlagLuaAPICreateActions = settings():GetFFlag('LuaAPICreateActions')
-	if (FFlagLuaAPICreateActions) then 
-		local pluginAction = thePlugin:CreatePluginAction(mainButtonConfig.Name, 
-			mainButtonConfig.Text, 
-			mainButtonConfig.Tip)
+	local pluginAction = thePlugin:CreatePluginAction(mainButtonConfig.Name, 
+		mainButtonConfig.Text, 
+		mainButtonConfig.Tip)
 			
-		pluginAction.Triggered:connect(function()
-    		-- Make sure the plugin GUI is visible.
-			thePluginGui.Enabled = true
-			-- Toggle this mode.
-			toggleFunction()
-		end)
-	end
+	pluginAction.Triggered:connect(function()
+  		-- Make sure the plugin GUI is visible.
+		thePluginGui.Enabled = true
+		-- Toggle this mode.
+		toggleFunction()
+	end)
 end
 
 
@@ -2719,6 +2718,11 @@ module.Initialize = function(thePlugin, thePluginGui)
 				end)
 			end
 		end
+		if FFlagStudioReactivateNormalToolAfterDeactivatingPlugin then
+			if plugin then
+				plugin:Deactivate()
+			end
+		end
 	end
 
 	if plugin then
@@ -2736,7 +2740,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX217fe40ec5fc43758465c7162fc29ba3">
+		<Item class="Script" referent="RBX13c85d1c5d314589bcd50e5db5cd4b3a">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2747,7 +2751,7 @@ local terrainBrushScriptModule = require(script.parent.TerrainBrush)
 
 local kToolbarButtonText = "Editor"
 
-local kMinWidthWidth = 232
+local kMinWidthWidth = 249
 
 -- A function to sync toolbar button 'active' state with plugin gui
 -- visibility.
@@ -2765,10 +2769,7 @@ local toggleVisibilityButton = toolbar:CreateButton(kToolbarButtonText,
 				'Add, remove, and modify terrain',
 				"rbxasset://textures/TerrainTools/icon_terrain_big.png")
 
-local FFlagPluginButtonClickableWhenViewportHidden = settings():GetFFlag('PluginButtonClickableWhenViewportHidden')
-if (FFlagPluginButtonClickableWhenViewportHidden) then 
-	toggleVisibilityButton.ClickableWhenViewportHidden = true
-end
+toggleVisibilityButton.ClickableWhenViewportHidden = true
 
 local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 0, 0, kMinWidthWidth)
 
@@ -2815,7 +2816,7 @@ mainPanelModule.Initialize(plugin, pluginGui)
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3d0afce5792c4e4fa4a064fe7f554f17">
+		<Item class="ModuleScript" referent="RBX45ba2d6b73284c6a81a1ada51bd66cb1">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
@@ -3708,7 +3709,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXf2e09e5802a0436d95002e37f54beae9">
+		<Item class="ModuleScript" referent="RBX3a738f5730554a68880aac6268ffde3b">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ProgressFrame</string>
@@ -3821,7 +3822,7 @@ return ProgressFrameClass]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4a0197d5f7244fc3b0e4208ae9c12a28">
+		<Item class="ModuleScript" referent="RBXfb208a3dd46946c1b9eae5641805133f">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainSmoother</string>
@@ -3965,12 +3966,12 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX79958788a2f54cb59d470161173486d6">
+		<Item class="Folder" referent="RBX2f342756a9c74f27aa2e340a820120ee">
 			<Properties>
 				<string name="Name">Libs</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX75d4a757dfa2497c8beb0fbbc46a2eb3">
+			<Item class="ModuleScript" referent="RBXc102800747574d78b27a05a43941168e">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledCheckbox</string>
@@ -3984,12 +3985,12 @@ return module
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kCheckboxWidth = 12
+local kCheckboxWidth = GuiUtilities.kCheckboxWidth
 
 local kMinTextSize = 14
 local kMinHeight = 24
-local kMinLabelWidth = 52
-local kMinMargin = 12
+local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
+local kMinMargin = GuiUtilities.kCheckboxMinMargin
 local kMinButtonWidth = kCheckboxWidth;
 
 local kMinLabelSize = UDim2.new(0, kMinLabelWidth, 0, kMinHeight)
@@ -4208,7 +4209,7 @@ return LabeledCheckboxClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXe3dfaa9761b34ada80b75a9da4542d0a">
+			<Item class="ModuleScript" referent="RBX563304c1866f4ae48084bbf887c2b981">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">CollapsibleTitledSection</string>
@@ -4379,7 +4380,7 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX37a81a9eb260412690068bf35f080f55">
+			<Item class="ModuleScript" referent="RBX65f907a04c4a48b087dfd1c9437d9b12">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ImageButtonWithText</string>
@@ -4532,7 +4533,7 @@ return ImageButtonWithTextClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7876a1bcec554a51984dad1a510dc3cf">
+			<Item class="ModuleScript" referent="RBX0c507fcc4bf642d79d1b1f2be01fdc25">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledSlider</string>
@@ -4662,415 +4663,60 @@ return LabeledSliderClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX82026a377f8b4552b9663172ab20f01f">
+			<Item class="ModuleScript" referent="RBXdc545f9337af4582a17e789ceadcde4f">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">CustomTextButton</string>
+					<string name="Name">LabeledRadioButton</string>
 					<string name="ScriptGuid"></string>
 					<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
--- CustomTextButton.lua
+-- LabeledRadioButton.lua
 --
--- Creates text button with custom look & feel, hover/click effects.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-
-local kButtonImageIdDefault = "rbxasset://textures/TerrainTools/button_default.png"
-local kButtonImageIdHovered = "rbxasset://textures/TerrainTools/button_hover.png"
-local kButtonImageIdPressed = "rbxasset://textures/TerrainTools/button_pressed.png"
-
-CustomTextButtonClass = {}
-CustomTextButtonClass.__index = CustomTextButtonClass
-
-function CustomTextButtonClass.new(buttonName, labelText)
-	local self = {}
-	setmetatable(self, CustomTextButtonClass)
-
-	local button = Instance.new('ImageButton')
-	button.Name = buttonName
-	button.Image = kButtonImageIdDefault
-	button.BackgroundTransparency = 1
-	button.ScaleType = Enum.ScaleType.Slice
-	button.SliceCenter = Rect.new(7, 7, 156, 36)
-	button.AutoButtonColor = false
-
-	local label = Instance.new('TextLabel')
-	label.Text = labelText
-	label.BackgroundTransparency = 1
-	label.Size = UDim2.new(1, 0, 1, GuiUtilities.kButtonVerticalFudge)
-	label.Font = Enum.Font.SourceSans                  
-	label.TextSize = 15                           
-	label.Parent = button
-
-	self._label = label
-	self._button = button
-
-	self._clicked = false
-	self._hovered = false
-
-	button.InputBegan:connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
-			self._hovered = true
-			self:_updateButtonVisual()
-		end
-	end)
-
-
-	button.InputEnded:connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
-			self._hovered = false
-			self._clicked = false
-			self:_updateButtonVisual()
-		end
-	end)    
-
-	button.MouseButton1Down:connect(function()
-		self._clicked = true
-		self:_updateButtonVisual()
-	end)
-
-	button.MouseButton1Up:connect(function()
-		self._clicked = false
-		self:_updateButtonVisual()
-	end)
-	
-	self:_updateButtonVisual()
-
-	return self
-end
-
-function CustomTextButtonClass:_updateButtonVisual()
-	if (self._clicked) then 
-		self._button.Image = kButtonImageIdPressed
-		self._label.TextColor3 = GuiUtilities.kPressedButtonTextColor
-	elseif (self._hovered) then 
-		self._button.Image = kButtonImageIdHovered
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
-	else
-		self._button.Image = kButtonImageIdDefault
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
-	end
-end
-
-function CustomTextButtonClass:getButton()
-	return self._button
-end
-
-return CustomTextButtonClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX1881c088a66e40568db156ea52a59c3a">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledTextInput</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledTextInput.lua
---
--- Creates a frame containing a label and a text input control.
+-- Creates a frame containing a label and a radio button.
 --
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
+LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 
-local kTextInputWidth = 100
-local kTextBoxInternalPadding = 4
+local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
+local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
 
-LabeledTextInputClass = {}
-LabeledTextInputClass.__index = LabeledTextInputClass
+local kFrameSize = 12
+local kBulletSize = 14
 
-function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
-	local self = {}
-	setmetatable(self, LabeledTextInputClass)
+LabeledRadioButtonClass = {}
+LabeledRadioButtonClass.__index = LabeledRadioButtonClass
+setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
 
-	-- Note: we are using "graphemes" instead of characters.
-	-- In modern text-manipulation-fu, what with internationalization, 
-	-- emojis, etc, it's not enough to count characters, particularly when 
-	-- concerned with "how many <things> am I rendering?".
-	-- We are using the 
-	self._MaxGraphemes = 10
-	
-	self._valueChangedFunction = nil
+function LabeledRadioButtonClass.new(nameSuffix, labelText)
+	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
+	setmetatable(newButton, LabeledRadioButtonClass)
 
-	local defaultValue = defaultValue or ""
+	newButton:UseSmallSize()
+	newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+	newButton._checkImage.Image = kBulletImage
+	newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
 
-	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
-	self._frame = frame
+	newButton._button.Image = kButtonImage
+	newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
+	newButton._button.BackgroundTransparency = 1
 
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
-	label.Parent = frame
-	self._label = label
-
-	self._value = defaultValue
-
-	-- Dumb hack to add padding to text box,
-	local textBoxWrapperFrame = Instance.new("Frame")
-	textBoxWrapperFrame.Name = "Wrapper"
-	textBoxWrapperFrame.BackgroundColor3 = GuiUtilities.kStandardWhite
-	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
-	textBoxWrapperFrame.Parent = frame
-	textBoxWrapperFrame.BorderColor3 = GuiUtilities.kWidgetBorderColor 
-
-	local textBox = Instance.new("TextBox")
-	textBox.Parent = textBoxWrapperFrame
-	textBox.Name = "TextBox"
-	textBox.Text = defaultValue
-	textBox.Font = Enum.Font.SourceSans
-	textBox.TextSize = 15
-	textBox.BackgroundTransparency = 1
-	textBox.TextXAlignment = Enum.TextXAlignment.Left
-	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
-	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
-	textBox.ClipsDescendants = true
-	
-	textBox:GetPropertyChangedSignal("Text"):connect(function()
-		-- Never let the text be too long.
-		-- Careful here: we want to measure number of graphemes, not characters, 
-		-- in the text, and we want to clamp on graphemes as well.
-		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
-			local count = 0
-			for start, stop in utf8.graphemes(self._textBox.Text) do
-				count = count + 1
-				if (count > self._MaxGraphemes) then 
-					-- We have gone one too far.
-					-- clamp just before the beginning of this grapheme.
-					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
-					break
-				end
-			end
-			-- Don't continue with rest of function: the resetting of "Text" field
-			-- above will trigger re-entry.  We don't need to trigger value
-			-- changed function twice.
-			return
-		end
-
-		self._value = self._textBox.Text
-		if (self._valueChangedFunction) then 
-			self._valueChangedFunction(self._value)
-		end
-	end)
-	
-	self._textBox = textBox
-
-	return self
+	return newButton
 end
 
-function LabeledTextInputClass:SetValueChangedFunction(vcf)
-	self._valueChangedFunction = vcf
-end
-
-function LabeledTextInputClass:GetFrame()
-	return self._frame
-end
-
-function LabeledTextInputClass:GetValue()
-	return self._value
-end
-
-function LabeledTextInputClass:GetMaxGraphemes()
-	return self._MaxGraphemes
-end
-
-function LabeledTextInputClass:SetMaxGraphemes(newValue)
-	self._MaxGraphemes = newValue
-end
-
-function LabeledTextInputClass:SetValue(newValue)
-	if self._value ~= newValue then
-		self._textBox.Text = newValue
+function LabeledRadioButtonClass:_MaybeToggleState()
+	-- A checkbox can never be toggled off. 
+	-- Only turns off because another one turns on.
+	if (not self._disabled and not self._value) then 
+		self:SetValue(not self._value)
 	end
 end
 
-return LabeledTextInputClass
-]]></ProtectedString>
+return LabeledRadioButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX300e6eeebf0f4942a60de37b5cac6fb0">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">VerticallyScalingListFrame</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- VerticallyScalingListFrame
---
--- Creates a frame that organizes children into a list layout.
--- Will scale dynamically as children grow.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-
-VerticallyScalingListFrameClass = {}
-VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
-
-local kBottomPadding = 10
-
-function VerticallyScalingListFrameClass.new(nameSuffix)
-	local self = {}
-	setmetatable(self, VerticallyScalingListFrameClass)
-
-	self._resizeCallback = nil
-	
-	local frame = Instance.new('Frame')
-	frame.Name = 'VSLFrame' .. nameSuffix
-	frame.Size = UDim2.new(1, 0, 0, height)
-	frame.BackgroundTransparency = 0
-	frame.BackgroundColor3 = Color3.new(1, 1, 1)
-	frame.BorderSizePixel = 0
-
-	self._frame = frame
-	
-	local uiListLayout = Instance.new('UIListLayout')
-	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	uiListLayout.Parent = frame
-	self._uiListLayout = uiListLayout
-
-	local function updateSizes()
-		self._frame.Size = UDim2.new(1, 0, 0, uiListLayout.AbsoluteContentSize.Y)
-		if (self._resizeCallback) then 
-			self._resizeCallback()
-		end
-	end
-	self._uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateSizes)
-	updateSizes()
-
-	self._childCount = 0
-
-	return self
-end
-
-function VerticallyScalingListFrameClass:AddBottomPadding()
-	local frame = Instance.new("Frame")
-	frame.Name = "BottomPadding"
-	frame.BackgroundTransparency = 1
-	frame.Size = UDim2.new(1, 0, 0, kBottomPadding)
-	frame.LayoutOrder = 1000
-	frame.Parent = self._frame
-end
-
-function VerticallyScalingListFrameClass:GetFrame()
-	return self._frame
-end
-
-function VerticallyScalingListFrameClass:AddChild(childFrame)
-	childFrame.LayoutOrder = self._childCount
-	self._childCount = self._childCount + 1
-	childFrame.Parent = self._frame
-end
-
-function VerticallyScalingListFrameClass:SetCallbackOnResize(callback)
-	self._resizeCallback = callback
-end
-
-return VerticallyScalingListFrameClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX9b470f62008240b6ac25b06827f9c1a2">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">StatefulImageButton</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- StatefulImageButton.lua
---
--- Image button.
--- Has custom image for when "selected"
--- Uses shading to indicate hover and click states.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-
-StatefulImageButtonClass = {}
-StatefulImageButtonClass.__index = StatefulImageButtonClass
-
-function StatefulImageButtonClass.new(buttonName, imageAsset, buttonSize)
-	local self = {}
-	setmetatable(self, StatefulImageButtonClass)
-
-	local button = Instance.new("ImageButton")
-	button.Parent = parent
-	button.Image = imageAsset
-	button.BackgroundTransparency = 1
-	button.BorderSizePixel = 0
-	button.Size = buttonSize
-	button.Name = buttonName
-
-	self._button = button
-
-	self._hovered = false
-	self._clicked = false
-	self._selected = false
-
-	button.InputBegan:connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
-			self._hovered = true
-			self:_updateButtonVisual()
-		end
-	end)
-
-
-	button.InputEnded:connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
-			self._hovered = false
-			self._clicked = false
-			self:_updateButtonVisual()
-		end
-	end)    
-
-	button.MouseButton1Down:connect(function()
-		self._clicked = true
-		self:_updateButtonVisual()
-	end)
-
-	button.MouseButton1Up:connect(function()
-		self._clicked = false
-		self:_updateButtonVisual()
-	end)
-	
-	self:_updateButtonVisual()
-
-	return self
-end
-
-function StatefulImageButtonClass:_updateButtonVisual()
-	if (self._selected) then 
-		self._button.ImageTransparency = 0
-		self._button.ImageColor3 = Color3.new(1,1,1) 
-	else 
-		self._button.ImageTransparency = 0.5
-		self._button.ImageColor3 = Color3.new(.5,.5,.5)
-	end
-
-	if (self._clicked) then 
-		self._button.BackgroundTransparency = 0.8
-	elseif (self._hovered) then 
-		self._button.BackgroundTransparency = 0.9
-	else
-		self._button.BackgroundTransparency = 1
-	end
-end
-
-function StatefulImageButtonClass:setSelected(selected)
-	self._selected = selected
-	self:_updateButtonVisual()
-end
-
-function StatefulImageButtonClass:getButton()
-	return self._button
-end
-
-return StatefulImageButtonClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBXd6d7be65f81e41dd8c23a43d4f226431">
+			<Item class="ModuleScript" referent="RBXe508c56a6d5f41a1bc196411163472fa">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">RbxGui</string>
@@ -9279,200 +8925,7 @@ return t
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX86a73b404fe848438202d0380cc938d6">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledMultiChoice</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledMultiChoice.lua
---
--- Creates a frame containing a label and list of choices, of which exactly one 
--- is always selected.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledRadioButton = require(script.Parent.LabeledRadioButton)
-LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
-
-local kRadioButtonsHPadding = 24
-
-LabeledMultiChoiceClass = {}
-LabeledMultiChoiceClass.__index = LabeledMultiChoiceClass
-
-
--- Note: 
--- "choices" is an array of entries.
--- each entry must have at least 2 fields:
--- "Id" - a unique (in the scope of choices) string id.  Not visible to user.
--- "Text" - user-facing string: the label for the choice.
-function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceIndex)
-	local self = {}
-	setmetatable(self, LabeledMultiChoiceClass)
-
-	self._buttonObjsByIndex = {}
-
-	if (not initChoiceIndex ) then 
-		initChoiceIndex = 1
-	end
-	if (initChoiceIndex > #choices) then 
-		initChoiceIndex = #choices
-	end
-
-
-	local vsl = VerticallyScalingListFrame.new("MCC_" .. nameSuffix)
-	vsl:AddBottomPadding()
-
-	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText)
-	vsl:AddChild(titleLabel)
-
-	-- Container for cells.
-	local cellFrame = self:_MakeRadioButtons(choices)
-	vsl:AddChild(cellFrame)
-
-	self._vsl = vsl
-
-	self:SetSelectedIndex(initChoiceIndex)
-
-	return self
-end
-
-function LabeledMultiChoiceClass:SetSelectedIndex(selectedIndex) 
-	self._selectedIndex = selectedIndex
-	for i = 1, #self._buttonObjsByIndex do 
-		self._buttonObjsByIndex[i]:SetValue(i == selectedIndex)
-	end
-
-	if (self._valueChangedFunction) then 
-		self._valueChangedFunction(self._selectedIndex)
-	end
-end
-
-function LabeledMultiChoiceClass:GetSelectedIndex()
-	return self._selectedIndex
-end
-
-function LabeledMultiChoiceClass:SetValueChangedFunction(vcf)
-	self._valueChangedFunction = vcf
-end
-
-function LabeledMultiChoiceClass:GetFrame()
-	return self._vsl:GetFrame()
-end
-
-
--- Small checkboxes are a different entity.
--- All the bits are smaller.
--- Fixed width instead of flood-fill.
--- Box comes first, then label.
-function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
-	local frame = GuiUtilities.MakeFrame("RadioButtons")
-	frame.BackgroundTransparency = 1
-
-	local padding = Instance.new("UIPadding")
-	padding.PaddingLeft = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
-	padding.PaddingRight = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
-	padding.Parent = frame
-	
-	-- Make a grid to put checkboxes in.
-	local uiGridLayout = Instance.new("UIGridLayout")
-	uiGridLayout.CellSize = LabeledCheckbox.kMinFrameSize
-	uiGridLayout.CellPadding = UDim2.new(0, 
-		kRadioButtonsHPadding,
-		0,
-		GuiUtilities.kStandardVMargin)
-	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
-	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
-	uiGridLayout.Parent = frame
-	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-	for i, choiceData in ipairs(choices) do 
-		self:_AddRadioButton(frame, i, choiceData)
-	end
-
-		-- Sync size with content size.
-	GuiUtilities.AdjustHeightDynamicallyToLayout(frame, uiGridLayout)
-
-	return frame
-end
-
-function LabeledMultiChoiceClass:_AddRadioButton(parentFrame, index, choiceData)
-	local radioButtonObj = LabeledRadioButton.new(choiceData.Id, choiceData.Text)
-	self._buttonObjsByIndex[index] = radioButtonObj
-
-	radioButtonObj:SetValueChangedFunction(function(value)
-		-- If we notice the button going from off to on, and it disagrees with 
-		-- our current notion of selection, update selection.
-		if (value and self._selectedIndex ~= index) then 
-			self:SetSelectedIndex(index)
-		end
-	end)
-	
-	radioButtonObj:GetFrame().LayoutOrder = index
-	radioButtonObj:GetFrame().Parent = parentFrame
-end
-
-
-return LabeledMultiChoiceClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX529e9c935b5e443f83bbbbddbe0c94a8">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledRadioButton</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledRadioButton.lua
---
--- Creates a frame containing a label and a radio button.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-
-local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
-local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
-
-local kFrameSize = 12
-local kBulletSize = 14
-
-LabeledRadioButtonClass = {}
-LabeledRadioButtonClass.__index = LabeledRadioButtonClass
-setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
-
-function LabeledRadioButtonClass.new(nameSuffix, labelText)
-	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
-	setmetatable(newButton, LabeledRadioButtonClass)
-
-	newButton:UseSmallSize()
-	newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-	newButton._checkImage.Image = kBulletImage
-	newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
-
-	newButton._button.Image = kButtonImage
-	newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
-	newButton._button.BackgroundTransparency = 1
-
-	return newButton
-end
-
-function LabeledRadioButtonClass:_MaybeToggleState()
-	-- A checkbox can never be toggled off. 
-	-- Only turns off because another one turns on.
-	if (not self._disabled and not self._value) then 
-		self:SetValue(not self._value)
-	end
-end
-
-return LabeledRadioButtonClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX25b2a20a4f4d480ab3995bed42f4d44e">
+			<Item class="ModuleScript" referent="RBX6f766006b44c4cc19e098e558aff0f22">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GuiUtilities</string>
@@ -9491,8 +8944,15 @@ module.kSubSectionLabelHeight = 30
 module.kStandardVMargin = 7
 module.kStandardHMargin = 16
 
-module.StandardLineLabelLeftMargin = 10
-module.StandardLineElementLeftMargin = 90
+module.kCheckboxMinLabelWidth = 52
+module.kCheckboxMinMargin = 12
+module.kCheckboxWidth = 12
+
+module.kRadioButtonsHPadding = 24
+
+module.StandardLineLabelLeftMargin = module.kTitleBarHeight
+module.StandardLineElementLeftMargin = (module.StandardLineLabelLeftMargin + module.kCheckboxMinLabelWidth
++ module.kCheckboxMinMargin + module.kCheckboxWidth + module.kRadioButtonsHPadding)
 module.StandardLineLabelWidth = (module.StandardLineElementLeftMargin - module.StandardLineLabelLeftMargin - 10 )
 
 module.kDropDownHeight = 55
@@ -9667,6 +9127,554 @@ end
 
 
 return module]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBXddd9c990b9d94234a7fd24562e9b4d5e">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">StatefulImageButton</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- StatefulImageButton.lua
+--
+-- Image button.
+-- Has custom image for when "selected"
+-- Uses shading to indicate hover and click states.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+StatefulImageButtonClass = {}
+StatefulImageButtonClass.__index = StatefulImageButtonClass
+
+function StatefulImageButtonClass.new(buttonName, imageAsset, buttonSize)
+	local self = {}
+	setmetatable(self, StatefulImageButtonClass)
+
+	local button = Instance.new("ImageButton")
+	button.Parent = parent
+	button.Image = imageAsset
+	button.BackgroundTransparency = 1
+	button.BorderSizePixel = 0
+	button.Size = buttonSize
+	button.Name = buttonName
+
+	self._button = button
+
+	self._hovered = false
+	self._clicked = false
+	self._selected = false
+
+	button.InputBegan:connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+			self._hovered = true
+			self:_updateButtonVisual()
+		end
+	end)
+
+
+	button.InputEnded:connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+			self._hovered = false
+			self._clicked = false
+			self:_updateButtonVisual()
+		end
+	end)    
+
+	button.MouseButton1Down:connect(function()
+		self._clicked = true
+		self:_updateButtonVisual()
+	end)
+
+	button.MouseButton1Up:connect(function()
+		self._clicked = false
+		self:_updateButtonVisual()
+	end)
+	
+	self:_updateButtonVisual()
+
+	return self
+end
+
+function StatefulImageButtonClass:_updateButtonVisual()
+	if (self._selected) then 
+		self._button.ImageTransparency = 0
+		self._button.ImageColor3 = Color3.new(1,1,1) 
+	else 
+		self._button.ImageTransparency = 0.5
+		self._button.ImageColor3 = Color3.new(.5,.5,.5)
+	end
+
+	if (self._clicked) then 
+		self._button.BackgroundTransparency = 0.8
+	elseif (self._hovered) then 
+		self._button.BackgroundTransparency = 0.9
+	else
+		self._button.BackgroundTransparency = 1
+	end
+end
+
+function StatefulImageButtonClass:setSelected(selected)
+	self._selected = selected
+	self:_updateButtonVisual()
+end
+
+function StatefulImageButtonClass:getButton()
+	return self._button
+end
+
+return StatefulImageButtonClass]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX0368312554e0429396caebc8c50b6418">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">VerticallyScalingListFrame</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- VerticallyScalingListFrame
+--
+-- Creates a frame that organizes children into a list layout.
+-- Will scale dynamically as children grow.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+VerticallyScalingListFrameClass = {}
+VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
+
+local kBottomPadding = 10
+
+function VerticallyScalingListFrameClass.new(nameSuffix)
+	local self = {}
+	setmetatable(self, VerticallyScalingListFrameClass)
+
+	self._resizeCallback = nil
+	
+	local frame = Instance.new('Frame')
+	frame.Name = 'VSLFrame' .. nameSuffix
+	frame.Size = UDim2.new(1, 0, 0, height)
+	frame.BackgroundTransparency = 0
+	frame.BackgroundColor3 = Color3.new(1, 1, 1)
+	frame.BorderSizePixel = 0
+
+	self._frame = frame
+	
+	local uiListLayout = Instance.new('UIListLayout')
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uiListLayout.Parent = frame
+	self._uiListLayout = uiListLayout
+
+	local function updateSizes()
+		self._frame.Size = UDim2.new(1, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+		if (self._resizeCallback) then 
+			self._resizeCallback()
+		end
+	end
+	self._uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateSizes)
+	updateSizes()
+
+	self._childCount = 0
+
+	return self
+end
+
+function VerticallyScalingListFrameClass:AddBottomPadding()
+	local frame = Instance.new("Frame")
+	frame.Name = "BottomPadding"
+	frame.BackgroundTransparency = 1
+	frame.Size = UDim2.new(1, 0, 0, kBottomPadding)
+	frame.LayoutOrder = 1000
+	frame.Parent = self._frame
+end
+
+function VerticallyScalingListFrameClass:GetFrame()
+	return self._frame
+end
+
+function VerticallyScalingListFrameClass:AddChild(childFrame)
+	childFrame.LayoutOrder = self._childCount
+	self._childCount = self._childCount + 1
+	childFrame.Parent = self._frame
+end
+
+function VerticallyScalingListFrameClass:SetCallbackOnResize(callback)
+	self._resizeCallback = callback
+end
+
+return VerticallyScalingListFrameClass]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX35523072cae44ca5aea00625e8014eb5">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LabeledMultiChoice</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledMultiChoice.lua
+--
+-- Creates a frame containing a label and list of choices, of which exactly one 
+-- is always selected.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+LabeledRadioButton = require(script.Parent.LabeledRadioButton)
+LabeledCheckbox = require(script.Parent.LabeledCheckbox)
+VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
+
+local kRadioButtonsHPadding = GuiUtilities.kRadioButtonsHPadding
+
+LabeledMultiChoiceClass = {}
+LabeledMultiChoiceClass.__index = LabeledMultiChoiceClass
+
+
+-- Note: 
+-- "choices" is an array of entries.
+-- each entry must have at least 2 fields:
+-- "Id" - a unique (in the scope of choices) string id.  Not visible to user.
+-- "Text" - user-facing string: the label for the choice.
+function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceIndex)
+	local self = {}
+	setmetatable(self, LabeledMultiChoiceClass)
+
+	self._buttonObjsByIndex = {}
+
+	if (not initChoiceIndex ) then 
+		initChoiceIndex = 1
+	end
+	if (initChoiceIndex > #choices) then 
+		initChoiceIndex = #choices
+	end
+
+
+	local vsl = VerticallyScalingListFrame.new("MCC_" .. nameSuffix)
+	vsl:AddBottomPadding()
+
+	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText)
+	vsl:AddChild(titleLabel)
+
+	-- Container for cells.
+	local cellFrame = self:_MakeRadioButtons(choices)
+	vsl:AddChild(cellFrame)
+
+	self._vsl = vsl
+
+	self:SetSelectedIndex(initChoiceIndex)
+
+	return self
+end
+
+function LabeledMultiChoiceClass:SetSelectedIndex(selectedIndex) 
+	self._selectedIndex = selectedIndex
+	for i = 1, #self._buttonObjsByIndex do 
+		self._buttonObjsByIndex[i]:SetValue(i == selectedIndex)
+	end
+
+	if (self._valueChangedFunction) then 
+		self._valueChangedFunction(self._selectedIndex)
+	end
+end
+
+function LabeledMultiChoiceClass:GetSelectedIndex()
+	return self._selectedIndex
+end
+
+function LabeledMultiChoiceClass:SetValueChangedFunction(vcf)
+	self._valueChangedFunction = vcf
+end
+
+function LabeledMultiChoiceClass:GetFrame()
+	return self._vsl:GetFrame()
+end
+
+
+-- Small checkboxes are a different entity.
+-- All the bits are smaller.
+-- Fixed width instead of flood-fill.
+-- Box comes first, then label.
+function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
+	local frame = GuiUtilities.MakeFrame("RadioButtons")
+	frame.BackgroundTransparency = 1
+
+	local padding = Instance.new("UIPadding")
+	padding.PaddingLeft = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
+	padding.PaddingRight = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
+	padding.Parent = frame
+	
+	-- Make a grid to put checkboxes in.
+	local uiGridLayout = Instance.new("UIGridLayout")
+	uiGridLayout.CellSize = LabeledCheckbox.kMinFrameSize
+	uiGridLayout.CellPadding = UDim2.new(0, 
+		kRadioButtonsHPadding,
+		0,
+		GuiUtilities.kStandardVMargin)
+	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+	uiGridLayout.Parent = frame
+	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	for i, choiceData in ipairs(choices) do 
+		self:_AddRadioButton(frame, i, choiceData)
+	end
+
+		-- Sync size with content size.
+	GuiUtilities.AdjustHeightDynamicallyToLayout(frame, uiGridLayout)
+
+	return frame
+end
+
+function LabeledMultiChoiceClass:_AddRadioButton(parentFrame, index, choiceData)
+	local radioButtonObj = LabeledRadioButton.new(choiceData.Id, choiceData.Text)
+	self._buttonObjsByIndex[index] = radioButtonObj
+
+	radioButtonObj:SetValueChangedFunction(function(value)
+		-- If we notice the button going from off to on, and it disagrees with 
+		-- our current notion of selection, update selection.
+		if (value and self._selectedIndex ~= index) then 
+			self:SetSelectedIndex(index)
+		end
+	end)
+	
+	radioButtonObj:GetFrame().LayoutOrder = index
+	radioButtonObj:GetFrame().Parent = parentFrame
+end
+
+
+return LabeledMultiChoiceClass]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX9ec097327c534554803c540d3c326839">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">CustomTextButton</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- CustomTextButton.lua
+--
+-- Creates text button with custom look & feel, hover/click effects.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kButtonImageIdDefault = "rbxasset://textures/TerrainTools/button_default.png"
+local kButtonImageIdHovered = "rbxasset://textures/TerrainTools/button_hover.png"
+local kButtonImageIdPressed = "rbxasset://textures/TerrainTools/button_pressed.png"
+
+CustomTextButtonClass = {}
+CustomTextButtonClass.__index = CustomTextButtonClass
+
+function CustomTextButtonClass.new(buttonName, labelText)
+	local self = {}
+	setmetatable(self, CustomTextButtonClass)
+
+	local button = Instance.new('ImageButton')
+	button.Name = buttonName
+	button.Image = kButtonImageIdDefault
+	button.BackgroundTransparency = 1
+	button.ScaleType = Enum.ScaleType.Slice
+	button.SliceCenter = Rect.new(7, 7, 156, 36)
+	button.AutoButtonColor = false
+
+	local label = Instance.new('TextLabel')
+	label.Text = labelText
+	label.BackgroundTransparency = 1
+	label.Size = UDim2.new(1, 0, 1, GuiUtilities.kButtonVerticalFudge)
+	label.Font = Enum.Font.SourceSans                  
+	label.TextSize = 15                           
+	label.Parent = button
+
+	self._label = label
+	self._button = button
+
+	self._clicked = false
+	self._hovered = false
+
+	button.InputBegan:connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+			self._hovered = true
+			self:_updateButtonVisual()
+		end
+	end)
+
+
+	button.InputEnded:connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+			self._hovered = false
+			self._clicked = false
+			self:_updateButtonVisual()
+		end
+	end)    
+
+	button.MouseButton1Down:connect(function()
+		self._clicked = true
+		self:_updateButtonVisual()
+	end)
+
+	button.MouseButton1Up:connect(function()
+		self._clicked = false
+		self:_updateButtonVisual()
+	end)
+	
+	self:_updateButtonVisual()
+
+	return self
+end
+
+function CustomTextButtonClass:_updateButtonVisual()
+	if (self._clicked) then 
+		self._button.Image = kButtonImageIdPressed
+		self._label.TextColor3 = GuiUtilities.kPressedButtonTextColor
+	elseif (self._hovered) then 
+		self._button.Image = kButtonImageIdHovered
+		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+	else
+		self._button.Image = kButtonImageIdDefault
+		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+	end
+end
+
+function CustomTextButtonClass:getButton()
+	return self._button
+end
+
+return CustomTextButtonClass]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX0f2e0bf4269843ea913365c6ec259fef">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LabeledTextInput</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledTextInput.lua
+--
+-- Creates a frame containing a label and a text input control.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kTextInputWidth = 100
+local kTextBoxInternalPadding = 4
+
+LabeledTextInputClass = {}
+LabeledTextInputClass.__index = LabeledTextInputClass
+
+function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
+	local self = {}
+	setmetatable(self, LabeledTextInputClass)
+
+	-- Note: we are using "graphemes" instead of characters.
+	-- In modern text-manipulation-fu, what with internationalization, 
+	-- emojis, etc, it's not enough to count characters, particularly when 
+	-- concerned with "how many <things> am I rendering?".
+	-- We are using the 
+	self._MaxGraphemes = 10
+	
+	self._valueChangedFunction = nil
+
+	local defaultValue = defaultValue or ""
+
+	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
+	self._frame = frame
+
+	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	label.Parent = frame
+	self._label = label
+
+	self._value = defaultValue
+
+	-- Dumb hack to add padding to text box,
+	local textBoxWrapperFrame = Instance.new("Frame")
+	textBoxWrapperFrame.Name = "Wrapper"
+	textBoxWrapperFrame.BackgroundColor3 = GuiUtilities.kStandardWhite
+	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
+	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
+	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
+	textBoxWrapperFrame.Parent = frame
+	textBoxWrapperFrame.BorderColor3 = GuiUtilities.kWidgetBorderColor 
+
+	local textBox = Instance.new("TextBox")
+	textBox.Parent = textBoxWrapperFrame
+	textBox.Name = "TextBox"
+	textBox.Text = defaultValue
+	textBox.Font = Enum.Font.SourceSans
+	textBox.TextSize = 15
+	textBox.BackgroundTransparency = 1
+	textBox.TextXAlignment = Enum.TextXAlignment.Left
+	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
+	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
+	textBox.ClipsDescendants = true
+	
+	textBox:GetPropertyChangedSignal("Text"):connect(function()
+		-- Never let the text be too long.
+		-- Careful here: we want to measure number of graphemes, not characters, 
+		-- in the text, and we want to clamp on graphemes as well.
+		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
+			local count = 0
+			for start, stop in utf8.graphemes(self._textBox.Text) do
+				count = count + 1
+				if (count > self._MaxGraphemes) then 
+					-- We have gone one too far.
+					-- clamp just before the beginning of this grapheme.
+					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
+					break
+				end
+			end
+			-- Don't continue with rest of function: the resetting of "Text" field
+			-- above will trigger re-entry.  We don't need to trigger value
+			-- changed function twice.
+			return
+		end
+
+		self._value = self._textBox.Text
+		if (self._valueChangedFunction) then 
+			self._valueChangedFunction(self._value)
+		end
+	end)
+	
+	self._textBox = textBox
+
+	return self
+end
+
+function LabeledTextInputClass:SetValueChangedFunction(vcf)
+	self._valueChangedFunction = vcf
+end
+
+function LabeledTextInputClass:GetFrame()
+	return self._frame
+end
+
+function LabeledTextInputClass:GetValue()
+	return self._value
+end
+
+function LabeledTextInputClass:GetMaxGraphemes()
+	return self._MaxGraphemes
+end
+
+function LabeledTextInputClass:SetMaxGraphemes(newValue)
+	self._MaxGraphemes = newValue
+end
+
+function LabeledTextInputClass:SetValue(newValue)
+	if self._value ~= newValue then
+		self._textBox.Text = newValue
+	end
+end
+
+return LabeledTextInputClass
+]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>

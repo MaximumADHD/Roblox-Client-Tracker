@@ -1,0 +1,32 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Folder" referent="RBX3d6657297d73421b8feeaea480906e7e">
+		<Properties>
+			<string name="Name">MasterPlugin</string>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="Folder" referent="RBX2302888bd6e74c2bb9c2e62ee7f00bed">
+			<Properties>
+				<string name="Name">Plugin</string>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="Script" referent="RBXe9db0eb55a4d4572a94fb83c778b61ba">
+				<Properties>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">main</string>
+					<string name="ScriptGuid">{76419bbf-fed5-4f5b-b8c1-447ae5fa8c4a}</string>
+					<ProtectedString name="Source"><![CDATA[
+if settings():GetFFlag("StudioEnablePlayerLocaleViewPlugin") then
+	local CorePackages = game:GetService("CorePackages")
+	local LocalizationPlugin = require(CorePackages.LocalizationPlugin.Main)
+	LocalizationPlugin(plugin)
+end
+]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+</roblox>

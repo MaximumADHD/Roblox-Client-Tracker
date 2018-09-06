@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Model" referent="RBXB2382330E6D746C1A00CCF5703379DDD">
+	<Item class="Model" referent="RBXEE00849183C0461EA5A4AB8F1C142989">
 		<Properties>
 			<CoordinateFrame name="ModelInPrimary">
 				<X>0</X>
@@ -21,7 +21,7 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBXD011C3D2D5124BA1896C611E8FCB4DFD">
+		<Item class="Script" referent="RBX26724C5F4BF84C02AF90C21A499191E6">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -61,11 +61,14 @@ local Analytics				= require(script.Parent.Analytics)
 local ChangeHistoryService	= game:GetService("ChangeHistoryService")
 local UserInputService		= game:GetService("UserInputService")
 local SelectionService		= game:GetService("Selection")
+local StarterGuiService 	= game:GetService("StarterGui")
+local RunService			= game:GetService("RunService")
 
 -- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-local FFlagStudioUIEditorMoveToWorkspace = FFlag:isEnabled("StudioUIEditorMoveToWorkspace")
+local FFlagStudioReactivateNormalToolAfterDeactivatingPlugin = FFlag:isEnabled("StudioReactivateNormalToolAfterDeactivatingPlugin")
+local FFlagStudioIgnoreFrameUnderBillboardGuiAndSurfaceGui = FFlag:isEnabled("StudioIgnoreFrameUnderBillboardGuiAndSurfaceGui")
+local FFlagStudioCanSelectMeshPartWhileUIEditorIsActive = FFlag:isEnabled("StudioCanSelectMeshPartWhileUIEditorIsActive")
 
 -- Variables
 local childAddedEvent = nil
@@ -119,10 +122,8 @@ local function configureActionMediator()
 		ActionMediator:setRotationBox(RotationBox)
 	end
 	ActionMediator:setSizeBox(SizeBox)
-	
-	if FFlagStudioUIEditorMoveToWorkspace then
-		ActionMediator:setSelectionManager(SelectionManager)		
-	end
+
+    ActionMediator:setSelectionManager(SelectionManager)
 end
 
 -- Events
@@ -146,26 +147,12 @@ local function onDoubleClick(inputObject)
 end
 
 local function onInstanceChanged(instance, property)
-	if not FFlagStudioUIEditorMoveToWorkspace then
-		Resize:updatePosition()
-	end
-	
-	if FFlagStudioUIEditorV2Alpha then
-		if FFlagStudioUIEditorMoveToWorkspace then
-			if property == "Parent" then
-				-- SelectionManager might need to remove the instance from the filtered selection
-				-- if the instance is no longer in StarterGui
-				SelectionManager:onParentChanged()
-			else
-				Resize:updatePosition()
-				DistanceLinesManager:update()
-				DistanceLinesManager:setVisible(true)
-				if FFlagStudioUIEditorRotateV2 then
-					Rotate:update()
-				end
-				SizeBox:update()
-			end
+		if property == "Parent" then
+			-- SelectionManager might need to remove the instance from the filtered selection
+			-- if the instance is no longer in StarterGui
+			SelectionManager:onParentChanged()
 		else
+			Resize:updatePosition()
 			DistanceLinesManager:update()
 			DistanceLinesManager:setVisible(true)
 			if FFlagStudioUIEditorRotateV2 then
@@ -173,12 +160,10 @@ local function onInstanceChanged(instance, property)
 			end
 			SizeBox:update()
 		end
-	end
 end
 
 -- void onDescendantAddedToStarterGui(Instance child)
 local function onDescendantAddedToStarterGui(child)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	-- Need to notify the SelectionManager. Otherwise it will not know
 	-- if a GUI object has been moved into the StarterGui and that it
 	-- should be managed.
@@ -196,60 +181,42 @@ local function onInputBegan(inputObject)
 				m_previousSelection = SelectionManager:getRawSelection()
 		end
 		
-		
+
 		selectedInstancesPropertyChangedEvent = SelectionManager:disconnectSelectionInstancesChanged(selectedInstancesPropertyChangedEvent)
-		
+
 		m_mouseDown = true
 		local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
 		
-		if FFlagStudioUIEditorV2Alpha then
-			if Resize:isOverAHandle() then
-				Resize:startDrag(location)
-				return
-			elseif FFlagStudioUIEditorRotateV2 and Rotate:isOverAHandle() then
-				Rotate:onMouseDown(location)
-				return
-			end
-		else
-			if (Resize:DEPRECATED_isOverHandle(location)) then
-				Resize:startDrag(location)
-				return
-			end
+		if Resize:isOverAHandle() then
+			Resize:startDrag(location)
+			return
+		elseif FFlagStudioUIEditorRotateV2 and Rotate:isOverAHandle() then
+			Rotate:onMouseDown(location)
+			return
 		end
-		
+
 		local item = Select:selectTopLevelItemAtPoint(location)
-		
+
 		Move:startDrag(location)
 		
-		if not FFlagStudioUIEditorV2Alpha then
-			--Double click to activate text editor
-			if (DoubleClickDetector:isDoubleClick() and not (UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt))) then
-				if (onDoubleClick(inputObject)) then
-					return
-				end
-			end
-		end
-		
 		if (not item) then
-			if (FFlagStudioUIEditorV2Alpha) then		
-				local ray = Camera:ScreenPointToRay(inputObject.Position.X, inputObject.Position.Y)	
-				ray = Ray.new(ray.Origin, ray.Direction * 5000)	
-				local part, position = workspace:FindPartOnRay(ray)
-				if (part and part.Name ~= "Baseplate") then
-					local instances = {part}
-					SelectionService:Set(instances)
-				else
+			local ray = Camera:ScreenPointToRay(inputObject.Position.X, inputObject.Position.Y)	
+			ray = Ray.new(ray.Origin, ray.Direction * 5000)	
+			local part, position = workspace:FindPartOnRay(ray)
+			if ((part or (FFlagStudioCanSelectMeshPartWhileUIEditorIsActive and part:IsA("MeshPart"))) and not part.Locked) then
+				local instances = {part}
+				SelectionService:Set(instances)
+				if (FFlagStudioReactivateNormalToolAfterDeactivatingPlugin) then
 					Off()
 				end
 			else
-				Rubberband:startRubberbandDrag(location)
+					Off()
 			end
 		else
 			InstanceInfo:isVisible(item, true)
 		end
 		
 	elseif (inputObject.UserInputType == Enum.UserInputType.Keyboard) then
-		
 		--[[
 		if (inputObject.KeyCode == Enum.KeyCode.Left) then
 			Move:bump(Move.LEFT)
@@ -303,21 +270,12 @@ local function onInputEnded(inputObject)
 			Move:finishDrag(location)
 		end
 
-		if not FFlagStudioUIEditorV2Alpha then
-			if (not TextEditor:isCurrentlyEditing()) then
-				Resize:show()
-				Resize:updatePosition()
-			end
-		end
-		
-		if FFlagStudioUIEditorV2Alpha then
-			-- Double click to activate text editor. This check should happen onInputEnded instead
-			-- of onInputBegan because otherwise the move will end after text editing has begun. Ending
-			-- a move will show the resize handles (and size box and distance lines if there's one object). 
-			if (DoubleClickDetector:isDoubleClick() and not (UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt))) then
-				if (onDoubleClick(inputObject)) then
-					return
-				end
+		-- Double click to activate text editor. This check should happen onInputEnded instead
+		-- of onInputBegan because otherwise the move will end after text editing has begun. Ending
+		-- a move will show the resize handles (and size box and distance lines if there's one object). 
+		if (DoubleClickDetector:isDoubleClick() and not (UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt))) then
+			if (onDoubleClick(inputObject)) then
+				return
 			end
 		end
 		
@@ -325,21 +283,19 @@ local function onInputEnded(inputObject)
 			selectedInstancesPropertyChangedEvent = SelectionManager:connectSelectionInstancesChanged(onInstanceChanged)
 		end
 		
-		if FFlagStudioUIEditorV2Alpha then
-			if FFlagStudioUIEditorRotateV2 then
-				Rotate:onMouseUp(location)
-			end
-			
-			if Resize:isOverAHandle() then
-				Resize:updateMouseIcon()
-			elseif FFlagStudioUIEditorRotateV2 and Rotate:isOverAHandle() then
-				Rotate:updateMouseIcon()
-			else
-				MouseIconManager:setToDefaultIcon()
-			end
-			
-			Resize:updateHandleHighlight()
+		if FFlagStudioUIEditorRotateV2 then
+			Rotate:onMouseUp(location)
 		end
+		
+		if Resize:isOverAHandle() then
+			Resize:updateMouseIcon()
+		elseif FFlagStudioUIEditorRotateV2 and Rotate:isOverAHandle() then
+			Rotate:updateMouseIcon()
+		else
+			MouseIconManager:setToDefaultIcon()
+		end
+		
+		Resize:updateHandleHighlight()
 	end
 	
 	
@@ -369,9 +325,6 @@ local function onInputChanged(inputObject)
 				Select:selectAllObjectsInBounds(Rubberband:getBounds())
 			end
 			
-			if not FFlagStudioUIEditorV2Alpha then
-				Resize:hide()
-			end
 			return
 		end
 		
@@ -380,57 +333,51 @@ local function onInputChanged(inputObject)
 			return
 		end
 		
-		if FFlagStudioUIEditorV2Alpha then
-			if FFlagStudioUIEditorRotateV2 then
-				Rotate:onMouseMove(location)
+		if FFlagStudioUIEditorRotateV2 then
+			Rotate:onMouseMove(location)
+		end
+	
+		if FFlagStudioUIEditorRotateV2 then
+			-- Handle mouse icon updates. Resize takes precedence over rotate.
+			if Resize:isOverAHandle() and not Rotate:isRotating() then
+				Resize:updateMouseIcon()
+			elseif Rotate:isOverAHandle() then
+				Rotate:updateMouseIcon()
+			elseif not Rotate:isRotating() then
+				MouseIconManager:setToDefaultIcon()
 			end
-		
-			if FFlagStudioUIEditorRotateV2 then
-				-- Handle mouse icon updates. Resize takes precedence over rotate.
-				if Resize:isOverAHandle() and not Rotate:isRotating() then
-					Resize:updateMouseIcon()
-				elseif Rotate:isOverAHandle() then
-					Rotate:updateMouseIcon()
-				elseif not Rotate:isRotating() then
-					MouseIconManager:setToDefaultIcon()
-				end
-				
-				Resize:updateHandleHighlight(Rotate:isRotating())
-			else
-				if Resize:isOverAHandle() then
-					Resize:updateMouseIcon()
-				else
-					MouseIconManager:setToDefaultIcon()
-				end
-				
-				Resize:updateHandleHighlight(false)
-			end
+			
+			Resize:updateHandleHighlight(Rotate:isRotating())
 		else
-			Resize:DEPRECATED_highlightHandles(location)
+			if Resize:isOverAHandle() then
+				Resize:updateMouseIcon()
+			else
+				MouseIconManager:setToDefaultIcon()
+			end
+			
+			Resize:updateHandleHighlight(false)
 		end
 	end
 end
 
 local function onSelectionChanged()
+
 	SelectionManager:onSelectionChanged()
-	if not FFlagStudioUIEditorV2Alpha then
-		Resize:onSelectionChanged()
-		Resize:updatePosition()
-	end	
-	
-	if FFlagStudioUIEditorV2Alpha and not FFlagStudioUIEditorMoveToWorkspace then
-		if not Rubberband:isDragInProgress() then
-			Move:onSelectionChanged()
-			Resize:onSelectionChanged()
-			SizeBox:onSelectionChanged()
-			DistanceLinesManager:onSelectionChanged()
-			if FFlagStudioUIEditorRotateV2 then
-				Rotate:onSelectionChanged()
+
+	SnappingPointManager:generateSnappingLines()
+
+	if FFlagStudioIgnoreFrameUnderBillboardGuiAndSurfaceGui then
+
+		local m_selected = SelectionService:Get()
+
+		if m_selected[1] then
+			if (m_selected[1]:FindFirstAncestor("BillboardGui") or m_selected[1]:FindFirstAncestor("SurfaceGui")) then
+				Resize:hide()
+				SizeBox:setVisible(false)
+				DistanceLinesManager:setVisible(false)
 			end
 		end
 	end
-	
-	SnappingPointManager:generateSnappingLines()
 end
 
 local function onDragEnter(instances)
@@ -445,14 +392,19 @@ local function onDragEnter(instances)
 end
 
 local function onPluginOffInputBegan(inputObject)
+	if (not StarterGuiService.ShowDevelopmentGui or RunService:IsRunning()) then
+		return
+	end
 	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
 		local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
 		-- try to select GuiObject if it is visible
 		local guiObjects = Select:getGuiObjectsAtPoint(location)
-		if (table.getn(guiObjects) ~= 0) then 
+		if (table.getn(guiObjects) > 0) then 
 			local instances = {guiObjects[1]}
 			SelectionService:Set(instances)
 			SelectionManager:onSelectionChanged()
+			On()
+			Move:startDrag(location)
 		end
 	end 
 end
@@ -472,8 +424,11 @@ end
 local loaded = false
 local on = false
 
-local toolbar = plugin and plugin:CreateToolbar("RobloxUIEditor")
-local toolbarButton = toolbar and toolbar:CreateButton("RobloxUIEditor", "RobloxUIEditor", "")
+local toolbar
+local toolbarButton
+
+toolbar = plugin and plugin:CreateToolbar("RobloxUIEditor")
+toolbarButton = toolbar and toolbar:CreateButton("RobloxUIEditor", "RobloxUIEditor", "")
 
 function Off()
 	if not on then return end
@@ -481,13 +436,11 @@ function Off()
 	
 	Analytics:reportEvent("Disabled")
 	
-	if FFlagStudioUIEditorMoveToWorkspace then
-		childAddedEvent:disconnect()
-	end
 	inputBeganEvent:disconnect()
-	if FFlagStudioUIEditorV2Alpha then
-		pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
-	end
+	childAddedEvent:disconnect()
+	pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
+	Select:refreshPaintOrder()
+
 	inputChangedEvent:disconnect()
 	inputEndedEvent:disconnect()
 	selectionChangedEvent:disconnect()
@@ -496,32 +449,28 @@ function Off()
 	
 	selectedInstancesPropertyChangedEvent = SelectionManager:disconnectSelectionInstancesChanged(selectedInstancesPropertyChangedEvent)
 	
-	if not FFlagStudioUIEditorV2Alpha then
-		Resize:DEPRECATED_clearAdornments()
+	SelectionManager:disconnectFilteredSelectionChanged(DistanceLinesManager)
+	SelectionManager:disconnectFilteredSelectionChanged(Resize)
+	if FFlagStudioUIEditorRotateV2 then
+		SelectionManager:disconnectFilteredSelectionChanged(Rotate)
+	end
+	SelectionManager:disconnectFilteredSelectionChanged(SizeBox)
+	SelectionManager:disconnectFilteredSelectionChanged(Move)	
+	
+	SizeBox:Off()
+	DistanceLinesManager:Off()
+	MouseIconManager:Off()
+	Resize:Off()
+	if FFlagStudioUIEditorRotateV2 then
+		Rotate:Off()
+		RotationBox:Off()
 	end
 	
-	if FFlagStudioUIEditorV2Alpha then
-		if FFlagStudioUIEditorMoveToWorkspace then
-			SelectionManager:disconnectFilteredSelectionChanged(DistanceLinesManager)
-			SelectionManager:disconnectFilteredSelectionChanged(Resize)
-			if FFlagStudioUIEditorRotateV2 then
-				SelectionManager:disconnectFilteredSelectionChanged(Rotate)
-			end
-			SelectionManager:disconnectFilteredSelectionChanged(SizeBox)
-			SelectionManager:disconnectFilteredSelectionChanged(Move)
-		end		
-		
-		SizeBox:Off()
-		DistanceLinesManager:Off()
-		MouseIconManager:Off()
-		Resize:Off()
-		if FFlagStudioUIEditorRotateV2 then
-			Rotate:Off()
-			RotationBox:Off()
-		end
+    toolbarButton:SetActive(false)
+
+    if (FFlagStudioReactivateNormalToolAfterDeactivatingPlugin) then
+		plugin:Deactivate()
 	end
-	
-	toolbarButton:SetActive(false)
 end
 
 function On()
@@ -530,14 +479,11 @@ function On()
 	Analytics:reportEvent("Enabled")
 	
 	plugin:Activate(true)
-	toolbarButton:SetActive(true)
-	
-	if FFlagStudioUIEditorMoveToWorkspace then	
-		childAddedEvent = game.StarterGui.DescendantAdded:connect(onDescendantAddedToStarterGui)
-	end
-	if FFlagStudioUIEditorV2Alpha then
-		pluginOffInputBeganEvent:disconnect()
-	end
+    toolbarButton:SetActive(true)
+
+	childAddedEvent = game.StarterGui.DescendantAdded:connect(onDescendantAddedToStarterGui)
+	pluginOffInputBeganEvent:disconnect()
+
 	inputBeganEvent = UserInputService.InputBegan:connect(onInputBegan)	
 	inputChangedEvent = UserInputService.InputChanged:connect(onInputChanged)
 	inputEndedEvent = UserInputService.InputEnded:connect(onInputEnded)
@@ -551,60 +497,51 @@ function On()
 	redoEvent = ChangeHistoryService.OnRedo:connect(onRedo)
 	
 	SnappingPointManager:setThreshold(5)
-	
-	if not FFlagStudioUIEditorV2Alpha then
-		Resize:DEPRECATED_showResizeAdorns()
+
+	SizeBox:On()
+	DistanceLinesManager:On()
+	MouseIconManager:On(plugin:GetMouse())
+	Resize:On()
+	if FFlagStudioUIEditorRotateV2 then
+		Rotate:On()
+		RotationBox:On()
 	end
 	
-	if FFlagStudioUIEditorV2Alpha then
-		SizeBox:On()
-		DistanceLinesManager:On()
-		MouseIconManager:On(plugin:GetMouse())
-		Resize:On()
-		if FFlagStudioUIEditorRotateV2 then
-			Rotate:On()
-			RotationBox:On()
-		end
-		
-		if FFlagStudioUIEditorMoveToWorkspace then
-			SelectionManager:connectFilteredSelectionChanged(DistanceLinesManager)
-			SelectionManager:connectFilteredSelectionChanged(Resize)
-			if FFlagStudioUIEditorRotateV2 then
-				SelectionManager:connectFilteredSelectionChanged(Rotate)
-			end
-			SelectionManager:connectFilteredSelectionChanged(SizeBox)			
-			SelectionManager:connectFilteredSelectionChanged(Move)
-		end
-		
-		-- Must do onSelectionChanged, otherwise you can select an object before
-		-- the UI Editor is turned on and it won't be registered.	
-		onSelectionChanged()
-		
-		configureActionMediator()
+	SelectionManager:connectFilteredSelectionChanged(DistanceLinesManager)
+	SelectionManager:connectFilteredSelectionChanged(Resize)
+	if FFlagStudioUIEditorRotateV2 then
+		SelectionManager:connectFilteredSelectionChanged(Rotate)
 	end
+	SelectionManager:connectFilteredSelectionChanged(SizeBox)			
+	SelectionManager:connectFilteredSelectionChanged(Move)
 	
+	-- Must do onSelectionChanged, otherwise you can select an object before
+	-- the UI Editor is turned on and it won't be registered.	
+	onSelectionChanged()
+	
+	configureActionMediator()
+
 	on = true
 end
 
 if toolbarButton then
-	toolbarButton.Click:connect(function()
-		if on then
-			Off()
-		else
-			On()
-		end
-	end)
+    toolbarButton.Click:connect(function()
+        if on then
+            Off()
+        else
+            On()
+        end
+    end)
 end
 
-if FFlagStudioUIEditorV2Alpha then
-	pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
-end
+pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
+Select:refreshPaintOrder()
 
 loaded = true]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX5ACD5787EA2F44C4B34AEC5C865DCD65">
+		<Item class="ModuleScript" referent="RBX62BF8330288E480498634E00E218392D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rubberband</string>
@@ -619,9 +556,6 @@ local FFlag	= require(script.Parent.FFlag)
 
 -- Services
 local CoreGuiManager = require(script.Parent.CoreGuiManager)
-
--- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 
 local m_actionMediator = nil
 
@@ -662,9 +596,7 @@ function Rubberband:startRubberbandDrag(location)
 		createRubberband()
 	end
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onRubberbandBegan(location)
-	end
+	m_actionMediator:onRubberbandBegan(location)
 end
 
 function Rubberband:updateRubberband(location)
@@ -696,9 +628,7 @@ function Rubberband:finishRubberbandDrag()
 		m_rubberbandFrames = {}
 	end
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onRubberbandEnded()
-	end
+	m_actionMediator:onRubberbandEnded()
 end
 
 function Rubberband:isDragInProgress()
@@ -718,7 +648,7 @@ return Rubberband
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXE3775CA329BD4DED9E2BB9F3B4379511">
+		<Item class="ModuleScript" referent="RBX17A8415BD9804FD48F8E6FAFC8AD3BEF">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">CoreGuiManager</string>
@@ -779,7 +709,7 @@ return CoreGuiManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX61FBAC9A999C4C58B676CB0948615927">
+		<Item class="ModuleScript" referent="RBXA6B54AD99C594969B897991F1C9D0FED">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Utility</string>
@@ -948,7 +878,7 @@ return Utility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF71EA3D44458415183060E665AF22BD2">
+		<Item class="ModuleScript" referent="RBX9A20E2C132B64ACA9E59D4CFAC3A756B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DoubleClickDetector</string>
@@ -976,7 +906,7 @@ return DoubleClickDetector
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX7FAF7B82984445A5AEE3D8D628E88342">
+		<Item class="ModuleScript" referent="RBXBCBAD51BA1E441BB8451F0C0C9FBACB2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TextEditor</string>
@@ -992,9 +922,6 @@ local FFlag	= require(script.Parent.FFlag)
 
 -- Services
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
-
--- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 
 -- Variables
 local m_actionMediator = nil
@@ -1038,9 +965,7 @@ function TextEditor:finishEditingInstance()
 	
 	ChangeHistoryService:SetWaypoint("Text Changed")
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onTextEditorEnded()
-	end
+	m_actionMediator:onTextEditorEnded()
 end
 
 function TextEditor:isCurrentlyEditing()
@@ -1101,9 +1026,7 @@ function TextEditor:startEditingInstance(instance)
 		
 	end
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onTextEditorBegan()
-	end
+	m_actionMediator:onTextEditorBegan()
 end
 
 function TextEditor:setActionMediator(actionMediator)
@@ -1115,7 +1038,7 @@ return TextEditor
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX4D55E156FB3143D5B904E30ADF68ED91">
+		<Item class="ModuleScript" referent="RBX0C81771C22AE4888A547FE47B5ECEA7C">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Resize</string>
@@ -1147,30 +1070,30 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local UserInputService = game:GetService("UserInputService")
 
 -- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
+local FFlagStudioShowHandlesAfterTogglingViewButton = FFlag:isEnabled("StudioShowHandlesAfterTogglingViewButton")
 
 -- Constants
 local MINIMUM_SIZE = 1
 local HANDLE_POSITION_OFFSET = 3
 
-local HOVER_COLOR = FFlagStudioUIEditorV2Alpha and Color3.fromRGB(255, 255, 255) or Color3.new(1,1,1)
-local BASE_COLOR = FFlagStudioUIEditorV2Alpha and Color3.fromRGB(255, 255, 255) or Color3.new(0.8, 0.8, 0.8)
+local HOVER_COLOR = Color3.fromRGB(255, 255, 255) 
+local BASE_COLOR = Color3.fromRGB(255, 255, 255) 
 local HANDLE_BORDER_COLOR = Color3.fromRGB(136, 136, 136)
-local BOUNDING_BOX_COLOR = FFlagStudioUIEditorV2Alpha and Color3.fromRGB(222, 222, 222) or Color3.new(0, 0, 0)
+local BOUNDING_BOX_COLOR = Color3.fromRGB(222, 222, 222)
 local HANDLE_OFFSET = Vector2.new(1, 1)
-local HANDLE_SIZE = FFlagStudioUIEditorV2Alpha and 8 or 9
+local HANDLE_SIZE = 7
 
-local BOUNDING_BOX_WIDTH = FFlagStudioUIEditorV2Alpha and 1 or 3
+local BOUNDING_BOX_WIDTH = 1
 
 local HANDLE_NOTSET = Direction.NOT_SET
-local HANDLE_NW = FFlagStudioUIEditorV2Alpha and Direction.NW or 1
-local HANDLE_N  = FFlagStudioUIEditorV2Alpha and Direction.N  or 2
-local HANDLE_NE = FFlagStudioUIEditorV2Alpha and Direction.NE or 3
-local HANDLE_W  = FFlagStudioUIEditorV2Alpha and Direction.W  or 4
-local HANDLE_E  = FFlagStudioUIEditorV2Alpha and Direction.E  or 5
-local HANDLE_SW = FFlagStudioUIEditorV2Alpha and Direction.SW or 6
-local HANDLE_S  = FFlagStudioUIEditorV2Alpha and Direction.S  or 7
-local HANDLE_SE = FFlagStudioUIEditorV2Alpha and Direction.SE or 8
+local HANDLE_NW =  Direction.NW 
+local HANDLE_N  = Direction.N  
+local HANDLE_NE = Direction.NE 
+local HANDLE_W  = Direction.W  
+local HANDLE_E  = Direction.E  
+local HANDLE_SW = Direction.SW 
+local HANDLE_S  = Direction.S  
+local HANDLE_SE = Direction.SE 
 
 local DATA_INSTANCE = 1
 local DATA_ABSPOSITION = 2
@@ -1202,7 +1125,7 @@ local m_originalSelectionData = {}
 
 local m_currentlyDragging = false
 
-local m_isHidden = FFlagStudioUIEditorV2Alpha and true or false
+local m_isHidden = true
 
 local m_mouseOverHandle = HANDLE_NOTSET
 
@@ -1370,27 +1293,6 @@ local function createBoundingBox()
 	end
 end
 
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-local function createResizeHandle()
-	assert(not FFlagStudioUIEditorV2Alpha)
-	local handle = Instance.new("Frame")
-	handle.Size = UDim2.new(0, HANDLE_SIZE, 0, HANDLE_SIZE)
-	handle.AnchorPoint = Vector2.new(0.5, 0.5)
-	handle.BackgroundColor3 = BASE_COLOR
-	handle.ZIndex = 2
-	return handle
-end
-
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-local function createBoundingFrame()
-	assert(not FFlagStudioUIEditorV2Alpha)
-	local frame = Instance.new("Frame")
-	frame.AnchorPoint = Vector2.new(0.5, 0.5)
-	frame.BackgroundColor3 = BOUNDING_BOX_COLOR
-	frame.BorderSizePixel = 0
-	return frame
-end
-
 -- bool handleExist()
 local function handlesExist()
 	return #m_handles > 0
@@ -1445,78 +1347,37 @@ end
 
 -- void updateHandlePositionFromExtents(table(mt Extents2D) extents)
 local function updateHandlePositionFromExtents(extents)
-	if FFlagStudioUIEditorV2Alpha then
-		local size = extents.Size
-		local position = extents.TopLeft
+	local size = extents.Size
+	local position = extents.TopLeft
 
-		--[[
-			Update the m_handleParent so the resize handles and bounding box
-			frames are transformed.
-		--]] 
-		m_handleParent.Position = UDim2.new(0, position.X, 0, position.Y)
-		m_handleParent.Size = UDim2.new(0, size.X, 0, size.Y)
-		if (#m_filteredSelection == 1) then
-			-- Only one object is selected so we can rotate the bounding box and resize handles
-			m_handleParent.Rotation = m_filteredSelection[1].AbsoluteRotation	
-		else
-			m_handleParent.Rotation = 0
-		end
-	else		
-		local widenedExtents = Utility:cloneTable(extents)
-
-		widenedExtents:translate(-Vector2.new(HANDLE_POSITION_OFFSET, HANDLE_POSITION_OFFSET))
-		widenedExtents:resize((widenedExtents.Size + Vector2.new(HANDLE_POSITION_OFFSET, HANDLE_POSITION_OFFSET) * 2) - HANDLE_OFFSET)
-	
-		local size = widenedExtents.Size
-		local center = widenedExtents.Center
-		
-		for i = 1, 8 do
-			m_handles[i].Position = Utility:vector2ToUDim2Offset(getPositionFromHandle(widenedExtents, i))
-		end
-		 
-		m_boundingBox[1].Position = UDim2.new(0, center.X, 0, widenedExtents.Top)
-		m_boundingBox[1].Size = UDim2.new(0, size.X, 0, BOUNDING_BOX_WIDTH)
-	
-		m_boundingBox[2].Position = UDim2.new(0, center.X, 0, widenedExtents.Bottom)
-		m_boundingBox[2].Size = UDim2.new(0, size.X, 0, BOUNDING_BOX_WIDTH)
-	
-		m_boundingBox[3].Position = UDim2.new(0, widenedExtents.Left, 0, center.Y)
-		m_boundingBox[3].Size = UDim2.new(0, BOUNDING_BOX_WIDTH, 0, size.Y)
-	
-		m_boundingBox[4].Position = UDim2.new(0, widenedExtents.Right, 0, center.Y)
-		m_boundingBox[4].Size = UDim2.new(0, BOUNDING_BOX_WIDTH, 0, size.Y)
+	--[[
+		Update the m_handleParent so the resize handles and bounding box
+		frames are transformed.
+	--]] 
+	m_handleParent.Position = UDim2.new(0, position.X, 0, position.Y)
+	m_handleParent.Size = UDim2.new(0, size.X, 0, size.Y)
+	if (#m_filteredSelection == 1) then
+		-- Only one object is selected so we can rotate the bounding box and resize handles
+		m_handleParent.Rotation = m_filteredSelection[1].AbsoluteRotation	
+	else
+		m_handleParent.Rotation = 0
 	end
 end
 
 local function createResizeAdorns()
 	if (handlesExist()) then return end
-	
+
 	local container = CoreGuiManager:findOrCreateFolder("m_handles")
 	
 	if not m_screenGui then
 		m_screenGui = Instance.new("ScreenGui", container)
-		if FFlagStudioUIEditorV2Alpha then
-			-- I had forgotten to fast flag this in CLISTUDIO-14547
-			m_screenGui.Enabled = false
-		end
+		m_screenGui.Enabled = false
 	end
-	
-	if FFlagStudioUIEditorV2Alpha then
-		createHandleParent()
-		m_handleParent.Parent = m_screenGui
-		createResizeHandles()
-		createBoundingBox()
-	else
-		for i = 1, 8 do
-			table.insert(m_handles, createResizeHandle())
-			m_handles[i].Parent = m_screenGui
-		end
-		
-		for i = 1, 4 do
-			table.insert(m_boundingBox, createBoundingFrame())
-			m_boundingBox[i].Parent = m_screenGui
-		end
-	end	
+
+	createHandleParent()
+	m_handleParent.Parent = m_screenGui
+	createResizeHandles()
+	createBoundingBox()
 end
 
 local function deleteResizeAdorns()
@@ -1531,39 +1392,17 @@ local function deleteResizeAdorns()
 	m_handles = {}
 	m_boundingBox = {}
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_mouseOverHandle = HANDLE_NOTSET
-		
-		if m_handleParent then
-			m_handleParent:Destroy()
-			m_handleParent = nil
-		end
+	m_mouseOverHandle = HANDLE_NOTSET
 	
-		if m_screenGui then
-			m_screenGui:Destroy()
-			m_screenGui = nil
-		end		
+	if m_handleParent then
+		m_handleParent:Destroy()
+		m_handleParent = nil
 	end
-end
 
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-local function DEPRECATED_isPointInBox(location, upperLeft, size)
-	assert(not FFlagStudioUIEditorV2Alpha)
-	return location.x >= upperLeft.x and
-			location.y >= upperLeft.y and
-			location.x <= upperLeft.x + size.x and
-			location.y <= upperLeft.y + size.y
-end
-
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-local function DEPRECATED_getHandleOver(location)
-	assert(not FFlagStudioUIEditorV2Alpha)
-	for i = 1, #m_handles do
-		if (DEPRECATED_isPointInBox(location, m_handles[i].AbsolutePosition, m_handles[i].AbsoluteSize)) then
-			return m_handles[i]
-		end
-	end
-	return nil
+	if m_screenGui then
+		m_screenGui:Destroy()
+		m_screenGui = nil
+	end		
 end
 
 -- Returns true if one or more instances of the type GuiObject is selected.
@@ -1577,59 +1416,22 @@ end
 local Resize = {}
 
 function Resize:onSelectionChanged()
-	if FFlagStudioUIEditorV2Alpha then
-		m_filteredSelection = SelectionManager:getFilteredSelection()
-		if (not SelectionManager:hasFilteredSelection()) then
-			Resize:hide()
-		else
-			Resize:updatePosition()
-			Resize:show()
-		end
+	m_filteredSelection = SelectionManager:getFilteredSelection()
+	if (not SelectionManager:hasFilteredSelection()) then
+		Resize:hide()
 	else
-		if (not SelectionManager:hasSelection()) then
-			deleteResizeAdorns()
-		else
-			createResizeAdorns()
-			Resize:updatePosition()
-		end
-	end
-end
-
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-function Resize:DEPRECATED_clearAdornments()
-	assert(not FFlagStudioUIEditorV2Alpha)
-	deleteResizeAdorns()
-end
-
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-function Resize:DEPRECATED_showResizeAdorns()
-	assert(not FFlagStudioUIEditorV2Alpha)
-	if (SelectionManager:hasFilteredSelection()) then
-		createResizeAdorns()
 		Resize:updatePosition()
+		Resize:show()
 	end
 end
 
 -- void Resize:updatePosition()
 function Resize:updatePosition()
-	if FFlagStudioUIEditorV2Alpha then
-		if #m_filteredSelection == 0 then
-			return
-		end
-		
-		updateHandlePositionFromExtents(Extents2D:getExtentsFromGuis(m_filteredSelection))
-	else
-		if (not handlesExist() or m_isHidden) then return end
-		
-		local selection = SelectionManager:getFilteredSelection()
-		
-		if (#selection == 0) then
-			Resize:hide()
-			return
-		end
-		
-		updateHandlePositionFromExtents(Extents2D:getExtentsFromGuis(selection))
+	if #m_filteredSelection == 0 then
+		return
 	end
+	
+	updateHandlePositionFromExtents(Extents2D:getExtentsFromGuis(m_filteredSelection))
 end
 
 -- Returns true if the mouse is currently over one of the resize handles.
@@ -1641,12 +1443,6 @@ function Resize:isOverAHandle()
 	end
 
 	return m_mouseOverHandle ~= HANDLE_NOTSET 
-end
-
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-function Resize:DEPRECATED_isOverHandle(location)
-	assert(not FFlagStudioUIEditorV2Alpha)
-	return DEPRECATED_getHandleOver(location) ~= nil
 end
 
 -- Updates the handle highlight. The previously hovered handles highlight will be
@@ -1667,18 +1463,6 @@ function Resize:updateHandleHighlight(noHighlight)
 			m_handles[i].BackgroundColor3 = BASE_COLOR
 		end
 	end	
-end
-
--- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
-function Resize:DEPRECATED_highlightHandles(location)
-	assert(not FFlagStudioUIEditorV2Alpha)
-	for i = 1, #m_handles do
-		if (DEPRECATED_isPointInBox(location, m_handles[i].AbsolutePosition, m_handles[i].AbsoluteSize)) then
-			m_handles[i].BackgroundColor3 = HOVER_COLOR
-		else
-			m_handles[i].BackgroundColor3 = BASE_COLOR
-		end
-	end
 end
 
 function Resize:isDragInProgress()
@@ -1715,66 +1499,34 @@ function onlyShowHandle(handleToShow)
 end
 
 function Resize:startDrag(location)
-	if FFlagStudioUIEditorV2Alpha then
-		if not hasSelection() then
-			return
-		end
-	end	
+	if not hasSelection() then
+		return
+	end
 	
 	if m_currentlyDragging then return end
 	
 	m_currentlyDragging = true
 			
-	if FFlagStudioUIEditorV2Alpha then
-		m_draggingHandle = m_mouseOverHandle
-		onlyShowHandle(m_draggingHandle)
-				
-		for i = 1, #m_filteredSelection do
-			table.insert(m_originalSelectionData,
-						{
-							m_filteredSelection[i], 
-							m_filteredSelection[i].AbsolutePosition,
-							m_filteredSelection[i].Position,
-							m_filteredSelection[i].AbsoluteSize,
-							m_filteredSelection[i].Size
-						})
-		end
-	
-		m_originalExtents = Extents2D:getExtentsFromGuis(m_filteredSelection)
-		m_originalAspectRatio = m_originalExtents.Width / m_originalExtents.Height
-	else
-		--hide handles
-		for i = 1, #m_handles do
-			if (DEPRECATED_isPointInBox(location, m_handles[i].AbsolutePosition, m_handles[i].AbsoluteSize)) then
-				m_draggingHandle = i
-				m_handles[i].Visible = true
-			else
-				m_handles[i].Visible = false
-			end
-		end
-		
-		local selection = SelectionManager:getFilteredSelection()
-	
-		for i = 1, #selection do
-			table.insert(m_originalSelectionData,
-						{
-							selection[i], 
-							selection[i].AbsolutePosition,
-							selection[i].Position,
-							selection[i].AbsoluteSize,
-							selection[i].Size
-						})
-		end
-	
-		m_originalExtents = Extents2D:getExtentsFromGuis(SelectionManager:getFilteredSelection())
-		m_originalAspectRatio = m_originalExtents.Width / m_originalExtents.Height
-	end	
+	m_draggingHandle = m_mouseOverHandle
+	onlyShowHandle(m_draggingHandle)
+			
+	for i = 1, #m_filteredSelection do
+		table.insert(m_originalSelectionData,
+					{
+						m_filteredSelection[i], 
+						m_filteredSelection[i].AbsolutePosition,
+						m_filteredSelection[i].Position,
+						m_filteredSelection[i].AbsoluteSize,
+						m_filteredSelection[i].Size
+					})
+	end
+
+	m_originalExtents = Extents2D:getExtentsFromGuis(m_filteredSelection)
+	m_originalAspectRatio = m_originalExtents.Width / m_originalExtents.Height
 	
 	m_originalMousePosition = location
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onResizeBegan(location)
-	end
+	m_actionMediator:onResizeBegan(location)
 end
 
 --void retainAspectRatio(table(mt Extents2D)& extents, Vector2 mouseLocation, bool hasSnappedX, bool hasSnappedY)
@@ -1955,9 +1707,7 @@ function Resize:updateDrag(location)
 	
 	updateHandlePositionFromExtents(newExtents)
 
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onResizeChanged(location)
-	end
+	m_actionMediator:onResizeChanged(location)
 end
 
 --void Resize:finishDrag(Vector2 location)
@@ -1984,9 +1734,7 @@ function Resize:finishDrag(location)
 		m_handles[i].Visible = true
 	end
 	
-	if FFlagStudioUIEditorV2Alpha then
-		m_actionMediator:onResizeEnded(location)
-	end
+	m_actionMediator:onResizeEnded(location)
 end
 
 -- void Resize:hide()
@@ -2000,12 +1748,8 @@ end
 
 -- void Resize:show()
 function Resize:show()
-	if FFlagStudioUIEditorV2Alpha then
-		if not m_isHidden or #m_filteredSelection == 0 then
-			return
-		end
-	else
-		if not m_isHidden then return end
+	if not m_isHidden or #m_filteredSelection == 0 then
+		return
 	end
 	m_isHidden = false
 	if m_screenGui then
@@ -2024,6 +1768,9 @@ end
 
 -- Turns the Resize off and performs de-initialization. Called when the plugin is turned off.
 function Resize:Off()
+	if FFlagStudioShowHandlesAfterTogglingViewButton then
+		Resize:hide()
+	end
 	deleteResizeAdorns()
 end
 
@@ -2032,7 +1779,7 @@ return Resize
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXCF94E8826190455EB4FB9E86AFCDDF6B">
+		<Item class="ModuleScript" referent="RBX0257513367FA4169971E5C3DC32A57D8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Error</string>
@@ -2049,7 +1796,7 @@ return Error
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX1F2336B2481B4030B3499D5FFC14D8DC">
+		<Item class="ModuleScript" referent="RBXE42EEAEB2F604A4E83240A6DCB116817">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">AdornmentModule</string>
@@ -2063,9 +1810,6 @@ local FFlag					= require(script.Parent.FFlag)
 local SelectionManager		= require(script.Parent.SelectionManager)
 
 local Utility		= require(script.Parent.Utility)
-
--- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 
 local m_reparentInstance = nil
 local m_reparentOverlay = nil
@@ -2175,8 +1919,6 @@ local function createFrame()
 end
 
 local function selectionHandlesExist()
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	return #m_handles > 0
 end
 
@@ -2188,8 +1930,6 @@ end
 	[parentName]: object name of parent
 --]]
 local function createSelectionHandleParent(parentName)
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	m_handleParent = Instance.new("Frame")
 	m_handleParent.Name = parentName
 	
@@ -2207,8 +1947,6 @@ end
 	[action]: used to set object name of handles
 --]]
 local function createSelectionHandles(action)
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	-- Create each selection handle
 	for i = Direction.FIRST, Direction.LAST do
 		local handle = Instance.new("Frame")
@@ -2249,8 +1987,6 @@ end
 
 -- void createSelectionBoundingBox()
 local function createSelectionBoundingBox()
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	for i = 1, 4 do
 		local frame = Instance.new("Frame")
 		frame.AnchorPoint = selectionBBoxAnchors[i]
@@ -2355,8 +2091,6 @@ function AdornmentModule:hideOfferReparent()
 end
 
 function AdornmentModule:showSelection()
-	assert(FFlagStudioUIEditorV2Alpha)
-	
 	if m_screenGui and SelectionManager:hasFilteredSelection() then
 		if not m_screenGui.Enabled then
 			m_screenGui.Enabled = true
@@ -2365,8 +2099,6 @@ function AdornmentModule:showSelection()
 end
 
 function AdornmentModule:hideSelection()
-	assert(FFlagStudioUIEditorV2Alpha)
-	
 	if m_screenGui then
 		if m_screenGui.Enabled then
 			m_screenGui.Enabled = false
@@ -2375,8 +2107,6 @@ function AdornmentModule:hideSelection()
 end
 
 function AdornmentModule:updateSelectionPosition()
-	assert(FFlagStudioUIEditorV2Alpha)
-		
 	local filteredSelection = SelectionManager:getFilteredSelection()  
 	if m_screenGui == nil or #filteredSelection == 0 then
 		return
@@ -2386,8 +2116,6 @@ function AdornmentModule:updateSelectionPosition()
 end
 
 function AdornmentModule:createSelectionAdorns()
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	if (selectionHandlesExist()) then 
 		return 
 	end
@@ -2409,8 +2137,6 @@ function AdornmentModule:createSelectionAdorns()
 end
 
 function AdornmentModule:updateSelectionAdorns(extents)
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	local size = extents.Size
 	local position = extents.TopLeft
 	
@@ -2431,8 +2157,6 @@ function AdornmentModule:updateSelectionAdorns(extents)
 end
 
 function AdornmentModule:deleteSelectionAdorns()
-	assert(FFlagStudioUIEditorV2Alpha)
-
 	for i = 1, #m_handles do
 		m_handles[i]:Destroy()
 	end
@@ -2461,7 +2185,7 @@ return AdornmentModule
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX00ED0453CE434F828F54243266F49BF4">
+		<Item class="ModuleScript" referent="RBXCF2F748B175A4DCE964891F9CDC8DE00">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SelectionManager</string>
@@ -2480,9 +2204,7 @@ local Utility = require(script.Parent.Utility)
 local SelectionService = game:GetService("Selection")
 
 -- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
-local FFlagStudioUIEditorMoveToWorkspace = FFlag:isEnabled("StudioUIEditorMoveToWorkspace")
-local FFlagStudioUIEditorFixNoScreenGui = FFlag:isEnabled("StudioUIEditorFixNoScreenGui")
+local FFlagStudioFilterOutNonGuiObject = FFlag:isEnabled("StudioFilterOutNonGuiObject")
 
 --filtered selection
 --when selection changes register to changed event on new items
@@ -2552,7 +2274,6 @@ end
 --
 -- void SelectionManager:connectFilteredSelectionChanged(object listener)
 function SelectionManager:connectFilteredSelectionChanged(listener)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	table.insert(m_filteredSelectionChangedListeners, listener)
 end
 
@@ -2562,7 +2283,6 @@ end
 --
 -- void SelectionManager:disconnectFilteredSelectionChanged(object listener)
 function SelectionManager:disconnectFilteredSelectionChanged(listener)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	local success = Utility:removeItemFromTable(listener, m_filteredSelectionChangedListeners)
 	assert(success, "Could not remove listener from listeners")
 end
@@ -2571,7 +2291,6 @@ end
 --
 -- void SelectionManager:notifyFilteredSelectionChanged(object listener)
 local function notifyFilteredSelectionChanged()
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	for k, listener in ipairs(m_filteredSelectionChangedListeners) do
 		listener:onSelectionChanged()
 	end
@@ -2582,7 +2301,6 @@ end
 --
 -- bool areAllAncestorsGuiBase2dToStarterGui(GuiObject guiObject)
 local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
-	assert(FFlagStudioUIEditorFixNoScreenGui)
 	if not guiObject:isA("GuiObject") then
 		return
 	end
@@ -2607,7 +2325,6 @@ end
 --
 -- bool isDescendantOfScreenGui(Instance instance)
 local function isDescendantOfScreenGui(instance)
-	assert(FFlagStudioUIEditorFixNoScreenGui)
 	return instance:FindFirstAncestorOfClass("ScreenGui") ~= nil
 end
 
@@ -2617,46 +2334,19 @@ end
 --
 -- bool passesGuiFilter(Instance instance)
 local function passesGuiFilter(instance)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
-
-	if FFlagStudioUIEditorFixNoScreenGui then
-		-- Check that all the ancestors up to StarterGui are GuiBase2d. Otherwise
-		-- you can put a Frame under another Frame under a Part and it will show up
-		-- with the selection rectangle.
-		local purebredGui = areAllAncestorsGuiBase2dToStarterGui(instance)
-		-- Also make sure that at least one of the ancestors are a ScreenGui, otherwise
-		-- we can't show it in the 3D view.
-		local hasScreenGuiAncestor = isDescendantOfScreenGui(instance)
-		
-		return purebredGui and hasScreenGuiAncestor
-	else
-		if not instance:isA("GuiObject") or instance.Parent == nil then
-			return false
-		end
-		
-		-- Check that all the ancestors up to StarterGui are GuiBase2d. Otherwise
-		-- you can put a Frame under another Frame under a Part and it will show up
-		-- with the selection rectangle.
-		local purebredGui = false
-		local ancestor = instance.Parent
-		while ancestor ~= nil do
-			if ancestor == game.StarterGui then
-				purebredGui = true
-				break
-			elseif not ancestor:isA("GuiBase2d") then
-				break
-			end
-			
-			ancestor = ancestor.Parent 
-		end
-		
-		return purebredGui
-	end
+	-- Check that all the ancestors up to StarterGui are GuiBase2d. Otherwise
+	-- you can put a Frame under another Frame under a Part and it will show up
+	-- with the selection rectangle.
+	local purebredGui = areAllAncestorsGuiBase2dToStarterGui(instance)
+	-- Also make sure that at least one of the ancestors are a ScreenGui, otherwise
+	-- we can't show it in the 3D view.
+	local hasScreenGuiAncestor = isDescendantOfScreenGui(instance)
+	
+	return purebredGui and hasScreenGuiAncestor
 end
 
 -- void SelectionManager:onDescendantAddedToStarterGui(Instance child)
 function SelectionManager:onDescendantAddedToStarterGui(child)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	if passesGuiFilter(child) then
 		-- There is a new GUI object in StaterGui so it should
 		-- be added to the filtered selection.
@@ -2669,7 +2359,6 @@ end
 --
 -- void SelectionManager:onParentChanged(Instance instance)
 function SelectionManager:onParentChanged(instance)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	-- The GUI object may have been moved out of the StaterGui. We
 	-- need to update the filtered selection.
 	SelectionManager:onSelectionChanged()
@@ -2684,36 +2373,31 @@ function SelectionManager:onSelectionChanged()
 	m_filteredSelection = {}
 	m_filteredSelectionAncestors = {}
 	for i = 1, #m_rawSelection do
-		if FFlagStudioUIEditorV2Alpha then
-			if FFlagStudioUIEditorMoveToWorkspace then
-				local instance = m_rawSelection[i]
-				if passesGuiFilter(instance) then
-					table.insert(m_filteredSelection, instance)
-				end				
-			else
-				--[[
-					Checking for GuiObject instead of GuiBase2d because GuiBase2d does
-					not have a Position property.
-				--]]
-				if m_rawSelection[i]:IsA("GuiObject") then
-					table.insert(m_filteredSelection, m_rawSelection[i])
-				end
+		local instance = m_rawSelection[i]
+
+		if FFlagStudioFilterOutNonGuiObject then
+			if passesGuiFilter(instance) and instance:isA("GuiObject") then
+				table.insert(m_filteredSelection, instance)
 			end
 		else
-			if m_rawSelection[i]:IsA("GuiBase2d") then
-				table.insert(m_filteredSelection, m_rawSelection[i])
+			if passesGuiFilter(instance) then
+				table.insert(m_filteredSelection, instance)
 			end
 		end
 	end
 	
 	for i = 1, #m_filteredSelection do
 		if (not ancestorExistsInList(selection[i].Parent, selection)) then
-			table.insert(m_filteredSelectionAncestors, selection[i])
+			if FFlagStudioFilterOutNonGuiObject then
+				table.insert(m_filteredSelectionAncestors, m_filteredSelection[i])
+			else
+				table.insert(m_filteredSelectionAncestors, selection[i])
+			end
 		end
 	end
 	
 	connectChangedEvents()
-	if FFlagStudioUIEditorMoveToWorkspace and not m_suppressFilteredSelectionChanged then
+	if not m_suppressFilteredSelectionChanged then
 		notifyFilteredSelectionChanged()
 	end
 end
@@ -2740,7 +2424,7 @@ end
 
 function SelectionManager:setSelection(selection)
 	if (Utility:tablesAreEquivalent(m_rawSelection, selection)) then return false end
-	
+
 	SelectionService:Set(selection)
 	return true
 end
@@ -2754,7 +2438,6 @@ end
 -- 
 -- void SelectionManager:setSuppressFilteredSelectionChanged(bool suppress)
 function SelectionManager:setSuppressFilteredSelectionChanged(suppress)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	-- Don't do anything if the value didn't change
 	if m_suppressFilteredSelectionChanged == suppress then
 		return
@@ -2774,7 +2457,7 @@ return SelectionManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXED5539176196420EBA2B0F0EF18E42A9">
+		<Item class="ModuleScript" referent="RBXA9521314372B4B62BD3161CE4FB88D78">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Move</string>
@@ -2791,7 +2474,6 @@ local Extents2D				= require(script.Parent.Extents2D)
 local FFlag					= require(script.Parent.FFlag)
 local GlobalValues			= require(script.Parent.GlobalValues)
 local MouseIconManager		= require(script.Parent.MouseIconManager)
-local Resize				= require(script.Parent.Resize) -- TODO: Remove when removing FFlagStudioUIEditorV2Alpha
 local RotateUtility			= require(script.Parent.RotateUtility)
 local Select 				= require(script.Parent.Select)
 local SelectionManager		= require(script.Parent.SelectionManager)
@@ -2801,7 +2483,6 @@ local Utility				= require(script.Parent.Utility)
 local SnappingType 			= require(script.Parent.Enum.SnappingType)
 
 -- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
 
 -----------------------------------
@@ -2856,18 +2537,16 @@ local function DEPRECATED_dragElementsBy(vector)
 										
 			if (shouldUseScalePosition) then
 				local scale = vector / element.Parent.AbsoluteSize
-				if FFlagStudioUIEditorV2Alpha then
-					-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
-					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
-					-- to get accurate scale for position when dragging
-					if (element.Parent:IsA("ScrollingFrame")) then
-						-- bug in quantum gui, should use scrolling frame's parent size
-						if (element.Parent.CanvasSize.X.Scale >= 1) then
-							scale = Vector2.new(vector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
-						end
-						if (element.Parent.CanvasSize.Y.Scale >= 1) then
-							scale = Vector2.new(scale.X , vector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
-						end
+				-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
+				-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
+				-- to get accurate scale for position when dragging
+				if (element.Parent:IsA("ScrollingFrame")) then
+					-- bug in quantum gui, should use scrolling frame's parent size
+					if (element.Parent.CanvasSize.X.Scale >= 1) then
+						scale = Vector2.new(vector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
+					end
+					if (element.Parent.CanvasSize.Y.Scale >= 1) then
+						scale = Vector2.new(scale.X , vector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
 					end
 				end
 				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
@@ -2896,18 +2575,16 @@ local function dragElementsBy(vector)
 										
 			if (shouldUseScalePosition) then
 				local scale = rotatedVector / element.Parent.AbsoluteSize
-				if FFlagStudioUIEditorV2Alpha then
-					-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
-					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
-					-- to get accurate scale for position when dragging
-					if (element.Parent:IsA("ScrollingFrame")) then
-						-- bug in quantum gui, should use scrolling frame's parent size
-						if (element.Parent.CanvasSize.X.Scale >= 1) then
-							scale = Vector2.new(rotatedVector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
-						end
-						if (element.Parent.CanvasSize.Y.Scale >= 1) then
-							scale = Vector2.new(scale.X , rotatedVector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
-						end
+				-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
+				-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
+				-- to get accurate scale for position when dragging
+				if (element.Parent:IsA("ScrollingFrame")) then
+					-- bug in quantum gui, should use scrolling frame's parent size
+					if (element.Parent.CanvasSize.X.Scale >= 1) then
+						scale = Vector2.new(rotatedVector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
+					end
+					if (element.Parent.CanvasSize.Y.Scale >= 1) then
+						scale = Vector2.new(scale.X , rotatedVector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
 					end
 				end
 				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
@@ -3043,14 +2720,12 @@ function Move:startDrag(location)
 	
 	m_originalMousePosition = location
 	m_draggingStarted = true
-	m_currentlyDragging = false	
+	m_currentlyDragging = false
 	
 	m_originalExtents = Extents2D:getExtentsFromGuis(draggableElements)
-	if FFlagStudioUIEditorV2Alpha then
-		MouseIconManager:setToMoveIcon()
-		AdornmentModule:createSelectionAdorns()
-		m_actionMediator:onMoveBegan(location)
-	end
+	MouseIconManager:setToMoveIcon()
+	AdornmentModule:createSelectionAdorns()
+	m_actionMediator:onMoveBegan(location)
 end
 
 --void Move:finishDrag(Vector2 location)
@@ -3078,11 +2753,9 @@ function Move:finishDrag(location)
 	
 	m_currentlyDragging = false
 	
-	if FFlagStudioUIEditorV2Alpha then
-		MouseIconManager:setToDefaultIcon()
-		AdornmentModule:deleteSelectionAdorns()
-		m_actionMediator:onMoveEnded(location)
-	end
+	MouseIconManager:setToDefaultIcon()
+	AdornmentModule:deleteSelectionAdorns()
+	m_actionMediator:onMoveEnded(location)
 end
 
 -- void Move:updateDrag(Vector2 location)
@@ -3119,18 +2792,11 @@ function Move:updateDrag(location)
 	end
 	
 	local positionOffset
-	if FFlagStudioUIEditorV2Alpha then
-		-- The extents centers can be non-integers. Floor them so we always have a consistent
-		-- center. We had an issue with frames with an odd size would snap on different sides
-		-- of the "middle" of the screen depending on how you moved the mouse. See CLISTUDIO-14120
-		positionOffset = Utility:floorVector2(extents.TopLeft - m_originalExtents.TopLeft)
-	else
-		positionOffset = extents.TopLeft - m_originalExtents.TopLeft
-	end
+	-- The extents centers can be non-integers. Floor them so we always have a consistent
+	-- center. We had an issue with frames with an odd size would snap on different sides
+	-- of the "middle" of the screen depending on how you moved the mouse. See CLISTUDIO-14120
+	positionOffset = Utility:floorVector2(extents.TopLeft - m_originalExtents.TopLeft)
 	dragElements(m_originalMousePosition + positionOffset)
-	if not FFlagStudioUIEditorV2Alpha then
-		Resize:hide()
-	end
 	--[[ Commenting out reparenting functionality until we have better flow
 	if (#m_originalSelectionData == 1) then
 			
@@ -3142,10 +2808,8 @@ function Move:updateDrag(location)
 	end
 	--]]
 	
-	if FFlagStudioUIEditorV2Alpha then
-		AdornmentModule:updateSelectionAdorns(extents)
-		m_actionMediator:onMoveChanged(location)
-	end
+	AdornmentModule:updateSelectionAdorns(extents)
+	m_actionMediator:onMoveChanged(location)
 end
 
 -- void Move:onSelectionChanged()
@@ -3154,7 +2818,6 @@ end
 	move the cursor out of 3D view.
 --]]
 function Move:onSelectionChanged()
-	assert(FFlagStudioUIEditorV2Alpha)
 
 	if (not SelectionManager:hasFilteredSelection()) then
 		AdornmentModule:hideSelection()
@@ -3190,7 +2853,7 @@ return Move
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX63425353D37943419CCE219C27EFAF22">
+		<Item class="ModuleScript" referent="RBXCC8BA620A067496993D08408F0A2D5CD">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Rotate</string>
@@ -3578,7 +3241,7 @@ return Rotate
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX115A4990A7BE4943BA7EEEA5D573E840">
+		<Item class="ModuleScript" referent="RBXDC13C2852DFA4AF39C59FDA2EFAAD677">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Select</string>
@@ -3597,10 +3260,9 @@ local paintOrderMap = {} --map of child to position in order
 
 local BUFFER_SIZE_MINIMUM = 5
 
-
 local function doesPointExistInInstance(point, instance)
-	if not instance or not instance:IsA("GuiBase2d") then return false end	
-	
+	if not instance or not instance:IsA("GuiBase2d") then return false end
+
 	local sizeBuffer = instance.AbsoluteSize
 	sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
 	
@@ -3673,9 +3335,7 @@ local function refreshPaintOrder()
 				paintOrderMap[guiAncestors[i]] = #paintOrder
 			end
 		end
-	end
-	
-	
+	end	
 end
 
 local function getGuiObjectsAtPoint(point)
@@ -3720,7 +3380,6 @@ local function toggleItemsExistenceInTable(item, t)
 	return true
 end
 
-
 local Select = {}
 
 function Select:getGuiObjects()
@@ -3731,12 +3390,16 @@ function Select:getGuiObjectsAtPoint(point)
 	return getGuiObjectsAtPoint(point)
 end
 
+function Select:refreshPaintOrder()
+	refreshPaintOrder()
+end
+
 function Select:selectTopLevelItemAtPoint(point)
 	
 	local objectToSelect = getTopLevelItemAtPoint(point)
 	
 	local selection = SelectionManager:getRawSelection()
-	
+
 	local newSelection = {unpack(selection)}
 	
 	local analyticsSelectionReported = false
@@ -3830,7 +3493,7 @@ return Select
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX589ED6654FA7407EAE2EF5E1663D1425">
+		<Item class="ModuleScript" referent="RBX0872613077F2427EBCC4706F22750A8F">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">GlobalValues</string>
@@ -3887,7 +3550,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBXC30264941A24494F9761886D28AA2B41">
+		<Item class="Script" referent="RBX6F83DF4705DE468FB3A9F0FEED95578F">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -3929,7 +3592,7 @@ return GlobalValues
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXFA4AC5045A8146788F3A383BECDD4F02">
+		<Item class="ModuleScript" referent="RBX478E5FF2183F40069E38924AD6D427EE">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">InstanceInfo</string>
@@ -4035,7 +3698,7 @@ return InstanceInfo
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC60423D2B00F49908B7525023557F727">
+		<Item class="ModuleScript" referent="RBXAF285DBA3FD04C6BA17DED0C12C23C5D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SnappingPointManager</string>
@@ -4051,11 +3714,6 @@ local Set				= require(script.Parent.Set)
 local Utility			= require(script.Parent.Utility)
 
 local SnappingType 	= require(script.Parent.Enum.SnappingType)
-
--- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
--- StudioUIEditorFixSnappingLines depends on FFlagStudioUIEditorV2Alpha
-local FFlagStudioUIEditorFixSnappingLines = FFlagStudioUIEditorV2Alpha and FFlag:isEnabled("StudioUIEditorFixSnappingLines")
 
 --List of Generated Snapping Extents
 local gExt = {}
@@ -4113,42 +3771,26 @@ function SnappingPointManager:generateSnappingLines()
 	local filteredSelection = SelectionManager:getFilteredSelection()
 	if (#filteredSelection == 0) then return end
 	
-	if FFlagStudioUIEditorFixSnappingLines then		
-		local snappingInstances = Select:getGuiObjects()
-		--[[
-			When #snappingInstances == 0, we may not be able to return because
-			when the very first gui object is inserted, this function is called by 
-			onSelectionChanged() but the paintOrder of Select will not be updated
-			until onInputBegain() event.
-		--]]
-		if  #snappingInstances > 0 then
-			-- Remove currently selected items from table of all gui objects
-			-- Using set to prevent removal of the same item
-			local previouslyRemovedItems = {}
-			for i = 1, #filteredSelection do
-				removeInstanceAndDescendantsFromTableExcludingSet(filteredSelection[i], snappingInstances, previouslyRemovedItems)
-			end	
-			
-			for i = 1, #snappingInstances do
-				local ext = Extents2D:getExtentsFromGui(snappingInstances[i])
-				table.insert(gExt, ext)
-				gExtInstance[ext] = snappingInstances[i] 
-			end	
-		end
-	else	
-		local snappingInstances = Select:getGuiObjects()
-		if (#snappingInstances == 0) then return end
-		
+	local snappingInstances = Select:getGuiObjects()
+	--[[
+		When #snappingInstances == 0, we may not be able to return because
+		when the very first gui object is inserted, this function is called by 
+		onSelectionChanged() but the paintOrder of Select will not be updated
+		until onInputBegain() event.
+	--]]
+	if  #snappingInstances > 0 then
 		-- Remove currently selected items from table of all gui objects
 		-- Using set to prevent removal of the same item
 		local previouslyRemovedItems = {}
 		for i = 1, #filteredSelection do
 			removeInstanceAndDescendantsFromTableExcludingSet(filteredSelection[i], snappingInstances, previouslyRemovedItems)
-		end
+		end	
 		
 		for i = 1, #snappingInstances do
-			table.insert(gExt, Extents2D:getExtentsFromGui(snappingInstances[i]))
-		end
+			local ext = Extents2D:getExtentsFromGui(snappingInstances[i])
+			table.insert(gExt, ext)
+			gExtInstance[ext] = snappingInstances[i] 
+		end	
 	end
 	
 	-- Adding viewport
@@ -4196,7 +3838,7 @@ function SnappingPointManager:snapExtents(extents, snappingType)
 		end
 	end
 	
-	if FFlagStudioUIEditorFixSnappingLines and #gExtInstance > 0 then
+	if #gExtInstance > 0 then
 		local filteredSelection = SelectionManager:getFilteredSelection()
 
 		-- In the case of showing snapping lines, visibility is used to determine
@@ -4451,7 +4093,7 @@ return SnappingPointManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX167981388D7A4841A50E24C37373BB49">
+		<Item class="ModuleScript" referent="RBXD46AA92154B6428B9660DD3B6D268843">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Set</string>
@@ -4546,7 +4188,7 @@ return Set
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXD33099B832FF47B69A459AA762029A1A">
+		<Item class="ModuleScript" referent="RBXBBB9DF75A6844E7EA55585060EAF162B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">UniqueArrayMap</string>
@@ -4599,7 +4241,7 @@ return UniqueArrayMap
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC62E1EA28F5846B289E28150C7302521">
+		<Item class="ModuleScript" referent="RBX1C4D6729ACEB46B88EEF7A5B4E9B4536">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Analytics</string>
@@ -4620,7 +4262,7 @@ return Analytics
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX76D41F976F344818AD2FF9129C7C2DC7">
+		<Item class="ModuleScript" referent="RBX6AA60153F5EC4A4FA4FDE63791E1AC25">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Convert</string>
@@ -4662,7 +4304,7 @@ return Convert
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF88D82FBFD764C7A84150AE8B02A9D0C">
+		<Item class="ModuleScript" referent="RBX3815B1C1A8814B8C8066225B1B7FDA2A">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">FFlag</string>
@@ -4693,7 +4335,7 @@ return FFlag
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX39BB0566D3BD47FEA6F773EC9DEE2DEC">
+		<Item class="ModuleScript" referent="RBXDAA44EC2F9634A5F95CFCE57B8F12D68">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Extents2D</string>
@@ -4708,11 +4350,6 @@ local FFlag	= require(script.Parent.FFlag)
 local InstanceInfo = require(script.Parent.InstanceInfo)
 local Utility = require(script.Parent.Utility)
 local Select = require(script.Parent.Select)
-
--- Flags
-local FFlagStudioUIEditorV2Alpha = FFlag:isEnabled("StudioUIEditorV2Alpha")
--- StudioUIEditorFixSnappingLines depends on FFlagStudioUIEditorV2Alpha
-local FFlagStudioUIEditorFixSnappingLines = FFlagStudioUIEditorV2Alpha and FFlag:isEnabled("StudioUIEditorFixSnappingLines")
 
 -- Functions
 
@@ -4740,7 +4377,6 @@ end
 
 -- bool isPointVisible(Instance instance, Vector2 point, bool function canSeeThrough(Instance))
 local function isPointVisible(instance, point, canSeeThrough)
-	assert(FFlagStudioUIEditorFixSnappingLines)
 	if (not instance) then return true end
 	local guis = Select:getGuiObjectsAtPoint(point)
 		
@@ -4758,7 +4394,6 @@ end
 
 -- bool isPointVisible(Instance instance, Vector2 point)
 local function DEPRECATED_isPointVisible(instance, point)
-	assert(not FFlagStudioUIEditorFixSnappingLines)
 	if (not instance) then return true end
 	local guis = Select:getGuiObjectsAtPoint(point)
 		
@@ -4776,7 +4411,6 @@ end
 
 -- void refreshVisibility(table(mt Extents2D), Instance instance, bool function canSeeThrough(Instance))
 local function refreshVisibility(extents, instance, canSeeThrough)
-	assert(FFlagStudioUIEditorFixSnappingLines)
 	extents.hidden.TopLeftVisible = isPointVisible(instance, extents.hidden.TopLeft, canSeeThrough)
 	extents.hidden.TopRightVisible = isPointVisible(instance, extents.hidden.TopRight, canSeeThrough)
 	extents.hidden.BottomLeftVisible = isPointVisible(instance, extents.hidden.BottomLeft, canSeeThrough)
@@ -4786,7 +4420,6 @@ end
 
 -- void refreshVisibility(table(mt Extents2D), Instance instance)
 local function DEPRECATED_refreshVisibility(extents, instance)
-	assert(not FFlagStudioUIEditorFixSnappingLines)
 	extents.hidden.TopLeftVisible = DEPRECATED_isPointVisible(instance, extents.hidden.TopLeft)
 	extents.hidden.TopRightVisible = DEPRECATED_isPointVisible(instance, extents.hidden.TopRight)
 	extents.hidden.BottomLeftVisible = DEPRECATED_isPointVisible(instance, extents.hidden.BottomLeft)
@@ -4857,14 +4490,10 @@ function Extents2D.new(...)
 	extents.hidden.BottomRight = Vector2.new(0,0)
 	
 	set(extents, ...)
-	if FFlagStudioUIEditorFixSnappingLines then
-		local function canSeeThrough(instance) 
-			return InstanceInfo:canSeeThrough(instance)
-		end
-		refreshVisibility(extents, nil, canSeeThrough)
-	else
-		DEPRECATED_refreshVisibility(extents)		
+	local function canSeeThrough(instance) 
+		return InstanceInfo:canSeeThrough(instance)
 	end
+	refreshVisibility(extents, nil, canSeeThrough)
 	
 	function extents.mt.__index(t, k)
 		if k == "extend" then
@@ -4971,10 +4600,6 @@ function Extents2D:getExtentsFromGui(guiObject)
 	local extents = Extents2D.new()
 	set(extents, guiObject.AbsolutePosition, guiObject.AbsolutePosition + guiObject.AbsoluteSize)
 	
-	if not FFlagStudioUIEditorFixSnappingLines then
-	    DEPRECATED_refreshVisibility(extents, guiObject)
-	end
-	
 	return extents
 end
 
@@ -4985,15 +4610,9 @@ function Extents2D:getExtentsFromGuis(guiObjects)
 	local extents = Extents2D.new()
 	set(extents, guiObjects[1].AbsolutePosition, guiObjects[1].AbsolutePosition + guiObjects[1].AbsoluteSize)
 	
-	if FFlagStudioUIEditorV2Alpha then
-		for i = 2, #guiObjects do
-			extend(extents, guiObjects[i].AbsolutePosition, guiObjects[i].AbsolutePosition + guiObjects[i].AbsoluteSize)
-		end		
-	else
-		for i = 2, #guiObjects do
-			extend(extents, guiObjects[2].AbsolutePosition, guiObjects[2].AbsolutePosition + guiObjects[2].AbsoluteSize)
-		end	
-	end
+	for i = 2, #guiObjects do
+		extend(extents, guiObjects[i].AbsolutePosition, guiObjects[i].AbsolutePosition + guiObjects[i].AbsoluteSize)
+	end		
 	
 	return extents
 end
@@ -5003,12 +4622,12 @@ return Extents2D
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX24FDC2830E5049C2A797AB1413BC070A">
+		<Item class="Folder" referent="RBX4790AB8E7CB243A0908F3D254E0DB8AB">
 			<Properties>
 				<string name="Name">Enum</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX875568D7A8ED439B991910B06EE22183">
+			<Item class="ModuleScript" referent="RBXF6DE4BD3977F4B858E614DE6C17ECD97">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SnappingType</string>
@@ -5055,7 +4674,7 @@ return SnappingType
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9CE2E10A7D7C47A98FBB9ADDEDB48161">
+			<Item class="ModuleScript" referent="RBX0378B382BE9743F5B83B2B510F09A34A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Axis</string>
@@ -5072,7 +4691,7 @@ return Axis
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX8D9B5153717E48A893DDF619ED25FE58">
+			<Item class="ModuleScript" referent="RBXB9F733EDFA9A45DA8BC0DDF66E64A536">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Direction</string>
@@ -5178,7 +4797,7 @@ return Direction]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX35E643E4B7514352939B03C88EB0C97B">
+		<Item class="ModuleScript" referent="RBXF09659D0A8DB4B5E99672447F9FE6EB3">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Log</string>
@@ -5210,7 +4829,7 @@ return Log]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB8851092AFC64F4E976066F9EE7B12BE">
+		<Item class="ModuleScript" referent="RBX4A6CC8F798B24FAFB24C403482D22010">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">SizeBox</string>
@@ -5325,7 +4944,7 @@ return SizeBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXF44B447B93C449C6BC5B5F8BA65BEA94">
+		<Item class="ModuleScript" referent="RBXEB56CC14D1FF407C8D164D46287E5B9E">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLinesManager</string>
@@ -5438,7 +5057,7 @@ return DistanceLinesManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX9AED839D62514A2CAA68E831FAFFCD64">
+		<Item class="ModuleScript" referent="RBXC74A1FF531464257A42EB92ABBDD5419">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RectUtility</string>
@@ -5492,12 +5111,12 @@ return RectUtility
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX38A876CA837D4A8E86A5BE3DB6C11182">
+		<Item class="Folder" referent="RBXA51FE40F8B87448DB5187AFA51E2D6AE">
 			<Properties>
 				<string name="Name">Tests</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBXE41CE4CA09F04DFDAF014CA24706865F">
+			<Item class="Script" referent="RBXE29168B7C6D54C71A96C083AAEB9D537">
 				<Properties>
 					<bool name="Disabled">true</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -5571,7 +5190,7 @@ rectUtilityTestSuite()]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3C71633DABE842589AAEAC43F2C795FB">
+		<Item class="ModuleScript" referent="RBXE9C31627E17C40429E3E4DEB8D602D15">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">DistanceLine</string>
@@ -5931,7 +5550,7 @@ return DistanceLine
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXBA547D3BB2E3411C813CD5560008E2F4">
+		<Item class="ModuleScript" referent="RBXBF49D01961C44BBC933404484C99585B">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MouseIconManager</string>
@@ -6076,7 +5695,7 @@ return MouseIconManager
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX93F52FA0B4394AB796EA2ED11687ACDF">
+		<Item class="ModuleScript" referent="RBXDCBD142E16DB46D49B388BAF29B73B67">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ValueBox</string>
@@ -6209,7 +5828,7 @@ return ValueBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6E134273CD1A4F8DB681A0E1A98F662F">
+		<Item class="ModuleScript" referent="RBXC3CFE412211946B893E057DF079EFE26">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RotationBox</string>
@@ -6260,7 +5879,7 @@ return RotationBox
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB99EC5506CA64A9790AF2283FB430F0C">
+		<Item class="ModuleScript" referent="RBXD0EA75DDBF9B44308123C2D1A8DE5B3D">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">ActionMediator</string>
@@ -6288,7 +5907,6 @@ local FFlag	= require(script.Parent.FFlag)
 
 -- Flags
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-local FFlagStudioUIEditorMoveToWorkspace = FFlag:isEnabled("StudioUIEditorMoveToWorkspace")
 
 -- Variables
 local m_move = nil
@@ -6379,9 +5997,7 @@ function ActionMediator:onRubberbandBegan(location)
 	-- they might flicker on and off. Show them again when done with the selection.
 	m_sizeBox:setVisible(false)
 	m_distanceLinesManager:setVisible(false)
-	if FFlagStudioUIEditorMoveToWorkspace then
-		m_selectionManager:setSuppressFilteredSelectionChanged(true)
-	end
+	m_selectionManager:setSuppressFilteredSelectionChanged(true)
 end
 
 -- void ActionMediator:onRubberbandEnded()
@@ -6389,16 +6005,7 @@ function ActionMediator:onRubberbandEnded()
 	-- The selection changes were suppressed while the rubberband was active. The
 	-- listeners need to be notified of the selection changes during the rubberband
 	-- selection.
-	if FFlagStudioUIEditorMoveToWorkspace then
-		m_selectionManager:setSuppressFilteredSelectionChanged(false)
-	else
-		m_distanceLinesManager:onSelectionChanged()	
-		m_resize:onSelectionChanged()
-		if FFlagStudioUIEditorRotateV2 then
-			m_rotate:onSelectionChanged()
-		end
-		m_sizeBox:onSelectionChanged()
-	end
+	m_selectionManager:setSuppressFilteredSelectionChanged(false)
 end
 
 -- void ActionMediator:onTextEditorBegan()
@@ -6457,7 +6064,6 @@ end
 
 -- For setting the SelectionManager module
 function ActionMediator:setSelectionManager(selectionManager)
-	assert(FFlagStudioUIEditorMoveToWorkspace)
 	m_selectionManager = selectionManager	
 end
 
@@ -6466,7 +6072,7 @@ return ActionMediator
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXA9BF74219B6E49A19D9F7FC0C322267C">
+		<Item class="ModuleScript" referent="RBXFD1E0AFCC67049EDACC59361F1FF5937">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">RotateUtility</string>

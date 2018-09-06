@@ -5579,8 +5579,8 @@ end
 local function main()
 	plugin.Name = "Toolbox"
 
-	local toolbar = plugin:CreateToolbar("Toolbox")
-	local toggleVisibilityButton = toolbar:CreateButton("Toolbox", "Insert items from the toolbox", "rbxasset://textures/StudioToolbox/ToolboxIcon.png")
+	local toolbar = plugin:CreateToolbar("luaToolboxToolbar")
+	local toggleVisibilityButton = toolbar:CreateButton("luaToolboxButton", "Insert items from the toolbox", "rbxasset://textures/StudioToolbox/ToolboxIcon.png")
 
 	local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 0, 0, kMinWidth, kMinHeight)
 	local pluginGui = plugin:CreateDockWidgetPluginGui("Toolbox_PluginGui", dockWidgetPluginGuiInfo)
