@@ -5,8 +5,6 @@
 ]]
 
 --[[ FFLAG VALUES ]]
-
-local FFlagSetGuiInsetInLoadingScript = settings():GetFFlag("SetGuiInsetInLoadingScript3")
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 
 --[[ END OF FFLAG VALUES ]]
@@ -1444,7 +1442,7 @@ TopBar:UpdateBackgroundTransparency()
 LeftMenubar:SetDock(TopBar:GetInstance())
 RightMenubar:SetDock(TopBar:GetInstance())
 
-if not isTenFootInterface and not FFlagSetGuiInsetInLoadingScript then
+if not isTenFootInterface then
 	Util.SetGUIInsetBounds(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
 end
 
@@ -1475,7 +1473,7 @@ local function topbarEnabledChanged()
 	if VRService.VREnabled then
 		Util.SetGUIInsetBounds(0, 0, 0, 0)
 	else
-		if not isTenFootInterface and not FFlagSetGuiInsetInLoadingScript then
+		if not isTenFootInterface then
 			Util.SetGUIInsetBounds(0, TopbarConstants.TOPBAR_THICKNESS, 0, 0)
 		end
 	end

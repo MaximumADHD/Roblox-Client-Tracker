@@ -1732,8 +1732,8 @@ Class Workspace : Model
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [deprecated]
 	Event Workspace.PhysicsAnalyzerIssuesFound(int count) [PluginSecurity]
 Class PackageLink : Instance [notCreatable]
-	Property int PackageLink.PackageId [readonly]
-	Property int PackageLink.VersionId [readonly]
+	Property Content PackageLink.PackageId [readonly]
+	Property int64 PackageLink.VersionId [readonly]
 Class Pages : Instance
 	Property bool Pages.IsFinished [readonly]
 	Function Array Pages:GetCurrentPage()
@@ -3306,6 +3306,12 @@ Enum HorizontalAlignment
 	EnumItem HorizontalAlignment.Center : 0
 	EnumItem HorizontalAlignment.Left : 1
 	EnumItem HorizontalAlignment.Right : 2
+Enum HttpCachePolicy
+	EnumItem HttpCachePolicy.None : 0
+	EnumItem HttpCachePolicy.Full : 1
+	EnumItem HttpCachePolicy.DataOnly : 2
+	EnumItem HttpCachePolicy.Default : 3
+	EnumItem HttpCachePolicy.InternalRedirectRefresh : 4
 Enum HttpContentType
 	EnumItem HttpContentType.ApplicationJson : 0
 	EnumItem HttpContentType.ApplicationXml : 1

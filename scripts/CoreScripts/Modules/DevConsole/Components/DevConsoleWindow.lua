@@ -160,6 +160,7 @@ function DevConsoleWindow:render()
 			BackgroundColor3 = Color3.new(0, 0, 0),
 			Transparency = Constants.MainWindowInit.Transparency,
 			Active = true,
+			AutoLocalize = false,
 			BorderColor3 = Constants.Color.BaseGray,
 
 			[Roact.Ref] = self.ref,
@@ -204,6 +205,7 @@ function DevConsoleWindow:render()
 			BorderColor3 = Constants.Color.BaseGray,
 			BorderSizePixel = borderSizePixel,
 			Active = true,
+			AutoLocalize = false,
 
 			[Roact.Ref] = self.ref,
 		}, {

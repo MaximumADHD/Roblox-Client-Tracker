@@ -29,6 +29,7 @@ function User.mock()
 	self.isFriend = false
 	self.lastLocation = nil
 	self.name = "USER NAME"
+	self.universeId = nil
 	self.placeId = nil
 	self.rootPlaceId = nil
 	self.gameInstanceId = nil
@@ -51,6 +52,7 @@ function User.fromData(id, name, isFriend)
 	self.isFriend = isFriend
 	self.lastLocation = nil
 	self.name = name
+	self.universeId = nil
 	self.placeId = nil
 	self.rootPlaceId = nil
 	self.gameInstanceId = nil
