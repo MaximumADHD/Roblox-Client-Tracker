@@ -2203,9 +2203,6 @@ local Utility = require(script.Parent.Utility)
 -- Services
 local SelectionService = game:GetService("Selection")
 
--- Flags
-local FFlagStudioFilterOutNonGuiObject = FFlag:isEnabled("StudioFilterOutNonGuiObject")
-
 --filtered selection
 --when selection changes register to changed event on new items
 
@@ -2375,24 +2372,14 @@ function SelectionManager:onSelectionChanged()
 	for i = 1, #m_rawSelection do
 		local instance = m_rawSelection[i]
 
-		if FFlagStudioFilterOutNonGuiObject then
-			if passesGuiFilter(instance) and instance:isA("GuiObject") then
-				table.insert(m_filteredSelection, instance)
-			end
-		else
-			if passesGuiFilter(instance) then
-				table.insert(m_filteredSelection, instance)
-			end
-		end
+        if passesGuiFilter(instance) and instance:isA("GuiObject") then
+            table.insert(m_filteredSelection, instance)
+        end
 	end
 	
 	for i = 1, #m_filteredSelection do
 		if (not ancestorExistsInList(selection[i].Parent, selection)) then
-			if FFlagStudioFilterOutNonGuiObject then
-				table.insert(m_filteredSelectionAncestors, m_filteredSelection[i])
-			else
-				table.insert(m_filteredSelectionAncestors, selection[i])
-			end
+            table.insert(m_filteredSelectionAncestors, m_filteredSelection[i])
 		end
 	end
 	

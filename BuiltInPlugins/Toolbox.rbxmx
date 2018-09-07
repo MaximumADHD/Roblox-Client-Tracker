@@ -5496,7 +5496,7 @@ return loggerMiddleware
 					<ProtectedString name="Source"><![CDATA[local function isToolboxInLuaWidgetEnabled()
 	local isEnabled = false
 	local success, flagOn = pcall(function ()
-		return settings():GetFFlag("StudioToolboxInLuaWidget")
+		return settings():GetFFlag("StudioLuaWidgetToolbox")
 	end)
 	if (success) then
 		isEnabled = flagOn
