@@ -6,6 +6,11 @@ RBX
 		{
 			Item
 		}
+		Studio
+		{
+			ApplicationActivityTrackerHandler
+			TimerEventHandler
+		}
 		GoogleAnalyticsConfiguration
 	}
 	AutoMemPool
@@ -60,6 +65,7 @@ RBX
 	DataModel
 	{
 		GenericJob
+		SerializationException
 	}
 	DS
 	{
@@ -145,6 +151,7 @@ RBX
 		Renderable
 		RenderEntity
 		RenderNode
+		RenderSettingsForTest
 		RenderView
 		Resource
 		SceneUpdater
@@ -245,12 +252,8 @@ RBX
 				InstanceRemovalItem
 				RegionRemovalItem
 			}
-			BadAppCheckerJob
 			ClientCapacityUpdateItem
 			ClientStatsItem
-			CsrJob
-			MemoryCheckerCheckerJob
-			MemoryCheckerJob
 			RequestCharacterItem
 		}
 		ConcurrentRakPeer
@@ -273,25 +276,18 @@ RBX
 			{
 				StreamDataItem
 			}
-			AacResponseItem
 			ChangePropertyItem
-			CsrItem
 			DeleteInstanceItem
 			EventInvocationItem
-			HashItem
 			IdResponseItem
 			JoinDataItem
 			MarkerItem
-			ModuleScanReportItem
-			NetPmcResponseItem
 			NewInstanceItem
 			PingBackItem
 			PingItem
 			PingJob
 			ProcessPacketsJob
-			RandHashItem
 			ReferencePropertyChangedItem
-			RockyItem
 			SendClusterJob
 			SendDataJob
 			SendStatsJob
@@ -409,6 +405,10 @@ RBX
 		Workspace
 		YieldFunctionDescriptor
 	}
+	ScriptAnalyzer
+	{
+		AutocompleteResult
+	}
 	Scripting
 	{
 		DebuggerBreakpoint
@@ -419,13 +419,39 @@ RBX
 		StepOutBreakpoint
 		StepOverBreakpoint
 	}
-	Security
+	ScriptParser
 	{
-		Csr
-		CsrBm
-		CsrHkTp
-		CsrThTp
-		Pe
+		AstExpr
+		AstExprBinary
+		AstExprCall
+		AstExprConstantBool
+		AstExprConstantNil
+		AstExprConstantNumber
+		AstExprConstantString
+		AstExprFunction
+		AstExprGlobal
+		AstExprGroup
+		AstExprIndexExpr
+		AstExprIndexName
+		AstExprLocal
+		AstExprTable
+		AstExprUnary
+		AstExprVarargs
+		AstNode
+		AstStat
+		AstStatAssign
+		AstStatBlock
+		AstStatBreak
+		AstStatExpr
+		AstStatFor
+		AstStatForIn
+		AstStatIf
+		AstStatLocal
+		AstStatRepeat
+		AstStatReturn
+		AstStatWhile
+		AstVisitor
+		Error
 	}
 	Solver
 	{
@@ -525,6 +551,9 @@ RBX
 	AdvTranslateTool
 	AllCanSelectCommand
 	AnalyticsService
+	AnalyzerPassWarnGlobalLocal
+	AnalyzerPassWarnMultiLineStatement
+	AnalyzerPassWarnUnknownType
 	AnchorJoint
 	AnchorTool
 	AnchorVerb
@@ -536,6 +565,7 @@ RBX
 	ArrowToolBase
 	Assembly
 	AssemblyStage
+	AssetFetchMediator
 	AssetService
 	AsyncHttpQueue
 	Attachment
@@ -581,6 +611,7 @@ RBX
 	BodyThrust
 	BodyVelocity
 	BoolPropertyVerb
+	BoundVerb
 	BoxHandleAdornment
 	BoxSelectCommand
 	BSPMesh
@@ -655,6 +686,8 @@ RBX
 	CSGDictionaryService
 	CSGMesh
 	CSGMeshFactory
+	CSGMeshFactorySgCore
+	CSGMeshSgCore
 	CustomEvent
 	CustomEventReceiver
 	CustomParticleEmitter
@@ -746,6 +779,8 @@ RBX
 	GlueTool
 	GrabTool
 	GroundStage
+	GroupDragTool
+	GroupDropTool
 	GroupService
 	GuiBase
 	GuiBase2d
@@ -810,7 +845,6 @@ RBX
 	IndexBox
 	IndexedMesh
 	IndexedTree
-	initialization_error
 	InletTool
 	InputObject
 	InsertService
@@ -821,6 +855,7 @@ RBX
 	ISelectionBase
 	IStage
 	IStepped
+	IStudioPluginHost
 	IValue
 	IVideoCapture
 	IWorldStage
@@ -883,6 +918,7 @@ RBX
 	MeshContentProvider
 	MeshPart
 	Message
+	MockMarketplaceApiClient
 	ModelInstance
 	ModelTool
 	Motor
@@ -911,7 +947,6 @@ RBX
 	NonReplicatedCSGDictionaryService
 	NormalBreakConnector
 	NotificationService
-	NotifyAliveJob
 	ObjectValue
 	OnDemandInstance
 	OrderedDataStore
@@ -923,6 +958,7 @@ RBX
 	PartAdornment
 	PartByLocalCharacter
 	PartDragTool
+	PartDropTool
 	PartOperation
 	PartOperationAsset
 	PartTool
@@ -945,6 +981,7 @@ RBX
 	Plugin
 	PluginAction
 	PluginGui
+	PluginGuiService
 	PluginManager
 	PluginMouse
 	Point
@@ -1037,6 +1074,7 @@ RBX
 	SnapJoint
 	SnapSelectionVerb
 	SolidModelContentProvider
+	SoundJobStudio
 	SpanningEdge
 	SpanningNode
 	SpanningTree
@@ -1132,8 +1170,6 @@ RBX
 	VelocityMotor
 	Verb
 	VerbContainer
-	VerifyConnectionJob
-	VideoRecord
 	ViewBase
 	VirtualHardwareDevice
 	VirtualInputManager
@@ -1144,6 +1180,7 @@ RBX
 	WedgePoly
 	Weld
 	WeldAutoJointSurfacePair
+	WeldConstraintTool
 	WeldJoint
 	WeldTool
 	Widget
