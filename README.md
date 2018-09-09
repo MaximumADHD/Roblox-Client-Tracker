@@ -50,7 +50,7 @@ Decompressed Size
 ```
 
 These files are fetched from Roblox's servers via:
-`http://setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`
+`http://setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`<br/>
 (or `https://s3.amazonaws.com/setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`)
 
 ## version.txt
