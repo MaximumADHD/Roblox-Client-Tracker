@@ -79,8 +79,9 @@
           width="32"/>
       </Group>
       <Group name="Insert">
-          <addaction fflag="!DebugStudioReplaceOldToolboxWithNew" name="toggleToolboxDockAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-          <addaction fflag="DebugStudioReplaceOldToolboxWithNew" name="luaToolboxAction" type="plugin" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+          <addaction fflag="!StudioLuaWidgetToolbox" name="DEPRECATED_toggleToolboxDockAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+          <addaction fflag="StudioLuaWidgetToolbox" name="luaToolboxAction" type="plugin" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+          <addaction fflag="DebugStudioReenableDeprecatedWebviewToolbox" name="DEPRECATED_toggleToolboxDockAction" text="Deprecated Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
           <addseparator visible="false"/>
           <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Part" tooltip="Place a part into the workspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
               <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
@@ -370,8 +371,8 @@
         <addaction name="togglePropertiesDockAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Properties.png" tooltip="View properties of objects" height="32" width="32"/>
         <addseparator visible="false"/>
         <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View Game Explorer" height="32" width="32"/>
-        <addaction fflag="!DebugStudioReplaceOldToolboxWithNew" name="toggleToolboxDockAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-        <addaction fflag="DebugStudioReplaceOldToolboxWithNew" name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
+        <addaction fflag="!StudioLuaWidgetToolbox" name="DEPRECATED_toggleToolboxDockAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+        <addaction fflag="StudioLuaWidgetToolbox" name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
         <addaction name="toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="View context-sensitive help" height="32" width="32"/>
         <addaction fflag="StudioShowTutorialsByDefault" name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="View Tutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="View Lua API objects that can be accessed through scripting" height="32" width="32"/>
@@ -412,7 +413,7 @@
         <addaction type="radio" name="gridSizeToSixteenAction" action="gridSizeToSixteenAction" tooltip="Resize grid to sixteen studs" style="textbesideicon" text="16 Studs" />
         <addseparator visible="false"/>
         <addaction name="toggle3DGridAction" style="textundericon" text="Show Grid" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid.png" tooltip="Display a 3D grid on the y=0 plane" height="32" width="32"/>
-        <addaction fflag ="GridMaterial" name="toggleGridMaterialAction" style="textundericon" text="Grid Material" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid2.png" tooltip="Display grid material on Parts" height="32" width="32"/>
+        <addaction name="toggleGridMaterialAction" style="textundericon" text="Grid Material" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid2.png" tooltip="Display grid material on Parts" height="32" width="32"/>
         <MenuButton name="switchWindowsMenu" text="Switch Windows" icon=":/RibbonBar/images/RibbonIcons/View/Switch-Windows.png" tooltip="Switch to a different Studio window" ischeckable="false" width="32" height="32"/>
       </Group>
       <Group name="Stats">
@@ -530,9 +531,9 @@
       </Group>
       <Group name="View">
         <addaction name="expandAllDiffAction" text="Expand All" style="textundericon" tooltip="Expand all diff results"
-          icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32" />
+          icon=":/RibbonBar/images/RibbonIcons/Diff/ExpandAll.png" width="32" height="32" />
         <addaction name="collapseAllDiffAction" text="Collapse All" style="textundericon" tooltip="Collapse all diff results"
-          icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32" />
+          icon=":/RibbonBar/images/RibbonIcons/Diff/CollapseAll.png" width="32" height="32" />
       </Group>
     </TabPage>
   </RibbonBar>
