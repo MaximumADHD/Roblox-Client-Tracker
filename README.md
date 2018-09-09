@@ -50,8 +50,10 @@ Decompressed Size
 ```
 
 These files are fetched from Roblox's servers via:
-`http://setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`<br/>
-(or `https://s3.amazonaws.com/setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`)
+`http://setup.{roblox}.com/{version-guid}-{FileName.ext}`<br/>
+(or `https://s3.amazonaws.com/setup.{roblox}.com/{version-guid}-{FileName.ext}`)
+
+Note that `{roblox}` switches out with either `roblox`, `gametest1.robloxlabs` or `gametest2.robloxlabs`.
 
 ## version.txt
 Describes the current version of Roblox Studio. Formatted as: **(MajorRevision).(Version).(Patch).(Commit)**
