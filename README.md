@@ -23,21 +23,21 @@ This is a JSON version of Roblox's API Dump. It contains more data than the orig
 
 This file is extracted using RobloxStudioBeta.exe -API API-Dump.json
 
-### CppTree.txt
+## CppTree.txt
 A rough hierarchical dump of the C++ class/enum type names that could be extracted from the symbol data of Roblox Studio's exe. 
 
-### DeepStrings.txt
+## DeepStrings.txt
 This is a sorted list of dumped strings from Roblox Studio's exe. There is *some* garbage data dumped into this file, but most of it should be legible.
 
-### FVariables.txt
+## FVariables.txt
 This is a sorted list of fast variables, which are used by Roblox to toggle changes to the engine remotely on multiple platforms without having to redeploy the client.
 
-### rbxManifest.txt
+## rbxManifest.txt
 A file that describes (almost) every file that is expected to be extracted from the zip files specified in rbxPkgManifest.txt
 Every two lines of this file corresponds to a local file path, and the MD5 signature expected of the file extracted to that path.
 Note that although most paths are relative to the root directory, some of them aren't (specifically, the files in Plugins/ and Qml/)
 
-### rbxPkgManifest.txt
+## rbxPkgManifest.txt
 A file that describes the zip files that should be fetched from Roblox's setup servers when assembling Roblox Studio.
 The file starts with a line describing the version for the package manifest schema.
 After the version, information about each file is listed sequentually as such:
@@ -51,8 +51,8 @@ These files are fetched from Roblox's servers via:
 http://setup.{roblox-branch}.com/{version-guid}-{FileName.ext}
 (or https://s3.amazonaws.com/setup.{roblox-branch}.com/{version-guid}-{FileName.ext})
 
-### version.txt
+## version.txt
 Describes the current version of Roblox Studio. Formatted as: **(MajorRevision).(Version).(Patch).(Commit)**
 
-### version-guid.txt
+## version-guid.txt
 Describes the current GUID version of Roblox Studio.
