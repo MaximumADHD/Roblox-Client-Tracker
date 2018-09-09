@@ -42,14 +42,16 @@ A file that describes the zip files that should be fetched from Roblox's setup s
 The file starts with a line describing the version for the package manifest schema.
 After the version, information about each file is listed sequentually as such:
 
+```
 FileName.ext
 MD5 Signature
 Compressed Size
 Decompressed Size
+```
 
 These files are fetched from Roblox's servers via:
-http://setup.{roblox-branch}.com/{version-guid}-{FileName.ext}
-(or https://s3.amazonaws.com/setup.{roblox-branch}.com/{version-guid}-{FileName.ext})
+`http://setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`
+(or `https://s3.amazonaws.com/setup.{roblox-branch}.com/{version-guid}-{FileName.ext}`)
 
 ## version.txt
 Describes the current version of Roblox Studio. Formatted as: **(MajorRevision).(Version).(Patch).(Commit)**
