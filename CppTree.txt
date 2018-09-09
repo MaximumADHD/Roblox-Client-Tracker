@@ -530,6 +530,12 @@ RBX
 		Arbiter
 		Job
 	}
+	TextScraper
+	{
+		ClientJob
+		Job
+		ServerJob
+	}
 	Voxel2
 	{
 		GridListener
@@ -980,6 +986,7 @@ RBX
 	PlayerScripts
 	Plugin
 	PluginAction
+	PluginDragEvent
 	PluginGui
 	PluginGuiService
 	PluginManager

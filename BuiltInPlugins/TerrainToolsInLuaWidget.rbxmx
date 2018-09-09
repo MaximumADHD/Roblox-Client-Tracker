@@ -1,429 +1,39 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX6e1f616f32ce489fbe9bc9fc0f0e63f9">
+	<Item class="Folder" referent="RBX80ebe7228c1143c0b9a6b44b61b18fbe">
 		<Properties>
 			<string name="Name">TerrainToolPlugin</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBXa74b30228b9649d1ae10073f2f55fdbd">
+		<Item class="ModuleScript" referent="RBX48b7672b154f43edb48438659de6c926">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">TerrainBrush</string>
+				<string name="Name">TerrainSmoother</string>
 				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
+				<ProtectedString name="Source"><![CDATA[--
 
 local module = {}
 
-GuiUtilities = require(script.Parent.Libs.GuiUtilities)
-CollapsibleTitledSection = require(script.Parent.Libs.CollapsibleTitledSection)
-VerticallyScalingListFrame = require(script.Parent.Libs.VerticallyScalingListFrame)
-LabeledCheckbox = require(script.Parent.Libs.LabeledCheckbox)
-LabeledSlider = require(script.Parent.Libs.LabeledSlider)
-StatefulImageButton = require(script.Parent.Libs.StatefulImageButton)
-MaterialsListClass = require(script.Parent.MaterialsList)
-
-local on
-local kCurrentTool
-local plugin
-local pluginGui 
-local kMaterialsListObject = nil
-
--- FIXME(dbanks)
--- Clean this up, ugly globals.
-local kSizeSliderObj = nil
-local kStrengthSliderObj = nil
-local kMinSelectionSize = 1
-local kMaxSelectionSize = 16
-local kSelectionSize = 6
-local kStrength = .5
-
-local kShapeButtonRowHeight = 50
-
-local kShapeButtonSphereAssetId = "rbxasset://textures/TerrainTools/icon_shape_sphere.png"
-local kShapeButtonCubeAssetId = "rbxasset://textures/TerrainTools/icon_shape_cube.png"
-
-local kBrushShapes = {
-	{
-		Name = 'Sphere',
-		Image = kShapeButtonSphereAssetId,
-	},
-	{
-		Name = 'Box',
-		Image = kShapeButtonCubeAssetId,
-	},
-}
-
-local function MakeNthBrushShapeButton(index, position)
-	local config = kBrushShapes[index]
-
-	local shapeButtonObj = StatefulImageButton.new(config.Name, 
-		config.Image, 
-		UDim2.new(0, GuiUtilities.kShapeButtonSize, 0, GuiUtilities.kShapeButtonSize))
-	shapeButtonObj:getButton().AnchorPoint = Vector2.new(0, 0.5)
-	shapeButtonObj:getButton().Position = position
-
-	config.ButtonObj = shapeButtonObj
-end
-
-local function MakeShapeButtonsRow()
-	local row = GuiUtilities.MakeFixedHeightFrame("ShapeButtonRow", kShapeButtonRowHeight)
-
-	local shapeLabel = GuiUtilities.MakeStandardPropertyLabel("Shape") 
-	shapeLabel.Parent = row
-	shapeLabel.AnchorPoint = Vector2.new(0, 0.5)
-	shapeLabel.Position = UDim2.new(0, GuiUtilities.StandardLineLabelLeftMargin, 0, kShapeButtonRowHeight/2)
-
-	MakeNthBrushShapeButton(1, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin,
-		0, kShapeButtonRowHeight/2))
-	MakeNthBrushShapeButton(2, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin, 
-		0, kShapeButtonRowHeight/2))
-
-	kBrushShapes[1].ButtonObj:getButton().Parent = row
-	kBrushShapes[2].ButtonObj:getButton().Parent = row
-
-	return row
-end
-
-local function MakeMaterialsSectionWithTitle()
-	local vsl = VerticallyScalingListFrame.new("mwt")
-	vsl:AddBottomPadding()
-
-	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material", "Material")
-	vsl:AddChild(titleLabel)
-
-	kMaterialsListObject = MaterialsListClass.new()
-	local materialsFrame = kMaterialsListObject:GetMaterialsFrame()
-	vsl:AddChild(materialsFrame)
-
-	return vsl:GetFrame()
-end
-
 module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
-	mouse = theMouse
-	pluginGui = thePluginGui
-	contentFrame = theContentFrame
-	local changeHistory = game:GetService('ChangeHistoryService')
 	local terrain = game.Workspace.Terrain
-	local coreGui = game:GetService("CoreGui")
-	
-	local screenGui = Instance.new("ScreenGui") 
-	screenGui.Name = "TerrainBrushGui"
 
-	-- Create top level container.  
-	-- It has no title bar.
-	local verticallyScalingListFrameObj = VerticallyScalingListFrame.new("BrushFrame")
-	local verticallyScalingListFrame = verticallyScalingListFrameObj:GetFrame()
-	verticallyScalingListFrame.Parent = contentFrame
-	verticallyScalingListFrame.Visible = false
-
-	-- Top level container has 3 collapsible sections:
-	-- 1) Brush Settings.
-	local brushSettingsObj = CollapsibleTitledSection.new('BrushSettings', 
-		'Brush Settings', 
-		true, 
-		true)
-	GuiUtilities.MakeFrameAutoScalingList(brushSettingsObj:GetContentsFrame())
-
-	kSizeSliderObj = LabeledSlider.new("Size", "Size", kMaxSelectionSize, kSelectionSize)
-	local sizeSliderRow =kSizeSliderObj:GetFrame()
-
-	kStrengthSliderObj = LabeledSlider.new("Strength", "Strength", 101, kStrength*100)
-	local strengthSliderRow = kStrengthSliderObj:GetFrame()
-
-	local shapeButtonsRow = MakeShapeButtonsRow()
-
-	GuiUtilities.AddStripedChildrenToListFrame(brushSettingsObj:GetContentsFrame(), 
-		{sizeSliderRow, strengthSliderRow, shapeButtonsRow})
-	
-	verticallyScalingListFrameObj:AddChild(brushSettingsObj:GetSectionFrame())
-
-	-- 2) Materials Settings.	
-	local materialSettingsObj = CollapsibleTitledSection.new("MaterialSettings", 
-		"Material Settings",
-		true, 
-		true)
-	GuiUtilities.MakeFrameAutoScalingList(materialSettingsObj:GetContentsFrame())
-
-	local autoColorObj= LabeledCheckbox.new("Auto", 'Auto')
-
-	-- Variable is *not* local, needs to live inside callback below.
-	local materialSectionWithTitle = MakeMaterialsSectionWithTitle()
-
-	GuiUtilities.AddStripedChildrenToListFrame(materialSettingsObj:GetContentsFrame(), 
-		{autoColorObj:GetFrame(), materialSectionWithTitle})
-		
-	autoColorObj:SetValueChangedFunction(function()
-		-- When 'auto' material selection is on, hide material selection panel.
-		materialSectionWithTitle.Visible = (not autoColorObj:GetValue())
-	end)
-
-	verticallyScalingListFrameObj:AddChild(materialSettingsObj:GetSectionFrame())
-
-	-- 3) Advanced settings.
-	local advancedSettingsObj = CollapsibleTitledSection.new("AdvancedSettings", 
-		"Advanced",
-		true, 
-		true)
-	GuiUtilities.MakeFrameAutoScalingList(advancedSettingsObj:GetContentsFrame())
-
-	local planeLockObj = LabeledCheckbox.new("PLock", 'Plane Lock')
-	local snapToGridObj = LabeledCheckbox.new("STG", 'Snap to Grid')
-	local ignoreWaterObj = LabeledCheckbox.new("IGW", 'Ignore Water', true)
-	planeLockObj:SetValueChangedFunction(function(value)
-		if not planeLockObj:GetValue() then
-			clearGrid()
-		end
-	end)
-
-	GuiUtilities.AddStripedChildrenToListFrame(advancedSettingsObj:GetContentsFrame(), 
-		{planeLockObj:GetFrame(), 
-		 snapToGridObj:GetFrame(),
-		 ignoreWaterObj:GetFrame()})
-
-	verticallyScalingListFrameObj:AddChild(advancedSettingsObj:GetSectionFrame())
-
-
-
-
-
-	local userInput = game:GetService('UserInputService')
-	local prevCameraType = game.Workspace.CurrentCamera.CameraType
-
-	--SUB SETTINGS--	(Non-userfacing Settings)
-	local resolution = 4			--This is the size of voxels on Roblox. Why is this a variable? ;)
-	local clickThreshold = .1
-	local toolTipShowTime = 3.5
-	local materialsTable = MaterialsListClass.MaterialsTable
-	----------------
-
-	----SETTINGS----	(Interface Settings)
-	local brushShape = 'Sphere'
-	----------------
-
-	----Variables----
-	local forceMaterial = nil
-	local nearMaterial = nil
-	local selectionPart = nil
-	local selectionObject = nil
-	local gridLineParts = {}
-	local currentLoopTag = nil
-	local lastMainPoint = Vector3.new(0, 0, 0)
-	local click = false
-	local firstOperation = tick()
-	local downKeys = {}
-	local lastPlanePoint = Vector3.new(0, 0, 0)
-	local lastNormal = Vector3.new(0, 1, 0)
-	local lastCursorDistance = 300
-	local one256th = 1/256							--This should later be replaced with 0 once smooth terrain doesn't aproximate 1/256 to 0. This is causing small occupancies to become air
-	local toolTip1Change = nil
-	local toolTip2Change = nil
-	local materialAir = Enum.Material.Air
-	local materialWater = Enum.Material.Water
-	local ceil = math.ceil
-	local floor = math.floor
-	local abs = math.abs
-	local min = math.min
-	local max = math.max
-	local sqrt = math.sqrt
-	local sin = math.sin
-	local cos = math.cos
-	local pi = math.pi
-	
-	---------------
-	
-	kSizeSliderObj:SetValueChangedFunction(function(newValue)
-		kSelectionSize = newValue
-		if selectionPart then
-			selectionPart.Size = Vector3.new(1, 1, 1) * kSelectionSize * resolution + Vector3.new(.1, .1, .1)
-		end
-	end)
-
-	kStrengthSliderObj:SetValueChangedFunction(function(newValue)
-		kStrength = (newValue - 1) / 100
-		if selectionObject then
-			selectionObject.SurfaceTransparency = .95 - kStrength * .3
-		end
-	end)
-
-	function setBrushShape(newBrushShape)
-		brushShape = newBrushShape
-		for _,v in ipairs(kBrushShapes) do
-			v.ButtonObj:setSelected(newBrushShape == v.Name)
-		end
-		clearSelection()
+	local function getCell(list, x, y, z)
+		return list and list[x] and list[x][y] and list[x][y][z]
 	end
 
-	for _,v in ipairs(kBrushShapes) do
-		v.ButtonObj:getButton().MouseButton1Down:connect(function()
-			setBrushShape(v.Name)
-		end)
+	local function extendRange(x)		--This is very important. It allows cells to fully diminish or fully fill by lying to the algorithm
+		return x * 1.5 - .25
 	end
 
-	-- If this diabled condition is true, fix checkbox in disabled state
-	-- with given override.
-	-- Else fix checkbox in enabled state.
-	local function updateCheckboxDisabledStateWithOverride(checkboxObj, 
-		disabledCondition, 
-		disabledOverride)
-		if (disabledCondition) then 
-			checkboxObj:DisableWithOverrideValue(disabledOverride)
-		else
-			checkboxObj:SetDisabled(false)
-		end
-	end
-
-	local function updateUsabilityLocks()
-		if kCurrentTool then
-			updateCheckboxDisabledStateWithOverride(snapToGridObj, 
-				kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid, 
-				true)
-
-			updateCheckboxDisabledStateWithOverride(planeLockObj, 
-				kCurrentTool.DisablesPlaneLock, 
-				true)
-
-			updateCheckboxDisabledStateWithOverride(autoColorObj, 
-				kCurrentTool.DisablesAutoColor, 
-					kCurrentTool.Name ~= 'Paint')
-
-			updateCheckboxDisabledStateWithOverride(ignoreWaterObj, 
-				(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth', 
-				(kCurrentTool.Name ~= 'Smooth' and kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWaterTo))
-
-			autoColorObj:GetFrame().Visible = kCurrentTool.UsesMaterials
-			materialSettingsObj:GetSectionFrame().Visible = not not kCurrentTool.UsesMaterials
-		end
-	end
-
-	kMaterialsListObject:SetCallbackOnSelectionChanged(updateUsabilityLocks)
-
-	-------------
-
-	do
-		local runService = game:GetService('RunService').RenderStepped
-		function quickWait(waitTime)
-			if not waitTime then
-				runService:wait()
-			elseif waitTime < .033333 then
-				local startTick = tick()
-				runService:wait()
-				local delta = tick() - startTick
-				if delta <= waitTime * .5 then
-					quickWait(waitTime - delta)
-				end
-			else
-				wait(waitTime)
-			end
-		end
-	end
-
-	function deepCast(origin, endPoint, ignoreList, filterFunction, cubeTerrain)
-		local ray = Ray.new(origin, endPoint - origin)
-		local hit, pos, normal, material = game.Workspace:FindPartOnRayWithIgnoreList(ray, ignoreList, cubeTerrain)
-		if hit and filterFunction(hit) then
-			table.insert(ignoreList, hit)
-			return deepCast(pos, endPoint, ignoreList, filterFunction, cubeTerrain)
-		else
-			return hit, pos, normal, material
-		end
-	end
-
-	function clearSelection()
-		if selectionObject then
-			selectionObject:Destroy()
-			selectionObject = nil
-		end
-		if selectionPart then
-			selectionPart:Destroy()
-			selectionPart = nil
-		end
-	end
-
-	function clearGrid()
-		for i, v in pairs(gridLineParts) do
-			if v then
-				v:Destroy()
-			end
-			gridLineParts[i] = nil
-		end
-	end
-
-	function drawGrid(point, normal, transparency, color)
-		local transparency = transparency or .95
-		local color = BrickColor.new(color or 'Institutional white')--'Pastel light blue')
-		local gridCellSize = kSelectionSize * resolution
-		local gridSize = 10
-		local baseCframe = CFrame.new(point, point + normal)
-		local normalSpase = CFrame.new(Vector3.new(0, 0, 0), normal):pointToObjectSpace(point)
-		local roundedNormalOffset = (Vector3.new((normalSpase.x / gridCellSize) % 1, (normalSpase.y / gridCellSize) % 1, 0) - Vector3.new(.5, .5, 0)) * -gridCellSize
-		for u = 1, gridSize do
-			local linePart = gridLineParts[u]
-			if not linePart then
-				linePart = Instance.new('Part')
-				linePart.Transparency = 1
-				linePart.TopSurface = 'Smooth'
-				linePart.BottomSurface = 'Smooth'
-				linePart.Anchored = true
-				linePart.CanCollide = false
-				local selectionBox = Instance.new('SelectionBox')
-				selectionBox.Color = color
-				selectionBox.Transparency = transparency
-				selectionBox.Adornee = linePart
-				selectionBox.Parent = linePart
-				linePart.Parent = screenGui
-				gridLineParts[u] = linePart
-			elseif linePart.SelectionBox.Transparency ~= transparency or linePart.SelectionBox.Color ~= color then
-				linePart.SelectionBox.Transparency = transparency
-				linePart.SelectionBox.Color = color
-			end
-			local percent = (u - 1) / (gridSize - 1)
-			linePart.Size = Vector3.new(gridCellSize * gridSize * sin(math.acos(percent * 1.8 - .9)), 0, 0)
-			linePart.CFrame = baseCframe * CFrame.new(0, (percent - .5) * (gridSize - 1) * gridCellSize, 0) * CFrame.new(roundedNormalOffset)
-		end
-		for u = 1, gridSize do
-			local linePart = gridLineParts[gridSize + u]
-			if not linePart then
-				linePart = Instance.new('Part')
-				linePart.Transparency = 1
-				linePart.TopSurface = 'Smooth'
-				linePart.BottomSurface = 'Smooth'
-				linePart.Anchored = true
-				linePart.CanCollide = false
-				local selectionBox = Instance.new('SelectionBox')
-				selectionBox.Color = color
-				selectionBox.Transparency = transparency
-				selectionBox.Adornee = linePart
-				selectionBox.Parent = linePart
-				linePart.Parent = screenGui
-				gridLineParts[gridSize + u] = linePart
-			elseif linePart.SelectionBox.Transparency ~= transparency or linePart.SelectionBox.Color ~= color then
-				linePart.SelectionBox.Transparency = transparency
-				linePart.SelectionBox.Color = color
-			end
-			local percent = (u - 1) / (gridSize - 1)
-			linePart.Size = Vector3.new(0, gridCellSize * gridSize * sin(math.acos(percent * 1.8 - .9)), 0)
-			linePart.CFrame = baseCframe * CFrame.new((percent - .5) * (gridSize - 1) * gridCellSize, 0, 0) * CFrame.new(roundedNormalOffset)
-		end
-	end
-
-	local function getCell(list, x, y, z, materialList)
-		-- only include materialsList if you want to ignore water
-		return (materialList and materialList[x] and materialList[x][y] and materialList[x][y][z]) == materialWater and 0
-				or list and list[x] and list[x][y] and list[x][y][z]
-	end
-
-	local function getNeighborOccupancies(list, x, y, z, materialsList, includeSelf)
-		--only include materialsList if you want to ignore water
+	function getNeighborOccupanciesFast(list, x, y, z, includeSelf)
 		local fullNeighbor = false
 		local emptyNeighbor = false
-		local neighborOccupancies = includeSelf and getCell(list, x, y, z, materialsList) or 0
+		local neighborOccupancies = includeSelf and extendRange(getCell(list, x, y, z)) or 0
 		local totalNeighbors = includeSelf and 1 or 0
-		local nearMaterial = kMaterialsListObject:GetCurrentMaterialSelection().enum
 		for axis = 1, 3 do
 			for offset = -1, 1, 2 do
 				local neighbor = nil
-				local neighborMaterial = nil
 				if axis == 1 then
 					neighbor = list[x + offset] and list[x + offset][y][z]
 				elseif axis == 2 then
@@ -432,533 +42,115 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 					neighbor = list[x][y][z + offset]
 				end
 				if neighbor then
-					if materialsList then
-						if axis == 1 then
-							neighborMaterial = materialsList[x + offset] and materialsList[x + offset][y][z]
-						elseif axis == 2 then
-							neighborMaterial = materialsList[x][y + offset] and materialsList[x][y + offset][z]
-						elseif axis == 3 then
-							neighborMaterial = materialsList[x][y][z + offset]
-						end
-						if neighborMaterial == materialWater then
-							neighbor = 0
-						end
-					end
 					if neighbor >= 1 then
 						fullNeighbor = true
 					end
 					if neighbor <= 0 then
 						emptyNeighbor = true
 					end
+					neighbor = extendRange(neighbor)
 					totalNeighbors = totalNeighbors + 1
 					neighborOccupancies = neighborOccupancies + neighbor
 				end
 			end
 		end
-		return neighborOccupancies / (totalNeighbors ~= 0 and totalNeighbors or getCell(list, x, y, z, materialsList)), fullNeighbor, emptyNeighbor
+		return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
 	end
 
-	local function round(n)
-		return floor(n + .5)
-	end
-
-	function findFace()
-		local cameraLookVector = game.Workspace.CurrentCamera.CoordinateFrame.lookVector
-		--[[local absx = abs(cameraLookVector.x)		--this code is for 90 plane locking
-		local absy = abs(cameraLookVector.y)
-		local absz = abs(cameraLookVector.z)
-		if absy >= absx and absy >= absz then	--preference towards y axis planes
-			return Vector3.new(0, cameraLookVector.y / absy, 0)
-		elseif absx >= absz then
-			return	Vector3.new(cameraLookVector.x / absx, 0, 0)
+	function getNeighborOccupancies(list, x, y, z, includeSelf, range)
+		local fullNeighbor = false
+		local emptyNeighbor = false
+		local range = range or 1
+		local neighborOccupancies = 0
+		local totalNeighbors = 0
+		local sqrt = math.sqrt
+		for ix = -range, range do
+			for iy = -range, range do
+				for iz = -range, range do
+					if includeSelf or not (ix == 0 and iy == 0 and iz == 0) then
+						local neighbor = getCell(list, x + ix, y + iy, z + iz)
+						if neighbor then
+							local distanceScale = 1 - (sqrt(ix * ix + iy * iy + iz * iz) / (range * 2))
+							if neighbor >= 1 then
+								fullNeighbor = true
+							end
+							if neighbor <= 0 then
+								emptyNeighbor = true
+							end
+							neighbor = extendRange(neighbor)
+							totalNeighbors = totalNeighbors + 1 * distanceScale
+							neighborOccupancies = neighborOccupancies + neighbor * distanceScale
+						end
+					end
+				end
+			end
 		end
-		return Vector3.new(0, 0, cameraLookVector.z / absz)]]
-
-		return Vector3.new(round(cameraLookVector.x), round(cameraLookVector.y), round(cameraLookVector.z)).unit	--this code is for 45 degree plane locking
+		return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
 	end
 
-	function lineToPlaneIntersection(linePoint, lineDirection, planePoint, planeNormal)
-		local denominator = lineDirection:Dot(planeNormal)
-		if denominator == 0 then
-			return linePoint
-		end
-		local distance = ((planePoint - linePoint):Dot(planeNormal)) / denominator
-		return linePoint + lineDirection * distance
-	end
 
-	function operation(centerPoint)
-		local desiredMaterial = autoColorObj:GetValue() and nearMaterial or kMaterialsListObject:GetCurrentMaterialSelection().enum
-
-		local radius = kSelectionSize * .5 * resolution
-		local minBounds = Vector3.new(
-			floor((centerPoint.x - radius) / resolution) * resolution,
-			floor((centerPoint.y - radius) / resolution) * resolution,
-			floor((centerPoint.z - radius) / resolution) * resolution)
-		local maxBounds = Vector3.new(
-			ceil((centerPoint.x + radius) / resolution) * resolution,
-			ceil((centerPoint.y + radius) / resolution) * resolution,
-			ceil((centerPoint.z + radius) / resolution) * resolution)
+	function operation(centerPoint, materials, occupancies, resolution, selectionSize, strength, desiredMaterial, brushType, minBounds, maxBounds)
 		local region = Region3.new(minBounds, maxBounds)
+		local readMaterials, readOccupancies = terrain:ReadVoxels(region, resolution)
 
-		local materials, occupancies = terrain:ReadVoxels(region, resolution)
-		local toolBrushOperation = nil
-		for _, toolModule in pairs(kCurrentTool.Modules) do
-			if toolModule.BrushOperation then
-				toolBrushOperation = toolModule.BrushOperation
-				break
-			end
-		end
-		if toolBrushOperation then
-			local middle = materials[ceil(#materials * .5)]	--This little section of code sets nearMaterial to middle of matrix
-			if middle then	--dig X
-				local middle = middle[ceil(#middle * .5)]
-				if middle then	--dig Y
-					local middle = middle[ceil(#middle * .5)]
-					if middle and middle ~= materialAir and middle ~= materialWater then	--dig Z
-						nearMaterial = middle
-						desiredMaterial = autoColorObj:GetValue() and nearMaterial or desiredMaterial
-					end
-				end
-			end
+		local radius = selectionSize * .5 * resolution
 
-			toolBrushOperation(centerPoint, materials, occupancies, resolution, kSelectionSize, kStrength, desiredMaterial, brushShape, minBounds, maxBounds)
-		else
-			local airFillerMaterial = materialAir
-			local waterHeight = 0
-			if ignoreWaterObj:GetValue() and (kCurrentTool.Name == 'Erode' or kCurrentTool.Name == 'Subtract') then
-				--[[local centerPointCell = Vector3.new(floor((centerPoint.x+.5)/resolution) * resolution, floor((centerPoint.y+.5)/resolution) * resolution, floor((centerPoint.z+.5)/resolution) * resolution)
-				local sampleRegion = Region3.new(centerPointCell - Vector3.new(resolution,resolution,resolution), centerPointCell + Vector3.new(resolution,resolution,resolution))
-				local sampleMaterials, sampleOccupancies = terrain:ReadVoxels(sampleRegion, resolution)]]
-				
-				for ix,vx in ipairs(materials) do
-					for iy,vy in ipairs(vx) do
-						for iz, vz in ipairs(vy) do
-							if vz == materialWater then
-								airFillerMaterial = materialWater
-								if iy > waterHeight then
-									waterHeight = iy
-								end
-							end
-						end
-					end
-				end
-			end
+		local materialAir = Enum.Material.Air
 
-			for ix, vx in ipairs(occupancies) do
-				local cellVectorX = minBounds.x + (ix - .5) * resolution - centerPoint.x
+		for ix, vx in ipairs(readOccupancies) do
+			local cellVectorX = minBounds.x + (ix - .5) * resolution - centerPoint.x
 
-				for iy, vy in pairs(vx) do
-					local cellVectorY = minBounds.y + (iy - .5) * resolution - centerPoint.y
+			for iy, vy in pairs(vx) do
+				local cellVectorY = minBounds.y + (iy - .5) * resolution - centerPoint.y
 
-					for iz, cellOccupancy in pairs(vy) do
-						local cellVectorZ = minBounds.z + (iz - .5) * resolution - centerPoint.z
+				for iz, cellOccupancy in pairs(vy) do
+					local cellVectorZ = minBounds.z + (iz - .5) * resolution - centerPoint.z
 
-						local cellMaterial = materials[ix][iy][iz]
-						local distance = sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
-	
-						local magnitudePercent = 1
-						local brushOccupancy = 1
-						if brushShape == 'Sphere' then
-							magnitudePercent = cos(min(1, distance / (radius + resolution * .5)) * pi * .5)
-							brushOccupancy = max(0, min(1, (radius + .5 * resolution - distance) / resolution))
-						elseif brushShape == 'Box' then
-							if not snapToGridObj:GetValue() then
-								local xOutside = 1 - max(0, abs(cellVectorX / resolution) + .5 - kSelectionSize * .5)
-								local yOutside = 1 - max(0, abs(cellVectorY / resolution) + .5 - kSelectionSize * .5)
-								local zOutside = 1 - max(0, abs(cellVectorZ / resolution) + .5 - kSelectionSize * .5)
-								brushOccupancy = xOutside * yOutside * zOutside
-							end
-						end
-
-						if cellMaterial ~= materialAir and cellMaterial ~= materialWater and cellMaterial ~= nearMaterial then
-							nearMaterial = cellMaterial
-							if autoColorObj:GetValue() then
-								desiredMaterial = nearMaterial
-							end
-						end
-
-						if ignoreWaterObj:GetValue() and cellMaterial == materialWater then
-							cellMaterial = materialAir
-							cellOccupancy = 0
-						end
-						local airFillerMaterial = waterHeight >= iy and airFillerMaterial or materialAir
-	
-						if kCurrentTool.Name == 'Add' then
-							if kSelectionSize <= 2 then
-								if brushOccupancy >= .5 then
-									if cellMaterial == materialAir or cellOccupancy <= 0 then
-										materials[ix][iy][iz] = desiredMaterial
-									end
-									occupancies[ix][iy][iz] = 1
-								end 
-							else
-								if brushOccupancy > cellOccupancy then
-									occupancies[ix][iy][iz] = brushOccupancy
-								end
-								if brushOccupancy >= .5 and cellMaterial == materialAir then
-									materials[ix][iy][iz] = desiredMaterial
-								end
-							end
-						elseif kCurrentTool.Name == 'Subtract' then
-							if cellMaterial ~= materialAir then
-								if kSelectionSize <= 2 then
-									if brushOccupancy >= .5 then
-										occupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
-										materials[ix][iy][iz] = airFillerMaterial
-									end
-								else
-									local desiredOccupancy = max(0,1 - brushOccupancy)
-									if desiredOccupancy < cellOccupancy then
-										if desiredOccupancy <= one256th then
-											occupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
-											materials[ix][iy][iz] = airFillerMaterial
-										else
-											occupancies[ix][iy][iz] = min(cellOccupancy, desiredOccupancy)
-										end
-									end
-								end
-							end
-						elseif kCurrentTool.Name == 'Grow' then
-							if brushOccupancy >= .5 then --working on
-								local desiredOccupancy = cellOccupancy
-								local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(occupancies, ix, iy, iz, ignoreWaterObj:GetValue() and materials)
-								if cellOccupancy > 0 or fullNeighbor then	--problem if selection size is small.
-									desiredOccupancy = desiredOccupancy + neighborOccupancies * (kStrength + .1) * .25 * brushOccupancy * magnitudePercent
-								end
-								if cellMaterial == materialAir and desiredOccupancy > 0 then
-									materials[ix][iy][iz] = desiredMaterial
-								end
-								if desiredOccupancy ~= cellOccupancy then
-									occupancies[ix][iy][iz] = desiredOccupancy
-								end
-							end
-						elseif kCurrentTool.Name == 'Erode' then
-							if cellMaterial ~= materialAir then
-								local flippedBrushOccupancy = 1 - brushOccupancy
-								if flippedBrushOccupancy <= .5 then
-									local desiredOccupancy = cellOccupancy
-									local emptyNeighbor = false
-									local neighborOccupancies = 6
-									for axis = 1, 3 do
-										for offset = -1, 1, 2 do
-											local neighbor = nil
-											local neighborMaterial = nil
-											if axis == 1 then
-												neighbor = occupancies[ix + offset] and occupancies[ix + offset][iy][iz]
-												neighborMaterial = materials[ix + offset] and materials[ix + offset][iy][iz]
-											elseif axis == 2 then
-												neighbor = occupancies[ix][iy + offset] and occupancies[ix][iy + offset][iz]
-												neighborMaterial = materials[ix][iy + offset] and materials[ix][iy + offset][iz]
-											elseif axis == 3 then
-												neighbor = occupancies[ix][iy][iz + offset]
-												neighborMaterial = materials[ix][iy][iz + offset]
-											end
-											if neighbor then
-												if ignoreWaterObj:GetValue() and neighborMaterial == materialWater then
-													neighbor = 0
-												end
-												if neighbor <= 0 then
-													emptyNeighbor = true
-												end
-												neighborOccupancies = neighborOccupancies - neighbor
-											end
-										end
-									end
-									if cellOccupancy < 1 or emptyNeighbor then
-										desiredOccupancy = max(0,desiredOccupancy - (neighborOccupancies / 6) * (kStrength + .1) * .25 * brushOccupancy * magnitudePercent)
-									end
-									if desiredOccupancy <= one256th then
-										occupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
-										materials[ix][iy][iz] = airFillerMaterial
-									else
-										occupancies[ix][iy][iz] = desiredOccupancy
-									end
-								end
-							end
-						elseif kCurrentTool.Name == 'Paint' then
-							if brushOccupancy > 0 and cellOccupancy > 0 then
-								materials[ix][iy][iz] = desiredMaterial
-							end
-						end
-					end
-				end
-			end
-		end
-		terrain:WriteVoxels(region, resolution, materials, occupancies)
-	end
-
-	
-	module.On = function(theTool)
-		kCurrentTool = theTool
-		screenGui.Parent = coreGui
-		verticallyScalingListFrame.Visible = true
-		on = true
-
-		updateUsabilityLocks()
-
-		local loopTag = {}	--using table as a unique value for debouncing
-		currentLoopTag = loopTag
-
-		while currentLoopTag and currentLoopTag == loopTag do
-			local t = tick()
-			local radius = kSelectionSize * .5 * resolution
-			local cameraPos = mouse.Origin.p
-			
-			local ignoreModel = nil
-			if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
-				ignoreModel = game.Players.LocalPlayer.Character
-			end
-			local mouseRay = Ray.new(cameraPos, mouse.UnitRay.Direction*10000)
-			local hitObject, mainPoint = game.Workspace:FindPartOnRay(mouseRay, ignoreModel, false, ignoreWaterObj:GetValue())
-
-			if kCurrentTool.Name == 'Add' then
-				mainPoint = mainPoint - mouse.UnitRay.Direction * .05
-			elseif kCurrentTool.Name == 'Subtract' or kCurrentTool.Name == 'Paint' or kCurrentTool.Name == 'Grow' then
-				mainPoint = mainPoint + mouse.UnitRay.Direction * .05
-			end
-
-			if mouse.Target == nil then	--cage the cursor so that it does not fly away
-				mainPoint = cameraPos + mouse.UnitRay.Direction * lastCursorDistance --limits the distance of the mainPoint if the mouse is not hitting an object
-			end
-
-			if not mouseDown or click then
-				lastPlanePoint = mainPoint
-				lastNormal = findFace()
-			end
-
-			if planeLockObj:GetValue() then
-				mainPoint = lineToPlaneIntersection(cameraPos, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)
-			end
-
-			if snapToGridObj:GetValue() then
-				local snapOffset = Vector3.new(1, 1, 1) * (radius % resolution)		--in studs
-				local tempMainPoint = (mainPoint - snapOffset) / resolution + Vector3.new(.5, .5, .5)	--in voxels
-				mainPoint = Vector3.new(floor(tempMainPoint.x), floor(tempMainPoint.y), floor(tempMainPoint.z)) * resolution + snapOffset
-			end
-
-			if mouseDown then
-				if click then
-					firstOperation = t
-					lastMainPoint = mainPoint
-				end
-				
-				if click or t > firstOperation + clickThreshold then
-					click = false
-					if downKeys[Enum.KeyCode.LeftAlt] or downKeys[Enum.KeyCode.RightAlt] then
-						--pick color
-						local function filterNonTerrain(thing)
-							if thing and thing == terrain then
-								return false
-							end
-							return true
-						end
-						local hit, hitPosition, normal, foundMaterial = deepCast(cameraPos, cameraPos + mouse.UnitRay.Direction*10000, {}, filterNonTerrain, true)
-						if hit then
-							kMaterialsListObject:SetMaterialSelectionUsingEnum(foundMaterial)
-						end
-					else
-						local difference = mainPoint - lastMainPoint
-						local dragDistance = (difference).magnitude
-						local crawlDistance = radius * .5			--Maybe adjustable setting? Considering using a different method of crawling, with a percent rather than a finite distance.
-						if dragDistance > crawlDistance then
-							local differenceVector = difference.unit
-							local dragDistance = min(dragDistance, crawlDistance * 2 + 20)	--limiting this so that it does not attempt too many operations within a single drag.
-							local samples = ceil(dragDistance / crawlDistance - .1)
-							for i = 1, samples do
-								operation(lastMainPoint + differenceVector * dragDistance * (i / samples))
-							end
-							mainPoint = lastMainPoint + differenceVector * dragDistance
-						else
-							operation(mainPoint)
-						end
-						lastMainPoint = mainPoint
-					end
-				end
-			end
-
-			if not selectionPart then
-				selectionPart = Instance.new('Part')
-				selectionPart.Name = 'SelectionPart'
-				selectionPart.Transparency = 1
-				selectionPart.TopSurface = 'Smooth'
-				selectionPart.BottomSurface = 'Smooth'
-				selectionPart.Anchored = true
-				selectionPart.CanCollide = false
-				selectionPart.Size = Vector3.new(1, 1, 1) * kSelectionSize * resolution + Vector3.new(.1, .1, .1)
-				selectionPart.Parent = screenGui
-			end
-			if not selectionObject then
-				selectionObject = Instance.new(brushShape == 'Sphere' and 'SelectionSphere' or 'SelectionBox')
-				selectionObject.Name = 'SelectionObject'
-				selectionObject.Color = BrickColor.new('Toothpaste')
-				selectionObject.SurfaceTransparency = .95 - kStrength * .3
-				selectionObject.SurfaceColor = BrickColor.new('Toothpaste')
-				selectionObject.Adornee = selectionPart
-				selectionObject.Parent = selectionPart
-			end
-			
-			if not userInput.TouchEnabled or mouseDown then
-				selectionPart.CFrame = CFrame.new(mainPoint)
-				
-				if planeLockObj:GetValue() then
-					local mainPointIntersect = lineToPlaneIntersection(mainPoint, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)	--we need to get this otherwise the plane can shift whiel drawing
-					drawGrid(mainPointIntersect, lastNormal, mouseDown and .8)
-				end
-			end
-
-			lastCursorDistance = max(20 + kSelectionSize * resolution * 1.5,(mainPoint - cameraPos).magnitude)
-
-			quickWait()
-		end
-	end
-	
-	module.Off = function()
-		currentLoopTag = nil
-		screenGui.Parent = script.Parent
-		verticallyScalingListFrame.Visible = false
-		on = false
+					local cellMaterial = materials[ix][iy][iz]
+					local distance = math.sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
 		
-		clearSelection()
-		clearGrid()
-		mouseDown = false
-	end
+					local magnitudePercent = 1
+					local brushOccupancy = 1
+					if brushType == 'Sphere' then
+						magnitudePercent = math.cos(math.min(1, distance / (radius + resolution * .5)) * math.pi * .5)
+						brushOccupancy = math.max(0, math.min(1, (radius + .5 * resolution - distance) / resolution))
+					elseif brushType == 'Box' then
+						--leave as default
+					end
 
-	--Touch controls
-	local fingerTouches = {}
-	local NumUnsunkTouches = 0
+					if brushOccupancy >= .5 then
+						local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(readOccupancies, ix, iy, iz, true, 1)
+						local difference = (neighborOccupancies - cellOccupancy) * (strength + .1) * .5 * brushOccupancy * magnitudePercent
 
-	local StartingDiff = nil
-	local startingSelectionSize = nil
+						if not fullNeighbor and difference > 0 then
+							difference = 0
+						elseif not emptyNeighbor and difference < 0 then
+							difference = 0
+						end
 
-	local function OnTouchBegan(input, processed)
-		fingerTouches[input] = processed
-		if not processed then
-			click = true
-			NumUnsunkTouches = NumUnsunkTouches + 1
-		end
-	end
-
-	local function OnTouchChanged(input, processed)
-		if fingerTouches[input] == nil then
-			fingerTouches[input] = processed
-			if not processed then
-				NumUnsunkTouches = NumUnsunkTouches + 1
-			end
-		end
-
-		if NumUnsunkTouches == 1 then
-			if fingerTouches[input] == false then
-				mouseDown = true
-			end
-		else
-			mouseDown = false
-		end
-		if NumUnsunkTouches == 2 then
-			local unsunkTouches = {}
-			for touch, wasSunk in pairs(fingerTouches) do
-				if not wasSunk then
-					table.insert(unsunkTouches, touch)
+						if readMaterials[ix][iy][iz] == materialAir or cellOccupancy <= 0 and difference > 0 then
+							materials[ix][iy][iz] = desiredMaterial
+						end
+						if difference ~= 0 then
+							occupancies[ix][iy][iz] = math.max(0, math.min(1, cellOccupancy + difference))
+						end
+					end
 				end
 			end
-			if #unsunkTouches == 2 then
-				local difference = (unsunkTouches[1].Position - unsunkTouches[2].Position).magnitude
-				if StartingDiff and startingSelectionSize then
-					local scale = difference/max(0.01, StartingDiff)
-					kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, startingSelectionSize/scale))
-					kSizeSliderObj:SetValue(kSelectionSize)
-				else
-					StartingDiff = difference
-					startingSelectionSize = kSizeSliderObj:GetValue()
-				end
-			end
-		else
-			StartingDiff = nil
-			startingSelectionSize = nil
 		end
 	end
 
-	local function OnTouchEnded(input, processed)
-		if fingerTouches[input] == false then
-			if NumUnsunkTouches == 1 then
-				mouseDown = false
-			elseif NumUnsunkTouches == 2 then
-				StartingDiff = nil
-				startingSelectionSize = nil
-				mouseDown = true
-			end
-		end
+	module.BrushOperation = operation
 
-		if fingerTouches[input] ~= nil and fingerTouches[input] == false then
-			NumUnsunkTouches = NumUnsunkTouches - 1
-		end
-		fingerTouches[input] = nil
-	end
-	
-	-- Input Handling
-	userInput.InputBegan:connect(function(event, soaked)
-		downKeys[event.KeyCode] = true
-		if event.UserInputType == Enum.UserInputType.MouseButton1 and not soaked and on then
-			mouseDown = true
-			click = true
-		elseif event.UserInputType == Enum.UserInputType.Touch and on then
-			OnTouchBegan(event, soaked)
-		end
-	end)
-	
-	userInput.InputChanged:connect(function(input, processed)
-		if input.UserInputType == Enum.UserInputType.Touch then
-			OnTouchChanged(input, processed)
-		end
-	end)
-	
-	userInput.InputEnded:connect(function(event, soaked)
-		downKeys[event.KeyCode] = nil
-		if event.UserInputType == Enum.UserInputType.MouseButton1 and mouseDown then
-			mouseDown = false
-			if changeHistory then
-				changeHistory:SetWaypoint('Terrain '..kCurrentTool.Name)
-			end
-		elseif event.UserInputType == Enum.UserInputType.Touch then
-			OnTouchEnded(event, soaked)
-		end
-	end)
-
-	function scrollwheel(change)
-		if on then
-			if downKeys[Enum.KeyCode.LeftShift] or downKeys[Enum.KeyCode.RightShift] then
-				kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, kSelectionSize + change))
-				kSizeSliderObj:SetValue(kSelectionSize)
-			end
-			if downKeys[Enum.KeyCode.LeftControl] or downKeys[Enum.KeyCode.RightControl] then
-				kStrength = max(0, min(1, kStrength + change * (1/(kMaxSelectionSize-kMinSelectionSize))))
-				kStrengthSliderObj:SetValue(round(kStrength * 100 + 1))
-			end
-		end
-	end
-	
-	mouse.WheelForward:connect(function()
-		scrollwheel(1)
-	end)
-	
-	mouse.WheelBackward:connect(function()
-		scrollwheel(-1)
-	end)
-
-	setBrushShape(brushShape)
-	kMaterialsListObject:SetMaterialSelection(kMaterialsListObject:GetCurrentMaterialSelection())
-
-	-- Reset keyboard status on lost focus as key release may never come blocked by popups etc.
-	userInput.WindowFocusReleased:connect(function()
-		downKeys = {}
-	end)
 end
 
+return module
 
-return module]]></ProtectedString>
+]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX6ccbe8d0dd544d31944454c4160f272d">
+		<Item class="ModuleScript" referent="RBX8c1215cb87e14240bbbdc54a11c8bbd2">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainRegionEditor</string>
@@ -2046,7 +1238,7 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2686e3fb477e4a6cb525de09d70a737e">
+		<Item class="ModuleScript" referent="RBX23451019465a4dc9b0985a559185a33d">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MaterialsList</string>
@@ -2391,7 +1583,7 @@ return MaterialsListClass
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXc6b9a1d5cc7c487caea825762f3b5356">
+		<Item class="ModuleScript" referent="RBX82c7f7c227684542b77c2dbdc329e0a3">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">MainPanel</string>
@@ -2411,8 +1603,6 @@ local kMainButtonOuterSizeUDim2 = UDim2.new(0, kMainButtonOuterSize, 0, kMainBut
 local kMainButtonFramePadding = UDim.new(0, 4)
 
 local kMainButtonListFrame
-
-local FFlagStudioReactivateNormalToolAfterDeactivatingPlugin = settings():GetFFlag("StudioReactivateNormalToolAfterDeactivatingPlugin")
 
 --[[
 	How tool modules work:
@@ -2545,6 +1735,12 @@ end
 -- The content section will resize to fill the rest of the vertical space that the main panel is not using.
 -- Returns the main panel, and returns the sub-content section
 function makeMainPanel()
+	-- Background.
+	local outerBackground = GuiUtilities.MakeFrame("OuterBackground")
+	outerBackground.Parent = pluginGui
+	outerBackground.Position = UDim2.new(0, 0, 0, 0)
+	outerBackground.Size = UDim2.new(1, 0, 1, 0)	
+
 	-- Make the main panel for tool buttons
 	local section = GuiUtilities.MakeFixedHeightFrame("MainPanel",  100)	
 	section.Parent = pluginGui
@@ -2718,11 +1914,6 @@ module.Initialize = function(thePlugin, thePluginGui)
 				end)
 			end
 		end
-		if FFlagStudioReactivateNormalToolAfterDeactivatingPlugin then
-			if plugin then
-				plugin:Deactivate()
-			end
-		end
 	end
 
 	if plugin then
@@ -2740,7 +1931,7 @@ return module]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX13c85d1c5d314589bcd50e5db5cd4b3a">
+		<Item class="Script" referent="RBXcf824b0b2f514b679b3760ec2aa1fabd">
 			<Properties>
 				<bool name="Disabled">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
@@ -2816,7 +2007,1072 @@ mainPanelModule.Initialize(plugin, pluginGui)
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX45ba2d6b73284c6a81a1ada51bd66cb1">
+		<Item class="ModuleScript" referent="RBX3b39385254fa405794235716b78fc4f0">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">TerrainBrush</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[--Made by Stickmasterluke
+
+local module = {}
+
+GuiUtilities = require(script.Parent.Libs.GuiUtilities)
+CollapsibleTitledSection = require(script.Parent.Libs.CollapsibleTitledSection)
+VerticallyScalingListFrame = require(script.Parent.Libs.VerticallyScalingListFrame)
+LabeledCheckbox = require(script.Parent.Libs.LabeledCheckbox)
+LabeledSlider = require(script.Parent.Libs.LabeledSlider)
+StatefulImageButton = require(script.Parent.Libs.StatefulImageButton)
+MaterialsListClass = require(script.Parent.MaterialsList)
+
+local on
+local kCurrentTool
+local plugin
+local pluginGui 
+local kMaterialsListObject = nil
+
+-- FIXME(dbanks)
+-- Clean this up, ugly globals.
+local kSizeSliderObj = nil
+local kStrengthSliderObj = nil
+local kMinSelectionSize = 1
+local kMaxSelectionSize = 16
+local kSelectionSize = 6
+local kStrength = .5
+
+local kShapeButtonRowHeight = 50
+
+local kShapeButtonSphereAssetId = "rbxasset://textures/TerrainTools/icon_shape_sphere.png"
+local kShapeButtonCubeAssetId = "rbxasset://textures/TerrainTools/icon_shape_cube.png"
+
+local kBrushShapes = {
+	{
+		Name = 'Sphere',
+		Image = kShapeButtonSphereAssetId,
+	},
+	{
+		Name = 'Box',
+		Image = kShapeButtonCubeAssetId,
+	},
+}
+
+local function MakeNthBrushShapeButton(index, position)
+	local config = kBrushShapes[index]
+
+	local shapeButtonObj = StatefulImageButton.new(config.Name, 
+		config.Image, 
+		UDim2.new(0, GuiUtilities.kShapeButtonSize, 0, GuiUtilities.kShapeButtonSize))
+	shapeButtonObj:getButton().AnchorPoint = Vector2.new(0, 0.5)
+	shapeButtonObj:getButton().Position = position
+
+	config.ButtonObj = shapeButtonObj
+end
+
+local function MakeShapeButtonsRow()
+	local row = GuiUtilities.MakeFixedHeightFrame("ShapeButtonRow", kShapeButtonRowHeight)
+
+	local shapeLabel = GuiUtilities.MakeStandardPropertyLabel("Shape") 
+	shapeLabel.Parent = row
+	shapeLabel.AnchorPoint = Vector2.new(0, 0.5)
+	shapeLabel.Position = UDim2.new(0, GuiUtilities.StandardLineLabelLeftMargin, 0, kShapeButtonRowHeight/2)
+
+	MakeNthBrushShapeButton(1, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin,
+		0, kShapeButtonRowHeight/2))
+	MakeNthBrushShapeButton(2, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin, 
+		0, kShapeButtonRowHeight/2))
+
+	kBrushShapes[1].ButtonObj:getButton().Parent = row
+	kBrushShapes[2].ButtonObj:getButton().Parent = row
+
+	return row
+end
+
+local function MakeMaterialsSectionWithTitle()
+	local vsl = VerticallyScalingListFrame.new("mwt")
+	vsl:AddBottomPadding()
+
+	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material", "Material")
+	vsl:AddChild(titleLabel)
+
+	kMaterialsListObject = MaterialsListClass.new()
+	local materialsFrame = kMaterialsListObject:GetMaterialsFrame()
+	vsl:AddChild(materialsFrame)
+
+	return vsl:GetFrame()
+end
+
+module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
+	mouse = theMouse
+	pluginGui = thePluginGui
+	contentFrame = theContentFrame
+	local changeHistory = game:GetService('ChangeHistoryService')
+	local terrain = game.Workspace.Terrain
+	local coreGui = game:GetService("CoreGui")
+	
+	local screenGui = Instance.new("ScreenGui") 
+	screenGui.Name = "TerrainBrushGui"
+
+	-- Create top level container.  
+	-- It has no title bar.
+	local verticallyScalingListFrameObj = VerticallyScalingListFrame.new("BrushFrame")
+	local verticallyScalingListFrame = verticallyScalingListFrameObj:GetFrame()
+	verticallyScalingListFrame.Parent = contentFrame
+	verticallyScalingListFrame.Visible = false
+
+	-- Top level container has 3 collapsible sections:
+	-- 1) Brush Settings.
+	local brushSettingsObj = CollapsibleTitledSection.new('BrushSettings', 
+		'Brush Settings', 
+		true, 
+		true)
+	GuiUtilities.MakeFrameAutoScalingList(brushSettingsObj:GetContentsFrame())
+
+	kSizeSliderObj = LabeledSlider.new("Size", "Size", kMaxSelectionSize, kSelectionSize)
+	local sizeSliderRow =kSizeSliderObj:GetFrame()
+
+	kStrengthSliderObj = LabeledSlider.new("Strength", "Strength", 101, kStrength*100)
+	local strengthSliderRow = kStrengthSliderObj:GetFrame()
+
+	local shapeButtonsRow = MakeShapeButtonsRow()
+
+	GuiUtilities.AddStripedChildrenToListFrame(brushSettingsObj:GetContentsFrame(), 
+		{sizeSliderRow, strengthSliderRow, shapeButtonsRow})
+	
+	verticallyScalingListFrameObj:AddChild(brushSettingsObj:GetSectionFrame())
+
+	-- 2) Materials Settings.	
+	local materialSettingsObj = CollapsibleTitledSection.new("MaterialSettings", 
+		"Material Settings",
+		true, 
+		true)
+	GuiUtilities.MakeFrameAutoScalingList(materialSettingsObj:GetContentsFrame())
+
+	local autoColorObj= LabeledCheckbox.new("Auto", 'Auto')
+
+	-- Variable is *not* local, needs to live inside callback below.
+	local materialSectionWithTitle = MakeMaterialsSectionWithTitle()
+
+	GuiUtilities.AddStripedChildrenToListFrame(materialSettingsObj:GetContentsFrame(), 
+		{autoColorObj:GetFrame(), materialSectionWithTitle})
+		
+	autoColorObj:SetValueChangedFunction(function()
+		-- When 'auto' material selection is on, hide material selection panel.
+		materialSectionWithTitle.Visible = (not autoColorObj:GetValue())
+	end)
+
+	verticallyScalingListFrameObj:AddChild(materialSettingsObj:GetSectionFrame())
+
+	-- 3) Advanced settings.
+	local advancedSettingsObj = CollapsibleTitledSection.new("AdvancedSettings", 
+		"Advanced",
+		true, 
+		true)
+	GuiUtilities.MakeFrameAutoScalingList(advancedSettingsObj:GetContentsFrame())
+
+	local planeLockObj = LabeledCheckbox.new("PLock", 'Plane Lock')
+	local snapToGridObj = LabeledCheckbox.new("STG", 'Snap to Grid')
+	local ignoreWaterObj = LabeledCheckbox.new("IGW", 'Ignore Water', true)
+	planeLockObj:SetValueChangedFunction(function(value)
+		if not planeLockObj:GetValue() then
+			clearGrid()
+		end
+	end)
+
+	GuiUtilities.AddStripedChildrenToListFrame(advancedSettingsObj:GetContentsFrame(), 
+		{planeLockObj:GetFrame(), 
+		 snapToGridObj:GetFrame(),
+		 ignoreWaterObj:GetFrame()})
+
+	verticallyScalingListFrameObj:AddChild(advancedSettingsObj:GetSectionFrame())
+
+
+
+
+
+	local userInput = game:GetService('UserInputService')
+	local prevCameraType = game.Workspace.CurrentCamera.CameraType
+
+	--SUB SETTINGS--	(Non-userfacing Settings)
+	local resolution = 4			--This is the size of voxels on Roblox. Why is this a variable? ;)
+	local clickThreshold = .1
+	local toolTipShowTime = 3.5
+	local materialsTable = MaterialsListClass.MaterialsTable
+	----------------
+
+	----SETTINGS----	(Interface Settings)
+	local brushShape = 'Sphere'
+	----------------
+
+	----Variables----
+	local forceMaterial = nil
+	local nearMaterial = nil
+	local selectionPart = nil
+	local selectionObject = nil
+	local gridLineParts = {}
+	local currentLoopTag = nil
+	local lastMainPoint = Vector3.new(0, 0, 0)
+	local click = false
+	local firstOperation = tick()
+	local downKeys = {}
+	local lastPlanePoint = Vector3.new(0, 0, 0)
+	local lastNormal = Vector3.new(0, 1, 0)
+	local lastCursorDistance = 300
+	local one256th = 1/256							--This should later be replaced with 0 once smooth terrain doesn't aproximate 1/256 to 0. This is causing small occupancies to become air
+	local toolTip1Change = nil
+	local toolTip2Change = nil
+	local materialAir = Enum.Material.Air
+	local materialWater = Enum.Material.Water
+	local ceil = math.ceil
+	local floor = math.floor
+	local abs = math.abs
+	local min = math.min
+	local max = math.max
+	local sqrt = math.sqrt
+	local sin = math.sin
+	local cos = math.cos
+	local pi = math.pi
+	
+	---------------
+	
+	kSizeSliderObj:SetValueChangedFunction(function(newValue)
+		kSelectionSize = newValue
+		if selectionPart then
+			selectionPart.Size = Vector3.new(1, 1, 1) * kSelectionSize * resolution + Vector3.new(.1, .1, .1)
+		end
+	end)
+
+	kStrengthSliderObj:SetValueChangedFunction(function(newValue)
+		kStrength = (newValue - 1) / 100
+		if selectionObject then
+			selectionObject.SurfaceTransparency = .95 - kStrength * .3
+		end
+	end)
+
+	function setBrushShape(newBrushShape)
+		brushShape = newBrushShape
+		for _,v in ipairs(kBrushShapes) do
+			v.ButtonObj:setSelected(newBrushShape == v.Name)
+		end
+		clearSelection()
+	end
+
+	for _,v in ipairs(kBrushShapes) do
+		v.ButtonObj:getButton().MouseButton1Down:connect(function()
+			setBrushShape(v.Name)
+		end)
+	end
+
+	-- If this diabled condition is true, fix checkbox in disabled state
+	-- with given override.
+	-- Else fix checkbox in enabled state.
+	local function updateCheckboxDisabledStateWithOverride(checkboxObj, 
+		disabledCondition, 
+		disabledOverride)
+		if (disabledCondition) then 
+			checkboxObj:DisableWithOverrideValue(disabledOverride)
+		else
+			checkboxObj:SetDisabled(false)
+		end
+	end
+
+	local function updateUsabilityLocks()
+		if kCurrentTool then
+			updateCheckboxDisabledStateWithOverride(snapToGridObj, 
+				kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid, 
+				true)
+
+			updateCheckboxDisabledStateWithOverride(planeLockObj, 
+				kCurrentTool.DisablesPlaneLock, 
+				true)
+
+			updateCheckboxDisabledStateWithOverride(autoColorObj, 
+				kCurrentTool.DisablesAutoColor, 
+					kCurrentTool.Name ~= 'Paint')
+
+			updateCheckboxDisabledStateWithOverride(ignoreWaterObj, 
+				(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth', 
+				(kCurrentTool.Name ~= 'Smooth' and kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWaterTo))
+
+			autoColorObj:GetFrame().Visible = kCurrentTool.UsesMaterials
+			materialSettingsObj:GetSectionFrame().Visible = not not kCurrentTool.UsesMaterials
+		end
+	end
+
+	kMaterialsListObject:SetCallbackOnSelectionChanged(updateUsabilityLocks)
+
+	-------------
+
+	do
+		local runService = game:GetService('RunService').RenderStepped
+		function quickWait(waitTime)
+			if not waitTime then
+				runService:wait()
+			elseif waitTime < .033333 then
+				local startTick = tick()
+				runService:wait()
+				local delta = tick() - startTick
+				if delta <= waitTime * .5 then
+					quickWait(waitTime - delta)
+				end
+			else
+				wait(waitTime)
+			end
+		end
+	end
+
+	function deepCast(origin, endPoint, ignoreList, filterFunction, cubeTerrain)
+		local ray = Ray.new(origin, endPoint - origin)
+		local hit, pos, normal, material = game.Workspace:FindPartOnRayWithIgnoreList(ray, ignoreList, cubeTerrain)
+		if hit and filterFunction(hit) then
+			table.insert(ignoreList, hit)
+			return deepCast(pos, endPoint, ignoreList, filterFunction, cubeTerrain)
+		else
+			return hit, pos, normal, material
+		end
+	end
+
+	function clearSelection()
+		if selectionObject then
+			selectionObject:Destroy()
+			selectionObject = nil
+		end
+		if selectionPart then
+			selectionPart:Destroy()
+			selectionPart = nil
+		end
+	end
+
+	function clearGrid()
+		for i, v in pairs(gridLineParts) do
+			if v then
+				v:Destroy()
+			end
+			gridLineParts[i] = nil
+		end
+	end
+
+	function drawGrid(point, normal, transparency, color)
+		local transparency = transparency or .95
+		local color = BrickColor.new(color or 'Institutional white')--'Pastel light blue')
+		local gridCellSize = kSelectionSize * resolution
+		local gridSize = 10
+		local baseCframe = CFrame.new(point, point + normal)
+		local normalSpase = CFrame.new(Vector3.new(0, 0, 0), normal):pointToObjectSpace(point)
+		local roundedNormalOffset = (Vector3.new((normalSpase.x / gridCellSize) % 1, (normalSpase.y / gridCellSize) % 1, 0) - Vector3.new(.5, .5, 0)) * -gridCellSize
+		for u = 1, gridSize do
+			local linePart = gridLineParts[u]
+			if not linePart then
+				linePart = Instance.new('Part')
+				linePart.Transparency = 1
+				linePart.TopSurface = 'Smooth'
+				linePart.BottomSurface = 'Smooth'
+				linePart.Anchored = true
+				linePart.CanCollide = false
+				local selectionBox = Instance.new('SelectionBox')
+				selectionBox.Color = color
+				selectionBox.Transparency = transparency
+				selectionBox.Adornee = linePart
+				selectionBox.Parent = linePart
+				linePart.Parent = screenGui
+				gridLineParts[u] = linePart
+			elseif linePart.SelectionBox.Transparency ~= transparency or linePart.SelectionBox.Color ~= color then
+				linePart.SelectionBox.Transparency = transparency
+				linePart.SelectionBox.Color = color
+			end
+			local percent = (u - 1) / (gridSize - 1)
+			linePart.Size = Vector3.new(gridCellSize * gridSize * sin(math.acos(percent * 1.8 - .9)), 0, 0)
+			linePart.CFrame = baseCframe * CFrame.new(0, (percent - .5) * (gridSize - 1) * gridCellSize, 0) * CFrame.new(roundedNormalOffset)
+		end
+		for u = 1, gridSize do
+			local linePart = gridLineParts[gridSize + u]
+			if not linePart then
+				linePart = Instance.new('Part')
+				linePart.Transparency = 1
+				linePart.TopSurface = 'Smooth'
+				linePart.BottomSurface = 'Smooth'
+				linePart.Anchored = true
+				linePart.CanCollide = false
+				local selectionBox = Instance.new('SelectionBox')
+				selectionBox.Color = color
+				selectionBox.Transparency = transparency
+				selectionBox.Adornee = linePart
+				selectionBox.Parent = linePart
+				linePart.Parent = screenGui
+				gridLineParts[gridSize + u] = linePart
+			elseif linePart.SelectionBox.Transparency ~= transparency or linePart.SelectionBox.Color ~= color then
+				linePart.SelectionBox.Transparency = transparency
+				linePart.SelectionBox.Color = color
+			end
+			local percent = (u - 1) / (gridSize - 1)
+			linePart.Size = Vector3.new(0, gridCellSize * gridSize * sin(math.acos(percent * 1.8 - .9)), 0)
+			linePart.CFrame = baseCframe * CFrame.new((percent - .5) * (gridSize - 1) * gridCellSize, 0, 0) * CFrame.new(roundedNormalOffset)
+		end
+	end
+
+	local function getCell(list, x, y, z, materialList)
+		-- only include materialsList if you want to ignore water
+		return (materialList and materialList[x] and materialList[x][y] and materialList[x][y][z]) == materialWater and 0
+				or list and list[x] and list[x][y] and list[x][y][z]
+	end
+
+	local function getNeighborOccupancies(list, x, y, z, materialsList, includeSelf)
+		--only include materialsList if you want to ignore water
+		local fullNeighbor = false
+		local emptyNeighbor = false
+		local neighborOccupancies = includeSelf and getCell(list, x, y, z, materialsList) or 0
+		local totalNeighbors = includeSelf and 1 or 0
+		local nearMaterial = kMaterialsListObject:GetCurrentMaterialSelection().enum
+		for axis = 1, 3 do
+			for offset = -1, 1, 2 do
+				local neighbor = nil
+				local neighborMaterial = nil
+				if axis == 1 then
+					neighbor = list[x + offset] and list[x + offset][y][z]
+				elseif axis == 2 then
+					neighbor = list[x][y + offset] and list[x][y + offset][z]
+				elseif axis == 3 then
+					neighbor = list[x][y][z + offset]
+				end
+				if neighbor then
+					if materialsList then
+						if axis == 1 then
+							neighborMaterial = materialsList[x + offset] and materialsList[x + offset][y][z]
+						elseif axis == 2 then
+							neighborMaterial = materialsList[x][y + offset] and materialsList[x][y + offset][z]
+						elseif axis == 3 then
+							neighborMaterial = materialsList[x][y][z + offset]
+						end
+						if neighborMaterial == materialWater then
+							neighbor = 0
+						end
+					end
+					if neighbor >= 1 then
+						fullNeighbor = true
+					end
+					if neighbor <= 0 then
+						emptyNeighbor = true
+					end
+					totalNeighbors = totalNeighbors + 1
+					neighborOccupancies = neighborOccupancies + neighbor
+				end
+			end
+		end
+		return neighborOccupancies / (totalNeighbors ~= 0 and totalNeighbors or getCell(list, x, y, z, materialsList)), fullNeighbor, emptyNeighbor
+	end
+
+	local function round(n)
+		return floor(n + .5)
+	end
+
+	function findFace()
+		local cameraLookVector = game.Workspace.CurrentCamera.CoordinateFrame.lookVector
+		--[[local absx = abs(cameraLookVector.x)		--this code is for 90 plane locking
+		local absy = abs(cameraLookVector.y)
+		local absz = abs(cameraLookVector.z)
+		if absy >= absx and absy >= absz then	--preference towards y axis planes
+			return Vector3.new(0, cameraLookVector.y / absy, 0)
+		elseif absx >= absz then
+			return	Vector3.new(cameraLookVector.x / absx, 0, 0)
+		end
+		return Vector3.new(0, 0, cameraLookVector.z / absz)]]
+
+		return Vector3.new(round(cameraLookVector.x), round(cameraLookVector.y), round(cameraLookVector.z)).unit	--this code is for 45 degree plane locking
+	end
+
+	function lineToPlaneIntersection(linePoint, lineDirection, planePoint, planeNormal)
+		local denominator = lineDirection:Dot(planeNormal)
+		if denominator == 0 then
+			return linePoint
+		end
+		local distance = ((planePoint - linePoint):Dot(planeNormal)) / denominator
+		return linePoint + lineDirection * distance
+	end
+
+	function operation(centerPoint)
+		local desiredMaterial = autoColorObj:GetValue() and nearMaterial or kMaterialsListObject:GetCurrentMaterialSelection().enum
+
+		local radius = kSelectionSize * .5 * resolution
+		local minBounds = Vector3.new(
+			floor((centerPoint.x - radius) / resolution) * resolution,
+			floor((centerPoint.y - radius) / resolution) * resolution,
+			floor((centerPoint.z - radius) / resolution) * resolution)
+		local maxBounds = Vector3.new(
+			ceil((centerPoint.x + radius) / resolution) * resolution,
+			ceil((centerPoint.y + radius) / resolution) * resolution,
+			ceil((centerPoint.z + radius) / resolution) * resolution)
+		local region = Region3.new(minBounds, maxBounds)
+
+		local materials, occupancies = terrain:ReadVoxels(region, resolution)
+		local toolBrushOperation = nil
+		for _, toolModule in pairs(kCurrentTool.Modules) do
+			if toolModule.BrushOperation then
+				toolBrushOperation = toolModule.BrushOperation
+				break
+			end
+		end
+		if toolBrushOperation then
+			local middle = materials[ceil(#materials * .5)]	--This little section of code sets nearMaterial to middle of matrix
+			if middle then	--dig X
+				local middle = middle[ceil(#middle * .5)]
+				if middle then	--dig Y
+					local middle = middle[ceil(#middle * .5)]
+					if middle and middle ~= materialAir and middle ~= materialWater then	--dig Z
+						nearMaterial = middle
+						desiredMaterial = autoColorObj:GetValue() and nearMaterial or desiredMaterial
+					end
+				end
+			end
+
+			toolBrushOperation(centerPoint, materials, occupancies, resolution, kSelectionSize, kStrength, desiredMaterial, brushShape, minBounds, maxBounds)
+		else
+			local airFillerMaterial = materialAir
+			local waterHeight = 0
+			if ignoreWaterObj:GetValue() and (kCurrentTool.Name == 'Erode' or kCurrentTool.Name == 'Subtract') then
+				--[[local centerPointCell = Vector3.new(floor((centerPoint.x+.5)/resolution) * resolution, floor((centerPoint.y+.5)/resolution) * resolution, floor((centerPoint.z+.5)/resolution) * resolution)
+				local sampleRegion = Region3.new(centerPointCell - Vector3.new(resolution,resolution,resolution), centerPointCell + Vector3.new(resolution,resolution,resolution))
+				local sampleMaterials, sampleOccupancies = terrain:ReadVoxels(sampleRegion, resolution)]]
+				
+				for ix,vx in ipairs(materials) do
+					for iy,vy in ipairs(vx) do
+						for iz, vz in ipairs(vy) do
+							if vz == materialWater then
+								airFillerMaterial = materialWater
+								if iy > waterHeight then
+									waterHeight = iy
+								end
+							end
+						end
+					end
+				end
+			end
+
+			for ix, vx in ipairs(occupancies) do
+				local cellVectorX = minBounds.x + (ix - .5) * resolution - centerPoint.x
+
+				for iy, vy in pairs(vx) do
+					local cellVectorY = minBounds.y + (iy - .5) * resolution - centerPoint.y
+
+					for iz, cellOccupancy in pairs(vy) do
+						local cellVectorZ = minBounds.z + (iz - .5) * resolution - centerPoint.z
+
+						local cellMaterial = materials[ix][iy][iz]
+						local distance = sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
+	
+						local magnitudePercent = 1
+						local brushOccupancy = 1
+						if brushShape == 'Sphere' then
+							magnitudePercent = cos(min(1, distance / (radius + resolution * .5)) * pi * .5)
+							brushOccupancy = max(0, min(1, (radius + .5 * resolution - distance) / resolution))
+						elseif brushShape == 'Box' then
+							if not snapToGridObj:GetValue() then
+								local xOutside = 1 - max(0, abs(cellVectorX / resolution) + .5 - kSelectionSize * .5)
+								local yOutside = 1 - max(0, abs(cellVectorY / resolution) + .5 - kSelectionSize * .5)
+								local zOutside = 1 - max(0, abs(cellVectorZ / resolution) + .5 - kSelectionSize * .5)
+								brushOccupancy = xOutside * yOutside * zOutside
+							end
+						end
+
+						if cellMaterial ~= materialAir and cellMaterial ~= materialWater and cellMaterial ~= nearMaterial then
+							nearMaterial = cellMaterial
+							if autoColorObj:GetValue() then
+								desiredMaterial = nearMaterial
+							end
+						end
+
+						if ignoreWaterObj:GetValue() and cellMaterial == materialWater then
+							cellMaterial = materialAir
+							cellOccupancy = 0
+						end
+						local airFillerMaterial = waterHeight >= iy and airFillerMaterial or materialAir
+	
+						if kCurrentTool.Name == 'Add' then
+							if kSelectionSize <= 2 then
+								if brushOccupancy >= .5 then
+									if cellMaterial == materialAir or cellOccupancy <= 0 then
+										materials[ix][iy][iz] = desiredMaterial
+									end
+									occupancies[ix][iy][iz] = 1
+								end 
+							else
+								if brushOccupancy > cellOccupancy then
+									occupancies[ix][iy][iz] = brushOccupancy
+								end
+								if brushOccupancy >= .5 and cellMaterial == materialAir then
+									materials[ix][iy][iz] = desiredMaterial
+								end
+							end
+						elseif kCurrentTool.Name == 'Subtract' then
+							if cellMaterial ~= materialAir then
+								if kSelectionSize <= 2 then
+									if brushOccupancy >= .5 then
+										occupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
+										materials[ix][iy][iz] = airFillerMaterial
+									end
+								else
+									local desiredOccupancy = max(0,1 - brushOccupancy)
+									if desiredOccupancy < cellOccupancy then
+										if desiredOccupancy <= one256th then
+											occupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
+											materials[ix][iy][iz] = airFillerMaterial
+										else
+											occupancies[ix][iy][iz] = min(cellOccupancy, desiredOccupancy)
+										end
+									end
+								end
+							end
+						elseif kCurrentTool.Name == 'Grow' then
+							if brushOccupancy >= .5 then --working on
+								local desiredOccupancy = cellOccupancy
+								local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(occupancies, ix, iy, iz, ignoreWaterObj:GetValue() and materials)
+								if cellOccupancy > 0 or fullNeighbor then	--problem if selection size is small.
+									desiredOccupancy = desiredOccupancy + neighborOccupancies * (kStrength + .1) * .25 * brushOccupancy * magnitudePercent
+								end
+								if cellMaterial == materialAir and desiredOccupancy > 0 then
+									materials[ix][iy][iz] = desiredMaterial
+								end
+								if desiredOccupancy ~= cellOccupancy then
+									occupancies[ix][iy][iz] = desiredOccupancy
+								end
+							end
+						elseif kCurrentTool.Name == 'Erode' then
+							if cellMaterial ~= materialAir then
+								local flippedBrushOccupancy = 1 - brushOccupancy
+								if flippedBrushOccupancy <= .5 then
+									local desiredOccupancy = cellOccupancy
+									local emptyNeighbor = false
+									local neighborOccupancies = 6
+									for axis = 1, 3 do
+										for offset = -1, 1, 2 do
+											local neighbor = nil
+											local neighborMaterial = nil
+											if axis == 1 then
+												neighbor = occupancies[ix + offset] and occupancies[ix + offset][iy][iz]
+												neighborMaterial = materials[ix + offset] and materials[ix + offset][iy][iz]
+											elseif axis == 2 then
+												neighbor = occupancies[ix][iy + offset] and occupancies[ix][iy + offset][iz]
+												neighborMaterial = materials[ix][iy + offset] and materials[ix][iy + offset][iz]
+											elseif axis == 3 then
+												neighbor = occupancies[ix][iy][iz + offset]
+												neighborMaterial = materials[ix][iy][iz + offset]
+											end
+											if neighbor then
+												if ignoreWaterObj:GetValue() and neighborMaterial == materialWater then
+													neighbor = 0
+												end
+												if neighbor <= 0 then
+													emptyNeighbor = true
+												end
+												neighborOccupancies = neighborOccupancies - neighbor
+											end
+										end
+									end
+									if cellOccupancy < 1 or emptyNeighbor then
+										desiredOccupancy = max(0,desiredOccupancy - (neighborOccupancies / 6) * (kStrength + .1) * .25 * brushOccupancy * magnitudePercent)
+									end
+									if desiredOccupancy <= one256th then
+										occupancies[ix][iy][iz] = airFillerMaterial == materialWater and 1 or 0
+										materials[ix][iy][iz] = airFillerMaterial
+									else
+										occupancies[ix][iy][iz] = desiredOccupancy
+									end
+								end
+							end
+						elseif kCurrentTool.Name == 'Paint' then
+							if brushOccupancy > 0 and cellOccupancy > 0 then
+								materials[ix][iy][iz] = desiredMaterial
+							end
+						end
+					end
+				end
+			end
+		end
+		terrain:WriteVoxels(region, resolution, materials, occupancies)
+	end
+
+	
+	module.On = function(theTool)
+		kCurrentTool = theTool
+		screenGui.Parent = coreGui
+		verticallyScalingListFrame.Visible = true
+		on = true
+
+		updateUsabilityLocks()
+
+		local loopTag = {}	--using table as a unique value for debouncing
+		currentLoopTag = loopTag
+
+		while currentLoopTag and currentLoopTag == loopTag do
+			local t = tick()
+			local radius = kSelectionSize * .5 * resolution
+			local cameraPos = mouse.Origin.p
+			
+			local ignoreModel = nil
+			if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+				ignoreModel = game.Players.LocalPlayer.Character
+			end
+			local mouseRay = Ray.new(cameraPos, mouse.UnitRay.Direction*10000)
+			local hitObject, mainPoint = game.Workspace:FindPartOnRay(mouseRay, ignoreModel, false, ignoreWaterObj:GetValue())
+
+			if kCurrentTool.Name == 'Add' then
+				mainPoint = mainPoint - mouse.UnitRay.Direction * .05
+			elseif kCurrentTool.Name == 'Subtract' or kCurrentTool.Name == 'Paint' or kCurrentTool.Name == 'Grow' then
+				mainPoint = mainPoint + mouse.UnitRay.Direction * .05
+			end
+
+			if mouse.Target == nil then	--cage the cursor so that it does not fly away
+				mainPoint = cameraPos + mouse.UnitRay.Direction * lastCursorDistance --limits the distance of the mainPoint if the mouse is not hitting an object
+			end
+
+			if not mouseDown or click then
+				lastPlanePoint = mainPoint
+				lastNormal = findFace()
+			end
+
+			if planeLockObj:GetValue() then
+				mainPoint = lineToPlaneIntersection(cameraPos, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)
+			end
+
+			if snapToGridObj:GetValue() then
+				local snapOffset = Vector3.new(1, 1, 1) * (radius % resolution)		--in studs
+				local tempMainPoint = (mainPoint - snapOffset) / resolution + Vector3.new(.5, .5, .5)	--in voxels
+				mainPoint = Vector3.new(floor(tempMainPoint.x), floor(tempMainPoint.y), floor(tempMainPoint.z)) * resolution + snapOffset
+			end
+
+			if mouseDown then
+				if click then
+					firstOperation = t
+					lastMainPoint = mainPoint
+				end
+				
+				if click or t > firstOperation + clickThreshold then
+					click = false
+					if downKeys[Enum.KeyCode.LeftAlt] or downKeys[Enum.KeyCode.RightAlt] then
+						--pick color
+						local function filterNonTerrain(thing)
+							if thing and thing == terrain then
+								return false
+							end
+							return true
+						end
+						local hit, hitPosition, normal, foundMaterial = deepCast(cameraPos, cameraPos + mouse.UnitRay.Direction*10000, {}, filterNonTerrain, true)
+						if hit then
+							kMaterialsListObject:SetMaterialSelectionUsingEnum(foundMaterial)
+						end
+					else
+						local difference = mainPoint - lastMainPoint
+						local dragDistance = (difference).magnitude
+						local crawlDistance = radius * .5			--Maybe adjustable setting? Considering using a different method of crawling, with a percent rather than a finite distance.
+						if dragDistance > crawlDistance then
+							local differenceVector = difference.unit
+							local dragDistance = min(dragDistance, crawlDistance * 2 + 20)	--limiting this so that it does not attempt too many operations within a single drag.
+							local samples = ceil(dragDistance / crawlDistance - .1)
+							for i = 1, samples do
+								operation(lastMainPoint + differenceVector * dragDistance * (i / samples))
+							end
+							mainPoint = lastMainPoint + differenceVector * dragDistance
+						else
+							operation(mainPoint)
+						end
+						lastMainPoint = mainPoint
+					end
+				end
+			end
+
+			if not selectionPart then
+				selectionPart = Instance.new('Part')
+				selectionPart.Name = 'SelectionPart'
+				selectionPart.Transparency = 1
+				selectionPart.TopSurface = 'Smooth'
+				selectionPart.BottomSurface = 'Smooth'
+				selectionPart.Anchored = true
+				selectionPart.CanCollide = false
+				selectionPart.Size = Vector3.new(1, 1, 1) * kSelectionSize * resolution + Vector3.new(.1, .1, .1)
+				selectionPart.Parent = screenGui
+			end
+			if not selectionObject then
+				selectionObject = Instance.new(brushShape == 'Sphere' and 'SelectionSphere' or 'SelectionBox')
+				selectionObject.Name = 'SelectionObject'
+				selectionObject.Color = BrickColor.new('Toothpaste')
+				selectionObject.SurfaceTransparency = .95 - kStrength * .3
+				selectionObject.SurfaceColor = BrickColor.new('Toothpaste')
+				selectionObject.Adornee = selectionPart
+				selectionObject.Parent = selectionPart
+			end
+			
+			if not userInput.TouchEnabled or mouseDown then
+				selectionPart.CFrame = CFrame.new(mainPoint)
+				
+				if planeLockObj:GetValue() then
+					local mainPointIntersect = lineToPlaneIntersection(mainPoint, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)	--we need to get this otherwise the plane can shift whiel drawing
+					drawGrid(mainPointIntersect, lastNormal, mouseDown and .8)
+				end
+			end
+
+			lastCursorDistance = max(20 + kSelectionSize * resolution * 1.5,(mainPoint - cameraPos).magnitude)
+
+			quickWait()
+		end
+	end
+	
+	module.Off = function()
+		currentLoopTag = nil
+		screenGui.Parent = script.Parent
+		verticallyScalingListFrame.Visible = false
+		on = false
+		
+		clearSelection()
+		clearGrid()
+		mouseDown = false
+	end
+
+	--Touch controls
+	local fingerTouches = {}
+	local NumUnsunkTouches = 0
+
+	local StartingDiff = nil
+	local startingSelectionSize = nil
+
+	local function OnTouchBegan(input, processed)
+		fingerTouches[input] = processed
+		if not processed then
+			click = true
+			NumUnsunkTouches = NumUnsunkTouches + 1
+		end
+	end
+
+	local function OnTouchChanged(input, processed)
+		if fingerTouches[input] == nil then
+			fingerTouches[input] = processed
+			if not processed then
+				NumUnsunkTouches = NumUnsunkTouches + 1
+			end
+		end
+
+		if NumUnsunkTouches == 1 then
+			if fingerTouches[input] == false then
+				mouseDown = true
+			end
+		else
+			mouseDown = false
+		end
+		if NumUnsunkTouches == 2 then
+			local unsunkTouches = {}
+			for touch, wasSunk in pairs(fingerTouches) do
+				if not wasSunk then
+					table.insert(unsunkTouches, touch)
+				end
+			end
+			if #unsunkTouches == 2 then
+				local difference = (unsunkTouches[1].Position - unsunkTouches[2].Position).magnitude
+				if StartingDiff and startingSelectionSize then
+					local scale = difference/max(0.01, StartingDiff)
+					kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, startingSelectionSize/scale))
+					kSizeSliderObj:SetValue(kSelectionSize)
+				else
+					StartingDiff = difference
+					startingSelectionSize = kSizeSliderObj:GetValue()
+				end
+			end
+		else
+			StartingDiff = nil
+			startingSelectionSize = nil
+		end
+	end
+
+	local function OnTouchEnded(input, processed)
+		if fingerTouches[input] == false then
+			if NumUnsunkTouches == 1 then
+				mouseDown = false
+			elseif NumUnsunkTouches == 2 then
+				StartingDiff = nil
+				startingSelectionSize = nil
+				mouseDown = true
+			end
+		end
+
+		if fingerTouches[input] ~= nil and fingerTouches[input] == false then
+			NumUnsunkTouches = NumUnsunkTouches - 1
+		end
+		fingerTouches[input] = nil
+	end
+	
+	-- Input Handling
+	userInput.InputBegan:connect(function(event, soaked)
+		downKeys[event.KeyCode] = true
+		if event.UserInputType == Enum.UserInputType.MouseButton1 and not soaked and on then
+			mouseDown = true
+			click = true
+		elseif event.UserInputType == Enum.UserInputType.Touch and on then
+			OnTouchBegan(event, soaked)
+		end
+	end)
+	
+	userInput.InputChanged:connect(function(input, processed)
+		if input.UserInputType == Enum.UserInputType.Touch then
+			OnTouchChanged(input, processed)
+		end
+	end)
+	
+	userInput.InputEnded:connect(function(event, soaked)
+		downKeys[event.KeyCode] = nil
+		if event.UserInputType == Enum.UserInputType.MouseButton1 and mouseDown then
+			mouseDown = false
+			if changeHistory then
+				changeHistory:SetWaypoint('Terrain '..kCurrentTool.Name)
+			end
+		elseif event.UserInputType == Enum.UserInputType.Touch then
+			OnTouchEnded(event, soaked)
+		end
+	end)
+
+	function scrollwheel(change)
+		if on then
+			if downKeys[Enum.KeyCode.LeftShift] or downKeys[Enum.KeyCode.RightShift] then
+				kSelectionSize = max(kMinSelectionSize, min(kMaxSelectionSize, kSelectionSize + change))
+				kSizeSliderObj:SetValue(kSelectionSize)
+			end
+			if downKeys[Enum.KeyCode.LeftControl] or downKeys[Enum.KeyCode.RightControl] then
+				kStrength = max(0, min(1, kStrength + change * (1/(kMaxSelectionSize-kMinSelectionSize))))
+				kStrengthSliderObj:SetValue(round(kStrength * 100 + 1))
+			end
+		end
+	end
+	
+	mouse.WheelForward:connect(function()
+		scrollwheel(1)
+	end)
+	
+	mouse.WheelBackward:connect(function()
+		scrollwheel(-1)
+	end)
+
+	setBrushShape(brushShape)
+	kMaterialsListObject:SetMaterialSelection(kMaterialsListObject:GetCurrentMaterialSelection())
+
+	-- Reset keyboard status on lost focus as key release may never come blocked by popups etc.
+	userInput.WindowFocusReleased:connect(function()
+		downKeys = {}
+	end)
+end
+
+
+return module]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX29366bf179bd4188982f922d797f0579">
+			<Properties>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">ProgressFrame</string>
+				<string name="ScriptGuid"></string>
+				<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- ProgressFrame.lua
+--
+-- Creates a frame that has a progress bar.
+--
+----------------------------------------
+
+local GuiUtilities = require(script.Parent.Libs.GuiUtilities)
+
+local kWidth = 400
+local kHeight = 160
+
+local kStandardHMargin = 10
+local kStandardVMargin = 5
+local kBarHeight = 25
+local kButtonHeight = 30
+
+local kTitleBarHeight = 25
+
+ProgressFrameClass = {}
+ProgressFrameClass.__index = ProgressFrameClass
+
+function ProgressFrameClass.new(nameSuffix, labelText, initValue, initDisabled)
+	local self = {}
+	setmetatable(self, ProgressFrameClass)
+
+	self._frame = Instance.new("Frame")
+	self._frame.Name = "ProgressFrame"
+	self._frame.Position = UDim2.new(0.5, -kWidth/2, 0, 0)
+	self._frame.Size = UDim2.new(0, kWidth, 0, kHeight)
+	self._frame.Style = Enum.FrameStyle.DropShadow
+
+	self._frame.Visible = false
+
+	self._bar = Instance.new("Frame")
+	self._bar.Name = "Bar"
+	self._bar.Parent = self._frame
+	self._bar.Position = UDim2.new(0, kStandardHMargin, 0.39, 0)
+	self._bar.Size = UDim2.new(1, -2 * kStandardHMargin, 0, kBarHeight)
+
+	self._fill = Instance.new("ImageLabel")
+	self._fill.Name = "ImageLabel"
+	self._fill.Parent = self._bar
+	self._fill.Image = "rbxasset://textures/TerrainTools/progress_bar.png"
+	self._fill.ImageColor3 = Color3.new(0, 0.9, 0.4)
+	self._fill.ImageRectOffset = Vector2.new(0, 256)
+	self._fill.ImageRectSize = Vector2.new(0, -100)
+	self._fill.ScaleType = Enum.ScaleType.Stretch
+
+	self._pauseButton = Instance.new("TextButton")
+	self._pauseButton.Name = "PauseButton"
+	self._pauseButton.Text = "Pause"
+	self._pauseButton.Parent = self._frame
+	self._pauseButton.Style = Enum.ButtonStyle.RobloxRoundDefaultButton
+	self._pauseButton.Size = UDim2.new(0.5, -2 * kStandardHMargin, 0, kButtonHeight)
+	self._pauseButton.Position = UDim2.new(0, kStandardHMargin, 1, -kStandardVMargin - kButtonHeight)
+
+	self._cancelButton = Instance.new("TextButton")
+	self._cancelButton.Name = "CancelButton"
+	self._cancelButton.Text = "Cancel"
+	self._cancelButton.Parent = self._frame
+	self._cancelButton.AnchorPoint = Vector2.new(1, 0)
+	self._cancelButton.Style = Enum.ButtonStyle.RobloxRoundDefaultButton
+	self._cancelButton.Size = UDim2.new(0.5, -2 * kStandardHMargin, 0, kButtonHeight)
+	self._cancelButton.Position = UDim2.new(1, -kStandardHMargin, 1, -kStandardVMargin - kButtonHeight)
+
+	self._titleLabel = Instance.new("TextLabel")
+	self._titleLabel.Name = "TitleLabel"
+	self._titleLabel.Text = "Progress"
+	self._titleLabel.Parent = self._frame
+	self._titleLabel.BackgroundTransparency = 0.75
+	self._titleLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+	self._titleLabel.Size = UDim2.new(1, 0, 0, kTitleBarHeight)
+
+	self:_FixFont(self._pauseButton)
+	self:_FixFont(self._cancelButton)
+	self:_FixFont(self._titleLabel)
+
+	return self
+end
+
+function ProgressFrameClass:_FixFont(frame)
+	frame.Font = Enum.Font.SourceSansBold
+	frame.TextColor3 = Color3.new(1, 1, 1)
+	frame.TextSize = 18
+end
+
+function ProgressFrameClass:GetFrame() 
+	return self._frame
+end
+
+function ProgressFrameClass:GetPauseButton() 
+	return self._pauseButton
+end
+
+function ProgressFrameClass:GetCancelButton() 
+	return self._cancelButton
+end
+
+function ProgressFrameClass:GetFill() 
+	return self._fill
+end
+
+return ProgressFrameClass]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX3684b788806c450a8511f89793d85e92">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">TerrainGeneration</string>
@@ -3709,269 +3965,12 @@ return module
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3a738f5730554a68880aac6268ffde3b">
-			<Properties>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">ProgressFrame</string>
-				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- ProgressFrame.lua
---
--- Creates a frame that has a progress bar.
---
-----------------------------------------
-
-local GuiUtilities = require(script.Parent.Libs.GuiUtilities)
-
-local kWidth = 400
-local kHeight = 160
-
-local kStandardHMargin = 10
-local kStandardVMargin = 5
-local kBarHeight = 25
-local kButtonHeight = 30
-
-local kTitleBarHeight = 25
-
-ProgressFrameClass = {}
-ProgressFrameClass.__index = ProgressFrameClass
-
-function ProgressFrameClass.new(nameSuffix, labelText, initValue, initDisabled)
-	local self = {}
-	setmetatable(self, ProgressFrameClass)
-
-	self._frame = Instance.new("Frame")
-	self._frame.Name = "ProgressFrame"
-	self._frame.Position = UDim2.new(0.5, -kWidth/2, 0, 0)
-	self._frame.Size = UDim2.new(0, kWidth, 0, kHeight)
-	self._frame.Style = Enum.FrameStyle.DropShadow
-
-	self._frame.Visible = false
-
-	self._bar = Instance.new("Frame")
-	self._bar.Name = "Bar"
-	self._bar.Parent = self._frame
-	self._bar.Position = UDim2.new(0, kStandardHMargin, 0.39, 0)
-	self._bar.Size = UDim2.new(1, -2 * kStandardHMargin, 0, kBarHeight)
-
-	self._fill = Instance.new("ImageLabel")
-	self._fill.Name = "ImageLabel"
-	self._fill.Parent = self._bar
-	self._fill.Image = "rbxasset://textures/TerrainTools/progress_bar.png"
-	self._fill.ImageColor3 = Color3.new(0, 0.9, 0.4)
-	self._fill.ImageRectOffset = Vector2.new(0, 256)
-	self._fill.ImageRectSize = Vector2.new(0, -100)
-	self._fill.ScaleType = Enum.ScaleType.Stretch
-
-	self._pauseButton = Instance.new("TextButton")
-	self._pauseButton.Name = "PauseButton"
-	self._pauseButton.Text = "Pause"
-	self._pauseButton.Parent = self._frame
-	self._pauseButton.Style = Enum.ButtonStyle.RobloxRoundDefaultButton
-	self._pauseButton.Size = UDim2.new(0.5, -2 * kStandardHMargin, 0, kButtonHeight)
-	self._pauseButton.Position = UDim2.new(0, kStandardHMargin, 1, -kStandardVMargin - kButtonHeight)
-
-	self._cancelButton = Instance.new("TextButton")
-	self._cancelButton.Name = "CancelButton"
-	self._cancelButton.Text = "Cancel"
-	self._cancelButton.Parent = self._frame
-	self._cancelButton.AnchorPoint = Vector2.new(1, 0)
-	self._cancelButton.Style = Enum.ButtonStyle.RobloxRoundDefaultButton
-	self._cancelButton.Size = UDim2.new(0.5, -2 * kStandardHMargin, 0, kButtonHeight)
-	self._cancelButton.Position = UDim2.new(1, -kStandardHMargin, 1, -kStandardVMargin - kButtonHeight)
-
-	self._titleLabel = Instance.new("TextLabel")
-	self._titleLabel.Name = "TitleLabel"
-	self._titleLabel.Text = "Progress"
-	self._titleLabel.Parent = self._frame
-	self._titleLabel.BackgroundTransparency = 0.75
-	self._titleLabel.BackgroundColor3 = GuiUtilities.kStandardWhite
-	self._titleLabel.Size = UDim2.new(1, 0, 0, kTitleBarHeight)
-
-	self:_FixFont(self._pauseButton)
-	self:_FixFont(self._cancelButton)
-	self:_FixFont(self._titleLabel)
-
-	return self
-end
-
-function ProgressFrameClass:_FixFont(frame)
-	frame.Font = Enum.Font.SourceSansBold
-	frame.TextColor3 = GuiUtilities.kStandardWhite
-	frame.TextSize = 18
-end
-
-function ProgressFrameClass:GetFrame() 
-	return self._frame
-end
-
-function ProgressFrameClass:GetPauseButton() 
-	return self._pauseButton
-end
-
-function ProgressFrameClass:GetCancelButton() 
-	return self._cancelButton
-end
-
-function ProgressFrameClass:GetFill() 
-	return self._fill
-end
-
-return ProgressFrameClass]]></ProtectedString>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-		</Item>
-		<Item class="ModuleScript" referent="RBXfb208a3dd46946c1b9eae5641805133f">
-			<Properties>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">TerrainSmoother</string>
-				<string name="ScriptGuid"></string>
-				<ProtectedString name="Source"><![CDATA[--
-
-local module = {}
-
-module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
-	local terrain = game.Workspace.Terrain
-
-	local function getCell(list, x, y, z)
-		return list and list[x] and list[x][y] and list[x][y][z]
-	end
-
-	local function extendRange(x)		--This is very important. It allows cells to fully diminish or fully fill by lying to the algorithm
-		return x * 1.5 - .25
-	end
-
-	function getNeighborOccupanciesFast(list, x, y, z, includeSelf)
-		local fullNeighbor = false
-		local emptyNeighbor = false
-		local neighborOccupancies = includeSelf and extendRange(getCell(list, x, y, z)) or 0
-		local totalNeighbors = includeSelf and 1 or 0
-		for axis = 1, 3 do
-			for offset = -1, 1, 2 do
-				local neighbor = nil
-				if axis == 1 then
-					neighbor = list[x + offset] and list[x + offset][y][z]
-				elseif axis == 2 then
-					neighbor = list[x][y + offset] and list[x][y + offset][z]
-				elseif axis == 3 then
-					neighbor = list[x][y][z + offset]
-				end
-				if neighbor then
-					if neighbor >= 1 then
-						fullNeighbor = true
-					end
-					if neighbor <= 0 then
-						emptyNeighbor = true
-					end
-					neighbor = extendRange(neighbor)
-					totalNeighbors = totalNeighbors + 1
-					neighborOccupancies = neighborOccupancies + neighbor
-				end
-			end
-		end
-		return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
-	end
-
-	function getNeighborOccupancies(list, x, y, z, includeSelf, range)
-		local fullNeighbor = false
-		local emptyNeighbor = false
-		local range = range or 1
-		local neighborOccupancies = 0
-		local totalNeighbors = 0
-		local sqrt = math.sqrt
-		for ix = -range, range do
-			for iy = -range, range do
-				for iz = -range, range do
-					if includeSelf or not (ix == 0 and iy == 0 and iz == 0) then
-						local neighbor = getCell(list, x + ix, y + iy, z + iz)
-						if neighbor then
-							local distanceScale = 1 - (sqrt(ix * ix + iy * iy + iz * iz) / (range * 2))
-							if neighbor >= 1 then
-								fullNeighbor = true
-							end
-							if neighbor <= 0 then
-								emptyNeighbor = true
-							end
-							neighbor = extendRange(neighbor)
-							totalNeighbors = totalNeighbors + 1 * distanceScale
-							neighborOccupancies = neighborOccupancies + neighbor * distanceScale
-						end
-					end
-				end
-			end
-		end
-		return neighborOccupancies / (totalNeighbors > 0 and totalNeighbors or extendRange(getCell(list, x, y, z))), fullNeighbor, emptyNeighbor
-	end
-
-
-	function operation(centerPoint, materials, occupancies, resolution, selectionSize, strength, desiredMaterial, brushType, minBounds, maxBounds)
-		local region = Region3.new(minBounds, maxBounds)
-		local readMaterials, readOccupancies = terrain:ReadVoxels(region, resolution)
-
-		local radius = selectionSize * .5 * resolution
-
-		local materialAir = Enum.Material.Air
-
-		for ix, vx in ipairs(readOccupancies) do
-			local cellVectorX = minBounds.x + (ix - .5) * resolution - centerPoint.x
-
-			for iy, vy in pairs(vx) do
-				local cellVectorY = minBounds.y + (iy - .5) * resolution - centerPoint.y
-
-				for iz, cellOccupancy in pairs(vy) do
-					local cellVectorZ = minBounds.z + (iz - .5) * resolution - centerPoint.z
-
-					local cellMaterial = materials[ix][iy][iz]
-					local distance = math.sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
-		
-					local magnitudePercent = 1
-					local brushOccupancy = 1
-					if brushType == 'Sphere' then
-						magnitudePercent = math.cos(math.min(1, distance / (radius + resolution * .5)) * math.pi * .5)
-						brushOccupancy = math.max(0, math.min(1, (radius + .5 * resolution - distance) / resolution))
-					elseif brushType == 'Box' then
-						--leave as default
-					end
-
-					if brushOccupancy >= .5 then
-						local neighborOccupancies, fullNeighbor, emptyNeighbor = getNeighborOccupancies(readOccupancies, ix, iy, iz, true, 1)
-						local difference = (neighborOccupancies - cellOccupancy) * (strength + .1) * .5 * brushOccupancy * magnitudePercent
-
-						if not fullNeighbor and difference > 0 then
-							difference = 0
-						elseif not emptyNeighbor and difference < 0 then
-							difference = 0
-						end
-
-						if readMaterials[ix][iy][iz] == materialAir or cellOccupancy <= 0 and difference > 0 then
-							materials[ix][iy][iz] = desiredMaterial
-						end
-						if difference ~= 0 then
-							occupancies[ix][iy][iz] = math.max(0, math.min(1, cellOccupancy + difference))
-						end
-					end
-				end
-			end
-		end
-	end
-
-	module.BrushOperation = operation
-
-end
-
-return module
-
-]]></ProtectedString>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-		</Item>
-		<Item class="Folder" referent="RBX2f342756a9c74f27aa2e340a820120ee">
+		<Item class="Folder" referent="RBXaf71560ca27f44fd8e3552d7bed67d16">
 			<Properties>
 				<string name="Name">Libs</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXc102800747574d78b27a05a43941168e">
+			<Item class="ModuleScript" referent="RBX32bcf9aad3534eaba373cc709632c350">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledCheckbox</string>
@@ -4031,7 +4030,7 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	fullBackgroundButton.Position = UDim2.new(0, 0, 0, 0)
 	fullBackgroundButton.Text = ""
 
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	local label = GuiUtilities.MakeStandardPropertyLabel(labelText, true)
 	label.Parent = fullBackgroundButton
 
 	local button = Instance.new('ImageButton')
@@ -4070,6 +4069,12 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	self:SetValue(initValue)
 
 	self:_SetupMouseClickHandling()
+
+	local function updateFontColors()
+		self:UpdateFontColors()
+	end
+	settings().Studio.ThemeChanged:connect(updateFontColors)
+	updateFontColors()
 
 	return self
 end
@@ -4164,7 +4169,7 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 			self._checkImage.Image = kEnabledCheckImage
 		end
 
-		self._label.TextColor3 = self._disabled and GuiUtilities.kDisabledTextColor or GuiUtilities.kStandardTextColor
+		self:UpdateFontColors()
 		self._button.BackgroundColor3 = self._disabled and GuiUtilities.kButtonDisabledBackgroundColor or GuiUtilities.kButtonStandardBackgroundColor
 		self._button.BorderColor3 = self._disabled and GuiUtilities.kButtonDisabledBorderColor or GuiUtilities.kButtonStandardBorderColor
 		if self._disabledChangedFunction then
@@ -4175,6 +4180,14 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 	local newValue = self:GetValue()
 	if (newValue ~= oldValue) then 
 		self:_HandleUpdatedValue()
+	end
+end
+
+function LabeledCheckboxClass:UpdateFontColors()
+	if self._disabled then 
+		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.DimmedText)
+	else
+		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
 	end
 end
 
@@ -4209,7 +4222,7 @@ return LabeledCheckboxClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX563304c1866f4ae48084bbf887c2b981">
+			<Item class="ModuleScript" referent="RBXab16956b00334157a2669e76dc977ab3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">CollapsibleTitledSection</string>
@@ -4273,6 +4286,8 @@ function CollapsibleTitledSectionClass.new(nameSuffix, titleText, showTitle, min
 	contentsFrame.Position = UDim2.new(0, 0, 0, titleBarSize)
 	contentsFrame.Parent = frame
 	contentsFrame.LayoutOrder = 2
+	GuiUtilities.syncGuiElementBackgroundColor(contentsFrame)
+
 	self._contentsFrame = contentsFrame
 
 	uiListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):connect(function()
@@ -4331,21 +4346,21 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	titleBar.BorderSizePixel = 0
 	titleBar.Position = UDim2.new(0, 0, 0, 0)
 	titleBar.Size = UDim2.new(1, 0, 0, self._titleBarHeight)
-	titleBar.BackgroundColor3 = Color3.new(.85, .85, .85)        --todo: input spec section title background color
 	titleBar.Parent = self._frame
 	titleBar.LayoutOrder = 1
+	GuiUtilities.syncGuiElementTitleColor(titleBar)
 
 	local titleLabel = Instance.new('TextLabel')
 	titleLabel.Name = 'TitleLabel'
 	titleLabel.BackgroundTransparency = 1
 	titleLabel.Font = Enum.Font.SourceSansBold                --todo: input spec font
 	titleLabel.TextSize = 15                                  --todo: input spec font size
-	titleLabel.TextColor3 = GuiUtilities.kStandardTextColor
 	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 	titleLabel.Text = titleText
 	titleLabel.Position = UDim2.new(0, titleTextOffset, 0, 0)
 	titleLabel.Size = UDim2.new(1, -titleTextOffset, 1, GuiUtilities.kTextVerticalFudge)
 	titleLabel.Parent = titleBar
+	GuiUtilities.syncGuiElementFontColor(titleLabel)
 
 	if self._minimizable then
 		self._minimizeButton = Instance.new('ImageButton')
@@ -4380,7 +4395,7 @@ return CollapsibleTitledSectionClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX65f907a04c4a48b087dfd1c9437d9b12">
+			<Item class="ModuleScript" referent="RBX653a3b58361242ceb5feeecda3a381d0">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ImageButtonWithText</string>
@@ -4421,7 +4436,6 @@ function ImageButtonWithTextClass.new(name,
 	-- Image-with-text button has translucent background and "selected" background color.
 	-- When selected we set transluency to not-zero so we see selected color.
 	button.BackgroundTransparency = 1 
-	button.BackgroundColor3 = GuiUtilities.kStandardWhite
 
 	button.LayoutOrder = layoutOrder
 
@@ -4440,6 +4454,8 @@ function ImageButtonWithTextClass.new(name,
 	textLabel.TextScaled = true
 	textLabel.Font = Enum.Font.SourceSans
 	textLabel.Parent = button
+
+	GuiUtilities.syncGuiElementFontColor(textLabel)
 
 	local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
 	-- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
@@ -4478,6 +4494,11 @@ function ImageButtonWithTextClass.new(name,
 		self:_updateButtonVisual()
 	end)
 	
+	function updateButtonVisual()
+		self:_updateButtonVisual()
+	end
+	settings().Studio.ThemeChanged:connect(updateButtonVisual)
+
 	self:_updateButtonVisual()
 
 	return self
@@ -4487,8 +4508,10 @@ function ImageButtonWithTextClass:_updateButtonVisual()
 	-- Possibilties:
 	if (self._clicked) then 
 		-- This covers 'clicked and selected' or 'clicked'
-		self._button.BackgroundColor3 = GuiUtilities.kButtonSelectedColor
-		self._button.BorderColor3 = GuiUtilities.kButtonBorderSelectedColor
+		self._button.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, 
+			Enum.StudioStyleGuideModifier.Selected)
+		self._button.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, 
+			Enum.StudioStyleGuideModifier.Selected)
 		if (self._selected) then 
 			self._button.BackgroundTransparency = GuiUtilities.kButtonBackgroundIntenseTransparency
 		else
@@ -4496,8 +4519,10 @@ function ImageButtonWithTextClass:_updateButtonVisual()
 		end
 	elseif (self._hovered) then 
 		-- This covers 'hovered and selected' or 'hovered'
-		self._button.BackgroundColor3 = GuiUtilities.kButtonHoverColor
-		self._button.BorderColor3 = GuiUtilities.kButtonBorderHoverColor
+		self._button.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, 
+			Enum.StudioStyleGuideModifier.Hover)
+		self._button.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, 
+			Enum.StudioStyleGuideModifier.Hover)
 		if (self._selected) then 
 			self._button.BackgroundTransparency = GuiUtilities.kButtonBackgroundIntenseTransparency
 		else
@@ -4505,12 +4530,15 @@ function ImageButtonWithTextClass:_updateButtonVisual()
 		end
 	elseif (self._selected) then 
 		-- This covers 'selected'
-		self._button.BackgroundColor3 = GuiUtilities.kButtonSelectedColor
-		self._button.BorderColor3 = GuiUtilities.kButtonBorderSelectedColor
+		self._button.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, 
+			Enum.StudioStyleGuideModifier.Selected)
+		self._button.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, 
+			Enum.StudioStyleGuideModifier.Selected)
 		self._button.BackgroundTransparency = GuiUtilities.kButtonBackgroundTransparency
 	else
 		-- This covers 'no special state'
-		self._button.BackgroundColor3 = GuiUtilities.kStandardWhite
+		self._button.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button)
+		self._button.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border)
 		self._button.BackgroundTransparency = 1
 	end
 end
@@ -4533,190 +4561,7 @@ return ImageButtonWithTextClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX0c507fcc4bf642d79d1b1f2be01fdc25">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledSlider</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledSlider.lua
---
--- Creates a frame containing a label and a slider control.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-rbxGuiLibrary = require(script.Parent.RbxGui)
-
-local kSliderWidth = 100
-
-local kSliderThumbImage = "rbxasset://textures/TerrainTools/sliderbar_button.png"
-local kPreThumbImage = "rbxasset://textures/TerrainTools/sliderbar_blue.png"
-local kPostThumbImage = "rbxasset://textures/TerrainTools/sliderbar_grey.png"
-
-local kThumbSize = 13
-
-local kSteps = 100
-
-LabeledSliderClass = {}
-LabeledSliderClass.__index = LabeledSliderClass
-
-function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultValue)
-	local self = {}
-	setmetatable(self, LabeledSliderClass)
-
-	self._valueChangedFunction = nil
-
-	local sliderIntervals = sliderIntervals or 100
-	local defaultValue = defaultValue or 1
-
-	local frame = GuiUtilities.MakeStandardFixedHeightFrame('Slider' .. nameSuffix)
-	self._frame = frame
-
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
-	label.Parent = frame
-	self._label = label
-
-	self._value = defaultValue
-
-	 --steps, width, position
-	 local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, 
-		kSteps, 
-		UDim2.new(0, 0, .5, -3))
-	self._slider = slider
-	self._sliderValue = sliderValue
-	-- Some tweaks to make slider look nice.
-	-- Hide the existing bar.
-	slider.Bar.BackgroundTransparency = 1
-	-- Replace slider thumb image.
-	self._thumb = slider.Bar.Slider
-	self._thumb.Image = kSliderThumbImage
-	self._thumb.AnchorPoint = Vector2.new(0.5, 0.5)
-	self._thumb.Size = UDim2.new(0, kThumbSize, 0, kThumbSize)
-	
-	-- Add images on bar.
-	self._preThumbImage = Instance.new("ImageLabel")
-	self._preThumbImage.Name = "PreThumb"
-	self._preThumbImage.Parent = slider.Bar
-	self._preThumbImage.Size = UDim2.new(1, 0, 1, 0)
-	self._preThumbImage.Position = UDim2.new(0, 0, 0, 0)
-	self._preThumbImage.Image = kPreThumbImage
-	self._preThumbImage.BorderSizePixel = 0
-
-	self._postThumbImage = Instance.new("ImageLabel")
-	self._postThumbImage.Name = "PostThumb"
-	self._postThumbImage.Parent = slider.Bar
-	self._postThumbImage.Size = UDim2.new(1, 0, 1, 0)
-	self._postThumbImage.Position = UDim2.new(0, 0, 0, 0)
-	self._postThumbImage.Image = kPostThumbImage
-	self._postThumbImage.BorderSizePixel = 0
-
-	sliderValue.Changed:connect(function()
-		self._value = sliderValue.Value
-
-		-- Min value is 1.
-		-- Max value is sliderIntervals.
-		-- So scale is...
-		local scale = (self._value - 1)/(sliderIntervals-1)
-
-		self._preThumbImage.Size = UDim2.new(scale, 0, 1, 0)
-		self._postThumbImage.Size = UDim2.new(1 - scale, 0, 1, 0)
-		self._postThumbImage.Position = UDim2.new(scale, 0, 0, 0)
-		
-		self._thumb.Position = UDim2.new(scale, 0, 
-			0.5, 0)
-
-		if self._valueChangedFunction then 
-			self._valueChangedFunction(self._value)
-		end
-	end)
-	
-	self:SetValue(defaultValue)
-	slider.AnchorPoint = Vector2.new(0, 0.5)
-	slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
-	slider.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, GuiUtilities.kStandardPropertyHeight/2)
-	slider.Parent = frame
-	
-	return self
-end
-
-function LabeledSliderClass:SetValueChangedFunction(vcf)
-	self._valueChangedFunction = vcf
-end
-
-function LabeledSliderClass:GetFrame()
-	return self._frame
-end
-
-function LabeledSliderClass:SetValue(newValue)
-	if self._sliderValue.Value ~= newValue then
-		self._sliderValue.Value = newValue
-	end
-end
-
-function LabeledSliderClass:GetValue()
-	return self._sliderValue.Value
-end
-
-
-return LabeledSliderClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBXdc545f9337af4582a17e789ceadcde4f">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledRadioButton</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledRadioButton.lua
---
--- Creates a frame containing a label and a radio button.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-
-local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
-local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
-
-local kFrameSize = 12
-local kBulletSize = 14
-
-LabeledRadioButtonClass = {}
-LabeledRadioButtonClass.__index = LabeledRadioButtonClass
-setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
-
-function LabeledRadioButtonClass.new(nameSuffix, labelText)
-	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
-	setmetatable(newButton, LabeledRadioButtonClass)
-
-	newButton:UseSmallSize()
-	newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-	newButton._checkImage.Image = kBulletImage
-	newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
-
-	newButton._button.Image = kButtonImage
-	newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
-	newButton._button.BackgroundTransparency = 1
-
-	return newButton
-end
-
-function LabeledRadioButtonClass:_MaybeToggleState()
-	-- A checkbox can never be toggled off. 
-	-- Only turns off because another one turns on.
-	if (not self._disabled and not self._value) then 
-		self:SetValue(not self._value)
-	end
-end
-
-return LabeledRadioButtonClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBXe508c56a6d5f41a1bc196411163472fa">
+			<Item class="ModuleScript" referent="RBXfe7b208fdeba42248ce5e615bc04232e">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">RbxGui</string>
@@ -8925,7 +8770,268 @@ return t
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX6f766006b44c4cc19e098e558aff0f22">
+			<Item class="ModuleScript" referent="RBXa51ded58569f4855a15d7b7c2a09cc36">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LabeledTextInput</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledTextInput.lua
+--
+-- Creates a frame containing a label and a text input control.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kTextInputWidth = 100
+local kTextBoxInternalPadding = 4
+
+LabeledTextInputClass = {}
+LabeledTextInputClass.__index = LabeledTextInputClass
+
+function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
+	local self = {}
+	setmetatable(self, LabeledTextInputClass)
+
+	-- Note: we are using "graphemes" instead of characters.
+	-- In modern text-manipulation-fu, what with internationalization, 
+	-- emojis, etc, it's not enough to count characters, particularly when 
+	-- concerned with "how many <things> am I rendering?".
+	-- We are using the 
+	self._MaxGraphemes = 10
+	
+	self._valueChangedFunction = nil
+
+	local defaultValue = defaultValue or ""
+
+	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
+	self._frame = frame
+
+	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	label.Parent = frame
+	self._label = label
+
+	self._value = defaultValue
+
+	-- Dumb hack to add padding to text box,
+	local textBoxWrapperFrame = Instance.new("Frame")
+	textBoxWrapperFrame.Name = "Wrapper"
+	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
+	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
+	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
+	textBoxWrapperFrame.Parent = frame
+	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
+	GuiUtilities.syncGuiElementBorderColor(textBoxWrapperFrame)
+
+	local textBox = Instance.new("TextBox")
+	textBox.Parent = textBoxWrapperFrame
+	textBox.Name = "TextBox"
+	textBox.Text = defaultValue
+	textBox.Font = Enum.Font.SourceSans
+	textBox.TextSize = 15
+	textBox.BackgroundTransparency = 1
+	textBox.TextXAlignment = Enum.TextXAlignment.Left
+	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
+	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
+	textBox.ClipsDescendants = true
+
+	GuiUtilities.syncGuiElementFontColor(textBox)
+	
+	textBox:GetPropertyChangedSignal("Text"):connect(function()
+		-- Never let the text be too long.
+		-- Careful here: we want to measure number of graphemes, not characters, 
+		-- in the text, and we want to clamp on graphemes as well.
+		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
+			local count = 0
+			for start, stop in utf8.graphemes(self._textBox.Text) do
+				count = count + 1
+				if (count > self._MaxGraphemes) then 
+					-- We have gone one too far.
+					-- clamp just before the beginning of this grapheme.
+					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
+					break
+				end
+			end
+			-- Don't continue with rest of function: the resetting of "Text" field
+			-- above will trigger re-entry.  We don't need to trigger value
+			-- changed function twice.
+			return
+		end
+
+		self._value = self._textBox.Text
+		if (self._valueChangedFunction) then 
+			self._valueChangedFunction(self._value)
+		end
+	end)
+	
+	self._textBox = textBox
+
+	return self
+end
+
+function LabeledTextInputClass:SetValueChangedFunction(vcf)
+	self._valueChangedFunction = vcf
+end
+
+function LabeledTextInputClass:GetFrame()
+	return self._frame
+end
+
+function LabeledTextInputClass:GetValue()
+	return self._value
+end
+
+function LabeledTextInputClass:GetMaxGraphemes()
+	return self._MaxGraphemes
+end
+
+function LabeledTextInputClass:SetMaxGraphemes(newValue)
+	self._MaxGraphemes = newValue
+end
+
+function LabeledTextInputClass:SetValue(newValue)
+	if self._value ~= newValue then
+		self._textBox.Text = newValue
+	end
+end
+
+return LabeledTextInputClass
+]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX68b6b6586ea24423accb5690add4c7aa">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LabeledSlider</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledSlider.lua
+--
+-- Creates a frame containing a label and a slider control.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+rbxGuiLibrary = require(script.Parent.RbxGui)
+
+local kSliderWidth = 100
+
+local kSliderThumbImage = "rbxasset://textures/TerrainTools/sliderbar_button.png"
+local kPreThumbImage = "rbxasset://textures/TerrainTools/sliderbar_blue.png"
+local kPostThumbImage = "rbxasset://textures/TerrainTools/sliderbar_grey.png"
+
+local kThumbSize = 13
+
+local kSteps = 100
+
+LabeledSliderClass = {}
+LabeledSliderClass.__index = LabeledSliderClass
+
+function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultValue)
+	local self = {}
+	setmetatable(self, LabeledSliderClass)
+
+	self._valueChangedFunction = nil
+
+	local sliderIntervals = sliderIntervals or 100
+	local defaultValue = defaultValue or 1
+
+	local frame = GuiUtilities.MakeStandardFixedHeightFrame('Slider' .. nameSuffix)
+	self._frame = frame
+
+	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	label.Parent = frame
+	self._label = label
+
+	self._value = defaultValue
+
+	 --steps, width, position
+	 local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, 
+		kSteps, 
+		UDim2.new(0, 0, .5, -3))
+	self._slider = slider
+	self._sliderValue = sliderValue
+	-- Some tweaks to make slider look nice.
+	-- Hide the existing bar.
+	slider.Bar.BackgroundTransparency = 1
+	-- Replace slider thumb image.
+	self._thumb = slider.Bar.Slider
+	self._thumb.Image = kSliderThumbImage
+	self._thumb.AnchorPoint = Vector2.new(0.5, 0.5)
+	self._thumb.Size = UDim2.new(0, kThumbSize, 0, kThumbSize)
+	
+	-- Add images on bar.
+	self._preThumbImage = Instance.new("ImageLabel")
+	self._preThumbImage.Name = "PreThumb"
+	self._preThumbImage.Parent = slider.Bar
+	self._preThumbImage.Size = UDim2.new(1, 0, 1, 0)
+	self._preThumbImage.Position = UDim2.new(0, 0, 0, 0)
+	self._preThumbImage.Image = kPreThumbImage
+	self._preThumbImage.BorderSizePixel = 0
+
+	self._postThumbImage = Instance.new("ImageLabel")
+	self._postThumbImage.Name = "PostThumb"
+	self._postThumbImage.Parent = slider.Bar
+	self._postThumbImage.Size = UDim2.new(1, 0, 1, 0)
+	self._postThumbImage.Position = UDim2.new(0, 0, 0, 0)
+	self._postThumbImage.Image = kPostThumbImage
+	self._postThumbImage.BorderSizePixel = 0
+
+	sliderValue.Changed:connect(function()
+		self._value = sliderValue.Value
+
+		-- Min value is 1.
+		-- Max value is sliderIntervals.
+		-- So scale is...
+		local scale = (self._value - 1)/(sliderIntervals-1)
+
+		self._preThumbImage.Size = UDim2.new(scale, 0, 1, 0)
+		self._postThumbImage.Size = UDim2.new(1 - scale, 0, 1, 0)
+		self._postThumbImage.Position = UDim2.new(scale, 0, 0, 0)
+		
+		self._thumb.Position = UDim2.new(scale, 0, 
+			0.5, 0)
+
+		if self._valueChangedFunction then 
+			self._valueChangedFunction(self._value)
+		end
+	end)
+	
+	self:SetValue(defaultValue)
+	slider.AnchorPoint = Vector2.new(0, 0.5)
+	slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
+	slider.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, GuiUtilities.kStandardPropertyHeight/2)
+	slider.Parent = frame
+	
+	return self
+end
+
+function LabeledSliderClass:SetValueChangedFunction(vcf)
+	self._valueChangedFunction = vcf
+end
+
+function LabeledSliderClass:GetFrame()
+	return self._frame
+end
+
+function LabeledSliderClass:SetValue(newValue)
+	if self._sliderValue.Value ~= newValue then
+		self._sliderValue.Value = newValue
+	end
+end
+
+function LabeledSliderClass:GetValue()
+	return self._sliderValue.Value
+end
+
+
+return LabeledSliderClass]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX12aafd25d5de4bb787665ab9c026f458">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GuiUtilities</string>
@@ -8964,11 +9070,8 @@ module.kShapeButtonSize = 32
 module.kTextVerticalFudge = -3
 module.kButtonVerticalFudge = -5
 
-module.kStandardWhite = Color3.new(1, 1, 1)
-
 module.kBottomButtonsWidth = 100
 
-module.kStandardTextColor = Color3.new(0, 0, 0)                      --todo: input spec text color
 module.kDisabledTextColor = Color3.new(.4, .4, .4)                   --todo: input spec disabled text color
 module.kStandardButtonTextColor = Color3.new(0, 0, 0)                --todo: input spec disabled text color
 module.kPressedButtonTextColor = Color3.new(1, 1, 1)                 --todo: input spec disabled text color
@@ -8978,42 +9081,80 @@ module.kButtonStandardBorderColor = Color3.new(.4,.4,.4)             --todo: syn
 module.kButtonDisabledBackgroundColor = Color3.new(.7,.7,.7)         --todo: sync with spec
 module.kButtonDisabledBorderColor = Color3.new(.6,.6,.6)             --todo: sync with spec
 
-module.kButtonHoverColor = Color3.fromRGB(228, 238, 254)
-module.kButtonBorderHoverColor = Color3.fromRGB(219, 219, 219)
-
-module.kButtonSelectedColor = Color3.fromRGB(219, 219, 219)
-module.kButtonBorderSelectedColor = Color3.fromRGB(186, 186, 186)
-
 module.kButtonBackgroundTransparency = 0.5
 module.kButtonBackgroundIntenseTransparency = 0.4
 
-module.kWidgetBorderColor = Color3.fromRGB(182, 182, 182)
-module.kStripeBorderColor = Color3.fromRGB(238, 238, 238)
-
-local kDeselectedButtonColor = Color3.new(1, 1, 1)
-local kSelectedImageWithTextButtonColor = Color3.new(0.85, 0.85, 0.85)
-local kRowStripeColor = Color3.new(0.95, 0.95, 0.95)
-
-local kRowStripeColors = {}
-kRowStripeColors[0] = kRowStripeColor
-kRowStripeColors[1] = module.kStandardWhite
-
-
 module.kMainFrame = nil
 
+function module.ShouldUseIconsForDarkerBackgrounds()
+	local mainColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
+	return (mainColor.r + mainColor.g + mainColor.b) / 3 < 0.5
+end
 
 function module.SetMainFrame(frame)
 	module.kMainFrame = frame
 end
 
+function module.syncGuiElementTitleColor(guiElement)
+	local function setColors()
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar)
+	end
+	settings().Studio.ThemeChanged:connect(setColors)
+	setColors()
+end
+
+function module.syncGuiElementInputFieldColor(guiElement)
+	local function setColors()
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground)
+	end
+	settings().Studio.ThemeChanged:connect(setColors)
+	setColors()
+end
+
+function module.syncGuiElementBackgroundColor(guiElement)
+	local function setColors()
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
+	end
+	settings().Studio.ThemeChanged:connect(setColors)
+	setColors()
+end
+
+function module.syncGuiElementStripeColor(guiElement)
+	local function setColors()
+		if ((guiElement.LayoutOrder + 1) % 2 == 0) then 
+			guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
+		else
+			guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.CategoryItem)
+		end
+	end
+	settings().Studio.ThemeChanged:connect(setColors)
+	setColors()
+end
+
+function module.syncGuiElementBorderColor(guiElement)
+	local function setColors()
+		guiElement.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border)
+	end
+	settings().Studio.ThemeChanged:connect(setColors)
+	setColors()
+end
+
+function module.syncGuiElementFontColor(guiElement)
+	local function setColors()
+		guiElement.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
+	end
+	settings().Studio.ThemeChanged:connect(setColors)
+	setColors()
+end
 
 -- A frame with standard styling.
 function module.MakeFrame(name)
 	local frame = Instance.new("Frame")
 	frame.Name = name
 	frame.BackgroundTransparency = 0
-	frame.BackgroundColor3 = Color3.new(1, 1, 1)
 	frame.BorderSizePixel = 0
+
+	module.syncGuiElementBackgroundColor(frame)
 
 	return frame
 end
@@ -9052,10 +9193,10 @@ function module.AddStripedChildrenToListFrame(listFrame, frames)
 	for index, frame in ipairs(frames) do 
 		frame.Parent = listFrame
 		frame.LayoutOrder = index
-		frame.BackgroundColor3 = kRowStripeColors[(index + 1) % 2]
 		frame.BackgroundTransparency = 0
 		frame.BorderSizePixel = 1
-		frame.BorderColor3 = module.kStripeBorderColor 
+		module.syncGuiElementStripeColor(frame)
+		module.syncGuiElementBorderColor(frame)
 	end
 end
 
@@ -9084,6 +9225,8 @@ local function MakeSectionInternal(parentGui, name, title, contentHeight)
 		titleBar.BackgroundTransparency = 1
 		titleBar.Position = UDim2.new(0, module.kStandardHMargin, 0, 0)
 
+		module.syncGuiElementFontColor(titleBar)
+	
 		contentYOffset = contentYOffset + module.kTitleBarHeight
 	end
 
@@ -9092,7 +9235,7 @@ local function MakeSectionInternal(parentGui, name, title, contentHeight)
 	return frame
 end
 
-function module.MakeStandardPropertyLabel(text)
+function module.MakeStandardPropertyLabel(text, opt_ignoreThemeUpdates)
 	local label = Instance.new('TextLabel')
 	label.Name = 'Label'
 	label.BackgroundTransparency = 1
@@ -9103,6 +9246,11 @@ function module.MakeStandardPropertyLabel(text)
 	label.AnchorPoint = Vector2.new(0, 0.5)
 	label.Position = UDim2.new(0, module.StandardLineLabelLeftMargin, 0.5, module.kTextVerticalFudge)
 	label.Size = UDim2.new(0, module.StandardLineLabelWidth, 1, 0)
+
+	if (not opt_ignoreThemeUpdates) then 			
+		module.syncGuiElementFontColor(label)
+	end
+
 	return label
 end
 
@@ -9130,7 +9278,7 @@ return module]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXddd9c990b9d94234a7fd24562e9b4d5e">
+			<Item class="ModuleScript" referent="RBX5126d570d71749afb9e7d39133968977">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">StatefulImageButton</string>
@@ -9229,88 +9377,106 @@ return StatefulImageButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX0368312554e0429396caebc8c50b6418">
+			<Item class="ModuleScript" referent="RBX8caa655094264c09bd51deafc5038df6">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">VerticallyScalingListFrame</string>
+					<string name="Name">CustomTextButton</string>
 					<string name="ScriptGuid"></string>
 					<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
--- VerticallyScalingListFrame
+-- CustomTextButton.lua
 --
--- Creates a frame that organizes children into a list layout.
--- Will scale dynamically as children grow.
+-- Creates text button with custom look & feel, hover/click effects.
 --
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-VerticallyScalingListFrameClass = {}
-VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
+local kButtonImageIdDefault = "rbxasset://textures/TerrainTools/button_default.png"
+local kButtonImageIdHovered = "rbxasset://textures/TerrainTools/button_hover.png"
+local kButtonImageIdPressed = "rbxasset://textures/TerrainTools/button_pressed.png"
 
-local kBottomPadding = 10
+CustomTextButtonClass = {}
+CustomTextButtonClass.__index = CustomTextButtonClass
 
-function VerticallyScalingListFrameClass.new(nameSuffix)
+function CustomTextButtonClass.new(buttonName, labelText)
 	local self = {}
-	setmetatable(self, VerticallyScalingListFrameClass)
+	setmetatable(self, CustomTextButtonClass)
 
-	self._resizeCallback = nil
-	
-	local frame = Instance.new('Frame')
-	frame.Name = 'VSLFrame' .. nameSuffix
-	frame.Size = UDim2.new(1, 0, 0, height)
-	frame.BackgroundTransparency = 0
-	frame.BackgroundColor3 = Color3.new(1, 1, 1)
-	frame.BorderSizePixel = 0
+	local button = Instance.new('ImageButton')
+	button.Name = buttonName
+	button.Image = kButtonImageIdDefault
+	button.BackgroundTransparency = 1
+	button.ScaleType = Enum.ScaleType.Slice
+	button.SliceCenter = Rect.new(7, 7, 156, 36)
+	button.AutoButtonColor = false
 
-	self._frame = frame
-	
-	local uiListLayout = Instance.new('UIListLayout')
-	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	uiListLayout.Parent = frame
-	self._uiListLayout = uiListLayout
+	local label = Instance.new('TextLabel')
+	label.Text = labelText
+	label.BackgroundTransparency = 1
+	label.Size = UDim2.new(1, 0, 1, GuiUtilities.kButtonVerticalFudge)
+	label.Font = Enum.Font.SourceSans                  
+	label.TextSize = 15                           
+	label.Parent = button
 
-	local function updateSizes()
-		self._frame.Size = UDim2.new(1, 0, 0, uiListLayout.AbsoluteContentSize.Y)
-		if (self._resizeCallback) then 
-			self._resizeCallback()
+	self._label = label
+	self._button = button
+
+	self._clicked = false
+	self._hovered = false
+
+	button.InputBegan:connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+			self._hovered = true
+			self:_updateButtonVisual()
 		end
-	end
-	self._uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateSizes)
-	updateSizes()
+	end)
 
-	self._childCount = 0
+
+	button.InputEnded:connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
+			self._hovered = false
+			self._clicked = false
+			self:_updateButtonVisual()
+		end
+	end)    
+
+	button.MouseButton1Down:connect(function()
+		self._clicked = true
+		self:_updateButtonVisual()
+	end)
+
+	button.MouseButton1Up:connect(function()
+		self._clicked = false
+		self:_updateButtonVisual()
+	end)
+	
+	self:_updateButtonVisual()
 
 	return self
 end
 
-function VerticallyScalingListFrameClass:AddBottomPadding()
-	local frame = Instance.new("Frame")
-	frame.Name = "BottomPadding"
-	frame.BackgroundTransparency = 1
-	frame.Size = UDim2.new(1, 0, 0, kBottomPadding)
-	frame.LayoutOrder = 1000
-	frame.Parent = self._frame
+function CustomTextButtonClass:_updateButtonVisual()
+	if (self._clicked) then 
+		self._button.Image = kButtonImageIdPressed
+		self._label.TextColor3 = GuiUtilities.kPressedButtonTextColor
+	elseif (self._hovered) then 
+		self._button.Image = kButtonImageIdHovered
+		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+	else
+		self._button.Image = kButtonImageIdDefault
+		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+	end
 end
 
-function VerticallyScalingListFrameClass:GetFrame()
-	return self._frame
+function CustomTextButtonClass:getButton()
+	return self._button
 end
 
-function VerticallyScalingListFrameClass:AddChild(childFrame)
-	childFrame.LayoutOrder = self._childCount
-	self._childCount = self._childCount + 1
-	childFrame.Parent = self._frame
-end
-
-function VerticallyScalingListFrameClass:SetCallbackOnResize(callback)
-	self._resizeCallback = callback
-end
-
-return VerticallyScalingListFrameClass]]></ProtectedString>
+return CustomTextButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX35523072cae44ca5aea00625e8014eb5">
+			<Item class="ModuleScript" referent="RBX3bb6768c8ebc4261b3d65cf693afba9c">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">LabeledMultiChoice</string>
@@ -9450,231 +9616,152 @@ return LabeledMultiChoiceClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9ec097327c534554803c540d3c326839">
+			<Item class="ModuleScript" referent="RBX9fa54a9a3bdc41c4ab7006dc0653129e">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">CustomTextButton</string>
+					<string name="Name">VerticallyScalingListFrame</string>
 					<string name="ScriptGuid"></string>
 					<ProtectedString name="Source"><![CDATA[----------------------------------------
 --
--- CustomTextButton.lua
+-- VerticallyScalingListFrame
 --
--- Creates text button with custom look & feel, hover/click effects.
+-- Creates a frame that organizes children into a list layout.
+-- Will scale dynamically as children grow.
 --
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kButtonImageIdDefault = "rbxasset://textures/TerrainTools/button_default.png"
-local kButtonImageIdHovered = "rbxasset://textures/TerrainTools/button_hover.png"
-local kButtonImageIdPressed = "rbxasset://textures/TerrainTools/button_pressed.png"
+VerticallyScalingListFrameClass = {}
+VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
 
-CustomTextButtonClass = {}
-CustomTextButtonClass.__index = CustomTextButtonClass
+local kBottomPadding = 10
 
-function CustomTextButtonClass.new(buttonName, labelText)
+function VerticallyScalingListFrameClass.new(nameSuffix)
 	local self = {}
-	setmetatable(self, CustomTextButtonClass)
+	setmetatable(self, VerticallyScalingListFrameClass)
 
-	local button = Instance.new('ImageButton')
-	button.Name = buttonName
-	button.Image = kButtonImageIdDefault
-	button.BackgroundTransparency = 1
-	button.ScaleType = Enum.ScaleType.Slice
-	button.SliceCenter = Rect.new(7, 7, 156, 36)
-	button.AutoButtonColor = false
-
-	local label = Instance.new('TextLabel')
-	label.Text = labelText
-	label.BackgroundTransparency = 1
-	label.Size = UDim2.new(1, 0, 1, GuiUtilities.kButtonVerticalFudge)
-	label.Font = Enum.Font.SourceSans                  
-	label.TextSize = 15                           
-	label.Parent = button
-
-	self._label = label
-	self._button = button
-
-	self._clicked = false
-	self._hovered = false
-
-	button.InputBegan:connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
-			self._hovered = true
-			self:_updateButtonVisual()
-		end
-	end)
-
-
-	button.InputEnded:connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then               
-			self._hovered = false
-			self._clicked = false
-			self:_updateButtonVisual()
-		end
-	end)    
-
-	button.MouseButton1Down:connect(function()
-		self._clicked = true
-		self:_updateButtonVisual()
-	end)
-
-	button.MouseButton1Up:connect(function()
-		self._clicked = false
-		self:_updateButtonVisual()
-	end)
+	self._resizeCallback = nil
 	
-	self:_updateButtonVisual()
+	local frame = Instance.new('Frame')
+	frame.Name = 'VSLFrame' .. nameSuffix
+	frame.Size = UDim2.new(1, 0, 0, height)
+	frame.BackgroundTransparency = 0
+	frame.BorderSizePixel = 0
+	GuiUtilities.syncGuiElementBackgroundColor(frame)
 
-	return self
-end
-
-function CustomTextButtonClass:_updateButtonVisual()
-	if (self._clicked) then 
-		self._button.Image = kButtonImageIdPressed
-		self._label.TextColor3 = GuiUtilities.kPressedButtonTextColor
-	elseif (self._hovered) then 
-		self._button.Image = kButtonImageIdHovered
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
-	else
-		self._button.Image = kButtonImageIdDefault
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
-	end
-end
-
-function CustomTextButtonClass:getButton()
-	return self._button
-end
-
-return CustomTextButtonClass]]></ProtectedString>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX0f2e0bf4269843ea913365c6ec259fef">
-				<Properties>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">LabeledTextInput</string>
-					<string name="ScriptGuid"></string>
-					<ProtectedString name="Source"><![CDATA[----------------------------------------
---
--- LabeledTextInput.lua
---
--- Creates a frame containing a label and a text input control.
---
-----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-
-local kTextInputWidth = 100
-local kTextBoxInternalPadding = 4
-
-LabeledTextInputClass = {}
-LabeledTextInputClass.__index = LabeledTextInputClass
-
-function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
-	local self = {}
-	setmetatable(self, LabeledTextInputClass)
-
-	-- Note: we are using "graphemes" instead of characters.
-	-- In modern text-manipulation-fu, what with internationalization, 
-	-- emojis, etc, it's not enough to count characters, particularly when 
-	-- concerned with "how many <things> am I rendering?".
-	-- We are using the 
-	self._MaxGraphemes = 10
-	
-	self._valueChangedFunction = nil
-
-	local defaultValue = defaultValue or ""
-
-	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
 	self._frame = frame
-
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
-	label.Parent = frame
-	self._label = label
-
-	self._value = defaultValue
-
-	-- Dumb hack to add padding to text box,
-	local textBoxWrapperFrame = Instance.new("Frame")
-	textBoxWrapperFrame.Name = "Wrapper"
-	textBoxWrapperFrame.BackgroundColor3 = GuiUtilities.kStandardWhite
-	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
-	textBoxWrapperFrame.Parent = frame
-	textBoxWrapperFrame.BorderColor3 = GuiUtilities.kWidgetBorderColor 
-
-	local textBox = Instance.new("TextBox")
-	textBox.Parent = textBoxWrapperFrame
-	textBox.Name = "TextBox"
-	textBox.Text = defaultValue
-	textBox.Font = Enum.Font.SourceSans
-	textBox.TextSize = 15
-	textBox.BackgroundTransparency = 1
-	textBox.TextXAlignment = Enum.TextXAlignment.Left
-	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
-	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
-	textBox.ClipsDescendants = true
 	
-	textBox:GetPropertyChangedSignal("Text"):connect(function()
-		-- Never let the text be too long.
-		-- Careful here: we want to measure number of graphemes, not characters, 
-		-- in the text, and we want to clamp on graphemes as well.
-		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
-			local count = 0
-			for start, stop in utf8.graphemes(self._textBox.Text) do
-				count = count + 1
-				if (count > self._MaxGraphemes) then 
-					-- We have gone one too far.
-					-- clamp just before the beginning of this grapheme.
-					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
-					break
-				end
-			end
-			-- Don't continue with rest of function: the resetting of "Text" field
-			-- above will trigger re-entry.  We don't need to trigger value
-			-- changed function twice.
-			return
-		end
+	local uiListLayout = Instance.new('UIListLayout')
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uiListLayout.Parent = frame
+	self._uiListLayout = uiListLayout
 
-		self._value = self._textBox.Text
-		if (self._valueChangedFunction) then 
-			self._valueChangedFunction(self._value)
+	local function updateSizes()
+		self._frame.Size = UDim2.new(1, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+		if (self._resizeCallback) then 
+			self._resizeCallback()
 		end
-	end)
-	
-	self._textBox = textBox
+	end
+	self._uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateSizes)
+	updateSizes()
+
+	self._childCount = 0
 
 	return self
 end
 
-function LabeledTextInputClass:SetValueChangedFunction(vcf)
-	self._valueChangedFunction = vcf
+function VerticallyScalingListFrameClass:AddBottomPadding()
+	local frame = Instance.new("Frame")
+	frame.Name = "BottomPadding"
+	frame.BackgroundTransparency = 1
+	frame.Size = UDim2.new(1, 0, 0, kBottomPadding)
+	frame.LayoutOrder = 1000
+	frame.Parent = self._frame
 end
 
-function LabeledTextInputClass:GetFrame()
+function VerticallyScalingListFrameClass:GetFrame()
 	return self._frame
 end
 
-function LabeledTextInputClass:GetValue()
-	return self._value
+function VerticallyScalingListFrameClass:AddChild(childFrame)
+	childFrame.LayoutOrder = self._childCount
+	self._childCount = self._childCount + 1
+	childFrame.Parent = self._frame
 end
 
-function LabeledTextInputClass:GetMaxGraphemes()
-	return self._MaxGraphemes
+function VerticallyScalingListFrameClass:SetCallbackOnResize(callback)
+	self._resizeCallback = callback
 end
 
-function LabeledTextInputClass:SetMaxGraphemes(newValue)
-	self._MaxGraphemes = newValue
+return VerticallyScalingListFrameClass]]></ProtectedString>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBX098e5ebced604fc2aa639748e786986a">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LabeledRadioButton</string>
+					<string name="ScriptGuid"></string>
+					<ProtectedString name="Source"><![CDATA[----------------------------------------
+--
+-- LabeledRadioButton.lua
+--
+-- Creates a frame containing a label and a radio button.
+--
+----------------------------------------
+GuiUtilities = require(script.Parent.GuiUtilities)
+LabeledCheckbox = require(script.Parent.LabeledCheckbox)
+
+local kButtonImage = "rbxasset://textures/TerrainTools/radio_button_frame.png"
+local kBulletImage = "rbxasset://textures/TerrainTools/radio_button_bullet.png"
+
+local kButtonImageDark = "rbxasset://textures/TerrainTools/radio_button_frame_dark.png"
+local kBulletImageDark = "rbxasset://textures/TerrainTools/radio_button_bullet_dark.png"
+
+local kFrameSize = 12
+local kBulletSize = 14
+
+LabeledRadioButtonClass = {}
+LabeledRadioButtonClass.__index = LabeledRadioButtonClass
+setmetatable(LabeledRadioButtonClass, LabeledCheckbox)
+
+function LabeledRadioButtonClass.new(nameSuffix, labelText)
+	local newButton = LabeledCheckbox.new(nameSuffix, labelText, false)
+	setmetatable(newButton, LabeledRadioButtonClass)
+
+	newButton:UseSmallSize()
+	newButton._checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+	newButton._checkImage.Image = kBulletImage
+	newButton._checkImage.Size = UDim2.new(0, kBulletSize, 0, kBulletSize)
+
+	newButton._button.Image = kButtonImage
+	newButton._button.Size = UDim2.new(0, kFrameSize, 0, kFrameSize)
+	newButton._button.BackgroundTransparency = 1
+
+	local function updateImages()
+		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then 
+			newButton._checkImage.Image = kBulletImageDark
+			newButton._button.Image = kButtonImageDark
+		else
+			newButton._checkImage.Image = kBulletImage
+			newButton._button.Image = kButtonImage
+		end
+	end
+	settings().Studio.ThemeChanged:connect(updateImages)
+	updateImages()
+
+	return newButton
 end
 
-function LabeledTextInputClass:SetValue(newValue)
-	if self._value ~= newValue then
-		self._textBox.Text = newValue
+function LabeledRadioButtonClass:_MaybeToggleState()
+	-- A checkbox can never be toggled off. 
+	-- Only turns off because another one turns on.
+	if (not self._disabled and not self._value) then 
+		self:SetValue(not self._value)
 	end
 end
 
-return LabeledTextInputClass
-]]></ProtectedString>
+return LabeledRadioButtonClass]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>

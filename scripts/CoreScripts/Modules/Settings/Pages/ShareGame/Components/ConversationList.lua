@@ -79,7 +79,7 @@ function ConversationList:render()
 	for i, user in ipairs(friends) do
 		local isEntryShown = searchFilterPredicate(searchText, user.name)
 
-		children["User-" .. user.name] = Roact.createElement(ConversationEntry, {
+		children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
 			visible = isEntryShown,
 			size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
 			layoutOrder = i,

@@ -3,14 +3,12 @@ local UserInputService = game:GetService("UserInputService")
 local LogService =  game:GetService("LogService")
 local Roact = require(CorePackages.Roact)
 
-local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
+local DataConsumer = require(script.Parent.Parent.DataConsumer)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local COMMANDLINE_INDENT = Constants.LogFormatting.CommandLineIndent
 local COMMANDLINE_FONTSIZE = Constants.DefaultFontSize.CommandLine
 local FONT = Constants.Font.MainWindow
-
-local MAX_HISTORY = 100
 
 local DevConsoleCommandLine = Roact.PureComponent:extend("DevConsoleCommandLine")
 
@@ -23,43 +21,43 @@ function DevConsoleCommandLine:init()
 	end
 
 	self.ref = Roact.createRef()
-
-	self.state = {
-		commandHistory = CircularBuffer.new(MAX_HISTORY),
-	}
 end
 
 function DevConsoleCommandLine:didMount()
 	if not self.onFocusConnection then
-		self.currCommandIndex = 0
 		self.onFocusConnection = UserInputService.InputBegan:Connect(function(input)
 			if self.ref.current and self.ref.current:IsFocused() then
 				local rbx = self.ref.current
-				if input.KeyCode == Enum.KeyCode.Up then
-					local newIndex = self.currCommandIndex + 1
-					newIndex = math.min(self.state.commandHistory:getSize(), newIndex)
-					self.currCommandIndex = newIndex
+				local serverLogData = self.props.ServerLogData
+				local cmdHistory = serverLogData:getCommandLineHistory()
+				local cmdIndex = serverLogData:getCommandLineIndex()
 
-					rbx.Text = self.state.commandHistory:reverseAt(newIndex) or ""
+				if input.KeyCode == Enum.KeyCode.Up then
+					local newIndex = cmdIndex + 1
+					newIndex = math.min(cmdHistory:getSize(), newIndex)
+					cmdIndex = newIndex
+
+					rbx.Text = cmdHistory:reverseAt(newIndex) or ""
 
 				elseif input.KeyCode == Enum.KeyCode.Down then
-					local newIndex = self.currCommandIndex - 1
+					local newIndex = cmdIndex - 1
 					newIndex = math.max(0, newIndex)
-					self.currCommandIndex = newIndex
+					cmdIndex = newIndex
 
-					rbx.Text = self.state.commandHistory:reverseAt(newIndex) or ""
+					rbx.Text = cmdHistory:reverseAt(newIndex) or ""
 
 				elseif input.KeyCode == Enum.KeyCode.Return then
 					if #rbx.Text:gsub("%s+", "") > 0 then
-						local prevText = self.state.commandHistory:reverseAt(1)
+						local prevText = cmdHistory:reverseAt(1)
 						if prevText ~= rbx.Text then
-							self.state.commandHistory:push_back(rbx.Text)
+							cmdHistory:push_back(rbx.Text)
 						end
 					end
-					self.currCommandIndex = 0
-				elseif self.currCommandIndex ~= 0 then
-					self.currCommandIndex = 0
+					cmdIndex = 0
+				elseif cmdIndex ~= 0 then
+					cmdIndex = 0
 				end
+				serverLogData:setCommandLineIndex(cmdIndex)
 			end
 		end)
 	end
@@ -94,6 +92,14 @@ function DevConsoleCommandLine:render()
 	local height = self.props.height
 	local pos = self.props.pos
 
+	local initText = ""
+
+	local cmdIndex = self.props.ServerLogData:getCommandLineIndex()
+	if cmdIndex ~= 0 then
+		local cmdHistory = self.props.ServerLogData:getCommandLineHistory()
+		initText = cmdHistory:reverseAt(cmdIndex) or ""
+	end
+
 	return Roact.createElement("Frame", {
 		Position = pos,
 		Size = UDim2.new(1, 0, 0, height),
@@ -122,7 +128,7 @@ function DevConsoleCommandLine:render()
 			TextColor3 = Constants.Color.Text,
 			TextXAlignment = 0,
 			TextSize = COMMANDLINE_FONTSIZE,
-			Text = "",
+			Text = initText,
 			Font = FONT,
 			PlaceholderText = "command line",
 
@@ -133,4 +139,4 @@ function DevConsoleCommandLine:render()
 	})
 end
 
-return DevConsoleCommandLine
+return DataConsumer(DevConsoleCommandLine, "ServerLogData")

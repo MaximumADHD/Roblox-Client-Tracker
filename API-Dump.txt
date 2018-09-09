@@ -889,10 +889,14 @@ Class PluginGui : LayerCollector [notCreatable]
 	Property string PluginGui.Title
 	Function void PluginGui:BindToClose(Function function = nil)
 	Function Vector2 PluginGui:GetRelativeMousePosition() [PluginSecurity]
+	Event PluginGui.PluginDragDropped(Instance pluginDragEvent) [RobloxScriptSecurity]
+	Event PluginGui.PluginDragEntered(Instance pluginDragEvent) [RobloxScriptSecurity]
+	Event PluginGui.PluginDragLeft(Instance pluginDragEvent) [RobloxScriptSecurity]
+	Event PluginGui.PluginDragMoved(Instance pluginDragEvent) [RobloxScriptSecurity]
+	Event PluginGui.WindowFocusReleased() [PluginSecurity]
+	Event PluginGui.WindowFocused() [PluginSecurity]
 Class DockWidgetPluginGui : PluginGui [notCreatable]
 	Property bool DockWidgetPluginGui.HostWidgetWasRestored [readonly]
-	Event DockWidgetPluginGui.WindowFocusReleased() [PluginSecurity]
-	Event DockWidgetPluginGui.WindowFocused() [PluginSecurity]
 Class QWidgetPluginGui : PluginGui [notCreatable]
 Class ScreenGui : LayerCollector
 	Property int ScreenGui.DisplayOrder
@@ -1310,7 +1314,7 @@ Class Lighting : Instance [notCreatable]
 Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.ForcePlayModeGameLocaleId [LocalUserSecurity]
 	Property string LocalizationService.ForcePlayModeRobloxLocaleId [LocalUserSecurity]
-	Property bool LocalizationService.IsTextScraperRunning [hidden] [readonly] [RobloxScriptSecurity]
+	Property bool LocalizationService.IsTextScraperRunning [hidden] [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxForcePlayModeGameLocaleId [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxForcePlayModeRobloxLocaleId [RobloxScriptSecurity]
 	Property string LocalizationService.RobloxLocaleId [readonly]
@@ -1733,7 +1737,7 @@ Class Workspace : Model
 	Event Workspace.PhysicsAnalyzerIssuesFound(int count) [PluginSecurity]
 Class PackageLink : Instance [notCreatable]
 	Property Content PackageLink.PackageId [readonly]
-	Property int64 PackageLink.VersionId [readonly]
+	Property int64 PackageLink.VersionNumber [readonly]
 Class Pages : Instance
 	Property bool Pages.IsFinished [readonly]
 	Function Array Pages:GetCurrentPage()
@@ -1971,6 +1975,7 @@ Class Players : Instance
 Class Plugin : Instance
 	Property bool Plugin.CollisionEnabled [readonly]
 	Property float Plugin.GridSize [readonly]
+	Property bool Plugin.UsesAssetInsertionDrag [RobloxScriptSecurity]
 	Function void Plugin:Activate(bool exclusiveMouse) [PluginSecurity]
 	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = ) [PluginSecurity]
 	Function Instance Plugin:CreateToolbar(string name) [PluginSecurity]
@@ -1993,6 +1998,7 @@ Class Plugin : Instance
 	Function void Plugin:SelectRibbonTool(RibbonTool tool, UDim2 position) [PluginSecurity]
 	Function Objects Plugin:Separate(Objects objects) [PluginSecurity]
 	Function void Plugin:SetSetting(string key, Variant value) [PluginSecurity]
+	Function void Plugin:StartDrag(PluginDrag drag) [RobloxScriptSecurity]
 	Function void Plugin:StopAllSounds() [RobloxScriptSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]

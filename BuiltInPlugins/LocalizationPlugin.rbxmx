@@ -28,7 +28,7 @@
 				<string name="Name">PluginScript</string>
 				<string name="ScriptGuid">{23c184c9-73de-4b2d-9bd7-55d0a70adf12}</string>
 				<ProtectedString name="Source"><![CDATA[
-if not settings():GetFFlag("StudioEnablePlayerLocaleViewPlugin") then
+if not settings():GetFFlag("StudioEnablePlayerLocaleViewPlugin2") then
 	local runService = game:GetService("RunService")
 	local localizationService = game:GetService("LocalizationService")
 	local enabled = runService:IsEdit()

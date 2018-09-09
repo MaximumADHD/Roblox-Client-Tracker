@@ -2,13 +2,11 @@ local Players = game:GetService("Players")
 
 local FlagSettings = {}
 
-local FFlagSettingsHubBarsRefactor = settings():GetFFlag("SettingsHubBarsRefactor4")
-
-local FFlagSettingsHubInviteToGameWindows = settings():GetFVariable("SettingsHubInviteToGameWindows4")
-local FFlagSettingsHubInviteToGameOSX = settings():GetFVariable("SettingsHubInviteToGameOSX4")
-local FFlagSettingsHubInviteToGameIOS = settings():GetFVariable("SettingsHubInviteToGameIOS4")
-local FFlagSettingsHubInviteToGameAndroid = settings():GetFVariable("SettingsHubInviteToGameAndroid4")
-local FFlagSettingsHubInviteToGameUWP = settings():GetFVariable("SettingsHubInviteToGameUWP4")
+local FFlagSettingsHubInviteToGameWindows = settings():GetFVariable("SettingsHubInviteToGameWindows5")
+local FFlagSettingsHubInviteToGameOSX = settings():GetFVariable("SettingsHubInviteToGameOSX5")
+local FFlagSettingsHubInviteToGameIOS = settings():GetFVariable("SettingsHubInviteToGameIOS5")
+local FFlagSettingsHubInviteToGameAndroid = settings():GetFVariable("SettingsHubInviteToGameAndroid5")
+local FFlagSettingsHubInviteToGameUWP = settings():GetFVariable("SettingsHubInviteToGameUWP5")
 
 -- Helper function to throttle based on player Id:
 function FlagSettings.ThrottleUserId(throttle, userId)
@@ -22,10 +20,6 @@ function FlagSettings.ThrottleUserId(throttle, userId)
 end
 
 function FlagSettings.IsShareGamePageEnabledByPlatform(platform)
-	if not FFlagSettingsHubBarsRefactor then
-		return false
-	end
-
 	local throttle
 	if platform == Enum.Platform.Windows then
 		throttle = FFlagSettingsHubInviteToGameWindows

@@ -28,24 +28,10 @@ local USER_LIST_PADDING = 10
 
 local ShareGamePageFrame = Roact.PureComponent:extend("ShareGamePageFrame")
 
-local FFlagShareGameFromGameFlickerFix = settings():GetFFlag("ShareGameFromGameFlickerFix")
-local FFlagShareGameFromGameErrorToaster = settings():GetFFlag("ShareGameFromGameErrorToaster")
+local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 
-local ToasterComponent
-if FFlagShareGameFromGameErrorToaster then
-	ToasterComponent = require(ShareGame.Components.ErrorToaster)
-else
-	ToasterComponent = require(ShareGame.Components.ModeratedToaster)
-end
-
-if FFlagShareGameFromGameFlickerFix then
-	function ShareGamePageFrame:init()
-		self.props.reFetch()
-	end
-else
-	function ShareGamePageFrame:didMount()
-		self.props.reFetch()
-	end
+function ShareGamePageFrame:init()
+	self.props.reFetch()
 end
 
 function ShareGamePageFrame:render()
@@ -103,18 +89,11 @@ ShareGamePageFrame = RoactRodux.connect(function(store)
 		end,
 
 		reFetch = function()
-			local function reFetchImpl()
-				local userId = tostring(Players.LocalPlayer.UserId)
-				local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
-				if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
-					local networkImpl = httpRequest(HttpRbxApiService)
-					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
-				end
-			end
-			if FFlagShareGameFromGameFlickerFix then
-				reFetchImpl()
-			else
-				spawn(reFetchImpl)
+			local userId = tostring(Players.LocalPlayer.UserId)
+			local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
+			if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
+				local networkImpl = httpRequest(HttpRbxApiService)
+				store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
 			end
 		end
 	}

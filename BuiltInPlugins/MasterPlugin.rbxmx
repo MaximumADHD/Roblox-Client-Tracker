@@ -18,8 +18,12 @@
 					<string name="Name">main</string>
 					<string name="ScriptGuid">{76419bbf-fed5-4f5b-b8c1-447ae5fa8c4a}</string>
 					<ProtectedString name="Source"><![CDATA[
-if settings():GetFFlag("StudioEnablePlayerLocaleViewPlugin") then
-	local CorePackages = game:GetService("CorePackages")
+if settings():GetFFlag("StudioEnablePlayerLocaleViewPlugin2") then
+	local CorePackages
+	repeat
+		wait()
+		CorePackages = game:FindService("CorePackages")
+	until CorePackages
 	local LocalizationPlugin = require(CorePackages.LocalizationPlugin.Main)
 	LocalizationPlugin(plugin)
 end
