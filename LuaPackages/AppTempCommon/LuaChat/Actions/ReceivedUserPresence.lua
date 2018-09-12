@@ -11,7 +11,7 @@ if luaChatRootPresenceEnabled then
 	return Action(script.Name, function(userId,
 			presence, lastLocation,
 			placeId, rootPlaceId,
-			gameInstanceId, lastOnlineISO, universeId)
+			gameInstanceId, lastOnlineISO, universeId, previousUniverseId)
 
 		local lastOnline = 0
 		if lastOnlineISO ~= nil then
@@ -30,10 +30,15 @@ if luaChatRootPresenceEnabled then
 			gameInstanceId = gameInstanceId,
 			lastOnline = lastOnline,
 			universeId = universeId,
+			previousUniverseId = previousUniverseId,
 		}
 	end)
 else
-	return Action(script.Name, function(userId, presence, lastLocation, placeId, gameInstanceId, universeId)
+	return Action(script.Name, function(userId,
+			presence, lastLocation,
+			placeId, gameInstanceId,
+			universeId, previousUniverseId)
+
 		return {
 			userId = userId,
 			presence = presence,
@@ -41,6 +46,7 @@ else
 			placeId = placeId,
 			gameInstanceId = gameInstanceId,
 			universeId = universeId,
+			previousUniverseId = previousUniverseId,
 		}
 	end)
 end

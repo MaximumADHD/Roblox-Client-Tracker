@@ -29,7 +29,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
-local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor4')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 local FFlagSettingsHubPlayersHorizontalScroll = settings():GetFFlag("SettingsHubPlayersHorizontalScroll")
@@ -147,21 +146,11 @@ local function CreateSettingsHub()
 	local function shouldShowBottomBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
 
-		if not FFlagSettingsHubBarsRefactor then
-			if whichPage == this.LeaveGamePage or whichPage == this.ResetCharacterPage then
-				return false
-			end
-		end
-
 		if utility:IsPortrait() or utility:IsSmallTouchScreen() then
 			return false
 		end
 
-		if FFlagSettingsHubBarsRefactor then
-			return whichPage.ShouldShowBottomBar == true
-		else
-			return true
-		end
+		return whichPage.ShouldShowBottomBar == true
 	end
 
 	local function setBottomBarBindings()
@@ -1126,20 +1115,14 @@ local function CreateSettingsHub()
 				this.BottomButtonFrame.Visible = false
 			end
 
-			if FFlagSettingsHubBarsRefactor then
-				this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
-			else
-				this.HubBar.Visible = not (pageToSwitchTo == this.LeaveGamePage or pageToSwitchTo == this.ResetCharacterPage)
-			end
+			this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
 		end
 
-		if FFlagSettingsHubBarsRefactor then
-			-- set whether the page should be clipped
-			local isClipped = pageToSwitchTo.IsPageClipped == true
-			this.PageViewClipper.ClipsDescendants = isClipped
-			this.PageView.ClipsDescendants = isClipped
-			this.PageViewInnerFrame.ClipsDescendants = isClipped
-		end
+		-- set whether the page should be clipped
+		local isClipped = pageToSwitchTo.IsPageClipped == true
+		this.PageViewClipper.ClipsDescendants = isClipped
+		this.PageView.ClipsDescendants = isClipped
+		this.PageViewInnerFrame.ClipsDescendants = isClipped
 
 		-- make sure page is visible
 		this.Pages.CurrentPage = pageToSwitchTo

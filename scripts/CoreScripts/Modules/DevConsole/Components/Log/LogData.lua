@@ -14,6 +14,7 @@ local Signal = require(script.Parent.Parent.Parent.Signal)
 -- 500 is max kept in history in C++ as of 7/2/2018
 local MAX_LOG_SIZE = tonumber(settings():GetFVariable("NewDevConsoleMaxLogCount"))
 local WARNING_TO_FILTER = {"ClassDescriptor failed to learn", "EventDescriptor failed to learn", "Type failed to learn"}
+local MAX_HISTORY = 100
 
 local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
 
@@ -138,6 +139,9 @@ function LogData.new(isClient)
 	self._logDataSearched = CircularBuffer.new(MAX_LOG_SIZE)
 	self._searchTerm = ""
 
+	self._commandLineHistory = CircularBuffer.new(MAX_HISTORY)
+	self._commandLineIndex = 0
+
 	self._filters = {}
 	for _, v in pairs(MESSAGE_TO_TYPENAME) do
 		self._filters[v] = true
@@ -185,6 +189,18 @@ end
 
 function LogData:getSearchTerm()
 	return self._searchTerm
+end
+
+function LogData:getCommandLineHistory()
+	return self._commandLineHistory
+end
+
+function LogData:getCommandLineIndex()
+	return self._commandLineIndex
+end
+
+function LogData:setCommandLineIndex(index)
+	self._commandLineIndex = index
 end
 
 function LogData:getFilters()

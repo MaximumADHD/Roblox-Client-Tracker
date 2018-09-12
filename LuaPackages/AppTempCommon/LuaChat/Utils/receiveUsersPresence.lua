@@ -9,25 +9,30 @@ local luaChatRootPresenceEnabled = luaChatUseNewFriendsAndPresenceEndpoint and l
 
 return function(friendsPresence, store)
 	for _, presenceModel in pairs(friendsPresence) do
+		local userInStore = store:getState().Users[tostring(presenceModel.userId)]
+		local previousUniverseId = userInStore and userInStore.universeId or nil
+
 		if luaChatRootPresenceEnabled then
 			store:dispatch(ReceivedUserPresence(
-					tostring(presenceModel.userId),
-					WebPresenceMap[presenceModel.userPresenceType],
-					presenceModel.lastLocation,
-					presenceModel.placeId,
-					presenceModel.rootPlaceId,
-					presenceModel.gameId,
-					presenceModel.lastOnline,
-					presenceModel.universeId
+				tostring(presenceModel.userId),
+				WebPresenceMap[presenceModel.userPresenceType],
+				presenceModel.lastLocation,
+				presenceModel.placeId,
+				presenceModel.rootPlaceId,
+				presenceModel.gameId,
+				presenceModel.lastOnline,
+				presenceModel.universeId,
+				previousUniverseId
 			))
 		else
 			store:dispatch(ReceivedUserPresence(
-					tostring(presenceModel.userId),
-					WebPresenceMap[presenceModel.userPresenceType],
-					presenceModel.lastLocation,
-					presenceModel.placeId,
-					presenceModel.gameId,
-					presenceModel.universeId
+				tostring(presenceModel.userId),
+				WebPresenceMap[presenceModel.userPresenceType],
+				presenceModel.lastLocation,
+				presenceModel.placeId,
+				presenceModel.gameId,
+				presenceModel.universeId,
+				previousUniverseId
 			))
 		end
 	end

@@ -15427,6 +15427,76 @@
                         "Name": "Vector2"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PluginDragDropped",
+                    "Parameters": [
+                        {
+                            "Name": "pluginDragEvent",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PluginDragEntered",
+                    "Parameters": [
+                        {
+                            "Name": "pluginDragEvent",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PluginDragLeft",
+                    "Parameters": [
+                        {
+                            "Name": "pluginDragEvent",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PluginDragMoved",
+                    "Parameters": [
+                        {
+                            "Name": "pluginDragEvent",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "WindowFocusReleased",
+                    "Parameters": [
+                    ],
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "WindowFocused",
+                    "Parameters": [
+                    ],
+                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -15459,20 +15529,6 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "WindowFocusReleased",
-                    "Parameters": [
-                    ],
-                    "Security": "PluginSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "WindowFocused",
-                    "Parameters": [
-                    ],
-                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -22377,9 +22433,7 @@
                         "CanSave": false
                     },
                     "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated"
+                        "Hidden"
                     ],
                     "ValueType": {
                         "Category": "Primitive",
@@ -30295,7 +30349,7 @@
                 {
                     "Category": "Link",
                     "MemberType": "Property",
-                    "Name": "VersionId",
+                    "Name": "VersionNumber",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -34545,6 +34599,26 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "UsesAssetInsertionDrag",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "Activate",
                     "Parameters": [
@@ -34930,6 +35004,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "StartDrag",
+                    "Parameters": [
+                        {
+                            "Name": "drag",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "PluginDrag"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "StopAllSounds",
                     "Parameters": [
                     ],
@@ -35162,6 +35254,101 @@
             "Name": "PluginAction",
             "Superclass": "Instance",
             "Tags": [
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Data",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MimeType",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Position",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Sender",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PluginDragEvent",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
                 "NotReplicated"
             ]
         },

@@ -51,7 +51,6 @@ local FFlagUseNotificationsLocalization = success and result
 
 local IsShareGamePageEnabledByPlatform = FlagSettings.IsShareGamePageEnabledByPlatform(platform)
 local FFlagSettingsHubInviteToGameInStudio = settings():GetFFlag('SettingsHubInviteToGameInStudio4')
-local FFlagSettingsHubBarsRefactor = settings():GetFFlag('SettingsHubBarsRefactor4')
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -351,216 +350,129 @@ local function Initialize()
 
 	local createShareGameButton = nil
 	local createPlayerRow = nil
-	if FFlagSettingsHubBarsRefactor then
-		local function createRow(frameClassName)
-			local frame = Instance.new(frameClassName)
-			frame.Image = "rbxasset://textures/ui/dialog_white.png"
-			frame.ScaleType = "Slice"
-			frame.SliceCenter = Rect.new(10, 10, 10, 10)
-			frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
-			frame.Position = UDim2.new(0, 0, 0, 0)
-			frame.BackgroundTransparency = 1
-			frame.ZIndex = 2
-			frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 
-			local icon = Instance.new("ImageLabel")
-			icon.Name = "Icon"
-			icon.BackgroundTransparency = 1
-			icon.Size = UDim2.new(0, 36, 0, 36)
-			icon.Position = UDim2.new(0, 12, 0, 12)
-			icon.ZIndex = 3
-			icon.Parent = frame
+	local function createRow(frameClassName)
+		local frame = Instance.new(frameClassName)
+		frame.Image = "rbxasset://textures/ui/dialog_white.png"
+		frame.ScaleType = "Slice"
+		frame.SliceCenter = Rect.new(10, 10, 10, 10)
+		frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
+		frame.Position = UDim2.new(0, 0, 0, 0)
+		frame.BackgroundTransparency = 1
+		frame.ZIndex = 2
+		frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 
-			local textLabel = Instance.new("TextLabel")
-			textLabel.TextXAlignment = Enum.TextXAlignment.Left
-			textLabel.Font = Enum.Font.SourceSans
-			textLabel.FontSize = Enum.FontSize.Size24
-			textLabel.TextColor3 = Color3.new(1, 1, 1)
-			textLabel.BackgroundTransparency = 1
-			textLabel.Position = UDim2.new(0, 60, .5, 0)
-			textLabel.Size = UDim2.new(0, 0, 0, 0)
-			textLabel.ZIndex = 3
-			textLabel.Parent = frame
+		local icon = Instance.new("ImageLabel")
+		icon.Name = "Icon"
+		icon.BackgroundTransparency = 1
+		icon.Size = UDim2.new(0, 36, 0, 36)
+		icon.Position = UDim2.new(0, 12, 0, 12)
+		icon.ZIndex = 3
+		icon.Parent = frame
 
-			return frame
+		local textLabel = Instance.new("TextLabel")
+		textLabel.TextXAlignment = Enum.TextXAlignment.Left
+		textLabel.Font = Enum.Font.SourceSans
+		textLabel.FontSize = Enum.FontSize.Size24
+		textLabel.TextColor3 = Color3.new(1, 1, 1)
+		textLabel.BackgroundTransparency = 1
+		textLabel.Position = UDim2.new(0, 60, .5, 0)
+		textLabel.Size = UDim2.new(0, 0, 0, 0)
+		textLabel.ZIndex = 3
+		textLabel.Parent = frame
+
+		return frame
+	end
+
+	createShareGameButton = function()
+		local frame = createRow("ImageButton")
+		local textLabel = frame.TextLabel
+		local icon = frame.Icon
+
+		textLabel.Font = Enum.Font.SourceSansSemibold
+		textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
+
+		icon.Size = UDim2.new(0, 24, 0, 24)
+		icon.Position = UDim2.new(0, 18, 0, 18)
+		ShareGameIcons:ApplyImage(icon, "invite")
+
+		local function onHover(isHovering)
+			if isHovering then
+				frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
+			else
+				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+			end
 		end
 
-		createShareGameButton = function()
-			local frame = createRow("ImageButton")
-			local textLabel = frame.TextLabel
-			local icon = frame.Icon
+		frame.InputBegan:Connect(function() onHover(true) end)
+		frame.InputEnded:Connect(function() onHover(false) end)
+		frame.Activated:Connect(function() onHover(false) end)
+		frame.TouchPan:Connect(function(_, totalTranslation)
+			local TAP_ACCURACY_THREASHOLD = 20
+			if math.abs(totalTranslation.Y) > TAP_ACCURACY_THREASHOLD then
+				onHover(false)
+			end
+			end)
 
-			textLabel.Font = Enum.Font.SourceSansSemibold
-			textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
+		return frame
+	end
 
-			icon.Size = UDim2.new(0, 24, 0, 24)
-			icon.Position = UDim2.new(0, 18, 0, 18)
-			ShareGameIcons:ApplyImage(icon, "invite")
+	createPlayerRow = function()
+		local frame = createRow("ImageLabel")
+		frame.TextLabel.Name = "NameLabel"
 
-			local function onHover(isHovering)
-				if isHovering then
+		local rightSideButtons = Instance.new("Frame")
+		rightSideButtons.Name = "RightSideButtons"
+		rightSideButtons.BackgroundTransparency = 1
+		rightSideButtons.ZIndex = 2
+		rightSideButtons.Position = UDim2.new(0, 0, 0, 0)
+		rightSideButtons.Size = UDim2.new(1, -10, 1, 0)
+		rightSideButtons.Parent = frame
+
+		-- Selection Highlighting logic:
+		local updateHighlight = function(lostSelectionObject)
+			if frame then
+				if GuiService.SelectedCoreObject and GuiService.SelectedCoreObject ~= lostSelectionObject and GuiService.SelectedCoreObject.Parent == rightSideButtons then
 					frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
 				else
 					frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 				end
 			end
-
-			frame.InputBegan:Connect(function() onHover(true) end)
-			frame.InputEnded:Connect(function() onHover(false) end)
-			frame.Activated:Connect(function() onHover(false) end)
-			frame.TouchPan:Connect(function(_, totalTranslation)
-				local TAP_ACCURACY_THREASHOLD = 20
-				if math.abs(totalTranslation.Y) > TAP_ACCURACY_THREASHOLD then
-					onHover(false)
-				end
-			 end)
-
-			return frame
 		end
 
-		createPlayerRow = function()
-			local frame = createRow("ImageLabel")
-			frame.TextLabel.Name = "NameLabel"
-
-			local rightSideButtons = Instance.new("Frame")
-			rightSideButtons.Name = "RightSideButtons"
-			rightSideButtons.BackgroundTransparency = 1
-			rightSideButtons.ZIndex = 2
-			rightSideButtons.Position = UDim2.new(0, 0, 0, 0)
-			rightSideButtons.Size = UDim2.new(1, -10, 1, 0)
-			rightSideButtons.Parent = frame
-
-			-- Selection Highlighting logic:
-			local updateHighlight = function(lostSelectionObject)
-				if frame then
-					if GuiService.SelectedCoreObject and GuiService.SelectedCoreObject ~= lostSelectionObject and GuiService.SelectedCoreObject.Parent == rightSideButtons then
-						frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
-					else
-						frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
-					end
+		local fakeSelectionObject = nil
+		rightSideButtons.ChildAdded:connect(function(child)
+			if child:IsA("GuiObject") then
+				if fakeSelectionObject and child ~= fakeSelectionObject then
+					fakeSelectionObject:Destroy()
+					fakeSelectionObject = nil
 				end
+				child.SelectionGained:connect(function() updateHighlight(nil) end)
+				child.SelectionLost:connect(function() updateHighlight(child) end)
 			end
+		end)
 
-			local fakeSelectionObject = nil
-			rightSideButtons.ChildAdded:connect(function(child)
-				if child:IsA("GuiObject") then
-					if fakeSelectionObject and child ~= fakeSelectionObject then
-						fakeSelectionObject:Destroy()
-						fakeSelectionObject = nil
-					end
-					child.SelectionGained:connect(function() updateHighlight(nil) end)
-					child.SelectionLost:connect(function() updateHighlight(child) end)
-				end
-			end)
+		fakeSelectionObject = Instance.new("Frame")
+		fakeSelectionObject.Selectable = true
+		fakeSelectionObject.Size = UDim2.new(0, 100, 0, 100)
+		fakeSelectionObject.BackgroundTransparency = 1
+		fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
+		fakeSelectionObject.Parent = rightSideButtons
 
-			fakeSelectionObject = Instance.new("Frame")
-			fakeSelectionObject.Selectable = true
-			fakeSelectionObject.Size = UDim2.new(0, 100, 0, 100)
-			fakeSelectionObject.BackgroundTransparency = 1
-			fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
-			fakeSelectionObject.Parent = rightSideButtons
+		local rightSideListLayout = Instance.new("UIListLayout")
+		rightSideListLayout.Name = "RightSideListLayout"
+		rightSideListLayout.FillDirection = Enum.FillDirection.Horizontal
+		rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+		rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+		rightSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		rightSideListLayout.Padding = UDim.new(0, 20)
+		rightSideListLayout.Parent = rightSideButtons
 
-			local rightSideListLayout = Instance.new("UIListLayout")
-			rightSideListLayout.Name = "RightSideListLayout"
-			rightSideListLayout.FillDirection = Enum.FillDirection.Horizontal
-			rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-			rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-			rightSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-			rightSideListLayout.Padding = UDim.new(0, 20)
-			rightSideListLayout.Parent = rightSideButtons
+		pcall(function()
+			frame.NameLabel.Localize = false
+		end)
 
-			pcall(function()
-				frame.NameLabel.Localize = false
-			end)
-
-			return frame
-		end
-	else
-		createPlayerRow = function(yPosition)
-			local frame = Instance.new("ImageLabel")
-			frame.Image = "rbxasset://textures/ui/dialog_white.png"
-			frame.ScaleType = "Slice"
-			frame.SliceCenter = Rect.new(10, 10, 10, 10)
-			frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
-			frame.Position = UDim2.new(0, 0, 0, yPosition)
-			frame.BackgroundTransparency = 1
-			frame.ZIndex = 2
-
-			local rightSideButtons = Instance.new("Frame")
-			rightSideButtons.Name = "RightSideButtons"
-			rightSideButtons.BackgroundTransparency = 1
-			rightSideButtons.ZIndex = 2
-			rightSideButtons.Position = UDim2.new(0, 0, 0, 0)
-			rightSideButtons.Size = UDim2.new(1, -10, 1, 0)
-			rightSideButtons.Parent = frame
-
-			-- Selection Highlighting logic:
-			local updateHighlight = function(lostSelectionObject)
-				if frame then
-					if GuiService.SelectedCoreObject and GuiService.SelectedCoreObject ~= lostSelectionObject and GuiService.SelectedCoreObject.Parent == rightSideButtons then
-						frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
-					else
-						frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
-					end
-				end
-			end
-
-			 local fakeSelectionObject = nil
-			rightSideButtons.ChildAdded:connect(function(child)
-				if child:IsA("GuiObject") then
-					if fakeSelectionObject and child ~= fakeSelectionObject then
-						fakeSelectionObject:Destroy()
-						fakeSelectionObject = nil
-					end
-					child.SelectionGained:connect(function() updateHighlight(nil) end)
-					child.SelectionLost:connect(function() updateHighlight(child) end)
-				end
-			end)
-
-			fakeSelectionObject = Instance.new("Frame")
-			fakeSelectionObject.Selectable = true
-			fakeSelectionObject.Size = UDim2.new(0, 100, 0, 100)
-			fakeSelectionObject.BackgroundTransparency = 1
-			fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
-			fakeSelectionObject.Parent = rightSideButtons
-
-			local rightSideListLayout = Instance.new("UIListLayout")
-			rightSideListLayout.Name = "RightSideListLayout"
-			rightSideListLayout.FillDirection = Enum.FillDirection.Horizontal
-			rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-			rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-			rightSideListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-			rightSideListLayout.Padding = UDim.new(0, 20)
-			rightSideListLayout.Parent = rightSideButtons
-
-			local icon = Instance.new("ImageLabel")
-			icon.Name = "Icon"
-			icon.BackgroundTransparency = 1
-			icon.Size = UDim2.new(0, 36, 0, 36)
-			icon.Position = UDim2.new(0, 12, 0, 12)
-			icon.ZIndex = 3
-			icon.Parent = frame
-
-			local nameLabel = Instance.new("TextLabel")
-			nameLabel.Name = "NameLabel"
-			pcall(function()
-				nameLabel.Localize = false
-			end)
-			nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-			nameLabel.Font = Enum.Font.SourceSans
-			nameLabel.FontSize = Enum.FontSize.Size24
-			nameLabel.TextColor3 = Color3.new(1, 1, 1)
-			nameLabel.BackgroundTransparency = 1
-			nameLabel.Position = UDim2.new(0, 60, .5, 0)
-			nameLabel.Size = UDim2.new(0, 0, 0, 0)
-			nameLabel.ZIndex = 3
-			nameLabel.Parent = frame
-			pcall(function()
-				nameLabel.Localize = false
-			end)
-
-			return frame
-		end
+		return frame
 	end
 
 	-- Manage cutting off a players name if it is too long when switching into portrait mode.
