@@ -2830,7 +2830,7 @@ return function(tests, keepFailures)
 	testTarget.Name = "ToolboxTestsTarget"
 	testTarget.Parent = Workspace
 
-	TestBootstrap:run(tests, TextReporter)
+	TestBootstrap:run({tests}, TextReporter)
 
 	if not keepFailures then
 		testTarget:Destroy()
@@ -10200,9 +10200,6 @@ local Selection = game:GetService("Selection")
 local InsertService = game:GetService("InsertService")
 local Workspace = game:GetService("Workspace")
 
--- TODO CLIDEVSRVS-1564: Change this to a fastflag once the API is in CI
-local isDecalDraggingEnabled = true
-
 local function insertAudio(assetId, assetName)
 	local url = Urls.constructAssetIdString(assetId)
 	if DebugFlags.shouldDebugUrls() then
@@ -10310,7 +10307,7 @@ local function dispatchInsertAsset(plugin, assetId, assetName, assetTypeId, cate
 		return insertPackage(assetId)
 	elseif assetTypeId == Enum.AssetType.Audio.Value then
 		return insertAudio(assetId, assetName)
-	elseif assetTypeId == Enum.AssetType.Decal.Value and isDecalDraggingEnabled then
+	elseif assetTypeId == Enum.AssetType.Decal.Value and settings():GetFFlag("StudioPluginStartDecalDragApi") then
 		return insertDecal(plugin, assetId, assetName)
 	else
 		return insertAsset(assetId, assetName)

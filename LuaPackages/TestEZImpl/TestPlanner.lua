@@ -52,8 +52,16 @@ end
 function TestPlanner.createEnvironment(builder)
 	local env = {}
 
-	function env.describe(phrase, callback)
-		local node = builder:pushNode(phrase, TestEnum.NodeType.Describe)
+	function env.describeFOCUS(phrase, callback)
+		return env.describe(phrase, callback, TestEnum.NodeModifier.Focus)
+	end
+
+	function env.describeSKIP(phrase, callback)
+		return env.describe(phrase, callback, TestEnum.NodeModifier.Skip)
+	end
+
+	function env.describe(phrase, callback, nodeModifier)
+		local node = builder:pushNode(phrase, TestEnum.NodeType.Describe, nodeModifier)
 
 		local ok, err = pcall(callback)
 
@@ -131,6 +139,11 @@ function TestPlanner.createEnvironment(builder)
 
 	env.step = env.it
 
+	env.fit = env.itFOCUS
+	env.xit = env.itSKIP
+	env.fdescribe = env.describeFOCUS
+	env.xdescribe = env.describeSKIP
+
 	function env.include(...)
 		local args = {...}
 		local method, path
@@ -153,9 +166,10 @@ end
 	These functions should call a combination of `describe` and `it` (and their
 	variants), which will be turned into a test plan to be executed.
 ]]
-function TestPlanner.createPlan(specFunctions, noXpcallByDefault)
+function TestPlanner.createPlan(specFunctions, noXpcallByDefault, testNamePattern)
 	local builder = TestPlanBuilder.new()
 	builder.noXpcallByDefault = noXpcallByDefault
+	builder.testNamePattern = testNamePattern
 	local env = TestPlanner.createEnvironment(builder)
 
 	for _, module in ipairs(specFunctions) do

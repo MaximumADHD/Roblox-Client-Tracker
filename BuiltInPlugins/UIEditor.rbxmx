@@ -66,8 +66,6 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-local FFlagStudioReactivateNormalToolAfterDeactivatingPlugin = FFlag:isEnabled("StudioReactivateNormalToolAfterDeactivatingPlugin")
-local FFlagStudioIgnoreFrameUnderBillboardGuiAndSurfaceGui = FFlag:isEnabled("StudioIgnoreFrameUnderBillboardGuiAndSurfaceGui")
 local FFlagStudioCanSelectMeshPartWhileUIEditorIsActive = FFlag:isEnabled("StudioCanSelectMeshPartWhileUIEditorIsActive")
 
 -- Variables
@@ -206,9 +204,7 @@ local function onInputBegan(inputObject)
 			if ((part or (FFlagStudioCanSelectMeshPartWhileUIEditorIsActive and part:IsA("MeshPart"))) and not part.Locked) then
 				local instances = {part}
 				SelectionService:Set(instances)
-				if (FFlagStudioReactivateNormalToolAfterDeactivatingPlugin) then
-					Off()
-				end
+                Off()
 			else
 					Off()
 			end
@@ -366,18 +362,15 @@ local function onSelectionChanged()
 
 	SnappingPointManager:generateSnappingLines()
 
-	if FFlagStudioIgnoreFrameUnderBillboardGuiAndSurfaceGui then
+    local m_selected = SelectionService:Get()
 
-		local m_selected = SelectionService:Get()
-
-		if m_selected[1] then
-			if (m_selected[1]:FindFirstAncestor("BillboardGui") or m_selected[1]:FindFirstAncestor("SurfaceGui")) then
-				Resize:hide()
-				SizeBox:setVisible(false)
-				DistanceLinesManager:setVisible(false)
-			end
-		end
-	end
+    if m_selected[1] then
+        if (m_selected[1]:FindFirstAncestor("BillboardGui") or m_selected[1]:FindFirstAncestor("SurfaceGui")) then
+            Resize:hide()
+            SizeBox:setVisible(false)
+            DistanceLinesManager:setVisible(false)
+        end
+    end
 end
 
 local function onDragEnter(instances)
@@ -468,9 +461,7 @@ function Off()
 	
     toolbarButton:SetActive(false)
 
-    if (FFlagStudioReactivateNormalToolAfterDeactivatingPlugin) then
-		plugin:Deactivate()
-	end
+    plugin:Deactivate()
 end
 
 function On()
@@ -1068,9 +1059,6 @@ local SnappingType			= require(script.Parent.Enum.SnappingType)
 -- Services
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local UserInputService = game:GetService("UserInputService")
-
--- Flags
-local FFlagStudioShowHandlesAfterTogglingViewButton = FFlag:isEnabled("StudioShowHandlesAfterTogglingViewButton")
 
 -- Constants
 local MINIMUM_SIZE = 1
@@ -1768,9 +1756,7 @@ end
 
 -- Turns the Resize off and performs de-initialization. Called when the plugin is turned off.
 function Resize:Off()
-	if FFlagStudioShowHandlesAfterTogglingViewButton then
-		Resize:hide()
-	end
+	Resize:hide()
 	deleteResizeAdorns()
 end
 

@@ -7,6 +7,7 @@ local module = {}
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local TextService = game:GetService("TextService")
 local LocalPlayer = Players.LocalPlayer
 
 while not LocalPlayer do
@@ -306,27 +307,31 @@ function methods:ResetSize()
 	self:TweenToTargetYSize()
 end
 
+local function measureSize(textObj)
+	return TextService:GetTextSize(
+		textObj.Text,
+		textObj.TextSize,
+		textObj.Font,
+		Vector2.new(textObj.AbsoluteSize.X, 10000)
+	)
+end
+
 function methods:CalculateSize()
 	if self.CalculatingSizeLock then
 		return
 	end
 	self.CalculatingSizeLock = true
 
-	local lastPos = self.GuiObject.Size
-	self.GuiObject.Size = UDim2.new(1, 0, 0, 1000)
-
 	local textSize = nil
 	local bounds = nil
 
 	if self:IsFocused() or self.TextBox.Text ~= "" then
-		textSize = self.TextBox.textSize
-		bounds = self.TextBox.TextBounds.Y
+		textSize = self.TextBox.TextSize
+		bounds = measureSize(self.TextBox).Y
 	else
-		textSize = self.TextLabel.textSize
-		bounds = self.TextLabel.TextBounds.Y
+		textSize = self.TextLabel.TextSize
+		bounds = measureSize(self.TextLabel).Y
 	end
-
-	self.GuiObject.Size = lastPos
 
 	local newTargetYSize = bounds - textSize
 	if (self.TargetYSize ~= newTargetYSize) then

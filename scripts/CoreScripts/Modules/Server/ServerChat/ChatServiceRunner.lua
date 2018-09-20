@@ -97,17 +97,7 @@ local function CreatePlayerSpeakerObject(playerObj)
 		speaker:JoinChannel(channel.Name)
 	end
 
-	speaker.ReceivedUnfilteredMessage:connect(function(messageObj, channel)
-		EventFolder.OnNewMessage:FireClient(playerObj, messageObj, channel)
-	end)
-
-	speaker.MessageDoneFiltering:connect(function(messageObj, channel)
-		EventFolder.OnMessageDoneFiltering:FireClient(playerObj, messageObj, channel)
-	end)
-
-	speaker.ReceivedSystemMessage:connect(function(messageObj, channel)
-		EventFolder.OnNewSystemMessage:FireClient(playerObj, messageObj, channel)
-	end)
+	speaker:InternalAssignEventFolder(EventFolder)
 
 	speaker.ChannelJoined:connect(function(channel, welcomeMessage)
 		local log = nil
@@ -121,24 +111,12 @@ local function CreatePlayerSpeakerObject(playerObj)
 		EventFolder.OnChannelJoined:FireClient(playerObj, channel, welcomeMessage, log, channelNameColor)
 	end)
 
-	speaker.ChannelLeft:connect(function(channel)
-		EventFolder.OnChannelLeft:FireClient(playerObj, channel)
-	end)
-
 	speaker.Muted:connect(function(channel, reason, length)
 		EventFolder.OnMuted:FireClient(playerObj, channel, reason, length)
 	end)
 
 	speaker.Unmuted:connect(function(channel)
 		EventFolder.OnUnmuted:FireClient(playerObj, channel)
-	end)
-
-	speaker.MainChannelSet:connect(function(channel)
-		EventFolder.OnMainChannelSet:FireClient(playerObj, channel)
-	end)
-
-	speaker.ChannelNameColorUpdated:connect(function(channelName, channelNameColor)
-		EventFolder.ChannelNameColorUpdated:FireClient(playerObj, channelName, channelNameColor)
 	end)
 
 	ChatService:InternalFireSpeakerAdded(speaker.Name)

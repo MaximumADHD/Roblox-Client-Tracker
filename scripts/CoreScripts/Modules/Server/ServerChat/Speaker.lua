@@ -17,7 +17,64 @@ local function ShallowCopy(table)
 end
 
 local methods = {}
-methods.__index = methods
+
+local lazyEventNames = 
+{
+    eDestroyed = true,
+	eSaidMessage = true,
+	eReceivedMessage = true,
+	eReceivedUnfilteredMessage = true,
+	eMessageDoneFiltering = true,
+	eReceivedSystemMessage = true,
+	eChannelJoined = true,
+	eChannelLeft = true,
+	eMuted = true,
+	eUnmuted = true,
+	eExtraDataUpdated = true,
+	eMainChannelSet = true,
+	eChannelNameColorUpdated = true,
+}
+local lazySignalNames =
+{
+	Destroyed = "eDestroyed",
+	SaidMessage = "eSaidMessage",
+	ReceivedMessage = "eReceivedMessage",
+	ReceivedUnfilteredMessage = "eReceivedUnfilteredMessage",
+    RecievedUnfilteredMessage = "eReceivedUnfilteredMessage", -- legacy mispelling
+	MessageDoneFiltering = "eMessageDoneFiltering",
+	ReceivedSystemMessage = "eReceivedSystemMessage",
+	ChannelJoined = "eChannelJoined",
+	ChannelLeft = "eChannelLeft",
+	Muted = "eMuted",
+	Unmuted = "eUnmuted",
+	ExtraDataUpdated = "eExtraDataUpdated",
+	MainChannelSet = "eMainChannelSet",
+	ChannelNameColorUpdated = "eChannelNameColorUpdated"
+}
+
+methods.__index = function (self, k)
+	local fromMethods = rawget(methods, k)
+	if fromMethods then return fromMethods end
+	
+    if lazyEventNames[k] and not rawget(self, k) then
+        rawset(self, k, Instance.new("BindableEvent"))
+    end
+    local lazySignalEventName = lazySignalNames[k]
+    if lazySignalEventName and not rawget(self, k) then
+        if not rawget(self, lazySignalEventName) then
+            rawset(self, lazySignalEventName, Instance.new("BindableEvent"))
+        end
+        rawset(self, k, rawget(self, lazySignalEventName).Event)
+    end
+    return rawget(self, k)
+end
+
+function methods:LazyFire(eventName, ...)
+	local createdEvent = rawget(self, eventName)
+	if createdEvent then
+		createdEvent:Fire(...)
+	end
+end
 
 function methods:SayMessage(message, channelName, extraData)
 	if (self.ChatService:InternalDoProcessCommands(self.Name, message, channelName)) then return end
@@ -30,7 +87,7 @@ function methods:SayMessage(message, channelName, extraData)
 
 	local messageObj = channel:InternalPostMessage(self, message, extraData)
 	if (messageObj) then
-		local success, err = pcall(function() self.eSaidMessage:Fire(messageObj, channelName) end)
+		local success, err = pcall(function() self:LazyFire("eSaidMessage", messageObj, channelName) end)
 		if not success and err then
 			print("Error saying message: " ..err)
 		end
@@ -71,7 +128,8 @@ function methods:LeaveChannel(channelName)
 	self.Channels[channelName:lower()] = nil
 	channel:InternalRemoveSpeaker(self)
 	local success, err = pcall(function()
-		self.eChannelLeft:Fire(channel.Name)
+		self:LazyFire("eChannelLeft", channel.Name)
+		self.EventFolder.OnChannelLeft:FireClient(self.PlayerObj, channel.Name)
 	end)
 	if not success and err then
 		print("Error leaving channel: " ..err)
@@ -118,7 +176,7 @@ end
 
 function methods:SetExtraData(key, value)
 	self.ExtraData[key] = value
-	self.eExtraDataUpdated:Fire(key, value)
+	self:LazyFire("eExtraDataUpdated", key, value)
 end
 
 function methods:GetExtraData(key)
@@ -126,7 +184,10 @@ function methods:GetExtraData(key)
 end
 
 function methods:SetMainChannel(channelName)
-	local success, err = pcall(function() self.eMainChannelSet:Fire(channelName) end)
+	local success, err = pcall(function()
+		self:LazyFire("eMainChannelSet", channelName)
+		self.EventFolder.OnMainChannelSet:FireClient(self.PlayerObj, channelName)
+	end)
 	if not success and err then
 		print("Error setting main channel: " ..err)
 	end
@@ -154,6 +215,7 @@ function methods:InternalDestroy()
 
 	self.eDestroyed:Fire()
 
+	self.EventFolder = nil
 	self.eDestroyed:Destroy()
 	self.eSaidMessage:Destroy()
 	self.eReceivedMessage:Destroy()
@@ -173,9 +235,14 @@ function methods:InternalAssignPlayerObject(playerObj)
 	self.PlayerObj = playerObj
 end
 
+function methods:InternalAssignEventFolder(eventFolder)
+	self.EventFolder = eventFolder
+end
+
 function methods:InternalSendMessage(messageObj, channelName)
 	local success, err = pcall(function()
-		self.eReceivedUnfilteredMessage:Fire(messageObj, channelName)
+		self:LazyFire("eReceivedUnfilteredMessage", messageObj, channelName)
+		self.EventFolder.OnNewMessage:FireClient(self.PlayerObj, messageObj, channelName)
 	end)
 	if not success and err then
 		print("Error sending internal message: " ..err)
@@ -184,8 +251,9 @@ end
 
 function methods:InternalSendFilteredMessage(messageObj, channelName)
 	local success, err = pcall(function()
-		self.eReceivedMessage:Fire(messageObj, channelName)
-		self.eMessageDoneFiltering:Fire(messageObj, channelName)
+		self:LazyFire("eReceivedMessage", messageObj, channelName)
+		self:LazyFire("eMessageDoneFiltering", messageObj, channelName)
+		self.EventFolder.OnMessageDoneFiltering:FireClient(self.PlayerObj, messageObj, channelName)
 	end)
 	if not success and err then
 		print("Error sending internal filtered message: " ..err)
@@ -226,7 +294,8 @@ end
 
 function methods:InternalSendSystemMessage(messageObj, channelName)
 	local success, err = pcall(function()
-		self.eReceivedSystemMessage:Fire(messageObj, channelName)
+		self:LazyFire("eReceivedSystemMessage", messageObj, channelName)
+		self.EventFolder.OnNewSystemMessage:FireClient(self.PlayerObj, messageObj, channelName)
 	end)
 	if not success and err then
 		print("Error sending internal system message: " ..err)
@@ -234,7 +303,8 @@ function methods:InternalSendSystemMessage(messageObj, channelName)
 end
 
 function methods:UpdateChannelNameColor(channelName, channelNameColor)
-	self.eChannelNameColorUpdated:Fire(channelName, channelNameColor)
+	self:LazyFire("eChannelNameColorUpdated", channelName, channelNameColor)
+	self.EventFolder.ChannelNameColorUpdated:FireClient(self.PlayerObj, channelName, channelNameColor)
 end
 
 --///////////////////////// Constructors
@@ -252,40 +322,8 @@ function module.new(vChatService, name)
 
 	obj.Channels = {}
 	obj.MutedSpeakers = {}
-
-	-- Make sure to destroy added binadable events in the InternalDestroy method.
-	obj.eDestroyed = Instance.new("BindableEvent")
-	obj.eSaidMessage = Instance.new("BindableEvent")
-	obj.eReceivedMessage = Instance.new("BindableEvent")
-	obj.eReceivedUnfilteredMessage = Instance.new("BindableEvent")
-	obj.eMessageDoneFiltering = Instance.new("BindableEvent")
-	obj.eReceivedSystemMessage = Instance.new("BindableEvent")
-	obj.eChannelJoined = Instance.new("BindableEvent")
-	obj.eChannelLeft = Instance.new("BindableEvent")
-	obj.eMuted = Instance.new("BindableEvent")
-	obj.eUnmuted = Instance.new("BindableEvent")
-	obj.eExtraDataUpdated = Instance.new("BindableEvent")
-	obj.eMainChannelSet = Instance.new("BindableEvent")
-	obj.eChannelNameColorUpdated = Instance.new("BindableEvent")
-
-	obj.Destroyed = obj.eDestroyed.Event
-	obj.SaidMessage = obj.eSaidMessage.Event
-	obj.ReceivedMessage = obj.eReceivedMessage.Event
-	obj.ReceivedUnfilteredMessage = obj.eReceivedUnfilteredMessage.Event
-	obj.MessageDoneFiltering = obj.eMessageDoneFiltering.Event
-	obj.ReceivedSystemMessage = obj.eReceivedSystemMessage.Event
-	obj.ChannelJoined = obj.eChannelJoined.Event
-	obj.ChannelLeft = obj.eChannelLeft.Event
-	obj.Muted = obj.eMuted.Event
-	obj.Unmuted = obj.eUnmuted.Event
-	obj.ExtraDataUpdated = obj.eExtraDataUpdated.Event
-	obj.MainChannelSet = obj.eMainChannelSet.Event
-	obj.ChannelNameColorUpdated = obj.eChannelNameColorUpdated.Event
-
-	--- DEPRECATED:
-	--- Mispelled version of ReceivedUnfilteredMessage, retained for compatibility with legacy versions.
-	obj.RecievedUnfilteredMessage = obj.eReceivedUnfilteredMessage.Event
-
+	obj.EventFolder = nil
+	
 	return obj
 end
 

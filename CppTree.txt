@@ -139,6 +139,7 @@ RBX
 		InstancedEntity2
 		LightGrid
 		LightGridCPU
+		LightGridCPU_DEPRECATED
 		LightObject
 		ObjectExporter
 		ObjectExporterObj

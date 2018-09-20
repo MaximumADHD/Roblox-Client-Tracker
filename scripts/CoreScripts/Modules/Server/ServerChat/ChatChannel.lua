@@ -390,6 +390,24 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 	end
 
 	local messageObj = self:InternalCreateMessageObject(message, fromSpeaker.Name, false, extraData)
+
+	-- allow server to process the unfiltered message string
+	messageObj.Message = message
+	local processedMessage
+	pcall(function()
+		processedMessage = Chat:InvokeChatCallback(Enum.ChatCallbackType.OnServerReceivingMessage, messageObj)
+	end)
+	messageObj.Message = nil
+
+	if processedMessage then
+
+		-- developer server code's choice to mute the message
+		if processedMessage.ShouldDeliver == false then
+			return false
+		end
+		messageObj = processedMessage
+	end
+
 	message = self:SendMessageObjToFilters(message, messageObj, fromSpeaker)
 
 	local sentToList = {}

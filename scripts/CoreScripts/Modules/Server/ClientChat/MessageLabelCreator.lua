@@ -21,6 +21,14 @@ local MessageSender = require(modulesFolder:WaitForChild("MessageSender"))
 local methods = {}
 methods.__index = methods
 
+-- merge properties on both table to target
+function mergeProps(source, target)
+	if not source then return end
+	for prop, value in pairs(source) do
+		target[prop] = value
+	end
+end
+
 function ReturnToObjectPoolRecursive(instance, objectPool)
 	local children = instance:GetChildren()
 	for i = 1, #children do
@@ -78,6 +86,15 @@ function methods:WrapIntoMessageObject(messageData, createdMessageObject)
 end
 
 function methods:CreateMessageLabel(messageData, currentChannelName)
+
+	messageData.Channel = currentChannelName
+	local extraDeveloperFormatTable
+	pcall(function()
+		extraDeveloperFormatTable = Chat:InvokeChatCallback(Enum.ChatCallbackType.OnClientFormattingMessage, messageData)
+	end)
+	messageData.ExtraData = messageData.ExtraData or {}
+	mergeProps(extraDeveloperFormatTable, messageData.ExtraData)
+
 	local messageType = messageData.MessageType
 	if self.MessageCreators[messageType] then
 		local createdMessageObject = self.MessageCreators[messageType](messageData, currentChannelName)

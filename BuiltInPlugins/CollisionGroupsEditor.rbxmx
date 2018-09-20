@@ -1,12 +1,13 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">false</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXEC4A967787E44D8FBAA473F3E2A9B4A6">
+	<Item class="Folder" referent="RBXEBE516B7E58B452DA3514B57CB1C676A">
 		<Properties>
 			<string name="Name">CollisionGroupEditor</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX3BC3259F1F374D228702A5EE1603EC14">
+		<Item class="ModuleScript" referent="RBX4E0CA49D03D543D489BDB12BC22A64B8">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Roact</string>
@@ -79,7 +80,7 @@ apply(Roact, {
 return Roact]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXAC7852178BF74849B9E0D7BF1574FAC4">
+			<Item class="ModuleScript" referent="RBX8C7E342A5AB04E5E94F499CEEDBDDA64">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">oneChild</string>
@@ -115,7 +116,7 @@ return oneChild]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX129C8B2D22E344A5A46A04F0B7CA723E">
+			<Item class="ModuleScript" referent="RBX53700984B7774FD583C54F8F5CCA2875">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getDefaultPropertyValue.spec</string>
@@ -156,7 +157,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXD27EBFEB37954552A1DF07E39DC0C2E9">
+			<Item class="ModuleScript" referent="RBX29B8FFFB154947D7A7474C70CF2DB20B">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Change.spec</string>
@@ -179,7 +180,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX0649C7EBA17243D2818F98E2F631554D">
+			<Item class="ModuleScript" referent="RBX262E849AB1BA40B8A7A5EB510B05EE0A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Symbol.spec</string>
@@ -232,7 +233,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX0564450B8ACE47F49B8A596883F9B6CE">
+			<Item class="ModuleScript" referent="RBX67A11D54A5364C6CA5DBA2DE940E0B5D">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Instrumentation</string>
@@ -344,7 +345,7 @@ return Instrumentation]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXD776BF4FDF3A4C049BD482CADB3EDF13">
+			<Item class="ModuleScript" referent="RBXB19B6021DC6F40DC8BC0C30B220ED271">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Reconciler</string>
@@ -896,7 +897,7 @@ return Reconciler
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX5FEFD3D8993D431CACEDB3DFD72654EB">
+			<Item class="ModuleScript" referent="RBX01BAFCECCF9347E3B7477B6D268B5A2D">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createElement</string>
@@ -941,7 +942,7 @@ return createElement]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXABC937577A2D480291A218897B3BD959">
+			<Item class="ModuleScript" referent="RBX646B98E6EC5841F9B371F69E8CF7B51F">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Reconciler.spec</string>
@@ -1037,7 +1038,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX4C568DCB93384534B56808EEFBD25F5C">
+			<Item class="ModuleScript" referent="RBX8075FF7A7ADB45C09BA53B7CA9E3ABF5">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GlobalConfig.spec</string>
@@ -1055,7 +1056,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX306B3428089043789443DACA00F38928">
+			<Item class="ModuleScript" referent="RBXC5775A58BF934E9A9D2EF95DBFC89934">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SingleEventManager.spec</string>
@@ -1338,7 +1339,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7D51A1B7B97A4460AD20DB3AB85DE288">
+			<Item class="ModuleScript" referent="RBXFFE2AA4839BA4EFB830418CEF661A268">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createRef</string>
@@ -1366,7 +1367,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX014A6F8A950241FCA51DD31759237044">
+			<Item class="ModuleScript" referent="RBX864966C2D3AB416A9E1AC08F03425749">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Symbol</string>
@@ -1418,7 +1419,7 @@ return Symbol]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX2C066D2D5BEB4EC78A58E2CD5404FC5F">
+			<Item class="ModuleScript" referent="RBX9BD30C9A2D514C648F2C8A65F9905396">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createRef.spec</string>
@@ -1441,7 +1442,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXF376602D99B343F287A33E6F791BA38A">
+			<Item class="ModuleScript" referent="RBX5CAA058EC58A4D3084301803732A2D90">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Event</string>
@@ -1488,7 +1489,7 @@ return Event]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXA1F268AC15124D5EB3E5DDA4CB09F11C">
+			<Item class="ModuleScript" referent="RBXF490E4BEC2584F728E8BE0AC5666A4F8">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">oneChild.spec</string>
@@ -1531,7 +1532,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXEC86A7FDC3AF42BCAA62AD339292FFF1">
+			<Item class="ModuleScript" referent="RBXFD3DC2F6D10342C9A4A022C3301A7FA3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createElement.spec</string>
@@ -1561,7 +1562,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX021A3A82F69D402E98EEE8B93347C9B7">
+			<Item class="ModuleScript" referent="RBXB3C7147E03E84E9E966259381C2CE037">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">invalidSetStateMessages</string>
@@ -1634,7 +1635,7 @@ return invalidSetStateMessages]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXF7B97C3DCD904506AE364566C2C26C4D">
+			<Item class="ModuleScript" referent="RBXDAB23A1DE6D94C7B8A564D4C780EE98B">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">init.spec</string>
@@ -2137,7 +2138,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX674639483048468C8CDED09CA39B0181">
+			<Item class="ModuleScript" referent="RBXA32FEAEA0A9D4621BDD711BE9CB3F848">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GlobalConfig</string>
@@ -2152,7 +2153,7 @@ return Config.new()]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXDFB45BB6E3A64909AFD0EE726C6E96C7">
+			<Item class="ModuleScript" referent="RBX33BACEAF8A2F4B8D91A168B22F20886A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Core</string>
@@ -2184,7 +2185,7 @@ return Core]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX12EAE00D658A448BB7209501D14E7EEE">
+			<Item class="ModuleScript" referent="RBX2A2411829EAA4AAFA80D51F3CB4C9B84">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">PureComponent.spec</string>
@@ -2263,7 +2264,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXEA343CF1C46546AC97F61D0BE363E36C">
+			<Item class="ModuleScript" referent="RBXF5F7A1D45C46454FAACB8992CE5CE857">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Config.spec</string>
@@ -2357,7 +2358,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXD2782AA318A749C9AB6AF00C258ABBF7">
+			<Item class="ModuleScript" referent="RBX0964A79CCCA74074A9C769CA08610C7E">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Change</string>
@@ -2401,7 +2402,7 @@ return Change]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX29F94574E4B24B28B488803B995C45EA">
+			<Item class="ModuleScript" referent="RBX7EE1CD76A3C5466EB16C6E25C0D7C92D">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SingleEventManager</string>
@@ -2555,7 +2556,7 @@ return SingleEventManager
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXE11449A2834940FB94ED1B6C110DAE7B">
+			<Item class="ModuleScript" referent="RBX7166852D70F044DCB0DCA9642817346D">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Config</string>
@@ -2709,7 +2710,7 @@ return Config]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX0B694F03B10A4033BA3751C18602D01B">
+			<Item class="ModuleScript" referent="RBXEB4B5F09B9B24213B9E131D14158F6D9">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Component.spec</string>
@@ -3333,7 +3334,7 @@ end
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9D5B082EB89943FCA9524F94B92DE1B4">
+			<Item class="ModuleScript" referent="RBX24DFDE3806D640FA8DB0354F12F8C868">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">PureComponent</string>
@@ -3382,7 +3383,7 @@ return PureComponent]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXDB435E44026345D88C57F3862089AD32">
+			<Item class="ModuleScript" referent="RBXCF0944F86C50442ABC53583BE9FD8763">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Component</string>
@@ -3826,7 +3827,7 @@ return Component
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXC2E50B0747C647028A414EA32B0E7DE3">
+			<Item class="ModuleScript" referent="RBXCE512A7C677A45BA9E229021E3DBD4BF">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Instrumentation.spec</string>
@@ -3932,7 +3933,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX697A265FD81D499FA256DDFE4FBE35CD">
+			<Item class="ModuleScript" referent="RBX61B8757AC5DA4C0C8E24329257FAA3F3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ReconcilerCompat.spec</string>
@@ -4001,7 +4002,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX5D491F090F37404E920EAE6B7F69AEB4">
+			<Item class="ModuleScript" referent="RBXE4C93B2BFBD74F619F3B819FC0AACF1D">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ReconcilerCompat</string>
@@ -4059,7 +4060,7 @@ return ReconcilerCompat]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX335C18CCFFD541CF92A668120F2E8C44">
+			<Item class="ModuleScript" referent="RBXBABCF1FC4B154B87956D77A1B355401C">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getDefaultPropertyValue</string>
@@ -4121,7 +4122,7 @@ return getDefaultPropertyValue]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX8B055AFCDC37400E97F3D59261E3056E">
+			<Item class="ModuleScript" referent="RBX59A1DF6CC5B340908F5E1D3A8849C6C0">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Event.spec</string>
@@ -4145,12 +4146,12 @@ end]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX948E7DB903E24EF1A69555F79FDE4D04">
+		<Item class="Folder" referent="RBXBBACD575E23042D4B044244A6B763CF3">
 			<Properties>
 				<string name="Name">Plugin</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBXC7D96BBBB89E46AE86AC1D9DE9F4AAB1">
+			<Item class="Script" referent="RBX60F74EE4A96542A68C009FE32B4A8C87">
 				<Properties>
 					<bool name="Disabled">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -4162,11 +4163,11 @@ if FFlagStudioEnableCollisionGroupsEditorPlugin then
 	local Toolbar = plugin:CreateToolbar("collisionGroupsEditorToolbar")
 	local Button = Toolbar:CreateButton("collisionGroupsEditorButton", "Edit collision groups", "rbxasset://textures/CollisionGroupsEditor/ToolbarIcon.png")
 	
-	local MinX = 512 + 32
+	local MinX = 128
 	local MinY = 256
 	
 	local Info = DockWidgetPluginGuiInfo.new(
-		Enum.InitialDockState.Float,
+		Enum.InitialDockState.Right,
 		false,
 		false,
 		MinX, MinY,
@@ -4188,12 +4189,12 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBX8134958A68974D968FEC4EFFB79B643D">
+			<Item class="Folder" referent="RBX4B5010A261A548CB9BDB527B9D533707">
 				<Properties>
 					<string name="Name">Components</string>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBXC7910DD8E21845368BC1B6976FC4FA88">
+				<Item class="ModuleScript" referent="RBX6C36364A1C964FD4AA6991C8AE25674B">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">DescriptionMessage</string>
@@ -4225,7 +4226,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX512D3BF0D2DC467E8E953DD205D1B93D">
+				<Item class="ModuleScript" referent="RBXC5DDD360285D4D89AAAECEC5379034D9">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupButton</string>
@@ -4325,7 +4326,7 @@ return GroupButton]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX594C9E93C4B3439A8F742EEF87A0E662">
+				<Item class="ModuleScript" referent="RBXBB11E92D688946F2BC5AB47E11EE1E7C">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupCollisionCheckMarks</string>
@@ -4401,7 +4402,7 @@ return function(props)
 				choose(
 					settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
 					settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
-					props.Group.RowHovered
+					props.Hovered
 				),
 				props.Group.Selected
 			),
@@ -4409,36 +4410,40 @@ return function(props)
 			BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
 
 			[Roact.Event.InputBegan] = function(gui, input)
-				if input.UserInputType == Enum.UserInputType.MouseMovement then
-					group.OnColHoverStarted(gui)
-				end
+				props.OnColHovered(gui, group.Name, true)
 			end,
 
 			[Roact.Event.InputEnded] = function(gui, input)
-				if input.UserInputType == Enum.UserInputType.MouseMovement then
-					group.OnColHoverEnded(gui)
-				end
+				props.OnColHovered(gui, group.Name, false)
 			end,
 		}, checkChildren)
 	end
 
 
 	return Roact.createElement("Frame", {
-		LayoutOrder = 6,
-		Size = UDim2.new(Constants.GroupLabelSize.X.Scale * #props.Groups, 0, 1, 0),
+		LayoutOrder = props.LayoutOrder,
+		Size = UDim2.new(Constants.GroupLabelSize.X.Scale * #props.Groups, 0, 0, Constants.GroupRowHeight),
 		SizeConstraint = Enum.SizeConstraint.RelativeYY,
 
 		BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Dark),
 		BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Dark),
 		BorderSizePixel = 1,
 
-		BackgroundTransparency = choose(0, 1, props.Group.RowHovered),
+		BackgroundTransparency = 1,
+
+		[Roact.Event.InputBegan] = function(gui, input)
+			props.OnRowHovered(gui, props.Group.Name, true)
+		end,
+
+		[Roact.Event.InputEnded] = function(gui, input)
+			props.OnRowHovered(gui, props.Group.Name, false)
+		end,
 	}, children)
 end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX878F295E0B28413096FB9E3F2C1314E7">
+				<Item class="ModuleScript" referent="RBX3EFCF5FDD11D441889339B54678602FD">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupDeleteButton</string>
@@ -4461,7 +4466,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX607FC84381894B22B441853070357762">
+				<Item class="ModuleScript" referent="RBXFFC29C2DE38443DA842DBF3D45B2D69E">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupLabel</string>
@@ -4489,7 +4494,8 @@ return function(props)
 			TextXAlignment = Enum.TextXAlignment.Right,
 			TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
 
-			[Roact.Event.Activated] = props.Group.OnSelected,
+			-- hardcoded group "Default" cannot be highlighted
+			[Roact.Event.Activated] = choose(props.Group.OnSelected, nil, props.Group.Name ~= "Default"),
 		})
 	end
 
@@ -4504,7 +4510,7 @@ return function(props)
 				settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
 				props.Group.Selected
 			),
-			props.Group.RowHovered
+			props.Hovered
 		),
 
 		BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
@@ -4519,7 +4525,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX50BD11AC233F4076ACED9500A34B04AA">
+				<Item class="ModuleScript" referent="RBX395440172BEA4A1DB70C4FA569DE813C">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupLabelPadding</string>
@@ -4535,7 +4541,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX8A62C6205832471994DC576C96743620">
+				<Item class="ModuleScript" referent="RBX0CBE901ECBAF47289F017FE689AB0C51">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupRenameButton</string>
@@ -4551,7 +4557,7 @@ return function(props)
 		OnActivated = function()
 			props.Group.OnRenamed()
 		end,
-		LayoutOrder = 3,
+		LayoutOrder = 2,
 		Visible = props.Group.Name ~= "Default",
 		Window = props.Window,
 		TooltipMessage = "Rename this group.",
@@ -4560,7 +4566,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX2E5472C8F5354BD1A154EA73E9769D03">
+				<Item class="ModuleScript" referent="RBX1A322D5CB2A74615B4596E8F2E7E6EA6">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupRenameTextBox</string>
@@ -4602,7 +4608,7 @@ return GroupRenameTextBox]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX2E6764B3DA9D41B08A43D90BEA38820B">
+				<Item class="ModuleScript" referent="RBX2E6CF3ECEB6047CCB6275AF164314936">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupRow</string>
@@ -4619,21 +4625,26 @@ local GroupSetMembershipButton = require(script.Parent.GroupSetMembershipButton)
 local GroupLabel = require(script.Parent.GroupLabel)
 local GroupCollisionCheckMarks = require(script.Parent.GroupCollisionCheckMarks)
 
-return function(props)
+local GroupRow = Roact.PureComponent:extend("GroupRow")
+
+function GroupRow.CalculateWidth()
+	local width = (Constants.GroupRowHeight * 3) + (Constants.GroupRowHeight * Constants.GroupLabelSize.X.Scale)
+	return width
+end
+
+function GroupRow:render()
+	local props = self.props
+	
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
 		BackgroundTransparency = 1,
 		LayoutOrder = props.LayoutOrder,
 
-		[Roact.Event.InputBegan] = function(gui, input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement then
-				props.Group.OnRowHoverStarted(gui)
-			end
+		[Roact.Event.MouseEnter] = function(gui, input)
+			props.OnRowHovered(gui, props.Group.Name, true)
 		end,
-		[Roact.Event.InputEnded] = function(gui, input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement then
-				props.Group.OnRowHoverEnded(gui)
-			end
+		[Roact.Event.MouseLeave] = function(gui, input)
+			props.OnRowHovered(gui, props.Group.Name, false)
 		end,
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
@@ -4669,14 +4680,14 @@ return function(props)
 			BackgroundTransparency = 1,
 			LayoutOrder = 5,
 		}),
-		
-		CheckMarks = Roact.createElement(GroupCollisionCheckMarks, props),
 	})
-end]]></ProtectedString>
+end
+
+return GroupRow]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXD8EAC9F844DF4F32B10146366DFB2845">
+				<Item class="ModuleScript" referent="RBX56F3BD3EDB3844C2941917CF54B9AB80">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupSetMembershipButton</string>
@@ -4690,8 +4701,8 @@ return function(props)
 		Image = "rbxasset://textures/CollisionGroupsEditor/assign.png",
 		HoveredImage = "rbxasset://textures/CollisionGroupsEditor/assign-hover.png",
 		OnActivated = props.Group.OnMembershipSet,
-		Padding = UDim.new(0, 12),
-		LayoutOrder = 2,
+		Padding = UDim.new(0, 8),
+		LayoutOrder = 3,
 		Window = props.Window,
 		TooltipMessage = "Add selected parts to this group.",
 	})
@@ -4699,7 +4710,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX5778EE0EEDC2402290649CCE803B8156">
+				<Item class="ModuleScript" referent="RBX559C265763EE438DA0FF3B2EB83EE324">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Gui</string>
@@ -4714,6 +4725,42 @@ local getPartsInGroup = require(script.Parent.Parent.getPartsInGroup)
 local contains = require(script.Parent.Parent.contains)
 local getSelectedGroups = require(script.Parent.Parent.getSelectedGroups)
 
+local getGroupsChanged do
+	local lastGroups
+
+	local function getNamesChanged(groups)
+		for index = 1, #groups do
+			local lastGroup = lastGroups[index]
+			local group = groups[index]
+			if lastGroup.name ~= group.name then
+				return true
+			end
+		end
+		return false
+	end
+
+	getGroupsChanged = function()
+		if not lastGroups then
+			lastGroups = PhysicsService:GetCollisionGroups()
+			return false
+		end
+
+		local groups = PhysicsService:GetCollisionGroups()
+		local result = false
+
+		if #groups ~= #lastGroups then
+			result = true
+		end
+
+		if (not result) and getNamesChanged(groups) then
+			result = true
+		end
+
+		lastGroups = groups
+		return result
+	end
+end
+
 local DescriptionMessage = require(script.Parent.DescriptionMessage)
 local Table = require(script.Parent.Table)
 local Padding = require(script.Parent.Padding)
@@ -4721,25 +4768,9 @@ local Modal = require(script.Parent.Modal)
 
 local Gui = Roact.Component:extend("CollisionGroupsEditorGui")
 
--- a hover is an object which holds a key and remembers which gui
--- is being hovered. because hover starts and hover ends are not
--- guaranteed to be in any specific order, "unhovering" should only
--- be done if the unhovering object is the object that created
--- the hover in the first place. this object assists that approach
-function hover(key, gui)
-	return {
-		Key = key,
-		Gui = gui,
-	}
-end
-
 function Gui:init()
 	self.state = {
-		RowHover = hover("", nil),
-		ColHover = hover("", nil),
-
 		GroupRenaming = "",
-
 		Theme = "",
 	}
 
@@ -4764,8 +4795,6 @@ function Gui:GetGroups()
 	local selectedGroups = getSelectedGroups(groups)
 
 	for _, group in pairs(groups) do
-		group.RowHovered = (self.state.RowHover.Key == group.Name)
-		group.ColHovered = (self.state.ColHover.Key == group.Name)
 		group.Renaming = (self.state.GroupRenaming == group.Name)
 		group.Selected = contains(selectedGroups, group)
 
@@ -4802,28 +4831,8 @@ function Gui:GetGroups()
 			self:SetStateAndRefresh{}
 		end
 
-		group.OnRowHoverStarted = function(gui)
-			self:SetStateAndRefresh{RowHover = hover(group.Name, gui)}
-		end
-
-		group.OnRowHoverEnded = function(gui)
-			if self.state.RowHover.Gui == gui then
-				self:SetStateAndRefresh{RowHover = hover("", nil)}
-			end
-		end
-
 		group.OnSelected = function(gui)
 			game.Selection:Set(getPartsInGroup(group.Name))
-		end
-
-		group.OnColHoverStarted = function(gui)
-			self:SetStateAndRefresh{ColHover = hover(group.Name, gui)}
-		end
-
-		group.OnColHoverEnded = function(gui)
-			if self.state.ColHover.Gui == gui then
-				self:SetStateAndRefresh{ColHover = hover("", nil)}
-			end
 		end
 
 		group.GetCollidesWith = function(otherGroup)
@@ -4853,11 +4862,6 @@ function Gui:render()
 
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
-
-		DescriptionMessage = Roact.createElement(DescriptionMessage, {
-			Size = UDim2.new(1, 0, 0.2, 0),
-			LayoutOrder = 1,
 		}),
 
 		TableFrame = Roact.createElement("Frame", {
@@ -4901,18 +4905,29 @@ function Gui:didMount()
 	self.ThemeChangedConn = settings().Studio.ThemeChanged:Connect(function(theme)
 		self:SetStateAndRefresh{Theme = theme}
 	end)
+
+	self.PollingGroupChanges = true
+	spawn(function()
+		while self.PollingGroupChanges do
+			if getGroupsChanged() then
+				self:SetStateAndRefresh{}
+			end
+			wait(1)
+		end
+	end)
 end
 
 function Gui:willUnmount()
 	self.SelectionChangedConn:Disconnect()
 	self.ThemeChangedConn:Disconnect()
+	self.PollingGroupChanges = false
 end
 
 return Gui]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX834214601B39422BAD11F1C114BB36D7">
+				<Item class="ModuleScript" referent="RBXC7DE1BD147D746F29FD3A095934847BE">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">HeaderRow</string>
@@ -4926,8 +4941,59 @@ local Constants = require(script.Parent.Parent.Constants)
 local GroupLabelPadding = require(script.Parent.GroupLabelPadding)
 local Padding = require(script.Parent.Padding)
 
-return function(props)
-	local children = {
+local HeaderRow = Roact.Component:extend("HeaderRow")
+
+function HeaderRow.CalculateRowWidth(groupCount)
+	return (Constants.GroupRowHeight * Constants.GroupLabelSize.X.Scale + 1) * groupCount
+end
+
+function HeaderRow:render()
+	local props = self.props
+
+	local headers = {
+		Layout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 1),
+		}),
+	}
+
+	for index, group in pairs(props.Groups) do
+		headers[group.Name] = Roact.createElement("Frame", {
+			Size = Constants.GroupLabelSize + UDim2.new(0, 0, 0, -1),
+			SizeConstraint = Enum.SizeConstraint.RelativeYY,
+			LayoutOrder = 2 + index,
+
+			BackgroundColor3 = choose(
+				settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Dark),
+				settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
+				group.Name == props.ColHovered
+			),
+			BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
+
+			ZIndex = 2,
+		}, {
+			Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 4)}),
+			
+			Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = group.Name,
+				TextWrapped = true,
+				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+
+				ZIndex = 2,
+			}),
+		})
+	end
+
+	local nonHeaderSpace = (Constants.GroupRowHeight * 3) + (Constants.GroupRowHeight * Constants.GroupLabelSize.X.Scale)
+	
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
+		BackgroundTransparency = 1,
+		LayoutOrder = 1,
+	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -4958,47 +5024,27 @@ return function(props)
 				TextXAlignment = Enum.TextXAlignment.Right,
 			}),
 		}),
-	}
 
-	for index, group in pairs(props.Groups) do
-		children[group.Name] = Roact.createElement("Frame", {
-			Size = Constants.GroupLabelSize + UDim2.new(0, 0, 0, -1),
-			SizeConstraint = Enum.SizeConstraint.RelativeYY,
-			LayoutOrder = 2 + index,
+		-- this is ugly, but I can't think of any better way of figuring out
+		-- the precise spacings for the things I need to put here... so deal
+		Headers = Roact.createElement("ScrollingFrame", {
+			Size = UDim2.new(1, -nonHeaderSpace, 0, Constants.GroupRowHeight),
+			CanvasSize = UDim2.new(0, self.CalculateRowWidth(#props.Groups), 0, Constants.GroupRowHeight),
+			CanvasPosition = Vector2.new(props.ScrollPosition.X, 0),
+			ScrollingDirection = Enum.ScrollingDirection.X,
+			BackgroundTransparency = 1,
+			LayoutOrder = 3,
+			ScrollBarThickness = 0,
+			ScrollingEnabled = false,
+		}, headers)
+	})
+end
 
-			BackgroundColor3 = choose(
-				settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Dark),
-				settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
-				group.ColHovered
-			),
-			BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
-
-			ZIndex = 2,
-		}, {
-			Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 4)}),
-			
-			Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Text = group.Name,
-				TextWrapped = true,
-				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-
-				ZIndex = 2,
-			}),
-		})
-	end
-
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
-		BackgroundTransparency = 1,
-		LayoutOrder = 1,
-	}, children)
-end]]></ProtectedString>
+return HeaderRow]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX3C81CC8EFA2B4D3BB58202EAB8ACE0B1">
+				<Item class="ModuleScript" referent="RBX67572F4C10BC4870A0A3836D88F7EA5E">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">HelpMessage</string>
@@ -5007,7 +5053,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX5006139391DB4E83BC2338903CC69086">
+				<Item class="ModuleScript" referent="RBX80EA12F71CDF410B829E4085A05A7581">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">ImageButton</string>
@@ -5031,7 +5077,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXCAD3E45EF7C3453CB8C5136391914478">
+				<Item class="ModuleScript" referent="RBXECFC4EAA3BB247DC93F373CF7884DF59">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Modal</string>
@@ -5149,7 +5195,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX513657474D224BBC9C0C68E931010740">
+				<Item class="ModuleScript" referent="RBXC1D15F0C3FEF44D885DEFF2ED578E893">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Padding</string>
@@ -5167,18 +5213,73 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX9F3E7E55B53D41E2861DD50694AA2FE3">
+				<Item class="ModuleScript" referent="RBX2FC8E5B89F034F8FAAB9BC271DE5AC33">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Table</string>
 						<string name="ScriptGuid">{323001F4-DE86-4194-B083-C056E31972D1}</string>
 						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.Roact)
 
-local GroupRow = require(script.Parent.GroupRow)
 local HeaderRow = require(script.Parent.HeaderRow)
 local AddGroup = require(script.Parent.AddGroup)
+local GroupLabelColumn = require(script.Parent.GroupLabelColumn)
+local GroupCollisionMatrix = require(script.Parent.GroupCollisionMatrix)
+local Constants = require(script.Parent.Parent.Constants)
 
-return function(props)
+local Table = Roact.Component:extend("Table")
+
+-- a hover is an object which holds a key and remembers which gui
+-- is being hovered. because hover starts and hover ends are not
+-- guaranteed to be in any specific order, "unhovering" should only
+-- be done if the unhovering object is the object that created
+-- the hover in the first place. this object assists that approach
+function hover(key, gui)
+	return {
+		Key = key,
+		Gui = gui,
+	}
+end
+
+function Table:init()
+	self.RowHover = hover("", nil)
+	self.ColHover = hover("", nil)
+
+	function self.OnRowHovered(gui, groupName, hoverStarted)
+		if hoverStarted then
+			self:setState{RowHovered = groupName}
+		else
+			if self.RowHover.Gui == gui then
+				self:setState{RowHovered = ""}
+			end
+		end
+	end
+
+	function self.OnColHovered(gui, groupName, hoverStarted)
+		if hoverStarted then
+			self:setState{ColHovered = groupName}
+		else
+			if self.ColHover.Gui == gui then
+				self:setState{ColHovered = ""}
+			end
+		end
+	end
+
+	function self.OnScrolled(newScrollPosition)
+		self:setState{
+			ScrollPosition = newScrollPosition,
+		}
+	end
+
+	self.state = {
+		ScrollPosition = Vector2.new(),
+		RowHovered = "",
+		ColHovered = "",
+	}
+end
+
+function Table:render()
+	local props = self.props
+
 	local children = {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -5186,6 +5287,37 @@ return function(props)
 
 		HeaderRow = Roact.createElement(HeaderRow, {
 			Groups = props.Groups,
+
+			ColHovered = self.state.ColHovered,
+			OnColHovered = self.OnColHovered,
+
+			ScrollPosition = self.state.ScrollPosition,
+		}),
+
+		Middle = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, -(Constants.GroupRowHeight * 2)),
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			GroupLabelColumn = Roact.createElement(GroupLabelColumn, {
+				Groups = props.Groups,
+				Window = props.Window,
+				RowHovered = self.state.RowHovered,
+				OnRowHovered = self.OnRowHovered,
+				ScrollPosition = self.state.ScrollPosition,
+			}),
+			GroupCollisionMatrix = Roact.createElement(GroupCollisionMatrix, {
+				Groups = props.Groups,
+				RowHovered = self.state.RowHovered,
+				OnColHovered = self.OnColHovered,
+				OnRowHovered = self.OnRowHovered,
+				OnScrolled = self.OnScrolled,
+			}),
 		}),
 
 		AddGroup = Roact.createElement(AddGroup, {
@@ -5194,27 +5326,17 @@ return function(props)
 		}),
 	}
 
-	for index, group in pairs(props.Groups) do
-		local key = group.Name
-
-		children[key] = Roact.createElement(GroupRow, {
-			Group = group,
-			Groups = props.Groups,
-			GroupsShown = index,
-			LayoutOrder = index + 1,
-			Window = props.Window,
-		})
-	end
-
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 	}, children)
-end]]></ProtectedString>
+end
+
+return Table]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX51AAB926D5F147AAA7F0C808FB77DAAE">
+				<Item class="ModuleScript" referent="RBX38DA72B90F344D1FA73D02784938A678">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">AddGroup</string>
@@ -5277,7 +5399,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXEEA7C04887F148C8BC8A2EC7C9D75294">
+				<Item class="ModuleScript" referent="RBX9900E851ACC84EC2A4C8491BE348997E">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Tooltip</string>
@@ -5329,20 +5451,138 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
+				<Item class="ModuleScript" referent="RBX69FD64E2A6804A3BA65AEA165ECDB975">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">GroupCollisionMatrix</string>
+						<string name="ScriptGuid">{1D60BA40-140F-46F1-829E-27969FC37F30}</string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.Roact)
+
+local GroupLabelColumn = require(script.Parent.GroupLabelColumn)
+local HeaderRow = require(script.Parent.HeaderRow)
+local GroupRow = require(script.Parent.GroupRow)
+local GroupCollisionCheckMarks = require(script.Parent.GroupCollisionCheckMarks)
+
+local GroupCollisionMatrix = Roact.PureComponent:extend("GroupCollisionMatrix")
+
+function GroupCollisionMatrix:render()
+	local props = self.props
+	local groupCount = #props.Groups
+
+	local children = {
+		Layout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, 1),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	}
+
+	for index, group in pairs(props.Groups) do
+		local key = group.Name.."CheckMarks"
+
+		children[key] = Roact.createElement(GroupCollisionCheckMarks, {
+			Group = group,
+			Groups = props.Groups,
+			GroupsShown = index,
+			Hovered = props.RowHovered == group.Name,
+			LayoutOrder = index,
+
+			OnColHovered = props.OnColHovered,
+			OnRowHovered = props.OnRowHovered,
+		})
+	end
+
+	local scrollBarThickness = 8
+
+	return Roact.createElement("ScrollingFrame", {
+		Size = UDim2.new(1, -GroupRow.CalculateWidth() + scrollBarThickness, 1, scrollBarThickness),
+		CanvasSize = UDim2.new(0, HeaderRow.CalculateRowWidth(groupCount) - 1, 0, GroupLabelColumn.CalculateColumnHeight(groupCount) - 1),
+		LayoutOrder = 2,
+		BorderSizePixel = 1,
+		ScrollBarThickness = scrollBarThickness,
+		BorderSizePixel = 0,
+		BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
+		ScrollBarImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+
+		[Roact.Change.CanvasPosition] = function(gui)
+			props.OnScrolled(gui.CanvasPosition)
+		end,
+	}, children)
+end
+
+return GroupCollisionMatrix]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="ModuleScript" referent="RBX7ECF7431E9714BA4A98BB9336EE6C4DE">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">GroupLabelColumn</string>
+						<string name="ScriptGuid">{0C4BEE06-803B-4F00-A528-EC8DFEDCFDD1}</string>
+						<ProtectedString name="Source"><![CDATA[local Roact = require(script.Parent.Parent.Parent.Roact)
+
+local GroupRow = require(script.Parent.GroupRow)
+local Constants = require(script.Parent.Parent.Constants)
+
+local GroupLabelColumn = Roact.PureComponent:extend("GroupLabelColumn")
+
+function GroupLabelColumn.CalculateColumnHeight(groupCount)
+	return (Constants.GroupRowHeight + 1) * groupCount
+end
+
+function GroupLabelColumn:render()
+	local props = self.props
+
+	local children = {
+		Layout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, 1),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	}
+
+	for index, group in pairs(props.Groups) do
+		local key = group.Name
+
+		children[key] = Roact.createElement(GroupRow, {
+			Group = group,
+			Groups = props.Groups,
+			GroupsShown = index,
+			LayoutOrder = index + 1,
+			Window = props.Window,
+
+			Hovered = props.RowHovered == group.Name,
+			OnRowHovered = props.OnRowHovered,
+		})
+	end
+
+	return Roact.createElement("ScrollingFrame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, GroupRow.CalculateWidth(), 1, 0),
+		CanvasSize = UDim2.new(0, GroupRow.CalculateWidth(), 0, self.CalculateColumnHeight(#props.Groups)),
+		CanvasPosition = Vector2.new(0, props.ScrollPosition.Y),
+		LayoutOrder = 1,
+		ScrollBarThickness = 0,
+		ScrollingEnabled = false,
+	}, children)
+end
+
+return GroupLabelColumn]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
 			</Item>
-			<Item class="ModuleScript" referent="RBX474658501EB643DFAED3D7CA4484AF05">
+			<Item class="ModuleScript" referent="RBX1DCC8EB71EFF4CE5B81F0DC77FACFEF3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Constants</string>
 					<string name="ScriptGuid">{CD9FA147-1B0F-4B56-9536-12FCA2A27DA0}</string>
 					<ProtectedString name="Source"><![CDATA[return {
-	GroupRowHeight = 48,
+	GroupRowHeight = 34,
 	GroupLabelSize = UDim2.new(2.5, 0, 1, 0),
 }]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXE49DDFEB936C47AABEBD4DD62501E2FB">
+			<Item class="ModuleScript" referent="RBXAC5F8D73E2FE4103956C383E5D97082B">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getPartsInGroup</string>
@@ -5363,7 +5603,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7AE6060683CB417B937E22C3E163F172">
+			<Item class="ModuleScript" referent="RBXE6E7578932BB4155AD68383D0B566E9B">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">contains</string>
@@ -5379,7 +5619,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXC79021F61835462F989F52F4447B5046">
+			<Item class="ModuleScript" referent="RBX05A7EC354AB046E3BB868322BE28BE50">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getSelectedGroups</string>
@@ -5415,7 +5655,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXB56F3751B8BB47B18C16126EB300C94C">
+			<Item class="ModuleScript" referent="RBXF73491E898A8402AA45CDDD9074B93CD">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getGroups</string>
@@ -5485,7 +5725,7 @@ return getGroups]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9895BCA317A14D869A27DA3AD592DABC">
+			<Item class="ModuleScript" referent="RBX9221A78E364046E39D25D565ED3BC980">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Colors</string>
@@ -5500,7 +5740,7 @@ return getGroups]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXDB96796DAB93459F8CD4276D9B6C4344">
+			<Item class="ModuleScript" referent="RBXB625DB33FD4C434EBE5024CCC011A160">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getSelectedParts</string>
@@ -5525,7 +5765,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXE8348CF8BA104F72AF8957365DC3D661">
+			<Item class="ModuleScript" referent="RBX92225B05CE054119A09FF085C1BF1211">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">choose</string>

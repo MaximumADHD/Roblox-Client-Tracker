@@ -5,6 +5,7 @@
 local module = {}
 
 local Players = game:GetService("Players")
+local Chat = game:GetService("Chat")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
@@ -47,7 +48,25 @@ function bubbleChatOnly()
  	return not getClassicChatEnabled() and getBubbleChatEnabled()
 end
 
+-- only merge property defined on target
+function mergeProps(source, target)
+	if not source or not target then return end
+	for prop, value in pairs(source) do
+		if target[prop] ~= nil then
+			target[prop] = value
+		end
+	end
+end
+
 function methods:CreateGuiObjects(targetParent)
+	local userDefinedChatWindowStyle 
+	pcall(function()
+		userDefinedChatWindowStyle= Chat:InvokeChatCallback(Enum.ChatCallbackType.OnCreatingChatWindow, nil)
+	end)
+
+	-- merge the userdefined settings with the ChatSettings
+	mergeProps(userDefinedChatWindowStyle, ChatSettings)
+
 	local BaseFrame = Instance.new("Frame")
 	BaseFrame.BackgroundTransparency = 1
 	BaseFrame.Active = ChatSettings.WindowDraggable

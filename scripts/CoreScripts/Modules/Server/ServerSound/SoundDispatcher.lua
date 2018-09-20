@@ -3,6 +3,8 @@
 	characters currently loaded in the game. When a character fires a sound event, this dispatcher will
 	check to make sure the event only fires on characters who have loaded in.
 --]]
+
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local SOUND_EVENT_FOLDER_NAME = "DefaultSoundEvents"
@@ -57,4 +59,5 @@ if UserSettings():IsUserFeatureEnabled("UserUseSoundDispatcher") then
 	DefaultServerSoundEvent.OnServerEvent:Connect(function() end)
 	AddCharacterLoadedEvent.OnServerEvent:Connect(addCharacterLoaded)
 	RemoveCharacterEvent.OnServerEvent:Connect(removeCharacter)
+	Players.PlayerRemoving:Connect(removeCharacter)
 end

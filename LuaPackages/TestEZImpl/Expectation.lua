@@ -53,7 +53,7 @@ end
 ]]
 local function bindSelf(self, method)
 	return function(firstArg, ...)
-		if (firstArg == self) then
+		if firstArg == self then
 			return method(self, ...)
 		else
 			return method(self, firstArg, ...)
@@ -86,7 +86,7 @@ function Expectation.new(value)
 	self.ok = bindSelf(self, self.ok)
 	self.equal = bindSelf(self, self.equal)
 	self.throw = bindSelf(self, self.throw)
-	self.called = bindSelf(self, self.called)
+	self.near = bindSelf(self, self.near)
 
 	return self
 end
@@ -188,6 +188,38 @@ function Expectation:equal(otherValue)
 		("Expected anything but value %q (%s)"):format(
 			tostring(otherValue),
 			type(otherValue)
+		)
+	)
+
+	assertLevel(result, message, 3)
+	self:_resetModifiers()
+
+	return self
+end
+
+--[[
+	Assert that our expectation value is equal to another value within some
+	inclusive limit.
+]]
+function Expectation:near(otherValue, limit)
+	assert(type(self.value) == "number", "Expectation value must be a number to use 'near'")
+	assert(type(otherValue) == "number", "otherValue must be a number")
+	assert(type(limit) == "number" or limit == nil, "limit must be a number or nil")
+
+	limit = limit or 1e-7
+
+	local result = (math.abs(self.value - otherValue) <= limit) == self.successCondition
+
+	local message = formatMessage(self.successCondition,
+		("Expected value to be near %f (within %f) but got %f instead"):format(
+			otherValue,
+			limit,
+			self.value
+		),
+		("Expected value to not be near %f (within %f) but got %f instead"):format(
+			otherValue,
+			limit,
+			self.value
 		)
 	)
 

@@ -5444,6 +5444,56 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "InvokeChatCallback",
+                    "Parameters": [
+                        {
+                            "Name": "callbackType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ChatCallbackType"
+                            }
+                        },
+                        {
+                            "Name": "callbackArguments",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Tuple"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterChatCallback",
+                    "Parameters": [
+                        {
+                            "Name": "callbackType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ChatCallbackType"
+                            }
+                        },
+                        {
+                            "Name": "callbackFunction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CanUserChatAsync",
                     "Parameters": [
                         {
@@ -22102,6 +22152,23 @@
                     }
                 },
                 {
+                    "Category": "Exposure",
+                    "MemberType": "Property",
+                    "Name": "ExposureCompensation",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "Fog",
                     "MemberType": "Property",
                     "Name": "FogColor",
@@ -22239,6 +22306,27 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Technology",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "Technology"
                     }
                 },
                 {
@@ -28024,8 +28112,8 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "Tags": [
                         "NotReplicated",
@@ -28107,8 +28195,8 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "Tags": [
                         "NotReplicated",
@@ -31246,6 +31334,84 @@
                         "Name": "int"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IkSolve",
+                    "Parameters": [
+                        {
+                            "Name": "part",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "translateStiffness",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "rotateStiffness",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LocalIkSolve",
+                    "Parameters": [
+                        {
+                            "Name": "part",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "translateStiffness",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "rotateStiffness",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -35001,6 +35167,24 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "StartDecalDrag",
+                    "Parameters": [
+                        {
+                            "Name": "decal",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -49368,6 +49552,13 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Name": "pluginGui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -49407,6 +49598,13 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Name": "pluginGui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -49431,6 +49629,13 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "pluginGui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -49464,6 +49669,13 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Name": "pluginGui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -49481,6 +49693,13 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "pluginGui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -49562,6 +49781,38 @@
                     "MemberType": "Function",
                     "Name": "StopRecording",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "sendRobloxEvent",
+                    "Parameters": [
+                        {
+                            "Name": "namespace",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "detail",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "detailType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -50722,6 +50973,27 @@
                 }
             ],
             "Name": "CenterDialogType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "OnCreatingChatWindow",
+                    "Value": 1
+                },
+                {
+                    "Name": "OnClientSendingMessage",
+                    "Value": 2
+                },
+                {
+                    "Name": "OnClientFormattingMessage",
+                    "Value": 3
+                },
+                {
+                    "Name": "OnServerReceivingMessage",
+                    "Value": 17
+                }
+            ],
+            "Name": "ChatCallbackType"
         },
         {
             "Items": [
@@ -55630,6 +55902,19 @@
                 }
             ],
             "Name": "TableMajorAxis"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Legacy",
+                    "Value": 0
+                },
+                {
+                    "Name": "Voxel",
+                    "Value": 1
+                }
+            ],
+            "Name": "Technology"
         },
         {
             "Items": [

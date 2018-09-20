@@ -3537,7 +3537,8 @@
             <Properties>
                 <string name="Name">Threshold</string>
                 <double name="UIMinimum">0.8</double>
-                <double name="UIMaximum">1</double>
+                <double name="UIMaximum">4</double>
+                <double name="UINumTicks">1000</double>
             </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -4982,6 +4983,15 @@
             <string name="summary">How much global light each Part in the Workspace receives. Standard range is 0 to 1 (0 being little light), but can be increased all the way to 5 (colors start to be appear very different at this value).</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">2</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ExposureCompensation</string>
+            <string name="summary">Exposure compensation amount. Applies a bias to the exposure level prior to the tonemap step. +1 indicates twice as much exposure and -1 means half as much exposure.</string>
+            <double name="UIMinimum">-3</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">600</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

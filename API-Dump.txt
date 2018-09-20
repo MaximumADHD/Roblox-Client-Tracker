@@ -313,6 +313,8 @@ Class Chat : Instance [notCreatable]
 	Function void Chat:Chat(Instance partOrCharacter, string message, ChatColor color = Blue)
 	Function void Chat:ChatLocal(Instance partOrCharacter, string message, ChatColor color = Blue) [RobloxScriptSecurity]
 	Function bool Chat:GetShouldUseLuaChat() [RobloxScriptSecurity]
+	Function Tuple Chat:InvokeChatCallback(ChatCallbackType callbackType, Tuple callbackArguments)
+	Function void Chat:RegisterChatCallback(ChatCallbackType callbackType, Function callbackFunction)
 	YieldFunction bool Chat:CanUserChatAsync(int64 userId)
 	YieldFunction bool Chat:CanUsersChatAsync(int64 userIdFrom, int64 userIdTo)
 	YieldFunction string Chat:FilterStringAsync(string stringToFilter, Instance playerFrom, Instance playerTo)
@@ -1294,6 +1296,7 @@ Class Lighting : Instance [notCreatable]
 	Property float Lighting.ClockTime
 	Property Color3 Lighting.ColorShift_Bottom
 	Property Color3 Lighting.ColorShift_Top
+	Property float Lighting.ExposureCompensation
 	Property Color3 Lighting.FogColor
 	Property float Lighting.FogEnd
 	Property float Lighting.FogStart
@@ -1790,6 +1793,8 @@ Class PhysicsService : Instance
 	Function string PhysicsService:GetCollisionGroupName(int name)
 	Function Array PhysicsService:GetCollisionGroups()
 	Function int PhysicsService:GetMaxCollisionGroups()
+	Function void PhysicsService:IkSolve(Instance part, CoordinateFrame target, float translateStiffness, float rotateStiffness) [RobloxScriptSecurity]
+	Function void PhysicsService:LocalIkSolve(Instance part, CoordinateFrame target, float translateStiffness, float rotateStiffness) [LocalUserSecurity]
 	Function void PhysicsService:RemoveCollisionGroup(string name)
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
 	Function void PhysicsService:SetPartCollisionGroup(Instance part, string name)
@@ -1998,6 +2003,7 @@ Class Plugin : Instance
 	Function void Plugin:SelectRibbonTool(RibbonTool tool, UDim2 position) [PluginSecurity]
 	Function Objects Plugin:Separate(Objects objects) [PluginSecurity]
 	Function void Plugin:SetSetting(string key, Variant value) [PluginSecurity]
+	Function void Plugin:StartDecalDrag(Instance decal) [RobloxScriptSecurity]
 	Function void Plugin:StartDrag(PluginDrag drag) [RobloxScriptSecurity]
 	Function void Plugin:StopAllSounds() [RobloxScriptSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
@@ -2769,15 +2775,16 @@ Class VirtualInputManager : Instance
 	Function void VirtualInputManager:SendAccelerometerEvent(float x, float y, float z) [RobloxScriptSecurity]
 	Function void VirtualInputManager:SendGravityEvent(float x, float y, float z) [RobloxScriptSecurity]
 	Function void VirtualInputManager:SendGyroscopeEvent(float quatX, float quatY, float quatZ, float quatW) [RobloxScriptSecurity]
-	Function void VirtualInputManager:SendKeyEvent(bool isPressed, KeyCode keyCode, bool isRepeatedKey) [RobloxScriptSecurity]
-	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown) [RobloxScriptSecurity]
-	Function void VirtualInputManager:SendMouseMoveEvent(float x, float y) [RobloxScriptSecurity]
-	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll) [RobloxScriptSecurity]
-	Function void VirtualInputManager:SendTextInputCharacterEvent(string str) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendKeyEvent(bool isPressed, KeyCode keyCode, bool isRepeatedKey, Instance pluginGui) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendMouseButtonEvent(int x, int y, int mouseButton, bool isDown, Instance pluginGui) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendMouseMoveEvent(float x, float y, Instance pluginGui) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendMouseWheelEvent(float x, float y, bool isForwardScroll, Instance pluginGui) [RobloxScriptSecurity]
+	Function void VirtualInputManager:SendTextInputCharacterEvent(string str, Instance pluginGui) [RobloxScriptSecurity]
 	Function void VirtualInputManager:SendTouchEvent(int64 touchId, int state, float x, float y) [RobloxScriptSecurity]
 	Function void VirtualInputManager:StartPlaying(string fileName) [RobloxScriptSecurity]
 	Function void VirtualInputManager:StartRecording() [RobloxScriptSecurity]
 	Function void VirtualInputManager:StopRecording() [RobloxScriptSecurity]
+	Function void VirtualInputManager:sendRobloxEvent(string namespace, string detail, string detailType) [RobloxScriptSecurity]
 	Event VirtualInputManager.PlaybackCompleted(string additionalLuaState) [RobloxScriptSecurity]
 	Event VirtualInputManager.RecordingCompleted(string result) [RobloxScriptSecurity]
 Class VirtualUser : Instance [notCreatable]
@@ -2983,6 +2990,11 @@ Enum CenterDialogType
 	EnumItem CenterDialogType.PlayerInitiatedDialog : 2
 	EnumItem CenterDialogType.ModalDialog : 3
 	EnumItem CenterDialogType.QuitDialog : 4
+Enum ChatCallbackType
+	EnumItem ChatCallbackType.OnCreatingChatWindow : 1
+	EnumItem ChatCallbackType.OnClientSendingMessage : 2
+	EnumItem ChatCallbackType.OnClientFormattingMessage : 3
+	EnumItem ChatCallbackType.OnServerReceivingMessage : 17
 Enum ChatColor
 	EnumItem ChatColor.Blue : 0
 	EnumItem ChatColor.Green : 1
@@ -4046,6 +4058,9 @@ Enum SwipeDirection
 Enum TableMajorAxis
 	EnumItem TableMajorAxis.RowMajor : 0
 	EnumItem TableMajorAxis.ColumnMajor : 1
+Enum Technology
+	EnumItem Technology.Legacy : 0
+	EnumItem Technology.Voxel : 1
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1
