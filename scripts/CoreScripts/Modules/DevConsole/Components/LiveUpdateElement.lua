@@ -166,7 +166,7 @@ function LiveUpdateElement:render()
 		alignment = Enum.HorizontalAlignment.Left
 	end
 
-	local showNetworkPing = useSmallForm and averagePing > 0
+	local showNetworkPing = averagePing > 0
 
 	return Roact.createElement("Frame", {
 		Position = position,

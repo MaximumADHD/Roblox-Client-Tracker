@@ -16,11 +16,14 @@ local LogOutput = Roact.Component:extend("LogOutput")
 function LogOutput:init(props)
 	local initLogOutput = props.initLogOutput and props.initLogOutput()
 
-	self.onCanvasPosChanged = function()
+	self.onCanvasChange = function()
 		local canvasPos = self.ref.current.CanvasPosition
-		if self.state.canvasPos ~= canvasPos then
+		local absSize = self.ref.current.AbsoluteSize
+		if self.state.canvasPos ~= canvasPos or 
+			self.state.absSize ~= absSize then
 			self:setState({
 				canvasPos = canvasPos,
+				absSize = absSize,
 			})
 		end
 	end
@@ -31,21 +34,18 @@ function LogOutput:init(props)
 		logData = initLogOutput,
 		absSize = Vector2.new(),
 		canvasPos = UDim2.new(),
+		wordWrap = true,
 	}
 end
 
 function LogOutput:willUpdate(nextProps, nextState)
 	self._canvasSignal:Disconnect()
+	self._absSizeSignal:Disconnect()
 end
 
 function LogOutput:didUpdate()
-	self._canvasSignal = self.ref.current:GetPropertyChangedSignal("CanvasPosition"):Connect(self.onCanvasPosChanged)
-
-	if self.state.absSize ~= self.ref.current.AbsoluteSize then
-		self:setState({
-			absSize = self.ref.current.AbsoluteSize,
-		})
-	end
+	self._canvasSignal = self.ref.current:GetPropertyChangedSignal("CanvasPosition"):Connect(self.onCanvasChange)
+	self._absSizeSignal = self.ref.current:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.onCanvasChange)
 end
 
 function LogOutput:didMount()
@@ -55,14 +55,20 @@ function LogOutput:didMount()
 		})
 	end)
 
+	self._canvasSignal = self.ref.current:GetPropertyChangedSignal("CanvasPosition"):Connect(self.onCanvasChange)
+	self._absSizeSignal = self.ref.current:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.onCanvasChange)
 
-	self._canvasSignal = self.ref.current:GetPropertyChangedSignal("CanvasPosition"):Connect(self.onCanvasPosChanged)
-
-	self:setState({
-		absSize = self.ref.current.AbsoluteSize,
-		canvasPos = self.ref.current.CanvasPosition,
-		wordWrap = true,
-	})
+	--[[
+		in some cases, the absolute size is not valid at this point. But in the 
+		case that it is, we want to update the absolute size here since the 
+		absolute size was changed prior to the absSizeSignal being set up
+	--]]
+	local absSize = self.ref.current.AbsoluteSize
+	if absSize.Magnitude > 0 then
+		self:setState({
+			absSize = self.ref.current.AbsoluteSize,
+		})
+	end
 end
 
 function LogOutput:willUnmount()

@@ -1,5 +1,5 @@
 local runService = game:GetService("RunService")
-local localizationService = game:GetService("LocalizationService")
+local LocalizationService = game:GetService("LocalizationService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CorePackages = game:GetService("CorePackages")
 
@@ -7,7 +7,7 @@ local enabled = runService:IsEdit()
 
 local function createTextScraperControls(toolbar, plugin)
 	function getTextScraperAsset()
-		return localizationService.IsTextScraperRunning
+		return LocalizationService.IsTextScraperRunning
 			and "rbxasset://textures/localizationUIScrapingOn.png"
 			or "rbxasset://textures/localizationUIScrapingOff.png"
 	end
@@ -32,23 +32,33 @@ local function createTextScraperControls(toolbar, plugin)
 
 	captureButton.Enabled = enabled
 	captureButton.Click:Connect(function()
-		if not localizationService.IsTextScraperRunning then
-			localizationService:StartTextScraper()
+		if not LocalizationService.IsTextScraperRunning then
+			LocalizationService:StartTextScraper()
 		else
-			localizationService:StopTextScraper()
+			LocalizationService:StopTextScraper()
 		end
 		captureButton.Icon = getTextScraperAsset()
 	end)
 
 	exportButton.Enabled = enabled
 	exportButton.Click:Connect(function()
-		localizationService:PromptExportToCSVs()
+		LocalizationService:PromptExportToCSVs()
 	end)
 
 	importButton.Enabled = enabled
 	importButton.Click:Connect(function()
-		localizationService:PromptImportFromCSVs()
+		LocalizationService:PromptImportFromCSVs()
 	end)
+end
+
+local function getInitialRobloxLocaleId()
+	local forcedLocale = LocalizationService.RobloxForcePlayModeRobloxLocaleId
+
+	if forcedLocale ~= "" then
+		return forcedLocale
+	end
+
+	return LocalizationService.RobloxLocaleId
 end
 
 local function createPlayerLocaleViewButton(toolbar, plugin)
@@ -57,20 +67,14 @@ local function createPlayerLocaleViewButton(toolbar, plugin)
 
 	local Window = plugin:CreateDockWidgetPluginGui("LocalizationTesting",
 		DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left))
-	Window.Title = "Localization Testing"
-
-	local LocalizationService = game:GetService("LocalizationService")
+	Window.Title = "Test Language"
 
 	local params = {
 		Window = Window,
 		SetRobloxLocaleId = function(localeId)
 			LocalizationService.RobloxForcePlayModeRobloxLocaleId = localeId
 		end,
-		SetGameLocaleId = function(localeId)
-			LocalizationService.RobloxForcePlayModeGameLocaleId = localeId
-		end,
-		InitialRobloxLocaleId = LocalizationService.RobloxForcePlayModeRobloxLocaleId,
-		InitialGameLocaleId = LocalizationService.RobloxForcePlayModeGameLocaleId,
+		InitialRobloxLocaleId = getInitialRobloxLocaleId(),
 	}
 
 	Roact.mount(Roact.createElement(PlayerLocaleView, params), Window)

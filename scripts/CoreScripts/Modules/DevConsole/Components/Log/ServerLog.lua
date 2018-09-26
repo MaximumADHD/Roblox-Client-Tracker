@@ -5,6 +5,7 @@ local DataConsumer = require(script.Parent.Parent.DataConsumer)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local COMMANDLINE_HEIGHT = Constants.LogFormatting.CommandLineHeight
+local COMMANDLINE_PADDING = 4
 
 local DevConsoleCommandLine = require(script.Parent.DevConsoleCommandLine)
 local LogOutput = require(script.Parent.LogOutput)
@@ -24,7 +25,7 @@ function ServerLog:render()
 		LayoutOrder = self.props.layoutOrder,
 	}, {
 		Scroll = Roact.createElement(LogOutput, {
-			size = UDim2.new(1, 0 , 1, -COMMANDLINE_HEIGHT),
+			size = UDim2.new(1, 0 , 1, -(COMMANDLINE_HEIGHT + COMMANDLINE_PADDING)),
 			targetSignal = self.props.ServerLogData:Signal(),
 			initLogOutput = self.initServerLogData,
 		}),

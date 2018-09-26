@@ -1,7 +1,6 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local Constants = require(CorePackages.AppTempCommon.LuaChat.Constants)
 	local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
 	local User = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 	local Users = require(CorePackages.AppTempCommon.LuaApp.Reducers.Users)
@@ -75,7 +74,7 @@ return function()
 			}
 
 			local existingPresence = user.presence
-			local newPresence = Constants.PresenceType.ONLINE
+			local newPresence = 'ONLINE'
 			local lastLocation = MockId()
 			local newPlaceId = MockId()
 

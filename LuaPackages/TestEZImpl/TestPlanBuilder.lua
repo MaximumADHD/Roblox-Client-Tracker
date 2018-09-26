@@ -48,16 +48,6 @@ function TestPlanBuilder:getCurrentNode()
 	return self.nodeStack[#self.nodeStack] or self.plan
 end
 
-local function constructFullName(node)
-	if node.parent then
-		local parentPhrase = constructFullName(node.parent)
-		if parentPhrase then
-			return parentPhrase .. " " .. node.phrase
-		end
-	end
-	return node.phrase
-end
-
 --[[
 	Creates and pushes a node onto the navigation stack.
 ]]
@@ -85,7 +75,7 @@ function TestPlanBuilder:pushNode(phrase, nodeType, nodeModifier)
 
 	local nodeModifierNotSet = useNode.modifier == nil or useNode.modifier == TestEnum.NodeModifier.None
 	if self.testNamePattern and nodeModifierNotSet then
-		local fullName = constructFullName(useNode)
+		local fullName = useNode:getFullName()
 		if fullName:match(self.testNamePattern) then
 			useNode.modifier = TestEnum.NodeModifier.Focus
 		else

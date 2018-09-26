@@ -1,6 +1,8 @@
 -- Creates all neccessary scripts for the gui on initial load, everything except build tools
 -- Created by Ben T. 10/29/10
 -- Please note that these are loaded in a specific order to diminish errors/perceived load time by user
+local connectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
+
 local scriptContext = game:GetService("ScriptContext")
 local touchEnabled = game:GetService("UserInputService").TouchEnabled
 
@@ -18,6 +20,9 @@ local function safeRequire(moduleScript)
 		warn("Failure to Start CoreScript module" ..moduleScript.Name.. ".\n" ..err)
 	end
 	return moduleReturnValue
+end
+if connectionScriptEnabled then
+	scriptContext:AddCoreScriptLocal("Connection", RobloxGui)
 end
 
 -- TopBar

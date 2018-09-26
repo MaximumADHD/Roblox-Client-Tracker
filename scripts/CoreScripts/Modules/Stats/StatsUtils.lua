@@ -142,16 +142,13 @@ else
   strReceivedNetwork = "Received\n(Network)"
 end
 
-local success, result = pcall(function() return settings():GetFFlag('PerfWidgetReportPing') end)
-local FFlagPerfWidgetReportPing = success and result
-
 StatsUtils.TypeToName = {
   [StatsUtils.StatType_Memory] = "Memory",
   [StatsUtils.StatType_CPU] = "CPU",
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = strSentNetwork,
   [StatsUtils.StatType_NetworkReceived] = strReceivedNetwork,
-  [StatsUtils.StatType_Ping] = "Phys",
+  [StatsUtils.StatType_Ping] = "Ping",
 }
 
 StatsUtils.TypeToShortName = {
@@ -160,13 +157,8 @@ StatsUtils.TypeToShortName = {
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = "Sent",
   [StatsUtils.StatType_NetworkReceived] = "Recv",
-  [StatsUtils.StatType_Ping] = "Phys",
+  [StatsUtils.StatType_Ping] = "Ping",
 }
-
-if FFlagPerfWidgetReportPing then
-  StatsUtils.TypeToName[StatsUtils.StatType_Ping] = "Ping"
-  StatsUtils.TypeToShortName[StatsUtils.StatType_Ping] = "Ping"
-end
 
 StatsUtils.MemoryAnalyzerTypeToName = {
   ["HumanoidTexture"] = "Humanoid Textures",

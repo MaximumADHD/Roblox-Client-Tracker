@@ -12,6 +12,7 @@ local FFlagUsePurchasePromptLocalization = success and result
 local FFlagThwartPurchasePromptScams = settings():GetFFlag("ThwartPurchasePromptScams")
 local FFlagThwartPurchasePromptScamsGamepad = settings():GetFFlag("ThwartPurchasePromptScamsGamepad")
 local FFlagDelayPurchasePromptActivation = settings():GetFFlag("DelayPurchasePromptActivation")
+local FFlagWeDontWantAnyGoogleAnalyticsHerePlease = settings():GetFFlag("WeDontWantAnyGoogleAnalyticsHerePlease")
 
 local AssetService = game:GetService('AssetService')
 local GuiService = game:GetService('GuiService')
@@ -22,6 +23,7 @@ local MarketplaceService = game:GetService('MarketplaceService')
 local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local RunService = game:GetService("RunService")
+local AnalyticsService = game:GetService("AnalyticsService")
 
 local RobloxGui = script.Parent
 local ThirdPartyProductName = nil
@@ -1353,16 +1355,16 @@ local function canPurchase(disableUpsell)
 			elseif (isGroupGame == isGroupAsset) then
 				if (ProductCreator ~= game.CreatorId) then
 					isRestrictedThirdParty = true
-					warn(("AllowThirdPartySales has blocked the purchase prompt for " 
-						.. PurchaseData.ProductInfo["AssetId"] .. " created by " .. ProductCreator 
+					warn(("AllowThirdPartySales has blocked the purchase prompt for "
+						.. PurchaseData.ProductInfo["AssetId"] .. " created by " .. ProductCreator
 						.. ".  To sell this asset made by a different ") .. (isGroupGame and "group" or "user") 
 						.. ", you will need to enable AllowThirdPartySales.")
 				end
 			else
 				isRestrictedThirdParty = true
-				warn(("AllowThirdPartySales has blocked the purchase prompt for " 
-					.. PurchaseData.ProductInfo["AssetId"] .. " created by " .. ProductCreator 
-					.. ".  To sell this asset made by a different ") .. (isGroupGame and "group" or "user") 
+				warn(("AllowThirdPartySales has blocked the purchase prompt for "
+					.. PurchaseData.ProductInfo["AssetId"] .. " created by " .. ProductCreator
+					.. ".  To sell this asset made by a different ") .. (isGroupGame and "group" or "user")
 					.. ", you will need to enable AllowThirdPartySales.")
 			end
 		end
@@ -1370,7 +1372,7 @@ local function canPurchase(disableUpsell)
 
 	local isFree = isFreeItem()
 
-	if isRestrictedThirdParty then 
+	if isRestrictedThirdParty then
 		onPurchaseFailed(PURCHASE_FAILED.THIRD_PARTY_DISABLED)
 		return false
 	end
@@ -1540,8 +1542,13 @@ local function onAcceptPurchase()
 			wasSuccess = success and result and result ~= ''
 		end
 		--
-		game:ReportInGoogleAnalytics("Developer Product", "Purchase",
-			wasSuccess and ("success. Retries = "..(3 - retries)) or ("failure: " .. tostring(result)), 1)
+		if FFlagWeDontWantAnyGoogleAnalyticsHerePlease then
+			AnalyticsService:TrackEvent("Developer Product", "Purchase",
+				wasSuccess and ("success. Retries = "..(3 - retries)) or ("failure: " .. tostring(result)), 1)
+		else
+			game:ReportInGoogleAnalytics("Developer Product", "Purchase",
+				wasSuccess and ("success. Retries = "..(3 - retries)) or ("failure: " .. tostring(result)), 1)
+		end
 	end
 
 	if tick() - startTime < 1 then wait(1) end 		-- artifical delay to show spinner for at least 1 second

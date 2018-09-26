@@ -26,10 +26,12 @@ local XPOS_OFFSET = -(STYLE_PADDING - BAR_THICKNESS)
 local playerService = game:GetService("Players")
 local contextActionService = game:GetService("ContextActionService")
 local guiService = game:GetService("GuiService")
+local AnalyticsService = game:GetService("AnalyticsService")
 local YPOS_OFFSET = -math.floor(STYLE_PADDING / 2)
 local usingGamepad = false
 
 local FlagHasReportedPlace = false
+local FFlagWeDontWantAnyGoogleAnalyticsHerePlease = settings():GetFFlag("WeDontWantAnyGoogleAnalyticsHerePlease")
 
 local localPlayer = playerService.LocalPlayer
 while localPlayer == nil do
@@ -547,8 +549,12 @@ end
 
 function startDialog(dialog)
 	if dialog.Parent and dialog.Parent:IsA("BasePart") then
-		game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Conversation Initiated")
-		
+		if FFlagWeDontWantAnyGoogleAnalyticsHerePlease then
+			AnalyticsService:TrackEvent("Dialogue", "Old Dialogue", "Conversation Initiated")
+		else
+			game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Conversation Initiated")
+    end
+
 		if localPlayer:DistanceFromCharacter(dialog.Parent.Position) >= dialog.ConversationDistance then
 			showMessage(tooFarAwayMessage, tooFarAwaySize)
 			return
@@ -582,8 +588,12 @@ function addDialog(dialog)
 	if dialog.Parent then
 		if dialog.Parent:IsA("BasePart") and dialog:IsDescendantOf(game.Workspace) then
 			FlagHasReportedPlace = true
-            game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Used In Place", nil, game.PlaceId)
-			
+			if FFlagWeDontWantAnyGoogleAnalyticsHerePlease then
+				AnalyticsService:TrackEvent("Dialogue", "Old Dialogue", "Used In Place", nil, game.PlaceId)
+			else
+				game:ReportInGoogleAnalytics("Dialogue", "Old Dialogue", "Used In Place", nil, game.PlaceId)
+			end
+
 			local chatGui = chatNotificationGui:clone()
 			chatGui.Adornee = dialog.Parent
 			chatGui.RobloxLocked = true

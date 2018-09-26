@@ -550,6 +550,7 @@ local function CreateSettingsHub()
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Size = UDim2.new(1, 0, 1, -20),
 			ZIndex = this.Shield.ZIndex,
+			ScrollingDirection = Enum.ScrollingDirection.Y,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Selectable = false,

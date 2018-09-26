@@ -3,6 +3,8 @@ local Roact = require(CorePackages.Roact)
 
 local Dropdown = require(script.Parent.Dropdown)
 
+local customMenuItemText = "(Custom)"
+
 local localeInfos = {
 	{ localeId = "en-us", name = "English" },
 	{ localeId = "fr-fr", name = "French" },
@@ -29,9 +31,9 @@ end
 
 local function getMenuTextForLocale(localeId)
 	if localeId == "" then
-		return "(default)"
+		return customMenuItemText
 	end
-	return localeNameMap[localeId] or "(custom)"
+	return localeNameMap[localeId] or customMenuItemText
 end
 
 function LocaleSelector:render()
@@ -47,6 +49,17 @@ function LocaleSelector:render()
 			end
 		}
 	end
+
+	ListItems[#localeInfos + 1] = {
+		Text = customMenuItemText,
+		OnActivated = function()
+			self:setState({
+				LocaleId = "",
+			})
+
+			self.textBoxRef.current:CaptureFocus()
+		end
+	}
 
 	return Roact.createElement("Frame", {
 		Size = self.props.Size,
@@ -92,6 +105,7 @@ function LocaleSelector:render()
 				BorderColor3 = self.props.BorderColor3,
 				Text = self.state.LocaleId,
 				TextXAlignment = "Left",
+				ClearTextOnFocus = false,
 				BackgroundTransparency = 1,
 
 				[Roact.Ref] = self.textBoxRef,

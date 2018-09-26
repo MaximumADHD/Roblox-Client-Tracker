@@ -25,7 +25,6 @@
       <addaction name="fileSaveAsAction"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
-      <addaction fflag ="!StudioRemovePublishSelectionToRoblox" name="DEPRECATED_publishSelectionToRobloxAction"/>
       <addaction name="downloadPlaceCopyAction"/>
       <addseparator />
       <submenu name="Advanced">
@@ -525,15 +524,15 @@
     </TabPage>
     <TabPage name="diffMenu" text="Diff Menu" contextcolor="4" contexttitle="Script tools" visible="false">
       <Group name="Navigate">
-        <addaction name="goToPreviousHunkAction" text="Prev" style="textundericon" tooltip="Previous diff"
+        <addaction name="goToPreviousHunkAction" text="Previous" style="textundericon" tooltip="Go to previous change"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png" width="32" height="32" />
-        <addaction name="goToNextHunkAction" text="Next" style="textundericon" tooltip="Next diff"
+        <addaction name="goToNextHunkAction" text="Next" style="textundericon" tooltip="Go to next change"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" width="32" height="32" />
       </Group>
       <Group name="View">
-        <addaction name="expandAllDiffAction" text="Expand All" style="textundericon" tooltip="Expand all diff results"
+        <addaction name="expandAllDiffAction" text="Expand All" style="textundericon" tooltip="Expand all scripts"
           icon=":/RibbonBar/images/RibbonIcons/Diff/ExpandAll.png" width="32" height="32" />
-        <addaction name="collapseAllDiffAction" text="Collapse All" style="textundericon" tooltip="Collapse all diff results"
+        <addaction name="collapseAllDiffAction" text="Collapse All" style="textundericon" tooltip="Collapse all scripts"
           icon=":/RibbonBar/images/RibbonIcons/Diff/CollapseAll.png" width="32" height="32" />
       </Group>
     </TabPage>

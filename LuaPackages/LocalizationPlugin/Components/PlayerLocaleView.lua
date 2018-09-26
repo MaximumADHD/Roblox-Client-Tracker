@@ -6,6 +6,8 @@ local LabeledLocaleSelector = require(script.Parent.LabeledLocaleSelector)
 local PlayerLocaleView = Roact.Component:extend("PlayerLocaleView")
 local StudioEnableLuaAPIsForThemes = settings():GetFFlag("StudioEnableLuaAPIsForThemes")
 
+local robloxLocaleLabelText = "Locale"
+
 function PlayerLocaleView:init()
 	if StudioEnableLuaAPIsForThemes then
 		self.state = {
@@ -41,19 +43,13 @@ function PlayerLocaleView:render()
 		BackgroundColor3 = BackgroundColor3,
 		BorderSizePixel = 0,
 	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			FillDirection = Enum.FillDirection.Vertical,
-			Padding = UDim.new(0, 5),
-		}),
-
 		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, 10),
+			PaddingTop = UDim.new(0, 5),
 		}),
 
 		Roblox = Roact.createElement(LabeledLocaleSelector, {
 			Window = self.props.Window,
-			LabelText = "Roblox",
+			LabelText = robloxLocaleLabelText,
 			TextColor3 = TextColor3,
 			BorderColor3 = BorderColor3,
 			BackgroundColor3 = BackgroundColor3,
@@ -61,20 +57,6 @@ function PlayerLocaleView:render()
 			ButtonDownColor3 = ButtonDownColor3,
 			InitialLocaleId = self.props.InitialRobloxLocaleId,
 			SetLocaleId = self.props.SetRobloxLocaleId,
-			LayoutOrder = 0,
-		}),
-
-		Game = Roact.createElement(LabeledLocaleSelector, {
-			Window = self.props.Window,
-			LabelText = "Game",
-			TextColor3 = TextColor3,
-			BorderColor3 = BorderColor3,
-			BackgroundColor3 = BackgroundColor3,
-			ButtonHoverColor3 = ButtonHoverColor3,
-			ButtonDownColor3 = ButtonDownColor3,
-			InitialLocaleId = self.props.InitialGameLocaleId,
-			SetLocaleId = self.props.SetGameLocaleId,
-			LayoutOrder = 1,
 		}),
 	})
 end

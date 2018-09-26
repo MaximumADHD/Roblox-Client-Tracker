@@ -18,6 +18,7 @@ local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess a
 local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
 local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
+local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
 local debugMode = false
 
@@ -576,28 +577,30 @@ function MainGui:GenerateMain()
 		end)()
 	end
 
-	local errorFrame = create 'Frame' {
-		Name = 'ErrorFrame',
-		BackgroundColor3 = COLORS.ERROR,
-		BorderSizePixel = 0,
-		Position = UDim2.new(0.25,0,0,0),
-		Size = UDim2.new(0.5, 0, 0, 80),
-		ZIndex = 8,
-		Visible = false,
-		Parent = screenGui,
+	if not FFlagConnectionScriptEnabled then
+		local errorFrame = create 'Frame' {
+			Name = 'ErrorFrame',
+			BackgroundColor3 = COLORS.ERROR,
+			BorderSizePixel = 0,
+			Position = UDim2.new(0.25,0,0,0),
+			Size = UDim2.new(0.5, 0, 0, 80),
+			ZIndex = 8,
+			Visible = false,
+			Parent = screenGui,
 
-		create 'TextLabel' {
-			Name = "ErrorText",
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
-			Font = Enum.Font.SourceSansBold,
-			FontSize = Enum.FontSize.Size14,
-			TextWrapped = true,
-			TextColor3 = COLORS.TEXT_COLOR,
-			Text = "",
-			ZIndex = 8
+			create 'TextLabel' {
+				Name = "ErrorText",
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Font = Enum.Font.SourceSansBold,
+				FontSize = Enum.FontSize.Size14,
+				TextWrapped = true,
+				TextColor3 = COLORS.TEXT_COLOR,
+				Text = "",
+				ZIndex = 8
+			}
 		}
-	}
+	end
 
 	while not game:GetService("CoreGui") do
 		if FFlagLoadTheLoadingScreenFaster then
@@ -712,55 +715,57 @@ renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 	end
 end)
 
-local leaveGameButton, leaveGameTextLabel, errorImage = nil
+if not FFlagConnectionScriptEnabled then
+	local leaveGameButton, leaveGameTextLabel, errorImage = nil
 
-GuiService.ErrorMessageChanged:connect(function()
-	if GuiService:GetErrorMessage() ~= '' then
-		--TODO: Remove this reference to Utility
-		local utility = require(RobloxGui.Modules.Settings.Utility)
-		if isTenFootInterface then
-			currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
-			currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
-			currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
-			currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
-			currScreenGui.ErrorFrame.ErrorText.FontSize = Enum.FontSize.Size36
-			currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
-			currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
-			if errorImage == nil then
-				errorImage = Instance.new("ImageLabel")
-				errorImage.Image = "rbxasset://textures/ui/ErrorIconSmall.png"
-				errorImage.Size = UDim2.new(0, 96, 0, 79)
-				errorImage.Position = UDim2.new(0.228125, 0, 0, 32)
-				errorImage.ZIndex = 9
-				errorImage.BackgroundTransparency = 1
-				errorImage.Parent = currScreenGui.ErrorFrame
+	GuiService.ErrorMessageChanged:connect(function()
+		if GuiService:GetErrorMessage() ~= '' then
+			--TODO: Remove this reference to Utility
+			local utility = require(RobloxGui.Modules.Settings.Utility)
+			if isTenFootInterface then
+				currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
+				currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
+				currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
+				currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
+				currScreenGui.ErrorFrame.ErrorText.FontSize = Enum.FontSize.Size36
+				currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
+				currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
+				if errorImage == nil then
+					errorImage = Instance.new("ImageLabel")
+					errorImage.Image = "rbxasset://textures/ui/ErrorIconSmall.png"
+					errorImage.Size = UDim2.new(0, 96, 0, 79)
+					errorImage.Position = UDim2.new(0.228125, 0, 0, 32)
+					errorImage.ZIndex = 9
+					errorImage.BackgroundTransparency = 1
+					errorImage.Parent = currScreenGui.ErrorFrame
+				end
+			elseif utility:IsSmallTouchScreen() then
+				currScreenGui.ErrorFrame.Size = UDim2.new(0.5, 0, 0, 40)
 			end
-		elseif utility:IsSmallTouchScreen() then
-			currScreenGui.ErrorFrame.Size = UDim2.new(0.5, 0, 0, 40)
-		end
 
-		local errorCode = GuiService:GetErrorCode()
-		local errorMessage = GuiService:GetErrorMessage()
-		if not FFlagShowConnectionErrorCode then
-			currScreenGui.ErrorFrame.ErrorText.Text = errorMessage
-		else
-			if not errorCode then
-				currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: -1)"):format(errorMessage)
+			local errorCode = GuiService:GetErrorCode()
+			local errorMessage = GuiService:GetErrorMessage()
+			if not FFlagShowConnectionErrorCode then
+				currScreenGui.ErrorFrame.ErrorText.Text = errorMessage
 			else
-				currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(errorMessage, errorCode.Value)
+				if not errorCode then
+					currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: -1)"):format(errorMessage)
+				else
+					currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(errorMessage, errorCode.Value)
+				end
 			end
-		end
 
-		currScreenGui.ErrorFrame.Visible = true
-		local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
-		if blackFrame then
-			blackFrame.CloseButton.ImageTransparency = 0
-			blackFrame.CloseButton.Active = true
+			currScreenGui.ErrorFrame.Visible = true
+			local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
+			if blackFrame then
+				blackFrame.CloseButton.ImageTransparency = 0
+				blackFrame.CloseButton.Active = true
+			end
+		else
+			currScreenGui.ErrorFrame.Visible = false
 		end
-	else
-		currScreenGui.ErrorFrame.Visible = false
-	end
-end)
+	end)
+end
 
 GuiService.UiMessageChanged:connect(function(type, newMessage)
 	if type == Enum.UiMessageType.UiMessageInfo then
@@ -798,7 +803,7 @@ GuiService.UiMessageChanged:connect(function(type, newMessage)
 	end
 end)
 
-if GuiService:GetErrorMessage() ~= '' then
+if not FFlagConnectionScriptEnabled and GuiService:GetErrorMessage() ~= '' then
 	currScreenGui.ErrorFrame.ErrorText.Text = GuiService:GetErrorMessage()
 	currScreenGui.ErrorFrame.Visible = true
 end

@@ -13364,6 +13364,23 @@
                 {
                     "Category": "Image",
                     "MemberType": "Property",
+                    "Name": "SliceScale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
                     "Name": "TileSize",
                     "Security": {
                         "Read": "None",
@@ -13907,6 +13924,23 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Rect"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
+                    "Name": "SliceScale",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -17814,6 +17848,17 @@
                                 "Name": "int"
                             }
                         }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ClearError",
+                    "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -37556,6 +37601,46 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetCoverageStats",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ResetCoverageCollection",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetCoverageFilter",
+                    "Parameters": [
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetTimeout",
                     "Parameters": [
                         {
@@ -37571,6 +37656,28 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "StartCoverageCollection",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "StopCoverageCollection",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -41950,6 +42057,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Disable Accurate Play Solo",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -52706,76 +52830,6 @@
                     "Value": 0
                 },
                 {
-                    "Name": "LeftTread",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 1
-                },
-                {
-                    "Name": "RightTread",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 2
-                },
-                {
-                    "Name": "Steer",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 3
-                },
-                {
-                    "Name": "Throttle",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 4
-                },
-                {
-                    "Name": "UpDown",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 6
-                },
-                {
-                    "Name": "Action1",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 7
-                },
-                {
-                    "Name": "Action2",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 8
-                },
-                {
-                    "Name": "Action3",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 9
-                },
-                {
-                    "Name": "Action4",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 10
-                },
-                {
-                    "Name": "Action5",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 11
-                },
-                {
                     "Name": "Constant",
                     "Value": 12
                 },
@@ -55749,6 +55803,14 @@
                 {
                     "Name": "DiffLineNumDeletionBackground",
                     "Value": 71
+                },
+                {
+                    "Name": "DiffFilePathBackground",
+                    "Value": 72
+                },
+                {
+                    "Name": "DiffFilePathBorder",
+                    "Value": 73
                 }
             ],
             "Name": "StudioStyleGuideColor"
@@ -55853,10 +55915,6 @@
                 {
                     "Name": "SteppingMotor",
                     "Value": 8
-                },
-                {
-                    "Name": "Unjoinable",
-                    "Value": 9
                 },
                 {
                     "Name": "SmoothNoOutlines",

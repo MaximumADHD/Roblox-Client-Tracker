@@ -765,6 +765,7 @@ Class ImageButton : GuiButton
 	Property Content ImageButton.PressedImage
 	Property ScaleType ImageButton.ScaleType
 	Property Rect2D ImageButton.SliceCenter
+	Property float ImageButton.SliceScale
 	Property UDim2 ImageButton.TileSize
 Class TextButton : GuiButton
 	Property Font TextButton.Font
@@ -797,6 +798,7 @@ Class ImageLabel : GuiLabel
 	Property bool ImageLabel.IsLoaded [readonly]
 	Property ScaleType ImageLabel.ScaleType
 	Property Rect2D ImageLabel.SliceCenter
+	Property float ImageLabel.SliceScale
 	Property UDim2 ImageLabel.TileSize
 Class TextLabel : GuiLabel
 	Property Font TextLabel.Font
@@ -1049,6 +1051,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:AddSelectionTuple(string selectionName, Tuple selections)
 	Function void GuiService:AddSpecialKey(SpecialKey key) [RobloxScriptSecurity]
 	Function void GuiService:BroadcastNotification(string data, int notificationType) [RobloxScriptSecurity]
+	Function void GuiService:ClearError() [RobloxScriptSecurity]
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function int GuiService:GetBrickCount() [RobloxScriptSecurity]
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) [RobloxScriptSecurity]
@@ -3400,16 +3403,6 @@ Enum InitialDockState
 	EnumItem InitialDockState.Float : 4
 Enum InputType
 	EnumItem InputType.NoInput : 0
-	EnumItem InputType.LeftTread : 1 [deprecated]
-	EnumItem InputType.RightTread : 2 [deprecated]
-	EnumItem InputType.Steer : 3 [deprecated]
-	EnumItem InputType.Throttle : 4 [deprecated]
-	EnumItem InputType.UpDown : 6 [deprecated]
-	EnumItem InputType.Action1 : 7 [deprecated]
-	EnumItem InputType.Action2 : 8 [deprecated]
-	EnumItem InputType.Action3 : 9 [deprecated]
-	EnumItem InputType.Action4 : 10 [deprecated]
-	EnumItem InputType.Action5 : 11 [deprecated]
 	EnumItem InputType.Constant : 12
 	EnumItem InputType.Sin : 13
 Enum JointCreationMode
@@ -4047,7 +4040,6 @@ Enum SurfaceType
 	EnumItem SurfaceType.Hinge : 6
 	EnumItem SurfaceType.Motor : 7
 	EnumItem SurfaceType.SteppingMotor : 8
-	EnumItem SurfaceType.Unjoinable : 9
 	EnumItem SurfaceType.SmoothNoOutlines : 10
 Enum SwipeDirection
 	EnumItem SwipeDirection.Right : 0
