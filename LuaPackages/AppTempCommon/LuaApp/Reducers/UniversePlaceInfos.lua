@@ -8,7 +8,7 @@ return function(state, action)
 
 	if action.type == ReceivedPlacesInfos.name then
 		for _, placeInfo in pairs(action.placesInfos) do
-			state = Immutable.Set(state, placeInfo.universeId, placeInfo)
+			state = Immutable.Set(state, tostring(placeInfo.universeId), placeInfo)
 		end
 	end
 

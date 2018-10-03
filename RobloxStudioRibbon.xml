@@ -512,7 +512,7 @@
       <Group name="Script Actions">
         <addaction name="goToScriptErrorAction" tooltip="Focus view on script error" style="textbesideicon"/>
         <addaction name="reloadScriptAction" tooltip="Reload the script after modifying it, while playing" style="textbesideicon"/>
-        <addAction dfflag="StudioApplyScriptEditsWithoutGivingUpLock" name="applyScriptEditsAction" tooltip="Push the current edits to a script to the Team Create server" style="textbesideicon"/>
+        <addAction name="applyScriptEditsAction" tooltip="Push the current edits to a script to the Team Create server" style="textbesideicon"/>
         <addseparator />
         <addaction name="commentSelectionAction" tooltip="Comment out the selected text" style="textbesideicon"/>
         <addaction name="uncommentSelectionAction" tooltip="Uncomment out the selected text" style="textbesideicon"/>

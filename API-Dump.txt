@@ -1592,8 +1592,8 @@ Class BasePart : PVInstance [notbrowsable]
 	Function float BasePart:getMass() [deprecated]
 	Function void BasePart:makeJoints() [deprecated]
 	Function bool BasePart:resize(NormalId normalId, int deltaAmount) [deprecated]
-	YieldFunction Instance BasePart:SubtractAsync(Objects parts, CollisionFidelity collisionfidelity = Default)
-	YieldFunction Instance BasePart:UnionAsync(Objects parts, CollisionFidelity collisionfidelity = Default)
+	YieldFunction Instance BasePart:SubtractAsync(Objects parts, CollisionFidelity collisionfidelity = Default, RenderFidelity renderFidelity = Automatic)
+	YieldFunction Instance BasePart:UnionAsync(Objects parts, CollisionFidelity collisionfidelity = Default, RenderFidelity renderFidelity = Automatic)
 	Event BasePart.LocalSimulationTouched(Instance part) [deprecated]
 	Event BasePart.OutfitChanged() [deprecated]
 	Event BasePart.StoppedTouching(Instance otherPart) [deprecated]
@@ -1637,6 +1637,7 @@ Class MeshPart : BasePart
 	Property Content MeshPart.MeshId [ScriptWriteRestricted: [NotAccessibleSecurity]]
 	Property Content MeshPart.TextureID
 Class PartOperation : BasePart
+	Property RenderFidelity PartOperation.RenderFidelity [ScriptWriteRestricted: [PluginSecurity]]
 	Property int PartOperation.TriangleCount [readonly]
 	Property bool PartOperation.UsePartColor
 Class NegateOperation : PartOperation
@@ -1691,6 +1692,7 @@ Class VehicleSeat : BasePart
 Class Model : PVInstance
 	Property Class:BasePart Model.PrimaryPart
 	Function void Model:BreakJoints()
+	Function Tuple Model:GetBoundingBox()
 	Function Vector3 Model:GetExtentsSize()
 	Function CoordinateFrame Model:GetModelCFrame() [deprecated]
 	Function Vector3 Model:GetModelSize() [deprecated]
@@ -3051,9 +3053,10 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectRobloxMaintenance : 275
 	EnumItem ConnectionError.DisconnectRejoin : 276
 	EnumItem ConnectionError.DisconnectConnectionLost : 277
+	EnumItem ConnectionError.DisconnectIdle : 278
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
-	EnumItem ConnectionError.PlacelauchError : 516
+	EnumItem ConnectionError.PlacelaunchError : 516
 	EnumItem ConnectionError.PlacelaunchGameEnded : 517
 	EnumItem ConnectionError.PlacelaunchGameFull : 518
 	EnumItem ConnectionError.PlacelaunchUserLeft : 522
@@ -3889,6 +3892,9 @@ Enum QualityLevel
 Enum R15CollisionType
 	EnumItem R15CollisionType.OuterBox : 0
 	EnumItem R15CollisionType.InnerBox : 1
+Enum RenderFidelity
+	EnumItem RenderFidelity.Automatic : 0
+	EnumItem RenderFidelity.Precise : 1
 Enum RenderPriority
 	EnumItem RenderPriority.First : 0
 	EnumItem RenderPriority.Input : 100

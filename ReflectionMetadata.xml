@@ -4933,6 +4933,14 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">StudioService</string>
+        <string name="ExplorerOrder">-1</string>
+        <string name="summary">A service for interfacing with the current studio state from Lua.</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Lighting</string>
         <string name="ExplorerOrder">3</string>
         <string name="ExplorerImageIndex">13</string>

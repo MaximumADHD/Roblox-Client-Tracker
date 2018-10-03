@@ -60,6 +60,7 @@ errorPrompt:setParent(promptOverlay)
 
 -- Button Callbacks --
 local reconnectFunction = function()
+	errorPrompt:primaryShimmerPlay()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
 		return
 	end
@@ -157,7 +158,7 @@ local function processError(errorType)
 		end
 
 	elseif connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
-
+		errorPrompt:primaryShimmerStop()
 		-- if is reconnecting, then it is the reconnect failure
 		if errorType == Enum.ConnectionError.TeleportErrors then
 			if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then

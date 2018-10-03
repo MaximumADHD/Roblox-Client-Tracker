@@ -27490,6 +27490,14 @@
                                 "Category": "Enum",
                                 "Name": "CollisionFidelity"
                             }
+                        },
+                        {
+                            "Default": "Automatic",
+                            "Name": "renderFidelity",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RenderFidelity"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -27518,6 +27526,14 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "CollisionFidelity"
+                            }
+                        },
+                        {
+                            "Default": "Automatic",
+                            "Name": "renderFidelity",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RenderFidelity"
                             }
                         }
                     ],
@@ -28250,6 +28266,23 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "CollisionFidelity"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "RenderFidelity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RenderFidelity"
                     }
                 },
                 {
@@ -29427,6 +29460,17 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetBoundingBox",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
                     },
                     "Security": "None"
                 },
@@ -42944,6 +42988,39 @@
         {
             "Members": [
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "ActiveScript",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "GetColor",
                     "Parameters": [
@@ -51337,6 +51414,10 @@
                     "Value": 277
                 },
                 {
+                    "Name": "DisconnectIdle",
+                    "Value": 278
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -51345,7 +51426,7 @@
                     "Value": 515
                 },
                 {
-                    "Name": "PlacelauchError",
+                    "Name": "PlacelaunchError",
                     "Value": 516
                 },
                 {
@@ -54934,6 +55015,19 @@
                 }
             ],
             "Name": "R15CollisionType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Automatic",
+                    "Value": 0
+                },
+                {
+                    "Name": "Precise",
+                    "Value": 1
+                }
+            ],
+            "Name": "RenderFidelity"
         },
         {
             "Items": [

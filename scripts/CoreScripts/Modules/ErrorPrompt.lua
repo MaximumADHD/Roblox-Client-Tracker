@@ -2,37 +2,8 @@ local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local create = require(RobloxGui.Modules.Common.Create)
-
--- CONSTANTS --
-local CONSTANTS = {
-	COLORS = {
-		SLATE = Color3.fromRGB(35, 37, 39),
-		FLINT = Color3.fromRGB(57, 59, 61),
-		GRAPHITE = Color3.fromRGB(101, 102, 104),
-		PUMICE = Color3.fromRGB(189, 190, 190),
-		WHITE = Color3.fromRGB(255, 255, 255),
-	},
-	ERROR_PROMPT_HEIGHT = {
-		Default = 236,
-		XBox = 180,
-	},
-	ERROR_PROMPT_WIDTH = {
-		Default = 400,
-		XBox = 400,
-	},
-	ERROR_TITLE_FRAME_HEIGHT = {
-		Default = 50,
-	},
-	SPLIT_LINE_WIDTH = 1,
-	BUTTON_CELL_PADDING = 10,
-	BUTTON_HEIGHT = 36,
-	SIDE_PADDING = 20,
-	LAYOUT_PADDING = 20,
-
-	PRIMARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/PrimaryButton.png",
-	SECONDARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/SecondaryButton.png",
-}
--- CONSTANTS --
+local Constants = require(RobloxGui.Modules.Common.Constants)
+local Shimmer = require(RobloxGui.Modules.Shimmer)
 
 -- Animation Preset --
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
@@ -45,10 +16,11 @@ local styledFrame = {
 			Name = 'ErrorPrompt',
 			BackgroundTransparency = 0,
 			BorderSizePixel = 0,
-			BackgroundColor3 = CONSTANTS.COLORS.FLINT,
+			BackgroundColor3 = Constants.COLORS.FLINT,
 			AnchorPoint= Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
-			Size = UDim2.new(0, CONSTANTS.ERROR_PROMPT_WIDTH.Default, 0, CONSTANTS.ERROR_PROMPT_HEIGHT.Default),
+			Size = UDim2.new(0, Constants.ERROR_PROMPT_WIDTH.Default, 0, Constants.ERROR_PROMPT_HEIGHT.Default),
+			Visible = false,
 			ZIndex = 8,
 			create 'UIListLayout' {
 				Name = "PromptLayout",
@@ -63,7 +35,7 @@ local styledFrame = {
 				Name = "TitleFrame",
 				LayoutOrder = 1,
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, CONSTANTS.ERROR_TITLE_FRAME_HEIGHT.Default),
+				Size = UDim2.new(1, 0, 0, Constants.ERROR_TITLE_FRAME_HEIGHT.Default),
 				BorderSizePixel = 0,
 				ZIndex = 8,
 				create 'UIPadding' {
@@ -73,7 +45,7 @@ local styledFrame = {
 				},
 				create 'TextLabel' {
 					Name = "ErrorTitle",
-					TextColor3 = CONSTANTS.COLORS.WHITE,
+					TextColor3 = Constants.COLORS.WHITE,
 					TextSize = 25,
 					Size = UDim2.new(1, 0, 0, 28),
 					BackgroundTransparency = 1,
@@ -86,24 +58,24 @@ local styledFrame = {
 			create 'Frame' {
 				Name = "SplitLine",
 				LayoutOrder = 2,
-				Size = UDim2.new(1, -2 * CONSTANTS.SIDE_PADDING, 0, CONSTANTS.SPLIT_LINE_WIDTH),
-				BackgroundColor3 = CONSTANTS.COLORS.PUMICE,
+				Size = UDim2.new(1, -2 * Constants.SIDE_PADDING, 0, Constants.SPLIT_LINE_WIDTH),
+				BackgroundColor3 = Constants.COLORS.PUMICE,
 				BorderSizePixel = 0,
 				ZIndex = 8,
 			},
 			create 'Frame' {
 				Name = "MessageArea",
 				LayoutOrder = 3,
-				Size = UDim2.new(1, 0, 1, - CONSTANTS.ERROR_TITLE_FRAME_HEIGHT.Default - CONSTANTS.SPLIT_LINE_WIDTH),
+				Size = UDim2.new(1, 0, 1, - Constants.ERROR_TITLE_FRAME_HEIGHT.Default - Constants.SPLIT_LINE_WIDTH),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ZIndex = 8,
 				create 'UIPadding' {
 					Name = "MessageAreaPadding",
-					PaddingBottom = UDim.new(0, CONSTANTS.SIDE_PADDING),
-					PaddingLeft = UDim.new(0, CONSTANTS.SIDE_PADDING),
-					PaddingRight = UDim.new(0, CONSTANTS.SIDE_PADDING),
-					PaddingTop = UDim.new(0, CONSTANTS.SIDE_PADDING),
+					PaddingBottom = UDim.new(0, Constants.SIDE_PADDING),
+					PaddingLeft = UDim.new(0, Constants.SIDE_PADDING),
+					PaddingRight = UDim.new(0, Constants.SIDE_PADDING),
+					PaddingTop = UDim.new(0, Constants.SIDE_PADDING),
 				},
 				create 'Frame' {
 					Name = "ErrorFrame",
@@ -112,16 +84,16 @@ local styledFrame = {
 					ZIndex = 8,
 					create 'UIListLayout' {
 						Name = "ErrorFrameLayout",
-						Padding = UDim.new(0, CONSTANTS.LAYOUT_PADDING),
+						Padding = UDim.new(0, Constants.LAYOUT_PADDING),
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					},
 					create 'TextLabel' {
 						Name = "ErrorMessage",
 						LayoutOrder = 1,
-						Size = UDim2.new(1, 0, 1, -CONSTANTS.BUTTON_HEIGHT - CONSTANTS.LAYOUT_PADDING),
+						Size = UDim2.new(1, 0, 1, -Constants.BUTTON_HEIGHT - Constants.LAYOUT_PADDING),
 						TextSize = 20,
-						TextColor3 = CONSTANTS.COLORS.PUMICE,
+						TextColor3 = Constants.COLORS.PUMICE,
 						ZIndex = 8,
 						BackgroundTransparency = 1,
 						TextWrapped = true,
@@ -130,13 +102,13 @@ local styledFrame = {
 					create 'Frame' {
 						Name = "ButtonArea",
 						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, CONSTANTS.BUTTON_HEIGHT),
+						Size = UDim2.new(1, 0, 0, Constants.BUTTON_HEIGHT),
 						ZIndex = 8,
 						LayoutOrder = 2,
 						create 'UIGridLayout' {
 							Name = "ButtonLayout",
-							CellPadding = UDim2.new(0, CONSTANTS.BUTTON_CELL_PADDING, 0, 0),
-							CellSize = UDim2.new(1, 0, 0, CONSTANTS.BUTTON_HEIGHT),
+							CellPadding = UDim2.new(0, Constants.BUTTON_CELL_PADDING, 0, 0),
+							CellSize = UDim2.new(1, 0, 0, Constants.BUTTON_HEIGHT),
 							HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
 							SortOrder = Enum.SortOrder.LayoutOrder,
@@ -153,18 +125,19 @@ local styledButton = {
 		return create 'ImageButton' {
 			Name = name.."Button",
 			BackgroundTransparency = 1,
-			ImageColor3 = primary and CONSTANTS.COLORS.WHITE or CONSTANTS.COLORS.PUMICE,
+			ImageColor3 = primary and Constants.COLORS.WHITE or Constants.COLORS.PUMICE,
 			AnchorPoint= Vector2.new(0.5, 0.5),
 			Size = UDim2.new(1, 0, 1, 0),
-			Image = primary and CONSTANTS.PRIMARY_BUTTON_TEXTURE or CONSTANTS.SECONDARY_BUTTON_TEXTURE,
+			Image = primary and Constants.PRIMARY_BUTTON_TEXTURE or Constants.SECONDARY_BUTTON_TEXTURE,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
 			LayoutOrder = layoutOrder,
 			ZIndex = 8,
 			create 'TextLabel' {
+				Name = "ButtonText",
 				Text = name,
 				Size = UDim2.new(1, 0, 1, 0),
-				TextColor3 = primary and CONSTANTS.COLORS.SLATE or CONSTANTS.COLORS.PUMICE,
+				TextColor3 = primary and Constants.COLORS.SLATE or Constants.COLORS.PUMICE,
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,
@@ -197,6 +170,7 @@ end
 function ErrorPrompt:_open(errorMsg, errorCode)
 	self:setErrorText(errorMsg, errorCode)
 	if not self._isOpen then
+		self._frame.Visible = true
 		self._isOpen = true
 		self._openAnimation:Play()
 	end
@@ -206,6 +180,8 @@ function ErrorPrompt:_close()
 	if self._isOpen then
 		self._isOpen = false
 		self._closeAnimation:Play()
+		self._closeAnimation.Completed:wait()
+		self._frame.Visible = false
 	end
 end
 
@@ -246,14 +222,19 @@ function ErrorPrompt:_relayout()
 	if self._buttonCount == 0 then
 		buttonArea.Visible = false
 	else
-		local gridWidth = (CONSTANTS.ERROR_PROMPT_WIDTH.Default - (self._buttonCount - 1) * CONSTANTS.BUTTON_CELL_PADDING - 2 * CONSTANTS.SIDE_PADDING) / self._buttonCount
+		local gridWidth = (Constants.ERROR_PROMPT_WIDTH.Default - (self._buttonCount - 1) * Constants.BUTTON_CELL_PADDING - 2 * Constants.SIDE_PADDING) / self._buttonCount
 		buttonArea.Visible = true
-		buttonArea.ButtonLayout.CellSize = UDim2.new(0, gridWidth, 0, CONSTANTS.BUTTON_HEIGHT)
+		buttonArea.ButtonLayout.CellSize = UDim2.new(0, gridWidth, 0, Constants.BUTTON_HEIGHT)
 	end
 end
 
 function ErrorPrompt:clearButtons()
 	local buttonArea = self._frame.MessageArea.ErrorFrame.ButtonArea
+	if self._primaryShimmer then
+
+		-- free previous shimmer Object
+		self._primaryShimmer = nil
+	end
 	local children = buttonArea:GetChildren()
 	for _, child in pairs(children) do
 		if child.name ~= "ButtonLayout" then
@@ -293,6 +274,9 @@ function ErrorPrompt:updateButtons(buttonList, style)
 	local buttonCount = 0
 	for _, buttonData in pairs(buttonList) do
 		local button = styledButton[style](buttonData.Text, buttonData.LayoutOrder, buttonData.Primary)
+		if buttonData.Primary then
+			self._primaryShimmer = Shimmer.new(button, "PrimaryButton")
+		end
 		button.Parent = buttonArea
 		button.Activated:connect(buttonData.Callback)
 		buttonCount = buttonCount + 1
@@ -301,6 +285,18 @@ function ErrorPrompt:updateButtons(buttonList, style)
 	if self._buttonCount ~= buttonCount then
 		self._buttonCount = buttonCount
 		self:_relayout()
+	end
+end
+
+function ErrorPrompt:primaryShimmerPlay()
+	if self._primaryShimmer then
+		self._primaryShimmer:play()
+	end
+end
+
+function ErrorPrompt:primaryShimmerStop()
+	if self._primaryShimmer then
+		self._primaryShimmer:stop()
 	end
 end
 
