@@ -76,15 +76,9 @@ local FFlagUseNotificationsLocalization = success and result
 
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 
-local UseMicroProfiler = false 
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
-if isMobileClient then
-  UseMicroProfiler = settings():GetFFlag("EnableMobileMicroProfilerWebServerApi")
-elseif isDesktopClient then
-  UseMicroProfiler = settings():GetFFlag("EnableDesktopMicroProfilerApi")
-end
-local EnableWebServerOnStart = settings():GetFFlag("EnableWebServerOnStart")
+local UseMicroProfiler = isMobileClient or isDesktopClient
 
 --------------- FLAGS ----------------
 
@@ -364,7 +358,7 @@ local function Initialize()
         this.InformationFrame, this.InformationText = createWebServerInformationRow()
         this.InformationText.Text = GameSettings.MicroProfilerWebServerIP .. port
         return true
-      else 
+      else
         return false
       end
     end
@@ -372,7 +366,7 @@ local function Initialize()
     local function setMicroProfilerIndex(newIndex)
       local function hideContentLabel()
           GameSettings.MicroProfilerWebServerEnabled = false
-           
+
           if this.InformationFrame or this.InformationText then 
             this.InformationFrame.Visible = false
             this.InformationFrame.Parent = nil
@@ -434,9 +428,7 @@ local function Initialize()
       utility:AddNewRow(this, "Micro Profiler", "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
     this.MicroProfilerFrame.LayoutOrder = 10
 
-    if EnableWebServerOnStart then
-      tryContentLabel()
-    end
+    tryContentLabel()
 
     this.MicroProfilerMode.IndexChanged:connect(
       setMicroProfilerIndex

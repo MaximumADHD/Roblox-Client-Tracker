@@ -2288,7 +2288,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ]
                 },
                 {
@@ -2309,7 +2310,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ]
                 },
                 {
@@ -42053,6 +42055,23 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Debug Client In APS Mode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Directories",
                     "MemberType": "Property",
                     "Name": "DefaultScriptFileDir",
@@ -42939,24 +42958,6 @@
                         "Category": "DataType",
                         "Name": "Color3"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "FindTheme",
-                    "Parameters": [
-                        {
-                            "Name": "themeName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -51416,6 +51417,14 @@
                 {
                     "Name": "DisconnectIdle",
                     "Value": 278
+                },
+                {
+                    "Name": "DisconnectRaknetErrors",
+                    "Value": 279
+                },
+                {
+                    "Name": "DisconnectWrongVersion",
+                    "Value": 280
                 },
                 {
                     "Name": "PlacelaunchErrors",

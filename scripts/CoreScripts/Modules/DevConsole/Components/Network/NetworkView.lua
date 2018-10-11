@@ -39,23 +39,15 @@ function NetworkView:init(props)
 	end
 
 	self.onSummaryButton = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or
-			(input.UserInputType == Enum.UserInputType.Touch and
-			input.UserInputState == Enum.UserInputState.End) then
-			self:setState({
-				summaryExpanded = not self.state.summaryExpanded,
-			})
-		end
+		self:setState({
+			summaryExpanded = not self.state.summaryExpanded,
+		})
 	end
 
 	self.onDetailButton = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or
-			(input.UserInputType == Enum.UserInputType.Touch and
-			input.UserInputState == Enum.UserInputState.End) then
-			self:setState({
-				entriesExpanded = not self.state.entriesExpanded,
-			})
-		end
+		self:setState({
+			entriesExpanded = not self.state.entriesExpanded,
+		})
 	end
 
 	self.ref = Roact.createRef()

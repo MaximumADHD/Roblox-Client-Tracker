@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui").RobloxGui
+local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
 
 local setMouseVisibility = require(script.Parent.Parent.Util.setMouseVisibility)
 
@@ -74,6 +76,15 @@ function DevConsoleWindow:init()
 		end
 	end
 
+	self.doGamepadMenuButton = function(input)
+		if self.props.isVisible then
+			local keyToListenTo = input.KeyCode == Enum.KeyCode.ButtonStart or input.KeyCode == Enum.KeyCode.Escape
+			if keyToListenTo then
+				self.props.dispatchSetDevConsolVisibility(false)
+			end
+		end
+	end
+
 	self.ref = Roact.createRef()
 
 	self.state = {
@@ -93,10 +104,35 @@ function DevConsoleWindow:didMount()
 		end
 	end)
 	setMouseVisibility(self.props.isVisible)
+	self.props.dispatchSetDevConsolVisibility(false)
+
+	self.gamepadMenuListener = UserInputService.InputBegan:Connect(self.doGamepadMenuButton)
 end
 
-function DevConsoleWindow:didUpdate()
-	setMouseVisibility(self.props.isVisible)
+function DevConsoleWindow:willUnmount()
+	if GuiService.SelectedCoreObject == self.ref.current then
+		GuiService.SelectedCoreObject = nil
+	end
+
+	self.gamepadMenuListener:Disconnect()
+end
+
+function DevConsoleWindow:didUpdate(previousProps, previousState)
+	setMouseVisibility(self.props.isVisible)	
+	if self.props.isMinimized and (GuiService.SelectedCoreObject == self.ref.current) then
+		GuiService.SelectedCoreObject = nil
+
+	elseif self.props.isVisible ~= previousProps.isVisible or 
+		self.props.currTab ~= previousProps.currTab then
+		local inputTypeEnum = UserInputService:GetLastInputType()
+		local isGamepad = (Enum.UserInputType.Gamepad1 == inputTypeEnum)
+
+		if isGamepad and self.props.isVisible then
+			GuiService.SelectedCoreObject = self.ref.current	
+		else
+			GuiService.SelectedCoreObject = nil
+		end
+	end
 end
 
 function DevConsoleWindow:render()
@@ -161,6 +197,8 @@ function DevConsoleWindow:render()
 			Transparency = Constants.MainWindowInit.Transparency,
 			Active = true,
 			AutoLocalize = false,
+			Visible = isVisible,
+			Selectable = true,
 			BorderColor3 = Constants.Color.BaseGray,
 
 			[Roact.Ref] = self.ref,
@@ -206,6 +244,7 @@ function DevConsoleWindow:render()
 			BorderSizePixel = borderSizePixel,
 			Active = true,
 			AutoLocalize = false,
+			Selectable = false,
 
 			[Roact.Ref] = self.ref,
 		}, {

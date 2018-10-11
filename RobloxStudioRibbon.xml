@@ -296,12 +296,12 @@
         <addaction name="insertModelAction" style="textundericon" text="Model" tooltip="Insert a model from local files" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Service" tooltip="Insert service from a service selection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <addaction fflag="StudioEnableCollisionGroupsEditorPlugin" name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Collision Groups" tooltip="Edit collision groups"/>
+        <addaction fflag="StudioChangeRunScriptActionLocation" name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
         <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
           <addaction name="ScriptLargeAction" text="Script" value="Script" tooltip="Insert a script" icon=":/RibbonBar/images/RibbonIcons/Insert/Script.png" width="32" height="32" />
           <addaction name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Insert a local script" icon=":/RibbonBar/images/RibbonIcons/Insert/LocalScript.png" width="32" height="32" />
           <addaction name="ModuleScriptLargeAction" text="ModuleScript" value="ModuleScript" tooltip="Insert a module script" icon=":/RibbonBar/images/RibbonIcons/Insert/ModuleScript.png" width="32" height="32" />
         </ActionGroup>
-
       </Group>
     </TabPage>
     <!--
@@ -320,7 +320,7 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
+        <addaction fflag="!StudioChangeRunScriptActionLocation" name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
         <addaction name="simulationStopAction" style="textundericon" text="Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
         <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
         <addaction name="simulationDiabolicalModeAction"

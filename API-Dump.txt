@@ -120,8 +120,8 @@ Class Attachment : Instance
 Class BadgeService : Instance [notCreatable]
 	YieldFunction bool BadgeService:AwardBadge(int64 userId, int64 badgeId)
 	YieldFunction Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId)
-	YieldFunction bool BadgeService:IsDisabled(int64 badgeId)
-	YieldFunction bool BadgeService:IsLegal(int64 badgeId)
+	YieldFunction bool BadgeService:IsDisabled(int64 badgeId) [deprecated]
+	YieldFunction bool BadgeService:IsLegal(int64 badgeId) [deprecated]
 	YieldFunction bool BadgeService:UserHasBadge(int64 userId, int64 badgeId) [deprecated]
 	YieldFunction bool BadgeService:UserHasBadgeAsync(int64 userId, int64 badgeId)
 	Event BadgeService.BadgeAwarded(string message, int64 userId, int64 badgeId) [RobloxScriptSecurity]
@@ -3054,6 +3054,8 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectRejoin : 276
 	EnumItem ConnectionError.DisconnectConnectionLost : 277
 	EnumItem ConnectionError.DisconnectIdle : 278
+	EnumItem ConnectionError.DisconnectRaknetErrors : 279
+	EnumItem ConnectionError.DisconnectWrongVersion : 280
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516

@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
 
+local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local ApiFetchUsersPresences = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersPresences)
 local ApiFetchUsersThumbnail = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersThumbnail)
 local ApiFetchUsersFriendCount = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriendCount)
@@ -14,6 +15,7 @@ local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
 local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
+local homePageDataFetchRefactor = settings():GetFFlag('LuaHomePageDataFetchRefactor')
 
 return function(requestImpl, userId, thumbnailRequest)
 	return function(store)
@@ -44,11 +46,18 @@ return function(requestImpl, userId, thumbnailRequest)
 			store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
 			return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 		end):andThen(
-			function()
+			function(result)
 				store:dispatch(FetchUserFriendsCompleted(userId))
+				if homePageDataFetchRefactor then
+					return Promise.resolve(result)
+				end
 			end,
 			function(response)
 				store:dispatch(FetchUserFriendsFailed(userId, response))
-			end)
+				if homePageDataFetchRefactor then
+					return Promise.reject(response)
+				end
+			end
+		)
 	end
 end

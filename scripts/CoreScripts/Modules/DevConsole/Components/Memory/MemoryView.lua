@@ -37,14 +37,9 @@ end
 function MemoryView:init(props)
 	self.getOnButtonPress = function (name)
 		return function(rbx, input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or
-				(input.UserInputType == Enum.UserInputType.Touch and
-				input.UserInputState == Enum.UserInputState.End) then
-
-				self:setState({
-					expandIndex = self.state.expandIndex ~= name and name
-				})
-			end
+			self:setState({
+				expandIndex = self.state.expandIndex ~= name and name
+			})
 		end
 	end
 
@@ -245,13 +240,13 @@ function MemoryView:render()
 		}, {
 			Name = Roact.createElement(HeaderButton, {
 				text = HEADER_NAMES[1],
-				size = UDim2.new(VALUE_CELL_WIDTH, CELL_PADDING, 0, HEADER_HEIGHT),
+				size = UDim2.new(1 - VALUE_CELL_WIDTH, -VALUE_PADDING - CELL_PADDING, 0, HEADER_HEIGHT),
 				pos = UDim2.new(0, CELL_PADDING, 0, 0),
 				sortfunction = self.onSortChanged,
 			}),
 			ValueMB = Roact.createElement(HeaderButton, {
 				text = HEADER_NAMES[2],
-				size = UDim2.new(1 - VALUE_CELL_WIDTH, -VALUE_PADDING, 0, HEADER_HEIGHT),
+				size = UDim2.new( VALUE_CELL_WIDTH, -CELL_PADDING, 0, HEADER_HEIGHT),
 				pos = UDim2.new(1 - VALUE_CELL_WIDTH, VALUE_PADDING, 0, 0),
 				sortfunction = self.onSortChanged,
 			}),

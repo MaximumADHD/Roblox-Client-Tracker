@@ -49,7 +49,7 @@ function BannerButton:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 
-		[Roact.Event.InputEnded] = onButtonPress,
+		[Roact.Event.Activated] = onButtonPress,
 	}, Immutable.JoinDictionaries(bannerElements, children))
 end
 

@@ -10314,10 +10314,24 @@ local function dispatchInsertAsset(plugin, assetId, assetName, assetTypeId, cate
 	end
 end
 
+local function assetTypeIdToString(assetTypeId)
+	if assetTypeId == Enum.AssetType.Model.Value then
+		return "Model"
+	elseif assetTypeId == Enum.AssetType.Decal.Value then
+		return "Decal"
+	elseif assetTypeId == Enum.AssetType.Audio.Value then
+		return "Audio"
+	elseif assetTypeId == Enum.AssetType.Mesh.Value then
+		return "Mesh"
+	else
+		return "Unknown"
+	end
+end
+
 local function sendInsertionAnalytics(assetId, assetTypeId, assetWasDragged)
 	Analytics.trackEventAssetInsert(assetId)
 	Analytics.incrementAssetInsertCollector()
-	Analytics.incrementToolboxInsertCounter(assetTypeId)
+	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(assetTypeId))
 
 	-- TODO CLIDEVSRVS-1689: Get search text and asset index for analytics
 	local searchText = "[searchText]"

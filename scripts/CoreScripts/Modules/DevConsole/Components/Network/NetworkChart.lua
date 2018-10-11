@@ -57,13 +57,9 @@ local NetworkChart = Roact.Component:extend("NetworkChart")
 function NetworkChart:init()
 	self.getOnExpandEntry = function (name)
 		return function(rbx, input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or
-				(input.UserInputType == Enum.UserInputType.Touch and
-				input.UserInputState == Enum.UserInputState.End) then
-				self:setState({
-					expandIndex = self.state.expandIndex ~= name and name
-				})
-			end
+			self:setState({
+				expandIndex = self.state.expandIndex ~= name and name
+			})
 		end
 	end
 

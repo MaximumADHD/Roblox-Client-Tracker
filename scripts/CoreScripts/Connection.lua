@@ -8,9 +8,16 @@ local create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 
 local LEAVE_GAME_FRAME_WAITS = 2
-local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
+
+local function safeGetFInt(name, defaultValue)
+	local success, result = pcall(function() return tonumber(settings():GetFVariable(name)) end)
+	return success and result or defaultValue
+end
+local inGameGlobalGuiInset = safeGetFInt("InGameGlobalGuiInset", 36)
+local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 local errorPrompt
+local graceTimeout = -1
 
 local ConnectionPromptState = {
 	NONE = 1, -- General Error Message
@@ -30,6 +37,7 @@ local errorForReconnect = Enum.ConnectionError.OK
 local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "Join Error",
 	[ConnectionPromptState.RECONNECT_DISCONNECT] = "Disconnected",
+	[ConnectionPromptState.RECONNECT_DISABLED] = "Disconnected",
 	[ConnectionPromptState.TELEPORT_FAILED] = "Teleport Failed",
 }
 
@@ -60,11 +68,17 @@ errorPrompt:setParent(promptOverlay)
 
 -- Button Callbacks --
 local reconnectFunction = function()
-	errorPrompt:primaryShimmerPlay()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
 		return
 	end
 	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
+	errorPrompt:primaryShimmerPlay()
+
+	-- Wait until it passes the defaultTimeOut
+	local currentTime = tick()
+	if currentTime < graceTimeout then
+		wait(graceTimeout - currentTime)
+	end
 	TeleportService:Teleport(game.placeId)
 end
 
@@ -73,7 +87,6 @@ local leaveFunction = function()
 	for i = 1, LEAVE_GAME_FRAME_WAITS do
 		RunService.RenderStepped:wait()
 	end
-	RunService:SetRobloxGuiFocused(false)
 	game:Shutdown()
 end
 
@@ -81,6 +94,21 @@ local closePrompt = function()
 	GuiService:ClearError()
 end
 -- Button Callbacks --
+
+-- Reconnect Disabled List
+local reconnectDisabledList = {
+	[Enum.ConnectionError.DisconnectLuaKick] = true,
+	[Enum.ConnectionError.DisconnectSecurityKeyMismatch] = true,
+	[Enum.ConnectionError.DisconnectNewSecurityKeyMismatch] = true,
+	[Enum.ConnectionError.DisconnectDuplicateTicket] = true,
+	[Enum.ConnectionError.DisconnectWrongVersion] = true,
+	[Enum.ConnectionError.DisconnectProtocolMismatch] = true,
+	[Enum.ConnectionError.DisconnectBadhash] = true,
+	[Enum.ConnectionError.DisconnectIllegalTeleport] = true,
+	[Enum.ConnectionError.DisconnectDuplicateTicket] = true,
+	[Enum.ConnectionError.DisconnectDuplicatePlayer] = true,
+	[Enum.ConnectionError.DisconnectPlayerless] = true,
+}
 
 local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
@@ -117,6 +145,14 @@ local ButtonList = {
 			Primary = true,
 		}
 	},
+	[ConnectionPromptState.RECONNECT_DISABLED] = {
+		{
+			Text = "Leave",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+			Primary = true,
+		}
+	}
 }
 
 local updateFullScreenEffect = {
@@ -140,46 +176,78 @@ local updateFullScreenEffect = {
 		promptOverlay.Active = true
 		promptOverlay.Transparency = 0.3
 	end,
+	[ConnectionPromptState.RECONNECT_DISABLED] = function()
+		RunService:SetRobloxGuiFocused(true)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 1
+	end,
 }
 
--- state transit function
-local function processError(errorType)
-	if errorType == Enum.ConnectionError.OK then
-		connectionPromptState = ConnectionPromptState.NONE
-	elseif connectionPromptState == ConnectionPromptState.NONE then
-		if errorType == Enum.ConnectionError.DisconnectErrors then
-			connectionPromptState = ConnectionPromptState.RECONNECT_DISCONNECT
-			errorForReconnect = Enum.ConnectionError.DisconnectErrors
-		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
-			connectionPromptState = ConnectionPromptState.RECONNECT_PLACELAUNCH
-			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
-		elseif errorType == Enum.ConnectionError.TeleportErrors then
-			connectionPromptState = ConnectionPromptState.TELEPORT_FAILED
-		end
+local function onEnter(newState)
+	if updateFullScreenEffect[newState] then
+		updateFullScreenEffect[newState]()
+	end
+	errorPrompt:setErrorTitle(ErrorTitles[newState])
+	errorPrompt:updateButtons(ButtonList[newState])
+end
 
-	elseif connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
+local function onExit(oldState)
+	if oldState == ConnectionPromptState.IS_RECONNECTING then
 		errorPrompt:primaryShimmerStop()
-		-- if is reconnecting, then it is the reconnect failure
-		if errorType == Enum.ConnectionError.TeleportErrors then
-			if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
-				connectionPromptState = ConnectionPromptState.RECONNECT_PLACELAUNCH
-			elseif errorForReconnect == Enum.ConnectionError.DisconnectErrors then
-				connectionPromptState = ConnectionPromptState.RECONNECT_DISCONNECT
-			end
-		end
 	end
 end
 
-local function updateErrorPrompt(errorMsg, errorCode, errorType)
-	processError(errorType)
-	if updateFullScreenEffect[connectionPromptState] then
-		updateFullScreenEffect[connectionPromptState]()
+-- state transit function
+local function stateTransit(errorType, errorCode, oldState)
+	if errorType == Enum.ConnectionError.OK then
+		return ConnectionPromptState.NONE
 	end
+
+	if reconnectDisabledList[errorCode] then
+		return ConnectionPromptState.RECONNECT_DISABLED
+	end
+
+	if oldState == ConnectionPromptState.NONE then
+		if errorType == Enum.ConnectionError.DisconnectErrors then
+
+			-- reconnection will be delayed after graceTimeout
+			graceTimeout = tick() + defaultTimeoutTime
+			errorForReconnect = Enum.ConnectionError.DisconnectErrors
+			return ConnectionPromptState.RECONNECT_DISCONNECT
+		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
+			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
+			return ConnectionPromptState.RECONNECT_PLACELAUNCH
+		elseif errorType == Enum.ConnectionError.TeleportErrors then
+			return ConnectionPromptState.TELEPORT_FAILED
+		end
+	end
+
+	if oldState == ConnectionPromptState.IS_RECONNECTING then
+
+		-- if is reconnecting, then it is the reconnect failure
+		if errorType == Enum.ConnectionError.TeleportErrors then
+			if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
+				return ConnectionPromptState.RECONNECT_PLACELAUNCH
+			elseif errorForReconnect == Enum.ConnectionError.DisconnectErrors then
+				return ConnectionPromptState.RECONNECT_DISCONNECT
+			end
+		end
+	end
+
+	return oldState
+end
+
+local function updateErrorPrompt(errorMsg, errorCode, errorType)
+	local newPromptState = stateTransit(errorType, errorCode, connectionPromptState)
+	if newPromptState ~= connectionPromptState then
+		onExit(connectionPromptState)
+		connectionPromptState = newPromptState
+		onEnter(newPromptState)
+	end
+
 	if connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
 		errorMsg = string.match(errorMsg, "Teleport Failed: (.*)") or errorMsg
 	end
-	errorPrompt:setErrorTitle(ErrorTitles[connectionPromptState])
-	errorPrompt:updateButtons(ButtonList[connectionPromptState])
 	errorPrompt:onErrorChanged(errorMsg, errorCode)
 end
 
@@ -190,4 +258,6 @@ local function onErrorMessageChanged()
 	updateErrorPrompt(errorMsg, errorCode, errorType)
 end
 
+-- pre-run it once in case some error occurs before the connection
+onErrorMessageChanged()
 GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)

@@ -2,12 +2,12 @@
 	<Meta name="ExplicitAutoJoints">false</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXEBE516B7E58B452DA3514B57CB1C676A">
+	<Item class="Folder" referent="RBX8C44ADE6A8D74BA699EF7BC0B63095AE">
 		<Properties>
 			<string name="Name">CollisionGroupEditor</string>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="ModuleScript" referent="RBX4E0CA49D03D543D489BDB12BC22A64B8">
+		<Item class="ModuleScript" referent="RBX2071840F27FD4BA59DE6CF7281315608">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<string name="Name">Roact</string>
@@ -80,7 +80,7 @@ apply(Roact, {
 return Roact]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX8C7E342A5AB04E5E94F499CEEDBDDA64">
+			<Item class="ModuleScript" referent="RBX7854687C012C41EC995091099E516CD1">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">oneChild</string>
@@ -116,7 +116,7 @@ return oneChild]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX53700984B7774FD583C54F8F5CCA2875">
+			<Item class="ModuleScript" referent="RBXA4EE235028E84152A96C11EC6C245BE7">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getDefaultPropertyValue.spec</string>
@@ -157,7 +157,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX29B8FFFB154947D7A7474C70CF2DB20B">
+			<Item class="ModuleScript" referent="RBXAEDC2D52147648EA853D756C33042BCF">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Change.spec</string>
@@ -180,7 +180,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX262E849AB1BA40B8A7A5EB510B05EE0A">
+			<Item class="ModuleScript" referent="RBXCBE93BF7A0D843C8B05DE6466119D54A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Symbol.spec</string>
@@ -233,7 +233,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX67A11D54A5364C6CA5DBA2DE940E0B5D">
+			<Item class="ModuleScript" referent="RBXD6A6E8F381944B3398F8C4C21BE64B88">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Instrumentation</string>
@@ -345,7 +345,7 @@ return Instrumentation]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXB19B6021DC6F40DC8BC0C30B220ED271">
+			<Item class="ModuleScript" referent="RBX37FE39F6230E4540AD9C506CE4F003EC">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Reconciler</string>
@@ -897,7 +897,7 @@ return Reconciler
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX01BAFCECCF9347E3B7477B6D268B5A2D">
+			<Item class="ModuleScript" referent="RBXD5B0FE6DDA854BE4A52913678D18BF54">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createElement</string>
@@ -942,7 +942,7 @@ return createElement]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX646B98E6EC5841F9B371F69E8CF7B51F">
+			<Item class="ModuleScript" referent="RBXB3567A7E515D4979A5B821CF922BC98C">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Reconciler.spec</string>
@@ -1038,7 +1038,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX8075FF7A7ADB45C09BA53B7CA9E3ABF5">
+			<Item class="ModuleScript" referent="RBX36B22F1039A243F2A70A631C4688D0C5">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GlobalConfig.spec</string>
@@ -1056,7 +1056,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXC5775A58BF934E9A9D2EF95DBFC89934">
+			<Item class="ModuleScript" referent="RBX3A728E7E529C427F9537545E38A1D9BC">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SingleEventManager.spec</string>
@@ -1339,7 +1339,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXFFE2AA4839BA4EFB830418CEF661A268">
+			<Item class="ModuleScript" referent="RBX37783530A7B0486B9CD4E3669EFEED55">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createRef</string>
@@ -1367,7 +1367,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX864966C2D3AB416A9E1AC08F03425749">
+			<Item class="ModuleScript" referent="RBXCA41CE58F0C345F89D17AFD807C415C3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Symbol</string>
@@ -1419,7 +1419,7 @@ return Symbol]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9BD30C9A2D514C648F2C8A65F9905396">
+			<Item class="ModuleScript" referent="RBXD835DD82428948F2A673EB50906E59FD">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createRef.spec</string>
@@ -1442,7 +1442,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX5CAA058EC58A4D3084301803732A2D90">
+			<Item class="ModuleScript" referent="RBXD99BE652C0C245BBA38643FAE1CDE5B2">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Event</string>
@@ -1489,7 +1489,7 @@ return Event]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXF490E4BEC2584F728E8BE0AC5666A4F8">
+			<Item class="ModuleScript" referent="RBXE238C4F7B2784C8B85BDEDEB0D454D48">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">oneChild.spec</string>
@@ -1532,7 +1532,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXFD3DC2F6D10342C9A4A022C3301A7FA3">
+			<Item class="ModuleScript" referent="RBXA3465618E16D4AE684F1BC1535619044">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">createElement.spec</string>
@@ -1562,7 +1562,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXB3C7147E03E84E9E966259381C2CE037">
+			<Item class="ModuleScript" referent="RBX54D38336F61841819E6767957ED8ECC8">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">invalidSetStateMessages</string>
@@ -1635,7 +1635,7 @@ return invalidSetStateMessages]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXDAB23A1DE6D94C7B8A564D4C780EE98B">
+			<Item class="ModuleScript" referent="RBXBC15CBB65354425D9169FF750A7D9E62">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">init.spec</string>
@@ -2138,7 +2138,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXA32FEAEA0A9D4621BDD711BE9CB3F848">
+			<Item class="ModuleScript" referent="RBX47C7B0B2F61B4CFE8CDB9CEF674B3D0A">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">GlobalConfig</string>
@@ -2153,7 +2153,7 @@ return Config.new()]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX33BACEAF8A2F4B8D91A168B22F20886A">
+			<Item class="ModuleScript" referent="RBXE8920FA5EEDD4C9AA5E5F67695E79410">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Core</string>
@@ -2185,7 +2185,7 @@ return Core]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX2A2411829EAA4AAFA80D51F3CB4C9B84">
+			<Item class="ModuleScript" referent="RBXFDCEB2C28CF8408D9F4B4F7AC0D723D9">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">PureComponent.spec</string>
@@ -2264,7 +2264,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXF5F7A1D45C46454FAACB8992CE5CE857">
+			<Item class="ModuleScript" referent="RBX9C5A23E729704372B80FC09A6811A57E">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Config.spec</string>
@@ -2358,7 +2358,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX0964A79CCCA74074A9C769CA08610C7E">
+			<Item class="ModuleScript" referent="RBX5406BAAFE5EE468CB80140D335B6915D">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Change</string>
@@ -2402,7 +2402,7 @@ return Change]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7EE1CD76A3C5466EB16C6E25C0D7C92D">
+			<Item class="ModuleScript" referent="RBX85202BA8F4DB4D76909396ED1CCF8F37">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">SingleEventManager</string>
@@ -2556,7 +2556,7 @@ return SingleEventManager
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX7166852D70F044DCB0DCA9642817346D">
+			<Item class="ModuleScript" referent="RBXBB062A19C2BE46519153ABED2F6D8A84">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Config</string>
@@ -2710,7 +2710,7 @@ return Config]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXEB4B5F09B9B24213B9E131D14158F6D9">
+			<Item class="ModuleScript" referent="RBX3A7130261D2D419BB3B097B555E75DC3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Component.spec</string>
@@ -3334,7 +3334,7 @@ end
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX24DFDE3806D640FA8DB0354F12F8C868">
+			<Item class="ModuleScript" referent="RBXBCE39BBB300C4BD8BBD0AAD0A2E9C9F4">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">PureComponent</string>
@@ -3383,7 +3383,7 @@ return PureComponent]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXCF0944F86C50442ABC53583BE9FD8763">
+			<Item class="ModuleScript" referent="RBXB6699450DD474C6894B16310D978AE17">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Component</string>
@@ -3827,7 +3827,7 @@ return Component
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXCE512A7C677A45BA9E229021E3DBD4BF">
+			<Item class="ModuleScript" referent="RBX1C3CA0409ADD4E9D90DF08403E3721D6">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Instrumentation.spec</string>
@@ -3933,7 +3933,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX61B8757AC5DA4C0C8E24329257FAA3F3">
+			<Item class="ModuleScript" referent="RBXA40522BD4B3E469E9ED10CF98E13FE13">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ReconcilerCompat.spec</string>
@@ -4002,7 +4002,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXE4C93B2BFBD74F619F3B819FC0AACF1D">
+			<Item class="ModuleScript" referent="RBXF350A267D6DD4C73B1C6A3CBF0E213A3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">ReconcilerCompat</string>
@@ -4060,7 +4060,7 @@ return ReconcilerCompat]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXBABCF1FC4B154B87956D77A1B355401C">
+			<Item class="ModuleScript" referent="RBXC6067A42363F4F6F842BB627A47E129E">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getDefaultPropertyValue</string>
@@ -4122,7 +4122,7 @@ return getDefaultPropertyValue]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX59A1DF6CC5B340908F5E1D3A8849C6C0">
+			<Item class="ModuleScript" referent="RBXECC322A625BD47EBAAB0BC8D05953068">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Event.spec</string>
@@ -4146,12 +4146,12 @@ end]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBXBBACD575E23042D4B044244A6B763CF3">
+		<Item class="Folder" referent="RBX2C3902602843440DB57CE256C9C09BA1">
 			<Properties>
 				<string name="Name">Plugin</string>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="Script" referent="RBX60F74EE4A96542A68C009FE32B4A8C87">
+			<Item class="Script" referent="RBX6E9B4D53A283434FACC741FDFC684AA2">
 				<Properties>
 					<bool name="Disabled">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -4189,12 +4189,12 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBX4B5010A261A548CB9BDB527B9D533707">
+			<Item class="Folder" referent="RBXDDF810891C9146E7874DF5A0633E2C67">
 				<Properties>
 					<string name="Name">Components</string>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBX6C36364A1C964FD4AA6991C8AE25674B">
+				<Item class="ModuleScript" referent="RBX2E65C0B2A7BC4C0E8DE0B0D63E4F675B">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">DescriptionMessage</string>
@@ -4226,7 +4226,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXC5DDD360285D4D89AAAECEC5379034D9">
+				<Item class="ModuleScript" referent="RBXE981F677119343AEAAEC888D8F43914E">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupButton</string>
@@ -4326,7 +4326,7 @@ return GroupButton]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXBB11E92D688946F2BC5AB47E11EE1E7C">
+				<Item class="ModuleScript" referent="RBX16997A77EA4945099387DA9D5503B0A8">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupCollisionCheckMarks</string>
@@ -4443,7 +4443,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX3EFCF5FDD11D441889339B54678602FD">
+				<Item class="ModuleScript" referent="RBXC07E29133964405688F08D074DBB295C">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupDeleteButton</string>
@@ -4466,7 +4466,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXFFC29C2DE38443DA842DBF3D45B2D69E">
+				<Item class="ModuleScript" referent="RBX2029AD53B3674E83AD413A7730B01BC8">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupLabel</string>
@@ -4525,7 +4525,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX395440172BEA4A1DB70C4FA569DE813C">
+				<Item class="ModuleScript" referent="RBX53335C5396224E59BF8AC7AACBFB282B">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupLabelPadding</string>
@@ -4541,7 +4541,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX0CBE901ECBAF47289F017FE689AB0C51">
+				<Item class="ModuleScript" referent="RBX657BB7C0F0224BD18EEAAF9326B7BC66">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupRenameButton</string>
@@ -4566,7 +4566,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX1A322D5CB2A74615B4596E8F2E7E6EA6">
+				<Item class="ModuleScript" referent="RBX314EB9FED6354023A126D9DD5111E2DF">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupRenameTextBox</string>
@@ -4608,7 +4608,7 @@ return GroupRenameTextBox]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX2E6CF3ECEB6047CCB6275AF164314936">
+				<Item class="ModuleScript" referent="RBXD565E4C0740545488715DC46D608136E">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupRow</string>
@@ -4687,7 +4687,7 @@ return GroupRow]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX56F3BD3EDB3844C2941917CF54B9AB80">
+				<Item class="ModuleScript" referent="RBXCF245DB3317E4A46B31B9F5F5E3B7483">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupSetMembershipButton</string>
@@ -4710,7 +4710,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX559C265763EE438DA0FF3B2EB83EE324">
+				<Item class="ModuleScript" referent="RBXEA463DDFF9DE41978DED73CCB09E67AB">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Gui</string>
@@ -4864,20 +4864,14 @@ function Gui:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		TableFrame = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0.8, 0),
-			LayoutOrder = 2,
-			BackgroundTransparency = 1,
-		}, {
-			Table = Roact.createElement(Table, {
-				Groups = self.state.Groups,
-				Window = self.props.Window,
+		Table = Roact.createElement(Table, {
+			Groups = self.state.Groups,
+			Window = self.props.Window,
 
-				OnGroupAdded = function(groupName)
-					PhysicsService:CreateCollisionGroup(groupName)
-					self:SetStateAndRefresh{}
-				end,
-			})
+			OnGroupAdded = function(groupName)
+				PhysicsService:CreateCollisionGroup(groupName)
+				self:SetStateAndRefresh{}
+			end,
 		}),
 
 		ModalPortal = Roact.createElement(Roact.Portal, {
@@ -4927,7 +4921,7 @@ return Gui]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXC7DE1BD147D746F29FD3A095934847BE">
+				<Item class="ModuleScript" referent="RBX750B92416E6B47CDAB796262B5B796E7">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">HeaderRow</string>
@@ -5044,7 +5038,7 @@ return HeaderRow]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX67572F4C10BC4870A0A3836D88F7EA5E">
+				<Item class="ModuleScript" referent="RBXA700F75CDBAF41099211149048D27E61">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">HelpMessage</string>
@@ -5053,7 +5047,7 @@ return HeaderRow]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX80EA12F71CDF410B829E4085A05A7581">
+				<Item class="ModuleScript" referent="RBX0724D072BD6A4412BBC56484E2FAA3DF">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">ImageButton</string>
@@ -5077,7 +5071,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXECFC4EAA3BB247DC93F373CF7884DF59">
+				<Item class="ModuleScript" referent="RBX12B044157FD04629B72D3E369EF7CD0A">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Modal</string>
@@ -5195,7 +5189,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXC1D15F0C3FEF44D885DEFF2ED578E893">
+				<Item class="ModuleScript" referent="RBX19B01E5C3AE044D9ACDC348D6EC671D1">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Padding</string>
@@ -5213,7 +5207,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX2FC8E5B89F034F8FAAB9BC271DE5AC33">
+				<Item class="ModuleScript" referent="RBX4C47C9D15DBD43BA8093631AB79BF79A">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Table</string>
@@ -5295,34 +5289,40 @@ function Table:render()
 		}),
 
 		Middle = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, -(Constants.GroupRowHeight * 2)),
+			Size = UDim2.new(1, 0, 1, -Constants.GroupRowHeight),
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				SortOrder = Enum.SortOrder.LayoutOrder,
+			LayoutContainer = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+
+				GroupLabelColumn = Roact.createElement(GroupLabelColumn, {
+					Groups = props.Groups,
+					Window = props.Window,
+					RowHovered = self.state.RowHovered,
+					OnRowHovered = self.OnRowHovered,
+					ScrollPosition = self.state.ScrollPosition,
+				}),
+				GroupCollisionMatrix = Roact.createElement(GroupCollisionMatrix, {
+					Groups = props.Groups,
+					RowHovered = self.state.RowHovered,
+					OnColHovered = self.OnColHovered,
+					OnRowHovered = self.OnRowHovered,
+					OnScrolled = self.OnScrolled,
+				}),
 			}),
 
-			GroupLabelColumn = Roact.createElement(GroupLabelColumn, {
+			AddGroup = Roact.createElement(AddGroup, {
+				OnGroupAdded = props.OnGroupAdded,
+				LayoutOrder = #props.Groups + 2,
 				Groups = props.Groups,
-				Window = props.Window,
-				RowHovered = self.state.RowHovered,
-				OnRowHovered = self.OnRowHovered,
-				ScrollPosition = self.state.ScrollPosition,
 			}),
-			GroupCollisionMatrix = Roact.createElement(GroupCollisionMatrix, {
-				Groups = props.Groups,
-				RowHovered = self.state.RowHovered,
-				OnColHovered = self.OnColHovered,
-				OnRowHovered = self.OnRowHovered,
-				OnScrolled = self.OnScrolled,
-			}),
-		}),
-
-		AddGroup = Roact.createElement(AddGroup, {
-			OnGroupAdded = props.OnGroupAdded,
-			LayoutOrder = #props.Groups + 2,
 		}),
 	}
 
@@ -5336,7 +5336,7 @@ return Table]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX38DA72B90F344D1FA73D02784938A678">
+				<Item class="ModuleScript" referent="RBX835813F465594A2C8DCA7F28CBF461A3">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">AddGroup</string>
@@ -5346,11 +5346,13 @@ return Table]]></ProtectedString>
 local Constants = require(script.Parent.Parent.Constants)
 
 local GroupLabelPadding = require(script.Parent.GroupLabelPadding)
+local GroupLabelColumn = require(script.Parent.GroupLabelColumn)
 
 return function(props)
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
+		Position = UDim2.new(0, 0, 0, GroupLabelColumn.CalculateColumnHeight(#props.Groups)),
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Layout = Roact.createElement("UIListLayout", {
@@ -5399,7 +5401,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX9900E851ACC84EC2A4C8491BE348997E">
+				<Item class="ModuleScript" referent="RBX4005B06809A74540AF789025F41FD489">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">Tooltip</string>
@@ -5451,7 +5453,7 @@ end]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX69FD64E2A6804A3BA65AEA165ECDB975">
+				<Item class="ModuleScript" referent="RBX244B58FFBEEF415C806DCDBC570D4515">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupCollisionMatrix</string>
@@ -5513,7 +5515,7 @@ return GroupCollisionMatrix]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX7ECF7431E9714BA4A98BB9336EE6C4DE">
+				<Item class="ModuleScript" referent="RBX59CC1551FFAF416795002ED7DDD2AF32">
 					<Properties>
 						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GroupLabelColumn</string>
@@ -5570,7 +5572,7 @@ return GroupLabelColumn]]></ProtectedString>
 					</Properties>
 				</Item>
 			</Item>
-			<Item class="ModuleScript" referent="RBX1DCC8EB71EFF4CE5B81F0DC77FACFEF3">
+			<Item class="ModuleScript" referent="RBXC4E0499F162F4447A509EAA3FD8502AC">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Constants</string>
@@ -5582,7 +5584,7 @@ return GroupLabelColumn]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXAC5F8D73E2FE4103956C383E5D97082B">
+			<Item class="ModuleScript" referent="RBXAB8C034D78644A989705F552331D18CC">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getPartsInGroup</string>
@@ -5603,7 +5605,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXE6E7578932BB4155AD68383D0B566E9B">
+			<Item class="ModuleScript" referent="RBXB1547956DDB94D438540AC688C06B517">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">contains</string>
@@ -5619,7 +5621,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX05A7EC354AB046E3BB868322BE28BE50">
+			<Item class="ModuleScript" referent="RBX4A63A0DE42214E1A84A16026E8AF5D5C">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getSelectedGroups</string>
@@ -5655,7 +5657,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXF73491E898A8402AA45CDDD9074B93CD">
+			<Item class="ModuleScript" referent="RBX331BE76B7A31438C90E2F89B841198D6">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getGroups</string>
@@ -5725,7 +5727,7 @@ return getGroups]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX9221A78E364046E39D25D565ED3BC980">
+			<Item class="ModuleScript" referent="RBX9D93B1A78C8749D0BC6EB5907BFF29F6">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">Colors</string>
@@ -5740,7 +5742,7 @@ return getGroups]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXB625DB33FD4C434EBE5024CCC011A160">
+			<Item class="ModuleScript" referent="RBXDFDF1EBAC79B42E1BC5E5E14FD9CB514">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">getSelectedParts</string>
@@ -5765,7 +5767,7 @@ end]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX92225B05CE054119A09FF085C1BF1211">
+			<Item class="ModuleScript" referent="RBXB15FF8650B6846F18A8C629981E06857">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<string name="Name">choose</string>

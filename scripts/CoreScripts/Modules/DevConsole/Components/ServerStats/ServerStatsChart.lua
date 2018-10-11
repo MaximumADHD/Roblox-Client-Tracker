@@ -41,13 +41,9 @@ function ServerStats:init()
 
 	self.getOnButtonPress = function (name)
 		return function(rbx, input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or
-				(input.UserInputType == Enum.UserInputType.Touch and
-				input.UserInputState == Enum.UserInputState.End) then
-				self:setState({
-					expandedEntry = self.state.expandedEntry ~= name and name
-				})
-			end
+			self:setState({
+				expandedEntry = self.state.expandedEntry ~= name and name
+			})
 		end
 	end
 
