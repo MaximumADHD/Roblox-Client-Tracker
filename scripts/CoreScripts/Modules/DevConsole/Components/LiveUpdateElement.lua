@@ -298,7 +298,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetActiveTab("Memory", true))
 		end,
 		dispatchChangeTabNetworkPing = function()
-			dispatch(SetActiveTab("Network", true))
+			dispatch(SetActiveTab("ServerStats", true))
 		end,
 	}
 end

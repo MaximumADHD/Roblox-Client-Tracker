@@ -60,6 +60,9 @@ function TouchThumbpad:Enable(enable, uiParentFrame)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
 	
+	self.moveVector = ZERO_VECTOR3
+	self.isJumping = false
+	
 	if enable then
 		-- Enable
 		if not self.thumbpadFrame then
@@ -75,7 +78,7 @@ function TouchThumbpad:Enable(enable, uiParentFrame)
 end
 	
 function TouchThumbpad:OnInputEnded()
-	self.moveVector = Vector3.new(0,0,0)
+	self.moveVector = ZERO_VECTOR3
 	self.isJumping = false
 
 	self.thumbpadFrame.Position = self.screenPos

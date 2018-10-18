@@ -20,7 +20,6 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
-local FlagSettings = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.FlagSettings)
 local ShareGameIcons = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -48,9 +47,6 @@ end
 ------------ FAST FLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-
-local IsShareGamePageEnabledByPlatform = FlagSettings.IsShareGamePageEnabledByPlatform(platform)
-local FFlagSettingsHubInviteToGameInStudio = settings():GetFFlag('SettingsHubInviteToGameInStudio4')
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -536,29 +532,27 @@ local function Initialize()
 			extraOffset = 85
 		end
 
-		if IsShareGamePageEnabledByPlatform then
-			-- Create "invite friends" button if it doesn't exist yet
-			-- We shouldn't create this button if we're not in a live game
-			if canShareCurrentGame() and not shareGameButton
-				and (not RunService:IsStudio() or FFlagSettingsHubInviteToGameInStudio) then
-				local eventStream = EventStream.new()
-				shareGameButton = createShareGameButton()
-				shareGameButton.Activated:connect(function()
-					local eventContext = "inGame"
-					local eventName = "inputShareGameEntryPoint"
-					local additionalArgs = {
-						buttonName = "settingsHub",
-					}
-					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 
-					this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
-					this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)
-				end)
+		-- Create "invite friends" button if it doesn't exist yet
+		-- We shouldn't create this button if we're not in a live game
+		if canShareCurrentGame() and not shareGameButton and not RunService:IsStudio() then
+			local eventStream = EventStream.new()
+			shareGameButton = createShareGameButton()
+			shareGameButton.Activated:connect(function()
+				local eventContext = "inGame"
+				local eventName = "inputShareGameEntryPoint"
+				local additionalArgs = {
+					buttonName = "settingsHub",
+				}
+				eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 
-				-- Ensure the button is always at the top of the list
-				shareGameButton.LayoutOrder = 1
-				shareGameButton.Parent = this.Page
-			end
+				this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
+				this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)
+			end)
+
+			-- Ensure the button is always at the top of the list
+			shareGameButton.LayoutOrder = 1
+			shareGameButton.Parent = this.Page
 		end
 
 		friendSelectionFound = nil
@@ -592,12 +586,8 @@ local function Initialize()
 
 				frame.NameLabel.Text = player.Name
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
-				if IsShareGamePageEnabledByPlatform then
-					-- extra index room for shareGameButton
-					frame.LayoutOrder = index + 1
-				else
-					frame.LayoutOrder = index
-				end
+				-- extra index room for shareGameButton
+				frame.LayoutOrder = index + 1
 
 				managePlayerNameCutoff(frame, player)
 
@@ -621,15 +611,10 @@ local function Initialize()
 				extraOffset = 85
 			end
 
-			if IsShareGamePageEnabledByPlatform then
-				local inviteToGameRow = 1
-				local playerListRowsCount = #sortedPlayers + inviteToGameRow
+			local inviteToGameRow = 1
+			local playerListRowsCount = #sortedPlayers + inviteToGameRow
 
-				this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * playerListRowsCount - 5)
-			else
-				this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * #sortedPlayers - 5)
-			end
-
+			this.Page.Size = UDim2.new(1,0,0, extraOffset + PLAYER_ROW_SPACING * playerListRowsCount - 5)
 		end)
 	end)
 

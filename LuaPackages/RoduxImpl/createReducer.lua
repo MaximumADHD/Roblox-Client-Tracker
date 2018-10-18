@@ -1,7 +1,7 @@
 return function(initialState, handlers)
 	return function(state, action)
 		if state == nil then
-			return initialState
+			state = initialState
 		end
 
 		local handler = handlers[action.type]

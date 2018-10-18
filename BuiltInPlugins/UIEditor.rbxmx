@@ -66,7 +66,6 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-local FFlagStudioCanSelectMeshPartWhileUIEditorIsActive = FFlag:isEnabled("StudioCanSelectMeshPartWhileUIEditorIsActive")
 
 -- Variables
 local childAddedEvent = nil
@@ -201,7 +200,7 @@ local function onInputBegan(inputObject)
 			local ray = Camera:ScreenPointToRay(inputObject.Position.X, inputObject.Position.Y)	
 			ray = Ray.new(ray.Origin, ray.Direction * 5000)	
 			local part, position = workspace:FindPartOnRay(ray)
-			if ((part or (FFlagStudioCanSelectMeshPartWhileUIEditorIsActive and part:IsA("MeshPart"))) and not part.Locked) then
+			if (part and not part.Locked) then
 				local instances = {part}
 				SelectionService:Set(instances)
                 Off()

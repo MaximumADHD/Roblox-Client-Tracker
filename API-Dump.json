@@ -1836,6 +1836,27 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetBundleDetailsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "bundleId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetCreatorAssetID",
                     "Parameters": [
                         {
@@ -6044,6 +6065,28 @@
         {
             "Members": [
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Active",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Attachments",
                     "MemberType": "Property",
                     "Name": "Attachment0",
@@ -6127,6 +6170,17 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetActive",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -21103,6 +21157,28 @@
         {
             "Members": [
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Active",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "C0",
@@ -21191,6 +21267,17 @@
                         "Category": "Class",
                         "Name": "BasePart"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetActive",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "PhysicsParts",
@@ -47552,6 +47639,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "RightBarSize",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "StatusBarSize",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -47973,6 +48081,13 @@
                         },
                         {
                             "Name": "bottomBarSize",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "rightBarSize",
                             "Type": {
                                 "Category": "DataType",
                                 "Name": "Vector2"
@@ -50503,6 +50618,28 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "Active",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "Enabled",
                     "Security": {
                         "Read": "None",
@@ -50556,6 +50693,17 @@
                         "Category": "Class",
                         "Name": "BasePart"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetActive",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",

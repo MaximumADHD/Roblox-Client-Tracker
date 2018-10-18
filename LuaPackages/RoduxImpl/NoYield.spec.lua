@@ -19,7 +19,7 @@ return function()
 		expect(b).to.equal("hello")
 	end)
 
-	itFIXME("should throw on yield", function()
+	it("should throw on yield", function()
 		local preCount = 0
 		local postCount = 0
 
@@ -35,11 +35,11 @@ return function()
 		expect(postCount).to.equal(0)
 
 		expect(ok).to.equal(false)
-		expect(err:find("wait")).to.be.ok()
+		expect(err:find("Attempted to yield inside changed event!")).to.be.ok()
 		expect(err:find("NoYield.spec")).to.be.ok()
 	end)
 
-	itFIXME("should propagate error messages", function()
+	it("should propagate error messages", function()
 		local count = 0
 
 		local function test()
