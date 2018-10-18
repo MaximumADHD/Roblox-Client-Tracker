@@ -22838,6 +22838,27 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTranslatorForPlayerAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptExportToCSVs",
                     "Parameters": [
                     ],

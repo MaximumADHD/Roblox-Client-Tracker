@@ -1335,6 +1335,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
+	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
 	YieldFunction void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
 	YieldFunction void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
 	Event LocalizationService.AutoTranslateWillRun() [RobloxScriptSecurity]

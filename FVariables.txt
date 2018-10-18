@@ -153,6 +153,7 @@ AdvArrowToolBase
 AdvLuaDragger
 AdvLuaDragTool
 AdvTranslate
+ADynamicLocalizationTablesAssetTimeout
 AEXW4LegacyPartType
 AfterLoadFinished
 AfterMovef
@@ -191,7 +192,7 @@ AllDiffAction
 AllFoldsAction
 AllFriends
 AllInstances
-AllModifiedPackages
+AllModifiedPackagesAction
 AllocateCommandBuffers
 AllocateDescriptorSets
 AllocateMemory
@@ -201,8 +202,6 @@ AllowAddWindowWithIdWithoutDataModel
 AllowClientFallback
 AllowClientInsertModels
 AllowCustomAnimations
-AllowDuplicateWeldConstraints2
-AllowDuplicateWeldConstraintsAnalytics2
 AllowedAreas
 AllowedGearTypeChanged
 AllowInsertFreeModels
@@ -219,6 +218,7 @@ AllPackets
 AllScriptsAction
 AllTemplates
 AllThreads
+AllTogetherNow
 AllTutorials
 AllTutorialsDisabled
 AllWatches
@@ -297,6 +297,7 @@ AngularServo
 AngularSpeed
 AngularVelocity
 AniCoalesce
+AniCombinedServerPassthrough
 AniCycleCount
 AniLongCycleFix
 AnimatedImage
@@ -680,6 +681,7 @@ AW4MembershipType
 AW4MeshType
 AW4MethodType
 AW4MouseButton
+AW4MouseEventSource
 AW4MouseType
 AW4MoveState
 AW4NameOcclusion
@@ -718,6 +720,7 @@ AW4ScreenOrientation
 AW4ScrollBarInset
 AW4ScrollBarPolicy
 AW4ScrollingDirection
+AW4ScrollPhase
 AW4SequenceMatch
 AW4SizeConstraint
 AW4SocketError
@@ -862,7 +865,7 @@ BConnection
 BE_NXZP8CRenderSettingsItem
 BEAB_NXZP8Seat
 BEAB_NXZP8VehicleSeat
-BeamCrashFix
+BeamCrashFix2
 BeamPosition
 BeforeConnected
 BeforeHandlingReconnect
@@ -1558,6 +1561,7 @@ ClientRenderGPU_
 ClientRenderPresent_
 ClientReplicator
 ClientReplicatorDisconnect
+ClientsCombinedAniEvent
 ClientServerToggle
 ClientServerToggleFTUE
 ClientSettingDataViaHttps
@@ -1863,7 +1867,6 @@ ConfigurationImplementation
 Configured
 ConfigureStats
 Configuring
-ConfinedVarintDecoding
 ConfirmDefaultScripts
 Conflicting
 CongestionControlExceeded
@@ -2285,6 +2288,7 @@ CSGDictionaryService
 CSGLevelOfDetailSwitchingDistance
 CSGMeshLevelOfDetail
 CSGMeshV4DeserializerEnabled
+CSGNewLimit
 CSGOperations
 CSGOperations2
 CSGPhys_PlaceholderData
@@ -3241,7 +3245,6 @@ DX_interop
 DX_interop2
 Dynamically
 DynamicLocalizationTables2
-DynamicLocalizationTablesAssetTimeout
 DynamicLocalizationTablesDataTimeout
 DynamicLocalizationTablesEndpointStressTest
 DynamicParts
@@ -3746,8 +3749,6 @@ FindFirstChildOfClass
 FindFirstChildWhichIsA
 FindFirstFileA
 FindFirstFileW
-FindHeaviestDownstreamNew
-FindLightestUpstreamNew
 FindListModel
 FindNextFileA
 FindNextFileW
@@ -3776,7 +3777,6 @@ FireCharacterAddedAfterSpawn
 FireClient
 FireHealthChangedLater
 FireServer
-FirmlyGraspIt
 FirstChild
 FirstElement
 FirstFrame
@@ -3818,7 +3818,6 @@ FixIAdornableCollectorCrash3
 FixInactiveSelectorArrows
 FixIncorrectScrollingFrameBounds
 FixInputCanSinkCAS
-FixInsaneInTheCFrameReplication
 FixJointDestroyedPrimitiveInsert2
 FixLineHandleAdornmentsNearPlane
 FixLoadingScreenJankiness
@@ -3828,7 +3827,6 @@ FixMeshNormalsForNonUniformScaling
 FixMissingLocalSpaceFloorInterpolation
 FixOutOfBoundsMouseLocation
 FixParentChildInsert
-FixPgsState
 FixPlayerActionTypeOverride
 FixPlayerlistFollowing
 FixPreferredSoundDeviceVR
@@ -3846,7 +3844,6 @@ FixStaleBillboardGuiPosition2
 FixStudioPositionAndOrientationPropertyWeldConstraints
 FixSubsequentFolds
 FixSurfaceGuisBreakingAfterRespawn
-FixTemporaryLegacySolverOverrideForOldPlaces
 FixTextAsserts5
 FixTextLayoutWithUIScaleAssert
 FixTextureAtlasLineHeightOn4xDevices
@@ -3854,7 +3851,7 @@ FixTextureCompositorFramebufferManagement
 FixTextureCubeFramebuffers
 FixTinyMeshScales2
 FixUIScaleTextBlowingUpFontAtlas
-FixUsersReducerDataLoss
+FixUsersReducerDataLoss361
 FixVRScrollingFrames
 Fkkkqqqqqq
 FlagCaptured
@@ -4706,7 +4703,10 @@ GetTrackingState
 GetTrackingStateWithSensorData
 GetTransformFeedbackVarying
 GetTranslator
+GetTranslatorAsyncArtificialDelayMs
 GetTranslatorForPlayer
+GetTranslatorForPlayerAsync
+GetTranslatorForPlayerAsyncEnabled
 GetTriangles
 GetTutorialState
 GetTypeInfo
@@ -4813,6 +4813,7 @@ GrabRotateCursor
 GradientEditor
 GradientEditorAdapter
 GradientEditorCanvas
+GraphicsD3D11ConstantSizeClasses
 GraphicsEffect
 GraphicsFeatureLevel
 GraphicsFeatureLevelEx
@@ -4838,7 +4839,6 @@ GraphicsTextureCharacter
 GraphicsVulkanAdrenoArghVersion
 GraphicsVulkanBlacklist
 GraphicsVulkanFixEmptyPasses
-GraphicsVulkanPVRWorkaroundRG
 GraphicsVulkanUseNewPacks4
 Gravesmall
 GreaterThan
@@ -5465,7 +5465,6 @@ InputMethodQuery
 InputObject
 InputTypeForActivation
 InResendQueue
-InsaneInTheCFrame
 InScriptsAction
 InSendBuffer
 Insertable
@@ -5504,10 +5503,8 @@ InsertService
 InsertServiceCounter
 InsertServiceDialog
 InsertServiceErrorInfluxHundrethsPercentage
-InsertServiceException
 InsertServiceFailure
 InsertServiceListWidget
-InsertServiceLoadFlowSimplification
 InsertServiceWidgets
 InsertSound
 InsertWidget
@@ -5526,7 +5523,6 @@ InstanceDelete
 InstanceID
 InstanceNew
 InstancePacketCache
-InstancePacketCacheRemoveCorrectKeyOnAncestorChanged
 InstanceQuota
 InstanceRemoved
 InstanceSelectionEditor
@@ -5757,6 +5753,7 @@ JoinScriptStatus
 JoinSendExtraItemCount
 JoinServer
 JoinSuccess
+JointActiveApiEnabled
 JointActiveEnabled
 JointCreationHelpAction
 JointCreationManualAction
@@ -6212,6 +6209,7 @@ LuaAppsDiagErrorCounter
 LuaAppsDiagPageLoadTimeGames
 LuaAppsDiagPageLoadTimeHome
 LuaAppsErrorCount
+LuaAppSetNetworkErrorToasts
 LuaAppSiteMessageBannerEnabled
 LuaAppsPageLoadTimeGames
 LuaAppsPageLoadTimeHome
@@ -6272,7 +6270,7 @@ LuaHomeControlNativeBottomBar
 LuaHomeGetFriendsPlayingGamesInfo
 LuaHomeMaxFriends
 LuaHomePageDataFetchRefactor
-LuaHomePageEnablePlacesListV1V358
+LuaHomePageEnablePlacesListV1V361
 LuaHomePageFriendWindowing4
 LuaHomePageShowFriendAvatarFace150By150
 LuaInviteGameUsesInviteThunk
@@ -7715,7 +7713,6 @@ PlayerChatInfoExponentialBackoffLimitMultiplier
 PlayerChatted
 PlayerChatType
 PlayerChoice
-PlayerCleanCharacterModelOnRemove
 PlayerConfigToConnectTime
 PlayerConfigToConnectTime_Country_
 PlayerConfigureTime
@@ -7903,7 +7900,6 @@ PriceInRobux
 PrimaryAxisOnly
 PrimaryPart
 Primitive2
-PrimitiveDefaultNullGuid
 PrimitiveLifetime
 PrimitiveRestartIndex
 Primitives
@@ -8651,6 +8647,7 @@ ReduceTrussSearchDistance
 Ref_count_del
 Ref_count_obj
 RefactoringAvatarEditorSetup
+RefactorScrollEvents
 ReferenceMenu
 ReferenceSubMenu
 ReferenceTime
@@ -8739,6 +8736,14 @@ RemoteDestroySeatWeld
 RemoteEvent
 RemoteEventDesc
 RemoteEventDescImpl
+RemoteEventGlobalRateLimitMax
+RemoteEventGlobalRateLimitMilliseconds
+RemoteEventReportRateLimitMax
+RemoteEventReportRateLimitMilliseconds
+RemoteEventSoundRateLimitMax
+RemoteEventSoundRateLimitMilliseconds
+RemoteEventSpecialRateLimitMax
+RemoteEventSpecialRateLimitMilliseconds
 RemoteFriendEventSignal
 RemoteFriendRequestSignal
 RemoteFriendServiceSignal
@@ -9542,6 +9547,7 @@ SecurityException
 SecurityKeyMismatch
 SecurityKeyRejected
 Selectable
+SelectAllModifiedPackagesVerb
 SelectChildrenOfSelection
 SelectCounterpartsVerb
 SelectedAction
@@ -10406,7 +10412,6 @@ StudioABTests
 StudioAccessToApisAllowed
 StudioAddLinkedAssetsFolder
 StudioAllowMouseTrackingOnMac
-StudioAlwaysPublishPackageWithModifiedPackages
 StudioAnalytics
 StudioAnimationEditorDefinedBoundaryNotches
 StudioAnimationEditorIKMode
@@ -10491,7 +10496,6 @@ StudioFixShareForU13
 StudioFixShareIcon
 StudioFixStartPageThumbnails
 StudioFixTabCloseButtonNaming
-StudioFixUniverseAlwaysRecreate
 StudioFlagEditor
 StudioFlagEditorDialog
 StudioForwardForceLocaleIds
@@ -10532,6 +10536,7 @@ StudioNetwork
 StudioNetworkAccessManager
 StudioNetworkReply
 StudioNetworkReplyData
+StudioNewLimit
 StudioNotificationForSolverDeprecation
 StudioNotReturnStartPageFix1
 StudioOnlyShowPackageLinkIfPackageOwner
@@ -11026,12 +11031,10 @@ ThemeChanged
 ThemeHelper
 ThemeManager
 ThePredacessorToUserRank
-TheseAnalyticsAreBigEnoughForTheTwoOfUs2
 ThirdParty
 ThirdPartyPurchaseFinished
 ThirdPartyUserService
 ThisDevice
-ThisJointAintBigEnoughForTheTwoOfUs2
 Thornsmall
 Thrd_hardware_concurrency
 Thrd_sleep
@@ -11773,7 +11776,7 @@ UseMomentumThinning
 UseNativePathWaypoint
 UseNewAELoadTimeMetrics
 UseNewAppBridgeXbone2
-UseNewLeakyBucketForRateLimiting
+UseNewLeakyBucketForRateLimiting_v2
 UseNewReplaceHttpWithHttpsFunction
 UseNewStructurePlayerScripts
 UseNonCollidableRootR15
@@ -12025,8 +12028,6 @@ VDescribedBase
 VDeserializedAacChallengeItem
 VDeserializedChangePropertyItem
 VDeserializedClusterItem
-VDeserializedDeleteInstanceItem
-VDeserializedEventInvocationItem
 VDeserializedIdChallengeItem
 VDeserializedJoinDataItem
 VDeserializedNetPmcChallengeItem
@@ -12903,8 +12904,6 @@ WorldToCellPreferEmpty
 WorldToCellPreferSolid
 WorldToScreenPoint
 WorldToViewportPoint
-WouldDestroyJointInstance
-WouldDestroyMoreJoints
 WristDisplacementDamping
 WristDisplacementDampingMode
 WriteArray
@@ -12931,6 +12930,7 @@ XbbXXbbXGSSGGSS
 XBoxAppSettings
 XboxAvatarPaneRefreshInterval
 XboxEnableABTests
+XboxFixScreenClose
 XboxGameDetailsRefreshInterval
 XboxGameSortsUpdateInterval
 XboxPresencePolling

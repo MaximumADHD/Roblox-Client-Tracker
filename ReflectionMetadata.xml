@@ -3819,6 +3819,15 @@
         <string name="ExplorerOrder">1</string>
         <string name="ExplorerImageIndex">98</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Status</string>
+            <string name="summary">Current status of the Package</string>
+            <bool name="Browsable">true</bool>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
