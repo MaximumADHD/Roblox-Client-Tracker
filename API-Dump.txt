@@ -96,6 +96,7 @@ Class AssetService : Instance
 	YieldFunction int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int64 packageAssetId)
 	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int64 assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
+	YieldFunction Dictionary AssetService:GetBundleDetailsAsync(int64 bundleId)
 	YieldFunction int64 AssetService:GetCreatorAssetID(int64 creationID) [deprecated]
 	YieldFunction Instance AssetService:GetGamePlacesAsync()
 	YieldFunction void AssetService:SavePlaceAsync()
@@ -350,6 +351,7 @@ Class Constraint : Instance
 	Property BrickColor Constraint.Color
 	Property bool Constraint.Enabled
 	Property bool Constraint.Visible
+	Function bool Constraint:GetActive()
 Class AlignOrientation : Constraint
 	Property float AlignOrientation.MaxAngularVelocity
 	Property float AlignOrientation.MaxTorque
@@ -1229,6 +1231,7 @@ Class JointInstance : Instance
 	Property Class:BasePart JointInstance.Part0
 	Property Class:BasePart JointInstance.Part1
 	Property Class:BasePart JointInstance.part1 [deprecated] [hidden]
+	Function bool JointInstance:GetActive()
 Class DynamicRotate : JointInstance
 	Property float DynamicRotate.BaseAngle
 Class RotateP : DynamicRotate
@@ -1332,6 +1335,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
+	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
 	YieldFunction void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
 	YieldFunction void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
 	Event LocalizationService.AutoTranslateWillRun() [RobloxScriptSecurity]
@@ -2651,6 +2655,7 @@ Class UserInputService : Instance [notCreatable]
 	Property Vector2 UserInputService.OnScreenKeyboardSize [readonly]
 	Property bool UserInputService.OnScreenKeyboardVisible [readonly]
 	Property OverrideMouseIconBehavior UserInputService.OverrideMouseIconBehavior [RobloxScriptSecurity]
+	Property Vector2 UserInputService.RightBarSize [readonly] [RobloxScriptSecurity]
 	Property Vector2 UserInputService.StatusBarSize [readonly] [RobloxScriptSecurity]
 	Property bool UserInputService.TouchEnabled [readonly]
 	Property CoordinateFrame UserInputService.UserHeadCFrame [deprecated] [readonly]
@@ -2677,7 +2682,7 @@ Class UserInputService : Instance [notCreatable]
 	Function bool UserInputService:IsMouseButtonPressed(UserInputType mouseButton)
 	Function bool UserInputService:IsNavigationGamepad(UserInputType gamepadEnum)
 	Function void UserInputService:RecenterUserHeadCFrame()
-	Function void UserInputService:SendAppUISizes(Vector2 statusBarSize, Vector2 navBarSize, Vector2 bottomBarSize) [RobloxScriptSecurity]
+	Function void UserInputService:SendAppUISizes(Vector2 statusBarSize, Vector2 navBarSize, Vector2 bottomBarSize, Vector2 rightBarSize) [RobloxScriptSecurity]
 	Function void UserInputService:SetNavigationGamepad(UserInputType gamepadEnum, bool enabled)
 	Event UserInputService.DeviceAccelerationChanged(Instance acceleration)
 	Event UserInputService.DeviceGravityChanged(Instance gravity)
@@ -2817,6 +2822,7 @@ Class WeldConstraint : Instance
 	Property bool WeldConstraint.Enabled
 	Property Class:BasePart WeldConstraint.Part0
 	Property Class:BasePart WeldConstraint.Part1
+	Function bool WeldConstraint:GetActive()
 Enum ActionType
 	EnumItem ActionType.Nothing : 0
 	EnumItem ActionType.Pause : 1

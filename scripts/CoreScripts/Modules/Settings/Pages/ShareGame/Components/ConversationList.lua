@@ -11,21 +11,25 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-local ConversationEntry = require(ShareGame.Components.ConversationEntry)
-local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
-local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
-local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
-local Constants = require(ShareGame.Constants)
-local httpRequest = require(AppTempCommon.Temp.httpRequest)
 
-local User = require(AppTempCommon.LuaApp.Models.User)
-local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)
-local memoize = require(AppTempCommon.Common.memoize)
+local Constants = require(ShareGame.Constants)
+local ConversationEntry = require(ShareGame.Components.ConversationEntry)
+local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
+local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
+local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
+local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
+
 local Promise = require(AppTempCommon.LuaApp.Promise)
+local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)
+local User = require(AppTempCommon.LuaApp.Models.User)
+local httpRequest = require(AppTempCommon.Temp.httpRequest)
+local memoize = require(AppTempCommon.Common.memoize)
 
 local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
 local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfos)
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
+
+local FFlagLuaInviteGameUsesInviteThunk = settings():GetFFlag("LuaInviteGameUsesInviteThunk")
 
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
@@ -161,59 +165,80 @@ local selectFriends = memoize(function(users)
 	return friends
 end)
 
--- TODO: Update to use RoactRodux.UNSTABLE_connect2
-local connector = RoactRodux.connect(function(store, props)
-	local state = store:getState()
-	return {
-		friends = selectFriends(
-			state.Users
-		),
-		friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
-		invites = state.Invites,
+local connector
+if FFlagLuaInviteGameUsesInviteThunk then
+	connector = RoactRodux.UNSTABLE_connect2(
+		function(state, props)
+			return {
+				friends = selectFriends(state.Users),
+				friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
+				invites = state.Invites,
+			}
+		end,
+		function(dispatch)
+			return {
+				inviteUser = function(userId)
+					local requestImpl = httpRequest(HttpRbxApiService)
+					local placeId = tostring(game.PlaceId)
 
-		inviteUser = function(userId)
-			local requestImpl = httpRequest(HttpRbxApiService)
-			local latestState = store:getState()
-
-			return Promise.new(function(resolve, reject)
-				-- Check that we haven't already invited this user
-				if latestState.Invites[tostring(userId)] == InviteStatus.Pending then
-					reject()
-				else
-					resolve()
-				end
-			end):andThen(function()
-				local placeId = tostring(game.PlaceId)
-				local maybePlaceInfo = latestState.PlaceInfos[placeId]
-
-				-- TODO: This should be a Thunk
-				return Promise.new(function(resolve, reject)
-					-- Log that we've tried inviting this user
-					store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Pending))
-
-					if maybePlaceInfo then
-						resolve(maybePlaceInfo)
-					else
-						store:dispatch(ApiFetchPlaceInfos(requestImpl, {placeId})):andThen(function(placeInfos)
-							if placeInfos[1] ~= nil then
-								resolve(placeInfos[1])
-							else
-								reject()
-							end
-						end, function()
-							reject()
-						end)
-					end
-				end):andThen(function(placeInfo)
-					return store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfo))
-				end):andThen(function(results)
-					store:dispatch(ReceivedUserInviteStatus(userId, results.resultType))
-				end, function()
-					store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Failed))
-				end)
-			end)
+					return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+				end,
+			}
 		end
-	}
-end)
+	)
+else
+	connector = RoactRodux.connect(function(store, props)
+		local state = store:getState()
+		return {
+			friends = selectFriends(
+				state.Users
+			),
+			friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
+			invites = state.Invites,
+
+			inviteUser = function(userId)
+				local requestImpl = httpRequest(HttpRbxApiService)
+				local latestState = store:getState()
+
+				return Promise.new(function(resolve, reject)
+					-- Check that we haven't already invited this user
+					if latestState.Invites[tostring(userId)] == InviteStatus.Pending then
+						reject()
+					else
+						resolve()
+					end
+				end):andThen(function()
+					local placeId = tostring(game.PlaceId)
+					local maybePlaceInfo = latestState.PlaceInfos[placeId]
+
+					return Promise.new(function(resolve, reject)
+						-- Log that we've tried inviting this user
+						store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Pending))
+
+						if maybePlaceInfo then
+							resolve(maybePlaceInfo)
+						else
+							store:dispatch(ApiFetchPlaceInfos(requestImpl, {placeId})):andThen(function(placeInfos)
+								if placeInfos[1] ~= nil then
+									resolve(placeInfos[1])
+								else
+									reject()
+								end
+							end, function()
+								reject()
+							end)
+						end
+					end):andThen(function(placeInfo)
+						return store:dispatch(ApiSendGameInvite(requestImpl, userId, placeInfo))
+					end):andThen(function(results)
+						store:dispatch(ReceivedUserInviteStatus(userId, results.resultType))
+					end, function()
+						store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Failed))
+					end)
+				end)
+			end
+		}
+	end)
+end
 
 return connector(ConversationList)

@@ -44,6 +44,8 @@ function VehicleController:Enable(enable, vehicleSeat)
 		return
 	end
 	
+	self.vehicleMoveVector = ZERO_VECTOR3
+	
 	if enable then
 		if vehicleSeat then
 			self.vehicleSeat = vehicleSeat

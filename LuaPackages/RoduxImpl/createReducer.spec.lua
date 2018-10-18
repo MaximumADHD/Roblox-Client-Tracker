@@ -49,6 +49,33 @@ return function()
 		expect(newState.b).to.equal(0)
 	end)
 
+	it("should still run action handlers if the state is nil", function()
+		local callCount = 0
+
+		local reducer = createReducer(0, {
+			foo = function(state, action)
+				callCount = callCount + 1
+				return nil
+			end
+		})
+
+		expect(callCount).to.equal(0)
+
+		local newState = reducer(nil, {
+			type = "foo",
+		})
+
+		expect(callCount).to.equal(1)
+		expect(newState).to.equal(nil)
+
+		newState = reducer(newState, {
+			type = "foo",
+		})
+
+		expect(callCount).to.equal(2)
+		expect(newState).to.equal(nil)
+	end)
+
 	it("should return the same state if the action is not handled", function()
 		local initialState = {
 			a = 0,

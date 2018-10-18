@@ -3,10 +3,15 @@
 -- Please note that these are loaded in a specific order to diminish errors/perceived load time by user
 local connectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
+local CorePackages = game:GetService("CorePackages")
 local scriptContext = game:GetService("ScriptContext")
 local touchEnabled = game:GetService("UserInputService").TouchEnabled
+local GuiService = game:GetService("GuiService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+
+local FFlagUseRoactPurchasePrompt = settings():GetFFlag("UseRoactPurchasePrompt")
+local isTenFootInterface = GuiService:IsTenFootInterface()
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -21,7 +26,7 @@ local function safeRequire(moduleScript)
 	end
 	return moduleReturnValue
 end
-if connectionScriptEnabled then
+if connectionScriptEnabled and not isTenFootInterface then
 	scriptContext:AddCoreScriptLocal("Connection", RobloxGui)
 end
 
@@ -43,7 +48,11 @@ spawn(function() safeRequire(RobloxGui.Modules.ChatSelector) end)
 spawn(function() safeRequire(RobloxGui.Modules.PlayerlistModule) end)
 
 -- Purchase Prompt Script
-scriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript2", RobloxGui)
+if FFlagUseRoactPurchasePrompt then
+	spawn(function() safeRequire(CorePackages.PurchasePrompt.Main) end)
+else
+	scriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript2", RobloxGui)
+end
 
 -- Prompt Block Player Script
 scriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)

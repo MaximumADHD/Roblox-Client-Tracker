@@ -46,6 +46,8 @@ function Keyboard:Enable(enable)
 	self.backwardValue = 0
 	self.leftValue = 0
 	self.rightValue = 0
+	self.moveVector = ZERO_VECTOR3
+	self.isJumping = false
 	
 	if enable then
 		self:BindContextActions()
