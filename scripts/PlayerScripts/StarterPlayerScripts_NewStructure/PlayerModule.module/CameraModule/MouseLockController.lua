@@ -49,19 +49,19 @@ function MouseLockController.new()
 		self:OnBoundKeysObjectChanged(boundKeysObj.Value) -- Initial setup call
 	end
 	
-	-- Watch for changes to user's ControlMode and ComputerMovementMode settings and update the feature availabilty accordingly
+	-- Watch for changes to user's ControlMode and ComputerMovementMode settings and update the feature availability accordingly
 	GameSettings.Changed:Connect(function(property)
 		if property == "ControlMode" or property == "ComputerMovementMode" then
 			self:UpdateMouseLockAvailability()
 		end
 	end)
 	
-	-- Watch for changes to DevEnableMouseLock and update the feature availabilty accordingly
+	-- Watch for changes to DevEnableMouseLock and update the feature availability accordingly
 	PlayersService.LocalPlayer:GetPropertyChangedSignal("DevEnableMouseLock"):Connect(function()
 		self:UpdateMouseLockAvailability()
 	end)
 	
-	-- Watch for changes to DevEnableMouseLock and update the feature availabilty accordingly
+	-- Watch for changes to DevEnableMouseLock and update the feature availability accordingly
 	PlayersService.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(function()
 		self:UpdateMouseLockAvailability()
 	end)
@@ -168,7 +168,6 @@ function MouseLockController:OnInputBegan(input, processed)
 	end
 end
 
---[[ Public API ]]--
 function MouseLockController:IsMouseLocked()
 	return self.enabled and self.isMouseLocked
 end

@@ -1,6 +1,6 @@
 
 --[[
-
+		VRNavigation
 --]]
 
 local VRService = game:GetService("VRService")
@@ -172,7 +172,6 @@ function VRNavigation:StopFollowingPath()
 	currentPoints = nil
 	currentPointIdx = 0
 	moving = false
-	--MasterControl:AddToPlayerMovement(-self.moveVector)
 	self.moveVector = ZERO_VECTOR3
 end
 
@@ -251,7 +250,6 @@ end
 
 function VRNavigation:OnJumpAction(actionName, inputState, inputObj)
 	if inputState == Enum.UserInputState.Begin then
-		--MasterControl:DoJump()
 		self.isJumping = true
 	end
 end
@@ -273,7 +271,6 @@ function VRNavigation:ControlCharacterGamepad(actionName, inputState, inputObjec
 	if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 	
 	if inputState == Enum.UserInputState.Cancel then
-		--MasterControl:AddToPlayerMovement(-self.moveVector)
 		self.moveVector =  ZERO_VECTOR3
 		return
 	end
@@ -290,7 +287,6 @@ function VRNavigation:ControlCharacterGamepad(actionName, inputState, inputObjec
 		end
 		
 		if inputObject.Position.magnitude > THUMBSTICK_DEADZONE then
-			--MasterControl:AddToPlayerMovement(-self.moveVector)
 			self.moveVector = Vector3.new(inputObject.Position.X, 0, -inputObject.Position.Y)
 			if self.moveVector.magnitude > 0 then
 				self.moveVector = self.moveVector.unit * math.min(1, inputObject.Position.magnitude)
@@ -299,7 +295,6 @@ function VRNavigation:ControlCharacterGamepad(actionName, inputState, inputObjec
 			self.moveLatch = true
 		end
 	else
-		--MasterControl:AddToPlayerMovement(-self.moveVector)
 		self.moveVector =  ZERO_VECTOR3
 		
 		if self:ShouldUseNavigationLaser() then
@@ -393,7 +388,6 @@ function VRNavigation:OnHeartbeat(dt)
 	end
 	
 	if IsFiniteVector3(newMoveVector) then
-		--MasterControl:AddToPlayerMovement(newMoveVector - self.moveVector)
 		self.moveVector = newMoveVector
 	end
 end

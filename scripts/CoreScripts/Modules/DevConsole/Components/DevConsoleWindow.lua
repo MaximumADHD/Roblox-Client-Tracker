@@ -104,7 +104,6 @@ function DevConsoleWindow:didMount()
 		end
 	end)
 	setMouseVisibility(self.props.isVisible)
-	self.props.dispatchSetDevConsolVisibility(false)
 
 	self.gamepadMenuListener = UserInputService.InputBegan:Connect(self.doGamepadMenuButton)
 end
@@ -118,17 +117,18 @@ function DevConsoleWindow:willUnmount()
 end
 
 function DevConsoleWindow:didUpdate(previousProps, previousState)
-	setMouseVisibility(self.props.isVisible)	
+	setMouseVisibility(self.props.isVisible)
+
 	if self.props.isMinimized and (GuiService.SelectedCoreObject == self.ref.current) then
 		GuiService.SelectedCoreObject = nil
 
-	elseif self.props.isVisible ~= previousProps.isVisible or 
-		self.props.currTab ~= previousProps.currTab then
+	elseif self.props.isVisible ~= previousProps.isVisible or
+		self.props.currTabIndex ~= previousProps.currTabIndex then
 		local inputTypeEnum = UserInputService:GetLastInputType()
 		local isGamepad = (Enum.UserInputType.Gamepad1 == inputTypeEnum)
 
 		if isGamepad and self.props.isVisible then
-			GuiService.SelectedCoreObject = self.ref.current	
+			GuiService.SelectedCoreObject = self.ref.current
 		else
 			GuiService.SelectedCoreObject = nil
 		end
@@ -139,7 +139,7 @@ function DevConsoleWindow:render()
 	local isVisible = self.props.isVisible
 	local formFactor = self.props.formFactor
 	local isdeveloperView = self.props.isdeveloperView
-	local currTab = self.props.currTab
+	local currTabIndex = self.props.currTabIndex
 	local tabList = self.props.tabList
 
 	local isMinimized = self.props.isMinimized
@@ -152,8 +152,8 @@ function DevConsoleWindow:render()
 	local windowPos = UDim2.new()
 
 	local elements = {}
-
 	local borderSizePixel = BORDER_SIZE
+
 
 	if formFactor ~= Constants.FormFactor.Large then
 		-- none desktop/Large are full screen devconsoles
@@ -225,13 +225,17 @@ function DevConsoleWindow:render()
 		local mainViewSizeOffset = UDim2.new(0, 0, 0, TopSectionHeight)
 		mainViewSize = mainViewSize - mainViewSizeOffset
 
-		if self.ref.current and currTab and isVisible then
-			elements["MainView"] = Roact.createElement(currTab.tab, {
-				size = mainViewSize,
-				formFactor = formFactor,
-				isdeveloperView = isdeveloperView,
-				tabList = tabList,
-			})
+
+		if self.ref.current and isVisible and tabList then
+			local targetTab = tabList[currTabIndex]
+			if targetTab then
+				elements["MainView"] = Roact.createElement( targetTab.tab, {
+					size = mainViewSize,
+					formFactor = formFactor,
+					isdeveloperView = isdeveloperView,
+					tabList = tabList,
+				})
+			end
 		end
 
 		return Roact.createElement("Frame", {
@@ -291,7 +295,7 @@ local function mapStateToProps(state, props)
 		isMinimized = state.DisplayOptions.isMinimized,
 		position = state.DisplayOptions.position,
 		size = state.DisplayOptions.size,
-		currTab = state.MainView.currTab,
+		currTabIndex = state.MainView.currTabIndex,
 		tabList = state.MainView.tabList,
 	}
 end

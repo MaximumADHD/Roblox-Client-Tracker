@@ -415,6 +415,8 @@ RBX
 		DebuggerBreakpoint
 		DebuggerManager
 		DebuggerWatch
+		IDebuggerDataSource
+		ISpecialBreakpoint
 		ScriptDebugger
 		StepInBreakpoint
 		StepOutBreakpoint
@@ -686,6 +688,7 @@ RBX
 	CorePackages
 	CoreScript
 	CorescriptConfigurer
+	CoreScriptSyncService
 	CornerWedgeInstance
 	CornerWedgePoly
 	CrashReporter

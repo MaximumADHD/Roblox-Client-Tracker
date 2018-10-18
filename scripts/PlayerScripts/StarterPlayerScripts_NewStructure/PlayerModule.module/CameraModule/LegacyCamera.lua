@@ -24,7 +24,6 @@ local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
 
-
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local LegacyCamera = setmetatable({}, BaseCamera)
@@ -48,7 +47,7 @@ function LegacyCamera:Test()
 	print("LegacyCamera:Test()")
 end
 
---[[ Functions overriden from BaseCamera ]]--
+--[[ Functions overridden from BaseCamera ]]--
 function LegacyCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	return BaseCamera.SetCameraToSubjectDistance(self,desiredSubjectDistance)
 end
@@ -123,8 +122,6 @@ function LegacyCamera:Update(dt)
 
 			local humanoid = self:GetHumanoid()
 			if humanoid and humanoid.RootPart then
-				-- TODO: let the paging buttons move the camera but not the mouse/touch
-				-- currently neither do
 				local diffVector = subjectPosition - camera.CFrame.p
 				cameraLook = diffVector.unit
 

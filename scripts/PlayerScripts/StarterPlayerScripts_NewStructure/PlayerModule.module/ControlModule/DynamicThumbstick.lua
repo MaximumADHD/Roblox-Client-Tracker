@@ -96,7 +96,6 @@ function DynamicThumbstick:EnableAutoJump(enable)
 	end
 end
 
---[[ Public API ]]--
 function DynamicThumbstick:Enable(enable, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
@@ -261,7 +260,7 @@ function DynamicThumbstick:Create(parentFrame)
 
 	self.thumbstickFrame = Instance.new("TextButton")
 	self.thumbstickFrame.Text = ""
-	self.thumbstickFrame.Name = "Dynamicself.thumbstickFrame"
+	self.thumbstickFrame.Name = "DynamicThumbstickFrame"
 	self.thumbstickFrame.Visible = false
 	self.thumbstickFrame.BackgroundTransparency = 1.0
 	self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)

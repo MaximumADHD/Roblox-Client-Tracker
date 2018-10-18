@@ -9,20 +9,27 @@ return function(state, action)
 		isClientView = true,
 		tabList = {},
 		currTab = nil,
+		currTabIndex = nil,
 	}
 
 	if action.type == SetActiveTab.name then
 		if mainView.tabList[action.newTabIndex] then
 			local update = {
-				currTab = mainView.tabList[action.newTabIndex],
+				currTabIndex = action.newTabIndex,
 				isClientView = action.isClientView
 			}
-			return Immutable.JoinDictionaries(mainView, update)
+            local updated = Immutable.JoinDictionaries(mainView, update)
+
+            if update.isClientView == nil then
+                updated = Immutable.RemoveFromDictionary(updated, "isClientView")
+            end
+			return updated
 		end
+
 	elseif action.type == SetTabList.name then
 		if action.tabList[action.initIndex] then
 			local update = {
-				currTab = action.tabList[action.initIndex],
+				currTabIndex = action.initIndex,
 				tabList = action.tabList,
 			}
 			return Immutable.JoinDictionaries(mainView, update)

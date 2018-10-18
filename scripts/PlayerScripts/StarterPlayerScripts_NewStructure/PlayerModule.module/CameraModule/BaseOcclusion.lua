@@ -29,17 +29,17 @@ end
 
 --[[ Derived classes are required to override and implement all of the following functions ]]--
 function GetOcclusionMode()
-	-- Must be overriden in derived classes to return an Enum.DevCameraOcclusionMode value
-	warn("BaseOcclusion GetOcclusionMode must be overriden by derived classes")
+	-- Must be overridden in derived classes to return an Enum.DevCameraOcclusionMode value
+	warn("BaseOcclusion GetOcclusionMode must be overridden by derived classes")
 	return nil
 end
 
 function BaseOcclusion:Enable(enabled)
-	warn("BaseOcclusion Enable must be overriden by derived classes")
+	warn("BaseOcclusion Enable must be overridden by derived classes")
 end
 
 function BaseOcclusion:Update(dt, desiredCameraCFrame, desiredCameraFocus)
-	warn("BaseOcclusion Update must be overriden by derived classes")
+	warn("BaseOcclusion Update must be overridden by derived classes")
 	return desiredCameraCFrame, desiredCameraFocus
 end
 

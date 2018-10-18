@@ -160,7 +160,7 @@ function ClassicCamera:Update()
 					-- This cutoff is to decide if the humanoid's angle of movement,
 					-- relative to the camera's look vector, is enough that
 					-- we want the camera to be following them. The point is to provide
-					-- a sizable deadzone to allow more precise forward movements.
+					-- a sizable dead zone to allow more precise forward movements.
 					local thetaCutoff = 0.4
 
 					-- Check for NaNs

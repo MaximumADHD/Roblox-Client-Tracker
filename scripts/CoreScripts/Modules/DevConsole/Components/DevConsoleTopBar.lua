@@ -21,6 +21,10 @@ local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
 function DevConsoleTopBar:init()
 	self.inputBegan = function(rbx,input)
+		if self.props.isMinimized then
+			return
+		end
+
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			local absPos = self.ref.current.AbsolutePosition
 			local startPos = Vector3.new(absPos.X, absPos.Y, 0)

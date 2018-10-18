@@ -65,7 +65,9 @@ return function()
 	}
 
 	it("should do nothing if empty list of users is provided", function()
-		local store = Rodux.Store.new(CustomReducer)
+		local store = Rodux.Store.new(CustomReducer, {}, {
+			Rodux.thunkMiddleware,
+		})
 		store:dispatch(UpdateUsers({ }))
 
 		local state = store:getState()
@@ -77,6 +79,8 @@ return function()
 	it("should update only the number of users with modified data", function()
 		local store = Rodux.Store.new(CustomReducer, {
 			Users = listOfUsers,
+		}, {
+			Rodux.thunkMiddleware,
 		})
 
 		local currentUsers = store:getState().Users
@@ -94,7 +98,9 @@ return function()
 	end)
 
 	it("should correctly update the number of friends", function()
-		local store = Rodux.Store.new(CustomReducer)
+		local store = Rodux.Store.new(CustomReducer, {}, {
+			Rodux.thunkMiddleware,
+		})
 		store:dispatch(UpdateUsers(listOfUsers))
 
 		local state = store:getState()

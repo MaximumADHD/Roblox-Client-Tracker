@@ -368,7 +368,7 @@ function OrbitalCamera:Update(dt)
 			if distToSubject > self.currentSubjectDistance or self.rotateInput.x ~= 0 then
 				local desiredDist = math.min(distToSubject, self.currentSubjectDistance)
 				
-				-- Note that CalculateNewLookVector is overriden from BaseCamera
+				-- Note that CalculateNewLookVector is overridden from BaseCamera
 				vecToSubject = self:CalculateNewLookVector(vecToSubject.unit * X1_Y0_Z1, Vector2.new(self.rotateInput.x, 0)) * desiredDist
 				
 				local newPos = cameraFocusP - vecToSubject

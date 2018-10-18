@@ -18,6 +18,7 @@ local shimmerStyles = {
 			BackgroundTransparency = 0.7,
 			ClipsDescendants = true,
 			Size = UDim2.new(1, 0, 1, 0),
+			BorderSizePixel = 0,
 			Visible = false,
 			Parent = parent,
 			ZIndex = 8,
@@ -27,6 +28,7 @@ local shimmerStyles = {
 				Size = UDim2.new(1, 0, 2, 0),
 				Position = UDim2.new(-1, 0, 0, 0),
 				Image = Constants.SHIMMER_TEXTURE,
+				BorderSizePixel = 0,
 				ZIndex = 8,
 			},
 			create 'ImageLabel' {
@@ -35,6 +37,7 @@ local shimmerStyles = {
 				SliceCenter = Rect.new(8, 8, 9, 9),
 				ImageColor3 = Constants.COLORS.FLINT,
 				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
 				Image = Constants.OVERLAY_TEXTURE,
 				Size = UDim2.new(1, 0, 1, 0),
 				ZIndex = 9,

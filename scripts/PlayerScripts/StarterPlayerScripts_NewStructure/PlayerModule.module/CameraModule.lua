@@ -245,13 +245,13 @@ function CameraModule:ActivateOcclusionModule( occlusionMode )
 		if occlusionMode == Enum.DevCameraOcclusionMode.Invisicam then
 			-- Optimization to only send Invisicam what we know it needs
 			if Players.LocalPlayer.Character then
-				self.activeOcclusionModule:CharacterAdded(Players.LocalPlayer, Players.LocalPlayer.Character)
+				self.activeOcclusionModule:CharacterAdded(Players.LocalPlayer.Character, Players.LocalPlayer )
 			end
 		else
 			-- Poppercam and any others that get added in the future and need the full player list for raycast ignore list 
 			for _, player in pairs(Players:GetPlayers()) do
 				if player and player.Character then
-					self.activeOcclusionModule:CharacterAdded(player, player.Character)
+					self.activeOcclusionModule:CharacterAdded(player.Character, player)
 				end
 			end
 			self.activeOcclusionModule:OnCameraSubjectChanged(game.Workspace.CurrentCamera.CameraSubject)
@@ -452,23 +452,6 @@ function CameraModule:OnUserGameSettingsPropertyChanged(propertyName)
 	if propertyName == 	"ComputerCameraMovementMode" then
 		local cameraMovementMode = self:GetCameraMovementModeFromSettings()
 		self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
-	
-	-- These remaining UserGameSettings properties are not currently used by camera scripts in Lua
-	-- and these cases could be removed.
-	elseif propertyName == "ComputerMovementMode" then
-
-	elseif propertyName == "ControlMode" then
-
-	elseif propertyName == "GamepadCameraSensitivity" then
-
-	elseif propertyName == "MouseSensitivity" then
-
-	elseif propertyName == "RotationType" then
-
-	elseif propertyName == "TouchCameraMovementMode" then
-
-	elseif propertyName == "TouchMovementMode" then
-
 	end
 end
 

@@ -803,51 +803,11 @@ end
 function BaseCamera:OnTouchTap(position)
 	if self.isDynamicThumbstickEnabled and not self.isAToolEquipped then
 		if self.lastTapTime and tick() - self.lastTapTime < MAX_TIME_FOR_DOUBLE_TAP then
---			local tween = {
---				from = self:GetCameraToSubjectDistance(),
---				to = self.defaultSubjectDistance,
---				start = tick(),
---				duration = 0.2,
---				func = function(from, to, alpha)
---					self:SetCameraToSubjectDistance(from + (to - from)*alpha)
---					return to
---				end
---			}
---			tweens["Zoom"] = tween
 			self:SetCameraToSubjectDistance(self.defaultSubjectDistance)
 		else
 			if self.humanoidRootPart then
-				-- TODO: Replace this with proper tween that does not fight with user input
-				-- this overrides any actual user input with a rotate input amount to get the
-				-- camera looking from behind the character
 				self.rotateInput = self:CalcLookBehindRotateInput()
 			end
-
---			local humanoid = self:GetHumanoid()
---			if humanoid then
---				local player = Players.LocalPlayer
---				if player and player.Character then
---					if humanoid and humanoid.RootPart then
---						local tween = {
---							from = this.RotateInput,
---							to = calcLookBehindRotateInput(humanoid.Torso),
---							start = tick(),
---							duration = 0.2,
---							func = function(from, to, alpha)
---								to = calcLookBehindRotateInput(humanoid.Torso)
---								if to then
---									this.RotateInput = from + (to - from)*alpha
---								end
---								return to
---							end
---						}
---						tweens["Rotate"] = tween
---
---						-- reset old camera info so follow cam doesn't rotate us
---						this.LastCameraTransform = nil
---					end
---				end
---			end
 		end
 		self.lastTapTime = tick()
 	end
@@ -1123,11 +1083,11 @@ function BaseCamera:InFirstPerson()
 end
 
 function BaseCamera:EnterFirstPerson()
-	-- Overriden in ClassicCamera, the only module which supports FirstPerson
+	-- Overridden in ClassicCamera, the only module which supports FirstPerson
 end
 
 function BaseCamera:LeaveFirstPerson()
-	-- Overriden in ClassicCamera, the only module which supports FirstPerson
+	-- Overridden in ClassicCamera, the only module which supports FirstPerson
 end
 
 -- Nominal distance, set by dollying in and out with the mouse wheel or equivalent, not measured distance

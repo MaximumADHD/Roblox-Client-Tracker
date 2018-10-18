@@ -17,7 +17,7 @@ local TARGET_TRANSPARENCY = 0.75 -- Classic Invisicam's Value, also used by new 
 local TARGET_TRANSPARENCY_PERIPHERAL = 0.5 -- Used by new SMART_CIRCLE mode for items not hit by head and torso rays
 
 local MODE = {
-	--CUSTOM = 1, 		-- Retired, unutilized
+	--CUSTOM = 1, 		-- Retired, unused
 	LIMBS = 2, 			-- Track limbs
 	MOVEMENT = 3, 		-- Track movement
 	CORNERS = 4, 		-- Char model corners

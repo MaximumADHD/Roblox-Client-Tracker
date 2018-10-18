@@ -105,10 +105,7 @@ end
 function Poppercam:Enable(enable)
 	if enable then
 		-- Enabling	
-		
 		self:BindInputs()		
-		
-			
 	else
 		-- Disabling
 		self:UnbindInputs()
@@ -116,22 +113,7 @@ function Poppercam:Enable(enable)
 	end
 end
 
---function Poppercam:MouseLock(isFirstPerson)
---	if isFirstPerson then
---		GameSettings.RotationType = Enum.RotationType.CameraRelative
---		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
---	else
---		GameSettings.RotationType = Enum.RotationType.MovementRelative
---		if self:GetPanning() then
---			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
---		else
---			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
---		end
---	end
---end
-
 function Poppercam:Update(renderDt, desiredCameraCFrame, desiredCameraFocus)
-	--print("desiredCameraCFrame: ",desiredCameraCFrame," desiredCameraFocus: ",desiredCameraFocus)
 	self.camera = game.Workspace.CurrentCamera
 	if self.camera.CameraType == Enum.CameraType.Custom then
 		local subject, subjectTransform, subjectRoot = Subject(self.worldDt)
@@ -140,18 +122,7 @@ function Poppercam:Update(renderDt, desiredCameraCFrame, desiredCameraFocus)
 			local zoomDelta = self:GetZoomDelta()
 			local newFocus = Rotate:Step(self.worldDt, subjectTransform, pitch, yaw) -- vehicle yaw spring must use the world step
 			local zoom, transparency, firstPerson = Zoom(renderDt, zoomDelta, newFocus, subjectRoot)
-			
-			--debug.profilebegin('write')
-				
-			-- CameraScript should already be doing all of this. Perhaps return this module's
-			-- recommendation for transparency?
-			--SetTransparency(subject, transparency)
-			--self:MouseLock(firstPerson)
-			--self.camera.Focus = focus
-			--self.camera.CFrame = focus*CFrame.new(0, 0, zoom)
-			
 			local newCameraCFrame = newFocus*CFrame.new(0, 0, zoom)
-			--debug.profileend()
 			return newCameraCFrame, newFocus
 		end
 	end
@@ -232,12 +203,12 @@ function Poppercam:UnbindInputs()
 end
 
 -- Called when character is added
-function Poppercam:CharacterAdded(player, character)
+function Poppercam:CharacterAdded(character, player)
 	
 end
 
 -- Called when character is about to be removed
-function Poppercam:CharacterRemoving(player, character)
+function Poppercam:CharacterRemoving(character, player)
 	
 end
 

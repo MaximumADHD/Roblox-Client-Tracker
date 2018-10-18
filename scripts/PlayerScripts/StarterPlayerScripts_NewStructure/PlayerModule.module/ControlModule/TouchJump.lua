@@ -127,7 +127,6 @@ function TouchJump:SetupCharacterAddedFunction()
 	end
 end
 
---[[ Public API ]]--
 function TouchJump:Enable(enable, parentFrame)
 	self.parentUIFrame = parentFrame
 	self.externallyEnabled = enable

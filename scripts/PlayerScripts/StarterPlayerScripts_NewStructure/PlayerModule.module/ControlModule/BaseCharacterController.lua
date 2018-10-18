@@ -33,7 +33,7 @@ end
 -- Override in derived classes to set self.enabled and return boolean indicating
 -- whether Enable/Disable was successful. Return true if controller is already in the requested state.
 function BaseCharacterController:Enable(enable)
-	error("BaseCharacterController:Enable must be overriden in derived classes and should not be called.")
+	error("BaseCharacterController:Enable must be overridden in derived classes and should not be called.")
 	return false
 end
 

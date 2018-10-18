@@ -1,6 +1,7 @@
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local TextService = game:GetService("TextService")
 local create = require(RobloxGui.Modules.Common.Create)
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
@@ -19,7 +20,7 @@ local styledFrame = {
 			BackgroundColor3 = Constants.COLORS.FLINT,
 			AnchorPoint= Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
-			Size = UDim2.new(0, Constants.ERROR_PROMPT_WIDTH.Default, 0, Constants.ERROR_PROMPT_HEIGHT.Default),
+			Size = UDim2.new(0, Constants.ERROR_PROMPT_MAX_WIDTH.Default, 0, Constants.ERROR_PROMPT_HEIGHT.Default),
 			Visible = false,
 			ZIndex = 8,
 			create 'UIListLayout' {
@@ -58,7 +59,7 @@ local styledFrame = {
 			create 'Frame' {
 				Name = "SplitLine",
 				LayoutOrder = 2,
-				Size = UDim2.new(1, -2 * Constants.SIDE_PADDING, 0, Constants.SPLIT_LINE_WIDTH),
+				Size = UDim2.new(1, -2 * Constants.SIDE_PADDING, 0, Constants.SPLIT_LINE_THICKNESS),
 				BackgroundColor3 = Constants.COLORS.PUMICE,
 				BorderSizePixel = 0,
 				ZIndex = 8,
@@ -66,7 +67,7 @@ local styledFrame = {
 			create 'Frame' {
 				Name = "MessageArea",
 				LayoutOrder = 3,
-				Size = UDim2.new(1, 0, 1, - Constants.ERROR_TITLE_FRAME_HEIGHT.Default - Constants.SPLIT_LINE_WIDTH),
+				Size = UDim2.new(1, 0, 1, - Constants.ERROR_TITLE_FRAME_HEIGHT.Default - Constants.SPLIT_LINE_THICKNESS),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ZIndex = 8,
@@ -169,6 +170,7 @@ end
 
 function ErrorPrompt:_open(errorMsg, errorCode)
 	self:setErrorText(errorMsg, errorCode)
+	self:resizeHeight()
 	if not self._isOpen then
 		self._frame.Visible = true
 		self._isOpen = true
@@ -222,7 +224,8 @@ function ErrorPrompt:_relayout()
 	if self._buttonCount == 0 then
 		buttonArea.Visible = false
 	else
-		local gridWidth = (Constants.ERROR_PROMPT_WIDTH.Default - (self._buttonCount - 1) * Constants.BUTTON_CELL_PADDING - 2 * Constants.SIDE_PADDING) / self._buttonCount
+		local gridWidth = (self._frame.Size.X.Offset - (self._buttonCount - 1) * Constants.BUTTON_CELL_PADDING
+			- 2 * Constants.SIDE_PADDING) / self._buttonCount
 		buttonArea.Visible = true
 		buttonArea.ButtonLayout.CellSize = UDim2.new(0, gridWidth, 0, Constants.BUTTON_HEIGHT)
 	end
@@ -298,6 +301,43 @@ function ErrorPrompt:primaryShimmerStop()
 	if self._primaryShimmer then
 		self._primaryShimmer:stop()
 	end
+end
+
+function ErrorPrompt:resizeWidth(screenWidth)
+	local currentWidth = self._frame.Size.X.Offset
+	local targetWidth = screenWidth - 2 * Constants.SIDE_MARGIN
+
+	if targetWidth > Constants.ERROR_PROMPT_MAX_WIDTH.Default then
+		if currentWidth == Constants.ERROR_PROMPT_MAX_WIDTH.Default then
+			return
+		else
+			targetWidth = Constants.ERROR_PROMPT_MAX_WIDTH.Default
+		end
+	end
+
+	if targetWidth < Constants.ERROR_PROMPT_MIN_WIDTH.Default then
+		if currentWidth == Constants.ERROR_PROMPT_MIN_WIDTH.Default then
+			return
+		else
+			targetWidth = Constants.ERROR_PROMPT_MIN_WIDTH.Default
+		end
+	end
+
+	self._frame.Size = UDim2.new(0, targetWidth, 0, self._frame.Size.Y.Offset)
+	self:resizeHeight()
+	self:_relayout()
+end
+
+function ErrorPrompt:resizeHeight()
+	local errorTextLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
+	local frameSize = Vector2.new(self._frame.Size.X.Offset - 2 * Constants.SIDE_PADDING, 1000)
+	local textLabelSize = TextService:GetTextSize(errorTextLabel.Text, errorTextLabel.TextSize, errorTextLabel.Font, frameSize)
+
+	-- errorMessageLabel height is the *ONLY* dynamically changing factor that could affect the prompt size
+	-- calulate the prompt height manually to avoid circular reference for size calculation
+	local targetHeight = Constants.ERROR_TITLE_FRAME_HEIGHT.Default + textLabelSize.Y + Constants.SPLIT_LINE_THICKNESS
+						+ Constants.BUTTON_HEIGHT + Constants.LAYOUT_PADDING + 2 * Constants.SIDE_PADDING + 1
+	self._frame.Size = UDim2.new(0, self._frame.Size.X.Offset, 0, targetHeight)
 end
 
 return ErrorPrompt

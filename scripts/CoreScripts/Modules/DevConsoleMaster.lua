@@ -29,23 +29,31 @@ local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 local MainView = require(DevConsole.Reducers.MainView)
 local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
 
-local SetDevConsoleVisibility = require(DevConsole.Actions.SetDevConsoleVisibility)
-local SetTabList = require(DevConsole.Actions.SetTabList)
+local Actions = DevConsole.Actions
+local SetDevConsoleVisibility = require(Actions.SetDevConsoleVisibility)
+local SetTabList = require(Actions.SetTabList)
+
+local MiddleWare = DevConsole.MiddleWare
+local ReportTabChanges = require(MiddleWare.ReportTabChanges)
 
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
+local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
 
 local DEV_TAB_LIST = {
 	Log = {
 		tab = Log,
 		layoutOrder = 1,
+		hasClientServer = true,
 	},
 	Memory = {
 		tab = Memory,
 		layoutOrder = 2,
+		hasClientServer = true,
 	},
 	Network = {
 		tab = Network,
 		layoutOrder = 3,
+		hasClientServer = true,
 	},
 	Scripts = {
 		tab = Scripts,
@@ -146,7 +154,14 @@ function DevConsoleMaster.new()
 	}
 
 	-- create store
-	self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore)
+	if FFlagDevConsoleTabMetrics then
+		self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, {
+			ReportTabChanges
+		})
+	else
+		self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore)
+	end
+
 	self.init = false
 	local isVisible = self.store:getState().DisplayOptions.isVisible
 

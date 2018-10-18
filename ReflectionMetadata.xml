@@ -3159,6 +3159,7 @@
       <Properties>
         <string name="Name">PointsService</string>
         <string name="summary">A service used to query and award points for Roblox users using the universal point system.</string>
+        <bool name="Deprecated">true</bool>
       </Properties>
 
       <Item class="ReflectionMetadataEvents">

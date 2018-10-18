@@ -9,8 +9,7 @@ local UtilAndTab = require(Components.UtilAndTab)
 local DataConsumer = require(Components.DataConsumer)
 
 local Actions = script.Parent.Parent.Parent.Actions
-local ClientLogUpdateSearchFilter = require(Actions.ClientLogUpdateSearchFilter)
-local ServerLogUpdateSearchFilter = require(Actions.ServerLogUpdateSearchFilter)
+local SetActiveTab = require(Actions.SetActiveTab)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
@@ -27,15 +26,15 @@ function MainViewLog:init()
 	end
 
 	self.onClientButton = function()
-		self:setState({isClientView = true})
+		self.props.dispatchSetActiveTab("Log", true)
 	end
 
 	self.onServerButton = function()
-		self:setState({isClientView = false})
+		self.props.dispatchSetActiveTab("Log", false)
 	end
 
 	self.onCheckBoxChanged = function(boxName, newState)
-		if self.state.isClientView then
+		if self.props.isClientView then
 			self.props.ClientLogData:setFilter(boxName, newState)
 		else
 			self.props.ServerLogData:setFilter(boxName, newState)
@@ -47,7 +46,7 @@ function MainViewLog:init()
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)
-		if self.state.isClientView then
+		if self.props.isClientView then
 			self.props.ClientLogData:setSearchTerm(newSearchTerm)
 		else
 			self.props.ServerLogData:setSearchTerm(newSearchTerm)
@@ -63,8 +62,7 @@ function MainViewLog:init()
 	self.utilRef = Roact.createRef()
 
 	self.state = {
-		utilTabHeight = 0,
-		isClientView = true
+		utilTabHeight = 0
 	}
 end
 
@@ -100,9 +98,10 @@ function MainViewLog:render()
 	local formFactor = self.props.formFactor
 	local isdeveloperView = self.props.isdeveloperView
 	local tabList = self.props.tabList
+	local isClientView = self.props.isClientView
 
 	local utilTabHeight = self.state.utilTabHeight
-	local isClientView = self.state.isClientView
+
 
 	local searchTerm
 	if isClientView then
@@ -173,18 +172,20 @@ function MainViewLog:render()
 	}, elements)
 end
 
-local function mapDispatchToProps(dispatch)
+local function mapStateToProps(state, props)
 	return {
-		dispatchClientLogUpdateSearchFilter = function(searchTerm, filters)
-			dispatch(ClientLogUpdateSearchFilter(searchTerm, filters))
-		end,
-
-		dispatchServerLogUpdateSearchFilter = function(searchTerm, filters)
-			dispatch(ServerLogUpdateSearchFilter(searchTerm, filters))
-		end,
+		isClientView = state.MainView.isClientView
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(
+local function mapDispatchToProps(dispatch)
+	return {
+		dispatchSetActiveTab = function (tabListIndex, isClientView)
+			dispatch(SetActiveTab(tabListIndex, isClientView))
+		end
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(
 	DataConsumer(MainViewLog, "ClientLogData", "ServerLogData")
 )

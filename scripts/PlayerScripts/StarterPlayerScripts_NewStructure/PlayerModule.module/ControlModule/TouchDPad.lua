@@ -56,7 +56,6 @@ function TouchDPad:GetCenterPosition()
 	return Vector2.new(self.DPadFrame.AbsolutePosition.x + self.DPadFrame.AbsoluteSize.x * 0.5, self.DPadFrame.AbsolutePosition.y + self.DPadFrame.AbsoluteSize.y * 0.5)
 end
 
---[[ Public API ]]--
 function TouchDPad:Enable(enable, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison

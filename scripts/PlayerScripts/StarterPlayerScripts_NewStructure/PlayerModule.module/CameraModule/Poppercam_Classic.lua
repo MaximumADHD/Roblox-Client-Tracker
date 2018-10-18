@@ -81,9 +81,8 @@ function Poppercam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 		end
 		
 		-- Get largest cutoff distance
-		-- This swapping and setting of the camera CFrame is a hack because we don't actually want to set it yet,
-		-- but GetLargestCutoffDistance can't be passed the desiredCameraCFrame, it only works for where the camera
-		-- currently is
+		-- Note that the camera CFrame must be set here, because the current implementation of GetLargestCutoffDistance
+		-- uses the current camera CFrame directly (it cannot yet be passed the desiredCameraCFrame).
 		local prevCameraCFrame = self.camera.CFrame
 		self.camera.CFrame = desiredCameraCFrame
 		self.camera.Focus = desiredCameraFocus
@@ -102,8 +101,6 @@ function Poppercam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
 			popAmount = self.lastPopAmount
 		end
 
-	
-		-- TODO: Don't let Poppercam directly manipulate camera like this
 		if popAmount > 0 then
 			newCameraCFrame = desiredCameraCFrame + (desiredCameraCFrame.lookVector * popAmount)
 			self.lastPopAmount = popAmount - POP_RESTORE_RATE -- Shrink it for the next frame

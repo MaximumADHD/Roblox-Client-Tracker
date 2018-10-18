@@ -23,6 +23,7 @@ local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagKillGuiButtonSetVerb = settings():GetFFlag("KillGuiButtonSetVerb")
 
 ----------- CLASS DECLARATION --------------
 
@@ -141,8 +142,17 @@ local function Initialize()
 			end)
 		end
 
-		recordButton:SetVerb("RecordToggle")
-		this.ScreenshotButton:SetVerb("Screenshot")
+		if FFlagKillGuiButtonSetVerb then
+			recordButton.Activated:Connect(function()
+				CoreGui:ToggleRecording()
+			end)
+			this.ScreenshotButton.Activated:Connect(function()
+				CoreGui:TakeScreenshot()
+			end)
+		else
+			recordButton:SetVerb("RecordToggle")
+			this.ScreenshotButton:SetVerb("Screenshot")
+		end
 
 		this.Page.Size = UDim2.new(1,0,0,400)
 	end

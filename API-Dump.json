@@ -1904,7 +1904,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
@@ -2001,7 +2001,7 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
@@ -2483,6 +2483,28 @@
                                 "Name": "NormalId"
                             }
                         }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "TakeScreenshot",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ToggleRecording",
+                    "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -8796,6 +8818,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CoreScriptSyncService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "GetAttachedReceivers",
@@ -13368,13 +13402,17 @@
                     "MemberType": "Property",
                     "Name": "SliceScale",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -13933,13 +13971,17 @@
                     "MemberType": "Property",
                     "Name": "SliceScale",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -22368,7 +22410,6 @@
                         "CanSave": true
                     },
                     "Tags": [
-                        "NotReplicated",
                         "NotScriptable"
                     ],
                     "ValueType": {
@@ -26071,6 +26112,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "SelectedTheme",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -29892,7 +29953,8 @@
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated"
+                        "NotReplicated",
+                        "NotScriptable"
                     ],
                     "ValueType": {
                         "Category": "Primitive",
@@ -30528,6 +30590,27 @@
                 {
                     "Category": "Link",
                     "MemberType": "Property",
+                    "Name": "Status",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Link",
+                    "MemberType": "Property",
                     "Name": "VersionNumber",
                     "Security": {
                         "Read": "None",
@@ -31111,6 +31194,48 @@
                     "Tags": [
                         "Yields"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ComputeAsync",
+                    "Parameters": [
+                        {
+                            "Name": "start",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "finish",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Blocked",
+                    "Parameters": [
+                        {
+                            "Name": "blockedWaypointIdx",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -31143,6 +31268,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreatePath",
+                    "Parameters": [
+                        {
+                            "Default": "nil",
+                            "Name": "agentParameters",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",
@@ -35742,7 +35886,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ]
                 },
                 {
@@ -35763,7 +35908,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ]
                 },
                 {
@@ -35829,7 +35975,8 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service"
+                "Service",
+                "Deprecated"
             ]
         },
         {
@@ -42176,6 +42323,23 @@
                 {
                     "Category": "Advanced",
                     "MemberType": "Property",
+                    "Name": "Enable CoreScript Debugger",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
                     "Name": "Enable Intellisense",
                     "Security": {
                         "Read": "None",
@@ -42923,23 +43087,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "UITheme"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Use Accurate Play Solo",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -55914,6 +56061,38 @@
                 {
                     "Name": "DiffFilePathBorder",
                     "Value": 73
+                },
+                {
+                    "Name": "Separator",
+                    "Value": 74
+                },
+                {
+                    "Name": "ButtonBorder",
+                    "Value": 75
+                },
+                {
+                    "Name": "ButtonText",
+                    "Value": 76
+                },
+                {
+                    "Name": "InputFieldBorder",
+                    "Value": 77
+                },
+                {
+                    "Name": "CheckedFieldBackground",
+                    "Value": 78
+                },
+                {
+                    "Name": "CheckedFieldBorder",
+                    "Value": 79
+                },
+                {
+                    "Name": "CheckedFieldIndicator",
+                    "Value": 80
+                },
+                {
+                    "Name": "HeaderSection",
+                    "Value": 81
                 }
             ],
             "Name": "StudioStyleGuideColor"

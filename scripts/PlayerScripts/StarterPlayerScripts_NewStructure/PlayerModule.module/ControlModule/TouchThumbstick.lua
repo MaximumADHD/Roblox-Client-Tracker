@@ -1,6 +1,6 @@
 --[[
 	
-	Stub
+	TouchThumbstick
 	
 --]]
 
@@ -33,7 +33,6 @@ function TouchThumbstick.new()
 	return self
 end
 
---[[ Public API ]]--
 function TouchThumbstick:Enable(enable, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison

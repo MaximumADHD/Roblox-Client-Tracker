@@ -1,6 +1,6 @@
 --[[
 	
-	Stub
+	TouchThumbpad
 	
 --]]
 
@@ -55,7 +55,6 @@ local function CreateArrowLabel(name, position, size, rectOffset, rectSize, pare
 	return image
 end
 
---[[ Public API ]]--
 function TouchThumbpad:Enable(enable, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
@@ -150,7 +149,6 @@ function TouchThumbpad:Create(parentFrame)
 	self.isRight, self.isLeft, self.isUp, self.isDown = false, false, false, false
 	
 	local function doMove(pos)
-		--MasterControl:AddToPlayerMovement(-currentMoveVector)
 		
 		local moveDelta = pos - padOrigin
 		local moveVector2 = 2 * moveDelta / thumbpadSize
@@ -168,8 +166,6 @@ function TouchThumbpad:Create(parentFrame)
 				self.moveVector = Vector3.new(moveVector2.x, 0, moveVector2.y).Unit
 			end
 		end
-		
-		--MasterControl:AddToPlayerMovement(currentMoveVector)
 		
 		local forwardDot = self.moveVector:Dot(-UNIT_Z)
 		local rightDot = self.moveVector:Dot(UNIT_X)

@@ -27,6 +27,9 @@ local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local FFlagUserNavigationFixClickToMoveInterruptionSuccess, FFlagUserNavigationFixClickToMoveInterruptionResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveInterruption") end)
 local FFlagUserNavigationFixClickToMoveInterruption = FFlagUserNavigationFixClickToMoveInterruptionSuccess and FFlagUserNavigationFixClickToMoveInterruptionResult
 
+local FFlagUserNavigationClickToMoveUsePathBlockedSuccess, FFlagUserNavigationClickToMoveUsePathBlockedResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveUsePathBlocked") end)
+local FFlagUserNavigationClickToMoveUsePathBlocked = FFlagUserNavigationClickToMoveUsePathBlockedSuccess and FFlagUserNavigationClickToMoveUsePathBlockedResult
+
 local Player = Players.LocalPlayer
 local PlayerScripts = Player.PlayerScripts
 
@@ -329,16 +332,23 @@ local function Pather(character, endPoint, surfaceNormal)
 	this.DiedConn = nil
 	this.SeatedConn = nil
 	this.MoveToConn = nil
+	this.BlockedConn = nil
 	this.CurrentPoint = 0
 
 	function this:Cleanup()
 		if this.stopTraverseFunc then
 			this.stopTraverseFunc()
+			this.stopTraverseFunc = nil
 		end
 
 		if this.MoveToConn then
 			this.MoveToConn:Disconnect()
 			this.MoveToConn = nil
+		end
+
+		if this.BlockedConn then
+			this.BlockedConn:Disconnect()
+			this.BlockedConn = nil
 		end
 
 		if this.DiedConn then
@@ -376,6 +386,9 @@ local function Pather(character, endPoint, surfaceNormal)
 				this.pathResult = PathfindingService:FindPathAsync(torso.CFrame.p, this.TargetPoint)
 			end)
 			this.pointList = this.pathResult and this.pathResult:GetWaypoints()
+			if this.pathResult and FFlagUserNavigationClickToMoveUsePathBlocked then
+				this.BlockedConn = this.pathResult.Blocked:Connect(function(blockedIdx) this:OnPathBlocked(blockedIdx) end)
+			end
 			this.PathComputing = false
 			this.PathComputed = this.pathResult and this.pathResult.Status == Enum.PathStatus.Success or false
 		end
@@ -387,6 +400,39 @@ local function Pather(character, endPoint, surfaceNormal)
 			this:ComputePath()
 		end
 		return this.pathResult.Status == Enum.PathStatus.Success
+	end
+
+	this.Recomputing = false
+	function this:OnPathBlocked(blockedWaypointIdx)
+		local pathBlocked = blockedWaypointIdx >= this.CurrentPoint
+		if not pathBlocked or this.Recomputing then
+			return
+		end
+
+		this.Recomputing = true
+
+		if this.stopTraverseFunc then
+			this.stopTraverseFunc()
+			this.stopTraverseFunc = nil
+		end
+
+		this.pathResult:ComputeAsync(this.humanoid.Torso.CFrame.p, this.TargetPoint)
+		this.pointList = this.pathResult:GetWaypoints()
+		this.PathComputed = this.pathResult and this.pathResult.Status == Enum.PathStatus.Success or false
+
+		if SHOW_PATH then
+			this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4, true)
+		end
+		if this.PathComputed then
+			this.humanoid = findPlayerHumanoid(Player)
+			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
+			this:OnPointReachedFixJump(true) -- Move to first point
+		else
+			this.PathFailed:Fire()
+			this:Cleanup()
+		end
+
+		this.Recomputing = false
 	end
 
 	function this:OnPointReached(reached)
@@ -980,23 +1026,6 @@ function ClickToMove:OnCharacterAdded(character)
 	
 	RunService:BindToRenderStep("ClickToMoveRenderUpdate",Enum.RenderPriority.Camera.Value - 1,Update)
 
-	-- TODO: Resolve with control script seating functionality
---	local function onSeated(child, active, currentSeatPart)
---		if active then
---			if TouchJump and UserInputService.TouchEnabled then
---				TouchJump:Enable()
---			end
---			if currentSeatPart and currentSeatPart.ClassName == "VehicleSeat" then
---				CurrentSeatPart = currentSeatPart
---			end
---		else
---			CurrentSeatPart = nil
---			if TouchJump and UserInputService.TouchEnabled then
---				TouchJump:Disable()
---			end
---		end
---	end
-
 	local function OnCharacterChildAdded(child)
 		if UserInputService.TouchEnabled then
 			if child:IsA('Tool') then
@@ -1010,10 +1039,6 @@ function ClickToMove:OnCharacterAdded(character)
 					DebrisService:AddItem(ExistingIndicator.Model, 1)
 				end
 			end)
---			self.humanoidSeatedConn = child.Seated:Connect(function(active, seat) onSeated(child, active, seat) end)
---			if child.SeatPart then
---				onSeated(child, true, child.SeatPart)
---			end
 		end
 	end
 

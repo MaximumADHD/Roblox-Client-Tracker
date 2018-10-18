@@ -200,8 +200,6 @@ function ControlModule:SelectComputerMovementModule()
 		if UserGameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove and computerModule == Keyboard then
 			-- User has ClickToMove set in Settings, prefer ClickToMove controller for keyboard and mouse lastInputTypes
 			computerModule = ClickToMove
---		elseif not computerModule then
---			computerModule = movementEnumToModuleMap[UserGameSettings.ComputerMovementMode]
 		end
 	else
 		-- Developer has selected a mode that must be used.

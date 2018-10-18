@@ -16,13 +16,13 @@ local TAB_OVERALAP_THESHOLD = Constants.TabRowFormatting.TabOverlapThreshold
 local TabRowContainer = Roact.Component:extend("TabRowContainer")
 
 function TabRowContainer:init()
-	local tabs = self.props.tabList
+	local tabList = self.props.tabList
 	local textWidths = {}
 	local totalLength = 0
 	local count = 0
 
-	if tabs then
-		for name,_ in pairs(tabs) do
+	if tabList then
+		for name,_ in pairs(tabList) do
 			local textVector = TextService:GetTextSize(
 				name,
 				Constants.DefaultFontSize.TabBar,
@@ -45,7 +45,7 @@ function TabRowContainer:init()
 	self.onTabButtonClicked = function(tabIndex)
 		for name, tab in pairs(self.props.tabList) do
 			if tab.layoutOrder  == tabIndex then
-				self.props.dispatchSetActiveTab(name)
+				self.props.dispatchSetActiveTab(name, tab.hasClientServer)
 				return
 			end
 		end
@@ -53,8 +53,8 @@ function TabRowContainer:init()
 end
 
 function TabRowContainer:render()
-	local tabs = self.props.tabList
-	local currTab = self.props.currTab
+	local tabList = self.props.tabList
+	local currTabIndex = self.props.currTabIndex
 	local formFactor = self.props.formFactor
 	local currWindowWidth = self.props.windowWidth
 	local frameHeight = self.props.frameHeight
@@ -68,23 +68,20 @@ function TabRowContainer:render()
 
 	local padding = (currWindowWidth - totalTextLength)  / totalTabCount
 
-	-- the remainder is used to center the row of tabs so the
+	-- the remainder is used to center the row of tabList so the
 	-- snap when crossing integer boundaries is less noticeable
 	local remainder = (padding % 1) * totalTabCount / 2
 
 	local useDropDown = padding < TAB_OVERALAP_THESHOLD and currWindowWidth > 0
 	local useFullScreenDropDown = formFactor == Constants.FormFactor.Small
 
-	if tabs then
+	if tabList then
 		if useDropDown or useFullScreenDropDown then
 			local names = {}
-			local selectedIndex
-			for name,tab in pairs(tabs) do
-				-- ind is the order of these labels
+			local selectedIndex = tabList[currTabIndex].layoutOrder
+
+			for name, tab in pairs(tabList) do
 				names[tab.layoutOrder] = name
-				if not selectedIndex and tab == currTab then
-					selectedIndex = tab.layoutOrder
-				end
 			end
 
 			if useFullScreenDropDown then
@@ -106,13 +103,13 @@ function TabRowContainer:render()
 
 		else
 
-			for name,tab in pairs(tabs) do
+			for name,tab in pairs(tabList) do
 				nodes[name] = Roact.createElement(TabRowButton, {
 					index = tab.layoutOrder,
 					name = name,
 					padding = padding,
 					textWidth = useDropDown and DROP_DOWN_WIDTH or textWidths[name],
-					isSelected = (tab == currTab),
+					isSelected = (name == currTabIndex),
 					layoutOrder = tab.layoutOrder,
 
 					onTabButtonClicked = self.onTabButtonClicked,
@@ -139,14 +136,14 @@ end
 local function mapStateToProps(state, props)
 	return {
 		tabList = state.MainView.tabList,
-		currTab = state.MainView.currTab,
+		currTabIndex = state.MainView.currTabIndex,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		dispatchSetActiveTab = function(index)
-			dispatch(SetActiveTab(index))
+		dispatchSetActiveTab = function(index, hasClientServer)
+			dispatch(SetActiveTab(index, hasClientServer))
 		end
 	}
 end

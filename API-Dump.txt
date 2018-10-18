@@ -130,6 +130,8 @@ Class CoreGui : BasePlayerGui [notCreatable]
 	Property Class:GuiObject CoreGui.SelectionImageObject [RobloxScriptSecurity]
 	Property int CoreGui.Version [readonly]
 	Function void CoreGui:SetUserGuiRendering(bool enabled, Instance guiAdornee, NormalId faceId) [RobloxScriptSecurity]
+	Function void CoreGui:TakeScreenshot() [RobloxScriptSecurity]
+	Function void CoreGui:ToggleRecording() [RobloxScriptSecurity]
 Class PlayerGui : BasePlayerGui [notCreatable]
 	Property ScreenOrientation PlayerGui.CurrentScreenOrientation [readonly]
 	Property ScreenOrientation PlayerGui.ScreenOrientation
@@ -500,6 +502,7 @@ Class VehicleController : Controller
 Class ControllerService : Instance [notCreatable]
 Class CookiesService : Instance
 Class CorePackages : Instance [notCreatable]
+Class CoreScriptSyncService : Instance [notCreatable]
 Class CustomEvent : Instance [deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers()
 	Function void CustomEvent:SetValue(float newValue)
@@ -765,7 +768,7 @@ Class ImageButton : GuiButton
 	Property Content ImageButton.PressedImage
 	Property ScaleType ImageButton.ScaleType
 	Property Rect2D ImageButton.SliceCenter
-	Property float ImageButton.SliceScale
+	Property float ImageButton.SliceScale [hidden] [RobloxScriptSecurity]
 	Property UDim2 ImageButton.TileSize
 Class TextButton : GuiButton
 	Property Font TextButton.Font
@@ -798,7 +801,7 @@ Class ImageLabel : GuiLabel
 	Property bool ImageLabel.IsLoaded [readonly]
 	Property ScaleType ImageLabel.ScaleType
 	Property Rect2D ImageLabel.SliceCenter
-	Property float ImageLabel.SliceScale
+	Property float ImageLabel.SliceScale [hidden] [RobloxScriptSecurity]
 	Property UDim2 ImageLabel.TileSize
 Class TextLabel : GuiLabel
 	Property Font TextLabel.Font
@@ -1512,6 +1515,7 @@ Class NotificationService : Instance [notCreatable]
 	Property bool NotificationService.IsLuaChatEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaGamesPageEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaHomePageEnabled [readonly] [RobloxScriptSecurity]
+	Property string NotificationService.SelectedTheme [RobloxScriptSecurity]
 	Function void NotificationService:ActionEnabled(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:ActionTaken(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:CancelAllNotification(int64 userId) [LocalUserSecurity]
@@ -1716,7 +1720,6 @@ Class Workspace : Model
 	Property bool Workspace.FilteringEnabled [ScriptWriteRestricted: [PluginSecurity]]
 	Property float Workspace.Gravity
 	Property bool Workspace.StreamingEnabled
-	Property bool Workspace.TemporaryLegacyPhysicsSolverOverride
 	Property Class:Instance Workspace.Terrain [readonly]
 	Function void Workspace:BreakJoints(Objects objects) [PluginSecurity]
 	Function bool Workspace:ExperimentalSolverIsEnabled() [LocalUserSecurity]
@@ -1783,8 +1786,11 @@ Class Path : Instance
 	Function Array Path:GetPointCoordinates() [deprecated]
 	Function Array Path:GetWaypoints()
 	YieldFunction int Path:CheckOcclusionAsync(int start)
+	YieldFunction void Path:ComputeAsync(Vector3 start, Vector3 finish)
+	Event Path.Blocked(int blockedWaypointIdx)
 Class PathfindingService : Instance [notCreatable]
 	Property float PathfindingService.EmptyCutoff [deprecated]
+	Function Instance PathfindingService:CreatePath(Dictionary agentParameters = nil)
 	YieldFunction Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
 	YieldFunction Instance PathfindingService:ComputeSmoothPathAsync(Vector3 start, Vector3 finish, float maxDistance) [deprecated]
 	YieldFunction Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish)
@@ -2028,10 +2034,10 @@ Class PluginManager : Instance
 	Function Instance PluginManager:CreatePlugin() [PluginSecurity]
 	Function void PluginManager:ExportPlace(string filePath = ) [PluginSecurity]
 	Function void PluginManager:ExportSelection(string filePath = ) [PluginSecurity]
-Class PointsService : Instance [notCreatable]
+Class PointsService : Instance [deprecated] [notCreatable]
 	Function int PointsService:GetAwardablePoints() [deprecated]
-	YieldFunction Tuple PointsService:AwardPoints(int64 userId, int amount)
-	YieldFunction int PointsService:GetGamePointBalance(int64 userId)
+	YieldFunction Tuple PointsService:AwardPoints(int64 userId, int amount) [deprecated]
+	YieldFunction int PointsService:GetGamePointBalance(int64 userId) [deprecated]
 	YieldFunction int PointsService:GetPointBalance(int64 userId) [deprecated]
 	Event PointsService.PointsAwarded(int64 userId, int pointsAwarded, int userBalanceInGame, int userTotalBalance)
 Class Pose : Instance

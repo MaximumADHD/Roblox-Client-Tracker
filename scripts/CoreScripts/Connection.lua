@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TeleportService = game:GetService("TeleportService")
+local AnalyticsService = game:GetService("AnalyticsService")
 
 local create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
@@ -18,6 +19,7 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 local errorPrompt
 local graceTimeout = -1
+local screenWidth = RobloxGui.AbsoluteSize.X
 
 local ConnectionPromptState = {
 	NONE = 1, -- General Error Message
@@ -71,6 +73,8 @@ local reconnectFunction = function()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
 		return
 	end
+
+	AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectActivated")
 	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
 	errorPrompt:primaryShimmerPlay()
 
@@ -105,9 +109,11 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectProtocolMismatch] = true,
 	[Enum.ConnectionError.DisconnectBadhash] = true,
 	[Enum.ConnectionError.DisconnectIllegalTeleport] = true,
-	[Enum.ConnectionError.DisconnectDuplicateTicket] = true,
 	[Enum.ConnectionError.DisconnectDuplicatePlayer] = true,
 	[Enum.ConnectionError.DisconnectPlayerless] = true,
+	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
+	[Enum.ConnectionError.DisconnectHashTimeout] = true,
+	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
 }
 
 local ButtonList = {
@@ -225,6 +231,7 @@ local function stateTransit(errorType, errorCode, oldState)
 	if oldState == ConnectionPromptState.IS_RECONNECTING then
 
 		-- if is reconnecting, then it is the reconnect failure
+		AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectFailed")
 		if errorType == Enum.ConnectionError.TeleportErrors then
 			if errorForReconnect == Enum.ConnectionError.PlacelaunchErrors then
 				return ConnectionPromptState.RECONNECT_PLACELAUNCH
@@ -257,6 +264,18 @@ local function onErrorMessageChanged()
 	local errorType = GuiService:GetErrorType()
 	updateErrorPrompt(errorMsg, errorCode, errorType)
 end
+
+local function onScreenSizeChanged()
+	local newWidth = RobloxGui.AbsoluteSize.X
+	if screenWidth ~= newWidth then
+		screenWidth = newWidth
+		errorPrompt:resizeWidth(screenWidth)
+	end
+end
+
+-- adjust size to the current screen width
+errorPrompt:resizeWidth(screenWidth)
+RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
 
 -- pre-run it once in case some error occurs before the connection
 onErrorMessageChanged()
