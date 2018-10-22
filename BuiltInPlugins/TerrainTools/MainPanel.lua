@@ -1,0 +1,340 @@
+local module = {}
+
+local GuiUtilities = require(script.Parent.Libs.GuiUtilities)
+local ImageButtonWithText = require(script.Parent.Libs.ImageButtonWithText)
+
+local kMainButtonOuterSize = 53
+local kMainButtonBorderSize = 1
+local kMainButtonActualSize = (kMainButtonOuterSize - 2 * kMainButtonBorderSize)
+
+local kMainButtonActualSizeUDim2 = UDim2.new(0, kMainButtonActualSize, 0, kMainButtonActualSize)
+local kMainButtonOuterSizeUDim2 = UDim2.new(0, kMainButtonOuterSize, 0, kMainButtonOuterSize)
+
+local kMainButtonFramePadding = UDim.new(0, 4)
+
+local kMainButtonListFrame
+
+--[[
+	How tool modules work:
+		Your ModuleScript should return a table. The table can contain the following functions
+			On	= This function will be called when your tool is selected. Will hand in the mouse object, and the tool.
+			Off	= This function will be called when your tool is deselected.
+			BrushOperation = If this function is present, the tool will use the basic brushing functionality, and use this function as the operation
+				operation(centerPoint, materialsTable, occupanciesTable, resolution, selectionSize, strength, desiredMaterial, brushShape, minBounds, maxBounds)
+			FirstTimeSetup = A function that can hold back the majority of the code from being setup until the tool is used for the first time
+]]
+
+
+local modules =
+{
+	Brush = require(script.Parent.TerrainBrush),
+	TerrainGeneration = require(script.Parent.TerrainGeneration),
+	TerrainSmoother = require(script.Parent.TerrainSmoother),
+	TerrainRegionEditor = require(script.Parent.TerrainRegionEditor)
+}
+
+local kMainButtonConfigs = 
+{
+	{
+		Name = "Generate",
+		Text = "Generate",
+		Tip = 'Generate landscapes of terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_generate.png",
+		Modules = {modules.TerrainGeneration},
+		LayoutOrder = 1,
+	}, 
+	{
+		Name = "Add",
+		Text = "Add",
+		Tip = 'Click and hold to add terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_add.png",
+		Modules = {modules.Brush,},
+		UsesMaterials = true,
+		LayoutOrder = 2,
+		DisablesPlaneLock = true,
+	}, 
+	{
+		Name = "Subtract",
+		Text = "Subtract",
+		Tip = 'Click and hold to remove terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_subtract.png",
+		Modules = {modules.Brush,},
+		LayoutOrder = 3,
+		DisablesPlaneLock = true,
+		DisablesAutoColor = true,
+	}, 
+	{
+		Name = "Paint",
+		Text = "Paint",
+		Tip = 'Paint the material of the terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_paint.png",
+		Modules = {modules.Brush,},
+		UsesMaterials = true,
+		LayoutOrder = 4,
+		DisablesAutoColor = true,
+	}, 
+	{
+		Name = "Grow",
+		Text = "Grow",
+		Tip = 'Click and hold to grow and expand terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_grow.png",
+		Modules = {modules.Brush,},
+		UsesMaterials = true,
+		LayoutOrder = 5,
+	}, 
+	{
+		Name = "Erode",
+		Text = "Erode",
+		Tip = 'Click and hold to erode and remove terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_erode.png",
+		Modules = {modules.Brush,},
+		LayoutOrder = 6,
+		DisablesAutoColor = true,
+	}, 
+	{
+		Name = "Smooth",
+		Text = "Smooth",
+		Tip = 'Brush to smooth out rough or jagged terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_smooth.png",
+		Modules = {modules.Brush, modules.TerrainSmoother,},
+		LayoutOrder = 7,
+		DisablesAutoColor = true,
+	}, 
+	{
+		Name = "Regions",
+		Text = "Regions",
+		Tip = 'Manipulate regions of smooth terrain.',
+		Icon = "rbxasset://textures/TerrainTools/mt_regions.png",
+		Modules = {modules.TerrainRegionEditor,},
+		LayoutOrder = 8,
+	}, 
+}
+
+
+local function createMainButton(thePlugin, thePluginGui, mainButtonConfig, toggleFunction)	
+	local buttonObj = ImageButtonWithText.new(mainButtonConfig.Name, 
+		mainButtonConfig.LayoutOrder, 
+		mainButtonConfig.Icon, 
+		mainButtonConfig.Text, 
+		kMainButtonActualSizeUDim2,
+		UDim2.new(0,26,0,26), 
+		UDim2.new(0,13,0,3),
+		UDim2.new(1,0,0,22), 
+		UDim2.new(0,0,1,-22))
+
+	buttonObj:getButton().Parent = kMainButtonListFrame
+	mainButtonConfig.ButtonObj = buttonObj
+
+	mainButtonConfig.ButtonObj:getButton().MouseButton1Click:connect(toggleFunction);
+
+	local pluginAction = thePlugin:CreatePluginAction(mainButtonConfig.Name, 
+		mainButtonConfig.Text, 
+		mainButtonConfig.Tip)
+			
+	pluginAction.Triggered:connect(function()
+  		-- Make sure the plugin GUI is visible.
+		thePluginGui.Enabled = true
+		-- Toggle this mode.
+		toggleFunction()
+	end)
+end
+
+
+-- Creates the main panel for tools, and creates the scrolling frame for sub-content section.
+-- The main panel will be resized dynamically when widget is stretched horizontally
+-- The content section will resize to fill the rest of the vertical space that the main panel is not using.
+-- Returns the main panel, and returns the sub-content section
+function makeMainPanel()
+	-- Background.
+	local outerBackground = GuiUtilities.MakeFrame("OuterBackground")
+	outerBackground.Parent = pluginGui
+	outerBackground.Position = UDim2.new(0, 0, 0, 0)
+	outerBackground.Size = UDim2.new(1, 0, 1, 0)	
+
+	-- Make the main panel for tool buttons
+	local section = GuiUtilities.MakeFixedHeightFrame("MainPanel",  100)	
+	section.Parent = pluginGui
+	section.Position = UDim2.new(0, 0, 0, 0)
+
+	GuiUtilities.SetMainFrame(section)
+
+	local buttonListFrame = Instance.new("Frame")
+	buttonListFrame.Name = "ButtonListFrame"
+	buttonListFrame.BackgroundTransparency = 1
+	buttonListFrame.BorderSizePixel = 0
+	buttonListFrame.Size = UDim2.new(1, 0, 1, 0)
+	buttonListFrame.Position = UDim2.new(0, 0, 0, 0)
+	buttonListFrame.Parent = section
+
+	local uiGridLayout = Instance.new("UIGridLayout")
+	uiGridLayout.CellSize = kMainButtonOuterSizeUDim2
+	uiGridLayout.CellPadding = UDim2.new(0,3,0,0)
+	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uiGridLayout.Parent = buttonListFrame
+	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	local uiPadding = Instance.new("UIPadding")
+	uiPadding.PaddingBottom = kMainButtonFramePadding
+	uiPadding.PaddingLeft = kMainButtonFramePadding
+	uiPadding.PaddingRight = kMainButtonFramePadding
+	uiPadding.PaddingTop = kMainButtonFramePadding
+	uiPadding.Parent = buttonListFrame
+
+	-- Make the visual that sits behind the scrollbar and gives the scrollbar thumb visual contrast
+	local scrollbarBackground = Instance.new('Frame')
+	scrollbarBackground.Name = 'ScrollbarBackground'
+	scrollbarBackground.BackgroundColor3 = Color3.fromRGB(238, 238, 238)
+	scrollbarBackground.BorderColor3 = Color3.fromRGB(182, 182, 182)
+	scrollbarBackground.Parent = pluginGui
+
+	-- Make the content section scrolling frame
+	local mainSpaceScrollingFrame = Instance.new("ScrollingFrame")
+	mainSpaceScrollingFrame.Name = "MainSpace"
+	mainSpaceScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+	mainSpaceScrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+	mainSpaceScrollingFrame.ElasticBehavior = Enum.ElasticBehavior.Never
+	mainSpaceScrollingFrame.ScrollBarThickness = 17
+	mainSpaceScrollingFrame.BorderSizePixel = 0
+	mainSpaceScrollingFrame.BackgroundTransparency = 1
+	mainSpaceScrollingFrame.ZIndex = 2
+	mainSpaceScrollingFrame.TopImage = "http://www.roblox.com/asset/?id=1533255544"
+	mainSpaceScrollingFrame.MidImage = "http://www.roblox.com/asset/?id=1535685612"
+	mainSpaceScrollingFrame.BottomImage = "http://www.roblox.com/asset/?id=1533256504"
+
+	local uiListLayout = Instance.new("UIListLayout")
+	uiListLayout.Parent = mainSpaceScrollingFrame
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	mainSpaceScrollingFrame.Parent = pluginGui
+
+	-- The scrollbar backing should only be visible when the scrollbar is visible
+	local function updateScrollbarBackingVisibility()
+		scrollbarBackground.Visible = mainSpaceScrollingFrame.CanvasSize.Y.Offset > mainSpaceScrollingFrame.AbsoluteSize.Y
+	end
+
+	-- Adjust the vertical size of the main buttons panel and the main panel details space when the main panel buttons change the number of rows are being rendered
+	local function updateMainSectionsSizesAndPositions()
+		section.Size = UDim2.new(1, 0, 0, uiGridLayout.AbsoluteContentSize.Y+kMainButtonFramePadding.Offset*2)
+		mainSpaceScrollingFrame.Size = UDim2.new(1, 0, 1, -section.AbsoluteSize.Y)
+		mainSpaceScrollingFrame.Position = UDim2.new(0, 0, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y)
+		scrollbarBackground.Size = UDim2.new(0, mainSpaceScrollingFrame.ScrollBarThickness-2, 1, -section.AbsoluteSize.Y-2)
+		scrollbarBackground.Position = UDim2.new(1, -mainSpaceScrollingFrame.ScrollBarThickness+1, 0, section.AbsolutePosition.Y+section.AbsoluteSize.Y+1)
+		updateScrollbarBackingVisibility()
+	end
+	uiGridLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateMainSectionsSizesAndPositions)
+	updateMainSectionsSizesAndPositions()
+
+	-- Update the canvas size of the scrolling frame to fit the size of it's contents
+	local function updateScrollingFrameCanvas()
+		mainSpaceScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+		updateScrollbarBackingVisibility()
+	end
+	uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):connect(updateScrollingFrameCanvas)
+	updateScrollingFrameCanvas()
+
+	contentFrame = mainSpaceScrollingFrame
+	kMainButtonListFrame = buttonListFrame
+end
+
+local function fastSpawn(func)	-- Creates a new thread like Spawn() but executes the code immediately, without a frame delay.
+	coroutine.wrap(func)()
+end
+
+
+module.Initialize = function(thePlugin, thePluginGui)
+	on = false
+	currentMainButtonConfig = nil
+	plugin = thePlugin
+	pluginGui = thePluginGui
+	makeMainPanel()
+	local mouse = plugin:GetMouse()
+	local userInput = game:GetService('UserInputService')
+	local prevCameraType = game.Workspace.CurrentCamera.CameraType
+
+	for mainButtonIndex, mainButtonConfig in ipairs(kMainButtonConfigs) do
+		createMainButton(thePlugin, 
+			thePluginGui, 
+			mainButtonConfig, 
+			function()
+				if not on or (currentMainButtonConfig ~= nil and mainButtonConfig ~= currentMainButtonConfig) then	--if off or on but current tool isn't the desired tool, then select this tool.
+					Selected(mainButtonConfig)
+				else
+					Deselected()
+				end
+			end)
+	end
+
+
+	-- If the plugin gui is disabled, we should definitely be deselected.
+	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
+		if (not pluginGui.Enabled) then 
+			Deselected()
+		end
+	end)
+
+	function Selected(tool)
+		if plugin then
+			plugin:Activate(true)
+		end
+
+		if not userInput.MouseEnabled then
+			prevCameraType = game.Workspace.CurrentCamera.CameraType
+			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed	
+		end
+
+		tool.ButtonObj:setSelected(true)
+
+		on = true
+		currentMainButtonConfig = tool
+
+		--local toolModule = tool.Module or module.Brush
+		for _, toolModule in pairs(tool.Modules) do
+			fastSpawn(function()
+				if toolModule.FirstTimeSetup and not toolModule.isSetup then
+					toolModule.FirstTimeSetup(mouse, pluginGui, contentFrame)
+					toolModule.isSetup = true
+				end
+				if toolModule.On then
+					toolModule.On(tool)
+				end
+			end)
+		end
+	end
+	
+	function Deselected()
+		if not userInput.MouseEnabled then
+			game.Workspace.CurrentCamera.CameraType = prevCameraType		
+		end
+
+		on = false
+		local lastTool = currentMainButtonConfig
+		currentMainButtonConfig = nil
+
+		if lastTool then
+			lastTool.ButtonObj:setSelected(false)
+
+			--local lastToolModule = lastTool.Module or module.Brush
+			for _, lastToolModule in pairs(lastTool.Modules) do
+				fastSpawn(function()
+					if lastToolModule.Off then
+						lastToolModule.Off()
+					end
+				end)
+			end
+		end
+	end
+
+	if plugin then
+		plugin.Deactivation:connect(function()
+			if on then
+				Deselected()
+			end
+		end)
+	end
+
+end
+
+
+return module

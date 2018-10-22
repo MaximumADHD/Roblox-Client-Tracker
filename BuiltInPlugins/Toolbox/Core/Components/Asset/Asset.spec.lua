@@ -1,0 +1,60 @@
+return function()
+	local Plugin = script.Parent.Parent.Parent.Parent
+
+	local CorePackages = game:GetService("CorePackages")
+	local Roact = require(CorePackages.Roact)
+
+	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
+
+	local Asset = require(Plugin.Core.Components.Asset.Asset)
+
+	local Workspace = game:GetService("Workspace")
+
+	local asset = {
+		Asset = {
+			Id = 12345,
+			IsEndorsed = false,
+			Name = "Hello, world!",
+		},
+		Creator = {
+			Name = "Foo",
+		},
+		Voting = {
+			UpVotes = 150,
+			DownVotes = 10,
+			ShowVotes = true,
+		},
+	}
+
+	local function createTestAsset(container, name)
+		local element = Roact.createElement(MockWrapper, {}, {
+			Asset = Roact.createElement(Asset, {
+				asset = asset,
+
+				LayoutOrder = 1,
+				isHovered = false,
+			}),
+		})
+
+		return Roact.mount(element, container or nil, name or "")
+	end
+
+	it("should create and destroy without errors", function()
+		local instance = createTestAsset()
+		Roact.unmount(instance)
+	end)
+
+	it("should render correctly", function()
+		local container = Workspace.ToolboxTestsTarget
+		local instance = createTestAsset(container, "Asset")
+		local asset = container.Asset
+
+		expect(asset.InnerFrame).to.be.ok()
+
+		expect(asset.InnerFrame.UIListLayout).to.be.ok()
+		expect(asset.InnerFrame.AssetIcon).to.be.ok()
+		expect(asset.InnerFrame.AssetName).to.be.ok()
+
+		Roact.unmount(instance)
+	end)
+end
