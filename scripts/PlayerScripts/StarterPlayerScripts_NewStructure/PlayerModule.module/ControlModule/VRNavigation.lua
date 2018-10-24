@@ -404,6 +404,10 @@ function VRNavigation:OnUserCFrameEnabled()
 end
 
 function VRNavigation:Enable(enable)
+	
+	self.moveVector = ZERO_VECTOR3
+	self.isJumping = false
+	
 	if enable then
 		self.navigationRequestedConn = VRService.NavigationRequested:Connect(function(destinationCFrame, inputUserCFrame) self:OnNavigationRequest(destinationCFrame, inputUserCFrame) end)
 		self.heartbeatConn = RunService.Heartbeat:Connect(function(dt) self:OnHeartbeat(dt) end)

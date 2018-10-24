@@ -220,10 +220,6 @@ end
 function BaseCamera:OnCharacterAdded(char)
 	if UserInputService.TouchEnabled then
 		self.PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
-		if self.PlayerGui then
-			local screenGui = Instance.new("ScreenGui")
-			screenGui.Parent = self.PlayerGui
-		end
 		for _, child in ipairs(char:GetChildren()) do
 			if child:IsA("Tool") then
 				self.isAToolEquipped = true

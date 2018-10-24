@@ -1104,6 +1104,8 @@ function ClickToMove:Enable(enable, enableWASD)
 		self.leftValue = 0
 		self.rightValue = 0
 		
+		self.moveVector = ZERO_VECTOR3
+		
 		if enable then
 			self:BindContextActions()
 			self:ConnectFocusEventListeners()

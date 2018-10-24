@@ -35,7 +35,7 @@ return function()
 			store:destruct()
 		end)
 
-		itFIXME("should modify the dispatch method when middlewares are passed", function()
+		it("should modify the dispatch method when middlewares are passed", function()
 			local middlewareInstantiateCount = 0
 			local middlewareInvokeCount = 0
 			local passedDispatch
@@ -85,7 +85,7 @@ return function()
 			store:destruct()
 		end)
 
-		itFIXME("should execute middleware left-to-right", function()
+		it("should execute middleware left-to-right", function()
 			local events = {}
 
 			local function reducer(state)

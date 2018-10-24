@@ -48,6 +48,7 @@ function Gamepad:Enable(enable)
 	self.leftValue = 0
 	self.rightValue = 0
 	self.moveVector = ZERO_VECTOR3
+	self.isJumping = false
 	
 	if enable then
 		self.activeGamepad = self:GetHighestPriorityGamepad()

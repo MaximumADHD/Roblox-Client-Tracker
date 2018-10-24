@@ -146,7 +146,7 @@ function ControlModule:GetMoveVector()
 	if self.activeController then
 		return self.activeController:GetMoveVector()
 	end
-	return nil
+	return Vector3.new(0,0,0)
 end
 
 function ControlModule:GetActiveController()
@@ -174,7 +174,7 @@ function ControlModule:Enable(enable)
 			end
 		end
 	else
-		self.activeController:Enable(false)
+		self:Disable()
 	end
 end
 
@@ -182,6 +182,10 @@ end
 function ControlModule:Disable()
 	if self.activeController then
 		self.activeController:Enable(false)
+	
+		if self.moveFunction then
+			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), self.cameraRelative)
+		end
 	end
 end
 
@@ -285,7 +289,7 @@ function ControlModule:OnCharacterAdded(char)
 		self.humanoidSeatedConn:Disconnect()
 		self.humanoidSeatedConn = nil
 	end
-	self.humanoidSeatedConn = self.humanoid.Seated:Connect(function() self:OnHumanoidSeated() end)
+	self.humanoidSeatedConn = self.humanoid.Seated:Connect(function(active, currentSeatPart) self:OnHumanoidSeated(active, currentSeatPart) end)
 end
 
 function ControlModule:OnCharacterRemoving(char)

@@ -18,28 +18,23 @@ local SettingsPages = require(Plugin.Src.Components.SettingsPages.SettingsPages)
 local CurrentPage = Roact.PureComponent:extend("CurrentPage")
 
 function CurrentPage:init()
-	self.state = {
-		ContentSize = UDim2.new(1, 0, 1, 0),
-	}
-end
-
-function CurrentPage:contentHeightChanged(newheight)
-	self:setState(function(state)
-		return {
-		ContentSize = UDim2.new(1, 0, 0, newheight
-			+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING),
-		}
-	end)
+	self.canvasRef = Roact.createRef()
+	self.contentHeightChanged = function(newheight)
+		local canvas = self.canvasRef.current
+		local contentSize = UDim2.new(1, 0, 0, newheight
+			+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
+		canvas.CanvasSize = contentSize
+	end
 end
 
 function CurrentPage:render()
 	local page = SettingsPages[self.props.Page]
-	local contentSize = self.state.ContentSize
 
 	return Roact.createElement(StyledScrollingFrame, {
 		Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
 		Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH - 5, 1, -Constants.FOOTER_HEIGHT),
-		CanvasSize = contentSize,
+
+		[Roact.Ref] = self.canvasRef,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 25),
@@ -57,9 +52,7 @@ function CurrentPage:render()
 		}),
 
 		[self.props.Page] = page and Roact.createElement(page, {
-			ContentHeightChanged = function(height)
-				self:contentHeightChanged(height)
-			end,
+			ContentHeightChanged = self.contentHeightChanged,
 			LayoutOrder = 2,
 		}),
 	})

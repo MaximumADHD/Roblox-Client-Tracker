@@ -96,6 +96,7 @@ Class AssetService : Instance
 	YieldFunction int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int64 packageAssetId)
 	YieldFunction Tuple AssetService:GetAssetThumbnailAsync(int64 assetId, Vector2 thumbnailSize, int assetType = 0) [RobloxScriptSecurity]
+	YieldFunction Dictionary AssetService:GetBundleDetailsAsync(int64 bundleId)
 	YieldFunction int64 AssetService:GetCreatorAssetID(int64 creationID) [deprecated]
 	YieldFunction Instance AssetService:GetGamePlacesAsync()
 	YieldFunction void AssetService:SavePlaceAsync()
@@ -345,6 +346,7 @@ Class CollectionService : Instance
 	Event CollectionService.ItemRemoved(Instance instance) [deprecated]
 Class Configuration : Instance
 Class Constraint : Instance
+	Property bool Constraint.Active [readonly]
 	Property Class:Attachment Constraint.Attachment0
 	Property Class:Attachment Constraint.Attachment1
 	Property BrickColor Constraint.Color
@@ -1224,6 +1226,7 @@ Class InsertService : Instance [notCreatable]
 	YieldFunction Instance InsertService:loadAsset(int64 assetId) [deprecated]
 Class InstancePacketCache : Instance [notCreatable]
 Class JointInstance : Instance
+	Property bool JointInstance.Active [readonly]
 	Property CoordinateFrame JointInstance.C0
 	Property CoordinateFrame JointInstance.C1
 	Property Class:BasePart JointInstance.Part0
@@ -2651,6 +2654,7 @@ Class UserInputService : Instance [notCreatable]
 	Property Vector2 UserInputService.OnScreenKeyboardSize [readonly]
 	Property bool UserInputService.OnScreenKeyboardVisible [readonly]
 	Property OverrideMouseIconBehavior UserInputService.OverrideMouseIconBehavior [RobloxScriptSecurity]
+	Property Vector2 UserInputService.RightBarSize [readonly] [RobloxScriptSecurity]
 	Property Vector2 UserInputService.StatusBarSize [readonly] [RobloxScriptSecurity]
 	Property bool UserInputService.TouchEnabled [readonly]
 	Property CoordinateFrame UserInputService.UserHeadCFrame [deprecated] [readonly]
@@ -2677,7 +2681,7 @@ Class UserInputService : Instance [notCreatable]
 	Function bool UserInputService:IsMouseButtonPressed(UserInputType mouseButton)
 	Function bool UserInputService:IsNavigationGamepad(UserInputType gamepadEnum)
 	Function void UserInputService:RecenterUserHeadCFrame()
-	Function void UserInputService:SendAppUISizes(Vector2 statusBarSize, Vector2 navBarSize, Vector2 bottomBarSize) [RobloxScriptSecurity]
+	Function void UserInputService:SendAppUISizes(Vector2 statusBarSize, Vector2 navBarSize, Vector2 bottomBarSize, Vector2 rightBarSize) [RobloxScriptSecurity]
 	Function void UserInputService:SetNavigationGamepad(UserInputType gamepadEnum, bool enabled)
 	Event UserInputService.DeviceAccelerationChanged(Instance acceleration)
 	Event UserInputService.DeviceGravityChanged(Instance gravity)
@@ -2814,6 +2818,7 @@ Class VirtualUser : Instance [notCreatable]
 	Function void VirtualUser:TypeKey(string key) [LocalUserSecurity]
 Class Visit : Instance [notCreatable]
 Class WeldConstraint : Instance
+	Property bool WeldConstraint.Active [readonly]
 	Property bool WeldConstraint.Enabled
 	Property Class:BasePart WeldConstraint.Part0
 	Property Class:BasePart WeldConstraint.Part1
