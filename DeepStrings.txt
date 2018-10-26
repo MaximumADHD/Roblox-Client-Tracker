@@ -484,7 +484,7 @@ AnthroPercentInHundredths
 AnthroStandardPartIds
 AntiSpamSpamLimit
 AnyChildAllowed
-AnyWayYouHashItOut3
+AnyWayYouHashItOut4
 ApiGamesChanged
 ApiRateLimit
 ApiUtilities
@@ -5782,7 +5782,7 @@ Durbanville1
 DwmSetWindowAttribute
 DX_interop
 DX_interop2
-DX10tHQhPI
+DX10tHQhPY
 DXCloseDeviceNV
 DXLockObjectsNV
 DXObjectAccessNV
