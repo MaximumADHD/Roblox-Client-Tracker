@@ -15,26 +15,20 @@ EditClip.ActionType = {
 	deletePose="deletePose",
 	createKeyframe="createKeyframe",
 	keyframeMove="keyframeMove",
+	editKeyframeName="editKeyframeName",
 }
 
 if FastFlags:isScaleKeysOn() then
 	EditClip.ActionType["clipScale"]="clipScale"
 end
 
-if FastFlags:isAnimationEditorRenameKeyFrameFlagOn() then
-	EditClip.ActionType["editKeyframeName"]="editKeyframeName"
-end
-
 EditClip.Description = {
 	[EditClip.ActionType.lengthChange]="Edit Length",
 	[EditClip.ActionType.editRotate]="Edit Rotation",
 	[EditClip.ActionType.editTransform]="Edit Position",
-	[EditClip.ActionType.resetKeyframe]="Reset Keyframe(s)"
+	[EditClip.ActionType.resetKeyframe]="Reset Keyframe(s)",
+	[EditClip.ActionType.editKeyframeName]="Edit Keyframe"
 }
-
-if FastFlags:isAnimationEditorRenameKeyFrameFlagOn() then
-	EditClip.Description[EditClip.ActionType.editKeyframeName]="Edit Keyframe"
-end
 
 function EditClip:execute(Paths, actionType)
 	Paths.UtilityScriptUndoRedo:registerUndo(EditClip:new(Paths, {action = actionType}))

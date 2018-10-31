@@ -30,59 +30,33 @@ local function addNotch(self, notchTime, doLabel)
 	return clonedNotch
 end
 
-if not FastFlags:isDefinedBoundaryNotchesFlagOn() then
-function calculateBoundary(num)
-	if num <= 0 then
-		return 0
-	end
-
-	local Mult = 2.2
-	local result = 1
-	while result*Mult <= num do
-		result = result*Mult
-	end
-	return math.floor(result)
-end
-end
-
 local function calculateDisplayArea(self, notchWidth)
-	if FastFlags:isDefinedBoundaryNotchesFlagOn() then
-		local minFirstNotchPosition = self.TargetWidget.AbsolutePosition.X + notchWidth
-		local minFirstNotchTime = self.Paths.UtilityScriptDisplayArea:absoluteXPositionToTime(minFirstNotchPosition, self.TargetWidget)
-		local maxLastNotchPosition = self.TargetWidget.AbsolutePosition.X + self.TargetWidget.AbsoluteSize.X - notchWidth
-		local maxLastNotchTime = self.Paths.UtilityScriptDisplayArea:absoluteXPositionToTime(maxLastNotchPosition, self.TargetWidget)
-		
-		local BestTimeSpacingOption = 0.25
-		local MaxDecimalPlaces = 2 -- this indicates that 'BestTimeSpacingOption' above is to 2 decimal places
+	local minFirstNotchPosition = self.TargetWidget.AbsolutePosition.X + notchWidth
+	local minFirstNotchTime = self.Paths.UtilityScriptDisplayArea:absoluteXPositionToTime(minFirstNotchPosition, self.TargetWidget)
+	local maxLastNotchPosition = self.TargetWidget.AbsolutePosition.X + self.TargetWidget.AbsoluteSize.X - notchWidth
+	local maxLastNotchTime = self.Paths.UtilityScriptDisplayArea:absoluteXPositionToTime(maxLastNotchPosition, self.TargetWidget)
+	
+	local BestTimeSpacingOption = 0.25
+	local MaxDecimalPlaces = 2 -- this indicates that 'BestTimeSpacingOption' above is to 2 decimal places
 
-		local timeSpacingOption = BestTimeSpacingOption		
-		while timeSpacingOption < self.Paths.DataModelClip:getLength() do
-			local doesSpaceExistToDisplayNotches = timeSpacingOption >= minFirstNotchTime
-			if doesSpaceExistToDisplayNotches then
-				local numNotchesToDisplay = math.floor(maxLastNotchTime/timeSpacingOption)
-				local numDecimalPlacesToDisplay = timeSpacingOption >= 1 and 1 or MaxDecimalPlaces -- we'll display 1 decimal place even for whole numbers >= 1 
-				return numNotchesToDisplay, timeSpacingOption, numDecimalPlacesToDisplay
-			end
-			timeSpacingOption = timeSpacingOption*2
-			-- this stops inacuracy creeping in, once the starting value of 0.25 (BestTimeSpacingOption) gets over 1 it will always be to 0 decimal places, under 1, and 2 places is the max	
-			timeSpacingOption = self.Paths.HelperFunctionsMath:roundToDecimalPlace(timeSpacingOption, (timeSpacingOption >= 1 and 0 or MaxDecimalPlaces))
+	local timeSpacingOption = BestTimeSpacingOption		
+	while timeSpacingOption < self.Paths.DataModelClip:getLength() do
+		local doesSpaceExistToDisplayNotches = timeSpacingOption >= minFirstNotchTime
+		if doesSpaceExistToDisplayNotches then
+			local numNotchesToDisplay = math.floor(maxLastNotchTime/timeSpacingOption)
+			local numDecimalPlacesToDisplay = timeSpacingOption >= 1 and 1 or MaxDecimalPlaces -- we'll display 1 decimal place even for whole numbers >= 1 
+			return numNotchesToDisplay, timeSpacingOption, numDecimalPlacesToDisplay
 		end
-		return 0
+		timeSpacingOption = timeSpacingOption*2
+		-- this stops inacuracy creeping in, once the starting value of 0.25 (BestTimeSpacingOption) gets over 1 it will always be to 0 decimal places, under 1, and 2 places is the max	
+		timeSpacingOption = self.Paths.HelperFunctionsMath:roundToDecimalPlace(timeSpacingOption, (timeSpacingOption >= 1 and 0 or MaxDecimalPlaces))
 	end
-
-	local displayAreaWidth = self.TargetWidget.AbsoluteSize.X
-	-- available width is the display area width minus the width of the first notch (the end notch does not take up display area width)
-	local availableWidth = displayAreaWidth - notchWidth
-	-- how many extra notches can we fit in the available width
-	local numExtraNotches = calculateBoundary(math.floor(availableWidth/notchWidth))
-	return numExtraNotches, displayAreaWidth
+	return 0
 end
 
 local function clearNotches(self)
 	self.PreviousNumExtraNotches = nil
-	if FastFlags:isDefinedBoundaryNotchesFlagOn() then	
-		self.PreviousTimeSpacing = nil
-	end
+	self.PreviousTimeSpacing = nil
 	self.PreviouslyFullyZoomed = nil
 	
 	local numClonedChildren = #self.ClonedChildren
@@ -144,40 +118,13 @@ local function createNotches(self)
 	addNotch(self, self.Paths.DataModelClip:getLength(), true)
 	-- get the width of one of the above added notches
 	local notchWidth = self.ClonedChildren[1].AbsoluteSize.X
-	local numExtraNotches = nil
-	local displayAreaWidth = nil
-	local notchTimeSpacing = nil
-	local definedBoundaryDecimalPlaces = nil
-	if FastFlags:isDefinedBoundaryNotchesFlagOn() then
-		numExtraNotches, notchTimeSpacing, definedBoundaryDecimalPlaces = calculateDisplayArea(self, notchWidth)		
-	else
-		numExtraNotches, displayAreaWidth = calculateDisplayArea(self, notchWidth)
-	end
+	local numExtraNotches, notchTimeSpacing, definedBoundaryDecimalPlaces = calculateDisplayArea(self, notchWidth)
 	
-	if numExtraNotches > 0 then
-		local segmentWidth = nil
-		if not FastFlags:isDefinedBoundaryNotchesFlagOn() then
-			segmentWidth = displayAreaWidth/(numExtraNotches+1)
-		end
-		
+	if numExtraNotches > 0 then	
 		for extraNotch=1, numExtraNotches do
-			local xPosLeftSide = nil
-			local notchTime = nil
-			if FastFlags:isDefinedBoundaryNotchesFlagOn() then
-				notchTime = notchTimeSpacing*extraNotch
-				xPosLeftSide = self.Paths.UtilityScriptDisplayArea:timeToAbsoluteXPosition(notchTime, self.TargetWidget)
-				self.Paths.ActionEditDisplayPrecision:execute(self.Paths, definedBoundaryDecimalPlaces)
-			else
-				xPosLeftSide = segmentWidth*extraNotch
-				notchTime = (xPosLeftSide/displayAreaWidth)*self.Paths.DataModelClip:getLength()
-
-				if 1 == extraNotch then				
-					local success, numDecimalPlacesRequired = self.Paths.HelperFunctionsMath:calculateNumDecimalPlacesForDiff(0, notchTime)			
-					if success then
-						self.Paths.ActionEditDisplayPrecision:execute(self.Paths, numDecimalPlacesRequired+1) -- adding one for a bit more precision 
-					end
-				end	
-			end
+			local notchTime = notchTimeSpacing*extraNotch
+			local xPosLeftSide = self.Paths.UtilityScriptDisplayArea:timeToAbsoluteXPosition(notchTime, self.TargetWidget)
+			self.Paths.ActionEditDisplayPrecision:execute(self.Paths, definedBoundaryDecimalPlaces)
 			
 			addNotch(self, notchTime, true)	
 		end
@@ -199,17 +146,10 @@ local function initNotches(self)
 				createFullyZoomedNotches(self)
 			end
 		else
-			if FastFlags:isDefinedBoundaryNotchesFlagOn() then
-				local numExtraNotches, timeSpacing = calculateDisplayArea(self, notchAtTimeZero.AbsoluteSize.X)
-				if self.PreviouslyFullyZoomed or self.PreviousNumExtraNotches ~= numExtraNotches or self.PreviousTimeSpacing ~= timeSpacing then
-					createNotches(self)
-				end
-			else
-				local numExtraNotches = calculateDisplayArea(self, notchAtTimeZero.AbsoluteSize.X)
-				if self.PreviouslyFullyZoomed or self.PreviousNumExtraNotches ~= numExtraNotches then
-					createNotches(self)
-				end
-			end	
+			local numExtraNotches, timeSpacing = calculateDisplayArea(self, notchAtTimeZero.AbsoluteSize.X)
+			if self.PreviouslyFullyZoomed or self.PreviousNumExtraNotches ~= numExtraNotches or self.PreviousTimeSpacing ~= timeSpacing then
+				createNotches(self)
+			end
 		end
 	elseif self.Paths.DataModelSession:isFullyZoomed() then
 		createFullyZoomedNotches(self)
@@ -217,11 +157,7 @@ local function initNotches(self)
 		createNotches(self)		
 	end
 	
-	if FastFlags:isDefinedBoundaryNotchesFlagOn() then
-		self.PreviousNumExtraNotches, self.PreviousTimeSpacing = calculateDisplayArea(self, self.ClonedChildren[1].AbsoluteSize.X)
-	else
-		self.PreviousNumExtraNotches = calculateDisplayArea(self, self.ClonedChildren[1].AbsoluteSize.X)
-	end
+	self.PreviousNumExtraNotches, self.PreviousTimeSpacing = calculateDisplayArea(self, self.ClonedChildren[1].AbsoluteSize.X)
 	self.PreviouslyFullyZoomed = self.Paths.DataModelSession:isFullyZoomed()
 end
 

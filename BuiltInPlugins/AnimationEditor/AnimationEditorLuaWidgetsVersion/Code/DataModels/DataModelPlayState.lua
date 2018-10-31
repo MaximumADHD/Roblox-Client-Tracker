@@ -38,10 +38,8 @@ local function stopTrack(self)
 				elem.Motor6D.C1 = elem.OriginC1
 			end
 		end	
-		
-		if FastFlags:isScrubbingPlayingMatchFlagOn() then
-			self.CurrentAnimTrack:Destroy()
-		end
+				
+		self.CurrentAnimTrack:Destroy()
 		self.CurrentAnimTrack = nil
 		self.Animator = nil
 	end
@@ -52,10 +50,8 @@ function PlayState:terminate()
 		self:pause()
 	end
 	
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		stopTrack(self)
-		self.Paths = nil
-	end
+	stopTrack(self)
+	self.Paths = nil
 
 	self.PlayEvent = nil
 	self.PauseEvent = nil
@@ -67,10 +63,6 @@ local function internalPause(self, playOnceAnimationEnded)
 		self.IsPlaying = nil
 		
 		local trackTime = playOnceAnimationEnded and self.CurrentAnimTrack.Length or self.CurrentAnimTrack.TimePosition
-
-		if not FastFlags:isScrubbingPlayingMatchFlagOn() then
-			stopTrack(self)
-		end
 			
 		self.Paths.DataModelSession:setScrubberTime(trackTime)
 		self.PauseEvent:fire()
@@ -110,38 +102,10 @@ local function createAnimation(self)
 	for part,elem in pairs(self.Paths.DataModelRig.partList) do
 		if (elem.Motor6D ~= nil) then
 			elem.Motor6D.C1 = elem.OriginC1
-			if not FastFlags:isScrubbingPlayingMatchFlagOn() then
-				self.Paths.DataModelRig:nudgeView()
-			end
 		end
 	end
 
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.CurrentAnimTrack = loadAnimation(self)
-	else
-		local kfsp = game:GetService('KeyframeSequenceProvider')
-
-		local kfs = self.Paths.DataModelClip:createAnimationFromCurrentData()
-		local animID = kfsp:RegisterKeyframeSequence(kfs)
-		local dummy = self.Paths.DataModelRig:getItem().Item.Parent
-
-		local AnimationBlock = dummy:FindFirstChild("AnimSaves")
-		if AnimationBlock == nil then
-			AnimationBlock = Instance.new('Model')
-			AnimationBlock.Name = "AnimSaves"
-			AnimationBlock.Parent = dummy
-		end
-
-		local Animation = AnimationBlock:FindFirstChild("TestAnim")
-		if Animation == nil then
-			Animation = Instance.new('Animation')
-			Animation.Name = "TestAnim"
-			Animation.Parent = AnimationBlock
-		end
-		Animation.AnimationId = animID
-		
-		self.CurrentAnimTrack = self.Paths.DataModelRig.AnimationController:LoadAnimation(Animation)
-	end
+	self.CurrentAnimTrack = loadAnimation(self)
 		
 	self.CurrentAnimTrack:Play(0, 1, 1)			
 
@@ -188,21 +152,13 @@ function PlayState:initPostGUICreate()
 	self.Connections = self.Paths.UtilityScriptConnections:new(self.Paths)
 
 	local recreateAnimation = function()
-		if FastFlags:isScrubbingPlayingMatchFlagOn() then
-			if not self.Paths.DataModelSession:IsAnimationCurrentlyBeingReset() then
-				if self:getIsPlaying() then
-					createAnimation(self) 
-					self:setTime(self.Paths.DataModelSession:getScrubberTime()) 
-				elseif not self.Paths.DataModelPartManipulator:isCurrentlyManipulating() then
-					self:recreateAnimationTrack()
-				end
-			end
-		else
+		if not self.Paths.DataModelSession:IsAnimationCurrentlyBeingReset() then
 			if self:getIsPlaying() then
 				createAnimation(self) 
 				self:setTime(self.Paths.DataModelSession:getScrubberTime()) 
+			elseif not self.Paths.DataModelPartManipulator:isCurrentlyManipulating() then
+				self:recreateAnimationTrack()
 			end
-			self.Paths.DataModelRig:onRigJointsChangeRequired()
 		end
 	end
 	
@@ -211,32 +167,26 @@ function PlayState:initPostGUICreate()
 	self.Connections:add(self.Paths.DataModelClip.LengthChangedEvent:connect(recreateAnimation))
 	self.Connections:add(self.Paths.DataModelKeyframes.ChangedEvent:connect(recreateAnimation))
 
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.Connections:add(self.Paths.DataModelKeyframes.PoseTransformChangedEvent:connect(recreateAnimation))
-		self.Connections:add(self.Paths.DataModelSession.ScrubberTimeChangeEvent:connect(function(theNewScrubberTime) 
-			if not self.Paths.DataModelSession:IsAnimationCurrentlyBeingReset() then 
-				if not self:getIsPlaying() then
-					self:setTime(theNewScrubberTime)
-				end
-				self.Paths.DataModelPartManipulator:updateProxyPart()
+	self.Connections:add(self.Paths.DataModelKeyframes.PoseTransformChangedEvent:connect(recreateAnimation))
+	self.Connections:add(self.Paths.DataModelSession.ScrubberTimeChangeEvent:connect(function(theNewScrubberTime) 
+		if not self.Paths.DataModelSession:IsAnimationCurrentlyBeingReset() then 
+			if not self:getIsPlaying() then
+				self:setTime(theNewScrubberTime)
 			end
-		end))
+			self.Paths.DataModelPartManipulator:updateProxyPart()
+		end
+	end))
 
-		self.Connections:add(self.Paths.DataModelSession.ResetAnimationBeginEvent:connect(function()
-			self:pauseAndStop()
-		end))
+	self.Connections:add(self.Paths.DataModelSession.ResetAnimationBeginEvent:connect(function()
+		self:pauseAndStop()
+	end))
 
-		self.Connections:add(self.Paths.DataModelSession.ResetAnimationEndEvent:connect(recreateAnimation))
-	end
+	self.Connections:add(self.Paths.DataModelSession.ResetAnimationEndEvent:connect(recreateAnimation))
 end
 
 function PlayState:terminatePreGUIDestroy()
 	self.Connections:terminate()
 	self.Connections = nil
-
-	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.Paths = nil
-	end
 end
 
 function PlayState:getIsPlaying()
@@ -275,14 +225,12 @@ end
 
 function PlayState:setTime(time)
 	if nil ~= self.CurrentAnimTrack and nil ~= self.Animator then
-		if FastFlags:isScrubbingPlayingMatchFlagOn() then
-			if not self.CurrentAnimTrack.IsPlaying then
-				return
-			end
-			-- stopping the time being set to the absolute end of the animation clip, as setting to the length will show the first frame for a 
-			-- looping animation, and it will cause the animation to get set to not playing for a none looped animation
-			time = math.clamp(time, 0, self.Paths.DataModelClip:getLength()-0.001)
+		if not self.CurrentAnimTrack.IsPlaying then
+			return
 		end
+		-- stopping the time being set to the absolute end of the animation clip, as setting to the length will show the first frame for a 
+		-- looping animation, and it will cause the animation to get set to not playing for a none looped animation
+		time = math.clamp(time, 0, self.Paths.DataModelClip:getLength()-0.001)
 		self.CurrentAnimTrack.TimePosition = time
 		self.Animator:StepAnimations(0)
 	end	

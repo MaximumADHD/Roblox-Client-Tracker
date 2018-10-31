@@ -845,6 +845,7 @@ Class ScrollingFrame : GuiObject
 	Function void ScrollingFrame:ScrollToTop() [RobloxScriptSecurity]
 Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
+	Property int TextBox.CursorPosition
 	Property Font TextBox.Font
 	Property FontSize TextBox.FontSize [deprecated]
 	Property float TextBox.LineHeight
@@ -876,6 +877,8 @@ Class TextBox : GuiObject
 	Function void TextBox:SetTextFromInput(string text) [RobloxScriptSecurity]
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
+Class ViewportFrame : GuiObject
+	Property Class:Camera ViewportFrame.CurrentCamera
 Class LayerCollector : GuiBase2d [notbrowsable]
 	Property bool LayerCollector.Enabled
 	Property bool LayerCollector.ResetOnSpawn
@@ -1335,6 +1338,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
+	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
 	YieldFunction void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
 	YieldFunction void LocalizationService:PromptImportFromCSVs() [RobloxScriptSecurity]
 	Event LocalizationService.AutoTranslateWillRun() [RobloxScriptSecurity]
@@ -1557,6 +1561,7 @@ Class BasePart : PVInstance [notbrowsable]
 	Property InputType BasePart.LeftSurfaceInput
 	Property float BasePart.LocalTransparencyModifier [hidden]
 	Property bool BasePart.Locked
+	Property bool BasePart.Massless
 	Property Material BasePart.Material
 	Property Vector3 BasePart.Orientation
 	Property Vector3 BasePart.Position
@@ -1568,6 +1573,7 @@ Class BasePart : PVInstance [notbrowsable]
 	Property float BasePart.RightParamB
 	Property SurfaceType BasePart.RightSurface
 	Property InputType BasePart.RightSurfaceInput
+	Property int BasePart.RootPriority
 	Property Vector3 BasePart.RotVelocity
 	Property Vector3 BasePart.Rotation
 	Property Vector3 BasePart.Size

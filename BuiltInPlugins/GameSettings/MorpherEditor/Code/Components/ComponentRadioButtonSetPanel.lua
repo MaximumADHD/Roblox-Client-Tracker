@@ -1,4 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
+local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local RadioButtonSetPanel = paths.Roact.Component:extend("ComponentRadioButtonSetPanel")
 
@@ -43,6 +44,7 @@ createRadioButtons = function(self, tableToPopulate, layoutOrder)
                 LayoutOrder = layoutOrder:getNextOrder(),
                 Text = option.Text,
                 IsSelected = option.IsSelected,
+                IsEnabled = (function() if fastFlags.isCheckboxDisabledStateFixFlagOn() then return self.props.IsEnabled else return nil end end)(),
 
                 setValue = function(val)
                     if val and self.props.setValue then

@@ -11,7 +11,7 @@ local SetUserMembershipType = require(CorePackages.AppTempCommon.LuaApp.Actions.
 local SetUserPresence = require(CorePackages.AppTempCommon.LuaApp.Actions.SetUserPresence)
 local SetUserThumbnail = require(CorePackages.AppTempCommon.LuaApp.Actions.SetUserThumbnail)
 
-local FFlagFixUsersReducerDataLoss = settings():GetFFlag("FixUsersReducerDataLoss")
+local FFlagFixUsersReducerDataLoss = settings():GetFFlag("FixUsersReducerDataLoss361")
 
 return function(state, action)
 	state = state or {}

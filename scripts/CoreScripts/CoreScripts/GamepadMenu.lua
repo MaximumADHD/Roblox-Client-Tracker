@@ -752,7 +752,7 @@ local function createGamepadMenuGui()
 	local function leaveGameFunc()
 		toggleCoreGuiRadial(true)
 		local MenuModule = require(GuiRoot.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, false, require(GuiRoot.Modules.Settings.Pages.LeaveGame), true)
+		MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true)
 	end
 	local leaveGameRadial = createRadialButton("LeaveGame", "Leave Game", 4, 5, false, nil, leaveGameFunc)
 	leaveGameRadial.Parent = gamepadSettingsFrame

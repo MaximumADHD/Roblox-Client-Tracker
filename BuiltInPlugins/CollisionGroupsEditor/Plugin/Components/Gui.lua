@@ -115,7 +115,7 @@ function Gui:GetGroups()
 		end
 
 		group.OnSelected = function(gui)
-			game.Selection:Set(getPartsInGroup(group.Name))
+			game:GetService("Selection"):Set(getPartsInGroup(group.Name))
 		end
 
 		group.GetCollidesWith = function(otherGroup)
@@ -175,7 +175,7 @@ function Gui:render()
 end
 
 function Gui:didMount()
-	self.SelectionChangedConn = game.Selection.SelectionChanged:Connect(function()
+	self.SelectionChangedConn = game:GetService("Selection").SelectionChanged:Connect(function()
 		self:SetStateAndRefresh{}
 	end)
 

@@ -26,10 +26,8 @@ function Clip:terminate(Paths)
 	end
 end
 
-if FastFlags:isAnimationEditorMaxLengthRestrictionFlagOn() then
 function Clip:isLengthOk(len)
 	return len > 0 and len <= self.MaxLength
-end
 end
 
 function Clip:setLength(len, serialize)
@@ -37,10 +35,8 @@ function Clip:setLength(len, serialize)
 		len = self.Paths.DataModelSession:formatTimeValue(len, false)
 	end
 
-	if FastFlags:isAnimationEditorMaxLengthRestrictionFlagOn() then
-		if not self:isLengthOk(len)	then
-			return
-		end
+	if not self:isLengthOk(len)	then
+		return
 	end
 
 	self.length = len
