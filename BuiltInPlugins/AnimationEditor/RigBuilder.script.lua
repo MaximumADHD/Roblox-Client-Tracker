@@ -18,7 +18,6 @@ local gui = nil
 local open = false
 local mode = "R15"
 local options = {"Block Rig", "Mesh Rig", "Man Rig", "Woman Rig"}
-local boundsUpdateFixFlagExists, boundsUpdateFixFlagTrue =  pcall(function () return settings():GetFFlag("RigBuilderBoundsUpdateFix") end)
 
 --Functions
 function insertRig(name)
@@ -48,6 +47,7 @@ function insertRig(name)
 	--Some housekeeping
 	rig.Name = "Dummy"
 	rig.HumanoidRootPart.Anchored = true
+	rig.HumanoidRootPart.Transparency = 0.5
 	--Color it
 	for i, v in pairs(rig:GetChildren()) do
 		if v:IsA("BasePart") then
@@ -55,12 +55,7 @@ function insertRig(name)
 		end
 	end
 	--Here we go!
-	if boundsUpdateFixFlagExists and boundsUpdateFixFlagTrue then
-		rig:SetPrimaryPartCFrame(CFrame.new(getCameraLookat(10)))
-	else
-		rig:MoveTo(getCameraLookat(10))
-	end
-
+	rig:MoveTo(getCameraLookat(10))
 	game.Selection:Set({rig})
 end
 

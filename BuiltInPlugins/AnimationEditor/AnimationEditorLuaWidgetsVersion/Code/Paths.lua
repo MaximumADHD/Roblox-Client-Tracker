@@ -242,7 +242,9 @@ function Paths:init()
 	self.ActionTogglePartInclude = require(self.Actions.ActionTogglePartInclude)
 	self.ActionEditDisplayPrecision = require(self.Actions.ActionEditDisplayPrecision)
 	self.ActionEditStepInterval = require(self.Actions.ActionEditStepInterval)
-	self.ActionEditKeyframeName = require(self.Actions.ActionEditKeyframeName)
+	if FastFlags:isAnimationEditorRenameKeyFrameFlagOn() then
+		self.ActionEditKeyframeName = require(self.Actions.ActionEditKeyframeName)
+	end
 	self.ActionMove = require(self.Actions.ActionMove)
 	if FastFlags:isScaleKeysOn() then
 		self.ActionScale = require(self.Actions.ActionScale)
@@ -299,6 +301,10 @@ function Paths:init()
 
 	-- helper functions
 	self.HelperFunctionsCreation = require(self.HelperFunctions.HelperFunctionsCreation)	
+	
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+		self.HelperFunctionsEasingStyles = require(self.HelperFunctions.HelperFunctionsEasingStyles)
+	end
 
 	self.HelperFunctionsIteration = require(self.HelperFunctions.HelperFunctionsIteration)	
 	self.HelperFunctionsMath = require(self.HelperFunctions.HelperFunctionsMath)
@@ -363,7 +369,13 @@ function Paths:cacheGUIPaths(gui)
 	self.GUI = gui
 	self.GUIMain = self.GUI.Main
 	
-	self.GUIDragArea = self.GUI.DragAreaVersionParentScaled	
+	if FastFlags:isParentScaledDragAreaEnabled() then
+		self.GUIDragArea = self.GUI.DragAreaVersionParentScaled
+	else 
+		self.GUIDragArea = self.GUI.DragArea
+	end
+	
+
 	self.GUIMediaControls = self.GUIMain.MediaControlsAndTimelineHeader.MediaControls	
 	self.GUIScrollingJointTimeline = self.GUIMain.ScrollingJointsTimeline
 	self.GUIJointsTimeline = self.GUIScrollingJointTimeline.JointsTimeline

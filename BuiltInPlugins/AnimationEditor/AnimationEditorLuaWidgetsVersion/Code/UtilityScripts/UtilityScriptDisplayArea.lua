@@ -31,7 +31,12 @@ end
 -- pass in a displayToUse e.g if you are responding to an "AbsoluteSize" change callback, you may know the displayToUse has been updated already, whereas not all displays may have been
 -- (assumes we have at least one display)
 function DisplayArea:absoluteXPositionToTime(xPos, displayToUse)
-	local display = self.TargetWidgets[displayToUse] and displayToUse or next(self.TargetWidgets)
+	local display = nil
+	if FastFlags:isDefinedBoundaryNotchesFlagOn() then
+		display = self.TargetWidgets[displayToUse] and displayToUse or next(self.TargetWidgets)
+	else
+		display = next(self.TargetWidgets)
+	end
 
 	local offset = xPos-display.AbsolutePosition.X
 	local scale = offset/display.AbsoluteSize.X
@@ -45,7 +50,12 @@ end
 function DisplayArea:timeToAbsoluteXPosition(animTime, displayToUse)
 	local scale = animTime/self.Paths.DataModelClip:getLength()
 	scale = math.clamp(scale, 0, 1)
-	local display = self.TargetWidgets[displayToUse] and displayToUse or next(self.TargetWidgets)
+	local display = nil
+	if FastFlags:isDefinedBoundaryNotchesFlagOn() then
+		display = self.TargetWidgets[displayToUse] and displayToUse or next(self.TargetWidgets)
+	else
+		display = next(self.TargetWidgets)
+	end
 
 	local offset = scale*display.AbsoluteSize.X
 	local xPos = display.AbsolutePosition.X+offset

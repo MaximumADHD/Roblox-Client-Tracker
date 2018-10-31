@@ -58,11 +58,7 @@ function Priority:show()
 	setupBtn(self.GUI.Action)
 	
 	self.Connections:add(self.GUI.Help.MouseButton1Click:connect(function()
-		if FastFlags:isUseDevHubHelpLinksOn() then
-			self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.Help)
-		else
-			self.Paths.Globals.Plugin:OpenWikiPage("Animations#Priority")
-		end
+		self.Paths.Globals.Plugin:OpenWikiPage("Animations#Priority")
 	end))
 	self.Connections:add(self.KillScreenUtil.OnKillEvent:connect(function() destroyGUI(self) end))	
 	

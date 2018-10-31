@@ -18,11 +18,15 @@ local function initTotalTime(self)
 	    if enterPressed then
 			local newTime = tonumber(self.TargetWidget.TotalTimeInput.Text)
 			if newTime and newTime > 0 then
-				if self.Paths.DataModelClip:isLengthOk(newTime) then
-					self.Paths.ActionEditLength:execute(self.Paths, newTime)
+				if FastFlags:isAnimationEditorMaxLengthRestrictionFlagOn() then
+					if self.Paths.DataModelClip:isLengthOk(newTime) then
+						self.Paths.ActionEditLength:execute(self.Paths, newTime)
+					else
+						setLength()
+					end	
 				else
-					setLength()
-				end	
+					self.Paths.ActionEditLength:execute(self.Paths, newTime)
+				end
 			end
 		else
 			setLength()

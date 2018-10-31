@@ -128,7 +128,6 @@ RBX
 		GeometryD3D9
 		GeometryGL
 		GeometryVulkan
-		GuiCluster
 		IndexBufferD3D9
 		InstancedBinding
 		InstancedBinding2
@@ -138,7 +137,6 @@ RBX
 		InstancedCluster2
 		InstancedEntity
 		InstancedEntity2
-		ISuperCluster
 		LightGrid
 		LightGridCPU
 		LightGridCPU_DEPRECATED
@@ -168,7 +166,6 @@ RBX
 		ShaderProgramGL
 		ShaderProgramVulkan
 		ShaderVulkan
-		SuperCluster
 		Texture
 		TextureAtlas
 		TextureCompositor
@@ -178,6 +175,7 @@ RBX
 		TextureProxy
 		TextureVulkan
 		TrailNode
+		TypesetterDynamicDEPRECATED
 		VertexBufferD3D9
 		VertexLayout
 		VertexLayoutD3D11
@@ -1155,6 +1153,7 @@ RBX
 	Tween
 	TweenBase
 	TweenService
+	TypesetterDEPRECATED
 	UIAspectRatioConstraint
 	UIBase
 	UIComponent
@@ -1184,7 +1183,6 @@ RBX
 	Verb
 	VerbContainer
 	ViewBase
-	ViewportFrame
 	VirtualHardwareDevice
 	VirtualInputManager
 	VirtualUser

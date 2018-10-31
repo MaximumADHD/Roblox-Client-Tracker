@@ -1,7 +1,5 @@
 local Roact = require(script.Parent.Internal.RequireRoact)
 
-local isFastFlagLabelOverlapFixOn = settings():GetFFlag("SharedWidgetSliderRangedLabelOverlapFix")
-
 local CaretAssetEnabled = "rbxasset://textures/RoactStudioWidgets/slider_caret.png"
 local CaretAssetDisabled = "rbxasset://textures/RoactStudioWidgets/slider_caret_disabled.png"
 
@@ -27,10 +25,6 @@ local getMin = nil
 local getMax = nil
 local getPressedClickAreaHeight = nil
 local getNormalClickAreaHeight = nil
-local calculateImageButtonWidth = nil
-local calculateBarWidth = nil
-local createLowerCaret = nil
-local createUpperCaret = nil
 
 -- props:
 -- float CaretLowerRangeValue
@@ -52,7 +46,7 @@ function SliderRanged:render()
 
 	return Roact.createElement("ImageButton", {
 		LayoutOrder = self.props.LayoutOrder,
-		Size = UDim2.new(0, isFastFlagLabelOverlapFixOn and calculateImageButtonWidth(self) or self.props.Width, 0, getNormalClickAreaHeight(self)),
+		Size = UDim2.new(0, self.props.Width, 0, getNormalClickAreaHeight(self)),
 		Position = UDim2.new(0, 10, 0, 0),
 		BackgroundTransparency = 1,
 		ZIndex = 1,
@@ -115,7 +109,7 @@ function SliderRanged:render()
 		Bar = Roact.createElement("Frame", {
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = isFastFlagLabelOverlapFixOn and UDim2.new(0, calculateBarWidth(self), 0, 4) or UDim2.new(1, -(getBarStartXOffset() * 2), 0, 4),
+			Size = UDim2.new(1, -(getBarStartXOffset() * 2), 0, 4),
 			BackgroundTransparency = 0,
 			BackgroundColor3 = Grey,
 			BorderSizePixel = 0,
@@ -130,8 +124,8 @@ function SliderRanged:render()
 				BorderSizePixel = 0,
 				ZIndex = 4,
 			}),
-			MinCaret = isFastFlagLabelOverlapFixOn and createLowerCaret(self) or createCaret(self, self.props.CaretLowerRangeValue, self.props.CaretLowerRangeText),
-			MaxCaret = isFastFlagLabelOverlapFixOn and createUpperCaret(self) or createCaret(self, self.props.CaretUpperRangeValue, self.props.CaretUpperRangeText),
+			MinCaret = createCaret(self, self.props.CaretLowerRangeValue, self.props.CaretLowerRangeText),
+			MaxCaret = createCaret(self, self.props.CaretUpperRangeValue, self.props.CaretUpperRangeText)
 		}),
 	})
 end
@@ -152,34 +146,32 @@ getNormalClickAreaHeight = function()
 	return CaretDiameter + 5
 end
 
-if not isFastFlagLabelOverlapFixOn then
-	createCaret = function(self, value, text)
-		if self.props.Enabled then
-			return Roact.createElement("ImageLabel", {
-				Position = UDim2.new(toScaler(value, self), 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(0, CaretDiameter, 0, CaretDiameter),
-				Image = self.props.Enabled and CaretAssetEnabled or CaretAssetDisabled,
-				BorderSizePixel = 0,
-				ZIndex = 5,
-				BackgroundTransparency = 1,
-			}, {
-				Label = Roact.createElement("TextLabel", {
-					Position = UDim2.new(0.5, 0, 0, -10),
-		            Text = text or "",
-		            TextColor3 = self.props.TextColor or Color3.fromRGB(160, 160, 160),
-		            BackgroundTransparency = 1,
-		            Font = Enum.Font.SourceSans,
-		            TextSize = 13,
-		            AnchorPoint = Vector2.new(0.5, 1),
-		            TextXAlignment = Enum.TextXAlignment.Center,
-		            Visible = text and true or false,
-		            ZIndex = 5,
-		        })
-			})
-		else
-			return nil
-		end
+createCaret = function(self, value, text)
+	if self.props.Enabled then
+		return Roact.createElement("ImageLabel", {
+			Position = UDim2.new(toScaler(value, self), 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Size = UDim2.new(0, CaretDiameter, 0, CaretDiameter),
+			Image = self.props.Enabled and CaretAssetEnabled or CaretAssetDisabled,
+			BorderSizePixel = 0,
+			ZIndex = 5,
+			BackgroundTransparency = 1,
+		}, {
+			Label = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0.5, 0, 0, -10),
+	            Text = text or "",
+	            TextColor3 = self.props.TextColor or Color3.fromRGB(160, 160, 160),
+	            BackgroundTransparency = 1,
+	            Font = Enum.Font.SourceSans,
+	            TextSize = 13,
+	            AnchorPoint = Vector2.new(0.5, 1),
+	            TextXAlignment = Enum.TextXAlignment.Center,
+	            Visible = text and true or false,
+	            ZIndex = 5,
+	        })
+		})
+	else
+		return nil
 	end
 end
 
@@ -249,117 +241,6 @@ end
 
 isPressed = function(self)
 	return Caret.None ~= self.state.Pressed
-end
-
-if isFastFlagLabelOverlapFixOn then
-	local labelParameters = {
-		labelTextSize = 13,
-		labelFont = Enum.Font.SourceSans		
-	}
-
-	local calculateLabelSize = function(self, text)
-		local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-		local labelSize = game:GetService('TextService'):GetTextSize(text, labelParameters.labelTextSize, labelParameters.labelFont, hugeFrameSizeNoTextWrapping)
-
-		local HorizontalBuffer = 2
-		return Vector2.new(labelSize.X+HorizontalBuffer, labelSize.Y)
-	end
-
-	local createCaretWithLabel = function(self, position, text, labelPosition)
-		local fittedLabelSize = calculateLabelSize(self, text)
-
-		return Roact.createElement("ImageLabel", {
-			Position = position,
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = UDim2.new(0, CaretDiameter, 0, CaretDiameter),
-			Image = self.props.Enabled and CaretAssetEnabled or nil,
-			BorderSizePixel = 0,
-			ZIndex = 5,
-			BackgroundTransparency = 1,
-		}, {
-			Label = Roact.createElement("TextLabel", {
-				Position = labelPosition,
-				Text = text or "",
-				TextColor3 = self.props.TextColor or Color3.fromRGB(160, 160, 160),
-				BackgroundTransparency = 1,
-				Font = labelParameters.labelFont,
-				TextSize = labelParameters.labelTextSize,
-				AnchorPoint = Vector2.new(0.5, 1),
-				TextXAlignment = Enum.TextXAlignment.Center,
-				Visible = text and true or false,
-				ZIndex = 5,
-				Size = UDim2.new(0, fittedLabelSize.X, 0, 0),
-				TextTransparency = self.props.Enabled and 0 or 1
-			})
-		})
-	end
-
-	calculateImageButtonWidth = function(self)
-		return self.props.Width
-	end
-
-	calculateBarWidth = function(self)
-		return calculateImageButtonWidth(self)-(getBarStartXOffset() * 2)
-	end
-
-	local calculateUpperRangeLabelWidth = function(self)
-		return calculateLabelSize(self, self.props.CaretUpperRangeText).X
-	end
-
-	local calculateLowerRangeLabelWidth = function(self)
-		return calculateLabelSize(self, self.props.CaretLowerRangeText).X
-	end
-
-	local calculateLowerRangeCaretImageHorizontalCenter = function(self)
-		return calculateBarWidth(self)*toScaler(self.props.CaretLowerRangeValue, self)
-	end
-
-	local calculateUpperRangeCaretImageHorizontalCenter = function(self)
-		return calculateBarWidth(self)*toScaler(self.props.CaretUpperRangeValue, self)
-	end
-
-	local calculateLowerUpperCaretLabelHorizontalOffsets = function(self)
-		local lowerCaretImageHorizontalCenter = calculateLowerRangeCaretImageHorizontalCenter(self)
-		local upperCaretImageHorizontalCenter = calculateUpperRangeCaretImageHorizontalCenter(self)	
-
-		local lowerLabelHalfWidth = 0.5*calculateLowerRangeLabelWidth(self)
-		local upperLabelHalfWidth = 0.5*calculateUpperRangeLabelWidth(self)
-
-		local lowerLabelHorizontalOffset = 0
-		local upperLabelHorizontalOffset = 0
-
-		if lowerLabelHalfWidth > 0 or upperLabelHalfWidth > 0 then
-			local diffBetweenCarets = upperCaretImageHorizontalCenter-lowerCaretImageHorizontalCenter
-			local areLabelsOverlapped = diffBetweenCarets <= (upperLabelHalfWidth+lowerLabelHalfWidth)
-			if areLabelsOverlapped then
-				local scaler = lowerLabelHalfWidth/(upperLabelHalfWidth+lowerLabelHalfWidth)
-				local scaledHorizontalCenterBetweenCarets = lowerCaretImageHorizontalCenter+(scaler*diffBetweenCarets)
-
-				lowerLabelHorizontalOffset = (scaledHorizontalCenterBetweenCarets-lowerCaretImageHorizontalCenter)-lowerLabelHalfWidth
-				upperLabelHorizontalOffset = (scaledHorizontalCenterBetweenCarets-upperCaretImageHorizontalCenter)+upperLabelHalfWidth
-			end
-		end
-		return lowerLabelHorizontalOffset, upperLabelHorizontalOffset
-	end
-
-	local calculateLowerUpperCaretLabelPositions = function(self)
-		local lowerLabelOffset, upperLabelOffset = calculateLowerUpperCaretLabelHorizontalOffsets(self)
-		local YOffset = -10
-		local parentCenter = CaretDiameter*0.5 
-		return UDim2.new(0, parentCenter+lowerLabelOffset, 0, YOffset), UDim2.new(0, parentCenter+upperLabelOffset, 0, YOffset)
-	end
-
-	createLowerCaret = function(self)
-		local position = UDim2.new(0, calculateLowerRangeCaretImageHorizontalCenter(self), 0.5, 0)
-		local labelPosition = calculateLowerUpperCaretLabelPositions(self)
-		return createCaretWithLabel(self, position, self.props.CaretLowerRangeText, labelPosition)
-	end
-
-	createUpperCaret = function(self)
-		local position = UDim2.new(0, calculateUpperRangeCaretImageHorizontalCenter(self), 0.5, 0)
-		local unused, labelPosition = calculateLowerUpperCaretLabelPositions(self)
-		return createCaretWithLabel(self, position, self.props.CaretUpperRangeText, labelPosition)
-	end	
 end
 
 return SliderRanged

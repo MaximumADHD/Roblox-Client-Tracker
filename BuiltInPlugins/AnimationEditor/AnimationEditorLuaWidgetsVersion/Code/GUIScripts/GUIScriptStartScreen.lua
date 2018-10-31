@@ -234,11 +234,7 @@ function StartScreen:show(exitFunc)
 	
 	local helpClickConnect = self.gui.Buttons.Help.MouseButton1Click:connect(function()
 		if self.HelpButton:getEnabled() then
-			if FastFlags:isUseDevHubHelpLinksOn() then
-				self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.Help)
-			else
-				self.Paths.Globals.Plugin:OpenWikiPage("Animations")
-			end
+			self.Paths.Globals.Plugin:OpenWikiPage("Animations")
 		end
 	end)
 	table.insert(self.cleanupEvents, helpClickConnect)

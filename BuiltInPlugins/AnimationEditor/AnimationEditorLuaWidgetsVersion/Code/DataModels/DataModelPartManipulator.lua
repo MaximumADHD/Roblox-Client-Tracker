@@ -360,6 +360,9 @@ local function onMouseRotate(self, axisRaw, relAngle, item)
 		end
 	end
 
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then	
+		self.Paths.DataModelRig:nudgeView()
+	end
 	self:updateProxyPart()
 	
 	if self.Paths.HelperFunctionsTable:containsOneKeyOnly(self.Paths.DataModelSession:getSelectedDataItems()) then
@@ -383,8 +386,10 @@ local function onMouseEndRotate(self)
 			self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
 		end
 		self:endCurrentManipulation()
-		
-		self.Paths.DataModelPlayState:recreateAnimationTrack()
+
+		if FastFlags:isScrubbingPlayingMatchFlagOn() then
+			self.Paths.DataModelPlayState:recreateAnimationTrack()
+		end
 
 		self:updateProxyPart() -- must be after endCurrentManipulation() call
 		self.MouseUpEventConnect:disconnect()
@@ -400,7 +405,10 @@ local function onMouseBeginRotate(self, item)
 		onMouseEndRotate(self)
 	end)
 			
-	local allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
+	local allMotorC1s = nil
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
+	end
 
 	local part = item.Item
 
@@ -413,8 +421,10 @@ local function onMouseBeginRotate(self, item)
 		kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
 	end
 
-	self.Paths.DataModelPlayState:pauseAndStop()
-	self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		self.Paths.DataModelPlayState:pauseAndStop()
+		self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
+	end
 
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
 		self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
@@ -467,7 +477,10 @@ end
 local function onMouseBeginDrag(self, item) 
 	self:startCurrentManipulation()
 	
-	local allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
+	local allMotorC1s = nil
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
+	end
 	
 	local part = item.Item
 
@@ -481,8 +494,10 @@ local function onMouseBeginDrag(self, item)
 		kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
 	end
 
-	self.Paths.DataModelPlayState:pauseAndStop()
-	self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		self.Paths.DataModelPlayState:pauseAndStop()
+		self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
+	end
 
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
 		self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
@@ -539,6 +554,10 @@ local function onMouseDrag(self, face, dist, item)
 			item.Motor6D.C1 = (kfd.CFrame*item.OriginC1)
 		end
 	end
+	
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+		self.Paths.DataModelRig:nudgeView()
+	end
 
 	self:updateProxyPart()
 
@@ -561,8 +580,10 @@ local function onMouseEndDrag(self)
 	if self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then
 		self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
 	end
-	self:endCurrentManipulation()	
-	self.Paths.DataModelPlayState:recreateAnimationTrack()
+	self:endCurrentManipulation()
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		self.Paths.DataModelPlayState:recreateAnimationTrack()
+	end
 end
 
 function PartManipulator:movePart(face, dist, dataItem)
@@ -751,10 +772,12 @@ local function startCurrentPositionManipulation(self)
 end
 
 function PartManipulator:startCurrentManipulation()
-	if self:areHandlesRotate() then
-		startCurrentRotationManipulation(self)
-	else
-		startCurrentPositionManipulation(self)
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		if self:areHandlesRotate() then
+			startCurrentRotationManipulation(self)
+		else
+			startCurrentPositionManipulation(self)
+		end
 	end
 	PartManipulator.ManipulationBeginEvent:fire()
 end
@@ -780,7 +803,10 @@ function PartManipulator:setCurrentPositionManipulation(normalId, amt)
 end
 
 local function isItemCurrentlyBeingManipulated(self, dataItem)
-	return self.Paths.DataModelSession:isCurrentlySelectedDataItem(dataItem) and self:isCurrentlyManipulating()
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		return self.Paths.DataModelSession:isCurrentlySelectedDataItem(dataItem) and self:isCurrentlyManipulating()
+	end
+	return self.Paths.DataModelSession:isCurrentlySelectedDataItem(dataItem) and (self.CurrentPositionManipulation or self.CurrentRotationManipulation)
 end
 
 function PartManipulator:isCurrentlyManipulating()

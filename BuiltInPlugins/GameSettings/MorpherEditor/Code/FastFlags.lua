@@ -20,12 +20,4 @@ function FastFlags.isThemesFlagOn()
 	return isFlagOn("StudioLuaGameSettingsDialog2")
 end
 
-function FastFlags.isCheckboxDisabledStateFixFlagOn()
-	return isFlagOn("SharedWidgetCheckboxDisabledStateFix")
-end
-
-function FastFlags.isSliderLayoutFixFlagOn()
-	return isFlagOn("MorphingAvatarPanelSliderLayoutFix")
-end
-
 return FastFlags

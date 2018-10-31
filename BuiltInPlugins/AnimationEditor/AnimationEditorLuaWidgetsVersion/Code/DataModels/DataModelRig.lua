@@ -104,8 +104,23 @@ function Rig:create(Paths, selectedObject)
 	self.BaseItem = baseItem
 end
 
+if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+function Rig:onRigJointsChangeRequired()
+	if not self.Paths.DataModelPlayState:getIsPlaying() then
+		self:updateRigPosition()
+	else
+		self.Paths.DataModelPartManipulator:updateProxyPart()
+	end
+end
+end
+
 function Rig:init(Paths)
 	Rig.Paths = Paths
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+		Rig.ScrubberTimeChangeHandle = Paths.DataModelSession.ScrubberTimeChangeEvent:connect(function()
+			self:onRigJointsChangeRequired()
+		end)
+	end
 	Rig.PartIncludeToggleEvent = Paths.UtilityScriptEvent:new()
 	if FastFlags:isIKModeFlagOn() then
 		Rig.PartPinnedToggleEvent = Paths.UtilityScriptEvent:new()
@@ -147,6 +162,11 @@ function Rig:terminate()
 		Rig.RigVerifiedEvent = nil
 	end
 
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+		Rig.ScrubberTimeChangeHandle:disconnect()
+		Rig.ScrubberTimeChangeHandle = nil
+	end
+
 	Rig.Connections:disconnectAll()
 	Rig.NameChangedEvent = nil
 end
@@ -163,6 +183,15 @@ if FastFlags:isIKModeFlagOn() then
 	function Rig:getModel()
 		return self.BaseItem.Item.Parent
 	end
+end
+
+if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+-- this function was probably intended to force a re-render
+function Rig:nudgeView()
+	local mainPart = self.BaseItem.Item
+	mainPart.CFrame = mainPart.CFrame*CFrame.new(0, 1, 0)
+	mainPart.CFrame = mainPart.CFrame*CFrame.new(0, -1, 0)
+end
 end
 
 function Rig:getPart(name)
@@ -185,6 +214,10 @@ local function setPartIncludeInternal(self, dataItemName, newVal)
 		self.partInclude[dataItemName] = newVal
 		if not self.partInclude[dataItemName] then
 			self.Paths.DataModelSession:resetDataItemIfSelected(self:getDataItem(dataItemName))
+		end
+
+		if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+			self:onRigJointsChangeRequired()
 		end
 
 		return true
@@ -231,16 +264,53 @@ function Rig:isPartManeuverable(dataItem)
 end
 
 function Rig:getMotorC1(data, time)
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		time = self.Paths.DataModelClip:keyframeTimeClamp(time)
+
+		if nil ~= data.Motor6D then
+			self.Paths.DataModelPlayState:setTime(time)
+			local motorC1 = data.OriginC1 * data.Motor6D.Transform:inverse()
+			-- set the animation back to where the scrubber was
+			self.Paths.DataModelPlayState:setTime(self.Paths.DataModelSession:getScrubberTime())
+			return motorC1
+		end
+		return CFrame.new()
+	end
+
 	time = self.Paths.DataModelClip:keyframeTimeClamp(time)
 
-	if nil ~= data.Motor6D then
-		self.Paths.DataModelPlayState:setTime(time)
-		local motorC1 = data.OriginC1 * data.Motor6D.Transform:inverse()
-		-- set the animation back to where the scrubber was
-		self.Paths.DataModelPlayState:setTime(self.Paths.DataModelSession:getScrubberTime())
-		return motorC1
+	if data.Motor6D and data.Item then
+		local part = data.Item
+		local active = self.partInclude[part.Name]
+		if active then
+			local lastPose = self.Paths.DataModelClip:getPreviousPose(time, part)
+			local nextPose = self.Paths.DataModelClip:getClosestNextPose(time, part)
+
+			if lastPose then
+				if self.Paths.DataModelPreferences:getValue(self.Paths.DataModelPreferences.Type.Interpolation) and nextPose and (lastPose.CFrame ~= nextPose.CFrame) and (time ~= lastPose.Time) then
+					local timeChunk = nextPose.Time - lastPose.Time
+					local timeIn = time - lastPose.Time
+					local weight = timeIn / timeChunk
+
+					weight = self.Paths.HelperFunctionsEasingStyles:getEasing(lastPose.EasingStyle, lastPose.EasingDirection, 1-weight)
+
+					local lastCFrame = lastPose.CFrame
+
+					local nextCFrame = nextPose.CFrame
+					local retVal = lastCFrame:lerp(nextCFrame, weight) * data.OriginC1--this
+
+					retVal = self.Paths.HelperFunctionsMath:orthoNormalizeCFrame(retVal)
+					return retVal
+				else
+					return lastPose.CFrame * data.OriginC1
+				end
+			else
+				return data.OriginC1
+			end
+		else
+			return data.OriginC1
+		end
 	end
-	return CFrame.new()
 end
 
 function Rig:calculateAllMotorC1s()
@@ -265,11 +335,29 @@ end
 function Rig:resetJoints()
 	for part, item in pairs(self.partList) do
 		if nil ~= item.Motor6D then
-			item.Motor6D.Transform = CFrame.new()
-			item.Motor6D.CurrentAngle = 0
+			if FastFlags:isResetLockedJointsFlagOn() then
+				item.Motor6D.Transform = CFrame.new()
+				item.Motor6D.CurrentAngle = 0
+			end
 			item.Motor6D.C1 = item.OriginC1
 		end
 	end
+end
+
+if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+function Rig:updateRigPosition()
+	self.Paths.DataModelPlayState:pause()
+
+	--move the model
+	for part, item in pairs(self.partList) do
+		local active = self.partInclude[part.Name]
+		if item.Motor6D then
+			item.Motor6D.C1 = self:getMotorC1(item, self.Paths.DataModelSession:getScrubberTime())
+			self.Paths.DataModelPartManipulator:updateProxyPart()
+			self:nudgeView()
+		end
+	end
+end
 end
 
 if FastFlags:isIKModeFlagOn() then

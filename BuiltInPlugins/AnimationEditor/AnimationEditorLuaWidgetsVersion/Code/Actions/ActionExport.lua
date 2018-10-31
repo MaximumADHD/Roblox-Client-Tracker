@@ -10,6 +10,9 @@ function Export:execute(Paths)
 	for part,elem in pairs(Paths.DataModelRig.partList) do
 		if (elem.Motor6D ~= nil) then
 			elem.Motor6D.C1 = elem.OriginC1
+			if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+				Paths.DataModelRig:nudgeView()
+			end
 		end
 	end
 

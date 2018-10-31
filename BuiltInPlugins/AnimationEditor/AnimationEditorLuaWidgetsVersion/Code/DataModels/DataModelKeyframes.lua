@@ -163,30 +163,51 @@ function Keyframes:getOrCreateKeyframeData(part, time, fireChangeEvent, register
 		registerUndo = registerUndo == nil and true or registerUndo
 	end
 	fireChangeEvent = fireChangeEvent == nil and true or fireChangeEvent
-	local keyframe = self.Paths.DataModelClip:getKeyframe(time)
-	local wasNewKeyFrameRequired = nil == keyframe
-	if wasNewKeyFrameRequired then
-		if not FastFlags:isScaleKeysOn() or registerUndo then self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe) end
-		keyframe = self:createKeyframe(time, false)
-	end
-	local isChangeEventRequiredToFire = nil ~= keyframe and wasNewKeyFrameRequired
-
-	local poseForPart = nil
-	if keyframe ~= nil and self.Paths.DataModelRig.partToItemMap[part] ~= nil and self.Paths.DataModelRig.partToItemMap[part].Motor6D ~= nil then
-		if keyframe.Poses[part] == nil then
-			if not wasNewKeyFrameRequired then
-				if not FastFlags:isScaleKeysOn() or registerUndo then self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe) end
-			end
-			self.Paths.UtilityScriptPose:initializePose(self.Paths, keyframe, part)
-			isChangeEventRequiredToFire = true
+	if FastFlags:isScrubbingPlayingMatchFlagOn() then
+		local keyframe = self.Paths.DataModelClip:getKeyframe(time)
+		local wasNewKeyFrameRequired = nil == keyframe
+		if wasNewKeyFrameRequired then
+			if not FastFlags:isScaleKeysOn() or registerUndo then self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe) end
+			keyframe = self:createKeyframe(time, false)
 		end
-		poseForPart = keyframe.Poses[part]
-	end
+		local isChangeEventRequiredToFire = nil ~= keyframe and wasNewKeyFrameRequired
 
-	if isChangeEventRequiredToFire then
-		if fireChangeEvent then self.ChangedEvent:fire(self.keyframeList) end
+		local poseForPart = nil
+		if keyframe ~= nil and self.Paths.DataModelRig.partToItemMap[part] ~= nil and self.Paths.DataModelRig.partToItemMap[part].Motor6D ~= nil then
+			if keyframe.Poses[part] == nil then
+				if not wasNewKeyFrameRequired then
+					if not FastFlags:isScaleKeysOn() or registerUndo then self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe) end
+				end
+				self.Paths.UtilityScriptPose:initializePose(self.Paths, keyframe, part)
+				isChangeEventRequiredToFire = true
+			end
+			poseForPart = keyframe.Poses[part]
+		end
+
+		if isChangeEventRequiredToFire then
+			if fireChangeEvent then self.ChangedEvent:fire(self.keyframeList) end
+		end
+		return poseForPart
+	else
+		local keyframe = self.Paths.DataModelClip:getKeyframe(time)
+		if (keyframe == nil) then
+			if FastFlags:isScaleKeysOn() then
+				keyframe = self:createKeyframe(time, registerUndo)
+			else
+				keyframe = self:createKeyframe(time)
+			end
+		end
+
+		if (keyframe ~= nil and self.Paths.DataModelRig.partToItemMap[part] ~= nil and self.Paths.DataModelRig.partToItemMap[part].Motor6D ~= nil) then
+			if (keyframe.Poses[part] == nil) then
+				self.Paths.UtilityScriptPose:initializePose(self.Paths, keyframe, part)
+				if fireChangeEvent then self.ChangedEvent:fire(self.keyframeList) end
+			end
+			return keyframe.Poses[part]
+		else
+			return nil
+		end
 	end
-	return poseForPart
 end
 
 function Keyframes:getCurrentKeyframeData(part, fireChangeEvent, registerUndo)
@@ -286,22 +307,6 @@ function Keyframes:getOrCreateKeyframe(time, registerUndo)
 		key = Keyframes:createKeyframe(time, registerUndo)
 	end
 	return key
-end
-
-if FastFlags:isRightClickAddKeyFixOn() then
-	function Keyframes:createAndSelectKeyframe(dataItem, time)
-		if dataItem and time then
-			self:getOrCreateKeyframeData(self.Paths.DataModelRig:getPart(dataItem.Name), time)
-			self.Paths.DataModelSession:selectKeyframe(time, dataItem)
-		end
-	end
-
-	function Keyframes:createAndSelectMultipleKeys(dataItems, time)
-		if not self.Paths.HelperFunctionsTable:isNilOrEmpty(dataItems) and time then
-			self:getOrCreateKeyframes(dataItems, time)
-			self.Paths.DataModelSession:addPosesToSelectedKeyframes(time, dataItems)
-		end
-	end
 end
 
 local function reinitializePose(self, keyframe, part, item)
@@ -405,7 +410,7 @@ function Keyframes:loadKeyframeSequence(kfs)
 	local invalidPoseNames = {}
 	local LocalKeyframe = nil
 	for _, keyframe in pairs(keyframes) do
-		if keyframe.Time <= self.Paths.DataModelClip:getLength() then
+		if not FastFlags:isAnimationEditorMaxLengthRestrictionFlagOn() or keyframe.Time <= self.Paths.DataModelClip:getLength() then
 			local time = self.Paths.DataModelSession:formatTimeValue(keyframe.Time)
 			LocalKeyframe = self:createKeyframe(time, false)
 
@@ -429,6 +434,11 @@ function Keyframes:loadKeyframeSequence(kfs)
 
 	if self.Paths.DataModelSession.ScrubberTime > self.Paths.DataModelClip:getLength() then
 		self.Paths.DataModelSession.ScrubberTime = 0
+	end
+
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+		self.Paths.DataModelRig:updateRigPosition()
+		self.Paths.DataModelRig:nudgeView()
 	end
 	
 	self.ChangedEvent:fire(self.keyframeList)

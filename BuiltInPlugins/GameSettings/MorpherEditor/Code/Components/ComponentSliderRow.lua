@@ -1,10 +1,6 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local function SliderRow(props)
-    local textLabelWidth = fastFlags.isSliderLayoutFixFlagOn() and paths.ConstantLayout.TextLabelIdentifierWidth or 71
-    local inputBoxWidth = fastFlags.isSliderLayoutFixFlagOn() and paths.ConstantLayout.InputWidgetWidth or 158
-
     return paths.Roact.createElement("Frame", {
             LayoutOrder = props.LayoutOrder,
             Size = UDim2.new(1, 0, 0, paths.ConstantLayout.RowHeight),
@@ -18,7 +14,7 @@ local function SliderRow(props)
                     Text = props.Text,
                     TextColor3 = paths.StateInterfaceTheme.getBodyTextColor(props),
                     BackgroundTransparency = 1,
-                    Size = UDim2.new(0, textLabelWidth, 1, 0),
+                    Size = UDim2.new(0, 71, 1, 0),
                     Font = paths.ConstantFonts.BodyText.Type,
                     TextSize = paths.ConstantFonts.BodyText.Size,
                     AnchorPoint = Vector2.new(0, 0.5),
@@ -29,7 +25,7 @@ local function SliderRow(props)
                     TextColor = paths.StateInterfaceTheme.getBodyTextColor(props),
                     LayoutOrder = 2,
                     Pressed = props.Pressed,
-                    Width = inputBoxWidth,
+                    Width = 158,
 
                     CaretLowerRangeValue = props.SliderCaretLowerRangeValue,
                     CaretUpperRangeValue = props.SliderCaretUpperRangeValue,

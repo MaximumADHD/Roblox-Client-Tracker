@@ -6,12 +6,10 @@ local connectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local CorePackages = game:GetService("CorePackages")
 local scriptContext = game:GetService("ScriptContext")
 local touchEnabled = game:GetService("UserInputService").TouchEnabled
-local GuiService = game:GetService("GuiService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local FFlagUseRoactPurchasePrompt = settings():GetFFlag("UseRoactPurchasePrompt")
-local isTenFootInterface = GuiService:IsTenFootInterface()
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -26,7 +24,7 @@ local function safeRequire(moduleScript)
 	end
 	return moduleReturnValue
 end
-if connectionScriptEnabled and not isTenFootInterface then
+if connectionScriptEnabled then
 	scriptContext:AddCoreScriptLocal("Connection", RobloxGui)
 end
 

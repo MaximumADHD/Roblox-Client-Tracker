@@ -1,7 +1,7 @@
 return function()
 	local parts = {}
 
-	for _, object in pairs(game:GetService("Selection"):Get()) do
+	for _, object in pairs(game.Selection:Get()) do
 		if object:IsA("BasePart") then
 			table.insert(parts, object)
 		end

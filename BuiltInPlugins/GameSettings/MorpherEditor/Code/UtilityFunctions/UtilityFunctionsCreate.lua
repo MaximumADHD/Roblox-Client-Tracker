@@ -61,14 +61,13 @@ function Create.horizontalPaddingFrame(order, width)
     )
 end
 
-function Create.radioButton(order, IsSelected, setValueFunc, backgroundColor, isEnabled)
+function Create.radioButton(order, IsSelected, setValueFunc, backgroundColor)
     return paths.Roact.createElement(paths.SharedWidgetRadioButton, {
             LayoutOrder = order,
             IsSelected = IsSelected,
             Size = UDim2.new(0, 10, 0, 10),
             setValue = setValueFunc,
-            BackgroundColor3 = backgroundColor,
-            IsEnabled = isEnabled
+            BackgroundColor3 = backgroundColor
         }
     )
 end  

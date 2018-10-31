@@ -30,15 +30,9 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
-local FFlagFixVersionContainer = settings():GetFFlag("FixVersionContainer")
-
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
 local FFlagEnableResponsiveUIFix = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
-local FFlagXboxEnableABTests = settings():GetFFlag("XboxEnableABTests")
-local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
-local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
-local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestName")
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -53,8 +47,6 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
-local PlatformService = nil
-pcall(function() PlatformService = game:GetService('PlatformService') end)
 
 --[[ REMOTES ]]
 local GetServerVersionRemote = nil
@@ -131,40 +123,7 @@ local function CreateSettingsHub()
 	this.BottomBarButtons = {}
 	this.ResizedConnection = nil
 	this.TabConnection = nil
-	-- Splite the logic for easy clean up
-	if FFlagXboxPlayNextGame then
-		local enablePlayNextGame = false
-		if FFlagXboxOverrideEnablePlayNextGame then
-			enablePlayNextGame = true
-		else
-			---- Get AB test enrollment
-			if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
-				if FFlagXboxEnableABTests then
-					if PlatformService then
-						local abTestEnrollments = PlatformService:GetABTestEnrollments()
-						if abTestEnrollments then
-							-- Enable AB test for variation 2
-							if abTestEnrollments[FStringPlayNextGameTestName] == 2 then
-								enablePlayNextGame = true
-							end
-						end
-					end
-				end
-			end
-			----
-		end
-
-		--NOTE: After flag clean up and if we want this just for Xbox then use:
-		--local enablePlayNextGame = UserInputService:GetPlatform() == Enum.Platform.XBoxOne
-		--
-		if enablePlayNextGame then
-			this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameXbox)
-		else
-			this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
-		end
-	else
-		this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
-	end
+	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
 	this.SettingsShowSignal = utility:CreateSignal()
 	this.OpenStateChangedCount = 0
@@ -407,174 +366,83 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
-		if FFlagFixVersionContainer then
-			local versionContainerLayout = utility:Create("UIListLayout") {
-				Name = "VersionContainer",
-				Parent = this.VersionContainer,
+		local size = UDim2.new(0.5, -6, 1, -6)
+		local clientPosition = UDim2.new(0.5, 3, 0, 3)
+		local clientTextAlignment = Enum.TextXAlignment.Right
 
-				Padding = UDim.new(0,6),
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Center, 
-				SortOrder = Enum.SortOrder.LayoutOrder
-			}
-
-			local size = UDim2.new(0.25, -6, 1, 0)
-
-			this.ServerVersionLabel = utility:Create("TextLabel") {
-				Name = "ServerVersionLabel",
-				Parent = this.VersionContainer,
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Server Version: ...",
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				ZIndex = 5
-			}
-			spawn(function()
-				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
-				this.ServerVersionLabel.TextScaled = not this.ServerVersionLabel.TextFits
-			end)
-
-			this.ClientVersionLabel = utility:Create("TextLabel") {
-				Name = "ClientVersionLabel",
-				Parent = this.VersionContainer,
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Client Version: "..RunService:GetRobloxVersion(),
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				ZIndex = 5
-			}
-			this.ClientVersionLabel.TextScaled = not this.ClientVersionLabel.TextFits
-
-			if FFlagHelpMenuShowPlaceVersion then
-				this.PlaceVersionLabel = utility:Create("TextLabel") {
-					Name = "PlaceVersionLabel",
-					Parent = this.VersionContainer,
-					BackgroundTransparency = 1,
-					LayoutOrder = 3,
-					TextColor3 = Color3.new(1, 1, 1),
-					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-					Text = "Place Version: ...",
-					Size = size,
-					Font = Enum.Font.SourceSans,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					ZIndex = 5,
-				}
-				local function setPlaceVersionText()
-					this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
-					this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
-				end
-				game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
-				spawn(setPlaceVersionText)
-			end
-
-			this.EnvironmentLabel = utility:Create("TextLabel") {
-				Name = "EnvironmentLabel",
-				Parent = this.VersionContainer,
-				AnchorPoint = Vector2.new(0.5,0),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				LayoutOrder = 4,
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = baseUrl,
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				ZIndex = 5,
-				Visible = isTestEnvironment
-			}
-			this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
-		else
-			local size = UDim2.new(0.5, -6, 1, -6)
-			local clientPosition = UDim2.new(0.5, 3, 0, 3)
-			local clientTextAlignment = Enum.TextXAlignment.Right
-	
-			if FFlagHelpMenuShowPlaceVersion then
-				size = UDim2.new(0.333, -6, 1, -6)
-				clientPosition = UDim2.new(0.333, 3, 0, 3)
-				clientTextAlignment = Enum.TextXAlignment.Center
-			end
-	
-			this.ServerVersionLabel = utility:Create("TextLabel") {
-				Name = "ServerVersionLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0,3,0,3),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Server Version: ...",
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				ZIndex = 5
-			}
-			spawn(function()
-				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
-			end)
-	
-			this.ClientVersionLabel = utility:Create("TextLabel") {
-				Name = "ClientVersionLabel",
-				Parent = this.VersionContainer,
-				Position = clientPosition,
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Client Version: "..RunService:GetRobloxVersion(),
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = clientTextAlignment,
-				ZIndex = 5
-			}
-	
-			if FFlagHelpMenuShowPlaceVersion then
-				this.PlaceVersionLabel = utility:Create("TextLabel") {
-					Name = "PlaceVersionLabel",
-					Parent = this.VersionContainer,
-					Position = UDim2.new(0.666, 3, 0, 3),
-					BackgroundTransparency = 1,
-					TextColor3 = Color3.new(1, 1, 1),
-					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-					Text = "Place Version: ...",
-					Size = UDim2.new(.333, -6, 1, -6),
-					Font = Enum.Font.SourceSans,
-					TextXAlignment = Enum.TextXAlignment.Right,
-					ZIndex = 5,
-				}
-				local function setPlaceVersionText()
-					this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
-				end
-				game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
-				spawn(setPlaceVersionText)
-			end
-	
-			this.EnvironmentLabel = utility:Create("TextLabel") {
-				Name = "EnvironmentLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0.5,0,0,3),
-				AnchorPoint = Vector2.new(0.5,0),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = baseUrl,
-				Size = UDim2.new(.5,-6,1,-6),
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				ZIndex = 5,
-				Visible = isTestEnvironment
-			}
+		if FFlagHelpMenuShowPlaceVersion then
+			size = UDim2.new(0.333, -6, 1, -6)
+			clientPosition = UDim2.new(0.333, 3, 0, 3)
+			clientTextAlignment = Enum.TextXAlignment.Center
 		end
+
+		this.ServerVersionLabel = utility:Create("TextLabel") {
+			Name = "ServerVersionLabel",
+			Parent = this.VersionContainer,
+			Position = UDim2.new(0,3,0,3),
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "Server Version: ...",
+			Size = size,
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			ZIndex = 5
+		}
+		spawn(function()
+			this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
+		end)
+
+		this.ClientVersionLabel = utility:Create("TextLabel") {
+			Name = "ClientVersionLabel",
+			Parent = this.VersionContainer,
+			Position = clientPosition,
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "Client Version: "..RunService:GetRobloxVersion(),
+			Size = size,
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = clientTextAlignment,
+			ZIndex = 5
+		}
+
+		if FFlagHelpMenuShowPlaceVersion then
+			this.PlaceVersionLabel = utility:Create("TextLabel") {
+				Name = "PlaceVersionLabel",
+				Parent = this.VersionContainer,
+				Position = UDim2.new(0.666, 3, 0, 3),
+				BackgroundTransparency = 1,
+				TextColor3 = Color3.new(1, 1, 1),
+				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+				Text = "Place Version: ...",
+				Size = UDim2.new(.333, -6, 1, -6),
+				Font = Enum.Font.SourceSans,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				ZIndex = 5,
+			}
+			local function setPlaceVersionText()
+				this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
+			end
+			game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
+			spawn(setPlaceVersionText)
+		end
+
+		this.EnvironmentLabel = utility:Create("TextLabel") {
+			Name = "EnvironmentLabel",
+			Parent = this.VersionContainer,
+			Position = UDim2.new(0.5,0,0,3),
+			AnchorPoint = Vector2.new(0.5,0),
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = baseUrl,
+			Size = UDim2.new(.5,-6,1,-6),
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			ZIndex = 5,
+			Visible = isTestEnvironment
+		}
 
 		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{
@@ -728,8 +596,9 @@ local function CreateSettingsHub()
 		-- Xbox Only
 		local inviteToGameFunc = function()
 			if not RunService:IsStudio() then
-				if PlatformService then
-					PlatformService:PopupGameInviteUI()
+				local platformService = game:GetService('PlatformService')
+				if platformService then
+					platformService:PopupGameInviteUI()
 				end
 			end
 		end
@@ -768,6 +637,8 @@ local function CreateSettingsHub()
 			-- only show invite button on non-PMP games. Some users games may not be enabled for console, so inviting to
 			-- to the game session will not work.
 			spawn(function()
+				local PlatformService = nil
+				pcall(function() PlatformService = game:GetService('PlatformService') end)
 				if not PlatformService then return end
 
 				pcall(function()
@@ -802,18 +673,18 @@ local function CreateSettingsHub()
 			resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
 		)
 
-		local function cameraViewportChanged()
+ 		local function cameraViewportChanged()
 			utility:FireOnResized()
-		end
+  		end
 
 		local viewportSizeChangedConn = nil
-		local function onWorkspaceChanged(prop)
-			if prop == "CurrentCamera" then
+  		local function onWorkspaceChanged(prop)
+  			if prop == "CurrentCamera" then
 				cameraViewportChanged()
 				if viewportSizeChangedConn then viewportSizeChangedConn:disconnect() end
 				viewportSizeChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):connect(cameraViewportChanged)
-			end
-		end
+  			end
+  		end
 		onWorkspaceChanged("CurrentCamera")
 		workspace.Changed:connect(onWorkspaceChanged)
 	end

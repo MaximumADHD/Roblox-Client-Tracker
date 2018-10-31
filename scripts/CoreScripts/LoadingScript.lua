@@ -577,7 +577,7 @@ function MainGui:GenerateMain()
 		end)()
 	end
 
-	if not FFlagConnectionScriptEnabled or isTenFootInterface then
+	if not FFlagConnectionScriptEnabled then
 		local errorFrame = create 'Frame' {
 			Name = 'ErrorFrame',
 			BackgroundColor3 = COLORS.ERROR,
@@ -715,8 +715,7 @@ renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 	end
 end)
 
--- use the old error frame when on XBox
-if not FFlagConnectionScriptEnabled or isTenFootInterface then
+if not FFlagConnectionScriptEnabled then
 	local leaveGameButton, leaveGameTextLabel, errorImage = nil
 
 	GuiService.ErrorMessageChanged:connect(function()

@@ -34,6 +34,9 @@ setPoseEasingOptions = function(Paths, pose, newDirection, newStyle)
 end
 
 firePoseChanged = function(Paths)
+	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+		Paths.DataModelRig:updateRigPosition()
+	end
 	Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
 end
 

@@ -15,7 +15,7 @@ local function RadioButtonRow(props)
                 }
             ),            
             IndentFrame = paths.UtilityFunctionsCreate.indentFrame(),
-            SharedWidgetRadioButton = paths.UtilityFunctionsCreate.radioButton(2, props.IsSelected, props.setValue, paths.StateInterfaceTheme.getBackgroundColor(props), props.IsEnabled),
+            SharedWidgetRadioButton = paths.UtilityFunctionsCreate.radioButton(2, props.IsSelected, props.setValue, paths.StateInterfaceTheme.getBackgroundColor(props)),
             Buffer = paths.Roact.createElement("Frame", {
                     LayoutOrder = 3,
                     Size = UDim2.new(0, 8, 1, 0),

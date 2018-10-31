@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
 
-local FFlagFixUsersReducerDataLoss = settings():GetFFlag("FixUsersReducerDataLoss361")
+local FFlagFixUsersReducerDataLoss = settings():GetFFlag("FixUsersReducerDataLoss")
 
 local User = {}
 
@@ -33,14 +33,11 @@ function User.mock()
 	self.placeId = nil
 	self.rootPlaceId = nil
 	self.gameInstanceId = nil
+	self.lastOnline = 0
 	self.presence = User.PresenceType.OFFLINE
 	self.membership = nil
-	if FFlagFixUsersReducerDataLoss then
-		self.thumbnails = nil
-		self.lastOnline = nil
-	else
+	if not FFlagFixUsersReducerDataLoss then
 		self.thumbnails = {}
-		self.lastOnline = 0
 	end
 
 	return self
@@ -59,16 +56,13 @@ function User.fromData(id, name, isFriend)
 	self.placeId = nil
 	self.rootPlaceId = nil
 	self.gameInstanceId = nil
-
+	self.lastOnline = 0
 	if FFlagFixUsersReducerDataLoss then
 		self.presence = (self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or nil
-		self.thumbnails = nil
-		self.lastOnline = nil
 	else
 		self.presence = (self.id == tostring(Players.LocalPlayer.UserId)) and User.PresenceType.ONLINE or
 			User.PresenceType.OFFLINE
 		self.thumbnails = {}
-		self.lastOnline = 0
 	end
 
 	return self

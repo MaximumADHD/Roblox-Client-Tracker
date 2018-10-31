@@ -1,5 +1,4 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local TextInputRow = paths.Roact.Component:extend("ComponentTextInputRow")
 
@@ -8,10 +7,6 @@ function TextInputRow:render()
     if inputBoxText == 0 then
         inputBoxText = ""
     end
-
-    local textLabelWidth = fastFlags.isSliderLayoutFixFlagOn() and paths.ConstantLayout.TextLabelIdentifierWidth or 100
-    local inputBoxWidth = fastFlags.isSliderLayoutFixFlagOn() and paths.ConstantLayout.InputWidgetWidth or 200
-
     return paths.Roact.createElement("Frame", {
             LayoutOrder = self.props.LayoutOrder,
             Size = UDim2.new(1, 0, 0, paths.ConstantLayout.RowHeight),
@@ -25,7 +20,7 @@ function TextInputRow:render()
                         Text = self.props.LabelText,
                         TextColor3 = paths.StateInterfaceTheme.getBodyTextColor(self.props),
                         BackgroundTransparency = 1,
-                        Size = UDim2.new(0, textLabelWidth, 1, 0),
+                        Size = UDim2.new(0, 100, 1, 0),
                         Font = paths.ConstantFonts.BodyText.Type,
                         TextSize = paths.ConstantFonts.BodyText.Size,
                         BorderSizePixel = 0,
@@ -37,7 +32,7 @@ function TextInputRow:render()
                         LayoutOrder = 3,
                         PlaceholderText = "ID",
                         Text = inputBoxText or "",
-                        Size = UDim2.new(0, inputBoxWidth, 0, paths.ConstantLayout.RowHeight-6),
+                        Size = UDim2.new(0, 200, 0, paths.ConstantLayout.RowHeight-6),
                         Font = paths.ConstantFonts.BodyText.Type,
                         TextSize = paths.ConstantFonts.BodyText.Size,
                         TextColor3 = paths.StateInterfaceTheme.getBodyTextInputColor(self.props),
@@ -59,9 +54,7 @@ function TextInputRow:render()
             PlayerChoiceButton = paths.Roact.createElement(paths.ComponentPlayerChoice, {
                     ThemeData = self.props.ThemeData,
                     IsSelected = self.props.PlayerChoice,
-                    IsEnabled = (function() if fastFlags.isCheckboxDisabledStateFixFlagOn() then return self.props.IsEnabled else return nil end end)(),
-
-                    setValue = self.props.setPlayerChoiceValue                    
+                    setValue = self.props.setPlayerChoiceValue
                 }
             )
         }

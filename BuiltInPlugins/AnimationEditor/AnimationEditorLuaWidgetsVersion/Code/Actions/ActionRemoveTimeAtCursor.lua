@@ -13,6 +13,9 @@ function RemoveTimeAtCursor:execute(Paths)
 			
 			Paths.ActionEditLength:execute(Paths, Paths.DataModelClip:getLength()-removeTime)
 			Paths.DataModelKeyframes:eraseTime(Paths.DataModelSession:getScrubberTime(), removeTime)
+			if not FastFlags:isScrubbingPlayingMatchFlagOn() then
+				Paths.DataModelRig:updateRigPosition()	
+			end
 		end
 	end)
 end

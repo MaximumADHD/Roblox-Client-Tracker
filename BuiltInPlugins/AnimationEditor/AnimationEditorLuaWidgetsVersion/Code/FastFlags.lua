@@ -20,16 +20,8 @@ function FastFlags:isUsePluginBindToCloseOn()
 	return isFlagOn("StudioAnimationEditorUsePluginBindToClose")
 end
 
-function FastFlags:isRightClickAddKeyFixOn()
-	return isFlagOn("StudioAnimationEditorRightClickAddKeyFix")
-end
-
 function FastFlags:isPartIncludeFixOn()
 	return isFlagOn("StudioAnimationEditorPartIncludeFix")
-end
-
-function FastFlags:isFixRenameKeyOptionOn()
-	return isFlagOn("StudioAnimationEditorFixRenameKeyOption")
 end
 
 function FastFlags:isUseNewThemeAPIOn()
@@ -41,19 +33,43 @@ function FastFlags:isUseAnimationNameAsTitleOn()
 end
 
 function FastFlags:isIKModeFlagOn()
-	return isFlagOn("StudioAnimationEditorIKMode") and self:isScaleKeysOn()
+	return isFlagOn("StudioAnimationEditorIKMode") and self:isScaleKeysOn() and self:isScrubbingPlayingMatchFlagOn()
 end
 
 function FastFlags:isScaleKeysOn()
 	return isFlagOn("StudioAnimationEditorScaleKeys")
 end
 
-function FastFlags:isDebugStudioRigImporterFlagOn()
-	return isFlagOn("DebugStudioRigImporter")
+function FastFlags:isParentScaledDragAreaEnabled()
+	return isFlagOn("StudioAnimationEditorParentScaledDragArea")
 end
 
-function FastFlags:isUseDevHubHelpLinksOn()
-	return isFlagOn("StudioAnimationEditorUseDevHubHelpLinks")
+function FastFlags:isAnimationEditorRenameKeyFrameFlagOn()
+	return isFlagOn("AnimationEditorRenameKeyFrame")
+end
+
+function FastFlags:isAnimationEditorMaxLengthRestrictionFlagOn()
+	return isFlagOn("AnimationEditorMaxLengthRestriction")
+end
+
+function FastFlags:isScrubbingPlayingMatchFlagOn()
+	return isFlagOn("AnimationEditorScrubbingPlayingMatch")
+end
+
+function FastFlags:isResetLockedJointsFlagOn()
+	return isFlagOn("StudioAnimationEditorResetLockedJoints")
+end
+
+function FastFlags:isNewWikiDocumentationFlagOn()
+	return isFlagOn("AnimationEditorNewWikiDocumentation")
+end
+
+function FastFlags:isDefinedBoundaryNotchesFlagOn()
+	return isFlagOn("StudioAnimationEditorDefinedBoundaryNotches")
+end
+
+function FastFlags:isDebugStudioRigImporterFlagOn()
+	return isFlagOn("DebugStudioRigImporter")
 end
 
 return FastFlags

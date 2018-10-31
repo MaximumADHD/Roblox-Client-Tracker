@@ -1,5 +1,4 @@
 local paths = require(script.Parent.Parent.Paths)
-local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local AssetsPanel = paths.Roact.Component:extend("ComponentAssetsPanel")
 
@@ -27,7 +26,6 @@ local createInputRow = function(self, label, assetTypeId, layoutOrder)
             LabelText = label,
             InputBoxText = assetId,
             PlayerChoice = playerChoice,
-            IsEnabled = (function() if fastFlags.isCheckboxDisabledStateFixFlagOn() then return self.props.IsEnabled else return nil end end)(),
 
             setValue = function(val)
                 local id = tonumber(val)
