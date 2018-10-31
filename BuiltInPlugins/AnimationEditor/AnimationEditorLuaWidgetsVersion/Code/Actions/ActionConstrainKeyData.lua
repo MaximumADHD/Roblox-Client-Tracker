@@ -61,10 +61,7 @@ end
 
 local function updateAnimationData(Paths)
 	Paths.DataModelPartManipulator:updateManipulationSelection()
-
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		Paths.DataModelPlayState:recreateAnimationTrack()
-	end
+	Paths.DataModelPlayState:recreateAnimationTrack()
 	waitForTransformUpdate()
 end
 

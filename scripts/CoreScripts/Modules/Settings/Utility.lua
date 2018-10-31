@@ -2646,4 +2646,16 @@ function moduleApiTable:FireOnResized()
 	end
 end
 
+-- Returns an interpolation between position0 and position1.
+--	Returns position0 when t = 0, and position1 when t = 1.
+function moduleApiTable:Lerp(t, position0, position1)
+	return (1 - t) * position0 + t * position1
+end
+
+-- Returns a rounded number
+function moduleApiTable:Round(n)
+	return n % 1 >= 0.5 and math.ceil(n) or math.floor(n)
+end
+
+
 return moduleApiTable

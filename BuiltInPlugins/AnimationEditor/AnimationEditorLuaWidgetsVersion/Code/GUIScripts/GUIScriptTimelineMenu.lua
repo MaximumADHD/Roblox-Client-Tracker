@@ -15,8 +15,19 @@ function TimelineMenu:init(Paths)
 
 	self.AddKeyHandle = self.Menu:getOption("MenuOptionAddKey")
 	self.Menu:setClickCallback(self.AddKeyHandle, function()
-		Paths.DataModelKeyframes:getOrCreateKeyframes(Paths.DataModelSession:getSelectedDataItems(), self.Time)
+		if FastFlags:isRightClickAddKeyFixOn() then
+			Paths.DataModelKeyframes:createAndSelectKeyframe(self.DataItem, self.Time)
+		else
+			Paths.DataModelKeyframes:getOrCreateKeyframes(Paths.DataModelSession:getSelectedDataItems(), self.Time)
+		end
 	end)
+
+	if FastFlags:isRightClickAddKeyFixOn() then
+		self.AddKeyAtScrubberHandle = self.Menu:getOption("MenuOptionAddKeyAtScrubber")
+		self.Menu:setClickCallback(self.AddKeyAtScrubberHandle, function()
+			Paths.DataModelKeyframes:createAndSelectMultipleKeys(Paths.DataModelSession:getSelectedDataItems(), Paths.DataModelSession:getScrubberTime())
+		end)
+	end
 	
 	self.DeleteKeyHandle = self.Menu:getOption("MenuOptionDeleteKey")
 	self.Menu:setClickCallback(self.DeleteKeyHandle, function() Paths.DataModelKeyframes:deleteSelectedPosesAndEmptyKeyframes() end)
@@ -45,10 +56,8 @@ function TimelineMenu:init(Paths)
 	self.Menu:setClickCallback(self.resetJointHandle, function() Paths.DataModelKeyframes:resetPartsToDefaultPose(Paths.DataModelSession:getSelectedDataItems(), self.Time) end)
 	self.Menu:setEnabled(self.resetJointHandle, true)
 
-	if FastFlags:isAnimationEditorRenameKeyFrameFlagOn() then
-		self.RenameKeyFrameHandle = self.Menu:getOption("MenuOptionRenameKeyFrame")
-		self.Menu:setClickCallback(self.RenameKeyFrameHandle, function() self.Paths.ActionEditKeyframeName:execute(self.Paths, self.Paths.DataModelClip:getKeyframe(self.Time)) end)	
-	end
+	self.RenameKeyFrameHandle = self.Menu:getOption("MenuOptionRenameKeyFrame")
+	self.Menu:setClickCallback(self.RenameKeyFrameHandle, function() self.Paths.ActionEditKeyframeName:execute(self.Paths, self.Paths.DataModelClip:getKeyframe(self.Time)) end)	
 	
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)	
 	local closeForChanges = function()
@@ -64,12 +73,21 @@ function TimelineMenu:showAvailableOptions(pose)
 	local multipleDataItemsSelected = self.Paths.DataModelSession:areMultipleDataItemsSelected()
 	local multiplePosesSelected = self.Paths.DataModelSession:areMultiplePosesSelected()
 	local showKeyframeSelectedMenu = self.Paths.DataModelSession:areAnyKeyframesSelected()
-	local showPoseOptions = nil ~= pose and showKeyframeSelectedMenu and not multiplePosesSelected
-	local showKeyframeActionLabel = self.Paths.DataModelSession:isOnlyOneKeyframeSelected() and pose == nil
-	
-	self.Menu:setEnabled(self.AddKeyHandle, not showKeyframeSelectedMenu)
-	local addText = multipleDataItemsSelected and "Add Keys" or "Add Key"
-	self.Menu:setMainText(self.AddKeyHandle, addText)
+	local poseSelected = pose ~= nil
+	local showPoseOptions = poseSelected and showKeyframeSelectedMenu and not multiplePosesSelected
+	local showKeyframeActionLabel = self.Paths.DataModelSession:isOnlyOneKeyframeSelected() and not poseSelected
+	local showAddKeyAtScrubber = not poseSelected and self.Paths.DataModelSession:areAnyDataItemsSelected()
+
+	if FastFlags:isRightClickAddKeyFixOn() then
+		self.Menu:setEnabled(self.AddKeyHandle, not poseSelected)
+		self.Menu:setEnabled(self.AddKeyAtScrubberHandle, showAddKeyAtScrubber)
+		local addText = multipleDataItemsSelected and "Add Keys at Scrubber" or "Add Key at Scrubber"
+		self.Menu:setMainText(self.AddKeyAtScrubberHandle, addText)
+	else
+		self.Menu:setEnabled(self.AddKeyHandle, not showKeyframeSelectedMenu)
+		local addText = multipleDataItemsSelected and "Add Keys" or "Add Key"
+		self.Menu:setMainText(self.AddKeyHandle, addText)
+	end
 
 	self.Menu:setEnabled(self.DeleteKeyHandle, showKeyframeSelectedMenu)
 
@@ -109,16 +127,18 @@ function TimelineMenu:showAvailableOptions(pose)
 
 	local resetText = (multipleDataItemsSelected or multiplePosesSelected) and "Reset Selected" or ("Reset " .. self.DataItem.Name)
 	self.Menu:setMainText(self.resetJointHandle, resetText)
-
-	if FastFlags:isAnimationEditorRenameKeyFrameFlagOn() then
+			
+	if FastFlags:isFixRenameKeyOptionOn() then
+		self.Menu:setEnabled(self.RenameKeyFrameHandle, showKeyframeActionLabel or showPoseOptions)
+	else
 		self.Menu:setEnabled(self.RenameKeyFrameHandle, showPoseOptions)
-		local theRenameKeyText = "Rename Key "
-		if showKeyframeSelectedMenu then						
-			local key = self.Paths.DataModelClip:getKeyframe(self.Time)			
-			theRenameKeyText = nil ~= key and theRenameKeyText .. key.Name or theRenameKeyText				
-		end
-		self.Menu:setMainText(self.RenameKeyFrameHandle, theRenameKeyText)
 	end
+	local theRenameKeyText = "Rename Key "
+	if showKeyframeSelectedMenu then						
+		local key = self.Paths.DataModelClip:getKeyframe(self.Time)			
+		theRenameKeyText = nil ~= key and theRenameKeyText .. key.Name or theRenameKeyText				
+	end
+	self.Menu:setMainText(self.RenameKeyFrameHandle, theRenameKeyText)
 end
 
 local function positionMenu(self)

@@ -76,11 +76,11 @@ return function(props)
 
 			BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
 
-			[Roact.Event.InputBegan] = function(gui, input)
+			[Roact.Event.MouseEnter] = function(gui, input)
 				props.OnColHovered(gui, group.Name, true)
 			end,
 
-			[Roact.Event.InputEnded] = function(gui, input)
+			[Roact.Event.MouseLeave] = function(gui, input)
 				props.OnColHovered(gui, group.Name, false)
 			end,
 		}, checkChildren)
@@ -98,11 +98,11 @@ return function(props)
 
 		BackgroundTransparency = 1,
 
-		[Roact.Event.InputBegan] = function(gui, input)
+		[Roact.Event.MouseEnter] = function(gui, input)
 			props.OnRowHovered(gui, props.Group.Name, true)
 		end,
 
-		[Roact.Event.InputEnded] = function(gui, input)
+		[Roact.Event.MouseLeave] = function(gui, input)
 			props.OnRowHovered(gui, props.Group.Name, false)
 		end,
 	}, children)

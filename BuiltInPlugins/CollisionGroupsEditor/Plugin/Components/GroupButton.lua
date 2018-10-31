@@ -37,43 +37,39 @@ function GroupButton:render()
 			Image = choose(self.props.HoveredImage, self.props.Image, self.state.Hovered),
 			OnActivated = function()
 				self.props.OnActivated()
-				self:setState{Tooltip = false}
+				self:setState{Tooltip = false, Hovered = false}
 			end,
 
 			AutoButtonColor = false,
 			Modal = true,
 
-			[Roact.Event.InputBegan] = function(gui, input)
-				if input.UserInputType == Enum.UserInputType.MouseMovement then
-					local hover = newHover()
+			[Roact.Event.MouseEnter] = function(gui, x, y)
+				local hover = newHover()
 
-					self:setState{
-						Hovered = true,
-						Hover = hover,
-					}
+				self:setState{
+					Hovered = true,
+					Hover = hover,
+				}
 
-					-- if we're still hovering here without having moved
-					-- after 1 second, we show the tooltip
-					delay(1, function()
-						if	self.state.Hover == hover and
-							self.state.Hovered
-						then
-							self:setState{
-								Tooltip = true,
-								TooltipPosition = UDim2.new(0, input.Position.X, 0, input.Position.Y),
-							}
-						end
-					end)
-				end
+				-- if we're still hovering here without having moved
+				-- after 1 second, we show the tooltip
+				delay(1, function()
+					if	self.state.Hover == hover and
+						self.state.Hovered
+					then
+						self:setState{
+							Tooltip = true,
+							TooltipPosition = UDim2.new(0, x, 0, y),
+						}
+					end
+				end)
 			end,
 
-			[Roact.Event.InputEnded] = function(gui, input)
-				if input.UserInputType == Enum.UserInputType.MouseMovement then
-					self:setState{
-						Hovered = false,
-						Tooltip = false,
-					}
-				end
+			[Roact.Event.MouseLeave] = function(gui)
+				self:setState{
+					Hovered = false,
+					Tooltip = false,
+				}
 			end,
 		}),
 

@@ -14722,6 +14722,23 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CursorPosition",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
                     "Category": "Text",
                     "MemberType": "Property",
                     "Name": "Font",
@@ -15257,6 +15274,30 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TextBox",
+            "Superclass": "GuiObject"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CurrentCamera",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Camera"
+                    }
+                }
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "ViewportFrame",
             "Superclass": "GuiObject"
         },
         {
@@ -22814,6 +22855,27 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTranslatorForPlayerAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptExportToCSVs",
                     "Parameters": [
                     ],
@@ -26901,6 +26963,23 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Massless",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "Material",
@@ -27104,6 +27183,23 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "InputType"
+                    }
+                },
+                {
+                    "Category": "Part ",
+                    "MemberType": "Property",
+                    "Name": "RootPriority",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -56205,6 +56301,10 @@
                 {
                     "Name": "HeaderSection",
                     "Value": 81
+                },
+                {
+                    "Name": "Midlight",
+                    "Value": 82
                 }
             ],
             "Name": "StudioStyleGuideColor"

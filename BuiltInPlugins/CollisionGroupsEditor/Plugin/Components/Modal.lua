@@ -10,10 +10,11 @@ return function(props)
 	local zIndex = 10
 
 	return Roact.createElement("TextButton", {
-		BackgroundTransparency = 1,
+		BackgroundTransparency = 0.99,
 		Text = "",
 		Size = UDim2.new(1, 0, 1, 0),
 		ZIndex = zIndex,
+		Modal = true,
 
 		[Roact.Event.Activated] = function()
 			props.CleanUpFunction()

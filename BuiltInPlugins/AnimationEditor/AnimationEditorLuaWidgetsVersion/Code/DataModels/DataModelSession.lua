@@ -102,11 +102,9 @@ function Session:init(Paths)
 	self.SelectedChangeEvent = Paths.UtilityScriptEvent:new()		
 	self.DisplayPrecisionChangeEvent = Paths.UtilityScriptEvent:new()
 
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.ResetAnimationBeginEvent = Paths.UtilityScriptEvent:new()
-		self.ResetAnimationEndEvent = Paths.UtilityScriptEvent:new()
-		self.IsResettingAnimation = false
-	end
+	self.ResetAnimationBeginEvent = Paths.UtilityScriptEvent:new()
+	self.ResetAnimationEndEvent = Paths.UtilityScriptEvent:new()
+	self.IsResettingAnimation = false
 
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)
 
@@ -122,10 +120,8 @@ function Session:terminate()
 	self.Connections:terminate()
 	self.Connections = nil
 
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.ResetAnimationBeginEvent = nil
-		self.ResetAnimationEndEvent = nil
-	end
+	self.ResetAnimationBeginEvent = nil
+	self.ResetAnimationEndEvent = nil
 
 	self.DisplayPrecisionChangeEvent = nil
 	self.SelectedChangeEvent = nil
@@ -136,10 +132,8 @@ function Session:terminate()
 	self.Zoom = 0
 
 	self.Selected = {DataItems={}, Keyframes={}, Clicked={}}
-
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.Paths = nil
-	end
+	
+	self.Paths = nil
 end
 
 if FastFlags:isIKModeFlagOn() then
@@ -534,10 +528,6 @@ function Session:terminatePreGUIDestroy()
 	self.Paths.GUIScriptScrollZoomControl.ScrollZoomChangeEvent:disconnect(self.onScrollZoomChange)
 	self.Paths.GUIScriptScrollZoomControl.StartScrollZoomEvent:disconnect(self.onStartScrollZoom)
 	self.Paths.GUIScriptScrollZoomControl.EndScrollZoomEvent:disconnect(self.onEndScrollZoom)
-
-	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.Paths = nil
-	end
 end
 
 local function beginResetAnimation(self)
@@ -555,9 +545,7 @@ function Session:IsAnimationCurrentlyBeingReset()
 end
 
 function Session:resetAnimation()
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		beginResetAnimation(self)
-	end
+	beginResetAnimation(self)
 
 	self.Paths.UtilityScriptCopyPaste:resetCopyPoses()
 	self.Paths.DataModelKeyframes:resetKeyframes()
@@ -569,17 +557,11 @@ function Session:resetAnimation()
 	self.Paths.DataModelClip:setLooping(false)
 	self.Paths.DataModelClip:setPriority("Core")
 	
-	if not FastFlags:isScrubbingPlayingMatchFlagOn() then
-		self.Paths.DataModelRig:updateRigPosition()	
-	end
-	
 	self:selectNone()
 	self.Paths.DataModelRig:setPartIncludeAll(true)
 	self.Paths.UtilityScriptUndoRedo:reset()
 
-	if FastFlags:isScrubbingPlayingMatchFlagOn() then
-		endResetAnimation(self)
-	end
+	endResetAnimation(self)
 
 	if FastFlags:isUseAnimationNameAsTitleOn() then
 		self:setSessionTitle()

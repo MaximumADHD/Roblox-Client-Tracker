@@ -1,8 +1,3 @@
-local envRoot = script.Parent.Parent.Parent
-if not require(envRoot.AnimationEditorVersioning):isRunningLuaWidgetsVersion() then
-	return --exit if we're NOT running the lua widgets version of the animation editor 
-end
-
 local FastFlags = require(script.Parent.FastFlags)
 local Paths = require(script.Parent.Paths)
 
@@ -265,9 +260,6 @@ local function onEnableChanged()
 				Paths.DataModelRig:create(Paths, selectedObject)
 				createMainGUI()
 				wait(0.1)
-				if not FastFlags:isScrubbingPlayingMatchFlagOn() then
-					Paths.DataModelRig:updateRigPosition()
-				end
 				Paths.DataModelSession:resetAnimation()
 				Paths.ViewportScriptGrid:create(selectedObject)
 			else

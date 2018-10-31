@@ -841,6 +841,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 			fillFrame.Visible = false
 
+			lockInMap()
 			changeHistory:SetWaypoint('Terrain Fill')
 			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
 		end
