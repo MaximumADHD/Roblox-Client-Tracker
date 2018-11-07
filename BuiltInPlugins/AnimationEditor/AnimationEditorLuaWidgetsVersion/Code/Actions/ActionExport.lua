@@ -15,7 +15,13 @@ function Export:execute(Paths)
 
 	local kfsp = game:GetService('KeyframeSequenceProvider')
 
-	local kfs = Paths.DataModelClip:createAnimationFromCurrentData()
+	local kfs = nil
+	if FastFlags:isImportAndExportFixOn() then
+		kfs = Paths.DataModelClip:createAnimationFromCurrentData(true, true)
+	else
+		kfs = Paths.DataModelClip:createAnimationFromCurrentData()
+	end
+
 	local animID = kfsp:RegisterKeyframeSequence(kfs)
 	local dummy = Paths.DataModelRig:getItem().Item.Parent
 

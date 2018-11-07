@@ -19,7 +19,7 @@ local function eraseFromEnd(t, toSize)
 	end
 end
 
-local nearZ, projX, projY do
+local nearPlaneZ, projX, projY do
 	local function updateProjection()
 		local fov = rad(camera.FieldOfView)
 		local view = camera.ViewportSize
@@ -34,9 +34,9 @@ local nearZ, projX, projY do
 	
 	updateProjection()
 
-	nearZ = camera.NearZ
+	nearPlaneZ = camera.NearPlaneZ
 	camera:GetPropertyChangedSignal('NearPlaneZ'):Connect(function()
-		nearZ = camera.NearPlaneZ
+		nearPlaneZ = camera.NearPlaneZ
 	end)
 end
 
@@ -158,7 +158,7 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 	
 	local originalSize = #blacklist
 	
-	dist = dist + nearZ
+	dist = dist + nearPlaneZ
 	local target = origin + unitDir*dist
 	
 	local softLimit = inf
@@ -204,7 +204,7 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 	eraseFromEnd(blacklist, originalSize)
 	
 	debug.profileend()
-	return softLimit - nearZ, hardLimit - nearZ
+	return softLimit - nearPlaneZ, hardLimit - nearPlaneZ
 end
 
 local function queryViewport(focus, dist)
@@ -227,7 +227,7 @@ local function queryViewport(focus, dist)
 		for viewY = 0, 1 do
 			local worldY = fY*((viewY - 0.5)*projY)
 			
-			local origin = fP + nearZ*(worldX + worldY)
+			local origin = fP + nearPlaneZ*(worldX + worldY)
 			local lastPos = camera:ViewportPointToRay(
 				viewport.x*viewX,
 				viewport.y*viewY

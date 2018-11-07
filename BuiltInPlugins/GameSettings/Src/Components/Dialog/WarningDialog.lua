@@ -43,7 +43,7 @@ local function WarningDialog(props)
 				BackgroundTransparency = 1,
 				Text = description,
 				Font = Enum.Font.SourceSans,
-				TextColor3 = Constants.WARNING_COLOR,
+				TextColor3 = theme.warningColor,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextSize = 20,
 				TextWrapped = true,

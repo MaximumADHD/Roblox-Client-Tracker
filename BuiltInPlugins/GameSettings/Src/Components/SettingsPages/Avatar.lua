@@ -51,7 +51,7 @@ local Avatar = Roact.PureComponent:extend("Avatar")
 
 function Avatar:render()
 	if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	    return withTheme(function(theme)
+		return withTheme(function(theme)
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,

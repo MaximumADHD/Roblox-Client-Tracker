@@ -60,7 +60,7 @@ function RadioButton:render()
 			}, {
 				Highlight = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
-					Size = theme.isDarkerTheme and UDim2.new(0.5, 0, 0.5, 0) or UDim2.new(0.6, 0, 0.6, 0),
+					Size = theme.isDarkerTheme and UDim2.new(0.4, 0, 0.4, 0) or UDim2.new(0.5, 0, 0.5, 0),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Visible = self.props.Enabled and self.props.Selected,
@@ -72,7 +72,7 @@ function RadioButton:render()
 					BorderSizePixel = 0,
 					Size = UDim2.new(0, 250, 1, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(1, 10, 0.5, 0),
+					Position = UDim2.new(1, 5, 0.5, 0),
 
 					TextColor3 = theme.radioButton.title,
 					Font = Enum.Font.SourceSans,
@@ -93,7 +93,7 @@ function RadioButton:render()
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Size = UDim2.new(0, 250, 1, 0),
-					Position = UDim2.new(1, 10, 1, 2),
+					Position = UDim2.new(1, 5, 1, 2),
 
 					TextColor3 = theme.radioButton.description,
 					Font = Enum.Font.SourceSans,

@@ -58,6 +58,7 @@ function RoundTextButton:render()
 		Size = self.props.Size or UDim2.new(0, Constants.BUTTON_WIDTH, 0, Constants.BUTTON_HEIGHT),
 
 		LayoutOrder = self.props.LayoutOrder or 1,
+		ZIndex = self.props.ZIndex or 1,
 
 		[Roact.Event.MouseEnter] = function()
 			if active then
@@ -92,6 +93,7 @@ function RoundTextButton:render()
 			ImageColor3 = match and backgroundProps.ImageColor3 or style.BorderColor,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+			ZIndex = self.props.ZIndex or 1,
 		}),
 
 		Text = Roact.createElement("TextLabel", {
@@ -102,6 +104,7 @@ function RoundTextButton:render()
 			TextColor3 = active and style.TextColor or style.TextColor_Disabled,
 			TextSize = 22,
 			Text = self.props.Name,
+			ZIndex = self.props.ZIndex or 1,
 		}),
 	})
 end

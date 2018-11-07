@@ -39,16 +39,18 @@ function KeyframeIndicator:new(Paths, parent, time)
 		self.Paths.GUIScriptKeyframe:updateKeyframeOnTimeline(Paths, self, time)
 	end))
 
-	self.Connections:add(self.TargetWidget.ImageButton.MouseButton1Click:connect(function()
-		local keyframe = Paths.DataModelClip:getKeyframe(self.Time)
-		local wasPoseSelected = self:areAnyPosesSelected()
-		self.Paths.DataModelSession:selectNone()
-		if not wasPoseSelected then
-			for _, pose in pairs(keyframe.Poses) do
-				self.Paths.DataModelSession:addClickedPoseToSelectedKeyframes(self.Time, pose.Item)
+	if not FastFlags:isSelectAndDragOn() then
+		self.Connections:add(self.TargetWidget.ImageButton.MouseButton1Click:connect(function()
+			local keyframe = Paths.DataModelClip:getKeyframe(self.Time)
+			local wasPoseSelected = self:areAnyPosesSelected()
+			self.Paths.DataModelSession:selectNone()
+			if not wasPoseSelected then
+				for _, pose in pairs(keyframe.Poses) do
+					self.Paths.DataModelSession:addClickedPoseToSelectedKeyframes(self.Time, pose.Item)
+				end
 			end
-		end
-	end))
+		end))
+	end
 
 	self.Connections:add(self.TargetWidget.ImageButton.MouseButton2Click:connect(function()
 		local keyframe = Paths.DataModelClip:getKeyframe(self.Time)
@@ -64,6 +66,18 @@ function KeyframeIndicator:new(Paths, parent, time)
 
 	self.Connections:add(self.TargetWidget.ImageButton.InputBegan:connect(function(input)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
+			if FastFlags:isSelectAndDragOn() then
+				local wasPoseSelected = self:areAnyPosesSelected()
+				if not wasPoseSelected then
+					local keyframe = Paths.DataModelClip:getKeyframe(self.Time)
+					self.Paths.DataModelSession:selectNone()
+					if not wasPoseSelected then
+						for _, pose in pairs(keyframe.Poses) do
+							self.Paths.DataModelSession:addClickedPoseToSelectedKeyframes(self.Time, pose.Item)
+						end
+					end
+				end
+			end
 			self.Paths.UtilityScriptMovePoses:BeginMove(self.Paths, getSelectedGUIKeyframe(self))
 		end
 	end))

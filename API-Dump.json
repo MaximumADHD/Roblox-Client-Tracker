@@ -30102,6 +30102,46 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "StreamingMinRadius",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "StreamingTargetRadius",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "TemporaryLegacyPhysicsSolverOverride",
                     "Security": {
                         "Read": "None",
@@ -30793,7 +30833,8 @@
             "Name": "PackageLink",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "NotBrowsable"
             ]
         },
         {
@@ -53085,6 +53126,10 @@
                 {
                     "Name": "Avatar",
                     "Value": 16
+                },
+                {
+                    "Name": "Analytics",
+                    "Value": 22
                 }
             ],
             "Name": "HttpRequestType"
@@ -56305,6 +56350,10 @@
                 {
                     "Name": "Midlight",
                     "Value": 82
+                },
+                {
+                    "Name": "StatusBar",
+                    "Value": 83
                 }
             ],
             "Name": "StudioStyleGuideColor"

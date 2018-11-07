@@ -17,32 +17,69 @@ local Roact = require(Plugin.Roact)
 local StyledScrollingFrame = require(Plugin.Src.Components.StyledScrollingFrame)
 
 local SCROLL_BAR_OUTSET = 9
+local TEXT_SIZE = 22
 
-local function MultilineTextEntry(props)
+local MultilineTextEntry = Roact.PureComponent:extend("MultilineTextEntry")
+
+function MultilineTextEntry:init()
+	self.frameRef = Roact.createRef()
+	self.textBoxRef = Roact.createRef()
+	self.textConnections = nil
+
+	self.updateCanvas = function()
+		local frame = self.frameRef.current
+		local sizeX = frame.AbsoluteSize.x - SCROLL_BAR_OUTSET
+		local textSize = TextService:GetTextSize(
+			self.props.Text,
+			TEXT_SIZE,
+			Enum.Font.SourceSans,
+			Vector2.new(sizeX, 10000)
+		)
+		frame.CanvasSize = UDim2.new(0, 0, 0, textSize.y)
+	end
+
+	self.textChanged = function(rbx)
+		if rbx.Text ~= self.props.Text then
+			self.props.SetText(rbx.Text)
+		end
+	end
+end
+
+function MultilineTextEntry:didMount()
+	local textBox = self.textBoxRef.current
+	local frame = self.frameRef.current
+	self.textConnections = {
+		textBox:GetPropertyChangedSignal("Text"):connect(self.updateCanvas),
+		frame:GetPropertyChangedSignal("AbsoluteSize"):connect(self.updateCanvas),
+	}
+	self.updateCanvas()
+end
+
+function MultilineTextEntry:willUnmount()
+	for _, connection in ipairs(self.textConnections) do
+		connection:Disconnect()
+	end
+	self.textConnections = nil
+end
+
+function MultilineTextEntry:render()
+	local visible = self.props.Visible
+	local text = self.props.Text
+	local textColor = self.props.TextColor3
+
 	return Roact.createElement(StyledScrollingFrame, {
 		Size = UDim2.new(1, SCROLL_BAR_OUTSET, 1, 0),
 		BackgroundTransparency = 1,
 		ClipsDescendants = true,
 
-		[Roact.Ref] = function(instance)
-			if instance ~= nil then
-				local sizeX = instance.AbsoluteSize.x
-				local textSize = TextService:GetTextSize(
-					props.Text,
-					22,
-					Enum.Font.SourceSans,
-					Vector2.new(sizeX, 10000)
-				)
-				instance.CanvasSize = UDim2.new(0, textSize.x, 0, textSize.y)
-			end
-		end,
+		[Roact.Ref] = self.frameRef,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingRight = UDim.new(0, SCROLL_BAR_OUTSET),
 		}),
 
 		Text = Roact.createElement("TextBox", {
-			Visible = props.Visible,
+			Visible = visible,
 			MultiLine = true,
 			TextWrapped = true,
 
@@ -52,25 +89,23 @@ local function MultilineTextEntry(props)
 
 			ClearTextOnFocus = false,
 			Font = Enum.Font.SourceSans,
-			TextSize = 22,
+			TextSize = TEXT_SIZE,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
-			TextColor3 = props.TextColor3,
-			Text = props.Text,
+			TextColor3 = textColor,
+			Text = text,
 
 			[Roact.Event.Focused] = function()
-				props.FocusChanged(true)
+				self.props.FocusChanged(true)
 			end,
 
 			[Roact.Event.FocusLost] = function()
-				props.FocusChanged(false)
+				self.props.FocusChanged(false)
 			end,
 
-			[Roact.Change.Text] = function(rbx)
-				if rbx.Text ~= props.Text then
-					props.SetText(rbx.Text)
-				end
-			end,
+			[Roact.Change.Text] = self.textChanged,
+
+			[Roact.Ref] = self.textBoxRef,
 		}),
 	})
 end

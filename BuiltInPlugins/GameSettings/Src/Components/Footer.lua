@@ -9,8 +9,6 @@
 
 local FOOTER_GRADIENT_SIZE = 10
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
-local GRADIENT_IMAGE = "rbxasset://textures/gradient.png"
-local GRADIENT_RECT_SIZE = Vector2.new(512, 256)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -46,8 +44,8 @@ function Footer:render()
 			Gradient = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(1, 0, 0, FOOTER_GRADIENT_SIZE),
 				AnchorPoint = Vector2.new(0, 1),
-				Image = GRADIENT_IMAGE,
-				ImageRectSize = GRADIENT_RECT_SIZE,
+				Image = Constants.GRADIENT_IMAGE,
+				ImageRectSize = Constants.GRADIENT_RECT_SIZE,
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 				ImageColor3 = theme.footer.gradient,
@@ -56,6 +54,7 @@ function Footer:render()
 			}),
 
 			SaveSettings = Roact.createElement(ButtonBar, {
+				ZIndex = 2,
 				Buttons = {
 					{Name = "Cancel", Active = cancelActive, Value = false},
 					{Name = "Save", Default = true, Active = saveActive, Value = true},

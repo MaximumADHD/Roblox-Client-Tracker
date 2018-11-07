@@ -558,6 +558,7 @@ function MainGui:GenerateMain()
 
 		creatorLabel.Parent = creatorContainer
 		creatorLabel.TextScaled = false
+		creatorLabel.TextWrapped = false
 		creatorLabel.Position = UDim2.new(0, 72, 0, 80)
 		creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
 	end

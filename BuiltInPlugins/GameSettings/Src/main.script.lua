@@ -105,44 +105,43 @@ end
 local function closeGameSettings(userPressedSave)
 	local state = settingsStore:getState()
 	local currentStatus = state.Status
-	if not (currentStatus == CurrentStatus.Error and userPressedSave) then
-		local changed = state.Settings.Changed
-		local hasUnsavedChanges = changed and not isEmpty(changed)
-		if hasUnsavedChanges and not userPressedSave then
-			--Prompt if the user actually wanted to save using a Modal
-			settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
+	if currentStatus ~= CurrentStatus.Closed then
+		if currentStatus == CurrentStatus.Error and userPressedSave then
+			settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
+		else
+			local changed = state.Settings.Changed
+			local hasUnsavedChanges = changed and not isEmpty(changed)
+			if hasUnsavedChanges and not userPressedSave then
+				--Prompt if the user actually wanted to save using a Modal
+				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
 
-			local dialogProps = {
-				Size = Vector2.new(343, 145),
-				Title = "Discard Changes",
-				Header = "Would you like to discard all changes?",
-				Buttons = {"No", "Yes"},
-			}
-			local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
+				local dialogProps = {
+					Size = Vector2.new(343, 145),
+					Title = "Discard Changes",
+					Header = "Would you like to discard all changes?",
+					Buttons = {"No", "Yes"},
+				}
+				local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
 
-			if didDiscardAllChanges then
-				--Exit game settings and delete all changes without saving
-				settingsStore:dispatch(DiscardChanges())
+				if didDiscardAllChanges then
+					--Exit game settings and delete all changes without saving
+					settingsStore:dispatch(DiscardChanges())
+					pluginGui.Enabled = false
+					Roact.unmount(gameSettingsHandle)
+				else
+					--Return to game settings window without modifying state,
+					--giving the user another chance to modify or save.
+					settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
+					if not pluginGui.Enabled then
+						pluginGui.Enabled = true
+					end
+				end
+			else
+				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
 				pluginGui.Enabled = false
 				Roact.unmount(gameSettingsHandle)
-			else
-				--Return to game settings window without modifying state,
-				--giving the user another chance to modify or save.
-				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
-				if not pluginGui.Enabled then
-					pluginGui.Enabled = true
-				end
-				return
 			end
-		else
-			if not userPressedSave then
-				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
-			end
-			pluginGui.Enabled = false
-			Roact.unmount(gameSettingsHandle)
 		end
-	else
-		settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
 	end
 end
 
@@ -156,7 +155,7 @@ local function makePluginGui()
 	})
 	pluginGui.Name = plugin.Name
 	pluginGui.Title = plugin.Name
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
 		-- Handle if user clicked the X button to close the window

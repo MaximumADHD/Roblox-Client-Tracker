@@ -93,11 +93,12 @@ function Asset:init(props)
 	end
 
 	self.onDragStart = function(rbx, x, y)
-		if not canInsertAsset() or not settings():GetFFlag("PluginDragApi") then
+		if not canInsertAsset() then
 			return
 		end
 
-		InsertAsset.dragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful)
+		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
+		InsertAsset.dragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful, categoryIndex)
 	end
 
 	self.onClick = function(rbx, x, y)

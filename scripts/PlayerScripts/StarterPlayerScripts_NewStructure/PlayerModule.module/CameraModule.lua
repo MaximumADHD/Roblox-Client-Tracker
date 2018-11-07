@@ -464,28 +464,21 @@ end
 	CurrentCamera directly.	
 --]]
 function CameraModule:Update(dt)
-	local newCameraCFrame = nil
-	local newCameraFocus = nil
-	
 	if self.activeCameraController then
-		newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
+		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
 		self.activeCameraController:ApplyVRTransform()
-	else
-		newCameraCFrame = game.Workspace.CurrentCamera.CFrame
-		newCameraFocus = game.Workspace.CurrentCamera.Focus
-	end
-	
-	if self.activeOcclusionModule then
-		newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
-	end
-	
-	-- Here is where the new CFrame and Focus are set for this render frame
-	game.Workspace.CurrentCamera.CFrame = newCameraCFrame
-	game.Workspace.CurrentCamera.Focus = newCameraFocus
-	
-	-- Update to character local transparency as needed based on camera-to-subject distance
-	if self.activeTransparencyController then
-		self.activeTransparencyController:Update()
+		if self.activeOcclusionModule then
+			newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
+		end
+		
+		-- Here is where the new CFrame and Focus are set for this render frame
+		game.Workspace.CurrentCamera.CFrame = newCameraCFrame
+		game.Workspace.CurrentCamera.Focus = newCameraFocus
+		
+		-- Update to character local transparency as needed based on camera-to-subject distance
+		if self.activeTransparencyController then
+			self.activeTransparencyController:Update()
+		end
 	end
 end
 

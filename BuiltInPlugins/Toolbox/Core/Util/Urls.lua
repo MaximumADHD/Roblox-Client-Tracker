@@ -4,6 +4,8 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
+local BuiltInPluginGetPackageAPIEnabled = settings():GetFFlag("BuiltInPluginGetPackageAPIEnabled")
+
 local Urls = {}
 
 local GET_ASSETS = Url.BASE_URL .. "IDE/Toolbox/Items?"
@@ -53,15 +55,27 @@ function Urls.constructAssetIdUrl(assetId)
 	})
 end
 
-function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId)
-	return ASSET_GAME_ASSET_ID
-		.. Url.makeQueryString({
-			id = assetId,
-		})
-		.. "#"
-		.. Url.makeQueryString({
-			assetTypeId = assetTypeId,
-		})
+function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage)
+	if BuiltInPluginGetPackageAPIEnabled then
+		return ASSET_GAME_ASSET_ID
+			.. Url.makeQueryString({
+				id = assetId,
+			})
+			.. "#"
+			.. Url.makeQueryString({
+				assetTypeId = assetTypeId,
+				isPackage = isPackage,
+			})
+	else
+		return ASSET_GAME_ASSET_ID
+			.. Url.makeQueryString({
+				id = assetId,
+			})
+			.. "#"
+			.. Url.makeQueryString({
+				assetTypeId = assetTypeId,
+			})
+	end
 end
 
 function Urls.constructAssetThumbnailUrl(assetId, width, height)

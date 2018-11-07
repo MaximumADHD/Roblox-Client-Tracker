@@ -14,9 +14,7 @@ return function(settingsImpl)
 	return function(store)
 		store:dispatch(SetCurrentStatus(CurrentStatus.Working))
 		local state = store:getState().Settings
-		return settingsImpl:SaveAll(state):andThen(function()
-			store:dispatch(SetCurrentStatus(CurrentStatus.Closed))
-		end)
+		return settingsImpl:SaveAll(state)
 		:catch(function(errors)
 			if errors then
 				store:dispatch(SetCurrentStatus(CurrentStatus.Error))

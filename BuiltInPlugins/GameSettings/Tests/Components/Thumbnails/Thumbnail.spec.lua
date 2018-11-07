@@ -1,0 +1,61 @@
+return function()
+	local Plugin = script.Parent.Parent.Parent.Parent
+	local Roact = require(Plugin.Roact)
+
+	local Theme = require(Plugin.Src.Util.Theme)
+	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+
+	local Thumbnail = require(Plugin.Src.Components.Thumbnails.Thumbnail)
+
+	local theme = Theme.newDummyTheme()
+
+	local function createTestThumbnail(props)
+		return Roact.createElement(ThemeProvider, {
+			theme = theme,
+		}, {
+			thumbnail = Roact.createElement(Thumbnail, props),
+		})
+	end
+
+	it("should create and destroy without errors", function()
+		local element = createTestThumbnail()
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	it("should render correctly", function()
+		local container = workspace
+		local instance = Roact.mount(createTestThumbnail(), container)
+		local thumbnail = container.ImageButton
+
+		expect(thumbnail.InfoText).to.be.ok()
+
+		Roact.unmount(instance)
+	end)
+
+	it("should show when it is under review", function()
+		local container = workspace
+		local instance = Roact.mount(createTestThumbnail({
+			Review = true,
+		}), container)
+		local thumbnail = container.ImageButton
+
+		expect(thumbnail.InfoText.Visible).to.equal(true)
+		expect(thumbnail.InfoText.Text).to.equal("In Review")
+
+		Roact.unmount(instance)
+	end)
+
+	it("should show a placeholder when a video was passed", function()
+		local container = workspace
+		local instance = Roact.mount(createTestThumbnail({
+			VideoHash = "000000",
+		}), container)
+		local thumbnail = container.ImageButton
+
+		expect(thumbnail.Image).to.be.ok()
+		expect(thumbnail.Image).never.to.equal("")
+
+		Roact.unmount(instance)
+	end)
+end

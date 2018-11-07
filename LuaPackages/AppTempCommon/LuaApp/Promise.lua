@@ -1,7 +1,10 @@
 --[[
 	An implementation of Promises similar to Promise/A+.
 ]]
-local TU = require(script.Parent.TableUtilities)
+local CorePackages = game:GetService("CorePackages")
+
+local TableUtilities = require(script.Parent.TableUtilities)
+local Logging = require(CorePackages.Logging)
 
 local PROMISE_DEBUG = true
 
@@ -89,6 +92,9 @@ function Promise.new(callback)
 		-- A table containing a list of all results, whether success or failure.
 		-- Only valid if _status is set to something besides Started
 		_value = nil,
+
+		-- If an error occurs with no observers, this will be set.
+		_unhandledRejection = false,
 
 		-- Queues representing functions we should invoke when we update!
 		_queuedResolve = {},
@@ -210,6 +216,11 @@ end
 	The given callbacks are invoked depending on that result.
 ]]
 function Promise:andThen(successHandler, failureHandler)
+	-- Even if we haven't specified a failure handler, the rejection will be automatically
+	-- passed on by the advancer; other promises in the chain may have unhandled rejections,
+	-- but this one is taken care of as soon as any andThen is connected
+	self._unhandledRejection = false
+
 	-- Create a new promise to follow this part of the chain
 	return Promise.new(function(resolve, reject)
 		-- Our default callbacks just pass values onto the next promise.
@@ -252,6 +263,8 @@ end
 	This matches the execution model of normal Roblox functions.
 ]]
 function Promise:await()
+	self._unhandledRejection = false
+
 	if self._status == Promise.Status.Started then
 		local result
 		local bindable = Instance.new("BindableEvent")
@@ -332,11 +345,24 @@ function Promise:_reject(...)
 		-- synchronously. We'll wait one tick, and if there are still no
 		-- observers, then we should put a message in the console.
 
-		local message = ("Unhandled promise rejection:\n\n%s\n\n%s"):format(
-			TU.RecursiveToString((...)),
-			self._source
-		)
-		warn(message)
+		self._unhandledRejection = true
+		-- Rather than trying to figure out how to pack/represent the rejection values,
+		-- we just stringify the first value and leave the rest alone
+		local err = TableUtilities.RecursiveToString((...))
+
+		spawn(function()
+			-- Someone observed the error, hooray!
+			if not self._unhandledRejection then
+				return
+			end
+
+			-- Build a reasonable message
+			local message = ("Unhandled promise rejection:\n\n%s\n\n%s"):format(
+				err,
+				self._source
+			)
+			Logging.warn(message)
+		end)
 	end
 end
 

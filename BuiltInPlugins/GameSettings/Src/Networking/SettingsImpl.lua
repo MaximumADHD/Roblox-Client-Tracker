@@ -8,7 +8,16 @@
 		SettingsImpl_mock, can be provided to allow testing.
 ]]
 
+local HttpService = game:GetService("HttpService")
+
+local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
+local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
+
 local Plugin = script.Parent.Parent.Parent
+local Promise = require(Plugin.Promise)
+local Cryo = require(Plugin.Cryo)
+local Http = require(Plugin.Src.Networking.Http)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
 local AssetOverrides = nil
@@ -41,6 +50,21 @@ local PLACES_GET_REQUEST_TYPE = "develop"
 local PLACES_PATCH_URL = "v1/places/%d"
 local PLACES_PATCH_REQUEST_TYPE = "develop"
 
+local THUMBNAILS_GET_URL = "v1/games/%d/media"
+local THUMBNAILS_GET_REQUEST_TYPE = "games"
+
+local THUMBNAIL_ORDER_URL = "v1/universes/%d/thumbnails/order"
+local THUMBNAIL_ORDER_REQUEST_TYPE = "develop"
+
+local THUMBNAIL_DELETE_URL = "v1/universes/%d/thumbnails/%d"
+local THUMBNAIL_DELETE_REQUEST_TYPE = "develop"
+
+local ICON_URL_OLD = "places/icons/json?placeId=%d"
+local ICON_REQUEST_TYPE_OLD = "www"
+
+local ICON_URL = "v1/games/%d/icon"
+local ICON_REQUEST_TYPE = "games"
+
 local PLAYABLE_DEVICES = {
 	Computer = false,
 	Phone = false,
@@ -59,35 +83,33 @@ local fromUniverseConfigurationEndpoint = {
 }
 
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-		fromUniverseConfigurationEndpoint = {
-			universeAvatarType = true,
-			universeScaleType = true,
-			universeAnimationType = true,
-			universeCollisionType = true,
-			playableDevices = true,
-			isFriendsOnly = true,
-			name = true,
-			universeAvatarAssetOverrides = true,
-			universeAvatarMinScales = true,
-			universeAvatarMaxScales = true,
-		}
+	fromUniverseConfigurationEndpoint = Cryo.Dictionary.join(fromUniverseConfigurationEndpoint, {
+		universeAvatarAssetOverrides = true,
+		universeAvatarMinScales = true,
+		universeAvatarMaxScales = true,
+	})
+end
+
+if FFlagStudioLuaGameSettingsDialog3 then
+	fromUniverseConfigurationEndpoint = Cryo.Dictionary.join(fromUniverseConfigurationEndpoint, {
+		genre = true,
+	})
 end
 
 local fromUniversesEndpoint = {
 	isActive = true,
 }
 
+if FFlagStudioLuaGameSettingsDialog3 then
+	fromUniversesEndpoint = Cryo.Dictionary.join(fromUniversesEndpoint, {
+		creatorType = true,
+		creatorName = true,
+	})
+end
+
 local fromRootPlaceInfoEndpoint = {
 	description = true,
 }
-
-local HttpService = game:GetService("HttpService")
-
-local Plugin = script.Parent.Parent.Parent
-local Promise = require(Plugin.Promise)
-local Cryo = require(Plugin.Cryo)
-local Http = require(Plugin.Src.Networking.Http)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local SettingsImpl = {}
 SettingsImpl.__index = SettingsImpl
@@ -139,11 +161,21 @@ function SettingsImpl:GetSettings()
 	return self:CanManagePlace():andThen(function(canManage)
 		self.canManage = canManage
 
-		return Promise.all({
+		local getRequests = {
 			self:GetUniverseConfiguration(),
 			self:GetRootPlaceInfo(),
 			self:GetUniversesInfo(),
-		})
+		}
+
+		if FFlagStudioLuaGameSettingsDialog3 then
+			table.insert(getRequests, self:GetThumbnails())
+
+			if FFlagGameSettingsUsesNewIconEndpoint then
+				table.insert(getRequests, self:GetIcon())
+			end
+		end
+
+		return Promise.all(getRequests)
 		:andThen(function(loaded)
 			for _, values in ipairs(loaded) do
 				settings = Cryo.Dictionary.join(settings, values)
@@ -168,6 +200,8 @@ function SettingsImpl:SaveAll(state)
 		local universeConfigValues = {}
 		local rootPlaceInfoValues = {}
 		local isActive = nil
+		local thumbnailOrder = nil
+		local thumbnails = nil
 
 		for setting, value in pairs(state.Changed) do
 			if fromUniverseConfigurationEndpoint[setting] then
@@ -180,14 +214,28 @@ function SettingsImpl:SaveAll(state)
 				rootPlaceInfoValues[setting] = value
 			elseif setting == "isActive" then
 				isActive = value
+			elseif FFlagStudioLuaGameSettingsDialog3 and setting == "thumbnails" then
+				thumbnails = {
+					Current = state.Current.thumbnails,
+					Changed = state.Changed.thumbnails,
+				}
+			elseif FFlagStudioLuaGameSettingsDialog3 and setting == "thumbnailOrder" then
+				thumbnailOrder = value
 			end
 		end
 
-		return Promise.all({
+		local setRequests = {
 			self:SetUniverseConfiguration(universeConfigValues),
 			self:SetRootPlaceInfo(rootPlaceInfoValues),
 			self:SetUniverseActive(isActive),
-		})
+		}
+
+		if FFlagStudioLuaGameSettingsDialog3 then
+			table.insert(setRequests, self:SetThumbnails(thumbnails))
+			table.insert(setRequests, self:SetThumbnailOrder(thumbnailOrder))
+		end
+
+		return Promise.all(setRequests)
 	end)
 end
 
@@ -230,6 +278,12 @@ function SettingsImpl:GetUniverseConfiguration()
 end
 
 function SettingsImpl:SetUniverseConfiguration(body)
+	if not self.canManage or isEmpty(body) then
+		return Promise.resolve()
+	end
+
+	local universeId = game.GameId
+
 	-- JSONEncode doesn't handle lua numbers well, this fixes API errors that come from that.
 	if body.universeAvatarMaxScales then
 		for scale, value in pairs(body.universeAvatarMaxScales) do
@@ -242,12 +296,6 @@ function SettingsImpl:SetUniverseConfiguration(body)
 			body.universeAvatarMinScales[scale] = tostring(value)
 		end
 	end
-
-	if not self.canManage or isEmpty(body) then
-		return Promise.resolve()
-	end
-
-	local universeId = game.GameId
 
 	if body.playableDevices then
 		local toTable = {}
@@ -307,10 +355,25 @@ function SettingsImpl:GetRootPlaceInfo()
 
 			for _, place in ipairs(placesResult.data) do
 				if place.id == rootPlaceId then
-					return extractRelevantEntries(place, fromRootPlaceInfoEndpoint)
+					return Cryo.Dictionary.join(extractRelevantEntries(place, fromRootPlaceInfoEndpoint), {
+						rootPlaceId = place.id,
+					})
 				end
 			end
 		end)
+	end)
+	:andThen(function(result)
+		if FFlagStudioLuaGameSettingsDialog3 and not FFlagGameSettingsUsesNewIconEndpoint then
+			return self:DEPRECATED_GetIcon(result.rootPlaceId):andThen(function(iconEntry)
+				return Cryo.Dictionary.join(result, iconEntry)
+			end)
+		else
+			return result
+		end
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load root place configuration settings.")
+		return Promise.resolve({})
 	end)
 end
 
@@ -396,6 +459,149 @@ function SettingsImpl:SetUniverseActive(isActive)
 	:catch(function()
 		warn("Game Settings: Could not change universe Active status.")
 		return Promise.resolve()
+	end)
+end
+
+-- Screenshots and video
+function SettingsImpl:GetThumbnails()
+	if not self.canManage then
+		return Promise.resolve({})
+	end
+
+	local universeId = game.GameId
+
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(THUMBNAILS_GET_REQUEST_TYPE, THUMBNAILS_GET_URL, universeId),
+		Method = "GET",
+	}
+
+	return Http.Request(requestInfo):andThen(function(jsonResult)
+		local thumbnails = HttpService:JSONDecode(jsonResult).data
+		local formatted = {}
+		local order = {}
+
+		for _, thumbnail in pairs(thumbnails) do
+			local stringId = tostring(thumbnail.id)
+			formatted[stringId] = thumbnail
+			table.insert(order, stringId)
+		end
+
+		return {
+			thumbnails = formatted,
+			thumbnailOrder = order,
+		}
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load thumbnails.")
+		return Promise.resolve({})
+	end)
+end
+
+function SettingsImpl:SetThumbnails(thumbnails)
+	if not self.canManage or thumbnails == nil then
+		return Promise.resolve()
+	end
+
+	local universeId = game.GameId
+	local oldThumbs = thumbnails.Current
+	local newThumbs = thumbnails.Changed
+
+	-- Delete thumbnails not present in newThumbs that exist in oldThumbs.
+	local thumbsToDelete = {}
+	local deleteRequests = {}
+	for thumbnailId in pairs(oldThumbs) do
+		if newThumbs[thumbnailId] == nil then
+			table.insert(thumbsToDelete, thumbnailId)
+		end
+	end
+
+	for _, thumbnailId in ipairs(thumbsToDelete) do
+		local requestInfo = {
+			Url = Http.BuildRobloxUrl(THUMBNAIL_DELETE_REQUEST_TYPE, THUMBNAIL_DELETE_URL, universeId, thumbnailId),
+			Method = "DELETE",
+		}
+
+		table.insert(deleteRequests, Http.Request(requestInfo))
+	end
+
+	return Promise.all(deleteRequests)
+	:catch(function()
+		warn("Game Settings: Could not delete thumbnails.")
+		return Promise.resolve()
+	end)
+end
+
+function SettingsImpl:SetThumbnailOrder(thumbnailOrder)
+	if not self.canManage or thumbnailOrder == nil then
+		return Promise.resolve()
+	end
+
+	local universeId = game.GameId
+	local body = HttpService:JSONEncode({
+		thumbnailIds = thumbnailOrder,
+	})
+
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(THUMBNAIL_ORDER_REQUEST_TYPE, THUMBNAIL_ORDER_URL, universeId),
+		Method = "POST",
+		Body = body,
+	}
+
+	return Http.Request(requestInfo)
+	:catch(function()
+		warn("Game Settings: Could not change thumbnail order.")
+		return Promise.resolve()
+	end)
+end
+
+-- Game Icon
+function SettingsImpl:GetIcon()
+	if not self.canManage then
+		return Promise.resolve({})
+	end
+
+	local universeId = game.GameId
+
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(ICON_REQUEST_TYPE, ICON_URL, universeId),
+		Method = "GET",
+	}
+
+	return Http.Request(requestInfo):andThen(function(jsonResult)
+		local result = HttpService:JSONDecode(jsonResult)
+
+		return {
+			gameIcon = result.imageId and ("rbxassetid://" .. result.imageId) or "None"
+		}
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load game icon.")
+		return Promise.resolve({})
+	end)
+end
+
+-- Deprecated, remove when removing FFlagGameSettingsUsesNewIconEndpoint
+function SettingsImpl:DEPRECATED_GetIcon(rootPlaceId)
+	if not self.canManage then
+		return Promise.resolve({})
+	end
+
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(ICON_REQUEST_TYPE_OLD, ICON_URL_OLD, rootPlaceId),
+		Method = "GET",
+	}
+
+	return Http.Request(requestInfo):andThen(function(jsonResult)
+		local result = HttpService:JSONDecode(jsonResult)
+		local imageId = result.ImageId
+
+		return {
+			gameIcon = imageId ~= rootPlaceId and ("rbxassetid://" .. imageId) or "None"
+		}
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load game icon.")
+		return Promise.resolve({})
 	end)
 end
 

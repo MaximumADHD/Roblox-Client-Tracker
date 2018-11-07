@@ -1755,7 +1755,7 @@ Class Workspace : Model
 	Function Tuple Workspace:findPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [deprecated]
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [deprecated]
 	Event Workspace.PhysicsAnalyzerIssuesFound(int count) [PluginSecurity]
-Class PackageLink : Instance [notCreatable]
+Class PackageLink : Instance [notbrowsable] [notCreatable]
 	Property Content PackageLink.PackageId [readonly]
 	Property int64 PackageLink.VersionNumber [readonly]
 Class Pages : Instance
@@ -3380,6 +3380,7 @@ Enum HttpRequestType
 	EnumItem HttpRequestType.Players : 7
 	EnumItem HttpRequestType.Chat : 15
 	EnumItem HttpRequestType.Avatar : 16
+	EnumItem HttpRequestType.Analytics : 22
 Enum HumanoidDisplayDistanceType
 	EnumItem HumanoidDisplayDistanceType.Viewer : 0
 	EnumItem HumanoidDisplayDistanceType.Subject : 1

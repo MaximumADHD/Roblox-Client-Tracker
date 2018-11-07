@@ -215,15 +215,17 @@ local function stateTransit(errorType, errorCode, oldState)
 
 	if oldState == ConnectionPromptState.NONE then
 		if errorType == Enum.ConnectionError.DisconnectErrors then
-
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
 			errorForReconnect = Enum.ConnectionError.DisconnectErrors
+			AnalyticsService:ReportCounter("ReconnectPrompt-Disconnect")
 			return ConnectionPromptState.RECONNECT_DISCONNECT
 		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
 			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
+			AnalyticsService:ReportCounter("ReconnectPrompt-PlaceLaunch")
 			return ConnectionPromptState.RECONNECT_PLACELAUNCH
 		elseif errorType == Enum.ConnectionError.TeleportErrors then
+			AnalyticsService:ReportCounter("ReconnectPrompt-TeleportFailed")
 			return ConnectionPromptState.TELEPORT_FAILED
 		end
 	end

@@ -8,12 +8,11 @@
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
 
-local DOT = "rbxasset://textures/GameSettings/RadioButton.png"
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
+local BulletPoint = require(Plugin.Src.Components.BulletPoint)
 local BaseDialog = require(Plugin.Src.Components.Dialog.BaseDialog)
 
 local function ListDialog(props)
@@ -30,30 +29,9 @@ local function ListDialog(props)
 		}
 
 		for i, item in ipairs(entries) do
-			table.insert(entriesList, Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
+			table.insert(entriesList, Roact.createElement(BulletPoint, {
 				LayoutOrder = i,
-				Size = UDim2.new(1, 0, 0, 20),
-			}, {
-				Text = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, 16, 0, 0),
-					Size = UDim2.new(1, -16, 1, 0),
-					Text = item,
-					Font = Enum.Font.SourceSans,
-					TextColor3 = theme.dialog.text,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = 22,
-				}),
-
-				Dot = Roact.createElement("ImageLabel", {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, 0, 0.5, 0),
-					Size = UDim2.new(0, 4, 0, 4),
-					AnchorPoint = Vector2.new(0, 0.5),
-					ImageColor3 = theme.dialog.text,
-					Image = DOT,
-				}),
+				Text = item,
 			}))
 		end
 

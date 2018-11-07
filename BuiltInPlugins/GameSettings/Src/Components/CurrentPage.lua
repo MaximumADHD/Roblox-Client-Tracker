@@ -21,9 +21,21 @@ function CurrentPage:init()
 	self.canvasRef = Roact.createRef()
 	self.contentHeightChanged = function(newheight)
 		local canvas = self.canvasRef.current
-		local contentSize = UDim2.new(1, 0, 0, newheight
-			+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
-		canvas.CanvasSize = contentSize
+		if canvas then
+			local contentSize = UDim2.new(1, 0, 0, newheight
+				+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
+			canvas.CanvasSize = contentSize
+		end
+	end
+end
+
+-- Scroll back up to the top every time the page changes.
+function CurrentPage:didUpdate(previousProps)
+	if previousProps.Page ~= self.props.Page then
+		local canvas = self.canvasRef.current
+		if canvas then
+			canvas.CanvasPosition = Vector2.new()
+		end
 	end
 end
 

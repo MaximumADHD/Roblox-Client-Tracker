@@ -60,6 +60,7 @@ function StyledScrollingFrame:render()
 				ScrollingEnabled = not self.props.DisableScrolling,
 				ElasticBehavior = Enum.ElasticBehavior.Always,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
+				CanvasPosition = self.props.CanvasPosition,
 
 				[Roact.Change.CanvasPosition] = self.props.onScroll,
 				[Roact.Ref] = self.props[Roact.Ref],

@@ -6,7 +6,7 @@
         <string name="Name">BindableFunction</string>
         <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow functions defined in one script to be called by another script</string>
-        <string name="ExplorerOrder">4</string>
+        <string name="ExplorerOrder">40</string>
         <string name="ExplorerImageIndex">66</string>
       </Properties>
 
@@ -33,7 +33,7 @@
         <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow events defined in one script to be subscribed to by another script</string>
 
-        <string name="ExplorerOrder">5</string>
+        <string name="ExplorerOrder">50</string>
         <string name="ExplorerImageIndex">67</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
@@ -59,7 +59,7 @@
         <string name="summary">Used by networking and replication code to transmit touch events - no other purpose</string>
 
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">37</string>
       </Properties>
     </Item>
@@ -68,7 +68,7 @@
         <string name="Name">ForceField</string>
         <string name="ClassCategory">Avatar</string>
         <string name="summary">Prevents joint breakage from explosions, and stops Humanoids from taking damage</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">37</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -369,7 +369,7 @@
       <Properties>
         <string name="Name">Hat</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">45</string>
         <bool name="Deprecated">true</bool>
       </Properties>
@@ -378,7 +378,7 @@
       <Properties>
         <string name="Name">Accessory</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">32</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -404,7 +404,7 @@
       <Properties>
         <string name="Name">Attachment</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">81</string>
         <string name="PreferredParent">PVInstance</string>
         <string name="PreferredParents">PVInstance</string>
@@ -442,7 +442,7 @@
       <Properties>
         <string name="Name">Constraint</string>
         <string name="ClassCategory">Physics</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">86</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -473,7 +473,7 @@
       <Properties>
         <string name="Name">BallSocketConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">86</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -528,7 +528,7 @@
       <Properties>
         <string name="Name">RopeConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">89</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -565,7 +565,7 @@
       <Properties>
         <string name="Name">RodConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">90</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -596,7 +596,7 @@
       <Properties>
         <string name="Name">SpringConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">91</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -675,7 +675,7 @@
       <Properties>
         <string name="Name">WeldConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">94</string>
         <string name="PreferredParent">PVInstance</string>
         <string name="PreferredParents">PVInstance</string>
@@ -686,7 +686,7 @@
       <Properties>
         <string name="Name">HingeConstraint</string>
         <string name="ClassCategory">Constraints</string>
-            <string name="ExplorerOrder">3</string>
+            <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">87</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -777,7 +777,7 @@
       <Properties>
         <string name="Name">SlidingBallConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">88</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -868,7 +868,7 @@
       <Properties>
         <string name="Name">PrismaticConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">88</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -879,7 +879,7 @@
       <Properties>
         <string name="Name">CylindricalConstraint</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">95</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -982,7 +982,7 @@
       <Properties>
         <string name="Name">AlignOrientation</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -992,7 +992,7 @@
       <Properties>
         <string name="Name">AlignPosition</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1002,7 +1002,7 @@
       <Properties>
         <string name="Name">VectorForce</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">BasePart,Model</string>
@@ -1012,7 +1012,7 @@
       <Properties>
         <string name="Name">LineForce</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1022,7 +1022,7 @@
       <Properties>
         <string name="Name">Torque</string>
         <string name="ClassCategory">Constraints</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">82</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1214,7 +1214,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Weld</string>
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">34</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1243,7 +1243,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Snap</string>
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">34</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1261,7 +1261,7 @@
         <string name="Name">ClickDetector</string>
         <string name="ClassCategory">3D Interfaces</string>
         <string name="summary">Raises mouse events for parent object</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">41</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">PVInstance</string>
@@ -1299,7 +1299,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Clothing</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
 
@@ -1308,7 +1308,7 @@
         <string name="Name">Smoke</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">Makes the parent part or model object emit smoke</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">59</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1320,7 +1320,7 @@
         <string name="Name">Trail</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">Makes two attachments emit trail when moving</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">93</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">BasePart,Model</string>
@@ -1383,7 +1383,7 @@
         <string name="Name">Beam</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">Makes beam between two attachments</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">96</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart,Model</string>
@@ -1453,7 +1453,7 @@
         <string name="Name">ParticleEmitter</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">A generic particle system.</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">80</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart,Attachment</string>
@@ -1537,7 +1537,7 @@
         <string name="Name">Sparkles</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">Makes the parent part or model object fantastic</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">42</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1547,7 +1547,7 @@
       <Properties>
         <string name="Name">Explosion</string>
         <string name="ClassCategory">Effects</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">36</string>
         <string name="summary">Creates an Explosion! This can be used as a purely graphical effect, or can be made to damage objects.</string>
         <string name="PreferredParent">BasePart</string>
@@ -1585,7 +1585,7 @@
         <string name="Name">Fire</string>
         <string name="ClassCategory">Effects</string>
         <string name="summary">Makes the parent part or model object emit fire</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">61</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1621,7 +1621,7 @@
       <Properties>
         <string name="Name">Seat</string>
         <string name="ClassCategory">Interaction</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">35</string>
       </Properties>
     </Item>
@@ -1630,7 +1630,7 @@
         <string name="Name">Platform</string>
 
         <string name="summary">Equivalent to a seat, except that the character stands up rather than sits down.</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">35</string>
       </Properties>
     </Item>
@@ -1638,7 +1638,7 @@
       <Properties>
         <string name="Name">SkateboardPlatform</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">35</string>
       </Properties>
     </Item>
@@ -1647,7 +1647,7 @@
         <string name="Name">VehicleSeat</string>
         <string name="ClassCategory">Interaction</string>
         <string name="summary">Automatically finds and powers hinge joints in an assembly.  Ignores motors.</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">35</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -1657,7 +1657,7 @@
       <Properties>
         <string name="Name">Tool</string>
         <string name="ClassCategory">Interaction</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">17</string>
         <string name="PreferredParent">StarterPack</string>
         <string name="PreferredParents">StarterPack,Backpack</string>
@@ -1667,7 +1667,7 @@
       <Properties>
         <string name="Name">Flag</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">38</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -1689,21 +1689,21 @@
       <Properties>
         <string name="Name">FlagStand</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">39</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BackpackItem</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Decal</string>
         <string name="ClassCategory">3D Interfaces</string>
-        <string name="ExplorerOrder">4</string>
+        <string name="ExplorerOrder">40</string>
         <string name="ExplorerImageIndex">7</string>
         <string name="summary">Descibes a texture that is placed on one of the sides of the Part it is parented to.</string>
         <string name="PreferredParent">BasePart</string>
@@ -1741,14 +1741,14 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">JointInstance</string>
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">34</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Message</string>
-        <string name="ExplorerOrder">11</string>
+        <string name="ExplorerOrder">110</string>
         <string name="ExplorerImageIndex">33</string>
         <bool name="Deprecated">true</bool>
         <string name="PreferredParent">StarterGui</string>
@@ -1759,7 +1759,7 @@
       <Properties>
         <string name="Name">Hint</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">11</string>
+        <string name="ExplorerOrder">110</string>
         <string name="ExplorerImageIndex">33</string>
       </Properties>
     </Item>
@@ -1767,7 +1767,7 @@
       <Properties>
         <string name="Name">IntValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a int value in it's Value member. Useful to share int information across multiple scripts.</string>
       </Properties>
@@ -1776,7 +1776,7 @@
       <Properties>
         <string name="Name">RayValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a Ray value in it's Value member. Useful to share Ray information across multiple scripts.</string>
       </Properties>
@@ -1786,7 +1786,7 @@
         <string name="Name">IntConstrainedValue</string>
         <bool name="Deprecated">true</bool>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores an int value in it's Value member.  Value is clamped to be in range of Min and MaxValue. Useful to share int information across multiple scripts.</string>
       </Properties>
@@ -1808,7 +1808,7 @@
         <string name="Name">DoubleConstrainedValue</string>
         <bool name="Deprecated">true</bool>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a double value in it's Value member.  Value is clamped to be in range of Min and MaxValue. Useful to share double information across multiple scripts.</string>
       </Properties>
@@ -1831,7 +1831,7 @@
       <Properties>
         <string name="Name">BoolValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a boolean value in it's Value member. Useful to share boolean information across multiple scripts.</string>
       </Properties>
@@ -1839,7 +1839,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">CustomEvent</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <bool name="Deprecated">true</bool>
         <string name="ExplorerImageIndex">4</string>
       </Properties>
@@ -1847,7 +1847,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">CustomEventReceiver</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <bool name="Deprecated">true</bool>
         <string name="ExplorerImageIndex">4</string>
       </Properties>
@@ -1856,7 +1856,7 @@
       <Properties>
         <string name="Name">FloorWire</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Renders a thin cylinder than can be adorned with textures that 'flow' from one object to the next. Has basic pathing abilities and attempts to to not intersect anything. &lt;a href="http://wiki.roblox.com/index.php/FloorWire_Guide" target="_blank"&gt;More info&lt;/a&gt;</string>
       </Properties>
@@ -1915,7 +1915,7 @@
       <Properties>
         <string name="Name">NumberValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
       </Properties>
     </Item>
@@ -1923,7 +1923,7 @@
       <Properties>
         <string name="Name">StringValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
       </Properties>
     </Item>
@@ -1931,7 +1931,7 @@
       <Properties>
         <string name="Name">Vector3Value</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
       </Properties>
     </Item>
@@ -1939,7 +1939,7 @@
       <Properties>
         <string name="Name">CFrameValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a CFrame value in it's Value member. Useful to share CFrame information across multiple scripts.</string>
       </Properties>
@@ -1948,7 +1948,7 @@
       <Properties>
         <string name="Name">Color3Value</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a Color3 value in it's Value member. Useful to share Color3 information across multiple scripts.</string>
       </Properties>
@@ -1957,7 +1957,7 @@
       <Properties>
         <string name="Name">BrickColorValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">Stores a BrickColor value in it's Value member. Useful to share BrickColor information across multiple scripts.</string>
       </Properties>
@@ -1966,7 +1966,7 @@
       <Properties>
         <string name="Name">ValueBase</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
         <string name="summary">The base class to all Value Objects.</string>
       </Properties>
@@ -1975,7 +1975,7 @@
       <Properties>
         <string name="Name">ObjectValue</string>
         <string name="ClassCategory">Values</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">4</string>
       </Properties>
     </Item>
@@ -1983,7 +1983,7 @@
       <Properties>
         <string name="Name">SpecialMesh</string>
         <string name="ClassCategory">Meshes</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -1993,7 +1993,7 @@
       <Properties>
         <string name="Name">BlockMesh</string>
         <string name="ClassCategory">Meshes</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -2003,7 +2003,7 @@
       <Properties>
         <string name="Name">CylinderMesh</string>
         <string name="ClassCategory">Meshes</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">8</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -2029,7 +2029,7 @@
       <Properties>
         <string name="Name">Texture</string>
         <string name="ClassCategory">3D Interfaces</string>
-        <string name="ExplorerOrder">4</string>
+        <string name="ExplorerOrder">40</string>
         <string name="ExplorerImageIndex">10</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -2039,7 +2039,7 @@
       <Properties>
         <string name="Name">Sound</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">1</string>
+        <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
         <string name="PreferredParents">SoundGroup,SoundService</string>
       </Properties>
@@ -2067,7 +2067,7 @@
         <string name="Name">EchoSoundEffect</string>
         <string name="summary">An echo audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2113,7 +2113,7 @@
         <string name="Name">FlangeSoundEffect</string>
         <string name="summary">A Flanging audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2151,7 +2151,7 @@
         <string name="Name">DistortionSoundEffect</string>
         <string name="summary">A Distortion audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2173,7 +2173,7 @@
         <string name="Name">PitchShiftSoundEffect</string>
         <string name="summary">A Pitch Shifting audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2195,7 +2195,7 @@
         <string name="Name">ChorusSoundEffect</string>
         <string name="summary">A Chorus audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2233,7 +2233,7 @@
         <string name="Name">TremoloSoundEffect</string>
         <string name="summary">A Tremolo audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2271,7 +2271,7 @@
         <string name="Name">ReverbSoundEffect</string>
         <string name="summary">A Reverb audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2325,7 +2325,7 @@
         <string name="Name">EqualizerSoundEffect</string>
         <string name="summary">An Three-band Equalizer audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2363,7 +2363,7 @@
         <string name="Name">CompressorSoundEffect</string>
         <string name="summary">A Compressor audio effect that can be applied to a Sound or SoundGroup.</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">84</string>
         <string name="PreferredParent">Sound</string>
         <string name="PreferredParents">Sound,SoundGroup</string>
@@ -2416,7 +2416,7 @@
       <Properties>
         <string name="Name">SoundGroup</string>
         <string name="ClassCategory">Sounds</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">85</string>
         <string name="PreferredParent">SoundService</string>
         <string name="PreferredParents">SoundService</string>
@@ -2436,7 +2436,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SoundService</string>
-        <string name="ExplorerOrder">50</string>
+        <string name="ExplorerOrder">500</string>
         <string name="ExplorerImageIndex">31</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -2474,7 +2474,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Backpack</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">20</string>
         <string name="Insertable">false</string>
         <string name="PreferredParents">Player</string>
@@ -2483,21 +2483,21 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">StarterPack</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">StarterPlayer</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">79</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">StarterGear</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">20</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -2506,7 +2506,7 @@
     <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">CoreGui</string>
-            <string name="ExplorerOrder">3</string>
+            <string name="ExplorerOrder">30</string>
             <string name="ExplorerImageIndex">46</string>
         </Properties>
     </Item>
@@ -2515,7 +2515,7 @@
     <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">PluginGuiService</string>
-            <string name="ExplorerOrder">3</string>
+            <string name="ExplorerOrder">30</string>
             <string name="ExplorerImageIndex">46</string>
         </Properties>
     </Item>
@@ -2590,7 +2590,7 @@
     <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">UIListLayout</string>
-            <string name="ExplorerOrder">3</string>
+            <string name="ExplorerOrder">30</string>
             <string name="ExplorerImageIndex">26</string>
             <string name="ClassCategory">GUI</string>
             <string name="summary">Sets the position of UI elements in a list. You can use a UIListLayout by parenting it to a GuiObject. The UIListLayout will then apply itself to all of its GuiObject siblings.</string>
@@ -2611,7 +2611,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIGridLayout</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Sets the position of UI elements in a 2D grid (this can be modified to 1D grid for list layout). This will also set the elements to a particular size, although this can be overridden with particular constraints on elements. You can use a UIGridLayout by parenting it to a GuiObject. The UIGridLayout will then apply itself to all of its GuiObject siblings.</string>
@@ -2657,7 +2657,7 @@
     <Item class="ReflectionMetadataClass">
         <Properties>
             <string name="Name">UIPageLayout</string>
-            <string name="ExplorerOrder">3</string>
+            <string name="ExplorerOrder">30</string>
             <string name="ExplorerImageIndex">26</string>
             <string name="ClassCategory">GUI</string>
             <string name="summary">Creates a paged viewing window, like the home screen of a mobile device. You can use a UIPageLayout by parenting it to a GuiObject. The UIPageLayout will then apply itself to all of its GuiObject siblings.</string>
@@ -2768,7 +2768,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UITableLayout</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Provides a layout of rows and columns that are sized based on the cells in them.</string>
@@ -2810,7 +2810,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UISizeConstraint</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject does not become smaller or larger than the min and max size. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element’s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
@@ -2837,7 +2837,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UITextSizeConstraint</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject with text does not allow the font size to become larger or smaller than min and max text sizes. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element’s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
@@ -2864,7 +2864,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIAspectRatioConstraint</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Ensures a GuiObject will always have a particular aspect ratio. If an element with a constraint is under the control of a layout, the constraint takes precedence in determining the element’s size, but not position. You can use a Constraint by parenting it to the element you wish to constrain.</string>
@@ -2896,7 +2896,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIScale</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Uniformly scales a GUI object and all its children.</string>
@@ -2917,7 +2917,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIPadding</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="Summary">Insets the children of the GuiObject this is parented to, by the specified padding.</string>
@@ -3046,7 +3046,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">StarterGui</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">46</string>
       </Properties>
 
@@ -3202,7 +3202,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Chat</string>
-        <string name="ExplorerOrder">51</string>
+        <string name="ExplorerOrder">510</string>
         <string name="ExplorerImageIndex">33</string>
       </Properties>
       <Item class="ReflectionMetadataYieldFunctions">
@@ -3214,7 +3214,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ChatService</string>
-        <string name="ExplorerOrder">51</string>
+        <string name="ExplorerOrder">510</string>
         <string name="ExplorerImageIndex">33</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -3224,7 +3224,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LocalizationTable</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">97</string>
         <string name="ClassCategory">Localization</string>
         <string name="PreferredParents">LocalizationService</string>
@@ -3235,7 +3235,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LocalizationService</string>
-        <string name="ExplorerOrder">53</string>
+        <string name="ExplorerOrder">530</string>
         <string name="ExplorerImageIndex">92</string>
       </Properties>
       <Item class="ReflectionMetadataMember">
@@ -3480,7 +3480,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Sky</string>
-        <string name="ExplorerOrder">0</string>
+        <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">28</string>
         <string name="PreferredParent">Lighting</string>
         <string name="PreferredParents">Lighting</string>
@@ -3490,7 +3490,7 @@
         <Properties>
             <string name="Name">ColorCorrectionEffect</string>
             <string name="ClassCategory">Post Processing Effects</string>
-            <string name="ExplorerOrder">2</string>
+            <string name="ExplorerOrder">20</string>
             <string name="ExplorerImageIndex">83</string>
             <string name="PreferredParents">Lighting</string>
         </Properties>
@@ -3522,7 +3522,7 @@
       <Properties>
         <string name="Name">BloomEffect</string>
         <string name="ClassCategory">Post Processing Effects</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">83</string>
         <string name="PreferredParents">Lighting</string>
       </Properties>
@@ -3557,7 +3557,7 @@
       <Properties>
         <string name="Name">BlurEffect</string>
         <string name="ClassCategory">Post Processing Effects</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">83</string>
         <string name="PreferredParents">Lighting</string>
       </Properties>
@@ -3577,7 +3577,7 @@
       <Properties>
         <string name="Name">SunRaysEffect</string>
         <string name="ClassCategory">Post Processing Effects</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">83</string>
         <string name="PreferredParents">Lighting</string>
       </Properties>
@@ -3602,7 +3602,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Motor</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="Insertable">false</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -3612,7 +3612,7 @@
       <Properties>
         <string name="Name">Humanoid</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">9</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -3709,7 +3709,7 @@
       <Properties>
         <string name="Name">BodyColors</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
       </Properties>
@@ -3718,7 +3718,7 @@
       <Properties>
         <string name="Name">Shirt</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">43</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -3728,7 +3728,7 @@
       <Properties>
         <string name="Name">Pants</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">44</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -3738,7 +3738,7 @@
       <Properties>
         <string name="Name">ShirtGraphic</string>
         <string name="ClassCategory">Avatar</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">40</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -3748,14 +3748,14 @@
       <Properties>
         <string name="Name">Skin</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">DebugSettings</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3768,21 +3768,21 @@
       <Properties>
         <string name="Name">GameSettings</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">GlobalSettings</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Item</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3795,7 +3795,7 @@
       <Properties>
         <string name="Name">NetworkSettings</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3818,6 +3818,7 @@
         <string name="Name">PackageLink</string>
         <string name="ExplorerOrder">1</string>
         <string name="ExplorerImageIndex">98</string>
+        <bool name="Browsable">false</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -3833,7 +3834,7 @@
       <Properties>
         <string name="Name">RenderSettings</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3887,7 +3888,7 @@
         <string name="Name">Hopper</string>
         <bool name="Deprecated">true</bool>
         <string name="summary">Use StarterPack instead</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
 
@@ -4094,7 +4095,7 @@
         <string name="Name">BodyGyro</string>
         <string name="ClassCategory">Legacy Body Movers</string>
         <string name="summary">Attempts to maintain a fixed orientation of its parent Part</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -4145,7 +4146,7 @@
       <Properties>
         <string name="Name">BodyPosition</string>
         <string name="ClassCategory">Legacy Body Movers</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -4196,7 +4197,7 @@
       <Properties>
         <string name="Name">RocketPropulsion</string>
         <string name="ClassCategory">Legacy Body Movers</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="summary">A propulsion system that mimics a rocket</string>
         <string name="PreferredParent">BasePart</string>
@@ -4207,7 +4208,7 @@
       <Properties>
         <string name="Name">BodyVelocity</string>
         <string name="ClassCategory">Legacy Body Movers</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -4251,7 +4252,7 @@
       <Properties>
         <string name="Name">BodyAngularVelocity</string>
         <string name="ClassCategory">Legacy Body Movers</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -4285,7 +4286,7 @@
       <Properties>
         <string name="Name">BodyForce</string>
         <string name="ClassCategory">Legacy Body Movers</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="summary">When parented to a physical part, BodyForce will continually exert a force upon its parent object.</string>
         <string name="PreferredParent">BasePart</string>
@@ -4307,7 +4308,7 @@
       <Properties>
         <string name="Name">BodyThrust</string>
         <string name="ClassCategory">Legacy Body Movers</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">14</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
@@ -4346,13 +4347,13 @@
       <Properties>
         <string name="Name">Hole</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Feature</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
       </Properties>
     </Item>
 
@@ -4360,7 +4361,7 @@
       <Properties>
         <string name="Name">Teams</string>
         <string name="summary">This Service-level object is the container for all Team objects in a level. A map that supports team games must have a Teams service. &lt;a href="http://wiki.roblox.com/index.php/Team" target="_blank"&gt;More info&lt;/a&gt;</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">23</string>
         <string name="PreferredParent">Teams</string>
         <string name="PreferredParents">Teams</string>
@@ -4379,7 +4380,7 @@
         <string name="Name">Team</string>
         <string name="ClassCategory">Interaction</string>
         <string name="summary">The Team class is used to represent a faction in a team game. The only valid location for a Team object is under the Teams service. &lt;a href="http://wiki.roblox.com/index.php/Team" target="_blank"&gt;More info&lt;/a&gt;</string>
-        <string name="ExplorerOrder">1</string>
+        <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">24</string>
         <string name="PreferredParent">Teams</string>
         <string name="PreferredParents">Teams</string>
@@ -4389,7 +4390,7 @@
       <Properties>
         <string name="Name">SpawnLocation</string>
         <string name="ClassCategory">Interaction</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">25</string>
       </Properties>
     </Item>
@@ -4397,7 +4398,7 @@
       <Properties>
         <string name="Name">NetworkClient</string>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">16</string>
       </Properties>
     </Item>
@@ -4405,7 +4406,7 @@
       <Properties>
         <string name="Name">NetworkServer</string>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">15</string>
       </Properties>
     </Item>
@@ -4429,7 +4430,7 @@
       <Properties>
         <string name="Name">Script</string>
         <string name="ClassCategory">Scripting</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">6</string>
         <string name="PreferredParents">ServerStorage,ServerScriptService</string>
       </Properties>
@@ -4449,7 +4450,7 @@
       <Properties>
         <string name="Name">LocalScript</string>
         <string name="ClassCategory">Scripting</string>
-        <string name="ExplorerOrder">4</string>
+        <string name="ExplorerOrder">40</string>
         <string name="ExplorerImageIndex">18</string>
         <string name="PreferredParents">ReplicatedFirst,ReplicatedStorage,StarterCharacterScripts,StarterPlayerScripts</string>
         <string name="summary">A script that runs on clients, NOT servers.  LocalScripts can only run when parented under one of the following:
@@ -4466,7 +4467,7 @@
       <Properties>
         <string name="Name">RenderingTest</string>
         <string name="ClassCategory">Scripting</string>
-        <string name="ExplorerOrder">4</string>
+        <string name="ExplorerOrder">40</string>
         <string name="summary">dummy summary</string>
         <string name="ExplorerImageIndex">5</string>
       </Properties>
@@ -4475,7 +4476,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">NetworkReplicator</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">29</string>
       </Properties>
     </Item>
@@ -4483,7 +4484,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Model</string>
-        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerOrder">100</string>
         <string name="ExplorerImageIndex">2</string>
         <string name="summary">A construct used to group Parts and other objects together, also allows manipulation of multiple objects.</string>
         <string name="PreferredParent">PVInstance</string>
@@ -4579,7 +4580,7 @@
       <Properties>
         <string name="Name">Status</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerOrder">100</string>
         <string name="ExplorerImageIndex">2</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
@@ -4760,7 +4761,7 @@
       <Properties>
         <string name="Name">HopperBin</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">24</string>
+        <string name="ExplorerOrder">240</string>
         <string name="ExplorerImageIndex">22</string>
       </Properties>
     </Item>
@@ -4768,7 +4769,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Camera</string>
-        <string name="ExplorerOrder">0</string>
+        <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">5</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -4867,7 +4868,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Players</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">21</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -4893,7 +4894,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ReplicatedStorage</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">70</string>
         <string name="summary">A container whose contents are replicated to all clients and the server.</string>
       </Properties>
@@ -4909,7 +4910,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ReplicatedFirst</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">70</string>
         <string name="summary">A container whose contents are replicated to all clients (but not back to the server) first before anything else. Useful for creating loading guis, tutorials, etc.</string>
       </Properties>
@@ -4926,7 +4927,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ServerStorage</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">69</string>
         <string name="summary">A container whose contents are only on the server.</string>
       </Properties>
@@ -4935,7 +4936,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ServerScriptService</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">71</string>
         <string name="summary">A container whose contents should be scripts. Scripts that are added to the container are run on the server.</string>
       </Properties>
@@ -4952,7 +4953,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Lighting</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="summary">Responsible for all lighting aspects of the world (affects how things are rendered).</string>
       </Properties>
@@ -5103,7 +5104,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">TestService</string>
-        <string name="ExplorerOrder">100</string>
+        <string name="ExplorerOrder">1000</string>
         <string name="ExplorerImageIndex">68</string>
       </Properties>
     </Item>
@@ -5111,7 +5112,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">DebuggerManager</string>
-        <!-- string name="ExplorerOrder">101</string-->
+        <!-- string name="ExplorerOrder">1010</string-->
 
       </Properties>
     </Item>
@@ -5119,7 +5120,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ScriptDebugger</string>
-        <!--string name="ExplorerOrder">101</string-->
+        <!--string name="ExplorerOrder">1010</string-->
 
       </Properties>
     </Item>
@@ -5127,7 +5128,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">DebuggerBreakpoint</string>
-        <!--string name="ExplorerOrder">101</string-->
+        <!--string name="ExplorerOrder">1010</string-->
 
       </Properties>
     </Item>
@@ -5135,7 +5136,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">DebuggerWatch</string>
-        <!--string name="ExplorerOrder">101</string-->
+        <!--string name="ExplorerOrder">1010</string-->
 
       </Properties>
     </Item>
@@ -5176,7 +5177,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Accoutrement</string>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">32</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -5186,7 +5187,7 @@
       <Properties>
         <string name="Name">Player</string>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">1</string>
+        <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">12</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -5328,7 +5329,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Workspace</string>
-        <string name="ExplorerOrder">0</string>
+        <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">19</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
@@ -5377,7 +5378,7 @@
       <Properties>
         <string name="Name">BasePart</string>
         <string name="summary">A structural class, not creatable</string>
-        <string name="ExplorerOrder">-1</string>
+        <string name="ExplorerOrder">3</string>
         <bool name="Browsable">false</bool>
       </Properties>
 
@@ -5572,7 +5573,7 @@
         <string name="Name">Part</string>
         <string name="ClassCategory">Parts</string>
         <string name="summary">A plastic building block - the fundamental component of ROBLOX</string>
-        <string name="ExplorerOrder">11</string>
+        <string name="ExplorerOrder">110</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Workspace</string>
         <string name="PreferredParents">Workspace</string>
@@ -5583,7 +5584,7 @@
         <string name="Name">TrussPart</string>
         <string name="ClassCategory">Parts</string>
         <string name="summary">An extendable building truss</string>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -5594,7 +5595,7 @@
         <string name="Name">WedgePart</string>
         <string name="ClassCategory">Parts</string>
         <string name="summary">A Wedge Part</string>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -5606,7 +5607,7 @@
         <string name="summary">A Prism Part</string>
         <bool name="Browsable">false</bool>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
       </Properties>
     </Item>
@@ -5616,7 +5617,7 @@
         <string name="summary">A Pyramid Part</string>
         <bool name="Browsable">false</bool>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
       </Properties>
     </Item>
@@ -5626,7 +5627,7 @@
         <string name="summary">A ParallelRamp Part</string>
         <bool name="Browsable">false</bool>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
       </Properties>
     </Item>
@@ -5636,7 +5637,7 @@
         <string name="summary">A RightAngleRamp Part</string>
         <bool name="Browsable">false</bool>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
       </Properties>
     </Item>
@@ -5645,7 +5646,7 @@
         <string name="Name">CornerWedgePart</string>
         <string name="ClassCategory">Parts</string>
         <string name="summary">A CornerWedge Part</string>
-        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerOrder">120</string>
         <string name="ExplorerImageIndex">1</string>
         <string name="PreferredParent">Workspace</string>
         <string name="PreferredParents">Workspace,Model</string>
@@ -5655,7 +5656,7 @@
       <Properties>
         <string name="Name">PlayerGui</string>
         <string name="summary">A container instance that syncs data between a single player and the server.  ScreenGui objects that are placed in this container will be shown to the Player parent only</string>
-        <string name="ExplorerOrder">13</string>
+        <string name="ExplorerOrder">130</string>
         <string name="ExplorerImageIndex">46</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -5671,7 +5672,7 @@
       <Properties>
         <string name="Name">PlayerScripts</string>
         <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be exectue only when a Player is the parent.</string>
-        <string name="ExplorerOrder">13</string>
+        <string name="ExplorerOrder">130</string>
         <string name="ExplorerImageIndex">78</string>
       </Properties>
     </Item>
@@ -5679,7 +5680,7 @@
       <Properties>
         <string name="Name">StarterPlayerScripts</string>
         <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be copied to new Players on startup.</string>
-        <string name="ExplorerOrder">13</string>
+        <string name="ExplorerOrder">130</string>
         <string name="ExplorerImageIndex">78</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -5688,7 +5689,7 @@
       <Properties>
         <string name="Name">StarterCharacterScripts</string>
         <string name="summary">A container instance that contains LocalScripts.  LocalScript objects that are placed in this container will be copied to new characters on startup.</string>
-        <string name="ExplorerOrder">13</string>
+        <string name="ExplorerOrder">130</string>
         <string name="ExplorerImageIndex">78</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -5699,7 +5700,7 @@
         <string name="Name">GuiMain</string>
         <string name="summary">Deprecated, please use ScreenGui</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">47</string>
       </Properties>
     </Item>
@@ -5727,7 +5728,7 @@
         <string name="Name">ScreenGui</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">47</string>
         <string name="PreferredParent">BasePlayerGui</string>
         <string name="PreferredParents">BasePlayerGui</string>
@@ -5738,7 +5739,7 @@
         <string name="Name">FunctionalTest</string>
         <string name="summary">Deprecated. Use TestService instead</string>
         <bool name="Deprecated">true</bool>
-        <string name="ExplorerOrder">1</string>
+        <string name="ExplorerOrder">10</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -5746,7 +5747,7 @@
         <string name="Name">BillboardGui</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI that adorns an object in the 3D world.  Add Frames/Labels/Buttons to this object to have them rendered while attached to a 3D object</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">64</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -5835,7 +5836,7 @@
         <string name="Name">SurfaceGui</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">Renders its contained GuiObjects flat against the face of a part.</string>
-        <string name="ExplorerOrder">14</string>
+        <string name="ExplorerOrder">140</string>
         <string name="ExplorerImageIndex">64</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6146,7 +6147,7 @@
         <string name="Name">Frame</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A container object used to layout other GUI objects</string>
-        <string name="ExplorerOrder">15</string>
+        <string name="ExplorerOrder">150</string>
         <string name="ExplorerImageIndex">48</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6165,7 +6166,7 @@
         <string name="Name">ScrollingFrame</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A container object used to layout other GUI objects, and allows for scrolling.</string>
-        <string name="ExplorerOrder">15</string>
+        <string name="ExplorerOrder">150</string>
         <string name="ExplorerImageIndex">48</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6226,7 +6227,7 @@
         <string name="Name">ImageLabel</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI object containing an Image</string>
-        <string name="ExplorerOrder">18</string>
+        <string name="ExplorerOrder">180</string>
         <string name="ExplorerImageIndex">49</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6263,7 +6264,7 @@
         <string name="Name">TextLabel</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI object containing text</string>
-        <string name="ExplorerOrder">19</string>
+        <string name="ExplorerOrder">190</string>
         <string name="ExplorerImageIndex">50</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6283,7 +6284,7 @@
         <string name="Name">TextButton</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI button containing text</string>
-        <string name="ExplorerOrder">17</string>
+        <string name="ExplorerOrder">170</string>
         <string name="ExplorerImageIndex">51</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6303,7 +6304,7 @@
         <string name="Name">TextBox</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A text entry box</string>
-        <string name="ExplorerOrder">17</string>
+        <string name="ExplorerOrder">170</string>
         <string name="ExplorerImageIndex">51</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6324,7 +6325,7 @@
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI button containing an Image</string>
         <bool name="Browsable">false</bool>
-        <string name="ExplorerOrder">16</string>
+        <string name="ExplorerOrder">160</string>
         <string name="ExplorerImageIndex">52</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6391,7 +6392,7 @@
         <string name="Name">ViewportFrame</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI that can show 3D objects</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">52</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6410,7 +6411,7 @@
         <string name="Name">ImageButton</string>
         <string name="ClassCategory">GUI</string>
         <string name="summary">A GUI button containing an Image</string>
-        <string name="ExplorerOrder">16</string>
+        <string name="ExplorerOrder">160</string>
         <string name="ExplorerImageIndex">52</string>
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
@@ -6448,7 +6449,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">A 3D GUI object to represent draggable handles</string>
 
-        <string name="ExplorerOrder">19</string>
+        <string name="ExplorerOrder">190</string>
         <string name="ExplorerImageIndex">53</string>
       </Properties>
     </Item>
@@ -6458,7 +6459,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="summary">A 3D GUI object to represent draggable arc handles</string>
 
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">56</string>
       </Properties>
     </Item>
@@ -6467,7 +6468,7 @@
         <string name="Name">SelectionBox</string>
         <string name="ClassCategory">Adornments</string>
         <string name="summary">A 3D GUI object to represent the visible selection around an object</string>
-        <string name="ExplorerOrder">21</string>
+        <string name="ExplorerOrder">210</string>
         <string name="ExplorerImageIndex">54</string>
       </Properties>
     </Item>
@@ -6476,7 +6477,7 @@
         <string name="Name">SelectionSphere</string>
         <string name="ClassCategory">Adornments</string>
         <string name="summary">A 3D GUI object to represent the visible selection around an object</string>
-        <string name="ExplorerOrder">21</string>
+        <string name="ExplorerOrder">210</string>
         <string name="ExplorerImageIndex">54</string>
       </Properties>
     </Item>
@@ -6485,7 +6486,7 @@
         <string name="Name">SurfaceSelection</string>
         <string name="ClassCategory">Adornments</string>
         <string name="summary">A 3D GUI object to represent the visible selection around a face of an object</string>
-        <string name="ExplorerOrder">21</string>
+        <string name="ExplorerOrder">210</string>
         <string name="ExplorerImageIndex">55</string>
       </Properties>
     </Item>
@@ -6493,7 +6494,7 @@
       <Properties>
         <string name="Name">Configuration</string>
         <string name="summary">An object that can be placed under parts to hold Value objects that represent that part's configuration</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">58</string>
       </Properties>
     </Item>
@@ -6501,7 +6502,7 @@
       <Properties>
         <string name="Name">Folder</string>
         <string name="summary">An object that can be created to hold and organize objects</string>
-        <string name="ExplorerOrder">1</string>
+        <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">77</string>
         <string name="PreferredParents">Instance</string>
       </Properties>
@@ -6511,7 +6512,7 @@
         <string name="Name">SelectionPartLasso</string>
         <bool name="Deprecated">true</bool>
         <string name="summary">A visual line drawn representation between two part objects</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">57</string>
       </Properties>
     </Item>
@@ -6520,7 +6521,7 @@
         <string name="Name">SelectionPointLasso</string>
         <bool name="Deprecated">true</bool>
         <string name="summary">A visual line drawn representation between two positions</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">57</string>
       </Properties>
     </Item>
@@ -6528,7 +6529,7 @@
       <Properties>
         <string name="Name">PartPairLasso</string>
         <string name="summary">A visual line drawn representation between two parts.</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">57</string>
       </Properties>
     </Item>
@@ -6536,7 +6537,7 @@
       <Properties>
         <string name="Name">Pose</string>
         <string name="summary">The pose of a joint relative to it's parent part in a keyframe</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -6545,7 +6546,7 @@
       <Properties>
         <string name="Name">Keyframe</string>
         <string name="summary">One keyframe of an animation</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -6555,7 +6556,7 @@
         <string name="Name">Animation</string>
         <string name="ClassCategory">Animations</string>
         <string name="summary">Represents a linked animation object, containing keyframes and poses.</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
       </Properties>
     </Item>
@@ -6563,7 +6564,7 @@
       <Properties>
         <string name="Name">AnimationTrack</string>
         <string name="summary">Returned by a call to LoadAnimation. Controls the playback of an animation on a Humanoid.</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
       </Properties>
     </Item>
@@ -6572,7 +6573,7 @@
         <string name="Name">AnimationController</string>
         <string name="ClassCategory">Animations</string>
         <string name="summary">Allows animations to be played on joints of the parent object.</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
       </Properties>
     </Item>
@@ -6581,7 +6582,7 @@
         <string name="Name">CharacterMesh</string>
         <string name="ClassCategory">Meshes</string>
         <string name="summary">Modifies the appearance of a body part.</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -6592,7 +6593,7 @@
         <string name="Name">Dialog</string>
         <string name="ClassCategory">3D Interfaces</string>
         <string name="summary">An object used to make dialog trees to converse with players</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">62</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6659,7 +6660,7 @@
         <string name="Name">DialogChoice</string>
         <string name="ClassCategory">3D Interfaces</string>
         <string name="summary">An object used to make dialog trees to converse with players</string>
-        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">63</string>
       </Properties>
     </Item>
@@ -6669,7 +6670,7 @@
         <string name="summary">A UnionOperation is a union of multiple parts</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">73</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6687,7 +6688,7 @@
         <string name="summary">A NegateOperation can be used to create holes in other parts</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">72</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6706,7 +6707,7 @@
         <string name="summary">A MeshPart is a physically simulatable mesh</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">true</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">73</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
@@ -6718,7 +6719,7 @@
         <string name="summary">Object representing a high performance bounded grid of static 4x4 parts</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">0</string>
+        <string name="ExplorerOrder">5</string>
         <string name="ExplorerImageIndex">65</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6778,7 +6779,7 @@
         <string name="Name">Light</string>
         <string name="ClassCategory">Lights</string>
         <string name="summary">Parent of all light objects</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
         <string name="PreferredParents">Basepart,Attachment,PVInstance</string>
@@ -6799,7 +6800,7 @@
         <string name="Name">PointLight</string>
         <string name="ClassCategory">Lights</string>
         <string name="summary">Makes the parent part emit light in a spherical shape</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
         <string name="PreferredParents">PVInstance</string>
@@ -6819,7 +6820,7 @@
         <string name="Name">SpotLight</string>
         <string name="ClassCategory">Lights</string>
         <string name="summary">Makes the parent part emit light in a conical shape</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
         <string name="PreferredParents">PVInstance</string>
@@ -6846,7 +6847,7 @@
         <string name="Name">SurfaceLight</string>
         <string name="ClassCategory">Lights</string>
         <string name="summary">Makes the parent part emit light in a frustum shape from rectangle defined by part</string>
-        <string name="ExplorerOrder">3</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">13</string>
         <string name="PreferredParent">PVInstance</string>
         <string name="PreferredParents">PVInstance</string>
@@ -6880,7 +6881,7 @@
         <string name="Name">RemoteFunction</string>
         <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow functions defined in one script to be called by another script across client/server boundary</string>
-        <string name="ExplorerOrder">4</string>
+        <string name="ExplorerOrder">40</string>
         <string name="ExplorerImageIndex">74</string>
       </Properties>
       <Item class="ReflectionMetadataYieldFunctions">
@@ -6917,7 +6918,7 @@
         <string name="Name">RemoteEvent</string>
         <string name="ClassCategory">Scripting</string>
         <string name="summary">Allow events defined in one script to be subscribed to by another script across client/server boundary</string>
-        <string name="ExplorerOrder">5</string>
+        <string name="ExplorerOrder">50</string>
         <string name="ExplorerImageIndex">75</string>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
@@ -6960,7 +6961,7 @@
         <string name="Name">TerrainRegion</string>
         <string name="summary">Object representing a snapshot of the region of terrain</string>
         <bool name="Browsable">true</bool>
-        <string name="ExplorerOrder">2</string>
+        <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">65</string>
         <string name="Insertable">false</string>
       </Properties>
@@ -6970,7 +6971,7 @@
         <string name="Name">ModuleScript</string>
         <string name="ClassCategory">Scripting</string>
         <string name="summary">A script fragment. Only runs when another script uses require() on it.</string>
-        <string name="ExplorerOrder">5</string>
+        <string name="ExplorerOrder">50</string>
         <string name="ExplorerImageIndex">76</string>
         <string name="PreferredParents">Instance</string>
       </Properties>

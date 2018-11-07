@@ -26,14 +26,22 @@ if FastFlags:isIKModeFlagOn() then
 			self.TargetWidget.IK.IKOn.TextLabel.Text = Paths.DataModelIKManipulator:isFullBodyMode() and "IK: Full Body" or "IK: Body Part"
 			self.TargetWidget.IK.IKOn.Visible = true
 			self.TargetWidget.IK.TextLabel.Visible = false
-			Paths.GUIScriptViewportNotification:show(Paths, "IK constraint has been applied to Dummy joints")
+			if FastFlags:isUseRigNameForPromptsOn() then
+				Paths.GUIScriptViewportNotification:show(Paths, "IK constraint has been applied to " ..Paths.DataModelRig:getName() .." joints")
+			else
+				Paths.GUIScriptViewportNotification:show(Paths, "IK constraint has been applied to Dummy joints")
+			end
 		else
 			self.IKButton:setPressed(false)
 			self.TargetWidget.IK.TextLabel.Text = "Apply IK"
 			self.TargetWidget.IK.IKOn.Visible = false
 			self.TargetWidget.IK.TextLabel.Visible = true
 			Paths.GUIScriptToolTip:add(self.TargetWidget.IK, "An IK constraint will be applied to the R15 humanoid avatar to help automatically achieve desired poses")
-			Paths.GUIScriptViewportNotification:show(Paths, "IK constraint has been removed from Dummy joints")
+			if FastFlags:isUseRigNameForPromptsOn() then
+				Paths.GUIScriptViewportNotification:show(Paths, "IK constraint has been removed from " ..Paths.DataModelRig:getName() .." joints")
+			else
+				Paths.GUIScriptViewportNotification:show(Paths, "IK constraint has been removed from Dummy joints")
+			end
 		end
 	end
 

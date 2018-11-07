@@ -6,7 +6,6 @@
 		string Title = The text to display in this TitledFrame's left-hand title.
 		int MaxHeight = The maximum height of this TitledFrame in pixels. Defaults to 100.
 		int LayoutOrder = The order which this TitledFrame will sort to in a UIListLayout.
-		table Content = The content to display in this TitledFrame.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -42,7 +41,7 @@ local function TitledFrame(props)
 				Size = UDim2.new(1, -Constants.CENTER_GUTTER, 1, 0),
 				AnchorPoint = Vector2.new(1, 0),
 				Position = UDim2.new(1, 0, 0, 0),
-			}, props.Content),
+			}, props[Roact.Children]),
 		})
 	end)
 end

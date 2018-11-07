@@ -115,4 +115,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Purchase"] = [[确定要购买 {ASSET_TYPE} {ITEM_NAME}（费用：]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[{ITEM_NAME} 购买成功！]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[你还需要 {NEEDED_AMOUNT} Robux 才能购买 {ASSET_TYPE} {ITEM_NAME}。是否要购买更多 Robux？]],
+	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[产品]],
 }

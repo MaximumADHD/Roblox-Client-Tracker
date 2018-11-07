@@ -1,14 +1,17 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Utils = CorePackages.AppTempCommon.LuaChat.Utils
+local LuaApp = CorePackages.AppTempCommon.LuaApp
 
-local getPlaceIds = require(Utils.getFriendsActiveGamesPlaceIdsFromUsersPresence)
-local receiveUsersPresence = require(Utils.receiveUsersPresence)
+local AppFlags = CorePackages.AppTempCommon.LuaApp.Flags
+local ChatUtils = CorePackages.AppTempCommon.LuaChat.Utils
 
-local ApiFetchGamesDataByPlaceIds = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchGamesDataByPlaceIds)
-local UsersGetPresence = require(CorePackages.AppTempCommon.LuaApp.Http.Requests.UsersGetPresence)
+local getPlaceIds = require(ChatUtils.getFriendsActiveGamesPlaceIdsFromUsersPresence)
+local receiveUsersPresence = require(ChatUtils.receiveUsersPresence)
 
-local FFlagLuaHomeGetFriendsPlayingGamesInfo = settings():GetFFlag("LuaHomeGetFriendsPlayingGamesInfo")
+local ApiFetchGamesDataByPlaceIds = require(LuaApp.Thunks.ApiFetchGamesDataByPlaceIds)
+local UsersGetPresence = require(LuaApp.Http.Requests.UsersGetPresence)
+
+local FFlagFetchGamesDataWhenFetchingUserPresences = require(AppFlags.ShouldFetchGamesDataWhenFetchingUserPresences)
 
 return function(networkImpl, userIds)
 	return function(store)
@@ -16,7 +19,7 @@ return function(networkImpl, userIds)
 			local userPresences = result.responseBody.userPresences
 			receiveUsersPresence(userPresences, store)
 
-			if FFlagLuaHomeGetFriendsPlayingGamesInfo then
+			if FFlagFetchGamesDataWhenFetchingUserPresences() then
 				local placeIds = getPlaceIds(userPresences, store)
 
 				store:dispatch(ApiFetchGamesDataByPlaceIds(networkImpl, placeIds))

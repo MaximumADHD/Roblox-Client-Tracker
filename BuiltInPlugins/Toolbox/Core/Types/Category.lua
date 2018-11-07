@@ -1,6 +1,5 @@
-local Plugin = script.Parent.Parent.Parent
-
 local BuiltInPluginGetPackageAPIEnabled = settings():GetFFlag("BuiltInPluginGetPackageAPIEnabled")
+local EnableGroupPackagesForToolbox = settings():GetFFlag("EnableGroupPackagesForToolbox")
 
 local Category = {}
 
@@ -58,19 +57,19 @@ local function init()
 		addCategory("My " .. assetType, "My" .. assetType)
 	end
 
-	for _, assetType in ipairs(assetTypes) do
-		addCategory("Recent " .. assetType, "Recent" .. assetType)
-	end
-
 	if BuiltInPluginGetPackageAPIEnabled then
 		addCategory("My Packages", "MyPackages")
+	end
+
+	for _, assetType in ipairs(assetTypes) do
+		addCategory("Recent " .. assetType, "Recent" .. assetType)
 	end
 
 	for _, assetType in ipairs(assetTypes) do
 		addCategory("Group " .. assetType, "Group" .. assetType, true)
 	end
 
-	if BuiltInPluginGetPackageAPIEnabled then
+	if BuiltInPluginGetPackageAPIEnabled and EnableGroupPackagesForToolbox then
 		addCategory("Group Packages", "GroupPackages", true)
 	end
 end

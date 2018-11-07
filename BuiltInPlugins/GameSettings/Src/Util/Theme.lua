@@ -77,6 +77,9 @@ function Theme:recalculateTheme()
 
 		backgroundColor = color(c.MainBackground),
 
+		hyperlink = color(c.LinkText),
+		warningColor = color(c.WarningText),
+
 		separator = isDark and color(c.Border) or color(c.Titlebar),
 
 		scrollBar = color(c.ScrollBar),
@@ -86,7 +89,7 @@ function Theme:recalculateTheme()
 		},
 
 		menuEntry = {
-			hover = color(c.RibbonTab),
+			hover = isDark and color(c.CurrentMarker) or color(c.RibbonTab),
 			highlight = isDark and color(c.TableItem, m.Selected) or color(c.CurrentMarker),
 			text = color(c.BrightText),
 		},
@@ -123,9 +126,42 @@ function Theme:recalculateTheme()
 			title = color(c.BrightText),
 		},
 
+		dropDown = {
+			background = color(c.Button),
+			hover = color(c.Button, m.Hover),
+			text = color(c.BrightText),
+			disabled = color(c.Tab),
+			handle = color(c.MainText),
+			border = color(c.Border),
+			gradient = color(c.Dark)
+		},
+
+		dropDownEntry = {
+			background = color(c.MainBackground),
+			hover = isDark and color(c.CurrentMarker) or color(c.RibbonTab),
+			highlight = isDark and color(c.TableItem, m.Selected) or color(c.CurrentMarker),
+			text = color(c.MainText),
+		},
+
 		dialog = {
 			background = color(c.MainBackground),
 			text = color(c.MainText),
+		},
+
+		thumbnail = {
+			background = color(c.Dark),
+			count = color(c.DimmedText),
+		},
+
+		newThumbnail = {
+			background = color(c.TableItem),
+			border = isDark and color(c.Dark) or color(c.Titlebar),
+			plus = isDark and color(c.MainText) or color(c.DimmedText),
+		},
+
+		thumbnailDrag = {
+			background = color(c.CurrentMarker, m.Selected),
+			border = color(c.CurrentMarker, m.Selected),
 		},
 
 		cancelButton = {

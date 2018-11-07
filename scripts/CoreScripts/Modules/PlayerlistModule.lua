@@ -1933,7 +1933,6 @@ setVisible = function(state)
       for i = 1, #frameChildren do
         if frameChildren[i]:IsA("TextButton") then
           if isUsingGamepad then
-            GuiService.SelectedCoreObject = frameChildren[i]
             GuiService:AddSelectionParent("PlayerlistGuiSelection", ScrollList)
           end
           break

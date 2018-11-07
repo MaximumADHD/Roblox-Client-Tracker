@@ -53,8 +53,14 @@ function TimelineMenu:init(Paths)
 	self.Menu:setClickCallback(self.resetChangedHandle, function() Paths.DataModelKeyframes:resetKeyframeToDefaultPose(self.Time) end)
 	
 	self.resetJointHandle = self.Menu:getOption("MenuOptionResetJoint")
-	self.Menu:setClickCallback(self.resetJointHandle, function() Paths.DataModelKeyframes:resetPartsToDefaultPose(Paths.DataModelSession:getSelectedDataItems(), self.Time) end)
-	self.Menu:setEnabled(self.resetJointHandle, true)
+	self.Menu:setClickCallback(self.resetJointHandle, function()
+		if not FastFlags:isFixResetJointOn() or not self.Paths.HelperFunctionsTable:isNilOrEmpty(Paths.DataModelSession:getSelectedDataItems()) then
+			Paths.DataModelKeyframes:resetPartsToDefaultPose(Paths.DataModelSession:getSelectedDataItems(), self.Time)
+		end
+	end)
+	if not FastFlags:isFixResetJointOn() then
+		self.Menu:setEnabled(self.resetJointHandle, true)
+	end
 
 	self.RenameKeyFrameHandle = self.Menu:getOption("MenuOptionRenameKeyFrame")
 	self.Menu:setClickCallback(self.RenameKeyFrameHandle, function() self.Paths.ActionEditKeyframeName:execute(self.Paths, self.Paths.DataModelClip:getKeyframe(self.Time)) end)	
@@ -125,8 +131,13 @@ function TimelineMenu:showAvailableOptions(pose)
 
 	self.Menu:setEnabled(self.resetChangedHandle, self.Paths.DataModelKeyframes:doAnyPosesExist())
 
-	local resetText = (multipleDataItemsSelected or multiplePosesSelected) and "Reset Selected" or ("Reset " .. self.DataItem.Name)
-	self.Menu:setMainText(self.resetJointHandle, resetText)
+	if FastFlags:isFixResetJointOn() then
+		self.Menu:setMainText(self.resetJointHandle, "Reset Selected")
+		self.Menu:setEnabled(self.resetJointHandle, self.Paths.DataModelSession:areAnyDataItemsSelected())
+	else
+		local resetText = (multipleDataItemsSelected or multiplePosesSelected) and "Reset Selected" or ("Reset " .. self.DataItem.Name)
+		self.Menu:setMainText(self.resetJointHandle, resetText)
+	end
 			
 	if FastFlags:isFixRenameKeyOptionOn() then
 		self.Menu:setEnabled(self.RenameKeyFrameHandle, showKeyframeActionLabel or showPoseOptions)

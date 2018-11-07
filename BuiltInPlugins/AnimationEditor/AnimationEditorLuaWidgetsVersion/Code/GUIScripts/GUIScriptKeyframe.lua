@@ -74,17 +74,19 @@ function Keyframe:new(Paths, parent, time, dataItem, pose)
 		self:updateKeyframeOnTimeline(Paths, self, time)
 	end))
 
-	self.Connections:add(self.TargetWidget.ImageButton.MouseButton1Click:connect(function()
-		if self.Paths.InputKeyboard:isKeyCtrlOrCmdDown() then
-			if self.Paths.DataModelSession:isCurrentlySelectedKeyframe(time, dataItem) then
-				self.Paths.DataModelSession:removeClickedPoseFromSelectedKeyframes(time, dataItem)
+	if not FastFlags:isSelectAndDragOn() then
+		self.Connections:add(self.TargetWidget.ImageButton.MouseButton1Click:connect(function()
+			if self.Paths.InputKeyboard:isKeyCtrlOrCmdDown() then
+				if self.Paths.DataModelSession:isCurrentlySelectedKeyframe(time, dataItem) then
+					self.Paths.DataModelSession:removeClickedPoseFromSelectedKeyframes(time, dataItem)
+				else
+					self.Paths.DataModelSession:addClickedPoseToSelectedKeyframes(time, dataItem)
+				end
 			else
-				self.Paths.DataModelSession:addClickedPoseToSelectedKeyframes(time, dataItem)
+				Paths.DataModelSession:selectOrToggleKeyframe(time, dataItem)
 			end
-		else
-			Paths.DataModelSession:selectOrToggleKeyframe(time, dataItem)
-		end
-	end))
+		end))
+	end
 
 	self.Connections:add(self.TargetWidget.ImageButton.MouseButton2Click:connect(function()
 		if not FastFlags:isPartIncludeFixOn() or self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
@@ -95,6 +97,17 @@ function Keyframe:new(Paths, parent, time, dataItem, pose)
 
 	self.Connections:add(self.TargetWidget.ImageButton.InputBegan:connect(function(input)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
+			if FastFlags:isSelectAndDragOn() then
+				if self.Paths.InputKeyboard:isKeyCtrlOrCmdDown() then
+					if self.Paths.DataModelSession:isCurrentlySelectedKeyframe(time, dataItem) then
+						self.Paths.DataModelSession:removeClickedPoseFromSelectedKeyframes(time, dataItem)
+					else
+						self.Paths.DataModelSession:addClickedPoseToSelectedKeyframes(time, dataItem)
+					end
+				else
+					Paths.DataModelSession:selectKeyframe(time, dataItem)
+				end
+			end
 			self.Paths.UtilityScriptMovePoses:BeginMove(self.Paths, self)
 		end
 	end))

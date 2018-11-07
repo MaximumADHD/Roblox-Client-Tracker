@@ -11,6 +11,8 @@ return function()
 
 	local PageInfo = require(Plugin.Core.Reducers.PageInfo)
 
+	local BuiltInPluginGetPackageAPIEnabled = settings():GetFFlag("BuiltInPluginGetPackageAPIEnabled")
+
 	local function tableLength(tbl)
 		local i = 0
 		for _ in pairs(tbl) do
@@ -115,6 +117,9 @@ return function()
 
 			-- Select a group category
 			local groupModelsCategoryIndex = 13
+			if BuiltInPluginGetPackageAPIEnabled then
+				groupModelsCategoryIndex = 14
+			end
 			state = PageInfo(state, UpdatePageInfo({
 				categoryIndex = groupModelsCategoryIndex,
 				category = Category.CATEGORIES[groupModelsCategoryIndex].category

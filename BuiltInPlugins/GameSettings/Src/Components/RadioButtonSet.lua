@@ -73,10 +73,9 @@ local function RadioButtonSet(props)
 
 		return Roact.createElement(TitledFrame, {
 			Title = props.Title,
-			Content = children,
 			MaxHeight = maxHeight,
 			LayoutOrder = props.LayoutOrder or 1,
-		})
+		}, children)
 	end)
 end
 

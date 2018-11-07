@@ -56,4 +56,24 @@ function FastFlags:isUseDevHubHelpLinksOn()
 	return isFlagOn("StudioAnimationEditorUseDevHubHelpLinks")
 end
 
+function FastFlags:isFixResetJointOn()
+	return isFlagOn("StudioAnimationEditorFixResetJoint")
+end
+
+function FastFlags:isImportAndExportFixOn()
+	return isFlagOn("StudioAnimationEditorImportAndExportFix")
+end
+
+function FastFlags:isAutoAddBeginningKeyframeOn()
+	return isFlagOn("StudioAnimationEditorAutoAddBeginningKeyframe")
+end
+
+function FastFlags:isUseRigNameForPromptsOn()
+	return isFlagOn("StudioAnimationEditorUseRigNameForPrompts")
+end
+
+function FastFlags:isSelectAndDragOn()
+	return isFlagOn("StudioAnimationEditorSelectAndDrag")
+end
+
 return FastFlags

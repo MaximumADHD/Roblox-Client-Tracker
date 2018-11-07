@@ -8,8 +8,9 @@
 		bool Enabled = Whether this CheckBox accepts input
 ]]
 
-local BACKGROUND_IMAGE = "rbxasset://textures/CollisionGroupsEditor/unchecked.png"
-local SELECTED_IMAGE = "rbxasset://textures/CollisionGroupsEditor/checked-bluebg.png"
+local BACKGROUND_IMAGE = "rbxasset://textures/GameSettings/UncheckedBox.png"
+local SELECTED_IMAGE_LIGHT = "rbxasset://textures/GameSettings/CheckedBoxLight.png"
+local SELECTED_IMAGE_DARK = "rbxasset://textures/GameSettings/CheckedBoxDark.png"
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -60,7 +61,7 @@ function CheckBox:render()
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, 0),
 					Visible = self.props.Enabled and self.props.Selected,
-					Image = SELECTED_IMAGE,
+					Image = theme.isDarkerTheme and SELECTED_IMAGE_DARK or SELECTED_IMAGE_LIGHT,
 				}),
 
 				TitleLabel = Roact.createElement("TextButton", {
@@ -68,7 +69,7 @@ function CheckBox:render()
 					BorderSizePixel = 0,
 					Size = UDim2.new(0, 250, 1, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(1, 10, 0.5, 0),
+					Position = UDim2.new(1, 5, 0.5, 0),
 
 					TextColor3 = theme.checkBox.title,
 					Font = Enum.Font.SourceSans,

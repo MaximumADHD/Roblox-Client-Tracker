@@ -115,4 +115,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Purchase"] = [[다음 금액으로 {ASSET_TYPE} {ITEM_NAME} 구매할까요]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[{ITEM_NAME} 구매 성공!]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[{ASSET_TYPE} {ITEM_NAME} 구매에는 {NEEDED_AMOUNT}개의 Robux가 더 필요해요. Robux를 더 구매할까요?]],
+	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[제품]],
 }

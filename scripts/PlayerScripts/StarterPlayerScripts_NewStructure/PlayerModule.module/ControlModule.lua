@@ -32,6 +32,8 @@ local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 local TouchThumbpad = require(script:WaitForChild("TouchThumbpad"))
 local TouchJump = require(script:WaitForChild("TouchJump"))
 
+local VehicleController = require(script:WaitForChild("VehicleController"))
+
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
 	[Enum.TouchMovementMode.DPad] = TouchDPad,
@@ -91,7 +93,7 @@ function ControlModule.new()
 	
 	self.touchControlFrame = nil
 	
-	self.vehicleController = require(script:WaitForChild("VehicleController"))
+	self.vehicleController = VehicleController.new()
 	
 	Players.LocalPlayer.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char) end)
 	Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterAdded(char) end)

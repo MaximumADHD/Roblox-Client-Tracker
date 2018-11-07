@@ -178,6 +178,9 @@ function Keyframes:getOrCreateKeyframeData(part, time, fireChangeEvent, register
 				if not FastFlags:isScaleKeysOn() or registerUndo then self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe) end
 			end
 			self.Paths.UtilityScriptPose:initializePose(self.Paths, keyframe, part)
+			if FastFlags:isAutoAddBeginningKeyframeOn() and time ~= 0 then
+				self:addStartingKeyframe(part)
+			end
 			isChangeEventRequiredToFire = true
 		end
 		poseForPart = keyframe.Poses[part]
@@ -314,6 +317,15 @@ local function reinitializePose(self, keyframe, part, item)
 	end
 end
 
+if FastFlags:isAutoAddBeginningKeyframeOn() then
+	function Keyframes:addStartingKeyframe(part)
+		local time0key = self:getOrCreateKeyframe(0, false)
+		if time0key and not time0key.Poses[part] then
+			reinitializePose(self, time0key, part, self.Paths.DataModelRig.partToItemMap[part])
+		end
+	end
+end
+
 function Keyframes:resetKeyframeToDefaultPose(time)
 	-- we only need to reset if any poses actually exist
 	if self:doAnyPosesExist() then
@@ -330,8 +342,17 @@ function Keyframes:resetKeyframeToDefaultPose(time)
 end
 
 function Keyframes:resetPartsToDefaultPose(dataItems, time)
-	for _, dataItem in ipairs(dataItems) do
-		self:resetPartToDefaultPose(dataItem.Item, time)
+	if FastFlags:isFixResetJointOn() then
+		self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.resetKeyframe)
+		local keyframe = self:getOrCreateKeyframe(time, false)
+		for _, dataItem in pairs(dataItems) do
+			reinitializePose(self, keyframe, dataItem.Item, dataItem)
+		end
+		self.ChangedEvent:fire(self.keyframeList)
+	else
+		for _, dataItem in ipairs(dataItems) do
+			self:resetPartToDefaultPose(dataItem.Item, time)
+		end
 	end
 end
 
@@ -405,16 +426,31 @@ function Keyframes:loadKeyframeSequence(kfs)
 	local invalidPoseNames = {}
 	local LocalKeyframe = nil
 	for _, keyframe in pairs(keyframes) do
-		if keyframe.Time <= self.Paths.DataModelClip:getLength() then
+		if FastFlags:isImportAndExportFixOn() then
 			local time = self.Paths.DataModelSession:formatTimeValue(keyframe.Time)
-			LocalKeyframe = self:createKeyframe(time, false)
+			if time <= self.Paths.DataModelClip:getLength() then
+				LocalKeyframe = self:createKeyframe(time, false)
+				LocalKeyframe.Name = keyframe.Name
+				for __, pose in pairs(keyframe:GetChildren()) do
+					if FastFlags:isIKModeFlagOn() then
+						loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+					else
+						loadPose(self, LocalKeyframe, pose)
+					end
+				end
+			end
+		else
+			if keyframe.Time <= self.Paths.DataModelClip:getLength() then
+				local time = self.Paths.DataModelSession:formatTimeValue(keyframe.Time)
+				LocalKeyframe = self:createKeyframe(time, false)
 
-			LocalKeyframe.Name = keyframe.Name
-			for __, pose in pairs(keyframe:GetChildren()) do
-				if FastFlags:isIKModeFlagOn() then
-					loadPose(self, LocalKeyframe, pose, invalidPoseNames)
-				else
-					loadPose(self, LocalKeyframe, pose)
+				LocalKeyframe.Name = keyframe.Name
+				for __, pose in pairs(keyframe:GetChildren()) do
+					if FastFlags:isIKModeFlagOn() then
+						loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+					else
+						loadPose(self, LocalKeyframe, pose)
+					end
 				end
 			end
 		end

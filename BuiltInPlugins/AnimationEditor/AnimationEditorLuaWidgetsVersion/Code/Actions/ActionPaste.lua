@@ -63,6 +63,9 @@ local function pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copy
 
 	for partName, partPoseList in pairs(copyPoseList) do
 		local part = Paths.DataModelRig:getPart(partName)
+		if FastFlags:isAutoAddBeginningKeyframeOn() then
+			Paths.DataModelKeyframes:addStartingKeyframe(part)
+		end
 		for _, poseCopyVars in ipairs(partPoseList) do
 			local time = poseCopyVars[copyVariables.Time]
 

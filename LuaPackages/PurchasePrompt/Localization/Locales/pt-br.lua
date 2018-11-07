@@ -115,4 +115,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Purchase"] = [[Deseja comprar o(a) {ASSET_TYPE} {ITEM_NAME} por]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[Sua compra de {ITEM_NAME} foi bem-sucedida!]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[Você precisa de mais {NEEDED_AMOUNT} Robux para comprar o(a) {ASSET_TYPE} {ITEM_NAME}. Gostaria de comprar mais Robux?]],
+	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[Produto]],
 }

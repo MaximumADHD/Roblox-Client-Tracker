@@ -3,13 +3,21 @@
 		- Game name and description
 		- Game privacy settings (who is allowed to play the game)
 		- Playable Devices (which devices can run this game)
+		- Genre
+		- Thumbnails (Screenshots and Video)
+		- Game Icon
 
 	Settings:
 		string Name - The game name
 		bool IsActive - Whether the game is public or private
-		bool IsFriendsOnly - Whether the game is open to everyone or only friends
+		bool IsFriendsOnly - Whether the game is open to everyone or only friends/group members
+		string Group - The name of the group that owns this game, if one does
 		string Description - The game description
-		table Devices - A map of which devices are playable
+		string Genre - The genre of this game
+		table Devices - A table of which devices are playable
+		table Thumbnails - A table of this game's thumbnails
+		list Order - The order in which this game's thumbnails display
+		string GameIcon - The rbxassetid url of the game's icon, or "None" if no icon exists.
 
 	Errors:
 		name: "Empty", "TooLong"
@@ -20,6 +28,8 @@
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
+local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
+
 local nameErrors = {
 	Moderated = "The name didn't go through our moderation. Please revise it and try again.",
 	Empty = "Name cannot be empty.",
@@ -27,6 +37,24 @@ local nameErrors = {
 
 local descriptionErrors = {
 	Moderated = "The description didn't go through our moderation. Please revise it and try again.",
+}
+
+local genreEntries = {
+	{Id = "All", Title = "All"},
+	{Id = "Adventure", Title = "Adventure"},
+	{Id = "Tutorial", Title = "Building"},
+	{Id = "Funny", Title = "Comedy"},
+	{Id = "Ninja", Title = "Fighting"},
+	{Id = "FPS", Title = "FPS"},
+	{Id = "Scary", Title = "Horror"},
+	{Id = "Fantasy", Title = "Medieval"},
+	{Id = "War", Title = "Military"},
+	{Id = "Pirate", Title = "Naval"},
+	{Id = "RPG", Title = "RPG"},
+	{Id = "SciFi", Title = "Sci-Fi"},
+	{Id = "Sports", Title = "Sports"},
+	{Id = "TownAndCity", Title = "Town and City"},
+	{Id = "WildWest", Title = "Western"},
 }
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -42,13 +70,18 @@ local TitledFrame = require(Plugin.Src.Components.TitledFrame)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local RoundTextBox = require(Plugin.Src.Components.RoundTextBox)
+local Dropdown = require(Plugin.Src.Components.Dropdown)
 local Separator = require(Plugin.Src.Components.Separator)
+local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
+local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
+
+local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 
 local BasicInfo = Roact.PureComponent:extend("BasicInfo")
 
@@ -74,35 +107,33 @@ function BasicInfo:render()
 			Title = "Name",
 			MaxHeight = 60,
 			LayoutOrder = 1,
-			Content = {
-				TextBox = Roact.createElement(RoundTextBox, {
-					Active = self.props.Name ~= nil,
-					ErrorMessage = nameErrors[self.props.NameError],
-					MaxLength = MAX_NAME_LENGTH,
-					Text = self.props.Name or "",
+		}, {
+			TextBox = Roact.createElement(RoundTextBox, {
+				Active = self.props.Name ~= nil,
+				ErrorMessage = nameErrors[self.props.NameError],
+				MaxLength = MAX_NAME_LENGTH,
+				Text = self.props.Name or "",
 
-					SetText = self.props.NameChanged,
-				})
-			}
+				SetText = self.props.NameChanged,
+			}),
 		}),
 
 		Description = Roact.createElement(TitledFrame, {
 			Title = "Description",
 			MaxHeight = 150,
 			LayoutOrder = 2,
-			Content = {
-				TextBox = Roact.createElement(RoundTextBox, {
-					Height = 130,
-					Multiline = true,
+		}, {
+			TextBox = Roact.createElement(RoundTextBox, {
+				Height = 130,
+				Multiline = true,
 
-					Active = self.props.Description ~= nil,
-					ErrorMessage = descriptionErrors[self.props.DescriptionError],
-					MaxLength = MAX_DESCRIPTION_LENGTH,
-					Text = self.props.Description or "",
+				Active = self.props.Description ~= nil,
+				ErrorMessage = descriptionErrors[self.props.DescriptionError],
+				MaxLength = MAX_DESCRIPTION_LENGTH,
+				Text = self.props.Description or "",
 
-					SetText = self.props.DescriptionChanged,
-				})
-			}
+				SetText = self.props.DescriptionChanged,
+			}),
 		}),
 
 		Separator = Roact.createElement(Separator, {
@@ -111,7 +142,7 @@ function BasicInfo:render()
 
 		Playability = Roact.createElement(RadioButtonSet, {
 			Title = "Playability",
-			Description = "Who can see this game?",
+			Description = "Who can play this game?",
 			LayoutOrder = 4,
 			Buttons = {{
 					Id = true,
@@ -119,12 +150,12 @@ function BasicInfo:render()
 					Description = "Anyone on Roblox"
 				}, {
 					Id = "Friends",
-					Title = "Friends",
-					Description = "Friends on Roblox"
+					Title = self.props.Group and "Group Members" or "Friends",
+					Description = self.props.Group and ("Members of " .. self.props.Group) or "Friends on Roblox"
 				}, {
 					Id = false,
-					Title = "Only Me",
-					Description = "Only available to yourself"
+					Title = "Private",
+					Description = "Only developers of this game"
 				},
 			},
 			Enabled = self.props.IsActive ~= nil,
@@ -156,9 +187,57 @@ function BasicInfo:render()
 			LayoutOrder = 5,
 		}),
 
+		Icon = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(GameIconWidget, {
+			LayoutOrder = 6,
+			Enabled = self.props.GameIcon ~= nil,
+			Icon = self.props.GameIcon,
+			AddIcon = function()
+				-- TODO: Replace this with an actual solution when able to upload images
+				BrowserUtils.OpenPlaceSettings(self.props.RootPlaceId)
+			end,
+		}),
+
+		Separator3 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
+			LayoutOrder = 7,
+		}),
+
+		Thumbnails = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(ThumbnailController, {
+			LayoutOrder = 8,
+			Enabled = self.props.Thumbnails ~= nil,
+			Thumbnails = self.props.Thumbnails,
+			Order = self.props.ThumbnailOrder,
+			AddThumbnail = function()
+				-- TODO: Replace this with an actual solution when able to upload images
+				BrowserUtils.OpenPlaceSettings(self.props.RootPlaceId)
+			end,
+			ThumbnailsChanged = self.props.ThumbnailsChanged,
+			ThumbnailOrderChanged = self.props.ThumbnailOrderChanged,
+		}),
+
+		Separator4 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
+			LayoutOrder = 9,
+		}),
+
+		Genre = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(TitledFrame, {
+			Title = "Genre",
+			MaxHeight = 38,
+			LayoutOrder = 10,
+		}, {
+			Selector = Roact.createElement(Dropdown, {
+				Entries = genreEntries,
+				Enabled = self.props.Genre ~= nil,
+				Current = self.props.Genre,
+				CurrentChanged = self.props.GenreChanged,
+			}),
+		}),
+
+		Separator5 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
+			LayoutOrder = 11,
+		}),
+
 		Devices = Roact.createElement(CheckBoxSet, {
 			Title = "Playable Devices",
-			LayoutOrder = 6,
+			LayoutOrder = 12,
 			Boxes = {{
 					Id = "Computer",
 					Selected = devices and devices.Computer or false
@@ -212,8 +291,15 @@ BasicInfo = RoactRodux.connect(
 			Name = settingFromState(state.Settings, "name"),
 			IsActive = settingFromState(state.Settings, "isActive"),
 			IsFriendsOnly = settingFromState(state.Settings, "isFriendsOnly"),
+			Group = settingFromState(state.Settings, "creatorType") == "Group"
+				and settingFromState(state.Settings, "creatorName"),
 			Description = settingFromState(state.Settings, "description"),
+			Genre = settingFromState(state.Settings, "genre"),
 			Devices = settingFromState(state.Settings, "playableDevices"),
+			Thumbnails = settingFromState(state.Settings, "thumbnails"),
+			ThumbnailOrder = settingFromState(state.Settings, "thumbnailOrder"),
+			GameIcon = settingFromState(state.Settings, "gameIcon"),
+			RootPlaceId = settingFromState(state.Settings, "rootPlaceId"),
 
 			NameError = state.Settings.Errors.name,
 			DescriptionError = state.Settings.Errors.description,
@@ -243,6 +329,15 @@ BasicInfo = RoactRodux.connect(
 			end,
 			IsFriendsOnlyChanged = function(isFriendsOnly)
 				dispatch(AddChange("isFriendsOnly", isFriendsOnly))
+			end,
+			ThumbnailsChanged = function(thumbnails)
+				dispatch(AddChange("thumbnails", thumbnails))
+			end,
+			ThumbnailOrderChanged = function(thumbnailOrder)
+				dispatch(AddChange("thumbnailOrder", thumbnailOrder))
+			end,
+			GenreChanged = function(genre)
+				dispatch(AddChange("genre", genre))
 			end,
 			DevicesChanged = function(devices)
 				dispatch(AddChange("playableDevices", devices))

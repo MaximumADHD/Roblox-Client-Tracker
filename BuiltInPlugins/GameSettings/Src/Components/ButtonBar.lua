@@ -46,6 +46,7 @@ local function ButtonBar(props)
 				Active = button.Active,
 				Name = button.Name,
 				Value = button.Value,
+				ZIndex = props.ZIndex or 1,
 
 				OnClicked = function(value)
 					props.ButtonClicked(value)
