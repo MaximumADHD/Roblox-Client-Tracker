@@ -98,8 +98,8 @@ end
 function Session:init(Paths)
 	self.Paths = Paths
 	self.ScrollZoomChangeEvent = Paths.UtilityScriptEvent:new()
-	self.ScrubberTimeChangeEvent = Paths.UtilityScriptEvent:new()	
-	self.SelectedChangeEvent = Paths.UtilityScriptEvent:new()		
+	self.ScrubberTimeChangeEvent = Paths.UtilityScriptEvent:new()
+	self.SelectedChangeEvent = Paths.UtilityScriptEvent:new()
 	self.DisplayPrecisionChangeEvent = Paths.UtilityScriptEvent:new()
 
 	self.ResetAnimationBeginEvent = Paths.UtilityScriptEvent:new()
@@ -108,7 +108,7 @@ function Session:init(Paths)
 
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)
 
-	self.Connections:add(Paths.DataModelClip.LengthChangedEvent:connect(function(len) 
+	self.Connections:add(Paths.DataModelClip.LengthChangedEvent:connect(function(len)
 		if self.ScrubberTime > len then
 			Session:setScrubberTime(len)
 		end
@@ -132,7 +132,7 @@ function Session:terminate()
 	self.Zoom = 0
 
 	self.Selected = {DataItems={}, Keyframes={}, Clicked={}}
-	
+
 	self.Paths = nil
 end
 
@@ -549,14 +549,21 @@ function Session:resetAnimation()
 
 	self.Paths.UtilityScriptCopyPaste:resetCopyPoses()
 	self.Paths.DataModelKeyframes:resetKeyframes()
-	
+
 	local savedLength = self.Paths.Globals.Plugin:GetSetting("AnimEditor_AnimLength")
 	self.Paths.DataModelClip:setLength(savedLength ~= nil and savedLength or 2)
-	
+
 	self:setScrubberTime(0)
 	self.Paths.DataModelClip:setLooping(false)
 	self.Paths.DataModelClip:setPriority("Core")
-	
+
+	if FastFlags:isIKModeFlagOn() and FastFlags:clearIKOnNew() then
+		if self.Paths.DataModelIKManipulator:isIKModeEnabled() then
+			self.Paths.DataModelIKManipulator:setIsIKModeActive(false)
+		end
+		self.Paths.DataModelRig:unpinAll()
+	end
+
 	self:selectNone()
 	self.Paths.DataModelRig:setPartIncludeAll(true)
 	self.Paths.UtilityScriptUndoRedo:reset()

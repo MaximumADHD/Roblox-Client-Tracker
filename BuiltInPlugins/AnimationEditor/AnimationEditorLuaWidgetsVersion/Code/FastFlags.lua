@@ -12,7 +12,7 @@ local function isFlagOn(theFlag)
 		if status then
 			FastFlags.FlagValue[theFlag] = result
 		end
-	end	
+	end
 	return FastFlags.FlagExists[theFlag] and FastFlags.FlagValue[theFlag]
 end
 
@@ -74,6 +74,14 @@ end
 
 function FastFlags:isSelectAndDragOn()
 	return isFlagOn("StudioAnimationEditorSelectAndDrag")
+end
+
+function FastFlags:isLockedPartStaysAnimatableOn()
+	return isFlagOn("StudioAnimationEditorLockedPartStaysAnimatable")
+end
+
+function FastFlags:clearIKOnNew()
+	return isFlagOn("StudioAnimationEditorFixClearIKOnNew")
 end
 
 return FastFlags

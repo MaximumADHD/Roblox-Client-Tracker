@@ -549,6 +549,7 @@ function this:CreateChatLineRender(instance, line, onlyCharacter, fifo)
 end
 
 function this:OnPlayerChatMessage(sourcePlayer, message, targetPlayer)
+
 	if not this:BubbleChatEnabled() then return end
 
 	local localPlayer = PlayersService.LocalPlayer
@@ -584,17 +585,24 @@ function this:OnGameChatMessage(origin, message, color)
 end
 
 function this:BubbleChatEnabled()
+	local success, result = pcall(function() return ChatService.BubbleChatEnabled end)
+	if not success then
+		result = false
+	end
+
+	-- To be removed when ChatService.BubbleChatEnabled is official
 	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
 	if clientChatModules then
 		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
 		if chatSettings then
 			local chatSettings = require(chatSettings)
 			if chatSettings.BubbleChatEnabled ~= nil then
-				return chatSettings.BubbleChatEnabled
+				return result or chatSettings.BubbleChatEnabled
 			end
 		end
 	end
-	return PlayersService.BubbleChat
+	return result
+	-- To be removed when ChatService.BubbleChatEnabled is official
 end
 
 function this:ShowOwnFilteredMessage()

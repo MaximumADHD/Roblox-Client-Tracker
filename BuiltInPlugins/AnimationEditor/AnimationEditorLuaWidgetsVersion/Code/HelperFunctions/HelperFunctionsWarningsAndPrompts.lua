@@ -32,8 +32,8 @@ end
 function WarningsAndPrompts:createRemoveIKPrompt(Paths)
 	if FastFlags:isUseRigNameForPromptsOn() then
 		if not Paths.GUIScriptPromptYesNo:show(
-			"Remove IK",
-			"Do you want to remove IK from " ..Paths.DataModelRig:getName() .." joints?",
+			"Disable IK",
+			"Do you want to disable IK for " ..Paths.DataModelRig:getName() .." joints?",
 			"The IK constraint will no longer be applied to the joints",
 			"Don't show this dialog again",
 			function()
@@ -43,8 +43,8 @@ function WarningsAndPrompts:createRemoveIKPrompt(Paths)
 		end
 	else
 		if not Paths.GUIScriptPromptYesNo:show(
-			"Remove IK",
-			"Do you want to remove IK from Dummy joints?",
+			"Disable IK",
+			"Do you want to disable IK for Dummy joints?",
 			"The IK constraint will no longer be applied to the joints",
 			"Don't show this dialog again",
 			function()

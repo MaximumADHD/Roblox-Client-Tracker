@@ -17,8 +17,10 @@ local GameSettings = Settings.GameSettings
 
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
+local FFlagCoreScriptFixFollowingIcon = settings():GetFFlag("CoreScriptFixFollowingIcon")
 
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
+local FFlagLocalizationExpertIcon = settings():GetFFlag("CorescriptLocalizationExpertIcon")
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -163,6 +165,7 @@ local CHAT_ICON = 'rbxasset://textures/ui/chat_teamButton.png'
 local ADMIN_ICON = 'rbxasset://textures/ui/icon_admin-16.png'
 local INTERN_ICON = 'rbxasset://textures/ui/icon_intern-16.png'
 local STAR_ICON = 'rbxasset://textures/ui/icon_star-16.png'
+local LOCALIZATION_EXPERT_ICON = 'rbxasset://textures/ui/icon_localization-16.png'
 local PLACE_OWNER_ICON = 'rbxasset://textures/ui/icon_placeowner.png'
 local BC_ICON = 'rbxasset://textures/ui/icon_BC-16.png'
 local TBC_ICON = 'rbxasset://textures/ui/icon_TBC-16.png'
@@ -240,6 +243,8 @@ local function getCustomPlayerIcon(player)
     return INTERN_ICON
   elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
     return STAR_ICON
+  elseif FFlagLocalizationExpertIcon and PlayerPermissionsModule.IsPlayerLocalizationExpertAsync(player) then
+    return LOCALIZATION_EXPERT_ICON
   end
 end
 
@@ -1006,11 +1011,49 @@ if not isTenFootInterface then
   Player.FriendStatusChanged:connect(onFriendshipChanged)
 end
 
+local function updateFollowRelationship(player, entry, relationship)
+  -- don't update icon if already friends
+  local friendStatus = getFriendStatus(player)
+  if friendStatus == Enum.FriendStatus.Friend then
+    return
+  end
+
+  local icon = nil
+  if relationship.IsMutual then
+    icon = MUTUAL_FOLLOWING_ICON
+  elseif relationship.IsFollowing then
+    icon = FOLLOWING_ICON
+  elseif relationship.IsFollower then
+    icon = FOLLOWER_ICON
+  end
+
+  local frame = entry.Frame
+  local bgFrame = frame:FindFirstChild('BGFrame')
+  if bgFrame then
+    updateSocialIcon(icon, bgFrame)
+  end
+end
+
 local function setFollowRelationshipsView(relationshipTable)
   if not relationshipTable then
     return
   end
 
+  if FFlagCoreScriptFixFollowingIcon then
+    for i = 1, #PlayerEntries do
+      local entry = PlayerEntries[i]
+      local player = entry.Player
+      local userId = tostring(player.UserId)
+
+      local relationship = relationshipTable[userId]
+      if relationship then
+        updateFollowRelationship(player, entry, relationship)
+      end
+    end
+    return
+  end
+
+  --Remove with FFlagCoreScriptFixFollowingIcon
   for i = 1, #PlayerEntries do
     local entry = PlayerEntries[i]
     local player = entry.Player

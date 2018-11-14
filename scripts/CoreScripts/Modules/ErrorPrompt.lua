@@ -6,6 +6,8 @@ local create = require(RobloxGui.Modules.Common.Create)
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
+local fflagForceSetSizeOfErrorPrompt = settings():GetFFlag("ForceSetSizeOfErrorPrompt")
+
 -- Animation Preset --
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
 -- Animation Preset --
@@ -175,6 +177,10 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		self._frame.Visible = true
 		self._isOpen = true
 		self._openAnimation:Play()
+		if fflagForceSetSizeOfErrorPrompt then
+			self._openAnimation.Completed:wait()
+			self._frame.PromptScale.Scale = 1
+		end
 	end
 end
 

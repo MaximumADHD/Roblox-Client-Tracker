@@ -130,47 +130,50 @@ function Clip:createPosesFromKeyframeHelper(keyframeData, poseParent, partData, 
 	end
 end
 
-local function removeUnincludedParts(self, keyframe)
-	--Collect all poses in given keyframe
-	local poses = {}
-	local function recurse(parent)
-		for _, child in pairs(parent:GetChildren()) do
-			if child:IsA("Pose") then
-				table.insert(poses, child)
-			end
-			recurse(child)
-		end
-	end
-	recurse(keyframe)
-
-
-	for _, pose in pairs(poses) do
-		local poseHasIncludedChildren = false
-		local poseIncluded = self.Paths.DataModelRig.partInclude[pose.Name] and (pose.Name ~= "HumanoidRootPart")
-		for _, child in pairs(pose:GetChildren()) do
-			if self.Paths.DataModelRig.partInclude[child.Name] then
-				poseHasIncludedChildren = true
-				break
-			end
-		end
-
-		if (not poseIncluded) then
-			pose.Weight = 0
-
-			if (not poseHasIncludedChildren) then
-				for _, child in pairs(pose:GetChildren()) do
-					child.Parent = pose.Parent
+local removeUnincludedParts = nil
+if not FastFlags:isLockedPartStaysAnimatableOn() then
+	removeUnincludedParts = function(self, keyframe)
+		--Collect all poses in given keyframe
+		local poses = {}
+		local function recurse(parent)
+			for _, child in pairs(parent:GetChildren()) do
+				if child:IsA("Pose") then
+					table.insert(poses, child)
 				end
-				pose:Destroy()
+				recurse(child)
 			end
 		end
-	end
+		recurse(keyframe)
+
+
+		for _, pose in pairs(poses) do
+			local poseHasIncludedChildren = false
+			local poseIncluded = self.Paths.DataModelRig.partInclude[pose.Name] and (pose.Name ~= "HumanoidRootPart")
+			for _, child in pairs(pose:GetChildren()) do
+				if self.Paths.DataModelRig.partInclude[child.Name] then
+					poseHasIncludedChildren = true
+					break
+				end
+			end
+
+			if (not poseIncluded) then
+				pose.Weight = 0
+
+				if (not poseHasIncludedChildren) then
+					for _, child in pairs(pose:GetChildren()) do
+						child.Parent = pose.Parent
+					end
+					pose:Destroy()
+				end
+			end
+		end
+	end	
 end
 
 function Clip:createPosesFromKeyframe(keyframeData, poseParent, partData, forExport)
 	self:createPosesFromKeyframeHelper(keyframeData, poseParent, partData, forExport)
 
-	if forExport then
+	if not FastFlags:isLockedPartStaysAnimatableOn() and forExport then
 		removeUnincludedParts(self, poseParent)
 	end
 end

@@ -16,6 +16,8 @@ local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
 local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 
+local FFlagCoreScriptFixPlayerDropdownUnfriend = settings():GetFFlag("CoreScriptFixPlayerDropdownUnfriend")
+
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -647,6 +649,14 @@ function createPlayerDropDown()
 			playerDropDown:Hide()
 		end
 	end)
+	
+	if FFlagCoreScriptFixPlayerDropdownUnfriend then
+		LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
+			if playerDropDown.Player == player then 
+				playerDropDown:Hide()
+			end
+		end)
+	end
 
 	return playerDropDown
 end

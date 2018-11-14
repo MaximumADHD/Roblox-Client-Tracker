@@ -110,6 +110,7 @@ function ContextMenuGui:CreateMenuFrame()
 	menu.Visible = false
 	menu.Active = true
 	menu.ClipsDescendants = true
+	menu.Modal = true
 
 	GuiService:AddSelectionParent("AvatarContextMenuGroup", menu)
 

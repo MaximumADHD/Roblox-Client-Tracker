@@ -35,8 +35,26 @@ local function IsInGroupFunctionFactory(groupId)
 	end
 end
 
+local function IsLocalizationExpertFunctionFactory()
+	local localizationCheckFunctions = {
+		HasRankInGroupFunctionFactory(4265462, 252), --Roblox Translators - Spanish
+		HasRankInGroupFunctionFactory(4265456, 252), --Roblox Translators - Brazilian Portuguese
+		HasRankInGroupFunctionFactory(4265443, 252), --Roblox Translators - French
+		HasRankInGroupFunctionFactory(4265449, 252), --Roblox Translators - German
+	}
+	return function(player)
+		for i = 1, #localizationCheckFunctions do
+			if localizationCheckFunctions[i](player) then
+				return true
+			end
+		end
+		return false
+	end
+end
+
 PlayerPermissionsModule.IsPlayerAdminAsync = IsInGroupFunctionFactory(1200769)
 PlayerPermissionsModule.IsPlayerInternAsync = HasRankInGroupFunctionFactory(2868472, 100)
 PlayerPermissionsModule.IsPlayerStarAsync = IsInGroupFunctionFactory(4199740)
+PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = IsLocalizationExpertFunctionFactory()
 
 return PlayerPermissionsModule

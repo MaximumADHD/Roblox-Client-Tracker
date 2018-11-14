@@ -4,15 +4,13 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local AssetInsertionTracker = require(Plugin.Core.Util.AssetInsertionTracker)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Urls = require(Plugin.Core.Util.Urls)
+
 local Category = require(Plugin.Core.Types.Category)
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Selection = game:GetService("Selection")
 local InsertService = game:GetService("InsertService")
 local Workspace = game:GetService("Workspace")
-
--- TODO CLIDEVSRVS-1564: Change this to a fastflag once the API is in CI
-local isDecalDraggingEnabled = true
 
 local function insertAudio(assetId, assetName)
 	local url = Urls.constructAssetIdString(assetId)
@@ -55,13 +53,6 @@ local function insertAsset(assetId, assetName)
 	else
 		return nil, errorMessage
 	end
-
-	-- TODO CLIDEVSRVS-1585: Look at
-	-- RbxWorkspace::insert(RBX::Instances& instances, const RBX::Serializer::Metadata& metadata, bool insertInto)
-	-- See how it positions the asset:
-	-- InsertObjectWidget::getInsertLocation(boost::shared_ptr<RBX::DataModel> pDataModel, QPoint* insertPosition,
-	-- 	bool* isOnPart)
-	-- And how it zooms the camera to it
 end
 
 local function insertDecal(plugin, assetId, assetName)
@@ -121,18 +112,31 @@ local function dispatchInsertAsset(plugin, assetId, assetName, assetTypeId, cate
 		return insertPackage(assetId)
 	elseif assetTypeId == Enum.AssetType.Audio.Value then
 		return insertAudio(assetId, assetName)
-	elseif assetTypeId == Enum.AssetType.Decal.Value and isDecalDraggingEnabled then
+	elseif assetTypeId == Enum.AssetType.Decal.Value and settings():GetFFlag("StudioPluginStartDecalDragApi") then
 		return insertDecal(plugin, assetId, assetName)
 	else
 		return insertAsset(assetId, assetName)
 	end
 end
 
+local function assetTypeIdToString(assetTypeId)
+	if assetTypeId == Enum.AssetType.Model.Value then
+		return "Model"
+	elseif assetTypeId == Enum.AssetType.Decal.Value then
+		return "Decal"
+	elseif assetTypeId == Enum.AssetType.Audio.Value then
+		return "Audio"
+	elseif assetTypeId == Enum.AssetType.MeshPart.Value then
+		return "Mesh"
+	else
+		return "Unknown"
+	end
+end
+
 local function sendInsertionAnalytics(assetId, assetTypeId, assetWasDragged)
 	Analytics.trackEventAssetInsert(assetId)
 	Analytics.incrementAssetInsertCollector()
-	Analytics.incrementToolboxInsertCounter(assetTypeId)
-
+	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(assetTypeId))
 	-- TODO CLIDEVSRVS-1689: Get search text and asset index for analytics
 	local searchText = "[searchText]"
 	local assetIndex = "[assetIndex]"

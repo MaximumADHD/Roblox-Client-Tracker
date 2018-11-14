@@ -40,6 +40,8 @@ local ReportAbuseMenu = require(SettingsPages:WaitForChild("ReportAbuseMenu"))
 
 -- VARIABLES
 
+local FFlagCoreScriptBetterACMFriendStatusChecks = settings():GetFFlag("CoreScriptBetterACMFriendStatusChecks")
+
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -183,13 +185,30 @@ function ContextMenuItems:CreateFriendButton(status)
 
 	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
 
-	if status ~= Enum.FriendStatus.Friend then
-		friendLabel.Selectable = true
-		friendLabelText.TextTransparency = 0
+	if FFlagCoreScriptBetterACMFriendStatusChecks then
+		if status == Enum.FriendStatus.Friend then
+			friendLabel.Selectable = false
+			friendLabelText.TextTransparency = addFriendDisabledTransparency
+	    friendLabelText.Text = friendsString
+		elseif status == Enum.FriendStatus.FriendRequestSent then
+			friendLabel.Selectable = false
+			friendLabelText.TextTransparency = addFriendDisabledTransparency
+	    friendLabelText.Text = friendRequestPendingString
+		elseif status == Enum.FriendStatus.FriendRequestReceived then 
+			friendLabelText.Text = acceptFriendRequestString
+		else
+			friendLabel.Selectable = true
+			friendLabelText.TextTransparency = 0
+		end
 	else
-		friendLabel.Selectable = false
-		friendLabelText.TextTransparency = addFriendDisabledTransparency
-        friendLabelText.Text = friendsString
+		if status ~= Enum.FriendStatus.Friend then
+			friendLabel.Selectable = true
+			friendLabelText.TextTransparency = 0
+		else
+			friendLabel.Selectable = false
+			friendLabelText.TextTransparency = addFriendDisabledTransparency
+    	friendLabelText.Text = friendsString
+		end
 	end
 
     friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)

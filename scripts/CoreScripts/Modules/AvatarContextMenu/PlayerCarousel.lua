@@ -63,6 +63,7 @@ local function CreateMenuCarousel()
 				uiPageLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 				uiPageLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 				uiPageLayout.TouchInputEnabled = false
+				uiPageLayout.Circular = true
 				uiPageLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 				local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -84,7 +85,7 @@ local function CreateMenuCarousel()
 
 		local nextButton = Instance.new("ImageButton")
 		nextButton.Name = "NextButton"
-		nextButton.Image = "rbxassetid://471630112"
+		nextButton.Image = "rbxasset://textures/ui/AvatarContextMenu_Arrow.png"
 		nextButton.BackgroundTransparency = 1
 		nextButton.AnchorPoint = Vector2.new(1,0.5)
 		nextButton.Position = UDim2.new(1,-5,0.5,0)

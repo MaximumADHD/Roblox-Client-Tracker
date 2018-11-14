@@ -114,6 +114,7 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
 	[Enum.ConnectionError.DisconnectHashTimeout] = true,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
+	[Enum.ConnectionError.DisconnectRaknetErrors] = true,
 }
 
 local ButtonList = {

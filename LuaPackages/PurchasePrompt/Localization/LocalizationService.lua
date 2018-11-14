@@ -111,7 +111,7 @@ end
 function LocalizationService.getBuildersClubLevelKey(bcLevelId)
 	assert(typeof(bcLevelId) == "number" or typeof(bcLevelId) == "string",
 		"provided builders club level must be a number")
-	local bcLevel = KeyMappings.AssetTypeById[tostring(bcLevelId)]
+	local bcLevel = KeyMappings.BuildersClubLevelById[tostring(bcLevelId)]
 
 	if DEBUG_LOCALIZATION and bcLevel == nil then
 		warn("Invalid Builders Club Level id " .. tostring(bcLevelId))

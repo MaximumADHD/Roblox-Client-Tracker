@@ -41,6 +41,9 @@ Class Instance [notbrowsable]
 	Event Instance.DescendantAdded(Instance descendant)
 	Event Instance.DescendantRemoving(Instance descendant)
 	Event Instance.childAdded(Instance child) [deprecated]
+Class ABTestService : Instance [notCreatable]
+	Function string ABTestService:GetVariant(string name) [LocalUserSecurity]
+	Function void ABTestService:InitializeForUserId(int64 userId) [LocalUserSecurity]
 Class Accoutrement : Instance
 	Property Vector3 Accoutrement.AttachmentForward
 	Property CoordinateFrame Accoutrement.AttachmentPoint
@@ -312,6 +315,7 @@ Class ShirtGraphic : CharacterAppearance
 Class Skin : CharacterAppearance [deprecated]
 	Property BrickColor Skin.SkinColor
 Class Chat : Instance [notCreatable]
+	Property bool Chat.BubbleChatEnabled
 	Property bool Chat.LoadDefaultChat [ScriptWriteRestricted: [NotAccessibleSecurity]]
 	Function void Chat:Chat(Instance partOrCharacter, string message, ChatColor color = Blue)
 	Function void Chat:ChatLocal(Instance partOrCharacter, string message, ChatColor color = Blue) [RobloxScriptSecurity]
@@ -1204,6 +1208,44 @@ Class Humanoid : Instance
 	Event Humanoid.Strafing(bool active)
 	Event Humanoid.Swimming(float speed)
 	Event Humanoid.Touched(Instance touchingPart, Instance humanoidPart)
+Class HumanoidDescription : Instance
+	Property string HumanoidDescription.BackAccessory
+	Property float HumanoidDescription.BodyTypeScale
+	Property int64 HumanoidDescription.ClimbAnimation
+	Property float HumanoidDescription.DepthScale
+	Property int64 HumanoidDescription.Face
+	Property string HumanoidDescription.FaceAccessory
+	Property int64 HumanoidDescription.FallAnimation
+	Property string HumanoidDescription.FrontAccessory
+	Property int64 HumanoidDescription.GraphicTShirt
+	Property string HumanoidDescription.HairAccessory
+	Property string HumanoidDescription.HatAccessory
+	Property int64 HumanoidDescription.Head
+	Property Color3 HumanoidDescription.HeadColor
+	Property float HumanoidDescription.HeadScale
+	Property float HumanoidDescription.HeightScale
+	Property int64 HumanoidDescription.IdleAnimation
+	Property int64 HumanoidDescription.JumpAnimation
+	Property int64 HumanoidDescription.LeftArm
+	Property Color3 HumanoidDescription.LeftArmColor
+	Property int64 HumanoidDescription.LeftLeg
+	Property Color3 HumanoidDescription.LeftLegColor
+	Property string HumanoidDescription.NeckAccessory
+	Property int64 HumanoidDescription.Pants
+	Property float HumanoidDescription.ProportionScale
+	Property int64 HumanoidDescription.RightArm
+	Property Color3 HumanoidDescription.RightArmColor
+	Property int64 HumanoidDescription.RightLeg
+	Property Color3 HumanoidDescription.RightLegColor
+	Property int64 HumanoidDescription.RunAnimation
+	Property int64 HumanoidDescription.Shirt
+	Property string HumanoidDescription.ShouldersAccessory
+	Property int64 HumanoidDescription.SwimAnimation
+	Property int64 HumanoidDescription.Torso
+	Property Color3 HumanoidDescription.TorsoColor
+	Property string HumanoidDescription.WaistAccessory
+	Property int64 HumanoidDescription.WalkAnimation
+	Property float HumanoidDescription.WidthScale
 Class InputObject : Instance [notCreatable]
 	Property Vector3 InputObject.Delta
 	Property KeyCode InputObject.KeyCode
@@ -1930,6 +1972,7 @@ Class Player : Instance
 	YieldFunction bool Player:IsInGroup(int64 groupId)
 	YieldFunction void Player:LoadCharacter()
 	YieldFunction void Player:LoadCharacterBlocking() [LocalUserSecurity]
+	YieldFunction void Player:LoadCharacterWithHumanoidDescription(Instance humanoidDescription)
 	YieldFunction bool Player:WaitForDataReady() [deprecated]
 	YieldFunction bool Player:isFriendsWith(int64 userId) [deprecated]
 	YieldFunction bool Player:waitForDataReady() [deprecated]

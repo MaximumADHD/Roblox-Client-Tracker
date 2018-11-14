@@ -7,9 +7,12 @@
 			in the Src/SettingsPages folder and are referenced by name.
 ]]
 
+local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
+local Analytics = require(Plugin.Src.Util.Analytics)
 
 local StyledScrollingFrame = require(Plugin.Src.Components.StyledScrollingFrame)
 local Header = require(Plugin.Src.Components.Header)
@@ -32,6 +35,10 @@ end
 -- Scroll back up to the top every time the page changes.
 function CurrentPage:didUpdate(previousProps)
 	if previousProps.Page ~= self.props.Page then
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onTabChangeEvent(previousProps.Page, self.props.Page)
+		end
+
 		local canvas = self.canvasRef.current
 		if canvas then
 			canvas.CanvasPosition = Vector2.new()

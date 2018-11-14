@@ -138,7 +138,8 @@ function BindMenuActions()
 		ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
 		CloseContextMenu()
 	end
-	ContextActionService:BindCoreAction(LEAVE_MENU_ACTION_NAME, closeMenuFunc, false, Enum.KeyCode.Escape)
+	ContextActionService:BindCoreAction(LEAVE_MENU_ACTION_NAME, closeMenuFunc, false, Enum.KeyCode.Escape,
+		Enum.KeyCode.ButtonB)
 
     local menuOpenedCon = nil
     menuOpenedCon = GuiService.MenuOpened:connect(function()

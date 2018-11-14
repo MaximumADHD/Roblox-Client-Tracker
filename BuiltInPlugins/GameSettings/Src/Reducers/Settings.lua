@@ -24,24 +24,24 @@ local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
-local Scales
-local AssetOverrides
+local Scales = nil
+local AssetOverrides = nil
 
 local equalityCheckFunctions = nil
 
 local isEqualCheck = nil
 
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	isEqualCheck = function(current, changed)
-		local equal = true
-		for key, value in pairs(current) do
-			if changed[key] ~= value then
-				equal = false
-				break
-			end
-		end
-		return equal
-	end
+        isEqualCheck = function(current, changed)
+            local equal = true
+            for key, value in pairs(current) do
+	            if changed[key] ~= value then
+		            equal = false
+		            break
+	            end
+            end
+            return equal
+        end
 
 	Scales = require(Plugin.Src.Util.Scales)
 	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
@@ -65,23 +65,23 @@ local function Settings(state, action)
 		if state.Current[action.setting] == newValue then
 			newValue = Cryo.None
 		elseif type(newValue) == "table" then
-			if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-				local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
-				if isEqual(state.Current[action.setting], newValue) then
-					newValue = Cryo.None
-				end
-			else
-				local equal = true
-				for key, value in pairs(state.Current[action.setting]) do
-					if newValue[key] ~= value then
-						equal = false
-						break
-					end
-				end
-				if equal then
-					newValue = Cryo.None
-				end
-			end
+		        if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
+			        local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
+			        if isEqual(state.Current[action.setting], newValue) then
+				        newValue = Cryo.None
+			        end			
+		        else
+			        local equal = true
+			        for key, value in pairs(state.Current[action.setting]) do
+				        if newValue[key] ~= value then
+					        equal = false
+					        break
+				        end
+			        end
+			        if equal then
+				        newValue = Cryo.None
+			        end
+                        end
 		end
 
 		return Cryo.Dictionary.join(state, {
@@ -91,7 +91,7 @@ local function Settings(state, action)
 			Errors = Cryo.Dictionary.join(state.Errors, {
 				[action.setting] = Cryo.None,
 			}),
-		})
+	        })
 
 	elseif action.type == AddErrors.name then
 		return Cryo.Dictionary.join(state, {

@@ -545,6 +545,7 @@ RBX
 	{
 		GridListener
 	}
+	ABTestService
 	Accessory
 	Accoutrement
 	Adorn
@@ -832,6 +833,7 @@ RBX
 	HttpService
 	Humanoid
 	HumanoidController
+	HumanoidDescription
 	HumanoidStage
 	I3DLinearFunc
 	IAdornable

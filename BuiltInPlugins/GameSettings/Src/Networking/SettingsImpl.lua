@@ -12,6 +12,7 @@ local HttpService = game:GetService("HttpService")
 
 local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
+local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -19,6 +20,7 @@ local Cryo = require(Plugin.Cryo)
 local Http = require(Plugin.Src.Networking.Http)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local fastFlags = require(Plugin.Src.Util.FastFlags)
+local Analytics = require(Plugin.Src.Util.Analytics)
 
 local AssetOverrides = nil
 
@@ -273,7 +275,12 @@ function SettingsImpl:GetUniverseConfiguration()
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load settings from universe configuration.")
-		return Promise.resolve({})
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("UniverseConfiguration")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
 	end)
 end
 
@@ -322,8 +329,12 @@ function SettingsImpl:SetUniverseConfiguration(body)
 				errors.name = "Moderated"
 			end
 			return Promise.reject(errors)
-		else
+		elseif not FFlagGameSettingsAnalyticsEnabled then
 			return Promise.resolve()
+		end
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("UniverseConfiguration")
+			return Promise.reject()
 		end
 	end)
 end
@@ -373,7 +384,12 @@ function SettingsImpl:GetRootPlaceInfo()
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load root place configuration settings.")
-		return Promise.resolve({})
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("RootPlace")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
 	end)
 end
 
@@ -409,8 +425,12 @@ function SettingsImpl:SetRootPlaceInfo(body)
 				errors.description = "Moderated"
 			end
 			return Promise.reject(errors)
-		else
+		elseif not FFlagGameSettingsAnalyticsEnabled then
 			return Promise.resolve()
+		end
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("RootPlace")
+			return Promise.reject()
 		end
 	end)
 end
@@ -434,7 +454,12 @@ function SettingsImpl:GetUniversesInfo()
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load settings from universes.")
-		return Promise.resolve({})
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("Universes")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
 	end)
 end
 
@@ -458,7 +483,12 @@ function SettingsImpl:SetUniverseActive(isActive)
 	return Http.Request(requestInfo)
 	:catch(function()
 		warn("Game Settings: Could not change universe Active status.")
-		return Promise.resolve()
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("UniverseActive")
+			return Promise.reject()
+		else
+			return Promise.resolve()
+		end
 	end)
 end
 
@@ -493,7 +523,12 @@ function SettingsImpl:GetThumbnails()
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load thumbnails.")
-		return Promise.resolve({})
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("Thumbnails")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
 	end)
 end
 
@@ -527,7 +562,12 @@ function SettingsImpl:SetThumbnails(thumbnails)
 	return Promise.all(deleteRequests)
 	:catch(function()
 		warn("Game Settings: Could not delete thumbnails.")
-		return Promise.resolve()
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("Thumbnails")
+			return Promise.reject()
+		else
+			return Promise.resolve()
+		end
 	end)
 end
 
@@ -550,7 +590,12 @@ function SettingsImpl:SetThumbnailOrder(thumbnailOrder)
 	return Http.Request(requestInfo)
 	:catch(function()
 		warn("Game Settings: Could not change thumbnail order.")
-		return Promise.resolve()
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("ThumbnailOrder")
+			return Promise.reject()
+		else
+			return Promise.resolve()
+		end
 	end)
 end
 
@@ -576,7 +621,12 @@ function SettingsImpl:GetIcon()
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load game icon.")
-		return Promise.resolve({})
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("Icon")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
 	end)
 end
 
@@ -601,7 +651,12 @@ function SettingsImpl:DEPRECATED_GetIcon(rootPlaceId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load game icon.")
-		return Promise.resolve({})
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("Icon")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
 	end)
 end
 

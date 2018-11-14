@@ -115,7 +115,7 @@ local function canOcclude(part)
 	-- Filter for opaque, interactable objects
 	return
 		part.Transparency < 0.2 and
-		canCollide(part) and
+		part.CanCollide and
 		not part:IsA('TrussPart')
 end
 
@@ -131,7 +131,7 @@ local SCAN_SAMPLE_OFFSETS = {
 --------------------------------------------------------------------------------
 -- Piercing raycasts
 
-local function getCollisionPoint(origin, dir, blacklist)
+local function getCollisionPoint(origin, dir)
 	local originalSize = #blacklist
 	repeat
 		local hitPart, hitPoint = workspace:FindPartOnRayWithIgnoreList(

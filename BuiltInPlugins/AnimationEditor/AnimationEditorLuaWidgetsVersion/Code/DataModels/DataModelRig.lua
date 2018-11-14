@@ -204,6 +204,20 @@ if FastFlags:isIKModeFlagOn() then
 		Rig.PartPinnedToggleEvent:fire()
 	end
 
+	function Rig:unpinAll()
+		local partsToUnpin = {}
+
+		for partName, isPinned in pairs(self.partPinned) do
+			if isPinned then
+				partsToUnpin[#partsToUnpin + 1] = partName
+			end
+		end
+
+		for _, partName in pairs(partsToUnpin) do
+			self:setPartPinned(partName, false)
+		end
+	end
+
 	function Rig:getPartPinned(dataItemName)
 		return self.partPinned[dataItemName]
 	end

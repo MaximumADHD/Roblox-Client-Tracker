@@ -5,6 +5,7 @@ end
 -- Fast flags
 local FFlagStudioUseLuaGameSettingsDialog = settings():GetFFlag("StudioUseLuaGameSettingsDialog")
 local FFlagStudioLuaGameSettingsDialog2 = settings():GetFFlag("StudioLuaGameSettingsDialog2")
+local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 
 if not FFlagStudioUseLuaGameSettingsDialog then
 	return
@@ -38,9 +39,11 @@ local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 local LoadAllSettings = require(Plugin.Src.Thunks.LoadAllSettings)
 
 local isEmpty = require(Plugin.Src.Util.isEmpty)
+local Analytics = require(Plugin.Src.Util.Analytics)
 
 local gameSettingsHandle
 local pluginGui
+local openedTimestamp
 
 local middlewares = {Rodux.thunkMiddleware}
 if LOG_STORE_STATE_AND_EVENTS then
@@ -101,6 +104,14 @@ local function showDialog(type, props)
 	end)
 end
 
+local function closeAnalytics(userPressedSave)
+	if openedTimestamp then
+		local timeOpen = tick() - openedTimestamp
+		openedTimestamp = nil
+		Analytics.onCloseEvent(userPressedSave and "Save" or "Cancel", timeOpen)
+	end
+end
+
 --Closes and unmounts the Game Settings popup window
 local function closeGameSettings(userPressedSave)
 	local state = settingsStore:getState()
@@ -128,6 +139,10 @@ local function closeGameSettings(userPressedSave)
 					settingsStore:dispatch(DiscardChanges())
 					pluginGui.Enabled = false
 					Roact.unmount(gameSettingsHandle)
+
+					if FFlagGameSettingsAnalyticsEnabled then
+						closeAnalytics(userPressedSave)
+					end
 				else
 					--Return to game settings window without modifying state,
 					--giving the user another chance to modify or save.
@@ -140,6 +155,10 @@ local function closeGameSettings(userPressedSave)
 				settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
 				pluginGui.Enabled = false
 				Roact.unmount(gameSettingsHandle)
+
+				if FFlagGameSettingsAnalyticsEnabled then
+					closeAnalytics(userPressedSave)
+				end
 			end
 		end
 	end
@@ -205,6 +224,11 @@ local function openGameSettings()
 
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
+
+	if FFlagGameSettingsAnalyticsEnabled then
+		Analytics.onOpenEvent()
+		openedTimestamp = tick()
+	end
 end
 
 --Binds a toolbar button to the Game Settings window

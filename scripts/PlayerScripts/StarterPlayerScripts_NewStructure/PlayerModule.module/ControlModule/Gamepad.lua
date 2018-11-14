@@ -158,7 +158,7 @@ end
 function Gamepad:OnNewGamepadConnected()
 	-- A new gamepad has been connected.
 	local bestGamepad = self:GetHighestPriorityGamepad()
-
+	
 	if bestGamepad == self.activeGamepad then
 		-- A new gamepad was connected, but our active gamepad is not changing
 		return
@@ -175,11 +175,11 @@ function Gamepad:OnNewGamepadConnected()
 	
 	if self.activeGamepad ~= NONE then
 		-- Switching from one active gamepad to another
-		ContextActionService:UnbindActivate(self.activeGamepad, Enum.KeyCode.ButtonR2)
+		self:UnbindContextActions()
 	end
 	
 	self.activeGamepad = bestGamepad
-	ContextActionService:BindActivate(self.activeGamepad, Enum.KeyCode.ButtonR2)
+	self:BindContextActions()
 end
 
 function Gamepad:OnCurrentGamepadDisconnected()

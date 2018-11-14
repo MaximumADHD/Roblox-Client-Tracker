@@ -149,6 +149,12 @@ function IKManipulator:isBodyPartMode()
 	return self.IKMode == self.IKModes.BodyPart
 end
 
+function IKManipulator:isIKModeEnabled()
+	return self.IsIKModeActive and
+	      (self.IKMode == self.IKModes.FullBody or
+	       self.IKMode == self.IKModes.BodyPart)
+end
+
 function IKManipulator:requestCancelConstrainJoints()
 	self.CancelRequested = true
 end

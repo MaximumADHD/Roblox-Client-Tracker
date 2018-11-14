@@ -108,8 +108,15 @@ function CameraModule.new()
 	self.cameraSubjectChangedConn = nil
 	self.cameraTypeChangedConn = nil
 	
+	-- Adds CharacterAdded and CharacterRemoving event handlers for all current players
+	for _,player in pairs(Players:GetPlayers()) do
+		self:OnPlayerAdded(player)
+	end
 	
-	self:OnPlayerAdded(Players.LocalPlayer)
+	-- Adds CharacterAdded and CharacterRemoving event handlers for all players who join in the future
+	Players.PlayerAdded:Connect(function(player)
+		self:OnPlayerAdded(player)
+	end)
 
 	self.activeTransparencyController = TransparencyController.new()
 	self.activeTransparencyController:Enable(true)
@@ -248,7 +255,7 @@ function CameraModule:ActivateOcclusionModule( occlusionMode )
 				self.activeOcclusionModule:CharacterAdded(Players.LocalPlayer.Character, Players.LocalPlayer )
 			end
 		else
-			-- Poppercam and any others that get added in the future and need the full player list for raycast ignore list 
+			-- When Poppercam is enabled, we send it all existing player characters for its raycast ignore list
 			for _, player in pairs(Players:GetPlayers()) do
 				if player and player.Character then
 					self.activeOcclusionModule:CharacterAdded(player.Character, player)
@@ -265,7 +272,6 @@ end
 -- When supplied, legacyCameraType is used and cameraMovementMode is ignored (should be nil anyways)
 -- Next, if userCameraCreator is passed in, that is used as the cameraCreator
 function CameraModule:ActivateCameraController( cameraMovementMode, legacyCameraType )
-	
 	local newCameraCreator = nil
 	
 	if legacyCameraType~=nil then
@@ -521,8 +527,12 @@ function CameraModule:OnCharacterRemoving(char, player)
 end
 
 function CameraModule:OnPlayerAdded(player)
-	player.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char, player) end)
-	player.CharacterRemoving:Connect(function(char) self:OnCharacterRemoving(char, player) end)
+	player.CharacterAdded:Connect(function(char)
+		self:OnCharacterAdded(char, player)
+	end)
+	player.CharacterRemoving:Connect(function(char)
+		self:OnCharacterRemoving(char, player)
+	end)
 end
 
 function CameraModule:OnMouseLockToggled()
