@@ -14719,6 +14719,7 @@ StudioBlockAnalyticsBasedOnOS
 StudioBootstrapperVersionNumber
 StudioBreakOnInfiniteLoopsRunFixEnabled
 StudioBulkImport
+StudioBulkImportAppendPrefix
 StudioBulkImportButtonClicked
 StudioBulkImportCanceled
 StudioBulkImporterMaxJobs
@@ -14780,6 +14781,7 @@ StudioFixRGEGetResourcesUnsafely
 StudioFixRGEReadAccessViolation
 StudioFixShareForU13
 StudioFixShareIcon
+StudioFixSimultaneousConvertToPackageCrash
 StudioFixStartPageThumbnails
 StudioFlagEditor
 StudioFlagEditorDialog
@@ -14834,6 +14836,7 @@ StudioNotReturnStartPageFix1
 StudioOpenLocation
 StudioPackageConvert
 StudioPackageConvert_Failure
+StudioPackageFixNullPackageRootError
 StudioPackageOnlyShowStatusInEditMode
 StudioPackagePublish
 StudioPackagePublish_Failure

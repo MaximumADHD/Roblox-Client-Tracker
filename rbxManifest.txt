@@ -523,7 +523,7 @@ c9d1c28b5f40afa42d5786122dad83f5
 ReflectionMetadata.xml
 1d68e98f150678f3300df172c74c8707
 RobloxStudioBeta.exe
-ea080220609e74d21ee57d8c3518a01d
+3f7009892d641cef5f0414aaec455867
 RobloxStudioRibbon.xml
 58fcbf88ba9e6b5b544cc493f94f3896
 d3dcompiler_46.dll
@@ -583,7 +583,7 @@ Qt5Widgets.dll
 Qt5Xml.dll
 37615f11d37c5201a470418fb1c90eee
 qtnribbon4.dll
-2cce15ff6527efe50f107e0aaeca3f67
+7095801e18968bdea8e87dee0fe5be7f
 content\avatar\character.rbxm
 b7106e1f676ad375fddb1e6a829a09e5
 content\avatar\characterR15.rbxm
