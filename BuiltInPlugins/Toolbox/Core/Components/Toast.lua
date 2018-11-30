@@ -7,8 +7,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Colors = require(Plugin.Core.Util.Colors)
 local Constants = require(Plugin.Core.Util.Constants)

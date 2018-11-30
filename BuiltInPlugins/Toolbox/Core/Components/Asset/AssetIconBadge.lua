@@ -11,14 +11,17 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
-local Images = require(Plugin.Core.Util.Images)
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local Images = require(Plugin.Core.Util.Images)
 
-local getModal = require(Plugin.Core.Consumers.getModal)
-local withModal = require(Plugin.Core.Consumers.withModal)
+local getModal = ContextGetter.getModal
+local withModal = ContextHelper.withModal
+local withLocalization = ContextHelper.withLocalization
 
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 
@@ -46,37 +49,39 @@ end
 
 function AssetIconBadge:render()
 	return withModal(function(modalTarget, modalStatus)
-		local props = self.props
+		return withLocalization(function(localization, localizedContent)
+			local props = self.props
 
-		local assetId = props.assetId
-		local floatLeft = props.floatLeft
+			local assetId = props.assetId
+			local floatLeft = props.floatLeft
 
-		local onMouseEnter = self.onMouseEnter
-		local onMouseLeave = self.onMouseLeave
+			local onMouseEnter = self.onMouseEnter
+			local onMouseLeave = self.onMouseLeave
 
-		local isHovered = self.state.isHovered
+			local isHovered = self.state.isHovered
 
-		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
+			local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
 
-		local edgeOffset = 0.06
+			local edgeOffset = 0.06
 
-		return Roact.createElement("ImageLabel", {
-			AnchorPoint = Vector2.new(floatLeft and 0 or 1, 1),
-			BackgroundTransparency = 1,
-			Position = UDim2.new(floatLeft and edgeOffset or (1 - edgeOffset), 0, 1.06, 0),
-			Size = UDim2.new(0, Constants.ASSET_ENDORSED_BADGE_ICON_SIZE, 0, Constants.ASSET_ENDORSED_BADGE_ICON_SIZE),
-			Image = Images.ENDORSED_BADGE_ICON,
-			ZIndex = 2,
+			return Roact.createElement("ImageLabel", {
+				AnchorPoint = Vector2.new(floatLeft and 0 or 1, 1),
+				BackgroundTransparency = 1,
+				Position = UDim2.new(floatLeft and edgeOffset or (1 - edgeOffset), 0, 1.06, 0),
+				Size = UDim2.new(0, Constants.ASSET_ENDORSED_BADGE_ICON_SIZE, 0, Constants.ASSET_ENDORSED_BADGE_ICON_SIZE),
+				Image = Images.ENDORSED_BADGE_ICON,
+				ZIndex = 2,
 
-			[Roact.Event.MouseEnter] = onMouseEnter,
-			[Roact.Event.MouseLeave] = onMouseLeave,
-		}, {
-			TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
-				Text = Constants.ENDORSED_BADGE_TOOLTIP_TEXT,
-				canShowCurrentTooltip = canShowCurrentTooltip,
-				isHovered = isHovered,
+				[Roact.Event.MouseEnter] = onMouseEnter,
+				[Roact.Event.MouseLeave] = onMouseLeave,
+			}, {
+				TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
+					Text = localization:getLocalizedContent().EndorseBadgeTooltipText,
+					canShowCurrentTooltip = canShowCurrentTooltip,
+					isHovered = isHovered,
+				})
 			})
-		})
+		end)
 	end)
 end
 

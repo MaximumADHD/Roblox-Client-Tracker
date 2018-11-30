@@ -16,15 +16,19 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local Images = require(Plugin.Core.Util.Images)
+local InsertToolPromise = require(Plugin.Core.Util.InsertToolPromise)
 
-local getModal = require(Plugin.Core.Consumers.getModal)
+local getModal = ContextGetter.getModal
 
 local Asset = require(Plugin.Core.Components.Asset.Asset)
+local MessageBox = require(Plugin.Core.Components.MessageBox.MessageBox)
 
 local PlayPreviewSound = require(Plugin.Core.Actions.PlayPreviewSound)
 local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
@@ -32,11 +36,14 @@ local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
 
 function AssetGridContainer:init(props)
 	self.state = {
 		hoveredAssetId = 0,
+		isShowingToolMessageBox = false,
 	}
 
 	-- Keep track of the timestamp an asset was last inserted
@@ -48,7 +55,8 @@ function AssetGridContainer:init(props)
 	end
 
 	self.canInsertAsset = function()
-		return tick() - self.lastAssetInsertedTime > Constants.TIME_BETWEEN_ASSET_INSERTION
+		return (tick() - self.lastAssetInsertedTime > Constants.TIME_BETWEEN_ASSET_INSERTION)
+			and not self.insertToolPromise:isWaiting()
 	end
 
 	self.onAssetHovered = function(assetId)
@@ -94,6 +102,38 @@ function AssetGridContainer:init(props)
 			Analytics.onSoundPlayedCounter()
 		end
 	end
+
+	self.onMessageBoxClosed = function()
+		self:setState({
+			isShowingToolMessageBox = false,
+		})
+
+		self.insertToolPromise:insertToWorkspace()
+	end
+
+	self.onMessageBoxButtonClicked = function(index, action)
+		self:setState({
+			isShowingToolMessageBox = false,
+		})
+
+		if action == "yes" then
+			self.insertToolPromise:insertToStarterPack()
+		elseif action == "no" then
+			self.insertToolPromise:insertToWorkspace()
+		end
+	end
+
+	self.onInsertToolPrompt = function()
+		self:setState({
+			isShowingToolMessageBox = true,
+		})
+	end
+
+	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt)
+end
+
+function AssetGridContainer:willUnmount()
+	self.insertToolPromise:destroy()
 end
 
 function AssetGridContainer.getDerivedStateFromProps(nextProps, lastState)
@@ -116,7 +156,12 @@ function AssetGridContainer:render()
 	local currentSoundId = props.currentSoundId
 	local isPlaying = props.isPlaying
 
-	local categoryIndex = props.categoryIndex
+	local isShowingToolMessageBox = state.isShowingToolMessageBox
+
+	local categoryIndex = nil
+	if not FFlagStudioLuaWidgetToolboxV2 then
+		categoryIndex = props.categoryIndex
+	end
 
 	local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
 
@@ -132,10 +177,21 @@ function AssetGridContainer:render()
 		})
 	}
 
-	for index, assetId in ipairs(assetIds) do
+	for index, asset in ipairs(assetIds) do
+		local assetId
+		local assetIndex = nil
+
+		if FFlagStudioLuaWidgetToolboxV2 then
+			assetId = asset[1]
+			assetIndex = asset[2]
+		else
+			assetId = asset
+		end
+
 		assetElements[tostring(assetId)] = Roact.createElement(Asset, {
 			assetId = assetId,
 			LayoutOrder = index,
+			assetIndex = assetIndex,
 
 			isHovered = assetId == hoveredAssetId,
 
@@ -151,8 +207,31 @@ function AssetGridContainer:render()
 
 			onAssetInserted = self.onAssetInserted,
 			canInsertAsset = self.canInsertAsset,
+
+			insertToolPromise = self.insertToolPromise,
 		})
 	end
+
+	assetElements.ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
+		Name = "ToolboxToolMessageBox",
+
+		Title = "Insert Tool",
+		Text = "Put this tool into the starter pack?",
+		Icon = Images.INFO_ICON,
+
+		onClose = self.onMessageBoxClosed,
+		onButtonClicked = self.onMessageBoxButtonClicked,
+
+		buttons = {
+			{
+				Text = "Yes",
+				action = "yes",
+			}, {
+				Text = "No",
+				action = "no",
+			}
+		}
+	})
 
 	return Roact.createElement("Frame", {
 		Position = position,
@@ -169,10 +248,15 @@ local function mapStateToProps(state, props)
 	local sound = state.sound or {}
 	local pageInfo = state.pageInfo or {}
 
+	local categoryIndex = nil
+	if not FFlagStudioLuaWidgetToolboxV2 then
+		categoryIndex = pageInfo.categoryIndex or 1
+	end
+
 	return {
 		currentSoundId = sound.currentSoundId or 0,
 		isPlaying = sound.isPlaying or false,
-		categoryIndex = pageInfo.categoryIndex or 1,
+		categoryIndex = categoryIndex,
 	}
 end
 

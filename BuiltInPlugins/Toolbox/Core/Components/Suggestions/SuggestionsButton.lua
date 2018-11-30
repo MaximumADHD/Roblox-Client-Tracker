@@ -1,13 +1,12 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local Images = require(Plugin.Core.Util.Images)
-local MouseManager = require(Plugin.Core.Util.MouseManager)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
 local SuggestionsButton = Roact.PureComponent:extend("SuggestionsButton")
 
@@ -17,14 +16,12 @@ function SuggestionsButton:init(props)
 	}
 
 	self.onMouseEnter = function(rbx, x, y)
-		MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
 		self:setState({
 			isHovered = true,
 		})
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
-		MouseManager:clearIcons()
 		self:setState({
 			isHovered = false,
 		})
@@ -32,7 +29,6 @@ function SuggestionsButton:init(props)
 
 	self.onInputChanged = function(rbx, input)
 		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
-			MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
 			self:setState({
 				isHovered = true,
 			})
@@ -40,7 +36,6 @@ function SuggestionsButton:init(props)
 	end
 
 	self.onActivated = function(rbx, input)
-		MouseManager:clearIcons()
 		self.props.onClicked(self.props.LayoutOrder)
 	end
 end

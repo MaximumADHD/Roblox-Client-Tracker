@@ -12,6 +12,8 @@ local DEFAULT_DISTANCE = 12.5	-- Studs
 local PORTRAIT_DEFAULT_DISTANCE = 25		-- Studs
 local FIRST_PERSON_DISTANCE_THRESHOLD = 1.0 -- Below this value, snap into first person
 
+local CAMERA_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
+
 -- Note: DotProduct check in CoordinateFrame::lookAt() prevents using values within about
 -- 8.11 degrees of the +/- Y axis, that's why these limits are currently 80 degrees
 local MIN_Y = math.rad(-80)
@@ -37,6 +39,11 @@ local SEAT_OFFSET = Vector3.new(0,5,0)
 local VR_SEAT_OFFSET = Vector3.new(0,4,0)
 local HEAD_OFFSET = Vector3.new(0,1.5,0)
 local R15_HEAD_OFFSET = Vector3.new(0,2,0)
+
+local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+end)
+local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
@@ -105,6 +112,8 @@ function BaseCamera.new()
 
 	self.cameraChangedConn = nil
 	self.viewportSizeChangedConn = nil
+	
+	self.boundContextActions = {}
 
 	-- VR Support
 	self.shouldUseVRRotation = false
@@ -429,6 +438,9 @@ function BaseCamera:Enable(enable)
 		self.enabled = enable
 		if self.enabled then
 			self:ConnectInputEvents()
+			if FFlagPlayerScriptsBindAtPriority then
+				self:BindContextActions()
+			end
 
 			if Players.LocalPlayer.CameraMode == Enum.CameraMode.LockFirstPerson then
 				self.currentSubjectDistance = 0.5
@@ -438,6 +450,9 @@ function BaseCamera:Enable(enable)
 			end
 		else
 			self:DisconnectInputEvents()
+			if FFlagPlayerScriptsBindAtPriority then
+				self:UnbindContextActions()
+			end
 			-- Clean up additional event listeners and reset a bunch of properties
 			self:Cleanup()
 		end
@@ -457,8 +472,10 @@ function BaseCamera:OnInputBegan(input, processed)
 		self:OnMouse3Down(input, processed)
 	end
 	-- Keyboard
-	if input.UserInputType == Enum.UserInputType.Keyboard then
-		self:OnKeyDown(input, processed)
+	if not FFlagPlayerScriptsBindAtPriority then
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			self:OnKeyDown(input, processed)
+		end
 	end
 end
 
@@ -481,8 +498,10 @@ function BaseCamera:OnInputEnded(input, processed)
 		self:OnMouse3Up(input, processed)
 	end
 	-- Keyboard
-	if input.UserInputType == Enum.UserInputType.Keyboard then
-		self:OnKeyUp(input, processed)
+	if not FFlagPlayerScriptsBindAtPriority then
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			self:OnKeyUp(input, processed)
+		end
 	end
 end
 
@@ -519,9 +538,16 @@ function BaseCamera:ConnectInputEvents()
 		end
 	end)
 
-	self:BindGamepadInputActions()
+	if not FFlagPlayerScriptsBindAtPriority then
+		self:BindGamepadInputActions()
+	end
 	self:AssignActivateGamepad()
 	self:UpdateMouseBehavior()
+end
+
+function BaseCamera:BindContextActions()
+	self:BindGamepadInputActions()
+	self:BindKeyboardInputActions()
 end
 
 function BaseCamera:AssignActivateGamepad()
@@ -554,6 +580,13 @@ function BaseCamera:DisconnectInputEvents()
 		self.inputEndedConn:Disconnect()
 		self.inputEndedConn = nil
 	end
+end
+
+function BaseCamera:UnbindContextActions()
+	for i = 1, #self.boundContextActions do
+		ContextActionService:UnbindAction(self.boundContextActions[i])
+	end 
+	self.boundContextActions = {}
 end
 
 function BaseCamera:Cleanup()
@@ -660,7 +693,70 @@ function BaseCamera:GetGamepadPan(name, state, input)
 				self.gamepadPanningCamera = ZERO_VECTOR2
 			end
 		--end
+		if FFlagPlayerScriptsBindAtPriority then
+			return Enum.ContextActionResult.Sink
+		end
 	end
+	if FFlagPlayerScriptsBindAtPriority then
+		return Enum.ContextActionResult.Pass
+	end
+end
+
+function BaseCamera:DoKeyboardPanTurn(name, state, input)
+	if not self.hasGameLoaded and VRService.VREnabled then
+		return Enum.ContextActionResult.Pass
+	end
+	
+	if state == Enum.UserInputState.Cancel then 
+		self.turningLeft = false 
+		self.turningRight = false
+		return Enum.ContextActionResult.Sink
+	end
+
+	if self.panBeginLook == nil and self.keyPanEnabled then
+		if input.KeyCode == Enum.KeyCode.Left then
+			self.turningLeft = state == Enum.UserInputState.Begin
+		elseif input.KeyCode == Enum.KeyCode.Right then
+			self.turningRight = state == Enum.UserInputState.Begin
+		end
+		return Enum.ContextActionResult.Sink
+	end
+	return Enum.ContextActionResult.Pass
+end
+
+function BaseCamera:DoPanRotateCamera(rotateAngle)
+	local angle = Util.RotateVectorByAngleAndRound(self:GetCameraLookVector() * Vector3.new(1,0,1), rotateAngle, math.pi*0.25)
+	if angle ~= 0 then
+		self.rotateInput = self.rotateInput + Vector2.new(angle, 0)
+		self.lastUserPanCamera = tick()
+		self.lastCameraTransform = nil
+	end
+end
+
+function BaseCamera:DoKeyboardPan(name, state, input)
+	if not self.hasGameLoaded and VRService.VREnabled then
+		return Enum.ContextActionResult.Pass
+	end
+	
+	if state ~= Enum.UserInputState.Begin then 
+		return Enum.ContextActionResult.Pass
+	end
+
+	if self.panBeginLook == nil and self.keyPanEnabled then
+		if input.KeyCode == Enum.KeyCode.Comma then
+			self:DoPanRotateCamera(-math.pi*0.1875)
+		elseif input.KeyCode == Enum.KeyCode.Period then
+			self:DoPanRotateCamera(math.pi*0.1875)
+		elseif input.KeyCode == Enum.KeyCode.PageUp then
+			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(15))
+			self.lastCameraTransform = nil
+		elseif input.KeyCode == Enum.KeyCode.PageDown then
+			self.rotateInput = self.rotateInput + Vector2.new(0,math.rad(-15))
+			self.lastCameraTransform = nil
+		end
+		return Enum.ContextActionResult.Sink
+	end
+	return Enum.ContextActionResult.Pass
 end
 
 function BaseCamera:DoGamepadZoom(name, state, input)
@@ -688,6 +784,12 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 		else
 			self.currentZoomSpeed = 1.00
 		end
+		if FFlagPlayerScriptsBindAtPriority then
+			return Enum.ContextActionResult.Sink
+		end
+	end
+	if FFlagPlayerScriptsBindAtPriority then
+		return Enum.ContextActionResult.Pass
 	end
 --	elseif input.UserInputType == self.activeGamepad and input.KeyCode == Enum.KeyCode.ButtonL3 then
 --		if (state == Enum.UserInputState.Begin) then
@@ -699,12 +801,54 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 --	end
 end
 
+function BaseCamera:DoKeyboardZoom(name, state, input)
+	if not self.hasGameLoaded and VRService.VREnabled then
+		return Enum.ContextActionResult.Pass
+	end
+
+	if state ~= Enum.UserInputState.Begin then 
+		return Enum.ContextActionResult.Pass
+	end
+
+	if self.distanceChangeEnabled then
+		if input.KeyCode == Enum.KeyCode.I then
+			self:SetCameraToSubjectDistance( self.currentSubjectDistance - 5 )
+		elseif input.KeyCode == Enum.KeyCode.O then
+			self:SetCameraToSubjectDistance( self.currentSubjectDistance + 5 )
+		end
+		return Enum.ContextActionResult.Sink
+	end
+	return Enum.ContextActionResult.Pass
+end
+
+function BaseCamera:BindAction(actionName, actionFunc, createTouchButton, ...)
+	table.insert(self.boundContextActions, actionName)
+	ContextActionService:BindActionAtPriority(actionName, actionFunc, createTouchButton, 
+		CAMERA_ACTION_PRIORITY, ...)
+end
+
 function BaseCamera:BindGamepadInputActions()
-	ContextActionService:BindAction("RootCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end, false, Enum.KeyCode.Thumbstick2)
-	ContextActionService:BindAction("RootCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonR3)
-	--ContextActionService:BindAction("RootGamepadZoomAlt", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonL3)
-	ContextActionService:BindAction("RootGamepadZoomOut", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadLeft)
-	ContextActionService:BindAction("RootGamepadZoomIn", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadRight)
+	if FFlagPlayerScriptsBindAtPriority then 
+		self:BindAction("BaseCameraGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
+			false, Enum.KeyCode.Thumbstick2)
+		self:BindAction("BaseCameraGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
+			false, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight, Enum.KeyCode.ButtonR3)
+	else 
+		ContextActionService:BindAction("RootCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end, false, Enum.KeyCode.Thumbstick2)
+		ContextActionService:BindAction("RootCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonR3)
+		--ContextActionService:BindAction("RootGamepadZoomAlt", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonL3)
+		ContextActionService:BindAction("RootGamepadZoomOut", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadLeft)
+		ContextActionService:BindAction("RootGamepadZoomIn", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.DPadRight)
+	end
+end
+
+function BaseCamera:BindKeyboardInputActions()
+	self:BindAction("BaseCameraKeyboardPanArrowKeys", function(name, state, input) return self:DoKeyboardPanTurn(name, state, input) end,
+		false, Enum.KeyCode.Left, Enum.KeyCode.Right)
+	self:BindAction("BaseCameraKeyboardPan", function(name, state, input) return self:DoKeyboardPan(name, state, input) end,
+		false, Enum.KeyCode.Comma, Enum.KeyCode.Period, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
+	self:BindAction("BaseCameraKeyboardZoom", function(name, state, input) return self:DoKeyboardZoom(name, state, input) end,
+		false, Enum.KeyCode.I, Enum.KeyCode.O)
 end
 
 function BaseCamera:OnTouchBegan(input, processed)
@@ -931,6 +1075,7 @@ function BaseCamera:OnMouseWheel(input, processed)
 	end
 end
 
+--Remove with FFlagPlayerScriptsBindAtPriority
 function BaseCamera:OnKeyDown(input, processed)
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return
@@ -977,6 +1122,7 @@ function BaseCamera:OnKeyDown(input, processed)
 	end
 end
 
+--Remove with FFlagPlayerScriptsBindAtPriority
 function BaseCamera:OnKeyUp(input, processed)
 	if input.KeyCode == Enum.KeyCode.Left then
 		self.turningLeft = false

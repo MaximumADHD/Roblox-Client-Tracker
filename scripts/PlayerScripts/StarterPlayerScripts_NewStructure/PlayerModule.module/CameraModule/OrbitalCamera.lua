@@ -19,6 +19,11 @@ local tweenMaxSpeed = math.rad(250)			--Radians/Second
 local TIME_BEFORE_AUTO_ROTATE = 2.0 		--Seconds, used when auto-aligning camera with vehicles
 local PORTRAIT_OFFSET = Vector3.new(0,-3,0)
 
+local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+end)
+local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+
 --[[ Gamepad Support ]]--
 local THUMBSTICK_DEADZONE = 0.2
 
@@ -263,6 +268,12 @@ function OrbitalCamera:GetGamepadPan(name, state, input)
 				self.gamepadPanningCamera = ZERO_VECTOR2
 			end
 		end
+		if FFlagPlayerScriptsBindAtPriority then
+			return Enum.ContextActionResult.Sink
+		end
+	end
+	if FFlagPlayerScriptsBindAtPriority then
+		return Enum.ContextActionResult.Pass
 	end
 end
 
@@ -281,15 +292,28 @@ function OrbitalCamera:DoGamepadZoom(name, state, input)
 				self.gamepadDollySpeedMultiplier = 1.00
 			end
 		end
+		if FFlagPlayerScriptsBindAtPriority then
+			return Enum.ContextActionResult.Sink
+		end
+	end
+	if FFlagPlayerScriptsBindAtPriority then
+		return Enum.ContextActionResult.Pass
 	end
 end
 
 function OrbitalCamera:BindGamepadInputActions()
-	local ContextActionService = game:GetService('ContextActionService')
-	
-	ContextActionService:BindAction("OrbitalCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end, false, Enum.KeyCode.Thumbstick2)	
-	ContextActionService:BindAction("OrbitalCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonR3)
-	ContextActionService:BindAction("OrbitalCamGamepadZoomAlt", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonL3)
+	if FFlagPlayerScriptsBindAtPriority then
+		self:BindAction("OrbitalCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end,
+			false, Enum.KeyCode.Thumbstick2)
+		self:BindAction("OrbitalCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end,
+			false, Enum.KeyCode.ButtonR3, Enum.KeyCode.ButtonL3)
+	else
+		local ContextActionService = game:GetService('ContextActionService')
+		
+		ContextActionService:BindAction("OrbitalCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end, false, Enum.KeyCode.Thumbstick2)	
+		ContextActionService:BindAction("OrbitalCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonR3)
+		ContextActionService:BindAction("OrbitalCamGamepadZoomAlt", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonL3)
+	end
 end
 
 

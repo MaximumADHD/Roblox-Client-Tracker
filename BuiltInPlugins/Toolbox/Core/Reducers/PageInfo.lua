@@ -1,5 +1,9 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Libs = Plugin.Libs
+local Cryo = require(Libs.Cryo)
+local Rodux = require(Libs.Rodux)
+
 local Constants = require(Plugin.Core.Util.Constants)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Immutable = require(Plugin.Core.Util.Immutable)
@@ -12,6 +16,11 @@ local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
 local GetManageableGroups = require(Plugin.Core.Actions.GetManageableGroups)
 local NextPage = require(Plugin.Core.Actions.NextPage)
 local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+
+local defaultCategories = Category.CATEGORIES_WITHOUT_GROUPS
+local defaultSorts = Sort.SORT_OPTIONS
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.categories then
@@ -60,11 +69,8 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	end
 end
 
-return function(state, action)
-	local defaultCategories = Category.CATEGORIES_WITHOUT_GROUPS
-	local defaultSorts = Sort.SORT_OPTIONS
-
-	state = state or {
+if FFlagStudioLuaWidgetToolboxV2 then
+	return Rodux.createReducer({
 		categories = defaultCategories,
 		categoryIndex = 1,
 
@@ -81,71 +87,212 @@ return function(state, action)
 
 		selectedBackgroundIndex = 1,
 		hoveredBackgroundIndex = 0,
-	}
+	}, {
+		[UpdatePageInfo.name] = function(state, action)
+			if not action.changes then
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox UpdatePageInfo action.changes = nil")
+				end
+				return state
+			end
 
-	if action.type == UpdatePageInfo.name then
-		if DebugFlags.shouldDebugWarnings() then
-			warnIfUpdatePageInfoChangesInvalid(state, action.changes)
-		end
+			if DebugFlags.shouldDebugWarnings() then
+				warnIfUpdatePageInfoChangesInvalid(state, action.changes)
+			end
 
-		local newState = Immutable.JoinDictionaries(state, action.changes)
+			local newState = Cryo.Dictionary.join(state, action.changes)
 
-		-- Update the plugin settings. Reducers should be pure functions
-		-- but this guarantees that the plugin settings use the most up-
-		-- to-date state
-		if action.settings then
-			action.settings:updateFromPageInfo(newState)
-		end
+			-- Update the plugin settings. Reducers should be pure functions
+			-- but this guarantees that the plugin settings use the most up-
+			-- to-date state
+			if action.settings then
+				action.settings:updateFromPageInfo(newState)
+			end
 
-		return newState
+			return newState
+		end,
 
-	elseif action.type == NextPage.name then
-		return Immutable.Set(state, "page", state.page + 1)
+		[NextPage.name] = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				page = state.page + 1,
+			})
+		end,
 
-	elseif action.type == ChangeBackground.name then
-		local newState = Immutable.Set(state, action.selected and "selectedBackgroundIndex" or "hoveredBackgroundIndex", action.index)
-		
-		if action.settings and action.selected then
-			action.settings:setSelectedBackgroundIndex(action.index)
-		end
+		[ChangeBackground.name] = function(state, action)
+			if action.selected == nil then
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox ChangeBackground action.selected = nil")
+				end
+				return state
+			end
 
-		return newState
+			local index = action.index or 0
+			local key = action.selected and "selectedBackgroundIndex" or "hoveredBackgroundIndex"
+			local newState = Cryo.Dictionary.join(state, {
+				[key] = index,
+			})
 
-	elseif action.type == GetManageableGroups.name then
-		local newGroups = {}
-		for index, group in ipairs(action.groups) do
-			newGroups[index] = {id = group.Id, name = group.Name}
-		end
+			if action.settings and action.selected then
+				action.settings:setSelectedBackgroundIndex(index)
+			end
 
-		local newState = Immutable.Set(state, "groups", newGroups)
+			return newState
+		end,
 
-		if #newGroups > 0 then
-			local newIndex = 1
-			local oldGroupId = PageInfoHelper.getGroupIdForPageInfo(state)
-			-- Check if the ID we had selected exists in the new list
-			-- If it does then change index to that
-			-- Else set index to 1
-			for index, group in ipairs(newGroups) do
-				if group.id == oldGroupId then
-					newIndex = index
-					break
+		[GetManageableGroups.name] = function(state, action)
+			if not action.groups then
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox GetManageableGroups action.groups = nil")
+				end
+				return state
+			end
+
+			local newGroups = {}
+			for index, group in ipairs(action.groups) do
+				newGroups[index] = {id = group.Id, name = group.Name}
+			end
+
+			local newState = Cryo.Dictionary.join(state, {
+				groups = newGroups,
+			})
+
+			if #newGroups > 0 then
+				local newIndex = 1
+				local oldGroupId = PageInfoHelper.getGroupIdForPageInfo(state)
+				-- Check if the ID we had selected exists in the new list
+				-- If it does then change index to that
+				-- Else set index to 1
+				for index, group in ipairs(newGroups) do
+					if group.id == oldGroupId then
+						newIndex = index
+						break
+					end
+				end
+
+				newState.groupIndex = newIndex
+				newState.categories = Category.CATEGORIES
+
+			else
+				newState.groupIndex = 0
+				newState.categories = Category.CATEGORIES_WITHOUT_GROUPS
+
+				if newState.categoryIndex > #newState.categories then
+					newState.categoryIndex = 1
 				end
 			end
 
-			newState.groupIndex = newIndex
-			newState.categories = Category.CATEGORIES
+			return newState
+		end,
+	})
+else
+	return function(state, action)
+		state = state or {
+			categories = defaultCategories,
+			categoryIndex = 1,
 
-		else
-			newState.groupIndex = 0
-			newState.categories = Category.CATEGORIES_WITHOUT_GROUPS
+			searchTerm = "",
 
-			if newState.categoryIndex > #newState.categories then
-				newState.categoryIndex = 1
+			sorts = defaultSorts,
+			sortIndex = 1,
+
+			groups = {},
+			groupIndex = 0,
+
+			page = 1,
+			pageSize = Constants.GET_ITEMS_PAGE_SIZE,
+
+			selectedBackgroundIndex = 1,
+			hoveredBackgroundIndex = 0,
+		}
+
+		if action.type == UpdatePageInfo.name then
+			if not action.changes then
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox UpdatePageInfo action.changes = nil")
+				end
+				return state
 			end
+
+			if DebugFlags.shouldDebugWarnings() then
+				warnIfUpdatePageInfoChangesInvalid(state, action.changes)
+			end
+
+			local newState = Immutable.JoinDictionaries(state, action.changes)
+
+			-- Update the plugin settings. Reducers should be pure functions
+			-- but this guarantees that the plugin settings use the most up-
+			-- to-date state
+			if action.settings then
+				action.settings:updateFromPageInfo(newState)
+			end
+
+			return newState
+
+		elseif action.type == NextPage.name then
+			return Immutable.Set(state, "page", state.page + 1)
+
+		elseif action.type == ChangeBackground.name then
+			if action.selected == nil then
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox ChangeBackground action.selected = nil")
+				end
+				return state
+			end
+
+			local index = action.index or 0
+			local newState = Immutable.Set(state,
+				action.selected and "selectedBackgroundIndex" or "hoveredBackgroundIndex",
+				index)
+
+			if action.settings and action.selected then
+				action.settings:setSelectedBackgroundIndex(index)
+			end
+
+			return newState
+
+		elseif action.type == GetManageableGroups.name then
+			if not action.groups then
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox GetManageableGroups action.groups = nil")
+				end
+				return state
+			end
+
+			local newGroups = {}
+			for index, group in ipairs(action.groups) do
+				newGroups[index] = {id = group.Id, name = group.Name}
+			end
+
+			local newState = Immutable.Set(state, "groups", newGroups)
+
+			if #newGroups > 0 then
+				local newIndex = 1
+				local oldGroupId = PageInfoHelper.getGroupIdForPageInfo(state)
+				-- Check if the ID we had selected exists in the new list
+				-- If it does then change index to that
+				-- Else set index to 1
+				for index, group in ipairs(newGroups) do
+					if group.id == oldGroupId then
+						newIndex = index
+						break
+					end
+				end
+
+				newState.groupIndex = newIndex
+				newState.categories = Category.CATEGORIES
+
+			else
+				newState.groupIndex = 0
+				newState.categories = Category.CATEGORIES_WITHOUT_GROUPS
+
+				if newState.categoryIndex > #newState.categories then
+					newState.categoryIndex = 1
+				end
+			end
+
+			return newState
 		end
 
-		return newState
+		return state
 	end
-
-	return state
 end

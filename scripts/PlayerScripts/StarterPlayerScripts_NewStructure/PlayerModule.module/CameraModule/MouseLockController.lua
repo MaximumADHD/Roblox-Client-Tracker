@@ -6,14 +6,24 @@
 --[[ Constants ]]--
 local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 
+local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
+local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
 local Settings = UserSettings()	-- ignore warning
 local GameSettings = Settings.GameSettings
 local Mouse = PlayersService.LocalPlayer:GetMouse()
+
+--[[ Variables ]]
+local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+end)
+local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -22,7 +32,7 @@ MouseLockController.__index = MouseLockController
 function MouseLockController.new()
 	local self = setmetatable({}, MouseLockController)
 	
-	self.inputBeganConn = nil
+	self.inputBeganConn = nil -- Remove with FFlagPlayerScriptsBindAtPriority
 	self.isMouseLocked = false
 	self.savedMouseCursor = nil
 	self.boundKeys = {Enum.KeyCode.LeftShift, Enum.KeyCode.RightShift} -- defaults
@@ -123,6 +133,10 @@ function MouseLockController:OnBoundKeysObjectChanged(newValue)
 			end
 		end
 	end
+	if FFlagPlayerScriptsBindAtPriority then 
+		self:UnbindContextActions()
+		self:BindContextActions()
+	end
 end
 
 --[[ Local Functions ]]--
@@ -155,6 +169,7 @@ function MouseLockController:OnMouseLockToggled()
 	self.mouseLockToggledEvent:Fire()
 end
 
+-- Remove with FFlagPlayerScriptsBindAtPriority
 function MouseLockController:OnInputBegan(input, processed)
 	if processed then return end
 	
@@ -168,6 +183,23 @@ function MouseLockController:OnInputBegan(input, processed)
 	end
 end
 
+function MouseLockController:DoMouseLockSwitch(name, state, input)
+	if state == Enum.UserInputState.Begin then 
+		self:OnMouseLockToggled()
+		return Enum.ContextActionResult.Sink
+	end
+	return Enum.ContextActionResult.Pass
+end
+
+function MouseLockController:BindContextActions()
+	ContextActionService:BindActionAtPriority(CONTEXT_ACTION_NAME, function(name, state, input) self:DoMouseLockSwitch(name, state, input) end, 
+		false, MOUSELOCK_ACTION_PRIORITY, unpack(self.boundKeys))
+end
+
+function MouseLockController:UnbindContextActions()
+		ContextActionService:UnbindAction(CONTEXT_ACTION_NAME)
+end
+
 function MouseLockController:IsMouseLocked()
 	return self.enabled and self.isMouseLocked
 end
@@ -179,22 +211,31 @@ function MouseLockController:EnableMouseLock(enable)
 
 		if self.enabled then
 			-- Enabling the mode
-			if self.inputBeganConn then
-				self.inputBeganConn:Disconnect()
+			if FFlagPlayerScriptsBindAtPriority then
+				self:BindContextActions()
+			else
+				if self.inputBeganConn then
+					self.inputBeganConn:Disconnect()
+				end
+				self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
+					self:OnInputBegan(input, processed)
+				end)
 			end
-			self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
-				self:OnInputBegan(input, processed)
-			end)
 		else
 			-- Disabling
 			-- Restore mouse cursor
 			if Mouse.Icon~="" then
 				Mouse.Icon = ""
 			end
-			if self.inputBeganConn then
-				self.inputBeganConn:Disconnect()
+			
+			if FFlagPlayerScriptsBindAtPriority then
+				self:UnbindContextActions()
+			else
+				if self.inputBeganConn then
+					self.inputBeganConn:Disconnect()
+				end
+				self.inputBeganConn = nil
 			end
-			self.inputBeganConn = nil
 
 			-- If the mode is disabled while being used, fire the event to toggle it off
 			if self.isMouseLocked then

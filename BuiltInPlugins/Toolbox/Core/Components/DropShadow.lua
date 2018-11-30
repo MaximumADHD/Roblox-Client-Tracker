@@ -1,14 +1,17 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local Cryo = require(Libs.Cryo)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 local Immutable = require(Plugin.Core.Util.Immutable)
 
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+
 local function DropShadow(props)
-	local newProps = Immutable.JoinDictionaries(props, {
+	local newProps = (FFlagStudioLuaWidgetToolboxV2 and Cryo.Dictionary.join or Immutable.JoinDictionaries)(props, {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Image = Images.DROP_SHADOW_IMAGE,

@@ -1,4 +1,3 @@
-local LuaUseUtf8TextTruncation = settings():GetFFlag("LuaUseUtf8TextTruncation")
 local TextMeasureTemporaryPatch = settings():GetFFlag("TextMeasureTemporaryPatch")
 
 local TextService = game:GetService("TextService")
@@ -33,23 +32,14 @@ function Text.Truncate(text, font, fontSize, widthInPixels, overflowMarker)
 	overflowMarker = overflowMarker or ""
 
 	if Text.GetTextWidth(text, font, fontSize) > widthInPixels then
-		if LuaUseUtf8TextTruncation then
-			-- A binary search may be more efficient
-			local lastText = ""
-			for _, stopIndex in utf8.graphemes(text) do
-				local newText = string.sub(text, 1, stopIndex) .. overflowMarker
-				if Text.GetTextWidth(newText, font, fontSize) > widthInPixels then
-					return lastText
-				end
-				lastText = newText
+		-- A binary search may be more efficient
+		local lastText = ""
+		for _, stopIndex in utf8.graphemes(text) do
+			local newText = string.sub(text, 1, stopIndex) .. overflowMarker
+			if Text.GetTextWidth(newText, font, fontSize) > widthInPixels then
+				return lastText
 			end
-		else
-			for len = #text, 1, -1 do
-				local newText = string.sub(text, 1, len) .. overflowMarker
-				if Text.GetTextWidth(newText, font, fontSize) <= widthInPixels then
-					return newText
-				end
-			end
+			lastText = newText
 		end
 	else -- No truncation needed
 		return text

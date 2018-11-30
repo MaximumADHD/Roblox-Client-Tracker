@@ -10,13 +10,16 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local Cryo = require(Libs.Cryo)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Immutable = require(Plugin.Core.Util.Immutable)
 
 local DraggableButton = Roact.PureComponent:extend("DraggableButton")
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 -- How far the user has to move their mouse before we start a drag operation
 -- versus click-to-insert
@@ -92,14 +95,30 @@ function DraggableButton:init(props)
 end
 
 function DraggableButton:render()
-	local props = Immutable.JoinDictionaries(self.props, {
-		[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
-		[Roact.Event.MouseMoved] = self.onMouseMoved,
-		[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
-	})
-	props = Immutable.RemoveFromDictionary(props, "onDragStart", "onClick", "onMouseDown", "onMouseMoved", "onMouseUp")
+	local propsToUse
+	if FFlagStudioLuaWidgetToolboxV2 then
+		propsToUse = Cryo.Dictionary.join(self.props, {
+			[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
+			[Roact.Event.MouseMoved] = self.onMouseMoved,
+			[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
 
-	return Roact.createElement("ImageButton", props)
+			onDragStart = Cryo.None,
+			onClick = Cryo.None,
+			onMouseDown = Cryo.None,
+			onMouseMoved = Cryo.None,
+			onMouseUp = Cryo.None
+		})
+	else
+		propsToUse = Immutable.JoinDictionaries(self.props, {
+			[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
+			[Roact.Event.MouseMoved] = self.onMouseMoved,
+			[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
+		})
+		propsToUse = Immutable.RemoveFromDictionary(propsToUse,
+			"onDragStart", "onClick", "onMouseDown", "onMouseMoved", "onMouseUp")
+	end
+
+	return Roact.createElement("ImageButton", propsToUse)
 end
 
 return DraggableButton

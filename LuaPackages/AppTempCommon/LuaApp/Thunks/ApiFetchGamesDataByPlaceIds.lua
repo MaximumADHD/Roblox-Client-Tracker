@@ -6,6 +6,9 @@ local GamesMultigetPlaceDetails = require(CorePackages.AppTempCommon.LuaApp.Http
 local PlaceInfoModel = require(CorePackages.AppTempCommon.LuaChat.Models.PlaceInfoModel)
 local ReceivedPlacesInfos = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedPlacesInfos)
 
+local LuaAppFlags = CorePackages.AppTempCommon.LuaApp.Flags
+local convertUniverseIdToString = require(LuaAppFlags.ConvertUniverseIdToString)
+
 return function(networkImpl, placeIds)
 	return function(store)
 		if not placeIds or #placeIds == 0 then
@@ -20,7 +23,7 @@ return function(networkImpl, placeIds)
 				local placeInfo =  PlaceInfoModel.fromWeb(placeInfoData)
 
 				local universePlaceInfos = store:getState().UniversePlaceInfos
-				local universeId = placeInfo.universeRootPlaceId
+				local universeId = convertUniverseIdToString(placeInfo.universeId)
 				if not universePlaceInfos[universeId] or placeInfo.imageToken ~= universePlaceInfos[universeId].imageToken then
 					table.insert(imageTokens, placeInfo.imageToken)
 				end

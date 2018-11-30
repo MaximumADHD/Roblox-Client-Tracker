@@ -41,6 +41,7 @@ local ReportAbuseMenu = require(SettingsPages:WaitForChild("ReportAbuseMenu"))
 -- VARIABLES
 
 local FFlagCoreScriptBetterACMFriendStatusChecks = settings():GetFFlag("CoreScriptBetterACMFriendStatusChecks")
+local FFlagCoreScriptACMBlockedPlayerFix = settings():GetFFlag("CoreScriptACMBlockedPlayerFix")
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -158,10 +159,11 @@ local addFriendString = "Add Friend"
 local friendsString = "Friends"
 local friendRequestPendingString = "Friend Request Pending"
 local acceptFriendRequestString = "Accept Friend Request"
+local blockedString = "Player Blocked"
 
 local addFriendDisabledTransparency = 0.75
 local friendStatusChangedConn = nil
-function ContextMenuItems:CreateFriendButton(status)
+function ContextMenuItems:CreateFriendButton(status, isBlocked)
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
 	if friendLabel then
 		friendLabel:Destroy()
@@ -186,7 +188,11 @@ function ContextMenuItems:CreateFriendButton(status)
 	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
 
 	if FFlagCoreScriptBetterACMFriendStatusChecks then
-		if status == Enum.FriendStatus.Friend then
+		if FFlagCoreScriptACMBlockedPlayerFix and isBlocked then
+			friendLabel.Selectable = false
+			friendLabelText.TextTransparency = addFriendDisabledTransparency
+			friendLabelText.Text = blockedString
+		elseif status == Enum.FriendStatus.Friend then
 			friendLabel.Selectable = false
 			friendLabelText.TextTransparency = addFriendDisabledTransparency
 	    friendLabelText.Text = friendsString
@@ -210,8 +216,9 @@ function ContextMenuItems:CreateFriendButton(status)
     	friendLabelText.Text = friendsString
 		end
 	end
-
-    friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
+	
+	if not FFlagCoreScriptACMBlockedPlayerFix then 
+		friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
         if player == self.SelectedPlayer and friendLabelText then
             if not friendLabel.Selectable then
                 if friendStatus == Enum.FriendStatus.Friend then
@@ -224,15 +231,16 @@ function ContextMenuItems:CreateFriendButton(status)
             end
         end
     end)
+	end
 
 	friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER
 	friendLabel.Parent = self.MenuItemFrame
 end
 
-function ContextMenuItems:UpdateFriendButton(status)
+function ContextMenuItems:UpdateFriendButton(status, isBlocked)
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
 	if friendLabel then
-		self:CreateFriendButton(status)
+		self:CreateFriendButton(status, isBlocked)
 	end
 end
 
@@ -295,11 +303,10 @@ function ContextMenuItems:BuildContextMenuItems(player)
 
 	local friendStatus = ContextMenuUtil:GetFriendStatus(player)
 	local isBlocked = BlockingUtility:IsPlayerBlockedByUserId(player.UserId)
-	local isMuted = BlockingUtility:IsPlayerMutedByUserId(player.UserId)
 	self:ClearMenuItems()
 	self:SetSelectedPlayer(player)
 	if EnabledContextMenuItems[Enum.AvatarContextMenuOption.Friend] then
-		self:CreateFriendButton(friendStatus)
+		self:CreateFriendButton(friendStatus, isBlocked)
 	end
 	if EnabledContextMenuItems[Enum.AvatarContextMenuOption.Chat] then
 		self:CreateChatButton()

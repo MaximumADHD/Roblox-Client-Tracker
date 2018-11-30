@@ -211,6 +211,13 @@ local Constants = {
 		MinFrameWidth = 654,
 	},
 
+	MicroProfilerFormatting = {
+		ValueCellWidth = {.3, .7},
+		ButtonWidth = 200,
+		CellPadding = 16,
+		ButtonTextSize = 20,
+	},
+
 	Graph = {
 		PointWidth = 4,
 		PointOffset = 2, -- should be 1/2 pointwidth

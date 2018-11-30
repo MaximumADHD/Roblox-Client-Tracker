@@ -16,6 +16,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
+local HoverBarButton = require(Plugin.Src.Components.Thumbnails.HoverBarButton)
+
 local function ThumbnailHoverBar(props)
 	local active = props.Enabled
 
@@ -24,7 +26,7 @@ local function ThumbnailHoverBar(props)
 		BackgroundTransparency = 0.3,
 		BorderSizePixel = 0,
 		BackgroundColor3 = Constants.BLACK,
-		Size = UDim2.new(1, 0, 0, 30),
+		Size = UDim2.new(1, 0, 0, 40),
 		Position = UDim2.new(0, 0, 1, 0),
 		AnchorPoint = Vector2.new(0, 1),
 	}, {
@@ -35,26 +37,22 @@ local function ThumbnailHoverBar(props)
 			PaddingRight = PADDING,
 		}),
 
-		Zoom = Roact.createElement("ImageButton", {
-			BackgroundTransparency = 1,
-			Image = ZOOM_IMAGE,
-			Size = UDim2.new(0, 28, 0, 28),
+		Zoom = Roact.createElement(HoverBarButton, {
 			Position = UDim2.new(0, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
+			Image = ZOOM_IMAGE,
 
-			[Roact.Event.Activated] = function()
+			ButtonPressed = function()
 				props.ButtonPressed("Zoom")
 			end,
 		}),
 
-		Delete = Roact.createElement("ImageButton", {
-			BackgroundTransparency = 1,
-			Image = DELETE_IMAGE,
-			Size = UDim2.new(0, 28, 0, 28),
+		Delete = Roact.createElement(HoverBarButton, {
 			Position = UDim2.new(1, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(1, 0.5),
+			Image = DELETE_IMAGE,
 
-			[Roact.Event.Activated] = function()
+			ButtonPressed = function()
 				props.ButtonPressed("Delete")
 			end,
 		}),

@@ -24,8 +24,13 @@ if settings():GetFFlag("StudioEnablePlayerLocaleViewPlugin3") then
 		wait()
 		CorePackages = game:FindService("CorePackages")
 	until CorePackages
-	local LocalizationPlugin = require(CorePackages.LocalizationPlugin.Main)
-	LocalizationPlugin(plugin)
+
+	if settings():GetFFlag("StudioEnableGameLocalizationTableTools") then
+		require(CorePackages.LocalizationTools.Main)(plugin, settings().Studio)
+	else
+		local LocalizationPlugin = require(CorePackages.LocalizationMenuOnly.Main)
+		LocalizationPlugin(plugin)
+	end
 end
 ]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>

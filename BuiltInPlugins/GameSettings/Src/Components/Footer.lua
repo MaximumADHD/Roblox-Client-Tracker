@@ -7,7 +7,7 @@
 			This will enable the Save button if true.
 ]]
 
-local FOOTER_GRADIENT_SIZE = 10
+local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,18 +18,16 @@ local Promise = require(Plugin.Promise)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-local getSettingsImpl = require(Plugin.Src.Consumers.getSettingsImpl)
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
-local SaveChanges = require(Plugin.Src.Thunks.SaveChanges)
+local ConfirmAndSaveChanges = require(Plugin.Src.Thunks.ConfirmAndSaveChanges)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:render()
 	return withTheme(function(theme)
-		local interface = getSettingsImpl(self)
 		local saveActive = self.props.SaveActive
 		local cancelActive = self.props.CancelActive
 
@@ -61,8 +59,10 @@ function Footer:render()
 				},
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
 				ButtonClicked = function(userPressedSave)
-					self.props.ButtonClicked(userPressedSave, interface):await()
-					self.props.OnClose(userPressedSave)
+					local resolved = self.props.ButtonClicked(userPressedSave, self):await()
+					if resolved then
+						self.props.OnClose(userPressedSave)
+					end
 				end,
 			}),
 		})
@@ -81,9 +81,9 @@ Footer = RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			ButtonClicked = function(userPressedSave, interface)
+			ButtonClicked = function(userPressedSave, provider)
 				if userPressedSave then
-					return dispatch(SaveChanges(interface))
+					return dispatch(ConfirmAndSaveChanges(provider))
 				else
 					return Promise.resolve()
 				end

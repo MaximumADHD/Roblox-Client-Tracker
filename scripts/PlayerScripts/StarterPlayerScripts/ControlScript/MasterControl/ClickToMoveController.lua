@@ -1,12 +1,6 @@
 -- Written By Kip Turner, Copyright Roblox 2014
 -- Updated by Garnold to utilize the new PathfindingService API, 2017
 
-local FFlagUserNavigationFixClickToMoveInterruptionSuccess, FFlagUserNavigationFixClickToMoveInterruptionResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveInterruption") end)
-local FFlagUserNavigationFixClickToMoveInterruption = FFlagUserNavigationFixClickToMoveInterruptionSuccess and FFlagUserNavigationFixClickToMoveInterruptionResult
-
-local FFlagUserNavigationFixClickToMoveJumpSuccess, FFlagUserNavigationFixClickToMoveJumpResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveJump") end)
-local FFlagUserNavigationFixClickToMoveJump = FFlagUserNavigationFixClickToMoveJumpSuccess and FFlagUserNavigationFixClickToMoveJumpResult
-
 local FFlagUserNavigationClickToMoveUsePathBlockedSuccess, FFlagUserNavigationClickToMoveUsePathBlockedResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveUsePathBlocked") end)
 local FFlagUserNavigationClickToMoveUsePathBlocked = FFlagUserNavigationClickToMoveUsePathBlockedSuccess and FFlagUserNavigationClickToMoveUsePathBlockedResult
 
@@ -443,7 +437,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		if this.PathComputed then
 			this.humanoid = findPlayerHumanoid(Player)
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
-			this:OnPointReachedFixJump(true) -- Move to first point
+			this:OnPointReached(true) -- Move to first point
 		else
 			this.PathFailed:Fire()
 			this:Cleanup()
@@ -453,59 +447,6 @@ local function Pather(character, endPoint, surfaceNormal)
 	end
 
 	function this:OnPointReached(reached)
-
-		if reached and not this.Cancelled then
-
-			this.CurrentPoint = this.CurrentPoint + 1
-
-			if this.CurrentPoint > #this.pointList then
-				-- End of path reached
-				if this.stopTraverseFunc then
-					this.stopTraverseFunc()
-				end
-				this.Finished:Fire()
-				this:Cleanup()
-			else
-				-- If next action == Jump, but the humanoid
-				-- is still jumping from a previous action
-				-- wait until it gets to the ground
-				if this.CurrentPoint + 1 <= #this.pointList then
-					local nextAction = this.pointList[this.CurrentPoint + 1].Action
-					if nextAction == Enum.PathWaypointAction.Jump then
-						local currentState = this.humanoid:GetState()
-						if currentState == Enum.HumanoidStateType.FallingDown or
-						   currentState == Enum.HumanoidStateType.Freefall or
-						   currentState == Enum.HumanoidStateType.Jumping then
-						   
-						   this.humanoid.FreeFalling:Wait()
-
-						   -- Give time to the humanoid's state to change
-						   -- Otherwise, the jump flag in Humanoid
-						   -- will be reset by the state change
-						   wait(0.1)
-						end
-					end
-				end
-
-				-- Move to the next point
-				if this.setPointFunc then
-					this.setPointFunc(this.CurrentPoint)
-				end
-
-				local nextWaypoint = this.pointList[this.CurrentPoint]
-				
-				if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
-					this.humanoid.Jump = true
-				end
-				this.humanoid:MoveTo(nextWaypoint.Position)
-			end
-		else
-			this.PathFailed:Fire()
-			this:Cleanup()
-		end
-	end
-
-	function this:OnPointReachedFixJump(reached)
 
 		if reached and not this.Cancelled then
 
@@ -579,7 +520,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 		
 		this.humanoid = findPlayerHumanoid(Player)
-		if FFlagUserNavigationFixClickToMoveInterruption and not this.humanoid then
+		if not this.humanoid then
 			this.PathFailed:Fire()
 			return
 		end
@@ -593,15 +534,10 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 
 		if #this.pointList > 0 then
-			if FFlagUserNavigationFixClickToMoveInterruption then
-				this.SeatedConn = this.humanoid.Seated:Connect(function(reached) this:OnPathInterrupted() end)
-				this.DiedConn = this.humanoid.Died:Connect(function(reached) this:OnPathInterrupted() end)
-			end
-			if FFlagUserNavigationFixClickToMoveJump then
-				this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReachedFixJump(reached) end)
-			else
-				this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
-			end
+			this.SeatedConn = this.humanoid.Seated:Connect(function(reached) this:OnPathInterrupted() end)
+			this.DiedConn = this.humanoid.Died:Connect(function(reached) this:OnPathInterrupted() end)
+			this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
+
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
 			this:OnPointReached(true) -- Move to first point
 		else
@@ -814,9 +750,7 @@ local function OnTap(tapPositions, goToPoint)
 						end
 					end)
 					PathFailedListener = thisPather.PathFailed.Event:Connect(function()
-						if FFlagUserNavigationFixClickToMoveInterruption then
-							CleanupPath()
-						end
+						CleanupPath()
 						if failurePopup then
 							failurePopup:Place(hitPt, Vector3_new(0,hitPt.y,0))
 							local failTweenIn = failurePopup:TweenIn()

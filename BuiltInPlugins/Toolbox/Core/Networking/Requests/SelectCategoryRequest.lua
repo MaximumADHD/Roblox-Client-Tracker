@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local Sort = require(Plugin.Core.Types.Sort)
+
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
@@ -14,7 +16,7 @@ return function(networkInterface, settings, categoryIndex)
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 			categoryIndex = categoryIndex,
 			searchTerm = "",
-			sortIndex = 1,
+			sortIndex = Sort.getDefaultSortForCategory(categoryIndex),
 			page = 1,
 		}))
 

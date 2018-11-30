@@ -1,11 +1,17 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Libs = Plugin.Libs
+local Cryo = require(Libs.Cryo)
+local Rodux = require(Libs.Rodux)
+
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Immutable = require(Plugin.Core.Util.Immutable)
 
 local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 local GetAssets = require(Plugin.Core.Actions.GetAssets)
 local SetLoading = require(Plugin.Core.Actions.SetLoading)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local function handleAssetsAddedToState(state, assets, totalAssets)
 	if not assets then
@@ -18,11 +24,24 @@ local function handleAssetsAddedToState(state, assets, totalAssets)
 	local newIdToAssetMap = {}
 	local newIdsToRender = {}
 
-	for _, asset in ipairs(assets) do
-		local id = asset.Asset.Id
+	if FFlagStudioLuaWidgetToolboxV2 then
+		local removeVoting = {
+			Voting = Cryo.None,
+		}
 
-		newIdToAssetMap[id] = Immutable.RemoveFromDictionary(asset, "Voting")
-		newIdsToRender[#newIdsToRender + 1] = id
+		for _, asset in ipairs(assets) do
+			local id = asset.Asset.Id
+
+			newIdToAssetMap[id] = Cryo.Dictionary.join(asset, removeVoting)
+			newIdsToRender[#newIdsToRender + 1] = id
+		end
+	else
+		for _, asset in ipairs(assets) do
+			local id = asset.Asset.Id
+
+			newIdToAssetMap[id] = Immutable.RemoveFromDictionary(asset, "Voting")
+			newIdsToRender[#newIdsToRender + 1] = id
+		end
 	end
 
 	-- Use math.max because sometimes the endpoint returns TotalAssets = 0 even if there results
@@ -31,18 +50,29 @@ local function handleAssetsAddedToState(state, assets, totalAssets)
 	local newHasReachedBottom = state.hasReachedBottom or (newAssetsReceived >= newTotalAssets)
 		or (#newIdsToRender == 0 and newTotalAssets > 0)
 
-	return Immutable.JoinDictionaries(state, {
-		idToAssetMap = Immutable.JoinDictionaries(state.idToAssetMap or {}, newIdToAssetMap),
-		idsToRender = Immutable.JoinLists(state.idsToRender or {}, newIdsToRender),
+	if FFlagStudioLuaWidgetToolboxV2 then
+		return Cryo.Dictionary.join(state, {
+			idToAssetMap = Cryo.Dictionary.join(state.idToAssetMap or {}, newIdToAssetMap),
+			idsToRender = Cryo.List.join(state.idsToRender or {}, newIdsToRender),
 
-		totalAssets = newTotalAssets,
-		assetsReceived = newAssetsReceived,
-		hasReachedBottom = newHasReachedBottom,
-	})
+			totalAssets = newTotalAssets,
+			assetsReceived = newAssetsReceived,
+			hasReachedBottom = newHasReachedBottom,
+		})
+	else
+		return Immutable.JoinDictionaries(state, {
+			idToAssetMap = Immutable.JoinDictionaries(state.idToAssetMap or {}, newIdToAssetMap),
+			idsToRender = Immutable.JoinLists(state.idsToRender or {}, newIdsToRender),
+
+			totalAssets = newTotalAssets,
+			assetsReceived = newAssetsReceived,
+			hasReachedBottom = newHasReachedBottom,
+		})
+	end
 end
 
-return function(state, action)
-	state = state or {
+if FFlagStudioLuaWidgetToolboxV2 then
+	return Rodux.createReducer({
 		idToAssetMap = {},
 		idsToRender = {},
 		isLoading = false,
@@ -50,24 +80,55 @@ return function(state, action)
 		totalAssets = 0,
 		assetsReceived = 0,
 		hasReachedBottom = false,
-	}
+	}, {
+		[ClearAssets.name] = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				idsToRender = {},
+				totalAssets = 0,
+				assetsReceived = 0,
+				hasReachedBottom = false,
+			})
+		end,
 
-	if action.type == ClearAssets.name then
-		return Immutable.JoinDictionaries(state, {
+		[SetLoading.name] = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				isLoading = action.isLoading,
+			})
+		end,
+
+		[GetAssets.name] = function(state, action)
+			return handleAssetsAddedToState(state, action.assets, action.totalResults)
+		end,
+	})
+else
+	return function(state, action)
+		state = state or {
+			idToAssetMap = {},
 			idsToRender = {},
+			isLoading = false,
+
 			totalAssets = 0,
 			assetsReceived = 0,
 			hasReachedBottom = false,
-		})
+		}
 
-	elseif action.type == SetLoading.name then
-		return Immutable.JoinDictionaries(state, {
-			isLoading = action.isLoading,
-		})
+		if action.type == ClearAssets.name then
+			return Immutable.JoinDictionaries(state, {
+				idsToRender = {},
+				totalAssets = 0,
+				assetsReceived = 0,
+				hasReachedBottom = false,
+			})
 
-	elseif action.type == GetAssets.name then
-		return handleAssetsAddedToState(state, action.assets, action.totalResults)
+		elseif action.type == SetLoading.name then
+			return Immutable.JoinDictionaries(state, {
+				isLoading = action.isLoading,
+			})
+
+		elseif action.type == GetAssets.name then
+			return handleAssetsAddedToState(state, action.assets, action.totalResults)
+		end
+
+		return state
 	end
-
-	return state
 end

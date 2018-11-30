@@ -26,6 +26,8 @@ local UserInputService = game:GetService("UserInputService")
 --- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
+local FFlagCoreScriptBetterACMFriendStatusChecks = settings():GetFFlag("CoreScriptBetterACMFriendStatusChecks")
+
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -139,7 +141,11 @@ SelectionOverrideObject.BackgroundTransparency = 1
 local function MakeDefaultButton(name, size, clickFunc)
 
 	local button = Instance.new("ImageButton")
-	button.Name = name .. "Button"
+	if FFlagCoreScriptBetterACMFriendStatusChecks then
+		button.Name = name
+	else
+		button.Name = name .. "Button"
+	end
 	button.Image = ""
 	button.ScaleType = Enum.ScaleType.Slice
 	button.SliceCenter = Rect.new(8,6,46,44)

@@ -11,13 +11,14 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-local withModal = require(Plugin.Core.Consumers.withModal)
+local withModal = ContextHelper.withModal
 
 local Tooltip = require(Plugin.Core.Components.Tooltip)
 

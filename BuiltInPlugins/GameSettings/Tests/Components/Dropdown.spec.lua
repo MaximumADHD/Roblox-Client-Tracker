@@ -32,9 +32,9 @@ return function()
 		local instance = Roact.mount(createTestDropdown(true, {}, true), container)
 		local background = container.ImageButton
 
-		expect(background.Entries).to.be.ok()
-		expect(background.Entries.ScrollingFrame).to.be.ok()
-		expect(background.Entries.ScrollingFrame.Layout).to.be.ok()
+		expect(background.EntriesBox).to.be.ok()
+		expect(background.EntriesBox.Entries).to.be.ok()
+		expect(background.EntriesBox.Entries.Layout).to.be.ok()
 		expect(background.Border).to.be.ok()
 		expect(background.Border.Padding).to.be.ok()
 		expect(background.Border.Outside).to.be.ok()
@@ -51,7 +51,7 @@ return function()
 		local instance = Roact.mount(element, container)
 
 		local background = container.ImageButton
-		expect(background:FindFirstChild("Entries")).never.to.be.ok()
+		expect(background:FindFirstChild("EntriesBox")).never.to.be.ok()
 		expect(background.Border.Current.Visible).to.equal(false)
 
 		Roact.unmount(instance)
@@ -64,7 +64,7 @@ return function()
 			local instance = Roact.mount(element, container)
 
 			local background = container.ImageButton
-			expect(background:FindFirstChild("Entries")).never.to.be.ok()
+			expect(background:FindFirstChild("EntriesBox")).never.to.be.ok()
 			expect(background:FindFirstChild("Gradient")).never.to.be.ok()
 
 			Roact.unmount(instance)
@@ -81,7 +81,7 @@ return function()
 			}, true)
 			local instance = Roact.mount(element, container)
 
-			local scrollingFrame = container.ImageButton.Entries.ScrollingFrame
+			local scrollingFrame = container.ImageButton.EntriesBox.Entries
 			expect(scrollingFrame.CanvasSize).to.equal(UDim2.new(0, 0, 0, 38 * 5))
 
 			Roact.unmount(instance)

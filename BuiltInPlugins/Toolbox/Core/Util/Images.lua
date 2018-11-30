@@ -17,6 +17,7 @@ Images.SCROLLBAR_TOP_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarTop.png
 Images.SCROLLBAR_MIDDLE_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
 Images.SCROLLBAR_BOTTOM_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
 
+Images.THUMB = "rbxasset://textures/StudioToolbox/Voting/Thumb.png"
 Images.THUMB_UP_GREY = "rbxasset://textures/StudioToolbox/Voting/thumbup.png"
 Images.THUMB_DOWN_GREY = "rbxasset://textures/StudioToolbox/Voting/thumb-down.png"
 Images.THUMB_UP_GREEN = "rbxasset://textures/StudioToolbox/Voting/thumbs-up-filled.png"
@@ -39,8 +40,6 @@ Images.ENDORSED_BADGE_ICON = "rbxasset://textures/StudioToolbox/EndorsedBadge.pn
 
 Images.TOOLBOX_ICON = "rbxasset://textures/StudioToolbox/ToolboxIcon.png"
 
-Images.CURSOR_DEFAULT = "rbxasset://Textures/advCursor-default.png"
-Images.CURSOR_POINTING_HAND = "rbxasset://SystemCursors/PointingHand"
-Images.CURSOR_I_BEAM = "rbxasset://SystemCursors/IBeam"
+Images.INFO_ICON = "rbxasset://textures/DevConsole/Info.png"
 
 return wrapStrictTable(Images)

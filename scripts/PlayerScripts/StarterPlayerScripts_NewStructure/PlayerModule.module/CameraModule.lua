@@ -62,7 +62,7 @@ local LegacyCamera = require(script:WaitForChild("LegacyCamera"))
 -- Load Roblox Occlusion Modules
 local Invisicam = require(script:WaitForChild("Invisicam"))
 local Poppercam do
-	local success, useNewPoppercam = pcall(UserSettings().IsUserFeatureEnabled, UserSettings(), "UserNewPoppercam")
+	local success, useNewPoppercam = pcall(UserSettings().IsUserFeatureEnabled, UserSettings(), "UserNewPoppercam2")
 	if success and useNewPoppercam then
 		Poppercam = require(script:WaitForChild("Poppercam"))
 	else

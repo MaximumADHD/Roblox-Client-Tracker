@@ -9,6 +9,8 @@ return function()
 	local AddErrors = require(Plugin.Src.Actions.AddErrors)
 	local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
 	local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
+	local AddWarning = require(Plugin.Src.Actions.AddWarning)
+	local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 	it("should initialize with Current and Changed if given nil", function()
 		local store = Rodux.Store.new(SettingsReducer)
@@ -200,6 +202,40 @@ return function()
 			store:dispatch(SetCurrentSettings(newState))
 
 			expect(store:getState().Current).to.equal(newState)
+		end)
+	end)
+
+	describe("AddWarning", function()
+		it("should add an entry to the Warnings list", function()
+			local startState = {
+				Warnings = {},
+			}
+			local store = Rodux.Store.new(
+				SettingsReducer,
+				startState,
+				{Rodux.thunkMiddleware}
+			)
+
+			store:dispatch(AddWarning("Warning"))
+
+			expect(store:getState().Warnings[1]).to.equal("Warning")
+		end)
+	end)
+
+	describe("DiscardWarning", function()
+		it("should remove an entry from the Warnings list", function()
+			local startState = {
+				Warnings = {"Warning"},
+			}
+			local store = Rodux.Store.new(
+				SettingsReducer,
+				startState,
+				{Rodux.thunkMiddleware}
+			)
+
+			store:dispatch(DiscardWarning("Warning"))
+
+			expect(#store:getState().Warnings).to.equal(0)
 		end)
 	end)
 end

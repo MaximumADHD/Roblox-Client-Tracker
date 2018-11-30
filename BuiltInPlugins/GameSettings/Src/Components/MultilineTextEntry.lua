@@ -7,6 +7,7 @@
 		bool Visible = Whether to display this component
 		function SetText(text) = Callback to tell parent that text has changed
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
+		function HoverChanged(hovered) = Callback when the mouse enters or leaves this component.
 ]]
 
 local TextService = game:GetService("TextService")
@@ -42,6 +43,13 @@ function MultilineTextEntry:init()
 		if rbx.Text ~= self.props.Text then
 			self.props.SetText(rbx.Text)
 		end
+	end
+
+	self.mouseEnter = function()
+		self.props.HoverChanged(true)
+	end
+	self.mouseLeave = function()
+		self.props.HoverChanged(false)
 	end
 end
 
@@ -102,6 +110,9 @@ function MultilineTextEntry:render()
 			[Roact.Event.FocusLost] = function()
 				self.props.FocusChanged(false)
 			end,
+
+			[Roact.Event.MouseEnter] = self.mouseEnter,
+			[Roact.Event.MouseLeave] = self.mouseLeave,
 
 			[Roact.Change.Text] = self.textChanged,
 

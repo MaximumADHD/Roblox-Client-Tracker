@@ -1,11 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ModalStatus = require(Plugin.Core.Util.ModalStatus)
 
-local getPlugin = require(Plugin.Core.Consumers.getPlugin)
+local getPlugin = ContextGetter.getPlugin
 
 local ModalProvider = Roact.PureComponent:extend("ModalProvider")
 
@@ -15,7 +16,7 @@ function ModalProvider:init(props)
 	self._context.modalTarget = pluginGui
 
 	local modalStatus = ModalStatus.new()
-	self._context._modalStatus = modalStatus
+	self._context.modalStatus = modalStatus
 
 	-- TODO CLIDEVSRVS-1688: Improve this
 	self._context.onTooltipTriggered = function(assetId, typeId)

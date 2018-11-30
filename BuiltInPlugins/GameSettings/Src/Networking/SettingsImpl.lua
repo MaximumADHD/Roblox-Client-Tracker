@@ -9,10 +9,13 @@
 ]]
 
 local HttpService = game:GetService("HttpService")
+local StudioService = game:GetService("StudioService")
 
 local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
+local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -66,6 +69,13 @@ local ICON_REQUEST_TYPE_OLD = "www"
 
 local ICON_URL = "v1/games/%d/icon"
 local ICON_REQUEST_TYPE = "games"
+
+local LOCALIZATION_GET_URL = "v1/autolocalization/games/%d/autolocalizationtable"
+local LOCALIZATION_GET_REQUEST_TYPE = "gameinternationalization"
+
+local LOCALIZATION_SET_URL = "v1/autolocalization/games/%d/settings"
+local LOCALIZATION_SET_REQUEST_TYPE = "gameinternationalization"
+
 
 local PLAYABLE_DEVICES = {
 	Computer = false,
@@ -177,6 +187,10 @@ function SettingsImpl:GetSettings()
 			end
 		end
 
+		if FFlagStudioLocalizationGameSettings then
+			table.insert(getRequests, self:GetLocalizationInfo())
+		end
+
 		return Promise.all(getRequests)
 		:andThen(function(loaded)
 			for _, values in ipairs(loaded) do
@@ -204,6 +218,7 @@ function SettingsImpl:SaveAll(state)
 		local isActive = nil
 		local thumbnailOrder = nil
 		local thumbnails = nil
+		local autoscrapingOn = nil
 
 		for setting, value in pairs(state.Changed) do
 			if fromUniverseConfigurationEndpoint[setting] then
@@ -223,6 +238,8 @@ function SettingsImpl:SaveAll(state)
 				}
 			elseif FFlagStudioLuaGameSettingsDialog3 and setting == "thumbnailOrder" then
 				thumbnailOrder = value
+			elseif FFlagStudioLocalizationGameSettings and setting == "autoscrapingOn" then
+				autoscrapingOn = value
 			end
 		end
 
@@ -237,7 +254,15 @@ function SettingsImpl:SaveAll(state)
 			table.insert(setRequests, self:SetThumbnailOrder(thumbnailOrder))
 		end
 
-		return Promise.all(setRequests)
+		if FFlagStudioLocalizationGameSettings then
+			table.insert(setRequests, self:SetLocalizationInfo(autoscrapingOn))
+		end
+
+		return Promise.all(setRequests):andThen(function()
+			if FFlagGameSettingsUpdatesUniverseDisplayName and universeConfigValues.name then
+				StudioService:SetUniverseDisplayName(universeConfigValues.name)
+			end
+		end)
 	end)
 end
 
@@ -323,6 +348,9 @@ function SettingsImpl:SetUniverseConfiguration(body)
 	return Http.Request(requestInfo)
 	:catch(function(err)
 		warn("Game Settings: Could not save universe configuration settings.")
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("UniverseConfiguration")
+		end
 		if string.find(err, "HTTP 400") then
 			local errors = {}
 			if body.name then
@@ -331,10 +359,6 @@ function SettingsImpl:SetUniverseConfiguration(body)
 			return Promise.reject(errors)
 		elseif not FFlagGameSettingsAnalyticsEnabled then
 			return Promise.resolve()
-		end
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("UniverseConfiguration")
-			return Promise.reject()
 		end
 	end)
 end
@@ -419,6 +443,9 @@ function SettingsImpl:SetRootPlaceInfo(body)
 	end)
 	:catch(function(err)
 		warn("Game Settings: Could not save root place configuration settings.")
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("RootPlace")
+		end
 		if string.find(err, "HTTP 400") then
 			local errors = {}
 			if body.description then
@@ -427,10 +454,6 @@ function SettingsImpl:SetRootPlaceInfo(body)
 			return Promise.reject(errors)
 		elseif not FFlagGameSettingsAnalyticsEnabled then
 			return Promise.resolve()
-		end
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("RootPlace")
-			return Promise.reject()
 		end
 	end)
 end
@@ -653,6 +676,77 @@ function SettingsImpl:DEPRECATED_GetIcon(rootPlaceId)
 		warn("Game Settings: Could not load game icon.")
 		if FFlagGameSettingsAnalyticsEnabled then
 			Analytics.onLoadError("Icon")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
+	end)
+end
+
+function SettingsImpl:GetLocalizationInfo()
+	if not self.canManage then
+		return Promise.resolve({})
+	end
+
+	local universeId = game.GameId
+
+	local bodyObject = {
+		name = "MyLocalizationTable",
+		ownerType = "User",
+		ownerId = self.userId,
+	}
+
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(LOCALIZATION_GET_REQUEST_TYPE, LOCALIZATION_GET_URL, universeId),
+		Method = "POST",
+		Body = HttpService:JSONEncode(bodyObject),
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "application/json"
+		},
+	}
+
+	return Http.RequestInternal(requestInfo):andThen(function(jsonResult)
+		local result = HttpService:JSONDecode(jsonResult)
+		return {
+			autoscrapingOn = result.isAutolocalizationEnabled,
+		}
+	end)
+	:catch(function()
+		warn("Game Settings: Could not load Game Localization Table settings.")
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onLoadError("Localization")
+			return Promise.reject()
+		else
+			return Promise.resolve({})
+		end
+	end)
+end
+
+function SettingsImpl:SetLocalizationInfo(autoscrapingOn)
+	if not self.canManage then
+		return Promise.resolve({})
+	end
+
+	local universeId = game.GameId
+
+	local requestInfo = {
+		Url = Http.BuildRobloxUrl(LOCALIZATION_SET_REQUEST_TYPE, LOCALIZATION_SET_URL, universeId),
+		Method = "PATCH",
+		Body = HttpService:JSONEncode({
+			isAutolocalizationEnabled = autoscrapingOn,
+		}),
+		CachePolicy = Enum.HttpCachePolicy.None,
+		Headers = {
+			["Content-Type"] = "application/json"
+		}
+	}
+
+	return Http.RequestInternal(requestInfo)
+	:catch(function()
+		warn("Game Settings: Could not save Game Localization Table settings.")
+		if FFlagGameSettingsAnalyticsEnabled then
+			Analytics.onSaveError("Localization")
 			return Promise.reject()
 		else
 			return Promise.resolve({})

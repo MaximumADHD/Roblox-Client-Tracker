@@ -1254,12 +1254,12 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage.Active = true
 
 		local pageSize = this.Pages.CurrentPage:GetSize()
-		this.PageView.CanvasSize = UDim2.new(0,pageSize.X,0,pageSize.Y)
+		this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
 		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
 			if prop == "AbsoluteSize" then
 				local pageSize = this.Pages.CurrentPage:GetSize()
-				this.PageView.CanvasSize = UDim2.new(0,pageSize.X,0,pageSize.Y)
+				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 			end
 		end)
 

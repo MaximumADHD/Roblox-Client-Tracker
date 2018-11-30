@@ -320,17 +320,6 @@ function Promise:_reject(...)
 		for _, callback in ipairs(self._queuedReject) do
 			callback(...)
 		end
-	else
-		-- At this point, no one was able to observe the error.
-		-- An error handler might still be attached if the error occurred
-		-- synchronously. We'll wait one tick, and if there are still no
-		-- observers, then we should put a message in the console.
-
-		local message = ("Unhandled promise rejection:\n\n%s\n\n%s"):format(
-			TU.RecursiveToString((...)),
-			self._source
-		)
-		warn(message)
 	end
 end
 

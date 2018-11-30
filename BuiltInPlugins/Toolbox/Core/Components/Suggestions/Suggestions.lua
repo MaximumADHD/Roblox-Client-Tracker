@@ -1,5 +1,5 @@
 --[[
-	The suggestions at the top of the toolbox, "Try searching for: NPC Vehicle etc."
+	The Suggestions at the top of the toolbox, "Try searching for: NPC Vehicle etc."
 
 	Props:
 		UDim2 Position = UDim2.new(0, 0, 0, 0)
@@ -13,12 +13,13 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Layouter = require(Plugin.Core.Util.Layouter)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
 local function Suggestions(props)
 	return withTheme(function(theme)

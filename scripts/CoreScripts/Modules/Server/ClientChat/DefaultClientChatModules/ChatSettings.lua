@@ -3,6 +3,7 @@
 --	// Description: Settings module for configuring different aspects of the chat window.
 
 local PlayersService = game:GetService("Players")
+local ChatService = game:GetService("Chat")
 
 local clientChatModules = script.Parent
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
@@ -22,7 +23,7 @@ module.ScreenGuiDisplayOrder = 6 -- The DisplayOrder value for the ScreenGui con
 module.ShowFriendJoinNotification = true -- Show a notification in the chat when a players friend joins the game.
 
 --- Replace with true/false to force the chat type. Otherwise this will default to the setting on the website.
-module.BubbleChatEnabled = false
+module.BubbleChatEnabled = PlayersService.BubbleChat
 module.ClassicChatEnabled = PlayersService.ClassicChat
 
 ---[[ Chat Text Size Settings ]]

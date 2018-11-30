@@ -13,6 +13,14 @@ local trimCharacterFromEndString = require(AppTempCommon.Temp.trimCharacterFromE
 local INVITE_TEXT_MESSAGE = "Come join me in %s"
 local INVITE_LINK_MESSAGE = "%s/games/%s"
 
+
+local FFlagLuaInviteSendsGameLinks = settings():GetFFlag("LuaInviteSendsGameLinks")
+
+local ChatSendGameLinkMessage
+if FFlagLuaInviteSendsGameLinks then
+	ChatSendGameLinkMessage = require(Requests.ChatSendGameLinkMessage)
+end
+
 return function(networkImpl, userId, placeInfo)
 	local clientId = Players.LocalPlayer.UserId
 
@@ -27,7 +35,7 @@ return function(networkImpl, userId, placeInfo)
 			local conversation = conversationResult.responseBody.conversation
 
 			return ChatSendMessage(networkImpl, conversation.id, inviteTextMessage):andThen(function()
-				return ChatSendMessage(networkImpl, conversation.id, inviteLinkMessage):andThen(function(inviteResult)
+				local function handleResult(inviteResult)
 					local data = inviteResult.responseBody
 
 					return {
@@ -35,7 +43,12 @@ return function(networkImpl, userId, placeInfo)
 						conversationId = conversation.id,
 						placeId = placeInfo.universeRootPlaceId,
 					}
-				end)
+				end
+				if FFlagLuaInviteSendsGameLinks then
+					return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(handleResult)
+				else
+					return ChatSendMessage(networkImpl, conversation.id, inviteLinkMessage):andThen(handleResult)
+				end
 			end)
 		end)
 	end

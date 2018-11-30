@@ -129,6 +129,20 @@ local function CreateMenuCarousel()
 	return playerSelection
 end
 
+function PlayerCarousel:RemovePlayerEntry(player)
+	local button = playerToButtonMap[player]
+	
+	if button then
+		playerToButtonMap[player] = nil
+		buttonToPlayerMap[button] = nil
+		
+		button:Destroy()
+		if uiPageLayout then 
+			uiPageLayout:ApplyLayout()
+		end
+	end
+end
+
 function PlayerCarousel:ClearPlayerEntries()
 	for button, player in pairs(buttonToPlayerMap) do
 		button:Destroy()

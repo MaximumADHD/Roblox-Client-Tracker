@@ -22,6 +22,8 @@
 			These actions are handled by the ThumbnailController above this component.
 ]]
 
+local FFlagGameSettingsFixThumbnailDrag = settings():GetFFlag("GameSettingsFixThumbnailDrag")
+
 local NOTES = {
 	"You can set up to 10 screenshots and YouTube videos for a game.",
 	"Acceptable image files: jpg, gif, png, tga, bmp | Recommended resolution: 1920 x 1080",
@@ -51,6 +53,7 @@ function ThumbnailWidget:init()
 	self.state = {
 		dragId = nil,
 		dragIndex = nil,
+		oldIndex = nil,
 	}
 
 	self.notesList = {
@@ -77,6 +80,7 @@ function ThumbnailWidget:init()
 		self:setState({
 			dragId = dragInfo.thumbnailId,
 			dragIndex = dragInfo.index,
+			oldIndex = FFlagGameSettingsFixThumbnailDrag and dragInfo.index or nil,
 		})
 	end
 
@@ -88,10 +92,18 @@ function ThumbnailWidget:init()
 
 	self.stopDragging = function()
 		if self.state.dragId ~= nil and self.state.dragIndex ~= nil then
-			self.props.ThumbnailAction("MoveTo", {
-				thumbnailId = self.state.dragId,
-				index = self.state.dragIndex,
-			})
+			if FFlagGameSettingsFixThumbnailDrag and self.state.dragIndex == self.state.oldIndex then
+				self:setState({
+					dragId = Roact.None,
+					dragIndex = Roact.None,
+					oldIndex = Roact.None,
+				})
+			else
+				self.props.ThumbnailAction("MoveTo", {
+					thumbnailId = self.state.dragId,
+					index = self.state.dragIndex,
+				})
+			end
 		end
 	end
 end
@@ -104,6 +116,7 @@ function ThumbnailWidget.getDerivedStateFromProps(_, lastState)
 		return {
 			dragId = Roact.None,
 			dragIndex = Roact.None,
+			oldIndex = Roact.None,
 		}
 	end
 end

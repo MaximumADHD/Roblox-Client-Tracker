@@ -16,27 +16,33 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Urls = require(Plugin.Core.Util.Urls)
 
 local Background = require(Plugin.Core.Types.Background)
 
-local getModal = require(Plugin.Core.Consumers.getModal)
-local withModal = require(Plugin.Core.Consumers.withModal)
+local getModal = ContextGetter.getModal
+local withModal = ContextHelper.withModal
 
 local AssetIconBadge = require(Plugin.Core.Components.Asset.AssetIconBadge)
+local AssetBackground = require(Plugin.Core.Components.Asset.AssetBackground)
 local AudioPreviewButton = require(Plugin.Core.Components.AudioPreviewButton)
+local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
 
 function AssetIcon:init(props)
 	self.state = {
-		isHovered = false
+		isHovered = false,
 	}
 
 	self.onMouseEnter = function()
@@ -82,16 +88,14 @@ function AssetIcon:render()
 
 		local isAudioAsset = typeId == Enum.AssetType.Audio.Value
 
-		return Background.renderBackground(backgroundIndex, {
-			Size = UDim2.new(1, 0, 1, 0),
-			SizeConstraint = Enum.SizeConstraint.RelativeXX,
-			ZIndex = 1,
-			LayoutOrder = layoutOrder,
+		local children = {
+			AssetImage = FFlagStudioLuaWidgetToolboxV2 and Roact.createElement(ImageWithDefault, {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
 
-			[Roact.Event.MouseEnter] = onMouseEnter,
-			[Roact.Event.MouseLeave] = onMouseLeave,
-		}, {
-			AssetImage = Roact.createElement("ImageLabel", {
+				Image = thumbnailUrl,
+				defaultImage = "",
+			}) or Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 				Image = thumbnailUrl,
@@ -118,7 +122,31 @@ function AssetIcon:render()
 				canShowCurrentTooltip = canShowCurrentTooltip,
 				isHovered = isHovered,
 			}),
-		})
+		}
+
+		if FFlagStudioLuaWidgetToolboxV2 then
+			return Roact.createElement(AssetBackground, {
+				backgroundIndex = backgroundIndex,
+
+				Size = UDim2.new(1, 0, 1, 0),
+				SizeConstraint = Enum.SizeConstraint.RelativeXX,
+				ZIndex = 1,
+				LayoutOrder = layoutOrder,
+
+				[Roact.Event.MouseEnter] = onMouseEnter,
+				[Roact.Event.MouseLeave] = onMouseLeave,
+			}, children)
+		else
+			return Background.DEPRECATED_renderBackground(backgroundIndex, {
+				Size = UDim2.new(1, 0, 1, 0),
+				SizeConstraint = Enum.SizeConstraint.RelativeXX,
+				ZIndex = 1,
+				LayoutOrder = layoutOrder,
+
+				[Roact.Event.MouseEnter] = onMouseEnter,
+				[Roact.Event.MouseLeave] = onMouseLeave,
+			}, children)
+		end
 	end)
 end
 

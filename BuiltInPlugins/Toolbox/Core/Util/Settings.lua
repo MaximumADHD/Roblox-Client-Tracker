@@ -6,20 +6,21 @@ local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
 
 local Settings = {}
+Settings.__index = Settings
 
-local SELECTED_BACKGROUND_INDEX_KEY = "SelectedBackgroundIndex"
-local SELECTED_CATEGORY_INDEX_KEY = "SelectedCategoryIndex"
-local SELECTED_SEARCH_TERM_KEY = "SelectedSearchTerm"
-local SELECTED_SORT_INDEX_KEY = "SelectedSortIndex"
+-- Built in plugins share the same namespace for settings, so mark this as from the toolbox
+local SETTING_PREFIX = "Toolbox_"
+local SELECTED_BACKGROUND_INDEX_KEY = SETTING_PREFIX .. "SelectedBackgroundIndex"
+local SELECTED_CATEGORY_INDEX_KEY = SETTING_PREFIX .. "SelectedCategoryIndex"
+local SELECTED_SEARCH_TERM_KEY = SETTING_PREFIX .. "SelectedSearchTerm"
+local SELECTED_SORT_INDEX_KEY = SETTING_PREFIX .. "SelectedSortIndex"
 
 function Settings.new(plugin)
 	local self = {
 		_plugin = plugin,
 	}
 
-	setmetatable(self, {
-		__index = Settings,
-	})
+	setmetatable(self, Settings)
 
 	return self
 end
@@ -121,11 +122,11 @@ function Settings:loadInitialSettings()
 		settings.searchTerm = game.DefaultToolboxSearch.Value
 		-- Also set the initial category to free models and relevant sort
 		settings.categoryIndex = 1
-		settings.sortIndex = 1
+		settings.sortIndex = Sort.getDefaultSortForCategory(settings.categoryIndex)
 	end
 
 	if not Sort.canSort(settings.searchTerm, settings.categoryIndex) then
-		settings.sortIndex = 1
+		settings.sortIndex = Sort.getDefaultSortForCategory(settings.categoryIndex)
 	end
 
 	return settings

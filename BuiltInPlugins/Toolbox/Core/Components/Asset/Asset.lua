@@ -18,23 +18,25 @@
 		number currentSoundId
 		boolean isPlaying
 		callback onPreviewAudioButtonClicked
+
+		InsertToolPromise insertToolPromise
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local MouseManager = require(Plugin.Core.Util.MouseManager)
-local Images = require(Plugin.Core.Util.Images)
 local InsertAsset = require(Plugin.Core.Util.InsertAsset)
 
-local getNetwork = require(Plugin.Core.Consumers.getNetwork)
-local getPlugin = require(Plugin.Core.Consumers.getPlugin)
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local getNetwork = ContextGetter.getNetwork
+local getPlugin = ContextGetter.getPlugin
+local withTheme = ContextHelper.withTheme
 
 local AssetCreatorName = require(Plugin.Core.Components.Asset.AssetCreatorName)
 local AssetIcon = require(Plugin.Core.Components.Asset.AssetIcon)
@@ -44,6 +46,9 @@ local DropShadow = require(Plugin.Core.Components.DropShadow)
 local Voting = require(Plugin.Core.Components.Asset.Voting.Voting)
 
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+local FFlagFixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
 
 local Asset = Roact.PureComponent:extend("Asset")
 
@@ -66,16 +71,17 @@ function Asset:init(props)
 	local onAssetHovered = props.onAssetHovered
 	local onAssetHoverEnded = props.onAssetHoverEnded
 	local canInsertAsset = props.canInsertAsset
-	local categoryIndex = props.categoryIndex
+
+	local categoryIndex = props.categoryIndex or 1
+	local searchTerm = props.searchTerm or ""
+	local assetIndex = props.assetIndex or 0
 
 	self.onMouseEntered = function(rbx, x, y)
-		MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
 		onAssetHovered(assetId)
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
 		onAssetHoverEnded(assetId)
-		MouseManager:clearIcons()
 	end
 
 	self.onInputEnded = function(rbx, input)
@@ -93,12 +99,30 @@ function Asset:init(props)
 	end
 
 	self.onDragStart = function(rbx, x, y)
-		if not canInsertAsset() then
+		if not canInsertAsset() or not settings():GetFFlag("PluginDragApi") then
 			return
 		end
 
 		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-		InsertAsset.dragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful, categoryIndex)
+		if FFlagStudioLuaWidgetToolboxV2 then
+			InsertAsset.dragInsertAsset({
+				plugin = plugin,
+				assetId = assetId,
+				assetName = assetName,
+				assetTypeId = assetTypeId,
+				onSuccess = self.onAssetInsertionSuccesful,
+				categoryIndex = categoryIndex,
+				searchTerm = searchTerm,
+				assetIndex = assetIndex,
+				assetWasDragged = true,
+			})
+		elseif FFlagFixToolboxEventStream then
+			InsertAsset.deprecatedDragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
+				categoryIndex, searchTerm, assetIndex)
+		else
+			InsertAsset.deprecatedDragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
+				categoryIndex)
+		end
 	end
 
 	self.onClick = function(rbx, x, y)
@@ -107,7 +131,26 @@ function Asset:init(props)
 		end
 
 		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-		InsertAsset.insertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful, categoryIndex)
+		if FFlagStudioLuaWidgetToolboxV2 then
+			InsertAsset.insertAsset({
+				plugin = plugin,
+				assetId = assetId,
+				assetName = assetName,
+				assetTypeId = assetTypeId,
+				onSuccess = self.onAssetInsertionSuccesful,
+				categoryIndex = categoryIndex,
+				searchTerm = searchTerm,
+				assetIndex = assetIndex,
+
+				insertToolPromise = self.props.insertToolPromise,
+			})
+		elseif FFlagFixToolboxEventStream then
+			InsertAsset.deprecatedInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
+				categoryIndex, searchTerm, assetIndex)
+		else
+			InsertAsset.deprecatedInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
+				categoryIndex)
+		end
 	end
 
 	self.onAssetInsertionSuccesful = function(assetId)
@@ -252,9 +295,20 @@ local function mapStateToProps(state, props)
 
 	local assetId = props.assetId
 
+	local categoryIndex = nil
+	local searchTerm = nil
+	if FFlagStudioLuaWidgetToolboxV2 or FFlagFixToolboxEventStream then
+		local pageInfo = state.pageInfo or {}
+		categoryIndex = pageInfo.categoryIndex or 1
+		searchTerm = pageInfo.searchTerm or ""
+	end
+
 	return {
 		asset = idToAssetMap[assetId],
 		voting = voting[assetId] or {},
+
+		categoryIndex = categoryIndex,
+		searchTerm = searchTerm,
 	}
 end
 

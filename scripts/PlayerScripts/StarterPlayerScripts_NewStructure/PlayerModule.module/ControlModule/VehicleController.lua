@@ -18,12 +18,20 @@ local useTriggersForThrottle = true
 local onlyTriggersForThrottle = false
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
+local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+end)
+local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+
 -- Note that VehicleController does not derive from BaseCharacterController, it is a special case
 local VehicleController = {}
 VehicleController.__index = VehicleController
 
-function VehicleController.new()
+function VehicleController.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable({}, VehicleController)
+	
+	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
+	
 	self.enabled = false
 	self.vehicleSeat = nil
 	self.throttle = 0
@@ -39,6 +47,27 @@ function VehicleController.new()
 	return self
 end
 
+function VehicleController:BindContextActions()
+	if useTriggersForThrottle then
+		ContextActionService:BindActionAtPriority("throttleAccel", (function(actionName, inputState, inputObject)
+			self:OnThrottleAccel(actionName, inputState, inputObject)
+			return Enum.ContextActionResult.Pass
+		end), false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonR2)
+		ContextActionService:BindActionAtPriority("throttleDeccel", (function(actionName, inputState, inputObject)
+			self:OnThrottleDeccel(actionName, inputState, inputObject)
+			return Enum.ContextActionResult.Pass
+		end), false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonL2)
+	end
+	ContextActionService:BindActionAtPriority("arrowSteerRight", (function(actionName, inputState, inputObject)
+		self:OnSteerRight(actionName, inputState, inputObject)
+		return Enum.ContextActionResult.Pass
+	end), false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Right)
+	ContextActionService:BindActionAtPriority("arrowSteerLeft", (function(actionName, inputState, inputObject)
+		self:OnSteerLeft(actionName, inputState, inputObject)
+		return Enum.ContextActionResult.Pass
+	end), false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Left)
+end
+
 function VehicleController:Enable(enable, vehicleSeat)
 	if enable == self.enabled and vehicleSeat == self.vehicleSeat then
 		return
@@ -49,24 +78,28 @@ function VehicleController:Enable(enable, vehicleSeat)
 	if enable then
 		if vehicleSeat then
 			self.vehicleSeat = vehicleSeat
-			if useTriggersForThrottle then
-				ContextActionService:BindAction("throttleAccel", (function(actionName, inputState, inputObject)
-					self:OnThrottleAccel(actionName, inputState, inputObject)
+			if FFlagPlayerScriptsBindAtPriority then
+				self:BindContextActions()
+			else
+				if useTriggersForThrottle then
+					ContextActionService:BindAction("throttleAccel", (function(actionName, inputState, inputObject)
+						self:OnThrottleAccel(actionName, inputState, inputObject)
+						return Enum.ContextActionResult.Pass
+					end), false, Enum.KeyCode.ButtonR2)
+					ContextActionService:BindAction("throttleDeccel", (function(actionName, inputState, inputObject)
+						self:OnThrottleDeccel(actionName, inputState, inputObject)
+						return Enum.ContextActionResult.Pass
+					end), false, Enum.KeyCode.ButtonL2)
+				end
+				ContextActionService:BindAction("arrowSteerRight", (function(actionName, inputState, inputObject)
+					self:OnSteerRight(actionName, inputState, inputObject)
 					return Enum.ContextActionResult.Pass
-				end), false, Enum.KeyCode.ButtonR2)
-				ContextActionService:BindAction("throttleDeccel", (function(actionName, inputState, inputObject)
-					self:OnThrottleDeccel(actionName, inputState, inputObject)
+				end), false, Enum.KeyCode.Right)
+				ContextActionService:BindAction("arrowSteerLeft", (function(actionName, inputState, inputObject)
+					self:OnSteerLeft(actionName, inputState, inputObject)
 					return Enum.ContextActionResult.Pass
-				end), false, Enum.KeyCode.ButtonL2)
+				end), false, Enum.KeyCode.Left)
 			end
-			ContextActionService:BindAction("arrowSteerRight", (function(actionName, inputState, inputObject)
-				self:OnSteerRight(actionName, inputState, inputObject)
-				return Enum.ContextActionResult.Pass
-			end), false, Enum.KeyCode.Right)
-			ContextActionService:BindAction("arrowSteerLeft", (function(actionName, inputState, inputObject)
-				self:OnSteerLeft(actionName, inputState, inputObject)
-				return Enum.ContextActionResult.Pass
-			end), false, Enum.KeyCode.Left)
 		end
 	else
 		if useTriggersForThrottle then

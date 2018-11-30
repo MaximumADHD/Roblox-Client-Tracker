@@ -10,6 +10,7 @@ return function(networkInterface, settings, sortIndex)
 
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 			sortIndex = sortIndex,
+			page = 1,
 		}))
 	end
 end

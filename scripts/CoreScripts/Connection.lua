@@ -14,8 +14,18 @@ local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function() return tonumber(settings():GetFVariable(name)) end)
 	return success and result or defaultValue
 end
+
+local function safeGetFString(name, defaultValue)
+	local success, result = pcall(function() return settings():GetFVariable(name) end)
+	return success and result or defaultValue
+end
+
 local inGameGlobalGuiInset = safeGetFInt("InGameGlobalGuiInset", 36)
 local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
+
+-- when this flag turns on, all the errors will not have reconnect option
+local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
+local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
 
 local errorPrompt
 local graceTimeout = -1
@@ -27,7 +37,9 @@ local ConnectionPromptState = {
 	RECONNECT_DISCONNECT = 3, -- Show Disconnect Reconnect Options
 	TELEPORT_FAILED = 4, --  Show Teleport Failure Message
 	IS_RECONNECTING = 5, -- Show Reconnecting Animation
-	RECONNECT_DISABLED = 6, -- i.e After player being kicked from server
+	RECONNECT_DISABLED_DISCONNECT = 6, -- i.e After Player Being Kicked From Server
+	RECONNECT_DISABLED_PLACELAUNCH = 7, -- Unauthorized join
+	RECONNECT_DISABLED = 8, -- General Disable by FFlag, i.e overloaded servers
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -38,9 +50,11 @@ local errorForReconnect = Enum.ConnectionError.OK
 -- this will be loaded from localization table
 local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "Join Error",
+	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = "Join Error",
 	[ConnectionPromptState.RECONNECT_DISCONNECT] = "Disconnected",
-	[ConnectionPromptState.RECONNECT_DISABLED] = "Disconnected",
+	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = "Disconnected",
 	[ConnectionPromptState.TELEPORT_FAILED] = "Teleport Failed",
+	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
 }
 
 -- might have different design on xbox
@@ -65,7 +79,6 @@ local promptOverlay = create 'Frame' {
 	Active = false,
 	Parent = screenGui
 }
-
 errorPrompt:setParent(promptOverlay)
 
 -- Button Callbacks --
@@ -115,6 +128,11 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectHashTimeout] = true,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
 	[Enum.ConnectionError.DisconnectRaknetErrors] = true,
+	[Enum.ConnectionError.PlacelaunchFlooded] = true,
+	[Enum.ConnectionError.PlacelaunchHashException] = true,
+	[Enum.ConnectionError.PlacelaunchHashExpired] = true,
+	[Enum.ConnectionError.PlacelaunchGameEnded] = true,
+	[Enum.ConnectionError.PlacelaunchUnauthorized] = true,
 }
 
 local ButtonList = {
@@ -136,7 +154,7 @@ local ButtonList = {
 			Text = "Reconnect",
 			LayoutOrder = 2,
 			Callback = reconnectFunction,
-			Primary = true
+			Primary = true,
 		},
 		{
 			Text = "Leave",
@@ -149,6 +167,22 @@ local ButtonList = {
 			Text = "OK",
 			LayoutOrder = 1,
 			Callback = closePrompt,
+			Primary = true,
+		}
+	},
+	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = {
+		{
+			Text = "Leave",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+			Primary = true,
+		}
+	},
+	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = {
+		{
+			Text = "Leave",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
 			Primary = true,
 		}
 	},
@@ -183,6 +217,16 @@ local updateFullScreenEffect = {
 		promptOverlay.Active = true
 		promptOverlay.Transparency = 0.3
 	end,
+	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = function()
+		RunService:SetRobloxGuiFocused(true)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 1
+	end,
+	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = function()
+		RunService:SetRobloxGuiFocused(false)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 0.3
+	end,
 	[ConnectionPromptState.RECONNECT_DISABLED] = function()
 		RunService:SetRobloxGuiFocused(true)
 		promptOverlay.Active = true
@@ -210,19 +254,24 @@ local function stateTransit(errorType, errorCode, oldState)
 		return ConnectionPromptState.NONE
 	end
 
-	if reconnectDisabledList[errorCode] then
-		return ConnectionPromptState.RECONNECT_DISABLED
-	end
-
 	if oldState == ConnectionPromptState.NONE then
+		if reconnectDisabled then
+			return ConnectionPromptState.RECONNECT_DISABLED
+		end
 		if errorType == Enum.ConnectionError.DisconnectErrors then
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
 			errorForReconnect = Enum.ConnectionError.DisconnectErrors
+			if reconnectDisabledList[errorCode] then
+				return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
+			end
 			AnalyticsService:ReportCounter("ReconnectPrompt-Disconnect")
 			return ConnectionPromptState.RECONNECT_DISCONNECT
 		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
 			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
+			if reconnectDisabledList[errorCode] then
+				return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
+			end
 			AnalyticsService:ReportCounter("ReconnectPrompt-PlaceLaunch")
 			return ConnectionPromptState.RECONNECT_PLACELAUNCH
 		elseif errorType == Enum.ConnectionError.TeleportErrors then
@@ -258,6 +307,11 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 	if connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
 		errorMsg = string.match(errorMsg, "Teleport Failed: (.*)") or errorMsg
 	end
+
+	if connectionPromptState == ConnectionPromptState.RECONNECT_DISABLED then
+		errorMsg = reconnectDisabledReason
+	end
+
 	errorPrompt:onErrorChanged(errorMsg, errorCode)
 end
 

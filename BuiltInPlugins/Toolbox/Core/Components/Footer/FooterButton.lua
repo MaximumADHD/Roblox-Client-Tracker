@@ -1,15 +1,19 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local Background = require(Plugin.Core.Types.Background)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
+local BackgroundIcon = require(Plugin.Core.Components.Footer.BackgroundIcon)
 local RoundButton = require(Plugin.Core.Components.RoundButton)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local FooterButton = Roact.PureComponent:extend("FooterButton")
 
@@ -40,10 +44,18 @@ function FooterButton:render()
 		local footerTheme = theme.footer
 		local buttonTheme = footerTheme.button
 
+		local textWidth = props.textWidth or 0
+
+		local externalPadding = 6
+		local internalPadding = 4
+		local iconSize = Constants.BACKGROUND_BUTTON_ICON_SIZE
+
+		local width = externalPadding + iconSize + internalPadding + textWidth + externalPadding
+
 		return Roact.createElement(RoundButton, {
 			AnchorPoint = Vector2.new(0, 0.5),
 			LayoutOrder = index,
-			Size = UDim2.new(0, 58, 1, 0),
+			Size = UDim2.new(0, FFlagStudioLuaWidgetToolboxV2 and width or 58, 1, 0),
 
 			BackgroundColor3 = isSelected and buttonTheme.backgroundSelectedColor or buttonTheme.backgroundColor,
 			BorderColor3 = (isSelected or isHovered) and buttonTheme.borderSelectedColor or buttonTheme.borderColor,
@@ -53,29 +65,49 @@ function FooterButton:render()
 			[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
 		}, {
 			UIPadding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, 6),
-				PaddingLeft = UDim.new(0, 6),
-				PaddingRight = UDim.new(0, 6),
-				PaddingTop = UDim.new(0, 6),
+				PaddingBottom = UDim.new(0, externalPadding),
+				PaddingLeft = UDim.new(0, externalPadding),
+				PaddingRight = UDim.new(0, externalPadding),
+				PaddingTop = UDim.new(0, externalPadding),
 			}),
 
-			Icon = Background.renderIcon(index, {
+			UIListLayout = FFlagStudioLuaWidgetToolboxV2 and Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, internalPadding),
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			Icon = FFlagStudioLuaWidgetToolboxV2 and Roact.createElement(BackgroundIcon, {
+				backgroundIndex = index,
 				AnchorPoint = Vector2.new(0, 0.5),
 				Position = UDim2.new(0, 0, 0.5, 0),
-				Size = UDim2.new(0, Constants.BACKGROUND_ICON_SIZE, 0, Constants.BACKGROUND_ICON_SIZE),
+				Size = UDim2.new(0, iconSize, 0, iconSize),
+				LayoutOrder = 1,
+			}) or Background.DEPRECATED_renderIcon(index, {
+				AnchorPoint = Vector2.new(0, 0.5),
+				Position = UDim2.new(0, 0, 0.5, 0),
+				Size = UDim2.new(0, iconSize, 0, iconSize),
+				LayoutOrder = 1,
 			}),
 
 			TextLabel = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Position = UDim2.new(0, 14, 0, -1),
-				Size = UDim2.new(1, -14, 1, 0),
+				Position = (not FFlagStudioLuaWidgetToolboxV2)
+					and UDim2.new(0, iconSize + internalPadding, 0, -1) or nil,
+				Size = FFlagStudioLuaWidgetToolboxV2
+					and UDim2.new(0, textWidth, 1, -1)
+					or UDim2.new(1, -(iconSize + internalPadding), 1, 0),
 
 				TextColor3 = isSelected and buttonTheme.textSelectedColor or buttonTheme.textColor,
 
 				Font = Constants.FONT,
 				Text = name,
-				TextSize = Constants.FONT_SIZE_SMALL,
+				TextSize = Constants.BACKGROUND_BUTTON_FONT_SIZE,
+				TextYAlignment = FFlagStudioLuaWidgetToolboxV2 and Enum.TextYAlignment.Bottom or nil,
+				LayoutOrder = 2,
 			}),
 		})
 	end)

@@ -1,14 +1,19 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
 
 local Category = require(Plugin.Core.Types.Category)
+local Sort = require(Plugin.Core.Types.Sort)
+local Suggestion = require(Plugin.Core.Types.Suggestion)
 
 local SuggestionsButton = require(Plugin.Core.Components.Suggestions.SuggestionsButton)
 local SuggestionsLabel = require(Plugin.Core.Components.Suggestions.SuggestionsLabel)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+local FFlagHideSearchStringInToolboxMainViewHeader = settings():GetFFlag("HideSearchStringInToolboxMainViewHeader")
 
 local Layouter = {}
 
@@ -52,7 +57,11 @@ function Layouter.sliceAssetsFromBounds(idsToRender, lowerBound, upperBound)
 
 	if lowerBound > 0 and upperBound >= lowerBound then
 		for i = lowerBound, upperBound, 1 do
-			assetIds[#assetIds + 1] = idsToRender[i]
+			if FFlagStudioLuaWidgetToolboxV2 then
+				assetIds[#assetIds + 1] = {idsToRender[i], i}
+			else
+				assetIds[#assetIds + 1] = idsToRender[i]
+			end
 		end
 	end
 
@@ -88,17 +97,25 @@ function Layouter.calculateRenderBoundsForScrollingFrame(scrollingFrame, contain
 	return lowerBound, upperBound
 end
 
-function Layouter.calculateMainViewHeaderHeight(categoryIndex, searchTerm, suggestions, containerWidth)
+function Layouter.calculateMainViewHeaderHeight(categoryIndex, searchTerm, suggestionIntro, suggestions, containerWidth)
 	local headerHeight = 0
 	local headerToBodyPadding = 0
 
-	local showSort = #searchTerm > 0
-	local showSuggestions = searchTerm == ""
+	local showSort
+	local showSuggestions
 
-	-- Only the free assets have sort and suggestions
-	if not Category.categoryIsFreeAsset(categoryIndex) then
-		showSort = false
-		showSuggestions = false
+	if FFlagStudioLuaWidgetToolboxV2 then
+		showSort = Sort.canSort(searchTerm, categoryIndex)
+		showSuggestions = Suggestion.canHaveSuggestions(searchTerm, categoryIndex)
+	else
+		showSort = #searchTerm > 0
+		showSuggestions = searchTerm == ""
+
+		-- Only the free assets have sort and suggestions
+		if not Category.categoryIsFreeAsset(categoryIndex) then
+			showSort = false
+			showSuggestions = false
+		end
 	end
 
 	if showSort then
@@ -106,11 +123,16 @@ function Layouter.calculateMainViewHeaderHeight(categoryIndex, searchTerm, sugge
 		headerHeight = headerHeight + Constants.SORT_COMPONENT_HEIGHT
 	end
 
-	if showSuggestions then
+	if not FFlagHideSearchStringInToolboxMainViewHeader and showSuggestions then
 		headerToBodyPadding = Constants.MAIN_VIEW_VERTICAL_PADDING
 		local padding = showSort and Constants.MAIN_VIEW_VERTICAL_PADDING or 0
-		local height = Layouter.calculateSuggestionsHeight(Constants.SUGGESTIONS_INTRO_TEXT, suggestions, containerWidth)
+
+		local height = Layouter.calculateSuggestionsHeight(suggestionIntro, suggestions, containerWidth)
 		headerHeight = headerHeight + padding + height
+	end
+
+	if FFlagStudioLuaWidgetToolboxV2 then
+		headerHeight = math.max(headerHeight, Constants.MAIN_VIEW_NO_HEADER_HEIGHT)
 	end
 
 	return headerHeight, headerToBodyPadding
@@ -123,7 +145,12 @@ function Layouter.calculateSuggestionsHeight(initialText, suggestions, maxWidth)
 
 	-- Starts at 0, not 1
 	for index = 0, #suggestions, 1 do
-		local text = (index == 0) and initialText or suggestions[index]
+		local text
+		if FFlagStudioLuaWidgetToolboxV2 then
+			text = (index == 0) and initialText or suggestions[index].name
+		else
+			text = (index == 0) and initialText or suggestions[index]
+		end
 		local textWidth = Constants.getTextSize(text).x
 		if (rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
 			rowCount = rowCount + 1
@@ -172,7 +199,7 @@ local function addInitial(state, initialText)
 	state.rowWidth = Constants.getTextSize(initialText).x
 end
 
-local function addButton(state, index, text, maxWidth, onSuggestionSelected)
+local function addButton(state, index, text, search, maxWidth, onSuggestionSelected)
 	local textWidth = Constants.getTextSize(text).x
 
 	-- If adding this text won't fit then add the row we have so far and start a new row
@@ -180,7 +207,7 @@ local function addButton(state, index, text, maxWidth, onSuggestionSelected)
 		insertRow(state)
 	end
 
-	state.row[text] = Roact.createElement(SuggestionsButton, {
+	state.row[search] = Roact.createElement(SuggestionsButton, {
 		Text = text,
 		LayoutOrder = index,
 		onClicked = onSuggestionSelected,
@@ -213,8 +240,10 @@ function Layouter.layoutSuggestions(initialText, suggestions, maxWidth, onSugges
 
 	addInitial(state, initialText)
 
-	for index, _ in ipairs(suggestions) do
-		addButton(state, index, suggestions[index], maxWidth, onSuggestionSelected)
+	for index, suggestion in ipairs(suggestions) do
+		local text = FFlagStudioLuaWidgetToolboxV2 and suggestion.name or suggestion
+		local search = FFlagStudioLuaWidgetToolboxV2 and suggestion.search or text
+		addButton(state, index, text, search, maxWidth, onSuggestionSelected)
 	end
 
 	insertRow(state)

@@ -15,6 +15,11 @@ local StarterGui = game:GetService("StarterGui")
 local PathDisplay = nil
 local LocalPlayer = Players.LocalPlayer
 
+local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+end)
+local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+
 --[[ Constants ]]--
 local RECALCULATE_PATH_THRESHOLD = 4
 local NO_PATH_THRESHOLD = 12
@@ -53,8 +58,10 @@ local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacte
 local VRNavigation = setmetatable({}, BaseCharacterController)
 VRNavigation.__index = VRNavigation
 
-function VRNavigation.new()
+function VRNavigation.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(BaseCharacterController.new(), VRNavigation)
+	
+	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 	
 	self.navigationRequestedConn = nil
 	self.heartbeatConn = nil
@@ -252,12 +259,20 @@ function VRNavigation:OnJumpAction(actionName, inputState, inputObj)
 	if inputState == Enum.UserInputState.Begin then
 		self.isJumping = true
 	end
+	if FFlagPlayerScriptsBindAtPriority then
+		return Enum.ContextActionResult.Sink
+	end
 end
 function VRNavigation:BindJumpAction(active)
 	if active then
 		if not self.isJumpBound then
 			self.isJumpBound = true
-			ContextActionService:BindAction("VRJumpAction", (function() self:OnJumpAction() end), false, Enum.KeyCode.ButtonA)
+			if FFlagPlayerScriptsBindAtPriority then
+				ContextActionService:BindActionAtPriority("VRJumpAction", (function() return self:OnJumpAction() end), false,
+				 self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA)
+			else
+				ContextActionService:BindAction("VRJumpAction", (function() self:OnJumpAction() end), false, Enum.KeyCode.ButtonA)
+			end
 		end
 	else
 		if self.isJumpBound then
@@ -306,6 +321,9 @@ function VRNavigation:ControlCharacterGamepad(actionName, inputState, inputObjec
 			self.moveLatch = false
 			movementUpdateEvent:Fire("offtrack")
 		end
+	end
+	if FFlagPlayerScriptsBindAtPriority then
+		return Enum.ContextActionResult.Sink
 	end
 end
 
@@ -412,7 +430,12 @@ function VRNavigation:Enable(enable)
 		self.navigationRequestedConn = VRService.NavigationRequested:Connect(function(destinationCFrame, inputUserCFrame) self:OnNavigationRequest(destinationCFrame, inputUserCFrame) end)
 		self.heartbeatConn = RunService.Heartbeat:Connect(function(dt) self:OnHeartbeat(dt) end)
 		
-		ContextActionService:BindAction("MoveThumbstick", (function(actionName, inputState, inputObject) self:ControlCharacterGamepad(actionName, inputState, inputObject) end), false, Enum.KeyCode.Thumbstick1)
+		if FFlagPlayerScriptsBindAtPriority then 
+			ContextActionService:BindAction("MoveThumbstick", (function(actionName, inputState, inputObject) return self:ControlCharacterGamepad(actionName, inputState, inputObject) end),
+				false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Thumbstick1)
+		else
+			ContextActionService:BindAction("MoveThumbstick", (function(actionName, inputState, inputObject) self:ControlCharacterGamepad(actionName, inputState, inputObject) end), false, Enum.KeyCode.Thumbstick1)
+		end
 		ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)	
 		
 		self.userCFrameEnabledConn = VRService.UserCFrameEnabled:Connect(function() self:OnUserCFrameEnabled() end)

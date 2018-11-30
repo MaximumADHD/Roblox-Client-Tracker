@@ -19,15 +19,19 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local getNetwork = require(Plugin.Core.Consumers.getNetwork)
-local getSettings = require(Plugin.Core.Consumers.getSettings)
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local Sort = require(Plugin.Core.Types.Sort)
+
+local getNetwork = ContextGetter.getNetwork
+local getSettings = ContextGetter.getSettings
+local withTheme = ContextHelper.withTheme
 
 local Footer = require(Plugin.Core.Components.Footer.Footer)
 local Header = require(Plugin.Core.Components.Header)
@@ -36,6 +40,8 @@ local SoundPreviewComponent = require(Plugin.Core.Components.SoundPreviewCompone
 
 local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetManageableGroupsRequest)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -54,7 +60,7 @@ function Toolbox:handleInitialSettings()
 
 	local initialSelectedSortIndex = initialSettings.sortIndex or 1
 	if initialSelectedSortIndex < 1 or initialSelectedSortIndex > #self.props.sorts then
-		initialSelectedSortIndex = 1
+		initialSelectedSortIndex = Sort.getDefaultSortForCategory(initialSelectedCategoryIndex)
 	end
 
 	local initialSelectedBackgroundIndex = initialSettings.backgroundIndex or 1
@@ -77,7 +83,18 @@ function Toolbox:init(props)
 		toolboxWidth = math.max(props.initialWidth or 0, Constants.TOOLBOX_MIN_WIDTH),
 	}
 
-	self.onAbsoluteSizeChange = function(rbx)
+	self.toolboxRef = Roact.createRef()
+
+	-- If flag is on, use function that gets ref, else use old with rbx param
+	self.onAbsoluteSizeChange = FFlagStudioLuaWidgetToolboxV2 and function()
+		local toolboxWidth = math.max(self.toolboxRef.current.AbsoluteSize.x,
+			Constants.TOOLBOX_MIN_WIDTH)
+		if self.state.toolboxWidth ~= toolboxWidth then
+			self:setState({
+				toolboxWidth = toolboxWidth,
+			})
+		end
+	end or function(rbx)
 		local toolboxWidth = math.max(rbx.AbsoluteSize.x, Constants.TOOLBOX_MIN_WIDTH)
 		if self.state.toolboxWidth ~= toolboxWidth then
 			self:setState({
@@ -86,11 +103,20 @@ function Toolbox:init(props)
 		end
 	end
 
-	self:handleInitialSettings()
+	if not FFlagStudioLuaWidgetToolboxV2 then
+		self:handleInitialSettings()
+	end
 end
 
 function Toolbox:didMount()
-	-- Once the roact components have loaded, load the groups
+	if FFlagStudioLuaWidgetToolboxV2 then
+		if self.toolboxRef.current then
+			self.toolboxRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(self.onAbsoluteSizeChange)
+		end
+
+		self:handleInitialSettings()
+	end
+
 	self.props.loadManageableGroups(getNetwork(self))
 end
 
@@ -106,6 +132,11 @@ function Toolbox:render()
 
 		local toolboxTheme = theme.toolbox
 
+		local onAbsoluteSizeChange = nil
+		if not FFlagStudioLuaWidgetToolboxV2 then
+			onAbsoluteSizeChange = self.onAbsoluteSizeChange
+		end
+
 		return Roact.createElement("Frame", {
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -113,7 +144,8 @@ function Toolbox:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = toolboxTheme.backgroundColor,
 
-			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
+			[Roact.Ref] = self.toolboxRef,
+			[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
 		}, {
 			Header = Roact.createElement(Header, {
 				maxWidth = toolboxWidth,
@@ -138,12 +170,11 @@ end
 
 local function mapStateToProps(state, props)
 	state = state or {}
-
 	local pageInfo = state.pageInfo or {}
 
 	return {
 		categories = pageInfo.categories or {},
-		sorts = pageInfo.sorts or {},
+		sorts = pageInfo.sorts or {}
 	}
 end
 

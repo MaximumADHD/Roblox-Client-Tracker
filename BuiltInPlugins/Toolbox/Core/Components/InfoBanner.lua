@@ -11,12 +11,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
 local function InfoBanner(props)
 	return withTheme(function(theme)

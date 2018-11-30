@@ -1,14 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
-local networkInterfaceKey = require(Plugin.Core.Keys.networkInterfaceKey)
+local Keys = require(Plugin.Core.Util.Keys)
 
 local NetworkProvider = Roact.PureComponent:extend("NetworkProvider")
 
 function NetworkProvider:init(props)
-	self._context[networkInterfaceKey] = props.networkInterface
+	self._context[Keys.networkInterface] = props.networkInterface
 end
 
 function NetworkProvider:render()

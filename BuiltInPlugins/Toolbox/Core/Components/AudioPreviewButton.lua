@@ -14,12 +14,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
 local AudioPreviewButton = Roact.PureComponent:extend("AudioPreviewButton")
 

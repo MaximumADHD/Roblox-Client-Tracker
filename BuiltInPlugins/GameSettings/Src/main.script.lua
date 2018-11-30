@@ -6,6 +6,7 @@ end
 local FFlagStudioUseLuaGameSettingsDialog = settings():GetFFlag("StudioUseLuaGameSettingsDialog")
 local FFlagStudioLuaGameSettingsDialog2 = settings():GetFFlag("StudioLuaGameSettingsDialog2")
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 
 if not FFlagStudioUseLuaGameSettingsDialog then
 	return
@@ -67,6 +68,10 @@ else
 		"Avatar",
 		"Options",
 	}
+end
+
+if FFlagStudioLocalizationGameSettings then
+	table.insert(settingsPages, "Localization")
 end
 
 local function showDialog(type, props)

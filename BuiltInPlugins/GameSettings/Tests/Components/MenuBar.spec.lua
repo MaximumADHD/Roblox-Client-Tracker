@@ -76,7 +76,27 @@ return function()
 			Changed = {},
 			Errors = {
 				name = "Filtered",
-			}
+			},
+			Warnings = {},
+		}), container)
+		local menuBar = container.Frame
+
+		expect(menuBar["1"].Error.Visible).to.equal(true)
+		expect(menuBar["2"].Error.Visible).to.equal(false)
+
+		Roact.unmount(instance)
+	end)
+
+	it("should tell MenuEntries with warnings to highlight", function()
+		local container = workspace
+		local instance = Roact.mount(createTestMenuBar({
+			{Name = "Basic Info"},
+			{Name = "Entry2"},
+		}, {
+			Current = {},
+			Changed = {},
+			Errors = {},
+			Warnings = {"isActive"}
 		}), container)
 		local menuBar = container.Frame
 

@@ -111,7 +111,6 @@ function ConversationEntry:render()
 							senderId = senderId,
 							conversationId = tostring(results.conversationId),
 							participants = participantsString,
-							wasModerated = results.wasModerated,
 						}
 
 						self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)

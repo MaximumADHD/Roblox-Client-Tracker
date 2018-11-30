@@ -17,12 +17,17 @@ local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers
 local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
 local homePageDataFetchRefactor = settings():GetFFlag('LuaHomePageDataFetchRefactor')
 
-return function(requestImpl, userId, thumbnailRequest)
+return function(requestImpl, userId, thumbnailRequest, checkPoints)
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
 		if not LuaAppRemoveGetFriendshipCountApiCalls then
 			store:dispatch(ApiFetchUsersFriendCount(requestImpl))
 		end
+
+		if checkPoints ~= nil and checkPoints.startFetchUserFriends ~= nil then
+			checkPoints:startFetchUserFriends()
+		end
+
 		return UsersGetFriends(requestImpl, userId):andThen(function(response)
 			local responseBody = response.responseBody
 
@@ -40,14 +45,27 @@ return function(requestImpl, userId, thumbnailRequest)
 			else
 				store:dispatch(AddUsers(newUsers))
 			end
+
+			if checkPoints ~= nil and checkPoints.finishFetchUserFriends ~= nil then
+				checkPoints:finishFetchUserFriends()
+			end
+
 			return userIds
 		end):andThen(function(userIds)
+			if checkPoints ~= nil and checkPoints.startFetchUsersPresences ~= nil then
+				checkPoints:startFetchUsersPresences()
+			end
 			-- Asynchronously fetch friend thumbnails so we don't block display of UI
 			store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
 			return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 		end):andThen(
 			function(result)
 				store:dispatch(FetchUserFriendsCompleted(userId))
+
+				if checkPoints ~= nil and checkPoints.finishFetchUsersPresences ~= nil then
+					checkPoints:finishFetchUsersPresences()
+				end
+
 				if homePageDataFetchRefactor then
 					return Promise.resolve(result)
 				end

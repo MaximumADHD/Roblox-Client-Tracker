@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local createSignal = require(Plugin.Core.Util.createSignal)
 
 local ModalStatus = {}
+ModalStatus.__index = ModalStatus
 
 function ModalStatus.new()
 	return setmetatable({
@@ -20,9 +21,7 @@ function ModalStatus.new()
 		_currentTooltipTypeId = 0,
 
 		_isDropdownShown = false,
-	}, {
-		__index = ModalStatus,
-	})
+	}, ModalStatus)
 end
 
 function ModalStatus:subscribe(...)

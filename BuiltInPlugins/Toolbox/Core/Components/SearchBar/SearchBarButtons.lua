@@ -1,13 +1,13 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
-local MouseManager = require(Plugin.Core.Util.MouseManager)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
 local SearchBarButtons = Roact.PureComponent:extend("SearchBar")
 
@@ -18,18 +18,12 @@ function SearchBarButtons:init()
 	}
 
 	self.onClearButtonHovered = function()
-		if not self.state.isClearButtonHovered then
-			MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
-		end
 		self:setState({
 			isClearButtonHovered = true,
 		})
 	end
 
 	self.onClearButtonHoverEnded = function()
-		if self.state.isClearButtonHovered then
-			MouseManager:popIcon(Images.CURSOR_POINTING_HAND)
-		end
 		self:setState({
 			isClearButtonHovered = false,
 		})
@@ -44,18 +38,12 @@ function SearchBarButtons:init()
 	end
 
 	self.onSearchButtonHovered = function()
-		if not self.state.isSearchButtonHovered then
-			MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
-		end
 		self:setState({
 			isSearchButtonHovered = true,
 		})
 	end
 
 	self.onSearchButtonHoverEnded = function()
-		if self.state.isSearchButtonHovered then
-			MouseManager:popIcon(Images.CURSOR_POINTING_HAND)
-		end
 		self:setState({
 			isSearchButtonHovered = false,
 		})

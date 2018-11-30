@@ -1,11 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
-local getTheme = require(Plugin.Core.Consumers.getTheme)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 
-local ThemeConsumer = Roact.Component:extend("ThemeConsumer")
+local getTheme = ContextGetter.getTheme
+
+local ThemeConsumer = Roact.PureComponent:extend("ThemeConsumer")
 
 function ThemeConsumer:init()
 	local theme = getTheme(self)
@@ -29,7 +31,9 @@ function ThemeConsumer:didMount()
 end
 
 function ThemeConsumer:willUnmount()
-	self.disconnectThemeListener()
+	if self.disconnectThemeListener then
+		self.disconnectThemeListener()
+	end
 end
 
 return ThemeConsumer

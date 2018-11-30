@@ -25,6 +25,7 @@ local DataStores = require(Components.DataStores.MainViewDataStores)
 local ServerStats = require(Components.ServerStats.MainViewServerStats)
 local ActionBindings = require(Components.ActionBindings.MainViewActionBindings)
 local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
+local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
 
 local MainView = require(DevConsole.Reducers.MainView)
 local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
@@ -38,6 +39,8 @@ local ReportTabChanges = require(MiddleWare.ReportTabChanges)
 
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
+local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup")
+local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -74,8 +77,15 @@ local DEV_TAB_LIST = {
 	ServerJobs = {
 		tab = ServerJobs,
 		layoutOrder = 8,
-	}
+	},
+
 }
+if DFFlagEnableRemoteProfilingForDevConsole then
+	DEV_TAB_LIST["MicroProfiler"] = {
+		tab = MicroProfiler,
+		layoutOrder = 9,
+	}
+end
 
 local PLAYER_TAB_LIST = {
 	Log = {
@@ -141,6 +151,21 @@ function DevConsoleMaster.new()
 	local self = {}
 	setmetatable(self, DevConsoleMaster)
 
+	if FFlagDevConsoleNoWaitSetup then
+		self.init = false
+		self.waitForStart = true
+		self.waitForStartBindable = Instance.new("BindableEvent")
+		coroutine.wrap(function()
+			self:SetupDevConsole()
+		end)()
+	else
+		self:SetupDevConsole()
+	end
+
+	return self
+end
+
+function DevConsoleMaster:SetupDevConsole()
 	-- will need to decide on whether to use DPI and screensize or
 	-- to use Platform to distinguish between the different form factors
 	local platformEnum = UserInputService:GetPlatform()
@@ -153,6 +178,14 @@ function DevConsoleMaster.new()
 		MainView = MainView(nil, SetTabList(developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST, "Log")),
 	}
 
+	if DFFlagEnableRemoteProfilingForDevConsole and developerConsoleView then
+		-- we disable the microprofiler tab on non desktop devices.
+		if formFactor == Constants.FormFactor.Small or
+			formFactor == Constants.FormFactor.Console then
+			DEV_TAB_LIST["MicroProfiler"] = nil
+		end
+	end
+
 	-- create store
 	if FFlagDevConsoleTabMetrics then
 		self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, {
@@ -162,7 +195,9 @@ function DevConsoleMaster.new()
 		self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore)
 	end
 
-	self.init = false
+	if not FFlagDevConsoleNoWaitSetup then
+		self.init = false
+	end
 	local isVisible = self.store:getState().DisplayOptions.isVisible
 
 	-- use connector to wrap store and root together
@@ -185,20 +220,33 @@ function DevConsoleMaster.new()
 			}),
 		})
 	})
-	return self
+
+	if FFlagDevConsoleNoWaitSetup then
+		self.waitForStart = false
+		self.waitForStartBindable:Fire()
+	end
 end
 
 local master = DevConsoleMaster.new()
 
 function DevConsoleMaster:Start()
 	if not self.init then
+		if FFlagDevConsoleNoWaitSetup and self.waitForStart then
+			self.waitForStartBindable:wait()
+		end
 		self.init = true
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
 	end
 end
 
 if START_DATA_ON_INIT then
-	master:Start()
+	if FFlagDevConsoleNoWaitSetup then
+		coroutine.wrap(function()
+			master:Start()
+		end)
+	else
+		master:Start()
+	end
 end
 
 function DevConsoleMaster:ToggleVisibility()

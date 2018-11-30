@@ -73,12 +73,12 @@ function MenuEntry:render()
 
 			Error = Roact.createElement("ImageLabel", {
 				ZIndex = 3,
-				Visible = self.props.Error or false,
+				Visible = self.props.Error or self.props.Warning or false,
 				Size = UDim2.new(0, 18, 0, 18),
 				Position = UDim2.new(1, -12, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = Constants.ERROR_IMAGE,
+				Image = self.props.Error and Constants.ERROR_IMAGE or Constants.WARNING_IMAGE,
 			}),
 		})
 	end)

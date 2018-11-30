@@ -7,9 +7,11 @@ return function()
 
 	local MenuEntry = require(Plugin.Src.Components.MenuEntry)
 
+	local Constants = require(Plugin.Src.Util.Constants)
+
 	local theme = Theme.newDummyTheme()
 
-	local function createTestMenuEntry(selected, err)
+	local function createTestMenuEntry(selected, err, warning)
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
@@ -17,6 +19,7 @@ return function()
 				Title = "Title",
 				Selected = selected,
 				Error = err or false,
+				Warning = warning or false,
 				OnClicked = function()
 				end,
 			}),
@@ -68,6 +71,24 @@ return function()
 		instance = Roact.reconcile(instance, newMenuEntry)
 
 		expect(menuEntry.Error.Visible).to.equal(true)
+		expect(menuEntry.Error.Image).to.equal(Constants.ERROR_IMAGE)
+
+		Roact.unmount(instance)
+	end)
+
+	it("should show a warning icon when appropriate", function ()
+		local container = workspace
+		local instance = Roact.mount(createTestMenuEntry(false, false, false), container)
+		local menuEntry = container.Frame
+
+		expect(menuEntry.Error.Visible).to.equal(false)
+
+		local newMenuEntry = createTestMenuEntry(false, false, true)
+
+		instance = Roact.reconcile(instance, newMenuEntry)
+
+		expect(menuEntry.Error.Visible).to.equal(true)
+		expect(menuEntry.Error.Image).to.equal(Constants.WARNING_IMAGE)
 
 		Roact.unmount(instance)
 	end)

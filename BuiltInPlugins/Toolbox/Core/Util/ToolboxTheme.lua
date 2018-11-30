@@ -1,11 +1,17 @@
 local Plugin = script.Parent.Parent.Parent
 
+local Libs = Plugin.Libs
+local Cryo = require(Libs.Cryo)
+
 local Colors = require(Plugin.Core.Util.Colors)
 local createSignal = require(Plugin.Core.Util.createSignal)
 local Immutable = require(Plugin.Core.Util.Immutable)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+
 local ToolboxTheme = {}
+ToolboxTheme.__index = ToolboxTheme
 
 function ToolboxTheme.enableLuaApisForTheme()
 	return settings():GetFFlag("StudioEnableLuaAPIsForThemes")
@@ -28,6 +34,12 @@ function ToolboxTheme.createDummyThemeManager()
 	end
 end
 
+--[[
+	options:
+		getTheme : function void -> Theme
+		isDarkerTheme : function Theme -> bool
+		themeChanged : RbxScriptSignal
+]]
 function ToolboxTheme.new(options)
 	local self = {
 		_externalThemeGetter = options.getTheme or nil,
@@ -43,9 +55,7 @@ function ToolboxTheme.new(options)
 
 	self.values = wrapStrictTable(self._values, "theme")
 
-	setmetatable(self, {
-		__index = ToolboxTheme
-	})
+	setmetatable(self, ToolboxTheme)
 
 	if self._externalThemeChangedSignal then
 		self._externalThemeChangedConnection = self._externalThemeChangedSignal:Connect(function()
@@ -68,7 +78,8 @@ function ToolboxTheme:destroy()
 end
 
 function ToolboxTheme:_update(changedValues)
-	self._values = Immutable.JoinDictionaries(self._values, changedValues)
+	self._values = (FFlagStudioLuaWidgetToolboxV2 and Cryo.Dictionary.join or Immutable.JoinDictionaries)(self._values,
+		changedValues)
 	self.values = wrapStrictTable(self._values, "theme")
 	self._signal:fire(self.values)
 end
@@ -87,7 +98,7 @@ function ToolboxTheme:_isDarkerTheme()
 	local getter = self._isDarkThemeGetter
 
 	if type(getter) == "function" then
-		return getter()
+		return getter(self:_getExternalTheme())
 	end
 
 	return getter and true or false
@@ -193,7 +204,9 @@ function ToolboxTheme:_recalculateTheme()
 					upVotes = Color3.fromRGB(82, 168, 70),
 					downVotes = Color3.fromRGB(206, 100, 91),
 
-					-- TODO CLIDEVSRVS-1690: The buttons should use ImageColor3 instead of multiple images
+					votedUpThumb = Color3.fromRGB(0, 178, 89),
+					votedDownThumb = Color3.fromRGB(216, 104, 104),
+					voteThumb = Color3.fromRGB(117, 117, 117),
 				},
 			},
 
@@ -245,6 +258,24 @@ function ToolboxTheme:_recalculateTheme()
 				textHoveredColor = color(c.LinkText),
 				underlineColor = color(c.LinkText),
 			},
+
+			-- TODO: Look at adding this to flag off case
+			-- In case improvements flag is on but themes get turned off
+			messageBox = {
+				backgroundColor = color(c.MainBackground),
+				textColor = color(c.MainText),
+				informativeTextColor = color(c.SubText),
+
+				button = {
+					textColor = color(c.MainText),
+					textSelectedColor = color(c.MainText, m.Selected),
+					backgroundColor = color(c.MainBackground),
+					backgroundSelectedColor = color(c.CurrentMarker),
+					borderColor = color(c.Border),
+					borderSelectedColor = color(c.CurrentMarker),
+				}
+
+			}
 		})
 	else
 		self:_update({

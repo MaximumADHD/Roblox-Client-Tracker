@@ -14,10 +14,12 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+
+local withTheme = ContextHelper.withTheme
 
 local RunService = game:GetService("RunService")
 

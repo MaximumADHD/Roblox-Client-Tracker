@@ -57,6 +57,8 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [NotCreatable] [Service]
+	Function string AnalyticsService:GetClientId() {RobloxScriptSecurity}
+	Function string AnalyticsService:GetSessionId() {RobloxScriptSecurity}
 	Function void AnalyticsService:ReleaseRBXEventStream(string target) {RobloxScriptSecurity}
 	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) {RobloxScriptSecurity}
 	Function void AnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) {RobloxScriptSecurity}
@@ -1319,6 +1321,7 @@ Class Keyframe : Instance
 	Function Objects Keyframe:GetPoses()
 	Function void Keyframe:RemovePose(Instance pose)
 Class KeyframeSequence : Instance
+	Property float KeyframeSequence.AuthoredHipHeight {PluginSecurity}
 	Property bool KeyframeSequence.Loop
 	Property Enum<AnimationPriority> KeyframeSequence.Priority
 	Function void KeyframeSequence:AddKeyframe(Instance keyframe)
@@ -1382,8 +1385,10 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player) [Yields]
+	Function void LocalizationService:PromptDownloadGameTableToCSV(Instance table) {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:PromptExportToCSVs() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:PromptImportFromCSVs() {RobloxScriptSecurity} [Yields]
+	Function Instance LocalizationService:PromptUploadCSVToGameTable() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:StartTextScraper() {RobloxScriptSecurity}
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
@@ -1528,7 +1533,9 @@ Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function Instance NetworkReplicator:GetPlayer()
 	Function string NetworkReplicator:GetRakStatsString(int verbosityLevel = 0) {PluginSecurity}
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
+	Function void ClientReplicator:RequestRCCProfilerData(int frameRate, int timeFrame) {RobloxScriptSecurity}
 	Function void ClientReplicator:RequestServerStats(bool request) {RobloxScriptSecurity}
+	Event ClientReplicator.RCCProfilerDataComplete(bool success, string message) {RobloxScriptSecurity}
 	Event ClientReplicator.StatsReceived(Dictionary stats) {RobloxScriptSecurity}
 Class ServerReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 Class NetworkSettings : Instance [Service] [NotBrowsable]
@@ -2060,7 +2067,8 @@ Class Plugin : Instance [NotCreatable]
 	Property float Plugin.GridSize [ReadOnly]
 	Function void Plugin:Activate(bool exclusiveMouse) {PluginSecurity}
 	Function Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) {PluginSecurity} [Yields]
-	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "") {PluginSecurity}
+	Function Instance Plugin:CreatePluginAction(string actionId, string text, string statusTip, string iconName = "", bool allowBinding = true) {PluginSecurity}
+	Function Instance Plugin:CreatePluginMenu(string id, string title = "", string icon = "") {PluginSecurity}
 	Function Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) {RobloxScriptSecurity} [Yields]
 	Function Instance Plugin:CreateToolbar(string name) {PluginSecurity}
 	Function void Plugin:Deactivate() {PluginSecurity}
@@ -2092,6 +2100,7 @@ Class Plugin : Instance [NotCreatable]
 	Event Plugin.Deactivation() {PluginSecurity}
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId [ReadOnly]
+	Property bool PluginAction.AllowBinding [ReadOnly]
 	Property string PluginAction.StatusTip [ReadOnly]
 	Property string PluginAction.Text [ReadOnly]
 	Event PluginAction.Triggered() {PluginSecurity}
@@ -2105,6 +2114,15 @@ Class PluginManager : Instance [NotCreatable]
 	Function Instance PluginManager:CreatePlugin() {PluginSecurity} [CustomLuaState]
 	Function void PluginManager:ExportPlace(string filePath = "") {PluginSecurity}
 	Function void PluginManager:ExportSelection(string filePath = "") {PluginSecurity}
+Class PluginMenu : Instance [NotCreatable] [NotReplicated]
+	Property string PluginMenu.Icon [NotReplicated]
+	Property string PluginMenu.Title [NotReplicated]
+	Function void PluginMenu:AddAction(Instance action) {PluginSecurity}
+	Function void PluginMenu:AddMenu(Instance menu) {PluginSecurity}
+	Function Instance PluginMenu:AddNewAction(string actionId, string text, string icon = "") {PluginSecurity}
+	Function void PluginMenu:AddSeparator() {PluginSecurity}
+	Function void PluginMenu:Clear() {PluginSecurity}
+	Function Instance PluginMenu:ShowAsync() {PluginSecurity} [Yields]
 Class PointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function Tuple PointsService:AwardPoints(int64 userId, int amount) [Yields] [Deprecated]
 	Function int PointsService:GetAwardablePoints() [Deprecated]
@@ -2492,6 +2510,10 @@ Class RunningAverageItemDouble : StatsItem [NotCreatable]
 Class RunningAverageItemInt : StatsItem [NotCreatable]
 Class RunningAverageTimeIntervalItem : StatsItem [NotCreatable]
 Class TotalCountTimeIntervalItem : StatsItem [NotCreatable]
+Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void StopWatchReporter:FinishTask(int taskId) {RobloxScriptSecurity}
+	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
+	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Debug Client In APS Mode
 	Property bool Studio.Disable Accurate Play Solo
@@ -2564,6 +2586,9 @@ Class Studio : Instance [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript [ReadOnly]
+	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
+	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
+	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = Default) {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = Default) {PluginSecurity}
@@ -2770,6 +2795,8 @@ Class UserGameSettings : Instance [Service]
 	Property bool UserGameSettings.OnScreenProfilerEnabled {RobloxScriptSecurity} [Hidden]
 	Property string UserGameSettings.OnboardingsCompleted {RobloxScriptSecurity}
 	Property bool UserGameSettings.PerformanceStatsVisible {RobloxScriptSecurity} [Hidden]
+	Property int UserGameSettings.RCCProfilerRecordFrameRate
+	Property int UserGameSettings.RCCProfilerRecordTimeFrame
 	Property bool UserGameSettings.StartMaximized {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
 	Property Vector2 UserGameSettings.StartScreenPosition {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
 	Property Vector2 UserGameSettings.StartScreenSize {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
@@ -3404,6 +3431,10 @@ Enum Font
 	EnumItem Font.Fantasy : 14
 	EnumItem Font.Antique : 15
 	EnumItem Font.SourceSansSemibold : 16
+	EnumItem Font.Gotham : 17 [Deprecated]
+	EnumItem Font.GothamSemibold : 18 [Deprecated]
+	EnumItem Font.GothamBold : 19 [Deprecated]
+	EnumItem Font.GothamBlack : 20 [Deprecated]
 Enum FontSize
 	EnumItem FontSize.Size8 : 0
 	EnumItem FontSize.Size9 : 1

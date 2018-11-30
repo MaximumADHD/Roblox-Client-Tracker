@@ -14,6 +14,8 @@
 
 		string Text = The text to display in the TextBox
 		function SetText(text) = Callback to tell parent that text has changed
+		function FocusChanged(focused) = Callback when this TextBox is focused.
+		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
 
 local DEFAULT_HEIGHT = 42
@@ -34,13 +36,24 @@ function RoundTextBox:init()
 	self.state = {
 		Focused = false,
 	}
-end
 
-function RoundTextBox:focusChanged(focused)
-	if self.props.Active then
-		self:setState(Cryo.Dictionary.join(self.state, {
-			Focused = focused,
-		}))
+	self.focusChanged = function(focused)
+		if self.props.Active then
+			if self.props.FocusChanged then
+				self.props.FocusChanged(focused)
+			end
+			self:setState(Cryo.Dictionary.join(self.state, {
+				Focused = focused,
+			}))
+		end
+	end
+
+	self.mouseHoverChanged = function(hovering)
+		if self.props.Active and self.state.Focused then
+			if self.props.HoverChanged then
+				self.props.HoverChanged(hovering)
+			end
+		end
 	end
 end
 
@@ -95,9 +108,8 @@ function RoundTextBox:render()
 		local textEntryProps = {
 			Visible = self.props.Active,
 			Text = self.props.Text,
-			FocusChanged = function(focused)
-				self:focusChanged(focused)
-			end,
+			FocusChanged = self.focusChanged,
+			HoverChanged = self.mouseHoverChanged,
 			SetText = self.props.SetText,
 			TextColor3 = theme.textBox.text,
 		}

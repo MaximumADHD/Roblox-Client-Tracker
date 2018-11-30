@@ -17,20 +17,23 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
 local Category = require(Plugin.Core.Types.Category)
 
-local getNetwork = require(Plugin.Core.Consumers.getNetwork)
-local getSettings = require(Plugin.Core.Consumers.getSettings)
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local getNetwork = ContextGetter.getNetwork
+local getSettings = ContextGetter.getSettings
+local withTheme = ContextHelper.withTheme
+local withLocalization = ContextHelper.withLocalization
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
@@ -75,80 +78,84 @@ end
 
 function Header:render()
 	return withTheme(function(theme)
-		local props = self.props
+		return withLocalization(function(localization, localizedContent)
+			local props = self.props
 
-		local categories = props.categories
-		local categoryIndex = props.categoryIndex or 0
-		local onCategorySelected = self.onCategorySelected
+			local categories = localization:getLocalizedCategores(props.categories)
+			local categoryIndex = props.categoryIndex or 0
+			local onCategorySelected = self.onCategorySelected
 
-		local searchTerm = props.searchTerm
-		local onSearchRequested = self.onSearchRequested
+			local searchTerm = props.searchTerm
+			local onSearchRequested = self.onSearchRequested
 
-		local groups = props.groups
-		local groupIndex = props.groupIndex
-		local onGroupSelected = self.onGroupSelected
+			local groups = props.groups
+			local groupIndex = props.groupIndex
+			local onGroupSelected = self.onGroupSelected
 
-		local maxWidth = props.maxWidth or 0
-		local searchBarWidth = math.max(100, maxWidth
-				- (2 * Constants.HEADER_OUTER_PADDING)
-				- Constants.HEADER_CATEGORY_DROPDOWN_WIDTH
-				- Constants.HEADER_INNER_PADDING)
+			local maxWidth = props.maxWidth or 0
+			local searchBarWidth = math.max(100, maxWidth
+					- (2 * Constants.HEADER_OUTER_PADDING)
+					- Constants.HEADER_CATEGORY_DROPDOWN_WIDTH
+					- Constants.HEADER_INNER_PADDING)
 
-		local isGroupCategory = Category.categoryIsGroupAsset(props.categoryIndex)
+			local isGroupCategory = Category.categoryIsGroupAsset(props.categoryIndex)
 
-		local headerTheme = theme.header
+			local headerTheme = theme.header
 
-		return Roact.createElement("ImageButton", {
-			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
-			BackgroundColor3 = headerTheme.backgroundColor,
-			BorderColor3 = headerTheme.borderColor,
-			ZIndex = 2,
-			AutoButtonColor = false,
-		},{
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-				PaddingLeft = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-				PaddingRight = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-				PaddingTop = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-			}),
-
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, Constants.HEADER_INNER_PADDING),
-			}),
-
-			CategoryMenu = Roact.createElement(DropdownMenu, {
+			return Roact.createElement("ImageButton", {
 				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(0, Constants.HEADER_CATEGORY_DROPDOWN_WIDTH, 1, 0),
-				LayoutOrder = 0,
-				visibleDropDownCount = 8,
-				selectedDropDownIndex = categoryIndex,
+				Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
+				BackgroundColor3 = headerTheme.backgroundColor,
+				BorderColor3 = headerTheme.borderColor,
+				ZIndex = 2,
+				AutoButtonColor = false,
+			},{
+				UIPadding = Roact.createElement("UIPadding", {
+					PaddingBottom = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+					PaddingLeft = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+					PaddingRight = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+					PaddingTop = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+				}),
 
-				items = categories,
-				onItemClicked = onCategorySelected,
-			}),
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, Constants.HEADER_INNER_PADDING),
+				}),
 
-			SearchBar = not isGroupCategory and Roact.createElement(SearchBar, {
-				width = searchBarWidth,
-				LayoutOrder = 1,
+				CategoryMenu = Roact.createElement(DropdownMenu, {
+					Position = UDim2.new(0, 0, 0, 0),
+					Size = UDim2.new(0, Constants.HEADER_CATEGORY_DROPDOWN_WIDTH, 1, 0),
+					LayoutOrder = 0,
+					visibleDropDownCount = 8,
+					selectedDropDownIndex = categoryIndex,
 
-				searchTerm = searchTerm,
-				onSearchRequested = onSearchRequested,
-			}),
+					items = categories,
+					key = "category",
+					onItemClicked = onCategorySelected,
+				}),
 
-			GroupMenu = isGroupCategory and Roact.createElement(DropdownMenu, {
-				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(0, searchBarWidth, 1, 0),
-				LayoutOrder = 1,
-				visibleDropDownCount = 8,
-				selectedDropDownIndex = groupIndex,
+				SearchBar = not isGroupCategory and Roact.createElement(SearchBar, {
+					width = searchBarWidth,
+					LayoutOrder = 1,
 
-				items = groups,
-				onItemClicked = onGroupSelected,
-			}),
-		})
+					searchTerm = searchTerm,
+					onSearchRequested = onSearchRequested,
+				}),
+
+				GroupMenu = isGroupCategory and Roact.createElement(DropdownMenu, {
+					Position = UDim2.new(0, 0, 0, 0),
+					Size = UDim2.new(0, searchBarWidth, 1, 0),
+					LayoutOrder = 1,
+					visibleDropDownCount = 8,
+					selectedDropDownIndex = groupIndex,
+
+					items = groups,
+					key = "id",
+					onItemClicked = onGroupSelected,
+				}),
+			})
+		end)
 	end)
 end
 

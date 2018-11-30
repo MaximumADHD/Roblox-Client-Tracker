@@ -46,6 +46,8 @@ MAX_THUMBNAILS = 10,
 VIDEO_PLACEHOLDER = "rbxasset://textures/GameSettings/placeholder.png",
 THUMBNAIL_SIZE = UDim2.new(0, 267, 0, 150),
 
+BAD_REQUEST = 400,
+
 }
 
 return Constants

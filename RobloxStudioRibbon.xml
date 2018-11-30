@@ -269,7 +269,11 @@
           <addseparator visible="true"/>
           <addaction name="createAttachmentAction" style="textundericon" iscommonslot="true" text="Attachment" tooltip="Insert attachment" icon=":/RibbonBar/images/RibbonIcons/Physics/attachment-32x32.png" width="32" height="32" />
         </MenuPopupButton>
-        <addaction name="drawConstraintDetailsVerb" ischeckable="true" iscommonslot="true" style="textundericon" text="Show Details" tooltip="Show attachments and constraints" icon=":/RibbonBar/images/RibbonIcons/Physics/show-detail-32x32.png" width="32" height="32" />
+        <addaction name="drawConstraintDetailsVerb" fflag="!NewConstraintVisualsEnabled" ischeckable="true" iscommonslot="true" style="textundericon" text="Show Details" tooltip="Show attachments and constraints" icon=":/RibbonBar/images/RibbonIcons/Physics/show-detail-32x32.png" width="32" height="32" />
+        <addaction name="showWeldsAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Show Welds" tooltip="Show welds" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="16" height="16"/>
+        <addaction name="showConstraintDetailsAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Constraint Details" tooltip="Show constraint details" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
+        <addaction name="constraintDrawOnTopAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Draw On Top" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Draw constraints, attachments and welds on top" width="16" height="16"/>
+        <addspinbox name="constraintWidgetScaleAction" type="spinbox" fflag="NewConstraintVisualsEnabled" keyboardTracking="true" tooltip="Constraint widget scale (Alt+Scroll Wheel)" decimals="2" text="Scale" minimum="0.1" minumumWidth="30" step=".5" suffix=" x"/>
       </Group>
       <Group name="Gameplay">
         <MenuButton name="actionParticleEffects" style="textundericon" text="Effects" tooltip="Select a part and then click here to add effects" icon=":/RibbonBar/images/RibbonIcons/Insert/Effects.png" width="32" height="32" >

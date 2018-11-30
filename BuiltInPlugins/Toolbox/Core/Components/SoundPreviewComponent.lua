@@ -1,12 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local Urls = require(Plugin.Core.Util.Urls)
 
-local getPlugin = require(Plugin.Core.Consumers.getPlugin)
+local getPlugin = ContextGetter.getPlugin
 
 local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 

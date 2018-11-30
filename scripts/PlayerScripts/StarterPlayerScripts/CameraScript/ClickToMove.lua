@@ -2,13 +2,7 @@
 
 local newClickToMove = script:FindFirstChild("NewClickToMove")
 if newClickToMove then
-	local newClickToMoveFlagSuccess, newClickToMoveFlagEnabled = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserUseNewClickToMove")
-	end)
-	local useNewClickToMove = newClickToMoveFlagSuccess and newClickToMoveFlagEnabled
-	if useNewClickToMove then
-		return require(newClickToMove)
-	end
+	return require(newClickToMove)
 end
 
 local UIS = game:GetService("UserInputService")

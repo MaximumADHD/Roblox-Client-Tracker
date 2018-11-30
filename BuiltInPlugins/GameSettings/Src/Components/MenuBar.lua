@@ -22,6 +22,15 @@ local errorsFromPage = {
 	}
 }
 
+local warningsFromPage = {
+	["Basic Info"] = {
+		isActive = true,
+	},
+	["Avatar"] = {
+		universeAvatarType = true,
+	}
+}
+
 local function MenuBar(props)
 	return withTheme(function(theme)
 		local menuEntries = {
@@ -41,11 +50,22 @@ local function MenuBar(props)
 				end
 			end
 
+			local warningHighlight = false
+			if warningsFromPage[entry.Name] then
+				for _, warning in ipairs(props.Warnings) do
+					if warningsFromPage[entry.Name][warning] then
+						warningHighlight = true
+						break
+					end
+				end
+			end
+
 			table.insert(menuEntries, Roact.createElement(MenuEntry, {
 				Title = entry.Name,
 				Selected = (props.Selected == i),
 				Index = i,
 				Error = errorHighlight,
+				Warning = warningHighlight,
 
 				OnClicked = function()
 					props.SelectionChanged(i)
@@ -66,6 +86,7 @@ MenuBar = RoactRodux.connect(
 		if not state then return end
 		return {
 			Errors = state.Settings.Errors,
+			Warnings = state.Settings.Warnings,
 		}
 	end
 )(MenuBar)

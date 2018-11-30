@@ -15,21 +15,24 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Images = require(Plugin.Core.Util.Images)
-local MouseManager = require(Plugin.Core.Util.MouseManager)
 
-local getModal = require(Plugin.Core.Consumers.getModal)
-local withModal = require(Plugin.Core.Consumers.withModal)
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local getModal = ContextGetter.getModal
+local withModal = ContextHelper.withModal
+local withTheme = ContextHelper.withTheme
 
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 local RoundFrame = require(Plugin.Core.Components.RoundFrame)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
 
@@ -53,23 +56,18 @@ function DropdownMenu:init(props)
 	end
 
 	self.showDropDownButtonEntered = function()
-		MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
 		self:setState({
 			showDropDownButtonHovered = true,
 		})
 	end
 
 	self.showDropDownButtonLeft = function()
-		MouseManager:clearIcons()
 		self:setState({
 			showDropDownButtonHovered = false,
 		})
 	end
 
 	self.closeDropdown = function()
-		MouseManager:popIcon(Images.CURSOR_POINTING_HAND)
-		MouseManager:clearIcons()
-
 		getModal(self).onDropdownToggled(false)
 
 		self:setState({
@@ -89,6 +87,8 @@ function DropdownMenu:render()
 		return withModal(function(modalTarget)
 			local props = self.props
 			local state = self.state
+
+			local key = props.key or nil
 
 			local position = props.Position
 			local size = props.Size
@@ -159,7 +159,9 @@ function DropdownMenu:render()
 					local itemName = data.name
 					local isHovered = dropdownHoveredItemIndex == index
 
-					scrollButtons[itemName] = Roact.createElement("ImageButton",{
+					local itemKey = (key and data[key]) or itemName
+
+					scrollButtons[FFlagStudioLuaWidgetToolboxV2 and itemKey or itemName] = Roact.createElement("ImageButton",{
 						Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
 						BackgroundColor3 = isHovered and itemTheme.backgroundSelectedColor or itemTheme.backgroundColor,
 						BorderSizePixel = 0,
@@ -178,7 +180,6 @@ function DropdownMenu:render()
 						[Roact.Event.InputEnded] = self.focusLost,
 
 						[Roact.Event.MouseEnter] = function(rbx, x, y)
-							MouseManager:pushIcon(Images.CURSOR_POINTING_HAND)
 							self:setState({
 								dropdownHoveredItemIndex = index,
 							})
@@ -186,7 +187,6 @@ function DropdownMenu:render()
 
 						[Roact.Event.MouseLeave] = function(rbx, x, y)
 							if self.state.dropdownHoveredItemIndex == index then
-								MouseManager:clearIcons()
 								self:setState({
 									dropdownHoveredItemIndex = 0,
 								})
@@ -299,6 +299,7 @@ function DropdownMenu:render()
 				Portal = isShowingDropdown and Roact.createElement(Roact.Portal, {
 					target = modalTarget,
 				}, {
+					-- Consume all clicks outside the dropdown to close it when it "loses focus"
 					ClickEventDetectFrame = Roact.createElement("ImageButton", {
 						ZIndex = 10,
 						Position = UDim2.new(0, 0, 0, 0),
@@ -307,7 +308,19 @@ function DropdownMenu:render()
 						AutoButtonColor = false,
 
 						[Roact.Event.MouseButton1Down] = self.closeDropdown,
-					}, dropdownFrame)
+					}, FFlagStudioLuaWidgetToolboxV2 and {
+						-- Also block all scrolling events going through
+						ScrollBlocker = Roact.createElement("ScrollingFrame", {
+							Size = UDim2.new(1, 0, 1, 0),
+							-- We need to have ScrollingEnabled = true for this frame for it to block
+							-- But we don't want it to actually scroll, so its canvas must be same size as the frame
+							ScrollingEnabled = true,
+							CanvasSize = UDim2.new(1, 0, 1, 0),
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+							ScrollBarThickness = 0,
+						}, dropdownFrame)
+					} or dropdownFrame)
 				})
 			})
 		end)

@@ -7,6 +7,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Networking = require(Plugin.Libs.Http.Networking)
+local Promise = require(Plugin.Libs.Http.Promise)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -14,6 +15,8 @@ local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
 local Category = require(Plugin.Core.Types.Category)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -38,6 +41,27 @@ local function printUrl(method, httpMethod, url, payload)
 	end
 end
 
+local function sendRequestAndRetry(requestFunc, retryData)
+	retryData = retryData or {
+		attempts = 0,
+		time = 0,
+		maxRetries = 5
+	}
+	retryData.attempts = retryData.attempts + 1
+
+	return requestFunc():catch(function(result)
+		if retryData.attempts >= retryData.maxRetries then
+			-- Eventually give up
+			return Promise.reject(result)
+		end
+
+		local timeToWait = 2^(retryData.attempts - 1)
+		wait(timeToWait)
+
+		return sendRequestAndRetry(requestFunc, retryData)
+	end)
+end
+
 function NetworkInterface:getAssets(pageInfo)
 	local category = PageInfoHelper.getCategoryForPageInfo(pageInfo) or ""
 	local searchTerm = pageInfo.searchTerm or ""
@@ -50,8 +74,15 @@ function NetworkInterface:getAssets(pageInfo)
 
 	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId)
 
-	printUrl("getAssets", "GET", targetUrl)
-	return self._networkImp:httpGetJson(targetUrl)
+	if FFlagStudioLuaWidgetToolboxV2 then
+		return sendRequestAndRetry(function()
+			printUrl("getAssets", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	else
+		printUrl("getAssets", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end
 end
 
 function NetworkInterface:postVote(assetId, bool)
@@ -62,8 +93,15 @@ function NetworkInterface:postVote(assetId, bool)
 		vote = bool,
 	})
 
-	printUrl("postVote", "POST", targetUrl, payload)
-	return self._networkImp:httpPostJson(targetUrl, payload)
+	if FFlagStudioLuaWidgetToolboxV2 then
+		return sendRequestAndRetry(function()
+			printUrl("postVote", "POST", targetUrl, payload)
+			return self._networkImp:httpPostJson(targetUrl, payload)
+		end)
+	else
+		printUrl("postVote", "POST", targetUrl, payload)
+		return self._networkImp:httpPostJson(targetUrl, payload)
+	end
 end
 
 function NetworkInterface:postUnvote(assetId)
@@ -73,8 +111,15 @@ function NetworkInterface:postUnvote(assetId)
 		assetId = assetId,
 	})
 
-	printUrl("postUnvote", "POST", targetUrl, payload)
-	return self._networkImp:httpPostJson(targetUrl, payload)
+	if FFlagStudioLuaWidgetToolboxV2 then
+		return sendRequestAndRetry(function()
+			printUrl("postUnvote", "POST", targetUrl, payload)
+			return self._networkImp:httpPostJson(targetUrl, payload)
+		end)
+	else
+		printUrl("postUnvote", "POST", targetUrl, payload)
+		return self._networkImp:httpPostJson(targetUrl, payload)
+	end
 end
 
 function NetworkInterface:postInsertAsset(assetId)
@@ -84,15 +129,29 @@ function NetworkInterface:postInsertAsset(assetId)
 		assetId = assetId,
 	})
 
-	printUrl("postInsertAsset", "POST", targetUrl, payload)
-	return self._networkImp:httpPost(targetUrl, payload)
+	if FFlagStudioLuaWidgetToolboxV2 then
+		return sendRequestAndRetry(function()
+			printUrl("postInsertAsset", "POST", targetUrl, payload)
+			return self._networkImp:httpPost(targetUrl, payload)
+		end)
+	else
+		printUrl("postInsertAsset", "POST", targetUrl, payload)
+		return self._networkImp:httpPost(targetUrl, payload)
+	end
 end
 
 function NetworkInterface:getManageableGroups()
 	local targetUrl = Urls.constructGetManageableGroupsUrl()
 
-	printUrl("getManageableGroups", "GET", targetUrl)
-	return self._networkImp:httpGetJson(targetUrl)
+	if FFlagStudioLuaWidgetToolboxV2 then
+		return sendRequestAndRetry(function()
+			printUrl("getManageableGroups", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	else
+		printUrl("getManageableGroups", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end
 end
 
 return NetworkInterface

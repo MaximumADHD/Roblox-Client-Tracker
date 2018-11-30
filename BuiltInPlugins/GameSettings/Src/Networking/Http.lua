@@ -1,8 +1,10 @@
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local HttpService = game:GetService("HttpService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local BASE_URL = ContentProvider.BaseUrl
 if BASE_URL:find("https://www.") then
@@ -29,6 +31,25 @@ function Http.Request(requestInfo)
 			else
 				reject(result)
 			end
+		end)
+	end)
+end
+
+function Http.RequestInternal(requestInfo)
+	return Promise.new(function(resolve, reject)
+		-- Prevent yielding
+		spawn(function()
+			HttpService:RequestInternal(requestInfo):Start(function(success, response)
+				if success then
+					if response.StatusCode >= Constants.BAD_REQUEST then
+						reject("HTTP error: "..tostring(response.StatusCode))
+					else
+						resolve(response.Body)
+					end
+				else
+					reject("HTTP error: "..tostring(response.HttpError))
+				end
+			end)
 		end)
 	end)
 end

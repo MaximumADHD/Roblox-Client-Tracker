@@ -33,7 +33,7 @@ function CheckBox:render()
 			Background = Roact.createElement("ImageButton", {
 				Size = UDim2.new(0, Constants.CHECKBOX_SIZE, 0, Constants.CHECKBOX_SIZE),
 				BackgroundTransparency = 1,
-				ImageTransparency = self.props.Enabled and 0 or 0.8,
+				ImageTransparency = self.props.Enabled and 0 or 0.4,
 				Image = BACKGROUND_IMAGE,
 				ImageColor3 = theme.checkBox.background,
 				LayoutOrder = self.props.LayoutOrder or 1,

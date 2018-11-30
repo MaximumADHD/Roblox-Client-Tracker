@@ -5,9 +5,16 @@
 	Props:
 		string Page = The name of the SettingsPage to display. Pages can be found
 			in the Src/SettingsPages folder and are referenced by name.
+
+	Elements can disable this page's scrolling (such as when a TextBox is focused and the mouse is inside)
+	by using this component's SetScrollbarEnabled function.
 ]]
 
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+local FFlagGameSettingsFocusScrolling = settings():GetFFlag("GameSettingsFocusScrolling")
+local DFFlagTextBoxesNeverSinkMouseEvents = settings():GetFFlag("TextBoxesNeverSinkMouseEvents")
+
+local ShouldUseFocusScrolling = FFlagGameSettingsFocusScrolling and DFFlagTextBoxesNeverSinkMouseEvents
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -30,6 +37,15 @@ function CurrentPage:init()
 			canvas.CanvasSize = contentSize
 		end
 	end
+
+	self.setScrollbarEnabled = function(enabled)
+		if ShouldUseFocusScrolling then
+			local canvas = self.canvasRef.current
+			if canvas then
+				canvas.ScrollingEnabled = enabled
+			end
+		end
+	end
 end
 
 -- Scroll back up to the top every time the page changes.
@@ -42,6 +58,10 @@ function CurrentPage:didUpdate(previousProps)
 		local canvas = self.canvasRef.current
 		if canvas then
 			canvas.CanvasPosition = Vector2.new()
+
+			if ShouldUseFocusScrolling then
+				canvas.ScrollingEnabled = true
+			end
 		end
 	end
 end
@@ -72,6 +92,7 @@ function CurrentPage:render()
 
 		[self.props.Page] = page and Roact.createElement(page, {
 			ContentHeightChanged = self.contentHeightChanged,
+			SetScrollbarEnabled = self.setScrollbarEnabled,
 			LayoutOrder = 2,
 		}),
 	})

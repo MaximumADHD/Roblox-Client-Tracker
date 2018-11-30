@@ -6,18 +6,21 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local RoactRodux = require(CorePackages.RoactRodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 
-local getNetwork = require(Plugin.Core.Consumers.getNetwork)
+local getNetwork = ContextGetter.getNetwork
 
 local VoteButton = require(Plugin.Core.Components.Asset.Voting.VoteButton)
 
 local PostUnvoteRequest = require(Plugin.Core.Networking.Requests.PostUnvoteRequest)
 local PostVoteRequest = require(Plugin.Core.Networking.Requests.PostVoteRequest)
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local VoteButtons = Roact.PureComponent:extend("VoteButtons")
 
@@ -48,17 +51,18 @@ end
 function VoteButtons:render()
 	local props = self.props
 
-	local layoutOrder = props.LayoutOrder or 0
-
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-		Size = UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
+		LayoutOrder = not FFlagStudioLuaWidgetToolboxV2 and (props.LayoutOrder or 0) or nil,
+		Size = FFlagStudioLuaWidgetToolboxV2 and UDim2.new(1, 0, 1, 0)
+			or UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
+			Padding = FFlagStudioLuaWidgetToolboxV2 and UDim.new(0, 2) or nil,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = FFlagStudioLuaWidgetToolboxV2 and Enum.VerticalAlignment.Center or nil,
 		}),
 
 		VoteUpButton = Roact.createElement(VoteButton, {

@@ -420,6 +420,7 @@ function this:CreateBubbleText(message)
 	bubbleText.FontSize = CHAT_BUBBLE_FONT_SIZE
 	bubbleText.Text = message
 	bubbleText.Visible = false
+	bubbleText.AutoLocalize = false
 
 	return bubbleText
 end
@@ -585,24 +586,17 @@ function this:OnGameChatMessage(origin, message, color)
 end
 
 function this:BubbleChatEnabled()
-	local success, result = pcall(function() return ChatService.BubbleChatEnabled end)
-	if not success then
-		result = false
-	end
-
-	-- To be removed when ChatService.BubbleChatEnabled is official
 	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
 	if clientChatModules then
 		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
 		if chatSettings then
 			local chatSettings = require(chatSettings)
 			if chatSettings.BubbleChatEnabled ~= nil then
-				return result or chatSettings.BubbleChatEnabled
+				return chatSettings.BubbleChatEnabled
 			end
 		end
 	end
-	return result
-	-- To be removed when ChatService.BubbleChatEnabled is official
+	return PlayersService.BubbleChat
 end
 
 function this:ShowOwnFilteredMessage()

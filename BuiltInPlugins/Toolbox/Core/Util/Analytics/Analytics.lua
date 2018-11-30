@@ -4,8 +4,10 @@ local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
 local AnalyticsService = game:GetService("AnalyticsService")
 
+local FixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
+
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
-local function getStudioSession()
+local function getStudioSessionId()
 	local sessionId = nil
 	pcall(function()
 		sessionId = AnalyticsService:GetSessionId()
@@ -13,7 +15,7 @@ local function getStudioSession()
 	return sessionId
 end
 
-local function getStudioId()
+local function getClientId()
 	local clientId = nil
 	pcall(function()
 		clientId = AnalyticsService:GetClientId()
@@ -32,40 +34,77 @@ function Analytics.onTermSearched(categoryName, searchTerm)
 end
 
 function Analytics.onCategorySelected(oldCategory, newCategory)
-	AnalyticsSenders.sendEventImmediately("Studio", "click", "ToolboxCategorySelection", {
-		OldCategory = oldCategory,
-		NewCategory = newCategory,
-		StudioSession = getStudioSession(),
-		StudioID = getStudioId(),
-	})
+	if FixToolboxEventStream then
+		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxCategorySelection", {
+			oldCategory = oldCategory,
+			newCategory = newCategory,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	else
+		AnalyticsSenders.sendEventImmediately("Studio", "click", "ToolboxCategorySelection", {
+			OldCategory = oldCategory,
+			NewCategory = newCategory,
+			StudioSession = getStudioSessionId(),
+			StudioID = getClientId(),
+		})
+	end
 end
 
-function Analytics.onAssetInserted(assetId, searchText, assetIndex)
-	AnalyticsSenders.sendEventImmediately("Studio", "click", "ToolboxInsert", {
-		AssetId = assetId,
-		SearchText = searchText,
-		AssetIndex = assetIndex,
-		StudioSession = getStudioSession(),
-		StudioID = getStudioId(),
-	})
+function Analytics.onAssetInserted(assetId, searchTerm, assetIndex)
+	if FixToolboxEventStream then
+		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
+			assetId = assetId,
+			searchText = searchTerm,
+			assetIndex = assetIndex,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	else
+		AnalyticsSenders.sendEventImmediately("Studio", "click", "ToolboxInsert", {
+			AssetId = assetId,
+			SearchText = searchTerm,
+			AssetIndex = assetIndex,
+			StudioSession = getStudioSessionId(),
+			StudioID = getClientId(),
+		})
+	end
+
 end
 
-function Analytics.onAssetDragInserted(assetId, searchText, assetIndex)
-	-- TODO CLIDEVSRVS-1689: Is "toolboxInsert" lowerCase or not?
-	AnalyticsSenders.sendEventImmediately("Studio", "drag", "toolboxInsert", {
-		AssetId = assetId,
-		SearchText = searchText,
-		AssetIndex = assetIndex,
-		StudioSession = getStudioSession(),
-		StudioID = getStudioId(),
-	})
+function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex)
+	if FixToolboxEventStream then
+		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
+			assetId = assetId,
+			searchText = searchTerm,
+			assetIndex = assetIndex,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	else
+		AnalyticsSenders.sendEventImmediately("Studio", "drag", "toolboxInsert", {
+			AssetId = assetId,
+			SearchText = searchTerm,
+			AssetIndex = assetIndex,
+			StudioSession = getStudioSessionId(),
+			StudioID = getClientId(),
+		})
+	end
 end
 
-function Analytics.onAssetInsertRemains(contentId)
+function Analytics.onAssetInsertRemains(time, contentId)
+	AnalyticsSenders.trackEvent("Studio", ("InsertRemains%d"):format(time), contentId)
+end
+
+function Analytics.onAssetInsertDeleted(time, contentId)
+	AnalyticsSenders.trackEvent("Studio", ("InsertDeleted%d"):format(time), contentId)
+end
+
+function Analytics.DEPRECATED_onAssetInsertRemains(contentId)
 	AnalyticsSenders.trackEvent("Studio", "StudioInsertRemains", contentId)
 end
 
-function Analytics.onAssetInsertDeleted(contentId)
+function Analytics.DEPRECATED_onAssetInsertDeleted(contentId)
 	AnalyticsSenders.trackEvent("Studio", "StudioInsertDeleted", contentId)
 end
 

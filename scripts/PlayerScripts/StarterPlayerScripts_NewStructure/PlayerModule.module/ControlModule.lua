@@ -34,6 +34,8 @@ local TouchJump = require(script:WaitForChild("TouchJump"))
 
 local VehicleController = require(script:WaitForChild("VehicleController"))
 
+local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
+
 
 local FFlagUserIsNowADynamicThumbstick = false
 local status = pcall(function()
@@ -101,7 +103,7 @@ function ControlModule.new()
 	
 	self.touchControlFrame = nil
 	
-	self.vehicleController = VehicleController.new()
+	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
 	
 	Players.LocalPlayer.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char) end)
 	Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterAdded(char) end)
@@ -277,7 +279,7 @@ function ControlModule:OnHumanoidSeated(active, currentSeatPart)
 	if active then
 		if currentSeatPart and currentSeatPart:IsA("VehicleSeat") then
 			if not self.vehicleController then
-				self.vehicleController = self.vehicleController.new()
+				self.vehicleController = self.vehicleController.new(CONTROL_ACTION_PRIORITY)
 			end
 			self.vehicleController:Enable(true, currentSeatPart)
 		end
@@ -319,7 +321,7 @@ function ControlModule:SwitchToController(controlModule)
 		self.activeControlModule = nil
 	else
 		if not self.controllers[controlModule] then
-			self.controllers[controlModule] = controlModule.new()
+			self.controllers[controlModule] = controlModule.new(CONTROL_ACTION_PRIORITY)
 		end
 
 		if self.activeController ~= self.controllers[controlModule] then

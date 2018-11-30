@@ -1,14 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
-local settingsKey = require(Plugin.Core.Keys.settingsKey)
+local Keys = require(Plugin.Core.Util.Keys)
 
 local SettingsProvider = Roact.PureComponent:extend("SettingsProvider")
 
 function SettingsProvider:init(props)
-	self._context[settingsKey] = props.settings
+	self._context[Keys.settings] = props.settings
 end
 
 function SettingsProvider:render()

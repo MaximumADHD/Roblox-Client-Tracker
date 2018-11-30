@@ -14,13 +14,16 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
+
+local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local function StyledScrollingFrame(props)
 	return withTheme(function(theme)
@@ -38,7 +41,7 @@ local function StyledScrollingFrame(props)
 
 		local scrollingFrameTheme = theme.scrollingFrame
 
-		return Roact.createElement("Frame", {
+		return Roact.createElement(FFlagStudioLuaWidgetToolboxV2 and "ImageButton" or "Frame", {
 			Position = position,
 			Size = size,
 			BackgroundTransparency = 1,
@@ -46,6 +49,8 @@ local function StyledScrollingFrame(props)
 			LayoutOrder = layoutOrder,
 			ZIndex = zindex,
 			Visible = visible,
+
+			AutoButtonColor = FFlagStudioLuaWidgetToolboxV2 and false or nil,
 		}, {
 			ScrollBarBackground = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(1, 0),

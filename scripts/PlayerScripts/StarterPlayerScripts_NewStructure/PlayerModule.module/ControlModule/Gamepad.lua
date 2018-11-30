@@ -17,8 +17,15 @@ local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacte
 local Gamepad = setmetatable({}, BaseCharacterController)
 Gamepad.__index = Gamepad
 
-function Gamepad.new()
+local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+end)
+local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+
+function Gamepad.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(BaseCharacterController.new(), Gamepad)
+	
+	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 	
 	self.forwardValue  = 0
 	self.backwardValue = 0
@@ -122,15 +129,20 @@ function Gamepad:BindContextActions()
 	
 	local handleJumpAction = function(actionName, inputState, inputObject)
 		self.isJumping = (inputState == Enum.UserInputState.Begin)
+		if FFlagPlayerScriptsBindAtPriority then
+			return Enum.ContextActionResult.Sink
+		end
 	end
 	
 	local handleThumbstickInput = function(actionName, inputState, inputObject)
-		if self.activeGamepad ~= inputObject.UserInputType then return end
+		if self.activeGamepad ~= inputObject.UserInputType then 
+			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Pass or nil
+		end
 		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 		
 		if inputState == Enum.UserInputState.Cancel then
 			self.moveVector = ZERO_VECTOR3
-			return
+			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Sink or nil
 		end
 		
 		if inputObject.Position.magnitude > thumbstickDeadzone then
@@ -138,11 +150,21 @@ function Gamepad:BindContextActions()
 		else
 			self.moveVector = ZERO_VECTOR3
 		end
+		if FFlagPlayerScriptsBindAtPriority then
+			return Enum.ContextActionResult.Sink
+		end
 	end
 	
 	ContextActionService:BindActivate(self.activeGamepad, Enum.KeyCode.ButtonR2)
-	ContextActionService:BindAction("jumpAction",handleJumpAction, false, Enum.KeyCode.ButtonA)
-	ContextActionService:BindAction("moveThumbstick",handleThumbstickInput, false, Enum.KeyCode.Thumbstick1)
+	if FFlagPlayerScriptsBindAtPriority then
+		ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
+			self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA)
+		ContextActionService:BindActionAtPriority("moveThumbstick", handleThumbstickInput, false,
+			self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Thumbstick1)
+	else
+		ContextActionService:BindAction("jumpAction",handleJumpAction, false, Enum.KeyCode.ButtonA)
+		ContextActionService:BindAction("moveThumbstick",handleThumbstickInput, false, Enum.KeyCode.Thumbstick1)
+	end
 	
 	return true
 end

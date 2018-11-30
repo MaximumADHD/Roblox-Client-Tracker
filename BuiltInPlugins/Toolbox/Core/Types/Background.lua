@@ -1,26 +1,31 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
 
 local Colors = require(Plugin.Core.Util.Colors)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local Images = require(Plugin.Core.Util.Images)
 local Immutable = require(Plugin.Core.Util.Immutable)
 
-local withTheme = require(Plugin.Core.Consumers.withTheme)
+local withTheme = ContextHelper.withTheme
 
 local Background = {}
 
 Background.BACKGROUNDS = {
 	{
 		name = "White",
+		color = "White",
 	},
 	{
 		name = "Black",
+		color = "Black",
 	},
 	{
 		name = "None",
+		color = "None",
 	}
 }
 
@@ -29,7 +34,7 @@ Background.WHITE = 1
 Background.BLACK = 2
 Background.NONE = 3
 
-function Background.renderIcon(background, props)
+function Background.DEPRECATED_renderIcon(background, props)
 	local elementType = "Frame"
 
 	if background == Background.WHITE then
@@ -63,7 +68,7 @@ function Background.renderIcon(background, props)
 	return Roact.createElement(elementType, props)
 end
 
-function Background.renderBackground(background, props, children)
+function Background.DEPRECATED_renderBackground(background, props, children)
 	return withTheme(function(theme)
 		local tileCount = 8
 

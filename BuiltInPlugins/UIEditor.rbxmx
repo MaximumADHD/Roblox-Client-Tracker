@@ -66,6 +66,7 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
+local FFlagRightClickContextIncludeUI = FFlag:isEnabled("RightClickContextIncludeUI")
 
 -- Variables
 local childAddedEvent = nil
@@ -177,7 +178,6 @@ local function onInputBegan(inputObject)
 			UserInputService:IsKeyDown(Enum.KeyCode.RightShift)) then
 				m_previousSelection = SelectionManager:getRawSelection()
 		end
-		
 
 		selectedInstancesPropertyChangedEvent = SelectionManager:disconnectSelectionInstancesChanged(selectedInstancesPropertyChangedEvent)
 
@@ -193,6 +193,7 @@ local function onInputBegan(inputObject)
 		end
 
 		local item = Select:selectTopLevelItemAtPoint(location)
+
 
 		Move:startDrag(location)
 		
@@ -387,18 +388,20 @@ local function onPluginOffInputBegan(inputObject)
 	if (not StarterGuiService.ShowDevelopmentGui or RunService:IsRunning()) then
 		return
 	end
-	if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
-		local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
-		-- try to select GuiObject if it is visible
-		local guiObjects = Select:getGuiObjectsAtPoint(location)
-		if (table.getn(guiObjects) > 0) then 
-			local instances = {guiObjects[1]}
-			SelectionService:Set(instances)
-			SelectionManager:onSelectionChanged()
-			On()
-			Move:startDrag(location)
+	if not FFlagRightClickContextIncludeUI then
+		if (inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
+			local location = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
+			-- try to select GuiObject if it is visible
+			local guiObjects = Select:getGuiObjectsAtPoint(location)
+			if (table.getn(guiObjects) > 0) then 
+				local instances = {guiObjects[1]}
+				SelectionService:Set(instances)
+				SelectionManager:onSelectionChanged()
+				On()
+				Move:startDrag(location)
+			end
 		end
-	end 
+	end
 end
 
 local function onUndo(waypoint)
@@ -515,6 +518,10 @@ function On()
 end
 
 if toolbarButton then
+	if FFlagRightClickContextIncludeUI then
+		game.StarterGui.ProcessUserInput = true
+	end
+	
     toolbarButton.Click:connect(function()
         if on then
             Off()
@@ -522,6 +529,44 @@ if toolbarButton then
             On()
         end
     end)
+
+	if FFlagRightClickContextIncludeUI then
+		local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
+			if not guiObject:isA("GuiObject") then
+				return false
+			end
+
+			local ancestor = guiObject.Parent
+			while ancestor ~= nil do
+				if ancestor == game.StarterGui then
+					return true
+				elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
+					return false
+				end
+				
+				ancestor = ancestor.Parent 
+			end
+			return false
+		end
+		local function passesGuiFilter(instance)
+			return areAllAncestorsGuiBase2dToStarterGui(instance) and instance:FindFirstAncestorOfClass("ScreenGui") ~= nil
+		end
+
+		local function selectionChangedGlobal()
+			local selection = SelectionService:Get()
+			for i = 1, #selection do
+				local instance = selection[i]
+				if passesGuiFilter(instance) then
+					On()
+					return
+				end
+			end
+			Off()
+		end
+		SelectionService.SelectionChanged:connect(function()
+			spawn(selectionChangedGlobal)
+		end)
+	end
 end
 
 pluginOffInputBeganEvent = UserInputService.InputBegan:connect(onPluginOffInputBegan)
@@ -2293,7 +2338,7 @@ local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
 		if ancestor == game.StarterGui then
 			purebredGui = true
 			break
-		elseif not ancestor:isA("GuiBase2d") then
+		elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
 			break
 		end
 		

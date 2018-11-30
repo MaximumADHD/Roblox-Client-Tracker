@@ -11,6 +11,8 @@
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
 
+local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
@@ -24,6 +26,8 @@ local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
+local AddWarning = require(Plugin.Src.Actions.AddWarning)
+local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
@@ -70,19 +74,25 @@ function Avatar:render()
 					AvatarScalingMax = self.props.AvatarScalingMax,
 
 					OnAvatarTypeChanged = function(newVal)
-						if self.props.CurrentAvatarType ~= "PlayerChoice" then
-							local dialogProps = {
-								Title = "Warning",
-								Header = "Would you like to proceed?",
-								Description = "Changing the game's Avatar Type to this setting "
-									.. "will shut down any running games.",
-								Buttons = {"No", "Yes"},
-							}
-							if not showDialog(self, WarningDialog, dialogProps):await() then
-								return
+						if FFlagGameSettingsShowWarningsOnSave then
+							local willShutdown = self.props.CurrentAvatarType ~= "PlayerChoice"
+								and newVal ~= self.props.CurrentAvatarType
+							self.props.AvatarTypeChanged(newVal, willShutdown)
+						else
+							if self.props.CurrentAvatarType ~= "PlayerChoice" then
+								local dialogProps = {
+									Title = "Warning",
+									Header = "Would you like to proceed?",
+									Description = "Changing the game's Avatar Type to this setting "
+										.. "will shut down any running games.",
+									Buttons = {"No", "Yes"},
+								}
+								if not showDialog(self, WarningDialog, dialogProps):await() then
+									return
+								end
 							end
+							self.props.AvatarTypeChanged(newVal)
 						end
-						self.props.AvatarTypeChanged(newVal)
 					end,
 
 					OnAvatarAnimationChanged = self.props.AvatarAnimationChanged,
@@ -132,19 +142,25 @@ function Avatar:render()
 				--Functionality
 				Selected = self.props.AvatarType,
 				SelectionChanged = function(button)
-					if self.props.CurrentAvatarType ~= "PlayerChoice" then
-						local dialogProps = {
-							Title = "Warning",
-							Header = "Would you like to proceed?",
-							Description = "Changing the game's Avatar Type to this setting "
-								.. "will shut down any running games.",
-							Buttons = {"No", "Yes"},
-						}
-						if not showDialog(self, WarningDialog, dialogProps):await() then
-							return
+					if FFlagGameSettingsShowWarningsOnSave then
+						local willShutdown = self.props.CurrentAvatarType ~= "PlayerChoice"
+							and button.Id ~= self.props.CurrentAvatarType
+						self.props.AvatarTypeChanged(button, willShutdown)
+					else
+						if self.props.CurrentAvatarType ~= "PlayerChoice" then
+							local dialogProps = {
+								Title = "Warning",
+								Header = "Would you like to proceed?",
+								Description = "Changing the game's Avatar Type to this setting "
+									.. "will shut down any running games.",
+								Buttons = {"No", "Yes"},
+							}
+							if not showDialog(self, WarningDialog, dialogProps):await() then
+								return
+							end
 						end
+						self.props.AvatarTypeChanged(button)
 					end
-					self.props.AvatarTypeChanged(button)
 				end,
 			}),
 
@@ -224,7 +240,14 @@ if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 		end,
 		function(dispatch)
 			return {
-				AvatarTypeChanged = function(value)
+				AvatarTypeChanged = function(value, willShutdown)
+					if FFlagGameSettingsShowWarningsOnSave then
+						if willShutdown then
+							dispatch(AddWarning("universeAvatarType"))
+						else
+							dispatch(DiscardWarning("universeAvatarType"))
+						end
+					end
 					dispatch(AddChange("universeAvatarType", value))
 				end,
 
@@ -264,7 +287,14 @@ else
 		end,
 		function(dispatch)
 			return {
-				AvatarTypeChanged = function(button)
+				AvatarTypeChanged = function(button, willShutdown)
+					if FFlagGameSettingsShowWarningsOnSave then
+						if willShutdown then
+							dispatch(AddWarning("universeAvatarType"))
+						else
+							dispatch(DiscardWarning("universeAvatarType"))
+						end
+					end
 					dispatch(AddChange("universeAvatarType", button.Id))
 				end,
 

@@ -44,6 +44,7 @@ RBX
 	}
 	Constraints
 	{
+		AdornContext
 		BallSocketConstraint
 		CircleArcCurve2
 		Constraint
@@ -53,6 +54,7 @@ RBX
 		MoveToConstraint
 		OrientationConstraint
 		PrismaticConstraint
+		RayCastContext
 		RodConstraint
 		RopeConstraint
 		SlidingBallConstraint
@@ -61,6 +63,7 @@ RBX
 		TorqueActuator
 		VectorForce
 		WeldConstraint
+		WidgetContext
 	}
 	DataModel
 	{
@@ -329,6 +332,7 @@ RBX
 		Item
 		Marker
 		NetworkOwnerJob
+		NetworkPhysicsMegaJob
 		NetworkStream
 		PacketReceiveJob
 		Peer
@@ -417,6 +421,7 @@ RBX
 		DebuggerBreakpoint
 		DebuggerManager
 		DebuggerWatch
+		IDebuggerCloneTracker
 		IDebuggerDataSource
 		ISpecialBreakpoint
 		ScriptDebugger
@@ -862,6 +867,7 @@ RBX
 	InsertService
 	InventoryPages
 	IPipelined
+	IPluginElementHost
 	IReferenceBinder
 	IScriptFilter
 	ISelectionBase
@@ -998,6 +1004,7 @@ RBX
 	PluginGui
 	PluginGuiService
 	PluginManager
+	PluginMenu
 	PluginMouse
 	Point
 	PointLight
@@ -1149,6 +1156,7 @@ RBX
 	TouchScrollable
 	TouchTransmitter
 	Trail
+	TranslationNotFoundError
 	TranslatorInstance
 	TranslucentVerb
 	TreeStage

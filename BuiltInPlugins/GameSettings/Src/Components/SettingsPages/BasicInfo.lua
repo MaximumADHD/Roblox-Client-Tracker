@@ -29,6 +29,7 @@ local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
 local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
+local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
 
 local nameErrors = {
 	Moderated = "The name didn't go through our moderation. Please revise it and try again.",
@@ -81,9 +82,18 @@ local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
 
+local AddWarning = require(Plugin.Src.Actions.AddWarning)
+local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
+
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 
 local BasicInfo = Roact.PureComponent:extend("BasicInfo")
+
+function BasicInfo:init()
+	self.setPageScrollingDisabled = function(elementSelected)
+		self.props.SetScrollbarEnabled(not elementSelected)
+	end
+end
 
 function BasicInfo:render()
 	local devices = self.props.Devices
@@ -133,6 +143,9 @@ function BasicInfo:render()
 				Text = self.props.Description or "",
 
 				SetText = self.props.DescriptionChanged,
+
+				FocusChanged = self.setPageScrollingDisabled,
+				HoverChanged = self.setPageScrollingDisabled,
 			}),
 		}),
 
@@ -166,19 +179,25 @@ function BasicInfo:render()
 					self.props.IsFriendsOnlyChanged(true)
 					self.props.IsActiveChanged({Id = true})
 				else
-					if button.Id == false then
-						local dialogProps = {
-							Title = "Make Private",
-							Header = "Would you like to make it private?",
-							Description = "Making a game private will shut down any running games.",
-							Buttons = {"No", "Yes"},
-						}
-						if not showDialog(self, WarningDialog, dialogProps):await() then
-							return
+					if FFlagGameSettingsShowWarningsOnSave then
+						self.props.IsFriendsOnlyChanged(false)
+						local willShutdown = self.props.IsActive and not button.Id
+						self.props.IsActiveChanged(button, willShutdown)
+					else
+						if button.Id == false then
+							local dialogProps = {
+								Title = "Make Private",
+								Header = "Would you like to make it private?",
+								Description = "Making a game private will shut down any running games.",
+								Buttons = {"No", "Yes"},
+							}
+							if not showDialog(self, WarningDialog, dialogProps):await() then
+								return
+							end
 						end
+						self.props.IsFriendsOnlyChanged(false)
+						self.props.IsActiveChanged(button)
 					end
-					self.props.IsFriendsOnlyChanged(false)
-					self.props.IsActiveChanged(button)
 				end
 			end,
 		}),
@@ -228,6 +247,9 @@ function BasicInfo:render()
 				Enabled = self.props.Genre ~= nil,
 				Current = self.props.Genre,
 				CurrentChanged = self.props.GenreChanged,
+
+				OpenChanged = self.setPageScrollingDisabled,
+				HoverChanged = self.setPageScrollingDisabled,
 			}),
 		}),
 
@@ -324,7 +346,14 @@ BasicInfo = RoactRodux.connect(
 					dispatch(AddErrors({description = "TooLong"}))
 				end
 			end,
-			IsActiveChanged = function(button)
+			IsActiveChanged = function(button, willShutdown)
+				if FFlagGameSettingsShowWarningsOnSave then
+					if willShutdown then
+						dispatch(AddWarning("isActive"))
+					else
+						dispatch(DiscardWarning("isActive"))
+					end
+				end
 				dispatch(AddChange("isActive", button.Id))
 			end,
 			IsFriendsOnlyChanged = function(isFriendsOnly)

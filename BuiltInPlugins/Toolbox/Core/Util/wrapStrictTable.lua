@@ -4,6 +4,9 @@ local wrapStrictTable
 
 local metatable = {
 	__index = function(self, key)
+		if not key then
+			error("key is nil in wrapStrictTable __index")
+		end
 		local value = self.__tbl[key]
 		if value ~= nil then
 			if type(value) == "table" then
@@ -11,7 +14,7 @@ local metatable = {
 			end
 			return value
 		end
-		error(("%q is not a valid key in %s"):format(key, self.__name), 2)
+		error(("%q is not a valid key in %s"):format(tostring(key), tostring(self.__name)), 2)
 	end,
 }
 

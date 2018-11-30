@@ -1,12 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 
-local CorePackages = game:GetService("CorePackages")
-local Roact = require(CorePackages.Roact)
-local Rodux = require(CorePackages.Rodux)
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+local Rodux = require(Libs.Rodux)
 
+local Localization = require(Plugin.Core.Util.Localization)
 local Settings = require(Plugin.Core.Util.Settings)
 local ToolboxTheme = require(Plugin.Core.Util.ToolboxTheme)
-
 local ToolboxReducerMock = require(Plugin.Core.Reducers.ToolboxReducerMock)
 local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 
@@ -21,6 +21,7 @@ local function MockWrapper(props)
 	local settings = props.settings or Settings.new(plugin)
 	local theme = props.theme or ToolboxTheme.createDummyThemeManager()
 	local networkInterface = props.networkInterface or NetworkInterfaceMock.new()
+	local localization = props.localization or Localization.createDummyLocalization()
 
 	return Roact.createElement(ExternalServicesWrapper, {
 		store = store,
@@ -29,6 +30,7 @@ local function MockWrapper(props)
 		settings = settings,
 		theme = theme,
 		networkInterface = networkInterface,
+		localization = localization,
 	}, props[Roact.Children])
 end
 

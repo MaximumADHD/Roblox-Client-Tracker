@@ -24,9 +24,6 @@ local ZERO_VECTOR3 = Vector3.new(0,0,0)
 		[Enum.KeyCode.Up] = true;
 		[Enum.KeyCode.Down] = true;
 	}
-local FFlagUserNavigationFixClickToMoveInterruptionSuccess, FFlagUserNavigationFixClickToMoveInterruptionResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationFixClickToMoveInterruption") end)
-local FFlagUserNavigationFixClickToMoveInterruption = FFlagUserNavigationFixClickToMoveInterruptionSuccess and FFlagUserNavigationFixClickToMoveInterruptionResult
-
 local FFlagUserNavigationClickToMoveUsePathBlockedSuccess, FFlagUserNavigationClickToMoveUsePathBlockedResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveUsePathBlocked") end)
 local FFlagUserNavigationClickToMoveUsePathBlocked = FFlagUserNavigationClickToMoveUsePathBlockedSuccess and FFlagUserNavigationClickToMoveUsePathBlockedResult
 
@@ -426,7 +423,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		if this.PathComputed then
 			this.humanoid = findPlayerHumanoid(Player)
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
-			this:OnPointReachedFixJump(true) -- Move to first point
+			this:OnPointReached(true) -- Move to first point
 		else
 			this.PathFailed:Fire()
 			this:Cleanup()
@@ -439,9 +436,9 @@ local function Pather(character, endPoint, surfaceNormal)
 
 		if reached and not this.Cancelled then
 
-			this.CurrentPoint = this.CurrentPoint + 1
+			local nextWaypointIdx = this.CurrentPoint + 1
 
-			if this.CurrentPoint > #this.pointList then
+			if nextWaypointIdx > #this.pointList then
 				-- End of path reached
 				if this.stopTraverseFunc then
 					this.stopTraverseFunc()
@@ -449,38 +446,53 @@ local function Pather(character, endPoint, surfaceNormal)
 				this.Finished:Fire()
 				this:Cleanup()
 			else
-				-- If next action == Jump, but the humanoid
-				-- is still jumping from a previous action
-				-- wait until it gets to the ground
-				if this.CurrentPoint + 1 <= #this.pointList then
-					local nextAction = this.pointList[this.CurrentPoint + 1].Action
-					if nextAction == Enum.PathWaypointAction.Jump then
-						local currentState = this.humanoid:GetState()
-						if currentState == Enum.HumanoidStateType.FallingDown or
-						   currentState == Enum.HumanoidStateType.Freefall or
-						   currentState == Enum.HumanoidStateType.Jumping then
-						   
-						   this.humanoid.FreeFalling:Wait()
+				local currentWaypoint = this.pointList[this.CurrentPoint]
+				local nextWaypoint = this.pointList[nextWaypointIdx]
 
-						   -- Give time to the humanoid's state to change
-						   -- Otherwise, the jump flag in Humanoid
-						   -- will be reset by the state change
-						   wait(0.1)
-						end
+				-- If airborne, only allow to keep moving
+				-- if nextWaypoint.Action ~= Jump, or path mantains a direction
+				-- Otherwise, wait until the humanoid gets to the ground
+				local currentState = this.humanoid:GetState()
+				local isInAir = currentState == Enum.HumanoidStateType.FallingDown
+					or currentState == Enum.HumanoidStateType.Freefall
+					or currentState == Enum.HumanoidStateType.Jumping
+				
+				if isInAir then
+					local shouldWaitForGround = nextWaypoint.Action == Enum.PathWaypointAction.Jump
+					if not shouldWaitForGround and this.CurrentPoint > 1 then
+						local prevWaypoint = this.pointList[this.CurrentPoint - 1]
+
+						local prevDir = currentWaypoint.Position - prevWaypoint.Position
+						local currDir = nextWaypoint.Position - currentWaypoint.Position
+
+						local prevDirXZ = Vector2.new(prevDir.x, prevDir.z).Unit
+						local currDirXZ = Vector2.new(currDir.x, currDir.z).Unit
+
+						local THRESHOLD_COS = 0.996 -- ~cos(5 degrees)
+						shouldWaitForGround = prevDirXZ:Dot(currDirXZ) < THRESHOLD_COS
+					end
+
+					if shouldWaitForGround then
+						this.humanoid.FreeFalling:Wait()
+
+						-- Give time to the humanoid's state to change
+						-- Otherwise, the jump flag in Humanoid
+						-- will be reset by the state change
+						wait(0.1)
 					end
 				end
 
 				-- Move to the next point
 				if this.setPointFunc then
-					this.setPointFunc(this.CurrentPoint)
+					this.setPointFunc(nextWaypointIdx)
 				end
-
-				local nextWaypoint = this.pointList[this.CurrentPoint]
 				
 				if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
 					this.humanoid.Jump = true
 				end
 				this.humanoid:MoveTo(nextWaypoint.Position)
+
+				this.CurrentPoint = nextWaypointIdx
 			end
 		else
 			this.PathFailed:Fire()
@@ -494,7 +506,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 		
 		this.humanoid = findPlayerHumanoid(Player)
-		if FFlagUserNavigationFixClickToMoveInterruption and not this.humanoid then
+		if not this.humanoid then
 			this.PathFailed:Fire()
 			return
 		end
@@ -508,11 +520,10 @@ local function Pather(character, endPoint, surfaceNormal)
 		end
 
 		if #this.pointList > 0 then
-			if FFlagUserNavigationFixClickToMoveInterruption then
-				this.SeatedConn = this.humanoid.Seated:Connect(function(reached) this:OnPathInterrupted() end)
-				this.DiedConn = this.humanoid.Died:Connect(function(reached) this:OnPathInterrupted() end)
-			end
+			this.SeatedConn = this.humanoid.Seated:Connect(function(reached) this:OnPathInterrupted() end)
+			this.DiedConn = this.humanoid.Died:Connect(function(reached) this:OnPathInterrupted() end)
 			this.MoveToConn = this.humanoid.MoveToFinished:Connect(function(reached) this:OnPointReached(reached) end)
+
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
 			this:OnPointReached(true) -- Move to first point
 		else
@@ -725,9 +736,7 @@ local function OnTap(tapPositions, goToPoint)
 						end
 					end)
 					PathFailedListener = thisPather.PathFailed.Event:Connect(function()
-						if FFlagUserNavigationFixClickToMoveInterruption then
-							CleanupPath()
-						end
+						CleanupPath()
 						if failurePopup then
 							failurePopup:Place(hitPt, Vector3.new(0,hitPt.y,0))
 							local failTweenIn = failurePopup:TweenIn()
@@ -829,8 +838,8 @@ local KeyboardController = require(script.Parent:WaitForChild("Keyboard"))
 local ClickToMove = setmetatable({}, KeyboardController)
 ClickToMove.__index = ClickToMove
 
-function ClickToMove.new()
-	local self = setmetatable(KeyboardController.new(), ClickToMove)
+function ClickToMove.new(CONTROL_ACTION_PRIORITY)
+	local self = setmetatable(KeyboardController.new(CONTROL_ACTION_PRIORITY), ClickToMove)
 	print("Instantiating ClickToMove Controller")
 	
 	self.fingerTouches = {}

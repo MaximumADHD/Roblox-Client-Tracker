@@ -22,6 +22,9 @@ local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 local DiscardChanges = require(Plugin.Src.Actions.DiscardChanges)
 local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 
+local AddWarning = require(Plugin.Src.Actions.AddWarning)
+local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
+
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
 local Scales = nil
@@ -58,6 +61,7 @@ local function Settings(state, action)
 		Current = {},
 		Changed = {},
 		Errors = {},
+		Warnings = {},
 	}
 
 	if action.type == AddChange.name then
@@ -106,11 +110,24 @@ local function Settings(state, action)
 	elseif action.type == DiscardErrors.name then
 		return Cryo.Dictionary.join(state, {
 			Errors = {},
+			Warnings = {},
 		})
 
 	elseif action.type == SetCurrentSettings.name then
 		return Cryo.Dictionary.join(state, {
 			Current = action.settings,
+		})
+
+	elseif action.type == AddWarning.name then
+		if not Cryo.List.find(state.Warnings, action.key) then
+			return Cryo.Dictionary.join(state, {
+				Warnings = Cryo.List.join(state.Warnings, {action.key})
+			})
+		end
+
+	elseif action.type == DiscardWarning.name then
+		return Cryo.Dictionary.join(state, {
+			Warnings = Cryo.List.removeValue(state.Warnings, action.key)
 		})
 	end
 

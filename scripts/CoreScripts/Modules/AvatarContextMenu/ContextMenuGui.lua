@@ -231,6 +231,12 @@ function ContextMenuGui:BuildPlayerCarousel(playersByProximity)
 
 end
 
+function ContextMenuGui:RemovePlayerEntry(player) 
+	if not PlayerCarousel then return end 
+	
+	PlayerCarousel:RemovePlayerEntry(player)
+end
+
 function ContextMenuGui:GetBottomScreenPaddingConstant()
 	return BOTTOM_SCREEN_PADDING_PERCENT
 end
