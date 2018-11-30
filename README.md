@@ -23,7 +23,7 @@ This is a JSON version of Roblox's API Dump. It contains more data than the orig
 This file is extracted using RobloxStudioBeta.exe -API API-Dump.json
 
 ## API-Dump.txt
-This is a readable version of Roblox's JSON API Dump. Its style is derived from the [Legacy API Dump](#legacyapidumptxt) listed below, but with a few alterations and improvements to the sorting of data. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
+This is a readable version of Roblox's JSON API Dump. Its style is derived from the [Legacy API Dump](#legacy-api-dumptxt) listed below, but with a few alterations and improvements to the sorting of data. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
 
 ## CppTree.txt
 A *very-rough* hierarchical dump of the C++ class/enum type names that could be extracted from the symbol data of Roblox Studio's exe.
