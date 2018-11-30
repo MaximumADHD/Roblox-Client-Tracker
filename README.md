@@ -23,7 +23,7 @@ This is a JSON version of Roblox's API Dump. It contains more data than the orig
 This file is extracted using RobloxStudioBeta.exe -API API-Dump.json
 
 ## API-Dump.txt
-This is a readable version of Roblox's JSON API Dump. Its style is derived from the [Legacy API Dump](#legacy-api-dumptxt) listed below, but with a few alterations and improvements to the sorting of data. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
+This is a readable version of Roblox's JSON API Dump. Its style is derived from the [Legacy API Dump](#legacy-api-dumptxt), but with a few alterations and improvements to the sorting of data. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
 
 ## CppTree.txt
 A *very-rough* hierarchical dump of the C++ class/enum type names that could be extracted from the symbol data of Roblox Studio's exe.
@@ -35,7 +35,7 @@ This is a sorted list of dumped strings from Roblox Studio's exe. There is *some
 This is a sorted list of fast variables, which are used by Roblox to toggle changes to the engine remotely on multiple platforms without having to redeploy the client.
 
 ## Legacy-API-Dump.txt
-This is the legacy version of Roblox's API Dump. It is a feature bundled with their game client that exports a readable version of Roblox's usable Lua API. The file is extracted using `RobloxPlayerBeta.exe --API API-Dump.txt`
+This is the legacy version of Roblox's API Dump. It is a feature bundled with their game client that exports a readable version of Roblox's usable Lua API. The file is extracted using `RobloxPlayerBeta.exe --API Legacy-API-Dump.txt`
 
 ## rbxManifest.txt
 A file that describes (almost) every file that is expected to be extracted from the zip files specified in rbxPkgManifest.txt
