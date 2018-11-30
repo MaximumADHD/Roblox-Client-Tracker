@@ -12,10 +12,10 @@ It generates information by data mining files retrieved from Roblox's deployment
 # Comparison Links
 Use these links to compare versions of Roblox's client.
 
-* Comparison of [roblox->gametest1](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs#files_bucket)
-* Comparison of [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest2.robloxlabs#files_bucket)
-* Comparison of [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs...gametest2.robloxlabs)
- 
+* Compare [roblox->gametest1](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs#files_bucket)
+* Compare [roblox->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest2.robloxlabs#files_bucket)
+* Compare [gametest1->gametest2](https://github.com/CloneTrooper1019/Roblox-Client-Watch/compare/gametest1.robloxlabs...gametest2.robloxlabs)
+
 # Info Specification
 
 ## API-Dump.json
