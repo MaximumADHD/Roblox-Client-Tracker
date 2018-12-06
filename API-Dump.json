@@ -27024,6 +27024,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "IsLuaGameDetailsEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "IsLuaGamesPageEnabled",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -44418,9 +44439,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "UITheme"
@@ -58164,10 +58189,16 @@
             "Items": [
                 {
                     "Name": "Light",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 0
                 },
                 {
                     "Name": "Dark",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 1
                 }
             ],

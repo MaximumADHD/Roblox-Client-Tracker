@@ -390,11 +390,11 @@ function ServerJobsChart:render()
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
+		ClipsDescendants = true,
 		LayoutOrder = layoutOrder,
 	}, {
 		Header = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
-			ClipsDescendants = true,
+			Size = UDim2.new(0, absWidth, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
 		}, header),
 

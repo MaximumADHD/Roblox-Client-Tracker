@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local ScaleControls = {}
 
 local function getXPadding(self)
@@ -10,6 +12,20 @@ local function resizeHighlightArea(self, length)
 	local rightX = math.max(self.LeftHandle.AbsolutePosition.X, self.RightHandle.AbsolutePosition.X)
 	self.HighlightArea.Position = UDim2.new(0, leftX + getXPadding(self), 0, 0)
 	self.HighlightArea.Size = UDim2.new(0, rightX - leftX - (2 * getXPadding(self)), 0, length)
+end
+
+local function getPaddingToApply(self, time, padding)
+	-- Remove padding if the padding puts the handle outside of the timeline
+	if padding < 0 then
+		local zeroPosition = self.Paths.UtilityScriptDisplayArea:timeToAbsoluteXPosition(0)
+		local timePostion = self.Paths.UtilityScriptDisplayArea:timeToAbsoluteXPosition(time)
+
+		if zeroPosition + math.abs(padding) > timePostion then
+			return zeroPosition - timePostion
+		end
+	end
+
+	return padding
 end
 
 local function positionHandle(self, handle, time, padding, yPos)
@@ -39,7 +55,11 @@ local function getOffsetClickTime(self)
 	local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime(true)
 	if self.selectedHandle then
 		local x = self.Paths.UtilityScriptDisplayArea:timeToAbsoluteXPosition(clickTime)
-		x = x - self.Paddings[self.selectedHandle]
+		if FastFlags:fixKeyframeScaleHandlesPositioning() then
+			x = x - self.ActivePadding[self.selectedHandle]
+		else
+			x = x - self.Paddings[self.selectedHandle]
+		end
 		local offsetTime = self.Paths.UtilityScriptDisplayArea:absoluteXPositionToTime(x)
 		offsetTime = self.Paths.DataModelSession:getIncrementSnappedTime(offsetTime)
 		return self.Paths.DataModelSession:formatTimeValue(offsetTime)
@@ -52,25 +72,45 @@ local function flipHandles(self, handle, time)
 	local rightAnchor = Vector2.new(1, 0.5)
 	if handle == self.RightHandle then
 		if time <= self.StartTime then
-			positionHandle(self, self.LeftHandle, self.StartTime, getXPadding(self))
-			positionHandle(self, self.RightHandle, time, -1 * getXPadding(self))
+			if FastFlags:fixKeyframeScaleHandlesPositioning() then
+				positionHandle(self, self.LeftHandle, self.StartTime, self.ActivePadding[self.RightHandle])
+				positionHandle(self, self.RightHandle, time, self.ActivePadding[self.LeftHandle])
+			else
+				positionHandle(self, self.LeftHandle, self.StartTime, getXPadding(self))
+				positionHandle(self, self.RightHandle, time, -1 * getXPadding(self))
+			end
 			self.LeftTag.AnchorPoint = leftAnchor
 			self.RightTag.AnchorPoint = rightAnchor
 		else
-			positionHandle(self, self.LeftHandle, self.StartTime, -1 * getXPadding(self))
-			positionHandle(self, self.RightHandle, time, getXPadding(self))
+			if FastFlags:fixKeyframeScaleHandlesPositioning() then
+				positionHandle(self, self.LeftHandle, self.StartTime, self.ActivePadding[self.LeftHandle])
+				positionHandle(self, self.RightHandle, time, self.ActivePadding[self.RightHandle])
+			else
+				positionHandle(self, self.LeftHandle, self.StartTime, -1 * getXPadding(self))
+				positionHandle(self, self.RightHandle, time, getXPadding(self))
+			end
 			self.LeftTag.AnchorPoint = rightAnchor
 			self.RightTag.AnchorPoint = leftAnchor
 		end
 	elseif handle == self.LeftHandle then
 		if time >= self.EndTime then
-			positionHandle(self, self.LeftHandle, time, getXPadding(self))
-			positionHandle(self, self.RightHandle, self.EndTime, -1 * getXPadding(self))
+			if FastFlags:fixKeyframeScaleHandlesPositioning() then
+				positionHandle(self, self.LeftHandle, time, self.ActivePadding[self.RightHandle])
+				positionHandle(self, self.RightHandle, self.EndTime, self.ActivePadding[self.LeftHandle])
+			else
+				positionHandle(self, self.LeftHandle, time, getXPadding(self))
+				positionHandle(self, self.RightHandle, self.EndTime, -1 * getXPadding(self))
+			end
 			self.LeftTag.AnchorPoint = leftAnchor
 			self.RightTag.AnchorPoint = rightAnchor
 		else
-			positionHandle(self, self.LeftHandle, time, -1 * getXPadding(self))
-			positionHandle(self, self.RightHandle, self.EndTime, getXPadding(self))
+			if FastFlags:fixKeyframeScaleHandlesPositioning() then
+				positionHandle(self, self.LeftHandle, time, self.ActivePadding[self.LeftHandle])
+				positionHandle(self, self.RightHandle, self.EndTime, self.ActivePadding[self.RightHandle])
+			else
+				positionHandle(self, self.LeftHandle, time, -1 * getXPadding(self))
+				positionHandle(self, self.RightHandle, self.EndTime, getXPadding(self))
+			end
 			self.LeftTag.AnchorPoint = rightAnchor
 			self.RightTag.AnchorPoint = leftAnchor
 		end
@@ -124,8 +164,19 @@ function ScaleControls:showControls()
 	self.LeftHandle.Size = UDim2.new(0, 2, 0, length)
 	self.RightHandle.Size = UDim2.new(0, 2, 0, length)
 
-	positionHandle(self, self.LeftHandle, self.StartTime, self.Paddings[self.LeftHandle], topY)
-	positionHandle(self, self.RightHandle, self.EndTime, self.Paddings[self.RightHandle], topY)
+	local leftPadding = self.Paddings[self.LeftHandle]
+	local rightPadding = self.Paddings[self.RightHandle]
+
+	if FastFlags:fixKeyframeScaleHandlesPositioning() then
+		leftPadding = getPaddingToApply(self, self.StartTime, self.Paddings[self.LeftHandle])
+		rightPadding = getPaddingToApply(self, self.EndTime, self.Paddings[self.RightHandle])
+	end
+	positionHandle(self, self.LeftHandle, self.StartTime, leftPadding, topY)
+	positionHandle(self, self.RightHandle, self.EndTime, rightPadding, topY)
+
+	self.ActivePadding[self.LeftHandle] = leftPadding
+	self.ActivePadding[self.RightHandle] = rightPadding
+
 	positionTag(self, self.LeftTag, nil, self.LeftHandle.AbsolutePosition.X)
 	positionTag(self, self.RightTag, nil, self.RightHandle.AbsolutePosition.X)
 	resizeHighlightArea(self, bottomY + trackOffset)
@@ -134,8 +185,13 @@ end
 function ScaleControls:moveControls(startTime, endTime)
 	setTagTime(self, self.LeftTag, startTime)
 	setTagTime(self, self.RightTag, endTime)
-	positionHandle(self, self.LeftHandle, startTime, self.Paddings[self.LeftHandle])
-	positionHandle(self, self.RightHandle, endTime, self.Paddings[self.RightHandle])
+	if FastFlags:fixKeyframeScaleHandlesPositioning() then
+		positionHandle(self, self.LeftHandle, startTime, self.ActivePadding[self.LeftHandle])
+		positionHandle(self, self.RightHandle, endTime, self.ActivePadding[self.RightHandle])
+	else
+		positionHandle(self, self.LeftHandle, startTime, self.Paddings[self.LeftHandle])
+		positionHandle(self, self.RightHandle, endTime, self.Paddings[self.RightHandle])
+	end
 	positionTag(self, self.LeftTag, nil, self.LeftHandle.AbsolutePosition.X)
 	positionTag(self, self.RightTag, nil, self.RightHandle.AbsolutePosition.X)
 	resizeHighlightArea(self)
@@ -188,6 +244,10 @@ function ScaleControls:init(Paths)
 	self.Paddings = {}
 	self.Paddings[self.TargetWidget.LeftHandle] = -1 * getXPadding(self)
 	self.Paddings[self.TargetWidget.RightHandle] = getXPadding(self)
+
+	self.ActivePadding = {}
+	self.ActivePadding[self.TargetWidget.LeftHandle] = -1 * getXPadding(self)
+	self.ActivePadding[self.TargetWidget.RightHandle] = getXPadding(self)
 
 	self.Active = false
 
@@ -284,6 +344,7 @@ function ScaleControls:terminate()
 	self.HighlightArea = nil
 	self.Connections:disconnectAll()
 	self.Paddings = {}
+	self.ActivePadding = {}
 	self:resetSelected()
 	self.Active = false
 end

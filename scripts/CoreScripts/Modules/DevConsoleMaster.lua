@@ -40,6 +40,7 @@ local ReportTabChanges = require(MiddleWare.ReportTabChanges)
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
 local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup")
+local FFlagDevConsoleOnTopOfCoreBlur = settings():GetFFlag("DevConsoleOnTopOfCoreBlur")
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 
 local DEV_TAB_LIST = {
@@ -207,7 +208,9 @@ function DevConsoleMaster:SetupDevConsole()
 		DataProvider = Roact.createElement(DataProvider, {
 			isDeveloperView = developerConsoleView,
 		}, {
-			App = Roact.createElement("ScreenGui", {}, {
+			App = Roact.createElement("ScreenGui", {
+				OnTopOfCoreBlur = FFlagDevConsoleOnTopOfCoreBlur
+				}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
 					isdeveloperView = developerConsoleView,

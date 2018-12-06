@@ -135,15 +135,16 @@ function Gamepad:BindContextActions()
 	end
 	
 	local handleThumbstickInput = function(actionName, inputState, inputObject)
-		if self.activeGamepad ~= inputObject.UserInputType then 
-			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Pass or nil
-		end
-		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 		
 		if inputState == Enum.UserInputState.Cancel then
 			self.moveVector = ZERO_VECTOR3
 			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Sink or nil
 		end
+		
+		if self.activeGamepad ~= inputObject.UserInputType then 
+			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Pass or nil
+		end
+		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 		
 		if inputObject.Position.magnitude > thumbstickDeadzone then
 			self.moveVector  =  Vector3.new(inputObject.Position.X, 0, -inputObject.Position.Y)

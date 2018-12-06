@@ -42,6 +42,8 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagFixInactiveSelectorArrowsSuccess, FFlagFixInactiveSelectorArrowsResult = pcall(function() return settings():GetFFlag("FixInactiveSelectorArrows") end)
 local FFlagFixInactiveSelectorArrows = FFlagFixInactiveSelectorArrowsSuccess and FFlagFixInactiveSelectorArrowsResult
 
+local FFlagFixSettingsDropDownIncorrectSelection = settings():GetFFlag("FixSettingsDropDownIncorrectSelection")
+
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
 
@@ -584,7 +586,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local dropDownButtonEnabled
 	local lastStringTable = dropDownStringTable
 
-	this.CurrentIndex = 0
+	if not FFlagFixSettingsDropDownIncorrectSelection then
+		this.CurrentIndex = 0
+	end
 
 	----------------- GUI SETUP ------------------------
 	local DropDownFullscreenFrame = Util.Create'ImageButton'
@@ -687,11 +691,15 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0.5)
 		end
-		if not this.CurrentIndex then this.CurrentIndex = 1 end
-		if this.CurrentIndex <= 0 then this.CurrentIndex = 1 end
+		if not FFlagFixSettingsDropDownIncorrectSelection then
+			if not this.CurrentIndex then this.CurrentIndex = 1 end
+			if this.CurrentIndex <= 0 then this.CurrentIndex = 1 end
+		end
 
 		lastSelectedCoreObject = this.DropDownFrame
-		GuiService.SelectedCoreObject = this.Selections[this.CurrentIndex]
+		if (not FFlagFixSettingsDropDownIncorrectSelection) or (this.CurrentIndex and this.CurrentIndex > 0) then
+			GuiService.SelectedCoreObject = this.Selections[this.CurrentIndex]
+		end
 
 		guiServiceChangeCon = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
 			for i = 1, #this.Selections do

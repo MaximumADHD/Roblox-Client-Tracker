@@ -17,7 +17,7 @@ local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 
 local FlagFixChatMessageLogPerformance = false do
 	local ok, value = pcall(function()
-		return settings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance")
+		return UserSettings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance")
 	end)
 	if ok then
 		FlagFixChatMessageLogPerformance = value

@@ -1573,6 +1573,7 @@ Class NetworkSettings : Instance [Service] [NotBrowsable]
 	Property Enum<PacketPriority> NetworkSettings.PhysicsSendPriority [Hidden] [NotReplicated]
 Class NotificationService : Instance [NotCreatable] [Service]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly]
+	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property bool NotificationService.IsLuaGamesPageEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property bool NotificationService.IsLuaHomePageEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property string NotificationService.SelectedTheme {RobloxScriptSecurity} [NotReplicated]
@@ -2547,7 +2548,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
-	Property Enum<UITheme> Studio.UI Theme
+	Property Enum<UITheme> Studio.UI Theme [ReadOnly]
 	Property bool Studio.LuaDebuggerEnabled
 	Property int Studio.ScriptTimeoutLength
 	Property bool Studio.Clear Output On Start
@@ -4467,8 +4468,8 @@ Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
 Enum UITheme
-	EnumItem UITheme.Light : 0
-	EnumItem UITheme.Dark : 1
+	EnumItem UITheme.Light : 0 [Deprecated]
+	EnumItem UITheme.Dark : 1 [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1

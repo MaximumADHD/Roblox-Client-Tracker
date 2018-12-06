@@ -30,6 +30,8 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local PlayerCarousel = nil
 local PlayerChangedEvent = Instance.new("BindableEvent")
 
+local FFlagACMFixWrongPlayerNameAppearing = settings():GetFFlag("ACMFixWrongPlayerNameAppearing")
+
 --- Modules
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local Utility = require(SettingsModules:WaitForChild("Utility"))
@@ -211,24 +213,39 @@ function ContextMenuGui:BuildPlayerCarousel(playersByProximity)
 	end
 
 	PlayerCarousel:ClearPlayerEntries()
+	
+	if FFlagACMFixWrongPlayerNameAppearing then
+		if self.PlayerChangedConnection then
+			self.PlayerChangedConnection:Disconnect()
+		end
+		self.PlayerChangedConnection = PlayerCarousel.PlayerChanged:Connect(function(player)
+			if player then 
+				self.ContextMenuFrame.Content.NameTag.Text = player.Name
+			else
+				self.ContextMenuFrame.Content.NameTag.Text = ""
+			end
+			PlayerChangedEvent:Fire(player)
+		end)
+	end
 
 	for i = 1, #playersByProximity do
 		PlayerCarousel:CreatePlayerEntry(playersByProximity[i][1], playersByProximity[i][2])
 	end
 
-	if #playersByProximity > 0 then
-		self.ContextMenuFrame.Content.NameTag.Text = playersByProximity[1][1].Name
-	end
-
-	PlayerCarousel.PlayerChanged:Connect(function(player)
-		if player then 
-			self.ContextMenuFrame.Content.NameTag.Text = player.Name
-		else
-			self.ContextMenuFrame.Content.NameTag.Text = ""
+	if not FFlagACMFixWrongPlayerNameAppearing then
+		if #playersByProximity > 0 then
+			self.ContextMenuFrame.Content.NameTag.Text = playersByProximity[1][1].Name
 		end
-		PlayerChangedEvent:Fire(player)
-	end)
 
+		PlayerCarousel.PlayerChanged:Connect(function(player)
+			if player then 
+				self.ContextMenuFrame.Content.NameTag.Text = player.Name
+			else
+				self.ContextMenuFrame.Content.NameTag.Text = ""
+			end
+			PlayerChangedEvent:Fire(player)
+		end)
+	end
 end
 
 function ContextMenuGui:RemovePlayerEntry(player) 
@@ -267,6 +284,8 @@ function ContextMenuGui.new()
 
 	obj.ContextMenuFrame = nil
 	obj.LastSetPlayerIcon = nil
+	
+	obj.PlayerChangedConnection = nil
 
 	obj.SelectedPlayerChanged = PlayerChangedEvent.Event
 

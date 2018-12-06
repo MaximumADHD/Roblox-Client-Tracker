@@ -15,7 +15,6 @@ local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
 local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
-local homePageDataFetchRefactor = settings():GetFFlag('LuaHomePageDataFetchRefactor')
 
 return function(requestImpl, userId, thumbnailRequest, checkPoints)
 	return function(store)
@@ -66,15 +65,11 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 					checkPoints:finishFetchUsersPresences()
 				end
 
-				if homePageDataFetchRefactor then
-					return Promise.resolve(result)
-				end
+				return Promise.resolve(result)
 			end,
 			function(response)
 				store:dispatch(FetchUserFriendsFailed(userId, response))
-				if homePageDataFetchRefactor then
-					return Promise.reject(response)
-				end
+				return Promise.reject(response)
 			end
 		)
 	end

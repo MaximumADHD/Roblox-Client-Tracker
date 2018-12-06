@@ -9,6 +9,8 @@
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
+local FFlagCoreScriptsFixRecordVideoOSXHelp = settings():GetFFlag('CoreScriptsFixRecordVideoOSXHelp')
+
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
@@ -187,16 +189,30 @@ local function Initialize()
 		accessoriesFrame.Parent = parentFrame
 
 		local miscFrame = nil
-		miscFrame = createPCGroup("Misc", {	
-			[1] = {["Screenshot"] = "Print Screen"}, 
-			[2] = {["Record Video"] = isOSX and "F12/fn + F12" or "F12"},
-			[3] = {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"},
-			[4] = {["Mouselock"] = "Shift"},
-			[5] = {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"},
-			[6] = {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"},
-			[7] = {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"}, 
-		  }
-		)
+		if FFlagCoreScriptsFixRecordVideoOSXHelp then
+		  local miscActions = {}
+		  table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})
+		  if not isOSX then 
+		    table.insert(miscActions, {["Record Video"] = "F12"})
+		  end
+		  table.insert(miscActions, {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"})
+		  table.insert(miscActions, {["Mouselock"] = "Shift"})
+		  table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
+		  table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
+		  table.insert(miscActions, {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"})
+		  miscFrame = createPCGroup("Misc", miscActions)
+		else
+		  miscFrame = createPCGroup("Misc", {	
+		    [1] = {["Screenshot"] = "Print Screen"}, 
+		    [2] = {["Record Video"] = isOSX and "F12/fn + F12" or "F12"},
+		    [3] = {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"},
+		    [4] = {["Mouselock"] = "Shift"},
+		    [5] = {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"},
+		    [6] = {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"},
+		    [7] = {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"}, 
+		    }
+		  )
+		end
 
 		miscFrame.Position = UDim2.new(2/3,PC_TABLE_SPACING * 2,0,0)
 		miscFrame.Parent = parentFrame

@@ -57,6 +57,8 @@ local _baseRealtimeUrl = string.format("https://realtime.%s", _baseDomain)
 local _baseWebUrl = string.format("https://web.%s", _baseDomain)
 local _baseWwwUrl = string.format("https://www.%s", _baseDomain)
 local _baseAdsUrl = string.format("https://ads.%s", _baseDomain)
+local _baseFollowingsUrl = string.format("https://followings.%s", _baseDomain)
+
 
 -- public api
 local Url = {
@@ -75,6 +77,7 @@ local Url = {
 	WEB_URL = _baseWebUrl,
 	WWW_URL = _baseWwwUrl,
 	ADS_URL = _baseAdsUrl,
+	FOLLOWINGS_URL= _baseFollowingsUrl,
 }
 
 function Url:getUserProfileUrl(userId)

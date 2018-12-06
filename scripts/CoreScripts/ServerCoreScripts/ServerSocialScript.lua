@@ -22,6 +22,20 @@ local MAX_FOLLOW_NOTIFICATIONS_BETWEEN = 5
 
 local PlayerToRelationshipMap = {}
 
+-- Special groups that have leaderboard icons.
+local SPECIAL_GROUPS = {
+	Admin = {GroupId = 1200769},
+	Intern = {GroupId = 2868472, GroupRank = 100},
+	Star = {GroupId = 4199740},
+	SpanishLocalizationExpert = {GroupId = 4265462, GroupRank = 252},
+	BrazilianLocalizationExpert = {GroupId = 4265456, GroupRank = 252},
+	FrenchLocalizationExpert = {GroupId = 4265443, GroupRank = 252},
+	GermanLocalizationExpert = {GroupId = 4265449, GroupRank = 252},
+}
+-- Map of which special groups a player is in.
+local PlayerToGroupDetailsMap = {}
+local FFlagCorescriptIsInGroupServer = settings():GetFFlag("CorescriptIsInGroupServer")
+
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
 RemoteEvent_FollowRelationshipChanged.Name = "FollowRelationshipChanged"
@@ -42,6 +56,10 @@ RemoteEvent_SetPlayerBlockList.Parent = RobloxReplicatedStorage
 local RemoteEvent_UpdatePlayerBlockList = Instance.new('RemoteEvent')
 RemoteEvent_UpdatePlayerBlockList.Name = 'UpdatePlayerBlockList'
 RemoteEvent_UpdatePlayerBlockList.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_PlayerGroupDetails = Instance.new('RemoteEvent')
+RemoteEvent_PlayerGroupDetails.Name = 'NewPlayerGroupDetails'
+RemoteEvent_PlayerGroupDetails.Parent = RobloxReplicatedStorage
 
 --[[ Helper Functions ]]--
 local function decodeJSON(json)
@@ -227,7 +245,37 @@ RemoteEvent_NewFollower.OnServerEvent:connect(function(player1, player2, player1
 	end
 end)
 
+local function sendPlayerAllGroupDetails(player)
+	for userId, groupDetails in pairs(PlayerToGroupDetailsMap) do
+		RemoteEvent_PlayerGroupDetails:FireClient(player, userId, groupDetails)
+	end
+end
+
+local function getPlayerGroupDetails(player)
+	local newGroupDetails = {}
+	for groupKey, groupInfo in pairs(SPECIAL_GROUPS) do
+		if groupInfo.GroupRank ~= nil then
+			local isInGroupSuccess, isInGroupValue = pcall(function() return player:GetRankInGroup(groupInfo.GroupId) >= groupInfo.GroupRank end)
+			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue
+		else
+			local isInGroupSuccess, isInGroupValue = pcall(function() return player:IsInGroup(groupInfo.GroupId) end)
+			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue
+		end
+	end
+	if player.Parent then
+		local uidStr = tostring(player.UserId)
+		PlayerToGroupDetailsMap[uidStr] = newGroupDetails
+		RemoteEvent_PlayerGroupDetails:FireAllClients(uidStr, newGroupDetails)
+	end
+end
+
 local function onPlayerAdded(newPlayer)
+	if FFlagCorescriptIsInGroupServer then
+		sendPlayerAllGroupDetails(newPlayer)
+		if newPlayer.UserId > 0 then
+			coroutine.wrap(getPlayerGroupDetails)(newPlayer)
+		end
+	end
 	local uid = newPlayer.UserId
 	if uid > 0 then
 		local uidStr = tostring(uid)
@@ -260,5 +308,7 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 		PlayerToRelationshipMap[uid] = nil
 		FollowNotificationsBetweenMap[uid] = nil
 	end
+	if FFlagCorescriptIsInGroupServer and PlayerToGroupDetailsMap[uid] then
+		PlayerToGroupDetailsMap[uid] = nil
+	end
 end)
-

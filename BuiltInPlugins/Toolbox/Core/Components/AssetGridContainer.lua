@@ -60,8 +60,9 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onAssetHovered = function(assetId)
-		if self.state.hoveredAssetId == 0 and self.state.hoveredAssetId ~= assetId and
-			not getModal(self).isShowingModal() then
+		if  self.state.hoveredAssetId ~= assetId and
+			not getModal(self).isShowingModal()
+		then
 			self:setState({
 				hoveredAssetId = assetId,
 			})
@@ -69,9 +70,11 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onAssetHoverEnded = function(assetId)
-		self:setState({
-			hoveredAssetId = 0,
-		})
+		if self.state.hoveredAssetId == assetId then
+			self:setState({
+				hoveredAssetId = 0,
+			})
+		end
 	end
 
 	self.onFocusLost = function(rbx, input)

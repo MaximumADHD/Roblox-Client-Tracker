@@ -95,7 +95,7 @@ function NetworkSummary:render()
 		})
 	end
 	elements["Header"] = Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+		Size = UDim2.new(0, width, 0, HEADER_HEIGHT),
 		BackgroundTransparency = 1,
 		LayoutOrder = 1,
 	}, summaryHeader)

@@ -1,0 +1,160 @@
+-- Avatar Importer
+
+-- services
+local CoreGui = game:GetService("CoreGui")
+local Selection = game:GetService("Selection")
+local Workspace = game:GetService("Workspace")
+
+-- load fast flags and early out
+local FastFlags = require(script.Parent.FastFlags)
+if not FastFlags:isEnableAvatarImporterOn() then
+	return
+end
+
+-- imports
+local Assets = require(script.Parent.Assets)
+local AvatarPrompt = require(script.Parent.class.AvatarPrompt)
+local ErrorPrompt = require(script.Parent.class.ErrorPrompt)
+local LoadingPrompt = require(script.Parent.class.LoadingPrompt)
+
+-- globals
+local Globals = require(script.Parent.Globals)
+Globals.plugin = plugin
+Globals.requirementsUrl = "articles/using-avatar-importer"
+
+-- constants
+local TOOLBAR_NAME = "Avatar"
+local BUTTON_NAME = "Avatar Importer"
+local BUTTON_TOOLTIP = "Import an Avatar with a .fbx file"
+
+-- shared gui objects
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AvatarImporter"
+screenGui.Enabled = true
+local existing = CoreGui:FindFirstChild("AvatarImporter")
+if existing then
+	existing:Destroy()
+end
+screenGui.Parent = CoreGui
+
+-- plugin objects
+local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
+local importAvatarButton = toolbar:CreateButton(BUTTON_NAME, BUTTON_TOOLTIP, Assets.BUTTON_ICON)
+importAvatarButton.ClickableWhenViewportHidden = true
+
+-- class instances
+local avatarPrompt = AvatarPrompt.new(screenGui)
+local errorPrompt = ErrorPrompt.new(screenGui)
+local loadingPrompt = LoadingPrompt.new(screenGui)
+
+-- utility functions
+local function getLinesFromStr(str)
+	local results = {}
+	for match in string.gmatch(str, "[^\n]+") do
+		results[#results + 1] = match
+	end
+	return results
+end
+
+local function getCameraLookAt(maxRange)
+	local camera = Workspace:FindFirstChild("Camera")
+	if camera then
+		local ray = Ray.new(camera.CFrame.p, camera.CFrame.lookVector * maxRange)
+		local _, pos = Workspace:FindPartOnRay(ray)
+		camera.Focus = CFrame.new(pos)
+		return pos
+	else
+		--Default position if they did weird stuff
+		print("Unable to find default camera.")
+		return Vector3.new(0, 5.2, 0)
+	end
+end
+
+local function setupImportedAvatar(avatar, avatarType)
+	avatar:MoveTo(getCameraLookAt(10))
+	Selection:Set({ avatar })
+	print("Avatar Imported:", avatar:GetFullName(), avatarType)
+end
+
+-- ui state management
+local connections = {}
+local isOpen = false
+
+-- ui state functions
+local function clearConnections()
+	for _, connection in pairs(connections) do
+		connection:Disconnect()
+	end
+	connections = {}
+end
+
+local function closeUI()
+	if not isOpen then
+		return
+	end
+	isOpen = false
+	clearConnections()
+	avatarPrompt:setEnabled(false)
+	errorPrompt:setEnabled(false)
+	loadingPrompt:setEnabled(false)
+	plugin:Deactivate()
+	importAvatarButton:SetActive(false)
+end
+
+local function openUI()
+	if isOpen then
+		return
+	end
+	isOpen = true
+	clearConnections()
+	avatarPrompt:setEnabled(true)
+
+	table.insert(connections, avatarPrompt.selected.Event:Connect(function(avatarType)
+		avatarPrompt:setEnabled(false)
+		loadingPrompt:setEnabled(true)
+
+
+		local success, avatarOrError = pcall(function()
+			return plugin:ImportFbxRig()
+		end)
+
+		loadingPrompt:setEnabled(false)
+
+		if not success then
+			local fileName = "<filename>"
+			local requirements = avatarOrError
+			local errors = getLinesFromStr(avatarOrError)
+			if errors[1] == "FBX Import Error(s):" and #errors > 2 then
+				fileName = errors[2]
+				for i = 3, #errors do
+					errors[i] = "- " .. errors[i]
+				end
+				requirements = table.concat(errors, "\n", 3)
+			end
+			errorPrompt:setRequirements(requirements)
+			errorPrompt:setName(fileName)
+			errorPrompt:setEnabled(true)
+			table.insert(connections, errorPrompt.closed.Event:Connect(closeUI))
+			table.insert(connections, errorPrompt.retried.Event:Connect(function()
+				-- return to avatar menu
+				closeUI()
+				openUI()
+			end))
+		else
+			setupImportedAvatar(avatarOrError, avatarType)
+			closeUI()
+		end
+
+	end))
+
+	table.insert(connections, avatarPrompt.closed.Event:Connect(closeUI))
+end
+
+-- main event hook
+importAvatarButton.Click:Connect(function()
+	if not isOpen then
+		openUI()
+	else
+		closeUI()
+	end
+end)

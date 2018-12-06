@@ -34,6 +34,11 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local InsertAsset = require(Plugin.Core.Util.InsertAsset)
 
+local StudioService = game:GetService("StudioService")
+local GuiService = game:GetService("GuiService")
+local ContentProvider = game:GetService("ContentProvider")
+local HttpService = game:GetService("HttpService")
+
 local getNetwork = ContextGetter.getNetwork
 local getPlugin = ContextGetter.getPlugin
 local withTheme = ContextHelper.withTheme
@@ -48,6 +53,8 @@ local Voting = require(Plugin.Core.Components.Asset.Voting.Voting)
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 
 local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
+local FFlagStudioPluginMenuApi = settings():GetFFlag("StudioPluginMenuApi")
 local FFlagFixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
 
 local Asset = Roact.PureComponent:extend("Asset")
@@ -95,7 +102,27 @@ function Asset:init(props)
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
-		-- TODO CLIDEVSRVS-1247 CLIDEVSRVS-1248 ben.cooper 2018/05/07: On right click, show a context menu
+		-- break out early if we don't have access to the menu api
+		if not FFlagStudioPluginMenuApi then return end
+
+		local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
+
+		-- add an action to view an asset in browser
+		menu:AddNewAction("OpenInBrowser", "View in browser").Triggered:connect(function()
+			local baseUrl = ContentProvider.BaseUrl
+			local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+			GuiService:OpenBrowserWindow(targetUrl)
+		end)
+
+		-- only add this action if we have access to copying to clipboard
+		if FFlagEnableCopyToClipboard then
+			menu:AddNewAction("CopyIdToClipboard", "Copy asset ID").Triggered:connect(function()
+				StudioService:CopyToClipboard(assetId)
+			end)
+		end
+
+		menu:ShowAsync()
+		menu:Destroy()
 	end
 
 	self.onDragStart = function(rbx, x, y)

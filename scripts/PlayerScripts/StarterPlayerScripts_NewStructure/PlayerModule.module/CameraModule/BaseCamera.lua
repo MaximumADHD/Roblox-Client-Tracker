@@ -46,6 +46,7 @@ end)
 local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
+local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 
 --[[ Roblox Services ]]--
 local Players = game:GetService("Players")
@@ -1157,6 +1158,8 @@ end
 function BaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	local player = Players.LocalPlayer
 
+	local lastSubjectDistance = self.currentSubjectDistance
+
 	-- By default, camera modules will respect LockFirstPerson and override the currentSubjectDistance with 0
 	-- regardless of what Player.CameraMinZoomDistance is set to, so that first person can be made
 	-- available by the developer without needing to allow players to mousewheel dolly into first person.
@@ -1180,6 +1183,9 @@ function BaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 			end
 		end
 	end
+
+	-- Pass target distance and zoom direction to the zoom controller
+	ZoomController.SetZoomParameters(self.currentSubjectDistance, math.sign(desiredSubjectDistance - lastSubjectDistance))
 
 	-- Returned only for convenience to the caller to know the outcome
 	return self.currentSubjectDistance

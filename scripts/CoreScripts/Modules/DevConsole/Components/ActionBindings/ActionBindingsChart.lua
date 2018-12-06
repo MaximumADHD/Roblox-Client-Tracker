@@ -98,9 +98,8 @@ local function constructHeader(onSortChanged, width)
 	end
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+		Size = UDim2.new(0, width, 0, HEADER_HEIGHT),
 		BackgroundTransparency = 1,
-		ClipsDescendants = true,
 	}, header)
 end
 
@@ -331,6 +330,7 @@ function ActionBindingsChart:render()
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
+		ClipsDescendants = true,
 		LayoutOrder = layoutOrder,
 	}, {
 		Header = constructHeader(self.onSortChanged, frameWidth),

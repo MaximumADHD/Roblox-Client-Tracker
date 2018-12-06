@@ -14,8 +14,6 @@ local kMainButtonFramePadding = UDim.new(0, 4)
 
 local kMainButtonListFrame
 
-local FFlagFixPluginDeactivation = settings():GetFFlag("FixPluginDeactivation")
-
 --[[
 	How tool modules work:
 		Your ModuleScript should return a table. The table can contain the following functions
@@ -286,10 +284,8 @@ module.Initialize = function(thePlugin, thePluginGui)
 			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed	
 		end
 
-        if (FFlagFixPluginDeactivation) then 
-            DeselectSelectedTool()
-        end
-
+        DeselectSelectedTool()
+        
 		tool.ButtonObj:setSelected(true)
 
 		on = true

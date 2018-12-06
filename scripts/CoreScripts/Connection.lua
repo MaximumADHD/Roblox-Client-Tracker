@@ -25,7 +25,9 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 -- when this flag turns on, all the errors will not have reconnect option
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
+local reconnectDisabledForDevMaintenance = settings():GetFFlag("NoReconnectForDevMaintenance")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
+local fflagLazyCreateErrorPrompt = settings():GetFFlag("LazyCreateErrorPrompt")
 
 local errorPrompt
 local graceTimeout = -1
@@ -57,11 +59,6 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
 }
 
--- might have different design on xbox
--- if GuiService:IsTenFootInterface() then
--- errorPrompt = ErrorPrompt.new("XBox")
-errorPrompt = ErrorPrompt.new("Default")
-
 -- Screengui holding the prompt and make it on top of blur
 local screenGui = create 'ScreenGui' {
 	Parent = CoreGui,
@@ -79,7 +76,14 @@ local promptOverlay = create 'Frame' {
 	Active = false,
 	Parent = screenGui
 }
-errorPrompt:setParent(promptOverlay)
+
+-- might have different design on xbox
+-- if GuiService:IsTenFootInterface() then
+-- errorPrompt = ErrorPrompt.new("XBox")
+if not fflagLazyCreateErrorPrompt then
+	errorPrompt = ErrorPrompt.new("Default")
+	errorPrompt:setParent(promptOverlay)
+end
 
 -- Button Callbacks --
 local reconnectFunction = function()
@@ -133,6 +137,7 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.PlacelaunchHashExpired] = true,
 	[Enum.ConnectionError.PlacelaunchGameEnded] = true,
 	[Enum.ConnectionError.PlacelaunchUnauthorized] = true,
+	[Enum.ConnectionError.DisconnectDevMaintenance] = reconnectDisabledForDevMaintenance,
 }
 
 local ButtonList = {
@@ -235,6 +240,13 @@ local updateFullScreenEffect = {
 }
 
 local function onEnter(newState)
+	if fflagLazyCreateErrorPrompt then
+		if not errorPrompt then
+			errorPrompt = ErrorPrompt.new("Default")
+			errorPrompt:setParent(promptOverlay)
+			errorPrompt:resizeWidth(screenWidth)
+		end
+	end
 	if updateFullScreenEffect[newState] then
 		updateFullScreenEffect[newState]()
 	end
@@ -312,7 +324,9 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 		errorMsg = reconnectDisabledReason
 	end
 
-	errorPrompt:onErrorChanged(errorMsg, errorCode)
+	if errorPrompt then
+		errorPrompt:onErrorChanged(errorMsg, errorCode)
+	end
 end
 
 local function onErrorMessageChanged()
@@ -331,7 +345,9 @@ local function onScreenSizeChanged()
 end
 
 -- adjust size to the current screen width
-errorPrompt:resizeWidth(screenWidth)
+if not fflagLazyCreateErrorPrompt then
+	errorPrompt:resizeWidth(screenWidth)
+end
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
 
 -- pre-run it once in case some error occurs before the connection

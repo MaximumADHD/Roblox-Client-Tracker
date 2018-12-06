@@ -1,0 +1,1 @@
+return {} -- globals are defined in main.server.lua

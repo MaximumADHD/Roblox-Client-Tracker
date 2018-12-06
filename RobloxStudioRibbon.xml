@@ -151,9 +151,9 @@
         <addaction fflag="StudioUseLuaGameSettingsDialog" name="luaGameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
       </Group>
       <Group name="Team Test" >
-        <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Team Test"  tooltip="Start a Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Team-Test.png" width="32" height="32" />
+        <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Team Test"  tooltip="Start a Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32" />
         <addseparator visible="false"/>
-        <addaction name="cleanupTeamTestAction" iscommonslot="true" style="textundericon" text="Exit Game"  tooltip="Exit Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Exit-Team-Test.png" width="32" height="32" />
+        <addaction name="cleanupTeamTestAction" iscommonslot="true" style="textundericon" text="Exit Game"  tooltip="Exit Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Exit-Team-Test.png" width="32" height="32" />
       </Group>
     </TabPage>
 
@@ -258,7 +258,7 @@
           <addaction name="createCylindricalConstraintAction" style="textundericon" iscommonslot="true" text="Cylindrical" tooltip="Create cylindrical constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/cylindrical-constraint-32x32.png" width="32" height="32" />
           <addaction name="createRopeConstraintAction" style="textundericon" iscommonslot="true" text="Rope" tooltip="Create rope constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rope-32x32.png" width="32" height="32" />
           <addaction name="createRodConstraintAction" style="textundericon" iscommonslot="true" text="Rod" tooltip="Create rod constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rod-32x32.png" width="32" height="32" />
-          <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Spring" tooltip="Create spring constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/DEPRECATED_spring-32x32.png" width="32" height="32" />
+          <addaction name="createSpringConstraintAction" style="textundericon" iscommonslot="true" text="Spring" tooltip="Create spring constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/spring-32x32.png" width="32" height="32" />
           <addaction name="createWeldConstraintAction" style="textundericon" iscommonslot="true" text="Weld" tooltip="Create weld constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
           <addaction name="createAlignOrientationAction" style="textundericon" iscommonslot="true" text="Align Orientation" tooltip="Create align orientation" icon=":/RibbonBar/images/RibbonIcons/Physics/align-orientation-32x32.png" width="32" height="32" />
@@ -291,7 +291,7 @@
           </ActionGroup>
         </MenuButton>
         <ActionGroup name="insertBasicObject" style="textundericon"  ischeckable="false">
-          <addaction name="startLocationAction" text="Spawn" value="SpawnLocation" icon=":/RibbonBar/images/Studio 2.0 icons/32x32/DEPRECATED_spawn_location.png" tooltip="Click here to add a spawn point into your game" width="32" height="32" />
+          <addaction name="startLocationAction" text="Spawn" value="SpawnLocation" icon=":/RibbonBar/images/Studio 2.0 icons/32x32/spawn_location.png" tooltip="Click here to add a spawn point into your game" width="32" height="32" />
         </ActionGroup>
       </Group>
       <Group name="Advanced">
@@ -300,7 +300,7 @@
         <addaction name="insertModelAction" style="textundericon" text="Model" tooltip="Insert a model from local files" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Service" tooltip="Insert service from a service selection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
         <addaction fflag="StudioEnableCollisionGroupsEditorPlugin" name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Collision Groups" tooltip="Edit collision groups"/>
-        <addaction fflag="StudioChangeRunScriptActionLocation" name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
+        <addaction name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
         <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
           <addaction name="ScriptLargeAction" text="Script" value="Script" tooltip="Insert a script" icon=":/RibbonBar/images/RibbonIcons/Insert/Script.png" width="32" height="32" />
           <addaction name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Insert a local script" icon=":/RibbonBar/images/RibbonIcons/Insert/LocalScript.png" width="32" height="32" />
@@ -324,13 +324,12 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction fflag="!StudioChangeRunScriptActionLocation" name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
         <addaction name="simulationStopAction" style="textundericon" text="Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
         <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
         <addaction name="simulationDiabolicalModeAction"
             style="textundericon"
             text="Network Simulator"
-            icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Diabolical-Mode.png"
+            icon=":/RibbonBar/images/RibbonIcons/Test/Diabolical-Mode.png"
             width="32"
             height="32"/>
       </Group>
@@ -356,13 +355,13 @@
         <addaction name="cleanupServersAndPlayersAction" style="textundericon" text="Cleanup" icon=":/RibbonBar/images/Studio 2.0 icons/32x32/delete_x_32.png"  width="32" height="32"/>
       </Group>
       <Group name ="Emulation">
-        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_emulator_32.png"  width="32" height="32"/>
+        <addaction name="deviceEmulatorToggleAction" style="textundericon" text="Emulator" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/emulator_32.png"  width="32" height="32"/>
       </Group>
       <Group name="Audio">
-        <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Audio-Disabled.png" width="32" height="32" text="Mute" tooltip="Toggle Game Audio Sounds"/>
+        <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Mute" tooltip="Toggle Game Audio Sounds"/>
       </Group>
       <Group name="Analyze">
-        <addaction name="analyzePhysicsToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Physics-Test.png" width="32" height="32" text="Physics" tooltip="Toggle Physics Analyzer"/>
+        <addaction name="analyzePhysicsToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Physics-Test.png" width="32" height="32" text="Physics" tooltip="Toggle Physics Analyzer"/>
       </Group>
     </TabPage>
     <!--
@@ -389,7 +388,7 @@
         <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="View diagnostic information of your game" height="32" width="32"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="View task execution information" height="32" width="32"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="View script performance information" height="32" width="32"/>
-        <addaction name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/DEPRECATED_Find-Results.png" tooltip="Find results window" height="32" width="32"/>
+        <addaction name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Find results window" height="32" width="32"/>
         <addaction name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="View Team Create Window" height="32" width="32"/>
         <addaction name="toggleScriptRecoveryDockAction"
             style="textbesideicon"
@@ -471,17 +470,17 @@
           width="32" height="32" />
       </Group>
       <Group name="Edit">
-        <MenuButton name="actionFindMenu" style ="textundericon" text="Find"  icon=":/RibbonBar/images/RibbonIcons/Home/DEPRECATED_Find.png" tooltip="Find text..." width="32" height="32" >
-          <addaction name="findAction" icon=":/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_find.png" />
-          <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_find_next.png" />
-          <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_find_previous.png" />
-          <addaction name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_find.png" />
-	      <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_goToLine.png" />
+        <MenuButton name="actionFindMenu" style ="textundericon" text="Find"  icon=":/RibbonBar/images/RibbonIcons/Home/Find.png" tooltip="Find text..." width="32" height="32" >
+          <addaction name="findAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
+          <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" />
+          <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" />
+          <addaction name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/find.png" />
+	      <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
         </MenuButton>
         <addaction name="replaceAction" text="Replace" style="textundericon" tooltip="Find text and replace with..." icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" width="32" height="32" />
         <MenuButton name="actionSelectMenu" text="Select" tooltip="Select text..." style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" width="32" height="32" >
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" width="16" height="16" />
-          <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/DEPRECATED_select_children.png" />
+          <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" />
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
       </Group>
@@ -505,7 +504,7 @@
         <addaction name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
         <addaction name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
         <addaction name="stepOutAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32"/>
-        <addaction name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Add-Watch.png" tooltip="Watch the highlighted variable's value" width="32" height="32"/>
+        <addaction name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Add-Watch.png" tooltip="Watch the highlighted variable's value" width="32" height="32"/>
       </Group>
       <Group fflag="LuaDebuggerBreakOnError" name="Debug Errors">
         <addaction type="radio" name="neverBreakOnScriptErrorsAction" style="textbesideicon" text="Never" tooltip="Never break errors into debugger"/>

@@ -104,4 +104,8 @@ function FastFlags:fixJointSelectionInputSinking()
 	return isFlagOn("StudioAnimationEditorFixJointSelectionInputSinking")
 end
 
+function FastFlags:fixKeyframeScaleHandlesPositioning()
+	return isFlagOn("StudioAnimationEditorFixKeyframeScaleHandlesPositioning")
+end
+
 return FastFlags
