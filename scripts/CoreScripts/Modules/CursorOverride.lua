@@ -7,6 +7,8 @@
 
 local UserInputService = game:GetService("UserInputService")
 
+local FFlagUseCursorOverrideManager = settings():GetFFlag("UseCursorOverrideManager")
+
 local cursorOverrideStack = {}
 
 local function update()
@@ -20,6 +22,11 @@ end
 
 return {
 	push = function(name, behavior)
+		if not FFlagUseCursorOverrideManager then
+			UserInputService.OverrideMouseIconBehavior = behavior
+			return
+		end
+
 		assert(type(name) == "string")
 		assert(typeof(behavior) == "EnumItem")
 		assert(behavior.EnumType == Enum.OverrideMouseIconBehavior)
@@ -34,6 +41,11 @@ return {
 		update()
 	end,
 	pop = function(name)
+		if not FFlagUseCursorOverrideManager then
+			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+			return
+		end
+
 		assert(type(name) == "string")
 
 		local idx

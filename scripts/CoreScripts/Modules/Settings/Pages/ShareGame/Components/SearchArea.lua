@@ -18,6 +18,8 @@ local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
+local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
+
 local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")
 local SEARCH_ICON_SIZE = 44
@@ -181,19 +183,39 @@ function SearchArea:didUpdate(prevProps)
 	end
 end
 
--- TODO: Update to use RoactRodux.UNSTABLE_connect2
-SearchArea = RoactRodux.connect(function(store)
-	local state = store:getState()
-	return {
-		isPageOpen = state.Page.IsOpen,
-		searchAreaActive = state.ConversationsSearch.SearchAreaActive,
-		setSearchAreaActive = function(isActive)
-			store:dispatch(SetSearchAreaActive(isActive))
+if FFlagLuaChatRemoveOldRoactRoduxConnect then
+	SearchArea = RoactRodux.UNSTABLE_connect2(
+		function(state, props)
+			return {
+				isPageOpen = state.Page.IsOpen,
+				searchAreaActive = state.ConversationsSearch.SearchAreaActive,
+			}
 		end,
-		setSearchText = function(text)
-			store:dispatch(SetSearchText(text))
-		end,
-	}
-end)(SearchArea)
+		function(dispatch)
+			return {
+				setSearchAreaActive = function(isActive)
+					dispatch(SetSearchAreaActive(isActive))
+				end,
+				setSearchText = function(text)
+					dispatch(SetSearchText(text))
+				end,
+			}
+		end
+	)(SearchArea)
+else
+	SearchArea = RoactRodux.connect(function(store)
+		local state = store:getState()
+		return {
+			isPageOpen = state.Page.IsOpen,
+			searchAreaActive = state.ConversationsSearch.SearchAreaActive,
+			setSearchAreaActive = function(isActive)
+				store:dispatch(SetSearchAreaActive(isActive))
+			end,
+			setSearchText = function(text)
+				store:dispatch(SetSearchText(text))
+			end,
+		}
+	end)(SearchArea)
+end
 
 return SearchArea

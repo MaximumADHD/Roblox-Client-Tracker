@@ -42,7 +42,7 @@
       <addaction name="settingsAction"/>
     </SystemPopup>
   </SystemButton>
-  <RibbonBar minimizeButton="true" themeoptions="false" font="">
+  <RibbonBar minimizeButton="true" font="">
     <!--
       RIBBON BAR HOME TAB
       -->
@@ -382,9 +382,9 @@
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="See the output feed of your scripts" text="Output" height="32" width="32"/>
         <addaction name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="View Script Analysis" height="32" width="32"/>
         <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="View Command Bar" text="Command Bar" height="32" width="32"/>
-        <addaction fflag="LuaDebugger" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" tooltip="View existing breakpoints" height="32" width="32"/>
-        <addaction fflag="LuaDebugger" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" tooltip="View current call stack" height="32" width="32"/>
-        <addaction fflag="LuaDebugger" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" tooltip="View currently watched variables" height="32" width="32"/>
+        <addaction debugOnly="true" fflag="LuaDebugger" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" tooltip="View existing breakpoints" height="32" width="32"/>
+        <addaction debugOnly="true" fflag="LuaDebugger" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" tooltip="View current call stack" height="32" width="32"/>
+        <addaction debugOnly="true" fflag="LuaDebugger" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" tooltip="View currently watched variables" height="32" width="32"/>
         <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="View diagnostic information of your game" height="32" width="32"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="View task execution information" height="32" width="32"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="View script performance information" height="32" width="32"/>
@@ -499,14 +499,14 @@
         <addaction name="simulationStopAction" style="textundericon" text="Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
         <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
-      <Group name="Debugger" fflag="LuaDebugger">
+      <Group name="Debugger" debugOnly="true" fflag="LuaDebugger">
         <!--<addaction name="toggleAllBreakpointsStateAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Toggle-Breakpoints.png" tooltip="Enabled/Disable all breakpoints" width="32" height="32"/>-->
         <addaction name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
         <addaction name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
         <addaction name="stepOutAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32"/>
         <addaction name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Add-Watch.png" tooltip="Watch the highlighted variable's value" width="32" height="32"/>
       </Group>
-      <Group fflag="LuaDebuggerBreakOnError" name="Debug Errors">
+      <Group debugOnly="true" fflag="LuaDebuggerBreakOnError" name="Debug Errors">
         <addaction type="radio" name="neverBreakOnScriptErrorsAction" style="textbesideicon" text="Never" tooltip="Never break errors into debugger"/>
         <addaction type="radio" name="breakOnAllScriptErrorsAction" style="textbesideicon" text="On All Exceptions" tooltip="Break all exceptions into debugger"/>
         <addaction type="radio" name="breakOnUnhandledScriptErrorsAction" style="textbesideicon" text="On Unhandled Exceptions" tooltip="Break unhandled exceptions into debugger"/>

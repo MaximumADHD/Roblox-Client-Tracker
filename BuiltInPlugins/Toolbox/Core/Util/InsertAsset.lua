@@ -333,8 +333,11 @@ function InsertAsset.deprecatedDragInsertAsset(plugin, assetId, assetName, asset
 		if DebugFlags.shouldDebugUrls() then
 			print(("Dragging asset url %s"):format(url))
 		end
-		local drag = PluginDrag.new("LuaToolbox", "text/plain", url)
-		plugin:StartDrag(drag)
+		plugin:StartDrag({
+			Sender = "LuaToolbox",
+			MimeType = "text/plain",
+			Data = url,
+		})
 	end)
 
 	if success then
@@ -420,8 +423,11 @@ function InsertAsset.dragInsertAsset(options)
 		if DebugFlags.shouldDebugUrls() then
 			print(("Dragging asset url %s"):format(url))
 		end
-		local drag = PluginDrag.new("LuaToolbox", "text/plain", url)
-		options.plugin:StartDrag(drag)
+		options.plugin:StartDrag({
+			Sender = "LuaToolbox",
+			MimeType = "text/plain",
+			Data = url,
+		})
 	end)
 
 	if success then

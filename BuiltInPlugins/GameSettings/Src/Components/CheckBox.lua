@@ -16,11 +16,26 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local CheckBox = Roact.PureComponent:extend("CheckBox")
 
+function CheckBox:init()
+	self.mouseEnter = function()
+		if self.props.Enabled then
+			self:mouseHoverChanged(true)
+		end
+	end
+
+	self.mouseLeave = function()
+		if self.props.Enabled then
+			self:mouseHoverChanged(false)
+		end
+	end
+end
+
 function CheckBox:mouseHoverChanged(hovering)
-	--TODO: Set mouse to hand icon?
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 end
 
 function CheckBox:render()
@@ -38,17 +53,8 @@ function CheckBox:render()
 				ImageColor3 = theme.checkBox.background,
 				LayoutOrder = self.props.LayoutOrder or 1,
 
-				[Roact.Event.MouseEnter] = function()
-					if self.props.Enabled then
-						self:mouseHoverChanged(true)
-					end
-				end,
-
-				[Roact.Event.MouseLeave] = function()
-					if self.props.Enabled then
-						self:mouseHoverChanged(false)
-					end
-				end,
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
 
 				-- Tell the CheckBoxSet that this was selected
 				[Roact.Event.Activated] = function()
@@ -78,6 +84,9 @@ function CheckBox:render()
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextTransparency = self.props.Enabled and 0 or 0.5,
 					Text = self.props.Title or self.props.Id,
+
+					[Roact.Event.MouseEnter] = self.mouseEnter,
+					[Roact.Event.MouseLeave] = self.mouseLeave,
 
 					[Roact.Event.Activated] = function()
 						if self.props.Enabled then

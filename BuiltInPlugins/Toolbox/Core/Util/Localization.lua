@@ -8,6 +8,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+local FFlagEnableLocalizationForToolbox = settings():GetFFlag("EnableLocalizationForToolbox")
 
 local Localization = {}
 Localization.__index = Localization
@@ -154,8 +155,10 @@ function Localization:_getDefaultLocaleId()
 end
 
 function Localization:_getLocaleId()
-	if self._externalLocaleIdGetter then
-		return self._externalLocaleIdGetter()
+	if FFlagEnableLocalizationForToolbox then
+		if self._externalLocaleIdGetter then
+			return self._externalLocaleIdGetter()
+		end
 	end
 	return self:_getDefaultLocaleId()
 end

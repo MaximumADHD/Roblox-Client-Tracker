@@ -87,6 +87,7 @@ Class AnimationTrack : Instance
 	Property float AnimationTrack.WeightTarget [readonly]
 	Function void AnimationTrack:AdjustSpeed(float speed = 1)
 	Function void AnimationTrack:AdjustWeight(float weight = 1, float fadeTime = 0.100000001)
+	Function EventInstance AnimationTrack:GetMarkerReachedSignal(string name)
 	Function double AnimationTrack:GetTimeOfKeyframe(string keyframeName)
 	Function void AnimationTrack:Play(float fadeTime = 0.100000001, float weight = 1, float speed = 1)
 	Function void AnimationTrack:Stop(float fadeTime = 0.100000001)
@@ -132,6 +133,7 @@ Class BadgeService : Instance [notCreatable]
 	YieldFunction bool BadgeService:UserHasBadgeAsync(int64 userId, int64 badgeId)
 	Event BadgeService.BadgeAwarded(string message, int64 userId, int64 badgeId) [RobloxScriptSecurity]
 Class BasePlayerGui : Instance
+	Function Objects BasePlayerGui:GetGuiObjectsAtPosition(int x, int y)
 Class CoreGui : BasePlayerGui [notCreatable]
 	Property Class:GuiObject CoreGui.SelectionImageObject [RobloxScriptSecurity]
 	Property int CoreGui.Version [readonly]
@@ -907,10 +909,10 @@ Class PluginGui : LayerCollector [notCreatable]
 	Property string PluginGui.Title
 	Function void PluginGui:BindToClose(Function function = nil)
 	Function Vector2 PluginGui:GetRelativeMousePosition() [PluginSecurity]
-	Event PluginGui.PluginDragDropped(Instance pluginDragEvent) [RobloxScriptSecurity]
-	Event PluginGui.PluginDragEntered(Instance pluginDragEvent) [RobloxScriptSecurity]
-	Event PluginGui.PluginDragLeft(Instance pluginDragEvent) [RobloxScriptSecurity]
-	Event PluginGui.PluginDragMoved(Instance pluginDragEvent) [RobloxScriptSecurity]
+	Event PluginGui.PluginDragDropped(Dictionary dragData) [PluginSecurity]
+	Event PluginGui.PluginDragEntered(Dictionary dragData) [PluginSecurity]
+	Event PluginGui.PluginDragLeft(Dictionary dragData) [PluginSecurity]
+	Event PluginGui.PluginDragMoved(Dictionary dragData) [PluginSecurity]
 	Event PluginGui.WindowFocusReleased() [PluginSecurity]
 	Event PluginGui.WindowFocused() [PluginSecurity]
 Class DockWidgetPluginGui : PluginGui [notCreatable]
@@ -1167,6 +1169,7 @@ Class Humanoid : Instance
 	Function void Humanoid:ChangeState(HumanoidStateType state = None)
 	Function void Humanoid:EquipTool(Instance tool)
 	Function Array Humanoid:GetAccessories()
+	Function Instance Humanoid:GetAppliedDescription()
 	Function BodyPartR15 Humanoid:GetBodyPartR15(Instance part)
 	Function Limb Humanoid:GetLimb(Instance part)
 	Function Array Humanoid:GetPlayingAnimationTracks()
@@ -1188,6 +1191,7 @@ Class Humanoid : Instance
 	Function void Humanoid:UnequipTools()
 	Function Instance Humanoid:loadAnimation(Instance animation) [deprecated]
 	Function void Humanoid:takeDamage(float amount) [deprecated]
+	YieldFunction void Humanoid:ApplyDescription(Instance humanoidDescription)
 	Event Humanoid.AnimationPlayed(Instance animationTrack)
 	Event Humanoid.Climbing(float speed)
 	Event Humanoid.CustomStatusAdded(string status) [deprecated]
@@ -1315,9 +1319,14 @@ Class JointsService : Instance [notCreatable]
 Class KeyboardService : Instance
 Class Keyframe : Instance
 	Property float Keyframe.Time
+	Function void Keyframe:AddMarker(Instance marker)
 	Function void Keyframe:AddPose(Instance pose)
+	Function Objects Keyframe:GetMarkers()
 	Function Objects Keyframe:GetPoses()
+	Function void Keyframe:RemoveMarker(Instance marker)
 	Function void Keyframe:RemovePose(Instance pose)
+Class KeyframeMarker : Instance
+	Property string KeyframeMarker.Value
 Class KeyframeSequence : Instance
 	Property float KeyframeSequence.AuthoredHipHeight [PluginSecurity]
 	Property bool KeyframeSequence.Loop
@@ -1371,6 +1380,15 @@ Class Lighting : Instance [notCreatable]
 	Function double Lighting:getMinutesAfterMidnight() [deprecated]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
+Class LocalStorageService : Instance [notCreatable]
+	Function void LocalStorageService:Flush() [RobloxScriptSecurity]
+	Function string LocalStorageService:GetItem(string key) [RobloxScriptSecurity]
+	Function void LocalStorageService:SetItem(string key, string value) [RobloxScriptSecurity]
+	Function void LocalStorageService:WhenLoaded(Function callback) [RobloxScriptSecurity]
+	Event LocalStorageService.ItemWasSet(string key, string value) [RobloxScriptSecurity]
+	Event LocalStorageService.StoreWasCleared() [RobloxScriptSecurity]
+Class AppStorageService : LocalStorageService [notCreatable]
+Class UserStorageService : LocalStorageService [notCreatable]
 Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.ForcePlayModeGameLocaleId [LocalUserSecurity]
 	Property string LocalizationService.ForcePlayModeRobloxLocaleId [LocalUserSecurity]
@@ -2076,7 +2094,7 @@ Class Plugin : Instance
 	Function Objects Plugin:Separate(Objects objects) [PluginSecurity]
 	Function void Plugin:SetSetting(string key, Variant value) [PluginSecurity]
 	Function void Plugin:StartDecalDrag(Instance decal) [RobloxScriptSecurity]
-	Function void Plugin:StartDrag(PluginDrag drag) [RobloxScriptSecurity]
+	Function void Plugin:StartDrag(Dictionary dragData) [PluginSecurity]
 	Function void Plugin:StopAllSounds() [RobloxScriptSecurity]
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]
@@ -2145,11 +2163,13 @@ Class ReflectionMetadataFunctions : Instance
 Class ReflectionMetadataItem : Instance
 	Property bool ReflectionMetadataItem.Browsable
 	Property string ReflectionMetadataItem.ClassCategory
+	Property bool ReflectionMetadataItem.ClientOnly
 	Property string ReflectionMetadataItem.Constraint
 	Property bool ReflectionMetadataItem.Deprecated
 	Property bool ReflectionMetadataItem.EditingDisabled
 	Property bool ReflectionMetadataItem.IsBackend
 	Property string ReflectionMetadataItem.ScriptContext
+	Property bool ReflectionMetadataItem.ServerOnly
 	Property double ReflectionMetadataItem.UIMaximum
 	Property double ReflectionMetadataItem.UIMinimum
 	Property double ReflectionMetadataItem.UINumTicks

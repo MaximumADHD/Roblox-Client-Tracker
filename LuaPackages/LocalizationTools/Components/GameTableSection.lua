@@ -3,7 +3,16 @@ local Theming = require(script.Parent.Parent.Theming)
 
 local LabeledButton = require(script.Parent.LabeledButton)
 local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-local UploadDialogContent = require(script.Parent.UploadDialogContent)
+
+local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
+
+local UploadDialogContent
+if StudioLocalizationSelectiveUpload then
+	UploadDialogContent = require(script.Parent.UploadDialogContent)
+else
+	UploadDialogContent = require(script.Parent.UploadDialogContentDEPRECATED)
+end
+
 local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")

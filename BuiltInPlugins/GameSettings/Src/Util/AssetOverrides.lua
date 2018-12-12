@@ -13,17 +13,17 @@ local function createTypeKeyedAssetOverridesTable(overrides)
 end
 
 local function forEachAssetOverrideChange(current, changed, func)
-	local currentKeyed = createTypeKeyedAssetOverridesTable(current) 
+	local currentKeyed = createTypeKeyedAssetOverridesTable(current)
 	local changedKeyed = createTypeKeyedAssetOverridesTable(changed)
 
 	local defaultSubTab = { assetID=0, isPlayerChoice=true }
-	for key, changedSubTab in pairs(changedKeyed) do
+	for _, changedSubTab in pairs(changedKeyed) do
 		local currentSubTab = currentKeyed[changedSubTab.assetTypeID] or defaultSubTab
 		if changedSubTab.assetID ~= currentSubTab.assetID or changedSubTab.isPlayerChoice ~= currentSubTab.isPlayerChoice then
 			if not func(changedSubTab) then
 				return
 			end
-		end		
+		end
 	end
 end
 

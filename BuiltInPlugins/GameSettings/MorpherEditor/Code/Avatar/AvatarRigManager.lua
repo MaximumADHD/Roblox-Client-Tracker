@@ -10,20 +10,29 @@ function RigManager.new(r6, r15)
 	setmetatable(self, RigManager)
 
 	self.r6 = r6:clone()
+	self.r6.Archivable = false
 	self.r15 = r15:clone()
+	self.r15.Archivable = false
 	self.rigs = {[paths.ConstantAvatar.AvatarType.R6] = self.r6, [paths.ConstantAvatar.AvatarType.R15] = self.r15}
 	self.currentCharacter = self.r15
 
 	self.characterRoot = Instance.new("Folder")
-	self.characterRoot.Parent = game.Workspace
+	self.characterRoot.Archivable = false
+	self.characterRoot.Parent = game:GetService("StarterPlayer")
 	self.characterRoot.Name = "CharacterRoot"
 
 	self.r15:SetPrimaryPartCFrame(self.r6.PrimaryPart.CFrame)
 
-	self.currentCharacter.Parent = self.characterRoot
+	game:GetService("StarterPlayer"):ClearDefaults()
 
+	self.r6.Parent = self.characterRoot -- we need to do this so CacheDefaults works	
 	self.r6.Humanoid:CacheDefaults()
+	self.r6.Parent = nil 
+
+	self.r15.Parent = self.characterRoot
 	self.r15.Humanoid:CacheDefaults()
+
+	self.characterRoot.Parent = game.Workspace
 
 	return self
 end
@@ -65,12 +74,17 @@ end
 function RigManager:stop()	
 	self.r6.Parent = nil
 	self.r6:Destroy()
+	self.r6 = nil
 	
 	self.r15.Parent = nil
 	self.r15:Destroy()
+	self.r15 = nil
 
 	self.characterRoot.Parent = nil
 	self.characterRoot:Destroy()
+	self.characterRoot = nil
+
+	game:GetService("StarterPlayer"):ClearDefaults()
 end
 
 return RigManager

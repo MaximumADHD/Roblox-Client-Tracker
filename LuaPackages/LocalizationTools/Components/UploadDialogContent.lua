@@ -1,6 +1,7 @@
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
 local SupportedLocales = require(script.Parent.Parent.SupportedLocales)
+local NumRowsLine = require(script.Parent.NumRowsLine)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
@@ -15,14 +16,6 @@ local function Line(props)
 		TextColor3 = props.Color,
 		LayoutOrder = props.LayoutOrder,
 	})
-end
-
-local function NumRowsLine(props)
-	local color = props.NumRows > 0 and props.ColorA or props.ColorB
-	return Roact.createElement(Line, {
-		Text = props.PreText..tostring(props.NumRows).." rows",
-		Color = color,
-		LayoutOrder = props.LayoutOrder})
 end
 
 local function StringContentLine(props)
@@ -48,6 +41,14 @@ local function UnsupportedLocalesLine(props)
 			Color = props.ColorB,
 			LayoutOrder = props.LayoutOrder})
 	end
+end
+
+function UploadDialogContent:init()
+	self.state = {
+		AddLineEnabled = true,
+		ChangeLineEnabled = true,
+		RemoveLineEnabled = true,
+	}
 end
 
 function UploadDialogContent:render()
@@ -165,23 +166,44 @@ function UploadDialogContent:render()
 					AddLine = Roact.createElement(NumRowsLine, {
 						PreText = "Add: ",
 						NumRows = self.props.PatchInfo.add,
-						ColorA = theme.BrightText,
-						ColorB = theme.DimmedText,
-						LayoutOrder = 1}),
+						EnabledColor = theme.BrightText,
+						DisabledColor = theme.DimmedText,
+						LayoutOrder = 1,
+						Checked = self.state.AddLineEnabled,
+						OnClicked = function()
+							self:setState({
+								AddLineEnabled = not self.state.AddLineEnabled,
+							})
+						end
+					}),
 
 					ChangeLine = Roact.createElement(NumRowsLine, {
 						PreText = "Change: ",
 						NumRows = self.props.PatchInfo.change,
-						ColorA = theme.WarningText,
-						ColorB = theme.DimmedText,
-						LayoutOrder = 2}),
+						EnabledColor = theme.WarningText,
+						DisabledColor = theme.DimmedText,
+						LayoutOrder = 2,
+						Checked = self.state.ChangeLineEnabled,
+						OnClicked = function()
+							self:setState({
+								ChangeLineEnabled = not self.state.ChangeLineEnabled,
+							})
+						end
+					}),
 
 					DeleteLine = Roact.createElement(NumRowsLine, {
 						PreText = "Delete: ",
 						NumRows = self.props.PatchInfo.remove,
-						ColorA = theme.ErrorText,
-						ColorB = theme.DimmedText,
-						LayoutOrder = 3}),
+						EnabledColor = theme.ErrorText,
+						DisabledColor = theme.DimmedText,
+						LayoutOrder = 3,
+						Checked = self.state.RemoveLineEnabled,
+						OnClicked = function()
+							self:setState({
+								RemoveLineEnabled = not self.state.RemoveLineEnabled,
+							})
+						end
+					}),
 				}),
 
 				Prompt = Roact.createElement(Line, {
@@ -229,7 +251,13 @@ function UploadDialogContent:render()
 					TextYAlignment = Enum.TextYAlignment.Center,
 					LayoutOrder = 2,
 
-					[Roact.Event.MouseButton1Click] = self.props.OkayCallback,
+					[Roact.Event.MouseButton1Click] = function()
+						self.props.OkayCallback({
+							addEnabled = self.state.AddLineEnabled,
+							changeEnabled = self.state.ChangeLineEnabled,
+							removeEnabled = self.state.RemoveLineEnabled,
+						})
+					end,
 				}),
 			}),
 		})

@@ -14,10 +14,10 @@ return function(plugin, studioSettings)
 					Modal = true,
 				})
 
-				local function okay()
+				local function okay(...)
 					Roact.unmount(dialogHandle)
 					dialog:Destroy()
-					resolve()
+					resolve(...)
 				end
 
 				local function cancel()

@@ -17,11 +17,26 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
+function RadioButton:init()
+	self.mouseEnter = function()
+		if self.props.Enabled then
+			self:mouseHoverChanged(true)
+		end
+	end
+
+	self.mouseLeave = function()
+		if self.props.Enabled then
+			self:mouseHoverChanged(false)
+		end
+	end
+end
+
 function RadioButton:mouseHoverChanged(hovering)
-	--TODO: Set mouse to hand icon?
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 end
 
 function RadioButton:render()
@@ -39,17 +54,8 @@ function RadioButton:render()
 				ImageColor3 = theme.radioButton.background,
 				LayoutOrder = self.props.LayoutOrder or 1,
 
-				[Roact.Event.MouseEnter] = function()
-					if self.props.Enabled then
-						self:mouseHoverChanged(true)
-					end
-				end,
-
-				[Roact.Event.MouseLeave] = function()
-					if self.props.Enabled then
-						self:mouseHoverChanged(false)
-					end
-				end,
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
 
 				-- Tell the RadioButtonSet that this is the currently selected button
 				[Roact.Event.Activated] = function()
@@ -82,6 +88,9 @@ function RadioButton:render()
 					TextTransparency = self.props.Enabled and 0 or 0.5,
 					Text = self.props.Title,
 
+					[Roact.Event.MouseEnter] = self.mouseEnter,
+					[Roact.Event.MouseLeave] = self.mouseLeave,
+
 					[Roact.Event.Activated] = function()
 						if self.props.Enabled then
 							self.props.OnClicked()
@@ -101,6 +110,9 @@ function RadioButton:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					Text = self.props.Description or "",
+
+					[Roact.Event.MouseEnter] = self.mouseEnter,
+					[Roact.Event.MouseLeave] = self.mouseLeave,
 
 					[Roact.Event.Activated] = function()
 						if self.props.Enabled then

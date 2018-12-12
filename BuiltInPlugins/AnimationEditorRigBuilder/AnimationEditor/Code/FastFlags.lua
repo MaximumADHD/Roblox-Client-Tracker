@@ -108,4 +108,8 @@ function FastFlags:fixKeyframeScaleHandlesPositioning()
 	return isFlagOn("StudioAnimationEditorFixKeyframeScaleHandlesPositioning")
 end
 
+function FastFlags:isAnimationEventsOn()
+	return isFlagOn("UseKeyframeMarkersForEvents")
+end
+
 return FastFlags

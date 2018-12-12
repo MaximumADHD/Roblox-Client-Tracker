@@ -14,6 +14,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local GameIcon = Roact.PureComponent:extend("GameIcon")
 
@@ -24,6 +25,7 @@ function GameIcon:init()
 end
 
 function GameIcon:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})

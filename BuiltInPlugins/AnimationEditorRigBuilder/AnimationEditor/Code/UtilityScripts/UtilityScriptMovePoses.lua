@@ -49,7 +49,7 @@ function MovePoses:init(Paths)
 
 	local onMouseMoved = function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			if Paths.UtilityScriptMovePoses:isMovingKeys() then
+			if Paths.UtilityScriptMoveItems:isMovingKeys() then
 				self:Move(Paths)
 			end
 		end

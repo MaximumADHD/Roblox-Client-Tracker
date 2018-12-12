@@ -26,6 +26,7 @@ local TUTORIAL_URL = "http://wiki.roblox.com/index.php?title=Game_Icon_Tutorial"
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local TitledFrame = require(Plugin.Src.Components.TitledFrame)
 local BulletPoint = require(Plugin.Src.Components.BulletPoint)
@@ -48,6 +49,22 @@ function GameIconWidget:init()
 			Text = item,
 		}))
 	end
+
+	self.mouseEnter = function()
+		if self.props.Enabled then
+			self:mouseHoverChanged(true)
+		end
+	end
+
+	self.mouseLeave = function()
+		if self.props.Enabled then
+			self:mouseHoverChanged(false)
+		end
+	end
+end
+
+function GameIconWidget:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 end
 
 function GameIconWidget:render()
@@ -86,6 +103,9 @@ function GameIconWidget:render()
 				Size = UDim2.new(1, 0, 0, 18),
 				Position = UDim2.new(0, 180, 0, 92),
 				TextXAlignment = Enum.TextXAlignment.Left,
+
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
 
 				[Roact.Event.Activated] = function()
 					GuiService:OpenBrowserWindow(TUTORIAL_URL)

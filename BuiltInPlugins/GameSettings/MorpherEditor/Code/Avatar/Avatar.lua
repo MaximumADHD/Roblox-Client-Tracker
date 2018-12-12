@@ -15,7 +15,7 @@ function Avatar.loadWithTemplates(r6Rig, r15Rig, arrayOfTemplates)
 		return
 	end
 
-	self.playerChoiceAvatarType = self.avatarData['playerAvatarType']
+	self.playerChoiceAvatarType = paths.ConstantAvatar.AvatarType[self.avatarData['playerAvatarType']]
 
 	self.characterManager = paths.AvatarRigManager.new(r6Rig, r15Rig)
 	self:applyTemplates(arrayOfTemplates)

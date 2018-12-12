@@ -35,6 +35,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local ThumbnailSet = require(Plugin.Src.Components.Thumbnails.ThumbnailSet)
 local DragGhostThumbnail = require(Plugin.Src.Components.Thumbnails.DragGhostThumbnail)
@@ -92,6 +93,7 @@ function ThumbnailWidget:init()
 
 	self.stopDragging = function()
 		if self.state.dragId ~= nil and self.state.dragIndex ~= nil then
+			getMouse(self).resetMouse()
 			if FFlagGameSettingsFixThumbnailDrag and self.state.dragIndex == self.state.oldIndex then
 				self:setState({
 					dragId = Roact.None,

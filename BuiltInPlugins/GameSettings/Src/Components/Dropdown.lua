@@ -32,6 +32,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local DropdownEntry = require(Plugin.Src.Components.DropdownEntry)
 
@@ -74,6 +75,7 @@ function Dropdown:init(props)
 end
 
 function Dropdown:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})
@@ -82,6 +84,9 @@ end
 function Dropdown:setOpen(open)
 	if self.props.OpenChanged then
 		self.props.OpenChanged(open)
+	end
+	if not open then
+		getMouse(self).resetMouse()
 	end
 	self:setState({
 		Open = open,

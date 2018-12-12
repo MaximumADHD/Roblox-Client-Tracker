@@ -78,11 +78,11 @@ function UploadDownloadFlow:OnUpload()
 
 							self.props.ShowDialog("Confirm Upload", 300, 320,
 								self.props.MakeRenderDialogContent(patchInfo)):andThen(
-								function()
+								function(uploadInfo)
 									self.props.SetMessage("Uploading patch...")
 									self:_setMode(COMPUTING)
 
-									self.props.UploadPatch(patchInfo):andThen(
+									self.props.UploadPatch(patchInfo, uploadInfo):andThen(
 										function()
 											self.props.SetMessage("Upload complete")
 											self:_setMode(NOT_BUSY)

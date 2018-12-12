@@ -13,13 +13,21 @@ local tweenAcceleration = math.rad(220)		--Radians/Second^2
 local tweenSpeed = math.rad(0)				--Radians/Second
 local tweenMaxSpeed = math.rad(250)			--Radians/Second
 local TIME_BEFORE_AUTO_ROTATE = 2.0 		--Seconds, used when auto-aligning camera with vehicles
-local PORTRAIT_OFFSET = Vector3.new(0,-3,0)
+local PORTRAIT_OFFSET = Vector3.new(0, 2, 0) 
+local MOBILE_OFFSET = Vector3.new(0, 1, 0)
+
+local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
+
+local newDefaultCameraAngleFlagExists, newDefaultCameraAngleFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserNewDefaultCameraAngle")
+end)
+local FFlagUserNewDefaultCameraAngle = newDefaultCameraAngleFlagExists and newDefaultCameraAngleFlagEnabled
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -49,13 +57,35 @@ function ClassicCamera:Test()
 	print("ClassicCamera:Test()")
 end
 
-function ClassicCamera:Update()
+function ClassicCamera:GetCameraSubjectOffset()
+	if self:IsInFirstPerson() then 
+		return Vector3.new(0, 0, 0)
+	elseif self.portraitMode then
+		return PORTRAIT_OFFSET
+	elseif self.isSmallTouchScreen then
+		return MOBILE_OFFSET
+	end
+	return Vector3.new(0, 0, 0)
+end
+
+function ClassicCamera:Update()		
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
 
 	local camera = 	workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
+	local overrideCameraLookVector = nil
+	if FFlagUserNewDefaultCameraAngle and self.resetCameraAngle then
+		local rootPart = self:GetHumanoidRootPart()
+		if rootPart then 
+			overrideCameraLookVector = (rootPart.CFrame * INITIAL_CAMERA_ANGLE).lookVector
+		else
+			overrideCameraLookVector = INITIAL_CAMERA_ANGLE.lookVector
+		end
+		self.resetCameraAngle = false
+	end
+	
 	local player = PlayersService.LocalPlayer
 	local humanoid = self:GetHumanoid()
 	local cameraSubject = camera.CameraSubject
@@ -109,7 +139,7 @@ function ClassicCamera:Update()
 
 		if self:GetIsMouseLocked() and not self:IsInFirstPerson() then
 			-- We need to use the right vector of the camera after rotation, not before
-			local newLookCFrame = self:CalculateNewLookCFrame()
+			local newLookCFrame = self:CalculateNewLookCFrame(overrideCameraLookVector)
 
 			local offset = self:GetMouseLockOffset()
 			local cameraRelativeOffset = offset.X * newLookCFrame.rightVector + offset.Y * newLookCFrame.upVector + offset.Z * newLookCFrame.lookVector
@@ -173,8 +203,17 @@ function ClassicCamera:Update()
 
 		if not self.isFollowCamera then
 			local VREnabled = VRService.VREnabled
-			newCameraFocus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame.new(subjectPosition)
-
+			
+			if FFlagUserNewDefaultCameraAngle then
+				if VREnabled then
+					newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
+				else
+					newCameraFocus = CFrame.new(subjectPosition + self:GetCameraSubjectOffset())
+				end
+			else
+				newCameraFocus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame.new(subjectPosition)
+			end
+		
 			local cameraFocusP = newCameraFocus.p
 			if VREnabled and not self:IsInFirstPerson() then
 				local cameraHeight = self:GetCameraHeight()
@@ -196,20 +235,28 @@ function ClassicCamera:Update()
 					newCameraCFrame = CFrame.new(newPos, lookAt) + Vector3.new(0, cameraHeight, 0)
 				end
 			else
-				local newLookVector = self:CalculateNewLookVector()
+				local newLookVector = self:CalculateNewLookVector(overrideCameraLookVector)
 				self.rotateInput = ZERO_VECTOR2
 				newCameraCFrame = CFrame.new(cameraFocusP - (zoom * newLookVector), cameraFocusP)
 			end
 		else -- is FollowCamera
-			local newLookVector = self:CalculateNewLookVector()
+			local newLookVector = self:CalculateNewLookVector(overrideCameraLookVector)
 			self.rotateInput = ZERO_VECTOR2
 
-			if VRService.VREnabled then
-				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
-			elseif self.portraitMode then
-				newCameraFocus = CFrame.new(subjectPosition + PORTRAIT_OFFSET)
+			if FFlagUserNewDefaultCameraAngle then
+				if VRService.VREnabled then
+					newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
+				else
+					newCameraFocus = CFrame.new(subjectPosition + self:GetCameraSubjectOffset())
+				end
 			else
-				newCameraFocus = CFrame.new(subjectPosition)
+				if VRService.VREnabled then
+					newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
+				elseif self.portraitMode then
+					newCameraFocus = CFrame.new(subjectPosition + PORTRAIT_OFFSET)
+				else
+					newCameraFocus = CFrame.new(subjectPosition)
+				end
 			end
 			newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, self:GetCameraHeight(), 0)
 		end

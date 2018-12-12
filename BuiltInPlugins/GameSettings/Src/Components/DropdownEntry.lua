@@ -16,6 +16,7 @@ local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local DropdownEntry = Roact.PureComponent:extend("DropdownEntry")
 
@@ -26,6 +27,7 @@ function DropdownEntry:init()
 end
 
 function DropdownEntry:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})

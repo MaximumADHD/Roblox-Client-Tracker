@@ -7,6 +7,7 @@
 
 return {
 	join = require(script.join),
-	keys = require(script.keys),
+	fold = require(script.fold),
 	values = require(script.values),
+	keys = require(script.keys),
 }

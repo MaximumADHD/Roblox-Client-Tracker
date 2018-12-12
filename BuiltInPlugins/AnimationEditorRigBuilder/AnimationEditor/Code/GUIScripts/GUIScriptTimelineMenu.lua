@@ -33,10 +33,18 @@ function TimelineMenu:init(Paths)
 	self.Menu:setClickCallback(self.DeleteKeyHandle, function() Paths.DataModelKeyframes:deleteSelectedPosesAndEmptyKeyframes() end)
 	
 	self.CopyKeyHandle = self.Menu:getOption("MenuOptionCopyKey")
-	self.Menu:setClickCallback(self.CopyKeyHandle, function() Paths.UtilityScriptCopyPaste:copy(self.Paths.DataModelSession:getSelectedKeyframes(), self.Time) end)	
+	if FastFlags:isAnimationEventsOn() then
+		self.Menu:setClickCallback(self.CopyKeyHandle, function() Paths.UtilityScriptCopyPaste:copy() end)	
+	else
+		self.Menu:setClickCallback(self.CopyKeyHandle, function() Paths.UtilityScriptCopyPaste:copy(self.Paths.DataModelSession:getSelectedKeyframes(), self.Time) end)
+	end
 	
 	self.CutKeyHandle = self.Menu:getOption("MenuOptionCutKey")
-	self.Menu:setClickCallback(self.CutKeyHandle, function() Paths.UtilityScriptCopyPaste:cut(self.Paths.DataModelSession:getSelectedKeyframes(), self.Time) end)
+	if FastFlags:isAnimationEventsOn() then
+		self.Menu:setClickCallback(self.CutKeyHandle, function() Paths.UtilityScriptCopyPaste:cut() end)
+	else
+		self.Menu:setClickCallback(self.CutKeyHandle, function() Paths.UtilityScriptCopyPaste:cut(self.Paths.DataModelSession:getSelectedKeyframes(), self.Time) end)
+	end
 	
 	self.PasteKeyHandle = self.Menu:getOption("MenuOptionPasteKey")
 	self.Menu:setClickCallback(self.PasteKeyHandle, function() Paths.UtilityScriptCopyPaste:paste(self.Time) end)

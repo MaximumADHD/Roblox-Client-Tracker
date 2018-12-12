@@ -13,12 +13,18 @@ function GUIScriptSubWindow:new(Paths, contentsFrame, parentWidget, canKill)
 	self.GUI = self.Paths.GUIPopUpSubWindow:clone()
 	self.GUI.Parent = parentWidget
 	self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
-	
-	self.GUI.ClickEater.Contents.Size = contentsFrame.Size
-	local yOffset = contentsFrame.Size.Y.Offset + self.GUI.ClickEater.Title.Size.Y.Offset
-	self.GUI.Size = UDim2.new(0, contentsFrame.Size.X.Offset, 0, yOffset) 
-	contentsFrame.Parent = self.GUI.ClickEater.Contents
-	self.ContentsChild = contentsFrame
+
+	if FastFlags:isAnimationEventsOn() then
+		self.ContentsChild = contentsFrame
+		self:resize()
+		contentsFrame.Parent = self.GUI.ClickEater.Contents
+	else
+		self.GUI.ClickEater.Contents.Size = contentsFrame.Size
+		local yOffset = contentsFrame.Size.Y.Offset + self.GUI.ClickEater.Title.Size.Y.Offset
+		self.GUI.Size = UDim2.new(0, contentsFrame.Size.X.Offset, 0, yOffset) 
+		contentsFrame.Parent = self.GUI.ClickEater.Contents
+		self.ContentsChild = contentsFrame
+	end
 		
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)
 	
@@ -47,6 +53,12 @@ function GUIScriptSubWindow:new(Paths, contentsFrame, parentWidget, canKill)
 	return self
 end
 
+function GUIScriptSubWindow:resize()
+	self.GUI.ClickEater.Contents.Size = self.ContentsChild.Size
+	local yOffset = self.ContentsChild.Size.Y.Offset + self.GUI.ClickEater.Title.Size.Y.Offset
+	self.GUI.Size = UDim2.new(0, self.ContentsChild.Size.X.Offset, 0, yOffset)
+end
+
 if FastFlags:isScaleKeysOn() then
 	function GUIScriptSubWindow:changeTitle(text)
 		self.GUI.ClickEater.Title.TextLabel.Text = text
@@ -58,6 +70,10 @@ if FastFlags:isIKModeFlagOn() then
 		self:turnOn(false)
 		self.OnCloseEvent:fire()
 	end
+end
+
+function GUIScriptSubWindow:getTitleBarHeight()
+	return self.GUI.ClickEater.Title.Size.Y.Offset
 end
 
 function GUIScriptSubWindow:isOn()

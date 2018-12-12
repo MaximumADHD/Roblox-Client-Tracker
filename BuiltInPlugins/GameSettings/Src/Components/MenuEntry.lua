@@ -13,10 +13,12 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local Constants = require(Plugin.Src.Util.Constants)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local MenuEntry = Roact.PureComponent:extend("MenuEntry")
 
 function MenuEntry:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})

@@ -25,6 +25,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local RoundTextButton = Roact.PureComponent:extend("RoundTextButton")
 
@@ -32,9 +33,22 @@ function RoundTextButton:init()
 	self.state = {
 		Hovering = false,
 	}
+
+	self.mouseEnter = function()
+		if self.props.Active then
+			self:mouseHoverChanged(true)
+		end
+	end
+
+	self.mouseLeave = function()
+		if self.props.Active then
+			self:mouseHoverChanged(false)
+		end
+	end
 end
 
 function RoundTextButton:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})
@@ -60,17 +74,8 @@ function RoundTextButton:render()
 		LayoutOrder = self.props.LayoutOrder or 1,
 		ZIndex = self.props.ZIndex or 1,
 
-		[Roact.Event.MouseEnter] = function()
-			if active then
-				self:mouseHoverChanged(true)
-			end
-		end,
-
-		[Roact.Event.MouseLeave] = function()
-			if active then
-				self:mouseHoverChanged(false)
-			end
-		end,
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
 
 		[Roact.Event.Activated] = function()
 			if active then

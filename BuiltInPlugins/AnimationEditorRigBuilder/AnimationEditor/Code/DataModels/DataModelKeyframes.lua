@@ -71,13 +71,17 @@ function Keyframes:deletePoseAndEmptyKeyframe(part, time, doHandleUndoRedo, fire
 		local doDeletePose = false
 		local keyContainsZeroPoses = self.Paths.HelperFunctionsTable:isNilOrEmpty(keyframe.Poses)
 		if keyContainsZeroPoses then
-			doDeleteKey = true -- key is already empty, so we'll delete
+			if FastFlags:isAnimationEventsOn() then
+				doDeleteKey = self.Paths.HelperFunctionsTable:isNilOrEmpty(keyframe.Markers) -- key is already empty and has no event markers, so we'll delete
+			else
+				doDeleteKey = true
+			end
 		else
 			local keyContainsPoseForPart = nil ~= keyframe.Poses[part]
 			doDeletePose = keyContainsPoseForPart and self:canDeletePose(keyframe, part)				
 			if doDeletePose then
 				local keyContainsPoseForPartOnly = self.Paths.HelperFunctionsTable:containsOneKeyOnly(keyframe.Poses)			
-				doDeleteKey = keyContainsPoseForPartOnly
+				doDeleteKey = keyContainsPoseForPartOnly and (not FastFlags:isAnimationEventsOn() or self.Paths.HelperFunctionsTable:isNilOrEmpty(keyframe.Markers))
 			end
 		end	
 		
@@ -88,7 +92,7 @@ function Keyframes:deletePoseAndEmptyKeyframe(part, time, doHandleUndoRedo, fire
 				self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.deletePose)
 			end
 		end
-		
+
 		if doDeletePose then
 			deletePose(self, keyframe, part)
 		end
@@ -376,7 +380,11 @@ function Keyframes:createKeyframe(time, undoRegister)
 	time = self.Paths.DataModelClip:keyframeTimeClamp(time)
 	local newKeyframe = self.keyframeList[time]
 	if (newKeyframe == nil) then
-		newKeyframe = {Time = time, Poses = {}, Name = "Keyframe"}
+		if FastFlags:isAnimationEventsOn() then
+			newKeyframe = {Time = time, Poses = {}, Name = "Keyframe", Markers = {}}
+		else
+			newKeyframe = {Time = time, Poses = {}, Name = "Keyframe"}
+		end
 
 		self.keyframeList[time] = newKeyframe
 		
@@ -411,8 +419,15 @@ local function loadPose(self, keyframe, pose, invalidPoseNames)
 	end
 end
 
+local function loadMarker(self, keyframe, marker)
+	self.Paths.DataModelAnimationEvents:createEvent(keyframe.Time, marker.Name, marker.Value, false, false)
+end
+
 function Keyframes:loadKeyframeSequence(kfs)
 	local keyframes = kfs:GetChildren()
+	if FastFlags:isAnimationEventsOn() then
+		self.Paths.DataModelAnimationEvents.AnimationEventNames = {}
+	end
 	
 	local newAnimLength = 0
 	for i, v in pairs(keyframes) do
@@ -432,10 +447,22 @@ function Keyframes:loadKeyframeSequence(kfs)
 				LocalKeyframe = self:createKeyframe(time, false)
 				LocalKeyframe.Name = keyframe.Name
 				for __, pose in pairs(keyframe:GetChildren()) do
-					if FastFlags:isIKModeFlagOn() then
-						loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+					if FastFlags:isAnimationEventsOn() then
+						if pose:isA("Pose") then
+							if FastFlags:isIKModeFlagOn() then
+								loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+							else
+								loadPose(self, LocalKeyframe, pose)
+							end
+						elseif pose:isA("KeyframeMarker") then
+							loadMarker(self, LocalKeyframe, pose)
+						end
 					else
-						loadPose(self, LocalKeyframe, pose)
+						if FastFlags:isIKModeFlagOn() then
+							loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+						else
+							loadPose(self, LocalKeyframe, pose)
+						end
 					end
 				end
 			end
@@ -446,10 +473,22 @@ function Keyframes:loadKeyframeSequence(kfs)
 
 				LocalKeyframe.Name = keyframe.Name
 				for __, pose in pairs(keyframe:GetChildren()) do
-					if FastFlags:isIKModeFlagOn() then
-						loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+					if FastFlags:isAnimationEventsOn() then
+						if pose:isA("Pose") then
+							if FastFlags:isIKModeFlagOn() then
+								loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+							else
+								loadPose(self, LocalKeyframe, pose)
+							end
+						elseif pose:isA("KeyframeMarker") then
+							loadMarker(self, LocalKeyframe, pose)
+						end
 					else
-						loadPose(self, LocalKeyframe, pose)
+						if FastFlags:isIKModeFlagOn() then
+							loadPose(self, LocalKeyframe, pose, invalidPoseNames)
+						else
+							loadPose(self, LocalKeyframe, pose)
+						end
 					end
 				end
 			end

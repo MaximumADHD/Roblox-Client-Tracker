@@ -6,7 +6,11 @@ Keyframe.__index = Keyframe
 function Keyframe:updateKeyframeOnTimeline(Paths, GUIKey, time)
 	if time <= Paths.DataModelClip:getLength() then
 		GUIKey.TargetWidget.Visible = true
-		GUIKey.TargetWidget.Position = UDim2.new(math.clamp(time/Paths.DataModelClip:getLength(), 0, 1), 0, 0.5, 0)
+		if FastFlags:isAnimationEventsOn() then
+			Paths.UtilityScriptMoveItems:updatePositionOnTimeline(Paths, GUIKey, time)
+		else
+			GUIKey.TargetWidget.Position = UDim2.new(math.clamp(time/Paths.DataModelClip:getLength(), 0, 1), 0, 0.5, 0)
+		end
 	else
 		GUIKey.TargetWidget.Visible = false
 		if Paths.DataModelSession:isCurrentlySelectedKeyframe(time, GUIKey.DataItem) then
@@ -108,13 +112,17 @@ function Keyframe:new(Paths, parent, time, dataItem, pose)
 					Paths.DataModelSession:selectKeyframe(time, dataItem)
 				end
 			end
-			self.Paths.UtilityScriptMovePoses:BeginMove(self.Paths, self)
+			if FastFlags:isAnimationEventsOn() then
+				self.Paths.UtilityScriptMoveItems:BeginMove(self.Paths, self, self.Paths.UtilityScriptMoveItems:getGUIKeyframesFromSelectedKeyframes(self.Paths), nil)
+			else
+				self.Paths.UtilityScriptMoveItems:BeginMove(self.Paths, self)
+			end
 		end
 	end))
 
 	self.Connections:add(self.TargetWidget.ImageButton.InputEnded:connect(function(input)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
-			self.Paths.UtilityScriptMovePoses:EndMove(self.Paths)
+			self.Paths.UtilityScriptMoveItems:EndMove(self.Paths)
 		end
 	end))
 

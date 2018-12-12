@@ -6,9 +6,20 @@ Move.__index = Move
 -- static function
 function Move:execute(Paths, time)
 	Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionMove:new(Paths))
-	Paths.UtilityScriptCopyPaste:cut(Paths.DataModelSession:getSelectedKeyframes(), false)
+
+	if FastFlags:isAnimationEventsOn() then
+		Paths.UtilityScriptCopyPaste:cut(false)
+	else
+		Paths.UtilityScriptCopyPaste:cut(Paths.DataModelSession:getSelectedKeyframes(), false)
+	end
+
 	Paths.UtilityScriptCopyPaste:paste(time, false)
-	Paths.UtilityScriptCopyPaste:resetCopyPoses()
+
+	if FastFlags:isAnimationEventsOn() then
+		Paths.UtilityScriptCopyPaste:resetCopyItems()
+	else
+		Paths.UtilityScriptCopyPaste:resetCopyPoses()
+	end
 end
 
 function Move:new(Paths)

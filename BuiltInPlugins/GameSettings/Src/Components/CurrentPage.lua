@@ -71,7 +71,7 @@ function CurrentPage:render()
 
 	return Roact.createElement(StyledScrollingFrame, {
 		Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
-		Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH - 5, 1, -Constants.FOOTER_HEIGHT),
+		Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT),
 
 		[Roact.Ref] = self.canvasRef,
 	}, {

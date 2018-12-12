@@ -264,6 +264,15 @@ local function createPoseFromLastKeyframe(self, time, keyframeData, part)
 	end
 end
 
+function Clip:createMarkersFromKeyframe(keyframe, kfd)
+	for _, marker in pairs(keyframe.Markers) do
+		local markerInstance = Instance.new("KeyframeMarker")
+		markerInstance.Name = marker:getName()
+		markerInstance.Value = marker:getValue()
+		kfd:AddMarker(markerInstance)
+	end
+end
+
 function Clip:createAnimationFromCurrentData(forExport, cutoffAtCurrentLength)
 	local kfs = Instance.new('KeyframeSequence')
 	kfs.Name = "Test"
@@ -282,6 +291,9 @@ function Clip:createAnimationFromCurrentData(forExport, cutoffAtCurrentLength)
 			-- go through part heirarach
 			local shouldExport = forExport == nil and true or forExport
 			self:createPosesFromKeyframe(keyframe, kfd, self.Paths.DataModelRig:getItem(), shouldExport)
+			if FastFlags:isAnimationEventsOn() then
+				self:createMarkersFromKeyframe(keyframe, kfd)
+			end
 		end
 	end
 

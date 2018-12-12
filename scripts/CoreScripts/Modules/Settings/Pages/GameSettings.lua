@@ -9,6 +9,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local HttpRbxApiService = game:GetService('HttpRbxApiService')
+local HttpService = game:GetService('HttpService')
 local RunService = game:GetService("RunService")
 local PlatformService = nil
 pcall(
@@ -50,6 +52,8 @@ local TOUCH_CHANGED_PROPS = {
 local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Follow)" or "Default (Classic)"
 
 local FFlagUserIsNowADynamicThumbstick = settings():GetFFlag("UserIsNowADynamicThumbstick")
+local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
+
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and (FFlagUserIsNowADynamicThumbstick and "Default (Dynamic Thumbstick)" or "Default (Thumbstick)") or "Default (Keyboard)"
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
 local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and "Tap to Move" or "Click to Move"
@@ -367,7 +371,7 @@ local function Initialize()
       local function hideContentLabel()
           GameSettings.MicroProfilerWebServerEnabled = false
 
-          if this.InformationFrame or this.InformationText then 
+          if this.InformationFrame or this.InformationText then
             this.InformationFrame.Visible = false
             this.InformationFrame.Parent = nil
             this.InformationText.Parent = nil
@@ -1264,28 +1268,54 @@ local function Initialize()
       setButtonRowRef(row)
     end
 
-    -- Only show option if we are place/group owner
-    if game.CreatorType == Enum.CreatorType.Group then
-      spawn(
-        function()
-          -- spawn since GetRankInGroup is async
-          local success, result =
-            pcall(
-            function()
-              return LocalPlayer:GetRankInGroup(game.CreatorId) == 255
+	if FFlagGroupEditDevConsoleButton then
+		if RunService:IsStudio() then
+			makeDevConsoleOption()
+		else
+			spawn(function()
+				--only show option if player has edit access
+				local canManageSuccess, canManageResult = pcall(function()
+				local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
+					return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+				end)
+				if canManageSuccess and type(canManageResult) == "string" then
+					-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
+					-- Convert from JSON to a table
+					-- pcall in case of invalid JSON
+					local success, result = pcall(function()
+						return HttpService:JSONDecode(canManageResult)
+					end)
+
+					if success and result.CanManage == true then
+						makeDevConsoleOption()
+					end
+				end
+			end)
+		end
+    else
+      -- Only show option if we are place/group owner
+      if game.CreatorType == Enum.CreatorType.Group then
+        spawn(
+          function()
+            -- spawn since GetRankInGroup is async
+            local success, result =
+              pcall(
+              function()
+                return LocalPlayer:GetRankInGroup(game.CreatorId) == 255
+              end
+            )
+            if success then
+              if result == true then
+                makeDevConsoleOption()
+              end
+            else
+              print("DeveloperConsoleModule: GetRankInGroup failed because", result)
             end
-          )
-          if success then
-            if result == true then
-              makeDevConsoleOption()
-            end
-          else
-            print("DeveloperConsoleModule: GetRankInGroup failed because", result)
           end
-        end
-      )
-    elseif LocalPlayer.UserId == game.CreatorId and game.CreatorType == Enum.CreatorType.User then
-      makeDevConsoleOption()
+        )
+      elseif LocalPlayer.UserId == game.CreatorId and game.CreatorType == Enum.CreatorType.User then
+        makeDevConsoleOption()
+      end
     end
   end
 

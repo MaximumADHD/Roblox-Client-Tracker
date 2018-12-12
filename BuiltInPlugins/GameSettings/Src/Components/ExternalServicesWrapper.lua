@@ -5,6 +5,7 @@
 		store = A Rodux store to provide in the RoactRodux StoreProvider.
 		theme = A Theme object to provide in the ThemeProvider.
 		showDialog = A function to display a dialog using a PluginGui.
+		mouse = A PluginMouse object to provide in the MouseProvider.
 		impl = A SettingsImpl object to provide in the SettingsImplProvider.
 ]]
 
@@ -15,6 +16,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplProvider)
 local DialogProvider = require(Plugin.Src.Providers.DialogProvider)
 local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 
 local function ExternalServicesWrapper(props)
 	return Roact.createElement(RoactRodux.StoreProvider, {
@@ -26,9 +28,13 @@ local function ExternalServicesWrapper(props)
 			Roact.createElement(DialogProvider, {
 				showDialog = props.showDialog,
 			}, {
-				Roact.createElement(SettingsImplProvider, {
-					impl = props.impl,
-				}, props[Roact.Children])
+				Roact.createElement(MouseProvider, {
+					mouse = props.mouse,
+				}, {
+					Roact.createElement(SettingsImplProvider, {
+						impl = props.impl,
+					}, props[Roact.Children])
+				}),
 			}),
 		}),
 	})

@@ -51,7 +51,7 @@ return function(provider)
 				end)
 			end)
 			:andThen(function()
-				store:dispatch(SaveChanges(settingsImpl))
+				return store:dispatch(SaveChanges(settingsImpl))
 			end)
 		else
 			return store:dispatch(SaveChanges(settingsImpl))

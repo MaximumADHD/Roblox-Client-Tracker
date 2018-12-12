@@ -8,13 +8,15 @@
 		number LayoutOrder = 1
 		number ZIndex = 1
 		boolean Visible = true
+		boolean ShowBackground = true
 ]]
 
-local SCROLLBAR_TOP_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
-local SCROLLBAR_MIDDLE_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
-local SCROLLBAR_BOTTOM_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
+local SCROLLBAR_TOP_IMAGE = "rbxasset://textures/GameSettings/ScrollBarTop_Wide.png"
+local SCROLLBAR_MIDDLE_IMAGE = "rbxasset://textures/GameSettings/ScrollBarMiddle_Wide.png"
+local SCROLLBAR_BOTTOM_IMAGE = "rbxasset://textures/GameSettings/ScrollBarBottom_Wide.png"
 local SCROLLBAR_THICKNESS = 8
-local SCROLLBAR_PADDING = 2
+local SCROLLBAR_BACKGROUND_THICKNESS = 19
+local SCROLLBAR_PADDING = 6
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -31,6 +33,8 @@ function StyledScrollingFrame:render()
 		local layoutOrder = self.props.LayoutOrder or 1
 		local zindex = self.props.ZIndex or 1
 		local visible = (self.props.Visible ~= nil and self.props.Visible) or (self.props.Visible == nil)
+		local showBackground = (self.props.ShowBackground ~= nil and self.props.ShowBackground)
+			or (self.props.ShowBackground == nil)
 
 		return Roact.createElement("Frame", {
 			Position = position,
@@ -43,6 +47,14 @@ function StyledScrollingFrame:render()
 
 			ClipsDescendants = self.props.ClipsDescendants,
 		}, {
+			ScrollBarBackground = showBackground and Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, 0, 0.5, 0),
+				Size = UDim2.new(0, SCROLLBAR_BACKGROUND_THICKNESS, 2, 0),
+				BorderSizePixel = 0,
+				BackgroundColor3 = theme.scrollBarBackground,
+			}),
+
 			ScrollingFrame = Roact.createElement("ScrollingFrame", {
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, -SCROLLBAR_PADDING, 1, 0),

@@ -22,13 +22,29 @@ if FastFlags:isScaleKeysOn() then
 	EditClip.ActionType["clipScale"]="clipScale"
 end
 
+if FastFlags:isAnimationEventsOn() then
+	EditClip.ActionType["removeAnimationEvents"] = "removeAnimationEvents"
+	EditClip.ActionType["removeAnimationEvent"] = "removeAnimationEvent"
+	EditClip.ActionType["editAnimationEvents"] = "editAnimationEvents"
+	EditClip.ActionType["editAnimationEvent"] = "editAnimationEvent"
+	EditClip.ActionType["addAnimationEvent"] = "addAnimationEvent"
+end
+
 EditClip.Description = {
 	[EditClip.ActionType.lengthChange]="Edit Length",
 	[EditClip.ActionType.editRotate]="Edit Rotation",
 	[EditClip.ActionType.editTransform]="Edit Position",
 	[EditClip.ActionType.resetKeyframe]="Reset Keyframe(s)",
-	[EditClip.ActionType.editKeyframeName]="Edit Keyframe"
+	[EditClip.ActionType.editKeyframeName]="Edit Keyframe",
 }
+
+if FastFlags:isAnimationEventsOn() then
+	EditClip.Description[EditClip.ActionType.removeAnimationEvents]="Remove Events"
+	EditClip.Description[EditClip.ActionType.removeAnimationEvent]="Remove Event"
+	EditClip.Description[EditClip.ActionType.editAnimationEvents]="Edit Events"
+	EditClip.Description[EditClip.ActionType.editAnimationEvent]="Edit Event"
+	EditClip.Description[EditClip.ActionType.addAnimationEvent]="Add Event"
+end
 
 function EditClip:execute(Paths, actionType)
 	Paths.UtilityScriptUndoRedo:registerUndo(EditClip:new(Paths, {action = actionType}))

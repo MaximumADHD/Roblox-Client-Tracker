@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local ScalePoses = {}
 
 ScalePoses.AnchorKey = nil
@@ -21,7 +23,12 @@ function ScalePoses:terminate()
 end
 
 function ScalePoses:BeginScale(Paths, fromLeft)
-	self.GUIKeyList, self.MinTimeKey, self.MaxTimeKey = Paths.UtilityScriptMovePoses:getGUIKeys(Paths)
+	if FastFlags:isAnimationEventsOn() then
+		self.GUIKeyList = Paths.UtilityScriptMoveItems:getGUIKeyframesFromSelectedKeyframes(Paths)
+		self.MinTimeKey, self.MaxTimeKey = Paths.UtilityScriptMoveItems:getMinAndMaxTimeItems(Paths, self.GUIKeyList)
+	else
+		self.GUIKeyList, self.MinTimeKey, self.MaxTimeKey = Paths.UtilityScriptMoveItems:getGUIKeys(Paths)
+	end
 	self.AnchorKey = fromLeft and self.MaxTimeKey or self.MinTimeKey
 	self.Duration = self.MaxTimeKey.Time - self.MinTimeKey.Time
 end

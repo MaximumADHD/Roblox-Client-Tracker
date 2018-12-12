@@ -15,6 +15,8 @@ local BUTTON_SIZE = UDim2.new(0, 48, 0, 48)
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
+local getMouse = require(Plugin.Src.Consumers.getMouse)
+
 local RoundArrowButton = Roact.PureComponent:extend("RoundArrowButton")
 
 function RoundArrowButton:init()
@@ -24,6 +26,7 @@ function RoundArrowButton:init()
 end
 
 function RoundArrowButton:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})

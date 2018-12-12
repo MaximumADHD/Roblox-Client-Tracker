@@ -21,8 +21,11 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local Constants = require(ShareGame.Constants)
+local FetchUserFriends = require(ShareGame.Thunks.FetchUserFriends)
 
 local ClosePage = require(ShareGame.Actions.ClosePage)
+
+local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
 
 local USER_LIST_PADDING = 10
 
@@ -75,28 +78,52 @@ function ShareGamePageFrame:render()
 	})
 end
 
--- TODO: Update to use RoactRodux.UNSTABLE_connect2
-ShareGamePageFrame = RoactRodux.connect(function(store)
-	local state = store:getState()
-	return {
-		deviceLayout = state.DeviceInfo.DeviceLayout,
-
-		searchAreaActive = state.ConversationsSearch.SearchAreaActive,
-		searchText = state.ConversationsSearch.SearchText,
-
-		closePage = function()
-			store:dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
+if FFlagLuaChatRemoveOldRoactRoduxConnect then
+	ShareGamePageFrame = RoactRodux.UNSTABLE_connect2(
+		function(state, props)
+			return {
+				deviceLayout = state.DeviceInfo.DeviceLayout,
+				searchAreaActive = state.ConversationsSearch.SearchAreaActive,
+				searchText = state.ConversationsSearch.SearchText,
+			}
 		end,
+		function(dispatch)
+			return {
+				closePage = function()
+					dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
+				end,
 
-		reFetch = function()
-			local userId = tostring(Players.LocalPlayer.UserId)
-			local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
-			if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
-				local networkImpl = httpRequest(HttpRbxApiService)
-				store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
-			end
+				reFetch = function()
+					local userId = tostring(Players.LocalPlayer.UserId)
+					local requestImpl = httpRequest(HttpRbxApiService)
+
+					dispatch(FetchUserFriends(requestImpl, userId))
+				end
+			}
 		end
-	}
-end)(ShareGamePageFrame)
+	)(ShareGamePageFrame)
+else
+	ShareGamePageFrame = RoactRodux.connect(function(store)
+		local state = store:getState()
+		return {
+			deviceLayout = state.DeviceInfo.DeviceLayout,
+
+			searchAreaActive = state.ConversationsSearch.SearchAreaActive,
+			searchText = state.ConversationsSearch.SearchText,
+
+			closePage = function()
+				store:dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
+			end,
+			reFetch = function()
+				local userId = tostring(Players.LocalPlayer.UserId)
+				local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
+				if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
+					local networkImpl = httpRequest(HttpRbxApiService)
+					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
+				end
+			end
+		}
+	end)(ShareGamePageFrame)
+end
 
 return ShareGamePageFrame

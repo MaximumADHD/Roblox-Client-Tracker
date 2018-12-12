@@ -50,7 +50,7 @@ function TouchJump:EnableButton(enable)
 	else
 		self.jumpButton.Visible = false
 		self.isJumping = false
-		self.jumpButton.ImageRectOffset = Vector2.new(176, 222)
+		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
 end
 

@@ -103,6 +103,16 @@ if FastFlags:isIKModeFlagOn() then
 	Paths.GUIScriptViewportNotification = nil
 	Paths.GUIScriptIKMenu = nil
 end
+if FastFlags:isAnimationEventsOn() then
+	Paths.GUIScriptManageEventOption = nil
+	Paths.GUIScriptManageEvents = nil
+	Paths.GUIScriptAnimationEventSwizzle = nil
+	Paths.GUIScriptEditAnimationEvents = nil
+	Paths.GUIScriptSelectionList = nil
+	Paths.GUIScriptKeyframeMarker = nil
+	Paths.GUIScriptAnimationEventBar = nil
+	Paths.GUIScriptAnimationEventMenu = nil
+end
 
 -- helper functions
 Paths.HelperFunctions = script.Parent.HelperFunctions
@@ -126,6 +136,10 @@ Paths.WidgetMenuOption = nil
 Paths.WidgetRadioButtonGroup = nil
 Paths.WidgetRadioButton = nil
 Paths.WidgetSwizzle = nil
+if FastFlags:isAnimationEventsOn() then
+	Paths.WidgetExpandableScrollingList = nil
+	Paths.WidgetSelectAndDragBox = nil
+end
 
 -- utility scripts
 Paths.Utility = script.Parent.UtilityScripts
@@ -142,7 +156,7 @@ Paths.UtilityScriptDataItem = nil
 Paths.UtilityScriptCustomDragHandles = nil
 Paths.UtilityScriptTween = nil
 Paths.UtilityScriptCallback = nil
-Paths.UtilityScriptMovePoses = nil
+Paths.UtilityScriptMoveItems = nil
 Paths.UtilityScriptTheme = nil
 Paths.UtilityScriptThemeData = nil
 if FastFlags:isScaleKeysOn() then
@@ -150,6 +164,9 @@ if FastFlags:isScaleKeysOn() then
 end
 if FastFlags:isIKModeFlagOn() then
 	Paths.UtilityScriptHumanIK = nil
+end
+if FastFlags:isAnimationEventsOn() then
+	Paths.UtilityScriptKeyframeMarker = nil
 end
 
 -- input
@@ -168,6 +185,9 @@ Paths.DataModelKeyframes = nil
 Paths.DataModelPlayState = nil
 Paths.DataModelPartManipulator = nil
 Paths.DataModelIKManipulator = nil
+if FastFlags:isAnimationEventsOn() then
+	Paths.DataModelAnimationEvents = nil
+end
 
 -- viewport scripts
 Paths.ViewportScripts = script.Parent.ViewportScripts
@@ -190,6 +210,12 @@ Paths.GUIClonableKeyframeIndicator = Paths.GUIClonable.KeyframeIndicator
 if FastFlags:isIKModeFlagOn() then
 	Paths.GUIClonableViewportNotification = Paths.GUIClonable.ViewportNotification
 end
+if FastFlags:isAnimationEventsOn() then
+	Paths.GUIClonableManageEventOption = Paths.GUIClonable.ManageEventOption
+	Paths.GUIClonableAnimationEventSwizzle = Paths.GUIClonable.EventItemFrame
+	Paths.GUIClonableSelectionList = Paths.GUIClonable.SelectionList
+	Paths.GUIClonableKeyframeMarker = Paths.GUIClonable.KeyframeMarker
+end
 
 -- gui popups
 Paths.GUIClonablePopUps = Paths.GUIClonable.PopUps
@@ -211,6 +237,10 @@ if FastFlags:isIKModeFlagOn() then
 	Paths.GUIPopUpYesNo = Paths.GUIClonable.PopUps.PromptYesNo
 	Paths.GUIPopUpWaitingDialog = Paths.GUIClonable.PopUps.WaitingBox
 	Paths.GUIPopUpAlert = Paths.GUIClonable.PopUps.Alert
+end
+if FastFlags:isAnimationEventsOn() then
+	Paths.GUIPopUpManageEvents = Paths.GUIClonablePopUps.ManageEvents
+	Paths.GUIPopUpEditAnimationEvents = Paths.GUIClonablePopUps.EditEvents
 end
 
 function Paths:init()
@@ -285,6 +315,17 @@ function Paths:init()
 	self.GUIScriptIndicatorArea = require(self.GUIScripts.GUIScriptIndicatorArea)
 	self.GUIScriptKeyframeIndicator = require(self.GUIScripts.GUIScriptKeyframeIndicator)
 
+	if FastFlags:isAnimationEventsOn() then
+		self.GUIScriptManageEvents = require(self.GUIScripts.GUIScriptManageEvents)
+		self.GUIScriptManageEventOption = require(self.GUIScripts.GUIScriptManageEventOption)
+		self.GUIScriptAnimationEventSwizzle = require(self.GUIScripts.GUIScriptAnimationEventSwizzle)
+		self.GUIScriptEditAnimationEvents = require(self.GUIScripts.GUIScriptEditAnimationEvents)
+		self.GUIScriptSelectionList = require(self.GUIScripts.GUIScriptSelectionList)
+		self.GUIScriptKeyframeMarker = require(self.GUIScripts.GUIScriptKeyframeMarker)
+		self.GUIScriptAnimationEventBar = require(self.GUIScripts.GUIScriptAnimationEventBar)
+		self.GUIScriptAnimationEventMenu = require(self.GUIScripts.GUIScriptAnimationEventMenu)
+	end
+
 	if FastFlags:isScaleKeysOn() then
 		self.GUIScriptScaleControls = require(self.GUIScripts.GUIScriptScaleControls)
 		self.GUIScriptChangeDuration = require(self.GUIScripts.GUIScriptChangeDuration)
@@ -319,6 +360,10 @@ function Paths:init()
 	self.WidgetRadioButtonGroup = require(self.Widgets.WidgetRadioButtonGroup)
 	self.WidgetRadioButton = require(self.Widgets.WidgetRadioButton)
 	self.WidgetSwizzle = require(self.Widgets.WidgetSwizzle)
+	if FastFlags:isAnimationEventsOn() then
+		self.WidgetExpandableScrollingList = require(self.Widgets.WidgetExpandableScrollingList)
+		self.WidgetSelectAndDragBox = require(self.Widgets.WidgetSelectAndDragBox)
+	end
 
 	-- utility scripts
 	self.UtilityScriptEvent = require(self.Utility.UtilityScriptEvent)
@@ -334,7 +379,11 @@ function Paths:init()
 	self.UtilityScriptCustomDragHandles = require(self.Utility.UtilityScriptCustomDragHandles)
 	self.UtilityScriptTween = require(self.Utility.UtilityScriptTween)
 	self.UtilityScriptCallback = require(self.Utility.UtilityScriptCallback)
-	self.UtilityScriptMovePoses = require(self.Utility.UtilityScriptMovePoses)
+	if FastFlags:isAnimationEventsOn() then
+		self.UtilityScriptMoveItems = require(self.Utility.UtilityScriptMoveItems)
+	else
+		self.UtilityScriptMoveItems = require(self.Utility.UtilityScriptMovePoses)
+	end
 	self.UtilityScriptTheme = require(self.Utility.UtilityScriptTheme)
 	self.UtilityScriptThemeData = require(self.Utility.UtilityScriptThemeData)
 	if FastFlags:isScaleKeysOn() then
@@ -342,6 +391,9 @@ function Paths:init()
 	end
 	if FastFlags:isIKModeFlagOn() then
 		self.UtilityScriptHumanIK = require(self.Utility.UtilityScriptHumanIK)
+	end
+	if FastFlags:isAnimationEventsOn() then
+		self.UtilityScriptKeyframeMarker = require(self.Utility.UtilityScriptKeyframeMarker)
 	end
 
 	-- input
@@ -360,6 +412,9 @@ function Paths:init()
 	self.DataModelPlayState = require(self.DataModels.DataModelPlayState)
 	self.DataModelPartManipulator = require(self.DataModels.DataModelPartManipulator)
 	self.DataModelIKManipulator = require(self.DataModels.DataModelIKManipulator)
+	if FastFlags:isAnimationEventsOn() then
+		self.DataModelAnimationEvents = require(self.DataModels.DataModelAnimationEvents)
+	end
 
 	self.ViewportScriptGrid = require(Paths.ViewportScripts.ViewportScriptGrid)
 	if FastFlags:isFlyCameraOn() then
@@ -385,6 +440,11 @@ function Paths:cacheGUIPaths(gui)
 	if FastFlags:isScaleKeysOn() then
 		self.GUIScaleControls = self.GUI.ScaleControls
 	end
+	if FastFlags:isAnimationEventsOn() then
+		self.GUIAnimationEventBar = self.GUIMain.AnimationEventBar
+		self.GUIEventArea = self.GUIAnimationEventBar.Divider.DisplayArea.EventArea
+		self.GUIEventMultiSelectBox = self.GUIEventArea.MultiSelectBox
+	end
 
 	self.GUIPopUps = self.GUI.PopUps
 	self.GUITimelineMenu = self.GUIPopUps.TimelineMenu
@@ -392,6 +452,9 @@ function Paths:cacheGUIPaths(gui)
 	self.GUIMultiSelectArea = self.GUIScrollingJointTimeline.MultiSelectArea
 	if FastFlags:isIKModeFlagOn() then
 		self.GUIIKMenu = self.GUIPopUps.IKMenu
+	end
+	if FastFlags:isAnimationEventsOn() then
+		self.GUIAnimationEventMenu = self.GUIPopUps.AnimationEventMenu
 	end
 end
 

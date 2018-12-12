@@ -124,36 +124,67 @@ end
 
 --[[
 	Takes the name of a table and two lists of table data, the original and the new data.
-	Computes a PatchInfo object consisting of elements:
+	Computes a PatchInfo object consisting of:
 
 	{
-		patch = A lua table which when serialized as json makes the patch body to turn
-			the original table into the new one.
-
 		add = number of rows added by the patch
 		change = number of rows changed by the patch
 		remove = number of rows removed by the patch
+
+		makePatch():
+			Takes an info object consisting of three flags...
+
+			addEnabled
+			changeEnabled
+			removeEnalbed
+
+			...indicating whether the uploaded patch should include add, changed or removed rows.
+
+			Returns an object which json serializes to the format that the web expects.
 	}
 ]]
 local function DiffTables(tableName, originalTableData, newTableData)
 	local newTableMap = MakeIndexMap(newTableData)
 	local originalTableMap = MakeIndexMap(originalTableData)
 
-	local patchEntries = {}
+	local addEntries = {}
+	local changeEntries = {}
+	local removeEntries = {}
 
 	local patchInfo = {
 		add = 0,
 		change = 0,
 		remove = 0,
 
-		patch = {
-			entries = patchEntries,
-			name = tableName,
-		}
+		makePatch = function(uploadInfo)
+			local enabledEntries = {}
+			if uploadInfo.addEnabled then
+				for _,entry in ipairs(addEntries) do
+					table.insert(enabledEntries, entry)
+				end
+			end
+
+			if uploadInfo.changeEnabled then
+				for _,entry in ipairs(changeEntries) do
+					table.insert(enabledEntries, entry)
+				end
+			end
+
+			if uploadInfo.removeEnabled then
+				for _,entry in ipairs(removeEntries) do
+					table.insert(enabledEntries, entry)
+				end
+			end
+
+			return {
+				name = tableName,
+				entries = enabledEntries
+			}
+		end,
 	}
 
 	--[[
-		Returns info for the row in the map if it's there, 0 if it's not there.
+		Returns index of the row in the map if it's there, 0 if it's not there.
 	]]
 	local function GetRowIndex(map, key, source, context)
 		if map[key] ~= nil and map[key][source] ~= nil and map[key][source][context] ~= nil then
@@ -169,15 +200,18 @@ local function DiffTables(tableName, originalTableData, newTableData)
 			originalEntry.identifier.context)
 
 		if indexInNewTable == 0 then
+			local patchEntry = MakePatchEntryToDeleteRow(originalEntry)
+			table.insert(removeEntries, patchEntry)
 			patchInfo.remove = patchInfo.remove + 1
-			table.insert(patchEntries, MakePatchEntryToDeleteRow(originalEntry))
 		else
 			local patchEntry = MakePatchEntryToChangeRow(
 				originalEntry,
 				newTableData[indexInNewTable])
 
-			if #(patchEntry.translations) ~= 0 or patchEntry.metadata.example ~= originalEntry.metadata.example then
-				table.insert(patchEntries, patchEntry)
+			if next(patchEntry.translations) ~= nil or
+				patchEntry.metadata.example ~= originalEntry.metadata.example
+			then
+				table.insert(changeEntries, patchEntry)
 				patchInfo.change = patchInfo.change + 1
 			end
 		end
@@ -190,8 +224,9 @@ local function DiffTables(tableName, originalTableData, newTableData)
 			newEntry.identifier.context)
 
 		if indexInOriginalTable == 0 then
+			local patchEntry = MakePatchEntryToAddRow(newEntry)
+			table.insert(addEntries, patchEntry)
 			patchInfo.add = patchInfo.add + 1
-			table.insert(patchEntries, MakePatchEntryToAddRow(newEntry))
 		end
 	end
 

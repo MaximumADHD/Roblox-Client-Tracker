@@ -3,16 +3,35 @@ local FastFlags = require(script.Parent.Parent.FastFlags)
 local Cut = {}
 Cut.__index = Cut
 
--- static function
-function Cut:execute(Paths, keyframes, registerUndo)
+local function cutInternal(Paths, itemsToCut, registerUndo, deleteFunc)
 	registerUndo = registerUndo == nil and true or registerUndo
-	if keyframes then
-		Paths.UtilityScriptCopyPaste:copy(keyframes)
+	if itemsToCut then
+		Paths.UtilityScriptCopyPaste:copy()
 		if registerUndo then
 			Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionCut:new(Paths))
 		end
-		Paths.DataModelKeyframes:deleteSelectedPosesAndEmptyKeyframes(false)
+		deleteFunc()
 	end
+end
+
+-- static function
+function Cut:execute(Paths, keyframes, registerUndo)
+	if FastFlags:isAnimationEventsOn() then
+		cutInternal(Paths, keyframes, registerUndo, function() Paths.DataModelKeyframes:deleteSelectedPosesAndEmptyKeyframes(false) end)
+	else
+		registerUndo = registerUndo == nil and true or registerUndo
+		if keyframes then
+			Paths.UtilityScriptCopyPaste:copy(keyframes)
+			if registerUndo then
+				Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionCut:new(Paths))
+			end
+			Paths.DataModelKeyframes:deleteSelectedPosesAndEmptyKeyframes(false)
+		end
+	end
+end
+
+function Cut:executeCutEvents(Paths, events, registerUndo)
+	cutInternal(Paths, events, registerUndo, function() Paths.DataModelAnimationEvents:deleteSelectedEvents(false) end)
 end
 
 function Cut:executeCutKeyframe(Paths, keyframe)

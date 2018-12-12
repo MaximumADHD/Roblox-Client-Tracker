@@ -31,6 +31,7 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 local FFlagFixVersionContainer = settings():GetFFlag("FixVersionContainer")
+local FFlagDisplayPlayerscriptVersionAdmins = settings():GetFFlag("DisplayPlayerscriptVersionAdmins")
 
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
@@ -44,6 +45,7 @@ local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestNam
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContentProvider = game:GetService("ContentProvider")
 local StarterGui = game:GetService("StarterGui")
+local StarterPlayer = game:GetService("StarterPlayer")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
@@ -419,7 +421,7 @@ local function CreateSettingsHub()
 				SortOrder = Enum.SortOrder.LayoutOrder
 			}
 
-			local size = UDim2.new(0.25, -6, 1, 0)
+			local size = UDim2.new(0.2, -6, 1, 0)
 
 			this.ServerVersionLabel = utility:Create("TextLabel") {
 				Name = "ServerVersionLabel",
@@ -496,6 +498,61 @@ local function CreateSettingsHub()
 				Visible = isTestEnvironment
 			}
 			this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
+			
+			-- This check relies on the fact that Archivable is false on the default playerscripts we 
+			-- insert but if a developer has overriden them Archivable will be true. This might be incorrect
+			-- if a developer has code in their game to make things UnArchivable though.
+			local function getOverridesPlayerScripts()
+				local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts")
+				local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
+				local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
+				if playerModule and playerScriptLoader then
+					if not playerModule.Archivable then
+						if playerScriptLoader.Archivable then
+							return "Possibly Custom"
+						else
+							return "Default"
+						end
+					end
+				end
+				local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
+				local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
+				if cameraScript or controlScript then
+					return "Custom Old"
+				end
+				return "Custom"
+			end
+			
+			if FFlagDisplayPlayerscriptVersionAdmins then
+				this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
+					Name = "OverridesPlayerScriptsLabel",
+					Parent = this.VersionContainer,
+					AnchorPoint = Vector2.new(0.5,0),
+					BackgroundTransparency = 1,
+					TextColor3 = Color3.new(1,1,1),
+					LayoutOrder = 5,
+					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+					Text = "PlayerScripts: ",
+					Size = size,
+					Font = Enum.Font.SourceSans,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					ZIndex = 5,
+					Visible = false
+				}
+				
+				spawn(function()
+					local playerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
+					local localPlayer = game.Players.LocalPlayer
+					while not localPlayer do
+						game.Players.PlayerAdded:wait()
+						localPlayer = game.Players.LocalPlayer
+					end
+					this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
+					this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
+					this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(localPlayer)
+				end)
+			end
 		else
 			local size = UDim2.new(0.5, -6, 1, -6)
 			local clientPosition = UDim2.new(0.5, 3, 0, 3)

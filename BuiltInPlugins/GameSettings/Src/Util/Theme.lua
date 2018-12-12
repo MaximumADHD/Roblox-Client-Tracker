@@ -82,7 +82,8 @@ function Theme:recalculateTheme()
 
 		separator = isDark and color(c.Border) or color(c.Titlebar),
 
-		scrollBar = color(c.ScrollBar),
+		scrollBar = isDark and color(c.ScrollBar) or color(c.Border),
+		scrollBarBackground = isDark and color(c.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
 
 		menuBar = {
 			backgroundColor = isDark and color(c.ScrollBarBackground) or color(c.MainBackground),

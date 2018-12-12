@@ -79,6 +79,7 @@ function MultilineTextEntry:render()
 		Size = UDim2.new(1, SCROLL_BAR_OUTSET, 1, 0),
 		BackgroundTransparency = 1,
 		ClipsDescendants = true,
+		ShowBackground = false,
 
 		[Roact.Ref] = self.frameRef,
 	}, {

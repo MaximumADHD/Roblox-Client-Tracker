@@ -1,7 +1,15 @@
 local LocalizationService = game:GetService("LocalizationService")
 local Promise = require(script.Parent.Parent.Promise)
 local RbxEntriesToWebEntries = require(script.Parent.RbxEntriesToWebEntries)
-local PatchInfo = require(script.Parent.PatchInfo)
+
+local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
+local PatchInfo
+if StudioLocalizationSelectiveUpload then
+	PatchInfo = require(script.Parent.PatchInfo)
+else
+	PatchInfo = require(script.Parent.PatchInfoDEPRECATED)
+end
+
 local MakeWebTableInterface = require(script.Parent.WebTableInterface)
 
 return function(userId)

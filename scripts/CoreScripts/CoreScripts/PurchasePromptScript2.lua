@@ -10,9 +10,10 @@ local success, result = pcall(function() return settings():GetFFlag('UsePurchase
 local FFlagUsePurchasePromptLocalization = success and result
 
 local FFlagThwartPurchasePromptScams = settings():GetFFlag("ThwartPurchasePromptScams")
-local FFlagThwartPurchasePromptScamsGamepad = settings():GetFFlag("ThwartPurchasePromptScamsGamepad")
 local FFlagDelayPurchasePromptActivation = settings():GetFFlag("DelayPurchasePromptActivation")
 local FFlagWeDontWantAnyGoogleAnalyticsHerePlease = settings():GetFFlag("WeDontWantAnyGoogleAnalyticsHerePlease")
+local FFlagForceCursorVisibleOnPurchasePrompt = settings():GetFFlag("ForceCursorVisibleOnPurchasePrompt")
+local FFlagClickerScamMitigationV2 = settings():GetFFlag("ClickerScamMitigationV2")
 
 local AssetService = game:GetService('AssetService')
 local GuiService = game:GetService('GuiService')
@@ -33,6 +34,8 @@ local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUs
 if FFlagCoreScriptsUseLocalizationModule then
 	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 end
+
+local CursorOverride = require(RobloxGui.Modules.CursorOverride)
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -488,10 +491,42 @@ local function disableControllerMovement()
 	game:GetService("ContextActionService"):BindCoreAction(freezeThumbstick2Name, noOpFunc, false, Enum.KeyCode.Thumbstick2)
 end
 
--- isClickerScam() returns true if any of the following conditions are met:
---   1. The user has pressed ButtonA or clicked on the buy button area `TRACKED_CLICKS` times in the past `REACTION_TIME` seconds
---   2. Mouse is over the button and UserInputService.MouseBehavior has changed to LockCurrentPosition in the past `REACTION_TIME` seconds
-local isClickerScam do
+local isClickerScam
+
+if FFlagClickerScamMitigationV2 then
+	local REACTION_TIME = 1.1 -- Give the user this many seconds to stop clicking
+	local TRACKED_CLICKS = 3 -- How many clicks recorded in the last `REACTION_TIME` will count as a clicker scam
+
+	local clickStack = {} -- Fixed-size array of timestamps from recent clicks in the BuyButton area, ordered from earliest to latest
+	for i = 1, TRACKED_CLICKS do
+		clickStack[i] = 0
+	end
+
+	local spamInputs = {
+		[Enum.KeyCode.ButtonA] = true,
+		[Enum.UserInputType.Touch] = true,
+		[Enum.UserInputType.MouseButton1] = true,
+	}
+
+	UserInputService.InputBegan:Connect(function(input, gpe)
+		if buttonsActive then return end -- Don't capture input if the purchase prompt is active
+
+		if spamInputs[input.UserInputType] or spamInputs[input.KeyCode] then
+			-- Push current timestamp to the click stack
+			for i = 2, TRACKED_CLICKS do
+				clickStack[i - 1] = clickStack[i]
+			end
+			clickStack[TRACKED_CLICKS] = tick()
+		end
+	end)
+
+	function isClickerScam()
+		if not FFlagThwartPurchasePromptScams then
+			return false
+		end
+		return tick() < REACTION_TIME + clickStack[1]
+	end
+else
 	local REACTION_TIME = 1.1 -- Give the user this many seconds to stop clicking
 	local TRACKED_CLICKS = 3 -- How many clicks recorded in the last `REACTION_TIME` will count as a clicker scam
 
@@ -558,7 +593,7 @@ local isClickerScam do
 				if buttonsActive then return end -- Don't capture input if the purchase prompt is active
 				local inputType = input.UserInputType
 
-				local isGamepad = FFlagThwartPurchasePromptScamsGamepad and input.KeyCode == INPUT_BTN_A
+				local isGamepad = input.KeyCode == INPUT_BTN_A
 				local isMouseOrTouch = inputType == INPUT_MB1 or inputType == INPUT_TOUCH
 
 				if isGamepad or (isMouseOrTouch and isOverBuyButton(input.Position)) then
@@ -937,7 +972,9 @@ local function showPurchasePrompt()
 	stopPurchaseAnimation()
 	PurchaseDialog.Visible = true
 	if isTenFootInterface then
-		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+		CursorOverride.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceHide)
+	elseif FFlagForceCursorVisibleOnPurchasePrompt then
+		CursorOverride.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceShow)
 	end
 	PurchaseDialog:TweenPosition(isTenFootInterface and SHOW_POSITION_TENFOOT or SHOW_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, function(tweenStatus)
 		if tweenStatus == Enum.TweenStatus.Completed then
@@ -1055,8 +1092,8 @@ end
 local function closePurchaseDialog()
 	buttonsActive = false
 	purchaseState = PURCHASE_STATE.DEFAULT
-	if isTenFootInterface then
-		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
+	if FFlagForceCursorVisibleOnPurchasePrompt or isTenFootInterface then
+		CursorOverride.pop("PurchasePrompt")
 	end
 	PurchaseDialog:TweenPosition(isTenFootInterface and HIDE_POSITION_TENFOOT or HIDE_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, function(tweenStatus)
 		if tweenStatus == Enum.TweenStatus.Completed then

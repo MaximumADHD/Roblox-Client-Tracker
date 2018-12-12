@@ -30,6 +30,7 @@ local SettingsImpl = require(Plugin.Src.Networking.SettingsImpl)
 local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
 local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local Theme = require(Plugin.Src.Util.Theme)
+local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
@@ -74,34 +75,53 @@ if FFlagStudioLocalizationGameSettings then
 	table.insert(settingsPages, "Localization")
 end
 
+-- Make sure that the main window elements cannot be interacted with
+-- when a second dialog is open over the Game Settings widget
+local function setMainWidgetInteractable(interactable)
+	if pluginGui then
+		for _, instance in pairs(pluginGui:GetDescendants()) do
+			if instance:IsA("GuiObject") then
+				instance.Active = interactable
+			end
+		end
+	end
+end
+
 local function showDialog(type, props)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
+			setMainWidgetInteractable(false)
 			local dialogHandle
 			local dialog = plugin:CreateQWidgetPluginGui(props.Title, {
 				Size = props.Size or Vector2.new(473, 197),
-				InitialEnabled = true,
 				Modal = true,
 			})
+			dialog.Enabled = true
 			dialog.Title = props.Title
 			local dialogContents = Roact.createElement(ThemeProvider, {
 				theme = FFlagStudioLuaGameSettingsDialog2 and Theme.new() or Theme.DEPRECATED_constantColors(),
 			}, {
-				Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
-					OnResult = function(result)
-						Roact.unmount(dialogHandle)
-						dialog:Destroy()
-						if result then
-							resolve()
-						else
-							reject()
+				Roact.createElement(MouseProvider, {
+					mouse = plugin:GetMouse()
+				}, {
+					Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
+						OnResult = function(result)
+							Roact.unmount(dialogHandle)
+							dialog:Destroy()
+							setMainWidgetInteractable(true)
+							if result then
+								resolve()
+							else
+								reject()
+							end
 						end
-					end
-				})),
+					})),
+				}),
 			})
 			dialog:GetPropertyChangedSignal("Enabled"):connect(function()
 				Roact.unmount(dialogHandle)
 				dialog:Destroy()
+				setMainWidgetInteractable(true)
 				reject()
 			end)
 			dialogHandle = Roact.mount(dialogContents, dialog)
@@ -215,6 +235,7 @@ local function openGameSettings()
 		store = settingsStore,
 		showDialog = showDialog,
 		theme = FFlagStudioLuaGameSettingsDialog2 and Theme.new() or Theme.DEPRECATED_constantColors(),
+		mouse = plugin:GetMouse()
 	}, {
 		mainView = Roact.createElement(MainView, {
 			MenuEntries = menuEntries,

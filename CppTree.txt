@@ -423,6 +423,7 @@ RBX
 		DebuggerWatch
 		IDebuggerCloneTracker
 		IDebuggerDataSource
+		IDebuggerSettingsSource
 		ISpecialBreakpoint
 		ScriptDebugger
 		StepInBreakpoint
@@ -837,8 +838,20 @@ RBX
 	HttpResponseImpl
 	HttpService
 	Humanoid
+	HumanoidAccessoryAssetRequirement
+	HumanoidAnimationAssetRequirement
+	HumanoidAssetRequirement
+	HumanoidBodyPartAssetRequirement
+	HumanoidClothesAssetRequirement
 	HumanoidController
+	HumanoidDefaultAnimations
+	HumanoidDefaultBodyParts
+	HumanoidDefaultBodyPartsR15
+	HumanoidDefaultInstances
 	HumanoidDescription
+	HumanoidFaceAssetRequirement
+	HumanoidHeadAssetRequirement
+	HumanoidNullAssetRequirement
 	HumanoidStage
 	I3DLinearFunc
 	IAdornable
@@ -889,6 +902,7 @@ RBX
 	KernelJoint
 	KeyboardService
 	Keyframe
+	KeyframeMarker
 	KeyframeSequence
 	KeyframeSequenceProvider
 	LatchedSignalBase

@@ -87,6 +87,7 @@ Class AnimationTrack : Instance [NotCreatable]
 	Property float AnimationTrack.WeightTarget [ReadOnly]
 	Function void AnimationTrack:AdjustSpeed(float speed = 1)
 	Function void AnimationTrack:AdjustWeight(float weight = 1, float fadeTime = 0.100000001)
+	Function RBXScriptSignal AnimationTrack:GetMarkerReachedSignal(string name)
 	Function double AnimationTrack:GetTimeOfKeyframe(string keyframeName)
 	Function void AnimationTrack:Play(float fadeTime = 0.100000001, float weight = 1, float speed = 1)
 	Function void AnimationTrack:Stop(float fadeTime = 0.100000001)
@@ -132,6 +133,7 @@ Class BadgeService : Instance [NotCreatable] [Service]
 	Function bool BadgeService:UserHasBadgeAsync(int64 userId, int64 badgeId) [Yields]
 	Event BadgeService.BadgeAwarded(string message, int64 userId, int64 badgeId) {RobloxScriptSecurity}
 Class BasePlayerGui : Instance [NotCreatable]
+	Function Objects BasePlayerGui:GetGuiObjectsAtPosition(int x, int y)
 Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 	Property Class<GuiObject> CoreGui.SelectionImageObject {RobloxScriptSecurity}
 	Property int CoreGui.Version [ReadOnly]
@@ -907,10 +909,10 @@ Class PluginGui : LayerCollector [NotCreatable] [NotReplicated]
 	Property string PluginGui.Title
 	Function void PluginGui:BindToClose(Function function = nil)
 	Function Vector2 PluginGui:GetRelativeMousePosition() {PluginSecurity}
-	Event PluginGui.PluginDragDropped(Instance pluginDragEvent) {RobloxScriptSecurity}
-	Event PluginGui.PluginDragEntered(Instance pluginDragEvent) {RobloxScriptSecurity}
-	Event PluginGui.PluginDragLeft(Instance pluginDragEvent) {RobloxScriptSecurity}
-	Event PluginGui.PluginDragMoved(Instance pluginDragEvent) {RobloxScriptSecurity}
+	Event PluginGui.PluginDragDropped(Dictionary dragData) {PluginSecurity}
+	Event PluginGui.PluginDragEntered(Dictionary dragData) {PluginSecurity}
+	Event PluginGui.PluginDragLeft(Dictionary dragData) {PluginSecurity}
+	Event PluginGui.PluginDragMoved(Dictionary dragData) {PluginSecurity}
 	Event PluginGui.WindowFocusReleased() {PluginSecurity}
 	Event PluginGui.WindowFocused() {PluginSecurity}
 Class DockWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
@@ -1163,10 +1165,13 @@ Class Humanoid : Instance
 	Function void Humanoid:AddAccessory(Instance accessory)
 	Function bool Humanoid:AddCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:AddStatus(Enum<Status> status = Poison) [Deprecated]
+	Function void Humanoid:ApplyDescription(Instance humanoidDescription) [Yields]
 	Function void Humanoid:BuildRigFromAttachments()
+	Function void Humanoid:CacheDefaults() {RobloxScriptSecurity}
 	Function void Humanoid:ChangeState(Enum<HumanoidStateType> state = None)
 	Function void Humanoid:EquipTool(Instance tool)
 	Function Array Humanoid:GetAccessories()
+	Function Instance Humanoid:GetAppliedDescription()
 	Function Enum<BodyPartR15> Humanoid:GetBodyPartR15(Instance part)
 	Function Enum<Limb> Humanoid:GetLimb(Instance part)
 	Function Array Humanoid:GetPlayingAnimationTracks()
@@ -1317,9 +1322,14 @@ Class JointsService : Instance [NotCreatable] [Service]
 Class KeyboardService : Instance [NotCreatable] [Service]
 Class Keyframe : Instance
 	Property float Keyframe.Time
+	Function void Keyframe:AddMarker(Instance marker)
 	Function void Keyframe:AddPose(Instance pose)
+	Function Objects Keyframe:GetMarkers()
 	Function Objects Keyframe:GetPoses()
+	Function void Keyframe:RemoveMarker(Instance marker)
 	Function void Keyframe:RemovePose(Instance pose)
+Class KeyframeMarker : Instance
+	Property string KeyframeMarker.Value
 Class KeyframeSequence : Instance
 	Property float KeyframeSequence.AuthoredHipHeight {PluginSecurity}
 	Property bool KeyframeSequence.Loop
@@ -1374,6 +1384,15 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function double Lighting:getMinutesAfterMidnight() [Deprecated]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [Deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
+Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void LocalStorageService:Flush() {RobloxScriptSecurity}
+	Function string LocalStorageService:GetItem(string key) {RobloxScriptSecurity}
+	Function void LocalStorageService:SetItem(string key, string value) {RobloxScriptSecurity}
+	Function void LocalStorageService:WhenLoaded(Function callback) {RobloxScriptSecurity}
+	Event LocalStorageService.ItemWasSet(string key, string value) {RobloxScriptSecurity}
+	Event LocalStorageService.StoreWasCleared() {RobloxScriptSecurity}
+Class AppStorageService : LocalStorageService [NotCreatable] [Service] [NotReplicated]
+Class UserStorageService : LocalStorageService [NotCreatable] [Service] [NotReplicated]
 Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string LocalizationService.ForcePlayModeGameLocaleId {LocalUserSecurity} [NotReplicated]
 	Property string LocalizationService.ForcePlayModeRobloxLocaleId {LocalUserSecurity} [NotReplicated]
@@ -2095,7 +2114,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
-	Function void Plugin:StartDrag(PluginDrag drag) {RobloxScriptSecurity}
+	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
 	Function void Plugin:StopAllSounds() {RobloxScriptSecurity}
 	Function Instance Plugin:Union(Objects objects) {PluginSecurity}
 	Event Plugin.Deactivation() {PluginSecurity}
@@ -2164,11 +2183,13 @@ Class ReflectionMetadataFunctions : Instance
 Class ReflectionMetadataItem : Instance [NotCreatable]
 	Property bool ReflectionMetadataItem.Browsable
 	Property string ReflectionMetadataItem.ClassCategory
+	Property bool ReflectionMetadataItem.ClientOnly
 	Property string ReflectionMetadataItem.Constraint
 	Property bool ReflectionMetadataItem.Deprecated
 	Property bool ReflectionMetadataItem.EditingDisabled
 	Property bool ReflectionMetadataItem.IsBackend
 	Property string ReflectionMetadataItem.ScriptContext
+	Property bool ReflectionMetadataItem.ServerOnly
 	Property double ReflectionMetadataItem.UIMaximum
 	Property double ReflectionMetadataItem.UIMinimum
 	Property double ReflectionMetadataItem.UINumTicks
@@ -2488,6 +2509,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property float StarterPlayer.HealthDisplayDistance
 	Property float StarterPlayer.NameDisplayDistance
 	Property bool StarterPlayer.AutoJumpEnabled
+	Function void StarterPlayer:ClearDefaults() {RobloxScriptSecurity}
 Class StarterPlayerScripts : Instance
 Class StarterCharacterScripts : StarterPlayerScripts
 Class Stats : Instance [NotCreatable] [Service]
@@ -2516,7 +2538,7 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
 	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [Service] [NotReplicated]
-	Property bool Studio.Debug Client In APS Mode
+	Property Enum<DEPRECATED_DebuggerDataModelPreference> Studio.Attach Debugger To
 	Property bool Studio.Disable Accurate Play Solo
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable Autocomplete
@@ -2550,6 +2572,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property Instance Studio.Theme
 	Property Enum<UITheme> Studio.UI Theme [ReadOnly]
 	Property bool Studio.LuaDebuggerEnabled
+	Property bool Studio.LuaDebuggerEnabledAtStartup [Hidden] [ReadOnly]
 	Property int Studio.ScriptTimeoutLength
 	Property bool Studio.Clear Output On Start
 	Property int Studio.Maximum Output Lines
@@ -3305,6 +3328,9 @@ Enum CustomCameraMode
 	EnumItem CustomCameraMode.Default : 0
 	EnumItem CustomCameraMode.Classic : 1
 	EnumItem CustomCameraMode.Follow : 2
+Enum DEPRECATED_DebuggerDataModelPreference
+	EnumItem DEPRECATED_DebuggerDataModelPreference.Server : 0
+	EnumItem DEPRECATED_DebuggerDataModelPreference.Client : 1
 Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetAsync : 0
 	EnumItem DataStoreRequestType.SetIncrementAsync : 1

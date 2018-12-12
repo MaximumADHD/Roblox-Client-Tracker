@@ -65,4 +65,12 @@ function Table:hasValue(tab, searchForVal)
 	return self.Paths.HelperFunctionsIteration:ifAny(tab, function(k,v) return v == searchForVal end)
 end
 
+function Table:indexOf(tab, searchForVal)
+	for index, value in ipairs(tab) do
+		if searchForVal == value then
+			return index
+		end
+	end
+end
+
 return Table

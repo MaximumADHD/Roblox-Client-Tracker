@@ -173,6 +173,10 @@ local function addPoseToKeyframe(self, tab, time, dataItem, fireChangeEvent)
 	if not self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
 		return
 	end
+	if FastFlags:isAnimationEventsOn() then
+		self.Paths.DataModelAnimationEvents:selectNone()
+		self:deselectItemsInStudioHierarchy()
+	end
 	if dataItem then
 		if tab[time] == nil then
 			tab[time] = {}
@@ -192,6 +196,9 @@ local function changePrimarySelection(self, time, dataItem, isKeyframe)
 	self.Selected.Clicked = {}
 	self.Selected.DataItems = {}
 	if dataItem then
+		if FastFlags:isAnimationEventsOn() then
+			self.Paths.DataModelAnimationEvents:selectNone()
+		end
 		if isKeyframe and time ~= nil then
 			self.Selected.Keyframes[time] = {[dataItem.Item] = dataItem}
 		end
@@ -242,6 +249,10 @@ function Session:removePoseFromSelectedKeyframes(time, dataItem, fireChangeEvent
 end
 
 local function updateValueInDataItems(self, key, newDataItemValue, fireChangeEvent)
+	if FastFlags:isAnimationEventsOn() then
+		self.Paths.DataModelAnimationEvents:selectNone()
+		self:deselectItemsInStudioHierarchy()
+	end
 	fireChangeEvent = fireChangeEvent == nil and true or fireChangeEvent
 	self.Selected.DataItems[key] = newDataItemValue
 	if fireChangeEvent then self.SelectedChangeEvent:fire() end
@@ -298,7 +309,11 @@ function Session:areAnyPosesForDataItemSelected(dataItem)
 end
 
 function Session:areAnyPosesForTimeSelected(time)
-	return self.Selected.Keyframes[time] ~= nil
+	if FastFlags:isAnimationEventsOn() then
+		return not self.Paths.HelperFunctionsTable:isNilOrEmpty(self.Selected.Keyframes[time])
+	else
+		return self.Selected.Keyframes[time] ~= nil
+	end
 end
 
 function Session:getSelectedPoseAtTime(time)
@@ -547,7 +562,11 @@ end
 function Session:resetAnimation()
 	beginResetAnimation(self)
 
-	self.Paths.UtilityScriptCopyPaste:resetCopyPoses()
+	if FastFlags:isAnimationEventsOn() then
+		self.Paths.UtilityScriptCopyPaste:resetCopyItems()
+	else
+		self.Paths.UtilityScriptCopyPaste:resetCopyPoses()
+	end
 	self.Paths.DataModelKeyframes:resetKeyframes()
 
 	local savedLength = self.Paths.Globals.Plugin:GetSetting("AnimEditor_AnimLength")

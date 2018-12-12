@@ -162,6 +162,90 @@ local FruitTableData = {
 	},
 }
 
+local function TableSize(T)
+	local size = 0
+	for _,_ in pairs(T) do
+		size = size + 1
+	end
+	return size
+end
+
+local function TableContains(T, entry)
+	for _,t in pairs(T) do
+		if RecursiveEquals(entry, t) then
+			return true
+		end
+	end
+	return false
+end
+
+local function TableContentsEqual(A, B)
+	for _,t in pairs(A) do
+		if not TableContains(B, t) then
+			return false
+		end
+	end
+
+	for _,t in pairs(B) do
+		if not TableContains(A, t) then
+			return false
+		end
+	end
+
+	return true
+end
+
+local function TableConcat(...)
+	local arg = {...}
+
+	local result = {}
+	for _,A in ipairs(arg) do
+		for _,entry in ipairs(A) do
+			table.insert(result, entry)
+		end
+	end
+
+	return result
+end
+
+local function SelectivePatchConsistencyCheck(patchInfo)
+	local addPatch = patchInfo.makePatch({
+		addEnabled = true,
+		changeEnabled = false,
+		removeEnabled = false,
+	})
+
+	local changePatch = patchInfo.makePatch({
+		addEnabled = false,
+		changeEnabled = true,
+		removeEnabled = false,
+	})
+
+	local removePatch = patchInfo.makePatch({
+		addEnabled = false,
+		changeEnabled = false,
+		removeEnabled = true,
+	})
+
+	local fullPatch = patchInfo.makePatch({
+		addEnabled = true,
+		changeEnabled = true,
+		removeEnabled = true,
+	})
+
+	assert(TableSize(addPatch.entries) == patchInfo.add)
+	assert(TableSize(changePatch.entries) == patchInfo.change)
+	assert(TableSize(removePatch.entries) == patchInfo.remove)
+
+	local unionEntries = TableConcat(
+		addPatch.entries,
+		changePatch.entries,
+		removePatch.entries)
+
+	assert(TableSize(unionEntries) == TableSize(fullPatch.entries))
+	assert(TableContentsEqual(unionEntries, fullPatch.entries))
+end
+
 return function()
 	it("make a patch entry for a row replacing a copy of the row (that's an empty translations list)", function()
 		local patch = PatchInfo.MakePatchEntryToChangeRow(BananaTableData[1], BananaTableData[1])
@@ -218,8 +302,18 @@ return function()
 		assert(patchInfo.add == 1)
 		assert(patchInfo.change == 0)
 		assert(patchInfo.remove == 0)
-		assert(patchInfo.patch.name == "MyAppleTable")
-		assert(RecursiveEquals(patchInfo.patch.entries, {
+
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(fullPatch.name == "MyAppleTable")
+
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		assert(RecursiveEquals(fullPatch.entries, {
 					{
 						identifier = {
 							key = "APPLEWORD",
@@ -248,28 +342,19 @@ return function()
 		assert(patchInfo.add == 1)
 		assert(patchInfo.change == 0)
 		assert(patchInfo.remove == 1)
-		assert(patchInfo.patch.name == "MyBananaTable")
 
-		assert(RecursiveEquals(patchInfo.patch.entries,
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(fullPatch.name == "MyBananaTable")
+
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		assert(RecursiveEquals(fullPatch.entries,
 			{
-				{
-					identifier = {
-						key = "APPLEWORD",
-						source = "apple",
-						context = "some/context",
-					},
-					metadata = {
-						example = "Jimmy ate an apple.",
-					},
-					translations = {
-						{
-							locale = "es-es",
-							translationText = "manzana",
-							delete = true,
-						},
-					},
-					delete = true,
-				},
 				{
 					identifier = {
 						context = "",
@@ -288,6 +373,24 @@ return function()
 					},
 					delete = false,
 				},
+				{
+					identifier = {
+						key = "APPLEWORD",
+						source = "apple",
+						context = "some/context",
+					},
+					metadata = {
+						example = "Jimmy ate an apple.",
+					},
+					translations = {
+						{
+							locale = "es-es",
+							translationText = "manzana",
+							delete = true,
+						},
+					},
+					delete = true,
+				},
 			}
 		))
 	end)
@@ -297,9 +400,18 @@ return function()
 		assert(patchInfo.add == 0)
 		assert(patchInfo.change == 1)
 		assert(patchInfo.remove == 0)
-		assert(patchInfo.patch.name == "MyAppleTable")
 
-		assert(RecursiveEquals(patchInfo.patch.entries,
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(fullPatch.name == "MyAppleTable")
+
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		assert(RecursiveEquals(fullPatch.entries,
 			{
 				{
 					identifier = {
@@ -332,9 +444,18 @@ return function()
 		assert(patchInfo.add == 0)
 		assert(patchInfo.change == 1)
 		assert(patchInfo.remove == 0)
-		assert(patchInfo.patch.name == "MyAppleTable")
 
-		assert(RecursiveEquals(patchInfo.patch.entries,
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(fullPatch.name == "MyAppleTable")
+
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		assert(RecursiveEquals(fullPatch.entries,
 			{
 				{
 					identifier = {
@@ -372,9 +493,18 @@ return function()
 		assert(patchInfo.add == 0)
 		assert(patchInfo.change == 1)
 		assert(patchInfo.remove == 0)
-		assert(patchInfo.patch.name == "MyAppleTable")
 
-		assert(RecursiveEquals(patchInfo.patch.entries,
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(fullPatch.name == "MyAppleTable")
+
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		assert(RecursiveEquals(fullPatch.entries,
 			{
 				{
 					identifier = {
@@ -403,7 +533,15 @@ return function()
 		assert(patchInfo.change == 0)
 		assert(patchInfo.remove == 1)
 
-		assert(RecursiveEquals(patchInfo.patch.entries,
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(RecursiveEquals(fullPatch.entries,
 			{
 				{
 					identifier = {
@@ -427,7 +565,16 @@ return function()
 		assert(patchInfo.add == 0)
 		assert(patchInfo.change == 0)
 		assert(patchInfo.remove == 0)
-		assert(patchInfo.patch.name == "MyFruitTable")
+
+		SelectivePatchConsistencyCheck(patchInfo)
+
+		local fullPatch = patchInfo.makePatch({
+			addEnabled = true,
+			changeEnabled = true,
+			removeEnabled = true,
+		})
+
+		assert(fullPatch.name == "MyFruitTable")
 	end)
 end
 

@@ -26,6 +26,13 @@ function TextEntry:init()
 			self.props.SetText(rbx.Text)
 		end
 	end
+
+	self.mouseEnter = function()
+		self.props.HoverChanged(true)
+	end
+	self.mouseLeave = function()
+		self.props.HoverChanged(false)
+	end
 end
 
 function TextEntry:render()
@@ -49,6 +56,9 @@ function TextEntry:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 
 			[Roact.Ref] = self.textBoxRef,
+
+			[Roact.Event.MouseEnter] = self.mouseEnter,
+			[Roact.Event.MouseLeave] = self.mouseLeave,
 
 			[Roact.Event.Focused] = function()
 				self.props.FocusChanged(true)

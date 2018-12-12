@@ -45,6 +45,11 @@ local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 end)
 local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
+local newDefaultCameraAngleFlagExists, newDefaultCameraAngleFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserNewDefaultCameraAngle")
+end)
+local FFlagUserNewDefaultCameraAngle = newDefaultCameraAngleFlagExists and newDefaultCameraAngleFlagEnabled
+
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 
@@ -93,6 +98,10 @@ function BaseCamera.new()
 	self.inFirstPerson = false
 	self.inMouseLockedMode = false
 	self.portraitMode = false
+	self.isSmallTouchScreen = false
+	
+	-- Used by modules which want to reset the camera angle on respawn.
+	self.resetCameraAngle = true
 
 	self.enabled = false
 
@@ -180,6 +189,9 @@ function BaseCamera.new()
 	self.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 		self:OnCurrentCameraChanged()
 	end)
+	if FFlagUserNewDefaultCameraAngle then
+		self:OnCurrentCameraChanged()
+	end
 
 	if self.playerCameraModeChangeConn then self.playerCameraModeChangeConn:Disconnect() end
 	self.playerCameraModeChangeConn = player:GetPropertyChangedSignal("CameraMode"):Connect(function()
@@ -228,6 +240,10 @@ function BaseCamera:GetModuleName()
 end
 
 function BaseCamera:OnCharacterAdded(char)
+	if FFlagUserNewDefaultCameraAngle then
+		self.resetCameraAngle = self.resetCameraAngle or self:GetEnabled()
+		self.humanoidRootPart = nil
+	end
 	if UserInputService.TouchEnabled then
 		self.PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 		for _, child in ipairs(char:GetChildren()) do
@@ -349,6 +365,8 @@ function BaseCamera:OnViewportSizeChanged()
 	local camera = game.Workspace.CurrentCamera
 	local size = camera.ViewportSize
 	self.portraitMode = size.X < size.Y
+	self.isSmallTouchScreen = UserInputService.TouchEnabled and (size.Y < 500 or size.X < 700)
+
 	self:UpdateDefaultSubjectDistance()
 end
 

@@ -18,7 +18,7 @@ ThemeData.ColorAndImageNames = {
 		"PopupBorder", "PopupBorder2", "DisabledColor", "JointSelected", "ScrubberColor",
 		"Highlight" ,"InputBorder", "JointListDivider", "Hover", "Header",
 		"TextColor", "HeaderTextColor", "DisabledTextColor", "TextPlaceholderColor", "HighlightText",
-		"HierarchyLine", "InputField", "ScaleBar", "CheckboxBackground",
+		"HierarchyLine", "InputField", "ScaleBar", "CheckboxBackground", "EventBar",
 
 		"RoundedButton", "RoundedBorder", "EndButton", "NextButton","PlayButton",
 		"PreviousButton", "StartButton", "PauseButton", "HierarchyClosed", "HierarchyOpened",
@@ -27,7 +27,10 @@ ThemeData.ColorAndImageNames = {
 		"KeyIndicatorInner", "KeyIndicatorSelectedBorder", "KeyIndicatorSelectedInner", "KeyInner", "KeySelectedBorder",
 		"KeySelectedInner", "ScrubberHead", "DownArrow", "UpArrow", "RadioBackground",
 		"TimeTag", "TimeTagBorder", "ScaleArrows", "ScaleArrowsBorder", "PinIcon",
-		"HierarchyEnd",
+		"HierarchyEnd", "Collapse", "DeleteEvent", "EditEvent", "Expand", "Manage",
+		"RemoveEvent", "Search", "GroupMarkerBorderSelected", "GroupMarkerBorder", "GroupMarkerInner",
+		"MarkerBorderSelected", "MarkerBorder", "MarkerInner", "MarkerMin", "AddEventBorder",
+		"AddEventInner", "ClearText",
 
 		"Linear", "LinearDisabled", "Elastic", "ElasticDisabled", "Bounce", "BounceDisabled",
 		"Constant", "ConstantDisabled", "Cubic", "CubicDisabled",
@@ -305,6 +308,23 @@ function ThemeData:init()
 		[ThemeData.ColorAndImageNamesMap.ScaleArrowsBorder] = "rbxasset://textures/AnimationEditor/img_scalebar_arrows_border.png",
 		[ThemeData.ColorAndImageNamesMap.PinIcon] = "rbxasset://textures/AnimationEditor/icon_pin.png",
 		[ThemeData.ColorAndImageNamesMap.HierarchyEnd] = "rbxasset://textures/AnimationEditor/icon_hierarchy_end_white.png",
+		[ThemeData.ColorAndImageNamesMap.Collapse] = "rbxasset://textures/AnimationEditor/btn_collapse.png",
+		[ThemeData.ColorAndImageNamesMap.DeleteEvent] = "rbxasset://textures/AnimationEditor/btn_delete.png",
+		[ThemeData.ColorAndImageNamesMap.EditEvent] = "rbxasset://textures/AnimationEditor/btn_edit.png",
+		[ThemeData.ColorAndImageNamesMap.Expand] ="rbxasset://textures/AnimationEditor/btn_expand.png",
+		[ThemeData.ColorAndImageNamesMap.Manage] = "rbxasset://textures/AnimationEditor/btn_manage.png",
+		[ThemeData.ColorAndImageNamesMap.RemoveEvent] = "rbxasset://textures/AnimationEditor/btn_removeEvent.png",
+		[ThemeData.ColorAndImageNamesMap.Search] = "rbxasset://textures/AnimationEditor/button_search.png",
+		[ThemeData.ColorAndImageNamesMap.GroupMarkerBorderSelected] = "rbxasset://textures/AnimationEditor/img_eventGroupMarker_border_selected.png",
+		[ThemeData.ColorAndImageNamesMap.GroupMarkerBorder] = "rbxasset://textures/AnimationEditor/img_eventGroupMarker_border.png",
+		[ThemeData.ColorAndImageNamesMap.GroupMarkerInner] = "rbxasset://textures/AnimationEditor/img_eventGroupMarker_inner.png",
+		[ThemeData.ColorAndImageNamesMap.MarkerBorderSelected] = "rbxasset://textures/AnimationEditor/img_eventMarker_border_selected.png",
+		[ThemeData.ColorAndImageNamesMap.MarkerBorder] = "rbxasset://textures/AnimationEditor/img_eventMarker_border.png",
+		[ThemeData.ColorAndImageNamesMap.MarkerInner] = "rbxasset://textures/AnimationEditor/img_eventMarker_inner.png",
+		[ThemeData.ColorAndImageNamesMap.MarkerMin] = "rbxasset://textures/AnimationEditor/img_eventMarker_min.png",
+		[ThemeData.ColorAndImageNamesMap.AddEventInner] = "rbxasset://textures/AnimationEditor/btn_addEvent_inner.png",
+		[ThemeData.ColorAndImageNamesMap.AddEventBorder] = "rbxasset://textures/AnimationEditor/btn_addEvent_border.png",
+		[ThemeData.ColorAndImageNamesMap.ClearText] = "rbxasset://textures/AnimationEditor/btn_clearText.png",
 	}
 
 	if FastFlags:isUseNewThemeAPIOn() then
@@ -333,6 +353,7 @@ function ThemeData:init()
 			[ThemeData.ColorAndImageNamesMap.InputField] = {Style = Enum.StudioStyleGuideColor.Border, Modifier = Enum.StudioStyleGuideModifier.Default, Color = Color3.fromRGB(254, 254, 254),},
 			[ThemeData.ColorAndImageNamesMap.ScaleBar] = {Style = Enum.StudioStyleGuideColor.RibbonTabTopBar, Modifier = Enum.StudioStyleGuideModifier.Selected, Color = Color3.fromRGB(100, 148, 227),},
 			[ThemeData.ColorAndImageNamesMap.CheckboxBackground] = {Style = Enum.StudioStyleGuideColor.Border, Modifier = Enum.StudioStyleGuideModifier.Default, Color = Color3.fromRGB(250, 250, 250),},
+			[ThemeData.ColorAndImageNamesMap.EventBar] = {Style = Enum.StudioStyleGuideColor.TabBar, Modifier = Enum.StudioStyleGuideModifier.Default, Color = Color3.fromRGB(235, 235, 235),},		
 		}
 
 		ThemeData.TextStyleMap = {
@@ -439,6 +460,10 @@ function ThemeData:init()
 
 		ThemeData.ScaleArrowsBorderStyleMap = {
 			[ThemeData.ColorAndImageNamesMap.BackgroundColor] = {Style = Enum.StudioStyleGuideColor.MainBackground, Modifier = Enum.StudioStyleGuideModifier.Default, Color = Color3.fromRGB(255,255,255),},
+		}
+
+		ThemeData.EventIconStyleMap = {
+			[ThemeData.ColorAndImageNamesMap.BackgroundColor] = {Style = Enum.StudioStyleGuideColor.TitlebarText, Modifier = Enum.StudioStyleGuideModifier.Default, Color = Color3.fromRGB(187, 187, 182),},
 		}
 	else
 		ThemeData.DataStyleMap = {
@@ -615,6 +640,23 @@ function ThemeData:init()
 		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.TimeTagBorder]] = ThemeData.TimeTagBorderStyleMap,
 		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.PinIcon]] = ThemeData.LockIconStyleMap,
 		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.HierarchyEnd]] = ThemeData.IconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.Collapse]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.DeleteEvent]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.EditEvent]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.Expand]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.Manage]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.RemoveEvent]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.Search]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.GroupMarkerBorderSelected]] = ThemeData.KeyIconSelectedBorderStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.GroupMarkerBorder]] = ThemeData.KeyIconBorderStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.GroupMarkerInner]] = ThemeData.EventIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.MarkerBorderSelected]] = ThemeData.KeyIconSelectedBorderStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.MarkerBorder]] = ThemeData.KeyIconBorderStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.MarkerInner]] = ThemeData.EventIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.MarkerMin]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.AddEventBorder]] = ThemeData.KeyIconBorderStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.AddEventInner]] = ThemeData.ZoomIconStyleMap,
+		[ThemeData.Images[ThemeData.ColorAndImageNamesMap.ClearText]] = ThemeData.ZoomIconStyleMap,
 	}
 end
 

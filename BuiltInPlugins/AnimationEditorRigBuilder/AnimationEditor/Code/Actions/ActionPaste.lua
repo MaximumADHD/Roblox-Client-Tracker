@@ -127,6 +127,39 @@ function Paste:execute(Paths, atTime, copyPoseList, copyVariables, copiedInIKMod
 	end
 end
 
+local function getEarliestEventTime(copyEventsList)
+	local min = next(copyEventsList)
+	for time in pairs(copyEventsList) do
+		min = math.min(time, min)
+	end
+	return min
+	--[[local times = {}
+	for time in pairs(copyEventsList) do 
+		table.insert(times, time) 
+	end
+	table.sort(times)
+	local index, earliestTime = next(times)
+	return earliestTime]]
+end
+
+function Paste:executePasteEvents(Paths, atTime, copyEventsList, registerUndo)
+	local earliestEventTime = getEarliestEventTime(copyEventsList)
+	registerUndo = registerUndo == nil and true or registerUndo
+	if registerUndo then
+		Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionPaste:new(Paths))
+	end
+
+	for time, markers in pairs(copyEventsList) do
+		local offsetTime = earliestEventTime - time
+		local newTime = atTime - offsetTime
+		newTime = Paths.DataModelSession:formatTimeValue(newTime)
+		local keyframe = Paths.DataModelKeyframes:getOrCreateKeyframe(newTime, false)
+		keyframe.Markers = markers
+	end
+
+	Paths.DataModelKeyframes.ChangedEvent:fire(Paths.DataModelKeyframes.keyframeList)
+end
+
 function Paste:new(Paths)
 	local self = setmetatable({}, Paste)
 	self.SubAction = Paths.ActionEditClip:new(Paths, {action = Paths.ActionEditClip.ActionType.paste})

@@ -29,6 +29,7 @@ local Cryo = require(Plugin.Cryo)
 local ThumbnailPreviewDialog = require(Plugin.Src.Components.Dialog.ThumbnailPreviewDialog)
 local ThumbnailWidget = require(Plugin.Src.Components.Thumbnails.ThumbnailWidget)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local ThumbnailController = Roact.PureComponent:extend("ThumbnailController")
 
@@ -56,6 +57,7 @@ function ThumbnailController:deleteThumbnail(thumbnailId)
 	}))
 	local newOrder = Cryo.List.removeValue(self.props.Order, thumbnailId)
 	self.props.ThumbnailOrderChanged(newOrder)
+	getMouse(self).resetMouse()
 end
 
 function ThumbnailController:moveToIndex(thumbnailId, index)

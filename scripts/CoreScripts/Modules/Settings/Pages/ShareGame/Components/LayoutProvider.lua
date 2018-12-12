@@ -14,6 +14,8 @@ local SetDeviceOrientation = require(AppTempCommon.LuaApp.Actions.SetDeviceOrien
 local SetIsSmallTouchScreen = require(ShareGame.Actions.SetIsSmallTouchScreen)
 local SetDeviceLayout = require(ShareGame.Actions.SetDeviceLayout)
 
+local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
+
 -- Magic values derived from CoreScripts/Modules/Settings/Utility.lua
 local SMALL_DEVICE_HEIGHT = 500
 local SMALL_DEVICE_WIDTH = 700
@@ -116,19 +118,35 @@ function LayoutProvider:render()
 	return Roact.oneChild(self.props[Roact.Children])
 end
 
--- TODO: Update to use RoactRodux.UNSTABLE_connect2
-local connector = RoactRodux.connect(function(store)
-	return {
-		setDeviceOrientation = function(orientation)
-			return store:dispatch(SetDeviceOrientation(orientation))
-		end,
-		setIsSmallTouchScreen = function(isSmall)
-			return store:dispatch(SetIsSmallTouchScreen(isSmall))
-		end,
-		setDeviceLayout = function(deviceLayout)
-			return store:dispatch(SetDeviceLayout(deviceLayout))
-		end,
-	}
-end)
+local connector
+if FFlagLuaChatRemoveOldRoactRoduxConnect then
+	connector = RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+		return {
+			setDeviceOrientation = function(orientation)
+				return dispatch(SetDeviceOrientation(orientation))
+			end,
+			setIsSmallTouchScreen = function(isSmall)
+				return dispatch(SetIsSmallTouchScreen(isSmall))
+			end,
+			setDeviceLayout = function(deviceLayout)
+				return dispatch(SetDeviceLayout(deviceLayout))
+			end,
+		}
+	end)
+else
+	connector = RoactRodux.connect(function(store)
+		return {
+			setDeviceOrientation = function(orientation)
+				return store:dispatch(SetDeviceOrientation(orientation))
+			end,
+			setIsSmallTouchScreen = function(isSmall)
+				return store:dispatch(SetIsSmallTouchScreen(isSmall))
+			end,
+			setDeviceLayout = function(deviceLayout)
+				return store:dispatch(SetDeviceLayout(deviceLayout))
+			end,
+		}
+	end)
+end	
 
 return connector(LayoutProvider)

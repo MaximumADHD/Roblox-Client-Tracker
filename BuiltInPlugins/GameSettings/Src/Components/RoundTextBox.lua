@@ -26,6 +26,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local TextEntry = require(Plugin.Src.Components.TextEntry)
 local MultilineTextEntry = require(Plugin.Src.Components.MultilineTextEntry)
@@ -49,8 +50,10 @@ function RoundTextBox:init()
 	end
 
 	self.mouseHoverChanged = function(hovering)
-		if self.props.Active and self.state.Focused then
-			if self.props.HoverChanged then
+		if self.props.Active then
+			getMouse(self).setHoverIcon("IBeam", hovering)
+
+			if self.state.Focused and self.props.HoverChanged then
 				self.props.HoverChanged(hovering)
 			end
 		end

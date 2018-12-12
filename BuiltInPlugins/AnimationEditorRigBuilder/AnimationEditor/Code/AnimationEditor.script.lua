@@ -74,6 +74,9 @@ local function createMainGUI()
 		Paths.DataModelPreferences:init(Paths)
 		Paths.DataModelPlayState:init(Paths)
 		Paths.DataModelIKManipulator:init(Paths)
+		if FastFlags:isAnimationEventsOn() then
+			Paths.DataModelAnimationEvents:init(Paths)
+		end
 
 		Paths.UtilityScriptDisplayArea:init(Paths)
 
@@ -109,6 +112,12 @@ local function createMainGUI()
 		Paths.GUIScriptPartManipulator:init(Paths)
 		Paths.GUIScriptIndicatorArea:init(Paths)
 		Paths.GUIScriptMultiSelectArea:init(Paths)
+		if FastFlags:isAnimationEventsOn() then
+			Paths.GUIScriptManageEvents:init(Paths)
+			Paths.GUIScriptEditAnimationEvents:init(Paths)
+			Paths.GUIScriptAnimationEventBar:init(Paths)
+			Paths.GUIScriptAnimationEventMenu:init(Paths)
+		end
 
 		if FastFlags:isIKModeFlagOn() then
 			Paths.GUIScriptPromptYesNo:init(Paths)
@@ -123,7 +132,7 @@ local function createMainGUI()
 			Paths.GUIScriptNotificationTip:init(Paths)
 			Paths.UtilityScriptScalePoses:init(Paths)
 		end
-		Paths.UtilityScriptMovePoses:init(Paths)
+		Paths.UtilityScriptMoveItems:init(Paths)
 
 		Paths.DataModelSession:initPostGUICreate()
 		if FastFlags:isIKModeFlagOn() then
@@ -132,6 +141,9 @@ local function createMainGUI()
 		Paths.UtilityScriptUndoRedo:initPostGUICreate()
 		Paths.DataModelKeyframes:initPostGUICreate()
 		Paths.DataModelPlayState:initPostGUICreate()
+		if FastFlags:isAnimationEventsOn() then
+			Paths.DataModelAnimationEvents:initPostGUICreate()
+		end
 		Paths.UtilityScriptTheme:initPostGUICreate()
 		if FastFlags:isScaleKeysOn() then
 			Paths.GUIScriptScaleControls:initPostGUICreate()
@@ -139,6 +151,11 @@ local function createMainGUI()
 
 		if FastFlags:isIKModeFlagOn() then
 			Paths.GUIScriptAnimationTarget:initPostGUICreate(Paths)
+		end
+
+		if not FastFlags:isAnimationEventsOn() then
+			Paths.GUIMain.AnimationEventBar.Visible = false
+			Paths.GUI.Size = UDim2.new(1, -2, 1, 24)
 		end
 
 		Paths.ViewportScriptGrid:init(Paths)
@@ -193,9 +210,15 @@ local function destroyMainGUI()
 		Paths.GUIScriptToolTip:terminate()
 		Paths.GUIScriptPopUpInput:terminate()
 		Paths.GUIScriptIndicatorArea:terminate()
+		if FastFlags:isAnimationEventsOn() then
+			Paths.GUIScriptManageEvents:terminate()
+			Paths.GUIScriptEditAnimationEvents:terminate()
+			Paths.GUIScriptAnimationEventBar:terminate()
+			Paths.GUIScriptAnimationEventMenu:terminate()
+		end
 
 		Paths.GUIScriptMultiSelectArea:terminate()
-		Paths.UtilityScriptMovePoses:terminate()
+		Paths.UtilityScriptMoveItems:terminate()
 
 		Paths.UtilityScriptCopyPaste:terminate()
 		Paths.DataModelPartManipulator:terminate()
@@ -208,6 +231,9 @@ local function destroyMainGUI()
 
 		Paths.UtilityScriptDisplayArea:terminate()
 
+		if FastFlags:isAnimationEventsOn() then
+			Paths.DataModelAnimationEvents:terminate()
+		end
 		Paths.DataModelIKManipulator:terminate()
 		Paths.DataModelPlayState:terminate()
 		Paths.DataModelPreferences:terminate()

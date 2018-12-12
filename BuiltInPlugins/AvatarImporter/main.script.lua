@@ -70,7 +70,91 @@ local function getCameraLookAt(maxRange)
 	end
 end
 
+local function setupAvatarScaleTypeValues(avatar, avatarType)
+	for _, child in pairs(avatar:GetChildren()) do
+		if child:IsA("MeshPart") then
+			local value = Instance.new("StringValue")
+			value.Name = "AvatarPartScaleType"
+			if avatarType == "Rthro" then
+				value.Value = "ProportionsNormal"
+			elseif avatarType == "RthroNarrow" then
+				value.Value = "ProportionsSlender"
+			elseif avatarType == "R15" then
+				value.Value = "Classic"
+			end
+			value.Parent = child
+		end
+	end
+end
+
+local ScaleValuesDefaults = {
+	R15 = {
+		HeadScale = 1,
+		BodyHeightScale = 1,
+		BodyWidthScale = 1,
+		BodyDepthScale = 1,
+		BodyTypeScale = 0,
+		BodyProportionScale = 0
+	},
+	Rthro = {
+		HeadScale = 1,
+		BodyHeightScale = 1,
+		BodyWidthScale = 1,
+		BodyDepthScale = 1,
+		BodyTypeScale = 1,
+		BodyProportionScale = 0
+	},
+	RthroNarrow = {
+		HeadScale = 1,
+		BodyHeightScale = 1,
+		BodyWidthScale = 1,
+		BodyDepthScale = 1,
+		BodyTypeScale = 1,
+		BodyProportionScale = 1
+	}
+}
+
+local function setupHumanoidScaleValues(avatar, avatarType)
+	local humanoid = avatar:FindFirstChildOfClass("Humanoid")
+	if not humanoid then
+		return
+	end
+
+	local scaleValuesToAdd = ScaleValuesDefaults[avatarType]
+	if not scaleValuesToAdd then
+		return
+	end
+
+	humanoid.AutomaticScalingEnabled = false
+	for valueName, valueDefault in pairs(scaleValuesToAdd) do
+		local value = humanoid:FindFirstChild(valueName)
+		if not value then
+			value = Instance.new("NumberValue")
+			value.Name = valueName
+			value.Value = valueDefault
+			value.Parent = humanoid
+		end
+	end
+	humanoid.AutomaticScalingEnabled = true
+end
+
+local function addFace(avatar)
+	local head = avatar:FindFirstChild("Head")
+
+	-- Only add face object if the Head doesn't have built in texture
+	if head and head.TextureID == "" then
+		local face = Instance.new("Decal")
+		face.Name = "face"
+		face.Texture = "rbxasset://textures/face.png"
+		face.Parent = head
+	end
+end
+
 local function setupImportedAvatar(avatar, avatarType)
+	avatar.Name = "Imported" ..avatarType.. "Rig"
+	addFace(avatar)
+	setupAvatarScaleTypeValues(avatar, avatarType)
+	setupHumanoidScaleValues(avatar, avatarType)
 	avatar:MoveTo(getCameraLookAt(10))
 	Selection:Set({ avatar })
 	print("Avatar Imported:", avatar:GetFullName(), avatarType)

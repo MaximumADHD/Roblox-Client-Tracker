@@ -10,6 +10,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local HoverBarButton = Roact.PureComponent:extend("HoverBarButton")
 
@@ -20,6 +21,7 @@ function HoverBarButton:init()
 end
 
 function HoverBarButton:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("PointingHand", hovering)
 	self:setState({
 		Hovering = hovering,
 	})

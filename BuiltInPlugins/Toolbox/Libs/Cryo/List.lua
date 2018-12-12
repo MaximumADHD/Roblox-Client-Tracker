@@ -3,17 +3,16 @@
 ]]
 
 return {
-	filter = require(script.filter),
-	filterMap = require(script.filterMap),
+	getRange = require(script.getRange),
 	find = require(script.find),
+	filterMap = require(script.filterMap),
+	filter = require(script.filter),
 	foldLeft = require(script.foldLeft),
 	foldRight = require(script.foldRight),
-	getRange = require(script.getRange),
 	join = require(script.join),
-	map = require(script.map),
 	removeIndex = require(script.removeIndex),
 	removeRange = require(script.removeRange),
 	removeValue = require(script.removeValue),
+	map = require(script.map),
 	reverse = require(script.reverse),
-	sort = require(script.sort),
 }

@@ -64,6 +64,15 @@ function KeyframeIndicator:new(Paths, parent, time)
 		end
 	end))
 
+	local onMove = function(targetTime, anchorTime)
+		if self:areAnyPosesSelected() then
+			local deltaTime = anchorTime - self.Time
+			local newTime =  targetTime - deltaTime
+			newTime = Paths.DataModelSession:formatTimeValue(newTime)
+			self.Paths.GUIScriptKeyframe:updateKeyframeOnTimeline(self.Paths, self, newTime)
+		end
+	end
+
 	self.Connections:add(self.TargetWidget.ImageButton.InputBegan:connect(function(input)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
 			if FastFlags:isSelectAndDragOn() then
@@ -78,24 +87,30 @@ function KeyframeIndicator:new(Paths, parent, time)
 					end
 				end
 			end
-			self.Paths.UtilityScriptMovePoses:BeginMove(self.Paths, getSelectedGUIKeyframe(self))
+			if FastFlags:isAnimationEventsOn() then
+				self.Paths.UtilityScriptMoveItems:BeginMove(self.Paths, getSelectedGUIKeyframe(self), self.Paths.UtilityScriptMoveItems:getGUIKeyframesFromSelectedKeyframes(self.Paths), onMove)
+			else
+				self.Paths.UtilityScriptMoveItems:BeginMove(self.Paths, getSelectedGUIKeyframe(self))
+			end
 		end
 	end))
 
 	self.Connections:add(self.TargetWidget.ImageButton.InputEnded:connect(function(input)
 		if Enum.UserInputType.MouseButton1 == input.UserInputType then
-			self.Paths.UtilityScriptMovePoses:EndMove(self.Paths)
+			self.Paths.UtilityScriptMoveItems:EndMove(self.Paths)
 		end
 	end))
 
-	self.Connections:add(Paths.UtilityScriptMovePoses.PosesMovedEvent:connect(function(targetTime, anchorTime)
-		if self:areAnyPosesSelected() then
-			local deltaTime = anchorTime - self.Time
-			local newTime =  targetTime - deltaTime
-			newTime = Paths.DataModelSession:formatTimeValue(newTime)
-			self.Paths.GUIScriptKeyframe:updateKeyframeOnTimeline(self.Paths, self, newTime)
-		end
-	end))
+	if not FastFlags:isAnimationEventsOn() then
+		self.Connections:add(Paths.UtilityScriptMoveItems.PosesMovedEvent:connect(function(targetTime, anchorTime)
+			if self:areAnyPosesSelected() then
+				local deltaTime = anchorTime - self.Time
+				local newTime =  targetTime - deltaTime
+				newTime = Paths.DataModelSession:formatTimeValue(newTime)
+				self.Paths.GUIScriptKeyframe:updateKeyframeOnTimeline(self.Paths, self, newTime)
+			end
+		end))
+	end
 
 	if FastFlags:isScaleKeysOn() then
 		self.Connections:add(Paths.UtilityScriptScalePoses.PosesScaledEvent:connect(function(anchorTime, scaleFactor)

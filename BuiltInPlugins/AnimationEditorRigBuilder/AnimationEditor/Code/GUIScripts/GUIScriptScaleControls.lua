@@ -329,9 +329,15 @@ function ScaleControls:init(Paths)
 end
 
 function ScaleControls:initPostGUICreate()
-	self.Connections:add(self.Paths.UtilityScriptMovePoses.PosesMovedEvent:connect(function(targetTime, anchorTime)
-		self:resetControls()
-	end))
+	if FastFlags:isAnimationEventsOn() then
+		self.Connections:add(self.Paths.UtilityScriptMoveItems.OnMovedEvent:connect(function()
+			self:resetControls()
+		end))
+	else	
+		self.Connections:add(self.Paths.UtilityScriptMoveItems.PosesMovedEvent:connect(function(targetTime, anchorTime)
+			self:resetControls()
+		end))
+	end
 end
 
 function ScaleControls:terminate()

@@ -19,6 +19,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local ThumbnailHoverBar = require(Plugin.Src.Components.Thumbnails.ThumbnailHoverBar)
 
@@ -40,6 +41,7 @@ function Thumbnail:init()
 end
 
 function Thumbnail:mouseHoverChanged(hovering)
+	getMouse(self).setHoverIcon("SizeAll", hovering)
 	self:setState({
 		Hovering = hovering,
 	})

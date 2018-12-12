@@ -1617,6 +1617,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetMarkerReachedSignal",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptSignal"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetTimeOfKeyframe",
                     "Parameters": [
                         {
@@ -2501,6 +2519,31 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetGuiObjectsAtPosition",
+                    "Parameters": [
+                        {
+                            "Name": "x",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "y",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "None"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "BasePlayerGui",
@@ -15734,56 +15777,56 @@
                     "Name": "PluginDragDropped",
                     "Parameters": [
                         {
-                            "Name": "pluginDragEvent",
+                            "Name": "dragData",
                             "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
                     "Name": "PluginDragEntered",
                     "Parameters": [
                         {
-                            "Name": "pluginDragEvent",
+                            "Name": "dragData",
                             "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
                     "Name": "PluginDragLeft",
                     "Parameters": [
                         {
-                            "Name": "pluginDragEvent",
+                            "Name": "dragData",
                             "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
                     "Name": "PluginDragMoved",
                     "Parameters": [
                         {
-                            "Name": "pluginDragEvent",
+                            "Name": "dragData",
                             "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -19992,6 +20035,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CacheDefaults",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ChangeState",
                     "Parameters": [
                         {
@@ -20035,6 +20089,17 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Array"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAppliedDescription",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
                     },
                     "Security": "None"
                 },
@@ -20432,6 +20497,27 @@
                     "Security": "None",
                     "Tags": [
                         "Deprecated"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ApplyDescription",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
                     ]
                 },
                 {
@@ -22485,6 +22571,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "AddMarker",
+                    "Parameters": [
+                        {
+                            "Name": "marker",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "AddPose",
                     "Parameters": [
                         {
@@ -22503,12 +22607,41 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetMarkers",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPoses",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "DataType",
                         "Name": "Objects"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveMarker",
+                    "Parameters": [
+                        {
+                            "Name": "marker",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "None"
                 },
@@ -22533,6 +22666,30 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "Keyframe",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Value",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Animation",
+            "Name": "KeyframeMarker",
             "Superclass": "Instance"
         },
         {
@@ -23399,6 +23556,142 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "Flush",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetItem",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "WhenLoaded",
+                    "Parameters": [
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ItemWasSet",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "StoreWasCleared",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "LocalStorageService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AppStorageService",
+            "Superclass": "LocalStorageService",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UserStorageService",
+            "Superclass": "LocalStorageService",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -36534,10 +36827,10 @@
                     "Name": "StartDrag",
                     "Parameters": [
                         {
-                            "Name": "drag",
+                            "Name": "dragData",
                             "Type": {
-                                "Category": "DataType",
-                                "Name": "PluginDrag"
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         }
                     ],
@@ -36545,7 +36838,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity"
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -37713,6 +38006,23 @@
                 {
                     "Category": "Reflection",
                     "MemberType": "Property",
+                    "Name": "ClientOnly",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Reflection",
+                    "MemberType": "Property",
                     "Name": "Constraint",
                     "Security": {
                         "Read": "None",
@@ -37793,6 +38103,23 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Reflection",
+                    "MemberType": "Property",
+                    "Name": "ServerOnly",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -42865,6 +43192,17 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ClearDefaults",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -43356,6 +43694,23 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Attach Debugger To",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "DEPRECATED_DebuggerDataModelPreference"
+                    }
+                },
+                {
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Auto Indent",
@@ -43557,23 +43912,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Debug Client In APS Mode",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -43847,6 +44185,28 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Lua Debugger",
+                    "MemberType": "Property",
+                    "Name": "LuaDebuggerEnabledAtStartup",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -53298,6 +53658,19 @@
                 }
             ],
             "Name": "CustomCameraMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Server",
+                    "Value": 0
+                },
+                {
+                    "Name": "Client",
+                    "Value": 1
+                }
+            ],
+            "Name": "DEPRECATED_DebuggerDataModelPreference"
         },
         {
             "Items": [

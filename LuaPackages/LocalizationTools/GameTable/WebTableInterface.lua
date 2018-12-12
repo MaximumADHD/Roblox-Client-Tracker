@@ -1,5 +1,13 @@
 local PageDownloader = require(script.Parent.PageDownloader)
-local PatchInfo = require(script.Parent.PatchInfo)
+
+local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
+local PatchInfo
+if StudioLocalizationSelectiveUpload then
+	PatchInfo = require(script.Parent.PatchInfo)
+else
+	PatchInfo = require(script.Parent.PatchInfoDEPRECATED)
+end
+
 local AddWebEntriesToRbxEntries = require(script.Parent.AddWebEntriesToRbxEntries)
 local Urls = require(script.Parent.Parent.Urls)
 local Promise = require(script.Parent.Parent.Promise)
@@ -232,12 +240,14 @@ local function UpdateGameTableInfo()
 									currentTableId = tableInfo.autoLocalizationTableId
 									currentGameId = game.GameId
 									resolve(true, tableInfo.isAutolocalizationEnabled)
-								end
+								end,
+								reject
 							)
 					else
 						resolve(false)
 					end
-				end
+				end,
+				reject
 			)
 	end)
 end
@@ -364,7 +374,8 @@ local function DownloadGameTable()
 									end,
 									reject
 								)
-						end
+						end,
+						reject
 					)
 			end
 		)
@@ -386,25 +397,24 @@ local function UploadPatchesToTableId(patches, tableId)
 end
 
 --[[
-	Takes a patchInfo object, which looks like this:
+	UploadPatch() takes a patchInfo object, which is expected object to contain
+	a function patchInfo.makePatch()
 
-	{
-		patch = {
-			...
-		}
-	}
-
-	...where "patch" is a table in the format that the web expects.
-
-	Uploads the patch to the online table (creates the online table if it doesn't exist)
-
-	Returns a promise that resolves with no arguments upon success.
+	UploadPatch() returns a promise that resolves with no arguments upon success.
 ]]
-local function UploadPatch(patchInfo)
-	local patches = PatchInfo.SplitByLimits(
-		patchInfo.patch,
-		LocalizationTableUploadRowMax,
-		LocalizationTableUploadTranslationMax)
+local function UploadPatch(patchInfo, uploadInfo)
+	local patches
+	if StudioLocalizationSelectiveUpload then
+		patches = PatchInfo.SplitByLimits(
+			patchInfo.makePatch(uploadInfo),
+			LocalizationTableUploadRowMax,
+			LocalizationTableUploadTranslationMax)
+	else
+		patches = PatchInfo.SplitByLimits(
+			patchInfo.patch,
+			LocalizationTableUploadRowMax,
+			LocalizationTableUploadTranslationMax)
+	end
 
 	if currentTableId ~= nil then
 		return UploadPatchesToTableId(patches, currentTableId)
