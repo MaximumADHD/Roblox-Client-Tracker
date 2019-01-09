@@ -12,6 +12,10 @@
 
 local BACKGROUND_IMAGE = "rbxasset://textures/GameSettings/RadioButton.png"
 local SELECTED_IMAGE = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png"
+local TITLE_TEXT_SIZE = 22
+local DESCRIPTION_TEXT_SIZE = 16
+
+local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -21,7 +25,7 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
-function RadioButton:init()
+function RadioButton:init(initialProps)
 	self.mouseEnter = function()
 		if self.props.Enabled then
 			self:mouseHoverChanged(true)
@@ -33,6 +37,22 @@ function RadioButton:init()
 			self:mouseHoverChanged(false)
 		end
 	end
+
+	local title = initialProps.Title
+	local description = initialProps.Description or ""
+
+	self.state = {
+		TitleWidth = TextService:GetTextSize(
+			title,
+			TITLE_TEXT_SIZE,
+			Enum.Font.SourceSans,
+			Vector2.new()).X,
+		DescriptionWidth = TextService:GetTextSize(
+			description,
+			DESCRIPTION_TEXT_SIZE,
+			Enum.Font.SourceSans,
+			Vector2.new()).X,
+	}
 end
 
 function RadioButton:mouseHoverChanged(hovering)
@@ -41,6 +61,11 @@ end
 
 function RadioButton:render()
 	return withTheme(function(theme)
+		local title = self.props.Title
+		local description = self.props.Description or ""
+		local titleWidth = self.state.TitleWidth
+		local descriptionWidth = self.state.DescriptionWidth
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, Constants.RADIO_BUTTON_SIZE * 2),
 			BackgroundTransparency = 1,
@@ -76,17 +101,17 @@ function RadioButton:render()
 				TitleLabel = Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Size = UDim2.new(0, 250, 1, 0),
+					Size = UDim2.new(0, titleWidth, 1, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
 					Position = UDim2.new(1, 5, 0.5, 0),
 
 					TextColor3 = theme.radioButton.title,
 					Font = Enum.Font.SourceSans,
-					TextSize = 22,
+					TextSize = TITLE_TEXT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextTransparency = self.props.Enabled and 0 or 0.5,
-					Text = self.props.Title,
+					Text = title,
 
 					[Roact.Event.MouseEnter] = self.mouseEnter,
 					[Roact.Event.MouseLeave] = self.mouseLeave,
@@ -101,15 +126,15 @@ function RadioButton:render()
 				DescriptionLabel = Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Size = UDim2.new(0, 250, 1, 0),
-					Position = UDim2.new(1, 5, 1, 2),
+					Size = UDim2.new(0, descriptionWidth, 1, 0),
+					Position = UDim2.new(1, 5, 1, 1),
 
 					TextColor3 = theme.radioButton.description,
 					Font = Enum.Font.SourceSans,
-					TextSize = 16,
+					TextSize = DESCRIPTION_TEXT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					Text = self.props.Description or "",
+					Text = description,
 
 					[Roact.Event.MouseEnter] = self.mouseEnter,
 					[Roact.Event.MouseLeave] = self.mouseLeave,

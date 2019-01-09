@@ -48,6 +48,13 @@ local function onManageClicked(self)
 	self.ManageEventsButton:setPressed(true)
 end
 
+local function onExpandClicked(self, enabled)
+	self.TargetWidget.Visible = enabled
+	local oldGUISize = self.Paths.GUI.Size
+	local newYOffset = not enabled and self.TargetWidget.Size.Y.Offset or 0
+	self.Paths.GUI.Size = UDim2.new(oldGUISize.X.Scale, oldGUISize.X.Offset, oldGUISize.Y.Scale, newYOffset)
+end
+
 function EventBar:init(Paths)
 	self.Paths = Paths
 	self.TargetWidget = self.Paths.GUIAnimationEventBar
@@ -64,6 +71,7 @@ function EventBar:init(Paths)
 	self.Connections:add(self.EventArea.InputBegan:connect(function(input) onAreaClicked(self, input) end))
 	self.Connections:add(self.TargetWidget.AnimationEventsButtons.ManageEventsButton.MouseButton1Click:connect(function() onManageClicked(self) end))
 	self.Connections:add(self.Paths.GUIScriptManageEvents.WindowClosedEvent:connect(function() self.ManageEventsButton:setPressed(false) end))
+	self.Connections:add(self.Paths.DataModelAnimationEvents.EditEventsEnabledChangedEvent:connect(function(enabled) onExpandClicked(self, enabled) end))
 end
 
 function EventBar:addKeyframeMarker(time)

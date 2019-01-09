@@ -208,7 +208,7 @@ function CopyPaste:getPasteDescription()
 end
 
 local function canPasteEvents(self)
-	return self:canPasteAny() and not self.CopiedPoses
+	return self:canPasteAny() and not self.CopiedPoses and self.Paths.DataModelAnimationEvents:isEditEventsEnabled()
 end
 
 function CopyPaste:paste(atTime, registerUndo)

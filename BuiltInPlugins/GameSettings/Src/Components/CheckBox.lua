@@ -11,6 +11,9 @@
 local BACKGROUND_IMAGE = "rbxasset://textures/GameSettings/UncheckedBox.png"
 local SELECTED_IMAGE_LIGHT = "rbxasset://textures/GameSettings/CheckedBoxLight.png"
 local SELECTED_IMAGE_DARK = "rbxasset://textures/GameSettings/CheckedBoxDark.png"
+local TITLE_TEXT_SIZE = 22
+
+local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -20,7 +23,7 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local CheckBox = Roact.PureComponent:extend("CheckBox")
 
-function CheckBox:init()
+function CheckBox:init(initialProps)
 	self.mouseEnter = function()
 		if self.props.Enabled then
 			self:mouseHoverChanged(true)
@@ -32,6 +35,16 @@ function CheckBox:init()
 			self:mouseHoverChanged(false)
 		end
 	end
+
+	local title = initialProps.Title or initialProps.Id
+
+	self.state = {
+		TitleWidth = TextService:GetTextSize(
+			title,
+			TITLE_TEXT_SIZE,
+			Enum.Font.SourceSans,
+			Vector2.new()).X,
+	}
 end
 
 function CheckBox:mouseHoverChanged(hovering)
@@ -40,6 +53,9 @@ end
 
 function CheckBox:render()
 	return withTheme(function(theme)
+		local title = self.props.Title or self.props.Id
+		local titleWidth = self.state.TitleWidth
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, Constants.CHECKBOX_SIZE),
 			BackgroundTransparency = 1,
@@ -73,17 +89,17 @@ function CheckBox:render()
 				TitleLabel = Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Size = UDim2.new(0, 250, 1, 0),
+					Size = UDim2.new(0, titleWidth, 1, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
 					Position = UDim2.new(1, 5, 0.5, 0),
 
 					TextColor3 = theme.checkBox.title,
 					Font = Enum.Font.SourceSans,
-					TextSize = 22,
+					TextSize = TITLE_TEXT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextTransparency = self.props.Enabled and 0 or 0.5,
-					Text = self.props.Title or self.props.Id,
+					Text = title,
 
 					[Roact.Event.MouseEnter] = self.mouseEnter,
 					[Roact.Event.MouseLeave] = self.mouseLeave,

@@ -102,6 +102,16 @@ local function initLooping(self)
 	self.Paths.GUIScriptToolTip:add(self.TargetWidget.Loop, "Toggle Looping Animation")
 end
 
+local function initEventsBarSwizzle(self)
+	self.TargetWidget.AnimationEventsBarSwizzle.Visible = true
+	self.Connections:add(self.TargetWidget.AnimationEventsBarSwizzle.ImageButton.MouseButton1Click:connect(function()
+		self.Paths.DataModelAnimationEvents:toggleEditEventsEnabled()
+		local enabled = self.Paths.DataModelAnimationEvents:isEditEventsEnabled()
+		self.TargetWidget.AnimationEventsBarSwizzle.Down.Visible = not enabled
+		self.TargetWidget.AnimationEventsBarSwizzle.Up.Visible = enabled
+	end))
+end
+
 function MediaControls:init(Paths)
 	self.Paths = Paths
 	self.TargetWidget = Paths.GUIMediaControls
@@ -120,6 +130,10 @@ function MediaControls:init(Paths)
 	initScrubberTime(self)
 	initPlayPause(self)
 	initLooping(self)
+
+	if FastFlags:isAnimationEventsOn() then
+		initEventsBarSwizzle(self)
+	end
 	
 	self.Connections:add(self.TargetWidget.GoToStart.ImageButton.MouseButton1Click:connect(function()
 		self.TimeChangeEvent:fire(0)

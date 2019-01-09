@@ -7,9 +7,12 @@ function Drag:canCreate(Paths)
 	return nil ~= Paths.GUIDragArea
 end
 
-function Drag:new(Paths, dragable, setOffset)
+function Drag:new(Paths, dragable, setOffset, clickTarget)
 	local self = setmetatable({}, Drag)
 	self.dragable = dragable
+	if FastFlags:isFixSubWindowsOn() and clickTarget == nil then
+		clickTarget = dragable
+	end
 	
 	self.DragStartEvent = Paths.UtilityScriptEvent:new()
 	self.DragEvent = Paths.UtilityScriptEvent:new()
@@ -39,8 +42,14 @@ function Drag:new(Paths, dragable, setOffset)
 		end
 	end)
 
-	self.onDragBegin = dragable.InputBegan:connect(function(input) self:beginDrag(input) end)
-	self.onDragEnd = dragable.InputEnded:connect(function(input) self:endDrag(input) end)
+	if FastFlags:isFixSubWindowsOn() then
+		self.onMouseEnd = Paths.GUIDragArea.InputEnded:connect(function(input) self:endDrag(input) end)
+		self.onDragBegin = clickTarget.InputBegan:connect(function(input) self:beginDrag(input) end)
+		self.onDragEnd = clickTarget.InputEnded:connect(function(input) self:endDrag(input) end)
+	else
+		self.onDragBegin = dragable.InputBegan:connect(function(input) self:beginDrag(input) end)
+		self.onDragEnd = dragable.InputEnded:connect(function(input) self:endDrag(input) end)
+	end
 
 	return self
 end

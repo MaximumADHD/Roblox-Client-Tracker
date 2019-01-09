@@ -41,10 +41,7 @@ function DropdownEntry:render()
 		local current = self.props.Current
 		local color = hover and theme.dropDownEntry.hover or theme.dropDownEntry.background
 
-		local currentFont = Enum.Font.SourceSans
-		if not theme.isDarkerTheme and current then
-			currentFont = current and Enum.Font.SourceSansSemibold
-		end
+		local currentFont = current and Enum.Font.SourceSansSemibold or Enum.Font.SourceSans
 
 		local highlightVisible
 		if theme.isDarkerTheme then

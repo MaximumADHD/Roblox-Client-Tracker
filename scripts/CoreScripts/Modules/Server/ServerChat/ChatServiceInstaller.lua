@@ -3,8 +3,6 @@ local runnerScriptName = "ChatServiceRunner"
 local installDirectory = game:GetService("Chat")
 local ServerScriptService = game:GetService("ServerScriptService")
 
-local ChatServiceInstallerExemptLocalizationFromAnalytics = settings():GetFFlag("ChatServiceInstallerExemptLocalizationFromAnalytics")
-
 local function LoadScript(name, parent)
 	local originalModule = script.Parent:WaitForChild(name)
 	local script = Instance.new("Script")
@@ -44,26 +42,14 @@ local function makeDefaultLocalizationTable(parent)
 end
 
 local function Install()
-	local existingChatLocalization
+	local existingChatLocalization = installDirectory:FindFirstChild("ChatLocalization")
 
-	if ChatServiceInstallerExemptLocalizationFromAnalytics then
-		existingChatLocalization = installDirectory:FindFirstChild("ChatLocalization")
-		if existingChatLocalization then
-			if existingChatLocalization:IsA("LocalizationTable" ) then
-				existingChatLocalization:SetIsExemptFromUGCAnalytics(true)
-			end
-		else
-			makeDefaultLocalizationTable(installDirectory)
+	if existingChatLocalization then
+		if existingChatLocalization:IsA("LocalizationTable" ) then
+			existingChatLocalization:SetIsExemptFromUGCAnalytics(true)
 		end
 	else
-		if not installDirectory:FindFirstChild("ChatLocalization") then
-			local defaultChatLocalization = Instance.new("LocalizationTable")
-			defaultChatLocalization.Name = "ChatLocalization"
-			defaultChatLocalization.Archivable = false
-			defaultChatLocalization.SourceLocaleId = "en-us"
-			defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
-			defaultChatLocalization.Parent = installDirectory
-		end
+		makeDefaultLocalizationTable(installDirectory)
 	end
 
 	local chatServiceRunnerArchivable = true

@@ -22,6 +22,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local AnalyticsService = game:GetService("AnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -53,6 +54,9 @@ local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (F
 
 local FFlagUserIsNowADynamicThumbstick = settings():GetFFlag("UserIsNowADynamicThumbstick")
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
+local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
+
+local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and (FFlagUserIsNowADynamicThumbstick and "Default (Dynamic Thumbstick)" or "Default (Thumbstick)") or "Default (Keyboard)"
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
@@ -406,6 +410,10 @@ local function Initialize()
         end
       elseif isDesktopClient then
         GameSettings.OnScreenProfilerEnabled = (newIndex == 1)
+      end
+
+      if FFlagMicroProfilerSessionAnalytics then
+        AnalyticsService:ReportCounter(MICROPROFILER_SETTINGS_PRESSED)
       end
     end
 

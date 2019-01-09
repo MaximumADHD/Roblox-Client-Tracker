@@ -59,6 +59,7 @@ local function onPromptConfirm(self)
 	onPromptCancel(self)
 	if self.Prompt.Border.ParameterInput.Text ~= "" then
 		self.Paths.DataModelAnimationEvents:createEvent(self.Time, self.Prompt.Border.ParameterInput.Text)
+		self.Prompt.Border.ParameterInput.Text = ""
 	end
 end
 

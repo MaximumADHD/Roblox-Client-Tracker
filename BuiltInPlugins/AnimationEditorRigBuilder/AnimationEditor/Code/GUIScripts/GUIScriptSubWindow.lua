@@ -29,7 +29,11 @@ function GUIScriptSubWindow:new(Paths, contentsFrame, parentWidget, canKill)
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)
 	
 	if Paths.UtilityScriptDrag:canCreate(Paths) then
-		self.Dragable = Paths.UtilityScriptDrag:new(Paths, self.GUI, true)
+		if FastFlags:isFixSubWindowsOn() then
+			self.Dragable = Paths.UtilityScriptDrag:new(Paths, self.GUI, true, self.GUI.ClickEater.Title)
+		else
+			self.Dragable = Paths.UtilityScriptDrag:new(Paths, self.GUI, true)
+		end
 	end
 	
 	self.OnCloseEvent = self.Paths.UtilityScriptEvent:new(Paths)

@@ -90,16 +90,26 @@ local function createConfigureGui(R15Folder, R6Folder, R15FixedFolder, R15Legacy
 	setupTextClearOnFocus(R6TextureTextboxes.BaseTextureId)
 	setupTextClearOnFocus(R6TextureTextboxes.OverlayTextureId)
 
+	local assetUrls = {
+		"http://roblox.com/asset/?id=",
+		"rbxassetid://"
+	}
+
+	local function getTextureIdFromContent(contentId)
+		for _, assetUrl in pairs(assetUrls) do
+			if string.find(contentId, assetUrl, 1, true) ~= nil then
+				return string.sub(contentId, assetUrl:len() + 1)
+			end
+		end
+		return contentId
+	end
+
 	-- Show the current values from the rig
 	for _, obj in pairs(R15TextureIds:GetChildren()) do
 		for _, name in pairs(R15PartMapping[obj.Name]) do
 			local part = R15Folder:FindFirstChild(name)
 			if part and part:IsA("MeshPart") and part.TextureID ~= "" then
-				local assetUrl = "http://roblox.com/asset/?id="
-				local textureId = part.TextureID
-				if string.find(textureId, assetUrl, 1, true) ~= nil then
-					textureId = string.sub(textureId, assetUrl:len() + 1)
-				end
+				local textureId = getTextureIdFromContent(part.TextureID)
 				obj.TextureID.Text = textureId
 
 				if (not R15FixedFolder and not R15LegacyFolder) then
@@ -110,11 +120,7 @@ local function createConfigureGui(R15Folder, R6Folder, R15FixedFolder, R15Legacy
 			if (R15FixedFolder) then
 				local part = R15FixedFolder:FindFirstChild(name)
 				if part and part:IsA("MeshPart") and part.TextureID ~= "" then
-					local assetUrl = "http://roblox.com/asset/?id="
-					local textureId = part.TextureID
-					if string.find(textureId, assetUrl, 1, true) ~= nil then
-						textureId = string.sub(textureId, assetUrl:len() + 1)
-					end
+					local textureId = getTextureIdFromContent(part.TextureID)
 					obj.TextureID.Text = textureId
 					if (not R15LegacyFolder) then
 						break
@@ -125,11 +131,7 @@ local function createConfigureGui(R15Folder, R6Folder, R15FixedFolder, R15Legacy
 			if (R15LegacyFolder) then
 				local part = R15LegacyFolder:FindFirstChild(name)
 				if part and part:IsA("MeshPart") and part.TextureID ~= "" then
-					local assetUrl = "http://roblox.com/asset/?id="
-					local textureId = part.TextureID
-					if string.find(textureId, assetUrl, 1, true) ~= nil then
-						textureId = string.sub(textureId, assetUrl:len() + 1)
-					end
+					local textureId = getTextureIdFromContent(part.TextureID)
 					obj.TextureID.Text = textureId
 					break
 				end
@@ -1081,7 +1083,7 @@ local function fbxRigImported(R15Rig, rigProportionType)
 
 	if not r15Head:FindFirstChildOfClass("Decal") then
 		local Face = Instance.new("Decal", r15Head)
-		Face.Name = "Face"
+		Face.Name = "face"
 		Face.Texture = "rbxasset://textures/face.png"
 	end
 

@@ -3,14 +3,9 @@ if not plugin then
 end
 
 -- Fast flags
-local FFlagStudioUseLuaGameSettingsDialog = settings():GetFFlag("StudioUseLuaGameSettingsDialog")
 local FFlagStudioLuaGameSettingsDialog2 = settings():GetFFlag("StudioLuaGameSettingsDialog2")
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
-
-if not FFlagStudioUseLuaGameSettingsDialog then
-	return
-end
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false

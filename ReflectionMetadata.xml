@@ -5050,9 +5050,9 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Brightness</string>
-            <string name="summary">How much global light each Part in the Workspace receives. Standard range is 0 to 1 (0 being little light), but can be increased all the way to 5 (colors start to be appear very different at this value).</string>
+            <string name="summary">How much global light each Part in the Workspace receives. Standard range is 0 to 2 (0 being little light), but can be increased all the way to 10 (colors start to be appear very different at this value).</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">2</double>
+            <double name="UIMaximum">10</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6467,6 +6467,20 @@
             <string name="summary">Current Camera of children objects</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ImageTransparency</string>
+            <string name="summary">A number value that specifies how transparent the rendered image of the ViewportFrame is</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ImageColor3</string>
+            <string name="summary">The rendered image of the ViewportFrame will be mutiplied by this color</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6869,7 +6883,7 @@
           <Properties>
             <string name="Name">Brightness</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">10</double>
+            <double name="UIMaximum">40</double>
             <double name="UINumTicks">2000</double>
           </Properties>
         </Item>
@@ -6938,13 +6952,6 @@
             <string name="Name">Range</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">60</double>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Brightness</string>
-            <double name="UIMinimum">0</double>
-            <double name="UIMaximum">10</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

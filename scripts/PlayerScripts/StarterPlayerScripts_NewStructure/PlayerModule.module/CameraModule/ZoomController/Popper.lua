@@ -3,6 +3,15 @@
 -- Prevents your camera from clipping through walls.
 --------------------------------------------------------------------------------
 
+local Players = game:GetService('Players')
+
+local FFlagUserPoppercamLooseOpacityThreshold do
+	local success, enabled = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPoppercamLooseOpacityThreshold")
+	end)
+	FFlagUserPoppercamLooseOpacityThreshold = success and enabled
+end
+
 local camera = game.Workspace.CurrentCamera
 
 local min = math.min
@@ -72,17 +81,13 @@ local blacklist = {} do
 		refreshIgnoreList()
 	end
 
-	do
-		local Players = game:GetService('Players')
+	Players.PlayerAdded:Connect(playerAdded)
+	Players.PlayerRemoving:Connect(playerRemoving)
 
-		Players.PlayerAdded:Connect(playerAdded)
-		Players.PlayerRemoving:Connect(playerRemoving)
-
-		for _, player in ipairs(Players:GetPlayers()) do
-			playerAdded(player)
-		end
-		refreshIgnoreList()
+	for _, player in ipairs(Players:GetPlayers()) do
+		playerAdded(player)
 	end
+	refreshIgnoreList()
 end
 
 --------------------------------------------------------------------------------------------
@@ -102,9 +107,38 @@ end
 -- lies between the current and target camera positions.
 --------------------------------------------------------------------------------------------
 
+local subjectRoot
+local subjectPart
+
+camera:GetPropertyChangedSignal('CameraSubject'):Connect(function()
+	local subject = camera.CameraSubject
+	if subject:IsA('Humanoid') then
+		subjectPart = subject.RootPart
+	elseif subject:IsA('BasePart') then
+		subjectPart = subject
+	else
+		subjectPart = nil
+	end
+end)
+
 local function canOcclude(part)
-	-- Filter for opaque, interactable objects
-	return part.Transparency < 0.95 and part.CanCollide
+	-- Occluders must be:
+	-- 1. Opaque
+	-- 2. Interactable
+	-- 3. Not in the same assembly as the subject
+
+	if FFlagUserPoppercamLooseOpacityThreshold then
+		return
+			part.Transparency < 0.25 and
+			part.CanCollide and
+			subjectRoot ~= (part:GetRootPart() or part) and
+			not part:IsA('TrussPart')
+	else
+		return
+			part.Transparency < 0.95 and
+			part.CanCollide and
+			subjectRoot ~= (part:GetRootPart() or part)
+	end
 end
 
 -- Offsets for the volume visibility test
@@ -166,7 +200,7 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 				if exitPart then
 					local promote = false
 					if lastPos then
-						promote = 
+						promote =
 							workspace:FindPartOnRayWithWhitelist(ray(lastPos, target - lastPos), wl, true) or
 							workspace:FindPartOnRayWithWhitelist(ray(target, lastPos - target), wl, true)
 					end
@@ -185,7 +219,7 @@ local function queryPoint(origin, unitDir, dist, lastPos)
 			end
 
 			blacklist[#blacklist + 1] = entryPart
-			movingOrigin = entryPos
+			movingOrigin = entryPos - unitDir*1e-3
 		end
 	until hardLimit < inf or not entryPart
 
@@ -288,6 +322,8 @@ end
 local function Popper(focus, targetDist, focusExtrapolation)
 	debug.profilebegin('popper')
 
+	subjectRoot = subjectPart and subjectPart:GetRootPart() or subjectPart
+
 	local dist = targetDist
 	local soft, hard = queryViewport(focus, targetDist)
 	if hard < dist then
@@ -296,6 +332,8 @@ local function Popper(focus, targetDist, focusExtrapolation)
 	if soft < dist and testPromotion(focus, targetDist, focusExtrapolation) then
 		dist = soft
 	end
+
+	subjectRoot = nil
 
 	debug.profileend()
 	return dist

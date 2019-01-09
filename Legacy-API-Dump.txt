@@ -241,12 +241,6 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Fire()
 	Function void RocketPropulsion:fire() [deprecated]
 	Event RocketPropulsion.ReachedTarget()
-Class Button : Instance
-	Property bool Button.ClickableWhenViewportHidden
-	Property bool Button.Enabled
-	Property Content Button.Icon
-	Function void Button:SetActive(bool active) [PluginSecurity]
-	Event Button.Click() [PluginSecurity]
 Class CacheableContentProvider : Instance
 Class MeshContentProvider : CacheableContentProvider
 Class SolidModelContentProvider : CacheableContentProvider
@@ -310,11 +304,13 @@ Class CharacterMesh : CharacterAppearance
 	Property int64 CharacterMesh.MeshId
 	Property int64 CharacterMesh.OverlayTextureId
 Class Clothing : CharacterAppearance
+	Property Color3 Clothing.Color3
 Class Pants : Clothing
 	Property Content Pants.PantsTemplate
 Class Shirt : Clothing
 	Property Content Shirt.ShirtTemplate
 Class ShirtGraphic : CharacterAppearance
+	Property Color3 ShirtGraphic.Color3
 	Property Content ShirtGraphic.Graphic
 Class Skin : CharacterAppearance [deprecated]
 	Property BrickColor Skin.SkinColor
@@ -887,6 +883,8 @@ Class TextBox : GuiObject
 	Event TextBox.Focused()
 Class ViewportFrame : GuiObject
 	Property Class:Camera ViewportFrame.CurrentCamera
+	Property Color3 ViewportFrame.ImageColor3
+	Property float ViewportFrame.ImageTransparency
 Class LayerCollector : GuiBase2d [notbrowsable]
 	Property bool LayerCollector.Enabled
 	Property bool LayerCollector.ResetOnSpawn
@@ -1275,7 +1273,6 @@ Class InsertService : Instance [notCreatable]
 	YieldFunction Instance InsertService:LoadAsset(int64 assetId)
 	YieldFunction Instance InsertService:LoadAssetVersion(int64 assetVersionId)
 	YieldFunction Instance InsertService:loadAsset(int64 assetId) [deprecated]
-Class InstancePacketCache : Instance [notCreatable]
 Class JointInstance : Instance
 	Property bool JointInstance.Active [readonly]
 	Property CoordinateFrame JointInstance.C0
@@ -1501,6 +1498,9 @@ Class MarketplaceService : Instance [notCreatable]
 Class Message : Instance [deprecated]
 	Property string Message.Text
 Class Hint : Message [deprecated]
+Class MessagingService : Instance [notCreatable]
+	YieldFunction void MessagingService:PublishAsync(string topic, Variant message)
+	YieldFunction Connection MessagingService:SubscribeAsync(string topic, Function callback)
 Class Mouse : Instance
 	Property CoordinateFrame Mouse.Hit [readonly]
 	Property Content Mouse.Icon
@@ -1577,15 +1577,17 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.PrintSplitMessage
 	Property bool NetworkSettings.PrintStreamInstanceQuota
 	Property bool NetworkSettings.PrintTouches
+	Property bool NetworkSettings.ProxyEnabled
+	Property string NetworkSettings.ProxyURL
 	Property double NetworkSettings.ReceiveRate
 	Property bool NetworkSettings.RenderStreamedRegions
 	Property bool NetworkSettings.ShowActiveAnimationAsset
 	Property float NetworkSettings.TouchSendRate
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
-	Property bool NetworkSettings.UseInstancePacketCache
 	Property bool NetworkSettings.UsePhysicsPacketCache
 Class NotificationService : Instance [notCreatable]
+	Property bool NotificationService.IsLuaBottomBarEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaChatEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaGameDetailsEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaGamesPageEnabled [readonly] [RobloxScriptSecurity]
@@ -2123,6 +2125,14 @@ Class PluginMenu : Instance
 	Function void PluginMenu:AddSeparator() [PluginSecurity]
 	Function void PluginMenu:Clear() [PluginSecurity]
 	YieldFunction Instance PluginMenu:ShowAsync() [PluginSecurity]
+Class PluginToolbar : Instance
+	Function Instance PluginToolbar:CreateButton(string text, string tooltip, string iconname) [PluginSecurity]
+Class PluginToolbarButton : Instance
+	Property bool PluginToolbarButton.ClickableWhenViewportHidden
+	Property bool PluginToolbarButton.Enabled
+	Property Content PluginToolbarButton.Icon
+	Function void PluginToolbarButton:SetActive(bool active) [PluginSecurity]
+	Event PluginToolbarButton.Click() [PluginSecurity]
 Class PointsService : Instance [deprecated] [notCreatable]
 	Function int PointsService:GetAwardablePoints() [deprecated]
 	YieldFunction Tuple PointsService:AwardPoints(int64 userId, int amount) [deprecated]
@@ -2586,8 +2596,6 @@ Class ThirdPartyUserService : Instance [notCreatable]
 	Event ThirdPartyUserService.ActiveGamepadRemoved() [RobloxScriptSecurity]
 	Event ThirdPartyUserService.ActiveUserSignedOut(int signOutStatus) [RobloxScriptSecurity]
 Class TimerService : Instance [notCreatable]
-Class Toolbar : Instance
-	Function Instance Toolbar:CreateButton(string text, string tooltip, string iconname) [PluginSecurity]
 Class TouchInputService : Instance
 Class TouchTransmitter : Instance [notbrowsable] [notCreatable]
 Class Trail : Instance

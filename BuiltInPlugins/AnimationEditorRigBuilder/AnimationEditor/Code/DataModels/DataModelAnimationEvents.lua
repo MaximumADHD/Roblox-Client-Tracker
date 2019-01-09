@@ -1,9 +1,11 @@
 local AnimationEvents = {}
 AnimationEvents.Selected = {Events= {}, TempEvents= {}}
 AnimationEvents.AnimationEventNames = {}
+AnimationEvents.EditEventsEnabled = true
 
 function AnimationEvents:init(Paths)
 	self.Paths = Paths
+	self.EditEventsEnabledChangedEvent = self.Paths.UtilityScriptEvent:new()
 	self.SelectionChangedEvent = self.Paths.UtilityScriptEvent:new()
 end
 
@@ -14,6 +16,18 @@ function AnimationEvents:initPostGUICreate()
 			self:deleteSelectedEvents()
 		end
 	end))
+end
+
+function AnimationEvents:toggleEditEventsEnabled()
+	self.EditEventsEnabled = not self.EditEventsEnabled
+	self.EditEventsEnabledChangedEvent:fire(self.EditEventsEnabled)
+	if not self.EditEventsEnabled then
+		self:selectNone()
+	end
+end
+
+function AnimationEvents:isEditEventsEnabled()
+	return self.EditEventsEnabled
 end
 
 function AnimationEvents:selectAnimationEvent(time)
@@ -233,6 +247,7 @@ function AnimationEvents:terminate()
 	AnimationEvents.AnimationEventNames = {}
 
 	self.SelectionChangedEvent = nil
+	self.EditEventsEnabledChangedEvent = nil
 
 	self.Paths = nil
 end

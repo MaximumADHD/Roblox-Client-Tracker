@@ -109,7 +109,11 @@ function FastFlags:fixKeyframeScaleHandlesPositioning()
 end
 
 function FastFlags:isAnimationEventsOn()
-	return isFlagOn("UseKeyframeMarkersForEvents")
+	return isFlagOn("UseKeyframeMarkersForEvents2")
+end
+
+function FastFlags:isFixSubWindowsOn()
+	return isFlagOn("StudioAnimationEditorFixSubWindows")
 end
 
 return FastFlags

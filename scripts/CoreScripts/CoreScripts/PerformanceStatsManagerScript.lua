@@ -26,11 +26,16 @@ masterFrame.Name = "PerformanceStats"
 
 local FFlagStatUtilsUseFormatByKey = settings():GetFFlag('StatUtilsUseFormatByKey')
 local FFlagWeDontWantAnyGoogleAnalyticsHerePlease = settings():GetFFlag("WeDontWantAnyGoogleAnalyticsHerePlease")
+local FFlagPerformanceProfilerAnalytics = settings():GetFFlag("PerformanceProfilerAnalytics")
 
 local statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
 local statsViewer = StatsViewerClass.new()
 local statsButtonsByType ={}
 local currentStatType = nil
+
+local OpenCounterName = "OpenPerformanceProfiler"
+local TimeOpenCounterName = "TimeOpenPerformanceProfiler"
+local openTimeStamp = nil
 
 for i, statType in ipairs(StatsUtils.AllStatTypes) do
   local button = StatsButtonClass.new(statType)
@@ -206,6 +211,16 @@ function UpdatePerformanceStatsVisibility()
       actionName,
       "",
       0)
+  end
+
+  if FFlagPerformanceProfilerAnalytics then
+    if shouldBeVisible then
+      openTimeStamp = time()
+      AnalyticsService:ReportCounter(OpenCounterName, 1)
+    else
+      local timeDiff = time() - openTimeStamp
+      AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
+    end
   end
 end
 

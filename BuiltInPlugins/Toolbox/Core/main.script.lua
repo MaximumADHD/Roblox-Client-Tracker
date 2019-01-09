@@ -37,29 +37,17 @@ if DebugFlags.shouldRunTests() then
 end
 
 local function createTheme()
-	if ToolboxTheme.enableLuaApisForTheme() then
-		return ToolboxTheme.new({
-			getTheme = function()
-				return settings().Studio.Theme
-			end,
-			isDarkerTheme = function(theme)
-				-- Assume "darker" theme if the average main background colour is darker
-				local mainColour = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
-				return (mainColour.r + mainColour.g + mainColour.b) / 3 < 0.5
-			end,
-			themeChanged = settings().Studio.ThemeChanged,
-		})
-	else
-		return ToolboxTheme.new({
-			getTheme = function()
-				return settings().Studio["UI Theme"]
-			end,
-			isDarkerTheme = function()
-				return settings().Studio["UI Theme"] == Enum.UITheme.Dark
-			end,
-			themeChanged = settings().Studio:GetPropertyChangedSignal("UI Theme")
-		})
-	end
+	return ToolboxTheme.new({
+		getTheme = function()
+			return settings().Studio.Theme
+		end,
+		isDarkerTheme = function(theme)
+			-- Assume "darker" theme if the average main background colour is darker
+			local mainColour = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
+			return (mainColour.r + mainColour.g + mainColour.b) / 3 < 0.5
+		end,
+		themeChanged = settings().Studio.ThemeChanged,
+	})
 end
 
 local function createLocalization()

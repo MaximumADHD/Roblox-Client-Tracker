@@ -65,7 +65,6 @@ local StarterGuiService 	= game:GetService("StarterGui")
 local RunService			= game:GetService("RunService")
 
 -- Flags
-local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
 local FFlagRightClickContextIncludeUI = FFlag:isEnabled("RightClickContextIncludeUI")
 
 -- Variables
@@ -101,24 +100,15 @@ local BUFFER_SIZE_MINIMUM = 5
 local function configureActionMediator()
 	Move:setActionMediator(ActionMediator)
 	Resize:setActionMediator(ActionMediator)
-	if FFlagStudioUIEditorRotateV2 then
-		Rotate:setActionMediator(ActionMediator)
-	end
 	Rubberband:setActionMediator(ActionMediator)
 	TextEditor:setActionMediator(ActionMediator)
 	
 	ActionMediator:setMove(Move)
 	ActionMediator:setResize(Resize)
-	if FFlagStudioUIEditorRotateV2 then
-		ActionMediator:setRotate(Rotate)
-	end
 	ActionMediator:setRubberband(Rubberband)
 	ActionMediator:setTextEditor(TextEditor)
 	
 	ActionMediator:setDistanceLinesManager(DistanceLinesManager)
-	if FFlagStudioUIEditorRotateV2 then
-		ActionMediator:setRotationBox(RotationBox)
-	end
 	ActionMediator:setSizeBox(SizeBox)
 
     ActionMediator:setSelectionManager(SelectionManager)
@@ -153,9 +143,6 @@ local function onInstanceChanged(instance, property)
 			Resize:updatePosition()
 			DistanceLinesManager:update()
 			DistanceLinesManager:setVisible(true)
-			if FFlagStudioUIEditorRotateV2 then
-				Rotate:update()
-			end
 			SizeBox:update()
 		end
 end
@@ -186,9 +173,6 @@ local function onInputBegan(inputObject)
 		
 		if Resize:isOverAHandle() then
 			Resize:startDrag(location)
-			return
-		elseif FFlagStudioUIEditorRotateV2 and Rotate:isOverAHandle() then
-			Rotate:onMouseDown(location)
 			return
 		end
 
@@ -278,15 +262,9 @@ local function onInputEnded(inputObject)
 		if not selectedInstancesPropertyChangedEvent then
 			selectedInstancesPropertyChangedEvent = SelectionManager:connectSelectionInstancesChanged(onInstanceChanged)
 		end
-		
-		if FFlagStudioUIEditorRotateV2 then
-			Rotate:onMouseUp(location)
-		end
-		
+
 		if Resize:isOverAHandle() then
 			Resize:updateMouseIcon()
-		elseif FFlagStudioUIEditorRotateV2 and Rotate:isOverAHandle() then
-			Rotate:updateMouseIcon()
 		else
 			MouseIconManager:setToDefaultIcon()
 		end
@@ -328,31 +306,14 @@ local function onInputChanged(inputObject)
 			Move:updateDrag(location)
 			return
 		end
-		
-		if FFlagStudioUIEditorRotateV2 then
-			Rotate:onMouseMove(location)
-		end
-	
-		if FFlagStudioUIEditorRotateV2 then
-			-- Handle mouse icon updates. Resize takes precedence over rotate.
-			if Resize:isOverAHandle() and not Rotate:isRotating() then
-				Resize:updateMouseIcon()
-			elseif Rotate:isOverAHandle() then
-				Rotate:updateMouseIcon()
-			elseif not Rotate:isRotating() then
-				MouseIconManager:setToDefaultIcon()
-			end
-			
-			Resize:updateHandleHighlight(Rotate:isRotating())
-		else
-			if Resize:isOverAHandle() then
-				Resize:updateMouseIcon()
-			else
-				MouseIconManager:setToDefaultIcon()
-			end
-			
-			Resize:updateHandleHighlight(false)
-		end
+
+        if Resize:isOverAHandle() then
+            Resize:updateMouseIcon()
+        else
+            MouseIconManager:setToDefaultIcon()
+        end
+
+        Resize:updateHandleHighlight(false)
 	end
 end
 
@@ -446,9 +407,6 @@ function Off()
 	
 	SelectionManager:disconnectFilteredSelectionChanged(DistanceLinesManager)
 	SelectionManager:disconnectFilteredSelectionChanged(Resize)
-	if FFlagStudioUIEditorRotateV2 then
-		SelectionManager:disconnectFilteredSelectionChanged(Rotate)
-	end
 	SelectionManager:disconnectFilteredSelectionChanged(SizeBox)
 	SelectionManager:disconnectFilteredSelectionChanged(Move)	
 	
@@ -456,10 +414,6 @@ function Off()
 	DistanceLinesManager:Off()
 	MouseIconManager:Off()
 	Resize:Off()
-	if FFlagStudioUIEditorRotateV2 then
-		Rotate:Off()
-		RotationBox:Off()
-	end
 	
     toolbarButton:SetActive(false)
 
@@ -495,16 +449,9 @@ function On()
 	DistanceLinesManager:On()
 	MouseIconManager:On(plugin:GetMouse())
 	Resize:On()
-	if FFlagStudioUIEditorRotateV2 then
-		Rotate:On()
-		RotationBox:On()
-	end
 	
 	SelectionManager:connectFilteredSelectionChanged(DistanceLinesManager)
 	SelectionManager:connectFilteredSelectionChanged(Resize)
-	if FFlagStudioUIEditorRotateV2 then
-		SelectionManager:connectFilteredSelectionChanged(Rotate)
-	end
 	SelectionManager:connectFilteredSelectionChanged(SizeBox)			
 	SelectionManager:connectFilteredSelectionChanged(Move)
 	
@@ -2499,9 +2446,6 @@ local Utility				= require(script.Parent.Utility)
 
 local SnappingType 			= require(script.Parent.Enum.SnappingType)
 
--- Flags
-local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-
 -----------------------------------
 --------------SERVICES-------------
 -----------------------------------
@@ -2539,10 +2483,7 @@ local m_originalExtents = nil
 -------------FUNCTIONS-------------
 -----------------------------------
 
--- TODO: Remove when removing FFlagStudioUIEditorRotateV2
-local function DEPRECATED_dragElementsBy(vector)
-	assert(not FFlagStudioUIEditorRotateV2)
-	
+local function dragElementsBy(vector)
 	for i = 1, #m_originalSelectionData do
 		local element = m_originalSelectionData[i][DATA_INSTANCE]
 		
@@ -2577,47 +2518,8 @@ local function DEPRECATED_dragElementsBy(vector)
 	
 end
 
-local function dragElementsBy(vector)
-	assert(FFlagStudioUIEditorRotateV2)
-	
-	for i = 1, #m_originalSelectionData do
-		local element = m_originalSelectionData[i][DATA_INSTANCE]
-		
-		if (element.Parent and element.Parent:IsA("GuiBase2d")) then
-			-- Rotate the drag vector to counteract the parent rotation.
-			local rotatedVector = RotateUtility:rotateVector(-element.Parent.AbsoluteRotation, vector)
-			local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
-									(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
-									GlobalValues:isScale())
-										
-			if (shouldUseScalePosition) then
-				local scale = rotatedVector / element.Parent.AbsoluteSize
-				-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
-				-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
-				-- to get accurate scale for position when dragging
-				if (element.Parent:IsA("ScrollingFrame")) then
-					-- bug in quantum gui, should use scrolling frame's parent size
-					if (element.Parent.CanvasSize.X.Scale >= 1) then
-						scale = Vector2.new(rotatedVector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
-					end
-					if (element.Parent.CanvasSize.Y.Scale >= 1) then
-						scale = Vector2.new(scale.X , rotatedVector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
-					end
-				end
-				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
-			else
-				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(0, rotatedVector.X, 0, rotatedVector.Y)
-			end
-		end		
-	end
-end
-
 local function dragElements(location)
-	if FFlagStudioUIEditorRotateV2 then
-		dragElementsBy(location - m_originalMousePosition)
-	else
-		DEPRECATED_dragElementsBy(location - m_originalMousePosition)
-	end
+    dragElementsBy(location - m_originalMousePosition)
 end
 
 local function directionToDirectionVector(direction)
@@ -2848,11 +2750,7 @@ end
 
 function Move:bump(direction)
 	Move:startDrag(Vector2.new(0,0))
-	if FFlagStudioUIEditorRotateV2 then
-		dragElementsBy(directionToDirectionVector(direction))
-	else
-		DEPRECATED_dragElementsBy(directionToDirectionVector(direction))
-	end		
+    dragElementsBy(directionToDirectionVector(direction))
 	Move:finishDrag(direction)
 end
 
@@ -5922,9 +5820,6 @@ local ActionMediator = {}
 -- Module scripts
 local FFlag	= require(script.Parent.FFlag)
 
--- Flags
-local FFlagStudioUIEditorRotateV2 = FFlag:isEnabled("StudioUIEditorRotateV2")
-
 -- Variables
 local m_move = nil
 local m_resize = nil
@@ -5946,9 +5841,6 @@ end
 
 -- void ActionMediator:onMoveChanged(Vector2 location)
 function ActionMediator:onMoveChanged(location)
-	if FFlagStudioUIEditorRotateV2 then
-		m_rotate:update()
-	end
 	m_distanceLinesManager:update()
 	m_distanceLinesManager:setVisible(true)
 end
@@ -5968,9 +5860,6 @@ end
 -- void ActionMediator:onResizeChanged(Vector2 location)
 function ActionMediator:onResizeChanged(location)
 	m_distanceLinesManager:update()
-	if FFlagStudioUIEditorRotateV2 then
-		m_rotate:update()
-	end
 	m_sizeBox:update()
 end
 
@@ -5981,10 +5870,6 @@ end
 -- void ActionMediator:onRotateBegan(Vector2 location)
 function ActionMediator:onRotateBegan(location)
 	m_distanceLinesManager:setVisible(false)
-	if FFlagStudioUIEditorRotateV2 then
-		m_rotationBox:update(location, m_rotate:getRotation())
-		m_rotationBox:setVisible(true)
-	end
 	m_resize:hide()
 	m_sizeBox:setVisible(false)
 end
@@ -5998,9 +5883,6 @@ end
 function ActionMediator:onRotateEnded(location)
 	m_resize:updatePosition()
 	m_resize:show()
-	if FFlagStudioUIEditorRotateV2 then
-		m_rotationBox:setVisible(false)
-	end
 	m_sizeBox:setVisible(true)
 	m_distanceLinesManager:update()
 	m_distanceLinesManager:setVisible(true)

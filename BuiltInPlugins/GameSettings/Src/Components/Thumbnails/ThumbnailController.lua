@@ -22,6 +22,8 @@
 			a new thumbnail.
 ]]
 
+local FFlagGameSettingsDeleteConfirmation = settings():GetFFlag("GameSettingsDeleteConfirmation")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -29,6 +31,7 @@ local Cryo = require(Plugin.Cryo)
 local ThumbnailPreviewDialog = require(Plugin.Src.Components.Dialog.ThumbnailPreviewDialog)
 local ThumbnailWidget = require(Plugin.Src.Components.Thumbnails.ThumbnailWidget)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
+local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local ThumbnailController = Roact.PureComponent:extend("ThumbnailController")
@@ -52,6 +55,17 @@ function ThumbnailController:addNew()
 end
 
 function ThumbnailController:deleteThumbnail(thumbnailId)
+	if FFlagGameSettingsDeleteConfirmation then
+		local dialogProps = {
+			Title = "Delete Thumbnail",
+			Size = Vector2.new(368, 145),
+			Header = "Would you like to delete this thumbnail?",
+			Buttons = {"No", "Yes"},
+		}
+		if not showDialog(self, SimpleDialog, dialogProps):await() then
+			return
+		end
+	end
 	self.props.ThumbnailsChanged(Cryo.Dictionary.join(self.props.Thumbnails, {
 		[thumbnailId] = Cryo.None,
 	}))

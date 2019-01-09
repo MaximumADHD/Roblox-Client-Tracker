@@ -78,9 +78,7 @@
           width="32"/>
       </Group>
       <Group name="Insert">
-          <addaction fflag="!StudioLuaWidgetToolbox" name="DEPRECATED_toggleToolboxDockAction" text="Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-          <addaction fflag="StudioLuaWidgetToolbox" name="luaToolboxAction" type="plugin" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-          <addaction fflag="DebugStudioReenableDeprecatedWebviewToolbox" name="DEPRECATED_toggleToolboxDockAction" text="Deprecated Toolbox" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
+          <addaction name="luaToolboxAction" type="plugin" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
           <addseparator visible="false"/>
           <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Part" tooltip="Place a part into the workspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
               <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
@@ -147,8 +145,7 @@
         <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Settings">
-        <addaction fflag="!StudioUseLuaGameSettingsDialog" name="DEPRECATED_gameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
-        <addaction fflag="StudioUseLuaGameSettingsDialog" name="luaGameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
+        <addaction name="luaGameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
       </Group>
       <Group name="Team Test" >
         <addaction name="startTeamTestAction" iscommonslot="true" style="textundericon" text="Team Test"  tooltip="Start a Team Test" icon=":/RibbonBar/images/RibbonIcons/Test/Team-Test.png" width="32" height="32" />
@@ -299,7 +296,7 @@
         <addaction fflag="StudioInsertObjectMenuButton" name="actionInsertAdvancedObject" iscommonslot="true" text="Insert Object" tooltip="Insert scripts and other advanced objects into the game" icon=":/RibbonBar/images/RibbonIcons/Insert/Advanced-Objects.png" style="textundericon" width="32" height="32"/>
         <addaction name="insertModelAction" style="textundericon" text="Model" tooltip="Insert a model from local files" icon=":/RibbonBar/images/RibbonIcons/Insert/Import-Model.png" width="32" height="32"/>
         <addaction name="insertServiceAction" style="textundericon" text="Service" tooltip="Insert service from a service selection" icon=":/RibbonBar/images/RibbonIcons/Insert/Service.png" width="32" height="32"/>
-        <addaction fflag="StudioEnableCollisionGroupsEditorPlugin" name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Collision Groups" tooltip="Edit collision groups"/>
+        <addaction name="collisionGroupsEditorAction" type="plugin" style="textundericon" text="Collision Groups" tooltip="Edit collision groups"/>
         <addaction name="executeScriptAction" style="textundericon" text="Run Script" icon=":/RibbonBar/images/RibbonIcons/Test/Run-Script.png" tooltip="Execute Lua code from a file" width="32" height="32" />
         <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
           <addaction name="ScriptLargeAction" text="Script" value="Script" tooltip="Insert a script" icon=":/RibbonBar/images/RibbonIcons/Insert/Script.png" width="32" height="32" />
@@ -374,8 +371,7 @@
         <addaction name="togglePropertiesDockAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/View/Properties.png" tooltip="View properties of objects" height="32" width="32"/>
         <addseparator visible="false"/>
         <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="View Game Explorer" height="32" width="32"/>
-        <addaction fflag="!StudioLuaWidgetToolbox" name="DEPRECATED_toggleToolboxDockAction" text="Toolbox" style="textbesideicon" icon=":/images/ToolboxIcon.png" tooltip="Insert items from the toolbox" height="32" width="32"/>
-        <addaction fflag="StudioLuaWidgetToolbox" name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
+        <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
         <addaction name="toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="View context-sensitive help" height="32" width="32"/>
         <addaction fflag="StudioShowTutorialsByDefault" name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="View Tutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="View Lua API objects that can be accessed through scripting" height="32" width="32"/>

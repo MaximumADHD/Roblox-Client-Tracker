@@ -28,6 +28,7 @@ return function()
 		local instance = Roact.mount(createTestGameIcon(), container)
 		local icon = container.ImageLabel
 
+		expect(icon.Fallback).to.be.ok()
 		expect(icon.InfoText).to.be.ok()
 		expect(icon.Change).to.be.ok()
 		expect(icon.Change.Text).to.be.ok()

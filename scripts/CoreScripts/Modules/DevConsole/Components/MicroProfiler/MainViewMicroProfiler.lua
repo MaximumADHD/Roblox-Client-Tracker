@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local LogService = game:GetService("LogService")
+local AnalyticsService = game:GetService("AnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
@@ -25,6 +26,9 @@ local BUTTON_COLOR = Constants.Color.UnselectedGray
 local ROW_HEIGHT = 30
 local OFFSET = .10
 local ROW_VALUE_WIDTH = .8
+local MICROPROFILER_PRESSED_COUNTERNAME ="MicroprofilerDevConsolePressed"
+
+local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 
 local MainViewProfiler = Roact.Component:extend("MainViewProfiler")
 
@@ -41,6 +45,10 @@ function MainViewProfiler:init()
 			self:setState({
 				clientProfilerEnabled = screenProfilerEnabled
 			})
+
+			if FFlagMicroProfilerSessionAnalytics then
+				AnalyticsService:RecordCounter(MICROPROFILER_PRESSED_COUNTERNAME)
+			end
 		end
 	end
 

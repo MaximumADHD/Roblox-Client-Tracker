@@ -10,6 +10,8 @@
 		function OnClick = A callback invoked when this icon is clicked.
 ]]
 
+local FALLBACK_IMAGE = "rbxasset://textures/GameSettings/ModeratedAsset.jpg"
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -45,6 +47,7 @@ function GameIcon:render()
 			ScaleType = Enum.ScaleType.Crop,
 			Size = UDim2.new(0, 150, 0, 150),
 			ClipsDescendants = true,
+			ZIndex = 2,
 
 			[Roact.Ref] = self.buttonRef,
 
@@ -56,6 +59,13 @@ function GameIcon:render()
 				self:mouseHoverChanged(false)
 			end,
 		}, {
+			Fallback = Roact.createElement("ImageLabel", {
+				Visible = self.props.Visible,
+				BackgroundTransparency = 1,
+				Image = FALLBACK_IMAGE,
+				Size = UDim2.new(1, 0, 1, 0),
+			}),
+
 			InfoText = Roact.createElement("TextLabel", {
 				Visible = review,
 				BackgroundTransparency = 0.3,
@@ -64,6 +74,7 @@ function GameIcon:render()
 				Size = UDim2.new(1, 0, 0, 30),
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
+				ZIndex = 3,
 
 				Text = "In Review",
 				TextColor3 = Constants.WHITE,
@@ -81,6 +92,7 @@ function GameIcon:render()
 				Image = Constants.GRADIENT_IMAGE,
 				ImageRectSize = Constants.GRADIENT_RECT_SIZE,
 				ImageColor3 = Constants.BLACK,
+				ZIndex = 4,
 
 				[Roact.Event.Activated] = self.props.OnClick,
 			}, {
@@ -94,7 +106,7 @@ function GameIcon:render()
 					TextColor3 = Constants.WHITE,
 					TextSize = 22,
 					Font = Enum.Font.SourceSans,
-					ZIndex = 3,
+					ZIndex = 5,
 				}),
 			}),
 		})

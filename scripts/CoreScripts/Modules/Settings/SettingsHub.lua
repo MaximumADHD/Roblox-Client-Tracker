@@ -30,7 +30,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
-local FFlagFixVersionContainer = settings():GetFFlag("FixVersionContainer")
 local FFlagDisplayPlayerscriptVersionAdmins = settings():GetFFlag("DisplayPlayerscriptVersionAdmins")
 
 
@@ -409,229 +408,149 @@ local function CreateSettingsHub()
 			Visible = false
 		}
 
-		if FFlagFixVersionContainer then
-			local versionContainerLayout = utility:Create("UIListLayout") {
-				Name = "VersionContainer",
-				Parent = this.VersionContainer,
+        local versionContainerLayout = utility:Create("UIListLayout") {
+            Name = "VersionContainer",
+            Parent = this.VersionContainer,
 
-				Padding = UDim.new(0,6),
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				VerticalAlignment = Enum.VerticalAlignment.Center, 
-				SortOrder = Enum.SortOrder.LayoutOrder
-			}
+            Padding = UDim.new(0,6),
+            FillDirection = Enum.FillDirection.Horizontal,
+            HorizontalAlignment = Enum.HorizontalAlignment.Center,
+            VerticalAlignment = Enum.VerticalAlignment.Center,
+            SortOrder = Enum.SortOrder.LayoutOrder
+        }
 
-			local size = UDim2.new(0.2, -6, 1, 0)
+        local size = UDim2.new(0.2, -6, 1, 0)
 
-			this.ServerVersionLabel = utility:Create("TextLabel") {
-				Name = "ServerVersionLabel",
-				Parent = this.VersionContainer,
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Server Version: ...",
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				ZIndex = 5
-			}
-			spawn(function()
-				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
-				this.ServerVersionLabel.TextScaled = not this.ServerVersionLabel.TextFits
-			end)
+        this.ServerVersionLabel = utility:Create("TextLabel") {
+            Name = "ServerVersionLabel",
+            Parent = this.VersionContainer,
+            LayoutOrder = 2,
+            BackgroundTransparency = 1,
+            TextColor3 = Color3.new(1,1,1),
+            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+            Text = "Server Version: ...",
+            Size = size,
+            Font = Enum.Font.SourceSans,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            TextYAlignment = Enum.TextYAlignment.Center,
+            ZIndex = 5
+        }
+        spawn(function()
+            this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
+            this.ServerVersionLabel.TextScaled = not this.ServerVersionLabel.TextFits
+        end)
 
-			this.ClientVersionLabel = utility:Create("TextLabel") {
-				Name = "ClientVersionLabel",
-				Parent = this.VersionContainer,
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Client Version: "..RunService:GetRobloxVersion(),
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				ZIndex = 5
-			}
-			this.ClientVersionLabel.TextScaled = not this.ClientVersionLabel.TextFits
+        this.ClientVersionLabel = utility:Create("TextLabel") {
+            Name = "ClientVersionLabel",
+            Parent = this.VersionContainer,
+            LayoutOrder = 1,
+            BackgroundTransparency = 1,
+            TextColor3 = Color3.new(1,1,1),
+            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+            Text = "Client Version: "..RunService:GetRobloxVersion(),
+            Size = size,
+            Font = Enum.Font.SourceSans,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            TextYAlignment = Enum.TextYAlignment.Center,
+            ZIndex = 5
+        }
+        this.ClientVersionLabel.TextScaled = not this.ClientVersionLabel.TextFits
 
-			if FFlagHelpMenuShowPlaceVersion then
-				this.PlaceVersionLabel = utility:Create("TextLabel") {
-					Name = "PlaceVersionLabel",
-					Parent = this.VersionContainer,
-					BackgroundTransparency = 1,
-					LayoutOrder = 3,
-					TextColor3 = Color3.new(1, 1, 1),
-					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-					Text = "Place Version: ...",
-					Size = size,
-					Font = Enum.Font.SourceSans,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					ZIndex = 5,
-				}
-				local function setPlaceVersionText()
-					this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
-					this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
-				end
-				game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
-				spawn(setPlaceVersionText)
-			end
+        if FFlagHelpMenuShowPlaceVersion then
+            this.PlaceVersionLabel = utility:Create("TextLabel") {
+                Name = "PlaceVersionLabel",
+                Parent = this.VersionContainer,
+                BackgroundTransparency = 1,
+                LayoutOrder = 3,
+                TextColor3 = Color3.new(1, 1, 1),
+                TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+                Text = "Place Version: ...",
+                Size = size,
+                Font = Enum.Font.SourceSans,
+                TextXAlignment = Enum.TextXAlignment.Center,
+                TextYAlignment = Enum.TextYAlignment.Center,
+                ZIndex = 5,
+            }
+            local function setPlaceVersionText()
+                this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
+                this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
+            end
+            game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
+            spawn(setPlaceVersionText)
+        end
 
-			this.EnvironmentLabel = utility:Create("TextLabel") {
-				Name = "EnvironmentLabel",
-				Parent = this.VersionContainer,
-				AnchorPoint = Vector2.new(0.5,0),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				LayoutOrder = 4,
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = baseUrl,
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				ZIndex = 5,
-				Visible = isTestEnvironment
-			}
-			this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
-			
-			-- This check relies on the fact that Archivable is false on the default playerscripts we 
-			-- insert but if a developer has overriden them Archivable will be true. This might be incorrect
-			-- if a developer has code in their game to make things UnArchivable though.
-			local function getOverridesPlayerScripts()
-				local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts")
-				local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
-				local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
-				if playerModule and playerScriptLoader then
-					if not playerModule.Archivable then
-						if playerScriptLoader.Archivable then
-							return "Possibly Custom"
-						else
-							return "Default"
-						end
-					end
-				end
-				local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
-				local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
-				if cameraScript or controlScript then
-					return "Custom Old"
-				end
-				return "Custom"
-			end
-			
-			if FFlagDisplayPlayerscriptVersionAdmins then
-				this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
-					Name = "OverridesPlayerScriptsLabel",
-					Parent = this.VersionContainer,
-					AnchorPoint = Vector2.new(0.5,0),
-					BackgroundTransparency = 1,
-					TextColor3 = Color3.new(1,1,1),
-					LayoutOrder = 5,
-					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-					Text = "PlayerScripts: ",
-					Size = size,
-					Font = Enum.Font.SourceSans,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					ZIndex = 5,
-					Visible = false
-				}
-				
-				spawn(function()
-					local playerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
-					local localPlayer = game.Players.LocalPlayer
-					while not localPlayer do
-						game.Players.PlayerAdded:wait()
-						localPlayer = game.Players.LocalPlayer
-					end
-					this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
-					this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
-					this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(localPlayer)
-				end)
-			end
-		else
-			local size = UDim2.new(0.5, -6, 1, -6)
-			local clientPosition = UDim2.new(0.5, 3, 0, 3)
-			local clientTextAlignment = Enum.TextXAlignment.Right
-	
-			if FFlagHelpMenuShowPlaceVersion then
-				size = UDim2.new(0.333, -6, 1, -6)
-				clientPosition = UDim2.new(0.333, 3, 0, 3)
-				clientTextAlignment = Enum.TextXAlignment.Center
-			end
-	
-			this.ServerVersionLabel = utility:Create("TextLabel") {
-				Name = "ServerVersionLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0,3,0,3),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Server Version: ...",
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				ZIndex = 5
-			}
-			spawn(function()
-				this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
-			end)
-	
-			this.ClientVersionLabel = utility:Create("TextLabel") {
-				Name = "ClientVersionLabel",
-				Parent = this.VersionContainer,
-				Position = clientPosition,
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = "Client Version: "..RunService:GetRobloxVersion(),
-				Size = size,
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = clientTextAlignment,
-				ZIndex = 5
-			}
-	
-			if FFlagHelpMenuShowPlaceVersion then
-				this.PlaceVersionLabel = utility:Create("TextLabel") {
-					Name = "PlaceVersionLabel",
-					Parent = this.VersionContainer,
-					Position = UDim2.new(0.666, 3, 0, 3),
-					BackgroundTransparency = 1,
-					TextColor3 = Color3.new(1, 1, 1),
-					TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-					Text = "Place Version: ...",
-					Size = UDim2.new(.333, -6, 1, -6),
-					Font = Enum.Font.SourceSans,
-					TextXAlignment = Enum.TextXAlignment.Right,
-					ZIndex = 5,
-				}
-				local function setPlaceVersionText()
-					this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
-				end
-				game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
-				spawn(setPlaceVersionText)
-			end
-	
-			this.EnvironmentLabel = utility:Create("TextLabel") {
-				Name = "EnvironmentLabel",
-				Parent = this.VersionContainer,
-				Position = UDim2.new(0.5,0,0,3),
-				AnchorPoint = Vector2.new(0.5,0),
-				BackgroundTransparency = 1,
-				TextColor3 = Color3.new(1,1,1),
-				TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-				Text = baseUrl,
-				Size = UDim2.new(.5,-6,1,-6),
-				Font = Enum.Font.SourceSans,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				ZIndex = 5,
-				Visible = isTestEnvironment
-			}
-		end
+        this.EnvironmentLabel = utility:Create("TextLabel") {
+            Name = "EnvironmentLabel",
+            Parent = this.VersionContainer,
+            AnchorPoint = Vector2.new(0.5,0),
+            BackgroundTransparency = 1,
+            TextColor3 = Color3.new(1,1,1),
+            LayoutOrder = 4,
+            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+            Text = baseUrl,
+            Size = size,
+            Font = Enum.Font.SourceSans,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            TextYAlignment = Enum.TextYAlignment.Center,
+            ZIndex = 5,
+            Visible = isTestEnvironment
+        }
+        this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
+
+        -- This check relies on the fact that Archivable is false on the default playerscripts we
+        -- insert but if a developer has overriden them Archivable will be true. This might be incorrect
+        -- if a developer has code in their game to make things UnArchivable though.
+        local function getOverridesPlayerScripts()
+            local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts")
+            local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
+            local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
+            if playerModule and playerScriptLoader then
+                if not playerModule.Archivable then
+                    if playerScriptLoader.Archivable then
+                        return "Possibly Custom"
+                    else
+                        return "Default"
+                    end
+                end
+            end
+            local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
+            local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
+            if cameraScript or controlScript then
+                return "Custom Old"
+            end
+            return "Custom"
+        end
+
+        if FFlagDisplayPlayerscriptVersionAdmins then
+            this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
+                Name = "OverridesPlayerScriptsLabel",
+                Parent = this.VersionContainer,
+                AnchorPoint = Vector2.new(0.5,0),
+                BackgroundTransparency = 1,
+                TextColor3 = Color3.new(1,1,1),
+                LayoutOrder = 5,
+                TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+                Text = "PlayerScripts: ",
+                Size = size,
+                Font = Enum.Font.SourceSans,
+                TextXAlignment = Enum.TextXAlignment.Center,
+                TextYAlignment = Enum.TextYAlignment.Center,
+                ZIndex = 5,
+                Visible = false
+            }
+
+            spawn(function()
+                local playerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
+                local localPlayer = game.Players.LocalPlayer
+                while not localPlayer do
+                    game.Players.PlayerAdded:wait()
+                    localPlayer = game.Players.LocalPlayer
+                end
+                this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
+                this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
+                this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(localPlayer)
+            end)
+        end
 
 		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{

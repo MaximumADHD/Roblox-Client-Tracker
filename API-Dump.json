@@ -4293,101 +4293,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "ClickableWhenViewportHidden",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "Enabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "Icon",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
-                    }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetActive",
-                    "Parameters": [
-                        {
-                            "Name": "active",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "PluginSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Click",
-                    "Parameters": [
-                    ],
-                    "Security": "PluginSecurity"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Button",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable"
-            ]
-        },
-        {
-            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "CacheableContentProvider",
@@ -5397,6 +5302,23 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Color3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "Clothing",
@@ -5455,6 +5377,23 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Color3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
@@ -15427,6 +15366,40 @@
                         "Category": "Class",
                         "Name": "Camera"
                     }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
+                    "Name": "ImageColor3",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
+                    "Name": "ImageTransparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
                 }
             ],
             "MemoryCategory": "Gui",
@@ -21985,18 +21958,6 @@
         },
         {
             "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "InstancePacketCache",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
@@ -25956,6 +25917,74 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "PublishAsync",
+                    "Parameters": [
+                        {
+                            "Name": "topic",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubscribeAsync",
+                    "Parameters": [
+                        {
+                            "Name": "topic",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptConnection"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MessagingService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Hit",
@@ -27147,6 +27176,40 @@
                     }
                 },
                 {
+                    "Category": "Proxy Settings",
+                    "MemberType": "Property",
+                    "Name": "ProxyEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Proxy Settings",
+                    "MemberType": "Property",
+                    "Name": "ProxyURL",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
                     "Category": "Network",
                     "MemberType": "Property",
                     "Name": "ReceiveRate",
@@ -27251,23 +27314,6 @@
                 {
                     "Category": "Network",
                     "MemberType": "Property",
-                    "Name": "UseInstancePacketCache",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Network",
-                    "MemberType": "Property",
                     "Name": "UsePhysicsPacketCache",
                     "Security": {
                         "Read": "None",
@@ -27293,6 +27339,27 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IsLuaBottomBarEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
@@ -37427,6 +37494,143 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "CreateButton",
+                    "Parameters": [
+                        {
+                            "Name": "text",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "tooltip",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "iconname",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PluginToolbar",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ClickableWhenViewportHidden",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Icon",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetActive",
+                    "Parameters": [
+                        {
+                            "Name": "active",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Click",
+                    "Parameters": [
+                    ],
+                    "Security": "PluginSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PluginToolbarButton",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "GetAwardablePoints",
                     "Parameters": [
                     ],
@@ -44706,6 +44910,23 @@
                     }
                 },
                 {
+                    "Category": "Meshes",
+                    "MemberType": "Property",
+                    "Name": "Split Meshes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "String Color",
@@ -46647,48 +46868,6 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "CreateButton",
-                    "Parameters": [
-                        {
-                            "Name": "text",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "tooltip",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "iconname",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "PluginSecurity"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Toolbar",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable"
             ]
         },
         {

@@ -240,8 +240,8 @@ function UploadDialogContent:render()
 					end,
 				}),
 
-				Okay = Roact.createElement("TextButton", {
-					Text = "Okay",
+				Confirm = Roact.createElement("TextButton", {
+					Text = "Confirm",
 					Size = UDim2.new(0, 100, 0, 35),
 					BorderSizePixel = 1,
 					BorderColor3 = theme.Border,

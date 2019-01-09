@@ -241,12 +241,6 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Fire()
 	Function void RocketPropulsion:fire() [Deprecated]
 	Event RocketPropulsion.ReachedTarget()
-Class Button : Instance [NotCreatable]
-	Property bool Button.ClickableWhenViewportHidden [NotReplicated]
-	Property bool Button.Enabled [NotReplicated]
-	Property Content Button.Icon [NotReplicated]
-	Function void Button:SetActive(bool active) {PluginSecurity}
-	Event Button.Click() {PluginSecurity}
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
@@ -310,11 +304,13 @@ Class CharacterMesh : CharacterAppearance
 	Property int64 CharacterMesh.MeshId
 	Property int64 CharacterMesh.OverlayTextureId
 Class Clothing : CharacterAppearance [NotCreatable]
+	Property Color3 Clothing.Color3
 Class Pants : Clothing
 	Property Content Pants.PantsTemplate
 Class Shirt : Clothing
 	Property Content Shirt.ShirtTemplate
 Class ShirtGraphic : CharacterAppearance
+	Property Color3 ShirtGraphic.Color3
 	Property Content ShirtGraphic.Graphic
 Class Skin : CharacterAppearance [Deprecated]
 	Property BrickColor Skin.SkinColor
@@ -887,6 +883,8 @@ Class TextBox : GuiObject
 	Event TextBox.Focused()
 Class ViewportFrame : GuiObject
 	Property Class<Camera> ViewportFrame.CurrentCamera [NotReplicated]
+	Property Color3 ViewportFrame.ImageColor3
+	Property float ViewportFrame.ImageTransparency
 Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property bool LayerCollector.Enabled
 	Property bool LayerCollector.ResetOnSpawn
@@ -1278,7 +1276,6 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
 	Function Instance InsertService:loadAsset(int64 assetId) [Yields] [Deprecated]
-Class InstancePacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active [ReadOnly]
 	Property CFrame JointInstance.C0
@@ -1506,6 +1503,9 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 Class Message : Instance [Deprecated]
 	Property string Message.Text
 Class Hint : Message [Deprecated]
+Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void MessagingService:PublishAsync(string topic, Variant message) [Yields]
+	Function RBXScriptConnection MessagingService:SubscribeAsync(string topic, Function callback) [Yields]
 Class Mouse : Instance [NotCreatable]
 	Property CFrame Mouse.Hit [ReadOnly]
 	Property Content Mouse.Icon
@@ -1586,11 +1586,13 @@ Class NetworkSettings : Instance [Service] [NotBrowsable]
 	Property int NetworkSettings.PreferredClientPort
 	Property double NetworkSettings.ReceiveRate
 	Property float NetworkSettings.TouchSendRate
-	Property bool NetworkSettings.UseInstancePacketCache
 	Property bool NetworkSettings.UsePhysicsPacketCache
 	Property int NetworkSettings.PhysicsMtuAdjust
 	Property Enum<PacketPriority> NetworkSettings.PhysicsSendPriority [Hidden] [NotReplicated]
+	Property bool NetworkSettings.ProxyEnabled
+	Property string NetworkSettings.ProxyURL
 Class NotificationService : Instance [NotCreatable] [Service]
+	Property bool NotificationService.IsLuaBottomBarEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly]
 	Property bool NotificationService.IsLuaGamesPageEnabled {RobloxScriptSecurity} [ReadOnly]
@@ -2143,6 +2145,14 @@ Class PluginMenu : Instance [NotCreatable] [NotReplicated]
 	Function void PluginMenu:AddSeparator() {PluginSecurity}
 	Function void PluginMenu:Clear() {PluginSecurity}
 	Function Instance PluginMenu:ShowAsync() {PluginSecurity} [Yields]
+Class PluginToolbar : Instance [NotCreatable]
+	Function Instance PluginToolbar:CreateButton(string text, string tooltip, string iconname) {PluginSecurity}
+Class PluginToolbarButton : Instance [NotCreatable]
+	Property bool PluginToolbarButton.ClickableWhenViewportHidden [NotReplicated]
+	Property bool PluginToolbarButton.Enabled [NotReplicated]
+	Property Content PluginToolbarButton.Icon [NotReplicated]
+	Function void PluginToolbarButton:SetActive(bool active) {PluginSecurity}
+	Event PluginToolbarButton.Click() {PluginSecurity}
 Class PointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function Tuple PointsService:AwardPoints(int64 userId, int amount) [Yields] [Deprecated]
 	Function int PointsService:GetAwardablePoints() [Deprecated]
@@ -2574,6 +2584,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup [Hidden] [ReadOnly]
 	Property int Studio.ScriptTimeoutLength
+	Property bool Studio.Split Meshes
 	Property bool Studio.Clear Output On Start
 	Property int Studio.Maximum Output Lines
 	Property QFont Studio.Output Font
@@ -2696,8 +2707,6 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ThirdPartyUserService.ActiveGamepadRemoved() {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(int signOutStatus) {RobloxScriptSecurity}
 Class TimerService : Instance [NotCreatable] [Service]
-Class Toolbar : Instance [NotCreatable]
-	Function Instance Toolbar:CreateButton(string text, string tooltip, string iconname) {PluginSecurity}
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class Trail : Instance

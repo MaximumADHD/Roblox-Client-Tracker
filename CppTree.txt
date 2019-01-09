@@ -133,13 +133,10 @@ RBX
 		GeometryVulkan
 		GuiCluster
 		IndexBufferD3D9
-		InstancedBinding
 		InstancedBinding2
 		InstancedBindingSpecialMesh
 		InstancedBindingTruss
-		InstancedCluster
 		InstancedCluster2
-		InstancedEntity
 		InstancedEntity2
 		ISuperCluster
 		LightGrid
@@ -328,7 +325,6 @@ RBX
 		DeserializedTouchItemS2
 		GuidRegistryService
 		IdSerializer
-		InstancePacketCache
 		Item
 		Marker
 		NetworkOwnerJob
@@ -648,7 +644,6 @@ RBX
 	BuoyancyCornerWedgeContact
 	BuoyancyCylinderContact
 	BuoyancyWedgeContact
-	Button
 	CacheableContentProvider
 	Camera
 	CameraCenterCommand
@@ -951,6 +946,7 @@ RBX
 	MeshContentProvider
 	MeshPart
 	Message
+	MessagingService
 	MockMarketplaceApiClient
 	ModelInstance
 	ModelTool
@@ -1020,6 +1016,9 @@ RBX
 	PluginManager
 	PluginMenu
 	PluginMouse
+	PluginToolbar
+	PluginToolbarButton
+	PluginUIElement
 	Point
 	PointLight
 	PointsService
@@ -1163,7 +1162,6 @@ RBX
 	TimerService
 	ToggleViewMode
 	Tool
-	Toolbar
 	ToolMouseCommand
 	TopMenuBar
 	TouchInputService

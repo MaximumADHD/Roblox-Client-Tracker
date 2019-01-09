@@ -17,7 +17,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagStudioPluginStartDecalDragApi = settings():GetFFlag("StudioPluginStartDecalDragApi")
 local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-local FFlagEnableGetBoundingBox = settings():GetFFlag("EnableGetBoundingBox")
 local FFlagEnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
@@ -113,18 +112,14 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 			model:MoveTo(insertPosition)
 
 			local camera = Workspace.CurrentCamera
-			if FFlagEnableGetBoundingBox then
-				local cameraCf = camera.CFrame
-				local modelCf, size = model:GetBoundingBox()
+			local cameraCf = camera.CFrame
+			local modelCf, size = model:GetBoundingBox()
 
-				local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-				local dir = (cameraCf.p - modelCf.p).unit
+			local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
+			local dir = (cameraCf.p - modelCf.p).unit
 
-				camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
-				camera.Focus = CFrame.new(modelCf.p)
-			else
-				camera.CFrame = CFrame.new(camera.CFrame.p, insertPosition)
-			end
+			camera.CFrame = CFrame.new(modelCf.p + (cameraDistAway * dir))
+			camera.Focus = CFrame.new(modelCf.p)
 
 			for _, o in ipairs(model:GetChildren()) do
 				o.Parent = model.Parent
