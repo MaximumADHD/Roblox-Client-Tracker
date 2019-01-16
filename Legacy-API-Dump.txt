@@ -660,7 +660,7 @@ Class FunctionalTest : Instance [deprecated]
 	Function void FunctionalTest:Passed(string message = )
 	Function void FunctionalTest:Warn(string message = )
 Class GamePassService : Instance
-	YieldFunction bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId)
+	YieldFunction bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [deprecated]
 Class GameSettings : Instance [notbrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs
 	Property float GameSettings.BubbleChatLifetime
@@ -774,7 +774,7 @@ Class ImageButton : GuiButton
 	Property Content ImageButton.PressedImage
 	Property ScaleType ImageButton.ScaleType
 	Property Rect2D ImageButton.SliceCenter
-	Property float ImageButton.SliceScale [hidden] [RobloxScriptSecurity]
+	Property float ImageButton.SliceScale
 	Property UDim2 ImageButton.TileSize
 Class TextButton : GuiButton
 	Property Font TextButton.Font
@@ -807,7 +807,7 @@ Class ImageLabel : GuiLabel
 	Property bool ImageLabel.IsLoaded [readonly]
 	Property ScaleType ImageLabel.ScaleType
 	Property Rect2D ImageLabel.SliceCenter
-	Property float ImageLabel.SliceScale [hidden] [RobloxScriptSecurity]
+	Property float ImageLabel.SliceScale
 	Property UDim2 ImageLabel.TileSize
 Class TextLabel : GuiLabel
 	Property Font TextLabel.Font
@@ -3350,10 +3350,10 @@ Enum Font
 	EnumItem Font.Arcade : 13
 	EnumItem Font.Fantasy : 14
 	EnumItem Font.Antique : 15
-	EnumItem Font.Gotham : 17 [deprecated]
-	EnumItem Font.GothamSemibold : 18 [deprecated]
-	EnumItem Font.GothamBold : 19 [deprecated]
-	EnumItem Font.GothamBlack : 20 [deprecated]
+	EnumItem Font.Gotham : 17
+	EnumItem Font.GothamSemibold : 18
+	EnumItem Font.GothamBold : 19
+	EnumItem Font.GothamBlack : 20
 Enum FontSize
 	EnumItem FontSize.Size8 : 0
 	EnumItem FontSize.Size9 : 1

@@ -72,6 +72,7 @@ local Constants = {
 		MainWindowHeader = 12,
 		MainWindow = 15,
 		CommandLine = 15,
+		Search = 15,
 	},
 	Font = {
 		TopBar = Enum.Font.SourceSans,
@@ -80,6 +81,7 @@ local Constants = {
 		MainWindowHeader = Enum.Font.SourceSansBold,
 		MainWindow = Enum.Font.SourceSans,
 		Log = Enum.Font.Code,
+		Search = Enum.Font.Code,
 	},
 	GeneralFormatting = {
 		NoResultSearchStr = "Did not find results for \"%s.\"",

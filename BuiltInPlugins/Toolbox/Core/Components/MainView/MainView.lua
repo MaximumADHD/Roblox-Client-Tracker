@@ -126,7 +126,12 @@ function MainView:didUpdate(prevProps, prevState)
 	local spaceToDisplay = self.state.upperIndexToRender - self.state.lowerIndexToRender
 	local displayed = #self.state.assetIds
 
-	if displayed < spaceToDisplay and displayed ~= 0 then
+	local networkErrors = self.props.networkErrors or {}
+	local networkError = networkErrors[#networkErrors]
+
+	-- If I have reived an error code, I should not requesting more data
+	-- And user's action to request more data will reset my network error status
+	if (not networkError) and displayed < spaceToDisplay and displayed ~= 0 then
 		self.requestNextPage()
 	end
 end

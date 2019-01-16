@@ -7,6 +7,8 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
+local ScrollingTextBox = require(script.Parent.ScrollingTextBox)
+
 local Constants = require(script.Parent.Parent.Constants)
 local ICON_OFFSET = 10
 
@@ -52,7 +54,7 @@ function SearchBar:render()
 			[Roact.Event.InputEnded] = self.props.cancelInput,
 		}),
 
-		TextBox = Roact.createElement("TextBox", {
+		InputField = Roact.createElement(ScrollingTextBox, {
 			Text = searchTerm and searchTerm or "",
 			TextSize = textSize,
 			Font = font,
@@ -65,9 +67,10 @@ function SearchBar:render()
 
 			ClearTextOnFocus = false,
 			PlaceholderText = "Search",
-			[Roact.Event.FocusLost] = self.props.focusLost,
 
 			[Roact.Ref] = self.props.refForParent,
+
+			TextBoxFocusLost = self.props.focusLost,
 		}),
 	})
 end

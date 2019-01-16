@@ -29,7 +29,7 @@ function FastFlags.isSliderLayoutFixFlagOn()
 end
 
 function FastFlags.isAvatarPreviewOn()
-	return isFlagOn("MorphingHumanoidDescriptionSystemInstanceAndLuaAPIFlagV3")
+	return isFlagOn("MorphingHumanoidDescriptionSystemInstanceAndLuaAPIFlagV4")
 end
 
 return FastFlags

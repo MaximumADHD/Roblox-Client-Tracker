@@ -5,10 +5,11 @@
 ]]
 
 -- CONSTANTS
-local FRIEND_LAYOUT_ORDER = 1
+-- If Custom buttons exist these layout orders are offset by highest custom button layout order.
+local FRIEND_LAYOUT_ORDER = 1 
 local CHAT_LAYOUT_ORDER = 3
 local WAVE_LAYOUT_ORDER = 4
-local CUSTOM_LAYOUT_ORDER = 20
+local CUSTOM_LAYOUT_ORDER = 20 --Remove with FFlagCoreScriptACMCustomFirst
 
 local MENU_ITEM_SIZE_X = 0.96
 local MENU_ITEM_SIZE_Y = 0
@@ -42,6 +43,8 @@ local ReportAbuseMenu = require(SettingsPages:WaitForChild("ReportAbuseMenu"))
 
 local FFlagCoreScriptBetterACMFriendStatusChecks = settings():GetFFlag("CoreScriptBetterACMFriendStatusChecks")
 local FFlagCoreScriptACMBlockedPlayerFix = settings():GetFFlag("CoreScriptACMBlockedPlayerFix")
+local FFlagCoreScriptACMCustomFirst = settings():GetFFlag("CoreScriptACMCustomFirst")
+local FFlagCoreScriptCloseACMCustomItem = settings():GetFFlag("CoreScriptCloseACMCustomItem")
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -55,6 +58,7 @@ local EnabledContextMenuItems = {
 	[Enum.AvatarContextMenuOption.Emote] = true
 }
 local CustomContextMenuItems = {}
+local CustomItemAddedOrder = 0
 
 local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 
@@ -72,7 +76,15 @@ function ContextMenuItems:ClearMenuItems()
 end
 
 function ContextMenuItems:AddCustomAvatarMenuItem(menuOption, bindableEvent)
-	CustomContextMenuItems[menuOption] = bindableEvent
+	if FFlagCoreScriptACMCustomFirst then
+		CustomItemAddedOrder = CustomItemAddedOrder + 1
+		CustomContextMenuItems[menuOption] = {
+			event = bindableEvent,
+			layoutOrder = CustomItemAddedOrder,
+		}
+	else
+		CustomContextMenuItems[menuOption] = bindableEvent
+	end
 end
 
 function ContextMenuItems:RemoveCustomAvatarMenuItem(menuOption)
@@ -141,15 +153,36 @@ function ContextMenuItems:RegisterCoreMethods()
 end
 
 function ContextMenuItems:CreateCustomMenuItems()
-	for buttonText, bindableEvent in pairs(CustomContextMenuItems) do
-		AnalyticsService:TrackEvent("Game", "AvatarContextMenuCustomButton", "name: " .. tostring(buttonText))
-		local function customButtonFunc()
-			bindableEvent:Fire(self.SelectedPlayer)
+	if FFlagCoreScriptACMCustomFirst then
+		for buttonText, itemInfo in pairs(CustomContextMenuItems) do
+			AnalyticsService:TrackEvent("Game", "AvatarContextMenuCustomButton", "name: " .. tostring(buttonText))
+			local function customButtonFunc()
+				if FFlagCoreScriptCloseACMCustomItem then
+					if self.CloseMenuFunc then self:CloseMenuFunc() end
+				end
+
+				itemInfo.event:Fire(self.SelectedPlayer)
+			end
+			local customButton = ContextMenuUtil:MakeStyledButton("CustomButton", buttonText, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), customButtonFunc)
+			customButton.Name = "CustomButton"
+			customButton.LayoutOrder = itemInfo.layoutOrder
+			customButton.Parent = self.MenuItemFrame
 		end
-		local customButton = ContextMenuUtil:MakeStyledButton("CustomButton", buttonText, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), customButtonFunc)
-		customButton.Name = "CustomButton"
-		customButton.LayoutOrder = CUSTOM_LAYOUT_ORDER
-		customButton.Parent = self.MenuItemFrame
+	else
+		for buttonText, bindableEvent in pairs(CustomContextMenuItems) do
+			AnalyticsService:TrackEvent("Game", "AvatarContextMenuCustomButton", "name: " .. tostring(buttonText))
+			local function customButtonFunc()
+				if FFlagCoreScriptCloseACMCustomItem then
+					if self.CloseMenuFunc then self:CloseMenuFunc() end
+				end
+
+				bindableEvent:Fire(self.SelectedPlayer)
+			end
+			local customButton = ContextMenuUtil:MakeStyledButton("CustomButton", buttonText, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), customButtonFunc)
+			customButton.Name = "CustomButton"
+			customButton.LayoutOrder = CUSTOM_LAYOUT_ORDER
+			customButton.Parent = self.MenuItemFrame
+		end
 	end
 end
 
@@ -233,7 +266,11 @@ function ContextMenuItems:CreateFriendButton(status, isBlocked)
     end)
 	end
 
-	friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER
+	if FFlagCoreScriptACMCustomFirst then
+		friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER + CustomItemAddedOrder
+	else
+		friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER
+	end
 	friendLabel.Parent = self.MenuItemFrame
 end
 
@@ -257,8 +294,13 @@ function ContextMenuItems:CreateEmoteButton()
 	local waveButton = self.MenuItemFrame:FindFirstChild("Wave")
 	if not waveButton then
 		waveButton = ContextMenuUtil:MakeStyledButton("Wave", "Wave", UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), wave)
-		waveButton.LayoutOrder = WAVE_LAYOUT_ORDER
+		if not FFlagCoreScriptACMCustomFirst then
+			waveButton.LayoutOrder = WAVE_LAYOUT_ORDER
+		end
 		waveButton.Parent = self.MenuItemFrame
+	end
+	if FFlagCoreScriptACMCustomFirst then
+		waveButton.LayoutOrder = WAVE_LAYOUT_ORDER + CustomItemAddedOrder
 	end
 end
 
@@ -285,7 +327,12 @@ function ContextMenuItems:CreateChatButton()
 	local chatButton = self.MenuItemFrame:FindFirstChild("ChatStatus")
 	if not chatButton then
 		chatButton = ContextMenuUtil:MakeStyledButton("ChatStatus", "Chat", UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), chatFunc)
-		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
+		if not FFlagCoreScriptACMCustomFirst then
+			chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
+		end
+	end
+	if FFlagCoreScriptACMCustomFirst then
+		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
 	end
 
 	local success, canLocalUserChat = pcall(function() return Chat:CanUserChatAsync(LocalPlayer.UserId) end)

@@ -660,7 +660,7 @@ Class FunctionalTest : Instance [Deprecated]
 	Function void FunctionalTest:Passed(string message = "")
 	Function void FunctionalTest:Warn(string message = "")
 Class GamePassService : Instance [NotCreatable] [Service]
-	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields]
+	Function bool GamePassService:PlayerHasPass(Instance player, int64 gamePassId) [Yields] [Deprecated]
 Class GameSettings : Instance [Settings] [NotBrowsable]
 	Property string GameSettings.AdditionalCoreIncludeDirs
 	Property bool GameSettings.HardwareMouse
@@ -774,7 +774,7 @@ Class ImageButton : GuiButton
 	Property Content ImageButton.PressedImage
 	Property Enum<ScaleType> ImageButton.ScaleType
 	Property Rect ImageButton.SliceCenter
-	Property float ImageButton.SliceScale {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property float ImageButton.SliceScale
 	Property UDim2 ImageButton.TileSize
 Class TextButton : GuiButton
 	Property string TextButton.LocalizedText [Hidden] [ReadOnly]
@@ -807,7 +807,7 @@ Class ImageLabel : GuiLabel
 	Property bool ImageLabel.IsLoaded [ReadOnly]
 	Property Enum<ScaleType> ImageLabel.ScaleType
 	Property Rect ImageLabel.SliceCenter
-	Property float ImageLabel.SliceScale {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property float ImageLabel.SliceScale
 	Property UDim2 ImageLabel.TileSize
 Class TextLabel : GuiLabel
 	Property string TextLabel.LocalizedText [Hidden] [ReadOnly]
@@ -2554,6 +2554,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Intellisense [NotReplicated] [Deprecated]
+	Property bool Studio.Import mesh files as single mesh
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show Diagnostics Bar
@@ -2584,7 +2585,6 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.LuaDebuggerEnabled
 	Property bool Studio.LuaDebuggerEnabledAtStartup [Hidden] [ReadOnly]
 	Property int Studio.ScriptTimeoutLength
-	Property bool Studio.Split Meshes
 	Property bool Studio.Clear Output On Start
 	Property int Studio.Maximum Output Lines
 	Property QFont Studio.Output Font
@@ -3467,10 +3467,10 @@ Enum Font
 	EnumItem Font.Fantasy : 14
 	EnumItem Font.Antique : 15
 	EnumItem Font.SourceSansSemibold : 16
-	EnumItem Font.Gotham : 17 [Deprecated]
-	EnumItem Font.GothamSemibold : 18 [Deprecated]
-	EnumItem Font.GothamBold : 19 [Deprecated]
-	EnumItem Font.GothamBlack : 20 [Deprecated]
+	EnumItem Font.Gotham : 17
+	EnumItem Font.GothamSemibold : 18
+	EnumItem Font.GothamBold : 19
+	EnumItem Font.GothamBlack : 20
 Enum FontSize
 	EnumItem FontSize.Size8 : 0
 	EnumItem FontSize.Size9 : 1

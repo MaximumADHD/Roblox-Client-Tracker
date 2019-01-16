@@ -27,6 +27,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Urls = require(Plugin.Core.Util.Urls)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -58,6 +59,24 @@ local FFlagStudioPluginMenuApi = settings():GetFFlag("StudioPluginMenuApi")
 local FFlagFixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
 
 local Asset = Roact.PureComponent:extend("Asset")
+
+function getImageIdFromDecalId(decalId)
+	local tbl = nil
+	local success, errorMessage = pcall(function()
+		local url = Urls.constructAssetIdString(decalId)
+		if DebugFlags.shouldDebugUrls() then
+			print(("Inserting decal %s"):format(url))
+		end
+		tbl = game:GetObjects(url)
+	end)
+
+	if success and tbl and tbl[1] then
+		local decal = tbl[1]
+		return decal.Texture:match("%d+")
+	else
+		return 0
+	end
+end
 
 function Asset:init(props)
 	local plugin = getPlugin(self)
@@ -107,19 +126,28 @@ function Asset:init(props)
 
 		local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
 
+		-- only add this action if we have access to copying to clipboard
+		if FFlagEnableCopyToClipboard then
+			local trueAssetId = assetId
+			if assetTypeId == Enum.AssetType.Decal.Value then
+				trueAssetId = getImageIdFromDecalId(assetId)
+			end
+
+			menu:AddNewAction("CopyIdToClipboard", "Copy Asset Id").Triggered:connect(function()
+				StudioService:CopyToClipboard(trueAssetId)
+			end)
+
+			menu:AddNewAction("CopyURIToClipboard", "Copy Asset URI").Triggered:connect(function()
+				StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
+			end)
+		end
+
 		-- add an action to view an asset in browser
-		menu:AddNewAction("OpenInBrowser", "View in browser").Triggered:connect(function()
+		menu:AddNewAction("OpenInBrowser", "View In Browser").Triggered:connect(function()
 			local baseUrl = ContentProvider.BaseUrl
 			local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
 			GuiService:OpenBrowserWindow(targetUrl)
 		end)
-
-		-- only add this action if we have access to copying to clipboard
-		if FFlagEnableCopyToClipboard then
-			menu:AddNewAction("CopyIdToClipboard", "Copy asset ID").Triggered:connect(function()
-				StudioService:CopyToClipboard(assetId)
-			end)
-		end
 
 		menu:ShowAsync()
 		menu:Destroy()

@@ -345,10 +345,10 @@ function ControlModule:SwitchToController(controlModule)
 									or self.activeControlModule == TouchThumbstick
 									or self.activeControlModule == ClickToMove
 									or self.activeControlModule == DynamicThumbstick) then
-				self.touchJumpController = self.controllers[TouchJump]
-				if not self.touchJumpController then
-					self.touchJumpController = TouchJump.new()
+				if not self.controllers[TouchJump] then
+					self.controllers[TouchJump] = TouchJump.new()
 				end
+				self.touchJumpController = self.controllers[TouchJump]
 				self.touchJumpController:Enable(true, self.touchControlFrame)
 			else
 				if self.touchJumpController then

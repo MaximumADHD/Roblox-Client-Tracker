@@ -53,7 +53,7 @@ function FastFlags:isDebugStudioRigImporterFlagOn()
 end
 
 function FastFlags:isUseDevHubHelpLinksOn()
-	return isFlagOn("StudioAnimationEditorUseDevHubHelpLinks")
+	return isFlagOn("StudioAnimationEditorUseDevHubHelpLinks2")
 end
 
 function FastFlags:isFixResetJointOn()

@@ -5,10 +5,12 @@ local Roact = require(CorePackages.Roact)
 
 local DataConsumer = require(script.Parent.Parent.DataConsumer)
 
+local ScrollingTextBox = require(script.Parent.Parent.ScrollingTextBox)
+
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local COMMANDLINE_INDENT = Constants.LogFormatting.CommandLineIndent
 local COMMANDLINE_FONTSIZE = Constants.DefaultFontSize.CommandLine
-local FONT = Constants.Font.MainWindow
+local FONT = Constants.Font.Log
 
 local DevConsoleCommandLine = Roact.PureComponent:extend("DevConsoleCommandLine")
 
@@ -20,14 +22,14 @@ function DevConsoleCommandLine:init()
 		end
 	end
 
-	self.ref = Roact.createRef()
+	self.textbox = Roact.createRef()
 end
 
 function DevConsoleCommandLine:didMount()
 	if not self.onFocusConnection then
 		self.onFocusConnection = UserInputService.InputBegan:Connect(function(input)
-			if self.ref.current and self.ref.current:IsFocused() then
-				local rbx = self.ref.current
+			if self.textbox.current and self.textbox.current:IsFocused() then
+				local rbx = self.textbox.current
 				local serverLogData = self.props.ServerLogData
 				local cmdHistory = serverLogData:getCommandLineHistory()
 				local cmdIndex = serverLogData:getCommandLineIndex()
@@ -68,9 +70,9 @@ function DevConsoleCommandLine:didMount()
 	-- and will subsequently be put into the textbox. This event is meant to fix that.
 	if not self.fixUnwantedReturnCapture then
 		self.fixUnwantedReturnCapture = UserInputService.InputEnded:Connect(function(input)
-			if self.ref.current and self.ref.current:IsFocused() then
+			if self.textbox.current and self.textbox.current:IsFocused() then
 				if input.KeyCode == Enum.KeyCode.Return then
-					self.ref.current.Text = ""
+					self.textbox.current.Text = ""
 				end
 			end
 		end)
@@ -118,10 +120,9 @@ function DevConsoleCommandLine:render()
 			TextXAlignment = Enum.TextXAlignment.Right,
 		}),
 
-		TextBox = Roact.createElement("TextBox", {
+		InputField = Roact.createElement(ScrollingTextBox, {
 			Position = UDim2.new(0, COMMANDLINE_INDENT, 0, 0),
 			Size = UDim2.new(1, -COMMANDLINE_INDENT, 0, height),
-			BackgroundTransparency = 1,
 
 			ShowNativeInput = true,
 			ClearTextOnFocus = false,
@@ -132,10 +133,10 @@ function DevConsoleCommandLine:render()
 			Font = FONT,
 			PlaceholderText = "command line",
 
-			[Roact.Ref] = self.ref,
-
-			[Roact.Event.FocusLost] = self.onFocusLost,
+			[Roact.Ref] = self.textbox,
+			TextBoxFocusLost = self.onFocusLost,
 		})
+
 	})
 end
 

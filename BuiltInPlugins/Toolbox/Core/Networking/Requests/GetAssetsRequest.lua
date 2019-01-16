@@ -12,11 +12,13 @@ return function(networkInterface, pageInfo)
 
 		store:dispatch(SetLoading(true))
 		return networkInterface:getAssets(pageInfo):andThen(function(result)
+			-- So, this is the only function getting called
 			local data = result.responseBody
-			store:dispatch(GetAssets(data))
-			store:dispatch(SetLoading(false))
-		end, function(result)
-			store:dispatch(NetworkError(result))
+			if data then
+				store:dispatch(GetAssets(data))
+			else
+				store:dispatch(NetworkError(result))
+			end
 			store:dispatch(SetLoading(false))
 		end)
 	end

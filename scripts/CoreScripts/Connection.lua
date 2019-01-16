@@ -25,9 +25,12 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 -- when this flag turns on, all the errors will not have reconnect option
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
-local reconnectDisabledForDevMaintenance = settings():GetFFlag("NoReconnectForDevMaintenance")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
 local fflagLazyCreateErrorPrompt = settings():GetFFlag("LazyCreateErrorPrompt")
+
+-- Show Reconnect button on error prompts for errors 263, 268, 270, 517
+-- Remove Reconnect button from error prompts for errors 522, 523
+local fflagReconnectButtonStateUpdate = settings():GetFFlag("ReconnectButtonStateUpdate")
 
 local errorPrompt
 local graceTimeout = -1
@@ -127,17 +130,18 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectBadhash] = true,
 	[Enum.ConnectionError.DisconnectIllegalTeleport] = true,
 	[Enum.ConnectionError.DisconnectDuplicatePlayer] = true,
-	[Enum.ConnectionError.DisconnectPlayerless] = true,
+	[Enum.ConnectionError.DisconnectPlayerless] = not fflagReconnectButtonStateUpdate,
 	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
-	[Enum.ConnectionError.DisconnectHashTimeout] = true,
+	[Enum.ConnectionError.DisconnectHashTimeout] = not fflagReconnectButtonStateUpdate,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
 	[Enum.ConnectionError.DisconnectRaknetErrors] = true,
 	[Enum.ConnectionError.PlacelaunchFlooded] = true,
 	[Enum.ConnectionError.PlacelaunchHashException] = true,
 	[Enum.ConnectionError.PlacelaunchHashExpired] = true,
-	[Enum.ConnectionError.PlacelaunchGameEnded] = true,
+	[Enum.ConnectionError.PlacelaunchGameEnded] = not fflagReconnectButtonStateUpdate,
 	[Enum.ConnectionError.PlacelaunchUnauthorized] = true,
-	[Enum.ConnectionError.DisconnectDevMaintenance] = reconnectDisabledForDevMaintenance,
+	[Enum.ConnectionError.PlacelaunchUserLeft] = fflagReconnectButtonStateUpdate,
+	[Enum.ConnectionError.PlacelaunchRestricted] = fflagReconnectButtonStateUpdate,
 }
 
 local ButtonList = {
@@ -337,6 +341,9 @@ local function onErrorMessageChanged()
 end
 
 local function onScreenSizeChanged()
+	if not errorPrompt then
+		return
+	end
 	local newWidth = RobloxGui.AbsoluteSize.X
 	if screenWidth ~= newWidth then
 		screenWidth = newWidth

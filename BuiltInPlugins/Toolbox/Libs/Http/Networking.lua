@@ -10,6 +10,7 @@ local StatusCodes = require(script.Parent.StatusCodes)
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
+local EnableToolboxHttpErrorHandling = settings():GetFFlag("EnableToolboxHttpErrorHandling")
 
 -- helper functions
 local function getHttpStatus(response)
@@ -132,34 +133,57 @@ function Networking:jsonDecode(data)
 	return HttpService:JSONDecode(data)
 end
 
-
 -- Http request functions
 
 -- url : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpGetJson(url)
-	return createHttpPromise(httpGet, self._httpImpl, url):andThen(
-		function(result)
-			if result.responseCode == StatusCodes.OK then
+	if EnableToolboxHttpErrorHandling then
+		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
+			-- On promise resolved
+			function(result)
 				result.responseBody = self:jsonDecode(result.responseBody)
-			end
+				return result
+			end,
+			-- on Promise rejected
+			function(result)
+				return result
+			end)
+	else
+		return createHttpPromise(httpPost, self._httpImpl, url):andThen(
+			function(result)
+				if result.responseCode == StatusCodes.OK then
+					result.responseBody = self:jsonDecode(result.responseBody)
+				end
 
-			return result
-		end)
+				return result
+			end)
+	end
 end
 
 -- url : (string)
 -- payload : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPostJson(url, payload)
-	return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
-		function(result)
-			if result.responseCode == StatusCodes.OK then
+	if EnableToolboxHttpErrorHandling then
+		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
+			function(result)
 				result.responseBody = self:jsonDecode(result.responseBody)
-			end
+				return result
+			end,
+			function(result)
+				return result
+			end)
+	else
+		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
+			function(result)
+				if result.responseCode == StatusCodes.OK then
+					result.responseBody = self:jsonDecode(result.responseBody)
+				end
 
-			return result
-		end)
+				return result
+			end)
+	end
 end
 
 -- url : (string)

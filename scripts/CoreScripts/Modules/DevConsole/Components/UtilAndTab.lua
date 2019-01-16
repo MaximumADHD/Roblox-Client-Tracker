@@ -217,8 +217,8 @@ function UtilAndTab:render()
 					size = UDim2.new(1, -cancelButtonWidth , 0, SMALL_UTIL_HEIGHT),
 					searchTerm = searchTerm,
 					showClear = activeSearchTerm,
-					textSize = Constants.DefaultFontSize.UtilBar,
-					font = Constants.Font.UtilBar,
+					textSize = Constants.DefaultFontSize.Search,
+					font = Constants.Font.Search,
 					frameHeight = SMALL_UTIL_HEIGHT,
 
 					refForParent = self.searchRef,
@@ -304,8 +304,8 @@ function UtilAndTab:render()
 					pos = UDim2.new(1, -2 * CS_BUTTON_WIDTH, 0, 0),
 					searchTerm = searchTerm,
 					showClear = activeSearchTerm,
-					textSize = Constants.DefaultFontSize.UtilBar,
-					font = Constants.Font.UtilBar,
+					textSize = Constants.DefaultFontSize.Search,
+					font = Constants.Font.Search,
 					frameHeight = Constants.UtilityBarFormatting.FrameHeight,
 
 					refForParent = self.searchRef,

@@ -11348,7 +11348,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ]
                 }
             ],
@@ -13513,17 +13514,13 @@
                     "MemberType": "Property",
                     "Name": "SliceScale",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -14082,17 +14079,13 @@
                     "MemberType": "Property",
                     "Name": "SliceScale",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -44344,6 +44337,23 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Import mesh files as single mesh",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Keyword Color",
@@ -44896,23 +44906,6 @@
                     "Category": "Advanced",
                     "MemberType": "Property",
                     "Name": "Show plus button on hover in Explorer",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Meshes",
-                    "MemberType": "Property",
-                    "Name": "Split Meshes",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -54378,30 +54371,18 @@
                 },
                 {
                     "Name": "Gotham",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 17
                 },
                 {
                     "Name": "GothamSemibold",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 18
                 },
                 {
                     "Name": "GothamBold",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 19
                 },
                 {
                     "Name": "GothamBlack",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 20
                 }
             ],

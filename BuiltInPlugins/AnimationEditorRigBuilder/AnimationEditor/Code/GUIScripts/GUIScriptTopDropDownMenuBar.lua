@@ -69,8 +69,6 @@ function createSettingsMenu(self)
 	
 	mainMenu:addDivider()
 	self.SnapIncrementHandle = mainMenu:addSelectable("Snap Increment", function() self.Paths.ActionEditSnapIncrement:execute(self.Paths) end, "[" .. tostring(prefs:getValue(prefs.Type.SnapIncrement)) .. "]")
-	mainMenu:addDivider()
-	mainMenu:addSelectable("Settings Help", function() self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.SettingsHelp) end)
 end
 
 function createEditMenu(self)
@@ -83,8 +81,6 @@ function createEditMenu(self)
 	self.PriorityHandle = mainMenu:addSelectable("Set Priority", function() self.Paths.GUIScriptPriority:show() end, "[" .. self.Paths.DataModelClip:getPriority() .. "]")
 	mainMenu:addSelectable("Add Time At Cursor", function() self.Paths.ActionAddTimeAtCursor:execute(self.Paths) end)
 	mainMenu:addSelectable("Remove Time At Cursor", function() self.Paths.ActionRemoveTimeAtCursor:execute(self.Paths) end)
-	mainMenu:addDivider()
-	mainMenu:addSelectable("Edit Help", function() self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.EditHelp) end)
 end
 
 function createFileMenu(self)

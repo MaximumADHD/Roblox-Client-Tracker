@@ -5,9 +5,7 @@ local FastFlags = require(script.Parent.Parent.FastFlags)
 local ShowContextMenu = {}
 if FastFlags:isUseDevHubHelpLinksOn() then
 ShowContextMenu.Type = {
-	Help="articles/using-animationeditorluawidgets-in-roblox-studio", 
-	EditHelp="articles/using-animationeditorluawidgets-in-roblox-studio#Edit_Menu", 
-	SettingsHelp="articles/using-animationeditorluawidgets-in-roblox-studio#Settings_Menu"
+	Help="articles/using-animation-editor",
 }
 else
 ShowContextMenu.Type = {

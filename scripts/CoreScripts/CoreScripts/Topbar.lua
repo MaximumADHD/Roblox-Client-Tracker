@@ -7,6 +7,7 @@
 --[[ FFLAG VALUES ]]
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 local FFlagKillGuiButtonSetVerb = settings():GetFFlag("KillGuiButtonSetVerb")
+local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -510,7 +511,10 @@ local function CreateUsernameHealthMenuItem()
 	local this = CreateMenuItem(container)
 
 	--- EVENTS ---
-	local humanoidChangedConn, childAddedConn, childRemovedConn = nil
+	local humanoidHealthChangedConn
+	local humanoidDiedConn
+	local childAddedConn
+	local childRemovedConn
 	--------------
 
 	local HealthBarEnabled = true
@@ -518,7 +522,7 @@ local function CreateUsernameHealthMenuItem()
 	local CurrentHumanoid = nil
 
 	local function AnimateHurtOverlay()
-		if hurtOverlay and not VRService.VREnabled then
+		if hurtOverlay and not VRService.VREnabled and StarterGui:GetCoreGuiEnabled("Health") then
 			local newSize = UDim2.new(20, 0, 20, 0)
 			local newPos = UDim2.new(-10, 0, -10, 0)
 
@@ -592,21 +596,29 @@ local function CreateUsernameHealthMenuItem()
 	local function OnHumanoidAdded(humanoid)
 		CurrentHumanoid = humanoid
 		local lastHealth = humanoid.Health
+		local isDead = false
+
 		local function OnHumanoidHealthChanged(health)
 			UpdateHealthVisible()
 			if humanoid then
 				local healthDelta = lastHealth - health
-				local healthPercent = health / humanoid.MaxHealth
-				if humanoid.MaxHealth <= 0 then
+				local maxHealth = humanoid.MaxHealth
+				local healthPercent = health / maxHealth
+				if maxHealth <= 0 then
 					healthPercent = 0
 				end
-				healthPercent = Util.Clamp(0, 1, healthPercent)
+				healthPercent = math.clamp(healthPercent, 0, 1)
 				local healthColor = HealthbarColorTransferFunction(healthPercent)
-				local thresholdForHurtOverlay =
-          humanoid.MaxHealth * TopbarConstants.HEALTH_PERCANTAGE_FOR_OVERLAY
+				local thresholdForHurtOverlay = maxHealth * TopbarConstants.HEALTH_PERCANTAGE_FOR_OVERLAY
 
-				if healthDelta >= thresholdForHurtOverlay and health ~= humanoid.MaxHealth and StarterGui:GetCoreGuiEnabled("Health") == true then
-					AnimateHurtOverlay()
+				if FFlagCoreScriptNoPosthumousHurtOverlay then
+					if healthDelta >= thresholdForHurtOverlay and health ~= maxHealth and not isDead then
+						AnimateHurtOverlay()
+					end
+				else
+					if healthDelta >= thresholdForHurtOverlay and health ~= humanoid.MaxHealth then
+						AnimateHurtOverlay()
+					end
 				end
 
 				healthFill.Size = UDim2.new(healthPercent, 0, 1, 0)
@@ -615,8 +627,21 @@ local function CreateUsernameHealthMenuItem()
 				lastHealth = health
 			end
 		end
-		Util.DisconnectEvent(humanoidChangedConn)
-		humanoidChangedConn = humanoid.HealthChanged:connect(OnHumanoidHealthChanged)
+
+		local function OnHumanoidDied()
+			Util.DisconnectEvent(humanoidDiedConn)
+			humanoidDiedConn = nil
+			isDead = true
+		end
+
+		Util.DisconnectEvent(humanoidHealthChangedConn)
+		humanoidHealthChangedConn = humanoid.HealthChanged:Connect(OnHumanoidHealthChanged)
+
+		if FFlagCoreScriptNoPosthumousHurtOverlay then
+			Util.DisconnectEvent(humanoidDiedConn)
+			humanoidDiedConn = humanoid.Died:Connect(OnHumanoidDied)
+		end
+
 		OnHumanoidHealthChanged(lastHealth)
 	end
 
