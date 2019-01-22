@@ -1,0 +1,45 @@
+Key,en
+ToolboxToolbarName,Toolbox
+CategoryModels,Models
+CategoryDecals,Images
+CategoryMeshes,Meshes
+CategoryAudio,Audio
+CategoryPlugins,Plugins
+CategoryMyModels,My Models
+CategoryMyDecals,My Images
+CategoryMyMeshes,My Meshes
+CategoryMyAudio,My Audio
+CategoryMyPackages,My Packages
+CategoryMyPlugins,My Plugins
+CategoryRecentModels,Recent Models
+CategoryRecentDecals,Recent Images
+CategoryRecentMeshes,Recent Meshes
+CategoryRecentAudio,Recent Audio
+CategoryGroupModels,Group Models
+CategoryGroupDecals,Group Images
+CategoryGroupMeshes,Group Meshes
+CategoryGroupAudio,Group Audio
+CategoryGroupPackages,Group Packages
+SearchBarDefaultText,Search
+SuggestionsIntroText,Try searching for:
+SuggestionsNPC,NPC
+SuggestionsVehicle,Vehicle
+SuggestionsWeapon,Weapon
+SuggestionsBuilding,Building
+SuggestionsLight,Light
+SortByText,Sort by:
+SortByRelevance,Relevance
+SortByMostTaken,Most Taken
+SortByFavorites,Favorites
+SortByUpdated,Updated
+SortByRatings,Ratings
+AssetCreatorIntroText,by {name:username}
+VotingVoteText,vote
+VotingVotesText,votes
+FooterBGText,Background:
+FooterButtonWhiteName,White
+FooterButtonBlackName,Black
+FooterButtonNoneName,None
+EndorseBadgeTooltipText,Marked as a high-quality item
+InfoBannerText,No results found
+CategoryEndorsedPlugins,EndorsedPlugins

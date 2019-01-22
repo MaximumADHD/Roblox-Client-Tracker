@@ -70,7 +70,7 @@ function BulletPoint:render()
 				Size = UDim2.new(0, 4, 0, 4),
 				AnchorPoint = Vector2.new(0, 0.5),
 				TextColor3 = theme.dialog.text,
-				Text = "???",
+				Text = "•",
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Font = Enum.Font.SourceSans,
 				TextSize = 20,
