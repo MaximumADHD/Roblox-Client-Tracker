@@ -1,0 +1,32 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Script" referent="RBX0">
+		<Properties>
+			<bool name="Disabled">false</bool>
+			<Content name="LinkedSource"><null></null></Content>
+			<string name="Name">Health</string>
+			<string name="ScriptGuid">{EC3A881D-5F49-4644-A69D-FB60F2E59FF2}</string>
+			<ProtectedString name="Source"><![CDATA[-- Gradually regenerates the Humanoid's Health over time.
+
+local REGEN_RATE = 1/100 -- Regenerate this fraction of MaxHealth per second.
+local REGEN_STEP = 1 -- Wait this long between each regeneration step.
+
+--------------------------------------------------------------------------------
+
+local Character = script.Parent
+local Humanoid = Character:WaitForChild'Humanoid'
+
+--------------------------------------------------------------------------------
+
+while true do
+	while Humanoid.Health < Humanoid.MaxHealth do
+		local dt = wait(REGEN_STEP)
+		local dh = dt*REGEN_RATE*Humanoid.MaxHealth
+		Humanoid.Health = math.min(Humanoid.Health + dh, Humanoid.MaxHealth)
+	end
+	Humanoid.HealthChanged:Wait()
+end]]></ProtectedString>
+		</Properties>
+	</Item>
+</roblox>
