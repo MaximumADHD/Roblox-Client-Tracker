@@ -435,6 +435,30 @@
                   <string name="summary">Euler angles applied in YXZ order</string>
               </Properties>
           </Item>
+          <Item class="ReflectionMetadataMember">
+            <Properties>
+              <string name="Name">Axis</string>
+              <string name="summary">Primary axis. Corresponds to the LookVector, or the first column in the part-local Attachment CFrame rotation matrix</string>
+            </Properties>
+          </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SecondaryAxis</string>
+            <string name="summary">Secondary axis. Corresponds to the UpVector, or the second column in the part-local Attachment CFrame rotation matrix</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WorldAxis</string>
+            <string name="summary">Primary axis in world space. Corresponds to the LookVector, or the first column in the world space Attachment CFrame rotation matrix.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SecondaryWorldAxis</string>
+            <string name="summary">Secondary axis in world space. Corresponds to the UpVector, or the second column in the world space Attachment CFrame rotation matrix.</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 

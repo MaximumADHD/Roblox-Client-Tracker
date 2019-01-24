@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local EditEvents = {}
 
 local function createListItem(self, keyframeMarker, open)
@@ -14,7 +16,11 @@ local function destroyListPopup(self)
 end
 
 local function closeAndSave(self)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow:turnOn(false)
+	end
 	destroyListPopup(self)
 	self.Paths.UtilityScriptUndoRedo:resetContext()
 	self.Paths.UtilityScriptUndoRedo:setToDefaultContext()
@@ -23,7 +29,11 @@ end
 
 local function closeAndRevert(self)
 	destroyListPopup(self)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow:turnOn(false)
+	end
 	self.Paths.UtilityScriptUndoRedo:undoAllInContext()	
 	self.Paths.UtilityScriptUndoRedo:setToDefaultContext()
 	self.Paths.UtilityScriptCopyPaste:setCopyPasteEnabled(true)
@@ -47,7 +57,11 @@ local function onAddClicked(self)
 		destroyListPopup(self)
 	end
 
-	self.ListPopup = self.Paths.GUIScriptSelectionList:new(self.Paths, self.Paths.DataModelAnimationEvents:getAllAnimationEventNamesSorted(), selectFunc, newFunc)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.ListPopup = self.Paths.GUIScriptSelectionList:new(self.Paths, self.Paths.DataModelAnimationEvents:getAllAnimationEventNamesSorted(), selectFunc, newFunc, self.TargetWidget)
+	else
+		self.ListPopup = self.Paths.GUIScriptSelectionList:new(self.Paths, self.Paths.DataModelAnimationEvents:getAllAnimationEventNamesSorted(), selectFunc, newFunc)
+	end
 end
 
 local function onPromptCancel(self)
@@ -73,13 +87,22 @@ function EditEvents:init(Paths, keyframe)
 	self.DarkCover = self.TargetWidget.DarkCover
 	self.Prompt = self.TargetWidget.NamePromptFrame
 
-	self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetWidget)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetWidget)
+	end
 
-	self.SubWindow = Paths.GUIScriptSubWindow:new(Paths, self.TargetWidget, Paths.GUIPopUps)
-	self.SubWindow:changeTitle("Edit Animation Events")
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow = Paths.GUIScriptQtWindow:new(Paths, "Edit Animation Events", self.TargetWidget, function() closeAndRevert(self) end, Vector2.new(382, 157), true)
+		self.QtWindow:turnOn(false)
+		self.Paths.InputMouse:connectWidgetToMouse(self.TargetWidget)
+		self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.ScrollingFrame, self.TargetWidget, nil, self.QtWindow)
+	else
+		self.SubWindow = Paths.GUIScriptSubWindow:new(Paths, self.TargetWidget, Paths.GUIPopUps)
+		self.SubWindow:changeTitle("Edit Animation Events")
+		self.SubWindow:turnOn(false)
 
-	self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.ScrollingFrame, self.TargetWidget, self.SubWindow)
+		self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.ScrollingFrame, self.TargetWidget, self.SubWindow)
+	end
 
 	self.CancelButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.SaveCancel.Cancel)
 	self.SaveButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.SaveCancel.Save)
@@ -92,7 +115,9 @@ function EditEvents:init(Paths, keyframe)
 	self.Connections:add(self.Prompt.Submit.MouseButton1Click:connect(function() onPromptConfirm(self) end))
 	self.Connections:add(self.SaveCancel.Save.MouseButton1Click:connect(function() closeAndSave(self) end))
 	self.Connections:add(self.SaveCancel.Cancel.MouseButton1Click:connect(function() closeAndRevert(self) end))
-	self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() closeAndSave(self) end))
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() closeAndSave(self) end))
+	end
 	self.Connections:add(self.AddButton.MouseButton1Click:connect(function() onAddClicked(self) end))
 	self.Connections:add(self.Paths.DataModelKeyframes.ChangedEvent:connect(function() self:populateEventsList() end))
 	self.Connections:add(self.Prompt.Border.ParameterInput.Focused:connect(function()
@@ -104,7 +129,11 @@ function EditEvents:init(Paths, keyframe)
 end
 
 function EditEvents:show(time)
-	self.SubWindow:turnOn(true)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(true)
+	else
+		self.SubWindow:turnOn(true)
+	end
 	self.Time = time
 	self.EventItems = {}
 	self.OpenStates = {}
@@ -129,8 +158,13 @@ function EditEvents:terminate()
 
 	destroyListPopup(self)
 
-	self.SubWindow:terminate()
-	self.SubWindow = nil	
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:terminate()
+		self.QtWindow = nil
+	else
+		self.SubWindow:terminate()
+		self.SubWindow = nil
+	end
 
 	self.OKButton:terminate()	
 	self.PromptCancelButton:terminate()

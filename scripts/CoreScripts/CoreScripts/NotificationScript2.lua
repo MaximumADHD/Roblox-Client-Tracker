@@ -106,6 +106,7 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 end
 
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
+local FFlagCoreScriptFixBadNotifcationScrapping = settings():GetFFlag("CoreScriptFixBadNotifcationScrapping")
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
@@ -454,7 +455,8 @@ local function onSendNotificationInfo(notificationInfo)
 	local notification = {}
 	local notificationFrame
 
-	if FFlagCoreScriptTranslateGameText2 then
+	if FFlagCoreScriptTranslateGameText2 and (not FFlagCoreScriptFixBadNotifcationScrapping or notificationInfo.AutoLocalize) then
+		-- AutoLocalize should only be used for Developer notifcations.
 		notificationFrame = createNotification(
 			GameTranslator:TranslateGameText(CoreGui, notificationInfo.Title),
 			GameTranslator:TranslateGameText(CoreGui, notificationInfo.Text),
@@ -603,12 +605,12 @@ local function sendFriendNotification(fromPlayer)
 			if buttonChosen == acceptText then
                 AnalyticsService:ReportCounter("NotificationScript-RequestFriendship")
                 AnalyticsService:TrackEvent("Game", "RequestFriendship", "NotificationScript")
-                
+
 				LocalPlayer:RequestFriendship(fromPlayer)
 			else
                 AnalyticsService:ReportCounter("NotificationScript-RevokeFriendship")
                 AnalyticsService:TrackEvent("Game", "RevokeFriendship", "NotificationScript")
-                
+
 				LocalPlayer:RevokeFriendship(fromPlayer)
 				FriendRequestBlacklist[fromPlayer] = true
 			end

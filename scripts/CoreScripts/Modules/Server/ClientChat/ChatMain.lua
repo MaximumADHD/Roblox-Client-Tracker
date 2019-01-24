@@ -439,6 +439,10 @@ do
 		ChatBar:CaptureFocus()
 	end
 
+	function moduleApiTable:EnterWhisperState(player)
+		ChatBar:EnterWhisperState(player)
+	end
+
 	function moduleApiTable:GetVisibility()
 		return ChatWindow:GetVisible()
 	end
@@ -931,7 +935,7 @@ if PlayerBlockedEvent then
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenBlocked", 
+						"GameChat_ChatMain_SpeakerHasBeenBlocked",
 						string.format("Speaker '%s' has been blocked.", player.Name)
 					),
 					"{RBX_NAME}",player.Name
@@ -947,7 +951,7 @@ if PlayerMutedEvent then
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenMuted", 
+						"GameChat_ChatMain_SpeakerHasBeenMuted",
 						string.format("Speaker '%s' has been muted.", player.Name)
 					),
 					"{RBX_NAME}", player.Name
@@ -971,7 +975,7 @@ if PlayerUnBlockedEvent then
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenUnBlocked", 
+						"GameChat_ChatMain_SpeakerHasBeenUnBlocked",
 						string.format("Speaker '%s' has been unblocked.", player.Name)
 					),
 					"{RBX_NAME}",player.Name
@@ -987,7 +991,7 @@ if PlayerUnMutedEvent then
 			SendSystemMessageToSelf(
 				string.gsub(
 					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenUnMuted", 
+						"GameChat_ChatMain_SpeakerHasBeenUnMuted",
 						string.format("Speaker '%s' has been unmuted.", player.Name)
 					),
 					"{RBX_NAME}",player.Name

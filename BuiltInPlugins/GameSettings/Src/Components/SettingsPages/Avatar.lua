@@ -15,23 +15,21 @@ local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsSho
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Constants = require(Plugin.Src.Util.Constants)
-
-local settingFromState = require(Plugin.Src.Networking.settingFromState)
-local showDialog = require(Plugin.Src.Consumers.showDialog)
-
-local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
-
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
-local withTheme = require(Plugin.Src.Consumers.withTheme)
+local showDialog = require(Plugin.Src.Consumers.showDialog)
+local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
+
+local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
+
+local getTheme = require(Plugin.Src.Consumers.getTheme)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
+
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
 local MorpherRootPanel = nil
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
@@ -51,76 +49,91 @@ if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 	end
 end
 
-local Avatar = Roact.PureComponent:extend("Avatar")
+--Loads settings values into props by key
+local function loadValuesToProps(getValue, state)
+	return {
+		AvatarType = getValue("universeAvatarType"),
+		AvatarAnimation = getValue("universeAnimationType"),
+		AvatarCollision = getValue("universeCollisionType"),
+		AvatarAssetOverrides = getValue("universeAvatarAssetOverrides"),
+		AvatarScalingMin = getValue("universeAvatarMinScales"),
+		AvatarScalingMax = getValue("universeAvatarMaxScales"),
 
-function Avatar:render()
+		CurrentAvatarType = state.Settings.Current.universeAvatarType,
+	}
+end
+
+--Implements dispatch functions for when the user changes values
+local function dispatchChanges(setValue, dispatch)
+	return {
+		AvatarAnimationChanged = setValue("universeAnimationType"),
+		AvatarCollisionChanged = setValue("universeCollisionType"),
+		AvatarAssetOverridesChanged = setValue("universeAvatarAssetOverrides"),
+		AvatarScalingMinChanged = setValue("universeAvatarMinScales"),
+		AvatarScalingMaxChanged = setValue("universeAvatarMaxScales"),
+
+		AvatarTypeChanged = function(value, willShutdown)
+			if FFlagGameSettingsShowWarningsOnSave then
+				if willShutdown then
+					dispatch(AddWarning("universeAvatarType"))
+				else
+					dispatch(DiscardWarning("universeAvatarType"))
+				end
+			end
+			dispatch(AddChange("universeAvatarType", value))
+		end,
+	}
+end
+
+--Uses props to display current settings values
+local function displayContents(page)
+	local props = page.props
+
 	if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	    return withTheme(function(theme)
-			return Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
-				LayoutOrder = self.props.LayoutOrder,
-			}, {
-				Morpher = Roact.createElement(MorpherRootPanel, {
-					ThemeData = theme,
-					IsEnabled = isPlaceDataAvailable(self.props),
+		return {
+			Morpher = Roact.createElement(MorpherRootPanel, {
+				ThemeData = getTheme(page),
+				IsEnabled = isPlaceDataAvailable(props),
 
-					AvatarType = self.props.AvatarType,
-					AvatarAnimation = self.props.AvatarAnimation,
-					AvatarCollision = self.props.AvatarCollision,
-					AvatarAssetOverrides = self.props.AvatarAssetOverrides,
-					AvatarScalingMin = self.props.AvatarScalingMin,
-					AvatarScalingMax = self.props.AvatarScalingMax,
+				AvatarType = props.AvatarType,
+				AvatarAnimation = props.AvatarAnimation,
+				AvatarCollision = props.AvatarCollision,
+				AvatarAssetOverrides = props.AvatarAssetOverrides,
+				AvatarScalingMin = props.AvatarScalingMin,
+				AvatarScalingMax = props.AvatarScalingMax,
 
-					OnAvatarTypeChanged = function(newVal)
-						if FFlagGameSettingsShowWarningsOnSave then
-							local willShutdown = self.props.CurrentAvatarType ~= "PlayerChoice"
-								and newVal ~= self.props.CurrentAvatarType
-							self.props.AvatarTypeChanged(newVal, willShutdown)
-						else
-							if self.props.CurrentAvatarType ~= "PlayerChoice" then
-								local dialogProps = {
-									Title = "Warning",
-									Header = "Would you like to proceed?",
-									Description = "Changing the game's Avatar Type to this setting "
-										.. "will shut down any running games.",
-									Buttons = {"No", "Yes"},
-								}
-								if not showDialog(self, WarningDialog, dialogProps):await() then
-									return
-								end
+				OnAvatarTypeChanged = function(newVal)
+					if FFlagGameSettingsShowWarningsOnSave then
+						local willShutdown = props.CurrentAvatarType ~= "PlayerChoice"
+							and newVal ~= props.CurrentAvatarType
+						props.AvatarTypeChanged(newVal, willShutdown)
+					else
+						if props.CurrentAvatarType ~= "PlayerChoice" then
+							local dialogProps = {
+								Title = "Warning",
+								Header = "Would you like to proceed?",
+								Description = "Changing the game's Avatar Type to this setting "
+									.. "will shut down any running games.",
+								Buttons = {"No", "Yes"},
+							}
+							if not showDialog(page, WarningDialog, dialogProps):await() then
+								return
 							end
-							self.props.AvatarTypeChanged(newVal)
 						end
-					end,
-
-					OnAvatarAnimationChanged = self.props.AvatarAnimationChanged,
-					OnAvatarCollisionChanged = self.props.AvatarCollisionChanged,
-					OnAvatarAssetOverridesChanged = self.props.AvatarAssetOverridesChanged,
-					OnAvatarScalingMinChanged = self.props.AvatarScalingMinChanged,
-					OnAvatarScalingMaxChanged = self.props.AvatarScalingMaxChanged,
-					ContentHeightChanged = self.props.ContentHeightChanged
-				})
-			})
-		end)
-	else
-		--Make container for this page
-		return Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 1, 0),
-			LayoutOrder = self.props.LayoutOrder,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, Constants.ELEMENT_PADDING),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-
-				[Roact.Change.AbsoluteContentSize] = function(rbx)
-					self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
+						props.AvatarTypeChanged(newVal)
+					end
 				end,
-			}),
 
+				OnAvatarAnimationChanged = props.AvatarAnimationChanged,
+				OnAvatarCollisionChanged = props.AvatarCollisionChanged,
+				OnAvatarAssetOverridesChanged = props.AvatarAssetOverridesChanged,
+				OnAvatarScalingMinChanged = props.AvatarScalingMinChanged,
+				OnAvatarScalingMaxChanged = props.AvatarScalingMaxChanged,
+				ContentHeightChanged = props.ContentHeightChanged
+			})
+		}
+	else
+		return {
 			Type = Roact.createElement(RadioButtonSet, {
 				Title = "Avatar Type",
 				Buttons = {{
@@ -137,17 +150,17 @@ function Avatar:render()
 						Description = "The game will allow R6 or R15 avatars."
 					},
 				},
-				Enabled = self.props.AvatarType ~= nil,
+				Enabled = props.AvatarType ~= nil,
 				LayoutOrder = 2,
 				--Functionality
-				Selected = self.props.AvatarType,
+				Selected = props.AvatarType,
 				SelectionChanged = function(button)
 					if FFlagGameSettingsShowWarningsOnSave then
-						local willShutdown = self.props.CurrentAvatarType ~= "PlayerChoice"
-							and button.Id ~= self.props.CurrentAvatarType
-						self.props.AvatarTypeChanged(button, willShutdown)
+						local willShutdown = props.CurrentAvatarType ~= "PlayerChoice"
+							and button.Id ~= props.CurrentAvatarType
+						props.AvatarTypeChanged(button, willShutdown)
 					else
-						if self.props.CurrentAvatarType ~= "PlayerChoice" then
+						if props.CurrentAvatarType ~= "PlayerChoice" then
 							local dialogProps = {
 								Title = "Warning",
 								Header = "Would you like to proceed?",
@@ -155,11 +168,11 @@ function Avatar:render()
 									.. "will shut down any running games.",
 								Buttons = {"No", "Yes"},
 							}
-							if not showDialog(self, WarningDialog, dialogProps):await() then
+							if not showDialog(page, WarningDialog, dialogProps):await() then
 								return
 							end
 						end
-						self.props.AvatarTypeChanged(button)
+						props.AvatarTypeChanged(button)
 					end
 				end,
 			}),
@@ -176,11 +189,11 @@ function Avatar:render()
 						Description = "Allow players to use their own height and width."
 					},
 				},
-				Enabled = self.props.AvatarScaling ~= nil and self.props.AvatarType ~= "MorphToR6",
+				Enabled = props.AvatarScaling ~= nil and props.AvatarType ~= "MorphToR6",
 				LayoutOrder = 3,
 				--Functionality
-				Selected = self.props.AvatarScaling,
-				SelectionChanged = self.props.AvatarScalingChanged,
+				Selected = props.AvatarScaling,
+				SelectionChanged = props.AvatarScalingChanged,
 			}),
 
 			Animation = Roact.createElement(RadioButtonSet, {
@@ -195,11 +208,11 @@ function Avatar:render()
 						Description = "Allow players to use their own custom set of animations."
 					},
 				},
-				Enabled = self.props.AvatarAnimation ~= nil and self.props.AvatarType ~= "MorphToR6",
+				Enabled = props.AvatarAnimation ~= nil and props.AvatarType ~= "MorphToR6",
 				LayoutOrder = 4,
 				--Functionality
-				Selected = self.props.AvatarAnimation,
-				SelectionChanged = self.props.AvatarAnimationChanged,
+				Selected = props.AvatarAnimation,
+				SelectionChanged = props.AvatarAnimationChanged,
 			}),
 
 			Collision = Roact.createElement(RadioButtonSet, {
@@ -214,104 +227,27 @@ function Avatar:render()
 						Description = "Dynamically sized collision boxes based on mesh sizes."
 					},
 				},
-				Enabled = self.props.AvatarCollision ~= nil and self.props.AvatarType ~= "MorphToR6",
+				Enabled = props.AvatarCollision ~= nil and props.AvatarType ~= "MorphToR6",
 				LayoutOrder = 5,
 				--Functionality
-				Selected = self.props.AvatarCollision,
-				SelectionChanged = self.props.AvatarCollisionChanged,
+				Selected = props.AvatarCollision,
+				SelectionChanged = props.AvatarCollisionChanged,
 			}),
-		})
+		}
 	end
 end
 
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	Avatar = RoactRodux.connect(
-		function(state, props)
-			if not state then return end
-			return {
-				CurrentAvatarType = state.Settings.Current.universeAvatarType,
-				AvatarType = settingFromState(state.Settings, "universeAvatarType"),
-				AvatarAnimation = settingFromState(state.Settings, "universeAnimationType"),
-				AvatarCollision = settingFromState(state.Settings, "universeCollisionType"),
-				AvatarAssetOverrides = settingFromState(state.Settings, "universeAvatarAssetOverrides"),
-				AvatarScalingMin = settingFromState(state.Settings, "universeAvatarMinScales"),
-				AvatarScalingMax = settingFromState(state.Settings, "universeAvatarMaxScales"),				
-			}
-		end,
-		function(dispatch)
-			return {
-				AvatarTypeChanged = function(value, willShutdown)
-					if FFlagGameSettingsShowWarningsOnSave then
-						if willShutdown then
-							dispatch(AddWarning("universeAvatarType"))
-						else
-							dispatch(DiscardWarning("universeAvatarType"))
-						end
-					end
-					dispatch(AddChange("universeAvatarType", value))
-				end,
+local SettingsPage = createSettingsPage("Avatar", loadValuesToProps, dispatchChanges)
 
-				AvatarAnimationChanged = function(value)
-					dispatch(AddChange("universeAnimationType", value))
-				end,
+local function Avatar(props)
+	return Roact.createElement(SettingsPage, {
+		ContentHeightChanged = props.ContentHeightChanged,
+		SetScrollbarEnabled = props.SetScrollbarEnabled,
+		LayoutOrder = props.LayoutOrder,
+		Content = displayContents,
 
-				AvatarCollisionChanged = function(value)
-					dispatch(AddChange("universeCollisionType", value))
-				end,
-
-				AvatarAssetOverridesChanged = function(value)
-					dispatch(AddChange("universeAvatarAssetOverrides", value))
-				end,
-
-				AvatarScalingMinChanged = function(value)
-					dispatch(AddChange("universeAvatarMinScales", value))
-				end,
-
-				AvatarScalingMaxChanged = function(value)
-					dispatch(AddChange("universeAvatarMaxScales", value))
-				end,
-			}
-		end
-	)(Avatar)
-else
-	Avatar = RoactRodux.connect(
-		function(state, props)
-			if not state then return end
-			return {
-				CurrentAvatarType = state.Settings.Current.universeAvatarType,
-				AvatarType = settingFromState(state.Settings, "universeAvatarType"),
-				AvatarScaling = settingFromState(state.Settings, "universeScaleType"),
-				AvatarAnimation = settingFromState(state.Settings, "universeAnimationType"),
-				AvatarCollision = settingFromState(state.Settings, "universeCollisionType"),
-			}
-		end,
-		function(dispatch)
-			return {
-				AvatarTypeChanged = function(button, willShutdown)
-					if FFlagGameSettingsShowWarningsOnSave then
-						if willShutdown then
-							dispatch(AddWarning("universeAvatarType"))
-						else
-							dispatch(DiscardWarning("universeAvatarType"))
-						end
-					end
-					dispatch(AddChange("universeAvatarType", button.Id))
-				end,
-
-				AvatarScalingChanged = function(button)
-					dispatch(AddChange("universeScaleType", button.Id))
-				end,
-
-				AvatarAnimationChanged = function(button)
-					dispatch(AddChange("universeAnimationType", button.Id))
-				end,
-
-				AvatarCollisionChanged = function(button)
-					dispatch(AddChange("universeCollisionType", button.Id))
-				end,
-			}
-		end
-	)(Avatar)
+		AddLayout = false,
+	})
 end
 
 return Avatar

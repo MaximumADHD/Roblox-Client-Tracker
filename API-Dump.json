@@ -2090,11 +2090,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated"
+                        "Hidden",
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ValueType": {
                         "Category": "DataType",
@@ -2139,7 +2141,7 @@
                     }
                 },
                 {
-                    "Category": "Derived Data",
+                    "Category": "Derived World Data",
                     "MemberType": "Property",
                     "Name": "WorldAxis",
                     "Security": {
@@ -2147,11 +2149,10 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -2160,7 +2161,7 @@
                     }
                 },
                 {
-                    "Category": "Derived Data",
+                    "Category": "Derived World Data",
                     "MemberType": "Property",
                     "Name": "WorldCFrame",
                     "Security": {
@@ -2168,11 +2169,10 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -2181,7 +2181,7 @@
                     }
                 },
                 {
-                    "Category": "Derived Data",
+                    "Category": "Derived World Data",
                     "MemberType": "Property",
                     "Name": "WorldOrientation",
                     "Security": {
@@ -2189,11 +2189,10 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -2202,7 +2201,7 @@
                     }
                 },
                 {
-                    "Category": "Derived Data",
+                    "Category": "Derived World Data",
                     "MemberType": "Property",
                     "Name": "WorldPosition",
                     "Security": {
@@ -2210,11 +2209,10 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -2235,6 +2233,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated",
                         "Deprecated"
@@ -2245,7 +2244,7 @@
                     }
                 },
                 {
-                    "Category": "Derived Data",
+                    "Category": "Derived World Data",
                     "MemberType": "Property",
                     "Name": "WorldSecondaryAxis",
                     "Security": {
@@ -2253,11 +2252,10 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -2274,7 +2272,10 @@
                         "Category": "DataType",
                         "Name": "Vector3"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -2285,7 +2286,10 @@
                         "Category": "DataType",
                         "Name": "Vector3"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -2303,7 +2307,10 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -2321,7 +2328,10 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",
@@ -19428,6 +19438,23 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "BreakJointsOnDeath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CameraOffset",
@@ -23515,6 +23542,83 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FileName",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FileSize",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFileContentsBinary",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTemporaryId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    },
+                    "Security": "PluginSecurity"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "LocalAsset",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "Flush",
                     "Parameters": [
@@ -23842,6 +23946,27 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTranslatorForLocaleAsync",
+                    "Parameters": [
+                        {
+                            "Name": "locale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -31637,35 +31762,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetPhysicsAnalyzerBreakOnIssue",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "PluginSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetPhysicsAnalyzerIssue",
-                    "Parameters": [
-                        {
-                            "Name": "index",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
-                    },
-                    "Security": "PluginSecurity"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetPhysicsThrottling",
                     "Parameters": [
                     ],
@@ -31790,24 +31886,6 @@
                         "Name": "bool"
                     },
                     "Security": "None"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetPhysicsAnalyzerBreakOnIssue",
-                    "Parameters": [
-                        {
-                            "Name": "enable",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -31937,20 +32015,6 @@
                     "Tags": [
                         "Deprecated"
                     ]
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "PhysicsAnalyzerIssuesFound",
-                    "Parameters": [
-                        {
-                            "Name": "count",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "Security": "PluginSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -33426,27 +33490,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "PhysicsAnalyzerEnabled",
-                    "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -36143,6 +36186,48 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetHumanoidDescriptionFromOutfitId",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetHumanoidDescriptionFromUserId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetNameFromUserIdAsync",
                     "Parameters": [
                         {
@@ -37489,6 +37574,45 @@
                     "MemberType": "Function",
                     "Name": "CreateButton",
                     "Parameters": [
+                        {
+                            "Name": "text",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "tooltip",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "iconname",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateButtonWithId",
+                    "Parameters": [
+                        {
+                            "Name": "buttonId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
                         {
                             "Name": "text",
                             "Type": {
@@ -44078,6 +44202,23 @@
                     }
                 },
                 {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "Camera Zoom to Mouse Position",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Output",
                     "MemberType": "Property",
                     "Name": "Clear Output On Start",
@@ -45145,6 +45286,64 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptImportLocalAsset",
+                    "Parameters": [
+                        {
+                            "Name": "prompt",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "{}",
+                            "Name": "fileTypeFilter",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptImportLocalAssets",
+                    "Parameters": [
+                        {
+                            "Name": "prompt",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "{}",
+                            "Name": "fileTypeFilter",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 }
             ],
             "MemoryCategory": "Instances",

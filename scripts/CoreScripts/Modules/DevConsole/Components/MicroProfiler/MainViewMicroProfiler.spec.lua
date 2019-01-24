@@ -13,6 +13,9 @@ return function()
 				MainView = {
 					currTabIndex = 0
 				},
+				MicroProfiler = {
+					lastFileOutputLocation = ""
+				},
 			}
 		end)
 

@@ -14,7 +14,7 @@
     <addaction name="pasteAction" visible="false" />
     <addaction name="duplicateSelectionAction" visible="false" />
   </QuickAccessBar>
-  <SystemButton name="File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" tooltip="Click here to open, save or publish,&#xA;and to see everything else you can &#xA;do with the document">
+  <SystemButton name="File" text="File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" tooltip="Click here to open, save or publish,&#xA;and to see everything else you can &#xA;do with the document">
     <SystemPopup>
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
@@ -27,7 +27,7 @@
       <addaction name="publishToRobloxAsAction"/>
       <addaction name="downloadPlaceCopyAction"/>
       <addseparator />
-      <submenu name="Advanced">
+      <submenu name="Advanced" text="Advanced">
         <addaction name="fileOpenRecentSavesAction"/>
         <addaction name="publishGameAction"/>
         <addaction name="exportPlaceAction"/>
@@ -37,6 +37,7 @@
         <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
       </submenu>
       <addseparator />
+      <addaction fflag ="StudioDumpUntranslatedStrings" name="dumpUntranslatedStringsAction"/>
       <addaction name="aboutRobloxAction"/>
       <addaction name="onlineHelpAction"/>
       <addaction name="settingsAction"/>
@@ -356,9 +357,6 @@
       </Group>
       <Group name="Audio">
         <addaction name="audioToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Audio-Disabled.png" width="32" height="32" text="Mute" tooltip="Toggle Game Audio Sounds"/>
-      </Group>
-      <Group name="Analyze">
-        <addaction name="analyzePhysicsToggleAction" iscommonslot="true" style="textundericon" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Test/Physics-Test.png" width="32" height="32" text="Physics" tooltip="Toggle Physics Analyzer"/>
       </Group>
     </TabPage>
     <!--

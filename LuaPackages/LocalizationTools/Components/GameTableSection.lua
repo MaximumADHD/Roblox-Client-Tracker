@@ -5,6 +5,7 @@ local LabeledButton = require(script.Parent.LabeledButton)
 local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 
 local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
+local StudioLocalizationUseGameIdChangedSignal = settings():GetFFlag("StudioLocalizationUseGameIdChangedSignal")
 
 local UploadDialogContent
 if StudioLocalizationSelectiveUpload then
@@ -97,14 +98,18 @@ function GameTableSection:init()
 		)
 	end
 
-	self._idChangedConnection = self.props.PlaceIdChangedSignal:Connect(function()
-		spawn(function()
-			--[[When the PlaceId signal changed event gets fired, the gameId is still not right,
-			So, spawning a function in order to wait for the GameId to kick in.  Then test for
-			availability to edit]]
-			checkIfAvailable()
+	if StudioLocalizationUseGameIdChangedSignal then
+		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkIfAvailable)
+	else
+		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(function()
+			spawn(function()
+				--[[When the PlaceId signal changed event gets fired, the gameId is still not right,
+				So, spawning a function in order to wait for the GameId to kick in.  Then test for
+				availability to edit]]
+				checkIfAvailable()
+			end)
 		end)
-	end)
+	end
 
 	spawn(checkIfAvailable)
 

@@ -52,13 +52,12 @@ local TOUCH_CHANGED_PROPS = {
 }
 local CAMERA_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Follow)" or "Default (Classic)"
 
-local FFlagUserIsNowADynamicThumbstick = settings():GetFFlag("UserIsNowADynamicThumbstick")
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
-local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and (FFlagUserIsNowADynamicThumbstick and "Default (Dynamic Thumbstick)" or "Default (Thumbstick)") or "Default (Keyboard)"
+local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Dynamic Thumbstick)" or "Default (Keyboard)"
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
 local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and "Tap to Move" or "Click to Move"
 local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"

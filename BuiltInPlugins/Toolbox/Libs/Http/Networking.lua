@@ -10,7 +10,7 @@ local StatusCodes = require(script.Parent.StatusCodes)
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
-local EnableToolboxHttpErrorHandling = settings():GetFFlag("EnableToolboxHttpErrorHandling")
+local EnableToolboxHttpErrorHandling2 = settings():GetFFlag("EnableToolboxHttpErrorHandling2")
 
 -- helper functions
 local function getHttpStatus(response)
@@ -92,7 +92,6 @@ local function createHttpPromise(httpFunc, ...)
 		-- NOTE - the http function will yield the thread, so spawn a new one
 		spawn(function()
 			local httpResponse = httpFunc(unpack(args))
-
 			if httpResponse.responseCode == StatusCodes.OK then
 				resolve(httpResponse)
 			else
@@ -138,7 +137,7 @@ end
 -- url : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpGetJson(url)
-	if EnableToolboxHttpErrorHandling then
+	if EnableToolboxHttpErrorHandling2 then
 		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
 			-- On promise resolved
 			function(result)
@@ -150,7 +149,7 @@ function Networking:httpGetJson(url)
 				return result
 			end)
 	else
-		return createHttpPromise(httpPost, self._httpImpl, url):andThen(
+		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
 			function(result)
 				if result.responseCode == StatusCodes.OK then
 					result.responseBody = self:jsonDecode(result.responseBody)
@@ -165,7 +164,7 @@ end
 -- payload : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPostJson(url, payload)
-	if EnableToolboxHttpErrorHandling then
+	if EnableToolboxHttpErrorHandling2 then
 		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
 			function(result)
 				result.responseBody = self:jsonDecode(result.responseBody)

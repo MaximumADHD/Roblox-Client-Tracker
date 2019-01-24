@@ -13,9 +13,11 @@ local function destroyGUI(self)
 		self.Connections = nil		
 	end
 	
-	if nil ~= self.KillScreenUtil then
-		self.KillScreenUtil:terminate()
-		self.KillScreenUtil = nil
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		if nil ~= self.KillScreenUtil then
+			self.KillScreenUtil:terminate()
+			self.KillScreenUtil = nil
+		end
 	end
 	
 	if nil ~= self.GUI then
@@ -27,9 +29,18 @@ local function destroyGUI(self)
 		self.SaveButton:terminate()
 	end
 
-	if nil ~= self.resize then
-		self.resize:terminate()
-		self.resize = nil
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		if nil ~= self.resize then
+			self.resize:terminate()
+			self.resize = nil
+		end
+	end
+
+	if FastFlags:useQWidgetsForPopupsOn() then
+		if self.QtWindow then
+			self.QtWindow:terminate()
+			self.QtWindow = nil
+		end
 	end
 end
 
@@ -45,8 +56,10 @@ function Save:show()
 	local rig = self.Paths.DataModelRig:getItem().Item.Parent
 	local gui = self.Paths.GUIPopUpSave:clone()
 	self.GUI = gui
-	self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
-	self.KillScreenUtil = self.Paths.WidgetKillScreen:new(self.Paths, gui.KillScreen, true)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
+		self.KillScreenUtil = self.Paths.WidgetKillScreen:new(self.Paths, gui.KillScreen, true)
+	end
 	self.Connections = self.Paths.UtilityScriptConnections:new(self.Paths)
 
 	self.CancelButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.GUI.Cancel)
@@ -62,7 +75,7 @@ function Save:show()
 			if v:IsA("KeyframeSequence") and v.Name ~= "Automatic Save" then
 				local btn = gui.Template:clone()
 				btn.Text = v.Name
-				btn.Position = UDim2.new(0, 0, 0, 23 * (count))
+				btn.Position = UDim2.new(0.5, 0, 0, 23 * (count))
 				btn.Parent = gui.ScrollingFrame
 				btn.Visible = true
 				self.Connections:add(btn.MouseButton1Click:connect(function()
@@ -100,6 +113,14 @@ function Save:show()
 		if property == "Text" then
 			if self.GUI.TextBox.Text ~= "" then
 				self.SaveButton:setEnabled(true)
+				if FastFlags:isFixAnimationsWithLongNamesOn() then
+					local textWidth = self.GUI.TextBox.TextBounds.X
+					if textWidth > self.GUI.TextBox.AbsoluteSize.X then
+						self.GUI.TextBox.TextXAlignment = Enum.TextXAlignment.Right
+					else
+						self.GUI.TextBox.TextXAlignment = Enum.TextXAlignment.Left
+					end
+				end
 			else
 				self.SaveButton:setEnabled(false)
 			end
@@ -122,15 +143,25 @@ function Save:show()
 	end))
 	
 	self.Connections:add(gui.Cancel.MouseButton1Click:connect(cancelFunc))
-	self.Connections:add(self.KillScreenUtil.OnKillEvent:connect(cancelFunc))		
-	
-	local numOverwrite = #gui.ScrollingFrame:GetChildren()
-	gui.ScrollingFrame.CanvasSize = UDim2.new(0,0,0,23 * numOverwrite)
-	
-	gui.Parent = self.Paths.GUIPopUps
 
-	local minHeight = 150
-	self.resize = self.Paths.UtilityScriptResize:new(gui, minHeight, self.Paths.GUIScrollingJointTimeline)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		if FastFlags:isFixAnimationsWithLongNamesOn() then
+			self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, "Save", self.GUI, cancelFunc, Vector2.new(200, 300), true)
+		else
+			self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, "Save", self.GUI, cancelFunc)
+		end
+		self.QtWindow:turnOn(true)
+	else
+		self.Connections:add(self.KillScreenUtil.OnKillEvent:connect(cancelFunc))		
+		
+		local numOverwrite = #gui.ScrollingFrame:GetChildren()
+		gui.ScrollingFrame.CanvasSize = UDim2.new(0,0,0,23 * numOverwrite)
+		
+		gui.Parent = self.Paths.GUIPopUps
+
+		local minHeight = 150
+		self.resize = self.Paths.UtilityScriptResize:new(gui, minHeight, self.Paths.GUIScrollingJointTimeline)
+	end
 end
 
 function Save:terminate()

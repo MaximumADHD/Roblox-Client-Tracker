@@ -11,8 +11,6 @@ local SetUserMembershipType = require(CorePackages.AppTempCommon.LuaApp.Actions.
 local SetUserPresence = require(CorePackages.AppTempCommon.LuaApp.Actions.SetUserPresence)
 local SetUserThumbnail = require(CorePackages.AppTempCommon.LuaApp.Actions.SetUserThumbnail)
 
-local FFlagFixUsersReducerDataLoss = settings():GetFFlag("FixUsersReducerDataLoss361")
-
 return function(state, action)
 	state = state or {}
 
@@ -20,23 +18,18 @@ return function(state, action)
 		local user = action.user
 		state = Immutable.Set(state, user.id, user)
 	elseif action.type == AddUsers.name then
-		if FFlagFixUsersReducerDataLoss then
-			local addedUsers = action.users
-			local usersUpdate = {}
-			for userId, addedUser in pairs(addedUsers) do
-				local existingUser = state[userId]
-				if existingUser then
-					usersUpdate[userId] = Immutable.JoinDictionaries(existingUser, addedUser)
-				else
-					usersUpdate[userId] = addedUser
-				end
+		local addedUsers = action.users
+		local usersUpdate = {}
+		for userId, addedUser in pairs(addedUsers) do
+			local existingUser = state[userId]
+			if existingUser then
+				usersUpdate[userId] = Immutable.JoinDictionaries(existingUser, addedUser)
+			else
+				usersUpdate[userId] = addedUser
 			end
-
-			state = Immutable.JoinDictionaries(state, usersUpdate)
-		else
-			local users = action.users
-			state = Immutable.JoinDictionaries(state, users)
 		end
+
+		state = Immutable.JoinDictionaries(state, usersUpdate)
 
 	elseif action.type == SetUserIsFriend.name then
 		local user = state[action.userId]
@@ -75,28 +68,16 @@ return function(state, action)
 	elseif action.type == SetUserThumbnail.name then
 		local user = state[action.userId]
 		if user then
-			if FFlagFixUsersReducerDataLoss then
-				local thumbnails = user.thumbnails or {}
-				state = Immutable.JoinDictionaries(state, {
-					[action.userId] = Immutable.JoinDictionaries(user, {
-						thumbnails = Immutable.JoinDictionaries(thumbnails, {
-							[action.thumbnailType] = Immutable.JoinDictionaries(thumbnails[action.thumbnailType] or {}, {
-								[action.thumbnailSize] = action.image,
-							}),
+			local thumbnails = user.thumbnails or {}
+			state = Immutable.JoinDictionaries(state, {
+				[action.userId] = Immutable.JoinDictionaries(user, {
+					thumbnails = Immutable.JoinDictionaries(thumbnails, {
+						[action.thumbnailType] = Immutable.JoinDictionaries(thumbnails[action.thumbnailType] or {}, {
+							[action.thumbnailSize] = action.image,
 						}),
 					}),
-				})
-			else
-				state = Immutable.JoinDictionaries(state, {
-					[action.userId] = Immutable.JoinDictionaries(user, {
-						thumbnails = Immutable.JoinDictionaries(user.thumbnails, {
-							[action.thumbnailType] = Immutable.JoinDictionaries(user.thumbnails[action.thumbnailType] or {}, {
-								[action.thumbnailSize] = action.image,
-							}),
-						}),
-					}),
-				})
-			end
+				}),
+			})
 		end
 	elseif action.type == SetUserMembershipType.name then
 		local user = state[action.userId]

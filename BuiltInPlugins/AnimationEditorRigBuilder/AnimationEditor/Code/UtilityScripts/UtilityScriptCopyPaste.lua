@@ -215,7 +215,7 @@ function CopyPaste:paste(atTime, registerUndo)
 	if FastFlags:isAnimationEventsOn() then
 		if canPasteEvents(self) then
 			self.Paths.ActionPaste:executePasteEvents(self.Paths, atTime, self.CopyItemsList, registerUndo)
-		else
+		elseif not FastFlags:isSelectEventsOnEdgeOn() or self:canPasteAny() then
 			self.Paths.ActionPaste:execute(self.Paths, atTime, self.CopyItemsList, self.CopyVariables, self.CopiedInIKMode, registerUndo)
 		end
 	elseif self:canPasteAny() then

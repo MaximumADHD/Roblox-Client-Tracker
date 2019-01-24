@@ -8,6 +8,7 @@ local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
@@ -19,6 +20,9 @@ local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJank
 local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
+
+local FFlagLoadingScriptWaitForCharacterLoaded = settings():GetFFlag("LoadingScriptWaitForCharacterLoaded")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local debugMode = false
 
@@ -532,6 +536,7 @@ function MainGui:GenerateMain()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 30),
 		Position = UDim2.new(0, 0, 0, 80),
+		Visible = not FFlagChinaLicensingApp,
 		Font = Enum.Font.SourceSansLight,
 		FontSize = (isTenFootInterface and Enum.FontSize.Size36 or Enum.FontSize.Size18),
 		TextWrapped = true,
@@ -912,17 +917,36 @@ function destroyLoadingElements(instant)
 	end
 end
 
+function waitForCharacterLoaded()
+	if Players.CharacterAutoLoads then
+		local localPlayer = Players.LocalPlayer
+		if not localPlayer then
+			Players:GetPropertyChangedSignal("LocalPlayer"):wait()
+			localPlayer = Players.LocalPlayer
+		end
+		if not localPlayer.Character then
+			localPlayer.CharacterAdded:wait()
+		end
+	end
+end
+
 function handleFinishedReplicating()
 	hasReplicatedFirstElements = (#game:GetService("ReplicatedFirst"):GetChildren() > 0)
 
 	if not hasReplicatedFirstElements then
 		if game:IsLoaded() then
+			if FFlagLoadingScriptWaitForCharacterLoaded then
+				waitForCharacterLoaded()
+			end
 			handleRemoveDefaultLoadingGui()
 		else
 			local gameLoadedCon = nil
 			gameLoadedCon = game.Loaded:connect(function()
 				gameLoadedCon:disconnect()
 				gameLoadedCon = nil
+				if FFlagLoadingScriptWaitForCharacterLoaded then
+					waitForCharacterLoaded()
+				end
 				handleRemoveDefaultLoadingGui()
 			end)
 		end

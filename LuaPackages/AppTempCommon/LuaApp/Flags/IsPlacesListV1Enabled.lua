@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 local ThrottleUserId = require(CorePackages.AppTempCommon.LuaApp.Utils.ThrottleUserId)
 
-local FIntLuaHomePageEnablePlacesListV1 = settings():GetFVariable("LuaHomePageEnablePlacesListV1V361")
+local FIntLuaHomePageEnablePlacesListV1 = settings():GetFVariable("LuaHomePageEnablePlacesListV1V369")
 
 -- Don't call this function globally because we cannot get the userId
 -- Reason: The LocalPlayer wouldn't be ready if we called it globally.

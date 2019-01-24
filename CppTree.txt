@@ -915,6 +915,7 @@ RBX
 	Lighting
 	LineHandleAdornment
 	Link
+	LocalAsset
 	LocalizationService
 	LocalizationTable
 	LocalScript
@@ -947,6 +948,7 @@ RBX
 	MeshPart
 	Message
 	MessagingService
+	MessagingServiceJob
 	MockMarketplaceApiClient
 	ModelInstance
 	ModelTool

@@ -28,13 +28,27 @@ local function destroyGUI(self)
 		self.MovementButton:terminate()
 		self.Idle:terminate()
 	end
+
+	if FastFlags:useQWidgetsForPopupsOn() then
+		if self.QtWindow then
+			self.QtWindow:terminate()
+			self.QtWindow = nil
+		end
+	end
 end
 
 function Priority:show()
 	self.GUI = self.Paths.GUIPopUpPriority:clone()
-	self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
-	self.KillScreenUtil = self.Paths.WidgetKillScreen:new(self.Paths, self.GUI.KillScreen, true)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
+		self.KillScreenUtil = self.Paths.WidgetKillScreen:new(self.Paths, self.GUI.KillScreen, true)
+	end
 	self.Connections = self.Paths.UtilityScriptConnections:new(self.Paths)
+
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, "Priority", self.GUI, function() destroyGUI(self) end)
+		self.QtWindow:turnOn(true)
+	end
 
 	self.CoreButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.GUI.Core)
 	self.ActionButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.GUI.Action)
@@ -64,9 +78,11 @@ function Priority:show()
 			self.Paths.Globals.Plugin:OpenWikiPage("Animations#Priority")
 		end
 	end))
-	self.Connections:add(self.KillScreenUtil.OnKillEvent:connect(function() destroyGUI(self) end))	
-	
-	self.GUI.Parent = self.Paths.GUIPopUps		
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Connections:add(self.KillScreenUtil.OnKillEvent:connect(function() destroyGUI(self) end))
+		
+		self.GUI.Parent = self.Paths.GUIPopUps
+	end
 end
 
 function Priority:terminate()

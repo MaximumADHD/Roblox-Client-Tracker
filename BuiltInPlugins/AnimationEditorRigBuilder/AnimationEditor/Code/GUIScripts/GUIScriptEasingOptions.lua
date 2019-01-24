@@ -78,12 +78,20 @@ local function initEasingStyle(self)
 end
 
 local function closeAndRevert(self)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow:turnOn(false)
+	end
 	self.Paths.ActionEditEasingOptions:executeMultiple(self.Paths, self.Poses, self.initialEasingDirections, self.initialEasingStyles)
 end
 
 local function closeAndKeep(self)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow:turnOn(false)
+	end
 	-- first go back to how we were when the pop-up window opened
 	self.Paths.ActionEditEasingOptions:executeMultiple(self.Paths, self.Poses, self.initialEasingDirections, self.initialEasingStyles)
 	-- now make the change from the initial style/direction to the selected style and direction undoable
@@ -93,8 +101,13 @@ end
 function EasingOptions:init(Paths)
 	self.Paths = Paths
 	self.TargetWidget = Paths.GUIPopUpEasingOptions:clone()
-	self.SubWindow = Paths.GUIScriptSubWindow:new(Paths, self.TargetWidget, Paths.GUIPopUps)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow = Paths.GUIScriptQtWindow:new(Paths, "Easing Options", self.TargetWidget, function() closeAndRevert(self) end)
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow = Paths.GUIScriptSubWindow:new(Paths, self.TargetWidget, Paths.GUIPopUps)
+		self.SubWindow:turnOn(false)
+	end
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)
 	
 	self.CancelButton = Paths.WidgetCustomImageButton:new(Paths, self.TargetWidget.OkCancel.Cancel)
@@ -103,7 +116,9 @@ function EasingOptions:init(Paths)
 	initEasingDirection(self)
 	initEasingStyle(self)
 
-	self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() closeAndRevert(self) end))
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() closeAndRevert(self) end))
+	end
 	self.Connections:add(self.TargetWidget.OkCancel.Cancel.MouseButton1Click:connect(function() closeAndRevert(self) end))	
 	self.Connections:add(self.TargetWidget.OkCancel.OK.MouseButton1Click:connect(function() 
 		if self.OKButton:getEnabled() then
@@ -111,8 +126,14 @@ function EasingOptions:init(Paths)
 		end 
 	end))
 	local closeForChanges = function()
-		if self.SubWindow and self.SubWindow:isOn() then -- close if anything done while the menu is open, as things could be in a weird state
-			closeAndRevert(self)
+		if FastFlags:useQWidgetsForPopupsOn() then
+			if self.QtWindow and self.QtWindow:isOn() then -- close if anything done while the menu is open, as things could be in a weird state
+				closeAndRevert(self)
+			end
+		else
+			if self.SubWindow and self.SubWindow:isOn() then -- close if anything done while the menu is open, as things could be in a weird state
+				closeAndRevert(self)
+			end
 		end
 	end
 	self.Connections:add(self.Paths.UtilityScriptUndoRedo.ChangeEvent:connect(closeForChanges))
@@ -140,7 +161,11 @@ function EasingOptions:show(poses)
 		self.initialEasingDirections[#self.initialEasingDirections + 1] = pose.EasingDirection
 	end
 
-	self.SubWindow:turnOn(true)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(true)
+	else
+		self.SubWindow:turnOn(true)
+	end
 	self.OKButton:setEnabled(true)
 
 	if multipleEasingStyles then
@@ -178,8 +203,13 @@ function EasingOptions:terminate()
 	self.OKButton:terminate()	
 	self.CancelButton:terminate()
 	
-	self.SubWindow:terminate()
-	self.SubWindow = nil	
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:terminate()
+		self.QtWindow = nil
+	else
+		self.SubWindow:terminate()
+		self.SubWindow = nil
+	end
 	
 	self.TargetWidget:Destroy()
 	self.TargetWidget = nil

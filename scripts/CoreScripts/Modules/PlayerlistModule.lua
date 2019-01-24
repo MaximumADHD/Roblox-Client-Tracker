@@ -15,8 +15,6 @@ local AnalyticsService = game:GetService("AnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
-local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
 local FFlagCoreScriptFixFollowingIcon = settings():GetFFlag("CoreScriptFixFollowingIcon")
 
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
@@ -285,7 +283,7 @@ local function getMembershipIcon(player)
       if FFlagMembershipIconABTestEnabled and InMembershipIconABTest == nil then
         return ""
       end
-      
+
       local userIdStr = tostring(player.UserId)
       local membershipType = player.MembershipType
       if CUSTOM_ICONS[userIdStr] then
@@ -1089,13 +1087,11 @@ local function setFollowRelationshipsView(relationshipTable)
       end
     end
 
-	if icon or fixPlayerlistFollowingEnabled then
-		local frame = entry.Frame
-		local bgFrame = frame:FindFirstChild('BGFrame')
-		if bgFrame then
-		  updateSocialIcon(icon, bgFrame)
-		end
-	end
+    local frame = entry.Frame
+    local bgFrame = frame:FindFirstChild('BGFrame')
+    if bgFrame then
+      updateSocialIcon(icon, bgFrame)
+    end
   end
 end
 

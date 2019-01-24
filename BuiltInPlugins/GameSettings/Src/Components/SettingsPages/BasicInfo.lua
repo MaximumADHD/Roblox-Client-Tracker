@@ -60,11 +60,8 @@ local genreEntries = {
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
 
-local settingFromState = require(Plugin.Src.Networking.settingFromState)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 
 local TitledFrame = require(Plugin.Src.Components.TitledFrame)
@@ -81,50 +78,99 @@ local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
-
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 
-local BasicInfo = Roact.PureComponent:extend("BasicInfo")
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
-function BasicInfo:init()
-	self.setPageScrollingDisabled = function(elementSelected)
-		self.props.SetScrollbarEnabled(not elementSelected)
-	end
+--Loads settings values into props by key
+local function loadValuesToProps(getValue, state)
+	local errors = state.Settings.Errors
+	return {
+		Name = getValue("name"),
+		IsActive = getValue("isActive"),
+		IsFriendsOnly = getValue("isFriendsOnly"),
+		Group = getValue("creatorType") == "Group" and getValue("creatorName"),
+		Description = getValue("description"),
+		Genre = getValue("genre"),
+		Devices = getValue("playableDevices"),
+		Thumbnails = getValue("thumbnails"),
+		ThumbnailOrder = getValue("thumbnailOrder"),
+		GameIcon = getValue("gameIcon"),
+		RootPlaceId = getValue("rootPlaceId"),
+
+		NameError = errors.name,
+		DescriptionError = errors.description,
+		DevicesError = errors.playableDevices,
+	}
 end
 
-function BasicInfo:render()
-	local devices = self.props.Devices
+--Implements dispatch functions for when the user changes values
+local function dispatchChanges(setValue, dispatch)
+	return {
+		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
+		ThumbnailsChanged = setValue("thumbnails"),
+		ThumbnailOrderChanged = setValue("thumbnailOrder"),
+		GenreChanged = setValue("genre"),
 
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 1, 0),
-		LayoutOrder = self.props.LayoutOrder,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, Constants.ELEMENT_PADDING),
-			SortOrder = Enum.SortOrder.LayoutOrder,
+		NameChanged = function(text)
+			dispatch(AddChange("name", text))
+			local nameLength = string.len(text)
+			if nameLength == 0 or string.len(string.gsub(text, " ", "")) == 0 then
+				dispatch(AddErrors({name = "Empty"}))
+			elseif nameLength > MAX_NAME_LENGTH then
+				dispatch(AddErrors({name = "TooLong"}))
+			end
+		end,
+		DescriptionChanged = function(text)
+			dispatch(AddChange("description", text))
+			local descriptionLength = string.len(text)
+			if descriptionLength > MAX_DESCRIPTION_LENGTH then
+				dispatch(AddErrors({description = "TooLong"}))
+			end
+		end,
+		IsActiveChanged = function(button, willShutdown)
+			if FFlagGameSettingsShowWarningsOnSave then
+				if willShutdown then
+					dispatch(AddWarning("isActive"))
+				else
+					dispatch(DiscardWarning("isActive"))
+				end
+			end
+			dispatch(AddChange("isActive", button.Id))
+		end,
+		DevicesChanged = function(devices)
+			dispatch(AddChange("playableDevices", devices))
+			for _, value in pairs(devices) do
+				if value then
+					return
+				end
+			end
+			dispatch(AddErrors({playableDevices = "NoDevices"}))
+		end,
+	}
+end
 
-			[Roact.Change.AbsoluteContentSize] = function(rbx)
-				self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-			end,
-		}),
+--Uses props to display current settings values
+local function displayContents(page)
+	local props = page.props
+	local devices = props.Devices
 
+	return {
 		Name = Roact.createElement(TitledFrame, {
 			Title = "Name",
 			MaxHeight = 60,
 			LayoutOrder = 1,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
-				Active = self.props.Name ~= nil,
-				ErrorMessage = nameErrors[self.props.NameError],
+				Active = props.Name ~= nil,
+				ErrorMessage = nameErrors[props.NameError],
 				MaxLength = MAX_NAME_LENGTH,
-				Text = self.props.Name or "",
+				Text = props.Name or "",
 
-				SetText = self.props.NameChanged,
+				SetText = props.NameChanged,
 			}),
 		}),
 
@@ -137,15 +183,15 @@ function BasicInfo:render()
 				Height = 130,
 				Multiline = true,
 
-				Active = self.props.Description ~= nil,
-				ErrorMessage = descriptionErrors[self.props.DescriptionError],
+				Active = props.Description ~= nil,
+				ErrorMessage = descriptionErrors[props.DescriptionError],
 				MaxLength = MAX_DESCRIPTION_LENGTH,
-				Text = self.props.Description or "",
+				Text = props.Description or "",
 
-				SetText = self.props.DescriptionChanged,
+				SetText = props.DescriptionChanged,
 
-				FocusChanged = self.setPageScrollingDisabled,
-				HoverChanged = self.setPageScrollingDisabled,
+				FocusChanged = page.setPageScrollingDisabled,
+				HoverChanged = page.setPageScrollingDisabled,
 			}),
 		}),
 
@@ -163,26 +209,26 @@ function BasicInfo:render()
 					Description = "Anyone on Roblox"
 				}, {
 					Id = "Friends",
-					Title = self.props.Group and "Group Members" or "Friends",
-					Description = self.props.Group and ("Members of " .. self.props.Group) or "Friends on Roblox"
+					Title = props.Group and "Group Members" or "Friends",
+					Description = props.Group and ("Members of " .. props.Group) or "Friends on Roblox"
 				}, {
 					Id = false,
 					Title = "Private",
 					Description = "Only developers of this game"
 				},
 			},
-			Enabled = self.props.IsActive ~= nil,
+			Enabled = props.IsActive ~= nil,
 			--Functionality
-			Selected = self.props.IsFriendsOnly and "Friends" or self.props.IsActive,
+			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)
 				if button.Id == "Friends" then
-					self.props.IsFriendsOnlyChanged(true)
-					self.props.IsActiveChanged({Id = true})
+					props.IsFriendsOnlyChanged(true)
+					props.IsActiveChanged({Id = true})
 				else
 					if FFlagGameSettingsShowWarningsOnSave then
-						self.props.IsFriendsOnlyChanged(false)
-						local willShutdown = self.props.IsActive and not button.Id
-						self.props.IsActiveChanged(button, willShutdown)
+						props.IsFriendsOnlyChanged(false)
+						local willShutdown = props.IsActive and not button.Id
+						props.IsActiveChanged(button, willShutdown)
 					else
 						if button.Id == false then
 							local dialogProps = {
@@ -191,12 +237,12 @@ function BasicInfo:render()
 								Description = "Making a game private will shut down any running games.",
 								Buttons = {"No", "Yes"},
 							}
-							if not showDialog(self, WarningDialog, dialogProps):await() then
+							if not showDialog(page, WarningDialog, dialogProps):await() then
 								return
 							end
 						end
-						self.props.IsFriendsOnlyChanged(false)
-						self.props.IsActiveChanged(button)
+						props.IsFriendsOnlyChanged(false)
+						props.IsActiveChanged(button)
 					end
 				end
 			end,
@@ -208,11 +254,11 @@ function BasicInfo:render()
 
 		Icon = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(GameIconWidget, {
 			LayoutOrder = 6,
-			Enabled = self.props.GameIcon ~= nil,
-			Icon = self.props.GameIcon,
+			Enabled = props.GameIcon ~= nil,
+			Icon = props.GameIcon,
 			AddIcon = function()
 				-- TODO: Replace this with an actual solution when able to upload images
-				BrowserUtils.OpenPlaceSettings(self.props.RootPlaceId)
+				BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
 			end,
 		}),
 
@@ -222,15 +268,15 @@ function BasicInfo:render()
 
 		Thumbnails = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(ThumbnailController, {
 			LayoutOrder = 8,
-			Enabled = self.props.Thumbnails ~= nil,
-			Thumbnails = self.props.Thumbnails,
-			Order = self.props.ThumbnailOrder,
+			Enabled = props.Thumbnails ~= nil,
+			Thumbnails = props.Thumbnails,
+			Order = props.ThumbnailOrder,
 			AddThumbnail = function()
 				-- TODO: Replace this with an actual solution when able to upload images
-				BrowserUtils.OpenPlaceSettings(self.props.RootPlaceId)
+				BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
 			end,
-			ThumbnailsChanged = self.props.ThumbnailsChanged,
-			ThumbnailOrderChanged = self.props.ThumbnailOrderChanged,
+			ThumbnailsChanged = props.ThumbnailsChanged,
+			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
 		}),
 
 		Separator4 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
@@ -244,12 +290,12 @@ function BasicInfo:render()
 		}, {
 			Selector = Roact.createElement(Dropdown, {
 				Entries = genreEntries,
-				Enabled = self.props.Genre ~= nil,
-				Current = self.props.Genre,
-				CurrentChanged = self.props.GenreChanged,
+				Enabled = props.Genre ~= nil,
+				Current = props.Genre,
+				CurrentChanged = props.GenreChanged,
 
-				OpenChanged = self.setPageScrollingDisabled,
-				HoverChanged = self.setPageScrollingDisabled,
+				OpenChanged = page.setPageScrollingDisabled,
+				HoverChanged = page.setPageScrollingDisabled,
 			}),
 		}),
 
@@ -275,7 +321,7 @@ function BasicInfo:render()
 				},
 			},
 			Enabled = devices ~= nil,
-			ErrorMessage = (self.props.DevicesError and "You must select at least one playable device.") or nil,
+			ErrorMessage = (props.DevicesError and "You must select at least one playable device.") or nil,
 			--Functionality
 			EntryClicked = function(box)
 				if box.Id == "Console" and not box.Selected then
@@ -293,92 +339,30 @@ function BasicInfo:render()
 						},
 						Buttons = {"Disagree", "Agree"},
 					}
-					if not showDialog(self, ListDialog, dialogProps):await() then
+					if not showDialog(page, ListDialog, dialogProps):await() then
 						return
 					end
 				end
 				local newDevices = Cryo.Dictionary.join(devices, {
 					[box.Id] = not box.Selected,
 				})
-				self.props.DevicesChanged(newDevices)
+				props.DevicesChanged(newDevices)
 			end,
 		}),
-	})
+	}
 end
 
-BasicInfo = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		return {
-			Name = settingFromState(state.Settings, "name"),
-			IsActive = settingFromState(state.Settings, "isActive"),
-			IsFriendsOnly = settingFromState(state.Settings, "isFriendsOnly"),
-			Group = settingFromState(state.Settings, "creatorType") == "Group"
-				and settingFromState(state.Settings, "creatorName"),
-			Description = settingFromState(state.Settings, "description"),
-			Genre = settingFromState(state.Settings, "genre"),
-			Devices = settingFromState(state.Settings, "playableDevices"),
-			Thumbnails = settingFromState(state.Settings, "thumbnails"),
-			ThumbnailOrder = settingFromState(state.Settings, "thumbnailOrder"),
-			GameIcon = settingFromState(state.Settings, "gameIcon"),
-			RootPlaceId = settingFromState(state.Settings, "rootPlaceId"),
+local SettingsPage = createSettingsPage("Basic Info", loadValuesToProps, dispatchChanges)
 
-			NameError = state.Settings.Errors.name,
-			DescriptionError = state.Settings.Errors.description,
-			DevicesError = state.Settings.Errors.playableDevices,
-		}
-	end,
-	function(dispatch)
-		return {
-			NameChanged = function(text)
-				dispatch(AddChange("name", text))
-				local nameLength = string.len(text)
-				if nameLength == 0 or string.len(string.gsub(text, " ", "")) == 0 then
-					dispatch(AddErrors({name = "Empty"}))
-				elseif nameLength > MAX_NAME_LENGTH then
-					dispatch(AddErrors({name = "TooLong"}))
-				end
-			end,
-			DescriptionChanged = function(text)
-				dispatch(AddChange("description", text))
-				local descriptionLength = string.len(text)
-				if descriptionLength > MAX_DESCRIPTION_LENGTH then
-					dispatch(AddErrors({description = "TooLong"}))
-				end
-			end,
-			IsActiveChanged = function(button, willShutdown)
-				if FFlagGameSettingsShowWarningsOnSave then
-					if willShutdown then
-						dispatch(AddWarning("isActive"))
-					else
-						dispatch(DiscardWarning("isActive"))
-					end
-				end
-				dispatch(AddChange("isActive", button.Id))
-			end,
-			IsFriendsOnlyChanged = function(isFriendsOnly)
-				dispatch(AddChange("isFriendsOnly", isFriendsOnly))
-			end,
-			ThumbnailsChanged = function(thumbnails)
-				dispatch(AddChange("thumbnails", thumbnails))
-			end,
-			ThumbnailOrderChanged = function(thumbnailOrder)
-				dispatch(AddChange("thumbnailOrder", thumbnailOrder))
-			end,
-			GenreChanged = function(genre)
-				dispatch(AddChange("genre", genre))
-			end,
-			DevicesChanged = function(devices)
-				dispatch(AddChange("playableDevices", devices))
-				for _, value in pairs(devices) do
-					if value then
-						return
-					end
-				end
-				dispatch(AddErrors({playableDevices = "NoDevices"}))
-			end,
-		}
-	end
-)(BasicInfo)
+local function BasicInfo(props)
+	return Roact.createElement(SettingsPage, {
+		ContentHeightChanged = props.ContentHeightChanged,
+		SetScrollbarEnabled = props.SetScrollbarEnabled,
+		LayoutOrder = props.LayoutOrder,
+		Content = displayContents,
+
+		AddLayout = true,
+	})
+end
 
 return BasicInfo

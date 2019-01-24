@@ -6,6 +6,7 @@ local PROMISE_DEBUG = false
 
 --[[
 	Packs a number of arguments into a table and returns its length.
+
 	Used to cajole varargs without dropping sparse values.
 ]]
 local function pack(...)
@@ -18,7 +19,7 @@ end
 	wpcallPacked is a version of xpcall that:
 	* Returns the length of the result first
 	* Returns the result packed into a table
-	* Passes extra arguments through to the passed function, which xpcall does not
+	* Passes extra arguments through to the passed function; xpcall doesn't
 	* Issues a warning if PROMISE_DEBUG is enabled
 ]]
 local function wpcallPacked(f, ...)
@@ -61,22 +62,41 @@ local function isEmpty(t)
 	return next(t) == nil
 end
 
+local function createSymbol(name)
+	assert(type(name) == "string", "createSymbol requires `name` to be a string.")
+
+	local symbol = newproxy(true)
+
+	getmetatable(symbol).__tostring = function()
+		return ("Symbol(%s)"):format(name)
+	end
+
+	return symbol
+end
+
+local PromiseMarker = createSymbol("PromiseMarker")
+
 local Promise = {}
-Promise.__index = Promise
+Promise.prototype = {}
+Promise.__index = Promise.prototype
 
 Promise.Status = {
-	Started = "Started",
-	Resolved = "Resolved",
-	Rejected = "Rejected",
+	Started = createSymbol("Started"),
+	Resolved = createSymbol("Resolved"),
+	Rejected = createSymbol("Rejected"),
 }
 
 --[[
 	Constructs a new Promise with the given initializing callback.
+
 	This is generally only called when directly wrapping a non-promise API into
 	a promise-based version.
+
 	The callback will receive 'resolve' and 'reject' methods, used to start
 	invoking the promise chain.
+
 	For example:
+
 		local function get(url)
 			return Promise.new(function(resolve, reject)
 				spawn(function()
@@ -84,18 +104,19 @@ Promise.Status = {
 				end)
 			end)
 		end
+
 		get("https://google.com")
 			:andThen(function(stuff)
 				print("Got some stuff!", stuff)
 			end)
 ]]
 function Promise.new(callback)
-	local promise = {
+	local self = {
 		-- Used to locate where a promise was created
 		_source = debug.traceback(),
 
 		-- A tag to identify us as a promise
-		_type = "Promise",
+		[PromiseMarker] = true,
 
 		_status = Promise.Status.Started,
 
@@ -115,25 +136,25 @@ function Promise.new(callback)
 		_queuedReject = {},
 	}
 
-	setmetatable(promise, Promise)
+	setmetatable(self, Promise)
 
 	local function resolve(...)
-		promise:_resolve(...)
+		self:_resolve(...)
 	end
 
 	local function reject(...)
-		promise:_reject(...)
+		self:_reject(...)
 	end
 
 	local _, result = wpcallPacked(callback, resolve, reject)
 	local ok = result[1]
 	local err = result[2]
 
-	if not ok and promise._status == Promise.Status.Started then
+	if not ok and self._status == Promise.Status.Started then
 		reject(err)
 	end
 
-	return promise
+	return self
 end
 
 --[[
@@ -159,70 +180,53 @@ end
 		* is resolved when all input promises resolve
 		* is rejected if ANY input promises reject
 ]]
-function Promise.all(...)
-	local promises = {...}
+function Promise.all(promises)
+	if type(promises) ~= "table" then
+		error("Please pass a list of promises to Promise.all", 2)
+	end
 
-	-- check if we've been given a list of promises, not just a variable number of promises
-	if type(promises[1]) == "table" and promises[1]._type ~= "Promise" then
-		-- we've been given a table of promises already
-		promises = promises[1]
+	-- If there are no values then return an already resolved promise.
+	if #promises == 0 then
+		return Promise.resolve({})
+	end
+
+	-- We need to check that each value is a promise here so that we can produce
+	-- a proper error rather than a rejected promise with our error.
+	for i = 1, #promises do
+		if not Promise.is(promises[i]) then
+			error(("Non-promise value passed into Promise.all at index #%d"):format(i), 2)
+		end
 	end
 
 	return Promise.new(function(resolve, reject)
-		local isResolved = false
-		local results = {}
-		local totalCompleted = 0
-		local promiseCount = 0
+		-- An array to contain our resolved values from the given promises.
+		local resolvedValues = {}
 
-		-- If we're agnostic about whether the promises are a table
-		-- or a list, users can provide tables with useful keys if they like
-		for _ in pairs(promises) do
-			promiseCount = promiseCount + 1
-		end
+		-- Keep a count of resolved promises because just checking the resolved
+		-- values length wouldn't account for promises that resolve with nil.
+		local resolvedCount = 0
 
-		local function promiseCompleted(key, result)
-			if isResolved then
-				return
-			end
+		-- Called when a single value is resolved and resolves if all are done.
+		local function resolveOne(i, ...)
+			resolvedValues[i] = ...
+			resolvedCount = resolvedCount + 1
 
-			results[key] = result
-			totalCompleted = totalCompleted + 1
-
-			if totalCompleted == promiseCount then
-				resolve(results)
-				isResolved = true
+			if resolvedCount == #promises then
+				resolve(resolvedValues)
 			end
 		end
 
-		if promiseCount == 0 then
-			resolve(results)
-			isResolved = true
-			return
-		end
-
-		for key, promise in pairs(promises) do
-			-- if a promise isn't resolved yet, add listeners for when it does
-			if promise._status == Promise.Status.Started then
-				promise:andThen(function(result)
-					promiseCompleted(key, result)
-				end):catch(function(reason)
-					isResolved = true
-					reject(reason)
-				end)
-
-			-- if a promise is already resolved, move on
-			elseif promise._status == Promise.Status.Resolved then
-				promiseCompleted(key, unpack(promise._values))
-
-			-- if a promise is rejected, reject the whole chain
-			else --if promise._status == Promise.Status.Rejected then
-				-- We catch here to indicate that the intermediate rejection
-				-- has been handled and seen
-				promise:catch(function(reason)
-					isResolved = true
-					reject(unpack(promise._values))
-				end)
-			end
+		-- We can assume the values inside `promises` are all promises since we
+		-- checked above.
+		for i = 1, #promises do
+			promises[i]:andThen(
+				function(...)
+					resolveOne(i, ...)
+				end,
+				function(...)
+					reject(...)
+				end
+			)
 		end
 	end)
 end
@@ -235,13 +239,13 @@ function Promise.is(object)
 		return false
 	end
 
-	return object._type == "Promise"
+	return object[PromiseMarker] == true
 end
 
 --[[
 	Construct a promise from a yielding function
 ]]
-function Promise.promisify(callback)
+function Promise.wrapAsync(callback)
 	return function(...)
 		local args = {...}
 		local argLength = select("#", ...)
@@ -260,15 +264,16 @@ function Promise.promisify(callback)
 	end
 end
 
-function Promise:getStatus()
+function Promise.prototype:getStatus()
 	return self._status
 end
 
 --[[
 	Creates a new promise that receives the result of this promise.
+
 	The given callbacks are invoked depending on that result.
 ]]
-function Promise:andThen(successHandler, failureHandler)
+function Promise.prototype:andThen(successHandler, failureHandler)
 	self._unhandledRejection = false
 
 	-- Create a new promise to follow this part of the chain
@@ -303,15 +308,16 @@ end
 --[[
 	Used to catch any errors that may have occurred in the promise.
 ]]
-function Promise:catch(failureCallback)
+function Promise.prototype:catch(failureCallback)
 	return self:andThen(nil, failureCallback)
 end
 
 --[[
 	Yield until the promise is completed.
+
 	This matches the execution model of normal Roblox functions.
 ]]
-function Promise:await()
+function Promise.prototype:await()
 	self._unhandledRejection = false
 
 	if self._status == Promise.Status.Started then
@@ -319,15 +325,16 @@ function Promise:await()
 		local resultLength
 		local bindable = Instance.new("BindableEvent")
 
-		self:andThen(function(...)
-			result = {...}
-			resultLength = select("#", ...)
-			bindable:Fire(true)
-		end, function(...)
-			result = {...}
-			resultLength = select("#", ...)
-			bindable:Fire(false)
-		end)
+		self:andThen(
+			function(...)
+				resultLength, result = pack(...)
+				bindable:Fire(true)
+			end,
+			function(...)
+				resultLength, result = pack(...)
+				bindable:Fire(false)
+			end
+		)
 
 		local ok = bindable.Event:Wait()
 		bindable:Destroy()
@@ -340,17 +347,32 @@ function Promise:await()
 	end
 end
 
-function Promise:_resolve(...)
+--[[
+	Intended for use in tests.
+
+	Similar to await(), but instead of yielding if the promise is unresolved,
+	_unwrap will throw. This indicates an assumption that a promise has
+	resolved.
+]]
+function Promise.prototype:_unwrap()
+	if self._status == Promise.Status.Started then
+		error("Promise has not resolved or rejected.", 2)
+	end
+
+	local success = self._status == Promise.Status.Resolved
+
+	return success, unpack(self._values, 1, self._valuesLength)
+end
+
+function Promise.prototype:_resolve(...)
 	if self._status ~= Promise.Status.Started then
 		return
 	end
 
-	local argLength = select("#", ...)
-
 	-- If the resolved value was a Promise, we chain onto it!
 	if Promise.is((...)) then
 		-- Without this warning, arguments sometimes mysteriously disappear
-		if argLength > 1 then
+		if select("#", ...) > 1 then
 			local message = (
 				"When returning a Promise from andThen, extra arguments are " ..
 				"discarded! See:\n\n%s"
@@ -360,18 +382,20 @@ function Promise:_resolve(...)
 			warn(message)
 		end
 
-		(...):andThen(function(...)
-			self:_resolve(...)
-		end, function(...)
-			self:_reject(...)
-		end)
+		(...):andThen(
+			function(...)
+				self:_resolve(...)
+			end,
+			function(...)
+				self:_reject(...)
+			end
+		)
 
 		return
 	end
 
 	self._status = Promise.Status.Resolved
-	self._values = {...}
-	self._valuesLength = argLength
+	self._valuesLength, self._values = pack(...)
 
 	-- We assume that these callbacks will not throw errors.
 	for _, callback in ipairs(self._queuedResolve) do
@@ -379,14 +403,13 @@ function Promise:_resolve(...)
 	end
 end
 
-function Promise:_reject(...)
+function Promise.prototype:_reject(...)
 	if self._status ~= Promise.Status.Started then
 		return
 	end
 
 	self._status = Promise.Status.Rejected
-	self._values = {...}
-	self._valuesLength = select("#", ...)
+	self._valuesLength, self._values = pack(...)
 
 	-- If there are any rejection handlers, call those!
 	if not isEmpty(self._queuedReject) then

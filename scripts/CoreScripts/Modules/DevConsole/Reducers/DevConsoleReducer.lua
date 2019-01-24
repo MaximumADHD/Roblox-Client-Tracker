@@ -9,6 +9,7 @@ local DataStoresData = require(Reducers.DataStoresData)
 local ServerStatsData = require(Reducers.ServerStatsData)
 local ServerJobsData = require(Reducers.ServerJobsData)
 local ActionBindingsData = require(Reducers.ActionBindingsData)
+local MicroProfiler = require(Reducers.MicroProfiler)
 
 return function(state, action)
 	local devConsoleState = state or {}
@@ -23,5 +24,6 @@ return function(state, action)
 		ServerStatsData = ServerStatsData(devConsoleState.ServerStatsData, action),
 		ServerJobsData = ServerJobsData(devConsoleState.ServerJobsData, action),
 		ActionBindingsData = ActionBindingsData(devConsoleState.ActionBindingsData, action),
+		MicroProfiler = MicroProfiler(devConsoleState.MicroProfiler, action),
 	}
 end

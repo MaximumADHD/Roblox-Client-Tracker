@@ -148,10 +148,15 @@ function Localization:destroy()
 	end
 end
 
--- Private impl below
 
+-- Private impl below
 function Localization:_getDefaultLocaleId()
-	return "en-us"
+    local localeId = settings():GetFVariable("StudioForceLocale")
+    if (#localeId == 0) then 
+        local instance = game:GetService("LocalizationService")
+        localeId = instance.SystemLocaleId;
+	end
+	return localeId
 end
 
 function Localization:_getLocaleId()

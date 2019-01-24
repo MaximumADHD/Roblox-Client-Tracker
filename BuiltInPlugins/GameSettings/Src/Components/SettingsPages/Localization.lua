@@ -10,30 +10,29 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Constants = require(Plugin.Src.Util.Constants)
-
-local settingFromState = require(Plugin.Src.Networking.settingFromState)
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
-local AddChange = require(Plugin.Src.Actions.AddChange)
 
-local function Localization(props)
-	--Make container for this page
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 1, 0),
-		LayoutOrder = props.LayoutOrder,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, Constants.ELEMENT_PADDING),
-			SortOrder = Enum.SortOrder.LayoutOrder,
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
-			[Roact.Change.AbsoluteContentSize] = function(rbx)
-				props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-			end,
-		}),
+--Loads settings values into props by key
+local function loadValuesToProps(getValue)
+	return {
+		AutoscrapingOn = getValue("autoscrapingOn"),
+	}
+end
 
+--Implements dispatch functions for when the user changes values
+local function dispatchChanges(setValue, dispatch)
+	return {
+		AutoscrapingOnChanged = setValue("autoscrapingOn"),
+	}
+end
+
+--Uses props to display current settings values
+local function displayContents(page)
+	local props = page.props
+	return {
 		Autoscraping = Roact.createElement(RadioButtonSet, {
 			Title = "Autoscraping",
 			Buttons = {{
@@ -49,25 +48,24 @@ local function Localization(props)
 			LayoutOrder = 3,
 			--Functionality
 			Selected = props.AutoscrapingOn,
-			SelectionChanged = props.AutoscrapingOnChanged,
+			SelectionChanged = function(button)
+				props.AutoscrapingOnChanged(button.Id)
+			end,
 		}),
-	})
+	}
 end
 
-Localization = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		return {
-			AutoscrapingOn = settingFromState(state.Settings, "autoscrapingOn"),
-		}
-	end,
-	function(dispatch)
-		return {
-			AutoscrapingOnChanged = function(button)
-				dispatch(AddChange("autoscrapingOn", button.Id))
-			end,
-		}
-	end
-)(Localization)
+local SettingsPage = createSettingsPage("Localization", loadValuesToProps, dispatchChanges)
+
+local function Localization(props)
+	return Roact.createElement(SettingsPage, {
+		ContentHeightChanged = props.ContentHeightChanged,
+		SetScrollbarEnabled = props.SetScrollbarEnabled,
+		LayoutOrder = props.LayoutOrder,
+		Content = displayContents,
+
+		AddLayout = true,
+	})
+end
 
 return Localization

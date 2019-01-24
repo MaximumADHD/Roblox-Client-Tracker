@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 local ThrottleUserId = require(CorePackages.AppTempCommon.LuaApp.Utils.ThrottleUserId)
 
-local FIntEnableFriendFooterOnHomePage = settings():GetFVariable("EnableFriendFooterOnHomePageV366")
+local FIntEnableFriendFooterOnHomePage = settings():GetFVariable("EnableFriendFooterOnHomePageV369")
 
 -- Don't call this function globally because we cannot get the userId
 -- Reason: The LocalPlayer wouldn't be ready if we called it globally.

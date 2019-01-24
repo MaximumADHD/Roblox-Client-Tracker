@@ -11,6 +11,9 @@ local Components = script.Parent.Parent.Parent.Components
 local ServerJobsChart = require(Components.ServerJobs.ServerJobsChart)
 local UtilAndTab = require(Components.UtilAndTab)
 
+local Actions = script.Parent.Parent.Parent.Actions
+local SetRCCProfilerState = require(Actions.SetRCCProfilerState)
+
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
 local BUTTON_WIDTH = Constants.MicroProfilerFormatting.ButtonWidth
@@ -59,9 +62,7 @@ function ServerProfilerInteraface:init()
 				GameSettings.RCCProfilerRecordTimeFrame
 			)
 
-			self:setState({
-				waitingForData = true
-			})
+			self.props.dispatchSetRCCProfilerState(true)
 		end
 	end
 
@@ -85,17 +86,12 @@ function ServerProfilerInteraface:didMount()
 	local clientReplicator = getClientReplicator()
 	if clientReplicator then
 		self.completeSignal = clientReplicator.RCCProfilerDataComplete:connect(function(success, message)
-			if self.state.waitingForData then
+			if self.props.waitingForRecording then
 				if not success then
 					warn(message)
-					self:setState({
-						waitingForData = false
-					})
+					self.props.dispatchSetRCCProfilerState(false)
 				else
-					self:setState({
-						waitingForData = false,
-						outputPath = message,
-					})
+					self.props.dispatchSetRCCProfilerState(false, message)
 				end
 			end
 		end)
@@ -113,14 +109,17 @@ function ServerProfilerInteraface:render()
 	local size = self.props.size
 	local formFactor = self.props.formFactor
 	local tabList = self.props.tabList
+	local waitingForRecording = self.props.waitingForRecording
+	local lastFileOutputLocation = self.props.lastFileOutputLocation
 
 	local utilTabHeight = self.state.utilTabHeight
 
 	local frameRate = self.state.frameRate
 	local timeFrame = self.state.timeFrame
-	local waitingForData = self.state.waitingForData
 	local clientProfilerEnabled = self.state.clientProfilerEnabled
-	local outputPath = self.state.outputPath
+
+
+	local displayOutputFilePath = (not waitingForRecording) and #lastFileOutputLocation > 0
 
 	local textbox_size = UDim2.new(ROW_VALUE_WIDTH, -BUTTON_WIDTH, 0, ROW_HEIGHT)
 	local textbox_pos = UDim2.new(1 - ROW_VALUE_WIDTH / 2, BUTTON_WIDTH, 0, 0)
@@ -207,25 +206,25 @@ function ServerProfilerInteraface:render()
 			GetDumpButton = Roact.createElement("TextButton", {
 				Size = UDim2.new(0, BUTTON_WIDTH * .7, 0, ROW_HEIGHT),
 				Position = UDim2.new(1, -BUTTON_WIDTH * .7, 1, ROW_HEIGHT),
-				Text = waitingForData and "Recording" or "Start Recording",
+				Text = waitingForRecording and "Recording" or "Start Recording",
 				Font = FONT,
 				TextSize = TEXT_SIZE,
 				TextColor3 = Constants.Color.Text,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,
-				BackgroundColor3 = waitingForData and BUTTON_UNSELECTED or BUTTON_SELECTED,
-				BackgroundTransparency = waitingForData and .3 or 0,
-				AutoButtonColor = not waitingForData,
-				Active = not waitingForData,
+				BackgroundColor3 = waitingForRecording and BUTTON_UNSELECTED or BUTTON_SELECTED,
+				BackgroundTransparency = waitingForRecording and .3 or 0,
+				AutoButtonColor = not waitingForRecording,
+				Active = not waitingForRecording,
 
 				[Roact.Event.Activated] = self.requestRCCProfilerData,
 			})
 		}),
 
-		OutputPath = ((not waitingForData) and outputPath) and Roact.createElement("TextLabel", {
+		OutputPath = displayOutputFilePath and Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
 			Position = UDim2.new(0, 0, 0, ROW_HEIGHT * 3.25),
-			Text = outputPath,
+			Text = lastFileOutputLocation,
 			Font = FONT,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Constants.Color.Text,
@@ -235,4 +234,20 @@ function ServerProfilerInteraface:render()
 	})
 end
 
-return ServerProfilerInteraface
+
+local function mapStateToProps(state, props)
+	return {
+		waitingForRecording = state.MicroProfiler.waitingForRecording,
+		lastFileOutputLocation = state.MicroProfiler.lastFileOutputLocation,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		dispatchSetRCCProfilerState = function(waitingForRecording, fileLocation)
+			dispatch(SetRCCProfilerState(waitingForRecording, fileLocation))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(ServerProfilerInteraface)

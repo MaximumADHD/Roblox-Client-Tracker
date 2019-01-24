@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local AnimationEventSwizzle = {}
 AnimationEventSwizzle.__index = AnimationEventSwizzle
 AnimationEventSwizzle.Padding = 5
@@ -8,11 +10,15 @@ local function updateSwizzle(self)
 	if self.Open then
 		newHeight = newHeight + self.EventValueFrame.Size.Y.Offset + AnimationEventSwizzle.Padding
 	end
-	self.TargetWidget.Size = UDim2.new(currentSize.X.Scale, currentSize.X.Offset, currentSize.Y.Scale, newHeight)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.TargetWidget.Size = UDim2.new(currentSize.X.Scale, currentSize.X.Offset, currentSize.Y.Scale, newHeight)
+	end
 
 	self.EventValueFrame.Visible = self.Open
-	self.Arrow.Up.Visible = self.Open
-	self.Arrow.Down.Visible = not self.Open
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Arrow.Up.Visible = self.Open
+		self.Arrow.Down.Visible = not self.Open
+	end
 end
 
 local function onArrowClicked(self)
@@ -40,7 +46,9 @@ function AnimationEventSwizzle:new(Paths, keyframeMarker, open)
 	self.EventValueFrame = self.EventNameFrame.ValueFrame
 	self.EventValueFrame.Visible = false
 	self.ParameterInput = self.EventValueFrame.ParameterInputFrame.ParameterInput
-	self.Arrow = self.EventNameFrame.Arrow
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Arrow = self.EventNameFrame.Arrow
+	end
 	self.DeleteButton = self.EventNameFrame.Delete
 
 	self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetWidget)
@@ -48,7 +56,9 @@ function AnimationEventSwizzle:new(Paths, keyframeMarker, open)
 	updateSwizzle(self)
 
 	self.Connections = self.Paths.UtilityScriptConnections:new(Paths)
-	self.Connections:add(self.Arrow.MouseButton1Click:connect(function() onArrowClicked(self) end))
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Connections:add(self.Arrow.MouseButton1Click:connect(function() onArrowClicked(self) end))
+	end
 	self.Connections:add(self.DeleteButton.MouseButton1Click:connect(function() onDeletePressed(self) end))
 	self.Connections:add(self.ParameterInput.FocusLost:connect(function() onParameterChanged(self) end))
 	self.Connections:add(self.ParameterInput.Focused:connect(function()
@@ -78,7 +88,9 @@ function AnimationEventSwizzle:terminate()
 	self.EventNameFrame = nil
 	self.EventValueFrame = nil
 	self.ParameterInput = nil
-	self.Arrow = nil
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Arrow = nil
+	end
 	self.DeleteButton = nil
 
 	self.TargetWidget:Destroy()

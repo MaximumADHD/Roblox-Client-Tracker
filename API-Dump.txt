@@ -111,19 +111,19 @@ Class Attachment : Instance
 	Property CFrame Attachment.CFrame
 	Property Vector3 Attachment.Orientation [<📁> Load-only] [NotReplicated]
 	Property Vector3 Attachment.Position [<📁> Load-only] [NotReplicated]
-	Property Vector3 Attachment.Rotation [<📁> Load-only] [NotReplicated]
+	Property Vector3 Attachment.Rotation  [Hidden] [NotReplicated] [Deprecated]
 	Property Vector3 Attachment.Axis [<📁> Load-only] [NotReplicated]
 	Property Vector3 Attachment.SecondaryAxis [<📁> Load-only] [NotReplicated]
-	Property Vector3 Attachment.WorldAxis  [ReadOnly] [NotReplicated]
-	Property CFrame Attachment.WorldCFrame  [ReadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldOrientation  [ReadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldPosition  [ReadOnly] [NotReplicated]
-	Property Vector3 Attachment.WorldRotation  [ReadOnly] [NotReplicated] [Deprecated]
-	Property Vector3 Attachment.WorldSecondaryAxis  [ReadOnly] [NotReplicated]
-	Function Vector3 Attachment:GetAxis()
-	Function Vector3 Attachment:GetSecondaryAxis()
-	Function void Attachment:SetAxis(Vector3 axis)
-	Function void Attachment:SetSecondaryAxis(Vector3 axis)
+	Property Vector3 Attachment.WorldRotation  [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
+	Property Vector3 Attachment.WorldAxis [<📁> Load-only] [NotReplicated]
+	Property CFrame Attachment.WorldCFrame [<📁> Load-only] [NotReplicated]
+	Property Vector3 Attachment.WorldOrientation [<📁> Load-only] [NotReplicated]
+	Property Vector3 Attachment.WorldPosition [<📁> Load-only] [NotReplicated]
+	Property Vector3 Attachment.WorldSecondaryAxis [<📁> Load-only] [NotReplicated]
+	Function Vector3 Attachment:GetAxis() [Deprecated]
+	Function Vector3 Attachment:GetSecondaryAxis() [Deprecated]
+	Function void Attachment:SetAxis(Vector3 axis) [Deprecated]
+	Function void Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function bool BadgeService:AwardBadge(int64 userId, int64 badgeId) [Yields]
 	Function Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId) [Yields]
@@ -1130,6 +1130,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function void HttpService:SetHttpEnabled(bool enabled) {RobloxScriptSecurity}
 	Function string HttpService:UrlEncode(string input)
 Class Humanoid : Instance
+	Property bool Humanoid.BreakJointsOnDeath
 	Property bool Humanoid.AutoJumpEnabled
 	Property bool Humanoid.AutoRotate
 	Property Enum<Material> Humanoid.FloorMaterial  [ReadOnly] [NotReplicated]
@@ -1381,6 +1382,11 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function double Lighting:getMinutesAfterMidnight() [Deprecated]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [Deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
+Class LocalAsset : Instance [NotCreatable] [NotReplicated]
+	Property string LocalAsset.FileName {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Property int64 LocalAsset.FileSize {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Function string LocalAsset:GetFileContentsBinary() {PluginSecurity}
+	Function Content LocalAsset:GetTemporaryId() {PluginSecurity}
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalStorageService:Flush() {RobloxScriptSecurity}
 	Function string LocalStorageService:GetItem(string key) {RobloxScriptSecurity}
@@ -1399,6 +1405,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string LocalizationService.RobloxLocaleId  [ReadOnly] [NotReplicated]
 	Property string LocalizationService.SystemLocaleId  [ReadOnly] [NotReplicated]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
+	Function Instance LocalizationService:GetTranslatorForLocaleAsync(string locale) [Yields]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player) [Yields]
 	Function void LocalizationService:PromptDownloadGameTableToCSV(Instance table) {RobloxScriptSecurity} [Yields]
@@ -1823,8 +1830,6 @@ Class Workspace : Model [NotCreatable] [Service]
 	Function Objects Workspace:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects Workspace:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
 	Function int Workspace:GetNumAwakeParts()
-	Function bool Workspace:GetPhysicsAnalyzerBreakOnIssue() {PluginSecurity}
-	Function Objects Workspace:GetPhysicsAnalyzerIssue(int index) {PluginSecurity}
 	Function int Workspace:GetPhysicsThrottling()
 	Function double Workspace:GetRealPhysicsFPS()
 	Function bool Workspace:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
@@ -1832,13 +1837,11 @@ Class Workspace : Model [NotCreatable] [Service]
 	Function void Workspace:JoinToOutsiders(Objects objects, Enum<JointCreationMode> jointType)
 	Function void Workspace:MakeJoints(Objects objects) {PluginSecurity}
 	Function bool Workspace:PGSIsEnabled()
-	Function void Workspace:SetPhysicsAnalyzerBreakOnIssue(bool enable) {PluginSecurity}
 	Function void Workspace:SetPhysicsThrottleEnabled(bool value) {LocalUserSecurity}
 	Function void Workspace:UnjoinFromOutsiders(Objects objects)
 	Function void Workspace:ZoomToExtents() {PluginSecurity}
 	Function Tuple Workspace:findPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [Deprecated]
-	Event Workspace.PhysicsAnalyzerIssuesFound(int count) {PluginSecurity}
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property Content PackageLink.PackageId [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
@@ -1904,7 +1907,6 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
 	Function void PhysicsService:SetPartCollisionGroup(Instance part, string name)
 Class PhysicsSettings : Instance [Settings]
-	Property bool PhysicsSettings.PhysicsAnalyzerEnabled {PluginSecurity} [ReadOnly] [NotReplicated]
 	Property bool PhysicsSettings.AreAnchorsShown
 	Property bool PhysicsSettings.AreAssembliesShown
 	Property bool PhysicsSettings.AreAwakePartsHighlighted
@@ -2061,6 +2063,8 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Instance Players:GetCharacterAppearanceAsync(int64 userId) [Yields]
 	Function Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId) [Yields]
 	Function Instance Players:GetFriendsAsync(int64 userId) [Yields]
+	Function Instance Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId) [Yields]
+	Function Instance Players:GetHumanoidDescriptionFromUserId(int64 userId) [Yields]
 	Function string Players:GetNameFromUserIdAsync(int64 userId) [Yields]
 	Function Instance Players:GetPlayerByUserId(int64 userId)
 	Function Instance Players:GetPlayerFromCharacter(Instance character)
@@ -2147,6 +2151,7 @@ Class PluginMenu : Instance [NotCreatable] [NotReplicated]
 	Function Instance PluginMenu:ShowAsync() {PluginSecurity} [Yields]
 Class PluginToolbar : Instance [NotCreatable]
 	Function Instance PluginToolbar:CreateButton(string text, string tooltip, string iconname) {PluginSecurity}
+	Function Instance PluginToolbar:CreateButtonWithId(string buttonId, string text, string tooltip, string iconname) {PluginSecurity}
 Class PluginToolbarButton : Instance [NotCreatable]
 	Property bool PluginToolbarButton.ClickableWhenViewportHidden [<📁> Load-only] [NotReplicated]
 	Property bool PluginToolbarButton.Enabled [<📁> Load-only] [NotReplicated]
@@ -2571,6 +2576,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property float Studio.Camera Mouse Wheel Speed
 	Property float Studio.Camera Shift Speed
 	Property float Studio.Camera Speed
+	Property bool Studio.Camera Zoom to Mouse Position
 	Property int Studio.Device Pairing Code
 	Property QDir Studio.DefaultScriptFileDir
 	Property bool Studio.OverrideCoreScripts
@@ -2623,6 +2629,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
+	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields]
+	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}

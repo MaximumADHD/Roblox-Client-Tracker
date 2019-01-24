@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 -- singleton
 local EventBar = {}
 
@@ -62,13 +64,21 @@ function EventBar:init(Paths)
 	self.Paths.UtilityScriptDisplayArea:addDisplay(self.EventArea)
 	self.Connections = Paths.UtilityScriptConnections:new()
 
-	self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIEventMultiSelectBox, self.EventArea, function() findEventsInMultiSelectArea(self) end)
+	if FastFlags:isSelectEventsOnEdgeOn() then
+		self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIEventMultiSelectBox, self.EventArea.Parent.Parent, function() findEventsInMultiSelectArea(self) end)
+	else
+		self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIEventMultiSelectBox, self.EventArea, function() findEventsInMultiSelectArea(self) end)
+	end
 	self.ManageEventsButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.TargetWidget.AnimationEventsButtons.ManageEventsButton)
 
 	initKeyframeMarkers(self, self.Paths.DataModelKeyframes.keyframeList)
 	self.Connections:add(self.Paths.DataModelKeyframes.ChangedEvent:connect(function(keyframes) initKeyframeMarkers(self, keyframes) end))
 	self.Connections:add(self.TargetWidget.AnimationEventsButtons.AddEventsButton.MouseButton1Click:connect(function() onAddClicked(self) end))
-	self.Connections:add(self.EventArea.InputBegan:connect(function(input) onAreaClicked(self, input) end))
+	if FastFlags:isSelectEventsOnEdgeOn() then
+		self.Connections:add(self.EventArea.Parent.Parent.InputBegan:connect(function(input) onAreaClicked(self, input) end))
+	else
+		self.Connections:add(self.EventArea.InputBegan:connect(function(input) onAreaClicked(self, input) end))
+	end
 	self.Connections:add(self.TargetWidget.AnimationEventsButtons.ManageEventsButton.MouseButton1Click:connect(function() onManageClicked(self) end))
 	self.Connections:add(self.Paths.GUIScriptManageEvents.WindowClosedEvent:connect(function() self.ManageEventsButton:setPressed(false) end))
 	self.Connections:add(self.Paths.DataModelAnimationEvents.EditEventsEnabledChangedEvent:connect(function(enabled) onExpandClicked(self, enabled) end))

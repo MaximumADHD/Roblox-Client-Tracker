@@ -4,6 +4,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TeleportService = game:GetService("TeleportService")
 local AnalyticsService = game:GetService("AnalyticsService")
+local LocalizationService = game:GetService("LocalizationService")
+local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
 
 local create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
@@ -31,6 +33,7 @@ local fflagLazyCreateErrorPrompt = settings():GetFFlag("LazyCreateErrorPrompt")
 -- Show Reconnect button on error prompts for errors 263, 268, 270, 517
 -- Remove Reconnect button from error prompts for errors 522, 523
 local fflagReconnectButtonStateUpdate = settings():GetFFlag("ReconnectButtonStateUpdate")
+local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
 
 local errorPrompt
 local graceTimeout = -1
@@ -312,6 +315,24 @@ local function stateTransit(errorType, errorCode, oldState)
 	return oldState
 end
 
+-- Look up in corelocalization for new string. Otherwise fallback to the original string
+-- If it is teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
+local function getErrorString(errorMsg, errorCode, reconnectError)
+	if reconnectError then
+		return "Reconnect was unsuccessful. Please try again."
+	end
+
+	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
+		return errorMsg
+	end
+
+	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
+	local success, attemptTranslation = pcall(function()
+		return CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+	end)
+	return success and attemptTranslation or errorMsg
+end
+
 local function updateErrorPrompt(errorMsg, errorCode, errorType)
 	local newPromptState = stateTransit(errorType, errorCode, connectionPromptState)
 	if newPromptState ~= connectionPromptState then
@@ -320,7 +341,14 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 		onEnter(newPromptState)
 	end
 
-	if connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
+	if fflagUseNewErrorStrings then
+		if errorType == Enum.ConnectionError.TeleportErrors and
+			connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
+			errorMsg = getErrorString(errorMsg, errorCode, true)
+		else
+			errorMsg = getErrorString(errorMsg, errorCode)
+		end
+	elseif connectionPromptState ~= ConnectionPromptState.TELEPORT_FAILED then
 		errorMsg = string.match(errorMsg, "Teleport Failed: (.*)") or errorMsg
 	end
 

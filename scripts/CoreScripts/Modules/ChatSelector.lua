@@ -51,6 +51,12 @@ do
 		end
 	end
 
+	function interface:EnterWhisperState(player)
+		if useModule then
+			return useModule:EnterWhisperState(player)
+		end
+	end
+
 	function interface:GetVisibility()
 		if (useModule) then
 			return useModule:GetVisibility()

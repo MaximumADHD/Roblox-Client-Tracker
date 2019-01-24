@@ -1,4 +1,10 @@
-local PageDownloader = require(script.Parent.PageDownloader)
+local PageDownloader
+local StudioLocalizationDownloadFix = settings():GetFFlag("StudioLocalizationDownloadFix")
+if StudioLocalizationDownloadFix then
+	PageDownloader = require(script.Parent.PageDownloader)
+else
+	PageDownloader = require(script.Parent.PageDownloaderDEPRECATED)
+end
 
 local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
 local PatchInfo

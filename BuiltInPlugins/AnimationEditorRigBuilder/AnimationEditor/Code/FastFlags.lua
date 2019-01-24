@@ -116,4 +116,24 @@ function FastFlags:isFixSubWindowsOn()
 	return isFlagOn("StudioAnimationEditorFixSubWindows")
 end
 
+function FastFlags:useQWidgetsForPopupsOn()
+	return isFlagOn("StudioAnimationEditorUseQWidgetsForPopups")
+end
+
+function FastFlags:isSelectEventsOnEdgeOn()
+	return isFlagOn("StudioAnimationEditorSelectEventsOnEdge")
+end
+
+function FastFlags:supportExplicitJointsMode()
+	return isFlagOn("StudioAnimationEditorSupportExplicitJointsMode") and self:fixFullBodyIKPinning()
+end
+
+function FastFlags:isFixIKWhileLockedOn()
+	return isFlagOn("StudioAnimationEditorFixIKWhileLocked2")
+end
+
+function FastFlags:isFixAnimationsWithLongNamesOn()
+	return isFlagOn("StudioAnimationEditorFixAnimationsWithLongNames") and FastFlags:useQWidgetsForPopupsOn()
+end
+
 return FastFlags

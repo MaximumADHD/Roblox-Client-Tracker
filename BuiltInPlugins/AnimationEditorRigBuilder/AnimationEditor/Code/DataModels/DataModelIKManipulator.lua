@@ -184,7 +184,7 @@ end
 function IKManipulator:endIKManipulation()
 	self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe)
 
-	if self.ProxyRoot then
+	if not FastFlags:supportExplicitJointsMode() and self.ProxyRoot then
 		self.ProxyRoot:Destroy()
 	end
 
@@ -200,7 +200,7 @@ function IKManipulator:endIKManipulation()
 
 		if self.Motor6DInfo[dataItem] then
 			dataItem.Motor6D = makeNewMotor6D(self.Motor6DInfo[dataItem].Name, self.Paths.UtilityScriptHumanIK.PartToParentMap[dataItem.Item],  dataItem.Item, self.Motor6DInfo[dataItem].C0)
-			if self:isPartInIKChain(dataItem) then
+			if self:isPartInIKChain(dataItem) and (not FastFlags:isFixIKWhileLockedOn() or self.Paths.DataModelRig:getPartInclude(dataItem.Name)) then
 				local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(dataItem.Item, false, false)
 				kfd.CFrame = dataItem.Motor6D.C1 * dataItem.OriginC1:inverse()
 				self:removeIKPart(dataItem)
@@ -210,6 +210,10 @@ function IKManipulator:endIKManipulation()
 
 	self.Paths.UtilityScriptHumanIK:resetAttachmentAxes(self.Paths)
 	self.Paths.DataModelPartManipulator:updateManipulationSelection()
+
+	if FastFlags:isFixIKWhileLockedOn() then
+		self:resetWeldConstraints()
+	end
 end
 
 local function isParentPartPinned(self, dataItem)
@@ -365,6 +369,26 @@ local function configureJointsFullBodyMode(self, part)
 	end
 end
 
+function IKManipulator:configureWeldConstraints(part0, part1)
+	if not self.Welds then
+		self.Welds = {}
+	end
+	local weldConstraint = Instance.new("WeldConstraint")
+	weldConstraint.Parent = self.Paths.DataModelRig:getModel()
+	weldConstraint.Part0 = part0
+	weldConstraint.Part1 = part1
+	self.Welds[#self.Welds + 1] = weldConstraint	
+end
+
+function IKManipulator:resetWeldConstraints()
+	if self.Welds then
+		for _, weld in ipairs(self.Welds) do
+			weld:Destroy()
+		end
+		self.Welds = {}
+	end
+end
+
 function IKManipulator:configureIkChain(part)
 	self.ProxyRoot = nil
 	part.Anchored = false
@@ -384,8 +408,20 @@ function IKManipulator:configureIkChain(part)
 		local constraint = self.Paths.UtilityScriptHumanIK:getConstraintForPart(dataItem.Item)
 		if constraint then
 			self.Paths.UtilityScriptHumanIK:fixAttachmentAxes(dataItem.Item)
-			constraint.Enabled = true
+			if FastFlags:isFixIKWhileLockedOn() then
+				if self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
+					constraint.Enabled = true
+				else
+					self:configureWeldConstraints(constraint.Attachment0.Parent, constraint.Attachment1.Parent)
+				end
+			else
+				constraint.Enabled = true
+			end
 		end
+	end
+
+	if FastFlags:isFixIKWhileLockedOn() and not self.Paths.DataModelRig:getPartInclude(self.Paths.DataModelRig:getLowerTorso().Name) then
+		self.Paths.DataModelRig:getLowerTorso().Item.Anchored = true
 	end
 end
 
@@ -398,7 +434,7 @@ function IKManipulator:replaceMotor6DWithConstraint(dataItem, notRecursive)
 				Name = dataItem.Motor6D.Name,
 			}
 
-			if not self.Paths.DataModelRig:isLowerTorso(dataItem) then
+			if FastFlags:supportExplicitJointsMode() or not self.Paths.DataModelRig:isLowerTorso(dataItem) then
 				local prevCF = dataItem.Item.CFrame
 				dataItem.Motor6D:Destroy()
 				dataItem.Motor6D = nil

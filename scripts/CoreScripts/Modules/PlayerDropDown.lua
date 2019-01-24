@@ -13,11 +13,6 @@ local StarterGui = game:GetService("StarterGui")
 local AnalyticsService = game:GetService("AnalyticsService")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 
-local fixPlayerlistFollowingSuccess, fixPlayerlistFollowingFlagValue = pcall(function() return settings():GetFFlag("FixPlayerlistFollowing") end)
-local fixPlayerlistFollowingEnabled = fixPlayerlistFollowingSuccess and fixPlayerlistFollowingFlagValue
-
-local FFlagCoreScriptFixPlayerDropdownUnfriend = settings():GetFFlag("CoreScriptFixPlayerDropdownUnfriend")
-
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -196,12 +191,10 @@ local function isFollowing(userId, followerUserId)
 		print("isFollowing() failed because", result)
 		return false
 	else
-		if fixPlayerlistFollowingEnabled then
-			-- check to make sure the result isn't cached by checking the most recent response
-			if followerUserId == LocalPlayer.UserId then
-				if recentApiRequests["Following"][tostring(userId)] ~= nil then
-					return recentApiRequests["Following"][tostring(userId)]
-				end
+		-- check to make sure the result isn't cached by checking the most recent response
+		if followerUserId == LocalPlayer.UserId then
+			if recentApiRequests["Following"][tostring(userId)] ~= nil then
+				return recentApiRequests["Following"][tostring(userId)]
 			end
 		end
 	end
@@ -396,7 +389,7 @@ function createPlayerDropDown()
 						if cachedLastSelectedPlayer and cachedLastSelectedPlayer.Parent == PlayersService then
                             AnalyticsService:ReportCounter("PlayerDropDown-RequestFriendship")
                             AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayerDropDown")
-                      
+
 							LocalPlayer:RequestFriendship(cachedLastSelectedPlayer)
 						end
 					end
@@ -404,12 +397,12 @@ function createPlayerDropDown()
 			elseif status == Enum.FriendStatus.FriendRequestSent then
                 AnalyticsService:ReportCounter("PlayerDropDown-RevokeFriendship")
                 AnalyticsService:TrackEvent("Game", "RevokeFriendship", "PlayerDropDown")
-                
+
 				LocalPlayer:RevokeFriendship(playerDropDown.Player)
 			elseif status == Enum.FriendStatus.FriendRequestReceived then
                 AnalyticsService:ReportCounter("PlayerDropDown-RequestFriendship")
                 AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayerDropDown")
-                
+
 				LocalPlayer:RequestFriendship(playerDropDown.Player)
 			end
 
@@ -443,14 +436,12 @@ function createPlayerDropDown()
 
 		result = HttpService:JSONDecode(result)
 		if result["success"] then
-			if fixPlayerlistFollowingEnabled then
-				recentApiRequests["Following"][followedUserId] = false
-				local text = "no longer following "..playerDropDown.Player.Name
-				if FFlagUseNotificationsLocalization then
-					text = string.gsub(LocalizedGetString("PlayerDropDown.onUnfollowButtonPress.success",text),"{RBX_NAME}",playerDropDown.Player.Name)
-				end
-				sendNotification("You are", text, FRIEND_IMAGE..followedUserId.."&x=48&y=48", 5, function() end)
+			recentApiRequests["Following"][followedUserId] = false
+			local text = "no longer following "..playerDropDown.Player.Name
+			if FFlagUseNotificationsLocalization then
+				text = string.gsub(LocalizedGetString("PlayerDropDown.onUnfollowButtonPress.success",text),"{RBX_NAME}",playerDropDown.Player.Name)
 			end
+			sendNotification("You are", text, FRIEND_IMAGE..followedUserId.."&x=48&y=48", 5, function() end)
 			if RemoteEvent_NewFollower then
 				RemoteEvent_NewFollower:FireServer(playerDropDown.Player, false)
 			end
@@ -506,9 +497,7 @@ function createPlayerDropDown()
 
 		result = HttpService:JSONDecode(result)
 		if result["success"] then
-			if fixPlayerlistFollowingEnabled then
-				recentApiRequests["Following"][followedUserId] = true
-			end
+			recentApiRequests["Following"][followedUserId] = true
 			local text = "now following "..playerDropDown.Player.Name
 			if FFlagUseNotificationsLocalization then
 				text = string.gsub(LocalizedGetString("PlayerDropDown.onFollowButtonPress.success",text),"{RBX_NAME}",playerDropDown.Player.Name)
@@ -649,14 +638,12 @@ function createPlayerDropDown()
 			playerDropDown:Hide()
 		end
 	end)
-	
-	if FFlagCoreScriptFixPlayerDropdownUnfriend then
-		LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
-			if playerDropDown.Player == player then 
-				playerDropDown:Hide()
-			end
-		end)
-	end
+
+	LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
+		if playerDropDown.Player == player then
+			playerDropDown:Hide()
+		end
+	end)
 
 	return playerDropDown
 end

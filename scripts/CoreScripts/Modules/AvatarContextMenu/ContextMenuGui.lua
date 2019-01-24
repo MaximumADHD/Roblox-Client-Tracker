@@ -30,8 +30,6 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local PlayerCarousel = nil
 local PlayerChangedEvent = Instance.new("BindableEvent")
 
-local FFlagACMFixWrongPlayerNameAppearing = settings():GetFFlag("ACMFixWrongPlayerNameAppearing")
-
 --- Modules
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local Utility = require(SettingsModules:WaitForChild("Utility"))
@@ -80,7 +78,7 @@ end
 
 local function listenToViewportChange(functionToFire)
 	if functionToFire == nil then return end
-	
+
 	local viewportChangedConnection = nil
 
 	local function updateCamera()
@@ -207,50 +205,33 @@ function ContextMenuGui:CreateMenuFrame()
 end
 
 function ContextMenuGui:BuildPlayerCarousel(playersByProximity)
-	if not PlayerCarousel then 
+	if not PlayerCarousel then
 		PlayerCarousel = require(AvatarMenuModules:WaitForChild("PlayerCarousel"))
 		PlayerCarousel.rbxGui.Parent = self.ContextMenuFrame.Content
 	end
 
 	PlayerCarousel:ClearPlayerEntries()
-	
-	if FFlagACMFixWrongPlayerNameAppearing then
-		if self.PlayerChangedConnection then
-			self.PlayerChangedConnection:Disconnect()
-		end
-		self.PlayerChangedConnection = PlayerCarousel.PlayerChanged:Connect(function(player)
-			if player then 
-				self.ContextMenuFrame.Content.NameTag.Text = player.Name
-			else
-				self.ContextMenuFrame.Content.NameTag.Text = ""
-			end
-			PlayerChangedEvent:Fire(player)
-		end)
+
+	if self.PlayerChangedConnection then
+		self.PlayerChangedConnection:Disconnect()
 	end
+	self.PlayerChangedConnection = PlayerCarousel.PlayerChanged:Connect(function(player)
+		if player then
+			self.ContextMenuFrame.Content.NameTag.Text = player.Name
+		else
+			self.ContextMenuFrame.Content.NameTag.Text = ""
+		end
+		PlayerChangedEvent:Fire(player)
+	end)
 
 	for i = 1, #playersByProximity do
 		PlayerCarousel:CreatePlayerEntry(playersByProximity[i][1], playersByProximity[i][2])
 	end
-
-	if not FFlagACMFixWrongPlayerNameAppearing then
-		if #playersByProximity > 0 then
-			self.ContextMenuFrame.Content.NameTag.Text = playersByProximity[1][1].Name
-		end
-
-		PlayerCarousel.PlayerChanged:Connect(function(player)
-			if player then 
-				self.ContextMenuFrame.Content.NameTag.Text = player.Name
-			else
-				self.ContextMenuFrame.Content.NameTag.Text = ""
-			end
-			PlayerChangedEvent:Fire(player)
-		end)
-	end
 end
 
-function ContextMenuGui:RemovePlayerEntry(player) 
-	if not PlayerCarousel then return end 
-	
+function ContextMenuGui:RemovePlayerEntry(player)
+	if not PlayerCarousel then return end
+
 	PlayerCarousel:RemovePlayerEntry(player)
 end
 
@@ -284,7 +265,7 @@ function ContextMenuGui.new()
 
 	obj.ContextMenuFrame = nil
 	obj.LastSetPlayerIcon = nil
-	
+
 	obj.PlayerChangedConnection = nil
 
 	obj.SelectedPlayerChanged = PlayerChangedEvent.Event

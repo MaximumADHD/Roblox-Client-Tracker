@@ -12,45 +12,26 @@ local Promise = require(script.Parent.Parent.Promise)
 return function(MakeDownloadRequest, DecodeReponseBody, HandleTableDataPage, additionalErrorCallback)
 	local BAD_REQUEST = 400
 
-	local function downloadWithCursor(cursor, accumulator)
+	local function downloadOnePage(cursor)
 		return Promise.new(function(resolve, reject)
 			MakeDownloadRequest(cursor):Start(function(success, response)
-				spawn(function()
-					if success and response.StatusCode < BAD_REQUEST then
+				if success and response.StatusCode < BAD_REQUEST then
+					local responseBodyObject = DecodeReponseBody(response.Body)
 
-						local responseBodyObject = DecodeReponseBody(response.Body)
-
-						if responseBodyObject == nil then
-							reject("Downloaded table failed to decode")
-							return
-						end
-
-						local info = HandleTableDataPage(responseBodyObject, accumulator)
-
-						if info.errorMessage then
-							reject(info.errorMessage)
-							return
-						end
-
-						if responseBodyObject.nextPageCursor ~= nil
-							and responseBodyObject.nextPageCursor ~= 0
-							and responseBodyObject.nextPageCursor ~= ""
-						then
-							downloadWithCursor(
-								responseBodyObject.nextPageCursor,
-								accumulator):andThen(resolve, reject)
-						else
-							resolve(accumulator)
-						end
-					else
-						if additionalErrorCallback then
-							additionalErrorCallback(string.format(
-								"Uploading table failed with status code: %s, and response: %s",
-								tostring(response.StatusCode), tostring(response.Body)))
-						end
-						reject("Download failed")
+					if responseBodyObject == nil then
+						reject("Downloaded table failed to decode")
+						return
 					end
-				end)
+
+					resolve(responseBodyObject)
+				else
+					if additionalErrorCallback then
+						additionalErrorCallback(string.format(
+							"Uploading table failed with status code: %s, and response: %s",
+							tostring(response.StatusCode), tostring(response.Body)))
+					end
+					reject("Download failed")
+				end
 			end)
 		end)
 	end
@@ -68,9 +49,36 @@ return function(MakeDownloadRequest, DecodeReponseBody, HandleTableDataPage, add
 		Returns a promise that resolves with the accumulator when the whole download succeeds
 	]]
 	function Downloader:download()
-		return downloadWithCursor("", {})
+		return Promise.new(function(resolve, reject)
+			--[[
+				Promises don't allow yields inside them, but the code below calls :await()
+				Wrapping in a coroutine makes that non-yielding again.
+			]]
+			coroutine.wrap(function()
+				local accumulator = {}
+				local cursor = ""
+
+				while cursor do
+					local success, result = downloadOnePage(cursor):await()
+					if success then
+						local info = HandleTableDataPage(result, accumulator)
+
+						if info.errorMessage then
+							reject(info.errorMessage)
+							return
+						end
+
+						cursor = result.nextPageCursor
+					else
+						reject(result)
+						return
+					end
+				end
+
+				resolve(accumulator)
+			end)()
+		end)
 	end
 
 	return Downloader
 end
-

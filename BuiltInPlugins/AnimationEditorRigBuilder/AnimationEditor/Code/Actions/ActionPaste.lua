@@ -24,9 +24,9 @@ end
 local function promptPasteOutOfBoundsWarning(Paths, minimumRequiredLength, outOfBoundsPoseCount, okFunc)
 	local msg = ""
 	if Paths.DataModelClip:isLengthOk(minimumRequiredLength) then
-		msg = string.format("%i pose(s) go past the length of this animation and\nwill be clamped. The required animation length to fit all\npose(s) is %.3f seconds. Click Okay to proceed.", outOfBoundsPoseCount, minimumRequiredLength)
+		msg = string.format("%i pose(s) go past the length of this animation and\nwill be clamped. The required animation length to fit all\npose(s) is %.3f seconds. Click OK to proceed.", outOfBoundsPoseCount, minimumRequiredLength)
 	else
-		msg = string.format("%i pose(s) go past the length of this animation and\nwill be clamped. Animations cannot exceed a length of %i seconds.\nClick Okay to proceed.", outOfBoundsPoseCount, Paths.DataModelClip.MaxLength)
+		msg = string.format("%i pose(s) go past the length of this animation and\nwill be clamped. Animations cannot exceed a length of %i seconds.\nClick OK to proceed.", outOfBoundsPoseCount, Paths.DataModelClip.MaxLength)
 	end
 	Paths.GUIScriptPromptOKCancel:show(msg, okFunc)
 end

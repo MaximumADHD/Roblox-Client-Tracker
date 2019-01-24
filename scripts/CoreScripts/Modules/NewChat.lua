@@ -84,6 +84,10 @@ do
 			DispatchEvent("FocusChatBar")
 		end
 
+		function moduleApiTable:EnterWhisperState(player)
+			return DispatchEvent("EnterWhisperState", player)
+		end
+
 		function moduleApiTable:GetVisibility()
 			local success, retVal = AttemptInvokeFunction("GetVisibility")
 			if (success) then
@@ -215,6 +219,7 @@ do
 					communicationsConnections.ChatWindow.ToggleVisibility = FindInCollectionByKeyAndType(chatWindowCollection, "ToggleVisibility", "BindableEvent")
 					communicationsConnections.ChatWindow.SetVisible = FindInCollectionByKeyAndType(chatWindowCollection, "SetVisible", "BindableEvent")
 					communicationsConnections.ChatWindow.FocusChatBar = FindInCollectionByKeyAndType(chatWindowCollection, "FocusChatBar", "BindableEvent")
+					communicationsConnections.ChatWindow.EnterWhisperState = FindInCollectionByKeyAndType(chatWindowCollection, "EnterWhisperState", "BindableEvent")
 					communicationsConnections.ChatWindow.TopbarEnabledChanged = FindInCollectionByKeyAndType(chatWindowCollection, "TopbarEnabledChanged", "BindableEvent")
 					communicationsConnections.ChatWindow.IsFocused = FindInCollectionByKeyAndType(chatWindowCollection, "IsFocused", "BindableFunction")
 					communicationsConnections.ChatWindow.SpecialKeyPressed = FindInCollectionByKeyAndType(chatWindowCollection, "SpecialKeyPressed", "BindableEvent")

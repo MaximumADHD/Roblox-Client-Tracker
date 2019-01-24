@@ -10,9 +10,10 @@ return function(plugin, studioSettings)
 
 				local dialog = plugin:CreateQWidgetPluginGui(title, {
 					Size = Vector2.new(sizeX, sizeY),
-					InitialEnabled = true,
 					Modal = true,
 				})
+
+				dialog.Enabled = true
 
 				local function okay(...)
 					Roact.unmount(dialogHandle)

@@ -159,8 +159,6 @@ function AssetGridContainer:render()
 	local currentSoundId = props.currentSoundId
 	local isPlaying = props.isPlaying
 
-	local isShowingToolMessageBox = state.isShowingToolMessageBox
-
 	local categoryIndex = nil
 	if not FFlagStudioLuaWidgetToolboxV2 then
 		categoryIndex = props.categoryIndex
@@ -169,6 +167,7 @@ function AssetGridContainer:render()
 	local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
 
 	local hoveredAssetId = state.hoveredAssetId
+	local isShowingToolMessageBox = state.isShowingToolMessageBox
 
 	local assetElements = {
 		UIGridLayout = Roact.createElement("UIGridLayout", {
@@ -197,6 +196,7 @@ function AssetGridContainer:render()
 			assetIndex = assetIndex,
 
 			isHovered = assetId == hoveredAssetId,
+			hoveredAssetId = hoveredAssetId,
 
 			currentSoundId = currentSoundId,
 			isPlaying = isPlaying,

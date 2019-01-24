@@ -81,15 +81,14 @@ local instantiatedOcclusionModules = {}
 -- Management of which options appear on the Roblox User Settings screen
 do
 	local PlayerScripts = Players.LocalPlayer:WaitForChild("PlayerScripts")
-	local canRegisterCameras = pcall(function() PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Default) end)
-	if canRegisterCameras then
-		PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Follow)
-		PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Classic)
 
-		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Default)
-		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Follow)
-		PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Classic)
-	end
+	PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Default)
+	PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Follow)
+	PlayerScripts:RegisterTouchCameraMovementMode(Enum.TouchCameraMovementMode.Classic)
+
+	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Default)
+	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Follow)
+	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.Classic)
 end
 
 
@@ -151,15 +150,12 @@ function CameraModule.new()
 	game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 		self:OnCurrentCameraChanged()
 	end)
-	
-	self.lastInputType = nil 
-	self.hasLastInput = pcall(function()
-		self.lastInputType = UserInputService:GetLastInputType()
-		UserInputService.LastInputTypeChanged:Connect(function(newLastInputType) 
-			self.lastInputType = newLastInputType
-		end)
+
+	self.lastInputType = UserInputService:GetLastInputType()
+	UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
+		self.lastInputType = newLastInputType
 	end)
-	
+
 	return self
 end
 
@@ -494,7 +490,7 @@ function CameraModule:GetCameraControlChoice()
 	local player = Players.LocalPlayer
 	
 	if player then
-		if (self.hasLastInput and self.lastInputType == Enum.UserInputType.Touch) or UserInputService.TouchEnabled then
+		if self.lastInputType == Enum.UserInputType.Touch or UserInputService.TouchEnabled then
 			-- Touch			
 			if player.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice then
 				return CameraUtils.ConvertCameraModeEnumToStandard( UserGameSettings.TouchCameraMovementMode )

@@ -21,9 +21,16 @@ local function destroy(self)
 		self.CancelButton:terminate()
 	end
 
-	if self.SubWindow then
-		self.SubWindow:terminate()
-		self.SubWindow = nil
+	if FastFlags:useQWidgetsForPopupsOn() then
+		if self.QtWindow then
+			self.QtWindow:terminate()
+			self.QtWindow = nil
+		end
+	else
+		if self.SubWindow then
+			self.SubWindow:terminate()
+			self.SubWindow = nil
+		end
 	end
 end
 
@@ -39,7 +46,9 @@ function PromptYesNo:show(title, message, tip, dontShowMsg, okFunc)
 	end
 
 	self.GUI = self.Paths.GUIPopUpYesNo:clone()
-	self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Paths.UtilityScriptTheme:setColorsToTheme(self.GUI)
+	end
 
 	self.Connections = self.Paths.UtilityScriptConnections:new(self.Paths)
 
@@ -60,7 +69,8 @@ function PromptYesNo:show(title, message, tip, dontShowMsg, okFunc)
 	end
 	local maxX = math.max(tipX, math.max(messageX, dontShowX))
 	local originalSize = self.GUI.Size
-	self.GUI.Size = UDim2.new(0, maxX + (2 * self.Padding), 0, originalSize.Y.Offset)
+	local newSize = Vector2.new(maxX + (2 * self.Padding), originalSize.Y.Offset)
+	self.GUI.Size = UDim2.new(0, newSize.X, 0, newSize.Y)
 
 	local onInputEnded = function()
 		destroy(self)
@@ -76,11 +86,16 @@ function PromptYesNo:show(title, message, tip, dontShowMsg, okFunc)
 		self.GUI.ShowAgain.Checkbox.Check.Visible = not self.shouldDisplay[title]
 	end))
 
-	self.SubWindow = self.Paths.GUIScriptSubWindow:new(self.Paths, self.GUI, self.Paths.GUIPopUps)
-	self.SubWindow:turnOn(true)
-	self.SubWindow:changeTitle(title)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, title, self.GUI, function() destroy(self) end, newSize)
+		self.QtWindow:turnOn(true)
+	else
+		self.SubWindow = self.Paths.GUIScriptSubWindow:new(self.Paths, self.GUI, self.Paths.GUIPopUps)
+		self.SubWindow:turnOn(true)
+		self.SubWindow:changeTitle(title)
 
-	self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() destroy(self) end))
+		self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() destroy(self) end))
+	end
 	self.Connections:add(self.GUI.OkCancel.Cancel.MouseButton1Click:connect(function()
 		destroy(self)
 	end))

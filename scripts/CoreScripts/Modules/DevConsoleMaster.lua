@@ -39,7 +39,7 @@ local ReportTabChanges = require(MiddleWare.ReportTabChanges)
 
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
-local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup")
+local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup2")
 local FFlagDevConsoleOnTopOfCoreBlur = settings():GetFFlag("DevConsoleOnTopOfCoreBlur")
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 
@@ -235,7 +235,7 @@ local master = DevConsoleMaster.new()
 function DevConsoleMaster:Start()
 	if not self.init then
 		if FFlagDevConsoleNoWaitSetup and self.waitForStart then
-			self.waitForStartBindable:wait()
+			self.waitForStartBindable.Event:Wait()
 		end
 		self.init = true
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
@@ -246,7 +246,7 @@ if START_DATA_ON_INIT then
 	if FFlagDevConsoleNoWaitSetup then
 		coroutine.wrap(function()
 			master:Start()
-		end)
+		end)()
 	else
 		master:Start()
 	end

@@ -38,6 +38,7 @@ local FFlagEnableResponsiveUIFix = enableResponsiveUIFixSuccess and enableRespon
 local FFlagXboxEnableABTests = settings():GetFFlag("XboxEnableABTests")
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestName")
 
 --[[ SERVICES ]]
@@ -1527,8 +1528,10 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-	this.ReportAbusePage:SetHub(this)
+    if not FFlagChinaLicensingApp then
+	    this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+	    this.ReportAbusePage:SetHub(this)
+    end
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
 	this.HelpPage:SetHub(this)

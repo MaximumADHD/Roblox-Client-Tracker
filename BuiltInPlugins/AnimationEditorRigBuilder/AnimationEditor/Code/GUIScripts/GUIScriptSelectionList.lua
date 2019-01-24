@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 -- singleton
 local SelectionList = {}
 SelectionList.__index = SelectionList
@@ -16,32 +18,58 @@ local function positionMenu(self)
 	end
 	
 	-- checking vertical
-	local bottomSideEdge = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y + self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y
-	local willMenuGetCutOffToTheBottom = potentialYOffset+self.TargetWidget.AbsoluteSize.Y > bottomSideEdge
-	if willMenuGetCutOffToTheBottom then
-		potentialYOffset = potentialYOffset-self.TargetWidget.AbsoluteSize.Y --move menu above cursor
-	end
+	if FastFlags:useQWidgetsForPopupsOn() then
+		local bottomSideEdge = self.TargetWidget.Parent.AbsolutePosition.Y + self.TargetWidget.Parent.AbsoluteSize.Y
+		local willMenuGetCutOffToTheBottom = potentialYOffset+self.TargetWidget.AbsoluteSize.Y > bottomSideEdge
+		if willMenuGetCutOffToTheBottom then
+			potentialYOffset = potentialYOffset-self.TargetWidget.AbsoluteSize.Y --move menu above cursor
+		end
 
-	if self.TargetWidget.AbsoluteSize.Y > self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y then
-		potentialYOffset = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y
+		if self.TargetWidget.AbsoluteSize.Y > self.TargetWidget.Parent.AbsoluteSize.Y then
+			potentialYOffset = self.TargetWidget.Parent.AbsolutePosition.Y
+		end
+		self.TargetWidget.Position = UDim2.new(0, potentialXOffset, 0, math.max(self.TargetWidget.Parent.AbsolutePosition.Y, potentialYOffset))
+	else
+		local bottomSideEdge = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y + self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y
+		local willMenuGetCutOffToTheBottom = potentialYOffset+self.TargetWidget.AbsoluteSize.Y > bottomSideEdge
+		if willMenuGetCutOffToTheBottom then
+			potentialYOffset = potentialYOffset-self.TargetWidget.AbsoluteSize.Y --move menu above cursor
+		end
+
+		if self.TargetWidget.AbsoluteSize.Y > self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y then
+			potentialYOffset = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y
+		end
+		self.TargetWidget.Position = UDim2.new(0, potentialXOffset, 0, math.max(self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y, potentialYOffset))
 	end
-	self.TargetWidget.Position = UDim2.new(0, potentialXOffset, 0, math.max(self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y, potentialYOffset))
 end
 
 local function scaleMenuForScrolling(self)
-	if self.TargetWidget.AbsoluteSize.Y > self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y then
-		self.TargetWidget.Size = UDim2.new(0, self.fullSize.X.Offset, 0, self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y)
-		self.TargetWidget.ScrollingFrame.ScrollingEnabled = true
+	if FastFlags:useQWidgetsForPopupsOn() then
+		if self.TargetWidget.AbsoluteSize.Y > self.TargetWidget.Parent.AbsoluteSize.Y then
+			self.TargetWidget.Size = UDim2.new(0, self.fullSize.X.Offset, 0, self.TargetWidget.Parent.AbsoluteSize.Y)
+			self.TargetWidget.ScrollingFrame.ScrollingEnabled = true
+		else
+			self.TargetWidget.ScrollingFrame.ScrollingEnabled = false
+		end
 	else
-		self.TargetWidget.ScrollingFrame.ScrollingEnabled = false
+		if self.TargetWidget.AbsoluteSize.Y > self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y then
+			self.TargetWidget.Size = UDim2.new(0, self.fullSize.X.Offset, 0, self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y)
+			self.TargetWidget.ScrollingFrame.ScrollingEnabled = true
+		else
+			self.TargetWidget.ScrollingFrame.ScrollingEnabled = false
+		end
 	end
 end
 
-function SelectionList:new(Paths, items, selectFunc, newFunc)
+function SelectionList:new(Paths, items, selectFunc, newFunc, parent)
 	local self = setmetatable({}, SelectionList)
 	self.Paths = Paths
 	self.TargetWidget = self.Paths.GUIClonableSelectionList:clone()
-	self.TargetWidget.Parent = self.Paths.GUIPopUps
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.TargetWidget.Parent = parent
+	else
+		self.TargetWidget.Parent = self.Paths.GUIPopUps
+	end
 	self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetWidget)
 	-- set parent
 
@@ -49,7 +77,11 @@ function SelectionList:new(Paths, items, selectFunc, newFunc)
 	self.Connections:add(self.TargetWidget.ScrollingFrame.AddButton.MouseButton1Click:connect(function() newFunc() end))
 	self.Connections:add(self.TargetWidget.ClickEater.MouseButton1Click:connect(function() self:terminate() end))
 
-	self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.TargetWidget.ScrollingFrame, self.TargetWidget)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.TargetWidget.ScrollingFrame, self.TargetWidget, parent)
+	else
+		self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.TargetWidget.ScrollingFrame, self.TargetWidget)
+	end
 
 	positionMenu(self)
 

@@ -6,7 +6,7 @@
 
 -- CONSTANTS
 -- If Custom buttons exist these layout orders are offset by highest custom button layout order.
-local FRIEND_LAYOUT_ORDER = 1 
+local FRIEND_LAYOUT_ORDER = 1
 local CHAT_LAYOUT_ORDER = 3
 local WAVE_LAYOUT_ORDER = 4
 local CUSTOM_LAYOUT_ORDER = 20 --Remove with FFlagCoreScriptACMCustomFirst
@@ -41,10 +41,9 @@ local ReportAbuseMenu = require(SettingsPages:WaitForChild("ReportAbuseMenu"))
 
 -- VARIABLES
 
-local FFlagCoreScriptBetterACMFriendStatusChecks = settings():GetFFlag("CoreScriptBetterACMFriendStatusChecks")
-local FFlagCoreScriptACMBlockedPlayerFix = settings():GetFFlag("CoreScriptACMBlockedPlayerFix")
 local FFlagCoreScriptACMCustomFirst = settings():GetFFlag("CoreScriptACMCustomFirst")
 local FFlagCoreScriptCloseACMCustomItem = settings():GetFFlag("CoreScriptCloseACMCustomItem")
+local FFlagCoreScriptFixACMWhisperIssues = settings():GetFFlag("CoreScriptFixACMWhisperIssues")
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -220,50 +219,23 @@ function ContextMenuItems:CreateFriendButton(status, isBlocked)
 
 	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
 
-	if FFlagCoreScriptBetterACMFriendStatusChecks then
-		if FFlagCoreScriptACMBlockedPlayerFix and isBlocked then
-			friendLabel.Selectable = false
-			friendLabelText.TextTransparency = addFriendDisabledTransparency
-			friendLabelText.Text = blockedString
-		elseif status == Enum.FriendStatus.Friend then
-			friendLabel.Selectable = false
-			friendLabelText.TextTransparency = addFriendDisabledTransparency
-	    friendLabelText.Text = friendsString
-		elseif status == Enum.FriendStatus.FriendRequestSent then
-			friendLabel.Selectable = false
-			friendLabelText.TextTransparency = addFriendDisabledTransparency
-	    friendLabelText.Text = friendRequestPendingString
-		elseif status == Enum.FriendStatus.FriendRequestReceived then 
-			friendLabelText.Text = acceptFriendRequestString
-		else
-			friendLabel.Selectable = true
-			friendLabelText.TextTransparency = 0
-		end
+	if isBlocked then
+		friendLabel.Selectable = false
+		friendLabelText.TextTransparency = addFriendDisabledTransparency
+		friendLabelText.Text = blockedString
+	elseif status == Enum.FriendStatus.Friend then
+		friendLabel.Selectable = false
+		friendLabelText.TextTransparency = addFriendDisabledTransparency
+		friendLabelText.Text = friendsString
+	elseif status == Enum.FriendStatus.FriendRequestSent then
+		friendLabel.Selectable = false
+		friendLabelText.TextTransparency = addFriendDisabledTransparency
+		friendLabelText.Text = friendRequestPendingString
+	elseif status == Enum.FriendStatus.FriendRequestReceived then
+		friendLabelText.Text = acceptFriendRequestString
 	else
-		if status ~= Enum.FriendStatus.Friend then
-			friendLabel.Selectable = true
-			friendLabelText.TextTransparency = 0
-		else
-			friendLabel.Selectable = false
-			friendLabelText.TextTransparency = addFriendDisabledTransparency
-    	friendLabelText.Text = friendsString
-		end
-	end
-	
-	if not FFlagCoreScriptACMBlockedPlayerFix then 
-		friendStatusChangedConn = LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
-        if player == self.SelectedPlayer and friendLabelText then
-            if not friendLabel.Selectable then
-                if friendStatus == Enum.FriendStatus.Friend then
-                   friendLabelText.Text = friendsString
-                end
-            else
-                if friendStatus == Enum.FriendStatus.FriendRequestReceived then
-                    friendLabelText.Text = acceptFriendRequestString
-                end
-            end
-        end
-    end)
+		friendLabel.Selectable = true
+		friendLabelText.TextTransparency = 0
 	end
 
 	if FFlagCoreScriptACMCustomFirst then
@@ -313,15 +285,30 @@ function ContextMenuItems:CreateChatButton()
         AnalyticsService:TrackEvent("Game", "AvatarContextMenuChat", "placeId: " .. tostring(game.PlaceId))
 
 		-- todo: need a proper api to set up text in the chat bar
-		local ChatBar = nil
-		pcall(function() ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
-		if ChatBar then
-			ChatBar.Text = "/w " .. self.SelectedPlayer.Name
+		if not FFlagCoreScriptFixACMWhisperIssues then
+			local ChatBar = nil
+			pcall(function() ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
+			if ChatBar then
+				ChatBar.Text = "/w " .. self.SelectedPlayer.Name
+			end
 		end
 
 		local ChatModule = require(RobloxGui.Modules.ChatSelector)
 		ChatModule:SetVisible(true)
-		ChatModule:FocusChatBar()
+		if FFlagCoreScriptFixACMWhisperIssues then
+			local eventDidFire = ChatModule:EnterWhisperState(self.SelectedPlayer)
+			if not eventDidFire then
+				-- Fallback to the old version for backwards compatibility with old chat versions
+				local ChatBar = nil
+				pcall(function() ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
+				if ChatBar then
+					ChatBar.Text = "/w " .. self.SelectedPlayer.Name
+				end
+				ChatModule:FocusChatBar()
+			end
+		else
+			ChatModule:FocusChatBar()
+		end
 	end
 
 	local chatButton = self.MenuItemFrame:FindFirstChild("ChatStatus")

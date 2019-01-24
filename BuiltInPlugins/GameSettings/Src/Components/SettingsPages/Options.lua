@@ -8,32 +8,29 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Constants = require(Plugin.Src.Util.Constants)
-
-local settingFromState = require(Plugin.Src.Networking.settingFromState)
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 
-local AddChange = require(Plugin.Src.Actions.AddChange)
+local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
-local function Options(props)
-	--Make container for this page
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 1, 0),
-		LayoutOrder = props.LayoutOrder,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, Constants.ELEMENT_PADDING),
-			SortOrder = Enum.SortOrder.LayoutOrder,
+--Loads settings values into props by key
+local function loadValuesToProps(getValue)
+	return {
+		HttpEnabled = getValue("HttpEnabled"),
+	}
+end
 
-			[Roact.Change.AbsoluteContentSize] = function(rbx)
-				props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-			end,
-		}),
+--Implements dispatch functions for when the user changes values
+local function dispatchChanges(setValue)
+	return {
+		HttpEnabledChanged = setValue("HttpEnabled")
+	}
+end
 
+--Uses props to display current settings values
+local function displayContents(page)
+	local props = page.props
+	return {
 		Http = Roact.createElement(RadioButtonSet, {
 			Title = "Allow HTTP Requests",
 			Buttons = {{
@@ -49,25 +46,24 @@ local function Options(props)
 			LayoutOrder = 3,
 			--Functionality
 			Selected = props.HttpEnabled,
-			SelectionChanged = props.HttpEnabledChanged,
+			SelectionChanged = function(button)
+				props.HttpEnabledChanged(button.Id)
+			end,
 		}),
-	})
+	}
 end
 
-Options = RoactRodux.connect(
-	function(state, props)
-		if not state then return end
-		return {
-			HttpEnabled = settingFromState(state.Settings, "HttpEnabled"),
-		}
-	end,
-	function(dispatch)
-		return {
-			HttpEnabledChanged = function(button)
-				dispatch(AddChange("HttpEnabled", button.Id))
-			end,
-		}
-	end
-)(Options)
+local SettingsPage = createSettingsPage("Options", loadValuesToProps, dispatchChanges)
+
+local function Options(props)
+	return Roact.createElement(SettingsPage, {
+		ContentHeightChanged = props.ContentHeightChanged,
+		SetScrollbarEnabled = props.SetScrollbarEnabled,
+		LayoutOrder = props.LayoutOrder,
+		Content = displayContents,
+
+		AddLayout = true,
+	})
+end
 
 return Options

@@ -10,8 +10,8 @@ return function()
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
-				MainView = {
-					currTabIndex = 0
+				MicroProfiler = {
+					lastFileOutputLocation = ""
 				},
 			}
 		end)
@@ -21,7 +21,7 @@ return function()
 		}, {
 			ServerProfilerInterface = Roact.createElement(ServerProfilerInterface, {
 			})
-		
+
 		})
 
 		local instance = Roact.mount(element)

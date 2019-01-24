@@ -1,0 +1,93 @@
+Key,fr-fr,en,zh-cn
+Studio.TerrainEditor.Title,terrain Editor,Terrain Editor,地形编辑器
+Studio.TerrainEditor.ToolbarButton,Éditeur,Editor,编辑
+Studio.TerrainEditor.Tooltip,Ajouter, supprimer et modifier le terrain,Add, remove, and modify terrain,添加，删除和修改地形
+Studio.TerrainEditor.MainButtons.Generate,produire,Generate,生成
+Studio.TerrainEditor.MainButtons.Add,Ajouter,Add,加
+Studio.TerrainEditor.MainButtons.Subtract,Soustraire,Subtract,减去
+Studio.TerrainEditor.MainButtons.Paint,Peindre,Paint,涂料
+Studio.TerrainEditor.MainButtons.Grow,Croître,Grow,增长
+Studio.TerrainEditor.MainButtons.Erode,Éroder,Erode,侵蚀
+Studio.TerrainEditor.MainButtons.Smooth,Lisse,Smooth,平滑
+Studio.TerrainEditor.MainButtons.Regions,Les régions,Regions,地区
+Studio.TerrainEditor.MainButtons.Generate.Tooltip,Générer des paysages de terrain.,Generate landscapes of terrain.,生成的地形地貌。
+Studio.TerrainEditor.MainButtons.Add.Tooltip,Cliquez et maintenez pour ajouter du terrain.,Click and hold to add terrain.,单击并按住添加地形。
+Studio.TerrainEditor.MainButtons.Subtract.Tooltip,Cliquez et maintenez pour enlever le terrain.,Click and hold to remove terrain.,单击并按住删除地形。
+Studio.TerrainEditor.MainButtons.Paint.Tooltip,Peindre le matériel du terrain.,Paint the material of the terrain.,涂料地形的材料。
+Studio.TerrainEditor.MainButtons.Grow.Tooltip,Cliquez et maintenez pour grandir et se développer terrain.,Click and hold to grow and expand terrain.,单击并按住发展和扩大地形。
+Studio.TerrainEditor.MainButtons.Erode.Tooltip,Cliquez et maintenez pour éroder et enlever le terrain.,Click and hold to erode and remove terrain.,单击并按住侵蚀和删除地形。
+Studio.TerrainEditor.MainButtons.Smooth.Tooltip,Brosse pour lisser les terrains accidentés ou en dents de scie.,Brush to smooth out rough or jagged terrain.,刷到平滑粗糙或参差不齐的地形。
+Studio.TerrainEditor.MainButtons.Regions.Tooltip,Manipulez régions du terrain lisse.,Manipulate regions of smooth terrain.,操纵地势平坦的地区。
+Studio.TerrainEditor.Generate.Biome.Mountains,montagnes,Mountains,山
+Studio.TerrainEditor.Generate.Biome.Canyons,canyons,Canyons,峡谷
+Studio.TerrainEditor.Generate.Biome.Dunes,Dunes,Dunes,沙丘
+Studio.TerrainEditor.Generate.Biome.Arctic,Arctique,Arctic,北极
+Studio.TerrainEditor.Generate.Biome.Lavaflow,Coulée de lave,Lavaflow,熔岩流
+Studio.TerrainEditor.Generate.Biome.Hills,Hills,Hills,丘陵
+Studio.TerrainEditor.Generate.Biome.Plains,plaines,Plains,平原
+Studio.TerrainEditor.Generate.Biome.Marsh,le marais,Marsh,沼泽
+Studio.TerrainEditor.Generate.Biome.Water,Eau,Water,水
+Studio.TerrainEditor.Generate.BiomeSize.Small (50),Petit (50),Small (50),小（50）
+Studio.TerrainEditor.Generate.BiomeSize.Medium (100),Moyen (100),Medium (100),介质（100）
+Studio.TerrainEditor.Generate.BiomeSize.Large (200),Grand (200),Large (200),大（200）
+Studio.TerrainEditor.Generate.BiomeSize.Massive (500),Massive (500),Massive (500),大规模（500）
+Studio.TerrainEditor.Generate.MapSize.Small (128),Petit (128),Small (128),小（128）
+Studio.TerrainEditor.Generate.MapSize.Medium (256),Moyen (256),Medium (256),中等（256）
+Studio.TerrainEditor.Generate.MapSize.Large (512),Large (512),Large (512),大（512）
+Studio.TerrainEditor.Generate.MapSize.Massive (1024),Massive (1024),Massive (1024),海量（1024）
+Studio.TerrainEditor.Generate.Map Settings,Paramètres de la carte,Map Settings,地图设置
+Studio.TerrainEditor.Generate.Map Size,Taille de la carte,Map Size,地图尺寸
+Studio.TerrainEditor.Generate.Seed,La graine,Seed,种子
+Studio.TerrainEditor.Generate.Caves,Caves,Caves,洞穴
+Studio.TerrainEditor.Generate.Biomes Settings,biomes Réglages,Biomes Settings,生物群系设置
+Studio.TerrainEditor.Generate.Biome Size,Taille de Biome,Biome Size,生物群落大小
+Studio.TerrainEditor.Generate.Biomes,biomes,Biomes,生物群系
+Studio.TerrainEditor.Generate.Button.Generate,produire,Generate,生成
+Studio.TerrainEditor.Generate.Button.Clear,Clair,Clear,明确
+Studio.TerrainEditor.Materials.Grass,Herbe,Grass,草
+Studio.TerrainEditor.Materials.Sand,Le sable,Sand,砂
+Studio.TerrainEditor.Materials.Rock,Roche,Rock,岩石
+Studio.TerrainEditor.Materials.Water,Eau,Water,水
+Studio.TerrainEditor.Materials.Ground,Sol,Ground,地面
+Studio.TerrainEditor.Materials.Sandstone,Grès,Sandstone,砂岩
+Studio.TerrainEditor.Materials.Slate,Ardoise,Slate,石板
+Studio.TerrainEditor.Materials.Snow,Neige,Snow,雪
+Studio.TerrainEditor.Materials.Mud,Boue,Mud,泥
+Studio.TerrainEditor.Materials.Brick,Brique,Brick,砖
+Studio.TerrainEditor.Materials.Concrete,Béton,Concrete,具体
+Studio.TerrainEditor.Materials.Glacier,Glacier,Glacier,冰川
+Studio.TerrainEditor.Materials.Wood Planks,Planches de bois,Wood Planks,木板
+Studio.TerrainEditor.Materials.Cracked Lava,Cracked Lava,Cracked Lava,裂纹熔岩
+Studio.TerrainEditor.Materials.Basalt,Basalte,Basalt,玄武岩
+Studio.TerrainEditor.Materials.Ice,La glace,Ice,冰
+Studio.TerrainEditor.Materials.Salt,Sel,Salt,盐
+Studio.TerrainEditor.Materials.Cobblestone,Pavé,Cobblestone,鹅卵石
+Studio.TerrainEditor.Materials.Limestone,Calcaire,Limestone,石灰石
+Studio.TerrainEditor.Materials.Asphalt,Asphalte,Asphalt,沥青
+Studio.TerrainEditor.Materials.Leafy Grass,feuillu herbe,Leafy Grass,绿叶草
+Studio.TerrainEditor.Materials.Pavement,Chaussée,Pavement,路面
+Studio.TerrainEditor.Brush.Brush Settings,Paramètres brosse,Brush Settings,刷设置
+Studio.TerrainEditor.Brush.Size,Taille,Size,尺寸
+Studio.TerrainEditor.Brush.Strength,Force,Strength,强度
+Studio.TerrainEditor.Brush.Material Settings,Réglages des matériaux,Material Settings,材质设置
+Studio.TerrainEditor.Brush.Auto,Auto,Auto,汽车
+Studio.TerrainEditor.Brush.Advanced,Avancée,Advanced,高级
+Studio.TerrainEditor.Brush.Plane Lock,avion de verrouillage,Plane Lock,平面锁
+Studio.TerrainEditor.Brush.Snap to Grid,Aligner sur la grille,Snap to Grid,对齐网格
+Studio.TerrainEditor.Brush.Ignore Water,ignorer l'eau,Ignore Water,忽略水
+Studio.TerrainEditor.Brush.Material,Matériel,Material,材料
+Studio.TerrainEditor.Brush.Shape,Forme,Shape,形状
+Studio.TerrainEditor.Regions.Edit Tools,Outils Modifier,Edit Tools,编辑工具
+Studio.TerrainEditor.Regions.Merge Empty,fusionner vide,Merge Empty,合并空
+Studio.TerrainEditor.Regions.Tools,Outils,Tools,工具
+Studio.TerrainEditor.Regions.Edit,modifier,Edit,编辑
+Studio.TerrainEditor.Regions.ToolsButtons.Select,Sélectionner,Select,选择
+Studio.TerrainEditor.Regions.ToolsButtons.Move,Bouge toi,Move,移动
+Studio.TerrainEditor.Regions.ToolsButtons.Resize,redimensionner,Resize,调整
+Studio.TerrainEditor.Regions.ToolsButtons.Rotate,Tourner,Rotate,旋转
+Studio.TerrainEditor.Regions.EditButtons.Copy,Copie,Copy,复制
+Studio.TerrainEditor.Regions.EditButtons.Paste,Coller,Paste,糊
+Studio.TerrainEditor.Regions.EditButtons.Delete,Effacer,Delete,删除
+Studio.TerrainEditor.Regions.EditButtons.Fill,Remplir,Fill,填
+Studio.TerrainEditor.OKButton,D'accord,OK,好
+Studio.TerrainEditor.Regions.Fill Selection,remplissez sélection,Fill Selection,填写选择

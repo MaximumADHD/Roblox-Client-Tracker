@@ -15,7 +15,7 @@ return function()
 			},
 			UpdateGameTableInfo = function() return Promise.new(function() end) end,
 			SetAutoscraping = function() end,
-			PlaceIdChangedSignal = {
+			GameIdChangedSignal = {
 				Connect = function() end,
 			},
 

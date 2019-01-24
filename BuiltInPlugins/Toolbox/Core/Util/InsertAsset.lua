@@ -14,10 +14,11 @@ local Selection = game:GetService("Selection")
 local StarterPack = game:GetService("StarterPack")
 local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
+local Lighting = game:GetService("Lighting")
 
-local FFlagStudioPluginStartDecalDragApi = settings():GetFFlag("StudioPluginStartDecalDragApi")
 local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 local FFlagEnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
+local FFlagEnableSkyFix = settings():GetFFlag("EnableSkyFix")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -78,11 +79,14 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 
 		local newSelection = {}
 		for _, o in ipairs(assetInstance) do
-
+			if FFlagEnableSkyFix and o:IsA("Sky") then
+			-- If it's a sky object, we will parrent it to lighting.
+			-- No promise needed here.
+			o.Parent = Lighting
+			elseif FFlagStudioLuaWidgetToolboxV2 then
 			-- If it's a tool or hopperbin, then we should ask the
 			-- dev if they want to put it in the starterpack or not,
 			-- so we use a promise to get a response from the asset
-			if FFlagStudioLuaWidgetToolboxV2 then
 				local parentToUse = model
 
 				if o:IsA("Tool") or o:IsA("HopperBin") then
@@ -221,7 +225,7 @@ local function deprecatedDispatchInsertAsset(plugin, assetId, assetName, assetTy
 		return insertPackage(assetId)
 	elseif assetTypeId == Enum.AssetType.Audio.Value then
 		return insertAudio(assetId, assetName)
-	elseif assetTypeId == Enum.AssetType.Decal.Value and FFlagStudioPluginStartDecalDragApi then
+	elseif assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(plugin, assetId, assetName)
 	else
 		return insertAsset(assetId, assetName)
@@ -256,7 +260,7 @@ local function dispatchInsertAsset(options)
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
 		return insertAudio(options.assetId, options.assetName)
-	elseif options.assetTypeId == Enum.AssetType.Decal.Value and FFlagStudioPluginStartDecalDragApi then
+	elseif options.assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(options.plugin, options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value and FFlagEnableToolboxPluginInsertion then
 		return installPlugin(options.assetId, options.assetName)

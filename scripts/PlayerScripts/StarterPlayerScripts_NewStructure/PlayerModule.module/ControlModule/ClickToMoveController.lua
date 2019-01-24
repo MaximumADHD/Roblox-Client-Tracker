@@ -24,8 +24,6 @@ local ZERO_VECTOR3 = Vector3.new(0,0,0)
 		[Enum.KeyCode.Up] = true;
 		[Enum.KeyCode.Down] = true;
 	}
-local FFlagUserNavigationClickToMoveUsePathBlockedSuccess, FFlagUserNavigationClickToMoveUsePathBlockedResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveUsePathBlocked") end)
-local FFlagUserNavigationClickToMoveUsePathBlocked = FFlagUserNavigationClickToMoveUsePathBlockedSuccess and FFlagUserNavigationClickToMoveUsePathBlockedResult
 
 local Player = Players.LocalPlayer
 local PlayerScripts = Player.PlayerScripts
@@ -383,7 +381,7 @@ local function Pather(character, endPoint, surfaceNormal)
 				this.pathResult = PathfindingService:FindPathAsync(torso.CFrame.p, this.TargetPoint)
 			end)
 			this.pointList = this.pathResult and this.pathResult:GetWaypoints()
-			if this.pathResult and FFlagUserNavigationClickToMoveUsePathBlocked then
+			if this.pathResult then
 				this.BlockedConn = this.pathResult.Blocked:Connect(function(blockedIdx) this:OnPathBlocked(blockedIdx) end)
 			end
 			this.PathComputing = false
@@ -840,7 +838,6 @@ ClickToMove.__index = ClickToMove
 
 function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(KeyboardController.new(CONTROL_ACTION_PRIORITY), ClickToMove)
-	print("Instantiating ClickToMove Controller")
 	
 	self.fingerTouches = {}
 	self.numUnsunkTouches = 0
@@ -885,7 +882,7 @@ function ClickToMove:DisconnectEvents()
 	-- TODO: Resolve with ControlScript handling of seating for vehicles
 	DisconnectEvent(self.humanoidSeatedConn)
 	
-	pcall(function() RunService:UnbindFromRenderStep("ClickToMoveRenderUpdate") end)
+	RunService:UnbindFromRenderStep("ClickToMoveRenderUpdate")
 end
 
 function ClickToMove:OnTouchBegan(input, processed)

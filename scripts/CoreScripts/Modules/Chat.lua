@@ -2755,6 +2755,10 @@ do
     ChatInstance:FocusChatBar()
   end
 
+  function moduleApiTable:EnterWhisperState()
+    --Not supported in the old chat.
+  end
+
   function moduleApiTable:GetVisibility()
     return ChatInstance.Visible
   end

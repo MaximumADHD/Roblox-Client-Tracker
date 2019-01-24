@@ -100,7 +100,7 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 		DownloadGameTable = GameTableMain.DownloadGameTable,
 		UpdateGameTableInfo = GameTableMain.UpdateGameTableInfo,
 		SetAutoscraping = GameTableMain.SetAutoscraping,
-		PlaceIdChangedSignal = GameTableMain.PlaceIdChangedSignal,
+		GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
 		StudioSettings = studioSettings,
 	}), Window)
 

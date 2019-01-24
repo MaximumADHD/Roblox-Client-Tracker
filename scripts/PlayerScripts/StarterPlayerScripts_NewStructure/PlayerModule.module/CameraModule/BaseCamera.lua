@@ -1153,12 +1153,10 @@ end
 function BaseCamera:UpdateMouseBehavior()
 	-- first time transition to first person mode or mouse-locked third person
 	if self.inFirstPerson or self.inMouseLockedMode then
-		pcall(function() UserGameSettings.RotationType = Enum.RotationType.CameraRelative end)
-		if UserInputService.MouseBehavior ~= Enum.MouseBehavior.LockCenter then
-			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
-		end
+		UserGameSettings.RotationType = Enum.RotationType.CameraRelative
+		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 	else
-		pcall(function() UserGameSettings.RotationType = Enum.RotationType.MovementRelative end)
+		UserGameSettings.RotationType = Enum.RotationType.MovementRelative
 		if self.isRightMouseDown or self.isMiddleMouseDown then
 			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
 		else
@@ -1370,8 +1368,7 @@ function BaseCamera:UpdateGamepad()
 				end
 			end
 
-			local success, gamepadCameraSensitivity = pcall(function() return UserGameSettings.GamepadCameraSensitivity end)
-			finalConstant = success and (gamepadCameraSensitivity * self.currentSpeed) or self.currentSpeed
+			finalConstant = UserGameSettings.GamepadCameraSensitivity * self.currentSpeed
 			self.lastVelocity = (gamepadPan - self.lastThumbstickPos)/(currentTime - self.lastThumbstickRotate)
 		end
 

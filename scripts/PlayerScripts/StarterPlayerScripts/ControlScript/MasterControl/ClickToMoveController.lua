@@ -1,9 +1,6 @@
 -- Written By Kip Turner, Copyright Roblox 2014
 -- Updated by Garnold to utilize the new PathfindingService API, 2017
 
-local FFlagUserNavigationClickToMoveUsePathBlockedSuccess, FFlagUserNavigationClickToMoveUsePathBlockedResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveUsePathBlocked") end)
-local FFlagUserNavigationClickToMoveUsePathBlocked = FFlagUserNavigationClickToMoveUsePathBlockedSuccess and FFlagUserNavigationClickToMoveUsePathBlockedResult
-
 local DEBUG_NAME = "ClickToMoveController"
 
 local UIS = game:GetService("UserInputService")
@@ -397,7 +394,7 @@ local function Pather(character, endPoint, surfaceNormal)
 				this.pathResult = PathfindingService:FindPathAsync(torso.CFrame.p, this.TargetPoint)
 			end)
 			this.pointList = this.pathResult and this.pathResult:GetWaypoints()
-			if this.pathResult and FFlagUserNavigationClickToMoveUsePathBlocked then
+			if this.pathResult then
 				this.BlockedConn = this.pathResult.Blocked:Connect(function(blockedIdx) this:OnPathBlocked(blockedIdx) end)
 			end
 			this.PathComputing = false

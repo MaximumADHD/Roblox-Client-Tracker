@@ -22,8 +22,13 @@ local function cleanup(self)
 		self.AnchorButtonCancel:terminate()
 		self.AnchorButtonCancel = nil
 
-		self.AnchorSubWindow:terminate()
-		self.AnchorSubWindow = nil
+		if FastFlags:useQWidgetsForPopupsOn() then
+			self.QtWindow:terminate()
+			self.QtWindow = nil
+		else
+			self.AnchorSubWindow:terminate()
+			self.AnchorSubWindow = nil
+		end
 
 		self.AnchorWarning:Destroy()
 		self.AnchorWarning = nil
@@ -80,13 +85,15 @@ function StartScreen:show(exitFunc)
 	self.gui.ScriptWarning.Visible = false
 	
 	self.AnchorWarning = self.Paths.GUIPopUpAnchorWarning:clone()
-	if FastFlags:isUseNewThemeAPIOn() then
-		self.Paths.UtilityScriptTheme:setColorsToTheme(self.AnchorWarning)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		if FastFlags:isUseNewThemeAPIOn() then
+			self.Paths.UtilityScriptTheme:setColorsToTheme(self.AnchorWarning)
+		end
+		self.AnchorSubWindow = self.Paths.GUIScriptSubWindow:new(self.Paths, self.AnchorWarning, self.Paths.Globals.PluginGUI)
+		self.AnchorSubWindow:turnOn(false)
+		self.AnchorSubWindow.GUI.AnchorPoint = Vector2.new(0.5, 0.5)
+		self.AnchorSubWindow.GUI.Position = UDim2.new(0.5, 0, 0.5, 0)
 	end
-	self.AnchorSubWindow = self.Paths.GUIScriptSubWindow:new(self.Paths, self.AnchorWarning, self.Paths.Globals.PluginGUI)
-	self.AnchorSubWindow:turnOn(false)
-	self.AnchorSubWindow.GUI.AnchorPoint = Vector2.new(0.5, 0.5)
-	self.AnchorSubWindow.GUI.Position = UDim2.new(0.5, 0, 0.5, 0)
 	
 	self.cleanupEvents = {}
 	
@@ -209,19 +216,25 @@ function StartScreen:show(exitFunc)
 		exitFunc(selected)
 	end))
 	
-	table.insert(self.cleanupEvents, self.AnchorSubWindow.OnCloseEvent:connect(function()
-		self.running = true		
-		if not isTickFuncRunning then			
-			spawn(selectorTickFunc)
-		end
-	end))
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		table.insert(self.cleanupEvents, self.AnchorSubWindow.OnCloseEvent:connect(function()
+			self.running = true		
+			if not isTickFuncRunning then			
+				spawn(selectorTickFunc)
+			end
+		end))
+	end
 				
 	local selectClickConnect = self.gui.Buttons.Select.MouseButton1Click:connect(function()
 		if self.SelectButton:getEnabled() then
 			self.running = false
 			if selected and selected.Anchored == false then
 				--Prompt to anchor it
-				self.AnchorSubWindow:turnOn(true)
+				if FastFlags:useQWidgetsForPopupsOn() then
+					self.QtWindow:turnOn(true)
+				else
+					self.AnchorSubWindow:turnOn(true)
+				end
 				self.AnchorButtonOK:setEnabled(true)
 				self.AnchorButtonCancel:setEnabled(true)
 			else
@@ -245,6 +258,16 @@ function StartScreen:show(exitFunc)
 	
 	if not isPlaceSafe() then
 		self.gui.ScriptWarning.Visible = true
+	end
+
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, "Anchor", self.AnchorWarning, function()
+			self.running = true		
+			if not isTickFuncRunning then			
+				spawn(selectorTickFunc)
+			end
+		end)
+		self.QtWindow:turnOn(false)
 	end
 	
 	self.gui.Parent = self.Paths.Globals.PluginGUI

@@ -42,8 +42,6 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagFixInactiveSelectorArrowsSuccess, FFlagFixInactiveSelectorArrowsResult = pcall(function() return settings():GetFFlag("FixInactiveSelectorArrows") end)
 local FFlagFixInactiveSelectorArrows = FFlagFixInactiveSelectorArrowsSuccess and FFlagFixInactiveSelectorArrowsResult
 
-local FFlagFixSettingsDropDownIncorrectSelection = settings():GetFFlag("FixSettingsDropDownIncorrectSelection")
-
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
 
@@ -343,19 +341,19 @@ local function isGuiVisible(gui, debug) -- true if any part of the gui is visibl
 end
 
 local function addHoverState(button, instance, onNormalButtonState, onHoverButtonState)
-	local function onNormalButtonStateCallback() 
+	local function onNormalButtonStateCallback()
 		if FFlagFixInactiveSelectorArrows then
-			if button.Active then 
-				onNormalButtonState(instance) 
+			if button.Active then
+				onNormalButtonState(instance)
 			end
 		else
 			onNormalButtonState(instance)
 		end
 	end
-	local function onHoverButtonStateCallback() 
+	local function onHoverButtonStateCallback()
 		if FFlagFixInactiveSelectorArrows then
-			if button.Active then 
-				onHoverButtonState(instance) 
+			if button.Active then
+				onHoverButtonState(instance)
 			end
 		else
 			onHoverButtonState(instance)
@@ -586,10 +584,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local dropDownButtonEnabled
 	local lastStringTable = dropDownStringTable
 
-	if not FFlagFixSettingsDropDownIncorrectSelection then
-		this.CurrentIndex = 0
-	end
-
 	----------------- GUI SETUP ------------------------
 	local DropDownFullscreenFrame = Util.Create'ImageButton'
 	{
@@ -691,13 +685,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0.5)
 		end
-		if not FFlagFixSettingsDropDownIncorrectSelection then
-			if not this.CurrentIndex then this.CurrentIndex = 1 end
-			if this.CurrentIndex <= 0 then this.CurrentIndex = 1 end
-		end
 
 		lastSelectedCoreObject = this.DropDownFrame
-		if (not FFlagFixSettingsDropDownIncorrectSelection) or (this.CurrentIndex and this.CurrentIndex > 0) then
+		if this.CurrentIndex and this.CurrentIndex > 0 then
 			GuiService.SelectedCoreObject = this.Selections[this.CurrentIndex]
 		end
 
@@ -1219,7 +1209,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 			leftButton.Active = interactable
 			rightButton.Active = interactable
 		end
-		
+
 		if not interactable then
 			for i, selectionLabel in pairs(this.Selections) do
 				selectionLabel.TextColor3 = Color3.fromRGB(49, 49, 49)
@@ -2098,7 +2088,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ZIndex = 2,
 		Parent = RowFrame
 	};
-	
+
 	local RowLabelTextSizeConstraint = Instance.new("UITextSizeConstraint")
 	if FFlagUseNotificationsLocalization then
 		RowLabel.Size = UDim2.new(0.35,0,1,0)
@@ -2107,7 +2097,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		RowLabelTextSizeConstraint.Parent = RowLabel
 		RowLabelTextSizeConstraint.MaxTextSize = 16
 	end
-	
+
 	if not isARealRow then
 		RowLabel.Text = ''
 	end

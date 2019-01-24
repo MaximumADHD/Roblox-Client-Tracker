@@ -26,8 +26,6 @@ local UserInputService = game:GetService("UserInputService")
 --- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
-local FFlagCoreScriptBetterACMFriendStatusChecks = settings():GetFFlag("CoreScriptBetterACMFriendStatusChecks")
-
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -97,7 +95,7 @@ local playerMovementEnabled = true
 function ContextMenuUtil:DisablePlayerMovement()
 	if not playerMovementEnabled then return end
 	playerMovementEnabled = false
-    
+
     local noOpFunc = function(actionName, actionState)
         if actionState == Enum.UserInputState.End then
             return Enum.ContextActionResult.Pass
@@ -118,7 +116,7 @@ end
 function ContextMenuUtil:EnablePlayerMovement()
 	if playerMovementEnabled then return end
 	playerMovementEnabled = true
-    
+
 	ContextActionService:UnbindCoreAction(STOP_MOVEMENT_ACTION_NAME)
 end
 
@@ -141,11 +139,7 @@ SelectionOverrideObject.BackgroundTransparency = 1
 local function MakeDefaultButton(name, size, clickFunc)
 
 	local button = Instance.new("ImageButton")
-	if FFlagCoreScriptBetterACMFriendStatusChecks then
-		button.Name = name
-	else
-		button.Name = name .. "Button"
-	end
+	button.Name = name
 	button.Image = ""
 	button.ScaleType = Enum.ScaleType.Slice
 	button.SliceCenter = Rect.new(8,6,46,44)

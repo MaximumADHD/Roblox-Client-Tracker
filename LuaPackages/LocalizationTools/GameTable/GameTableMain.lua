@@ -3,6 +3,8 @@ local Promise = require(script.Parent.Parent.Promise)
 local RbxEntriesToWebEntries = require(script.Parent.RbxEntriesToWebEntries)
 
 local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
+local StudioLocalizationUseGameIdChangedSignal = settings():GetFFlag("StudioLocalizationUseGameIdChangedSignal")
+
 local PatchInfo
 if StudioLocalizationSelectiveUpload then
 	PatchInfo = require(script.Parent.PatchInfo)
@@ -49,10 +51,10 @@ return function(userId)
 	end
 
 	return {
-		OpenCSV = Promise.promisify(function()
+		OpenCSV = Promise.wrapAsync(function()
 			return LocalizationService:PromptUploadCSVToGameTable()
 		end),
-		SaveCSV = Promise.promisify(function(table)
+		SaveCSV = Promise.wrapAsync(function(table)
 			LocalizationService:PromptDownloadGameTableToCSV(table)
 		end),
 		ComputePatch = ComputePatch,
@@ -60,6 +62,7 @@ return function(userId)
 		DownloadGameTable = WebTableInterface.DownloadGameTable,
 		UpdateGameTableInfo = WebTableInterface.UpdateGameTableInfo,
 		SetAutoscraping = WebTableInterface.SetAutoscraping,
-		PlaceIdChangedSignal = game:GetPropertyChangedSignal("PlaceId"),
+		GameIdChangedSignal = game:GetPropertyChangedSignal(
+			StudioLocalizationUseGameIdChangedSignal and "GameId" or "PlaceId"),
 	}
 end

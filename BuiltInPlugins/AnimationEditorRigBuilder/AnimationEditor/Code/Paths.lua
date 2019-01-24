@@ -70,7 +70,9 @@ Paths.GUIScriptJointTimeline = nil
 Paths.GUIScriptScrollingJointTimeline = nil
 Paths.GUIScriptJoint = nil
 Paths.GUIScriptKeyframe = nil
-Paths.GUIScriptSubWindow = nil
+if not FastFlags:useQWidgetsForPopupsOn() then
+	Paths.GUIScriptSubWindow = nil
+end
 Paths.GUIScriptNotchesDisplayArea = nil
 Paths.GUIScriptScrubberDisplayArea = nil
 Paths.GUIScriptScrollZoomControl = nil
@@ -112,6 +114,9 @@ if FastFlags:isAnimationEventsOn() then
 	Paths.GUIScriptKeyframeMarker = nil
 	Paths.GUIScriptAnimationEventBar = nil
 	Paths.GUIScriptAnimationEventMenu = nil
+end
+if FastFlags:useQWidgetsForPopupsOn() then
+	Paths.GUIScriptQtWindow = nil
 end
 
 -- helper functions
@@ -212,20 +217,31 @@ if FastFlags:isIKModeFlagOn() then
 end
 if FastFlags:isAnimationEventsOn() then
 	Paths.GUIClonableManageEventOption = Paths.GUIClonable.ManageEventOption
-	Paths.GUIClonableAnimationEventSwizzle = Paths.GUIClonable.EventItemFrame
+	if FastFlags:useQWidgetsForPopupsOn() then
+		Paths.GUIClonableAnimationEventSwizzle = Paths.GUIClonable.EventItemFrame
+	else
+		Paths.GUIClonableAnimationEventSwizzle = Paths.GUIClonable.EventItemFrameOld
+	end
 	Paths.GUIClonableSelectionList = Paths.GUIClonable.SelectionList
 	Paths.GUIClonableKeyframeMarker = Paths.GUIClonable.KeyframeMarker
 end
 
 -- gui popups
 Paths.GUIClonablePopUps = Paths.GUIClonable.PopUps
-Paths.GUIPopUpLoad = Paths.GUIClonablePopUps.Load
-Paths.GUIPopUpSave = Paths.GUIClonablePopUps.Save
+if FastFlags:isFixAnimationsWithLongNamesOn() then
+	Paths.GUIPopUpLoad = Paths.GUIClonablePopUps.Load
+	Paths.GUIPopUpSave = Paths.GUIClonablePopUps.Save
+else
+	Paths.GUIPopUpLoad = Paths.GUIClonablePopUps.LoadOld
+	Paths.GUIPopUpSave = Paths.GUIClonablePopUps.SaveOld
+end
 Paths.GUIPopUpPriority = Paths.GUIClonablePopUps.Priority
 Paths.GUIPopUpOKCancelTemplate = Paths.GUIClonablePopUps.OkCancelTemplate
 Paths.GUIPopUpInput = Paths.GUIClonablePopUps.PopUpInput
 Paths.GUIPopUpStartScreen = Paths.GUIClonablePopUps.StartScreen
-Paths.GUIPopUpSubWindow = Paths.GUIClonablePopUps.SubWindow
+if not FastFlags:useQWidgetsForPopupsOn() then
+	Paths.GUIPopUpSubWindow = Paths.GUIClonablePopUps.SubWindow
+end
 Paths.GUIPopUpEasingOptions = Paths.GUIClonablePopUps.EasingOptions
 Paths.GUIPopUpAnchorWarning = Paths.GUIClonablePopUps.AnchorWarning
 Paths.GUIPopUpPoseOverwriteWarning = Paths.GUIClonablePopUps.PoseOverwriteWarning
@@ -239,8 +255,13 @@ if FastFlags:isIKModeFlagOn() then
 	Paths.GUIPopUpAlert = Paths.GUIClonable.PopUps.Alert
 end
 if FastFlags:isAnimationEventsOn() then
-	Paths.GUIPopUpManageEvents = Paths.GUIClonablePopUps.ManageEvents
-	Paths.GUIPopUpEditAnimationEvents = Paths.GUIClonablePopUps.EditEvents
+	if FastFlags:useQWidgetsForPopupsOn() then
+		Paths.GUIPopUpManageEvents = Paths.GUIClonablePopUps.ManageEvents
+		Paths.GUIPopUpEditAnimationEvents = Paths.GUIClonablePopUps.EditEvents
+	else
+		Paths.GUIPopUpManageEvents = Paths.GUIClonablePopUps.ManageEventsOld
+		Paths.GUIPopUpEditAnimationEvents = Paths.GUIClonablePopUps.EditEventsOld
+	end
 end
 
 function Paths:init()
@@ -293,7 +314,9 @@ function Paths:init()
 	self.GUIScriptScrollingJointTimeline = require(self.GUIScripts.GUIScriptScrollingJointsTimeline)
 	self.GUIScriptJoint = require(self.GUIScripts.GUIScriptJoint)
 	self.GUIScriptKeyframe = require(self.GUIScripts.GUIScriptKeyframe)
-	self.GUIScriptSubWindow = require(self.GUIScripts.GUIScriptSubWindow)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.GUIScriptSubWindow = require(self.GUIScripts.GUIScriptSubWindow_deprecated)
+	end
 	self.GUIScriptNotchesDisplayArea = require(self.GUIScripts.GUIScriptNotchesDisplayArea)
 	self.GUIScriptScrubberDisplayArea = require(self.GUIScripts.GUIScriptScrubberDisplayArea)
 	self.GUIScriptScrollZoomControl = require(self.GUIScripts.GUIScriptScrollZoomControl)
@@ -338,6 +361,10 @@ function Paths:init()
 		self.GUIScriptAlertMessage = require(self.GUIScripts.GUIScriptAlertMessage)
 		self.GUIScriptViewportNotification = require(self.GUIScripts.GUIScriptViewportNotification)
 		self.GUIScriptIKMenu = require(self.GUIScripts.GUIScriptIKMenu)
+	end
+
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.GUIScriptQtWindow = require(self.GUIScripts.GUIScriptQtWindow)
 	end
 
 	-- helper functions
@@ -426,6 +453,9 @@ function Paths:cacheGUIPaths(gui)
 	self.GUI = gui
 	self.GUIMain = self.GUI.Main
 
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.GUIDarkCover = self.GUI.DarkCover
+	end
 	self.GUIDragArea = self.GUI.DragAreaVersionParentScaled
 	self.GUIMediaControls = self.GUIMain.MediaControlsAndTimelineHeader.MediaControls
 	self.GUIScrollingJointTimeline = self.GUIMain.ScrollingJointsTimeline
@@ -443,7 +473,11 @@ function Paths:cacheGUIPaths(gui)
 	if FastFlags:isAnimationEventsOn() then
 		self.GUIAnimationEventBar = self.GUIMain.AnimationEventBar
 		self.GUIEventArea = self.GUIAnimationEventBar.Divider.DisplayArea.EventArea
-		self.GUIEventMultiSelectBox = self.GUIEventArea.MultiSelectBox
+		if FastFlags:isSelectEventsOnEdgeOn() then
+			self.GUIEventMultiSelectBox = self.GUIEventArea.Parent.Parent.MultiSelectBox
+		else
+			self.GUIEventMultiSelectBox = self.GUIEventArea.MultiSelectBox
+		end
 	end
 
 	self.GUIPopUps = self.GUI.PopUps

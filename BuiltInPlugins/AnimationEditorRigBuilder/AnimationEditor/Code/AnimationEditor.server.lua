@@ -133,7 +133,9 @@ local function createMainGUI()
 			Paths.UtilityScriptScalePoses:init(Paths)
 		end
 		Paths.UtilityScriptMoveItems:init(Paths)
-
+		if FastFlags:useQWidgetsForPopupsOn() then
+			Paths.UtilityScriptTheme:initPostGUICreate()
+		end
 		Paths.DataModelSession:initPostGUICreate()
 		if FastFlags:isIKModeFlagOn() then
 			Paths.DataModelRig:initPostGUICreate()
@@ -144,7 +146,9 @@ local function createMainGUI()
 		if FastFlags:isAnimationEventsOn() then
 			Paths.DataModelAnimationEvents:initPostGUICreate()
 		end
-		Paths.UtilityScriptTheme:initPostGUICreate()
+		if not FastFlags:useQWidgetsForPopupsOn() then
+			Paths.UtilityScriptTheme:initPostGUICreate()
+		end
 		if FastFlags:isScaleKeysOn() then
 			Paths.GUIScriptScaleControls:initPostGUICreate()
 		end

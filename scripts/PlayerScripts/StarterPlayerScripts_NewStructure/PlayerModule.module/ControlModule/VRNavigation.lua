@@ -25,7 +25,6 @@ local RECALCULATE_PATH_THRESHOLD = 4
 local NO_PATH_THRESHOLD = 12
 local MAX_PATHING_DISTANCE = 200
 local POINT_REACHED_THRESHOLD = 1
-local STOPPING_DISTANCE = 4
 local OFFTRACK_TIME_THRESHOLD = 2
 local THUMBSTICK_DEADZONE = 0.22
 
@@ -440,11 +439,10 @@ function VRNavigation:Enable(enable)
 		
 		self.userCFrameEnabledConn = VRService.UserCFrameEnabled:Connect(function() self:OnUserCFrameEnabled() end)
 		self:OnUserCFrameEnabled()
-	
-		pcall(function()
-			VRService:SetTouchpadMode(Enum.VRTouchpad.Left, Enum.VRTouchpadMode.VirtualThumbstick)
-			VRService:SetTouchpadMode(Enum.VRTouchpad.Right, Enum.VRTouchpadMode.ABXY)
-		end)
+
+		VRService:SetTouchpadMode(Enum.VRTouchpad.Left, Enum.VRTouchpadMode.VirtualThumbstick)
+		VRService:SetTouchpadMode(Enum.VRTouchpad.Right, Enum.VRTouchpadMode.ABXY)
+
 		self.enabled = true
 	else
 		-- Disable

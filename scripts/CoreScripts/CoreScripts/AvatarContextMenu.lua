@@ -9,6 +9,7 @@ local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run a
 local isAvatarContextMenuEnabled = false
 
 local FFlagCoreScriptACMOpenCloseSetCore = settings():GetFFlag("CoreScriptACMOpenCloseSetCore")
+local FFlagCoreScriptFixACMFirstPersonUnreliablity = settings():GetFFlag("CoreScriptFixACMFirstPersonUnreliablity")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -33,16 +34,16 @@ local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
 local AnalyticsService = game:GetService("AnalyticsService")
 
--- This is not (possibly no longer?) true. User scripts are ran on the first frame that the 
+-- This is not (possibly no longer?) true. User scripts are ran on the first frame that the
 -- LocalPlayer exists, so as long as these SetCore methods are registered as soon as the LocalPlayer
--- exists queuing is not necessary.  
+-- exists queuing is not necessary.
 --- SETCORE METHODS -- Remove with FFlagCoreScriptACMOpenCloseSetCore
 -- These must be registered before we start requiring modules so they are available on the first frame.
 -- This hack is ugly because it obscures the stack trace for these set core errors. We should one day just make the LocalPlayer
 -- exist on the first frame.
 local TempSetCoreQueue = {}
 
-if not FFlagCoreScriptACMOpenCloseSetCore then 
+if not FFlagCoreScriptACMOpenCloseSetCore then
 	function QueueSetCoreMethod(methodName, args)
 		if TempSetCoreQueue[methodName] == nil then
 			TempSetCoreQueue[methodName] = {}
@@ -55,11 +56,11 @@ if not FFlagCoreScriptACMOpenCloseSetCore then
 end
 
 local hasTrackedAvatarContextMenu = false
-StarterGui:RegisterSetCore("SetAvatarContextMenuEnabled", 
-	function(enabled) isAvatarContextMenuEnabled = not not enabled 
+StarterGui:RegisterSetCore("SetAvatarContextMenuEnabled",
+	function(enabled) isAvatarContextMenuEnabled = not not enabled
 		if isAvatarContextMenuEnabled and not hasTrackedAvatarContextMenu then
 			hasTrackedAvatarContextMenu = true
-			AnalyticsService:TrackEvent("Game", "AvatarContextMenuEnabled", "placeId: " .. tostring(game.PlaceId)) 
+			AnalyticsService:TrackEvent("Game", "AvatarContextMenuEnabled", "placeId: " .. tostring(game.PlaceId))
 		end
 	end
 )
@@ -84,8 +85,6 @@ while not LocalPlayer do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local FFlagCoreScriptACMRemovePlayersWhoLeave = settings():GetFFlag("CoreScriptACMRemovePlayersWhoLeave")
-
 -- no avatar context menu for guests
 if LocalPlayer.UserId <= 0 and not DEBUG_MODE then return end
 
@@ -107,7 +106,7 @@ local contextMenuPlayerChangedConn = nil
 ContextMenuFrame = ContextMenuGui:CreateMenuFrame()
 ContextMenuItems = ContextMenuItemsModule.new(ContextMenuFrame.Content.ContextActionList)
 
-if not FFlagCoreScriptACMOpenCloseSetCore then 
+if not FFlagCoreScriptACMOpenCloseSetCore then
 	-- SetCores have been registered, empty SetCoreQueue
 	for setCoreMethod, queue in pairs(TempSetCoreQueue) do
 		for i = 1, #queue do
@@ -146,7 +145,7 @@ function BindMenuActions()
 	-- Close Menu actions
 	local closeMenuFunc = function(actionName, inputState, input)
 		if inputState ~= Enum.UserInputState.Begin then
-			return 
+			return
 		end
 		if not FFlagCoreScriptACMOpenCloseSetCore then
 			ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
@@ -186,13 +185,11 @@ function BuildPlayerCarousel(selectedPlayer, worldPoint)
 	ContextMenuGui:BuildPlayerCarousel(playersByProximity)
 end
 
-if FFlagCoreScriptACMRemovePlayersWhoLeave then
-	PlayersService.PlayerRemoving:connect(function(player)
-		if ContextMenuOpen and player ~= SelectedPlayer then 
-			ContextMenuGui:RemovePlayerEntry(player)
-		end
-	end)
-end
+PlayersService.PlayerRemoving:connect(function(player)
+	if ContextMenuOpen and player ~= SelectedPlayer then
+		ContextMenuGui:RemovePlayerEntry(player)
+	end
+end)
 
 function OpenContextMenu(player, worldPoint)
     if ContextMenuOpening or ContextMenuOpen or not isAvatarContextMenuEnabled then
@@ -209,11 +206,11 @@ end
 
 function CloseContextMenu()
 	GuiService.SelectedCoreObject = nil
-	
+
 	if FFlagCoreScriptACMOpenCloseSetCore then
 		ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
 	end
-	
+
 	ContextMenuUtil:EnablePlayerMovement()
 	if contextMenuPlayerChangedConn then
 		contextMenuPlayerChangedConn:disconnect()
@@ -258,6 +255,16 @@ function LocalPlayerHasToolEquipped()
 	return false
 end
 
+function shouldIgnoreLocalCharacter()
+	if LocalPlayer.Character then
+		local head = LocalPlayer.Character:FindFirstChild("Head")
+		if head then
+			-- This will be true if the player is in first person.
+			return head.LocalTransparencyModifier >= 0.95
+		end
+	end
+end
+
 function clickedOnPoint(screenPoint)
 	local camera = workspace.CurrentCamera
 	if not camera then return end
@@ -266,7 +273,12 @@ function clickedOnPoint(screenPoint)
 
 	local ray = camera:ScreenPointToRay(screenPoint.X, screenPoint.Y)
 	ray = Ray.new(ray.Origin, ray.Direction * MAX_CONTEXT_MENU_DISTANCE)
-	local hitPart, hitPoint = workspace:FindPartOnRay(ray, nil, false, true)
+	local hitPart, hitPoint
+	if FFlagCoreScriptFixACMFirstPersonUnreliablity and shouldIgnoreLocalCharacter() then
+		hitPart, hitPoint = workspace:FindPartOnRay(ray, LocalPlayer.Character, false, true)
+	else
+		hitPart, hitPoint = workspace:FindPartOnRay(ray, nil, false, true)
+	end
 	local player = ContextMenuUtil:FindPlayerFromPart(hitPart)
 
 	if player and ((DEBUG_MODE and player ~= LocalPlayer) or (player ~= LocalPlayer and player.UserId > 0)) then
@@ -309,7 +321,7 @@ function trackTouchSwipeInput(inputObject)
 			if PointInSwipeArea(inputObject.Position) then
 				hasTouchSwipeInput = inputObject
 			end
-		elseif hasTouchSwipeInput == inputObject and inputObject.UserInputState == Enum.UserInputState.End then 
+		elseif hasTouchSwipeInput == inputObject and inputObject.UserInputState == Enum.UserInputState.End then
 			spawn(function()
 				hasTouchSwipeInput = nil
 			end)
@@ -321,8 +333,8 @@ local function functionProcessInput(inputObject, gameProcessedEvent)
 	trackTouchSwipeInput(inputObject)
 
 	if gameProcessedEvent then return end
-	
-	if inputObject.UserInputType == Enum.UserInputType.MouseButton1 or 
+
+	if inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
 		inputObject.UserInputType == Enum.UserInputType.Touch then
 			OnUserInput(Vector2.new(inputObject.Position.X, inputObject.Position.Y), inputObject)
 	elseif inputObject.UserInputType == Enum.UserInputType.MouseMovement then
@@ -379,7 +391,7 @@ if FFlagCoreScriptACMOpenCloseSetCore then
 			return SelectedPlayer
 		end
 	)
-	StarterGui:RegisterSetCore("AvatarContextMenuTarget", 
+	StarterGui:RegisterSetCore("AvatarContextMenuTarget",
 		function(player)
 			local isPlayer = typeof(player) == "Instance" and player:IsA("Player")
 			if isPlayer then

@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local ManageEvents = {}
 
 local function createListItem(self, name)
@@ -10,7 +12,11 @@ local function isUserSearching(self)
 end
 
 local function closeAndSave(self)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow:turnOn(false)
+	end
 	self.Paths.UtilityScriptUndoRedo:resetContext()
 	self.Paths.UtilityScriptUndoRedo:setToDefaultContext()
 	self.Paths.UtilityScriptCopyPaste:setCopyPasteEnabled(true)
@@ -18,7 +24,11 @@ local function closeAndSave(self)
 end
 
 local function closeAndRevert(self)
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow:turnOn(false)
+	end
 	self.Paths.UtilityScriptUndoRedo:undoAllInContext()	
 	self.Paths.UtilityScriptUndoRedo:setToDefaultContext()
 	self.Paths.UtilityScriptCopyPaste:setCopyPasteEnabled(true)
@@ -50,21 +60,6 @@ local function filterNames(self, filter, names)
 		end
 	end
 	return filteredNames
-	--[[local tempNames = {}
-	for i = 1, #filter do
-		if self.Paths.HelperFunctionsTable:isNilOrEmpty(names) then
-			break
-		end
-		local character = filter:sub(i,i)
-		for _, name in pairs(names) do
-			if character == name:sub(i, i) then
-				table.insert(tempNames, name)
-			end
-		end
-		names = tempNames
-		tempNames = {}
-	end
-	return names--]]
 end
 
 function ManageEvents:init(Paths)
@@ -75,15 +70,26 @@ function ManageEvents:init(Paths)
 	self.SearchBarFrame = self.TargetWidget.ContainerFrame.SearchBarFrame
 	self.SaveCancel = self.TargetWidget.ContainerFrame.SaveCancel
 
-	self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetWidget)
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetWidget)
+	end
 
 	self.WindowClosedEvent = self.Paths.UtilityScriptEvent:new()
 
-	self.SubWindow = Paths.GUIScriptSubWindow:new(Paths, self.TargetWidget, Paths.GUIPopUps)
-	self.SubWindow:changeTitle("Manage Animation Events")
-	self.SubWindow:turnOn(false)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow = Paths.GUIScriptQtWindow:new(Paths, "Manage Animation Events", self.TargetWidget, function() closeAndRevert(self) end, Vector2.new(330, 171), true)
+		self.QtWindow:turnOn(false)
+	else
+		self.SubWindow = Paths.GUIScriptSubWindow:new(Paths, self.TargetWidget, Paths.GUIPopUps)
+		self.SubWindow:changeTitle("Manage Animation Events")
+		self.SubWindow:turnOn(false)
+	end
 
-	self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.ScrollingFrame, self.TargetWidget, self.SubWindow)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.ScrollingFrame, self.TargetWidget, nil, self.QtWindow)
+	else
+		self.ScrollingList = Paths.WidgetExpandableScrollingList:new(Paths, self.ScrollingFrame, self.TargetWidget, self.SubWindow)
+	end
 
 	self.CancelButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.SaveCancel.Cancel)
 	self.SaveButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.SaveCancel.Save)
@@ -96,7 +102,9 @@ function ManageEvents:init(Paths)
 	self.Connections:add(self.SearchBarFrame.ClearButton.MouseButton1Click:connect(function() onSearchCleared(self) end))
 	self.Connections:add(self.SearchBarFrame.TextBox:GetPropertyChangedSignal("Text"):connect(function() onUserTyped(self) end))
 	self.Connections:add(self.Paths.DataModelKeyframes.ChangedEvent:connect(function() self:populateEventsList() end))
-	self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() closeAndSave(self) end))
+	if not FastFlags:useQWidgetsForPopupsOn() then
+		self.Connections:add(self.SubWindow.OnCloseEvent:connect(function() closeAndSave(self) end))
+	end
 	self.Connections:add(self.SearchBarFrame.TextBox.Focused:connect(function()
 		self.SearchBarFrame.Border.ImageColor3 = self.Paths.UtilityScriptTheme:GetHighlightColor()
 	end))
@@ -106,7 +114,11 @@ function ManageEvents:init(Paths)
 end
 
 function ManageEvents:show()
-	self.SubWindow:turnOn(true)
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:turnOn(true)
+	else
+		self.SubWindow:turnOn(true)
+	end
 	self.Paths.UtilityScriptUndoRedo:changeUndoRedoContext(self.Paths.UtilityScriptUndoRedo.AnimationEventContext)
 	self.Paths.UtilityScriptCopyPaste:setCopyPasteEnabled(false)
 	self:populateEventsList()
@@ -118,8 +130,13 @@ function ManageEvents:terminate()
 	self.ScrollingList:terminate()
 	self.ScrollingList = nil
 
-	self.SubWindow:terminate()
-	self.SubWindow = nil	
+	if FastFlags:useQWidgetsForPopupsOn() then
+		self.QtWindow:terminate()
+		self.QtWindow = nil
+	else
+		self.SubWindow:terminate()
+		self.SubWindow = nil
+	end
 
 	self.SaveButton:terminate()	
 	self.CancelButton:terminate()

@@ -84,23 +84,27 @@ function whisperStateMethods:GetWhisperChanneNameColor()
 	return Color3.fromRGB(102, 14, 102)
 end
 
+function whisperStateMethods:EnterWhisperState(player)
+	self.PlayerNameEntered = true
+	self.PlayerName = player.Name
+
+	self.MessageModeButton.Size = UDim2.new(0, 1000, 1, 0)
+	self.MessageModeButton.Text = string.format("[To %s]", player.Name)
+	self.MessageModeButton.TextColor3 = self:GetWhisperChanneNameColor()
+
+	local xSize = self.MessageModeButton.TextBounds.X
+	self.MessageModeButton.Size = UDim2.new(0, xSize, 1, 0)
+	self.TextBox.Size = UDim2.new(1, -xSize, 1, 0)
+	self.TextBox.Position = UDim2.new(0, xSize, 0, 0)
+	self.TextBox.Text = " "
+end
+
 function whisperStateMethods:TextUpdated()
 	local newText = self.TextBox.Text
 	if not self.PlayerNameEntered then
 		local player = self:GetWhisperingPlayer(newText)
 		if player then
-			self.PlayerNameEntered = true
-			self.PlayerName = player.Name
-
-			self.MessageModeButton.Size = UDim2.new(0, 1000, 1, 0)
-			self.MessageModeButton.Text = string.format("[To %s]", player.Name)
-			self.MessageModeButton.TextColor3 = self:GetWhisperChanneNameColor()
-
-			local xSize = self.MessageModeButton.TextBounds.X
-			self.MessageModeButton.Size = UDim2.new(0, xSize, 1, 0)
-			self.TextBox.Size = UDim2.new(1, -xSize, 1, 0)
-			self.TextBox.Position = UDim2.new(0, xSize, 0, 0)
-			self.TextBox.Text = " "
+			self:EnterWhisperState(player)
 		end
 	else
 		if newText == "" then
@@ -135,7 +139,7 @@ function whisperStateMethods:Destroy()
 	self.Destroyed = true
 end
 
-function WhisperCustomState.new(ChatWindow, ChatBar, ChatSettings)
+function WhisperCustomState.new(ChatWindow, ChatBar, ChatSettings, player)
 	local obj = setmetatable({}, whisperStateMethods)
 	obj.Destroyed = false
 	obj.ChatWindow = ChatWindow
@@ -156,7 +160,11 @@ function WhisperCustomState.new(ChatWindow, ChatBar, ChatSettings)
 		obj.ChatBar:CaptureFocus()
 	end)
 
-	obj:TextUpdated()
+	if player then
+		obj:EnterWhisperState(player)
+	else
+		obj:TextUpdated()
+	end
 
 	return obj
 end
@@ -168,7 +176,12 @@ function ProcessMessage(message, ChatWindow, ChatBar, ChatSettings)
 	return nil
 end
 
+function CreateCustomState(player, ChatWindow, ChatBar, ChatSettings)
+	return WhisperCustomState.new(ChatWindow, ChatBar, ChatSettings, player)
+end
+
 return {
 	[util.KEY_COMMAND_PROCESSOR_TYPE] = util.IN_PROGRESS_MESSAGE_PROCESSOR,
-	[util.KEY_PROCESSOR_FUNCTION] = ProcessMessage
+	[util.KEY_PROCESSOR_FUNCTION] = ProcessMessage,
+	CustomStateCreator = CreateCustomState,
 }

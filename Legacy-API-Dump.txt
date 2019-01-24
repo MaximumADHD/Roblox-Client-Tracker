@@ -111,19 +111,19 @@ Class Attachment : Instance
 	Property CoordinateFrame Attachment.CFrame
 	Property Vector3 Attachment.Orientation
 	Property Vector3 Attachment.Position
-	Property Vector3 Attachment.Rotation
+	Property Vector3 Attachment.Rotation [deprecated] [hidden]
 	Property Vector3 Attachment.SecondaryAxis
 	Property bool Attachment.Visible
-	Property Vector3 Attachment.WorldAxis [readonly]
-	Property CoordinateFrame Attachment.WorldCFrame [readonly]
-	Property Vector3 Attachment.WorldOrientation [readonly]
-	Property Vector3 Attachment.WorldPosition [readonly]
-	Property Vector3 Attachment.WorldRotation [deprecated] [readonly]
-	Property Vector3 Attachment.WorldSecondaryAxis [readonly]
-	Function Vector3 Attachment:GetAxis()
-	Function Vector3 Attachment:GetSecondaryAxis()
-	Function void Attachment:SetAxis(Vector3 axis)
-	Function void Attachment:SetSecondaryAxis(Vector3 axis)
+	Property Vector3 Attachment.WorldAxis
+	Property CoordinateFrame Attachment.WorldCFrame
+	Property Vector3 Attachment.WorldOrientation
+	Property Vector3 Attachment.WorldPosition
+	Property Vector3 Attachment.WorldRotation [deprecated] [hidden] [readonly]
+	Property Vector3 Attachment.WorldSecondaryAxis
+	Function Vector3 Attachment:GetAxis() [deprecated]
+	Function Vector3 Attachment:GetSecondaryAxis() [deprecated]
+	Function void Attachment:SetAxis(Vector3 axis) [deprecated]
+	Function void Attachment:SetSecondaryAxis(Vector3 axis) [deprecated]
 Class BadgeService : Instance [notCreatable]
 	YieldFunction bool BadgeService:AwardBadge(int64 userId, int64 badgeId)
 	YieldFunction Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId)
@@ -1133,6 +1133,7 @@ Class Humanoid : Instance
 	Property bool Humanoid.AutoJumpEnabled
 	Property bool Humanoid.AutoRotate
 	Property bool Humanoid.AutomaticScalingEnabled
+	Property bool Humanoid.BreakJointsOnDeath
 	Property Vector3 Humanoid.CameraOffset
 	Property HumanoidDisplayDistanceType Humanoid.DisplayDistanceType
 	Property Material Humanoid.FloorMaterial [readonly]
@@ -1398,6 +1399,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
+	YieldFunction Instance LocalizationService:GetTranslatorForLocaleAsync(string locale)
 	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
 	YieldFunction void LocalizationService:PromptDownloadGameTableToCSV(Instance table) [RobloxScriptSecurity]
 	YieldFunction void LocalizationService:PromptExportToCSVs() [RobloxScriptSecurity]
@@ -1809,8 +1811,6 @@ Class Workspace : Model
 	Function Objects Workspace:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
 	Function Objects Workspace:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
 	Function int Workspace:GetNumAwakeParts()
-	Function bool Workspace:GetPhysicsAnalyzerBreakOnIssue() [PluginSecurity]
-	Function Objects Workspace:GetPhysicsAnalyzerIssue(int index) [PluginSecurity]
 	Function int Workspace:GetPhysicsThrottling()
 	Function double Workspace:GetRealPhysicsFPS()
 	Function bool Workspace:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
@@ -1818,13 +1818,11 @@ Class Workspace : Model
 	Function void Workspace:JoinToOutsiders(Objects objects, JointCreationMode jointType)
 	Function void Workspace:MakeJoints(Objects objects) [PluginSecurity]
 	Function bool Workspace:PGSIsEnabled()
-	Function void Workspace:SetPhysicsAnalyzerBreakOnIssue(bool enable) [PluginSecurity]
 	Function void Workspace:SetPhysicsThrottleEnabled(bool value) [LocalUserSecurity]
 	Function void Workspace:UnjoinFromOutsiders(Objects objects)
 	Function void Workspace:ZoomToExtents() [PluginSecurity]
 	Function Tuple Workspace:findPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [deprecated]
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [deprecated]
-	Event Workspace.PhysicsAnalyzerIssuesFound(int count) [PluginSecurity]
 Class PackageLink : Instance [notbrowsable] [notCreatable]
 	Property Content PackageLink.PackageId [readonly]
 	Property int64 PackageLink.VersionNumber [readonly]
@@ -1907,7 +1905,6 @@ Class PhysicsSettings : Instance
 	Property bool PhysicsSettings.DisableCSGv2
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
-	Property bool PhysicsSettings.PhysicsAnalyzerEnabled [readonly] [PluginSecurity]
 	Property EnviromentalPhysicsThrottle PhysicsSettings.PhysicsEnvironmentalThrottle
 	Property bool PhysicsSettings.ShowDecompositionGeometry
 	Property double PhysicsSettings.ThrottleAdjustTime
@@ -2057,6 +2054,8 @@ Class Players : Instance
 	YieldFunction Instance Players:GetCharacterAppearanceAsync(int64 userId)
 	YieldFunction Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId)
 	YieldFunction Instance Players:GetFriendsAsync(int64 userId)
+	YieldFunction Instance Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId)
+	YieldFunction Instance Players:GetHumanoidDescriptionFromUserId(int64 userId)
 	YieldFunction string Players:GetNameFromUserIdAsync(int64 userId)
 	YieldFunction int64 Players:GetUserIdFromNameAsync(string userName)
 	YieldFunction Tuple Players:GetUserThumbnailAsync(int64 userId, ThumbnailType thumbnailType, ThumbnailSize thumbnailSize)
@@ -2127,6 +2126,7 @@ Class PluginMenu : Instance
 	YieldFunction Instance PluginMenu:ShowAsync() [PluginSecurity]
 Class PluginToolbar : Instance
 	Function Instance PluginToolbar:CreateButton(string text, string tooltip, string iconname) [PluginSecurity]
+	Function Instance PluginToolbar:CreateButtonWithId(string buttonId, string text, string tooltip, string iconname) [PluginSecurity]
 Class PluginToolbarButton : Instance
 	Property bool PluginToolbarButton.ClickableWhenViewportHidden
 	Property bool PluginToolbarButton.Enabled

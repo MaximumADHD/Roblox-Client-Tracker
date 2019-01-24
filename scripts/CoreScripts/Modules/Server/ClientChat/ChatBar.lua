@@ -23,6 +23,9 @@ local modulesFolder = script.Parent
 local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local CurveUtil = require(modulesFolder:WaitForChild("CurveUtil"))
 
+local commandModules = clientChatModules:WaitForChild("CommandModules")
+local WhisperModule = require(commandModules:WaitForChild("Whisper"))
+
 local MessageSender = require(modulesFolder:WaitForChild("MessageSender"))
 
 local ChatLocalization = nil
@@ -432,6 +435,22 @@ function methods:ResetCustomState()
 				'To chat click here or press "/" key'
 			)
 		)
+	end
+end
+
+function methods:EnterWhisperState(player)
+	self:ResetCustomState()
+	self:CaptureFocus()
+	if WhisperModule.CustomStateCreator then
+		self.CustomState = WhisperModule.CustomStateCreator(
+			player,
+			self.ChatWindow,
+			self,
+			ChatSettings
+		)
+		self.InCustomState = true
+	else
+		self:SetText("/w " .. player.Name)
 	end
 end
 

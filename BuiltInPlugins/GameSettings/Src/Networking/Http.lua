@@ -19,6 +19,7 @@ function Http.BuildRobloxUrl(front, back, ...)
 	return "https://" .. front .. "." .. BASE_URL .. (string.format(back, ...) or "")
 end
 
+-- Roblox internal requests
 function Http.Request(requestInfo)
 	return Promise.new(function(resolve, reject)
 		-- Prevent yielding

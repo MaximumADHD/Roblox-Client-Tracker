@@ -55,8 +55,8 @@ local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInser
 
 local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
-local FFlagStudioPluginMenuApi = settings():GetFFlag("StudioPluginMenuApi")
 local FFlagFixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
+local FFlagEnableMouseEnterForAllFix = settings():GetFFlag("EnableMouseEnterForAllFix")
 
 local Asset = Roact.PureComponent:extend("Asset")
 
@@ -103,7 +103,16 @@ function Asset:init(props)
 	local assetIndex = props.assetIndex or 0
 
 	self.onMouseEntered = function(rbx, x, y)
-		onAssetHovered(assetId)
+		if FFlagEnableMouseEnterForAllFix then
+			local myProps = self.props
+			if (not myProps.isHovered) and myProps.hoveredAssetId ~= 0 and assetId ~= myProps.hoveredAssetId then
+				return
+			end
+
+			onAssetHovered(assetId)
+		else
+			onAssetHovered(assetId)
+		end
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
@@ -117,13 +126,14 @@ function Asset:init(props)
 	end
 
 	self.onMouseMoved = function(rbx, x, y)
-		onAssetHovered(assetId)
+		-- We use this when mouseEnter event didn't trigger. 
+		-- Let's keep it here just in case.
+		if not FFlagEnableMouseEnterForAllFix then
+			onAssetHovered(assetId)
+		end
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
-		-- break out early if we don't have access to the menu api
-		if not FFlagStudioPluginMenuApi then return end
-
 		local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
 
 		-- only add this action if we have access to copying to clipboard
@@ -154,7 +164,7 @@ function Asset:init(props)
 	end
 
 	self.onDragStart = function(rbx, x, y)
-		if not canInsertAsset() or not settings():GetFFlag("PluginDragApi") then
+		if not canInsertAsset() then
 			return
 		end
 
@@ -245,6 +255,7 @@ function Asset:render()
 		local isDarkerTheme = theme.isDarkerTheme
 		local outlineTheme = theme.asset.outline
 		local dropShadowSize = Constants.DROP_SHADOW_SIZE
+		local innerFrameHeight = isHovered and assetOutlineHeight - (2 * Constants.ASSET_OUTLINE_PADDING) or 0
 
 		return Roact.createElement("Frame", {
 			Position = UDim2.new(0, 0, 0, 0),
@@ -276,18 +287,17 @@ function Asset:render()
 				Size = UDim2.new(1, 2 * Constants.ASSET_OUTLINE_PADDING, 1, assetOutlineHeight),
 				ZIndex = -1,
 				AutoButtonColor = false,
-
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-				[Roact.Event.InputEnded] = self.onInputEnded,
 			}),
 
 			InnerFrame = Roact.createElement(DraggableButton, {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.new(1, 0, 1, innerFrameHeight),
 
 				[Roact.Event.MouseEnter] = self.onMouseEntered,
 				[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+				[Roact.Event.InputEnded] = self.onInputEnded,
 				onMouseMoved = self.onMouseMoved,
 
 				onDragStart = self.onDragStart,
