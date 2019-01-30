@@ -6,6 +6,8 @@
 --]]
 
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
@@ -542,14 +544,12 @@ local function CreateSettingsHub()
 
             spawn(function()
                 local playerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
-                local localPlayer = game.Players.LocalPlayer
-                while not localPlayer do
-                    game.Players.PlayerAdded:wait()
-                    localPlayer = game.Players.LocalPlayer
-                end
+                if not Players.LocalPlayer then
+				   Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+				end
                 this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
                 this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
-                this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(localPlayer)
+                this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
             end)
         end
 

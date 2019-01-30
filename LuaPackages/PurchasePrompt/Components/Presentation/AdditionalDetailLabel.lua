@@ -29,7 +29,7 @@ local function AdditionalDetailLabel(props)
 			-- We return an empty frame to preserve UIListLayout spacing
 			return Roact.createElement("Frame", {
 				LayoutOrder = layoutOrder,
-				Size = values.Size.AdditonalDetailsLabel,
+				Size = values.Size.AdditionalDetailsLabel,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			})
@@ -42,18 +42,18 @@ local function AdditionalDetailLabel(props)
 				return Roact.createElement("TextLabel", {
 					Text = localizedText,
 					LayoutOrder = layoutOrder,
-					Size = values.Size.AdditonalDetailsLabel,
+					Size = values.Size.AdditionalDetailsLabel,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					TextColor3 = Color3.new(1, 1, 1),
 					Font = Enum.Font.SourceSans,
-					TextSize = values.TextSize.AdditonalDetails,
+					TextSize = values.TextSize.AdditionalDetails,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextScaled = true,
 					TextWrapped = true,
 				}, {
 					TextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
-						MaxTextSize = values.TextSize.AdditonalDetails,
+						MaxTextSize = values.TextSize.AdditionalDetails,
 					})
 				})
 			end,

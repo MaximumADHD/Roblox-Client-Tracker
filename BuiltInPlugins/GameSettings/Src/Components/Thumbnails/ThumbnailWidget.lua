@@ -23,6 +23,7 @@
 ]]
 
 local FFlagGameSettingsFixThumbnailDrag = settings():GetFFlag("GameSettingsFixThumbnailDrag")
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local NOTES = {
 	"You can set up to 10 screenshots and YouTube videos for a game.",
@@ -130,6 +131,7 @@ function ThumbnailWidget:render()
 		local thumbnails = self.props.Thumbnails or {}
 		local order = self.props.Order or {}
 		local numThumbnails = #order or 0
+		local errorMessage = self.props.ErrorMessage
 
 		local dragId = self.state.dragId
 		local dragIndex = self.state.dragIndex
@@ -147,6 +149,15 @@ function ThumbnailWidget:render()
 			table.insert(dragOrder, dragIndex, dragId)
 		end
 
+		local dragImageId = nil
+		if thumbnails[dragId] then
+			if thumbnails[dragId].imageId then
+				dragImageId = "rbxassetid://" .. thumbnails[dragId].imageId
+			elseif FFlagGameSettingsImageUploadingEnabled and thumbnails[dragId].tempId then
+				dragImageId = thumbnails[dragId].tempId
+			end
+		end
+
 		return Roact.createElement(FitToContent, {
 			LayoutOrder = self.props.LayoutOrder or 1,
 			BackgroundTransparency = 1,
@@ -157,8 +168,7 @@ function ThumbnailWidget:render()
 			DragFolder = Roact.createElement("Folder", {}, {
 				DragGhost = Roact.createElement(DragGhostThumbnail, {
 					Enabled = active and dragging,
-					Image = thumbnails[dragId] and thumbnails[dragId].imageId
-						and ("rbxassetid://" .. thumbnails[dragId].imageId) or nil,
+					Image = dragImageId,
 					StopDragging = self.stopDragging,
 				}),
 			}),
@@ -212,8 +222,9 @@ function ThumbnailWidget:render()
 					Position = UDim2.new(0, 0, 1, Constants.ELEMENT_PADDING),
 					AnchorPoint = Vector2.new(0, 1),
 					BackgroundTransparency = 1,
-					TextColor3 = theme.thumbnail.count,
-					Text = numThumbnails > 0 and (numThumbnails .. "/" .. Constants.MAX_THUMBNAILS)
+					TextColor3 = (errorMessage and Constants.ERROR_COLOR) or theme.thumbnail.count,
+					Text = errorMessage
+						or numThumbnails > 0 and (numThumbnails .. "/" .. Constants.MAX_THUMBNAILS)
 						or "Up to " .. Constants.MAX_THUMBNAILS .. " items",
 					Font = Enum.Font.SourceSans,
 					TextSize = 16,

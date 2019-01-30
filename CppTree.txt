@@ -489,7 +489,6 @@ RBX
 		ForceAngular
 		ForceLinear
 		InteractingPair
-		LDLDecompositionTask
 		LDLPGSSolver
 		PGSSolver
 		SolverInterface
@@ -1110,6 +1109,7 @@ RBX
 	Snap
 	SnapJoint
 	SnapSelectionVerb
+	SocialService
 	SolidModelContentProvider
 	SoundJobStudio
 	SpanningEdge

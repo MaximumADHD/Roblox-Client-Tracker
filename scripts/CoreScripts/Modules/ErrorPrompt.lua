@@ -1,10 +1,11 @@
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local TweenService = game:GetService("TweenService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TextService = game:GetService("TextService")
 local GuiService = game:GetService("GuiService")
 local create = require(RobloxGui.Modules.Common.Create)
-local cursorOverride = require(RobloxGui.Modules.CursorOverride)
+local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
@@ -178,7 +179,7 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 	self:resizeHeight()
 	if not self._isOpen then
 		if fflagForceMouseInputWhenPromptPopUp then
-			cursorOverride.push("ErrorPromptOverride", Enum.OverrideMouseIconBehavior.ForceShow)
+			MouseIconOverrideService.push("ErrorPromptOverride", Enum.OverrideMouseIconBehavior.ForceShow)
 			GuiService:SetMenuIsOpen(true)
 		end
 		self._frame.Visible = true
@@ -194,7 +195,7 @@ end
 function ErrorPrompt:_close()
 	if self._isOpen then
 		if fflagForceMouseInputWhenPromptPopUp then
-			cursorOverride.pop("ErrorPromptOverride")
+			MouseIconOverrideService.pop("ErrorPromptOverride")
 			GuiService:SetMenuIsOpen(false)
 		end
 		self._isOpen = false

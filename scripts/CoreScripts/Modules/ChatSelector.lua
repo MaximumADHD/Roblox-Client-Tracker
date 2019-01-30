@@ -10,7 +10,6 @@ local FORCE_IS_VR = false
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
-local Common = Modules:WaitForChild("Common")
 
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
@@ -18,6 +17,8 @@ local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 
 local Players = game:GetService("Players")
+
+local FFlagNukeVRChatFromOrbit = settings():GetFFlag("NukeVRChatFromOrbit")
 
 local Util = require(RobloxGui.Modules.ChatUtil)
 
@@ -177,7 +178,7 @@ if ( not isConsole and not isVR ) then
 			pcall(function() StarterGui:SetCore("ChatMakeSystemMessage", messageData) end)
 		end
 	end)
-elseif not isConsole then
+elseif not isConsole and not FFlagNukeVRChatFromOrbit then
 	useModule = require(RobloxGui.Modules.Chat)
 
 	ConnectSignals(useModule, interface, "ChatBarFocusChanged")

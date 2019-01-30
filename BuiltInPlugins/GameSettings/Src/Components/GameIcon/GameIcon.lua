@@ -37,6 +37,7 @@ function GameIcon:render()
 	return withTheme(function(theme)
 		local image = self.props.Image
 		local review = self.props.Review or false
+		local preview = self.props.Preview or false
 		local hover = self.state.Hovering
 
 		return Roact.createElement("ImageLabel", {
@@ -67,7 +68,7 @@ function GameIcon:render()
 			}),
 
 			InfoText = Roact.createElement("TextLabel", {
-				Visible = review,
+				Visible = review or preview,
 				BackgroundTransparency = 0.3,
 				BorderSizePixel = 0,
 				BackgroundColor3 = Constants.BLACK,
@@ -76,7 +77,7 @@ function GameIcon:render()
 				AnchorPoint = Vector2.new(0, 1),
 				ZIndex = 3,
 
-				Text = "In Review",
+				Text = review and "In Review" or "Preview",
 				TextColor3 = Constants.WHITE,
 				TextSize = 22,
 				Font = Enum.Font.SourceSans,

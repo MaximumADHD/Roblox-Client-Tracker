@@ -47,7 +47,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 			if upsellFlow == UpsellFlow.Web then
 				return store:dispatch(SetPromptState(PromptState.BuildersClubUpsell))
 			else
-				return store:dispatch(SetPromptState(PurchaseError.BuildersClubLevelTooLow))
+				return store:dispatch(ItemCannotBePurchased(PurchaseError.BuildersClubLevelTooLow))
 			end
 
 		elseif price > accountInfo.RobuxBalance then

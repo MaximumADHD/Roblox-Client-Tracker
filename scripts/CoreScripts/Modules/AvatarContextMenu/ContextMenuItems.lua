@@ -15,9 +15,6 @@ local MENU_ITEM_SIZE_X = 0.96
 local MENU_ITEM_SIZE_Y = 0
 local MENU_ITEM_SIZE_Y_OFFSET = 52
 
-local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
-local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
-
 --- SERVICES
 local PlayersService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
@@ -29,21 +26,19 @@ local AnalyticsService = game:GetService("AnalyticsService")
 -- MODULES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-local SettingsModules = CoreGuiModules:WaitForChild("Settings")
 local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
-local SettingsPages = SettingsModules:WaitForChild("Pages")
 
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 
-local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
-local ReportAbuseMenu = require(SettingsPages:WaitForChild("ReportAbuseMenu"))
 
 -- VARIABLES
 
 local FFlagCoreScriptACMCustomFirst = settings():GetFFlag("CoreScriptACMCustomFirst")
 local FFlagCoreScriptCloseACMCustomItem = settings():GetFFlag("CoreScriptCloseACMCustomItem")
 local FFlagCoreScriptFixACMWhisperIssues = settings():GetFFlag("CoreScriptFixACMWhisperIssues")
+local FFlagRemoveACMLastUnderline = settings():GetFFlag("RemoveACMLastUnderline")
+local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat2")
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -212,7 +207,7 @@ function ContextMenuItems:CreateFriendButton(status, isBlocked)
             friendLabelText.TextTransparency = addFriendDisabledTransparency
             friendLabelText.Text = friendRequestPendingString
 			AnalyticsService:ReportCounter("AvatarContextMenu-RequestFriendship")
-        	AnalyticsService:TrackEvent("Game", "RequestFriendship", "AvatarContextMenu")
+			AnalyticsService:TrackEvent("Game", "RequestFriendship", "AvatarContextMenu")
 			LocalPlayer:RequestFriendship(self.SelectedPlayer)
 		end
 	end
@@ -278,7 +273,12 @@ end
 
 
 function ContextMenuItems:CreateChatButton()
+	local chatDisabled = false
 	local function chatFunc()
+		if chatDisabled then
+			return
+		end
+
 		if self.CloseMenuFunc then self:CloseMenuFunc() end
 
 		AnalyticsService:ReportCounter("AvatarContextMenu-Chat")
@@ -311,12 +311,14 @@ function ContextMenuItems:CreateChatButton()
 		end
 	end
 
-	local chatButton = self.MenuItemFrame:FindFirstChild("ChatStatus")
-	if not chatButton then
-		chatButton = ContextMenuUtil:MakeStyledButton("ChatStatus", "Chat", UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), chatFunc)
-		if not FFlagCoreScriptACMCustomFirst then
-			chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
-		end
+	local chatButton, chatLabelText = ContextMenuUtil:MakeStyledButton(
+		"ChatStatus",
+		"Chat",
+		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
+		chatFunc
+	)
+	if not FFlagCoreScriptACMCustomFirst then
+		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
 	end
 	if FFlagCoreScriptACMCustomFirst then
 		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
@@ -327,8 +329,37 @@ function ContextMenuItems:CreateChatButton()
 
 	if canChat then
 		chatButton.Parent = self.MenuItemFrame
+
+		if FFlagCorescriptACMDontDisplayChatWhenCantChat then
+			local canChatWith = ContextMenuUtil:GetCanChatWith(self.SelectedPlayer)
+
+			if not canChatWith then
+				chatDisabled = true
+				chatButton.Selectable = false
+				chatLabelText.TextTransparency = addFriendDisabledTransparency
+				chatLabelText.Text = "Chat Disabled"
+			end
+		end
 	else
 		chatButton.Parent = nil
+	end
+end
+
+function ContextMenuItems:RemoveLastButtonUnderline()
+	local buttons = self.MenuItemFrame:GetChildren()
+	local lastButton = nil
+	local highestLayoutOrder = -1
+	for _, button in pairs(buttons) do
+		if button:IsA("GuiObject") and button.LayoutOrder > highestLayoutOrder then
+			highestLayoutOrder = button.LayoutOrder
+			lastButton = button
+		end
+	end
+	if lastButton then
+		local underline = lastButton:FindFirstChild("Underline")
+		if underline then
+			underline:Destroy()
+		end
 	end
 end
 
@@ -350,6 +381,10 @@ function ContextMenuItems:BuildContextMenuItems(player)
 	end
 
 	self:CreateCustomMenuItems()
+
+	if FFlagRemoveACMLastUnderline then
+		self:RemoveLastButtonUnderline()
+	end
 end
 
 function ContextMenuItems:SetSelectedPlayer(selectedPlayer)

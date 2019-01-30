@@ -24,11 +24,12 @@ function Create.containerFrame(inputChildren)
     )
 end
 
-function Create.verticalFillUIListLayout()
+function Create.verticalFillUIListLayout(thePadding)
 	return paths.Roact.createElement("UIListLayout", {
             SortOrder = Enum.SortOrder.LayoutOrder,
             HorizontalAlignment = Enum.HorizontalAlignment.Center,
-            FillDirection = Enum.FillDirection.Vertical
+            FillDirection = Enum.FillDirection.Vertical, 
+            Padding = thePadding
         }
     )
 end

@@ -9,6 +9,8 @@
 		function AddIcon = A callback invoked when the user wants to add a new icon.
 ]]
 
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
+
 local GuiService = game:GetService("GuiService")
 
 local NOTES_POSITION = UDim2.new(0, 180, 0, 0)
@@ -27,6 +29,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local TitledFrame = require(Plugin.Src.Components.TitledFrame)
 local BulletPoint = require(Plugin.Src.Components.BulletPoint)
@@ -71,6 +74,19 @@ function GameIconWidget:render()
 	return withTheme(function(theme)
 		local active = self.props.Enabled
 		local icon = self.props.Icon
+		local errorMessage = self.props.ErrorMessage
+
+		local preview
+		if FFlagGameSettingsImageUploadingEnabled then
+			if typeof(icon) == "Instance" then
+				icon = icon:GetTemporaryId()
+				preview = true
+			else
+				preview = false
+			end
+		else
+			preview = false
+		end
 
 		return Roact.createElement(TitledFrame, {
 			Title = "Game Icon",
@@ -78,13 +94,14 @@ function GameIconWidget:render()
 			LayoutOrder = self.props.LayoutOrder or 1,
 		}, {
 			Icon = Roact.createElement(GameIcon, {
-				Visible = active and icon ~= "None",
+				Visible = active and icon ~= "None" or preview,
+				Preview = preview,
 				Image = icon,
 				OnClick = self.props.AddIcon,
 			}),
 
 			NewIcon = Roact.createElement(NewGameIcon, {
-				Visible = active and icon == "None",
+				Visible = active and icon == "None" and not preview,
 				OnClick = self.props.AddIcon,
 			}),
 
@@ -110,6 +127,18 @@ function GameIconWidget:render()
 				[Roact.Event.Activated] = function()
 					GuiService:OpenBrowserWindow(TUTORIAL_URL)
 				end,
+			}),
+
+			ErrorMessage = errorMessage and Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 0, 16),
+				Position = UDim2.new(0, 180, 0, 122),
+				BackgroundTransparency = 1,
+				TextColor3 = Constants.ERROR_COLOR,
+				Text = errorMessage,
+				Font = Enum.Font.SourceSans,
+				TextSize = 20,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
 			}),
 		})
 	end)

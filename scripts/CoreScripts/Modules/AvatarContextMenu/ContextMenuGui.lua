@@ -30,6 +30,8 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local PlayerCarousel = nil
 local PlayerChangedEvent = Instance.new("BindableEvent")
 
+local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
+
 --- Modules
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local Utility = require(SettingsModules:WaitForChild("Utility"))
@@ -226,6 +228,9 @@ function ContextMenuGui:BuildPlayerCarousel(playersByProximity)
 
 	for i = 1, #playersByProximity do
 		PlayerCarousel:CreatePlayerEntry(playersByProximity[i][1], playersByProximity[i][2])
+	end
+	if FFlagCoreScriptACMFadeCarousel then
+		PlayerCarousel:FadeTowardsEdges()
 	end
 end
 

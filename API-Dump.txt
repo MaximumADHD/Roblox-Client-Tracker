@@ -2124,6 +2124,7 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:StopAllSounds() {RobloxScriptSecurity}
 	Function Instance Plugin:Union(Objects objects) {PluginSecurity}
 	Event Plugin.Deactivation() {PluginSecurity}
+	Event Plugin.Unloading() {PluginSecurity}
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
 	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
@@ -2412,6 +2413,12 @@ Class Smoke : Instance
 	Property float Smoke.Opacity [<📁> Load-only] [NotReplicated]
 	Property float Smoke.RiseVelocity [<📁> Load-only] [NotReplicated]
 	Property float Smoke.Size [<📁> Load-only] [NotReplicated]
+Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool SocialService:CanSendGameInviteAsync(Instance player) [Yields]
+	Function void SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) {RobloxScriptSecurity}
+	Function void SocialService:PromptGameInvite(Instance player)
+	Event SocialService.GameInvitePromptClosed(Instance player, Array recipientIds)
+	Event SocialService.PromptInviteRequested(Instance player) {RobloxScriptSecurity}
 Class Sound : Instance
 	Property bool Sound.PlayOnRemove
 	Property float Sound.EmitterSize
@@ -2632,6 +2639,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
+	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
@@ -3612,6 +3620,7 @@ Enum HttpRequestType
 	EnumItem HttpRequestType.Chat : 15
 	EnumItem HttpRequestType.Avatar : 16
 	EnumItem HttpRequestType.Analytics : 22
+	EnumItem HttpRequestType.Localization : 24
 Enum HumanoidDisplayDistanceType
 	EnumItem HumanoidDisplayDistanceType.Viewer : 0
 	EnumItem HumanoidDisplayDistanceType.Subject : 1

@@ -5,6 +5,7 @@
 		table Entries: A table of entries to include in this MenuBar
 		function SelectionChanged: Callback when the selected menu entry changes
 ]]
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -14,12 +15,17 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local Constants = require(Plugin.Src.Util.Constants)
 local MenuEntry = require(Plugin.Src.Components.MenuEntry)
 
+local fastFlags = require(Plugin.Src.Util.FastFlags)
+
 local errorsFromPage = {
 	["Basic Info"] = {
 		name = true,
 		description = true,
 		playableDevices = true,
-	}
+	},
+	["Avatar"] = fastFlags.isMorphingPanelWidgetsStandardizationOn() and {
+		universeAvatarAssetOverrides = true,
+	} or nil
 }
 
 local warningsFromPage = {
@@ -30,6 +36,11 @@ local warningsFromPage = {
 		universeAvatarType = true,
 	}
 }
+
+if FFlagGameSettingsImageUploadingEnabled then
+	errorsFromPage.thumbnails = true
+	errorsFromPage.gameIcon = true
+end
 
 local function MenuBar(props)
 	return withTheme(function(theme)

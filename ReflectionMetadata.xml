@@ -4746,7 +4746,6 @@
       <Properties>
         <string name="Name">DataStoreService</string>
         <string name="summary">Responsible for storing data across multiple user created places</string>
-        <string name="ExplorerOrder">-1</string>
       </Properties>
 
       <Item class="ReflectionMetadataFunctions">
@@ -5020,7 +5019,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">StudioService</string>
-        <string name="ExplorerOrder">-1</string>
         <string name="summary">A service for interfacing with the current studio state from Lua.</string>
       </Properties>
     </Item>
@@ -5219,7 +5217,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Debris</string>
-        <string name="ExplorerOrder">-1</string>
         <string name="ExplorerImageIndex">30</string>
         <string name="summary">A service that provides utility in cleaning up objects</string>
       </Properties>

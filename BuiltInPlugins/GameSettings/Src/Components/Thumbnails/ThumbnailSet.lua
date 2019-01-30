@@ -15,6 +15,8 @@
 		function AddNew = A callback for when the user wants to add a new Thumbnail.
 ]]
 
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
+
 local THUMBNAIL_PADDING = UDim2.new(0, 30, 0, 30)
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -54,13 +56,27 @@ function ThumbnailSet:render()
 						LayoutOrder = Cryo.List.find(order, id),
 					})
 				else
+					local image
+					if not thumbnail.videoHash then
+						if FFlagGameSettingsImageUploadingEnabled then
+							if thumbnail.imageId then
+								image = "rbxassetid://" .. thumbnail.imageId
+							elseif thumbnail.tempId then
+								image = thumbnail.tempId
+							end
+						else
+							image = "rbxassetid://" .. thumbnail.imageId
+						end
+					end
+
 					children[tostring(id)] = Roact.createElement(Thumbnail, {
 						Id = id,
 						LayoutOrder = Cryo.List.find(order, id),
-						Image = thumbnail.imageId and ("rbxassetid://" .. thumbnail.imageId) or nil,
+						Image = image,
 						VideoHash = thumbnail.videoHash or nil,
 						VideoTitle = thumbnail.videoTitle,
 						Review = not thumbnail.approved,
+						Preview = FFlagGameSettingsImageUploadingEnabled and thumbnail.tempId,
 
 						StartDragging = self.props.StartDragging,
 						DragMove = self.props.DragMove,

@@ -77,7 +77,8 @@ KeyMappings.PurchaseErrorKey = {
 	[PurchaseError.ThirdPartyDisabled] = PURCHASE_FAILED_KEY:format("ThirdPartyDisabled"),
 	[PurchaseError.NotEnoughRobux] = PURCHASE_FAILED_KEY:format("NotEnoughRobux"),
 	[PurchaseError.NotEnoughRobuxXbox] = PURCHASE_FAILED_KEY:format("NotEnoughRobuxXbox"),
-	[PurchaseError.BuildersClubLevelTooLow] = PURCHASE_FAILED_KEY:format("BuildersClubLevelTooLow"),
+	-- TODO: CLILUACORE-376 Replace this with a more specific error message
+	[PurchaseError.BuildersClubLevelTooLow] = PURCHASE_FAILED_KEY:format("BuildersClubUpsellFailure"),
 	[PurchaseError.UnknownFailure] = PURCHASE_FAILED_KEY:format("UnknownFailure"),
 	[PurchaseError.UnknownFailureNoItemName] = PURCHASE_FAILED_KEY:format("UnknownFailureNoItemName"),
 	[PurchaseError.PurchaseDisabled] = PURCHASE_FAILED_KEY:format("PurchaseDisabled"),

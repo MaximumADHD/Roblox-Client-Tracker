@@ -46,6 +46,79 @@ local COMPUTING = {
 	showProgressIndicator = true,
 }
 
+local ErrorInfo = {}
+
+function ErrorInfo.new(ribbonMessage, warningMessage)
+	local info = {}
+
+	function info:hasWarningMessage()
+		return warningMessage ~= nil
+	end
+
+	function info:getRibbonMessage()
+		return ribbonMessage or "Unexpected error"
+	end
+
+	function info:getWarningMessage()
+		return warningMessage or "Unexpected error"
+	end
+
+	return info
+end
+
+local CSVErrorTypeNames = {
+	"UserCanceled",
+	"ReadFailed",
+	"WriteFailed",
+}
+
+local CSVErrorType = {}
+for _,name in ipairs(CSVErrorTypeNames) do
+	CSVErrorType[name] = name
+end
+
+local OpenCSVErrorInfo = {}
+
+function OpenCSVErrorInfo.new(openCSVErrorMessage)
+	local errorType = openCSVErrorMessage == "No file selected" and
+		CSVErrorType.UserCanceled or CSVErrorType.ReadFailed
+
+	local ribbonMessageMap = {
+		[CSVErrorType.ReadFailed] = "CSV read failed",
+		[CSVErrorType.UserCanceled] = "Open CSV canceled",
+	}
+
+	local warningMessageMap = {
+		[CSVErrorType.ReadFailed] = openCSVErrorMessage,
+	}
+
+	return ErrorInfo.new(
+		ribbonMessageMap[errorType],
+		warningMessageMap[errorType]
+	)
+end
+
+local SaveCSVErrorInfo = {}
+
+function SaveCSVErrorInfo.new(saveCSVErrorMessage)
+	local errorType = saveCSVErrorMessage == "No file selected" and
+		CSVErrorType.UserCanceled or CSVErrorType.WriteFailed
+
+	local ribbonMessageMap = {
+		[CSVErrorType.WriteFailed] = "CSV write failed",
+		[CSVErrorType.UserCanceled] = "Save CSV canceled",
+	}
+
+	local warningMessageMap = {
+		[CSVErrorType.WriteFailed] = saveCSVErrorMessage,
+	}
+
+	return ErrorInfo.new(
+		ribbonMessageMap[errorType],
+		warningMessageMap[errorType]
+	)
+end
+
 function UploadDownloadFlow:_setMode(mode)
 	self._busy = mode.nonInteractive
 	self.props.UpdateBusyMode(mode.nonInteractive, mode.showProgressIndicator)
@@ -72,50 +145,43 @@ function UploadDownloadFlow:OnUpload()
 
 				self.props.ComputePatch(localizationTable):andThen(
 					function(patchInfo)
-						spawn(function()
-							self.props.SetMessage("Confirm upload...")
-							self:_setMode(GETTING_USER_INPUT)
+						self.props.SetMessage("Confirm upload...")
+						self:_setMode(GETTING_USER_INPUT)
 
-							self.props.ShowDialog("Confirm Upload", 300, 320,
-								self.props.MakeRenderDialogContent(patchInfo)):andThen(
-								function(uploadInfo)
-									self.props.SetMessage("Uploading patch...")
-									self:_setMode(COMPUTING)
+						self.props.ShowDialog("Confirm Upload", 300, 320,
+							self.props.MakeRenderDialogContent(patchInfo)):andThen(
+							function(uploadInfo)
+								self.props.SetMessage("Uploading patch...")
+								self:_setMode(COMPUTING)
 
-									self.props.UploadPatch(patchInfo, uploadInfo):andThen(
-										function()
-											self.props.SetMessage("Upload complete")
-											self:_setMode(NOT_BUSY)
-											resolve()
-										end,
-										function()
-											self.props.SetMessage("Upload failed")
-											self:_setMode(NOT_BUSY)
-											reject("Upload failed")
-										end
-									)
-								end,
-								function()
-									self.props.SetMessage("Upload canceled")
-									self:_setMode(NOT_BUSY)
-									reject("Upload canceled")
-								end)
-						end)
+								self.props.UploadPatch(patchInfo, uploadInfo):andThen(
+									function()
+										self.props.SetMessage("Upload complete")
+										self:_setMode(NOT_BUSY)
+										resolve()
+									end,
+									function()
+										reject(ErrorInfo.new("Upload failed"))
+									end
+								)
+							end,
+							function()
+								reject(ErrorInfo.new("Upload canceled"))
+							end)
 					end,
 					function()
-						self.props.SetMessage("Compute patch failed")
-						self:_setMode(NOT_BUSY)
-						reject("Compute patch failed")
+						reject(ErrorInfo.new("Compute patch failed"))
 					end
 				)
-
 			end,
-			function()
-				self.props.SetMessage("CSV file not provided")
-				self:_setMode(NOT_BUSY)
-				reject("CSV file not provided")
+			function(errorMessage)
+				reject(OpenCSVErrorInfo.new(errorMessage))
 			end
 		)
+	end):catch(function(errorInfo)
+		self.props.SetMessage(errorInfo.getRibbonMessage())
+		self:_setMode(NOT_BUSY)
+		return Promise.reject(errorInfo)
 	end)
 end
 
@@ -140,18 +206,18 @@ function UploadDownloadFlow:OnDownload()
 						resolve()
 					end,
 					function(errorMessage)
-						self.props.SetMessage(errorMessage)
-						self:_setMode(NOT_BUSY)
-						reject(errorMessage)
+						reject(SaveCSVErrorInfo.new(errorMessage))
 					end
 				)
 			end,
 			function(errorMessage)
-				self.props.SetMessage(errorMessage)
-				self:_setMode(NOT_BUSY)
-				reject(errorMessage)
+				reject(ErrorInfo.new(errorMessage))
 			end
 		)
+	end):catch(function(errorInfo)
+		self.props.SetMessage(errorInfo.getRibbonMessage())
+		self:_setMode(NOT_BUSY)
+		return Promise.reject(errorInfo)
 	end)
 end
 

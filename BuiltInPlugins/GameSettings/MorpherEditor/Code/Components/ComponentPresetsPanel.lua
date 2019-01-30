@@ -1,4 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
+local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local PresetsPanel = paths.Roact.Component:extend("ComponentPresetsPanel")
 
@@ -10,152 +11,171 @@ local createPlayerChoiceModel = nil
 local addPresetButtons = nil
 
 function PresetsPanel:render()
-    local layoutOrder = paths.UtilityClassLayoutOrder.new()
-    local boundaries = self.props.boundaries
+	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		return paths.Roact.createElement(paths.StudioWidgetButtonBar, {
+			Padding = 10,
+			Buttons = {
+				{ Name="Default", Enabled=self.props.IsEnabled, Value=self.createDefaultModel, ShowPressed=true, Mouse=self.props.Mouse },
+				{ Name="Classic Scale", Enabled=self.props.IsEnabled, Value=self.createClassicModel1, ShowPressed=true, Mouse=self.props.Mouse },
+				{ Name="Full Classic", Enabled=self.props.IsEnabled, Value=self.createClassicModel2, ShowPressed=true, Mouse=self.props.Mouse },
+				{ Name="Rthro", Enabled=self.props.IsEnabled, Value=self.createRthroModel, ShowPressed=true, Mouse=self.props.Mouse },
+				{ Name="Player Choice", Enabled=self.props.IsEnabled, Value=self.createPlayerChoiceModel, ShowPressed=true, Mouse=self.props.Mouse }
+			},
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Title = "Presets",
+			ButtonClicked = function(functionToCall)
+				self.props.clobberTemplate(self.props.template, functionToCall(self.props.boundaries))
+			end,
+			ShowPressed = true
+		})
+	else
+		local layoutOrder = paths.UtilityClassLayoutOrder.new()
+		local boundaries = self.props.boundaries
 
-    local children = {
-        ComponentTitleBar = paths.Roact.createElement(paths.ComponentTitleBar, {
-                ThemeData = self.props.ThemeData,
-                LayoutOrder = layoutOrder:getNextOrder(),
-                IsEnabled = self.props.IsEnabled,
-                Text = "Presets"
-            }
-        )
-    }
+		local children = {
+			ComponentTitleBar = paths.Roact.createElement(paths.ComponentTitleBar, {
+					ThemeData = self.props.ThemeData,
+					LayoutOrder = layoutOrder:getNextOrder(),
+					IsEnabled = self.props.IsEnabled,
+					Text = "Presets"
+				}
+			)
+		}
 
-    addPresetButtons(self, children, layoutOrder, boundaries)
-    local numChildPanels = paths.UtilityFunctionsTable.countDictionaryKeys(children)
-    children.UIListLayoutVertical = paths.UtilityFunctionsCreate.verticalFillUIListLayout()
-    return paths.UtilityFunctionsCreate.virticalChildFittedFrame(self.props.LayoutOrder, children, numChildPanels)
+		addPresetButtons(self, children, layoutOrder, boundaries)
+		local numChildPanels = paths.UtilityFunctionsTable.countDictionaryKeys(children)
+		children.UIListLayoutVertical = paths.UtilityFunctionsCreate.verticalFillUIListLayout()
+		return paths.UtilityFunctionsCreate.virticalChildFittedFrame(self.props.LayoutOrder, children, numChildPanels)
+	end
 end
 
 function PresetsPanel:init()
-    self.createDefaultModel = function(boundaries)
-        local newTemplateModel = paths.StateModelTemplate.new(boundaries)
+	self.createDefaultModel = function(boundaries)
+		local newTemplateModel = paths.StateModelTemplate.new(boundaries)
 
-        newTemplateModel:setScaleHeightMin(1, boundaries)
-        newTemplateModel:setScaleHeightMax(1, boundaries)
+		newTemplateModel:setScaleHeightMin(1, boundaries)
+		newTemplateModel:setScaleHeightMax(1, boundaries)
 
-        newTemplateModel:setScaleWidthMin(1, boundaries)
-        newTemplateModel:setScaleWidthMax(1, boundaries)
+		newTemplateModel:setScaleWidthMin(1, boundaries)
+		newTemplateModel:setScaleWidthMax(1, boundaries)
 
-        newTemplateModel:setScaleHeadMin(1, boundaries)
-        newTemplateModel:setScaleHeadMax(1, boundaries)
+		newTemplateModel:setScaleHeadMin(1, boundaries)
+		newTemplateModel:setScaleHeadMax(1, boundaries)
 
-        newTemplateModel:setScaleBodyTypeMin(0, boundaries)
-        newTemplateModel:setScaleBodyTypeMax(0, boundaries)
+		newTemplateModel:setScaleBodyTypeMin(0, boundaries)
+		newTemplateModel:setScaleBodyTypeMax(0, boundaries)
 
-        newTemplateModel:setScaleProportionMin(0, boundaries)
-        newTemplateModel:setScaleProportionMax(0, boundaries)
+		newTemplateModel:setScaleProportionMin(0, boundaries)
+		newTemplateModel:setScaleProportionMax(0, boundaries)
 
-        newTemplateModel:setRigTypeR15()
+		newTemplateModel:setRigTypeR15()
 
-        return newTemplateModel
-    end
+		return newTemplateModel
+	end
 
-    self.createClassicModel1 = function(boundaries)
-        local newTemplateModel = paths.StateModelTemplate.new(boundaries)
-        newTemplateModel:setScaleHeightMin(1, boundaries)
-        newTemplateModel:setScaleHeightMax(1, boundaries)
+	self.createClassicModel1 = function(boundaries)
+		local newTemplateModel = paths.StateModelTemplate.new(boundaries)
+		newTemplateModel:setScaleHeightMin(1, boundaries)
+		newTemplateModel:setScaleHeightMax(1, boundaries)
 
-        newTemplateModel:setScaleWidthMin(1, boundaries)
-        newTemplateModel:setScaleWidthMax(1, boundaries)
+		newTemplateModel:setScaleWidthMin(1, boundaries)
+		newTemplateModel:setScaleWidthMax(1, boundaries)
 
-        newTemplateModel:setScaleHeadMin(1, boundaries)
-        newTemplateModel:setScaleHeadMax(1, boundaries)
+		newTemplateModel:setScaleHeadMin(1, boundaries)
+		newTemplateModel:setScaleHeadMax(1, boundaries)
 
-        newTemplateModel:setScaleBodyTypeMin(0, boundaries)
-        newTemplateModel:setScaleBodyTypeMax(0, boundaries)
+		newTemplateModel:setScaleBodyTypeMin(0, boundaries)
+		newTemplateModel:setScaleBodyTypeMax(0, boundaries)
 
-        newTemplateModel:setScaleProportionMin(0, boundaries)
-        newTemplateModel:setScaleProportionMax(0, boundaries)
+		newTemplateModel:setScaleProportionMin(0, boundaries)
+		newTemplateModel:setScaleProportionMax(0, boundaries)
 
-        newTemplateModel:setRigTypeR15()
+		newTemplateModel:setRigTypeR15()
 
-        return newTemplateModel
-    end
+		return newTemplateModel
+	end
 
-    self.createClassicModel2 = function(boundaries)
-        local newTemplateModel = paths.StateModelTemplate.new(boundaries)
-        newTemplateModel:setScaleHeightMin(1, boundaries)
-        newTemplateModel:setScaleHeightMax(1, boundaries)
+	self.createClassicModel2 = function(boundaries)
+		local newTemplateModel = paths.StateModelTemplate.new(boundaries)
+		newTemplateModel:setScaleHeightMin(1, boundaries)
+		newTemplateModel:setScaleHeightMax(1, boundaries)
 
-        newTemplateModel:setScaleWidthMin(1, boundaries)
-        newTemplateModel:setScaleWidthMax(1, boundaries)
+		newTemplateModel:setScaleWidthMin(1, boundaries)
+		newTemplateModel:setScaleWidthMax(1, boundaries)
 
-        newTemplateModel:setScaleHeadMin(1, boundaries)
-        newTemplateModel:setScaleHeadMax(1, boundaries)
+		newTemplateModel:setScaleHeadMin(1, boundaries)
+		newTemplateModel:setScaleHeadMax(1, boundaries)
 
-        newTemplateModel:setScaleBodyTypeMin(0, boundaries)
-        newTemplateModel:setScaleBodyTypeMax(0, boundaries)
+		newTemplateModel:setScaleBodyTypeMin(0, boundaries)
+		newTemplateModel:setScaleBodyTypeMax(0, boundaries)
 
-        newTemplateModel:setScaleProportionMin(0, boundaries)
-        newTemplateModel:setScaleProportionMax(0, boundaries)
+		newTemplateModel:setScaleProportionMin(0, boundaries)
+		newTemplateModel:setScaleProportionMax(0, boundaries)
 
-        newTemplateModel:setRigTypeR15()
+		newTemplateModel:setRigTypeR15()
 
-        newTemplateModel:setAsset(paths.ConstantAvatar.AssetTypes.Head, 2432102561, false)
+		newTemplateModel:setAsset(paths.ConstantAvatar.AssetTypes.Head, 2432102561, false)
 
-        return newTemplateModel
-    end
+		return newTemplateModel
+	end
 
-    self.createRthroModel = function(boundaries)
-        local newTemplateModel = paths.StateModelTemplate.new(boundaries)
-        newTemplateModel:setScaleHeightMin(1, boundaries)
-        newTemplateModel:setScaleHeightMax(1, boundaries)
+	self.createRthroModel = function(boundaries)
+		local newTemplateModel = paths.StateModelTemplate.new(boundaries)
+		newTemplateModel:setScaleHeightMin(1, boundaries)
+		newTemplateModel:setScaleHeightMax(1, boundaries)
 
-        newTemplateModel:setScaleWidthMin(1, boundaries)
-        newTemplateModel:setScaleWidthMax(1, boundaries)
+		newTemplateModel:setScaleWidthMin(1, boundaries)
+		newTemplateModel:setScaleWidthMax(1, boundaries)
 
-        newTemplateModel:setScaleHeadMin(1, boundaries)
-        newTemplateModel:setScaleHeadMax(1, boundaries)
+		newTemplateModel:setScaleHeadMin(1, boundaries)
+		newTemplateModel:setScaleHeadMax(1, boundaries)
 
-        newTemplateModel:setScaleBodyTypeMin(1, boundaries)
-        newTemplateModel:setScaleBodyTypeMax(1, boundaries)
+		newTemplateModel:setScaleBodyTypeMin(1, boundaries)
+		newTemplateModel:setScaleBodyTypeMax(1, boundaries)
 
-        newTemplateModel:setScaleProportionMin(0, boundaries)
-        newTemplateModel:setScaleProportionMax(0, boundaries)
+		newTemplateModel:setScaleProportionMin(0, boundaries)
+		newTemplateModel:setScaleProportionMax(0, boundaries)
 
-        newTemplateModel:setRigTypeR15()
+		newTemplateModel:setRigTypeR15()
 
-        return newTemplateModel
-    end
+		return newTemplateModel
+	end
 
-    self.createPlayerChoiceModel = function(boundaries)
-        return paths.StateModelTemplate.new(boundaries)
-    end
+	self.createPlayerChoiceModel = function(boundaries)
+		return paths.StateModelTemplate.new(boundaries)
+	end
 
-    addPresetButtons = function(self, tableToPopulate, layoutOrder, boundaries)
-        local presetTypes = {
-            { Text="Default", Func=self.createDefaultModel },
-            { Text="Classic (proportions and scale only)", Func=self.createClassicModel1 },
-            { Text="Classic (with classic head override)", Func=self.createClassicModel2 },
-            { Text="Rthro", Func=self.createRthroModel },
-            { Text="Player Choice", Func=self.createPlayerChoiceModel }
-        }
+	addPresetButtons = function(self, tableToPopulate, layoutOrder, boundaries)
+		local presetTypes = {
+			{ Text="Default", Func=self.createDefaultModel },
+			{ Text="Classic (proportions and scale only)", Func=self.createClassicModel1 },
+			{ Text="Classic (with classic head override)", Func=self.createClassicModel2 },
+			{ Text="Rthro", Func=self.createRthroModel },
+			{ Text="Player Choice", Func=self.createPlayerChoiceModel }
+		}
 
-        for _, preset in ipairs(presetTypes) do
-            tableToPopulate[preset.Text] = paths.Roact.createElement(paths.ComponentButtonRow, {
-                    ThemeData = self.props.ThemeData,
-                    LayoutOrder = layoutOrder:getNextOrder(),
-                    Text = preset.Text,
-                    IsEnabled = self.props.IsEnabled,
+		for _, preset in ipairs(presetTypes) do
+			tableToPopulate[preset.Text] = paths.Roact.createElement(paths.ComponentButtonRow, {
+					ThemeData = self.props.ThemeData,
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Text = preset.Text,
+					IsEnabled = self.props.IsEnabled,
 
-                    onClick = function()
-                        self.props.clobberTemplate(self.props.template, preset.Func(boundaries))
-                    end
-                }
-            )
-        end
+					onClick = function()
+						self.props.clobberTemplate(self.props.template, preset.Func(boundaries))
+					end
+				}
+			)
+		end
     end
 end
 
 PresetsPanel = paths.RoactRodux.UNSTABLE_connect2(
-    function(state, props)
-        return {
-            boundaries = state.StateMorpher.StateSettings.scaleBoundaries.boundaries
-        }
-    end
+	function(state, props)
+		return {
+			boundaries = state.StateMorpher.StateSettings.scaleBoundaries.boundaries
+		}
+	end
 )(PresetsPanel)
 
 return PresetsPanel

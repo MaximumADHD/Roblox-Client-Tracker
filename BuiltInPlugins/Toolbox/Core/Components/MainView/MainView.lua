@@ -47,6 +47,8 @@ local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
 
 local disableNetworkErrorsToasts = true
 
+local EnableToolboxAssetLoadingNotCompleteSimpleFix = settings():GetFFlag("EnableToolboxAssetLoadingNotCompleteSimpleFix")
+
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:init(props)
@@ -62,8 +64,9 @@ function MainView:init(props)
 	self.containerWidth = 0
 	self.scrollingFrameRef = Roact.createRef()
 
-	self.onScroll = function()
+	local function tryRerender(self)
 		local scrollingFrame = self.scrollingFrameRef.current
+		if not scrollingFrame then return end
 		local canvasY = scrollingFrame.CanvasPosition.Y
 		local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
 		local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
@@ -77,6 +80,16 @@ function MainView:init(props)
 		end
 
 		self:calculateRenderBounds()
+	end
+
+	self.onScroll = function()
+		tryRerender(self)
+	end
+
+	self.onAssetGridContainerChanged = function()
+		if EnableToolboxAssetLoadingNotCompleteSimpleFix then
+			tryRerender(self)
+		end
 	end
 
 	self.requestNextPage = function()
@@ -240,6 +253,8 @@ function MainView:render()
 						categoryIndex = categoryIndex,
 
 						ZIndex = 1,
+
+						onAssetGridContainerChanged = self.onAssetGridContainerChanged,
 					}),
 				}),
 			}),

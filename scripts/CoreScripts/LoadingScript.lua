@@ -1,7 +1,7 @@
 -- Creates the generic "ROBLOX" loading screen on startup
 -- Written by ArceusInator & Ben Tkacheff, 2014
 -- Updates by 0xBAADF00D, 2017
-local AssetService = game:GetService('AssetService')
+local AssetService = game:GetService("AssetService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
@@ -10,7 +10,11 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local CoreGui = game:GetService("CoreGui")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 
 --FFlags
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
@@ -36,22 +40,12 @@ local COLORS = {
 }
 local spinnerImageId = "rbxasset://textures/loading/robloxTilt.png"
 
-local gameIconSubstitutionType = {
-	None = 0;
-	Unapproved = 1;
-	PendingReview = 2;
-	Broken = 3;
-	Unavailable = 4;
-	Unknown = 5;
-}
-
---
 -- Variables
 local GameAssetInfo -- loaded by InfoProvider:LoadAssets()
-local currScreenGui, renderSteppedConnection = nil, nil
-local destroyingBackground, destroyedLoadingGui, hasReplicatedFirstElements = false, false, false
+local currScreenGui
+local renderSteppedConnection
+local destroyingBackground, destroyedLoadingGui = false, false
 local isTenFootInterface = GuiService:IsTenFootInterface()
-local platform = UserInputService:GetPlatform()
 
 local placeLabel, creatorLabel = nil, nil
 local backgroundFadeStarted = false
@@ -69,46 +63,6 @@ local function IsConvertMyPlaceNameInXboxAppEnabled()
 	return false
 end
 
---
--- Utility functions
-local create = function(className, defaultParent)
-	return function(propertyList)
-		local object = Instance.new(className)
-		local parent = nil
-
-		for index, value in next, propertyList do
-			if typeof(index) == 'string' then
-				if index == 'Parent' then
-					parent = value
-				else
-					object[index] = value
-				end
-			else
-				local valueType = typeof(value)
-				if valueType == 'function' then
-					value(object)
-				elseif valueType == 'Instance' then
-					value.Parent = object
-				end
-			end
-		end
-
-		if parent then
-			object.Parent = parent
-		end
-
-		if object.Parent == nil then
-			object.Parent = defaultParent
-		end
-
-		return object
-	end
-end
-
---
--- Create objects
-
-local MainGui = {}
 local InfoProvider = {}
 
 local function WaitForPlaceId()
@@ -221,7 +175,7 @@ local function createTenfootCancelGui()
 		Text = "Cancel"
 	}
 
-	if not game:GetService("ReplicatedFirst"):IsFinishedReplicating() then
+	if not ReplicatedFirst:IsFinishedReplicating() then
 		local seenBButtonBegin = false
 		ContextActionService:BindCoreAction("CancelGameLoad",
 			function(actionName, inputState, inputObject)
@@ -252,9 +206,7 @@ local function createTenfootCancelGui()
 	end
 end
 
---
--- Declare member functions
-function MainGui:GenerateMain()
+local function GenerateGui()
 	local screenGui = create 'ScreenGui' {
 		Name = 'RobloxLoadingGui'
 	}
@@ -371,7 +323,7 @@ function MainGui:GenerateMain()
 			Position = UDim2.new(0, 0, 0, 5),
 			Size = UDim2.new(1, 0, 0, 25),
 			Font = Enum.Font.SourceSansLight,
-			FontSize = Enum.FontSize.Size18,
+			TextSize = 18,
 			TextScaled = true,
 			TextWrapped = true,
 			TextColor3 = COLORS.TEXT_COLOR,
@@ -434,7 +386,6 @@ function MainGui:GenerateMain()
 	--the JSON result for thumbnailFinal/Final to see when it's done being generated so we never
 	--show a N/A image. This is how the console AppShell does it!
 	coroutine.wrap(function()
-		local httpService = game:GetService("HttpService")
 		local placeId = WaitForPlaceId()
 
 		local function tryGetFinalAsync()
@@ -468,7 +419,7 @@ function MainGui:GenerateMain()
 		Size = UDim2.new(1, 0, 0, 80),
 		Position = UDim2.new(0, 0, 0, 0),
 		Font = Enum.Font.SourceSans,
-		FontSize = (isTenFootInterface and Enum.FontSize.Size48 or Enum.FontSize.Size24),
+		TextSize = isTenFootInterface and 48 or 24,
 		TextWrapped = true,
 		TextScaled = true,
 		TextColor3 = COLORS.TEXT_COLOR,
@@ -505,7 +456,7 @@ function MainGui:GenerateMain()
 			Size = UDim2.new(0, 36, 0, 30),
 			Position = UDim2.new(0, 0, 0, 80),
 			Font = Enum.Font.SourceSansLight,
-			FontSize = Enum.FontSize.Size36,
+			TextSize = 36,
 			TextScaled = true,
 			TextColor3 = COLORS.TEXT_COLOR,
 			TextStrokeTransparency = 1,
@@ -538,7 +489,7 @@ function MainGui:GenerateMain()
 		Position = UDim2.new(0, 0, 0, 80),
 		Visible = not FFlagChinaLicensingApp,
 		Font = Enum.Font.SourceSansLight,
-		FontSize = (isTenFootInterface and Enum.FontSize.Size36 or Enum.FontSize.Size18),
+		TextSize = isTenFootInterface and 36 or 18,
 		TextWrapped = true,
 		TextScaled = true,
 		TextColor3 = COLORS.TEXT_COLOR,
@@ -599,7 +550,7 @@ function MainGui:GenerateMain()
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 				Font = Enum.Font.SourceSansBold,
-				FontSize = Enum.FontSize.Size14,
+				TextSize = 14,
 				TextWrapped = true,
 				TextColor3 = COLORS.TEXT_COLOR,
 				Text = "",
@@ -616,7 +567,6 @@ function MainGui:GenerateMain()
 		end
 	end
 
-	local CoreGui = game:GetService("CoreGui");
 	screenGui.Parent = CoreGui
 
 	if FFlagLoadingScreenUseLocalizationTable then
@@ -658,7 +608,7 @@ end
 
 -- start loading assets asap
 InfoProvider:LoadAssets()
-MainGui:GenerateMain()
+GenerateGui()
 if isTenFootInterface then
 	createTenfootCancelGui()
 end
@@ -723,7 +673,7 @@ end)
 
 -- use the old error frame when on XBox
 if not FFlagConnectionScriptEnabled or isTenFootInterface then
-	local leaveGameButton, leaveGameTextLabel, errorImage = nil
+	local errorImage
 
 	GuiService.ErrorMessageChanged:connect(function()
 		if GuiService:GetErrorMessage() ~= '' then
@@ -734,7 +684,7 @@ if not FFlagConnectionScriptEnabled or isTenFootInterface then
 				currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
 				currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
 				currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
-				currScreenGui.ErrorFrame.ErrorText.FontSize = Enum.FontSize.Size36
+				currScreenGui.ErrorFrame.ErrorText.TextSize = 36
 				currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
 				currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
 				if errorImage == nil then
@@ -816,14 +766,14 @@ if not FFlagConnectionScriptEnabled and GuiService:GetErrorMessage() ~= '' then
 end
 
 
-function stopListeningToRenderingStep()
+local function stopListeningToRenderingStep()
 	if renderSteppedConnection then
 		renderSteppedConnection:disconnect()
 		renderSteppedConnection = nil
 	end
 end
 
-function disconnectAndCloseHealthStat()
+local function disconnectAndCloseHealthStat()
 	if connectionHealthCon then
 		connectionHealthCon:disconnect()
 		connectionHealthCon = nil
@@ -831,22 +781,14 @@ function disconnectAndCloseHealthStat()
 	end
 end
 
-function fadeAndDestroyBlackFrame(blackFrame)
+local function fadeAndDestroyBlackFrame(blackFrame)
 	if destroyingBackground then return end
 	destroyingBackground = true
 	spawn(function()
 		local infoFrame = blackFrame:FindFirstChild("InfoFrame")
 		local graphicsFrame = blackFrame:FindFirstChild("GraphicsFrame")
 
-		local function getDescendants(root, children)
-			children = children or {}
-			for i, v in pairs(root:GetChildren()) do
-				children[#children + 1] = v
-				getDescendants(v, children)
-			end
-			return children
-		end
-		local infoFrameDescendants = getDescendants(infoFrame)
+		local infoFrameDescendants = infoFrame:GetDescendants()
 		local transparency = 0
 		local rateChange = 1.8
 		local lastUpdateTime = nil
@@ -899,7 +841,7 @@ function fadeAndDestroyBlackFrame(blackFrame)
     end)
 end
 
-function destroyLoadingElements(instant)
+local function destroyLoadingElements(instant)
 	if not currScreenGui then return end
 	if destroyedLoadingGui then return end
 	destroyedLoadingGui = true
@@ -917,7 +859,7 @@ function destroyLoadingElements(instant)
 	end
 end
 
-function waitForCharacterLoaded()
+local function waitForCharacterLoaded()
 	if Players.CharacterAutoLoads then
 		local localPlayer = Players.LocalPlayer
 		if not localPlayer then
@@ -930,10 +872,16 @@ function waitForCharacterLoaded()
 	end
 end
 
-function handleFinishedReplicating()
-	hasReplicatedFirstElements = (#game:GetService("ReplicatedFirst"):GetChildren() > 0)
+local function handleRemoveDefaultLoadingGui(instant)
+	if isTenFootInterface then
+		ContextActionService:UnbindCoreAction('CancelGameLoad')
+	end
+	destroyLoadingElements(instant)
+	ReplicatedFirst:SetDefaultLoadingGuiRemoved()
+end
 
-	if not hasReplicatedFirstElements then
+local function handleFinishedReplicating()
+	if #ReplicatedFirst:GetChildren() == 0 then
 		if game:IsLoaded() then
 			if FFlagLoadingScriptWaitForCharacterLoaded then
 				waitForCharacterLoaded()
@@ -956,35 +904,24 @@ function handleFinishedReplicating()
 	end
 end
 
-function handleRemoveDefaultLoadingGui(instant)
-	if isTenFootInterface then
-		ContextActionService:UnbindCoreAction('CancelGameLoad')
-	end
-	destroyLoadingElements(instant)
-	game:GetService("ReplicatedFirst"):SetDefaultLoadingGuiRemoved()
-end
-
 if debugMode then
 	warn("Not destroying loading screen because debugMode is true")
 	return
 end
-game:GetService("ReplicatedFirst").FinishedReplicating:connect(handleFinishedReplicating)
-if game:GetService("ReplicatedFirst"):IsFinishedReplicating() then
+ReplicatedFirst.FinishedReplicating:connect(handleFinishedReplicating)
+if ReplicatedFirst:IsFinishedReplicating() then
 	handleFinishedReplicating()
 end
 
-game:GetService("ReplicatedFirst").RemoveDefaultLoadingGuiSignal:connect(handleRemoveDefaultLoadingGui)
-if game:GetService("ReplicatedFirst"):IsDefaultLoadingGuiRemoved() then
+ReplicatedFirst.RemoveDefaultLoadingGuiSignal:connect(handleRemoveDefaultLoadingGui)
+if ReplicatedFirst:IsDefaultLoadingGuiRemoved() then
 	handleRemoveDefaultLoadingGui()
 end
 
-local VREnabledConn
-local function onVREnabled()
-	if VRService.VREnabled then
-		handleRemoveDefaultLoadingGui(true)
-		require(RobloxGui.Modules.LoadingScreen3D)
+coroutine.wrap(function()
+	if not VRService.VREnabled then
+		VRService:GetPropertyChangedSignal("VREnabled"):Wait()
 	end
-end
-
-VREnabledConn = VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabled)
-onVREnabled()
+	handleRemoveDefaultLoadingGui(true)
+	require(RobloxGui.Modules.LoadingScreen3D)
+end)()

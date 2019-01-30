@@ -22,6 +22,7 @@ local PlayersService = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 --- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -130,6 +131,21 @@ function ContextMenuUtil:GetFriendStatus(player)
 	else
 		return Enum.FriendStatus.NotFriend
 	end
+end
+
+local CanChatWithMap = {}
+coroutine.wrap(function()
+	local RemoteEvent_CanChatWith = RobloxReplicatedStorage:WaitForChild("CanChatWith")
+	RemoteEvent_CanChatWith.OnClientEvent:Connect(function(player, canChat)
+		CanChatWithMap[player] = canChat
+	end)
+end)()
+function ContextMenuUtil:GetCanChatWith(otherPlayer)
+	if CanChatWithMap[otherPlayer.UserId] ~= nil then
+		return CanChatWithMap[otherPlayer.UserId]
+	end
+	-- Assume we can chat if we have not received information from the server yet.
+	return true
 end
 
 local SelectionOverrideObject = Instance.new("ImageLabel")

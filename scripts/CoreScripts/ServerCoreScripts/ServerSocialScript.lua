@@ -14,6 +14,7 @@ local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local Players = game:GetService('Players')
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local RunService = game:GetService('RunService')
+local Chat = game:GetService("Chat")
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -32,9 +33,16 @@ local SPECIAL_GROUPS = {
 	FrenchLocalizationExpert = {GroupId = 4265443, GroupRank = 252},
 	GermanLocalizationExpert = {GroupId = 4265449, GroupRank = 252},
 }
+
+if game.CreatorType == Enum.CreatorType.Group then
+	SPECIAL_GROUPS.PlaceCreator = {GroupId = game.CreatorId, GroupRank = 255}
+end
+
 -- Map of which special groups a player is in.
 local PlayerToGroupDetailsMap = {}
 local FFlagCorescriptIsInGroupServer = settings():GetFFlag("CorescriptIsInGroupServer")
+
+local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat2")
 
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
@@ -48,6 +56,10 @@ RemoteEvent_NewFollower.Parent = RobloxReplicatedStorage
 local RemoteFunc_GetFollowRelationships = Instance.new('RemoteFunction')
 RemoteFunc_GetFollowRelationships.Name = "GetFollowRelationships"
 RemoteFunc_GetFollowRelationships.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_CanChatWith = Instance.new("RemoteEvent")
+RemoteEvent_CanChatWith.Name = "CanChatWith"
+RemoteEvent_CanChatWith.Parent = RobloxReplicatedStorage
 
 local RemoteEvent_SetPlayerBlockList = Instance.new('RemoteEvent')
 RemoteEvent_SetPlayerBlockList.Name = 'SetPlayerBlockList'
@@ -118,9 +130,9 @@ local function getFollowRelationshipsAsync(uid)
 			otherUserIds = otherUserIdTable;
 		}
 		jsonPostBody = HttpService:JSONEncode(jsonPostBody)
-		
+
 		if jsonPostBody then
-			return rbxApiPostAsync(GET_MULTI_FOLLOW, jsonPostBody, 
+			return rbxApiPostAsync(GET_MULTI_FOLLOW, jsonPostBody,
                 Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson,
                 Enum.HttpRequestType.Players)
 		end
@@ -215,7 +227,7 @@ RemoteEvent_NewFollower.OnServerEvent:connect(function(player1, player2, player1
 			sentNotificationsMap[userId2] = 1
 		end
 	end
-	
+
 	if user1map then
 		local relationTable = user1map[userId2]
 		if relationTable then
@@ -233,7 +245,7 @@ RemoteEvent_NewFollower.OnServerEvent:connect(function(player1, player2, player1
 	end
 
 	if user2map then
-		local relationTable = user2map[userId1] 
+		local relationTable = user2map[userId1]
 		if relationTable then
 			relationTable.IsFollower = player1FollowsPlayer2
 			relationTable.IsMutual = relationTable.IsFollowing and relationTable.IsFollower
@@ -269,6 +281,16 @@ local function getPlayerGroupDetails(player)
 	end
 end
 
+local function sendCanChatWith(newPlayer)
+	for _, player in ipairs(Players:GetPlayers()) do
+		local success, canChat = pcall(function()
+			return Chat:CanUsersChatAsync(newPlayer.UserId, player.UserId)
+		end)
+		RemoteEvent_CanChatWith:FireClient(newPlayer, player, success and canChat)
+		RemoteEvent_CanChatWith:FireClient(player, newPlayer, success and canChat)
+	end
+end
+
 local function onPlayerAdded(newPlayer)
 	if FFlagCorescriptIsInGroupServer then
 		sendPlayerAllGroupDetails(newPlayer)
@@ -276,10 +298,13 @@ local function onPlayerAdded(newPlayer)
 			coroutine.wrap(getPlayerGroupDetails)(newPlayer)
 		end
 	end
+	if FFlagCorescriptACMDontDisplayChatWhenCantChat then
+		sendCanChatWith(newPlayer)
+	end
 	local uid = newPlayer.UserId
 	if uid > 0 then
 		local uidStr = tostring(uid)
-		FollowNotificationsBetweenMap[uidStr] = {}	
+		FollowNotificationsBetweenMap[uidStr] = {}
 		local result = getFollowRelationshipsAsync(uid)
 		if result then
 			updateAndNotifyClients(result, uidStr, newPlayer)

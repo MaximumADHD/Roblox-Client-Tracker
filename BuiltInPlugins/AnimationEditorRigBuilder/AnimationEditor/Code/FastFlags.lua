@@ -17,7 +17,7 @@ local function isFlagOn(theFlag)
 end
 
 function FastFlags:isUsePluginBindToCloseOn()
-	return isFlagOn("StudioAnimationEditorUsePluginBindToClose")
+	return isFlagOn("StudioAnimationEditorUsePluginBindToClose2") and self:useQWidgetsForPopupsOn()
 end
 
 function FastFlags:isRightClickAddKeyFixOn()
@@ -81,7 +81,7 @@ function FastFlags:isLockedPartStaysAnimatableOn()
 end
 
 function FastFlags:isUseHipHeightInKeyframeSequencesOn()
-	return isFlagOn("UseHipHeightInKeyframeSequences")
+	return isFlagOn("UseHipHeightInKeyframeSequences2")
 end
 
 function FastFlags:clearIKOnNew()

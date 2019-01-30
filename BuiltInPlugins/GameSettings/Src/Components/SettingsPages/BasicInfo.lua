@@ -30,6 +30,7 @@ local MAX_DESCRIPTION_LENGTH = 1000
 
 local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
 local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local nameErrors = {
 	Moderated = "The name didn't go through our moderation. Please revise it and try again.",
@@ -38,6 +39,11 @@ local nameErrors = {
 
 local descriptionErrors = {
 	Moderated = "The description didn't go through our moderation. Please revise it and try again.",
+}
+
+local imageErrors = {
+	UploadingTooQuickly = "You're uploading too much, please wait and try again later.",
+	ImageNotRecognized = "File uploaded does not match known image format. Try converting to png.",
 }
 
 local genreEntries = {
@@ -82,13 +88,14 @@ local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
+local LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
 	local errors = state.Settings.Errors
-	return {
+	local loadedProps = {
 		Name = getValue("name"),
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
@@ -99,17 +106,25 @@ local function loadValuesToProps(getValue, state)
 		Thumbnails = getValue("thumbnails"),
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
+		GameIconApproved = getValue("gameIconApproved"),
 		RootPlaceId = getValue("rootPlaceId"),
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
 		DevicesError = errors.playableDevices,
 	}
+
+	if FFlagGameSettingsImageUploadingEnabled then
+		loadedProps.ThumbnailsError = errors.thumbnails
+		loadedProps.GameIconError = errors.gameIcon
+	end
+
+	return loadedProps
 end
 
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
-	return {
+	local dispatchFuncs = {
 		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
 		ThumbnailsChanged = setValue("thumbnails"),
 		ThumbnailOrderChanged = setValue("thumbnailOrder"),
@@ -151,6 +166,26 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
 		end,
 	}
+
+	if FFlagGameSettingsImageUploadingEnabled then
+		dispatchFuncs.GameIconChanged = setValue("gameIcon")
+		dispatchFuncs.AddThumbnails = function(newThumbnails, oldThumbnails, oldOrder)
+			local thumbnails = Cryo.Dictionary.join(oldThumbnails, {})
+			local order = Cryo.List.join(oldOrder, {})
+			for _, thumbnail in pairs(newThumbnails) do
+				local id = thumbnail:GetTemporaryId()
+				table.insert(order, id)
+				thumbnails[id] = {
+					asset = thumbnail,
+					tempId = id,
+				}
+			end
+			dispatch(AddChange("thumbnails", thumbnails))
+			dispatch(AddChange("thumbnailOrder", order))
+		end
+	end
+
+	return dispatchFuncs
 end
 
 --Uses props to display current settings values
@@ -256,10 +291,18 @@ local function displayContents(page)
 			LayoutOrder = 6,
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
+			Review = not props.GameIconApproved,
 			AddIcon = function()
-				-- TODO: Replace this with an actual solution when able to upload images
-				BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
+				if FFlagGameSettingsImageUploadingEnabled then
+					local icon = LocalAssetUtils.PromptForGameIcon(page)
+					if icon then
+						props.GameIconChanged(icon)
+					end
+				else
+					BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
+				end
 			end,
+			ErrorMessage = FFlagGameSettingsImageUploadingEnabled and imageErrors[props.GameIconError],
 		}),
 
 		Separator3 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
@@ -272,9 +315,16 @@ local function displayContents(page)
 			Thumbnails = props.Thumbnails,
 			Order = props.ThumbnailOrder,
 			AddThumbnail = function()
-				-- TODO: Replace this with an actual solution when able to upload images
-				BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
+				if FFlagGameSettingsImageUploadingEnabled then
+					local newThumbnails = LocalAssetUtils.PromptForThumbnails(page)
+					if newThumbnails then
+						props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
+					end
+				else
+					BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
+				end
 			end,
+			ErrorMessage = FFlagGameSettingsImageUploadingEnabled and imageErrors[props.ThumbnailsError],
 			ThumbnailsChanged = props.ThumbnailsChanged,
 			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
 		}),

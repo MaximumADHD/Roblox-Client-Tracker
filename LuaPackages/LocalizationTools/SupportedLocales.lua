@@ -1,6 +1,9 @@
 --[[
 	For Game-Table purposes, the server only accepts certain locales.
 ]]
+
+local StudioLocalizationAllowHan = settings():GetFFlag("StudioLocalizationAllowHan")
+
 local supportedLocalesSet = {
 	["es"] = true,
 	["en"] = true,
@@ -8,6 +11,11 @@ local supportedLocalesSet = {
 	["de"] = true,
 	["fr"] = true,
 }
+
+if StudioLocalizationAllowHan then
+	supportedLocalesSet["zh-hans"] = true
+	supportedLocalesSet["zh-hant"] = true
+end
 
 local function SetToList(tableAsSet)
 	local result = {}
@@ -28,10 +36,10 @@ local function GetSupportedLocalesList()
 end
 
 --[[
-	Converts "en-US" into "en_us" in accordance with what the web endpoints expect.
+	Converts locales to lower-case.
 ]]
 local function NormalizeLocaleIdForWeb(localeId)
-	return localeId:gsub("-", "_"):lower()
+	return localeId:lower()
 end
 
 return {

@@ -36,6 +36,15 @@ function LocalAssetUtils.PromptForGameIcon(page)
 	end
 end
 
+function LocalAssetUtils.PromptForThumbnails(page)
+	local thumbnails = StudioService:PromptImportLocalAssets("Add Thumbnails", IMAGE_TYPES)
+	if thumbnails and #thumbnails > 0 then
+		return thumbnails
+	else
+		showDialog(page, SimpleDialog, DIALOG_PROPS):await()
+	end
+end
+
 function LocalAssetUtils.GetAssetPublishRequestInfo(asset, url)
 	local contents = asset:GetFileContentsBinary()
 	local name = string.lower(asset.FileName)

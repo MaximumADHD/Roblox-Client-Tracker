@@ -47,7 +47,7 @@ function MainViewProfiler:init()
 			})
 
 			if FFlagMicroProfilerSessionAnalytics then
-				AnalyticsService:RecordCounter(MICROPROFILER_PRESSED_COUNTERNAME)
+				AnalyticsService:ReportCounter(MICROPROFILER_PRESSED_COUNTERNAME)
 			end
 		end
 	end

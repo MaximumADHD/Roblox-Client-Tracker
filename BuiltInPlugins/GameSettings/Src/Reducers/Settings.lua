@@ -12,6 +12,7 @@
 	When saving changes, only settings in the Changed table are saved.
 	When discarding changes, the Changed table is deleted.
 ]]
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
@@ -24,27 +25,50 @@ local DiscardErrors = require(Plugin.Src.Actions.DiscardErrors)
 
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
-local Scales = nil
-local AssetOverrides = nil
+local Scales
+local AssetOverrides
 
 local equalityCheckFunctions = nil
 
 local isEqualCheck = nil
 
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-        isEqualCheck = function(current, changed)
-            local equal = true
-            for key, value in pairs(current) do
-	            if changed[key] ~= value then
-		            equal = false
-		            break
-	            end
-            end
-            return equal
-        end
+	if FFlagGameSettingsImageUploadingEnabled then
+		isEqualCheck = function(current, changed)
+			local equal = true
+			if isEmpty(current) ~= isEmpty(changed) then
+				return false
+			end
+			for key, value in pairs(current) do
+				if changed[key] ~= value then
+					equal = false
+					break
+				end
+			end
+			for key, value in pairs(changed) do
+				if current[key] ~= value then
+					equal = false
+					break
+				end
+			end
+			return equal
+		end
+	else
+		isEqualCheck = function(current, changed)
+			local equal = true
+			for key, value in pairs(current) do
+				if changed[key] ~= value then
+					equal = false
+					break
+				end
+			end
+			return equal
+		end
+	end
 
 	Scales = require(Plugin.Src.Util.Scales)
 	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
@@ -69,23 +93,23 @@ local function Settings(state, action)
 		if state.Current[action.setting] == newValue then
 			newValue = Cryo.None
 		elseif type(newValue) == "table" then
-		        if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-			        local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
-			        if isEqual(state.Current[action.setting], newValue) then
-				        newValue = Cryo.None
-			        end			
-		        else
-			        local equal = true
-			        for key, value in pairs(state.Current[action.setting]) do
-				        if newValue[key] ~= value then
-					        equal = false
-					        break
-				        end
-			        end
-			        if equal then
-				        newValue = Cryo.None
-			        end
-                        end
+			if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
+				local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
+				if isEqual(state.Current[action.setting], newValue) then
+					newValue = Cryo.None
+				end
+			else
+				local equal = true
+				for key, value in pairs(state.Current[action.setting]) do
+					if newValue[key] ~= value then
+						equal = false
+						break
+					end
+				end
+				if equal then
+					newValue = Cryo.None
+				end
+			end
 		end
 
 		return Cryo.Dictionary.join(state, {
@@ -95,7 +119,7 @@ local function Settings(state, action)
 			Errors = Cryo.Dictionary.join(state.Errors, {
 				[action.setting] = Cryo.None,
 			}),
-	        })
+		})
 
 	elseif action.type == AddErrors.name then
 		return Cryo.Dictionary.join(state, {

@@ -6,6 +6,7 @@
 		list Order = The order in which the thumbnails are sorted.
 		variant StartId = The thumbnailId of the thumbnail to display first.
 ]]
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local BLACK = Color3.new(0, 0, 0)
 local WHITE = Color3.new(1, 1, 1)
@@ -65,13 +66,20 @@ function ThumbnailPreviewDialog:render()
 		local current = order[self.state.CurrentIndex]
 		local videoHash = thumbnails[current].videoHash
 		local videoTitle = thumbnails[current].videoTitle
-		local image = thumbnails[current].imageId
+		local imageId = thumbnails[current].imageId
+		local tempId = thumbnails[current].tempId
 
 		local showButtons = hovering and #order > 1
 
-		local displayImage
-		if image then
-			displayImage = "rbxassetid://" .. image
+		local fullImageId
+		if FFlagGameSettingsImageUploadingEnabled then
+			if tempId then
+				fullImageId = tempId
+			elseif imageId then
+				fullImageId = "rbxassetid://" .. imageId
+			end
+		else
+			fullImageId = "rbxassetid://" .. imageId
 		end
 
 		return Roact.createElement("Frame", {
@@ -88,7 +96,7 @@ function ThumbnailPreviewDialog:render()
 
 			Preview = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
-				Image = videoHash ~= nil and Constants.VIDEO_PLACEHOLDER or displayImage,
+				Image = videoHash ~= nil and Constants.VIDEO_PLACEHOLDER or fullImageId,
 				ImageColor3 = videoHash ~= nil and theme.thumbnail.background or nil,
 				ScaleType = Enum.ScaleType.Fit,
 

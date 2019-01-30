@@ -29,6 +29,15 @@ local getTheme = require(Plugin.Src.Consumers.getTheme)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
+local AssetOverrides = nil
+local AddErrors = nil
+local getMouse = nil
+if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
+	AddErrors = require(Plugin.Src.Actions.AddErrors)
+	getMouse = require(Plugin.Src.Consumers.getMouse)
+end
+
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
 local MorpherRootPanel = nil
@@ -49,6 +58,13 @@ if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 	end
 end
 
+local isShutdownRequired = nil
+if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+	isShutdownRequired = function(currentAvatarType, avatarTypeToChangeTo)
+		return currentAvatarType ~= "PlayerChoice" and avatarTypeToChangeTo ~= currentAvatarType
+	end
+end
+
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
 	return {
@@ -60,6 +76,8 @@ local function loadValuesToProps(getValue, state)
 		AvatarScalingMax = getValue("universeAvatarMaxScales"),
 
 		CurrentAvatarType = state.Settings.Current.universeAvatarType,
+		AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn()
+			and state.Settings.Errors.universeAvatarAssetOverrides or nil,
 	}
 end
 
@@ -68,7 +86,6 @@ local function dispatchChanges(setValue, dispatch)
 	return {
 		AvatarAnimationChanged = setValue("universeAnimationType"),
 		AvatarCollisionChanged = setValue("universeCollisionType"),
-		AvatarAssetOverridesChanged = setValue("universeAvatarAssetOverrides"),
 		AvatarScalingMinChanged = setValue("universeAvatarMinScales"),
 		AvatarScalingMaxChanged = setValue("universeAvatarMaxScales"),
 
@@ -81,6 +98,15 @@ local function dispatchChanges(setValue, dispatch)
 				end
 			end
 			dispatch(AddChange("universeAvatarType", value))
+		end,
+		AvatarAssetOverridesChanged = function(value)
+			dispatch(AddChange("universeAvatarAssetOverrides", value))
+			if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+				local errors = AssetOverrides.getErrors(value)
+				if errors then
+					dispatch(AddErrors({universeAvatarAssetOverrides = errors}))
+				end
+			end
 		end,
 	}
 end
@@ -95,6 +121,16 @@ local function displayContents(page)
 				ThemeData = getTheme(page),
 				IsEnabled = isPlaceDataAvailable(props),
 
+				IsGameShutdownRequired = (function()
+					if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+						return isShutdownRequired(props.CurrentAvatarType, props.AvatarType)
+					else
+						return nil
+					end
+				end)(),
+				AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and props.AssetOverrideErrors or nil,
+				Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and getMouse(page).getNativeMouse() or nil,
+
 				AvatarType = props.AvatarType,
 				AvatarAnimation = props.AvatarAnimation,
 				AvatarCollision = props.AvatarCollision,
@@ -104,8 +140,12 @@ local function displayContents(page)
 
 				OnAvatarTypeChanged = function(newVal)
 					if FFlagGameSettingsShowWarningsOnSave then
-						local willShutdown = props.CurrentAvatarType ~= "PlayerChoice"
-							and newVal ~= props.CurrentAvatarType
+						local willShutdown = nil
+						if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+							willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
+						else
+							willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
+						end
 						props.AvatarTypeChanged(newVal, willShutdown)
 					else
 						if props.CurrentAvatarType ~= "PlayerChoice" then

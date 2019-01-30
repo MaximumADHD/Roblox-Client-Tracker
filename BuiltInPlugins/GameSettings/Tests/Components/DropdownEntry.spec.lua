@@ -43,7 +43,7 @@ return function()
 		local instance = Roact.mount(createTestDropdownEntry("Id", "Name", true), container)
 		local button = container.ImageButton
 
-		expect(button.Main.Highlight.Visible).to.equal(true)
+		expect(button.Main.Highlight.Visible).to.equal(theme:isDarkerTheme())
 
 		local newInstance = createTestDropdownEntry("Id", "Name", false)
 		instance = Roact.reconcile(instance, newInstance)

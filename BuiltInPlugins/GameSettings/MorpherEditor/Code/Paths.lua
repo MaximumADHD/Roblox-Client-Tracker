@@ -2,6 +2,8 @@
 -- so that the same require paths are not repeated throughout the plugin (meaning, if they are changed, they only need to be changed here), 
 -- and stops the beginning of scripts getting cluttered with many requires
 
+local fastFlags = require(script.Parent.FastFlags)
+
 local Paths = {}
 
 function Paths.requireAll(roactRoduxPath)
@@ -17,11 +19,23 @@ function Paths.requireAll(roactRoduxPath)
 
 	-- before including anything from the shared widgets library, set where that library should be using Roact/Rodux from
 	require(libraryPath.RoactStudioWidgetsPathSelection.RoactDevelopmentPathSelection).ThePath = roactRoduxPath
-	local sharedWidgetsPath = libraryPath.RoactStudioWidgets
-	Paths.SharedWidgetButton = require(sharedWidgetsPath.Button)
-	Paths.SharedWidgetCheckbox = require(sharedWidgetsPath.Checkbox)
-	Paths.SharedWidgetRadioButton = require(sharedWidgetsPath.RadioButton)
-	Paths.SharedWidgetSliderRanged = require(sharedWidgetsPath.SliderRanged)
+	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		local studioWidgetsPath = libraryPath.RoactStudioWidgets
+		Paths.StudioWidgetHyperlink = require(studioWidgetsPath.Hyperlink)
+		Paths.StudioWidgetToggleButton = require(studioWidgetsPath.ToggleButton)
+		Paths.StudioWidgetTitledFrame = require(studioWidgetsPath.TitledFrame)
+		Paths.StudioWidgetRoundTextBox = require(studioWidgetsPath.RoundTextBox)
+		Paths.StudioWidgetRangeSlider = require(studioWidgetsPath.RangeSlider)
+		Paths.StudioWidgetButtonBar = require(studioWidgetsPath.ButtonBar)
+		Paths.StudioWidgetRadioButtonSet = require(studioWidgetsPath.RadioButtonSet)
+		Paths.StudioWidgetStyledScrollingFrame = require(studioWidgetsPath.StyledScrollingFrame)
+	else
+		local sharedWidgetsPath = libraryPath.RoactStudioWidgets
+		Paths.SharedWidgetButton = require(sharedWidgetsPath.Button_deprecated)
+		Paths.SharedWidgetCheckbox = require(sharedWidgetsPath.Checkbox_deprecated)
+		Paths.SharedWidgetRadioButton = require(sharedWidgetsPath.RadioButton_deprecated)
+		Paths.SharedWidgetSliderRanged = require(sharedWidgetsPath.SliderRanged_deprecated)
+	end
 
 	-- other libraries
 	local avatarPath = codePath.Avatar
@@ -66,23 +80,31 @@ function Paths.requireAll(roactRoduxPath)
 	Paths.ComponentRootPanel = require(componentsPath.ComponentRootPanel)
 	Paths.ComponentAvatarTypePanel = require(componentsPath.ComponentAvatarTypePanel)
 	Paths.ComponentTitleBar = require(componentsPath.ComponentTitleBar)
-	Paths.ComponentRadioButtonRow = require(componentsPath.ComponentRadioButtonRow)
-	Paths.ComponentButtonRow = require(componentsPath.ComponentButtonRow)
-	Paths.ComponentSliderRow = require(componentsPath.ComponentSliderRow)
-	Paths.ComponentTextInputRow = require(componentsPath.ComponentTextInputRow)
+	if not fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		Paths.ComponentRadioButtonRow = require(componentsPath.ComponentRadioButtonRow)
+		Paths.ComponentButtonRow = require(componentsPath.ComponentButtonRow)
+		Paths.ComponentSliderRow = require(componentsPath.ComponentSliderRow)
+		Paths.ComponentTextInputRow = require(componentsPath.ComponentTextInputRow)
+	end
 	Paths.ComponentDividerRow = require(componentsPath.ComponentDividerRow)
 	Paths.ComponentScalePanel = require(componentsPath.ComponentScalePanel)
-    Paths.ComponentAnimationPanel = require(componentsPath.ComponentAnimationPanel)
-    Paths.ComponentCollisionPanel = require(componentsPath.ComponentCollisionPanel)
-    Paths.ComponentAssetsPanel = require(componentsPath.ComponentAssetsPanel)
-    Paths.ComponentPresetsPanel = require(componentsPath.ComponentPresetsPanel)
-    Paths.ComponentMorpherTemplate = require(componentsPath.ComponentMorpherTemplate)
-    Paths.ComponentMorpherTemplateContainer = require(componentsPath.ComponentMorpherTemplateContainer)
-    Paths.ComponentAvatarUpdater = require(componentsPath.ComponentAvatarUpdater)
-    Paths.ComponentPlayerChoice = require(componentsPath.ComponentPlayerChoice)
-    Paths.ComponentRadioButtonSetPanel = require(componentsPath.ComponentRadioButtonSetPanel)
+	Paths.ComponentAnimationPanel = require(componentsPath.ComponentAnimationPanel)
+	Paths.ComponentCollisionPanel = require(componentsPath.ComponentCollisionPanel)
+	Paths.ComponentAssetsPanel = require(componentsPath.ComponentAssetsPanel)
+	Paths.ComponentPresetsPanel = require(componentsPath.ComponentPresetsPanel)
+	Paths.ComponentMorpherTemplate = require(componentsPath.ComponentMorpherTemplate)
+	Paths.ComponentMorpherTemplateContainer = require(componentsPath.ComponentMorpherTemplateContainer)
+	Paths.ComponentAvatarUpdater = require(componentsPath.ComponentAvatarUpdater)
+	if not fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		Paths.ComponentPlayerChoice = require(componentsPath.ComponentPlayerChoice)
+	end
+	Paths.ComponentRadioButtonSetPanel = require(componentsPath.ComponentRadioButtonSetPanel)
+	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		Paths.ComponentAssetInput = require(componentsPath.ComponentAssetInput)
+		Paths.ComponentPublishingHint = require(componentsPath.ComponentPublishingHint)
+	end
 
-	-- reducers
+	--reducers
 	local reducersPath = codePath.Reducers
 	Paths.ReducerRoot = require(reducersPath.ReducerRoot)
 	Paths.ReducerTemplates = require(reducersPath.ReducerTemplates)

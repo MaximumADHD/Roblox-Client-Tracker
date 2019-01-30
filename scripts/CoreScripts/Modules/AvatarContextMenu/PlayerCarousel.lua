@@ -28,6 +28,8 @@ local playerChangedEvent = nil
 local buttonToPlayerMap = {}
 local playerToButtonMap = {}
 
+local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
+
 local function CreateMenuCarousel()
 	local playerSelection = Instance.new("Frame")
 	playerSelection.Name = "PlayerCarousel"
@@ -129,22 +131,67 @@ local function CreateMenuCarousel()
 	return playerSelection
 end
 
+function PlayerCarousel:FadeTowardsEdges()
+	if not uiPageLayout.CurrentPage then
+		return
+	end
+
+	local buttonChildIndexs = {}
+	local carouselButtons = {}
+	for childIndex, child in ipairs(selectedPlayer:GetChildren()) do
+		if child:IsA("GuiObject") then
+			table.insert(carouselButtons, child)
+			buttonChildIndexs[child] = childIndex
+		end
+	end
+	table.sort(carouselButtons, function(a, b)
+		if a.LayoutOrder == b.LayoutOrder then
+			return buttonChildIndexs[a] < buttonChildIndexs[b]
+		end
+		return a.LayoutOrder < b.LayoutOrder
+	end)
+
+	local currentPageIndex = 0
+	for index, button in ipairs(carouselButtons) do
+		if button == uiPageLayout.CurrentPage then
+			currentPageIndex = index
+			break
+		end
+	end
+
+	for index, button in ipairs(carouselButtons) do
+		local distanceToLeft = (currentPageIndex - index) % #carouselButtons
+		local distanceToRight = (index - currentPageIndex) % #carouselButtons
+		local distance = math.min(distanceToLeft, distanceToRight)
+		if distance >= 2 then
+			button.ImageTransparency = 0.7
+		elseif distance == 1 then
+			button.ImageTransparency = 0.4
+		else
+			button.ImageTransparency = 0
+		end
+	end
+end
+
 function PlayerCarousel:RemovePlayerEntry(player)
 	local button = playerToButtonMap[player]
-	
+
 	if button then
 		playerToButtonMap[player] = nil
 		buttonToPlayerMap[button] = nil
-		
+
 		button:Destroy()
-		if uiPageLayout then 
+		if uiPageLayout then
 			uiPageLayout:ApplyLayout()
+		end
+		if FFlagCoreScriptACMFadeCarousel then
+			self:FadeTowardsEdges()
 		end
 	end
 end
 
 function PlayerCarousel:ClearPlayerEntries()
-	for button, player in pairs(buttonToPlayerMap) do
+	for button in pairs(buttonToPlayerMap) do
 		button:Destroy()
 	end
 
@@ -156,7 +203,7 @@ function PlayerCarousel:CreatePlayerEntry(player, distanceToLocalPlayer)
 	local playerButton = playerToButtonMap[player]
 	if playerButton then
 		playerButton.LayoutOrder = distanceToLocalPlayer
-		return 
+		return
 	end
 
 	local button = Instance.new("ImageButton")
@@ -171,13 +218,26 @@ function PlayerCarousel:CreatePlayerEntry(player, distanceToLocalPlayer)
 	button.SelectionGained:connect(function() button.BackgroundColor3 = BACKGROUND_SELECTED_COLOR end)
 
 	local tweenStyle = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)
-	local buttonLoadingTween = TweenService:Create(button, tweenStyle, {BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255,255,255)})
+	local buttonLoadingTween
+	if FFlagCoreScriptACMFadeCarousel then
+		buttonLoadingTween = TweenService:Create(
+			button,
+			tweenStyle,
+			{BackgroundColor3 = Color3.fromRGB(255,255,255)}
+		)
+	else
+		buttonLoadingTween = TweenService:Create(
+			button,
+			tweenStyle,
+			{BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255,255,255)}
+		)
+	end
 	buttonLoadingTween:Play()
 
 	buttonToPlayerMap[button] = player
 	playerToButtonMap[player] = button
 
-	button.MouseButton1Click:Connect(function() 
+	button.MouseButton1Click:Connect(function()
 		uiPageLayout:JumpTo(button)
 	end)
 
@@ -188,7 +248,9 @@ function PlayerCarousel:CreatePlayerEntry(player, distanceToLocalPlayer)
 		button.Image = ContextMenuUtil:GetHeadshotForPlayer(player)
 		buttonLoadingTween:Cancel()
 		buttonLoadingTween = nil
-		button.BackgroundTransparency = 0
+		if not FFlagCoreScriptACMFadeCarousel then
+			button.BackgroundTransparency = 0
+		end
 		if button == GuiService.SelectedCoreObject then
 			button.BackgroundColor3 = BACKGROUND_SELECTED_COLOR
 		else
@@ -199,9 +261,9 @@ end
 
 function PlayerCarousel:SwitchToPlayerEntry(player, dontTween)
 	if not player then return end
-	
+
 	local button = playerToButtonMap[player]
-	if not button then 
+	if not button then
 		self:CreatePlayerEntry(player, 0)
 		button = playerToButtonMap[player]
 	end
@@ -234,6 +296,12 @@ function PlayerCarousel.new()
 
 	obj.rbxGui = CreateMenuCarousel()
 	obj.PlayerChanged = playerChangedEvent.Event
+
+	if FFlagCoreScriptACMFadeCarousel then
+		playerChangedEvent.Event:Connect(function()
+			obj:FadeTowardsEdges()
+		end)
+	end
 
 	return obj
 end

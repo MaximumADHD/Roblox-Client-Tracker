@@ -502,8 +502,12 @@ function Keyframes:loadKeyframeSequence(kfs)
 	self.Paths.DataModelClip:setLooping(kfs.Loop)
 	self.Paths.DataModelClip:setPriority(kfs.Priority.Name and kfs.Priority.Name or "Core")
 	if FastFlags:isUseHipHeightInKeyframeSequencesOn() then
-		self.Paths.DataModelClip:setAuthoredHipHeight(kfs.AuthoredHipHeight)
-		if kfs.AuthoredHipHeight ~= self.Paths.DataModelRig:getHipHeight() then
+		if self.Paths.HelperFunctionsMath:isCloseToZero(kfs.AuthoredHipHeight) then
+			self.Paths.DataModelClip:setAuthoredHipHeight(self.Paths.DataModelRig:getHipHeight())
+		else
+			self.Paths.DataModelClip:setAuthoredHipHeight(kfs.AuthoredHipHeight)
+		end
+		if self.Paths.DataModelClip:getAuthoredHipHeight() ~= self.Paths.DataModelRig:getHipHeight() then
 			self.Paths.HelperFunctionsWarningsAndPrompts:createHipHeightMismatchWarning(self.Paths)
 		end
 	end

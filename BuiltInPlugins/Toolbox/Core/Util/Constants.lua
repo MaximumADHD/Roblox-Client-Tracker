@@ -88,10 +88,13 @@ Constants.MAIN_VIEW_NO_HEADER_HEIGHT = 4
 
 Constants.TIME_BETWEEN_ASSET_INSERTION = 0.3
 
-Constants.ASSET_WIDTH = 75
+-- ASSET_WIDTH_NO_PADDING is actually refering to the size of the icon
+-- The size of the Asset itself is about 95 to 96
+-- TODO: Rename this when refactroing the loading and calculation process
+Constants.ASSET_WIDTH_NO_PADDING = 75
 Constants.ASSET_INNER_PADDING = 4
 
-Constants.ASSET_THUMBNAIL_SIZE = Constants.ASSET_WIDTH
+Constants.ASSET_THUMBNAIL_SIZE = Constants.ASSET_WIDTH_NO_PADDING
 Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE = 75 -- The endpoint only accepts certain sizes for thumbnails
 Constants.ASSET_ENDORSED_BADGE_ICON_SIZE = 20
 
@@ -126,7 +129,7 @@ Constants.BETWEEN_ASSETS_VERTICAL_PADDING = 16
 Constants.MIN_ASSETS_PER_ROW = 3
 Constants.MIN_WIDTH_EXTRA_PADDING = 4
 Constants.TOOLBOX_MIN_WIDTH = (Constants.MAIN_VIEW_PADDING * 2)
-	+ (Constants.MIN_ASSETS_PER_ROW * (Constants.ASSET_WIDTH + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
+	+ (Constants.MIN_ASSETS_PER_ROW * (Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
 	- Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 	+ Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING
 	+ (Constants.MIN_WIDTH_EXTRA_PADDING * 2)

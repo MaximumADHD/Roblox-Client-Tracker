@@ -48,7 +48,7 @@ function LayoutValues.generate(isTenFoot)
 		Sizes for UI elements
 	]]
 	local Size = {
-		AdditonalDetailsLabel = UDim2.new(1, 0, 0, PostTextHeight),
+		AdditionalDetailsLabel = UDim2.new(1, 0, 0, PostTextHeight),
 
 		ItemPreview = UDim2.new(0, ItemPreviewWidth, 0, ItemPreviewHeight),
 		ItemPreviewWhiteFrame = UDim2.new(0, ItemPreviewBackgroundWidth, 0, ItemPreviewBackgroundHeight),
@@ -79,7 +79,7 @@ function LayoutValues.generate(isTenFoot)
 		Default = 18 * scaleFactor,
 		ProductDescription = 18 * scaleFactor,
 		Button = 24 * scaleFactor,
-		AdditonalDetails = 14 * scaleFactor,
+		AdditionalDetails = 14 * scaleFactor,
 		Purchasing = 36 * scaleFactor,
 	}
 

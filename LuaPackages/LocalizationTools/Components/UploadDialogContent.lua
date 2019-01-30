@@ -12,7 +12,7 @@ local function Line(props)
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 		Text = props.Text,
-		Size = UDim2.new(1, 0, 0, 20),
+		Size = props.Size or UDim2.new(1, 0, 0, 20),
 		TextColor3 = props.Color,
 		LayoutOrder = props.LayoutOrder,
 	})
@@ -36,9 +36,10 @@ local function UnsupportedLocalesLine(props)
 			LayoutOrder = props.LayoutOrder})
 	else
 		return Roact.createElement(Line, {
-			Text = "WARNING: unsupported locales detected.\nCurrent supported locales: "
+			Text = "WARNING: unsupported locales detected.\nCurrent supported locales:\n"
 				.. table.concat(SupportedLocales.GetSupportedLocalesList(), ", "),
 			Color = props.ColorB,
+			Size = props.Size or UDim2.new(1, 0, 0, 40),
 			LayoutOrder = props.LayoutOrder})
 	end
 end
@@ -80,7 +81,7 @@ function UploadDialogContent:render()
 			}),
 
 			StatsFrame = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 240),
+				Size = UDim2.new(1, 0, 0, 250),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 				LayoutOrder = 1
@@ -97,7 +98,7 @@ function UploadDialogContent:render()
 					LayoutOrder = 1}),
 
 				TableContentsFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 100),
+					Size = UDim2.new(1, 0, 0, 105),
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,

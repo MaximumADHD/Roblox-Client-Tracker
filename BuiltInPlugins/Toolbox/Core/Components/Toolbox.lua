@@ -42,6 +42,7 @@ local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetMa
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 
 local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
+local FFlagDisableToolboxInitalSearchByText = settings():GetFFlag("DisableToolboxInitalSearchByText")
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -56,7 +57,14 @@ function Toolbox:handleInitialSettings()
 		initialSelectedCategoryIndex = 1
 	end
 
-	local initialSearchTerm = initialSettings.searchTerm or ""
+	-- We don't want initial search based on last search text for toolbox.
+	-- But let's keep the option to re-add this in the future
+	local initialSearchTerm
+	if FFlagDisableToolboxInitalSearchByText then
+		initialSearchTerm = ""
+	else
+		initialSearchTerm = initialSettings.searchTerm or ""
+	end
 
 	local initialSelectedSortIndex = initialSettings.sortIndex or 1
 	if initialSelectedSortIndex < 1 or initialSelectedSortIndex > #self.props.sorts then

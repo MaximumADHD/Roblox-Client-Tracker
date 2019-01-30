@@ -21,9 +21,13 @@ function RootPanelExternal:render()
 			StateTemplates = templates,
 			IsEnabled = self.props.IsEnabled,
 
-            clobberTemplate = function(templateId, newTemplateModel)
-                sendUpdates(self, newTemplateModel)
-            end,
+			IsGameShutdownRequired = (function() if fastFlags.isMorphingPanelWidgetsStandardizationOn() then return self.props.IsGameShutdownRequired else return nil end end)(),
+			AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.AssetOverrideErrors or nil,
+			Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.Mouse or nil,
+
+			clobberTemplate = function(templateId, newTemplateModel)
+				sendUpdates(self, newTemplateModel)
+			end,
 
 			ContentHeightChanged = self.props.ContentHeightChanged
 		}),

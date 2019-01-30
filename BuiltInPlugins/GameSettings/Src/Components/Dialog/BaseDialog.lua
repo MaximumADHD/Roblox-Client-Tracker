@@ -12,6 +12,19 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
+local function makeButtons(buttons)
+	if buttons[2] then
+		return {
+			{Name = buttons[1], Active = true, Value = false},
+			{Name = buttons[2], Default = true, Active = true, Value = true},
+		}
+	else
+		return {
+			{Name = buttons[1], Default = true, Active = true, Value = true},
+		}
+	end
+end
+
 local function BaseDialog(props)
 	return withTheme(function(theme)
 		local buttons = props.Buttons
@@ -24,10 +37,7 @@ local function BaseDialog(props)
 			Buttons = Roact.createElement(ButtonBar, {
 				Position = UDim2.new(0, 0, 1, -29),
 				AnchorPoint = Vector2.new(0, 1),
-				Buttons = {
-					{Name = buttons[1], Active = true, Value = false},
-					{Name = buttons[2], Default = true, Active = true, Value = true},
-				},
+				Buttons = makeButtons(buttons),
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				ButtonClicked = props.OnResult
 			})

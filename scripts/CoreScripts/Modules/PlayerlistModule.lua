@@ -19,6 +19,7 @@ local FFlagCoreScriptFixFollowingIcon = settings():GetFFlag("CoreScriptFixFollow
 
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 local FFlagLocalizationExpertIcon = settings():GetFFlag("CorescriptLocalizationExpertIcon")
+local FFlagCorescriptIsPlayerGroupOwnerServer = settings():GetFFlag("CorescriptIsPlayerGroupOwnerServer")
 
 local FFlagMembershipIconABTestEnabled = settings():GetFFlag("MembershipIconABTestEnabled")
 
@@ -1522,21 +1523,32 @@ local function createPlayerEntry(player, isTopStat)
       -- don't make rank/grp calls on console
       if isTenFootInterface then return end
 
-      local success, result = pcall(function()
-          return player:GetRankInGroup(game.CreatorId) == 255
-        end)
-      if success then
-        if game.CreatorType == Enum.CreatorType.Group and result then
+      if FFlagCorescriptIsPlayerGroupOwnerServer then
+        if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
           membershipIconImage = PLACE_OWNER_ICON
           if not membershipIcon then
             membershipIcon = createImageIcon(membershipIconImage, "MembershipIcon", 1, entryFrame)
           else
             membershipIcon.Image = membershipIconImage
-          end
+		  end
         end
-      else
-        print("PlayerList: GetRankInGroup failed because", result)
-      end
+	  else
+  	    if game.CreatorType == Enum.CreatorType.Group then
+          local success, result = pcall(function()
+            return player:GetRankInGroup(game.CreatorId) == 255
+          end)
+          if success and result then
+            membershipIconImage = PLACE_OWNER_ICON
+            if not membershipIcon then
+              membershipIcon = createImageIcon(membershipIconImage, "MembershipIcon", 1, entryFrame)
+            else
+              membershipIcon.Image = membershipIconImage
+		    end
+		  elseif not success then
+			  print("PlayerList: GetRankInGroup failed because", result)
+          end
+	    end
+	  end
       local iconImage = getCustomPlayerIcon(player)
       if iconImage then
         if not membershipIcon then

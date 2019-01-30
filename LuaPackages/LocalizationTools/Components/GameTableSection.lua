@@ -6,6 +6,7 @@ local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 
 local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
 local StudioLocalizationUseGameIdChangedSignal = settings():GetFFlag("StudioLocalizationUseGameIdChangedSignal")
+local StudioLocalizationBetterTableErrors = settings():GetFFlag("StudioLocalizationBetterTableErrors")
 
 local UploadDialogContent
 if StudioLocalizationSelectiveUpload then
@@ -14,7 +15,12 @@ else
 	UploadDialogContent = require(script.Parent.UploadDialogContentDEPRECATED)
 end
 
-local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
+local UploadDownloadFlow
+if StudioLocalizationBetterTableErrors then
+	UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
+else
+	UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlowDEPRECATED)
+end
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
@@ -68,12 +74,32 @@ function GameTableSection:init()
 		end,
 	})
 
-	self._OnDownload = function()
-		flow:OnDownload():catch(function() end)
-	end
+	if StudioLocalizationBetterTableErrors then
+		self._OnDownload = function()
+			flow:OnDownload():catch(
+				function(errorInfo)
+					if errorInfo:hasWarningMessage() then
+						warn(errorInfo:getWarningMessage())
+					end
+				end)
+		end
 
-	self._OnUpload = function()
-		flow:OnUpload():catch(function() end)
+		self._OnUpload = function()
+			flow:OnUpload():catch(
+				function(errorInfo)
+					if errorInfo:hasWarningMessage() then
+						warn(errorInfo:getWarningMessage())
+					end
+				end)
+		end
+	else
+		self._OnDownload = function()
+			flow:OnDownload():catch(function() end)
+		end
+
+		self._OnUpload = function()
+			flow:OnUpload():catch(function() end)
+		end
 	end
 
 	local function checkIfAvailable()

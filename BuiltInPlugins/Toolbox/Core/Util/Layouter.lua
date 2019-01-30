@@ -19,7 +19,7 @@ local Layouter = {}
 
 function Layouter.getAssetsPerRow(width)
 	return math.floor((width + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING)
-		/ (Constants.ASSET_WIDTH + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
+		/ (Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
 end
 
 function Layouter.getAssetCellHeightWithPadding()

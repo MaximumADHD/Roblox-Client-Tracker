@@ -4,13 +4,13 @@ local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Roact)
 local join = require(script.Parent.Parent.Parent.join)
 
-local function AutoSizedTextLabel(props)
-	assert(props.Text ~= nil, "Cannot autosize label with Text = nil")
+local AutoSizedTextLabel = Roact.PureComponent:extend("AutoSizedTextLabel")
 
-	local text = props.Text
-	local textSize = props.TextSize
-	local font = props.Font
-	local width = props.width
+function AutoSizedTextLabel:render()
+	local text = self.props.Text
+	local textSize = self.props.TextSize
+	local font = self.props.Font
+	local width = self.props.width
 
 	local totalTextSize
 	if text ~= nil then
@@ -19,7 +19,7 @@ local function AutoSizedTextLabel(props)
 		totalTextSize = Vector2.new(0, 0)
 	end
 
-	local textLabelProps = join(props, {
+	local textLabelProps = join(self.props, {
 		width = Roact.None,
 		Size = UDim2.new(0, width, 0, totalTextSize.Y),
 	})

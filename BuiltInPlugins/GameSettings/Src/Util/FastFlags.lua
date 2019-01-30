@@ -11,6 +11,11 @@ function FastFlags.isMorphingHumanoidDescriptionSystemOn()
 	return MorphingPluginFlagExists and MorphingPluginFlagIsOn and isEngineMorphingHumanoidDescriptionSystemOn()
 end
 
+function FastFlags.isMorphingPanelWidgetsStandardizationOn()
+	local flagExists, flagIsOn = pcall(function () return settings():GetFFlag("MorphingPanelWidgetsStandardization") end)
+	return flagExists and flagIsOn
+end
+
 -- NOTE: this function should be the same as HumanoidDescription::IsFeatureFlagEnabled(), found in Client\App\humanoid\HumanoidDescription.cpp
 isEngineMorphingHumanoidDescriptionSystemOn = function()
 	local MorphingFlagExists, MorphingFlagIsOn = pcall(function () return settings():GetFFlag("MorphingHumanoidDescriptionSystemEngine") end)

@@ -32,4 +32,8 @@ function FastFlags.isAvatarPreviewOn()
 	return isFlagOn("MorphingHumanoidDescriptionSystemInstanceAndLuaAPIFlagV4")
 end
 
+function FastFlags.isMorphingPanelWidgetsStandardizationOn()
+	return isFlagOn("MorphingPanelWidgetsStandardization")
+end
+
 return FastFlags

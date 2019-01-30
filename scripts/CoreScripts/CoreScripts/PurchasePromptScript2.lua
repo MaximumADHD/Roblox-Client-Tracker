@@ -25,6 +25,7 @@ local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local RunService = game:GetService("RunService")
 local AnalyticsService = game:GetService("AnalyticsService")
+local CorePackages = game:GetService('CorePackages')
 
 local RobloxGui = script.Parent
 local ThirdPartyProductName = nil
@@ -35,7 +36,7 @@ if FFlagCoreScriptsUseLocalizationModule then
 	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 end
 
-local CursorOverride = require(RobloxGui.Modules.CursorOverride)
+local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -972,9 +973,9 @@ local function showPurchasePrompt()
 	stopPurchaseAnimation()
 	PurchaseDialog.Visible = true
 	if isTenFootInterface then
-		CursorOverride.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceHide)
+		MouseIconOverrideService.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceHide)
 	elseif FFlagForceCursorVisibleOnPurchasePrompt then
-		CursorOverride.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceShow)
+		MouseIconOverrideService.push("PurchasePrompt", Enum.OverrideMouseIconBehavior.ForceShow)
 	end
 	PurchaseDialog:TweenPosition(isTenFootInterface and SHOW_POSITION_TENFOOT or SHOW_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, function(tweenStatus)
 		if tweenStatus == Enum.TweenStatus.Completed then
@@ -1093,7 +1094,7 @@ local function closePurchaseDialog()
 	buttonsActive = false
 	purchaseState = PURCHASE_STATE.DEFAULT
 	if FFlagForceCursorVisibleOnPurchasePrompt or isTenFootInterface then
-		CursorOverride.pop("PurchasePrompt")
+		MouseIconOverrideService.pop("PurchasePrompt")
 	end
 	PurchaseDialog:TweenPosition(isTenFootInterface and HIDE_POSITION_TENFOOT or HIDE_POSITION, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, TWEEN_TIME, true, function(tweenStatus)
 		if tweenStatus == Enum.TweenStatus.Completed then

@@ -6,6 +6,8 @@ end
 local FFlagStudioLuaGameSettingsDialog2 = settings():GetFFlag("StudioLuaGameSettingsDialog2")
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
+local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
+local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -48,6 +50,7 @@ if LOG_STORE_STATE_AND_EVENTS then
 end
 
 local settingsStore = Rodux.Store.new(MainReducer, nil, middlewares)
+local lastObservedStatus = CurrentStatus.Open
 
 local settingsImpl = SettingsImpl.new(plugin:GetStudioUserId())
 
@@ -199,10 +202,14 @@ local function makePluginGui()
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
 		-- Handle if user clicked the X button to close the window
 		if not pluginGui.Enabled then
-			local state = settingsStore:getState()
-			local currentStatus = state.Status
-			if currentStatus == CurrentStatus.Open then
+			if FFlagGameSettingsCloseWhenBusyFix then
 				closeGameSettings(false)
+			else
+				local state = settingsStore:getState()
+				local currentStatus = state.Status
+				if currentStatus == CurrentStatus.Open then
+					closeGameSettings(false)
+				end
 			end
 		end
 	end)
@@ -272,7 +279,15 @@ local function main()
 			openGameSettings()
 		end)
 		settingsStore.changed:connect(function(state)
-			settingsButton:SetActive(state.Status ~= CurrentStatus.Closed)
+			if FFlagGameSettingsImageUploadingEnabled then
+				if state.Status ~= lastObservedStatus then
+					settingsButton:SetActive(state.Status ~= CurrentStatus.Closed)
+					setMainWidgetInteractable(state.Status ~= CurrentStatus.Working)
+					lastObservedStatus = state.Status
+				end
+			else
+				settingsButton:SetActive(state.Status ~= CurrentStatus.Closed)
+			end
 		end)
 	else
 		settingsButton.Enabled = false

@@ -2,6 +2,8 @@
 
 local paths = require(script.Parent.Parent.Paths)
 
+local fastFlags = require(script.Parent.Parent.FastFlags)
+
 local Theme = {}
 
 local getThemeData = nil
@@ -12,7 +14,11 @@ function Theme.getBackgroundColor(props)
 end
 
 function Theme.getTitleTextColor(props)
-	return getThemeData(props) and getThemeData(props).header.text or paths.ConstantColors.TitleText
+	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		return getThemeData(props) and getThemeData(props).titledFrame.text or paths.ConstantColors.TitleText
+	else
+		return getThemeData(props) and getThemeData(props).header.text or paths.ConstantColors.TitleText
+	end
 end
 
 function Theme.getBodyTextColor(props)
@@ -61,6 +67,10 @@ end
 
 function Theme.getCheckboxBGColor()
 	return settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground)
+end
+
+function Theme.getRadioButtonTextColor(props)
+	return (getThemeData(props) and getThemeData(props).radioButton) and getThemeData(props).radioButton.title or  settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.BrightText)
 end
 
 getThemeData = function(props)

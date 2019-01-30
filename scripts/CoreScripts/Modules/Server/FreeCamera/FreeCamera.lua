@@ -17,6 +17,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -24,9 +25,9 @@ if not LocalPlayer then
 	LocalPlayer = Players.LocalPlayer
 end
 
-local Camera = workspace.CurrentCamera
-workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
-	local newCamera = workspace.CurrentCamera
+local Camera = Workspace.CurrentCamera
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	local newCamera = Workspace.CurrentCamera
 	if newCamera then
 		Camera = newCamera
 	end
@@ -285,7 +286,7 @@ local function GetFocusDistance(cameraFrame)
 			local cy = (y - 0.5)*projy
 			local offset = fx*cx - fy*cy + fz
 			local origin = cameraFrame.p + offset*znear
-			local part, hit = workspace:FindPartOnRay(Ray.new(origin, offset.unit*minDist))
+			local _, hit = Workspace:FindPartOnRay(Ray.new(origin, offset.unit*minDist))
 			local dist = (hit - origin).magnitude
 			if minDist > dist then
 				minDist = dist
@@ -306,7 +307,7 @@ local function StepFreecam(dt)
 
 	local zoomFactor = sqrt(tan(rad(70/2))/tan(rad(cameraFov/2)))
 
-	cameraFov = clamp(cameraFov + fov*FOV_GAIN*(dt/zoomFactor), 1, 120)	
+	cameraFov = clamp(cameraFov + fov*FOV_GAIN*(dt/zoomFactor), 1, 120)
 	cameraRot = cameraRot + pan*PAN_GAIN*(dt/zoomFactor)
 	cameraRot = Vector2.new(clamp(cameraRot.x, -PITCH_LIMIT, PITCH_LIMIT), cameraRot.y%(2*pi))
 
@@ -321,8 +322,8 @@ end
 ------------------------------------------------------------------------
 
 local PlayerState = {} do
+	local mouseBehavior
 	local mouseIconEnabled
-	local cameraSubject
 	local cameraType
 	local cameraFocus
 	local cameraCFrame
@@ -365,9 +366,6 @@ local PlayerState = {} do
 		cameraType = Camera.CameraType
 		Camera.CameraType = Enum.CameraType.Custom
 
-		cameraSubject = Camera.CameraSubject
-		Camera.CameraSubject = nil
-
 		cameraCFrame = Camera.CFrame
 		cameraFocus = Camera.Focus
 
@@ -397,9 +395,6 @@ local PlayerState = {} do
 
 		Camera.CameraType = cameraType
 		cameraType = nil
-
-		Camera.CameraSubject = cameraSubject
-		cameraSubject = nil
 
 		Camera.CFrame = cameraCFrame
 		cameraCFrame = nil

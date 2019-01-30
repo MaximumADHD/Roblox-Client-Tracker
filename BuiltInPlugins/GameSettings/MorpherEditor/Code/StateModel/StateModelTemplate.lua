@@ -1,4 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
+local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local Template = {}
 Template.__index = Template
@@ -13,277 +14,298 @@ local makeScalesCopy = nil
 local areScalesEqual = nil
 
 local assetCategories = {
-    paths.ConstantAvatar.AssetTypes.Face,
-    paths.ConstantAvatar.AssetTypes.Head,
-    paths.ConstantAvatar.AssetTypes.Torso,
-    paths.ConstantAvatar.AssetTypes.LeftArm,
-    paths.ConstantAvatar.AssetTypes.RightArm,
-    paths.ConstantAvatar.AssetTypes.LeftLeg,
-    paths.ConstantAvatar.AssetTypes.RightLeg,
-    paths.ConstantAvatar.AssetTypes.Shirt,
-    paths.ConstantAvatar.AssetTypes.Pants,
-    paths.ConstantAvatar.AssetTypes.ShirtGraphic
+	paths.ConstantAvatar.AssetTypes.Face,
+	paths.ConstantAvatar.AssetTypes.Head,
+	paths.ConstantAvatar.AssetTypes.Torso,
+	paths.ConstantAvatar.AssetTypes.LeftArm,
+	paths.ConstantAvatar.AssetTypes.RightArm,
+	paths.ConstantAvatar.AssetTypes.LeftLeg,
+	paths.ConstantAvatar.AssetTypes.RightLeg,
+	paths.ConstantAvatar.AssetTypes.Shirt,
+	paths.ConstantAvatar.AssetTypes.Pants,
+	paths.ConstantAvatar.AssetTypes.ShirtGraphic
 }
 
 function Template.new(boundaries)
 	local self = setmetatable({}, Template)
 
-    createAssetsTable(self)
+	createAssetsTable(self)
 
-    local depthDefault = 0
-    if boundaries then
-        self.ScalesMin = createScalesTable(boundaries.height.min, boundaries.width.min, boundaries.head.min, boundaries.bodyType.min, boundaries.proportion.min, depthDefault)
-        self.ScalesMax = createScalesTable(boundaries.height.max, boundaries.width.max, boundaries.head.max, boundaries.bodyType.max, boundaries.proportion.max, depthDefault)
-    else
-        boundaries = paths.ConstantScaleBoundaries
-        self.ScalesMin = createScalesTable(boundaries.Height.min, boundaries.Width.min, boundaries.Head.min, boundaries.BodyType.min, boundaries.Proportion.min, depthDefault)
-        self.ScalesMax = createScalesTable(boundaries.Height.max, boundaries.Width.max, boundaries.Head.max, boundaries.BodyType.max, boundaries.Proportion.max, depthDefault)
-    end
+	local depthDefault = 0
+	if boundaries then
+		self.ScalesMin = createScalesTable(boundaries.height.min, boundaries.width.min, boundaries.head.min, boundaries.bodyType.min, boundaries.proportion.min, depthDefault)
+		self.ScalesMax = createScalesTable(boundaries.height.max, boundaries.width.max, boundaries.head.max, boundaries.bodyType.max, boundaries.proportion.max, depthDefault)
+	else
+		boundaries = paths.ConstantScaleBoundaries
+		self.ScalesMin = createScalesTable(boundaries.Height.min, boundaries.Width.min, boundaries.Head.min, boundaries.BodyType.min, boundaries.Proportion.min, depthDefault)
+		self.ScalesMax = createScalesTable(boundaries.Height.max, boundaries.Width.max, boundaries.Head.max, boundaries.BodyType.max, boundaries.Proportion.max, depthDefault)
+	end
 
-    self.CollisionValue = paths.ConstantTemplate.InnerCollision
-    self.AnimationValue = paths.ConstantTemplate.PlayerChoice
-    
-    self.RigTypeValue = paths.ConstantTemplate.PlayerChoice
-	
+	self.CollisionValue = paths.ConstantTemplate.InnerCollision
+	self.AnimationValue = paths.ConstantTemplate.PlayerChoice
+
+	self.RigTypeValue = paths.ConstantTemplate.PlayerChoice
+
 	return self
 end
 
 function Template.makeCopy(toCopy)
-    local self = Template.new()
+	local self = Template.new()
 
-    local specialCopyFunctions = {
-        AssetsOverrides = makeAssetsOverridesCopy,
-        ScalesMin = makeScalesCopy,
-        ScalesMax = makeScalesCopy
-    }
+	local specialCopyFunctions = {
+		AssetsOverrides = makeAssetsOverridesCopy,
+		ScalesMin = makeScalesCopy,
+		ScalesMax = makeScalesCopy
+	}
 
-    if toCopy then
-        for key, value in pairs(toCopy) do
-            local copyFunc = specialCopyFunctions[key] or function(input) return input end 
-            self[key] = copyFunc(value)
-        end
-    end
+	if toCopy then
+		for key, value in pairs(toCopy) do
+			local copyFunc = specialCopyFunctions[key] or function(input) return input end
+			self[key] = copyFunc(value)
+		end
+	end
 
-    return self
+	return self
 end
 
 function Template.fromUniverseData(initialization)
-    local self = Template.new()
+	local self = Template.new()
 
-    self.RigTypeValue = initialization.AvatarType or self.RigTypeValue
-    self.AnimationValue = initialization.AvatarAnimation or self.AnimationValue
-    self.CollisionValue = initialization.AvatarCollision or self.CollisionValue
+	self.RigTypeValue = initialization.AvatarType or self.RigTypeValue
+	self.AnimationValue = initialization.AvatarAnimation or self.AnimationValue
+	self.CollisionValue = initialization.AvatarCollision or self.CollisionValue
 
-    initializeAssets(self, initialization.AvatarAssetOverrides)
-    initializeScalingMin(self, initialization.AvatarScalingMin)
-    initializeScalingMax(self, initialization.AvatarScalingMax)
+	initializeAssets(self, initialization.AvatarAssetOverrides)
+	initializeScalingMin(self, initialization.AvatarScalingMin)
+	initializeScalingMax(self, initialization.AvatarScalingMax)
 
-    return self
+	return self
 end
 
 function Template:apply(playerChoiceDescription)
-    playerChoiceDescription.HeightScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.HeightScale, self.ScalesMin.height, self.ScalesMax.height)
-    playerChoiceDescription.WidthScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.WidthScale, self.ScalesMin.width, self.ScalesMax.width)
-    playerChoiceDescription.HeadScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.HeadScale, self.ScalesMin.head, self.ScalesMax.head)
-    playerChoiceDescription.BodyTypeScale = paths.UtilityFunctionsMath.clamp( playerChoiceDescription.BodyTypeScale, self.ScalesMin.bodyType, self.ScalesMax.bodyType)
-    playerChoiceDescription.ProportionScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.ProportionScale, self.ScalesMin.proportion, self.ScalesMax.proportion)
+	playerChoiceDescription.HeightScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.HeightScale, self.ScalesMin.height, self.ScalesMax.height)
+	playerChoiceDescription.WidthScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.WidthScale, self.ScalesMin.width, self.ScalesMax.width)
+	playerChoiceDescription.HeadScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.HeadScale, self.ScalesMin.head, self.ScalesMax.head)
+	playerChoiceDescription.BodyTypeScale = paths.UtilityFunctionsMath.clamp( playerChoiceDescription.BodyTypeScale, self.ScalesMin.bodyType, self.ScalesMax.bodyType)
+	playerChoiceDescription.ProportionScale = paths.UtilityFunctionsMath.clamp(playerChoiceDescription.ProportionScale, self.ScalesMin.proportion, self.ScalesMax.proportion)
 
-    playerChoiceDescription.Face = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Face].isPlayerChoice and playerChoiceDescription.Face or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Face].assetID
-    playerChoiceDescription.Head = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Head].isPlayerChoice and playerChoiceDescription.Head or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Head].assetID
-    playerChoiceDescription.Torso = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Torso].isPlayerChoice and playerChoiceDescription.Torso or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Torso].assetID
-    playerChoiceDescription.LeftArm = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftArm].isPlayerChoice and playerChoiceDescription.LeftArm or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftArm].assetID
-    playerChoiceDescription.RightArm = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightArm].isPlayerChoice and playerChoiceDescription.RightArm or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightArm].assetID
-    playerChoiceDescription.LeftLeg = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftLeg].isPlayerChoice and playerChoiceDescription.LeftLeg or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftLeg].assetID
-    playerChoiceDescription.RightLeg = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightLeg].isPlayerChoice and playerChoiceDescription.RightLeg or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightLeg].assetID
+	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+		local assetCategoriesToHumanoidDescriptionPropNames = {
+			[paths.ConstantAvatar.AssetTypes.Face] = "Face",
+			[paths.ConstantAvatar.AssetTypes.Head] = "Head",
+			[paths.ConstantAvatar.AssetTypes.Torso] = "Torso",
+			[paths.ConstantAvatar.AssetTypes.LeftArm] = "LeftArm",
+			[paths.ConstantAvatar.AssetTypes.RightArm] = "RightArm",
+			[paths.ConstantAvatar.AssetTypes.LeftLeg] = "LeftLeg",
+			[paths.ConstantAvatar.AssetTypes.RightLeg] = "RightLeg",
+			[paths.ConstantAvatar.AssetTypes.Shirt] = "Shirt",
+			[paths.ConstantAvatar.AssetTypes.Pants] = "Pants",
+			[paths.ConstantAvatar.AssetTypes.ShirtGraphic] = "GraphicTShirt"
+		}
 
-    playerChoiceDescription.Shirt = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Shirt].isPlayerChoice and playerChoiceDescription.Shirt or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Shirt].assetID
-    playerChoiceDescription.GraphicTShirt = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.ShirtGraphic].isPlayerChoice and playerChoiceDescription.GraphicTShirt or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.ShirtGraphic].assetID
-    playerChoiceDescription.Pants = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Pants].isPlayerChoice and playerChoiceDescription.Pants or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Pants].assetID
+		for assetCategory, humanoidDescriptionPropName in pairs(assetCategoriesToHumanoidDescriptionPropNames) do
+			if not self.AssetsOverrides[assetCategory].isPlayerChoice and 0 ~= self.AssetsOverrides[assetCategory].assetID then
+				playerChoiceDescription[humanoidDescriptionPropName] = self.AssetsOverrides[assetCategory].assetID
+			end
+		end
+	else
+		playerChoiceDescription.Face = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Face].isPlayerChoice and playerChoiceDescription.Face or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Face].assetID
+		playerChoiceDescription.Head = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Head].isPlayerChoice and playerChoiceDescription.Head or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Head].assetID
+		playerChoiceDescription.Torso = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Torso].isPlayerChoice and playerChoiceDescription.Torso or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Torso].assetID
+		playerChoiceDescription.LeftArm = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftArm].isPlayerChoice and playerChoiceDescription.LeftArm or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftArm].assetID
+		playerChoiceDescription.RightArm = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightArm].isPlayerChoice and playerChoiceDescription.RightArm or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightArm].assetID
+		playerChoiceDescription.LeftLeg = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftLeg].isPlayerChoice and playerChoiceDescription.LeftLeg or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.LeftLeg].assetID
+		playerChoiceDescription.RightLeg = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightLeg].isPlayerChoice and playerChoiceDescription.RightLeg or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.RightLeg].assetID
+
+		playerChoiceDescription.Shirt = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Shirt].isPlayerChoice and playerChoiceDescription.Shirt or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Shirt].assetID
+		playerChoiceDescription.GraphicTShirt = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.ShirtGraphic].isPlayerChoice and playerChoiceDescription.GraphicTShirt or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.ShirtGraphic].assetID
+		playerChoiceDescription.Pants = self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Pants].isPlayerChoice and playerChoiceDescription.Pants or self.AssetsOverrides[paths.ConstantAvatar.AssetTypes.Pants].assetID
+	end
 end
 
 function Template:extractAssetOverridesForSaving()
-    local result = {}
-    for _, typeId in ipairs(assetCategories) do
-        local assetValue, assetPlayerChoiceValue = self:getAsset(typeId)
-        result[#result + 1] = {assetTypeID=typeId, assetID=assetValue, isPlayerChoice=assetPlayerChoiceValue}
-    end
-    return result
+	local result = {}
+	for _, typeId in ipairs(assetCategories) do
+		local assetValue, assetPlayerChoiceValue = self:getAsset(typeId)
+		result[#result + 1] = {assetTypeID=typeId, assetID=assetValue, isPlayerChoice=assetPlayerChoiceValue}
+	end
+	return result
 end
 
 function Template:extractScalingMinForSaving()
-    return makeScalesCopy(self.ScalesMin)
+	return makeScalesCopy(self.ScalesMin)
 end
 
 function Template:extractScalingMaxForSaving()
-    return makeScalesCopy(self.ScalesMax)
+	return makeScalesCopy(self.ScalesMax)
 end
 
 function Template:isAvatarTypeEqualTo(otherTemplate)
-    return self.RigTypeValue == otherTemplate.RigTypeValue
+	return self.RigTypeValue == otherTemplate.RigTypeValue
 end
 
 function Template:isAnimationEqualTo(otherTemplate)
-    return self.AnimationValue == otherTemplate.AnimationValue
+	return self.AnimationValue == otherTemplate.AnimationValue
 end
 
 function Template:isCollisionEqualTo(otherTemplate)
-    return self.CollisionValue == otherTemplate.CollisionValue
+	return self.CollisionValue == otherTemplate.CollisionValue
 end
 
 function Template:areAssetsEqualTo(otherTemplate)
-    for _, typeId in ipairs(assetCategories) do
-        local assetValue, assetPlayerChoiceValue = self:getAsset(typeId)
-        local otherAssetValue, otherAssetPlayerChoiceValue = otherTemplate:getAsset(typeId)
+	for _, typeId in ipairs(assetCategories) do
+		local assetValue, assetPlayerChoiceValue = self:getAsset(typeId)
+		local otherAssetValue, otherAssetPlayerChoiceValue = otherTemplate:getAsset(typeId)
 
-        if assetValue ~= otherAssetValue or assetPlayerChoiceValue ~= otherAssetPlayerChoiceValue then
-            return false
-        end
-    end
-    return true
+		if assetValue ~= otherAssetValue or assetPlayerChoiceValue ~= otherAssetPlayerChoiceValue then
+			return false
+		end
+	end
+	return true
 end
 
 function Template:areMinScalesEqualTo(otherTemplate)
-    return areScalesEqual(self.ScalesMin, otherTemplate.ScalesMin)
+	return areScalesEqual(self.ScalesMin, otherTemplate.ScalesMin)
 end
 
 function Template:areMaxScalesEqualTo(otherTemplate)
-    return areScalesEqual(self.ScalesMax, otherTemplate.ScalesMax)
+	return areScalesEqual(self.ScalesMax, otherTemplate.ScalesMax)
 end
 
 function Template:isRigTypePlayerChoice()
-    return self.RigTypeValue == paths.ConstantTemplate.PlayerChoice
+	return self.RigTypeValue == paths.ConstantTemplate.PlayerChoice
 end
 
 function Template:isRigTypeR6()
-    return self.RigTypeValue == paths.ConstantTemplate.R6
+	return self.RigTypeValue == paths.ConstantTemplate.R6
 end
 
 function Template:isRigTypeR15()
-    return self.RigTypeValue == paths.ConstantTemplate.R15
+	return self.RigTypeValue == paths.ConstantTemplate.R15
 end
 
 function Template:setRigTypeR6()
-    self.RigTypeValue = paths.ConstantTemplate.R6
+	self.RigTypeValue = paths.ConstantTemplate.R6
 end
 
 function Template:setRigTypeR15()
-    self.RigTypeValue = paths.ConstantTemplate.R15
+	self.RigTypeValue = paths.ConstantTemplate.R15
 end
 
 function Template:setRigTypePlayerChoice()
-    self.RigTypeValue = paths.ConstantTemplate.PlayerChoice
+	self.RigTypeValue = paths.ConstantTemplate.PlayerChoice
 end
 
 function Template:isAnimationStandard()
-    return self.AnimationValue == paths.ConstantTemplate.AnimationStandard
+	return self.AnimationValue == paths.ConstantTemplate.AnimationStandard
 end
 
 function Template:isAnimationPlayerChoice()
-    return self.AnimationValue == paths.ConstantTemplate.PlayerChoice
+	return self.AnimationValue == paths.ConstantTemplate.PlayerChoice
 end
 
 function Template:setAnimationStandard()
-    self.AnimationValue = paths.ConstantTemplate.AnimationStandard
+	self.AnimationValue = paths.ConstantTemplate.AnimationStandard
 end
 
 function Template:setAnimationPlayerChoice()
-    self.AnimationValue = paths.ConstantTemplate.PlayerChoice
+	self.AnimationValue = paths.ConstantTemplate.PlayerChoice
 end
 
 function Template:isCollisionInnerBox()
-    return self.CollisionValue == paths.ConstantTemplate.InnerCollision
+	return self.CollisionValue == paths.ConstantTemplate.InnerCollision
 end
 
 function Template:setCollisionInnerBox()
-    self.CollisionValue = paths.ConstantTemplate.InnerCollision
+	self.CollisionValue = paths.ConstantTemplate.InnerCollision
 end
 
 function Template:isCollisionOuterBox()
-    return self.CollisionValue == paths.ConstantTemplate.OuterCollision
+	return self.CollisionValue == paths.ConstantTemplate.OuterCollision
 end
 
 function Template:setCollisionOuterBox()
-    self.CollisionValue = paths.ConstantTemplate.OuterCollision
+	self.CollisionValue = paths.ConstantTemplate.OuterCollision
 end
 
 function Template:setScaleHeightMin(val, boundaries)
-    val = math.min(boundaries.height.max, val)
-    val = math.max(boundaries.height.min, val)
-    self.ScalesMin.height = val
+	val = math.min(boundaries.height.max, val)
+	val = math.max(boundaries.height.min, val)
+	self.ScalesMin.height = val
 end
 
 function Template:setScaleWidthMin(val, boundaries)
-    val = math.min(boundaries.width.max, val)
-    val = math.max(boundaries.width.min, val)
-    self.ScalesMin.width = val
+	val = math.min(boundaries.width.max, val)
+	val = math.max(boundaries.width.min, val)
+	self.ScalesMin.width = val
 end
 
 function Template:setScaleHeadMin(val, boundaries)
-    val = math.min(boundaries.head.max, val)
-    val = math.max(boundaries.head.min, val)
-    self.ScalesMin.head = val
+	val = math.min(boundaries.head.max, val)
+	val = math.max(boundaries.head.min, val)
+	self.ScalesMin.head = val
 end
 
 function Template:setScaleBodyTypeMin(val, boundaries)
-    val = math.min(boundaries.bodyType.max, val)
-    val = math.max(boundaries.bodyType.min, val)
-    self.ScalesMin.bodyType = val
+	val = math.min(boundaries.bodyType.max, val)
+	val = math.max(boundaries.bodyType.min, val)
+	self.ScalesMin.bodyType = val
 end
 
 function Template:setScaleProportionMin(val, boundaries)
-    val = math.min(boundaries.proportion.max, val)
-    val = math.max(boundaries.proportion.min, val)
-    self.ScalesMin.proportion = val
+	val = math.min(boundaries.proportion.max, val)
+	val = math.max(boundaries.proportion.min, val)
+	self.ScalesMin.proportion = val
 end
 
 function Template:setScaleHeightMax(val, boundaries)
-    val = math.min(boundaries.height.max, val)
-    val = math.max(boundaries.height.min, val)
-    self.ScalesMax.height = val
+	val = math.min(boundaries.height.max, val)
+	val = math.max(boundaries.height.min, val)
+	self.ScalesMax.height = val
 end
 
 function Template:setScaleWidthMax(val, boundaries)
-    val = math.min(boundaries.width.max, val)
-    val = math.max(boundaries.width.min, val)
-    self.ScalesMax.width = val
+	val = math.min(boundaries.width.max, val)
+	val = math.max(boundaries.width.min, val)
+	self.ScalesMax.width = val
 end
 
 function Template:setScaleHeadMax(val, boundaries)
-    val = math.min(boundaries.head.max, val)
-    val = math.max(boundaries.head.min, val)
-    self.ScalesMax.head = val
+	val = math.min(boundaries.head.max, val)
+	val = math.max(boundaries.head.min, val)
+	self.ScalesMax.head = val
 end
 
 function Template:setScaleBodyTypeMax(val, boundaries)
-    val = math.min(boundaries.bodyType.max, val)
-    val = math.max(boundaries.bodyType.min, val)
-    self.ScalesMax.bodyType = val
+	val = math.min(boundaries.bodyType.max, val)
+	val = math.max(boundaries.bodyType.min, val)
+	self.ScalesMax.bodyType = val
 end
 
 function Template:setScaleProportionMax(val, boundaries)
-    val = math.min(boundaries.proportion.max, val)
-    val = math.max(boundaries.proportion.min, val)
-    self.ScalesMax.proportion = val
+	val = math.min(boundaries.proportion.max, val)
+	val = math.max(boundaries.proportion.min, val)
+	self.ScalesMax.proportion = val
 end
 
 function Template:getScaleHeightMin()
-    return self.ScalesMin.height
+	return self.ScalesMin.height
 end
 
 function Template:getScaleWidthMin()
-    return self.ScalesMin.width
+	return self.ScalesMin.width
 end
 
 function Template:getScaleHeadMin()
-    return self.ScalesMin.head
+	return self.ScalesMin.head
 end
 
 function Template:getScaleBodyTypeMin()
-    return self.ScalesMin.bodyType
+	return self.ScalesMin.bodyType
 end
 
 function Template:getScaleProportionMin()
-    return self.ScalesMin.proportion
+	return self.ScalesMin.proportion
 end
 
 function Template:getScaleHeightMax()
@@ -291,101 +313,101 @@ function Template:getScaleHeightMax()
 end
 
 function Template:getScaleWidthMax()
-    return self.ScalesMax.width
+	return self.ScalesMax.width
 end
 
 function Template:getScaleHeadMax()
-    return self.ScalesMax.head
+	return self.ScalesMax.head
 end
 
 function Template:getScaleBodyTypeMax()
-    return self.ScalesMax.bodyType
+	return self.ScalesMax.bodyType
 end
 
 function Template:getScaleProportionMax()
-    return self.ScalesMax.proportion
+	return self.ScalesMax.proportion
 end
 
 function Template:setAsset(assetTypeID, newValue, newPlayerChoiceValue)
-    if self.AssetsOverrides[assetTypeID] then
-        if nil ~= newValue then
-            self.AssetsOverrides[assetTypeID].assetID = newValue
-        end
+	if self.AssetsOverrides[assetTypeID] then
+		if nil ~= newValue then
+			self.AssetsOverrides[assetTypeID].assetID = newValue
+		end
 
-        if nil ~= newPlayerChoiceValue then
-            self.AssetsOverrides[assetTypeID].isPlayerChoice = newPlayerChoiceValue
-        end
-    end
+		if nil ~= newPlayerChoiceValue then
+			self.AssetsOverrides[assetTypeID].isPlayerChoice = newPlayerChoiceValue
+		end
+	end
 end
 
 function Template:getAsset(assetTypeID)
-    if self.AssetsOverrides[assetTypeID] then
-        return self.AssetsOverrides[assetTypeID].assetID, self.AssetsOverrides[assetTypeID].isPlayerChoice
-    end
+	if self.AssetsOverrides[assetTypeID] then
+		return self.AssetsOverrides[assetTypeID].assetID, self.AssetsOverrides[assetTypeID].isPlayerChoice
+	end
 end
 
 createAssetsTable = function(self)
-    self.AssetsOverrides = {}
-    for _, assetTypeID in ipairs(assetCategories) do
-        self.AssetsOverrides[assetTypeID] = {assetID=0, isPlayerChoice=true}
-    end
+	self.AssetsOverrides = {}
+	for _, assetTypeID in ipairs(assetCategories) do
+		self.AssetsOverrides[assetTypeID] = {assetID=0, isPlayerChoice=true}
+	end
 end
 
 createScalesTable = function(heightVal, widthVal, headVal, bodyTypeVal, proportionVal, depthVal)
-    return {
-        height = heightVal,
-        width = widthVal,
-        head = headVal,
-        bodyType = bodyTypeVal,
-        proportion = proportionVal,
-        depth = depthVal
-    }
+	return {
+		height = heightVal,
+		width = widthVal,
+		head = headVal,
+		bodyType = bodyTypeVal,
+		proportion = proportionVal,
+		depth = depthVal
+	}
 end
 
 initializeAssets = function(self, initialization)
-    if initialization then
-        for _, assetCategory in pairs(initialization) do
-            self:setAsset(assetCategory.assetTypeID, assetCategory.assetID, assetCategory.isPlayerChoice)
-        end
-    end
-end 
+	if initialization then
+		for _, assetCategory in pairs(initialization) do
+			self:setAsset(assetCategory.assetTypeID, assetCategory.assetID, assetCategory.isPlayerChoice)
+		end
+	end
+end
 
 initializeScalingMin = function(self, scaling)
-    if scaling then
-        self.ScalesMin = createScalesTable(scaling.height, scaling.width, scaling.head, scaling.bodyType, scaling.proportion, scaling.depth)
-    end
+	if scaling then
+		self.ScalesMin = createScalesTable(scaling.height, scaling.width, scaling.head, scaling.bodyType, scaling.proportion, scaling.depth)
+	end
 end
 
 initializeScalingMax = function(self, scaling)
-    if scaling then
-        self.ScalesMax = createScalesTable(scaling.height, scaling.width, scaling.head, scaling.bodyType, scaling.proportion, scaling.depth)
-    end
+	if scaling then
+		self.ScalesMax = createScalesTable(scaling.height, scaling.width, scaling.head, scaling.bodyType, scaling.proportion, scaling.depth)
+	end
 end
 
 makeAssetsOverridesCopy = function(assetsOverrides)
-    local result = {}
-    for typeId, data in pairs(assetsOverrides) do
-        result[typeId] = {assetID=data.assetID, isPlayerChoice=data.isPlayerChoice}
-    end
-    return result
+	local result = {}
+	for typeId, data in pairs(assetsOverrides) do
+		result[typeId] = {assetID=data.assetID, isPlayerChoice=data.isPlayerChoice}
+	end
+	return result
 end
 
 makeScalesCopy = function(scales)
-    local result = {}
-    for key, value in pairs(scales) do
-        result[key] = value
-    end
-    return result
+	local result = {}
+	for key, value in pairs(scales) do
+		result[key] = value
+	end
+	return result
 end
 
 areScalesEqual = function(scales, otherScales)
-    for key, val in pairs(scales) do
-        if val ~= otherScales[key] then
-            return false
-        end
-    end
+	for key, val in pairs(scales) do
+		if val ~= otherScales[key] then
+			return false
+		end
+	end
 
-    return paths.UtilityFunctionsTable.countDictionaryKeys(scales) == paths.UtilityFunctionsTable.countDictionaryKeys(otherScales)
+	return paths.UtilityFunctionsTable.countDictionaryKeys(scales) == paths.UtilityFunctionsTable.countDictionaryKeys(otherScales)
 end
 
 return Template

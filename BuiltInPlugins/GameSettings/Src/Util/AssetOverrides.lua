@@ -1,5 +1,5 @@
 --[[
-	functionality to compare two sets of asset overrides and generate a table of just the changed asset overrides
+	functionality associated with the asset overrides data structure
 ]]
 
 local AssetOverrides = { }
@@ -42,6 +42,20 @@ function AssetOverrides.processSaveData(current, changed)
 		result[#result + 1] = changedSubTab
 		return true
 	end)
+	return result
+end
+
+function AssetOverrides.getErrors(assetOverridesData)
+	local result = nil
+	for _, subTab in pairs(assetOverridesData) do
+		if not subTab.isPlayerChoice then
+			local isAssetIDSpecified = nil ~= subTab.assetID and 0 ~= subTab.assetID and "0" ~= subTab.assetID and string.len(string.gsub(subTab.assetID, " ", "")) > 0
+			if not isAssetIDSpecified then
+				result = result or {}
+				result[subTab.assetTypeID] = "ID Number cannot be empty"
+			end
+		end
+	end
 	return result
 end
 

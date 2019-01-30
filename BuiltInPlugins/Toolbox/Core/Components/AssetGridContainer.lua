@@ -132,6 +132,10 @@ function AssetGridContainer:init(props)
 		})
 	end
 
+	self.onAssetGridContainerChanged = function()
+		self.props.onAssetGridContainerChanged()
+	end
+
 	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt)
 end
 
@@ -173,9 +177,10 @@ function AssetGridContainer:render()
 		UIGridLayout = Roact.createElement("UIGridLayout", {
 			CellPadding = UDim2.new(0, Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
 				0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
-			CellSize = UDim2.new(0, Constants.ASSET_WIDTH, 0, Constants.ASSET_HEIGHT),
+			CellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT),
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
+			[Roact.Event.Changed] = self.onAssetGridContainerChanged,
 		})
 	}
 

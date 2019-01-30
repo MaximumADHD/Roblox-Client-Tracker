@@ -16,15 +16,13 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should throw when no text is provided", function()
+	it("should not throw even if no text is provided", function()
 		local element = Roact.createElement(AutoSizedTextLabel, {
 			TextSize = 10,
 			Font = Enum.Font.SourceSans,
 			width = 100,
 		})
 
-		expect(function()
-			Roact.mount(element)
-		end).to.throw()
+		expect(Roact.mount(element)).to.be.ok()
 	end)
 end

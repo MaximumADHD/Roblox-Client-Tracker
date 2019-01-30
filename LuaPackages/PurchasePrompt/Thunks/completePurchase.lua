@@ -17,7 +17,7 @@ local function completePurchase()
 	return Thunk.new(script.Name, {}, function(store, services)
 		local startTime = store:getState().purchasingStartTime
 
-		local timeElapsed = startTime - Workspace.DistributedGameTime
+		local timeElapsed = Workspace.DistributedGameTime - startTime
 		if timeElapsed >= DELAY then
 			return store:dispatch(SetPromptState(PromptState.PurchaseComplete))
 		else

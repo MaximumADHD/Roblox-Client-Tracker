@@ -5,6 +5,7 @@
 ]]
 
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -21,8 +22,15 @@ return function(settingsImpl)
 			Analytics.onLoadAttempt()
 			store:dispatch(SetCurrentStatus(CurrentStatus.Working))
 			return settingsImpl:GetSettings():andThen(function(settings)
-				store:dispatch(SetCurrentSettings(settings))
-				store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+				if FFlagGameSettingsCloseWhenBusyFix then
+					if store:getState().Status ~= CurrentStatus.Closed then
+						store:dispatch(SetCurrentSettings(settings))
+						store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+					end
+				else
+					store:dispatch(SetCurrentSettings(settings))
+					store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+				end
 				Analytics.onLoadSuccess(tick() - startTime)
 			end)
 			:catch(function(errors)
@@ -35,8 +43,15 @@ return function(settingsImpl)
 		return function(store)
 			store:dispatch(SetCurrentStatus(CurrentStatus.Working))
 			return settingsImpl:GetSettings():andThen(function(settings)
-				store:dispatch(SetCurrentSettings(settings))
-				store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+				if FFlagGameSettingsCloseWhenBusyFix then
+					if store:getState().Status ~= CurrentStatus.Closed then
+						store:dispatch(SetCurrentSettings(settings))
+						store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+					end
+				else
+					store:dispatch(SetCurrentSettings(settings))
+					store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+				end
 			end)
 		end
 	end

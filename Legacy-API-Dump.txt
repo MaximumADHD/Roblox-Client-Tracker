@@ -2104,6 +2104,7 @@ Class Plugin : Instance
 	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
 	Event Plugin.Deactivation() [PluginSecurity]
+	Event Plugin.Unloading() [PluginSecurity]
 Class PluginAction : Instance
 	Property string PluginAction.ActionId [readonly]
 	Property bool PluginAction.AllowBinding [readonly]
@@ -2378,6 +2379,12 @@ Class Smoke : Instance
 	Property float Smoke.Opacity
 	Property float Smoke.RiseVelocity
 	Property float Smoke.Size
+Class SocialService : Instance [notCreatable]
+	Function void SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) [RobloxScriptSecurity]
+	Function void SocialService:PromptGameInvite(Instance player)
+	YieldFunction bool SocialService:CanSendGameInviteAsync(Instance player)
+	Event SocialService.GameInvitePromptClosed(Instance player, Array recipientIds)
+	Event SocialService.PromptInviteRequested(Instance player) [RobloxScriptSecurity]
 Class Sound : Instance
 	Property float Sound.EmitterSize
 	Property bool Sound.IsLoaded [readonly]
@@ -3481,6 +3488,7 @@ Enum HttpRequestType
 	EnumItem HttpRequestType.Chat : 15
 	EnumItem HttpRequestType.Avatar : 16
 	EnumItem HttpRequestType.Analytics : 22
+	EnumItem HttpRequestType.Localization : 24
 Enum HumanoidDisplayDistanceType
 	EnumItem HumanoidDisplayDistanceType.Viewer : 0
 	EnumItem HumanoidDisplayDistanceType.Subject : 1

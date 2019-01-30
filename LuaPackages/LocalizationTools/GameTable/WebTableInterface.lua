@@ -80,6 +80,7 @@ local function UserCanManagePlace(userId, placeId)
 			Url = Url,
 			Method = "GET",
 			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
 		}):Start(function(success, response)
 			spawn(function()
 				if success then
@@ -121,6 +122,7 @@ local function SetAutoscraping(newValue)
 			Method = "PATCH",
 			Body = encodeJSON(patch),
 			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
 			Headers = {
 				["Content-Type"] = "application/json"
 			},
@@ -176,6 +178,7 @@ local function GetOrCreateGameTable()
 			Method = "POST",
 			Body = encodeJSON(bodyObject),
 			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
 			Headers = {
 				["Content-Type"] = "application/json"
 			},
@@ -275,6 +278,7 @@ local function DownloadGameTableWithId(tableId)
 				Url = Url,
 				Method = "GET",
 				CachePolicy = Enum.HttpCachePolicy.None,
+				RequestType = Enum.HttpRequestType.Localization,
 			})
 		end
 
@@ -325,6 +329,7 @@ local function UploadPatchToTableId(patch, tableId)
 			Method = "PATCH",
 			Body = encodeJSON(patch),
 			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
 			Headers = {
 				["Content-Type"] = "application/json"
 			},

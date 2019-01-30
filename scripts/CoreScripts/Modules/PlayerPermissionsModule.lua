@@ -2,6 +2,7 @@ local PlayerPermissionsModule = {}
 
 local PlayersService = game:GetService("Players")
 local FFlagCorescriptIsInGroupServer = settings():GetFFlag("CorescriptIsInGroupServer")
+local FFlagCorescriptIsPlayerGroupOwnerServer = settings():GetFFlag("CorescriptIsPlayerGroupOwnerServer")
 
 -- Remove with FFlagCorescriptIsInGroupServer
 local function HasRankInGroupFunctionFactory(groupId, requiredRank)
@@ -113,16 +114,28 @@ local function NewIsLocalizationExpertFunctionFactory()
 	end
 end
 
+local function IsPlaceOwnerFunctionFactory()
+	if game.CreatorType == Enum.CreatorType.Group then
+		return NewInGroupFunctionFactory("PlaceCreator")
+	end
+	return function(player)
+		return player.UserId == game.CreatorId
+	end
+end
+
 if FFlagCorescriptIsInGroupServer then
 	PlayerPermissionsModule.IsPlayerAdminAsync = NewInGroupFunctionFactory("Admin")
 	PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern")
 	PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
 	PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = NewIsLocalizationExpertFunctionFactory()
+	if FFlagCorescriptIsPlayerGroupOwnerServer then
+		PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
+	end
 else
 	PlayerPermissionsModule.IsPlayerAdminAsync = IsInGroupFunctionFactory(1200769)
 	PlayerPermissionsModule.IsPlayerInternAsync = HasRankInGroupFunctionFactory(2868472, 100)
 	PlayerPermissionsModule.IsPlayerStarAsync = IsInGroupFunctionFactory(4199740)
 	PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = IsLocalizationExpertFunctionFactory()
-end	
+end
 
 return PlayerPermissionsModule

@@ -53,6 +53,7 @@ function Thumbnail:render()
 		local videoHash = self.props.VideoHash
 		local videoTitle = self.props.VideoTitle
 		local review = self.props.Review or false
+		local preview = self.props.Preview or false
 		local hover = self.state.Hovering
 		local index = self.props.LayoutOrder or 1
 		local Id = self.props.Id
@@ -87,7 +88,7 @@ function Thumbnail:render()
 			end,
 		}, {
 			InfoText = Roact.createElement("TextLabel", {
-				Visible = review and not (hoverBarEnabled and hover),
+				Visible = (review or preview) and not (hoverBarEnabled and hover),
 				BackgroundTransparency = 0.3,
 				BorderSizePixel = 0,
 				BackgroundColor3 = Constants.BLACK,
@@ -95,7 +96,7 @@ function Thumbnail:render()
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
 
-				Text = "In Review",
+				Text = preview and "Preview" or "In Review",
 				TextColor3 = Constants.WHITE,
 				TextSize = 22,
 				Font = Enum.Font.SourceSans,

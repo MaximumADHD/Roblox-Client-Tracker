@@ -5,6 +5,7 @@
 local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
 local ChatService = game:GetService("Chat")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local MAX_COREGUI_CONNECTION_ATTEMPTS = 10
 
@@ -138,4 +139,8 @@ if (not GuiService:IsTenFootInterface()) and (not game:GetService('UserInputServ
 		containerTable.ChatWindow.ChatTypes.ClassicChatEnabled = false
 		SetCoreGuiChatConnections(containerTable)
 	end
+else
+	-- Make init data request to register as a speaker
+	local EventFolder = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
+	EventFolder.GetInitDataRequest:InvokeServer()
 end

@@ -9,7 +9,7 @@ local Roact = require(CorePackages.Roact)
 local UpsellFlow = require(script.Parent.Parent.Parent.UpsellFlow)
 
 local MarketplaceServiceEventConnector = require(script.Parent.MarketplaceServiceEventConnector)
-local GamepadInputConnector = require(script.Parent.GamepadInputConnector)
+local InputTypeManager = require(script.Parent.InputTypeManager)
 
 local BrowserPurchaseFinishedConnector = require(script.Parent.BrowserPurchaseFinishedConnector)
 local NativePurchaseFinishedConnector = require(script.Parent.NativePurchaseFinishedConnector)
@@ -27,7 +27,7 @@ local function EventConnections()
 
 	return Roact.createElement("Folder", {}, {
 		MarketPlaceServiceEventConnector = Roact.createElement(MarketplaceServiceEventConnector),
-		GamepadInputConnector = Roact.createElement(GamepadInputConnector),
+		InputTypeManager = Roact.createElement(InputTypeManager),
 		UpsellFinishedConnector = upsellConnector,
 	})
 end
