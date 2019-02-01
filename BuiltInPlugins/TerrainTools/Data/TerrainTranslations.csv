@@ -1,7 +1,7 @@
 Key,en,fr-fr,zh-cn
 Studio.TerrainEditor.Title,Terrain Editor,terrain Editor,地形编辑器
 Studio.TerrainEditor.ToolbarButton,Editor,Éditeur,编辑
-Studio.TerrainEditor.Tooltip,Add, remove, and modify terrain,Ajouter, supprimer et modifier le terrain,添加，删除和修改地形
+Studio.TerrainEditor.Tooltip,"Add, remove, and modify terrain","Ajouter, supprimer et modifier le terrain",添加，删除和修改地形
 Studio.TerrainEditor.MainButtons.Generate,Generate,produire,生成
 Studio.TerrainEditor.MainButtons.Add,Add,Ajouter,加
 Studio.TerrainEditor.MainButtons.Subtract,Subtract,Soustraire,减去
