@@ -2,6 +2,9 @@
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROLS_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 
+local DYNAMIC_THUMBSTICK_ACTION_NAME = "DynamicThumbstickAction"
+local DYNAMIC_THUMBSTICK_ACTION_PRIORITY = Enum.ContextActionPriority.High.Value
+
 local MIDDLE_TRANSPARENCIES = {
 	1 - 0.89,
 	1 - 0.70,
@@ -23,8 +26,14 @@ local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
+
+local thumbstickUseCASFlagSuccess, thumbstickUseCASFlagValue = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickUseContextActionSevice")
+end)
+local FFlagDynamicThumbstickUseContextActionSevice = thumbstickUseCASFlagSuccess and thumbstickUseCASFlagValue
 
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
@@ -42,6 +51,7 @@ function DynamicThumbstick.new()
 	self.revertAutoJumpEnabledToFalse = false
 
 	self.moveTouchObject = nil
+	self.moveTouchFirstChanged = false
 	self.moveTouchStartPosition = nil
 
 	self.startImage = nil
@@ -56,9 +66,13 @@ function DynamicThumbstick.new()
 
 	self.isFollowStick = false
 	self.thumbstickFrame = nil
-	self.onTouchMovedConn = nil
-	self.onTouchEndedConn = nil
-	self.onTouchActivateConn = nil
+
+	if not FFlagDynamicThumbstickUseContextActionSevice then
+		self.onTouchMovedConn = nil
+		self.onTouchEndedConn = nil
+		self.onTouchActivateConn = nil
+	end
+
 	self.onRenderSteppedConn = nil
 
 	self.fadeInAndOutBalance = FADE_IN_OUT_BALANCE_DEFAULT
@@ -107,6 +121,10 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 			self:Create(uiParentFrame)
 		end
 
+		if FFlagDynamicThumbstickUseContextActionSevice then
+			self:BindContextActions()
+		end
+
 		if Players.LocalPlayer.Character then
 			self:OnCharacterAdded(Players.LocalPlayer.Character)
 		else
@@ -115,6 +133,9 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 			end)
 		end
 	else
+		if FFlagDynamicThumbstickUseContextActionSevice then
+			ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
+		end
 		-- Disable
 		self:OnInputEnded() -- Cleanup
 	end
@@ -156,7 +177,9 @@ function DynamicThumbstick:OnInputEnded()
 	self.moveTouchObject = nil
 	self.moveVector = ZERO_VECTOR3
 	self:FadeThumbstick(false)
-	self.thumbstickFrame.Active = true
+	if not FFlagDynamicThumbstickUseContextActionSevice then
+		self.thumbstickFrame.Active = true
+	end
 end
 
 function DynamicThumbstick:FadeThumbstick(visible)
@@ -208,44 +231,231 @@ function DynamicThumbstick:FadeThumbstickFrame(fadeDuration, fadeRatio)
 	self.tweenInAlphaStart = tick()
 end
 
+function DynamicThumbstick:InputInFrame(inputObject)
+	local frameCornerTopLeft = self.thumbstickFrame.AbsolutePosition
+	local frameCornerBottomRight = frameCornerTopLeft + self.thumbstickFrame.AbsoluteSize
+	local inputPosition = inputObject.Position
+	if inputPosition.X >= frameCornerTopLeft.X and inputPosition.Y >= frameCornerTopLeft.Y then
+		if inputPosition.X <= frameCornerBottomRight.X and inputPosition.Y <= frameCornerBottomRight.Y then
+			return true
+		end
+	end
+	return false
+end
+
+function DynamicThumbstick:DoFadeInBackground()
+	local playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local hasFadedBackgroundInOrientation = false
+
+	-- only fade in/out the background once per orientation
+	if playerGui then
+		if playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeLeft or
+			playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeRight then
+				hasFadedBackgroundInOrientation = self.hasFadedBackgroundInLandscape
+				self.hasFadedBackgroundInLandscape = true
+		elseif playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait then
+				hasFadedBackgroundInOrientation = self.hasFadedBackgroundInPortrait
+				self.hasFadedBackgroundInPortrait = true
+		end
+	end
+
+	if not hasFadedBackgroundInOrientation then
+		self.fadeInAndOutHalfDuration = FADE_IN_OUT_HALF_DURATION_DEFAULT
+		self.fadeInAndOutBalance = FADE_IN_OUT_BALANCE_DEFAULT
+		self.tweenInAlphaStart = tick()
+	end
+end
+
+function DynamicThumbstick:DoMove(direction)
+	local currentMoveVector = direction
+
+	-- Scaled Radial Dead Zone
+	local inputAxisMagnitude = currentMoveVector.magnitude
+	if inputAxisMagnitude < self.radiusOfDeadZone then
+		currentMoveVector = Vector3.new()
+	else
+		currentMoveVector = currentMoveVector.unit*(
+			1 - math.max(0, (self.radiusOfMaxSpeed - currentMoveVector.magnitude)/self.radiusOfMaxSpeed)
+		)
+		currentMoveVector = Vector3.new(currentMoveVector.x, 0, currentMoveVector.y)
+	end
+
+	self.moveVector = currentMoveVector
+end
+
+
+function DynamicThumbstick:LayoutMiddleImages(startPos, endPos)
+	local startDist = (self.thumbstickSize / 2) + self.middleSize
+	local vector = endPos - startPos
+	local distAvailable = vector.magnitude - (self.thumbstickRingSize / 2) - self.middleSize
+	local direction = vector.unit
+
+	local distNeeded = self.middleSpacing * NUM_MIDDLE_IMAGES
+	local spacing = self.middleSpacing
+
+	if distNeeded < distAvailable then
+		spacing = distAvailable / NUM_MIDDLE_IMAGES
+	end
+
+	for i = 1, NUM_MIDDLE_IMAGES do
+		local image = self.middleImages[i]
+		local distWithout = startDist + (spacing * (i - 2))
+		local currentDist = startDist + (spacing * (i - 1))
+
+		if distWithout < distAvailable then
+			local pos = endPos - direction * currentDist
+			local exposedFraction = math.clamp(1 - ((currentDist - distAvailable) / spacing), 0, 1)
+
+			image.Visible = true
+			image.Position = UDim2.new(0, pos.X, 0, pos.Y)
+			image.Size = UDim2.new(0, self.middleSize * exposedFraction, 0, self.middleSize * exposedFraction)
+		else
+			image.Visible = false
+		end
+	end
+end
+
+function DynamicThumbstick:MoveStick(pos)
+	local vector2StartPosition = Vector2.new(self.moveTouchStartPosition.X, self.moveTouchStartPosition.Y)
+	local startPos = vector2StartPosition - self.thumbstickFrame.AbsolutePosition
+	local endPos = Vector2.new(pos.X, pos.Y) - self.thumbstickFrame.AbsolutePosition
+	self.endImage.Position = UDim2.new(0, endPos.X, 0, endPos.Y)
+	self:LayoutMiddleImages(startPos, endPos)
+end
+
+function DynamicThumbstick:BindContextActions()
+	local function inputBegan(inputObject)
+		if self.moveTouchObject then
+			return Enum.ContextActionResult.Pass
+		end
+
+		if not self:InputInFrame(inputObject) then
+			return Enum.ContextActionResult.Pass
+		end
+
+		if self.isFirstTouch then
+			self.isFirstTouch = false
+			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out,0,false,0)
+			TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
+			TweenService:Create(
+				self.endImage,
+				tweenInfo,
+				{Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize), ImageColor3 = Color3.new(0,0,0)}
+			):Play()
+		end
+
+		self.moveTouchObject = inputObject
+		self.moveTouchStartPosition = inputObject.Position
+		self.moveTouchFirstChanged = true
+
+		if FADE_IN_OUT_BACKGROUND then
+			self:DoFadeInBackground()
+		end
+
+		return Enum.ContextActionResult.Pass
+	end
+
+	local function inputChanged(inputObject)
+		if inputObject == self.moveTouchObject then
+			if self.moveTouchFirstChanged then
+				self.moveTouchFirstChanged = false
+
+				local startPosVec2 = Vector2.new(
+					inputObject.Position.X - self.thumbstickFrame.AbsolutePosition.X,
+					inputObject.Position.Y - self.thumbstickFrame.AbsolutePosition.Y
+				)
+				self.startImage.Visible = true
+				self.startImage.Position = UDim2.new(0, startPosVec2.X, 0, startPosVec2.Y)
+				self.endImage.Visible = true
+				self.endImage.Position = self.startImage.Position
+
+				self:FadeThumbstick(true)
+				self:MoveStick(inputObject.Position)
+			end
+
+			local direction = Vector2.new(
+				inputObject.Position.x - self.moveTouchStartPosition.x,
+				inputObject.Position.y - self.moveTouchStartPosition.y
+			)
+			if math.abs(direction.x) > 0 or math.abs(direction.y) > 0 then
+				self:DoMove(direction)
+				self:MoveStick(inputObject.Position)
+			end
+			return Enum.ContextActionResult.Sink
+		end
+		return Enum.ContextActionResult.Pass
+	end
+
+	local function inputEnded(inputObject)
+		if inputObject == self.moveTouchObject then
+			self:OnInputEnded()
+			if self.moveTouchLockedIn then
+				return Enum.ContextActionResult.Sink
+			end
+		end
+		return Enum.ContextActionResult.Pass
+	end
+
+	local function handleInput(actionName, inputState, inputObject)
+		if inputState == Enum.UserInputState.Begin then
+			return inputBegan(inputObject)
+		elseif inputState == Enum.UserInputState.Change then
+			return inputChanged(inputObject)
+		elseif inputState == Enum.UserInputState.End then
+			return inputEnded(inputObject)
+		elseif inputState == Enum.UserInputState.Cancel then
+			self:OnInputEnded()
+		end
+	end
+
+	ContextActionService:BindActionAtPriority(
+		DYNAMIC_THUMBSTICK_ACTION_NAME,
+		handleInput,
+		false,
+		DYNAMIC_THUMBSTICK_ACTION_PRIORITY,
+		Enum.UserInputType.Touch)
+end
+
 function DynamicThumbstick:Create(parentFrame)
 	if self.thumbstickFrame then
 		self.thumbstickFrame:Destroy()
 		self.thumbstickFrame = nil
-		if self.onTouchMovedConn then
-			self.onTouchMovedConn:Disconnect()
-			self.onTouchMovedConn = nil
-		end
-		if self.onTouchEndedConn then
-			self.onTouchEndedCon:Disconnect()
-			self.onTouchEndedCon = nil
+		if not FFlagDynamicThumbstickUseContextActionSevice then
+			if self.onTouchMovedConn then
+				self.onTouchMovedConn:Disconnect()
+				self.onTouchMovedConn = nil
+			end
+			if self.onTouchEndedConn then
+				self.onTouchEndedCon:Disconnect()
+				self.onTouchEndedCon = nil
+			end
+			if self.onTouchActivateConn then
+				self.onTouchActivateConn:Disconnect()
+				self.onTouchActivateConn = nil
+			end
 		end
 		if self.onRenderSteppedConn then
 			self.onRenderSteppedConn:Disconnect()
 			self.onRenderSteppedConn = nil
 		end
-		if self.onTouchActivateConn then
-			self.onTouchActivateConn:Disconnect()
-			self.onTouchActivateConn = nil
-		end
 	end
 
-	local ThumbstickSize = 45
-	local ThumbstickRingSize = 20
-	local MiddleSize = 10
-	local MiddleSpacing = MiddleSize + 4
-	local RadiusOfDeadZone = 2
-	local RadiusOfMaxSpeed = 20
+	self.thumbstickSize = 45
+	self.thumbstickRingSize = 20
+	self.middleSize = 10
+	self.middleSpacing = self.middleSize + 4
+	self.radiusOfDeadZone = 2
+	self.radiusOfMaxSpeed = 20
 
 	local screenSize = parentFrame.AbsoluteSize
 	local isBigScreen = math.min(screenSize.x, screenSize.y) > 500
 	if isBigScreen then
-		ThumbstickSize = ThumbstickSize * 2
-		ThumbstickRingSize = ThumbstickRingSize * 2
-		MiddleSize = MiddleSize * 2
-		MiddleSpacing = MiddleSpacing * 2
-		RadiusOfDeadZone = RadiusOfDeadZone * 2
-		RadiusOfMaxSpeed = RadiusOfMaxSpeed * 2
+		self.thumbstickSize = self.thumbstickSize * 2
+		self.thumbstickRingSize = self.thumbstickRingSize * 2
+		self.middleSize = self.middleSize * 2
+		self.middleSpacing = self.middleSpacing * 2
+		self.radiusOfDeadZone = self.radiusOfDeadZone * 2
+		self.radiusOfMaxSpeed = self.radiusOfMaxSpeed * 2
 	end
 
 	local function layoutThumbstickFrame(portraitMode)
@@ -264,6 +474,9 @@ function DynamicThumbstick:Create(parentFrame)
 	self.thumbstickFrame.Visible = false
 	self.thumbstickFrame.BackgroundTransparency = 1.0
 	self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	if FFlagDynamicThumbstickUseContextActionSevice then
+		self.thumbstickFrame.Active = false
+	end
 	layoutThumbstickFrame(false)
 
 	self.startImage = Instance.new("ImageLabel")
@@ -275,8 +488,8 @@ function DynamicThumbstick:Create(parentFrame)
 	self.startImage.ImageRectSize = Vector2.new(144, 144)
 	self.startImage.ImageColor3 = Color3.new(0, 0, 0)
 	self.startImage.AnchorPoint = Vector2.new(0.5, 0.5)
-	self.startImage.Position = UDim2.new(0, ThumbstickRingSize * 3.3, 1, -ThumbstickRingSize * 2.8)
-	self.startImage.Size = UDim2.new(0, ThumbstickRingSize * 3.7, 0, ThumbstickRingSize * 3.7)
+	self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3, 1, -self.thumbstickRingSize  * 2.8)
+	self.startImage.Size = UDim2.new(0, self.thumbstickRingSize  * 3.7, 0, self.thumbstickRingSize  * 3.7)
 	self.startImage.ZIndex = 10
 	self.startImage.Parent = self.thumbstickFrame
 
@@ -289,7 +502,7 @@ function DynamicThumbstick:Create(parentFrame)
 	self.endImage.ImageRectSize =  Vector2.new(144, 144)
 	self.endImage.AnchorPoint = Vector2.new(0.5, 0.5)
 	self.endImage.Position = self.startImage.Position
-	self.endImage.Size = UDim2.new(0, ThumbstickSize * 0.8, 0, ThumbstickSize * 0.8)
+	self.endImage.Size = UDim2.new(0, self.thumbstickSize * 0.8, 0, self.thumbstickSize * 0.8)
 	self.endImage.ZIndex = 10
 	self.endImage.Parent = self.thumbstickFrame
 
@@ -335,121 +548,51 @@ function DynamicThumbstick:Create(parentFrame)
 	self.endImageFadeTween = nil
 	self.middleImageFadeTweens = {}
 
-	local function doMove(direction)
-		local currentMoveVector = direction
-
-		-- Scaled Radial Dead Zone
-		local inputAxisMagnitude = currentMoveVector.magnitude
-		if inputAxisMagnitude < RadiusOfDeadZone then
-			currentMoveVector = Vector3.new()
-		else
-			currentMoveVector = currentMoveVector.unit*(1 - math.max(0, (RadiusOfMaxSpeed - currentMoveVector.magnitude)/RadiusOfMaxSpeed))
-			currentMoveVector = Vector3.new(currentMoveVector.x, 0, currentMoveVector.y)
-		end
-
-		self.moveVector = currentMoveVector
-	end
-
-	local function layoutMiddleImages(startPos, endPos)
-		local startDist = (ThumbstickSize / 2) + MiddleSize
-		local vector = endPos - startPos
-		local distAvailable = vector.magnitude - (ThumbstickRingSize / 2) - MiddleSize
-		local direction = vector.unit
-
-		local distNeeded = MiddleSpacing * NUM_MIDDLE_IMAGES
-		local spacing = MiddleSpacing
-
-		if distNeeded < distAvailable then
-			spacing = distAvailable / NUM_MIDDLE_IMAGES
-		end
-
-		for i = 1, NUM_MIDDLE_IMAGES do
-			local image = self.middleImages[i]
-			local distWithout = startDist + (spacing * (i - 2))
-			local currentDist = startDist + (spacing * (i - 1))
-
-			if distWithout < distAvailable then
-				local pos = endPos - direction * currentDist
-				local exposedFraction = math.clamp(1 - ((currentDist - distAvailable) / spacing), 0, 1)
-
-				image.Visible = true
-				image.Position = UDim2.new(0, pos.X, 0, pos.Y)
-				image.Size = UDim2.new(0, MiddleSize * exposedFraction, 0, MiddleSize * exposedFraction)
-			else
-				image.Visible = false
+	if not FFlagDynamicThumbstickUseContextActionSevice then
+		-- input connections
+		self.thumbstickFrame.InputBegan:Connect(function(inputObject)
+			if inputObject.UserInputType ~= Enum.UserInputType.Touch or inputObject.UserInputState ~= Enum.UserInputState.Begin then
+				return
 			end
-		end
-	end
+			if self.moveTouchObject then
+				return
+			end
 
-	local function moveStick(pos)
-		local startPos = Vector2.new(self.moveTouchStartPosition.X, self.moveTouchStartPosition.Y) - self.thumbstickFrame.AbsolutePosition
-		local endPos = Vector2.new(pos.X, pos.Y) - self.thumbstickFrame.AbsolutePosition
-		self.endImage.Position = UDim2.new(0, endPos.X, 0, endPos.Y)
-		layoutMiddleImages(startPos, endPos)
-	end
+			if self.isFirstTouch then
+				self.isFirstTouch = false
+				local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out,0,false,0)
+				TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
+				TweenService:Create(self.endImage, tweenInfo, {Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize), ImageColor3 = Color3.new(0,0,0)}):Play()
+			end
 
-	-- input connections
-	self.thumbstickFrame.InputBegan:Connect(function(inputObject)
-		if inputObject.UserInputType ~= Enum.UserInputType.Touch or inputObject.UserInputState ~= Enum.UserInputState.Begin then
-			return
-		end
-		if self.moveTouchObject then
-			return
-		end
+			self.moveTouchObject = inputObject
+			self.moveTouchStartPosition = inputObject.Position
+			local startPosVec2 = Vector2.new(inputObject.Position.X - self.thumbstickFrame.AbsolutePosition.X, inputObject.Position.Y - self.thumbstickFrame.AbsolutePosition.Y)
 
-		if self.isFirstTouch then
-			self.isFirstTouch = false
-			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out,0,false,0)
-			TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
-			TweenService:Create(self.endImage, tweenInfo, {Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize), ImageColor3 = Color3.new(0,0,0)}):Play()
-		end
+			self.startImage.Visible = true
+			self.startImage.Position = UDim2.new(0, startPosVec2.X, 0, startPosVec2.Y)
+			self.endImage.Visible = true
+			self.endImage.Position = self.startImage.Position
 
-		self.moveTouchObject = inputObject
-		self.moveTouchStartPosition = inputObject.Position
-		local startPosVec2 = Vector2.new(inputObject.Position.X - self.thumbstickFrame.AbsolutePosition.X, inputObject.Position.Y - self.thumbstickFrame.AbsolutePosition.Y)
+			self:FadeThumbstick(true)
+			self:MoveStick(inputObject.Position)
 
-		self.startImage.Visible = true
-		self.startImage.Position = UDim2.new(0, startPosVec2.X, 0, startPosVec2.Y)
-		self.endImage.Visible = true
-		self.endImage.Position = self.startImage.Position
+			if FADE_IN_OUT_BACKGROUND then
+				self:DoFadeInBackground()
+			end
+		end)
 
-		self:FadeThumbstick(true)
-		moveStick(inputObject.Position)
-
-		if FADE_IN_OUT_BACKGROUND then
-			local playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
-			local hasFadedBackgroundInOrientation = false
-
-			-- only fade in/out the background once per orientation
-			if playerGui then
-				if playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeLeft or
-					playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.LandscapeRight then
-						hasFadedBackgroundInOrientation = self.hasFadedBackgroundInLandscape
-						self.hasFadedBackgroundInLandscape = true
-				elseif playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait then
-						hasFadedBackgroundInOrientation = self.hasFadedBackgroundInPortrait
-						self.hasFadedBackgroundInPortrait = true
+		self.onTouchMovedConn = UserInputService.TouchMoved:connect(function(inputObject)
+			if inputObject == self.moveTouchObject then
+				self.thumbstickFrame.Active = false
+				local direction = Vector2.new(inputObject.Position.x - self.moveTouchStartPosition.x, inputObject.Position.y - self.moveTouchStartPosition.y)
+				if math.abs(direction.x) > 0 or math.abs(direction.y) > 0 then
+					self:DoMove(direction)
+					self:MoveStick(inputObject.Position)
 				end
 			end
-
-			if not hasFadedBackgroundInOrientation then
-				self.fadeInAndOutHalfDuration = FADE_IN_OUT_HALF_DURATION_DEFAULT
-				self.fadeInAndOutBalance = FADE_IN_OUT_BALANCE_DEFAULT
-				self.tweenInAlphaStart = tick()
-			end
-		end
-	end)
-
-	self.onTouchMovedConn = UserInputService.TouchMoved:connect(function(inputObject)
-		if inputObject == self.moveTouchObject then
-			self.thumbstickFrame.Active = false
-			local direction = Vector2.new(inputObject.Position.x - self.moveTouchStartPosition.x, inputObject.Position.y - self.moveTouchStartPosition.y)
-			if math.abs(direction.x) > 0 or math.abs(direction.y) > 0 then
-				doMove(direction)
-				moveStick(inputObject.Position)
-			end
-		end
-	end)
+		end)
+	end
 
 	self.onRenderSteppedConn = RunService.RenderStepped:Connect(function()
 		if self.tweenInAlphaStart ~= nil then

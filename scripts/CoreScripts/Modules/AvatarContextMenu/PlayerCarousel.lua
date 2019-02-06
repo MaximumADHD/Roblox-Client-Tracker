@@ -29,8 +29,9 @@ local buttonToPlayerMap = {}
 local playerToButtonMap = {}
 
 local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
+local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 
-local function CreateMenuCarousel()
+local function CreateMenuCarousel(theme)
 	local playerSelection = Instance.new("Frame")
 	playerSelection.Name = "PlayerCarousel"
 	playerSelection.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -87,7 +88,11 @@ local function CreateMenuCarousel()
 
 		local nextButton = Instance.new("ImageButton")
 		nextButton.Name = "NextButton"
-		nextButton.Image = "rbxasset://textures/ui/AvatarContextMenu_Arrow.png"
+		if FFlagCoreScriptACMThemeCustomization then
+			nextButton.Image = theme.ScrollRightImage
+		else
+			nextButton.Image = "rbxasset://textures/ui/AvatarContextMenu_Arrow.png"
+		end
 		nextButton.BackgroundTransparency = 1
 		nextButton.AnchorPoint = Vector2.new(1,0.5)
 		nextButton.Position = UDim2.new(1,-5,0.5,0)
@@ -101,9 +106,13 @@ local function CreateMenuCarousel()
 
 		local prevButton = nextButton:Clone()
 		prevButton.Name = "PrevButton"
+		if FFlagCoreScriptACMThemeCustomization and theme.ScrollLeftImage ~= "" then
+			prevButton.Image = theme.ScrollLeftImage
+		else
+			prevButton.Rotation = 180
+		end
 		prevButton.AnchorPoint = Vector2.new(0, 0.5)
 		prevButton.Position = UDim2.new(0, 5, 0.5, 0)
-		prevButton.Rotation = 180
 		prevButton.Selectable = false
 		prevButton.Parent = playerSelection
 
@@ -129,6 +138,17 @@ local function CreateMenuCarousel()
 		UserInputService.LastInputTypeChanged:Connect(checkButtonVisibility)
 
 	return playerSelection
+end
+
+function PlayerCarousel:UpdateGuiTheme(theme)
+	self.rbxGui.NextButton.Image = theme.ScrollRightImage
+
+	if theme.ScrollLeftImage ~= "" then
+		self.rbxGui.PrevButton.Image = theme.ScrollLeftImage
+	else
+		self.rbxGui.PrevButton.Image = theme.ScrollRightImage
+		self.rbxGui.PrevButton.Rotation = 180
+	end
 end
 
 function PlayerCarousel:FadeTowardsEdges()
@@ -291,10 +311,10 @@ function PlayerCarousel:GetSelectedPlayer()
 	return buttonToPlayerMap[uiPageLayout.CurrentPage]
 end
 
-function PlayerCarousel.new()
+function PlayerCarousel.new(theme)
 	local obj = setmetatable({}, PlayerCarousel)
 
-	obj.rbxGui = CreateMenuCarousel()
+	obj.rbxGui = CreateMenuCarousel(theme)
 	obj.PlayerChanged = playerChangedEvent.Event
 
 	if FFlagCoreScriptACMFadeCarousel then
@@ -306,4 +326,8 @@ function PlayerCarousel.new()
 	return obj
 end
 
-return PlayerCarousel.new()
+if FFlagCoreScriptACMThemeCustomization then
+	return PlayerCarousel
+else
+	return PlayerCarousel.new()
+end

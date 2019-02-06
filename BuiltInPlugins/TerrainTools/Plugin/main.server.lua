@@ -8,7 +8,7 @@ local kToolbarButtonText = i18nModule.TranslateId("Studio.TerrainEditor.ToolbarB
 
 local kMinWidthWidth = 249
 
-local FFlagEnableCreateButtonWithId = settings():GetFFlag("EnableCreateButtonWithId")
+local FFlagEnableCreateButtonWithId2 = settings():GetFFlag("EnableCreateButtonWithId2")
 
 -- A function to sync toolbar button 'active' state with plugin gui
 -- visibility.
@@ -25,11 +25,11 @@ local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
 
 local toggleVisibilityButton
 
-if (FFlagEnableCreateButtonWithId) then 
-	toggleVisibilityButton = toolbar:CreateButtonWithId("Editor", 
-		kToolbarButtonText,
+if (FFlagEnableCreateButtonWithId2) then 
+	toggleVisibilityButton = toolbar:CreateButton("Editor", 
 		i18nModule.TranslateId("Studio.TerrainEditor.Tooltip"),
-		"rbxasset://textures/TerrainTools/icon_terrain_big.png")
+		"rbxasset://textures/TerrainTools/icon_terrain_big.png", 
+		kToolbarButtonText)
 else
 	toggleVisibilityButton = toolbar:CreateButton("Editor", 
 		i18nModule.TranslateId("Studio.TerrainEditor.Tooltip"),

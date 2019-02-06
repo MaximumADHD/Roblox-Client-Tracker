@@ -5,11 +5,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TeleportService = game:GetService("TeleportService")
 local AnalyticsService = game:GetService("AnalyticsService")
 local LocalizationService = game:GetService("LocalizationService")
-local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
 
 local create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
-
 local LEAVE_GAME_FRAME_WAITS = 2
 
 local function safeGetFInt(name, defaultValue)
@@ -34,6 +32,11 @@ local fflagLazyCreateErrorPrompt = settings():GetFFlag("LazyCreateErrorPrompt")
 -- Remove Reconnect button from error prompts for errors 522, 523
 local fflagReconnectButtonStateUpdate = settings():GetFFlag("ReconnectButtonStateUpdate")
 local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
+
+local coreScriptTableTranslator
+if fflagUseNewErrorStrings then
+	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
+end
 
 local errorPrompt
 local graceTimeout = -1
@@ -69,7 +72,8 @@ local ErrorTitles = {
 local screenGui = create 'ScreenGui' {
 	Parent = CoreGui,
 	Name = "RobloxPromptGui",
-	OnTopOfCoreBlur = true
+	OnTopOfCoreBlur = true,
+	DisplayOrder = 9
 }
 
 -- semi-transparent frame overlay
@@ -327,10 +331,13 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 	end
 
 	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
-	local success, attemptTranslation = pcall(function()
-		return CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-	end)
-	return success and attemptTranslation or errorMsg
+	if coreScriptTableTranslator then
+		local success, attemptTranslation = pcall(function()
+			return coreScriptTableTranslator:FormatByKey(key)
+		end)
+		if success then return attemptTranslation end
+	end
+	return errorMsg
 end
 
 local function updateErrorPrompt(errorMsg, errorCode, errorType)
@@ -379,11 +386,19 @@ local function onScreenSizeChanged()
 	end
 end
 
+local function onLocaleIdChanged()
+	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
+end
+
 -- adjust size to the current screen width
 if not fflagLazyCreateErrorPrompt then
 	errorPrompt:resizeWidth(screenWidth)
 end
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
+
+if fflagUseNewErrorStrings then
+	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+end
 
 -- pre-run it once in case some error occurs before the connection
 onErrorMessageChanged()

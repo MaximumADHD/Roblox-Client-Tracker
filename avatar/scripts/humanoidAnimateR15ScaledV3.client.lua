@@ -7,7 +7,13 @@ local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 local userAnimationSpeedDampeningSuccess, userAnimationSpeedDampeningValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimationSpeedDampening") end)
 local userAnimationSpeedDampening = userAnimationSpeedDampeningSuccess and userAnimationSpeedDampeningValue
 
+local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserAdjustHumanoidRootPartToHipPosition")
+end)
+local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagExists and adjustHumanoidRootPartFlagEnabled
+
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
+local HumanoidHipHeight = FFlagUserAdjustHumanoidRootPartToHipPosition and 2 or 1.35
 
 local currentAnim = ""
 local currentAnimInstance = nil
@@ -334,13 +340,19 @@ end
 
 function getHeightScale()
 	if Humanoid then
-		local scale = Humanoid.HipHeight / 1.35
+		if FFlagUserAdjustHumanoidRootPartToHipPosition then
+			if not Humanoid.AutomaticScalingEnabled then
+				return 1
+			end
+		end
+		
+		local scale = Humanoid.HipHeight / HumanoidHipHeight
 		if userAnimationSpeedDampening then
 			if AnimationSpeedDampeningObject == nil then
 				AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 			end
 			if AnimationSpeedDampeningObject ~= nil then
-				scale = 1 + (Humanoid.HipHeight - 1.35) * AnimationSpeedDampeningObject.Value / 1.35
+				scale = 1 + (Humanoid.HipHeight - HumanoidHipHeight) * AnimationSpeedDampeningObject.Value / HumanoidHipHeight
 			end
 		end
 		return scale

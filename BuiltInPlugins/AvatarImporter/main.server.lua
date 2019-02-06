@@ -46,6 +46,12 @@ importAvatarButton.ClickableWhenViewportHidden = true
 local avatarPrompt = AvatarPrompt.new(screenGui)
 local errorPrompt = ErrorPrompt.new(screenGui)
 local loadingPrompt = LoadingPrompt.new(screenGui)
+local configurer = nil
+if FastFlags:isBundleConfigurationEnabled() then
+	local Configurer = require(script.Parent.configurer.Configurer)
+	configurer = Configurer.new(screenGui)
+	configurer:createButtons(plugin, toolbar)
+end
 
 -- utility functions
 local function getLinesFromStr(str)
@@ -157,6 +163,10 @@ local function setupImportedAvatar(avatar, avatarType)
 	setupHumanoidScaleValues(avatar, avatarType)
 	avatar:MoveTo(getCameraLookAt(10))
 	Selection:Set({ avatar })
+
+	if configurer then
+		configurer:ConfigureImportedAvatar(avatar)
+	end
 	print("Avatar Imported:", avatar:GetFullName(), avatarType)
 end
 

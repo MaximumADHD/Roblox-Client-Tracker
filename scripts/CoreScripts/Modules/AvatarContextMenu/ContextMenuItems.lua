@@ -29,6 +29,7 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
+local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 
@@ -38,7 +39,8 @@ local FFlagCoreScriptACMCustomFirst = settings():GetFFlag("CoreScriptACMCustomFi
 local FFlagCoreScriptCloseACMCustomItem = settings():GetFFlag("CoreScriptCloseACMCustomItem")
 local FFlagCoreScriptFixACMWhisperIssues = settings():GetFFlag("CoreScriptFixACMWhisperIssues")
 local FFlagRemoveACMLastUnderline = settings():GetFFlag("RemoveACMLastUnderline")
-local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat2")
+local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat3")
+local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -157,7 +159,13 @@ function ContextMenuItems:CreateCustomMenuItems()
 
 				itemInfo.event:Fire(self.SelectedPlayer)
 			end
-			local customButton = ContextMenuUtil:MakeStyledButton("CustomButton", buttonText, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), customButtonFunc)
+			local customButton = ContextMenuUtil:MakeStyledButton(
+				"CustomButton",
+				buttonText,
+				UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
+				customButtonFunc,
+				FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+			)
 			customButton.Name = "CustomButton"
 			customButton.LayoutOrder = itemInfo.layoutOrder
 			customButton.Parent = self.MenuItemFrame
@@ -172,7 +180,13 @@ function ContextMenuItems:CreateCustomMenuItems()
 
 				bindableEvent:Fire(self.SelectedPlayer)
 			end
-			local customButton = ContextMenuUtil:MakeStyledButton("CustomButton", buttonText, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), customButtonFunc)
+			local customButton = ContextMenuUtil:MakeStyledButton(
+				"CustomButton",
+				buttonText,
+				UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
+				customButtonFunc,
+				FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+			)
 			customButton.Name = "CustomButton"
 			customButton.LayoutOrder = CUSTOM_LAYOUT_ORDER
 			customButton.Parent = self.MenuItemFrame
@@ -212,7 +226,13 @@ function ContextMenuItems:CreateFriendButton(status, isBlocked)
 		end
 	end
 
-	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton("FriendStatus", addFriendString, UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), addFriendFunc)
+	friendLabel, friendLabelText = ContextMenuUtil:MakeStyledButton(
+		"FriendStatus",
+		addFriendString,
+		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
+		addFriendFunc,
+		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+	)
 
 	if isBlocked then
 		friendLabel.Selectable = false
@@ -258,17 +278,19 @@ function ContextMenuItems:CreateEmoteButton()
 		PlayersService:Chat("/e wave")
 	end
 
-	local waveButton = self.MenuItemFrame:FindFirstChild("Wave")
-	if not waveButton then
-		waveButton = ContextMenuUtil:MakeStyledButton("Wave", "Wave", UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET), wave)
-		if not FFlagCoreScriptACMCustomFirst then
-			waveButton.LayoutOrder = WAVE_LAYOUT_ORDER
-		end
-		waveButton.Parent = self.MenuItemFrame
-	end
+	local waveButton = ContextMenuUtil:MakeStyledButton(
+		"Wave",
+		"Wave",
+		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
+		wave,
+		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+	)
 	if FFlagCoreScriptACMCustomFirst then
 		waveButton.LayoutOrder = WAVE_LAYOUT_ORDER + CustomItemAddedOrder
+	else
+		waveButton.LayoutOrder = WAVE_LAYOUT_ORDER
 	end
+	waveButton.Parent = self.MenuItemFrame
 end
 
 
@@ -315,13 +337,13 @@ function ContextMenuItems:CreateChatButton()
 		"ChatStatus",
 		"Chat",
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
-		chatFunc
+		chatFunc,
+		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
 	)
-	if not FFlagCoreScriptACMCustomFirst then
-		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
-	end
 	if FFlagCoreScriptACMCustomFirst then
 		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
+	else
+		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
 	end
 
 	local success, canLocalUserChat = pcall(function() return Chat:CanUserChatAsync(LocalPlayer.UserId) end)

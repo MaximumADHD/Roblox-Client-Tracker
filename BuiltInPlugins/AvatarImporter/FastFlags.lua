@@ -20,4 +20,8 @@ function FastFlags:isEnableAvatarImporterOn()
 	return isFlagOn("StudioEnableAvatarImporter")
 end
 
+function FastFlags:isBundleConfigurationEnabled()
+	return isFlagOn("DebugAvatarImporterBundleConfiguration")
+end
+
 return FastFlags

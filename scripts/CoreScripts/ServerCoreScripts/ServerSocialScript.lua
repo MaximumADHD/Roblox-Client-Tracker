@@ -42,7 +42,7 @@ end
 local PlayerToGroupDetailsMap = {}
 local FFlagCorescriptIsInGroupServer = settings():GetFFlag("CorescriptIsInGroupServer")
 
-local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat2")
+local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat3")
 
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
@@ -286,8 +286,8 @@ local function sendCanChatWith(newPlayer)
 		local success, canChat = pcall(function()
 			return Chat:CanUsersChatAsync(newPlayer.UserId, player.UserId)
 		end)
-		RemoteEvent_CanChatWith:FireClient(newPlayer, player, success and canChat)
-		RemoteEvent_CanChatWith:FireClient(player, newPlayer, success and canChat)
+		RemoteEvent_CanChatWith:FireClient(newPlayer, player.UserId, success and canChat)
+		RemoteEvent_CanChatWith:FireClient(player, newPlayer.UserId, success and canChat)
 	end
 end
 

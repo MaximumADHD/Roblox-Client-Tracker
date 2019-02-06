@@ -106,7 +106,6 @@ local function loadValuesToProps(getValue, state)
 		Thumbnails = getValue("thumbnails"),
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
-		GameIconApproved = getValue("gameIconApproved"),
 		RootPlaceId = getValue("rootPlaceId"),
 
 		NameError = errors.name,
@@ -291,7 +290,6 @@ local function displayContents(page)
 			LayoutOrder = 6,
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
-			Review = not props.GameIconApproved,
 			AddIcon = function()
 				if FFlagGameSettingsImageUploadingEnabled then
 					local icon = LocalAssetUtils.PromptForGameIcon(page)

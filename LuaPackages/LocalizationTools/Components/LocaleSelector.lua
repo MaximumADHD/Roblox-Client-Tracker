@@ -3,6 +3,9 @@ local Theming = require(script.Parent.Parent.Theming)
 
 local Dropdown = require(script.Parent.Dropdown)
 
+local StudioLocalizationTestMenuChinese = settings():GetFFlag("StudioLocalizationTestMenuChinese")
+local StudioLocalizationTestMenuKorean = settings():GetFFlag("StudioLocalizationTestMenuKorean")
+
 local customMenuItemText = "(Custom)"
 
 local localeInfos = {
@@ -12,6 +15,15 @@ local localeInfos = {
 	{ localeId = "pt-br", name = "Portuguese (Brazil)" },
 	{ localeId = "es-es", name = "Spanish" },
 }
+
+if StudioLocalizationTestMenuKorean then
+	table.insert(localeInfos, { localeId = "ko-kr", name = "Korean" })
+end
+
+if StudioLocalizationTestMenuChinese then
+	table.insert(localeInfos, { localeId = "zh-cn", name = "Chinese (Simplified)" })
+	table.insert(localeInfos, { localeId = "zh-tw", name = "Chinese (Traditional)" })
+end
 
 local localeNameMap = {}
 

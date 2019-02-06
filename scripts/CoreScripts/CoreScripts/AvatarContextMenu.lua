@@ -10,6 +10,8 @@ local isAvatarContextMenuEnabled = false
 
 local FFlagCoreScriptACMOpenCloseSetCore = settings():GetFFlag("CoreScriptACMOpenCloseSetCore")
 local FFlagCoreScriptFixACMFirstPersonUnreliablity = settings():GetFFlag("CoreScriptFixACMFirstPersonUnreliablity")
+local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
+local FFlagDynamicThumbstickUseContextActionSevice = settings():GetFFlag("UserDynamicThumbstickUseContextActionSevice")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -74,6 +76,7 @@ local ContextMenuGui = require(AvatarMenuModules:WaitForChild("ContextMenuGui"))
 local ContextMenuItemsModule = require(AvatarMenuModules:WaitForChild("ContextMenuItems"))
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local SelectedCharacterIndicator = require(AvatarMenuModules:WaitForChild("SelectedCharacterIndicator"))
+local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 
@@ -103,7 +106,11 @@ local hasTouchSwipeInput = nil
 
 local contextMenuPlayerChangedConn = nil
 
-ContextMenuFrame = ContextMenuGui:CreateMenuFrame()
+if FFlagCoreScriptACMThemeCustomization then
+	ContextMenuFrame = ContextMenuGui:CreateMenuFrame(ThemeHandler:GetTheme())
+else
+	ContextMenuFrame = ContextMenuGui:CreateMenuFrame()
+end
 ContextMenuItems = ContextMenuItemsModule.new(ContextMenuFrame.Content.ContextActionList)
 
 if not FFlagCoreScriptACMOpenCloseSetCore then
@@ -118,23 +125,37 @@ end
 function SetSelectedPlayer(player, dontTween)
 	if SelectedPlayer == player then return end
 	SelectedPlayer = player
-	SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer)
+	if FFlagCoreScriptACMThemeCustomization then
+		SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer, ThemeHandler:GetTheme())
+	else
+		SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer)
+	end
 	ContextMenuItems:BuildContextMenuItems(SelectedPlayer)
 	ContextMenuGui:SwitchToPlayerEntry(SelectedPlayer, dontTween)
 end
 
-function OpenMenu()
+function OpenMenu(theme)
 	ContextMenuOpening = true
 
 	ContextMenuFrame.Visible = true
 	ContextMenuFrame.Content.ContextActionList.CanvasPosition = Vector2.new(0,0)
-	ContextMenuFrame.Position = UDim2.new(0.5, 0, 1, ContextMenuFrame.AbsoluteSize.Y)
+	if FFlagCoreScriptACMThemeCustomization then
+		ContextMenuFrame.Position = theme.OffScreenPosition
+	else
+		ContextMenuFrame.Position = UDim2.new(0.5, 0, 1, ContextMenuFrame.AbsoluteSize.Y)
+	end
 
 	contextMenuPlayerChangedConn = ContextMenuGui.SelectedPlayerChanged:connect(function()
 		SetSelectedPlayer(ContextMenuGui:GetSelectedPlayer())
 	end)
 
-	local positionTween = TweenService:Create(ContextMenuFrame, OPEN_MENU_TWEEN, {Position = UDim2.new(0.5, 0, 1 - ContextMenuGui:GetBottomScreenPaddingConstant(), 0)})
+	local positionTween
+	if FFlagCoreScriptACMThemeCustomization then
+		ContextMenuFrame.Position = theme.OffScreenPosition
+		positionTween = TweenService:Create(ContextMenuFrame, OPEN_MENU_TWEEN, {Position = theme.OnScreenPosition})
+	else
+		positionTween = TweenService:Create(ContextMenuFrame, OPEN_MENU_TWEEN, {Position = UDim2.new(0.5, 0, 1 - ContextMenuGui:GetBottomScreenPaddingConstant(), 0)})
+	end
 	positionTween:Play()
 	positionTween.Completed:wait()
 
@@ -182,7 +203,11 @@ function BuildPlayerCarousel(selectedPlayer, worldPoint)
 	end
 	table.sort(playersByProximity, closestPlayerComp)
 
-	ContextMenuGui:BuildPlayerCarousel(playersByProximity)
+	if FFlagCoreScriptACMThemeCustomization then
+		ContextMenuGui:BuildPlayerCarousel(playersByProximity, ThemeHandler:GetTheme())
+	else
+		ContextMenuGui:BuildPlayerCarousel(playersByProximity)
+	end
 end
 
 PlayersService.PlayerRemoving:connect(function(player)
@@ -194,14 +219,20 @@ end)
 function OpenContextMenu(player, worldPoint)
     if ContextMenuOpening or ContextMenuOpen or not isAvatarContextMenuEnabled then
         return
-    end
+	end
 
 	ContextMenuOpen = true
 	BuildPlayerCarousel(player, worldPoint)
 	ContextMenuUtil:DisablePlayerMovement()
 	BindMenuActions()
 	SetSelectedPlayer(player, true)
-	OpenMenu()
+
+	if FFlagCoreScriptACMThemeCustomization then
+		ContextMenuGui:UpdateGuiTheme(ThemeHandler:GetTheme())
+		OpenMenu(ThemeHandler:GetTheme())
+	else
+		OpenMenu()
+	end
 end
 
 function CloseContextMenu()
@@ -332,7 +363,12 @@ end
 local function functionProcessInput(inputObject, gameProcessedEvent)
 	trackTouchSwipeInput(inputObject)
 
-	if gameProcessedEvent then return end
+	if gameProcessedEvent then
+		if FFlagDynamicThumbstickUseContextActionSevice and inputObject == lastInputObject then
+			lastInputObject = nil
+		end
+		return
+	end
 
 	if inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
 		inputObject.UserInputType == Enum.UserInputType.Touch then

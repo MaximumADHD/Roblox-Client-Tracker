@@ -1,3 +1,4 @@
+local FFlagStudioVideoDocumentationStopUsingBadEventsPlease = settings():GetFFlag("StudioVideoDocumentationStopUsingBadEventsPlease")
 
 local BUTTON_NORMAL = "rbxassetid://417211667"
 local BUTTON_HOVER	= "rbxassetid://417211758"
@@ -118,7 +119,12 @@ local function onDescendantRemoved(instance)
 	end
 end
 
-game.Workspace.DescendantAdded:connect(checkInstance)
-game.Workspace.DescendantRemoving:connect(onDescendantRemoved)
+-- dnurkkala made this change with the permission of lsparks
+-- according to lsparks, a single sweep without watches
+-- was sufficient to accomplish the goals of this plugin
+if not FFlagStudioVideoDocumentationStopUsingBadEventsPlease then
+	game.Workspace.DescendantAdded:connect(checkInstance)
+	game.Workspace.DescendantRemoving:connect(onDescendantRemoved)
+end
 
 findWikiLinks(game.Workspace)

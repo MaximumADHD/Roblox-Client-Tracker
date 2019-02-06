@@ -8,23 +8,7 @@ local GroupLabelPadding = require(script.Parent.GroupLabelPadding)
 local GroupRenameTextBox = require(script.Parent.GroupRenameTextBox)
 
 return function(props)
-	local label
-
-	if props.Group.Renaming then
-		label = Roact.createElement(GroupRenameTextBox, props)
-	else
-		label = Roact.createElement("TextButton", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			Text = props.Group.Name,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Right,
-			TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-
-			-- hardcoded group "Default" cannot be highlighted
-			[Roact.Event.Activated] = choose(props.Group.OnSelected, nil, props.Group.Name ~= "Default"),
-		})
-	end
+	local renaming = props.Group.Renaming
 
 	return Roact.createElement("Frame", {
 		Size = Constants.GroupLabelSize,
@@ -45,7 +29,19 @@ return function(props)
 		LayoutOrder = 4,
 	}, {
 		Padding = Roact.createElement(GroupLabelPadding),
-		
-		Label = label
+
+		Label = renaming and Roact.createElement(GroupRenameTextBox, props),
+
+		Button = not renaming and Roact.createElement("TextButton", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Text = props.Group.Name,
+			TextWrapped = true,
+			TextXAlignment = Enum.TextXAlignment.Right,
+			TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+
+			-- hardcoded group "Default" cannot be highlighted
+			[Roact.Event.Activated] = choose(props.Group.OnSelected, nil, props.Group.Name ~= "Default"),
+		}),
 	})
 end

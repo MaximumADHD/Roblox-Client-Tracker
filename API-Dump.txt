@@ -241,6 +241,15 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Fire()
 	Function void RocketPropulsion:fire() [Deprecated]
 	Event RocketPropulsion.ReachedTarget()
+Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
+	Function void BrowserService:EmitHybridEvent(string moduleName, string eventName, string params) {RobloxScriptSecurity}
+	Function void BrowserService:OpenBrowserWindow(string url) {RobloxScriptSecurity}
+	Function void BrowserService:OpenNativeOverlay(string title, string url) {RobloxScriptSecurity}
+	Function void BrowserService:ReturnToJavaScript(string callbackId, bool success, string params) {RobloxScriptSecurity}
+	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
+	Event BrowserService.BrowserWindowWillNavigate(string url) {RobloxScriptSecurity}
+	Event BrowserService.JavaScriptCallback(string content) {RobloxScriptSecurity}
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
@@ -357,6 +366,7 @@ Class Constraint : Instance [NotCreatable]
 	Property bool Constraint.Active [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property bool Constraint.Enabled
 Class AlignOrientation : Constraint
+	Property Enum<AlignType> AlignOrientation.AlignType
 	Property bool AlignOrientation.PrimaryAxisOnly
 	Property bool AlignOrientation.ReactionTorqueEnabled
 	Property bool AlignOrientation.RigidityEnabled
@@ -1080,8 +1090,8 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string GuiService:GetUiMessage() {RobloxScriptSecurity}
 	Function bool GuiService:IsMemoryTrackerEnabled() {RobloxScriptSecurity}
 	Function bool GuiService:IsTenFootInterface()
-	Function void GuiService:OpenBrowserWindow(string url) {RobloxScriptSecurity}
-	Function void GuiService:OpenNativeOverlay(string title, string url) {RobloxScriptSecurity}
+	Function void GuiService:OpenBrowserWindow(string url) {RobloxScriptSecurity} [Deprecated]
+	Function void GuiService:OpenNativeOverlay(string title, string url) {RobloxScriptSecurity} [Deprecated]
 	Function void GuiService:RemoveCenterDialog(Instance dialog) {RobloxScriptSecurity}
 	Function void GuiService:RemoveKey(string key) {RobloxScriptSecurity}
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
@@ -1092,7 +1102,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:SetUiMessage(Enum<UiMessageType> msgType, string uiMessage = "errorCode") {LocalUserSecurity}
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function void GuiService:ToggleFullscreen() {RobloxScriptSecurity}
-	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity}
+	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
@@ -2056,6 +2066,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Property int Players.NumPlayers  [ReadOnly] [NotReplicated] [Deprecated]
 	Property int Players.PreferredPlayers  [ReadOnly] [NotReplicated]
 	Property int Players.PreferredPlayersInternal {LocalUserSecurity}
+	Property float Players.RespawnTime
 	Property Instance Players.localPlayer  [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
 	Property int Players.numPlayers  [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
 	Function void Players:Chat(string message) {PluginSecurity}
@@ -2103,7 +2114,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Enum<RibbonTool> Plugin:GetSelectedRibbonTool() {PluginSecurity}
 	Function Variant Plugin:GetSetting(string key) {PluginSecurity}
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity}
-	Function void Plugin:ImportFbxAnimation(Instance rigModel) {PluginSecurity}
+	Function Instance Plugin:ImportFbxAnimation(Instance rigModel) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig() {PluginSecurity} [Yields]
 	Function bool Plugin:IsActivated() {PluginSecurity}
 	Function bool Plugin:IsActivatedWithExclusiveMouse() {PluginSecurity}
@@ -2151,8 +2162,7 @@ Class PluginMenu : Instance [NotCreatable] [NotReplicated]
 	Function void PluginMenu:Clear() {PluginSecurity}
 	Function Instance PluginMenu:ShowAsync() {PluginSecurity} [Yields]
 Class PluginToolbar : Instance [NotCreatable]
-	Function Instance PluginToolbar:CreateButton(string text, string tooltip, string iconname) {PluginSecurity}
-	Function Instance PluginToolbar:CreateButtonWithId(string buttonId, string text, string tooltip, string iconname) {PluginSecurity}
+	Function Instance PluginToolbar:CreateButton(string buttonId, string tooltip, string iconname, string text = "") {PluginSecurity}
 Class PluginToolbarButton : Instance [NotCreatable]
 	Property bool PluginToolbarButton.ClickableWhenViewportHidden [<📁> Load-only] [NotReplicated]
 	Property bool PluginToolbarButton.Enabled [<📁> Load-only] [NotReplicated]
@@ -2568,11 +2578,8 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Enable Intellisense [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property bool Studio.Import mesh files as single mesh
 	Property bool Studio.Respect Studio shortcuts when game has focus
-	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show Diagnostics Bar
-	Property bool Studio.Show Plugin GUI Service in Explorer
 	Property bool Studio.Show QT warnings in output
-	Property bool Studio.Show plus button on hover in Explorer
 	Property bool Studio.Only Play Audio from Window in Focus
 	Property Enum<ServerAudioBehavior> Studio.Server Audio Behavior
 	Property bool Studio.Auto-Save Enabled
@@ -2590,6 +2597,10 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property QDir Studio.OverrideCoreScriptsDir
 	Property QDir Studio.PluginsDir
 	Property QDir Studio.RecentSavesDir
+	Property bool Studio.Show Core GUI in Explorer while Playing
+	Property bool Studio.Show Hidden Objects in Explorer
+	Property bool Studio.Show Plugin GUI Service in Explorer
+	Property bool Studio.Show plus button on hover in Explorer
 	Property bool Studio.Always Save Script Changes
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
 	Property int Studio.Render Throttle Percentage
@@ -3068,6 +3079,9 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AlignType
+	EnumItem AlignType.Parallel : 0
+	EnumItem AlignType.Perpendicular : 1
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1

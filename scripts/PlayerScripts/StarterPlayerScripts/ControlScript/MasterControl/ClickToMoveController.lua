@@ -4,6 +4,9 @@
 local FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess, FFlagUserNavigationClickToMoveSkipPassedWaypointsResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveSkipPassedWaypoints") end)
 local FFlagUserNavigationClickToMoveSkipPassedWaypoints = FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess and FFlagUserNavigationClickToMoveSkipPassedWaypointsResult
 
+local FFlagUserNavigationClickToMoveNoDirectPathSuccess, FFlagUserNavigationClickToMoveNoDirectPathResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveNoDirectPath") end)
+local FFlagUserNavigationClickToMoveNoDirectPath = FFlagUserNavigationClickToMoveNoDirectPathSuccess and FFlagUserNavigationClickToMoveNoDirectPathResult
+
 local DEBUG_NAME = "ClickToMoveController"
 
 local UIS = game:GetService("UserInputService")
@@ -718,22 +721,17 @@ local function OnTap(tapPositions, goToPoint)
 				ignoreTab[#ignoreTab+1] = initIgnore[i]
 			end
 			--			
-			local myHumanoid = findPlayerHumanoid(Player)
+			local myHumanoid = findPlayerHumanoid(Player)	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath
 			local hitPart, hitPt, hitNormal, hitMat = Utility.Raycast(ray, true, ignoreTab)
 
 			local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
-			local torso = GetTorso()
-			local startPos = torso.CFrame.p
+			local torso = GetTorso()	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath
+			local startPos = torso.CFrame.p	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath
 			if goToPoint then
 				hitPt = goToPoint
 				hitChar = nil
 			end
-			if hitChar and hitHumanoid and hitHumanoid.RootPart and (hitHumanoid.Torso.CFrame.p - torso.CFrame.p).magnitude < 7 then
-				CleanupPath()
-				
-				if myHumanoid then
-					myHumanoid:MoveTo(hitPt)
-				end
+			if not FFlagUserNavigationClickToMoveNoDirectPath and hitChar and hitHumanoid and hitHumanoid.RootPart and (hitHumanoid.Torso.CFrame.p - torso.CFrame.p).magnitude < 7 then
 				-- Do shoot
 				local currentWeapon = GetEquippedTool(character)
 				if currentWeapon then
@@ -773,15 +771,25 @@ local function OnTap(tapPositions, goToPoint)
 								destinationPopup = nil
 							end)
 						end
-						if hitChar then
-							local humanoid = findPlayerHumanoid(Player)
-							local currentWeapon = GetEquippedTool(character)
-							if currentWeapon then
-								currentWeapon:Activate()
-								LastFired = tick()
+						if FFlagUserNavigationClickToMoveNoDirectPath then
+							if hitChar then
+								local currentWeapon = GetEquippedTool(character)
+								if currentWeapon then
+									currentWeapon:Activate()
+									LastFired = tick()
+								end
 							end
-							if humanoid then
-								humanoid:MoveTo(hitPt)
+						else
+							if hitChar then
+								local humanoid = findPlayerHumanoid(Player)
+								local currentWeapon = GetEquippedTool(character)
+								if currentWeapon then
+									currentWeapon:Activate()
+									LastFired = tick()
+								end
+								if humanoid then
+									humanoid:MoveTo(hitPt)
+								end
 							end
 						end
 					end)
@@ -798,7 +806,7 @@ local function OnTap(tapPositions, goToPoint)
 						end
 					end)
 				else
-					if hitPt then
+					if not FFlagUserNavigationClickToMoveNoDirectPath and hitPt then
 						-- Feedback here for when we don't have a good path
 						local foundDirectPath = false
 						if (hitPt-startPos).Magnitude < 25 and (startPos.y-hitPt.y > -3) then

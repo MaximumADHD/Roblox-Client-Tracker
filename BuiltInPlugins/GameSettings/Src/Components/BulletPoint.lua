@@ -11,6 +11,8 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
+local DOT = "rbxasset://textures/GameSettings/RadioButton.png"
+
 local BulletPoint = Roact.PureComponent:extend("BulletPoint")
 
 function BulletPoint:init()

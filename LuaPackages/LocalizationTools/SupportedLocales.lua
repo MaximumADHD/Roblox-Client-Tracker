@@ -3,6 +3,7 @@
 ]]
 
 local StudioLocalizationAllowHan = settings():GetFFlag("StudioLocalizationAllowHan")
+local StudioLocalizationAllowKorean = settings():GetFFlag("StudioLocalizationAllowKorean")
 
 local supportedLocalesSet = {
 	["es"] = true,
@@ -16,6 +17,11 @@ if StudioLocalizationAllowHan then
 	supportedLocalesSet["zh-hans"] = true
 	supportedLocalesSet["zh-hant"] = true
 end
+
+if StudioLocalizationAllowKorean then
+	supportedLocalesSet["ko"] = true
+end
+
 
 local function SetToList(tableAsSet)
 	local result = {}

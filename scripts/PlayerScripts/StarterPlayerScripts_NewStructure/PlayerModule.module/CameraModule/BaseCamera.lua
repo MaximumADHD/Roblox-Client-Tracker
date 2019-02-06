@@ -39,6 +39,8 @@ local SEAT_OFFSET = Vector3.new(0,5,0)
 local VR_SEAT_OFFSET = Vector3.new(0,4,0)
 local HEAD_OFFSET = Vector3.new(0,1.5,0)
 local R15_HEAD_OFFSET = Vector3.new(0,2,0)
+local R15_HEAD_OFFSET_NO_SCALING = Vector3.new(0, 2, 0)
+local HUMANOID_ROOT_PART_SIZE = Vector3.new(2, 2, 1)
 
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
@@ -49,6 +51,25 @@ local newDefaultCameraAngleFlagExists, newDefaultCameraAngleFlagEnabled = pcall(
 	return UserSettings():IsUserFeatureEnabled("UserNewDefaultCameraAngle")
 end)
 local FFlagUserNewDefaultCameraAngle = newDefaultCameraAngleFlagExists and newDefaultCameraAngleFlagEnabled
+
+local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserAdjustHumanoidRootPartToHipPosition")
+end)
+local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagExists and adjustHumanoidRootPartFlagEnabled
+
+if FFlagUserAdjustHumanoidRootPartToHipPosition then
+	R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
+end
+
+local noDynamicThumbstickRecenterFlagExists, noDynamicThumbstickRecenterFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserNoDynamicThumbstickRecenter")
+end)
+local FFlagUserNoDynamicThumbstickRecenter = noDynamicThumbstickRecenterFlagExists and noDynamicThumbstickRecenterFlagEnabled
+
+local thumbstickUseCASFlagSuccess, thumbstickUseCASFlagValue = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickUseContextActionSevice")
+end)
+local FFlagDynamicThumbstickUseContextActionSevice = thumbstickUseCASFlagSuccess and thumbstickUseCASFlagValue
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
@@ -99,7 +120,7 @@ function BaseCamera.new()
 	self.inMouseLockedMode = false
 	self.portraitMode = false
 	self.isSmallTouchScreen = false
-	
+
 	-- Used by modules which want to reset the camera angle on respawn.
 	self.resetCameraAngle = true
 
@@ -122,7 +143,7 @@ function BaseCamera.new()
 
 	self.cameraChangedConn = nil
 	self.viewportSizeChangedConn = nil
-	
+
 	self.boundContextActions = {}
 
 	-- VR Support
@@ -135,11 +156,7 @@ function BaseCamera.new()
 	self.humanoidJumpOrigin = nil
 	self.trackingHumanoid = nil
 	self.cameraFrozen = false
-	self.headHeightR15 = R15_HEAD_OFFSET
-	self.heightScaleChangedConn = nil
 	self.subjectStateChangedConn = nil
-	self.humanoidChildAddedConn = nil
-	self.humanoidChildRemovedConn = nil
 
 	-- Gamepad support
 	self.activeGamepad = nil
@@ -312,7 +329,25 @@ function BaseCamera:GetSubjectPosition()
 				end
 
 				if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
-					local heightOffset = humanoid.RigType == Enum.HumanoidRigType.R15 and R15_HEAD_OFFSET or HEAD_OFFSET
+					local heightOffset
+					if FFlagUserAdjustHumanoidRootPartToHipPosition then
+						if humanoid.RigType == Enum.HumanoidRigType.R15 then
+							if humanoid.AutomaticScalingEnabled then
+								heightOffset = R15_HEAD_OFFSET
+								if bodyPartToFollow == humanoid.RootPart then
+									local rootPartSizeOffset = (humanoid.RootPart.Size.Y/2) - (HUMANOID_ROOT_PART_SIZE.Y/2)
+									heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
+								end
+							else
+								heightOffset = R15_HEAD_OFFSET_NO_SCALING
+							end
+						else
+							heightOffset = HEAD_OFFSET
+						end
+					else
+						heightOffset = humanoid.RigType == Enum.HumanoidRigType.R15 and R15_HEAD_OFFSET or HEAD_OFFSET
+					end
+
 					if humanoidIsDead then
 						heightOffset = ZERO_VECTOR3
 					end
@@ -415,10 +450,19 @@ end
 
 function BaseCamera:OnGameSettingsTouchMovementModeChanged()
 	if Players.LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
-		if UserGameSettings.TouchMovementMode.Name == "DynamicThumbstick" then
-			self:OnDynamicThumbstickEnabled()
+		if FFlagUserNoDynamicThumbstickRecenter then
+			if (UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.DynamicThumbstick
+				or UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.Default) then
+				self:OnDynamicThumbstickEnabled()
+			else
+				self:OnDynamicThumbstickDisabled()
+			end
 		else
-			self:OnDynamicThumbstickDisabled()
+			if (UserGameSettings.TouchMovementMode.Name == "DynamicThumbstick") then
+				self:OnDynamicThumbstickEnabled()
+			else
+				self:OnDynamicThumbstickDisabled()
+			end
 		end
 	end
 end
@@ -537,9 +581,11 @@ function BaseCamera:ConnectInputEvents()
 		self:OnInputEnded(input, processed)
 	end)
 
-	self.touchActivateConn = UserInputService.TouchTapInWorld:Connect(function(touchPos, processed)
-		self:OnTouchTap(touchPos)
-	end)
+	if not FFlagUserNoDynamicThumbstickRecenter then
+		self.touchActivateConn = UserInputService.TouchTapInWorld:Connect(function(touchPos, processed)
+			self:OnTouchTap(touchPos)
+		end)
+	end
 
 	self.menuOpenedConn = GuiService.MenuOpened:connect(function()
 		self:ResetInputStates()
@@ -604,7 +650,7 @@ end
 function BaseCamera:UnbindContextActions()
 	for i = 1, #self.boundContextActions do
 		ContextActionService:UnbindAction(self.boundContextActions[i])
-	end 
+	end
 	self.boundContextActions = {}
 end
 
@@ -696,7 +742,7 @@ function BaseCamera:GetGamepadPan(name, state, input)
 --				self.currentZoomSpeed = 0.96
 --			elseif (input.Position.Y < -THUMBSTICK_DEADZONE) then
 --				self.currentZoomSpeed = 1.04
---			else 
+--			else
 --				self.currentZoomSpeed = 1.00
 --			end
 --		else
@@ -725,9 +771,9 @@ function BaseCamera:DoKeyboardPanTurn(name, state, input)
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return Enum.ContextActionResult.Pass
 	end
-	
-	if state == Enum.UserInputState.Cancel then 
-		self.turningLeft = false 
+
+	if state == Enum.UserInputState.Cancel then
+		self.turningLeft = false
 		self.turningRight = false
 		return Enum.ContextActionResult.Sink
 	end
@@ -756,8 +802,8 @@ function BaseCamera:DoKeyboardPan(name, state, input)
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return Enum.ContextActionResult.Pass
 	end
-	
-	if state ~= Enum.UserInputState.Begin then 
+
+	if state ~= Enum.UserInputState.Begin then
 		return Enum.ContextActionResult.Pass
 	end
 
@@ -781,7 +827,7 @@ end
 function BaseCamera:DoGamepadZoom(name, state, input)
 	if input.UserInputType == self.activeGamepad then
 		if input.KeyCode == Enum.KeyCode.ButtonR3 then
-			if state == Enum.UserInputState.Begin then			
+			if state == Enum.UserInputState.Begin then
 				if self.distanceChangeEnabled then
 					if self:GetCameraToSubjectDistance() > 0.5 then
 						self:SetCameraToSubjectDistance(0)
@@ -825,7 +871,7 @@ function BaseCamera:DoKeyboardZoom(name, state, input)
 		return Enum.ContextActionResult.Pass
 	end
 
-	if state ~= Enum.UserInputState.Begin then 
+	if state ~= Enum.UserInputState.Begin then
 		return Enum.ContextActionResult.Pass
 	end
 
@@ -842,17 +888,17 @@ end
 
 function BaseCamera:BindAction(actionName, actionFunc, createTouchButton, ...)
 	table.insert(self.boundContextActions, actionName)
-	ContextActionService:BindActionAtPriority(actionName, actionFunc, createTouchButton, 
+	ContextActionService:BindActionAtPriority(actionName, actionFunc, createTouchButton,
 		CAMERA_ACTION_PRIORITY, ...)
 end
 
 function BaseCamera:BindGamepadInputActions()
-	if FFlagPlayerScriptsBindAtPriority then 
+	if FFlagPlayerScriptsBindAtPriority then
 		self:BindAction("BaseCameraGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
 			false, Enum.KeyCode.Thumbstick2)
 		self:BindAction("BaseCameraGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
 			false, Enum.KeyCode.DPadLeft, Enum.KeyCode.DPadRight, Enum.KeyCode.ButtonR3)
-	else 
+	else
 		ContextActionService:BindAction("RootCamGamepadPan", function(name, state, input) self:GetGamepadPan(name, state, input) end, false, Enum.KeyCode.Thumbstick2)
 		ContextActionService:BindAction("RootCamGamepadZoom", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonR3)
 		--ContextActionService:BindAction("RootGamepadZoomAlt", function(name, state, input) self:DoGamepadZoom(name, state, input) end, false, Enum.KeyCode.ButtonL3)
@@ -889,6 +935,15 @@ function BaseCamera:OnTouchChanged(input, processed)
 		end
 		self.fingerTouches[input] = processed
 		if not processed then
+			self.numUnsunkTouches = self.numUnsunkTouches + 1
+		end
+	elseif FFlagDynamicThumbstickUseContextActionSevice and self.isDynamicThumbstickEnabled
+			and self.fingerTouches[input] ~= processed then
+		--This is necessary to allow the dynamic thumbstick to steal touches after passing the InputBegan state.
+		self.fingerTouches[input] = processed
+		if processed then
+			self.numUnsunkTouches = self.numUnsunkTouches - 1
+		else
 			self.numUnsunkTouches = self.numUnsunkTouches + 1
 		end
 	end
@@ -937,9 +992,10 @@ function BaseCamera:OnTouchChanged(input, processed)
 	else
 		self.startingDiff = nil
 		self.pinchBeginZoom = nil
-	end	
+	end
 end
 
+-- Remove with FFlagUserNoDynamicThumbstickRecenter
 function BaseCamera:CalcLookBehindRotateInput()
 	if not self.humanoidRootPart or not game.Workspace.CurrentCamera then
 		return nil
@@ -959,6 +1015,7 @@ function BaseCamera:CalcLookBehindRotateInput()
 	return Vector2.new(horizontalShift, vertShift)
 end
 
+-- Remove with FFlagUserNoDynamicThumbstickRecenter
 function BaseCamera:OnTouchTap(position)
 	if self.isDynamicThumbstickEnabled and not self.isAToolEquipped then
 		if self.lastTapTime and tick() - self.lastTapTime < MAX_TIME_FOR_DOUBLE_TAP then
@@ -972,6 +1029,7 @@ function BaseCamera:OnTouchTap(position)
 	end
 end
 
+-- Remove with FFlagUserNoDynamicThumbstickRecenter
 function BaseCamera:IsTouchTap(input)
 	-- We can't make the assumption that the input exists in the inputStartPositions because we may have switched from a different camera type.
 	if self.inputStartPositions[input] then
@@ -993,8 +1051,10 @@ function BaseCamera:OnTouchEnded(input, processed)
 			self.startPos = nil
 			self.lastPos = nil
 			self.userPanningTheCamera = false
-			if self:IsTouchTap(input) then
-				self:OnTouchTap(input.Position)
+			if not FFlagUserNoDynamicThumbstickRecenter then
+				if self:IsTouchTap(input) then
+					self:OnTouchTap(input.Position)
+				end
 			end
 		elseif self.numUnsunkTouches == 2 then
 			self.startingDiff = nil
@@ -1494,48 +1554,10 @@ function BaseCamera:StartCameraFreeze(subjectPosition, humanoidToTrack)
 	end
 end
 
-function BaseCamera:RescaleCameraOffset(newScaleFactor)
-	self.headHeightR15 = R15_HEAD_OFFSET * newScaleFactor
-end
-
-function BaseCamera:OnHumanoidSubjectChildAdded(child)
-	if child.Name == "BodyHeightScale" and child:IsA("NumberValue") then
-		if self.heightScaleChangedConn then
-			self.heightScaleChangedConn:Disconnect()
-		end
-		self.heightScaleChangedConn = child.Changed:Connect(function(newScaleFactor)
-			self:RescaleCameraOffset(newScaleFactor)
-		end)
-		self:RescaleCameraOffset(child.Value)
-	end
-end
-
-function BaseCamera:OnHumanoidSubjectChildRemoved(child)
-	if child.Name == "BodyHeightScale" then
-		self:RescaleCameraOffset(1)
-		if self.heightScaleChangedConn then
-			self.heightScaleChangedConn:Disconnect()
-			self.heightScaleChangedConn = nil
-		end
-	end
-end
-
 function BaseCamera:OnNewCameraSubject()
 	if self.subjectStateChangedConn then
 		self.subjectStateChangedConn:Disconnect()
 		self.subjectStateChangedConn = nil
-	end
-	if self.humanoidChildAddedConn then
-		self.humanoidChildAddedConn:Disconnect()
-		self.humanoidChildAddedConn = nil
-	end
-	if self.humanoidChildRemovedConn then
-		self.humanoidChildRemovedConn:Disconnect()
-		self.humanoidChildRemovedConn = nil
-	end
-	if self.heightScaleChangedConn then
-		self.heightScaleChangedConn:Disconnect()
-		self.heightScaleChangedConn = nil
 	end
 
 	local humanoid = workspace.CurrentCamera and workspace.CurrentCamera.CameraSubject
@@ -1543,16 +1565,6 @@ function BaseCamera:OnNewCameraSubject()
 		self:CancelCameraFreeze()
 	end
 	if humanoid and humanoid:IsA("Humanoid") then
-		self.humanoidChildAddedConn = humanoid.ChildAdded:Connect(function(child)
-			self:OnHumanoidSubjectChildAdded(child)
-		end)
-		self.humanoidChildRemovedConn = humanoid.ChildRemoved:Connect(function(child)
-			self:OnHumanoidSubjectChildRemoved(child)
-		end)
-		for _, child in pairs(humanoid:GetChildren()) do
-			self:OnHumanoidSubjectChildAdded(child)
-		end
-
 		self.subjectStateChangedConn = humanoid.StateChanged:Connect(function(oldState, newState)
 			if VRService.VREnabled and newState == Enum.HumanoidStateType.Jumping and not self.inFirstPerson then
 				self:StartCameraFreeze(self:GetSubjectPosition(), humanoid)

@@ -6,17 +6,7 @@
 
 -- CONSTANTS
 
-local BG_TRANSPARENCY = 1
-local BG_COLOR = Color3.fromRGB(31, 31, 31)
-
 local BOTTOM_SCREEN_PADDING_PERCENT = 0.02
-
-local MAX_WIDTH = 250
-local MAX_HEIGHT = 300
-local MAX_WIDTH_PERCENT = 0.7
-local MAX_HEIGHT_PERCENT = 0.6
-
-local PLAYER_ICON_SIZE_Y = 0.3
 
 -- SERVICES
 local CoreGuiService = game:GetService("CoreGui")
@@ -31,6 +21,7 @@ local PlayerCarousel = nil
 local PlayerChangedEvent = Instance.new("BindableEvent")
 
 local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
+local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 
 --- Modules
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
@@ -51,7 +42,7 @@ function ContextMenuGui:CreateContextMenuHolder(player)
 	return contextMenuHolder
 end
 
-function ContextMenuGui:CreateLeaveMenuButton(frame)
+function ContextMenuGui:CreateLeaveMenuButton(frame, theme)
 	local function closeMenu()
 		self.CloseMenuFunc()
 	end
@@ -61,7 +52,11 @@ function ContextMenuGui:CreateLeaveMenuButton(frame)
 	closeMenuButton.AnchorPoint = Vector2.new(1, 0)
 	closeMenuButton.Position = UDim2.new(1, -10, 0, 10)
 	closeMenuButton.Size = UDim2.new(0.05, 0, 0.1, 0)
-	closeMenuButton.Image = "rbxasset://textures/loading/cancelButton.png"
+	if FFlagCoreScriptACMThemeCustomization then
+		closeMenuButton.Image = theme.LeaveMenuImage
+	else
+		closeMenuButton.Image = "rbxasset://textures/loading/cancelButton.png"
+	end
 	closeMenuButton.Selectable = false
 	closeMenuButton.Activated:Connect(closeMenu)
 
@@ -88,27 +83,40 @@ local function listenToViewportChange(functionToFire)
 		if viewportChangedConnection then
 			viewportChangedConnection:Disconnect()
 		end
-		viewportChangedConnection = newCamera:GetPropertyChangedSignal('ViewportSize'):Connect(functionToFire)
+		viewportChangedConnection = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(functionToFire)
 		functionToFire()
 	end
 
-	workspace:GetPropertyChangedSignal('CurrentCamera'):Connect(updateCamera)
+	workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(updateCamera)
 	updateCamera()
 end
 
-function ContextMenuGui:CreateMenuFrame()
+function ContextMenuGui:CreateMenuFrame(theme)
 	local contextMenuHolder = self:CreateContextMenuHolder()
 
 	local menu = Instance.new("ImageButton")
 	menu.Name = "Menu"
-	menu.Size = UDim2.new(0.95, 0, 0.9, 0)
-	menu.Position = UDim2.new(0.5, 0, 1 - BOTTOM_SCREEN_PADDING_PERCENT, 0)
-	menu.AnchorPoint = Vector2.new(0.5, 1)
-	menu.BackgroundTransparency = 1
+	if FFlagCoreScriptACMThemeCustomization then
+		menu.AnchorPoint = theme.AnchorPoint
+		menu.Size = theme.Size
+		menu.Position = theme.OnScreenPosition
+		menu.BackgroundTransparency = theme.BackgroundTransparency
+		menu.BackgroundColor3 = theme.BackgroundColor
+		menu.Image = theme.BackgroundImage
+		menu.ScaleType = theme.BackgroundImageScaleType
+		menu.SliceCenter = theme.BackgroundImageSliceCenter
+		menu.AutoButtonColor = false
+		menu.BorderSizePixel = 0
+	else
+		menu.AnchorPoint = Vector2.new(0.5, 1)
+		menu.Size = UDim2.new(0.95, 0, 0.9, 0)
+		menu.Position = UDim2.new(0.5, 0, 1 - BOTTOM_SCREEN_PADDING_PERCENT, 0)
+		menu.BackgroundTransparency = 1
+		menu.Image = "rbxasset://textures/blackBkg_round.png"
+		menu.ScaleType = Enum.ScaleType.Slice
+		menu.SliceCenter = Rect.new(12,12,12,12)
+	end
 	menu.Selectable = false
-	menu.Image = "rbxasset://textures/blackBkg_round.png"
-	menu.ScaleType = Enum.ScaleType.Slice
-	menu.SliceCenter = Rect.new(12,12,12,12)
 	menu.Visible = false
 	menu.Active = true
 	menu.ClipsDescendants = true
@@ -119,7 +127,12 @@ function ContextMenuGui:CreateMenuFrame()
 		local aspectConstraint = Instance.new("UIAspectRatioConstraint")
 		aspectConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
 		aspectConstraint.DominantAxis = Enum.DominantAxis.Height
-		aspectConstraint.AspectRatio = 1.15
+		if FFlagCoreScriptACMThemeCustomization then
+			aspectConstraint.Name = "MenuAspectRatio"
+			aspectConstraint.AspectRatio = theme.AspectRatio
+		else
+			aspectConstraint.AspectRatio = 1.15
+		end
 		aspectConstraint.Parent = menu
 
 		local function updateAspectRatioForViewport()
@@ -133,8 +146,14 @@ function ContextMenuGui:CreateMenuFrame()
 		listenToViewportChange(updateAspectRatioForViewport)
 
 		local sizeConstraint = Instance.new("UISizeConstraint")
-		sizeConstraint.MaxSize = Vector2.new(300,300)
-		sizeConstraint.MinSize = Vector2.new(200,200)
+		if FFlagCoreScriptACMThemeCustomization then
+			sizeConstraint.Name = "MenuSizeConstraint"
+			sizeConstraint.MaxSize = theme.MaxSize
+			sizeConstraint.MinSize = theme.MinSize
+		else
+			sizeConstraint.MaxSize = Vector2.new(300,300)
+			sizeConstraint.MinSize = Vector2.new(200,200)
+		end
 		sizeConstraint.Parent = menu
 
 		local contentFrame = Instance.new("Frame")
@@ -152,7 +171,12 @@ function ContextMenuGui:CreateMenuFrame()
 			local contextActionList = Instance.new("ScrollingFrame")
 			contextActionList.Name = "ContextActionList"
 			contextActionList.AnchorPoint = Vector2.new(0.5,1)
-			contextActionList.BackgroundColor3 = Color3.fromRGB(79,79,79)
+			if FFlagCoreScriptACMThemeCustomization then
+				contextActionList.BackgroundColor3 = theme.ButtonFrameColor
+				contextActionList.BackgroundTransparency = theme.ButtonFrameTransparency
+			else
+				contextActionList.BackgroundColor3 = Color3.fromRGB(79,79,79)
+			end
 			contextActionList.BorderSizePixel = 0
 			contextActionList.LayoutOrder = 2
 			contextActionList.Size = UDim2.new(1,-12,0.54,0)
@@ -175,15 +199,25 @@ function ContextMenuGui:CreateMenuFrame()
 			local nameTag = Instance.new("TextButton")
 			nameTag.Name = "NameTag"
 			nameTag.AnchorPoint = Vector2.new(0.5,1)
-			nameTag.BackgroundColor3 = Color3.fromRGB(79,79,79)
+			if FFlagCoreScriptACMThemeCustomization then
+				nameTag.BackgroundColor3 = theme.NameTagColor
+			else
+				nameTag.BackgroundColor3 = Color3.fromRGB(79,79,79)
+			end
 			nameTag.AutoButtonColor = false
 			nameTag.BorderSizePixel = 0
 			nameTag.LayoutOrder = 1
 			nameTag.Size = UDim2.new(1,-12,0.16,0)
-			nameTag.Font = Enum.Font.SourceSansBold
+			if FFlagCoreScriptACMThemeCustomization then
+				nameTag.Font = theme.Font
+				nameTag.TextColor3 = theme.TextColor
+				nameTag.TextSize = 24 * theme.TextScale
+			else
+				nameTag.Font = Enum.Font.SourceSansBold
+				nameTag.TextColor3 = Color3.fromRGB(255,255,255)
+				nameTag.TextSize = 24
+			end
 			nameTag.Text = ""
-			nameTag.TextColor3 = Color3.fromRGB(255,255,255)
-			nameTag.TextSize = 24
 			nameTag.TextXAlignment = Enum.TextXAlignment.Center
 			nameTag.TextYAlignment = Enum.TextYAlignment.Center
 			nameTag.Selectable = false
@@ -191,14 +225,18 @@ function ContextMenuGui:CreateMenuFrame()
 
 				local underline = Instance.new("Frame")
 				underline.Name = "Underline"
-				underline.BackgroundColor3 = Color3.fromRGB(255,255,255)
+				if FFlagCoreScriptACMThemeCustomization then
+					underline.BackgroundColor3 = theme.NameUnderlineColor
+				else
+					underline.BackgroundColor3 = Color3.fromRGB(255,255,255)
+				end
 				underline.AnchorPoint = Vector2.new(0,1)
 				underline.BorderSizePixel = 0
 				underline.Position = UDim2.new(0,0,1,0)
 				underline.Size = UDim2.new(1,0,0,2)
 				underline.Parent = nameTag
 
-	self:CreateLeaveMenuButton(menu)
+	self:CreateLeaveMenuButton(menu, theme)
 
 	menu.Parent = contextMenuHolder
 	self.ContextMenuFrame = menu
@@ -206,10 +244,49 @@ function ContextMenuGui:CreateMenuFrame()
 	return menu
 end
 
-function ContextMenuGui:BuildPlayerCarousel(playersByProximity)
+function ContextMenuGui:UpdateGuiTheme(theme)
+	self.ContextMenuFrame.Size = theme.Size
+	self.ContextMenuFrame.AnchorPoint = theme.AnchorPoint
+
+	self.ContextMenuFrame.BackgroundTransparency = theme.BackgroundTransparency
+	self.ContextMenuFrame.BackgroundColor3 = theme.BackgroundColor
+	self.ContextMenuFrame.Image = theme.BackgroundImage
+	self.ContextMenuFrame.ScaleType = theme.BackgroundImageScaleType
+	self.ContextMenuFrame.SliceCenter = theme.BackgroundImageSliceCenter
+
+	self.ContextMenuFrame.CloseMenuButton.Image = theme.LeaveMenuImage
+
+	self.ContextMenuFrame.MenuSizeConstraint.MaxSize = theme.MaxSize
+	self.ContextMenuFrame.MenuSizeConstraint.MinSize = theme.MinSize
+
+	self.ContextMenuFrame.MenuAspectRatio.AspectRatio = theme.AspectRatio
+
+	local contentFrame = self.ContextMenuFrame.Content
+	contentFrame.ContextActionList.BackgroundColor3 = theme.ButtonFrameColor
+	contentFrame.ContextActionList.BackgroundTransparency = theme.ButtonFrameTransparency
+
+	contentFrame.NameTag.BackgroundColor3 = theme.NameTagColor
+	contentFrame.NameTag.Font = theme.Font
+	contentFrame.NameTag.TextColor3 = theme.TextColor
+	contentFrame.NameTag.TextSize = 24 * theme.TextScale
+
+	contentFrame.NameTag.Underline.BackgroundColor3 = theme.NameUnderlineColor
+
+	if PlayerCarousel then
+		PlayerCarousel:UpdateGuiTheme(theme)
+	end
+end
+
+function ContextMenuGui:BuildPlayerCarousel(playersByProximity, theme)
 	if not PlayerCarousel then
-		PlayerCarousel = require(AvatarMenuModules:WaitForChild("PlayerCarousel"))
-		PlayerCarousel.rbxGui.Parent = self.ContextMenuFrame.Content
+		if FFlagCoreScriptACMThemeCustomization then
+			local playerCarouselModule = require(AvatarMenuModules.PlayerCarousel)
+			PlayerCarousel = playerCarouselModule.new(theme)
+			PlayerCarousel.rbxGui.Parent = self.ContextMenuFrame.Content
+		else
+			PlayerCarousel = require(AvatarMenuModules:WaitForChild("PlayerCarousel"))
+			PlayerCarousel.rbxGui.Parent = self.ContextMenuFrame.Content
+		end
 	end
 
 	PlayerCarousel:ClearPlayerEntries()

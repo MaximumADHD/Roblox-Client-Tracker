@@ -27,6 +27,8 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 --- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
+local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
+
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -136,8 +138,8 @@ end
 local CanChatWithMap = {}
 coroutine.wrap(function()
 	local RemoteEvent_CanChatWith = RobloxReplicatedStorage:WaitForChild("CanChatWith")
-	RemoteEvent_CanChatWith.OnClientEvent:Connect(function(player, canChat)
-		CanChatWithMap[player] = canChat
+	RemoteEvent_CanChatWith.OnClientEvent:Connect(function(userId, canChat)
+		CanChatWithMap[userId] = canChat
 	end)
 end)()
 function ContextMenuUtil:GetCanChatWith(otherPlayer)
@@ -152,15 +154,23 @@ local SelectionOverrideObject = Instance.new("ImageLabel")
 SelectionOverrideObject.Image = ""
 SelectionOverrideObject.BackgroundTransparency = 1
 
-local function MakeDefaultButton(name, size, clickFunc)
+local function MakeDefaultButton(name, size, clickFunc, theme)
 
 	local button = Instance.new("ImageButton")
 	button.Name = name
-	button.Image = ""
-	button.ScaleType = Enum.ScaleType.Slice
-	button.SliceCenter = Rect.new(8,6,46,44)
+	if FFlagCoreScriptACMThemeCustomization then
+		button.Image = theme.ButtonImage
+		button.ScaleType = theme.ButtonImageScaleType
+		button.SliceCenter = theme.ButtonImageSliceCenter
+		button.BackgroundColor3 = theme.ButtonColor
+		button.BackgroundTransparency = theme.ButtonTransparency
+	else
+		button.Image = ""
+		button.ScaleType = Enum.ScaleType.Slice
+		button.SliceCenter = Rect.new(8,6,46,44)
+		button.BackgroundTransparency = 1
+	end
 	button.AutoButtonColor = false
-	button.BackgroundTransparency = 1
 	button.Size = size
 	button.ZIndex = 2
 	button.SelectionImageObject = SelectionOverrideObject
@@ -168,7 +178,11 @@ local function MakeDefaultButton(name, size, clickFunc)
 
 		local underline = Instance.new("Frame")
 		underline.Name = "Underline"
-		underline.BackgroundColor3 = Color3.fromRGB(137,137,137)
+		if FFlagCoreScriptACMThemeCustomization then
+			underline.BackgroundColor3 = theme.ButtonUnderlineColor
+		else
+			underline.BackgroundColor3 = Color3.fromRGB(137,137,137)
+		end
 		underline.AnchorPoint = Vector2.new(0.5,1)
 		underline.BorderSizePixel = 0
 		underline.Position = UDim2.new(0.5,0,1,0)
@@ -186,11 +200,21 @@ local function MakeDefaultButton(name, size, clickFunc)
 	end
 
 	local function selectButton()
-		button.BackgroundTransparency = 0.5
+		if FFlagCoreScriptACMThemeCustomization then
+			button.BackgroundColor3 = theme.ButtonHoverColor
+			button.BackgroundTransparency = theme.ButtonHoverTransparency
+		else
+			button.BackgroundTransparency = 0.5
+		end
 	end
 
 	local function deselectButton()
-		button.BackgroundTransparency = 1
+		if FFlagCoreScriptACMThemeCustomization then
+			button.BackgroundColor3 = theme.ButtonColor
+			button.BackgroundTransparency = theme.ButtonTransparency
+		else
+			button.BackgroundTransparency = 1
+		end
 	end
 
 	button.InputBegan:Connect(function(inputObject)
@@ -252,8 +276,8 @@ local function isSmallTouchScreen()
 	return UserInputService.TouchEnabled and (viewportSize.Y < 500 or viewportSize.X < 700)
 end
 
-function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc)
-	local button = MakeDefaultButton(name, size, clickFunc)
+function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc, theme)
+	local button = MakeDefaultButton(name, size, clickFunc, theme)
 
 	local textLabel = Instance.new("TextLabel")
 	textLabel.Name = name .. "TextLabel"
@@ -263,21 +287,30 @@ function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc)
 	textLabel.Position = UDim2.new(0,0,0,0)
 	textLabel.TextColor3 = Color3.fromRGB(255,255,255)
 	textLabel.TextYAlignment = Enum.TextYAlignment.Center
-	textLabel.Font = Enum.Font.SourceSansLight
-	textLabel.TextSize = 24
+	if FFlagCoreScriptACMThemeCustomization then
+		textLabel.Font = theme.Font
+		textLabel.TextSize = 24 * theme.TextScale
+		if isSmallTouchScreen() then
+			textLabel.TextSize = 18 * theme.TextScale
+		elseif GuiService:IsTenFootInterface() then
+			textLabel.TextSize = 36 * theme.TextScale
+		end
+	else
+		textLabel.Font = Enum.Font.SourceSansLight
+		textLabel.TextSize = 24
+		if isSmallTouchScreen() then
+			textLabel.TextSize = 18
+		elseif GuiService:IsTenFootInterface() then
+			textLabel.TextSize = 36
+		end
+	end
 	textLabel.Text = text
 	textLabel.TextScaled = true
 	textLabel.TextWrapped = true
 	textLabel.ZIndex = 2
 	textLabel.Parent = button
 
-	local constraint = Instance.new("UITextSizeConstraint",textLabel)
-
-	if isSmallTouchScreen() then
-		textLabel.TextSize = 18
-	elseif GuiService:IsTenFootInterface() then
-		textLabel.TextSize = 36
-	end
+	local constraint = Instance.new("UITextSizeConstraint", textLabel)
 	constraint.MaxTextSize = textLabel.TextSize
 
 	return button, textLabel

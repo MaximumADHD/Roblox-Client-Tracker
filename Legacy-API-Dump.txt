@@ -241,6 +241,15 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Fire()
 	Function void RocketPropulsion:fire() [deprecated]
 	Event RocketPropulsion.ReachedTarget()
+Class BrowserService : Instance [notCreatable]
+	Function void BrowserService:CloseBrowserWindow() [RobloxScriptSecurity]
+	Function void BrowserService:EmitHybridEvent(string moduleName, string eventName, string params) [RobloxScriptSecurity]
+	Function void BrowserService:OpenBrowserWindow(string url) [RobloxScriptSecurity]
+	Function void BrowserService:OpenNativeOverlay(string title, string url) [RobloxScriptSecurity]
+	Function void BrowserService:ReturnToJavaScript(string callbackId, bool success, string params) [RobloxScriptSecurity]
+	Event BrowserService.BrowserWindowClosed() [RobloxScriptSecurity]
+	Event BrowserService.BrowserWindowWillNavigate(string url) [RobloxScriptSecurity]
+	Event BrowserService.JavaScriptCallback(string content) [RobloxScriptSecurity]
 Class CacheableContentProvider : Instance
 Class MeshContentProvider : CacheableContentProvider
 Class SolidModelContentProvider : CacheableContentProvider
@@ -357,6 +366,7 @@ Class Constraint : Instance
 	Property bool Constraint.Enabled
 	Property bool Constraint.Visible
 Class AlignOrientation : Constraint
+	Property AlignType AlignOrientation.AlignType
 	Property float AlignOrientation.MaxAngularVelocity
 	Property float AlignOrientation.MaxTorque
 	Property bool AlignOrientation.PrimaryAxisOnly
@@ -1079,8 +1089,8 @@ Class GuiService : Instance [notCreatable]
 	Function string GuiService:GetUiMessage() [RobloxScriptSecurity]
 	Function bool GuiService:IsMemoryTrackerEnabled() [RobloxScriptSecurity]
 	Function bool GuiService:IsTenFootInterface()
-	Function void GuiService:OpenBrowserWindow(string url) [RobloxScriptSecurity]
-	Function void GuiService:OpenNativeOverlay(string title, string url) [RobloxScriptSecurity]
+	Function void GuiService:OpenBrowserWindow(string url) [deprecated] [RobloxScriptSecurity]
+	Function void GuiService:OpenNativeOverlay(string title, string url) [deprecated] [RobloxScriptSecurity]
 	Function void GuiService:RemoveCenterDialog(Instance dialog) [RobloxScriptSecurity]
 	Function void GuiService:RemoveKey(string key) [RobloxScriptSecurity]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
@@ -1092,7 +1102,7 @@ Class GuiService : Instance [notCreatable]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function void GuiService:ToggleFullscreen() [RobloxScriptSecurity]
 	YieldFunction Vector2 GuiService:GetScreenResolution() [RobloxScriptSecurity]
-	Event GuiService.BrowserWindowClosed() [RobloxScriptSecurity]
+	Event GuiService.BrowserWindowClosed() [deprecated] [RobloxScriptSecurity]
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) [deprecated] [RobloxScriptSecurity]
 	Event GuiService.KeyPressed(string key, string modifiers) [RobloxScriptSecurity]
 	Event GuiService.MenuClosed()
@@ -2036,6 +2046,7 @@ Class Players : Instance
 	Property int Players.NumPlayers [deprecated] [readonly]
 	Property int Players.PreferredPlayers [readonly]
 	Property int Players.PreferredPlayersInternal [LocalUserSecurity]
+	Property float Players.RespawnTime
 	Property Class:Instance Players.localPlayer [deprecated] [hidden] [readonly]
 	Property int Players.numPlayers [deprecated] [hidden] [readonly]
 	Function void Players:Chat(string message) [PluginSecurity]
@@ -2081,7 +2092,6 @@ Class Plugin : Instance
 	Function RibbonTool Plugin:GetSelectedRibbonTool() [PluginSecurity]
 	Function Variant Plugin:GetSetting(string key) [PluginSecurity]
 	Function int64 Plugin:GetStudioUserId() [PluginSecurity]
-	Function void Plugin:ImportFbxAnimation(Instance rigModel) [PluginSecurity]
 	Function bool Plugin:IsActivated() [PluginSecurity]
 	Function bool Plugin:IsActivatedWithExclusiveMouse() [PluginSecurity]
 	Function Objects Plugin:Negate(Objects objects) [PluginSecurity]
@@ -2100,6 +2110,7 @@ Class Plugin : Instance
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) [RobloxScriptSecurity]
+	YieldFunction Instance Plugin:ImportFbxAnimation(Instance rigModel) [PluginSecurity]
 	YieldFunction Instance Plugin:ImportFbxRig() [PluginSecurity]
 	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
@@ -2126,8 +2137,7 @@ Class PluginMenu : Instance
 	Function void PluginMenu:Clear() [PluginSecurity]
 	YieldFunction Instance PluginMenu:ShowAsync() [PluginSecurity]
 Class PluginToolbar : Instance
-	Function Instance PluginToolbar:CreateButton(string text, string tooltip, string iconname) [PluginSecurity]
-	Function Instance PluginToolbar:CreateButtonWithId(string buttonId, string text, string tooltip, string iconname) [PluginSecurity]
+	Function Instance PluginToolbar:CreateButton(string buttonId, string tooltip, string iconname, string text = ) [PluginSecurity]
 Class PluginToolbarButton : Instance
 	Property bool PluginToolbarButton.ClickableWhenViewportHidden
 	Property bool PluginToolbarButton.Enabled
@@ -2945,6 +2955,9 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AlignType
+	EnumItem AlignType.Parallel : 0
+	EnumItem AlignType.Perpendicular : 1
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1

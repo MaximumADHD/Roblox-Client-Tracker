@@ -481,6 +481,8 @@ RBX
 		ConstraintLinearVelocity
 		ConstraintOrientation
 		ConstraintOrientationVirtual
+		ConstraintPerp2Axes
+		ConstraintPerp2AxesVirtual
 		ConstraintServoMotor
 		ConstraintSingleAxisLinearVelocity
 		ConstraintSingleAxisSpring
@@ -627,6 +629,7 @@ RBX
 	BoundVerb
 	BoxHandleAdornment
 	BoxSelectCommand
+	BrowserService
 	BSPMesh
 	BulletCellContact
 	BulletConnector
@@ -947,7 +950,7 @@ RBX
 	MeshPart
 	Message
 	MessagingService
-	MessagingServiceJob
+	MessagingServiceAnalysisJob
 	MockMarketplaceApiClient
 	ModelInstance
 	ModelTool
