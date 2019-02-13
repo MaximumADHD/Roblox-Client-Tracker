@@ -53,7 +53,12 @@ local function exitFunction(self, givenName)
 end
 
 function Save:show()
-	local rig = self.Paths.DataModelRig:getItem().Item.Parent
+	local rig = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		rig = self.Paths.DataModelRig:getModel()
+	else
+		rig = self.Paths.DataModelRig:getItem().Item.Parent
+	end
 	local gui = self.Paths.GUIPopUpSave:clone()
 	self.GUI = gui
 	if not FastFlags:useQWidgetsForPopupsOn() then

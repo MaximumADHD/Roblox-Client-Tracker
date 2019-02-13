@@ -8,6 +8,7 @@ local FStringSettingsHubInviteToGameThumbnailType = settings():GetFVariable("Set
 local FStringSettingsHubInviteToGameThumbnailSize = settings():GetFVariable("SettingsHubInviteToGameThumbnailSize")
 local FFlagSettingsHubInviteToGameDefaultThumbnailSize150x150 =
 	settings():GetFFlag("SettingsHubInviteToGameDefaultThumbnailSize150x150")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
 
 local DeviceLayout = {
 	PHONE_PORTRAIT = "PHONE_PORTRAIT",
@@ -86,6 +87,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 7,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
+			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
 			EXTEND_BOTTOM_SIZE = 0,
 			TOAST_HEIGHT = 40,
 		},
@@ -96,6 +98,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 5,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
+			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
 			EXTEND_BOTTOM_SIZE = 0,
 			TOAST_HEIGHT = 40,
 		},
@@ -106,6 +109,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 15,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
+			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
 			EXTEND_BOTTOM_SIZE = 0,
 			TOAST_HEIGHT = 80,
 		},
@@ -116,6 +120,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 5,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
+			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
 			EXTEND_BOTTOM_SIZE = 68,
 			TOAST_HEIGHT = 80,
 		},
@@ -126,6 +131,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 0,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 154,
+			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
 			EXTEND_BOTTOM_SIZE = 68,
 			TOAST_HEIGHT = 80,
 		},

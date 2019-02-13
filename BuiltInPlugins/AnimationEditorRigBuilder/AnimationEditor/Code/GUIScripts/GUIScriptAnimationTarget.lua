@@ -54,7 +54,11 @@ end
 function AnimationTarget:init(Paths)
 	self.TargetWidget = Paths.GUIAnimationTarget
 
-	self.TargetWidget.TargetName.Text = Paths.DataModelRig:getName() ..": Joints"
+	if FastFlags:isEnableRigSwitchingOn() then
+		self:updateTarget(Paths.DataModelRig:getName())
+	else
+		self.TargetWidget.TargetName.Text = Paths.DataModelRig:getName() ..": Joints"
+	end
 
 	self.Connections = Paths.UtilityScriptConnections:new()
 	self.Connections:add(Paths.DataModelRig.NameChangedEvent:connect(function(name)
@@ -78,9 +82,20 @@ function AnimationTarget:init(Paths)
 		self.Connections:add(Paths.DataModelRig.RigVerifiedEvent:connect(function(success)
 			self.TargetWidget.IK.Visible = success
 			resizeTargetName(self)
+			if FastFlags:isEnableRigSwitchingOn() then
+				self:updateTarget(Paths.DataModelRig:getName())
+			end
 		end))
 
 		Paths.GUIScriptToolTip:add(self.TargetWidget.IK, "An IK constraint will be applied to the R15 humanoid avatar to help automatically achieve desired poses")
+	end
+end
+
+function AnimationTarget:updateTarget(name)
+	if name == "" or name == nil then
+		self.TargetWidget.TargetName.Text = ""
+	else
+		self.TargetWidget.TargetName.Text = name ..": Joints"
 	end
 end
 

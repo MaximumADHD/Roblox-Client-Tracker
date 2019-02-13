@@ -22,8 +22,10 @@ local function setScrubberHead(self, time)
 end
 
 local function setScrubber(self, time)
-	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelSession:inputLocked() then
-		return
+	if not FastFlags:isEnableRigSwitchingOn() then
+		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelSession:inputLocked() then
+			return
+		end
 	end
 	setScrubberPosition(self, time)
 	setScrubberHead(self)

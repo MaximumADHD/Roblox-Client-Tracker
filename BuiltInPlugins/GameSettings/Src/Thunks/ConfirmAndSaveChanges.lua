@@ -13,31 +13,32 @@ local Plugin = script.Parent.Parent.Parent
 local SaveChanges = require(Plugin.Src.Thunks.SaveChanges)
 
 local getSettingsImpl = require(Plugin.Src.Consumers.getSettingsImpl)
+local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 
 local Promise = require(Plugin.Promise)
 
-local warningDialogProps = {
-	isActive = {
-		Title = "Make Private",
-		Header = "Would you like to make it private?",
-		Description = "Making a game private will shut down any running games.",
-		Buttons = {"No", "Yes"},
-	},
-	universeAvatarType = {
-		Title = "Warning",
-		Header = "Would you like to proceed?",
-		Description = "Changing the game's Avatar Type to this setting "
-			.. "will shut down any running games.",
-		Buttons = {"No", "Yes"},
-	}
-}
-
 return function(provider)
 	return function(store)
 		local state = store:getState()
 		local settingsImpl = getSettingsImpl(provider)
+		local localized = getLocalizedContent(provider)
+
+		local warningDialogProps = {
+			isActive = {
+				Title = localized.PrivateDialog.Header,
+				Header = localized.PrivateDialog.Prompt,
+				Description = localized.PrivateDialog.Body,
+				Buttons = localized.PrivateDialog.Buttons,
+			},
+			universeAvatarType = {
+				Title = localized.AvatarDialog.Header,
+				Header = localized.AvatarDialog.Prompt,
+				Description = localized.AvatarDialog.Body,
+				Buttons = localized.AvatarDialog.Buttons,
+			}
+		}
 
 		if FFlagGameSettingsShowWarningsOnSave then
 			return Promise.new(function(resolve, reject)

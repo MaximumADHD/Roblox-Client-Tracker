@@ -7,6 +7,7 @@ return function()
 	local Theme = require(Plugin.Src.Util.Theme)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+	local Localization = require(Plugin.Src.Localization.Localization)
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local Footer = require(Plugin.Src.Components.Footer)
@@ -15,6 +16,7 @@ return function()
 
 	local settingsImpl = SettingsImpl_mock.new()
 	local theme = Theme.new()
+	local localization = Localization.newDummyLocalization()
 
 	local settingsFooterTest = {
 		Current = {},
@@ -59,6 +61,7 @@ return function()
 			store = settingsStore,
 			impl = settingsImpl,
 			theme = theme,
+			localization = localization,
 		}, {
 			footer = Roact.createElement(Footer, {
 				SaveActive = false,

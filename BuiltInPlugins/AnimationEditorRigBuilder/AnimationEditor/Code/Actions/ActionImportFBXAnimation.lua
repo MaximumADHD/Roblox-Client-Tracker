@@ -1,9 +1,15 @@
 -- singleton (can't be undone/redone)
+local FastFlags = require(script.Parent.Parent.FastFlags)
 
 local ImportFBXAnimation = {}
 
 function ImportFBXAnimation:execute(Paths)
-	local dummy = Paths.DataModelRig:getItem().Item.Parent
+	local dummy = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		dummy = Paths.DataModelRig:getModel()
+	else
+		dummy = Paths.DataModelRig:getItem().Item.Parent
+	end
 	-- Sanity check
 	if dummy:FindFirstChild("InitialPoses") then
 		Paths.DataModelSession:resetAnimation()

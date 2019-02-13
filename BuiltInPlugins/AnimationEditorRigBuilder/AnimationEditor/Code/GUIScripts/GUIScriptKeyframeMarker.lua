@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local KeyframeMarker = {}
 KeyframeMarker.__index = KeyframeMarker
 
@@ -98,6 +100,10 @@ end
 function KeyframeMarker:terminate()
 	self.Connections:terminate()
 	self.Connections = nil
+
+	if FastFlags:isFixEventTooltipsOn() then
+		self.Paths.GUIScriptToolTip:remove(self.TargetWidget)
+	end
 
 	self.TargetWidget.Parent = nil
 	self.TargetWidget:Destroy()

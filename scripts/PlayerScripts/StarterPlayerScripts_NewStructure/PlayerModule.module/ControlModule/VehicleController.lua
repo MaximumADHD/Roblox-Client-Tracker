@@ -19,9 +19,9 @@ local onlyTriggersForThrottle = false
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
-local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 -- Note that VehicleController does not derive from BaseCharacterController, it is a special case
 local VehicleController = {}
@@ -78,7 +78,7 @@ function VehicleController:Enable(enable, vehicleSeat)
 	if enable then
 		if vehicleSeat then
 			self.vehicleSeat = vehicleSeat
-			if FFlagPlayerScriptsBindAtPriority then
+			if FFlagPlayerScriptsBindAtPriority2 then
 				self:BindContextActions()
 			else
 				if useTriggersForThrottle then

@@ -118,6 +118,9 @@ end
 if FastFlags:useQWidgetsForPopupsOn() then
 	Paths.GUIScriptQtWindow = nil
 end
+if FastFlags:isEnableRigSwitchingOn() then
+	Paths.GUIScriptDarkCover = nil
+end
 
 -- helper functions
 Paths.HelperFunctions = script.Parent.HelperFunctions
@@ -172,6 +175,10 @@ if FastFlags:isIKModeFlagOn() then
 end
 if FastFlags:isAnimationEventsOn() then
 	Paths.UtilityScriptKeyframeMarker = nil
+end
+if FastFlags:isEnableRigSwitchingOn() then
+	Paths.UtilityScriptRigSelection = nil
+	Paths.UtilityScriptPluginSetup = nil
 end
 
 -- input
@@ -280,7 +287,7 @@ function Paths:init()
 	self.ActionNew = require(self.Actions.ActionNew)
 	self.ActionImport = require(self.Actions.ActionImport)
 
-	if FastFlags:isDebugStudioRigImporterFlagOn() then
+	if FastFlags:isDebugStudioRigImporterFlagOn() or FastFlags:isStudioFbxAnimationImportEnabled() then
 		self.ActionImportFBXAnimation = require(self.Actions.ActionImportFBXAnimation)
 	end
 
@@ -367,6 +374,10 @@ function Paths:init()
 		self.GUIScriptQtWindow = require(self.GUIScripts.GUIScriptQtWindow)
 	end
 
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.GUIScriptDarkCover = require(self.GUIScripts.GUIScriptDarkCover)
+	end
+
 	-- helper functions
 	self.HelperFunctionsCreation = require(self.HelperFunctions.HelperFunctionsCreation)
 
@@ -421,6 +432,10 @@ function Paths:init()
 	end
 	if FastFlags:isAnimationEventsOn() then
 		self.UtilityScriptKeyframeMarker = require(self.Utility.UtilityScriptKeyframeMarker)
+	end
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.UtilityScriptRigSelection = require(self.Utility.UtilityScriptRigSelection)
+		self.UtilityScriptPluginSetup = require(self.Utility.UtilityScriptPluginSetup)
 	end
 
 	-- input

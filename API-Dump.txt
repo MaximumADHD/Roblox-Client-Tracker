@@ -97,6 +97,12 @@ Class AnimationTrack : Instance [NotCreatable]
 Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
+Class AntiAddictionService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary AntiAddictionService:GetAntiAddictionData() {RobloxScriptSecurity}
+	Function void AntiAddictionService:MarkRead(string messageId) {RobloxScriptSecurity}
+	Function void AntiAddictionService:Start(int64 userId) {RobloxScriptSecurity}
+	Function void AntiAddictionService:Stop() {RobloxScriptSecurity}
+	Event AntiAddictionService.Updated(Dictionary antiAddictionData) {RobloxScriptSecurity}
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -645,6 +651,13 @@ Class Feature : Instance [NotCreatable]
 	Property Enum<TopBottom> Feature.TopBottom
 Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
+Class File : Instance [NotCreatable] [NotReplicated]
+	Property string File.FileName {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
+	Property int64 File.FileSize {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated] [Deprecated]
+	Property int64 File.Size {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
+	Function string File:GetBinaryContents() {PluginSecurity}
+	Function string File:GetFileContentsBinary() {PluginSecurity} [Deprecated]
+	Function Content File:GetTemporaryId() {PluginSecurity}
 Class Fire : Instance
 	Property Color3 Fire.Color
 	Property bool Fire.Enabled
@@ -1392,11 +1405,6 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function double Lighting:getMinutesAfterMidnight() [Deprecated]
 	Function void Lighting:setMinutesAfterMidnight(double minutes) [Deprecated]
 	Event Lighting.LightingChanged(bool skyboxChanged)
-Class LocalAsset : Instance [NotCreatable] [NotReplicated]
-	Property string LocalAsset.FileName {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Property int64 LocalAsset.FileSize {PluginSecurity} [Hidden] [ReadOnly] [NotReplicated]
-	Function string LocalAsset:GetFileContentsBinary() {PluginSecurity}
-	Function Content LocalAsset:GetTemporaryId() {PluginSecurity}
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalStorageService:Flush() {RobloxScriptSecurity}
 	Function string LocalStorageService:GetItem(string key) {RobloxScriptSecurity}
@@ -1415,6 +1423,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string LocalizationService.RobloxLocaleId  [ReadOnly] [NotReplicated]
 	Property string LocalizationService.SystemLocaleId  [ReadOnly] [NotReplicated]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
+	Function Array LocalizationService:GetTableEntries(Instance instance = nil) [Yields]
 	Function Instance LocalizationService:GetTranslatorForLocaleAsync(string locale) [Yields]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player) [Yields]
@@ -1824,7 +1833,7 @@ Class Workspace : Model [NotCreatable] [Service]
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
 	Property bool Workspace.PGSPhysicsSolverEnabled  [NotReplicated] [NotScriptable]
-	Property bool Workspace.StreamingEnabled  [NotReplicated]
+	Property bool Workspace.StreamingEnabled
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property int Workspace.StreamingTargetRadius  [NotScriptable]
 	Property bool Workspace.TemporaryLegacyPhysicsSolverOverride  [NotReplicated] [NotScriptable]
@@ -2516,6 +2525,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function Dictionary SoundService:EndRecording() {RobloxScriptSecurity} [Yields]
 	Function Tuple SoundService:GetListener()
 	Function Dictionary SoundService:GetRecordingDevices() {RobloxScriptSecurity} [Yields]
+	Function Dictionary SoundService:GetSoundMemoryData() {RobloxScriptSecurity}
 	Function void SoundService:PlayLocalSound(Instance sound)
 	Function void SoundService:PlayStockSound(Enum<SoundType> sound) {RobloxScriptSecurity}
 	Function void SoundService:SetListener(Enum<ListenerType> listenerType, Tuple listener)
@@ -2647,8 +2657,10 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
-	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields]
-	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields]
+	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
+	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
+	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
+	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
@@ -4573,7 +4585,8 @@ Enum UserInputType
 	EnumItem UserInputType.Gamepad7 : 18
 	EnumItem UserInputType.Gamepad8 : 19
 	EnumItem UserInputType.TextInput : 20
-	EnumItem UserInputType.None : 21
+	EnumItem UserInputType.InputMethod : 21
+	EnumItem UserInputType.None : 22
 Enum VRTouchpad
 	EnumItem VRTouchpad.Left : 0
 	EnumItem VRTouchpad.Right : 1

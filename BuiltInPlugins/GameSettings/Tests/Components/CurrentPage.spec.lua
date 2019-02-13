@@ -5,6 +5,7 @@ return function()
 
 	local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
 	local Theme = require(Plugin.Src.Util.Theme)
+	local Localization = require(Plugin.Src.Localization.Localization)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -12,6 +13,7 @@ return function()
 
 	local settingsImpl = SettingsImpl_mock.new()
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
 
 	local settingsStore = Rodux.Store.new(
 		MainReducer,
@@ -24,6 +26,7 @@ return function()
 			store = settingsStore,
 			impl = settingsImpl,
 			theme = theme,
+			localization = localization,
 		}, {
 			currentPage = Roact.createElement(CurrentPage, {
 				Page = page,

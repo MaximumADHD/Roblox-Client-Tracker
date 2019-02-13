@@ -4,16 +4,24 @@ return function()
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+	local Localization = require(Plugin.Src.Localization.Localization)
+	local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 	local GameIcon = require(Plugin.Src.Components.GameIcon.GameIcon)
 
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
+	local localized = localization.values
 
 	local function createTestGameIcon(props)
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
-			icon = Roact.createElement(GameIcon, props),
+			Roact.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				icon = Roact.createElement(GameIcon, props),
+			}),
 		})
 	end
 
@@ -44,7 +52,7 @@ return function()
 		local icon = container.ImageLabel
 
 		expect(icon.InfoText.Visible).to.equal(true)
-		expect(icon.InfoText.Text).to.equal("In Review")
+		expect(icon.InfoText.Text).to.equal(localized.GameIcon.Review)
 
 		Roact.unmount(instance)
 	end)

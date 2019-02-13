@@ -8,7 +8,7 @@ MainMenu.StyleEnum = {DropDown={}, RightClick={}}
 local function calculateNextLayoutOrder(self)
 	local highest = -1
 	for _, child in pairs(self.Menu.MenuOptions:GetChildren()) do
-        if not self.Paths.HelperFunctionsWidget:isLayout(child) and child.LayoutOrder > highest then
+        if (not FastFlags:isEnableRigSwitchingOn() or child:IsA("GUIObject")) and not self.Paths.HelperFunctionsWidget:isLayout(child) and child.LayoutOrder > highest then
             highest = child.LayoutOrder
         end
 	end

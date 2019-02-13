@@ -23,14 +23,15 @@ local function SimpleDialog(props)
 			OnResult = props.OnResult,
 		}, {
 			Header = Roact.createElement("TextLabel", {
-				Position = UDim2.new(0.5, 0, 0, 30),
-				AnchorPoint = Vector2.new(0.5, 0),
-				Size = UDim2.new(1, 0, 0, 23),
+				Position = UDim2.new(0.5, 0, 0, 45),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Size = UDim2.new(1, 0, 0, 60),
 				BackgroundTransparency = 1,
 				Text = header,
 				Font = Enum.Font.SourceSans,
 				TextColor3 = theme.dialog.text,
 				TextSize = 24,
+				TextWrapped = true,
 			}),
 		})
 	end)

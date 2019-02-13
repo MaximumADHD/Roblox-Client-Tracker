@@ -13,7 +13,6 @@ return function(state, action)
 			waitingForRecording = action.waitingForRecording,
 			lastFileOutputLocation = action.lastFileOutputLocation,
 		}
-		for i,v in pairs(update) do print(i,v) end
 		return Immutable.JoinDictionaries(microProfilerState, update)
 	end
 

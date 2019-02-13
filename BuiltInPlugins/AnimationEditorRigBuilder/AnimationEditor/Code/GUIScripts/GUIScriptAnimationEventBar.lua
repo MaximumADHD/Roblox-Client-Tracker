@@ -97,6 +97,9 @@ end
 
 function EventBar:terminate()
 	self.Paths.UtilityScriptDisplayArea:removeDisplay(self.EventArea)
+	if FastFlags:isEnableRigSwitchingOn() then
+		self:clearKeyframeMarkers()
+	end
 	self.ManageEventsButton:terminate()
 	self.TargetWidget = nil
 	self.EventArea = nil

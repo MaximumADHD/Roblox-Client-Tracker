@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local SelectAndDragBox = {}
 SelectAndDragBox.__index = SelectAndDragBox
 
@@ -80,8 +82,8 @@ function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFu
 
 	self.Connections = self.Paths.UtilityScriptConnections:new(Paths)
 	self.Connections:add(self.TargetWidget.Parent.InputBegan:connect(function(input)
-		local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 		if input.UserInputType == Enum.UserInputType.MouseButton1 and not self.Paths.GUIScriptScrubberDisplayArea.dragableScrubber:isDragging() then
+			local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 			if not Paths.UtilityScriptMoveItems:isMoving() then
 				self.Clicked = true
 				show(self)
@@ -93,8 +95,8 @@ function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFu
 	end))
 
 	self.Connections:add(self.TargetWidget.Parent.InputChanged:connect(function(input)
-		local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 		if input.UserInputType == Enum.UserInputType.MouseMovement and self.Clicked and not self.Paths.GUIScriptScrubberDisplayArea.dragableScrubber:isDragging() then
+			local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 			if not Paths.UtilityScriptMoveItems:isMoving() then
 				update(self)
 				self.SelectFunc()
@@ -104,8 +106,8 @@ function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFu
 	end))
 
 	self.Connections:add(self.TargetWidget.Parent.InputEnded:connect(function(input)
-		local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 			self.Clicked = false
 			hide(self)
 			setEndTime(self, clickTime)

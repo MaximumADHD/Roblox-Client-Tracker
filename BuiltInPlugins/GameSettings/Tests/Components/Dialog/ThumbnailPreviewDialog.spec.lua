@@ -4,10 +4,13 @@ return function()
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+	local Localization = require(Plugin.Src.Localization.Localization)
+	local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 	local ThumbnailPreviewDialog = require(Plugin.Src.Components.Dialog.ThumbnailPreviewDialog)
 
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
 
 	local thumbnailSet = {
 		["01"] = {
@@ -27,10 +30,14 @@ return function()
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
-			dialog = Roact.createElement(ThumbnailPreviewDialog, {
-				Thumbnails = thumbnailSet,
-				Order = order,
-				StartId = startIndex or "01",
+			Roact.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				dialog = Roact.createElement(ThumbnailPreviewDialog, {
+					Thumbnails = thumbnailSet,
+					Order = order,
+					StartId = startIndex or "01",
+				}),
 			}),
 		})
 	end

@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local IK = {}
 
 IK.ConstraintTypes = {
@@ -191,14 +193,11 @@ function IK:verifyForHumanBodyParts(Paths)
 end
 
 function IK:removeIKConstraints(Paths)
-	local numRequiredConstraints = 14
-	local constraintCount = 0
 	local dummy = Paths.DataModelRig:getModel()
 	for _, child in pairs(dummy:GetChildren()) do
 		if child:IsA("BallSocketConstraint") or child:IsA("HingeConstraint") then
 			local tag = child:FindFirstChild("Tag")
 			if tag and tag.Value == self:getTagNameForIK() then
-
 				child:Destroy()
 			end
 		end
@@ -314,6 +313,10 @@ end
 
 function IK:getTagNameForIK()
 	return "ForIK"
+end
+
+function IK:isR15BodyPart(part)
+	return self.BodyParts ~= nil and self.BodyParts[part.Name] ~= nil
 end
 
 return IK

@@ -16,9 +16,9 @@ local PathDisplay = nil
 local LocalPlayer = Players.LocalPlayer
 
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
-local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 --[[ Constants ]]--
 local RECALCULATE_PATH_THRESHOLD = 4
@@ -258,7 +258,7 @@ function VRNavigation:OnJumpAction(actionName, inputState, inputObj)
 	if inputState == Enum.UserInputState.Begin then
 		self.isJumping = true
 	end
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		return Enum.ContextActionResult.Sink
 	end
 end
@@ -266,7 +266,7 @@ function VRNavigation:BindJumpAction(active)
 	if active then
 		if not self.isJumpBound then
 			self.isJumpBound = true
-			if FFlagPlayerScriptsBindAtPriority then
+			if FFlagPlayerScriptsBindAtPriority2 then
 				ContextActionService:BindActionAtPriority("VRJumpAction", (function() return self:OnJumpAction() end), false,
 				 self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA)
 			else
@@ -321,7 +321,7 @@ function VRNavigation:ControlCharacterGamepad(actionName, inputState, inputObjec
 			movementUpdateEvent:Fire("offtrack")
 		end
 	end
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		return Enum.ContextActionResult.Sink
 	end
 end
@@ -429,7 +429,7 @@ function VRNavigation:Enable(enable)
 		self.navigationRequestedConn = VRService.NavigationRequested:Connect(function(destinationCFrame, inputUserCFrame) self:OnNavigationRequest(destinationCFrame, inputUserCFrame) end)
 		self.heartbeatConn = RunService.Heartbeat:Connect(function(dt) self:OnHeartbeat(dt) end)
 		
-		if FFlagPlayerScriptsBindAtPriority then 
+		if FFlagPlayerScriptsBindAtPriority2 then 
 			ContextActionService:BindAction("MoveThumbstick", (function(actionName, inputState, inputObject) return self:ControlCharacterGamepad(actionName, inputState, inputObject) end),
 				false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Thumbstick1)
 		else

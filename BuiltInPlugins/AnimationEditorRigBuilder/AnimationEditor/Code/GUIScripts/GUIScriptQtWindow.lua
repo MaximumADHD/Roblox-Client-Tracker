@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local GUIScriptQtWindow = {}
 GUIScriptQtWindow.__index = GUIScriptQtWindow
 
@@ -31,11 +33,17 @@ function GUIScriptQtWindow:turnOn(on)
 	if on then
 		self.Paths.UtilityScriptTheme:setColorsToTheme(self.TargetGUI)
 	end
-
-	if self.Paths.GUIDarkCover then
-		self.Paths.GUIDarkCover.Visible = on
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.Paths.GUIScriptDarkCover:turnOn(on, self)
+		if on then
+			self.Paths.GUIScriptDarkCover:showText("")
+			self.Paths.GUIScriptDarkCover:showButton(false)
+		end
+	else
+		if self.Paths.GUIDarkCover then
+			self.Paths.GUIDarkCover.Visible = on
+		end
 	end
-
 	self.QWidget.Enabled = on
 end
 

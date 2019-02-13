@@ -51,7 +51,9 @@ function IKManipulator:terminate()
 end
 
 function IKManipulator:addIKPart(dataItem)
-	self.IKParts[dataItem] = dataItem.Item
+	if not FastFlags:isEnableRigSwitchingOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(dataItem.Item) then
+		self.IKParts[dataItem] = dataItem.Item
+	end
 end
 
 function IKManipulator:removeIKPart(dataItem)
@@ -198,7 +200,7 @@ function IKManipulator:endIKManipulation()
 			dataItem.Item.Anchored = false
 		end
 
-		if self.Motor6DInfo[dataItem] then
+		if self.Motor6DInfo and self.Motor6DInfo[dataItem] then
 			dataItem.Motor6D = makeNewMotor6D(self.Motor6DInfo[dataItem].Name, self.Paths.UtilityScriptHumanIK.PartToParentMap[dataItem.Item],  dataItem.Item, self.Motor6DInfo[dataItem].C0)
 			if self:isPartInIKChain(dataItem) and (not FastFlags:isFixIKWhileLockedOn() or self.Paths.DataModelRig:getPartInclude(dataItem.Name)) then
 				local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(dataItem.Item, false, false)
@@ -288,35 +290,19 @@ function IKManipulator:determineIKChain(part)
 	IKManipulator.IKManipulationEvent:fire()
 end
 
-local function configureIKOnLegs(self)
-	configureIKOnLimb(self, self.Paths.DataModelRig:getLeftFoot())
-	configureIKOnLimb(self, self.Paths.DataModelRig:getRightFoot())
-end
-
-local function anchorParentTorso(self, dataItem)
-	if self.Paths.DataModelRig:isATorso(dataItem) then
-		dataItem.Item.Anchored = true
-	else
-		anchorParentTorso(self, dataItem.Parent)
-	end
-end
-
-local function configureJointsBodyPartMode(self, part)
-	local dataItem = self.Paths.DataModelRig:getDataItem(part.Name)
-	if self.Paths.DataModelRig:isATorso(dataItem) then
-		configureIKOnLegs(self)
-	else
-		anchorParentTorso(self, dataItem)
+local configureIKOnLegs = nil
+local anchorParentTorso = nil
+if not FastFlags:isFixIKBodyPartModeOn() then
+	configureIKOnLegs = function(self)
+		configureIKOnLimb(self, self.Paths.DataModelRig:getLeftFoot())
+		configureIKOnLimb(self, self.Paths.DataModelRig:getRightFoot())
 	end
 
-	self:replaceMotor6DWithConstraint(dataItem)
-end
-
-local function configureJointsFullBodyModeOld(self, part)
-	self:replaceMotor6DWithConstraint(self.Paths.DataModelRig:getDataItem(part.Name))
-	for partName, pinned in pairs(self.Paths.DataModelRig.partPinned) do
-		if pinned and partName ~= part.Name then
-			configureIKOnLimb(self, self.Paths.DataModelRig:getDataItem(partName))
+	anchorParentTorso = function(self, dataItem)
+		if self.Paths.DataModelRig:isATorso(dataItem) then
+			dataItem.Item.Anchored = true
+		else
+			anchorParentTorso(self, dataItem.Parent)
 		end
 	end
 end
@@ -329,7 +315,7 @@ local function distanceFromLowerTorso(self, dataItem)
 	end
 end
 
-local function configureJointsFullBodyMode(self, part)
+local function configureJointsHelper(self, part, pinnedParts)
 	local addedToTableMap = {}
 	local priorityTable = {}
 
@@ -351,20 +337,74 @@ local function configureJointsFullBodyMode(self, part)
 
 	addChainToTable(self.Paths.DataModelRig:getDataItem(part.Name))
 
-	for partName, pinned in pairs(self.Paths.DataModelRig.partPinned) do
-		if pinned and partName ~= part.Name then
-			addChainToTable(self.Paths.DataModelRig:getDataItem(partName))
+	if FastFlags:isFixIKBodyPartModeOn() then
+		pinnedParts = pinnedParts ~= nil and pinnedParts or self.Paths.DataModelRig.partPinned
+		for partName, pinned in pairs(pinnedParts) do
+			if pinned and partName ~= part.Name then
+				addChainToTable(self.Paths.DataModelRig:getDataItem(partName))
+			end
+		end
+	else
+		for partName, pinned in pairs(self.Paths.DataModelRig.partPinned) do
+			if pinned and partName ~= part.Name then
+				addChainToTable(self.Paths.DataModelRig:getDataItem(partName))
+			end
 		end
 	end
 
 	table.sort(priorityTable, function(a, b) return a.Priority > b.Priority end)
 
-	for i = 1, #priorityTable do
-		local curItem = priorityTable[i].Item
-		if self.Paths.DataModelRig:getPartPinned(curItem.Name) and curItem.Name ~= part.Name then
-			configureIKOnLimb(self, curItem, --[[ notRecursive = ]] true)
+	if FastFlags:isFixIKBodyPartModeOn() then
+		for i = 1, #priorityTable do
+			local curItem = priorityTable[i].Item
+			if pinnedParts[curItem.Name] and curItem.Name ~= part.Name then
+				configureIKOnLimb(self, curItem, --[[ notRecursive = ]] true)
+			else
+				self:replaceMotor6DWithConstraint(curItem, --[[ notRecursive = ]] true)
+			end
+		end
+	else
+		for i = 1, #priorityTable do
+			local curItem = priorityTable[i].Item
+			if self.Paths.DataModelRig:getPartPinned(curItem.Name) and curItem.Name ~= part.Name then
+				configureIKOnLimb(self, curItem, --[[ notRecursive = ]] true)
+			else
+				self:replaceMotor6DWithConstraint(curItem, --[[ notRecursive = ]] true)
+			end
+		end
+	end
+end
+
+local function configureJointsBodyPartMode(self, part)
+	local dataItem = self.Paths.DataModelRig:getDataItem(part.Name)
+	if FastFlags:isFixIKBodyPartModeOn() then
+		local staticParts = {}
+
+		if self.Paths.DataModelRig:isATorso(dataItem) then
+			staticParts[self.Paths.DataModelRig:getLeftFoot().Name] = true
+			staticParts[self.Paths.DataModelRig:getRightFoot().Name] = true
 		else
-			self:replaceMotor6DWithConstraint(curItem, --[[ notRecursive = ]] true)
+			staticParts[self.Paths.DataModelRig:getUpperTorso().Name] = true
+			staticParts[self.Paths.DataModelRig:getLowerTorso().Name] = true
+		end
+
+		configureJointsHelper(self, part, staticParts)
+	else
+		if self.Paths.DataModelRig:isATorso(dataItem) then
+			configureIKOnLegs(self)
+		else
+			anchorParentTorso(self, dataItem)
+		end
+
+		self:replaceMotor6DWithConstraint(dataItem)
+	end
+end
+
+local function configureJointsFullBodyModeOld(self, part)
+	self:replaceMotor6DWithConstraint(self.Paths.DataModelRig:getDataItem(part.Name))
+	for partName, pinned in pairs(self.Paths.DataModelRig.partPinned) do
+		if pinned and partName ~= part.Name then
+			configureIKOnLimb(self, self.Paths.DataModelRig:getDataItem(partName))
 		end
 	end
 end
@@ -396,7 +436,7 @@ function IKManipulator:configureIkChain(part)
 
 	if self.IKMode == self.IKModes.FullBody then
 		if FastFlags:fixFullBodyIKPinning() then
-			configureJointsFullBodyMode(self, part)
+			configureJointsHelper(self, part)
 		else
 			configureJointsFullBodyModeOld(self, part)
 		end
@@ -441,7 +481,11 @@ function IKManipulator:replaceMotor6DWithConstraint(dataItem, notRecursive)
 				dataItem.Item.CFrame = prevCF
 			else
 				if self.ProxyRoot == nil then
-					self.ProxyRoot = Instance.new("Part", self.Paths.DataModelRig:getItem().Item.Parent)
+					if FastFlags:isEnableRigSwitchingOn() then
+						self.ProxyRoot = Instance.new("Part", self.Paths.DataModelRig:getModel())
+					else
+						self.ProxyRoot = Instance.new("Part", self.Paths.DataModelRig:getItem().Item.Parent)
+					end
 					self.ProxyRoot.Transparency = 1
 					self.ProxyRoot.Locked = true
 					self.ProxyRoot.CFrame = self.Paths.DataModelRig:getHumanoidRootPart().Item.CFrame

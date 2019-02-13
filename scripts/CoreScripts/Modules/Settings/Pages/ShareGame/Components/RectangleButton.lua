@@ -1,8 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 
-local UserInputService = game:GetService("UserInputService")
-
 local Roact = require(CorePackages.Roact)
+
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
 
 local BUTTON_IMAGE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png"
 local BUTTON_IMAGE_ACTIVE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"
@@ -14,6 +14,9 @@ local DROPSHADOW_SIZE = {
 }
 
 local RectangleButton = Roact.PureComponent:extend("RectangleButton")
+RectangleButton.defaultProps = {
+	visible = true,
+}
 
 function RectangleButton:init()
 	self.state = {
@@ -28,6 +31,11 @@ function RectangleButton:render()
 	local layoutOrder = self.props.layoutOrder
 	local zIndex = self.props.zIndex
 	local onClick = self.props.onClick
+	local visible
+	if FFlagLuaInviteModalEnabled then
+		visible = self.props.visible
+	end
+
 	local children = self.props[Roact.Children] or {}
 
 	local buttonImage = self.state.isHovering and BUTTON_IMAGE_ACTIVE or BUTTON_IMAGE
@@ -50,6 +58,7 @@ function RectangleButton:render()
 		AnchorPoint = anchorPoint,
 		LayoutOrder = layoutOrder,
 		ZIndex = zIndex,
+		Visible = visible,
 
 		[Roact.Event.InputBegan] = function()
 			self:setState({isHovering = true})

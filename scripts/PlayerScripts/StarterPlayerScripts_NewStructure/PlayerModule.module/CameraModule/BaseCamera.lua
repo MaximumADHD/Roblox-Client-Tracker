@@ -43,9 +43,9 @@ local R15_HEAD_OFFSET_NO_SCALING = Vector3.new(0, 2, 0)
 local HUMANOID_ROOT_PART_SIZE = Vector3.new(2, 2, 1)
 
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
-local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 local newDefaultCameraAngleFlagExists, newDefaultCameraAngleFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserNewDefaultCameraAngle")
@@ -501,7 +501,7 @@ function BaseCamera:Enable(enable)
 		self.enabled = enable
 		if self.enabled then
 			self:ConnectInputEvents()
-			if FFlagPlayerScriptsBindAtPriority then
+			if FFlagPlayerScriptsBindAtPriority2 then
 				self:BindContextActions()
 			end
 
@@ -513,7 +513,7 @@ function BaseCamera:Enable(enable)
 			end
 		else
 			self:DisconnectInputEvents()
-			if FFlagPlayerScriptsBindAtPriority then
+			if FFlagPlayerScriptsBindAtPriority2 then
 				self:UnbindContextActions()
 			end
 			-- Clean up additional event listeners and reset a bunch of properties
@@ -535,7 +535,7 @@ function BaseCamera:OnInputBegan(input, processed)
 		self:OnMouse3Down(input, processed)
 	end
 	-- Keyboard
-	if not FFlagPlayerScriptsBindAtPriority then
+	if not FFlagPlayerScriptsBindAtPriority2 then
 		if input.UserInputType == Enum.UserInputType.Keyboard then
 			self:OnKeyDown(input, processed)
 		end
@@ -561,7 +561,7 @@ function BaseCamera:OnInputEnded(input, processed)
 		self:OnMouse3Up(input, processed)
 	end
 	-- Keyboard
-	if not FFlagPlayerScriptsBindAtPriority then
+	if not FFlagPlayerScriptsBindAtPriority2 then
 		if input.UserInputType == Enum.UserInputType.Keyboard then
 			self:OnKeyUp(input, processed)
 		end
@@ -603,7 +603,7 @@ function BaseCamera:ConnectInputEvents()
 		end
 	end)
 
-	if not FFlagPlayerScriptsBindAtPriority then
+	if not FFlagPlayerScriptsBindAtPriority2 then
 		self:BindGamepadInputActions()
 	end
 	self:AssignActivateGamepad()
@@ -758,11 +758,11 @@ function BaseCamera:GetGamepadPan(name, state, input)
 				self.gamepadPanningCamera = ZERO_VECTOR2
 			end
 		--end
-		if FFlagPlayerScriptsBindAtPriority then
+		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Sink
 		end
 	end
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		return Enum.ContextActionResult.Pass
 	end
 end
@@ -849,11 +849,11 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 		else
 			self.currentZoomSpeed = 1.00
 		end
-		if FFlagPlayerScriptsBindAtPriority then
+		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Sink
 		end
 	end
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		return Enum.ContextActionResult.Pass
 	end
 --	elseif input.UserInputType == self.activeGamepad and input.KeyCode == Enum.KeyCode.ButtonL3 then
@@ -875,7 +875,7 @@ function BaseCamera:DoKeyboardZoom(name, state, input)
 		return Enum.ContextActionResult.Pass
 	end
 
-	if self.distanceChangeEnabled then
+	if self.distanceChangeEnabled and Players.LocalPlayer.CameraMode ~= Enum.CameraMode.LockFirstPerson then
 		if input.KeyCode == Enum.KeyCode.I then
 			self:SetCameraToSubjectDistance( self.currentSubjectDistance - 5 )
 		elseif input.KeyCode == Enum.KeyCode.O then
@@ -893,7 +893,7 @@ function BaseCamera:BindAction(actionName, actionFunc, createTouchButton, ...)
 end
 
 function BaseCamera:BindGamepadInputActions()
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		self:BindAction("BaseCameraGamepadPan", function(name, state, input) return self:GetGamepadPan(name, state, input) end,
 			false, Enum.KeyCode.Thumbstick2)
 		self:BindAction("BaseCameraGamepadZoom", function(name, state, input) return self:DoGamepadZoom(name, state, input) end,
@@ -1154,7 +1154,7 @@ function BaseCamera:OnMouseWheel(input, processed)
 	end
 end
 
---Remove with FFlagPlayerScriptsBindAtPriority
+--Remove with FFlagPlayerScriptsBindAtPriority2
 function BaseCamera:OnKeyDown(input, processed)
 	if not self.hasGameLoaded and VRService.VREnabled then
 		return
@@ -1201,7 +1201,7 @@ function BaseCamera:OnKeyDown(input, processed)
 	end
 end
 
---Remove with FFlagPlayerScriptsBindAtPriority
+--Remove with FFlagPlayerScriptsBindAtPriority2
 function BaseCamera:OnKeyUp(input, processed)
 	if input.KeyCode == Enum.KeyCode.Left then
 		self.turningLeft = false

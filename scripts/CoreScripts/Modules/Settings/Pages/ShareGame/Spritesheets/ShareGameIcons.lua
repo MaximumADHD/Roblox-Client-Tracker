@@ -9,13 +9,15 @@ end
 
 local SHEET_MODEL = {
 	frames = {
-		back = createFrameModel(Vector2.new(2, 30), Vector2.new(24, 24)),
-		clear = createFrameModel(Vector2.new(6, 62), Vector2.new(16, 16)),
-		invite = createFrameModel(Vector2.new(2, 86), Vector2.new(24, 24)),
-		search_border = createFrameModel(Vector2.new(11, 11), Vector2.new(7, 7)),
-		search_large = createFrameModel(Vector2.new(3, 143), Vector2.new(22, 22)),
-		search_small = createFrameModel(Vector2.new(6, 117), Vector2.new(16, 16)),
-		friends = createFrameModel(Vector2.new(0, 170), Vector2.new(72, 72)),
+		back = createFrameModel(Vector2.new(2, 19), Vector2.new(24, 24)),
+		clear = createFrameModel(Vector2.new(6, 51), Vector2.new(16, 16)),
+		invite = createFrameModel(Vector2.new(2, 75), Vector2.new(24, 24)),
+		search_border = createFrameModel(Vector2.new(11, 1), Vector2.new(7, 7)),
+		search_large = createFrameModel(Vector2.new(3, 132), Vector2.new(22, 22)),
+		search_small = createFrameModel(Vector2.new(6, 106), Vector2.new(16, 16)),
+		friends = createFrameModel(Vector2.new(0, 159), Vector2.new(72, 72)),
+		cross = createFrameModel(Vector2.new(4, 231), Vector2.new(24, 24)),
+		modal_border = createFrameModel(Vector2.new(0, 255), Vector2.new(7, 7)),
 	},
 }
 

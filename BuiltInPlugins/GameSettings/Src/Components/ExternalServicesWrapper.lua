@@ -7,6 +7,7 @@
 		showDialog = A function to display a dialog using a PluginGui.
 		mouse = A PluginMouse object to provide in the MouseProvider.
 		impl = A SettingsImpl object to provide in the SettingsImplProvider.
+		localization = A Localization object to provide in the LocalizationProvider.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -17,23 +18,28 @@ local SettingsImplProvider = require(Plugin.Src.Providers.SettingsImplProvider)
 local DialogProvider = require(Plugin.Src.Providers.DialogProvider)
 local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
+local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 local function ExternalServicesWrapper(props)
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = props.store
 	}, {
-		Roact.createElement(ThemeProvider, {
-			theme = props.theme,
+		Roact.createElement(LocalizationProvider, {
+			localization = props.localization,
 		}, {
-			Roact.createElement(DialogProvider, {
-				showDialog = props.showDialog,
+			Roact.createElement(ThemeProvider, {
+				theme = props.theme,
 			}, {
-				Roact.createElement(MouseProvider, {
-					mouse = props.mouse,
+				Roact.createElement(DialogProvider, {
+					showDialog = props.showDialog,
 				}, {
-					Roact.createElement(SettingsImplProvider, {
-						impl = props.impl,
-					}, props[Roact.Children])
+					Roact.createElement(MouseProvider, {
+						mouse = props.mouse,
+					}, {
+						Roact.createElement(SettingsImplProvider, {
+							impl = props.impl,
+						}, props[Roact.Children])
+					}),
 				}),
 			}),
 		}),

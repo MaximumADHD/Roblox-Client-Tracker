@@ -27,6 +27,10 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 --- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
+
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -143,6 +147,10 @@ coroutine.wrap(function()
 	end)
 end)()
 function ContextMenuUtil:GetCanChatWith(otherPlayer)
+	if BlockingUtility:IsPlayerBlockedByUserId(otherPlayer.UserId) then
+		-- This can be removed when Chat:CanUsersChatAsync() correctly respects blocked status.
+		return false
+	end
 	if CanChatWithMap[otherPlayer.UserId] ~= nil then
 		return CanChatWithMap[otherPlayer.UserId]
 	end

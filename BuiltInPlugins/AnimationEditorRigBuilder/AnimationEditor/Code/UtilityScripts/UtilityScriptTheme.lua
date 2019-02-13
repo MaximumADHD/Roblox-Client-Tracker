@@ -294,7 +294,9 @@ function ThemeManager:init(Paths)
 					changeElementColors(self, self.Paths.GUIScriptStartScreen.gui)
 				elseif self.Paths and self.Paths.GUI then
 					changeElementColors(self, self.Paths.GUI)
-					self.Paths.DataModelSession.SelectedChangeEvent:fire()
+					if not FastFlags:isEnableRigSwitchingOn() or self.Paths.DataModelSession.SelectedChangeEvent then
+						self.Paths.DataModelSession.SelectedChangeEvent:fire()
+					end
 				end
 			end)
 		else
@@ -305,7 +307,9 @@ function ThemeManager:init(Paths)
 					changeElementColors(self, self.Paths.GUIScriptStartScreen.gui)
 				else
 					changeElementColors(self, self.Paths.GUI)
-					self.Paths.DataModelSession.SelectedChangeEvent:fire()
+					if not FastFlags:isEnableRigSwitchingOn() or self.Paths.DataModelSession.SelectedChangeEvent then
+						self.Paths.DataModelSession.SelectedChangeEvent:fire()
+					end
 				end
 			end)
 		end

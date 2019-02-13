@@ -65,6 +65,12 @@ function checkDoFly()
   end
 end
 
+function Camera:focusCameraOnModel(camera, model)
+  local pos = model.PrimaryPart.CFrame.p + (model.PrimaryPart.CFrame.LookVector * 10)
+  camera.CFrame = CFrame.new(Vector3.new(pos.X, pos.Y + 3, pos.Z))
+  camera.Focus = CFrame.new(model.PrimaryPart.CFrame.p)
+end
+
 function Camera:init(Paths)
   Camera.Paths = Paths
   Camera.Keyboard = Paths.InputKeyboard

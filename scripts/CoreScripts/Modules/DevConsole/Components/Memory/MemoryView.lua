@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local TweenService = game:GetService("TweenService")
 local Roact = require(CorePackages.Roact)
 
 local Components = script.Parent.Parent.Parent.Components
@@ -20,6 +21,15 @@ local GRAPH_HEIGHT = Constants.GeneralFormatting.LineGraphHeight
 
 local NO_RESULT_SEARCH_STR = Constants.GeneralFormatting.NoResultSearchStr
 
+local tweenInfo = TweenInfo.new(
+	.3, -- Time
+	Enum.EasingStyle.Back,
+	Enum.EasingDirection.Out,
+	0,
+	false,
+	0
+)
+
 local MemoryView = Roact.Component:extend("MemoryView")
 
 local function getX(entry)
@@ -35,8 +45,24 @@ local function formatValueStr(value)
 end
 
 function MemoryView:init(props)
-	self.getOnButtonPress = function (name)
+	self.getOnButtonPress = function (name, index)
 		return function(rbx, input)
+			if self.state.expandIndex ~= name and name then
+				local scrollingRef = self.scrollingRef.current
+				-- LayoutOrder is used to keep track of the order of the entires.
+				-- We subtrack 1 to account for the position of the top left corner
+				-- of the entry, and another 1.4 to provide a 1.4 * ENTRY_HEIGHT's
+				-- worth of buffer space
+				if scrollingRef then
+					local newCanvasPosY = (index-2.4) * ENTRY_HEIGHT
+					TweenService:Create(
+						scrollingRef,
+						tweenInfo,
+						{CanvasPosition = Vector2.new(0, newCanvasPosY)}
+					):Play()
+				end
+			end
+
 			self:setState({
 				expandIndex = self.state.expandIndex ~= name and name
 			})
@@ -112,6 +138,48 @@ function MemoryView:willUnmount()
 	self.treeViewItemConnector:Disconnect()
 end
 
+function MemoryView:appendAdditionTabInformation(elements, entry, depth, windowing)
+	local canvasPos = self.scrollingRef.current.CanvasPosition
+	local absScrollSize = self.scrollingRef.current.AbsoluteSize
+
+	-- this function, where applicable is in clientMemoryData
+	if entry.dataStats.additionalInfoFunc then
+		local infoTable = entry.dataStats.additionalInfoFunc()
+		for _,additionalEntry in ipairs(infoTable) do
+			local name = additionalEntry.name
+			local value = additionalEntry.value
+			windowing.layoutOrder = windowing.layoutOrder + 1
+
+			if windowing.scrollingFrameHeight + ENTRY_HEIGHT >= canvasPos.Y then
+				if windowing.usedFrameSpace < absScrollSize.Y then
+					local new_key = entry.name .. name
+
+					elements[new_key] = Roact.createElement(MemoryViewEntry, {
+						size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+						depth = depth,
+						entry = entry,
+						name = name,
+
+						showGraph = false,
+						value = value,
+
+						formatValueStr = formatValueStr,
+						layoutOrder = windowing.layoutOrder,
+					})
+				end
+			end
+
+
+			if windowing.paddingHeight < 0 then
+				windowing.paddingHeight = windowing.scrollingFrameHeight
+			else
+				windowing.usedFrameSpace = windowing.usedFrameSpace + ENTRY_HEIGHT
+			end
+			windowing.scrollingFrameHeight = windowing.scrollingFrameHeight + ENTRY_HEIGHT
+		end
+	end
+end
+
 function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 	assert(self.scrollingRef.current, "ScrollingFrame not initialized yet")
 
@@ -128,18 +196,18 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 	if found then
 		local showGraph =  expandIndex == name
 		local frameHeight = showGraph and ENTRY_HEIGHT + GRAPH_HEIGHT or ENTRY_HEIGHT
+		windowing.layoutOrder = windowing.layoutOrder + 1
 
 		if windowing.scrollingFrameHeight + frameHeight >= canvasPos.Y then
 			if windowing.usedFrameSpace < absScrollSize.Y then
-				windowing.layoutOrder = windowing.layoutOrder + 1
-
 				elements[name] = Roact.createElement(MemoryViewEntry, {
 					size = UDim2.new(1, 0, 0, frameHeight),
 					depth = depth,
 					entry = entry,
+					name = entry.name,
 					showGraph = showGraph,
 
-					onButtonPress = self.getOnButtonPress(name),
+					onButtonPress = self.getOnButtonPress(name, windowing.layoutOrder),
 					formatValueStr = formatValueStr,
 					getX = getX,
 					getY = getY,
@@ -147,6 +215,7 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 					layoutOrder = windowing.layoutOrder,
 				})
 			end
+
 			if windowing.paddingHeight < 0 then
 				windowing.paddingHeight = windowing.scrollingFrameHeight
 			else
@@ -154,6 +223,11 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 			end
 		end
 		windowing.scrollingFrameHeight = windowing.scrollingFrameHeight + frameHeight
+
+		-- callback is set in ClientMemoryData
+		if showGraph then
+			self:appendAdditionTabInformation(elements, entry, depth + 1, windowing)
+		end
 	end
 
 	local sortedChildren = entry.dataStats.sortedChildren

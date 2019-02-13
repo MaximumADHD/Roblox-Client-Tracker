@@ -3,13 +3,6 @@
 ]]
 
 local StudioService = game:GetService("StudioService")
-local IMAGE_TYPES = {"jpg", "gif", "png", "tga", "bmp"}
-local DIALOG_PROPS = {
-	Size = Vector2.new(343, 145),
-	Title = "No Image Loaded",
-	Header = "Please select a compatible image.",
-	Buttons = {"OK"},
-}
 
 --multipart/form-data for uploading images to Roblox endpoints
 --Moderation occurs on the web
@@ -24,24 +17,42 @@ local FORM_DATA =
 local Plugin = script.Parent.Parent.Parent
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
+local Constants = require(Plugin.Src.Util.Constants)
+local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
 local LocalAssetUtils = {}
 
+local function showImageFailedDialog(page, localized)
+	local DIALOG_PROPS = {
+		Size = Vector2.new(343, 145),
+		Title = localized.ImageDialog.Header,
+		Header = localized.ImageDialog.Body,
+		Buttons = localized.ImageDialog.Buttons,
+	}
+	showDialog(page, SimpleDialog, DIALOG_PROPS):await()
+end
+
 function LocalAssetUtils.PromptForGameIcon(page)
-	local icon = StudioService:PromptImportLocalAsset("Game Icon", IMAGE_TYPES)
+	local localized = getLocalizedContent(page)
+	local icon = StudioService:PromptImportLocalAsset(
+		localized.AddPrompts.GameIcon, Constants.IMAGE_TYPES)
+
 	if icon then
 		return icon
 	else
-		showDialog(page, SimpleDialog, DIALOG_PROPS):await()
+		showImageFailedDialog(page, localized)
 	end
 end
 
 function LocalAssetUtils.PromptForThumbnails(page)
-	local thumbnails = StudioService:PromptImportLocalAssets("Add Thumbnails", IMAGE_TYPES)
+	local localized = getLocalizedContent(page)
+	local thumbnails = StudioService:PromptImportLocalAssets(
+		localized.AddPrompts.Thumbnail, Constants.IMAGE_TYPES)
+
 	if thumbnails and #thumbnails > 0 then
 		return thumbnails
 	else
-		showDialog(page, SimpleDialog, DIALOG_PROPS):await()
+		showImageFailedDialog(page, localized)
 	end
 end
 

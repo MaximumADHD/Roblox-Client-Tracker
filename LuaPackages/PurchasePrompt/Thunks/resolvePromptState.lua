@@ -56,7 +56,9 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 				return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 			else
 				local hasBuildersClub = accountInfo.MembershipType > 0
-				return selectRobuxProduct(platform, price, hasBuildersClub)
+				local isPremium = accountInfo.IsPremiumUser
+
+				return selectRobuxProduct(platform, price, hasBuildersClub or isPremium)
 					:andThen(function(product)
 						-- We found a valid upsell product for the current platform
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))

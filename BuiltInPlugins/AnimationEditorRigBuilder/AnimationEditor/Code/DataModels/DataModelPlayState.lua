@@ -75,7 +75,12 @@ local function loadAnimation(self)
 	local kfs = nil
 	kfs = self.Paths.DataModelClip:createAnimationFromCurrentData(true, true)
 	local animID = kfsp:RegisterKeyframeSequence(kfs)
-	local dummy = self.Paths.DataModelRig:getItem().Item.Parent
+	local dummy = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		dummy = self.Paths.DataModelRig:getModel()
+	else
+		dummy = self.Paths.DataModelRig:getItem().Item.Parent
+	end
 
 	local AnimationBlock = dummy:FindFirstChild("AnimSaves")
 	if AnimationBlock == nil then

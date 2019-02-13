@@ -23,8 +23,6 @@ local SFX = {
 	Splash = 9;
 }
 
-local useUpdatedLocalSoundFlag = UserSettings():IsUserFeatureEnabled("UserFixCharacterSoundIssues")
-
 local Humanoid = nil
 local Head = nil
 --SFX ID to Sound object
@@ -35,36 +33,33 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AddCharacterLoadedEvent = nil
 local RemoveCharacterEvent = nil
 local soundEventFolder = ReplicatedStorage:FindFirstChild(soundEventFolderName)
-local useSoundDispatcher = UserSettings():IsUserFeatureEnabled("UserUseSoundDispatcher")
 
-if useSoundDispatcher then
-	if not soundEventFolder then
-		soundEventFolder = Instance.new("Folder", ReplicatedStorage)
-		soundEventFolder.Name = soundEventFolderName
-		soundEventFolder.Archivable = false
-	end
-	
-	-- Load the RemoveCharacterEvent
-	RemoveCharacterEvent = soundEventFolder:FindFirstChild("RemoveCharacterEvent")
-	if RemoveCharacterEvent == nil then
-		RemoveCharacterEvent = Instance.new("RemoteEvent", soundEventFolder)
-		RemoveCharacterEvent.Name = "RemoveCharacterEvent"
-	end
-
-	AddCharacterLoadedEvent = soundEventFolder:FindFirstChild("AddCharacterLoadedEvent")
-	if AddCharacterLoadedEvent == nil then
-		AddCharacterLoadedEvent = Instance.new("RemoteEvent", soundEventFolder)
-		AddCharacterLoadedEvent.Name = "AddCharacterLoadedEvent"
-	end
-
-	-- Notify the server a new character has been loaded
-	AddCharacterLoadedEvent:FireServer()
-
-	-- Notify the sound dispatcher this character has left.
-	game.Players.LocalPlayer.CharacterRemoving:connect(function(character)
-		RemoveCharacterEvent:FireServer(game.Players.LocalPlayer)
-	end)
+if not soundEventFolder then
+    soundEventFolder = Instance.new("Folder", ReplicatedStorage)
+    soundEventFolder.Name = soundEventFolderName
+    soundEventFolder.Archivable = false
 end
+
+-- Load the RemoveCharacterEvent
+RemoveCharacterEvent = soundEventFolder:FindFirstChild("RemoveCharacterEvent")
+if RemoveCharacterEvent == nil then
+    RemoveCharacterEvent = Instance.new("RemoteEvent", soundEventFolder)
+    RemoveCharacterEvent.Name = "RemoveCharacterEvent"
+end
+
+AddCharacterLoadedEvent = soundEventFolder:FindFirstChild("AddCharacterLoadedEvent")
+if AddCharacterLoadedEvent == nil then
+    AddCharacterLoadedEvent = Instance.new("RemoteEvent", soundEventFolder)
+    AddCharacterLoadedEvent.Name = "AddCharacterLoadedEvent"
+end
+
+-- Notify the server a new character has been loaded
+AddCharacterLoadedEvent:FireServer()
+
+-- Notify the sound dispatcher this character has left.
+game.Players.LocalPlayer.CharacterRemoving:connect(function(character)
+    RemoveCharacterEvent:FireServer(game.Players.LocalPlayer)
+end)
 
 do
 	local Figure = script.Parent.Parent
@@ -89,12 +84,7 @@ do
 	Sounds[SFX.Landing] = 		Head:WaitForChild("Landing")
 	Sounds[SFX.Splash] = 		Head:WaitForChild("Splash")
 
-	local DefaultServerSoundEvent = nil
-	if useSoundDispatcher then
-		DefaultServerSoundEvent = soundEventFolder:FindFirstChild("DefaultServerSoundEvent")
-	else
-		DefaultServerSoundEvent = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultServerSoundEvent")
-	end
+	local DefaultServerSoundEvent = soundEventFolder:FindFirstChild("DefaultServerSoundEvent")
 
 	if DefaultServerSoundEvent then
 		DefaultServerSoundEvent.OnClientEvent:connect(function(sound, playing, resetPosition)
@@ -230,7 +220,7 @@ do
 			local sound = Sounds[SFX.Running]
 			stopPlayingLoopedSoundsExcept(sound)
 
-			if(useUpdatedLocalSoundFlag and activeState == Enum.HumanoidStateType.Freefall and fallSpeed > 0.1) then
+			if(activeState == Enum.HumanoidStateType.Freefall and fallSpeed > 0.1) then
 				-- Play a landing sound if the character dropped from a large distance
 				local vol = math.min(1.0, math.max(0.0, (fallSpeed - 50) / 110))
 				local freeFallSound = Sounds[SFX.FreeFalling]
@@ -238,26 +228,16 @@ do
 				Util.Play(freeFallSound)
 				fallSpeed = 0
 			end
-			if useUpdatedLocalSoundFlag then
-				if speed ~= nil and speed > 0.5 then
-					Util.Resume(sound)
-					setSoundInPlayingLoopedSounds(sound)
-				elseif speed ~= nil then
-					stopPlayingLoopedSoundsExcept()
-				end
-			else
-				if Util.HorizontalSpeed(Head) > 0.5 then
-					Util.Resume(sound)
-					setSoundInPlayingLoopedSounds(sound)
-				else
-					stopPlayingLoopedSoundsExcept()
-				end
-			end
+            if speed ~= nil and speed > 0.5 then
+                Util.Resume(sound)
+                setSoundInPlayingLoopedSounds(sound)
+            elseif speed ~= nil then
+                stopPlayingLoopedSoundsExcept()
+            end
 		end;
 
 		[Enum.HumanoidStateType.Swimming] = function(speed)
-		local threshold
-		if useUpdatedLocalSoundFlag then threshold = speed else threshold = Util.VerticalSpeed(Head) end
+		    local threshold = speed
 			if activeState ~= Enum.HumanoidStateType.Swimming and threshold > 0.1 then
 				local splashSound = Sounds[SFX.Splash]
 				splashSound.Volume = Util.Clamp(
@@ -279,22 +259,13 @@ do
 
 		[Enum.HumanoidStateType.Climbing] = function(speed)
 			local sound = Sounds[SFX.Climbing]
-			if useUpdatedLocalSoundFlag then
-				if speed ~= nil and math.abs(speed) > 0.1 then
-					Util.Resume(sound)
-					stopPlayingLoopedSoundsExcept(sound)
-				else
-					Util.Pause(sound)
-					stopPlayingLoopedSoundsExcept(sound)
-				end		
-			else
-				if Util.VerticalSpeed(Head) > 0.1 then
-					Util.Resume(sound)
-					stopPlayingLoopedSoundsExcept(sound)
-				else
-					stopPlayingLoopedSoundsExcept()
-				end
-			end
+            if speed ~= nil and math.abs(speed) > 0.1 then
+                Util.Resume(sound)
+                stopPlayingLoopedSoundsExcept(sound)
+            else
+                Util.Pause(sound)
+                stopPlayingLoopedSoundsExcept(sound)
+            end
 
 			setSoundInPlayingLoopedSounds(sound)
 		end;
@@ -353,7 +324,7 @@ do
 	-- Handle state event fired or OnChange fired
 	function stateUpdated(state, speed)
 		if stateUpdateHandler[state] ~= nil then
-			if useUpdatedLocalSoundFlag and (state == Enum.HumanoidStateType.Running 
+			if (state == Enum.HumanoidStateType.Running
 				or state == Enum.HumanoidStateType.Climbing
 				or state == Enum.HumanoidStateType.Swimming
 				or state == Enum.HumanoidStateType.RunningNoPhysics) then

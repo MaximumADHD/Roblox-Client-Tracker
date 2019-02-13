@@ -269,8 +269,12 @@ if FastFlags:isIKModeFlagOn() then
 		local inIK = self.Paths.DataModelIKManipulator:isPartInIKChain(self.DataItem)
 		local checkPinned = not self.Paths.DataModelRig:getPartPinned(self.DataItem.Name)
 		local checkBodyPartMode = self.Paths.DataModelRig:isATorso(self.DataItem)
-		local changeColorBodyPartMode = self.Paths.DataModelIKManipulator.IsIKModeActive and not checkBodyPartMode or inIK
-		local changeColorFullBodyMode = self.Paths.DataModelIKManipulator.IsIKModeActive and checkPinned or inIK
+		local r15part = true
+		if FastFlags:isEnableRigSwitchingOn() then
+			r15part = self.Paths.UtilityScriptHumanIK:isR15BodyPart(self.DataItem.Item)
+		end
+		local changeColorBodyPartMode = self.Paths.DataModelIKManipulator.IsIKModeActive and (not checkBodyPartMode and r15part) or inIK
+		local changeColorFullBodyMode = self.Paths.DataModelIKManipulator.IsIKModeActive and (checkPinned and r15part) or inIK
 		local changeColor = changeColorBodyPartMode
 		if self.Paths.DataModelIKManipulator:isFullBodyMode() then
 			changeColor = changeColorFullBodyMode

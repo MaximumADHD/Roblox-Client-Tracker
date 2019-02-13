@@ -178,7 +178,7 @@
         <addcheckbox tooltip="Toggles move and resize tools snapping to grid" name="disableDragGridAction" text="Move" checked="true"/>
         <addseparator visible="false"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="The grid that rotate tools will snap to" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox type="spinbox" keyboardTracking="true" tooltip="The grid move and resize tools will snap to" name="setDragGridIncrementAction" decimals="2" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix=" studs"/>
+        <addspinbox type="spinbox" keyboardTracking="true" tooltip="The grid move and resize tools will snap to" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix=" studs"/>
       </Group>
       <Group name="UI" controlsCentering="true">
         <addaction name="RobloxUIEditor" instancename="UIEditor" style="textundericon" text="UI Editor" tooltip="UI Editor v1.0" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32" />

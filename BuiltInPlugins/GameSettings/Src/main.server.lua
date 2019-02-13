@@ -8,11 +8,15 @@ local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnaly
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
+local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
+local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
+local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 
 local RunService = game:GetService("RunService")
+local LocalizationService = game:GetService("LocalizationService")
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -28,6 +32,8 @@ local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWr
 local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local Theme = require(Plugin.Src.Util.Theme)
 local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
+local Localization = require(Plugin.Src.Localization.Localization)
+local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
@@ -73,6 +79,34 @@ if FFlagStudioLocalizationGameSettings then
 	table.insert(settingsPages, "Localization")
 end
 
+local localization
+local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferenceTable
+if FFlagGameSettingsWidgetLocalized then
+	if FFlagDebugGameSettingsLocalizationKeysOnly then
+		localization = Localization.newDummyLocalization()
+	else
+		local localeIdToUse = "RobloxLocaleId"
+		localization = Localization.new({
+			localizationTable = localizationTable,
+			getLocale = function()
+				if #OverrideLocaleId > 0 then
+					return OverrideLocaleId
+				else
+					return LocalizationService[localeIdToUse]
+				end
+			end,
+			localeChanged = LocalizationService:GetPropertyChangedSignal(localeIdToUse)
+		})
+	end
+else
+	localization = Localization.new({
+		localizationTable = localizationTable,
+		getLocale = function()
+			return "en-us"
+		end,
+	})
+end
+
 -- Make sure that the main window elements cannot be interacted with
 -- when a second dialog is open over the Game Settings widget
 local function setMainWidgetInteractable(interactable)
@@ -102,18 +136,22 @@ local function showDialog(type, props)
 				Roact.createElement(MouseProvider, {
 					mouse = plugin:GetMouse()
 				}, {
-					Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
-						OnResult = function(result)
-							Roact.unmount(dialogHandle)
-							dialog:Destroy()
-							setMainWidgetInteractable(true)
-							if result then
-								resolve()
-							else
-								reject()
+					Roact.createElement(LocalizationProvider, {
+						localization = localization
+					}, {
+						Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
+							OnResult = function(result)
+								Roact.unmount(dialogHandle)
+								dialog:Destroy()
+								setMainWidgetInteractable(true)
+								if result then
+									resolve()
+								else
+									reject()
+								end
 							end
-						end
-					})),
+						})),
+					}),
 				}),
 			})
 			dialog:GetPropertyChangedSignal("Enabled"):connect(function()
@@ -151,9 +189,9 @@ local function closeGameSettings(userPressedSave)
 
 				local dialogProps = {
 					Size = Vector2.new(343, 145),
-					Title = "Discard Changes",
-					Header = "Would you like to discard all changes?",
-					Buttons = {"No", "Yes"},
+					Title = localization.values.CancelDialog.Header,
+					Header = localization.values.CancelDialog.Body,
+					Buttons = localization.values.CancelDialog.Buttons,
 				}
 				local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
 
@@ -188,7 +226,7 @@ local function closeGameSettings(userPressedSave)
 end
 
 local function makePluginGui()
-	pluginGui = plugin:CreateQWidgetPluginGui("Game Settings", {
+	pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
 		Size = Vector2.new(960, 600),
 		MinSize = Vector2.new(960, 600),
 		Resizable = true,
@@ -237,7 +275,8 @@ local function openGameSettings()
 		store = settingsStore,
 		showDialog = showDialog,
 		theme = FFlagStudioLuaGameSettingsDialog2 and Theme.new() or Theme.DEPRECATED_constantColors(),
-		mouse = plugin:GetMouse()
+		mouse = plugin:GetMouse(),
+		localization = localization,
 	}, {
 		mainView = Roact.createElement(MainView, {
 			MenuEntries = menuEntries,
@@ -254,19 +293,19 @@ local function openGameSettings()
 	pluginGui.Enabled = true
 
 	if FFlagGameSettingsAnalyticsEnabled then
-		Analytics.onOpenEvent()
+		Analytics.onOpenEvent(plugin:GetStudioUserId())
 		openedTimestamp = tick()
 	end
 end
 
 --Binds a toolbar button to the Game Settings window
 local function main()
-	plugin.Name = "Game Settings"
+	plugin.Name = localization.values.Plugin.Name
 
 	local toolbar = plugin:CreateToolbar("gameSettingsToolbar")
 	local settingsButton = toolbar:CreateButton(
 		"gameSettingsButton",
-		"Update settings related to current game",
+		localization.values.Plugin.Description,
 		"rbxasset://textures/GameSettings/ToolbarIcon.png"
 	)
 

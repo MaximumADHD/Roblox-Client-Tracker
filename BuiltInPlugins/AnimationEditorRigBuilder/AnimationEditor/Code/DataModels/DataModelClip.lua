@@ -290,7 +290,13 @@ function Clip:createAnimationFromCurrentData(forExport, cutoffAtCurrentLength)
 
 			-- go through part heirarach
 			local shouldExport = forExport == nil and true or forExport
-			self:createPosesFromKeyframe(keyframe, kfd, self.Paths.DataModelRig:getItem(), shouldExport)
+			if FastFlags:isEnableRigSwitchingOn() then
+				for _, rootItem in pairs(self.Paths.DataModelRig:getItems()) do
+					self:createPosesFromKeyframe(keyframe, kfd, rootItem, shouldExport)
+				end
+			else
+				self:createPosesFromKeyframe(keyframe, kfd, self.Paths.DataModelRig:getItem(), shouldExport)
+			end
 			if FastFlags:isAnimationEventsOn() then
 				self:createMarkersFromKeyframe(keyframe, kfd)
 			end
@@ -306,7 +312,13 @@ function Clip:createAnimationFromCurrentData(forExport, cutoffAtCurrentLength)
 			Parent = kfs,
 		})
 
-		createPoseFromLastKeyframe(self, self.length, kfd, self.Paths.DataModelRig:getItem())
+		if FastFlags:isEnableRigSwitchingOn() then
+			for _, rootItem in pairs(self.Paths.DataModelRig:getItems()) do
+				createPoseFromLastKeyframe(self, self.length, kfd, rootItem)
+			end
+		else
+			createPoseFromLastKeyframe(self, self.length, kfd, self.Paths.DataModelRig:getItem())
+		end
 	end
 	return kfs
 end
@@ -330,7 +342,12 @@ function Clip:loadImportAnim(animId)
 end
 
 function Clip:saveCurrentAnimation(animName)
-	local dummy = self.Paths.DataModelRig:getItem().Item.Parent
+	local dummy = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		dummy = self.Paths.DataModelRig:getModel()
+	else
+		dummy = self.Paths.DataModelRig:getItem().Item.Parent
+	end
 	local AnimationBlock = dummy:FindFirstChild("AnimSaves")
 	if AnimationBlock == nil then
 		AnimationBlock = Instance.new('Model')
@@ -356,7 +373,12 @@ function Clip:autoSave()
 end
 
 function Clip:loadCurrentAnimation(animName)
-	local dummy = self.Paths.DataModelRig:getItem().Item.Parent
+	local dummy = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		dummy = self.Paths.DataModelRig:getModel()
+	else
+		dummy = self.Paths.DataModelRig:getItem().Item.Parent
+	end
 	local AnimationBlock = dummy:FindFirstChild("AnimSaves")
 	if AnimationBlock == nil then
 		return

@@ -7,17 +7,20 @@ return function()
 	local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local Theme = require(Plugin.Src.Util.Theme)
+	local Localization = require(Plugin.Src.Localization.Localization)
 
 	local theme = Theme.newDummyTheme()
 	local store = Rodux.Store.new(function()
 	end)
 	local settingsImpl = SettingsImpl_mock.new()
+	local localization = Localization.newDummyLocalization()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
 			impl = settingsImpl,
 			theme = theme,
 			store = store,
+			localization = localization,
 		})
 
 		expect(element).to.be.ok()
@@ -31,6 +34,7 @@ return function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
 			impl = settingsImpl,
 			theme = theme,
+			localization = localization,
 		})
 
 		expect(function()
@@ -42,6 +46,7 @@ return function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
 			theme = theme,
 			store = store,
+			localization = localization,
 		})
 
 		expect(function()
@@ -52,6 +57,19 @@ return function()
 	it("should expect a 'theme' prop", function()
 		local element = Roact.createElement(ExternalServicesWrapper, {
 			impl = settingsImpl,
+			store = store,
+			localization = localization,
+		})
+
+		expect(function()
+			Roact.mount(element)
+		end).to.throw()
+	end)
+
+	it("should expect a 'localization' prop", function()
+		local element = Roact.createElement(ExternalServicesWrapper, {
+			impl = settingsImpl,
+			store = store,
 			theme = theme,
 		})
 

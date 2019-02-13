@@ -32,6 +32,7 @@ local function TitledFrame(props)
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				Text = props.Title,
+				TextWrapped = true,
 			}),
 
 			Content = Roact.createElement("Frame", {

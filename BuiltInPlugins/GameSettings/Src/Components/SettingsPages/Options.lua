@@ -28,18 +28,18 @@ local function dispatchChanges(setValue)
 end
 
 --Uses props to display current settings values
-local function displayContents(page)
+local function displayContents(page, localized)
 	local props = page.props
 	return {
 		Http = Roact.createElement(RadioButtonSet, {
-			Title = "Allow HTTP Requests",
+			Title = localized.Title.Http,
 			Buttons = {{
 					Id = true,
-					Title = "On",
-					Description = "Allow game server to issue requests to remote servers.",
+					Title = localized.Http.On,
+					Description = localized.Http.OnDescription,
 				}, {
 					Id = false,
-					Title = "Off",
+					Title = localized.Http.Off,
 				},
 			},
 			Enabled = props.HttpEnabled ~= nil,

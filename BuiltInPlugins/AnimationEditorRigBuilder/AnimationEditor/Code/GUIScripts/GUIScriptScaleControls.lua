@@ -136,10 +136,21 @@ local function getStartAndEndTime(self)
 end
 
 local function getTopAndBottomY(self)
-	local topY = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y + self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y
-	local bottomY = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y
+	local topY = 0
+	local bottomY = 0
+	if FastFlags:isFixScalingBarPositionOn() then
+		topY = self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y
+	else
+		topY = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y + self.Paths.GUIScrollingJointTimeline.AbsoluteSize.Y
+		bottomY = self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y
+	end
 	for part, dataItem in pairs(self.Paths.DataModelSession:getSelectedDataItems()) do
-		local y = self.Paths.GUIScriptJointTimeline.JointScripts[part].jointWidget.InfoAndTrack.AbsolutePosition.Y
+		local y = 0
+		if FastFlags:isFixScalingBarPositionOn() then
+			y = self.Paths.GUIScriptJointTimeline.JointScripts[part].jointWidget.InfoAndTrack.AbsolutePosition.Y - self.Paths.GUIScrollingJointTimeline.AbsolutePosition.Y + self.Paths.GUIScrollingJointTimeline.CanvasPosition.Y
+		else
+			y = self.Paths.GUIScriptJointTimeline.JointScripts[part].jointWidget.InfoAndTrack.AbsolutePosition.Y
+		end
 		if y < topY then topY = y end
 		if y > bottomY then bottomY = y end
 	end
@@ -326,6 +337,15 @@ function ScaleControls:init(Paths)
 	self.Connections:add(self.Paths.DataModelKeyframes.ChangedEvent:connect(function()
 		self:resetControls()
 	end))
+
+	if FastFlags:isFixScalingBarPositionOn() then
+		self.LeftHandle.Parent = self.Paths.GUIScrollingJointTimeline
+		self.RightHandle.Parent = self.Paths.GUIScrollingJointTimeline
+		self.HighlightArea.Parent = self.Paths.GUIScrollingJointTimeline
+
+		local size = self.TargetWidget.Size
+		self.TargetWidget.Size = UDim2.new(size.X.Scale, -1 * self.Paths.GUIScrollingJointTimeline.ScrollBarThickness, size.Y.Scale, size.Y.Offset)
+	end
 end
 
 function ScaleControls:initPostGUICreate()
@@ -345,6 +365,13 @@ function ScaleControls:terminate()
 	self.TargetWidget = nil
 	self.LeftTag = nil
 	self.RightTag = nil
+
+	if FastFlags:isFixScalingBarPositionOn() then
+		self.LeftHandle.Parent = self.TargetWidget
+		self.RightHandle.Parent = self.TargetWidget
+		self.HighlightArea.Parent = self.TargetWidget
+	end
+
 	self.LeftHandle = nil
 	self.RightHandle = nil
 	self.HighlightArea = nil

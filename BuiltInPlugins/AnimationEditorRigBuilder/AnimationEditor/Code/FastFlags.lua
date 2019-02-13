@@ -52,6 +52,10 @@ function FastFlags:isDebugStudioRigImporterFlagOn()
 	return isFlagOn("DebugStudioRigImporter")
 end
 
+function FastFlags:isStudioFbxAnimationImportEnabled()
+	return isFlagOn("StudioEnableFbxAnimationImport")
+end
+
 function FastFlags:isUseDevHubHelpLinksOn()
 	return isFlagOn("StudioAnimationEditorUseDevHubHelpLinks2")
 end
@@ -134,6 +138,26 @@ end
 
 function FastFlags:isFixAnimationsWithLongNamesOn()
 	return isFlagOn("StudioAnimationEditorFixAnimationsWithLongNames") and FastFlags:useQWidgetsForPopupsOn()
+end
+
+function FastFlags:isFixScalingBarPositionOn() 
+	return isFlagOn("StudioAnimationEditorFixScalingBarPosition")
+end
+
+function FastFlags:isEnableRigSwitchingOn()
+	return isFlagOn("StudioAnimationEditorEnableRigSwitching")
+end
+
+function FastFlags:isFixEventTooltipsOn()
+	return isFlagOn("StudioAnimationEditorFixEventsTooltips")
+end
+
+function FastFlags:isDoNotRunInPlayModeOn()
+	return isFlagOn("DoNotRunAnimationEditorInPlayMode")
+end
+
+function FastFlags:isFixIKBodyPartModeOn()
+	return isFlagOn("StudioAnimationEditorFixIKBodyPartMode")
 end
 
 return FastFlags

@@ -7,11 +7,13 @@ return function()
 	local Theme = require(Plugin.Src.Util.Theme)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+	local Localization = require(Plugin.Src.Localization.Localization)
 
 	local Options = require(Plugin.Src.Components.SettingsPages.Options)
 
 	local settingsImpl = SettingsImpl_mock.new()
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
 
 	local settingsOptionsTest = {
 		Current = {
@@ -31,6 +33,7 @@ return function()
 			store = settingsStore,
 			impl = settingsImpl,
 			theme = theme,
+			localization = localization,
 		}, {
 			options = Roact.createElement(Options),
 		})

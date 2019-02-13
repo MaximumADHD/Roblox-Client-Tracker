@@ -15,26 +15,17 @@ local DEFAULT_SERVER_SOUND_EVENT_NAME = "DefaultServerSoundEvent"
 local SoundEventFolder = ReplicatedStorage:FindFirstChild(SOUND_EVENT_FOLDER_NAME)
 local DefaultServerSoundEvent = nil
 
-local useSoundDispatcher = UserSettings():IsUserFeatureEnabled("UserUseSoundDispatcher")
-if useSoundDispatcher then
-	if not SoundEventFolder then
-		SoundEventFolder = Instance.new("Folder")
-		SoundEventFolder.Name = SOUND_EVENT_FOLDER_NAME
-		SoundEventFolder.Archivable = false
-		SoundEventFolder.Parent = ReplicatedStorage
-	end
-
-	DefaultServerSoundEvent = SoundEventFolder:FindFirstChild(DEFAULT_SERVER_SOUND_EVENT_NAME)
-else
-	DefaultServerSoundEvent = ReplicatedStorage:FindFirstChild(DEFAULT_SERVER_SOUND_EVENT_NAME)
+if not SoundEventFolder then
+    SoundEventFolder = Instance.new("Folder")
+    SoundEventFolder.Name = SOUND_EVENT_FOLDER_NAME
+    SoundEventFolder.Archivable = false
+    SoundEventFolder.Parent = ReplicatedStorage
 end
 
+DefaultServerSoundEvent = SoundEventFolder:FindFirstChild(DEFAULT_SERVER_SOUND_EVENT_NAME)
+
 if not DefaultServerSoundEvent then
-	if useSoundDispatcher then
-		DefaultServerSoundEvent = Instance.new("RemoteEvent", SoundEventFolder)
-	else
-		DefaultServerSoundEvent = Instance.new("RemoteEvent", ReplicatedStorage)
-	end
+    DefaultServerSoundEvent = Instance.new("RemoteEvent", SoundEventFolder)
 
 	DefaultServerSoundEvent.Name = DEFAULT_SERVER_SOUND_EVENT_NAME
 	DefaultServerSoundEvent.OnServerEvent:Connect(function() end)
@@ -69,11 +60,7 @@ local function CreateNewSound(name, id, looped, pitch, parent)
 			for _, p in pairs(Players:GetPlayers()) do
 				if p ~= player then
 					-- Connect to the dispatcher to check if the player has loaded.
-					if useSoundDispatcher then
-						SoundEventFolder:FindFirstChild("SoundDispatcher"):Fire(p, sound, playing, resetPosition)
-					else
-						DefaultServerSoundEvent:FireClient(p, sound, playing, resetPosition)
-					end
+                    SoundEventFolder:FindFirstChild("SoundDispatcher"):Fire(p, sound, playing, resetPosition)
 				end
 			end
 		end)

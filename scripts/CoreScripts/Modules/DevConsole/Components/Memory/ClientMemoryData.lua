@@ -1,4 +1,5 @@
 local Signal = require(script.Parent.Parent.Parent.Signal)
+local SoundService = game:GetService("SoundService")
 
 local StatsService = game:GetService("Stats")
 local StatsUtils = require(script.Parent.Parent.Parent.Parent.Stats.StatsUtils)
@@ -8,6 +9,8 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local HEADER_NAMES = Constants.MemoryFormatting.ChartHeaderNames
 
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
+local FFlagEnableGranularMemoryTabStats = settings():GetFFlag("EnableGranularMemoryTabStats")
+
 local CLIENT_POLLING_INTERVAL = 3 -- seconds
 
 local SORT_COMPARATOR = {
@@ -47,6 +50,36 @@ local function GetMemoryPerformanceStatsItem()
 	return memoryStats
 end
 
+local function getAdditionalMemoryFunc(name)
+	if FFlagEnableGranularMemoryTabStats then
+		if name == "Sounds" then
+			return function()
+				-- GetSoundMemoryData returns a table with the assetId
+				-- as the key and the memory allocated in MB as the value
+				local soundMemData = SoundService:GetSoundMemoryData()
+				local sortedSoundMem = {}
+
+				for i,v in pairs(soundMemData) do
+					table.insert(sortedSoundMem, {
+						name = i,
+						value = v,
+					})
+				end
+
+				table.sort(sortedSoundMem, function(a, b)
+					return a.value > b.value
+				end)
+
+				return sortedSoundMem
+			end
+		elseif name == "Texture" then
+		elseif name == "Mesh" then
+		elseif name == "CSG" then
+		elseif name == "Animation" then
+		end
+		return nil
+	end
+end
 
 function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 	local name = StatsUtils.GetMemoryAnalyzerStatName(statsItem.Name)
@@ -69,6 +102,16 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 			children = #children > 0 and {},
 			sortedChildren = #children > 0 and {},
 		}
+
+		-- Mem Data is aggregated from allocations and deallocations and
+		-- does not know about where the allocations come from. So, that data
+		-- can't be par't of the tree we get from Stats
+		-- We attach a callback for the specific entries that need to
+		-- show addition memory to handle this.
+		local memFunc = getAdditionalMemoryFunc(name)
+		if memFunc then
+			entryList[name]["additionalInfoFunc"] = memFunc
+		end
 
 		local newEntry = {
 			name = name,

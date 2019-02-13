@@ -78,6 +78,50 @@ function WarningsAndPrompts:createNameChangeError(Paths)
 		nil)
 end
 
+function WarningsAndPrompts:createRigError(Paths, partsWithMultipleParents, part0MissingMotors, part1MissingMotors, circularRig)
+	local msg = ""
+
+	if #partsWithMultipleParents > 0 then
+		msg = msg .."The following parts are affected by more than one part via a Motor6D: "
+		for _, motor in pairs(partsWithMultipleParents) do
+			msg = msg ..motor.Name .."; "
+		end
+		msg = msg .."\n\n"
+	end
+
+	if #part0MissingMotors > 0 then
+		msg = msg .."The following Motor6D's do not have Part0 set: "
+		for _, motor in pairs(part0MissingMotors) do
+			msg = msg ..motor.Name .."; "
+		end
+		msg = msg .."\n\n"
+	end
+
+	if #part1MissingMotors > 0 then
+		msg = msg .."The following Motor6D's do not have Part1 set: "
+		for _, motor in pairs(part1MissingMotors) do
+			msg = msg ..motor.Name .."; "
+		end
+		msg = msg .."\n\n"
+	end
+
+	if circularRig then
+		msg = msg .."This rig contains a cycle between the connections of certain parts.\n\n"
+	end
+
+	Paths.GUIScriptAlertMessage:showError(
+		"Rig Error(s) Detected",
+		msg,
+		nil)
+end
+
+function WarningsAndPrompts:createNoMotorsError(Paths)
+	Paths.GUIScriptAlertMessage:showError(
+		"No Motor6D Joints Found",
+		"A model needs to have their parts joined together by Motor6D's in order to properly animate.",
+		nil)
+end
+
 function WarningsAndPrompts:createAttachmentWarning(Paths)
 	Paths.GUIScriptAlertMessage:showWarning(
 		"Failed to find matching attachments",

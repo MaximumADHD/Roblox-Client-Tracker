@@ -42,7 +42,7 @@ end
 local PlayerToGroupDetailsMap = {}
 local FFlagCorescriptIsInGroupServer = settings():GetFFlag("CorescriptIsInGroupServer")
 
-local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat3")
+local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
 
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')

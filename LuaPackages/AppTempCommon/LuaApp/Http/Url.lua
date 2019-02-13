@@ -59,6 +59,8 @@ local _baseWwwUrl = string.format("https://www.%s", _baseDomain)
 local _baseAdsUrl = string.format("https://ads.%s", _baseDomain)
 local _baseFollowingsUrl = string.format("https://followings.%s", _baseDomain)
 local _baseEconomyUrl = string.format("https://economy.%s", _baseDomain)
+local _baseThumbnailsUrl = string.format("https://thumbnails.%s", _baseDomain)
+
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -81,6 +83,7 @@ local Url = {
 	ADS_URL = _baseAdsUrl,
 	FOLLOWINGS_URL = _baseFollowingsUrl,
 	ECONOMY_URL = _baseEconomyUrl,
+	THUMBNAILS_URL = _baseThumbnailsUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
 }

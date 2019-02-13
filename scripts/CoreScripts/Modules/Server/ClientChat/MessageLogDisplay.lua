@@ -17,7 +17,7 @@ local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 
 local FlagFixChatMessageLogPerformance = false do
 	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance")
+		return UserSettings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance2")
 	end)
 	if ok then
 		FlagFixChatMessageLogPerformance = value
@@ -88,7 +88,7 @@ function methods:UpdateMessageFiltered(messageData)
 		local isScrolledDown = self:IsScrolledDown()
 		messageObject.UpdateTextFunction(messageData)
 		if FlagFixChatMessageLogPerformance then
-			self:PositionMessageLabelInWindow(messageObject, isScrolledDown)
+			self:PositionMessageLabelInWindow(messageObject, isScrolledDown, searchIndex)
 		else
 			self:ReorderAllMessages()
 		end
@@ -104,7 +104,7 @@ function methods:AddMessage(messageData)
 	end
 
 	table.insert(self.MessageObjectLog, messageObject)
-	self:PositionMessageLabelInWindow(messageObject)
+	self:PositionMessageLabelInWindow(messageObject, nil, #self.MessageObjectLog)
 end
 
 function methods:AddMessageAtIndex(messageData, index)
@@ -156,7 +156,7 @@ function methods:IsScrolledDown()
 	end
 end
 
-function methods:PositionMessageLabelInWindow(messageObject, isScrolledDown)
+function methods:PositionMessageLabelInWindow(messageObject, isScrolledDown, index)
 	self:WaitUntilParentedCorrectly()
 
 	local baseFrame = messageObject.BaseFrame
@@ -165,7 +165,7 @@ function methods:PositionMessageLabelInWindow(messageObject, isScrolledDown)
 		if isScrolledDown == nil then
 			isScrolledDown = self:IsScrolledDown()
 		end
-		baseFrame.LayoutOrder = messageObject.ID
+		baseFrame.LayoutOrder = index
 	else
 		baseFrame.Parent = self.Scroller
 		baseFrame.Position = UDim2.new(0, 0, 0, self.Scroller.CanvasSize.Y.Offset)
@@ -227,7 +227,7 @@ function methods:ReorderAllMessages()
 
 	self.Scroller.CanvasSize = UDim2.new(0, 0, 0, 0)
 	for i, messageObject in pairs(self.MessageObjectLog) do
-		self:PositionMessageLabelInWindow(messageObject)
+		self:PositionMessageLabelInWindow(messageObject, nil, i)
 	end
 
 	if not wasScrolledDown then

@@ -12,6 +12,7 @@
 ]]
 
 local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
+local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -112,13 +113,14 @@ local function dispatchChanges(setValue, dispatch)
 end
 
 --Uses props to display current settings values
-local function displayContents(page)
+local function displayContents(page, localized)
 	local props = page.props
 
 	if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 		return {
 			Morpher = Roact.createElement(MorpherRootPanel, {
 				ThemeData = getTheme(page),
+				LocalizedContent = FFlagGameSettingsWidgetLocalized and localized.Morpher or nil,
 				IsEnabled = isPlaceDataAvailable(props),
 
 				IsGameShutdownRequired = (function()
@@ -150,11 +152,10 @@ local function displayContents(page)
 					else
 						if props.CurrentAvatarType ~= "PlayerChoice" then
 							local dialogProps = {
-								Title = "Warning",
-								Header = "Would you like to proceed?",
-								Description = "Changing the game's Avatar Type to this setting "
-									.. "will shut down any running games.",
-								Buttons = {"No", "Yes"},
+								Title = localized.AvatarDialog.Header,
+								Header = localized.AvatarDialog.Prompt,
+								Description = localized.AvatarDialog.Body,
+								Buttons = localized.AvatarDialog.Buttons,
 							}
 							if not showDialog(page, WarningDialog, dialogProps):await() then
 								return

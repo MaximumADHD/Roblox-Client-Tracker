@@ -34,8 +34,8 @@ return function(props)
 
 	local dataStats = entry.dataStats
 
-	local name = entry.name
-	local value = dataStats.dataSet:back().data
+	local name = props.name
+	local value = props.value or dataStats.dataSet:back().data
 
 	return Roact.createElement("Frame", {
 		Size = size,
@@ -101,5 +101,3 @@ return function(props)
 		}),
 	})
 end
-
---return MemoryViewEntry

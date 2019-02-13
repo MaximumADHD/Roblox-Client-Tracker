@@ -23,7 +23,12 @@ function Export:execute(Paths)
 	end
 
 	local animID = kfsp:RegisterKeyframeSequence(kfs)
-	local dummy = Paths.DataModelRig:getItem().Item.Parent
+	local dummy = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		dummy = Paths.DataModelRig:getModel()
+	else
+		dummy = Paths.DataModelRig:getItem().Item.Parent
+	end
 
 	local AnimationBlock = dummy:FindFirstChild("AnimSaves")
 	if AnimationBlock == nil then

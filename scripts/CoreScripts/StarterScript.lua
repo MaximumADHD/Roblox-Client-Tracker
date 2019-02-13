@@ -11,8 +11,9 @@ local VRService = game:GetService("VRService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
-local FFlagUseRoactPurchasePrompt370 = settings():GetFFlag("UseRoactPurchasePrompt370")
+local FFlagUseRoactPurchasePrompt372 = settings():GetFFlag("UseRoactPurchasePrompt372")
 local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -53,7 +54,7 @@ else
 end
 
 -- Purchase Prompt Script
-if FFlagUseRoactPurchasePrompt370 then
+if FFlagUseRoactPurchasePrompt372 then
 	if FFlagIWillNotYield then
 		coroutine.wrap(safeRequire)(CorePackages.PurchasePrompt.Main)
 	else
@@ -79,6 +80,10 @@ end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
+
+if FFlagLuaInviteModalEnabled then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
+end
 
 if UserInputService.TouchEnabled then -- touch devices don't use same control frame
 	-- only used for touch device button generation

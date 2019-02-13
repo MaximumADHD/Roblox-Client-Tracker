@@ -31,37 +31,20 @@ local MAX_DESCRIPTION_LENGTH = 1000
 local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
 local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
+local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
 
 local nameErrors = {
-	Moderated = "The name didn't go through our moderation. Please revise it and try again.",
-	Empty = "Name cannot be empty.",
+	Moderated = "ErrorNameModerated",
+	Empty = "ErrorNameEmpty",
 }
 
 local descriptionErrors = {
-	Moderated = "The description didn't go through our moderation. Please revise it and try again.",
+	Moderated = "ErrorDescModerated",
 }
 
 local imageErrors = {
-	UploadingTooQuickly = "You're uploading too much, please wait and try again later.",
-	ImageNotRecognized = "File uploaded does not match known image format. Try converting to png.",
-}
-
-local genreEntries = {
-	{Id = "All", Title = "All"},
-	{Id = "Adventure", Title = "Adventure"},
-	{Id = "Tutorial", Title = "Building"},
-	{Id = "Funny", Title = "Comedy"},
-	{Id = "Ninja", Title = "Fighting"},
-	{Id = "FPS", Title = "FPS"},
-	{Id = "Scary", Title = "Horror"},
-	{Id = "Fantasy", Title = "Medieval"},
-	{Id = "War", Title = "Military"},
-	{Id = "Pirate", Title = "Naval"},
-	{Id = "RPG", Title = "RPG"},
-	{Id = "SciFi", Title = "Sci-Fi"},
-	{Id = "Sports", Title = "Sports"},
-	{Id = "TownAndCity", Title = "Town and City"},
-	{Id = "WildWest", Title = "Western"},
+	UploadingTooQuickly = "ErrorImageLimit",
+	ImageNotRecognized = "ErrorImageNotRecognized",
 }
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -89,6 +72,7 @@ local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
 local LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
@@ -126,7 +110,6 @@ local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
 		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
 		ThumbnailsChanged = setValue("thumbnails"),
-		ThumbnailOrderChanged = setValue("thumbnailOrder"),
 		GenreChanged = setValue("genre"),
 
 		NameChanged = function(text)
@@ -181,26 +164,43 @@ local function dispatchChanges(setValue, dispatch)
 			end
 			dispatch(AddChange("thumbnails", thumbnails))
 			dispatch(AddChange("thumbnailOrder", order))
+
+			if FFlagGameSettingsEnforceMaxThumbnails then
+				if #order > Constants.MAX_THUMBNAILS then
+					dispatch(AddErrors({thumbnails = "TooMany"}))
+				end
+			end
 		end
+	end
+
+	if FFlagGameSettingsEnforceMaxThumbnails then
+		dispatchFuncs.ThumbnailOrderChanged = function(order)
+			dispatch(AddChange("thumbnailOrder", order))
+			if #order > Constants.MAX_THUMBNAILS then
+				dispatch(AddErrors({thumbnails = "TooMany"}))
+			end
+		end
+	else
+		dispatchFuncs.ThumbnailOrderChanged = setValue("thumbnailOrder")
 	end
 
 	return dispatchFuncs
 end
 
 --Uses props to display current settings values
-local function displayContents(page)
+local function displayContents(page, localized)
 	local props = page.props
 	local devices = props.Devices
 
 	return {
 		Name = Roact.createElement(TitledFrame, {
-			Title = "Name",
+			Title = localized.Title.Name,
 			MaxHeight = 60,
 			LayoutOrder = 1,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = props.Name ~= nil,
-				ErrorMessage = nameErrors[props.NameError],
+				ErrorMessage = localized.Errors[nameErrors[props.NameError]],
 				MaxLength = MAX_NAME_LENGTH,
 				Text = props.Name or "",
 
@@ -209,7 +209,7 @@ local function displayContents(page)
 		}),
 
 		Description = Roact.createElement(TitledFrame, {
-			Title = "Description",
+			Title = localized.Title.Description,
 			MaxHeight = 150,
 			LayoutOrder = 2,
 		}, {
@@ -218,7 +218,7 @@ local function displayContents(page)
 				Multiline = true,
 
 				Active = props.Description ~= nil,
-				ErrorMessage = descriptionErrors[props.DescriptionError],
+				ErrorMessage = localized.Errors[descriptionErrors[props.DescriptionError]],
 				MaxLength = MAX_DESCRIPTION_LENGTH,
 				Text = props.Description or "",
 
@@ -234,21 +234,22 @@ local function displayContents(page)
 		}),
 
 		Playability = Roact.createElement(RadioButtonSet, {
-			Title = "Playability",
-			Description = "Who can play this game?",
+			Title = localized.Title.Playability,
+			Description = localized.Playability.Header,
 			LayoutOrder = 4,
 			Buttons = {{
 					Id = true,
-					Title = "Public",
-					Description = "Anyone on Roblox"
+					Title = localized.Playability.Public.Title,
+					Description = localized.Playability.Public.Description,
 				}, {
 					Id = "Friends",
-					Title = props.Group and "Group Members" or "Friends",
-					Description = props.Group and ("Members of " .. props.Group) or "Friends on Roblox"
+					Title = props.Group and localized.Playability.Group.Title or localized.Playability.Friends.Title,
+					Description = props.Group and localized.Playability.Group.Description({group = props.Group})
+						or localized.Playability.Friends.Description,
 				}, {
 					Id = false,
-					Title = "Private",
-					Description = "Only developers of this game"
+					Title = localized.Playability.Private.Title,
+					Description = localized.Playability.Private.Description,
 				},
 			},
 			Enabled = props.IsActive ~= nil,
@@ -266,10 +267,10 @@ local function displayContents(page)
 					else
 						if button.Id == false then
 							local dialogProps = {
-								Title = "Make Private",
-								Header = "Would you like to make it private?",
-								Description = "Making a game private will shut down any running games.",
-								Buttons = {"No", "Yes"},
+								Title = localized.PrivateDialog.Header,
+								Header = localized.PrivateDialog.Prompt,
+								Description = localized.PrivateDialog.Body,
+								Buttons = localized.PrivateDialog.Buttons,
 							}
 							if not showDialog(page, WarningDialog, dialogProps):await() then
 								return
@@ -300,7 +301,8 @@ local function displayContents(page)
 					BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
 				end
 			end,
-			ErrorMessage = FFlagGameSettingsImageUploadingEnabled and imageErrors[props.GameIconError],
+			ErrorMessage = FFlagGameSettingsImageUploadingEnabled
+				and localized.Errors[imageErrors[props.GameIconError]],
 		}),
 
 		Separator3 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
@@ -322,7 +324,8 @@ local function displayContents(page)
 					BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
 				end
 			end,
-			ErrorMessage = FFlagGameSettingsImageUploadingEnabled and imageErrors[props.ThumbnailsError],
+			ErrorMessage = FFlagGameSettingsImageUploadingEnabled
+				and localized.Errors[imageErrors[props.ThumbnailsError]],
 			ThumbnailsChanged = props.ThumbnailsChanged,
 			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
 		}),
@@ -332,12 +335,12 @@ local function displayContents(page)
 		}),
 
 		Genre = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(TitledFrame, {
-			Title = "Genre",
+			Title = localized.Title.Genre,
 			MaxHeight = 38,
 			LayoutOrder = 10,
 		}, {
 			Selector = Roact.createElement(Dropdown, {
-				Entries = genreEntries,
+				Entries = localized.Genres,
 				Enabled = props.Genre ~= nil,
 				Current = props.Genre,
 				CurrentChanged = props.GenreChanged,
@@ -352,40 +355,37 @@ local function displayContents(page)
 		}),
 
 		Devices = Roact.createElement(CheckBoxSet, {
-			Title = "Playable Devices",
+			Title = localized.Title.Devices,
 			LayoutOrder = 12,
 			Boxes = {{
 					Id = "Computer",
+					Title = localized.Devices.Computer,
 					Selected = devices and devices.Computer or false
 				}, {
 					Id = "Phone",
+					Title = localized.Devices.Phone,
 					Selected = devices and devices.Phone or false
 				}, {
 					Id = "Tablet",
+					Title = localized.Devices.Tablet,
 					Selected = devices and devices.Tablet or false
 				}, {
 					Id = "Console",
+					Title = localized.Devices.Console,
 					Selected = devices and devices.Console or false
 				},
 			},
 			Enabled = devices ~= nil,
-			ErrorMessage = (props.DevicesError and "You must select at least one playable device.") or nil,
+			ErrorMessage = (props.DevicesError and localized.Errors.ErrorNoDevices) or nil,
 			--Functionality
 			EntryClicked = function(box)
 				if box.Id == "Console" and not box.Selected then
 					local dialogProps = {
 						Size = Vector2.new(460, 308),
-						Title = "Content Agreement",
-						Header = "Do you agree that your game is controller compatible "
-							.. "and contains NONE of the following?",
-						Entries = {
-							"Blood or Gore",
-							"Intense Violence",
-							"Strong Language (Swearing)",
-							"Robux Gambling",
-							"Drug Reference or Use",
-						},
-						Buttons = {"Disagree", "Agree"},
+						Title = localized.ContentDialog.Header,
+						Header = localized.ContentDialog.Body,
+						Entries = localized.ContentDialog.Entries,
+						Buttons = localized.ContentDialog.Buttons,
 					}
 					if not showDialog(page, ListDialog, dialogProps):await() then
 						return

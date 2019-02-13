@@ -4,16 +4,23 @@ return function()
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+	local Localization = require(Plugin.Src.Localization.Localization)
+	local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 	local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
 
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
 
 	local function createTestGameIconWidget(props)
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
-			iconWidget = Roact.createElement(GameIconWidget, props),
+			Roact.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				iconWidget = Roact.createElement(GameIconWidget, props),
+			}),
 		})
 	end
 
@@ -31,8 +38,9 @@ return function()
 		expect(widget.Title).to.be.ok()
 		expect(widget.Content).to.be.ok()
 		expect(widget.Content.Notes).to.be.ok()
-		expect(widget.Content.Notes["1"]).to.be.ok()
-		expect(widget.Content.Notes["2"]).to.be.ok()
+		expect(widget.Content.Notes.Layout).to.be.ok()
+		expect(widget.Content.Notes.FileHint).to.be.ok()
+		expect(widget.Content.Notes.ModerationHint).to.be.ok()
 		expect(widget.Content.Icon).to.be.ok()
 		expect(widget.Content.NewIcon).to.be.ok()
 		expect(widget.Content.NewNote).to.be.ok()

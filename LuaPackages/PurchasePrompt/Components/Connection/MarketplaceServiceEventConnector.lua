@@ -3,6 +3,7 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
@@ -46,15 +47,21 @@ end
 MarketplaceServiceEventConnector = connectToStore(nil,
 function(dispatch)
 	local function onPurchaseRequest(player, assetId, equipIfPurchased, currencyType)
-		dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased))
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased))
+		end
 	end
 
 	local function onProductPurchaseRequest(player, productId, equipIfPurchased, currencyType)
-		dispatch(initiatePurchase(productId, Enum.InfoType.Product, equipIfPurchased))
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(productId, Enum.InfoType.Product, equipIfPurchased))
+		end
 	end
 
 	local function onPurchaseGamePassRequest(player, gamePassId)
-		dispatch(initiatePurchase(gamePassId, Enum.InfoType.GamePass, false))
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(gamePassId, Enum.InfoType.GamePass, false))
+		end
 	end
 
 	-- Specific to purchasing dev products
@@ -62,7 +69,13 @@ function(dispatch)
 		if not serverResponseTable then
 			dispatch(ErrorOccurred(PurchaseError.UnknownFailure))
 		else
-			dispatch(completePurchase())
+			local playerId = serverResponseTable["playerId"]
+			if playerId ~= nil then
+				playerId = tonumber(serverResponseTable["playerId"])
+			end
+			if playerId == Players.LocalPlayer.UserId then
+				dispatch(completePurchase())
+			end
 		end
 	end
 

@@ -15,6 +15,8 @@
 	Allows for local logging to the console by modifying the constant value below.
 ]]
 
+local FFlagGameSettingsStandardizedOpenEvent = settings():GetFFlag("GameSettingsStandardizedOpenEvent")
+
 local LOG_ANALYTICS_EVENTS = false
 
 local AnalyticsService = game:GetService("AnalyticsService")
@@ -66,14 +68,14 @@ function Analytics.reportStats(counterName, num)
 	AnalyticsService:ReportStats(counterName, num)
 end
 
-function Analytics.sendEventImmediately(eventName, additionalArgs)
-	Analytics.printTable("sendEventImmediately", eventName, HttpService:JSONEncode(additionalArgs))
+function Analytics.sendEventDeferred(eventName, additionalArgs)
+	Analytics.printTable("sendEventDeferred", eventName, HttpService:JSONEncode(additionalArgs))
 	local args = Cryo.Dictionary.join(additionalArgs, {
 		uid = getStudioId(),
 		sid = getStudioSession(),
 		pid = game.PlaceId,
 	})
-	AnalyticsService:SendEventImmediately("studio", "gameSettings", eventName, args)
+	AnalyticsService:SendEventDeferred("studio", "gameSettings", eventName, args)
 end
 
 -- Analytics events
@@ -103,12 +105,20 @@ function Analytics.onLoadError(errorName)
 	Analytics.reportCounter(string.format("GameSettings_%sLoadError", errorName))
 end
 
-function Analytics.onOpenEvent()
-	Analytics.sendEventImmediately("gameSettingsOpen", {})
+function Analytics.onOpenEvent(userId)
+	Analytics.sendEventDeferred("gameSettingsOpen", {})
+
+	if FFlagGameSettingsStandardizedOpenEvent then
+		Analytics.sendEventDeferred("toolOpened", {
+			method = 1, --studio tab
+			uid = userId,
+			gameId = game.GameId,
+		})
+	end
 end
 
 function Analytics.onCloseEvent(buttonSelected, timeOpen)
-	Analytics.sendEventImmediately("gameSettingsClose", {
+	Analytics.sendEventDeferred("gameSettingsClose", {
 		["buttonSelected"] = buttonSelected,
 		["timeOpen"] = string.format("%f", timeOpen),
 	})
@@ -116,7 +126,7 @@ end
 
 function Analytics.onTabChangeEvent(oldTab, newTab)
 	if oldTab and newTab then
-		Analytics.sendEventImmediately("gameSettingsTabChange", {
+		Analytics.sendEventDeferred("gameSettingsTabChange", {
 			["oldTab"] = oldTab,
 			["newTab"] = newTab,
 		})

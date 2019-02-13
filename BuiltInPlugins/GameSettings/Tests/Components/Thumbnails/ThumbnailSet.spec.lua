@@ -4,18 +4,25 @@ return function()
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+	local Localization = require(Plugin.Src.Localization.Localization)
+	local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 	local ThumbnailSet = require(Plugin.Src.Components.Thumbnails.ThumbnailSet)
 
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
 
 	local function createTestThumbnailSet(enabled, thumbnails)
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
-			thumbnailSet = Roact.createElement(ThumbnailSet, {
-				Enabled = enabled,
-				Thumbnails = thumbnails,
+			Roact.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				thumbnailSet = Roact.createElement(ThumbnailSet, {
+					Enabled = enabled,
+					Thumbnails = thumbnails,
+				}),
 			}),
 		})
 	end

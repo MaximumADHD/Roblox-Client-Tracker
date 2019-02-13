@@ -16,6 +16,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local GameIcon = Roact.PureComponent:extend("GameIcon")
@@ -34,83 +35,85 @@ function GameIcon:mouseHoverChanged(hovering)
 end
 
 function GameIcon:render()
-	return withTheme(function(theme)
-		local image = self.props.Image
-		local review = self.props.Review or false
-		local preview = self.props.Preview or false
-		local hover = self.state.Hovering
+	return withLocalization(function(localized)
+		return withTheme(function(theme)
+			local image = self.props.Image
+			local review = self.props.Review or false
+			local preview = self.props.Preview or false
+			local hover = self.state.Hovering
 
-		return Roact.createElement("ImageLabel", {
-			Visible = self.props.Visible,
-
-			BackgroundTransparency = 1,
-			Image = image,
-			ScaleType = Enum.ScaleType.Crop,
-			Size = UDim2.new(0, 150, 0, 150),
-			ClipsDescendants = true,
-			ZIndex = 2,
-
-			[Roact.Ref] = self.buttonRef,
-
-			[Roact.Event.MouseEnter] = function()
-				self:mouseHoverChanged(true)
-			end,
-
-			[Roact.Event.MouseLeave] = function()
-				self:mouseHoverChanged(false)
-			end,
-		}, {
-			Fallback = Roact.createElement("ImageLabel", {
+			return Roact.createElement("ImageLabel", {
 				Visible = self.props.Visible,
-				BackgroundTransparency = 1,
-				Image = FALLBACK_IMAGE,
-				Size = UDim2.new(1, 0, 1, 0),
-			}),
-
-			InfoText = Roact.createElement("TextLabel", {
-				Visible = review or preview,
-				BackgroundTransparency = 0.3,
-				BorderSizePixel = 0,
-				BackgroundColor3 = Constants.BLACK,
-				Size = UDim2.new(1, 0, 0, 30),
-				Position = UDim2.new(0, 0, 1, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				ZIndex = 3,
-
-				Text = review and "In Review" or "Preview",
-				TextColor3 = Constants.WHITE,
-				TextSize = 22,
-				Font = Enum.Font.SourceSans,
-			}),
-
-			Change = Roact.createElement("ImageButton", {
-				Visible = hover and not review,
 
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1.5, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				Image = Constants.GRADIENT_IMAGE,
-				ImageRectSize = Constants.GRADIENT_RECT_SIZE,
-				ImageColor3 = Constants.BLACK,
-				ZIndex = 4,
+				Image = image,
+				ScaleType = Enum.ScaleType.Crop,
+				Size = UDim2.new(0, 150, 0, 150),
+				ClipsDescendants = true,
+				ZIndex = 2,
 
-				[Roact.Event.Activated] = self.props.OnClick,
+				[Roact.Ref] = self.buttonRef,
+
+				[Roact.Event.MouseEnter] = function()
+					self:mouseHoverChanged(true)
+				end,
+
+				[Roact.Event.MouseLeave] = function()
+					self:mouseHoverChanged(false)
+				end,
 			}, {
-				Text = Roact.createElement("TextLabel", {
+				Fallback = Roact.createElement("ImageLabel", {
+					Visible = self.props.Visible,
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, 30),
-					Position = UDim2.new(0, 0, 1, -15),
-					AnchorPoint = Vector2.new(0, 1),
+					Image = FALLBACK_IMAGE,
+					Size = UDim2.new(1, 0, 1, 0),
+				}),
 
-					Text = "Change",
+				InfoText = Roact.createElement("TextLabel", {
+					Visible = review or preview,
+					BackgroundTransparency = 0.3,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Constants.BLACK,
+					Size = UDim2.new(1, 0, 0, 30),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					ZIndex = 3,
+
+					Text = preview and localized.GameIcon.Preview or localized.GameIcon.Review,
 					TextColor3 = Constants.WHITE,
 					TextSize = 22,
 					Font = Enum.Font.SourceSans,
-					ZIndex = 5,
 				}),
-			}),
-		})
+
+				Change = Roact.createElement("ImageButton", {
+					Visible = hover and not review,
+
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1.5, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					Position = UDim2.new(0, 0, 1, 0),
+					Image = Constants.GRADIENT_IMAGE,
+					ImageRectSize = Constants.GRADIENT_RECT_SIZE,
+					ImageColor3 = Constants.BLACK,
+					ZIndex = 4,
+
+					[Roact.Event.Activated] = self.props.OnClick,
+				}, {
+					Text = Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 30),
+						Position = UDim2.new(0, 0, 1, -15),
+						AnchorPoint = Vector2.new(0, 1),
+
+						Text = localized.GameIcon.Change,
+						TextColor3 = Constants.WHITE,
+						TextSize = 22,
+						Font = Enum.Font.SourceSans,
+						ZIndex = 5,
+					}),
+				}),
+			})
+		end)
 	end)
 end
 

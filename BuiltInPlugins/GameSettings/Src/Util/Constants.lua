@@ -48,6 +48,8 @@ THUMBNAIL_SIZE = UDim2.new(0, 267, 0, 150),
 
 BAD_REQUEST = 400,
 
+IMAGE_TYPES = {"jpg", "gif", "png", "tga", "bmp"},
+
 }
 
 return Constants

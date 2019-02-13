@@ -19,6 +19,7 @@ local SetSearchText = require(ShareGame.Actions.SetSearchText)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
 local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
 
 local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")
@@ -47,6 +48,10 @@ function SearchArea:render()
 	local position = self.props.position
 	local zIndex = self.props.zIndex
 	local searchAreaActive = self.props.searchAreaActive
+	local size
+	if FFlagLuaInviteModalEnabled then
+		size = self.props.size
+	end
 
 	local cancelText = self.state.cancelText
 	local cancelTextWidth = Text.GetTextWidth(cancelText, CANCEL_TEXT_FONT, CANCEL_TEXT_SIZE)
@@ -60,7 +65,7 @@ function SearchArea:render()
 		return Roact.createElement("Frame", {
 			AnchorPoint = anchorPoint,
 			Position = position,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = size,
 			BackgroundTransparency = 1,
 			ZIndex = zIndex,
 		}, {

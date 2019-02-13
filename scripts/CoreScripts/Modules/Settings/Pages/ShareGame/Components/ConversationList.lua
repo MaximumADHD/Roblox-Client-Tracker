@@ -30,6 +30,7 @@ local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfo
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local FFlagLuaInviteGameUsesInviteThunk = settings():GetFFlag("LuaInviteGameUsesInviteThunk")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
 
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
@@ -49,6 +50,12 @@ local PRESENCE_WEIGHTS = {
 }
 
 local ConversationList = Roact.PureComponent:extend("ConversationList")
+if FFlagLuaInviteModalEnabled then
+	ConversationList.defaultProps = {
+		entryHeight = ENTRY_HEIGHT,
+		entryPadding = ENTRY_PADDING
+	}
+end
 
 local function searchFilterPredicate(query, other)
 	if query == "" then
@@ -59,6 +66,17 @@ end
 
 function ConversationList:render()
 	local children = self.props[Roact.Children] or {}
+
+	local entryHeight
+	local entryPadding
+	if FFlagLuaInviteModalEnabled then
+		entryHeight = self.props.entryHeight
+		entryPadding = self.props.entryPadding
+	else
+		entryHeight = ENTRY_HEIGHT
+		entryPadding = ENTRY_PADDING
+	end
+
 	local friends = self.props.friends
 	local friendsRetrievalStatus = self.props.friendsRetrievalStatus
 	local layoutOrder = self.props.layoutOrder
@@ -75,7 +93,7 @@ function ConversationList:render()
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, ENTRY_PADDING),
+		Padding = UDim.new(0, entryPadding),
 	})
 
 	local numEntries = 0
@@ -85,7 +103,7 @@ function ConversationList:render()
 
 		children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
 			visible = isEntryShown,
-			size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+			size = UDim2.new(1, 0, 0, entryHeight),
 			layoutOrder = i,
 			zIndex = zIndex,
 			title = user.name,
@@ -121,7 +139,7 @@ function ConversationList:render()
 				BackgroundTransparency = 1,
 				LayoutOrder = layoutOrder,
 				Font = NO_RESULTS_FONT,
-				Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+				Size = UDim2.new(1, 0, 0, entryHeight),
 				Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.InviteSearchNoResults"),
 				TextColor3 = NO_RESULTS_TEXTCOLOR,
 				TextSize = NO_RESULTS_TEXTSIZE,
@@ -135,7 +153,7 @@ function ConversationList:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = size,
-		CanvasSize = UDim2.new(0, 0, 0, numEntries * (ENTRY_HEIGHT + ENTRY_PADDING)),
+		CanvasSize = UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,
 	}, children)

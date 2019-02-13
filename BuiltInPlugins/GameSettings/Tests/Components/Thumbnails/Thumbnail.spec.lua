@@ -4,16 +4,24 @@ return function()
 
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+	local Localization = require(Plugin.Src.Localization.Localization)
+	local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 	local Thumbnail = require(Plugin.Src.Components.Thumbnails.Thumbnail)
 
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
+	local localized = localization.values
 
 	local function createTestThumbnail(props)
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
-			thumbnail = Roact.createElement(Thumbnail, props),
+			Roact.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				thumbnail = Roact.createElement(Thumbnail, props),
+			}),
 		})
 	end
 
@@ -41,7 +49,7 @@ return function()
 		local thumbnail = container.ImageButton
 
 		expect(thumbnail.InfoText.Visible).to.equal(true)
-		expect(thumbnail.InfoText.Text).to.equal("In Review")
+		expect(thumbnail.InfoText.Text).to.equal(localized.Thumbnail.Review)
 
 		Roact.unmount(instance)
 	end)

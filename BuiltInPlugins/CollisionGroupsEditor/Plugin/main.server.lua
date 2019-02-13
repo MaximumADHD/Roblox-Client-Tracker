@@ -4,6 +4,11 @@ local Opened = false
 local function reportOpening()
 	if Opened then return end
 	AnalyticsService:ReportCounter("cgeOpenings", 1)
+	AnalyticsService:SendEventDeferred("studio", "collisionGroupsEditor", "opening", {
+		method = 1, --studio tab
+		gameId = game.GameId,
+		uid = plugin:GetStudioUserId(),
+	})
 	Opened = true
 end
 

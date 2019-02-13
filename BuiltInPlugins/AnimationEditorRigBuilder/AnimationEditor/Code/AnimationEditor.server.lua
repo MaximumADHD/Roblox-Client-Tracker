@@ -4,14 +4,14 @@ local Paths = require(script.Parent.Paths)
 local mainPluginName = "AnimationEditor"
 local displayName = "Animation Editor"
 
--- inDevelopment enables small hacks which make development easier e.g allowing more than one Animation Editor on the ribbon, and using the
--- Animation Editor when the game is running
 local inDevelopment = false
-if inDevelopment then
-	local timeDate = os.date("*t")
-	local timeDateString = timeDate.month .. "/" ..timeDate.day .. " - " .. timeDate.hour .. ":" .. timeDate.min .. ":" .. timeDate.sec
-	mainPluginName = mainPluginName .. "U" .. tostring(timeDateString)
-	displayName = displayName .. " (U)" .. tostring(timeDateString)
+if not FastFlags:isEnableRigSwitchingOn() then
+	if inDevelopment then
+		local timeDate = os.date("*t")
+		local timeDateString = timeDate.month .. "/" ..timeDate.day .. " - " .. timeDate.hour .. ":" .. timeDate.min .. ":" .. timeDate.sec
+		mainPluginName = mainPluginName .. "U" .. tostring(timeDateString)
+		displayName = displayName .. " (U)" .. tostring(timeDateString)
+	end
 end
 
 local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, true, 1000, 500)
@@ -19,12 +19,16 @@ local pluginGui = plugin:CreateDockWidgetPluginGui(mainPluginName, dockWidgetPlu
 pluginGui.Name = mainPluginName
 pluginGui.Title = displayName
 
-local toolbar = plugin:CreateToolbar("Animations")
-local button = toolbar:CreateButton(
-	displayName,
-	"Create, preview and publish animations for character rigs", -- The text next to the icon. Leave Othis blank if the icon is sufficient.
-	"http://www.roblox.com/asset/?id=620849296" -- The icon file's name
-)
+local toolbar = nil
+local button = nil
+if not FastFlags:isEnableRigSwitchingOn() then
+	toolbar = plugin:CreateToolbar("Animations")
+	button = toolbar:CreateButton(
+		displayName,
+		"Create, preview and publish animations for character rigs", -- The text next to the icon. Leave Othis blank if the icon is sufficient.
+		"http://www.roblox.com/asset/?id=620849296" -- The icon file's name
+	)
+end
 
 Paths:init()
 Paths.Globals.Plugin = plugin
@@ -36,7 +40,13 @@ if FastFlags:isIKModeFlagOn() then
 end
 Paths.Globals.Selection = game:GetService("Selection")
 
-local DoNotRunAnimationEditorInPlayModeFlagExists, DoNotRunAnimationEditorInPlayModeFlagValue = pcall(function() return settings():GetFFlag("DoNotRunAnimationEditorInPlayMode") end)
+local DoNotRunAnimationEditorInPlayModeFlagExists, DoNotRunAnimationEditorInPlayModeFlagValue
+if FastFlags:isEnableRigSwitchingOn() then
+	Paths.UtilityScriptPluginSetup:init(Paths, displayName)
+else
+	DoNotRunAnimationEditorInPlayModeFlagExists, DoNotRunAnimationEditorInPlayModeFlagValue = pcall(function() return settings():GetFFlag("DoNotRunAnimationEditorInPlayMode") end)
+end
+
 Paths.DataModelPreferences:populatePreferencesTable(Paths)
 
 local function setAnimationEditorStatusForRigBuilder()
@@ -45,6 +55,7 @@ local function setAnimationEditorStatusForRigBuilder()
 end
 setAnimationEditorStatusForRigBuilder()
 
+if not FastFlags:isEnableRigSwitchingOn() then
 local function isMainGUIOnScreen()
 	return nil ~= Paths.GUI
 end
@@ -339,4 +350,5 @@ else
 	    	onEnableChanged()
 	   	end
 	end)
+end
 end

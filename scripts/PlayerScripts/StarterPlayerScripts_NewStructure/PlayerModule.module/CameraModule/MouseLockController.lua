@@ -21,9 +21,9 @@ local Mouse = PlayersService.LocalPlayer:GetMouse()
 
 --[[ Variables ]]
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
-local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -32,7 +32,7 @@ MouseLockController.__index = MouseLockController
 function MouseLockController.new()
 	local self = setmetatable({}, MouseLockController)
 	
-	self.inputBeganConn = nil -- Remove with FFlagPlayerScriptsBindAtPriority
+	self.inputBeganConn = nil -- Remove with FFlagPlayerScriptsBindAtPriority2
 	self.isMouseLocked = false
 	self.savedMouseCursor = nil
 	self.boundKeys = {Enum.KeyCode.LeftShift, Enum.KeyCode.RightShift} -- defaults
@@ -133,7 +133,7 @@ function MouseLockController:OnBoundKeysObjectChanged(newValue)
 			end
 		end
 	end
-	if FFlagPlayerScriptsBindAtPriority then 
+	if FFlagPlayerScriptsBindAtPriority2 then 
 		self:UnbindContextActions()
 		self:BindContextActions()
 	end
@@ -169,7 +169,7 @@ function MouseLockController:OnMouseLockToggled()
 	self.mouseLockToggledEvent:Fire()
 end
 
--- Remove with FFlagPlayerScriptsBindAtPriority
+-- Remove with FFlagPlayerScriptsBindAtPriority2
 function MouseLockController:OnInputBegan(input, processed)
 	if processed then return end
 	
@@ -192,7 +192,7 @@ function MouseLockController:DoMouseLockSwitch(name, state, input)
 end
 
 function MouseLockController:BindContextActions()
-	ContextActionService:BindActionAtPriority(CONTEXT_ACTION_NAME, function(name, state, input) self:DoMouseLockSwitch(name, state, input) end, 
+	ContextActionService:BindActionAtPriority(CONTEXT_ACTION_NAME, function(name, state, input) return self:DoMouseLockSwitch(name, state, input) end, 
 		false, MOUSELOCK_ACTION_PRIORITY, unpack(self.boundKeys))
 end
 
@@ -211,7 +211,7 @@ function MouseLockController:EnableMouseLock(enable)
 
 		if self.enabled then
 			-- Enabling the mode
-			if FFlagPlayerScriptsBindAtPriority then
+			if FFlagPlayerScriptsBindAtPriority2 then
 				self:BindContextActions()
 			else
 				if self.inputBeganConn then
@@ -228,7 +228,7 @@ function MouseLockController:EnableMouseLock(enable)
 				Mouse.Icon = ""
 			end
 			
-			if FFlagPlayerScriptsBindAtPriority then
+			if FFlagPlayerScriptsBindAtPriority2 then
 				self:UnbindContextActions()
 			else
 				if self.inputBeganConn then

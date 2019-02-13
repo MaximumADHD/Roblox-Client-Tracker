@@ -17,6 +17,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Promise = require(Plugin.Promise)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
@@ -29,53 +30,55 @@ local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:render()
-	return withTheme(function(theme)
-		local saveActive = self.props.SaveActive
-		local cancelActive = self.props.CancelActive
+	return withLocalization(function(localized)
+		return withTheme(function(theme)
+			local saveActive = self.props.SaveActive
+			local cancelActive = self.props.CancelActive
 
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = theme.backgroundColor,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, Constants.FOOTER_HEIGHT),
-			AnchorPoint = Vector2.new(0, 1),
-			Position = UDim2.new(0, 0, 1, 0),
-			ZIndex = 2,
-		}, {
-			Gradient = Roact.createElement("ImageLabel", {
-				Size = UDim2.new(1, 0, 0, FOOTER_GRADIENT_SIZE),
-				AnchorPoint = Vector2.new(0, 1),
-				Image = Constants.GRADIENT_IMAGE,
-				ImageRectSize = Constants.GRADIENT_RECT_SIZE,
+			return Roact.createElement("Frame", {
+				BackgroundColor3 = theme.backgroundColor,
 				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				ImageColor3 = theme.footer.gradient,
-				ImageTransparency = FOOTER_GRADIENT_TRANSPARENCY,
-				ZIndex = 1,
-			}),
-
-			SaveSettings = Roact.createElement(ButtonBar, {
+				Size = UDim2.new(1, 0, 0, Constants.FOOTER_HEIGHT),
+				AnchorPoint = Vector2.new(0, 1),
+				Position = UDim2.new(0, 0, 1, 0),
 				ZIndex = 2,
-				Buttons = {
-					{Name = "Cancel", Active = cancelActive, Value = false},
-					{Name = "Save", Default = true, Active = saveActive, Value = true},
-				},
-				HorizontalAlignment = Enum.HorizontalAlignment.Right,
-				ButtonClicked = function(userPressedSave)
-					if FFlagGameSettingsImageUploadingEnabled then
-						getMouse(self).setHoverIcon("Wait", true)
-					end
+			}, {
+				Gradient = Roact.createElement("ImageLabel", {
+					Size = UDim2.new(1, 0, 0, FOOTER_GRADIENT_SIZE),
+					AnchorPoint = Vector2.new(0, 1),
+					Image = Constants.GRADIENT_IMAGE,
+					ImageRectSize = Constants.GRADIENT_RECT_SIZE,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					ImageColor3 = theme.footer.gradient,
+					ImageTransparency = FOOTER_GRADIENT_TRANSPARENCY,
+					ZIndex = 1,
+				}),
 
-					local resolved = self.props.ButtonClicked(userPressedSave, self):await()
-					if resolved then
-						self.props.OnClose(userPressedSave)
-					end
+				SaveSettings = Roact.createElement(ButtonBar, {
+					ZIndex = 2,
+					Buttons = {
+						{Name = localized.Footer.Cancel, Active = cancelActive, Value = false},
+						{Name = localized.Footer.Save, Default = true, Active = saveActive, Value = true},
+					},
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					ButtonClicked = function(userPressedSave)
+						if FFlagGameSettingsImageUploadingEnabled then
+							getMouse(self).setHoverIcon("Wait", true)
+						end
 
-					if FFlagGameSettingsImageUploadingEnabled then
-						getMouse(self).resetMouse()
-					end
-				end,
-			}),
-		})
+						local resolved = self.props.ButtonClicked(userPressedSave, self):await()
+						if resolved then
+							self.props.OnClose(userPressedSave)
+						end
+
+						if FFlagGameSettingsImageUploadingEnabled then
+							getMouse(self).resetMouse()
+						end
+					end,
+				}),
+			})
+		end)
 	end)
 end
 

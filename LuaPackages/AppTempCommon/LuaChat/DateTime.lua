@@ -1,3 +1,5 @@
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+
 --[[
 	This is a Lua implementation of the DateTime API proposal. It'll eventually
 	be implemented in C++ and merged into the rest of the codebase if this model
@@ -101,10 +103,18 @@ local tokens = {
 		return tostring(values.Seconds)
 	end},
 	{"A", function(values)
-		return values.Hour >= 12 and "PM" or "AM"
+		if FFlagChinaLicensingApp then
+			return values.Hour >= 12 and "下午" or "上午"
+		else
+			return values.Hour >= 12 and "PM" or "AM"
+		end
 	end},
 	{"a", function(values)
-		return values.Hour >= 12 and "pm" or "am"
+		if FFlagChinaLicensingApp then
+			return values.Hour >= 12 and "下午" or "上午"
+		else
+			return values.Hour >= 12 and "pm" or "am"
+		end
 	end}
 }
 
@@ -453,14 +463,26 @@ end
 function DateTime:GetLongRelativeTime(epoch)
 	epoch = epoch or DateTime.now()
 
-	if self:IsSame(epoch, TimeUnit.Days) then
-		return self:Format("h:mm A")
-	elseif self:IsSame(epoch, TimeUnit.Weeks) then
-		return self:Format("DDD | h:mm A")
-	elseif self:IsSame(epoch, TimeUnit.Years) then
-		return self:Format("MMM D | h:mm A")
+	if FFlagChinaLicensingApp then
+		if self:IsSame(epoch, TimeUnit.Days) then
+			return self:Format("hh:mm A")
+		elseif self:IsSame(epoch, TimeUnit.Weeks) then
+			return self:Format("DDD | hh:mm A")
+		elseif self:IsSame(epoch, TimeUnit.Years) then
+			return self:Format("M月D日 | hh:mm A")
+		else
+			return self:Format("YYYY年M月D日 | hh:mm A")
+		end
 	else
-		return self:Format("MMM D, YYYY | h:mm A")
+		if self:IsSame(epoch, TimeUnit.Days) then
+			return self:Format("h:mm A")
+		elseif self:IsSame(epoch, TimeUnit.Weeks) then
+			return self:Format("DDD | h:mm A")
+		elseif self:IsSame(epoch, TimeUnit.Years) then
+			return self:Format("MMM D | h:mm A")
+		else
+			return self:Format("MMM D, YYYY | h:mm A")
+		end
 	end
 end
 
@@ -471,14 +493,26 @@ end
 function DateTime:GetShortRelativeTime(epoch)
 	epoch = epoch or DateTime.now()
 
-	if self:IsSame(epoch, TimeUnit.Days) then
-		return self:Format("h:mm A")
-	elseif self:IsSame(epoch, TimeUnit.Weeks) then
-		return self:Format("DDD")
-	elseif self:IsSame(epoch, TimeUnit.Years) then
-		return self:Format("MMM D")
+	if FFlagChinaLicensingApp then
+		if self:IsSame(epoch, TimeUnit.Days) then
+			return self:Format("hh:mm A")
+		elseif self:IsSame(epoch, TimeUnit.Weeks) then
+			return self:Format("DDD")
+		elseif self:IsSame(epoch, TimeUnit.Years) then
+			return self:Format("M月D日")
+		else
+			return self:Format("YYYY年M月D日")
+		end
 	else
-		return self:Format("MMM D, YYYY")
+		if self:IsSame(epoch, TimeUnit.Days) then
+			return self:Format("h:mm A")
+		elseif self:IsSame(epoch, TimeUnit.Weeks) then
+			return self:Format("DDD")
+		elseif self:IsSame(epoch, TimeUnit.Years) then
+			return self:Format("MMM D")
+		else
+			return self:Format("MMM D, YYYY")
+		end
 	end
 end
 

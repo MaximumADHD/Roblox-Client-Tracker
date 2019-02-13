@@ -12,6 +12,7 @@ local FFlagCoreScriptACMOpenCloseSetCore = settings():GetFFlag("CoreScriptACMOpe
 local FFlagCoreScriptFixACMFirstPersonUnreliablity = settings():GetFFlag("CoreScriptFixACMFirstPersonUnreliablity")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagDynamicThumbstickUseContextActionSevice = settings():GetFFlag("UserDynamicThumbstickUseContextActionSevice")
+local FFlagUserFixClickToMoveWithACM = settings():GetFFlag("UserFixClickToMoveWithACM")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -58,14 +59,22 @@ if not FFlagCoreScriptACMOpenCloseSetCore then
 end
 
 local hasTrackedAvatarContextMenu = false
-StarterGui:RegisterSetCore("SetAvatarContextMenuEnabled",
-	function(enabled) isAvatarContextMenuEnabled = not not enabled
-		if isAvatarContextMenuEnabled and not hasTrackedAvatarContextMenu then
-			hasTrackedAvatarContextMenu = true
-			AnalyticsService:TrackEvent("Game", "AvatarContextMenuEnabled", "placeId: " .. tostring(game.PlaceId))
-		end
+function enableAvatarContextMenu(enabled)
+	isAvatarContextMenuEnabled = not not enabled
+	if isAvatarContextMenuEnabled and not hasTrackedAvatarContextMenu then
+		hasTrackedAvatarContextMenu = true
+		AnalyticsService:TrackEvent("Game", "AvatarContextMenuEnabled", "placeId: " .. tostring(game.PlaceId))
 	end
-)
+end
+
+StarterGui:RegisterSetCore("SetAvatarContextMenuEnabled", enableAvatarContextMenu)
+if FFlagUserFixClickToMoveWithACM then
+	StarterGui:RegisterSetCore("AvatarContextMenuEnabled", enableAvatarContextMenu)
+
+	StarterGui:RegisterGetCore("AvatarContextMenuEnabled", function()
+		return isAvatarContextMenuEnabled
+	end)
+end
 
 --- MODULES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")

@@ -93,7 +93,5 @@ if freeCameraFlag then
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.FreeCamera.FreeCameraInstaller)()
 end
 
-if UserSettings():IsUserFeatureEnabled("UserUseSoundDispatcher") then
-	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDispatcherInstaller)()
-end
+require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDispatcherInstaller)()
 

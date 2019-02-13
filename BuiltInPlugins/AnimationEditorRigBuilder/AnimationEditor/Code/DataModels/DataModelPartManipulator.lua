@@ -28,6 +28,7 @@ PartManipulator.RotateUndoRegistered = false
 PartManipulator.TranslateUndoRegistered = false
 PartManipulator.MouseUpEventConnect = nil
 PartManipulator.MouseTargeterHalt = nil
+PartManipulator.TagName = "ForManipulation"
 
 function PartManipulator:findAnimatedPart(clickedPart, partsChecked)
 	partsChecked = partsChecked or {}
@@ -114,6 +115,10 @@ local function initTargeter(self)
 
 				--this can't be in the table since form factor must be set first
 				selectionPart.Size = model:GetExtentsSize()
+
+				if FastFlags:isEnableRigSwitchingOn() then
+					self.Paths.HelperFunctionsCreation:tag(selectionPart, self.TagName)
+				end
 				
 				table.insert(self.HoverBoxes, selectionPart)
 				
@@ -137,8 +142,22 @@ local function initTargeter(self)
 	end)
 	
 	self.Connections:add(self.Paths.Globals.Plugin:GetMouse().Button1Down:connect(function()	
-		if not self.Paths.DataModelRig:getItem() then return end	
-			local part, point, normal = self:mouseRaycast({self.ProxyPart, self.Paths.DataModelRig:getItem().Item})
+		if FastFlags:isEnableRigSwitchingOn() then
+			if not self.Paths.DataModelRig:hasRig(self.Paths) then return end
+		else
+			if not self.Paths.DataModelRig:getItem() then return end
+		end
+			local part, point, normal = nil
+			if FastFlags:isEnableRigSwitchingOn() then
+				local ignoreList = {}
+				table.insert(ignoreList, self.ProxyPart)
+				for part in pairs(self.Paths.DataModelRig:getItems()) do
+					table.insert(ignoreList, part)
+				end
+				part, point, normal = self:mouseRaycast(ignoreList)
+			else
+ 				part, point, normal = self:mouseRaycast({self.ProxyPart, self.Paths.DataModelRig:getItem().Item})
+			end
 			if (part ~= nil) then
 				local dataItem = self:findAnimatedPart(part)
 				local active = false
@@ -146,14 +165,26 @@ local function initTargeter(self)
 					active = self.Paths.DataModelRig.partInclude[dataItem.Item.Name]
 				end
 
-				if (active and dataItem ~= self.Paths.DataModelRig:getItem()) then
-					if (dataItem ~= nil) then
-						self.Paths.DataModelSession:selectDataItem(dataItem)
+				if FastFlags:isEnableRigSwitchingOn() then
+					if (active and not self.Paths.DataModelRig:isARootPart(dataItem.Item)) then
+						if (dataItem ~= nil) then
+							self.Paths.DataModelSession:selectDataItem(dataItem)
+						else
+							self.Paths.DataModelSession:selectNone()
+						end
 					else
 						self.Paths.DataModelSession:selectNone()
 					end
 				else
-					self.Paths.DataModelSession:selectNone()
+					if (active and dataItem ~= self.Paths.DataModelRig:getItem()) then
+						if (dataItem ~= nil) then
+							self.Paths.DataModelSession:selectDataItem(dataItem)
+						else
+							self.Paths.DataModelSession:selectNone()
+						end
+					else
+						self.Paths.DataModelSession:selectNone()
+					end
 				end
 			else
 				self.Paths.DataModelSession:selectNone()
@@ -237,7 +268,7 @@ function PartManipulator:updateProxyPart()
 			self.ProxyWeld:Destroy()
 		end
 					
-		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive and (not FastFlags:isEnableRigSwitchingOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(item.Item)) then
 			self.Paths.DataModelIKManipulator:updateProxyPartForIK(self.ProxyPart, item, self:calculateCFrameForHandles(item))
 		else
 			self.ProxyPart.CFrame = self:calculateCFrameForHandles(item)
@@ -288,13 +319,26 @@ function PartManipulator:toggleStep()
 	end
 end
 
+function PartManipulator:resetSelection()
+	for part, box in pairs(self.SelectBoxes) do
+		box.Adornee = nil
+	end
+
+	self.DragHandles:changeAdornee(nil)
+	self.RotateHandles.Adornee = nil
+end
+
 function PartManipulator:setSelection()
 	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelSession:inputLocked() then
 		return
 	end
 
-	for part, box in pairs(self.SelectBoxes) do
-		box.Adornee = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		self:resetSelection()
+	else
+		for part, box in pairs(self.SelectBoxes) do
+			box.Adornee = nil
+		end
 	end
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
 		for _, dataItem in pairs(self.Paths.DataModelSession:getSelectedDataItems()) do
@@ -303,8 +347,10 @@ function PartManipulator:setSelection()
 		end
 	end
 
-	self.DragHandles:changeAdornee(nil)
-	self.RotateHandles.Adornee = nil
+	if not FastFlags:isEnableRigSwitchingOn() then
+		self.DragHandles:changeAdornee(nil)
+		self.RotateHandles.Adornee = nil
+	end
 	self.ProxyPart.Parent = nil
 	if not self.Paths.HelperFunctionsTable:isNilOrEmpty(self.Paths.DataModelSession:getSelectedDataItems()) then
 		self:displayHandles()
@@ -329,7 +375,7 @@ local function onMouseRotate(self, axisRaw, relAngle, item)
 		self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.editRotate)
 	end
 	
-	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive and (not FastFlags:isEnableRigSwitchingOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelIKManipulator:ikSolveForRotationManipulation(axisRaw, relAngle, part, self.PartCFrameAtTransformStart[part], self.InWorldSpace)
 	else
 		if self.InWorldSpace then
@@ -404,19 +450,19 @@ local function onMouseBeginRotate(self, item)
 
 	local part = item.Item
 
-	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive and (not FastFlags:isEnableRigSwitchingOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelIKManipulator:configureIkChain(part)
 	end
 
 	local kfd = nil
-	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
 	end
 
 	self.Paths.DataModelPlayState:pauseAndStop()
 	self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
 
-	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
 		self.StartTransformCF[part] = kfd.CFrame
 	end
@@ -473,18 +519,18 @@ local function onMouseBeginDrag(self, item)
 
 	local kfd = nil
 
-	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive and (not FastFlags:isEnableRigSwitchingOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelIKManipulator:configureIkChain(part)
 	end
 
-	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive  or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
 	end
 
 	self.Paths.DataModelPlayState:pauseAndStop()
 	self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
 
-	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
 		self.StartTransformCF[part] = kfd.CFrame
 	end
@@ -511,7 +557,7 @@ local function onMouseDrag(self, face, dist, item)
 	end
 	
 	local part = item.Item
-	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive and (not FastFlags:isEnableRigSwitchingOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelIKManipulator:ikSolveForTranslationManipulation(face, dist, part, self.PartCFrameAtTransformStart[part], self.InWorldSpace)
 	else
 		local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, true, true)
@@ -637,6 +683,9 @@ function PartManipulator:makeHandles()
 		TopSurface = 'Smooth',
 		BottomSurface = 'Smooth',
 	})
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.Paths.HelperFunctionsCreation:tag(self.ProxyPart, self.TagName)
+	end
 	
 	self.RotateHandles = self.Paths.HelperFunctionsCreation:make('ArcHandles', {
 		Color = BrickColor.new(23),

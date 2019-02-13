@@ -39,7 +39,7 @@ local FFlagCoreScriptACMCustomFirst = settings():GetFFlag("CoreScriptACMCustomFi
 local FFlagCoreScriptCloseACMCustomItem = settings():GetFFlag("CoreScriptCloseACMCustomItem")
 local FFlagCoreScriptFixACMWhisperIssues = settings():GetFFlag("CoreScriptFixACMWhisperIssues")
 local FFlagRemoveACMLastUnderline = settings():GetFFlag("RemoveACMLastUnderline")
-local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat3")
+local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 
 local LocalPlayer = PlayersService.LocalPlayer

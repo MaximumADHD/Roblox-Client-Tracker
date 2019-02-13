@@ -17,9 +17,9 @@ local Keyboard = setmetatable({}, BaseCharacterController)
 Keyboard.__index = Keyboard
 
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
-local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 function Keyboard.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(BaseCharacterController.new(), Keyboard)
@@ -80,48 +80,50 @@ function Keyboard:BindContextActions()
 	
 	-- Note: In the previous version of this code, the movement values were not zeroed-out on UserInputState. Cancel, now they are,
 	-- which fixes them from getting stuck on.
+	-- We return ContextActionResult.Pass here for legacy reasons. 
+	-- Many games rely on gameProcessedEvent being false on UserInputService.InputBegan for these control actions.
 	local handleMoveForward = function(actionName, inputState, inputObject)			
 		self.forwardValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority then
-			return Enum.ContextActionResult.Sink
+		if FFlagPlayerScriptsBindAtPriority2 then
+			return Enum.ContextActionResult.Pass
 		end
 	end
 	
 	local handleMoveBackward = function(actionName, inputState, inputObject)	
 		self.backwardValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority then
-			return Enum.ContextActionResult.Sink
+		if FFlagPlayerScriptsBindAtPriority2 then
+			return Enum.ContextActionResult.Pass
 		end
 	end
 	
 	local handleMoveLeft = function(actionName, inputState, inputObject)	
 		self.leftValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority then
-			return Enum.ContextActionResult.Sink
+		if FFlagPlayerScriptsBindAtPriority2 then
+			return Enum.ContextActionResult.Pass
 		end
 	end
 	
 	local handleMoveRight = function(actionName, inputState, inputObject)	
 		self.rightValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
 		self:UpdateMovement(inputState)
-		if FFlagPlayerScriptsBindAtPriority then
-			return Enum.ContextActionResult.Sink
+		if FFlagPlayerScriptsBindAtPriority2 then
+			return Enum.ContextActionResult.Pass
 		end
 	end
 	
 	local handleJumpAction = function(actionName, inputState, inputObject)
 		self.isJumping = (inputState == Enum.UserInputState.Begin)
-		if FFlagPlayerScriptsBindAtPriority then
-			return Enum.ContextActionResult.Sink
+		if FFlagPlayerScriptsBindAtPriority2 then
+			return Enum.ContextActionResult.Pass
 		end
 	end
 	
 	-- TODO: Revert to KeyCode bindings so that in the future the abstraction layer from actual keys to
 	-- movement direction is done in Lua
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		ContextActionService:BindActionAtPriority("moveForwardAction", handleMoveForward, false,
 			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterForward)
 		ContextActionService:BindActionAtPriority("moveBackwardAction", handleMoveBackward, false,

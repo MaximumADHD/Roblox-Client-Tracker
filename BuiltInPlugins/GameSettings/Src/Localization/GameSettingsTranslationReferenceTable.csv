@@ -1,0 +1,131 @@
+Key,en
+PluginName,Game Settings
+PluginDescription,Update settings related to current game
+SettingOn,On
+SettingOff,Off
+ReplyYes,Yes
+ReplyNo,No
+ReplyOK,OK
+ReplyAgree,Agree
+ReplyDisagree,Disagree
+ButtonSave,Save
+ButtonCancel,Cancel
+CategoryBasicInfo,Basic Info
+CategoryAvatar,Avatar
+CategoryOptions,Options
+TitleName,Name
+TitleDescription,Description
+TitlePlayability,Playability
+TitleGameIcon,Game Icon
+TitleThumbnails,Screenshots & Videos
+TitleGenre,Genre
+TitleDevices,Playable Devices
+TitleHttp,Allow HTTP Requests
+PlayabilityHeader,Who can play this game?
+PlayabilityPublic,Public
+PlayabilityGroup,Group Members
+PlayabilityFriends,Friends
+PlayabilityPrivate,Private
+PlayabilityPublicDesc,Anyone on Roblox
+PlayabilityGroupDesc,Members of {group}
+PlayabilityFriendsDesc,Friends on Roblox
+PlayabilityPrivateDesc,Only developers of this game
+GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512
+GameIconModeration,Image will be reviewed by moderators before being made visible to other users
+GameIconTutorial,New to making icons? Check out the Icon Tutorial.
+GameIconChange,Change
+ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.
+ThumbnailsHint,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080
+ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users.
+ThumbnailsCount,Up to {maxThumbnails:int} items
+ImagePreview,Preview
+ImageReview,In Review
+GenreAll,All
+GenreAdventure,Adventure
+GenreBuilding,Building
+GenreComedy,Comedy
+GenreFighting,Fighting
+GenreFPS,FPS
+GenreHorror,Horror
+GenreMedieval,Medieval
+GenreMilitary,Military
+GenreNaval,Naval
+GenreRPG,RPG
+GenreSciFi,Sci-Fi
+GenreSports,Sports
+GenreTownAndCity,Town and City
+GenreWestern,Western
+DeviceComputer,Computer
+DevicePhone,Phone
+DeviceTablet,Tablet
+DeviceConsole,Console
+HttpDesc,Allow game server to issue requests to remote servers.
+ContentDialogHeader,Content Agreement
+ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?
+ContentDialogItem1,Blood or Gore
+ContentDialogItem2,Intense Violence
+ContentDialogItem3,Strong Language (Swearing)
+ContentDialogItem4,Robux Gambling
+ContentDialogItem5,Drug Reference or Use
+PreviewDialogHeader,Preview
+PreviewDialogBody,Studio doesn't currently support video playing
+PreviewDialogLink,Go to YouTube and play the video
+CancelDialogHeader,Discard Changes
+CancelDialogBody,Would you like to discard all changes?
+PrivateDialogHeader,Make Private
+PrivateDialogPrompt,Would you like to make it private?
+PrivateDialogBody,Making a game private will shut down any running games.
+AvatarDialogHeader,Warning
+AvatarDialogPrompt,Would you like to proceed?
+AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games.
+DeleteDialogHeader,Delete Thumbnail
+DeleteDialogBody,Would you like to delete this thumbnail?
+ImageDialogHeader,No Image Loaded
+ImageDialogBody,Select a compatible image.
+ErrorNameEmpty,Name cannot be empty.
+ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again.
+ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again.
+ErrorImageLimit,"You're uploading too much, please wait and try again later."
+ErrorImageNotRecognized,File uploaded does not match known image format. Try converting to png.
+ErrorNoDevices,You must select at least one playable device.
+GameIconPrompt,Add Game Icon
+ThumbnailPrompt,Add Thumbnails
+TitlePresets,Presets
+TitleAvatarType,Avatar Type
+TitleAnimation,Animation
+TitleCollision,Collision
+TitleScale,Scale
+TitleBodyParts,Body Parts
+TitleClothing,Clothing
+ScaleHeight,Height
+ScaleWidth,Width
+ScaleHead,Head
+ScaleBodyType,Body Type
+ScaleProportions,Proportions
+PartFace,Face
+PartHead,Head
+PartTorso,Torso
+PartLeftArm,Left Arm
+PartRightArm,Right Arm
+PartLeftLeg,Left Leg
+PartRightLeg,Right Leg
+ClothingTShirt,T-Shirt ID
+ClothingShirt,Shirt ID
+ClothingPants,Pants ID
+PresetDefault,Default
+PresetClassicScale,Classic Scale
+PresetFullClassic,Full Classic
+PresetRthro,Rthro
+PresetPlayerChoice,Player Choice
+AvatarTypeR6,R6
+AvatarTypeR15,R15
+AvatarTypePlayerChoice,Player Choice
+AvatarTypeWarning,Change Avatar Type will shut down the running game when save settings
+AnimationStandard,Standard
+AnimationPlayerChoice,Player Choice
+CollisionOuterBox,Outer Box
+CollisionInnerBox,Inner Box
+AvatarOverridePrompt,Override Player Choice?
+AvatarOverrideItem,Custom Item
+AvatarOverrideId,ID Number
+ErrorOverrideEmpty,ID Number cannot be empty

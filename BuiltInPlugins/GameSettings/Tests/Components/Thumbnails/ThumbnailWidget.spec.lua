@@ -5,16 +5,24 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 	local Theme = require(Plugin.Src.Util.Theme)
 	local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
+	local Localization = require(Plugin.Src.Localization.Localization)
+	local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
 	local ThumbnailWidget = require(Plugin.Src.Components.Thumbnails.ThumbnailWidget)
 
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
+	local localized = localization.values
 
 	local function createTestThumbnailWidget(props)
 		return Roact.createElement(ThemeProvider, {
 			theme = theme,
 		}, {
-			thumbnailWidget = Roact.createElement(ThumbnailWidget, props),
+			Roact.createElement(LocalizationProvider, {
+				localization = localization,
+			}, {
+				thumbnailWidget = Roact.createElement(ThumbnailWidget, props),
+			}),
 		})
 	end
 
@@ -32,9 +40,10 @@ return function()
 		expect(widget.Layout).to.be.ok()
 		expect(widget.Title).to.be.ok()
 		expect(widget.Notes).to.be.ok()
-		expect(widget.Notes["1"]).to.be.ok()
-		expect(widget.Notes["2"]).to.be.ok()
-		expect(widget.Notes["3"]).to.be.ok()
+		expect(widget.Notes.Layout).to.be.ok()
+		expect(widget.Notes.LimitHint).to.be.ok()
+		expect(widget.Notes.FileHint).to.be.ok()
+		expect(widget.Notes.ModerationHint).to.be.ok()
 		expect(widget.Thumbnails).to.be.ok()
 		expect(widget.DragFolder).to.be.ok()
 		expect(widget.DragFolder.DragGhost).to.be.ok()
@@ -84,7 +93,9 @@ return function()
 			}), container)
 			local count = container.Frame.CountFolder.Count
 
-			expect(count.Text).to.equal("Up to " .. Constants.MAX_THUMBNAILS .. " items")
+			expect(count.Text).to.equal(localized.Thumbnails.Count({
+				maxThumbnails = Constants.MAX_THUMBNAILS,
+			}))
 
 			Roact.unmount(instance)
 		end)

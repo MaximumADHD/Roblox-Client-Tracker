@@ -576,6 +576,7 @@ RBX
 	AnimationController
 	AnimationTrack
 	Animator
+	AntiAddictionService
 	ArcHandles
 	ArrowToolBase
 	Assembly
@@ -749,6 +750,7 @@ RBX
 	FaceVertexConnector
 	FastLogJSON
 	Feature
+	File
 	FileMesh
 	FillTool
 	FilterDescendents
@@ -917,7 +919,6 @@ RBX
 	Lighting
 	LineHandleAdornment
 	Link
-	LocalAsset
 	LocalizationService
 	LocalizationTable
 	LocalScript

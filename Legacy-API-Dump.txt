@@ -97,6 +97,12 @@ Class AnimationTrack : Instance
 Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) [PluginSecurity]
+Class AntiAddictionService : Instance [notCreatable]
+	Function Dictionary AntiAddictionService:GetAntiAddictionData() [RobloxScriptSecurity]
+	Function void AntiAddictionService:MarkRead(string messageId) [RobloxScriptSecurity]
+	Function void AntiAddictionService:Start(int64 userId) [RobloxScriptSecurity]
+	Function void AntiAddictionService:Stop() [RobloxScriptSecurity]
+	Event AntiAddictionService.Updated(Dictionary antiAddictionData) [RobloxScriptSecurity]
 Class AssetService : Instance
 	YieldFunction int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = )
 	YieldFunction int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
@@ -1409,6 +1415,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
+	YieldFunction Array LocalizationService:GetTableEntries(Instance instance = nil)
 	YieldFunction Instance LocalizationService:GetTranslatorForLocaleAsync(string locale)
 	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
 	YieldFunction void LocalizationService:PromptDownloadGameTableToCSV(Instance table) [RobloxScriptSecurity]
@@ -2480,6 +2487,7 @@ Class SoundService : Instance [notCreatable]
 	Property float SoundService.RolloffScale
 	Function bool SoundService:BeginRecording() [RobloxScriptSecurity]
 	Function Tuple SoundService:GetListener()
+	Function Dictionary SoundService:GetSoundMemoryData() [RobloxScriptSecurity]
 	Function void SoundService:PlayLocalSound(Instance sound)
 	Function void SoundService:PlayStockSound(SoundType sound) [RobloxScriptSecurity]
 	Function void SoundService:SetListener(ListenerType listenerType, Tuple listener)
@@ -4330,7 +4338,8 @@ Enum UserInputType
 	EnumItem UserInputType.Gamepad7 : 18
 	EnumItem UserInputType.Gamepad8 : 19
 	EnumItem UserInputType.TextInput : 20
-	EnumItem UserInputType.None : 21
+	EnumItem UserInputType.InputMethod : 21
+	EnumItem UserInputType.None : 22
 Enum VRTouchpad
 	EnumItem VRTouchpad.Left : 0
 	EnumItem VRTouchpad.Right : 1

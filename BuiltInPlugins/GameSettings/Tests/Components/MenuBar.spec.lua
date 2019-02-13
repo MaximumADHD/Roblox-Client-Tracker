@@ -7,11 +7,13 @@ return function()
 	local Theme = require(Plugin.Src.Util.Theme)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+	local Localization = require(Plugin.Src.Localization.Localization)
 
 	local MenuBar = require(Plugin.Src.Components.MenuBar)
 
 	local settingsImpl = SettingsImpl_mock.new()
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
 
 	local function createTestMenuBar(entries, startState)
 		local settingsStore = Rodux.Store.new(
@@ -24,6 +26,7 @@ return function()
 			store = settingsStore,
 			impl = settingsImpl,
 			theme = theme,
+			localization = localization,
 		}, {
 			menuBar = Roact.createElement(MenuBar, {
 				Entries = entries,

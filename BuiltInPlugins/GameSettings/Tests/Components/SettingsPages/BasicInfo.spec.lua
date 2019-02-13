@@ -10,21 +10,24 @@ return function()
 	local Theme = require(Plugin.Src.Util.Theme)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+	local Localization = require(Plugin.Src.Localization.Localization)
 
 	local BasicInfo = require(Plugin.Src.Components.SettingsPages.BasicInfo)
 
 	local settingsImpl = SettingsImpl_mock.new()
 	local theme = Theme.newDummyTheme()
+	local localization = Localization.newDummyLocalization()
+	local localized = localization.values
 
 	local ERROR_COLOR = Constants.ERROR_COLOR
 
 	local nameErrors = {
-		Moderated = "The name didn't go through our moderation. Please revise it and try again.",
-		Empty = "Name cannot be empty.",
+		Moderated = localized.Errors.ErrorNameModerated,
+		Empty = localized.Errors.ErrorNameEmpty,
 	}
 
 	local descriptionErrors = {
-		Moderated = "The description didn't go through our moderation. Please revise it and try again.",
+		Moderated = localized.Errors.ErrorDescModerated,
 	}
 
 	local settingsInfoTest = {
@@ -121,6 +124,7 @@ return function()
 			store = settingsStore,
 			impl = settingsImpl,
 			theme = theme,
+			localization = localization,
 		}, {
 			basicInfo = Roact.createElement(BasicInfo),
 		})
@@ -322,8 +326,10 @@ return function()
 			local info = container.Frame
 
 			local playability = info.Playability.Content["3"].Button
-			expect(playability.TitleLabel.Text).to.equal("Group Members")
-			expect(playability.DescriptionLabel.Text).to.equal("Members of Test Group")
+			expect(playability.TitleLabel.Text).to.equal(localized.Playability.Group.Title)
+			expect(playability.DescriptionLabel.Text).to.equal(localized.Playability.Group.Description({
+				group = "Test Group",
+			}))
 
 			Roact.unmount(instance)
 		end)
@@ -339,7 +345,7 @@ return function()
 				local info = container.Frame
 
 				local genre = info.Genre.Content.Selector
-				expect(genre.Border.Current.Text).to.equal("All")
+				expect(genre.Border.Current.Text).to.equal(localized.Genres[1].Title)
 
 				Roact.unmount(instance)
 			end)

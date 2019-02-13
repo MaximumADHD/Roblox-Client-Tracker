@@ -33,6 +33,7 @@ local ThumbnailWidget = require(Plugin.Src.Components.Thumbnails.ThumbnailWidget
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
+local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
 local ThumbnailController = Roact.PureComponent:extend("ThumbnailController")
 
@@ -56,11 +57,12 @@ end
 
 function ThumbnailController:deleteThumbnail(thumbnailId)
 	if FFlagGameSettingsDeleteConfirmation then
+		local localized = getLocalizedContent(self)
 		local dialogProps = {
-			Title = "Delete Thumbnail",
 			Size = Vector2.new(368, 145),
-			Header = "Would you like to delete this thumbnail?",
-			Buttons = {"No", "Yes"},
+			Title = localized.DeleteDialog.Header,
+			Header = localized.DeleteDialog.Body,
+			Buttons = localized.DeleteDialog.Buttons,
 		}
 		if not showDialog(self, SimpleDialog, dialogProps):await() then
 			return
@@ -82,7 +84,7 @@ end
 
 function ThumbnailController:openPreviewDialog(thumbnailId)
 	local dialogProps = {
-		Title = "Preview",
+		Title = getLocalizedContent(self).PreviewDialog.Header,
 		Size = Vector2.new(660, 380),
 		Thumbnails = self.props.Thumbnails,
 		Order = self.props.Order,
@@ -97,7 +99,7 @@ end
 
 function ThumbnailController:render()
 	return Roact.createElement(ThumbnailWidget, Cryo.Dictionary.join(self.props, {
-		ThumbnailAction = self.dispatchAction
+		ThumbnailAction = self.dispatchAction,
 	}))
 end
 

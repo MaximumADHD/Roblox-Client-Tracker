@@ -13,6 +13,7 @@ local RunService = game:GetService("RunService")
 local DebrisService = game:GetService('Debris')
 local ReplicatedStorage = game:GetService('ReplicatedStorage')
 local TweenService = game:GetService("TweenService")
+local StarterGui = game:GetService("StarterGui")
 
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
@@ -28,8 +29,11 @@ local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess, FFlagUserNavigationClickToMoveSkipPassedWaypointsResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveSkipPassedWaypoints") end)
 local FFlagUserNavigationClickToMoveSkipPassedWaypoints = FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess and FFlagUserNavigationClickToMoveSkipPassedWaypointsResult
 
-local FFlagUserNavigationClickToMoveNoDirectPathSuccess, FFlagUserNavigationClickToMoveNoDirectPathResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveNoDirectPath") end)
-local FFlagUserNavigationClickToMoveNoDirectPath = FFlagUserNavigationClickToMoveNoDirectPathSuccess and FFlagUserNavigationClickToMoveNoDirectPathResult
+local FFlagUserNavigationClickToMoveNoDirectPath2Success, FFlagUserNavigationClickToMoveNoDirectPath2Result = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveNoDirectPath2") end)
+local FFlagUserNavigationClickToMoveNoDirectPath2 = FFlagUserNavigationClickToMoveNoDirectPath2Success and FFlagUserNavigationClickToMoveNoDirectPath2Result
+
+local FFlagUserFixClickToMoveWithACMSuccess, FFlagUserFixClickToMoveWithACMResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserFixClickToMoveWithACM") end)
+local FFlagUserFixClickToMoveWithACM = FFlagUserFixClickToMoveWithACMSuccess and FFlagUserFixClickToMoveWithACMResult
 
 local Player = Players.LocalPlayer
 local PlayerScripts = Player.PlayerScripts
@@ -104,15 +108,23 @@ do
 		local hitPart, hitPos, hitNorm, hitMat = RayCastIgnoreList(workspace, ray, ignoreList)
 		if hitPart then
 			if ignoreNonCollidable and hitPart.CanCollide == false then
-				table.insert(ignoreList, hitPart)
-				return Raycast(ray, ignoreNonCollidable, ignoreList)
+				-- We always include character parts so a user can click on another character
+				-- to walk to them.
+				local _, humanoid = nil, nil
+				if FFlagUserFixClickToMoveWithACM then
+					_, humanoid = FindCharacterAncestor(hitPart)
+				end
+				if humanoid == nil then
+					table.insert(ignoreList, hitPart)
+					return Raycast(ray, ignoreNonCollidable, ignoreList)
+				end
 			end
 			return hitPart, hitPos, hitNorm, hitMat
 		end
 		return nil, nil
 	end
 	Utility.Raycast = Raycast
-	
+
 	local function AveragePoints(positions)
 		local avgPos = ZERO_VECTOR2
 		if #positions > 0 then
@@ -173,34 +185,34 @@ local function getPopupAdorneePart()
 	if popupAdornee and not popupAdornee.Parent then
 		popupAdornee = nil
 	end
-	
+
 	--If the adornee doesn't exist yet, create it
 	if not popupAdornee then
-		popupAdornee = Instance.new("Part")		
+		popupAdornee = Instance.new("Part")
 		popupAdornee.Name = "ClickToMovePopupAdornee"
 		popupAdornee.Transparency = 1
 		popupAdornee.CanCollide = false
 		popupAdornee.Anchored = true
 		popupAdornee.Size = Vector3.new(2, 2, 2)
 		popupAdornee.CFrame = CFrame.new()
-		
+
 		popupAdornee.Parent = workspace.CurrentCamera
 	end
-	
+
 	return popupAdornee
 end
 
 local activePopups = {}
 local function createNewPopup(popupType)
 	local newModel = Instance.new("ImageHandleAdornment")
-	
+
 	newModel.AlwaysOnTop = false
 	newModel.Transparency = 1
 	newModel.Size = ZERO_VECTOR2
 	newModel.SizeRelativeOffset = ZERO_VECTOR3
 	newModel.Image = "rbxasset://textures/ui/move.png"
 	newModel.ZIndex = 20
-	
+
 	local radius = 0
 	if popupType == "DestinationPopup" then
 		newModel.Color3 = Color3.fromRGB(0, 175, 255)
@@ -217,12 +229,12 @@ local function createNewPopup(popupType)
 		newModel.ZIndex = 10
 	end
 	newModel.Size = Vector2.new(5, 0.1) * radius
-	
+
 	local dataStructure = {}
-	dataStructure.Model = newModel	
-	
+	dataStructure.Model = newModel
+
 	activePopups[#activePopups + 1] = newModel
-	
+
 	function dataStructure:TweenIn()
 		local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out)
 		local tween1 = TweenService:Create(newModel, tweenInfo, { Size = Vector2.new(2,2) * radius })
@@ -230,15 +242,15 @@ local function createNewPopup(popupType)
 		TweenService:Create(newModel, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0.1), { Transparency = 0, SizeRelativeOffset = Vector3.new(0, radius * 1.5, 0) }):Play()
 		return tween1
 	end
-	
+
 	function dataStructure:TweenOut()
 		local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 		local tween1 = TweenService:Create(newModel, tweenInfo, { Size = ZERO_VECTOR2 })
 		tween1:Play()
-		
+
 		coroutine.wrap(function()
 			tween1.Completed:Wait()
-			
+
 			for i = 1, #activePopups do
 				if activePopups[i] == newModel then
 					table.remove(activePopups, i)
@@ -248,7 +260,7 @@ local function createNewPopup(popupType)
 		end)()
 		return tween1
 	end
-	
+
 	function dataStructure:Place(position, dest)
 		-- place the model at position
 		if not self.Model.Parent then
@@ -260,11 +272,11 @@ local function createNewPopup(popupType)
 			--the actual ground position.
 			local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
 			local hitPart, hitPoint, hitNormal = workspace:FindPartOnRayWithIgnoreList(ray, { workspace.CurrentCamera, Player.Character })
-			
+
 			self.Model.CFrame = CFrame.new(hitPoint) + Vector3.new(0, -radius,0)
 		end
 	end
-	
+
 	return dataStructure
 end
 
@@ -272,7 +284,7 @@ local function createPopupPath(points, numCircles)
 	-- creates a path with the provided points, using the path and number of circles provided
 	local popups = {}
 	local stopTraversing = false
-	
+
 	local function killPopup(i)
 		-- kill all popups before and at i
 		for iter, v in pairs(popups) do
@@ -285,13 +297,13 @@ local function createPopupPath(points, numCircles)
 				popups[iter] = nil
 			end
 		end
-	end	
-	
+	end
+
 	local function stopFunction()
 		stopTraversing = true
 		killPopup(#points)
 	end
-	
+
 	spawn(function()
 		for i = 1, #points do
 			if stopTraversing then
@@ -311,7 +323,7 @@ local function createPopupPath(points, numCircles)
 			end
 		end
 	end)
-	
+
 	return stopFunction, killPopup
 end
 
@@ -323,13 +335,13 @@ local function Pather(character, endPoint, surfaceNormal)
 
 	this.Finished = Instance.new("BindableEvent")
 	this.PathFailed = Instance.new("BindableEvent")
-	
+
 	this.PathComputing = false
 	this.PathComputed = false
-	
+
 	this.TargetPoint = endPoint
 	this.TargetSurfaceNormal = surfaceNormal
-	
+
 	this.DiedConn = nil
 	this.SeatedConn = nil
 	this.MoveToConn = nil
@@ -460,7 +472,7 @@ local function Pather(character, endPoint, surfaceNormal)
 				local isInAir = currentState == Enum.HumanoidStateType.FallingDown
 					or currentState == Enum.HumanoidStateType.Freefall
 					or currentState == Enum.HumanoidStateType.Jumping
-				
+
 				if isInAir then
 					local shouldWaitForGround = nextWaypoint.Action == Enum.PathWaypointAction.Jump
 					if not shouldWaitForGround and this.CurrentPoint > 1 then
@@ -526,7 +538,6 @@ local function Pather(character, endPoint, surfaceNormal)
 					if this.setPointFunc then
 						this.setPointFunc(nextWaypointIdx)
 					end
-				
 					if nextWaypoint.Action == Enum.PathWaypointAction.Jump then
 						this.humanoid.Jump = true
 					end
@@ -545,7 +556,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		if CurrentSeatPart then
 			return
 		end
-		
+
 		this.humanoid = findPlayerHumanoid(Player)
 		if not this.humanoid then
 			this.PathFailed:Fire()
@@ -554,7 +565,7 @@ local function Pather(character, endPoint, surfaceNormal)
 
 		if this.Started then return end
 		this.Started = true
-		
+
 		if SHOW_PATH then
 			-- choose whichever one Mike likes best
 			this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4)
@@ -574,7 +585,7 @@ local function Pather(character, endPoint, surfaceNormal)
 			end
 		end
 	end
-	
+
 	this:ComputePath()
 	if not this.PathComputed then
 		-- set the end point towards the camera and raycasted towards the ground in case we hit a wall
@@ -587,7 +598,7 @@ local function Pather(character, endPoint, surfaceNormal)
 		-- try again
 		this:ComputePath()
 	end
-	
+
 	return this
 end
 
@@ -683,24 +694,24 @@ local function showQuickPopupAsync(position, popupType)
 end
 
 local FailCount = 0
-local function OnTap(tapPositions, goToPoint)
+local function OnTap(tapPositions, goToPoint, wasTouchTap)
 	-- Good to remember if this is the latest tap event
 	local camera = workspace.CurrentCamera
 	local character = Player.Character
-	
+
 	if not CheckAlive(character) then return end
-	
+
 	-- This is a path tap position
 	if #tapPositions == 1 or goToPoint then
 		if camera then
 			local unitRay = camera:ScreenPointToRay(tapPositions[1].x, tapPositions[1].y)
 			local ray = Ray.new(unitRay.Origin, unitRay.Direction*1000)
-			
+
 			-- inivisicam stuff
 			local initIgnore = getIgnoreList()
 			local invisicamParts = {} --InvisicamModule and InvisicamModule:GetObscuredParts() or {}
 			local ignoreTab = {}
-			
+
 			-- add to the ignore list
 			for i, v in pairs(invisicamParts) do
 				ignoreTab[#ignoreTab+1] = i
@@ -708,20 +719,27 @@ local function OnTap(tapPositions, goToPoint)
 			for i = 1, #initIgnore do
 				ignoreTab[#ignoreTab+1] = initIgnore[i]
 			end
-			--			
-			local myHumanoid = findPlayerHumanoid(Player)	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath
+			--
+			local myHumanoid = findPlayerHumanoid(Player)	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath2
 			local hitPart, hitPt, hitNormal, hitMat = Utility.Raycast(ray, true, ignoreTab)
 
 			local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
-			local torso = GetTorso()	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath
-			local startPos = torso.CFrame.p	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath
+			if FFlagUserFixClickToMoveWithACM and wasTouchTap and hitHumanoid and StarterGui:GetCore("AvatarContextMenuEnabled") then
+				local clickedPlayer = Players:GetPlayerFromCharacter(hitHumanoid.Parent)
+				if clickedPlayer then
+					CleanupPath()
+					return
+				end
+			end
+			local torso = GetTorso()	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath2
+			local startPos = torso.CFrame.p	-- To remove when cleaning up FFlagUserNavigationClickToMoveNoDirectPath2
 			if goToPoint then
 				hitPt = goToPoint
 				hitChar = nil
 			end
-			if not FFlagUserNavigationClickToMoveNoDirectPath and hitChar and hitHumanoid and hitHumanoid.RootPart and (hitHumanoid.Torso.CFrame.p - torso.CFrame.p).magnitude < 7 then
+			if not FFlagUserNavigationClickToMoveNoDirectPath2 and hitChar and hitHumanoid and hitHumanoid.RootPart and (hitHumanoid.Torso.CFrame.p - torso.CFrame.p).magnitude < 7 then
 				CleanupPath()
-				
+
 				if myHumanoid then
 					myHumanoid:MoveTo(hitPt)
 				end
@@ -735,19 +753,19 @@ local function OnTap(tapPositions, goToPoint)
 				local thisPather = Pather(character, hitPt, hitNormal)
 				if thisPather:IsValidPath() then
 					FailCount = 0
-					
+
 					thisPather:Start()
 					if BindableEvent_OnFailStateChanged then
 						BindableEvent_OnFailStateChanged:Fire(false)
 					end
 					CleanupPath()
-					
-					local destinationPopup = createNewPopup("DestinationPopup")	
+
+					local destinationPopup = createNewPopup("DestinationPopup")
 					destinationPopup:Place(hitPt, Vector3.new(0,hitPt.y,0))
 					local failurePopup = createNewPopup("FailurePopup")
 					local currentTween = destinationPopup:TweenIn()
-					
-					
+
+
 					ExistingPather = thisPather
 					ExistingIndicator = destinationPopup
 
@@ -764,7 +782,7 @@ local function OnTap(tapPositions, goToPoint)
 								destinationPopup = nil
 							end)
 						end
-						if FFlagUserNavigationClickToMoveNoDirectPath then
+						if FFlagUserNavigationClickToMoveNoDirectPath2 then
 							if hitChar then
 								local currentWeapon = GetEquippedTool(character)
 								if currentWeapon then
@@ -799,10 +817,10 @@ local function OnTap(tapPositions, goToPoint)
 						end
 					end)
 				else
-					if not FFlagUserNavigationClickToMoveNoDirectPath and hitPt then
+					if hitPt then
 						-- Feedback here for when we don't have a good path
 						local foundDirectPath = false
-						if (hitPt-startPos).Magnitude < 25 and (startPos.y-hitPt.y > -3) then
+						if not FFlagUserNavigationClickToMoveNoDirectPath2 and (hitPt-startPos).Magnitude < 25 and (startPos.y-hitPt.y > -3) then
 							-- move directly here
 							if myHumanoid then
 								if myHumanoid.Sit then
@@ -811,20 +829,20 @@ local function OnTap(tapPositions, goToPoint)
 								myHumanoid:MoveTo(hitPt)
 								foundDirectPath = true
 							end
-						end		
-						
+						end
+
 						coroutine.wrap(showQuickPopupAsync)(hitPt, foundDirectPath and "DirectWalkPopup" or "FailurePopup")
 					end
 				end
-			elseif hitPt and character and CurrentSeatPart then 
-				local destinationPopup = createNewPopup("DestinationPopup")	
+			elseif hitPt and character and CurrentSeatPart then
+				local destinationPopup = createNewPopup("DestinationPopup")
 				ExistingIndicator = destinationPopup
 				destinationPopup:Place(hitPt, Vector3.new(0,hitPt.y,0))
 				destinationPopup:TweenIn()
-				
+
 				DrivingTo = hitPt
 				local ConnectedParts = CurrentSeatPart:GetConnectedParts(true)
-				
+
 				while wait() do
 					if CurrentSeatPart and ExistingIndicator == destinationPopup then
 						local ExtentsSize = getExtentsSize(ConnectedParts)
@@ -891,7 +909,7 @@ ClickToMove.__index = ClickToMove
 
 function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(KeyboardController.new(CONTROL_ACTION_PRIORITY), ClickToMove)
-	
+
 	self.fingerTouches = {}
 	self.numUnsunkTouches = 0
 	-- PC simulation
@@ -913,11 +931,11 @@ function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	self.characterChildRemovedConn = nil
 	self.renderSteppedConn = nil
 	self.humanoidSeatedConn = nil
-	
+
 	self.running = false
-	
+
 	self.wasdEnabled = false
-	
+
 	return self
 end
 
@@ -931,10 +949,10 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.onCharacterAddedConn)
 	DisconnectEvent(self.renderSteppedConn)
 	DisconnectEvent(self.characterChildRemovedConn)
-	
+
 	-- TODO: Resolve with ControlScript handling of seating for vehicles
 	DisconnectEvent(self.humanoidSeatedConn)
-	
+
 	RunService:UnbindFromRenderStep("ClickToMoveRenderUpdate")
 end
 
@@ -1025,17 +1043,17 @@ function ClickToMove:OnCharacterAdded(character)
 
 	self.tapConn = UserInputService.TouchTap:Connect(function(touchPositions, processed)
 		if not processed then
-			OnTap(touchPositions)
+			OnTap(touchPositions, nil, true)
 		end
 	end)
-	
+
 	local function computeThrottle(dist)
 		if dist > .2 then
 			return 0.5+(dist^2)/2
 		else
 			return 0
 		end
-	end		
+	end
 
 	local lastSteer = 0
 
@@ -1046,15 +1064,15 @@ function ClickToMove:OnCharacterAdded(character)
 	local function getThrottleAndSteer(object, point)
 		local throttle, steer = 0, 0
 		local oCF = object.CFrame
-		
+
 		local relativePosition = oCF:pointToObjectSpace(point)
 		local relativeZDirection = -relativePosition.z
 		local relativeDistance = relativePosition.magnitude
-		
+
 		-- throttle quadratically increases from 0-1 as distance from the selected point goes from 0-50, after 50, throttle is 1.
 		-- this allows shorter distance travel to have more fine-tuned control.
 		throttle = computeThrottle(math.min(1,relativeDistance/50))*math.sign(relativeZDirection)
-		
+
 		local steerAngle = -math.atan2(-relativePosition.x, -relativePosition.z)
 		steer = steerAngle/(math.pi/4)
 
@@ -1063,7 +1081,7 @@ function ClickToMove:OnCharacterAdded(character)
 		local pdSteer = kP * steer + kD * steer
 		return throttle, pdSteer
 	end
-	
+
 	local function Update()
 		if CurrentSeatPart then
 			if DrivingTo then
@@ -1075,14 +1093,14 @@ function ClickToMove:OnCharacterAdded(character)
 				CurrentSeatPart.SteerFloat = 0
 			end
 		end
-		
+
 		local cameraPos = workspace.CurrentCamera.CFrame.p
 		for i = 1, #activePopups do
 			local popup = activePopups[i]
 			popup.CFrame = CFrame.new(popup.CFrame.p, cameraPos)
 		end
 	end
-	
+
 	RunService:BindToRenderStep("ClickToMoveRenderUpdate",Enum.RenderPriority.Camera.Value - 1,Update)
 
 	local function OnCharacterChildAdded(child)
@@ -1154,26 +1172,26 @@ function ClickToMove:Enable(enable, enableWASD)
 			self.running = false
 		end
 	end
-	
+
 	-- Extension for initializing Keyboard input as this class now derives from Keyboard
 	if UserInputService.KeyboardEnabled and enable ~= self.enabled then
-	
+
 		self.forwardValue  = 0
 		self.backwardValue = 0
 		self.leftValue = 0
 		self.rightValue = 0
-		
+
 		self.moveVector = ZERO_VECTOR3
-		
+
 		if enable then
 			self:BindContextActions()
 			self:ConnectFocusEventListeners()
 		else
 			self:UnbindContextActions()
 			self:DisconnectFocusEventListeners()
-		end	
+		end
 	end
-	
+
 	self.wasdEnabled = enable and enableWASD or false
 	self.enabled = enable
 end

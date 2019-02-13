@@ -40,9 +40,9 @@ local function ListDialog(props)
 			OnResult = props.OnResult,
 		}, {
 			Header = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, -60, 0, 46),
+				Size = UDim2.new(1, -60, 0, 80),
 				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 30),
+				Position = UDim2.new(0.5, 0, 0, 10),
 				BackgroundTransparency = 1,
 				Text = header,
 				Font = Enum.Font.SourceSansSemibold,

@@ -1,3 +1,17 @@
+--[[
+	This script contains all the strings that needs to be localized in the toolbox.
+
+	Source is from ToolboxTranslationReferenceTable. And it's imported from a CSV table.
+
+	Here is the steps to update the localizationTable:
+	1. Edit and download CSV source from here:
+	https://docs.google.com/spreadsheets/d/1Xq7Tjh45r7Nq0n7SsneVJIbhdRzzCN__fXEXCk1nI_E/edit?usp=sharing
+
+	2. In your target studio, build the Toolbox with robin or using rojo 0.5.0 to build the plugin,
+	localization will be automatic included in the Toolbox.
+	Here is the current path for LocalizationTable: Toolbox/LocalizationTable
+]]
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -151,25 +165,29 @@ end
 
 -- Private impl below
 function Localization:_getDefaultLocaleId()
-    local localeId = settings():GetFVariable("StudioForceLocale")
-    if (#localeId == 0) then 
-        local instance = game:GetService("LocalizationService")
-        localeId = instance.SystemLocaleId;
-	end
-	return localeId
+	return "en-us"
 end
 
 function Localization:_getLocaleId()
+	-- First we will see if studio want to override the Toolbox localization.
+	local studioForceLocaleId = settings():GetFVariable("StudioForceLocale")
+    if not (#studioForceLocaleId == 0) then
+		return studioForceLocaleId
+	end
+
+	-- Then we check what's current RobloxLocaleId we want to use
+	-- If toolbox localization is enabled.
 	if FFlagEnableLocalizationForToolbox then
 		if self._externalLocaleIdGetter then
 			return self._externalLocaleIdGetter()
 		end
 	end
+
 	return self:_getDefaultLocaleId()
 end
 
 function Localization:_getTranslator(localeId)
-	localeId = localeId or self:_getLocaleId() or self:_getDefaultLocaleId()
+	localeId = localeId or self:_getLocaleId()
 	if self._externalTranslatorGetter then
 		return self._externalTranslatorGetter(localeId)
 	end

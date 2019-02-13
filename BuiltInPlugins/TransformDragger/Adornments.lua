@@ -9,6 +9,12 @@ local Utility = require(script.Parent.Utility)
 local RecyclingBin = require(script.Parent.RecyclingBin)
 
 -----------------------------------
+-------------FAST FLAGS------------
+-----------------------------------
+
+local FFlagStudioTransformDraggerAdornThingSticksAroundPleaseDoNotDoThat = settings():GetFFlag("StudioTransformDraggerAdornThingSticksAroundPleaseDoNotDoThat")
+
+-----------------------------------
 --------------VARIABLES------------
 -----------------------------------
 
@@ -1345,32 +1351,67 @@ end
 
 local function destroyAdorns()
 	initialized = false
-	for i, v in pairs(adornKeeper) do
-		v[1]:Destroy()
-		if v[2] then
-			v[2]:Destroy()
+	
+	if FFlagStudioTransformDraggerAdornThingSticksAroundPleaseDoNotDoThat then
+		for _, adorn in pairs(adornKeeper) do
+			adorn[1]:Destroy()
+			if adorn[2] then
+				adorn[2]:Destroy()
+			end
 		end
-		adornKeeper[i] = nil
-	end
-	
-	for i, v in pairs(shadowKeeper) do
-		v:Destroy()
-		shadowKeeper[i] = nil
-	end
-	
-	for i, v in pairs(planeKeeper) do
-		v:Destroy()
-		adornKeeper[i] = nil
-	end
-	
-	for i, v in ipairs(miniPlaneLines) do
-		miniPlaneLines[i]:Destroy()
-		miniPlaneLines[i] = nil
-	end
-	
-	for i, v in ipairs(rotateLines) do
-		rotateLines[i]:Destroy()
-		rotateLines[i] = nil
+		adornKeeper = {}
+
+		for _, shadow in pairs(shadowKeeper) do
+			shadow:Destroy()
+		end
+		shadowKeeper = {}
+
+		for _, plane in pairs(planeKeeper) do
+			plane:Destroy()
+		end
+		planeKeeper = {}
+
+		for _, miniPlaneLine in pairs(miniPlaneLines) do
+			miniPlaneLine:Destroy()
+		end
+		miniPlaneLines = {}
+
+		for _, rotateLine in pairs(rotateLines) do
+			rotateLine:Destroy()
+		end
+		rotateLines = {}
+
+		for _, ral in pairs(rotateAxisLine) do
+			ral.Parent = nil
+		end
+	else
+		for i, v in pairs(adornKeeper) do
+			v[1]:Destroy()
+			if v[2] then
+				v[2]:Destroy()
+			end
+			adornKeeper[i] = nil
+		end
+
+		for i, v in pairs(shadowKeeper) do
+			v:Destroy()
+			shadowKeeper[i] = nil
+		end
+		
+		for i, v in pairs(planeKeeper) do
+			v:Destroy()
+			adornKeeper[i] = nil
+		end
+		
+		for i, v in ipairs(miniPlaneLines) do
+			miniPlaneLines[i]:Destroy()
+			miniPlaneLines[i] = nil
+		end
+
+		for i, v in ipairs(rotateLines) do
+			rotateLines[i]:Destroy()
+			rotateLines[i] = nil
+		end
 	end
 	
 	strayAdornee:Destroy()

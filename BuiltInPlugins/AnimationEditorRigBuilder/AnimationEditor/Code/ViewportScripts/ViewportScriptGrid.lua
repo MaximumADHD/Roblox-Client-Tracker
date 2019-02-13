@@ -1,20 +1,29 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local Grid = {}
 
 Grid.Cleanup = {}
 
 function Grid:init(Paths)
-	Grid.Paths = Paths	
+	Grid.Paths = Paths
 end
 
-function Grid:terminate()
+function Grid:destroyGrid()
 	for i, v in pairs(Grid.Cleanup) do
 		v:Destroy()
 	end
 	Grid.Cleanup = {}
+end
+
+function Grid:terminate()
+	self:destroyGrid()
 	Grid.Paths = nil
 end
 
 function Grid:create(obj)
+		if FastFlags:isEnableRigSwitchingOn() then
+			self:destroyGrid()
+		end
 		spawn(function()
 		local USE_FADE_EFFECT = false
 		local USE_GROW_EFFET = true

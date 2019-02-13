@@ -11,6 +11,7 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 		return {
 			balance = accountInfo.RobuxBalance,
 			bcLevel = accountInfo.MembershipType,
+			isPremium = accountInfo.IsPremiumUser,
 		}
 	end,
 })

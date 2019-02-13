@@ -18,9 +18,9 @@ local Gamepad = setmetatable({}, BaseCharacterController)
 Gamepad.__index = Gamepad
 
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority")
+	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
-local FFlagPlayerScriptsBindAtPriority = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
+local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
 function Gamepad.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(BaseCharacterController.new(), Gamepad)
@@ -129,7 +129,7 @@ function Gamepad:BindContextActions()
 	
 	local handleJumpAction = function(actionName, inputState, inputObject)
 		self.isJumping = (inputState == Enum.UserInputState.Begin)
-		if FFlagPlayerScriptsBindAtPriority then
+		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Sink
 		end
 	end
@@ -138,11 +138,11 @@ function Gamepad:BindContextActions()
 		
 		if inputState == Enum.UserInputState.Cancel then
 			self.moveVector = ZERO_VECTOR3
-			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Sink or nil
+			return FFlagPlayerScriptsBindAtPriority2 and Enum.ContextActionResult.Sink or nil
 		end
 		
 		if self.activeGamepad ~= inputObject.UserInputType then 
-			return FFlagPlayerScriptsBindAtPriority and Enum.ContextActionResult.Pass or nil
+			return FFlagPlayerScriptsBindAtPriority2 and Enum.ContextActionResult.Pass or nil
 		end
 		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 		
@@ -151,13 +151,13 @@ function Gamepad:BindContextActions()
 		else
 			self.moveVector = ZERO_VECTOR3
 		end
-		if FFlagPlayerScriptsBindAtPriority then
+		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Sink
 		end
 	end
 	
 	ContextActionService:BindActivate(self.activeGamepad, Enum.KeyCode.ButtonR2)
-	if FFlagPlayerScriptsBindAtPriority then
+	if FFlagPlayerScriptsBindAtPriority2 then
 		ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
 			self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA)
 		ContextActionService:BindActionAtPriority("moveThumbstick", handleThumbstickInput, false,

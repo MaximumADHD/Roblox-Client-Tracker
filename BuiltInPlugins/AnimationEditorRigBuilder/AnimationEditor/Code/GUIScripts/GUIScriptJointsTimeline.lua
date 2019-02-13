@@ -8,7 +8,11 @@ JointsTimeline.Paths = nil
 JointsTimeline.ClonedChildren = {}
 JointsTimeline.CurrentHeight = 0
 JointsTimeline.JointScripts = {}
-JointsTimeline.RootNodeScript = nil
+if FastFlags:isEnableRigSwitchingOn() then
+	JointsTimeline.RootNodeScripts = {}
+else
+	JointsTimeline.RootNodeScript = nil
+end
 JointsTimeline.heightChangeEvent = nil
 
 local function positionConnectionLines(self)
@@ -18,17 +22,26 @@ local function positionConnectionLines(self)
 end
 
 local function recalculateHeight(self)
-	self.CurrentHeight = self.RootNodeScript:getHeight()
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.CurrentHeight = 0
+		for _, jointScript in ipairs(self.RootNodeScripts) do
+			self.CurrentHeight = self.CurrentHeight + jointScript:getHeight()
+		end
+	else
+		self.CurrentHeight = self.RootNodeScript:getHeight()
+	end
 	-- use the spawn function to wait a frame before positioning the connection lines, as the code relies on the other widgets being already in positioned 
 	spawn(function() wait(); positionConnectionLines(self) end)	
 	self.heightChangeEvent:fire()
 end
 
 local function shadeJoints(self, jointScript, doShade)
-	jointScript = jointScript and jointScript or self.RootNodeScript
+	if not FastFlags:isEnableRigSwitchingOn() then
+		jointScript = jointScript and jointScript or self.RootNodeScript
 
-	doShade = nil == doShade and false or doShade
-	
+		doShade = nil == doShade and false or doShade
+	end
+
 	jointScript:doShade(doShade)
 
 	local doShadeChild = doShade
@@ -41,13 +54,26 @@ local function shadeJoints(self, jointScript, doShade)
 	return doShadeChild	
 end
 
+local function shadeHierarchy(self)
+	doShade = false
+	for _, jointScript in ipairs(self.RootNodeScripts) do
+		doShade = shadeJoints(self, jointScript, doShade)
+		doShade = not doShade
+	end	
+end
+
 local function createJointSwizzles(self)
 	for _, jointScript in pairs(self.JointScripts) do
 		jointScript:createSwizzles()
 
-		if jointScript.JointSwizzle then	
-			jointScript.JointSwizzle.swizzleOpenEvent:connect(function() shadeJoints(self) end)		
-			jointScript.JointSwizzle.swizzleClosedEvent:connect(function() shadeJoints(self) end)
+		if jointScript.JointSwizzle then
+			if FastFlags:isEnableRigSwitchingOn() then
+				jointScript.JointSwizzle.swizzleOpenEvent:connect(function() shadeHierarchy(self) end)		
+				jointScript.JointSwizzle.swizzleClosedEvent:connect(function() shadeHierarchy(self) end)
+			else
+				jointScript.JointSwizzle.swizzleOpenEvent:connect(function() shadeJoints(self) end)		
+				jointScript.JointSwizzle.swizzleClosedEvent:connect(function() shadeJoints(self) end)
+			end
 		end
 	end	
 end
@@ -57,8 +83,14 @@ local function createJointNamesAndTracks(self, parentScript, node, indentLevel)
 		return
 	end
 	
-	-- add joint names					
-	if node.Name ~= "HumanoidRootPart" then
+	-- add joint names
+	local isRoot = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		isRoot = not self.Paths.DataModelRig:isARootPart(node.Item)
+	else
+		isRoot = node.Name ~= "HumanoidRootPart"
+	end
+	if isRoot then
 		local jointWidget = self.Paths.GUIClonableJoint:clone()		
 		local jointScript = self.Paths.GUIScriptJoint:new(self.Paths, jointWidget, node)	
 		table.insert(self.ClonedChildren, jointWidget)	
@@ -66,11 +98,18 @@ local function createJointNamesAndTracks(self, parentScript, node, indentLevel)
 		
 		if parentScript then
 			parentScript:addChild(jointScript, indentLevel)
-		else	
-			self.RootNodeScript = jointScript
-			jointWidget.Parent = self.TargetWidget
-			self.RootNodeScript:indent(indentLevel)
-			self.RootNodeScript.heightChangeEvent:connect(function() recalculateHeight(self);  end)
+		else
+			if FastFlags:isEnableRigSwitchingOn() then
+				self.RootNodeScripts[#self.RootNodeScripts + 1] = jointScript
+				jointWidget.Parent = self.TargetWidget
+				self.RootNodeScripts[#self.RootNodeScripts]:indent(indentLevel)
+				self.RootNodeScripts[#self.RootNodeScripts].heightChangeEvent:connect(function() recalculateHeight(self);  end)
+			else
+				self.RootNodeScript = jointScript
+				jointWidget.Parent = self.TargetWidget
+				self.RootNodeScript:indent(indentLevel)
+				self.RootNodeScript.heightChangeEvent:connect(function() recalculateHeight(self);  end)
+			end
 		end
 		for _, childNode in pairs(node.Children) do
 			createJointNamesAndTracks(self, jointScript, childNode, indentLevel + 1)
@@ -100,10 +139,21 @@ end
 function JointsTimeline:init(Paths)
 	self.TargetWidget = Paths.GUIJointsTimeline
 	self.Paths = Paths
-	createJointNamesAndTracks(self, nil, Paths.DataModelRig:getItem(), 0)
+	if FastFlags:isEnableRigSwitchingOn() then
+		for _, rootItem in pairs(Paths.DataModelRig:getItems()) do
+			createJointNamesAndTracks(self, nil, rootItem, 0)
+		end
+	else
+		createJointNamesAndTracks(self, nil, Paths.DataModelRig:getItem(), 0)
+	end
 	createJointSwizzles(self)
 	self.heightChangeEvent = Paths.UtilityScriptEvent:new()
-	shadeJoints(self)
+
+	if FastFlags:isEnableRigSwitchingOn() then
+		shadeHierarchy(self)
+	else
+		shadeJoints(self)
+	end
 	recalculateHeight(self)
 	
 	initKeyframes(self, Paths.DataModelKeyframes.keyframeList)
@@ -130,7 +180,11 @@ function JointsTimeline:terminate()
 		self.ClonedChildren[cloned] = nil
 	end
 	
-	self.RootNodeScript = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.RootNodeScripts = {}
+	else
+		self.RootNodeScript = nil
+	end
 	self.TargetWidgetJointNames = nil
 	self.TargetWidgetJointTracks = nil
 	self.Paths = nil

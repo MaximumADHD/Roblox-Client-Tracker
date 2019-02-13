@@ -24,6 +24,7 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 local StyledScrollingFrame = require(Plugin.Src.Components.StyledScrollingFrame)
 local Header = require(Plugin.Src.Components.Header)
 local SettingsPages = require(Plugin.Src.Components.SettingsPages.SettingsPages)
+local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
 local CurrentPage = Roact.PureComponent:extend("CurrentPage")
 
@@ -67,35 +68,37 @@ function CurrentPage:didUpdate(previousProps)
 end
 
 function CurrentPage:render()
-	local page = SettingsPages[self.props.Page]
+	return withLocalization(function(localized)
+		local page = SettingsPages[self.props.Page]
 
-	return Roact.createElement(StyledScrollingFrame, {
-		Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
-		Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT),
+		return Roact.createElement(StyledScrollingFrame, {
+			Position = UDim2.new(0, Constants.MENU_BAR_WIDTH, 0, 0),
+			Size = UDim2.new(1, -Constants.MENU_BAR_WIDTH, 1, -Constants.FOOTER_HEIGHT),
 
-		[Roact.Ref] = self.canvasRef,
-	}, {
-		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 25),
-			PaddingRight = UDim.new(0, 25),
-		}),
+			[Roact.Ref] = self.canvasRef,
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, 25),
+				PaddingRight = UDim.new(0, 25),
+			}),
 
-		Layout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, 25),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
+			Layout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, 25),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
 
-		Header = Roact.createElement(Header, {
-			Title = self.props.Page,
-			LayoutOrder = 1,
-		}),
+			Header = Roact.createElement(Header, {
+				Title = localized.Category[self.props.Page],
+				LayoutOrder = 1,
+			}),
 
-		[self.props.Page] = page and Roact.createElement(page, {
-			ContentHeightChanged = self.contentHeightChanged,
-			SetScrollbarEnabled = self.setScrollbarEnabled,
-			LayoutOrder = 2,
-		}),
-	})
+			[self.props.Page] = page and Roact.createElement(page, {
+				ContentHeightChanged = self.contentHeightChanged,
+				SetScrollbarEnabled = self.setScrollbarEnabled,
+				LayoutOrder = 2,
+			}),
+		})
+	end)
 end
 
 return CurrentPage

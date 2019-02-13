@@ -66,9 +66,21 @@ function Load:show()
 	self.CancelButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.GUI.Cancel)
 	self.LoadButton = self.Paths.WidgetCustomImageButton:new(self.Paths, self.GUI.Load)
 	self.LoadButton:setEnabled(false)
-		
-	if self.Paths.DataModelRig:getItem().Item.Parent:FindFirstChild("AnimSaves") ~= nil then
-		local items = self.Paths.DataModelRig:getItem().Item.Parent.AnimSaves:GetChildren()
+
+	local hasAnimSaves = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		hasAnimSaves = self.Paths.DataModelRig:getModel():FindFirstChild("AnimSaves") ~= nil
+	else
+		hasAnimSaves = self.Paths.DataModelRig:getItem().Item.Parent:FindFirstChild("AnimSaves") ~= nil
+	end
+
+	if hasAnimSaves then
+		local items = nil
+		if FastFlags:isEnableRigSwitchingOn() then
+			items = self.Paths.DataModelRig:getModel().AnimSaves:GetChildren()
+		else
+			items = self.Paths.DataModelRig:getItem().Item.Parent.AnimSaves:GetChildren()
+		end
 		local sf = function(a, b) return a.Name < b.Name end
 		table.sort(items, sf)
 		local count = 0

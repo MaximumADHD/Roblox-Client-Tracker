@@ -3005,12 +3005,15 @@ end
 
 function On()	
 	if on then return end
-		
+	
 	plugin:Activate(true)
 	toolbarbutton:SetActive(true)
 	on = true
 	
-	if rotateAdornPart then rotateAdornPart:Destroy() rotateAdornPart = nil end
+	if rotateAdornPart then
+		rotateAdornPart:Destroy()
+		rotateAdornPart = nil
+	end
 
 	Adorn.initializeAdorns()
 			

@@ -4,7 +4,11 @@ local FastFlags = require(script.Parent.Parent.FastFlags)
 
 local Rig = {}
 
-Rig.BaseItem = nil
+if FastFlags:isEnableRigSwitchingOn() then
+	Rig.BaseItems = nil
+else
+	Rig.BaseItem = nil
+end
 Rig.partInclude = {}
 Rig.partList = {}
 Rig.partListByName = {}
@@ -20,8 +24,9 @@ if FastFlags:isIKModeFlagOn() then
 	Rig.RigVerifiedEvent = nil
 end
 Rig.Connections = nil
+Rig.TagName = "InIK"
 
-function Rig:create(Paths, selectedObject)
+function Rig:create(Paths, potentialRoots)
 	-- reset the assembly information
 	self.partList = {}
 	self.partListByName = {}
@@ -39,11 +44,22 @@ function Rig:create(Paths, selectedObject)
 		end
 		return nil
 	end
-
-	self.AnimationController = getController(selectedObject.Parent)
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.AnimationController = getController(Paths.HelperFunctionsTable:firstValue(potentialRoots).Parent)
+	else
+		self.AnimationController = getController(potentialRoots.Parent)
+	end
 
 	--first, gather the info on what's being animated
-	local baseItem = Paths.UtilityScriptDataItem:new(Paths, selectedObject, nil, CFrame.new()) --recursive structure holding hierarchy of items
+	local baseItems = {}
+	local baseItem = nil
+	if FastFlags:isEnableRigSwitchingOn() then
+		for _, part in pairs(potentialRoots) do
+			baseItems[part] = Paths.UtilityScriptDataItem:new(Paths, part, nil, CFrame.new())
+		end
+	else
+		baseItem = Paths.UtilityScriptDataItem:new(Paths, potentialRoots, nil, CFrame.new()) --recursive structure holding hierarchy of items
+	end
 
 	local joints = {}
 	local function recurse(obj)
@@ -55,7 +71,12 @@ function Rig:create(Paths, selectedObject)
 			recurse(child)
 		end
 	end
-	recurse(baseItem.Item.Parent)
+
+	if FastFlags:isEnableRigSwitchingOn() then
+		recurse(Paths.HelperFunctionsTable:firstValue(baseItems).Item.Parent)
+	else
+		recurse(baseItem.Item.Parent)
+	end
 
 	do
 		local visitedParts = {}
@@ -99,9 +120,19 @@ function Rig:create(Paths, selectedObject)
 				doCalculate(it)
 			end
 		end
-		doCalculate(baseItem)
+		if FastFlags:isEnableRigSwitchingOn() then
+			for _, item in pairs(baseItems) do
+				doCalculate(item)
+			end
+		else
+			doCalculate(baseItem)
+		end
 	end
-	self.BaseItem = baseItem
+	if FastFlags:isEnableRigSwitchingOn() then
+		self.BaseItems = baseItems
+	else
+		self.BaseItem = baseItem
+	end
 end
 
 function Rig:init(Paths)
@@ -112,16 +143,58 @@ function Rig:init(Paths)
 		Rig.RigVerifiedEvent = Paths.UtilityScriptEvent:new()
 	end
 
-	Rig.Connections = Paths.UtilityScriptConnections:new()
 	Rig.NameChangedEvent = Paths.UtilityScriptEvent:new()
-	Rig.Connections:add(self.BaseItem.Item.Parent.Changed:connect(function(property)
+
+	if FastFlags:isEnableRigSwitchingOn() then
+		self:initConnections()
+	else
+		Rig.Connections = Paths.UtilityScriptConnections:new()
+		Rig.NameChangedEvent = Paths.UtilityScriptEvent:new()
+		Rig.Connections:add(self.BaseItem.Item.Parent.Changed:connect(function(property)
+			if property == "Name" then
+				Rig.NameChangedEvent:fire(self:getName())
+			end
+		end))
+
+		if FastFlags:isUseHipHeightInKeyframeSequencesOn() and self:getModel().Humanoid then
+			Rig.Connections:add(self.BaseItem.Item.Parent.Humanoid.Changed:connect(function(property)
+				if property == "HipHeight" then
+					if self.Paths.DataModelClip:getAuthoredHipHeight() ~= self:getHipHeight() then
+						self.Paths.HelperFunctionsWarningsAndPrompts:createHipHeightMismatchWarning(self.Paths)
+					end
+				end
+			end))
+		end
+
+		if FastFlags:isIKModeFlagOn() then
+			for _, dataItem in pairs(self.partListByName) do
+				Rig.Connections:add(dataItem.Item.Changed:connect(function(property)
+					if property == "Name" then
+						if dataItem.Item.Name ~= dataItem.Name then
+							dataItem.Item.Name = dataItem.Name
+							self.Paths.HelperFunctionsWarningsAndPrompts:createNameChangeError(self.Paths)
+						end
+					end
+				end))
+			end
+		end
+	end
+end
+
+function Rig:initConnections()
+	if Rig.Connections then
+		Rig.Connections:disconnectAll()
+	end
+	Rig.Connections = self.Paths.UtilityScriptConnections:new()
+
+	Rig.Connections:add(self:getModel().Changed:connect(function(property)
 		if property == "Name" then
 			Rig.NameChangedEvent:fire(self:getName())
 		end
 	end))
 
 	if FastFlags:isUseHipHeightInKeyframeSequencesOn() and self:getModel().Humanoid then
-		Rig.Connections:add(self.BaseItem.Item.Parent.Humanoid.Changed:connect(function(property)
+		Rig.Connections:add(self:getModel().Humanoid.Changed:connect(function(property)
 			if property == "HipHeight" then
 				if self.Paths.DataModelClip:getAuthoredHipHeight() ~= self:getHipHeight() then
 					self.Paths.HelperFunctionsWarningsAndPrompts:createHipHeightMismatchWarning(self.Paths)
@@ -146,11 +219,26 @@ end
 
 if FastFlags:isIKModeFlagOn() then
 	function Rig:initPostGUICreate()
-		Rig.RigVerifiedEvent:fire(self.Paths.UtilityScriptHumanIK:verifyForHumanBodyParts(self.Paths))
+		local verified = self.Paths.UtilityScriptHumanIK:verifyForHumanBodyParts(self.Paths)
+		Rig.RigVerifiedEvent:fire(verified)
+		if FastFlags:isEnableRigSwitchingOn() then
+			if verified then
+				if self.Paths.HelperFunctionsCreation:hasTag(self:getModel(), self.TagName) then
+					self.Paths.DataModelIKManipulator:setIsIKModeActive(true)
+				else
+					self.Paths.DataModelIKManipulator:setIsIKModeActive(false)
+				end
+			else
+				self.Paths.DataModelIKManipulator:setIsIKModeActive(false)
+			end
+		end
 	end
 end
 
 function Rig:terminate()
+	if FastFlags:isEnableRigSwitchingOn() then
+		self:destroyRig()
+	end
 	Rig.PartIncludeToggleEvent = nil
 	if FastFlags:isIKModeFlagOn() then
 		Rig.PartPinnedToggleEvent = nil
@@ -161,17 +249,49 @@ function Rig:terminate()
 	Rig.NameChangedEvent = nil
 end
 
-function Rig:getItem()
-	return self.BaseItem
+function Rig:getItems()
+	return self.BaseItems
+end
+
+if not FastFlags:isEnableRigSwitchingOn() then
+	function Rig:getItem()
+		return self.BaseItem
+	end
+end
+
+function Rig:hasRig(Paths)
+	return not Paths.HelperFunctionsTable:isNilOrEmpty(self.BaseItems)
+end
+
+function Rig:destroyRig()
+	self.BaseItems = {}
+	self.partList = {}
+	self.partListByName = {}
+	self.partToItemMap = {}
+	self.partInclude = {}
+	self.partPinned = {}
+	self.AnimationController = nil
 end
 
 function Rig:getName()
-	return self.BaseItem.Item.Parent.Name
+	if FastFlags:isEnableRigSwitchingOn() then
+		return self:getModel().Name
+	else
+		return self.BaseItem.Item.Parent.Name
+	end
+end
+
+function Rig:isARootPart(part)
+	return self.BaseItems[part] ~= nil
 end
 
 if FastFlags:isIKModeFlagOn() then
 	function Rig:getModel()
-		return self.BaseItem.Item.Parent
+		if FastFlags:isEnableRigSwitchingOn() then
+			return self.Paths.HelperFunctionsTable:firstValue(self.BaseItems).Item.Parent
+		else
+			return self.BaseItem.Item.Parent
+		end
 	end
 end
 

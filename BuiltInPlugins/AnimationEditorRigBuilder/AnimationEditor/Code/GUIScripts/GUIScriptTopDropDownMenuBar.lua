@@ -85,7 +85,13 @@ end
 
 function createFileMenu(self)
 	local mainMenu = addMenu(self, self.TargetWidget.File)
-	mainMenu:setWidth(106)
+
+	if FastFlags:isStudioFbxAnimationImportEnabled() then
+		mainMenu:setWidth(160)
+	else
+		mainMenu:setWidth(106)
+	end
+
 	mainMenu:addSelectable("New", function() self.Paths.ActionNew:execute(self.Paths) end)
 	mainMenu:addSelectable("Load", function() self.Paths.GUIScriptLoad:show() end)
 	mainMenu:addSelectable("Save", function() self.Paths.GUIScriptSave:show() end)
@@ -93,6 +99,12 @@ function createFileMenu(self)
 	mainMenu:addSelectable("Import", function() self.Paths.ActionImport:execute(self.Paths) end)
 	mainMenu:addSelectable("Export", function() self.Paths.ActionExport:execute(self.Paths) end)
 	mainMenu:addDivider()
+
+	if FastFlags:isStudioFbxAnimationImportEnabled() then
+		mainMenu:addSelectable("Import FBX Animation", function() self.Paths.ActionImportFBXAnimation:execute(self.Paths) end)
+		mainMenu:addDivider()
+	end
+
 	mainMenu:addSelectable("Help", function() self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.Help) end)
 end
 

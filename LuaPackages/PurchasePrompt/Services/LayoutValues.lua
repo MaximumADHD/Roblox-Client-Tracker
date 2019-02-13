@@ -60,7 +60,10 @@ function LayoutValues.generate(isTenFoot)
 
 		RobuxIconContainerFrame = UDim2.new(0, RobuxIconWidth + RobuxIconPadding, 0, RobuxIconHeight + 2 * RobuxIconPadding),
 		RobuxIcon = UDim2.new(0, RobuxIconWidth, 0, RobuxIconHeight),
-		PriceTextLabel = UDim2.new(1, 0, 0, RobuxIconHeight),
+		PriceTextLabel = UDim2.new(
+			0, ProductDescriptionWidth - (RobuxIconWidth + RobuxIconPadding),
+			0, RobuxIconHeight
+		),
 
 		PurchasingAnimation = UDim2.new(0, PurchasingAnimationWidth, 0, PurchasingAnimationHeight),
 
@@ -69,7 +72,8 @@ function LayoutValues.generate(isTenFoot)
 		ButtonHeight = ButtonHeight,
 		Dialog = UDim2.new(
 			0, ItemPreviewContainerWidth + ProductDescriptionWidth,
-			0, math.max(ItemPreviewContainerHeight, ProductDescriptionHeight) + PostTextHeight + ButtonHeight )
+			0, math.max(ItemPreviewContainerHeight, ProductDescriptionHeight) + PostTextHeight + ButtonHeight
+		),
 	}
 
 	--[[

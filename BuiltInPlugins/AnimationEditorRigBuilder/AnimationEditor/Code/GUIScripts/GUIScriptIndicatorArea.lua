@@ -1,3 +1,4 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
 -- singleton
 local IndicatorArea = {}
 
@@ -39,6 +40,9 @@ end
 
 function IndicatorArea:terminate()
 	self.Paths.UtilityScriptDisplayArea:removeDisplay(self.TargetWidget)
+	if FastFlags:isEnableRigSwitchingOn() then
+		self:clearKeyframeIndicators()
+	end
 	self.TargetWidget = nil
 	self.Connections:disconnectAll()
 end
