@@ -47,7 +47,11 @@ if FastFlags:isAnimationEventsOn() then
 end
 
 function EditClip:execute(Paths, actionType)
-	Paths.UtilityScriptUndoRedo:registerUndo(EditClip:new(Paths, {action = actionType}))
+	if FastFlags:isCheckForSavedChangesOn() then
+		Paths.UtilityScriptUndoRedo:registerUndo(EditClip:new(Paths, {action = actionType}), true)
+	else
+		Paths.UtilityScriptUndoRedo:registerUndo(EditClip:new(Paths, {action = actionType}))
+	end
 end
 
 function EditClip:new(Paths, action)

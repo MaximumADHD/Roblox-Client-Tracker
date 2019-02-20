@@ -4,14 +4,10 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Cryo = require(Libs.Cryo)
 
-local Immutable = require(Plugin.Core.Util.Immutable)
-
 local ContentProvider = game:GetService("ContentProvider")
 
 local loadedImages = {}
 local decal = Instance.new("Decal")
-
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local ImageWithDefault = Roact.PureComponent:extend("ImageWithDefault")
 
@@ -59,16 +55,11 @@ end
 
 function ImageWithDefault:render()
 	local newProps
-	if FFlagStudioLuaWidgetToolboxV2 then
-		newProps = Cryo.Dictionary.join(self.props, {
-			[Roact.Ref] = self.imageRef,
-			Image = Cryo.None,
-			defaultImage = Cryo.None,
-		})
-	else
-		newProps = Immutable.Set(self.props, Roact.Ref, self.imageRef)
-		newProps = Immutable.RemoveFromDictionary(newProps, "Image", "defaultImage")
-	end
+	newProps = Cryo.Dictionary.join(self.props, {
+		[Roact.Ref] = self.imageRef,
+		Image = Cryo.None,
+		defaultImage = Cryo.None,
+	})
 	return Roact.createElement("ImageLabel", newProps)
 end
 

@@ -16,8 +16,6 @@ local Constants = require(Plugin.Core.Util.Constants)
 
 local Category = require(Plugin.Core.Types.Category)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
@@ -74,15 +72,10 @@ function NetworkInterface:getAssets(pageInfo)
 
 	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId)
 
-	if FFlagStudioLuaWidgetToolboxV2 then
-		return sendRequestAndRetry(function()
-			printUrl("getAssets", "GET", targetUrl)
-			return self._networkImp:httpGetJson(targetUrl)
-		end)
-	else
+	return sendRequestAndRetry(function()
 		printUrl("getAssets", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
-	end
+	end)
 end
 
 function NetworkInterface:postVote(assetId, bool)
@@ -93,15 +86,10 @@ function NetworkInterface:postVote(assetId, bool)
 		vote = bool,
 	})
 
-	if FFlagStudioLuaWidgetToolboxV2 then
-		return sendRequestAndRetry(function()
-			printUrl("postVote", "POST", targetUrl, payload)
-			return self._networkImp:httpPostJson(targetUrl, payload)
-		end)
-	else
+	return sendRequestAndRetry(function()
 		printUrl("postVote", "POST", targetUrl, payload)
 		return self._networkImp:httpPostJson(targetUrl, payload)
-	end
+	end)
 end
 
 function NetworkInterface:postUnvote(assetId)
@@ -111,15 +99,10 @@ function NetworkInterface:postUnvote(assetId)
 		assetId = assetId,
 	})
 
-	if FFlagStudioLuaWidgetToolboxV2 then
-		return sendRequestAndRetry(function()
-			printUrl("postUnvote", "POST", targetUrl, payload)
-			return self._networkImp:httpPostJson(targetUrl, payload)
-		end)
-	else
+	return sendRequestAndRetry(function()
 		printUrl("postUnvote", "POST", targetUrl, payload)
 		return self._networkImp:httpPostJson(targetUrl, payload)
-	end
+	end)
 end
 
 function NetworkInterface:postInsertAsset(assetId)
@@ -129,29 +112,19 @@ function NetworkInterface:postInsertAsset(assetId)
 		assetId = assetId,
 	})
 
-	if FFlagStudioLuaWidgetToolboxV2 then
-		return sendRequestAndRetry(function()
-			printUrl("postInsertAsset", "POST", targetUrl, payload)
-			return self._networkImp:httpPost(targetUrl, payload)
-		end)
-	else
+	return sendRequestAndRetry(function()
 		printUrl("postInsertAsset", "POST", targetUrl, payload)
 		return self._networkImp:httpPost(targetUrl, payload)
-	end
+	end)
 end
 
 function NetworkInterface:getManageableGroups()
 	local targetUrl = Urls.constructGetManageableGroupsUrl()
 
-	if FFlagStudioLuaWidgetToolboxV2 then
-		return sendRequestAndRetry(function()
-			printUrl("getManageableGroups", "GET", targetUrl)
-			return self._networkImp:httpGetJson(targetUrl)
-		end)
-	else
+	return sendRequestAndRetry(function()
 		printUrl("getManageableGroups", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
-	end
+	end)
 end
 
 return NetworkInterface

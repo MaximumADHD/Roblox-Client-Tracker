@@ -12,7 +12,7 @@ local function isFlagOn(theFlag)
 		if status then
 			FastFlags.FlagValue[theFlag] = result
 		end
-	end	
+	end
 	return FastFlags.FlagExists[theFlag] and FastFlags.FlagValue[theFlag]
 end
 
@@ -34,6 +34,10 @@ end
 
 function FastFlags.isMorphingPanelWidgetsStandardizationOn()
 	return isFlagOn("MorphingPanelWidgetsStandardization")
+end
+
+function FastFlags.isPlaceFilesGameSettingsSerializationOn()
+	return isFlagOn("PlaceFilesGameSettingsSerialization")
 end
 
 return FastFlags

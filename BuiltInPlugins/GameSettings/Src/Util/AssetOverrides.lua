@@ -6,8 +6,10 @@ local AssetOverrides = { }
 
 local function createTypeKeyedAssetOverridesTable(overrides)
 	local result = {}
-	for _, subTab in pairs(overrides) do
-		result[subTab.assetTypeID] = subTab
+	if nil ~= overrides then
+		for _, subTab in pairs(overrides) do
+			result[subTab.assetTypeID] = subTab
+		end
 	end
 	return result
 end

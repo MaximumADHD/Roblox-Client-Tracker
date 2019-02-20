@@ -460,28 +460,29 @@ end
 	Get a human-readable timestamp relative to the given epoch, which defaults
 	to now. The format of the time is contextual to how far away the times are.
 ]]
-function DateTime:GetLongRelativeTime(epoch)
+function DateTime:GetLongRelativeTime(epoch, timezone)
 	epoch = epoch or DateTime.now()
+	timezone = timezone or TimeZone.Current
 
 	if FFlagChinaLicensingApp then
-		if self:IsSame(epoch, TimeUnit.Days) then
-			return self:Format("hh:mm A")
-		elseif self:IsSame(epoch, TimeUnit.Weeks) then
-			return self:Format("DDD | hh:mm A")
-		elseif self:IsSame(epoch, TimeUnit.Years) then
-			return self:Format("M月D日 | hh:mm A")
+		if self:IsSame(epoch, TimeUnit.Days, timezone) then
+			return self:Format("HH:mm A", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Weeks, timezone) then
+			return self:Format("M月D日 | HH:mm A", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Years, timezone) then
+			return self:Format("M月D日 | HH:mm A", timezone)
 		else
-			return self:Format("YYYY年M月D日 | hh:mm A")
+			return self:Format("YYYY年M月D日 | HH:mm A", timezone)
 		end
 	else
-		if self:IsSame(epoch, TimeUnit.Days) then
-			return self:Format("h:mm A")
-		elseif self:IsSame(epoch, TimeUnit.Weeks) then
-			return self:Format("DDD | h:mm A")
-		elseif self:IsSame(epoch, TimeUnit.Years) then
-			return self:Format("MMM D | h:mm A")
+		if self:IsSame(epoch, TimeUnit.Days, timezone) then
+			return self:Format("h:mm A", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Weeks, timezone) then
+			return self:Format("DDD | h:mm A", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Years, timezone) then
+			return self:Format("MMM D | h:mm A", timezone)
 		else
-			return self:Format("MMM D, YYYY | h:mm A")
+			return self:Format("MMM D, YYYY | h:mm A", timezone)
 		end
 	end
 end
@@ -490,28 +491,29 @@ end
 	Get a human-readable timestamp relative to the given epoch, which defaults
 	to now. The format of the time is contextual to how far away the times are.
 ]]
-function DateTime:GetShortRelativeTime(epoch)
+function DateTime:GetShortRelativeTime(epoch, timezone)
 	epoch = epoch or DateTime.now()
+	timezone = timezone or TimeZone.Current
 
 	if FFlagChinaLicensingApp then
-		if self:IsSame(epoch, TimeUnit.Days) then
-			return self:Format("hh:mm A")
-		elseif self:IsSame(epoch, TimeUnit.Weeks) then
-			return self:Format("DDD")
-		elseif self:IsSame(epoch, TimeUnit.Years) then
-			return self:Format("M月D日")
+		if self:IsSame(epoch, TimeUnit.Days, timezone) then
+			return self:Format("HH:mm A", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Weeks, timezone) then
+			return self:Format("M月D日", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Years, timezone) then
+			return self:Format("M月D日", timezone)
 		else
-			return self:Format("YYYY年M月D日")
+			return self:Format("YYYY年M月D日", timezone)
 		end
 	else
-		if self:IsSame(epoch, TimeUnit.Days) then
-			return self:Format("h:mm A")
-		elseif self:IsSame(epoch, TimeUnit.Weeks) then
-			return self:Format("DDD")
-		elseif self:IsSame(epoch, TimeUnit.Years) then
-			return self:Format("MMM D")
+		if self:IsSame(epoch, TimeUnit.Days, timezone) then
+			return self:Format("h:mm A", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Weeks, timezone) then
+			return self:Format("DDD", timezone)
+		elseif self:IsSame(epoch, TimeUnit.Years, timezone) then
+			return self:Format("MMM D", timezone)
 		else
-			return self:Format("MMM D, YYYY")
+			return self:Format("MMM D, YYYY", timezone)
 		end
 	end
 end

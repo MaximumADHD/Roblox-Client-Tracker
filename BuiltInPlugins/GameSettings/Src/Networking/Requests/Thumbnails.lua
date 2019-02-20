@@ -3,6 +3,7 @@
 ]]
 
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 
 local HttpService = game:GetService("HttpService")
 
@@ -11,7 +12,10 @@ local Cryo = require(Plugin.Cryo)
 local Promise = require(Plugin.Promise)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
-local LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
+local FileUtils = require(Plugin.Src.Util.FileUtils)
+
+-- Deprecated, remove with FFlagStudioRenameLocalAssetToFile
+local DEPRECATED_LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
 
 local THUMBNAILS_GET_URL = "v1/games/%d/media"
 local THUMBNAILS_GET_REQUEST_TYPE = "games"
@@ -110,7 +114,14 @@ function Thumbnails.Set(universeId, thumbnails, thumbnailOrder)
 	for id, data in pairs(newThumbs) do
 		if oldThumbs[id] == nil then
 			local url = Http.BuildRobloxUrl(THUMBNAIL_ADD_REQUEST_TYPE, THUMBNAIL_ADD_URL, universeId)
-			local requestInfo = LocalAssetUtils.GetAssetPublishRequestInfo(data.asset, url)
+
+			local requestInfo
+			if FFlagStudioRenameLocalAssetToFile then
+				requestInfo = FileUtils.GetAssetPublishRequestInfo(data.asset, url)
+			else
+				requestInfo = DEPRECATED_LocalAssetUtils.GetAssetPublishRequestInfo(data.asset, url)
+			end
+
 			table.insert(addRequests, Http.RequestInternal(requestInfo):andThen(function(jsonResult)
 				local result = HttpService:JSONDecode(jsonResult)
 				local oldIndex = Cryo.List.find(thumbnailOrder, id)

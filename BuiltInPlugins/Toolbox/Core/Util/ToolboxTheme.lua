@@ -3,12 +3,9 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 
-local Colors = require(Plugin.Core.Util.Colors)
 local createSignal = require(Plugin.Core.Util.createSignal)
 local Immutable = require(Plugin.Core.Util.Immutable)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
-
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme
@@ -68,7 +65,7 @@ function ToolboxTheme:destroy()
 end
 
 function ToolboxTheme:_update(changedValues)
-	self._values = (FFlagStudioLuaWidgetToolboxV2 and Cryo.Dictionary.join or Immutable.JoinDictionaries)(self._values,
+	self._values = (Cryo.Dictionary.join)(self._values,
 		changedValues)
 	self.values = wrapStrictTable(self._values, "theme")
 	self._signal:fire(self.values)

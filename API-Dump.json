@@ -31719,27 +31719,6 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
-                    "Name": "PGSPhysicsSolverEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
                     "Name": "StreamingEnabled",
                     "Security": {
                         "Read": "None",
@@ -34837,7 +34816,10 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -43729,11 +43711,11 @@
                     "Name": "AllowCustomAnimations",
                     "Security": {
                         "Read": "None",
-                        "Write": "NotAccessibleSecurity"
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
                         "Hidden"
@@ -43911,6 +43893,363 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDFace",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDHead",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDLeftArm",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDLeftLeg",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDPants",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDRightArm",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDRightLeg",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDShirt",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDTeeShirt",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAssetIDTorso",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsAvatarType",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "GameAvatarType"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsR15CollisionType",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "R15CollisionType"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsScaleBodyType",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsScaleHead",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsScaleHeight",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsScaleProportion",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "GameSettingsScaleWidth",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
                     }
                 },
                 {
@@ -59064,6 +59403,13 @@
                 {
                     "Name": "Voxel",
                     "Value": 1
+                },
+                {
+                    "Name": "Compatibility",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 2
                 }
             ],
             "Name": "Technology"

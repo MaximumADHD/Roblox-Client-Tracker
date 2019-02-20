@@ -54,7 +54,11 @@ function PopUpInput:show(titleText, placeholder, onSubmit)
 	self.OKButton:setEnabled(false)
 
 	if FastFlags:useQWidgetsForPopupsOn() then
-		self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, "", self.GUI, function() destroy(self) end)
+		if FastFlags:isEnableRigSwitchingOn() then
+			self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, titleText, self.GUI, function() destroy(self) end)
+		else
+			self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, "", self.GUI, function() destroy(self) end)
+		end
 		self.QtWindow:turnOn(true)
 	end
 

@@ -159,6 +159,7 @@ local function initializeScripts(self)
 
 		self.Paths.ViewportScriptGrid:init(self.Paths)
 		self.ScriptsInitialized = true
+		self.TracksInitialized = true
 	end
 end
 
@@ -252,43 +253,36 @@ local function terminateScripts(self)
 			self.Paths.UtilityScriptScalePoses:terminate()
 		end
 		self.ScriptsInitialized = false
+		self.TracksInitialized = false
 	end
 end
 
 function PluginSetup:exitPlugin()
 	self.Paths.DataModelPreferences:serializePreferencesTable(self.Paths)	
+	self.Paths.Globals.PluginGUI.Enabled = false
 
-	local handleExit = function(self)
-		self.Paths.Globals.PluginGUI.Enabled = false
-
-		if self.Paths.DataModelRig:hasRig(self.Paths) then
-			self.Paths.DataModelClip:autoSave()
-			self.Paths.DataModelSession:resetAnimation()
-		end
-
-		if self.ScriptsInitialized then
-			terminateScripts(self)
-		end
-
-		self.Paths.UtilityScriptRigSelection:terminate()
-		self.Paths.GUIScriptAlertMessage:terminate()
-		self.Paths.GUIScriptPromptOKCancel:terminate()
-		self.Paths.GUIScriptDarkCover:terminate()
-
-		self.Paths.GUI:Destroy()
-		self.Paths.GUI = nil
-
-		self.Paths.Globals.Plugin:Activate(false)
-		self.Button:SetActive(false)
-
-		game:GetService("ChangeHistoryService"):SetEnabled(true)
-		game:GetService("ChangeHistoryService"):ResetWaypoints()
+	if self.Paths.DataModelRig:hasRig(self.Paths) then
+		self.Paths.DataModelClip:autoSave()
+		self.Paths.DataModelSession:resetAnimation()
 	end
-	if isGUIOnScreen(self) then
-		self.Paths.GUIScriptPromptOKCancel:show("You will lose unsaved progress. Are you sure?", function() handleExit(self) end)
-	else
-		handleExit(self)
+
+	if self.ScriptsInitialized then
+		terminateScripts(self)
 	end
+
+	self.Paths.UtilityScriptRigSelection:terminate()
+	self.Paths.GUIScriptAlertMessage:terminate()
+	self.Paths.GUIScriptPromptOKCancel:terminate()
+	self.Paths.GUIScriptDarkCover:terminate()
+
+	self.Paths.GUI:Destroy()
+	self.Paths.GUI = nil
+
+	self.Paths.Globals.Plugin:Activate(false)
+	self.Button:SetActive(false)
+
+	game:GetService("ChangeHistoryService"):SetEnabled(true)
+	game:GetService("ChangeHistoryService"):ResetWaypoints()
 end
 
 local function createTracks(self)

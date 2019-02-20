@@ -14,7 +14,7 @@ local EventStream = require(AppTempCommon.Temp.EventStream)
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 
 local ShareGameContainer
 local ShareGamePageFrame
@@ -27,16 +27,19 @@ end
 local ShareGameApp = Roact.PureComponent:extend("App")
 
 function ShareGameApp:render()
+	local analytics = self.props.analytics
 	local pageTarget = self.props.pageTarget
 
 	local pageFrame = nil
 	if self.props.isPageOpen then
 		if FFlagLuaInviteModalEnabled then
 			pageFrame = Roact.createElement(ShareGameContainer, {
+				analytics = analytics,
 				zIndex = Constants.SHARE_GAME_Z_INDEX,
 			})
 		else
 			pageFrame = Roact.createElement(ShareGamePageFrame, {
+				analytics = analytics,
 				zIndex = Constants.SHARE_GAME_Z_INDEX,
 			})
 		end

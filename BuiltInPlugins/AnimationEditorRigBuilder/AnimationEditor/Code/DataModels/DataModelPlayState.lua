@@ -167,9 +167,17 @@ function PlayState:initPostGUICreate()
 		end
 	end
 	
-	self.Connections:add(self.Paths.DataModelClip.LoopingToggleEvent:connect(recreateAnimation))	
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Connections:add(self.Paths.DataModelClip.LoopingToggleEvent:connect(function(doRecreateTrack) if doRecreateTrack then recreateAnimation() end end))
+	else
+		self.Connections:add(self.Paths.DataModelClip.LoopingToggleEvent:connect(recreateAnimation))
+	end
 	self.Connections:add(self.Paths.DataModelRig.PartIncludeToggleEvent:connect(recreateAnimation))
-	self.Connections:add(self.Paths.DataModelClip.LengthChangedEvent:connect(recreateAnimation))
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Connections:add(self.Paths.DataModelClip.LengthChangedEvent:connect(function(doRecreateTrack) if doRecreateTrack then recreateAnimation() end end))
+	else
+		self.Connections:add(self.Paths.DataModelClip.LengthChangedEvent:connect(recreateAnimation))
+	end
 	self.Connections:add(self.Paths.DataModelKeyframes.ChangedEvent:connect(recreateAnimation))
 
 	self.Connections:add(self.Paths.DataModelKeyframes.PoseTransformChangedEvent:connect(recreateAnimation))

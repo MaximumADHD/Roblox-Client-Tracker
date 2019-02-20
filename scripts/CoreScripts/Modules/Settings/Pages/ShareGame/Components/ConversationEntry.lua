@@ -12,6 +12,8 @@ local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteButton = require(ShareGame.Components.InviteButton)
 
+local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
+
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
 local ENTRY_BG_TRANSPARENCY = 0.85
@@ -27,6 +29,7 @@ function ConversationEntry:init()
 end
 
 function ConversationEntry:render()
+	local analytics = self.props.analytics
 	local visible = self.props.visible
 	local layoutOrder = self.props.layoutOrder
 	local zIndex = self.props.zIndex
@@ -100,20 +103,25 @@ function ConversationEntry:render()
 						end
 
 						local localPlayer = Players.LocalPlayer
-						local senderId = tostring(localPlayer.UserId)
 
-						local eventContext = "inGame"
-						local eventName = "clickShareGameInviteSent"
-						local participantsString = table.concat(participants, ",")
-						local additionalArgs = {
-							btn = "settingsHub",
-							placeId = tostring(results.placeId),
-							senderId = senderId,
-							conversationId = tostring(results.conversationId),
-							participants = participantsString,
-						}
+						if FFlagLuaInviteNewAnalytics then
+							analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
+						else
+							local senderId = tostring(localPlayer.UserId)
 
-						self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+							local eventContext = "inGame"
+							local eventName = "clickShareGameInviteSent"
+							local participantsString = table.concat(participants, ",")
+							local additionalArgs = {
+								btn = "settingsHub",
+								placeId = tostring(results.placeId),
+								senderId = senderId,
+								conversationId = tostring(results.conversationId),
+								participants = participantsString,
+							}
+
+							self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+						end
 					end)
 				end
 			end,

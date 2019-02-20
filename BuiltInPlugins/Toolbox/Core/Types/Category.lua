@@ -1,4 +1,3 @@
-local BuiltInPluginGetPackageAPIEnabled = settings():GetFFlag("BuiltInPluginGetPackageAPIEnabled")
 local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
 local EnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
 
@@ -104,13 +103,11 @@ Category.CATEGORIES = {
 	Category.GROUP_AUDIO,
 }
 
-if BuiltInPluginGetPackageAPIEnabled then
-	-- Insert between "my audio" and "recent models"
-	table.insert(Category.CATEGORIES, 9, Category.MY_PACKAGES)
-	table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 9, Category.MY_PACKAGES)
-end
+-- Insert between "my audio" and "recent models"
+table.insert(Category.CATEGORIES, 9, Category.MY_PACKAGES)
+table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 9, Category.MY_PACKAGES)
 
-if BuiltInPluginGetPackageAPIEnabled and EnableGroupPackagesForToolbox then
+if EnableGroupPackagesForToolbox then
 	-- Insert at end after "group audio"
 	table.insert(Category.CATEGORIES, Category.GROUP_PACKAGES)
 end

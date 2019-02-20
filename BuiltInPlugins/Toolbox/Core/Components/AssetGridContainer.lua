@@ -36,8 +36,6 @@ local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
 
 function AssetGridContainer:init(props)
@@ -163,10 +161,7 @@ function AssetGridContainer:render()
 	local currentSoundId = props.currentSoundId
 	local isPlaying = props.isPlaying
 
-	local categoryIndex = nil
-	if not FFlagStudioLuaWidgetToolboxV2 then
-		categoryIndex = props.categoryIndex
-	end
+	local categoryIndex = props.categoryIndex
 
 	local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
 
@@ -185,15 +180,8 @@ function AssetGridContainer:render()
 	}
 
 	for index, asset in ipairs(assetIds) do
-		local assetId
-		local assetIndex = nil
-
-		if FFlagStudioLuaWidgetToolboxV2 then
-			assetId = asset[1]
-			assetIndex = asset[2]
-		else
-			assetId = asset
-		end
+		local assetId = asset[1]
+		local assetIndex = asset[2]
 
 		assetElements[tostring(assetId)] = Roact.createElement(Asset, {
 			assetId = assetId,
@@ -256,10 +244,7 @@ local function mapStateToProps(state, props)
 	local sound = state.sound or {}
 	local pageInfo = state.pageInfo or {}
 
-	local categoryIndex = nil
-	if not FFlagStudioLuaWidgetToolboxV2 then
-		categoryIndex = pageInfo.categoryIndex or 1
-	end
+	local categoryIndex = pageInfo.categoryIndex or 1
 
 	return {
 		currentSoundId = sound.currentSoundId or 0,

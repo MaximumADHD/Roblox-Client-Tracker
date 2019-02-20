@@ -4,8 +4,6 @@ local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
 local AnalyticsService = game:GetService("AnalyticsService")
 
-local FixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
-
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
 	local sessionId = nil
@@ -34,62 +32,32 @@ function Analytics.onTermSearched(categoryName, searchTerm)
 end
 
 function Analytics.onCategorySelected(oldCategory, newCategory)
-	if FixToolboxEventStream then
-		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxCategorySelection", {
-			oldCategory = oldCategory,
-			newCategory = newCategory,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-		})
-	else
-		AnalyticsSenders.sendEventImmediately("Studio", "click", "ToolboxCategorySelection", {
-			OldCategory = oldCategory,
-			NewCategory = newCategory,
-			StudioSession = getStudioSessionId(),
-			StudioID = getClientId(),
-		})
-	end
+	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxCategorySelection", {
+		oldCategory = oldCategory,
+		newCategory = newCategory,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+	})
 end
 
 function Analytics.onAssetInserted(assetId, searchTerm, assetIndex)
-	if FixToolboxEventStream then
-		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
-			assetId = assetId,
-			searchText = searchTerm,
-			assetIndex = assetIndex,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-		})
-	else
-		AnalyticsSenders.sendEventImmediately("Studio", "click", "ToolboxInsert", {
-			AssetId = assetId,
-			SearchText = searchTerm,
-			AssetIndex = assetIndex,
-			StudioSession = getStudioSessionId(),
-			StudioID = getClientId(),
-		})
-	end
-
+	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
+		assetId = assetId,
+		searchText = searchTerm,
+		assetIndex = assetIndex,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+	})
 end
 
 function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex)
-	if FixToolboxEventStream then
-		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
-			assetId = assetId,
-			searchText = searchTerm,
-			assetIndex = assetIndex,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-		})
-	else
-		AnalyticsSenders.sendEventImmediately("Studio", "drag", "toolboxInsert", {
-			AssetId = assetId,
-			SearchText = searchTerm,
-			AssetIndex = assetIndex,
-			StudioSession = getStudioSessionId(),
-			StudioID = getClientId(),
-		})
-	end
+	AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
+		assetId = assetId,
+		searchText = searchTerm,
+		assetIndex = assetIndex,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+	})
 end
 
 function Analytics.onAssetInsertRemains(time, contentId)

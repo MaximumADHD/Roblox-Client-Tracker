@@ -13,8 +13,6 @@ return function()
 
 	local Workspace = game:GetService("Workspace")
 
-	local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 	local assetId = 1234567890
 
 	it("should create and destroy without errors", function()
@@ -29,11 +27,9 @@ return function()
 	end)
 
 	it("should have the correct image", function()
-		if FFlagStudioLuaWidgetToolboxV2 then
-			ImageWithDefault.mockImage(Urls.constructAssetThumbnailUrl(assetId,
-				Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
-				Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE))
-		end
+		ImageWithDefault.mockImage(Urls.constructAssetThumbnailUrl(assetId,
+			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
+			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE))
 
 		local element = Roact.createElement(MockWrapper, {}, {
 			AssetIcon = Roact.createElement(AssetIcon, {

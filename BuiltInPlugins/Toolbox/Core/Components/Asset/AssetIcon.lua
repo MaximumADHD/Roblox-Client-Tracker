@@ -36,8 +36,6 @@ local AudioPreviewButton = require(Plugin.Core.Components.AudioPreviewButton)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
 
 function AssetIcon:init(props)
@@ -89,7 +87,7 @@ function AssetIcon:render()
 		local isAudioAsset = typeId == Enum.AssetType.Audio.Value
 
 		local children = {
-			AssetImage = FFlagStudioLuaWidgetToolboxV2 and Roact.createElement(ImageWithDefault, {
+			AssetImage = Roact.createElement(ImageWithDefault, {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 
@@ -124,29 +122,17 @@ function AssetIcon:render()
 			}),
 		}
 
-		if FFlagStudioLuaWidgetToolboxV2 then
-			return Roact.createElement(AssetBackground, {
-				backgroundIndex = backgroundIndex,
+		return Roact.createElement(AssetBackground, {
+			backgroundIndex = backgroundIndex,
 
-				Size = UDim2.new(1, 0, 1, 0),
-				SizeConstraint = Enum.SizeConstraint.RelativeXX,
-				ZIndex = 1,
-				LayoutOrder = layoutOrder,
+			Size = UDim2.new(1, 0, 1, 0),
+			SizeConstraint = Enum.SizeConstraint.RelativeXX,
+			ZIndex = 1,
+			LayoutOrder = layoutOrder,
 
-				[Roact.Event.MouseEnter] = onMouseEnter,
-				[Roact.Event.MouseLeave] = onMouseLeave,
-			}, children)
-		else
-			return Background.DEPRECATED_renderBackground(backgroundIndex, {
-				Size = UDim2.new(1, 0, 1, 0),
-				SizeConstraint = Enum.SizeConstraint.RelativeXX,
-				ZIndex = 1,
-				LayoutOrder = layoutOrder,
-
-				[Roact.Event.MouseEnter] = onMouseEnter,
-				[Roact.Event.MouseLeave] = onMouseLeave,
-			}, children)
-		end
+			[Roact.Event.MouseEnter] = onMouseEnter,
+			[Roact.Event.MouseLeave] = onMouseLeave,
+		}, children)
 	end)
 end
 

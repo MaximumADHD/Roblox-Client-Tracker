@@ -1979,7 +1979,7 @@ Class Player : Instance
 	Function bool Player:IsUserAvailableForExperiment() [deprecated]
 	Function void Player:Kick(string message = )
 	Function bool Player:LoadBoolean(string key) [deprecated]
-	Function void Player:LoadCharacterAppearance(Instance assetInstance)
+	Function void Player:LoadCharacterAppearance(Instance assetInstance) [deprecated]
 	Function void Player:LoadData() [deprecated] [LocalUserSecurity]
 	Function Instance Player:LoadInstance(string key) [deprecated]
 	Function double Player:LoadNumber(string key) [deprecated]
@@ -2501,7 +2501,7 @@ Class Sparkles : Instance
 Class SpawnerService : Instance
 Class StarterGear : Instance
 Class StarterPlayer : Instance [notCreatable]
-	Property bool StarterPlayer.AllowCustomAnimations [hidden] [ScriptWriteRestricted: [NotAccessibleSecurity]]
+	Property bool StarterPlayer.AllowCustomAnimations [hidden] [ScriptWriteRestricted: [RobloxScriptSecurity]]
 	Property bool StarterPlayer.AutoJumpEnabled
 	Property float StarterPlayer.CameraMaxZoomDistance
 	Property float StarterPlayer.CameraMinZoomDistance
@@ -2512,6 +2512,23 @@ Class StarterPlayer : Instance [notCreatable]
 	Property DevTouchCameraMovementMode StarterPlayer.DevTouchCameraMovementMode
 	Property DevTouchMovementMode StarterPlayer.DevTouchMovementMode
 	Property bool StarterPlayer.EnableMouseLockOption
+	Property int64 StarterPlayer.GameSettingsAssetIDFace [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDHead [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDLeftArm [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDLeftLeg [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDPants [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDRightArm [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDRightLeg [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDShirt [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDTeeShirt [hidden] [RobloxScriptSecurity]
+	Property int64 StarterPlayer.GameSettingsAssetIDTorso [hidden] [RobloxScriptSecurity]
+	Property GameAvatarType StarterPlayer.GameSettingsAvatarType [hidden] [RobloxScriptSecurity]
+	Property R15CollisionType StarterPlayer.GameSettingsR15CollisionType [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleBodyType [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleHead [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleHeight [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleProportion [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleWidth [hidden] [RobloxScriptSecurity]
 	Property float StarterPlayer.HealthDisplayDistance
 	Property bool StarterPlayer.LoadCharacterAppearance
 	Property float StarterPlayer.NameDisplayDistance
@@ -4208,6 +4225,7 @@ Enum TableMajorAxis
 Enum Technology
 	EnumItem Technology.Legacy : 0
 	EnumItem Technology.Voxel : 1
+	EnumItem Technology.Compatibility : 2 [deprecated]
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

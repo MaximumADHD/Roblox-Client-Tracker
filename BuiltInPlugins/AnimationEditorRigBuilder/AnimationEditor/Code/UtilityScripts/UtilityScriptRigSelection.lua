@@ -156,13 +156,21 @@ local function wasRigInvalidated(self)
 	return self.TargetModel and not verifyRig(self, self.TargetModel)
 end
 
+local function showEditor(self, roots)
+	self.Paths.UtilityScriptPluginSetup:populateEditor(roots)
+	self.Paths.GUIScriptDarkCover:turnOn(false, self)
+	self.Paths.GUIScriptDarkCover:showText("")
+	self.Paths.GUIScriptDarkCover:showButton(false)
+end
+
 local function loadAnimatedModel(self, model)
 	self.Paths.GUIScriptDarkCover:turnOn(true, self)
+	self.Paths.GUIScriptDarkCover:showText("")
+	self.Paths.GUIScriptDarkCover:showButton(false)
 	if self.Paths.DataModelRig:hasRig(self.Paths) then
 		self.Paths.UtilityScriptPluginSetup:clearEditor()
 	end
-	self.Paths.UtilityScriptPluginSetup:populateEditor(findAllPossibleRoots(model))
-	self.Paths.GUIScriptDarkCover:turnOn(false, self)
+	showEditor(self, findAllPossibleRoots(model))
 end
 
 local function promptForNewModel(self, model)
@@ -175,10 +183,7 @@ local function promptForNewModel(self, model)
 	self.Paths.GUIScriptDarkCover:setButtonCallback(function()
 		local roots = findAllPossibleRoots(model)
 		if verifyRig(self, model) then
-			self.Paths.UtilityScriptPluginSetup:populateEditor(roots)
-			self.Paths.GUIScriptDarkCover:turnOn(false, self)
-			self.Paths.GUIScriptDarkCover:showText("")
-			self.Paths.GUIScriptDarkCover:showButton(false)
+			showEditor(self, roots)
 		end
 	end)
 end

@@ -12,9 +12,6 @@ local Cryo = require(Libs.Cryo)
 local Constants = require(Plugin.Core.Util.Constants)
 local Colors = require(Plugin.Core.Util.Colors)
 local Images = require(Plugin.Core.Util.Images)
-local Immutable = require(Plugin.Core.Util.Immutable)
-
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 
 local function RoundElement(isButton)
 	local elementType = isButton and "ImageButton" or "ImageLabel"
@@ -33,19 +30,13 @@ local function RoundElement(isButton)
 			Size = UDim2.new(1, 0, 1, 0),
 		}
 
-		if FFlagStudioLuaWidgetToolboxV2 then
-			local removedProps = Cryo.Dictionary.join(props, {
-				[Roact.Children] = Cryo.None,
-				BackgroundColor3 = Cryo.None,
-				BackgroundTransparency = Cryo.None,
-				BorderColor3 = Cryo.None,
-			})
-			backgroundProps = Cryo.Dictionary.join(backgroundProps, removedProps)
-		else
-			local removedProps = Immutable.RemoveFromDictionary(props, Roact.Children, "BackgroundColor3",
-				"BackgroundTransparency", "BorderColor3")
-			backgroundProps = Immutable.JoinDictionaries(backgroundProps, removedProps)
-		end
+		local removedProps = Cryo.Dictionary.join(props, {
+			[Roact.Children] = Cryo.None,
+			BackgroundColor3 = Cryo.None,
+			BackgroundTransparency = Cryo.None,
+			BorderColor3 = Cryo.None,
+		})
+		backgroundProps = Cryo.Dictionary.join(backgroundProps, removedProps)
 
 		-- Because the roundness is achieved through images, we need to set the ImageColor3 and ImageTransparency instead
 		if props.BackgroundColor3 then

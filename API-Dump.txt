@@ -1832,7 +1832,6 @@ Class Workspace : Model [NotCreatable] [Service]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity}
 	Property float Workspace.Gravity
-	Property bool Workspace.PGSPhysicsSolverEnabled  [NotReplicated] [NotScriptable]
 	Property bool Workspace.StreamingEnabled
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
 	Property int Workspace.StreamingTargetRadius  [NotScriptable]
@@ -2008,7 +2007,7 @@ Class Player : Instance
 	Function void Player:Kick(string message = "")
 	Function bool Player:LoadBoolean(string key) [Deprecated]
 	Function void Player:LoadCharacter() [Yields]
-	Function void Player:LoadCharacterAppearance(Instance assetInstance)
+	Function void Player:LoadCharacterAppearance(Instance assetInstance) [Deprecated]
 	Function void Player:LoadCharacterBlocking() {LocalUserSecurity} [Yields]
 	Function void Player:LoadCharacterWithHumanoidDescription(Instance humanoidDescription) [Yields]
 	Function void Player:LoadData() {LocalUserSecurity} [Deprecated]
@@ -2543,7 +2542,24 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property Enum<DevCameraOcclusionMode> StarterPlayer.DevCameraOcclusionMode
 	Property Enum<DevComputerCameraMovementMode> StarterPlayer.DevComputerCameraMovementMode
 	Property Enum<DevTouchCameraMovementMode> StarterPlayer.DevTouchCameraMovementMode
-	Property bool StarterPlayer.AllowCustomAnimations {✏️NotAccessibleSecurity} [Hidden]
+	Property bool StarterPlayer.AllowCustomAnimations {✏️RobloxScriptSecurity} [Hidden]
+	Property int64 StarterPlayer.GameSettingsAssetIDFace {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDLeftArm {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDLeftLeg {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDPants {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDRightArm {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDRightLeg {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDShirt {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDTeeShirt {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int64 StarterPlayer.GameSettingsAssetIDTorso {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Enum<GameAvatarType> StarterPlayer.GameSettingsAvatarType {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Enum<R15CollisionType> StarterPlayer.GameSettingsR15CollisionType {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleBodyType {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleHeight {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
 	Property Enum<DevComputerMovementMode> StarterPlayer.DevComputerMovementMode
 	Property Enum<DevTouchMovementMode> StarterPlayer.DevTouchMovementMode
@@ -4452,6 +4468,7 @@ Enum TableMajorAxis
 Enum Technology
 	EnumItem Technology.Legacy : 0
 	EnumItem Technology.Voxel : 1
+	EnumItem Technology.Compatibility : 2 [Deprecated]
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

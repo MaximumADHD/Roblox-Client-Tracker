@@ -1021,7 +1021,7 @@
         <string name="Name">AlignOrientation</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">82</string>
+        <string name="ExplorerImageIndex">100</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
       </Properties>
@@ -1031,7 +1031,7 @@
         <string name="Name">AlignPosition</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">82</string>
+        <string name="ExplorerImageIndex">99</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
       </Properties>
@@ -1041,7 +1041,7 @@
         <string name="Name">VectorForce</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">82</string>
+        <string name="ExplorerImageIndex">102</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">BasePart,Model</string>
       </Properties>
@@ -1051,7 +1051,7 @@
         <string name="Name">LineForce</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">82</string>
+        <string name="ExplorerImageIndex">101</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
       </Properties>
@@ -1061,7 +1061,7 @@
         <string name="Name">Torque</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">82</string>
+        <string name="ExplorerImageIndex">103</string>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
       </Properties>
@@ -5075,6 +5075,7 @@
             <string name="summary">How much global light each Part in the Workspace receives. Standard range is 0 to 2 (0 being little light), but can be increased all the way to 10 (colors start to be appear very different at this value).</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

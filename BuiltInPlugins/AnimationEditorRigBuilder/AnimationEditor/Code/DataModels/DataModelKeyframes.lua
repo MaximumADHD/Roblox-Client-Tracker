@@ -203,13 +203,16 @@ function Keyframes:getCurrentKeyframeData(part, fireChangeEvent, registerUndo)
 	return self:getOrCreateKeyframeData(part, self.Paths.DataModelSession:getScrubberTime(), fireChangeEvent, registerUndo)
 end
 
-function Keyframes:resetKeyframes()	
+function Keyframes:resetKeyframes(doFire)	
+	doFire = doFire == nil and true or doFire
 	for time, keyframe in pairs(self.keyframeList) do
 		deleteKeyframe(self, time)
 	end
 
 	self.keyframeList = {}
-	self.ChangedEvent:fire(self.keyframeList)
+	if not FastFlags:isCheckForSavedChangesOn() or doFire then
+		self.ChangedEvent:fire(self.keyframeList)
+	end
 end
 
 function Keyframes:getPose(part, time)
@@ -435,7 +438,11 @@ function Keyframes:loadKeyframeSequence(kfs)
 			newAnimLength = v.time
 		end
 	end
-	self.Paths.DataModelClip:setLength(newAnimLength)
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Paths.DataModelClip:setLength(newAnimLength, false, false)
+	else
+		self.Paths.DataModelClip:setLength(newAnimLength)
+	end
 	
 	--import the poses
 	local invalidPoseNames = {}
@@ -498,8 +505,12 @@ function Keyframes:loadKeyframeSequence(kfs)
 	if FastFlags:isIKModeFlagOn() then
 		self.Paths.HelperFunctionsWarningsAndPrompts:createInvalidPoseNamesInFileWarning(self.Paths, kfs.Name, invalidPoseNames)
 	end
-	
-	self.Paths.DataModelClip:setLooping(kfs.Loop)
+
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Paths.DataModelClip:setLooping(kfs.Loop, false)
+	else
+		self.Paths.DataModelClip:setLooping(kfs.Loop)
+	end
 	self.Paths.DataModelClip:setPriority(kfs.Priority.Name and kfs.Priority.Name or "Core")
 	if FastFlags:isUseHipHeightInKeyframeSequencesOn() then
 		if self.Paths.HelperFunctionsMath:isCloseToZero(kfs.AuthoredHipHeight) then

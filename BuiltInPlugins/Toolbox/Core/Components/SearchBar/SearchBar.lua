@@ -28,8 +28,6 @@ local SearchBarButtons = require(Plugin.Core.Components.SearchBar.SearchBarButto
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 
-local EnableToolboxSearchBarAutoFocus = settings():GetFFlag("EnableToolboxSearchBarAutoFocus")
-
 local function stripSearchTerm(searchTerm)
 	return searchTerm and searchTerm:gsub("\n", " ") or ""
 end
@@ -95,20 +93,11 @@ function SearchBar:init()
 	end
 
 	self.onClearButtonClicked = function()
-		if EnableToolboxSearchBarAutoFocus then
-			self:setState({
-				text = "",
-				isFocused = true,
-			})
-			self.textBoxRef.current:CaptureFocus()
-		else
-			-- Also clear the hovered state because otherwise when it gets set to
-			-- visible = false because the text is empty, it won't get the mouse
-			-- leave event
-			self:setState({
-				text = "",
-			})
-		end
+		self:setState({
+			text = "",
+			isFocused = true,
+		})
+		self.textBoxRef.current:CaptureFocus()
 
 		self.requestSearch()
 	end

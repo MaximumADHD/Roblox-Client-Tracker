@@ -23,8 +23,6 @@ local Images = require(Plugin.Core.Util.Images)
 
 local withTheme = ContextHelper.withTheme
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local function StyledScrollingFrame(props)
 	return withTheme(function(theme)
 		local position = props.Position or UDim2.new(0, 0, 0, 0)
@@ -41,7 +39,7 @@ local function StyledScrollingFrame(props)
 
 		local scrollingFrameTheme = theme.scrollingFrame
 
-		return Roact.createElement(FFlagStudioLuaWidgetToolboxV2 and "ImageButton" or "Frame", {
+		return Roact.createElement("ImageButton" or "Frame", {
 			Position = position,
 			Size = size,
 			BackgroundTransparency = 1,
@@ -50,7 +48,7 @@ local function StyledScrollingFrame(props)
 			ZIndex = zindex,
 			Visible = visible,
 
-			AutoButtonColor = FFlagStudioLuaWidgetToolboxV2 and false or nil,
+			AutoButtonColor = false or nil,
 		}, {
 			ScrollBarBackground = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(1, 0),

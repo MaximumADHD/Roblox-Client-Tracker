@@ -487,7 +487,6 @@ local function GenerateGui()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 30),
 		Position = UDim2.new(0, 0, 0, 80),
-		Visible = not FFlagChinaLicensingApp,
 		Font = Enum.Font.SourceSansLight,
 		TextSize = isTenFootInterface and 36 or 18,
 		TextWrapped = true,
@@ -639,13 +638,18 @@ renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 
 		-- set creator name
 		if creatorLabel and creatorLabel.Text == "" then
-			local creatorName = InfoProvider:GetCreatorName()
-			if creatorName ~= "" then
-				if isTenFootInterface then
-					creatorLabel.Text = creatorName
-					creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
-				else
-					creatorLabel.Text = "By ".. creatorName
+			if FFlagChinaLicensingApp then
+				local success, result = pcall(function() return settings():GetFVariable("LoadingScreenAntiAddictionNotice") end)
+				creatorLabel.Text = success and result or ""
+			else
+				local creatorName = InfoProvider:GetCreatorName()
+				if creatorName ~= "" then
+					if isTenFootInterface then
+						creatorLabel.Text = creatorName
+						creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+					else
+						creatorLabel.Text = "By ".. creatorName
+					end
 				end
 			end
 		end

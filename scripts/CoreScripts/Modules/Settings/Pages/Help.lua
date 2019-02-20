@@ -11,6 +11,8 @@ local FFlagUseNotificationsLocalization = success and result
 
 local FFlagCoreScriptsFixRecordVideoOSXHelp = settings():GetFFlag('CoreScriptsFixRecordVideoOSXHelp')
 
+local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
+
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
@@ -30,7 +32,7 @@ local GameSettings = Settings.GameSettings
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
-  
+
 ------------ Variables -------------------
 local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -60,13 +62,13 @@ local function Initialize()
 		  end
 		end
 
-		if lastInputType == Enum.UserInputType.Keyboard or lastInputType == Enum.UserInputType.MouseMovement or 
+		if lastInputType == Enum.UserInputType.Keyboard or lastInputType == Enum.UserInputType.MouseMovement or
 			lastInputType == Enum.UserInputType.MouseButton1 or lastInputType == Enum.UserInputType.MouseButton2 or
 			lastInputType == Enum.UserInputType.MouseButton3 or lastInputType == Enum.UserInputType.MouseWheel then
 			  return KEYBOARD_MOUSE_TAG
 		elseif lastInputType == Enum.UserInputType.Touch then
 		  	  return TOUCH_TAG
-		elseif lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or 
+		elseif lastInputType == Enum.UserInputType.Gamepad1 or lastInputType == Enum.UserInputType.Gamepad2 or
 			lastInputType == Enum.UserInputType.Gamepad3 or lastInputType == Enum.UserInputType.Gamepad4 then
 			  return GAMEPAD_TAG
 		end
@@ -137,7 +139,7 @@ local function Initialize()
 				local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
 				textSizeConstraint.MaxTextSize = 18
 			  end
-			  
+
 
 			  local inputLabel = utility:Create'TextLabel'
 			  {
@@ -173,15 +175,15 @@ local function Initialize()
 		local rowOffset = 50
 		local isOSX = UserInputService:GetPlatform() == Enum.Platform.OSX
 
-		local charMoveFrame = createPCGroup( "Character Movement", {[1] = {["Move Forward"] = "W/Up Arrow"}, 
+		local charMoveFrame = createPCGroup( "Character Movement", {[1] = {["Move Forward"] = "W/Up Arrow"},
 			[2] = {["Move Backward"] = "S/Down Arrow"},
 			[3] = {["Move Left"] = "A/Left Arrow"},
 			[4] = {["Move Right"] = "D/Right Arrow"},
 			[5] = {["Jump"] = "Space"}} )
 		charMoveFrame.Parent = parentFrame
 
-		local accessoriesFrame = createPCGroup("Accessories", {	
-			[1] = {["Equip Tools"] = "1,2,3..."}, 
+		local accessoriesFrame = createPCGroup("Accessories", {
+			[1] = {["Equip Tools"] = "1,2,3..."},
 			[2] = {["Unequip Tools"] = "1,2,3..."},
 			[3] = {["Drop Tool"] = "Backspace"},
 			[4] = {["Use Tool"] = "Left Mouse Button"} })
@@ -192,7 +194,7 @@ local function Initialize()
 		if FFlagCoreScriptsFixRecordVideoOSXHelp then
 		  local miscActions = {}
 		  table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})
-		  if not isOSX then 
+		  if not isOSX then
 		    table.insert(miscActions, {["Record Video"] = "F12"})
 		  end
 		  table.insert(miscActions, {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"})
@@ -202,14 +204,14 @@ local function Initialize()
 		  table.insert(miscActions, {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"})
 		  miscFrame = createPCGroup("Misc", miscActions)
 		else
-		  miscFrame = createPCGroup("Misc", {	
-		    [1] = {["Screenshot"] = "Print Screen"}, 
+		  miscFrame = createPCGroup("Misc", {
+		    [1] = {["Screenshot"] = "Print Screen"},
 		    [2] = {["Record Video"] = isOSX and "F12/fn + F12" or "F12"},
 		    [3] = {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"},
 		    [4] = {["Mouselock"] = "Shift"},
 		    [5] = {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"},
 		    [6] = {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"},
-		    [7] = {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"}, 
+		    [7] = {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"},
 		    }
 		  )
 		end
@@ -217,21 +219,21 @@ local function Initialize()
 		miscFrame.Position = UDim2.new(2/3,PC_TABLE_SPACING * 2,0,0)
 		miscFrame.Parent = parentFrame
 
-		local camFrame = createPCGroup("Camera Movement", {	[1] = {["Rotate"] = "Right Mouse Button"}, 
+		local camFrame = createPCGroup("Camera Movement", {	[1] = {["Rotate"] = "Right Mouse Button"},
 			[2] = {["Zoom In/Out"] = "Mouse Wheel"},
 			[3] = {["Zoom In"] = "I"},
 			[4] = {["Zoom Out"] = "O"} })
 		camFrame.Position = UDim2.new(0,0,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		camFrame.Parent = parentFrame
 
-		local menuFrame = createPCGroup("Menu Items", {		[1] = {["Roblox Menu"] = "ESC"}, 
+		local menuFrame = createPCGroup("Menu Items", {		[1] = {["Roblox Menu"] = "ESC"},
 			[2] = {["Backpack"] = "~"},
 			[3] = {["Playerlist"] = "TAB"},
 			[4] = {["Chat"] = "/"} })
 		menuFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		menuFrame.Parent = parentFrame
 
-		parentFrame.Size = UDim2.new(parentFrame.Size.X.Scale, parentFrame.Size.X.Offset, 0, 
+		parentFrame.Size = UDim2.new(parentFrame.Size.X.Scale, parentFrame.Size.X.Offset, 0,
 		  menuFrame.Size.Y.Offset + menuFrame.Position.Y.Offset)
 	end
 
@@ -372,7 +374,7 @@ local function Initialize()
 
 		if helpFrame then
 			local helpElements = this.HelpPageContents[TOUCH_TAG]
-			
+
 			local function hideUneeded(list)
 				if list then
 					for name, item in pairs(helpElements) do
@@ -380,7 +382,7 @@ local function Initialize()
 					end
 				end
 			end
-			
+
 			local hidden
 			if scheme == Enum.TouchMovementMode.DynamicThumbstick then
 				-- show that movement is done by dragging
@@ -392,10 +394,10 @@ local function Initialize()
 				helpElements["JumpLabel"].Position = isPortrait and UDim2.new(0.75,-helpElements["JumpLabel"].AbsoluteSize.x/2,0.75,-50) or UDim2.new(0.85,-60,0.85,-helpElements["JumpLabel"].AbsoluteSize.y)
 				helpElements["RotateLabel"].Position = isPortrait and UDim2.new(1,-helpElements["RotateLabel"].AbsoluteSize.x-20,0.02,0) or UDim2.new(0.85,-helpElements["RotateLabel"].AbsoluteSize.x/2,0.02,0)
 				helpElements["UseToolLabel"].Position = isPortrait and UDim2.new(0.5,-helpElements["UseToolLabel"].AbsoluteSize.x/2,0.5,-100) or UDim2.new(0.5,-helpElements["UseToolLabel"].AbsoluteSize.x/2,0.5,-60)
-				
+
 				helpElements["EquipLabel"].Position = isPortrait and UDim2.new(0.5,-60,0.75,50) or UDim2.new(0.5,-60,0.64,0)
 				helpElements["ZoomLabel"].Position = isPortrait and UDim2.new(0,20,0.02,0) or UDim2.new(0.15,-60,0.02,0)
-				
+
 			elseif scheme == Enum.TouchMovementMode.ClickToMove then
 				-- show that dragging on the screen is to pan the camera
 				-- show that tapping is to move
@@ -403,7 +405,7 @@ local function Initialize()
 				helpElements["MoveLabel"].Position = isPortrait and UDim2.new(0.25,-helpElements["MoveLabel"].AbsoluteSize.x/2,0.5,0) or UDim2.new(0.25,-helpElements["MoveLabel"].AbsoluteSize.x/2,0.5,40)
 				helpElements["RotateLabel"].Position = isPortrait and UDim2.new(1,-helpElements["RotateLabel"].AbsoluteSize.x-20,0.02,0) or UDim2.new(0.5,-60,0.02,0)
 				helpElements["UseToolLabel"].Position = isPortrait and UDim2.new(0.75,-helpElements["UseToolLabel"].AbsoluteSize.x/2,0.5,0) or UDim2.new(0.85,-60,0.02,0)
-				
+
 				helpElements["EquipLabel"].Position = isPortrait and UDim2.new(0.5,-60,0.75,50) or UDim2.new(0.5,-60,0.64,0)
 				helpElements["ZoomLabel"].Position = isPortrait and UDim2.new(0,20,0.02,0) or UDim2.new(0.15,-60,0.02,0)
 			else
@@ -413,7 +415,7 @@ local function Initialize()
 				helpElements["JumpLabel"].Position = isPortrait and UDim2.new(0.94,-helpElements["JumpLabel"].AbsoluteSize.x,1,-120) or UDim2.new(0.8,0,0.58,0)
 				helpElements["RotateLabel"].Position = isPortrait and UDim2.new(1,-helpElements["RotateLabel"].AbsoluteSize.x-20,0.02,0) or UDim2.new(0.5,-60,0.02,0)
 				helpElements["UseToolLabel"].Position = isPortrait and UDim2.new(.5,-helpElements["UseToolLabel"].AbsoluteSize.x/2,0.25,50) or UDim2.new(0.85,-60,0.02,0)
-				
+
 				helpElements["EquipLabel"].Position = isPortrait and UDim2.new(0.5,-60,0.75,50) or UDim2.new(0.5,-60,0.64,0)
 				helpElements["ZoomLabel"].Position = isPortrait and UDim2.new(0,20,0.02,0) or UDim2.new(0.15,-60,0.02,0)
 			end
@@ -445,10 +447,22 @@ local function Initialize()
 		end
 
 		local function createTouchLabel(text, position, size, parent)
+			local nameFrame
+			if FFlagRobloxGuiSiblingZindexs then
+				nameFrame = utility:Create'TextLabel'
+				{
+					Position = position,
+					Size = size,
+					BackgroundTransparency = 1,
+					Name = text .. "Frame",
+					Parent = parent,
+				}
+			end
+
 			local nameLabel = utility:Create'TextLabel'
 			{
-				Position = position,
-				Size = size,
+				Position = FFlagRobloxGuiSiblingZindexs and UDim2.new(0, 0, 0, 0) or position,
+				Size = FFlagRobloxGuiSiblingZindexs and UDim2.new(1, 0, 1, 0) or size,
 				BackgroundTransparency = 1,
 				Text = text,
 				Font = Enum.Font.SourceSansBold,
@@ -456,16 +470,16 @@ local function Initialize()
 				TextColor3 = Color3.new(1,1,1),
 				Name = text .. "Label",
 				ZIndex = 3,
-				Parent = parent,
+				Parent = FFlagRobloxGuiSiblingZindexs and nameFrame or parent,
 				TextScaled = true,
 				TextWrapped = true
 			};
-			
+
 			if not smallScreen then
 				nameLabel.FontSize = Enum.FontSize.Size18
 				nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabel.Size.X.Offset, nameLabel.Size.Y.Scale, nameLabel.Size.Y.Offset + 4)
 			end
-			
+
 			local nameBackgroundImage = utility:Create'ImageLabel'
 			{
 				Name = text .. "BackgroundImage",
@@ -476,11 +490,15 @@ local function Initialize()
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Rect.new(12,2,65,21),
 				ZIndex = 2,
-				Parent = nameLabel
+				Parent = FFlagRobloxGuiSiblingZindexs and nameFrame or nameLabel
 			};
 
 			local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
 			textSizeConstraint.MaxTextSize = 18
+
+			if FFlagRobloxGuiSiblingZindexs then
+				return nameFrame
+			end
 
 			return nameLabel
 		end
@@ -605,7 +623,7 @@ local function Initialize()
 	this.TabHeader.Name = "HelpTab"
 
 	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
-  
+
   if FFlagUseNotificationsLocalization then
     this.TabHeader.Title.Text = "Help"
   else

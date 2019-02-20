@@ -47,6 +47,7 @@ local _baseUrl, _basePrefix, _baseDomain = parseBaseUrlInformation()
 -- construct urls once
 local _baseApiUrl = string.format("https://api.%s", _baseDomain)
 local _baseAuthUrl = string.format("https://auth.%s", _baseDomain)
+local _baseCatalogUrl = string.format("https://catalog.%s", _baseDomain)
 local _baseChatUrl = string.format("https://chat.%sv2", _baseDomain)
 local _baseFriendUrl = string.format("https://friends.%sv1", _baseDomain)
 local _baseGameAssetUrl = string.format("https://assetgame.%s", _baseDomain)
@@ -60,7 +61,6 @@ local _baseAdsUrl = string.format("https://ads.%s", _baseDomain)
 local _baseFollowingsUrl = string.format("https://followings.%s", _baseDomain)
 local _baseEconomyUrl = string.format("https://economy.%s", _baseDomain)
 local _baseThumbnailsUrl = string.format("https://thumbnails.%s", _baseDomain)
-
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -71,6 +71,7 @@ local Url = {
 	BASE_URL_SECURE = _baseUrlSecure,
 	API_URL = _baseApiUrl,
 	AUTH_URL = _baseAuthUrl,
+	CATALOG_URL = _baseCatalogUrl,
 	GAME_URL = _baseGamesUrl,
 	GAME_ASSET_URL = _baseGameAssetUrl,
 	CHAT_URL = _baseChatUrl,

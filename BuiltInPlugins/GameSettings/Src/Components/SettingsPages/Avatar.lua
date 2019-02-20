@@ -49,13 +49,17 @@ end
 local isPlaceDataAvailable = nil
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 	isPlaceDataAvailable = function(props)
-		local result = props.AvatarType and
-			props.AvatarAnimation and
-			props.AvatarCollision and
-			props.AvatarAssetOverrides and
-			props.AvatarScalingMin and
-			props.AvatarScalingMax
-		return result and true or false
+		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+			return props.CanManage
+		else
+			local result = props.AvatarType and
+				props.AvatarAnimation and
+				props.AvatarCollision and
+				props.AvatarAssetOverrides and
+				props.AvatarScalingMin and
+				props.AvatarScalingMax
+			return result and true or false
+		end
 	end
 end
 
@@ -79,6 +83,14 @@ local function loadValuesToProps(getValue, state)
 		CurrentAvatarType = state.Settings.Current.universeAvatarType,
 		AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn()
 			and state.Settings.Errors.universeAvatarAssetOverrides or nil,
+
+		CanManage = (function()
+			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+				return getValue("canManage")
+			else
+				return nil
+			end
+		end)(),
 	}
 end
 
@@ -121,7 +133,7 @@ local function displayContents(page, localized)
 			Morpher = Roact.createElement(MorpherRootPanel, {
 				ThemeData = getTheme(page),
 				LocalizedContent = FFlagGameSettingsWidgetLocalized and localized.Morpher or nil,
-				IsEnabled = isPlaceDataAvailable(props),
+				IsEnabled = fastFlags.isPlaceFilesGameSettingsSerializationOn() and true or isPlaceDataAvailable(props),
 
 				IsGameShutdownRequired = (function()
 					if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
@@ -133,6 +145,14 @@ local function displayContents(page, localized)
 				AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and props.AssetOverrideErrors or nil,
 				Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and getMouse(page).getNativeMouse() or nil,
 
+				IsPlacePublished = (function()
+					if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+						return isPlaceDataAvailable(props)
+					else
+						return nil
+					end
+				end)(),
+
 				AvatarType = props.AvatarType,
 				AvatarAnimation = props.AvatarAnimation,
 				AvatarCollision = props.AvatarCollision,
@@ -141,26 +161,30 @@ local function displayContents(page, localized)
 				AvatarScalingMax = props.AvatarScalingMax,
 
 				OnAvatarTypeChanged = function(newVal)
-					if FFlagGameSettingsShowWarningsOnSave then
-						local willShutdown = nil
-						if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-							willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
-						else
-							willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
-						end
-						props.AvatarTypeChanged(newVal, willShutdown)
-					else
-						if props.CurrentAvatarType ~= "PlayerChoice" then
-							local dialogProps = {
-								Title = localized.AvatarDialog.Header,
-								Header = localized.AvatarDialog.Prompt,
-								Description = localized.AvatarDialog.Body,
-								Buttons = localized.AvatarDialog.Buttons,
-							}
-							if not showDialog(page, WarningDialog, dialogProps):await() then
-								return
+					if not fastFlags.isPlaceFilesGameSettingsSerializationOn() or isPlaceDataAvailable(props) then
+						if FFlagGameSettingsShowWarningsOnSave then
+							local willShutdown = nil
+							if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+								willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
+							else
+								willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
 							end
+							props.AvatarTypeChanged(newVal, willShutdown)
+						else
+							if props.CurrentAvatarType ~= "PlayerChoice" then
+								local dialogProps = {
+									Title = localized.AvatarDialog.Header,
+									Header = localized.AvatarDialog.Prompt,
+									Description = localized.AvatarDialog.Body,
+									Buttons = localized.AvatarDialog.Buttons,
+								}
+								if not showDialog(page, WarningDialog, dialogProps):await() then
+									return
+								end
+							end
+							props.AvatarTypeChanged(newVal)
 						end
+					else
 						props.AvatarTypeChanged(newVal)
 					end
 				end,

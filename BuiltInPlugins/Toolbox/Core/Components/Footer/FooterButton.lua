@@ -13,8 +13,6 @@ local withTheme = ContextHelper.withTheme
 local BackgroundIcon = require(Plugin.Core.Components.Footer.BackgroundIcon)
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local FooterButton = Roact.PureComponent:extend("FooterButton")
 
 function FooterButton:init(props)
@@ -55,7 +53,7 @@ function FooterButton:render()
 		return Roact.createElement(RoundButton, {
 			AnchorPoint = Vector2.new(0, 0.5),
 			LayoutOrder = index,
-			Size = UDim2.new(0, FFlagStudioLuaWidgetToolboxV2 and width or 58, 1, 0),
+			Size = UDim2.new(0, width, 1, 0),
 
 			BackgroundColor3 = isSelected and buttonTheme.backgroundSelectedColor or buttonTheme.backgroundColor,
 			BorderColor3 = (isSelected or isHovered) and buttonTheme.borderSelectedColor or buttonTheme.borderColor,
@@ -71,7 +69,7 @@ function FooterButton:render()
 				PaddingTop = UDim.new(0, externalPadding),
 			}),
 
-			UIListLayout = FFlagStudioLuaWidgetToolboxV2 and Roact.createElement("UIListLayout", {
+			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
 				Padding = UDim.new(0, internalPadding),
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -79,7 +77,7 @@ function FooterButton:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			Icon = FFlagStudioLuaWidgetToolboxV2 and Roact.createElement(BackgroundIcon, {
+			Icon = Roact.createElement(BackgroundIcon, {
 				backgroundIndex = index,
 				AnchorPoint = Vector2.new(0, 0.5),
 				Position = UDim2.new(0, 0, 0.5, 0),
@@ -95,18 +93,15 @@ function FooterButton:render()
 			TextLabel = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Position = (not FFlagStudioLuaWidgetToolboxV2)
-					and UDim2.new(0, iconSize + internalPadding, 0, -1) or nil,
-				Size = FFlagStudioLuaWidgetToolboxV2
-					and UDim2.new(0, textWidth, 1, -1)
-					or UDim2.new(1, -(iconSize + internalPadding), 1, 0),
+				Position = nil,
+				Size = UDim2.new(0, textWidth, 1, -1),
 
 				TextColor3 = isSelected and buttonTheme.textSelectedColor or buttonTheme.textColor,
 
 				Font = Constants.FONT,
 				Text = name,
 				TextSize = Constants.BACKGROUND_BUTTON_FONT_SIZE,
-				TextYAlignment = FFlagStudioLuaWidgetToolboxV2 and Enum.TextYAlignment.Bottom or nil,
+				TextYAlignment = Enum.TextYAlignment.Bottom,
 				LayoutOrder = 2,
 			}),
 		})

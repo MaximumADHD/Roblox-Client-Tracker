@@ -45,13 +45,31 @@ local function destroyGUI(self)
 end
 
 local function exitFunction(self, name)
-	if name ~= nil and name ~= "" then
-		self.Paths.DataModelClip:loadCurrentAnimation(name)
-		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
-			self.Paths.HelperFunctionsWarningsAndPrompts:createApplyIKPromptForLoad(self.Paths)
+	if FastFlags:isCheckForSavedChangesOn() then
+		local exit = function()
+			if name ~= nil and name ~= "" then
+				self.Paths.DataModelClip:loadCurrentAnimation(name)
+				if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+					self.Paths.HelperFunctionsWarningsAndPrompts:createApplyIKPromptForLoad(self.Paths)
+				end
+			end
 		end
+
+		destroyGUI(self)
+		if not self.Paths.UtilityScriptUndoRedo:isSaved() then 
+			self.Paths.GUIScriptPromptOKCancel:show("Are you sure? Unsaved progress will be lost.", function() exit() end)
+		else
+			exit()
+		end
+	else
+		if name ~= nil and name ~= "" then
+			self.Paths.DataModelClip:loadCurrentAnimation(name)
+			if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+				self.Paths.HelperFunctionsWarningsAndPrompts:createApplyIKPromptForLoad(self.Paths)
+			end
+		end
+		destroyGUI(self)
 	end
-	destroyGUI(self)
 end
 
 function Load:show()

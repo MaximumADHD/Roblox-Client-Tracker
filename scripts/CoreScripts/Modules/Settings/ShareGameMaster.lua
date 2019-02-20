@@ -11,7 +11,7 @@ local AppReducer = require(ShareGame.AppReducer)
 
 local ShareGameMaster = {}
 
-function ShareGameMaster.createApp(parentGui)
+function ShareGameMaster.createApp(parentGui, analytics)
 	local self = {}
 	self.store = Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware })
 
@@ -20,6 +20,7 @@ function ShareGameMaster.createApp(parentGui)
 			store = self.store
 		}, {
 			Roact.createElement(App, {
+				analytics = analytics,
 				pageTarget = parentGui,
 			})
 		})

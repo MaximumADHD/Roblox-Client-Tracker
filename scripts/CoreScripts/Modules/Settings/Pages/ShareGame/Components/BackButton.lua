@@ -12,7 +12,7 @@ local Roact = require(CorePackages.Roact)
 local Constants = require(ShareGame.Constants)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 
 local BACK_IMAGE_SPRITE_PATH
 if not FFlagLuaInviteModalEnabled then

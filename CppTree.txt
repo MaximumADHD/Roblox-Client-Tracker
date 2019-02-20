@@ -291,6 +291,7 @@ RBX
 			PingJob
 			ProcessPacketsJob
 			ReferencePropertyChangedItem
+			ResolveNewInstanceAtomicTreeItem
 			SendClusterJob
 			SendDataJob
 			SendStatsJob
@@ -318,6 +319,7 @@ RBX
 		DeserializedNewInstanceItem
 		DeserializedPingItem
 		DeserializedPmcConfigItem
+		DeserializedResolveNewInstanceAtomicTreeItem
 		DeserializedStatsItem
 		DeserializedStreamDataItem
 		DeserializedTagItem
@@ -516,6 +518,7 @@ RBX
 		SoundGroup
 		SoundJob
 		SoundService
+		SoundServiceClient
 		SoundServiceStatsItem
 		TremoloSoundEffect
 	}
@@ -552,8 +555,6 @@ RBX
 	Accessory
 	Accoutrement
 	Adorn
-	AdornBillboarder
-	AdornSurface
 	AdService
 	AdvArrowTool
 	AdvArrowToolBase

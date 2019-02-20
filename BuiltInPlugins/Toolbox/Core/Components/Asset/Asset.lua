@@ -53,10 +53,7 @@ local Voting = require(Plugin.Core.Components.Asset.Voting.Voting)
 
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
-local FFlagFixToolboxEventStream = settings():GetFFlag("FixToolboxEventStream")
-local FFlagEnableMouseEnterForAllFix = settings():GetFFlag("EnableMouseEnterForAllFix")
 
 local Asset = Roact.PureComponent:extend("Asset")
 
@@ -103,16 +100,12 @@ function Asset:init(props)
 	local assetIndex = props.assetIndex or 0
 
 	self.onMouseEntered = function(rbx, x, y)
-		if FFlagEnableMouseEnterForAllFix then
-			local myProps = self.props
-			if (not myProps.isHovered) and myProps.hoveredAssetId ~= 0 and assetId ~= myProps.hoveredAssetId then
-				return
-			end
-
-			onAssetHovered(assetId)
-		else
-			onAssetHovered(assetId)
+		local myProps = self.props
+		if (not myProps.isHovered) and myProps.hoveredAssetId ~= 0 and assetId ~= myProps.hoveredAssetId then
+			return
 		end
+
+		onAssetHovered(assetId)
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
@@ -126,11 +119,7 @@ function Asset:init(props)
 	end
 
 	self.onMouseMoved = function(rbx, x, y)
-		-- We use this when mouseEnter event didn't trigger. 
-		-- Let's keep it here just in case.
-		if not FFlagEnableMouseEnterForAllFix then
-			onAssetHovered(assetId)
-		end
+		-- call onAssetHovered(assetId) if mouseEnter don't work.
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
@@ -169,25 +158,17 @@ function Asset:init(props)
 		end
 
 		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-		if FFlagStudioLuaWidgetToolboxV2 then
-			InsertAsset.dragInsertAsset({
-				plugin = plugin,
-				assetId = assetId,
-				assetName = assetName,
-				assetTypeId = assetTypeId,
-				onSuccess = self.onAssetInsertionSuccesful,
-				categoryIndex = categoryIndex,
-				searchTerm = searchTerm,
-				assetIndex = assetIndex,
-				assetWasDragged = true,
-			})
-		elseif FFlagFixToolboxEventStream then
-			InsertAsset.deprecatedDragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
-				categoryIndex, searchTerm, assetIndex)
-		else
-			InsertAsset.deprecatedDragInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
-				categoryIndex)
-		end
+		InsertAsset.dragInsertAsset({
+			plugin = plugin,
+			assetId = assetId,
+			assetName = assetName,
+			assetTypeId = assetTypeId,
+			onSuccess = self.onAssetInsertionSuccesful,
+			categoryIndex = categoryIndex,
+			searchTerm = searchTerm,
+			assetIndex = assetIndex,
+			assetWasDragged = true,
+		})
 	end
 
 	self.onClick = function(rbx, x, y)
@@ -196,26 +177,18 @@ function Asset:init(props)
 		end
 
 		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-		if FFlagStudioLuaWidgetToolboxV2 then
-			InsertAsset.insertAsset({
-				plugin = plugin,
-				assetId = assetId,
-				assetName = assetName,
-				assetTypeId = assetTypeId,
-				onSuccess = self.onAssetInsertionSuccesful,
-				categoryIndex = categoryIndex,
-				searchTerm = searchTerm,
-				assetIndex = assetIndex,
+		InsertAsset.insertAsset({
+			plugin = plugin,
+			assetId = assetId,
+			assetName = assetName,
+			assetTypeId = assetTypeId,
+			onSuccess = self.onAssetInsertionSuccesful,
+			categoryIndex = categoryIndex,
+			searchTerm = searchTerm,
+			assetIndex = assetIndex,
 
-				insertToolPromise = self.props.insertToolPromise,
-			})
-		elseif FFlagFixToolboxEventStream then
-			InsertAsset.deprecatedInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
-				categoryIndex, searchTerm, assetIndex)
-		else
-			InsertAsset.deprecatedInsertAsset(plugin, assetId, assetName, assetTypeId, self.onAssetInsertionSuccesful,
-				categoryIndex)
-		end
+			insertToolPromise = self.props.insertToolPromise,
+		})
 	end
 
 	self.onAssetInsertionSuccesful = function(assetId)
@@ -360,13 +333,9 @@ local function mapStateToProps(state, props)
 
 	local assetId = props.assetId
 
-	local categoryIndex = nil
-	local searchTerm = nil
-	if FFlagStudioLuaWidgetToolboxV2 or FFlagFixToolboxEventStream then
-		local pageInfo = state.pageInfo or {}
-		categoryIndex = pageInfo.categoryIndex or 1
-		searchTerm = pageInfo.searchTerm or ""
-	end
+	local pageInfo = state.pageInfo or {}
+	local categoryIndex = pageInfo.categoryIndex or 1
+	local searchTerm = pageInfo.searchTerm or ""
 
 	return {
 		asset = idToAssetMap[assetId],

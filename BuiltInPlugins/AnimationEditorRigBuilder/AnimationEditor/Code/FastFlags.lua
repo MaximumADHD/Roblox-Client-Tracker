@@ -145,7 +145,11 @@ function FastFlags:isFixScalingBarPositionOn()
 end
 
 function FastFlags:isEnableRigSwitchingOn()
-	return isFlagOn("StudioAnimationEditorEnableRigSwitching")
+	return isFlagOn("StudioAnimationEditorEnableRigSwitching2") and self:useQWidgetsForPopupsOn()
+end
+
+function FastFlags:isCheckForSavedChangesOn()
+	return isFlagOn("StudioAnimationEditorCheckForSavedChanges")
 end
 
 function FastFlags:isFixEventTooltipsOn()

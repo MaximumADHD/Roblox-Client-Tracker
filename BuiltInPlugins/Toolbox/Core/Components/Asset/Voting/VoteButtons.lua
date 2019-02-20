@@ -20,8 +20,6 @@ local VoteButton = require(Plugin.Core.Components.Asset.Voting.VoteButton)
 local PostUnvoteRequest = require(Plugin.Core.Networking.Requests.PostUnvoteRequest)
 local PostVoteRequest = require(Plugin.Core.Networking.Requests.PostVoteRequest)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local VoteButtons = Roact.PureComponent:extend("VoteButtons")
 
 function VoteButtons:init(props)
@@ -53,16 +51,15 @@ function VoteButtons:render()
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		LayoutOrder = not FFlagStudioLuaWidgetToolboxV2 and (props.LayoutOrder or 0) or nil,
-		Size = FFlagStudioLuaWidgetToolboxV2 and UDim2.new(1, 0, 1, 0)
-			or UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
+		LayoutOrder = nil,
+		Size = UDim2.new(1, 0, 1, 0),
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = FFlagStudioLuaWidgetToolboxV2 and UDim.new(0, 2) or nil,
+			Padding = UDim.new(0, 2),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			VerticalAlignment = FFlagStudioLuaWidgetToolboxV2 and Enum.VerticalAlignment.Center or nil,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
 
 		VoteUpButton = Roact.createElement(VoteButton, {

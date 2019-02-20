@@ -33,7 +33,8 @@ function Clip:isLengthOk(len)
 	return len > 0 and len <= self.MaxLength
 end
 
-function Clip:setLength(len, serialize)
+function Clip:setLength(len, serialize, doRecreateTrack)
+	doRecreateTrack = doRecreateTrack == nil and true or doRecreateTrack
 	if nil ~= self.Paths then
 		len = self.Paths.DataModelSession:formatTimeValue(len, false)
 	end
@@ -48,7 +49,11 @@ function Clip:setLength(len, serialize)
 	end
 
 	if nil ~= self.LengthChangedEvent then
-		self.LengthChangedEvent:fire(self.length)
+		if FastFlags:isCheckForSavedChangesOn() then
+			self.LengthChangedEvent:fire(self.length, doRecreateTrack)
+		else
+			self.LengthChangedEvent:fire(self.length)
+		end
 	end
 end
 
@@ -61,10 +66,15 @@ function Clip:getScaledLength(scale, doClamp)
 	return self:getLength()*(doClamp and math.clamp(scale, 0, 1) or scale)
 end
 
-function Clip:setLooping(loop)
+function Clip:setLooping(loop, doRecreateTrack)
+	doRecreateTrack = doRecreateTrack == nil and true or doRecreateTrack
 	self.loopAnimation = loop
 	if nil ~= self.LoopingToggleEvent then
-		self.LoopingToggleEvent:fire(self.loopAnimation)
+		if FastFlags:isCheckForSavedChangesOn() then
+			self.LoopingToggleEvent:fire(self.loopAnimation, doRecreateTrack)
+		else
+			self.LoopingToggleEvent:fire(self.loopAnimation)
+		end
 	end
 end
 
@@ -328,7 +338,11 @@ function Clip:loadImportAnim(animId)
 	local isUserdata = type(animId) == "userdata"
 
 	if (isNumber and animId > 0) or isUserdata then
-	self.Paths.DataModelKeyframes:resetKeyframes()
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Paths.DataModelKeyframes:resetKeyframes(false)
+	else
+		self.Paths.DataModelKeyframes:resetKeyframes()
+	end
 
 		local kfs
 		if isNumber then
@@ -365,6 +379,9 @@ function Clip:saveCurrentAnimation(animName)
 	save.Parent = AnimationBlock
 	if FastFlags:isUseAnimationNameAsTitleOn() then
 		self.Paths.DataModelSession:setSessionTitle(animName)
+	end
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Paths.UtilityScriptUndoRedo:markAnimationSaved()
 	end
 end
 

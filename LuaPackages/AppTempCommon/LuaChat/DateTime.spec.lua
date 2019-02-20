@@ -321,14 +321,89 @@ return function()
 			end
 		end)
 
-		it("should have LongRelativeTime", function()
-			local date = DateTime.new(2015, 4, 20, 0, 0, 0)
-			expect(date:GetLongRelativeTime()).to.be.a("string")
+		describe("LongRelativeTime", function()
+			it("SHOULD handle same day case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2015, 4, 20, 13, 0, 0)
+
+				if FFlagChinaLicensingApp then
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("13:00 下午")
+				else
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("1:00 PM")
+				end
+			end)
+
+			it("SHOULD handle same week case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2015, 4, 19, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("4月19日 | 13:00 下午")
+				else
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("Sun | 1:00 PM")
+				end
+			end)
+
+			it("SHOULD handle same year case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2015, 1, 20, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("1月20日 | 13:00 下午")
+				else
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("Jan 20 | 1:00 PM")
+				end
+			end)
+
+			it("SHOULD handle different year case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2010, 1, 20, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("2010年1月20日 | 13:00 下午")
+				else
+					expect(date:GetLongRelativeTime(now, TimeZone.UTC)).to.equal("Jan 20, 2010 | 1:00 PM")
+				end
+			end)
 		end)
 
-		it("should have ShortRelativeTime", function()
-			local date = DateTime.new(2015, 4, 20, 0, 0, 0)
-			expect(date:GetShortRelativeTime()).to.be.a("string")
+		describe("ShortRelativeTime", function()
+			it("SHOULD handle same day case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2015, 4, 20, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("13:00 下午")
+				else
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("1:00 PM")
+				end
+			end)
+
+			it("SHOULD handle same week case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2015, 4, 19, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("4月19日")
+				else
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("Sun")
+				end
+			end)
+
+			it("SHOULD handle same year case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2015, 1, 20, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("1月20日")
+				else
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("Jan 20")
+				end
+			end)
+
+			it("SHOULD handle different year case", function()
+				local now = DateTime.new(2015, 4, 20, 0, 0, 0)
+				local date = DateTime.new(2010, 1, 20, 13, 0, 0)
+				if FFlagChinaLicensingApp then
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("2010年1月20日")
+				else
+					expect(date:GetShortRelativeTime(now, TimeZone.UTC)).to.equal("Jan 20, 2010")
+				end
+			end)
 		end)
 	end)
 

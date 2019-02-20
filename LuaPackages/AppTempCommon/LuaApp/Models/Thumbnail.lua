@@ -1,0 +1,27 @@
+--[[
+	{
+		universeId : string,
+		state : string,
+		url : string,
+	}
+]]
+local Thumbnail = {}
+
+function Thumbnail.new()
+	local self = {}
+
+	return self
+end
+
+function Thumbnail.fromThumbnailData(thumbnailData, size)
+	local self = Thumbnail.new()
+
+	self.universeId = tostring(thumbnailData.targetId)
+	self.state = thumbnailData.state
+	self.url = thumbnailData.imageUrl
+	self.size = size
+
+	return self
+end
+
+return Thumbnail

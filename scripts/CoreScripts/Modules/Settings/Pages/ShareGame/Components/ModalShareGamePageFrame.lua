@@ -43,17 +43,19 @@ function ModalShareGamePageFrame:init()
 end
 
 function ModalShareGamePageFrame:render()
+	local analytics = self.props.analytics
 	local deviceLayout = self.props.deviceLayout
 	local zIndex = self.props.zIndex
 	local searchAreaActive = self.props.searchAreaActive
 	local searchText = self.props.searchText
 
-	return Roact.createElement("ImageLabel", {
+	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		BackgroundTransparency = 1,
 		Image = IMAGE_ROUNDED_BACKGROUND,
 		ImageColor3 = SETTINGS_SHIELD_BACKGROUND_COLOR,
 		ImageTransparency = 0.1,
+		Modal = true,
 		Position = UDim2.new(0.5, 0, 0.5 - POSITION_HEIGHT_OFFSET, 0),
 		Size = UDim2.new(MAX_MODAL_WIDTH.Scale, 0, MAX_MODAL_HEIGHT.Scale, 0),
 		ScaleType = Enum.ScaleType.Slice,
@@ -97,6 +99,7 @@ function ModalShareGamePageFrame:render()
 				iconType = BackButton.IconType.Cross,
 			}),
 			ConversationList = Roact.createElement(ConversationList, {
+				analytics = analytics,
 				size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
 				topPadding = USER_LIST_PADDING,
 				layoutOrder = 1,

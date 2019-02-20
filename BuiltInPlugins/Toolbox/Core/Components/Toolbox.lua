@@ -41,9 +41,6 @@ local SoundPreviewComponent = require(Plugin.Core.Components.SoundPreviewCompone
 local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetManageableGroupsRequest)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-local FFlagDisableToolboxInitalSearchByText = settings():GetFFlag("DisableToolboxInitalSearchByText")
-
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
 function Toolbox:handleInitialSettings()
@@ -59,12 +56,7 @@ function Toolbox:handleInitialSettings()
 
 	-- We don't want initial search based on last search text for toolbox.
 	-- But let's keep the option to re-add this in the future
-	local initialSearchTerm
-	if FFlagDisableToolboxInitalSearchByText then
-		initialSearchTerm = ""
-	else
-		initialSearchTerm = initialSettings.searchTerm or ""
-	end
+	local initialSearchTerm = ""
 
 	local initialSelectedSortIndex = initialSettings.sortIndex or 1
 	if initialSelectedSortIndex < 1 or initialSelectedSortIndex > #self.props.sorts then
@@ -94,7 +86,7 @@ function Toolbox:init(props)
 	self.toolboxRef = Roact.createRef()
 
 	-- If flag is on, use function that gets ref, else use old with rbx param
-	self.onAbsoluteSizeChange = FFlagStudioLuaWidgetToolboxV2 and function()
+	self.onAbsoluteSizeChange = function()
 		local toolboxWidth = math.max(self.toolboxRef.current.AbsoluteSize.x,
 			Constants.TOOLBOX_MIN_WIDTH)
 		if self.state.toolboxWidth ~= toolboxWidth then
@@ -102,29 +94,17 @@ function Toolbox:init(props)
 				toolboxWidth = toolboxWidth,
 			})
 		end
-	end or function(rbx)
-		local toolboxWidth = math.max(rbx.AbsoluteSize.x, Constants.TOOLBOX_MIN_WIDTH)
-		if self.state.toolboxWidth ~= toolboxWidth then
-			self:setState({
-				toolboxWidth = toolboxWidth,
-			})
-		end
 	end
 
-	if not FFlagStudioLuaWidgetToolboxV2 then
-		self:handleInitialSettings()
-	end
+	self:handleInitialSettings()
 end
 
 function Toolbox:didMount()
-	if FFlagStudioLuaWidgetToolboxV2 then
-		if self.toolboxRef.current then
-			self.toolboxRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(self.onAbsoluteSizeChange)
-		end
-
-		self:handleInitialSettings()
+	if self.toolboxRef.current then
+		self.toolboxRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(self.onAbsoluteSizeChange)
 	end
 
+	self:handleInitialSettings()
 	self.props.loadManageableGroups(getNetwork(self))
 end
 
@@ -140,10 +120,7 @@ function Toolbox:render()
 
 		local toolboxTheme = theme.toolbox
 
-		local onAbsoluteSizeChange = nil
-		if not FFlagStudioLuaWidgetToolboxV2 then
-			onAbsoluteSizeChange = self.onAbsoluteSizeChange
-		end
+		local onAbsoluteSizeChange = self.onAbsoluteSizeChange
 
 		return Roact.createElement("Frame", {
 			Position = UDim2.new(0, 0, 0, 0),

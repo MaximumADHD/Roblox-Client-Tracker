@@ -30,7 +30,7 @@ local ApiFetchPlaceInfos = require(AppTempCommon.LuaApp.Thunks.ApiFetchPlaceInfo
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 
 local FFlagLuaInviteGameUsesInviteThunk = settings():GetFFlag("LuaInviteGameUsesInviteThunk")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
@@ -65,6 +65,7 @@ local function searchFilterPredicate(query, other)
 end
 
 function ConversationList:render()
+	local analytics = self.props.analytics
 	local children = self.props[Roact.Children] or {}
 
 	local entryHeight
@@ -102,6 +103,7 @@ function ConversationList:render()
 		local isEntryShown = searchFilterPredicate(searchText, user.name)
 
 		children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
+			analytics = analytics,
 			visible = isEntryShown,
 			size = UDim2.new(1, 0, 0, entryHeight),
 			layoutOrder = i,

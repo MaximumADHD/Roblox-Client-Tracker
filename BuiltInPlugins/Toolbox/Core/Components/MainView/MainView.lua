@@ -47,8 +47,6 @@ local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
 
 local disableNetworkErrorsToasts = true
 
-local EnableToolboxAssetLoadingNotCompleteSimpleFix = settings():GetFFlag("EnableToolboxAssetLoadingNotCompleteSimpleFix")
-
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:init(props)
@@ -87,9 +85,7 @@ function MainView:init(props)
 	end
 
 	self.onAssetGridContainerChanged = function()
-		if EnableToolboxAssetLoadingNotCompleteSimpleFix then
-			tryRerender(self)
-		end
+		tryRerender(self)
 	end
 
 	self.requestNextPage = function()

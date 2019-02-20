@@ -22,6 +22,11 @@ local Promise = require(Plugin.Promise)
 local Cryo = require(Plugin.Cryo)
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
+local WorkspaceSettings = nil
+if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+	WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
+end
+
 local AssetOverrides = nil
 
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
@@ -67,7 +72,13 @@ function SettingsImpl:GetSettings()
 	}
 
 	return self:CanManagePlace():andThen(function(canManage)
+		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+			settings = Cryo.Dictionary.join(settings, {["canManage"] = canManage })
+		end
 		if not canManage then
+			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+				settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
+			end
 			return settings
 		end
 
@@ -116,8 +127,10 @@ function SettingsImpl:SaveAll(state)
 	end
 
 	return self:CanManagePlace():andThen(function(canManage)
-		if not canManage then
-			return
+		if not fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+			if not canManage then
+				return
+			end
 		end
 
 		local saveInfo = {}
@@ -153,6 +166,13 @@ function SettingsImpl:SaveAll(state)
 
 			elseif FFlagGameSettingsImageUploadingEnabled and Requests.GameIcon.AcceptsValue(setting) then
 				saveInfo[setting] = value
+			end
+		end
+
+		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+			WorkspaceSettings.saveAllAvatarSettings(saveInfo)
+			if not canManage then
+				return
 			end
 		end
 

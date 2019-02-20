@@ -10,8 +10,6 @@ local StatusCodes = require(script.Parent.StatusCodes)
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
-local EnableToolboxHttpErrorHandling2 = settings():GetFFlag("EnableToolboxHttpErrorHandling2")
-
 -- helper functions
 local function getHttpStatus(response)
 	-- NOTE, this function expects to parse a response like this:
@@ -137,52 +135,30 @@ end
 -- url : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpGetJson(url)
-	if EnableToolboxHttpErrorHandling2 then
-		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
-			-- On promise resolved
-			function(result)
-				result.responseBody = self:jsonDecode(result.responseBody)
-				return result
-			end,
-			-- on Promise rejected
-			function(result)
-				return result
-			end)
-	else
-		return createHttpPromise(httpGet, self._httpImpl, url):andThen(
-			function(result)
-				if result.responseCode == StatusCodes.OK then
-					result.responseBody = self:jsonDecode(result.responseBody)
-				end
-
-				return result
-			end)
-	end
+	return createHttpPromise(httpGet, self._httpImpl, url):andThen(
+		-- On promise resolved
+		function(result)
+			result.responseBody = self:jsonDecode(result.responseBody)
+			return result
+		end,
+		-- on Promise rejected
+		function(result)
+			return result
+		end)
 end
 
 -- url : (string)
 -- payload : (string)
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPostJson(url, payload)
-	if EnableToolboxHttpErrorHandling2 then
-		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
-			function(result)
-				result.responseBody = self:jsonDecode(result.responseBody)
-				return result
-			end,
-			function(result)
-				return result
-			end)
-	else
-		return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
-			function(result)
-				if result.responseCode == StatusCodes.OK then
-					result.responseBody = self:jsonDecode(result.responseBody)
-				end
-
-				return result
-			end)
-	end
+	return createHttpPromise(httpPost, self._httpImpl, url, payload):andThen(
+		function(result)
+			result.responseBody = self:jsonDecode(result.responseBody)
+			return result
+		end,
+		function(result)
+			return result
+		end)
 end
 
 -- url : (string)

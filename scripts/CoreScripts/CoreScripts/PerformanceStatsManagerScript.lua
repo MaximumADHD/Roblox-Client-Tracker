@@ -25,7 +25,6 @@ local masterFrame = Instance.new("Frame")
 masterFrame.Name = "PerformanceStats"
 
 local FFlagStatUtilsUseFormatByKey = settings():GetFFlag('StatUtilsUseFormatByKey')
-local FFlagWeDontWantAnyGoogleAnalyticsHerePlease = settings():GetFFlag("WeDontWantAnyGoogleAnalyticsHerePlease")
 local FFlagPerformanceProfilerAnalytics = settings():GetFFlag("PerformanceProfilerAnalytics")
 
 local statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
@@ -126,14 +125,7 @@ function UpdateViewerVisibility()
 
     if somethingChanged then
       -- track it.
-      if FFlagWeDontWantAnyGoogleAnalyticsHerePlease then
-        AnalyticsService:TrackEvent("Game", "Enlarge PerfStat", currentStatType, 0)
-      else
-        game:ReportInGoogleAnalytics(GoogleAnalyticsUtils.CA_CATEGORY_GAME,
-          "Enlarge PerfStat",
-          currentStatType,
-          0)
-      end
+      AnalyticsService:TrackEvent("Game", "Enlarge PerfStat", currentStatType, 0)
     end
   end
 end
@@ -204,14 +196,7 @@ function UpdatePerformanceStatsVisibility()
     actionName = "Show PerfStats"
   end
 
-  if FFlagWeDontWantAnyGoogleAnalyticsHerePlease then
-    AnalyticsService:TrackEvent("Game", actionName, "", 0)
-  else
-    game:ReportInGoogleAnalytics(GoogleAnalyticsUtils.CA_CATEGORY_GAME,
-      actionName,
-      "",
-      0)
-  end
+  AnalyticsService:TrackEvent("Game", actionName, "", 0)
 
   if FFlagPerformanceProfilerAnalytics then
     if shouldBeVisible then

@@ -11,6 +11,7 @@ local Shimmer = require(RobloxGui.Modules.Shimmer)
 
 local fflagForceSetSizeOfErrorPrompt = settings():GetFFlag("ForceSetSizeOfErrorPrompt")
 local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp")
+local fflagErrorPromptTakeExtraConfigurations = settings():GetFFlag("ErrorPromptTakeExtraConfigurations")
 
 -- Animation Preset --
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
@@ -159,7 +160,13 @@ local styledButton = {
 local ErrorPrompt = {}
 ErrorPrompt.__index = ErrorPrompt
 
-function ErrorPrompt.new(style)
+--[[
+	extraConfiguration:
+	* MessageTextScaled	-- Message Text Scale to fit
+	* HideErrorCode		-- If set to true, no errorCode will be appended
+	* PlayAnimation		-- Skip animation of the errorPrompt
+]]
+function ErrorPrompt.new(style, extraConfiguration)
 	local self = setmetatable({}, ErrorPrompt)
 	self._frame = style and styledFrame[style]() or styledFrame["Default"]()
 
@@ -170,6 +177,21 @@ function ErrorPrompt.new(style)
 
 	-- re-layout when there is no button
 	self._buttonCount = 0
+	self._playAnimation = true
+	self._hideErrorCode = false
+
+	if fflagErrorPromptTakeExtraConfigurations and extraConfiguration then
+		if extraConfiguration.PlayAnimation ~= nil then
+			self._playAnimation = extraConfiguration.PlayAnimation
+		end
+
+		if extraConfiguration.HideErrorCode ~= nil then
+			self._hideErrorCode = extraConfiguration.HideErrorCode
+		end
+
+		local errorLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
+		errorLabel.TextScaled = extraConfiguration.MessageTextScaled or false
+	end
 
 	return self
 end
@@ -184,9 +206,13 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		end
 		self._frame.Visible = true
 		self._isOpen = true
-		self._openAnimation:Play()
-		if fflagForceSetSizeOfErrorPrompt then
-			self._openAnimation.Completed:wait()
+		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
+			self._openAnimation:Play()
+			if fflagForceSetSizeOfErrorPrompt then
+				self._openAnimation.Completed:wait()
+				self._frame.PromptScale.Scale = 1
+			end
+		else
 			self._frame.PromptScale.Scale = 1
 		end
 	end
@@ -199,8 +225,12 @@ function ErrorPrompt:_close()
 			GuiService:SetMenuIsOpen(false)
 		end
 		self._isOpen = false
-		self._closeAnimation:Play()
-		self._closeAnimation.Completed:wait()
+		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
+			self._closeAnimation:Play()
+			self._closeAnimation.Completed:wait()
+		else
+			self._frame.PromptScale.Scale = 0
+		end
 		self._frame.Visible = false
 	end
 end
@@ -213,10 +243,14 @@ function ErrorPrompt:setErrorText(errorMsg, errorCode)
 
 	-- Any unknown error that uses guiservices will have errno(UNKNOWN) as -1
 	local errorLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
-	if not errorCode then
-		errorLabel.Text = ("%s\n(Error Code: -1)"):format(errorMsg)
+	if self._hideErrorCode and fflagErrorPromptTakeExtraConfigurations then
+		errorLabel.Text = errorMsg
 	else
-		errorLabel.Text = ("%s\n(Error Code: %d)"):format(errorMsg, errorCode.Value)
+		if not errorCode then
+			errorLabel.Text = ("%s\n(Error Code: -1)"):format(errorMsg)
+		else
+			errorLabel.Text = ("%s\n(Error Code: %d)"):format(errorMsg, errorCode.Value)
+		end
 	end
 end
 

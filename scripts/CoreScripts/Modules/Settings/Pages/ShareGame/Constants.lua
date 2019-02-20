@@ -8,7 +8,7 @@ local FStringSettingsHubInviteToGameThumbnailType = settings():GetFVariable("Set
 local FStringSettingsHubInviteToGameThumbnailSize = settings():GetFVariable("SettingsHubInviteToGameThumbnailSize")
 local FFlagSettingsHubInviteToGameDefaultThumbnailSize150x150 =
 	settings():GetFFlag("SettingsHubInviteToGameDefaultThumbnailSize150x150")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 
 local DeviceLayout = {
 	PHONE_PORTRAIT = "PHONE_PORTRAIT",

@@ -21,7 +21,6 @@ local createSignal = require(Plugin.Core.Util.createSignal)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 local FFlagEnableLocalizationForToolbox = settings():GetFFlag("EnableLocalizationForToolbox")
 
 local Localization = {}
@@ -145,11 +144,7 @@ function Localization:getLocalizedSorts(sorts)
 end
 
 function Localization:getLocalizedSuggestions(suggestions)
-	if FFlagStudioLuaWidgetToolboxV2 then
-		return self:_localizeTable(suggestions, "Suggestions", "name", "search")
-	else
-		return suggestions
-	end
+	return self:_localizeTable(suggestions, "Suggestions", "name", "search")
 end
 
 function Localization:getLocalizedFooter(footerBackgroundNames)

@@ -16,13 +16,17 @@ local RunService = game:GetService("RunService")
 
 ----------- UTILITIES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
+local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
+
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
+local Diag = require(CorePackages.AppTempCommon.AnalyticsReporters.Diag)
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
-local ShareGameIcons = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
+local ShareGameIcons = require(ShareGameDirectory.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -45,6 +49,8 @@ end
 
 
 ------------ FAST FLAGS -------------------
+local FFlagEnableInviteGameInStudio = settings():GetFFlag("EnableInviteGameInStudio")
+local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
@@ -535,16 +541,29 @@ local function Initialize()
 
 		-- Create "invite friends" button if it doesn't exist yet
 		-- We shouldn't create this button if we're not in a live game
-		if canShareCurrentGame() and not shareGameButton and not RunService:IsStudio() then
-			local eventStream = EventStream.new()
+		local isStudio = (not RunService:IsStudio()) or FFlagEnableInviteGameInStudio
+		if canShareCurrentGame() and not shareGameButton and isStudio then
+			local inviteToGameAnalytics
+			if FFlagLuaInviteNewAnalytics then
+				inviteToGameAnalytics = InviteToGameAnalytics.new()
+					:withEventStream(EventStream.new())
+					:withDiag(Diag.new(AnalyticsService))
+					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
+			end
+
 			shareGameButton = createShareGameButton()
 			shareGameButton.Activated:connect(function()
-				local eventContext = "inGame"
-				local eventName = "inputShareGameEntryPoint"
-				local additionalArgs = {
-					buttonName = "settingsHub",
-				}
-				eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+				if FFlagLuaInviteNewAnalytics then
+					inviteToGameAnalytics:inputShareGameEntryPoint()
+				else
+					local eventStream = EventStream.new()
+					local eventContext = "inGame"
+					local eventName = "inputShareGameEntryPoint"
+					local additionalArgs = {
+						buttonName = "settingsHub",
+					}
+					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
+				end
 
 				this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
 				this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)

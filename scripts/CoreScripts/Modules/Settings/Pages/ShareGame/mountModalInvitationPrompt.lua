@@ -24,6 +24,7 @@ return function(root, props)
 		}, {
 			layoutProvider = Roact.createElement(LayoutProvider, nil, {
 				ShareGameContainer = Roact.createElement(ShareGameContainer, {
+					analytics = props.analytics,
 					skeletonComponent = ModalShareGamePageFrame,
 					onAfterClosePage = function()
 						local sentToUserIds = {}

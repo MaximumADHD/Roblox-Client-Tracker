@@ -11,8 +11,6 @@ local withLocalization = ContextHelper.withLocalization
 
 local VoteBar = Roact.PureComponent:extend("VoteBar")
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 function VoteBar:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localization, localizedContent)
@@ -28,8 +26,8 @@ function VoteBar:render()
 
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = not FFlagStudioLuaWidgetToolboxV2 and (props.LayoutOrder or 0) or nil,
-				Size = FFlagStudioLuaWidgetToolboxV2 and UDim2.new(1, 0, 1, 0)
+				LayoutOrder = nil,
+				Size = UDim2.new(1, 0, 1, 0)
 					or UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
 			}, {
 				UIListLayout = Roact.createElement("UIListLayout", {

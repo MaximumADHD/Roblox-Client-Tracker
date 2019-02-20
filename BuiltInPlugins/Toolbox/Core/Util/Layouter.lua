@@ -5,15 +5,11 @@ local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
 
-local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
 local Suggestion = require(Plugin.Core.Types.Suggestion)
 
 local SuggestionsButton = require(Plugin.Core.Components.Suggestions.SuggestionsButton)
 local SuggestionsLabel = require(Plugin.Core.Components.Suggestions.SuggestionsLabel)
-
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-local FFlagHideSearchStringInToolboxMainViewHeader = settings():GetFFlag("HideSearchStringInToolboxMainViewHeader")
 
 local Layouter = {}
 
@@ -57,11 +53,7 @@ function Layouter.sliceAssetsFromBounds(idsToRender, lowerBound, upperBound)
 
 	if lowerBound > 0 and upperBound >= lowerBound then
 		for i = lowerBound, upperBound, 1 do
-			if FFlagStudioLuaWidgetToolboxV2 then
-				assetIds[#assetIds + 1] = {idsToRender[i], i}
-			else
-				assetIds[#assetIds + 1] = idsToRender[i]
-			end
+			assetIds[#assetIds + 1] = {idsToRender[i], i}
 		end
 	end
 
@@ -101,39 +93,14 @@ function Layouter.calculateMainViewHeaderHeight(categoryIndex, searchTerm, sugge
 	local headerHeight = 0
 	local headerToBodyPadding = 0
 
-	local showSort
-	local showSuggestions
-
-	if FFlagStudioLuaWidgetToolboxV2 then
-		showSort = Sort.canSort(searchTerm, categoryIndex)
-		showSuggestions = Suggestion.canHaveSuggestions(searchTerm, categoryIndex)
-	else
-		showSort = #searchTerm > 0
-		showSuggestions = searchTerm == ""
-
-		-- Only the free assets have sort and suggestions
-		if not Category.categoryIsFreeAsset(categoryIndex) then
-			showSort = false
-			showSuggestions = false
-		end
-	end
+	local showSort = Sort.canSort(searchTerm, categoryIndex)
 
 	if showSort then
 		headerToBodyPadding = Constants.MAIN_VIEW_VERTICAL_PADDING
 		headerHeight = headerHeight + Constants.SORT_COMPONENT_HEIGHT
 	end
 
-	if not FFlagHideSearchStringInToolboxMainViewHeader and showSuggestions then
-		headerToBodyPadding = Constants.MAIN_VIEW_VERTICAL_PADDING
-		local padding = showSort and Constants.MAIN_VIEW_VERTICAL_PADDING or 0
-
-		local height = Layouter.calculateSuggestionsHeight(suggestionIntro, suggestions, containerWidth)
-		headerHeight = headerHeight + padding + height
-	end
-
-	if FFlagStudioLuaWidgetToolboxV2 then
-		headerHeight = math.max(headerHeight, Constants.MAIN_VIEW_NO_HEADER_HEIGHT)
-	end
+	headerHeight = math.max(headerHeight, Constants.MAIN_VIEW_NO_HEADER_HEIGHT)
 
 	return headerHeight, headerToBodyPadding
 end
@@ -145,12 +112,7 @@ function Layouter.calculateSuggestionsHeight(initialText, suggestions, maxWidth)
 
 	-- Starts at 0, not 1
 	for index = 0, #suggestions, 1 do
-		local text
-		if FFlagStudioLuaWidgetToolboxV2 then
-			text = (index == 0) and initialText or suggestions[index].name
-		else
-			text = (index == 0) and initialText or suggestions[index]
-		end
+		local text = (index == 0) and initialText or suggestions[index].name
 		local textWidth = Constants.getTextSize(text).x
 		if (rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
 			rowCount = rowCount + 1
@@ -241,8 +203,8 @@ function Layouter.layoutSuggestions(initialText, suggestions, maxWidth, onSugges
 	addInitial(state, initialText)
 
 	for index, suggestion in ipairs(suggestions) do
-		local text = FFlagStudioLuaWidgetToolboxV2 and suggestion.name or suggestion
-		local search = FFlagStudioLuaWidgetToolboxV2 and suggestion.search or text
+		local text = suggestion.name
+		local search = suggestion.search
 		addButton(state, index, text, search, maxWidth, onSuggestionSelected)
 	end
 

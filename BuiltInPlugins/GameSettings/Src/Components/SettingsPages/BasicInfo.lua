@@ -32,6 +32,7 @@ local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSett
 local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
+local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -71,10 +72,13 @@ local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
 local BrowserUtils = require(Plugin.Src.Util.BrowserUtils)
-local LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
+local FileUtils = require(Plugin.Src.Util.FileUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
+
+-- Deprecated, remove with FFlagStudioRenameLocalAssetToFile
+local DEPRECATED_LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
@@ -293,7 +297,13 @@ local function displayContents(page, localized)
 			Icon = props.GameIcon,
 			AddIcon = function()
 				if FFlagGameSettingsImageUploadingEnabled then
-					local icon = LocalAssetUtils.PromptForGameIcon(page)
+					local icon
+					if FFlagStudioRenameLocalAssetToFile then
+						icon = FileUtils.PromptForGameIcon(page)
+					else
+						icon = DEPRECATED_LocalAssetUtils.PromptForGameIcon(page)
+					end
+
 					if icon then
 						props.GameIconChanged(icon)
 					end
@@ -316,7 +326,13 @@ local function displayContents(page, localized)
 			Order = props.ThumbnailOrder,
 			AddThumbnail = function()
 				if FFlagGameSettingsImageUploadingEnabled then
-					local newThumbnails = LocalAssetUtils.PromptForThumbnails(page)
+					local newThumbnails
+					if FFlagStudioRenameLocalAssetToFile then
+						newThumbnails = FileUtils.PromptForThumbnails(page)
+					else
+						newThumbnails = DEPRECATED_LocalAssetUtils.PromptForThumbnails(page)
+					end
+
 					if newThumbnails then
 						props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
 					end

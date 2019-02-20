@@ -16,9 +16,7 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
 local FFlagEnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
-local FFlagEnableSkyFix = settings():GetFFlag("EnableSkyFix")
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -79,11 +77,11 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 
 		local newSelection = {}
 		for _, o in ipairs(assetInstance) do
-			if FFlagEnableSkyFix and o:IsA("Sky") then
-			-- If it's a sky object, we will parrent it to lighting.
-			-- No promise needed here.
-			o.Parent = Lighting
-			elseif FFlagStudioLuaWidgetToolboxV2 then
+			if o:IsA("Sky") then
+				-- If it's a sky object, we will parrent it to lighting.
+				-- No promise needed here.
+				o.Parent = Lighting
+			else
 			-- If it's a tool or hopperbin, then we should ask the
 			-- dev if they want to put it in the starterpack or not,
 			-- so we use a promise to get a response from the asset
@@ -105,14 +103,12 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 				if not o.Parent then
 					o:Destroy()
 				end
-			else
-				o.Parent = targetParent
 			end
 
 			newSelection[#newSelection + 1] = o
 		end
 
-		if FFlagStudioLuaWidgetToolboxV2 and model and #model:GetChildren() > 0 then
+		if model and #model:GetChildren() > 0 then
 			model:MoveTo(insertPosition)
 
 			local camera = Workspace.CurrentCamera
@@ -219,41 +215,6 @@ local function assetTypeIdToString(assetTypeId)
 	end
 end
 
--- Deprecated with move to options table under FFlagStudioLuaWidgetToolboxV2
-local function deprecatedDispatchInsertAsset(plugin, assetId, assetName, assetTypeId, categoryIndex)
-	if Category.categoryIsPackage(categoryIndex) then
-		return insertPackage(assetId)
-	elseif assetTypeId == Enum.AssetType.Audio.Value then
-		return insertAudio(assetId, assetName)
-	elseif assetTypeId == Enum.AssetType.Decal.Value then
-		return insertDecal(plugin, assetId, assetName)
-	else
-		return insertAsset(assetId, assetName)
-	end
-end
-
--- Deprecated with move to options table under FFlagStudioLuaWidgetToolboxV2
-local function deprecatedSendInsertionAnalytics(assetId, assetTypeId, assetWasDragged, searchTerm, newAssetIndex)
-	Analytics.trackEventAssetInsert(assetId)
-	Analytics.incrementAssetInsertCollector()
-	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(assetTypeId))
-
-	local searchText = searchTerm or "[searchText]"
-	local assetIndex = newAssetIndex or "[assetIndex]"
-
-	if not assetWasDragged then
-		Analytics.onAssetInserted(assetId, searchText, assetIndex)
-	else
-		Analytics.onAssetDragInserted(assetId, searchText, assetIndex)
-	end
-
-	if assetTypeId == Enum.AssetType.Audio.Value then
-		Analytics.onSoundInserted()
-	end
-
-	Analytics.incrementWorkspaceInsertCounter()
-end
-
 --TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
 local function dispatchInsertAsset(options)
 	if Category.categoryIsPackage(options.categoryIndex) then
@@ -288,73 +249,6 @@ local function sendInsertionAnalytics(options)
 end
 
 local InsertAsset = {}
-
---TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
--- Deprecated with move to options table under FFlagStudioLuaWidgetToolboxV2
-function InsertAsset.deprecatedInsertAsset(plugin, assetId, assetName, assetTypeId, onSuccess, categoryIndex, searchTerm, assetIndex)
-	if DebugFlags.shouldDebugWarnings() then
-		print(("Inserting asset %s %s"):format(tostring(assetId), tostring(assetName)))
-	end
-
-	ChangeHistoryService:SetWaypoint(("Before insert asset %d"):format(assetId))
-
-	local asset, errorMessage = deprecatedDispatchInsertAsset(plugin, assetId, assetName, assetTypeId, categoryIndex)
-
-	if asset then
-		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
-		deprecatedSendInsertionAnalytics(assetId, assetTypeId, false, searchTerm, assetIndex)
-
-		AssetInsertionTracker.trackInsert(assetId, asset)
-
-		onSuccess(assetId)
-	else
-		warn(("Toolbox failed to insert asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
-	end
-
-	return asset
-end
-
--- Deprecated with move to options table under FFlagStudioLuaWidgetToolboxV2
-function InsertAsset.deprecatedDragInsertAsset(plugin, assetId, assetName, assetTypeId, onSuccess, categoryIndex, searchTerm, assetIndex)
-	if DebugFlags.shouldDebugWarnings() then
-		print(("Inserting asset %s %s"):format(tostring(assetId), tostring(assetName)))
-	end
-
-	ChangeHistoryService:SetWaypoint(("Before insert asset %d"):format(assetId))
-
-	local success, errorMessage = pcall(function()
-		-- Mark the toolbox as using the C++ drag handler implementation
-		-- That will insert the given asset and drag it in the 3d view
-		plugin.UsesAssetInsertionDrag = true
-
-		-- TODO CLIDEVSRVS-1246: This should use uri list or something
-		local url = Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, Category.categoryIsPackage(categoryIndex))
-		if DebugFlags.shouldDebugUrls() then
-			print(("Dragging asset url %s"):format(url))
-		end
-		plugin:StartDrag({
-			Sender = "LuaToolbox",
-			MimeType = "text/plain",
-			Data = url,
-		})
-	end)
-
-	if success then
-		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
-		deprecatedSendInsertionAnalytics(assetId, assetTypeId, true, searchTerm, assetIndex)
-
-		-- TODO CLIDEVSRVS-1689: For AssetInsertionTracker.trackInsert with dragged
-		-- asset, need to listen for dropped event on 3d view which
-		-- depends on viewports api
-
-		-- TODO CLIDEVSRVS-1246: If they cancel the drag, this probably shouldn't be called?
-		onSuccess(assetId)
-	else
-		warn(("Toolbox failed to drag asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
-	end
-
-	return success
-end
 
 --[[
 Options table format:

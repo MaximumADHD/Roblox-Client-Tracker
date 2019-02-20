@@ -25,6 +25,8 @@ function RootPanelExternal:render()
 			AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.AssetOverrideErrors or nil,
 			Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.Mouse or nil,
 
+			IsPlacePublished = (function() if fastFlags.isPlaceFilesGameSettingsSerializationOn() then return self.props.IsPlacePublished else return nil end end)(),
+
 			clobberTemplate = function(templateId, newTemplateModel)
 				sendUpdates(self, newTemplateModel)
 			end,

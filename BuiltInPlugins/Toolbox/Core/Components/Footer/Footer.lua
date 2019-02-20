@@ -23,8 +23,6 @@ local FooterButton = require(Plugin.Core.Components.Footer.FooterButton)
 
 local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:init(props)
@@ -73,7 +71,7 @@ function Footer:render()
 				}),
 
 				BackgroundTextLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(0, FFlagStudioLuaWidgetToolboxV2 and footerBgTextWidth or 65, 1, 0),
+					Size = UDim2.new(0, footerBgTextWidth, 1, 0),
 					Text = footerBgText,
 					Font = footerBgTextFont,
 					TextSize = footerBgTextSize,
@@ -91,11 +89,9 @@ function Footer:render()
 
 			-- Get the widest background name
 			local backgroundButtonTextWidth = 32 -- Start with a min width
-			if FFlagStudioLuaWidgetToolboxV2 then
-				for _, background in ipairs(translatedBackgrounds) do
-					backgroundButtonTextWidth = math.max(backgroundButtonTextWidth,
-						Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x)
-				end
+			for _, background in ipairs(translatedBackgrounds) do
+				backgroundButtonTextWidth = math.max(backgroundButtonTextWidth,
+					Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x)
 			end
 
 			for index, background in ipairs(translatedBackgrounds) do

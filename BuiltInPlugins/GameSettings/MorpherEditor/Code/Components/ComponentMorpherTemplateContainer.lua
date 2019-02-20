@@ -5,17 +5,18 @@ local MorpherTemplateContainer = paths.Roact.Component:extend("ComponentMorpherT
 
 function MorpherTemplateContainer:render()
 	local children = {}
-	if self.props.StateTemplates and self.props.StateTemplates.templates then      
-		for stateTemplate, _ in pairs(self.props.StateTemplates.templates) do           
+	if self.props.StateTemplates and self.props.StateTemplates.templates then
+		for stateTemplate, _ in pairs(self.props.StateTemplates.templates) do
 			children[tostring(stateTemplate)] = paths.Roact.createElement(paths.ComponentMorpherTemplate, {
 				ThemeData = self.props.ThemeData,
 				template = stateTemplate,
 				StateTemplates = self.props.StateTemplates,
 				IsEnabled = self.props.IsEnabled,
-				
+
 				IsGameShutdownRequired = (function() if fastFlags.isMorphingPanelWidgetsStandardizationOn() then return self.props.IsGameShutdownRequired else return nil end end)(),
 				AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.AssetOverrideErrors or nil,
 				Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and self.props.Mouse or nil,
+				IsPlacePublished = (function() if fastFlags.isPlaceFilesGameSettingsSerializationOn() then return self.props.IsPlacePublished else return nil end end)(),
 
 				clobberTemplate = self.props.clobberTemplate,
 
@@ -33,7 +34,7 @@ function MorpherTemplateContainer:render()
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1
-		}, 
+		},
 		children
 	)
 end

@@ -13,8 +13,6 @@ return function()
 
 	local Workspace = game:GetService("Workspace")
 
-	local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			MainView = Roact.createElement(MainView, {
@@ -57,10 +55,8 @@ return function()
 		local header = scrollContainer.Header
 		expect(header).to.be.ok()
 
-		if not FFlagStudioLuaWidgetToolboxV2 then
-			local suggestions = header.Suggestions
-			expect(suggestions).to.be.ok()
-		end
+		local suggestions = header.Suggestions
+		expect(suggestions).to.be.ok()
 
 		local assetGridContainer = scrollContainer.AssetGridContainer
 		expect(assetGridContainer).to.be.ok()

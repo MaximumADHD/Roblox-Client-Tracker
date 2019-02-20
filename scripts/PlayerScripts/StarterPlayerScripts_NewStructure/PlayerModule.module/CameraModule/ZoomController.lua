@@ -5,6 +5,7 @@ local ZOOM_STIFFNESS = 4.5
 local ZOOM_DEFAULT = 12.5
 local ZOOM_ACCELERATION = 0.0375
 
+local MIN_FOCUS_DIST = 0.5
 local DIST_OPAQUE = 1
 
 local Popper = require(script:WaitForChild("Popper"))
@@ -80,7 +81,7 @@ local ConstrainedSpring = {} do
 	end
 end
 
-local zoomSpring = ConstrainedSpring.new(ZOOM_STIFFNESS, ZOOM_DEFAULT, cameraMinZoomDistance, cameraMaxZoomDistance)
+local zoomSpring = ConstrainedSpring.new(ZOOM_STIFFNESS, ZOOM_DEFAULT, MIN_FOCUS_DIST, cameraMaxZoomDistance)
 
 local function stepTargetZoom(z, dz, zoomMin, zoomMax)
 	z = clamp(z + dz*(1 + z*ZOOM_ACCELERATION), zoomMin, zoomMax)
@@ -103,15 +104,15 @@ local Zoom = {} do
 				stepTargetZoom(zoomSpring.goal, zoomDelta, cameraMinZoomDistance, cameraMaxZoomDistance)
 			)
 
-			-- Run the Popper algorithm on the feasible zoom range, [cameraMinZoomDistance, maxPossibleZoom]
+			-- Run the Popper algorithm on the feasible zoom range, [MIN_FOCUS_DIST, maxPossibleZoom]
 			poppedZoom = Popper(
-				focus*CFrame.new(0, 0, cameraMinZoomDistance),
-				maxPossibleZoom - cameraMinZoomDistance,
+				focus*CFrame.new(0, 0, MIN_FOCUS_DIST),
+				maxPossibleZoom - MIN_FOCUS_DIST,
 				extrapolation
-			) + cameraMinZoomDistance
+			) + MIN_FOCUS_DIST
 		end
 
-		zoomSpring.minValue = cameraMinZoomDistance
+		zoomSpring.minValue = MIN_FOCUS_DIST
 		zoomSpring.maxValue = min(cameraMaxZoomDistance, poppedZoom)
 
 		return zoomSpring:Step(renderDt)

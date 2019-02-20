@@ -13,7 +13,9 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagUseRoactPurchasePrompt372 = settings():GetFFlag("UseRoactPurchasePrompt372")
 local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagUseAntiAddictionService = settings():GetFFlag("UseAntiAddictionService")
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -38,6 +40,11 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/Topbar", RobloxGui)
 -- MainBotChatScript (the Lua part of Dialogs)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
+--Anti Addiction
+
+if FFlagChinaLicensingApp and FFlagUseAntiAddictionService then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
+end
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
 

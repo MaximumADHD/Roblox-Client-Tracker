@@ -4,7 +4,7 @@ local RunService = game:GetService("RunService")
 
 local Roact = require(CorePackages.Roact)
 
-if RunService:IsStudio() and not RunService:IsRunning() then
+if RunService:IsStudio() and RunService:IsEdit() then
 	return nil
 end
 

@@ -1,6 +1,7 @@
 local StudioService = game:GetService("StudioService")
 
 local paths = require(script.Parent.Parent.Paths)
+local fastFlags = require(script.Parent.Parent.FastFlags)
 
 local function PublishingHint(props)
 	if props.IsEnabled then
@@ -35,7 +36,7 @@ local function PublishingHint(props)
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Text = " is required for changing Avatar settings"
+			Text = fastFlags.isPlaceFilesGameSettingsSerializationOn() and " is required for changing Avatar game settings" or " is required for changing Avatar settings"
 		})
 	})
 end

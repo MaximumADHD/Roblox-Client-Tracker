@@ -22,6 +22,14 @@ function MorpherTemplate:render()
 		}
 	end
 
+	local function getPropsForPublishingHint()
+		local subProps = getPropsForSubComponents()
+		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+			subProps.IsEnabled = self.props.IsPlacePublished
+		end
+		return subProps
+	end
+
 	local function getPropsForDividers()
 		return {
 			ThemeData = self.props.ThemeData,
@@ -45,7 +53,7 @@ function MorpherTemplate:render()
 				end
 			}),
 
-			ComponentPublishHint = fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentPublishingHint, getPropsForSubComponents()) or nil,
+			ComponentPublishHint = fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentPublishingHint, getPropsForPublishingHint()) or nil,
 			ComponentDividerRowAbovePresets = not fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentDividerRow, getPropsForDividers()) or nil,
 			ComponentPresetsPanel = paths.Roact.createElement(paths.ComponentPresetsPanel, getPropsForSubComponents()),
 			ComponentDividerRowAboveRigType = not fastFlags.isMorphingPanelWidgetsStandardizationOn() and paths.Roact.createElement(paths.ComponentDividerRow, getPropsForDividers()) or nil,

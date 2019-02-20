@@ -26,41 +26,25 @@ local Constants = require(Plugin.Core.Util.Constants)
 local VoteBar = require(Plugin.Core.Components.Asset.Voting.VoteBar)
 local VoteButtons = require(Plugin.Core.Components.Asset.Voting.VoteButtons)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local function Voting(props)
-	if FFlagStudioLuaWidgetToolboxV2 then
-		local layoutOrder = props.LayoutOrder or 0
-		local showVotes = props.voting.ShowVotes
-		local showVoteButtons = props.voting.showVoteButtons or false
+	local layoutOrder = props.LayoutOrder or 0
+	local showVotes = props.voting.ShowVotes
+	local showVoteButtons = props.voting.showVoteButtons or false
 
-		local children = {}
-		if showVotes then
-			if showVoteButtons then
-				children.VoteButtons = Roact.createElement(VoteButtons, props)
-			else
-				children.VoteBar = Roact.createElement(VoteBar, props)
-			end
-		end
-
-		return Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-			Size = UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
-		}, children)
-
-	else
-		local showVotes = props.voting.ShowVotes
-		local showVoteButtons = props.voting.showVoteButtons or false
-
-		if showVotes then
-			if showVoteButtons then
-				return Roact.createElement(VoteButtons, props)
-			else
-				return Roact.createElement(VoteBar, props)
-			end
+	local children = {}
+	if showVotes then
+		if showVoteButtons then
+			children.VoteButtons = Roact.createElement(VoteButtons, props)
+		else
+			children.VoteBar = Roact.createElement(VoteBar, props)
 		end
 	end
+
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
+	}, children)
 end
 
 return Voting

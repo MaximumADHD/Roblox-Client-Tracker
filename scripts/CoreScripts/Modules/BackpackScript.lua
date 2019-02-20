@@ -90,6 +90,7 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local FFlagBackpackScriptUseFormatByKey = settings():GetFFlag('BackpackScriptUseFormatByKey')
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag('CoreScriptTranslateGameText2')
+local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
 if FFlagBackpackScriptUseFormatByKey then
 	SEARCH_TEXT_OFFSET_FROMLEFT = 3
@@ -404,7 +405,7 @@ local function MakeSlot(parent, index)
 				ToolIcon.Image = icon
 				ToolName.Text = (icon == '') and LocalizedName or '' -- (Only show name if no icon)
 				if ToolTip and tool:IsA('Tool') then --NOTE: HopperBin
-					LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)				
+					LocalizedToolTip = GameTranslator:TranslateGameText(tool, tool.ToolTip)
 					ToolTip.Text = LocalizedToolTip
 					local width = ToolTip.TextBounds.X + TOOLTIP_BUFFER
 					ToolTip.Size = UDim2.new(0, width, 0, TOOLTIP_HEIGHT)
@@ -707,6 +708,9 @@ local function MakeSlot(parent, index)
 			SlotFrame.ZIndex = 2
 			ToolIcon.ZIndex = 2
 			ToolName.ZIndex = 2
+			if FFlagRobloxGuiSiblingZindexs then
+				SlotFrame.Parent.ZIndex = 2
+			end
 			if SlotNumber then
 				SlotNumber.ZIndex = 2
 			end
@@ -748,6 +752,9 @@ local function MakeSlot(parent, index)
 			SlotFrame.ZIndex = 1
 			ToolIcon.ZIndex = 1
 			ToolName.ZIndex = 1
+			if FFlagRobloxGuiSiblingZindexs then
+				startParent.ZIndex = 1
+			end
 			if SlotNumber then
 				SlotNumber.ZIndex = 1
 			end

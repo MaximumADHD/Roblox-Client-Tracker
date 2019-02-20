@@ -22,6 +22,7 @@ local FFlagLocalizationExpertIcon = settings():GetFFlag("CorescriptLocalizationE
 local FFlagCorescriptIsPlayerGroupOwnerServer = settings():GetFFlag("CorescriptIsPlayerGroupOwnerServer")
 
 local FFlagMembershipIconABTestEnabled = settings():GetFFlag("MembershipIconABTestEnabled")
+local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -583,16 +584,36 @@ local function createStatFrame(offset, parent, name, isTopStat)
   statFrame.Name = name
   statFrame.Size = UDim2.new(0, StatEntrySizeX, 1, 0)
   statFrame.Position = UDim2.new(0, offset + TILE_SPACING, 0, 0)
-  statFrame.BackgroundTransparency = isTopStat and 0 or BG_TRANSPARENCY
-  statFrame.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
-  statFrame.BorderSizePixel = 0
+  if FFlagRobloxGuiSiblingZindexs then
+    statFrame.BackgroundTransparency = 1
+  else
+    statFrame.BackgroundTransparency = isTopStat and 0 or BG_TRANSPARENCY
+	statFrame.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
+	statFrame.BorderSizePixel = 0
+  end
   statFrame.Parent = parent
   pcall(function()
     statFrame.Localize = false
   end)
 
+  local statBackground
+  if FFlagRobloxGuiSiblingZindexs then
+	statBackground = Instance.new("Frame")
+    statBackground.Name = "BackgroundFrame"
+	statBackground.Size = UDim2.new(1, 0, 1, 0)
+	statBackground.Position = UDim2.new(0, 0, 0, 0)
+	statBackground.BackgroundTransparency = isTopStat and 0 or BG_TRANSPARENCY
+	statBackground.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
+	statBackground.BorderSizePixel = 0
+    statBackground.Parent = statFrame
+  end
+
   if isTenFootInterface then
-    statFrame.ZIndex = 2
+	if FFlagRobloxGuiSiblingZindexs then
+      statBackground.ZIndex = 2
+    else
+      statFrame.ZIndex = 2
+    end
 
     local shadow = Instance.new("ImageLabel")
     shadow.BackgroundTransparency = 1
@@ -1193,8 +1214,12 @@ local function updateTeamEntry(entry)
   for _,stat in ipairs(GameStats) do
     local statFrame = frame:FindFirstChild(stat.Name)
     if not statFrame then
-      statFrame = createStatFrame(offset, frame, stat.Name)
-      statFrame.BackgroundColor3 = color
+	  statFrame = createStatFrame(offset, frame, stat.Name)
+	  if FFlagRobloxGuiSiblingZindexs then
+        statFrame.BackgroundFrame.BackgroundColor3 = color
+      else
+        statFrame.BackgroundColor3 = color
+	  end
       createStatText(statFrame, "", false, true)
     end
     statFrame.Position = UDim2.new(0, offset + TILE_SPACING, 0, 0)
@@ -1646,11 +1671,21 @@ local function createPlayerEntry(player, isTopStat)
     shadow.BackgroundTransparency = 1
     shadow.Name = 'Shadow'
     shadow.Image = SHADOW_IMAGE
-    shadow.Position = UDim2.new(0, -SHADOW_SLICE_SIZE, 0, 0)
-    shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
+	shadow.Position = UDim2.new(0, -SHADOW_SLICE_SIZE, 0, 0)
+    if FFlagRobloxGuiSiblingZindexs then
+      local shadowSizeX = SHADOW_SLICE_SIZE*2 + entryFrame.AbsoluteSize.X
+      local shadowSizeY = SHADOW_SLICE_SIZE + entryFrame.AbsoluteSize.Y
+      shadow.Size = UDim2.new(0, shadowSizeX, 0, shadowSizeY)
+    else
+      shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
+    end
     shadow.ScaleType = 'Slice'
-    shadow.SliceCenter = SHADOW_SLICE_RECT
-    shadow.Parent = entryFrame
+	shadow.SliceCenter = SHADOW_SLICE_RECT
+    if FFlagRobloxGuiSiblingZindexs then
+      shadow.Parent = containerFrame
+    else
+      shadow.Parent = entryFrame
+    end
   end
 
   if isTopStat then
@@ -1697,10 +1732,21 @@ local function createTeamEntry(team)
     shadow.Name = 'Shadow'
     shadow.Image = SHADOW_IMAGE
     shadow.Position = UDim2.new(0, -SHADOW_SLICE_SIZE, 0, 0)
-    shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
+	shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
+	if FFlagRobloxGuiSiblingZindexs then
+      local shadowSizeX = SHADOW_SLICE_SIZE*2 + entryFrame.AbsoluteSize.X
+      local shadowSizeY = SHADOW_SLICE_SIZE + entryFrame.AbsoluteSize.Y
+      shadow.Size = UDim2.new(0, shadowSizeX, 0, shadowSizeY)
+	else
+      shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
+    end
     shadow.ScaleType = 'Slice'
-    shadow.SliceCenter = SHADOW_SLICE_RECT
-    shadow.Parent = entryFrame
+	shadow.SliceCenter = SHADOW_SLICE_RECT
+	if FFlagRobloxGuiSiblingZindexs then
+      shadow.Parent = containerFrame
+	else
+      shadow.Parent = entryFrame
+	end
   end
 
   -- connections

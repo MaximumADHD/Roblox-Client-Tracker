@@ -5,6 +5,7 @@
 				Description: Controls the settings menu navigation and contains the settings pages
 --]]
 
+local AnalyticsService = game:GetService("AnalyticsService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
@@ -33,6 +34,7 @@ local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsL
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 local FFlagDisplayPlayerscriptVersionAdmins = settings():GetFFlag("DisplayPlayerscriptVersionAdmins")
+local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
 
 local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
@@ -80,6 +82,9 @@ local lastInputChangedCon = nil
 local chatWasVisible = false
 
 local connectedServerVersion = nil
+
+local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
+local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
@@ -1553,8 +1558,21 @@ local function CreateSettingsHub()
 		if GetCorePackagesLoaded(shareGameCorePackages) then
 			-- Create the embedded Roact app for the ShareGame page
 			-- This is accomplished via a Roact Portal into the ShareGame page frame
+			local CorePackages = game:GetService("CorePackages")
+			local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+			local Diag = require(CorePackages.AppTempCommon.AnalyticsReporters.Diag)
+
+			local eventStream = EventStream.new()
+			local inviteToGameAnalytics
+			if FFlagLuaInviteNewAnalytics then
+				inviteToGameAnalytics = InviteToGameAnalytics.new()
+					:withEventStream(eventStream)
+					:withDiag(Diag.new(AnalyticsService))
+					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
+			end
+
 			local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
-			this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper)
+			this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper, inviteToGameAnalytics)
 
 
 			this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePlaceholderPage)

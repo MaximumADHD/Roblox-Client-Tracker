@@ -11,7 +11,6 @@ local FFlagUsePurchasePromptLocalization = success and result
 
 local FFlagThwartPurchasePromptScams = settings():GetFFlag("ThwartPurchasePromptScams")
 local FFlagDelayPurchasePromptActivation = settings():GetFFlag("DelayPurchasePromptActivation")
-local FFlagWeDontWantAnyGoogleAnalyticsHerePlease = settings():GetFFlag("WeDontWantAnyGoogleAnalyticsHerePlease")
 local FFlagForceCursorVisibleOnPurchasePrompt = settings():GetFFlag("ForceCursorVisibleOnPurchasePrompt")
 local FFlagClickerScamMitigationV2 = settings():GetFFlag("ClickerScamMitigationV2")
 
@@ -1579,14 +1578,9 @@ local function onAcceptPurchase()
 			success, result = pcall(submitPurchase)
 			wasSuccess = success and result and result ~= ''
 		end
-		--
-		if FFlagWeDontWantAnyGoogleAnalyticsHerePlease then
-			AnalyticsService:TrackEvent("Developer Product", "Purchase",
-				wasSuccess and ("success. Retries = "..(3 - retries)) or ("failure: " .. tostring(result)), 1)
-		else
-			game:ReportInGoogleAnalytics("Developer Product", "Purchase",
-				wasSuccess and ("success. Retries = "..(3 - retries)) or ("failure: " .. tostring(result)), 1)
-		end
+
+		AnalyticsService:TrackEvent("Developer Product", "Purchase",
+			wasSuccess and ("success. Retries = "..(3 - retries)) or ("failure: " .. tostring(result)), 1)
 	end
 
 	if tick() - startTime < 1 then wait(1) end 		-- artifical delay to show spinner for at least 1 second

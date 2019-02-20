@@ -3,6 +3,7 @@
 ]]
 
 local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
+local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 
 local HttpService = game:GetService("HttpService")
 
@@ -10,7 +11,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
-local LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
+local FileUtils = require(Plugin.Src.Util.FileUtils)
+
+-- Deprecated, remove with FFlagStudioRenameLocalAssetToFile
+local DEPRECATED_LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
 
 local ICON_URL_OLD = "places/icons/json?placeId=%d"
 local ICON_REQUEST_TYPE_OLD = "www"
@@ -83,7 +87,13 @@ function GameIcon.Set(universeId, newIcon)
 	end
 
 	local url = Http.BuildRobloxUrl(ICON_CHANGE_REQUEST_TYPE, ICON_CHANGE_URL, universeId)
-	local requestInfo = LocalAssetUtils.GetAssetPublishRequestInfo(newIcon, url)
+
+	local requestInfo
+	if FFlagStudioRenameLocalAssetToFile then
+		requestInfo = FileUtils.GetAssetPublishRequestInfo(newIcon, url)
+	else
+		requestInfo = DEPRECATED_LocalAssetUtils.GetAssetPublishRequestInfo(newIcon, url)
+	end
 
 	return Http.RequestInternal(requestInfo)
 	:catch(function(err)

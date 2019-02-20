@@ -7,7 +7,7 @@ local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
 
 local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabled")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -49,6 +49,7 @@ if not FFlagLuaInviteModalEnabled then
 end
 
 function ShareGamePageFrame:render()
+	local analytics = self.props.analytics
 	local deviceLayout = self.props.deviceLayout
 	local zIndex = self.props.zIndex
 	local closePage = self.props.closePage
@@ -91,6 +92,7 @@ function ShareGamePageFrame:render()
 			iconType = iconType,
 		}),
 		ConversationList = Roact.createElement(ConversationList, {
+			analytics = analytics,
 			size = UDim2.new(1, 0, 1, layoutSpecific.EXTEND_BOTTOM_SIZE - USER_LIST_PADDING),
 			topPadding = USER_LIST_PADDING,
 			layoutOrder = 1,

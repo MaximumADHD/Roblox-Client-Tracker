@@ -10,6 +10,8 @@ UndoRedo.AnimationEventContext = "AnimationEvents"
 UndoRedo.CurrentContext = "Default"
 UndoRedo.ChangeEvent = nil
 UndoRedo.Connections = nil
+UndoRedo.Saved = true
+UndoRedo.SavedKey = "Saved"
 
 function UndoRedo:init(Paths)
 	self.Paths = Paths
@@ -19,7 +21,10 @@ function UndoRedo:init(Paths)
 	end
 end
 
-function UndoRedo:terminate()		
+function UndoRedo:terminate()
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Saved = true
+	end
 	self.ChangeEvent = nil
 	self.Paths = nil
 end
@@ -35,6 +40,10 @@ function UndoRedo:initPostGUICreate()
 			end
 		end
 	end))
+end
+
+function UndoRedo:isSaved()
+	return self.Saved
 end
 
 function UndoRedo:terminatePreGUIDestroy()
@@ -63,6 +72,24 @@ local function getNextRedo(self)
 		return self.redoMemory[self.CurrentContext][redoMemoryLength(self)]
 	else
 		return self.redoMemory[#self.redoMemory]
+	end
+end
+
+local function resetSavedMemory(self, memory)
+	for context, actions in pairs(memory) do
+		for _, action in pairs(actions) do
+			action[self.SavedKey] = false
+		end
+	end
+end
+
+function UndoRedo:markAnimationSaved()
+	resetSavedMemory(self, self.undoMemory)
+	resetSavedMemory(self, self.redoMemory)
+	self.Saved = true
+	local nextUndo = getNextUndo(self)
+	if nextUndo then
+		nextUndo[self.SavedKey] = self.Saved
 	end
 end
 
@@ -113,6 +140,13 @@ function UndoRedo:undo()
 		end
 
 		self.ChangeEvent:fire()
+
+		if FastFlags:isCheckForSavedChangesOn() then
+			local nextUndo = getNextUndo(self)
+			if nextUndo then
+				self.Saved = nextUndo[self.SavedKey]
+			end
+		end
 	end
 end
 
@@ -133,10 +167,21 @@ function UndoRedo:redo()
 		end
 		
 		self.ChangeEvent:fire()
+
+		if FastFlags:isCheckForSavedChangesOn() then
+			self.Saved = redoStep[self.SavedKey]
+		end
 	end
 end
 
-function UndoRedo:registerUndo(action)
+function UndoRedo:registerUndo(action, invalidateSave)
+	if FastFlags:isCheckForSavedChangesOn() then
+		if invalidateSave then
+			self.Saved = false
+		end
+		action[self.SavedKey] = self.Saved
+	end
+
 	if FastFlags:isAnimationEventsOn() then
 		self.redoMemory[self.CurrentContext] = {}
 		table.insert(self.undoMemory[self.CurrentContext], action)
@@ -170,6 +215,9 @@ function UndoRedo:resetContext()
 end
 
 function UndoRedo:reset()
+	if FastFlags:isCheckForSavedChangesOn() then
+		self.Saved = true
+	end
 	self.undoMemory = {}
 	self.redoMemory = {}
 	if FastFlags:isAnimationEventsOn() then

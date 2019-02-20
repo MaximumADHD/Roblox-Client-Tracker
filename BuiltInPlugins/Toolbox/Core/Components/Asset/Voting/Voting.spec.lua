@@ -10,8 +10,6 @@ return function()
 
 	local Workspace = game:GetService("Workspace")
 
-	local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 	local votes = {{0, 0}, {50, 0}, {0, 50}, {80, 20}}
 
 	local function createTestVoting(upVotes, downVotes, container, name)
@@ -41,12 +39,7 @@ return function()
 
 			local container = Workspace.ToolboxTestsTarget
 			local instance = createTestVoting(upVotes, downVotes, container, "Voting")
-			local voteCountLabel = container.Voting
-			if FFlagStudioLuaWidgetToolboxV2 then
-				voteCountLabel = voteCountLabel.VoteBar.VoteCount
-			else
-				voteCountLabel = voteCountLabel.VoteCount
-			end
+			local voteCountLabel = container.Voting.VoteBar.VoteCount
 			expect(voteCountLabel.Text:match(totalVotes)).to.be.ok()
 			Roact.unmount(instance)
 		end
@@ -61,12 +54,7 @@ return function()
 
 			local container = Workspace.ToolboxTestsTarget
 			local instance = createTestVoting(upVotes, downVotes, container, "Voting")
-			local ratioBar = container.Voting.VoteBar
-			if FFlagStudioLuaWidgetToolboxV2 then
-				ratioBar = ratioBar.VoteBar.Background.UpVotes
-			else
-				ratioBar = ratioBar.Background.UpVotes
-			end
+			local ratioBar = container.Voting.VoteBar.Background.UpVotes
 			local size = ratioBar.Size.X.Scale
 			expect(math.abs(size - ratio) <= 0.01).to.equal(true)
 			Roact.unmount(instance)

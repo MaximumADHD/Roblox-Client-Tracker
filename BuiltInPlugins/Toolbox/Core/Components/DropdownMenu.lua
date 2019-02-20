@@ -32,8 +32,6 @@ local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 local RoundFrame = require(Plugin.Core.Components.RoundFrame)
 
-local FFlagStudioLuaWidgetToolboxV2 = settings():GetFFlag("StudioLuaWidgetToolboxV2")
-
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
 
 function DropdownMenu:init(props)
@@ -161,7 +159,7 @@ function DropdownMenu:render()
 
 					local itemKey = (key and data[key]) or itemName
 
-					scrollButtons[FFlagStudioLuaWidgetToolboxV2 and itemKey or itemName] = Roact.createElement("ImageButton",{
+					scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton",{
 						Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
 						BackgroundColor3 = isHovered and itemTheme.backgroundSelectedColor or itemTheme.backgroundColor,
 						BorderSizePixel = 0,
@@ -308,7 +306,7 @@ function DropdownMenu:render()
 						AutoButtonColor = false,
 
 						[Roact.Event.MouseButton1Down] = self.closeDropdown,
-					}, FFlagStudioLuaWidgetToolboxV2 and {
+					}, {
 						-- Also block all scrolling events going through
 						ScrollBlocker = Roact.createElement("ScrollingFrame", {
 							Size = UDim2.new(1, 0, 1, 0),

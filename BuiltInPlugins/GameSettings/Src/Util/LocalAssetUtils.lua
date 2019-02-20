@@ -1,4 +1,5 @@
 --[[
+	DEPRECATED, to be deleted when FFlagStudioRenameLocalAssetToFile is removed
 	Utility functions and constants used for prompting local files from the user.
 ]]
 
