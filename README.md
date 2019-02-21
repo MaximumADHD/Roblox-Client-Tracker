@@ -6,7 +6,7 @@
 
 # What is this?
 
-Roblox Client Watch is an unofficial repository that aims to provide detailed diff logs for changes to Roblox's engine.
+The **Roblox Client Tracker** is an unofficial repository that aims to provide detailed diff logs for changes to Roblox's engine.
 It generates information by data mining files retrieved from Roblox's deployment servers. The information that is mined and presented in this repository is retrieved using publicly disclosed end-points.
 
 # Comparison Links
