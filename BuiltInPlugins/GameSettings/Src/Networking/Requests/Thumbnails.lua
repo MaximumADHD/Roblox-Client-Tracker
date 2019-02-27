@@ -2,7 +2,6 @@
 	Get and set requests for game thumbnails (screenshots and video).
 ]]
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 
 local HttpService = game:GetService("HttpService")
@@ -59,12 +58,8 @@ function Thumbnails.Get(universeId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load thumbnails.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("Thumbnails")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("Thumbnails")
+		return Promise.reject()
 	end)
 end
 
@@ -98,12 +93,8 @@ function Thumbnails.Set(universeId, thumbnails, thumbnailOrder)
 		deletePromise = Promise.all(deleteRequests)
 		:catch(function()
 			warn("Game Settings: Could not delete thumbnails.")
-			if FFlagGameSettingsAnalyticsEnabled then
-				Analytics.onSaveError("Thumbnails")
-				return Promise.reject()
-			else
-				return Promise.resolve()
-			end
+			Analytics.onSaveError("Thumbnails")
+			return Promise.reject()
 		end)
 	else
 		deletePromise = Promise.resolve()
@@ -139,12 +130,8 @@ function Thumbnails.Set(universeId, thumbnails, thumbnailOrder)
 			elseif err == "HTTP error: 400" then
 				return Promise.reject({thumbnails = "ImageNotRecognized"})
 			end
-			if FFlagGameSettingsAnalyticsEnabled then
-				Analytics.onSaveError("Thumbnails")
-				return Promise.reject()
-			else
-				return Promise.resolve()
-			end
+			Analytics.onSaveError("Thumbnails")
+			return Promise.reject()
 		end)
 	else
 		addPromise = Promise.resolve()
@@ -187,12 +174,8 @@ function Thumbnails.DEPRECATED_Set(universeId, thumbnails)
 	return Promise.all(deleteRequests)
 	:catch(function()
 		warn("Game Settings: Could not delete thumbnails.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("Thumbnails")
-			return Promise.reject()
-		else
-			return Promise.resolve()
-		end
+		Analytics.onSaveError("Thumbnails")
+		return Promise.reject()
 	end)
 end
 
@@ -214,12 +197,8 @@ function Thumbnails.SetOrder(universeId, thumbnailOrder)
 	return Http.Request(requestInfo)
 	:catch(function()
 		warn("Game Settings: Could not change thumbnail order.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("ThumbnailOrder")
-			return Promise.reject()
-		else
-			return Promise.resolve()
-		end
+		Analytics.onSaveError("ThumbnailOrder")
+		return Promise.reject()
 	end)
 end
 

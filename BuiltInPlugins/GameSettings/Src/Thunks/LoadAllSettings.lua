@@ -4,7 +4,6 @@
 	Returns a Promise that will resolve when loading is complete.
 ]]
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
 
 local Plugin = script.Parent.Parent.Parent
@@ -16,43 +15,26 @@ local SetCurrentStatus = require(Plugin.Src.Actions.SetCurrentStatus)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
 return function(settingsImpl)
-	if FFlagGameSettingsAnalyticsEnabled then
-		return function(store)
-			local startTime = tick()
-			Analytics.onLoadAttempt()
-			store:dispatch(SetCurrentStatus(CurrentStatus.Working))
-			return settingsImpl:GetSettings():andThen(function(settings)
-				if FFlagGameSettingsCloseWhenBusyFix then
-					if store:getState().Status ~= CurrentStatus.Closed then
-						store:dispatch(SetCurrentSettings(settings))
-						store:dispatch(SetCurrentStatus(CurrentStatus.Open))
-					end
-				else
+	return function(store)
+		local startTime = tick()
+		Analytics.onLoadAttempt()
+		store:dispatch(SetCurrentStatus(CurrentStatus.Working))
+		return settingsImpl:GetSettings():andThen(function(settings)
+			if FFlagGameSettingsCloseWhenBusyFix then
+				if store:getState().Status ~= CurrentStatus.Closed then
 					store:dispatch(SetCurrentSettings(settings))
 					store:dispatch(SetCurrentStatus(CurrentStatus.Open))
 				end
-				Analytics.onLoadSuccess(tick() - startTime)
-			end)
-			:catch(function(errors)
-				if errors then
-					store:dispatch(SetCurrentStatus(CurrentStatus.Error))
-				end
-			end)
-		end
-	else
-		return function(store)
-			store:dispatch(SetCurrentStatus(CurrentStatus.Working))
-			return settingsImpl:GetSettings():andThen(function(settings)
-				if FFlagGameSettingsCloseWhenBusyFix then
-					if store:getState().Status ~= CurrentStatus.Closed then
-						store:dispatch(SetCurrentSettings(settings))
-						store:dispatch(SetCurrentStatus(CurrentStatus.Open))
-					end
-				else
-					store:dispatch(SetCurrentSettings(settings))
-					store:dispatch(SetCurrentStatus(CurrentStatus.Open))
-				end
-			end)
-		end
+			else
+				store:dispatch(SetCurrentSettings(settings))
+				store:dispatch(SetCurrentStatus(CurrentStatus.Open))
+			end
+			Analytics.onLoadSuccess(tick() - startTime)
+		end)
+		:catch(function(errors)
+			if errors then
+				store:dispatch(SetCurrentStatus(CurrentStatus.Error))
+			end
+		end)
 	end
 end

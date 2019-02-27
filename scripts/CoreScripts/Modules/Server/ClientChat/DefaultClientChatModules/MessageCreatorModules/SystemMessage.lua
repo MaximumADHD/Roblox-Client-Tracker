@@ -16,6 +16,7 @@ function CreateSystemMessageLabel(messageData, channelName)
 	local useChannelColor = extraData.ChannelColor or useChatColor
 
 	local BaseFrame, BaseMessage = util:CreateBaseMessage(message, useFont, useTextSize, useChatColor)
+	BaseMessage.AutoLocalize = true
 	local ChannelButton = nil
 
 	if channelName ~= messageData.OriginalChannel then

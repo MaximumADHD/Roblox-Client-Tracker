@@ -97,12 +97,6 @@ Class AnimationTrack : Instance [NotCreatable]
 Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
-Class AntiAddictionService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Dictionary AntiAddictionService:GetAntiAddictionData() {RobloxScriptSecurity}
-	Function void AntiAddictionService:MarkRead(string messageId) {RobloxScriptSecurity}
-	Function void AntiAddictionService:Start(int64 userId) {RobloxScriptSecurity}
-	Function void AntiAddictionService:Stop() {RobloxScriptSecurity}
-	Event AntiAddictionService.Updated(Dictionary antiAddictionData) {RobloxScriptSecurity}
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -249,10 +243,13 @@ Class RocketPropulsion : BodyMover
 	Event RocketPropulsion.ReachedTarget()
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
+	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
 	Function void BrowserService:EmitHybridEvent(string moduleName, string eventName, string params) {RobloxScriptSecurity}
 	Function void BrowserService:OpenBrowserWindow(string url) {RobloxScriptSecurity}
 	Function void BrowserService:OpenNativeOverlay(string title, string url) {RobloxScriptSecurity}
+	Function void BrowserService:OpenWeChatAuthWindow() {RobloxScriptSecurity}
 	Function void BrowserService:ReturnToJavaScript(string callbackId, bool success, string params) {RobloxScriptSecurity}
+	Event BrowserService.AuthCookieCopiedToEngine() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowWillNavigate(string url) {RobloxScriptSecurity}
 	Event BrowserService.JavaScriptCallback(string content) {RobloxScriptSecurity}
@@ -1423,7 +1420,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string LocalizationService.RobloxLocaleId  [ReadOnly] [NotReplicated]
 	Property string LocalizationService.SystemLocaleId  [ReadOnly] [NotReplicated]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
-	Function Array LocalizationService:GetTableEntries(Instance instance = nil) [Yields]
+	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
 	Function Instance LocalizationService:GetTranslatorForLocaleAsync(string locale) [Yields]
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player) [Yields]
@@ -1861,6 +1858,7 @@ Class Workspace : Model [NotCreatable] [Service]
 	Function Tuple Workspace:findPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [Deprecated]
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
+	Property bool PackageLink.AutoUpdate  [NotScriptable]
 	Property Content PackageLink.PackageId [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property int64 PackageLink.VersionNumber [<💾> Save-only] [ReadOnly] [NotReplicated]
@@ -2092,6 +2090,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum<ThumbnailType> thumbnailType, Enum<ThumbnailSize> thumbnailSize) [Yields]
 	Function void Players:ReportAbuse(Instance player, string reason, string optionalMessage) {LocalUserSecurity}
 	Function void Players:SetChatStyle(Enum<ChatStyle> style = "Classic") {PluginSecurity}
+	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, Enum<MembershipType> membershipType, bool isUnder13) {RobloxScriptSecurity}
 	Function void Players:TeamChat(string message) {PluginSecurity}
 	Function void Players:WhisperChat(string message, Instance player) {LocalUserSecurity}
 	Function Instance Players:getPlayerFromCharacter(Instance character) [Deprecated]
@@ -2608,6 +2607,9 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Show QT warnings in output
 	Property bool Studio.Only Play Audio from Window in Focus
 	Property Enum<ServerAudioBehavior> Studio.Server Audio Behavior
+	Property bool Studio.Auto-Recovery Enabled
+	Property int Studio.Auto-Recovery Interval (Minutes)
+	Property QDir Studio.Auto-Recovery Path
 	Property bool Studio.Auto-Save Enabled
 	Property int Studio.Auto-Save Interval (Minutes)
 	Property QDir Studio.Auto-Save Path
@@ -4041,6 +4043,7 @@ Enum Material
 	EnumItem Material.Ice : 1536
 	EnumItem Material.Glacier : 1552 [NotBrowsable]
 	EnumItem Material.Glass : 1568
+	EnumItem Material.ForceField : 1584 [Deprecated]
 	EnumItem Material.Air : 1792 [NotBrowsable]
 	EnumItem Material.Water : 2048 [NotBrowsable]
 Enum MembershipType

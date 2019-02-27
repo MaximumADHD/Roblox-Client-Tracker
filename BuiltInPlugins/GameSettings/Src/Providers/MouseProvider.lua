@@ -5,7 +5,6 @@ local mouseKey = require(Plugin.Src.Keys.mouseKey)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
-local FFlagMouseCursorsInGameSettings = settings():GetFFlag("MouseCursorsInGameSettings")
 local DEFAULT_CURSOR = "rbxasset://SystemCursors/Arrow"
 
 local MouseProvider = Roact.Component:extend("MouseProvider")
@@ -23,7 +22,7 @@ function MouseProvider:init(props)
 		current = mouse,
 
 		setHoverIcon = function(icon, hovering)
-			local canSetIcon = FFlagMouseCursorsInGameSettings and mouse
+			local canSetIcon = mouse
 				and icon ~= nil and hovering ~= nil
 
 			if canSetIcon then
@@ -38,7 +37,7 @@ function MouseProvider:init(props)
 					mouse.Icon = DEFAULT_CURSOR
 				end
 			end
-		end,		
+		end,
 
 		resetMouse = function()
 			mouse.Icon = DEFAULT_CURSOR
@@ -51,7 +50,7 @@ function MouseProvider:init(props)
 	}
 
 	self.resetMouse = function()
-		if mouse and FFlagMouseCursorsInGameSettings then
+		if mouse then
 			mouse.Icon = DEFAULT_CURSOR
 		end
 	end

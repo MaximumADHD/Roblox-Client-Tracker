@@ -10,11 +10,9 @@
 	by using this component's SetScrollbarEnabled function.
 ]]
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
-local FFlagGameSettingsFocusScrolling = settings():GetFFlag("GameSettingsFocusScrolling")
 local DFFlagTextBoxesNeverSinkMouseEvents = settings():GetFFlag("TextBoxesNeverSinkMouseEvents")
 
-local ShouldUseFocusScrolling = FFlagGameSettingsFocusScrolling and DFFlagTextBoxesNeverSinkMouseEvents
+local ShouldUseFocusScrolling = DFFlagTextBoxesNeverSinkMouseEvents
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -52,9 +50,7 @@ end
 -- Scroll back up to the top every time the page changes.
 function CurrentPage:didUpdate(previousProps)
 	if previousProps.Page ~= self.props.Page then
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onTabChangeEvent(previousProps.Page, self.props.Page)
-		end
+		Analytics.onTabChangeEvent(previousProps.Page, self.props.Page)
 
 		local canvas = self.canvasRef.current
 		if canvas then

@@ -22,7 +22,6 @@
 			These actions are handled by the ThumbnailController above this component.
 ]]
 
-local FFlagGameSettingsFixThumbnailDrag = settings():GetFFlag("GameSettingsFixThumbnailDrag")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
 
@@ -64,7 +63,7 @@ function ThumbnailWidget:init()
 		self:setState({
 			dragId = dragInfo.thumbnailId,
 			dragIndex = dragInfo.index,
-			oldIndex = FFlagGameSettingsFixThumbnailDrag and dragInfo.index or nil,
+			oldIndex = dragInfo.index or nil,
 		})
 	end
 
@@ -77,7 +76,7 @@ function ThumbnailWidget:init()
 	self.stopDragging = function()
 		if self.state.dragId ~= nil and self.state.dragIndex ~= nil then
 			getMouse(self).resetMouse()
-			if FFlagGameSettingsFixThumbnailDrag and self.state.dragIndex == self.state.oldIndex then
+			if self.state.dragIndex == self.state.oldIndex then
 				self:setState({
 					dragId = Roact.None,
 					dragIndex = Roact.None,

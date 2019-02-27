@@ -33,7 +33,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
-local FFlagDisplayPlayerscriptVersionAdmins = settings():GetFFlag("DisplayPlayerscriptVersionAdmins")
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
 
@@ -529,34 +528,32 @@ local function CreateSettingsHub()
             return "Custom"
         end
 
-        if FFlagDisplayPlayerscriptVersionAdmins then
-            this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
-                Name = "OverridesPlayerScriptsLabel",
-                Parent = this.VersionContainer,
-                AnchorPoint = Vector2.new(0.5,0),
-                BackgroundTransparency = 1,
-                TextColor3 = Color3.new(1,1,1),
-                LayoutOrder = 5,
-                TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-                Text = "PlayerScripts: ",
-                Size = size,
-                Font = Enum.Font.SourceSans,
-                TextXAlignment = Enum.TextXAlignment.Center,
-                TextYAlignment = Enum.TextYAlignment.Center,
-                ZIndex = 5,
-                Visible = false
-            }
+		this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
+			Name = "OverridesPlayerScriptsLabel",
+			Parent = this.VersionContainer,
+			AnchorPoint = Vector2.new(0.5,0),
+			BackgroundTransparency = 1,
+			TextColor3 = Color3.new(1,1,1),
+			LayoutOrder = 5,
+			TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+			Text = "PlayerScripts: ",
+			Size = size,
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			ZIndex = 5,
+			Visible = false
+		}
 
-            spawn(function()
-                local playerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
-                if not Players.LocalPlayer then
-				   Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-				end
-                this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
-                this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
-                this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
-            end)
-        end
+		spawn(function()
+			local playerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
+			if not Players.LocalPlayer then
+				Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+			end
+			this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
+			this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
+			this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
+		end)
 
 		this.Modal = utility:Create'TextButton' -- Force unlocks the mouse, really need a way to do this via UIS
 		{

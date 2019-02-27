@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
-local FFlagGameSettingsAlwaysFitToContent = settings():GetFFlag("GameSettingsAlwaysFitToContent")
-
 local function createFitToContent(containerComponent, layoutComponent, layoutProps)
 	local name = ("FitComponent(%s, %s)"):format(containerComponent, layoutComponent)
 	local FitComponent = Roact.Component:extend(name)
@@ -42,9 +40,7 @@ local function createFitToContent(containerComponent, layoutComponent, layoutPro
 	end
 
 	function FitComponent:didUpdate()
-		if FFlagGameSettingsAlwaysFitToContent then
-			self:resizeContainer()
-		end
+		self:resizeContainer()
 	end
 
 	function FitComponent:resizeContainer()

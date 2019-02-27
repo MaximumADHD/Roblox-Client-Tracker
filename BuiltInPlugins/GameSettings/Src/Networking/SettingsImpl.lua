@@ -11,7 +11,6 @@
 local HttpService = game:GetService("HttpService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
@@ -87,20 +86,17 @@ function SettingsImpl:GetSettings()
 		local getRequests = {
 			Requests.Configuration.Get(universeId),
 			Requests.Universes.Get(universeId),
+			Requests.Thumbnails.Get(universeId),
 		}
 
-		if FFlagStudioLuaGameSettingsDialog3 then
-			table.insert(getRequests, Requests.Thumbnails.Get(universeId))
-
-			if FFlagGameSettingsUsesNewIconEndpoint then
-				table.insert(getRequests, Requests.RootPlaceInfo.Get(universeId))
-				table.insert(getRequests, Requests.GameIcon.Get(universeId))
-			else
-				table.insert(getRequests, Requests.RootPlaceInfo.Get(universeId):andThen(function(result)
-					settings = Cryo.Dictionary.join(settings, result)
-					return Requests.GameIcon.DEPRECATED_Get(result.rootPlaceId)
-				end))
-			end
+		if FFlagGameSettingsUsesNewIconEndpoint then
+			table.insert(getRequests, Requests.RootPlaceInfo.Get(universeId))
+			table.insert(getRequests, Requests.GameIcon.Get(universeId))
+		else
+			table.insert(getRequests, Requests.RootPlaceInfo.Get(universeId):andThen(function(result)
+				settings = Cryo.Dictionary.join(settings, result)
+				return Requests.GameIcon.DEPRECATED_Get(result.rootPlaceId)
+			end))
 		end
 
 		if FFlagStudioLocalizationGameSettings then
@@ -148,7 +144,7 @@ function SettingsImpl:SaveAll(state)
 				saveInfo.RootPlaceInfo = saveInfo.RootPlaceInfo or {}
 				saveInfo.RootPlaceInfo[setting] = value
 
-			elseif FFlagStudioLuaGameSettingsDialog3 and Requests.Thumbnails.AcceptsValue(setting) then
+			elseif Requests.Thumbnails.AcceptsValue(setting) then
 				if setting == "thumbnails" then
 					saveInfo[setting] = {
 						Current = state.Current.thumbnails,
@@ -184,14 +180,12 @@ function SettingsImpl:SaveAll(state)
 			Requests.Universes.Set(universeId, saveInfo.isActive),
 		}
 
-		if FFlagStudioLuaGameSettingsDialog3 then
-			if FFlagGameSettingsImageUploadingEnabled then
-				table.insert(setRequests, Requests.Thumbnails.Set(universeId, saveInfo.thumbnails, saveInfo.thumbnailOrder))
-				table.insert(setRequests, Requests.GameIcon.Set(universeId, saveInfo.gameIcon))
-			else
-				table.insert(setRequests, Requests.Thumbnails.DEPRECATED_Set(universeId, saveInfo.thumbnails))
-				table.insert(setRequests, Requests.Thumbnails.SetOrder(universeId, saveInfo.thumbnailOrder))
-			end
+		if FFlagGameSettingsImageUploadingEnabled then
+			table.insert(setRequests, Requests.Thumbnails.Set(universeId, saveInfo.thumbnails, saveInfo.thumbnailOrder))
+			table.insert(setRequests, Requests.GameIcon.Set(universeId, saveInfo.gameIcon))
+		else
+			table.insert(setRequests, Requests.Thumbnails.DEPRECATED_Set(universeId, saveInfo.thumbnails))
+			table.insert(setRequests, Requests.Thumbnails.SetOrder(universeId, saveInfo.thumbnailOrder))
 		end
 
 		if FFlagStudioLocalizationGameSettings then

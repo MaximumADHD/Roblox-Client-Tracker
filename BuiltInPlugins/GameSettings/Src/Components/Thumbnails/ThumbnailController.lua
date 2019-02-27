@@ -22,8 +22,6 @@
 			a new thumbnail.
 ]]
 
-local FFlagGameSettingsDeleteConfirmation = settings():GetFFlag("GameSettingsDeleteConfirmation")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -56,18 +54,17 @@ function ThumbnailController:addNew()
 end
 
 function ThumbnailController:deleteThumbnail(thumbnailId)
-	if FFlagGameSettingsDeleteConfirmation then
-		local localized = getLocalizedContent(self)
-		local dialogProps = {
-			Size = Vector2.new(368, 145),
-			Title = localized.DeleteDialog.Header,
-			Header = localized.DeleteDialog.Body,
-			Buttons = localized.DeleteDialog.Buttons,
-		}
-		if not showDialog(self, SimpleDialog, dialogProps):await() then
-			return
-		end
+	local localized = getLocalizedContent(self)
+	local dialogProps = {
+		Size = Vector2.new(368, 145),
+		Title = localized.DeleteDialog.Header,
+		Header = localized.DeleteDialog.Body,
+		Buttons = localized.DeleteDialog.Buttons,
+	}
+	if not showDialog(self, SimpleDialog, dialogProps):await() then
+		return
 	end
+
 	self.props.ThumbnailsChanged(Cryo.Dictionary.join(self.props.Thumbnails, {
 		[thumbnailId] = Cryo.None,
 	}))

@@ -8,7 +8,6 @@
 local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
-local FFlagCoreScriptACMOpenCloseSetCore = settings():GetFFlag("CoreScriptACMOpenCloseSetCore")
 local FFlagCoreScriptFixACMFirstPersonUnreliablity = settings():GetFFlag("CoreScriptFixACMFirstPersonUnreliablity")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagDynamicThumbstickUseContextActionSevice = settings():GetFFlag("UserDynamicThumbstickUseContextActionSevice")
@@ -36,27 +35,6 @@ local CoreGuiService = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
 local AnalyticsService = game:GetService("AnalyticsService")
-
--- This is not (possibly no longer?) true. User scripts are ran on the first frame that the
--- LocalPlayer exists, so as long as these SetCore methods are registered as soon as the LocalPlayer
--- exists queuing is not necessary.
---- SETCORE METHODS -- Remove with FFlagCoreScriptACMOpenCloseSetCore
--- These must be registered before we start requiring modules so they are available on the first frame.
--- This hack is ugly because it obscures the stack trace for these set core errors. We should one day just make the LocalPlayer
--- exist on the first frame.
-local TempSetCoreQueue = {}
-
-if not FFlagCoreScriptACMOpenCloseSetCore then
-	function QueueSetCoreMethod(methodName, args)
-		if TempSetCoreQueue[methodName] == nil then
-			TempSetCoreQueue[methodName] = {}
-		end
-		table.insert(TempSetCoreQueue[methodName], args)
-	end
-
-	StarterGui:RegisterSetCore("AddAvatarContextMenuOption", function(...) QueueSetCoreMethod("AddAvatarContextMenuOption", {...}) end)
-	StarterGui:RegisterSetCore("RemoveAvatarContextMenuOption", function(...) QueueSetCoreMethod("RemoveAvatarContextMenuOption", {...}) end)
-end
 
 local hasTrackedAvatarContextMenu = false
 function enableAvatarContextMenu(enabled)
@@ -122,15 +100,6 @@ else
 end
 ContextMenuItems = ContextMenuItemsModule.new(ContextMenuFrame.Content.ContextActionList)
 
-if not FFlagCoreScriptACMOpenCloseSetCore then
-	-- SetCores have been registered, empty SetCoreQueue
-	for setCoreMethod, queue in pairs(TempSetCoreQueue) do
-		for i = 1, #queue do
-			StarterGui:SetCore(setCoreMethod, unpack(queue[i]))
-		end
-	end
-end
-
 function SetSelectedPlayer(player, dontTween)
 	if SelectedPlayer == player then return end
 	SelectedPlayer = player
@@ -176,9 +145,6 @@ function BindMenuActions()
 	local closeMenuFunc = function(actionName, inputState, input)
 		if inputState ~= Enum.UserInputState.Begin then
 			return
-		end
-		if not FFlagCoreScriptACMOpenCloseSetCore then
-			ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
 		end
 		CloseContextMenu()
 	end
@@ -247,9 +213,7 @@ end
 function CloseContextMenu()
 	GuiService.SelectedCoreObject = nil
 
-	if FFlagCoreScriptACMOpenCloseSetCore then
-		ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
-	end
+	ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
 
 	ContextMenuUtil:EnablePlayerMovement()
 	if contextMenuPlayerChangedConn then
@@ -430,30 +394,28 @@ function GetWorldPoint(player)
 	return Vector3.new(0, 0, 0)
 end
 
-if FFlagCoreScriptACMOpenCloseSetCore then
-	StarterGui:RegisterGetCore("AvatarContextMenuTarget",
-		function()
-			return SelectedPlayer
-		end
-	)
-	StarterGui:RegisterSetCore("AvatarContextMenuTarget",
-		function(player)
-			local isPlayer = typeof(player) == "Instance" and player:IsA("Player")
-			if isPlayer then
-				if player.Parent ~= nil then
-					if ContextMenuOpen or ContextMenuOpening then
-						SetSelectedPlayer(player, true)
-					else
-						OpenContextMenu(player, GetWorldPoint(player))
-					end
+StarterGui:RegisterGetCore("AvatarContextMenuTarget",
+	function()
+		return SelectedPlayer
+	end
+)
+StarterGui:RegisterSetCore("AvatarContextMenuTarget",
+	function(player)
+		local isPlayer = typeof(player) == "Instance" and player:IsA("Player")
+		if isPlayer then
+			if player.Parent ~= nil then
+				if ContextMenuOpen or ContextMenuOpening then
+					SetSelectedPlayer(player, true)
 				else
-					error("AvatarContextMenuTarget Player must be in the game")
+					OpenContextMenu(player, GetWorldPoint(player))
 				end
-			elseif player == nil then
-				CloseContextMenu()
 			else
-				error("AvatarContextMenuTarget argument must be a Player or nil")
+				error("AvatarContextMenuTarget Player must be in the game")
 			end
+		elseif player == nil then
+			CloseContextMenu()
+		else
+			error("AvatarContextMenuTarget argument must be a Player or nil")
 		end
-	)
-end
+	end
+)

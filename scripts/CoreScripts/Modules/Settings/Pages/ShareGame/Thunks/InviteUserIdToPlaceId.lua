@@ -14,8 +14,20 @@ local Constants = require(ShareGame.Constants)
 
 local InviteStatus = Constants.InviteStatus
 
+local FFlagLuaInviteFailOnZeroPlaceId = settings():GetFFlag("LuaInviteFailOnZeroPlaceId")
+
+local EMPTY_PLACE_ID = "0"
+
 return function(requestImpl, userId, placeId)
 	return function(store)
+		if FFlagLuaInviteFailOnZeroPlaceId then
+			if placeId == EMPTY_PLACE_ID then
+				warn("Game Invite failed to send. Cannot send invite to unpublished Place.")
+				store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Failed))
+				return
+			end
+		end
+
 		local latestState = store:getState()
 
 		return Promise.new(function(resolve, reject)

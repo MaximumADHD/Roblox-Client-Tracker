@@ -1788,90 +1788,6 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "GetAntiAddictionData",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "MarkRead",
-                    "Parameters": [
-                        {
-                            "Name": "messageId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Start",
-                    "Parameters": [
-                        {
-                            "Name": "userId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Stop",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Updated",
-                    "Parameters": [
-                        {
-                            "Name": "antiAddictionData",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "AntiAddictionService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
                     "Name": "CreatePlaceAsync",
                     "Parameters": [
                         {
@@ -4400,6 +4316,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CopyAuthCookieFromBrowserToEngine",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "EmitHybridEvent",
                     "Parameters": [
                         {
@@ -4475,6 +4402,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "OpenWeChatAuthWindow",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ReturnToJavaScript",
                     "Parameters": [
                         {
@@ -4503,6 +4441,13 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "AuthCookieCopiedToEngine",
+                    "Parameters": [
+                    ],
                     "Security": "RobloxScriptSecurity"
                 },
                 {
@@ -24222,6 +24167,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTableEntries",
+                    "Parameters": [
+                        {
+                            "Default": "nil",
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetTranslatorForPlayer",
                     "Parameters": [
                         {
@@ -24259,28 +24223,6 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetTableEntries",
-                    "Parameters": [
-                        {
-                            "Default": "nil",
-                            "Name": "instance",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -32341,6 +32283,26 @@
                 {
                     "Category": "Link",
                     "MemberType": "Property",
+                    "Name": "AutoUpdate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Link",
+                    "MemberType": "Property",
                     "Name": "PackageId",
                     "Security": {
                         "Read": "None",
@@ -36338,6 +36300,45 @@
                         "Name": "void"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetLocalPlayerInfo",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "userName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "membershipType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "MembershipType"
+                            }
+                        },
+                        {
+                            "Name": "isUnder13",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -44835,6 +44836,57 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Auto-Recovery",
+                    "MemberType": "Property",
+                    "Name": "Auto-Recovery Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Auto-Recovery",
+                    "MemberType": "Property",
+                    "Name": "Auto-Recovery Interval (Minutes)",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Auto-Recovery",
+                    "MemberType": "Property",
+                    "Name": "Auto-Recovery Path",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "QDir"
                     }
                 },
                 {
@@ -57604,6 +57656,13 @@
                         "NotBrowsable"
                     ],
                     "Value": 836
+                },
+                {
+                    "Name": "ForceField",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 1584
                 }
             ],
             "Name": "Material"

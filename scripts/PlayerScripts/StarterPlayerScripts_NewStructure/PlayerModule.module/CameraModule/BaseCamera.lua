@@ -14,6 +14,11 @@ local FIRST_PERSON_DISTANCE_THRESHOLD = 1.0 -- Below this value, snap into first
 
 local CAMERA_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 
+local newCameraConstantsFlagExists, newCameraConstantsFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserUpdateCameraConstants")
+end)
+local FFlagUserUpdateCameraConstants = newCameraConstantsFlagExists and newCameraConstantsFlagEnabled
+
 -- Note: DotProduct check in CoordinateFrame::lookAt() prevents using values within about
 -- 8.11 degrees of the +/- Y axis, that's why these limits are currently 80 degrees
 local MIN_Y = math.rad(-80)
@@ -29,6 +34,9 @@ local ZERO_VECTOR2 = Vector2.new(0,0)
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
 local TOUCH_SENSITIVTY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi)
+if FFlagUserUpdateCameraConstants then
+	TOUCH_SENSITIVTY = Vector2.new(0.0045 * math.pi, 0.003375 * math.pi)
+end
 local MOUSE_SENSITIVITY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi )
 
 local MAX_TIME_FOR_DOUBLE_TAP = 1.5
@@ -46,11 +54,6 @@ local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
 local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
-
-local newDefaultCameraAngleFlagExists, newDefaultCameraAngleFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserNewDefaultCameraAngle")
-end)
-local FFlagUserNewDefaultCameraAngle = newDefaultCameraAngleFlagExists and newDefaultCameraAngleFlagEnabled
 
 local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserAdjustHumanoidRootPartToHipPosition")
@@ -206,9 +209,7 @@ function BaseCamera.new()
 	self.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 		self:OnCurrentCameraChanged()
 	end)
-	if FFlagUserNewDefaultCameraAngle then
-		self:OnCurrentCameraChanged()
-	end
+	self:OnCurrentCameraChanged()
 
 	if self.playerCameraModeChangeConn then self.playerCameraModeChangeConn:Disconnect() end
 	self.playerCameraModeChangeConn = player:GetPropertyChangedSignal("CameraMode"):Connect(function()
@@ -257,10 +258,8 @@ function BaseCamera:GetModuleName()
 end
 
 function BaseCamera:OnCharacterAdded(char)
-	if FFlagUserNewDefaultCameraAngle then
-		self.resetCameraAngle = self.resetCameraAngle or self:GetEnabled()
-		self.humanoidRootPart = nil
-	end
+	self.resetCameraAngle = self.resetCameraAngle or self:GetEnabled()
+	self.humanoidRootPart = nil
 	if UserInputService.TouchEnabled then
 		self.PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 		for _, child in ipairs(char:GetChildren()) do

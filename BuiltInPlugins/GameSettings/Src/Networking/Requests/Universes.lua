@@ -4,26 +4,17 @@
 
 local RELEVANT_ENTRIES = {
 	isActive = true,
+	creatorType = true,
+	creatorName = true,
 }
-
-local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
-local Cryo = require(Plugin.Cryo)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
 local extractRelevantEntries = require(Plugin.Src.Util.extractRelevantEntries)
-
-if FFlagStudioLuaGameSettingsDialog3 then
-	RELEVANT_ENTRIES = Cryo.Dictionary.join(RELEVANT_ENTRIES, {
-		creatorType = true,
-		creatorName = true,
-	})
-end
 
 local UNIVERSES_REQUEST_URL = "v1/universes/%d"
 local UNIVERSES_REQUEST_TYPE = "develop"
@@ -52,12 +43,8 @@ function Universes.Get(universeId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load settings from universes.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("Universes")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("Universes")
+		return Promise.reject()
 	end)
 end
 
@@ -79,12 +66,8 @@ function Universes.Set(universeId, isActive)
 	return Http.Request(requestInfo)
 	:catch(function()
 		warn("Game Settings: Could not change universe Active status.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("UniverseActive")
-			return Promise.reject()
-		else
-			return Promise.resolve()
-		end
+		Analytics.onSaveError("UniverseActive")
+		return Promise.reject()
 	end)
 end
 

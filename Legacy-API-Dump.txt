@@ -97,12 +97,6 @@ Class AnimationTrack : Instance
 Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) [PluginSecurity]
-Class AntiAddictionService : Instance [notCreatable]
-	Function Dictionary AntiAddictionService:GetAntiAddictionData() [RobloxScriptSecurity]
-	Function void AntiAddictionService:MarkRead(string messageId) [RobloxScriptSecurity]
-	Function void AntiAddictionService:Start(int64 userId) [RobloxScriptSecurity]
-	Function void AntiAddictionService:Stop() [RobloxScriptSecurity]
-	Event AntiAddictionService.Updated(Dictionary antiAddictionData) [RobloxScriptSecurity]
 Class AssetService : Instance
 	YieldFunction int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = )
 	YieldFunction int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
@@ -249,10 +243,13 @@ Class RocketPropulsion : BodyMover
 	Event RocketPropulsion.ReachedTarget()
 Class BrowserService : Instance [notCreatable]
 	Function void BrowserService:CloseBrowserWindow() [RobloxScriptSecurity]
+	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() [RobloxScriptSecurity]
 	Function void BrowserService:EmitHybridEvent(string moduleName, string eventName, string params) [RobloxScriptSecurity]
 	Function void BrowserService:OpenBrowserWindow(string url) [RobloxScriptSecurity]
 	Function void BrowserService:OpenNativeOverlay(string title, string url) [RobloxScriptSecurity]
+	Function void BrowserService:OpenWeChatAuthWindow() [RobloxScriptSecurity]
 	Function void BrowserService:ReturnToJavaScript(string callbackId, bool success, string params) [RobloxScriptSecurity]
+	Event BrowserService.AuthCookieCopiedToEngine() [RobloxScriptSecurity]
 	Event BrowserService.BrowserWindowClosed() [RobloxScriptSecurity]
 	Event BrowserService.BrowserWindowWillNavigate(string url) [RobloxScriptSecurity]
 	Event BrowserService.JavaScriptCallback(string content) [RobloxScriptSecurity]
@@ -1412,10 +1409,10 @@ Class LocalizationService : Instance [notCreatable]
 	Property string LocalizationService.RobloxLocaleId [readonly]
 	Property string LocalizationService.SystemLocaleId [readonly]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
+	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
-	YieldFunction Array LocalizationService:GetTableEntries(Instance instance = nil)
 	YieldFunction Instance LocalizationService:GetTranslatorForLocaleAsync(string locale)
 	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
 	YieldFunction void LocalizationService:PromptDownloadGameTableToCSV(Instance table) [RobloxScriptSecurity]
@@ -2063,6 +2060,7 @@ Class Players : Instance
 	Function Objects Players:GetPlayers()
 	Function void Players:ReportAbuse(Instance player, string reason, string optionalMessage) [LocalUserSecurity]
 	Function void Players:SetChatStyle(ChatStyle style = Classic) [PluginSecurity]
+	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, MembershipType membershipType, bool isUnder13) [RobloxScriptSecurity]
 	Function void Players:TeamChat(string message) [PluginSecurity]
 	Function void Players:WhisperChat(string message, Instance player) [LocalUserSecurity]
 	Function Instance Players:getPlayerFromCharacter(Instance character) [deprecated]
@@ -3904,6 +3902,7 @@ Enum Material
 	EnumItem Material.Salt : 1392 [notbrowsable]
 	EnumItem Material.Limestone : 820 [notbrowsable]
 	EnumItem Material.Pavement : 836 [notbrowsable]
+	EnumItem Material.ForceField : 1584 [deprecated]
 Enum MembershipType
 	EnumItem MembershipType.None : 0
 	EnumItem MembershipType.BuildersClub : 1

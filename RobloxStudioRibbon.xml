@@ -23,6 +23,7 @@
       <addseparator />
       <addaction name="fileSaveAction"/>
       <addaction name="fileSaveAsAction"/>
+      <addaction name="saveGameToRobloxAction"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
       <addaction name="downloadPlaceCopyAction"/>
@@ -118,6 +119,7 @@
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="Smooth Plastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
           <addaction name="ms_Glass" style="textbesideicon"  text="Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
+		  <addaction name="ms_ForceField" fflag="RenderForcefieldMaterial" style="textbesideicon"  text="ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Select color and apply to parts" width="32" height="32"/>
         <addseparator visible="false"/>
@@ -218,9 +220,10 @@
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="Smooth Plastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
           <addaction name="ms_Glass" style="textbesideicon"  text="Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
+		  <addaction name="ms_ForceField" fflag="RenderForcefieldMaterial" style="textbesideicon"  text="ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Select color and apply to parts" width="32" height="32"/>
-        <MenuButton name="actionSurface" style="textundericon" iconvisibleinmenu="false" tooltip="Pick a surface type, and click on part surfaces to apply" text="Surface" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Home/Surfaces.png" width="32" height="32">
+        <MenuButton name="actionSurface" style="textundericon" iconvisibleinmenu="false" tooltip="Studio.App.Parts.SurfaceTooltip" text="Studio.App.Parts.Surface" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Home/Surfaces.png" width="32" height="32">
           <addaction name="glueSurfaceAction" text="Glue"/>
           <addaction name="smoothSurfaceAction" text="Smooth"/>
           <addaction name="smoothNoOutlinesAction" text="Smooth, No Outline"/>
@@ -439,9 +442,9 @@
       </Group>
       <Group name=" ">
         <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_frame.png" width="32" height="32"/>
-        <addaction name="createScrollingFrameAction" text="Studio.UIEditor.Button.ScrollingFrame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
-        <addaction name="createTextLabelAction" text="Studio.UIEditor.Button.TextLabel" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textLabel.png" width="32" height="32"/>
-        <addaction name="createTextButtonAction" text="Studio.UIEditor.Button.TextButton" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textButton.png" width="32" height="32"/>
+        <addaction name="createScrollingFrameAction" text="Studio.App.UIEditor.ScrollingFrame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
+        <addaction name="createTextLabelAction" text="Studio.App.UIEditor.TextLabel" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textLabel.png" width="32" height="32"/>
+        <addaction name="createTextButtonAction" text="Studio.App.UIEditor.TextButton" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textButton.png" width="32" height="32"/>
         <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textBox.png" width="32" height="32"/>
         <addaction name="createImageButtonAction" text="Image Button" style="textundericon" iscommonslot="true" tooltip="A GUI button containing an Image" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageButton.png"  width="32" height="32"/>
         <addaction name="createImageLabelAction" text="Image Label" style="textundericon" iscommonslot="true" tooltip="Specifies the asset id of the texture to display" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_imageLabel.png"  width="32" height="32"/>

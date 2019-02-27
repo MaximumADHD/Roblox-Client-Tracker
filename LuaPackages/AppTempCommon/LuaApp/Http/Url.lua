@@ -61,6 +61,7 @@ local _baseAdsUrl = string.format("https://ads.%s", _baseDomain)
 local _baseFollowingsUrl = string.format("https://followings.%s", _baseDomain)
 local _baseEconomyUrl = string.format("https://economy.%s", _baseDomain)
 local _baseThumbnailsUrl = string.format("https://thumbnails.%s", _baseDomain)
+local _baseBadgesUrl = string.format("https://badges.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -85,6 +86,7 @@ local Url = {
 	FOLLOWINGS_URL = _baseFollowingsUrl,
 	ECONOMY_URL = _baseEconomyUrl,
 	THUMBNAILS_URL = _baseThumbnailsUrl,
+	BADGES_URL = _baseBadgesUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
 }

@@ -2,7 +2,6 @@
 	Get and set requests for the current game's icon.
 ]]
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 
 local HttpService = game:GetService("HttpService")
@@ -47,12 +46,8 @@ function GameIcon.Get(universeId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load game icon.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("Icon")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("Icon")
+		return Promise.reject()
 	end)
 end
 
@@ -72,12 +67,8 @@ function GameIcon.DEPRECATED_Get(rootPlaceId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load game icon.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("Icon")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("Icon")
+		return Promise.reject()
 	end)
 end
 
@@ -103,12 +94,8 @@ function GameIcon.Set(universeId, newIcon)
 		elseif err == "HTTP error: 400" then
 			return Promise.reject({gameIcon = "ImageNotRecognized"})
 		end
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("Icon")
-			return Promise.reject()
-		else
-			return Promise.resolve()
-		end
+		Analytics.onSaveError("Icon")
+		return Promise.reject()
 	end)
 end
 

@@ -2,8 +2,6 @@
 	Get and set requests for game localization autoscraping.
 ]]
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -48,12 +46,8 @@ function Localization.Get(universeId, userId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load Game Localization Table settings.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("Localization")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("Localization")
+		return Promise.reject()
 	end)
 end
 
@@ -77,12 +71,8 @@ function Localization.Set(universeId, autoscrapingOn)
 	return Http.RequestInternal(requestInfo)
 	:catch(function()
 		warn("Game Settings: Could not save Game Localization Table settings.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("Localization")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onSaveError("Localization")
+		return Promise.reject()
 	end)
 end
 

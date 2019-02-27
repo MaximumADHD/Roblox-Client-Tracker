@@ -18,6 +18,8 @@ local BACKGROUND_SELECTED_COLOR = Color3.fromRGB(0,162,255)
 local BACKGROUND_DEFAULT_COLOR = Color3.fromRGB(0,0,0)
 local PAGE_LAYOUT_TWEEN_TIME = 0.25
 
+local CAROUSEL_DIVIDER_NAME = "_CarouselDivider"
+
 -- VARIABLES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
@@ -30,6 +32,25 @@ local playerToButtonMap = {}
 
 local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
+local FFlagCorescriptACMAddCircularDivider = settings():GetFFlag("CorescriptACMAddCircularDivider")
+
+local function getSortedCarouselButtons()
+	local buttonChildIndexs = {}
+	local carouselButtons = {}
+	for childIndex, child in ipairs(selectedPlayer:GetChildren()) do
+		if child:IsA("GuiObject") and child.Name ~= CAROUSEL_DIVIDER_NAME then
+			table.insert(carouselButtons, child)
+			buttonChildIndexs[child] = childIndex
+		end
+	end
+	table.sort(carouselButtons, function(a, b)
+		if a.LayoutOrder == b.LayoutOrder then
+			return buttonChildIndexs[a] < buttonChildIndexs[b]
+		end
+		return a.LayoutOrder < b.LayoutOrder
+	end)
+	return carouselButtons
+end
 
 local function CreateMenuCarousel(theme)
 	local playerSelection = Instance.new("Frame")
@@ -76,8 +97,25 @@ local function CreateMenuCarousel(theme)
 				playerChangedEvent = Instance.new("BindableEvent")
 				playerChangedEvent.Name = "PlayerChanged"
 
+				local lastPage = nil
 				uiPageLayout:GetPropertyChangedSignal("CurrentPage"):Connect(function()
-					if uiPageLayout.CurrentPage then uiPageLayout.CurrentPage.BackgroundColor3 = BACKGROUND_DEFAULT_COLOR end
+					if FFlagCorescriptACMAddCircularDivider then
+						if uiPageLayout.CurrentPage then
+							if uiPageLayout.CurrentPage.Name == CAROUSEL_DIVIDER_NAME then
+								local carouselButtons = getSortedCarouselButtons()
+								if lastPage == carouselButtons[1] then
+									uiPageLayout:Previous()
+								else
+									uiPageLayout:Next()
+								end
+							else
+								uiPageLayout.CurrentPage.BackgroundColor3 = BACKGROUND_DEFAULT_COLOR
+								lastPage = uiPageLayout.CurrentPage
+							end
+						end
+					else
+						if uiPageLayout.CurrentPage then uiPageLayout.CurrentPage.BackgroundColor3 = BACKGROUND_DEFAULT_COLOR end
+					end
 					if GuiService.SelectedCoreObject and GuiService.SelectedCoreObject.Parent == uiPageLayout.Parent then
 						GuiService.SelectedCoreObject.BackgroundColor3 = BACKGROUND_SELECTED_COLOR
 					end
@@ -100,9 +138,9 @@ local function CreateMenuCarousel(theme)
 		nextButton.Selectable = false
 		nextButton.Parent = playerSelection
 
-			local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-			aspectRatioConstraint.DominantAxis = Enum.DominantAxis.Width
-			aspectRatioConstraint.Parent = nextButton
+			local nextButtonAspectRatio = Instance.new("UIAspectRatioConstraint")
+			nextButtonAspectRatio.DominantAxis = Enum.DominantAxis.Width
+			nextButtonAspectRatio.Parent = nextButton
 
 		local prevButton = nextButton:Clone()
 		prevButton.Name = "PrevButton"
@@ -156,21 +194,7 @@ function PlayerCarousel:FadeTowardsEdges()
 		return
 	end
 
-	local buttonChildIndexs = {}
-	local carouselButtons = {}
-	for childIndex, child in ipairs(selectedPlayer:GetChildren()) do
-		if child:IsA("GuiObject") then
-			table.insert(carouselButtons, child)
-			buttonChildIndexs[child] = childIndex
-		end
-	end
-	table.sort(carouselButtons, function(a, b)
-		if a.LayoutOrder == b.LayoutOrder then
-			return buttonChildIndexs[a] < buttonChildIndexs[b]
-		end
-		return a.LayoutOrder < b.LayoutOrder
-	end)
-
+	local carouselButtons = getSortedCarouselButtons()
 	local currentPageIndex = 0
 	for index, button in ipairs(carouselButtons) do
 		if button == uiPageLayout.CurrentPage then
@@ -191,6 +215,40 @@ function PlayerCarousel:FadeTowardsEdges()
 			button.ImageTransparency = 0
 		end
 	end
+end
+
+function PlayerCarousel:AddCarouselDivider()
+	local buttonCount = #selectedPlayer:GetChildren() - 1
+	if buttonCount < 5 then
+		local carouselDivider = selectedPlayer:FindFirstChild(CAROUSEL_DIVIDER_NAME)
+		if carouselDivider then
+			carouselDivider:Destroy()
+		end
+		return
+	end
+
+	local carouselDivider = Instance.new("Frame")
+	carouselDivider.Name = CAROUSEL_DIVIDER_NAME
+	carouselDivider.Size = UDim2.new(1, 0, 1, 0)
+	carouselDivider.BackgroundTransparency = 1
+	carouselDivider.Parent = selectedPlayer
+	carouselDivider.LayoutOrder = 1000000
+
+	local line = Instance.new("Frame")
+	line.Name = "line"
+	line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	line.BorderSizePixel = 0
+	line.Position = UDim2.new(0.25, 0, 0, -3)
+	line.Size = UDim2.new(0, 2, 1, 6)
+	line.Parent = carouselDivider
+
+	local line2 = line:Clone()
+	line2.Position = UDim2.new(0.5, 0, 0, -3)
+	line2.Parent = carouselDivider
+
+	local line3 = line:Clone()
+	line3.Position = UDim2.new(0.75, 0, 0, -3)
+	line3.Parent = carouselDivider
 end
 
 function PlayerCarousel:RemovePlayerEntry(player)

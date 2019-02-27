@@ -1,16 +1,7 @@
 local LocalizationService = game:GetService("LocalizationService")
 local Promise = require(script.Parent.Parent.Promise)
 local RbxEntriesToWebEntries = require(script.Parent.RbxEntriesToWebEntries)
-
-local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
-local StudioLocalizationUseGameIdChangedSignal = settings():GetFFlag("StudioLocalizationUseGameIdChangedSignal")
-
-local PatchInfo
-if StudioLocalizationSelectiveUpload then
-	PatchInfo = require(script.Parent.PatchInfo)
-else
-	PatchInfo = require(script.Parent.PatchInfoDEPRECATED)
-end
+local PatchInfo = require(script.Parent.PatchInfo)
 
 local MakeWebTableInterface = require(script.Parent.WebTableInterface)
 
@@ -62,7 +53,6 @@ return function(userId)
 		DownloadGameTable = WebTableInterface.DownloadGameTable,
 		UpdateGameTableInfo = WebTableInterface.UpdateGameTableInfo,
 		SetAutoscraping = WebTableInterface.SetAutoscraping,
-		GameIdChangedSignal = game:GetPropertyChangedSignal(
-			StudioLocalizationUseGameIdChangedSignal and "GameId" or "PlaceId"),
+		GameIdChangedSignal = game:GetPropertyChangedSignal("GameId"),
 	}
 end

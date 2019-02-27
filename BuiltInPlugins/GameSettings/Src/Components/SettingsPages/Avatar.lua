@@ -11,7 +11,6 @@
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
 
-local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
 local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -103,12 +102,10 @@ local function dispatchChanges(setValue, dispatch)
 		AvatarScalingMaxChanged = setValue("universeAvatarMaxScales"),
 
 		AvatarTypeChanged = function(value, willShutdown)
-			if FFlagGameSettingsShowWarningsOnSave then
-				if willShutdown then
-					dispatch(AddWarning("universeAvatarType"))
-				else
-					dispatch(DiscardWarning("universeAvatarType"))
-				end
+			if willShutdown then
+				dispatch(AddWarning("universeAvatarType"))
+			else
+				dispatch(DiscardWarning("universeAvatarType"))
 			end
 			dispatch(AddChange("universeAvatarType", value))
 		end,
@@ -162,28 +159,13 @@ local function displayContents(page, localized)
 
 				OnAvatarTypeChanged = function(newVal)
 					if not fastFlags.isPlaceFilesGameSettingsSerializationOn() or isPlaceDataAvailable(props) then
-						if FFlagGameSettingsShowWarningsOnSave then
-							local willShutdown = nil
-							if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-								willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
-							else
-								willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
-							end
-							props.AvatarTypeChanged(newVal, willShutdown)
+						local willShutdown
+						if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+							willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
 						else
-							if props.CurrentAvatarType ~= "PlayerChoice" then
-								local dialogProps = {
-									Title = localized.AvatarDialog.Header,
-									Header = localized.AvatarDialog.Prompt,
-									Description = localized.AvatarDialog.Body,
-									Buttons = localized.AvatarDialog.Buttons,
-								}
-								if not showDialog(page, WarningDialog, dialogProps):await() then
-									return
-								end
-							end
-							props.AvatarTypeChanged(newVal)
+							willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
 						end
+						props.AvatarTypeChanged(newVal, willShutdown)
 					else
 						props.AvatarTypeChanged(newVal)
 					end
@@ -220,25 +202,9 @@ local function displayContents(page, localized)
 				--Functionality
 				Selected = props.AvatarType,
 				SelectionChanged = function(button)
-					if FFlagGameSettingsShowWarningsOnSave then
-						local willShutdown = props.CurrentAvatarType ~= "PlayerChoice"
-							and button.Id ~= props.CurrentAvatarType
-						props.AvatarTypeChanged(button, willShutdown)
-					else
-						if props.CurrentAvatarType ~= "PlayerChoice" then
-							local dialogProps = {
-								Title = "Warning",
-								Header = "Would you like to proceed?",
-								Description = "Changing the game's Avatar Type to this setting "
-									.. "will shut down any running games.",
-								Buttons = {"No", "Yes"},
-							}
-							if not showDialog(page, WarningDialog, dialogProps):await() then
-								return
-							end
-						end
-						props.AvatarTypeChanged(button)
-					end
+					local willShutdown = props.CurrentAvatarType ~= "PlayerChoice"
+						and button.Id ~= props.CurrentAvatarType
+					props.AvatarTypeChanged(button, willShutdown)
 				end,
 			}),
 

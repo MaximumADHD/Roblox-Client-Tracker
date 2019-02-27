@@ -22,6 +22,7 @@ local PlayerChangedEvent = Instance.new("BindableEvent")
 
 local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
+local FFlagCorescriptACMAddCircularDivider = settings():GetFFlag("CorescriptACMAddCircularDivider")
 
 --- Modules
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
@@ -308,6 +309,9 @@ function ContextMenuGui:BuildPlayerCarousel(playersByProximity, theme)
 	end
 	if FFlagCoreScriptACMFadeCarousel then
 		PlayerCarousel:FadeTowardsEdges()
+	end
+	if FFlagCorescriptACMAddCircularDivider then
+		PlayerCarousel:AddCarouselDivider()
 	end
 end
 

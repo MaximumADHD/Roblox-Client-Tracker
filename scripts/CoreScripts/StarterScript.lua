@@ -11,11 +11,10 @@ local VRService = game:GetService("VRService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
-local FFlagUseRoactPurchasePrompt372 = settings():GetFFlag("UseRoactPurchasePrompt372")
+local FFlagUseRoactPurchasePrompt374 = settings():GetFFlag("UseRoactPurchasePrompt374")
 local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-local FFlagUseAntiAddictionService = settings():GetFFlag("UseAntiAddictionService")
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -41,10 +40,10 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/Topbar", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
 --Anti Addiction
-
-if FFlagChinaLicensingApp and FFlagUseAntiAddictionService then
+if FFlagChinaLicensingApp then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
 end
+
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
 
@@ -61,11 +60,19 @@ else
 end
 
 -- Purchase Prompt Script
-if FFlagUseRoactPurchasePrompt372 then
+if FFlagUseRoactPurchasePrompt374 then
 	if FFlagIWillNotYield then
-		coroutine.wrap(safeRequire)(CorePackages.PurchasePrompt.Main)
+		coroutine.wrap(function()
+			local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
+
+			PurchasePrompt.mountPurchasePrompt()
+		end)()
 	else
-		spawn(function() safeRequire(CorePackages.PurchasePrompt.Main) end)
+		spawn(function()
+			local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
+
+			PurchasePrompt.mountPurchasePrompt()
+		end)
 	end
 else
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript2", RobloxGui)

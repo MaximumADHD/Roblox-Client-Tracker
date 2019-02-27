@@ -1,13 +1,6 @@
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
-
-local StudioLocalizationImprovedCheckbox = settings():GetFFlag("StudioLocalizationImprovedCheckbox")
-local Checkbox
-if StudioLocalizationImprovedCheckbox then
-	Checkbox = require(script.Parent.Checkbox)
-else
-	Checkbox = require(script.Parent.CheckboxDEPRECATED)
-end
+local Checkbox = require(script.Parent.Checkbox)
 
 local LabeledCheckbox = Roact.PureComponent:extend("LabeledCheckbox")
 

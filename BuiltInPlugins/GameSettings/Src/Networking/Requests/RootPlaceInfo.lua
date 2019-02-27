@@ -7,8 +7,6 @@ local RELEVANT_ENTRIES = {
 	description = true,
 }
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -63,12 +61,8 @@ function RootPlaceInfo.Get(universeId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load root place configuration settings.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("RootPlace")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("RootPlace")
+		return Promise.reject()
 	end)
 end
 
@@ -96,17 +90,13 @@ function RootPlaceInfo.Set(universeId, body)
 	end)
 	:catch(function(err)
 		warn("Game Settings: Could not save root place configuration settings.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("RootPlace")
-		end
+		Analytics.onSaveError("RootPlace")
 		if string.find(err, "HTTP 400") then
 			local errors = {}
 			if body.description then
 				errors.description = "Moderated"
 			end
 			return Promise.reject(errors)
-		elseif not FFlagGameSettingsAnalyticsEnabled then
-			return Promise.resolve()
 		end
 	end)
 end

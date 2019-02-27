@@ -543,9 +543,13 @@ RBX
 	}
 	TextScraper
 	{
-		ClientJob
-		Job
-		ServerJob
+		ClientJob_deprecated
+		ClientScraperJob
+		Job_deprecated
+		ScraperJob
+		ServerJob_deprecated
+		ServerScraperJob
+		ServiceScraperJob
 	}
 	Voxel2
 	{
@@ -577,7 +581,6 @@ RBX
 	AnimationController
 	AnimationTrack
 	Animator
-	AntiAddictionService
 	ArcHandles
 	ArrowToolBase
 	Assembly

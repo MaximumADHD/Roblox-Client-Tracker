@@ -14,6 +14,8 @@
 		callback onPreviewAudioButtonClicked()
 ]]
 
+local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -58,12 +60,22 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onAssetHovered = function(assetId)
-		if  self.state.hoveredAssetId ~= assetId and
-			not getModal(self).isShowingModal()
-		then
-			self:setState({
-				hoveredAssetId = assetId,
-			})
+		if FFlagStudioToolboxFixMouseHover then
+			if self.state.hoveredAssetId == 0 and
+				not getModal(self).isShowingModal()
+			then
+				self:setState({
+					hoveredAssetId = assetId,
+				})
+			end
+		else
+			if self.state.hoveredAssetId ~= assetId and
+				not getModal(self).isShowingModal()
+			then
+				self:setState({
+					hoveredAssetId = assetId,
+				})
+			end
 		end
 	end
 

@@ -19,9 +19,6 @@ local PLAYABLE_DEVICES = {
 	Console = false,
 }
 
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
-local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -38,11 +35,6 @@ if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 		universeAvatarAssetOverrides = true,
 		universeAvatarMinScales = true,
 		universeAvatarMaxScales = true,
-	})
-end
-
-if FFlagStudioLuaGameSettingsDialog3 then
-	RELEVANT_ENTRIES = Cryo.Dictionary.join(RELEVANT_ENTRIES, {
 		genre = true,
 	})
 end
@@ -76,12 +68,8 @@ function Configuration.Get(universeId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not load settings from universe configuration.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onLoadError("UniverseConfiguration")
-			return Promise.reject()
-		else
-			return Promise.resolve({})
-		end
+		Analytics.onLoadError("UniverseConfiguration")
+		return Promise.reject()
 	end)
 end
 
@@ -122,17 +110,13 @@ function Configuration.Set(universeId, body)
 	return Http.Request(requestInfo)
 	:catch(function(err)
 		warn("Game Settings: Could not save universe configuration settings.")
-		if FFlagGameSettingsAnalyticsEnabled then
-			Analytics.onSaveError("UniverseConfiguration")
-		end
+		Analytics.onSaveError("UniverseConfiguration")
 		if string.find(err, "HTTP 400") then
 			local errors = {}
 			if body.name then
 				errors.name = "Moderated"
 			end
 			return Promise.reject(errors)
-		elseif not FFlagGameSettingsAnalyticsEnabled then
-			return Promise.resolve()
 		end
 	end)
 end

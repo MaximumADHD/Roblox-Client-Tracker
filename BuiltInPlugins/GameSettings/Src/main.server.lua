@@ -3,8 +3,6 @@ if not plugin then
 end
 
 -- Fast flags
-local FFlagStudioLuaGameSettingsDialog2 = settings():GetFFlag("StudioLuaGameSettingsDialog2")
-local FFlagGameSettingsAnalyticsEnabled = settings():GetFFlag("GameSettingsAnalyticsEnabled")
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
@@ -61,19 +59,11 @@ local lastObservedStatus = CurrentStatus.Open
 local settingsImpl = SettingsImpl.new(plugin:GetStudioUserId())
 
 --Add all settings pages in order
-local settingsPages
-if FFlagStudioLuaGameSettingsDialog2 then
-	settingsPages = {
-		"Basic Info",
-		"Avatar",
-		"Options",
-	}
-else
-	settingsPages = {
-		"Avatar",
-		"Options",
-	}
-end
+local settingsPages = {
+	"Basic Info",
+	"Avatar",
+	"Options",
+}
 
 if FFlagStudioLocalizationGameSettings then
 	table.insert(settingsPages, "Localization")
@@ -131,7 +121,7 @@ local function showDialog(type, props)
 			dialog.Enabled = true
 			dialog.Title = props.Title
 			local dialogContents = Roact.createElement(ThemeProvider, {
-				theme = FFlagStudioLuaGameSettingsDialog2 and Theme.new() or Theme.DEPRECATED_constantColors(),
+				theme = Theme.new(),
 			}, {
 				Roact.createElement(MouseProvider, {
 					mouse = plugin:GetMouse()
@@ -201,9 +191,7 @@ local function closeGameSettings(userPressedSave)
 					pluginGui.Enabled = false
 					Roact.unmount(gameSettingsHandle)
 
-					if FFlagGameSettingsAnalyticsEnabled then
-						closeAnalytics(userPressedSave)
-					end
+					closeAnalytics(userPressedSave)
 				else
 					--Return to game settings window without modifying state,
 					--giving the user another chance to modify or save.
@@ -217,9 +205,7 @@ local function closeGameSettings(userPressedSave)
 				pluginGui.Enabled = false
 				Roact.unmount(gameSettingsHandle)
 
-				if FFlagGameSettingsAnalyticsEnabled then
-					closeAnalytics(userPressedSave)
-				end
+				closeAnalytics(userPressedSave)
 			end
 		end
 	end
@@ -274,7 +260,7 @@ local function openGameSettings()
 		impl = settingsImpl,
 		store = settingsStore,
 		showDialog = showDialog,
-		theme = FFlagStudioLuaGameSettingsDialog2 and Theme.new() or Theme.DEPRECATED_constantColors(),
+		theme = Theme.new(),
 		mouse = plugin:GetMouse(),
 		localization = localization,
 	}, {
@@ -292,10 +278,8 @@ local function openGameSettings()
 	gameSettingsHandle = Roact.mount(servicesProvider, pluginGui)
 	pluginGui.Enabled = true
 
-	if FFlagGameSettingsAnalyticsEnabled then
-		Analytics.onOpenEvent(plugin:GetStudioUserId())
-		openedTimestamp = tick()
-	end
+	Analytics.onOpenEvent(plugin:GetStudioUserId())
+	openedTimestamp = tick()
 end
 
 --Binds a toolbar button to the Game Settings window

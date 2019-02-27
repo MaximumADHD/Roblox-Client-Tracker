@@ -28,8 +28,6 @@
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
-local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
-local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
 local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
@@ -133,12 +131,10 @@ local function dispatchChanges(setValue, dispatch)
 			end
 		end,
 		IsActiveChanged = function(button, willShutdown)
-			if FFlagGameSettingsShowWarningsOnSave then
-				if willShutdown then
-					dispatch(AddWarning("isActive"))
-				else
-					dispatch(DiscardWarning("isActive"))
-				end
+			if willShutdown then
+				dispatch(AddWarning("isActive"))
+			else
+				dispatch(DiscardWarning("isActive"))
 			end
 			dispatch(AddChange("isActive", button.Id))
 		end,
@@ -264,25 +260,9 @@ local function displayContents(page, localized)
 					props.IsFriendsOnlyChanged(true)
 					props.IsActiveChanged({Id = true})
 				else
-					if FFlagGameSettingsShowWarningsOnSave then
-						props.IsFriendsOnlyChanged(false)
-						local willShutdown = props.IsActive and not button.Id
-						props.IsActiveChanged(button, willShutdown)
-					else
-						if button.Id == false then
-							local dialogProps = {
-								Title = localized.PrivateDialog.Header,
-								Header = localized.PrivateDialog.Prompt,
-								Description = localized.PrivateDialog.Body,
-								Buttons = localized.PrivateDialog.Buttons,
-							}
-							if not showDialog(page, WarningDialog, dialogProps):await() then
-								return
-							end
-						end
-						props.IsFriendsOnlyChanged(false)
-						props.IsActiveChanged(button)
-					end
+					props.IsFriendsOnlyChanged(false)
+					local willShutdown = props.IsActive and not button.Id
+					props.IsActiveChanged(button, willShutdown)
 				end
 			end,
 		}),
@@ -291,7 +271,7 @@ local function displayContents(page, localized)
 			LayoutOrder = 5,
 		}),
 
-		Icon = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(GameIconWidget, {
+		Icon = Roact.createElement(GameIconWidget, {
 			LayoutOrder = 6,
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
@@ -315,11 +295,11 @@ local function displayContents(page, localized)
 				and localized.Errors[imageErrors[props.GameIconError]],
 		}),
 
-		Separator3 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
+		Separator3 = Roact.createElement(Separator, {
 			LayoutOrder = 7,
 		}),
 
-		Thumbnails = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(ThumbnailController, {
+		Thumbnails = Roact.createElement(ThumbnailController, {
 			LayoutOrder = 8,
 			Enabled = props.Thumbnails ~= nil,
 			Thumbnails = props.Thumbnails,
@@ -346,11 +326,11 @@ local function displayContents(page, localized)
 			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
 		}),
 
-		Separator4 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
+		Separator4 = Roact.createElement(Separator, {
 			LayoutOrder = 9,
 		}),
 
-		Genre = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(TitledFrame, {
+		Genre = Roact.createElement(TitledFrame, {
 			Title = localized.Title.Genre,
 			MaxHeight = 38,
 			LayoutOrder = 10,
@@ -366,7 +346,7 @@ local function displayContents(page, localized)
 			}),
 		}),
 
-		Separator5 = FFlagStudioLuaGameSettingsDialog3 and Roact.createElement(Separator, {
+		Separator5 = Roact.createElement(Separator, {
 			LayoutOrder = 11,
 		}),
 

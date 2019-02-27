@@ -1,10 +1,13 @@
 local LocalizationService = game:GetService("LocalizationService")
+local AnalyticsService = game:GetService("AnalyticsService")
 local IsEdit = require(script.Parent.IsEdit)
 
 local LocalizationTools = require(script.Parent.Components.LocalizationTools)
 local MakeShowDialog = require(script.Parent.ShowDialog)
 local MakeGameTableMain = require(script.Parent.GameTable.GameTableMain)
 local Roact = require(game:GetService("CorePackages").Roact)
+
+local FFlagLocalizationPluginAnalyticsEnabled = settings():GetFFlag("StudioLocalizationEnableAnalytics")
 
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
@@ -81,6 +84,19 @@ local function createLocalizationToolsPluginButton(toolbar)
 		"rbxasset://textures/localizationTestingIcon.png")
 end
 
+local function reportToolOpened(plugin, openMethod)
+	local target = "studio"
+	local context = "localizationPlugin"
+	local eventName = "toolOpened"
+	local args = {
+		method = openMethod,
+		uid = plugin:GetStudioUserId(),
+		gameId = game.GameId,
+		placeId = game.PlaceId,
+	}
+
+	AnalyticsService:SendEventDeferred(target, context, eventName, args)
+end
 
 local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	local ShowDialog = MakeShowDialog(plugin, studioSettings)
@@ -121,6 +137,12 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 		function()
 			Window.Enabled = not Window.Enabled
 			button:SetActive(Window.Enabled)
+
+			if FFlagLocalizationPluginAnalyticsEnabled then
+				if (Window.Enabled) then
+					reportToolOpened(plugin, 1)
+				end
+			end
 		end)
 end
 

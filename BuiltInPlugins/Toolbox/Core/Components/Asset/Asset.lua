@@ -22,6 +22,8 @@
 		InsertToolPromise insertToolPromise
 ]]
 
+local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -119,7 +121,9 @@ function Asset:init(props)
 	end
 
 	self.onMouseMoved = function(rbx, x, y)
-		-- call onAssetHovered(assetId) if mouseEnter don't work.
+		if FFlagStudioToolboxFixMouseHover then
+			onAssetHovered(assetId)
+		end
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)

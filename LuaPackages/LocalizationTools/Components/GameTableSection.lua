@@ -3,24 +3,8 @@ local Theming = require(script.Parent.Parent.Theming)
 
 local LabeledButton = require(script.Parent.LabeledButton)
 local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-
-local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
-local StudioLocalizationUseGameIdChangedSignal = settings():GetFFlag("StudioLocalizationUseGameIdChangedSignal")
-local StudioLocalizationBetterTableErrors = settings():GetFFlag("StudioLocalizationBetterTableErrors")
-
-local UploadDialogContent
-if StudioLocalizationSelectiveUpload then
-	UploadDialogContent = require(script.Parent.UploadDialogContent)
-else
-	UploadDialogContent = require(script.Parent.UploadDialogContentDEPRECATED)
-end
-
-local UploadDownloadFlow
-if StudioLocalizationBetterTableErrors then
-	UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
-else
-	UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlowDEPRECATED)
-end
+local UploadDialogContent = require(script.Parent.UploadDialogContent)
+local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
@@ -74,32 +58,22 @@ function GameTableSection:init()
 		end,
 	})
 
-	if StudioLocalizationBetterTableErrors then
-		self._OnDownload = function()
-			flow:OnDownload():catch(
-				function(errorInfo)
-					if errorInfo:hasWarningMessage() then
-						warn(errorInfo:getWarningMessage())
-					end
-				end)
-		end
+	self._OnDownload = function()
+		flow:OnDownload():catch(
+			function(errorInfo)
+				if errorInfo:hasWarningMessage() then
+					warn(errorInfo:getWarningMessage())
+				end
+			end)
+	end
 
-		self._OnUpload = function()
-			flow:OnUpload():catch(
-				function(errorInfo)
-					if errorInfo:hasWarningMessage() then
-						warn(errorInfo:getWarningMessage())
-					end
-				end)
-		end
-	else
-		self._OnDownload = function()
-			flow:OnDownload():catch(function() end)
-		end
-
-		self._OnUpload = function()
-			flow:OnUpload():catch(function() end)
-		end
+	self._OnUpload = function()
+		flow:OnUpload():catch(
+			function(errorInfo)
+				if errorInfo:hasWarningMessage() then
+					warn(errorInfo:getWarningMessage())
+				end
+			end)
 	end
 
 	local function checkIfAvailable()
@@ -124,18 +98,7 @@ function GameTableSection:init()
 		)
 	end
 
-	if StudioLocalizationUseGameIdChangedSignal then
-		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkIfAvailable)
-	else
-		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(function()
-			spawn(function()
-				--[[When the PlaceId signal changed event gets fired, the gameId is still not right,
-				So, spawning a function in order to wait for the GameId to kick in.  Then test for
-				availability to edit]]
-				checkIfAvailable()
-			end)
-		end)
-	end
+	self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkIfAvailable)
 
 	spawn(checkIfAvailable)
 

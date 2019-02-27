@@ -40,7 +40,6 @@ end
 
 -- Map of which special groups a player is in.
 local PlayerToGroupDetailsMap = {}
-local FFlagCorescriptIsInGroupServer = settings():GetFFlag("CorescriptIsInGroupServer")
 
 local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
 
@@ -292,11 +291,9 @@ local function sendCanChatWith(newPlayer)
 end
 
 local function onPlayerAdded(newPlayer)
-	if FFlagCorescriptIsInGroupServer then
-		sendPlayerAllGroupDetails(newPlayer)
-		if newPlayer.UserId > 0 then
-			coroutine.wrap(getPlayerGroupDetails)(newPlayer)
-		end
+	sendPlayerAllGroupDetails(newPlayer)
+	if newPlayer.UserId > 0 then
+		coroutine.wrap(getPlayerGroupDetails)(newPlayer)
 	end
 	if FFlagCorescriptACMDontDisplayChatWhenCantChat then
 		sendCanChatWith(newPlayer)
@@ -333,7 +330,7 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 		PlayerToRelationshipMap[uid] = nil
 		FollowNotificationsBetweenMap[uid] = nil
 	end
-	if FFlagCorescriptIsInGroupServer and PlayerToGroupDetailsMap[uid] then
+	if PlayerToGroupDetailsMap[uid] then
 		PlayerToGroupDetailsMap[uid] = nil
 	end
 end)

@@ -1,6 +1,4 @@
 return function()
-	local FFlagStudioLuaGameSettingsDialog3 = settings():GetFFlag("StudioLuaGameSettingsDialog3")
-
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
@@ -150,15 +148,12 @@ return function()
 		expect(info.Devices).to.be.ok()
 		expect(info.Separator).to.be.ok()
 		expect(info.Separator2).to.be.ok()
-
-		if FFlagStudioLuaGameSettingsDialog3 then
-			expect(info.Icon).to.be.ok()
-			expect(info.Separator3).to.be.ok()
-			expect(info.Thumbnails).to.be.ok()
-			expect(info.Separator4).to.be.ok()
-			expect(info.Genre).to.be.ok()
-			expect(info.Separator5).to.be.ok()
-		end
+		expect(info.Icon).to.be.ok()
+		expect(info.Separator3).to.be.ok()
+		expect(info.Thumbnails).to.be.ok()
+		expect(info.Separator4).to.be.ok()
+		expect(info.Genre).to.be.ok()
+		expect(info.Separator5).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -191,18 +186,16 @@ return function()
 			end
 		end
 
-		if FFlagStudioLuaGameSettingsDialog3 then
-			local iconWidget = info.Icon.Content
-			expect(iconWidget.Icon.Visible).to.equal(false)
-			expect(iconWidget.NewIcon.Visible).to.equal(false)
+		local iconWidget = info.Icon.Content
+		expect(iconWidget.Icon.Visible).to.equal(false)
+		expect(iconWidget.NewIcon.Visible).to.equal(false)
 
-			local thumbnailWidget = info.Thumbnails
-			expect(#thumbnailWidget.Thumbnails:GetChildren()).to.equal(1)
-			expect(thumbnailWidget.CountFolder.Count.Visible).to.equal(false)
+		local thumbnailWidget = info.Thumbnails
+		expect(#thumbnailWidget.Thumbnails:GetChildren()).to.equal(1)
+		expect(thumbnailWidget.CountFolder.Count.Visible).to.equal(false)
 
-			local genre = info.Genre.Content.Selector
-			expect(genre.Border.Current.Visible).to.equal(false)
-		end
+		local genre = info.Genre.Content.Selector
+		expect(genre.Border.Current.Visible).to.equal(false)
 
 		Roact.unmount(instance)
 	end)
@@ -235,17 +228,15 @@ return function()
 			end
 		end
 
-		if FFlagStudioLuaGameSettingsDialog3 then
-			local iconWidget = info.Icon.Content
-			expect(iconWidget.Icon.Visible).to.equal(true)
+		local iconWidget = info.Icon.Content
+		expect(iconWidget.Icon.Visible).to.equal(true)
 
-			local thumbnailWidget = info.Thumbnails
-			expect(#thumbnailWidget.Thumbnails:GetChildren()).to.equal(5)
-			expect(thumbnailWidget.CountFolder.Count.Visible).to.equal(true)
+		local thumbnailWidget = info.Thumbnails
+		expect(#thumbnailWidget.Thumbnails:GetChildren()).to.equal(5)
+		expect(thumbnailWidget.CountFolder.Count.Visible).to.equal(true)
 
-			local genre = info.Genre.Content.Selector
-			expect(genre.Border.Current.Visible).to.equal(true)
-		end
+		local genre = info.Genre.Content.Selector
+		expect(genre.Border.Current.Visible).to.equal(true)
 
 		Roact.unmount(instance)
 	end)
@@ -335,20 +326,18 @@ return function()
 		end)
 	end)
 
-	if FFlagStudioLuaGameSettingsDialog3 then
-		describe("Genre", function()
-			it("should display the correct genre", function()
-				local container = workspace
+	describe("Genre", function()
+		it("should display the correct genre", function()
+			local container = workspace
 
-				local element = createTestBasicInfo(settingsInfoTest)
-				local instance = Roact.mount(element, container)
-				local info = container.Frame
+			local element = createTestBasicInfo(settingsInfoTest)
+			local instance = Roact.mount(element, container)
+			local info = container.Frame
 
-				local genre = info.Genre.Content.Selector
-				expect(genre.Border.Current.Text).to.equal(localized.Genres[1].Title)
+			local genre = info.Genre.Content.Selector
+			expect(genre.Border.Current.Text).to.equal(localized.Genres[1].Title)
 
-				Roact.unmount(instance)
-			end)
+			Roact.unmount(instance)
 		end)
-	end
+	end)
 end

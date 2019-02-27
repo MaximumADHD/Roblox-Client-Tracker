@@ -1,18 +1,5 @@
-local PageDownloader
-local StudioLocalizationDownloadFix = settings():GetFFlag("StudioLocalizationDownloadFix")
-if StudioLocalizationDownloadFix then
-	PageDownloader = require(script.Parent.PageDownloader)
-else
-	PageDownloader = require(script.Parent.PageDownloaderDEPRECATED)
-end
-
-local StudioLocalizationSelectiveUpload = settings():GetFFlag("StudioLocalizationSelectiveUpload")
-local PatchInfo
-if StudioLocalizationSelectiveUpload then
-	PatchInfo = require(script.Parent.PatchInfo)
-else
-	PatchInfo = require(script.Parent.PatchInfoDEPRECATED)
-end
+local PatchInfo = require(script.Parent.PatchInfo)
+local PageDownloader = require(script.Parent.PageDownloader)
 
 local AddWebEntriesToRbxEntries = require(script.Parent.AddWebEntriesToRbxEntries)
 local Urls = require(script.Parent.Parent.Urls)
@@ -414,18 +401,10 @@ end
 	UploadPatch() returns a promise that resolves with no arguments upon success.
 ]]
 local function UploadPatch(patchInfo, uploadInfo)
-	local patches
-	if StudioLocalizationSelectiveUpload then
-		patches = PatchInfo.SplitByLimits(
-			patchInfo.makePatch(uploadInfo),
-			LocalizationTableUploadRowMax,
-			LocalizationTableUploadTranslationMax)
-	else
-		patches = PatchInfo.SplitByLimits(
-			patchInfo.patch,
-			LocalizationTableUploadRowMax,
-			LocalizationTableUploadTranslationMax)
-	end
+	local patches = PatchInfo.SplitByLimits(
+		patchInfo.makePatch(uploadInfo),
+		LocalizationTableUploadRowMax,
+		LocalizationTableUploadTranslationMax)
 
 	if currentTableId ~= nil then
 		return UploadPatchesToTableId(patches, currentTableId)

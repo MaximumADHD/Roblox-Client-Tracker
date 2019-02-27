@@ -7,8 +7,6 @@
 	If no warnings are necessary, this thunk dispatches SaveChanges immediately.
 ]]
 
-local FFlagGameSettingsShowWarningsOnSave = settings():GetFFlag("GameSettingsShowWarningsOnSave")
-
 local Plugin = script.Parent.Parent.Parent
 local SaveChanges = require(Plugin.Src.Thunks.SaveChanges)
 
@@ -40,22 +38,18 @@ return function(provider)
 			}
 		}
 
-		if FFlagGameSettingsShowWarningsOnSave then
-			return Promise.new(function(resolve, reject)
-				spawn(function()
-					for _, warning in pairs(state.Settings.Warnings) do
-						if not showDialog(provider, WarningDialog, warningDialogProps[warning]):await() then
-							reject()
-						end
+		return Promise.new(function(resolve, reject)
+			spawn(function()
+				for _, warning in pairs(state.Settings.Warnings) do
+					if not showDialog(provider, WarningDialog, warningDialogProps[warning]):await() then
+						reject()
 					end
-					resolve()
-				end)
+				end
+				resolve()
 			end)
-			:andThen(function()
-				return store:dispatch(SaveChanges(settingsImpl))
-			end)
-		else
+		end)
+		:andThen(function()
 			return store:dispatch(SaveChanges(settingsImpl))
-		end
+		end)
 	end
 end

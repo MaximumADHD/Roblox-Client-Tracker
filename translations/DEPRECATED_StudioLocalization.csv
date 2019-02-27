@@ -1,0 +1,10 @@
+Key,Context,Example,Source,en-us
+Studio.App.Properties.TitleFmt1,RobloxPropertiesWidget,,Properties - %1,Properties - %1
+Studio.App.StartPage.MyGames,StartPage,,My Games,My Games
+Studio.App.StartPage.New,RBXMainWindow,,New,New
+Studio.App.StartPage.Recent,StartPage,,Recent,Recent
+Studio.App.UIEditor.ScrollingFrame,RobloxRibbonMainWindow,,Scrolling Frame,Scrolling Frame
+Studio.App.UIEditor.TextButton,RobloxRibbonMainWindow,,Text Button,Text Button
+Studio.App.UIEditor.TextLabel,RobloxRibbonMainWindow,,Text Label,Text Label
+Studio.App.Parts.Surface,RobloxRibbonMainWindow,,Surface,Surface
+Studio.App.Parts.SurfaceTooltip,RobloxRibbonMainWindow,,"Pick a surface type, and click on part surfaces to apply","Pick a surface type, and click on part surfaces to apply"
