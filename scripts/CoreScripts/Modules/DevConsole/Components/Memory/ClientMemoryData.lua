@@ -37,6 +37,9 @@ function ClientMemoryData.new()
 	self._totalMemoryUpdated = Signal.new()
 	self._sortType = HEADER_NAMES[1]
 
+	self._lastGranularMemTabUpdate = {}
+	self._granularMemTable = {}
+
 	return self
 end
 
@@ -50,35 +53,127 @@ local function GetMemoryPerformanceStatsItem()
 	return memoryStats
 end
 
-local function getAdditionalMemoryFunc(name)
-	if FFlagEnableGranularMemoryTabStats then
-		if name == "Sounds" then
-			return function()
-				-- GetSoundMemoryData returns a table with the assetId
-				-- as the key and the memory allocated in MB as the value
-				local soundMemData = SoundService:GetSoundMemoryData()
-				local sortedSoundMem = {}
+-- the fetch memoryData functions are used for the Granular memory data.
+local function fetchSoundMemoryData()
+	local soundMemData = SoundService:GetSoundMemoryData()
+	local sortedSoundMem = {}
+	for i,v in pairs(soundMemData) do
+		table.insert(sortedSoundMem, {
+		name = i,
+		value = v,
+		})
+	end
 
-				for i,v in pairs(soundMemData) do
-					table.insert(sortedSoundMem, {
-						name = i,
-						value = v,
-					})
-				end
+	-- entries are ordered by insert time
+	-- we want it sorted by memory size
+	-- we could also have it sorted in SoundService to maybe speed this up
+	table.sort(sortedSoundMem, function(a, b)
+		return a.value > b.value
+	end)
 
-				table.sort(sortedSoundMem, function(a, b)
-					return a.value > b.value
-				end)
+	return sortedSoundMem
+end
 
-				return sortedSoundMem
+local function fetchGraphicsTextureMemoryData()
+	local textureData = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.NonHumanoid, 0, 100)
+	local sortedTextureData = {}
+
+	for _,v in ipairs(textureData.Results) do
+		local mem = v.MemoryInBytes / 1000000
+		table.insert(sortedTextureData, {
+			name = v.TextureId,
+			value = mem,
+		})
+	end
+
+	return sortedTextureData
+end
+
+local function fetchGraphicsTextureCharacterMemoryData()
+	local textureData = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.Humanoid, 0, 100)
+	local sortedTextureData = {}
+
+	for _,v in ipairs(textureData.Results) do
+		local mem = v.MemoryInBytes / 1000000
+		local compTextures = {}
+
+		-- we need to parse out the asset id's from this large string
+		-- the first portion involves only including the Texture portions and not color
+		local txtComp = v.TextureId
+		local tSeries = {}
+		for a,b in pairs(string.split(txtComp, " ")) do
+			local firstChar = string.sub(b, 1, 2)
+			if firstChar == "T[" then
+				table.insert(tSeries, b)
 			end
-		elseif name == "Texture" then
-		elseif name == "Mesh" then
+		end
+
+		-- next we split out the mesh from the string.
+		-- we can have multiple references to same ID so
+		-- so we filter them out here
+		local assetString = ""
+		local dedupe = {}
+		for a, b in pairs(tSeries) do
+			local gotoAssetStr = string.split(b, ".mesh:")[2]
+			-- set to 12 to get pass the ":'" in "rbxassertid:" and "http://""
+			local hi, bye = string.find(gotoAssetStr, ":", 12)
+			assetString = string.sub(gotoAssetStr, 1, hi)
+			dedupe[assetString] = true
+		end
+
+		-- using the finalized strings, we construct the list of assets used for the
+		-- composite texture
+		for name,_ in pairs(dedupe) do
+			table.insert(compTextures, {
+				name = name
+			})
+		end
+
+		table.insert(sortedTextureData, {
+			name = "Composite Texture",
+			value = mem,
+			moreInfo = compTextures,
+		})
+	end
+
+	return sortedTextureData
+end
+
+function ClientMemoryData:updateCachedData(categoryName, retrieveDataCallback)
+	local lastTick = self._lastGranularMemTabUpdate[categoryName] or 0
+	local currTick = tick()
+	if currTick - lastTick > CLIENT_POLLING_INTERVAL then
+		self._lastGranularMemTabUpdate[categoryName] = currTick
+		self._granularMemTable[categoryName] = retrieveDataCallback()
+	end
+end
+
+function ClientMemoryData:getAdditionalMemoryFunc(name)
+	if FFlagEnableGranularMemoryTabStats then
+		local fetchFunc = nil
+		if name == "Sounds" then
+			fetchFunc = fetchSoundMemoryData
+
+		elseif name == "GraphicsTexture" then
+			fetchFunc = fetchGraphicsTextureMemoryData
+
+		elseif name == "GraphicsTextureCharacter" then
+			fetchFunc = fetchGraphicsTextureCharacterMemoryData
+
+		elseif name == "GraphicsMeshParts" then
 		elseif name == "CSG" then
 		elseif name == "Animation" then
 		end
-		return nil
+
+		if fetchFunc then
+			return function()
+				self:updateCachedData(name, fetchFunc)
+				return self._granularMemTable[name]
+			end
+		end
 	end
+
+	return nil
 end
 
 function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
@@ -108,7 +203,7 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 		-- can't be par't of the tree we get from Stats
 		-- We attach a callback for the specific entries that need to
 		-- show addition memory to handle this.
-		local memFunc = getAdditionalMemoryFunc(name)
+		local memFunc = self:getAdditionalMemoryFunc(name)
 		if memFunc then
 			entryList[name]["additionalInfoFunc"] = memFunc
 		end

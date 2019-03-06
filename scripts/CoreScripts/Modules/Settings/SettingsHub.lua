@@ -44,6 +44,8 @@ local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEna
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestName")
 
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ContentProvider = game:GetService("ContentProvider")
@@ -1286,7 +1288,12 @@ local function CreateSettingsHub()
 			this.TabConnection = nil
 		end
 
-		local playerList = require(RobloxGui.Modules.PlayerlistModule)
+		local playerList = nil
+		if FFlagUseRoactPlayerList then
+			playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
+		else
+			playerList = require(RobloxGui.Modules.PlayerlistModule)
+		end
 
 		if this.Visible then
 			this.ResizedConnection = RobloxGui.Changed:connect(function(prop)

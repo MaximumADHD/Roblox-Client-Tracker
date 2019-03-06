@@ -21,8 +21,8 @@ local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeSta
 return function(props)
 	local size = props.size
 	local depth = props.depth
-	local entry = props.entry
 	local showGraph = props.showGraph
+	local dataStats = props.dataStats
 	local layoutOrder = props.layoutOrder
 
 	local onButtonPress = props.onButtonPress
@@ -32,10 +32,11 @@ return function(props)
 
 	local offset = depth * DEPTH_INDENT
 
-	local dataStats = entry.dataStats
-
 	local name = props.name
-	local value = props.value or dataStats.dataSet:back().data
+	local value = props.value
+	if dataStats then
+		value = dataStats.dataSet:back().data
+	end
 
 	return Roact.createElement("Frame", {
 		Size = size,
@@ -70,7 +71,7 @@ return function(props)
 			}),
 		}),
 
-		value = Roact.createElement(CellLabel, {
+		value = value and Roact.createElement(CellLabel, {
 			text = formatValueStr(value),
 			size = UDim2.new(VALUE_CELL_WIDTH, -VALUE_PADDING, 0, ENTRY_HEIGHT),
 			pos = UDim2.new(1 - VALUE_CELL_WIDTH, VALUE_PADDING, 0, 0),

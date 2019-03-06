@@ -1,5 +1,5 @@
 local paths = require(script.Parent.Parent.Paths)
-paths.requireAll(script.Parent.Parent.Parent.Parent)
+paths.requireAll(script.Parent.Parent.Parent.Parent, script.Parent.Parent.Parent.Parent)
 
 local fastFlags = require(script.Parent.Parent.FastFlags)
 
@@ -9,7 +9,7 @@ local sendUpdates = nil
 
 function RootPanelExternal:render()
 	local templates = {templates={paths.StateModelTemplate.fromUniverseData(self.props)}}
-	local themeInfo = fastFlags.isThemesFlagOn() and self.props.ThemeData or nil
+	local themeInfo = self.props.ThemeData
 
 	return paths.Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),

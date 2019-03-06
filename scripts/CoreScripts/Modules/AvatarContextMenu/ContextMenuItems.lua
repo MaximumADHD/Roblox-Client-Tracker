@@ -31,7 +31,15 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
-local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+
+local BlockingUtility
+if FFlagUseRoactPlayerList then
+	BlockingUtility = require(CoreGuiModules.BlockingUtility)
+else
+	local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
+end
 
 -- VARIABLES
 
@@ -55,8 +63,6 @@ local EnabledContextMenuItems = {
 }
 local CustomContextMenuItems = {}
 local CustomItemAddedOrder = 0
-
-local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 
 local ContextMenuItems = {}
 ContextMenuItems.__index = ContextMenuItems

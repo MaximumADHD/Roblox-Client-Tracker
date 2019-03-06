@@ -51,7 +51,12 @@ local function calculateEarliestPoseTime(Paths, copyPoseList, timeKey)
 	return min
 end
 
-local function pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
+local function wasEntireKeyframeAtTimeCut(Paths, time)
+	local keyframe = Paths.DataModelClip:getKeyframe(time)
+	return keyframe == nil or (keyframe ~= nil and not Paths.HelperFunctionsTable:isNilOrEmpty(keyframe.Poses))
+end
+
+local function pasteInternal(Paths, atTime, scaleFactor, earliestPoseTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
 	registerUndo = registerUndo == nil and true or registerUndo
 	if registerUndo then
 		Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionPaste:new(Paths))
@@ -68,13 +73,24 @@ local function pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copy
 		end
 		for _, poseCopyVars in ipairs(partPoseList) do
 			local time = poseCopyVars[copyVariables.Time]
-
-			local deltaTime = earliestPoseTime - time
-			local newTime = atTime - deltaTime
+			local newTime = nil
+			if FastFlags:isFixRenameKeyOptionOn() and scaleFactor then
+				local delta = time > atTime and time - atTime or atTime - time
+				local sign = time > atTime and 1 or -1
+				newTime = Paths.DataModelSession:formatTimeValue(atTime + (sign * delta * scaleFactor))
+			else
+				local deltaTime = earliestPoseTime - time
+				newTime = atTime - deltaTime
+			end
 			newTime = Paths.DataModelSession:formatTimeValue(newTime)
 
 			if keyframes[newTime] == nil then
 				keyframes[newTime] = Paths.DataModelKeyframes:getOrCreateKeyframe(newTime, false)
+				if FastFlags:isFixRenameKeyOptionOn() then
+					if wasEntireKeyframeAtTimeCut(Paths, time) and Paths.HelperFunctionsTable:isNilOrEmpty(keyframes[newTime].Poses) then
+						keyframes[newTime].Name = poseCopyVars.KeyframeName
+					end
+				end
 			end
 			local keyframe = keyframes[newTime]
 
@@ -92,9 +108,17 @@ local function pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copy
 					end
 				end
 			end
+
+			if FastFlags:isOptimizationsEnabledOn() then
+				Paths.DataModelKeyframes:buildKeyframeListDiff(newTime, keyframe)
+			end
 		end
 	end
-	Paths.DataModelKeyframes.ChangedEvent:fire(Paths.DataModelKeyframes.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		Paths.DataModelKeyframes:fireChangedEvent()
+	else
+		Paths.DataModelKeyframes.ChangedEvent:fire(Paths.DataModelKeyframes.keyframeList)
+	end
 	if showWarning then
 		if FastFlags:isIKModeFlagOn() then
 			Paths.GUIScriptPoseOverwriteWarning:show("The keys you're moving have replaced the ones on the original position")
@@ -110,7 +134,7 @@ local function pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copy
 	end
 end
 
-function Paste:execute(Paths, atTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
+function Paste:execute(Paths, atTime, scaleFactor, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
 	if Paths.GUIScriptPromptOKCancel:isActive() then
 		return
 	end
@@ -120,10 +144,10 @@ function Paste:execute(Paths, atTime, copyPoseList, copyVariables, copiedInIKMod
 	local minimumRequiredLength = latestPoseTime - earliestPoseTime + atTime
 	if numPosesOutOfBounds > 0 then
 		promptPasteOutOfBoundsWarning(Paths, minimumRequiredLength, numPosesOutOfBounds, function()
-			pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
+			pasteInternal(Paths, atTime, scaleFactor, earliestPoseTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
 		end)
 	else
-		pasteInternal(Paths, atTime, earliestPoseTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
+		pasteInternal(Paths, atTime, scaleFactor, earliestPoseTime, copyPoseList, copyVariables, copiedInIKMode, registerUndo)
 	end
 end
 
@@ -133,13 +157,6 @@ local function getEarliestEventTime(copyEventsList)
 		min = math.min(time, min)
 	end
 	return min
-	--[[local times = {}
-	for time in pairs(copyEventsList) do 
-		table.insert(times, time) 
-	end
-	table.sort(times)
-	local index, earliestTime = next(times)
-	return earliestTime]]
 end
 
 function Paste:executePasteEvents(Paths, atTime, copyEventsList, registerUndo)
@@ -155,9 +172,16 @@ function Paste:executePasteEvents(Paths, atTime, copyEventsList, registerUndo)
 		newTime = Paths.DataModelSession:formatTimeValue(newTime)
 		local keyframe = Paths.DataModelKeyframes:getOrCreateKeyframe(newTime, false)
 		keyframe.Markers = markers
+		if FastFlags:isOptimizationsEnabledOn() then
+			Paths.DataModelKeyframes:buildKeyframeListDiff(newTime, keyframe)
+		end
 	end
 
-	Paths.DataModelKeyframes.ChangedEvent:fire(Paths.DataModelKeyframes.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		Paths.DataModelKeyframes:fireChangedEvent()
+	else
+		Paths.DataModelKeyframes.ChangedEvent:fire(Paths.DataModelKeyframes.keyframeList)
+	end
 end
 
 function Paste:new(Paths)

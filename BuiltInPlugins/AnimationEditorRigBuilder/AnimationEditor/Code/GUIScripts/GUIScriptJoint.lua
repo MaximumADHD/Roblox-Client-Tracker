@@ -38,16 +38,39 @@ function Joint:childrenOrdered()
     end
 end
 
-function Joint:clearKeyframes() 
-	local numKeyframes = #self.Keyframes
-	for key = 1, numKeyframes do
-		self.Keyframes[key]:terminate()
+function Joint:clearKeyframes()
+	if FastFlags:isOptimizationsEnabledOn() then
+		for _, key in pairs(self.Keyframes) do
+			key:terminate()
+		end
+	else
+		local numKeyframes = #self.Keyframes
+		for key = 1, numKeyframes do
+			self.Keyframes[key]:terminate()
+		end
 	end
 	self.Keyframes = {}
 end
 
+function Joint:removeKeyframe(time)
+	if self.Keyframes[time] then
+		self.Keyframes[time]:terminate()
+		self.Keyframes[time] = nil
+	end
+end
+
 function Joint:addKeyframe(time, pose)
-	self.Keyframes[#self.Keyframes + 1] = self.Paths.GUIScriptKeyframe:new(self.Paths, self.jointWidget.InfoAndTrack.Track.DisplayArea.KeyframesDisplayArea, time, self.DataItem, pose)
+	if FastFlags:isOptimizationsEnabledOn() then
+		if self.Keyframes[time] then
+			self.Keyframes[time].Time = time
+			self.Keyframes[time].DataItem = self.DataItem
+			self.Keyframes[time].Pose = pose
+		else
+			self.Keyframes[time] = self.Paths.GUIScriptKeyframe:new(self.Paths, self.jointWidget.InfoAndTrack.Track.DisplayArea.KeyframesDisplayArea, time, self.DataItem, pose)
+		end
+	else
+		self.Keyframes[#self.Keyframes + 1] = self.Paths.GUIScriptKeyframe:new(self.Paths, self.jointWidget.InfoAndTrack.Track.DisplayArea.KeyframesDisplayArea, time, self.DataItem, pose)
+	end
 end
 
 local function connectClicks(self)
@@ -112,19 +135,22 @@ end
 
 local function initNameColor(self)
 	setNameColor(self)
-	self.Connections:add(self.Paths.DataModelSession.SelectedChangeEvent:connect(function() setNameColor(self); openHierarchy(self) end))	
+	self.Connections:add(self.Paths.DataModelSession.SelectedChangeEvent:connect(function() setNameColor(self); openHierarchy(self) end))
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.Connections:add(self.Paths.DataModelSession.DataItemSelectedEvent:connect(function() setNameColor(self); openHierarchy(self) end))
+	end
 end
 
 local function setColors(self)	
 	local getBasicColor = function()
 		return self.ShadeJoint and self.Paths.UtilityScriptTheme:GetShadeColor() or self.Paths.UtilityScriptTheme:GetBackgroundColor()
 	end
-					
+
 	if self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
 		if self.Paths.DataModelSession:isCurrentlySelectedDataItem(self.DataItem) then
 			self.jointWidget.InfoAndTrack.JointInfo.BackgroundColor3 = self.Paths.UtilityScriptTheme:GetJointSelectedColor()
 		else
-			self.jointWidget.InfoAndTrack.JointInfo.BackgroundColor3 = getBasicColor()					
+			self.jointWidget.InfoAndTrack.JointInfo.BackgroundColor3 = getBasicColor()
 		end
 		self.jointWidget.InfoAndTrack.Track.BackgroundColor3 = getBasicColor()
 	else
@@ -141,6 +167,14 @@ local function initColors(self)
 			self:colorConnectionLines()
 		end
 	end))
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.Connections:add(self.Paths.DataModelSession.DataItemSelectedEvent:connect(function()
+			setColors(self)
+			if FastFlags:isIKModeFlagOn() then
+				self:colorConnectionLines()
+			end
+		end))
+	end
 end
 
 local function doesJointHaveChildren(self)
@@ -333,6 +367,9 @@ function Joint:createSwizzles()
 	end
 	displaySwizzles(self)
 	self.Connections:add(self.Paths.DataModelSession.SelectedChangeEvent:connect(function()	displaySwizzles(self) end))
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.Connections:add(self.Paths.DataModelSession.DataItemSelectedEvent:connect(function()	displaySwizzles(self) end))
+	end
 end
 
 function Joint:new(Paths, jointWidget, dataItem)

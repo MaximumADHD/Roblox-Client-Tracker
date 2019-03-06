@@ -6,6 +6,7 @@ MoveItems.AnchorItem = nil
 MoveItems.MinTimeItem = nil
 MoveItems.MaxTimeItem = nil
 MoveItems.TargetTime = nil
+MoveItems.StartTime = nil
 MoveItems.GUIItemList = {}
 
 function MoveItems:getGUIKeyframesFromSelectedKeyframes(Paths)
@@ -14,7 +15,7 @@ function MoveItems:getGUIKeyframesFromSelectedKeyframes(Paths)
 	for time, dataItems in pairs(keyframes) do
 		for _, dataItem in pairs(dataItems) do
 			local jointScript = Paths.GUIScriptJointTimeline.JointScripts[dataItem.Item]
-			for _, key in ipairs(jointScript.Keyframes) do
+			for _, key in pairs(jointScript.Keyframes) do
 				if time == key.Time then
 					table.insert(GUIKeyframes, key)
 				end
@@ -28,7 +29,7 @@ function MoveItems:getGUIEventKeysFromSelectedEvents(Paths)
 	local GUIEvents = {}
 	local events = Paths.DataModelAnimationEvents:getSelectedEvents()
 	for time in pairs(events) do
-		for _, item in ipairs(Paths.GUIScriptAnimationEventBar.KeyframeMarkers) do
+		for _, item in pairs(Paths.GUIScriptAnimationEventBar.KeyframeMarkers) do
 			if item.Time == time then
 				table.insert(GUIEvents, item)
 			end
@@ -91,6 +92,9 @@ function MoveItems:BeginMove(Paths, anchor, itemList, moveFunc)
 	self.AnchorItem = anchor
 	self.GUIItemList = itemList
 	self.MinTimeItem, self.MaxTimeItem = self:getMinAndMaxTimeItems(Paths, self.GUIItemList)
+	if FastFlags:isFixRenameKeyOptionOn() then
+		self.StartTime = Paths.UtilityScriptDisplayArea:getFormattedMouseTime(true)
+	end
 end
 
 function MoveItems:Move(Paths)
@@ -112,7 +116,11 @@ function MoveItems:Move(Paths)
 			newTime = Paths.DataModelSession:formatTimeValue(newTime)
 			self:updatePositionOnTimeline(Paths, item, newTime)
 		end
-		self.OnMovedEvent:fire()
+		if FastFlags:isOptimizationsEnabledOn() then
+			self.OnMovedEvent:fire(self.TargetTime, anchorTime)
+		else
+			self.OnMovedEvent:fire()
+		end
 		if self.MoveFunc then
 			self.MoveFunc(self.TargetTime, anchorTime)
 		end
@@ -124,12 +132,15 @@ function MoveItems:EndMove(Paths)
 		local anchorTime = self.AnchorItem.Time
 		local minTime = self.MinTimeItem.Time
 		local pasteTime = Paths.DataModelSession:formatTimeValue(self.TargetTime - (anchorTime - minTime))
-		Paths.ActionMove:execute(Paths, pasteTime)
+		if not FastFlags:isFixRenameKeyOptionOn() or pasteTime ~= self.StartTime then
+			Paths.ActionMove:execute(Paths, pasteTime)
+		end
 	end
 	self.AnchorItem = nil
 	self.MinTimeItem = nil
 	self.MaxTimeItem = nil
 	self.TargetTime = nil
+	self.StartTime = nil
 	self.GUIItemList = {}
 end
 

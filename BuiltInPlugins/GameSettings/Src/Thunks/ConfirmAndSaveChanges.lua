@@ -7,6 +7,8 @@
 	If no warnings are necessary, this thunk dispatches SaveChanges immediately.
 ]]
 
+local FFlagStudioLuaGameSettingsSaveErrorsPopUp = settings():GetFFlag("StudioLuaGameSettingsSaveErrorsPopUp")
+
 local Plugin = script.Parent.Parent.Parent
 local SaveChanges = require(Plugin.Src.Thunks.SaveChanges)
 
@@ -14,6 +16,11 @@ local getSettingsImpl = require(Plugin.Src.Consumers.getSettingsImpl)
 local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
+
+local SimpleDialog = nil
+if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
+	SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
+end
 
 local Promise = require(Plugin.Promise)
 
@@ -38,6 +45,16 @@ return function(provider)
 			}
 		}
 
+		local errorDialogProps = nil
+		if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
+			errorDialogProps = {
+				Size = Vector2.new(343, 145),
+				Title = localized.ErrorsOnSaveDialog.Header,
+				Header = localized.ErrorsOnSaveDialog.Body,
+				Buttons = localized.ErrorsOnSaveDialog.Buttons,
+			}
+		end
+
 		return Promise.new(function(resolve, reject)
 			spawn(function()
 				for _, warning in pairs(state.Settings.Warnings) do
@@ -49,7 +66,16 @@ return function(provider)
 			end)
 		end)
 		:andThen(function()
-			return store:dispatch(SaveChanges(settingsImpl))
+			if FFlagStudioLuaGameSettingsSaveErrorsPopUp then
+				return store:dispatch(SaveChanges(settingsImpl))
+				:catch(function(errors)
+					showDialog(provider, SimpleDialog, errorDialogProps):catch(function()
+						--do nothing
+					end)
+				end)
+			else
+				return store:dispatch(SaveChanges(settingsImpl))
+			end
 		end)
 	end
 end

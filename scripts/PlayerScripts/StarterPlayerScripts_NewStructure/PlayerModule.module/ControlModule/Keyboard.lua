@@ -1,7 +1,7 @@
 --[[
 	Keyboard Character Control - This module handles controlling your avatar from a keyboard
-	
-	2018 PlayerScripts Update - AllYourBlox		
+
+	2018 PlayerScripts Update - AllYourBlox
 --]]
 
 --[[ Roblox Services ]]--
@@ -23,17 +23,20 @@ local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPri
 
 function Keyboard.new(CONTROL_ACTION_PRIORITY)
 	local self = setmetatable(BaseCharacterController.new(), Keyboard)
-	
+
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
-	
+
 	self.textFocusReleasedConn = nil
 	self.textFocusGainedConn = nil
 	self.windowFocusReleasedConn = nil
-	
+
 	self.forwardValue  = 0
 	self.backwardValue = 0
 	self.leftValue = 0
 	self.rightValue = 0
+
+	self.jumpEnabled = true
+
 	return self
 end
 
@@ -41,21 +44,21 @@ function Keyboard:Enable(enable)
 	if not UserInputService.KeyboardEnabled then
 		return false
 	end
-	
+
 	if enable == self.enabled then
 		-- Module is already in the state being requested. True is returned here since the module will be in the state
 		-- expected by the code that follows the Enable() call. This makes more sense than returning false to indicate
 		-- no action was necessary. False indicates failure to be in requested/expected state.
 		return true
 	end
-	
+
 	self.forwardValue  = 0
 	self.backwardValue = 0
 	self.leftValue = 0
 	self.rightValue = 0
 	self.moveVector = ZERO_VECTOR3
 	self.isJumping = false
-	
+
 	if enable then
 		self:BindContextActions()
 		self:ConnectFocusEventListeners()
@@ -63,7 +66,7 @@ function Keyboard:Enable(enable)
 		self:UnbindContextActions()
 		self:DisconnectFocusEventListeners()
 	end
-	
+
 	self.enabled = enable
 	return true
 end
@@ -77,50 +80,50 @@ function Keyboard:UpdateMovement(inputState)
 end
 
 function Keyboard:BindContextActions()
-	
+
 	-- Note: In the previous version of this code, the movement values were not zeroed-out on UserInputState. Cancel, now they are,
 	-- which fixes them from getting stuck on.
-	-- We return ContextActionResult.Pass here for legacy reasons. 
+	-- We return ContextActionResult.Pass here for legacy reasons.
 	-- Many games rely on gameProcessedEvent being false on UserInputService.InputBegan for these control actions.
-	local handleMoveForward = function(actionName, inputState, inputObject)			
+	local handleMoveForward = function(actionName, inputState, inputObject)
 		self.forwardValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
 		self:UpdateMovement(inputState)
 		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Pass
 		end
 	end
-	
-	local handleMoveBackward = function(actionName, inputState, inputObject)	
+
+	local handleMoveBackward = function(actionName, inputState, inputObject)
 		self.backwardValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
 		self:UpdateMovement(inputState)
 		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Pass
 		end
 	end
-	
-	local handleMoveLeft = function(actionName, inputState, inputObject)	
+
+	local handleMoveLeft = function(actionName, inputState, inputObject)
 		self.leftValue = (inputState == Enum.UserInputState.Begin) and -1 or 0
 		self:UpdateMovement(inputState)
 		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Pass
 		end
 	end
-	
-	local handleMoveRight = function(actionName, inputState, inputObject)	
+
+	local handleMoveRight = function(actionName, inputState, inputObject)
 		self.rightValue = (inputState == Enum.UserInputState.Begin) and 1 or 0
 		self:UpdateMovement(inputState)
 		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Pass
 		end
 	end
-	
+
 	local handleJumpAction = function(actionName, inputState, inputObject)
-		self.isJumping = (inputState == Enum.UserInputState.Begin)
+		self.isJumping = self.jumpEnabled and (inputState == Enum.UserInputState.Begin)
 		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Pass
 		end
 	end
-	
+
 	-- TODO: Revert to KeyCode bindings so that in the future the abstraction layer from actual keys to
 	-- movement direction is done in Lua
 	if FFlagPlayerScriptsBindAtPriority2 then
@@ -134,7 +137,7 @@ function Keyboard:BindContextActions()
 			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterRight)
 		ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
 			self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterJump)
-	else 
+	else
 		ContextActionService:BindAction("moveForwardAction", handleMoveForward, false, Enum.PlayerActions.CharacterForward)
 		ContextActionService:BindAction("moveBackwardAction", handleMoveBackward, false, Enum.PlayerActions.CharacterBackward)
 		ContextActionService:BindAction("moveLeftAction", handleMoveLeft, false, Enum.PlayerActions.CharacterLeft)
@@ -160,11 +163,11 @@ function Keyboard:ConnectFocusEventListeners()
 		self.rightValue = 0
 		self.isJumping = false
 	end
-	
+
 	local function onTextFocusGained(textboxFocused)
 		self.isJumping = false
 	end
-	
+
 	self.textFocusReleasedConn = UserInputService.TextBoxFocusReleased:Connect(onFocusReleased)
 	self.textFocusGainedConn = UserInputService.TextBoxFocused:Connect(onTextFocusGained)
 	self.windowFocusReleasedConn = UserInputService.WindowFocused:Connect(onFocusReleased)

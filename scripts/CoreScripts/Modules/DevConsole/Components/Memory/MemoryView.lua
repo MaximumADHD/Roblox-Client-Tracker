@@ -138,44 +138,44 @@ function MemoryView:willUnmount()
 	self.treeViewItemConnector:Disconnect()
 end
 
-function MemoryView:appendAdditionTabInformation(elements, entry, depth, windowing)
+function MemoryView:appendAdditionTabInformation(elements, infoTable, parentName, depth, windowing)
 	local canvasPos = self.scrollingRef.current.CanvasPosition
 	local absScrollSize = self.scrollingRef.current.AbsoluteSize
 
 	-- this function, where applicable is in clientMemoryData
-	if entry.dataStats.additionalInfoFunc then
-		local infoTable = entry.dataStats.additionalInfoFunc()
-		for _,additionalEntry in ipairs(infoTable) do
-			local name = additionalEntry.name
-			local value = additionalEntry.value
-			windowing.layoutOrder = windowing.layoutOrder + 1
+	for _,additionalEntry in ipairs(infoTable) do
+		local name = additionalEntry.name
+		local value = additionalEntry.value
+		local new_key = parentName .. name
+		windowing.layoutOrder = windowing.layoutOrder + 1
 
-			if windowing.scrollingFrameHeight + ENTRY_HEIGHT >= canvasPos.Y then
-				if windowing.usedFrameSpace < absScrollSize.Y then
-					local new_key = entry.name .. name
+		if windowing.scrollingFrameHeight + ENTRY_HEIGHT >= canvasPos.Y then
+			if windowing.usedFrameSpace < absScrollSize.Y then
+				local new_key = parentName .. name
+				if elements[new_key] then print(new_key)  end
 
-					elements[new_key] = Roact.createElement(MemoryViewEntry, {
-						size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
-						depth = depth,
-						entry = entry,
-						name = name,
+				elements[new_key] = Roact.createElement(MemoryViewEntry, {
+					size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
+					depth = depth,
+					name = name,
 
-						showGraph = false,
-						value = value,
+					showGraph = false,
+					value = value,
 
-						formatValueStr = formatValueStr,
-						layoutOrder = windowing.layoutOrder,
-					})
+					formatValueStr = formatValueStr,
+					layoutOrder = windowing.layoutOrder,
+				})
+				if windowing.paddingHeight < 0 then
+					windowing.paddingHeight = windowing.scrollingFrameHeight
+				else
+					windowing.usedFrameSpace = windowing.usedFrameSpace + ENTRY_HEIGHT
 				end
 			end
+		end
+		windowing.scrollingFrameHeight = windowing.scrollingFrameHeight + ENTRY_HEIGHT
 
-
-			if windowing.paddingHeight < 0 then
-				windowing.paddingHeight = windowing.scrollingFrameHeight
-			else
-				windowing.usedFrameSpace = windowing.usedFrameSpace + ENTRY_HEIGHT
-			end
-			windowing.scrollingFrameHeight = windowing.scrollingFrameHeight + ENTRY_HEIGHT
+		if additionalEntry.moreInfo and type(additionalEntry.moreInfo) == "table" then
+			self:appendAdditionTabInformation(elements, additionalEntry.moreInfo, new_key, depth + 1, windowing)
 		end
 	end
 end
@@ -203,9 +203,9 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 				elements[name] = Roact.createElement(MemoryViewEntry, {
 					size = UDim2.new(1, 0, 0, frameHeight),
 					depth = depth,
-					entry = entry,
 					name = entry.name,
 					showGraph = showGraph,
+					dataStats = entry.dataStats,
 
 					onButtonPress = self.getOnButtonPress(name, windowing.layoutOrder),
 					formatValueStr = formatValueStr,
@@ -214,19 +214,22 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 
 					layoutOrder = windowing.layoutOrder,
 				})
-			end
-
-			if windowing.paddingHeight < 0 then
-				windowing.paddingHeight = windowing.scrollingFrameHeight
-			else
-				windowing.usedFrameSpace = windowing.usedFrameSpace + frameHeight
+				if windowing.paddingHeight < 0 then
+					windowing.paddingHeight = windowing.scrollingFrameHeight
+				else
+					windowing.usedFrameSpace = windowing.usedFrameSpace + frameHeight
+				end
 			end
 		end
 		windowing.scrollingFrameHeight = windowing.scrollingFrameHeight + frameHeight
 
 		-- callback is set in ClientMemoryData
 		if showGraph then
-			self:appendAdditionTabInformation(elements, entry, depth + 1, windowing)
+			-- this function, where applicable is in clientMemoryData
+			if entry.dataStats.additionalInfoFunc then
+				local infoTable = entry.dataStats.additionalInfoFunc()
+				self:appendAdditionTabInformation(elements, infoTable, entry.name, depth + 1, windowing)
+			end
 		end
 	end
 

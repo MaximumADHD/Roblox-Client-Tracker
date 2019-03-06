@@ -35,10 +35,10 @@ local SetDevConsoleVisibility = require(Actions.SetDevConsoleVisibility)
 local SetTabList = require(Actions.SetTabList)
 
 local MiddleWare = DevConsole.MiddleWare
-local ReportTabChanges = require(MiddleWare.ReportTabChanges)
+local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
-local FFlagDevConsoleTabMetrics = settings():GetFFlag("DevConsoleTabMetrics")
+
 local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup2")
 local FFlagDevConsoleOnTopOfCoreBlur = settings():GetFFlag("DevConsoleOnTopOfCoreBlur")
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
@@ -81,6 +81,7 @@ local DEV_TAB_LIST = {
 	},
 
 }
+
 if DFFlagEnableRemoteProfilingForDevConsole then
 	DEV_TAB_LIST["MicroProfiler"] = {
 		tab = MicroProfiler,
@@ -188,13 +189,9 @@ function DevConsoleMaster:SetupDevConsole()
 	end
 
 	-- create store
-	if FFlagDevConsoleTabMetrics then
-		self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, {
-			ReportTabChanges
-		})
-	else
-		self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore)
-	end
+	self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, {
+		DevConsoleAnalytics
+	})
 
 	if not FFlagDevConsoleNoWaitSetup then
 		self.init = false

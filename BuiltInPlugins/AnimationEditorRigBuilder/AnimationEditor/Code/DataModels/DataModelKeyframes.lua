@@ -5,6 +5,9 @@ local FastFlags = require(script.Parent.Parent.FastFlags)
 local Keyframes = {}
 
 Keyframes.keyframeList = {}
+if FastFlags:isOptimizationsEnabledOn() then
+	Keyframes.keyframeChanges = {}
+end
 Keyframes.ChangedEvent = nil
 Keyframes.PoseTransformChangedEvent = nil
 
@@ -39,7 +42,23 @@ end
 function deletePose(self, keyframe, part)
 	if self:canDeletePose(keyframe, part) then
 		keyframe.Poses[part] = nil
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:buildKeyframeListDiff(keyframe.Time, keyframe)
+		end
 	end
+end
+
+function Keyframes:buildKeyframeListDiff(originalTime, newKeyframe)
+	if newKeyframe then
+		self.keyframeChanges[originalTime] = newKeyframe
+	else
+		self.keyframeChanges[originalTime] = {}
+	end
+end
+
+function Keyframes:fireChangedEvent()
+	self.ChangedEvent:fire(self.keyframeChanges)
+	self.keyframeChanges = {}
 end
 
 function Keyframes:deleteSelectedPosesAndEmptyKeyframes(registerUndo)
@@ -59,7 +78,11 @@ function Keyframes:deleteSelectedPosesAndEmptyKeyframes(registerUndo)
 		end
 	end
 	self.Paths.DataModelSession:selectNone()
-	self.ChangedEvent:fire(self.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		self:fireChangedEvent()
+	else
+		self.ChangedEvent:fire(self.keyframeList)
+	end
 end
 
 function Keyframes:deletePoseAndEmptyKeyframe(part, time, doHandleUndoRedo, fireChangeEvent)
@@ -99,10 +122,19 @@ function Keyframes:deletePoseAndEmptyKeyframe(part, time, doHandleUndoRedo, fire
 		
 		if doDeleteKey then
 			self.keyframeList[time] = nil
+			if FastFlags:isOptimizationsEnabledOn() then
+				self:buildKeyframeListDiff(time)
+			end
 		end
 	
 		if doDeleteKey or doDeletePose then
-			if fireChangeEvent then self.ChangedEvent:fire(self.keyframeList) end
+			if fireChangeEvent then 
+				if FastFlags:isOptimizationsEnabledOn() then
+					self:fireChangedEvent()
+				else
+					self.ChangedEvent:fire(self.keyframeList)
+				end
+			end
 		end
 	end
 end
@@ -118,6 +150,9 @@ local function deleteKeyframe(self, time, undoRegister)
 			deletePose(self, keyframe, pose.Item.Item)
 		end
 		self.keyframeList[time] = nil
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:buildKeyframeListDiff(time)
+		end
 		return true
 	else
 		return false
@@ -127,11 +162,15 @@ end
 function Keyframes:deleteKeyframeAndPoses(time, undoRegister)
 	local success = deleteKeyframe(self, time, undoRegister)
 	if success then
-		self.ChangedEvent:fire(self.keyframeList)
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:fireChangedEvent()
+		else
+			self.ChangedEvent:fire(self.keyframeList)
+		end
 	end
 end
 
-if FastFlags:isScaleKeysOn() then
+if FastFlags:isScaleKeysOn() and not FastFlags:isFixRenameKeyOptionOn() then
 	function Keyframes:getOrCreateKeyframesAtTimes(keyframes, cframes)
 		for time, dataItems in pairs(keyframes) do
 			self:getOrCreateKeyframes(dataItems, time, false, false)
@@ -159,7 +198,13 @@ function Keyframes:getOrCreateKeyframes(dataItems, time, fireChangeEvent, regist
 			self:getOrCreateKeyframeData(self.Paths.DataModelRig:getPart(dataItem.Name), time, false)
 		end
 	end
-	if not FastFlags:isScaleKeysOn() or fireChangeEvent then self.ChangedEvent:fire(self.keyframeList) end
+	if not FastFlags:isScaleKeysOn() or fireChangeEvent then 
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:fireChangedEvent()
+		else
+			self.ChangedEvent:fire(self.keyframeList)
+		end
+	end
 end
 
 function Keyframes:getOrCreateKeyframeData(part, time, fireChangeEvent, registerUndo)
@@ -182,6 +227,9 @@ function Keyframes:getOrCreateKeyframeData(part, time, fireChangeEvent, register
 				if not FastFlags:isScaleKeysOn() or registerUndo then self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.createKeyframe) end
 			end
 			self.Paths.UtilityScriptPose:initializePose(self.Paths, keyframe, part)
+			if FastFlags:isOptimizationsEnabledOn() then
+				self:buildKeyframeListDiff(time, keyframe)
+			end
 			if FastFlags:isAutoAddBeginningKeyframeOn() and time ~= 0 then
 				self:addStartingKeyframe(part)
 			end
@@ -191,7 +239,13 @@ function Keyframes:getOrCreateKeyframeData(part, time, fireChangeEvent, register
 	end
 
 	if isChangeEventRequiredToFire then
-		if fireChangeEvent then self.ChangedEvent:fire(self.keyframeList) end
+		if fireChangeEvent then 
+			if FastFlags:isOptimizationsEnabledOn() then
+				self:fireChangedEvent()
+			else
+				self.ChangedEvent:fire(self.keyframeList)
+			end
+		end
 	end
 	return poseForPart
 end
@@ -210,8 +264,13 @@ function Keyframes:resetKeyframes(doFire)
 	end
 
 	self.keyframeList = {}
+
 	if not FastFlags:isCheckForSavedChangesOn() or doFire then
-		self.ChangedEvent:fire(self.keyframeList)
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:fireChangedEvent()
+		else
+			self.ChangedEvent:fire(self.keyframeList)
+		end
 	end
 end
 
@@ -253,6 +312,9 @@ function Keyframes:insertTime(at, addedTime)
 			for _, pose in pairs(keyframe.Poses) do
 				pose.Time = keyframe.Time
 			end
+			if FastFlags:isOptimizationsEnabledOn() then
+				self:buildKeyframeListDiff(timePosition, keyframe)
+			end
 		end
 	end
 	
@@ -260,7 +322,11 @@ function Keyframes:insertTime(at, addedTime)
 	for ignore, keyframe in pairs(keyframeListCache) do
 		self.keyframeList[keyframe.Time] = keyframe
 	end
-	self.ChangedEvent:fire(self.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		self:fireChangedEvent()
+	else
+		self.ChangedEvent:fire(self.keyframeList)
+	end
 end
 
 function Keyframes:eraseTime(at, removeTime)
@@ -280,6 +346,9 @@ function Keyframes:eraseTime(at, removeTime)
 	for timePosition, keyframe in pairs(keyframeListCache) do
 		if keyframe.Time > at then
 			keyframe.Time = self.Paths.DataModelSession:formatTimeValue(keyframe.Time - removeTime)
+			if FastFlags:isOptimizationsEnabledOn() then
+				self:buildKeyframeListDiff(timePosition, keyframe)
+			end
 		end
 	end
 	
@@ -287,7 +356,11 @@ function Keyframes:eraseTime(at, removeTime)
 	for ignore, keyframe in pairs(keyframeListCache) do
 		self.keyframeList[keyframe.Time] = keyframe
 	end
-	self.ChangedEvent:fire(self.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		self:fireChangedEvent()
+	else
+		self.ChangedEvent:fire(self.keyframeList)
+	end
 end 
 
 function Keyframes:getOrCreateKeyframe(time, registerUndo)
@@ -344,7 +417,11 @@ function Keyframes:resetKeyframeToDefaultPose(time)
 				reinitializePose(self, keyframe, part, item)
 			end
 		end
-		self.ChangedEvent:fire(self.keyframeList)
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:fireChangedEvent()
+		else
+			self.ChangedEvent:fire(self.keyframeList)
+		end
 	end
 end
 
@@ -355,7 +432,11 @@ function Keyframes:resetPartsToDefaultPose(dataItems, time)
 		for _, dataItem in pairs(dataItems) do
 			reinitializePose(self, keyframe, dataItem.Item, dataItem)
 		end
-		self.ChangedEvent:fire(self.keyframeList)
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:fireChangedEvent()
+		else
+			self.ChangedEvent:fire(self.keyframeList)
+		end
 	else
 		for _, dataItem in ipairs(dataItems) do
 			self:resetPartToDefaultPose(dataItem.Item, time)
@@ -367,7 +448,11 @@ function Keyframes:resetPartToDefaultPose(part, time)
 	self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.resetKeyframe)
 	local keyframe = self:getOrCreateKeyframe(time, false)				
 	reinitializePose(self, keyframe, part, self.Paths.DataModelRig.partList[part])
-	self.ChangedEvent:fire(self.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		self:fireChangedEvent()
+	else
+		self.ChangedEvent:fire(self.keyframeList)
+	end
 end
 
 function Keyframes:canDeletePose(keyframe, part)
@@ -390,9 +475,16 @@ function Keyframes:createKeyframe(time, undoRegister)
 		end
 
 		self.keyframeList[time] = newKeyframe
-		
+		if FastFlags:isOptimizationsEnabledOn() then
+			self:buildKeyframeListDiff(time, newKeyframe)
+		end
+
 		if undoRegister then
-			self.ChangedEvent:fire(self.keyframeList)
+			if FastFlags:isOptimizationsEnabledOn() then
+				self:fireChangedEvent()
+			else
+				self.ChangedEvent:fire(self.keyframeList)
+			end
 		end
 	end
 	return newKeyframe
@@ -527,7 +619,12 @@ function Keyframes:loadKeyframeSequence(kfs)
 		self.Paths.DataModelSession.ScrubberTime = 0
 	end
 	
-	self.ChangedEvent:fire(self.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.keyframeChanges = self.keyframeList
+		self:fireChangedEvent()
+	else
+		self.ChangedEvent:fire(self.keyframeList)
+	end
 end
 
 return Keyframes

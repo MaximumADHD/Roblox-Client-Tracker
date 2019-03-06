@@ -136,6 +136,24 @@ local function initKeyframes(self, keyframes)
 	end
 end
 
+local function updateKeyframes(self, keyframes)
+	for time, key in pairs(keyframes) do
+		if not self.Paths.HelperFunctionsTable:isNilOrEmpty(key) then
+			for part, jointScript in pairs(self.JointScripts) do
+				if key.Poses[part] then
+					jointScript:addKeyframe(time, key.Poses[part])
+				else
+					jointScript:removeKeyframe(time)
+				end
+			end
+		else
+			for part, jointScript in pairs(self.JointScripts) do
+				jointScript:removeKeyframe(time)
+			end
+		end
+	end
+end
+
 function JointsTimeline:init(Paths)
 	self.TargetWidget = Paths.GUIJointsTimeline
 	self.Paths = Paths
@@ -158,7 +176,11 @@ function JointsTimeline:init(Paths)
 	
 	initKeyframes(self, Paths.DataModelKeyframes.keyframeList)
 	self.onKeyframesChange = function(keyframes)		
-		initKeyframes(self, keyframes)
+		if FastFlags:isOptimizationsEnabledOn() then
+			updateKeyframes(self, keyframes)
+		else
+			initKeyframes(self, keyframes)
+		end
 	end
 	Paths.DataModelKeyframes.ChangedEvent:connect(self.onKeyframesChange)
 end

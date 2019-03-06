@@ -16,11 +16,22 @@ while LocalPlayer == nil do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
-local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
-local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
+local BlockingUtility
+if FFlagUseRoactPlayerList then
+	BlockingUtility = require(CoreGuiModules.BlockingUtility)
+	-- fetch and store player block list
+	BlockingUtility:InitBlockListAsync()
+else
+	local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+	-- fetch and store player block list
+	PlayerDropDownModule:InitBlockListAsync()
+	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
+end
 
 local THUMBNAIL_URL = "https://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&format=png&userId="
 local BUST_THUMBNAIL_URL = "https://www.roblox.com/bust-thumbnail/image?width=420&height=420&format=png&userId="
@@ -30,9 +41,6 @@ local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
 
 local REGULAR_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.HeadShot
 local CONSOLE_THUMBNAIL_IMAGE_TYPE = Enum.ThumbnailType.AvatarThumbnail
-
--- fetch and store player block list
-PlayerDropDownModule:InitBlockListAsync()
 
 function createFetchImageFunction(...)
 	local args = {...}
@@ -50,7 +58,7 @@ function DoPromptBlockPlayer(playerToBlock)
 	if BlockingUtility:IsPlayerBlockedByUserId(playerToBlock.UserId) then
 		return
 	end
-	
+
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
 			local successfullyBlocked = BlockingUtility:BlockPlayerAsync(playerToBlock)
@@ -58,7 +66,7 @@ function DoPromptBlockPlayer(playerToBlock)
 				while PromptCreator:IsCurrentlyPrompting() do
 					wait()
 				end
-				
+
 				PromptCreator:CreatePrompt({
 					WindowTitle = "Error Blocking Player",
 					MainText = string.format("An error occurred while blocking %s. Please try again later.", playerToBlock.Name),
@@ -108,7 +116,7 @@ function DoPromptUnblockPlayer(playerToUnblock)
 	if not BlockingUtility:IsPlayerBlockedByUserId(playerToUnblock.UserId) and false then
 		return
 	end
-	
+
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
 			local successfullyUnblocked = BlockingUtility:UnblockPlayerAsync(playerToUnblock)

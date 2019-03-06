@@ -1,3 +1,5 @@
+local FFlagStudioLuaGameSettingsSaveErrorsPopUp = settings():GetFFlag("StudioLuaGameSettingsSaveErrorsPopUp")
+
 local Plugin = script.Parent.Parent.Parent
 
 local FALLBACK_LOCALE = "en-us"
@@ -103,6 +105,7 @@ function Localization:recalculateContent()
 			["Basic Info"] = self:getText("CategoryBasicInfo"),
 			Avatar = self:getText("CategoryAvatar"),
 			Options = self:getText("CategoryOptions"),
+			World = self:getText("CategoryWorld"),
 		},
 
 		Footer = {
@@ -220,6 +223,14 @@ function Localization:recalculateContent()
 				self:getText("ReplyOK"),
 			},
 		},
+
+		ErrorsOnSaveDialog = FFlagStudioLuaGameSettingsSaveErrorsPopUp and {
+			Header = self:getText("ErrorsOnSaveHeader"),
+			Body = self:getText("ErrorsOnSaveBody"),
+			Buttons = {
+				self:getText("ReplyOK"),
+			},
+		} or nil,
 
 		PreviewDialog = {
 			Header = self:getText("PreviewDialogHeader"),

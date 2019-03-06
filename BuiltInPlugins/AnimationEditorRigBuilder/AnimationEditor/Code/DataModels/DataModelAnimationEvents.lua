@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local AnimationEvents = {}
 AnimationEvents.Selected = {Events= {}, TempEvents= {}}
 AnimationEvents.AnimationEventNames = {}
@@ -32,7 +34,9 @@ end
 
 function AnimationEvents:selectAnimationEvent(time)
 	self.Paths.DataModelSession:deselectItemsInStudioHierarchy()
-	self.Paths.DataModelSession:selectNone()
+	if not FastFlags:isOptimizationsEnabledOn() or not self.Paths.HelperFunctionsTable:isNilOrEmpty(self.Paths.DataModelSession:getSelectedKeyframes()) then
+		self.Paths.DataModelSession:selectNone()
+	end
 	if not self:isAnimationEventSelected(time) then
 		self.Selected.Events = {}
 		self.Selected.TempEvents = {}
@@ -59,7 +63,9 @@ end
 
 local function addAnimationEvent(self, tab, time, doFire)
 	self.Paths.DataModelSession:deselectItemsInStudioHierarchy()
-	self.Paths.DataModelSession:selectNone()
+	if not FastFlags:isOptimizationsEnabledOn() or not self.Paths.HelperFunctionsTable:isNilOrEmpty(self.Paths.DataModelSession:getSelectedKeyframes()) then
+		self.Paths.DataModelSession:selectNone()
+	end
 	eventSelectionAction(self, doFire, function()
 		tab[time] = time
 	end)
@@ -115,7 +121,11 @@ function AnimationEvents:deleteSelectedEvents(registerUndo)
 	end
 
 	self.SelectionChangedEvent:fire()
-	self.Paths.DataModelKeyframes.ChangedEvent:fire(self.Paths.DataModelKeyframes.keyframeList)
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.Paths.DataModelKeyframes:fireChangedEvent()
+	else
+		self.Paths.DataModelKeyframes.ChangedEvent:fire(self.Paths.DataModelKeyframes.keyframeList)
+	end
 end
 
 function AnimationEvents:hasMultipleEvents(time)
@@ -166,7 +176,11 @@ local function animationEventAction(self, doFire, registerUndo, actionType, func
 	func()
 
 	if doFire then
-		self.Paths.DataModelKeyframes.ChangedEvent:fire(self.Paths.DataModelKeyframes.keyframeList)
+		if FastFlags:isOptimizationsEnabledOn() then
+			self.Paths.DataModelKeyframes:fireChangedEvent()
+		else
+			self.Paths.DataModelKeyframes.ChangedEvent:fire(self.Paths.DataModelKeyframes.keyframeList)
+		end
 	end
 end
 
@@ -199,6 +213,9 @@ function AnimationEvents:changeEvent(time, previousName, newName, doFire, regist
 				if marker then
 					keyframe.Markers[previousName] = nil
 					keyframe.Markers[newName] = marker
+					if FastFlags:isOptimizationsEnabledOn() then
+						self.Paths.DataModelKeyframes:buildKeyframeListDiff(time, keyframe)
+					end
 					marker:setName(newName)
 					changeEventName(self, previousName, newName)
 				end
@@ -216,7 +233,11 @@ function AnimationEvents:createEvent(time, name, value, doFire, registerUndo)
 		if value ~= nil then
 			marker:setValue(value)
 		end
-		self.Paths.DataModelKeyframes.keyframeList[time].Markers[marker:getName()] = marker
+		local keyframe = self.Paths.DataModelKeyframes.keyframeList[time]
+		keyframe.Markers[marker:getName()] = marker
+		if FastFlags:isOptimizationsEnabledOn() then
+			self.Paths.DataModelKeyframes:buildKeyframeListDiff(time, keyframe)
+		end
 		addEventName(self, marker:getName())
 	end)
 end
@@ -226,14 +247,22 @@ function AnimationEvents:resetEvents(time, doFire, registerUndo)
 		for _, marker in pairs(self.Paths.DataModelKeyframes.keyframeList[time].Markers) do
 			removeEventName(self, name)
 		end
-		self.Paths.DataModelKeyframes.keyframeList[time].Markers = {}
+		local keyframe = self.Paths.DataModelKeyframes.keyframeList[time]
+		keyframe.Markers = {}
+		if FastFlags:isOptimizationsEnabledOn() then
+			self.Paths.DataModelKeyframes:buildKeyframeListDiff(time, keyframe)
+		end
 	end)
 end
 
 function AnimationEvents:removeEvent(time, name, doFire, registerUndo)
 	animationEventAction(self, doFire, registerUndo, self.Paths.ActionEditClip.ActionType.removeAnimationEvent, function()
-		if self.Paths.DataModelKeyframes.keyframeList[time].Markers[name] then
-			self.Paths.DataModelKeyframes.keyframeList[time].Markers[name] = nil
+		local keyframe = self.Paths.DataModelKeyframes.keyframeList[time]
+		if keyframe.Markers[name] then
+			keyframe.Markers[name] = nil
+			if FastFlags:isOptimizationsEnabledOn() then
+				self.Paths.DataModelKeyframes:buildKeyframeListDiff(time, keyframe)
+			end
 			removeEventName(self, name)
 		end
 	end)

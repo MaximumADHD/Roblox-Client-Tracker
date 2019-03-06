@@ -128,7 +128,9 @@ function TouchJump:SetupCharacterAddedFunction()
 end
 
 function TouchJump:Enable(enable, parentFrame)
-	self.parentUIFrame = parentFrame
+	if parentFrame then
+		self.parentUIFrame = parentFrame
+	end
 	self.externallyEnabled = enable
 	self:EnableButton(enable)
 end

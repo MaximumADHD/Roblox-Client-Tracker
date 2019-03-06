@@ -829,7 +829,6 @@ RBX
 	Hint
 	HitTestFilter
 	Hole
-	Hopper
 	HopperBin
 	http_status_error
 	HttpRbxApiJob
@@ -1229,7 +1228,6 @@ RBX
 	WeldConstraintTool
 	WeldJoint
 	WeldTool
-	Widget
 	Workspace
 	WorkspaceStatsItem
 }

@@ -30,6 +30,14 @@ function Table:getValuesToKeysTable(tab)
 	return newTab
 end
 
+function Table:getSize(tab)
+	local count = 0
+	for k, v in pairs(tab) do
+		count = count + 1
+	end
+	return count
+end
+
 function Table:containsOneKeyOnly(tab)
 	local count = 0
 	if nil ~= tab then

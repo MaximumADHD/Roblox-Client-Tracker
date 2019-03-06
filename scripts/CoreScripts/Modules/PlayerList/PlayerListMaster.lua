@@ -1,0 +1,139 @@
+local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local StarterGui = game:GetService("StarterGui")
+local Players = game:GetService("Players")
+local Teams = game:GetService("Teams")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
+local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
+
+local Roact = require(CorePackages.Roact)
+local Rodux = require(CorePackages.Rodux)
+local RoactRodux = require(CorePackages.RoactRodux)
+
+local PlayerList = script.Parent
+
+local PlayerListApp = require(PlayerList.Components.PlayerListApp)
+local Reducer = require(PlayerList.Reducers.Reducer)
+
+local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
+local Connection = PlayerList.Components.Connection
+local LayoutValues = require(Connection.LayoutValues)
+local LayoutValuesProvider = LayoutValues.Provider
+
+local MakePlayerInfoRequests = require(PlayerList.Thunks.MakePlayerInfoRequests)
+
+-- Actions
+local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
+local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
+local SetTempHideKey = require(PlayerList.Actions.SetTempHideKey)
+local SetTopBarEnabled = require(PlayerList.Actions.SetTopBarEnabled)
+local SetTenFootInterface = require(PlayerList.Actions.SetTenFootInterface)
+local SetSmallTouchDevice = require(PlayerList.Actions.SetSmallTouchDevice)
+local AddPlayer = require(PlayerList.Actions.AddPlayer)
+local SetPlayerFollowRelationship = require(PlayerList.Actions.SetPlayerFollowRelationship)
+local AddTeam = require(PlayerList.Actions.AddTeam)
+local AddPlayerToTeam = require(PlayerList.Actions.AddPlayerToTeam)
+
+if not Players.LocalPlayer then
+	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+end
+
+local PlayerListMaster = {}
+PlayerListMaster.__index = PlayerListMaster
+
+function PlayerListMaster.new()
+	local self = setmetatable({}, PlayerListMaster)
+
+	self.store = Rodux.Store.new(Reducer, nil, {
+		Rodux.thunkMiddleware,
+	})
+
+	if not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList) then
+		self.store:dispatch(SetPlayerListEnabled(false))
+	end
+
+	self.store:dispatch(SetSmallTouchDevice(SettingsUtil.IsSmallTouchScreen()))
+	self.store:dispatch(SetTenFootInterface(TenFootInterface:IsEnabled()))
+
+	self:_initalizePlayers()
+	self:_initalizeTeams()
+	self:_initalizeFollowingInfo()
+
+	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+		store = self.store,
+	}, {
+		LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = CreateLayoutValues(
+				TenFootInterface:IsEnabled(),
+				SettingsUtil.IsSmallTouchScreen()
+			)
+		}, {
+			PlayerListApp = Roact.createElement(PlayerListApp)
+		})
+	})
+
+	self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
+
+	return self
+end
+
+function PlayerListMaster:_initalizePlayers()
+	local players = Players:GetPlayers()
+	for _, player in ipairs(players) do
+		self.store:dispatch(AddPlayer(player))
+		self.store:dispatch(MakePlayerInfoRequests(player))
+	end
+end
+
+function PlayerListMaster:_initalizeTeams()
+	for _, team in ipairs(Teams:GetTeams()) do
+		self.store:dispatch(AddTeam(team))
+		for _, player in ipairs(team:GetPlayers()) do
+			self.store:dispatch(AddPlayerToTeam(player, team))
+		end
+	end
+end
+
+function PlayerListMaster:_initalizeFollowingInfo()
+	if not TenFootInterface:IsEnabled() then
+		coroutine.wrap(function()
+			local getFollowRelationships = RobloxReplicatedStorage:WaitForChild("GetFollowRelationships", 300) or
+				RobloxReplicatedStorage:WaitForChild("GetFollowRelationships")
+
+			local followingInfo = getFollowRelationships:InvokeServer()
+			for userIdStr, relationship in pairs(followingInfo) do
+				local player = Players:GetPlayerByUserId(tonumber(userIdStr))
+				if player then
+					local isFollower = relationship.IsMutual or relationship.IsFollower
+					local isFollowing = relationship.IsMutual or relationship.IsFollowing
+					self.store:dispatch(SetPlayerFollowRelationship(player, isFollower, isFollowing))
+				end
+			end
+		end)()
+	end
+end
+
+function PlayerListMaster:GetVisibility()
+	return self.store:getState().displayOptions.isVisible
+end
+
+function PlayerListMaster:SetVisibility(value)
+	self.store:dispatch(SetPlayerListVisibility(value))
+end
+
+function PlayerListMaster:HideTemp(requester, hidden)
+	if hidden == false then
+		hidden = nil
+	end
+	self.store:dispatch(SetTempHideKey(requester, hidden))
+end
+
+function PlayerListMaster:SetTopBarEnabled(value)
+	self.store:dispatch(SetTopBarEnabled(value))
+end
+
+return PlayerListMaster

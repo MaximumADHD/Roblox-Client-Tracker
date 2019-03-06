@@ -15,6 +15,7 @@ local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUs
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -30,6 +31,11 @@ local AssetOverrides = nil
 
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
+end
+
+local WorkspaceSettings = nil
+if DFFlagGameSettingsWorldPanel then
+	WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
 end
 
 local RequestsFolder = Plugin.Src.Networking.Requests
@@ -69,6 +75,9 @@ function SettingsImpl:GetSettings()
 	local settings = {
 		HttpEnabled = HttpService:GetHttpEnabled()
 	}
+	if DFFlagGameSettingsWorldPanel then
+		settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
+	end
 
 	return self:CanManagePlace():andThen(function(canManage)
 		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
@@ -120,6 +129,9 @@ end
 function SettingsImpl:SaveAll(state)
 	if state.Changed.HttpEnabled ~= nil then
 		HttpService:SetHttpEnabled(state.Changed.HttpEnabled)
+	end
+	if DFFlagGameSettingsWorldPanel then
+		WorkspaceSettings.saveAllWorldSettings(state.Changed)
 	end
 
 	return self:CanManagePlace():andThen(function(canManage)

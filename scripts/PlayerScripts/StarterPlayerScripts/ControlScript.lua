@@ -73,9 +73,6 @@ local DynamicThumbstickAvailable = pcall(function()
 	return Enum.DevTouchMovementMode.DynamicThumbstick and Enum.TouchMovementMode.DynamicThumbstick
 end)
 
-local FFlagUserNoCameraClickToMoveSuccess, FFlagUserNoCameraClickToMoveResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoCameraClickToMove") end)
-local FFlagUserNoCameraClickToMove = FFlagUserNoCameraClickToMoveSuccess and FFlagUserNoCameraClickToMoveResult
-
 --[[ Modules ]]--
 local ClickToMoveTouchControls = nil
 local ControlModules = {}
@@ -110,7 +107,7 @@ local ThumbpadModule = require(script.MasterControl:WaitForChild('Thumbpad'))
 local DPadModule = require(script.MasterControl:WaitForChild('DPad'))
 local DefaultModule = ControlModules.Thumbstick
 local TouchJumpModule = require(script.MasterControl:WaitForChild('TouchJump'))
-local ClickToMoveModule = FFlagUserNoCameraClickToMove and require(script.MasterControl:WaitForChild('ClickToMoveController')) or nil
+local ClickToMoveModule = require(script.MasterControl:WaitForChild('ClickToMoveController'))
 
 MasterControl.TouchJumpModule = TouchJumpModule
 local VRNavigationModule = require(script.MasterControl:WaitForChild('VRNavigation'))
@@ -134,12 +131,8 @@ function getTouchModule()
 			module = DPadModule
 			isJumpEnabled = false
 		elseif DevMovementMode == Enum.DevTouchMovementMode.ClickToMove then
-			if FFlagUserNoCameraClickToMove then
-				module = ClickToMoveModule
-				isJumpEnabled = false -- TODO: What should this be, true or false?
-			else
-				module = nil
-			end
+            module = ClickToMoveModule
+            isJumpEnabled = false -- TODO: What should this be, true or false?
 		elseif DevMovementMode == Enum.DevTouchMovementMode.Scriptable then
 			module = nil
 		end
@@ -157,12 +150,8 @@ function getTouchModule()
 			module = DPadModule
 			isJumpEnabled = false
 		elseif UserMovementMode == Enum.TouchMovementMode.ClickToMove then
-			if FFlagUserNoCameraClickToMove then
-				module = ClickToMoveModule
-				isJumpEnabled = false -- TODO: What should this be, true or false?
-			else
-				module = nil
-			end
+			module = ClickToMoveModule
+            isJumpEnabled = false -- TODO: What should this be, true or false?
 		end
 	end
 	return module
@@ -253,7 +242,7 @@ function ControlModules.Touch:Disable()
 	end
 	
 	-- UserMovementMode will still have the previous value at this point
-	if FFlagUserNoCameraClickToMove and UserMovementMode == Enum.ComputerMovementMode.ClickToMove then
+	if UserMovementMode == Enum.ComputerMovementMode.ClickToMove then
 		ClickToMoveModule:Disable()
 	end
 end
@@ -295,7 +284,7 @@ function ControlModules.Keyboard:Enable()
 		newModuleToEnable:Enable()
 	end
 	
-	if FFlagUserNoCameraClickToMove and UserMovementMode == Enum.ComputerMovementMode.ClickToMove then
+	if UserMovementMode == Enum.ComputerMovementMode.ClickToMove then
 		ClickToMoveModule:Enable()
 	end
 	
@@ -330,7 +319,7 @@ function ControlModules.Keyboard:Disable()
 	end
 	
 	-- UserMovementMode will still be set to previous movement type
-	if FFlagUserNoCameraClickToMove and UserMovementMode == Enum.ComputerMovementMode.ClickToMove then
+	if UserMovementMode == Enum.ComputerMovementMode.ClickToMove then
 		ClickToMoveModule:Disable()
 	end
 end
@@ -343,10 +332,6 @@ end
 
 function ControlModules.VRNavigation:Disable()
 	VRNavigationModule:Disable()
-end
-
-if not FFlagUserNoCameraClickToMove and IsTouchDevice then
-	BindableEvent_OnFailStateChanged = script.Parent:WaitForChild("OnClickToMoveFailStateChange")
 end
 
 -- not used, but needs to be required
@@ -412,9 +397,8 @@ UserInputService.Changed:connect(function(property)
 	end
 end)
 
-if FFlagUserNoCameraClickToMove then
-	BindableEvent_OnFailStateChanged = MasterControl:GetClickToMoveFailStateChanged()
-end
+BindableEvent_OnFailStateChanged = MasterControl:GetClickToMoveFailStateChanged()
+
 if BindableEvent_OnFailStateChanged then
 	BindableEvent_OnFailStateChanged.Event:connect(function(isOn)
 		if lastInputType == Enum.UserInputType.Touch and ClickToMoveTouchControls then

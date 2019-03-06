@@ -9,6 +9,8 @@ local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTransla
 local FFlagKillGuiButtonSetVerb = settings():GetFFlag("KillGuiButtonSetVerb")
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+
 --[[ END OF FFLAG VALUES ]]
 
 
@@ -695,12 +697,21 @@ local function CreateUsernameHealthMenuItem()
 		OnCharacterAdded(Player.Character)
 	end
 
-	local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
-	container.MouseButton1Click:connect(function()
-		if isTopbarEnabled() then
-			PlayerlistModule.ToggleVisibility()
-		end
-	end)
+	if FFlagUseRoactPlayerList then
+		local PlayerListMaster = require(GuiRoot.Modules.PlayerList.PlayerListManager)
+		container.MouseButton1Click:connect(function()
+			if isTopbarEnabled() then
+				PlayerListMaster:SetVisibility(not PlayerListMaster:GetVisibility())
+			end
+		end)
+	else
+		local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
+		container.MouseButton1Click:connect(function()
+			if isTopbarEnabled() then
+				PlayerlistModule.ToggleVisibility()
+			end
+		end)
+	end
 
 	return this
 end
@@ -709,8 +720,6 @@ end
 ----- LEADERSTATS -----
 
 local function CreateLeaderstatsMenuItem()
-	local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
-
 	local leaderstatsContainer = Util.Create'ImageButton'
 	{
 		Name = "LeaderstatsContainer";
@@ -721,6 +730,7 @@ local function CreateLeaderstatsMenuItem()
 	};
 
 	local this = CreateMenuItem(leaderstatsContainer)
+	--Remove with FFlagUseRoactPlayerList
 	local columns = {}
 
 	rawset(this, "SetColumns",
@@ -820,26 +830,41 @@ local function CreateLeaderstatsMenuItem()
 			end
 		end)
 
-	topbarEnabledChangedEvent.Event:connect(function(enabled)
-		PlayerlistModule.TopbarEnabledChanged(enabled and not VRService.VREnabled) --We don't show the playerlist at all in VR
-	end)
 
-	this:SetColumns(PlayerlistModule.GetStats())
-	PlayerlistModule.OnLeaderstatsChanged.Event:connect(function(newStatColumns)
-		if not Utility:IsPortrait() then
-			this:SetColumns(newStatColumns)
-		end
-	end)
+	if FFlagUseRoactPlayerList then
+		local PlayerListMaster = require(GuiRoot.Modules.PlayerList.PlayerListManager)
+		topbarEnabledChangedEvent.Event:connect(function(enabled)
+			PlayerListMaster:SetTopBarEnabled(enabled)
+		end)
 
-	PlayerlistModule.OnStatChanged.Event:connect(function(statName, statValueAsString)
-		this:UpdateColumnValue(statName, statValueAsString)
-	end)
+		leaderstatsContainer.MouseButton1Click:connect(function()
+			if isTopbarEnabled() then
+				PlayerListMaster:SetVisibility(not PlayerListMaster:GetVisibility())
+			end
+		end)
+	else
+		local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
+		topbarEnabledChangedEvent.Event:connect(function(enabled)
+			PlayerlistModule.TopbarEnabledChanged(enabled and not VRService.VREnabled) --We don't show the playerlist at all in VR
+		end)
 
-	leaderstatsContainer.MouseButton1Click:connect(function()
-		if isTopbarEnabled() then
-			PlayerlistModule.ToggleVisibility()
-		end
-	end)
+		this:SetColumns(PlayerlistModule.GetStats())
+		PlayerlistModule.OnLeaderstatsChanged.Event:connect(function(newStatColumns)
+			if not Utility:IsPortrait() then
+				this:SetColumns(newStatColumns)
+			end
+		end)
+
+		PlayerlistModule.OnStatChanged.Event:connect(function(statName, statValueAsString)
+			this:UpdateColumnValue(statName, statValueAsString)
+		end)
+
+		leaderstatsContainer.MouseButton1Click:connect(function()
+			if isTopbarEnabled() then
+				PlayerlistModule.ToggleVisibility()
+			end
+		end)
+	end
 
 	return this
 end
@@ -1522,18 +1547,25 @@ local function topbarEnabledChanged()
 	end
 end
 
---Temporarily disable the leaderstats while in portrait mode.
---Will come back to this when a new design is ready.
-local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
-local function onResized(viewportSize, isPortrait)
-	if isPortrait then
-		leaderstatsMenuItem:SetColumns({})
-	else
-		leaderstatsMenuItem:SetColumns(PlayerlistModule.GetStats())
+if FFlagUseRoactPlayerList then
+	local function onResized(viewportSize, isPortrait)
+		RightMenubar:ArrangeItems()
 	end
-	RightMenubar:ArrangeItems()
+	Utility:OnResized(leaderstatsMenuItem, onResized)
+else
+	--Temporarily disable the leaderstats while in portrait mode.
+	--Will come back to this when a new design is ready.
+	local PlayerlistModule = require(GuiRoot.Modules.PlayerlistModule)
+	local function onResized(viewportSize, isPortrait)
+		if isPortrait then
+			leaderstatsMenuItem:SetColumns({})
+		else
+			leaderstatsMenuItem:SetColumns(PlayerlistModule.GetStats())
+		end
+		RightMenubar:ArrangeItems()
+	end
+	Utility:OnResized(leaderstatsMenuItem, onResized)
 end
-Utility:OnResized(leaderstatsMenuItem, onResized)
 
 topbarEnabledChanged() -- if it was set before this point, enable/disable it now
 StarterGui:RegisterSetCore("TopbarEnabled", function(enabled)

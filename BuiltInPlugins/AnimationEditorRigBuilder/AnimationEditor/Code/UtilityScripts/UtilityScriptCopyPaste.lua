@@ -21,6 +21,10 @@ CopyPaste.CopyVariables = {
 	Time = "Time",
 }
 
+if FastFlags:isFixRenameKeyOptionOn() then
+	CopyPaste.CopyVariables["Item"] = "Item"
+end
+
 function CopyPaste:init(Paths)
 	self.Paths = Paths
 	CopyPaste.Connections = Paths.UtilityScriptConnections:new()
@@ -156,6 +160,9 @@ function CopyPaste:copyPose(pose)
 		for _,name in pairs(self.CopyVariables) do
 			newCopy[name] = pose[name]
 		end
+		if FastFlags:isFixRenameKeyOptionOn() then
+			newCopy.KeyframeName = self.Paths.DataModelClip:getKeyframe(newCopy.Time).Name
+		end
 		table.insert(self.CopyItemsList[pose:getPartName()], newCopy)
 	end
 end
@@ -211,15 +218,29 @@ local function canPasteEvents(self)
 	return self:canPasteAny() and not self.CopiedPoses and self.Paths.DataModelAnimationEvents:isEditEventsEnabled()
 end
 
-function CopyPaste:paste(atTime, registerUndo)
-	if FastFlags:isAnimationEventsOn() then
-		if canPasteEvents(self) then
-			self.Paths.ActionPaste:executePasteEvents(self.Paths, atTime, self.CopyItemsList, registerUndo)
-		elseif not FastFlags:isSelectEventsOnEdgeOn() or self:canPasteAny() then
+if FastFlags:isFixRenameKeyOptionOn() then
+	function CopyPaste:paste(atTime, scaleFactor, registerUndo)
+		if FastFlags:isAnimationEventsOn() then
+			if canPasteEvents(self) then
+				self.Paths.ActionPaste:executePasteEvents(self.Paths, atTime, self.CopyItemsList, registerUndo)
+			elseif not FastFlags:isSelectEventsOnEdgeOn() or self:canPasteAny() then
+				self.Paths.ActionPaste:execute(self.Paths, atTime, scaleFactor, self.CopyItemsList, self.CopyVariables, self.CopiedInIKMode, registerUndo)
+			end
+		elseif self:canPasteAny() then
+			self.Paths.ActionPaste:execute(self.Paths, atTime, scaleFactor, self.CopyItemsList, self.CopyVariables, self.CopiedInIKMode, registerUndo)
+		end
+	end
+else
+	function CopyPaste:paste(atTime, registerUndo)
+		if FastFlags:isAnimationEventsOn() then
+			if canPasteEvents(self) then
+				self.Paths.ActionPaste:executePasteEvents(self.Paths, atTime, self.CopyItemsList, registerUndo)
+			elseif not FastFlags:isSelectEventsOnEdgeOn() or self:canPasteAny() then
+				self.Paths.ActionPaste:execute(self.Paths, atTime, self.CopyItemsList, self.CopyVariables, self.CopiedInIKMode, registerUndo)
+			end
+		elseif self:canPasteAny() then
 			self.Paths.ActionPaste:execute(self.Paths, atTime, self.CopyItemsList, self.CopyVariables, self.CopiedInIKMode, registerUndo)
 		end
-	elseif self:canPasteAny() then
-		self.Paths.ActionPaste:execute(self.Paths, atTime, self.CopyItemsList, self.CopyVariables, self.CopiedInIKMode, registerUndo)
 	end
 end
 

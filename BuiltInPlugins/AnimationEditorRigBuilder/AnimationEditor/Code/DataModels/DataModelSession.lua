@@ -11,6 +11,9 @@ Session.ScrubberTime = 0
 Session.ScrubberTimeChangeEvent = nil
 Session.Selected = {DataItems= {}, Keyframes= {}, Clicked= {}}
 Session.SelectedChangeEvent = nil
+if FastFlags:isOptimizationsEnabledOn() then
+	Session.DataItemSelectedEvent = nil
+end
 Session.DisplayPrecisionFormatString = "%u"
 Session.DisplayPrecisionChangeEvent = nil
 Session.ScrubberPrecisionFormatString = "%.1f"
@@ -100,6 +103,9 @@ function Session:init(Paths)
 	self.ScrollZoomChangeEvent = Paths.UtilityScriptEvent:new()
 	self.ScrubberTimeChangeEvent = Paths.UtilityScriptEvent:new()
 	self.SelectedChangeEvent = Paths.UtilityScriptEvent:new()
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.DataItemSelectedEvent = Paths.UtilityScriptEvent:new()
+	end
 	self.DisplayPrecisionChangeEvent = Paths.UtilityScriptEvent:new()
 
 	self.ResetAnimationBeginEvent = Paths.UtilityScriptEvent:new()
@@ -125,6 +131,9 @@ function Session:terminate()
 
 	self.DisplayPrecisionChangeEvent = nil
 	self.SelectedChangeEvent = nil
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.DataItemSelectedEvent = nil
+	end
 	self.ScrubberTimeChangeEvent = nil
 	self.ScrollZoomChangeEvent = nil
 

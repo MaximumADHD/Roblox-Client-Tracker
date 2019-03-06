@@ -408,8 +408,10 @@ local function onMouseRotate(self, axisRaw, relAngle, item)
 
 	self:updateProxyPart()
 	
-	if self.Paths.HelperFunctionsTable:containsOneKeyOnly(self.Paths.DataModelSession:getSelectedDataItems()) then
-		self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
+	if not FastFlags:isOptimizationsEnabledOn() then
+		if self.Paths.HelperFunctionsTable:containsOneKeyOnly(self.Paths.DataModelSession:getSelectedDataItems()) then
+			self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
+		end
 	end
 end
 
@@ -425,7 +427,7 @@ local function onMouseEndRotate(self)
 			self.Paths.DataModelIKManipulator:endIKManipulation()
 		end
 
-		if self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then
+		if FastFlags:isOptimizationsEnabledOn() or self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then
 			self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
 		end
 		self:endCurrentManipulation()
@@ -588,8 +590,10 @@ local function onMouseDrag(self, face, dist, item)
 
 	self:updateProxyPart()
 
-	if self.Paths.HelperFunctionsTable:containsOneKeyOnly(self.Paths.DataModelSession:getSelectedDataItems()) then
-		self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
+	if not FastFlags:isOptimizationsEnabledOn() then
+		if self.Paths.HelperFunctionsTable:containsOneKeyOnly(self.Paths.DataModelSession:getSelectedDataItems()) then
+			self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
+		end
 	end
 end
 
@@ -604,7 +608,7 @@ local function onMouseEndDrag(self)
 		self.Paths.DataModelIKManipulator:endIKManipulation()
 	end
 
-	if self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then
+	if FastFlags:isOptimizationsEnabledOn() or self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then
 		self.Paths.DataModelKeyframes.PoseTransformChangedEvent:fire()
 	end
 	self:endCurrentManipulation()	
@@ -618,7 +622,11 @@ function PartManipulator:movePart(face, dist, dataItem)
 end
 
 function PartManipulator:updateManipulationSelection()
-	self.Paths.DataModelKeyframes.ChangedEvent:fire((self.Paths.DataModelKeyframes.keyframeList))
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.Paths.DataModelKeyframes:fireChangedEvent()
+	else
+		self.Paths.DataModelKeyframes.ChangedEvent:fire((self.Paths.DataModelKeyframes.keyframeList))
+	end
 	self.Paths.DataModelSession.SelectedChangeEvent:fire()
 end
 

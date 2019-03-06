@@ -2,8 +2,10 @@ local ClickToMoveDisplay = {}
 
 local FAILURE_ANIMATION_ID = "rbxassetid://2874840706"
 
-local TRAIL_DOT_ICON = "rbxasset://textures/ui/traildot.png"
-local WAYPOINT_ICON = "rbxasset://textures/ui/waypoint.png"
+local TrailDotIcon = "rbxasset://textures/ui/traildot.png"
+local EndWaypointIcon = "rbxasset://textures/ui/waypoint.png"
+
+local WaypointsAlwaysOnTop = false
 
 local WAYPOINT_INCLUDE_FACTOR = 2
 local LAST_DOT_DISTANCE = 3
@@ -24,7 +26,7 @@ local TWEEN_WAYPOINT_THRESHOLD = 5
 
 local TRAIL_DOT_PARENT_NAME = "ClickToMoveDisplay"
 
-local TRAIL_DOT_SIZE = Vector2.new(1.5, 1.5)
+local TrailDotSize = Vector2.new(1.5, 1.5)
 
 local TRAIL_DOT_MIN_SCALE = 1
 local TRAIL_DOT_MIN_DISTANCE = 10
@@ -38,85 +40,91 @@ local Workspace = game:GetService("Workspace")
 
 local LocalPlayer = PlayersService.LocalPlayer
 
-local TrailDotTemplate = Instance.new("Part")
-TrailDotTemplate.Size = Vector3.new(1, 1, 1)
-TrailDotTemplate.Anchored = true
-TrailDotTemplate.CanCollide = false
-TrailDotTemplate.Name = "TrailDot"
-TrailDotTemplate.Transparency = 1
-local TrailDotImage = Instance.new("ImageHandleAdornment")
-TrailDotImage.Name = "TrailDotImage"
-TrailDotImage.Size = TRAIL_DOT_SIZE
-TrailDotImage.SizeRelativeOffset = Vector3.new(0, 0, -0.1)
-TrailDotImage.AlwaysOnTop = false
-TrailDotImage.Image = TRAIL_DOT_ICON
-TrailDotImage.Adornee = TrailDotTemplate
-TrailDotImage.Parent = TrailDotTemplate
+local function CreateWaypointTemplates()
+	local TrailDotTemplate = Instance.new("Part")
+	TrailDotTemplate.Size = Vector3.new(1, 1, 1)
+	TrailDotTemplate.Anchored = true
+	TrailDotTemplate.CanCollide = false
+	TrailDotTemplate.Name = "TrailDot"
+	TrailDotTemplate.Transparency = 1
+	local TrailDotImage = Instance.new("ImageHandleAdornment")
+	TrailDotImage.Name = "TrailDotImage"
+	TrailDotImage.Size = TrailDotSize
+	TrailDotImage.SizeRelativeOffset = Vector3.new(0, 0, -0.1)
+	TrailDotImage.AlwaysOnTop = WaypointsAlwaysOnTop
+	TrailDotImage.Image = TrailDotIcon
+	TrailDotImage.Adornee = TrailDotTemplate
+	TrailDotImage.Parent = TrailDotTemplate
 
-local EndWaypointTemplate = Instance.new("Part")
-EndWaypointTemplate.Size = Vector3.new(2, 2, 2)
-EndWaypointTemplate.Anchored = true
-EndWaypointTemplate.CanCollide = false
-EndWaypointTemplate.Name = "EndWaypoint"
-EndWaypointTemplate.Transparency = 1
-local EndWaypointImage = Instance.new("ImageHandleAdornment")
-EndWaypointImage.Name = "TrailDotImage"
-EndWaypointImage.Size = TRAIL_DOT_SIZE
-EndWaypointImage.SizeRelativeOffset = Vector3.new(0, 0, -0.1)
-EndWaypointImage.AlwaysOnTop = false
-EndWaypointImage.Image = TRAIL_DOT_ICON
-EndWaypointImage.Adornee = EndWaypointTemplate
-EndWaypointImage.Parent = EndWaypointTemplate
-local EndWaypointBillboard = Instance.new("BillboardGui")
-EndWaypointBillboard.Name = "EndWaypointBillboard"
-EndWaypointBillboard.Size = WAYPOINT_BILLBOARD_SIZE
-EndWaypointBillboard.LightInfluence = 0
-EndWaypointBillboard.SizeOffset = ENDWAYPOINT_SIZE_OFFSET_MIN
-EndWaypointBillboard.AlwaysOnTop = true
-EndWaypointBillboard.Adornee = EndWaypointTemplate
-EndWaypointBillboard.Parent = EndWaypointTemplate
-local EndWaypointImageLabel = Instance.new("ImageLabel")
-EndWaypointImageLabel.Image = WAYPOINT_ICON
-EndWaypointImageLabel.BackgroundTransparency = 1
-EndWaypointImageLabel.Size = UDim2.new(1, 0, 1, 0)
-EndWaypointImageLabel.Parent = EndWaypointBillboard
+	local EndWaypointTemplate = Instance.new("Part")
+	EndWaypointTemplate.Size = Vector3.new(2, 2, 2)
+	EndWaypointTemplate.Anchored = true
+	EndWaypointTemplate.CanCollide = false
+	EndWaypointTemplate.Name = "EndWaypoint"
+	EndWaypointTemplate.Transparency = 1
+	local EndWaypointImage = Instance.new("ImageHandleAdornment")
+	EndWaypointImage.Name = "TrailDotImage"
+	EndWaypointImage.Size = TrailDotSize
+	EndWaypointImage.SizeRelativeOffset = Vector3.new(0, 0, -0.1)
+	EndWaypointImage.AlwaysOnTop = WaypointsAlwaysOnTop
+	EndWaypointImage.Image = TrailDotIcon
+	EndWaypointImage.Adornee = EndWaypointTemplate
+	EndWaypointImage.Parent = EndWaypointTemplate
+	local EndWaypointBillboard = Instance.new("BillboardGui")
+	EndWaypointBillboard.Name = "EndWaypointBillboard"
+	EndWaypointBillboard.Size = WAYPOINT_BILLBOARD_SIZE
+	EndWaypointBillboard.LightInfluence = 0
+	EndWaypointBillboard.SizeOffset = ENDWAYPOINT_SIZE_OFFSET_MIN
+	EndWaypointBillboard.AlwaysOnTop = true
+	EndWaypointBillboard.Adornee = EndWaypointTemplate
+	EndWaypointBillboard.Parent = EndWaypointTemplate
+	local EndWaypointImageLabel = Instance.new("ImageLabel")
+	EndWaypointImageLabel.Image = EndWaypointIcon
+	EndWaypointImageLabel.BackgroundTransparency = 1
+	EndWaypointImageLabel.Size = UDim2.new(1, 0, 1, 0)
+	EndWaypointImageLabel.Parent = EndWaypointBillboard
 
 
-local FailureWaypointTemplate = Instance.new("Part")
-FailureWaypointTemplate.Size = Vector3.new(2, 2, 2)
-FailureWaypointTemplate.Anchored = true
-FailureWaypointTemplate.CanCollide = false
-FailureWaypointTemplate.Name = "FailureWaypoint"
-FailureWaypointTemplate.Transparency = 1
-local FailureWaypointImage = Instance.new("ImageHandleAdornment")
-FailureWaypointImage.Name = "TrailDotImage"
-FailureWaypointImage.Size = TRAIL_DOT_SIZE
-FailureWaypointImage.SizeRelativeOffset = Vector3.new(0, 0, -0.1)
-FailureWaypointImage.AlwaysOnTop = false
-FailureWaypointImage.Image = TRAIL_DOT_ICON
-FailureWaypointImage.Adornee = FailureWaypointTemplate
-FailureWaypointImage.Parent = FailureWaypointTemplate
-local FailureWaypointBillboard = Instance.new("BillboardGui")
-FailureWaypointBillboard.Name = "FailureWaypointBillboard"
-FailureWaypointBillboard.Size = WAYPOINT_BILLBOARD_SIZE
-FailureWaypointBillboard.LightInfluence = 0
-FailureWaypointBillboard.SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_CENTER
-FailureWaypointBillboard.AlwaysOnTop = true
-FailureWaypointBillboard.Adornee = FailureWaypointTemplate
-FailureWaypointBillboard.Parent = FailureWaypointTemplate
-local FailureWaypointFrame = Instance.new("Frame")
-FailureWaypointFrame.BackgroundTransparency = 1
-FailureWaypointFrame.Size = UDim2.new(0, 0, 0, 0)
-FailureWaypointFrame.Position = UDim2.new(0.5, 0, 1, 0)
-FailureWaypointFrame.Parent = FailureWaypointBillboard
-local FailureWaypointImageLabel = Instance.new("ImageLabel")
-FailureWaypointImageLabel.Image = WAYPOINT_ICON
-FailureWaypointImageLabel.BackgroundTransparency = 1
-FailureWaypointImageLabel.Position = UDim2.new(
-	0, -WAYPOINT_BILLBOARD_SIZE.X.Offset/2, 0, -WAYPOINT_BILLBOARD_SIZE.Y.Offset
-)
-FailureWaypointImageLabel.Size = WAYPOINT_BILLBOARD_SIZE
-FailureWaypointImageLabel.Parent = FailureWaypointFrame
+	local FailureWaypointTemplate = Instance.new("Part")
+	FailureWaypointTemplate.Size = Vector3.new(2, 2, 2)
+	FailureWaypointTemplate.Anchored = true
+	FailureWaypointTemplate.CanCollide = false
+	FailureWaypointTemplate.Name = "FailureWaypoint"
+	FailureWaypointTemplate.Transparency = 1
+	local FailureWaypointImage = Instance.new("ImageHandleAdornment")
+	FailureWaypointImage.Name = "TrailDotImage"
+	FailureWaypointImage.Size = TrailDotSize
+	FailureWaypointImage.SizeRelativeOffset = Vector3.new(0, 0, -0.1)
+	FailureWaypointImage.AlwaysOnTop = WaypointsAlwaysOnTop
+	FailureWaypointImage.Image = TrailDotIcon
+	FailureWaypointImage.Adornee = FailureWaypointTemplate
+	FailureWaypointImage.Parent = FailureWaypointTemplate
+	local FailureWaypointBillboard = Instance.new("BillboardGui")
+	FailureWaypointBillboard.Name = "FailureWaypointBillboard"
+	FailureWaypointBillboard.Size = WAYPOINT_BILLBOARD_SIZE
+	FailureWaypointBillboard.LightInfluence = 0
+	FailureWaypointBillboard.SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_CENTER
+	FailureWaypointBillboard.AlwaysOnTop = true
+	FailureWaypointBillboard.Adornee = FailureWaypointTemplate
+	FailureWaypointBillboard.Parent = FailureWaypointTemplate
+	local FailureWaypointFrame = Instance.new("Frame")
+	FailureWaypointFrame.BackgroundTransparency = 1
+	FailureWaypointFrame.Size = UDim2.new(0, 0, 0, 0)
+	FailureWaypointFrame.Position = UDim2.new(0.5, 0, 1, 0)
+	FailureWaypointFrame.Parent = FailureWaypointBillboard
+	local FailureWaypointImageLabel = Instance.new("ImageLabel")
+	FailureWaypointImageLabel.Image = EndWaypointIcon
+	FailureWaypointImageLabel.BackgroundTransparency = 1
+	FailureWaypointImageLabel.Position = UDim2.new(
+		0, -WAYPOINT_BILLBOARD_SIZE.X.Offset/2, 0, -WAYPOINT_BILLBOARD_SIZE.Y.Offset
+	)
+	FailureWaypointImageLabel.Size = WAYPOINT_BILLBOARD_SIZE
+	FailureWaypointImageLabel.Parent = FailureWaypointFrame
+
+	return TrailDotTemplate, EndWaypointTemplate, FailureWaypointTemplate
+end
+
+local TrailDotTemplate, EndWaypointTemplate, FailureWaypointTemplate = CreateWaypointTemplates()
 
 local function getTrailDotParent()
 	local camera = Workspace.CurrentCamera
@@ -391,7 +399,7 @@ function ClickToMoveDisplay.CreatePathDisplay(wayPoints, originalEndWaypoint)
 			local trailDotImage = trailDots[i].DisplayModel:FindFirstChild("TrailDotImage")
 			if trailDotImage then
 				local distanceToCamera = (trailDots[i].DisplayModel.Position - cameraPos).magnitude
-				trailDotImage.Size = getTrailDotScale(distanceToCamera, TRAIL_DOT_SIZE)
+				trailDotImage.Size = getTrailDotScale(distanceToCamera, TrailDotSize)
 			end
 		end
 	end
@@ -434,6 +442,42 @@ function ClickToMoveDisplay.CancelFailureAnimation()
 	if lastFailureAnimationTrack ~= nil and lastFailureAnimationTrack.IsPlaying then
 		lastFailureAnimationTrack:Stop()
 	end
+end
+
+function ClickToMoveDisplay.SetWaypointTexture(texture)
+	TrailDotIcon = texture
+	TrailDotTemplate, EndWaypointTemplate, FailureWaypointTemplate = CreateWaypointTemplates()
+end
+
+function ClickToMoveDisplay.GetWaypointTexture()
+	return TrailDotIcon
+end
+
+function ClickToMoveDisplay.SetWaypointRadius(radius)
+	TrailDotSize = Vector2.new(radius, radius)
+	TrailDotTemplate, EndWaypointTemplate, FailureWaypointTemplate = CreateWaypointTemplates()
+end
+
+function ClickToMoveDisplay.GetWaypointRadius()
+	return TrailDotSize.X
+end
+
+function ClickToMoveDisplay.SetEndWaypointTexture(texture)
+	EndWaypointIcon = texture
+	TrailDotTemplate, EndWaypointTemplate, FailureWaypointTemplate = CreateWaypointTemplates()
+end
+
+function ClickToMoveDisplay.GetEndWaypointTexture()
+	return EndWaypointIcon
+end
+
+function ClickToMoveDisplay.SetWaypointsAlwaysOnTop(alwaysOnTop)
+	WaypointsAlwaysOnTop = alwaysOnTop
+	TrailDotTemplate, EndWaypointTemplate, FailureWaypointTemplate = CreateWaypointTemplates()
+end
+
+function ClickToMoveDisplay.GetWaypointsAlwaysOnTop()
+	return WaypointsAlwaysOnTop
 end
 
 return ClickToMoveDisplay

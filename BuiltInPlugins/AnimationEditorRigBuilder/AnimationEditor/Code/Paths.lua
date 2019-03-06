@@ -31,7 +31,7 @@ Paths.ActionTogglePartInclude = nil
 Paths.ActionEditDisplayPrecision = nil
 Paths.ActionEditStepInterval = nil
 Paths.ActionMove = nil
-if FastFlags:isScaleKeysOn() then
+if FastFlags:isScaleKeysOn() and not FastFlags:isFixRenameKeyOptionOn() then
 	Paths.ActionScale = nil
 end
 if FastFlags:isIKModeFlagOn() then
@@ -210,7 +210,11 @@ Paths.ViewportScriptFlyCamera = nil
 Paths.GUIClonable = script.Parent.Parent.GUIs
 Paths.GUIClonableAnimationEditorMainGUI = Paths.GUIClonable.AnimationEditorMainGUI
 Paths.GUIClonableJoint = Paths.GUIClonable.Joint
-Paths.GUIClonableKeyframe = Paths.GUIClonable.Keyframe
+if FastFlags:isOptimizationsEnabledOn() then
+	Paths.GUIClonableKeyframe = Paths.GUIClonable.Keyframe
+else
+	Paths.GUIClonableKeyframe = Paths.GUIClonable.Keyframe_old
+end
 Paths.GUIClonableNotch = Paths.GUIClonable.Notch
 Paths.GUIClonableMenusFolder = Paths.GUIClonable.Menus
 Paths.GUIClonableMenu = Paths.GUIClonableMenusFolder.Menu
@@ -218,7 +222,11 @@ Paths.GUIClonableMenuOption = Paths.GUIClonableMenusFolder.MenuOption
 Paths.GUIClonableMenuDivider = Paths.GUIClonableMenusFolder.MenuDivider
 Paths.GUIClonablePartManipulator = Paths.GUIClonable.PartManipulator
 Paths.GUIClonableWarningDialog = Paths.GUIClonable.WarningDialog
-Paths.GUIClonableKeyframeIndicator = Paths.GUIClonable.KeyframeIndicator
+if FastFlags:isOptimizationsEnabledOn() then
+	Paths.GUIClonableKeyframeIndicator = Paths.GUIClonable.KeyframeIndicator
+else
+	Paths.GUIClonableKeyframeIndicator = Paths.GUIClonable.KeyframeIndicator_old
+end
 if FastFlags:isIKModeFlagOn() then
 	Paths.GUIClonableViewportNotification = Paths.GUIClonable.ViewportNotification
 end
@@ -304,8 +312,8 @@ function Paths:init()
 	self.ActionEditStepInterval = require(self.Actions.ActionEditStepInterval)
 	self.ActionEditKeyframeName = require(self.Actions.ActionEditKeyframeName)
 	self.ActionMove = require(self.Actions.ActionMove)
-	if FastFlags:isScaleKeysOn() then
-		self.ActionScale = require(self.Actions.ActionScale)
+	if FastFlags:isScaleKeysOn() and not FastFlags:isFixRenameKeyOptionOn() then
+		self.ActionScale = require(self.Actions.ActionScale_deprecated)
 	end
 	if FastFlags:isIKModeFlagOn() then
 		self.ActionTogglePartPinned = require(self.Actions.ActionTogglePartPinned)

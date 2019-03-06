@@ -4,7 +4,7 @@ local Roact = require(CorePackages.Roact)
 local Otter = require(CorePackages.Otter)
 
 local PromptState = require(script.Parent.Parent.Parent.PromptState)
-local HidePrompt = require(script.Parent.Parent.Parent.Actions.HidePrompt)
+local signalFinishedAndHidePrompt = require(script.Parent.Parent.Parent.Thunks.signalFinishedAndHidePrompt)
 
 local PromptContents = require(script.Parent.PromptContents)
 local InProgressContents = require(script.Parent.InProgressContents)
@@ -101,7 +101,7 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		setPromptHidden = function()
-			dispatch(HidePrompt())
+			dispatch(signalFinishedAndHidePrompt())
 		end
 	}
 end

@@ -67,13 +67,16 @@ function SelectAndDragBox:isSelecting()
 	return self.Clicked
 end
 
-function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFunc)
+function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFunc, endFunc)
 	local self = setmetatable({}, SelectAndDragBox)
 
 	self.Paths = Paths
 	self.TargetWidget = targetWidget
 	self.SelectionAreaWidget = selectionAreaWidget
 	self.SelectFunc = selectFunc
+	if FastFlags:isOptimizationsEnabledOn() then
+		self.EndFunc = endFunc
+	end
 
 	self.StartPos = nil
 	self.StartTime = nil
@@ -99,7 +102,9 @@ function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFu
 			local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
 			if not Paths.UtilityScriptMoveItems:isMoving() then
 				update(self)
-				self.SelectFunc()
+				if not FastFlags:isOptimizationsEnabledOn() or self.SelectFunc then
+					self.SelectFunc()
+				end
 				setEndTime(self, clickTime)
 			end
 		end
@@ -108,6 +113,9 @@ function SelectAndDragBox:new(Paths, targetWidget, selectionAreaWidget, selectFu
 	self.Connections:add(self.TargetWidget.Parent.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime()
+			if FastFlags:isOptimizationsEnabledOn() and self.EndFunc then
+				self.EndFunc()
+			end
 			self.Clicked = false
 			hide(self)
 			setEndTime(self, clickTime)

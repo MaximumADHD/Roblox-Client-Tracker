@@ -20,7 +20,6 @@ local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 
-local FFlagFixLoadingScreenJankiness = settings():GetFFlag("FixLoadingScreenJankiness")
 local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScreenUseLocalizationTable")
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -424,7 +423,7 @@ local function GenerateGui()
 		TextScaled = true,
 		TextColor3 = COLORS.TEXT_COLOR,
 		TextStrokeTransparency = 1,
-		TextTransparency = FFlagFixLoadingScreenJankiness and 1 or nil, --setting to nil means it's not in the table at all, so it uses the default value to ensure behavior is the same. It should be 0 either way.
+		TextTransparency = 1,
 		Text = "",
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextYAlignment = Enum.TextYAlignment.Bottom,
@@ -518,20 +517,18 @@ local function GenerateGui()
 		creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
 	end
 
-	if FFlagFixLoadingScreenJankiness then
-		coroutine.wrap(function()
-			RunService.RenderStepped:wait()
-			RunService.RenderStepped:wait()
-			layoutIsReady = true
+    coroutine.wrap(function()
+        RunService.RenderStepped:wait()
+        RunService.RenderStepped:wait()
+        layoutIsReady = true
 
-			placeLabel.TextTransparency = 0
+        placeLabel.TextTransparency = 0
 
-			local uiMessage = uiMessageFrame.UiMessage
-			if uiMessage.Text ~= "" then
-				uiMessage.TextTransparency = 0
-			end
-		end)()
-	end
+        local uiMessage = uiMessageFrame.UiMessage
+        if uiMessage.Text ~= "" then
+            uiMessage.TextTransparency = 0
+        end
+    end)()
 
 	if not FFlagConnectionScriptEnabled or isTenFootInterface then
 		local errorFrame = create 'Frame' {
@@ -733,33 +730,15 @@ GuiService.UiMessageChanged:connect(function(type, newMessage)
 		local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
 		if blackFrame then
 			local infoFrame = blackFrame:FindFirstChild("InfoFrame")
-			if FFlagFixLoadingScreenJankiness then
-				if infoFrame then
-					local uiMessage = infoFrame.UiMessageFrame.UiMessage 
-					uiMessage.Text = newMessage
-					if newMessage ~= '' and layoutIsReady then
-						uiMessage.TextTransparency = 0
-					else
-						uiMessage.TextTransparency = 1
-					end
-				end
-			else
-				if infoFrame then
-					infoFrame.UiMessageFrame.UiMessage.Text = newMessage
-					if newMessage ~= '' then
-						infoFrame.UiMessageFrame.Visible = true
-					else
-						infoFrame.UiMessageFrame.Visible = false
-					end
-				else
-					blackFrame.UiMessageFrame.UiMessage.Text = newMessage
-					if newMessage ~= '' then
-						blackFrame.UiMessageFrame.Visible = true
-					else
-						blackFrame.UiMessageFrame.Visible = false
-					end
-				end
-			end
+            if infoFrame then
+                local uiMessage = infoFrame.UiMessageFrame.UiMessage
+                uiMessage.Text = newMessage
+                if newMessage ~= '' and layoutIsReady then
+                    uiMessage.TextTransparency = 0
+                else
+                    uiMessage.TextTransparency = 1
+                end
+            end
 		end
 	end
 end)

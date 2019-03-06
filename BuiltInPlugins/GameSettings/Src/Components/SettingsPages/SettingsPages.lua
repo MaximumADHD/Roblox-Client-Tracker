@@ -7,6 +7,13 @@ local Options = require(script.Parent.Options)
 local BasicInfo = require(script.Parent.BasicInfo)
 local Localization = require(script.Parent.Localization)
 
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel")
+
+local World = nil
+if DFFlagGameSettingsWorldPanel then
+	World = require(script.Parent.World)
+end
+
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 
 local SettingsPages = {
@@ -17,6 +24,10 @@ local SettingsPages = {
 
 if FFlagStudioLocalizationGameSettings then
 	SettingsPages["Localization"] = Localization
+end
+
+if DFFlagGameSettingsWorldPanel then
+	SettingsPages["World"] = World
 end
 
 return SettingsPages

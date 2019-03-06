@@ -1,14 +1,14 @@
--- Paths.lua - this is passed around the entire codebase, it requires everything in one place, 
--- so that the same require paths are not repeated throughout the plugin (meaning, if they are changed, they only need to be changed here), 
+-- Paths.lua - this is passed around the entire codebase, it requires everything in one place,
+-- so that the same require paths are not repeated throughout the plugin (meaning, if they are changed, they only need to be changed here),
 -- and stops the beginning of scripts getting cluttered with many requires
 
 local fastFlags = require(script.Parent.FastFlags)
 
 local Paths = {}
 
-function Paths.requireAll(roactRoduxPath)
+function Paths.requireAll(roactRoduxPath, pathToWidgets)
 	local codePath = script.Parent
-	local libraryPath = codePath.Parent.Libraries
+	local libraryPath = pathToWidgets
 
 	-- core
 	Paths.Roact = require(roactRoduxPath.Roact)
@@ -18,7 +18,9 @@ function Paths.requireAll(roactRoduxPath)
 	-- shared widgets
 
 	-- before including anything from the shared widgets library, set where that library should be using Roact/Rodux from
-	require(libraryPath.RoactStudioWidgetsPathSelection.RoactDevelopmentPathSelection).ThePath = roactRoduxPath
+	if nil ~= libraryPath:FindFirstChild("RoactStudioWidgetsPathSelection") then
+		require(libraryPath.RoactStudioWidgetsPathSelection.RoactDevelopmentPathSelection).ThePath = roactRoduxPath
+	end
 	if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
 		local studioWidgetsPath = libraryPath.RoactStudioWidgets
 		Paths.StudioWidgetHyperlink = require(studioWidgetsPath.Hyperlink)
@@ -51,17 +53,17 @@ function Paths.requireAll(roactRoduxPath)
 	Paths.ConstantScaleBoundaries = require(constantsPath.ConstantScaleBoundaries)
 	Paths.ConstantAvatar = require(constantsPath.ConstantAvatar)
 	Paths.ConstantTemplate = require(constantsPath.ConstantTemplate)
-	
+
 	-- utility
 	local utilityFunctionsPath = codePath.UtilityFunctions
-	Paths.UtilityFunctionsTable = require(utilityFunctionsPath.UtilityFunctionsTable)	
+	Paths.UtilityFunctionsTable = require(utilityFunctionsPath.UtilityFunctionsTable)
 	Paths.UtilityFunctionsService = require(utilityFunctionsPath.UtilityFunctionsService)
 	Paths.UtilityFunctionsAction = require(utilityFunctionsPath.UtilityFunctionsAction)
 	Paths.UtilityFunctionsMath = require(utilityFunctionsPath.UtilityFunctionsMath)
 	Paths.UtilityFunctionsCreate = require(utilityFunctionsPath.UtilityFunctionsCreate)
 
 	local utilityClassesPath = codePath.UtilityClasses
-	Paths.UtilityClassLayoutOrder = require(utilityClassesPath.UtilityClassLayoutOrder)	
+	Paths.UtilityClassLayoutOrder = require(utilityClassesPath.UtilityClassLayoutOrder)
 
 	-- state interface
 	local stateInterfacePath = codePath.StateInterface
@@ -69,7 +71,7 @@ function Paths.requireAll(roactRoduxPath)
 	Paths.StateInterfaceSettings = require(stateInterfacePath.StateInterfaceSettings)
 	Paths.StateInterfaceTheme = require(stateInterfacePath.StateInterfaceTheme)
 
-	-- lifetime managers	
+	-- lifetime managers
 	local lifetimeManagersPath = codePath.LifetimeManagers
 	Paths.LifetimeManagerGUI = require(lifetimeManagersPath.LifetimeManagerGUI)
 	Paths.LifetimeManagerAvatar = require(lifetimeManagersPath.LifetimeManagerAvatar)
@@ -120,7 +122,7 @@ function Paths.requireAll(roactRoduxPath)
 
 	-- thunks
 	local thunksPath = codePath.Thunks
-	Paths.ThunkGetScaleBoundaries = require(thunksPath.ThunkGetScaleBoundaries)	
+	Paths.ThunkGetScaleBoundaries = require(thunksPath.ThunkGetScaleBoundaries)
 
 	-- state models
 	local stateModelPath = codePath.StateModel

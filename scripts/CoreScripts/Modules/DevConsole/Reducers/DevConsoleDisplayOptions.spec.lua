@@ -11,6 +11,7 @@ return function()
 			isMinimized = false,
 			position = Constants.MainWindowInit.Position,
 			size = Constants.MainWindowInit.Size,
+			visibleStartTime = 0,
 		}
 
 		for key in pairs(expectedKeys) do

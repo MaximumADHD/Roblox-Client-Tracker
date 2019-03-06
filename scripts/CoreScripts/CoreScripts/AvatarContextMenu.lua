@@ -12,6 +12,7 @@ local FFlagCoreScriptFixACMFirstPersonUnreliablity = settings():GetFFlag("CoreSc
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagDynamicThumbstickUseContextActionSevice = settings():GetFFlag("UserDynamicThumbstickUseContextActionSevice")
 local FFlagUserFixClickToMoveWithACM = settings():GetFFlag("UserFixClickToMoveWithACM")
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -65,7 +66,13 @@ local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"
 local SelectedCharacterIndicator = require(AvatarMenuModules:WaitForChild("SelectedCharacterIndicator"))
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
-local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+local BlockingUtility
+if FFlagUseRoactPlayerList then
+	BlockingUtility = require(CoreGuiModules.BlockingUtility)
+else
+	local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
+	BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
+end
 
 --- VARIABLES
 
@@ -373,7 +380,6 @@ UserInputService.TouchSwipe:Connect(function(swipeDir, numOfTouches, gameProcess
 	end
 end)
 
-local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 LocalPlayer.FriendStatusChanged:Connect(function(player, friendStatus)
 	if player and player == SelectedPlayer then
 		local isBlocked = BlockingUtility:IsPlayerBlockedByUserId(player.UserId)

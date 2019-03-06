@@ -98,6 +98,7 @@ Class Animator : Instance
 	Function Instance Animator:LoadAnimation(Instance animation)
 	Function void Animator:StepAnimations(float deltaTime) [PluginSecurity]
 Class AssetService : Instance
+	Function Dictionary AssetService:GetBundleDetailsSync(int64 bundleId) [RobloxScriptSecurity]
 	YieldFunction int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = )
 	YieldFunction int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = )
 	YieldFunction Array AssetService:GetAssetIdsForPackage(int64 packageAssetId)
@@ -124,6 +125,35 @@ Class Attachment : Instance
 	Function Vector3 Attachment:GetSecondaryAxis() [deprecated]
 	Function void Attachment:SetAxis(Vector3 axis) [deprecated]
 	Function void Attachment:SetSecondaryAxis(Vector3 axis) [deprecated]
+Class Backpack : Instance
+Class BackpackItem : Instance
+	Property Content BackpackItem.TextureId
+Class HopperBin : BackpackItem [deprecated]
+	Property bool HopperBin.Active
+	Property BinType HopperBin.BinType
+	Function void HopperBin:Disable() [RobloxScriptSecurity]
+	Function void HopperBin:ToggleSelect() [RobloxScriptSecurity]
+	Event HopperBin.Deselected()
+	Event HopperBin.Selected(Instance mouse)
+Class Tool : BackpackItem
+	Property bool Tool.CanBeDropped
+	Property bool Tool.Enabled
+	Property CoordinateFrame Tool.Grip
+	Property Vector3 Tool.GripForward
+	Property Vector3 Tool.GripPos
+	Property Vector3 Tool.GripRight
+	Property Vector3 Tool.GripUp
+	Property bool Tool.ManualActivationOnly
+	Property bool Tool.RequiresHandle
+	Property string Tool.ToolTip
+	Function void Tool:Activate()
+	Function void Tool:Deactivate()
+	Event Tool.Activated()
+	Event Tool.Deactivated()
+	Event Tool.Equipped(Instance mouse)
+	Event Tool.Unequipped()
+Class Flag : Tool [deprecated]
+	Property BrickColor Flag.TeamColor
 Class BadgeService : Instance [notCreatable]
 	YieldFunction bool BadgeService:AwardBadge(int64 userId, int64 badgeId)
 	YieldFunction Dictionary BadgeService:GetBadgeInfoAsync(int64 badgeId)
@@ -1027,40 +1057,6 @@ Class SelectionPartLasso : SelectionLasso [deprecated]
 	Property Class:BasePart SelectionPartLasso.Part
 Class SelectionPointLasso : SelectionLasso [deprecated]
 	Property Vector3 SelectionPointLasso.Point
-Class GuiItem : Instance
-Class Backpack : GuiItem
-Class BackpackItem : GuiItem
-	Property Content BackpackItem.TextureId
-Class HopperBin : BackpackItem [deprecated]
-	Property bool HopperBin.Active
-	Property BinType HopperBin.BinType
-	Function void HopperBin:Disable() [RobloxScriptSecurity]
-	Function void HopperBin:ToggleSelect() [RobloxScriptSecurity]
-	Event HopperBin.Deselected()
-	Event HopperBin.Selected(Instance mouse)
-Class Tool : BackpackItem
-	Property bool Tool.CanBeDropped
-	Property bool Tool.Enabled
-	Property CoordinateFrame Tool.Grip
-	Property Vector3 Tool.GripForward
-	Property Vector3 Tool.GripPos
-	Property Vector3 Tool.GripRight
-	Property Vector3 Tool.GripUp
-	Property bool Tool.ManualActivationOnly
-	Property bool Tool.RequiresHandle
-	Property string Tool.ToolTip
-	Function void Tool:Activate()
-	Function void Tool:Deactivate()
-	Event Tool.Activated()
-	Event Tool.Deactivated()
-	Event Tool.Equipped(Instance mouse)
-	Event Tool.Unequipped()
-Class Flag : Tool [deprecated]
-	Property BrickColor Flag.TeamColor
-Class ButtonBindingWidget : GuiItem
-Class GuiRoot : GuiItem [notCreatable]
-Class Hopper : GuiItem [deprecated]
-Class StarterPack : GuiItem
 Class GuiService : Instance [notCreatable]
 	Property bool GuiService.AutoSelectGuiEnabled
 	Property Class:Folder GuiService.CoreEffectFolder [hidden] [RobloxScriptSecurity]
@@ -1121,6 +1117,7 @@ Class HapticService : Instance [notCreatable]
 	Function bool HapticService:IsMotorSupported(UserInputType inputType, VibrationMotor vibrationMotor)
 	Function bool HapticService:IsVibrationSupported(UserInputType inputType)
 	Function void HapticService:SetMotor(UserInputType inputType, VibrationMotor vibrationMotor, Tuple vibrationValues)
+Class Hopper : Instance [deprecated]
 Class HttpRbxApiService : Instance [notCreatable]
 	YieldFunction string HttpRbxApiService:GetAsync(string apiUrlPath, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
@@ -1155,6 +1152,7 @@ Class Humanoid : Instance
 	Property HumanoidHealthDisplayType Humanoid.HealthDisplayType
 	Property float Humanoid.HipHeight
 	Property bool Humanoid.Jump
+	Property float Humanoid.JumpHeight
 	Property float Humanoid.JumpPower
 	Property Class:BasePart Humanoid.LeftLeg [deprecated] [hidden]
 	Property float Humanoid.MaxHealth
@@ -1170,6 +1168,7 @@ Class Humanoid : Instance
 	Property bool Humanoid.Sit
 	Property Vector3 Humanoid.TargetPoint
 	Property Class:BasePart Humanoid.Torso [deprecated] [hidden]
+	Property bool Humanoid.UseJumpPower
 	Property float Humanoid.WalkSpeed
 	Property Class:BasePart Humanoid.WalkToPart
 	Property Vector3 Humanoid.WalkToPoint
@@ -1817,6 +1816,7 @@ Class Workspace : Model
 	Property bool Workspace.StreamingEnabled
 	Property Class:Instance Workspace.Terrain [readonly]
 	Function void Workspace:BreakJoints(Objects objects) [PluginSecurity]
+	Function float Workspace:CalculateJumpPower(float gravity, float jumpHeight) [RobloxScriptSecurity]
 	Function bool Workspace:ExperimentalSolverIsEnabled() [LocalUserSecurity]
 	Function Tuple Workspace:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false)
 	Function Tuple Workspace:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false)
@@ -1839,7 +1839,7 @@ Class Workspace : Model
 	Function Objects Workspace:findPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [deprecated]
 Class PackageLink : Instance [notbrowsable] [notCreatable]
 	Property Content PackageLink.PackageId [readonly]
-	Property int64 PackageLink.VersionNumber [readonly]
+	Property int64 PackageLink.VersionNumber [ScriptWriteRestricted: [NotAccessibleSecurity]]
 Class Pages : Instance
 	Property bool Pages.IsFinished [readonly]
 	Function Array Pages:GetCurrentPage()
@@ -2498,12 +2498,18 @@ Class Sparkles : Instance
 	Property Color3 Sparkles.SparkleColor
 Class SpawnerService : Instance
 Class StarterGear : Instance
+Class StarterPack : Instance
 Class StarterPlayer : Instance [notCreatable]
 	Property bool StarterPlayer.AllowCustomAnimations [hidden] [ScriptWriteRestricted: [RobloxScriptSecurity]]
 	Property bool StarterPlayer.AutoJumpEnabled
 	Property float StarterPlayer.CameraMaxZoomDistance
 	Property float StarterPlayer.CameraMinZoomDistance
 	Property CameraMode StarterPlayer.CameraMode
+	Property float StarterPlayer.CharacterJumpHeight
+	Property float StarterPlayer.CharacterJumpPower
+	Property float StarterPlayer.CharacterMaxSlopeAngle
+	Property bool StarterPlayer.CharacterUseJumpPower
+	Property float StarterPlayer.CharacterWalkSpeed
 	Property DevCameraOcclusionMode StarterPlayer.DevCameraOcclusionMode
 	Property DevComputerCameraMovementMode StarterPlayer.DevComputerCameraMovementMode
 	Property DevComputerMovementMode StarterPlayer.DevComputerMovementMode

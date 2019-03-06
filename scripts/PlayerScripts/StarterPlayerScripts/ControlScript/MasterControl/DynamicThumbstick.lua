@@ -14,10 +14,6 @@ local GameSettings = Settings.GameSettings
 
 local MasterControl = require(script.Parent)
 
-local FFlagUserEnableDynamicThumbstickIntroSuccess, FFlagUserEnableDynamicThumbstickIntroResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserEnableDynamicThumbstickIntro") end)
-local FFlagUserEnableDynamicThumbstickIntro = FFlagUserEnableDynamicThumbstickIntroSuccess and FFlagUserEnableDynamicThumbstickIntroResult
-local Intro = FFlagUserEnableDynamicThumbstickIntro and require(script:WaitForChild("Intro")) or nil
-
 local Thumbstick = {}
 local Enabled = false
 
@@ -138,32 +134,6 @@ function Thumbstick:Enable()
 	ThumbstickFrame.Visible = true
 	local humanoid = MasterControl:GetHumanoid()
 	enableAutoJump(humanoid)
-
-	if FFlagUserEnableDynamicThumbstickIntro and Intro then
-		coroutine.wrap(function()
-			--TODO: Remove this pcall when API is stable
-			local success, shouldShowIntro = pcall(function()
-				local wasIntroShown = GameSettings:GetOnboardingCompleted("DynamicThumbstick")
-				return not wasIntroShown
-			end)
-			if success and not shouldShowIntro then return end
-
-			--Give the game some time to initialize
-			wait(1)
-			--Wait to play the intro until the character can move
-			while true do
-				if not humanoid then
-					humanoid = MasterControl:GetHumanoid()
-				end
-				if humanoid and humanoid.WalkSpeed ~= 0 and not humanoid.Torso.Anchored then
-					break
-				else
-					wait()
-				end
-			end
-			Intro.play()
-		end)()
-	end
 end
 
 function Thumbstick:Disable()
@@ -295,10 +265,6 @@ function Thumbstick:Create(parentFrame)
 		MiddleImages[i].Parent = ThumbstickFrame
 	end
 
-	if FFlagUserEnableDynamicThumbstickIntro and Intro then
-		Intro.setup(isBigScreen, parentFrame, GestureArea, ThumbstickFrame, StartImage, EndImage, MiddleImages)
-	end
-
 	local CameraChangedConn = nil
 	local function onCurrentCameraChanged()
 		if CameraChangedConn then
@@ -311,10 +277,6 @@ function Thumbstick:Create(parentFrame)
 				local size = newCamera.ViewportSize
 				local portraitMode = size.X < size.Y
 				layoutThumbstickFrame(portraitMode)
-				
-				if FFlagUserEnableDynamicThumbstickIntro then
-					Intro.setPortraitMode(portraitMode)
-				end
 			end
 			CameraChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(onViewportSizeChanged)
 			onViewportSizeChanged()
@@ -376,11 +338,6 @@ function Thumbstick:Create(parentFrame)
 		FadeInAndOutHalfDuration = fadeDuration * 0.5
 		FadeInAndOutBalance = fadeRatio
 		TweenInAlphaStart = tick()
-	end
-
-	if FFlagUserEnableDynamicThumbstickIntro and Intro then
-		Intro.fadeThumbstick = fadeThumbstick
-		Intro.fadeThumbstickFrame = fadeThumbstickFrame
 	end
 		
 	local function doMove(direction)
@@ -462,10 +419,6 @@ function Thumbstick:Create(parentFrame)
 			TweenService:Create(EndImage, tweenInfo, {Size = UDim2.new(0, ThumbstickSize, 0, ThumbstickSize), ImageColor3 = Color3.new(0,0,0)}):Play()
 		end
 
-		if FFlagUserEnableDynamicThumbstickIntro and Intro then
-			Intro.onThumbstickMoveBegin()
-		end
-
 		MoveTouchObject = inputObject
 		MoveTouchStartTime = tick()
 		MoveTouchStartPosition = inputObject.Position
@@ -517,9 +470,6 @@ function Thumbstick:Create(parentFrame)
 	OnMoveTouchEnded = function(inputObject)
 		if inputObject then
 			local direction = Vector2.new(inputObject.Position.x - MoveTouchStartPosition.x, inputObject.Position.y - MoveTouchStartPosition.y)
-			if FFlagUserEnableDynamicThumbstickIntro and Intro then
-				coroutine.wrap(function() Intro.onThumbstickMoved(direction.magnitude) end)()
-			end
 		end
 
 		MoveTouchObject = nil
@@ -544,15 +494,6 @@ function Thumbstick:Create(parentFrame)
 			ThumbstickFrame.BackgroundTransparency = 1 - FadeInAndOutMaxAlpha + FadeInAndOutMaxAlpha*math.min(delta/fadeOutTime, 1)
 			if delta > fadeOutTime  then
 				TweenOutAlphaStart = nil
-			end
-		end
-
-		if FFlagUserEnableDynamicThumbstickIntro and Intro then
-			if Intro.currentState == Intro.states.MoveThumbstick then
-				local startPos = StartImage.AbsolutePosition - ThumbstickFrame.AbsolutePosition + (StartImage.AbsoluteSize * 0.5)
-				local endPos = EndImage.AbsolutePosition - ThumbstickFrame.AbsolutePosition + (EndImage.AbsoluteSize * 0.5)
-
-				layoutMiddleImages(startPos, endPos)
 			end
 		end
 	end)

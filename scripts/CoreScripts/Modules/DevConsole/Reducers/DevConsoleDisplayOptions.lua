@@ -13,7 +13,8 @@ return function(DisplayOptions, action)
 		isVisible = false,
 		isMinimized = false, -- false means windowed, otherwise shows up as a minimized bar
 		position = Constants.MainWindowInit.Position,
-		size = Constants.MainWindowInit.Size
+		size = Constants.MainWindowInit.Size,
+		visibleStartTime = 0,
 	}
 
 	if action.type == SetDevConsoleVisibility.name then
@@ -23,6 +24,7 @@ return function(DisplayOptions, action)
 
 		if update.isVisible then
 			update.isMinimized = false
+			update.visibleStartTime = tick()
 		end
 		return Immutable.JoinDictionaries(displayOptions, update)
 

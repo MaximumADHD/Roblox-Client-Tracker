@@ -12,6 +12,7 @@ ButtonSave,Save
 ButtonCancel,Cancel
 CategoryBasicInfo,Basic Info
 CategoryAvatar,Avatar
+CategoryWorld,World
 CategoryOptions,Options
 TitleName,Name
 TitleDescription,Description
@@ -82,6 +83,8 @@ DeleteDialogHeader,Delete Thumbnail
 DeleteDialogBody,Would you like to delete this thumbnail?
 ImageDialogHeader,No Image Loaded
 ImageDialogBody,Select a compatible image.
+ErrorsOnSaveHeader,Saving Errors
+ErrorsOnSaveBody,Could not save game settings.
 ErrorNameEmpty,Name cannot be empty.
 ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again.
 ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again.

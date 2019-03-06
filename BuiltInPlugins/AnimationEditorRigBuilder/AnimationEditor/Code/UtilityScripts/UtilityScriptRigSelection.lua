@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local RigSelection = {}
 
 local hasController = function(model)
@@ -198,6 +200,9 @@ local function selectRig(self, selection)
 		end
 	else
 		local item = selection[1]
+		if FastFlags:isOptimizationsEnabledOn() and not item:FindFirstAncestor("Workspace") then
+			return
+		end
 		if doesPartExistOnModel(self, item) and (item:IsA("BasePart") or item:IsA("Motor6D")) then
 			self.TargetPart = item
 		end

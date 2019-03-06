@@ -150,11 +150,89 @@ function WorkspaceSettings.getAvatarSettings()
 end
 
 function WorkspaceSettings.saveAllAvatarSettings(saveInfo)
-	setAvatarType(saveInfo.Configuration.universeAvatarType)
-	setAllowCustomAnimations(saveInfo.Configuration.universeAnimationType)
-	setCollisionType(saveInfo.Configuration.universeCollisionType)
-	setScales(saveInfo.Configuration.universeAvatarMinScales, saveInfo.Configuration.universeAvatarMaxScales)
-	setAssetOverrides(saveInfo.Configuration.universeAvatarAssetOverrides)
+	if saveInfo and saveInfo.Configuration then
+		setAvatarType(saveInfo.Configuration.universeAvatarType)
+		setAllowCustomAnimations(saveInfo.Configuration.universeAnimationType)
+		setCollisionType(saveInfo.Configuration.universeCollisionType)
+		setScales(saveInfo.Configuration.universeAvatarMinScales, saveInfo.Configuration.universeAvatarMaxScales)
+		setAssetOverrides(saveInfo.Configuration.universeAvatarAssetOverrides)
+	end
+end
+
+local function setStarterPlayerServiceProp(prop, newValue)
+	if nil ~= newValue then
+		starterPlayerService[prop] = newValue
+	end
+end
+
+local function getUseJumpPower()
+	return starterPlayerService["CharacterUseJumpPower"]
+end
+
+local function setUseJumpPower(workspaceUseJumpPower)
+	setStarterPlayerServiceProp("CharacterUseJumpPower", workspaceUseJumpPower)
+end
+
+local function getJumpPower()
+	return starterPlayerService["CharacterJumpPower"]
+end
+
+local function setJumpPower(workspaceJumpPower)
+	setStarterPlayerServiceProp("CharacterJumpPower", workspaceJumpPower)
+end
+
+local function getJumpHeight()
+	return starterPlayerService["CharacterJumpHeight"]
+end
+
+local function setJumpHeight(workspaceJumpHeight)
+	setStarterPlayerServiceProp("CharacterJumpHeight", workspaceJumpHeight)
+end
+
+local function getGravity()
+	return game.Workspace["Gravity"]
+end
+
+local function setGravity(workspaceGravity)
+	if nil ~= workspaceGravity then
+		game.Workspace["Gravity"] = workspaceGravity
+	end
+end
+
+local function getWalkSpeed()
+	return starterPlayerService["CharacterWalkSpeed"]
+end
+
+local function setWalkSpeed(workspaceWalkSpeed)
+	setStarterPlayerServiceProp("CharacterWalkSpeed", workspaceWalkSpeed)
+end
+
+local function getMaxSlopeAngle()
+	return starterPlayerService["CharacterMaxSlopeAngle"]
+end
+
+local function setMaxSlopeAngle(workspaceMaxSlopeAngle)
+	setStarterPlayerServiceProp("CharacterMaxSlopeAngle", workspaceMaxSlopeAngle)
+end
+
+function WorkspaceSettings.getWorldSettings()
+	return {
+		["workspaceUseJumpPower"]=getUseJumpPower(),
+		["workspaceJumpPower"]=getJumpPower(),
+		["workspaceJumpHeight"]=getJumpHeight(),
+		["workspaceGravity"]=getGravity(),
+		["workspaceWalkSpeed"]=getWalkSpeed(),
+		["workspaceMaxSlopeAngle"]=getMaxSlopeAngle()
+	}
+end
+
+function WorkspaceSettings.saveAllWorldSettings(changed)
+	setUseJumpPower(changed.workspaceUseJumpPower)
+	setJumpPower(changed.workspaceJumpPower)
+	setJumpHeight(changed.workspaceJumpHeight)
+	setGravity(changed.workspaceGravity)
+	setWalkSpeed(changed.workspaceWalkSpeed)
+	setMaxSlopeAngle(changed.workspaceMaxSlopeAngle)
 end
 
 return WorkspaceSettings

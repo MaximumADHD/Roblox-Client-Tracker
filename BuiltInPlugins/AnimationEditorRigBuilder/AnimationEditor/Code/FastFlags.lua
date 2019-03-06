@@ -29,7 +29,7 @@ function FastFlags:isPartIncludeFixOn()
 end
 
 function FastFlags:isFixRenameKeyOptionOn()
-	return isFlagOn("StudioAnimationEditorFixRenameKeyOption")
+	return isFlagOn("StudioAnimationEditorFixRenameKeyOption2")
 end
 
 function FastFlags:isUseNewThemeAPIOn()
@@ -162,6 +162,10 @@ end
 
 function FastFlags:isFixIKBodyPartModeOn()
 	return isFlagOn("StudioAnimationEditorFixIKBodyPartMode")
+end
+
+function FastFlags:isOptimizationsEnabledOn()
+	return isFlagOn("StudioAnimationEdtiorOptimizationsEnabled")
 end
 
 return FastFlags

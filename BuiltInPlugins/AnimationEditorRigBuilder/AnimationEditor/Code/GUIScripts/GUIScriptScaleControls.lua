@@ -350,7 +350,7 @@ end
 
 function ScaleControls:initPostGUICreate()
 	if FastFlags:isAnimationEventsOn() then
-		self.Connections:add(self.Paths.UtilityScriptMoveItems.OnMovedEvent:connect(function()
+		self.Connections:add(self.Paths.UtilityScriptMoveItems.OnMovedEvent:connect(function(targetTime, anchorTime)
 			self:resetControls()
 		end))
 	else	
@@ -390,7 +390,11 @@ function ScaleControls:promptDurationChange()
 	self:showTags()
 	self.Paths.GUIScriptChangeDuration:show(self.StartTime, self.EndTime - self.StartTime, function(scaleFactor)
 		self:hideTags()
-		self.Paths.ActionScale:execute(self.Paths, self.StartTime, scaleFactor)
+		if FastFlags:isFixRenameKeyOptionOn() then
+			self.Paths.ActionMove:execute(self.Paths, self.StartTime, scaleFactor)
+		else
+			self.Paths.ActionScale:execute(self.Paths, self.StartTime, scaleFactor)
+		end
 	end)
 end
 

@@ -2,9 +2,10 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local AntiAddictionService = game:GetService("AntiAddictionService")
+local NotificationService = game:GetService("NotificationService")
+local HttpService = game:GetService("HttpService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
-local Create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 
 local function leaveGame()
@@ -18,18 +19,24 @@ local antiAddictionState = {
 }
 
 local function parseResponse(responseTable)
-	local antiAddictionState = responseTable["response"]["state"]["type"]
+	local state = responseTable["response"]["state"]["type"]
 	local messages = responseTable["response"]["state"]["messages"]
 	return {
-		State = antiAddictionState,
+		State = state,
 		Messages = messages,
 	}
 end
 
+local function markRead(messageId)
+	local apiPath = "v1/messages/mark-read"
+	local params = "mesasgeId=" .. messageId
+	local success, result = pcall(function()
+		return HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default,
+			Enum.HttpContentType.ApplicationUrlEncoded)
+	end)
+end
+
 --[[
-Update the MessageQueue:
-	* Only add new pending message that has not appeared yet.
-	* Remove message no longer appear in new heartbeat
 Resolving message:
 	* display (move message PendingResolve -> Displaying)
 	* markread - spawned as soon as displayed to resolve with server
@@ -41,34 +48,14 @@ local messageQueue = {
 	displaying = nil,
 	resolvedMessage = {},
 	displayMessageCallback = nil,
-	hasNotAppeared = function(self, id)
-		local appeared = not self.pendingResolveMessage[id] and not self.resolvedMessage[id]
-		if self.displaying then
-			appeared = appeared and self.displaying.id ~= id
-		end
-		return appeared
-	end,
 
 	update = function(self, newMessageList)
-		local validateIds = {}
-		for _,message in pairs(newMessageList) do
-			local id = message["id"]
-			validateIds[id] = true
-			if self:hasNotAppeared(id) then
-				self.pendingResolveMessage[id] = message["text"]
-			end
-		end
-
-		for id, message in pairs(self.pendingResolveMessage) do
-			if not validateIds[id] then
-				self.pendingResolveMessage[id] = nil
-			end
-		end
-
-		for id, message in pairs(self.resolvedMessage) do
-			if not validateIds[id] then
-				self.resolvedMessage[id] = nil
-			end
+		for _, message in pairs(newMessageList) do
+			local pendingMessage = {
+				id = message["id"],
+				message = message["text"]
+			}
+			table.insert(self.pendingResolveMessage, pendingMessage)
 		end
 		self:processNext()
 	end,
@@ -77,25 +64,30 @@ local messageQueue = {
 		if self.displaying then
 			return
 		end
-		local id, message = next(self.pendingResolveMessage)
-		if not id then
+		local messageToDisplay = table.remove(self.pendingResolveMessage, 1)
+		if not messageToDisplay then
 			return
 		end
-		self.displaying = {id = id, Message = message}
-		self.pendingResolveMessage[id] = nil
+
+		if self.resolvedMessage[messageToDisplay.id] then
+			self:processNext()
+			return
+		end
+
+		self.displaying = messageToDisplay
 
 		if self.displayMessageCallback then
-			self.displayMessageCallback(message)
+			self.displayMessageCallback(messageToDisplay.message)
 		end
 
 		spawn(function()
-			AntiAddictionService:MarkRead(id)
+			markRead(messageToDisplay.id)
 		end)
 	end,
 
 	-- currently messages will be resolved on client side by user click on the "OK" button
 	resolve = function(self)
-		self.resolvedMessage[self.displaying.id] = self.displaying.Message
+		self.resolvedMessage[self.displaying.id] = self.displaying.message
 		self.displaying = nil
 		self:processNext()
 	end,
@@ -160,6 +152,10 @@ local function antiAddictionStatesUpdated(responseTable)
 
 	messageQueue:update(response.Messages)
 end
-local cachedResponse = AntiAddictionService:GetAntiAddictionData()
-antiAddictionStatesUpdated(cachedResponse)
-antiAddictionUpdatedConnection = AntiAddictionService.Updated:Connect(antiAddictionStatesUpdated)
+
+antiAddictionUpdatedConnection = NotificationService.RobloxEventReceived:Connect(function(eventData)
+	if eventData.namespace == "AntiAddictionNotifications" then
+		local responseTable = HttpService:JSONDecode(eventData.detail)
+		antiAddictionStatesUpdated(responseTable)
+	end
+end)

@@ -16,10 +16,6 @@ local function isFlagOn(theFlag)
 	return FastFlags.FlagExists[theFlag] and FastFlags.FlagValue[theFlag]
 end
 
-function FastFlags.isThemesFlagOn()
-	return isFlagOn("StudioLuaGameSettingsDialog2")
-end
-
 function FastFlags.isCheckboxDisabledStateFixFlagOn()
 	return isFlagOn("SharedWidgetCheckboxDisabledStateFix")
 end
@@ -37,7 +33,7 @@ function FastFlags.isMorphingPanelWidgetsStandardizationOn()
 end
 
 function FastFlags.isPlaceFilesGameSettingsSerializationOn()
-	return isFlagOn("PlaceFilesGameSettingsSerialization")
+	return isFlagOn("PlaceFilesGameSettingsSerialization2")
 end
 
 return FastFlags

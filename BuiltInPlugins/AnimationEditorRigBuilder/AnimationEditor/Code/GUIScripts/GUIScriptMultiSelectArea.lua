@@ -10,12 +10,14 @@ if FastFlags:isAnimationEventsOn() then
 				if not Paths.DataModelSession:areAnyKeyframesSelected() then
 					Paths.DataModelSession:addToDataItems(jointScript.DataItem, false)
 				end
-				for _, key in ipairs(jointScript.Keyframes) do
-					if key.Time and self.SelectAndDragBox:isInSelectedTimeRange(key.Time) then
-						Paths.DataModelSession:addPoseToSelectedKeyframes(key.Time, jointScript.DataItem, false)
-					else
-						if not Paths.DataModelSession:isAClickedPose(key.Time, jointScript.DataItem) then
-							Paths.DataModelSession:removePoseFromSelectedKeyframes(key.Time, jointScript.DataItem, false)
+				if not FastFlags:isOptimizationsEnabledOn() then
+					for _, key in ipairs(jointScript.Keyframes) do
+						if key.Time and self.SelectAndDragBox:isInSelectedTimeRange(key.Time) then
+							Paths.DataModelSession:addPoseToSelectedKeyframes(key.Time, jointScript.DataItem, false)
+						else
+							if not Paths.DataModelSession:isAClickedPose(key.Time, jointScript.DataItem) then
+								Paths.DataModelSession:removePoseFromSelectedKeyframes(key.Time, jointScript.DataItem, false)
+							end
 						end
 					end
 				end
@@ -23,9 +25,11 @@ if FastFlags:isAnimationEventsOn() then
 				if not FastFlags:isScaleKeysOn() or not Paths.HelperFunctionsMath:overlap(Paths.GUIScriptMultiSelectArea.TargetWidget, Paths.GUIIndicatorArea) then
 					Paths.DataModelSession:removeFromDataItems(jointScript.DataItem, false)
 				end
-				for _, key in ipairs(jointScript.Keyframes) do
-					if not Paths.DataModelSession:isAClickedPose(key.Time, jointScript.DataItem) then
-						Paths.DataModelSession:removePoseFromSelectedKeyframes(key.Time, jointScript.DataItem, false)
+				if not FastFlags:isOptimizationsEnabledOn() then
+					for _, key in ipairs(jointScript.Keyframes) do
+						if not Paths.DataModelSession:isAClickedPose(key.Time, jointScript.DataItem) then
+							Paths.DataModelSession:removePoseFromSelectedKeyframes(key.Time, jointScript.DataItem, false)
+						end
 					end
 				end
 			end
@@ -33,28 +37,53 @@ if FastFlags:isAnimationEventsOn() then
 		Paths.DataModelSession.SelectedChangeEvent:fire()
 	end
 
+	local function findKeysInMultiSelectArea(self, Paths)
+		for _, dataItem in pairs(Paths.DataModelSession:getSelectedDataItems()) do
+			local jointScript = Paths.GUIScriptJointTimeline.JointScripts[dataItem.Item]
+			for _, key in pairs(jointScript.Keyframes) do
+				if key.Time and self.SelectAndDragBox:isInSelectedTimeRange(key.Time) and not Paths.DataModelSession:isAClickedPose(key.Time, dataItem) then
+					Paths.DataModelSession:addPoseToSelectedKeyframes(key.Time, dataItem, false)
+				end
+			end
+		end
+	end
+
 	local function findIndicatorsInMultiSelectArea(self, Paths)
 		local indicators = self.Paths.GUIScriptIndicatorArea.KeyframeIndicators
-		for _, indicator in ipairs(indicators) do
+		for _, indicator in pairs(indicators) do
 			if Paths.HelperFunctionsMath:overlap(self.TargetWidget, indicator.TargetWidget) then
 				if not self.Paths.DataModelSession:areAnyPosesForTimeSelected(indicator.Time) then
 					Paths.DataModelSession:addAllPosesAtTimeToKeyframes(indicator.Time, false)
 				end
-			elseif self.Paths.DataModelSession:areAnyPosesForTimeSelected(indicator.Time) then
+			elseif not FastFlags:isOptimizationsEnabledOn() and self.Paths.DataModelSession:areAnyPosesForTimeSelected(indicator.Time) then
 				Paths.DataModelSession:removeAllPosesAtTimeFromKeyframes(indicator.Time, false)
 			end
 		end
-		Paths.DataModelSession.SelectedChangeEvent:fire()
+		if not FastFlags:isOptimizationsEnabledOn() then
+			Paths.DataModelSession.SelectedChangeEvent:fire()
+		end
 	end
 
 	function MultiSelectArea:init(Paths)
 		self.Paths = Paths
 		self.TargetWidget = Paths.GUIMultiSelectArea
-		local selectFunc = function()
-			findIndicatorsInMultiSelectArea(self, Paths)
-			findJointsInMultiSelectArea(self, Paths)
+		if FastFlags:isOptimizationsEnabledOn() then
+			local selectFunc = function()
+				findJointsInMultiSelectArea(self, Paths)
+			end
+			local endFunc = function()
+				findIndicatorsInMultiSelectArea(self, Paths)
+				findKeysInMultiSelectArea(self, Paths)
+				Paths.DataModelSession.SelectedChangeEvent:fire()
+			end
+			self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIMultiSelectArea, self.Paths.GUIScriptJointTimeline.TargetWidget, selectFunc, endFunc)
+		else
+			local selectFunc = function()
+				findIndicatorsInMultiSelectArea(self, Paths)
+				findJointsInMultiSelectArea(self, Paths)
+			end
+			self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIMultiSelectArea, self.Paths.GUIScriptJointTimeline.TargetWidget, selectFunc)
 		end
-		self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIMultiSelectArea, self.Paths.GUIScriptJointTimeline.TargetWidget, selectFunc)
 	end
 
 	function MultiSelectArea:isSelecting()

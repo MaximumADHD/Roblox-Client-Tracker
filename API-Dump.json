@@ -1788,6 +1788,24 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetBundleDetailsSync",
+                    "Parameters": [
+                        {
+                            "Name": "bundleId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CreatePlaceAsync",
                     "Parameters": [
                         {
@@ -2337,6 +2355,400 @@
             "MemoryCategory": "Instances",
             "Name": "Attachment",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Backpack",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TextureId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "BackpackItem",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Active",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "BinType",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "BinType"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Disable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ToggleSelect",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Deselected",
+                    "Parameters": [
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Selected",
+                    "Parameters": [
+                        {
+                            "Name": "mouse",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "HopperBin",
+            "Superclass": "BackpackItem",
+            "Tags": [
+                "Deprecated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "CanBeDropped",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Grip",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "GripForward",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "GripPos",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "GripRight",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "GripUp",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "ManualActivationOnly",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "RequiresHandle",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ToolTip",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Activate",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Deactivate",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Activated",
+                    "Parameters": [
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Deactivated",
+                    "Parameters": [
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Equipped",
+                    "Parameters": [
+                        {
+                            "Name": "mouse",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Unequipped",
+                    "Parameters": [
+                    ],
+                    "Security": "None"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Tool",
+            "Superclass": "BackpackItem"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TeamColor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "BrickColor"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Flag",
+            "Superclass": "Tool",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -17624,454 +18036,6 @@
         },
         {
             "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "GuiItem",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Backpack",
-            "Superclass": "GuiItem"
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "TextureId",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "BackpackItem",
-            "Superclass": "GuiItem",
-            "Tags": [
-                "NotCreatable"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Active",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "BinType",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "BinType"
-                    }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Disable",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ToggleSelect",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Deselected",
-                    "Parameters": [
-                    ],
-                    "Security": "None"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Selected",
-                    "Parameters": [
-                        {
-                            "Name": "mouse",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "Security": "None"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "HopperBin",
-            "Superclass": "BackpackItem",
-            "Tags": [
-                "Deprecated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "CanBeDropped",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "State",
-                    "MemberType": "Property",
-                    "Name": "Enabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "Grip",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "CFrame"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "GripForward",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector3"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "GripPos",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector3"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "GripRight",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector3"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "GripUp",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector3"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "ManualActivationOnly",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "RequiresHandle",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "ToolTip",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Activate",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Deactivate",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Activated",
-                    "Parameters": [
-                    ],
-                    "Security": "None"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Deactivated",
-                    "Parameters": [
-                    ],
-                    "Security": "None"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Equipped",
-                    "Parameters": [
-                        {
-                            "Name": "mouse",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "Security": "None"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "Unequipped",
-                    "Parameters": [
-                    ],
-                    "Security": "None"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Tool",
-            "Superclass": "BackpackItem"
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "TeamColor",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "BrickColor"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Flag",
-            "Superclass": "Tool",
-            "Tags": [
-                "Deprecated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "ButtonBindingWidget",
-            "Superclass": "GuiItem",
-            "Tags": [
-                "NotCreatable"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "GuiRoot",
-            "Superclass": "GuiItem",
-            "Tags": [
-                "NotCreatable",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "Hopper",
-            "Superclass": "GuiItem",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "Deprecated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "StarterPack",
-            "Superclass": "GuiItem",
-            "Tags": [
-                "NotCreatable",
-                "Service"
-            ]
-        },
-        {
-            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -19152,6 +19116,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Hopper",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "Deprecated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "GetAsync",
@@ -19938,6 +19914,23 @@
                 {
                     "Category": "Game",
                     "MemberType": "Property",
+                    "Name": "JumpHeight",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Game",
+                    "MemberType": "Property",
                     "Name": "JumpPower",
                     "Security": {
                         "Read": "None",
@@ -20215,6 +20208,23 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "BasePart"
+                    }
+                },
+                {
+                    "Category": "Game",
+                    "MemberType": "Property",
+                    "Name": "UseJumpPower",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -31777,6 +31787,31 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CalculateJumpPower",
+                    "Parameters": [
+                        {
+                            "Name": "gravity",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "jumpHeight",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ExperimentalSolverIsEnabled",
                     "Parameters": [
                     ],
@@ -32348,14 +32383,13 @@
                     "Name": "VersionNumber",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "NotAccessibleSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
+                        "CanLoad": true,
+                        "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ValueType": {
@@ -41310,6 +41344,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetObjectsList",
+                    "Parameters": [
+                        {
+                            "Name": "urls",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetRemoteBuildMode",
                     "Parameters": [
                     ],
@@ -43706,6 +43758,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StarterPack",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Character",
                     "MemberType": "Property",
@@ -43792,6 +43855,91 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "CameraMode"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "CharacterJumpHeight",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "CharacterJumpPower",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "CharacterMaxSlopeAngle",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "CharacterUseJumpPower",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "CharacterWalkSpeed",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -46108,6 +46256,24 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetClassIcon",
+                    "Parameters": [
+                        {
+                            "Name": "className",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "PluginSecurity"
                 },
                 {
                     "MemberType": "Function",

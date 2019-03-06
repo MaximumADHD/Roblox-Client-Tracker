@@ -11,6 +11,8 @@ local TopbarConstants = {}
 
 TopbarConstants.TOPBAR_THICKNESS = 36
 TopbarConstants.USERNAME_CONTAINER_WIDTH = 170
+
+-- Remove with FFlagUseRoactPlayerList
 TopbarConstants.COLUMN_WIDTH = 75
 TopbarConstants.NAME_LEADERBOARD_SEP_WIDTH = 2
 

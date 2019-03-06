@@ -5,9 +5,13 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TeleportService = game:GetService("TeleportService")
 local AnalyticsService = game:GetService("AnalyticsService")
 local LocalizationService = game:GetService("LocalizationService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local HttpService = game:GetService("HttpService")
 
 local create = require(RobloxGui.Modules.Common.Create)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
+local Url = require(RobloxGui.Modules.Common.Url)
+
 local LEAVE_GAME_FRAME_WAITS = 2
 
 local function safeGetFInt(name, defaultValue)
@@ -32,6 +36,7 @@ local fflagLazyCreateErrorPrompt = settings():GetFFlag("LazyCreateErrorPrompt")
 -- Remove Reconnect button from error prompts for errors 522, 523
 local fflagReconnectButtonStateUpdate = settings():GetFFlag("ReconnectButtonStateUpdate")
 local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
+local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
 
 local coreScriptTableTranslator
 if fflagUseNewErrorStrings then
@@ -67,6 +72,24 @@ local ErrorTitles = {
 	[ConnectionPromptState.TELEPORT_FAILED] = "Teleport Failed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
 }
+
+-- only return success when a valid root id is given
+local function fetchStarterPlaceId(universeId)
+	local apiPath = "v1/games"
+	local params = "universeIds="..universeId
+	local fullUrl = Url.GAME_URL..apiPath.."?"..params
+	local success, result = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, fullUrl)
+	if success then
+		local result = HttpService:JSONDecode(result)
+		if result and result["data"] and result["data"][1] then
+			local rootId = result["data"][1]["rootPlaceId"]
+			if rootId then
+				return true, rootId
+			end
+		end
+	end
+	return false, -1
+end
 
 -- Screengui holding the prompt and make it on top of blur
 local screenGui = create 'ScreenGui' {
@@ -110,7 +133,20 @@ local reconnectFunction = function()
 	if currentTime < graceTimeout then
 		wait(graceTimeout - currentTime)
 	end
-	TeleportService:Teleport(game.placeId)
+	if fflagReconnectToStarterPlace then
+		if game.GameId > 0 then
+			local success, starterPlaceId = fetchStarterPlaceId(game.GameId)
+			if success and starterPlaceId > 0 then
+				TeleportService:Teleport(starterPlaceId)
+			else
+				TeleportService:Teleport(game.PlaceId)
+			end
+		else
+			TeleportService:Teleport(game.PlaceId)
+		end
+	else
+		TeleportService:Teleport(game.placeId)
+	end
 end
 
 local leaveFunction = function()

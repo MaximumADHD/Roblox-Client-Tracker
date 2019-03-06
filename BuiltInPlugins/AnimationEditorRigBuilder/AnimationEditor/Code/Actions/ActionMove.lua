@@ -4,7 +4,7 @@ local Move = {}
 Move.__index = Move
 
 -- static function
-function Move:execute(Paths, time)
+function Move:execute(Paths, time, scaleFactor)
 	Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionMove:new(Paths))
 
 	if FastFlags:isAnimationEventsOn() then
@@ -13,7 +13,11 @@ function Move:execute(Paths, time)
 		Paths.UtilityScriptCopyPaste:cut(Paths.DataModelSession:getSelectedKeyframes(), false)
 	end
 
-	Paths.UtilityScriptCopyPaste:paste(time, false)
+	if FastFlags:isFixRenameKeyOptionOn() then
+		Paths.UtilityScriptCopyPaste:paste(time, scaleFactor, false)
+	else
+		Paths.UtilityScriptCopyPaste:paste(time, false)
+	end
 
 	if FastFlags:isAnimationEventsOn() then
 		Paths.UtilityScriptCopyPaste:resetCopyItems()

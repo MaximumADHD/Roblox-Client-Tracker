@@ -31,7 +31,7 @@ local Constants = {
 
 	PRIMARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/PrimaryButton.png",
 	SECONDARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/SecondaryButton.png",
-	SHIMMER_TEXTURE = "rbxasset://textures/ui/LuaApp/graphic/shimmer.png",
+	SHIMMER_TEXTURE = "rbxasset://textures/ui/LuaApp/graphic/shimmer_darkTheme.png",
 	OVERLAY_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/ShimmerOverlay.png",
 }
 

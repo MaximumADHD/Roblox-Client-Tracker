@@ -37,12 +37,23 @@ function ScalePoses:Scale(Paths, atTime)
 	if self.AnchorKey ~= nil and self.MinTimeKey ~= nil and self.MaxTimeKey ~= nil then
 		self.TargetTime = atTime
 		local anchorTime = self.AnchorKey.Time
+		local scaleFactor = nil
+		if FastFlags:isOptimizationsEnabledOn() then
+			scaleFactor = getScaleFactor(self.AnchorKey, self.MinTimeKey, self.TargetTime, self.Duration)
+		end
 		for index, key in ipairs(self.GUIKeyList) do
-			local scaleFactor = getScaleFactor(self.AnchorKey, self.MinTimeKey, self.TargetTime, self.Duration)
+			if not FastFlags:isOptimizationsEnabledOn() then
+				scaleFactor = getScaleFactor(self.AnchorKey, self.MinTimeKey, self.TargetTime, self.Duration)
+			end
 			local deltaTime = (anchorTime - key.Time) * scaleFactor
 			local newTime =  anchorTime - deltaTime
 			newTime = Paths.DataModelSession:formatTimeValue(newTime)
 			Paths.GUIScriptKeyframe:updateKeyframeOnTimeline(Paths, key, newTime)
+			if not FastFlags:isOptimizationsEnabledOn() then
+				self.PosesScaledEvent:fire(anchorTime, scaleFactor)
+			end
+		end
+		if FastFlags:isOptimizationsEnabledOn() then
 			self.PosesScaledEvent:fire(anchorTime, scaleFactor)
 		end
 	end
@@ -52,7 +63,11 @@ function ScalePoses:EndScale(Paths, atTime)
 	if self.AnchorKey ~= nil and self.MinTimeKey ~= nil and self.TargetTime ~= nil then
 		local anchorTime = self.AnchorKey.Time
 		local scaleFactor = getScaleFactor(self.AnchorKey, self.MinTimeKey, self.TargetTime, self.Duration)
-		Paths.ActionScale:execute(Paths, anchorTime, scaleFactor)
+		if FastFlags:isFixRenameKeyOptionOn() then
+			Paths.ActionMove:execute(Paths, anchorTime, scaleFactor)
+		else
+			Paths.ActionScale:execute(Paths, anchorTime, scaleFactor)
+		end
 	end
 
 	self.AnchorKey = nil

@@ -11,10 +11,12 @@ local VRService = game:GetService("VRService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
-local FFlagUseRoactPurchasePrompt374 = settings():GetFFlag("UseRoactPurchasePrompt374")
+local FFlagUseRoactPurchasePrompt375 = settings():GetFFlag("UseRoactPurchasePrompt375")
 local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+
+local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -53,14 +55,22 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", Ro
 -- Chat script
 if FFlagIWillNotYield then
 	coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerlistModule)
+	if FFlagUseRoactPlayerList then
+		coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerList.PlayerListManager)
+	else
+		coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerlistModule)
+	end
 else
 	spawn(function() safeRequire(RobloxGui.Modules.ChatSelector) end)
-	spawn(function() safeRequire(RobloxGui.Modules.PlayerlistModule) end)
+	if FFlagUseRoactPlayerList then
+		spawn(function() safeRequire(RobloxGui.Modules.PlayerList.PlayerListManager) end)
+	else
+		spawn(function() safeRequire(RobloxGui.Modules.PlayerlistModule) end)
+	end
 end
 
 -- Purchase Prompt Script
-if FFlagUseRoactPurchasePrompt374 then
+if FFlagUseRoactPurchasePrompt375 then
 	if FFlagIWillNotYield then
 		coroutine.wrap(function()
 			local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)

@@ -3,6 +3,7 @@
   // Version 1.3
   // Written by: jmargh
   // Description: Implementation of in game player list and leaderboard
+  --Remove with FFlagUseRoactPlayerList
 ]]
 local CoreGui = game:GetService('CoreGui')
 local GuiService = game:GetService('GuiService')	-- NOTE: Can only use in core scripts

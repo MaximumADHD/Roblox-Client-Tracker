@@ -705,6 +705,7 @@ do
 		return getFriendCountAsync(player.UserId)
 	end
 
+	--Remove with FFlagUseRoactPlayerList
 	function moduleApiTable:InitBlockListAsync()
 		initializeBlockList()
 	end
@@ -717,6 +718,7 @@ do
 		return getFriendStatus()
 	end
 
+	--Remove with FFlagUseRoactPlayerList
 	function moduleApiTable:CreateBlockingUtility()
 		local blockingUtility = {}
 

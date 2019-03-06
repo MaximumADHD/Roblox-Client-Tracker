@@ -22,7 +22,7 @@ function BannerButton:render()
 	local onButtonPress = self.props.onButtonPress
 
 	local bannerElements = {
-		BannerButtonArrow = Roact.createElement("ImageLabel", {
+		BannerButtonArrow = onButtonPress and Roact.createElement("ImageLabel", {
 			Image = isExpanded and OPEN_ARROW or CLOSE_ARROW,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ARROW_WIDTH, 0, ARROW_WIDTH),

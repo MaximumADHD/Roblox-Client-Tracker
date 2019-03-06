@@ -9,6 +9,7 @@ local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsClose
 local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
 local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -67,6 +68,10 @@ local settingsPages = {
 
 if FFlagStudioLocalizationGameSettings then
 	table.insert(settingsPages, "Localization")
+end
+
+if DFFlagGameSettingsWorldPanel then
+	table.insert(settingsPages, "World")
 end
 
 local localization

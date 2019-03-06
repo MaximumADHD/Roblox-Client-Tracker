@@ -3,12 +3,12 @@
 	selection, activation, and deactivation of the current character movement controller.
 	This script binds to RenderStepped at Input priority and calls the Update() methods
 	on the active controller instances.
-	
+
 	The character controller ModuleScripts implement classes which are instantiated and
 	activated as-needed, they are no longer all instantiated up front as they were in
 	the previous generation of PlayerScripts.
-	
-	2018 PlayerScripts Update - AllYourBlox		
+
+	2018 PlayerScripts Update - AllYourBlox
 --]]
 local ControlModule = {}
 ControlModule.__index = ControlModule
@@ -76,7 +76,7 @@ local computerInputTypeToModuleMap = {
 
 function ControlModule.new()
 	local self = setmetatable({},ControlModule)
-	
+
 	-- The Modules above are used to construct controller instances as-needed, and this
 	-- table is a map from Module to the instance created from it
 	self.controllers = {}
@@ -88,33 +88,33 @@ function ControlModule.new()
 	self.humanoid = nil
 	self.lastInputType = Enum.UserInputType.None
 	self.cameraRelative = true
-	
+
 	-- For Roblox self.vehicleController
 	self.humanoidSeatedConn = nil
 	self.vehicleController = nil
-	
+
 	self.touchControlFrame = nil
-	
+
 	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
-	
+
 	Players.LocalPlayer.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char) end)
 	Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterAdded(char) end)
 	if Players.LocalPlayer.Character then
 		self:OnCharacterAdded(Players.LocalPlayer.Character)
 	end
-	
+
 	RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(dt) self:OnRenderStepped(dt) end)
-	
+
 	UserInputService.LastInputTypeChanged:Connect(function(newLastInputType) self:OnLastInputTypeChanged(newLastInputType) end)
-	
+
 	local propertyChangeListeners = {
 		UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function() self:OnTouchMovementModeChange() end),
 		Players.LocalPlayer:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(function() self:OnTouchMovementModeChange() end),
-	
+
 		UserGameSettings:GetPropertyChangedSignal("ComputerMovementMode"):Connect(function() self:OnComputerMovementModeChange() end),
 		Players.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(function() self:OnComputerMovementModeChange() end),
 	}
-	
+
 	--[[ Touch Device UI ]]--
 	self.playerGui = nil
 	self.touchGui = nil
@@ -139,7 +139,7 @@ function ControlModule.new()
 	else
 		self:OnLastInputTypeChanged(UserInputService:GetLastInputType())
 	end
-	
+
 	return self
 end
 
@@ -157,26 +157,32 @@ function ControlModule:GetActiveController()
 	return self.activeController
 end
 
+function ControlModule:EnableActiveControlModule()
+	if self.activeControlModule == ClickToMove then
+		-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
+		-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only jump.
+		self.activeController:Enable(
+			true,
+			Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice,
+			self.touchJumpController
+		)
+	elseif self.touchControlFrame then
+		self.activeController:Enable(true, self.touchControlFrame)
+	else
+		self.activeController:Enable(true)
+	end
+end
+
 function ControlModule:Enable(enable)
 	if not self.activeController then
 		return
 	end
-	
+
 	if enable == nil then
 		enable = true
 	end
 	if enable then
-		if self.touchControlFrame then
-			self.activeController:Enable(true, self.touchControlFrame)
-		else
-			if self.activeControlModule == ClickToMove then
-				-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
-				-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only spacebar to jump.
-				self.activeController:Enable(true, Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice)
-			else				
-				self.activeController:Enable(true)
-			end
-		end
+		self:EnableActiveControlModule()
 	else
 		self:Disable()
 	end
@@ -186,7 +192,7 @@ end
 function ControlModule:Disable()
 	if self.activeController then
 		self.activeController:Enable(false)
-	
+
 		if self.moveFunction then
 			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), self.cameraRelative)
 		end
@@ -199,10 +205,10 @@ function ControlModule:SelectComputerMovementModule()
 	if not (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled) then
 		return nil, false
 	end
-	
+
 	local computerModule = nil
 	local DevMovementMode = Players.LocalPlayer.DevComputerMovementMode
-	
+
 	if DevMovementMode == Enum.DevComputerMovementMode.UserChoice then
 		computerModule = computerInputTypeToModuleMap[lastInputType]
 		if UserGameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove and computerModule == Keyboard then
@@ -212,13 +218,13 @@ function ControlModule:SelectComputerMovementModule()
 	else
 		-- Developer has selected a mode that must be used.
 		computerModule = movementEnumToModuleMap[DevMovementMode]
-		
+
 		-- computerModule is expected to be nil here only when developer has selected Scriptable
 		if (not computerModule) and DevMovementMode ~= Enum.DevComputerMovementMode.Scriptable then
 			warn("No character control module is associated with DevComputerMovementMode ", DevMovementMode)
 		end
 	end
-	
+
 	if computerModule then
 		return computerModule, true
 	elseif DevMovementMode == Enum.DevComputerMovementMode.Scriptable then
@@ -242,7 +248,7 @@ function ControlModule:SelectTouchModule()
 	if DevMovementMode == Enum.DevTouchMovementMode.UserChoice then
 		touchModule = movementEnumToModuleMap[UserGameSettings.TouchMovementMode]
 	elseif DevMovementMode == Enum.DevTouchMovementMode.Scriptable then
-		return nil, true	
+		return nil, true
 	else
 		touchModule = movementEnumToModuleMap[DevMovementMode]
 	end
@@ -322,21 +328,11 @@ function ControlModule:SwitchToController(controlModule)
 			end
 			self.activeController = self.controllers[controlModule]
 			self.activeControlModule = controlModule -- Only used to check if controller switch is necessary
-			if self.touchControlFrame then
-				self.activeController:Enable(true, self.touchControlFrame)
-			else
-				if self.activeControlModule == ClickToMove then
-					-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
-					-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only spacebar to jump.
-					self.activeController:Enable(true, Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice)
-				else				
-					self.activeController:Enable(true)
-				end
-			end
+
 			if self.touchControlFrame and (self.activeControlModule == TouchThumbpad
-									or self.activeControlModule == TouchThumbstick
-									or self.activeControlModule == ClickToMove
-									or self.activeControlModule == DynamicThumbstick) then
+						or self.activeControlModule == TouchThumbstick
+						or self.activeControlModule == ClickToMove
+						or self.activeControlModule == DynamicThumbstick) then
 				if not self.controllers[TouchJump] then
 					self.controllers[TouchJump] = TouchJump.new()
 				end
@@ -347,6 +343,8 @@ function ControlModule:SwitchToController(controlModule)
 					self.touchJumpController:Enable(false)
 				end
 			end
+
+			self:EnableActiveControlModule()
 		end
 	end
 end
@@ -408,6 +406,13 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchControlFrame.Parent = self.touchGui
 
 	self.touchGui.Parent = self.playerGui
+end
+
+function ControlModule:GetClickToMoveController()
+	if not self.controllers[ClickToMove] then
+		self.controllers[ClickToMove] = ClickToMove.new(CONTROL_ACTION_PRIORITY)
+	end
+	return self.controllers[ClickToMove]
 end
 
 return ControlModule.new()

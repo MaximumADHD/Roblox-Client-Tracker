@@ -17,7 +17,7 @@ function FastFlags.isMorphingPanelWidgetsStandardizationOn()
 end
 
 function FastFlags.isPlaceFilesGameSettingsSerializationOn()
-	local flagExists, flagIsOn = pcall(function () return settings():GetFFlag("PlaceFilesGameSettingsSerialization") end)
+	local flagExists, flagIsOn = pcall(function () return settings():GetFFlag("PlaceFilesGameSettingsSerialization2") end)
 	return flagExists and flagIsOn
 end
 
