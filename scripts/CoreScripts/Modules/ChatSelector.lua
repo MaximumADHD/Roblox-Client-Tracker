@@ -155,7 +155,7 @@ local isConsole = GuiService:IsTenFootInterface() or FORCE_IS_CONSOLE
 local isVR = UserInputService.VREnabled or FORCE_IS_VR
 
 if ( not isConsole and not isVR ) then
-	spawn(function()
+	coroutine.wrap(function()
 		useModule = require(RobloxGui.Modules.NewChat)
 
 		ConnectSignals(useModule, interface, "ChatBarFocusChanged")
@@ -177,7 +177,7 @@ if ( not isConsole and not isVR ) then
 		for i, messageData in pairs(MakeSystemMessageQueue) do
 			pcall(function() StarterGui:SetCore("ChatMakeSystemMessage", messageData) end)
 		end
-	end)
+	end)()
 elseif not isConsole and not FFlagNukeVRChatFromOrbit then
 	useModule = require(RobloxGui.Modules.Chat)
 

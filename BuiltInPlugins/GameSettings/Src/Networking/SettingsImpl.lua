@@ -23,19 +23,13 @@ local Cryo = require(Plugin.Cryo)
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
 local WorkspaceSettings = nil
-if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+if DFFlagGameSettingsWorldPanel or fastFlags.isPlaceFilesGameSettingsSerializationOn() then
 	WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
 end
 
 local AssetOverrides = nil
-
 if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
-end
-
-local WorkspaceSettings = nil
-if DFFlagGameSettingsWorldPanel then
-	WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
 end
 
 local RequestsFolder = Plugin.Src.Networking.Requests

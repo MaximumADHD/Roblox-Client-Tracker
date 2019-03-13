@@ -2,13 +2,13 @@ local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
 
 local LabeledButton = require(script.Parent.LabeledButton)
-local LabeledCheckbox = require(script.Parent.LabeledCheckbox)
 local UploadDialogContent = require(script.Parent.UploadDialogContent)
 local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
-local StudioEnableAutoscrapingCheckbox = settings():GetFFlag("StudioEnableAutoscrapingCheckbox")
+local StudioLocalizationPluginCleanGameIdLogic = settings():GetFFlag("StudioLocalizationPluginCleanGameIdLogic")
+
 
 --[[
 	To determine if this feature is available, we have to wait for
@@ -28,7 +28,6 @@ local Availability = {
 function GameTableSection:init()
 	self.state = {
 		Available = Availability.UNDETERMINED,
-		Autoscraping = false,
 		NonInteractive = false,
 		ShowProgressIndicator = false,
 	}
@@ -59,7 +58,7 @@ function GameTableSection:init()
 	})
 
 	self._OnDownload = function()
-		flow:OnDownload():catch(
+		flow:OnDownload(game.gameId):catch(
 			function(errorInfo)
 				if errorInfo:hasWarningMessage() then
 					warn(errorInfo:getWarningMessage())
@@ -68,7 +67,7 @@ function GameTableSection:init()
 	end
 
 	self._OnUpload = function()
-		flow:OnUpload():catch(
+		flow:OnUpload(game.gameId):catch(
 			function(errorInfo)
 				if errorInfo:hasWarningMessage() then
 					warn(errorInfo:getWarningMessage())
@@ -76,18 +75,40 @@ function GameTableSection:init()
 			end)
 	end
 
-	local function checkIfAvailable()
-		self.props.UpdateGameTableInfo():andThen(
-			function(available, autoscraping)
-				if available then
-					if self._idChangedConnection then
-						self._idChangedConnection:Disconnect()
-						self._idChangedConnection = nil
+	if not StudioLocalizationPluginCleanGameIdLogic then
+		local function checkIfAvailable()
+			self.props.UpdateGameTableInfo():andThen(
+				function(available)
+					if available then
+						if self._idChangedConnection then
+							self._idChangedConnection:Disconnect()
+							self._idChangedConnection = nil
+						end
+						self:setState({Available = Availability.AVAILABLE})
+					else
+						self:setState({Available = Availability.NOT_AVAILABLE})
 					end
-					self:setState({
-						Available = Availability.AVAILABLE,
-						Autoscraping = autoscraping,
-					})
+				end,
+				function(errorMessage)
+					self:setState({Available = Availability.NOT_AVAILABLE})
+				end
+			)
+		end
+
+		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkIfAvailable)
+		spawn(checkIfAvailable)
+	end
+
+	self.progressSpinnerRef = Roact.createRef()
+end
+
+
+function GameTableSection:didMount()
+	local function checkTableAvailability()
+		self.props.CheckTableAvailability(game.gameId):andThen(
+			function(available)
+				if available then
+					self:setState({Available = Availability.AVAILABLE})
 				else
 					self:setState({Available = Availability.NOT_AVAILABLE})
 				end
@@ -98,11 +119,10 @@ function GameTableSection:init()
 		)
 	end
 
-	self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkIfAvailable)
-
-	spawn(checkIfAvailable)
-
-	self.progressSpinnerRef = Roact.createRef()
+	if StudioLocalizationPluginCleanGameIdLogic then
+		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkTableAvailability)
+		coroutine.resume(coroutine.create(checkTableAvailability))
+	end
 end
 
 
@@ -127,31 +147,6 @@ function GameTableSection:render()
 				})
 			end
 
-			local autoscrapingCheckbox
-			if StudioEnableAutoscrapingCheckbox then
-				autoscrapingCheckbox = Roact.createElement(LabeledCheckbox, {
-					Size = UDim2.new(0, 266, 0, 30),
-					LayoutOrder = 1,
-					LabelText = "Autoscraping",
-					Checked = self.state.Autoscraping,
-
-					OnClicked = function()
-						local newValue = not self.state.Autoscraping
-						self:setState({
-							Autoscraping = newValue
-						})
-
-						self.props.SetAutoscraping(newValue):andThen(
-							function()
-								self.props.SetMessage("Autoscraping: "..(newValue and "on" or "off"))
-							end,
-							function(errorMessage)
-								self.props.SetMessage(errorMessage)
-							end)
-					end,
-				})
-			end
-
 			content = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 200),
 				BackgroundTransparency = 1,
@@ -168,8 +163,6 @@ function GameTableSection:render()
 					PaddingLeft = UDim.new(0, 15),
 					PaddingTop = UDim.new(0, 15),
 				}),
-
-				AutoscrapingCheckbox = autoscrapingCheckbox,
 
 				Content = Roact.createElement("Frame", {
 					Size = UDim2.new(0, 266, 0, 75),

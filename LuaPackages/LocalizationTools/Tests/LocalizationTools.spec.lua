@@ -14,7 +14,9 @@ return function()
 				},
 			},
 			UpdateGameTableInfo = function() return Promise.new(function() end) end,
-			SetAutoscraping = function() end,
+			CheckTableAvailability = function()
+				return Promise.new(function() end)
+			end,
 			GameIdChangedSignal = {
 				Connect = function() end,
 			},

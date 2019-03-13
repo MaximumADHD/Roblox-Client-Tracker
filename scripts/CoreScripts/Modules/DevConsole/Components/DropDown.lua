@@ -10,6 +10,8 @@ local ARROW_OFFSET = ARROW_SIZE / 2
 local OPEN_ARROW = Constants.Image.DownArrow
 local INNER_FRAME_PADDING = 12
 
+local FFlagDevConsoleDropdownBehind = settings():GetFFlag("DevConsoleDropdownBehind")
+
 local DropDown = Roact.Component:extend("DropDown")
 
 function DropDown:init()
@@ -123,6 +125,7 @@ function DropDown:render()
 			target = RobloxGui,
 		}, {
 			FullScreen = Roact.createElement("ScreenGui", {
+				OnTopOfCoreBlur = FFlagDevConsoleDropdownBehind,
 			}, {
 				InputCatcher = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),

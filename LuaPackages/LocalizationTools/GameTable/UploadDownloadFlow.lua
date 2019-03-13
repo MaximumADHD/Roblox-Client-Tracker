@@ -128,7 +128,7 @@ function UploadDownloadFlow:_getBusy()
 	return self._busy
 end
 
-function UploadDownloadFlow:OnUpload()
+function UploadDownloadFlow:OnUpload(gameId)
 	if self:_getBusy() then
 		return Promise.reject("busy")
 	end
@@ -143,7 +143,7 @@ function UploadDownloadFlow:OnUpload()
 				self.props.SetMessage("Computing patch...")
 				self:_setMode(COMPUTING)
 
-				self.props.ComputePatch(localizationTable):andThen(
+				self.props.ComputePatch(gameId, localizationTable):andThen(
 					function(patchInfo)
 						self.props.SetMessage("Confirm upload...")
 						self:_setMode(GETTING_USER_INPUT)
@@ -154,7 +154,7 @@ function UploadDownloadFlow:OnUpload()
 								self.props.SetMessage("Uploading patch...")
 								self:_setMode(COMPUTING)
 
-								self.props.UploadPatch(patchInfo, uploadInfo):andThen(
+								self.props.UploadPatch(gameId, patchInfo, uploadInfo):andThen(
 									function()
 										self.props.SetMessage("Upload complete")
 										self:_setMode(NOT_BUSY)
@@ -185,7 +185,7 @@ function UploadDownloadFlow:OnUpload()
 	end)
 end
 
-function UploadDownloadFlow:OnDownload()
+function UploadDownloadFlow:OnDownload(gameId)
 	if self:_getBusy() then
 		return Promise.reject("busy")
 	end
@@ -194,7 +194,7 @@ function UploadDownloadFlow:OnDownload()
 	self.props.SetMessage("Downloading table...")
 
 	return Promise.new(function(resolve, reject)
-		self.props.DownloadGameTable():andThen(
+		self.props.DownloadGameTable(gameId):andThen(
 			function(localizationTable)
 				self.props.SetMessage("Select CSV file...")
 				self:_setMode(GETTING_USER_INPUT)

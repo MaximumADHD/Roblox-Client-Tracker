@@ -17,9 +17,11 @@ local baseUrl = ContentProvider.BaseUrl
 local baseDomain = getBaseDomain(baseUrl)
 
 local baseGameUrl = string.format("https://games.%s", baseDomain)
+local baseRcsUrl = string.format("https://apis.rcs.%s", baseDomain)
 
 local urlValues = {
 	GAME_URL = baseGameUrl,
+	RCS_URL = baseRcsUrl,
 }
 
 setmetatable(Urls, {

@@ -4921,6 +4921,17 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetContentMemoryData",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "MeshContentProvider",
@@ -19783,6 +19794,23 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "CollisionType",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "HumanoidCollisionType"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "DisplayDistanceType",
@@ -24216,6 +24244,14 @@
                     "MemberType": "Function",
                     "Name": "StartTextScraper",
                     "Parameters": [
+                        {
+                            "Default": "false",
+                            "Name": "enforceRequirements",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -28028,6 +28064,13 @@
                         },
                         {
                             "Name": "sequenceNumber",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "namespaceSequenceNumbers",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -32404,6 +32447,18 @@
             "Tags": [
                 "NotCreatable",
                 "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PackageService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -48706,6 +48761,38 @@
                         "Name": "Instance"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetValue",
+                    "Parameters": [
+                        {
+                            "Name": "alpha",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "easingStyle",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "EasingStyle"
+                            }
+                        },
+                        {
+                            "Name": "easingDirection",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "EasingDirection"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -56241,6 +56328,19 @@
                 }
             ],
             "Name": "HttpRequestType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "OuterBox",
+                    "Value": 0
+                },
+                {
+                    "Name": "InnerBox",
+                    "Value": 1
+                }
+            ],
+            "Name": "HumanoidCollisionType"
         },
         {
             "Items": [

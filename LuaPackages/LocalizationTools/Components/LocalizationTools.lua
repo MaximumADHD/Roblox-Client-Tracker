@@ -95,7 +95,7 @@ function LocalizationTools:render()
 								UploadPatch = self.props.UploadPatch,
 								DownloadGameTable = self.props.DownloadGameTable,
 								UpdateGameTableInfo = self.props.UpdateGameTableInfo,
-								SetAutoscraping = self.props.SetAutoscraping,
+								CheckTableAvailability = self.props.CheckTableAvailability,
 								GameIdChangedSignal = self.props.GameIdChangedSignal,
 								SaveCSV = self.props.SaveCSV,
 								LayoutOrder = 2,

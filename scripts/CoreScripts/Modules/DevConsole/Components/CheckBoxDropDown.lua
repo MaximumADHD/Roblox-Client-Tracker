@@ -5,6 +5,8 @@ local Roact = require(CorePackages.Roact)
 local Constants = require(script.Parent.Parent.Constants)
 local INNER_FRAME_PADDING = 12
 
+local FFlagDevConsoleDropdownBehind = settings():GetFFlag("DevConsoleDropdownBehind")
+
 local CheckBoxDropDown = Roact.Component:extend("CheckBoxDropDown")
 
 function CheckBoxDropDown:render()
@@ -23,6 +25,7 @@ function CheckBoxDropDown:render()
 		target = RobloxGui,
 	}, {
 		FullScreen = Roact.createElement("ScreenGui", {
+			OnTopOfCoreBlur = FFlagDevConsoleDropdownBehind,
 		}, {
 			InputCatcher = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),

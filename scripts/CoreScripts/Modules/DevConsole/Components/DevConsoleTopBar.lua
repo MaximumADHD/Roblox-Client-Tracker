@@ -9,6 +9,8 @@ local FRAME_HEIGHT = Constants.TopBarFormatting.FrameHeight
 local ICON_SIZE = .5 * FRAME_HEIGHT
 local ICON_PADDING = (FRAME_HEIGHT - ICON_SIZE) / 2
 
+local UserInputService = game:GetService("UserInputService")
+
 local DEVCONSOLE_TEXT = "Developer Console"
 local DEVCONSOLE_TEXT_X_PADDING = 4
 local DEVCONSOLE_TEXT_FRAMESIZE = TextService:GetTextSize(DEVCONSOLE_TEXT, Constants.DefaultFontSize.TopBar,
@@ -18,6 +20,8 @@ local LiveUpdateElement = require(script.Parent.Parent.Components.LiveUpdateElem
 local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
 
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
+
+local FFlagDevConsoleIsVeryStickyWhyWillItNotLetGo = settings():GetFFlag("DevConsoleIsVeryStickyWhyWillItNotLetGo")
 
 function DevConsoleTopBar:init()
 	self.inputBegan = function(rbx,input)
@@ -33,6 +37,17 @@ function DevConsoleTopBar:init()
 				startOffset = input.Position,
 				moving = true,
 			})
+
+			if FFlagDevConsoleIsVeryStickyWhyWillItNotLetGo then
+				local inputEndedConn
+				local function onInputEnded(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						self.inputEnded(nil, input)
+						inputEndedConn:Disconnect()
+					end
+				end
+				inputEndedConn = UserInputService.InputEnded:Connect(onInputEnded)
+			end
 		end
 	end
 	self.inputChanged = function(rbx,input)

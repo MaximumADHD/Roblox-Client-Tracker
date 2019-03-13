@@ -40,7 +40,6 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 
 local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup2")
-local FFlagDevConsoleOnTopOfCoreBlur = settings():GetFFlag("DevConsoleOnTopOfCoreBlur")
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 
 local DEV_TAB_LIST = {
@@ -206,7 +205,7 @@ function DevConsoleMaster:SetupDevConsole()
 			isDeveloperView = developerConsoleView,
 		}, {
 			App = Roact.createElement("ScreenGui", {
-				OnTopOfCoreBlur = FFlagDevConsoleOnTopOfCoreBlur
+				OnTopOfCoreBlur = true
 				}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,

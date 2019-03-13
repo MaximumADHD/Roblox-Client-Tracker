@@ -3084,6 +3084,12 @@
                         <string name="summary">Creates a Tween object bound to a particular Instance. The first arg is the Instance to tween. The second arg is a TweenInfo struct, which specifies how a tween should behave. The third arg is a table, which should specify the properties to tween as keys, with the end value specified as values to the keys.</string>
                     </Properties>
                 </Item>
+                <Item class="ReflectionMetadataMember">
+                    <Properties>
+                        <string name="Name">GetValue</string>
+                        <string name="summary">Transforms a linear alpha to a given EasingStyle and EasingDirection.</string>
+                    </Properties>
+                </Item>
             </Item>
         </Item>
     </Item>
@@ -3749,6 +3755,10 @@
             <string name="Name">RightLeg</string>
             <string name="summary">In R6 this property get the player's right leg. In R15 this gets nothing.</string>
             <bool name="Deprecated">true</bool>
+          </Properties>
+          <Properties>
+            <string name="Name">CollisionType</string>
+            <string name="summary">An emum that selects the collision type for R15 and Rthro characters. InnerBox is classic style collisions for all characters, OuterBox is dynamically sized collisions based on Mesh size.</string>
           </Properties>
         </Item>
       </Item>

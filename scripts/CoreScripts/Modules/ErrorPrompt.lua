@@ -9,7 +9,6 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
-local fflagForceSetSizeOfErrorPrompt = settings():GetFFlag("ForceSetSizeOfErrorPrompt")
 local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp")
 local fflagErrorPromptTakeExtraConfigurations = settings():GetFFlag("ErrorPromptTakeExtraConfigurations")
 
@@ -208,10 +207,8 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		self._isOpen = true
 		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
 			self._openAnimation:Play()
-			if fflagForceSetSizeOfErrorPrompt then
-				self._openAnimation.Completed:wait()
-				self._frame.PromptScale.Scale = 1
-			end
+			self._openAnimation.Completed:wait()
+			self._frame.PromptScale.Scale = 1
 		else
 			self._frame.PromptScale.Scale = 1
 		end

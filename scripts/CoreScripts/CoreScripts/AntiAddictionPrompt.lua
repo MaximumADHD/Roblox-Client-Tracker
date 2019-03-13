@@ -7,6 +7,7 @@ local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
+local Url = require(RobloxGui.Modules.Common.Url)
 
 local function leaveGame()
 	GuiService.SelectedCoreObject = nil
@@ -28,12 +29,10 @@ local function parseResponse(responseTable)
 end
 
 local function markRead(messageId)
-	local apiPath = "v1/messages/mark-read"
+	local apiPath = "screen-time-api/v1/messages/mark-read"
 	local params = "mesasgeId=" .. messageId
-	local success, result = pcall(function()
-		return HttpRbxApiService:PostAsync(apiPath, params, Enum.ThrottlingPriority.Default,
-			Enum.HttpContentType.ApplicationUrlEncoded)
-	end)
+	local fullUrl = Url.RCS_URL..apiPath.."?"..params
+	local success, result = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, fullUrl)
 end
 
 --[[

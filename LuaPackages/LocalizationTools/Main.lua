@@ -9,6 +9,7 @@ local Roact = require(game:GetService("CorePackages").Roact)
 
 local FFlagLocalizationPluginAnalyticsEnabled = settings():GetFFlag("StudioLocalizationEnableAnalytics")
 
+
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
 		and "rbxasset://textures/localizationUIScrapingOn.png"
@@ -115,7 +116,7 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 		UploadPatch = GameTableMain.UploadPatch,
 		DownloadGameTable = GameTableMain.DownloadGameTable,
 		UpdateGameTableInfo = GameTableMain.UpdateGameTableInfo,
-		SetAutoscraping = GameTableMain.SetAutoscraping,
+		CheckTableAvailability = GameTableMain.CheckTableAvailability,
 		GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
 		StudioSettings = studioSettings,
 	}), Window)

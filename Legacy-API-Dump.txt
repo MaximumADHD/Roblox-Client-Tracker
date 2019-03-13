@@ -285,6 +285,7 @@ Class BrowserService : Instance [notCreatable]
 	Event BrowserService.JavaScriptCallback(string content) [RobloxScriptSecurity]
 Class CacheableContentProvider : Instance
 Class MeshContentProvider : CacheableContentProvider
+	Function Dictionary MeshContentProvider:GetContentMemoryData() [RobloxScriptSecurity]
 Class SolidModelContentProvider : CacheableContentProvider
 Class Camera : Instance
 	Property CoordinateFrame Camera.CFrame
@@ -1145,6 +1146,7 @@ Class Humanoid : Instance
 	Property bool Humanoid.AutomaticScalingEnabled
 	Property bool Humanoid.BreakJointsOnDeath
 	Property Vector3 Humanoid.CameraOffset
+	Property HumanoidCollisionType Humanoid.CollisionType [ScriptWriteRestricted: [PluginSecurity]]
 	Property HumanoidDisplayDistanceType Humanoid.DisplayDistanceType
 	Property Material Humanoid.FloorMaterial [readonly]
 	Property float Humanoid.Health
@@ -1410,7 +1412,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
-	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
+	Function void LocalizationService:StartTextScraper(bool enforceRequirements = false) [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
 	YieldFunction Instance LocalizationService:GetTranslatorForLocaleAsync(string locale)
 	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
@@ -1614,7 +1616,7 @@ Class NotificationService : Instance [notCreatable]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) [LocalUserSecurity]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) [LocalUserSecurity]
 	YieldFunction Array NotificationService:GetScheduledNotifications(int64 userId) [LocalUserSecurity]
-	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber) [RobloxScriptSecurity]
+	Event NotificationService.RobloxConnectionChanged(string connectionName, ConnectionState connectionState, string sequenceNumber, string namespaceSequenceNumbers) [RobloxScriptSecurity]
 	Event NotificationService.RobloxEventReceived(Map eventData) [RobloxScriptSecurity]
 Class PVInstance : Instance [notbrowsable]
 Class BasePart : PVInstance [notbrowsable]
@@ -1840,6 +1842,7 @@ Class Workspace : Model
 Class PackageLink : Instance [notbrowsable] [notCreatable]
 	Property Content PackageLink.PackageId [readonly]
 	Property int64 PackageLink.VersionNumber [ScriptWriteRestricted: [NotAccessibleSecurity]]
+Class PackageService : Instance [notCreatable]
 Class Pages : Instance
 	Property bool Pages.IsFinished [readonly]
 	Function Array Pages:GetCurrentPage()
@@ -2677,6 +2680,7 @@ Class Tween : TweenBase
 	Property TweenInfo Tween.TweenInfo [readonly]
 Class TweenService : Instance
 	Function Instance TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
+	Function float TweenService:GetValue(float alpha, EasingStyle easingStyle, EasingDirection easingDirection)
 Class UIBase : Instance
 Class UIComponent : UIBase
 Class UIConstraint : UIComponent
@@ -3531,6 +3535,9 @@ Enum HttpRequestType
 	EnumItem HttpRequestType.Avatar : 16
 	EnumItem HttpRequestType.Analytics : 22
 	EnumItem HttpRequestType.Localization : 24
+Enum HumanoidCollisionType
+	EnumItem HumanoidCollisionType.OuterBox : 0
+	EnumItem HumanoidCollisionType.InnerBox : 1
 Enum HumanoidDisplayDistanceType
 	EnumItem HumanoidDisplayDistanceType.Viewer : 0
 	EnumItem HumanoidDisplayDistanceType.Subject : 1

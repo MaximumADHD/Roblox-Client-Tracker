@@ -3,6 +3,8 @@ local Immutable = require(script.Parent.Parent.Immutable)
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 local SetTabList = require(script.Parent.Parent.Actions.SetTabList)
 
+local FFlagDevConsoleFixCommandBarForNonOwners = settings():GetFFlag("DevConsoleFixCommandBarForNonOwners")
+
 return function(state, action)
 	local mainView = state or {
 		-- initializes to the first tab in the list of views which should be Log
@@ -18,6 +20,16 @@ return function(state, action)
 				currTabIndex = action.newTabIndex,
 				isClientView = action.isClientView
 			}
+
+			-- TODO (dnurkkala): This one requires a bit of explanation. See DEVTOOLS-2136.
+			-- Long story short, the dev console has some false conflations and this resolves a
+			-- problem related to those false conflations, despite how odd it looks.
+			if FFlagDevConsoleFixCommandBarForNonOwners then
+				if mainView.currTabIndex ~= action.newTabIndex then
+					update.isClientView = true
+				end
+			end
+
             local updated = Immutable.JoinDictionaries(mainView, update)
 
             if update.isClientView == nil then

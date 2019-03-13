@@ -53,6 +53,7 @@ local FFlagEnableInviteGameInStudio = settings():GetFFlag("EnableInviteGameInStu
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagXboxShowPlayers = settings():GetFFlag("XboxShowPlayers")
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -519,7 +520,11 @@ local function Initialize()
 	end
 
 	local function canShareCurrentGame()
-		return this.HubRef.ShareGamePage ~= nil and localPlayer.UserId > 0
+		if FFlagXboxShowPlayers then
+			return localPlayer.UserId > 0
+		else
+			return this.HubRef.ShareGamePage ~= nil and localPlayer.UserId > 0
+		end
 	end
 
 	local shareGameButton
@@ -537,7 +542,6 @@ local function Initialize()
 		if utility:IsSmallTouchScreen() or utility:IsPortrait() then
 			extraOffset = 85
 		end
-
 
 		-- Create "invite friends" button if it doesn't exist yet
 		-- We shouldn't create this button if we're not in a live game
@@ -565,8 +569,12 @@ local function Initialize()
 					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 				end
 
-				this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
-				this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)
+				if FFlagXboxShowPlayers then
+					this.HubRef:InviteToGame()
+				else
+					this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
+					this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)
+				end
 			end)
 
 			-- Ensure the button is always at the top of the list

@@ -285,6 +285,7 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BrowserService.JavaScriptCallback(string content) {RobloxScriptSecurity}
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
+	Function Dictionary MeshContentProvider:GetContentMemoryData() {RobloxScriptSecurity}
 Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class Camera : Instance [NotReplicated]
 	Property Instance Camera.CameraSubject
@@ -1148,6 +1149,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function string HttpService:UrlEncode(string input)
 Class Humanoid : Instance
 	Property bool Humanoid.BreakJointsOnDeath
+	Property Enum<HumanoidCollisionType> Humanoid.CollisionType {✏️PluginSecurity}
 	Property bool Humanoid.AutoJumpEnabled
 	Property bool Humanoid.AutoRotate
 	Property Enum<Material> Humanoid.FloorMaterial  [ReadOnly] [NotReplicated]
@@ -1427,7 +1429,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalizationService:PromptExportToCSVs() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:PromptImportFromCSVs() {RobloxScriptSecurity} [Yields]
 	Function Instance LocalizationService:PromptUploadCSVToGameTable() {RobloxScriptSecurity} [Yields]
-	Function void LocalizationService:StartTextScraper() {RobloxScriptSecurity}
+	Function void LocalizationService:StartTextScraper(bool enforceRequirements = false) {RobloxScriptSecurity}
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
 Class LocalizationTable : Instance
@@ -1626,7 +1628,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Function void NotificationService:CancelNotification(int64 userId, int alertId) {LocalUserSecurity}
 	Function Array NotificationService:GetScheduledNotifications(int64 userId) {LocalUserSecurity} [Yields]
 	Function void NotificationService:ScheduleNotification(int64 userId, int alertId, string alertMsg, int minutesToFire) {LocalUserSecurity}
-	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string sequenceNumber) {RobloxScriptSecurity}
+	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum<ConnectionState> connectionState, string sequenceNumber, string namespaceSequenceNumbers) {RobloxScriptSecurity}
 	Event NotificationService.RobloxEventReceived(Map eventData) {RobloxScriptSecurity}
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
@@ -1862,6 +1864,7 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property Content PackageLink.PackageId [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [<📁> Load-only] [NotReplicated]
+Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Pages : Instance [NotCreatable] [NotReplicated]
 	Property bool Pages.IsFinished  [ReadOnly] [NotReplicated]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
@@ -2807,6 +2810,7 @@ Class Tween : TweenBase
 	Property TweenInfo Tween.TweenInfo  [ReadOnly] [NotReplicated]
 Class TweenService : Instance [NotCreatable] [Service]
 	Function Instance TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
+	Function float TweenService:GetValue(float alpha, Enum<EasingStyle> easingStyle, Enum<EasingDirection> easingDirection)
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -3673,6 +3677,9 @@ Enum HttpRequestType
 	EnumItem HttpRequestType.Avatar : 16
 	EnumItem HttpRequestType.Analytics : 22
 	EnumItem HttpRequestType.Localization : 24
+Enum HumanoidCollisionType
+	EnumItem HumanoidCollisionType.OuterBox : 0
+	EnumItem HumanoidCollisionType.InnerBox : 1
 Enum HumanoidDisplayDistanceType
 	EnumItem HumanoidDisplayDistanceType.Viewer : 0
 	EnumItem HumanoidDisplayDistanceType.Subject : 1

@@ -30,11 +30,7 @@ local defaultTimeoutTime  = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 -- when this flag turns on, all the errors will not have reconnect option
 local reconnectDisabled = settings():GetFFlag("ReconnectDisabled")
 local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're sorry, Roblox is temporarily unavailable.  Please try again later.")
-local fflagLazyCreateErrorPrompt = settings():GetFFlag("LazyCreateErrorPrompt")
 
--- Show Reconnect button on error prompts for errors 263, 268, 270, 517
--- Remove Reconnect button from error prompts for errors 522, 523
-local fflagReconnectButtonStateUpdate = settings():GetFFlag("ReconnectButtonStateUpdate")
 local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
 local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
 
@@ -110,14 +106,6 @@ local promptOverlay = create 'Frame' {
 	Parent = screenGui
 }
 
--- might have different design on xbox
--- if GuiService:IsTenFootInterface() then
--- errorPrompt = ErrorPrompt.new("XBox")
-if not fflagLazyCreateErrorPrompt then
-	errorPrompt = ErrorPrompt.new("Default")
-	errorPrompt:setParent(promptOverlay)
-end
-
 -- Button Callbacks --
 local reconnectFunction = function()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
@@ -173,18 +161,15 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectBadhash] = true,
 	[Enum.ConnectionError.DisconnectIllegalTeleport] = true,
 	[Enum.ConnectionError.DisconnectDuplicatePlayer] = true,
-	[Enum.ConnectionError.DisconnectPlayerless] = not fflagReconnectButtonStateUpdate,
 	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
-	[Enum.ConnectionError.DisconnectHashTimeout] = not fflagReconnectButtonStateUpdate,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
 	[Enum.ConnectionError.DisconnectRaknetErrors] = true,
 	[Enum.ConnectionError.PlacelaunchFlooded] = true,
 	[Enum.ConnectionError.PlacelaunchHashException] = true,
 	[Enum.ConnectionError.PlacelaunchHashExpired] = true,
-	[Enum.ConnectionError.PlacelaunchGameEnded] = not fflagReconnectButtonStateUpdate,
 	[Enum.ConnectionError.PlacelaunchUnauthorized] = true,
-	[Enum.ConnectionError.PlacelaunchUserLeft] = fflagReconnectButtonStateUpdate,
-	[Enum.ConnectionError.PlacelaunchRestricted] = fflagReconnectButtonStateUpdate,
+	[Enum.ConnectionError.PlacelaunchUserLeft] = true,
+	[Enum.ConnectionError.PlacelaunchRestricted] = true,
 }
 
 local ButtonList = {
@@ -287,12 +272,10 @@ local updateFullScreenEffect = {
 }
 
 local function onEnter(newState)
-	if fflagLazyCreateErrorPrompt then
-		if not errorPrompt then
-			errorPrompt = ErrorPrompt.new("Default")
-			errorPrompt:setParent(promptOverlay)
-			errorPrompt:resizeWidth(screenWidth)
-		end
+	if not errorPrompt then
+		errorPrompt = ErrorPrompt.new("Default")
+		errorPrompt:setParent(promptOverlay)
+		errorPrompt:resizeWidth(screenWidth)
 	end
 	if updateFullScreenEffect[newState] then
 		updateFullScreenEffect[newState]()
@@ -426,10 +409,6 @@ local function onLocaleIdChanged()
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 end
 
--- adjust size to the current screen width
-if not fflagLazyCreateErrorPrompt then
-	errorPrompt:resizeWidth(screenWidth)
-end
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
 
 if fflagUseNewErrorStrings then

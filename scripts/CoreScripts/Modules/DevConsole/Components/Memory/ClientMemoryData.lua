@@ -1,5 +1,6 @@
 local Signal = require(script.Parent.Parent.Parent.Signal)
 local SoundService = game:GetService("SoundService")
+local MeshContentProvider = game:GetService("MeshContentProvider")
 
 local StatsService = game:GetService("Stats")
 local StatsUtils = require(script.Parent.Parent.Parent.Parent.Stats.StatsUtils)
@@ -57,10 +58,11 @@ end
 local function fetchSoundMemoryData()
 	local soundMemData = SoundService:GetSoundMemoryData()
 	local sortedSoundMem = {}
+
 	for i,v in pairs(soundMemData) do
 		table.insert(sortedSoundMem, {
-		name = i,
-		value = v,
+			name = i,
+			value = v,
 		})
 	end
 
@@ -76,67 +78,100 @@ end
 
 local function fetchGraphicsTextureMemoryData()
 	local textureData = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.NonHumanoid, 0, 100)
+	local textureData2 = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.NonHumanoidOrphaned, 0, 100)
 	local sortedTextureData = {}
 
-	for _,v in ipairs(textureData.Results) do
-		local mem = v.MemoryInBytes / 1000000
-		table.insert(sortedTextureData, {
-			name = v.TextureId,
-			value = mem,
-		})
+	function aggregateData(retData, data)
+		for _,v in ipairs(data.Results) do
+			local mem = v.MemoryInBytes / 1000000
+			table.insert(retData, {
+				name = v.TextureId,
+				value = mem,
+			})
+		end
 	end
 
+	aggregateData(sortedTextureData, textureData)
+	aggregateData(sortedTextureData, textureData2)
+
+	table.sort(sortedTextureData, function(a, b)
+		return a.value > b.value
+	end)
 	return sortedTextureData
 end
 
 local function fetchGraphicsTextureCharacterMemoryData()
 	local textureData = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.Humanoid, 0, 100)
+	local textureData2 = StatsService:GetPaginatedMemoryByTexture(Enum.TextureQueryType.HumanoidOrphaned, 0, 100)
 	local sortedTextureData = {}
 
-	for _,v in ipairs(textureData.Results) do
-		local mem = v.MemoryInBytes / 1000000
-		local compTextures = {}
+	function aggregateData(retData, data)
+		for _,v in ipairs(data.Results) do
+			local mem = v.MemoryInBytes / 1000000
+			local compTextures = {}
 
-		-- we need to parse out the asset id's from this large string
-		-- the first portion involves only including the Texture portions and not color
-		local txtComp = v.TextureId
-		local tSeries = {}
-		for a,b in pairs(string.split(txtComp, " ")) do
-			local firstChar = string.sub(b, 1, 2)
-			if firstChar == "T[" then
-				table.insert(tSeries, b)
+			-- we need to parse out the asset id's from this large string
+			-- the first portion involves only including the Texture portions and not color
+			local txtComp = v.TextureId
+			local tSeries = {}
+			for a,b in pairs(string.split(txtComp, " ")) do
+				local firstChar = string.sub(b, 1, 2)
+				if firstChar == "T[" then
+					table.insert(tSeries, b)
+				end
 			end
-		end
 
-		-- next we split out the mesh from the string.
-		-- we can have multiple references to same ID so
-		-- so we filter them out here
-		local assetString = ""
-		local dedupe = {}
-		for a, b in pairs(tSeries) do
-			local gotoAssetStr = string.split(b, ".mesh:")[2]
-			-- set to 12 to get pass the ":'" in "rbxassertid:" and "http://""
-			local hi, bye = string.find(gotoAssetStr, ":", 12)
-			assetString = string.sub(gotoAssetStr, 1, hi)
-			dedupe[assetString] = true
-		end
+			-- next we split out the mesh from the string.
+			-- we can have multiple references to same ID so
+			-- so we filter them out here
+			local assetString = ""
+			local dedupe = {}
+			for a, b in pairs(tSeries) do
+				local gotoAssetStr = string.split(b, ".mesh:")[2]
+				-- set to 12 to get pass the ":'" in "rbxassertid:" and "http://""
+				local hi, bye = string.find(gotoAssetStr, ":", 12)
+				assetString = string.sub(gotoAssetStr, 1, hi)
+				dedupe[assetString] = true
+			end
 
-		-- using the finalized strings, we construct the list of assets used for the
-		-- composite texture
-		for name,_ in pairs(dedupe) do
-			table.insert(compTextures, {
-				name = name
+			-- using the finalized strings, we construct the list of assets used for the
+			-- composite texture
+			for name,_ in pairs(dedupe) do
+				table.insert(compTextures, {
+					name = name
+				})
+			end
+
+			table.insert(retData, {
+				name = "Composite Texture",
+				value = mem,
+				moreInfo = compTextures,
 			})
 		end
+	end
+	aggregateData(sortedTextureData, textureData)
+	aggregateData(sortedTextureData, textureData2)
 
-		table.insert(sortedTextureData, {
-			name = "Composite Texture",
+	return sortedTextureData
+end
+
+local function fetchGraphicsMeshPartsMemoryData()
+	local meshData = MeshContentProvider:getContentMemoryData()
+	local sortedMeshData = {}
+
+	for name, bytes in pairs(meshData) do
+		local mem = bytes / 1000000
+		table.insert(sortedMeshData, {
+			name = name,
 			value = mem,
-			moreInfo = compTextures,
 		})
 	end
 
-	return sortedTextureData
+	table.sort(sortedMeshData, function(a, b)
+		return a.value > b.value
+	end)
+
+	return sortedMeshData
 end
 
 function ClientMemoryData:updateCachedData(categoryName, retrieveDataCallback)
@@ -161,6 +196,7 @@ function ClientMemoryData:getAdditionalMemoryFunc(name)
 			fetchFunc = fetchGraphicsTextureCharacterMemoryData
 
 		elseif name == "GraphicsMeshParts" then
+			fetchFunc = fetchGraphicsMeshPartsMemoryData
 		elseif name == "CSG" then
 		elseif name == "Animation" then
 		end

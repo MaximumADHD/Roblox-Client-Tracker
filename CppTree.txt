@@ -990,6 +990,7 @@ RBX
 	OscillateMotorTool
 	PackageLink
 	PackageLinkDummy
+	PackageService
 	Pages
 	Pants
 	ParabolaAdornment

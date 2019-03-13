@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local DebugFlags = require(Plugin.Core.Util.DebugFlags)
+
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local PostVote = require(Plugin.Core.Actions.PostVote)
 
@@ -9,6 +11,10 @@ return function(networkInterface, assetId, userVote)
 			local data = result.responseBody
 			store:dispatch(PostVote(assetId, data, userVote))
 		end, function(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Voting unsucessful")
+			end
+
 			store:dispatch(NetworkError(result))
 		end)
 	end

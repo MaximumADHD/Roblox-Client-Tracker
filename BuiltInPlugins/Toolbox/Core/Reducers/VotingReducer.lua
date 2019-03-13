@@ -4,28 +4,25 @@ local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
 
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local Immutable = require(Plugin.Core.Util.Immutable)
-
 local GetAssets = require(Plugin.Core.Actions.GetAssets)
 local PostInsertAsset = require(Plugin.Core.Actions.PostInsertAsset)
 local PostUnvote = require(Plugin.Core.Actions.PostUnvote)
 local PostVote = require(Plugin.Core.Actions.PostVote)
 
 local function handleVoting(state, assetId, voteDirection)
-	local userVote = nil
-	if voteDirection then
-		if voteDirection > 0 then
-			userVote = true
-		elseif voteDirection < 0 then
-			userVote = false
-		end
-	end
-
 	return Cryo.Dictionary.join(state, {
 		[assetId] = Cryo.Dictionary.join(state[assetId], {
-			HasVoted = voteDirection ~= 0,
-			UserVote = userVote,
+			HasVoted = true,
+			UserVote = voteDirection,
+		}),
+	})
+end
+
+local function handleUnvoting(state, assetId)
+	return Cryo.Dictionary.join(state, {
+		[assetId] = Cryo.Dictionary.join(state[assetId], {
+			HasVoted = false,
+			UserVote = nil,
 		}),
 	})
 end
@@ -33,8 +30,14 @@ end
 local function setShowVoteButtons(state, assetId)
 	return Cryo.Dictionary.join(state, {
 		[assetId] = Cryo.Dictionary.join(state[assetId], {
+			-- Needed for the old Toolbox to show voteButtons after an asset
+			-- is being inserted.
 			showVoteButtons = true,
-			CanVote = true,
+
+			-- It's wrong to override this in Toolbox. If the server told client the asset
+			-- can't be voted, it would reject any vote requests!
+			-- We should grey out the vote buttons instead!
+			--CanVote = true,
 		}),
 	})
 end
@@ -50,35 +53,14 @@ return Rodux.createReducer({
 	end,
 
 	[PostInsertAsset.name] = function(state, action)
-		if action.insertResponse == "true" then
-			return setShowVoteButtons(state, action.assetId)
-		else
-			-- TODO CLIDEVSRVS-1595: Error handling
-			if DebugFlags.shouldDebugWarnings() then
-				warn("Got false response from PostInsertAsset")
-			end
-		end
+		return setShowVoteButtons(state, action.assetId)
 	end,
 
 	[PostVote.name] = function(state, action)
-		if action.voteResponse.Success then
-			return handleVoting(state, action.assetId, action.userVote and 1 or -1)
-		else
-			-- TODO CLIDEVSRVS-1595: Error handling
-			if DebugFlags.shouldDebugWarnings() then
-				warn("Voting unsucessful")
-			end
-		end
+		return handleVoting(state, action.assetId, action.userVote)
 	end,
 
 	[PostUnvote.name] = function(state, action)
-		if action.unvoteResponse.Success then
-			return handleVoting(state, action.assetId, 0)
-		else
-			-- TODO CLIDEVSRVS-1595: Error handling
-			if DebugFlags.shouldDebugWarnings() then
-				warn("Unvoting unsucessful")
-			end
-		end
+		return handleUnvoting(state, action.assetId)
 	end,
 })

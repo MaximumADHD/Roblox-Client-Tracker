@@ -3,6 +3,13 @@ local RecursiveEquals = require(script.Parent.RecursiveEquals)
 local Promise = require(script.Parent.Parent.Promise)
 
 local MockPatch = {"I'm a patch"}
+local MockGameId = 123456789
+local MockUploadInfo = {"I'm the uploadInfo"}
+local MockRenderFunction = function() end
+
+local MakeRenderDialogContent = function()
+	return MockRenderFunction
+end
 
 local function NeverReaches()
 	assert(false, "control never reaches this point")
@@ -23,7 +30,8 @@ return function()
 
 		local flow
 
-		local function DownloadGameTable()
+		local function DownloadGameTable(gameId)
+			expect(gameId).to.equal(MockGameId)
 			return Promise.new(function(resolve, reject)
 				expect(reject).to.be.a("function")
 				expect(flow._busy).to.equal(true)
@@ -64,7 +72,7 @@ return function()
 		})
 
 		expect(flow._busy).to.equal(false)
-		local success, _ = flow:OnDownload():_unwrap()
+		local success, _ = flow:OnDownload(MockGameId):_unwrap()
 		assert(success)
 		expect(flow._busy).to.equal(false)
 		expect(currentMessage).to.equal("Table written to file")
@@ -86,7 +94,8 @@ return function()
 
 		local flow
 
-		local function DownloadGameTable()
+		local function DownloadGameTable(gameId)
+			expect(gameId).to.equal(MockGameId)
 			return Promise.new(function(resolve, reject)
 				expect(reject).to.be.a("function")
 				expect(flow._busy).to.equal(true)
@@ -127,7 +136,7 @@ return function()
 			end,
 		})
 
-		local success, _ = flow:OnDownload():_unwrap()
+		local success, _ = flow:OnDownload(MockGameId):_unwrap()
 		assert(success)
 		expect(flow._busy).to.equal(false)
 		expect(currentMessage).to.equal("Table written to file")
@@ -149,7 +158,8 @@ return function()
 
 		local flow
 
-		local function DownloadGameTable()
+		local function DownloadGameTable(gameId)
+			expect(gameId).to.equal(MockGameId)
 			return Promise.new(function(resolve, reject)
 				expect(flow._busy).to.equal(true)
 				expect(currentState.NonInteractive).to.equal(true)
@@ -158,17 +168,13 @@ return function()
 			end)
 		end
 
-		local function SaveCSV()
-			NeverReaches()
-		end
-
 		flow = Flow.new({
 			SetMessage = function(message)
 				currentMessage = message
 			end,
 
 			DownloadGameTable = DownloadGameTable,
-			SaveCSV = SaveCSV,
+			SaveCSV = NeverReaches,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -178,7 +184,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnDownload()
+		local promise = flow:OnDownload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -206,7 +212,8 @@ return function()
 
 		local flow
 
-		local function DownloadGameTable()
+		local function DownloadGameTable(gameId)
+			expect(gameId).to.equal(MockGameId)
 			return Promise.new(function(resolve, reject)
 				expect(flow._busy).to.equal(true)
 				expect(currentState.NonInteractive).to.equal(true)
@@ -238,7 +245,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnDownload()
+		local promise = flow:OnDownload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -266,7 +273,8 @@ return function()
 
 		local flow
 
-		local function DownloadGameTable()
+		local function DownloadGameTable(gameId)
+			expect(gameId).to.equal(MockGameId)
 			return Promise.new(function(resolve, reject)
 				expect(flow._busy).to.equal(true)
 				expect(currentState.NonInteractive).to.equal(true)
@@ -298,7 +306,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnDownload()
+		local promise = flow:OnDownload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -338,7 +346,7 @@ return function()
 			end)
 		end
 
-		local function ComputePatch(localizationTable)
+		local function ComputePatch(gameId, localizationTable)
 			return Promise.new(function(resolve, reject)
 				expect(localizationTable).to.equal(MockLocalizationTable)
 				expect(flow._busy).to.equal(true)
@@ -352,25 +360,19 @@ return function()
 			end)
 		end
 
-		local MockRenderFunction = function() end
-
-		local MakeRenderDialogContent = function()
-			return MockRenderFunction
-		end
-
 		local function ShowDialog(title, sizeX, sizeY, renderContent)
 			return Promise.new(function(resolve, reject)
 				expect(flow._busy).to.equal(true)
 				expect(currentState.NonInteractive).to.equal(true)
 				expect(currentMessage).to.equal("Confirm upload...")
-				expect(MockRenderFunction).to.equal(MockRenderFunction)
 
 				-- User hits "okay"
-				resolve()
+				resolve(MockUploadInfo)
 			end)
 		end
 
-		local function UploadPatch(patchInfo)
+		local function UploadPatch(gameId, patchInfo, uploadInfo)
+			expect(uploadInfo).to.equal(MockUploadInfo)
 			return Promise.new(function(resolve, reject)
 				expect(flow._busy).to.equal(true)
 				expect(currentState.NonInteractive).to.equal(true)
@@ -390,10 +392,9 @@ return function()
 
 			OpenCSV = OpenCSV,
 			ComputePatch = ComputePatch,
+			MakeRenderDialogContent = MakeRenderDialogContent,
 			ShowDialog = ShowDialog,
 			UploadPatch = UploadPatch,
-
-			MakeRenderDialogContent = MakeRenderDialogContent,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -403,7 +404,7 @@ return function()
 			end,
 		})
 
-		flow:OnUpload():_unwrap()
+		flow:OnUpload(MockGameId):_unwrap()
 		expect(section._busy).to.equal(false)
 		expect(currentMessage).to.equal("Upload complete")
 		expect(uploadedPatch).to.equal(MockPatch)
@@ -433,35 +434,16 @@ return function()
 			return Promise.reject("No file selected", nil)
 		end
 
-		local function ComputePatch(localizationTable)
-			NeverReaches()
-		end
-
-		local function ShowDialog(title, sizeX, sizeY, renderContent)
-			NeverReaches()
-		end
-
-		local function UploadPatch(patchInfo, resolve, reject)
-			NeverReaches()
-		end
-
-		local MockRenderFunction = function() end
-
-		local MakeRenderDialogContent = function()
-			return MockRenderFunction
-		end
-
 		flow = Flow.new({
 			SetMessage = function(message)
 				currentMessage = message
 			end,
 
 			OpenCSV = OpenCSV,
-			ComputePatch = ComputePatch,
-			ShowDialog = ShowDialog,
-			UploadPatch = UploadPatch,
-
-			MakeRenderDialogContent = MakeRenderDialogContent,
+			ComputePatch = NeverReaches,
+			MakeRenderDialogContent = NeverReaches,
+			ShowDialog = NeverReaches,
+			UploadPatch = NeverReaches,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -471,7 +453,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload()
+		local promise = flow:OnUpload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -507,35 +489,16 @@ return function()
 			return Promise.reject("details")
 		end
 
-		local function ComputePatch(localizationTable)
-			NeverReaches()
-		end
-
-		local function ShowDialog(title, sizeX, sizeY, renderContent)
-			NeverReaches()
-		end
-
-		local function UploadPatch(patchInfo, resolve, reject)
-			NeverReaches()
-		end
-
-		local MockRenderFunction = function() end
-
-		local MakeRenderDialogContent = function()
-			return MockRenderFunction
-		end
-
 		flow = Flow.new({
 			SetMessage = function(message)
 				currentMessage = message
 			end,
 
 			OpenCSV = OpenCSV,
-			ComputePatch = ComputePatch,
-			ShowDialog = ShowDialog,
-			UploadPatch = UploadPatch,
-
-			MakeRenderDialogContent = MakeRenderDialogContent,
+			ComputePatch = NeverReaches,
+			MakeRenderDialogContent = NeverReaches,
+			ShowDialog = NeverReaches,
+			UploadPatch = NeverReaches,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -545,7 +508,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload()
+		local promise = flow:OnUpload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -576,29 +539,12 @@ return function()
 		local flow
 
 		local function OpenCSV()
-			return Promise.new(function(resolve, reject)
-				-- User selects a proper csv and it loads into a Localization Table
-				resolve( {"I'm a LocalizationTable"} )
-			end)
+			return Promise.resolve( {"I'm a LocalizationTable"} )
 		end
 
-		local function ComputePatch(localizationTable)
-				-- Patch compute fails
+		local function ComputePatch(gameId, localizationTable)
+			-- Patch compute fails
 			return Promise.reject("Patch compute failed, probably because the download failed")
-		end
-
-		local function ShowDialog(title, sizeX, sizeY, renderContent)
-			NeverReaches()
-		end
-
-		local function UploadPatch(patchInfo, resolve, reject)
-			NeverReaches()
-		end
-
-		local MockRenderFunction = function() end
-
-		local MakeRenderDialogContent = function()
-			return MockRenderFunction
 		end
 
 		flow = Flow.new({
@@ -608,10 +554,9 @@ return function()
 
 			OpenCSV = OpenCSV,
 			ComputePatch = ComputePatch,
-			ShowDialog = ShowDialog,
-			UploadPatch = UploadPatch,
-
-			MakeRenderDialogContent = MakeRenderDialogContent,
+			MakeRenderDialogContent = NeverReaches,
+			ShowDialog = NeverReaches,
+			UploadPatch = NeverReaches,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -621,7 +566,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload()
+		local promise = flow:OnUpload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -639,7 +584,7 @@ return function()
 		promise:catch(function(_) end) -- Prevent still-pending promise warning
 	end)
 
-	it("navigates user canceled", function()
+	it("navigates user canceled at confirmation dialog", function()
 		local currentState = {"NOSTATE"}
 		local currentMessage = {"NOMESSAGE"}
 		local uploadedPatch = {"NOUPLOAD"}
@@ -660,7 +605,7 @@ return function()
 			end)
 		end
 
-		local function ComputePatch(localizationTable)
+		local function ComputePatch(gameId, localizationTable)
 			return Promise.new(function(resolve, reject)
 				-- Patch computes successfully (which means the download succeeds)
 				local patchInfo = {
@@ -676,16 +621,6 @@ return function()
 			return Promise.reject()
 		end
 
-		local function UploadPatch(patchInfo, resolve, reject)
-			assert(false)
-		end
-
-		local MockRenderFunction = function() end
-
-		local MakeRenderDialogContent = function()
-			return MockRenderFunction
-		end
-
 		flow = Flow.new({
 			SetMessage = function(message)
 				currentMessage = message
@@ -693,10 +628,9 @@ return function()
 
 			OpenCSV = OpenCSV,
 			ComputePatch = ComputePatch,
-			ShowDialog = ShowDialog,
-			UploadPatch = UploadPatch,
-
 			MakeRenderDialogContent = MakeRenderDialogContent,
+			ShowDialog = ShowDialog,
+			UploadPatch = NeverReaches,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -706,7 +640,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload()
+		local promise = flow:OnUpload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -744,7 +678,7 @@ return function()
 			end)
 		end
 
-		local function ComputePatch(localizationTable)
+		local function ComputePatch(gameId, localizationTable)
 			return Promise.resolve({
 				patch = MockPatch,
 			})
@@ -762,14 +696,8 @@ return function()
 			end)
 		end
 
-		local function UploadPatch(patchInfo)
+		local function UploadPatch(gameId, patchInfo)
 			return Promise.reject("Upload failed")
-		end
-
-		local MockRenderFunction = function() end
-
-		local MakeRenderDialogContent = function()
-			return MockRenderFunction
 		end
 
 		flow = Flow.new({
@@ -779,10 +707,10 @@ return function()
 
 			OpenCSV = OpenCSV,
 			ComputePatch = ComputePatch,
+			MakeRenderDialogContent = MakeRenderDialogContent,
 			ShowDialog = ShowDialog,
 			UploadPatch = UploadPatch,
 
-			MakeRenderDialogContent = MakeRenderDialogContent,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({
@@ -792,7 +720,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload()
+		local promise = flow:OnUpload(MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")

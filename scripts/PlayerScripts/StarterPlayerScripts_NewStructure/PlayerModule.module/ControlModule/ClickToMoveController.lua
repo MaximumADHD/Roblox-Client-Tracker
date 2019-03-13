@@ -846,14 +846,13 @@ local function HandleMoveTo(thisPather, hitPt, hitChar, character, overrideShowP
 end
 
 local function ShowPathFailedFeedback(hitPt)
-	local shouldPlayFailureAnim = PlayFailureAnimation and not (ExistingPather and ExistingPather:IsActive())
-	if shouldPlayFailureAnim then
-		ClickToMoveDisplay.PlayFailureAnimation()
-	end
-	ClickToMoveDisplay.DisplayFailureWaypoint(hitPt)
 	if ExistingPather and ExistingPather:IsActive() then
 		ExistingPather:Cancel()
 	end
+	if PlayFailureAnimation then
+		ClickToMoveDisplay.PlayFailureAnimation()
+	end
+	ClickToMoveDisplay.DisplayFailureWaypoint(hitPt)
 end
 
 function OnTap(tapPositions, goToPoint, wasTouchTap)

@@ -8,9 +8,9 @@ local MakeWebTableInterface = require(script.Parent.WebTableInterface)
 return function(userId)
 	local WebTableInterface = MakeWebTableInterface(userId)
 
-	local function ComputePatch(newLocalizationTable)
+	local function ComputePatch(gameId, newLocalizationTable)
 		return Promise.new(function(resolve, reject)
-			WebTableInterface.DownloadGameTable():andThen(
+			WebTableInterface.DownloadGameTable(gameId):andThen(
 				function(currentLocalizationTable)
 					local currentTableEntryInfo = RbxEntriesToWebEntries(currentLocalizationTable:GetEntries())
 					if currentTableEntryInfo.errorMessage then
@@ -52,7 +52,7 @@ return function(userId)
 		UploadPatch = WebTableInterface.UploadPatch,
 		DownloadGameTable = WebTableInterface.DownloadGameTable,
 		UpdateGameTableInfo = WebTableInterface.UpdateGameTableInfo,
-		SetAutoscraping = WebTableInterface.SetAutoscraping,
+		CheckTableAvailability = WebTableInterface.CheckTableAvailability,
 		GameIdChangedSignal = game:GetPropertyChangedSignal("GameId"),
 	}
 end
