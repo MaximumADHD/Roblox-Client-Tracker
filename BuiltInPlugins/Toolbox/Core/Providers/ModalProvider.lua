@@ -27,8 +27,36 @@ function ModalProvider:init(props)
 		modalStatus:onDropdownToggled(shown)
 	end
 
+	self._context.onSearchOptionsToggled = function(shown)
+		modalStatus:onSearchOptionsToggled(shown)
+	end
+
+	self._context.onSearchOptionsMouse = function(inside)
+		modalStatus:onSearchOptionsMouse(inside)
+	end
+
 	self._context.isShowingModal = function()
 		return modalStatus:isShowingModal()
+	end
+
+	self._context.isShowingSearchOptions = function()
+		return modalStatus:isShowingSearchOptions()
+	end
+
+	self._context.isMouseInSearchOptions = function()
+		return modalStatus:isMouseInSearchOptions()
+	end
+
+	self._context.isAssetPreviewing = function()
+		return modalStatus:isAssetPreviewing()
+	end
+
+	self._context.onAssetPreviewToggled = function(shown)
+		return modalStatus:onAssetPreviewToggled(shown)
+	end
+
+	self._context.canHoverAsset = function()
+		return modalStatus:canHoverAsset()
 	end
 end
 

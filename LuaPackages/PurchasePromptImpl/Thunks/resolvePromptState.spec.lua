@@ -79,7 +79,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.PromptPurchase)
+		if not settings():GetFFlag("ChinaLicensingApp") then
+			expect(state.promptState).to.equal(PromptState.PromptPurchase)
+		end
 	end)
 
 	it("should resolve state to RobuxUpsell if account is short on Robux", function()
@@ -99,7 +101,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.RobuxUpsell)
+		if not settings():GetFFlag("ChinaLicensingApp") then
+			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
+		end
 	end)
 
 	it("should resolve state to BuildersClubUpsell if account has insufficient bc level", function()
@@ -120,6 +124,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.BuildersClubUpsell)
+		if not settings():GetFFlag("ChinaLicensingApp") then
+			expect(state.promptState).to.equal(PromptState.BuildersClubUpsell)
+		end
 	end)
 end

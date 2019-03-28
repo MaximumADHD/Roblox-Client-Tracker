@@ -6,10 +6,14 @@
 	Props:
 		number width : how wide the search bar is
 		number LayoutOrder = 0 : optional layout order for UI layouts
+		bool showSearchButton : show the search bar button at the end of the bar.
+		string defaultTextKey = "SearchBarDefaultText" : default text key for localized text to show in the empty search bar.
 		string searchTerm
+		bool IsLive = Should this search bar be styled as a live search bar?
 
 		callback onSearchRequested(string searchTerm) : callback for when the user presses the enter key
 			or clicks the search button
+		callback onTextChanged(string text) : callback for when the text was changed
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -79,6 +83,9 @@ function SearchBar:init()
 			self:setState({
 				text = text,
 			})
+			if self.props.onTextChanged then
+				self.props.onTextChanged(text)
+			end
 		end
 	end
 
@@ -150,6 +157,9 @@ function SearchBar:render()
 			local isContainerHovered = state.isContainerHovered
 
 			local showClearButton = #text > 0
+			local showSearchButton = self.props.showSearchButton
+
+			local isLive = props.IsLive
 
 			--[[
 			By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
@@ -169,9 +179,10 @@ function SearchBar:render()
 				- Sets its width = text width (with AnchorPoint = (1, 0), this grows to the left)
 			]]
 
-			local innerPadding = 4
+			local innerPadding = 10
 
-			local buttonsWidth = (2 * Constants.SEARCH_BAR_BUTTON_WIDTH) + 1
+			local buttonsWidth = showSearchButton and (2 * Constants.SEARCH_BAR_BUTTON_WIDTH) + 1
+				or Constants.SEARCH_BAR_BUTTON_WIDTH
 			-- Let the text box get closer to the buttons
 			local adjustedButtonsWidth = buttonsWidth - 6
 
@@ -181,7 +192,16 @@ function SearchBar:render()
 			local isShorterThanParent = textWidth < parentWidth
 
 			local searchBarTheme = theme.searchBar
-			local focusOrHovered = isFocused or isContainerHovered
+			local borderColor
+			if isFocused then
+				borderColor = searchBarTheme.borderSelectedColor
+			elseif isContainerHovered then
+				borderColor = searchBarTheme.borderHoveredColor
+			else
+				borderColor = searchBarTheme.borderColor
+			end
+
+			local defaultTextKey = self.props.defaultTextKey or "SearchBarDefaultText"
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(0, containerWidth, 1, 0),
@@ -192,10 +212,10 @@ function SearchBar:render()
 					Position = UDim2.new(0, -1, 0, -1),
 					Size = UDim2.new(1, 2, 1, 2),
 
-					BorderColor3 = focusOrHovered and searchBarTheme.borderSelectedColor or searchBarTheme.borderColor,
+					BorderColor3 = borderColor,
 					ClipsDescendants = true,
 
-					BackgroundColor3 = searchBarTheme.backgroundColor,
+					BackgroundColor3 = isLive and searchBarTheme.liveBackgroundColor or searchBarTheme.backgroundColor,
 
 					[Roact.Event.MouseEnter] = self.onContainerHovered,
 					[Roact.Event.MouseMoved] = self.onContainerHovered,
@@ -205,25 +225,25 @@ function SearchBar:render()
 				}, {
 					-- Parent the text box to another frame to make the logic for calculating position with the padding easier
 					TextContainer = Roact.createElement("Frame", {
-						Position = UDim2.new(0, innerPadding, 0, innerPadding),
-						Size = UDim2.new(1, -(adjustedButtonsWidth + (innerPadding * 2)), 1, -innerPadding * 2),
+						Position = UDim2.new(0, innerPadding, 0, 0),
+						Size = UDim2.new(1, -(adjustedButtonsWidth + (innerPadding * 2)), 1, 0),
 						BackgroundTransparency = 1,
 						ZIndex = 2,
 					}, {
 						TextBox = Roact.createElement("TextBox", {
-							AnchorPoint = Vector2.new(isShorterThanParent and 0 or 1, 0),
-							Position = UDim2.new(isShorterThanParent and 0 or 1, 0, 0, 0),
-							Size = UDim2.new(0, textWidth, 1, 0),
+							LayoutOrder = 1,
+							Size = UDim2.new(1, 0, 1, 0),
 							BackgroundTransparency = 1,
+							ClipsDescendants = true,
 
 							ClearTextOnFocus = false,
 							Font = Constants.FONT,
 							TextSize = Constants.FONT_SIZE_MEDIUM,
-							TextXAlignment = Enum.TextXAlignment.Left,
+							TextXAlignment = isShorterThanParent and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right,
 							TextColor3 = searchBarTheme.textColor,
 							Text = text,
 
-							PlaceholderText = localizedContent.SearchBarDefaultText,
+							PlaceholderText = localizedContent[defaultTextKey],
 							PlaceholderColor3 = searchBarTheme.placeholderTextColor,
 
 							-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
@@ -237,6 +257,7 @@ function SearchBar:render()
 
 					Buttons = Roact.createElement(SearchBarButtons, {
 						showClearButton = showClearButton,
+						showSearchButton = showSearchButton,
 						onClearButtonClicked = self.onClearButtonClicked,
 						onSearchButtonClicked = self.requestSearch,
 					})

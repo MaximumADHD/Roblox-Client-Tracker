@@ -96,6 +96,7 @@ local messageQueue = {
 local extraConfiguration = {
 	MessageTextScaled = true,
 	HideErrorCode = true,
+	MenuIsOpenKey = "AnitAddictionPrompt",
 }
 local prompt = ErrorPrompt.new("Default", extraConfiguration)
 prompt:setParent(RobloxGui)

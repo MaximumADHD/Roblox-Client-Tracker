@@ -2,26 +2,16 @@
 	For Game-Table purposes, the server only accepts certain locales.
 ]]
 
-local StudioLocalizationAllowHan = settings():GetFFlag("StudioLocalizationAllowHan")
-local StudioLocalizationAllowKorean = settings():GetFFlag("StudioLocalizationAllowKorean")
-
 local supportedLocalesSet = {
 	["es"] = true,
 	["en"] = true,
 	["pt"] = true,
 	["de"] = true,
 	["fr"] = true,
+	["zh-hans"] = true,
+	["zh-hant"] = true,
+	["ko"] = true,
 }
-
-if StudioLocalizationAllowHan then
-	supportedLocalesSet["zh-hans"] = true
-	supportedLocalesSet["zh-hant"] = true
-end
-
-if StudioLocalizationAllowKorean then
-	supportedLocalesSet["ko"] = true
-end
-
 
 local function SetToList(tableAsSet)
 	local result = {}

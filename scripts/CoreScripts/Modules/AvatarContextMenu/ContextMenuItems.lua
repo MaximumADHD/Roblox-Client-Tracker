@@ -9,7 +9,6 @@
 local FRIEND_LAYOUT_ORDER = 1
 local CHAT_LAYOUT_ORDER = 3
 local WAVE_LAYOUT_ORDER = 4
-local CUSTOM_LAYOUT_ORDER = 20 --Remove with FFlagCoreScriptACMCustomFirst
 
 local MENU_ITEM_SIZE_X = 0.96
 local MENU_ITEM_SIZE_Y = 0
@@ -45,9 +44,6 @@ end
 
 -- VARIABLES
 
-local FFlagCoreScriptACMCustomFirst = settings():GetFFlag("CoreScriptACMCustomFirst")
-local FFlagCoreScriptCloseACMCustomItem = settings():GetFFlag("CoreScriptCloseACMCustomItem")
-local FFlagCoreScriptFixACMWhisperIssues = settings():GetFFlag("CoreScriptFixACMWhisperIssues")
 local FFlagRemoveACMLastUnderline = settings():GetFFlag("RemoveACMLastUnderline")
 local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
@@ -81,15 +77,11 @@ function ContextMenuItems:ClearMenuItems()
 end
 
 function ContextMenuItems:AddCustomAvatarMenuItem(menuOption, bindableEvent)
-	if FFlagCoreScriptACMCustomFirst then
-		CustomItemAddedOrder = CustomItemAddedOrder + 1
-		CustomContextMenuItems[menuOption] = {
-			event = bindableEvent,
-			layoutOrder = CustomItemAddedOrder,
-		}
-	else
-		CustomContextMenuItems[menuOption] = bindableEvent
-	end
+	CustomItemAddedOrder = CustomItemAddedOrder + 1
+	CustomContextMenuItems[menuOption] = {
+		event = bindableEvent,
+		layoutOrder = CustomItemAddedOrder,
+	}
 end
 
 function ContextMenuItems:RemoveCustomAvatarMenuItem(menuOption)
@@ -158,51 +150,26 @@ function ContextMenuItems:RegisterCoreMethods()
 end
 
 function ContextMenuItems:CreateCustomMenuItems()
-	if FFlagCoreScriptACMCustomFirst then
-		for buttonText, itemInfo in pairs(CustomContextMenuItems) do
-			AnalyticsService:TrackEvent("Game", "AvatarContextMenuCustomButton", "name: " .. tostring(buttonText))
-			local function customButtonFunc()
-				if FFlagCoreScriptCloseACMCustomItem then
-					if self.CloseMenuFunc then self:CloseMenuFunc() end
-				end
+	for buttonText, itemInfo in pairs(CustomContextMenuItems) do
+		AnalyticsService:TrackEvent("Game", "AvatarContextMenuCustomButton", "name: " .. tostring(buttonText))
+		local function customButtonFunc()
+			if self.CloseMenuFunc then self:CloseMenuFunc() end
 
-				itemInfo.event:Fire(self.SelectedPlayer)
-			end
-			if FFlagTranslateAvatarContextMenu then
-				buttonText = GameTranslator:TranslateGameText(self.MenuItemFrame, buttonText)
-			end
-			local customButton = ContextMenuUtil:MakeStyledButton(
-				"CustomButton",
-				buttonText,
-				UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
-				customButtonFunc,
-				FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
-			)
-			customButton.Name = "CustomButton"
-			customButton.LayoutOrder = itemInfo.layoutOrder
-			customButton.Parent = self.MenuItemFrame
+			itemInfo.event:Fire(self.SelectedPlayer)
 		end
-	else
-		for buttonText, bindableEvent in pairs(CustomContextMenuItems) do
-			AnalyticsService:TrackEvent("Game", "AvatarContextMenuCustomButton", "name: " .. tostring(buttonText))
-			local function customButtonFunc()
-				if FFlagCoreScriptCloseACMCustomItem then
-					if self.CloseMenuFunc then self:CloseMenuFunc() end
-				end
-
-				bindableEvent:Fire(self.SelectedPlayer)
-			end
-			local customButton = ContextMenuUtil:MakeStyledButton(
-				"CustomButton",
-				buttonText,
-				UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
-				customButtonFunc,
-				FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
-			)
-			customButton.Name = "CustomButton"
-			customButton.LayoutOrder = CUSTOM_LAYOUT_ORDER
-			customButton.Parent = self.MenuItemFrame
+		if FFlagTranslateAvatarContextMenu then
+			buttonText = GameTranslator:TranslateGameText(self.MenuItemFrame, buttonText)
 		end
+		local customButton = ContextMenuUtil:MakeStyledButton(
+			"CustomButton",
+			buttonText,
+			UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
+			customButtonFunc,
+			FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+		)
+		customButton.Name = "CustomButton"
+		customButton.LayoutOrder = itemInfo.layoutOrder
+		customButton.Parent = self.MenuItemFrame
 	end
 end
 
@@ -273,11 +240,7 @@ function ContextMenuItems:CreateFriendButton(status, isBlocked)
 		friendLabelText.TextTransparency = 0
 	end
 
-	if FFlagCoreScriptACMCustomFirst then
-		friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER + CustomItemAddedOrder
-	else
-		friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER
-	end
+	friendLabel.LayoutOrder = FRIEND_LAYOUT_ORDER + CustomItemAddedOrder
 	friendLabel.Parent = self.MenuItemFrame
 end
 
@@ -309,11 +272,7 @@ function ContextMenuItems:CreateEmoteButton()
 		wave,
 		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
 	)
-	if FFlagCoreScriptACMCustomFirst then
-		waveButton.LayoutOrder = WAVE_LAYOUT_ORDER + CustomItemAddedOrder
-	else
-		waveButton.LayoutOrder = WAVE_LAYOUT_ORDER
-	end
+	waveButton.LayoutOrder = WAVE_LAYOUT_ORDER + CustomItemAddedOrder
 	waveButton.Parent = self.MenuItemFrame
 end
 
@@ -330,29 +289,16 @@ function ContextMenuItems:CreateChatButton()
 		AnalyticsService:ReportCounter("AvatarContextMenu-Chat")
         AnalyticsService:TrackEvent("Game", "AvatarContextMenuChat", "placeId: " .. tostring(game.PlaceId))
 
-		-- todo: need a proper api to set up text in the chat bar
-		if not FFlagCoreScriptFixACMWhisperIssues then
+		local ChatModule = require(RobloxGui.Modules.ChatSelector)
+		ChatModule:SetVisible(true)
+		local eventDidFire = ChatModule:EnterWhisperState(self.SelectedPlayer)
+		if not eventDidFire then
+			-- Fallback to the old version for backwards compatibility with old chat versions
 			local ChatBar = nil
 			pcall(function() ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
 			if ChatBar then
 				ChatBar.Text = "/w " .. self.SelectedPlayer.Name
 			end
-		end
-
-		local ChatModule = require(RobloxGui.Modules.ChatSelector)
-		ChatModule:SetVisible(true)
-		if FFlagCoreScriptFixACMWhisperIssues then
-			local eventDidFire = ChatModule:EnterWhisperState(self.SelectedPlayer)
-			if not eventDidFire then
-				-- Fallback to the old version for backwards compatibility with old chat versions
-				local ChatBar = nil
-				pcall(function() ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
-				if ChatBar then
-					ChatBar.Text = "/w " .. self.SelectedPlayer.Name
-				end
-				ChatModule:FocusChatBar()
-			end
-		else
 			ChatModule:FocusChatBar()
 		end
 	end
@@ -368,11 +314,7 @@ function ContextMenuItems:CreateChatButton()
 		chatFunc,
 		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
 	)
-	if FFlagCoreScriptACMCustomFirst then
-		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
-	else
-		chatButton.LayoutOrder = CHAT_LAYOUT_ORDER
-	end
+	chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
 
 	local success, canLocalUserChat = pcall(function() return Chat:CanUserChatAsync(LocalPlayer.UserId) end)
 	local canChat = success and (RunService:IsStudio() or canLocalUserChat)

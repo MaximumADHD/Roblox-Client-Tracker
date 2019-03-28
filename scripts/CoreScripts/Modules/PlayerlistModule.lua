@@ -24,6 +24,7 @@ local FFlagCorescriptIsPlayerGroupOwnerServer = settings():GetFFlag("CorescriptI
 
 local FFlagMembershipIconABTestEnabled = settings():GetFFlag("MembershipIconABTestEnabled")
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
+local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -2018,7 +2019,9 @@ local closeListFunc = function(name, state, input)
     xboxSetShieldVisibility(false)
     xboxDisableHotkeys()
   end
-  spawn(function() GuiService:SetMenuIsOpen(false) end)
+  if not FFlagForceMouseInputWhenPromptPopUp2 then
+    spawn(function() GuiService:SetMenuIsOpen(false) end)
+  end
   ContextActionService:UnbindCoreAction("CloseList")
   ContextActionService:UnbindCoreAction("StopAction")
   GuiService:RemoveSelectionGroup("PlayerlistGuiSelection")

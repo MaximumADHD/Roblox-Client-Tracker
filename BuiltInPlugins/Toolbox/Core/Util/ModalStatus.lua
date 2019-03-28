@@ -21,6 +21,10 @@ function ModalStatus.new()
 		_currentTooltipTypeId = 0,
 
 		_isDropdownShown = false,
+		_isMouseInSearchOptions = false,
+		_isSearchOptionsShown = false,
+
+		_isAssetPreviewing = false,
 	}, ModalStatus)
 end
 
@@ -30,6 +34,18 @@ end
 
 function ModalStatus:isShowingModal()
 	return self._isDropdownShown
+end
+
+function ModalStatus:isShowingSearchOptions()
+	return self._isSearchOptionsShown
+end
+
+function ModalStatus:isMouseInSearchOptions()
+	return self._isMouseInSearchOptions
+end
+
+function ModalStatus:isAssetPreviewing()
+	return self._isAssetPreviewing
 end
 
 function ModalStatus:onTooltipTriggered(assetId, typeId)
@@ -45,12 +61,39 @@ function ModalStatus:onDropdownToggled(shown)
 	self._signal:fire()
 end
 
+function ModalStatus:onSearchOptionsToggled(shown)
+	self._isSearchOptionsShown = shown
+
+	self._signal:fire()
+end
+
+function ModalStatus:onSearchOptionsMouse(inside)
+	self._isMouseInSearchOptions = inside
+
+	self._signal:fire()
+end
+
+function ModalStatus:onAssetPreviewToggled(shown)
+	self._isAssetPreviewing = shown
+
+	self._signal:fire()
+end
+
 function ModalStatus:isCurrentTooltip(assetId, typeId)
 	return self._currentTooltipAssetId == assetId and self._currentTooltipTypeId == typeId
 end
 
+function ModalStatus:canHoverAsset()
+	return not self._isDropdownShown
+		and not self._isAssetPreviewing
+		and not (self._isSearchOptionsShown and self._isMouseInSearchOptions)
+end
+
 function ModalStatus:canShowCurrentTooltip(assetId, typeId)
-	return not self._isDropdownShown and self:isCurrentTooltip(assetId, typeId)
+	return not self._isDropdownShown
+		and self:isCurrentTooltip(assetId, typeId)
+		and not self._isAssetPreviewing
+		and not (self._isSearchOptionsShown and self._isMouseInSearchOptions)
 end
 
 return ModalStatus

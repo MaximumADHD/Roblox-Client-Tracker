@@ -6,9 +6,13 @@ local clientChatModules = script.Parent.Parent
 local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 local util = require(script.Parent:WaitForChild("Util"))
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
 
 function CreateWelcomeMessageLabel(messageData, channelName)
 	local message = messageData.Message
+	if ChatLocalization and ChatLocalization.LocalizeFormattedMessage then
+		message = ChatLocalization:LocalizeFormattedMessage(message)
+	end
 	local extraData = messageData.ExtraData or {}
 	local useFont = extraData.Font or ChatSettings.DefaultFont
 	local useTextSize = extraData.FontSize or ChatSettings.ChatWindowTextSize

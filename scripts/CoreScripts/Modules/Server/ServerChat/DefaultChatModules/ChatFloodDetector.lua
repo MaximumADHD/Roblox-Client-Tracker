@@ -17,7 +17,11 @@ local whitelistedSpeakers = {}
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
-if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
+if ChatLocalization == nil then ChatLocalization = {} end
+
+if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
+	function ChatLocalization:FormatMessageToSend(key,default) return default end
+end
 
 local function EnterTimeIntoLog(tbl)
 	table.insert(tbl, tick() + decayTimePeriod)
@@ -60,18 +64,15 @@ local function Run(ChatService)
 			local timeDiff = math.ceil(t[1] - now)
 			
 			if (informSpeakersOfWaitTimes) then
-				local msg = string.gsub(
-					ChatLocalization:Get(
-						"GameChat_ChatFloodDetector_MessageDisplaySeconds",
-						string.format("You must wait %d %s before sending another message!", timeDiff, (timeDiff > 1) and "seconds" or "second")
-					),
-					"{RBX_NUMBER}",
+				local msg = ChatLocalization:FormatMessageToSend("GameChat_ChatFloodDetector_MessageDisplaySeconds",
+					string.format("You must wait %d %s before sending another message!", timeDiff, (timeDiff > 1) and "seconds" or "second"),
+					"RBX_NUMBER",
 					tostring(timeDiff)
 				)
 				speakerObj:SendSystemMessage(msg, channel)
 			else
 				speakerObj:SendSystemMessage(
-					ChatLocalization:Get(
+					ChatLocalization:FormatMessageToSend(
 						"GameChat_ChatFloodDetector_Message",
 						"You must wait before sending another message!"
 					)

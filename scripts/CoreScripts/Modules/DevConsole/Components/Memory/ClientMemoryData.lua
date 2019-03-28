@@ -1,6 +1,7 @@
 local Signal = require(script.Parent.Parent.Parent.Signal)
 local SoundService = game:GetService("SoundService")
 local MeshContentProvider = game:GetService("MeshContentProvider")
+local KeyframeSequenceProvider = game:GetService("KeyframeSequenceProvider")
 
 local StatsService = game:GetService("Stats")
 local StatsUtils = require(script.Parent.Parent.Parent.Parent.Stats.StatsUtils)
@@ -13,6 +14,7 @@ local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGrap
 local FFlagEnableGranularMemoryTabStats = settings():GetFFlag("EnableGranularMemoryTabStats")
 
 local CLIENT_POLLING_INTERVAL = 3 -- seconds
+local BYTE_IN_MB = 1048576
 
 local SORT_COMPARATOR = {
 	[HEADER_NAMES[1]] = function(a, b)
@@ -38,7 +40,7 @@ function ClientMemoryData.new()
 	self._totalMemoryUpdated = Signal.new()
 	self._sortType = HEADER_NAMES[1]
 
-	self._lastGranularMemTabUpdate = {}
+	self._doGranularMemUpdate = {}
 	self._granularMemTable = {}
 
 	return self
@@ -83,7 +85,7 @@ local function fetchGraphicsTextureMemoryData()
 
 	function aggregateData(retData, data)
 		for _,v in ipairs(data.Results) do
-			local mem = v.MemoryInBytes / 1000000
+			local mem = v.MemoryInBytes / BYTE_IN_MB
 			table.insert(retData, {
 				name = v.TextureId,
 				value = mem,
@@ -107,7 +109,7 @@ local function fetchGraphicsTextureCharacterMemoryData()
 
 	function aggregateData(retData, data)
 		for _,v in ipairs(data.Results) do
-			local mem = v.MemoryInBytes / 1000000
+			local mem = v.MemoryInBytes / BYTE_IN_MB
 			local compTextures = {}
 
 			-- we need to parse out the asset id's from this large string
@@ -129,8 +131,13 @@ local function fetchGraphicsTextureCharacterMemoryData()
 			for a, b in pairs(tSeries) do
 				local gotoAssetStr = string.split(b, ".mesh:")[2]
 				-- set to 12 to get pass the ":'" in "rbxassertid:" and "http://""
-				local hi, bye = string.find(gotoAssetStr, ":", 12)
-				assetString = string.sub(gotoAssetStr, 1, hi)
+				local matchIndex = string.find(gotoAssetStr, ":", 12)
+
+				-- we dont want to include the ":" we found
+				if matchIndex ~= nil then
+					matchIndex = matchIndex - 1
+				end
+				assetString = string.sub(gotoAssetStr, 1, matchIndex)
 				dedupe[assetString] = true
 			end
 
@@ -141,6 +148,10 @@ local function fetchGraphicsTextureCharacterMemoryData()
 					name = name
 				})
 			end
+
+			table.sort(compTextures, function(a, b)
+				return a.name < b.name
+			end)
 
 			table.insert(retData, {
 				name = "Composite Texture",
@@ -160,7 +171,7 @@ local function fetchGraphicsMeshPartsMemoryData()
 	local sortedMeshData = {}
 
 	for name, bytes in pairs(meshData) do
-		local mem = bytes / 1000000
+		local mem = bytes / BYTE_IN_MB
 		table.insert(sortedMeshData, {
 			name = name,
 			value = mem,
@@ -174,11 +185,28 @@ local function fetchGraphicsMeshPartsMemoryData()
 	return sortedMeshData
 end
 
+local function fetchFuncAnimation()
+	local memstats = KeyframeSequenceProvider:GetMemStats()
+	local sortedAnimationData = {}
+
+	for name, bytes in pairs(memstats) do
+		local mem = bytes / BYTE_IN_MB
+		table.insert(sortedAnimationData, {
+			name = name,
+			value = mem,
+		})
+	end
+
+	table.sort(sortedAnimationData, function(a, b)
+		return a.value > b.value
+	end)
+
+	return sortedAnimationData
+end
+
 function ClientMemoryData:updateCachedData(categoryName, retrieveDataCallback)
-	local lastTick = self._lastGranularMemTabUpdate[categoryName] or 0
-	local currTick = tick()
-	if currTick - lastTick > CLIENT_POLLING_INTERVAL then
-		self._lastGranularMemTabUpdate[categoryName] = currTick
+	if self._doGranularMemUpdate[categoryName] then
+		self._doGranularMemUpdate[categoryName] = false
 		self._granularMemTable[categoryName] = retrieveDataCallback()
 	end
 end
@@ -197,8 +225,10 @@ function ClientMemoryData:getAdditionalMemoryFunc(name)
 
 		elseif name == "GraphicsMeshParts" then
 			fetchFunc = fetchGraphicsMeshPartsMemoryData
-		elseif name == "CSG" then
+		elseif name == "csgDictionary" then
+			-- this case requires more work to properly reflect the desired changes
 		elseif name == "Animation" then
+			fetchFunc = fetchFuncAnimation
 		end
 
 		if fetchFunc then
@@ -242,6 +272,7 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 		local memFunc = self:getAdditionalMemoryFunc(name)
 		if memFunc then
 			entryList[name]["additionalInfoFunc"] = memFunc
+			self._doGranularMemUpdate[name] = true
 		end
 
 		local newEntry = {
@@ -258,6 +289,15 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 			data = data,
 			time = self._lastUpdate
 		}
+
+		-- if there is any change from the previous entry, flag
+		-- this category for additionaInfo Update
+		if entryList[name]["additionalInfoFunc"] then
+			local last = entryList[name].dataSet:back();
+			if last.data ~= update.data then
+				self._doGranularMemUpdate[name] = true
+			end
+		end
 
 		local overwrittenEntry = entryList[name].dataSet:push_back(update)
 

@@ -176,4 +176,12 @@ function FastFlags:isKeepClipboardAfterMoveOn()
 	return isFlagOn("StudioAnimationEditorKeepClipboardAfterMove")
 end
 
+function FastFlags:isContinueScrollingWithSelectionAreaOn()
+	return isFlagOn("StudioAnimationEditorContinueScrollingWithSelectionArea")
+end
+
+function FastFlags:isFixWorldSpaceJointPanelOn()
+	return isFlagOn("StudioAnimationEditorFixWorldSpaceJointPanel")
+end
+
 return FastFlags

@@ -14,8 +14,6 @@
 		callback onPreviewAudioButtonClicked()
 ]]
 
-local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -24,17 +22,27 @@ local RoactRodux = require(Libs.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
+
 local InsertToolPromise = require(Plugin.Core.Util.InsertToolPromise)
+local InsertAsset = require(Plugin.Core.Util.InsertAsset)
+local ContextMenuHelper = require(Plugin.Core.Util.ContextMenuHelper)
 
 local getModal = ContextGetter.getModal
+local getPlugin = ContextGetter.getPlugin
+local getNetwork = ContextGetter.getNetwork
+local withModal = ContextHelper.withModal
 
 local Asset = require(Plugin.Core.Components.Asset.Asset)
+local AssetPreviewWrapper = require(Plugin.Core.Components.Asset.Preview.AssetPreviewWrapper)
 local MessageBox = require(Plugin.Core.Components.MessageBox.MessageBox)
 
 local PlayPreviewSound = require(Plugin.Core.Actions.PlayPreviewSound)
 local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
 local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
+local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
+local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
@@ -59,23 +67,30 @@ function AssetGridContainer:init(props)
 			and not self.insertToolPromise:isWaiting()
 	end
 
+	self.openAssetPreview = function(assetData)
+		local modal = getModal(self)
+		modal.onAssetPreviewToggled(true)
+		self.props.onPreviewToggled(true)
+		self:setState({
+			previewAssetData = assetData,
+		})
+	end
+
+	self.closeAssetPreview = function()
+		local modal = getModal(self)
+		modal.onAssetPreviewToggled(false)
+		self.props.onPreviewToggled(false)
+		self:setState({
+			previewAssetData = Roact.None,
+		})
+	end
+
 	self.onAssetHovered = function(assetId)
-		if FFlagStudioToolboxFixMouseHover then
-			if self.state.hoveredAssetId == 0 and
-				not getModal(self).isShowingModal()
-			then
-				self:setState({
-					hoveredAssetId = assetId,
-				})
-			end
-		else
-			if self.state.hoveredAssetId ~= assetId and
-				not getModal(self).isShowingModal()
-			then
-				self:setState({
-					hoveredAssetId = assetId,
-				})
-			end
+		local modal = getModal(self)
+		if self.state.hoveredAssetId == 0 and modal.canHoverAsset() then
+			self:setState({
+				hoveredAssetId = assetId,
+			})
 		end
 	end
 
@@ -143,10 +158,52 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onAssetGridContainerChanged = function()
-		self.props.onAssetGridContainerChanged()
+		if self.props.onAssetGridContainerChanged then
+			self.props.onAssetGridContainerChanged()
+		end
 	end
 
 	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt)
+
+	self.onAssetInsertionSuccesful = function(assetId)
+		self.props.insertAsset(getNetwork(self), assetId)
+		self.onAssetInserted()
+	end
+
+	self.tryCreateContextMenu = function(assetData)
+		local asset = assetData.Asset
+		local assetId = asset.Id
+		local assetTypeId = asset.TypeId
+		local plugin = getPlugin(self)
+		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId)
+	end
+
+	self.tryInsert = function(assetData, assetWasDragged)
+		local asset = assetData.Asset
+		local assetId = asset.Id
+		local assetName = asset.Name
+		local assetTypeId = asset.TypeId
+
+		local currentProps = self.props
+		local categoryIndex = currentProps.categoryIndex or 1
+		local searchTerm = currentProps.searchTerm or ""
+		local assetIndex = currentProps.assetIndex or 0
+
+		local plugin = getPlugin(self)
+		InsertAsset.tryInsert({
+				plugin = plugin,
+				assetId = assetId,
+				assetName = assetName,
+				assetTypeId = assetTypeId,
+				onSuccess = self.onAssetInsertionSuccesful,
+				categoryIndex = categoryIndex,
+				searchTerm = searchTerm,
+				assetIndex = assetIndex,
+			},
+			self.insertToolPromise,
+			assetWasDragged
+		)
+	end
 end
 
 function AssetGridContainer:willUnmount()
@@ -162,92 +219,107 @@ function AssetGridContainer.getDerivedStateFromProps(nextProps, lastState)
 end
 
 function AssetGridContainer:render()
-	local props = self.props
-	local state = self.state
+	return withModal(function(_, modalStatus)
+		local props = self.props
+		local state = self.state
 
-	local assetIds = props.assetIds
+		local assetIds = props.assetIds
 
-	local position = props.Position or UDim2.new(0, 0, 0, 0)
-	local size = props.Size or UDim2.new(1, 0, 1, 0)
+		local position = props.Position or UDim2.new(0, 0, 0, 0)
+		local size = props.Size or UDim2.new(1, 0, 1, 0)
 
-	local currentSoundId = props.currentSoundId
-	local isPlaying = props.isPlaying
+		local currentSoundId = props.currentSoundId
+		local isPlaying = props.isPlaying
 
-	local categoryIndex = props.categoryIndex
+		local previewAssetData = state.previewAssetData
 
-	local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
+		local categoryIndex = props.categoryIndex
 
-	local hoveredAssetId = state.hoveredAssetId
-	local isShowingToolMessageBox = state.isShowingToolMessageBox
+		local onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked
 
-	local assetElements = {
-		UIGridLayout = Roact.createElement("UIGridLayout", {
-			CellPadding = UDim2.new(0, Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
-				0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
-			CellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT),
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			[Roact.Event.Changed] = self.onAssetGridContainerChanged,
-		})
-	}
+		local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
+		local isShowingToolMessageBox = state.isShowingToolMessageBox
 
-	for index, asset in ipairs(assetIds) do
-		local assetId = asset[1]
-		local assetIndex = asset[2]
-
-		assetElements[tostring(assetId)] = Roact.createElement(Asset, {
-			assetId = assetId,
-			LayoutOrder = index,
-			assetIndex = assetIndex,
-
-			isHovered = assetId == hoveredAssetId,
-			hoveredAssetId = hoveredAssetId,
-
-			currentSoundId = currentSoundId,
-			isPlaying = isPlaying,
-
-			categoryIndex = categoryIndex,
-
-			onAssetHovered = self.onAssetHovered,
-			onAssetHoverEnded = self.onAssetHoverEnded,
-
-			onPreviewAudioButtonClicked = onPreviewAudioButtonClicked,
-
-			onAssetInserted = self.onAssetInserted,
-			canInsertAsset = self.canInsertAsset,
-
-			insertToolPromise = self.insertToolPromise,
-		})
-	end
-
-	assetElements.ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
-		Name = "ToolboxToolMessageBox",
-
-		Title = "Insert Tool",
-		Text = "Put this tool into the starter pack?",
-		Icon = Images.INFO_ICON,
-
-		onClose = self.onMessageBoxClosed,
-		onButtonClicked = self.onMessageBoxButtonClicked,
-
-		buttons = {
-			{
-				Text = "Yes",
-				action = "yes",
-			}, {
-				Text = "No",
-				action = "no",
-			}
+		local assetElements = {
+			UIGridLayout = Roact.createElement("UIGridLayout", {
+				CellPadding = UDim2.new(0, Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
+					0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
+				CellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT),
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				[Roact.Event.Changed] = self.onAssetGridContainerChanged,
+			})
 		}
-	})
 
-	return Roact.createElement("Frame", {
-		Position = position,
-		Size = size,
-		BackgroundTransparency = 1,
+		for index, asset in ipairs(assetIds) do
+			local assetId = asset[1]
+			local assetIndex = asset[2]
 
-		[Roact.Event.InputEnded] = self.onFocusLost,
-	}, assetElements)
+			assetElements[tostring(assetId)] = Roact.createElement(Asset, {
+				assetId = assetId,
+				LayoutOrder = index,
+				assetIndex = assetIndex,
+
+				isHovered = assetId == hoveredAssetId,
+				hoveredAssetId = hoveredAssetId,
+
+				currentSoundId = currentSoundId,
+				isPlaying = isPlaying,
+
+				categoryIndex = categoryIndex,
+
+				onAssetHovered = self.onAssetHovered,
+				onAssetHoverEnded = self.onAssetHoverEnded,
+
+				onPreviewAudioButtonClicked = onPreviewAudioButtonClicked,
+				onAssetPreviewButtonClicked = self.openAssetPreview,
+
+				onAssetInserted = self.onAssetInserted,
+				canInsertAsset = self.canInsertAsset,
+				tryInsert = self.tryInsert,
+				tryCreateContextMenu = self.tryCreateContextMenu,
+			})
+		end
+
+		assetElements.ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
+			Name = "ToolboxToolMessageBox",
+
+			Title = "Insert Tool",
+			Text = "Put this tool into the starter pack?",
+			Icon = Images.INFO_ICON,
+
+			onClose = self.onMessageBoxClosed,
+			onButtonClicked = self.onMessageBoxButtonClicked,
+
+			buttons = {
+				{
+					Text = "Yes",
+					action = "yes",
+				}, {
+					Text = "No",
+					action = "no",
+				}
+			}
+		})
+
+		assetElements.AssetPreview = previewAssetData and Roact.createElement(AssetPreviewWrapper, {
+			assetData = previewAssetData,
+
+			canInsertAsset = self.canInsertAsset,
+			tryInsert = self.tryInsert,
+			tryCreateContextMenu = self.tryCreateContextMenu,
+
+			onClose = self.closeAssetPreview,
+		})
+
+		return Roact.createElement("Frame", {
+			Position = position,
+			Size = size,
+			BackgroundTransparency = 1,
+
+			[Roact.Event.InputEnded] = self.onFocusLost,
+		}, assetElements)
+	end)
 end
 
 local function mapStateToProps(state, props)
@@ -277,6 +349,14 @@ local function mapDispatchToProps(dispatch)
 
 		resumeASound = function()
 			dispatch(ResumePreviewSound())
+		end,
+
+		insertAsset = function(networkInterface, assetId)
+			dispatch(PostInsertAssetRequest(networkInterface, assetId))
+		end,
+
+		onPreviewToggled = function(isPreviewing)
+			dispatch(SetAssetPreview(isPreviewing))
 		end,
 	}
 end

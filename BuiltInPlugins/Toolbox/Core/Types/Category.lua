@@ -1,5 +1,6 @@
 local EnableGroupPackagesForToolbox =  settings():GetFFlag("EnableGroupPackagesForToolbox")
 local EnableToolboxPluginInsertion = settings():GetFFlag("EnableToolboxPluginInsertion")
+local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
 
 local Category = {}
 
@@ -64,80 +65,158 @@ Category.MY_PACKAGES = {name = "MyPackages", category = "MyPackages",
 Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
 
-Category.CATEGORIES_WITHOUT_GROUPS = {
-	Category.FREE_MODELS,
-	Category.FREE_DECALS,
-	Category.FREE_MESHES,
-	Category.FREE_AUDIO,
+if FFlagStudioMarketplaceTabsEnabled then
+	-- Category sets used for splitting inventory/shop
+	Category.MARKETPLACE = {
+		Category.FREE_MODELS,
+		Category.FREE_DECALS,
+		Category.FREE_MESHES,
+		Category.FREE_AUDIO,
+	}
 
-	Category.MY_MODELS,
-	Category.MY_DECALS,
-	Category.MY_MESHES,
-	Category.MY_AUDIO,
+	Category.INVENTORY = {
+		Category.MY_MODELS,
+		Category.MY_DECALS,
+		Category.MY_MESHES,
+		Category.MY_AUDIO,
+		Category.MY_PACKAGES,
+	}
 
-	Category.RECENT_MODELS,
-	Category.RECENT_DECALS,
-	Category.RECENT_MESHES,
-	Category.RECENT_AUDIO,
-}
+	Category.INVENTORY_WITH_GROUPS = {
+		Category.MY_MODELS,
+		Category.MY_DECALS,
+		Category.MY_MESHES,
+		Category.MY_AUDIO,
+		Category.MY_PACKAGES,
+		Category.GROUP_MODELS,
+		Category.GROUP_DECALS,
+		Category.GROUP_MESHES,
+		Category.GROUP_AUDIO,
+	}
 
-Category.CATEGORIES = {
-	Category.FREE_MODELS,
-	Category.FREE_DECALS,
-	Category.FREE_MESHES,
-	Category.FREE_AUDIO,
+	Category.RECENT = {
+		Category.RECENT_MODELS,
+		Category.RECENT_DECALS,
+		Category.RECENT_MESHES,
+		Category.RECENT_AUDIO,
+	}
 
-	Category.MY_MODELS,
-	Category.MY_DECALS,
-	Category.MY_MESHES,
-	Category.MY_AUDIO,
+	Category.MARKETPLACE_KEY = "Marketplace"
+	Category.INVENTORY_KEY = "Inventory"
+	Category.RECENT_KEY = "Recent"
 
-	Category.RECENT_MODELS,
-	Category.RECENT_DECALS,
-	Category.RECENT_MESHES,
-	Category.RECENT_AUDIO,
+	Category.TABS = {
+		[Category.MARKETPLACE_KEY] = Category.MARKETPLACE,
+		[Category.INVENTORY_KEY] = Category.INVENTORY,
+		[Category.RECENT_KEY] = Category.RECENT,
+	}
 
-	Category.GROUP_MODELS,
-	Category.GROUP_DECALS,
-	Category.GROUP_MESHES,
-	Category.GROUP_AUDIO,
-}
+	if EnableGroupPackagesForToolbox then
+		table.insert(Category.INVENTORY_WITH_GROUPS, Category.GROUP_PACKAGES)
+	end
 
--- Insert between "my audio" and "recent models"
-table.insert(Category.CATEGORIES, 9, Category.MY_PACKAGES)
-table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 9, Category.MY_PACKAGES)
+	if EnableToolboxPluginInsertion then
+		table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+		table.insert(Category.MARKETPLACE, Category.FREE_PLUGINS)
+		table.insert(Category.INVENTORY, Category.MY_PLUGINS)
+		table.insert(Category.INVENTORY_WITH_GROUPS, 5, Category.MY_PLUGINS)
+	end
 
-if EnableGroupPackagesForToolbox then
-	-- Insert at end after "group audio"
-	table.insert(Category.CATEGORIES, Category.GROUP_PACKAGES)
-end
+	local function checkBounds(index)
+		return index and index >= 1 and index <= #Category.INVENTORY_WITH_GROUPS
+	end
+
+	function Category.categoryIsPackage(index)
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PACKAGE
+	end
+
+	function Category.categoryIsFreeAsset(index)
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.FREE
+	end
+
+	function Category.categoryIsGroupAsset(index)
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].ownershipType == Category.OwnershipType.GROUP
+	end
+
+	function Category.categoryIsPlugin(index)
+		return checkBounds(index) and Category.INVENTORY_WITH_GROUPS[index].assetType == Category.AssetType.PLUGIN
+	end
+else
+	Category.CATEGORIES_WITHOUT_GROUPS = {
+		Category.FREE_MODELS,
+		Category.FREE_DECALS,
+		Category.FREE_MESHES,
+		Category.FREE_AUDIO,
+
+		Category.MY_MODELS,
+		Category.MY_DECALS,
+		Category.MY_MESHES,
+		Category.MY_AUDIO,
+
+		Category.RECENT_MODELS,
+		Category.RECENT_DECALS,
+		Category.RECENT_MESHES,
+		Category.RECENT_AUDIO,
+	}
+
+	Category.CATEGORIES = {
+		Category.FREE_MODELS,
+		Category.FREE_DECALS,
+		Category.FREE_MESHES,
+		Category.FREE_AUDIO,
+
+		Category.MY_MODELS,
+		Category.MY_DECALS,
+		Category.MY_MESHES,
+		Category.MY_AUDIO,
+
+		Category.RECENT_MODELS,
+		Category.RECENT_DECALS,
+		Category.RECENT_MESHES,
+		Category.RECENT_AUDIO,
+
+		Category.GROUP_MODELS,
+		Category.GROUP_DECALS,
+		Category.GROUP_MESHES,
+		Category.GROUP_AUDIO,
+	}
+
+	-- Insert between "my audio" and "recent models"
+	table.insert(Category.CATEGORIES, 9, Category.MY_PACKAGES)
+	table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 9, Category.MY_PACKAGES)
+
+	if EnableGroupPackagesForToolbox then
+		-- Insert at end after "group audio"
+		table.insert(Category.CATEGORIES, Category.GROUP_PACKAGES)
+	end
 
 
-if EnableToolboxPluginInsertion then
-	table.insert(Category.CATEGORIES, 9, Category.MY_PLUGINS)
-	table.insert(Category.CATEGORIES, 5, Category.FREE_PLUGINS)
-	table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 9, Category.MY_PLUGINS)
-	table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 5, Category.FREE_PLUGINS)
-end
+	if EnableToolboxPluginInsertion then
+		table.insert(Category.CATEGORIES, 9, Category.MY_PLUGINS)
+		table.insert(Category.CATEGORIES, 5, Category.FREE_PLUGINS)
+		table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 9, Category.MY_PLUGINS)
+		table.insert(Category.CATEGORIES_WITHOUT_GROUPS, 5, Category.FREE_PLUGINS)
+	end
 
-local function checkBounds(index)
-	return index and index >= 1 and index <= #Category.CATEGORIES
-end
+	local function checkBounds(index)
+		return index and index >= 1 and index <= #Category.CATEGORIES
+	end
 
-function Category.categoryIsPackage(index)
-	return checkBounds(index) and Category.CATEGORIES[index].assetType == Category.AssetType.PACKAGE
-end
+	function Category.categoryIsPackage(index)
+		return checkBounds(index) and Category.CATEGORIES[index].assetType == Category.AssetType.PACKAGE
+	end
 
-function Category.categoryIsFreeAsset(index)
-	return checkBounds(index) and Category.CATEGORIES[index].ownershipType == Category.OwnershipType.FREE
-end
+	function Category.categoryIsFreeAsset(index)
+		return checkBounds(index) and Category.CATEGORIES[index].ownershipType == Category.OwnershipType.FREE
+	end
 
-function Category.categoryIsGroupAsset(index)
-	return checkBounds(index) and Category.CATEGORIES[index].ownershipType == Category.OwnershipType.GROUP
-end
+	function Category.categoryIsGroupAsset(index)
+		return checkBounds(index) and Category.CATEGORIES[index].ownershipType == Category.OwnershipType.GROUP
+	end
 
-function Category.categoryIsPlugin(index)
-	return checkBounds(index) and Category.CATEGORIES[index].assetType == Category.AssetType.PLUGIN
+	function Category.categoryIsPlugin(index)
+		return checkBounds(index) and Category.CATEGORIES[index].assetType == Category.AssetType.PLUGIN
+	end
 end
 
 local function ownershipTypeToString(ownershipType)

@@ -24,7 +24,8 @@ function ProcessMessage(message, ChatWindow, ChatSettings)
 				util:SendSystemMessageToSelf(
 					string.gsub(ChatLocalization:Get(
 						"GameChat_SwitchChannel_NowInChannel",
-						string.format("You are now chatting in channel: '%s'", channelName)
+						string.format("You are now chatting in channel: '%s'", channelName),
+						{RBX_NAME = channelName}
 					),"{RBX_NAME}",channelName),
 					targetChannel, {}
 				)
@@ -36,7 +37,8 @@ function ProcessMessage(message, ChatWindow, ChatSettings)
 			util:SendSystemMessageToSelf(
 				string.gsub(ChatLocalization:Get(
 					"GameChat_SwitchChannel_NotInChannel",
-					string.format("You are not in channel: '%s'", channelName)
+					string.format("You are not in channel: '%s'", channelName),
+					{RBX_NAME = channelName}
 				),"{RBX_NAME}",channelName), 
 				currentChannel, {ChatColor = Color3.fromRGB(245, 50, 50)}
 			)

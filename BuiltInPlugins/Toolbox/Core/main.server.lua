@@ -2,6 +2,11 @@ if not plugin then
 	return
 end
 
+local FFlagStudioUseNewToolbox = settings():GetFFlag("StudioUseNewToolbox")
+if not FFlagStudioUseNewToolbox then
+	return
+end
+
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)

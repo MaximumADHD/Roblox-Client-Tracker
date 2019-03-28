@@ -35,8 +35,7 @@ local function InfoBanner(props)
 		return Roact.createElement("TextLabel", {
 			Position = position,
 			Size = size,
-			BorderSizePixel = 0,
-			BackgroundColor3 = infoBannerTheme.backgroundColor,
+			BackgroundTransparency = 1,
 			ZIndex = zindex,
 			Visible = visible,
 			Text = text,

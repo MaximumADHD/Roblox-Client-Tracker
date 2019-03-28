@@ -21,6 +21,7 @@ CategoryGroupMeshes,Group Meshes,集团网格
 CategoryGroupAudio,Group Audio,组音频
 CategoryGroupPackages,Group Packages,组包
 SearchBarDefaultText,Search,搜索
+SearchBarCreatorText,Search for users,搜索用户
 SuggestionsIntroText,Try searching for:,尝试搜索：
 SuggestionsNPC,NPC,NPC
 SuggestionsVehicle,Vehicle,车辆
@@ -42,4 +43,15 @@ FooterButtonBlackName,Black,黑色
 FooterButtonNoneName,None,没有
 EndorseBadgeTooltipText,Marked as a high-quality item,标记为高品质的项目
 InfoBannerText,No results found,未找到结果
-CategoryEndorsedPlugins,EndorsedPlugins,EndorsedPlugins
+CategoryEndorsedPlugins,EndorsedPlugins,标记为高品质的插件
+SearchResults,Search Results,搜索结果
+SearchResultsKeyword,Search Results for,目标搜索的结果
+SearchResultsClearAll,Clear All,清空
+SearchOptionCreator,Creator,制作者
+SearchOptionSort,Sort By,排序方式
+SearchOptionsApply,Apply,应用
+SearchOptionsCancel,Cancel,取消
+SearchTagCreator,by:,通过：
+TabMarketplace,Marketplace,Marketplace
+TabInventory,Inventory,Inventory
+TabRecent,Recent,Recent

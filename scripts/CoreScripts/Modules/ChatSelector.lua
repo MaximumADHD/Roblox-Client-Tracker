@@ -18,8 +18,6 @@ local RunService = game:GetService("RunService")
 
 local Players = game:GetService("Players")
 
-local FFlagNukeVRChatFromOrbit = settings():GetFFlag("NukeVRChatFromOrbit")
-
 local Util = require(RobloxGui.Modules.ChatUtil)
 
 local ClassicChatEnabled = Players.ClassicChat
@@ -178,21 +176,6 @@ if ( not isConsole and not isVR ) then
 			pcall(function() StarterGui:SetCore("ChatMakeSystemMessage", messageData) end)
 		end
 	end)()
-elseif not isConsole and not FFlagNukeVRChatFromOrbit then
-	useModule = require(RobloxGui.Modules.Chat)
-
-	ConnectSignals(useModule, interface, "ChatBarFocusChanged")
-	ConnectSignals(useModule, interface, "VisibilityStateChanged")
-
-	while Players.LocalPlayer == nil do Players.ChildAdded:wait() end
-	local LocalPlayer = Players.LocalPlayer
-
-	if (LocalPlayer.ChatMode == Enum.ChatMode.TextAndMenu or RunService:IsStudio()) then
-		ConnectSignals(useModule, interface, "MessagesChanged")
-	end
-
-	StarterGui:RegisterGetCore("UseNewLuaChat", function() return false end)
-
 end
 
 return interface

@@ -10,7 +10,10 @@ local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
-if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
+if ChatLocalization == nil then ChatLocalization = {} end
+if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
+	function ChatLocalization:FormatMessageToSend(key,default) return default end
+end
 
 local errorTextColor = ChatSettings.ErrorMessageTextColor or Color3.fromRGB(245, 50, 50)
 local errorExtraData = {ChatColor = errorTextColor}
@@ -62,12 +65,12 @@ local function Run(ChatService)
 		local channelObj = ChatService:GetChannel(GetWhisperChannelPrefix() .. otherSpeakerName)
 		if channelObj and otherSpeaker then
 			if not CanCommunicate(speaker, otherSpeaker) then
-				speaker:SendSystemMessage(ChatLocalization:Get("GameChat_PrivateMessaging_CannotChat","You are not able to chat with this player."), channel, errorExtraData)
+				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotChat","You are not able to chat with this player."), channel, errorExtraData)
 				return
 			end
 
 			if (channelObj.Name == GetWhisperChannelPrefix() .. speaker.Name) then
-				speaker:SendSystemMessage(ChatLocalization:Get("GameChat_PrivateMessaging_CannotWhisperToSelf","You cannot whisper to yourself."), channel, errorExtraData)
+				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_CannotWhisperToSelf","You cannot whisper to yourself."), channel, errorExtraData)
 			else
 				if (not speaker:IsInChannel(channelObj.Name)) then
 					speaker:JoinChannel(channelObj.Name)
@@ -82,17 +85,12 @@ local function Run(ChatService)
 			end
 
 		else
-			speaker:SendSystemMessage(
-				string.gsub(
-					ChatLocalization:Get(
-						"GameChat_MuteSpeaker_SpeakerDoesNotExist", 
-						string.format("Speaker '%s' does not exist.", tostring(otherSpeakerName))
-					),
-					"{RBX_NAME}",tostring(otherSpeakerName)
-				),
-				channel,
-				errorExtraData
-			)
+			local msg = ChatLocalization:FormatMessageToSend(
+				"GameChat_MuteSpeaker_SpeakerDoesNotExist",
+				string.format("Speaker '%s' does not exist.", tostring(otherSpeakerName)),
+				"RBX_NAME",
+				tostring(otherSpeakerName))
+			speaker:SendSystemMessage(msg, channel, errorExtraData)
 		end
 	end
 
@@ -154,13 +152,10 @@ local function Run(ChatService)
 		channel.AutoJoin = false
 		channel.Private = true
 
-		channel.WelcomeMessage = string.gsub(
-			ChatLocalization:Get(
-				"GameChat_PrivateMessaging_NowChattingWith", 
-				"You are now privately chatting with " .. speakerName .. "."
-			),
-			"{RBX_NAME}",tostring(speakerName)
-		)
+		channel.WelcomeMessage = ChatLocalization:FormatMessageToSend("GameChat_PrivateMessaging_NowChattingWith",
+			"You are now privately chatting with " .. speakerName .. ".",
+			"RBX_NAME",
+			tostring(speakerName))
 		channel.ChannelNameColor = GetWhisperChanneNameColor()
 
 		channel:RegisterProcessCommandsFunction("replication_function", PrivateMessageReplicationFunction, ChatConstants.LowPriority)

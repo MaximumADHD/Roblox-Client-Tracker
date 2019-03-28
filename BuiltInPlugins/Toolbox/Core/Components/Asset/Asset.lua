@@ -18,8 +18,6 @@
 		number currentSoundId
 		boolean isPlaying
 		callback onPreviewAudioButtonClicked
-
-		InsertToolPromise insertToolPromise
 ]]
 
 local FFlagStudioToolboxFixMouseHover = settings():GetFFlag("StudioToolboxFixMouseHover")
@@ -29,57 +27,26 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local Urls = require(Plugin.Core.Util.Urls)
 
-local Constants = require(Plugin.Core.Util.Constants)
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local InsertAsset = require(Plugin.Core.Util.InsertAsset)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local ContextHelper = require(Util.ContextHelper)
+local DebugFlags = require(Util.DebugFlags)
 
-local StudioService = game:GetService("StudioService")
-local GuiService = game:GetService("GuiService")
-local ContentProvider = game:GetService("ContentProvider")
-local HttpService = game:GetService("HttpService")
-
-local getNetwork = ContextGetter.getNetwork
-local getPlugin = ContextGetter.getPlugin
 local withTheme = ContextHelper.withTheme
 
-local AssetCreatorName = require(Plugin.Core.Components.Asset.AssetCreatorName)
-local AssetIcon = require(Plugin.Core.Components.Asset.AssetIcon)
-local AssetName = require(Plugin.Core.Components.Asset.AssetName)
-local DraggableButton = require(Plugin.Core.Components.DraggableButton)
-local DropShadow = require(Plugin.Core.Components.DropShadow)
-local Voting = require(Plugin.Core.Components.Asset.Voting.Voting)
-
-local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
-
-local FFlagEnableCopyToClipboard = settings():GetFFlag("EnableCopyToClipboard")
+local Components = Plugin.Core.Components
+local Asset = Components.Asset
+local DraggableButton = require(Components.DraggableButton)
+local DropShadow = require(Components.DropShadow)
+local AssetCreatorName = require(Asset.AssetCreatorName)
+local AssetIcon = require(Asset.AssetIcon)
+local AssetName = require(Asset.AssetName)
+local Voting = require(Asset.Voting.Voting)
 
 local Asset = Roact.PureComponent:extend("Asset")
 
-function getImageIdFromDecalId(decalId)
-	local tbl = nil
-	local success, errorMessage = pcall(function()
-		local url = Urls.constructAssetIdString(decalId)
-		if DebugFlags.shouldDebugUrls() then
-			print(("Inserting decal %s"):format(url))
-		end
-		tbl = game:GetObjects(url)
-	end)
-
-	if success and tbl and tbl[1] then
-		local decal = tbl[1]
-		return decal.Texture:match("%d+")
-	else
-		return 0
-	end
-end
-
 function Asset:init(props)
-	local plugin = getPlugin(self)
-
 	if not props.asset then
 		if DebugFlags.shouldDebugWarnings() then
 			warn(("Toolbox asset id %s: asset not found"):format(tostring(props.assetId)))
@@ -90,23 +57,12 @@ function Asset:init(props)
 	local assetData = props.asset
 	local asset = assetData.Asset
 	local assetId = asset.Id
-	local assetName = asset.Name
-	local assetTypeId = asset.TypeId
 
 	local onAssetHovered = props.onAssetHovered
 	local onAssetHoverEnded = props.onAssetHoverEnded
 	local canInsertAsset = props.canInsertAsset
 
-	local categoryIndex = props.categoryIndex or 1
-	local searchTerm = props.searchTerm or ""
-	local assetIndex = props.assetIndex or 0
-
 	self.onMouseEntered = function(rbx, x, y)
-		local myProps = self.props
-		if (not myProps.isHovered) and myProps.hoveredAssetId ~= 0 and assetId ~= myProps.hoveredAssetId then
-			return
-		end
-
 		onAssetHovered(assetId)
 	end
 
@@ -127,33 +83,7 @@ function Asset:init(props)
 	end
 
 	self.onMouseButton2Click = function(rbx, x, y)
-		local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
-
-		-- only add this action if we have access to copying to clipboard
-		if FFlagEnableCopyToClipboard then
-			local trueAssetId = assetId
-			if assetTypeId == Enum.AssetType.Decal.Value then
-				trueAssetId = getImageIdFromDecalId(assetId)
-			end
-
-			menu:AddNewAction("CopyIdToClipboard", "Copy Asset Id").Triggered:connect(function()
-				StudioService:CopyToClipboard(trueAssetId)
-			end)
-
-			menu:AddNewAction("CopyURIToClipboard", "Copy Asset URI").Triggered:connect(function()
-				StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
-			end)
-		end
-
-		-- add an action to view an asset in browser
-		menu:AddNewAction("OpenInBrowser", "View In Browser").Triggered:connect(function()
-			local baseUrl = ContentProvider.BaseUrl
-			local targetUrl = string.format("%s/library/%s/asset", baseUrl, HttpService:urlEncode(assetId))
-			GuiService:OpenBrowserWindow(targetUrl)
-		end)
-
-		menu:ShowAsync()
-		menu:Destroy()
+		self.props.tryCreateContextMenu(assetData)
 	end
 
 	self.onDragStart = function(rbx, x, y)
@@ -161,43 +91,19 @@ function Asset:init(props)
 			return
 		end
 
-		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-		InsertAsset.dragInsertAsset({
-			plugin = plugin,
-			assetId = assetId,
-			assetName = assetName,
-			assetTypeId = assetTypeId,
-			onSuccess = self.onAssetInsertionSuccesful,
-			categoryIndex = categoryIndex,
-			searchTerm = searchTerm,
-			assetIndex = assetIndex,
-			assetWasDragged = true,
-		})
+		self.props.tryInsert(assetData, true)
 	end
 
 	self.onClick = function(rbx, x, y)
-		if not canInsertAsset() then
+		if not self.props.canInsertAsset() then
 			return
 		end
 
-		--TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-		InsertAsset.insertAsset({
-			plugin = plugin,
-			assetId = assetId,
-			assetName = assetName,
-			assetTypeId = assetTypeId,
-			onSuccess = self.onAssetInsertionSuccesful,
-			categoryIndex = categoryIndex,
-			searchTerm = searchTerm,
-			assetIndex = assetIndex,
-
-			insertToolPromise = self.props.insertToolPromise,
-		})
+		self.props.tryInsert(assetData, false)
 	end
 
-	self.onAssetInsertionSuccesful = function(assetId)
-		self.props.insertAsset(getNetwork(self), assetId)
-		self.props.onAssetInserted()
+	self.onAssetPreviewButtonClicked = function()
+		self.props.onAssetPreviewButtonClicked(assetData)
 	end
 end
 
@@ -252,9 +158,9 @@ function Asset:render()
 				ZIndex = -2, -- Ensure it's below the outline
 			}),
 
-			Outline = isHovered and Roact.createElement("ImageButton", {
+			Outline = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0.5, 0),
-				BackgroundTransparency = isDarkerTheme and 0 or Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY,
+				BackgroundTransparency = isHovered and (isDarkerTheme and 0 or Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY) or 1,
 
 				BackgroundColor3 = outlineTheme.backgroundColor,
 				BorderColor3 = outlineTheme.borderColor,
@@ -263,7 +169,9 @@ function Asset:render()
 				Position = UDim2.new(0.5, 0, 0, -Constants.ASSET_OUTLINE_PADDING),
 				Size = UDim2.new(1, 2 * Constants.ASSET_OUTLINE_PADDING, 1, assetOutlineHeight),
 				ZIndex = -1,
-				AutoButtonColor = false,
+
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+				[Roact.Event.InputEnded] = self.onInputEnded,
 			}),
 
 			InnerFrame = Roact.createElement(DraggableButton, {
@@ -273,8 +181,6 @@ function Asset:render()
 
 				[Roact.Event.MouseEnter] = self.onMouseEntered,
 				[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-				[Roact.Event.InputEnded] = self.onInputEnded,
 				onMouseMoved = self.onMouseMoved,
 
 				onDragStart = self.onDragStart,
@@ -298,7 +204,11 @@ function Asset:render()
 					currentSoundId = props.currentSoundId,
 					isPlaying = props.isPlaying,
 
+					voting = votingProps,
+					isHovered = isHovered,
+
 					onPreviewAudioButtonClicked = props.onPreviewAudioButtonClicked,
+					onAssetPreviewButtonClicked = self.onAssetPreviewButtonClicked,
 				}),
 
 				AssetName = Roact.createElement(AssetName, {
@@ -350,12 +260,4 @@ local function mapStateToProps(state, props)
 	}
 end
 
-local function mapDispatchToProps(dispatch)
-	return {
-		insertAsset = function(networkInterface, assetId)
-			dispatch(PostInsertAssetRequest(networkInterface, assetId))
-		end,
-	}
-end
-
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(Asset)
+return RoactRodux.UNSTABLE_connect2(mapStateToProps)(Asset)

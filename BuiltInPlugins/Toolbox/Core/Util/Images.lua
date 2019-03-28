@@ -42,4 +42,33 @@ Images.TOOLBOX_ICON = "rbxasset://textures/StudioToolbox/ToolboxIcon.png"
 
 Images.INFO_ICON = "rbxasset://textures/DevConsole/Info.png"
 
+Images.ARROW_EXPANDED = "rbxasset://textures/StudioToolbox/ArrowExpanded.png"
+Images.ARROW_COLLAPSED = "rbxasset://textures/StudioToolbox/ArrowCollapsed.png"
+
+Images.DELETE_BUTTON = "rbxasset://textures/StudioToolbox/DeleteButton.png"
+
+Images.RODUX_GREEN = "rbxasset://textures/ui/RobuxIcon.png"
+Images.LIKES_GREY = "rbxasset://textures/StudioToolbox/AssetPreview/Likes_Grey.png"
+Images.LINK_ARROW = "rbxasset://textures/StudioToolbox/AssetPreview/Link_Arrow.png"
+Images.CLOSE_BUTTON = "rbxasset://textures/StudioToolbox/AssetPreview/close.png"
+Images.SHOW_MORE = "rbxasset://textures/StudioToolbox/AssetPreview/more.png"
+
+Images.MAGNIFIER_PH = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png"
+Images.SEARCH_OPTIONS = "rbxasset://textures/StudioToolbox/SearchOptions.png"
+
+Images.RADIO_BUTTON_BACKGROUND = "rbxasset://textures/GameSettings/RadioButton.png"
+Images.RADIO_BUTTON_HIGHLIGHT = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png"
+Images.THUMB_UP = "rbxasset://textures/StudioToolbox/AssetPreview/rating_large.png"
+Images.THUMB_UP_SMALL = "rbxasset://textures/StudioToolbox/AssetPreview/rating_small.png"
+Images.VOTE_DOWN = "rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png"
+Images.VOTE_UP = "rbxasset://textures/StudioToolbox/AssetPreview/vote_up.png"
+
+Images.HIERARCHY = "rbxasset://textures/StudioToolbox/AssetPreview/hierarchy.png"
+Images.FULLSCREEN = "rbxasset://textures/StudioToolbox/AssetPreview/fullscreen.png"
+Images.FULLSCREEN_EXIT = "rbxasset://textures/StudioToolbox/AssetPreview/fullscreen_exit.png"
+
+Images.MARKETPLACE_TAB = "rbxasset://textures/StudioToolbox/Tabs/Shop.png"
+Images.INVENTORY_TAB = "rbxasset://textures/StudioToolbox/Tabs/Inventory.png"
+Images.RECENT_TAB = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
+
 return wrapStrictTable(Images)

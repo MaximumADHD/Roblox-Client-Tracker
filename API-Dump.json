@@ -18838,6 +18838,14 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Default": "default",
+                            "Name": "menuName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -23306,6 +23314,17 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMemStats",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -49268,7 +49287,10 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -55356,6 +55378,10 @@
                 {
                     "Name": "All",
                     "Value": 4
+                },
+                {
+                    "Name": "EmotesMenu",
+                    "Value": 5
                 }
             ],
             "Name": "CoreGuiType"

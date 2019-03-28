@@ -1,3 +1,5 @@
+local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
+
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
@@ -6,6 +8,7 @@ return function()
 	local Category = require(Plugin.Core.Types.Category)
 
 	local GetManageableGroups = require(Plugin.Core.Actions.GetManageableGroups)
+	local SetCategories = require(Plugin.Core.Actions.SetCategories)
 	local NextPage = require(Plugin.Core.Actions.NextPage)
 	local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 
@@ -25,6 +28,7 @@ return function()
 		expect(type(state)).to.equal("table")
 		expect(state.categories).to.be.ok()
 		expect(state.categoryIndex).to.be.ok()
+		expect(state.currentTab).to.be.ok()
 		expect(state.searchTerm).to.be.ok()
 		expect(state.sorts).to.be.ok()
 		expect(state.sortIndex).to.be.ok()
@@ -84,7 +88,14 @@ return function()
 
 		it("should update the categories and group index+id if necessary", function()
 			local state = PageInfo(nil, {})
-			expect(state.categories).to.equal(Category.CATEGORIES_WITHOUT_GROUPS)
+
+			if FFlagStudioMarketplaceTabsEnabled then
+				state = PageInfo(state, SetCategories(Category.INVENTORY_KEY, Category.INVENTORY))
+				expect(state.categories).to.equal(Category.INVENTORY)
+			else
+				expect(state.categories).to.equal(Category.CATEGORIES_WITHOUT_GROUPS)
+			end
+
 			expect(state.groupIndex).to.equal(0)
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
 
@@ -94,7 +105,12 @@ return function()
 			}
 			state = PageInfo(state, GetManageableGroups(firstTestGroups))
 
-			expect(state.categories).to.equal(Category.CATEGORIES)
+			if FFlagStudioMarketplaceTabsEnabled then
+				expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
+			else
+				expect(state.categories).to.equal(Category.CATEGORIES)
+			end
+
 			-- First time we have groups so set groupIndex to 1
 			expect(state.groupIndex).to.equal(1)
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(firstTestGroups[state.groupIndex].Id)
@@ -109,15 +125,21 @@ return function()
 			}
 			state = PageInfo(state, GetManageableGroups(secondTestGroups))
 
-			expect(state.categories).to.equal(Category.CATEGORIES)
+			if FFlagStudioMarketplaceTabsEnabled then
+				expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
+			else
+				expect(state.categories).to.equal(Category.CATEGORIES)
+			end
+
 			expect(state.groupIndex).to.equal(2)
 			expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(secondTestGroups[state.groupIndex].Id)
 
-			groupModelsCategoryIndex = 14
+			local groupModelsCategoryIndex = FFlagStudioMarketplaceTabsEnabled and 6 or 14
 
 			state = PageInfo(state, UpdatePageInfo({
 				categoryIndex = groupModelsCategoryIndex,
-				category = Category.CATEGORIES[groupModelsCategoryIndex].category
+				category = FFlagStudioMarketplaceTabsEnabled and Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].category
+					or Category.CATEGORIES[groupModelsCategoryIndex].category
 			}))
 			expect(state.categoryIndex).to.equal(groupModelsCategoryIndex)
 
@@ -126,10 +148,19 @@ return function()
 			state = PageInfo(state, GetManageableGroups(thirdTestGroups))
 
 			-- Categories list should remove groups
-			expect(state.categories).to.equal(Category.CATEGORIES_WITHOUT_GROUPS)
+			if FFlagStudioMarketplaceTabsEnabled then
+				expect(state.categories).to.equal(Category.INVENTORY)
+			else
+				expect(state.categories).to.equal(Category.CATEGORIES_WITHOUT_GROUPS)
+			end
+
 			-- Category should be reset to 1 because the groups categories now don't exist
 			expect(state.categoryIndex).to.equal(1)
-			expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.CATEGORIES_WITHOUT_GROUPS[1].category)
+			if FFlagStudioMarketplaceTabsEnabled then
+				expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.INVENTORY[1].category)
+			else
+				expect(PageInfoHelper.getCategoryForPageInfo(state)).to.equal(Category.CATEGORIES_WITHOUT_GROUPS[1].category)
+			end
 
 			-- Group index and id should be reset to 0
 			expect(state.groupIndex).to.equal(0)

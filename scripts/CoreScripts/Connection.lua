@@ -33,6 +33,8 @@ local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're
 
 local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
 local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
+local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
+local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp")
 
 local coreScriptTableTranslator
 if fflagUseNewErrorStrings then
@@ -185,7 +187,7 @@ local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
 		{
 			Text = "Retry",
-			LocalizationKey = "InGame.ConnectionError.Button.Retry",
+			LocalizationKey = "InGame.CommonUI.Button.Retry",
 			LayoutOrder = 2,
 			Callback = reconnectFunction,
 			Primary = true
@@ -290,7 +292,14 @@ local updateFullScreenEffect = {
 
 local function onEnter(newState)
 	if not errorPrompt then
-		errorPrompt = ErrorPrompt.new("Default")
+		if fflagForceMouseInputWhenPromptPopUp then
+			local extraConfiguration = {
+				MenuIsOpenKey = "ConnectionErrorPrompt"
+			}
+			errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
+		else
+			errorPrompt = ErrorPrompt.new("Default")
+		end
 		errorPrompt:setParent(promptOverlay)
 		errorPrompt:resizeWidth(screenWidth)
 	end
@@ -359,6 +368,10 @@ end
 -- If it is teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
 local function getErrorString(errorMsg, errorCode, reconnectError)
 	if reconnectError then
+		local success, attemptTranslation = pcall(function()
+			return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.ReconnectFailed")
+		end)
+		if success then return attemptTranslation end
 		return "Reconnect was unsuccessful. Please try again."
 	end
 
@@ -374,6 +387,14 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 			end
 			return coreScriptTableTranslator:FormatByKey(key)
 		end)
+
+		-- Mute errors for clb if they are not successfully translated
+		if not success and fflagChinaLicensingBuild then
+			local successUnknownError, localizedUnknownError = pcall(function()
+				return coreScriptTableTranslator:FormatByKey("InGame.ConnectionError.UnknownError")
+			end)
+			return successUnknownError and localizedUnknownError or ""
+		end
 
 		if success then return attemptTranslation end
 	end

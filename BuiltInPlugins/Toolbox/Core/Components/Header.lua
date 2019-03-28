@@ -13,6 +13,7 @@
 		callback onCategorySelected(number index)
 		callback onSearchRequested(string searchTerm)
 		callback onGroupSelected()
+		callback onSearchOptionsToggled()
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -37,6 +38,7 @@ local withLocalization = ContextHelper.withLocalization
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+local SearchOptionsButton = require(Plugin.Core.Components.SearchOptions.SearchOptionsButton)
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SelectCategoryRequest = require(Plugin.Core.Networking.Requests.SelectCategoryRequest)
@@ -74,6 +76,12 @@ function Header:init()
 
 		self.props.requestSearch(networkInterface, settings, searchTerm)
 	end
+
+	self.onSearchOptionsToggled = function()
+		if self.props.onSearchOptionsToggled then
+			self.props.onSearchOptionsToggled()
+		end
+	end
 end
 
 function Header:render()
@@ -92,10 +100,20 @@ function Header:render()
 			local groupIndex = props.groupIndex
 			local onGroupSelected = self.onGroupSelected
 
+			local showSearchOptions = props.currentTab == Category.MARKETPLACE_KEY
+
+			local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
+				or Constants.HEADER_DROPDOWN_MAX_WIDTH
+			local optionsButtonWidth = showSearchOptions
+				and Constants.HEADER_OPTIONSBUTTON_WIDTH + Constants.HEADER_INNER_PADDING or 0
+
+			local onSearchOptionsToggled = self.onSearchOptionsToggled
+
 			local maxWidth = props.maxWidth or 0
 			local searchBarWidth = math.max(100, maxWidth
 					- (2 * Constants.HEADER_OUTER_PADDING)
-					- Constants.HEADER_CATEGORY_DROPDOWN_WIDTH
+					- dropdownWidth
+					- optionsButtonWidth
 					- Constants.HEADER_INNER_PADDING)
 
 			local isGroupCategory = Category.categoryIsGroupAsset(props.categoryIndex)
@@ -103,10 +121,10 @@ function Header:render()
 			local headerTheme = theme.header
 
 			return Roact.createElement("ImageButton", {
-				Position = UDim2.new(0, 0, 0, 0),
+				Position = props.Position,
 				Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
 				BackgroundColor3 = headerTheme.backgroundColor,
-				BorderColor3 = headerTheme.borderColor,
+				BorderSizePixel = 0,
 				ZIndex = 2,
 				AutoButtonColor = false,
 			},{
@@ -125,7 +143,7 @@ function Header:render()
 
 				CategoryMenu = Roact.createElement(DropdownMenu, {
 					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(0, Constants.HEADER_CATEGORY_DROPDOWN_WIDTH, 1, 0),
+					Size = UDim2.new(0, dropdownWidth, 1, 0),
 					LayoutOrder = 0,
 					visibleDropDownCount = 8,
 					selectedDropDownIndex = categoryIndex,
@@ -140,7 +158,13 @@ function Header:render()
 					LayoutOrder = 1,
 
 					searchTerm = searchTerm,
+					showSearchButton = true,
 					onSearchRequested = onSearchRequested,
+				}),
+
+				SearchOptionsButton = showSearchOptions and Roact.createElement(SearchOptionsButton, {
+					LayoutOrder = 2,
+					onClick = onSearchOptionsToggled,
 				}),
 
 				GroupMenu = isGroupCategory and Roact.createElement(DropdownMenu, {
@@ -166,6 +190,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		categories = pageInfo.categories or {},
+		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		categoryIndex = pageInfo.categoryIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",
 		groups = pageInfo.groups or {},

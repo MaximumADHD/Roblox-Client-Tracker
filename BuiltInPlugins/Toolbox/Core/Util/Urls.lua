@@ -18,7 +18,13 @@ local ASSET_GAME_ASSET_ID = Url.GAME_ASSET_URL .. ASSET_ID_PATH
 
 local ASSET_THUMBNAIL = Url.GAME_ASSET_URL .. "asset-thumbnail/image?"
 
-function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId)
+local USER_SEARCH = Url.BASE_URL .. "search/users/results?"
+local USER_THUMBNAIL = Url.BASE_URL .. "headshot-thumbnail/image?"
+
+local DEFAULT_ASSET_SIZE = 100
+local DEFAULT_SEARCH_ROWS = 3
+
+function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId, creatorId)
 	return GET_ASSETS .. Url.makeQueryString({
 		category = category,
 		keyword = searchTerm,
@@ -26,6 +32,7 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 		page = page,
 		sort = sortType,
 		groupId = groupId,
+		creatorId = creatorId,
 	})
 end
 
@@ -67,7 +74,6 @@ end
 
 function Urls.constructAssetThumbnailUrl(assetId, width, height)
 	-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
-	local DEFAULT_ASSET_SIZE = 100
 	width = width or DEFAULT_ASSET_SIZE
 	height = height or DEFAULT_ASSET_SIZE
 
@@ -75,6 +81,25 @@ function Urls.constructAssetThumbnailUrl(assetId, width, height)
 		assetId = assetId,
 		width = width,
 		height = height,
+	})
+end
+
+function Urls.constructUserSearchUrl(searchTerm, numResults)
+	return USER_SEARCH .. Url.makeQueryString({
+		keyword = searchTerm,
+		maxRows = numResults or DEFAULT_SEARCH_ROWS,
+	})
+end
+
+function Urls.constructUserThumbnailUrl(userId, width)
+	-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
+	width = width or DEFAULT_ASSET_SIZE
+
+	return USER_THUMBNAIL .. Url.makeQueryString({
+		userId = userId,
+		width = width,
+		height = width,
+		format = "png",
 	})
 end
 

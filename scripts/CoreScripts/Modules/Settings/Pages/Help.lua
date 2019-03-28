@@ -10,6 +10,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
@@ -193,11 +194,17 @@ local function Initialize()
 		if not isOSX then
 			table.insert(miscActions, {["Record Video"] = "F12"})
 		end
-		table.insert(miscActions, {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"})
+
+		if not FFlagChinaLicensingApp then
+			table.insert(miscActions, {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"})
+		end
 		table.insert(miscActions, {["Mouselock"] = "Shift"})
 		table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
 		table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
-		table.insert(miscActions, {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"})
+
+		if not FFlagChinaLicensingApp then
+			table.insert(miscActions, {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"})
+		end
 		local miscFrame = createPCGroup("Misc", miscActions)
 
 		miscFrame.Position = UDim2.new(2/3,PC_TABLE_SPACING * 2,0,0)

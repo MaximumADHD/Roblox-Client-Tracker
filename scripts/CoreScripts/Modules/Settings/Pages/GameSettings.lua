@@ -82,10 +82,11 @@ local success, result =
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
-local UseMicroProfiler = isMobileClient or isDesktopClient
+local UseMicroProfiler = (isMobileClient or isDesktopClient) and (not FFlagChinaLicensingApp)
 
 --------------- FLAGS ----------------
 
@@ -1393,7 +1394,9 @@ local function Initialize()
     createGraphicsOptions()
   end
 
-  createPerformanceStatsOptions()
+  if not FFlagChinaLicensingApp then
+    createPerformanceStatsOptions()
+  end
 
   -- create micro profiler option in the end, so the ip and port can be shown next to the row
   if UseMicroProfiler then
@@ -1404,8 +1407,10 @@ local function Initialize()
     createOverscanOption()
   end
 
-  -- dev console option only shows for place/group place owners
-  createDeveloperConsoleOption()
+  if not FFlagChinaLicensingApp then
+    -- dev console option only shows for place/group place owners
+    createDeveloperConsoleOption()
+  end
 
   allSettingsCreated = true
   if VRService.VREnabled then

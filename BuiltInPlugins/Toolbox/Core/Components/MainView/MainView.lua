@@ -17,6 +17,8 @@
 
 		boolean isLoading
 
+		boolean showSearchOptions
+
 		callback selectSort()
 		callback requestSearch()
 		callback nextPage()
@@ -34,7 +36,10 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Layouter = require(Plugin.Core.Util.Layouter)
 
 local getNetwork = ContextGetter.getNetwork
+local getSettings = ContextGetter.getSettings
+local getModal = ContextGetter.getModal
 local withLocalization = ContextHelper.withLocalization
+
 
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
@@ -42,8 +47,11 @@ local LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
 local MainViewHeader = require(Plugin.Core.Components.MainView.MainViewHeader)
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 local Toast = require(Plugin.Core.Components.Toast)
+local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
 local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
+local UserSearchRequest = require(Plugin.Core.Networking.Requests.UserSearchRequest)
+local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local disableNetworkErrorsToasts = true
 
@@ -51,6 +59,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:init(props)
 	local networkInterface = getNetwork(self)
+	local settings = getSettings(self)
 
 	self.state = {
 		lowerIndexToRender = 0,
@@ -81,7 +90,11 @@ function MainView:init(props)
 	end
 
 	self.onScroll = function()
-		tryRerender(self)
+		-- We we are previewing the asset, we shouldn't be able
+		-- to scroll tbe main view of the Toolbox
+		if not self.props.isPreviewing then
+			tryRerender(self)
+		end
 	end
 
 	self.onAssetGridContainerChanged = function()
@@ -90,6 +103,27 @@ function MainView:init(props)
 
 	self.requestNextPage = function()
 		self.props.nextPage(networkInterface)
+	end
+
+	self.updateSearch = function(searchTerm)
+		if not self.props.isSearching then
+			self.props.userSearch(networkInterface, searchTerm)
+		end
+	end
+
+	self.onSearchOptionsClosed = function(options)
+		if options then
+			self.props.searchWithOptions(networkInterface, settings, options)
+		end
+		if self.props.onSearchOptionsToggled then
+			self.props.onSearchOptionsToggled()
+		end
+	end
+
+	self.onTagsCleared = function()
+		self.props.searchWithOptions(networkInterface, settings, {
+			Creator = "",
+		})
 	end
 end
 
@@ -155,7 +189,6 @@ function MainView:render()
 
 		local categoryIndex = props.categoryIndex or 0
 		local suggestions = localization:getLocalizedSuggestions(props.suggestions) or {}
-		local searchTerm = props.searchTerm or ""
 
 		local isLoading = props.isLoading or false
 
@@ -185,8 +218,12 @@ function MainView:render()
 		local suggestionIntro = localizedContent.Sort.ByText
 		local InfoBannerText = localizedContent.InfoBannerText
 
-		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(categoryIndex, searchTerm,
-			suggestionIntro, suggestions, containerWidth)
+		local creatorName = props.creator and props.creator.Name
+		local searchTerm = props.searchTerm
+		local showTags = creatorName ~= nil or #searchTerm > 0
+
+		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
+			suggestionIntro, suggestions, containerWidth, props.creator)
 
 		local innerHeight = headerHeight + gridContainerHeight + headerToBodyPadding
 		local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
@@ -200,7 +237,9 @@ function MainView:render()
 		local assetHeight = Layouter.getAssetCellHeightWithPadding()
 		local gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
 
-		local sorts = props.sorts
+		local scrollingEnabled = not props.isPreviewing
+		local showSearchOptions = props.showSearchOptions
+		getModal(self).onSearchOptionsToggled(showSearchOptions)
 
 		self.containerWidth = containerWidth
 		self.headerHeight = headerHeight
@@ -216,7 +255,8 @@ function MainView:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
 				ZIndex = 1,
-				Visible = not showInfoBanner,
+
+				scrollingEnabled = scrollingEnabled,
 
 				[Roact.Ref] = self.scrollingFrameRef,
 				onScroll = self.onScroll,
@@ -236,8 +276,9 @@ function MainView:render()
 					Header = Roact.createElement(MainViewHeader, {
 						suggestions = suggestions,
 						containerWidth = containerWidth,
-
-						sorts = sorts,
+						creator = props.creator,
+						showTags = showTags,
+						onTagsCleared = self.onTagsCleared,
 					}),
 
 					AssetGridContainer = Roact.createElement(AssetGridContainer, {
@@ -255,10 +296,16 @@ function MainView:render()
 				}),
 			}),
 
+			SearchOptions = showSearchOptions and Roact.createElement(SearchOptions, {
+				LiveSearchData = props.liveSearchData,
+				SortIndex = props.sortIndex,
+				updateSearch = self.updateSearch,
+				onClose = self.onSearchOptionsClosed,
+			}),
+
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {
-				Position = UDim2.new(0, 0, 0, 32),
+				Position = UDim2.new(0, 0, 0, 16 + headerHeight),
 				Text = InfoBannerText,
-				ZIndex = 2,
 			}),
 
 			LoadingIndicator = isLoading and Roact.createElement(LoadingIndicator, {
@@ -281,14 +328,29 @@ local function mapStateToProps(state, props)
 	local assets = state.assets or {}
 	local pageInfo = state.pageInfo or {}
 
+	local liveSearchData
+	if state.liveSearch then
+		liveSearchData = {
+			searchTerm = state.liveSearch.searchTerm,
+			isSearching = state.liveSearch.isSearching,
+			results = state.liveSearch.results
+		}
+	end
+
 	return {
 		idsToRender = assets.idsToRender or {},
 		isLoading = assets.isLoading or false,
 
+		isPreviewing = assets.isPreviewing or false,
+
 		networkErrors = state.networkErrors or {},
 
 		categoryIndex = pageInfo.categoryIndex or 1,
+		sortIndex = pageInfo.sortIndex or 1,
 		searchTerm = pageInfo.searchTerm or "",
+		creator = pageInfo.creator,
+
+		liveSearchData = liveSearchData or {},
 	}
 end
 
@@ -296,6 +358,15 @@ local function mapDispatchToProps(dispatch)
 	return {
 		nextPage = function(networkInterface)
 			dispatch(NextPageRequest(networkInterface))
+		end,
+
+		-- User search (searching as the user types in the search bar)
+		userSearch = function(networkInterface, searchTerm)
+			dispatch(UserSearchRequest(networkInterface, searchTerm))
+		end,
+
+		searchWithOptions = function(networkInterface, settings, options)
+			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,
 	}
 end

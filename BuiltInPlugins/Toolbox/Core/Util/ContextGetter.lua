@@ -11,11 +11,17 @@ end
 
 function ContextGetter.getModal(component)
 	return {
+		-- TODO: Simplify this!
 		modalTarget = component._context.modalTarget,
 		modalStatus = component._context.modalStatus,
 		onTooltipTriggered = component._context.onTooltipTriggered,
 		onDropdownToggled = component._context.onDropdownToggled,
+		onSearchOptionsToggled = component._context.onSearchOptionsToggled,
 		isShowingModal = component._context.isShowingModal,
+		isAssetPreviewing = component._context.isAssetPreviewing,
+		onAssetPreviewToggled = component._context.onAssetPreviewToggled,
+		canHoverAsset = component._context.canHoverAsset,
+		onSearchOptionsMouse = component._context.onSearchOptionsMouse,
 	}
 end
 
@@ -33,6 +39,10 @@ end
 
 function ContextGetter.getTheme(component)
 	return component._context[Keys.theme]
+end
+
+function ContextGetter.getCamera(component)
+	return component._context[Keys.camera]
 end
 
 return wrapStrictTable(ContextGetter, "ContextGetter")

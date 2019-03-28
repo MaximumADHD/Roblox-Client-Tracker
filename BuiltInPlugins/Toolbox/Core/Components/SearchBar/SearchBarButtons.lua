@@ -59,12 +59,12 @@ function SearchBarButtons:render()
 		local isClearButtonHovered = state.isClearButtonHovered
 
 		local showClearButton = props.showClearButton
-
+		local showSearchButton = props.showSearchButton
 
 		local onSearchButtonClicked = props.onSearchButtonClicked
 
 		local buttonWidth = Constants.SEARCH_BAR_BUTTON_WIDTH
-		local buttonsWidth = (2 * buttonWidth) + 1
+		local buttonsWidth = showSearchButton and (2 * buttonWidth) + 1 or buttonWidth
 		local buttonInset = Constants.SEARCH_BAR_BUTTON_INSET
 
 		local searchBarTheme = theme.searchBar
@@ -99,7 +99,7 @@ function SearchBarButtons:render()
 			}),
 
 			-- Thin dividing line between the text box
-			Line = Roact.createElement("Frame", {
+			Line = showSearchButton and Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 0),
 				-- Remove a pixel from top and bottom
 				-- So it doesn't overlap the external border
@@ -109,7 +109,7 @@ function SearchBarButtons:render()
 				BorderSizePixel = 0,
 			}),
 
-			SearchButton = Roact.createElement("ImageButton", {
+			SearchButton = showSearchButton and Roact.createElement("ImageButton", {
 				AnchorPoint = Vector2.new(1, 0),
 				Position = UDim2.new(1, -buttonInset, 0, buttonInset), -- Negative inset because anchor point
 				Size = UDim2.new(0, buttonWidth - (2 * buttonInset), 1, -(2 * buttonInset)),

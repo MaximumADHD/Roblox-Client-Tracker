@@ -9,12 +9,20 @@
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
 
+local FFlagGameSettingsUseUILibraryCheckBox = settings():GetFFlag("GameSettingsUseUILibraryCheckBox")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local CheckBox = require(Plugin.Src.Components.CheckBox)
+local CheckBox
+if FFlagGameSettingsUseUILibraryCheckBox then
+	CheckBox = require(Plugin.UILibrary.Components.CheckBox)
+else
+	CheckBox = require(Plugin.Src.Components.CheckBox)
+end
+
 local TitledFrame = require(Plugin.Src.Components.TitledFrame)
 
 local function CheckBoxSet(props)
@@ -34,10 +42,18 @@ local function CheckBoxSet(props)
 			table.insert(children, Roact.createElement(CheckBox, {
 				Title = box.Title,
 				Id = box.Id,
+				Height = Constants.CHECKBOX_SIZE,
+				TextSize = Constants.CHECKBOX_SIZE,
 				Description = box.Description,
 				Selected = box.Selected,
 				Enabled = props.Enabled,
 				LayoutOrder = i,
+				OnActivated = function()
+					props.EntryClicked(box)
+				end,
+
+				-- TODO (dnurkkala):
+				-- remove with the removal of FFlagGameSettingsUseUILibraryCheckBox
 				OnClicked = function()
 					props.EntryClicked(box)
 				end,

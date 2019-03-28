@@ -24,8 +24,8 @@ local FFlagLoadingScreenUseLocalizationTable = settings():GetFFlag("LoadingScree
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 
-local FFlagLoadingScriptWaitForCharacterLoaded = settings():GetFFlag("LoadingScriptWaitForCharacterLoaded")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local antiAddictionNoticeStringEn = "Boycott bad games, refuse pirated games. Be aware of self-defense and being deceived. Playing games is good for your brain, but too much game play can harm your health. Manage your time well and enjoy a healthy lifestyle."
 
 local debugMode = false
 
@@ -274,7 +274,7 @@ local function GenerateGui()
     local lastTapTime = math.huge
     local doubleTapTimeThreshold = 0.5
 
-    loadingImageInputBeganConn = loadingImage.InputBegan:connect(function()
+    loadingImageInputBeganConn = not FFlagChinaLicensingApp and loadingImage.InputBegan:connect(function()
         if numberOfTaps == 0 then
             numberOfTaps = 1
             lastTapTime = tick()
@@ -290,7 +290,7 @@ local function GenerateGui()
 
         numberOfTaps = 0
         lastTapTime = math.huge
-    end)
+	end) or nil
 
 	local infoFrame = create 'Frame' {
 		Name = 'InfoFrame',
@@ -636,8 +636,7 @@ renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
 		-- set creator name
 		if creatorLabel and creatorLabel.Text == "" then
 			if FFlagChinaLicensingApp then
-				local success, result = pcall(function() return settings():GetFVariable("LoadingScreenAntiAddictionNotice") end)
-				creatorLabel.Text = success and result or ""
+				creatorLabel.Text = antiAddictionNoticeStringEn
 			else
 				local creatorName = InfoProvider:GetCreatorName()
 				if creatorName ~= "" then
@@ -809,7 +808,9 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 			blackFrame:Destroy()
 		end
 
-        loadingImageInputBeganConn:disconnect()
+		if loadingImageInputBeganConn then
+			loadingImageInputBeganConn:disconnect()
+		end
         if connectionHealthShown then
 			if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
 				connectionHealthCon = game:GetService("UserInputService").InputBegan:connect(function()
@@ -866,18 +867,14 @@ end
 local function handleFinishedReplicating()
 	if #ReplicatedFirst:GetChildren() == 0 then
 		if game:IsLoaded() then
-			if FFlagLoadingScriptWaitForCharacterLoaded then
-				waitForCharacterLoaded()
-			end
+			waitForCharacterLoaded()
 			handleRemoveDefaultLoadingGui()
 		else
 			local gameLoadedCon = nil
 			gameLoadedCon = game.Loaded:connect(function()
 				gameLoadedCon:disconnect()
 				gameLoadedCon = nil
-				if FFlagLoadingScriptWaitForCharacterLoaded then
-					waitForCharacterLoaded()
-				end
+				waitForCharacterLoaded()
 				handleRemoveDefaultLoadingGui()
 			end)
 		end

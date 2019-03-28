@@ -1,0 +1,23 @@
+Key,Context,Source,Example,en,zh-cn
+AssetCreatorIntroText,by {name:username},by {name:username},CategoryAudio,Audio,音频
+CategoryDecals,Images,图片,CategoryEndorsedPlugins,EndorsedPlugins,EndorsedPlugins
+CategoryGroupAudio,Group Audio,组音频,CategoryGroupDecals,Group Images,群像
+CategoryGroupMeshes,Group Meshes,集团网格,CategoryGroupModels,Group Models,组模型
+CategoryGroupPackages,Group Packages,组包,CategoryMeshes,Meshes,网格
+CategoryModels,Models,楷模,CategoryMyAudio,My Audio,我的音频
+CategoryMyDecals,My Images,我的图片,CategoryMyMeshes,My Meshes,我的网格
+CategoryMyModels,My Models,我的模型,CategoryMyPackages,My Packages,我的包
+CategoryMyPlugins,My Plugins,我的插件,CategoryPlugins,Plugins,插件
+CategoryRecentAudio,Recent Audio,最新的音效,CategoryRecentDecals,Recent Images,最近图像
+CategoryRecentMeshes,Recent Meshes,最近的网格,CategoryRecentModels,Recent Models,最近的模型
+EndorseBadgeTooltipText,Marked as a high-quality item,标记为高品质的项目,FooterBGText,Background:,背景：
+FooterButtonBlackName,Black,黑色,FooterButtonNoneName,None,没有
+FooterButtonWhiteName,White,白色,InfoBannerText,No results found,未找到结果
+SearchBarDefaultText,Search,搜索,SortByFavorites,Favorites,最爱
+SortByMostTaken,Most Taken,大多数采取,SortByRatings,Ratings,评级
+SortByRelevance,Relevance,关联,SortByText,Sort by:,排序方式：
+SortByUpdated,Updated,更新,SuggestionsBuilding,Building,建造
+SuggestionsIntroText,Try searching for:,尝试搜索：,SuggestionsLight,Light,光
+SuggestionsNPC,NPC,NPC,SuggestionsVehicle,Vehicle,车辆
+SuggestionsWeapon,Weapon,武器,ToolboxToolbarName,Toolbox,工具箱
+VotingVoteText,vote,投票,VotingVotesText,votes,票

@@ -1101,7 +1101,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(SpecialKey key) [RobloxScriptSecurity]
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
-	Function void GuiService:SetMenuIsOpen(bool open) [RobloxScriptSecurity]
+	Function void GuiService:SetMenuIsOpen(bool open, string menuName = default) [RobloxScriptSecurity]
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) [RobloxScriptSecurity]
 	Function void GuiService:SetUiMessage(UiMessageType msgType, string uiMessage = errorCode) [LocalUserSecurity]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) [RobloxScriptSecurity]
@@ -1125,6 +1125,7 @@ Class HapticService : Instance [notCreatable]
 	Function void HapticService:SetMotor(UserInputType inputType, VibrationMotor vibrationMotor, Tuple vibrationValues)
 Class Hopper : Instance [deprecated]
 Class HttpRbxApiService : Instance [notCreatable]
+	YieldFunction string HttpRbxApiService:FTUXRequestAsync(Dictionary requestOptions, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false)
 	YieldFunction string HttpRbxApiService:GetAsync(string apiUrlPath, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:GetAsyncFullUrl(string apiUrl, ThrottlingPriority priority = Default, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
 	YieldFunction string HttpRbxApiService:PostAsync(string apiUrlPath, string data, ThrottlingPriority priority = Default, HttpContentType content_type = ApplicationJson, HttpRequestType httpRequestType = Default, bool doNotAllowDiabolicalMode = false) [RobloxScriptSecurity]
@@ -1354,6 +1355,7 @@ Class KeyframeSequence : Instance
 Class KeyframeSequenceProvider : Instance
 	Function Instance KeyframeSequenceProvider:GetKeyframeSequence(Content assetId) [deprecated] [PluginSecurity]
 	Function Instance KeyframeSequenceProvider:GetKeyframeSequenceById(int64 assetId, bool useCache) [deprecated] [PluginSecurity]
+	Function Dictionary KeyframeSequenceProvider:GetMemStats() [RobloxScriptSecurity]
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
 	YieldFunction Instance KeyframeSequenceProvider:GetAnimations(int64 userId)
@@ -2708,7 +2710,7 @@ Class UIGridStyleLayout : UILayout [notbrowsable]
 	Property HorizontalAlignment UIGridStyleLayout.HorizontalAlignment
 	Property SortOrder UIGridStyleLayout.SortOrder
 	Property VerticalAlignment UIGridStyleLayout.VerticalAlignment
-	Function void UIGridStyleLayout:ApplyLayout()
+	Function void UIGridStyleLayout:ApplyLayout() [deprecated]
 	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [deprecated]
 Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellPadding
@@ -3273,6 +3275,7 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.Backpack : 2
 	EnumItem CoreGuiType.Chat : 3
 	EnumItem CoreGuiType.All : 4
+	EnumItem CoreGuiType.EmotesMenu : 5
 Enum CreatorType
 	EnumItem CreatorType.User : 0
 	EnumItem CreatorType.Group : 1

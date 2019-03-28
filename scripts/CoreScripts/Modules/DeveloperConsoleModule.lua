@@ -42,6 +42,7 @@ local function checkFFlag(flagName)
 		end)
 	return (flagSuccess and flagValue)
 end
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 
 -- Eye candy uses RenderStepped
@@ -3339,6 +3340,12 @@ end
 
 local StarterGui = game:GetService("StarterGui")
 StarterGui:RegisterGetCore("DeveloperConsoleVisible", function()
+
+	-- Prevent CLB chat enable old console.
+	if FFlagChinaLicensingApp then
+		return false
+	end
+
 	if (not myDeveloperConsole) then
 		SetCoreConsoleCreation()
 		return creatingVisibleValueToSet;
@@ -3350,6 +3357,9 @@ StarterGui:RegisterSetCore("DeveloperConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DeveloperConsoleVisible must be given a boolean value.")
 	end
+
+	-- Prevent CLB chat enable old console.
+	if FFlagChinaLicensingApp then return end
 
 	if (not myDeveloperConsole) then
 		creatingVisibleValueToSet = visible

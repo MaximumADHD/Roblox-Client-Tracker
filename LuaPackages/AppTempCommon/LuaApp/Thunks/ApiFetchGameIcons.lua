@@ -19,10 +19,9 @@ return function (networkImpl, universeIds, imageSize)
 		end
 
 		if #idsToGet == 0 then
-			return
+			return Promise.resolve()
 		else
-			ApiFetchThumbnails.Fetch(networkImpl, idsToGet, imageSize, "Game", GamesGetIcons,
-				SetGameIcons, store)
+			return ApiFetchThumbnails.Fetch(networkImpl, idsToGet, imageSize, "Game", GamesGetIcons, SetGameIcons, store)
 		end
 	end
 end

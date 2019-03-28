@@ -37,6 +37,8 @@ local function StyledScrollingFrame(props)
 		local ref = props[Roact.Ref]
 		local children = props[Roact.Children]
 
+		local scrollingEnabled = props.scrollingEnabled
+
 		local scrollingFrameTheme = theme.scrollingFrame
 
 		return Roact.createElement("ImageButton" or "Frame", {
@@ -73,7 +75,7 @@ local function StyledScrollingFrame(props)
 
 				ScrollBarImageColor3 = scrollingFrameTheme.scrollbarImageColor,
 
-				ScrollingEnabled = true,
+				ScrollingEnabled = scrollingEnabled,
 				ElasticBehavior = Enum.ElasticBehavior.Always,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 

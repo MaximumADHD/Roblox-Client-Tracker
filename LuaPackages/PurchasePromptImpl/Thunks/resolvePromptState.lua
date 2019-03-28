@@ -52,6 +52,10 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 
 		elseif price > accountInfo.RobuxBalance then
 
+			if upsellFlow == UpsellFlow.CLB then
+				return store:dispatch(ItemCannotBePurchased(PurchaseError.NotEnoughRobux))
+			end
+
 			if upsellFlow == UpsellFlow.Web then
 				return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 			else

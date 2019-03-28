@@ -76,7 +76,12 @@ if FastFlags:isAnimationEventsOn() then
 				findKeysInMultiSelectArea(self, Paths)
 				Paths.DataModelSession.SelectedChangeEvent:fire()
 			end
-			self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIMultiSelectArea, self.Paths.GUIScriptJointTimeline.TargetWidget, selectFunc, endFunc)
+			if FastFlags:isContinueScrollingWithSelectionAreaOn() then
+				local bounds = Paths.GUIScriptJointTimeline:getJointTrackBounds()
+				self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIMultiSelectArea, self.Paths.GUIScriptJointTimeline.TargetWidget, selectFunc, endFunc, bounds)
+			else
+				self.SelectAndDragBox = self.Paths.WidgetSelectAndDragBox:new(Paths, Paths.GUIMultiSelectArea, self.Paths.GUIScriptJointTimeline.TargetWidget, selectFunc, endFunc)
+			end
 		else
 			local selectFunc = function()
 				findIndicatorsInMultiSelectArea(self, Paths)

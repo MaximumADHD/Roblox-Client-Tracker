@@ -11,6 +11,7 @@ local PageInfo = require(Plugin.Core.Reducers.PageInfo)
 local ReducerLogger = require(Plugin.Core.Reducers.ReducerLogger)
 local Sound = require(Plugin.Core.Reducers.Sound)
 local VotingReducer = require(Plugin.Core.Reducers.VotingReducer)
+local LiveSearch = require(Plugin.Core.Reducers.LiveSearch)
 
 -- TODO CLIDEVSRVS-1595: Error handling/promise rejections
 
@@ -20,6 +21,7 @@ local ToolboxReducer = Rodux.combineReducers({
 		pageInfo = PageInfo,
 		sound = Sound,
 		voting = VotingReducer,
+		liveSearch = LiveSearch,
 	})
 
 return function(state, action)

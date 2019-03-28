@@ -9,7 +9,10 @@ local ChatConstants = require(ReplicatedModules:WaitForChild("ChatConstants"))
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
-if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
+if ChatLocalization == nil then ChatLocalization = {} end
+if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
+	function ChatLocalization:FormatMessageToSend(key,default) return default end
+end
 
 local errorTextColor = ChatSettings.ErrorMessageTextColor or Color3.fromRGB(245, 50, 50)
 local errorExtraData = {ChatColor = errorTextColor}
@@ -19,7 +22,7 @@ local function Run(ChatService)
 	local Players = game:GetService("Players")
 
 	local channel = ChatService:AddChannel("Team")
-	channel.WelcomeMessage = ChatLocalization:Get("GameChat_TeamChat_WelcomeMessage","This is a private channel between you and your team members.")
+	channel.WelcomeMessage = ChatLocalization:FormatMessageToSend("GameChat_TeamChat_WelcomeMessage","This is a private channel between you and your team members.")
 	channel.Joinable = false
 	channel.Leavable = false
 	channel.AutoJoin = false
@@ -73,7 +76,7 @@ local function Run(ChatService)
 
 			if player then
 				if player.Team == nil then
-					speaker:SendSystemMessage(ChatLocalization:Get("GameChat_TeamChat_CannotTeamChatIfNotInTeam","You cannot team chat if you are not on a team!"), channel, errorExtraData)
+					speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_TeamChat_CannotTeamChatIfNotInTeam","You cannot team chat if you are not on a team!"), channel, errorExtraData)
 					return
 				end
 
@@ -161,16 +164,12 @@ local function Run(ChatService)
 				elseif property == "Team" then
 					PutSpeakerInCorrectTeamChatState(speakerObj, player)
 					if speakerObj:IsInChannel(channel.Name) then
-						speakerObj:SendSystemMessage(
-							string.gsub(
-								ChatLocalization:Get(
-									"GameChat_TeamChat_NowInTeam", 
-									string.format("You are now on the '%s' team.", player.Team.Name)
-								),
-								"{RBX_NAME}",player.Team.Name
-							),
-							channel.Name
+						local msg = ChatLocalization:FormatMessageToSend("GameChat_TeamChat_NowInTeam",
+							string.format("You are now on the '%s' team.", player.Team.Name),
+							"RBX_NAME",
+							player.Team.Name
 						)
+						speakerObj:SendSystemMessage(msg, channel.Name)
 					end
 				end
 			end

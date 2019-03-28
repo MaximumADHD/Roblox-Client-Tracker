@@ -11,8 +11,11 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
-local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp")
+local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 local fflagErrorPromptTakeExtraConfigurations = settings():GetFFlag("ErrorPromptTakeExtraConfigurations")
+local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
+
+local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
 -- Animation Preset --
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
@@ -27,13 +30,13 @@ if fflagErrorPromptTakeExtraConfigurations then
 	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 end
 
-local function attemptTranslate(key, defaultString)
+local function attemptTranslate(key, defaultString, parameters)
 	if not coreScriptTableTranslator then
 		return defaultString
 	end
 
 	local success,result = pcall(function()
-		return coreScriptTableTranslator:FormatByKey(key)
+		return coreScriptTableTranslator:FormatByKey(key, parameters)
 	end)
 	return success and result or defaultString
 end
@@ -186,6 +189,7 @@ ErrorPrompt.__index = ErrorPrompt
 	* MessageTextScaled	-- Message Text Scale to fit
 	* HideErrorCode		-- If set to true, no errorCode will be appended
 	* PlayAnimation		-- Skip animation of the errorPrompt
+	* MenuIsOpenKey     -- The menu to mark opened and closed using GuiService:SetMenuIsOpen
 ]]
 function ErrorPrompt.new(style, extraConfiguration)
 	local self = setmetatable({}, ErrorPrompt)
@@ -200,6 +204,7 @@ function ErrorPrompt.new(style, extraConfiguration)
 	self._buttonCount = 0
 	self._playAnimation = true
 	self._hideErrorCode = false
+	self._menuIsOpenKey = DEFAULT_ERROR_PROMPT_KEY
 
 	if fflagErrorPromptTakeExtraConfigurations and extraConfiguration then
 		if extraConfiguration.PlayAnimation ~= nil then
@@ -208,6 +213,10 @@ function ErrorPrompt.new(style, extraConfiguration)
 
 		if extraConfiguration.HideErrorCode ~= nil then
 			self._hideErrorCode = extraConfiguration.HideErrorCode
+		end
+
+		if extraConfiguration.MenuIsOpenKey ~= nil then
+			self._menuIsOpenKey = extraConfiguration.MenuIsOpenKey
 		end
 
 		local errorLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
@@ -223,7 +232,7 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 	if not self._isOpen then
 		if fflagForceMouseInputWhenPromptPopUp then
 			MouseIconOverrideService.push("ErrorPromptOverride", Enum.OverrideMouseIconBehavior.ForceShow)
-			GuiService:SetMenuIsOpen(true)
+			GuiService:SetMenuIsOpen(true, self._menuIsOpenKey)
 		end
 		self._frame.Visible = true
 		self._isOpen = true
@@ -241,7 +250,7 @@ function ErrorPrompt:_close()
 	if self._isOpen then
 		if fflagForceMouseInputWhenPromptPopUp then
 			MouseIconOverrideService.pop("ErrorPromptOverride")
-			GuiService:SetMenuIsOpen(false)
+			GuiService:SetMenuIsOpen(false, self._menuIsOpenKey)
 		end
 		self._isOpen = false
 		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
@@ -265,10 +274,23 @@ function ErrorPrompt:setErrorText(errorMsg, errorCode)
 	if self._hideErrorCode and fflagErrorPromptTakeExtraConfigurations then
 		errorLabel.Text = errorMsg
 	else
-		if not errorCode then
-			errorLabel.Text = ("%s\n(Error Code: -1)"):format(errorMsg)
+		if fflagLocalizeErrorCodeString then
+			local errorCodeValue = -1
+			if errorCode then
+				errorCodeValue = errorCode.Value
+			end
+			local defaultErrorCodeString = ("Error Code: %d"):format(errorCodeValue)
+			local localizedErrorCodeString = attemptTranslate(
+				"InGame.ConnectionError.Message.ErrorCode", 
+				defaultErrorCodeString,
+				{ERROR_CODE = tostring(errorCodeValue)})
+			errorLabel.Text = ("%s\n(%s)"):format(errorMsg,localizedErrorCodeString)
 		else
-			errorLabel.Text = ("%s\n(Error Code: %d)"):format(errorMsg, errorCode.Value)
+			if not errorCode then
+				errorLabel.Text = ("%s\n(Error Code: -1)"):format(errorMsg)
+			else
+				errorLabel.Text = ("%s\n(Error Code: %d)"):format(errorMsg, errorCode.Value)
+			end
 		end
 	end
 end

@@ -19,6 +19,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
+local getTextSize = require(Plugin.Core.Util.getTextSize)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -141,6 +142,7 @@ function DropdownMenu:render()
 				or currentSelectionTheme.iconColor
 
 			local dropdownFrame = {}
+			local maxWidth = Constants.DROPDOWN_WIDTH
 			if isShowingDropdown and currentSelection then
 				local scrollButtons = {
 					UIListLayout = Roact.createElement("UIListLayout", {
@@ -158,6 +160,8 @@ function DropdownMenu:render()
 					local isHovered = dropdownHoveredItemIndex == index
 
 					local itemKey = (key and data[key]) or itemName
+					maxWidth = math.max(maxWidth, getTextSize(itemName).X
+						+ (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS)
 
 					scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton",{
 						Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
@@ -209,7 +213,6 @@ function DropdownMenu:render()
 							TextSize = Constants.FONT_SIZE_MEDIUM,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextYAlignment = Enum.TextYAlignment.Center,
-							TextTruncate = Enum.TextTruncate.AtEnd,
 							ClipsDescendants = true,
 							ZIndex = 3,
 						})
@@ -220,7 +223,7 @@ function DropdownMenu:render()
 				local currentSelectionTopLeft = currentSelection.AbsolutePosition
 				local offsetFromButton = 2
 
-				local width = currentSelectionSize.x
+				local width = maxWidth
 				local height = visibleCount * rowHeight
 				local top = currentSelectionTopLeft.y + currentSelectionSize.y + offsetFromButton
 				local left = currentSelectionTopLeft.x

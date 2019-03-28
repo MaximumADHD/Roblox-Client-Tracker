@@ -121,7 +121,12 @@ local function setPosOri(self, isInitialize)
 		if isJoint3DSelected then
 			local posOri = self.Paths.DataModelPartManipulator:calculateCFrameForNumericalInput(dataItem)
 			setInputRowText(self, self.TargetWidget.MovablePanel.PositionInput, posOri.x, posOri.y, posOri.z)
-			local xRotRadians, yRotRadians, zRotRadians = posOri:toEulerAnglesXYZ()
+			local xRotRadians, yRotRadians, zRotRadians = nil
+			if FastFlags:isFixWorldSpaceJointPanelOn() then
+				xRotRadians, yRotRadians, zRotRadians = posOri:toEulerAnglesYXZ()
+			else
+				xRotRadians, yRotRadians, zRotRadians = posOri:toEulerAnglesXYZ()
+			end
 			setInputRowText(self, self.TargetWidget.MovablePanel.RotationInput, math.deg(xRotRadians), math.deg(yRotRadians), math.deg(zRotRadians))
 		else
 			setInputRowText(self, self.TargetWidget.MovablePanel.PositionInput, "", "", "")
@@ -187,7 +192,12 @@ local function initPositionAndRotation(self)
 	-- responding to orientation changes typed in
 	local rotationElementFromId = function(posOri, axis)
 		if posOri then
-			local xRotRadians, yRotRadians, zRotRadians = posOri:toEulerAnglesXYZ()
+			local xRotRadians, yRotRadians, zRotRadians = nil 
+			if FastFlags:isFixWorldSpaceJointPanelOn() then
+				xRotRadians, yRotRadians, zRotRadians = posOri:toEulerAnglesYXZ()
+			else
+				xRotRadians, yRotRadians, zRotRadians = posOri:toEulerAnglesXYZ()
+			end
 			if Enum.Axis.X == axis then
 				return xRotRadians
 			elseif Enum.Axis.Y == axis then
@@ -206,8 +216,20 @@ local function initPositionAndRotation(self)
 	    	for _, dataItem in pairs(self.Paths.DataModelSession:getSelectedDataItems()) do
 	    		local currentElementRotRadians = rotationElementFromId(self.Paths.DataModelPartManipulator:calculateCFrameForNumericalInput(dataItem), axis)
 		     	if currentElementRotRadians and newElementRotDegrees then
-					local newElementRotRadians = math.rad(newElementRotDegrees)
-					self.Paths.DataModelPartManipulator:rotatePart(axis, newElementRotRadians-currentElementRotRadians, dataItem)
+		     		local newElementRotRadians = math.rad(newElementRotDegrees)
+		     		if FastFlags:isFixWorldSpaceJointPanelOn() then
+						local rotInputRow = self.TargetWidget.MovablePanel.RotationInput
+						if self.Paths.DataModelPartManipulator.InWorldSpace then
+							local xrad = math.rad(tonumber(rotInputRow.XInput.Text))
+							local yrad = math.rad(tonumber(rotInputRow.YInput.Text))
+							local zrad = math.rad(tonumber(rotInputRow.ZInput.Text))
+							self.Paths.DataModelPartManipulator:overrideRotation(Vector3.new(xrad, yrad, zrad), dataItem)
+						else
+							self.Paths.DataModelPartManipulator:rotatePart(axis, newElementRotRadians-currentElementRotRadians, dataItem)
+						end
+					else
+						self.Paths.DataModelPartManipulator:rotatePart(axis, newElementRotRadians-currentElementRotRadians, dataItem)
+					end
 				end
 	    	end
 			self.Paths.DataModelPartManipulator:updateManipulationSelection()

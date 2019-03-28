@@ -8,6 +8,8 @@ local UpsellFlow = require(script.Parent.Parent.UpsellFlow)
 local PromptState = require(script.Parent.Parent.PromptState)
 
 local SetPromptState = require(script.Parent.Parent.Actions.SetPromptState)
+local ItemCannotBePurchased = require(script.Parent.Parent.Actions.ItemCannotBePurchased)
+local PurchaseError = require(script.Parent.Parent.PurchaseError)
 
 local Analytics = require(script.Parent.Parent.Services.Analytics)
 local PlatformInterface = require(script.Parent.Parent.Services.PlatformInterface)
@@ -51,6 +53,8 @@ local function launchRobuxUpsell()
 						store:dispatch(retryAfterUpsell)
 					end
 				end)
+		elseif upsellFlow == UpsellFlow.CLB then
+			store:dispatch(ItemCannotBePurchased(PurchaseError.NotEnoughRobux))
 		else
 			warn("Need more Robux: platform not supported for Robux purchase")
 		end

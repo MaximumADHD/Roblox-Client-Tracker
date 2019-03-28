@@ -69,8 +69,9 @@ function NetworkInterface:getAssets(pageInfo)
 	local groupId = Category.categoryIsGroupAsset(pageInfo.categoryIndex)
 		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 		or 0
+	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
 
-	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId)
+	local targetUrl = Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId, creatorId)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssets", "GET", targetUrl)
@@ -125,6 +126,11 @@ function NetworkInterface:getManageableGroups()
 		printUrl("getManageableGroups", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
+end
+
+function NetworkInterface:getUsers(searchTerm, numResults)
+	local targetUrl = Urls.constructUserSearchUrl(searchTerm, numResults)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 return NetworkInterface

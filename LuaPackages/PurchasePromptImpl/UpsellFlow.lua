@@ -4,6 +4,7 @@ local UpsellFlow = createEnum("UpsellFlow", {
 	"Web",
 	"Mobile",
 	"Xbox",
+	"CLB",
 	"None",
 })
 

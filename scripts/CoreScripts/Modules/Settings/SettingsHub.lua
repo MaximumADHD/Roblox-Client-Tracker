@@ -26,6 +26,7 @@ local SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0, 0, 0, 0)
 local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
+local SETTINGS_HUB_MENU_KEY = "SettingsHub"
 
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
@@ -45,6 +46,7 @@ local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestNam
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
 local FFlagXboxShowPlayers2 = settings():GetFFlag("XboxShowPlayers2")
+local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -1310,7 +1312,11 @@ local function CreateSettingsHub()
 
 			this.SettingsShowSignal:fire(this.Visible)
 
-			pcall(function() GuiService:SetMenuIsOpen(true) end)
+			if FFlagForceMouseInputWhenPromptPopUp2 then
+				GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
+			else
+				pcall(function() GuiService:SetMenuIsOpen(true) end)
+			end
 			this.Shield.Visible = this.Visible
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
 				this.Shield.Position = SETTINGS_SHIELD_ACTIVE_POSITION
@@ -1381,12 +1387,22 @@ local function CreateSettingsHub()
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 				this.Shield.Visible = this.Visible
 				this.SettingsShowSignal:fire(this.Visible)
-				pcall(function() GuiService:SetMenuIsOpen(false) end)
+				if FFlagForceMouseInputWhenPromptPopUp2 then
+					GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
+				else
+					pcall(function() GuiService:SetMenuIsOpen(false) end)
+				end
 			else
 				this.Shield:TweenPosition(SETTINGS_SHIELD_INACTIVE_POSITION, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.4, true, function()
 					this.Shield.Visible = this.Visible
 					this.SettingsShowSignal:fire(this.Visible)
-					if not this.Visible then pcall(function() GuiService:SetMenuIsOpen(false) end) end
+					if not this.Visible then
+						if FFlagForceMouseInputWhenPromptPopUp2 then
+							GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
+						else
+							pcall(function() GuiService:SetMenuIsOpen(false) end)
+						end
+					end
 				end)
 			end
 
@@ -1656,21 +1672,23 @@ local function CreateSettingsHub()
 		end
 	end)
 
-	-- Dev Console Connections
-	ContextActionService:BindCoreAction(DEV_CONSOLE_ACTION_NAME,
-		toggleDevConsole,
-		false,
-		Enum.KeyCode.F9
-	)
+	if not FFlagChinaLicensingApp then
+		-- Dev Console Connections
+		ContextActionService:BindCoreAction(DEV_CONSOLE_ACTION_NAME,
+			toggleDevConsole,
+			false,
+			Enum.KeyCode.F9
+		)
 
-	-- Quick Profiler connections
-	-- Note: it's actually Ctrl-F7.	We don't have a nice way of
-	-- making that explicit here, so we check it inside toggleQuickProfilerFromHotkey.
-	ContextActionService:BindCoreAction(QUICK_PROFILER_ACTION_NAME,
-		toggleQuickProfilerFromHotkey,
-		false,
-		Enum.KeyCode.F7
-	)
+		-- Quick Profiler connections
+		-- Note: it's actually Ctrl-F7.	We don't have a nice way of
+		-- making that explicit here, so we check it inside toggleQuickProfilerFromHotkey.
+		ContextActionService:BindCoreAction(QUICK_PROFILER_ACTION_NAME,
+			toggleQuickProfilerFromHotkey,
+			false,
+			Enum.KeyCode.F7
+		)
+	end
 
 	-- Keyboard control
 	UserInputService.InputBegan:connect(function(input)

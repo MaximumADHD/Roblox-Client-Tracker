@@ -55,6 +55,7 @@ local function Tooltip(props)
 			Position = UDim2.new(0, targetX, 0, targetY),
 			Size = UDim2.new(0, tooltipTargetWidth, 0, tooltipTargetHeight),
 			BackgroundTransparency = 1,
+			ZIndex = 10,
 		}, {
 			DropShadow = Roact.createElement(DropShadow, {
 				Position = UDim2.new(0, 2, 0, 2),

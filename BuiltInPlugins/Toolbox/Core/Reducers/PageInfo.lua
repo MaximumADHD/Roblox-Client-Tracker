@@ -15,9 +15,13 @@ local ChangeBackground = require(Plugin.Core.Actions.ChangeBackground)
 local GetManageableGroups = require(Plugin.Core.Actions.GetManageableGroups)
 local NextPage = require(Plugin.Core.Actions.NextPage)
 local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
+local SetCategories = require(Plugin.Core.Actions.SetCategories)
 
-local defaultCategories = Category.CATEGORIES_WITHOUT_GROUPS
+local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
+
+local defaultTab = Category.MARKETPLACE_KEY
 local defaultSorts = Sort.SORT_OPTIONS
+local defaultCategories = FFlagStudioMarketplaceTabsEnabled and Category.MARKETPLACE or Category.CATEGORIES_WITHOUT_GROUPS
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 	if changes.categories then
@@ -78,6 +82,8 @@ return Rodux.createReducer({
 	groups = {},
 	groupIndex = 0,
 
+	currentTab = defaultTab,
+
 	page = 1,
 	pageSize = Constants.GET_ITEMS_PAGE_SIZE,
 
@@ -135,6 +141,26 @@ return Rodux.createReducer({
 		return newState
 	end,
 
+	[SetCategories.name] = function(state, action)
+		if not action.categories then
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Toolbox SetCategories action.categories = nil")
+			end
+			return state
+		end
+		if not action.tabName then
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Toolbox SetCategories action.tabName = nil")
+			end
+			return state
+		end
+
+		return Cryo.Dictionary.join(state, {
+			categories = action.categories,
+			currentTab = action.tabName,
+		})
+	end,
+
 	[GetManageableGroups.name] = function(state, action)
 		if not action.groups then
 			if DebugFlags.shouldDebugWarnings() then
@@ -166,11 +192,20 @@ return Rodux.createReducer({
 			end
 
 			newState.groupIndex = newIndex
-			newState.categories = Category.CATEGORIES
 
+			if FFlagStudioMarketplaceTabsEnabled then
+				newState.categories = Category.INVENTORY_WITH_GROUPS
+			else
+				newState.categories = Category.CATEGORIES
+			end
 		else
 			newState.groupIndex = 0
-			newState.categories = Category.CATEGORIES_WITHOUT_GROUPS
+
+			if FFlagStudioMarketplaceTabsEnabled then
+				newState.categories = Category.INVENTORY
+			else
+				newState.categories = Category.CATEGORIES_WITHOUT_GROUPS
+			end
 
 			if newState.categoryIndex > #newState.categories then
 				newState.categoryIndex = 1

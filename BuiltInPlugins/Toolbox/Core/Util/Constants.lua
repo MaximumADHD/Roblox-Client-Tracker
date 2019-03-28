@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local TextService = game:GetService("TextService")
+local StudioService  = game:GetService("StudioService")
 
 local Constants = {}
 
@@ -16,6 +17,7 @@ Constants.FONT_BOLD = Enum.Font.SourceSansBold
 Constants.FONT_SIZE_SMALL = 14
 Constants.FONT_SIZE_MEDIUM = 16
 Constants.FONT_SIZE_LARGE = 18
+Constants.FONT_SIZE_TITLE = 22
 
 
 function Constants.getTextSize(text, fontSize, font, frameSize)
@@ -24,6 +26,15 @@ function Constants.getTextSize(text, fontSize, font, frameSize)
 	frameSize = frameSize or Vector2.new(0, 0)
 
 	return TextService:GetTextSize(text, fontSize, font, frameSize)
+end
+
+function Constants.getClassIcon(instance)
+	local className = instance.ClassName
+	if instance:IsA("JointInstance") and className == "ManualWeld" or className == "ManualGlue" then
+		return StudioService:GetClassIcon("JointInstance")
+	else
+		return StudioService:GetClassIcon(className)
+	end
 end
 
 Constants.ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
@@ -50,7 +61,8 @@ Constants.DROP_SHADOW_COLOR = Color3.fromRGB(0, 0, 0)
 
 Constants.DEFAULT_PADDING = 8
 
-Constants.DROPDOWN_WIDTH = 120
+Constants.DROPDOWN_WIDTH = 80
+Constants.DROPDOWN_ITEM_WIDTH = 120
 Constants.DROPDOWN_HEIGHT = 25
 
 Constants.DROPDOWN_SELECTED_BAR = 5
@@ -62,7 +74,9 @@ Constants.HEADER_HEIGHT = 43
 
 Constants.HEADER_OUTER_PADDING = (Constants.HEADER_HEIGHT - Constants.DROPDOWN_HEIGHT) / 2 -- 9
 Constants.HEADER_INNER_PADDING = 7
-Constants.HEADER_CATEGORY_DROPDOWN_WIDTH = Constants.DROPDOWN_WIDTH
+
+Constants.HEADER_DROPDOWN_MIN_WIDTH = Constants.DROPDOWN_WIDTH
+Constants.HEADER_DROPDOWN_MAX_WIDTH = 125
 
 Constants.FOOTER_HEIGHT = 35
 
@@ -76,12 +90,6 @@ Constants.SUGGESTIONS_OUTER_PADDING = 6
 Constants.SUGGESTIONS_FONT_SIZE = Constants.FONT_SIZE_MEDIUM
 Constants.SUGGESTIONS_ROW_HEIGHT = Constants.SUGGESTIONS_FONT_SIZE + 4
 Constants.SUGGESTIONS_ROW_PADDING = 2
-
-
-Constants.SORT_COMPONENT_INNER_PADDING = 6
-Constants.SORT_COMPONENT_OUTER_PADDING = 8
-Constants.SORT_COMPONENT_CATEGORY_DROPDOWN_WIDTH = Constants.DROPDOWN_WIDTH
-Constants.SORT_COMPONENT_HEIGHT = Constants.DROPDOWN_HEIGHT + 2 * Constants.SORT_COMPONENT_OUTER_PADDING
 
 Constants.MAIN_VIEW_VERTICAL_PADDING = Constants.MAIN_VIEW_PADDING
 Constants.MAIN_VIEW_NO_HEADER_HEIGHT = 4
@@ -157,5 +165,41 @@ Constants.TOOLTIP_TYPE = {
 }
 
 Constants.MESSAGE_BOX_BUTTON_WIDTH = 72
+
+Constants.TREE_ITEM_HEIGHT = 16
+Constants.TREE_VIEW_INDENT = 20
+Constants.SEARCH_TAG_HEIGHT = 20
+
+Constants.CAPSULE_SLICE = 25
+Constants.CAPSULE_SLICE_CENTER = Rect.new(
+	Constants.CAPSULE_SLICE,
+	Constants.CAPSULE_SLICE,
+	Constants.CAPSULE_SLICE,
+	Constants.CAPSULE_SLICE)
+
+Constants.MODEL_PREVIEW_BG_COLOR = Color3.fromRGB(216, 216, 216)
+
+Constants.HEADER_OPTIONSBUTTON_WIDTH = 16
+Constants.HEADER_OPTIONSBUTTON_HEIGHT = 25
+
+Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH
+	- Constants.MAIN_VIEW_PADDING * 2
+Constants.SEARCH_ENTRY_HEIGHT = 35
+Constants.SEARCH_TAGS_HEIGHT = 50
+Constants.FOOTER_BUTTON_HEIGHT = 24
+
+Constants.ASSET_PREVIEW_MAX_WIDTH = 640
+-- TODO: Need to check if we want to limite the height or not
+Constants.ASSET_PREVIEW_MAX_Height = 800
+Constants.ASSET_PREVIEW_PADDING = 12
+Constants.ASSET_DESCRIPTION_HEIGHT = 28
+
+Constants.MINIMAL_PREVIEW_WIDTH = 100
+Constants.MINIMAL_PREVIEW_HEIGHT = 200
+
+Constants.MAINVIEW_BUTTON_WIDTH = 28
+Constants.MAINVIEW_BUTTON_HEIGHT = 28
+
+Constants.TAB_WIDGET_HEIGHT = 36
 
 return wrapStrictTable(Constants, "Constants")

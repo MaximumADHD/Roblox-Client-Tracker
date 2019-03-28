@@ -143,7 +143,6 @@ RBX
 		ISuperCluster
 		LightGrid
 		LightGridCPU
-		LightGridCPU_DEPRECATED
 		LightObject
 		ObjectExporter
 		ObjectExporterObj
@@ -1181,7 +1180,6 @@ RBX
 	TouchScrollable
 	TouchTransmitter
 	Trail
-	TranslationNotFoundError
 	TranslatorInstance
 	TranslucentVerb
 	TreeStage

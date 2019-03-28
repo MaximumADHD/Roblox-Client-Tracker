@@ -17,6 +17,7 @@ local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV37
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -100,6 +101,11 @@ if FFlagIWillNotYield then
 	coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 else
 	spawn(function() safeRequire(RobloxGui.Modules.BackpackScript) end)
+end
+
+-- Emotes Menu
+if FFlagEmotesMenuEnabled then
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)

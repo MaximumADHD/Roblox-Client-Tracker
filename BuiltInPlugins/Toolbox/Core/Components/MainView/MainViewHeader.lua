@@ -11,18 +11,17 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
-local Sort = require(Plugin.Core.Types.Sort)
 
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local withLocalization = ContextHelper.withLocalization
 
-local SortComponent = require(Plugin.Core.Components.SortComponent)
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
-local SelectSortRequest = require(Plugin.Core.Networking.Requests.SelectSortRequest)
 
 local MainViewHeader = Roact.PureComponent:extend("MainViewHeader")
+
+local SearchTags = require(Plugin.Core.Components.SearchOptions.SearchTags)
 
 function MainViewHeader:init()
 	local networkInterface = getNetwork(self)
@@ -38,14 +37,14 @@ function MainViewHeader:init()
 		self.props.requestSearch(networkInterface, settings, searchTerm)
 	end
 
-	self.onSortSelected = function(index)
-		if self.props.sortIndex ~= index then
-			self.props.selectSort(networkInterface, settings, index)
-		end
-	end
-
 	self.onSuggestionSelected = function(index)
 		self.onSearchRequested(self.props.suggestions[index].search)
+	end
+
+	self.onTagsCleared = function()
+		if self.props.onTagsCleared then
+			self.props.onTagsCleared()
+		end
 	end
 end
 
@@ -53,35 +52,24 @@ function MainViewHeader:render()
 	return withLocalization(function(localization, localizedContent)
 		local props = self.props
 
-		local categoryIndex = props.categoryIndex or 0
-
 		local searchTerm = props.searchTerm or ""
-
-		local sorts = localization:getLocalizedSorts(props.sorts) or {}
-		local sortIndex = props.sortIndex or 0
-
-		local onSortSelected = self.onSortSelected
+		local creatorName = props.creator and props.creator.Name
 
 		local containerWidth = props.containerWidth or 0
 
 		local headerHeight = 0
 		local headerChildren = {}
 
-		local showSort = Sort.canSort(searchTerm, categoryIndex)
+		local showTags = props.showTags
 
-		if showSort then
-			local top = headerHeight
-			local height = Constants.SORT_COMPONENT_HEIGHT
-			headerHeight = headerHeight + height
+		if showTags then
+			headerHeight = headerHeight + Constants.SEARCH_TAGS_HEIGHT
 
-			headerChildren.SortComponent = Roact.createElement(SortComponent, {
-				Position = UDim2.new(0, 0, 0, top),
-				Size = UDim2.new(1, 0, 0, height),
-				ZIndex = 2,
-
-				sorts = sorts,
-				sortIndex = sortIndex,
-				onSortSelected = onSortSelected,
+			headerChildren.SearchTags = Roact.createElement(SearchTags, {
+				Tags = {creatorName},
+				onClearTags = self.onTagsCleared,
+				onDeleteTag = self.onTagsCleared,
+				searchTerm = searchTerm,
 			})
 		end
 
@@ -108,18 +96,11 @@ local function mapStateToProps(state, props)
 		categoryIndex = pageInfo.categoryIndex or 1,
 
 		searchTerm = pageInfo.searchTerm or "",
-
-		sorts = pageInfo.sorts or {},
-		sortIndex = pageInfo.sortIndex or 1,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		selectSort = function(networkInterface, settings, sortIndex)
-			dispatch(SelectSortRequest(networkInterface, settings, sortIndex))
-		end,
-
 		requestSearch = function(networkInterface, settings, searchTerm)
 			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm))
 		end,

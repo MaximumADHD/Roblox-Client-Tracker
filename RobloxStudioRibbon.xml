@@ -14,7 +14,7 @@
     <addaction name="pasteAction" visible="false" />
     <addaction name="duplicateSelectionAction" visible="false" />
   </QuickAccessBar>
-  <SystemButton name="File" text="File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" tooltip="Click here to open, save or publish,&#xA;and to see everything else you can &#xA;do with the document">
+  <SystemButton name="File" text="File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" tooltip="Click here to open, save or publish, and to see everything else you can do with the document">
     <SystemPopup>
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
@@ -38,7 +38,8 @@
         <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
       </submenu>
       <addseparator />
-      <addaction fflag ="StudioDumpUntranslatedStrings" name="dumpUntranslatedStringsAction"/>
+      <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsCsvAction"/>
+      <addaction fflag ="DebugStudioDumpUntranslatedStrings" name="dumpUntranslatedStringsHeaderAction"/>
       <addaction name="aboutRobloxAction"/>
       <addaction name="onlineHelpAction"/>
       <addaction name="settingsAction"/>
@@ -62,8 +63,8 @@
         <addaction name="resizeAction" style="textundericon" text="Scale"  tooltip="Resize an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Resize.png" width="32" height="32"/>
         <addaction name="advRotateAction" style="textundericon" text="Rotate" tooltip="Rotate an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32"/>
         <addseparator visible="false"/>
-        <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions " tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
-        <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
+        <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions" tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
+        <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints" tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Choose how parts are joined together" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Always join adjacent parts" width="32" height="32"/>
@@ -146,7 +147,7 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
+        <addaction name="simulationResetAction" style="textundericon" text="CommonUI.Controls.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Settings">
         <addaction name="luaGameSettingsAction" text="Game Settings" iscommonslot="true" style="textundericon" tooltip="Update settings related to current game" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
@@ -166,8 +167,8 @@
         <addaction name="advRotateAction" style="textundericon" text="Rotate" tooltip="Rotate an Object" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32" />
         <addaction name="Transform" instancename="Transform" style="textundericon" text="Transform" tooltip="Precisely Manipulate an Object" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/Plane.png" width="32" height="32" />
         <addseparator visible="false"/>
-        <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions " tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
-        <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints " tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
+        <addaction name="toggleCollisionCheckAction" style="textbesideicon" text="Collisions" tooltip="Check for collisions when dragging" icon=":/RibbonBar/images/RibbonIcons/Home/Collisions-Enabled-16x16.png" width="16" height="16"/>
+        <addaction name="toggleConstraintCheckAction" style="textbesideicon" text="Constraints" tooltip="Solve constraints while dragging" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <MenuButton handleMenuTrigger="false" name="jointCreationMode" style="textbesideicon" text="Join" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Choose how parts are joined together" width="16" height="16">
           <ActionGroup name="jointCreationMode" style="textundericon" ischeckable="true">
             <addaction name="Always" text="Always" value="Always" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Always join adjacent parts" width="32" height="32"/>
@@ -273,7 +274,7 @@
           <addaction name="createAttachmentAction" style="textundericon" iscommonslot="true" text="Attachment" tooltip="Insert attachment" icon=":/RibbonBar/images/RibbonIcons/Physics/attachment-32x32.png" width="32" height="32" />
         </MenuPopupButton>
         <addaction name="drawConstraintDetailsVerb" fflag="!NewConstraintVisualsEnabled" ischeckable="true" iscommonslot="true" style="textundericon" text="Show Details" tooltip="Show attachments and constraints" icon=":/RibbonBar/images/RibbonIcons/Physics/show-detail-32x32.png" width="32" height="32" />
-        <addaction name="showWeldsAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Show Welds" tooltip="Show welds" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="16" height="16"/>
+        <addaction name="showWeldsAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Show Welds" tooltip="Show Welds" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" width="16" height="16"/>
         <addaction name="showConstraintDetailsAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Constraint Details" tooltip="Show constraint details" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="16" height="16"/>
         <addaction name="constraintDrawOnTopAction" fflag="NewConstraintVisualsEnabled" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Draw On Top" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" tooltip="Draw constraints, attachments and welds on top" width="16" height="16"/>
         <addspinbox name="constraintWidgetScaleAction" type="spinbox" fflag="NewConstraintVisualsEnabled" keyboardTracking="true" tooltip="Constraint widget scale (Alt+Scroll Wheel)" decimals="2" text="Scale" minimum="0.1" minumumWidth="30" step=".5" suffix=" x"/>
@@ -328,7 +329,7 @@
             width="32"
             height="32"/>
         <addaction name="simulationStopAction" style="textundericon" text="Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
+        <addaction name="simulationResetAction" style="textundericon" text="CommonUI.Controls.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
         <addaction name="simulationDiabolicalModeAction"
             style="textundericon"
             text="Network Simulator"
@@ -445,7 +446,7 @@
       </Group>
       <Group name=" ">
         <addaction name="createFrameAction" text="Frame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_frame.png" width="32" height="32"/>
-        <addaction name="createScrollingFrameAction" text="Studio.App.UIEditor.ScrollingFrame" style="textundericon" iscommonslot="true" tooltip="A container object used to layout other GUI objects, and allows for scrolling" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
+        <addaction name="createScrollingFrameAction" text="Studio.App.UIEditor.ScrollingFrame" style="textundericon" iscommonslot="true" tooltip="Studio.App.RobloxRibbonMainWindow.ScrollingFrameTooltip" type="plugin"  icon=":/RibbonBar/images/RibbonIcons/UI/icon_scrollingFrame.png" width="32" height="32"/>
         <addaction name="createTextLabelAction" text="Studio.App.UIEditor.TextLabel" style="textundericon" iscommonslot="true" tooltip="A GUI object containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textLabel.png" width="32" height="32"/>
         <addaction name="createTextButtonAction" text="Studio.App.UIEditor.TextButton" style="textundericon" iscommonslot="true" tooltip="A GUI button containing text" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textButton.png" width="32" height="32"/>
         <addaction name="createTextBoxAction" text="Text Box" style="textundericon" iscommonslot="true" tooltip="A text entry box" type="plugin" icon=":/RibbonBar/images/RibbonIcons/UI/icon_textBox.png" width="32" height="32"/>
@@ -497,7 +498,7 @@
             width="32"
             height="32"/>
         <addaction name="simulationStopAction" style="textundericon" text="Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction name="simulationResetAction" style="textundericon" text="Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
+        <addaction name="simulationResetAction" style="textundericon" text="CommonUI.Controls.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Debugger" debugOnly="true" fflag="LuaDebugger">
         <!--<addaction name="toggleAllBreakpointsStateAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Toggle-Breakpoints.png" tooltip="Enabled/Disable all breakpoints" width="32" height="32"/>-->

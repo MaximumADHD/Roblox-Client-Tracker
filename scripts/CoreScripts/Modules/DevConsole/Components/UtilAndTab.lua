@@ -264,8 +264,8 @@ function UtilAndTab:render()
 			}),
 
 			UtilBar = Roact.createElement("Frame", {
-				Position = UDim2.new(0, 0, 0, TAB_HEIGHT + PADDING),
-				Size = UDim2.new(1, 0, 0, UTIL_HEIGHT),
+				Position = UDim2.new(0, 4, 0, TAB_HEIGHT + PADDING),
+				Size = UDim2.new(1, -8, 0, UTIL_HEIGHT),
 				BackgroundTransparency = 1,
 
 				[Roact.Ref] = self.utilRef,

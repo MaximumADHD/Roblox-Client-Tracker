@@ -10,6 +10,7 @@ local Immutable = require(Plugin.Core.Util.Immutable)
 local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 local GetAssets = require(Plugin.Core.Actions.GetAssets)
 local SetLoading = require(Plugin.Core.Actions.SetLoading)
+local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 
 local function handleAssetsAddedToState(state, assets, totalAssets)
 	if not assets then
@@ -75,5 +76,11 @@ return Rodux.createReducer({
 
 	[GetAssets.name] = function(state, action)
 		return handleAssetsAddedToState(state, action.assets, action.totalResults)
+	end,
+
+	[SetAssetPreview.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isPreviewing = action.isPreviewing
+		})
 	end,
 })

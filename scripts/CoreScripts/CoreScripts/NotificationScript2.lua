@@ -106,7 +106,7 @@ if friendRequestNotificationFIntSuccess and friendRequestNotificationFIntValue ~
 end
 
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
-local FFlagCoreScriptFixBadNotifcationScrapping = settings():GetFFlag("CoreScriptFixBadNotifcationScrapping")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
@@ -455,7 +455,7 @@ local function onSendNotificationInfo(notificationInfo)
 	local notification = {}
 	local notificationFrame
 
-	if FFlagCoreScriptTranslateGameText2 and (not FFlagCoreScriptFixBadNotifcationScrapping or notificationInfo.AutoLocalize) then
+	if FFlagCoreScriptTranslateGameText2 and notificationInfo.AutoLocalize then
 		-- AutoLocalize should only be used for Developer notifcations.
 		notificationFrame = createNotification(
 			GameTranslator:TranslateGameText(CoreGui, notificationInfo.Title),
@@ -797,7 +797,10 @@ function onGameSettingsChanged(property, amount)
 	end
 end
 
-BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+if not FFlagChinaLicensingApp then
+	BadgeService.BadgeAwarded:connect(onBadgeAwarded)
+end
+
 if not isTenFootInterface then
 	Players.FriendRequestEvent:connect(onFriendRequestEvent)
 	PointsService.PointsAwarded:connect(onPointsAwarded)

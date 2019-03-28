@@ -1,3 +1,7 @@
+-- This script puts localization object fetched from __context into
+-- Roact UI tree, so if locale-id changes. The consumer can trigger
+-- the descendants to re-render.
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs

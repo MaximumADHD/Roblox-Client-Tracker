@@ -15,6 +15,18 @@ else
 end
 JointsTimeline.heightChangeEvent = nil
 
+function JointsTimeline:getJointTrackBounds()
+	local jointScript = self.Paths.HelperFunctionsTable:firstValue(self.JointScripts)
+	local track = jointScript.jointWidget.InfoAndTrack.Track
+	local bounds = {
+		left = track.AbsolutePosition.X,
+		right = track.AbsolutePosition.X + track.AbsoluteSize.X,
+		top = track.AbsolutePosition.Y,
+		bottom = track.AbsolutePosition.Y + track.AbsoluteSize.Y,
+	}
+	return bounds
+end
+
 local function positionConnectionLines(self)
 	for _, jointScript in pairs(self.JointScripts) do
 		jointScript:positionConnectionLines()

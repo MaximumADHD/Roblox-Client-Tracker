@@ -1,13 +1,17 @@
+-- This script will put consumers in the Roact component tree.
+-- So consumers can get objects created in providers.
+
 local Plugin = script.Parent.Parent.Parent
+local Consumers = Plugin.Core.Consumers
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local LocalizationConsumer = require(Plugin.Core.Consumers.LocalizationConsumer)
-local ModalConsumer = require(Plugin.Core.Consumers.ModalConsumer)
-local ThemeConsumer = require(Plugin.Core.Consumers.ThemeConsumer)
+local LocalizationConsumer = require(Consumers.LocalizationConsumer)
+local ModalConsumer = require(Consumers.ModalConsumer)
+local ThemeConsumer = require(Consumers.ThemeConsumer)
 
 local ContextHelper = {}
 

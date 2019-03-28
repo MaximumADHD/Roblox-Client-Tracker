@@ -381,7 +381,7 @@ local function onMouseRotate(self, axisRaw, relAngle, item)
 	else
 		if self.InWorldSpace then
 			transform = CFrame.fromAxisAngle(Vector3.FromAxis(axisRaw), relAngle)
-			
+
 			local pivotCFrame = item.Motor6D.Part0.CFrame * item.Motor6D.C0
 			local pivotPosition = nil
 			pivotPosition = (self.PartCFrameAtTransformStart[part] * item.OriginC1).p
@@ -477,6 +477,41 @@ local function onMouseBeginRotate(self, item)
 	self.PartCFrameAtTransformStart[part] = part.CFrame
 	
 	self.RotateUndoRegistered = false
+end
+
+function PartManipulator:overrideRotation(euler, item)
+	self:startCurrentManipulation()
+	local allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
+	local part = item.Item
+
+	self.Paths.DataModelPlayState:pauseAndStop()
+	self.Paths.DataModelRig:setAllMotorC1s(allMotorC1s)
+
+	local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
+	self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
+
+	local stepX, stepY, stepZ
+	local rotateStepRad = (self.rotateStep / 180 ) * math.pi
+	if rotateStepRad > 0 then
+		stepX =  math.floor((euler.X / rotateStepRad) + 0.5) * rotateStepRad
+		stepY =  math.floor((euler.Y / rotateStepRad) + 0.5) * rotateStepRad
+		stepZ =  math.floor((euler.Z / rotateStepRad) + 0.5) * rotateStepRad
+		euler = Vector3.new(stepX, stepY, stepZ)
+	end
+
+	self.RotateUndoRegistered = true			
+	self.Paths.ActionEditClip:execute(self.Paths, self.Paths.ActionEditClip.ActionType.editRotate)
+
+	local transform = CFrame.fromEulerAnglesYXZ(euler.X, euler.Y, euler.Z)	
+	local position = CFrame.new(part.CFrame.p)
+	local newPartCFrame = position * transform
+	local newMotorC1 = newPartCFrame:inverse() * item.Motor6D.Part0.CFrame * item.Motor6D.C0
+	kfd.CFrame = newMotorC1 * item.OriginC1:inverse()
+	item.Motor6D.C1 = newMotorC1
+
+	self:endCurrentManipulation()
+	self.Paths.DataModelPlayState:recreateAnimationTrack()
+	self:updateProxyPart()
 end
 
 local function onMouseBeginRotateAll(self)
@@ -889,22 +924,26 @@ end
 
 function PartManipulator:calculateCFrameForNumericalInput(dataItem)
 	if self.InWorldSpace then
-		local pivotCFrame = nil
-		if FastFlags:isIKModeFlagOn() then
-			pivotCFrame = self.Paths.DataModelIKManipulator:getPivotCFrame(dataItem)
-			if not pivotCFrame then
+		if FastFlags:isFixWorldSpaceJointPanelOn() then
+			return dataItem.Item.CFrame
+		else
+			local pivotCFrame = nil
+			if FastFlags:isIKModeFlagOn() then
+				pivotCFrame = self.Paths.DataModelIKManipulator:getPivotCFrame(dataItem)
+				if not pivotCFrame then
+					pivotCFrame = (dataItem.Motor6D.Part0.CFrame * dataItem.Motor6D.C0) -- world space pivot
+				end
+			else
 				pivotCFrame = (dataItem.Motor6D.Part0.CFrame * dataItem.Motor6D.C0) -- world space pivot
 			end
-		else
-			pivotCFrame = (dataItem.Motor6D.Part0.CFrame * dataItem.Motor6D.C0) -- world space pivot
+			local pivotInOriginPartSpace = (pivotCFrame * dataItem.OriginC1:inverse()):toObjectSpace(pivotCFrame)
+			local point = dataItem.Item.CFrame:toWorldSpace(pivotInOriginPartSpace).p
+			point = point * Vector3.new(1, 1, -1)
+		
+			local itemCFrameRotationOnly = dataItem.Item.CFrame - dataItem.Item.CFrame.p	
+			-- world space rotation, world space position		
+			return itemCFrameRotationOnly + point
 		end
-		local pivotInOriginPartSpace = (pivotCFrame * dataItem.OriginC1:inverse()):toObjectSpace(pivotCFrame)
-		local point = dataItem.Item.CFrame:toWorldSpace(pivotInOriginPartSpace).p
-		point = point * Vector3.new(1, 1, -1)
-	
-		local itemCFrameRotationOnly = dataItem.Item.CFrame - dataItem.Item.CFrame.p	
-		-- world space rotation, world space position		
-		return itemCFrameRotationOnly + point
 	else
 		if isItemCurrentlyBeingManipulated(self, dataItem) then
 			if self.CurrentPositionManipulation then

@@ -2,7 +2,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local ArgCheck = require(Modules.LuaApp.ArgCheck)
-
+local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
 local FetchSubdividedThumbnails = require(script.Parent.FetchSubdividedThumbnails)
 
 local PerformFetch = require(Modules.LuaApp.Thunks.Networking.Util.PerformFetch)
@@ -41,7 +41,7 @@ function ApiFetchThumbnails.Fetch(networkImpl, targetIds, imageSize, requestName
 	ArgCheck.isNonNegativeNumber(#targetIds, "targetIds count")
 
 	local requests = {}
-
+	local promises = {}
 	-- Filter out the icons that are already in the store.
 	for _, targetId in pairs(targetIds) do
 		table.insert(requests, {
@@ -51,8 +51,20 @@ function ApiFetchThumbnails.Fetch(networkImpl, targetIds, imageSize, requestName
 	end
 	local subdividedRequestsArray = subdivideIdsArray(requests, ICON_PAGE_COUNT)
 	for _, subdividedRequests in ipairs(subdividedRequestsArray) do
-		store:dispatch(FetchSubdividedThumbnails.Fetch(networkImpl, subdividedRequests, keyMapper, requestName, fetchFunction, storeDispatch))
+		table.insert(
+			promises,
+			store:dispatch(FetchSubdividedThumbnails.Fetch(
+				networkImpl,
+				subdividedRequests,
+				keyMapper,
+				requestName,
+				fetchFunction,
+				storeDispatch
+			))
+		)
 	end
+
+	return PromiseUtilities.Batch(promises)
 end
 
 function ApiFetchThumbnails.GetFetchingStatus(state, targetId, iconSize, requestName)

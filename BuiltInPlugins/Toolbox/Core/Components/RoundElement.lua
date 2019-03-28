@@ -48,12 +48,20 @@ local function RoundElement(isButton)
 
 		local borderColor3 = props.BorderColor3 or Colors.GRAY_3
 
+		local borderTransparency
+		if props.BorderSizePixel == 0 then
+			borderTransparency = 1
+		else
+			borderTransparency = 0
+		end
+
 		return Roact.createElement(elementType, backgroundProps, {
 			Border = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Image = Images.ROUNDED_BORDER_IMAGE,
 				ImageColor3 = borderColor3,
+				ImageTransparency = borderTransparency,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Constants.ROUNDED_FRAME_SLICE,
 			}, props[Roact.Children])

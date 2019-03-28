@@ -25,8 +25,6 @@ local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Urls = require(Plugin.Core.Util.Urls)
 
-local Background = require(Plugin.Core.Types.Background)
-
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
 
@@ -36,7 +34,11 @@ local AudioPreviewButton = require(Plugin.Core.Components.AudioPreviewButton)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 
+local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
+
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
+
+local PREVIEW_POSITION = UDim2.new(1, -14, 0, 14)
 
 function AssetIcon:init(props)
 	self.state = {
@@ -77,6 +79,7 @@ function AssetIcon:render()
 		local onPreviewAudioButtonClicked = props.onPreviewAudioButtonClicked
 
 		local isHovered = self.state.isHovered
+		local isAssetHovered = props.isHovered
 
 		local thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId,
 			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
@@ -85,6 +88,10 @@ function AssetIcon:render()
 		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.ASSET_ICON)
 
 		local isAudioAsset = typeId == Enum.AssetType.Audio.Value
+
+		local showAssetPreview = typeId == Enum.AssetType.Model.Value
+			or typeId == Enum.AssetType.MeshPart.Value
+			or typeId == Enum.AssetType.Decal.Value
 
 		local children = {
 			AssetImage = Roact.createElement(ImageWithDefault, {
@@ -113,6 +120,12 @@ function AssetIcon:render()
 				currentSoundId = currentSoundId,
 				isPlaying = isPlaying,
 				onClick = onPreviewAudioButtonClicked,
+			}),
+
+			AssetPreviewTriggerButton = showAssetPreview and Roact.createElement(PopUpWrapperButton, {
+				position = PREVIEW_POSITION,
+				ShowIcon = isAssetHovered,
+				onClick = props.onAssetPreviewButtonClicked,
 			}),
 
 			TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {

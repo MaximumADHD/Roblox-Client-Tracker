@@ -8,7 +8,6 @@
 local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
-local FFlagCoreScriptFixACMFirstPersonUnreliablity = settings():GetFFlag("CoreScriptFixACMFirstPersonUnreliablity")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagDynamicThumbstickUseContextActionSevice = settings():GetFFlag("UserDynamicThumbstickUseContextActionSevice")
 local FFlagUserFixClickToMoveWithACM = settings():GetFFlag("UserFixClickToMoveWithACM")
@@ -285,7 +284,7 @@ function clickedOnPoint(screenPoint)
 	local ray = camera:ScreenPointToRay(screenPoint.X, screenPoint.Y)
 	ray = Ray.new(ray.Origin, ray.Direction * MAX_CONTEXT_MENU_DISTANCE)
 	local hitPart, hitPoint
-	if FFlagCoreScriptFixACMFirstPersonUnreliablity and shouldIgnoreLocalCharacter() then
+	if shouldIgnoreLocalCharacter() then
 		hitPart, hitPoint = workspace:FindPartOnRay(ray, LocalPlayer.Character, false, true)
 	else
 		hitPart, hitPoint = workspace:FindPartOnRay(ray, nil, false, true)

@@ -15,18 +15,36 @@ return function(networkInterface, pageInfo)
 		store:dispatch(SetLoading(true))
 
 		if EnableToolboxGetAssetsFailedCaseFix then
-			return networkInterface:getAssets(pageInfo):andThen(function(result)
-					local data = result.responseBody
-					if data then
-						store:dispatch(GetAssets(data.Results or {}, data.TotalResults))
-					end
-					store:dispatch(SetLoading(false))
-				end, function(result)
-					store:dispatch(NetworkError(result))
-					store:dispatch(SetLoading(false))
-				end)
+			if pageInfo.creator and pageInfo.creator.Id == -1 then
+				local data = {
+				Results = {},
+					TotalResults = 0,
+				}
+				store:dispatch(GetAssets(data.Results, data.TotalResults))
+				store:dispatch(SetLoading(false))
+			else
+				return networkInterface:getAssets(pageInfo):andThen(function(result)
+						local data = result.responseBody
+						if data then
+							store:dispatch(GetAssets(data.Results or {}, data.TotalResults))
+						end
+						store:dispatch(SetLoading(false))
+					end, function(result)
+						store:dispatch(NetworkError(result))
+						store:dispatch(SetLoading(false))
+					end)
+			end
 		else
-			return networkInterface:getAssets(pageInfo):andThen(function(result)
+			if pageInfo.creator and pageInfo.creator.Id == -1 then
+				local data = {
+					Results = {},
+					TotalResults = 0,
+				}
+				store:dispatch(GetAssets(data.Results, data.TotalResults))
+				store:dispatch(SetLoading(false))
+			else
+				return networkInterface:getAssets(pageInfo):andThen(function(result)
+					-- So, this is the only function getting called
 					local data = result.responseBody
 					if data then
 						store:dispatch(GetAssets(data.Results, data.TotalResults))
@@ -35,6 +53,7 @@ return function(networkInterface, pageInfo)
 					end
 					store:dispatch(SetLoading(false))
 				end)
+			end
 		end
 	end
 end

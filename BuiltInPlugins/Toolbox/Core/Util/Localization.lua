@@ -312,10 +312,34 @@ function Localization:_recalculateContent()
 		},
 
 		SearchBarDefaultText = self:_safeLocalize("SearchBarDefaultText"),
+		SearchBarCreatorText = self:_safeLocalize("SearchBarCreatorText"),
 
 		EndorseBadgeTooltipText = self:_safeLocalize("EndorseBadgeTooltipText"),
 
-		InfoBannerText = self:_safeLocalize("InfoBannerText")
+		InfoBannerText = self:_safeLocalize("InfoBannerText"),
+
+		SearchResults = {
+			SearchResults = self:_safeLocalize("SearchResults"),
+			SearchResultsKeyword = self:_safeLocalize("SearchResultsKeyword"),
+			ClearAll = self:_safeLocalize("SearchResultsClearAll"),
+		},
+
+		SearchOptions = {
+			Creator = self:_safeLocalize("SearchOptionCreator"),
+			Sort = self:_safeLocalize("SearchOptionSort"),
+			Apply = self:_safeLocalize("SearchOptionsApply"),
+			Cancel = self:_safeLocalize("SearchOptionsCancel"),
+		},
+
+		SearchTags = {
+			Creator = self:_safeLocalize("SearchTagCreator"),
+		},
+
+		Tabs = {
+			Marketplace = self:_safeLocalize("TabMarketplace"),
+			Inventory = self:_safeLocalize("TabInventory"),
+			Recent = self:_safeLocalize("TabRecent"),
+		},
 	})
 end
 

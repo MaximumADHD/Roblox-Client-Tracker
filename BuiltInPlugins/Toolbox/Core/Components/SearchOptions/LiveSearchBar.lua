@@ -1,0 +1,127 @@
+--[[
+	Live Search Bar Component
+
+	Implements a search bar component that live searches items.
+	As the user types, this search bar can send out network requests, and update
+	when the result of the request is passed into props.results.
+
+	Props:
+		int width = how wide the search bar is
+		int LayoutOrder = 0
+		table results = The results of the live search.
+			{{Name = "myName", Thumbnail = "rbxassetid://####", Id = "####"}, ...}
+		string defaultTextKey = The localization key to use for the default text in the search bar.
+		string searchTerm = The previous search term that was used to initialize the last live search.
+
+		function updateSearch(searchTerm) = A callback requesting an update to the live search.
+			This will only happen if a new search is needed, but does not throttle. Throttling
+			logic should be handled outside of this component.
+]]
+
+local Plugin = script.Parent.Parent.Parent.Parent
+
+local Libs = Plugin.Libs
+local Roact = require(Libs.Roact)
+
+local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+local LiveSearchDropdown = require(Plugin.Core.Components.SearchOptions.LiveSearchDropdown)
+
+local LiveSearchBar = Roact.PureComponent:extend("LiveSearchBar")
+
+local DROPDOWN_OFFSET = 26
+
+function LiveSearchBar:init(initialProps)
+	self.state = {
+		currentText = initialProps.searchTerm or "",
+		showDropdown = false,
+	}
+
+	self.frameRef = Roact.createRef()
+
+	self.onTextChanged = function(text)
+		if text ~= self.state.currentText then
+			self.props.updateSearch(text)
+			self:setState({
+				currentText = text,
+				showDropdown = true,
+			})
+		end
+	end
+
+	self.onDeleteTag = function()
+		self:setState({
+			currentText = "",
+		})
+	end
+
+	self.closeDropdown = function()
+		self:setState({
+			showDropdown = false,
+		})
+	end
+end
+
+--[[
+	Update is called here because search may not be completed before another search
+	should begin. This component is guaranteed to update when a search completes,
+	which is when we should immediately check if another search is required to
+	keep this component in sync with the results.
+]]
+function LiveSearchBar:didUpdate()
+	local currentText = self.state.currentText
+
+	if self.props.searchTerm ~= currentText then
+		self.props.updateSearch(currentText)
+	end
+end
+
+function LiveSearchBar:render()
+	local width = self.props.width
+	local searchTerm = self.props.searchTerm
+	local layoutOrder = self.props.LayoutOrder
+	local currentText = self.state.currentText
+	local showDropdown = self.state.showDropdown
+	local results = self.props.results
+	local defaultTextKey = self.props.defaultTextKey
+
+	local frame = self.frameRef and self.frameRef.current
+	local position
+	if frame then
+		position = UDim2.new(0, frame.AbsolutePosition.X, 0, frame.AbsolutePosition.Y + DROPDOWN_OFFSET)
+	else
+		position = UDim2.new()
+	end
+
+	local shouldShowDropdown = showDropdown
+		and searchTerm == currentText
+		and #currentText >= 3
+
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, 25),
+
+		[Roact.Ref] = self.frameRef,
+	}, {
+		SearchBar = Roact.createElement(SearchBar, {
+			width = width,
+			onTextChanged = self.onTextChanged,
+			onSearchRequested = self.onTextChanged,
+			defaultTextKey = defaultTextKey,
+			searchTerm = currentText,
+			onDeleteTag = self.onDeleteTag,
+			IsLive = true,
+		}),
+
+		Dropdown = shouldShowDropdown and Roact.createElement(LiveSearchDropdown, {
+			Size = UDim2.new(0, width, 0, 0),
+			Position = position,
+			Items = results,
+			SearchTerm = currentText,
+			onItemClicked = self.onTextChanged,
+			closeDropdown = self.closeDropdown,
+		}),
+	})
+end
+
+return LiveSearchBar

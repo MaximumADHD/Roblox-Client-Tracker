@@ -216,7 +216,7 @@ local function assetTypeIdToString(assetTypeId)
 end
 
 --TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-local function dispatchInsertAsset(options)
+local function dispatchInsertAsset(options, insertToolPromise)
 	if Category.categoryIsPackage(options.categoryIndex) then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
@@ -226,16 +226,16 @@ local function dispatchInsertAsset(options)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value and FFlagEnableToolboxPluginInsertion then
 		return installPlugin(options.assetId, options.assetName)
 	else
-		return insertAsset(options.assetId, options.assetName, options.insertToolPromise)
+		return insertAsset(options.assetId, options.assetName, insertToolPromise)
 	end
 end
 
-local function sendInsertionAnalytics(options)
+local function sendInsertionAnalytics(options, assetWasDragged)
 	Analytics.trackEventAssetInsert(options.assetId)
 	Analytics.incrementAssetInsertCollector()
 	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(options.assetTypeId))
 
-	if not options.assetWasDragged then
+	if not assetWasDragged then
 		Analytics.onAssetInserted(options.assetId, options.searchTerm, options.assetIndex)
 	else
 		Analytics.onAssetDragInserted(options.assetId, options.searchTerm, options.assetIndex)
@@ -261,12 +261,22 @@ Options table format:
 	categoryIndex = number,
 	searchTerm = string,
 	assetIndex = number,
-	insertToolPromise = InsertToolPromise,
 }
 ]]
 
+
+-- This is the public api we should be using.
+-- insertToolPromise can be nil if dragged.
+function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
+	if assetWasDragged then
+		InsertAsset.doDragInsertAsset(options)
+	else
+		InsertAsset.doInsertAsset(options, insertToolPromise)
+	end
+end
+
 --TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-function InsertAsset.insertAsset(options)
+function InsertAsset.doInsertAsset(options, insertToolPromise)
 	local assetId = options.assetId
 	local assetName = options.assetName
 
@@ -276,11 +286,11 @@ function InsertAsset.insertAsset(options)
 
 	ChangeHistoryService:SetWaypoint(("Before insert asset %d"):format(assetId))
 
-	local asset, errorMessage = dispatchInsertAsset(options)
+	local asset, errorMessage = dispatchInsertAsset(options, insertToolPromise)
 
 	if asset then
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
-		sendInsertionAnalytics(options)
+		sendInsertionAnalytics(options, false)
 
 		AssetInsertionTracker.trackInsert(assetId, asset)
 
@@ -292,7 +302,7 @@ function InsertAsset.insertAsset(options)
 	return asset
 end
 
-function InsertAsset.dragInsertAsset(options)
+function InsertAsset.doDragInsertAsset(options)
 	local assetId = options.assetId
 	local assetName = options.assetName
 
@@ -325,7 +335,7 @@ function InsertAsset.dragInsertAsset(options)
 
 	if success then
 		ChangeHistoryService:SetWaypoint(("After insert asset %d"):format(assetId))
-		sendInsertionAnalytics(options)
+		sendInsertionAnalytics(options, true)
 
 		-- TODO CLIDEVSRVS-1689: For AssetInsertionTracker.trackInsert with dragged
 		-- asset, need to listen for dropped event on 3d view which

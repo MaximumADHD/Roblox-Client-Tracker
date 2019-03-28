@@ -89,15 +89,13 @@ function Layouter.calculateRenderBoundsForScrollingFrame(scrollingFrame, contain
 	return lowerBound, upperBound
 end
 
-function Layouter.calculateMainViewHeaderHeight(categoryIndex, searchTerm, suggestionIntro, suggestions, containerWidth)
+function Layouter.calculateMainViewHeaderHeight(showTags, suggestionIntro, suggestions, containerWidth)
 	local headerHeight = 0
 	local headerToBodyPadding = 0
 
-	local showSort = Sort.canSort(searchTerm, categoryIndex)
-
-	if showSort then
+	if showTags then
 		headerToBodyPadding = Constants.MAIN_VIEW_VERTICAL_PADDING
-		headerHeight = headerHeight + Constants.SORT_COMPONENT_HEIGHT
+		headerHeight = headerHeight + Constants.SEARCH_TAGS_HEIGHT
 	end
 
 	headerHeight = math.max(headerHeight, Constants.MAIN_VIEW_NO_HEADER_HEIGHT)

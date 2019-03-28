@@ -20,6 +20,18 @@ local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 
+local UILibraryThemeProvider = require(Plugin.UILibrary.Theming).Provider
+local UILibraryCreateTheme = require(Plugin.UILibrary.createTheme)
+
+local function getUILibraryTheme()
+	local studioTheme = settings().Studio.Theme
+	local studioColors = Enum.StudioStyleGuideColor
+	return UILibraryCreateTheme({
+		backgroundColor = studioTheme:GetColor(studioColors.InputFieldBackground),
+		textColor = studioTheme:GetColor(studioColors.MainText),
+	})
+end
+
 local function ExternalServicesWrapper(props)
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = props.store
@@ -30,15 +42,19 @@ local function ExternalServicesWrapper(props)
 			Roact.createElement(ThemeProvider, {
 				theme = props.theme,
 			}, {
-				Roact.createElement(DialogProvider, {
-					showDialog = props.showDialog,
+				Roact.createElement(UILibraryThemeProvider, {
+					theme = getUILibraryTheme(),
 				}, {
-					Roact.createElement(MouseProvider, {
-						mouse = props.mouse,
+					Roact.createElement(DialogProvider, {
+						showDialog = props.showDialog,
 					}, {
-						Roact.createElement(SettingsImplProvider, {
-							impl = props.impl,
-						}, props[Roact.Children])
+						Roact.createElement(MouseProvider, {
+							mouse = props.mouse,
+						}, {
+							Roact.createElement(SettingsImplProvider, {
+								impl = props.impl,
+							}, props[Roact.Children])
+						}),
 					}),
 				}),
 			}),

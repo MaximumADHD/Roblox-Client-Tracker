@@ -27,6 +27,8 @@ local ActionBindings = require(Components.ActionBindings.MainViewActionBindings)
 local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
 
+local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
+
 local MainView = require(DevConsole.Reducers.MainView)
 local DevConsoleReducer = require(DevConsole.Reducers.DevConsoleReducer)
 
@@ -39,8 +41,8 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
 local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 
-local FFlagDevConsoleNoWaitSetup = settings():GetFFlag("DevConsoleNoWaitSetup2")
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -152,16 +154,12 @@ function DevConsoleMaster.new()
 	local self = {}
 	setmetatable(self, DevConsoleMaster)
 
-	if FFlagDevConsoleNoWaitSetup then
-		self.init = false
-		self.waitForStart = true
-		self.waitForStartBindable = Instance.new("BindableEvent")
-		coroutine.wrap(function()
-			self:SetupDevConsole()
-		end)()
-	else
+	self.init = false
+	self.waitForStart = true
+	self.waitForStartBindable = Instance.new("BindableEvent")
+	coroutine.wrap(function()
 		self:SetupDevConsole()
-	end
+	end)()
 
 	return self
 end
@@ -192,9 +190,6 @@ function DevConsoleMaster:SetupDevConsole()
 		DevConsoleAnalytics
 	})
 
-	if not FFlagDevConsoleNoWaitSetup then
-		self.init = false
-	end
 	local isVisible = self.store:getState().DisplayOptions.isVisible
 
 	-- use connector to wrap store and root together
@@ -215,22 +210,22 @@ function DevConsoleMaster:SetupDevConsole()
 					position = Constants.MainWindowInit.Position,
 					size = Constants.MainWindowInit.Size,
 					tabList = developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST
-				})
+				}),
+
+				RCCProfilerDataCompleteListener = Roact.createElement(RCCProfilerDataCompleteListener),
 			}),
 		})
 	})
 
-	if FFlagDevConsoleNoWaitSetup then
-		self.waitForStart = false
-		self.waitForStartBindable:Fire()
-	end
+	self.waitForStart = false
+	self.waitForStartBindable:Fire()
 end
 
 local master = DevConsoleMaster.new()
 
 function DevConsoleMaster:Start()
 	if not self.init then
-		if FFlagDevConsoleNoWaitSetup and self.waitForStart then
+		if self.waitForStart then
 			self.waitForStartBindable.Event:Wait()
 		end
 		self.init = true
@@ -239,16 +234,14 @@ function DevConsoleMaster:Start()
 end
 
 if START_DATA_ON_INIT then
-	if FFlagDevConsoleNoWaitSetup then
-		coroutine.wrap(function()
-			master:Start()
-		end)()
-	else
+	coroutine.wrap(function()
 		master:Start()
-	end
+	end)()
 end
 
 function DevConsoleMaster:ToggleVisibility()
+	if FFlagChinaLicensingApp then return end
+
 	if not self.init then
 		master:Start()
 	end
@@ -277,6 +270,7 @@ function DevConsoleMaster:SetVisibility(value)
 end
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
+	if FFlagChinaLicensingApp then return false end
 	return master:GetVisibility()
 end)
 
@@ -284,6 +278,7 @@ StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DevConsoleVisible must be given a boolean value.")
 	end
+	if FFlagChinaLicensingApp then return end
 	master:SetVisibility(visible)
 end)
 

@@ -1,3 +1,5 @@
+local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
+
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
@@ -17,7 +19,8 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Toolbox = Roact.createElement(Toolbox, {
 				backgrounds = {},
-				categories = Category.CATEGORIES,
+				categories = FFlagStudioMarketplaceTabsEnabled and Category.MARKETPLACE
+					or Category.CATEGORIES,
 				suggestions = Suggestion.SUGGESTIONS,
 			}),
 		})

@@ -1,0 +1,22 @@
+local CorePackages = game:GetService("CorePackages")
+
+local Cryo = require(CorePackages.Cryo)
+local Rodux = require(CorePackages.Rodux)
+
+local Reducers = script.Parent
+local EmotesMenu = Reducers.Parent
+
+local Actions = EmotesMenu.Actions
+local FocusSegment = require(Actions.FocusSegment)
+
+local default = {
+    focusedSegmentIndex = 0,
+}
+
+return Rodux.createReducer(default, {
+    [FocusSegment.name] = function(state, action)
+        return Cryo.Dictionary.join(state, {
+            focusedSegmentIndex = action.segmentIndex,
+        })
+    end,
+})

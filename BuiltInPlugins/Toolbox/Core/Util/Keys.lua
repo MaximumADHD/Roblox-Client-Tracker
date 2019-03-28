@@ -19,5 +19,6 @@ Keys.pluginGui = createKey("PluginGui")
 Keys.plugin = createKey("Plugin")
 Keys.settings = createKey("Settings")
 Keys.theme = createKey("Theme")
+Keys.camera = createKey("MarketplaceCamera")
 
 return wrapStrictTable(Keys, "Keys")

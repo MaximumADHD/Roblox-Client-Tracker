@@ -29,8 +29,10 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.reportRobuxUpsellStarted_callCount).to.equal(1)
-		expect(platformInterface.startRobuxUpsellWeb_callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		if not settings():GetFFlag("ChinaLicensingApp") then
+			expect(analytics.reportRobuxUpsellStarted_callCount).to.equal(1)
+			expect(platformInterface.startRobuxUpsellWeb_callCount).to.equal(1)
+			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		end
 	end)
 end

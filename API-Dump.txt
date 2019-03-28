@@ -1109,7 +1109,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(Enum<SpecialKey> key) {RobloxScriptSecurity}
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
-	Function void GuiService:SetMenuIsOpen(bool open) {RobloxScriptSecurity}
+	Function void GuiService:SetMenuIsOpen(bool open, string menuName = "default") {RobloxScriptSecurity}
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) {RobloxScriptSecurity}
 	Function void GuiService:SetUiMessage(Enum<UiMessageType> msgType, string uiMessage = "errorCode") {LocalUserSecurity}
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
@@ -2839,7 +2839,7 @@ Class UIGridStyleLayout : UILayout [NotCreatable] [NotBrowsable]
 	Property Enum<SortOrder> UIGridStyleLayout.SortOrder
 	Property Enum<VerticalAlignment> UIGridStyleLayout.VerticalAlignment
 	Property Vector2 UIGridStyleLayout.AbsoluteContentSize [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Function void UIGridStyleLayout:ApplyLayout()
+	Function void UIGridStyleLayout:ApplyLayout() [Deprecated]
 	Function void UIGridStyleLayout:SetCustomSortFunction(Function function = nil) [Deprecated]
 Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellPadding
@@ -3407,6 +3407,7 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.Backpack : 2
 	EnumItem CoreGuiType.Chat : 3
 	EnumItem CoreGuiType.All : 4
+	EnumItem CoreGuiType.EmotesMenu : 5
 Enum CreatorType
 	EnumItem CreatorType.User : 0
 	EnumItem CreatorType.Group : 1

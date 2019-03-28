@@ -15,8 +15,9 @@ local ANIMATION_TIME = 0.2
 local CAMERA_DISTANCE = 1.9
 local SETTING_NAME = "ViewSelector_Active"
 local SETTING_NAME_POSITION = "ViewSelector_Position"
-local toolbar = nil
-local toolbarbutton = nil
+local toolbar = plugin:CreateToolbar("ViewSelector")
+local toolbarbutton = toolbar:CreateButton("ViewSelector", "Show View Selector", "")
+toolbarbutton.ClickableWhenViewportHidden = false
 local isActive = nil
 local cameraCFrame = nil
 local inverseCameraCFrame = nil
@@ -48,10 +49,6 @@ textureList.Normal = {}
 textureList.Hover = {}
 
 local function init()
-	toolbar = plugin:CreateToolbar("ViewSelector")
-	toolbarbutton = toolbar:CreateButton("ViewSelector", "Show View Selector", "")
-	toolbarbutton.ClickableWhenViewportHidden = false
-
 	viewSelectorScreenGui = CoreGui:FindFirstChild("ViewSelectorScreenGui")
 	if viewSelectorScreenGui then
 		viewSelectorScreenGui:Destroy()
@@ -420,11 +417,6 @@ local function onToolBarButtonClicked()
 	showViewSelector(isActive)
 end
 
-if not RunService:IsEdit() then
-	toolbarbutton.Enabled = false
-	return
-end
-
 local function bindArrowButtonEvents(button, direction)
 	button.MouseButton1Click:connect(function() 
 		local right = cameraCFrame.RightVector
@@ -448,6 +440,11 @@ local function bindArrowButtonEvents(button, direction)
 		button.ImageColor3 = Color3.fromRGB(247, 249, 255)
 		button.ImageTransparency = 0.6
 	end)
+end
+
+if not RunService:IsEdit() then
+	toolbarbutton.Enabled = false
+	return
 end
 
 init()

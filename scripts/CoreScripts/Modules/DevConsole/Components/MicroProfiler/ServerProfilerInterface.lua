@@ -57,11 +57,12 @@ function ServerProfilerInteraface:init()
 	self.requestRCCProfilerData = function(rbx)
 		local clientReplicator = getClientReplicator()
 		if clientReplicator then
+			-- a RCCProfilerDataCompleteListener is mounted in DevConsoleMaster
+			-- to listen to and update the response of this call
 			clientReplicator:RequestRCCProfilerData(
 				GameSettings.RCCProfilerRecordFrameRate,
 				GameSettings.RCCProfilerRecordTimeFrame
 			)
-
 			self.props.dispatchSetRCCProfilerState(true)
 		end
 	end
@@ -76,33 +77,9 @@ function ServerProfilerInteraface:init()
 	end
 
 	self.state = {
-		waitingForData = false,
 		frameRate = GameSettings.RCCProfilerRecordFrameRate,
 		timeFrame = GameSettings.RCCProfilerRecordTimeFrame,
 	}
-end
-
-function ServerProfilerInteraface:didMount()
-	local clientReplicator = getClientReplicator()
-	if clientReplicator then
-		self.completeSignal = clientReplicator.RCCProfilerDataComplete:connect(function(success, message)
-			if self.props.waitingForRecording then
-				if not success then
-					warn(message)
-					self.props.dispatchSetRCCProfilerState(false)
-				else
-					self.props.dispatchSetRCCProfilerState(false, message)
-				end
-			end
-		end)
-	end
-end
-
-function ServerProfilerInteraface:willUnmount()
-	if self.completeSignal then
-		self.completeSignal:Disconnect()
-		self.completeSignal = nil
-	end
 end
 
 function ServerProfilerInteraface:render()
