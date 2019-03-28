@@ -26,6 +26,8 @@ local AnalyticsService = game:GetService("AnalyticsService")
 -- MODULES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 
 local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"))
@@ -49,6 +51,7 @@ local FFlagCoreScriptFixACMWhisperIssues = settings():GetFFlag("CoreScriptFixACM
 local FFlagRemoveACMLastUnderline = settings():GetFFlag("RemoveACMLastUnderline")
 local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
+local FFlagTranslateAvatarContextMenu = settings():GetFFlag("TranslateAvatarContextMenu")
 
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
@@ -165,6 +168,9 @@ function ContextMenuItems:CreateCustomMenuItems()
 
 				itemInfo.event:Fire(self.SelectedPlayer)
 			end
+			if FFlagTranslateAvatarContextMenu then
+				buttonText = GameTranslator:TranslateGameText(self.MenuItemFrame, buttonText)
+			end
 			local customButton = ContextMenuUtil:MakeStyledButton(
 				"CustomButton",
 				buttonText,
@@ -211,6 +217,14 @@ local blockedString = "Player Blocked"
 local addFriendDisabledTransparency = 0.75
 local friendStatusChangedConn = nil
 function ContextMenuItems:CreateFriendButton(status, isBlocked)
+	if FFlagTranslateAvatarContextMenu then
+		addFriendString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.AddFriend")
+		friendsString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Friends")
+		friendRequestPendingString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.FriendRequestPending")
+		acceptFriendRequestString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.AcceptFriendRequest")
+		blockedString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.PlayerBlocked")
+	end
+
 	local friendLabel = self.MenuItemFrame:FindFirstChild("FriendStatus")
 	if friendLabel then
 		friendLabel:Destroy()
@@ -284,9 +298,13 @@ function ContextMenuItems:CreateEmoteButton()
 		PlayersService:Chat("/e wave")
 	end
 
+	local waveString = "Wave"
+	if FFlagTranslateAvatarContextMenu then
+		waveString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Wave")
+	end
 	local waveButton = ContextMenuUtil:MakeStyledButton(
 		"Wave",
-		"Wave",
+		waveString,
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 		wave,
 		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
@@ -339,9 +357,13 @@ function ContextMenuItems:CreateChatButton()
 		end
 	end
 
+	local chatString = "Chat"
+	if FFlagTranslateAvatarContextMenu then
+		chatString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Chat")
+	end
 	local chatButton, chatLabelText = ContextMenuUtil:MakeStyledButton(
 		"ChatStatus",
-		"Chat",
+		chatString,
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 		chatFunc,
 		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
@@ -365,7 +387,11 @@ function ContextMenuItems:CreateChatButton()
 				chatDisabled = true
 				chatButton.Selectable = false
 				chatLabelText.TextTransparency = addFriendDisabledTransparency
-				chatLabelText.Text = "Chat Disabled"
+				if FFlagTranslateAvatarContextMenu then
+					chatLabelText.Text = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.ChatDisabled")
+				else
+					chatLabelText.Text = "Chat Disabled"
+				end
 			end
 		end
 	else

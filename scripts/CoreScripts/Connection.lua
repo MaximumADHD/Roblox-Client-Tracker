@@ -69,6 +69,15 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
 }
 
+local ErrorTitleLocalizationKey = {
+	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
+	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
+	[ConnectionPromptState.RECONNECT_DISCONNECT] = "InGame.ConnectionError.Title.Disconnected",
+	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = "InGame.ConnectionError.Title.Disconnected",
+	[ConnectionPromptState.TELEPORT_FAILED] = "InGame.ConnectionError.Title.TeleportFailed",
+	[ConnectionPromptState.RECONNECT_DISABLED] = "InGame.CommonUI.Title.Error",
+}
+
 -- only return success when a valid root id is given
 local function fetchStarterPlaceId(universeId)
 	local apiPath = "v1/games"
@@ -176,12 +185,14 @@ local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
 		{
 			Text = "Retry",
+			LocalizationKey = "InGame.ConnectionError.Button.Retry",
 			LayoutOrder = 2,
 			Callback = reconnectFunction,
 			Primary = true
 		},
 		{
 			Text = "Cancel",
+			LocalizationKey = "Feature.SettingsHub.Action.CancelSearch",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 		}
@@ -189,12 +200,14 @@ local ButtonList = {
 	[ConnectionPromptState.RECONNECT_DISCONNECT] = {
 		{
 			Text = "Reconnect",
+			LocalizationKey = "InGame.ConnectionError.Button.Reconnect",
 			LayoutOrder = 2,
 			Callback = reconnectFunction,
 			Primary = true,
 		},
 		{
 			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 		}
@@ -202,6 +215,7 @@ local ButtonList = {
 	[ConnectionPromptState.TELEPORT_FAILED] = {
 		{
 			Text = "OK",
+			LocalizationKey = "InGame.CommonUI.Button.Ok",
 			LayoutOrder = 1,
 			Callback = closePrompt,
 			Primary = true,
@@ -210,6 +224,7 @@ local ButtonList = {
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = {
 		{
 			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
@@ -218,6 +233,7 @@ local ButtonList = {
 	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = {
 		{
 			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
@@ -226,6 +242,7 @@ local ButtonList = {
 	[ConnectionPromptState.RECONNECT_DISABLED] = {
 		{
 			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 			Primary = true,
@@ -280,7 +297,7 @@ local function onEnter(newState)
 	if updateFullScreenEffect[newState] then
 		updateFullScreenEffect[newState]()
 	end
-	errorPrompt:setErrorTitle(ErrorTitles[newState])
+	errorPrompt:setErrorTitle(ErrorTitles[newState], ErrorTitleLocalizationKey[newState])
 	errorPrompt:updateButtons(ButtonList[newState])
 end
 
@@ -352,8 +369,12 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
 	if coreScriptTableTranslator then
 		local success, attemptTranslation = pcall(function()
+			if errorCode == Enum.ConnectionError.DisconnectIdle then
+				return coreScriptTableTranslator:FormatByKey(key, {RBX_NUM=tostring(20)})
+			end
 			return coreScriptTableTranslator:FormatByKey(key)
 		end)
+
 		if success then return attemptTranslation end
 	end
 	return errorMsg

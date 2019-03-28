@@ -29,6 +29,7 @@ PartManipulator.TranslateUndoRegistered = false
 PartManipulator.MouseUpEventConnect = nil
 PartManipulator.MouseTargeterHalt = nil
 PartManipulator.TagName = "ForManipulation"
+PartManipulator.TimerHandle = nil
 
 function PartManipulator:findAnimatedPart(clickedPart, partsChecked)
 	partsChecked = partsChecked or {}
@@ -422,7 +423,7 @@ local function onMouseRotateAll(self, axisRaw, relAngle)
 end
 
 local function onMouseEndRotate(self)		
-	if nil ~= self.MouseUpEventConnect then	
+	if nil ~= self.MouseUpEventConnect then
 		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
 			self.Paths.DataModelIKManipulator:endIKManipulation()
 		end
@@ -437,6 +438,10 @@ local function onMouseEndRotate(self)
 		self:updateProxyPart() -- must be after endCurrentManipulation() call
 		self.MouseUpEventConnect:disconnect()
 		self.MouseUpEventConnect = nil
+
+		if FastFlags:isFixIKBodyPartModeOn() and not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) then
+			self.TimerHandle = self.Paths.HelperFunctionsIteration:timer(0.5)
+		end
 	end
 end
 
@@ -484,25 +489,31 @@ local function onMouseBeginRotateAll(self)
 end
 
 local function connectRotationCallbacks(self)
-	self.Connections:add(self.RotateHandles.MouseDrag:connect(function(axisRaw, relAngle) 
-		if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
-			onMouseRotateAll(self, axisRaw, relAngle)
-		else
-			onMouseRotate(self, axisRaw, relAngle, self.Paths.DataModelSession:getSelectedDataItem())
+	self.Connections:add(self.RotateHandles.MouseDrag:connect(function(axisRaw, relAngle)
+		if not FastFlags:isFixIKBodyPartModeOn() or (not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) and self:isCurrentlyManipulating()) then
+			if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
+				onMouseRotateAll(self, axisRaw, relAngle)
+			else
+				onMouseRotate(self, axisRaw, relAngle, self.Paths.DataModelSession:getSelectedDataItem())
+			end
 		end
 	end))
 	
-	self.Connections:add(self.RotateHandles.MouseButton1Down:connect(function() 
-		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
-			self.Paths.DataModelSession:selectOnlyOneDataItem()
-			onMouseBeginRotate(self, self.Paths.DataModelSession:getSelectedDataItem())
-		else
-			onMouseBeginRotateAll(self)
+	self.Connections:add(self.RotateHandles.MouseButton1Down:connect(function()
+		if not FastFlags:isFixIKBodyPartModeOn() or not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) then
+			if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+				self.Paths.DataModelSession:selectOnlyOneDataItem()
+				onMouseBeginRotate(self, self.Paths.DataModelSession:getSelectedDataItem())
+			else
+				onMouseBeginRotateAll(self)
+			end
 		end
 	end))
 	
-	self.Connections:add(self.RotateHandles.MouseButton1Up:connect(function() 
-		onMouseEndRotate(self) 
+	self.Connections:add(self.RotateHandles.MouseButton1Up:connect(function()
+		if not FastFlags:isFixIKBodyPartModeOn() or (not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) and self:isCurrentlyManipulating()) then
+			onMouseEndRotate(self)
+		end
 	end))
 end
 
@@ -512,7 +523,7 @@ function PartManipulator:rotatePart(axis, relativeAngleRadians, dataItem)
 	onMouseEndRotate(self)
 end
 
-local function onMouseBeginDrag(self, item) 
+local function onMouseBeginDrag(self, item)
 	self:startCurrentManipulation()
 	
 	local allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
@@ -613,6 +624,9 @@ local function onMouseEndDrag(self)
 	end
 	self:endCurrentManipulation()	
 	self.Paths.DataModelPlayState:recreateAnimationTrack()
+	if FastFlags:isFixIKBodyPartModeOn() and not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) then
+		self.TimerHandle = self.Paths.HelperFunctionsIteration:timer(0.5)
+	end
 end
 
 function PartManipulator:movePart(face, dist, dataItem)
@@ -634,25 +648,31 @@ local function connectMoveCallbacks(self)
 	local MouseDrag = self.DragHandles.DragEvent
 	local MouseButtonDown = self.DragHandles.DragBeginEvent
 	local MouseButtonUp = self.DragHandles.DragEndEvent
-	self.Connections:add(MouseDrag:connect(function(face, dist) 
-		if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
-			onMouseDragAll(self, face, dist)
-		else
-			onMouseDrag(self, face, dist, self.Paths.DataModelSession:getSelectedDataItem()) 
+	self.Connections:add(MouseDrag:connect(function(face, dist)
+		if not FastFlags:isFixIKBodyPartModeOn() or (not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) and self:isCurrentlyManipulating()) then
+			if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive then
+				onMouseDragAll(self, face, dist)
+			else
+				onMouseDrag(self, face, dist, self.Paths.DataModelSession:getSelectedDataItem()) 
+			end
 		end
 	end))
 	
-	self.Connections:add(MouseButtonDown:connect(function() 
-		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
-			self.Paths.DataModelSession:selectOnlyOneDataItem()
-			onMouseBeginDrag(self, self.Paths.DataModelSession:getSelectedDataItem())
-		else
-			onMouseBeginDragAll(self)
+	self.Connections:add(MouseButtonDown:connect(function()
+		if not FastFlags:isFixIKBodyPartModeOn() or not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) then
+			if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
+				self.Paths.DataModelSession:selectOnlyOneDataItem()
+				onMouseBeginDrag(self, self.Paths.DataModelSession:getSelectedDataItem())
+			else
+				onMouseBeginDragAll(self)
+			end
 		end
 	end))
 	
-	self.Connections:add(MouseButtonUp:connect(function() 
-		onMouseEndDrag(self) 
+	self.Connections:add(MouseButtonUp:connect(function()
+		if not FastFlags:isFixIKBodyPartModeOn() or (not self.Paths.HelperFunctionsIteration:isTicking(self.TimerHandle) and self:isCurrentlyManipulating()) then
+			onMouseEndDrag(self)
+		end
 	end))
 end
 
@@ -793,6 +813,7 @@ function PartManipulator:terminate()
 	PartManipulator.PartCFrameAtTransformStart = {}
 	PartManipulator.RotateUndoRegistered = false
 	PartManipulator.TranslateUndoRegistered = false
+	PartManipulator.TimerHandle = nil
 end
 
 function PartManipulator:areHandlesRotate()

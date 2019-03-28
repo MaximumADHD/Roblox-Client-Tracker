@@ -112,6 +112,7 @@ end
 local buttonList = {
 	{
 		Text = "OK",
+		LocalizationKey = "InGame.CommonUI.Button.Ok",
 		LayoutOrder = 1,
 		Callback = resolveMessage,
 		Primary = true,
@@ -120,7 +121,7 @@ local buttonList = {
 
 messageQueue.displayMessageCallback = displayMessage
 prompt:updateButtons(buttonList)
-prompt:setErrorTitle("Warning")
+prompt:setErrorTitle("Warning", "InGame.CommonUI.Title.Warning")
 
 local screenWidth = RobloxGui.AbsoluteSize.X
 local function onScreenSizeChanged()

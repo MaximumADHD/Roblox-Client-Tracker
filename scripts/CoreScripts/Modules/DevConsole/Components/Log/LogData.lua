@@ -18,6 +18,8 @@ local MAX_HISTORY = 100
 
 local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
 
+local FFlagDevConsoleNoDisableAllFilters = settings():GetFFlag("DevConsoleNoDisableAllFilters")
+
 local LogData = {}
 LogData.__index = LogData
 
@@ -208,11 +210,16 @@ function LogData:getFilters()
 end
 
 function LogData:setFilter(name, newState)
+	local oldState = self._filters[name]
 	self._filters[name] = newState
 
 	if not validActiveFilters(self._filters) then
-		self._logDataSearched:reset()
-		self._logDataUpdate:Fire(self._logData)
+		if FFlagDevConsoleNoDisableAllFilters then
+			self._filters[name] = oldState
+		else
+			self._logDataSearched:reset()
+			self._logDataUpdate:Fire(self._logData)
+		end
 		return
 	end
 

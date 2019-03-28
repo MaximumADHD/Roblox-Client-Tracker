@@ -97,7 +97,6 @@ IK.ConstraintConfigurations = {
 local function findAttachments(self, Paths, childPart, parentPart)
 	for _, child in ipairs(childPart:GetChildren()) do
 		if child:IsA("Attachment") then
-			attachment0 = child
 			for _, otherChild in ipairs(parentPart:GetChildren()) do
 				if otherChild:IsA("Attachment") and otherChild.Name == child.Name then
 					return otherChild, child

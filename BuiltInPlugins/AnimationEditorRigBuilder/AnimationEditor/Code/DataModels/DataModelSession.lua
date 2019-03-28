@@ -601,6 +601,10 @@ function Session:resetAnimation()
 	if FastFlags:isUseAnimationNameAsTitleOn() then
 		self:setSessionTitle()
 	end
+
+	if FastFlags:isClearEventNamesOn() then
+		self.Paths.DataModelAnimationEvents:clearEventNames()
+	end
 end
 
 if FastFlags:isUseAnimationNameAsTitleOn() then

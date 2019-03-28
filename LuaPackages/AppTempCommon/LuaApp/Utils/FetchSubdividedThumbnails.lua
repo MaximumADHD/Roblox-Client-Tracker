@@ -12,44 +12,57 @@ local Result = require(LuaApp.Result)
 local TableUtilities = require(LuaApp.TableUtilities)
 
 local RETRY_MAX_COUNT = math.max(0, settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries"))
-local RETRY_TIME_MULTIPLIER = 2 -- seconds
-
-local function convertToId(value)
-	return tostring(value)
-end
+local RETRY_TIME_MULTIPLIER = math.max(0, settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier")) -- seconds
 
 local FetchSubdividedThumbnails = {}
+
 function FetchSubdividedThumbnails._fetchIcons(store, networkImpl, targetIds, iconSize, keyMapper, requestName, fetchFunction, storeDispatch)
+	local function keyMapperForCurrentRequestNameAndSize(targetId)
+		return keyMapper({
+			targetId = targetId,
+			requestName = requestName,
+			iconSize = iconSize
+		})
+	end
+
+	local function getTableOfFailedResults(failedTargetIds)
+		local results = {}
+		for _, targetId in pairs(failedTargetIds) do
+			local key = keyMapperForCurrentRequestNameAndSize(targetId)
+			results[key] = Result.new(false, {
+				targetId = targetId,
+			})
+		end
+		return results
+	end
+
 	return fetchFunction(networkImpl, targetIds, iconSize):andThen(
 		function(result)
-			local results = {}
-			for _, targetId in ipairs(targetIds) do
-				results[keyMapper({targetId = targetId, requestName = requestName, iconSize = iconSize})] = Result.new(false, {})
-			end
-
+			local results = getTableOfFailedResults(targetIds)
 			local validIcons = {}
+
 			local data = result and result.responseBody and result.responseBody.data
-			if data ~= nil then
+			if typeof(data) == "table" then
 				for _, iconInfo in pairs(data) do
-					local success = false
-					-- The request is only successful if the icon is in a completed state.
-					if iconInfo.state == "Completed" then
-						validIcons[convertToId(iconInfo.targetId)] = Thumbnail.fromThumbnailData(iconInfo, iconSize)
-						success = true
+					if Thumbnail.isCompleteThumbnailData(iconInfo) then
+						local targetId = tostring(iconInfo.targetId)
+						local success = false
+						if iconInfo.state == "Completed" then
+							validIcons[targetId] = Thumbnail.fromThumbnailData(iconInfo, iconSize)
+							success = true
+						end
+						results[keyMapperForCurrentRequestNameAndSize(targetId)] = Result.new(success, iconInfo)
 					end
-					results[keyMapper({targetId = iconInfo.targetId, requestName = requestName, iconSize = iconSize})] = Result.new(success, iconInfo)
 				end
 			end
 			store:dispatch(storeDispatch(validIcons))
 			return Promise.resolve(results)
 		end,
 		function(err)
-			local results = {}
-			for _, targetId in ipairs(targetIds) do
-				results[keyMapper({targetId = targetId, requestName = requestName, iconSize = iconSize})] = Result.new(false, {})
-			end
+			local results = getTableOfFailedResults(targetIds)
 			return Promise.resolve(results)
-		end)
+		end
+	)
 end
 
 function FetchSubdividedThumbnails._fetch(store, networkImpl, targetIds, size, keyMapper, requestName, fetchFunction, storeDispatch)
@@ -67,9 +80,9 @@ function FetchSubdividedThumbnails._fetch(store, networkImpl, targetIds, size, k
 			local remainingUnfinalizedIcons = {}
 
 			for k, result in pairs(iconResults) do
-				local _, iconInfo = result:unwrap()
+				local isSuccessful, iconInfo = result:unwrap()
 				-- Retry icon request for targetId that failed.
-				if iconInfo.state == "Completed" then
+				if isSuccessful and iconInfo.state == "Completed" then
 					completedIcons[k] = result
 				else
 					table.insert(remainingUnfinalizedIcons, iconInfo)
@@ -81,20 +94,27 @@ function FetchSubdividedThumbnails._fetch(store, networkImpl, targetIds, size, k
 				return Promise.resolve(completedIcons)
 			end
 
-			-- exp retry for remining icons
-			delay(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1), function()
-				iconResults = FetchSubdividedThumbnails._fetchIcons(store, networkImpl,
-					targetIds, size, keyMapper, requestName, fetchFunction, storeDispatch):await()
+			local delayPromise = Promise.new(function(resolve, reject)
+				coroutine.wrap(function()
+					wait(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1))
+					resolve()
+				end)()
+			end)
 
+			return delayPromise:andThen(function()
+				return FetchSubdividedThumbnails._fetchIcons(store, networkImpl,
+					targetIds, size, keyMapper, requestName, fetchFunction, storeDispatch)
+			end):andThen(function(newResults)
+				iconResults = newResults
 				if retryCount > 1 then
-					retry(retryCount - 1)
+					return retry(retryCount - 1)
 				else
 					return Promise.resolve(completedIcons)
 				end
 			end)
 		end
 
-		retry(RETRY_MAX_COUNT)
+		return retry(RETRY_MAX_COUNT)
 	end)
 end
 

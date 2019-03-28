@@ -10,10 +10,6 @@ local assets = {
 	BUTTON_ICON = "icon_AvatarImporter.png",
 	BUTTON_CLOSE = "button_close.png",
 
-	R15 = {
-		Light = "img_light_R15.png",
-		Dark = "img_dark_R15.png",
-	},
 	RTHRO = {
 		Light = "img_light_Rthro.png",
 		Dark = "img_dark_Rthro.png",
@@ -22,6 +18,14 @@ local assets = {
 		Light = "img_light_RthroNarrow.png",
 		Dark = "img_dark_RthroNarrow.png",
 	},
+	R15 = {
+		Light = "img_light_R15.png",
+		Dark = "img_dark_R15.png",
+	},
+	CUSTOM = {
+		Light = "img_light_custom.png",
+		Dark = "img_dark_custom.png",
+	}
 }
 
 local TYPE_TABLE = "table"

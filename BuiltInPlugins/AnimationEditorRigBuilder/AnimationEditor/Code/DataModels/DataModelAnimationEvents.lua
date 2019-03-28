@@ -268,6 +268,10 @@ function AnimationEvents:removeEvent(time, name, doFire, registerUndo)
 	end)
 end
 
+function AnimationEvents:clearEventNames()
+	self.AnimationEventNames = {}
+end
+
 function AnimationEvents:terminate()
 	self.Connections:terminate()
 	self.Connections = nil

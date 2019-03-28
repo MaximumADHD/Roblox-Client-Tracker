@@ -68,6 +68,7 @@ Class AnalyticsService : Instance [notCreatable]
 	Function void AnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void AnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) [RobloxScriptSecurity]
+	Function void AnalyticsService:TrackEventWithArgs(string category, string action, string label, Dictionary args, int64 value = 0) [RobloxScriptSecurity]
 	Function void AnalyticsService:UpdateHeartbeatObject(Dictionary args) [RobloxScriptSecurity]
 Class Animation : Instance
 	Property Content Animation.AnimationId
@@ -414,6 +415,10 @@ Class AlignPosition : Constraint
 	Property bool AlignPosition.ReactionForceEnabled
 	Property float AlignPosition.Responsiveness
 	Property bool AlignPosition.RigidityEnabled
+Class AngularVelocity : Constraint
+	Property Vector3 AngularVelocity.AngularVelocity
+	Property float AngularVelocity.MaxTorque
+	Property ActuatorRelativeTo AngularVelocity.RelativeTo
 Class BallSocketConstraint : Constraint
 	Property bool BallSocketConstraint.LimitsEnabled
 	Property float BallSocketConstraint.Radius
@@ -2070,6 +2075,8 @@ Class Players : Instance
 	Function Objects Players:getPlayers() [deprecated]
 	Function Instance Players:playerFromCharacter(Instance character) [deprecated]
 	Function Objects Players:players() [deprecated]
+	YieldFunction Instance Players:CreateHumanoidModelFromDescription(Instance description, HumanoidRigType rigType) [RobloxScriptSecurity]
+	YieldFunction Instance Players:CreateHumanoidModelFromUserId(int64 userId) [RobloxScriptSecurity]
 	YieldFunction Instance Players:GetCharacterAppearanceAsync(int64 userId)
 	YieldFunction Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId)
 	YieldFunction Instance Players:GetFriendsAsync(int64 userId)
@@ -2118,8 +2125,8 @@ Class Plugin : Instance
 	Function Instance Plugin:Union(Objects objects) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateDockWidgetPluginGui(string pluginGuiId, DockWidgetPluginGuiInfo dockWidgetPluginGuiInfo) [PluginSecurity]
 	YieldFunction Instance Plugin:CreateQWidgetPluginGui(string pluginGuiId, Dictionary pluginGuiOptions) [RobloxScriptSecurity]
-	YieldFunction Instance Plugin:ImportFbxAnimation(Instance rigModel) [PluginSecurity]
-	YieldFunction Instance Plugin:ImportFbxRig() [PluginSecurity]
+	YieldFunction Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) [PluginSecurity]
+	YieldFunction Instance Plugin:ImportFbxRig(bool isR15 = true) [PluginSecurity]
 	YieldFunction int64 Plugin:PromptForExistingAssetId(string assetType) [PluginSecurity]
 	YieldFunction bool Plugin:PromptSaveSelection(string suggestedFileName = ) [PluginSecurity]
 	Event Plugin.Deactivation() [PluginSecurity]
@@ -2508,11 +2515,11 @@ Class StarterPlayer : Instance [notCreatable]
 	Property float StarterPlayer.CameraMaxZoomDistance
 	Property float StarterPlayer.CameraMinZoomDistance
 	Property CameraMode StarterPlayer.CameraMode
-	Property float StarterPlayer.CharacterJumpHeight
-	Property float StarterPlayer.CharacterJumpPower
-	Property float StarterPlayer.CharacterMaxSlopeAngle
-	Property bool StarterPlayer.CharacterUseJumpPower
-	Property float StarterPlayer.CharacterWalkSpeed
+	Property float StarterPlayer.CharacterJumpHeight [hidden] [RobloxScriptSecurity]
+	Property float StarterPlayer.CharacterJumpPower [hidden] [RobloxScriptSecurity]
+	Property float StarterPlayer.CharacterMaxSlopeAngle [hidden] [RobloxScriptSecurity]
+	Property bool StarterPlayer.CharacterUseJumpPower [hidden] [RobloxScriptSecurity]
+	Property float StarterPlayer.CharacterWalkSpeed [hidden] [RobloxScriptSecurity]
 	Property DevCameraOcclusionMode StarterPlayer.DevCameraOcclusionMode
 	Property DevComputerCameraMovementMode StarterPlayer.DevComputerCameraMovementMode
 	Property DevComputerMovementMode StarterPlayer.DevComputerMovementMode
@@ -2816,6 +2823,7 @@ Class UserInputService : Instance [notCreatable]
 	Function Instance UserInputService:GetDeviceAcceleration()
 	Function Instance UserInputService:GetDeviceGravity()
 	Function Tuple UserInputService:GetDeviceRotation()
+	Function DeviceType UserInputService:GetDeviceType() [RobloxScriptSecurity]
 	Function Instance UserInputService:GetFocusedTextBox()
 	Function bool UserInputService:GetGamepadConnected(UserInputType gamepadNum)
 	Function Array UserInputService:GetGamepadState(UserInputType gamepadNum)
@@ -3332,6 +3340,11 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.Gui : 20
 	EnumItem DeveloperMemoryTag.Animation : 21
 	EnumItem DeveloperMemoryTag.Navigation : 22
+Enum DeviceType
+	EnumItem DeviceType.Unknown : 0
+	EnumItem DeviceType.Desktop : 1
+	EnumItem DeviceType.Tablet : 2
+	EnumItem DeviceType.Phone : 3
 Enum DialogBehaviorType
 	EnumItem DialogBehaviorType.SinglePlayer : 0
 	EnumItem DialogBehaviorType.MultiplePlayers : 1

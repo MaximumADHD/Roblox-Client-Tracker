@@ -68,5 +68,17 @@ function Iteration:tick(func)
 	return (function()	flag = false end)
 end
 
+function Iteration:timer(time)
+	local handle = {ticking = true}
+	spawn(function()
+		wait(time)
+		handle.ticking = false
+	end)
+	return handle
+end
+
+function Iteration:isTicking(timer)
+	return timer and timer.ticking
+end
 
 return Iteration

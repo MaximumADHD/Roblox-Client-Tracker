@@ -7,6 +7,10 @@ Move.__index = Move
 function Move:execute(Paths, time, scaleFactor)
 	Paths.UtilityScriptUndoRedo:registerUndo(Paths.ActionMove:new(Paths))
 
+	if FastFlags:isKeepClipboardAfterMoveOn() then
+		Paths.UtilityScriptCopyPaste:stashCopyItems()
+	end
+
 	if FastFlags:isAnimationEventsOn() then
 		Paths.UtilityScriptCopyPaste:cut(false)
 	else
@@ -20,7 +24,11 @@ function Move:execute(Paths, time, scaleFactor)
 	end
 
 	if FastFlags:isAnimationEventsOn() then
-		Paths.UtilityScriptCopyPaste:resetCopyItems()
+		if FastFlags:isKeepClipboardAfterMoveOn() then
+			Paths.UtilityScriptCopyPaste:resetCopyItems(true)
+		else
+			Paths.UtilityScriptCopyPaste:resetCopyItems()
+		end
 	else
 		Paths.UtilityScriptCopyPaste:resetCopyPoses()
 	end

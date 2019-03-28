@@ -12,7 +12,7 @@
 		}
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
 local Constants = require(script.Parent.Internal.Constants)

@@ -4,6 +4,15 @@
 
 local starterPlayerService = game:GetService("StarterPlayer")
 
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+
+local Plugin = nil
+local MathUtil = nil
+if DFFlagGameSettingsWorldPanel then
+	Plugin = script.Parent.Parent.Parent
+	MathUtil = require(Plugin.Src.Util.MathUtil)
+end
+
 local WorkspaceSettings = {}
 
 local avatarTypeConvert = {
@@ -216,23 +225,35 @@ local function setMaxSlopeAngle(workspaceMaxSlopeAngle)
 end
 
 function WorkspaceSettings.getWorldSettings()
+	local gravity = MathUtil.round(getGravity())
+	local useJumpPower = getUseJumpPower()
+	local jumpPower = nil
+	local jumpHeight = nil
+	if useJumpPower then
+		jumpPower = MathUtil.round(getJumpPower())
+		jumpHeight = MathUtil.round(MathUtil.calculateJumpHeightFromPower(gravity, jumpPower))
+	else
+		jumpHeight = MathUtil.round(getJumpHeight())
+		jumpPower = MathUtil.round(MathUtil.calculateJumpPowerFromHeight(gravity, jumpHeight))
+	end
+
 	return {
-		["workspaceUseJumpPower"]=getUseJumpPower(),
-		["workspaceJumpPower"]=getJumpPower(),
-		["workspaceJumpHeight"]=getJumpHeight(),
-		["workspaceGravity"]=getGravity(),
-		["workspaceWalkSpeed"]=getWalkSpeed(),
-		["workspaceMaxSlopeAngle"]=getMaxSlopeAngle()
+		["workspaceUseJumpPower"]=useJumpPower,
+		["workspaceJumpPower"]=jumpPower,
+		["workspaceJumpHeight"]=jumpHeight,
+		["workspaceGravity"]=gravity,
+		["workspaceWalkSpeed"]=MathUtil.round(getWalkSpeed()),
+		["workspaceMaxSlopeAngle"]=MathUtil.round(getMaxSlopeAngle())
 	}
 end
 
 function WorkspaceSettings.saveAllWorldSettings(changed)
 	setUseJumpPower(changed.workspaceUseJumpPower)
-	setJumpPower(changed.workspaceJumpPower)
-	setJumpHeight(changed.workspaceJumpHeight)
-	setGravity(changed.workspaceGravity)
-	setWalkSpeed(changed.workspaceWalkSpeed)
-	setMaxSlopeAngle(changed.workspaceMaxSlopeAngle)
+	setJumpPower(tonumber(changed.workspaceJumpPower))
+	setJumpHeight(tonumber(changed.workspaceJumpHeight))
+	setGravity(tonumber(changed.workspaceGravity))
+	setWalkSpeed(tonumber(changed.workspaceWalkSpeed))
+	setMaxSlopeAngle(tonumber(changed.workspaceMaxSlopeAngle))
 end
 
 return WorkspaceSettings

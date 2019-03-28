@@ -17,7 +17,7 @@ local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 
 local FlagFixChatMessageLogPerformance = false do
 	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance2")
+		return UserSettings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance3")
 	end)
 	if ok then
 		FlagFixChatMessageLogPerformance = value
@@ -85,10 +85,9 @@ function methods:UpdateMessageFiltered(messageData)
 	end
 
 	if messageObject then
-		local isScrolledDown = self:IsScrolledDown()
 		messageObject.UpdateTextFunction(messageData)
 		if FlagFixChatMessageLogPerformance then
-			self:PositionMessageLabelInWindow(messageObject, isScrolledDown, searchIndex)
+			self:PositionMessageLabelInWindow(messageObject, searchIndex)
 		else
 			self:ReorderAllMessages()
 		end
@@ -104,7 +103,7 @@ function methods:AddMessage(messageData)
 	end
 
 	table.insert(self.MessageObjectLog, messageObject)
-	self:PositionMessageLabelInWindow(messageObject, nil, #self.MessageObjectLog)
+	self:PositionMessageLabelInWindow(messageObject, #self.MessageObjectLog)
 end
 
 function methods:AddMessageAtIndex(messageData, index)
@@ -115,10 +114,16 @@ function methods:AddMessageAtIndex(messageData, index)
 
 	table.insert(self.MessageObjectLog, index, messageObject)
 
-	local wasScrolledToBottom = self:IsScrolledDown()
-	self:ReorderAllMessages()
-	if wasScrolledToBottom then
-		self.Scroller.CanvasPosition = Vector2.new(0, math.max(0, self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y))
+
+	if FlagFixChatMessageLogPerformance then
+		self:PositionMessageLabelInWindow(messageObject, index)
+	else
+		local wasScrolledToBottom = self:IsScrolledDown()
+		self:ReorderAllMessages()
+		if wasScrolledToBottom then
+			self.Scroller.CanvasPosition = Vector2.new(
+				0, math.max(0, self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y))
+		end
 	end
 end
 
@@ -133,7 +138,7 @@ function methods:RemoveLastMessage()
 	table.remove(self.MessageObjectLog, 1)
 
 	if not FlagFixChatMessageLogPerformance then
-		for i, messageObject in pairs(self.MessageObjectLog) do
+		for _, messageObject in pairs(self.MessageObjectLog) do
 			messageObject.BaseFrame.Position = messageObject.BaseFrame.Position - posOffset
 		end
 
@@ -146,26 +151,39 @@ function methods:IsScrolledDown()
 	local yContainerSize = self.Scroller.AbsoluteWindowSize.Y
 	local yScrolledPosition = self.Scroller.CanvasPosition.Y
 
-	if FlagFixChatMessageLogPerformance then
-		return
-			yCanvasSize < yContainerSize or
-			yCanvasSize + yScrolledPosition >= yContainerSize - 5
-	else
-		return (yCanvasSize < yContainerSize or
-			yCanvasSize - yScrolledPosition <= yContainerSize + 5)
+	return (yCanvasSize < yContainerSize or
+		yCanvasSize - yScrolledPosition <= yContainerSize + 5)
+end
+
+function methods:UpdateMessageTextHeight(messageObject)
+	local baseFrame = messageObject.BaseFrame
+	for i = 1, 10 do
+		if messageObject.BaseMessage.TextFits then
+			break
+		end
+
+		local trySize = self.Scroller.AbsoluteSize.X - i
+		baseFrame.Size = UDim2.new(1, 0, 0, messageObject.GetHeightFunction(trySize))
 	end
 end
 
-function methods:PositionMessageLabelInWindow(messageObject, isScrolledDown, index)
+function methods:PositionMessageLabelInWindow(messageObject, index)
 	self:WaitUntilParentedCorrectly()
+
+	local wasScrolledDown = self:IsScrolledDown()
 
 	local baseFrame = messageObject.BaseFrame
 
 	if FlagFixChatMessageLogPerformance then
-		if isScrolledDown == nil then
-			isScrolledDown = self:IsScrolledDown()
+		local layoutOrder = 1
+		if self.MessageObjectLog[index - 1] then
+			if index == #self.MessageObjectLog then
+				layoutOrder = self.MessageObjectLog[index - 1].BaseFrame.LayoutOrder + 1
+			else
+				layoutOrder = self.MessageObjectLog[index - 1].BaseFrame.LayoutOrder
+			end
 		end
-		baseFrame.LayoutOrder = index
+		baseFrame.LayoutOrder = layoutOrder
 	else
 		baseFrame.Parent = self.Scroller
 		baseFrame.Position = UDim2.new(0, 0, 0, self.Scroller.CanvasSize.Y.Offset)
@@ -178,14 +196,7 @@ function methods:PositionMessageLabelInWindow(messageObject, isScrolledDown, ind
 
 	if messageObject.BaseMessage then
 		if FlagFixChatMessageLogPerformance then
-			for i = 1, 10 do
-				if messageObject.BaseMessage.TextFits then
-					break
-				end
-
-				local trySize = self.Scroller.AbsoluteSize.X - i
-				baseFrame.Size = UDim2.new(1, 0, 0, messageObject.GetHeightFunction(trySize))
-			end
+			self:UpdateMessageTextHeight(messageObject)
 		else
 			local trySize = self.Scroller.AbsoluteSize.X
 			local minTrySize = math.min(self.Scroller.AbsoluteSize.X - 10, 0)
@@ -200,18 +211,19 @@ function methods:PositionMessageLabelInWindow(messageObject, isScrolledDown, ind
 	end
 
 	if FlagFixChatMessageLogPerformance then
-		if isScrolledDown then
-			local scrollValue = self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y
-			self.Scroller.CanvasPosition = Vector2.new(0, math.max(0, scrollValue))
+		if wasScrolledDown then
+			self.Scroller.CanvasPosition = Vector2.new(
+				0, math.max(0, self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y))
 		end
 	else
-		isScrolledDown = self:IsScrolledDown()
+		local isScrolledDown = self:IsScrolledDown()
 
 		local add = UDim2.new(0, 0, 0, baseFrame.Size.Y.Offset)
 		self.Scroller.CanvasSize = self.Scroller.CanvasSize + add
 
 		if isScrolledDown then
-			self.Scroller.CanvasPosition = Vector2.new(0, math.max(0, self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y))
+			self.Scroller.CanvasPosition = Vector2.new(
+				0, math.max(0, self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y))
 		end
 	end
 end
@@ -219,24 +231,34 @@ end
 function methods:ReorderAllMessages()
 	self:WaitUntilParentedCorrectly()
 
-	--// Reordering / reparenting with a size less than 1 causes weird glitches to happen with scrolling as repositioning happens.
+	--// Reordering / reparenting with a size less than 1 causes weird glitches to happen
+	-- with scrolling as repositioning happens.
 	if self.GuiObject.AbsoluteSize.Y < 1 then return end
 
 	local oldCanvasPositon = self.Scroller.CanvasPosition
 	local wasScrolledDown = self:IsScrolledDown()
 
-	self.Scroller.CanvasSize = UDim2.new(0, 0, 0, 0)
-	for i, messageObject in pairs(self.MessageObjectLog) do
-		self:PositionMessageLabelInWindow(messageObject, nil, i)
+	if FlagFixChatMessageLogPerformance then
+		for _, messageObject in pairs(self.MessageObjectLog) do
+			self:UpdateMessageTextHeight(messageObject)
+		end
+	else
+		self.Scroller.CanvasSize = UDim2.new(0, 0, 0, 0)
+		for i, messageObject in pairs(self.MessageObjectLog) do
+			self:PositionMessageLabelInWindow(messageObject, i)
+		end
 	end
 
 	if not wasScrolledDown then
 		self.Scroller.CanvasPosition = oldCanvasPositon
+	elseif FlagFixChatMessageLogPerformance then
+		self.Scroller.CanvasPosition = Vector2.new(
+			0, math.max(0, self.Scroller.CanvasSize.Y.Offset - self.Scroller.AbsoluteSize.Y))
 	end
 end
 
 function methods:Clear()
-	for i, v in pairs(self.MessageObjectLog) do
+	for _, v in pairs(self.MessageObjectLog) do
 		v:Destroy()
 	end
 	self.MessageObjectLog = {}

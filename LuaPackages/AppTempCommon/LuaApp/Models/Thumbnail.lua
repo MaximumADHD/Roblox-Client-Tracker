@@ -24,4 +24,11 @@ function Thumbnail.fromThumbnailData(thumbnailData, size)
 	return self
 end
 
+function Thumbnail.isCompleteThumbnailData(thumbnailData)
+	return type(thumbnailData) == "table"
+		and type(thumbnailData.targetId) == "number"
+		and type(thumbnailData.state) == "string"
+		and type(thumbnailData.imageUrl) == "string"
+end
+
 return Thumbnail

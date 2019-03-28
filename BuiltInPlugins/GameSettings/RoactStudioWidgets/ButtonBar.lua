@@ -9,7 +9,10 @@
 		FillDirection = whether the buttons should be laid out horizontally or vertically
 		vector2 AnchorPoint
 		udim2 Position
+		int LayoutOrder = The order this widget will sort to when placed in a UIListLayout.
 		table Buttons = The buttons to add to this button bar.
+		function ButtonClicked = The function that will be called when a button is pressed
+		function HoverChanged = The function that will be called when the hover state changes for one of the buttons.
 		local Style = {
 			BorderDefaultColor,
 			BackgroundColor,
@@ -17,7 +20,7 @@
 		}
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
 
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
@@ -78,6 +81,12 @@ local function ButtonBar(props)
 				OnClicked = function(value)
 					props.ButtonClicked(value)
 				end,
+
+				OnHoverChanged = DFFlagGameSettingsWorldPanel and function(value, hovering)
+					if nil ~= props.HoverChanged then
+						props.HoverChanged(value, hovering)
+					end
+				end or nil
 			}))
 		end
 

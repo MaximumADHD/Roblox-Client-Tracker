@@ -11,6 +11,15 @@ local moduleApiTable = {}
 --// the rest of the code can interface with and have the guarantee that the RemoteEvents they want
 --// exist with their desired names.
 
+local FFlagFixChatWindowHoverOver = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixChatWindowHoverOver")
+	end)
+	if ok then
+		FFlagFixChatWindowHoverOver = value
+	end
+end
+
 local FILTER_MESSAGE_TIMEOUT = 60
 
 local RunService = game:GetService("RunService")
@@ -316,7 +325,7 @@ function bubbleChatOnly()
  	return not getClassicChatEnabled() and getBubbleChatEnabled()
 end
 
-function UpdateMousePosition(mousePos)
+function UpdateMousePosition(mousePos, ignoreForFadeIn)
 	if not (moduleApiTable.Visible and moduleApiTable.IsCoreGuiEnabled and (moduleApiTable.TopbarEnabled or ChatSettings.ChatOnWithTopBarOff)) then return end
 
 	if bubbleChatOnly() then
@@ -327,25 +336,32 @@ function UpdateMousePosition(mousePos)
 	local windowSize = ChatWindow.GuiObject.AbsoluteSize
 
 	local newMouseState = CheckIfPointIsInSquare(mousePos, windowPos, windowPos + windowSize)
+
+	if FFlagFixChatWindowHoverOver then
+		if ignoreForFadeIn and newMouseState == true then
+			return
+		end
+	end
+
 	if (newMouseState ~= mouseIsInWindow) then
 		UpdateFadingForMouseState(newMouseState)
 	end
 end
 
-UserInputService.InputChanged:connect(function(inputObject)
+UserInputService.InputChanged:connect(function(inputObject, gameProcessedEvent)
 	if (inputObject.UserInputType == Enum.UserInputType.MouseMovement) then
 		local mousePos = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
-		UpdateMousePosition(mousePos)
+		UpdateMousePosition(mousePos, --[[ ignoreForFadeIn = ]] gameProcessedEvent)
 	end
 end)
 
 UserInputService.TouchTap:connect(function(tapPos, gameProcessedEvent)
-	UpdateMousePosition(tapPos[1])
+	UpdateMousePosition(tapPos[1], --[[ ignoreForFadeIn = ]] false)
 end)
 
 UserInputService.TouchMoved:connect(function(inputObject, gameProcessedEvent)
 	local tapPos = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
-	UpdateMousePosition(tapPos)
+	UpdateMousePosition(tapPos, --[[ ignoreForFadeIn = ]] false)
 end)
 
 UserInputService.Changed:connect(function(prop)

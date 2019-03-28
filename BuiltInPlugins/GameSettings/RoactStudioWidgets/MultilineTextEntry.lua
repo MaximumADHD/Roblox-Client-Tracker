@@ -6,10 +6,13 @@
 		string Text = The text to display
 		string PlaceholderText - text shown when no Text is passed in
 		bool Visible = Whether to display this component
+		bool Enabled = Whether this component can be interacted with (true by default)
 		function SetText(text) = Callback to tell parent that text has changed
 		function FocusChanged(focus, enterPressed) = Callback to tell parent that this component has focus (enterPressed will be nil if focus is true)
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves this component.
 ]]
+
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
 
 local TextService = game:GetService("TextService")
 
@@ -75,6 +78,21 @@ function MultilineTextEntry:render()
 	local text = self.props.Text
 	local textColor = self.props.TextColor3
 
+	local enabled = true
+	local children = nil
+	if DFFlagGameSettingsWorldPanel then
+		enabled = nil == self.props.Enabled and true or self.props.Enabled
+		if not enabled then
+			children = {
+				Roact.createElement("ImageButton", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					ImageTransparency = 1
+				})
+			}
+		end
+	end
+
 	return Roact.createElement(StyledScrollingFrame, {
 		Size = UDim2.new(1, SCROLL_BAR_OUTSET, 1, 0),
 		BackgroundTransparency = 1,
@@ -104,6 +122,7 @@ function MultilineTextEntry:render()
 			TextColor3 = textColor,
 			Text = text,
 			PlaceholderText = self.props.PlaceholderText,
+			TextTransparency = (DFFlagGameSettingsWorldPanel and not enabled) and 0.5 or 0,
 
 			[Roact.Event.Focused] = function()
 				self.props.FocusChanged(true)
@@ -119,7 +138,7 @@ function MultilineTextEntry:render()
 			[Roact.Change.Text] = self.textChanged,
 
 			[Roact.Ref] = self.textBoxRef,
-		}),
+		}, children),
 	})
 end
 

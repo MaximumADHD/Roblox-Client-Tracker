@@ -1068,6 +1068,16 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AngularVelocity</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">103</string>
+        <string name="PreferredParent">BasePart</string>
+        <string name="PreferredParents">BasePart</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Mouse</string>
         <string name="summary">Used to receive input from the user. Actually tracks mouse events and keyboard events.</string>
       </Properties>
@@ -6612,7 +6622,7 @@
 				<string name="Name">HumanoidDescription</string>
 				<string name="summary">An object that specifies the appearance of Humanoid characters</string>
 				<string name="ExplorerOrder">22</string>
-				<string name="ExplorerImageIndex">58</string>
+				<string name="ExplorerImageIndex">104</string>
 			</Properties>
 		</Item>
 		<Item class="ReflectionMetadataClass">

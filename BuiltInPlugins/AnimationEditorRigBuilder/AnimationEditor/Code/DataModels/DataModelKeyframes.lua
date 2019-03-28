@@ -620,8 +620,11 @@ function Keyframes:loadKeyframeSequence(kfs)
 	end
 	
 	if FastFlags:isOptimizationsEnabledOn() then
-		self.keyframeChanges = self.keyframeList
+		for time, keyframe in pairs(self.keyframeList) do
+			self.keyframeChanges[time] = keyframe
+		end
 		self:fireChangedEvent()
+		self.PoseTransformChangedEvent:fire()
 	else
 		self.ChangedEvent:fire(self.keyframeList)
 	end

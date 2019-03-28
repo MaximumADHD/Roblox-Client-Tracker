@@ -4,6 +4,8 @@ local TweenService = game:GetService("TweenService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TextService = game:GetService("TextService")
 local GuiService = game:GetService("GuiService")
+local LocalizationService = game:GetService("LocalizationService")
+
 local create = require(RobloxGui.Modules.Common.Create)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
 local Constants = require(RobloxGui.Modules.Common.Constants)
@@ -15,6 +17,26 @@ local fflagErrorPromptTakeExtraConfigurations = settings():GetFFlag("ErrorPrompt
 -- Animation Preset --
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
 -- Animation Preset --
+
+local coreScriptTableTranslator
+local function onLocaleIdChanged()
+	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
+end
+if fflagErrorPromptTakeExtraConfigurations then
+	onLocaleIdChanged()
+	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+end
+
+local function attemptTranslate(key, defaultString)
+	if not coreScriptTableTranslator then
+		return defaultString
+	end
+
+	local success,result = pcall(function()
+		return coreScriptTableTranslator:FormatByKey(key)
+	end)
+	return success and result or defaultString
+end
 
 -- Frame styles for different platforms
 local styledFrame = {
@@ -251,12 +273,16 @@ function ErrorPrompt:setErrorText(errorMsg, errorCode)
 	end
 end
 
-function ErrorPrompt:setErrorTitle(title)
+function ErrorPrompt:setErrorTitle(title, localizationKey)
 	if not title then
 		return
 	end
 	local errorTitle = self._frame.TitleFrame.ErrorTitle
-	errorTitle.Text = title
+	if fflagErrorPromptTakeExtraConfigurations and localizationKey then
+		errorTitle.Text = attemptTranslate(localizationKey, title)
+	else
+		errorTitle.Text = title
+	end
 end
 
 function ErrorPrompt:onErrorChanged(errorMsg, errorCode)
@@ -300,12 +326,14 @@ end
 	{
 		relaunchButton = {
 			Text = "Retry",
+			LocalizationKey = "InGame.ConnectionError.Button.Retry"
 			Callback = relaunchCallback,
 			LayoutOrder = 1,
 			Primary = true
 		},
 		leaveButton = {
 			Text = "Cancel",
+			LocalizationKey = "Feature.SettingsHub.Action.CancelSearch"
 			Callback = leaveCallback,
 			LayoutOrder = 2,
 		}
@@ -325,7 +353,12 @@ function ErrorPrompt:updateButtons(buttonList, style)
 
 	local buttonCount = 0
 	for _, buttonData in pairs(buttonList) do
-		local button = styledButton[style](buttonData.Text, buttonData.LayoutOrder, buttonData.Primary)
+
+		local buttonText = buttonData.Text
+		if fflagErrorPromptTakeExtraConfigurations and buttonData.LocalizationKey then
+			buttonText = attemptTranslate(buttonData.LocalizationKey, buttonData.Text)
+		end
+		local button = styledButton[style](buttonText, buttonData.LayoutOrder, buttonData.Primary)
 		if buttonData.Primary then
 			self._primaryShimmer = Shimmer.new(button, "PrimaryButton")
 		end

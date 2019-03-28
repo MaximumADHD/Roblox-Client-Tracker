@@ -15,20 +15,19 @@
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
 
-local DFIntJumpPowerInstantControllerMultiplierPercent =  tonumber(settings():GetFVariable("JumpPowerInstantControllerMultiplierPercent"));
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
 local StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
 local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetSeparator = require(RoactStudioWidgets.Separator)
-local StudioWidgetButtonBar = require(RoactStudioWidgets.ButtonBar)
 local StudioWidgetText = require(RoactStudioWidgets.Text)
+local StudioWidgetButtonBarWithToolTip = require(RoactStudioWidgets.ButtonBarWithToolTip)
 
 local TITLED_FRAME_GUTTER_WIDTH = 180
 local INPUT_BOX_OFFSET = 160
@@ -61,24 +60,14 @@ local function dispatchChanges(setValue)
 	}
 end
 
-local function truncate(numToTruncate, numDecimalPlaces)
-	numDecimalPlaces = numDecimalPlaces or 2
-	local numToTruncatePositive = math.abs(numToTruncate)
-	if numDecimalPlaces > 0 then
-		local mult = 10^numDecimalPlaces
-		local result = math.floor(numToTruncatePositive * mult) / mult
-		return numToTruncate >= 0 and result or -result
-	end
-	return numToTruncate >= 0 and math.floor(numToTruncate) or -math.floor(numToTruncatePositive)
-end
-
 local function studToMetric(studs)
+	studs = tonumber(studs) or 0
 	local ConvertToMetric = 0.28;
-	local metric = (0.01*DFIntJumpPowerInstantControllerMultiplierPercent) * (studs or 0) * ConvertToMetric;
-	return tostring(truncate(metric))
+	local metric = studs * ConvertToMetric;
+	return tostring(MathUtil.round(metric))
 end
 
-local function createInputRow(title, label, value, updateFunc, layoutOrder, mouse, metricsUnitText)
+local function createInputRow(title, label, value, minValue, maxValue, updateFunc, layoutOrder, mouse, metricsUnitText)
 	return Roact.createElement(StudioWidgetTitledFrame, {
 		Title = title,
 		MaxHeight = ROW_HEIGHT,
@@ -105,8 +94,17 @@ local function createInputRow(title, label, value, updateFunc, layoutOrder, mous
 			PaddingTop = UDim.new(0, 0),
 			Mouse = mouse,
 
+			FocusChanged = function(focused)
+				if not focused then
+					local newValue = tonumber(value) or minValue or maxValue
+					newValue = (newValue and minValue) and math.max(newValue, minValue) or newValue
+					newValue = (newValue and maxValue) and math.min(newValue, maxValue) or newValue
+					updateFunc(MathUtil.round(newValue))
+				end
+			end,
+
 			SetText = function(text)
-				updateFunc(tonumber(text))
+				updateFunc(text)
 			end,
 		}),
 		MetricLabel = Roact.createElement(StudioWidgetText, {
@@ -119,84 +117,70 @@ local function createInputRow(title, label, value, updateFunc, layoutOrder, mous
 	})
 end
 
-local function createPresetsWidgets(incrementNextLayoutOrderFunc, props, mouse)
-	local function createDescription(text)
-		return Roact.createElement(StudioWidgetText, {
-			Enabled = true,
-			LayoutOrder = incrementNextLayoutOrderFunc(),
-			Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-			Text = text,
-		})
+local function applyPreset(props, gravity, shouldJumpPowerBeUsed, jumpPower, jumpHeight, walkSpeed, maxSlope)
+	if nil ~= gravity then
+		props.WorkspaceGravityChanged(gravity)
 	end
 
-	return Roact.createElement(StudioWidgetTitledFrame, {
-		Title = "Presets",
-		MaxHeight = 180,
-		LayoutOrder = incrementNextLayoutOrderFunc(),
-	}, {
-		Roact.createElement(StudioWidgetButtonBar, {
-			Padding = 10,
-			Buttons = {
-				{
-					Name="Blox",
-					Enabled=true,
-					Value={
-						[props.WorkspaceGravityChanged]=196.2, [props.WorkspaceJumpHeightChanged]=7.36, [props.WorkspaceJumpPowerChanged]=50, [props.WorkspaceWalkSpeedChanged]=16, [props.WorkspaceMaxSlopeAngleChanged]=89,
-					},
-					ShowPressed=true,
-					Mouse=mouse
-				}, {
-					Name="Reality",
-					Enabled=true,
-					Value={
-						[props.WorkspaceGravityChanged]=35, [props.WorkspaceJumpHeightChanged]=3.8, [props.WorkspaceJumpPowerChanged]=16, [props.WorkspaceWalkSpeedChanged]=11, [props.WorkspaceMaxSlopeAngleChanged]=50,
-					},
-					ShowPressed=true,
-					Mouse=mouse
-				}, {
-					Name="Imagination",
-					Enabled=true,
-					Value={
-						[props.WorkspaceGravityChanged]=70, [props.WorkspaceJumpHeightChanged]=6, [props.WorkspaceJumpPowerChanged]=34.64, [props.WorkspaceWalkSpeedChanged]=14, [props.WorkspaceMaxSlopeAngleChanged]=50,
-					},
-					ShowPressed=true,
-					Mouse=mouse
-				}, {
-					Name="Platformer",
-					Enabled=true,
-					Value={
-						[props.WorkspaceGravityChanged]=100, [props.WorkspaceJumpHeightChanged]=8, [props.WorkspaceJumpPowerChanged]=29, [props.WorkspaceWalkSpeedChanged]=18, [props.WorkspaceMaxSlopeAngleChanged]=70,
-					},
-					ShowPressed=true,
-					Mouse=mouse
-				}
-			},
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			FillDirection = Enum.FillDirection.Vertical,
-			AnchorPoint = Vector2.new(0, 0),
-			Position = UDim2.new(0, 0, 0, 0),
-			ButtonClicked = function(changeTable) -- changeTable is the table which is assigned to the button's 'Value' field
-				for changeFunction, newValue in pairs(changeTable) do
-					changeFunction(newValue)
-				end
-			end,
-			ShowPressed = true
-		}),
+	if nil ~= shouldJumpPowerBeUsed then
+		props.WorkspaceUseJumpPowerChanged(shouldJumpPowerBeUsed)
+	else
+		shouldJumpPowerBeUsed = props.WorkspaceUseJumpPower
+	end
 
-		Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Position = UDim2.new(0, 140, 0, 0),
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 10),
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-			}),
-			createDescription("Classic Roblox, heavier gravity, higher jump"),
-			createDescription("Real world gravity, athletic human"),
-			createDescription("Real world gravity, jump higher/walk faster"),
-		})
+	if shouldJumpPowerBeUsed then
+		if nil ~= jumpPower then
+			props.WorkspaceJumpPowerChanged(jumpPower)
+		end
+		if nil ~= gravity or nil ~= jumpPower then
+			props.WorkspaceJumpHeightChanged(MathUtil.round(MathUtil.calculateJumpHeightFromPower(gravity or props.WorkspaceGravity, jumpPower or props.WorkspaceJumpPower)))
+		end
+	else
+		if nil ~= jumpHeight then
+			props.WorkspaceJumpHeightChanged(jumpHeight)
+		end
+		if nil ~= gravity or nil ~= jumpHeight then
+			props.WorkspaceJumpPowerChanged(MathUtil.round(MathUtil.calculateJumpPowerFromHeight(gravity or props.WorkspaceGravity, jumpHeight or props.WorkspaceJumpHeight)))
+		end
+	end
+
+	if nil ~= walkSpeed then
+		props.WorkspaceWalkSpeedChanged(walkSpeed)
+	end
+
+	if nil ~= maxSlope then
+		props.WorkspaceMaxSlopeAngleChanged(maxSlope)
+	end
+end
+
+local function createPresetsWidgets(order, worldPanelProps, mouse)
+	return Roact.createElement(StudioWidgetButtonBarWithToolTip, {
+		ButtonBarButtons = {
+			{
+				Name="Classic", Enabled=true, ShowPressed=true, Mouse=mouse,
+				Value={
+					ToolTip = "Classic Roblox, heavier gravity, higher jump",
+					ApplyPreset = function() applyPreset(worldPanelProps, 196.2, true, 50, nil, 16, 89) end
+				}
+			}, {
+				Name="Realistic", Enabled=true, ShowPressed=true, Mouse=mouse,
+				Value={
+					ToolTip = "Real world gravity, athletic human",
+					ApplyPreset = function() applyPreset(worldPanelProps, 35, true, 13, nil, 16) end
+				}
+			}, {
+				Name="Action", Enabled=true, ShowPressed=true, Mouse=mouse,
+				Value={
+					ToolTip = "Real world gravity, jump higher/walk faster",
+					ApplyPreset = function() applyPreset(worldPanelProps, 75, true, 31, nil, 18) end
+				}
+			}
+		},
+		ButtonClicked = function(value)
+			value.ApplyPreset()
+		end,
+		LayoutOrder = order,
+		Title = "Presets"
 	})
 end
 
@@ -204,10 +188,11 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 	local JumpSelectPadding  = UDim.new(0, 10)
 	local JumpSelectRowHeight = 20
 
-	local function createInputBox(enabled, value, changedFunc)
+	local function createInputBox(enabled, value, minValue, maxValue, changedFunc)
 		return Roact.createElement(StudioWidgetRoundTextBox, {
 			ShowToolTip = false,
 			Enabled = enabled,
+			ShowTextWhenDisabled = true,
 			LayoutOrder = incrementNextLayoutOrderFunc(),
 			Text = tostring(value),
 			MaxLength = 100,
@@ -217,10 +202,27 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 			PaddingTop = UDim.new(0, 0),
 			Mouse = mouse,
 
+			FocusChanged = function(focused)
+				if not focused then
+					local newValue = tonumber(value) or minValue or maxValue
+					newValue = (newValue and minValue) and math.max(newValue, minValue) or newValue
+					newValue = (newValue and maxValue) and math.min(newValue, maxValue) or newValue
+					changedFunc(MathUtil.round(newValue))
+				end
+			end,
+
 			SetText = function(text)
-				changedFunc(tonumber(text))
+				changedFunc(text)
 			end,
 		})
+	end
+
+	local function setJumpPower(newJumpPower)
+		applyPreset(props, nil, nil, newJumpPower)
+	end
+
+	local function setJumpHeight(newJumpHeight)
+		applyPreset(props, nil, nil, nil, newJumpHeight)
 	end
 
 	local function createMetricLabel(enabled, text)
@@ -240,10 +242,10 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 			Title = "Jump",
 			Buttons = {{
 					Id = false,
-					Title = "Jump Height",
+					Title = "Jump Height:",
 				}, {
 					Id = true,
-					Title = "Jump Power",
+					Title = "Jump Power:",
 				},
 			},
 			LayoutOrder = incrementNextLayoutOrderFunc(),
@@ -263,8 +265,8 @@ local function createJumpSelectWidgets(incrementNextLayoutOrderFunc, props, mous
 				Padding = JumpSelectPadding,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
-			JumpHeightInputBox = createInputBox(not props.WorkspaceUseJumpPower, props.WorkspaceJumpHeight, props.WorkspaceJumpHeightChanged),
-			JumpPowerInputBox = createInputBox(props.WorkspaceUseJumpPower, props.WorkspaceJumpPower, props.WorkspaceJumpPowerChanged),
+			JumpHeightInputBox = createInputBox(not props.WorkspaceUseJumpPower, props.WorkspaceJumpHeight, 0, nil, setJumpHeight),
+			JumpPowerInputBox = createInputBox(props.WorkspaceUseJumpPower, props.WorkspaceJumpPower, 0, 1000, setJumpPower),
 		}),
 
 		MetricLabels = Roact.createElement("Frame", {
@@ -284,9 +286,14 @@ end
 
 local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props)
 	local function calculateJumpDistance()
-		local jumpPower = props.WorkspaceUseJumpPower and props.WorkspaceJumpPower or game.Workspace:CalculateJumpPower(props.WorkspaceGravity, props.WorkspaceJumpHeight)
-		local timeInAir = 2 * (jumpPower / props.WorkspaceGravity);
-    	return timeInAir * props.WorkspaceWalkSpeed;
+		local gravity = tonumber(props.WorkspaceGravity) or 0
+		if gravity <= 0 then
+			return nil
+		end
+
+		local jumpPower = props.WorkspaceUseJumpPower and (tonumber(props.WorkspaceJumpPower) or 0) or MathUtil.calculateJumpPowerFromHeight(gravity, props.WorkspaceJumpHeight)
+		local timeInAir = 2 * (jumpPower / gravity)
+    	return timeInAir * (tonumber(props.WorkspaceWalkSpeed) or 0)
 	end
 
 	local function createLabel(xOffset, text)
@@ -306,7 +313,7 @@ local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props)
 		TitleTextYAlignment = Enum.TextYAlignment.Center
 	}, {
 		JumpDistanceLabel = createLabel(0, "Max Jump Distance:"),
-		JumpDistanceValue = createLabel(INPUT_BOX_OFFSET, tostring(truncate(calculateJumpDistance()))),
+		JumpDistanceValue = createLabel(INPUT_BOX_OFFSET, tostring(MathUtil.round(calculateJumpDistance()))),
 		JumpDistanceMetricValue = createLabel(INPUT_BOX_OFFSET+METRIC_LABEL_OFFSET, "(" .. studToMetric(calculateJumpDistance()) .. " meters)"),
 	})
 end
@@ -316,6 +323,10 @@ local function displayContents(page)
 	local props = page.props
 	local mouse = getMouse(page).getNativeMouse()
 
+	local function changeGravity(newGravity)
+		applyPreset(props, newGravity)
+	end
+
 	local nextLayoutOrder = 0
 	local function incrementNextLayoutOrder()
 		nextLayoutOrder = nextLayoutOrder + 1
@@ -323,18 +334,18 @@ local function displayContents(page)
 	end
 
 	return {
-		Presets = createPresetsWidgets(incrementNextLayoutOrder, props, mouse),
+		Presets = createPresetsWidgets(incrementNextLayoutOrder(), props, mouse),
 		Separator1 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
-		Gravity = createInputRow("Gravity", "Workspace Gravity:", props.WorkspaceGravity, props.WorkspaceGravityChanged, incrementNextLayoutOrder(), mouse, "meters/second2"),
+		Gravity = createInputRow("Gravity", "Workspace Gravity:", props.WorkspaceGravity, 0.1, 1000, changeGravity, incrementNextLayoutOrder(), mouse, "meters/second2"),
 		Separator2 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
 		}),
 		JumpSelect = createJumpSelectWidgets(incrementNextLayoutOrder, props, mouse),
-		WalkSpeed = createInputRow("Walk", "Walk Speed:", props.WorkspaceWalkSpeed, props.WorkspaceWalkSpeedChanged, incrementNextLayoutOrder(), mouse, "meters/second"),
+		WalkSpeed = createInputRow("Walk", "Walk Speed:", props.WorkspaceWalkSpeed, 0, nil, props.WorkspaceWalkSpeedChanged, incrementNextLayoutOrder(), mouse, "meters/second"),
 		JumpDistance = createJumpDistanceWidgets(incrementNextLayoutOrder, props),
-		MaxSlopeAngle = createInputRow("Slope", "Max Slope Angle:", props.WorkspaceMaxSlopeAngle, props.WorkspaceMaxSlopeAngleChanged, incrementNextLayoutOrder(), mouse)
+		MaxSlopeAngle = createInputRow("Slope", "Max Slope Angle:", props.WorkspaceMaxSlopeAngle, 0, 89, props.WorkspaceMaxSlopeAngleChanged, incrementNextLayoutOrder(), mouse)
 	}
 end
 

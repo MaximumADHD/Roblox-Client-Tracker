@@ -1,4 +1,4 @@
- --[[
+--[[
 		Filename: Players.lua
 		Written by: Stickmasterluke
 		Version 1.0
@@ -47,13 +47,17 @@ while not localPlayer do
 	localPlayer = PlayersService.LocalPlayer
 end
 
-
 ------------ FAST FLAGS -------------------
 local FFlagEnableInviteGameInStudio = settings():GetFFlag("EnableInviteGameInStudio")
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagXboxShowPlayers = settings():GetFFlag("XboxShowPlayers")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+
+local FFlagXboxShowPlayers2 = settings():GetFFlag("XboxShowPlayers2")
+local FFlagSelectShareGameButtonByDefault = settings():GetFFlag("SelectShareGameButtonByDefault")
+local FFlagXboxAllowReportFromPlayersPage = settings():GetFFlag("XboxAllowReportFromPlayersPage")
+local FFlagFixFakeSelectionObject = settings():GetFFlag("FixFakeSelectionObject")
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -127,9 +131,12 @@ local function Initialize()
 					end
 				end
 			end
-			friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, 46), addFriendFunc)
-			friendLabelText.ZIndex = 3
-			friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
+
+			if platform ~= Enum.Platform.XBoxOne then
+				friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, 46), addFriendFunc)
+				friendLabelText.ZIndex = 3
+				friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
+			end
 		end
 
 		if friendLabel then
@@ -174,8 +181,8 @@ local function Initialize()
 					addFriendButton.ImageTransparency = 1
 					addFriendImage.ImageTransparency = 1
 					if localPlayer and player then
-                        AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-                        AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
+						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+						AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
 
 						localPlayer:RequestFriendship(player)
 					end
@@ -190,9 +197,12 @@ local function Initialize()
 		return nil
 	end
 
-	--- Ideally we want to select the first add friend button, but select the first report button instead if none are available.
+	-- Clean up reportSelectionFound and friendSelectionFound along with
+	-- FFlagSelectShareGameButtonByDefault
 	local reportSelectionFound = nil
 	local friendSelectionFound = nil
+	local shareGameButton
+
 	local function friendStatusCreate(playerLabel, player)
 		local friendLabelParent = nil
 		if playerLabel then
@@ -204,8 +214,12 @@ local function Initialize()
 			for _, item in pairs(friendLabelParent:GetChildren()) do
 				if item and item.Name == "FriendStatus" then
 					if GuiService.SelectedCoreObject == item then
-						friendSelectionFound = nil
-						GuiService.SelectedCoreObject = nil
+						if FFlagSelectShareGameButtonByDefault then
+							GuiService.SelectedCoreObject = shareGameButton
+						else
+							friendSelectionFound = nil
+							GuiService.SelectedCoreObject = nil
+						end
 					end
 					item:Destroy()
 				end
@@ -239,9 +253,11 @@ local function Initialize()
 					friendLabel.Selectable = true
 					friendLabel.Parent = friendLabelParent
 
-					if UserInputService.GamepadEnabled and not friendSelectionFound then
-						friendSelectionFound = true
-						GuiService.SelectedCoreObject = friendLabel
+					if not FFlagSelectShareGameButtonByDefault then
+						if UserInputService.GamepadEnabled and not friendSelectionFound then
+							friendSelectionFound = true
+							GuiService.SelectedCoreObject = friendLabel
+						end
 					end
 				end
 			end)
@@ -307,7 +323,6 @@ local function Initialize()
 		end
 	end)
 
-
 	if FFlagUseNotificationsLocalization then
 		local function ApplyLocalizeTextSettingsToLabel(label)
 			label.AnchorPoint = Vector2.new(0.5,0.5)
@@ -324,8 +339,10 @@ local function Initialize()
 		if rightSideButtons then
 			local oldReportButton = rightSideButtons:FindFirstChild("ReportPlayer")
 			if oldReportButton then
-				if oldReportButton == GuiService.SelectedCoreObject then
-					reportSelectionFound = nil
+				if not FFlagSelectShareGameButtonByDefault then
+					if oldReportButton == GuiService.SelectedCoreObject then
+						reportSelectionFound = nil
+					end
 				end
 				oldReportButton:Destroy()
 			end
@@ -343,9 +360,11 @@ local function Initialize()
 				reportButton.Selectable = true
 				reportButton.Parent = rightSideButtons
 
-				if not reportSelectionFound and not friendSelectionFound and UserInputService.GamepadEnabled then
-					reportSelectionFound = true
-					GuiService.SelectedCoreObject = reportButton
+				if not FFlagSelectShareGameButtonByDefault then
+					if not reportSelectionFound and not friendSelectionFound and UserInputService.GamepadEnabled then
+						reportSelectionFound = true
+						GuiService.SelectedCoreObject = reportButton
+					end
 				end
 			end
 		end
@@ -399,23 +418,27 @@ local function Initialize()
 		icon.Position = UDim2.new(0, 18, 0, 18)
 		ShareGameIcons:ApplyImage(icon, "invite")
 
-		local function onHover(isHovering)
-			if isHovering then
+		local function setIsHighlighted(isHighlighted)
+			if isHighlighted then
 				frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
 			else
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 			end
 		end
 
-		frame.InputBegan:Connect(function() onHover(true) end)
-		frame.InputEnded:Connect(function() onHover(false) end)
-		frame.Activated:Connect(function() onHover(false) end)
+		frame.InputBegan:Connect(function() setIsHighlighted(true) end)
+		frame.InputEnded:Connect(function() setIsHighlighted(false) end)
+		frame.Activated:Connect(function() setIsHighlighted(false) end)
 		frame.TouchPan:Connect(function(_, totalTranslation)
 			local TAP_ACCURACY_THREASHOLD = 20
 			if math.abs(totalTranslation.Y) > TAP_ACCURACY_THREASHOLD then
-				onHover(false)
+				setIsHighlighted(false)
 			end
-			end)
+		end)
+
+		frame.SelectionGained:connect(function() setIsHighlighted(true) end)
+		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
+		frame.SelectionImageObject = frame:Clone()
 
 		return frame
 	end
@@ -457,7 +480,7 @@ local function Initialize()
 
 		fakeSelectionObject = Instance.new("Frame")
 		fakeSelectionObject.Selectable = true
-		fakeSelectionObject.Size = UDim2.new(0, 100, 0, 100)
+		fakeSelectionObject.Size = FFlagFixFakeSelectionObject and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 100, 0, 100)
 		fakeSelectionObject.BackgroundTransparency = 1
 		fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
 		fakeSelectionObject.Parent = rightSideButtons
@@ -520,14 +543,13 @@ local function Initialize()
 	end
 
 	local function canShareCurrentGame()
-		if FFlagXboxShowPlayers then
+		if FFlagXboxShowPlayers2 then
 			return localPlayer.UserId > 0
 		else
 			return this.HubRef.ShareGamePage ~= nil and localPlayer.UserId > 0
 		end
 	end
 
-	local shareGameButton
 	local sortedPlayers
 	local existingPlayerLabels = {}
 	local livePlayers = {}
@@ -569,7 +591,7 @@ local function Initialize()
 					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 				end
 
-				if FFlagXboxShowPlayers then
+				if FFlagXboxShowPlayers2 then
 					this.HubRef:InviteToGame()
 				else
 					this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
@@ -582,8 +604,10 @@ local function Initialize()
 			shareGameButton.Parent = this.Page
 		end
 
-		friendSelectionFound = nil
-		reportSelectionFound = nil
+		if not FFlagSelectShareGameButtonByDefault then
+			friendSelectionFound = nil
+			reportSelectionFound = nil
+		end
 
 		-- iterate through players to reuse or create labels for players
 		for index=1, #sortedPlayers do
@@ -619,8 +643,14 @@ local function Initialize()
 				managePlayerNameCutoff(frame, player)
 
 				friendStatusCreate(frame, player)
-				if platform ~= Enum.Platform.XBoxOne and platform ~= Enum.Platform.PS4 then
-					reportAbuseButtonCreate(frame, player)
+				if FFlagXboxAllowReportFromPlayersPage then
+					if not FFlagChinaLicensingApp then
+						reportAbuseButtonCreate(frame, player)
+					end
+				else
+					if platform ~= Enum.Platform.XBoxOne and platform ~= Enum.Platform.PS4 and not FFlagChinaLicensingApp then
+						reportAbuseButtonCreate(frame, player)
+					end
 				end
 			end
 		end
@@ -629,6 +659,12 @@ local function Initialize()
 			if not livePlayers[playerName] then
 				frame:Destroy()
 				existingPlayerLabels[playerName] = nil
+			end
+		end
+
+		if FFlagSelectShareGameButtonByDefault then
+			if UserInputService.GamepadEnabled then
+				GuiService.SelectedCoreObject = shareGameButton
 			end
 		end
 
@@ -662,17 +698,33 @@ local function Initialize()
 		local friendStatus = buttons:FindFirstChild("FriendStatus")
 		if friendStatus then
 			if GuiService.SelectedCoreObject == friendStatus then
-				friendSelectionFound = nil
-				GuiService.SelectedCoreObject = nil
+				if FFlagSelectShareGameButtonByDefault then
+					if UserInputService.GamepadEnabled then
+						GuiService.SelectedCoreObject = shareGameButton
+					else
+						GuiService.SelectedCoreObject = nil
+					end
+				else
+					friendSelectionFound = nil
+					GuiService.SelectedCoreObject = nil
+				end
 			end
 			friendStatus:Destroy()
 		end
 
 		local reportPlayer = buttons:FindFirstChild("ReportPlayer")
 		if reportPlayer then
-			if GuiService.SelectedCoreObject == reportPlayer then
-				reportSelectionFound = nil
-				GuiService.SelectedCoreObject = nil
+			if FFlagSelectShareGameButtonByDefault then
+				if UserInputService.GamepadEnabled then
+					GuiService.SelectedCoreObject = shareGameButton
+				else
+					GuiService.SelectedCoreObject = nil
+				end
+			else
+				if GuiService.SelectedCoreObject == reportPlayer then
+					reportSelectionFound = nil
+					GuiService.SelectedCoreObject = nil
+				end
 			end
 			reportPlayer:Destroy()
 		end

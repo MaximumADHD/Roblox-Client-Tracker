@@ -2,9 +2,9 @@ local Plugin = script.Parent.Parent.Parent
 
 local Action = require(Plugin.Core.Actions.Action)
 
-return Action(script.Name, function(newData)
+return Action(script.Name, function(results, totalResults)
 	return {
-		assets = newData.Results,
-		totalResults = newData.TotalResults,
+		assets = results,
+		totalResults = totalResults,
 	}
 end)

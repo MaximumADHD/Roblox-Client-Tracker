@@ -11,6 +11,8 @@ local LINE_PADDING = Constants.LogFormatting.TextFramePadding
 local MAX_STRING_SIZE = Constants.LogFormatting.MaxStringSize
 local MAX_STR_MSG = " -- Could not display entire %d character message because message exceeds max displayable length of %d"
 
+local FFlagDevConsoleLogNewLineFix = settings():GetFFlag("DevConsoleLogNewLineFix")
+
 local LogOutput = Roact.Component:extend("LogOutput")
 
 function LogOutput:init(props)
@@ -144,7 +146,18 @@ function LogOutput:render()
 
 			local msgDimsY = message.Dims.Y
 			if wordWrap and frameWidth > 0 then
-				msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
+				if FFlagDevConsoleLogNewLineFix then
+					-- this fix doesn't fully solve the problem, but it does prevent the white space
+					-- error to 2 lines at most, which should be acceptable until we can refactor
+					-- this whole hot mess
+
+					-- one full message height per time the message width fits in the container
+					msgDimsY = message.Dims.Y * message.Dims.X / absSize.X
+					-- round to the nearest line height
+					msgDimsY = math.ceil(msgDimsY / FONT_SIZE) * FONT_SIZE
+				else
+					msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
+				end
 			end
 
 			messageCount = messageCount + 1
@@ -187,7 +200,12 @@ function LogOutput:render()
 
 							TextWrapped = wordWrap,
 
-							Size = UDim2.new(1, 0, 0, msgDimsY),
+							Size = FFlagDevConsoleLogNewLineFix and
+								-- flag true
+								UDim2.new(1, -ARROW_OFFSET, 0, msgDimsY) or
+								-- flag false
+								UDim2.new(1, 0, 0, msgDimsY),
+
 							Position = UDim2.new(0, ARROW_OFFSET, 0, 0),
 							BackgroundTransparency = 1,
 						})

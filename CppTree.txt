@@ -19,7 +19,7 @@ RBX
 	}
 	Collision
 	{
-		SpatialHash
+		SpatialHashBase
 		{
 			MovementCallback
 		}
@@ -41,10 +41,12 @@ RBX
 		FeaturePolyContact
 		PolyPair
 		PolyPolyContact
+		SpatialHash
 	}
 	Constraints
 	{
 		AdornContext
+		AngularVelocityActuator
 		BallSocketConstraint
 		CircleArcCurve2
 		Constraint
@@ -472,6 +474,7 @@ RBX
 		ConstraintBallInSocket
 		ConstraintBallOnAxis
 		ConstraintBodyAngularVelocity
+		ConstraintBodyAngularVelocityVirtual
 		ConstraintCollision
 		ConstraintCone
 		ConstraintFixedDistance

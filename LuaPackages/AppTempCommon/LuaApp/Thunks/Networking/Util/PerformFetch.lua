@@ -24,6 +24,19 @@ local PerformFetch = {}
 
 local batchPromises = {} -- fetch key = outstanding promise from PerformFetch.Batch
 
+--[[
+	Helper function for unit tests to be able to clean up batchPromises created from
+	previous test case. This is because unit tests don't wait until the mock requests
+	are resolved and moves onto the next test. If tests happen to generate duplicate
+	fetchStatusKey, unresolved batchPromise will throw thinking that the promise does
+	not have the correct status.
+]]
+function PerformFetch.ClearOutstandingPromiseStatus()
+	if _G.__TESTEZ_RUNNING_TEST__ then
+		batchPromises = {}
+	end
+end
+
 local function singleFetchKeymapper(item)
 	-- Single fetch keys are used directly
 	return item

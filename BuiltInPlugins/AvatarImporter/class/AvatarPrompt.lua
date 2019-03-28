@@ -26,6 +26,22 @@ local R15_INFO = {
 	height = 5,
 }
 
+local CUSTOM_INFO = {
+	title = "Custom Type",
+}
+
+local BUTTON_AMT = 4
+local BUTTON_WIDTH = 146
+local BUTTON_HEIGHT = 219
+local BUTTON_SIDE_PADDING = 67
+local BUTTON_CENTER_PADDING = 37
+local BUTTON_TOP_PADDING = 63
+
+local HEADER_HEIGHT = 40
+
+local BACKGROUND_WIDTH = BUTTON_SIDE_PADDING + BUTTON_WIDTH*BUTTON_AMT + BUTTON_CENTER_PADDING*(BUTTON_AMT - 1) + BUTTON_SIDE_PADDING
+local BACKGROUND_HEIGHT = 413
+
 local AvatarPrompt = {}
 AvatarPrompt.__index = AvatarPrompt
 
@@ -61,7 +77,7 @@ function AvatarPrompt:_constructAvatarButton(name, iconOptions, contextInfo, lay
 	button.LayoutOrder = layoutOrder
 	button.Name = name .. " Button"
 	button.ScaleType = Enum.ScaleType.Slice
-	button.Size = UDim2.new(0, 146, 0, 219)
+	button.Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT)
 	button.SliceCenter = Rect.new(4, 4, 5, 5)
 	ThemeManager:setImageColor(button, Enum.StudioStyleGuideColor.Button)
 
@@ -107,11 +123,17 @@ function AvatarPrompt:_constructAvatarButton(name, iconOptions, contextInfo, lay
 	button.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			if not mouseInButton then
-				self._contextMenu:setText(
-					contextInfo.title,
-					string.format("Ideal height: %s studs", tostring(contextInfo.height)),
-					contextInfo.description
-				)
+				local fields = {}
+				if contextInfo.title then
+					fields[#fields + 1] = contextInfo.title
+				end
+				if contextInfo.height then
+					fields[#fields + 1] = string.format("Ideal height: %s studs", tostring(contextInfo.height))
+				end
+				if contextInfo.description then
+					fields[#fields + 1] = contextInfo.description
+				end
+				self._contextMenu:setText(unpack(fields))
 				self._contextMenu:setEnabled(true)
 			end
 			mouseInButton = true
@@ -174,7 +196,7 @@ function AvatarPrompt:_constructUI(screenGui)
 	background.Image = Assets.BACKGROUND_IMAGE
 	background.Name = "AvatarPrompt"
 	background.ScaleType = Enum.ScaleType.Slice
-	background.Size = UDim2.new(0, 658, 0, 413)
+	background.Size = UDim2.new(0, BACKGROUND_WIDTH, 0, BACKGROUND_HEIGHT)
 	background.SliceCenter = Rect.new(8, 8, 9, 9)
 	background.Visible = false
 	background.Parent = screenGui
@@ -184,8 +206,8 @@ function AvatarPrompt:_constructUI(screenGui)
 	local content = Instance.new("Frame")
 	content.BackgroundTransparency = 1
 	content.Name = "Content"
-	content.Position = UDim2.new(0, 0, 0, 40)
-	content.Size = UDim2.new(1, 0, 1, -40)
+	content.Position = UDim2.new(0, 0, 0, HEADER_HEIGHT)
+	content.Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT)
 	content.Parent = background
 
 	local header = Instance.new("ImageLabel")
@@ -193,7 +215,7 @@ function AvatarPrompt:_constructUI(screenGui)
 	header.Image = Assets.HEADER_IMAGE
 	header.Name = "Header"
 	header.ScaleType = Enum.ScaleType.Slice
-	header.Size = UDim2.new(1, 0, 0, 40)
+	header.Size = UDim2.new(1, 0, 0, HEADER_HEIGHT)
 	header.SliceCenter = Rect.new(8, 8, 9, 9)
 	header.Parent = background
 	ThemeManager:setImageColor(header, Enum.StudioStyleGuideColor.TabBar)
@@ -220,7 +242,6 @@ function AvatarPrompt:_constructUI(screenGui)
 	closeButton.Position = UDim2.new(1, -20, 0.5, 0)
 	closeButton.Size = UDim2.new(0, 15, 0, 15)
 	closeButton.Parent = header
-	-- TODO: theme?
 
 	local topDescription = Instance.new("TextLabel")
 	topDescription.BackgroundTransparency = 1
@@ -238,13 +259,13 @@ function AvatarPrompt:_constructUI(screenGui)
 	local buttons = Instance.new("Frame")
 	buttons.BackgroundTransparency = 1
 	buttons.Name = "Buttons"
-	buttons.Position = UDim2.new(0, 67, 0, 63)
-	buttons.Size = UDim2.new(1, -(67*2), 0, 219)
+	buttons.Position = UDim2.new(0, BUTTON_SIDE_PADDING, 0, BUTTON_TOP_PADDING)
+	buttons.Size = UDim2.new(1, -BUTTON_SIDE_PADDING*2, 0, BUTTON_HEIGHT)
 	buttons.Parent = content
 
 	local buttonsListLayout = Instance.new("UIListLayout")
 	buttonsListLayout.FillDirection = Enum.FillDirection.Horizontal
-	buttonsListLayout.Padding = UDim.new(0, 43)
+	buttonsListLayout.Padding = UDim.new(0, BUTTON_CENTER_PADDING)
 	buttonsListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	buttonsListLayout.Parent = buttons
 
@@ -256,6 +277,9 @@ function AvatarPrompt:_constructUI(screenGui)
 
 	local r15Button = self:_constructAvatarButton("R15", Assets.R15, R15_INFO, 2)
 	r15Button.Parent = buttons
+
+	local customButton = self:_constructAvatarButton("Custom", Assets.CUSTOM, CUSTOM_INFO, 3)
+	customButton.Parent = buttons
 
 	local bottomDescription = Instance.new("Frame")
 	bottomDescription.BackgroundTransparency = 1
@@ -310,6 +334,9 @@ function AvatarPrompt:_constructUI(screenGui)
 	end)
 	r15Button.MouseButton1Click:Connect(function()
 		self.selected:Fire("R15")
+	end)
+	customButton.MouseButton1Click:Connect(function()
+		self.selected:Fire("Custom")
 	end)
 	closeButton.MouseButton1Click:Connect(function()
 		self.closed:Fire()

@@ -42,6 +42,7 @@
       <addaction name="aboutRobloxAction"/>
       <addaction name="onlineHelpAction"/>
       <addaction name="settingsAction"/>
+      <addaction fflag="StudioEnableBetaFeatures" name="betaFeaturesAction"/>
     </SystemPopup>
   </SystemButton>
   <RibbonBar minimizeButton="true" font="">
@@ -267,6 +268,7 @@
           <addaction name="createVectorForceAction" style="textundericon" iscommonslot="true" text="Vector Force" tooltip="Create vector force" icon=":/RibbonBar/images/RibbonIcons/Physics/force-32x32.png" width="32" height="32" />
           <addaction name="createLineForceAction" style="textundericon" iscommonslot="true" text="Line Force" tooltip="Create line force" icon=":/RibbonBar/images/RibbonIcons/Physics/line-force-32x32.png" width="32" height="32" />
           <addaction name="createTorqueAction" style="textundericon" iscommonslot="true" text="Torque" tooltip="Create torque" icon=":/RibbonBar/images/RibbonIcons/Physics/torque-32x32.png" width="32" height="32" />
+          <addaction name="createAngularVelocityAction" fflag="AngularVelocityEnabled" style="textundericon" iscommonslot="true" text="Angular Velocity" tooltip="Create angular velocity constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/angular-velocity-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
           <addaction name="createAttachmentAction" style="textundericon" iscommonslot="true" text="Attachment" tooltip="Insert attachment" icon=":/RibbonBar/images/RibbonIcons/Physics/attachment-32x32.png" width="32" height="32" />
         </MenuPopupButton>
@@ -401,7 +403,8 @@
 
       </Group>
       <Group name="Actions">
-        <addaction name="toggleAxisWidgetAction" style="textundericon" text="Display Axis" icon=":/RibbonBar/images/RibbonIcons/View/Display-Axis.png" tooltip="Show world-space aligned coordinate axis" height="32" width="32" />
+        <addaction name="toggleAxisWidgetAction" style="textundericon" text="Display Axis" icon=":/RibbonBar/images/RibbonIcons/View/Display-Axis.png" tooltip="Show world-space aligned coordinate axis" height="32" width="32" fflag="!ToolViewSelector"/>
+        <addaction name="viewSelectorAction" style="textundericon" text="View Selector" tooltip="Show view selector" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32" fflag="ToolViewSelector"/>
         <addaction name="actionFullScreen" style="textundericon" text="Full Screen" icon=":/RibbonBar/images/RibbonIcons/View/Fullscreen.png" tooltip="Enabled Full Screen mode" height="32" width="32" />
         <addaction name="screenShotAction" style="textundericon" text="Screen Shot" icon=":/RibbonBar/images/RibbonIcons/View/Screen-Capture.png" tooltip="Take a screenshot" height="32" width="32" />
         <addaction name="toggleVideoRecordAction" style="textundericon" iswindowsonly="true" icon=":/RibbonBar/images/RibbonIcons/View/Record-Video.png" tooltip="Record a video" height="32" width="32" />

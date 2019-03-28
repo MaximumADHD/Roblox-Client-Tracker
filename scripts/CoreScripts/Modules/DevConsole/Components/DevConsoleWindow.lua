@@ -26,6 +26,8 @@ local BORDER_SIZE = 16
 
 local DevConsoleWindow = Roact.PureComponent:extend("DevConsoleWindow")
 
+local FFlagDevConsoleBetterResize = settings():GetFFlag("DevConsoleBetterResize")
+
 function DevConsoleWindow:onMinimizeClicked()
 	self.props.dispatchSetDevConsoleMinimized(true)
 end
@@ -52,12 +54,33 @@ function DevConsoleWindow:init()
 
 	self.resizeInputBegan = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			self:setState({
-				resizing = true,
-			})
+			if FFlagDevConsoleBetterResize then
+				local inputChangedConn, inputEndedConn
+
+				local function onInputChanged(input)
+					local currPosition = self.ref.current.AbsolutePosition
+					local cornerPos = input.Position
+					self:setDevConsoleSize(currPosition, cornerPos)
+				end
+
+				local function onInputEnded(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						inputChangedConn:Disconnect()
+						inputEndedConn:Disconnect()
+					end
+				end
+
+				inputChangedConn = UserInputService.InputChanged:Connect(onInputChanged)
+				inputEndedConn = UserInputService.InputEnded:Connect(onInputEnded)
+			else
+				self:setState({
+					resizing = true,
+				})
+			end
 		end
 	end
 
+	-- TODO (dnurkkala): remove this when we remove FFlagDevConsoleBetterResize
 	self.resizeInputChanged = function(rbx,input)
 		if self.state.resizing then
 			local currPosition = self.ref.current.AbsolutePosition
@@ -67,6 +90,7 @@ function DevConsoleWindow:init()
 		end
 	end
 
+	-- TODO (dnurkkala): remove this when we remove FFlagDevConsoleBetterResize
 	self.resizeInputEnded = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			--reset resize-dragger
@@ -270,7 +294,7 @@ function DevConsoleWindow:render()
 				if we can handle LARGE distances of continuous MouseMovmement input events
 				for dragging then we might be able to remove the portal
 			]]--
-			ResizeCatchAll = resizing and Roact.createElement(Roact.Portal, {
+			ResizeCatchAll = (not FFlagDevConsoleBetterResize) and resizing and Roact.createElement(Roact.Portal, {
 				target = CoreGui,
 			}, {
 				InputCatcher = Roact.createElement("ScreenGui", {}, {

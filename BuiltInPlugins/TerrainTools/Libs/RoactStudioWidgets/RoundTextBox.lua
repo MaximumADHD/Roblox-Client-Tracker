@@ -4,6 +4,7 @@
 
 	Props:
 		bool Enabled = Whether this component can be interacted with.
+		bool ShowTextWhenDisabled = whether we want to still soo none interactable text when the component is disabled
 		int MaxLength = The maximum number of characters allowed in the TextBox.
 		bool Multiline = Whether this TextBox allows a single line of text or multiple.
 		int Height = The vertical size of this TextBox, in pixels.
@@ -35,7 +36,7 @@
 		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
 
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)
@@ -139,7 +140,20 @@ function RoundTextBox:render()
 		end
 
 		local textEntryProps = {
-			Visible = self.props.Enabled,
+			Visible = (function()
+				if DFFlagGameSettingsWorldPanel then
+					return self.props.Enabled or self.props.ShowTextWhenDisabled or false
+				else
+					return self.props.Enabled
+				end
+			end)(),
+			Enabled = (function()
+				if DFFlagGameSettingsWorldPanel then
+					return self.props.Enabled
+				else
+					return nil
+				end
+			end)(),
 			Text = self.props.Text,
 			FocusChanged = self.focusChanged,
 			HoverChanged = self.mouseHoverChanged,

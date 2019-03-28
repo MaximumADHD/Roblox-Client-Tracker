@@ -26,6 +26,7 @@ Globals.requirementsUrl = "articles/using-avatar-importer"
 local TOOLBAR_NAME = "Avatar"
 local BUTTON_NAME = "Avatar Importer"
 local BUTTON_TOOLTIP = "Import an Avatar with a .fbx file"
+local ERROR_NO_FILE = "No FBX file selected"
 
 -- shared gui objects
 local screenGui = Instance.new("ScreenGui")
@@ -157,7 +158,7 @@ local function addFace(avatar)
 end
 
 local function setupImportedAvatar(avatar, avatarType)
-	avatar.Name = "Imported" ..avatarType.. "Rig"
+	avatar.Name = "Imported" .. avatarType .. "Rig"
 	addFace(avatar)
 	setupAvatarScaleTypeValues(avatar, avatarType)
 	setupHumanoidScaleValues(avatar, avatarType)
@@ -207,33 +208,38 @@ local function openUI()
 		avatarPrompt:setEnabled(false)
 		loadingPrompt:setEnabled(true)
 
-
+		local isR15 = avatarType ~= "Custom"
 		local success, avatarOrError = pcall(function()
-			return plugin:ImportFbxRig()
+			return plugin:ImportFbxRig(isR15)
 		end)
 
 		loadingPrompt:setEnabled(false)
 
 		if not success then
-			local fileName = "<filename>"
-			local requirements = avatarOrError
-			local errors = getLinesFromStr(avatarOrError)
-			if errors[1] == "FBX Import Error(s):" and #errors > 2 then
-				fileName = errors[2]
-				for i = 3, #errors do
-					errors[i] = "- " .. errors[i]
-				end
-				requirements = table.concat(errors, "\n", 3)
-			end
-			errorPrompt:setRequirements(requirements)
-			errorPrompt:setName(fileName)
-			errorPrompt:setEnabled(true)
-			table.insert(connections, errorPrompt.closed.Event:Connect(closeUI))
-			table.insert(connections, errorPrompt.retried.Event:Connect(function()
-				-- return to avatar menu
+			if avatarOrError == ERROR_NO_FILE then
 				closeUI()
 				openUI()
-			end))
+			else
+				local fileName = "<filename>"
+				local requirements = avatarOrError
+				local errors = getLinesFromStr(avatarOrError)
+				if errors[1] == "FBX Import Error(s):" and #errors > 2 then
+					fileName = errors[2]
+					for i = 3, #errors do
+						errors[i] = "- " .. errors[i]
+					end
+					requirements = table.concat(errors, "\n", 3)
+				end
+				errorPrompt:setRequirements(requirements)
+				errorPrompt:setName(fileName)
+				errorPrompt:setEnabled(true)
+				table.insert(connections, errorPrompt.closed.Event:Connect(closeUI))
+				table.insert(connections, errorPrompt.retried.Event:Connect(function()
+					-- return to avatar menu
+					closeUI()
+					openUI()
+				end))
+			end
 		else
 			setupImportedAvatar(avatarOrError, avatarType)
 			closeUI()

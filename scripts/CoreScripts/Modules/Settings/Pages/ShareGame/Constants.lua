@@ -38,10 +38,10 @@ local Constants = {
 		[User.PresenceType.OFFLINE] = Color.GRAY3,
 	},
 	PresenceTextKey = {
-		[User.PresenceType.ONLINE] = "Common.Presence.Label.Online",
-		[User.PresenceType.IN_GAME] = "Common.Presence.Label.InGame",
-		[User.PresenceType.IN_STUDIO] = "Common.Presence.Label.InStudio",
-		[User.PresenceType.OFFLINE] = "Common.Presence.Label.Offline",
+		[User.PresenceType.ONLINE] = "InGame.Presence.Label.Online",
+		[User.PresenceType.IN_GAME] = "InGame.Presence.Label.InGame",
+		[User.PresenceType.IN_STUDIO] = "InGame.Presence.Label.InStudio",
+		[User.PresenceType.OFFLINE] = "InGame.Presence.Label.Offline",
 	},
 	InviteStatus = {
 		Success = "Success", -- Should match API resultType

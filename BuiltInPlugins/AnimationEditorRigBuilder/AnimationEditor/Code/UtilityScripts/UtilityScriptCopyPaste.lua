@@ -6,6 +6,8 @@ CopyPaste.Connections = nil
 
 CopyPaste.CopyItemsList = {}
 
+CopyPaste.CopyItemsStash = {}
+
 CopyPaste.CopiedSingleKeyframe = false
 
 CopyPaste.CopiedInIKMode = false
@@ -77,13 +79,28 @@ function CopyPaste:setCopyPasteEnabled(enabled)
 end
 
 if FastFlags:isAnimationEventsOn() then
-	function CopyPaste:resetCopyItems()
-		self.CopyItemsList = {}
+	if FastFlags:isKeepClipboardAfterMoveOn() then
+		function CopyPaste:resetCopyItems(takeFromStash)
+			if self.Paths.HelperFunctionsTable:isNilOrEmpty(self.CopyItemsStash) or not takeFromStash then
+				self.CopyItemsList = {}
+			else
+				self.CopyItemsList = self.CopyItemsStash
+				self.CopyItemsStash = {}
+			end
+		end
+	else
+		function CopyPaste:resetCopyItems()
+			self.CopyItemsList = {}
+		end
 	end
 else
 	function CopyPaste:resetCopyPoses()
 		self.CopyItemsList = {}
 	end
+end
+
+function CopyPaste:stashCopyItems()
+	self.CopyItemsStash = self.CopyItemsList
 end
 
 if FastFlags:isAnimationEventsOn() then

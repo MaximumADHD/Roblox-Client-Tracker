@@ -26,7 +26,9 @@ end
 
 if FastFlags:isScaleKeysOn() then
 	function MovePoses:getGUIKeys(Paths)
-		GUIKeys = getGUIKeyframesFromSelectedKeyframes(Paths)
+		local GUIKeys = getGUIKeyframesFromSelectedKeyframes(Paths)
+		local MinTimeKey = nil
+		local MaxTimeKey = nil
 		if not Paths.HelperFunctionsTable:isNilOrEmpty(GUIKeys) then
 			MinTimeKey = GUIKeys[1]
 			MaxTimeKey = GUIKeys[1]

@@ -15,7 +15,7 @@ local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
 local LuaAppRemoveGetFriendshipCountApiCalls = settings():GetFFlag("LuaAppRemoveGetFriendshipCountApiCalls")
-local FFlagLuaAppUseNewAvatarThumbnailsApi = settings():GetFFlag("LuaAppUseNewAvatarThumbnailsApi")
+local FFlagLuaAppUseNewAvatarThumbnailsApi = settings():GetFFlag("LuaAppUseNewAvatarThumbnailsApi2")
 
 return function(requestImpl, userId, thumbnailRequest, checkPoints)
 	return function(store)

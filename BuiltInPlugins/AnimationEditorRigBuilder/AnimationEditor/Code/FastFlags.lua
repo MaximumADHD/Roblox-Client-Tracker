@@ -161,11 +161,19 @@ function FastFlags:isDoNotRunInPlayModeOn()
 end
 
 function FastFlags:isFixIKBodyPartModeOn()
-	return isFlagOn("StudioAnimationEditorFixIKBodyPartMode")
+	return isFlagOn("StudioAnimationEditorFixIKBodyPartMode2")
 end
 
 function FastFlags:isOptimizationsEnabledOn()
-	return isFlagOn("StudioAnimationEdtiorOptimizationsEnabled")
+	return isFlagOn("StudioAnimationEdtiorOptimizationsEnabled2")
+end
+
+function FastFlags:isClearEventNamesOn()
+	return isFlagOn("StudioAnimationEditorClearEventNames")
+end
+
+function FastFlags:isKeepClipboardAfterMoveOn()
+	return isFlagOn("StudioAnimationEditorKeepClipboardAfterMove")
 end
 
 return FastFlags

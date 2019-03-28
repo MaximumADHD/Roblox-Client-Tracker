@@ -30,11 +30,18 @@ function ContextMenu:setText(title, top, bottom)
 		self._top.TextBounds.X,
 		self._bottom.TextBounds.X
 	)
-	local width = maxWidth + 10
-	local height = 10 + 14*2
-	if self._bottom.Text ~= "" then
-		height = height + 14
+	local amtNonEmpty = 0
+	if self._title.Text ~= "" then
+		amtNonEmpty = amtNonEmpty + 1
 	end
+	if self._top.Text ~= "" then
+		amtNonEmpty = amtNonEmpty + 1
+	end
+	if self._bottom.Text ~= "" then
+		amtNonEmpty = amtNonEmpty + 1
+	end
+	local width = maxWidth + 10
+	local height = 5 + 14*amtNonEmpty + 5
 	self._background.Size = UDim2.new(0, width, 0, height)
 end
 

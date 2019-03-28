@@ -6,9 +6,12 @@
 		string Text = The text to display
 		string PlaceholderText - text shown when no Text is passed in
 		bool Visible = Whether to display this component
+		bool Enabled = Whether this component can be interacted with (true by default)
 		function SetText(text) = Callback to tell parent that text has changed
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
 ]]
+
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
 
@@ -39,6 +42,21 @@ function TextEntry:init()
 end
 
 function TextEntry:render()
+	local enabled = true
+	local children = nil
+	if DFFlagGameSettingsWorldPanel then
+		enabled = nil == self.props.Enabled and true or self.props.Enabled
+		if not enabled then
+			children = {
+				Roact.createElement("ImageButton", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					ImageTransparency = 1
+				})
+			}
+		end
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
@@ -58,6 +76,7 @@ function TextEntry:render()
 			Text = self.props.Text,
 			PlaceholderText = self.props.PlaceholderText,
 			TextXAlignment = self.props.HorizontalAlignment or Enum.TextXAlignment.Left,
+			TextTransparency = (DFFlagGameSettingsWorldPanel and not enabled) and 0.5 or 0,
 
 			[Roact.Ref] = self.textBoxRef,
 
@@ -75,7 +94,7 @@ function TextEntry:render()
 			end,
 
 			[Roact.Change.Text] = self.onTextChanged,
-		}),
+		}, children),
 	})
 end
 

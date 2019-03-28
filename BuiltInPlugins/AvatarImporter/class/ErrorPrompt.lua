@@ -93,7 +93,6 @@ function ErrorPrompt:_constructUI(screenGui)
 	closeButton.Position = UDim2.new(1, -20, 0.5, 0)
 	closeButton.Size = UDim2.new(0, 15, 0, 15)
 	closeButton.Parent = header
-	-- TODO: theme?
 
 	local errorIcon = Instance.new("ImageLabel")
 	errorIcon.Name = "ErrorIcon"
@@ -108,11 +107,12 @@ function ErrorPrompt:_constructUI(screenGui)
 	errorTitle.Font = Enum.Font.SourceSans
 	errorTitle.Name = "ErrorTitle"
 	errorTitle.Position = UDim2.new(0, 62, 0, 20)
-	errorTitle.Size = UDim2.new(0, 200, 0, 20)
+	errorTitle.Size = UDim2.new(1, -62, 0, 20)
 	errorTitle.Text = ""
 	errorTitle.TextSize = 20
 	errorTitle.TextXAlignment = Enum.TextXAlignment.Left
 	errorTitle.TextYAlignment = Enum.TextYAlignment.Center
+	errorTitle.ClipsDescendants = true
 	errorTitle.Parent = content
 	self.errorTitle = errorTitle
 	ThemeManager:setTextColor(errorTitle, Enum.StudioStyleGuideColor.MainText)

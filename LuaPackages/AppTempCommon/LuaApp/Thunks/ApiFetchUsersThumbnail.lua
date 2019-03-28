@@ -4,6 +4,8 @@ local Cryo = require(CorePackages.Cryo)
 
 local Actions = CorePackages.AppTempCommon.LuaApp.Actions
 local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
+local TableUtilities = require(CorePackages.AppTempCommon.LuaApp.TableUtilities)
+local PromiseUtilities = require(CorePackages.AppTempCommon.LuaApp.PromiseUtilities)
 
 local UsersGetThumbnail = require(Requests.UsersGetThumbnail)
 
@@ -17,7 +19,10 @@ local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 
-local FFlagLuaAppUseNewAvatarThumbnailsApi = settings():GetFFlag("LuaAppUseNewAvatarThumbnailsApi")
+local RETRY_MAX_COUNT = math.max(0, settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries"))
+local RETRY_TIME_MULTIPLIER = math.max(0, settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier"))
+
+local FFlagLuaAppUseNewAvatarThumbnailsApi = settings():GetFFlag("LuaAppUseNewAvatarThumbnailsApi2")
 
 if FFlagLuaAppUseNewAvatarThumbnailsApi then
 	local MAX_REQUEST_COUNT = 100
@@ -40,6 +45,13 @@ if FFlagLuaAppUseNewAvatarThumbnailsApi then
 		return "luaapp.usersthumbnailsapi." .. userId .. "." .. thumbnailType .. "." .. thumbnailSize
 	end
 
+	local function isCompleteThumbnailData(entry)
+		return type(entry) == "table"
+			and type(entry.targetId) == "number"
+			and type(entry.state) == "string"
+			and type(entry.imageUrl) == "string"
+	end
+
 	local ApiFetchUsersThumbnail = {}
 
 	function ApiFetchUsersThumbnail.getThumbnailsSizeArgForSize(thumbnailSize)
@@ -56,7 +68,7 @@ if FFlagLuaAppUseNewAvatarThumbnailsApi then
 		return string.gsub(thumbnailSize, "Size", "")
 	end
 
-	function ApiFetchUsersThumbnail._fetch(networkImpl, userIds, thumbnailRequest)
+	function ApiFetchUsersThumbnail._fetch(networkImpl, listOfUserIds, thumbnailRequest)
 		local thumbnailSize = thumbnailRequest.thumbnailSize
 		local thumbnailType = thumbnailRequest.thumbnailType
 
@@ -72,38 +84,95 @@ if FFlagLuaAppUseNewAvatarThumbnailsApi then
 			return keyMapper(userId, thumbnailType, thumbnailSize)
 		end
 
-		return PerformFetch.Batch(userIds, keyMapperForCurrentTypeAndSize, function(store, userIdsToFetch)
-			return thumbnailsApiForThumbnailType(networkImpl, userIdsToFetch, thumbnailSizeRequestArg):andThen(
-				function(result)
-					assert(typeof(result.responseBody.data) == "table", "Malformed response from server, missing 'data' object")
+		local function getTableOfFailedResults(userIds)
+			local results = {}
+			for _, userId in pairs(userIds) do
+				local key = keyMapperForCurrentTypeAndSize(userId)
+				results[key] = Result.new(false, {
+					targetId = userId,
+				})
+			end
+			return results
+		end
 
-					local results = {}
-					for _, entry in pairs(result.responseBody.data) do
-						local userId = tostring(entry.targetId)
-						local key = keyMapper(userId, thumbnailType, thumbnailSize)
-						local success = false
-
-						if entry.state == "Completed" then
-							store:dispatch(SetUserThumbnail(tostring(entry.targetId), entry.imageUrl, thumbnailType, thumbnailSize))
-							success = true
+		return PerformFetch.Batch(listOfUserIds, keyMapperForCurrentTypeAndSize, function(store, userIdsToFetch)
+			local function fetchThumbnails(userIdsProvided)
+				return thumbnailsApiForThumbnailType(networkImpl, userIdsProvided, thumbnailSizeRequestArg):andThen(
+					function(result)
+						local results = getTableOfFailedResults(userIdsProvided)
+						local data = result and result.responseBody and result.responseBody.data
+						if typeof(data) == "table" then
+							for _, entry in pairs(data) do
+								if isCompleteThumbnailData(entry) then
+									local userId = tostring(entry.targetId)
+									local key = keyMapperForCurrentTypeAndSize(userId)
+									local success = false
+									if entry.state == "Completed" then
+										store:dispatch(SetUserThumbnail(tostring(entry.targetId), entry.imageUrl, thumbnailType, thumbnailSize))
+										success = true
+									end
+									results[key] = Result.new(success, entry)
+								end
+							end
 						end
-						results[key] = Result.new(success, entry)
-					end
 
-					return Promise.resolve(results)
-				end,
-				function(err)
-					local results = {}
-					for _, userId in pairs(userIdsToFetch) do
-						local key = keyMapper(userId, thumbnailType, thumbnailSize)
-						results[key] = Result.new(false, {})
+						return Promise.resolve(results)
+					end,
+					function(err)
+						local results = getTableOfFailedResults(userIdsProvided)
+						return Promise.resolve(results)
 					end
+				)
+			end
 
-					return Promise.resolve(results)
+			return fetchThumbnails(userIdsToFetch):andThen(function(results)
+				local completedThumbnails = {}
+				local thumbnailResults = results
+
+				if _G.__TESTEZ_RUNNING_TEST__ then
+					RETRY_MAX_COUNT = 1
+					RETRY_TIME_MULTIPLIER = 0.001
 				end
-			)
-		end)
 
+				local function retry(retryCount)
+					local remainingUserIdsToFetch = {}
+
+					for key, result in pairs(thumbnailResults) do
+						local isSuccessful, thumbnailInfo = result:unwrap()
+
+						if isSuccessful and thumbnailInfo.state == "Completed" then
+							completedThumbnails[key] = result
+						else
+							table.insert(remainingUserIdsToFetch, thumbnailInfo.targetId)
+						end
+					end
+
+					if TableUtilities.FieldCount(remainingUserIdsToFetch) == 0 then
+						return Promise.resolve(completedThumbnails)
+					end
+
+					local delayPromise = Promise.new(function(resolve, reject)
+						coroutine.wrap(function()
+							wait(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1))
+							resolve()
+						end)()
+					end)
+
+					return delayPromise:andThen(function()
+						return fetchThumbnails(remainingUserIdsToFetch)
+					end):andThen(function(newResults)
+						thumbnailResults = newResults
+						if retryCount > 1 then
+							return retry(retryCount - 1)
+						else
+							return Promise.resolve(completedThumbnails)
+						end
+					end)
+				end
+
+				return retry(RETRY_MAX_COUNT)
+			end)
+		end)
 	end
 
 	function ApiFetchUsersThumbnail.Fetch(networkImpl, userIds, thumbnailRequests)
@@ -118,7 +187,7 @@ if FFlagLuaAppUseNewAvatarThumbnailsApi then
 				end
 			end
 
-			return Promise.all(allPromises)
+			return PromiseUtilities.Batch(allPromises)
 		end
 	end
 

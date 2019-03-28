@@ -1288,6 +1288,53 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "TrackEventWithArgs",
+                    "Parameters": [
+                        {
+                            "Name": "category",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "action",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "label",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "args",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "UpdateHeartbeatObject",
                     "Parameters": [
                         {
@@ -7107,6 +7154,64 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "AlignPosition",
+            "Superclass": "Constraint"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Torque",
+                    "MemberType": "Property",
+                    "Name": "AngularVelocity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Torque",
+                    "MemberType": "Property",
+                    "Name": "MaxTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Torque",
+                    "MemberType": "Property",
+                    "Name": "RelativeTo",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ActuatorRelativeTo"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AngularVelocity",
             "Superclass": "Constraint"
         },
         {
@@ -19709,7 +19814,7 @@
         {
             "Members": [
                 {
-                    "Category": "Control",
+                    "Category": "Jump Settings",
                     "MemberType": "Property",
                     "Name": "AutoJumpEnabled",
                     "Security": {
@@ -19940,7 +20045,7 @@
                     }
                 },
                 {
-                    "Category": "Game",
+                    "Category": "Jump Settings",
                     "MemberType": "Property",
                     "Name": "JumpHeight",
                     "Security": {
@@ -19957,7 +20062,7 @@
                     }
                 },
                 {
-                    "Category": "Game",
+                    "Category": "Jump Settings",
                     "MemberType": "Property",
                     "Name": "JumpPower",
                     "Security": {
@@ -20239,7 +20344,7 @@
                     }
                 },
                 {
-                    "Category": "Game",
+                    "Category": "Jump Settings",
                     "MemberType": "Property",
                     "Name": "UseJumpPower",
                     "Security": {
@@ -36544,6 +36649,55 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateHumanoidModelFromDescription",
+                    "Parameters": [
+                        {
+                            "Name": "description",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "rigType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HumanoidRigType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateHumanoidModelFromUserId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetCharacterAppearanceAsync",
                     "Parameters": [
                         {
@@ -37483,6 +37637,14 @@
                                 "Category": "Class",
                                 "Name": "Instance"
                             }
+                        },
+                        {
+                            "Default": "true",
+                            "Name": "isR15",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -37498,6 +37660,14 @@
                     "MemberType": "Function",
                     "Name": "ImportFbxRig",
                     "Parameters": [
+                        {
+                            "Default": "true",
+                            "Name": "isR15",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Class",
@@ -43917,13 +44087,16 @@
                     "MemberType": "Property",
                     "Name": "CharacterJumpHeight",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -43934,13 +44107,16 @@
                     "MemberType": "Property",
                     "Name": "CharacterJumpPower",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -43951,13 +44127,16 @@
                     "MemberType": "Property",
                     "Name": "CharacterMaxSlopeAngle",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -43968,13 +44147,16 @@
                     "MemberType": "Property",
                     "Name": "CharacterUseJumpPower",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -43985,13 +44167,16 @@
                     "MemberType": "Property",
                     "Name": "CharacterWalkSpeed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -51075,6 +51260,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetDeviceType",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "DeviceType"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetFocusedTextBox",
                     "Parameters": [
                     ],
@@ -55454,6 +55650,27 @@
                 }
             ],
             "Name": "DeveloperMemoryTag"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "Desktop",
+                    "Value": 1
+                },
+                {
+                    "Name": "Tablet",
+                    "Value": 2
+                },
+                {
+                    "Name": "Phone",
+                    "Value": 3
+                }
+            ],
+            "Name": "DeviceType"
         },
         {
             "Items": [

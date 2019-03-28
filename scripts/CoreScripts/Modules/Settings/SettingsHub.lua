@@ -36,8 +36,6 @@ local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVers
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
 
-local enableResponsiveUIFixSuccess, enableResponsiveUIFixValue = pcall(function() return settings():GetFFlag("EnableResponsiveUIFix") end)
-local FFlagEnableResponsiveUIFix = enableResponsiveUIFixSuccess and enableResponsiveUIFixValue
 local FFlagXboxEnableABTests = settings():GetFFlag("XboxEnableABTests")
 local FFlagXboxPlayNextGame = settings():GetFFlag("XboxPlayNextGame")
 local FFlagXboxOverrideEnablePlayNextGame = settings():GetFFlag("XboxOverrideEnablePlayNextGame")
@@ -46,7 +44,7 @@ local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestNam
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
-local FFlagXboxShowPlayers = settings():GetFFlag("XboxShowPlayers")
+local FFlagXboxShowPlayers2 = settings():GetFFlag("XboxShowPlayers2")
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -581,17 +579,15 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Parent = this.Shield
 		}
-		if FFlagEnableResponsiveUIFix then
-			this.MenuListLayout = utility:Create'UIListLayout'
-			{
-				Name = "MenuListLayout",
-				FillDirection = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Parent = this.MenuContainer
-			}
-		end
+        this.MenuListLayout = utility:Create'UIListLayout'
+        {
+            Name = "MenuListLayout",
+            FillDirection = Enum.FillDirection.Vertical,
+            VerticalAlignment = Enum.VerticalAlignment.Center,
+            HorizontalAlignment = Enum.HorizontalAlignment.Center,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+            Parent = this.MenuContainer
+        }
 		this.MenuAspectRatio = utility:Create'UIAspectRatioConstraint'
 		{
 			Name = 'MenuAspectRatio',
@@ -708,7 +704,7 @@ local function CreateSettingsHub()
 			this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
 		end
 
-		-- Xbox Only.  Clean up along with FFlagXboxShowPlayers
+		-- Xbox Only.  Clean up along with FFlagXboxShowPlayers2
 		local inviteToGameFunc = function()
 			if not RunService:IsStudio() then
 				if PlatformService then
@@ -727,7 +723,7 @@ local function CreateSettingsHub()
 			buttonImageAppend = "@2x"
 		end
 
-		if FFlagXboxShowPlayers then
+		if FFlagXboxShowPlayers2 then
 			addBottomBarButton("LeaveGame", "Leave Game", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
 				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
 				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
@@ -1354,7 +1350,7 @@ local function CreateSettingsHub()
 				removeBottomBarBindings()
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
-				if FFlagXboxShowPlayers then
+				if FFlagXboxShowPlayers2 then
 					this:SwitchToPage(this.PlayersPage, nil, 1, true)
 				else
 					if not isTenFootInterface then
@@ -1573,13 +1569,13 @@ local function CreateSettingsHub()
 		this.RecordPage:SetHub(this)
 	end
 
-	if FFlagXboxShowPlayers then
+	if FFlagXboxShowPlayers2 then
 		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 		this.PlayersPage:SetHub(this)
 	end
 
 	if not isTenFootInterface then
-		if not FFlagXboxShowPlayers then
+		if not FFlagXboxShowPlayers2 then
 			this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 			this.PlayersPage:SetHub(this)
 		end
@@ -1617,7 +1613,7 @@ local function CreateSettingsHub()
 	end
 
 	-- page registration
-	if FFlagXboxShowPlayers then
+	if FFlagXboxShowPlayers2 then
 		this:AddPage(this.PlayersPage)
 	else
 		if not isTenFootInterface then
@@ -1635,7 +1631,7 @@ local function CreateSettingsHub()
 		this:AddPage(this.RecordPage)
 	end
 
-	if FFlagXboxShowPlayers then
+	if FFlagXboxShowPlayers2 then
 		this:SwitchToPage(this.PlayersPage, true, 1)
 	else
 		if not isTenFootInterface then

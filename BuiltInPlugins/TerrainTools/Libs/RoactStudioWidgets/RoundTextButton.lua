@@ -11,6 +11,7 @@
 		int LayoutOrder = The order this RoundTextButton will sort to when placed in a UIListLayout.
 		string Name = The text to display in this Button.
 		function OnClicked = The function that will be called when this button is clicked.
+		function OnHoverChanged = The function that will be called when the hover state changes.
 		variant Value = Data that can be accessed from the OnClicked callback.
 		table Style = {
 			ButtonColor,
@@ -24,6 +25,8 @@
 		bool ShowPressed = Whether the button appears a different color when pressed
 		Mouse = plugin mouse for changing the mouse icon
 ]]
+
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
 local Constants = require(script.Parent.Internal.Constants)
@@ -63,6 +66,11 @@ function RoundTextButton:mouseHoverChanged(hovering)
 	else
 		Mouse.onLeave(self.props.Mouse)
 	end
+
+	if DFFlagGameSettingsWorldPanel and nil ~= self.props.OnHoverChanged then
+		self.props.OnHoverChanged(self.props.Value, hovering)
+	end
+
 	self:setState({
 		Hovering = hovering,
 	})
