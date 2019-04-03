@@ -34,7 +34,7 @@ local DEFAULT_SIZE = UDim2.new(0, 100, 0, 100)
 local RoundFrame = Roact.PureComponent:extend("RoundFrame")
 
 function RoundFrame:init(initialProps)
-	local isButton = initialProps.Activated ~= nil
+	local isButton = initialProps.OnActivated ~= nil
 	self.elementType = isButton and "ImageButton" or "ImageLabel"
 end
 

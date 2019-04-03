@@ -57,7 +57,8 @@ function Keyboard:Enable(enable)
 	self.leftValue = 0
 	self.rightValue = 0
 	self.moveVector = ZERO_VECTOR3
-	self.isJumping = false
+	self.jumpRequested = false
+	self:UpdateJump()
 
 	if enable then
 		self:BindContextActions()
@@ -77,6 +78,10 @@ function Keyboard:UpdateMovement(inputState)
 	else
 		self.moveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
 	end
+end
+
+function Keyboard:UpdateJump()
+	self.isJumping = self.jumpRequested
 end
 
 function Keyboard:BindContextActions()
@@ -118,7 +123,8 @@ function Keyboard:BindContextActions()
 	end
 
 	local handleJumpAction = function(actionName, inputState, inputObject)
-		self.isJumping = self.jumpEnabled and (inputState == Enum.UserInputState.Begin)
+		self.jumpRequested = self.jumpEnabled and (inputState == Enum.UserInputState.Begin)
+		self:UpdateJump()
 		if FFlagPlayerScriptsBindAtPriority2 then
 			return Enum.ContextActionResult.Pass
 		end
@@ -161,11 +167,13 @@ function Keyboard:ConnectFocusEventListeners()
 		self.backwardValue = 0
 		self.leftValue = 0
 		self.rightValue = 0
-		self.isJumping = false
+		self.jumpRequested = false
+		self:UpdateJump()
 	end
 
 	local function onTextFocusGained(textboxFocused)
-		self.isJumping = false
+		self.jumpRequested = false
+		self:UpdateJump()
 	end
 
 	self.textFocusReleasedConn = UserInputService.TextBoxFocusReleased:Connect(onFocusReleased)

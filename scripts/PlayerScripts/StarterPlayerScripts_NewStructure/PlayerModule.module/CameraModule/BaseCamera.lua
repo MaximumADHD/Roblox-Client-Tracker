@@ -69,11 +69,6 @@ local noDynamicThumbstickRecenterFlagExists, noDynamicThumbstickRecenterFlagEnab
 end)
 local FFlagUserNoDynamicThumbstickRecenter = noDynamicThumbstickRecenterFlagExists and noDynamicThumbstickRecenterFlagEnabled
 
-local thumbstickUseCASFlagSuccess, thumbstickUseCASFlagValue = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickUseContextActionSevice")
-end)
-local FFlagDynamicThumbstickUseContextActionSevice = thumbstickUseCASFlagSuccess and thumbstickUseCASFlagValue
-
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 
@@ -936,8 +931,7 @@ function BaseCamera:OnTouchChanged(input, processed)
 		if not processed then
 			self.numUnsunkTouches = self.numUnsunkTouches + 1
 		end
-	elseif FFlagDynamicThumbstickUseContextActionSevice and self.isDynamicThumbstickEnabled
-			and self.fingerTouches[input] ~= processed then
+	elseif self.isDynamicThumbstickEnabled and self.fingerTouches[input] ~= processed then
 		--This is necessary to allow the dynamic thumbstick to steal touches after passing the InputBegan state.
 		self.fingerTouches[input] = processed
 		if processed then

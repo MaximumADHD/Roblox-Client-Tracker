@@ -6817,7 +6817,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -22474,7 +22474,7 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
                         "ReadOnly",
@@ -22697,7 +22697,10 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "Glue",
-            "Superclass": "JointInstance"
+            "Superclass": "JointInstance",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -23003,7 +23006,8 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service"
+                "Service",
+                "Deprecated"
             ]
         },
         {
@@ -44102,40 +44106,34 @@
                     }
                 },
                 {
-                    "Category": "Character",
+                    "Category": "Character Jump Settings",
                     "MemberType": "Property",
                     "Name": "CharacterJumpHeight",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
                     }
                 },
                 {
-                    "Category": "Character",
+                    "Category": "Character Jump Settings",
                     "MemberType": "Property",
                     "Name": "CharacterJumpPower",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -44146,36 +44144,30 @@
                     "MemberType": "Property",
                     "Name": "CharacterMaxSlopeAngle",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
                     }
                 },
                 {
-                    "Category": "Character",
+                    "Category": "Character Jump Settings",
                     "MemberType": "Property",
                     "Name": "CharacterUseJumpPower",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -44186,16 +44178,13 @@
                     "MemberType": "Property",
                     "Name": "CharacterWalkSpeed",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -46533,6 +46522,17 @@
                         "Name": "Dictionary"
                     },
                     "Security": "PluginSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetUserId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -51414,6 +51414,24 @@
                         "Name": "Platform"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStringForKeyCode",
+                    "Parameters": [
+                        {
+                            "Name": "keyCode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "KeyCode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",

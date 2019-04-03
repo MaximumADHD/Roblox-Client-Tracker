@@ -39,7 +39,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Generate",
 		Text = "Studio.TerrainEditor.MainButtons.Generate",
-		Tip = "Studio.TerrainEditor.MainButtons.Generate.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.GenerateTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_generate.png",
 		Modules = {modules.TerrainGeneration},
 		LayoutOrder = 1,
@@ -47,7 +47,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Add",
 		Text = "Studio.TerrainEditor.MainButtons.Add",
-		Tip = "Studio.TerrainEditor.MainButtons.Add.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.AddTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_add.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
@@ -57,7 +57,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Subtract",
 		Text = "Studio.TerrainEditor.MainButtons.Subtract",
-		Tip = "Studio.TerrainEditor.MainButtons.Subtract.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.SubtractTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_subtract.png",
 		Modules = {modules.Brush,},
 		LayoutOrder = 3,
@@ -67,7 +67,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Paint",
 		Text = "Studio.TerrainEditor.MainButtons.Paint",
-		Tip = "Studio.TerrainEditor.MainButtons.Paint.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.PaintTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_paint.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
@@ -77,7 +77,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Grow",
 		Text = "Studio.TerrainEditor.MainButtons.Grow",
-		Tip = "Studio.TerrainEditor.MainButtons.Grow.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.GrowTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_grow.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
@@ -86,7 +86,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Erode",
 		Text = "Studio.TerrainEditor.MainButtons.Erode",
-		Tip = "Studio.TerrainEditor.MainButtons.Erode.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.ErodeTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_erode.png",
 		Modules = {modules.Brush,},
 		LayoutOrder = 6,
@@ -95,7 +95,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Smooth",
 		Text = "Studio.TerrainEditor.MainButtons.Smooth",
-		Tip = "Studio.TerrainEditor.MainButtons.Smooth.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.SmoothTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_smooth.png",
 		Modules = {modules.Brush, modules.TerrainSmoother,},
 		LayoutOrder = 7,
@@ -104,7 +104,7 @@ local kMainButtonConfigs =
 	{
 		Name = "Regions",
 		Text = "Studio.TerrainEditor.MainButtons.Regions",
-		Tip = "Studio.TerrainEditor.MainButtons.Regions.Tooltip",
+		Tip = "Studio.TerrainEditor.MainButtons.RegionsTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_regions.png",
 		Modules = {modules.TerrainRegionEditor,},
 		LayoutOrder = 8,

@@ -2,7 +2,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
+local DebugSettings = settings():GetService("DebugSettings")
 local AnalyticsService = game:GetService("AnalyticsService")
+local StudioService = game:GetService("StudioService")
+local platformId = 0
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -19,6 +22,24 @@ local function getClientId()
 		clientId = AnalyticsService:GetClientId()
 	end)
 	return clientId
+end
+
+-- TODO: We should fetch this only once per plugin session.
+local function getUserId()
+	local userId = nil
+	pcall(function()
+		userId = StudioService:GetUserId()
+	end)
+	return userId
+end
+
+local function getPlatformId()
+	if platformId == 0 then
+		pcall(function()
+			platformId = DebugSettings.OsPlatform
+		end)
+	end
+	return platformId
 end
 
 local Analytics = { }
@@ -110,6 +131,45 @@ end
 
 function Analytics.onSoundPausedCounter()
 	AnalyticsSenders.reportCounter("Studio.ToolboxAudio.Paused")
+end
+
+-- AssetPreview
+function Analytics.onAssetPreviewSelected(assetId)
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "assetPreviewOpen", {
+		assetId = assetId,
+		clientId = getClientId(),
+		userId = getUserId(),
+		platformId = getPlatformId(),
+	})
+end
+
+-- time, milliseconds
+function Analytics.onAssetPreviewEnded(assetId, time)
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "modelPreviewInteractionDuration", {
+		assetId = assetId,
+		time = time,
+		clientId = getClientId(),
+		userId= getUserId(),
+		platformId = getPlatformId(),
+	})
+end
+
+function Analytics.onAssetInsertedFromAssetPreview(assetId)
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "previewInsertion", {
+		assetId = assetId,
+		clientId = getClientId(),
+		userId = getUserId(),
+		platformId = getPlatformId(),
+	})
+end
+
+function Analytics.onTreeviewActivated(assetId)
+	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "treeviewUsage", {
+		assetId = assetId,
+		clientId = getClientId(),
+		userId = getUserId(),
+		platformId = getPlatformId(),
+	})
 end
 
 return Analytics

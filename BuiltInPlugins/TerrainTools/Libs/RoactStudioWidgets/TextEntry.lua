@@ -11,7 +11,7 @@
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
 

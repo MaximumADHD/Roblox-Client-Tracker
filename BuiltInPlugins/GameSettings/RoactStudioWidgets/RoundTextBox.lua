@@ -36,7 +36,7 @@
 		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local DEFAULT_HEIGHT = 42
 local PADDING = UDim.new(0, 10)

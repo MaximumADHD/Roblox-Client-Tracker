@@ -11,6 +11,7 @@ local FFlagUseNotificationsLocalization = success and result
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagCoreScriptSettingsHelpRightKeys = settings():GetFFlag("CoreScriptSettingsHelpRightKeys")
 
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
@@ -31,6 +32,7 @@ local GameSettings = Settings.GameSettings
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -174,18 +176,45 @@ local function Initialize()
 		local rowOffset = 50
 		local isOSX = UserInputService:GetPlatform() == Enum.Platform.OSX
 
-		local charMoveFrame = createPCGroup( "Character Movement", {[1] = {["Move Forward"] = "W/Up Arrow"},
-			[2] = {["Move Backward"] = "S/Down Arrow"},
-			[3] = {["Move Left"] = "A/Left Arrow"},
-			[4] = {["Move Right"] = "D/Right Arrow"},
-			[5] = {["Jump"] = "Space"}} )
+		local charMoveFrame
+		if FFlagCoreScriptSettingsHelpRightKeys then
+			charMoveFrame = createPCGroup( "Character Movement", {
+				[1] = {["Move Forward"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.W) .. "/"
+								..RobloxTranslator:FormatByKey("InGame.HelpMenu.UpArrow")},
+				[2] = {["Move Backward"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.S) .. "/"
+								..RobloxTranslator:FormatByKey("InGame.HelpMenu.DownArrow")},
+				[3] = {["Move Left"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.A) .. "/"
+								..RobloxTranslator:FormatByKey("InGame.HelpMenu.LeftArrow")},
+				[4] = {["Move Right"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.D) .. "/"
+								..RobloxTranslator:FormatByKey("InGame.HelpMenu.RightArrow")},
+				[5] = {["Jump"] = "Space"}} )
+		else
+			charMoveFrame = createPCGroup( "Character Movement", {[1] = {["Move Forward"] = "W/Up Arrow"},
+				[2] = {["Move Backward"] = "S/Down Arrow"},
+				[3] = {["Move Left"] = "A/Left Arrow"},
+				[4] = {["Move Right"] = "D/Right Arrow"},
+				[5] = {["Jump"] = "Space"}} )
+		end
 		charMoveFrame.Parent = parentFrame
 
-		local accessoriesFrame = createPCGroup("Accessories", {
-			[1] = {["Equip Tools"] = "1,2,3..."},
-			[2] = {["Unequip Tools"] = "1,2,3..."},
-			[3] = {["Drop Tool"] = "Backspace"},
-			[4] = {["Use Tool"] = "Left Mouse Button"} })
+		local accessoriesFrame
+		if FFlagCoreScriptSettingsHelpRightKeys then
+			local oneChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.One)
+			local twoChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.Two)
+			local threeChar = UserInputService:GetStringForKeyCode(Enum.KeyCode.Three)
+			local toolKeys = oneChar .. "," .. twoChar .. "," .. threeChar .. "..."
+			accessoriesFrame = createPCGroup("Accessories", {
+				[1] = {["Equip Tools"] = toolKeys},
+				[2] = {["Unequip Tools"] = toolKeys},
+				[3] = {["Drop Tool"] = "Backspace"},
+				[4] = {["Use Tool"] = "Left Mouse Button"} })
+		else
+			accessoriesFrame = createPCGroup("Accessories", {
+				[1] = {["Equip Tools"] = "1,2,3..."},
+				[2] = {["Unequip Tools"] = "1,2,3..."},
+				[3] = {["Drop Tool"] = "Backspace"},
+				[4] = {["Use Tool"] = "Left Mouse Button"} })
+		end
 		accessoriesFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,0,0)
 		accessoriesFrame.Parent = parentFrame
 
@@ -210,17 +239,34 @@ local function Initialize()
 		miscFrame.Position = UDim2.new(2/3,PC_TABLE_SPACING * 2,0,0)
 		miscFrame.Parent = parentFrame
 
-		local camFrame = createPCGroup("Camera Movement", {	[1] = {["Rotate"] = "Right Mouse Button"},
+		local camFrame
+		if FFlagCoreScriptSettingsHelpRightKeys then
+			camFrame = createPCGroup("Camera Movement", {	[1] = {["Rotate"] = "Right Mouse Button"},
+			[2] = {["Zoom In/Out"] = "Mouse Wheel"},
+			[3] = {["Zoom In"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.I)},
+			[4] = {["Zoom Out"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.O)} })
+		else
+			camFrame = createPCGroup("Camera Movement", {	[1] = {["Rotate"] = "Right Mouse Button"},
 			[2] = {["Zoom In/Out"] = "Mouse Wheel"},
 			[3] = {["Zoom In"] = "I"},
 			[4] = {["Zoom Out"] = "O"} })
+		end
 		camFrame.Position = UDim2.new(0,0,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		camFrame.Parent = parentFrame
 
-		local menuFrame = createPCGroup("Menu Items", {		[1] = {["Roblox Menu"] = "ESC"},
+		local menuFrame
+		if FFlagCoreScriptSettingsHelpRightKeys then
+			menuFrame = createPCGroup("Menu Items", {
+				[1] = {["Roblox Menu"] = "Esc"},
+				[2] = {["Backpack"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.Backquote)},
+				[3] = {["Playerlist"] = "Tab"},
+				[4] = {["Chat"] = UserInputService:GetStringForKeyCode(Enum.KeyCode.Slash)} })
+		else
+			menuFrame = createPCGroup("Menu Items", {		[1] = {["Roblox Menu"] = "ESC"},
 			[2] = {["Backpack"] = "~"},
 			[3] = {["Playerlist"] = "TAB"},
 			[4] = {["Chat"] = "/"} })
+		end
 		menuFrame.Position = UDim2.new(1/3,PC_TABLE_SPACING,charMoveFrame.Size.Y.Scale,charMoveFrame.Size.Y.Offset + rowOffset)
 		menuFrame.Parent = parentFrame
 

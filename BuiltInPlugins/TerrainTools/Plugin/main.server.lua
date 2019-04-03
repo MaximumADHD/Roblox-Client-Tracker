@@ -4,7 +4,7 @@ local i18nModule = require(script.Parent.Parent.Libs.Localization)
 
 i18nModule.SetLocalizationTable(script.Parent.Parent.Data.TerrainTranslations)
 
-local kToolbarButtonText = i18nModule.TranslateId("Studio.TerrainEditor.ToolbarButton")
+local kToolbarButtonText = i18nModule.TranslateId("Studio.TerrainEditor.Main.ToolbarButton")
 
 local kMinWidthWidth = 249
 
@@ -24,7 +24,7 @@ local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
 local toggleVisibilityButton
 
 toggleVisibilityButton = toolbar:CreateButton("Editor", 
-	i18nModule.TranslateId("Studio.TerrainEditor.Tooltip"),
+	i18nModule.TranslateId("Studio.TerrainEditor.Main.Tooltip"),
 	"rbxasset://textures/TerrainTools/icon_terrain_big.png", 
 	kToolbarButtonText)
 
@@ -34,7 +34,7 @@ toggleVisibilityButton.ClickableWhenViewportHidden = true
 local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 0, 0, kMinWidthWidth)
 
 local pluginGui = plugin:CreateDockWidgetPluginGui("TerrainTools_PluginGui", dockWidgetPluginGuiInfo)
-pluginGui.Title = i18nModule.TranslateId("Studio.TerrainEditor.Title")
+pluginGui.Title = i18nModule.TranslateId("Studio.TerrainEditor.Main.Title")
 
 toggleVisibilityButton.Click:connect(function()
 	if pluginGui.Enabled then

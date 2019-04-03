@@ -1305,7 +1305,7 @@ Class DynamicRotate : JointInstance
 	Property float DynamicRotate.BaseAngle
 Class RotateP : DynamicRotate
 Class RotateV : DynamicRotate
-Class Glue : JointInstance
+Class Glue : JointInstance [deprecated]
 	Property Vector3 Glue.F0
 	Property Vector3 Glue.F1
 	Property Vector3 Glue.F2
@@ -1328,7 +1328,7 @@ Class VelocityMotor : JointInstance
 	Property Class:Hole VelocityMotor.Hole
 	Property float VelocityMotor.MaxVelocity
 Class Weld : JointInstance
-Class JointsService : Instance [notCreatable]
+Class JointsService : Instance [deprecated] [notCreatable]
 	Function void JointsService:ClearJoinAfterMoveJoints()
 	Function void JointsService:CreateJoinAfterMoveJoints()
 	Function void JointsService:SetJoinAfterMoveInstance(Instance joinInstance)
@@ -2517,11 +2517,11 @@ Class StarterPlayer : Instance [notCreatable]
 	Property float StarterPlayer.CameraMaxZoomDistance
 	Property float StarterPlayer.CameraMinZoomDistance
 	Property CameraMode StarterPlayer.CameraMode
-	Property float StarterPlayer.CharacterJumpHeight [hidden] [RobloxScriptSecurity]
-	Property float StarterPlayer.CharacterJumpPower [hidden] [RobloxScriptSecurity]
-	Property float StarterPlayer.CharacterMaxSlopeAngle [hidden] [RobloxScriptSecurity]
-	Property bool StarterPlayer.CharacterUseJumpPower [hidden] [RobloxScriptSecurity]
-	Property float StarterPlayer.CharacterWalkSpeed [hidden] [RobloxScriptSecurity]
+	Property float StarterPlayer.CharacterJumpHeight
+	Property float StarterPlayer.CharacterJumpPower
+	Property float StarterPlayer.CharacterMaxSlopeAngle
+	Property bool StarterPlayer.CharacterUseJumpPower
+	Property float StarterPlayer.CharacterWalkSpeed
 	Property DevCameraOcclusionMode StarterPlayer.DevCameraOcclusionMode
 	Property DevComputerCameraMovementMode StarterPlayer.DevComputerCameraMovementMode
 	Property DevComputerMovementMode StarterPlayer.DevComputerMovementMode
@@ -2836,6 +2836,7 @@ Class UserInputService : Instance [notCreatable]
 	Function Vector2 UserInputService:GetMouseLocation()
 	Function Array UserInputService:GetNavigationGamepads()
 	Function Platform UserInputService:GetPlatform() [RobloxScriptSecurity]
+	Function string UserInputService:GetStringForKeyCode(KeyCode keyCode)
 	Function Array UserInputService:GetSupportedGamepadKeyCodes(UserInputType gamepadNum)
 	Function CoordinateFrame UserInputService:GetUserCFrame(UserCFrame type)
 	Function bool UserInputService:IsGamepadButtonDown(UserInputType gamepadNum, KeyCode gamepadKeyCode)

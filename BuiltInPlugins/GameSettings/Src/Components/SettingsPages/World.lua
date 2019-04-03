@@ -15,6 +15,8 @@
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
 
+local DFIntJumpPowerInstantControllerMultiplierPercent =  tonumber(settings():GetFVariable("JumpPowerInstantControllerMultiplierPercent"))
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
@@ -292,8 +294,8 @@ local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props)
 		end
 
 		local jumpPower = props.WorkspaceUseJumpPower and (tonumber(props.WorkspaceJumpPower) or 0) or MathUtil.calculateJumpPowerFromHeight(gravity, props.WorkspaceJumpHeight)
-		local timeInAir = 2 * (jumpPower / gravity)
-    	return timeInAir * (tonumber(props.WorkspaceWalkSpeed) or 0)
+		local timeInAir = 2 * ((jumpPower * DFIntJumpPowerInstantControllerMultiplierPercent * 0.01) / gravity)
+		return timeInAir * (tonumber(props.WorkspaceWalkSpeed) or 0)
 	end
 
 	local function createLabel(xOffset, text)

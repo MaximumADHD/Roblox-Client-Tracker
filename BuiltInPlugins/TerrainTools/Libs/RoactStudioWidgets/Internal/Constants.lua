@@ -2,7 +2,7 @@
 	Constant values that are used across multiple widgets.
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local Constants = {
 	RADIO_BUTTON_SIZE = 20,

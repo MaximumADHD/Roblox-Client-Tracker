@@ -18,8 +18,9 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local Util = Plugin.Core.Util
+local ContextGetter = require(Util.ContextGetter)
+local ContextHelper = require(Util.ContextHelper)
 
 local getCamera = ContextGetter.getCamera
 

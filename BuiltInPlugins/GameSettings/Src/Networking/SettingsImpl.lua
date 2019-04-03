@@ -15,7 +15,7 @@ local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUs
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)

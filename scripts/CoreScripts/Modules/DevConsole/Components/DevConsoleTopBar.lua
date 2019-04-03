@@ -22,6 +22,7 @@ local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsole
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
 local FFlagDevConsoleIsVeryStickyWhyWillItNotLetGo = settings():GetFFlag("DevConsoleIsVeryStickyWhyWillItNotLetGo")
+local FFlagDevConsoleFixTopBarDragging = settings():GetFFlag("DevConsoleFixTopBarDragging")
 
 function DevConsoleTopBar:init()
 	self.inputBegan = function(rbx,input)
@@ -94,8 +95,10 @@ function DevConsoleTopBar:render()
 		TextXAlignment = Enum.TextXAlignment.Left,
 	})
 
-	local liveStatsModulePos = UDim2.new(0, DEVCONSOLE_TEXT_FRAMESIZE.X, 0, 0)
-	local liveStatsModuleSize = UDim2.new(1, -2 * DEVCONSOLE_TEXT_FRAMESIZE.X, 0, FRAME_HEIGHT)
+	-- padding multiplied by two for the padding on the left and the right
+	local devConsoleTextSizeAndPadding = DEVCONSOLE_TEXT_FRAMESIZE.X + (DEVCONSOLE_TEXT_X_PADDING * 2)
+	local liveStatsModulePos = UDim2.new(0, devConsoleTextSizeAndPadding, 0, 0)
+	local liveStatsModuleSize = UDim2.new(1, -2 * devConsoleTextSizeAndPadding, 0, FRAME_HEIGHT)
 
 	if isMinimized then
 		liveStatsModulePos = UDim2.new(0, 0, 1, 0)
@@ -162,7 +165,9 @@ function DevConsoleTopBar:render()
 	elements["MovmentCatchAll"] = moving and Roact.createElement(Roact.Portal, {
 		target = RobloxGui,
 	}, {
-		InputCatcher = Roact.createElement("ScreenGui", {}, {
+		InputCatcher = Roact.createElement("ScreenGui", {
+			OnTopOfCoreBlur = FFlagDevConsoleFixTopBarDragging,
+		}, {
 			GreyOutFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = Constants.Color.Black,

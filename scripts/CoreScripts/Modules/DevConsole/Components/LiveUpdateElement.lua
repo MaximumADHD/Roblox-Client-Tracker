@@ -24,6 +24,8 @@ local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, TOP_BAR_FONT_SIZE,
 local AVG_PING_STR = "Avg. Ping:"
 local avgPingStrWidth = TextService:GetTextSize(AVG_PING_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 
+local FFlagDevConsoleFixTopBarIcons = settings():GetFFlag("DevConsoleFixTopBarIcons")
+
 -- supposed to be the calculated width of the frame, but
 -- doing this for now due to time constraints.
 local MIN_LARGE_FORMFACTOR_WIDTH = 380
@@ -47,6 +49,29 @@ function LiveUpdateElement:didMount()
 			numWarnings = warning,
 		})
 	end)
+
+	if FFlagDevConsoleFixTopBarIcons then
+		self:doSizeCheck()
+	end
+end
+
+function LiveUpdateElement:didUpdate()
+	if FFlagDevConsoleFixTopBarIcons then
+		self:doSizeCheck()
+	end
+end
+
+function LiveUpdateElement:doSizeCheck()
+	if self.ref.current then
+		local formFactorThreshold = self.state.formFactorThreshold
+		local isSmallerThanFormFactorThreshold = self.ref.current.AbsoluteSize.X < formFactorThreshold
+
+		if isSmallerThanFormFactorThreshold ~= self.state.isSmallerThanFormFactorThreshold then
+			self:setState({
+				isSmallerThanFormFactorThreshold = isSmallerThanFormFactorThreshold
+			})
+		end
+	end
 end
 
 function LiveUpdateElement:willUnmount()
@@ -58,7 +83,6 @@ function LiveUpdateElement:willUnmount()
 
 	self.logWarningErrorConnector:Disconnect()
 	self.logWarningErrorConnector = nil
-
 end
 
 function LiveUpdateElement:init()
@@ -93,6 +117,7 @@ function LiveUpdateElement:init()
 		totalClientMemory = 0,
 		averagePing = 0,
 		formFactorThreshold = MIN_LARGE_FORMFACTOR_WIDTH,
+		isSmallerThanFormFactorThreshold = false,
 	}
 end
 
@@ -105,18 +130,13 @@ function LiveUpdateElement:render()
 	local numWarnings = self.state.numWarnings
 	local clientMemoryUsage = self.state.totalClientMemory
 	local averagePing = self.state.averagePing
-	local formFactorThreshold = self.state.formFactorThreshold
+	local isSmallerThanFormFactorThreshold = self.state.isSmallerThanFormFactorThreshold
 
 	local useSmallForm = false
 	local currMemStrWidth = memStatStrWidth.X
 	local alignment = Enum.HorizontalAlignment.Center
 
-	local sizeCheck
-	if self.ref.current then
-		sizeCheck = self.ref.current.AbsoluteSize.X < formFactorThreshold
-	end
-
-	if formFactor == Constants.FormFactor.Small or sizeCheck then
+	if formFactor == Constants.FormFactor.Small or isSmallerThanFormFactorThreshold then
 		position = position + UDim2.new(0, INNER_PADDING * 2, 0, 0)
 		currMemStrWidth = memStatStrSmallWidth.X
 		useSmallForm = true
@@ -154,12 +174,7 @@ function LiveUpdateElement:render()
 		Vector2.new(0, 0)
 	)
 
-	local sizeCheck
-	if self.ref.current then
-		sizeCheck = self.ref.current.AbsoluteSize.X < formFactorThreshold
-	end
-
-	if formFactor == Constants.FormFactor.Small or sizeCheck then
+	if formFactor == Constants.FormFactor.Small or isSmallerThanFormFactorThreshold then
 		position = position + UDim2.new(0, INNER_PADDING * 2, 0, 0)
 		currMemStrWidth = memStatStrSmallWidth.X
 		useSmallForm = true

@@ -1,20 +1,18 @@
 return function()
 	local Library = script.Parent.Parent
-	local Roact = require(Library.Parent.Modules.Roact)
+	local Roact = require(Library.Parent.Roact)
 
-	local Theme = require(Library.Style.Theme)
+	local MockWrapper = require(Library.MockWrapper)
 
-	local Theming = require(Library.Theming)
-	local ThemeProvider = Theming.Provider
+	local workspace = game:GetService("Workspace")
 
 	local CheckBox = require(script.Parent.CheckBox)
 
 	local function createTestCheckBox(enabled, selected)
-		return Roact.createElement(ThemeProvider, {
-			theme = Theme,
-		}, {
+		return Roact.createElement(MockWrapper, {}, {
 			checkBox = Roact.createElement(CheckBox, {
 				Title = "Title",
+				TextSize = 24,
 				Enabled = enabled,
 				Selected = selected,
 				OnClicked = function()

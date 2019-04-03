@@ -110,7 +110,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	-- Top level container has 3 collapsible sections:
 	-- 1) Brush Settings.
 	local brushSettingsObj = CollapsibleTitledSection.new('BrushSettings', 
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Brush Settings'), 
+		i18n.TranslateId('Studio.TerrainEditor.Brush.BrushSettings'), 
 		true, 
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(brushSettingsObj:GetContentsFrame())
@@ -136,7 +136,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	-- 2) Materials Settings.	
 	local materialSettingsObj = CollapsibleTitledSection.new("MaterialSettings", 
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Material Settings'),
+		i18n.TranslateId('Studio.TerrainEditor.Brush.MaterialSettings'),
 		true, 
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(materialSettingsObj:GetContentsFrame())
@@ -165,11 +165,11 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	GuiUtilities.MakeFrameAutoScalingList(advancedSettingsObj:GetContentsFrame())
 
 	local planeLockObj = LabeledCheckbox.new("PLock", 	
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Plane Lock'))
+		i18n.TranslateId('Studio.TerrainEditor.Brush.PlaneLock'))
 	local snapToGridObj = LabeledCheckbox.new("STG", 
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Snap to Grid'))
+		i18n.TranslateId('Studio.TerrainEditor.Brush.SnapToGrid'))
 	local ignoreWaterObj = LabeledCheckbox.new("IGW", 
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Ignore Water'),
+		i18n.TranslateId('Studio.TerrainEditor.Brush.IgnoreWater'),
 	 	true)
 	planeLockObj:SetValueChangedFunction(function(value)
 		if not planeLockObj:GetValue() then

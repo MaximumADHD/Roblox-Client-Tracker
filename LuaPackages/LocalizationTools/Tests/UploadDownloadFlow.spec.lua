@@ -4,7 +4,6 @@ local Promise = require(script.Parent.Parent.Promise)
 
 local MockPatch = {"I'm a patch"}
 local MockGameId = 123456789
-local MockUploadInfo = {"I'm the uploadInfo"}
 local MockRenderFunction = function() end
 
 local MakeRenderDialogContent = function()
@@ -367,12 +366,11 @@ return function()
 				expect(currentMessage).to.equal("Confirm upload...")
 
 				-- User hits "okay"
-				resolve(MockUploadInfo)
+				resolve()
 			end)
 		end
 
-		local function UploadPatch(gameId, patchInfo, uploadInfo)
-			expect(uploadInfo).to.equal(MockUploadInfo)
+		local function UploadPatch(gameId, patchInfo)
 			return Promise.new(function(resolve, reject)
 				expect(flow._busy).to.equal(true)
 				expect(currentState.NonInteractive).to.equal(true)
@@ -391,7 +389,6 @@ return function()
 			end,
 
 			OpenCSV = OpenCSV,
-			ComputePatch = ComputePatch,
 			MakeRenderDialogContent = MakeRenderDialogContent,
 			ShowDialog = ShowDialog,
 			UploadPatch = UploadPatch,
@@ -404,7 +401,7 @@ return function()
 			end,
 		})
 
-		flow:OnUpload(MockGameId):_unwrap()
+		flow:OnUpload(ComputePatch, MockGameId):_unwrap()
 		expect(section._busy).to.equal(false)
 		expect(currentMessage).to.equal("Upload complete")
 		expect(uploadedPatch).to.equal(MockPatch)
@@ -453,7 +450,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload(MockGameId)
+		local promise = flow:OnUpload(NeverReaches, MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -508,7 +505,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload(MockGameId)
+		local promise = flow:OnUpload(NeverReaches, MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -553,7 +550,6 @@ return function()
 			end,
 
 			OpenCSV = OpenCSV,
-			ComputePatch = ComputePatch,
 			MakeRenderDialogContent = NeverReaches,
 			ShowDialog = NeverReaches,
 			UploadPatch = NeverReaches,
@@ -566,7 +562,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload(MockGameId)
+		local promise = flow:OnUpload(ComputePatch, MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -627,7 +623,6 @@ return function()
 			end,
 
 			OpenCSV = OpenCSV,
-			ComputePatch = ComputePatch,
 			MakeRenderDialogContent = MakeRenderDialogContent,
 			ShowDialog = ShowDialog,
 			UploadPatch = NeverReaches,
@@ -640,7 +635,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload(MockGameId)
+		local promise = flow:OnUpload(ComputePatch, MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")
@@ -706,7 +701,6 @@ return function()
 			end,
 
 			OpenCSV = OpenCSV,
-			ComputePatch = ComputePatch,
 			MakeRenderDialogContent = MakeRenderDialogContent,
 			ShowDialog = ShowDialog,
 			UploadPatch = UploadPatch,
@@ -720,7 +714,7 @@ return function()
 			end,
 		})
 
-		local promise = flow:OnUpload(MockGameId)
+		local promise = flow:OnUpload(ComputePatch, MockGameId)
 		local success, errorInfo = promise:_unwrap()
 		assert(not success)
 		assert(type(errorInfo) == "table")

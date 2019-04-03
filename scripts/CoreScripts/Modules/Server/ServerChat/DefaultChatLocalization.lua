@@ -13,7 +13,7 @@ return {
             ["pt-br"] = "Digite '/?' ou '/help' no chat para ver uma lista de comandos.",
             ["ko"] = "채팅창에 '/?' 또는 '/도움말'을 입력하면 채팅 명령어 목록을 볼 수 있어요.",
             ["zh-tw"] = "Chat '/?' 或 '/help' 可取得聊天指令清單。",
-            ["zh-cn"] = "Chat '/?' 或 '/help' 可获取聊天指令清单。",
+            ["zh-cn"] = "输入 '/?' 或 '/help' 可获取聊天指令清单。",
         }
     },
     {
@@ -47,7 +47,7 @@ return {
             ["pt-br"] = "/c <canal> : trocar abas de menu de canal.",
             ["ko"] = "/c <채널> : 채널 메뉴 탭 전환.",
             ["zh-tw"] = "/c <channel> : 切換頻道選單標籤。",
-            ["zh-cn"] = "/c <channel> : 切换频道菜单标签。",
+            ["zh-cn"] = "/c <频道> : 切换频道菜单标签。",
         }
     },
     {
@@ -64,7 +64,7 @@ return {
             ["pt-br"] = "/me <texto> : comando de roleplaying para realizar ações.",
             ["ko"] = "/me <텍스트> : 작업 수행을 위한 역할 놀이 명령어.",
             ["zh-tw"] = "/me <text> : 做動作的角色扮演指令。",
-            ["zh-cn"] = "/me <text> : 做动作的角色扮演指令。",
+            ["zh-cn"] = "/me <指令> : 做动作的角色扮演指令。",
         }
     },
     {
@@ -81,7 +81,7 @@ return {
             ["pt-br"] = "/mute <pessoa> : silenciar uma pessoa.",
             ["ko"] = "/mute <스피커> : 스피커 음소거.",
             ["zh-tw"] = "/mute <speaker> : 將使用者靜音。",
-            ["zh-cn"] = "/mute <usuario>：将发言者静音。",
+            ["zh-cn"] = "/mute <发言者>：将发言者静音。",
         }
     },
     {
@@ -98,7 +98,7 @@ return {
             ["pt-br"] = "/unmute <pessoa> : remover silêncio de uma pessoa.",
             ["ko"] = "/unmute <스피커> : 스피커 음소거 해제.",
             ["zh-tw"] = "/unmute <speaker> : 取消靜音講者。",
-            ["zh-cn"] = "/unmute <speaker> : 取消发言者静音。",
+            ["zh-cn"] = "/unmute <发言者> : 取消发言者静音。",
         }
     },
     {
@@ -115,7 +115,7 @@ return {
             ["pt-br"] = "/whisper <pessoa> ou /w <pessoa> : abrir um canal de mensagem privada com uma pessoa.",
             ["ko"] = "/whisper <스피커> 또는 /w <스피커> : 스피커 채널에서 비공개 메시지 열기.",
             ["zh-tw"] = "/whisper <speaker> 或 /w <speaker> : 開啟與講者的私訊頻道。",
-            ["zh-cn"] = "/whisper <speaker> 或 /w <speaker> : 打开与发言者的私人消息频道。",
+            ["zh-cn"] = "/whisper <发言者> 或 /w <发言者> : 打开与发言者的私人消息频道。",
         }
     },
     {
@@ -302,7 +302,7 @@ return {
             ["pt-br"] = "/team <mensagem> ou /t <mensagem> : enviar um chat de equipe aos jogadores da sua equipe.",
             ["ko"] = "/team <메시지> 또는 /t <메시지> : 팀 내 플레이어에게 팀 채팅 전송.",
             ["zh-tw"] = "/team <message> 或 /t <message> : 傳送團隊聊天給隊伍中的玩家。",
-            ["zh-cn"] = "/team <message> 或 /t <message> : 向你团队的玩家发送团队聊天。",
+            ["zh-cn"] = "/team <消息> 或 /t <消息> : 向你团队的玩家发送团队聊天。",
         }
     },
     {

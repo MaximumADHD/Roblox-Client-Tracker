@@ -20,7 +20,7 @@
 		}
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35

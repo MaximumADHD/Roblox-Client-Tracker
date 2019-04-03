@@ -87,6 +87,9 @@ function TreeView:render()
 		local position = props.position
 		local size = props.size
 
+		local onTreeviewEntered = props.onTreeviewEntered
+		local onTreeviewLeft = props.onTreeviewLeft
+
 		local layoutOrder = props.layoutOrder
 
 		local treeNodes = {
@@ -119,13 +122,16 @@ function TreeView:render()
 		local maxHeight = nodesCount * (ELEMENT_PADDING + height)
 			+ BORDER_PADDING * 2
 
-		return Roact.createElement("Frame", {
+		return Roact.createElement("ImageButton", {
 			Position = position,
 			Size = size or UDim2.new(1, 0, 1, 0),
 
 			BackgroundTransparency = 0,
 			BackgroundColor3 = theme.assetPreview.treeView.background,
 			BorderSizePixel = 0,
+
+			[Roact.Event.MouseEnter] = onTreeviewEntered,
+			[Roact.Event.MouseLeave] = onTreeviewLeft,
 
 			LayoutOrder = layoutOrder
 		}, {

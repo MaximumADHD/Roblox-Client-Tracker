@@ -139,7 +139,22 @@ local function setToDefaultSelectionState(self)
 end
 
 local function wasTargetModelDeleted(self)
-	return self.TargetModel and self.TargetModel.Parent ~= game.Workspace
+	if FastFlags:isFixRigSelectionOn() then
+		return self.TargetModel and not self.TargetModel:FindFirstAncestor("Workspace")
+	else
+		return self.TargetModel and self.TargetModel.Parent ~= game.Workspace
+	end
+end
+
+local function wasPartOrMotorOnModelDeleted(self)
+	if self.TargetModel then
+		for _, dataItem in pairs(self.Paths.DataModelRig.partListByName) do
+			if dataItem.Item == nil or (dataItem.Motor6D == nil and dataItem.Item ~= nil and not self.Paths.DataModelRig:isARootPart(dataItem.Item)) then
+				return true
+			end
+		end
+	end
+	return false
 end
 
 local function doesPartNotExistOnModel(self, part)
@@ -175,10 +190,14 @@ local function loadAnimatedModel(self, model)
 	showEditor(self, findAllPossibleRoots(model))
 end
 
-local function promptForNewModel(self, model)
+local function configureDarkCoverForNewAnimation(self)
 	self.Paths.GUIScriptDarkCover:turnOn(true, self)
 	self.Paths.GUIScriptDarkCover:showText("No animations exist for this rig. Please create one.")
 	self.Paths.GUIScriptDarkCover:showButton(true)
+end
+
+local function promptForNewModel(self, model)
+	configureDarkCoverForNewAnimation(self)
 	if self.Paths.DataModelRig:hasRig(self.Paths) then
 		self.Paths.UtilityScriptPluginSetup:clearEditor()
 	end
@@ -186,6 +205,8 @@ local function promptForNewModel(self, model)
 		local roots = findAllPossibleRoots(model)
 		if verifyRig(self, model) then
 			showEditor(self, roots)
+		elseif FastFlags:isFixRigSelectionOn() then
+			configureDarkCoverForNewAnimation(self)
 		end
 	end)
 end
@@ -194,16 +215,25 @@ local function selectRig(self, selection)
 	if selectionEmpty(self, selection) then
 		if not self.Paths.DataModelRig:hasRig(self.Paths) then
 			setToDefaultSelectionState(self)
-		elseif wasTargetModelDeleted(self) or doesPartNotExistOnModel(self, self.TargetPart) or wasControllerDeleted(self) or wasRigInvalidated(self) then
-			setToDefaultSelectionState(self)
-			self.Paths.UtilityScriptPluginSetup:clearEditor(true)
+		else
+			if FastFlags:isFixRigSelectionOn() then
+				if wasTargetModelDeleted(self) or wasPartOrMotorOnModelDeleted(self) or wasControllerDeleted(self) or wasRigInvalidated(self) then
+					setToDefaultSelectionState(self)
+					self.Paths.UtilityScriptPluginSetup:clearEditor(true)
+				end
+			else
+				if wasTargetModelDeleted(self) or doesPartNotExistOnModel(self, self.TargetPart) or wasControllerDeleted(self) or wasRigInvalidated(self) then
+					setToDefaultSelectionState(self)
+					self.Paths.UtilityScriptPluginSetup:clearEditor(true)
+				end
+			end
 		end
 	else
 		local item = selection[1]
 		if FastFlags:isOptimizationsEnabledOn() and not item:FindFirstAncestor("Workspace") then
 			return
 		end
-		if doesPartExistOnModel(self, item) and (item:IsA("BasePart") or item:IsA("Motor6D")) then
+		if not FastFlags:isFixRigSelectionOn() and (doesPartExistOnModel(self, item) and (item:IsA("BasePart") or item:IsA("Motor6D"))) then
 			self.TargetPart = item
 		end
 		if item:IsA("Model") and hasController(item) then
@@ -216,7 +246,7 @@ local function selectRig(self, selection)
 					promptForNewModel(self, item)
 				end
 			end
-		else
+		elseif not FastFlags:isFixRigSelectionOn() or self.TargetModel == nil or (self.TargetModel and not self.TargetModel:FindFirstChild("AnimSaves")) then
 			setToDefaultSelectionState(self)
 			if self.Paths.DataModelRig:hasRig(self.Paths) then
 				self.Paths.UtilityScriptPluginSetup:clearEditor()
@@ -256,10 +286,16 @@ function RigSelection:init(Paths)
 		local target = mouse.Target
 		if target then
 			local model = getModel(target)
-			if model and model ~= self.TargetModel then
-				self.Paths.Globals.Selection:Set({model})
-			elseif doesPartNotExistOnModel(self, target) and not self.Paths.HelperFunctionsCreation:hasTag(target, self.Paths.DataModelPartManipulator.TagName) then
-				self.Paths.Globals.Selection:Set({target})
+			if FastFlags:isFixRigSelectionOn() then
+				if model and model ~= self.TargetModel and hasController(model) then
+					self.Paths.Globals.Selection:Set({model})
+				end
+			else
+				if model and model ~= self.TargetModel then
+					self.Paths.Globals.Selection:Set({model})
+				elseif doesPartNotExistOnModel(self, target) and not self.Paths.HelperFunctionsCreation:hasTag(target, self.Paths.DataModelPartManipulator.TagName) then
+					self.Paths.Globals.Selection:Set({target})
+				end
 			end
 		end
 	end))
@@ -268,12 +304,20 @@ function RigSelection:init(Paths)
 		local target = mouse.Target
 		if target then
 			local model = getModel(target)
-			if model and model ~= self.TargetModel then
-				self.HoverBox.Adornee = model
-			elseif doesPartNotExistOnModel(self, target) and not self.Paths.HelperFunctionsCreation:hasTag(target, self.Paths.DataModelPartManipulator.TagName) then
-				self.HoverBox.Adornee = target
+			if FastFlags:isFixRigSelectionOn() then
+				if model and model ~= self.TargetModel and hasController(model) then
+					self.HoverBox.Adornee = model
+				else
+					self.HoverBox.Adornee = nil
+				end
 			else
-				self.HoverBox.Adornee = nil
+				if model and model ~= self.TargetModel then
+					self.HoverBox.Adornee = model
+				elseif doesPartNotExistOnModel(self, target) and not self.Paths.HelperFunctionsCreation:hasTag(target, self.Paths.DataModelPartManipulator.TagName) then
+					self.HoverBox.Adornee = target
+				else
+					self.HoverBox.Adornee = nil
+				end
 			end
 		else
 			self.HoverBox.Adornee = nil

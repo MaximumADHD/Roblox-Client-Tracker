@@ -184,4 +184,12 @@ function FastFlags:isFixWorldSpaceJointPanelOn()
 	return isFlagOn("StudioAnimationEditorFixWorldSpaceJointPanel")
 end
 
+function FastFlags:isQueueMultipleWarningsOn()
+	return isFlagOn("StudioAnimationEditorQueueMultipleWarnings")
+end
+
+function FastFlags:isFixRigSelectionOn()
+	return isFlagOn("StudioAnimationEditorFixRigSelection")
+end
+
 return FastFlags

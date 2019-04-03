@@ -7,7 +7,7 @@ local LocalizationTools = Roact.Component:extend("LocalizationTools")
 
 function LocalizationTools:init()
 	self.state = {
-		Message = "", --(Otherwise a nil propagates and "Label" appears in the initial ui.
+		Message = "", -- (Otherwise a nil propagates and "Label" appears in the initial ui.)
 	}
 
 	self.SetMessage = function(message)
@@ -62,7 +62,7 @@ function LocalizationTools:render()
 						BackgroundColor3 = theme.ScrollBarBackground,
 						BorderColor3 = theme.Border,
 						ClipsDescendants = true,
-						CanvasSize = UDim2.new(0, 300, 0, 240),
+						CanvasSize = UDim2.new(0, 320, 0, 300),
 					}, {
 						Container = Roact.createElement("Frame", {
 							Size = UDim2.new(1, 0, 1, 0),
@@ -91,7 +91,8 @@ function LocalizationTools:render()
 								ShowDialog = self.props.ShowDialog,
 								SetMessage = self.SetMessage,
 								OpenCSV = self.props.OpenCSV,
-								ComputePatch = self.props.ComputePatch,
+								ComputeReplacePatch = self.props.ComputeReplacePatch,
+								ComputeUpdatePatch = self.props.ComputeUpdatePatch,
 								UploadPatch = self.props.UploadPatch,
 								DownloadGameTable = self.props.DownloadGameTable,
 								UpdateGameTableInfo = self.props.UpdateGameTableInfo,

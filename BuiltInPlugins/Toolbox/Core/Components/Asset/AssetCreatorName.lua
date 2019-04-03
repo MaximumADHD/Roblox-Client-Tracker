@@ -13,21 +13,30 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
-local Constants = require(Plugin.Core.Util.Constants)
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local ContextGetter = require(Util.ContextGetter)
+local ContextHelper = require(Util.ContextHelper)
 
+local getNetwork = ContextGetter.getNetwork
 local getModal = ContextGetter.getModal
+local getSettings = ContextGetter.getSettings
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+
+local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 
 local AssetCreatorName = Roact.PureComponent:extend("AssetCreatorName")
 
 function AssetCreatorName:init(props)
+	local networkInterface = getNetwork(self)
+	local settings = getSettings(self)
+
 	self.state = {
 		isHovered = false
 	}
@@ -44,6 +53,14 @@ function AssetCreatorName:init(props)
 		self:setState({
 			isHovered = false
 		})
+	end
+
+	self.onActivated = function()
+		local props = self.props
+		local options = {
+			Creator = props.creatorName,
+		}
+		props.searchWithOptions(networkInterface, settings,options)
 	end
 end
 
@@ -65,7 +82,7 @@ function AssetCreatorName:render()
 
 				local isHovered = self.state.isHovered
 
-				return Roact.createElement("TextLabel", {
+				return Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
 					LayoutOrder = layoutOrder,
 					Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT),
@@ -77,9 +94,11 @@ function AssetCreatorName:render()
 					TextYAlignment = Enum.TextYAlignment.Top,
 					ClipsDescendants = true,
 					TextTruncate = Enum.TextTruncate.AtEnd,
+					AutoButtonColor = false,
 
 					[Roact.Event.MouseEnter] = self.onMouseEnter,
 					[Roact.Event.MouseLeave] = self.onMouseLeave,
+					[Roact.Event.Activated] = self.onActivated,
 				}, {
 					TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
 						Text = creatorName,
@@ -92,4 +111,12 @@ function AssetCreatorName:render()
 	end)
 end
 
-return AssetCreatorName
+local function mapDispatchToProps(dispatch)
+	return {
+		searchWithOptions = function(networkInterface, settings, options)
+			dispatch(SearchWithOptions(networkInterface, settings, options))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(AssetCreatorName)

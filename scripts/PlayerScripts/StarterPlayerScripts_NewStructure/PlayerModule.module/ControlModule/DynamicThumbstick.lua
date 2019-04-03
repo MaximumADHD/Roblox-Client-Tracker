@@ -30,10 +30,10 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
-local thumbstickUseCASFlagSuccess, thumbstickUseCASFlagValue = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickUseContextActionSevice")
+local thumstickIsFrameSuccess, thumstickIsFrameValue = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserThumbstickFrameIsActuallyFrame")
 end)
-local FFlagDynamicThumbstickUseContextActionSevice = thumbstickUseCASFlagSuccess and thumbstickUseCASFlagValue
+local FFlagUserThumbstickFrameIsActuallyFrame = thumstickIsFrameSuccess and thumstickIsFrameValue
 
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
@@ -51,6 +51,7 @@ function DynamicThumbstick.new()
 	self.revertAutoJumpEnabledToFalse = false
 
 	self.moveTouchObject = nil
+	self.moveTouchLockedIn = false
 	self.moveTouchFirstChanged = false
 	self.moveTouchStartPosition = nil
 
@@ -66,12 +67,6 @@ function DynamicThumbstick.new()
 
 	self.isFollowStick = false
 	self.thumbstickFrame = nil
-
-	if not FFlagDynamicThumbstickUseContextActionSevice then
-		self.onTouchMovedConn = nil
-		self.onTouchEndedConn = nil
-		self.onTouchActivateConn = nil
-	end
 
 	self.onRenderSteppedConn = nil
 
@@ -121,9 +116,7 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 			self:Create(uiParentFrame)
 		end
 
-		if FFlagDynamicThumbstickUseContextActionSevice then
-			self:BindContextActions()
-		end
+		self:BindContextActions()
 
 		if Players.LocalPlayer.Character then
 			self:OnCharacterAdded(Players.LocalPlayer.Character)
@@ -133,9 +126,7 @@ function DynamicThumbstick:Enable(enable, uiParentFrame)
 			end)
 		end
 	else
-		if FFlagDynamicThumbstickUseContextActionSevice then
-			ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
-		end
+		ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
 		-- Disable
 		self:OnInputEnded() -- Cleanup
 	end
@@ -177,9 +168,6 @@ function DynamicThumbstick:OnInputEnded()
 	self.moveTouchObject = nil
 	self.moveVector = ZERO_VECTOR3
 	self:FadeThumbstick(false)
-	if not FFlagDynamicThumbstickUseContextActionSevice then
-		self.thumbstickFrame.Active = true
-	end
 end
 
 function DynamicThumbstick:FadeThumbstick(visible)
@@ -344,6 +332,9 @@ function DynamicThumbstick:BindContextActions()
 			):Play()
 		end
 
+		if FFlagUserThumbstickFrameIsActuallyFrame then
+			self.moveTouchLockedIn = false
+		end
 		self.moveTouchObject = inputObject
 		self.moveTouchStartPosition = inputObject.Position
 		self.moveTouchFirstChanged = true
@@ -371,6 +362,10 @@ function DynamicThumbstick:BindContextActions()
 
 				self:FadeThumbstick(true)
 				self:MoveStick(inputObject.Position)
+			end
+
+			if FFlagUserThumbstickFrameIsActuallyFrame then
+				self.moveTouchLockedIn = true
 			end
 
 			local direction = Vector2.new(
@@ -420,20 +415,6 @@ function DynamicThumbstick:Create(parentFrame)
 	if self.thumbstickFrame then
 		self.thumbstickFrame:Destroy()
 		self.thumbstickFrame = nil
-		if not FFlagDynamicThumbstickUseContextActionSevice then
-			if self.onTouchMovedConn then
-				self.onTouchMovedConn:Disconnect()
-				self.onTouchMovedConn = nil
-			end
-			if self.onTouchEndedConn then
-				self.onTouchEndedCon:Disconnect()
-				self.onTouchEndedCon = nil
-			end
-			if self.onTouchActivateConn then
-				self.onTouchActivateConn:Disconnect()
-				self.onTouchActivateConn = nil
-			end
-		end
 		if self.onRenderSteppedConn then
 			self.onRenderSteppedConn:Disconnect()
 			self.onRenderSteppedConn = nil
@@ -468,15 +449,18 @@ function DynamicThumbstick:Create(parentFrame)
 		end
 	end
 
-	self.thumbstickFrame = Instance.new("TextButton")
-	self.thumbstickFrame.Text = ""
+	if FFlagUserThumbstickFrameIsActuallyFrame then
+		self.thumbstickFrame = Instance.new("Frame")
+		self.thumbstickFrame.BorderSizePixel = 0
+	else
+		self.thumbstickFrame = Instance.new("TextButton")
+		self.thumbstickFrame.Text = ""
+	end
 	self.thumbstickFrame.Name = "DynamicThumbstickFrame"
 	self.thumbstickFrame.Visible = false
 	self.thumbstickFrame.BackgroundTransparency = 1.0
 	self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	if FFlagDynamicThumbstickUseContextActionSevice then
-		self.thumbstickFrame.Active = false
-	end
+	self.thumbstickFrame.Active = false
 	layoutThumbstickFrame(false)
 
 	self.startImage = Instance.new("ImageLabel")
@@ -547,52 +531,6 @@ function DynamicThumbstick:Create(parentFrame)
 	self.startImageFadeTween = nil
 	self.endImageFadeTween = nil
 	self.middleImageFadeTweens = {}
-
-	if not FFlagDynamicThumbstickUseContextActionSevice then
-		-- input connections
-		self.thumbstickFrame.InputBegan:Connect(function(inputObject)
-			if inputObject.UserInputType ~= Enum.UserInputType.Touch or inputObject.UserInputState ~= Enum.UserInputState.Begin then
-				return
-			end
-			if self.moveTouchObject then
-				return
-			end
-
-			if self.isFirstTouch then
-				self.isFirstTouch = false
-				local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out,0,false,0)
-				TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
-				TweenService:Create(self.endImage, tweenInfo, {Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize), ImageColor3 = Color3.new(0,0,0)}):Play()
-			end
-
-			self.moveTouchObject = inputObject
-			self.moveTouchStartPosition = inputObject.Position
-			local startPosVec2 = Vector2.new(inputObject.Position.X - self.thumbstickFrame.AbsolutePosition.X, inputObject.Position.Y - self.thumbstickFrame.AbsolutePosition.Y)
-
-			self.startImage.Visible = true
-			self.startImage.Position = UDim2.new(0, startPosVec2.X, 0, startPosVec2.Y)
-			self.endImage.Visible = true
-			self.endImage.Position = self.startImage.Position
-
-			self:FadeThumbstick(true)
-			self:MoveStick(inputObject.Position)
-
-			if FADE_IN_OUT_BACKGROUND then
-				self:DoFadeInBackground()
-			end
-		end)
-
-		self.onTouchMovedConn = UserInputService.TouchMoved:connect(function(inputObject)
-			if inputObject == self.moveTouchObject then
-				self.thumbstickFrame.Active = false
-				local direction = Vector2.new(inputObject.Position.x - self.moveTouchStartPosition.x, inputObject.Position.y - self.moveTouchStartPosition.y)
-				if math.abs(direction.x) > 0 or math.abs(direction.y) > 0 then
-					self:DoMove(direction)
-					self:MoveStick(inputObject.Position)
-				end
-			end
-		end)
-	end
 
 	self.onRenderSteppedConn = RunService.RenderStepped:Connect(function()
 		if self.tweenInAlphaStart ~= nil then

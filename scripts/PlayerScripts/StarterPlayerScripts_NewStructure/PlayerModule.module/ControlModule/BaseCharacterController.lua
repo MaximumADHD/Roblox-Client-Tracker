@@ -18,12 +18,21 @@ function BaseCharacterController.new()
 	local self = setmetatable({}, BaseCharacterController)
 	self.enabled = false
 	self.moveVector = ZERO_VECTOR3
+	self.moveVectorIsCameraRelative = true
 	self.isJumping = false
 	return self
 end
 
+function BaseCharacterController:OnRenderStepped(dt)
+	-- By default, nothing to do
+end
+
 function BaseCharacterController:GetMoveVector()
 	return self.moveVector
+end
+
+function BaseCharacterController:IsMoveVectorCameraRelative()
+	return self.moveVectorIsCameraRelative
 end
 
 function BaseCharacterController:GetIsJumping()

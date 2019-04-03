@@ -62,7 +62,6 @@ ImageProcessLQNeonBlurFS,default,Fragment
 ImageProcessLQNeonFS,default,Fragment
 LightGridPointSplatFS,default,Fragment
 LinearizeDepthFS,default,Fragment
-LowQGlassFFlagUseSkylightFS,default,Fragment
 LowQGlassFS,default,Fragment
 LowQMaterialFS,default,Fragment
 LowQMaterialWangFallbackFS,default,Fragment
@@ -215,7 +214,6 @@ ImageProcessLQNeonBlurFS,default_NoShadows,Fragment
 ImageProcessLQNeonFS,default_NoShadows,Fragment
 LightGridPointSplatFS,default_NoShadows,Fragment
 LinearizeDepthFS,default_NoShadows,Fragment
-LowQGlassFFlagUseSkylightFS,default_NoShadows,Fragment
 LowQGlassFS,default_NoShadows,Fragment
 LowQMaterialFS,default_NoShadows,Fragment
 LowQMaterialWangFallbackFS,default_NoShadows,Fragment

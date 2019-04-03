@@ -2,17 +2,14 @@ return function()
 	local Library = script.Parent.Parent
 	local Roact = require(Library.Parent.Roact)
 
-	local Theming = require(Library.Theming)
-	local ThemeProvider = Theming.Provider
+	local MockWrapper = require(Library.MockWrapper)
 
 	local workspace = game:GetService("Workspace")
 
 	local RoundFrame = require(script.Parent.RoundFrame)
 
 	local function createTestRoundFrame(props, children)
-		return Roact.createElement(ThemeProvider, {
-			theme = Theming.DummyTheme,
-		}, {
+		return Roact.createElement(MockWrapper, {}, {
 			RoundFrame = Roact.createElement(RoundFrame, props, children)
 		})
 	end

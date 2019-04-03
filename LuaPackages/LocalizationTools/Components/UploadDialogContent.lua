@@ -1,7 +1,7 @@
 local Roact = require(game:GetService("CorePackages").Roact)
 local Theming = require(script.Parent.Parent.Theming)
 local SupportedLocales = require(script.Parent.Parent.SupportedLocales)
-local NumRowsLine = require(script.Parent.NumRowsLine)
+local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
@@ -56,7 +56,10 @@ function UploadDialogContent:render()
 	return Theming.withTheme(function(theme)
 		local PromptText
 
-		if self.props.PatchInfo.add + self.props.PatchInfo.change + self.props.PatchInfo.remove == 0 then
+		if self.props.PatchInfo.numAddedTranslations +
+			self.props.PatchInfo.numChangedTranslations +
+			self.props.PatchInfo.numRemovedTranslations == 0
+		then
 			PromptText = "Patch empty. Upload anyway?"
 		else
 			PromptText = "Upload patch?"
@@ -164,9 +167,9 @@ function UploadDialogContent:render()
 						PaddingTop = UDim.new(0, 5),
 					}),
 
-					AddLine = Roact.createElement(NumRowsLine, {
-						PreText = "Add: ",
-						NumRows = self.props.PatchInfo.add,
+					AddLine = Roact.createElement(NumTranslationsLine, {
+						PreText = "Add translations: ",
+						NumTranslations = self.props.PatchInfo.numAddedTranslations,
 						EnabledColor = theme.BrightText,
 						DisabledColor = theme.DimmedText,
 						LayoutOrder = 1,
@@ -178,9 +181,9 @@ function UploadDialogContent:render()
 						end
 					}),
 
-					ChangeLine = Roact.createElement(NumRowsLine, {
-						PreText = "Change: ",
-						NumRows = self.props.PatchInfo.change,
+					ChangeLine = Roact.createElement(NumTranslationsLine, {
+						PreText = "Change translations: ",
+						NumTranslations = self.props.PatchInfo.numChangedTranslations,
 						EnabledColor = theme.WarningText,
 						DisabledColor = theme.DimmedText,
 						LayoutOrder = 2,
@@ -192,9 +195,9 @@ function UploadDialogContent:render()
 						end
 					}),
 
-					DeleteLine = Roact.createElement(NumRowsLine, {
-						PreText = "Delete: ",
-						NumRows = self.props.PatchInfo.remove,
+					DeleteLine = Roact.createElement(NumTranslationsLine, {
+						PreText = "Delete translations: ",
+						NumTranslations = self.props.PatchInfo.numRemovedTranslations,
 						EnabledColor = theme.ErrorText,
 						DisabledColor = theme.DimmedText,
 						LayoutOrder = 3,
@@ -253,11 +256,7 @@ function UploadDialogContent:render()
 					LayoutOrder = 2,
 
 					[Roact.Event.MouseButton1Click] = function()
-						self.props.OkayCallback({
-							addEnabled = self.state.AddLineEnabled,
-							changeEnabled = self.state.ChangeLineEnabled,
-							removeEnabled = self.state.RemoveLineEnabled,
-						})
+						self.props.OkayCallback()
 					end,
 				}),
 			}),

@@ -1,7 +1,6 @@
 local Roact = require(script.Parent.Parent.Roact)
 local Symbol = require(script.Parent.Parent.Roact.Symbol)
 local themeKey = Symbol.named("UILibraryTheme")
-local createTheme = require(script.Parent.createTheme)
 
 local ThemeProvider = Roact.PureComponent:extend("UILibraryThemeProvider")
 function ThemeProvider:init()
@@ -32,16 +31,8 @@ local function withTheme(callback)
 	})
 end
 
-local function makeDummyTheme()
-	return createTheme({
-		backgroundColor = Color3.new(),
-		textColor = Color3.new(),
-	})
-end
-
 return {
 	Provider = ThemeProvider,
 	Consumer = ThemeConsumer,
-	DummyTheme = makeDummyTheme(),
 	withTheme = withTheme,
 }

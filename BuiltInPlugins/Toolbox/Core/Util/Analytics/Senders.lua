@@ -17,6 +17,11 @@ function Senders.sendEventImmediately(target, context, name, args)
 	AnalyticsService:SendEventImmediately(target, context, name, args)
 end
 
+function Senders.sendEventDeferred(target, context, name, args)
+	AnalyticsLogs.logAnalytics("sendEventDeferred", target, context, name, args)
+	AnalyticsService:SendEventDeferred(target, context, name, args)
+end
+
 function Senders.trackEvent(category, action, label, value)
 	AnalyticsLogs.logEvent("trackEvent", category, action, label, value)
 	AnalyticsService:TrackEvent(category, action, label, value)

@@ -4,6 +4,7 @@ local Theming = require(script.Parent.Parent.Theming)
 local LabeledButton = require(script.Parent.LabeledButton)
 local UploadDialogContent = require(script.Parent.UploadDialogContent)
 local UploadDownloadFlow = require(script.Parent.Parent.GameTable.UploadDownloadFlow)
+local Collapsible = require(script.Parent.Collapsible)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
@@ -35,7 +36,6 @@ function GameTableSection:init()
 	local flow = UploadDownloadFlow.new({
 		SetMessage = self.props.SetMessage,
 		OpenCSV = self.props.OpenCSV,
-		ComputePatch = self.props.ComputePatch,
 		ShowDialog = self.props.ShowDialog,
 		UploadPatch = self.props.UploadPatch,
 		DownloadGameTable = self.props.DownloadGameTable,
@@ -66,8 +66,17 @@ function GameTableSection:init()
 			end)
 	end
 
-	self._OnUpload = function()
-		flow:OnUpload(game.gameId):catch(
+	self._OnReplace = function()
+		flow:OnUpload(self.props.ComputeReplacePatch, game.gameId):catch(
+			function(errorInfo)
+				if errorInfo:hasWarningMessage() then
+					warn(errorInfo:getWarningMessage())
+				end
+			end)
+	end
+
+	self._OnUpdate = function()
+		flow:OnUpload(self.props.ComputeUpdatePatch, game.gameId):catch(
 			function(errorInfo)
 				if errorInfo:hasWarningMessage() then
 					warn(errorInfo:getWarningMessage())
@@ -165,7 +174,7 @@ function GameTableSection:render()
 				}),
 
 				Content = Roact.createElement("Frame", {
-					Size = UDim2.new(0, 266, 0, 75),
+					Size = UDim2.new(1, 0, 0, 75),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					LayoutOrder = 2,
@@ -183,7 +192,7 @@ function GameTableSection:render()
 						}),
 
 						Download = Roact.createElement(LabeledButton, {
-							LabelWidth = 160,
+							LabelWidth = 200,
 							ButtonWidth = 100,
 							Padding = 5,
 							Height = 35,
@@ -195,17 +204,36 @@ function GameTableSection:render()
 							OnClick = self._OnDownload,
 						}),
 
-						Upload = Roact.createElement(LabeledButton, {
-							LabelWidth = 160,
+						Update = Roact.createElement(LabeledButton, {
+							LabelWidth = 200,
 							ButtonWidth = 100,
 							Padding = 5,
 							Height = 35,
-							LabelText = "Upload CSV file to the web",
-							ButtonText = "Upload",
+							LabelText = "Update with new content from CSV",
+							ButtonText = "Update",
 							LayoutOrder = 2,
 							TextColor3 = theme.BrightText,
 							Disabled = self.state.NonInteractive,
-							OnClick = self._OnUpload,
+							OnClick = self._OnUpdate,
+						}),
+
+						AdvancedContainer = Roact.createElement(Collapsible, {
+							Size = UDim2.new(0, 205, 0, 40),
+							Title = "Advanced",
+							LayoutOrder = 3,
+							RenderContent = function()
+								return Roact.createElement(LabeledButton, {
+									LabelWidth = 200,
+									ButtonWidth = 100,
+									Padding = 5,
+									Height = 35,
+									LabelText = "Replace entire cloud table with CSV",
+									ButtonText = "Replace",
+									LayoutOrder = 2,
+									Disabled = self.state.NonInteractive,
+									OnClick = self._OnReplace,
+								})
+							end
 						}),
 					}),
 
@@ -239,7 +267,7 @@ function GameTableSection:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, 285, 0, 118),
+			Size = UDim2.new(0, 320, 0, 200),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = self.props.LayoutOrder,
@@ -256,8 +284,8 @@ function GameTableSection:render()
 				}),
 
 				SectionLabel = Roact.createElement("TextLabel", {
-					Text = "Game Localization Table",
-					Size = UDim2.new(0, 300, 0, 20),
+					Text = "Cloud Localization Table",
+					Size = UDim2.new(1, 0, 0, 20),
 					BorderSizePixel = 0,
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,

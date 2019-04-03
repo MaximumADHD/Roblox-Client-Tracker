@@ -5,12 +5,12 @@
 	Necessary properties:
 	position = UDim2
 	size = UDim2
-	assetId = num
 	canInsertAsset = call back
 	tryInsert = call back
 
 	Optionlal properties:
 	layoutOrder = num
+	assedId = id, for analytics
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -22,6 +22,7 @@ local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
+local Analytics = require(Util.Analytics.Analytics)
 
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 
@@ -41,6 +42,8 @@ function ActionBar:init(props)
 
 	self.onInsertActivated = function()
 		self.props.tryInsert(false)
+
+		Analytics.onAssetInsertedFromAssetPreview(props.assetId)
 	end
 end
 

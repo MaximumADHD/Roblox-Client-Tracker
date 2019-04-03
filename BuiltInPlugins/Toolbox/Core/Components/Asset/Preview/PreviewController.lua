@@ -14,6 +14,10 @@ local ImagePreview = require(Preview.ImagePreview)
 local OtherPreview = require(Preview.OtherPreview)
 local MainViewButtons = require(Preview.MainViewButtons)
 
+local Util = Plugin.Core.Util
+local Analytics = require(Util.Analytics.Analytics)
+local DebugFlags = require(Util.DebugFlags)
+
 local AssetType = require(Plugin.Core.Types.AssetType)
 
 local TreeView = require(Plugin.Core.Components.TreeView.TreeView)
@@ -50,10 +54,75 @@ function PreviewController:init(props)
 		showTreeView = false,
 	}
 
+	self.treeviewInteracted = false
+	self.inModelPreview = false
+	self.inTreeview = false
+	self.totalTimeSpent = 0
+	self.cacheTime = 0
+
 	self.onTreeviewStatusToggle = function(newStatus)
 		self:setState({
 			showTreeView = newStatus,
 		})
+
+		if not self.treeviewInteracted then
+			Analytics.onTreeviewActivated(props.assetId)
+			self.treeviewInteracted = true
+		end
+	end
+
+	self.onModelPreviewFrameEntered = function(...)
+		self.props.onModelPreviewFrameEntered(...)
+
+		self.onPreviewStatusChange(true, self.inTreeview)
+	end
+
+	self.onModelPreviewFrameLeft = function(...)
+		self.props.onModelPreviewFrameLeft(...)
+
+		self.onPreviewStatusChange(false, self.inTreeview)
+	end
+
+	self.onTreeviewEntered = function()
+		self.onPreviewStatusChange(self.inModelPreview, true)
+	end
+
+	self.onTreeviewLeft = function()
+		self.onPreviewStatusChange(self.inModelPreview, false)
+	end
+
+	self.onPreviewStatusChange = function(newModelStatus, newTreeStatus)
+		if (not self.inModelPreview and not self.inTreeview) and
+			(newModelStatus or newTreeStatus) then
+			-- Time to start the timer
+			self.cacheTime = elapsedTime()
+		end
+
+		if (not newModelStatus and not newTreeStatus) and
+			(self.inModelPreview or self.inTreeview) then
+			local currentTime = elapsedTime()
+			local newTimeSpent = currentTime - self.cacheTime
+			if newTimeSpent > 0 then
+				self.totalTimeSpent = self.totalTimeSpent + math.floor(newTimeSpent * 1000)
+			else
+				if DebugFlags.shouldDebugWarnings() then
+					warn("No time spent on PreviewController.")
+				end
+			end
+		end
+
+		self.inModelPreview = newModelStatus
+		self.inTreeview = newTreeStatus
+	end
+end
+
+function PreviewController:willUnmount()
+	-- TODO: Fix the analytics in the Markeptlace/Toolbos
+	-- For now, it's the parent's duty to tell the component if we are mock or not
+	-- This component itself should not care about that.
+	-- This ticket: DEVTOOLS-2623 Refactor Toolbox Analytics will fix it.
+	if not self.props.mockAnalytics then
+		Analytics.onAssetPreviewEnded(self.props.assetId, self.totalTimeSpent)
 	end
 end
 
@@ -70,8 +139,8 @@ function PreviewController:render()
 	local layoutOrder = props.layoutOrder
 
 	local onTreeItemClicked = props.onTreeItemClicked
-	local onModelPreviewFrameEntered = props.onModelPreviewFrameEntered
-	local onModelPreviewFrameLeft = props.onModelPreviewFrameLeft
+	local onModelPreviewFrameEntered = self.onModelPreviewFrameEntered
+	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft
 
 	local width = props.width
 
@@ -150,6 +219,9 @@ function PreviewController:render()
 			RootInstance = previewModel,
 			SelectedInstance = currentPreview,
 			InstanceClicked = onTreeItemClicked,
+
+			onTreeviewEntered = self.onTreeviewEntered,
+			onTreeviewLeft = self.onTreeviewLeft,
 
 			layoutOrder = 2,
 		}),

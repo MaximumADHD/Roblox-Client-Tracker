@@ -12,7 +12,7 @@
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves this component.
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local TextService = game:GetService("TextService")
 

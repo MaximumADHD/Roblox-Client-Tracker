@@ -19,8 +19,6 @@ Default_DEPRECATED_SmoothPlasticReflectionFS,default,Fragment
 Default_DEPRECATED_SmoothPlasticReflectionHQFS,default,Fragment
 DefaultForceFieldFS,default,Fragment
 DefaultForceFieldHQFS,default,Fragment
-DefaultGlassFFlagUseSkylightHQFS,default,Fragment
-DefaultGlassFFlagUseSkylightSuperHQFS,default,Fragment
 DefaultGlassHQFS,default,Fragment
 DefaultGlassSuperHQFS,default,Fragment
 DefaultNeonFS,default,Fragment
@@ -80,7 +78,6 @@ ImageProcessLQNeonBlurFS,default,Fragment
 ImageProcessLQNeonFS,default,Fragment
 LightGridPointSplatFS,default,Fragment
 LinearizeDepthFS,default,Fragment
-LowQGlassFFlagUseSkylightFS,default,Fragment
 LowQGlassFS,default,Fragment
 LowQMaterialFS,default,Fragment
 LowQMaterialWangFallbackFS,default,Fragment
@@ -231,8 +228,6 @@ Default_DEPRECATED_SmoothPlasticReflectionFS,default_NoShadows,Fragment
 Default_DEPRECATED_SmoothPlasticReflectionHQFS,default_NoShadows,Fragment
 DefaultForceFieldFS,default_NoShadows,Fragment
 DefaultForceFieldHQFS,default_NoShadows,Fragment
-DefaultGlassFFlagUseSkylightHQFS,default_NoShadows,Fragment
-DefaultGlassFFlagUseSkylightSuperHQFS,default_NoShadows,Fragment
 DefaultGlassHQFS,default_NoShadows,Fragment
 DefaultGlassSuperHQFS,default_NoShadows,Fragment
 DefaultNeonFS,default_NoShadows,Fragment
@@ -292,7 +287,6 @@ ImageProcessLQNeonBlurFS,default_NoShadows,Fragment
 ImageProcessLQNeonFS,default_NoShadows,Fragment
 LightGridPointSplatFS,default_NoShadows,Fragment
 LinearizeDepthFS,default_NoShadows,Fragment
-LowQGlassFFlagUseSkylightFS,default_NoShadows,Fragment
 LowQGlassFS,default_NoShadows,Fragment
 LowQMaterialFS,default_NoShadows,Fragment
 LowQMaterialWangFallbackFS,default_NoShadows,Fragment

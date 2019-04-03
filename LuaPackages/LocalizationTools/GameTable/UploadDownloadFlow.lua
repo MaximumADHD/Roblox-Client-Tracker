@@ -9,7 +9,6 @@ UploadDownloadFlow.__index = UploadDownloadFlow
 
 	SetMessage = display a message string to the user
 	OpenCSV = Open a CSV file for uploading
-	ComputePatch = Compute a diff between a downloaded table and the current table
 	ShowDialog =  Prompt the user for confirmation
 	UploadPatch = Upload the patch to the internet
 
@@ -128,7 +127,7 @@ function UploadDownloadFlow:_getBusy()
 	return self._busy
 end
 
-function UploadDownloadFlow:OnUpload(gameId)
+function UploadDownloadFlow:OnUpload(ComputePatchFunc, gameId)
 	if self:_getBusy() then
 		return Promise.reject("busy")
 	end
@@ -143,18 +142,18 @@ function UploadDownloadFlow:OnUpload(gameId)
 				self.props.SetMessage("Computing patch...")
 				self:_setMode(COMPUTING)
 
-				self.props.ComputePatch(gameId, localizationTable):andThen(
+				ComputePatchFunc(gameId, localizationTable):andThen(
 					function(patchInfo)
 						self.props.SetMessage("Confirm upload...")
 						self:_setMode(GETTING_USER_INPUT)
 
 						self.props.ShowDialog("Confirm Upload", 300, 320,
 							self.props.MakeRenderDialogContent(patchInfo)):andThen(
-							function(uploadInfo)
+							function()
 								self.props.SetMessage("Uploading patch...")
 								self:_setMode(COMPUTING)
 
-								self.props.UploadPatch(gameId, patchInfo, uploadInfo):andThen(
+								self.props.UploadPatch(gameId, patchInfo):andThen(
 									function()
 										self.props.SetMessage("Upload complete")
 										self:_setMode(NOT_BUSY)

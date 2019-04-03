@@ -34,7 +34,11 @@ local Util = require(modulesFolder:WaitForChild("Util"))
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
-if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
+ChatLocalization = ChatLocalization or {}
+
+if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
+	function ChatLocalization:FormatMessageToSend(key,default) return default end
+end
 
 --////////////////////////////// Methods
 --//////////////////////////////////////
@@ -53,17 +57,14 @@ function methods:AddChannel(channelName, autoJoin)
 			if (channel and speaker) then
 				if (channel.Leavable) then
 					speaker:LeaveChannel(channelName)
-					speaker:SendSystemMessage(
-						string.gsub(
-							ChatLocalization:Get(
-								"GameChat_ChatService_YouHaveLeftChannel",
-								string.format("You have left channel '%s'", channelName)
-							),
-						"{RBX_NAME}",channelName),
-						"System"
-					)
+					local msg = ChatLocalization:FormatMessageToSend(
+						"GameChat_ChatService_YouHaveLeftChannel",
+						string.format("You have left channel '%s'", channelName),
+						"RBX_NAME",
+						channelName)
+					speaker:SendSystemMessage(msg, "System")
 				else
-					speaker:SendSystemMessage(ChatLocalization:Get("GameChat_ChatService_CannotLeaveChannel","You cannot leave this channel."), channelName)
+					speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatService_CannotLeaveChannel","You cannot leave this channel."), channelName)
 				end
 			end
 
@@ -247,7 +248,7 @@ function methods:InternalNotifyFilterIssue()
 			local systemChannel = self:GetChannel("System")
 			if systemChannel then
 				systemChannel:SendSystemMessage(
-					ChatLocalization:Get(
+					ChatLocalization:FormatMessageToSend(
 						"GameChat_ChatService_ChatFilterIssues",
 						"The chat filter is currently experiencing issues and messages may be slow to appear."
 					),

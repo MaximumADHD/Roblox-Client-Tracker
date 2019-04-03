@@ -24,6 +24,7 @@ return function()
 			assetPreviewType = AssetType.TYPES.ModelType,
 			assetId = assetId,
 			putTreeviewOnBottom = true,
+			mockAnalytics = true,
 		})
 
 		return Roact.mount(element, container or nil, name or "")

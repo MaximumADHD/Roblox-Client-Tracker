@@ -29,6 +29,7 @@ local ROW_VALUE_WIDTH = .8
 local MICROPROFILER_PRESSED_COUNTERNAME ="MicroprofilerDevConsolePressed"
 
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
+local FFlagDevConsoleFixMicroprofilerSyncIssues = settings():GetFFlag("DevConsoleFixMicroprofilerSyncIssues")
 
 local MainViewProfiler = Roact.Component:extend("MainViewProfiler")
 
@@ -52,6 +53,15 @@ function MainViewProfiler:init()
 		end
 	end
 
+	if FFlagDevConsoleFixMicroprofilerSyncIssues then
+		local microProfilerChangedSignal = GameSettings:GetPropertyChangedSignal("OnScreenProfilerEnabled")
+		self.microProfilerChangedConnection = microProfilerChangedSignal:Connect(function()
+			self:setState({
+				clientProfilerEnabled = GameSettings.OnScreenProfilerEnabled
+			})
+		end)
+	end
+
 	self.utilRef = Roact.createRef()
 
 	self.state = {
@@ -65,6 +75,13 @@ function MainViewProfiler:didMount()
 	self:setState({
 		utilTabHeight = utilSize.Y.Offset
 	})
+end
+
+function MainViewProfiler:willUnmount()
+	if self.microProfilerChangedConnection then
+		self.microProfilerChangedConnection:Disconnect()
+		self.microProfilerChangedConnection = nil
+	end
 end
 
 function MainViewProfiler:didUpdate()

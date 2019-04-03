@@ -25,7 +25,11 @@ local Util = require(modulesFolder:WaitForChild("Util"))
 
 local ChatLocalization = nil
 pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
-if ChatLocalization == nil then ChatLocalization = { Get = function(key,default) return default end } end
+ChatLocalization = ChatLocalization or {}
+
+if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
+	function ChatLocalization:FormatMessageToSend(key,default) return default end
+end
 
 --////////////////////////////// Methods
 --//////////////////////////////////////
@@ -384,7 +388,7 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 		if (t > 0 and os.time() > t) then
 			self:UnmuteSpeaker(fromSpeaker.Name)
 		else
-			self:SendSystemMessageToSpeaker(ChatLocalization:Get("GameChat_ChatChannel_MutedInChannel","You are muted and cannot talk in this channel"), fromSpeaker.Name)
+			self:SendSystemMessageToSpeaker(ChatLocalization:FormatMessageToSend("GameChat_ChatChannel_MutedInChannel","You are muted and cannot talk in this channel"), fromSpeaker.Name)
 			return false
 		end
 	end

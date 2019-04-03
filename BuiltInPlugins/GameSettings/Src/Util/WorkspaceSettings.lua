@@ -4,7 +4,7 @@
 
 local starterPlayerService = game:GetService("StarterPlayer")
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local Plugin = nil
 local MathUtil = nil

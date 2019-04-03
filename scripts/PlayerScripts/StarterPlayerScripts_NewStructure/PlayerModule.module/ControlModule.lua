@@ -87,7 +87,6 @@ function ControlModule.new()
 	self.moveFunction = Players.LocalPlayer.Move
 	self.humanoid = nil
 	self.lastInputType = Enum.UserInputType.None
-	self.cameraRelative = true
 
 	-- For Roblox self.vehicleController
 	self.humanoidSeatedConn = nil
@@ -194,7 +193,7 @@ function ControlModule:Disable()
 		self.activeController:Enable(false)
 
 		if self.moveFunction then
-			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), self.cameraRelative)
+			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), true)
 		end
 	end
 end
@@ -257,18 +256,26 @@ end
 
 function ControlModule:OnRenderStepped(dt)
 	if self.activeController and self.activeController.enabled and self.humanoid then
-		local moveVector = self.activeController:GetMoveVector()
+		-- Give the controller a chance to adjust its state
+		self.activeController:OnRenderStepped(dt)
 
+		-- Now retrieve info from the controller
+		local moveVector = self.activeController:GetMoveVector()
+		local cameraRelative = self.activeController:IsMoveVectorCameraRelative()
+
+		-- Are we driving a vehicle ?
 		local vehicleConsumedInput = false
 		if self.vehicleController then
-			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, self.activeControlModule==Gamepad)
+			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, cameraRelative, self.activeControlModule==Gamepad)
 		end
 
-		-- User of vehicleConsumedInput is commented out to preserve legacy behavior, in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
+		-- If not, move the player
+		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior, in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
 		--if not vehicleConsumedInput then
-			self.moveFunction(Players.LocalPlayer, moveVector, self.cameraRelative)
+			self.moveFunction(Players.LocalPlayer, moveVector, cameraRelative)
 		--end
 
+		-- And make them jump if needed
 		self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
 	end
 end

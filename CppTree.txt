@@ -278,6 +278,7 @@ RBX
 		{
 			StreamJob
 			{
+				StreamDataInfoItem
 				StreamDataItem
 			}
 			ChangePropertyItem
@@ -322,6 +323,7 @@ RBX
 		DeserializedPmcConfigItem
 		DeserializedResolveNewInstanceAtomicTreeItem
 		DeserializedStatsItem
+		DeserializedStreamDataInfoItem
 		DeserializedStreamDataItem
 		DeserializedTagItem
 		DeserializedTimeoutInfoRequestItem
@@ -545,11 +547,8 @@ RBX
 	}
 	TextScraper
 	{
-		ClientJob_deprecated
 		ClientScraperJob
-		Job_deprecated
 		ScraperJob
-		ServerJob_deprecated
 		ServerScraperJob
 		ServiceScraperJob
 	}
@@ -935,6 +934,7 @@ RBX
 	LuaSourceContainer
 	LuaStatsItem
 	LuaWebService
+	ManagedWorldJointInstance
 	ManualGlue
 	ManualGlueJoint
 	ManualJointHelper

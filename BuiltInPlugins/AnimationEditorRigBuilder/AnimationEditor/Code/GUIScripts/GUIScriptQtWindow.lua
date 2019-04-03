@@ -56,8 +56,15 @@ function GUIScriptQtWindow:isOn()
 	return self.QWidget.Enabled
 end
 
+function GUIScriptQtWindow:setTitle(title)
+	self.QWidget.Title = title
+end
+
 function GUIScriptQtWindow:terminate()
 	if self.QWidget then
+		if FastFlags:isQueueMultipleWarningsOn() then
+			self.QWidget:BindToClose()
+		end
 		self:turnOn(false)
 		self.QWidget:Destroy()
 		self.QWidget = nil

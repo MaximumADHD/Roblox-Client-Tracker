@@ -14,6 +14,7 @@ local CoreGuiService = game:GetService('CoreGui')
 local InputService = game:GetService('UserInputService')
 local ContextActionService = game:GetService('ContextActionService')
 local HttpService = game:GetService('HttpService')
+local RunService = game:GetService('RunService')
 local StarterGui = game:GetService('StarterGui')
 local Players = game:GetService('Players')
 local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
@@ -23,6 +24,7 @@ local VRService = game:GetService('VRService')
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
+local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
 
 --[[ MODULES ]]
 local tenFootInterface = require(GuiRoot.Modules.TenFootInterface)
@@ -67,7 +69,7 @@ local function getImagesForSlot(slot)
 									UDim2.new(1,-90,0,90), UDim2.new(0,52,0,52),
 									UDim2.new(0,108,0,150), UDim2.new(1,-110,0,50)
 	elseif slot == 3 then	return "rbxasset://textures/ui/Settings/Radial/BottomRight.png", "rbxasset://textures/ui/Settings/Radial/BottomRightSelected.png",
-									"rbxasset://textures/ui/Settings/Radial/Alert.png",
+	                                FFlagEmotesMenuEnabled and "rbxasset://textures/ui/Emotes/EmotesRadialIcon.png" or "rbxasset://textures/ui/Settings/Radial/Alert.png",
 									UDim2.new(1,-85,1,-150), UDim2.new(0,42,0,58),
 									UDim2.new(0,120,0,150), UDim2.new(1,-120,1,-200)
 	elseif slot == 4 then 	return "rbxasset://textures/ui/Settings/Radial/Bottom.png", "rbxasset://textures/ui/Settings/Radial/BottomSelected.png",
@@ -75,7 +77,7 @@ local function getImagesForSlot(slot)
 									UDim2.new(0.5,-20,1,-62), UDim2.new(0,55,0,46),
 									UDim2.new(0,150,0,100), UDim2.new(0.5,-75,1,-100)
 	elseif slot == 5 then	return "rbxasset://textures/ui/Settings/Radial/BottomLeft.png", "rbxasset://textures/ui/Settings/Radial/BottomLeftSelected.png",
-									"rbxasset://textures/ui/Settings/Radial/Backpack.png",
+								    "rbxasset://textures/ui/Settings/Radial/Backpack.png",
 									UDim2.new(0,40,1,-150), UDim2.new(0,44,0,56),
 									UDim2.new(0,110,0,150), UDim2.new(0,0,0,205)
 	elseif slot == 6 then	return "rbxasset://textures/ui/Settings/Radial/TopLeft.png", "rbxasset://textures/ui/Settings/Radial/TopLeftSelected.png",
@@ -109,7 +111,7 @@ vrSlotImages[2].iconSize = UDim2.new(0, 52, 0, 52)
 vrSlotImages[3].icon = "rbxasset://textures/ui/VR/Radial/Icons/Recenter.png"
 vrSlotImages[3].iconPosition = UDim2.new(1, -60, 0.5, -25)
 vrSlotImages[3].iconSize = UDim2.new(0, 50, 0, 50)
-vrSlotImages[4].icon = "rbxasset://textures/ui/Settings/Radial/Alert.png"
+vrSlotImages[4].icon = FFlagEmotesMenuEnabled and "rbxasset://textures/ui/Emotes/EmotesRadialIcon.png" or "rbxasset://textures/ui/Settings/Radial/Alert.png"
 vrSlotImages[4].iconPosition = UDim2.new(0.71, 12, 0.71, 5)
 vrSlotImages[4].iconSize = UDim2.new(0, 42, 0, 58)
 vrSlotImages[5].icon = "rbxasset://textures/ui/Settings/Radial/Leave.png"
@@ -127,7 +129,6 @@ vrSlotImages[8].iconSize = UDim2.new(0, 56, 0, 53)
 
 local radialButtonLayout = {
 	PlayerList 		= { Range = { Begin = 36, 	End = 96 } },
-	Notifications 	= { Range = { Begin = 96, 	End = 156 } },
 	LeaveGame 		= { Range = { Begin = 156,	End = 216 } },
 	Backpack 		= { Range = { Begin = 216,	End = 276 } },
 	Chat 			= { Range = { Begin = 276, 	End = 336 } },
@@ -136,13 +137,21 @@ local radialButtonLayout = {
 local vrButtonLayout = {
 	PlayerList 		= { Range = { Begin = 22.5,  End = 67.5 } },
 	Recenter 		= { Range = { Begin = 67.5,  End = 112.5 } },
-	Notifications 	= { Range = { Begin = 112.5, End = 157.5 } },
 	LeaveGame 		= { Range = { Begin = 157.5, End = 202.5 } },
 	Backpack 		= { Range = { Begin = 202.5, End = 247.5 } },
 	ToggleUI 		= { Range = { Begin = 247.5, End = 292.5 } },
 	Chat 			= { Range = { Begin = 292.5, End = 337.5 } },
 	Settings 		= { Range = { Begin = 337.5, End = 22.5 } }
 }
+
+if FFlagEmotesMenuEnabled then
+	-- TODO: Re-add these values to the tables above directly when the flag is removed
+	radialButtonLayout.Emotes = { Range = { Begin = 96, End = 156 } }
+	vrButtonLayout.Emotes = { Range = { Begin = 112.5, End = 157.5 } }
+else
+	radialButtonLayout.Notifications = { Range = { Begin = 96, End = 156 } }
+	vrButtonLayout.Notifications = { Range = { Begin = 112.5, End = 157.5 } }
+end
 
 local freezeControllerActionName = "doNothingAction"
 local radialSelectActionName = "RadialSelectAction"
@@ -766,23 +775,63 @@ local function createGamepadMenuGui()
 
 	---------------------------------
 	-------- Notifications ----------
-	local gamepadNotifications = Instance.new("BindableEvent")
-	gamepadNotifications.Name = "GamepadNotifications"
-	gamepadNotifications.Parent = script
-	local notificationsFunc = function()
-		toggleCoreGuiRadial()
-		if VRService.VREnabled then
-			local notificationHub = require(GuiRoot.Modules.VR.NotificationHub)
-			notificationHub:SetVisible(not notificationHub:IsVisible())
-		else
-			gamepadNotifications:Fire(true)
+	if not FFlagEmotesMenuEnabled then
+		local gamepadNotifications = Instance.new("BindableEvent")
+		gamepadNotifications.Name = "GamepadNotifications"
+		gamepadNotifications.Parent = script
+		local notificationsFunc = function()
+			toggleCoreGuiRadial()
+			if VRService.VREnabled then
+				local notificationHub = require(GuiRoot.Modules.VR.NotificationHub)
+				notificationHub:SetVisible(not notificationHub:IsVisible())
+			else
+				gamepadNotifications:Fire(true)
+			end
 		end
+		local notificationsRadial = createRadialButton("Notifications", "Notifications", 3, 4, false, nil, notificationsFunc)
+		if isTenFootInterface then
+			setButtonEnabled(notificationsRadial, false)
+		end
+		notificationsRadial.Parent = gamepadSettingsFrame
 	end
-	local notificationsRadial = createRadialButton("Notifications", "Notifications", 3, 4, false, nil, notificationsFunc)
-	if isTenFootInterface then
-		setButtonEnabled(notificationsRadial, false)
+
+	---------------------------------
+	-------- Emotes Menu ------------
+	if FFlagEmotesMenuEnabled then
+		local toggleEmotesFunc = function()
+			toggleCoreGuiRadial()
+			GuiService.MenuClosed:Wait()
+
+			local EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
+			if EmotesModule:isOpen() then
+				EmotesModule:close()
+			else
+				EmotesModule:open()
+			end
+		end
+
+		local emotesRadialInfo = {
+			Name = "Emotes",
+			Text = "Emotes",
+			Slot = 3,
+			VrSlot = 4,
+			Disabled = not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu),
+			CoreGuiType = Enum.CoreGuiType.EmotesMenu,
+			ActivateFunc = toggleEmotesFunc,
+		}
+
+		local emotesRadial = createRadialButton(
+			emotesRadialInfo.Name,
+			emotesRadialInfo.Text,
+			emotesRadialInfo.Slot,
+			emotesRadialInfo.VrSlot,
+			emotesRadialInfo.Disabled,
+			emotesRadialInfo.CoreGuiType,
+			emotesRadialInfo.ActivateFunc
+		)
+
+		emotesRadial.Parent = gamepadSettingsFrame
 	end
-	notificationsRadial.Parent = gamepadSettingsFrame
 
 	---------------------------------
 	---------- Leave Game -----------
@@ -1018,6 +1067,8 @@ local function handleDefaultLoadingGuiRemoved()
 end
 
 if game:GetService("ReplicatedFirst"):IsDefaultLoadingGuiRemoved() then
+	handleDefaultLoadingGuiRemoved()
+elseif RunService:IsClient() and RunService:IsServer() then
 	handleDefaultLoadingGuiRemoved()
 else
 	defaultLoadingGuiRemovedConnection = game:GetService("ReplicatedFirst").DefaultLoadingGuiRemoved:connect(handleDefaultLoadingGuiRemoved)

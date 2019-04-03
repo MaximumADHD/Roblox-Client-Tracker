@@ -45,6 +45,7 @@ local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local getTextSize = require(Util.getTextSize)
+local Analytics = require(Util.Analytics.Analytics)
 
 local withTheme = ContextHelper.withTheme
 
@@ -125,6 +126,8 @@ function AssetPreview:init(props)
 			assetBaseButton.Size = UDim2.new(0, self.props.maxPreviewWidth, 0, assetHeight)
 		end
 	end
+
+	Analytics.onAssetPreviewSelected(props.assetData.Asset.Id)
 end
 
 function AssetPreview:didMount()
@@ -397,6 +400,7 @@ function AssetPreview:render()
 				size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
 				position = UDim2.new(0, 0, 1, 0),
 				anchorPoint = Vector2.new(0, 1),
+				assetId = assetId,
 
 				canInsertAsset = canInsertAsset,
 				tryInsert = tryInsert,

@@ -26,7 +26,7 @@
 		Mouse = plugin mouse for changing the mouse icon
 ]]
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local Roact = require(script.Parent.Internal.RequireRoact)
 local Constants = require(script.Parent.Internal.Constants)

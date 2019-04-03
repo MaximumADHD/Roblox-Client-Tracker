@@ -398,7 +398,7 @@ Class Constraint : Instance [NotCreatable]
 	Property bool Constraint.Visible
 	Property Class<Attachment> Constraint.Attachment0
 	Property Class<Attachment> Constraint.Attachment1
-	Property bool Constraint.Active [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property bool Constraint.Active  [ReadOnly] [NotReplicated]
 	Property bool Constraint.Enabled
 Class AlignOrientation : Constraint
 	Property Enum<AlignType> AlignOrientation.AlignType
@@ -1304,7 +1304,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
 	Function Instance InsertService:loadAsset(int64 assetId) [Yields] [Deprecated]
 Class JointInstance : Instance [NotCreatable]
-	Property bool JointInstance.Active [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property bool JointInstance.Active  [ReadOnly] [NotReplicated]
 	Property CFrame JointInstance.C0
 	Property CFrame JointInstance.C1
 	Property Class<BasePart> JointInstance.Part0
@@ -1314,11 +1314,11 @@ Class DynamicRotate : JointInstance [NotCreatable]
 	Property float DynamicRotate.BaseAngle
 Class RotateP : DynamicRotate
 Class RotateV : DynamicRotate
-Class Glue : JointInstance
-	Property Vector3 Glue.F0
-	Property Vector3 Glue.F1
-	Property Vector3 Glue.F2
-	Property Vector3 Glue.F3
+Class Glue : JointInstance [Deprecated]
+	Property Vector3 Glue.F0  [Deprecated]
+	Property Vector3 Glue.F1  [Deprecated]
+	Property Vector3 Glue.F2  [Deprecated]
+	Property Vector3 Glue.F3  [Deprecated]
 Class ManualSurfaceJointInstance : JointInstance [NotCreatable]
 Class ManualGlue : ManualSurfaceJointInstance
 Class ManualWeld : ManualSurfaceJointInstance
@@ -1337,12 +1337,12 @@ Class VelocityMotor : JointInstance
 	Property Class<Hole> VelocityMotor.Hole
 	Property float VelocityMotor.MaxVelocity
 Class Weld : JointInstance
-Class JointsService : Instance [NotCreatable] [Service]
-	Function void JointsService:ClearJoinAfterMoveJoints()
-	Function void JointsService:CreateJoinAfterMoveJoints()
-	Function void JointsService:SetJoinAfterMoveInstance(Instance joinInstance)
-	Function void JointsService:SetJoinAfterMoveTarget(Instance joinTarget)
-	Function void JointsService:ShowPermissibleJoints()
+Class JointsService : Instance [NotCreatable] [Service] [Deprecated]
+	Function void JointsService:ClearJoinAfterMoveJoints() [Deprecated]
+	Function void JointsService:CreateJoinAfterMoveJoints() [Deprecated]
+	Function void JointsService:SetJoinAfterMoveInstance(Instance joinInstance) [Deprecated]
+	Function void JointsService:SetJoinAfterMoveTarget(Instance joinTarget) [Deprecated]
+	Function void JointsService:ShowPermissibleJoints() [Deprecated]
 Class KeyboardService : Instance [NotCreatable] [Service]
 Class Keyframe : Instance
 	Property float Keyframe.Time
@@ -2555,11 +2555,8 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property Enum<DevComputerCameraMovementMode> StarterPlayer.DevComputerCameraMovementMode
 	Property Enum<DevTouchCameraMovementMode> StarterPlayer.DevTouchCameraMovementMode
 	Property bool StarterPlayer.AllowCustomAnimations {✏️RobloxScriptSecurity} [Hidden]
-	Property float StarterPlayer.CharacterJumpHeight {RobloxScriptSecurity} [Hidden]
-	Property float StarterPlayer.CharacterJumpPower {RobloxScriptSecurity} [Hidden]
-	Property float StarterPlayer.CharacterMaxSlopeAngle {RobloxScriptSecurity} [Hidden]
-	Property bool StarterPlayer.CharacterUseJumpPower {RobloxScriptSecurity} [Hidden]
-	Property float StarterPlayer.CharacterWalkSpeed {RobloxScriptSecurity} [Hidden]
+	Property float StarterPlayer.CharacterMaxSlopeAngle
+	Property float StarterPlayer.CharacterWalkSpeed
 	Property int64 StarterPlayer.GameSettingsAssetIDFace {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDLeftArm {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -2578,6 +2575,9 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property NumberRange StarterPlayer.GameSettingsScaleProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property NumberRange StarterPlayer.GameSettingsScaleWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
+	Property float StarterPlayer.CharacterJumpHeight
+	Property float StarterPlayer.CharacterJumpPower
+	Property bool StarterPlayer.CharacterUseJumpPower
 	Property Enum<DevComputerMovementMode> StarterPlayer.DevComputerMovementMode
 	Property Enum<DevTouchMovementMode> StarterPlayer.DevTouchMovementMode
 	Property bool StarterPlayer.EnableMouseLockOption
@@ -2693,6 +2693,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
+	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
 	Function void StudioService:OpenPluginInsertPage(int64 assetId) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
@@ -2968,6 +2969,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Vector2 UserInputService:GetMouseLocation()
 	Function Array UserInputService:GetNavigationGamepads()
 	Function Enum<Platform> UserInputService:GetPlatform() {RobloxScriptSecurity}
+	Function string UserInputService:GetStringForKeyCode(Enum<KeyCode> keyCode)
 	Function Array UserInputService:GetSupportedGamepadKeyCodes(Enum<UserInputType> gamepadNum)
 	Function CFrame UserInputService:GetUserCFrame(Enum<UserCFrame> type)
 	Function bool UserInputService:IsGamepadButtonDown(Enum<UserInputType> gamepadNum, Enum<KeyCode> gamepadKeyCode)

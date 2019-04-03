@@ -23,6 +23,12 @@ local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 end)
 local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
+local FFlagUserClickToMoveFollowPathRefactorSuccess, FFlagUserClickToMoveFollowPathRefactorResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveFollowPathRefactor") end)
+local FFlagUserClickToMoveFollowPathRefactor = FFlagUserClickToMoveFollowPathRefactorSuccess and FFlagUserClickToMoveFollowPathRefactorResult
+
+local AUTO_PILOT_DEFAULT_MAX_STEERING_ANGLE = 35
+
+
 -- Note that VehicleController does not derive from BaseCharacterController, it is a special case
 local VehicleController = {}
 VehicleController.__index = VehicleController
@@ -43,6 +49,10 @@ function VehicleController.new(CONTROL_ACTION_PRIORITY)
 	self.turningLeft = 0
 	
 	self.vehicleMoveVector = ZERO_VECTOR3
+
+	self.autoPilot = {}
+	self.autoPilot.MaxSpeed = 0
+	self.autoPilot.MaxSteeringAngle = 0
 
 	return self
 end
@@ -72,12 +82,18 @@ function VehicleController:Enable(enable, vehicleSeat)
 	if enable == self.enabled and vehicleSeat == self.vehicleSeat then
 		return
 	end
-	
+
+	self.enabled = enable
 	self.vehicleMoveVector = ZERO_VECTOR3
 	
 	if enable then
 		if vehicleSeat then
 			self.vehicleSeat = vehicleSeat
+
+			if FFlagUserClickToMoveFollowPathRefactor then
+				self:SetupAutoPilot()
+			end
+
 			if FFlagPlayerScriptsBindAtPriority2 then
 				self:BindContextActions()
 			else
@@ -133,19 +149,58 @@ function VehicleController:OnSteerLeft(actionName, inputState, inputObject)
 end
 
 -- Call this from a function bound to Renderstep with Input Priority
-function VehicleController:Update(moveVector, usingGamepad)
+function VehicleController:Update(moveVector, cameraRelative, usingGamepad)
 	if self.vehicleSeat then
-		moveVector = moveVector + Vector3.new(self.steer, 0, self.throttle)
-		if usingGamepad and onlyTriggersForThrottle and useTriggersForThrottle then 
-			self.vehicleSeat.ThrottleFloat = -self.throttle
-		else
-			self.vehicleSeat.ThrottleFloat = -moveVector.Z
-		end
-		self.vehicleSeat.SteerFloat = moveVector.X
+		if cameraRelative then
+			-- This is the default steering mode
+			moveVector = moveVector + Vector3.new(self.steer, 0, self.throttle)
+			if usingGamepad and onlyTriggersForThrottle and useTriggersForThrottle then 
+				self.vehicleSeat.ThrottleFloat = -self.throttle
+			else
+				self.vehicleSeat.ThrottleFloat = -moveVector.Z
+			end
+			self.vehicleSeat.SteerFloat = moveVector.X
 		
-		return moveVector, true
+			return moveVector, true
+		else
+			-- This is the path following mode
+			local localMoveVector = self.vehicleSeat.Occupant.RootPart.CFrame:VectorToObjectSpace(moveVector)
+
+			self.vehicleSeat.ThrottleFloat = self:ComputeThrottle(localMoveVector)
+			self.vehicleSeat.SteerFloat = self:ComputeSteer(localMoveVector)
+
+			return ZERO_VECTOR3, true
+		end
 	end
 	return moveVector, false
+end
+
+function VehicleController:ComputeThrottle(localMoveVector)
+	if localMoveVector ~= ZERO_VECTOR3 then
+		local throttle = -localMoveVector.Z
+		return throttle
+	else
+		return 0.0
+	end
+end
+
+function VehicleController:ComputeSteer(localMoveVector)
+	if localMoveVector ~= ZERO_VECTOR3 then
+		local steerAngle = -math.atan2(-localMoveVector.x, -localMoveVector.z) * (180 / math.pi)
+		return steerAngle / self.autoPilot.MaxSteeringAngle
+	else
+		return 0.0
+	end
+end
+
+function VehicleController:SetupAutoPilot()
+	-- Setup default
+	self.autoPilot.MaxSpeed = self.vehicleSeat.MaxSpeed
+	self.autoPilot.MaxSteeringAngle = AUTO_PILOT_DEFAULT_MAX_STEERING_ANGLE
+
+	-- VehicleSeat should have a MaxSteeringAngle as well.
+	-- Or we could look for a child "AutoPilotConfigModule" to find these values
+	-- Or allow developer to set them through the API as like the CLickToMove customization API
 end
 
 return VehicleController

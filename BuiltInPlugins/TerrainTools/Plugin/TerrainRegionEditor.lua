@@ -45,7 +45,7 @@ local kBottomButtonMargin = 10
 local kRegionModeButtonConfigs = 
 {
 	Select = {
-		Text = "Studio.TerrainEditor.Regions.ToolsButtons.Select",
+		Text = "CommonUI.Controls.Action.Select",
 		Name = "ButtonSelect",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_select.png",
 		LayoutOrder = 1,
@@ -53,7 +53,7 @@ local kRegionModeButtonConfigs =
 		Tool = 'Resize',
 	}, 
 	Move = {
-		Text = "Studio.TerrainEditor.Regions.ToolsButtons.Move",
+		Text = "CommonUI.Controls.Action.Move",
 		Name = "ButtonMove",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_move.png",
 		LayoutOrder = 2,
@@ -61,7 +61,7 @@ local kRegionModeButtonConfigs =
 		Tool = 'Move',
 	}, 
 	Resize = {
-		Text = "Studio.TerrainEditor.Regions.ToolsButtons.Resize",
+		Text = "CommonUI.Controls.Action.Resize",
 		Name = "ButtonResize",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_resize.png",
 		LayoutOrder = 3,
@@ -69,7 +69,7 @@ local kRegionModeButtonConfigs =
 		Tool = 'Resize',
 	}, 
 	Rotate = {
-		Text = "Studio.TerrainEditor.Regions.ToolsButtons.Rotate",
+		Text = "CommonUI.Controls.Action.Rotate",
 		Name = "ButtonRotate",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_rotate.png",
 		LayoutOrder = 4,
@@ -81,25 +81,25 @@ local kRegionModeButtonConfigs =
 local kRegionOperationButtonConfigs = 
 {
 	Copy = {
-		Text = "Studio.TerrainEditor.Regions.EditButtons.Copy",
+		Text = "CommonUI.Controls.Action.Copy",
 		Name = "ButtonCopy",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_copy.png",
 		LayoutOrder = 5,
 	}, 
 	Paste = {
-		Text = "Studio.TerrainEditor.Regions.EditButtons.Paste",
+		Text = "CommonUI.Controls.Action.Paste",
 		Name = "ButtonPaste",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_paste.png",
 		LayoutOrder = 6,
 	}, 
 	Delete = {
-		Text = "Studio.TerrainEditor.Regions.EditButtons.Delete",
+		Text = "CommonUI.Controls.Action.Delete",
 		Name = "ButtonDelete",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_delete.png",
 		LayoutOrder = 7,
 	}, 
 	Fill = {
-		Text = "Studio.TerrainEditor.Regions.EditButtons.Fill",
+		Text = "CommonUI.Controls.Action.Fill",
 		Name = "ButtonFill",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_fill.png",
 		LayoutOrder = 8,
@@ -164,7 +164,7 @@ end
 function MakeOperationButtonsFrame()
 	local frame = MakeButtonGridInFrameWithTitle(kRegionOperationButtonConfigs, 
 		"OperationFrame", 
-		i18n.TranslateId('Studio.TerrainEditor.Regions.Edit'))
+		i18n.TranslateId('CommonUI.Controls.Action.Edit'))
 	return frame
 end
 
@@ -178,7 +178,7 @@ local function MakeButtonsFrame()
 	frame.BackgroundTransparency = 1
 
 	local okButtonObj = CustomTextButton.new("OkButton", 
-		i18n.TranslateId('Studio.TerrainEditor.OKButton'))
+		i18n.TranslateId('CommonUI.Controls.Action.OK'))
 	okButtonObj:getButton().Parent = frame
 	okButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	okButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,
@@ -193,7 +193,7 @@ function MakeFillFrame(pluginGui)
 	vsl:AddBottomPadding()
 
 	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material", 
-		i18n.TranslateId('Studio.TerrainEditor.Regions.Fill Selection'))
+		i18n.TranslateId('Studio.TerrainEditor.Regions.FillSelection'))
 	vsl:AddChild(titleLabel)
 
 	kMaterialsListObject = MaterialsListClass.new()
@@ -238,7 +238,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	-- Size will be updated dynamically.
 	local editCollapsibleSectionObj = CollapsibleTitledSection.new("Edit", 
-		i18n.TranslateId('Studio.TerrainEditor.Regions.Edit Tools'), 
+		i18n.TranslateId('Studio.TerrainEditor.Regions.EditTools'), 
 		true, 
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(editCollapsibleSectionObj:GetContentsFrame())
@@ -246,7 +246,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	-- First child: the "merge empty" button(s).
 	local checkboxObj = LabeledCheckbox.new("CheckboxFrame", 
-		i18n.TranslateId('Studio.TerrainEditor.Regions.Merge Empty'),
+		i18n.TranslateId('Studio.TerrainEditor.Regions.MergeEmpty'),
 		fillAir)
 
 	-- Second child: the "Mode" buttons.

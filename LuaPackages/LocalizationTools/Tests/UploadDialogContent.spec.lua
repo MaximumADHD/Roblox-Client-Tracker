@@ -9,9 +9,9 @@ return function()
 		}, {
 			Content = Roact.createElement(UploadDialogContent, {
 				PatchInfo = {
-					add = 3,
-					change = 4,
-					remove = 5
+					numAddedTranslations = 30,
+					numChangedTranslations = 40,
+					numRemovedTranslations = 50,
 				}
 			}),
 		})

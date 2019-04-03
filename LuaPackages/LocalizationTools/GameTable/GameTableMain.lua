@@ -8,7 +8,7 @@ local MakeWebTableInterface = require(script.Parent.WebTableInterface)
 return function(userId)
 	local WebTableInterface = MakeWebTableInterface(userId)
 
-	local function ComputePatch(gameId, newLocalizationTable)
+	local function ComputePatch(gameId, newLocalizationTable, includeDeletes)
 		return Promise.new(function(resolve, reject)
 			WebTableInterface.DownloadGameTable(gameId):andThen(
 				function(currentLocalizationTable)
@@ -24,13 +24,16 @@ return function(userId)
 						return
 					end
 
+					--[[The difference between an update and a replace is really just
+						the presence of entries/translations with "delete":true]]
 					local patchInfo = PatchInfo.DiffTables(
 						"MyLocalizationTable",
 						currentTableEntryInfo.entries,
-						newTableEntryInfo.entries)
+						newTableEntryInfo.entries,
+						includeDeletes)
 
 					patchInfo.totalRows = newTableEntryInfo.totalRows
-					patchInfo.totalTranslations = newTableEntryInfo.totalRows
+					patchInfo.totalTranslations = newTableEntryInfo.totalTranslations
 					patchInfo.supportedLocales = newTableEntryInfo.supportedLocales
 					patchInfo.unsupportedLocales = newTableEntryInfo.unsupportedLocales
 
@@ -41,6 +44,14 @@ return function(userId)
 		end)
 	end
 
+	local function ComputeReplacePatch(gameId, newLocalizationTable)
+		return ComputePatch(gameId, newLocalizationTable, true)
+	end
+
+	local function ComputeUpdatePatch(gameId, newLocalizationTable)
+		return ComputePatch(gameId, newLocalizationTable, false)
+	end
+
 	return {
 		OpenCSV = Promise.wrapAsync(function()
 			return LocalizationService:PromptUploadCSVToGameTable()
@@ -48,7 +59,8 @@ return function(userId)
 		SaveCSV = Promise.wrapAsync(function(table)
 			LocalizationService:PromptDownloadGameTableToCSV(table)
 		end),
-		ComputePatch = ComputePatch,
+		ComputeReplacePatch = ComputeReplacePatch,
+		ComputeUpdatePatch = ComputeUpdatePatch,
 		UploadPatch = WebTableInterface.UploadPatch,
 		DownloadGameTable = WebTableInterface.DownloadGameTable,
 		UpdateGameTableInfo = WebTableInterface.UpdateGameTableInfo,

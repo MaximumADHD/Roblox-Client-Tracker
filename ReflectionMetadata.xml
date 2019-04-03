@@ -109,6 +109,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Glue</string>
+        <bool name="Deprecated">true</bool>
         <string name="PreferredParent">BasePart</string>
         <string name="PreferredParents">BasePart</string>
       </Properties>
@@ -189,6 +190,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">JointsService</string>
+        <bool name="Deprecated">true</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

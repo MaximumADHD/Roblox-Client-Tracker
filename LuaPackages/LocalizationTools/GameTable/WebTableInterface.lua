@@ -421,9 +421,9 @@ end
 
 	UploadPatch() returns a promise that resolves with no arguments upon success.
 ]]
-local function UploadPatch(gameId, patchInfo, uploadInfo)
+local function UploadPatch(gameId, patchInfo)
 	local patches = PatchInfo.SplitByLimits(
-		patchInfo.makePatch(uploadInfo),
+		patchInfo.makePatch(),
 		LocalizationTableUploadRowMax,
 		LocalizationTableUploadTranslationMax)
 

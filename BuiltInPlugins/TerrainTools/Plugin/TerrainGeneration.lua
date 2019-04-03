@@ -39,39 +39,39 @@ function setupBiomeData()
 		kBiomeData = {
 			Mountains = {
 				LayoutOrder = 1,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Mountains"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeMountains"),
 			},
 			Canyons = {
 				LayoutOrder = 2,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Canyons"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeCanyons"),
 			},
 			Dunes = {
 				LayoutOrder = 3,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Dunes"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeDunes"),
 			},
 			Arctic = {
 				LayoutOrder = 4,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Arctic"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeArctic"),
 			},
 			Lavaflow = {
 				LayoutOrder = 5,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Lavaflow"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeLavaflow"),
 			},
 			Hills = {
 				LayoutOrder = 6,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Hills"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeHills"),
 			},
 			Plains = {
 				LayoutOrder = 7,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Plains"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomePlains"),
 			},
 			Marsh = {
 				LayoutOrder = 8,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Marsh"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeMarsh"),
 			},
 			Water = {
 				LayoutOrder = 9,
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.Biome.Water"),
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeWater"),
 			},
 		}
 	end
@@ -85,22 +85,22 @@ function setupBiomeSizeChoices()
 			{
 				Id = "Small", 
 				Data = 50, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSize.Small (50)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeSmall")
 			},
 			{
 				Id = "Medium", 
 				Data = 100, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSize.Medium (100)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeMedium")
 			},
 			{
 				Id = "Large", 
 				Data = 200, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSize.Large (200)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeLarge")
 			},
 			{
 				Id = "Massive", 
 				Data = 500, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSize.Massive (500)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeMassive")
 			},
 		}
 	end
@@ -113,22 +113,22 @@ function setupMapSizeChoices()
 			{
 				Id = "Small", 
 				Data = 128, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSize.Small (128)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeSmall")
 			},
 			{
 				Id = "Medium", 
 				Data = 256, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSize.Medium (256)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeMedium")
 			},
 			{
 				Id = "Large", 
 				Data = 512, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSize.Large (512)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeLarge")
 			},
 			{
 				Id = "Massive", 
 				Data = 1024, 
-				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSize.Massive (1024)")
+				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeMassive")
 			},
 		}
 	end
@@ -209,7 +209,7 @@ end
 local function MakeMapSettingsFrame()
 	-- Height will be adjusted.
 	local mapSettingsObj = CollapsibleTitledSection.new('MapSettingsFrame', 
-	  i18n.TranslateId('Studio.TerrainEditor.Generate.Map Settings'), 
+	  i18n.TranslateId('Studio.TerrainEditor.Generate.MapSettings'), 
 	  true, 
 	  true)
 
@@ -217,7 +217,7 @@ local function MakeMapSettingsFrame()
 	-- The "Size" dropdown.	
 	setupMapSizeChoices()
 	local sizeMultiChoiceObj = LabeledMultiChoice.new("MapSize", 
-		i18n.TranslateId('Studio.TerrainEditor.Generate.Map Size'),
+		i18n.TranslateId('Studio.TerrainEditor.Generate.MapSize'),
 	 	kMapSizeChoices)
 	sizeMultiChoiceObj:SetValueChangedFunction(function(index) 
 		mapWidth = kMapSizeChoices[index].Data
@@ -323,14 +323,14 @@ end
 local function MakeBiomesSettingsFrame()
 	-- Height will be updated dynamically.
 	local biomesSettingsObj = CollapsibleTitledSection.new('BiomesSettingsFrame', 
-	    i18n.TranslateId('Studio.TerrainEditor.Generate.Biomes Settings'), 
+	    i18n.TranslateId('Studio.TerrainEditor.Generate.BiomesSettings'), 
 		true, 
 		true)
 	
 	-- The "Size" dropdown.	
 	setupBiomeSizeChoices()
 	local sizeMultiChoiceObj = LabeledMultiChoice.new("SizeFrame", 
-		i18n.TranslateId('Studio.TerrainEditor.Generate.Biome Size'),
+		i18n.TranslateId('Studio.TerrainEditor.Generate.BiomeSize'),
 	 	kBiomeSizeChoices)
 	sizeMultiChoiceObj:SetValueChangedFunction(function(index) 
 		biomeSize = kBiomeSizeChoices[index].Data
@@ -355,14 +355,14 @@ local function MakeButtonsFrame()
 	frame.BackgroundTransparency = 1
 
 	local clearButtonObj = CustomTextButton.new("ClearButton", 
-		i18n.TranslateId('Studio.TerrainEditor.Generate.Button.Clear'))
+		i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonClear'))
 	clearButtonObj:getButton().Parent = frame
 	clearButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	clearButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
 		 1, -GuiUtilities.kBottomButtonsHeight)
 
 	local generateButtonObj = CustomTextButton.new("GenerateButton", 
-		i18n.TranslateId('Studio.TerrainEditor.Generate.Button.Generate'))
+		i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonGenerate'))
 	generateButtonObj:getButton().Parent = frame
 	generateButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	generateButtonObj:getButton().Position = UDim2.new(0.5, kBottomButtonsPadding/2, 

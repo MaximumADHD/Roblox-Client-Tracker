@@ -7,7 +7,7 @@ local Options = require(script.Parent.Options)
 local BasicInfo = require(script.Parent.BasicInfo)
 local Localization = require(script.Parent.Localization)
 
-local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel2")
+local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 
 local World = nil
 if DFFlagGameSettingsWorldPanel then

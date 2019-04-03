@@ -78,12 +78,12 @@ MaterialsListClass.MaterialsTable = {	--Interface order is defined by order here
 		enum = Enum.Material.WoodPlanks, 
 		image = "rbxasset://textures/TerrainTools/mtrl_woodplanks.png", 
 		forceSnapToGrid = true, 
-		text = "Studio.TerrainEditor.Materials.Wood Planks", 
+		text = "Studio.TerrainEditor.Materials.WoodPlanks", 
 	},
 	{
 		enum = Enum.Material.CrackedLava, 
 		image = "rbxasset://textures/TerrainTools/mtrl_crackedlava.png", 
-		text = "Studio.TerrainEditor.Materials.Cracked Lava", 
+		text = "Studio.TerrainEditor.Materials.CrackedLava", 
 	},
 	{
 		enum = Enum.Material.Basalt, 
@@ -118,7 +118,7 @@ MaterialsListClass.MaterialsTable = {	--Interface order is defined by order here
 	{
 		enum = Enum.Material.LeafyGrass, 
 		image = "rbxasset://textures/TerrainTools/mtrl_leafygrass.png",
-		text = "Studio.TerrainEditor.Materials.Leafy Grass", 
+		text = "Studio.TerrainEditor.Materials.LeafyGrass", 
 	},
 	{
 		enum = Enum.Material.Pavement, 

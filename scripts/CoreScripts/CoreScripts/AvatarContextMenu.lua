@@ -9,7 +9,6 @@ local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run a
 local isAvatarContextMenuEnabled = false
 
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
-local FFlagDynamicThumbstickUseContextActionSevice = settings():GetFFlag("UserDynamicThumbstickUseContextActionSevice")
 local FFlagUserFixClickToMoveWithACM = settings():GetFFlag("UserFixClickToMoveWithACM")
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
@@ -343,7 +342,7 @@ local function functionProcessInput(inputObject, gameProcessedEvent)
 	trackTouchSwipeInput(inputObject)
 
 	if gameProcessedEvent then
-		if FFlagDynamicThumbstickUseContextActionSevice and inputObject == lastInputObject then
+		if inputObject == lastInputObject then
 			lastInputObject = nil
 		end
 		return

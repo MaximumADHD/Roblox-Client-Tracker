@@ -1,8 +1,30 @@
 local FastFlags = require(script.Parent.Parent.FastFlags)
 local AlertDialog = {}
 
+if FastFlags:isQueueMultipleWarningsOn() then
+	AlertDialog.AlertType = {
+		Error = {},
+		Warning = {},
+	}
+	AlertDialog.Queue = {}
+	AlertDialog.AlertCount = 0
+end
+
 function AlertDialog:init(Paths)
 	self.Paths = Paths
+end
+
+local function displayNextAlertIfAny(self)
+	local nextAlert = self.Paths.HelperFunctionsTable:firstValue(self.Queue)
+	if nextAlert then
+		local alertType = nextAlert.Type
+		if alertType == self.AlertType.Warning then
+			self:showWarning(nextAlert.Warning, nextAlert.Body, nextAlert.Subtext)
+		elseif alertType == self.AlertType.Error then
+			self:showError(nextAlert.Warning, nextAlert.Body, nextAlert.Subtext)
+		end
+		table.remove(self.Queue, 1)
+	end
 end
 
 local function destroy(self)
@@ -29,10 +51,16 @@ local function destroy(self)
 			self.SubWindow = nil
 		end
 	end
+
+	if FastFlags:isQueueMultipleWarningsOn() then
+		displayNextAlertIfAny(self)
+	end
 end
 
 local function show(self, title, warning, body, subtext)
-	destroy(self)
+	if not FastFlags:isQueueMultipleWarningsOn() then
+		destroy(self)
+	end
 
 	self.GUI = self.Paths.GUIPopUpAlert:clone()
 
@@ -72,7 +100,13 @@ local function show(self, title, warning, body, subtext)
 	self.GUI.Subtext.Size = UDim2.new(0, maxX, 0, self.GUI.Subtext.Size.Y.Offset)
 
 	if FastFlags:useQWidgetsForPopupsOn() then
-		self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, title, self.GUI, function() destroy(self) end, newSize)
+		if FastFlags:isQueueMultipleWarningsOn() then
+			self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, title ..self.AlertCount, self.GUI, function() destroy(self) end, newSize)
+			self.QtWindow:setTitle(title)
+			self.AlertCount = self.AlertCount + 1
+		else
+			self.QtWindow = self.Paths.GUIScriptQtWindow:new(self.Paths, title, self.GUI, function() destroy(self) end, newSize)
+		end
 		self.QtWindow:turnOn(true)
 	else
 		self.SubWindow = self.Paths.GUIScriptSubWindow:new(self.Paths, self.GUI, self.Paths.GUIPopUps)
@@ -89,20 +123,34 @@ local function show(self, title, warning, body, subtext)
 end
 
 function AlertDialog:showWarning(warning, body, subtext)
-	show(self, "Warning", warning, body, subtext)
-	self.GUI.Header.ImageLabel.Warning.Visible = true
-	self.GUI.Header.ImageLabel.Error.Visible = false
+	if FastFlags:isQueueMultipleWarningsOn() and self.GUI then
+		table.insert(self.Queue, {Type = self.AlertType.Warning, Warning = warning, Body = body, Subtext = subtext})
+	else
+		show(self, "Warning", warning, body, subtext)
+		self.GUI.Header.ImageLabel.Warning.Visible = true
+		self.GUI.Header.ImageLabel.Error.Visible = false
+	end
 end
 
 function AlertDialog:showError(warning, body, subtext)
-	show(self, "Error", warning, body, subtext)
-	self.GUI.Header.ImageLabel.Warning.Visible = false
-	self.GUI.Header.ImageLabel.Error.Visible = true
+	if FastFlags:isQueueMultipleWarningsOn() and self.GUI then
+		table.insert(self.Queue, {Type = self.AlertType.Error, Warning = warning, Body = body, Subtext = subtext})
+	else
+		show(self, "Error", warning, body, subtext)
+		self.GUI.Header.ImageLabel.Warning.Visible = false
+		self.GUI.Header.ImageLabel.Error.Visible = true
+	end
 end
 
 function AlertDialog:terminate()
+	if FastFlags:isQueueMultipleWarningsOn() then
+		self.Queue = {}
+	end
 	destroy(self)
 	self.Paths = nil
+	if FastFlags:isQueueMultipleWarningsOn() then
+		self.AlertCount = 0
+	end
 end
 
 return AlertDialog

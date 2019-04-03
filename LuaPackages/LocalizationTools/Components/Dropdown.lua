@@ -127,7 +127,7 @@ function Dropdown:render()
 					Render = function(position)
 						return Roact.createElement("Frame", {
 							Position = UDim2.new(0, position.X, 0, position.Y + self.props.ListItemHeight),
-							Size = UDim2.new(0, 160, 0, #(self.props.ListItems) * self.props.ListItemHeight),
+							Size = UDim2.new(0, 170, 0, #(self.props.ListItems) * self.props.ListItemHeight),
 							BackgroundTransparency = 0,
 							BackgroundColor3 = theme.MainBackground,
 							BorderColor3 = theme.Border,

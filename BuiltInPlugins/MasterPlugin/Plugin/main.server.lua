@@ -5,4 +5,8 @@ repeat
 	CorePackages = game:FindService("CorePackages")
 until CorePackages
 
-require(CorePackages.LocalizationTools.Main)(plugin, settings().Studio)
+if settings():GetFFlag("StudioLocalizationPluginV2") then
+	require(CorePackages.LocalizationTools.Main)(plugin, settings().Studio)
+else
+	require(CorePackages.LocalizationTools_DEPRECATED.Main)(plugin, settings().Studio)
+end

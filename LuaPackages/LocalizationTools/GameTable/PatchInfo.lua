@@ -37,7 +37,7 @@ end
 		Translations in originalEntry which are not in newEntry deleted
 		Tarnslations in newEntry which are not in (or differ from) originalEntry added
 ]]
-local function MakePatchEntryToChangeRow(originalEntry, newEntry)
+local function MakePatchEntryToChangeRow(originalEntry, newEntry, patchInfo, includeDeletes)
 	local patchTranslations = {}
 
 	local newTranslationMap = MakeTranslationMapForEntry(newEntry)
@@ -45,21 +45,32 @@ local function MakePatchEntryToChangeRow(originalEntry, newEntry)
 
 	for _, translation in ipairs(originalEntry.translations) do
 		if newTranslationMap[translation.locale] == nil then
-			table.insert(patchTranslations, {
-				locale = translation.locale,
-				translationText = translation.translationText,
-				delete = true,
-			})
+			if includeDeletes then
+				table.insert(patchTranslations, {
+					locale = translation.locale,
+					translationText = translation.translationText,
+					delete = true,
+				})
+
+				patchInfo.numRemovedTranslations = patchInfo.numRemovedTranslations + 1
+			end
 		end
 	end
 
 	for _, translation in ipairs(newEntry.translations) do
-		if originalTranslationMap[translation.locale] ~= translation.translationText then
+		local originalTranslation = originalTranslationMap[translation.locale]
+		if originalTranslation ~= translation.translationText then
 			table.insert(patchTranslations, {
 				locale = translation.locale,
 				translationText = translation.translationText,
 				delete = false,
 			})
+
+			if originalTranslation ~= nil then
+				patchInfo.numChangedTranslations = patchInfo.numChangedTranslations + 1
+			else
+				patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
+			end
 		end
 	end
 
@@ -75,7 +86,7 @@ local function MakePatchEntryToChangeRow(originalEntry, newEntry)
 	}
 end
 
-local function MakePatchEntryToAddRow(entry)
+local function MakePatchEntryToAddRow(entry, patchInfo)
 	local patchTranslations = {}
 	for _, translation in ipairs(entry.translations) do
 		table.insert(patchTranslations, {
@@ -83,6 +94,8 @@ local function MakePatchEntryToAddRow(entry)
 			translationText = translation.translationText,
 			delete = false,
 		})
+
+		patchInfo.numAddedTranslations = patchInfo.numAddedTranslations + 1
 	end
 
 	return {
@@ -97,17 +110,17 @@ local function MakePatchEntryToAddRow(entry)
 	}
 end
 
-local function MakePatchEntryToDeleteRow(entry)
+local function MakePatchEntryToDeleteRow(entry, patchInfo)
 	local patchTranslations = {}
 
-	-- Unclear if we need to add each deleted translation for the server to be happy with the
-	-- request.  Further experimentation required.
 	for _, translation in ipairs(entry.translations) do
 		table.insert(patchTranslations, {
 			locale = translation.locale,
 			translationText = translation.translationText,
 			delete = true,
 		})
+
+		patchInfo.numRemovedTranslations = patchInfo.numRemovedTranslations + 1
 	end
 
 	return {
@@ -127,58 +140,29 @@ end
 	Computes a PatchInfo object consisting of:
 
 	{
-		add = number of rows added by the patch
-		change = number of rows changed by the patch
-		remove = number of rows removed by the patch
+		numAddedTranslations = number of translations added by the patch
+		numChangedTranslations = number of translations changed by the patch
+		numRemovedTranslations = number of translations removed by the patch
 
 		makePatch():
-			Takes an info object consisting of three flags...
-
-			addEnabled
-			changeEnabled
-			removeEnalbed
-
-			...indicating whether the uploaded patch should include add, changed or removed rows.
-
-			Returns an object which json serializes to the format that the web expects.
+            Returns an object which json serializes to the format that the web expects.
 	}
 ]]
-local function DiffTables(tableName, originalTableData, newTableData)
+local function DiffTables(tableName, originalTableData, newTableData, includeDeletes)
 	local newTableMap = MakeIndexMap(newTableData)
 	local originalTableMap = MakeIndexMap(originalTableData)
 
-	local addEntries = {}
-	local changeEntries = {}
-	local removeEntries = {}
+	local entries = {}
 
 	local patchInfo = {
-		add = 0,
-		change = 0,
-		remove = 0,
+		numAddedTranslations = 0,
+		numChangedTranslations = 0,
+		numRemovedTranslations = 0,
 
-		makePatch = function(uploadInfo)
-			local enabledEntries = {}
-			if uploadInfo.addEnabled then
-				for _,entry in ipairs(addEntries) do
-					table.insert(enabledEntries, entry)
-				end
-			end
-
-			if uploadInfo.changeEnabled then
-				for _,entry in ipairs(changeEntries) do
-					table.insert(enabledEntries, entry)
-				end
-			end
-
-			if uploadInfo.removeEnabled then
-				for _,entry in ipairs(removeEntries) do
-					table.insert(enabledEntries, entry)
-				end
-			end
-
+		makePatch = function()
 			return {
 				name = tableName,
-				entries = enabledEntries
+				entries = entries
 			}
 		end,
 	}
@@ -200,19 +184,21 @@ local function DiffTables(tableName, originalTableData, newTableData)
 			originalEntry.identifier.context)
 
 		if indexInNewTable == 0 then
-			local patchEntry = MakePatchEntryToDeleteRow(originalEntry)
-			table.insert(removeEntries, patchEntry)
-			patchInfo.remove = patchInfo.remove + 1
+			if includeDeletes then
+				local patchEntry = MakePatchEntryToDeleteRow(originalEntry, patchInfo)
+				table.insert(entries, patchEntry)
+			end
 		else
 			local patchEntry = MakePatchEntryToChangeRow(
 				originalEntry,
-				newTableData[indexInNewTable])
+				newTableData[indexInNewTable],
+				patchInfo,
+				includeDeletes)
 
 			if next(patchEntry.translations) ~= nil or
 				patchEntry.metadata.example ~= originalEntry.metadata.example
 			then
-				table.insert(changeEntries, patchEntry)
-				patchInfo.change = patchInfo.change + 1
+				table.insert(entries, patchEntry)
 			end
 		end
 	end
@@ -224,9 +210,8 @@ local function DiffTables(tableName, originalTableData, newTableData)
 			newEntry.identifier.context)
 
 		if indexInOriginalTable == 0 then
-			local patchEntry = MakePatchEntryToAddRow(newEntry)
-			table.insert(addEntries, patchEntry)
-			patchInfo.add = patchInfo.add + 1
+			local patchEntry = MakePatchEntryToAddRow(newEntry, patchInfo)
+			table.insert(entries, patchEntry)
 		end
 	end
 
