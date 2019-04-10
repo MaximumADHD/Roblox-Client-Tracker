@@ -39,9 +39,6 @@ local VRService = game:GetService("VRService")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagFixInactiveSelectorArrowsSuccess, FFlagFixInactiveSelectorArrowsResult = pcall(function() return settings():GetFFlag("FixInactiveSelectorArrows") end)
-local FFlagFixInactiveSelectorArrows = FFlagFixInactiveSelectorArrowsSuccess and FFlagFixInactiveSelectorArrowsResult
-
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
 
@@ -342,22 +339,14 @@ end
 
 local function addHoverState(button, instance, onNormalButtonState, onHoverButtonState)
 	local function onNormalButtonStateCallback()
-		if FFlagFixInactiveSelectorArrows then
-			if button.Active then
-				onNormalButtonState(instance)
-			end
-		else
-			onNormalButtonState(instance)
-		end
+        if button.Active then
+            onNormalButtonState(instance)
+        end
 	end
 	local function onHoverButtonStateCallback()
-		if FFlagFixInactiveSelectorArrows then
-			if button.Active then
-				onHoverButtonState(instance)
-			end
-		else
-			onHoverButtonState(instance)
-		end
+        if button.Active then
+            onHoverButtonState(instance)
+        end
 	end
 
 	button.MouseEnter:Connect(onHoverButtonStateCallback)
@@ -1205,27 +1194,21 @@ local function CreateSelector(selectionStringTable, startPosition)
 		interactable = value
 		this.SelectorFrame.Selectable = interactable
 
-		if FFlagFixInactiveSelectorArrows then
-			leftButton.Active = interactable
-			rightButton.Active = interactable
-		end
+		leftButton.Active = interactable
+		rightButton.Active = interactable
 
 		if not interactable then
 			for i, selectionLabel in pairs(this.Selections) do
 				selectionLabel.TextColor3 = Color3.fromRGB(49, 49, 49)
 			end
-			if FFlagFixInactiveSelectorArrows then
-				leftButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
-				rightButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
-			end
+			leftButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
+            rightButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
 		else
 			for i, selectionLabel in pairs(this.Selections) do
 				selectionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 			end
-			if FFlagFixInactiveSelectorArrows then
-				leftButtonImage.ImageColor3 = ARROW_COLOR
-				rightButtonImage.ImageColor3 = ARROW_COLOR
-			end
+			leftButtonImage.ImageColor3 = ARROW_COLOR
+            rightButtonImage.ImageColor3 = ARROW_COLOR
 		end
 	end
 

@@ -1,7 +1,6 @@
 local PlayerPermissionsModule = {}
 
 local PlayersService = game:GetService("Players")
-local FFlagCorescriptIsPlayerGroupOwnerServer = settings():GetFFlag("CorescriptIsPlayerGroupOwnerServer")
 
 local PlayerGroupInfoMap = {}
 local PlayerGroupInfoMapChanged = Instance.new("BindableEvent")
@@ -67,8 +66,6 @@ PlayerPermissionsModule.IsPlayerAdminAsync = NewInGroupFunctionFactory("Admin")
 PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern")
 PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
 PlayerPermissionsModule.IsPlayerLocalizationExpertAsync = NewIsLocalizationExpertFunctionFactory()
-if FFlagCorescriptIsPlayerGroupOwnerServer then
-	PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
-end
+PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
 
 return PlayerPermissionsModule

@@ -30,7 +30,6 @@ local playerChangedEvent = nil
 local buttonToPlayerMap = {}
 local playerToButtonMap = {}
 
-local FFlagCoreScriptACMFadeCarousel = settings():GetFFlag("CoreScriptACMFadeCarousel")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagCorescriptACMAddCircularDivider = settings():GetFFlag("CorescriptACMAddCircularDivider")
 
@@ -262,9 +261,7 @@ function PlayerCarousel:RemovePlayerEntry(player)
 		if uiPageLayout then
 			uiPageLayout:ApplyLayout()
 		end
-		if FFlagCoreScriptACMFadeCarousel then
-			self:FadeTowardsEdges()
-		end
+		self:FadeTowardsEdges()
 	end
 end
 
@@ -297,19 +294,11 @@ function PlayerCarousel:CreatePlayerEntry(player, distanceToLocalPlayer)
 
 	local tweenStyle = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)
 	local buttonLoadingTween
-	if FFlagCoreScriptACMFadeCarousel then
-		buttonLoadingTween = TweenService:Create(
-			button,
-			tweenStyle,
-			{BackgroundColor3 = Color3.fromRGB(255,255,255)}
-		)
-	else
-		buttonLoadingTween = TweenService:Create(
-			button,
-			tweenStyle,
-			{BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255,255,255)}
-		)
-	end
+	buttonLoadingTween = TweenService:Create(
+		button,
+		tweenStyle,
+		{BackgroundColor3 = Color3.fromRGB(255,255,255)}
+	)
 	buttonLoadingTween:Play()
 
 	buttonToPlayerMap[button] = player
@@ -326,9 +315,6 @@ function PlayerCarousel:CreatePlayerEntry(player, distanceToLocalPlayer)
 		button.Image = ContextMenuUtil:GetHeadshotForPlayer(player)
 		buttonLoadingTween:Cancel()
 		buttonLoadingTween = nil
-		if not FFlagCoreScriptACMFadeCarousel then
-			button.BackgroundTransparency = 0
-		end
 		if button == GuiService.SelectedCoreObject then
 			button.BackgroundColor3 = BACKGROUND_SELECTED_COLOR
 		else
@@ -375,11 +361,9 @@ function PlayerCarousel.new(theme)
 	obj.rbxGui = CreateMenuCarousel(theme)
 	obj.PlayerChanged = playerChangedEvent.Event
 
-	if FFlagCoreScriptACMFadeCarousel then
-		playerChangedEvent.Event:Connect(function()
-			obj:FadeTowardsEdges()
-		end)
-	end
+	playerChangedEvent.Event:Connect(function()
+		obj:FadeTowardsEdges()
+	end)
 
 	return obj
 end

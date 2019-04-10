@@ -32,6 +32,15 @@ function MainViewHeader:init()
 			warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
 		end
 
+		local creator = self.props.creatorFilter
+		local creatorId = creator and creator.Id or nil
+
+		Analytics.onTermSearched(
+			PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
+			searchTerm,
+			creatorId
+		)
+
 		Analytics.onTermSearched(PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex), searchTerm)
 
 		self.props.requestSearch(networkInterface, settings, searchTerm)
@@ -96,6 +105,7 @@ local function mapStateToProps(state, props)
 		categoryIndex = pageInfo.categoryIndex or 1,
 
 		searchTerm = pageInfo.searchTerm or "",
+		creatorFilter = pageInfo.creator or {},
 	}
 end
 

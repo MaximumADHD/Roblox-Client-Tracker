@@ -906,6 +906,7 @@ Class ScrollingFrame : GuiObject
 Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
 	Property int TextBox.CursorPosition
+	Property bool TextBox.IsPassword {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool TextBox.ManualFocusRelease {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool TextBox.MultiLine
 	Property bool TextBox.OverlayNativeInput {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
@@ -1393,6 +1394,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Color3 Lighting.OutdoorAmbient
 	Property bool Lighting.Outlines
 	Property Color3 Lighting.ShadowColor [<📁> Load-only] [NotReplicated] [Deprecated]
+	Property float Lighting.ShadowSoftness
 	Property Enum<Technology> Lighting.Technology  [NotScriptable]
 	Property float Lighting.ClockTime [<📁> Load-only] [NotReplicated]
 	Property float Lighting.GeographicLatitude
@@ -1639,6 +1641,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BrickColor BasePart.BrickColor [<📁> Load-only] [NotReplicated]
+	Property bool BasePart.CastShadow
 	Property Color3 BasePart.Color [<📁> Load-only] [NotReplicated]
 	Property Enum<Material> BasePart.Material
 	Property float BasePart.Reflectance
@@ -4465,6 +4468,11 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.HeaderSection : 81
 	EnumItem StudioStyleGuideColor.Midlight : 82
 	EnumItem StudioStyleGuideColor.StatusBar : 83
+	EnumItem StudioStyleGuideColor.DialogButton : 84
+	EnumItem StudioStyleGuideColor.DialogButtonText : 85
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 86
+	EnumItem StudioStyleGuideColor.DialogMainButton : 87
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 88
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
@@ -4504,6 +4512,7 @@ Enum Technology
 	EnumItem Technology.Legacy : 0
 	EnumItem Technology.Voxel : 1
 	EnumItem Technology.Compatibility : 2 [Deprecated]
+	EnumItem Technology.ShadowMap : 3 [Deprecated]
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

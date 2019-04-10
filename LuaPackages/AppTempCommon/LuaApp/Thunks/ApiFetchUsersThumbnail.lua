@@ -22,9 +22,10 @@ local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 local RETRY_MAX_COUNT = math.max(0, settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries"))
 local RETRY_TIME_MULTIPLIER = math.max(0, settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier"))
 
-local FFlagLuaAppUseNewAvatarThumbnailsApi = settings():GetFFlag("LuaAppUseNewAvatarThumbnailsApi2")
+local GetLuaAppUseNewAvatarThumbnailsApi =
+	require(CorePackages.AppTempCommon.LuaApp.Flags.GetLuaAppUseNewAvatarThumbnailsApi)
 
-if FFlagLuaAppUseNewAvatarThumbnailsApi then
+if GetLuaAppUseNewAvatarThumbnailsApi() then
 	local MAX_REQUEST_COUNT = 100
 
 	local ThumbnailsTypeToApiMap = {

@@ -41,8 +41,6 @@ end
 -- Map of which special groups a player is in.
 local PlayerToGroupDetailsMap = {}
 
-local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
-
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged = Instance.new('RemoteEvent')
 RemoteEvent_FollowRelationshipChanged.Name = "FollowRelationshipChanged"
@@ -295,9 +293,7 @@ local function onPlayerAdded(newPlayer)
 	if newPlayer.UserId > 0 then
 		coroutine.wrap(getPlayerGroupDetails)(newPlayer)
 	end
-	if FFlagCorescriptACMDontDisplayChatWhenCantChat then
-		sendCanChatWith(newPlayer)
-	end
+	sendCanChatWith(newPlayer)
 	local uid = newPlayer.UserId
 	if uid > 0 then
 		local uidStr = tostring(uid)

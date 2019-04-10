@@ -11,6 +11,7 @@
 ]]
 
 local DFFlagTextBoxesNeverSinkMouseEvents = settings():GetFFlag("TextBoxesNeverSinkMouseEvents")
+local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local ShouldUseFocusScrolling = DFFlagTextBoxesNeverSinkMouseEvents
 
@@ -31,8 +32,13 @@ function CurrentPage:init()
 	self.contentHeightChanged = function(newheight)
 		local canvas = self.canvasRef.current
 		if canvas then
-			local contentSize = UDim2.new(1, 0, 0, newheight
-				+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
+			local contentSize
+			if FFlagGameSettingsReorganizeHeaders then
+				contentSize = UDim2.new(1, 0, 0, newheight + Constants.ELEMENT_PADDING)
+			else
+				contentSize = UDim2.new(1, 0, 0, newheight
+					+ Constants.ELEMENT_PADDING + Constants.HEADER_HEIGHT + Constants.ELEMENT_PADDING)
+			end
 			canvas.CanvasSize = contentSize
 		end
 	end
@@ -78,12 +84,14 @@ function CurrentPage:render()
 				PaddingRight = UDim.new(0, 25),
 			}),
 
-			Layout = Roact.createElement("UIListLayout", {
+			Layout = (not FFlagGameSettingsReorganizeHeaders) and
+			Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, 25),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			Header = Roact.createElement(Header, {
+			Header = (not FFlagGameSettingsReorganizeHeaders) and
+			Roact.createElement(Header, {
 				Title = localized.Category[self.props.Page],
 				LayoutOrder = 1,
 			}),

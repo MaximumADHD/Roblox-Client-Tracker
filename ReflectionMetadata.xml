@@ -5110,6 +5110,15 @@
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">ShadowSoftness</string>
+                <string name="summary">This property controls how blurry the shadows are.</string>
+                <double name="UIMinimum">0</double>
+                <double name="UIMaximum">1</double>
+                <double name="UINumTicks">100</double>
+            </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">ColorShift_Bottom</string>
             <string name="summary">The hue of global lighting on the bottom surfaces of an object.</string>
@@ -5535,6 +5544,12 @@
             <string name="Name">Locked</string>
             <string name="summary">Determines whether building tools (in-game and studio) can manipulate this Part.  If true, no editing allowed.  If false, editing is allowed.</string>
           </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">CastShadow</string>
+                <string name="summary">Determines whether this Part casts a shadow.</string>
+            </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>

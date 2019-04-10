@@ -20,6 +20,24 @@ return function()
 		expect(Urls.GetGameInternationalizationUrlFromBaseUrl("http://sitetest2.robloxlabs.com")).to.equal(
 			"https://gameinternationalization.sitetest2.robloxlabs.com")
 
+		expect(Urls.GetTranslationRolesUrlFromBaseUrl("http://roblox.com")).to.equal(
+			"https://translationroles.roblox.com")
+
+		expect(Urls.GetTranslationRolesUrlFromBaseUrl("http://www.roblox.com")).to.equal(
+			"https://translationroles.roblox.com")
+
+		expect(Urls.GetTranslationRolesUrlFromBaseUrl("http://www.gametest1.robloxlabs.com")).to.equal(
+			"https://translationroles.gametest1.robloxlabs.com")
+
+		expect(Urls.GetTranslationRolesUrlFromBaseUrl("http://www.gametest2.robloxlabs.com")).to.equal(
+			"https://translationroles.gametest2.robloxlabs.com")
+
+		expect(Urls.GetTranslationRolesUrlFromBaseUrl("http://sitetest1.robloxlabs.com")).to.equal(
+			"https://translationroles.sitetest1.robloxlabs.com")
+
+		expect(Urls.GetTranslationRolesUrlFromBaseUrl("http://sitetest2.robloxlabs.com")).to.equal(
+			"https://translationroles.sitetest2.robloxlabs.com")
+
 		expect(Urls.GetApiUrlFromBaseUrl("http://roblox.com")).to.equal(
 			"https://api.roblox.com")
 

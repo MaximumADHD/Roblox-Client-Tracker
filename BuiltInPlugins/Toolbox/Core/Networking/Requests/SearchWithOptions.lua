@@ -9,6 +9,8 @@ local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 local SetLiveSearch = require(Plugin.Core.Actions.SetLiveSearch)
 local SetLoading = require(Plugin.Core.Actions.SetLoading)
 
+local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+
 local function searchUsers(networkInterface, searchTerm, store)
 	return networkInterface:getUsers(searchTerm, 1):andThen(function(result)
 		local data = result.responseBody
@@ -60,6 +62,8 @@ return function(networkInterface, settings, options)
 					creator = results,
 				}, settings))
 				setAndDispatchSearch(networkInterface, settings, options, store)
+
+				Analytics.onCreatorSearched(options.Creator, results.Id)
 			end)
 		else
 			store:dispatch(SetLiveSearch("", {}))

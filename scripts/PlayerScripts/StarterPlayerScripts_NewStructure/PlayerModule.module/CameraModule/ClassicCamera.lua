@@ -13,9 +13,6 @@ local tweenAcceleration = math.rad(220)		--Radians/Second^2
 local tweenSpeed = math.rad(0)				--Radians/Second
 local tweenMaxSpeed = math.rad(250)			--Radians/Second
 local TIME_BEFORE_AUTO_ROTATE = 2.0 		--Seconds, used when auto-aligning camera with vehicles
--- Remove with FFlagUserUpdateCameraConstants
-local PORTRAIT_OFFSET = Vector3.new(0, 2, 0)
-local MOBILE_OFFSET = Vector3.new(0, 1, 0)
 
 local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 
@@ -24,11 +21,6 @@ local PlayersService = game:GetService('Players')
 local VRService = game:GetService("VRService")
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
-
-local newCameraConstantsFlagExists, newCameraConstantsFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserUpdateCameraConstants")
-end)
-local FFlagUserUpdateCameraConstants = newCameraConstantsFlagExists and newCameraConstantsFlagEnabled
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -56,18 +48,6 @@ end
 
 function ClassicCamera:Test()
 	print("ClassicCamera:Test()")
-end
-
---Remove with FFlagUserUpdateCameraConstants
-function ClassicCamera:GetCameraSubjectOffset()
-	if self:IsInFirstPerson() then
-		return Vector3.new(0, 0, 0)
-	elseif self.portraitMode then
-		return PORTRAIT_OFFSET
-	elseif self.isSmallTouchScreen then
-		return MOBILE_OFFSET
-	end
-	return Vector3.new(0, 0, 0)
 end
 
 function ClassicCamera:Update()
@@ -209,11 +189,7 @@ function ClassicCamera:Update()
 			if VREnabled then
 				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
 			else
-				if FFlagUserUpdateCameraConstants then
-					newCameraFocus = CFrame.new(subjectPosition)
-				else
-					newCameraFocus = CFrame.new(subjectPosition + self:GetCameraSubjectOffset())
-				end
+				newCameraFocus = CFrame.new(subjectPosition)
 			end
 
 			local cameraFocusP = newCameraFocus.p
@@ -248,11 +224,7 @@ function ClassicCamera:Update()
 			if VRService.VREnabled then
 				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
 			else
-				if FFlagUserUpdateCameraConstants then
-					newCameraFocus = CFrame.new(subjectPosition)
-				else
-					newCameraFocus = CFrame.new(subjectPosition + self:GetCameraSubjectOffset())
-				end
+				newCameraFocus = CFrame.new(subjectPosition)
 			end
 			newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, self:GetCameraHeight(), 0)
 		end

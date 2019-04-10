@@ -178,52 +178,6 @@ local FruitTableData = {
 	},
 }
 
-local function TableSize(T)
-	local size = 0
-	for _,_ in pairs(T) do
-		size = size + 1
-	end
-	return size
-end
-
-local function TableContains(T, entry)
-	for _,t in pairs(T) do
-		if RecursiveEquals(entry, t) then
-			return true
-		end
-	end
-	return false
-end
-
-local function TableContentsEqual(A, B)
-	for _,t in pairs(A) do
-		if not TableContains(B, t) then
-			return false
-		end
-	end
-
-	for _,t in pairs(B) do
-		if not TableContains(A, t) then
-			return false
-		end
-	end
-
-	return true
-end
-
-local function TableConcat(...)
-	local arg = {...}
-
-	local result = {}
-	for _,A in ipairs(arg) do
-		for _,entry in ipairs(A) do
-			table.insert(result, entry)
-		end
-	end
-
-	return result
-end
-
 return function()
 	it("make a patch entry for a row replacing a copy of the row (that's an empty translations list)", function()
 		local patchInfo = {

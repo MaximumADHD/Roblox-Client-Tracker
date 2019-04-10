@@ -41,6 +41,9 @@ function AssetCreatorName:init(props)
 		isHovered = false
 	}
 
+	self.textButtonRef = Roact.createRef()
+	self.underLineWidth = 0
+
 	self.onMouseEnter = function()
 		self:setState({
 			isHovered = true
@@ -61,6 +64,13 @@ function AssetCreatorName:init(props)
 			Creator = props.creatorName,
 		}
 		props.searchWithOptions(networkInterface, settings,options)
+	end
+end
+
+function AssetCreatorName:didMount()
+	local textButtonRef = self.textButtonRef.current
+	if textButtonRef then
+		self.underLineWidth = textButtonRef.TextBounds.X
 	end
 end
 
@@ -92,18 +102,25 @@ function AssetCreatorName:render()
 					TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					ClipsDescendants = true,
+					ClipsDescendants = false,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					AutoButtonColor = false,
 
 					[Roact.Event.MouseEnter] = self.onMouseEnter,
 					[Roact.Event.MouseLeave] = self.onMouseLeave,
 					[Roact.Event.Activated] = self.onActivated,
+					[Roact.Ref] = self.textButtonRef,
 				}, {
 					TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
 						Text = creatorName,
 						canShowCurrentTooltip = canShowCurrentTooltip,
 						isHovered = isHovered,
+					}),
+
+					UnderLine = isHovered and Roact.createElement("Frame", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 1, 1),
+						Size = UDim2.new(0, self.underLineWidth, 0, 1)
 					})
 				})
 			end)

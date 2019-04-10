@@ -12,6 +12,15 @@ Style.Defaults = {
 
 	backgroundColor = Color3.new(),
 	textColor = Color3.new(),
+
+	itemColor = Color3.new(),
+	borderColor = Color3.new(),
+
+	selectionColor = Color3.new(),
+	selectionBorderColor = Color3.new(),
+
+	shadowColor = Color3.new(),
+	shadowTransparency = Color3.new(),
 }
 
 -- A function that checks to see if there are any missing or

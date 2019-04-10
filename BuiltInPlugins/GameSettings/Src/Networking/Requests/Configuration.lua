@@ -10,6 +10,7 @@ local RELEVANT_ENTRIES = {
 	playableDevices = true,
 	isFriendsOnly = true,
 	name = true,
+	studioAccessToApisAllowed = settings():GetFFlag("StudioGameSettingsStudioApiServices") and true or nil
 }
 
 local PLAYABLE_DEVICES = {

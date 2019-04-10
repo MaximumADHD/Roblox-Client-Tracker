@@ -45,8 +45,35 @@ return function(style, overrides)
 		borderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
 	}
 
+	local dropShadow = {
+		image = "rbxasset://textures/StudioUIEditor/resizeHandleDropShadow.png",
+	}
+
+	local tooltip = {
+		font = style.font,
+
+		backgroundColor = style.itemColor,
+		borderColor = style.borderColor,
+		textColor = style.textColor,
+		shadowColor = style.shadowColor,
+		shadowTransparency = style.shadowTransparency,
+	}
+
+	local keyframe = {
+		backgroundColor = style.itemColor,
+		borderColor = style.borderColor,
+
+		selected = {
+			backgroundColor = style.selectionColor,
+			borderColor = style.selectionBorderColor,
+		},
+	}
+
 	return replaceDefaults({
 		 checkBox = checkBox,
 		 roundFrame = roundFrame,
+		 dropShadow = dropShadow,
+		 tooltip = tooltip,
+		 keyframe = keyframe,
 	}, overrides)
 end

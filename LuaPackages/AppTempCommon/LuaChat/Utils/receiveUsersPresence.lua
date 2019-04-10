@@ -3,9 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local ReceivedUserPresence = require(CorePackages.AppTempCommon.LuaChat.Actions.ReceivedUserPresence)
 local WebPresenceMap = require(CorePackages.AppTempCommon.LuaApp.Enum.WebPresenceMap)
 
-local luaChatUseNewFriendsAndPresenceEndpoint = settings():GetFFlag("LuaChatUseNewFriendsAndPresenceEndpointV356")
-local luaChatPlayTogetherUseRootPresence = settings():GetFFlag("LuaChatPlayTogetherUseRootPresence")
-local luaChatRootPresenceEnabled = luaChatUseNewFriendsAndPresenceEndpoint and luaChatPlayTogetherUseRootPresence
 local FFlagLuaAppConvertUniverseIdToString = settings():GetFFlag("LuaAppConvertUniverseIdToStringV364")
 
 return function(friendsPresence, store)
@@ -20,28 +17,16 @@ return function(friendsPresence, store)
 			universeId = presenceModel.universeId
 		end
 
-		if luaChatRootPresenceEnabled then
-			store:dispatch(ReceivedUserPresence(
-				tostring(presenceModel.userId),
-				WebPresenceMap[presenceModel.userPresenceType],
-				presenceModel.lastLocation,
-				presenceModel.placeId and tostring(presenceModel.placeId) or nil,
-				presenceModel.rootPlaceId and tostring(presenceModel.rootPlaceId) or nil,
-				presenceModel.gameId and tostring(presenceModel.gameId) or nil,
-				presenceModel.lastOnline and tostring(presenceModel.lastOnline) or nil,
-				universeId,
-				previousUniverseId
-			))
-		else
-			store:dispatch(ReceivedUserPresence(
-				tostring(presenceModel.userId),
-				WebPresenceMap[presenceModel.userPresenceType],
-				presenceModel.lastLocation,
-				presenceModel.placeId and tostring(presenceModel.placeId) or nil,
-				presenceModel.gameId and tostring(presenceModel.gameId) or nil,
-				universeId,
-				previousUniverseId
-			))
-		end
+		store:dispatch(ReceivedUserPresence(
+			tostring(presenceModel.userId),
+			WebPresenceMap[presenceModel.userPresenceType],
+			presenceModel.lastLocation,
+			presenceModel.placeId and tostring(presenceModel.placeId) or nil,
+			presenceModel.rootPlaceId and tostring(presenceModel.rootPlaceId) or nil,
+			presenceModel.gameId and tostring(presenceModel.gameId) or nil,
+			presenceModel.lastOnline and tostring(presenceModel.lastOnline) or nil,
+			universeId,
+			previousUniverseId
+		))
 	end
 end

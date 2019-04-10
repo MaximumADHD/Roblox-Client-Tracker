@@ -15703,6 +15703,26 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsPassword",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Text",
                     "MemberType": "Property",
                     "Name": "LineHeight",
@@ -23886,6 +23906,23 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "ShadowSoftness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "Technology",
                     "Security": {
                         "Read": "None",
@@ -28437,6 +28474,23 @@
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "CanCollide",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CastShadow",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -59830,6 +59884,26 @@
                 {
                     "Name": "StatusBar",
                     "Value": 83
+                },
+                {
+                    "Name": "DialogButton",
+                    "Value": 84
+                },
+                {
+                    "Name": "DialogButtonText",
+                    "Value": 85
+                },
+                {
+                    "Name": "DialogButtonBorder",
+                    "Value": 86
+                },
+                {
+                    "Name": "DialogMainButton",
+                    "Value": 87
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 88
                 }
             ],
             "Name": "StudioStyleGuideColor"
@@ -59996,6 +60070,13 @@
                         "Deprecated"
                     ],
                     "Value": 2
+                },
+                {
+                    "Name": "ShadowMap",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 3
                 }
             ],
             "Name": "Technology"

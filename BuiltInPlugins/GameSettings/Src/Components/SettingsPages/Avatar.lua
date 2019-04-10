@@ -11,7 +11,10 @@
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
 
+local PageName = "Avatar"
+
 local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
+local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -24,6 +27,7 @@ local showDialog = require(Plugin.Src.Consumers.showDialog)
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
+local Header = require(Plugin.Src.Components.Header)
 
 local getTheme = require(Plugin.Src.Consumers.getTheme)
 
@@ -127,6 +131,18 @@ local function displayContents(page, localized)
 
 	if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
 		return {
+			PageLayout = FFlagGameSettingsReorganizeHeaders and
+			Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, 25),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			Header = FFlagGameSettingsReorganizeHeaders and
+			Roact.createElement(Header, {
+				Title = localized.Category[PageName],
+				LayoutOrder = -1,
+			}),
+
 			Morpher = Roact.createElement(MorpherRootPanel, {
 				ThemeData = getTheme(page),
 				LocalizedContent = FFlagGameSettingsWidgetLocalized and localized.Morpher or nil,
@@ -181,6 +197,16 @@ local function displayContents(page, localized)
 		}
 	else
 		return {
+			PageLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, 25),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			Header = Roact.createElement(Header, {
+				Title = localized.Category[PageName],
+				LayoutOrder = 0,
+			}),
+
 			Type = Roact.createElement(RadioButtonSet, {
 				Title = "Avatar Type",
 				Buttons = {{
@@ -268,7 +294,7 @@ local function displayContents(page, localized)
 	end
 end
 
-local SettingsPage = createSettingsPage("Avatar", loadValuesToProps, dispatchChanges)
+local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
 
 local function Avatar(props)
 	return Roact.createElement(SettingsPage, {

@@ -14,6 +14,7 @@ local TweenService = game:GetService("TweenService")
 local StarterGui = game:GetService("StarterGui")
 local Workspace = game:GetService("Workspace")
 local CollectionService = game:GetService("CollectionService")
+local GuiService = game:GetService("GuiService")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -44,6 +45,11 @@ local FFlagUserFixClickToMoveWithACMSuccess, FFlagUserFixClickToMoveWithACMResul
 	return UserSettings():IsUserFeatureEnabled("UserFixClickToMoveWithACM")
 end)
 local FFlagUserFixClickToMoveWithACM = FFlagUserFixClickToMoveWithACMSuccess and FFlagUserFixClickToMoveWithACMResult
+
+local FFlagUserClickToMoveCancelOnMenuOpenedSuccess, FFlagUserClickToMoveCancelOnMenuOpenedResult = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserClickToMoveCancelOnMenuOpened")
+end)
+local FFlagUserClickToMoveCancelOnMenuOpened = FFlagUserClickToMoveCancelOnMenuOpenedSuccess and FFlagUserClickToMoveCancelOnMenuOpenedResult
 
 local Player = Players.LocalPlayer
 
@@ -1176,6 +1182,7 @@ function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	self.onCharacterAddedConn = nil
 	self.characterChildRemovedConn = nil
 	self.renderSteppedConn = nil
+	self.menuOpenedConnection = nil
 
 	self.running = false
 
@@ -1194,6 +1201,9 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.onCharacterAddedConn)
 	DisconnectEvent(self.renderSteppedConn)
 	DisconnectEvent(self.characterChildRemovedConn)
+	if FFlagUserClickToMoveCancelOnMenuOpened then
+		DisconnectEvent(self.menuOpenedConnection)
+	end
 
 	-- Can be removed with FFlagUserNewClickToMoveDisplay
 	if not FFlagUserClickToMoveFollowPathRefactor then
@@ -1283,6 +1293,12 @@ function ClickToMove:OnCharacterAdded(character)
 			OnTap(touchPositions, nil, true)
 		end
 	end)
+
+	if FFlagUserClickToMoveCancelOnMenuOpened then
+		self.menuOpenedConnection = GuiService.MenuOpened:Connect(function()
+			CleanupPath()
+		end)
+	end
 
 	-- To remove with FFlagUserClickToMoveFollowPathRefactor or with FFlagUserNewClickToMoveDisplay
 	local function Update()
@@ -1418,7 +1434,7 @@ function ClickToMove:OnRenderStepped(dt)
 		-- Let the Pather update
 		ExistingPather:OnRenderStepped(dt)
 
-		-- If we still have a Pather, set the resulting actions 
+		-- If we still have a Pather, set the resulting actions
 		if ExistingPather then
 			-- Setup move (NOT relative to camera)
 			self.moveVector = ExistingPather.NextActionMoveDirection

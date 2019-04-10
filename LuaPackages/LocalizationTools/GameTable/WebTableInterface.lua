@@ -9,13 +9,14 @@ local HttpService = game:GetService("HttpService")
 local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
 
 local GameInternationalizationUrl = Urls.GetGameInternationalizationUrlFromBaseUrl(BaseUrl)
+local TranslationRolesUrl = Urls.GetTranslationRolesUrlFromBaseUrl(BaseUrl)
 local ApiUrl = Urls.GetApiUrlFromBaseUrl(BaseUrl)
 
 local BAD_REQUEST = 400
 local CODE_INVALID_GAME_ID = 14
 local CODE_PERMISSIONS = 28
 
-local StudioLocalizationPluginCleanGameIdLogic = settings():GetFFlag("StudioLocalizationPluginCleanGameIdLogic")
+local TranslationRolesApi = settings():GetFFlag("TranslationRolesApi")
 
 local LocalizationTableUploadRowMax =
 	tonumber(settings():GetFVariable("LocalizationTableUploadRowMax")) or 50
@@ -63,7 +64,7 @@ end
 	Appeals to the internet using placeId as an asset-id to determine if the user
 	has permission to edit the current place.
 
-	Clean up along with StudioLocalizationPluginCleanGameIdLogic
+	Clean up along with TranslationRolesApi
 ]]
 local function UserCanManagePlace(userId, placeId)
 	return Promise.new(function(resolve, reject)
@@ -136,7 +137,7 @@ local function GetOrCreateGameTable(gameId)
 			spawn(function()
 				if success then
 					if response.StatusCode >= BAD_REQUEST then
-						if StudioLocalizationPluginCleanGameIdLogic then
+						if TranslationRolesApi then
 							local decodedResponseBody = decodeJSON(response.Body)
 							if decodedResponseBody ~= nil
 								and decodedResponseBody.errors ~= nil
@@ -208,7 +209,7 @@ end
 			this is mostly so that the receiving UI can decide whether to turn on the
 			checkbox.
 
-	Clean up along with StudioLocalizationPluginCleanGameIdLogic
+	Clean up along with TranslationRolesApi
 ]]
 local function UpdateGameTableInfo()
 	return Promise.new(function(resolve, reject)
@@ -345,11 +346,67 @@ local function UploadPatchToTableId(gameId, patch, tableId)
 	end)
 end
 
+--[[Takes a list of role-names as returned by the translationroles endpoint,
+	and returns true if one of them grants the current user permission to edit
+	the cloud table.  At the moment this is if any of them are "owner" or "translator" ]]
+local function rolesGivePermission(roles)
+	for _,role in ipairs(roles) do
+		if role == "owner" or role == "translator" then
+			return true
+		end
+	end
+	return false
+end
+
 --[[
-	Uses the get-or-create endpoint to determine if the table is available.
-	In otherwords, this appeals to the get-or-create enppoint, but rather than
-	continue downloading or uploading if the appeal is successful, it just informs
-	the caller that the table is available in the form of a resolved promise.
+	Uses the translation-roles endpoint to determine if the current user has permission
+	to edit/view the cloud table for the given gameId.
+
+	Returns a promise that resolves if the user has permssions, and rejects in any other case,
+	error or successfully determined no permission.
+]]
+local function GetTranslationRolesPermission(gameId)
+	return Promise.new(function(resolve, reject)
+		local Url = TranslationRolesUrl
+			.."v1/game-localization-roles/games/"
+			..urlEncode(gameId)
+			.."/current-user/roles"
+
+		HttpService:RequestInternal({
+			Url = Url,
+			Method = "GET",
+			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
+		}):Start(function(success, response)
+			spawn(function()
+				if success then
+					if response.StatusCode >= BAD_REQUEST then
+						warn(string.format("Permissions request for cloud table failed with status code: %s",
+							tostring(response.StatusCode)))
+						reject("Permissions request for cloud table failed")
+						return
+					end
+
+					local decodedResponseBody = decodeJSON(response.Body)
+
+					if decodedResponseBody and
+						decodedResponseBody.data and
+						rolesGivePermission(decodedResponseBody.data)
+					then
+						resolve()
+					else
+						reject("Current user does not have permission to edit cloud table")
+					end
+				else
+					reject("Permissions request for cloud table failed")
+				end
+			end)
+		end)
+	end)
+end
+
+--[[
+	Uses the translation-roles endpoint to determine if the table is available.
 
 	Returns a promise that resolves with a boolean argument (which is true if the request
 	successfully gave back a tableid)
@@ -358,10 +415,8 @@ local function CheckTableAvailability(gameId)
 	if currentTableId ~= nil and currentGameId == gameId then
 		return Promise.resolve(true)
 	else
-		return GetOrCreateGameTable(gameId):andThen(
-			function(tableInfo)
-				currentTableId = tableInfo.autoLocalizationTableId
-				currentGameId = gameId
+		return GetTranslationRolesPermission(gameId):andThen(
+			function()
 				return Promise.resolve(true)
 			end
 		)

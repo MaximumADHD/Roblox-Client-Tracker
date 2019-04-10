@@ -25,12 +25,15 @@
 		devices: "NoDevices"
 ]]
 
+local PageName = "Basic Info"
+
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
 local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
+local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -60,6 +63,7 @@ local Dropdown = require(Plugin.Src.Components.Dropdown)
 local Separator = require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
+local Header = require(Plugin.Src.Components.Header)
 
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
@@ -193,6 +197,12 @@ local function displayContents(page, localized)
 	local devices = props.Devices
 
 	return {
+		Header = FFlagGameSettingsReorganizeHeaders and
+		Roact.createElement(Header, {
+			Title = localized.Category[PageName],
+			LayoutOrder = 0,
+		}),
+
 		Name = Roact.createElement(TitledFrame, {
 			Title = localized.Title.Name,
 			MaxHeight = 60,
@@ -396,7 +406,7 @@ local function displayContents(page, localized)
 	}
 end
 
-local SettingsPage = createSettingsPage("Basic Info", loadValuesToProps, dispatchChanges)
+local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
 
 local function BasicInfo(props)
 	return Roact.createElement(SettingsPage, {

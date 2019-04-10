@@ -901,6 +901,7 @@ Class TextBox : GuiObject
 	Property int TextBox.CursorPosition
 	Property Font TextBox.Font
 	Property FontSize TextBox.FontSize [deprecated]
+	Property bool TextBox.IsPassword [RobloxScriptSecurity]
 	Property float TextBox.LineHeight
 	Property bool TextBox.ManualFocusRelease [RobloxScriptSecurity]
 	Property bool TextBox.MultiLine
@@ -1390,6 +1391,7 @@ Class Lighting : Instance [notCreatable]
 	Property Color3 Lighting.OutdoorAmbient
 	Property bool Lighting.Outlines
 	Property Color3 Lighting.ShadowColor [deprecated]
+	Property float Lighting.ShadowSoftness
 	Property string Lighting.TimeOfDay
 	Function double Lighting:GetMinutesAfterMidnight()
 	Function Vector3 Lighting:GetMoonDirection()
@@ -1639,6 +1641,7 @@ Class BasePart : PVInstance [notbrowsable]
 	Property BrickColor BasePart.BrickColor
 	Property CoordinateFrame BasePart.CFrame
 	Property bool BasePart.CanCollide
+	Property bool BasePart.CastShadow
 	Property Vector3 BasePart.CenterOfMass [readonly]
 	Property int BasePart.CollisionGroupId
 	Property Color3 BasePart.Color
@@ -4255,6 +4258,7 @@ Enum Technology
 	EnumItem Technology.Legacy : 0
 	EnumItem Technology.Voxel : 1
 	EnumItem Technology.Compatibility : 2 [deprecated]
+	EnumItem Technology.ShadowMap : 3 [deprecated]
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

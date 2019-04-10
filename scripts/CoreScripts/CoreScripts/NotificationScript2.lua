@@ -35,8 +35,6 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagCoreScriptsUseLocalizationModule = settings():GetFFlag('CoreScriptsUseLocalizationModule')
 local FFlagNotificationScript2UseFormatByKey = settings():GetFFlag('NotificationScript2UseFormatByKey')
 
-local FFlagFixIncorrectBadgeText = settings():GetFFlag("FixIncorrectBadgeText")
-
 local RobloxTranslator
 if FFlagCoreScriptsUseLocalizationModule then
 	RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
@@ -167,9 +165,6 @@ NotificationTitle.BackgroundTransparency = 1
 NotificationTitle.Font = Enum.Font.SourceSansBold
 NotificationTitle.FontSize = NOTIFICATION_TITLE_FONT_SIZE
 NotificationTitle.TextColor3 = Color3.new(0.97, 0.97, 0.97)
-if FFlagFixIncorrectBadgeText then
-	NotificationTitle.AutoLocalize = false
-end
 
 local NotificationText = Instance.new('TextLabel')
 NotificationText.Name = "NotificationText"
@@ -181,9 +176,6 @@ NotificationText.FontSize = NOTIFICATION_TEXT_FONT_SIZE
 NotificationText.TextColor3 = Color3.new(0.92, 0.92, 0.92)
 NotificationText.TextWrap = true
 NotificationText.TextYAlignment = Enum.TextYAlignment.Top
-if FFlagFixIncorrectBadgeText then
-	NotificationText.AutoLocalize = false
-end
 
 local NotificationImage = Instance.new('ImageLabel')
 NotificationImage.Name = "NotificationImage"

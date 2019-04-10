@@ -8,10 +8,15 @@
 			all the results to RCC.
 ]]
 
+local PageName = "Localization"
+
+local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
+local Header = require(Plugin.Src.Components.Header)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
@@ -30,9 +35,15 @@ local function dispatchChanges(setValue, dispatch)
 end
 
 --Uses props to display current settings values
-local function displayContents(page)
+local function displayContents(page, localized)
 	local props = page.props
 	return {
+		Header = FFlagGameSettingsReorganizeHeaders and
+		Roact.createElement(Header, {
+			Title = localized.Category[PageName],
+			LayoutOrder = 0,
+		}),
+
 		Autoscraping = Roact.createElement(RadioButtonSet, {
 			Title = "Autoscraping",
 			Buttons = {{
@@ -55,7 +66,7 @@ local function displayContents(page)
 	}
 end
 
-local SettingsPage = createSettingsPage("Localization", loadValuesToProps, dispatchChanges)
+local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
 
 local function Localization(props)
 	return Roact.createElement(SettingsPage, {

@@ -28,8 +28,31 @@ local r15OnlyOptions = {"Anthro Normal", "Anthro Slender"}
 local boundsUpdateFixFlagExists, boundsUpdateFixFlagTrue =  pcall(function () return settings():GetFFlag("RigBuilderBoundsUpdateFix") end)
 
 --Functions
-function insertRig(name)
+local function getCameraLookat(maxRange)
+	if maxRange == nil then maxRange = 10 end
+	local cam = workspace.CurrentCamera
+	if cam then
+		local ray = Ray.new(cam.CFrame.p, cam.CFrame.lookVector * maxRange)
+		local _, pos = workspace:FindPartOnRay(ray)
+		cam.Focus = CFrame.new(pos)
+		return pos
+	else
+		--Default position if they did weird stuff
+		print("Unable to find default camera.")
+		return Vector3.new(0, 5.2, 0)
+	end
+end
+
+local function closeGui()
+	gui:Destroy()
+	open = false
+    plugin:Deactivate()
+	button:SetActive(false)
+end
+
+local function insertRig(name)
 	closeGui()
+
 	local rig
 	if mode == "R6" then
 		if name == "Block Rig" then
@@ -56,15 +79,18 @@ function insertRig(name)
 			rig = rigModule.BuildAnthroRig("AnthroSlender")
 		end
 	end
+
 	--Some housekeeping
 	rig.Name = "Dummy"
 	rig.HumanoidRootPart.Anchored = true
+
 	--Color it
-	for i, v in pairs(rig:GetChildren()) do
+	for _, v in pairs(rig:GetChildren()) do
 		if v:IsA("BasePart") then
 			v.BrickColor = RIG_COLOR
 		end
 	end
+
 	--Here we go!
 	if boundsUpdateFixFlagExists and boundsUpdateFixFlagTrue then
 		rig:SetPrimaryPartCFrame(CFrame.new(getCameraLookat(10)))
@@ -75,14 +101,14 @@ function insertRig(name)
 	game.Selection:Set({rig})
 end
 
-function rebuildOptions(gui, guiFrameSize, optionsFrameSize)
+local function rebuildOptions(guiFrameSize, optionsFrameSize)
 	gui.Frame.Options:ClearAllChildren()
 
 	local function addOption(optionNumber, optionName)
 		local btn = gui.Frame.ListTemplate:Clone()
 		btn.Visible = true
 		btn.Text = optionName
-		btn.Position = UDim2.new(0,0,0, (btn.Size.Y.Offset + 5) * optionNumber)
+		btn.Position = UDim2.new(0, 0, 0, (btn.Size.Y.Offset + 5) * optionNumber)
 		btn.Parent = gui.Frame.Options
 		btn.MouseButton1Click:connect(function() insertRig(optionName) end)
 	end
@@ -108,58 +134,36 @@ function rebuildOptions(gui, guiFrameSize, optionsFrameSize)
 	end
 end
 
-function openGui()
+local function openGui()
 	gui = GUIsFolder.RigBuilder:clone()
 
 	local guiFrameSize = gui.Frame.Size
 	local optionsFrameSize = gui.Frame.Options.Size
 
-	rebuildOptions(gui, guiFrameSize, optionsFrameSize)
+	rebuildOptions(guiFrameSize, optionsFrameSize)
 
 	--Slider
 	local sl = gui.Frame.Slider
 	sl.R15.MouseButton1Click:connect(function()
 		sl.R15.BackgroundTransparency = 0
 		sl.R6.BackgroundTransparency = 1
-		sl.Slider:TweenPosition(UDim2.new(0,0,1,-3), "Out", "Quad", 0.15)
+		sl.Slider:TweenPosition(UDim2.new(0, 0, 1, -3), "Out", "Quad", 0.15)
 		mode = "R15"
 		rebuildOptions(gui, guiFrameSize, optionsFrameSize)
 	end)
 	sl.R6.MouseButton1Click:connect(function()
 		sl.R15.BackgroundTransparency = 1
 		sl.R6.BackgroundTransparency = 0
-		sl.Slider:TweenPosition(UDim2.new(0.5,0,1,-3), "Out", "Quad", 0.15)
+		sl.Slider:TweenPosition(UDim2.new(0.5, 0, 1, -3), "Out", "Quad", 0.15)
 		mode = "R6"
 		rebuildOptions(gui, guiFrameSize, optionsFrameSize)
 	end)
 	gui.Frame.Close.MouseButton1Click:connect(closeGui)
-	gui.Frame.Options.CanvasSize = UDim2.new(0,0,0, (gui.Frame.ListTemplate.Size.Y.Offset + 5) * (#options-1))
+	gui.Frame.Options.CanvasSize = UDim2.new(0, 0, 0, (gui.Frame.ListTemplate.Size.Y.Offset + 5) * (#options-1))
 	gui.Parent = game.CoreGui
 	open = true
 	plugin:Activate(true)
 	button:SetActive(true)
-end
-
-function closeGui()
-	gui:Destroy()
-	open = false
-    plugin:Deactivate()
-	button:SetActive(false)
-end
-
-function getCameraLookat(maxRange)
-	if maxRange == nil then maxRange = 10 end
-	local cam = workspace.CurrentCamera
-	if cam then
-		local ray = Ray.new(cam.CFrame.p, cam.CFrame.lookVector * maxRange)
-		local hit, pos = workspace:FindPartOnRay(ray)
-		cam.Focus = CFrame.new(pos)
-		return pos
-	else
-		--Default position if they did weird stuff
-		print("Unable to find default camera.")
-		return Vector3.new(0,5.2,0)
-	end
 end
 
 --Code

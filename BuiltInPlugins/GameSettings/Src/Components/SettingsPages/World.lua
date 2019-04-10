@@ -15,7 +15,10 @@
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
 
+local PageName = "World"
+
 local DFIntJumpPowerInstantControllerMultiplierPercent =  tonumber(settings():GetFVariable("JumpPowerInstantControllerMultiplierPercent"))
+local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -30,6 +33,8 @@ local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetSeparator = require(RoactStudioWidgets.Separator)
 local StudioWidgetText = require(RoactStudioWidgets.Text)
 local StudioWidgetButtonBarWithToolTip = require(RoactStudioWidgets.ButtonBarWithToolTip)
+
+local Header = require(Plugin.Src.Components.Header)
 
 local TITLED_FRAME_GUTTER_WIDTH = 180
 local INPUT_BOX_OFFSET = 160
@@ -321,7 +326,7 @@ local function createJumpDistanceWidgets(incrementNextLayoutOrderFunc, props)
 end
 
 --Uses props to display current settings values
-local function displayContents(page)
+local function displayContents(page, localized)
 	local props = page.props
 	local mouse = getMouse(page).getNativeMouse()
 
@@ -336,6 +341,12 @@ local function displayContents(page)
 	end
 
 	return {
+		Header = FFlagGameSettingsReorganizeHeaders and
+		Roact.createElement(Header, {
+			Title = localized.Category[PageName],
+			LayoutOrder = -1,
+		}),
+
 		Presets = createPresetsWidgets(incrementNextLayoutOrder(), props, mouse),
 		Separator1 = Roact.createElement(StudioWidgetSeparator, {
 			LayoutOrder = incrementNextLayoutOrder(),
@@ -351,7 +362,7 @@ local function displayContents(page)
 	}
 end
 
-local SettingsPage = createSettingsPage("World", loadValuesToProps, dispatchChanges)
+local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)
 
 local function World(props)
 	return Roact.createElement(SettingsPage, {

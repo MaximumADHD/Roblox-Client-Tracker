@@ -1,17 +1,7 @@
-local rigCreator = {}
+local RigCreator = {}
 
 local RigBuilderFolder = script.Parent.Parent
 local AnthroRigs = RigBuilderFolder:WaitForChild("AnthroRigs")
-
-local function weldBetween(a, b)
-    local weld = Instance.new("Motor6D")
-    weld.Part0 = a
-    weld.Part1 = b
-    weld.C0 = CFrame.new()
-    weld.C1 = b.CFrame:inverse()*a.CFrame
-    weld.Parent = a
-    return weld;
-end
 
 local function jointBetween(a, b, cfa, cfb)
     local weld = Instance.new("Motor6D")
@@ -20,10 +10,10 @@ local function jointBetween(a, b, cfa, cfb)
     weld.C0 = cfa
     weld.C1 = cfb
     weld.Parent = a
-    return weld;
+    return weld
 end
 
-function rigCreator.CreateR6Rig()
+function RigCreator.CreateR6Rig()
 	local parent = Instance.new("Model")
 	parent.Name = "Dummy"
 
@@ -147,8 +137,8 @@ function rigCreator.CreateR6Rig()
 	return parent
 end
 
-function rigCreator.CreateR6MeshRig()
-	local rig = rigCreator.CreateR6Rig()
+function RigCreator.CreateR6MeshRig()
+	local rig = RigCreator.CreateR6Rig()
 
 	local LArmMesh = Instance.new("CharacterMesh", rig)
 	LArmMesh.MeshId = 27111419
@@ -178,8 +168,8 @@ function rigCreator.CreateR6MeshRig()
 	return rig
 end
 
-function rigCreator.CreateR6MeshBoyRig()
-	local rig = rigCreator.CreateR6Rig()
+function RigCreator.CreateR6MeshBoyRig()
+	local rig = RigCreator.CreateR6Rig()
 
 	local LArmMesh = Instance.new("CharacterMesh", rig)
 	LArmMesh.MeshId = 82907977
@@ -209,8 +199,8 @@ function rigCreator.CreateR6MeshBoyRig()
 	return rig
 end
 
-function rigCreator.CreateR6MeshGirlRig()
-	local rig = rigCreator.CreateR6Rig()
+function RigCreator.CreateR6MeshGirlRig()
+	local rig = RigCreator.CreateR6Rig()
 
 	local LArmMesh = Instance.new("CharacterMesh", rig)
 	LArmMesh.MeshId = 83001137
@@ -239,7 +229,39 @@ function rigCreator.CreateR6MeshGirlRig()
 	return rig
 end
 
-function rigCreator.BuildR15Rig(package)
+local r15DefaultRigId = 1664543044
+
+local function r15RigImported(rig)
+	-- Not all packages have all their parts, we load MrGreyR15 first then substitute the parts we did load
+	local R15Dummy = game:GetService("InsertService"):LoadAsset(r15DefaultRigId):GetChildren()[1]
+
+	for _, part in pairs(rig:GetChildren()) do
+		local matchingPart = R15Dummy:FindFirstChild(part.Name)
+		if matchingPart then
+			matchingPart:Destroy()
+		end
+		part.Parent = R15Dummy
+	end
+	rig:Destroy()
+
+	rig = R15Dummy
+	rig.Parent = workspace
+
+	local humanoid = rig:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		humanoid:BuildRigFromAttachments()
+	end
+
+	local r15Head = rig:WaitForChild("Head", 1) -- 1 second timeout
+
+	local face = Instance.new("Decal", r15Head)
+	face.Name = "face"
+	face.Texture = "rbxasset://textures/face.png"
+
+	return rig
+end
+
+function RigCreator.BuildR15Rig(package)
 	--Model, HRP & Head
 	local m = Instance.new("Model", workspace)
 	local headMesh = nil
@@ -247,14 +269,14 @@ function rigCreator.BuildR15Rig(package)
 	if package ~= nil then
 		local pkIds = game:GetService("AssetService"):GetAssetIdsForPackage(package)
 		--Load the assets and parse
-		for i, v in pairs(pkIds) do
+		for _, v in pairs(pkIds) do
 			local a = game:GetService("InsertService"):LoadAsset(v)
 			if a:FindFirstChild("R15ArtistIntent") then
-				for z, x in pairs(a.R15ArtistIntent:GetChildren()) do
+				for _, x in pairs(a.R15ArtistIntent:GetChildren()) do
 					x.Parent = m
 				end
 			elseif a:FindFirstChild("R15") then
-				for z, x in pairs(a.R15:GetChildren()) do
+				for _, x in pairs(a.R15:GetChildren()) do
 					x.Parent = m
 				end
 			elseif a:FindFirstChild("face") then
@@ -266,97 +288,41 @@ function rigCreator.BuildR15Rig(package)
 			end
 		end
 	end
+
 	local rig = r15RigImported(m)
+
 	if headMesh then
 		rig.Head.Mesh:Destroy()
 		headMesh.Parent = rig.Head
 	end
+
 	if face then
-		for i, v in pairs(rig.Head:GetChildren()) do
+		for _, v in pairs(rig.Head:GetChildren()) do
 			if v.Name == "face" or v.Name == "Face" then
 				v:Destroy()
 			end
 		end
 		face.Parent = rig.Head
 	end
+
 	return rig
 end
 
-function rigCreator.BuildAnthroRig(rigName)
+function RigCreator.BuildAnthroRig(rigName)
 	local rig = AnthroRigs:FindFirstChild(rigName)
 	if not rig then
 		error("RigCreator couldn't find Rig with name " ..rigName)
 	else
 		local newRig = rig:Clone()
+
+		local humanoid = newRig:FindFirstChildOfClass("Humanoid")
+		if humanoid then
+			humanoid:BuildRigFromAttachments()
+		end
+
 		newRig.Parent = workspace
 		return newRig
 	end
 end
 
-local function buildJoint(parentAttachment, partForJointAttachment)
-	local newMotor = Instance.new("Motor6D")
-	newMotor.Name = parentAttachment.Name:gsub("RigAttachment", "")
-
-	newMotor.Part0 = parentAttachment.Parent
-	newMotor.Part1 = partForJointAttachment.Parent
-
-	newMotor.C0 = parentAttachment.CFrame
-	newMotor.C1 = partForJointAttachment.CFrame
-
-	---------------------
-	local oldMotor = partForJointAttachment.Parent:FindFirstChild(newMotor.Name)
-	while oldMotor do
-		oldMotor:Destroy()
-		oldMotor = partForJointAttachment.Parent:FindFirstChild(newMotor.Name)
-	end
-
-    newMotor.Parent = partForJointAttachment.Parent
-end
-
--- Removes old Motor6Ds and builds the rig from the attachments in the parts
--- Call this with nil, HumanoidRootPart
-function buildRigFromAttachments(last, part)
-	for _, attachment in pairs(part:GetChildren()) do
-		if attachment:IsA("Attachment") and string.find(attachment.Name, "RigAttachment") then
-			for _, sibling in pairs(part.Parent:GetChildren()) do
-				if sibling ~= part and sibling ~= last then
-					local matchingAttachment = sibling:FindFirstChild(attachment.Name)
-					if matchingAttachment then
-						buildJoint(attachment, matchingAttachment)
-						-- Continue the recursive tree traversal building joints
-						buildRigFromAttachments(part, matchingAttachment.Parent)
-					end
-				end
-			end
-		end
-	end
-end
-
-local r15DefaultRigId = 1664543044
-
-function r15RigImported(R15Rig)
-	-- Not all packages have all their parts, we load MrGreyR15 first then substitute the parts we did load
-	local R15Dummy = game:GetService("InsertService"):LoadAsset(r15DefaultRigId):GetChildren()[1]
-
-	for _, part in pairs(R15Rig:GetChildren()) do
-		local matchingPart = R15Dummy:FindFirstChild(part.Name)
-		if matchingPart then
-			matchingPart:Destroy()
-		end
-		part.Parent = R15Dummy
-	end
-	R15Rig:Destroy()
-
-	R15Rig = R15Dummy
-	R15Rig.Parent = workspace
-	buildRigFromAttachments(nil, R15Rig.HumanoidRootPart)
-
-	local r15Head = R15Rig:WaitForChild("Head", 1) -- 1 second timeout
-
-	local Face = Instance.new("Decal", r15Head)
-	Face.Name = "face"
-	Face.Texture = "rbxasset://textures/face.png"
-	return R15Rig
-end
-
-return rigCreator
+return RigCreator

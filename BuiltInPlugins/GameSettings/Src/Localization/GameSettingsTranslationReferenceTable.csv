@@ -10,6 +10,7 @@ ReplyAgree,Agree
 ReplyDisagree,Disagree
 ButtonSave,Save
 ButtonCancel,Cancel
+ButtonDiscard,Discard
 CategoryBasicInfo,Basic Info
 CategoryAvatar,Avatar
 CategoryWorld,World
@@ -22,6 +23,7 @@ TitleThumbnails,Screenshots & Videos
 TitleGenre,Genre
 TitleDevices,Playable Devices
 TitleHttp,Allow HTTP Requests
+TitleStudioApiServices,Enable Studio Access to API Services
 PlayabilityHeader,Who can play this game?
 PlayabilityPublic,Public
 PlayabilityGroup,Group Members
@@ -61,6 +63,7 @@ DevicePhone,Phone
 DeviceTablet,Tablet
 DeviceConsole,Console
 HttpDesc,Allow game server to issue requests to remote servers.
+StudioApiServicesDesc,Enables Studio access to game services such as Data Stores
 ContentDialogHeader,Content Agreement
 ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?
 ContentDialogItem1,Blood or Gore
@@ -74,8 +77,8 @@ PreviewDialogLink,Go to YouTube and play the video
 CancelDialogHeader,Discard Changes
 CancelDialogBody,Would you like to discard all changes?
 PrivateDialogHeader,Make Private
-PrivateDialogPrompt,Would you like to make it private?
-PrivateDialogBody,Making a game private will shut down any running games.
+PrivateDialogPrompt,Do you want to save your changes?
+PrivateDialogBody,Making this game private will shut down any running games.
 AvatarDialogHeader,Warning
 AvatarDialogPrompt,Would you like to proceed?
 AvatarDialogBody,Changing the game's Avatar Type to this setting will shut down any running games.

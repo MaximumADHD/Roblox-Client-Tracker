@@ -10,6 +10,7 @@ local FFlagKillGuiButtonSetVerb = settings():GetFFlag("KillGuiButtonSetVerb")
 local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNoPosthumousHurtOverlay")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -499,11 +500,15 @@ local function CreateUsernameHealthMenuItem()
 		container, username, healthContainer, healthFill, accountType = createNormalHealthBar()
 	end
 
+	local hurtOverlayImage = TopbarConstants.HURT_OVERLAY_IMAGE
+	if FFlagChinaLicensingApp then
+		hurtOverlayImage = TopbarConstants.HURT_OVERLAY_IMAGE_WHITE
+	end
 	local hurtOverlay = Util.Create'ImageLabel'
 	{
 		Name = "HurtOverlay";
 		BackgroundTransparency = 1;
-		Image = TopbarConstants.HURT_OVERLAY_IMAGE;
+		Image = hurtOverlayImage;
 		Position = UDim2.new(-10,0,-10,0);
 		Size = UDim2.new(20,0,20,0);
 		Visible = false;

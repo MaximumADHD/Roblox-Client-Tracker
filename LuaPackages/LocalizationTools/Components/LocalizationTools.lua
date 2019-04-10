@@ -99,6 +99,8 @@ function LocalizationTools:render()
 								CheckTableAvailability = self.props.CheckTableAvailability,
 								GameIdChangedSignal = self.props.GameIdChangedSignal,
 								SaveCSV = self.props.SaveCSV,
+								HandleUploadAnalytics = self.props.HandleUploadAnalytics,
+								HandleDownloadAnalytics = self.props.HandleDownloadAnalytics,
 								LayoutOrder = 2,
 							})
 						})

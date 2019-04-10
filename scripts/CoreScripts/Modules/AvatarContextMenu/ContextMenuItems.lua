@@ -44,8 +44,6 @@ end
 
 -- VARIABLES
 
-local FFlagRemoveACMLastUnderline = settings():GetFFlag("RemoveACMLastUnderline")
-local FFlagCorescriptACMDontDisplayChatWhenCantChat = settings():GetFFlag("CorescriptACMDontDisplayChatWhenCantChat4")
 local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagTranslateAvatarContextMenu = settings():GetFFlag("TranslateAvatarContextMenu")
 
@@ -322,18 +320,16 @@ function ContextMenuItems:CreateChatButton()
 	if canChat then
 		chatButton.Parent = self.MenuItemFrame
 
-		if FFlagCorescriptACMDontDisplayChatWhenCantChat then
-			local canChatWith = ContextMenuUtil:GetCanChatWith(self.SelectedPlayer)
+		local canChatWith = ContextMenuUtil:GetCanChatWith(self.SelectedPlayer)
 
-			if not canChatWith then
-				chatDisabled = true
-				chatButton.Selectable = false
-				chatLabelText.TextTransparency = addFriendDisabledTransparency
-				if FFlagTranslateAvatarContextMenu then
-					chatLabelText.Text = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.ChatDisabled")
-				else
-					chatLabelText.Text = "Chat Disabled"
-				end
+		if not canChatWith then
+			chatDisabled = true
+			chatButton.Selectable = false
+			chatLabelText.TextTransparency = addFriendDisabledTransparency
+			if FFlagTranslateAvatarContextMenu then
+				chatLabelText.Text = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.ChatDisabled")
+			else
+				chatLabelText.Text = "Chat Disabled"
 			end
 		end
 	else
@@ -378,9 +374,7 @@ function ContextMenuItems:BuildContextMenuItems(player)
 
 	self:CreateCustomMenuItems()
 
-	if FFlagRemoveACMLastUnderline then
-		self:RemoveLastButtonUnderline()
-	end
+	self:RemoveLastButtonUnderline()
 end
 
 function ContextMenuItems:SetSelectedPlayer(selectedPlayer)

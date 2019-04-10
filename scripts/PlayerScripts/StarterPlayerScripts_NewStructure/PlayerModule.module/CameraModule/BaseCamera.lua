@@ -14,11 +14,6 @@ local FIRST_PERSON_DISTANCE_THRESHOLD = 1.0 -- Below this value, snap into first
 
 local CAMERA_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 
-local newCameraConstantsFlagExists, newCameraConstantsFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserUpdateCameraConstants")
-end)
-local FFlagUserUpdateCameraConstants = newCameraConstantsFlagExists and newCameraConstantsFlagEnabled
-
 -- Note: DotProduct check in CoordinateFrame::lookAt() prevents using values within about
 -- 8.11 degrees of the +/- Y axis, that's why these limits are currently 80 degrees
 local MIN_Y = math.rad(-80)
@@ -33,15 +28,8 @@ local VR_HIGH_INTENSITY_REPEAT = 0.4
 local ZERO_VECTOR2 = Vector2.new(0,0)
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 
-local TOUCH_SENSITIVTY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi)
-if FFlagUserUpdateCameraConstants then
-	TOUCH_SENSITIVTY = Vector2.new(0.0045 * math.pi, 0.003375 * math.pi)
-end
+local TOUCH_SENSITIVTY = Vector2.new(0.0045 * math.pi, 0.003375 * math.pi)
 local MOUSE_SENSITIVITY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi )
-
-local MAX_TIME_FOR_DOUBLE_TAP = 1.5
-local MAX_TAP_POS_DELTA = 15
-local MAX_TAP_TIME_DELTA = 0.75
 
 local SEAT_OFFSET = Vector3.new(0,5,0)
 local VR_SEAT_OFFSET = Vector3.new(0,4,0)
@@ -63,11 +51,6 @@ local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagE
 if FFlagUserAdjustHumanoidRootPartToHipPosition then
 	R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
 end
-
-local noDynamicThumbstickRecenterFlagExists, noDynamicThumbstickRecenterFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserNoDynamicThumbstickRecenter")
-end)
-local FFlagUserNoDynamicThumbstickRecenter = noDynamicThumbstickRecenterFlagExists and noDynamicThumbstickRecenterFlagEnabled
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
@@ -444,19 +427,11 @@ end
 
 function BaseCamera:OnGameSettingsTouchMovementModeChanged()
 	if Players.LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
-		if FFlagUserNoDynamicThumbstickRecenter then
-			if (UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.DynamicThumbstick
-				or UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.Default) then
-				self:OnDynamicThumbstickEnabled()
-			else
-				self:OnDynamicThumbstickDisabled()
-			end
+		if (UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.DynamicThumbstick
+			or UserGameSettings.TouchMovementMode == Enum.TouchMovementMode.Default) then
+			self:OnDynamicThumbstickEnabled()
 		else
-			if (UserGameSettings.TouchMovementMode.Name == "DynamicThumbstick") then
-				self:OnDynamicThumbstickEnabled()
-			else
-				self:OnDynamicThumbstickDisabled()
-			end
+			self:OnDynamicThumbstickDisabled()
 		end
 	end
 end
@@ -574,12 +549,6 @@ function BaseCamera:ConnectInputEvents()
 	self.inputEndedConn = UserInputService.InputEnded:Connect(function(input, processed)
 		self:OnInputEnded(input, processed)
 	end)
-
-	if not FFlagUserNoDynamicThumbstickRecenter then
-		self.touchActivateConn = UserInputService.TouchTapInWorld:Connect(function(touchPos, processed)
-			self:OnTouchTap(touchPos)
-		end)
-	end
 
 	self.menuOpenedConn = GuiService.MenuOpened:connect(function()
 		self:ResetInputStates()
@@ -988,55 +957,6 @@ function BaseCamera:OnTouchChanged(input, processed)
 	end
 end
 
--- Remove with FFlagUserNoDynamicThumbstickRecenter
-function BaseCamera:CalcLookBehindRotateInput()
-	if not self.humanoidRootPart or not game.Workspace.CurrentCamera then
-		return nil
-	end
-
-	local cameraLookVector = game.Workspace.CurrentCamera.CFrame.lookVector
-	local newDesiredLook = (self.humanoidRootPart.CFrame.lookVector - Vector3.new(0,0.23,0)).unit
-	local horizontalShift = Util.GetAngleBetweenXZVectors(newDesiredLook, cameraLookVector)
-	local vertShift = math.asin(cameraLookVector.Y) - math.asin(newDesiredLook.Y)
-	if not Util.IsFinite(horizontalShift) then
-		horizontalShift = 0
-	end
-	if not Util.IsFinite(vertShift) then
-		vertShift = 0
-	end
-
-	return Vector2.new(horizontalShift, vertShift)
-end
-
--- Remove with FFlagUserNoDynamicThumbstickRecenter
-function BaseCamera:OnTouchTap(position)
-	if self.isDynamicThumbstickEnabled and not self.isAToolEquipped then
-		if self.lastTapTime and tick() - self.lastTapTime < MAX_TIME_FOR_DOUBLE_TAP then
-			self:SetCameraToSubjectDistance(self.defaultSubjectDistance)
-		else
-			if self.humanoidRootPart then
-				self.rotateInput = self:CalcLookBehindRotateInput()
-			end
-		end
-		self.lastTapTime = tick()
-	end
-end
-
--- Remove with FFlagUserNoDynamicThumbstickRecenter
-function BaseCamera:IsTouchTap(input)
-	-- We can't make the assumption that the input exists in the inputStartPositions because we may have switched from a different camera type.
-	if self.inputStartPositions[input] then
-		local posDelta = (self.inputStartPositions[input] - input.Position).magnitude
-		if posDelta < MAX_TAP_POS_DELTA then
-			local timeDelta = self.inputStartTimes[input] - tick()
-			if timeDelta < MAX_TAP_TIME_DELTA then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 function BaseCamera:OnTouchEnded(input, processed)
 	if self.fingerTouches[input] == false then
 		if self.numUnsunkTouches == 1 then
@@ -1044,11 +964,6 @@ function BaseCamera:OnTouchEnded(input, processed)
 			self.startPos = nil
 			self.lastPos = nil
 			self.userPanningTheCamera = false
-			if not FFlagUserNoDynamicThumbstickRecenter then
-				if self:IsTouchTap(input) then
-					self:OnTouchTap(input.Position)
-				end
-			end
 		elseif self.numUnsunkTouches == 2 then
 			self.startingDiff = nil
 			self.pinchBeginZoom = nil

@@ -42,6 +42,7 @@ RBX
 		PolyPair
 		PolyPolyContact
 		SpatialHash
+		SpatialHashHierarchical
 	}
 	Constraints
 	{
@@ -90,6 +91,16 @@ RBX
 	}
 	Graphics
 	{
+		Shadows
+		{
+			ShadowMapSystem
+			ShadowMapSystemImpl
+			ShadowObject
+			ShadowObjectBase
+			ShadowObjectDirectional
+			ShadowObjectPoint
+			ShadowObjectSpot
+		}
 		SmoothCluster
 		{
 			ChunkRenderEntity
@@ -144,6 +155,9 @@ RBX
 		LightGrid
 		LightGridCPU
 		LightObject
+		MaterialGenerator
+		MaterialGeneratorDeprecated
+		MaterialGeneratorNew
 		ObjectExporter
 		ObjectExporterObj
 		ParticleEmitter

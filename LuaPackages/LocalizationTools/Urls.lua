@@ -17,4 +17,5 @@ end
 return {
 	GetApiUrlFromBaseUrl = MakeUrlGetter("api"),
 	GetGameInternationalizationUrlFromBaseUrl = MakeUrlGetter("gameinternationalization"),
+	GetTranslationRolesUrlFromBaseUrl = MakeUrlGetter("translationroles"),
 }

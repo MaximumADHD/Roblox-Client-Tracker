@@ -32,6 +32,7 @@ TopbarConstants.HEALTH_GREEN_COLOR = Color3.fromRGB(27, 252, 107)
 TopbarConstants.HEALTH_PERCANTAGE_FOR_OVERLAY = 5 / 100
 
 TopbarConstants.HURT_OVERLAY_IMAGE = "https://www.roblox.com/asset/?id=34854607"
+TopbarConstants.HURT_OVERLAY_IMAGE_WHITE = "rbxasset://textures/ui/TopBar/WhiteOverlayAsset.png"
 
 TopbarConstants.DEBOUNCE_TIME = 0.25
 

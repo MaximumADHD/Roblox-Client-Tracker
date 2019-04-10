@@ -6,6 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+local FFlagFixPromiseUtilitiesBatch = settings():GetFFlag("FixPromiseUtilitiesBatch")
 
 local PromiseUtilities = {}
 
@@ -53,21 +54,37 @@ function PromiseUtilities.Batch(promises)
 			resolve(results)
 		end
 
-		for key, promise in pairs(promises) do
-			if promise._status == Promise.Status.Started then
+		if FFlagFixPromiseUtilitiesBatch then
+			for key, promise in pairs(promises) do
 				promise:andThen(
-					function(result)
+					function(result, ...)
+						if select("#", ...) > 0 then
+							warn("Promises in PromiseUtilities.Batch should not return tuple")
+						end
 						promiseCompleted(key, true, result)
-					end
-				):catch(
+					end,
 					function(reason)
 						promiseCompleted(key, false, reason)
 					end
 				)
-			elseif promise._status == Promise.Status.Resolved then
-				promiseCompleted(key, true, promise._value)
-			else
-				promiseCompleted(key, false, promise._value)
+			end
+		else
+			for key, promise in pairs(promises) do
+				if promise._status == Promise.Status.Started then
+					promise:andThen(
+						function(result)
+							promiseCompleted(key, true, result)
+						end
+					):catch(
+						function(reason)
+							promiseCompleted(key, false, reason)
+						end
+					)
+				elseif promise._status == Promise.Status.Resolved then
+					promiseCompleted(key, true, promise._value)
+				else
+					promiseCompleted(key, false, promise._value)
+				end
 			end
 		end
 	end)

@@ -10,6 +10,8 @@
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves this component.
 ]]
 
+local FFlagGameSettingsAutoScrollTextBox = settings():GetFFlag("GameSettingsAutoScrollTextBox")
+
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -27,16 +29,33 @@ function MultilineTextEntry:init()
 	self.textBoxRef = Roact.createRef()
 	self.textConnections = nil
 
+	-- TODO: Get rid of function and replace with API call CLIPLAYEREX-2806 when it ships
+	self.getPositionAtIndex = function(index)
+		local frame = self.frameRef.current
+		local sizeX = frame.AbsoluteSize.x - SCROLL_BAR_OUTSET
+		local textSize = TextService:GetTextSize(
+			string.sub(self.props.Text, 0, index),
+			TEXT_SIZE,
+			Enum.Font.SourceSans,
+			Vector2.new(sizeX, math.huge)
+		)
+		return textSize
+	end 
+
 	self.updateCanvas = function()
 		local frame = self.frameRef.current
 		local sizeX = frame.AbsoluteSize.x - SCROLL_BAR_OUTSET
+		local textBox = self.textBoxRef.current
 		local textSize = TextService:GetTextSize(
 			self.props.Text,
 			TEXT_SIZE,
 			Enum.Font.SourceSans,
-			Vector2.new(sizeX, 10000)
+			Vector2.new(sizeX, math.huge)
 		)
 		frame.CanvasSize = UDim2.new(0, 0, 0, textSize.y)
+		if FFlagGameSettingsAutoScrollTextBox then
+			frame.CanvasPosition = Vector2.new(0, self.getPositionAtIndex(textBox.CursorPosition).y - 2 * TEXT_SIZE)
+		end
 	end
 
 	self.textChanged = function(rbx)

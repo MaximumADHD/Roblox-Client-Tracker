@@ -8,7 +8,7 @@ local Collapsible = require(script.Parent.Collapsible)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
-local StudioLocalizationPluginCleanGameIdLogic = settings():GetFFlag("StudioLocalizationPluginCleanGameIdLogic")
+local TranslationRolesApi = settings():GetFFlag("TranslationRolesApi")
 
 
 --[[
@@ -58,7 +58,10 @@ function GameTableSection:init()
 	})
 
 	self._OnDownload = function()
-		flow:OnDownload(game.gameId):catch(
+		flow:OnDownload(game.gameId):andThen(
+			function(table)
+				self.props.HandleDownloadAnalytics(table, "download")
+			end,
 			function(errorInfo)
 				if errorInfo:hasWarningMessage() then
 					warn(errorInfo:getWarningMessage())
@@ -67,7 +70,10 @@ function GameTableSection:init()
 	end
 
 	self._OnReplace = function()
-		flow:OnUpload(self.props.ComputeReplacePatch, game.gameId):catch(
+		flow:OnUpload(self.props.ComputeReplacePatch, game.gameId):andThen(
+			function(patchInfo)
+				self.props.HandleUploadAnalytics(patchInfo, "replace")
+			end,
 			function(errorInfo)
 				if errorInfo:hasWarningMessage() then
 					warn(errorInfo:getWarningMessage())
@@ -76,7 +82,10 @@ function GameTableSection:init()
 	end
 
 	self._OnUpdate = function()
-		flow:OnUpload(self.props.ComputeUpdatePatch, game.gameId):catch(
+		flow:OnUpload(self.props.ComputeUpdatePatch, game.gameId):andThen(
+			function(patchInfo)
+				self.props.HandleUploadAnalytics(patchInfo, "update")
+			end,
 			function(errorInfo)
 				if errorInfo:hasWarningMessage() then
 					warn(errorInfo:getWarningMessage())
@@ -84,7 +93,7 @@ function GameTableSection:init()
 			end)
 	end
 
-	if not StudioLocalizationPluginCleanGameIdLogic then
+	if not TranslationRolesApi then
 		local function checkIfAvailable()
 			self.props.UpdateGameTableInfo():andThen(
 				function(available)
@@ -128,7 +137,7 @@ function GameTableSection:didMount()
 		)
 	end
 
-	if StudioLocalizationPluginCleanGameIdLogic then
+	if TranslationRolesApi then
 		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkTableAvailability)
 		coroutine.resume(coroutine.create(checkTableAvailability))
 	end

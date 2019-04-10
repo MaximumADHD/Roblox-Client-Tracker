@@ -7,6 +7,8 @@ local AnalyticsService = game:GetService("AnalyticsService")
 local StudioService = game:GetService("StudioService")
 local platformId = 0
 
+local FFlagStudioToolboxSearchOptionsAnalytics = settings():GetFFlag("StudioToolboxSearchOptionsAnalytics")
+
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
 	local sessionId = nil
@@ -48,8 +50,34 @@ function Analytics.sendReports(plugin)
 	AnalyticsSenders.sendReports(plugin)
 end
 
-function Analytics.onTermSearched(categoryName, searchTerm)
-	AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm)
+function Analytics.onTermSearched(categoryName, searchTerm, creatorId)
+	if FFlagStudioToolboxSearchOptionsAnalytics and creatorId and creatorId > 0 then
+		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm, creatorId)
+	else
+		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm)
+	end
+end
+
+function Analytics.onCreatorSearched(searchTerm, creatorId)
+	if FFlagStudioToolboxSearchOptionsAnalytics then
+		AnalyticsSenders.sendEventImmediately("studio", "toolbox", "creatorSearched", {
+			searchTerm = searchTerm,
+			creatorId = creatorId,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+			userId = getUserId(),
+		})
+	end
+end
+
+function Analytics.onSearchOptionsOpened()
+	if FFlagStudioToolboxSearchOptionsAnalytics then
+		AnalyticsSenders.sendEventImmediately("studio", "toolbox", "searchOptionsOpened", {
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+			userId = getUserId(),
+		})
+	end
 end
 
 function Analytics.onCategorySelected(oldCategory, newCategory)

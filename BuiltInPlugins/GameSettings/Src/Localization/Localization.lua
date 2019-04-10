@@ -122,6 +122,7 @@ function Localization:recalculateContent()
 			Genre = self:getText("TitleGenre"),
 			Devices = self:getText("TitleDevices"),
 			Http = self:getText("TitleHttp"),
+			StudioApiServices = self:getText("TitleStudioApiServices")
 		},
 
 		Playability = {
@@ -195,6 +196,12 @@ function Localization:recalculateContent()
 			On = self:getText("SettingOn"),
 			Off = self:getText("SettingOff"),
 		},
+		
+		StudioApiServices = {
+			OnDescription = self:getText("StudioApiServicesDesc"),
+			On = self:getText("SettingOn"),
+			Off = self:getText("SettingOff"),
+		},
 
 		AvatarDialog = {
 			Header = self:getText("AvatarDialogHeader"),
@@ -211,8 +218,8 @@ function Localization:recalculateContent()
 			Prompt = self:getText("PrivateDialogPrompt"),
 			Body = self:getText("PrivateDialogBody"),
 			Buttons = {
-				self:getText("ReplyNo"),
-				self:getText("ReplyYes"),
+				self:getText("ButtonDiscard"),
+				self:getText("ButtonSave"),
 			},
 		},
 

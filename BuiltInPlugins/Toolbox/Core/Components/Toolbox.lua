@@ -48,6 +48,8 @@ local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetMa
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local ChangeMarketplaceTab = require(Plugin.Core.Networking.Requests.ChangeMarketplaceTab)
 
+local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
 function Toolbox:handleInitialSettings()
@@ -108,6 +110,11 @@ function Toolbox:init(props)
 
 	self.toggleSearchOptions = function()
 		local showSearchOptions = self.state.showSearchOptions
+
+		if not showSearchOptions then
+			Analytics.onSearchOptionsOpened()
+		end
+
 		self:setState({
 			showSearchOptions = not showSearchOptions
 		})
