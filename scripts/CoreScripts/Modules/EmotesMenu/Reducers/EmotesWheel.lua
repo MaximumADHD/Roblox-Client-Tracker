@@ -8,6 +8,7 @@ local EmotesMenu = Reducers.Parent
 
 local Actions = EmotesMenu.Actions
 local FocusSegment = require(Actions.FocusSegment)
+local HideMenu = require(Actions.HideMenu)
 
 local default = {
     focusedSegmentIndex = 0,
@@ -18,5 +19,10 @@ return Rodux.createReducer(default, {
         return Cryo.Dictionary.join(state, {
             focusedSegmentIndex = action.segmentIndex,
         })
+    end,
+
+    -- Reset EmotesWheel state when the menu is hidden
+    [HideMenu.name] = function(state, action)
+        return Cryo.Dictionary.join(state, default)
     end,
 })

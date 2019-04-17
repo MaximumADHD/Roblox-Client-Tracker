@@ -655,6 +655,7 @@ RBX
 	BulletConnector
 	BulletContact
 	BulletConvexDecomposition
+	BulletConvexDecompositionResult
 	BulletShapeCellConnector
 	BulletShapeCellContact
 	BulletShapeConnector
@@ -693,11 +694,13 @@ RBX
 	CloneTool
 	Clothing
 	Clump
+	Clustering
 	CollectionService
 	ColorCorrectionEffect
 	ColorVerb
 	ConeHandleAdornment
 	Configuration
+	Connectivity
 	Connector
 	ConstraintSurfacePair
 	Contact
@@ -1197,7 +1200,9 @@ RBX
 	TranslatorInstance
 	TranslucentVerb
 	TreeStage
+	TriangleList
 	TriangleMesh
+	TriangleMeshPart
 	TurnOnManualJointCreation
 	Tween
 	TweenBase

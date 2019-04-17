@@ -80,14 +80,14 @@ Studio.TerrainEditor.Brush.Shape,Shape,Forme,形状
 Studio.TerrainEditor.Regions.EditTools,Edit Tools,Outils Modifier,编辑工具
 Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty,fusionner vide,合并空
 Studio.TerrainEditor.Regions.Tools,Tools,Outils,工具
-CommonUI.Controls.Action.Edit,Edit,modifier,编辑
-CommonUI.Controls.Action.Select,Select,Sélectionner,选择
-CommonUI.Controls.Action.Move,Move,Bouge toi,移动
-CommonUI.Controls.Action.Resize,Resize,redimensionner,调整
-CommonUI.Controls.Action.Rotate,Rotate,Tourner,旋转
-CommonUI.Controls.Action.Copy,Copy,Copie,复制
-CommonUI.Controls.Action.Paste,Paste,Coller,糊
-CommonUI.Controls.Action.Delete,Delete,Effacer,删除
-CommonUI.Controls.Action.Fill,Fill,Remplir,填
-CommonUI.Controls.Action.OK,OK,D'accord,好
+Studio.Common.Action.Edit,Edit,modifier,编辑
+Studio.Common.Action.Select,Select,Sélectionner,选择
+Studio.Common.Action.Move,Move,Bouge toi,移动
+Studio.Common.Action.Resize,Resize,redimensionner,调整
+Studio.Common.Action.Rotate,Rotate,Tourner,旋转
+Studio.Common.Action.Copy,Copy,Copie,复制
+Studio.Common.Action.Paste,Paste,Coller,糊
+Studio.Common.Action.Delete,Delete,Effacer,删除
+Studio.Common.Action.Fill,Fill,Remplir,填
+Studio.Common.Action.OK,OK,D'accord,好
 Studio.TerrainEditor.Regions.FillSelection,Fill Selection,remplissez sélection,填写选择

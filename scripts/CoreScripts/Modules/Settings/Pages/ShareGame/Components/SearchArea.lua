@@ -19,7 +19,12 @@ local SetSearchText = require(ShareGame.Actions.SetSearchText)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
 local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
 
 local SEARCH_ICON_SPRITE_PATH = ShareGameIcons:GetImagePath()
 local SEARCH_ICON_SPRITE_FRAME = ShareGameIcons:GetFrame("search_large")

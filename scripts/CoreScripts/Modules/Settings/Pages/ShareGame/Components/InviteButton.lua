@@ -22,6 +22,12 @@ local INVITE_STATUS_TEXT = {
 	[InviteStatus.Pending] = "Feature.SettingsHub.Label.Sending",
 }
 
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
+
 local InviteButton = Roact.PureComponent:extend("InviteButton")
 
 function InviteButton:render()

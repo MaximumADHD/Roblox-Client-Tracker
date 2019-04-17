@@ -19,17 +19,17 @@ return function()
 		local store = Rodux.Store.new(Reducer)
 
 		local thunk = launchBuildersClubUpsell()
-		local externalSettings = MockExternalSettings.new(false, false, false, false)
+		local externalSettings = MockExternalSettings.new(false, false, {})
 		local platformInterface = MockPlatformInterface.new()
 
 		Thunk.test(thunk, store, {
 			[ExternalSettings] = externalSettings,
-			[PlatformInterface] = platformInterface,
+			[PlatformInterface] = platformInterface.mockService,
 		})
 
 		local state = store:getState()
 
-		expect(platformInterface.startBuildersClubUpsellWeb_callCount).to.equal(1)
+		expect(platformInterface.spies.startBuildersClubUpsellWeb.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end)
 end

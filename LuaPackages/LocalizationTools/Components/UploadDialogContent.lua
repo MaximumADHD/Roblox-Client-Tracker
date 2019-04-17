@@ -5,6 +5,8 @@ local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
+local StudioLocalizationNoDeleteWhenUpdating = settings():GetFFlag("StudioLocalizationNoDeleteWhenUpdating")
+
 local function Line(props)
 	return Roact.createElement("TextLabel", {
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -63,6 +65,68 @@ function UploadDialogContent:render()
 			PromptText = "Patch empty. Upload anyway?"
 		else
 			PromptText = "Upload patch?"
+		end
+
+		local AddLine = Roact.createElement(NumTranslationsLine, {
+			PreText = "Add translations: ",
+			NumTranslations = self.props.PatchInfo.numAddedTranslations,
+			EnabledColor = theme.BrightText,
+			DisabledColor = theme.DimmedText,
+			LayoutOrder = 1,
+			Checked = self.state.AddLineEnabled,
+			OnClicked = function()
+				self:setState({
+					AddLineEnabled = not self.state.AddLineEnabled,
+				})
+			end
+		})
+
+		local ChangeLine = Roact.createElement(NumTranslationsLine, {
+			PreText = "Change translations: ",
+			NumTranslations = self.props.PatchInfo.numChangedTranslations,
+			EnabledColor = theme.WarningText,
+			DisabledColor = theme.DimmedText,
+			LayoutOrder = 2,
+			Checked = self.state.ChangeLineEnabled,
+			OnClicked = function()
+				self:setState({
+					ChangeLineEnabled = not self.state.ChangeLineEnabled,
+				})
+			end
+		})
+
+		local DeleteLine
+
+		if StudioLocalizationNoDeleteWhenUpdating then
+			if self.props.PatchInfo.includeDeletes then
+				DeleteLine = Roact.createElement(NumTranslationsLine, {
+					PreText = "Delete translations: ",
+					NumTranslations = self.props.PatchInfo.numRemovedTranslations,
+					EnabledColor = theme.ErrorText,
+					DisabledColor = theme.DimmedText,
+					LayoutOrder = 3,
+					Checked = self.state.RemoveLineEnabled,
+					OnClicked = function()
+						self:setState({
+							RemoveLineEnabled = not self.state.RemoveLineEnabled,
+						})
+					end
+				})
+			end
+		else
+			DeleteLine = Roact.createElement(NumTranslationsLine, {
+				PreText = "Delete translations: ",
+				NumTranslations = self.props.PatchInfo.numRemovedTranslations,
+				EnabledColor = theme.ErrorText,
+				DisabledColor = theme.DimmedText,
+				LayoutOrder = 3,
+				Checked = self.state.RemoveLineEnabled,
+				OnClicked = function()
+					self:setState({
+						RemoveLineEnabled = not self.state.RemoveLineEnabled,
+					})
+				end
+			})
 		end
 
 		return Roact.createElement("Frame", {
@@ -167,47 +231,9 @@ function UploadDialogContent:render()
 						PaddingTop = UDim.new(0, 5),
 					}),
 
-					AddLine = Roact.createElement(NumTranslationsLine, {
-						PreText = "Add translations: ",
-						NumTranslations = self.props.PatchInfo.numAddedTranslations,
-						EnabledColor = theme.BrightText,
-						DisabledColor = theme.DimmedText,
-						LayoutOrder = 1,
-						Checked = self.state.AddLineEnabled,
-						OnClicked = function()
-							self:setState({
-								AddLineEnabled = not self.state.AddLineEnabled,
-							})
-						end
-					}),
-
-					ChangeLine = Roact.createElement(NumTranslationsLine, {
-						PreText = "Change translations: ",
-						NumTranslations = self.props.PatchInfo.numChangedTranslations,
-						EnabledColor = theme.WarningText,
-						DisabledColor = theme.DimmedText,
-						LayoutOrder = 2,
-						Checked = self.state.ChangeLineEnabled,
-						OnClicked = function()
-							self:setState({
-								ChangeLineEnabled = not self.state.ChangeLineEnabled,
-							})
-						end
-					}),
-
-					DeleteLine = Roact.createElement(NumTranslationsLine, {
-						PreText = "Delete translations: ",
-						NumTranslations = self.props.PatchInfo.numRemovedTranslations,
-						EnabledColor = theme.ErrorText,
-						DisabledColor = theme.DimmedText,
-						LayoutOrder = 3,
-						Checked = self.state.RemoveLineEnabled,
-						OnClicked = function()
-							self:setState({
-								RemoveLineEnabled = not self.state.RemoveLineEnabled,
-							})
-						end
-					}),
+					AddLine = AddLine,
+					ChangeLine = ChangeLine,
+					DeleteLine = DeleteLine,
 				}),
 
 				Prompt = Roact.createElement(Line, {

@@ -45,8 +45,9 @@ local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestNam
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
-local FFlagXboxShowPlayers2 = settings():GetFFlag("XboxShowPlayers2")
+local FFlagXboxShowPlayers3 = settings():GetFFlag("XboxShowPlayers3")
 local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
+local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -88,6 +89,21 @@ local connectedServerVersion = nil
 
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+
+--[[ Localization Fixes for Version Labels]]
+local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or FFlagChinaLicensingApp
+local RobloxTranslator = nil
+if shouldTryLocalizeVersionLabels then
+	RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+end
+local function tryTranslate(key, defaultString)
+	if not RobloxTranslator then
+		return defaultString
+	end
+	local succss, result = pcall(RobloxTranslator.FormatByKey, RobloxTranslator, key)
+	if succss then return result end
+	return defaultString
+end
 
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
@@ -447,10 +463,18 @@ local function CreateSettingsHub()
             ZIndex = 5
         }
         spawn(function()
-            this.ServerVersionLabel.Text = "Server Version: "..GetServerVersionBlocking()
+        	local serverVersionString = "Server Version: "
+        	if shouldTryLocalizeVersionLabels then
+        		serverVersionString = tryTranslate("InGame.HelpMenu.Label.ServerVersion", "Server Version: ")
+        	end
+            this.ServerVersionLabel.Text = serverVersionString..GetServerVersionBlocking()
             this.ServerVersionLabel.TextScaled = not this.ServerVersionLabel.TextFits
         end)
 
+        local clientVersionString = "Client Version: "
+    	if shouldTryLocalizeVersionLabels then
+    		clientVersionString = tryTranslate("InGame.HelpMenu.Label.ClientVersion", "Client Version: ")
+    	end
         this.ClientVersionLabel = utility:Create("TextLabel") {
             Name = "ClientVersionLabel",
             Parent = this.VersionContainer,
@@ -458,7 +482,7 @@ local function CreateSettingsHub()
             BackgroundTransparency = 1,
             TextColor3 = Color3.new(1,1,1),
             TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-            Text = "Client Version: "..RunService:GetRobloxVersion(),
+            Text = clientVersionString..RunService:GetRobloxVersion(),
             Size = size,
             Font = Enum.Font.SourceSans,
             TextXAlignment = Enum.TextXAlignment.Center,
@@ -483,7 +507,11 @@ local function CreateSettingsHub()
                 ZIndex = 5,
             }
             local function setPlaceVersionText()
-                this.PlaceVersionLabel.Text = "Place Version: "..GetPlaceVersionText()
+            	local placeVersionString = "Place Version: "
+            	if shouldTryLocalizeVersionLabels then
+            		placeVersionString = tryTranslate("InGame.HelpMenu.Label.PlaceVersion", "Place Version: ")
+            	end
+                this.PlaceVersionLabel.Text = placeVersionString..GetPlaceVersionText()
                 this.PlaceVersionLabel.TextScaled = not this.PlaceVersionLabel.TextFits
             end
             game:GetPropertyChangedSignal("PlaceVersion"):Connect(setPlaceVersionText)
@@ -518,18 +546,34 @@ local function CreateSettingsHub()
             if playerModule and playerScriptLoader then
                 if not playerModule.Archivable then
                     if playerScriptLoader.Archivable then
-                        return "Possibly Custom"
+                    	if shouldTryLocalizeVersionLabels then
+                    		return tryTranslate("InGame.CommonUI.Label.PossiblyCustom", "Possibly Custom")
+                    	else
+                        	return "Possibly Custom"
+                        end
                     else
-                        return "Default"
+                    	if shouldTryLocalizeVersionLabels then
+                    		return tryTranslate("InGame.CommonUI.Label.Default", "Default")
+                    	else
+                        	return "Default"
+                        end
                     end
                 end
             end
             local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
             local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
             if cameraScript or controlScript then
-                return "Custom Old"
+            	if shouldTryLocalizeVersionLabels then
+            		return tryTranslate("InGame.CommonUI.Label.CustomOld", "Custom Old")
+            	else
+                	return "Custom Old"
+                end
             end
-            return "Custom"
+            if shouldTryLocalizeVersionLabels then
+            	return tryTranslate("InGame.CommonUI.Label.Custom", "Custom")
+            else
+            	return "Custom"
+            end
         end
 
 		this.OverridesPlayerScriptsLabel = utility:Create("TextLabel") {
@@ -554,7 +598,11 @@ local function CreateSettingsHub()
 			if not Players.LocalPlayer then
 				Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 			end
-			this.OverridesPlayerScriptsLabel.Text = "PlayerScripts: " ..getOverridesPlayerScripts()
+		    local playerScriptsString = "PlayerScripts: "
+            if shouldTryLocalizeVersionLabels then
+            	playerScriptsString = tryTranslate("InGame.HelpMenu.Label.PlayerScripts", "PlayerScripts: ")
+            end
+            this.OverridesPlayerScriptsLabel.Text = playerScriptsString ..getOverridesPlayerScripts()
 			this.OverridesPlayerScriptsLabel.TextScaled = not this.OverridesPlayerScriptsLabel.TextFits
 			this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
 		end)
@@ -706,7 +754,7 @@ local function CreateSettingsHub()
 			this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
 		end
 
-		-- Xbox Only.  Clean up along with FFlagXboxShowPlayers2
+		-- Xbox Only.  Clean up along with FFlagXboxShowPlayers3
 		local inviteToGameFunc = function()
 			if not RunService:IsStudio() then
 				if PlatformService then
@@ -725,7 +773,7 @@ local function CreateSettingsHub()
 			buttonImageAppend = "@2x"
 		end
 
-		if FFlagXboxShowPlayers2 then
+		if FFlagXboxShowPlayers3 then
 			addBottomBarButton("LeaveGame", "Leave Game", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
 				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
 				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
@@ -1192,7 +1240,47 @@ local function CreateSettingsHub()
 		end
 	end
 
-	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation)
+	function this:InitInPage(pageToSwitchTo)
+		-- make sure all pages are in right position
+		local newPagePos = pageToSwitchTo.TabPosition
+		for page, _ in pairs(this.Pages.PageTable) do
+			if page ~= pageToSwitchTo then
+				page:Hide(-1, newPagePos, true)
+			end
+		end
+
+		-- set top & bottom bar visibility
+		if this.BottomButtonFrame then
+			if shouldShowBottomBar(pageToSwitchTo) then
+				setBottomBarBindings()
+			else
+				this.BottomButtonFrame.Visible = false
+			end
+
+			this.HubBar.Visible = shouldShowHubBar(pageToSwitchTo)
+		end
+
+		-- set whether the page should be clipped
+		local isClipped = pageToSwitchTo.IsPageClipped == true
+		this.PageViewClipper.ClipsDescendants = isClipped
+		this.PageView.ClipsDescendants = isClipped
+		this.PageViewInnerFrame.ClipsDescendants = isClipped
+
+		this.Pages.CurrentPage = pageToSwitchTo
+		this.Pages.CurrentPage.Active = true
+
+		local pageSize = this.Pages.CurrentPage:GetSize()
+		this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+
+		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
+			if prop == "AbsoluteSize" then
+				local pageSize = this.Pages.CurrentPage:GetSize()
+				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+			end
+		end)
+	end
+
+	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation, invisibly)
 		if this.Pages.PageTable[pageToSwitchTo] == nil then return end
 
 		-- detect direction
@@ -1345,7 +1433,6 @@ local function CreateSettingsHub()
 
 			this.TabConnection = UserInputService.InputBegan:connect(switchTabFromKeyboard)
 
-
 			setOverrideMouseIconBehavior()
 			lastInputChangedCon = UserInputService.LastInputTypeChanged:connect(setOverrideMouseIconBehavior)
 			if UserInputService.MouseEnabled and not VRService.VREnabled then
@@ -1356,7 +1443,7 @@ local function CreateSettingsHub()
 				removeBottomBarBindings()
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
-				if FFlagXboxShowPlayers2 then
+				if FFlagXboxShowPlayers3 then
 					this:SwitchToPage(this.PlayersPage, nil, 1, true)
 				else
 					if not isTenFootInterface then
@@ -1585,13 +1672,13 @@ local function CreateSettingsHub()
 		this.RecordPage:SetHub(this)
 	end
 
-	if FFlagXboxShowPlayers2 then
+	if FFlagXboxShowPlayers3 then
 		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 		this.PlayersPage:SetHub(this)
 	end
 
 	if not isTenFootInterface then
-		if not FFlagXboxShowPlayers2 then
+		if not FFlagXboxShowPlayers3 then
 			this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 			this.PlayersPage:SetHub(this)
 		end
@@ -1629,7 +1716,7 @@ local function CreateSettingsHub()
 	end
 
 	-- page registration
-	if FFlagXboxShowPlayers2 then
+	if FFlagXboxShowPlayers3 then
 		this:AddPage(this.PlayersPage)
 	else
 		if not isTenFootInterface then
@@ -1647,8 +1734,8 @@ local function CreateSettingsHub()
 		this:AddPage(this.RecordPage)
 	end
 
-	if FFlagXboxShowPlayers2 then
-		this:SwitchToPage(this.PlayersPage, true, 1)
+	if FFlagXboxShowPlayers3 then
+		this:InitInPage(this.PlayersPage)
 	else
 		if not isTenFootInterface then
 			this:SwitchToPage(this.PlayersPage, true, 1)

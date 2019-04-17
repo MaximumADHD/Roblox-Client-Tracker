@@ -83,6 +83,12 @@ local function connectClicks(self)
 					else
 						self.Paths.DataModelSession:addToDataItems(self.DataItem)
 					end
+				elseif FastFlags:isShiftSelectJointsOn() and self.Paths.InputKeyboard:isKeyShiftDown() then
+					if self.Paths.DataModelSession:isCurrentlySelectedDataItem(self.DataItem) then
+						self.Paths.DataModelSession:selectDataItem(self.DataItem)
+					elseif not self.Paths.DataModelSession:areAnyKeyframesSelected() then
+						self.Paths.DataModelSession:shiftSelectDataItem(self.DataItem)
+					end
 				else
 					self.Paths.DataModelSession:toggleSelectedDataItem(self.DataItem)
 				end

@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -9,7 +8,6 @@ local Roact = require(CorePackages.Roact)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
-local User = require(AppTempCommon.LuaApp.Models.User)
 
 local LIST_PADDING = 2
 
@@ -19,6 +17,12 @@ local TITLE_TEXT_SIZE = 19
 
 local PRESENCE_FONT = Enum.Font.SourceSans
 local PRESENCE_TEXT_SIZE = 16
+
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
 
 local ConversationDetails = Roact.PureComponent:extend("ConversationDetails")
 

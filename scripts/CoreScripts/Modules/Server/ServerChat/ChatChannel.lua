@@ -4,11 +4,14 @@
 
 local forceNewFilterAPI = false
 local IN_GAME_CHAT_USE_NEW_FILTER_API
+local userShouldMuteUnfilteredMessage = false
 do
 	local textServiceExists = (game:GetService("TextService") ~= nil)
 	local success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserInGameChatUseNewFilterAPIV2") end)
 	local flagEnabled = (success and enabled)
 	IN_GAME_CHAT_USE_NEW_FILTER_API = (forceNewFilterAPI or flagEnabled) and textServiceExists
+	success, enabled = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldMuteUnfilteredMessage") end)
+	userShouldMuteUnfilteredMessage = success and enabled
 end
 
 local module = {}
@@ -422,7 +425,11 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 			if speaker.Name == fromSpeaker.Name then
 				-- Send unfiltered message to speaker who sent the message.
 				local cMessageObj = ShallowCopy(messageObj)
-				cMessageObj.Message = message
+				if userShouldMuteUnfilteredMessage then
+					cMessageObj.Message = string.rep("_", messageObj.MessageLength)
+				else
+					cMessageObj.Message = message
+				end
 				cMessageObj.IsFiltered = true
 				-- We need to claim the message is filtered even if it not in this case for compatibility with legacy client side code.
 				speaker:InternalSendMessage(cMessageObj, self.Name)

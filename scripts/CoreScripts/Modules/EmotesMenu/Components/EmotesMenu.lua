@@ -1,5 +1,6 @@
 local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 local Workspace = game:GetService("Workspace")
 
 local Roact = require(CorePackages.Roact)
@@ -8,12 +9,13 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Components = script.Parent
 local EmotesModules = Components.Parent
 local Actions = EmotesModules.Actions
+local Thunks = EmotesModules.Thunks
 
 local HideMenu = require(Actions.HideMenu)
-local ShowMenu = require(Actions.ShowMenu)
 local SetLayout = require(Actions.SetLayout)
 
-local OpenButton = require(Components.OpenButton)
+local OpenMenu = require(Thunks.OpenMenu)
+
 local EmotesWheel = require(Components.EmotesWheel)
 local ErrorMessage = require(Components.ErrorMessage)
 
@@ -23,17 +25,21 @@ local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
 function EmotesMenu:bindActions()
     local function toggleMenuFunc(actionName, inputState, inputObj)
+        if GuiService.MenuIsOpen then
+            return Enum.ContextActionResult.Pass
+        end
+
         if inputState == Enum.UserInputState.Begin then
             if self.props.displayOptions.menuVisible then
                 self.props.hideMenu()
             else
-                self.props.showMenu()
+                self.props.openMenu()
             end
         end
     end
 
     ContextActionService:BindAction(Constants.ToggleMenuAction, toggleMenuFunc, --[[createTouchButton = ]] false,
-                                        Constants.EmoteMenuOpenKey, Constants.EmoteMenuOpenButton)
+                                    Constants.EmoteMenuOpenKey, Constants.EmoteMenuOpenButton)
 end
 
 function EmotesMenu:unbindActions()
@@ -41,7 +47,20 @@ function EmotesMenu:unbindActions()
 end
 
 function EmotesMenu:viewPortSizeChanged()
-    local viewportSize = Workspace.CurrentCamera.ViewportSize
+    if self.props.layout == Constants.Layout.TenFoot then
+        return
+    end
+
+    local camera = Workspace.CurrentCamera
+    if not camera then
+        return
+    end
+
+    local viewportSize = camera.ViewportSize
+    if viewportSize == Vector2.new(1, 1) then
+        -- Viewport is not initialized yet
+        return
+    end
 
     local layout = Constants.Layout.Large
 
@@ -65,6 +84,7 @@ function EmotesMenu:currentCameraChanged()
         self.viewportSizeChangedConn = camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
             self:viewPortSizeChanged()
         end)
+        self:viewPortSizeChanged()
     end
 end
 
@@ -74,26 +94,37 @@ function EmotesMenu:didMount()
     end)
     self:currentCameraChanged()
 
+    self.menuOpenedConn = GuiService.MenuOpened:Connect(function()
+        if self.props.displayOptions.menuVisible then
+            self.props.hideMenu()
+        end
+    end)
+
     self:bindActions()
 end
 
 function EmotesMenu:willUnmount()
     self.currentCameraChangedConn:Disconnect()
     self.viewportSizeChangedConn:Disconnect()
+    self.menuOpenedConn:Disconnect()
 
     self.currentCameraChangedConn = nil
     self.viewportSizeChangedConn = nil
+    self.menuOpenedConn = nil
 
     self:unbindActions()
 end
 
 function EmotesMenu:render()
     local LayoutConstants = Constants.Layouts[self.props.layout]
+    local guiInset = self.props.displayOptions.guiInset
 
     return Roact.createElement("Frame", {
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
-        Size = UDim2.new(1, 0, 1, 0),
+        Position = UDim2.new(0, 0, 0, -guiInset),
+        Size = UDim2.new(1, 0, 1, guiInset),
+        ZIndex = Constants.EmotesMenuZIndex,
     }, {
         Main = Roact.createElement("Frame", {
             AnchorPoint = Vector2.new(0.5, 0.5),
@@ -113,8 +144,6 @@ function EmotesMenu:render()
             EmotesWheel = Roact.createElement(EmotesWheel),
         }),
 
-        OpenButton = Roact.createElement(OpenButton),
-
         ErrorMessage = Roact.createElement(ErrorMessage),
     })
 end
@@ -128,8 +157,8 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        showMenu = function()
-            return dispatch(ShowMenu())
+        openMenu = function()
+            return dispatch(OpenMenu())
         end,
 
         hideMenu = function()

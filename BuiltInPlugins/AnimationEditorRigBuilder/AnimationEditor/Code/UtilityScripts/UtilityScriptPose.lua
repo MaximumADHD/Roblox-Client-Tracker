@@ -1,3 +1,5 @@
+local FastFlags = require(script.Parent.Parent.FastFlags)
+
 local Pose = {}
 Pose.__index = Pose
 
@@ -20,7 +22,11 @@ function Pose:initializePose(Paths, keyframe, part, poseObject, override)
 		end
 		
 		local data = Paths.DataModelRig.partToItemMap[part]
-		pose.CFrame = Paths.DataModelRig:getMotorC1(data, keyframe.Time) * data.OriginC1:inverse()		
+		if FastFlags:isFixInterpolationSettingOn() and not Paths.DataModelPreferences:getValue(Paths.DataModelPreferences.Type.Interpolation) and previousPose then
+			pose.CFrame = Paths.DataModelRig:getMotorC1(data, previousPose.Time) * data.OriginC1:inverse()
+		else
+			pose.CFrame = Paths.DataModelRig:getMotorC1(data, keyframe.Time) * data.OriginC1:inverse()
+		end
 		
 		pose.Item = Paths.DataModelRig.partToItemMap[part]
 		pose.Time = keyframe.Time

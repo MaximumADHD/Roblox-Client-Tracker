@@ -1,57 +1,57 @@
 Key,en,zh-cn
-ToolboxToolbarName,Toolbox,工具箱
-CategoryModels,Models,楷模
-CategoryDecals,Images,图片
-CategoryMeshes,Meshes,网格
-CategoryAudio,Audio,音频
-CategoryPlugins,Plugins,插件
-CategoryMyModels,My Models,我的模型
-CategoryMyDecals,My Images,我的图片
-CategoryMyMeshes,My Meshes,我的网格
-CategoryMyAudio,My Audio,我的音频
-CategoryMyPackages,My Packages,我的包
-CategoryMyPlugins,My Plugins,我的插件
-CategoryRecentModels,Recent Models,最近的模型
-CategoryRecentDecals,Recent Images,最近图像
-CategoryRecentMeshes,Recent Meshes,最近的网格
-CategoryRecentAudio,Recent Audio,最新的音效
-CategoryGroupModels,Group Models,组模型
-CategoryGroupDecals,Group Images,群像
-CategoryGroupMeshes,Group Meshes,集团网格
-CategoryGroupAudio,Group Audio,组音频
-CategoryGroupPackages,Group Packages,组包
-SearchBarDefaultText,Search,搜索
-SearchBarCreatorText,Search for users,搜索用户
-SuggestionsIntroText,Try searching for:,尝试搜索：
-SuggestionsNPC,NPC,NPC
-SuggestionsVehicle,Vehicle,车辆
-SuggestionsWeapon,Weapon,武器
-SuggestionsBuilding,Building,建造
-SuggestionsLight,Light,光
-SortByText,Sort by:,排序方式：
-SortByRelevance,Relevance,关联
-SortByMostTaken,Most Taken,大多数采取
-SortByFavorites,Favorites,最爱
-SortByUpdated,Updated,更新
-SortByRatings,Ratings,评级
-AssetCreatorIntroText,by {name:username},by {name:username}
-VotingVoteText,vote,投票
-VotingVotesText,votes,票
-FooterBGText,Background:,背景：
-FooterButtonWhiteName,White,白色
-FooterButtonBlackName,Black,黑色
-FooterButtonNoneName,None,没有
-EndorseBadgeTooltipText,Marked as a high-quality item,标记为高品质的项目
-InfoBannerText,No results found,未找到结果
-CategoryEndorsedPlugins,EndorsedPlugins,标记为高品质的插件
-SearchResults,Search Results,搜索结果
-SearchResultsKeyword,Search Results for,目标搜索的结果
-SearchResultsClearAll,Clear,清空
-SearchOptionCreator,Creator,制作者
-SearchOptionSort,Sort By,排序方式
-SearchOptionsApply,Apply,应用
-SearchOptionsCancel,Cancel,取消
-SearchTagCreator,by:,通过：
-TabMarketplace,Marketplace,Marketplace
-TabInventory,Inventory,Inventory
-TabRecent,Recent,Recent
+Studio.Toolbox.General.ToolboxToolbarName,Toolbox,工具箱
+Studio.Toolbox.General.CategoryModels,Models,楷模
+Studio.Toolbox.General.CategoryDecals,Images,图片
+Studio.Toolbox.General.CategoryMeshes,Meshes,网格
+Studio.Toolbox.General.CategoryAudio,Audio,音频
+Studio.Toolbox.General.CategoryPlugins,Plugins,插件
+Studio.Toolbox.General.CategoryMyModels,My Models,我的模型
+Studio.Toolbox.General.CategoryMyDecals,My Images,我的图片
+Studio.Toolbox.General.CategoryMyMeshes,My Meshes,我的网格
+Studio.Toolbox.General.CategoryMyAudio,My Audio,我的音频
+Studio.Toolbox.General.CategoryMyPackages,My Packages,我的包
+Studio.Toolbox.General.CategoryMyPlugins,My Plugins,我的插件
+Studio.Toolbox.General.CategoryRecentModels,Recent Models,最近的模型
+Studio.Toolbox.General.CategoryRecentDecals,Recent Images,最近图像
+Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes,最近的网格
+Studio.Toolbox.General.CategoryRecentAudio,Recent Audio,最新的音效
+Studio.Toolbox.General.CategoryGroupModels,Group Models,组模型
+Studio.Toolbox.General.CategoryGroupDecals,Group Images,群像
+Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes,集团网格
+Studio.Toolbox.General.CategoryGroupAudio,Group Audio,组音频
+Studio.Toolbox.General.CategoryGroupPackages,Group Packages,组包
+Studio.Toolbox.General.SearchBarDefaultText,Search,搜索
+Studio.Toolbox.General.SearchBarCreatorText,Search for users,搜索用户
+Studio.Toolbox.General.SuggestionsIntroText,Try searching for:,尝试搜索：
+Studio.Toolbox.General.SuggestionsNPC,NPC,NPC
+Studio.Toolbox.General.SuggestionsVehicle,Vehicle,车辆
+Studio.Toolbox.General.SuggestionsWeapon,Weapon,武器
+Studio.Toolbox.General.SuggestionsBuilding,Building,建造
+Studio.Toolbox.General.SuggestionsLight,Light,光
+Studio.Toolbox.General.SortByText,Sort by:,排序方式：
+Studio.Toolbox.General.SortByRelevance,Relevance,关联
+Studio.Toolbox.General.SortByMostTaken,Most Taken,大多数采取
+Studio.Toolbox.General.SortByFavorites,Favorites,最爱
+Studio.Toolbox.General.SortByUpdated,Updated,更新
+Studio.Toolbox.General.SortByRatings,Ratings,评级
+Studio.Toolbox.General.AssetCreatorIntroText,by {name:username},by {name:username}
+Studio.Toolbox.General.VotingVoteText,vote,投票
+Studio.Toolbox.General.VotingVotesText,votes,票
+Studio.Toolbox.General.FooterBGText,Background:,背景：
+Studio.Toolbox.General.FooterButtonWhiteName,White,白色
+Studio.Toolbox.General.FooterButtonBlackName,Black,黑色
+Studio.Toolbox.General.FooterButtonNoneName,None,没有
+Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item,标记为高品质的项目
+Studio.Toolbox.General.InfoBannerText,No results found,未找到结果
+Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins,标记为高品质的插件
+Studio.Toolbox.General.SearchResults,Search Results,搜索结果
+Studio.Toolbox.General.SearchResultsKeyword,Search Results for,目标搜索的结果
+Studio.Toolbox.General.SearchResultsClearAll,Clear,清空
+Studio.Toolbox.General.SearchOptionCreator,Creator,制作者
+Studio.Toolbox.General.SearchOptionSort,Sort By,排序方式
+Studio.Toolbox.General.SearchOptionsApply,Apply,应用
+Studio.Toolbox.General.SearchOptionsCancel,Cancel,取消
+Studio.Toolbox.General.SearchTagCreator,by:,通过：
+Studio.Toolbox.General.TabMarketplace,Marketplace,Marketplace
+Studio.Toolbox.General.TabInventory,Inventory,Inventory
+Studio.Toolbox.General.TabRecent,Recent,Recent

@@ -14,7 +14,7 @@ function SelectionGradient:render()
     local LayoutConstants = Constants.Layouts[self.props.layout]
 
     local focusedIndex = self.props.emotesWheel.focusedSegmentIndex
-    local angle = (360/Constants.EmotesPerPage)*(focusedIndex - 1) + Constants.SegmentsStartRotation
+    local angle = (360 / Constants.EmotesPerPage) * (focusedIndex - 1) + Constants.SegmentsStartRotation
 
     return Roact.createElement("Frame", {
         AnchorPoint = Vector2.new(0.5, 0.5),
@@ -27,12 +27,18 @@ function SelectionGradient:render()
         SelectedGradient = Roact.createElement("ImageLabel", {
             AnchorPoint = Vector2.new(0, 0.5),
             Position = UDim2.new(0.5, 0, 0.5, 0),
-            Size = UDim2.new(1, 0, 0.6, 0),
+            Size = UDim2.new(0.5, 0, 1, 0),
             BackgroundTransparency = 1,
+            ImageTransparency = Constants.GradientTransparency,
             Image = LayoutConstants.SelectedGradient,
+            ZIndex = 2, -- TODO: Remove when RobloxGui uses sibling ZIndex behavior
         }, {
             AsspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {
-                AspectRatio = LayoutConstants.SelectedGradientImageSize.X/LayoutConstants.SelectedGradientImageSize.Y,
+                AspectRatio = LayoutConstants.SelectedGradientImageSize.X / LayoutConstants.SelectedGradientImageSize.Y,
+            }),
+
+            SizeConstraint = Roact.createElement("UISizeConstraint", {
+                MaxSize = LayoutConstants.SelectedGradientImageSize,
             }),
         }),
     })

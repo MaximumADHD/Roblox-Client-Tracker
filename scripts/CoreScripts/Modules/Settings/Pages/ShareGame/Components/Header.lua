@@ -11,7 +11,12 @@ local BackButton = require(ShareGame.Components.BackButton)
 local SearchArea = require(ShareGame.Components.SearchArea)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
 
 local Header = Roact.PureComponent:extend("Header")
 

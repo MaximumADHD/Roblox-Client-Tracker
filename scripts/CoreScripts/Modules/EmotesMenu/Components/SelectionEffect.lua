@@ -14,11 +14,11 @@ function SelectionEffect:render()
     local LayoutConstants = Constants.Layouts[self.props.layout]
     local focusedIndex = self.props.emotesWheel.focusedSegmentIndex
 
-    local angle = (360/Constants.EmotesPerPage)*(focusedIndex - 1) + Constants.SegmentsStartRotation
-    local radius = Constants.SegmentedCircleDiameter / 2
+    local angle = (360 / Constants.EmotesPerPage) * (focusedIndex - 1) + Constants.SegmentsStartRotation
+    local radius = Constants.InnerCircleSizeRatio / 2
 
     local segmentAngle = 360 / Constants.EmotesPerPage
-    local chordLength = Constants.SegmentedCircleDiameter * math.sin(math.rad(segmentAngle/2))
+    local chordLength = Constants.InnerCircleSizeRatio * math.sin(math.rad(segmentAngle / 2))
 
     return Roact.createElement("Frame", {
         AnchorPoint = Vector2.new(0.5, 0.5),
@@ -34,7 +34,7 @@ function SelectionEffect:render()
             Size = UDim2.new(1, 0, chordLength, -LayoutConstants.SelectedLinePadding),
             BackgroundTransparency = 1,
             Image = LayoutConstants.SelectedLine,
-            ZIndex = 3, -- TODO: Remove when CoreGui uses Sibling ZIndex behavior
+            ZIndex = 4, -- TODO: Remove when CoreGui uses Sibling ZIndex
         }, {
             AsspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {
                 AspectRatio = LayoutConstants.SelectedLineImageSize.X/LayoutConstants.SelectedLineImageSize.Y,

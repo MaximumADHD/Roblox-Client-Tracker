@@ -7,7 +7,10 @@ if FastFlags:isAnimationEventsOn() then
 	local function findJointsInMultiSelectArea(self, Paths)
 		for _, jointScript in pairs(Paths.GUIScriptJointTimeline.JointScripts) do
 			if Paths.HelperFunctionsMath:overlap(Paths.GUIScriptMultiSelectArea.TargetWidget, jointScript.jointWidget.InfoAndTrack) then
-				if not Paths.DataModelSession:areAnyKeyframesSelected() then
+				if FastFlags:isShiftSelectJointsOn() or not Paths.DataModelSession:areAnyKeyframesSelected() then
+					if FastFlags:isShiftSelectJointsOn() then
+						self.TempJoints[jointScript] = jointScript.DataItem
+					end
 					Paths.DataModelSession:addToDataItems(jointScript.DataItem, false)
 				end
 				if not FastFlags:isOptimizationsEnabledOn() then
@@ -23,7 +26,12 @@ if FastFlags:isAnimationEventsOn() then
 				end
 			else
 				if not FastFlags:isScaleKeysOn() or not Paths.HelperFunctionsMath:overlap(Paths.GUIScriptMultiSelectArea.TargetWidget, Paths.GUIIndicatorArea) then
-					Paths.DataModelSession:removeFromDataItems(jointScript.DataItem, false)
+					if not FastFlags:isShiftSelectJointsOn() or self.TempJoints[jointScript] then
+						Paths.DataModelSession:removeFromDataItems(jointScript.DataItem, false)
+						if FastFlags:isShiftSelectJointsOn() then
+							self.TempJoints[jointScript] = nil
+						end
+					end
 				end
 				if not FastFlags:isOptimizationsEnabledOn() then
 					for _, key in ipairs(jointScript.Keyframes) do
@@ -38,11 +46,21 @@ if FastFlags:isAnimationEventsOn() then
 	end
 
 	local function findKeysInMultiSelectArea(self, Paths)
-		for _, dataItem in pairs(Paths.DataModelSession:getSelectedDataItems()) do
-			local jointScript = Paths.GUIScriptJointTimeline.JointScripts[dataItem.Item]
-			for _, key in pairs(jointScript.Keyframes) do
-				if key.Time and self.SelectAndDragBox:isInSelectedTimeRange(key.Time) and not Paths.DataModelSession:isAClickedPose(key.Time, dataItem) then
-					Paths.DataModelSession:addPoseToSelectedKeyframes(key.Time, dataItem, false)
+		if FastFlags:isShiftSelectJointsOn() then
+			for jointScript, dataItem in pairs(self.TempJoints) do
+				for _, key in pairs(jointScript.Keyframes) do
+					if key.Time and self.SelectAndDragBox:isInSelectedTimeRange(key.Time) and not Paths.DataModelSession:isAClickedPose(key.Time, dataItem) then
+						Paths.DataModelSession:addPoseToSelectedKeyframes(key.Time, dataItem, false)
+					end
+				end
+			end
+		else
+			for _, dataItem in pairs(Paths.DataModelSession:getSelectedDataItems()) do
+				local jointScript = Paths.GUIScriptJointTimeline.JointScripts[dataItem.Item]
+				for _, key in pairs(jointScript.Keyframes) do
+					if key.Time and self.SelectAndDragBox:isInSelectedTimeRange(key.Time) and not Paths.DataModelSession:isAClickedPose(key.Time, dataItem) then
+						Paths.DataModelSession:addPoseToSelectedKeyframes(key.Time, dataItem, false)
+					end
 				end
 			end
 		end
@@ -67,6 +85,9 @@ if FastFlags:isAnimationEventsOn() then
 	function MultiSelectArea:init(Paths)
 		self.Paths = Paths
 		self.TargetWidget = Paths.GUIMultiSelectArea
+		if FastFlags:isShiftSelectJointsOn() then
+			self.TempJoints = {}
+		end
 		if FastFlags:isOptimizationsEnabledOn() then
 			local selectFunc = function()
 				findJointsInMultiSelectArea(self, Paths)
@@ -75,6 +96,9 @@ if FastFlags:isAnimationEventsOn() then
 				findIndicatorsInMultiSelectArea(self, Paths)
 				findKeysInMultiSelectArea(self, Paths)
 				Paths.DataModelSession.SelectedChangeEvent:fire()
+				if FastFlags:isShiftSelectJointsOn() then
+					self.TempJoints = {}
+				end
 			end
 			if FastFlags:isContinueScrollingWithSelectionAreaOn() then
 				local bounds = Paths.GUIScriptJointTimeline:getJointTrackBounds()

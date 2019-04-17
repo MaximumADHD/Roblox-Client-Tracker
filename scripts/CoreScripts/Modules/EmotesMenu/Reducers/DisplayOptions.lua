@@ -14,12 +14,12 @@ local HideMenu = require(Actions.HideMenu)
 local ShowError = require(Actions.ShowError)
 local HideError = require(Actions.HideError)
 
-local SetTenFootInterface = require(Actions.SetTenFootInterface)
+local SetGuiInset = require(Actions.SetGuiInset)
 
 local default = {
     menuVisible = false,
 
-    isTenFootInterface = false,
+    guiInset = 0,
 
     errorVisible = false,
     errorText = "",
@@ -51,9 +51,9 @@ return Rodux.createReducer(default, {
         })
     end,
 
-	[SetTenFootInterface.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			isTenFootInterface = action.isTenFootInterface,
-		})
+    [SetGuiInset.name] = function(state, action)
+        return Cryo.Dictionary.join(state, {
+            guiInset = action.guiInset,
+        })
     end,
 })

@@ -3,31 +3,43 @@ local Layouts = EmotesMenu.Layouts
 
 local SmallLayout = require(Layouts.Small)
 local LargeLayout = require(Layouts.Large)
+local TenFootLayout = require(Layouts.TenFoot)
 
 local Constants = {
     EmotesPerPage = 8,
     ErrorDisplayTimeSeconds = 5,
 
-    -- TODO CLIAVATAR-2471: Add text localization
-    MainTextDefault = "Select an Emote",
-    MainTextNoEmotesEquipped = "No emotes equipped",
+    FallbackLocale = "en-us",
 
-    ErrorMessages = {
-        NotSupported = "You can't use Emotes here.",
-        R15Only = "Only R15 characters can use Emotes.",
-        NoMatchingEmote = "You can't use that Emote.",
-        TemporarilyUnavailable = "You can't use Emotes right now.",
+    LocalizationKeys = {
+        SelectAnEmote = "InGame.EmotesMenu.SelectAnEmote",
+        NoEmotesEquipped = "InGame.EmotesMenu.NoEmotesEquipped",
+
+        ErrorMessages = {
+            NotSupported = "InGame.EmotesMenu.ErrorMessageNotSupported",
+            R15Only = "InGame.EmotesMenu.ErrorMessageR15Only",
+            NoMatchingEmote = "InGame.EmotesMenu.ErrorMessageNoMatchingEmote",
+            TemporarilyUnavailable = "InGame.EmotesMenu.ErrorMessageTemporarilyUnavailable",
+        },
     },
+
+    EmotesMenuZIndex = 50,
+
+    ErrorFrameBorderSize = 0,
+    ErrorFrameBackgroundTransparency = 0.3,
 
     TextPadding = 10,
 
     SegmentsStartRotation = -90,
 
-    -- Ratio of diameter of inner circle to SegmentedCircle image width
-    SegmentedCircleDiameter = 0.55,
+    -- Ratio of diameter of inner circle to emote wheel image width
+    InnerCircleSizeRatio = 0.45,
 
     -- Size of slot numbers relative to emote wheel size
     SlotNumberSize = 0.1,
+    ImageOutsidePadding = 0.025,
+
+    GradientTransparency = 0.5,
 
     CursorOverrideName = "EmotesMenuCursorOverride",
 
@@ -42,6 +54,25 @@ local Constants = {
         [Enum.UserInputType.Gamepad8] = true,
     },
 
+    -- User will leave the menu if it's open with any of these inputs but the input won't be sunk
+    LeaveMenuNoSinkInputs = {
+        Enum.KeyCode.W,
+        Enum.KeyCode.A,
+        Enum.KeyCode.S,
+        Enum.KeyCode.D,
+
+        Enum.KeyCode.Up,
+        Enum.KeyCode.Left,
+        Enum.KeyCode.Down,
+        Enum.KeyCode.Right,
+
+        Enum.KeyCode.Space,
+
+        Enum.KeyCode.Tab,
+        Enum.KeyCode.Slash,
+        Enum.KeyCode.Backquote,
+    },
+
     EmoteMenuOpenKey = Enum.KeyCode.B,
     EmoteMenuOpenButton = Enum.KeyCode.DPadDown,
 
@@ -54,10 +85,13 @@ local Constants = {
 
     PlayEmoteButton = Enum.KeyCode.ButtonA,
 
+    HighPriorityActions = Enum.ContextActionPriority.High.Value,
+
     ToggleMenuAction = "EmotesMenuToggleAction",
     CloseMenuAction = "EmotesMenuCloseAction",
     EmoteSelectionAction = "EmotesMenuSelectionAction",
     PlaySelectedAction = "EmotesMenuPlaySelectedAction",
+    LeaveMenuDontSinkInputAction = "EmotesMenuLeaveMenuDontSinkInputAction",
 
     -- Emotes Menu can use up to 90% of the screen horizontally and 75% vertically
     ScreenAvailable = UDim2.new(0.9, 0, 0.75, 0),
@@ -69,6 +103,7 @@ local Constants = {
     Layout = {
         Small = 0,
         Large = 1,
+        TenFoot = 2,
     },
 
     Colors = {
@@ -81,6 +116,8 @@ Constants.Layouts = {
     [Constants.Layout.Small] = SmallLayout,
 
     [Constants.Layout.Large] = LargeLayout,
+
+    [Constants.Layout.TenFoot] = TenFootLayout,
 }
 
 local function makeTableConstant(name, tbl)
@@ -98,12 +135,16 @@ local constantTables = {
     ["Constants"] = Constants,
 
     ["Constants.Colors"] = Constants.Colors,
-    ["Constants.ErrorMessages"] = Constants.ErrorMessages,
     ["Constants.Layout"] = Constants.Layout,
+    ["Constants.LeaveMenuNoSinkInputs"] = Constants.LeaveMenuNoSinkInputs,
+
+    ["Constants.LocalizationKeys"] = Constants.LocalizationKeys,
+    ["Constants.LocalizationKeys.ErrorMessages"] = Constants.LocalizationKeys.ErrorMessages,
 
     ["Constants.Layouts"] = Constants.Layouts,
     ["Constants.Layouts.Small"] = Constants.Layouts[Constants.Layout.Small],
     ["Constants.Layouts.Large"] = Constants.Layouts[Constants.Layout.Large],
+    ["Constants.Layouts.TenFoot"] = Constants.Layouts[Constants.Layout.TenFoot],
 }
 
 for name, tbl in pairs(constantTables) do

@@ -9,6 +9,12 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Roact = require(CorePackages.Roact)
 local Constants = require(ShareGame.Constants)
 
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
+
 local FriendsErrorPage = Roact.PureComponent:extend("FriendsErrorPage")
 
 function FriendsErrorPage:render()

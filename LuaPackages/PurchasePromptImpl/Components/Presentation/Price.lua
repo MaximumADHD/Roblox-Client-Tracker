@@ -48,7 +48,7 @@ local function Price(props)
 						Size = values.Size.PriceTextLabel,
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
-						TextColor3 = Color3.fromRGB(2, 183, 87),
+						TextColor3 = values.TextColor.PriceLabel,
 						Font = Enum.Font.SourceSansBold,
 						TextSize = values.TextSize.Default,
 						TextXAlignment = Enum.TextXAlignment.Left,

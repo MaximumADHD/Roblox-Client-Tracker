@@ -10,6 +10,7 @@ local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidget
 local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
+local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -65,6 +66,10 @@ local settingsPages = {
 	"Avatar",
 	"Options",
 }
+
+if FFlagStudioGameSettingsAccessPermissions then
+	table.insert(settingsPages, 2, "Access Permissions")
+end
 
 if FFlagStudioLocalizationGameSettings then
 	table.insert(settingsPages, "Localization")

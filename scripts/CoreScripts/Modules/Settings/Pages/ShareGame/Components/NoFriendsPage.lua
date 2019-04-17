@@ -15,6 +15,12 @@ local SHARE_GAME_ICONS_IMAGE = ShareGameIcons:GetImagePath()
 
 local ICON_TO_SUBTITLE_PADDING = 34
 
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
+
 local NoFriendsPage = Roact.PureComponent:extend("NoFriendsPage")
 
 function NoFriendsPage:render()

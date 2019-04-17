@@ -9,6 +9,9 @@ Session.Zoom = 0
 Session.ScrollZoomChangeEvent = nil
 Session.ScrubberTime = 0
 Session.ScrubberTimeChangeEvent = nil
+if FastFlags:isShiftSelectJointsOn() then
+	Session.LastSelectedDataItem = nil
+end
 Session.Selected = {DataItems= {}, Keyframes= {}, Clicked= {}}
 Session.SelectedChangeEvent = nil
 if FastFlags:isOptimizationsEnabledOn() then
@@ -140,6 +143,9 @@ function Session:terminate()
 	self.Scroll = 0
 	self.Zoom = 0
 
+	if FastFlags:isShiftSelectJointsOn() then
+		self.LastSelectedDataItem = nil
+	end
 	self.Selected = {DataItems={}, Keyframes={}, Clicked={}}
 
 	self.Paths = nil
@@ -204,6 +210,9 @@ local function changePrimarySelection(self, time, dataItem, isKeyframe)
 	self.Selected.Keyframes = {}
 	self.Selected.Clicked = {}
 	self.Selected.DataItems = {}
+	if FastFlags:isShiftSelectJointsOn() then
+		self.LastSelectedDataItem = dataItem
+	end
 	if dataItem then
 		if FastFlags:isAnimationEventsOn() then
 			self.Paths.DataModelAnimationEvents:selectNone()
@@ -265,6 +274,22 @@ local function updateValueInDataItems(self, key, newDataItemValue, fireChangeEve
 	fireChangeEvent = fireChangeEvent == nil and true or fireChangeEvent
 	self.Selected.DataItems[key] = newDataItemValue
 	if fireChangeEvent then self.SelectedChangeEvent:fire() end
+end
+
+if FastFlags:isShiftSelectJointsOn() then
+	function Session:shiftSelectDataItem(dataItem)
+		if self.LastSelectedDataItem then
+			local indexOfLastSelected = self.Paths.DataModelRig.partToIndexMap[self.LastSelectedDataItem.Item]
+			local currentIndex = self.Paths.DataModelRig.partToIndexMap[dataItem.Item]
+			local startIndex = math.min(indexOfLastSelected, currentIndex)
+			local endIndex = math.max(indexOfLastSelected, currentIndex)
+			for index, part in ipairs(self.Paths.DataModelRig.orderedPartList) do
+				if index >= startIndex and index <= endIndex then
+					self:addToDataItems(self.Paths.DataModelRig:getDataItem(part.Name))
+				end
+			end
+		end
+	end
 end
 
 function Session:addToDataItems(dataItem, fireChangeEvent)

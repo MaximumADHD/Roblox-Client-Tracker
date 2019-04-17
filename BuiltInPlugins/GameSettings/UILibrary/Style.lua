@@ -16,11 +16,18 @@ Style.Defaults = {
 	itemColor = Color3.new(),
 	borderColor = Color3.new(),
 
+	hoveredItemColor = Color3.new(),
+	hoveredTextColor = Color3.new(),
+
 	selectionColor = Color3.new(),
 	selectionBorderColor = Color3.new(),
+	selectedTextColor = Color3.new(),
 
 	shadowColor = Color3.new(),
 	shadowTransparency = Color3.new(),
+
+	dimmerTextColor = Color3.new(),
+	separationLineColor = Color3.new(),
 }
 
 -- A function that checks to see if there are any missing or

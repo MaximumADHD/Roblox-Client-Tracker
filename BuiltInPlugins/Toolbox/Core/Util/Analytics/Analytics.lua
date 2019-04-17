@@ -4,7 +4,8 @@ local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
 local DebugSettings = settings():GetService("DebugSettings")
 local AnalyticsService = game:GetService("AnalyticsService")
-local StudioService = game:GetService("StudioService")
+
+local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
 
 local FFlagStudioToolboxSearchOptionsAnalytics = settings():GetFFlag("StudioToolboxSearchOptionsAnalytics")
@@ -24,15 +25,6 @@ local function getClientId()
 		clientId = AnalyticsService:GetClientId()
 	end)
 	return clientId
-end
-
--- TODO: We should fetch this only once per plugin session.
-local function getUserId()
-	local userId = nil
-	pcall(function()
-		userId = StudioService:GetUserId()
-	end)
-	return userId
 end
 
 local function getPlatformId()

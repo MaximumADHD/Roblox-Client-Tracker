@@ -72,6 +72,10 @@ function FastFlags:isAutoAddBeginningKeyframeOn()
 	return isFlagOn("StudioAnimationEditorAutoAddBeginningKeyframe")
 end
 
+function FastFlags:isFixInterpolationSettingOn()
+	return isFlagOn("StudioAnimationEditorFixInterpolationSetting")
+end
+
 function FastFlags:isUseRigNameForPromptsOn()
 	return isFlagOn("StudioAnimationEditorUseRigNameForPrompts")
 end
@@ -190,6 +194,10 @@ end
 
 function FastFlags:isFixRigSelectionOn()
 	return isFlagOn("StudioAnimationEditorFixRigSelection")
+end
+
+function FastFlags:isShiftSelectJointsOn()
+	return isFlagOn("StudioAnimationEditorShiftSelectJointsOn")
 end
 
 return FastFlags

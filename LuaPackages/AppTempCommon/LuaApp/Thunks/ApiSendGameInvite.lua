@@ -18,18 +18,14 @@ if FFlagLuaInviteGameTextLocalization then
 	local CoreGui = game:GetService("CoreGui")
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-else 
+else
 	INVITE_TEXT_MESSAGE = "Come join me in %s"
 end
 local INVITE_LINK_MESSAGE = "%s/games/%s"
 
+local isLuaChatGameLinkSendEnabled = require(script.Parent.Parent.Flags.isLuaChatGameLinkSendEnabled)
 
-local FFlagLuaInviteSendsGameLinks = settings():GetFFlag("LuaInviteSendsGameLinks")
-
-local ChatSendGameLinkMessage
-if FFlagLuaInviteSendsGameLinks then
-	ChatSendGameLinkMessage = require(Requests.ChatSendGameLinkMessage)
-end
+local ChatSendGameLinkMessage = require(Requests.ChatSendGameLinkMessage)
 
 return function(networkImpl, userId, placeInfo)
 	local clientId = Players.LocalPlayer.UserId
@@ -37,7 +33,9 @@ return function(networkImpl, userId, placeInfo)
 	-- Construct the invite messages based on place info
 	local inviteTextMessage
 	if FFlagLuaInviteGameTextLocalization then
-		inviteTextMessage = RobloxTranslator:FormatByKey("Feature.SettingsHub.Message.InviteToGameTitle", { PLACENAME = placeInfo.name })
+		inviteTextMessage = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.Message.InviteToGameTitle", { PLACENAME = placeInfo.name }
+		)
 	else
 		inviteTextMessage = string.format(INVITE_TEXT_MESSAGE, placeInfo.name)
 	end
@@ -59,7 +57,7 @@ return function(networkImpl, userId, placeInfo)
 						placeId = placeInfo.universeRootPlaceId,
 					}
 				end
-				if FFlagLuaInviteSendsGameLinks then
+				if isLuaChatGameLinkSendEnabled(clientId) then
 					return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(handleResult)
 				else
 					return ChatSendMessage(networkImpl, conversation.id, inviteLinkMessage):andThen(handleResult)

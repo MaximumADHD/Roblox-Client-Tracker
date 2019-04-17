@@ -30,6 +30,13 @@ local SEARCH_FIELD_MARGINS = 12
 
 local SEARCH_BOX_TEXT_SIZE = 16
 
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
+
 function SearchBox:init()
 	self.state = {
 		isTextWritten = false,

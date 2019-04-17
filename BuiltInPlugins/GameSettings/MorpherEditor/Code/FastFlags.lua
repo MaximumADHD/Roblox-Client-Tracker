@@ -33,7 +33,7 @@ function FastFlags.isMorphingPanelWidgetsStandardizationOn()
 end
 
 function FastFlags.isPlaceFilesGameSettingsSerializationOn()
-	return isFlagOn("PlaceFilesGameSettingsSerialization3")
+	return isFlagOn("PlaceFilesGameSettingsSerialization4")
 end
 
 return FastFlags

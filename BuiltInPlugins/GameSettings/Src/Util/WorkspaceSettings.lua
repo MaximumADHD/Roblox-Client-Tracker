@@ -49,7 +49,7 @@ local assetTypes = {
 
 local function getScalePropName(identifier)
 	local identifierWithFirstLetterCapitalized = identifier:gsub("^%l", string.upper)
-	return "GameSettingsScale" .. identifierWithFirstLetterCapitalized
+	return "GameSettingsScaleRange" .. identifierWithFirstLetterCapitalized
 end
 
 local function getScalesBackendFormat(getMinScales)
@@ -89,11 +89,11 @@ local function setProp(conversionTable, propBackendFormat, prop)
 end
 
 local function getAvatarTypeBackendFormat()
-	return getBackendFormat(avatarTypeConvert, "GameSettingsAvatarType")
+	return getBackendFormat(avatarTypeConvert, "GameSettingsAvatar")
 end
 
 local function setAvatarType(avatarTypeBackendFormat)
-	setProp(avatarTypeConvert, avatarTypeBackendFormat, "GameSettingsAvatarType")
+	setProp(avatarTypeConvert, avatarTypeBackendFormat, "GameSettingsAvatar")
 end
 
 local function getAllowCustomAnimationsBackendFormat()
@@ -105,12 +105,12 @@ local function setAllowCustomAnimations(customAnimationsBackendFormat)
 end
 
 local function getCollisionTypeBackendFormat()
-	return starterPlayerService["GameSettingsR15CollisionType"].Name
+	return starterPlayerService["GameSettingsR15Collision"].Name
 end
 
 local function setCollisionType(collisionTypeBackendFormat)
 	if nil ~= collisionTypeBackendFormat then
-		starterPlayerService["GameSettingsR15CollisionType"] = collisionTypeBackendFormat
+		starterPlayerService["GameSettingsR15Collision"] = collisionTypeBackendFormat
 	end
 end
 

@@ -8,31 +8,31 @@ local default = {
     emotesList = {
         {
             name = "dance",
-            image = "rbxassetid://2918826784",
+            image = "rbxassetid://2932499139",
         },
         {
             name = "dance2",
-            image = "rbxassetid://2918836324",
+            image = "rbxassetid://2932494520",
         },
         {
             name = "dance3",
-            image = "rbxassetid://2918848591",
+            image = "rbxassetid://2932481863",
         },
         {
             name = "wave",
-            image = "rbxassetid://2918888315",
+            image = "rbxassetid://2932467072",
         },
         {
             name = "cheer",
-            image = "rbxassetid://2910157512",
+            image = "rbxassetid://2932503205",
         },
         {
             name = "laugh",
-            image = "rbxassetid://2918865290",
+            image = "rbxassetid://2932472095",
         },
         {
             name = "point",
-            image = "rbxassetid://2918874415",
+            image = "rbxassetid://2932434746",
         },
     }
 }

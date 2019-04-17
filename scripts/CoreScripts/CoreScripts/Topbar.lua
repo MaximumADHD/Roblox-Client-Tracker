@@ -11,6 +11,7 @@ local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNo
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -35,6 +36,12 @@ local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
 local TopbarConstants = require(GuiRoot.Modules.TopbarConstants)
 local Utility = require(GuiRoot.Modules.Settings.Utility)
 local GameTranslator = require(GuiRoot.Modules.GameTranslator)
+
+local EmotesModule
+if FFlagEmotesMenuEnabled then
+	EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
+end
+
 --[[ END OF MODULES ]]
 
 local topbarEnabled = true
@@ -1259,6 +1266,62 @@ local function CreateBackpackIcon()
 end
 --------------
 
+--- Emotes ---
+local function CreateEmotesIcon()
+	if not FFlagEmotesMenuEnabled then
+		return
+	end
+
+	local emotesIconButton = Util.Create'ImageButton'
+	{
+		Name = "Emotes";
+		Size = UDim2.new(0, 50, 0, TopbarConstants.TOPBAR_THICKNESS);
+		Image = "";
+		AutoButtonColor = false;
+		BackgroundTransparency = 1;
+	};
+
+	local emotesIconImage = Util.Create'ImageLabel'
+	{
+		Name = "EmotesIcon";
+		AnchorPoint = Vector2.new(0.5, 0.5);
+		Size = UDim2.new(0, 22, 0, 28);
+		Position = UDim2.new(0.5, 0, 0.5, 0);
+		BackgroundTransparency = 1;
+		Image = "rbxasset://textures/ui/Emotes/EmotesIcon.png";
+		Parent = emotesIconButton;
+	};
+
+	local function onEmotesMenuToggled(open)
+		if open then
+			emotesIconImage.ImageColor3 = Color3.fromRGB(003, 162, 245)
+		else
+			emotesIconImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
+		end
+	end
+
+	EmotesModule.EmotesMenuToggled.Event:connect(onEmotesMenuToggled)
+
+	local function toggleEmotesMenu()
+		if EmotesModule:isOpen() then
+			EmotesModule:close()
+		else
+			EmotesModule:open()
+		end
+	end
+
+	topbarEnabledChangedEvent.Event:connect(function(enabled)
+		EmotesModule:setTopBarEnabled(enabled)
+	end)
+
+	emotesIconButton.Activated:connect(function()
+		toggleEmotesMenu()
+	end)
+
+	return CreateMenuItem(emotesIconButton)
+end
+--------------
+
 ----- Stop Recording --
 local function CreateStopRecordIcon()
 	local stopRecordIconButton = Util.Create'ImageButton'
@@ -1372,6 +1435,7 @@ end
 local mobileShowChatIcon = Util.IsTouchDevice() and CreateMobileHideChatIcon() or nil
 local chatIcon = CreateChatIcon()
 local backpackIcon = CreateBackpackIcon()
+local emotesIcon = CreateEmotesIcon()
 local stopRecordingIcon = CreateStopRecordIcon()
 
 local leaderstatsMenuItem = CreateLeaderstatsMenuItem()
@@ -1399,8 +1463,11 @@ end
 if backpackIcon then
 	LEFT_ITEM_ORDER[backpackIcon] = 5
 end
+if emotesIcon then
+	LEFT_ITEM_ORDER[emotesIcon] = 6
+end
 if stopRecordingIcon then
-	LEFT_ITEM_ORDER[stopRecordingIcon] = 6
+	LEFT_ITEM_ORDER[stopRecordingIcon] = 7
 end
 
 if leaderstatsMenuItem then
@@ -1448,6 +1515,17 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 			end
 		end
 	end
+
+	if FFlagEmotesMenuEnabled then
+		if coreGuiType == Enum.CoreGuiType.EmotesMenu or coreGuiType == Enum.CoreGuiType.All then
+			if enabled then
+				AddItemInOrder(LeftMenubar, emotesIcon, LEFT_ITEM_ORDER)
+			else
+				LeftMenubar:RemoveItem(emotesIcon)
+			end
+		end
+	end
+
 	if coreGuiType == Enum.CoreGuiType.Chat or coreGuiType == Enum.CoreGuiType.All then
 		enabled = enabled and (not ChatModule:IsDisabled())
 		local ChatSelector = require(GuiRoot.Modules.ChatSelector)

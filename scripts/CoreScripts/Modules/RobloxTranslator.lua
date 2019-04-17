@@ -16,10 +16,29 @@ local function getTranslator()
     return coreScriptTableTranslator
 end
 
+local translatorsCache = {}
+
+local function getTranslatorForLocale(locale)
+    local translator = translatorsCache[locale]
+    if translator then
+        return translator
+    end
+
+    translator = CoreGui.CoreScriptLocalization:GetTranslator(locale)
+    translatorsCache[locale] = translator
+
+    return translator
+end
+
+
 local RobloxTranslator = {}
 
 function RobloxTranslator:FormatByKey(key, args)
     return getTranslator():FormatByKey(key, args)
+end
+
+function RobloxTranslator:FormatByKeyForLocale(key, locale, args)
+    return getTranslatorForLocale(locale):FormatByKey(key, args)
 end
 
 return RobloxTranslator

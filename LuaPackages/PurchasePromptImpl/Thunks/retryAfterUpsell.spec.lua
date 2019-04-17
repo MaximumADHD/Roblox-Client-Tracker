@@ -24,7 +24,7 @@ return function()
 
 		local thunk = retryAfterUpsell()
 		local network = MockNetwork.new()
-		local externalSettings = MockExternalSettings.new(true, false, false, false)
+		local externalSettings = MockExternalSettings.new(true, false, {})
 
 		Thunk.test(thunk, store, {
 			[Network] = network,

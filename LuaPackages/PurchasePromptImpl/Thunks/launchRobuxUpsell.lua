@@ -37,6 +37,7 @@ local function launchRobuxUpsell()
 		elseif upsellFlow == UpsellFlow.Mobile then
 			local nativeProductId = store:getState().nativeUpsell.robuxProductId
 
+			analytics.reportNativeUpsellStarted(nativeProductId)
 			platformInterface.promptNativePurchase(Players.LocalPlayer, nativeProductId)
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 

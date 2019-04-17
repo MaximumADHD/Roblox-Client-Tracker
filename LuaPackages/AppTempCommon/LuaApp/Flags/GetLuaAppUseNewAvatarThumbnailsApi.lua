@@ -1,24 +1,27 @@
-local CorePackages = game:GetService("CorePackages")
-local Players = game:GetService("Players")
+local FIntLuaAppUseNewAvatarThumbnailsApi = settings():GetFVariable("LuaAppUseNewAvatarThumbnailsApi4")
 
-local ThrottleUserId = require(CorePackages.AppTempCommon.LuaApp.Utils.ThrottleUserId)
-
-local FIntLuaAppUseNewAvatarThumbnailsApi = settings():GetFVariable("LuaAppUseNewAvatarThumbnailsApi3")
-
+local throttledFlagValue = nil
 --[[
 	GetLuaAppUseNewAvatarThumbnailsApi.lua
 
-	Returns a boolean of whether LuaAppUseNewAvatarThumbnailsApi should be on or not based on
-	the rollout coverage and current userId.
+	Returns a boolean of whether LuaAppUseNewAvatarThumbnailsApi should be on or not.
 --]]
 return function()
 	local throttleNumber = tonumber(FIntLuaAppUseNewAvatarThumbnailsApi)
 
-	if game:GetService("RunService"):IsStudio() or _G.__TESTEZ_RUNNING_TEST__ then
-		return throttleNumber ~= 0
-	else
-		local userId = Players.LocalPlayer.UserId
-
-		return ThrottleUserId(throttleNumber, userId)
+	if type(throttledFlagValue) ~= "boolean" then
+		if type(throttleNumber) == "number" then
+			math.randomseed(tick() * 365)
+			local randomValueGenerated = math.random(99)
+			if randomValueGenerated < throttleNumber then
+				throttledFlagValue = true
+			else
+				throttledFlagValue = false
+			end
+		else
+			throttledFlagValue = false
+		end
 	end
+
+	return throttledFlagValue
 end

@@ -21,7 +21,6 @@ local FFlagCoreScriptFixFollowingIcon = settings():GetFFlag("CoreScriptFixFollow
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 local FFlagLocalizationExpertIcon = settings():GetFFlag("CorescriptLocalizationExpertIcon")
 
-local FFlagMembershipIconABTestEnabled = settings():GetFFlag("MembershipIconABTestEnabled")
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 
@@ -178,9 +177,7 @@ local FRIEND_ICON = 'rbxasset://textures/ui/icon_friends_16.png'
 local FRIEND_REQUEST_ICON = 'rbxasset://textures/ui/icon_friendrequestsent_16.png'
 local FRIEND_RECEIVED_ICON = 'rbxasset://textures/ui/icon_friendrequestrecieved-16.png'
 
-local InMembershipIconABTest = nil
 local FStringPlayerListExperimentName = settings():GetFVariable("PlayerListExperimentName")
-local MEMBERSHIP_AB_TEST_ICON = 'rbxasset://textures/ui/icon_premium-16.png'
 
 local FOLLOWER_ICON = 'rbxasset://textures/ui/icon_follower-16.png'
 local FOLLOWING_ICON = 'rbxasset://textures/ui/icon_following-16.png'
@@ -283,9 +280,6 @@ local function getMembershipIcon(player)
     if blockingUtility:IsPlayerBlockedByUserId(player.UserId) then
       return BLOCKED_ICON
     else
-      if FFlagMembershipIconABTestEnabled and InMembershipIconABTest == nil then
-        return ""
-      end
 
       local userIdStr = tostring(player.UserId)
       local membershipType = player.MembershipType
@@ -295,8 +289,6 @@ local function getMembershipIcon(player)
         return PLACE_OWNER_ICON
       elseif membershipType == Enum.MembershipType.None then
         return ""
-      elseif FFlagMembershipIconABTestEnabled and InMembershipIconABTest then
-        return MEMBERSHIP_AB_TEST_ICON
       elseif membershipType == Enum.MembershipType.BuildersClub then
         return BC_ICON
       elseif membershipType == Enum.MembershipType.TurboBuildersClub then
@@ -2160,19 +2152,5 @@ local blockStatusChanged = function(userId, isBlocked)
 end
 
 blockingUtility:GetBlockedStatusChangedEvent():connect(blockStatusChanged)
-
-if FFlagMembershipIconABTestEnabled then
-  coroutine.wrap(function()
-    local abTestHelper = require(RobloxGui.Modules.ABTestHelper)
-
-    local abTestVariation = abTestHelper.GetTestEnrollmentAsync(FStringPlayerListExperimentName)
-    InMembershipIconABTest = abTestVariation == abTestHelper.VARIATION_B
-    for _,playerEntry in ipairs(PlayerEntries) do
-      local membershipIcon = getMembershipIcon(playerEntry.Player)
-      local iconImage = getCustomPlayerIcon(playerEntry.Player)
-      playerEntry.Frame.BGFrame.MembershipIcon.Image = iconImage or membershipIcon
-    end
-  end)()
-end
 
 return Playerlist

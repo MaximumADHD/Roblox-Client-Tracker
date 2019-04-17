@@ -13,7 +13,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagUseRoactPurchasePrompt375 = settings():GetFFlag("UseRoactPurchasePrompt375")
 local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV373")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")

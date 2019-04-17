@@ -39,6 +39,13 @@ local warningsFromPage = {
 	}
 }
 
+if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
+	warningsFromPage["Basic Info"] = nil
+	warningsFromPage["Access Permissions"] = {
+		isActive = true,
+	}
+end
+
 if FFlagGameSettingsEnforceMaxThumbnails then
 	-- Fix errors not being assigned to a page
 	errorsFromPage["Basic Info"].thumbnails = true

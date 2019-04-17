@@ -6,6 +6,8 @@
 		string Header = The header text to display at the top of this Dialog.
 		list Entries = The entries to display in this Dialog.
 		table Buttons = {string cancelButtonName, string confirmButtonName}
+		bool Wrapped = Controls whether bullet text is wrapped or not
+		enum Truncate = Controls whether text is truncated or not
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -32,6 +34,8 @@ local function ListDialog(props)
 			table.insert(entriesList, Roact.createElement(BulletPoint, {
 				LayoutOrder = i,
 				Text = item,
+				TextWrapped = props.Wrapped,
+				TextTruncate = props.Truncate,
 			}))
 		end
 

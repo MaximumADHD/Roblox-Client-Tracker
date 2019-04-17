@@ -18,6 +18,12 @@ local INNER_TEXT_PADDING = 6
 local TEXT_SIZE = 16
 local TIMER_LENGTH = 4
 
+local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
+if FFlagLuaInviteGameMockTextLocalization then
+	local getTranslator = require(ShareGame.getTranslator)
+	RobloxTranslator = getTranslator()
+end
+
 local ErrorToaster = Roact.PureComponent:extend("ErrorToaster")
 
 function ErrorToaster:restartTimer()

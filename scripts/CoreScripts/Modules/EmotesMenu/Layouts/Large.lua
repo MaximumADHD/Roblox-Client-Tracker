@@ -1,6 +1,9 @@
 return {
-    EmotesWheelMinSize = Vector2.new(215, 215),
-    EmotesWheelMaxSize = Vector2.new(430, 430),
+    EmotesWheelMinSize = Vector2.new(200, 200),
+    EmotesWheelMaxSize = Vector2.new(400, 400),
+
+    ErrorFrameSize = UDim2.new(0.6, 0, 0.2, 0),
+    ErrorFramePosition = UDim2.new(0, 0, 0.1, 0),
 
     ErrorFrameAspectRatio = 6,
     ErrorFrameMinSize = Vector2.new(336, 56),
@@ -12,22 +15,20 @@ return {
     ErrorIcon = "rbxasset://textures/ui/Emotes/ErrorIcon.png",
     ErrorIconOffset = 10,
 
-    EmotesButtonOff = "rbxasset://textures/ui/Emotes/EmotesButtonOff.png",
-    EmotesButtonOn = "rbxasset://textures/ui/Emotes/EmotesButtonOn.png",
-    EmotesButtonSize = Vector2.new(56, 56),
-
-    MiddleTextSize = 36,
+    MiddleTextSize = 28,
     MiddleTextFont = Enum.Font.Gotham,
 
-    SlotNumberTextSize = 36,
+    SlotNumberTextSize = 24,
     SlotNumberFont = Enum.Font.Gotham,
+
+    CircleBackground = "rbxasset://textures/ui/Emotes/Large/CircleBackground.png",
 
     SegmentedCircle = "rbxasset://textures/ui/Emotes/Large/SegmentedCircle.png",
 
     SelectedLine = "rbxasset://textures/ui/Emotes/Large/SelectedLine.png",
-    SelectedLineImageSize = Vector2.new(14, 88),
+    SelectedLineImageSize = Vector2.new(11, 67),
     SelectedLinePadding = 4,
 
     SelectedGradient = "rbxasset://textures/ui/Emotes/Large/SelectedGradient.png",
-    SelectedGradientImageSize = Vector2.new(214, 163),
+    SelectedGradientImageSize = Vector2.new(183, 141),
 }

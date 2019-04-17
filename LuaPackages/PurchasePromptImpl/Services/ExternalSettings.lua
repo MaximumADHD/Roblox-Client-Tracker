@@ -16,6 +16,10 @@ function ExternalSettings.new()
 		return RunService:IsStudio()
 	end
 
+	function service.getFlagPurchasePromptPremiumEnabled()
+		return settings():GetFFlag("PurchasePromptPremiumEnabled")
+	end
+
 	function service.getFlagRestrictSales2()
 		return settings():GetFFlag("RestrictSales2")
 	end

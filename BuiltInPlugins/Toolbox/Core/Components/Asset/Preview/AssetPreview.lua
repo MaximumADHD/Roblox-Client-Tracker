@@ -26,6 +26,9 @@
 
 -- FIXME (psewell) See related comment in didMount below
 local FFlagStudioRemoveToolboxScrollingFrameHack = settings():GetFFlag("StudioRemoveToolboxScrollingFrameHack")
+local FFlagEnableMarketplaceFavorite = settings():GetFFlag("EnableMarketplaceFavorite")
+local FFlagEnableCatelogForAPIService = settings():GetFFlag("EnableCatelogForAPIService")
+
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -39,6 +42,7 @@ local AssetDescription = require(Preview.AssetDescription)
 local Vote = require(Preview.Vote)
 local PreviewController = require(Preview.PreviewController)
 local ActionBar = require(Preview.ActionBar)
+local Favorites = require(Preview.Favorites)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -225,6 +229,8 @@ function AssetPreview:render()
 			Vector2.new(detailDescriptionWidth, 9000))
 		local detailDescriptionHeight = textSize.y + VERTICAL_PADDING
 
+		local enableFavorite = FFlagEnableMarketplaceFavorite and FFlagEnableCatelogForAPIService
+
 		return Roact.createElement("ImageButton", {
 			Position = position,
 			Size = assetSize,
@@ -340,6 +346,13 @@ function AssetPreview:render()
 					layoutOrder = 3,
 				}),
 
+				Favorites = enableFavorite and Roact.createElement(Favorites, {
+					size = UDim2.new(1, 0, 0, 20),
+					assetId = assetId,
+
+					layoutOrder = 4,
+				}),
+
 				DetailDescription = Roact.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 0, detailDescriptionHeight),
 
@@ -352,7 +365,7 @@ function AssetPreview:render()
 					TextColor3 = assetPreviewTheme.detailedDescription.textColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 
-					LayoutOrder = 4,
+					LayoutOrder = 5,
 				}),
 
 				Vote = hasRating and Roact.createElement(Vote, {
@@ -361,21 +374,21 @@ function AssetPreview:render()
 					voting = voting,
 					assetId = assetId,
 
-					layoutOrder = 5,
+					layoutOrder = 6,
 				}),
 
 				Developer = Roact.createElement(AssetDescription, {
 					leftContent = "Creator",
 					rightContent = creatorName,
 
-					layoutOrder = 6,
+					layoutOrder = 7,
 				}),
 
 				Category = Roact.createElement(AssetDescription, {
 					leftContent = "Type",
 					rightContent = getGenreString(assetGenres),
 
-					layoutOrder = 7,
+					layoutOrder = 8,
 				}),
 
 				-- For the format of the time, we need only a generic function to handle that.
@@ -384,7 +397,7 @@ function AssetPreview:render()
 					leftContent = "Created",
 					rightContent = created,
 
-					layoutOrder = 8,
+					layoutOrder = 9,
 				}),
 
 				Updated = Roact.createElement(AssetDescription, {
@@ -392,7 +405,7 @@ function AssetPreview:render()
 					rightContent = updated,
 					hideSeparator = true,
 
-					layoutOrder = 9,
+					layoutOrder = 10,
 				})
 			}),
 

@@ -16,8 +16,8 @@ function SlotNumbers:render()
     local slotNumbers = {}
 
     for slotIndex = 1, Constants.EmotesPerPage do
-        local angle = (360/Constants.EmotesPerPage)*(slotIndex - 1) + Constants.SegmentsStartRotation
-        local radius = Constants.SegmentedCircleDiameter / 2
+        local angle = (360 / Constants.EmotesPerPage) * (slotIndex - 1) + Constants.SegmentsStartRotation
+        local radius = Constants.InnerCircleSizeRatio / 2
 
         local numberSize = Constants.SlotNumberSize
         local numberPadding = numberSize / 2
@@ -44,6 +44,7 @@ function SlotNumbers:render()
             TextColor3 = Constants.Colors.White,
             Text = slotIndex,
             Font = LayoutConstants.SlotNumberFont,
+            ZIndex = 2, -- TODO: Remove with Sibling ZIndex
         }, {
             TextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
                 MaxTextSize = LayoutConstants.SlotNumberTextSize,
@@ -52,7 +53,6 @@ function SlotNumbers:render()
     end
 
     return Roact.createElement("Frame", {
-        Position = UDim2.new(0, 0, 0, 0),
         Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 1,
     }, slotNumbers)

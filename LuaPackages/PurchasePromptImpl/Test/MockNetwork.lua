@@ -4,6 +4,10 @@
 ]]
 local Promise = require(script.Parent.Parent.Promise)
 
+local function getABTestGroup()
+	return Promise.resolve(false)
+end
+
 local function getProductInfo(id, infoType)
 	return Promise.resolve({
 		AssetId	= 1,
@@ -63,6 +67,7 @@ function MockNetwork.new(shouldFail)
 
 	if shouldFail then
 		mockNetworkService = {
+			getABTestGroup = networkFailure,
 			getProductInfo = networkFailure,
 			getPlayerOwns = networkFailure,
 			performPurchase = networkFailure,
@@ -71,6 +76,7 @@ function MockNetwork.new(shouldFail)
 		}
 	else
 		mockNetworkService = {
+			getABTestGroup = getABTestGroup,
 			getProductInfo = getProductInfo,
 			getPlayerOwns = getPlayerOwns,
 			performPurchase = performPurchase,

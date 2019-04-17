@@ -11,6 +11,7 @@ return function()
 	local ExternalSettings = require(script.Parent.Parent.Services.ExternalSettings)
 
 	local PromptState = require(script.Parent.Parent.PromptState)
+	local PurchaseError = require(script.Parent.Parent.PurchaseError)
 	local Thunk = require(script.Parent.Parent.Thunk)
 
 	local initiatePurchase = require(script.Parent.initiatePurchase)
@@ -22,7 +23,7 @@ return function()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(),
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false),
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
 
 		local state = store:getState()
@@ -44,7 +45,7 @@ return function()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(),
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false),
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
 
 		local state = store:getState()
@@ -59,10 +60,27 @@ return function()
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(true),
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false),
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.Error)
+	end)
+
+	it("should resolve to an error state if purchasing is disabled", function()
+		local store = Rodux.Store.new(Reducer)
+
+		local thunk = initiatePurchase(15, Enum.InfoType.Product, false)
+
+		Thunk.test(thunk, store, {
+			[Network] = MockNetwork.new(true),
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				Order66 = true,
+			}),
+		})
+
+		local state = store:getState()
+		expect(state.promptState).to.equal(PromptState.Error)
+		expect(state.purchaseError).to.equal(PurchaseError.PurchaseDisabled)
 	end)
 end

@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local AnalyticsService = game:GetService("AnalyticsService")
 
 local MarketplaceService = game:GetService("MarketplaceService")
 
@@ -15,6 +16,12 @@ function Analytics.new()
 
 	function service.reportRobuxUpsellStarted()
 		return MarketplaceService:ReportRobuxUpsellStarted()
+	end
+
+	function service.reportNativeUpsellStarted(productId)
+		AnalyticsService:SendEventImmediately("mobile", "robuxSelected", "mobileUpsell", {
+			productId = productId,
+		})
 	end
 
 	function service.signalPurchaseSuccess(id, infoType, salePrice, result)

@@ -33,7 +33,7 @@ local function getHttpStatus(response)
 end
 
 
--- requestType : (string) "GET" or "POST"
+-- requestType : (string) "GET", "POST", "DELETE"
 -- httpAction : (function) a function that wraps the httpRequest
 -- RETURNS : (HttpResponse) object containing information about the request
 local function baseHttpHandler(requestType, url, httpAction)
@@ -77,6 +77,15 @@ local function httpPost(httpImpl, url, payload, contentType)
 
 	return baseHttpHandler("POST", url, function()
 		return httpImpl:PostAsyncFullUrl(url, payload, Enum.ThrottlingPriority.Default, contentType)
+	end)
+end
+
+-- httpImpl : (Service) an object that defines HttpPostAsync
+-- url : (string)
+-- options : (table)
+local function httpDelete(httpImpl, options)
+	return baseHttpHandler("DELETE", options, function()
+		return httpImpl:RequestAsync(options)
 	end)
 end
 
@@ -166,6 +175,21 @@ end
 -- returns a Promise that resolves to an HttpResponse object
 function Networking:httpPost(url, payload)
 	return createHttpPromise(httpPost, self._httpImpl, url, payload)
+end
+
+-- url : (string)
+function Networking:httpGet(url)
+	return createHttpPromise(httpGet, self._httpImpl, url)
+end
+
+-- url : (string)
+function Networking:httpDelete(url)
+	local options = {
+		Url = url,
+		Method = "DELETE",
+	}
+
+	return createHttpPromise(httpDelete, self._httpImpl, options)
 end
 
 return Networking

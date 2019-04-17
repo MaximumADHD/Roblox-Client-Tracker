@@ -4,17 +4,22 @@ local LocalPlayer = Players.LocalPlayer
 
 local Thunks = script.Parent
 local EmotesMenu = Thunks.Parent
+local CoreScriptModules = EmotesMenu.Parent
 
 local Actions = EmotesMenu.Actions
 
 local Constants = require(EmotesMenu.Constants)
+local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
 local HideMenu = require(Actions.HideMenu)
 local HideError = require(Actions.HideError)
 local ShowError = require(Actions.ShowError)
 
-local function handlePlayFailure(store, reason)
-    if reason then
+local function handlePlayFailure(store, reasonLocalizationKey)
+    if reasonLocalizationKey then
+        local locale = store:getState().locale
+        local reason = RobloxTranslator:FormatByKeyForLocale(reasonLocalizationKey, locale)
+
         store:dispatch(ShowError(reason))
         delay(Constants.ErrorDisplayTimeSeconds, function()
             store:dispatch(HideError())
@@ -28,24 +33,24 @@ local function PlayEmote(emoteName)
     return function(store)
         local character = LocalPlayer.Character
         if not character then
-            handlePlayFailure(store, Constants.ErrorMessages.TemporarilyUnavailable)
+            handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable)
             return
         end
 
         local humanoid = character:FindFirstChildOfClass("Humanoid")
         if not humanoid then
-            handlePlayFailure(store, Constants.ErrorMessages.TemporarilyUnavailable)
+            handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable)
             return
         end
 
         if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-            handlePlayFailure(store, Constants.ErrorMessages.R15Only)
+            handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.R15Only)
             return
         end
 
         local animate = character:FindFirstChild("Animate")
         if not animate then
-            handlePlayFailure(store, Constants.ErrorMessages.NotSupported)
+            handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.NotSupported)
             return
         end
 
@@ -54,11 +59,11 @@ local function PlayEmote(emoteName)
             local success, didPlay = pcall(function() return playEmoteBindable:Invoke(emoteName) end)
 
             if not success or not didPlay then
-                handlePlayFailure(store, Constants.ErrorMessages.TemporarilyUnavailable)
+                handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable)
                 return
             end
         else
-            handlePlayFailure(store, Constants.ErrorMessages.NotSupported)
+            handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.NotSupported)
             return
         end
 

@@ -21,6 +21,12 @@ local ASSET_THUMBNAIL = Url.GAME_ASSET_URL .. "asset-thumbnail/image?"
 local USER_SEARCH = Url.BASE_URL .. "search/users/results?"
 local USER_THUMBNAIL = Url.BASE_URL .. "headshot-thumbnail/image?"
 
+local CATALOG_V1_BASE = "https://catalog.roblox.com/v1%s"
+local FAVORITE_COUNT_BASE = "/favorites/assets/%d/count"
+local GET_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
+local POST_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
+local DELETE_FAVORITE_BASE = "/favorites/users/%d/assets/%d/favorite"
+
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
 
@@ -101,6 +107,22 @@ function Urls.constructUserThumbnailUrl(userId, width)
 		height = width,
 		format = "png",
 	})
+end
+
+function Urls.constructFavoriteCountsUrl(assetId)
+	return CATALOG_V1_BASE:format(FAVORITE_COUNT_BASE:format(assetId))
+end
+
+function Urls.constructGetFavoritedUrl(userId, assetId)
+	return CATALOG_V1_BASE:format(GET_FAVORITED_BASE:format(userId, assetId))
+end
+
+function Urls.constructPostFavoriteUrl(userId, assetId)
+	return CATALOG_V1_BASE:format(POST_FAVORITED_BASE:format(userId, assetId))
+end
+
+function Urls.constructDeleteFavoriteUrl(userId, assetId)
+	return CATALOG_V1_BASE:format(DELETE_FAVORITE_BASE:format(userId, assetId))
 end
 
 return wrapStrictTable(Urls)

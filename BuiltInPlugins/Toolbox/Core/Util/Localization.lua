@@ -121,7 +121,7 @@ function Localization:getLocalizedContent()
 end
 
 function Localization:getLocalizedCreatorIntroText(userName)
-	return self:_safeLocalize("AssetCreatorIntroText", {
+	return self:_safeLocalize("Studio.Toolbox.General.AssetCreatorIntroText", {
 		name = userName
 	})
 end
@@ -256,89 +256,89 @@ end
 
 function Localization:_recalculateContent()
 	self:_update({
-		ToolboxToolbarName = self:_safeLocalize("ToolboxToolbarName"),
+		ToolboxToolbarName = self:_safeLocalize("Studio.Toolbox.General.ToolboxToolbarName"),
 
 		Category = {
-			FreeModels = self:_safeLocalize("CategoryModels"),
-			FreeDecals = self:_safeLocalize("CategoryDecals"),
-			FreeMeshes = self:_safeLocalize("CategoryMeshes"),
-			FreeAudio = self:_safeLocalize("CategoryAudio"),
-			FreePlugins = self:_safeLocalize("CategoryPlugins"),
-			MyModels = self:_safeLocalize("CategoryMyModels"),
-			MyDecals = self:_safeLocalize("CategoryMyDecals"),
-			MyMeshes = self:_safeLocalize("CategoryMyMeshes"),
-			MyAudio = self:_safeLocalize("CategoryMyAudio"),
-			MyPlugins = self:_safeLocalize("CategoryMyPlugins"),
-			MyPackages = self:_safeLocalize("CategoryMyPackages"),
-			RecentModels = self:_safeLocalize("CategoryRecentModels"),
-			RecentDecals = self:_safeLocalize("CategoryRecentDecals"),
-			RecentMeshes = self:_safeLocalize("CategoryRecentMeshes"),
-			RecentAudio = self:_safeLocalize("CategoryRecentAudio"),
-			GroupModels = self:_safeLocalize("CategoryGroupModels"),
-			GroupDecals = self:_safeLocalize("CategoryGroupDecals"),
-			GroupMeshes = self:_safeLocalize("CategoryGroupMeshes"),
-			GroupAudio = self:_safeLocalize("CategoryGroupAudio"),
-			GroupPackages = self:_safeLocalize("CategoryGroupPackages")
+			FreeModels = self:_safeLocalize("Studio.Toolbox.General.CategoryModels"),
+			FreeDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryDecals"),
+			FreeMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryMeshes"),
+			FreeAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryAudio"),
+			FreePlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryPlugins"),
+			MyModels = self:_safeLocalize("Studio.Toolbox.General.CategoryMyModels"),
+			MyDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryMyDecals"),
+			MyMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryMyMeshes"),
+			MyAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryMyAudio"),
+			MyPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPlugins"),
+			MyPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPackages"),
+			RecentModels = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentModels"),
+			RecentDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentDecals"),
+			RecentMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentMeshes"),
+			RecentAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentAudio"),
+			GroupModels = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupModels"),
+			GroupDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupDecals"),
+			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),
+			GroupAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAudio"),
+			GroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages")
 		},
 
 		Suggestions = {
-			IntroText = self:_safeLocalize("SuggestionsIntroText"),
-			NPC = self:_safeLocalize("SuggestionsNPC"),
-			Vehicle = self:_safeLocalize("SuggestionsVehicle"),
-			Weapon = self:_safeLocalize("SuggestionsWeapon"),
-			Building = self:_safeLocalize("SuggestionsBuilding"),
-			Light = self:_safeLocalize("SuggestionsLight"),
+			IntroText = self:_safeLocalize("Studio.Toolbox.General.SuggestionsIntroText"),
+			NPC = self:_safeLocalize("Studio.Toolbox.General.SuggestionsNPC"),
+			Vehicle = self:_safeLocalize("Studio.Toolbox.General.SuggestionsVehicle"),
+			Weapon = self:_safeLocalize("Studio.Toolbox.General.SuggestionsWeapon"),
+			Building = self:_safeLocalize("Studio.Toolbox.General.SuggestionsBuilding"),
+			Light = self:_safeLocalize("Studio.Toolbox.General.SuggestionsLight"),
 		},
 
 		Sort = {
-			ByText = self:_safeLocalize("SortByText"),
-			Relevance = self:_safeLocalize("SortByRelevance"),
-			MostTaken = self:_safeLocalize("SortByMostTaken"),
-			Favorites = self:_safeLocalize("SortByFavorites"),
-			Updated = self:_safeLocalize("SortByUpdated"),
-			Ratings = self:_safeLocalize("SortByRatings"),
+			ByText = self:_safeLocalize("Studio.Toolbox.General.SortByText"),
+			Relevance = self:_safeLocalize("Studio.Toolbox.General.SortByRelevance"),
+			MostTaken = self:_safeLocalize("Studio.Toolbox.General.SortByMostTaken"),
+			Favorites = self:_safeLocalize("Studio.Toolbox.General.SortByFavorites"),
+			Updated = self:_safeLocalize("Studio.Toolbox.General.SortByUpdated"),
+			Ratings = self:_safeLocalize("Studio.Toolbox.General.SortByRatings"),
 		},
 
 		Voting = {
-			VoteText = self:_safeLocalize("VotingVoteText"),
-			VotesText = self:_safeLocalize("VotingVotesText"), -- plural
+			VoteText = self:_safeLocalize("Studio.Toolbox.General.VotingVoteText"),
+			VotesText = self:_safeLocalize("Studio.Toolbox.General.VotingVotesText"), -- plural
 		},
 
 		Footer = {
-			BGText = self:_safeLocalize("FooterBGText"),
-			White = self:_safeLocalize("FooterButtonWhiteName"),
-			Black = self:_safeLocalize("FooterButtonBlackName"),
-			None = self:_safeLocalize("FooterButtonNoneName"),
+			BGText = self:_safeLocalize("Studio.Toolbox.General.FooterBGText"),
+			White = self:_safeLocalize("Studio.Toolbox.General.FooterButtonWhiteName"),
+			Black = self:_safeLocalize("Studio.Toolbox.General.FooterButtonBlackName"),
+			None = self:_safeLocalize("Studio.Toolbox.General.FooterButtonNoneName"),
 		},
 
-		SearchBarDefaultText = self:_safeLocalize("SearchBarDefaultText"),
-		SearchBarCreatorText = self:_safeLocalize("SearchBarCreatorText"),
+		SearchBarDefaultText = self:_safeLocalize("Studio.Toolbox.General.SearchBarDefaultText"),
+		SearchBarCreatorText = self:_safeLocalize("Studio.Toolbox.General.SearchBarCreatorText"),
 
-		EndorseBadgeTooltipText = self:_safeLocalize("EndorseBadgeTooltipText"),
+		EndorseBadgeTooltipText = self:_safeLocalize("Studio.Toolbox.General.EndorseBadgeTooltipText"),
 
-		InfoBannerText = self:_safeLocalize("InfoBannerText"),
+		InfoBannerText = self:_safeLocalize("Studio.Toolbox.General.InfoBannerText"),
 
 		SearchResults = {
-			SearchResults = self:_safeLocalize("SearchResults"),
-			SearchResultsKeyword = self:_safeLocalize("SearchResultsKeyword"),
-			ClearAll = self:_safeLocalize("SearchResultsClearAll"),
+			SearchResults = self:_safeLocalize("Studio.Toolbox.General.SearchResults"),
+			SearchResultsKeyword = self:_safeLocalize("Studio.Toolbox.General.SearchResultsKeyword"),
+			ClearAll = self:_safeLocalize("Studio.Toolbox.General.SearchResultsClearAll"),
 		},
 
 		SearchOptions = {
-			Creator = self:_safeLocalize("SearchOptionCreator"),
-			Sort = self:_safeLocalize("SearchOptionSort"),
-			Apply = self:_safeLocalize("SearchOptionsApply"),
-			Cancel = self:_safeLocalize("SearchOptionsCancel"),
+			Creator = self:_safeLocalize("Studio.Toolbox.General.SearchOptionCreator"),
+			Sort = self:_safeLocalize("Studio.Toolbox.General.SearchOptionSort"),
+			Apply = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsApply"),
+			Cancel = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsCancel"),
 		},
 
 		SearchTags = {
-			Creator = self:_safeLocalize("SearchTagCreator"),
+			Creator = self:_safeLocalize("Studio.Toolbox.General.SearchTagCreator"),
 		},
 
 		Tabs = {
-			Marketplace = self:_safeLocalize("TabMarketplace"),
-			Inventory = self:_safeLocalize("TabInventory"),
-			Recent = self:_safeLocalize("TabRecent"),
+			Marketplace = self:_safeLocalize("Studio.Toolbox.General.TabMarketplace"),
+			Inventory = self:_safeLocalize("Studio.Toolbox.General.TabInventory"),
+			Recent = self:_safeLocalize("Studio.Toolbox.General.TabRecent"),
 		},
 	})
 end

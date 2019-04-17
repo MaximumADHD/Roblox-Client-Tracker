@@ -14,7 +14,7 @@
     <addaction name="pasteAction" visible="false" />
     <addaction name="duplicateSelectionAction" visible="false" />
   </QuickAccessBar>
-  <SystemButton name="File" text="CommonUI.Controls.Action.File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" tooltip="Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc">
+  <SystemButton name="File" text="Studio.Common.Action.File" icon=":/images/RobloxStudio.png" tooltipicon=":/RibbonBar/images/Studio Ribbon Icons/roblox.png" tooltip="Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc">
     <SystemPopup>
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
@@ -50,7 +50,7 @@
     <!--
       RIBBON BAR HOME TAB
       -->
-    <TabPage name="Home" text="CommonUI.Controls.Action.Home">
+    <TabPage name="Home" text="Studio.Common.Action.Home">
       <Group name="Clipboard" text="Studio.App.RobloxRibbonMainWindow.Clipboard">
         <addaction name="pasteAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Paste.png" width="32" height="32"/>
         <addaction name="copyAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Home/Copy-16x16.png"/>
@@ -58,7 +58,7 @@
         <addaction name="duplicateSelectionAction" style="textbesideicon" icon=":RibbonBar/images/RibbonIcons/Home/Copy-16x16.png"/>
       </Group>
       <Group name="Tools" text="Studio.App.RobloxRibbonMainWindow.Tools">
-        <addaction name="advArrowToolAction" style="textundericon" text="CommonUI.Controls.Action.Select"  tooltip="Studio.App.RobloxRibbonMainWindow.SelectAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32" />
+        <addaction name="advArrowToolAction" style="textundericon" text="Studio.Common.Action.Select"  tooltip="Studio.App.RobloxRibbonMainWindow.SelectAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32" />
         <addaction name="advTranslateAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Move" tooltip="Studio.App.RobloxRibbonMainWindow.MoveAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Translate.png" width="32" height="32"/>
         <addaction name="resizeAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Scale"  tooltip="Studio.App.RobloxRibbonMainWindow.ResizeAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Resize.png" width="32" height="32"/>
         <addaction name="advRotateAction" style="textundericon" text="Studio.App.RBXMainWindow.Rotate" tooltip="Studio.App.RobloxRibbonMainWindow.RotateAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32"/>
@@ -81,10 +81,10 @@
           height="32"
           width="32"/>
       </Group>
-      <Group name="Insert" text="CommonUI.Controls.Action.Insert">
+      <Group name="Insert" text="Studio.Common.Action.Insert">
           <addaction name="luaToolboxAction" type="plugin" style="textundericon" icon=":/images/ToolboxIcon.png" tooltip="Studio.App.RobloxRibbonMainWindow.InsertItemsFromTheToolbox" height="32" width="32"/>
           <addseparator visible="false"/>
-          <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Studio.App.RobloxRibbonMainWindow.Part" tooltip="Place a part into the workspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
+          <MenuPopupButton handleMenuTrigger="true" name="placePartAction" value="PartLargeAction" style="textundericon" popupStyle="menubutton" text="Studio.App.RobloxRibbonMainWindow.Part" tooltip="Studio.App.RobloxRibbonMainWindow.PlacePartWorkspace" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32">
               <ActionGroup name="insertBasicObject" style="textbesideicon" ischeckable="false">
                   <addaction name="PartLargeAction" text="Studio.App.RobloxRibbonMainWindow.Block" value="Part" tooltip="Studio.App.RobloxRibbonMainWindow.InsertBlockPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Part.png" width="32" height="32" />
                   <addaction name="SphereLargeAction" text="Studio.App.Shapes.Sphere" value="Sphere" tooltip="Studio.App.RobloxRibbonMainWindow.InsertSpherePart" icon=":/RibbonBar/images/RibbonIcons/Insert/Sphere.png" width="32" height="32" />
@@ -94,7 +94,7 @@
           </MenuPopupButton>
         <addaction name="toggleUIMenuAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32"/>
       </Group>
-      <Group name="Edit" text="CommonUI.Controls.Action.Edit" options="true">
+      <Group name="Edit" text="Studio.Common.Action.Edit" options="true">
         <groupoptionsmenu tooltip="Studio.App.RobloxRibbonMainWindow.ActionsAsTools" handleMenuTrigger="true">
           <addaction name="materialActionAsTool" text="Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
           <addaction name="colorFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.ColorActionAsTool" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
@@ -136,8 +136,8 @@
         <addaction name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">
-        <MenuPopupButton handleMenuTrigger="true"  selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="CommonUI.Controls.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
-          <addaction text="CommonUI.Controls.Action.Play" name="simulationPlayAction" style="textundericon"  value="simulationPlayAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32"/>
+        <MenuPopupButton handleMenuTrigger="true"  selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
+          <addaction text="Studio.Common.Action.Play" name="simulationPlayAction" style="textundericon"  value="simulationPlayAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.PlayHere" name="simulationPlayFromCameraAction" style="textundericon"  value="simulationPlayFromCameraAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo-Camera.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.Run" name="simulationRunAction" style="textundericon" value="simulationRunAction" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" width="32" height="32"/>
         </MenuPopupButton>
@@ -147,15 +147,9 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationResetAction" style="textundericon" text="CommonUI.Controls.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
+        <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings">
-          <!--
-           FIXME(dbanks)
-           2019/03/28
-           Don't use i18n id here: it somehow breaks the button.  Have to research this.
-
-           -->
         <addaction name="luaGameSettingsAction" text="Studio.App.RobloxRibbonMainWindow.GameSettings" iscommonslot="true" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32"/>
       </Group>
       <Group name="Team Test" text="Studio.App.RobloxRibbonMainWindow.TeamTest">
@@ -167,7 +161,7 @@
 
     <TabPage name="Model" text="Studio.App.RobloxRibbonMainWindow.Model">
       <Group name="Tools" text="Studio.App.RobloxRibbonMainWindow.Tools">
-        <addaction name="advArrowToolAction" style="textundericon" text="CommonUI.Controls.Action.Select"  tooltip="Studio.App.RobloxRibbonMainWindow.SelectAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32" />
+        <addaction name="advArrowToolAction" style="textundericon" text="Studio.Common.Action.Select"  tooltip="Studio.App.RobloxRibbonMainWindow.SelectAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32" />
         <addaction name="advTranslateAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Move" tooltip="Studio.App.RobloxRibbonMainWindow.MoveAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Translate.png" width="32" height="32" />
         <addaction name="resizeAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Scale"  tooltip="Studio.App.RobloxRibbonMainWindow.ResizeAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Resize.png"  width="32" height="32" />
         <addaction name="advRotateAction" style="textundericon" text="Studio.App.RBXMainWindow.Rotate" tooltip="Studio.App.RobloxRibbonMainWindow.RotateAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Rotate.png" width="32" height="32" />
@@ -260,7 +254,7 @@
         <addaction name="separateSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Separate.png" tooltip="Studio.App.RBXMainWindow.SeparateFusedSelection" width="32" height="32" />
       </Group>
       <Group name="Constraints" text="Studio.App.RobloxRibbonMainWindow.Constraints">
-        <MenuPopupButton name="createConstraintAction" handleMenuTrigger="true" style="textundericon" popupStyle="menubutton" ischeckable="true" text="CommonUI.Controls.Action.Create" tooltip="Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="32" height="32">
+        <MenuPopupButton name="createConstraintAction" handleMenuTrigger="true" style="textundericon" popupStyle="menubutton" ischeckable="true" text="Studio.Common.Action.Create" tooltip="Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="32" height="32">
           <addaction name="createBallInSocketConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.BallInSocket" tooltip="Studio.App.RobloxRibbonMainWindow.CreateBallInSocket" icon=":/RibbonBar/images/RibbonIcons/Physics/ball-in-socket-32x32.png" width="32" height="32" />
           <addaction name="createHingeConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Hinge" tooltip="Studio.App.RobloxRibbonMainWindow.CreateHinge" icon=":/RibbonBar/images/RibbonIcons/Physics/hinge-32x32.png" width="32" height="32" />
           <addaction name="createPrismaticConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Prismatic" tooltip="Studio.App.RobloxRibbonMainWindow.CreatePrismaticConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/prismatic-constraint-32x32.png" width="32" height="32" />
@@ -275,7 +269,7 @@
           <addaction name="createVectorForceAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.VectorForce" tooltip="Studio.App.RobloxRibbonMainWindow.CreateVectorForce" icon=":/RibbonBar/images/RibbonIcons/Physics/force-32x32.png" width="32" height="32" />
           <addaction name="createLineForceAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LineForce" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLineForce" icon=":/RibbonBar/images/RibbonIcons/Physics/line-force-32x32.png" width="32" height="32" />
           <addaction name="createTorqueAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Torque" tooltip="Studio.App.RobloxRibbonMainWindow.CreateTorque" icon=":/RibbonBar/images/RibbonIcons/Physics/torque-32x32.png" width="32" height="32" />
-          <addaction name="createAngularVelocityAction" fflag="AngularVelocityEnabled" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AngularVelocity" tooltip="Create angular velocity constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/angular-velocity-32x32.png" width="32" height="32" />
+          <addaction name="createAngularVelocityAction" fflag="AngularVelocityEnabled3" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AngularVelocity" tooltip="Create angular velocity constraint" icon=":/RibbonBar/images/RibbonIcons/Physics/angular-velocity-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
           <addaction name="createAttachmentAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Attachment" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/attachment-32x32.png" width="32" height="32" />
         </MenuPopupButton>
@@ -323,8 +317,8 @@
       -->
     <TabPage name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">
       <Group name="Simulation" text="Studio.App.RobloxRibbonMainWindow.Simulation">
-        <MenuPopupButton handleMenuTrigger="true" selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="CommonUI.Controls.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
-          <addaction text="CommonUI.Controls.Action.Play" name="simulationPlayAction" style="textundericon"  value="simulationPlayAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32"/>
+        <MenuPopupButton handleMenuTrigger="true" selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
+          <addaction text="Studio.Common.Action.Play" name="simulationPlayAction" style="textundericon"  value="simulationPlayAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.PlayHere" name="simulationPlayFromCameraAction" style="textundericon"  value="simulationPlayFromCameraAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo-Camera.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.Run" name="simulationRunAction" style="textundericon" value="simulationRunAction" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" width="32" height="32"/>
         </MenuPopupButton>
@@ -334,8 +328,8 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationStopAction" style="textundericon" text="CommonUI.Controls.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction name="simulationResetAction" style="textundericon" text="CommonUI.Controls.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
+        <addaction name="simulationStopAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
         <addaction name="simulationDiabolicalModeAction"
             style="textundericon"
             text="Studio.App.RBXMainWindow.NetworkSimulator"
@@ -387,14 +381,14 @@
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts" text="Studio.App.RBXMainWindow.Output" height="32" width="32"/>
         <addaction name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis" height="32" width="32"/>
-        <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="View Studio.App.RBXMainWindow.CommandBar" text="Studio.App.RBXMainWindow.CommandBar" height="32" width="32"/>
-        <addaction debugOnly="true" fflag="LuaDebugger" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints" height="32" width="32"/>
-        <addaction debugOnly="true" fflag="LuaDebugger" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack" height="32" width="32"/>
-        <addaction debugOnly="true" fflag="LuaDebugger" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables" height="32" width="32"/>
+        <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RBXMainWindow.ViewCommandBar" text="Studio.App.RBXMainWindow.CommandBar" height="32" width="32"/>
+        <addaction debugOnly="true" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints" height="32" width="32"/>
+        <addaction debugOnly="true" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack" height="32" width="32"/>
+        <addaction debugOnly="true" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables" height="32" width="32"/>
         <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo" height="32" width="32"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation" height="32" width="32"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat" height="32" width="32"/>
-        <addaction name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Find results window" height="32" width="32"/>
+        <addaction name="toggleFindResultsWindowAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" tooltip="Studio.App.RBXMainWindow.FindResultsWindow" height="32" width="32"/>
         <addaction name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow" height="32" width="32"/>
         <addaction name="toggleScriptRecoveryDockAction"
             style="textbesideicon"
@@ -412,7 +406,7 @@
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
         <addaction name="toggleAxisWidgetAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DisplayAxis" icon=":/RibbonBar/images/RibbonIcons/View/Display-Axis.png" tooltip="Studio.App.RobloxRibbonMainWindow.ShowWorldSpaceAxis" height="32" width="32" fflag="!ToolViewSelector"/>
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Show view selector" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32" fflag="ToolViewSelector"/>
-        <addaction name="actionFullScreen" style="textundericon" text="Studio.App.RBXMainWindow.FullScreen" icon=":/RibbonBar/images/RibbonIcons/View/Fullscreen.png" tooltip="Enabled Studio.App.RBXMainWindow.FullScreen mode" height="32" width="32" />
+        <addaction name="actionFullScreen" style="textundericon" text="Studio.App.RBXMainWindow.FullScreen" icon=":/RibbonBar/images/RibbonIcons/View/Fullscreen.png" tooltip="Studio.App.RBXMainWindow.EnabledFullScreenMode" height="32" width="32" />
         <addaction name="screenShotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.ScreenShot" icon=":/RibbonBar/images/RibbonIcons/View/Screen-Capture.png" tooltip="Studio.App.RobloxRibbonMainWindow.TakeAScreenshot" height="32" width="32" />
         <addaction name="toggleVideoRecordAction" style="textundericon" iswindowsonly="true" icon=":/RibbonBar/images/RibbonIcons/View/Record-Video.png" tooltip="Studio.App.RobloxRibbonMainWindow.RecordAVideo" height="32" width="32" />
       </Group>
@@ -431,7 +425,7 @@
         <addaction name="testPhysicsStatsAction" action="testPhysicsStatsAction" text="Studio.App.RobloxRibbonMainWindow.Physics" style="textbesideicon" />
         <addaction name="testNetworkStatsAction" action="testNetworkStatsAction" text="Studio.App.RobloxRibbonMainWindow.Network" style="textbesideicon"/>
         <addaction name="testSummaryStatsAction" action="testSummaryStatsAction" text="Studio.App.RobloxRibbonMainWindow.Summary" style="textbesideicon"/>
-        <addaction name="testClearStatsAction" action="testClearStatsAction" text="CommonUI.Controls.Action.Clear" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" height="32" width="32" />
+        <addaction name="testClearStatsAction" action="testClearStatsAction" text="Studio.Common.Action.Clear" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" height="32" width="32" />
       </Group>
     </TabPage>
     <!--
@@ -467,7 +461,7 @@
         <addaction name="copyAction" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.CopySelectedText" icon=":/RibbonBar/images/RibbonIcons/Home/Copy-16x16.png" />
       </Group>
       <Group name="Navigate" text="Studio.App.RobloxRibbonMainWindow.Navigate">
-          <addaction name="goToPreviousScriptLocation" text="CommonUI.Controls.Action.Back" style="textundericon"
+          <addaction name="goToPreviousScriptLocation" text="Studio.Common.Action.Back" style="textundericon"
           tooltip="Studio.App.RobloxRibbonMainWindow.JumpToPreviousScriptLocation"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png"
           width="32" height="32" />
@@ -476,24 +470,24 @@
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png"
           width="32" height="32" />
       </Group>
-      <Group name="Edit" text="CommonUI.Controls.Action.Edit">
-        <MenuButton name="actionFindMenu" style ="textundericon" text="CommonUI.Controls.Action.Find"  icon=":/RibbonBar/images/RibbonIcons/Home/Find.png" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextElps" width="32" height="32" >
+      <Group name="Edit" text="Studio.Common.Action.Edit">
+        <MenuButton name="actionFindMenu" style ="textundericon" text="Studio.Common.Action.Find"  icon=":/RibbonBar/images/RibbonIcons/Home/Find.png" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextElps" width="32" height="32" >
           <addaction name="findAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" />
           <addaction name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/find.png" />
 	      <addaction name="goToLineAction" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
         </MenuButton>
-        <addaction name="replaceAction" text="CommonUI.Controls.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" width="32" height="32" />
-        <MenuButton name="actionSelectMenu" text="CommonUI.Controls.Action.Select" tooltip="Studio.App.RobloxRibbonMainWindow.SelectTextElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" width="32" height="32" >
+        <addaction name="replaceAction" text="Studio.Common.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" width="32" height="32" />
+        <MenuButton name="actionSelectMenu" text="Studio.Common.Action.Select" tooltip="Studio.App.RobloxRibbonMainWindow.SelectTextElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" width="32" height="32" >
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" width="16" height="16" />
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" />
         </MenuButton>
-        <!--<addaction name="deleteSelectedAction" text="CommonUI.Controls.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
+        <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" width="32" height="32" />-->
       </Group>
       <Group name="Test" text="Studio.App.RobloxRibbonMainWindow.Test">
-        <MenuPopupButton handleMenuTrigger="true" selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="CommonUI.Controls.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
-          <addaction text="CommonUI.Controls.Action.Play" name="simulationPlayAction" style="textundericon"  value="simulationPlayAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32"/>
+        <MenuPopupButton handleMenuTrigger="true" selectChangesText="true" name="playGameActionGroup" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Play" tooltip="Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" value="simulationPlayAction" width="32" height="32">
+          <addaction text="Studio.Common.Action.Play" name="simulationPlayAction" style="textundericon"  value="simulationPlayAction" icon=":/RibbonBar/images/RibbonIcons/Test/Play-Solo.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.PlayHere" name="simulationPlayFromCameraAction" style="textundericon"  value="simulationPlayFromCameraAction" icon=":/RibbonBar/images/RibbonIcons/Test/DEPRECATED_Play-Solo-Camera.png" width="32" height="32"/>
           <addaction text="Studio.App.RBXMainWindow.Run" name="simulationRunAction" style="textundericon" value="simulationRunAction" icon=":/RibbonBar/images/RibbonIcons/Test/Run.png" width="32" height="32"/>
         </MenuPopupButton>
@@ -503,10 +497,10 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationStopAction" style="textundericon" text="CommonUI.Controls.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction name="simulationResetAction" style="textundericon" text="CommonUI.Controls.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
+        <addaction name="simulationStopAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
-      <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true" fflag="LuaDebugger">
+      <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true">
         <!--<addaction name="toggleAllBreakpointsStateAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Toggle-Breakpoints.png" tooltip="Enabled/Disable all breakpoints" width="32" height="32"/>-->
         <addaction name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
         <addaction name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
@@ -533,9 +527,9 @@
     </TabPage>
     <TabPage name="diffMenu" text="Studio.App.RobloxRibbonMainWindow.DiffMenu" contextcolor="4" contexttitle="Script tools" visible="false">
       <Group name="Navigate" text="Studio.App.RobloxRibbonMainWindow.Navigate">
-        <addaction name="goToPreviousHunkAction" text="CommonUI.Controls.Action.Previous" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.GoToPreviousChange"
+        <addaction name="goToPreviousHunkAction" text="Studio.Common.Action.Previous" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.GoToPreviousChange"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png" width="32" height="32" />
-        <addaction name="goToNextHunkAction" text="CommonUI.Controls.Action.Next" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.GoToNextChange"
+        <addaction name="goToNextHunkAction" text="Studio.Common.Action.Next" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.GoToNextChange"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" width="32" height="32" />
       </Group>
       <Group name="View" text="Studio.App.RobloxRibbonMainWindow.View">

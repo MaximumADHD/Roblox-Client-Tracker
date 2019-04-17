@@ -62,6 +62,8 @@ Images.THUMB_UP = "rbxasset://textures/StudioToolbox/AssetPreview/rating_large.p
 Images.THUMB_UP_SMALL = "rbxasset://textures/StudioToolbox/AssetPreview/rating_small.png"
 Images.VOTE_DOWN = "rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png"
 Images.VOTE_UP = "rbxasset://textures/StudioToolbox/AssetPreview/vote_up.png"
+Images.Unfavorited = "rbxasset://textures/StudioToolbox/AssetPreview/star_stroke.png"
+Images.Favorited = "rbxasset://textures/StudioToolbox/AssetPreview/star_filled.png"
 
 Images.HIERARCHY = "rbxasset://textures/StudioToolbox/AssetPreview/hierarchy.png"
 Images.FULLSCREEN = "rbxasset://textures/StudioToolbox/AssetPreview/fullscreen.png"

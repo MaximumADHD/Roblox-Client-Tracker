@@ -1092,6 +1092,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function int GuiService:GetBrickCount() {RobloxScriptSecurity}
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) {RobloxScriptSecurity}
+	Function bool GuiService:GetEmotesMenuOpen()
 	Function Enum<ConnectionError> GuiService:GetErrorCode() {RobloxScriptSecurity}
 	Function string GuiService:GetErrorMessage() {RobloxScriptSecurity} [Deprecated]
 	Function Enum<ConnectionError> GuiService:GetErrorType() {RobloxScriptSecurity}
@@ -1109,6 +1110,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveKey(string key) {RobloxScriptSecurity}
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(Enum<SpecialKey> key) {RobloxScriptSecurity}
+	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
 	Function void GuiService:SetMenuIsOpen(bool open, string menuName = "default") {RobloxScriptSecurity}
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) {RobloxScriptSecurity}
@@ -1116,6 +1118,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function void GuiService:ToggleFullscreen() {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
+	Event GuiService.EmotesMenuOpenChanged(bool isOpen) {RobloxScriptSecurity}
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
@@ -1754,18 +1757,6 @@ Class SpawnLocation : Part
 	Property bool SpawnLocation.Neutral
 	Property BrickColor SpawnLocation.TeamColor
 Class WedgePart : FormFactorPart
-Class MeshPart : BasePart
-	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
-	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
-	Property Content MeshPart.TextureID
-	Property Enum<CollisionFidelity> MeshPart.CollisionFidelity  [NotReplicated] [NotScriptable]
-Class PartOperation : BasePart
-	Property Enum<CollisionFidelity> PartOperation.CollisionFidelity  [NotReplicated] [NotScriptable]
-	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
-	Property int PartOperation.TriangleCount [<💾> Save-only] [ReadOnly] [NotReplicated]
-	Property bool PartOperation.UsePartColor
-Class NegateOperation : PartOperation
-Class UnionOperation : PartOperation
 Class Terrain : BasePart [NotCreatable]
 	Property BinaryString Terrain.MaterialColors  [NotScriptable]
 	Property Color3 Terrain.WaterColor
@@ -1799,6 +1790,19 @@ Class Terrain : BasePart [NotCreatable]
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy) [CustomLuaState]
+Class TriangleMeshPart : BasePart [NotCreatable]
+	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity  [NotReplicated] [NotScriptable]
+Class MeshPart : TriangleMeshPart
+	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
+	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
+	Property Content MeshPart.TextureID
+	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
+Class PartOperation : TriangleMeshPart
+	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
+	Property int PartOperation.TriangleCount [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property bool PartOperation.UsePartColor
+Class NegateOperation : PartOperation
+Class UnionOperation : PartOperation
 Class TrussPart : BasePart
 	Property Enum<Style> TrussPart.Style [<📁> Load-only] [NotReplicated]
 Class VehicleSeat : BasePart
@@ -2570,13 +2574,13 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property int64 StarterPlayer.GameSettingsAssetIDShirt {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDTeeShirt {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDTorso {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Enum<GameAvatarType> StarterPlayer.GameSettingsAvatarType {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Enum<R15CollisionType> StarterPlayer.GameSettingsR15CollisionType {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property NumberRange StarterPlayer.GameSettingsScaleBodyType {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property NumberRange StarterPlayer.GameSettingsScaleHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property NumberRange StarterPlayer.GameSettingsScaleHeight {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property NumberRange StarterPlayer.GameSettingsScaleProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property NumberRange StarterPlayer.GameSettingsScaleWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Enum<GameAvatarType> StarterPlayer.GameSettingsAvatar {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Enum<R15CollisionType> StarterPlayer.GameSettingsR15Collision {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeBodyType {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeHeight {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
 	Property float StarterPlayer.CharacterJumpHeight
 	Property float StarterPlayer.CharacterJumpPower
@@ -2652,6 +2656,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Show plus button on hover in Explorer
 	Property bool Studio.Always Save Script Changes
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
+	Property Enum<LanguagePreference> Studio.Language
 	Property int Studio.Render Throttle Percentage
 	Property Instance Studio.Theme
 	Property Enum<UITheme> Studio.UI Theme [<💾> Save-only] [ReadOnly] [NotReplicated]
@@ -4019,6 +4024,10 @@ Enum KeywordFilterType
 	EnumItem KeywordFilterType.Exclude : 1
 Enum Language
 	EnumItem Language.Default : 0
+Enum LanguagePreference
+	EnumItem LanguagePreference.SystemDefault : 0
+	EnumItem LanguagePreference.English : 1
+	EnumItem LanguagePreference.SimplifiedChinese : 2
 Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1

@@ -17,10 +17,19 @@ function WheelBackground:render()
     local LayoutConstants = Constants.Layouts[self.props.layout]
 
     return Roact.createElement("Folder", {}, {
+        BackgroundCircleOverlay = Roact.createElement("ImageLabel", {
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            Size = UDim2.new(1, 0, 1, 0),
+            Position = UDim2.new(0.5, 0, 0.5, 0),
+            BackgroundTransparency = 1,
+            Image = LayoutConstants.CircleBackground,
+            ZIndex = 1,
+        }),
+
         BackgroundGradient = Roact.createElement("Frame", {
             BackgroundTransparency = 1,
             Size = UDim2.new(1, 0, 1, 0),
-            ZIndex = 1,
+            ZIndex = 2,
         }, {
             SelectionGradient = Roact.createElement(SelectionGradient)
         }),
@@ -31,13 +40,13 @@ function WheelBackground:render()
             Position = UDim2.new(0.5, 0, 0.5, 0),
             BackgroundTransparency = 1,
             Image = LayoutConstants.SegmentedCircle,
-            ZIndex = 2,
+            ZIndex = 3,
         }),
 
         Selection = Roact.createElement("Frame", {
             BackgroundTransparency = 1,
             Size = UDim2.new(1, 0, 1, 0),
-            ZIndex = 3,
+            ZIndex = 4,
         }, {
             SelectionEffect = Roact.createElement(SelectionEffect),
         }),
@@ -45,7 +54,7 @@ function WheelBackground:render()
         BackgroundText = Roact.createElement("Frame", {
             BackgroundTransparency = 1,
             Size = UDim2.new(1, 0, 1, 0),
-            ZIndex = 3,
+            ZIndex = 5,
         }, {
             MiddleText = Roact.createElement(WheelText),
         }),

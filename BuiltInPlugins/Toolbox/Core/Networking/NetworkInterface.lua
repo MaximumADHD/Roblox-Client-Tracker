@@ -130,7 +130,41 @@ end
 
 function NetworkInterface:getUsers(searchTerm, numResults)
 	local targetUrl = Urls.constructUserSearchUrl(searchTerm, numResults)
+	printUrl("getUsers", "GET", targetUrl)
 	return self._networkImp:httpGetJson(targetUrl)
+end
+
+function NetworkInterface:getFavoriteCounts(assetId)
+	local targetUrl = Urls.constructFavoriteCountsUrl(assetId)
+
+	printUrl("getFavorites", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:getFavorited(userId, assetId)
+	local targetUrl = Urls.constructGetFavoritedUrl(userId, assetId)
+
+	printUrl("getFavorited", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+function NetworkInterface:postFavorite(userId, assetId)
+	local targetUrl = Urls.constructPostFavoriteUrl(userId, assetId)
+
+	local payload = self._networkImp:jsonEncode({
+		userId = userId,
+		assetId = assetId,
+	})
+
+	printUrl("postFavorite", "POST", targetUrl, payload)
+	return self._networkImp:httpPostJson(targetUrl, payload)
+end
+
+function NetworkInterface:deleteFavorite(userId, assetId)
+	local targetUrl = Urls.constructDeleteFavoriteUrl(userId, assetId)
+
+	printUrl("deleteFavorite", "DELETE", targetUrl)
+	return self._networkImp:httpDelete(targetUrl)
 end
 
 return NetworkInterface

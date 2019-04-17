@@ -1,10 +1,53 @@
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
-
+local ContentProvider = game:GetService("ContentProvider")
 local MarketplaceService = game:GetService("MarketplaceService")
 local InsertService = game:GetService("InsertService")
 
 local Promise = require(script.Parent.Parent.Promise)
+
+-- This is the approximate strategy for URL building that we use elsewhere
+local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
+BASE_URL = string.gsub(BASE_URL, "http:", "https:")
+
+local API_URL = string.gsub(BASE_URL, "https://www", "https://api")
+local AB_TEST_URL = string.gsub(BASE_URL, "https://www", "https://abtesting")
+
+local function request(options, resolve, reject)
+	return HttpService:RequestInternal(options):Start(function(success, response)
+		if success then
+			local result
+			success, result = pcall(HttpService.JSONDecode, HttpService, response.Body)
+
+			if success then
+				resolve(result)
+			else
+				reject("Could not parse JSON.")
+			end
+		else
+			reject(tostring(response.StatusMessage))
+		end
+	end)
+end
+
+local AB_SUBJECT_TYPE_USER_ID = 1
+
+local function getABTestGroup(userId, testName)
+	local abTestRequest = {
+		{
+			ExperimentName = testName,
+			SubjectType = AB_SUBJECT_TYPE_USER_ID,
+			SubjectTargetId = userId,
+		}
+	}
+
+	return Promise.new(function(resolve, reject)
+		return request({
+			Url = AB_TEST_URL .. "v1/get-enrollments",
+			Method = "POST",
+			Body = HttpService:JSONEncode(abTestRequest),
+		}, resolve, reject)
+	end)
+end
 
 local function getProductInfo(id, infoType)
 	return MarketplaceService:GetProductInfo(id, infoType)
@@ -37,26 +80,19 @@ local function loadAssetForEquip(assetId)
 end
 
 local function getAccountInfo()
-	local success, result = pcall(function()
-		return HttpRbxApiService:GetAsync("users/account-info")
+	return Promise.new(function(resolve, reject)
+		request({
+			Url = API_URL .. "users/account-info",
+			Method = "GET",
+		}, resolve, reject)
 	end)
-
-	if success and type(result) == "string" then
-		local decodeSuccess, decodeResult = pcall(function()
-			return HttpService:JSONDecode(result)
-		end)
-		if decodeSuccess then
-			return decodeResult
-		end
-	end
-
-	error(tostring(result))
 end
 
 local Network = {}
 
 function Network.new()
 	local networkService = {
+		getABTestGroup = Promise.promisify(getABTestGroup),
 		getProductInfo = Promise.promisify(getProductInfo),
 		getPlayerOwns = Promise.promisify(getPlayerOwns),
 		performPurchase = Promise.promisify(performPurchase),

@@ -24,12 +24,12 @@ return function()
 
 		Thunk.test(thunk, store, {
 			[Network] = network,
-			[Analytics] = analytics,
+			[Analytics] = analytics.mockService,
 		})
 
 		local state = store:getState()
 
-		expect(analytics.signalPurchaseSuccess_callCount).to.equal(1)
+		expect(analytics.spies.signalPurchaseSuccess.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.PurchaseInProgress)
 	end)
 
@@ -42,12 +42,12 @@ return function()
 
 		Thunk.test(thunk, store, {
 			[Network] = network,
-			[Analytics] = analytics,
+			[Analytics] = analytics.mockService,
 		})
 
 		local state = store:getState()
 
-		expect(analytics.signalPurchaseSuccess_callCount).to.equal(0)
+		expect(analytics.spies.signalPurchaseSuccess.callCount).to.equal(0)
 		expect(state.promptState).to.equal(PromptState.Error)
 	end)
 end

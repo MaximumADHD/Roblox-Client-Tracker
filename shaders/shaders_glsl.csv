@@ -93,6 +93,7 @@ ParticleCustomFS,default,Fragment
 ParticleCustomFS_Soft,default,Fragment
 ParticleLightingFS,default,Fragment
 PassThroughFS,default,Fragment
+ProcessGuiFS,default,Fragment
 ProfilerFS,default,Fragment
 RadialBlurFS,default,Fragment
 ShadowBlurFS,default,Fragment
@@ -285,6 +286,7 @@ ParticleCustomFS,default_NoShadows,Fragment
 ParticleCustomFS_Soft,default_NoShadows,Fragment
 ParticleLightingFS,default_NoShadows,Fragment
 PassThroughFS,default_NoShadows,Fragment
+ProcessGuiFS,default_NoShadows,Fragment
 ProfilerFS,default_NoShadows,Fragment
 RadialBlurFS,default_NoShadows,Fragment
 ShadowBlurFS,default_NoShadows,Fragment
@@ -477,6 +479,7 @@ ParticleCustomFS,FFlagFutureIsBrightPhase2,Fragment
 ParticleCustomFS_Soft,FFlagFutureIsBrightPhase2,Fragment
 ParticleLightingFS,FFlagFutureIsBrightPhase2,Fragment
 PassThroughFS,FFlagFutureIsBrightPhase2,Fragment
+ProcessGuiFS,FFlagFutureIsBrightPhase2,Fragment
 ProfilerFS,FFlagFutureIsBrightPhase2,Fragment
 RadialBlurFS,FFlagFutureIsBrightPhase2,Fragment
 ShadowBlurFS,FFlagFutureIsBrightPhase2,Fragment

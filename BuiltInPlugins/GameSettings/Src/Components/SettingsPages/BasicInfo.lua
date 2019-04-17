@@ -34,6 +34,7 @@ local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettings
 local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
 local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -87,8 +88,6 @@ local function loadValuesToProps(getValue, state)
 	local errors = state.Settings.Errors
 	local loadedProps = {
 		Name = getValue("name"),
-		IsActive = getValue("isActive"),
-		IsFriendsOnly = getValue("isFriendsOnly"),
 		Group = getValue("creatorType") == "Group" and getValue("creatorName"),
 		Description = getValue("description"),
 		Genre = getValue("genre"),
@@ -102,6 +101,11 @@ local function loadValuesToProps(getValue, state)
 		DescriptionError = errors.description,
 		DevicesError = errors.playableDevices,
 	}
+	
+	if not FFlagStudioGameSettingsAccessPermissions then
+		loadedProps.IsActive = getValue("isActive")
+		loadedProps.IsFriendsOnly = getValue("isFriendsOnly")
+	end
 
 	if FFlagGameSettingsImageUploadingEnabled then
 		loadedProps.ThumbnailsError = errors.thumbnails
@@ -114,7 +118,6 @@ end
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
-		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
 		ThumbnailsChanged = setValue("thumbnails"),
 		GenreChanged = setValue("genre"),
 
@@ -134,14 +137,6 @@ local function dispatchChanges(setValue, dispatch)
 				dispatch(AddErrors({description = "TooLong"}))
 			end
 		end,
-		IsActiveChanged = function(button, willShutdown)
-			if willShutdown then
-				dispatch(AddWarning("isActive"))
-			else
-				dispatch(DiscardWarning("isActive"))
-			end
-			dispatch(AddChange("isActive", button.Id))
-		end,
 		DevicesChanged = function(devices)
 			dispatch(AddChange("playableDevices", devices))
 			for _, value in pairs(devices) do
@@ -152,6 +147,18 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
 		end,
 	}
+	
+	if not FFlagStudioGameSettingsAccessPermissions then
+		dispatchFuncs.IsFriendsOnlyChanged = setValue("isFriendsOnly")
+		dispatchFuncs.IsActiveChanged = function(button, willShutdown)
+			if willShutdown then
+				dispatch(AddWarning("isActive"))
+			else
+				dispatch(DiscardWarning("isActive"))
+			end
+			dispatch(AddChange("isActive", button.Id))
+		end
+	end
 
 	if FFlagGameSettingsImageUploadingEnabled then
 		dispatchFuncs.GameIconChanged = setValue("gameIcon")
@@ -243,7 +250,7 @@ local function displayContents(page, localized)
 			LayoutOrder = 3,
 		}),
 
-		Playability = Roact.createElement(RadioButtonSet, {
+		Playability = (not FFlagStudioGameSettingsAccessPermissions) and Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
 			LayoutOrder = 4,
@@ -277,7 +284,7 @@ local function displayContents(page, localized)
 			end,
 		}),
 
-		Separator2 = Roact.createElement(Separator, {
+		Separator2 = (not FFlagStudioGameSettingsAccessPermissions) and Roact.createElement(Separator, {
 			LayoutOrder = 5,
 		}),
 

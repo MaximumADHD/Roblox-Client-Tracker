@@ -13,6 +13,10 @@ Rig.partInclude = {}
 Rig.partList = {}
 Rig.partListByName = {}
 Rig.partToItemMap = {}
+if FastFlags:isShiftSelectJointsOn() then
+	Rig.orderedPartList = {}
+	Rig.partToIndexMap = {}
+end
 if FastFlags:isIKModeFlagOn() then
 	Rig.partPinned = {}
 end
@@ -34,6 +38,10 @@ function Rig:create(Paths, potentialRoots)
 	self.partInclude = {}
 	if FastFlags:isIKModeFlagOn() then
 		self.partPinned = {}
+	end
+	if FastFlags:isShiftSelectJointsOn() then
+		self.orderedPartList = {}
+		self.partToIndexMap = {}
 	end
 
 	local getController = function(p)
@@ -108,6 +116,10 @@ function Rig:create(Paths, potentialRoots)
 			self.partInclude[item.Name] = true
 			if FastFlags:isIKModeFlagOn() then
 				self.partPinned[item.Name] = false
+			end
+			if FastFlags:isShiftSelectJointsOn() then
+				self.orderedPartList[#self.orderedPartList + 1] = item
+				self.partToIndexMap[item.Item] = #self.orderedPartList
 			end
 
 			local childList, jointList = findPairedJoints(item)

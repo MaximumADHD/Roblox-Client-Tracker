@@ -14,6 +14,7 @@ local SetProduct = require(script.Parent.Parent.Actions.SetProduct)
 local getProductInfo = require(script.Parent.Parent.Network.getProductInfo)
 local getIsAlreadyOwned = require(script.Parent.Parent.Network.getIsAlreadyOwned)
 local getAccountInfo = require(script.Parent.Parent.Network.getAccountInfo)
+local getEnrolledInPremiumABTest = require(script.Parent.Parent.Network.getEnrolledInPremiumABTest)
 
 local resolvePromptState = require(script.Parent.resolvePromptState)
 
@@ -52,6 +53,11 @@ local function initiatePurchase(id, infoType, equipIfPurchased)
 			productInfo = getProductInfo(network, id, infoType),
 			accountInfo = getAccountInfo(network, externalSettings),
 			alreadyOwned = getIsAlreadyOwned(network, id, infoType),
+			premiumEnabled = getEnrolledInPremiumABTest(
+				network,
+				externalSettings,
+				Players.LocalPlayer.UserId
+			),
 		})
 			:andThen(function(results)
 				-- Once we've finished all of our async data fetching, we'll
@@ -59,7 +65,8 @@ local function initiatePurchase(id, infoType, equipIfPurchased)
 				store:dispatch(resolvePromptState(
 					results.productInfo,
 					results.accountInfo,
-					results.alreadyOwned
+					results.alreadyOwned,
+					results.premiumEnabled
 				))
 			end)
 			:catch(function(errorReason)

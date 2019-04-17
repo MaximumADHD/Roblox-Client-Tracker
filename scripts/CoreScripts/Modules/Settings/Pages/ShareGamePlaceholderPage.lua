@@ -5,6 +5,7 @@
 --]]
 
 local CoreGui = game:GetService("CoreGui")
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
@@ -23,7 +24,6 @@ this.IsPageClipped = false
 
 this.Page.Name = "ShareGameDummy"
 this.Page.Size = UDim2.new(1, 0, 0, 0)
-
 
 function this:ConnectHubToApp(settingsHub, shareGameApp)
 	this:SetHub(settingsHub)

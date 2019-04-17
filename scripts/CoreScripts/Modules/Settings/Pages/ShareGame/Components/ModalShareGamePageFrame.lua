@@ -31,6 +31,8 @@ local IMAGE_ROUNDED_BACKGROUND = "rbxasset://textures/ui/LuaChat/9-slice/btn-con
 local SETTINGS_SHIELD_BACKGROUND_COLOR = Color3.fromRGB(41, 41, 41)
 local BACKGROUND_BORDER_RADIUS = 3
 
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+
 local ModalShareGamePageFrame = Roact.PureComponent:extend("ModalShareGamePageFrame")
 
 function ModalShareGamePageFrame:init()
@@ -96,7 +98,7 @@ function ModalShareGamePageFrame:render()
 				closePage = self.onClosePage,
 				searchAreaActive = searchAreaActive,
 				toggleSearchIcon = true,
-				iconType = BackButton.IconType.Cross,
+				iconType = FFlagLuaInviteModalEnabled and BackButton.IconType.Cross or nil,
 			}),
 			ConversationList = Roact.createElement(ConversationList, {
 				analytics = analytics,

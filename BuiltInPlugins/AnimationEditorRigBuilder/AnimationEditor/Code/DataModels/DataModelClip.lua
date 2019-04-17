@@ -246,6 +246,22 @@ function Clip:getClosestPoseTime(time)
 	return closestTime
 end
 
+if FastFlags:isFixInterpolationSettingOn() then
+	function Clip:getClosestPreviousTime(time)
+		local closestTime = nil
+
+		for keyframeTime, _ in self.Paths.HelperFunctionsIteration:spairs(self.Paths.DataModelKeyframes.keyframeList, function(t, a, b) return t[a].Time < t[b].Time end) do
+			if keyframeTime > time then
+				break
+			end
+
+			closestTime = keyframeTime
+		end
+
+		return closestTime
+	end
+end
+
 local function createPoseFromLastKeyframe(self, time, keyframeData, part)
 	if (part ~= nil) then
 		local poseParent = keyframeData

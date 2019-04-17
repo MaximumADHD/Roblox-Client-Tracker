@@ -5,15 +5,19 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent
 local EmotesMenu = Components.Parent
+local CoreScriptsModules = EmotesMenu.Parent
 
 local Constants = require(EmotesMenu.Constants)
+local RobloxTranslator = require(CoreScriptsModules.RobloxTranslator)
 
 local WheelText = Roact.PureComponent:extend("WheelText")
 
 function WheelText:getWheelText()
     local emotesList = self.props.emotesPage.emotesList
+    local locale = self.props.locale
+
     if #emotesList == 0 then
-        return Constants.MainTextNoEmotesEquipped
+        return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
     end
 
     local focusedSlot = self.props.emotesWheel.focusedSegmentIndex
@@ -22,25 +26,26 @@ function WheelText:getWheelText()
     if emoteInfo then
         return emoteInfo.name
     else
-        return Constants.MainTextDefault
+        return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.SelectAnEmote, locale)
     end
 end
 
 function WheelText:render()
     local LayoutConstants = Constants.Layouts[self.props.layout]
+    local wheelText = self:getWheelText()
 
     return Roact.createElement("TextLabel", {
         AnchorPoint = Vector2.new(0.5, 0.5),
-        Size = UDim2.new(Constants.SegmentedCircleDiameter, -Constants.TextPadding,
-                         Constants.SegmentedCircleDiameter, -Constants.TextPadding),
+        Size = UDim2.new(Constants.InnerCircleSizeRatio, -Constants.TextPadding,
+                         Constants.InnerCircleSizeRatio, -Constants.TextPadding),
         Position = UDim2.new(0.5, 0, 0.5, 0),
         BackgroundTransparency = 1,
-        Text = self:getWheelText(),
+        Text = wheelText,
         TextScaled = true,
         TextSize = LayoutConstants.MiddleTextSize,
         TextColor3 = Constants.Colors.White,
         Font = LayoutConstants.MiddleTextFont,
-        ZIndex = 3, -- TODO: Remove when CoreGui uses Sibling ZIndex behavior
+        ZIndex = 5, -- TODO: Remove when CoreGui uses Sibling ZIndex
     }, {
         TextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
             MaxTextSize = LayoutConstants.MiddleTextSize,
@@ -53,6 +58,7 @@ local function mapStateToProps(state)
         emotesWheel = state.emotesWheel,
         emotesPage = state.emotesPage,
         layout = state.layout,
+        locale = state.locale,
     }
 end
 

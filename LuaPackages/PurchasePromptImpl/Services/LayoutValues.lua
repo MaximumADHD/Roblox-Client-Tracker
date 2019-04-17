@@ -1,5 +1,7 @@
 local strict = require(script.Parent.Parent.strict)
 
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+
 local function makeImageData(path, sliceCenter)
 	return {
 		Path = "rbxasset://textures/" .. path,
@@ -19,6 +21,7 @@ function LayoutValues.generate(isTenFoot)
 	local PostTextHeight = 30 * scaleFactor
 
 	local RobuxIconPadding = 6 * scaleFactor
+
 	local RobuxIconWidth = 20 * scaleFactor
 	local RobuxIconHeight = 20 * scaleFactor
 
@@ -88,6 +91,17 @@ function LayoutValues.generate(isTenFoot)
 	}
 
 	--[[
+		Special text colors, as needed
+	]]
+	local TextColor = {
+		PriceLabel = Color3.fromRGB(2, 183, 87)
+	}
+
+	if FFlagChinaLicensingApp then
+		TextColor.PriceLabel = Color3.new(1, 1, 1)
+	end
+
+	--[[
 		Background images, including slice center
 	]]
 	local Image = {}
@@ -117,12 +131,19 @@ function LayoutValues.generate(isTenFoot)
 		and makeImageData("ui/PurchasePrompt/SingleButtonDown@2x.png", Rect.new(18, 5, 20, 7))
 		or makeImageData("ui/PurchasePrompt/SingleButtonDown.png", Rect.new(8, 3, 10, 4))
 
-	--[[
-		CLILUACORE-315: Make 2x versions for robux icon and error icon
-	]]
-	Image.RobuxIcon = isTenFoot
-		and makeImageData("ui/RobuxIcon.png")
-		or makeImageData("ui/RobuxIcon.png")
+	if FFlagChinaLicensingApp then
+		Image.RobuxIcon = isTenFoot
+			and makeImageData("ui/clb_robux_20@3x.png")
+			or makeImageData("ui/clb_robux_20.png")
+	else
+		--[[
+			CLILUACORE-315: Make 2x versions for robux icon and error icon
+		]]
+		Image.RobuxIcon = isTenFoot
+			and makeImageData("ui/RobuxIcon.png")
+			or makeImageData("ui/RobuxIcon.png")
+	end
+
 	Image.ErrorIcon = isTenFoot
 		and makeImageData("ui/ErrorIcon.png")
 		or makeImageData("ui/ErrorIcon.png")
@@ -137,6 +158,7 @@ function LayoutValues.generate(isTenFoot)
 	local LayoutValues = strict({
 		Size = strict(Size, "LayoutValues.Size"),
 		TextSize = strict(TextSize, "LayoutValues.TextSize"),
+		TextColor = strict(TextColor, "LayoutValues.TextColor"),
 		Image = strict(Image, "LayoutValues.Image"),
 	}, "LayoutValues")
 

@@ -1,6 +1,7 @@
 if not settings():GetFFlag("ToolViewSelector") then
 	return
 end
+local FFlagToolViewSelectorFixFocus = settings():GetFFlag("ToolViewSelectorFixFocus")
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
@@ -42,6 +43,7 @@ local eventReceiver = nil
 local currentTime = nil
 local animStartCFrame = nil
 local animTargetCFrame = nil
+local animTargetFocus = nil
 local initialCFrames = {}
 local nameToRotation = {}
 local textureList = {}
@@ -313,6 +315,7 @@ local function tweenCameraToDirection(rotationCFrame)
 	local focusPosition = currentCamera.Focus.Position
 	local focusToCameraDistance = (focusPosition - currentCamera.CFrame.Position).Magnitude
 	local targetPosition = focusPosition - rotationCFrame.LookVector * focusToCameraDistance
+	animTargetFocus = focusPosition
 	animTargetCFrame = rotationCFrame + targetPosition
 	animStartCFrame = currentCamera.CFrame
 	currentTime = 0
@@ -362,6 +365,9 @@ local function afterCamera(delta)
 		currentTime = currentTime + delta
 		if currentTime > ANIMATION_TIME then
 			currentCamera.CFrame = animTargetCFrame
+			if FFlagToolViewSelectorFixFocus then
+				currentCamera.Focus = CFrame.new(animTargetFocus)
+			end
 			currentTime = nil
 		else
 			currentCamera.CFrame = animStartCFrame:Lerp(animTargetCFrame, currentTime / ANIMATION_TIME)

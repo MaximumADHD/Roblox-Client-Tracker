@@ -23,15 +23,15 @@ return function()
 		local platformInterface = MockPlatformInterface.new()
 
 		Thunk.test(thunk, store, {
-			[Analytics] = analytics,
-			[PlatformInterface] = platformInterface,
+			[Analytics] = analytics.mockService,
+			[PlatformInterface] = platformInterface.mockService,
 		})
 
 		local state = store:getState()
 
 		if not settings():GetFFlag("ChinaLicensingApp") then
-			expect(analytics.reportRobuxUpsellStarted_callCount).to.equal(1)
-			expect(platformInterface.startRobuxUpsellWeb_callCount).to.equal(1)
+			expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(1)
+			expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
 			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 		end
 	end)

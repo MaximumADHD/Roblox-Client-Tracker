@@ -23,7 +23,7 @@ local requiredServices = {
 	ExternalSettings,
 }
 
-local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
+local function resolvePromptState(productInfo, accountInfo, alreadyOwned, premiumEnabled)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local externalSettings = services[ExternalSettings]
 
@@ -62,7 +62,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned)
 				local hasBuildersClub = accountInfo.MembershipType > 0
 				local isPremium = accountInfo.IsPremiumUser
 
-				return selectRobuxProduct(platform, price, hasBuildersClub or isPremium)
+				return selectRobuxProduct(platform, price, hasBuildersClub or isPremium, premiumEnabled)
 					:andThen(function(product)
 						-- We found a valid upsell product for the current platform
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))

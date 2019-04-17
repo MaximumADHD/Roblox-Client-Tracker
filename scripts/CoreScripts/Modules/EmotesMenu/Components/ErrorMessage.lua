@@ -17,12 +17,11 @@ function ErrorMessage:render()
     local LayoutConstants = Constants.Layouts[self.props.layout]
 
 	return Roact.createElement("Frame", {
-		AnchorPoint = Vector2.new(0, 0),
-		Size = UDim2.new(0.6, 0, 0.2, 0),
-        Position = UDim2.new(0, 0, 0.1, 0),
+		Size = LayoutConstants.ErrorFrameSize,
+        Position = LayoutConstants.ErrorFramePosition,
         BackgroundColor3 = Constants.Colors.Black,
-        BackgroundTransparency = 0.3,
-        BorderSizePixel = 0,
+        BackgroundTransparency = Constants.ErrorFrameBackgroundTransparency,
+        BorderSizePixel = Constants.ErrorFrameBorderSize,
         Selectable = false,
         Visible = self.props.displayOptions.errorVisible,
 

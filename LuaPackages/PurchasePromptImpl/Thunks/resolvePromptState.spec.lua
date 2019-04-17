@@ -30,10 +30,10 @@ return function()
 			RobuxBalance = 10,
 			MembershipType = 0,
 		}
-		local thunk = resolvePromptState(productInfo, accountInfo, false)
+		local thunk = resolvePromptState(productInfo, accountInfo, false, false)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false)
+			[ExternalSettings] = MockExternalSettings.new(false, false, {})
 		})
 
 		local state = store:getState()
@@ -52,10 +52,10 @@ return function()
 			RobuxBalance = 10,
 			MembershipType = 0,
 		}
-		local thunk = resolvePromptState(productInfo, accountInfo, false)
+		local thunk = resolvePromptState(productInfo, accountInfo, false, false)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false)
+			[ExternalSettings] = MockExternalSettings.new(false, false, {})
 		})
 
 		local state = store:getState()
@@ -71,10 +71,10 @@ return function()
 			RobuxBalance = 10,
 			MembershipType = 0,
 		}
-		local thunk = resolvePromptState(productInfo, accountInfo, false)
+		local thunk = resolvePromptState(productInfo, accountInfo, false, false)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false)
+			[ExternalSettings] = MockExternalSettings.new(false, false, {})
 		})
 
 		local state = store:getState()
@@ -93,10 +93,10 @@ return function()
 			RobuxBalance = 0,
 			MembershipType = 0,
 		}
-		local thunk = resolvePromptState(productInfo, accountInfo, false)
+		local thunk = resolvePromptState(productInfo, accountInfo, false, false)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false)
+			[ExternalSettings] = MockExternalSettings.new(false, false, {})
 		})
 
 		local state = store:getState()
@@ -116,10 +116,10 @@ return function()
 			RobuxBalance = 0,
 			MembershipType = 0,
 		}
-		local thunk = resolvePromptState(productInfo, accountInfo, false)
+		local thunk = resolvePromptState(productInfo, accountInfo, false, false)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, false, false)
+			[ExternalSettings] = MockExternalSettings.new(false, false, {})
 		})
 
 		local state = store:getState()

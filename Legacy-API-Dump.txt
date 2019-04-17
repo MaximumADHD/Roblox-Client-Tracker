@@ -1085,6 +1085,7 @@ Class GuiService : Instance [notCreatable]
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) [RobloxScriptSecurity]
 	Function int GuiService:GetBrickCount() [RobloxScriptSecurity]
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) [RobloxScriptSecurity]
+	Function bool GuiService:GetEmotesMenuOpen()
 	Function ConnectionError GuiService:GetErrorCode() [RobloxScriptSecurity]
 	Function string GuiService:GetErrorMessage() [deprecated] [RobloxScriptSecurity]
 	Function ConnectionError GuiService:GetErrorType() [RobloxScriptSecurity]
@@ -1101,6 +1102,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:RemoveKey(string key) [RobloxScriptSecurity]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(SpecialKey key) [RobloxScriptSecurity]
+	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) [RobloxScriptSecurity]
 	Function void GuiService:SetMenuIsOpen(bool open, string menuName = default) [RobloxScriptSecurity]
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) [RobloxScriptSecurity]
@@ -1109,6 +1111,7 @@ Class GuiService : Instance [notCreatable]
 	Function void GuiService:ToggleFullscreen() [RobloxScriptSecurity]
 	YieldFunction Vector2 GuiService:GetScreenResolution() [RobloxScriptSecurity]
 	Event GuiService.BrowserWindowClosed() [deprecated] [RobloxScriptSecurity]
+	Event GuiService.EmotesMenuOpenChanged(bool isOpen) [RobloxScriptSecurity]
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) [deprecated] [RobloxScriptSecurity]
 	Event GuiService.KeyPressed(string key, string modifiers) [RobloxScriptSecurity]
 	Event GuiService.MenuClosed()
@@ -1743,15 +1746,6 @@ Class SpawnLocation : Part
 	Property bool SpawnLocation.Neutral
 	Property BrickColor SpawnLocation.TeamColor
 Class WedgePart : FormFactorPart
-Class MeshPart : BasePart
-	Property Content MeshPart.MeshId [ScriptWriteRestricted: [NotAccessibleSecurity]]
-	Property Content MeshPart.TextureID
-Class PartOperation : BasePart
-	Property RenderFidelity PartOperation.RenderFidelity [ScriptWriteRestricted: [PluginSecurity]]
-	Property int PartOperation.TriangleCount [readonly]
-	Property bool PartOperation.UsePartColor
-Class NegateOperation : PartOperation
-Class UnionOperation : PartOperation
 Class Terrain : BasePart [notCreatable]
 	Property bool Terrain.IsSmooth [deprecated] [readonly]
 	Property Region3int16 Terrain.MaxExtents [readonly]
@@ -1784,6 +1778,17 @@ Class Terrain : BasePart [notCreatable]
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy)
+Class TriangleMeshPart : BasePart
+Class MeshPart : TriangleMeshPart
+	Property Content MeshPart.MeshId [ScriptWriteRestricted: [NotAccessibleSecurity]]
+	Property RenderFidelity MeshPart.RenderFidelity [ScriptWriteRestricted: [PluginSecurity]]
+	Property Content MeshPart.TextureID
+Class PartOperation : TriangleMeshPart
+	Property RenderFidelity PartOperation.RenderFidelity [ScriptWriteRestricted: [PluginSecurity]]
+	Property int PartOperation.TriangleCount [readonly]
+	Property bool PartOperation.UsePartColor
+Class NegateOperation : PartOperation
+Class UnionOperation : PartOperation
 Class TrussPart : BasePart
 	Property Style TrussPart.Style
 Class VehicleSeat : BasePart
@@ -2541,13 +2546,13 @@ Class StarterPlayer : Instance [notCreatable]
 	Property int64 StarterPlayer.GameSettingsAssetIDShirt [hidden] [RobloxScriptSecurity]
 	Property int64 StarterPlayer.GameSettingsAssetIDTeeShirt [hidden] [RobloxScriptSecurity]
 	Property int64 StarterPlayer.GameSettingsAssetIDTorso [hidden] [RobloxScriptSecurity]
-	Property GameAvatarType StarterPlayer.GameSettingsAvatarType [hidden] [RobloxScriptSecurity]
-	Property R15CollisionType StarterPlayer.GameSettingsR15CollisionType [hidden] [RobloxScriptSecurity]
-	Property NumberRange StarterPlayer.GameSettingsScaleBodyType [hidden] [RobloxScriptSecurity]
-	Property NumberRange StarterPlayer.GameSettingsScaleHead [hidden] [RobloxScriptSecurity]
-	Property NumberRange StarterPlayer.GameSettingsScaleHeight [hidden] [RobloxScriptSecurity]
-	Property NumberRange StarterPlayer.GameSettingsScaleProportion [hidden] [RobloxScriptSecurity]
-	Property NumberRange StarterPlayer.GameSettingsScaleWidth [hidden] [RobloxScriptSecurity]
+	Property GameAvatarType StarterPlayer.GameSettingsAvatar [hidden] [RobloxScriptSecurity]
+	Property R15CollisionType StarterPlayer.GameSettingsR15Collision [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeBodyType [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeHead [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeHeight [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeProportion [hidden] [RobloxScriptSecurity]
+	Property NumberRange StarterPlayer.GameSettingsScaleRangeWidth [hidden] [RobloxScriptSecurity]
 	Property float StarterPlayer.HealthDisplayDistance
 	Property bool StarterPlayer.LoadCharacterAppearance
 	Property float StarterPlayer.NameDisplayDistance

@@ -5,13 +5,15 @@ local Rodux = require(Libs.Rodux)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-local Assets = require(Plugin.Core.Reducers.Assets)
-local NetworkErrors = require(Plugin.Core.Reducers.NetworkErrors)
-local PageInfo = require(Plugin.Core.Reducers.PageInfo)
-local ReducerLogger = require(Plugin.Core.Reducers.ReducerLogger)
-local Sound = require(Plugin.Core.Reducers.Sound)
-local VotingReducer = require(Plugin.Core.Reducers.VotingReducer)
-local LiveSearch = require(Plugin.Core.Reducers.LiveSearch)
+local Reducers = Plugin.Core.Reducers
+local Assets = require(Reducers.Assets)
+local NetworkErrors = require(Reducers.NetworkErrors)
+local PageInfo = require(Reducers.PageInfo)
+local ReducerLogger = require(Reducers.ReducerLogger)
+local Sound = require(Reducers.Sound)
+local VotingReducer = require(Reducers.VotingReducer)
+local LiveSearch = require(Reducers.LiveSearch)
+local Favorite = require(Reducers.Favorite)
 
 -- TODO CLIDEVSRVS-1595: Error handling/promise rejections
 
@@ -22,6 +24,7 @@ local ToolboxReducer = Rodux.combineReducers({
 		sound = Sound,
 		voting = VotingReducer,
 		liveSearch = LiveSearch,
+		favorite = Favorite,
 	})
 
 return function(state, action)

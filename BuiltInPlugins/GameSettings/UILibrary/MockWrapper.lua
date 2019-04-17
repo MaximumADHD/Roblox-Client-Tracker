@@ -13,11 +13,22 @@ local dummyTheme = createTheme()
 
 local MockWrapper = Roact.PureComponent:extend("MockWrapper")
 
+local workspace = game:GetService("Workspace")
+
+function MockWrapper:init()
+	self.mockGui = Instance.new("ScreenGui", workspace)
+	self.mockGui.Name = "MockGui"
+end
+
 function MockWrapper:render()
 	return Roact.createElement(UILibraryWrapper, {
 		theme = dummyTheme,
-		focusGui = {},
+		focusGui = self.mockGui,
 	}, self.props[Roact.Children])
+end
+
+function MockWrapper:willUnmount()
+	self.mockGui:Destroy()
 end
 
 return MockWrapper

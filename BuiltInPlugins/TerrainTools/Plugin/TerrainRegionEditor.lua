@@ -45,7 +45,7 @@ local kBottomButtonMargin = 10
 local kRegionModeButtonConfigs = 
 {
 	Select = {
-		Text = "CommonUI.Controls.Action.Select",
+		Text = "Studio.Common.Action.Select",
 		Name = "ButtonSelect",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_select.png",
 		LayoutOrder = 1,
@@ -53,7 +53,7 @@ local kRegionModeButtonConfigs =
 		Tool = 'Resize',
 	}, 
 	Move = {
-		Text = "CommonUI.Controls.Action.Move",
+		Text = "Studio.Common.Action.Move",
 		Name = "ButtonMove",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_move.png",
 		LayoutOrder = 2,
@@ -61,7 +61,7 @@ local kRegionModeButtonConfigs =
 		Tool = 'Move',
 	}, 
 	Resize = {
-		Text = "CommonUI.Controls.Action.Resize",
+		Text = "Studio.Common.Action.Resize",
 		Name = "ButtonResize",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_resize.png",
 		LayoutOrder = 3,
@@ -69,7 +69,7 @@ local kRegionModeButtonConfigs =
 		Tool = 'Resize',
 	}, 
 	Rotate = {
-		Text = "CommonUI.Controls.Action.Rotate",
+		Text = "Studio.Common.Action.Rotate",
 		Name = "ButtonRotate",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_rotate.png",
 		LayoutOrder = 4,
@@ -81,25 +81,25 @@ local kRegionModeButtonConfigs =
 local kRegionOperationButtonConfigs = 
 {
 	Copy = {
-		Text = "CommonUI.Controls.Action.Copy",
+		Text = "Studio.Common.Action.Copy",
 		Name = "ButtonCopy",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_copy.png",
 		LayoutOrder = 5,
 	}, 
 	Paste = {
-		Text = "CommonUI.Controls.Action.Paste",
+		Text = "Studio.Common.Action.Paste",
 		Name = "ButtonPaste",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_paste.png",
 		LayoutOrder = 6,
 	}, 
 	Delete = {
-		Text = "CommonUI.Controls.Action.Delete",
+		Text = "Studio.Common.Action.Delete",
 		Name = "ButtonDelete",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_delete.png",
 		LayoutOrder = 7,
 	}, 
 	Fill = {
-		Text = "CommonUI.Controls.Action.Fill",
+		Text = "Studio.Common.Action.Fill",
 		Name = "ButtonFill",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_fill.png",
 		LayoutOrder = 8,
@@ -164,7 +164,7 @@ end
 function MakeOperationButtonsFrame()
 	local frame = MakeButtonGridInFrameWithTitle(kRegionOperationButtonConfigs, 
 		"OperationFrame", 
-		i18n.TranslateId('CommonUI.Controls.Action.Edit'))
+		i18n.TranslateId('Studio.Common.Action.Edit'))
 	return frame
 end
 
@@ -178,7 +178,7 @@ local function MakeButtonsFrame()
 	frame.BackgroundTransparency = 1
 
 	local okButtonObj = CustomTextButton.new("OkButton", 
-		i18n.TranslateId('CommonUI.Controls.Action.OK'))
+		i18n.TranslateId('Studio.Common.Action.OK'))
 	okButtonObj:getButton().Parent = frame
 	okButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	okButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,

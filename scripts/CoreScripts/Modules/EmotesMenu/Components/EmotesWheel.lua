@@ -12,8 +12,11 @@ local EmotesMenu = Components.Parent
 
 local Actions = EmotesMenu.Actions
 local Thunks = EmotesMenu.Thunks
+local Utility = EmotesMenu.Utility
 
 local Constants = require(EmotesMenu.Constants)
+
+local GetSegmentFromPosition = require(Utility.GetSegmentFromPosition)
 
 local EmotesButtons = require(Components.EmotesButtons)
 local SlotNumbers = require(Components.SlotNumbers)
@@ -26,32 +29,18 @@ local PlayEmote = require(Thunks.PlayEmote)
 local EmotesWheel = Roact.PureComponent:extend("EmotesWheel")
 
 function EmotesWheel:bindActions()
+    if self.actionsBound then
+        return
+    end
+
     local function selectEmote(actionName, inputState, inputObj)
-        local inputVector = Vector2.new(inputObj.Position.x, inputObj.Position.y)
+        local inputVector = Vector2.new(inputObj.Position.X, inputObj.Position.Y)
 
         if inputVector.Magnitude < Constants.ThumbstickThreshold then
             return
         end
 
-        local angle =  math.deg(math.atan2(inputVector.X, inputVector.Y))
-        if angle < 0 then
-            angle = angle + 360
-        end
-
-        local segmentAngle = 360/Constants.EmotesPerPage
-        angle = angle + segmentAngle/2
-        angle = math.fmod(angle, 360)
-
-        local segmentIndex = math.ceil(angle / segmentAngle)
-        local segmentOffset = Constants.SegmentsStartRotation + 90
-
-        segmentIndex = segmentIndex + segmentOffset/segmentAngle
-        if segmentIndex > Constants.EmotesPerPage then
-            segmentIndex = segmentIndex - Constants.EmotesPerPage
-        elseif segmentIndex < 1 then
-            segmentIndex = segmentIndex + Constants.EmotesPerPage
-        end
-
+        local segmentIndex = GetSegmentFromPosition(inputVector)
         if segmentIndex == self.props.emotesWheel.focusedSegmentIndex then
             return
         end
@@ -63,8 +52,8 @@ function EmotesWheel:bindActions()
         end
     end
 
-    ContextActionService:BindAction(Constants.EmoteSelectionAction, selectEmote, --[[createTouchButton = ]] false,
-                                    Constants.SelectionThumbstick)
+    ContextActionService:BindActionAtPriority(Constants.EmoteSelectionAction, selectEmote,
+        --[[createTouchButton = ]] false, Constants.HighPriorityActions, Constants.SelectionThumbstick)
 
 
     local function playSelected(actionName, inputState, inputObj)
@@ -78,8 +67,8 @@ function EmotesWheel:bindActions()
         end
     end
 
-    ContextActionService:BindAction(Constants.PlaySelectedAction, playSelected, --[[createTouchButton = ]] false,
-                                    Constants.PlayEmoteButton)
+    ContextActionService:BindActionAtPriority(Constants.PlaySelectedAction, playSelected,
+        --[[createTouchButton = ]] false, Constants.HighPriorityActions, Constants.PlayEmoteButton)
 
 
     local function closeMenu(actionName, inputState, inputObj)
@@ -88,15 +77,37 @@ function EmotesWheel:bindActions()
         end
     end
 
-    ContextActionService:BindAction(Constants.CloseMenuAction, closeMenu, --[[createTouchButton = ]] false,
-                                    Constants.EmoteMenuCloseKey, Constants.EmoteMenuCloseButton,
-                                    Constants.EmoteMenuCloseButtonSecondary)
+    local closeButtons = {
+        Constants.EmoteMenuCloseKey,
+        Constants.EmoteMenuCloseButton,
+        Constants.EmoteMenuCloseButtonSecondary
+    }
+
+    ContextActionService:BindActionAtPriority(Constants.CloseMenuAction, closeMenu, --[[createTouchButton = ]] false,
+        Constants.HighPriorityActions, unpack(closeButtons))
+
+
+    local function closeMenuNoSink(actionName, inputState, inputObj)
+        closeMenu(actionName, inputState, inputObj)
+
+        return Enum.ContextActionResult.Pass
+    end
+
+    ContextActionService:BindActionAtPriority(Constants.LeaveMenuDontSinkInputAction, closeMenuNoSink,
+        --[[createTouchButton = ]] false, Constants.HighPriorityActions, unpack(Constants.LeaveMenuNoSinkInputs))
+
+    self.actionsBound = true
 end
 
 function EmotesWheel:unbindActions()
-    ContextActionService:UnbindAction(Constants.CloseMenuAction)
-    ContextActionService:UnbindAction(Constants.EmoteSelectionAction)
-    ContextActionService:UnbindAction(Constants.PlaySelectedAction)
+    if self.actionsBound then
+        ContextActionService:UnbindAction(Constants.CloseMenuAction)
+        ContextActionService:UnbindAction(Constants.EmoteSelectionAction)
+        ContextActionService:UnbindAction(Constants.PlaySelectedAction)
+        ContextActionService:UnbindAction(Constants.LeaveMenuDontSinkInputAction)
+
+        self.actionsBound = false
+    end
 end
 
 function EmotesWheel:addCursorOverride()
@@ -167,10 +178,22 @@ function EmotesWheel:render()
         BackgroundTransparency = 1,
         Visible = self.props.displayOptions.menuVisible,
     }, {
-        Background = Roact.createElement(WheelBackground),
+        Back = Roact.createElement("Frame", {
+            Size = UDim2.new(1, 0, 1, 0),
+            BackgroundTransparency = 1,
+            ZIndex = 1,
+        }, {
+            Background = Roact.createElement(WheelBackground),
+        }),
 
-        EmotesButtons = Roact.createElement(EmotesButtons),
-        SlotNumbers = Roact.createElement(SlotNumbers),
+        Front = Roact.createElement("Frame", {
+            Size = UDim2.new(1, 0, 1, 0),
+            BackgroundTransparency = 1,
+            ZIndex = 2,
+        }, {
+            EmotesButtons = Roact.createElement(EmotesButtons),
+            SlotNumbers = Roact.createElement(SlotNumbers),
+        }),
     })
 end
 

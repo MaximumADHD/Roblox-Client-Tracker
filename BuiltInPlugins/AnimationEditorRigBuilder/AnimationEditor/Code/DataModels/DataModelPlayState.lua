@@ -244,6 +244,9 @@ function PlayState:setTime(time)
 		-- stopping the time being set to the absolute end of the animation clip, as setting to the length will show the first frame for a 
 		-- looping animation, and it will cause the animation to get set to not playing for a none looped animation
 		time = math.clamp(time, 0, self.Paths.DataModelClip:getLength()-0.001)
+		if FastFlags:isFixInterpolationSettingOn() and not self.Paths.DataModelPreferences:getValue(self.Paths.DataModelPreferences.Type.Interpolation) then
+			time = self.Paths.DataModelClip:getClosestPreviousTime(time)
+		end
 		self.CurrentAnimTrack.TimePosition = time
 		self.Animator:StepAnimations(0)
 	end	

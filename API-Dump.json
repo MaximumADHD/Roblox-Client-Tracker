@@ -18577,6 +18577,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetEmotesMenuOpen",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetErrorCode",
                     "Parameters": [
                     ],
@@ -18811,6 +18822,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetEmotesMenuOpen",
+                    "Parameters": [
+                        {
+                            "Name": "isOpen",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetGlobalGuiInset",
                     "Parameters": [
                         {
@@ -18991,6 +19020,20 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "EmotesMenuOpenChanged",
+                    "Parameters": [
+                        {
+                            "Name": "isOpen",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -30222,186 +30265,6 @@
         {
             "Members": [
                 {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "CollisionFidelity",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "CollisionFidelity"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "MeshID",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable",
-                        "Deprecated"
-                    ],
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "MeshId",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "NotAccessibleSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "TextureID",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
-                    }
-                }
-            ],
-            "MemoryCategory": "PhysicsParts",
-            "Name": "MeshPart",
-            "Superclass": "BasePart"
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "CollisionFidelity",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "CollisionFidelity"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "RenderFidelity",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "PluginSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "RenderFidelity"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "TriangleCount",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "UsePartColor",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "PartOperation",
-            "Superclass": "BasePart"
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "NegateOperation",
-            "Superclass": "PartOperation"
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "UnionOperation",
-            "Superclass": "PartOperation"
-        },
-        {
-            "Members": [
-                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "IsSmooth",
@@ -31242,6 +31105,192 @@
             "Tags": [
                 "NotCreatable"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "CollisionFidelity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "CollisionFidelity"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TriangleMeshPart",
+            "Superclass": "BasePart",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MeshID",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable",
+                        "Deprecated"
+                    ],
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MeshId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "NotAccessibleSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "RenderFidelity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RenderFidelity"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TextureID",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                }
+            ],
+            "MemoryCategory": "PhysicsParts",
+            "Name": "MeshPart",
+            "Superclass": "TriangleMeshPart"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "RenderFidelity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RenderFidelity"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TriangleCount",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "UsePartColor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PartOperation",
+            "Superclass": "TriangleMeshPart"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "NegateOperation",
+            "Superclass": "PartOperation"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UnionOperation",
+            "Superclass": "PartOperation"
         },
         {
             "Members": [
@@ -44559,7 +44608,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsAvatarType",
+                    "Name": "GameSettingsAvatar",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -44580,7 +44629,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsR15CollisionType",
+                    "Name": "GameSettingsR15Collision",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -44601,7 +44650,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsScaleBodyType",
+                    "Name": "GameSettingsScaleRangeBodyType",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -44622,7 +44671,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsScaleHead",
+                    "Name": "GameSettingsScaleRangeHead",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -44643,7 +44692,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsScaleHeight",
+                    "Name": "GameSettingsScaleRangeHeight",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -44664,7 +44713,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsScaleProportion",
+                    "Name": "GameSettingsScaleRangeProportion",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -44685,7 +44734,7 @@
                 {
                     "Category": "Character",
                     "MemberType": "Property",
-                    "Name": "GameSettingsScaleWidth",
+                    "Name": "GameSettingsScaleRangeWidth",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -45800,6 +45849,23 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "General",
+                    "MemberType": "Property",
+                    "Name": "Language",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "LanguagePreference"
                     }
                 },
                 {
@@ -57945,6 +58011,23 @@
                 }
             ],
             "Name": "Language"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "SystemDefault",
+                    "Value": 0
+                },
+                {
+                    "Name": "English",
+                    "Value": 1
+                },
+                {
+                    "Name": "SimplifiedChinese",
+                    "Value": 2
+                }
+            ],
+            "Name": "LanguagePreference"
         },
         {
             "Items": [
