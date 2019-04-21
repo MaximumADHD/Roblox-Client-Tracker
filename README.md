@@ -37,6 +37,9 @@ This is a sorted list of fast variables, which are used by Roblox to toggle chan
 ## Legacy-API-Dump.txt
 This is the legacy version of Roblox's API Dump. It is a feature bundled with their game client that exports a readable version of Roblox's usable Lua API. The file is extracted using `RobloxPlayerBeta.exe --API Legacy-API-Dump.txt`
 
+## RobloxShaderData.csv
+This CSV maps all of Roblox's known shaders, and which graphics APIs use them. Each mapped shader has a mapped name and shader-type.
+
 ## rbxManifest.txt
 A file that describes (almost) every file that is expected to be extracted from the zip files specified in rbxPkgManifest.txt
 Every two lines of this file corresponds to a local file path, and the MD5 signature expected of the file extracted to that path.
