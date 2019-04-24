@@ -426,6 +426,9 @@ local function onMouseEndRotate(self)
 	if nil ~= self.MouseUpEventConnect then
 		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
 			self.Paths.DataModelIKManipulator:endIKManipulation()
+		elseif FastFlags:isHipHeightPopFixOn() and self.Paths.DataModelSession:isCurrentlySelectedDataItem(self.Paths.DataModelRig:getHipPartFromHumanoid()) then
+			local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(self.Paths.DataModelRig:getHipPartFromHumanoid().Item, true, true)
+			kfd.CFrame = self:scaleCFrameToHipHeight(kfd.CFrame, self.Paths.DataModelRig:getHipPartFromHumanoid().OriginC1, true)
 		end
 
 		if FastFlags:isOptimizationsEnabledOn() or self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then
@@ -461,6 +464,11 @@ local function onMouseBeginRotate(self, item)
 		self.Paths.DataModelIKManipulator:configureIkChain(part)
 	end
 
+	local isNewPose = nil
+	if FastFlags:isHipHeightPopFixOn() then
+		isNewPose = self.Paths.DataModelKeyframes:getPose(item.Item, self.Paths.DataModelSession:getScrubberTime()) == nil
+	end
+
 	local kfd = nil
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
@@ -472,6 +480,9 @@ local function onMouseBeginRotate(self, item)
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
 		self.StartTransformCF[part] = kfd.CFrame
+		if FastFlags:isHipHeightPopFixOn() and item == self.Paths.DataModelRig:getHipPartFromHumanoid() and not isNewPose then
+			self.StartTransformCF[part] = self:scaleCFrameToHipHeight(self.StartTransformCF[part], item.OriginC1)
+		end
 	end
 
 	self.PartCFrameAtTransformStart[part] = part.CFrame
@@ -571,6 +582,11 @@ local function onMouseBeginDrag(self, item)
 		self.Paths.DataModelIKManipulator:configureIkChain(part)
 	end
 
+	local isNewPose = nil
+	if FastFlags:isHipHeightPopFixOn() then
+		isNewPose = self.Paths.DataModelKeyframes:getPose(item.Item, self.Paths.DataModelSession:getScrubberTime()) == nil
+	end
+
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive  or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(part, false)
 	end
@@ -581,6 +597,9 @@ local function onMouseBeginDrag(self, item)
 	if not FastFlags:isIKModeFlagOn() or not self.Paths.DataModelIKManipulator.IsIKModeActive or (FastFlags:isEnableRigSwitchingOn() and not self.Paths.UtilityScriptHumanIK:isR15BodyPart(part)) then
 		self.Paths.DataModelSession:addPoseToSelectedKeyframes(kfd.Time, kfd:getDataItem(), false)
 		self.StartTransformCF[part] = kfd.CFrame
+		if FastFlags:isHipHeightPopFixOn() and item == self.Paths.DataModelRig:getHipPartFromHumanoid() and not isNewPose then
+			self.StartTransformCF[part] = self:scaleCFrameToHipHeight(self.StartTransformCF[part], item.OriginC1)
+		end
 	end
 
 	self.PartCFrameAtTransformStart[part] = part.CFrame
@@ -649,9 +668,21 @@ local function onMouseDragAll(self, face, dist)
 	end
 end
 
+function PartManipulator:scaleCFrameToHipHeight(cframe, originC1, invert)
+	local transformedCFrame = originC1:inverse() * cframe:inverse() * originC1
+	local position = transformedCFrame.p
+	local scale = self.Paths.DataModelRig:getHipHeightScale()
+	local scaleVector = Vector3.new(scale, scale, scale)
+	local scaled = invert and (position / scaleVector) or (position * scaleVector)
+	return originC1 * CFrame.new(scaled.X, scaled.Y, scaled.Z, select(4, transformedCFrame:GetComponents())):inverse() * originC1:inverse()
+end
+
 local function onMouseEndDrag(self)
 	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
 		self.Paths.DataModelIKManipulator:endIKManipulation()
+	elseif FastFlags:isHipHeightPopFixOn() and self.Paths.DataModelSession:isCurrentlySelectedDataItem(self.Paths.DataModelRig:getHipPartFromHumanoid()) then
+		local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(self.Paths.DataModelRig:getHipPartFromHumanoid().Item, true, true)
+		kfd.CFrame = self:scaleCFrameToHipHeight(kfd.CFrame, self.Paths.DataModelRig:getHipPartFromHumanoid().OriginC1, true)
 	end
 
 	if FastFlags:isOptimizationsEnabledOn() or self.Paths.HelperFunctionsTable:containsMultipleKeys(self.Paths.DataModelSession:getSelectedDataItems()) then

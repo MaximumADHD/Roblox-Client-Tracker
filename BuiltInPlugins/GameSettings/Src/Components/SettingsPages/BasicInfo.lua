@@ -35,6 +35,8 @@ local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsE
 local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
+local FFlagGameSettingsDispatchShutdownWarning = settings():getFFlag("GameSettingsDispatchShutdownWarning")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -55,11 +57,22 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local showDialog = require(Plugin.Src.Consumers.showDialog)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local TitledFrame = require(Plugin.Src.Components.TitledFrame)
+local TitledFrame 
+if FFlagGameSettingsUseUILibrary then
+	TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+else
+	TitledFrame = require(Plugin.Src.Components.TitledFrame)
+end
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
-local RoundTextBox = require(Plugin.Src.Components.RoundTextBox)
+local RoundTextBox
+if FFlagGameSettingsUseUILibrary then
+	RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
+else
+	RoundTextBox = require(Plugin.Src.Components.RoundTextBox)
+end
 local Dropdown = require(Plugin.Src.Components.Dropdown)
 local Separator = require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
@@ -110,6 +123,10 @@ local function loadValuesToProps(getValue, state)
 	if FFlagGameSettingsImageUploadingEnabled then
 		loadedProps.ThumbnailsError = errors.thumbnails
 		loadedProps.GameIconError = errors.gameIcon
+	end
+
+	if FFlagGameSettingsDispatchShutdownWarning then
+		loadedProps.IsCurrentlyActive =  state.Settings.Current.isActive
 	end
 
 	return loadedProps
@@ -214,12 +231,14 @@ local function displayContents(page, localized)
 			Title = localized.Title.Name,
 			MaxHeight = 60,
 			LayoutOrder = 1,
+			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = props.Name ~= nil,
 				ErrorMessage = localized.Errors[nameErrors[props.NameError]],
 				MaxLength = MAX_NAME_LENGTH,
 				Text = props.Name or "",
+				TextSize = Constants.TEXT_SIZE,
 
 				SetText = props.NameChanged,
 			}),
@@ -229,6 +248,7 @@ local function displayContents(page, localized)
 			Title = localized.Title.Description,
 			MaxHeight = 150,
 			LayoutOrder = 2,
+			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Height = 130,
@@ -238,6 +258,7 @@ local function displayContents(page, localized)
 				ErrorMessage = localized.Errors[descriptionErrors[props.DescriptionError]],
 				MaxLength = MAX_DESCRIPTION_LENGTH,
 				Text = props.Description or "",
+				TextSize = Constants.TEXT_SIZE,
 
 				SetText = props.DescriptionChanged,
 
@@ -278,7 +299,13 @@ local function displayContents(page, localized)
 					props.IsActiveChanged({Id = true})
 				else
 					props.IsFriendsOnlyChanged(false)
-					local willShutdown = props.IsActive and not button.Id
+					local willShutdown = (function()
+						if FFlagGameSettingsDispatchShutdownWarning then
+							return props.IsCurrentlyActive and not button.Id
+						else
+							return props.IsActive and not button.Id
+						end
+					end)()
 					props.IsActiveChanged(button, willShutdown)
 				end
 			end,
@@ -351,6 +378,7 @@ local function displayContents(page, localized)
 			Title = localized.Title.Genre,
 			MaxHeight = 38,
 			LayoutOrder = 10,
+			TextSize = Constants.TEXT_SIZE,
 		}, {
 			Selector = Roact.createElement(Dropdown, {
 				Entries = localized.Genres,

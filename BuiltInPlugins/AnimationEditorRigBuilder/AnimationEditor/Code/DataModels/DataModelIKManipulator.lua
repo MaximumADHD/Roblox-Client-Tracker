@@ -206,6 +206,9 @@ function IKManipulator:endIKManipulation()
 				local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(dataItem.Item, false, false)
 				kfd.CFrame = dataItem.Motor6D.C1 * dataItem.OriginC1:inverse()
 				self:removeIKPart(dataItem)
+				if FastFlags:isHipHeightPopFixOn() and self.Paths.DataModelRig:isLowerTorso(dataItem) then
+					kfd.CFrame = self.Paths.DataModelPartManipulator:scaleCFrameToHipHeight(kfd.CFrame, dataItem.OriginC1, true)
+				end
 			end
 		end
 	end

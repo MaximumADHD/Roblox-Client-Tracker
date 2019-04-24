@@ -11,6 +11,7 @@ local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGam
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -130,30 +131,52 @@ local function showDialog(type, props)
 			})
 			dialog.Enabled = true
 			dialog.Title = props.Title
-			local dialogContents = Roact.createElement(ThemeProvider, {
-				theme = Theme.new(),
-			}, {
-				Roact.createElement(MouseProvider, {
-					mouse = plugin:GetMouse()
+			local dialogContents
+			if FFlagGameSettingsUseUILibrary then
+				dialogContents = Roact.createElement(ExternalServicesWrapper, {
+					theme = Theme.new(),
+					mouse = plugin:GetMouse(),
+					localization = localization,
 				}, {
-					Roact.createElement(LocalizationProvider, {
-						localization = localization
-					}, {
-						Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
-							OnResult = function(result)
-								Roact.unmount(dialogHandle)
-								dialog:Destroy()
-								setMainWidgetInteractable(true)
-								if result then
-									resolve()
-								else
-									reject()
-								end
+					Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
+						OnResult = function(result)
+							Roact.unmount(dialogHandle)
+							dialog:Destroy()
+							setMainWidgetInteractable(true)
+							if result then
+								resolve()
+							else
+								reject()
 							end
-						})),
+						end
+					})),
+				})
+			else
+				dialogContents = Roact.createElement(ThemeProvider, {
+					theme = Theme.new(),
+				}, {
+					Roact.createElement(MouseProvider, {
+						mouse = plugin:GetMouse()
+					}, {
+						Roact.createElement(LocalizationProvider, {
+							localization = localization
+						}, {
+							Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
+								OnResult = function(result)
+									Roact.unmount(dialogHandle)
+									dialog:Destroy()
+									setMainWidgetInteractable(true)
+									if result then
+										resolve()
+									else
+										reject()
+									end
+								end
+							})),
+						}),
 					}),
-				}),
-			})
+				})
+			end
 			dialog:GetPropertyChangedSignal("Enabled"):connect(function()
 				Roact.unmount(dialogHandle)
 				dialog:Destroy()

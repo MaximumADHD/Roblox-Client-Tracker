@@ -16,7 +16,7 @@ local BAD_REQUEST = 400
 local CODE_INVALID_GAME_ID = 14
 local CODE_PERMISSIONS = 28
 
-local TranslationRolesApi = settings():GetFFlag("TranslationRolesApi")
+local TranslationRolesApi2 = settings():GetFFlag("TranslationRolesApi2")
 
 local LocalizationTableUploadRowMax =
 	tonumber(settings():GetFVariable("LocalizationTableUploadRowMax")) or 50
@@ -64,7 +64,7 @@ end
 	Appeals to the internet using placeId as an asset-id to determine if the user
 	has permission to edit the current place.
 
-	Clean up along with TranslationRolesApi
+	Clean up along with TranslationRolesApi2
 ]]
 local function UserCanManagePlace(userId, placeId)
 	return Promise.new(function(resolve, reject)
@@ -137,7 +137,7 @@ local function GetOrCreateGameTable(gameId)
 			spawn(function()
 				if success then
 					if response.StatusCode >= BAD_REQUEST then
-						if TranslationRolesApi then
+						if TranslationRolesApi2 then
 							local decodedResponseBody = decodeJSON(response.Body)
 							if decodedResponseBody ~= nil
 								and decodedResponseBody.errors ~= nil
@@ -209,7 +209,7 @@ end
 			this is mostly so that the receiving UI can decide whether to turn on the
 			checkbox.
 
-	Clean up along with TranslationRolesApi
+	Clean up along with TranslationRolesApi2
 ]]
 local function UpdateGameTableInfo()
 	return Promise.new(function(resolve, reject)
@@ -366,43 +366,49 @@ end
 	error or successfully determined no permission.
 ]]
 local function GetTranslationRolesPermission(gameId)
-	return Promise.new(function(resolve, reject)
-		local Url = TranslationRolesUrl
-			.."v1/game-localization-roles/games/"
-			..urlEncode(gameId)
-			.."/current-user/roles"
+	-- Opening a placefile from disk gives you gameId=0, we should not ask the server
+	-- in that case whether we have permission to edit, but otherwise, we have to.
+	-- Also the server automatically rejects negative numbers, so let's leave the server
+	-- alone if the developer types game:SetUniverseId(-1)
+	if gameId <= 0 then
+		return Promise.reject("GameId non-positive")
+	else
+		return Promise.new(function(resolve, reject)
+			local Url = TranslationRolesUrl
+				.."v1/game-localization-roles/games/"
+				..urlEncode(gameId)
+				.."/current-user/roles"
 
-		HttpService:RequestInternal({
-			Url = Url,
-			Method = "GET",
-			CachePolicy = Enum.HttpCachePolicy.None,
-			RequestType = Enum.HttpRequestType.Localization,
-		}):Start(function(success, response)
-			spawn(function()
-				if success then
-					if response.StatusCode >= BAD_REQUEST then
-						warn(string.format("Permissions request for cloud table failed with status code: %s",
-							tostring(response.StatusCode)))
-						reject("Permissions request for cloud table failed")
-						return
-					end
+			HttpService:RequestInternal({
+				Url = Url,
+				Method = "GET",
+				CachePolicy = Enum.HttpCachePolicy.None,
+				RequestType = Enum.HttpRequestType.Localization,
+			}):Start(function(success, response)
+				spawn(function()
+					if success then
+						if response.StatusCode >= BAD_REQUEST then
+							reject("Permissions request for cloud table failed")
+							return
+						end
 
-					local decodedResponseBody = decodeJSON(response.Body)
+						local decodedResponseBody = decodeJSON(response.Body)
 
-					if decodedResponseBody and
-						decodedResponseBody.data and
-						rolesGivePermission(decodedResponseBody.data)
-					then
-						resolve()
+						if decodedResponseBody and
+							decodedResponseBody.data and
+							rolesGivePermission(decodedResponseBody.data)
+						then
+							resolve()
+						else
+							reject("Current user does not have permission to edit cloud table")
+						end
 					else
-						reject("Current user does not have permission to edit cloud table")
+						reject("Permissions request for cloud table failed")
 					end
-				else
-					reject("Permissions request for cloud table failed")
-				end
+				end)
 			end)
 		end)
-	end)
+	end
 end
 
 --[[

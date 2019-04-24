@@ -43,6 +43,7 @@ return function(style, overrides)
 	local roundFrame = {
 		backgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
 		borderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
+		slice = Rect.new(3, 3, 13, 13),
 	}
 
 	local dropShadow = {
@@ -115,6 +116,27 @@ return function(style, overrides)
 		},
 	}
 
+	local titledFrame = {
+		font = style.font,
+		text = style.subTextColor,
+	}
+
+	local textBox = {
+		font = style.font,
+		background = style.backgroundColor,
+		disabled = style.disabledColor,
+		borderDefault = style.borderColor,
+		borderHover = style.hoverColor,
+		tooltip = style.dimmerTextColor,
+		text = style.textColor,
+		error = style.errorColor,
+	}
+
+	local textButton = {
+		font = style.font,
+	}
+
+
 	return replaceDefaults({
 		 checkBox = checkBox,
 		 roundFrame = roundFrame,
@@ -126,5 +148,8 @@ return function(style, overrides)
 		 scrollingFrame = scrollingFrame,
 		 dropdownMenu = dropdownMenu,
 		 styledDropdown = styledDropdown,
+		 titledFrame = titledFrame,
+		 textBox = textBox,
+		 textButton = textButton,
 	}, overrides)
 end

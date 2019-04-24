@@ -2029,7 +2029,7 @@ setVisible = function(state)
       end
     end
     --We need to OverrideMouseIcon and rebind core action even if the ScrollList is empty
-    if isUsingGamepad then
+    if isUsingGamepad and (not FFlagForceMouseInputWhenPromptPopUp2 or isTenFootInterface) then
       UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
       ContextActionService:UnbindCoreAction("CloseList")
       ContextActionService:UnbindCoreAction("StopAction")

@@ -55,13 +55,13 @@ function AudioPreviewButton:render()
 
 		local currentSoundId = props.currentSoundId
 		local isPlaying = props.isPlaying
-		local isDarkerTheme = theme.isDarkerTheme
+
 		local showPauseIcon = (currentSoundId == assetId) and isPlaying
 		local isHovered = state.isHovered
-		local imagePauseAudio = isDarkerTheme and Images.LIGHT_PAUSE_AUDIO or Images.PAUSE_AUDIO
-		local imagePauseAudioHovered = isDarkerTheme and Images.LIGHT_PAUSE_AUDIO_HOVERED or Images.PAUSE_AUDIO_HOVERED
-		local imagePlayAudio = isDarkerTheme and Images.LIGHT_PLAY_AUDIO or Images.PLAY_AUDIO
-		local imagePlayAudioHovered = isDarkerTheme and Images.LIGHT_PLAY_AUDIO_HOVERED or Images.PLAY_AUDIO_HOVERED
+		local imagePauseAudio = Images.PAUSE_AUDIO
+		local imagePauseAudioHovered = Images.PAUSE_AUDIO_HOVERED
+		local imagePlayAudio = Images.PLAY_AUDIO
+		local imagePlayAudioHovered = Images.PLAY_AUDIO_HOVERED
 
 		local image = showPauseIcon and (isHovered and imagePauseAudioHovered or imagePauseAudio)
 			or (isHovered and imagePlayAudioHovered or imagePlayAudio)

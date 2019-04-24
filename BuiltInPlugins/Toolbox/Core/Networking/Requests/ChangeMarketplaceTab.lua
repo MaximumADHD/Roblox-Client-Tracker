@@ -5,9 +5,11 @@ local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
 local SetCategories = require(Plugin.Core.Actions.SetCategories)
 local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetManageableGroupsRequest)
 
+local FFlagEnableMarketplaceChangeTabsAnalytics = settings():GetFFlag("EnableMarketplaceChangeTabsAnalytics")
+
 local Category = require(Plugin.Core.Types.Category)
 
-return function(networkInterface, tabName, settings)
+return function(networkInterface, tabName, newCategories,  settings)
 	return function(store)
 		if store:getState().assets.isLoading then
 			return
@@ -17,7 +19,11 @@ return function(networkInterface, tabName, settings)
 			creator = Cryo.None,
 		}, settings))
 
-		store:dispatch(SetCategories(tabName, Category.TABS[tabName]))
+		if FFlagEnableMarketplaceChangeTabsAnalytics then
+			store:dispatch(SetCategories(tabName, newCategories))
+		else
+			store:dispatch(SetCategories(tabName, Category.TABS[tabName]))
+		end
 
 		if tabName == Category.INVENTORY_KEY then
 			store:dispatch(GetManageableGroupsRequest(networkInterface))

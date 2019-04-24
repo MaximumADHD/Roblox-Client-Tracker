@@ -27,10 +27,6 @@ Images.PLAY_AUDIO = "rbxasset://textures/StudioToolbox/AudioPreview/play.png"
 Images.PLAY_AUDIO_HOVERED = "rbxasset://textures/StudioToolbox/AudioPreview/play_hover.png"
 Images.PAUSE_AUDIO = "rbxasset://textures/StudioToolbox/AudioPreview/pause.png"
 Images.PAUSE_AUDIO_HOVERED = "rbxasset://textures/StudioToolbox/AudioPreview/pause_hover.png"
-Images.LIGHT_PLAY_AUDIO = "rbxasset://textures/StudioToolbox/AudioPreview/light_play.png"
-Images.LIGHT_PLAY_AUDIO_HOVERED = "rbxasset://textures/StudioToolbox/AudioPreview/light_play_hover.png"
-Images.LIGHT_PAUSE_AUDIO = "rbxasset://textures/StudioToolbox/AudioPreview/light_pause.png"
-Images.LIGHT_PAUSE_AUDIO_HOVERED = "rbxasset://textures/StudioToolbox/AudioPreview/light_pause_hover.png"
 
 Images.DROP_SHADOW_IMAGE = "rbxasset://textures/StudioUIEditor/resizeHandleDropShadow.png"
 

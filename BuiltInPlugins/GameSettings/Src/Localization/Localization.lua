@@ -219,7 +219,7 @@ function Localization:recalculateContent()
 			Prompt = self:getText("Studio.GameSettings.General.PrivateDialogPrompt"),
 			Body = self:getText("Studio.GameSettings.General.PrivateDialogBody"),
 			Buttons = {
-				self:getText("Studio.GameSettings.General.ButtonDiscard"),
+				self:getText("Studio.GameSettings.General.ButtonCancel"),
 				self:getText("Studio.GameSettings.General.ButtonSave"),
 			},
 		},

@@ -13,6 +13,8 @@ local FULL_SCREEN_WIDTH = 375
 local INNER_Y_OFFSET = 8
 local INNER_X_OFFSET = 15
 
+local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
+
 local FullScreenDropDownButton = Roact.Component:extend("FullScreenDropDownButton")
 
 function FullScreenDropDownButton:init()
@@ -116,7 +118,11 @@ function FullScreenDropDownButton:render()
 		selectionView = isSelecting and Roact.createElement(Roact.Portal, {
 			target = CoreGui,
 		}, {
-			TempScreen = Roact.createElement("ScreenGui", {}, {
+			TempScreen = Roact.createElement("ScreenGui", {
+				OnTopOfCoreBlur = FFlagRespectDisplayOrderForOnTopOfCoreBlur and true or nil,
+				-- 20 so that it will render on top of the main window, which is set to 10.
+				DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 20 or nil,
+			}, {
 				GreyOutFrame = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = Constants.Color.Black,

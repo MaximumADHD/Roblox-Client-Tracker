@@ -136,4 +136,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(AssetCreatorName)
+return RoactRodux.connect(nil, mapDispatchToProps)(AssetCreatorName)

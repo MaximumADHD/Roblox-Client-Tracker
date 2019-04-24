@@ -117,4 +117,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(MainViewHeader)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MainViewHeader)

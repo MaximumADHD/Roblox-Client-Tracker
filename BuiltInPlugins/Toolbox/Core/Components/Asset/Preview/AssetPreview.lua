@@ -439,4 +439,4 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(AssetPreview)
+return RoactRodux.connect(mapStateToProps, nil)(AssetPreview)

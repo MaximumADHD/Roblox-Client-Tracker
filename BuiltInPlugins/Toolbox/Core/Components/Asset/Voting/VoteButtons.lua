@@ -114,4 +114,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(VoteButtons)
+return RoactRodux.connect(nil, mapDispatchToProps)(VoteButtons)

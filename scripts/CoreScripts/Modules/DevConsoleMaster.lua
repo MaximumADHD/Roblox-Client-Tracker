@@ -43,6 +43,7 @@ local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
 
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -200,8 +201,9 @@ function DevConsoleMaster:SetupDevConsole()
 			isDeveloperView = developerConsoleView,
 		}, {
 			App = Roact.createElement("ScreenGui", {
-				OnTopOfCoreBlur = true
-				}, {
+				OnTopOfCoreBlur = true,
+				DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 10 or nil,
+			}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
 					isdeveloperView = developerConsoleView,

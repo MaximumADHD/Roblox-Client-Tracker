@@ -16418,6 +16418,78 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "CurrentDistance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DistanceLowerLimit",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DistanceStep",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DistanceUpperLimit",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "ExtentsOffset",
                     "Security": {
                         "Read": "None",
@@ -21063,6 +21135,27 @@
                     ]
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "ApplyDescriptionClientServer",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
                     "MemberType": "Event",
                     "Name": "AnimationPlayed",
                     "Parameters": [
@@ -24447,6 +24540,24 @@
                         "Name": "Instance"
                     },
                     "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetRobloxLocaleId",
+                    "Parameters": [
+                        {
+                            "Name": "locale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -39968,6 +40079,17 @@
                         "Category": "Primitive",
                         "Name": "string"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RenderdocTriggerCapture",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -41882,6 +42004,27 @@
                         "Name": "void"
                     },
                     "Security": "LocalUserSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetObjectsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -46804,6 +46947,20 @@
                         "Yields",
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnSaveToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "instances",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",

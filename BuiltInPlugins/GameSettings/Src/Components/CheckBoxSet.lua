@@ -10,6 +10,7 @@
 ]]
 
 local FFlagGameSettingsUseUILibraryCheckBox = settings():GetFFlag("GameSettingsUseUILibraryCheckBox")
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -23,7 +24,12 @@ else
 	CheckBox = require(Plugin.Src.Components.CheckBox)
 end
 
-local TitledFrame = require(Plugin.Src.Components.TitledFrame)
+local TitledFrame 
+if FFlagGameSettingsUseUILibrary then
+	TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+else
+	TitledFrame = require(Plugin.Src.Components.TitledFrame)
+end
 
 local function CheckBoxSet(props)
 	return withTheme(function(theme)
@@ -81,6 +87,7 @@ local function CheckBoxSet(props)
 			Title = props.Title,
 			MaxHeight = maxHeight,
 			LayoutOrder = props.LayoutOrder or 1,
+			TextSize = Constants.TEXT_SIZE,
 		}, children)
 	end)
 end

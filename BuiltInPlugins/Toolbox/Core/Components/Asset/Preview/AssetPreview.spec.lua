@@ -10,7 +10,7 @@ return function()
 
 	local function createTestAsset(container, name)
 		local testModel = Instance.new("Model")
-		local element = Roact.createElement(AssetPreview, {}, {
+		local element = Roact.createElement(AssetPreview, {
 			previewModel = testModel,
 
 			assetName = "Pine Tree",

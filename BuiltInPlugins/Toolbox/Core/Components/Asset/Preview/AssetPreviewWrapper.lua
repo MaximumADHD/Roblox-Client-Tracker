@@ -15,31 +15,29 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local RoactRodux = require(Libs.RoactRodux)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local PreviewModelGetter = require(Util.PreviewModelGetter)
 local ContextHelper = require(Util.ContextHelper)
 
 local withModal = ContextHelper.withModal
-
 local withTheme = ContextHelper.withTheme
 
 local AssetPreview = require(Plugin.Core.Components.Asset.Preview.AssetPreview)
+
+local GetPreviewInstanceRequest = require(Plugin.Core.Networking.Requests.GetPreviewInstanceRequest)
+local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local PADDING = 20
 
 function AssetPreviewWrapper:init(props)
-	local assetId = props.assetData.Asset.Id
-	local previewModel = PreviewModelGetter(assetId)
-
 	self.state = {
 		maxPreviewWidth = 0,
 		maxPreviewHeight = 0,
-		previewModel = previewModel,
-		currentPreview = previewModel,
+		currentPreview = nil,
 	}
 
 	self.ClickDetectorRef = Roact.createRef()
@@ -47,15 +45,19 @@ function AssetPreviewWrapper:init(props)
 	self.onCloseButtonClicked = function()
 		local state = self.state
 
-		state.previewModel:Destroy()
-		state.currentPreview:Destroy()
+		if state.previewModel then
+			state.previewModel:Destroy()
+		end
+		if state.currentPreview then
+			state.currentPreview:Destroy()
+		end
 
 		self:setState({
-			previewModel = nil,
 			currentPreview = nil
 		})
 
 		self.props.onClose()
+		self.props.clearPreview()
 	end
 
 	self.onDetectorABSSizeChange = function()
@@ -91,6 +93,10 @@ function AssetPreviewWrapper:init(props)
 	end
 end
 
+function AssetPreviewWrapper:didMount()
+	self.props.getPreviewInstance(self.props.assetData.Asset.Id)
+end
+
 function AssetPreviewWrapper:render()
 	return withTheme(function(theme)
 		return withModal(function(modalTarget)
@@ -102,8 +108,8 @@ function AssetPreviewWrapper:render()
 			local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
 			local maxPreviewHeight = state.maxPreviewHeight
 
-			local previewModel = state.previewModel
-			local currentPreview = state.currentPreview
+			local previewModel = props.previewModel
+			local currentPreview = props.currentPreview
 
 			local canInsertAsset = props.canInsertAsset
 
@@ -151,4 +157,29 @@ function AssetPreviewWrapper:render()
 	end)
 end
 
-return AssetPreviewWrapper
+local function mapStateToProps(state, props)
+	state = state or {}
+
+	local assets = state.assets or {}
+
+	local previewModel = assets.previewModel
+
+	return {
+		previewModel = previewModel or nil,
+		currentPreview = previewModel or nil
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		getPreviewInstance = function(assetId)
+			dispatch(GetPreviewInstanceRequest(assetId))
+		end,
+
+		clearPreview = function()
+			dispatch(ClearPreview())
+		end
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

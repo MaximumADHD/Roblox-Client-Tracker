@@ -78,7 +78,7 @@ Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video
 Studio.GameSettings.General.CancelDialogHeader,Discard Changes
 Studio.GameSettings.General.CancelDialogBody,Would you like to discard all changes?
 Studio.GameSettings.General.PrivateDialogHeader,Make Private
-Studio.GameSettings.General.PrivateDialogPrompt,Do you want to save your changes?
+Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?
 Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games.
 Studio.GameSettings.General.AvatarDialogHeader,Warning
 Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?

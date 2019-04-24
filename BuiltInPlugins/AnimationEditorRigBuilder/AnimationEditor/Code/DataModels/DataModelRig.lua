@@ -316,6 +316,45 @@ if FastFlags:isUseHipHeightInKeyframeSequencesOn() then
 			return 0
 		end
 	end
+elseif FastFlags:isHipHeightPopFixOn() then
+	function Rig:getHumanoid()
+		return self:getModel():FindFirstChildOfClass("Humanoid")
+	end
+
+	function Rig:getHipHeight(humanoid)
+		if humanoid == nil then
+			humanoid = self:getHumanoid()
+		end
+
+		if humanoid then
+			return humanoid.HipHeight
+		else
+			return 0
+		end
+	end
+
+	local function getDefaultHipHeight()
+		return FastFlags:isAdjustHumanoidRootPartToHipPositionOn() and 2.0 or 1.35
+	end
+
+	function Rig:getHipHeightScale()
+		local humanoid = self:getHumanoid()
+		if not humanoid or (humanoid and not humanoid.AutomaticScalingEnabled) then
+			return 1
+		end
+		return self:getHipHeight(humanoid) / getDefaultHipHeight()
+	end
+
+	-- we are specifically looking for a LowerTorso part connected to the HumanoidRootPart
+	function Rig:getHipPartFromHumanoid()
+		if self:getHumanoid() then
+			local humanoidRootPart = self:getDataItem("HumanoidRootPart")
+			local lowerTorso = self:getDataItem("LowerTorso")
+			if humanoidRootPart and lowerTorso and lowerTorso.Parent == humanoidRootPart then
+				return lowerTorso
+			end
+		end
+	end
 end
 
 function Rig:getPart(name)

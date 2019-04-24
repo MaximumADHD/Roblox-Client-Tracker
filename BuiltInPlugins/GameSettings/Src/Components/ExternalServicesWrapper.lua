@@ -10,6 +10,8 @@
 		localization = A Localization object to provide in the LocalizationProvider.
 ]]
 
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
@@ -33,33 +35,77 @@ local function getUILibraryTheme()
 end
 
 local function ExternalServicesWrapper(props)
-	return Roact.createElement(RoactRodux.StoreProvider, {
-		store = props.store
-	}, {
-		Roact.createElement(LocalizationProvider, {
+	if FFlagGameSettingsUseUILibrary then
+		local providers = Roact.createElement(LocalizationProvider, {
 			localization = props.localization,
 		}, {
 			Roact.createElement(ThemeProvider, {
 				theme = props.theme,
 			}, {
 				Roact.createElement(UILibraryThemeProvider, {
-					theme = getUILibraryTheme(),
+					theme = props.theme:getUILibraryTheme(),
+				},  {
+					Roact.createElement(MouseProvider, {
+						mouse = props.mouse,
+					}, props[Roact.Children]),
+				}),
+			}),
+		})
+
+		if props.impl then
+			providers = Roact.createElement(SettingsImplProvider, {
+				impl = props.impl,
+			}, {
+				providers
+			})
+		end
+
+		if props.store then
+			providers = Roact.createElement(RoactRodux.StoreProvider, {
+				store = props.store
+			}, {
+				providers
+			})
+		end
+		
+		if props.showDialog then
+			providers = Roact.createElement(DialogProvider, {
+				showDialog = props.showDialog,
+			}, {
+				providers
+			})
+		end
+
+		return providers
+	else 
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = props.store
+		}, {
+			Roact.createElement(LocalizationProvider, {
+				localization = props.localization,
+			}, {
+				Roact.createElement(ThemeProvider, {
+					theme = props.theme,
 				}, {
-					Roact.createElement(DialogProvider, {
-						showDialog = props.showDialog,
+					Roact.createElement(UILibraryThemeProvider, {
+						theme = getUILibraryTheme(),
 					}, {
-						Roact.createElement(MouseProvider, {
-							mouse = props.mouse,
+						Roact.createElement(DialogProvider, {
+							showDialog = props.showDialog,
 						}, {
-							Roact.createElement(SettingsImplProvider, {
-								impl = props.impl,
-							}, props[Roact.Children])
+							Roact.createElement(MouseProvider, {
+								mouse = props.mouse,
+							}, {
+								Roact.createElement(SettingsImplProvider, {
+									impl = props.impl,
+								}, props[Roact.Children])
+							}),
 						}),
 					}),
 				}),
 			}),
-		}),
-	})
+		})
+	end
 end
 
 return ExternalServicesWrapper

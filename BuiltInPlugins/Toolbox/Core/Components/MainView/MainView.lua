@@ -286,7 +286,7 @@ function MainView:render()
 						Size = UDim2.new(1, 0, 0, gridContainerHeight),
 
 						assetIds = assetIds,
-
+						searchTerm = searchTerm,
 						categoryIndex = categoryIndex,
 
 						ZIndex = 1,
@@ -371,4 +371,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(MainView)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MainView)

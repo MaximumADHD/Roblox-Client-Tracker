@@ -1,3 +1,7 @@
+local Plugin = script.Parent.Parent.Parent
+
+local Promise = require(Plugin.Libs.Http.Promise)
+
 local AssetType = {}
 
 AssetType.TYPES = {
@@ -6,8 +10,8 @@ AssetType.TYPES = {
 	SoundType = 3,
 	ScriptType = 4, -- Server, local, module
 	OtherType = 5,
+	LoadingType = 6,
 }
-
 
 -- For AssetPreview, we devide assets into four categories.
 -- For any parts or meshes, we will need to do a model preview.
@@ -16,7 +20,9 @@ AssetType.TYPES = {
 -- probably improve this in the future)
 -- For BaseScript, show only names while for all other type show assetName and type
 function AssetType:getAssetType(assetInstance)
-	if assetInstance:IsA("BasePart")
+	if not assetInstance then
+		return self.TYPES.LoadingType
+	elseif assetInstance:IsA("BasePart")
 		or assetInstance:IsA("Model")
 		or assetInstance:IsA("BackpackItem")
 		or assetInstance:IsA("Accoutrement") then
@@ -54,6 +60,10 @@ end
 
 function AssetType:isOtherType(currentType)
 	return currentType == self.TYPES.OtherType
+end
+
+function AssetType:isLoading(currentType)
+	return currentType == self.TYPES.LoadingType
 end
 
 return AssetType

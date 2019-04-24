@@ -12,6 +12,8 @@ Style.Defaults = {
 
 	backgroundColor = Color3.new(),
 	textColor = Color3.new(),
+	subTextColor = Color3.new(),
+	dimmerTextColor = Color3.new(),
 
 	itemColor = Color3.new(),
 	borderColor = Color3.new(),
@@ -26,8 +28,12 @@ Style.Defaults = {
 	shadowColor = Color3.new(),
 	shadowTransparency = Color3.new(),
 
-	dimmerTextColor = Color3.new(),
 	separationLineColor = Color3.new(),
+	
+	disabledColor = Color3.new(),
+	errorColor = Color3.new(),
+
+	hoverColor = Color3.new(),
 }
 
 -- A function that checks to see if there are any missing or

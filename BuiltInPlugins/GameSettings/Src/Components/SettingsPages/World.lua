@@ -28,8 +28,18 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
-local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
-local StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
+local StudioWidgetTitledFrame
+if FFlagGameSettingsUseUILibrary then
+	StudioWidgetTitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+else
+	StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
+end
+local StudioWidgetRoundTextBox
+if FFlagGameSettingsUseUILibrary then
+	StudioWidgetRoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
+else
+	StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
+end
 local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetSeparator = require(RoactStudioWidgets.Separator)
 local StudioWidgetText = require(RoactStudioWidgets.Text)
@@ -179,7 +189,7 @@ local function createPresetsWidgets(order, worldPanelProps, mouse)
 			}, {
 				Name="Action", Enabled=true, ShowPressed=true, Mouse=mouse,
 				Value={
-					ToolTip = "Real world gravity, jump higher/walk faster",
+					ToolTip = "Slightly heavier gravity, jump higher, walk faster",
 					ApplyPreset = function() applyPreset(worldPanelProps, 75, true, 31, nil, 18) end
 				}
 			}

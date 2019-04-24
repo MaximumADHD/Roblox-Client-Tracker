@@ -3,6 +3,7 @@ if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return ni
 local PageName = "Access Permissions"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagGameSettingsDispatchShutdownWarning = settings():getFFlag("GameSettingsDispatchShutdownWarning")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -26,7 +27,12 @@ local function loadValuesToProps(getValue, state)
 	local loadedProps = {
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
+		Permissions = getValue("permissions")
 	}
+
+	if FFlagGameSettingsDispatchShutdownWarning then
+		loadedProps.IsCurrentlyActive =  state.Settings.Current.isActive
+	end
 
 	return loadedProps
 end
@@ -100,7 +106,13 @@ local function displayContents(page, localized)
 					props.IsActiveChanged({Id = true})
 				else
 					props.IsFriendsOnlyChanged(false)
-					local willShutdown = props.IsActive and not button.Id
+					local willShutdown = (function()
+						if FFlagGameSettingsDispatchShutdownWarning then
+							return props.IsCurrentlyActive and not button.Id
+						else
+							return props.IsActive and not button.Id
+						end
+					end)()
 					props.IsActiveChanged(button, willShutdown)
 				end
 			end,

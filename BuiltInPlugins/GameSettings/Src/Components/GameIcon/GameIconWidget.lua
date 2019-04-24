@@ -10,13 +10,14 @@
 ]]
 
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
 local GuiService = game:GetService("GuiService")
 
 local NOTES_POSITION = UDim2.new(0, 180, 0, 0)
 local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
 
-local TUTORIAL_URL = "http://wiki.roblox.com/index.php?title=Game_Icon_Tutorial"
+local TUTORIAL_URL = "https://developer.roblox.com/articles/Game-Icons-Tips"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -25,7 +26,12 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local TitledFrame = require(Plugin.Src.Components.TitledFrame)
+local TitledFrame 
+if FFlagGameSettingsUseUILibrary then
+	TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+else
+	TitledFrame = require(Plugin.Src.Components.TitledFrame)
+end
 local BulletPoint = require(Plugin.Src.Components.BulletPoint)
 local GameIcon = require(Plugin.Src.Components.GameIcon.GameIcon)
 local NewGameIcon = require(Plugin.Src.Components.GameIcon.NewGameIcon)
@@ -73,6 +79,7 @@ function GameIconWidget:render()
 				Title = localized.Title.GameIcon,
 				MaxHeight = 150,
 				LayoutOrder = self.props.LayoutOrder or 1,
+				TextSize = Constants.TEXT_SIZE,
 			}, {
 				Icon = Roact.createElement(GameIcon, {
 					Visible = active and icon ~= "None" or preview,

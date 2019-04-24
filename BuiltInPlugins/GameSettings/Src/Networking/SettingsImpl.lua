@@ -16,6 +16,7 @@ local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSet
 local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
+local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -41,6 +42,7 @@ local Requests = {
 	Localization = require(RequestsFolder.Localization),
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
+	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil
 }
 
 local SettingsImpl = {}
@@ -104,6 +106,11 @@ function SettingsImpl:GetSettings()
 
 		if FFlagStudioLocalizationGameSettings then
 			table.insert(getRequests, Requests.Localization.Get(universeId))
+		end
+		
+		if FFlagStudioGameSettingsAccessPermissions then
+			local DEBUG_loggedInUserId = self:GetUserId() -- Used to populate with dummy data. Remove when backend returns real data
+			table.insert(getRequests, Requests.GamePermissions.Get(universeId, DEBUG_loggedInUserId))
 		end
 
 		return Promise.all(getRequests)

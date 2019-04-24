@@ -944,6 +944,10 @@ Class BillboardGui : LayerCollector
 	Property Class:Instance BillboardGui.Adornee
 	Property bool BillboardGui.AlwaysOnTop
 	Property bool BillboardGui.ClipsDescendants
+	Property float BillboardGui.CurrentDistance [readonly]
+	Property float BillboardGui.DistanceLowerLimit
+	Property float BillboardGui.DistanceStep
+	Property float BillboardGui.DistanceUpperLimit
 	Property Vector3 BillboardGui.ExtentsOffset
 	Property Vector3 BillboardGui.ExtentsOffsetWorldSpace
 	Property float BillboardGui.LightInfluence
@@ -1215,6 +1219,7 @@ Class Humanoid : Instance
 	Function Instance Humanoid:loadAnimation(Instance animation) [deprecated]
 	Function void Humanoid:takeDamage(float amount) [deprecated]
 	YieldFunction void Humanoid:ApplyDescription(Instance humanoidDescription)
+	YieldFunction void Humanoid:ApplyDescriptionClientServer(Instance humanoidDescription) [RobloxScriptSecurity]
 	Event Humanoid.AnimationPlayed(Instance animationTrack)
 	Event Humanoid.Climbing(float speed)
 	Event Humanoid.CustomStatusAdded(string status) [deprecated]
@@ -1424,6 +1429,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Objects LocalizationService:GetCorescriptLocalizations()
 	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
+	Function void LocalizationService:SetRobloxLocaleId(string locale) [RobloxScriptSecurity]
 	Function void LocalizationService:StartTextScraper(bool enforceRequirements = false) [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
 	YieldFunction Instance LocalizationService:GetTranslatorForLocaleAsync(string locale)
@@ -2268,6 +2274,7 @@ Class RenderingTest : Instance
 	Property int RenderingTest.QualityLevel
 	Property bool RenderingTest.ShouldSkip
 	Property string RenderingTest.Ticket
+	Function void RenderingTest:RenderdocTriggerCapture()
 Class ReplicatedFirst : Instance [notCreatable]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() [RobloxScriptSecurity]
 	Function bool ReplicatedFirst:IsFinishedReplicating() [RobloxScriptSecurity]

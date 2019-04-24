@@ -10,13 +10,20 @@
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
 
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local RadioButton = require(Plugin.Src.Components.RadioButton)
-local TitledFrame = require(Plugin.Src.Components.TitledFrame)
+local TitledFrame 
+if FFlagGameSettingsUseUILibrary then
+	TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+else
+	TitledFrame = require(Plugin.Src.Components.TitledFrame)
+end
 
 local function RadioButtonSet(props)
 	return withTheme(function(theme)
@@ -75,6 +82,7 @@ local function RadioButtonSet(props)
 			Title = props.Title,
 			MaxHeight = maxHeight,
 			LayoutOrder = props.LayoutOrder or 1,
+			TextSize = Constants.TEXT_SIZE
 		}, children)
 	end)
 end

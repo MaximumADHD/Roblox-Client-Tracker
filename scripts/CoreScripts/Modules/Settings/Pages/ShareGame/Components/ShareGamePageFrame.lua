@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 
 local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
+local ShareGame = Modules.Settings.Pages.ShareGame
 
 local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
@@ -16,11 +17,9 @@ local ApiFetchUsersFriends
 local RetrievalStatus
 if not FFlagLuaInviteModalEnabled then
 	httpRequest = require(AppTempCommon.Temp.httpRequest)
-	ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
+	ApiFetchUsersFriends = require(ShareGame.Thunks.ApiFetchUsersFriends)
 	RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
 end
-
-local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)

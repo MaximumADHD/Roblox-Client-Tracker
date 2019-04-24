@@ -7,6 +7,8 @@
 		table Buttons = The buttons to add to this button bar.
 ]]
 
+local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
+
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
 
@@ -14,8 +16,14 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
+local RoundTextButton
+if FFlagGameSettingsUseUILibrary then
+	RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
+else
+	RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
+end
 
 local function ButtonBar(props)
 	return withTheme(function(theme)
@@ -47,6 +55,7 @@ local function ButtonBar(props)
 				Name = button.Name,
 				Value = button.Value,
 				ZIndex = props.ZIndex or 1,
+				TextSize = Constants.TEXT_SIZE,
 
 				OnClicked = function(value)
 					props.ButtonClicked(value)

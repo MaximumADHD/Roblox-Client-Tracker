@@ -326,4 +326,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(Vote)
+return RoactRodux.connect(nil, mapDispatchToProps)(Vote)

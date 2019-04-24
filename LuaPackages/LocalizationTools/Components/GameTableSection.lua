@@ -8,7 +8,7 @@ local Collapsible = require(script.Parent.Collapsible)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
-local TranslationRolesApi = settings():GetFFlag("TranslationRolesApi")
+local TranslationRolesApi2 = settings():GetFFlag("TranslationRolesApi2")
 
 
 --[[
@@ -93,7 +93,7 @@ function GameTableSection:init()
 			end)
 	end
 
-	if not TranslationRolesApi then
+	if not TranslationRolesApi2 then
 		local function checkIfAvailable()
 			self.props.UpdateGameTableInfo():andThen(
 				function(available)
@@ -137,7 +137,7 @@ function GameTableSection:didMount()
 		)
 	end
 
-	if TranslationRolesApi then
+	if TranslationRolesApi2 then
 		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkTableAvailability)
 		coroutine.resume(coroutine.create(checkTableAvailability))
 	end

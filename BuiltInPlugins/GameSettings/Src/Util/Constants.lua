@@ -50,6 +50,8 @@ BAD_REQUEST = 400,
 
 IMAGE_TYPES = settings():GetFFlag("StudioGameSettingsNoMoreGifUploads") and {"jpg", "jpeg", "png"} or {"jpg", "gif", "png", "tga", "bmp"},
 
+TEXT_SIZE = 22,
+
 }
 
 return Constants

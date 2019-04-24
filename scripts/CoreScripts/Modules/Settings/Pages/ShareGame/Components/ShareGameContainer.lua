@@ -9,14 +9,13 @@ local Players = game:GetService("Players")
 
 local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
+local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
-local ApiFetchUsersFriends = require(AppTempCommon.LuaApp.Thunks.ApiFetchUsersFriends)
+local ApiFetchUsersFriends = require(ShareGame.Thunks.ApiFetchUsersFriends)
 local RetrievalStatus = require(CorePackages.AppTempCommon.LuaApp.Enum.RetrievalStatus)
-
-local ShareGame = Modules.Settings.Pages.ShareGame
 
 local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
 local Constants = require(ShareGame.Constants)

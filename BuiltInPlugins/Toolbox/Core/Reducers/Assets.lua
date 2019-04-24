@@ -5,12 +5,14 @@ local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local Immutable = require(Plugin.Core.Util.Immutable)
 
-local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
-local GetAssets = require(Plugin.Core.Actions.GetAssets)
-local SetLoading = require(Plugin.Core.Actions.SetLoading)
-local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
+local Actions = Plugin.Core.Actions
+local ClearAssets = require(Actions.ClearAssets)
+local GetAssets = require(Actions.GetAssets)
+local SetLoading = require(Actions.SetLoading)
+local SetAssetPreview = require(Actions.SetAssetPreview)
+local SetPreviewModel = require(Actions.SetPreviewModel)
+local ClearPreview = require(Actions.ClearPreview)
 
 local function handleAssetsAddedToState(state, assets, totalAssets)
 	if not assets then
@@ -83,4 +85,16 @@ return Rodux.createReducer({
 			isPreviewing = action.isPreviewing
 		})
 	end,
+
+	[SetPreviewModel.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			previewModel = action.previewModel
+		})
+	end,
+
+	[ClearPreview.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			previewModel = Cryo.None
+		})
+	end
 })

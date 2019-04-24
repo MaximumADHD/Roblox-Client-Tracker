@@ -18,6 +18,7 @@
 ]]
 
 local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
+local FFlagEnableMarketplaceChangeTabsAnalytics = settings():GetFFlag("EnableMarketplaceChangeTabsAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -25,30 +26,34 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-local Constants = require(Plugin.Core.Util.Constants)
-local Images = require(Plugin.Core.Util.Images)
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local Images = require(Util.Images)
+local ContextGetter = require(Util.ContextGetter)
+local ContextHelper = require(Util.ContextHelper)
+local PageInfoHelper = require(Util.PageInfoHelper)
+local Analytics = require(Util.Analytics.Analytics)
 
-local Sort = require(Plugin.Core.Types.Sort)
-local Category = require(Plugin.Core.Types.Category)
+local Types = Plugin.Core.Types
+local Sort = require(Types.Sort)
+local Category = require(Types.Category)
 
 local getNetwork = ContextGetter.getNetwork
 local getSettings = ContextGetter.getSettings
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
-local TabSet = require(Plugin.Core.Components.TabSet)
-local Footer = require(Plugin.Core.Components.Footer.Footer)
-local Header = require(Plugin.Core.Components.Header)
-local MainView = require(Plugin.Core.Components.MainView.MainView)
-local SoundPreviewComponent = require(Plugin.Core.Components.SoundPreviewComponent)
+local Components = Plugin.Core.Components
+local TabSet = require(Components.TabSet)
+local Footer = require(Components.Footer.Footer)
+local Header = require(Components.Header)
+local MainView = require(Components.MainView.MainView)
+local SoundPreviewComponent = require(Components.SoundPreviewComponent)
 
-local GetManageableGroupsRequest = require(Plugin.Core.Networking.Requests.GetManageableGroupsRequest)
-local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
-local ChangeMarketplaceTab = require(Plugin.Core.Networking.Requests.ChangeMarketplaceTab)
-
-local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+local Requests = Plugin.Core.Networking.Requests
+local GetManageableGroupsRequest = require(Requests.GetManageableGroupsRequest)
+local UpdatePageInfoAndSendRequest = require(Requests.UpdatePageInfoAndSendRequest)
+local ChangeMarketplaceTab = require(Requests.ChangeMarketplaceTab)
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
@@ -122,8 +127,21 @@ function Toolbox:init(props)
 
 	local networkInterface = getNetwork(self)
 	local settings = getSettings(self)
+
 	self.changeMarketplaceTab = function(tabName)
-		self.props.changeMarketplaceTab(networkInterface, tabName, settings)
+		if FFlagEnableMarketplaceChangeTabsAnalytics then
+			local newCategories = Category.TABS[tabName]
+			self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings)
+
+			-- Change tab will always reset categoryIndex to 1.
+			Analytics.onCategorySelected(
+				PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
+				PageInfoHelper.getCategory(newCategories, 1)
+			)
+		else
+			self.props.changeMarketplaceTab(networkInterface, tabName, nil, settings)
+		end
+
 		self.props.updatePageInfo(networkInterface, settings, {
 			categoryIndex = 1,
 			searchTerm = "",
@@ -221,6 +239,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		categories = pageInfo.categories or {},
+		categoryIndex = pageInfo.categoryIndex or 1,
 		currentTab = pageInfo.currentTab or Category.MARKETPLACE_KEY,
 		sorts = pageInfo.sorts or {}
 	}
@@ -237,10 +256,10 @@ local function mapDispatchToProps(dispatch)
 			dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, newPageInfo))
 		end,
 
-		changeMarketplaceTab = function(networkInterface, tabName, settings)
-			dispatch(ChangeMarketplaceTab(networkInterface, tabName, settings))
+		changeMarketplaceTab = function(networkInterface, tabName, newCategories, settings)
+			dispatch(ChangeMarketplaceTab(networkInterface, tabName, newCategories, settings))
 		end,
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(Toolbox)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Toolbox)

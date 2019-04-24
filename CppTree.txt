@@ -49,7 +49,6 @@ RBX
 		AdornContext
 		AngularVelocityActuator
 		BallSocketConstraint
-		CircleArcCurve2
 		Constraint
 		CylindricalConstraint
 		HingeConstraint

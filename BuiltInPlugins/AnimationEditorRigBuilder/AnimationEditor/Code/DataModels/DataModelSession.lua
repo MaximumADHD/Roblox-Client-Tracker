@@ -376,7 +376,9 @@ function Session:isCurrentlySelectedKeyframe(atTime, dataItem)
 end
 
 function Session:isCurrentlySelectedDataItem(dataItem)
-	return self.Selected.DataItems[dataItem.Item] ~= nil
+	if not FastFlags:isHipHeightPopFixOn() or dataItem then
+		return self.Selected.DataItems[dataItem.Item] ~= nil
+	end
 end
 
 -- to prevent the user from accidentally deleting any parts in the studio explorer

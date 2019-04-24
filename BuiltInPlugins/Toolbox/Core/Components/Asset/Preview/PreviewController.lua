@@ -13,6 +13,7 @@ local ModelPreview = require(Preview.ModelPreview)
 local ImagePreview = require(Preview.ImagePreview)
 local OtherPreview = require(Preview.OtherPreview)
 local MainViewButtons = require(Preview.MainViewButtons)
+local PreviewLoading = require(Preview.PreviewLoading)
 
 local Util = Plugin.Core.Util
 local Analytics = require(Util.Analytics.Analytics)
@@ -183,6 +184,8 @@ function PreviewController:render()
 
 			LayoutOrder = 1,
 		}, {
+			PreviewLoading = AssetType:isLoading(assetPreviewType) and Roact.createElement(PreviewLoading),
+
 			ModelPreview = AssetType:isModel(assetPreviewType) and Roact.createElement(ModelPreview, {
 				currentPreview = currentPreview,
 

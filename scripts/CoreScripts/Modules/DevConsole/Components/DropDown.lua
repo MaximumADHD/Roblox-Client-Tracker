@@ -11,6 +11,7 @@ local OPEN_ARROW = Constants.Image.DownArrow
 local INNER_FRAME_PADDING = 12
 
 local FFlagDevConsoleDropdownBehind = settings():GetFFlag("DevConsoleDropdownBehind")
+local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
 
 local DropDown = Roact.Component:extend("DropDown")
 
@@ -126,6 +127,8 @@ function DropDown:render()
 		}, {
 			FullScreen = Roact.createElement("ScreenGui", {
 				OnTopOfCoreBlur = FFlagDevConsoleDropdownBehind,
+				-- 20 so that it will render on top of the main window, which is set to 10.
+				DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 20 or nil,
 			}, {
 				InputCatcher = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),

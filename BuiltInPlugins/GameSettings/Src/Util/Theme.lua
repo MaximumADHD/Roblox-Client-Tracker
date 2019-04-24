@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local createSignal = require(Plugin.Src.Util.createSignal)
 local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Cryo)
+local UILibraryCreateTheme = require(Plugin.UILibrary.createTheme)
 
 local Theme = {}
 
@@ -13,6 +14,7 @@ function Theme.new(override)
 		externalThemeChangedConnection = nil,
 
 		values = {},
+		uiLibraryValues = {},
 	}
 
 	setmetatable(self, {
@@ -45,6 +47,11 @@ function Theme:update(changedValues)
 	self.signal:fire(self.values)
 end
 
+function Theme:updateUILibrary(changedValues)
+	self.uiLibraryValues = Cryo.Dictionary.join(self.uiLibraryValues, changedValues)
+	self.signal:fire(self.uiLibraryValues)
+end
+
 function Theme:getExternalTheme()
 	local overrideTheme = self.overrideTheme
 	if overrideTheme then
@@ -58,6 +65,10 @@ function Theme:isDarkerTheme()
 	-- Assume "darker" theme if the average main background colour is darker
 	local mainColour = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
 	return (mainColour.r + mainColour.g + mainColour.b) / 3 < 0.5
+end
+
+function Theme:getUILibraryTheme()
+	return UILibraryCreateTheme(self.uiLibraryValues)
 end
 
 function Theme:recalculateTheme()
@@ -182,6 +193,17 @@ function Theme:recalculateTheme()
 			TextColor_Disabled = isDark and color(c.DimmedText) or Color3.new(1, 1, 1),
 			BorderColor = color(c.Light),
 		},
+	})
+
+	self:updateUILibrary({
+		backgroundColor = color(c.InputFieldBackground),
+		textColor = color(c.MainText),
+		subTextColor = color(c.SubText),
+		dimmerTextColor = color(c.DimmedText),
+		disabledColor = color(c.Tab),
+		borderColor = color(c.Border),
+		hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
+		errorColor = Color3.new(1, 0.266, 0.266),
 	})
 end
 

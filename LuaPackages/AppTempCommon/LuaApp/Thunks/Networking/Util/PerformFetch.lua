@@ -32,9 +32,7 @@ local batchPromises = {} -- fetch key = outstanding promise from PerformFetch.Ba
 	not have the correct status.
 ]]
 function PerformFetch.ClearOutstandingPromiseStatus()
-	if _G.__TESTEZ_RUNNING_TEST__ then
-		batchPromises = {}
-	end
+	batchPromises = {}
 end
 
 local function singleFetchKeymapper(item)

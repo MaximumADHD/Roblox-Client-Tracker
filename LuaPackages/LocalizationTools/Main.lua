@@ -71,12 +71,12 @@ local function createTextScraperControlsEnabled(toolbar, plugin)
 		if not LocalizationService.IsTextScraperRunning then
 			LocalizationService:StartTextScraper()
 			if FFlagStudioLocalizationPluginButtonAnalytics then
-				reportButtonPress(plugin, "Text Capture", "start")
+				reportButtonPress(plugin, "textCapture", "start")
 			end
 		else
 			LocalizationService:StopTextScraper()
 			if FFlagStudioLocalizationPluginButtonAnalytics then
-				reportButtonPress(plugin, "Text Capture", "stop")
+				reportButtonPress(plugin, "textCapture", "stop")
 			end
 		end
 		buttons.captureButton.Icon = getTextScraperButtonIconAsset()
@@ -91,12 +91,12 @@ local function createTextScraperControlsEnabled(toolbar, plugin)
 				end
 			)
 			if success then
-				reportButtonPress(plugin, "Export", "success")
+				reportButtonPress(plugin, "export", "success")
 			else
 				if message == "No file selected" then
-					reportButtonPress(plugin, "Export", "canceled")
+					reportButtonPress(plugin, "export", "canceled")
 				else
-					reportButtonPress(plugin, "Export", "error")
+					reportButtonPress(plugin, "export", "error")
 				end
 			end
 		else
@@ -113,12 +113,12 @@ local function createTextScraperControlsEnabled(toolbar, plugin)
 				end
 			)
 			if success then
-				reportButtonPress(plugin, "Import", "success")
+				reportButtonPress(plugin, "import", "success")
 			else
 				if message == "No file selected" then
-					reportButtonPress(plugin, "Import", "canceled")
+					reportButtonPress(plugin, "import", "canceled")
 				else
-					reportButtonPress(plugin, "Import", "error")
+					reportButtonPress(plugin, "import", "error")
 				end
 			end
 		else
@@ -261,9 +261,9 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 
 			if FFlagStudioLocalizationPluginButtonAnalytics then
 				if Window.Enabled then
-					reportButtonPress(plugin, "Tools", "open")
+					reportButtonPress(plugin, "tools", "open")
 				else
-					reportButtonPress(plugin, "Tools", "closed")
+					reportButtonPress(plugin, "tools", "closed")
 				end
 			end
 		end)

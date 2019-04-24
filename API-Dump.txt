@@ -951,6 +951,10 @@ Class BillboardGui : LayerCollector
 	Property bool BillboardGui.Active
 	Property Instance BillboardGui.Adornee
 	Property bool BillboardGui.AlwaysOnTop
+	Property float BillboardGui.CurrentDistance  [ReadOnly] [NotReplicated]
+	Property float BillboardGui.DistanceLowerLimit
+	Property float BillboardGui.DistanceStep
+	Property float BillboardGui.DistanceUpperLimit
 	Property Vector3 BillboardGui.ExtentsOffset
 	Property Vector3 BillboardGui.ExtentsOffsetWorldSpace
 	Property float BillboardGui.LightInfluence
@@ -1195,6 +1199,7 @@ Class Humanoid : Instance
 	Function bool Humanoid:AddCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:AddStatus(Enum<Status> status = "Poison") [Deprecated]
 	Function void Humanoid:ApplyDescription(Instance humanoidDescription) [Yields]
+	Function void Humanoid:ApplyDescriptionClientServer(Instance humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:BuildRigFromAttachments()
 	Function void Humanoid:CacheDefaults() {RobloxScriptSecurity}
 	Function void Humanoid:ChangeState(Enum<HumanoidStateType> state = "None")
@@ -1440,6 +1445,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalizationService:PromptExportToCSVs() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:PromptImportFromCSVs() {RobloxScriptSecurity} [Yields]
 	Function Instance LocalizationService:PromptUploadCSVToGameTable() {RobloxScriptSecurity} [Yields]
+	Function void LocalizationService:SetRobloxLocaleId(string locale) {RobloxScriptSecurity}
 	Function void LocalizationService:StartTextScraper(bool enforceRequirements = false) {RobloxScriptSecurity}
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
@@ -2293,6 +2299,7 @@ Class RenderingTest : Instance
 	Property int RenderingTest.QualityLevel
 	Property bool RenderingTest.ShouldSkip
 	Property string RenderingTest.Ticket
+	Function void RenderingTest:RenderdocTriggerCapture()
 Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() {RobloxScriptSecurity}
 	Function bool ReplicatedFirst:IsFinishedReplicating() {RobloxScriptSecurity}
@@ -2402,6 +2409,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function Array DataModel:GetJobsInfo() {PluginSecurity}
 	Function string DataModel:GetMessage() [Deprecated]
 	Function Objects DataModel:GetObjects(Content url) {PluginSecurity}
+	Function Objects DataModel:GetObjectsAsync(Content url) {RobloxScriptSecurity} [Yields]
 	Function Array DataModel:GetObjectsList(Array urls) {RobloxScriptSecurity}
 	Function bool DataModel:GetRemoteBuildMode() [Deprecated]
 	Function string DataModel:HttpGetAsync(string url, Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
@@ -2709,6 +2717,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
+	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum<StudioStyleGuideColor> styleguideitem, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}
 	Function string StudioTheme:GetPath(string assetid, Enum<StudioStyleGuideModifier> modifier = "Default") {PluginSecurity}

@@ -200,4 +200,12 @@ function FastFlags:isShiftSelectJointsOn()
 	return isFlagOn("StudioAnimationEditorShiftSelectJointsOn")
 end
 
+function FastFlags:isAdjustHumanoidRootPartToHipPositionOn()
+	return isFlagOn("UserAdjustHumanoidRootPartToHipPosition")
+end
+
+function FastFlags:isHipHeightPopFixOn()
+	return isFlagOn("StudioAnimationEditorHipHeightPopFix")
+end
+
 return FastFlags
