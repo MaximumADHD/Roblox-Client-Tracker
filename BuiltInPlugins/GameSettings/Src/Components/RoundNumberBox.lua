@@ -1,19 +1,16 @@
 --[[
-	A TextBox with rounded corners that allows single-line or multiline entry,
-	maximum character count, and error messages.
+	A NumberBox with rounded corners that allows entry of numbers.
 
 	Props:
 		bool Active = Whether this component can be interacted with.
-		int MaxLength = The maximum number of characters allowed in the TextBox.
-		bool Multiline = Whether this TextBox allows a single line of text or multiple.
 		int Height = The vertical size of this TextBox, in pixels.
 		int LayoutOrder = The sort order of this component in a UIListLayout.
 
 		string ErrorMessage = A general override message used to display an error.
 			A non-nil ErrorMessage will border the TextBox in red.
 
-		string Text = The text to display in the TextBox
-		function SetText(text) = Callback to tell parent that text has changed
+		int Number = The number to display in the TextBox
+		function SetNumber(number) = Callback to tell parent that number has changed
 		function FocusChanged(focused) = Callback when this TextBox is focused.
 		function HoverChanged(hovering) = Callback when the mouse enters or leaves this TextBox.
 ]]
@@ -28,13 +25,13 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local TextEntry = require(Plugin.Src.Components.TextEntry)
-local MultilineTextEntry = require(Plugin.Src.Components.MultilineTextEntry)
 
-local RoundTextBox = Roact.PureComponent:extend("RoundTextBox")
+local RoundNumberBox = Roact.PureComponent:extend("RoundNumberBox")
 
-function RoundTextBox:init()
+function RoundNumberBox:init()
 	self.state = {
 		Focused = false,
+		TextContainsNonNumbers = false,
 	}
 
 	self.focusChanged = function(focused)
@@ -57,16 +54,32 @@ function RoundTextBox:init()
 			end
 		end
 	end
+
+	self.setText = function(text)
+		local number = tonumber(text)
+
+		if (number == nil) and (not self.state.TextContainsNonNumbers) then
+			self:setState({
+				TextContainsNonNumbers = true,
+			})
+		elseif (number ~= nil) then
+			if self.state.TextContainsNonNumbers then
+				self:setState({
+					TextContainsNonNumbers = false,
+				})
+			end
+
+			self.props.SetNumber(number)
+		end
+	end
 end
 
-function RoundTextBox:render()
+function RoundNumberBox:render()
 	return withTheme(function(theme)
 		local active = self.props.Active
 		local focused = self.state.Focused
-		local multiline = self.props.Multiline
-		local textLength = string.len(self.props.Text)
 		local errorState = self.props.ErrorMessage
-			or textLength > self.props.MaxLength
+			or self.state.TextContainsNonNumbers
 
 		local backgroundProps = {
 			-- Necessary to make the rounded background
@@ -83,17 +96,6 @@ function RoundTextBox:render()
 			LayoutOrder = self.props.LayoutOrder or 1,
 		}
 
-		local tooltipText
-		if active then
-			if errorState and self.props.ErrorMessage then
-				tooltipText = self.props.ErrorMessage
-			else
-				tooltipText = textLength .. "/" .. self.props.MaxLength
-			end
-		else
-			tooltipText = ""
-		end
-
 		local borderColor
 		if active then
 			if errorState then
@@ -107,36 +109,7 @@ function RoundTextBox:render()
 			borderColor = theme.textBox.borderDefault
 		end
 
-		local textEntryProps = {
-			Visible = self.props.Active,
-			Text = self.props.Text,
-			FocusChanged = self.focusChanged,
-			HoverChanged = self.mouseHoverChanged,
-			SetText = self.props.SetText,
-			TextColor3 = theme.textBox.text,
-		}
-
-		local textEntry
-		if multiline then
-			textEntry = Roact.createElement(MultilineTextEntry, textEntryProps)
-		else
-			textEntry = Roact.createElement(TextEntry, textEntryProps)
-		end
-
 		return Roact.createElement("ImageLabel", backgroundProps, {
-			Tooltip = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 2, 1, 2),
-				Size = UDim2.new(1, 0, 0, 10),
-
-				Font = Enum.Font.SourceSans,
-				TextSize = 16,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextColor3 = (active and errorState and Constants.ERROR_COLOR) or theme.textBox.tooltip,
-				Text = tooltipText,
-			}),
-
 			Border = Roact.createElement("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
@@ -151,10 +124,17 @@ function RoundTextBox:render()
 					PaddingTop = PADDING,
 					PaddingBottom = PADDING,
 				}),
-				Text = textEntry,
+				Text = Roact.createElement(TextEntry, {
+					Visible = self.props.Active,
+					Text = self.props.Number,
+					FocusChanged = self.focusChanged,
+					HoverChanged = self.mouseHoverChanged,
+					SetText = self.setText,
+					TextColor3 = theme.textBox.text,
+				}),
 			}),
 		})
 	end)
 end
 
-return RoundTextBox
+return RoundNumberBox

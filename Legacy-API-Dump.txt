@@ -983,6 +983,8 @@ Class SurfaceGui : LayerCollector
 	Property bool SurfaceGui.ClipsDescendants
 	Property NormalId SurfaceGui.Face
 	Property float SurfaceGui.LightInfluence
+	Property float SurfaceGui.PixelsPerStud
+	Property SurfaceGuiSizingMode SurfaceGui.SizingMode
 	Property float SurfaceGui.ToolPunchThroughDistance
 	Property float SurfaceGui.ZOffset
 Class GuiBase3d : GuiBase
@@ -1095,7 +1097,7 @@ Class GuiService : Instance [notCreatable]
 	Function ConnectionError GuiService:GetErrorType() [RobloxScriptSecurity]
 	Function Tuple GuiService:GetGuiInset()
 	Function Dictionary GuiService:GetNotificationTypeList() [RobloxScriptSecurity]
-	Function int GuiService:GetResolutionScale() [LocalUserSecurity]
+	Function int GuiService:GetResolutionScale() [RobloxScriptSecurity]
 	Function Dictionary GuiService:GetSafeZoneOffsets() [RobloxScriptSecurity]
 	Function string GuiService:GetUiMessage() [RobloxScriptSecurity]
 	Function bool GuiService:IsMemoryTrackerEnabled() [RobloxScriptSecurity]
@@ -3947,7 +3949,7 @@ Enum Material
 	EnumItem Material.Salt : 1392 [notbrowsable]
 	EnumItem Material.Limestone : 820 [notbrowsable]
 	EnumItem Material.Pavement : 836 [notbrowsable]
-	EnumItem Material.ForceField : 1584 [deprecated]
+	EnumItem Material.ForceField : 1584
 Enum MembershipType
 	EnumItem MembershipType.None : 0
 	EnumItem MembershipType.BuildersClub : 1
@@ -4246,6 +4248,9 @@ Enum SurfaceConstraint
 	EnumItem SurfaceConstraint.Hinge : 1
 	EnumItem SurfaceConstraint.SteppingMotor : 2
 	EnumItem SurfaceConstraint.Motor : 3
+Enum SurfaceGuiSizingMode
+	EnumItem SurfaceGuiSizingMode.FixedSize : 0
+	EnumItem SurfaceGuiSizingMode.PixelsPerStud : 1
 Enum SurfaceType
 	EnumItem SurfaceType.Smooth : 0
 	EnumItem SurfaceType.Glue : 1

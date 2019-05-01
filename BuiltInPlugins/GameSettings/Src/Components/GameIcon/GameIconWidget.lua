@@ -7,6 +7,8 @@
 		string Icon = The current game's icon, or "None" if no icon exists.
 		int LayoutOrder = The order in which this elements displays on the SettingsPage.
 		function AddIcon = A callback invoked when the user wants to add a new icon.
+		string Title = The title of this widget's TitledFrame
+		bool TutorialEnabled = Whether or not we show the tutorial for icons
 ]]
 
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
@@ -62,6 +64,8 @@ function GameIconWidget:render()
 			local active = self.props.Enabled
 			local icon = self.props.Icon
 			local errorMessage = self.props.ErrorMessage
+			local title = self.props.Title
+			local tutorialEnabled = self.props.TutorialEnabled
 
 			local preview
 			if FFlagGameSettingsImageUploadingEnabled then
@@ -76,7 +80,7 @@ function GameIconWidget:render()
 			end
 
 			return Roact.createElement(TitledFrame, {
-				Title = localized.Title.GameIcon,
+				Title = title,
 				MaxHeight = 150,
 				LayoutOrder = self.props.LayoutOrder or 1,
 				TextSize = Constants.TEXT_SIZE,
@@ -115,7 +119,7 @@ function GameIconWidget:render()
 					}),
 				}),
 
-				NewNote = Roact.createElement("TextButton", {
+				NewNote = tutorialEnabled and Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
 					Text = localized.GameIcon.Tutorial,
 					TextSize = 20,

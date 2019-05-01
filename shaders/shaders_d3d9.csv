@@ -63,6 +63,7 @@ ImageProcessAlphaLQNeonFS,Fragment
 ImageProcessBlurFS,Fragment
 ImageProcessBlurFXCompositionFS,Fragment
 ImageProcessFIBAlphaFS,Fragment
+ImageProcessFIBAlphaSrgbFS,Fragment
 ImageProcessFIBBloomFS,Fragment
 ImageProcessFIBBloomLinearFS,Fragment
 ImageProcessFIBBlurBloomFS,Fragment

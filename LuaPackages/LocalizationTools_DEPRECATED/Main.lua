@@ -7,8 +7,6 @@ local MakeShowDialog = require(script.Parent.ShowDialog)
 local MakeGameTableMain = require(script.Parent.GameTable.GameTableMain)
 local Roact = require(game:GetService("CorePackages").Roact)
 
-local FFlagLocalizationPluginAnalyticsEnabled = settings():GetFFlag("StudioLocalizationEnableAnalytics")
-
 
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
@@ -139,10 +137,8 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 			Window.Enabled = not Window.Enabled
 			button:SetActive(Window.Enabled)
 
-			if FFlagLocalizationPluginAnalyticsEnabled then
-				if (Window.Enabled) then
-					reportToolOpened(plugin, 1)
-				end
+			if (Window.Enabled) then
+				reportToolOpened(plugin, 1)
 			end
 		end)
 end

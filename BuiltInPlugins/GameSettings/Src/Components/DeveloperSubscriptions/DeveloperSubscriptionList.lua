@@ -1,0 +1,135 @@
+--[[
+	A list of DeveloperSubscriptionListItems. Also creates a header to show
+	what each column is and a create button for creating additional subscriptions.
+
+	Props:
+		table DeveloperSubscriptions = the developer subscriptions to list off
+		func OnDeveloperSubscriptionEdited = when a developer subscription gets edited
+		func OnDeveloperSubscriptionCreated = when a developer subscriptin is made
+		int ListItemHeight = the height in pixels of the list items
+]]
+
+local Plugin = script.Parent.Parent.Parent.Parent
+local withTheme = require(Plugin.Src.Consumers.withTheme)
+local withLocalization = require(Plugin.Src.Consumers.withLocalization)
+local Roact = require(Plugin.Roact)
+
+local DeveloperSubscriptionListItem = require(script.Parent.DeveloperSubscriptionListItem)
+local DeveloperSubscriptionListHeaderText = require(script.Parent.DeveloperSubscriptionListHeaderText)
+local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
+local Header = require(Plugin.Src.Components.Header)
+
+local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local FitToContent = createFitToContent("Frame", "UIListLayout", {
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	Padding = UDim.new(0, 10),
+})
+
+local function render(props, localized, theme)
+	local developerSubscriptions = props.DeveloperSubscriptions
+	local onDeveloperSubscriptionEdited = props.OnDeveloperSubscriptionEdited
+	local onDeveloperSubscriptionCreated = props.OnDeveloperSubscriptionCreated
+	local listItemHeight = props.ListItemHeight or 32
+
+	-- start up a table of the elements, put in the header
+	local elements = {
+		Header = Roact.createElement(Header, {
+			Title = localized.DevSubs.ListHeader,
+			LayoutOrder = 0,
+		}),
+
+		ListHeader = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, listItemHeight),
+			LayoutOrder = 1,
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, 4),
+				PaddingRight = UDim.new(0, 4),
+			}),
+
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+			}),
+
+			IdText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
+				Size = UDim2.new(0.16, 0, 1, 0),
+				Text = localized.DevSubs.Id,
+				LayoutOrder = 1,
+				Alignment = Enum.TextXAlignment.Left,
+			}),
+
+			NameText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
+				Size = UDim2.new(0.44, 0, 1, 0),
+				Text = localized.DevSubs.Name,
+				LayoutOrder = 2,
+				Alignment = Enum.TextXAlignment.Center,
+			}),
+
+			SubscribersText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
+				Size = UDim2.new(0.2, 0, 1, 0),
+				Text = localized.DevSubs.Subscribers,
+				LayoutOrder = 3,
+				Alignment = Enum.TextXAlignment.Center,
+			}),
+
+			ActiveText = Roact.createElement(DeveloperSubscriptionListHeaderText, {
+				Size = UDim2.new(0.1, 0, 1, 0),
+				Text = localized.DevSubs.Active,
+				LayoutOrder = 4,
+				Alignment = Enum.TextXAlignment.Center,
+			}),
+		})
+	}
+
+	-- create all the list items
+	local index = 1
+	for key, developerSubscription in pairs(developerSubscriptions) do
+		local function onEditButtonActivated()
+			onDeveloperSubscriptionEdited(developerSubscription)
+		end
+
+		elements[key] = Roact.createElement(DeveloperSubscriptionListItem, {
+			Name = developerSubscription.Name,
+			Id = developerSubscription.Id,
+			Subscribers = developerSubscription.Subscribers,
+			Active = developerSubscription.Active,
+			LayoutOrder = index + 1,
+			OnEditButtonActivated = onEditButtonActivated,
+			Height = listItemHeight,
+		})
+
+		index = index + 1
+	end
+
+	-- just a space to provide extra padding to the next element, the button
+	elements.Space = Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 0, 0),
+		LayoutOrder = index + 1
+	})
+
+	index = index + 1
+
+	-- the button a user clicks to create a new subscription
+	elements.CreateButton = Roact.createElement(RoundTextButton, {
+		Active = true,
+		LayoutOrder = index + 1,
+		Name = localized.DevSubs.CreateAction,
+		OnClicked = onDeveloperSubscriptionCreated,
+		Style = theme.cancelButton,
+	})
+
+	return Roact.createElement(FitToContent, {
+		BackgroundTransparency = 1,
+	}, elements)
+end
+
+return function(props)
+	return withLocalization(function(localized)
+		return withTheme(function(theme)
+			return render(props, localized, theme)
+		end)
+	end)
+end

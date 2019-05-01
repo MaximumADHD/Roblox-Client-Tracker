@@ -30,7 +30,11 @@ function DEBUG_GetSubjectMetadata(subjectType, subjectId)
 		local groupData = game:GetService("GroupService"):GetGroupInfoAsync(subjectId)
 		subjectName = groupData.Name
 	else
-		subjectName = game:GetService("Players"):GetNameFromUserIdAsync(subjectId)
+		local success,result = pcall(function()
+			return game:GetService("Players"):GetNameFromUserIdAsync(subjectId)
+		end)
+		
+		subjectName = success and result or "uid="..tostring(subjectId).." missing from env. Point AppSettings.xml to Prod"
 	end
 	
 	return subjectId, subjectName
@@ -43,7 +47,7 @@ end
 -- Sans the Guest role, get all roleset metadata for a group (id, name, rank)
 function DEBUG_GetGroupRoleMetadata(groupId)
 	local result = game:GetService("HttpRbxApiService"):RequestAsync({
-		Url = "https://groups.roblox.com/v1/groups/"..groupId.."/roles",
+		Url = Http.BuildRobloxUrl("groups", "v1/groups/%d/roles", groupId),
 		Method = "GET"
 	})
 	

@@ -152,7 +152,6 @@ function MemoryView:appendAdditionTabInformation(elements, infoTable, parentName
 		if windowing.scrollingFrameHeight + ENTRY_HEIGHT >= canvasPos.Y then
 			if windowing.usedFrameSpace < absScrollSize.Y then
 				local new_key = parentName .. name
-				if elements[new_key] then print(new_key)  end
 
 				elements[new_key] = Roact.createElement(MemoryViewEntry, {
 					size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),

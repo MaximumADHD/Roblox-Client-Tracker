@@ -136,6 +136,9 @@ return function(style, overrides)
 		font = style.font,
 	}
 
+	local separator = {
+		lineColor = style.borderColor,
+	}
 
 	return replaceDefaults({
 		 checkBox = checkBox,
@@ -151,5 +154,6 @@ return function(style, overrides)
 		 titledFrame = titledFrame,
 		 textBox = textBox,
 		 textButton = textButton,
+		 separator = separator,
 	}, overrides)
 end

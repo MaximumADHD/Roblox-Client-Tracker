@@ -11,6 +11,7 @@ local Roact = require(Plugin.Roact)
 local Header = require(Plugin.Src.Components.Header)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local Separator = require(Plugin.Src.Components.Separator)
+local CollaboratorItem = require(Plugin.Src.Components.CollaboratorItem)
 
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
@@ -64,24 +65,27 @@ local function displayContents(page, localized)
 			LayoutOrder = 0,
 		}),
 		
-		-- TODO replace with a component. Pure label for demo purposes
-		Debug_Owner = Roact.createElement("TextLabel", {
+		-- TODO Inline with dummy data for debug purposes
+		Debug_Owner = Roact.createElement(CollaboratorItem, game.CreatorType == Enum.CreatorType.User and {
 			LayoutOrder = 1,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 16),
-
-			Font = Enum.Font.SourceSans,
-			TextSize = 22,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Text = "Game Owner",
+			CollaboratorName = "OnlyTwentyCharacters",
+			CollaboratorId = game.CreatorId,
+			CollaboratorIcon = "rbxasset://textures/face.png",
+			Removable = false,
+		} or {
+			LayoutOrder = 1,
+			CollaboratorName = "Some Random Group",
+			SecondaryText = "To be populated by dropdown when implemented",
+			CollaboratorId = game.CreatorId,
+			CollaboratorIcon = "rbxasset://textures/grid2.png",
+			Removable = true, -- Not actually removable in final version. Just to test UI
+			Removed = function() print("I clicked the remove button") end, -- Also debug
 		}),
 
 		Playability = Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
-			LayoutOrder = 2,
+			LayoutOrder = 3,
 			Buttons = {{
 					Id = true,
 					Title = localized.Playability.Public.Title,
@@ -119,12 +123,12 @@ local function displayContents(page, localized)
 		}),
 		
 		Separator = Roact.createElement(Separator, {
-			LayoutOrder = 3,
+			LayoutOrder = 4,
 		}),
 		
 		-- TODO replace with a component. Pure label for demo purposes
 		Debug_Collaborators = Roact.createElement("TextLabel", {
-			LayoutOrder = 4,
+			LayoutOrder = 5,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 16),
@@ -138,7 +142,7 @@ local function displayContents(page, localized)
 		
 		-- TODO replace with a component. Pure label for demo purposes
 		Debug_CollaboratorsInfo = Roact.createElement("TextLabel", {
-			LayoutOrder = 5,
+			LayoutOrder = 6,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 16),

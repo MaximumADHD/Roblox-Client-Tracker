@@ -75,134 +75,159 @@ function Theme:recalculateTheme()
 	local externalTheme = self:getExternalTheme()
 	local isDark = self:isDarkerTheme()
 
-	-- Shorthands for getting a color
-	local c = Enum.StudioStyleGuideColor
-	local m = Enum.StudioStyleGuideModifier
+	-- Shorthand for getting a color
+	local StyleColor = Enum.StudioStyleGuideColor
+	local StyleModifier = Enum.StudioStyleGuideModifier
 
 	local function color(...)
 		return externalTheme:GetColor(...)
 	end
+	
+	local fontStyle = {
+		Title = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 24,
+			TextColor3 = color(StyleColor.TitlebarText),
+		},
+		Subtitle = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 22,
+			TextColor3 = color(StyleColor.SubText),
+		},
+		Normal = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 22,
+			TextColor3 = color(StyleColor.MainText),
+		},
+		Subtext = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 16,
+			TextColor3 = color(StyleColor.DimmedText),
+		},
+	}
 
 	self:update({
 		isDarkerTheme = isDark,
+		
+		fontStyle = settings():GetFFlag("StudioGameSettingsAccessPermissions") and fontStyle or nil,
 
-		backgroundColor = color(c.MainBackground),
+		backgroundColor = color(StyleColor.MainBackground),
 
-		hyperlink = color(c.LinkText),
-		warningColor = color(c.WarningText),
+		hyperlink = color(StyleColor.LinkText),
+		warningColor = color(StyleColor.WarningText),
 
-		separator = isDark and color(c.Border) or color(c.Titlebar),
+		separator = isDark and color(StyleColor.Border) or color(StyleColor.Titlebar),
 
-		scrollBar = isDark and color(c.ScrollBar) or color(c.Border),
-		scrollBarBackground = isDark and color(c.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
+		scrollBar = isDark and color(StyleColor.ScrollBar) or color(StyleColor.Border),
+		scrollBarBackground = isDark and color(StyleColor.ScrollBarBackground) or Color3.fromRGB(245, 245, 245),
 
 		menuBar = {
-			backgroundColor = isDark and color(c.ScrollBarBackground) or color(c.MainBackground),
+			backgroundColor = isDark and color(StyleColor.ScrollBarBackground) or color(StyleColor.MainBackground),
 		},
 
 		menuEntry = {
-			hover = isDark and color(c.CurrentMarker) or color(c.RibbonTab),
-			highlight = isDark and color(c.TableItem, m.Selected) or color(c.CurrentMarker),
-			text = color(c.BrightText),
+			hover = isDark and color(StyleColor.CurrentMarker) or color(StyleColor.RibbonTab),
+			highlight = isDark and color(StyleColor.TableItem, StyleModifier.Selected) or color(StyleColor.CurrentMarker),
+			text = color(StyleColor.BrightText),
 		},
 
 		header = {
-			text = color(c.BrightText),
+			text = color(StyleColor.BrightText),
 		},
 
 		footer = {
-			gradient = color(c.MainText),
+			gradient = color(StyleColor.MainText),
 		},
 
 		titledFrame = {
-			text = color(c.SubText),
+			text = color(StyleColor.SubText),
 		},
 
 		textBox = {
-			background = color(c.InputFieldBackground),
-			disabled = color(c.Tab),
-			borderDefault = color(c.Border),
-			borderHover = isDark and color(c.MainButton) or color(c.CurrentMarker),
-			tooltip = color(c.DimmedText),
-			text = color(c.MainText),
+			background = color(StyleColor.InputFieldBackground),
+			disabled = color(StyleColor.Tab),
+			borderDefault = color(StyleColor.Border),
+			borderHover = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
+			tooltip = color(StyleColor.DimmedText),
+			text = color(StyleColor.MainText),
 		},
 
 		radioButton = {
-			background = color(c.InputFieldBackground),
-			title = color(c.BrightText),
-			description = color(c.DimmedText),
+			background = color(StyleColor.InputFieldBackground),
+			title = color(StyleColor.BrightText),
+			description = color(StyleColor.DimmedText),
 		},
 
 		checkBox = {
-			background = color(c.InputFieldBackground),
-			title = color(c.BrightText),
+			background = color(StyleColor.InputFieldBackground),
+			title = color(StyleColor.BrightText),
 		},
 
 		dropDown = {
-			background = color(c.Button),
-			hover = color(c.Button, m.Hover),
-			text = color(c.BrightText),
-			disabled = color(c.Tab),
-			handle = color(c.MainText),
-			border = color(c.Border),
-			gradient = color(c.Dark)
+			background = color(StyleColor.Button),
+			hover = color(StyleColor.Button, StyleModifier.Hover),
+			text = color(StyleColor.BrightText),
+			disabled = color(StyleColor.Tab),
+			handle = color(StyleColor.MainText),
+			border = color(StyleColor.Border),
+			gradient = color(StyleColor.Dark)
 		},
 
 		dropDownEntry = {
-			background = color(c.MainBackground),
-			hover = isDark and color(c.CurrentMarker) or color(c.RibbonTab),
-			highlight = isDark and color(c.TableItem, m.Selected) or color(c.CurrentMarker),
-			text = color(c.MainText),
+			background = color(StyleColor.MainBackground),
+			hover = isDark and color(StyleColor.CurrentMarker) or color(StyleColor.RibbonTab),
+			highlight = isDark and color(StyleColor.TableItem, StyleModifier.Selected) or color(StyleColor.CurrentMarker),
+			text = color(StyleColor.MainText),
 		},
 
 		dialog = {
-			background = color(c.MainBackground),
-			text = color(c.MainText),
+			background = color(StyleColor.MainBackground),
+			text = color(StyleColor.MainText),
 		},
 
 		thumbnail = {
-			background = color(c.Dark),
-			count = color(c.DimmedText),
+			background = color(StyleColor.Dark),
+			count = color(StyleColor.DimmedText),
 		},
 
 		newThumbnail = {
-			background = color(c.TableItem),
-			border = isDark and color(c.Dark) or color(c.Titlebar),
-			plus = isDark and color(c.MainText) or color(c.DimmedText),
+			background = color(StyleColor.TableItem),
+			border = isDark and color(StyleColor.Dark) or color(StyleColor.Titlebar),
+			plus = isDark and color(StyleColor.MainText) or color(StyleColor.DimmedText),
 		},
 
 		thumbnailDrag = {
-			background = color(c.CurrentMarker, m.Selected),
-			border = color(c.CurrentMarker, m.Selected),
+			background = color(StyleColor.CurrentMarker, StyleModifier.Selected),
+			border = color(StyleColor.CurrentMarker, StyleModifier.Selected),
 		},
 
 		cancelButton = {
-			ButtonColor = color(c.Button),
-			ButtonColor_Hover = color(c.Button, m.Hover),
-			ButtonColor_Disabled = color(c.Button, m.Disabled),
-			TextColor = color(c.MainText),
-			TextColor_Disabled = color(c.DimmedText),
-			BorderColor = color(c.Border),
+			ButtonColor = color(StyleColor.Button),
+			ButtonColor_Hover = color(StyleColor.Button, StyleModifier.Hover),
+			ButtonColor_Disabled = color(StyleColor.Button, StyleModifier.Disabled),
+			TextColor = color(StyleColor.MainText),
+			TextColor_Disabled = color(StyleColor.DimmedText),
+			BorderColor = color(StyleColor.Border),
 		},
 
 		defaultButton = {
-			ButtonColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
-			ButtonColor_Hover = color(c.LinkText),
-			ButtonColor_Disabled = isDark and color(c.Button, m.Disabled) or Constants.BLUE_DISABLED,
+			ButtonColor = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
+			ButtonColor_Hover = color(StyleColor.LinkText),
+			ButtonColor_Disabled = isDark and color(StyleColor.Button, StyleModifier.Disabled) or Constants.BLUE_DISABLED,
 			TextColor = Color3.new(1, 1, 1),
-			TextColor_Disabled = isDark and color(c.DimmedText) or Color3.new(1, 1, 1),
-			BorderColor = color(c.Light),
+			TextColor_Disabled = isDark and color(StyleColor.DimmedText) or Color3.new(1, 1, 1),
+			BorderColor = color(StyleColor.Light),
 		},
 	})
 
 	self:updateUILibrary({
-		backgroundColor = color(c.InputFieldBackground),
-		textColor = color(c.MainText),
-		subTextColor = color(c.SubText),
-		dimmerTextColor = color(c.DimmedText),
-		disabledColor = color(c.Tab),
-		borderColor = color(c.Border),
-		hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
+		backgroundColor = color(StyleColor.InputFieldBackground),
+		textColor = color(StyleColor.MainText),
+		subTextColor = color(StyleColor.SubText),
+		dimmerTextColor = color(StyleColor.DimmedText),
+		disabledColor = color(StyleColor.Tab),
+		borderColor = color(StyleColor.Border),
+		hoverColor = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
 		errorColor = Color3.new(1, 0.266, 0.266),
 	})
 end

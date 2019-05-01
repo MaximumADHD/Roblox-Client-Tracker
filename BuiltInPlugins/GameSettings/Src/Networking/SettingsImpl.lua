@@ -17,6 +17,7 @@ local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizat
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
+local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
@@ -42,7 +43,8 @@ local Requests = {
 	Localization = require(RequestsFolder.Localization),
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
-	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil
+	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
+	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DeveloperSubscriptions) or nil,
 }
 
 local SettingsImpl = {}
@@ -102,6 +104,10 @@ function SettingsImpl:GetSettings()
 				settings = Cryo.Dictionary.join(settings, result)
 				return Requests.GameIcon.DEPRECATED_Get(result.rootPlaceId)
 			end))
+		end
+
+		if DFFlagDeveloperSubscriptionsEnabled then
+			table.insert(getRequests, Requests.DeveloperSubscriptions.Get())
 		end
 
 		if FFlagStudioLocalizationGameSettings then
@@ -175,6 +181,12 @@ function SettingsImpl:SaveAll(state)
 
 			elseif FFlagGameSettingsImageUploadingEnabled and Requests.GameIcon.AcceptsValue(setting) then
 				saveInfo[setting] = value
+
+			elseif DFFlagDeveloperSubscriptionsEnabled and Requests.DeveloperSubscriptions.AcceptsValue(setting) then
+				saveInfo[setting] = {
+					Current = state.Current.DeveloperSubscriptions,
+					Changed = state.Changed.DeveloperSubscriptions,
+				}
 			end
 		end
 
@@ -203,6 +215,10 @@ function SettingsImpl:SaveAll(state)
 
 		if FFlagStudioLocalizationGameSettings then
 			table.insert(setRequests, Requests.Localization.Set(universeId, saveInfo.autoscrapingOn))
+		end
+
+		if DFFlagDeveloperSubscriptionsEnabled then
+			table.insert(setRequests, Requests.DeveloperSubscriptions.Set(universeId, saveInfo.DeveloperSubscriptions))
 		end
 
 		return Promise.all(setRequests):andThen(function()

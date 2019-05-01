@@ -34,6 +34,8 @@ ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBackground.
 ROUNDED_BORDER_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
 ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13),
 
+ROUND_TEXT_BOX_DEFAULT_HEIGHT = 42,
+
 GRADIENT_IMAGE = "rbxasset://textures/gradient.png",
 GRADIENT_RECT_SIZE = Vector2.new(512, 256),
 

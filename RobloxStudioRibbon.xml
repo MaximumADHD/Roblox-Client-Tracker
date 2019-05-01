@@ -121,7 +121,7 @@
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="Studio.App.Materials.SmoothPlastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Studio.App.Materials.Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
           <addaction name="ms_Glass" style="textbesideicon"  text="Studio.App.Materials.Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
-		  <addaction name="ms_ForceField" fflag="RenderForcefieldMaterial" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
+		  <addaction name="ms_ForceField" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <addseparator visible="false"/>
@@ -222,7 +222,7 @@
           <addaction name="ms_SmoothPlastic" style="textbesideicon" text="Studio.App.Materials.SmoothPlastic" value="SmoothPlastic" icon=":/RibbonBar/images/Studio Ribbon Icons/smoothPlastic.png" width="32" height="32"/>
           <addaction name="ms_Neon" style="textbesideicon" text="Studio.App.Materials.Neon" value="Neon" icon=":/RibbonBar/images/Studio Ribbon Icons/neon.png" width="32" height="32"/>
           <addaction name="ms_Glass" style="textbesideicon"  text="Studio.App.Materials.Glass" value="Glass" icon=":/RibbonBar/images/Studio Ribbon Icons/glass.png" width="32" height="32"/>
-		  <addaction name="ms_ForceField" fflag="RenderForcefieldMaterial" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
+		  <addaction name="ms_ForceField" style="textbesideicon"  text="Studio.App.Materials.ForceField" value="ForceField" icon=":/RibbonBar/images/Studio Ribbon Icons/forcefield.png" width="32" height="32"/>
         </MenuPopupButton>
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <MenuButton name="actionSurface" style="textundericon" iconvisibleinmenu="false" tooltip="Studio.App.Parts.SurfaceTooltip" text="Studio.App.Parts.Surface" ischeckable="true" icon=":/RibbonBar/images/RibbonIcons/Home/Surfaces.png" width="32" height="32">

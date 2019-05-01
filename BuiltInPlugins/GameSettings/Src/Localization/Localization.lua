@@ -103,6 +103,7 @@ function Localization:recalculateContent()
 		},
 		Category = {
 			["Basic Info"] = self:getText("Studio.GameSettings.General.CategoryBasicInfo"),
+			["Developer Subscriptions"] = self:getText("Studio.GameSettings.General.CategoryDeveloperSubscriptions"),
 			Avatar = self:getText("Studio.GameSettings.General.CategoryAvatar"),
 			Options = self:getText("Studio.GameSettings.General.CategoryOptions"),
 			World = self:getText("Studio.GameSettings.General.CategoryWorld"),
@@ -197,7 +198,7 @@ function Localization:recalculateContent()
 			On = self:getText("Studio.GameSettings.General.SettingOn"),
 			Off = self:getText("Studio.GameSettings.General.SettingOff"),
 		},
-		
+
 		StudioApiServices = {
 			OnDescription = self:getText("Studio.GameSettings.General.StudioApiServicesDesc"),
 			On = self:getText("Studio.GameSettings.General.SettingOn"),
@@ -300,6 +301,27 @@ function Localization:recalculateContent()
 			ErrorImageLimit = self:getText("Studio.GameSettings.General.ErrorImageLimit"),
 			ErrorImageNotRecognized = self:getText("Studio.GameSettings.General.ErrorImageNotRecognized"),
 			ErrorNoDevices = self:getText("Studio.GameSettings.General.ErrorNoDevices"),
+		},
+
+		DevSubs = {
+			EditHeader = self:getText("Studio.GameSettings.General.DevSubsEditHeader"),
+			ListHeader = self:getText("Studio.GameSettings.General.DevSubsListHeader"),
+
+			Name = self:getText("Studio.GameSettings.General.DevSubsName"),
+			Title = self:getText("Studio.GameSettings.General.DevSubsTitle"),
+			Image = self:getText("Studio.GameSettings.General.DevSubsImage"),
+			Price = self:getText("Studio.GameSettings.General.DevSubsPrice"),
+			Duration = self:getText("Studio.GameSettings.General.DevSubsDuration"),
+			Id = self:getText("Studio.GameSettings.General.DevSubsId"),
+			Subscribers = self:getText("Studio.GameSettings.General.DevSubsSubscribers"),
+			Active = self:getText("Studio.GameSettings.General.DevSubsActive"),
+
+			CreateAction = self:getText("Studio.GameSettings.General.DevSubsCreateAction"),
+
+			Unsaved = self:getText("Studio.GameSettings.General.DevSubsUnsaved"),
+
+			IsActive = self:getText("Studio.GameSettings.General.DevSubsIsActive"),
+			IsNotActive = self:getText("Studio.GameSettings.General.DevSubsIsNotActive"),
 		},
 
 		Morpher = {

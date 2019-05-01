@@ -31,6 +31,8 @@ local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
+local FixModelPreviewSelection = settings():GetFFlag("FixModelPreviewSelection")
+
 local PADDING = 20
 
 function AssetPreviewWrapper:init(props)
@@ -109,7 +111,12 @@ function AssetPreviewWrapper:render()
 			local maxPreviewHeight = state.maxPreviewHeight
 
 			local previewModel = props.previewModel
-			local currentPreview = props.currentPreview
+			local currentPreview
+			if FixModelPreviewSelection then
+				currentPreview = state.currentPreview or previewModel
+			else
+				currentPreview = previewModel
+			end
 
 			local canInsertAsset = props.canInsertAsset
 
@@ -165,8 +172,7 @@ local function mapStateToProps(state, props)
 	local previewModel = assets.previewModel
 
 	return {
-		previewModel = previewModel or nil,
-		currentPreview = previewModel or nil
+		previewModel = previewModel or nil
 	}
 end
 

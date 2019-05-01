@@ -48,6 +48,7 @@ DefaultInstancedDepForceFieldVS,Vertex
 DefaultInstancedDepHQVS,Vertex
 DefaultInstancedDepHQVSShadowed,Vertex
 DefaultInstancedDepReflectionVS,Vertex
+DefaultInstancedDepReflectionVSShadowed,Vertex
 DefaultInstancedDepSurfaceHQVS,Vertex
 DefaultInstancedDepSurfaceHQVSShadowed,Vertex
 DefaultInstancedDepVS,Vertex
@@ -93,6 +94,7 @@ DefaultSkinnedForceFieldVS,Vertex
 DefaultSkinnedHQVS,Vertex
 DefaultSkinnedHQVSShadowed,Vertex
 DefaultSkinnedReflectionVS,Vertex
+DefaultSkinnedReflectionVSShadowed,Vertex
 DefaultSkinnedSurfaceHQVS,Vertex
 DefaultSkinnedSurfaceHQVSShadowed,Vertex
 DefaultSkinnedVS,Vertex
@@ -102,6 +104,7 @@ DefaultStaticForceFieldVS,Vertex
 DefaultStaticHQVS,Vertex
 DefaultStaticHQVSShadowed,Vertex
 DefaultStaticReflectionVS,Vertex
+DefaultStaticReflectionVSShadowed,Vertex
 DefaultStaticSurfaceHQVS,Vertex
 DefaultStaticSurfaceHQVSShadowed,Vertex
 DefaultStaticVS,Vertex
@@ -142,6 +145,7 @@ ImageProcessAlphaLQNeonFS,Fragment
 ImageProcessBlurFS,Fragment
 ImageProcessBlurFXCompositionFS,Fragment
 ImageProcessFIBAlphaFS,Fragment
+ImageProcessFIBAlphaSrgbFS,Fragment
 ImageProcessFIBBloomFS,Fragment
 ImageProcessFIBBloomLinearFS,Fragment
 ImageProcessFIBBlurBloomFS,Fragment

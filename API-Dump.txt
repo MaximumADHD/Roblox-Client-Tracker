@@ -988,10 +988,12 @@ Class SurfaceGui : LayerCollector
 	Property bool SurfaceGui.Active
 	Property Instance SurfaceGui.Adornee
 	Property bool SurfaceGui.AlwaysOnTop
-	Property Vector2 SurfaceGui.CanvasSize
 	Property Enum<NormalId> SurfaceGui.Face
 	Property float SurfaceGui.LightInfluence
 	Property float SurfaceGui.ToolPunchThroughDistance
+	Property Vector2 SurfaceGui.CanvasSize
+	Property float SurfaceGui.PixelsPerStud
+	Property Enum<SurfaceGuiSizingMode> SurfaceGui.SizingMode
 Class GuiBase3d : GuiBase [NotCreatable]
 	Property BrickColor GuiBase3d.Color [<📁> Load-only] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 GuiBase3d.Color3
@@ -1102,7 +1104,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Enum<ConnectionError> GuiService:GetErrorType() {RobloxScriptSecurity}
 	Function Tuple GuiService:GetGuiInset()
 	Function Dictionary GuiService:GetNotificationTypeList() {RobloxScriptSecurity}
-	Function int GuiService:GetResolutionScale() {LocalUserSecurity}
+	Function int GuiService:GetResolutionScale() {RobloxScriptSecurity}
 	Function Dictionary GuiService:GetSafeZoneOffsets() {RobloxScriptSecurity}
 	Function Vector2 GuiService:GetScreenResolution() {RobloxScriptSecurity} [Yields]
 	Function string GuiService:GetUiMessage() {RobloxScriptSecurity}
@@ -2634,7 +2636,6 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Intellisense [<📁> Load-only] [NotReplicated] [Deprecated]
-	Property bool Studio.Import mesh files as single mesh
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Show Diagnostics Bar
 	Property bool Studio.Show QT warnings in output
@@ -2643,9 +2644,6 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Auto-Recovery Enabled
 	Property int Studio.Auto-Recovery Interval (Minutes)
 	Property QDir Studio.Auto-Recovery Path
-	Property bool Studio.Auto-Save Enabled
-	Property int Studio.Auto-Save Interval (Minutes)
-	Property QDir Studio.Auto-Save Path
 	Property bool Studio.DeprecatedObjectsShown
 	Property Enum<PermissionLevelShown> Studio.PermissionLevelShown
 	Property float Studio.Camera Mouse Wheel Speed
@@ -4096,7 +4094,7 @@ Enum Material
 	EnumItem Material.Ice : 1536
 	EnumItem Material.Glacier : 1552 [NotBrowsable]
 	EnumItem Material.Glass : 1568
-	EnumItem Material.ForceField : 1584 [Deprecated]
+	EnumItem Material.ForceField : 1584
 	EnumItem Material.Air : 1792 [NotBrowsable]
 	EnumItem Material.Water : 2048 [NotBrowsable]
 Enum MembershipType
@@ -4506,6 +4504,9 @@ Enum SurfaceConstraint
 	EnumItem SurfaceConstraint.Hinge : 1
 	EnumItem SurfaceConstraint.SteppingMotor : 2
 	EnumItem SurfaceConstraint.Motor : 3
+Enum SurfaceGuiSizingMode
+	EnumItem SurfaceGuiSizingMode.FixedSize : 0
+	EnumItem SurfaceGuiSizingMode.PixelsPerStud : 1
 Enum SurfaceType
 	EnumItem SurfaceType.Smooth : 0
 	EnumItem SurfaceType.Glue : 1

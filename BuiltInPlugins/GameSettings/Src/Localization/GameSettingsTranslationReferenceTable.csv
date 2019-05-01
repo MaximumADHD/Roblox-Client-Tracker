@@ -12,10 +12,11 @@ Studio.GameSettings.General.ButtonSave,Save
 Studio.GameSettings.General.ButtonCancel,Cancel
 Studio.GameSettings.General.ButtonDiscard,Discard
 Studio.GameSettings.General.CategoryBasicInfo,Basic Info
+Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions
 Studio.GameSettings.General.CategoryAvatar,Avatar
 Studio.GameSettings.General.CategoryWorld,World
 Studio.GameSettings.General.CategoryOptions,Options
-Studio.GameSettings.General.CategoryAccessPermissions,Access Permissions
+Studio.GameSettings.General.CategoryAccessPermissions,Permissions
 Studio.GameSettings.General.TitleName,Name
 Studio.GameSettings.General.TitleDescription,Description
 Studio.GameSettings.General.TitlePlayability,Playability
@@ -138,3 +139,17 @@ Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?
 Studio.GameSettings.General.AvatarOverrideItem,Custom Item
 Studio.GameSettings.General.AvatarOverrideId,ID Number
 Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty
+Studio.GameSettings.General.DevSubsEditHeader,Edit Developer Subscription
+Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions
+Studio.GameSettings.General.DevSubsName,Name
+Studio.GameSettings.General.DevSubsTitle,Title
+Studio.GameSettings.General.DevSubsPrice,Price
+Studio.GameSettings.General.DevSubsImage,Image
+Studio.GameSettings.General.DevSubsDuration,Duration
+Studio.GameSettings.General.DevSubsId,Id
+Studio.GameSettings.General.DevSubsSubscribers,Subscribers
+Studio.GameSettings.General.DevSubsActive,Active
+Studio.GameSettings.General.DevSubsCreateAction,Create
+Studio.GameSettings.General.DevSubsUnsaved,Unsaved
+Studio.GameSettings.General.DevSubsIsActive,Yes
+Studio.GameSettings.General.DevSubsIsNotActive,No

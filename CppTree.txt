@@ -293,6 +293,7 @@ RBX
 			{
 				StreamDataInfoItem
 				StreamDataItem
+				StreamTerrainItem
 			}
 			ChangePropertyItem
 			DeleteInstanceItem

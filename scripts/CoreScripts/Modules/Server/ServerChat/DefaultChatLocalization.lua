@@ -766,4 +766,11 @@ return {
             ["zh-tw"] = "現在無法使用表情。",
         },
     },
+    {
+        Key = "InGame.Chat.Label.SystemMessagePrefix",
+        Values = {
+            ["en-us"] = "System",
+            ["zh-cn"] = "系统",
+        },
+    },
 }

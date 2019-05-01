@@ -10,6 +10,7 @@ local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidget
 local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
+local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
@@ -74,6 +75,10 @@ end
 
 if FFlagStudioLocalizationGameSettings then
 	table.insert(settingsPages, "Localization")
+end
+
+if DFFlagDeveloperSubscriptionsEnabled then
+	table.insert(settingsPages, "Developer Subscriptions")
 end
 
 if DFFlagGameSettingsWorldPanel then

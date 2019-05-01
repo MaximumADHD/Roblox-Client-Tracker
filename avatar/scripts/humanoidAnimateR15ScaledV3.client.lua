@@ -12,8 +12,15 @@ local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcal
 end)
 local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagExists and adjustHumanoidRootPartFlagEnabled
 
+local animateScriptEmoteHookFlagExists, animateScriptEmoteHookFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserAnimateScriptEmoteHook")
+end)
+local FFlagAnimateScriptEmoteHook = animateScriptEmoteHookFlagExists and animateScriptEmoteHookFlagEnabled
+
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = FFlagUserAdjustHumanoidRootPartToHipPosition and 2 or 1.35
+
+local EMOTE_TRANSITION_TIME = 0.1
 
 local currentAnim = ""
 local currentAnimInstance = nil
@@ -302,6 +309,8 @@ local jumpAnimDuration = 0.31
 local toolTransitionTime = 0.1
 local fallTransitionTime = 0.2
 
+local currentlyPlayingEmote = false
+
 -- functions
 
 function stopAllAnimations()
@@ -310,6 +319,11 @@ function stopAllAnimations()
 	-- return to idle if finishing an emote
 	if (emoteNames[oldAnim] ~= nil and emoteNames[oldAnim] == false) then
 		oldAnim = "idle"
+	end
+	
+	if FFlagAnimateScriptEmoteHook and currentlyPlayingEmote then
+		oldAnim = "idle"
+		currentlyPlayingEmote = false
 	end
 
 	currentAnim = ""
@@ -416,6 +430,16 @@ function keyFrameReachedFunc(frameName)
 				repeatAnim = "idle"
 			end
 			
+			if FFlagAnimateScriptEmoteHook and currentlyPlayingEmote then
+				if currentAnimTrack.Looped then
+					-- Allow the emote to loop
+					return
+				end
+				
+				repeatAnim = "idle"
+				currentlyPlayingEmote = false
+			end
+			
 			local animSpeed = currentAnimSpeed
 			playAnimation(repeatAnim, 0.15, Humanoid)
 			setAnimationSpeed(animSpeed)
@@ -434,10 +458,7 @@ function rollAnimation(animName)
 	return idx
 end
 
-function playAnimation(animName, transitionTime, humanoid) 	
-	local idx = rollAnimation(animName)
-	local anim = animTable[animName][idx].anim
-
+local function switchToAnim(anim, animName, transitionTime, humanoid)
 	-- switch animation		
 	if (anim ~= currentAnimInstance) then
 		
@@ -486,7 +507,18 @@ function playAnimation(animName, transitionTime, humanoid)
 			runAnimKeyframeHandler = runAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)	
 		end
 	end
+end
 
+function playAnimation(animName, transitionTime, humanoid) 	
+	local idx = rollAnimation(animName)
+	local anim = animTable[animName][idx].anim
+
+	switchToAnim(anim, animName, transitionTime, humanoid)
+end
+
+function playEmote(emoteAnim, transitionTime, humanoid)
+	switchToAnim(emoteAnim, emoteAnim.Name, transitionTime, humanoid)
+	currentlyPlayingEmote = true
 end
 
 -------------------------------------------------------------------------------------------
@@ -725,11 +757,33 @@ game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
 	end
 	
 	if (pose == "Standing" and emoteNames[emote] ~= nil) then
-		playAnimation(emote, 0.1, Humanoid)
+		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
 	end
 end)
 
-
+-- emote bindable hook
+if FFlagAnimateScriptEmoteHook then
+	script:WaitForChild("PlayEmote").OnInvoke = function(emote)
+		-- Only play emotes when idling
+		if pose ~= "Standing" then
+			return
+		end
+	
+		if emoteNames[emote] ~= nil then
+			-- Default emotes
+			playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
+			
+			return true
+		elseif typeof(emote) == "Instance" and emote:IsA("Animation") then
+			-- Non-default emotes
+			playEmote(emote, EMOTE_TRANSITION_TIME, Humanoid)
+			return true
+		end
+		
+		-- Return false to indicate that the emote could not be played
+		return false
+	end
+end
 
 -- initialize to idle
 playAnimation("idle", 0.1, Humanoid)

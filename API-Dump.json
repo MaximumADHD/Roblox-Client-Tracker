@@ -16941,7 +16941,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Sizing",
                     "MemberType": "Property",
                     "Name": "CanvasSize",
                     "Security": {
@@ -17006,6 +17006,40 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Sizing",
+                    "MemberType": "Property",
+                    "Name": "PixelsPerStud",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Sizing",
+                    "MemberType": "Property",
+                    "Name": "SizingMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SurfaceGuiSizingMode"
                     }
                 },
                 {
@@ -18725,7 +18759,7 @@
                         "Category": "Primitive",
                         "Name": "int"
                     },
-                    "Security": "LocalUserSecurity"
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -45532,57 +45566,6 @@
                     }
                 },
                 {
-                    "Category": "Auto-Save",
-                    "MemberType": "Property",
-                    "Name": "Auto-Save Enabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Auto-Save",
-                    "MemberType": "Property",
-                    "Name": "Auto-Save Interval (Minutes)",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Auto-Save",
-                    "MemberType": "Property",
-                    "Name": "Auto-Save Path",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "QDir"
-                    }
-                },
-                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Background Color",
@@ -45958,23 +45941,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Import mesh files as single mesh",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -58480,9 +58446,6 @@
                 },
                 {
                     "Name": "ForceField",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 1584
                 }
             ],
@@ -60210,6 +60173,19 @@
                 }
             ],
             "Name": "SurfaceConstraint"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "FixedSize",
+                    "Value": 0
+                },
+                {
+                    "Name": "PixelsPerStud",
+                    "Value": 1
+                }
+            ],
+            "Name": "SurfaceGuiSizingMode"
         },
         {
             "Items": [

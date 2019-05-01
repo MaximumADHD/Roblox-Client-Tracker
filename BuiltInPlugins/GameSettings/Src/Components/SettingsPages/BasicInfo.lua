@@ -316,9 +316,11 @@ local function displayContents(page, localized)
 		}),
 
 		Icon = Roact.createElement(GameIconWidget, {
+			Title = localized.Title.GameIcon,
 			LayoutOrder = 6,
 			Enabled = props.GameIcon ~= nil,
 			Icon = props.GameIcon,
+			TutorialEnabled = true,
 			AddIcon = function()
 				if FFlagGameSettingsImageUploadingEnabled then
 					local icon

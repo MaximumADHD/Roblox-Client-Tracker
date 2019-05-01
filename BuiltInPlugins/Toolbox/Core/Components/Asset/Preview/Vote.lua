@@ -267,7 +267,7 @@ function Vote:render()
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 
 					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 6),
+					Padding = UDim.new(0, 8),
 				}),
 
 				VoteIcon = Roact.createElement("ImageLabel", {

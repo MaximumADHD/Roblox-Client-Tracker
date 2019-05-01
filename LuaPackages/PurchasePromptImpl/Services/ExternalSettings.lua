@@ -17,7 +17,7 @@ function ExternalSettings.new()
 	end
 
 	function service.getFlagPurchasePromptPremiumEnabled()
-		return settings():GetFFlag("PurchasePromptPremiumEnabled")
+		return settings():GetFFlag("PurchasePromptPremiumEnabled2")
 	end
 
 	function service.getFlagRestrictSales2()

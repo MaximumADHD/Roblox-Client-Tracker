@@ -45,6 +45,10 @@ local function getABTestGroup(userId, testName)
 			Url = AB_TEST_URL .. "v1/get-enrollments",
 			Method = "POST",
 			Body = HttpService:JSONEncode(abTestRequest),
+			Headers = {
+				["Content-Type"] = "application/json",
+				["Accept"] = "application/json",
+			}
 		}, resolve, reject)
 	end)
 end
