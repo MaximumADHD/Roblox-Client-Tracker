@@ -4,14 +4,14 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local DropdownMenu = require(script.Parent.DropdownMenu)
 
 	local sourceExtents = Rect.new(0, 0, 150, 150)
 
-	local function createTestDropdownMenu(props, children)
-		return Roact.createElement(MockWrapper, {}, {
+	local function createTestDropdownMenu(props, children, container)
+		return Roact.createElement(MockWrapper, {
+			Container = container,
+		}, {
 			DropdownMenu = Roact.createElement(DropdownMenu, props, children)
 		})
 	end
@@ -28,18 +28,18 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestDropdownMenu({
 			SourceExtents = sourceExtents,
 			Items = {},
 			RenderItem = function(item)
 			end,
-		})
+		}, {}, container)
 
 		local instance = Roact.mount(element, container)
 
-		local gui = workspace:FindFirstChild("MockGui")
+		local gui = container:FindFirstChild("MockGui")
 		expect(gui).to.be.ok()
 		expect(gui.TopLevelDetector).to.be.ok()
 		expect(gui.TopLevelDetector.ScrollBlocker).to.be.ok()
@@ -60,7 +60,6 @@ return function()
 		expect(function()
 			Roact.mount(element)
 		end).to.throw()
-		workspace:FindFirstChild("MockGui"):Destroy()
 
 		element = createTestDropdownMenu({
 			Items = true,
@@ -71,7 +70,6 @@ return function()
 		expect(function()
 			Roact.mount(element)
 		end).to.throw()
-		workspace:FindFirstChild("MockGui"):Destroy()
 	end)
 
 	it("should require a RenderItem function", function()
@@ -82,7 +80,6 @@ return function()
 		expect(function()
 			Roact.mount(element)
 		end).to.throw()
-		workspace:FindFirstChild("MockGui"):Destroy()
 
 		element = createTestDropdownMenu({
 			Items = {},
@@ -92,7 +89,6 @@ return function()
 		expect(function()
 			Roact.mount(element)
 		end).to.throw()
-		workspace:FindFirstChild("MockGui"):Destroy()
 	end)
 
 	it("should require a SourceExtents prop", function()
@@ -104,11 +100,10 @@ return function()
 		expect(function()
 			Roact.mount(element)
 		end).to.throw()
-		workspace:FindFirstChild("MockGui"):Destroy()
 	end)
 
 	it("should render items", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestDropdownMenu({
 			SourceExtents = sourceExtents,
@@ -116,11 +111,11 @@ return function()
 			RenderItem = function()
 				return Roact.createElement("Frame")
 			end,
-		})
+		}, {}, container)
 
 		local instance = Roact.mount(element, container)
 
-		local gui = workspace:FindFirstChild("MockGui")
+		local gui = container:FindFirstChild("MockGui")
 		local dropdownContainer = gui.TopLevelDetector.ScrollBlocker.Container
 		expect(dropdownContainer["1"]).to.be.ok()
 
@@ -128,7 +123,7 @@ return function()
 	end)
 
 	it("should respect the order of items", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestDropdownMenu({
 			SourceExtents = sourceExtents,
@@ -139,11 +134,11 @@ return function()
 					Text = item,
 				})
 			end,
-		})
+		}, {}, container)
 
 		local instance = Roact.mount(element, container)
 
-		local gui = workspace:FindFirstChild("MockGui")
+		local gui = container:FindFirstChild("MockGui")
 		local dropdownContainer = gui.TopLevelDetector.ScrollBlocker.Container
 		expect(dropdownContainer["1"].LayoutOrder).to.equal(1)
 		expect(dropdownContainer["2"].LayoutOrder).to.equal(2)

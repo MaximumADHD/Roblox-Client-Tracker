@@ -7,6 +7,7 @@
 	Props:
 		Theme theme = A theme object to be used by a ThemeProvider.
 		PluginGui focusGui = The top-level gui to be used by a FocusProvider.
+		Plugin plugin = A Plugin object which can be used to construct guis.
 ]]
 
 local Library = script.Parent
@@ -17,6 +18,9 @@ local ThemeProvider = Theming.Provider
 
 local Focus = require(Library.Focus)
 local FocusProvider = Focus.Provider
+
+local Plugin = require(Library.Plugin)
+local PluginProvider = Plugin.Provider
 
 local UILibraryWrapper = Roact.PureComponent:extend("UILibraryWrapper")
 
@@ -42,6 +46,14 @@ function UILibraryWrapper:render()
 	if focusGui then
 		root = self:addProvider(root, FocusProvider, {
 			pluginGui = focusGui,
+		})
+	end
+
+	-- PluginProvider
+	local plugin = props.plugin
+	if plugin then
+		root = self:addProvider(root, PluginProvider, {
+			plugin = plugin,
 		})
 	end
 

@@ -66,6 +66,7 @@ return{
 	["Common.AssetTypes.Label.RightLeg"] = [[Perna direita]],
 	["Common.AssetTypes.Label.Torso"] = [[Tronco]],
 	["Common.AssetTypes.Label.Animation"] = [[Animações]],
+	["Common.AssetTypes.Label.Emote"] = [[Emote]],
 	["Common.BuildersClub.Label.PlanFree"] = [[Grátis]],
 	["Common.BuildersClub.Label.PlanClassic"] = [[Clássico]],
 	["Common.BuildersClub.Label.PlanTurbo"] = [[Turbo]],

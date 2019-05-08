@@ -124,7 +124,8 @@ function Localization:recalculateContent()
 			Genre = self:getText("Studio.GameSettings.General.TitleGenre"),
 			Devices = self:getText("Studio.GameSettings.General.TitleDevices"),
 			Http = self:getText("Studio.GameSettings.General.TitleHttp"),
-			StudioApiServices = self:getText("Studio.GameSettings.General.TitleStudioApiServices")
+			StudioApiServices = self:getText("Studio.GameSettings.General.TitleStudioApiServices"),
+			GameOwner = self:getText("Studio.GameSettings.General.TitleGameOwner"),
 		},
 
 		Playability = {
@@ -317,11 +318,18 @@ function Localization:recalculateContent()
 			Active = self:getText("Studio.GameSettings.General.DevSubsActive"),
 
 			CreateAction = self:getText("Studio.GameSettings.General.DevSubsCreateAction"),
+			DiscontinueAction = self:getText("Studio.GameSettings.General.DevSubsDiscontinueAction"),
 
 			Unsaved = self:getText("Studio.GameSettings.General.DevSubsUnsaved"),
 
 			IsActive = self:getText("Studio.GameSettings.General.DevSubsIsActive"),
 			IsNotActive = self:getText("Studio.GameSettings.General.DevSubsIsNotActive"),
+
+			DiscontinueTitle = self:getText("Studio.GameSettings.General.DevSubsDiscontinueTitle"),
+			DiscontinueHeader = self:getText("Studio.GameSettings.General.DevSubsDiscontinueHeader"),
+			DiscontinueDescription = self:getText("Studio.GameSettings.General.DevSubsDiscontinueDescription"),
+			DiscontinueConfirm = self:getText("Studio.GameSettings.General.DevSubsDiscontinueConfirm"),
+			DiscontinueCancel = self:getText("Studio.GameSettings.General.ReplyNo"),
 		},
 
 		Morpher = {
@@ -391,6 +399,20 @@ function Localization:recalculateContent()
 				Empty = self:getText("Studio.GameSettings.General.ErrorOverrideEmpty"),
 			},
 		},
+		
+		AccessPermissions = {
+			ActionDropdown = {
+				NoAccessLabel = self:getText("Studio.GameSettings.AccessPermissions.NoAccessLabel"),
+				PlayLabel = self:getText("Studio.GameSettings.AccessPermissions.PlayLabel"),
+				EditLabel = self:getText("Studio.GameSettings.AccessPermissions.EditLabel"),
+				ManageLabel = self:getText("Studio.GameSettings.AccessPermissions.ManageLabel"),
+				
+				NoAccessDescription = self:getText("Studio.GameSettings.AccessPermissions.NoAccessDescription"),
+				PlayDescription = self:getText("Studio.GameSettings.AccessPermissions.PlayDescription"),
+				EditDescription = self:getText("Studio.GameSettings.AccessPermissions.EditDescription"),
+				ManageDescription = self:getText("Studio.GameSettings.AccessPermissions.ManageDescription"),
+			},
+		}
 	})
 end
 

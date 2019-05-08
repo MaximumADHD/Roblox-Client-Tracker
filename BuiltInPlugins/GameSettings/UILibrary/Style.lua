@@ -21,6 +21,14 @@ Style.Defaults = {
 	hoveredItemColor = Color3.new(),
 	hoveredTextColor = Color3.new(),
 
+	primaryItemColor = Color3.new(),
+	primaryBorderColor = Color3.new(),
+	primaryTextColor = Color3.new(),
+
+	primaryHoveredItemColor = Color3.new(),
+	primaryHoveredBorderColor = Color3.new(),
+	primaryHoveredTextColor = Color3.new(),
+
 	selectionColor = Color3.new(),
 	selectionBorderColor = Color3.new(),
 	selectedTextColor = Color3.new(),
@@ -29,7 +37,7 @@ Style.Defaults = {
 	shadowTransparency = Color3.new(),
 
 	separationLineColor = Color3.new(),
-	
+
 	disabledColor = Color3.new(),
 	errorColor = Color3.new(),
 

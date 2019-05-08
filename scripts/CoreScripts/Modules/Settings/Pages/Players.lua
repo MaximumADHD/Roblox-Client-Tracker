@@ -27,6 +27,8 @@ local ShareGameIcons = require(ShareGameDirectory.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+local FlagSettings = require(RobloxGui.Modules.FlagSettings)
+local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
 
 ------------ Constants -------------------
 local FRAME_DEFAULT_TRANSPARENCY = .85
@@ -34,6 +36,8 @@ local FRAME_SELECTED_TRANSPARENCY = .65
 local REPORT_PLAYER_IMAGE = isTenFootInterface and "rbxasset://textures/ui/Settings/Players/ReportFlagIcon@2x.png" or "rbxasset://textures/ui/Settings/Players/ReportFlagIcon.png"
 local ADD_FRIEND_IMAGE = isTenFootInterface and "rbxasset://textures/ui/Settings/Players/AddFriendIcon@2x.png" or "rbxasset://textures/ui/Settings/Players/AddFriendIcon.png"
 local FRIEND_IMAGE = isTenFootInterface and "rbxasset://textures/ui/Settings/Players/FriendIcon@2x.png" or "rbxasset://textures/ui/Settings/Players/FriendIcon.png"
+local INSPECT_IMAGE = "rbxasset://textures/ui/InspectMenu/ico_inspect.png"
+local INSPECT_KEY = "InGame.InspectMenu.Action.View"
 
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_SPACING = 80
@@ -45,6 +49,10 @@ local localPlayer = PlayersService.LocalPlayer
 while not localPlayer do
 	PlayersService.ChildAdded:wait()
 	localPlayer = PlayersService.LocalPlayer
+end
+local inspectMenuAnalytics = nil
+if FlagSettings.IsInspectAndBuyEnabled() then
+	inspectMenuAnalytics = InspectMenuAnalytics.new()
 end
 
 ------------ FAST FLAGS -------------------
@@ -233,34 +241,73 @@ local function Initialize()
 
 			local friendLabel = nil
 			local wasIsPortrait = nil
-			utility:OnResized(playerLabel, function(newSize, isPortrait)
-				if friendLabel and isPortrait == wasIsPortrait then
-					return
-				end
-				wasIsPortrait = isPortrait
-				if friendLabel then
-					friendLabel:Destroy()
-				end
-				if isPortrait then
-					friendLabel = createFriendStatusImageLabel(status, player)
-				else
-					friendLabel = createFriendStatusTextLabel(status, player)
-				end
+			if not FlagSettings.IsInspectAndBuyEnabled() then
+				utility:OnResized(playerLabel, function(newSize, isPortrait)
+					if friendLabel and isPortrait == wasIsPortrait then
+						return
+					end
+					wasIsPortrait = isPortrait
+					if friendLabel then
+						friendLabel:Destroy()
+					end
+					if isPortrait then
+						friendLabel = createFriendStatusImageLabel(status, player)
+					else
+						friendLabel = createFriendStatusTextLabel(status, player)
+					end
 
-				if friendLabel then
-					friendLabel.Name = "FriendStatus"
-					friendLabel.LayoutOrder = 2
-					friendLabel.Selectable = true
-					friendLabel.Parent = friendLabelParent
+					if friendLabel then
+						friendLabel.Name = "FriendStatus"
+						friendLabel.LayoutOrder = 2
+						friendLabel.Selectable = true
+						friendLabel.Parent = friendLabelParent
 
-					if not FFlagSelectShareGameButtonByDefault2 then
-						if UserInputService.GamepadEnabled and not friendSelectionFound then
-							friendSelectionFound = true
-							GuiService.SelectedCoreObject = friendLabel
+						if not FFlagSelectShareGameButtonByDefault2 then
+							if UserInputService.GamepadEnabled and not friendSelectionFound then
+								friendSelectionFound = true
+								GuiService.SelectedCoreObject = friendLabel
+							end
 						end
 					end
+				end)
+			end
+		end
+	end
+
+	local function resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
+		local friendLabel = parent:FindFirstChild("FriendStatus")
+		if friendLabel and isPortrait == wasIsPortrait then
+			return
+		end
+
+		if friendLabel then
+			friendLabel:Destroy()
+			friendLabel = nil
+		end
+
+		local status
+		if showRightSideButtons(player) then
+			status = getFriendStatus(player)
+		end
+
+		if isPortrait then
+			friendLabel = createFriendStatusImageLabel(status, player)
+		else
+			friendLabel = createFriendStatusTextLabel(status, player)
+		end
+
+		if friendLabel then
+			friendLabel.Name = "FriendStatus"
+			friendLabel.LayoutOrder = FlagSettings.IsInspectAndBuyEnabled() and 3 or 2
+			friendLabel.Selectable = true
+			friendLabel.Parent = parent
+
+			if not FFlagSelectShareGameButtonByDefault2 then
+				if UserInputService.GamepadEnabled and not friendSelectionFound then
+					friendSelectionFound = true
+					GuiService.SelectedCoreObject = friendLabel
 				end
-			end)
+			end
 		end
 	end
 
@@ -443,6 +490,46 @@ local function Initialize()
 		return frame
 	end
 
+	local function createInspectButtonImage(activateInspectAndBuyMenu)
+		local inspectButton = utility:MakeStyledImageButton("InspectButton", INSPECT_IMAGE,
+				UDim2.new(0, 46, 0, 46), UDim2.new(0, 28, 0, 28), activateInspectAndBuyMenu)
+		return inspectButton
+	end
+
+	local function createInspectButtonText(activateInspectAndBuyMenu)
+		local inspectButton = utility:MakeStyledButton(
+			"InspectButton", RobloxTranslator:FormatByKey(INSPECT_KEY), UDim2.new(0, 130, 0, 46), activateInspectAndBuyMenu)
+		return inspectButton
+	end
+
+	local function resizeInspectButton(parent, player, isPortrait, wasPortrait)
+		local inspectButton = parent:FindFirstChild("Inspect")
+		if inspectButton and isPortrait == wasPortrait then
+			return
+		end
+
+		if inspectButton then
+			inspectButton:Destroy()
+		end
+
+		local activateInspectAndBuyMenu = function()
+			inspectMenuAnalytics.reportOpenInspectMenu("escapeMenu")
+			GuiService:InspectPlayerFromUserId(player.UserId)
+			this.HubRef:SetVisibility(false)
+		end
+
+		if isPortrait then
+			inspectButton = createInspectButtonImage(activateInspectAndBuyMenu)
+		else
+			inspectButton = createInspectButtonText(activateInspectAndBuyMenu)
+		end
+
+		inspectButton.Name = "Inspect"
+		inspectButton.LayoutOrder = 2
+		inspectButton.Selectable = true
+		inspectButton.Parent = parent
+	end
+
 	createPlayerRow = function()
 		local frame = createRow("ImageLabel")
 		frame.TextLabel.Name = "NameLabel"
@@ -609,6 +696,10 @@ local function Initialize()
 			reportSelectionFound = nil
 		end
 
+		local inspectMenuEnabled = false
+		if FlagSettings.IsInspectAndBuyEnabled() then
+			inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
+		end
 		-- iterate through players to reuse or create labels for players
 		for index=1, #sortedPlayers do
 			local player = sortedPlayers[index]
@@ -643,6 +734,21 @@ local function Initialize()
 				managePlayerNameCutoff(frame, player)
 
 				friendStatusCreate(frame, player)
+
+				local wasIsPortrait = nil
+				if FlagSettings.IsInspectAndBuyEnabled() then
+					utility:OnResized(frame, function(newSize, isPortrait)
+						local parent = frame:FindFirstChild("RightSideButtons")
+						if parent then
+							resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
+							if inspectMenuEnabled then
+								resizeInspectButton(parent, player, isPortrait, wasIsPortrait)
+							end
+							wasIsPortrait = isPortrait
+						end
+					end)
+				end
+
 				if FFlagXboxAllowReportFromPlayersPage then
 					if not FFlagChinaLicensingApp then
 						reportAbuseButtonCreate(frame, player)
@@ -728,7 +834,36 @@ local function Initialize()
 			end
 			reportPlayer:Destroy()
 		end
+
+		local inspectButton = FlagSettings.IsInspectAndBuyEnabled() and buttons:FindFirstChild("Inspect")
+		if inspectButton then
+			if GuiService.SelectedCoreObject == inspectButton then
+				GuiService.SelectedCoreObject = nil
+			end
+			inspectButton:Destroy()
+		end
 	end)
+
+	-- If the developer disables the Inspect Menu, remove the button from the escape menu.
+	if FlagSettings.IsInspectAndBuyEnabled() then
+		GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+			if not enabled then
+				for _, frame in pairs(existingPlayerLabels) do
+					local buttons = frame:FindFirstChild("RightSideButtons")
+
+					if buttons then
+						local inspectButton = buttons:FindFirstChild("Inspect")
+						if inspectButton then
+							if GuiService.SelectedCoreObject == inspectButton then
+								GuiService.SelectedCoreObject = nil
+							end
+							inspectButton:Destroy()
+						end
+					end
+				end
+			end
+		end)
+	end
 
 	return this
 end

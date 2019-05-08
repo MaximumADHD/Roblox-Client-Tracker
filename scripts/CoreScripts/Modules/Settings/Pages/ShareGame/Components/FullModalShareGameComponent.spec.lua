@@ -1,5 +1,5 @@
 return function()
-	local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+	local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 	if not FFlagLuaInviteModalEnabled then
 		return
 	end

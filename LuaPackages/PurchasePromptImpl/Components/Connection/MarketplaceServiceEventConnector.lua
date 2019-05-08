@@ -14,14 +14,18 @@ local ErrorOccurred = require(script.Parent.Parent.Parent.Actions.ErrorOccurred)
 
 local completePurchase = require(script.Parent.Parent.Parent.Thunks.completePurchase)
 local initiatePurchase = require(script.Parent.Parent.Parent.Thunks.initiatePurchase)
+local initiateBundlePurchase = require(script.Parent.Parent.Parent.Thunks.initiateBundlePurchase)
 
 local connectToStore = require(script.Parent.Parent.Parent.connectToStore)
+
+local FFlagRoactPurchasePromptAllowBundles = settings():GetFFlag("RoactPurchasePromptAllowBundles")
 
 local function MarketplaceServiceEventConnector(props)
 	local onPurchaseRequest = props.onPurchaseRequest
 	local onProductPurchaseRequest = props.onProductPurchaseRequest
 	local onPurchaseGamePassRequest = props.onPurchaseGamePassRequest
 	local onServerPurchaseVerification = props.onServerPurchaseVerification
+	local onBundlePurchaseRequest = props.onBundlePurchaseRequest
 
 	return Roact.createElement(ExternalEventConnection, {
 		event = MarketplaceService.PromptPurchaseRequested,
@@ -38,6 +42,11 @@ local function MarketplaceServiceEventConnector(props)
 				Roact.createElement(ExternalEventConnection, {
 					event = MarketplaceService.ServerPurchaseVerification,
 					callback = onServerPurchaseVerification,
+				}, {
+					FFlagRoactPurchasePromptAllowBundles and Roact.createElement(ExternalEventConnection, {
+						event = MarketplaceService.PromptBundlePurchaseRequested,
+						callback = onBundlePurchaseRequest,
+					})
 				})
 			})
 		})
@@ -79,11 +88,18 @@ function(dispatch)
 		end
 	end
 
+	local function onBundlePurchaseRequest(player, bundleId)
+		if player == Players.LocalPlayer then
+			dispatch(initiateBundlePurchase(bundleId))
+		end
+	end
+
 	return {
 		onPurchaseRequest = onPurchaseRequest,
 		onProductPurchaseRequest = onProductPurchaseRequest,
 		onPurchaseGamePassRequest = onPurchaseGamePassRequest,
 		onServerPurchaseVerification = onServerPurchaseVerification,
+		onBundlePurchaseRequest = onBundlePurchaseRequest,
 	}
 end)(MarketplaceServiceEventConnector)
 

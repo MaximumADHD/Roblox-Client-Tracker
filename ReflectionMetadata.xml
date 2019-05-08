@@ -6540,6 +6540,24 @@
             <string name="summary">The rendered image of the ViewportFrame will be mutiplied by this color</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ambient</string>
+            <string name="summary">Changing this changes the color tint of all objects in the ViewportFrame.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LightColor</string>
+            <string name="summary">Directional light color for objects in the ViewportFrame.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LightDirection</string>
+            <string name="summary">Light direction. Value will be normalized. All values valid except (0,0,0).</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">

@@ -31,9 +31,12 @@ local IMAGE_ROUNDED_BACKGROUND = "rbxasset://textures/ui/LuaChat/9-slice/btn-con
 local SETTINGS_SHIELD_BACKGROUND_COLOR = Color3.fromRGB(41, 41, 41)
 local BACKGROUND_BORDER_RADIUS = 3
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local ModalShareGamePageFrame = Roact.PureComponent:extend("ModalShareGamePageFrame")
+ModalShareGamePageFrame.defaultProps = {
+	isVisible = true,
+}
 
 function ModalShareGamePageFrame:init()
 	self.onClosePage = function()
@@ -47,6 +50,7 @@ end
 function ModalShareGamePageFrame:render()
 	local analytics = self.props.analytics
 	local deviceLayout = self.props.deviceLayout
+	local isVisible = self.props.isVisible
 	local zIndex = self.props.zIndex
 	local searchAreaActive = self.props.searchAreaActive
 	local searchText = self.props.searchText
@@ -57,7 +61,7 @@ function ModalShareGamePageFrame:render()
 		Image = IMAGE_ROUNDED_BACKGROUND,
 		ImageColor3 = SETTINGS_SHIELD_BACKGROUND_COLOR,
 		ImageTransparency = 0.1,
-		Modal = true,
+		Modal = isVisible,
 		Position = UDim2.new(0.5, 0, 0.5 - POSITION_HEIGHT_OFFSET, 0),
 		Size = UDim2.new(MAX_MODAL_WIDTH.Scale, 0, MAX_MODAL_HEIGHT.Scale, 0),
 		ScaleType = Enum.ScaleType.Slice,

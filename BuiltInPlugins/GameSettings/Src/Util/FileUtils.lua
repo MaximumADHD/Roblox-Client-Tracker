@@ -88,7 +88,7 @@ function FileUtils.PromptForThumbnails(page)
 				showMultiImageFailedDialog(page, localized, rejectedThumbnailNames)
 			end
 			return acceptedThumbnails
-		end 
+		end
 	else
 		if thumbnails and #thumbnails > 0 then
 			for _, thumb in ipairs(thumbnails) do

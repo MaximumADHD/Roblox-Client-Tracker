@@ -1114,8 +1114,14 @@ local function onPromptEnded(isSuccess)
 		MarketplaceService:SignalPromptProductPurchaseFinished(Players.LocalPlayer.UserId, PurchaseData.ProductId, didPurchase)
 	elseif IsPurchasingGamePass then
 		MarketplaceService:SignalPromptGamePassPurchaseFinished(Players.LocalPlayer, PurchaseData.GamePassId, didPurchase)
+		if didPurchase then
+			MarketplaceService:SignalAssetTypePurchased(Players.LocalPlayer, Enum.AssetType.GamePass)
+		end
 	else
 		MarketplaceService:SignalPromptPurchaseFinished(Players.LocalPlayer, PurchaseData.AssetId, didPurchase)
+		if didPurchase then
+			MarketplaceService:SignalAssetTypePurchased(Players.LocalPlayer, PurchaseData.ProductInfo.AssetTypeId)
+		end
 	end
 	clearPurchaseData()
 	enableControllerMovement()

@@ -23,6 +23,8 @@ local Constants = {
         },
     },
 
+    EmotesImageApi = "asset-thumbnail/image?assetId=%d&width=420&height=420&format=png",
+
     EmotesMenuZIndex = 50,
 
     ErrorFrameBorderSize = 0,

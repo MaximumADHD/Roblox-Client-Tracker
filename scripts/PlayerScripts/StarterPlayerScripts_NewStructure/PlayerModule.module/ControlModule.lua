@@ -17,6 +17,7 @@ ControlModule.__index = ControlModule
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
@@ -35,6 +36,11 @@ local TouchJump = require(script:WaitForChild("TouchJump"))
 local VehicleController = require(script:WaitForChild("VehicleController"))
 
 local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
+
+local FFlagUserFixMovementCameraStraightDownSuccess, FFlagUserFixMovementCameraStraightDownResult = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserFixMovementCameraStraightDown")
+end)
+local FFlagUserFixMovementCameraStraightDown = FFlagUserFixMovementCameraStraightDownSuccess and FFlagUserFixMovementCameraStraightDownResult
 
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
@@ -254,6 +260,36 @@ function ControlModule:SelectTouchModule()
 	return touchModule, true
 end
 
+local function calculateRawMoveVector(humanoid, cameraRelativeMoveVector)
+	local camera = Workspace.CurrentCamera
+	if not camera then
+		return cameraRelativeMoveVector
+	end
+
+	if humanoid:GetState() == Enum.HumanoidStateType.Swimming then
+		return camera.CFrame:VectorToWorldSpace(cameraRelativeMoveVector)
+	end
+
+	local c, s
+	local _, _, _, R00, R01, R02, _, _, R12, _, _, R22 = camera.CFrame:GetComponents()
+	if R12 < 1 and R12 > -1 then
+		-- X and Z components from back vector.
+		c = R22
+		s = R02
+	else
+		-- In this case the camera is looking straight up or straight down.
+		-- Use X components from right and up vectors.
+		c = R00
+		s = -R01*math.sign(R12)
+	end
+	local norm = math.sqrt(c*c + s*s)
+	return Vector3.new(
+		(c*cameraRelativeMoveVector.x + s*cameraRelativeMoveVector.z)/norm,
+		0,
+		(c*cameraRelativeMoveVector.z - s*cameraRelativeMoveVector.x)/norm
+	)
+end
+
 function ControlModule:OnRenderStepped(dt)
 	if self.activeController and self.activeController.enabled and self.humanoid then
 		-- Give the controller a chance to adjust its state
@@ -272,7 +308,14 @@ function ControlModule:OnRenderStepped(dt)
 		-- If not, move the player
 		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior, in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
 		--if not vehicleConsumedInput then
-			self.moveFunction(Players.LocalPlayer, moveVector, cameraRelative)
+			if FFlagUserFixMovementCameraStraightDown then
+				if cameraRelative then
+					moveVector = calculateRawMoveVector(self.humanoid, moveVector)
+				end
+				self.moveFunction(Players.LocalPlayer, moveVector, false)
+			else
+				self.moveFunction(Players.LocalPlayer, moveVector, cameraRelative)
+			end
 		--end
 
 		-- And make them jump if needed

@@ -22,6 +22,7 @@ return function()
 				productInfo = {
 					assetTypeId = 2, -- T-shirt
 					price = 10,
+					itemType = 2,
 				},
 			})
 		}, {

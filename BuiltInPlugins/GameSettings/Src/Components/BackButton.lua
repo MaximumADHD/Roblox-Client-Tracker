@@ -14,8 +14,8 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	Padding = UDim.new(0, 8),
 })
 
-local BACK_BUTTON_IMAGE = "rbxassetid://3010947467"
-local BACK_BUTTON_SIZE = 30
+local BACK_BUTTON_IMAGE = "rbxasset://textures/GameSettings/ArrowLeft.png"
+local BACK_BUTTON_SIZE = 24
 
 return function(props)
 	local layoutOrder = props.LayoutOrder
@@ -33,6 +33,7 @@ return function(props)
 			BackgroundTransparency = 1,
 			Image = BACK_BUTTON_IMAGE,
 			Size = UDim2.new(0, BACK_BUTTON_SIZE, 0, BACK_BUTTON_SIZE),
+			Rotation = 90,
 			LayoutOrder = 1,
 			[Roact.Event.Activated] = onActivated,
 		}),

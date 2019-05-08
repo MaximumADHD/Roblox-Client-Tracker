@@ -408,7 +408,10 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -592,7 +595,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Deprecated"
+                        "Deprecated",
+                        "CustomLuaState"
                     ]
                 },
                 {
@@ -16225,6 +16229,23 @@
         {
             "Members": [
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Ambient",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CurrentCamera",
@@ -16276,6 +16297,40 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "LightColor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "LightDirection",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     }
                 }
             ],
@@ -18636,6 +18691,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CloseInspectMenu",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CloseStatsBasedOnInputString",
                     "Parameters": [
                         {
@@ -18741,6 +18807,17 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetInspectMenuEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetNotificationTypeList",
                     "Parameters": [
                     ],
@@ -18782,6 +18859,49 @@
                         "Name": "string"
                     },
                     "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InspectPlayerFromHumanoidDescription",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InspectPlayerFromUserId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
                 },
                 {
                     "MemberType": "Function",
@@ -18985,6 +19105,24 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetInspectMenuEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetMenuIsOpen",
                     "Parameters": [
                         {
@@ -19129,6 +19267,13 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "CloseInspectMenuRequest",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "EmotesMenuOpenChanged",
                     "Parameters": [
                         {
@@ -19157,6 +19302,55 @@
                     "Tags": [
                         "Deprecated"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "InspectMenuEnabledChangedSignal",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "InspectPlayerFromHumanoidDescriptionRequest",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "InspectPlayerFromUserIdRequest",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Event",
@@ -21190,6 +21384,27 @@
                     ]
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "PlayEmote",
+                    "Parameters": [
+                        {
+                            "Name": "emoteName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ]
+                },
+                {
                     "MemberType": "Event",
                     "Name": "AnimationPlayed",
                     "Parameters": [
@@ -22165,6 +22380,135 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "AddEmote",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetEmotes",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetEquippedEmotes",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveEmote",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetEmotes",
+                    "Parameters": [
+                        {
+                            "Name": "emotes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetEquippedEmotes",
+                    "Parameters": [
+                        {
+                            "Name": "equippedEmotes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "EmotesChanged",
+                    "Parameters": [
+                        {
+                            "Name": "newEmotes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "EquippedEmotesChanged",
+                    "Parameters": [
+                        {
+                            "Name": "newEquippedEmotes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "Security": "None"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -25855,6 +26199,31 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptBundlePurchase",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "bundleId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptGamePassPurchase",
                     "Parameters": [
                         {
@@ -26039,6 +26408,31 @@
                     "MemberType": "Function",
                     "Name": "ReportRobuxUpsellStarted",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalAssetTypePurchased",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetType"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -26412,6 +26806,27 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptBundlePurchaseRequested",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "bundleId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -32127,6 +32542,26 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "StreamingPauseMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "StreamingPauseMode"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "StreamingTargetRadius",
                     "Security": {
                         "Read": "None",
@@ -32922,6 +33357,17 @@
             "MemoryCategory": "Instances",
             "Name": "InventoryPages",
             "Superclass": "Pages",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "EmotesPages",
+            "Superclass": "InventoryPages",
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
@@ -34718,6 +35164,27 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "GameplayPaused",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -44981,6 +45448,23 @@
                     }
                 },
                 {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "UserEmotesEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "ClearDefaults",
                     "Parameters": [
@@ -46689,6 +47173,60 @@
             "Name": "Studio",
             "Superclass": "Instance",
             "Tags": [
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SrcPlaceId",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SrcUniverseId",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioData",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
                 "Service",
                 "NotReplicated"
             ]
@@ -54769,6 +55307,10 @@
                 {
                     "Name": "EyeAccessory",
                     "Value": 58
+                },
+                {
+                    "Name": "EmoteAnimation",
+                    "Value": 61
                 }
             ],
             "Name": "AssetType"
@@ -54803,6 +55345,10 @@
                 {
                     "Name": "Emote",
                     "Value": 2
+                },
+                {
+                    "Name": "InspectMenu",
+                    "Value": 3
                 }
             ],
             "Name": "AvatarContextMenuOption"
@@ -59749,6 +60295,23 @@
             "Tags": [
                 "Deprecated"
             ]
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "ClientPhysicsPause",
+                    "Value": 2
+                }
+            ],
+            "Name": "StreamingPauseMode"
         },
         {
             "Items": [

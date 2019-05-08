@@ -5,6 +5,7 @@
 		string CollaboratorName - Name of collaborator. Displayed in primary label
 		int64 CollaboratorId - For external scripts to check whose permission changed when we fire events
 		string CollaboratorIcon - Icon to display in item (e.g. user headshot, group logo, etc)
+		string Action - Permission level the collaborator has
 		
 		string [SecondaryText=""] - Subtext to display under the primary label 
 		bool [HideLastSeparator=false] - If this is in a list, we don't want to overlap separators
@@ -26,49 +27,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local Separator = require(Plugin.Src.Components.Separator)
-
--- This component will be implemented separately, in a different file. This is just
--- a visual placeholder until that is created
-local function DEBUG_AccessDropdown(props)
-	return withTheme(function(theme)
-		return Roact.createElement("ImageButton", {
-			Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
-			Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
-			AnchorPoint = Vector2.new(1, 0),
-			BackgroundTransparency = 0,
-			BackgroundColor3 = props.Enabled and theme.dropDown.background or theme.dropDown.disabled,
-			BorderColor3 = theme.dropDown.border,
-			AutoButtonColor = props.Enabled,
-			Image = "",
-			LayoutOrder = props.LayoutOrder or 0,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 10)
-			}),
-			ArrowContainer = Roact.createElement("Frame", {
-				Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-				Position = UDim2.new(1, 0, 0, 0),
-				AnchorPoint = Vector2.new(1, 0),
-				BackgroundTransparency = 1,
-			}, {
-				Icon = Roact.createElement("ImageLabel", {
-					Size = UDim2.new(0.5, 0, 0.5, 0),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundTransparency = 1,
-					ImageTransparency = 0,
-					Image = "rbxassetid://924320031",
-				})
-			}),
-			SelectedItemLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				Size = UDim2.new(1, -CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-				BackgroundTransparency = 1,
-				Text = props.DefaultAction or "",
-				TextXAlignment = Enum.TextXAlignment.Left,
-			})),
-		})
-	end)
-end
+local DetailedDropdown = require(Plugin.UILibrary.Components.DetailedDropdown)
 
 -- I'm going to make this its own component in a separate ticket. Turns out ImageButtons
 -- are pretty limiting and we have to make a bunch of stuff (custom hover color & custom image
@@ -132,7 +91,7 @@ local function CollaboratorLabels(props)
 			BackgroundTransparency = 1,
 		}, {
 			PrimaryLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				Size = UDim2.new(1, 0, 0.5, 0),
+				Size = UDim2.new(1, 0, props.SecondaryText and 0.5 or 1, 0),
 				
 				Text = props.CollaboratorName or "",
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -191,11 +150,27 @@ local function CollaboratorItem(props)
 					CollaboratorName = props.CollaboratorName,
 					SecondaryText = props.SecondaryText,
 				}),
-				Dropdown = Roact.createElement(DEBUG_AccessDropdown, {
+				Dropdown = Roact.createElement(DetailedDropdown, {
 					LayoutOrder = 2,
 					Enabled = props.Enabled,
 					
-					DefaultAction = "Admin",
+					ButtonText = props.Action,
+					Items = props.Items,
+					
+					ItemHeight = ITEM_HEIGHT,
+					DescriptionTextSize = theme.fontStyle.Subtext.TextSize,
+					DisplayTextSize = theme.fontStyle.Normal.TextSize,
+					IconSize = 20,
+					
+					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+					AnchorPoint = Vector2.new(1, 0),
+					
+					OnItemClicked = function(item)
+						if props.Enabled and props.PermissionChanged then
+							props.PermissionChanged(item)
+						end
+					end,
 				}),
 				Delete = Roact.createElement(DEBUG_DeleteButton, {
 					LayoutOrder = 3,

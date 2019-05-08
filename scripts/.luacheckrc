@@ -2,6 +2,11 @@ stds.roblox = {
 	globals = {
 		"game",
 		"script",
+		string = {
+			fields = {
+				split = {},
+			},
+		},
 	},
 	read_globals = {
 		-- Extra functions

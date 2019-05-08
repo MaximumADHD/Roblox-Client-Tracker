@@ -76,6 +76,9 @@ local function mapStateToProps(state)
 	local descriptionKey
 	local descriptionParams
 
+	local assetTypeKey = LocalizationService.nestedKeyParam(
+			LocalizationService.getKeyFromItemType(state.productInfo.itemType))
+
 	if promptState == PromptState.PurchaseComplete then
 		descriptionKey = PURCHASE_MESSAGE_KEY:format("Succeeded")
 		descriptionParams = {
@@ -83,9 +86,7 @@ local function mapStateToProps(state)
 			NEEDED_AMOUNT = LocalizationService.numberParam(
 				state.productInfo.price - state.accountInfo.balance
 			),
-			ASSET_TYPE = LocalizationService.nestedKeyParam(
-				LocalizationService.getAssetTypeKey(state.productInfo.assetTypeId)
-			),
+			ASSET_TYPE = assetTypeKey,
 		}
 	elseif promptState == PromptState.RobuxUpsell then
 		descriptionKey = PURCHASE_MESSAGE_KEY:format("NeedMoreRobux")
@@ -94,9 +95,7 @@ local function mapStateToProps(state)
 			NEEDED_AMOUNT = LocalizationService.numberParam(
 				state.productInfo.price - state.accountInfo.balance
 			),
-			ASSET_TYPE = LocalizationService.nestedKeyParam(
-				LocalizationService.getAssetTypeKey(state.productInfo.assetTypeId)
-			),
+			ASSET_TYPE = assetTypeKey,
 		}
 	elseif promptState == PromptState.CannotPurchase or promptState == PromptState.Error then
 		descriptionKey = LocalizationService.getErrorKey(state.purchaseError)
@@ -114,9 +113,7 @@ local function mapStateToProps(state)
 		else
 			descriptionKey = PURCHASE_MESSAGE_KEY:format("Purchase")
 			descriptionParams = {
-				ASSET_TYPE = LocalizationService.nestedKeyParam(
-					LocalizationService.getAssetTypeKey(state.productInfo.assetTypeId)
-				),
+				ASSET_TYPE = assetTypeKey,
 				ITEM_NAME = state.productInfo.name,
 			}
 		end

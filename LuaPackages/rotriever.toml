@@ -1,0 +1,25 @@
+[package]
+name = "CorePackages"
+author = "Roblox"
+license = ""
+version = "0.1.0"
+
+[dependencies]
+Roact = { git = "https://github.com/Roblox/roact", rev = "roblox" }
+Cryo = { git = "https://github.com/Roblox/cryo", rev = "roblox" }
+UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
+Otter = { git = "https://github.com/Roblox/Otter", rev = "roblox" }
+
+# TODO: CLILUACORE-480
+# There are some changes coming soon for Purchase Prompt that we don't want to
+# interrupt, we can migrate it to rotriever once those are done
+# PurchasePrompt = { git = "https://github.com/Roblox/PurchasePromptScript-Roact", rev = "master"}
+
+# TODO: CLILUACORE-482
+# Rodux can't be required this way yet because it breaks the compatibility shim.
+# Once we've removed the shim (already implemented behind a flag), we can add
+# this dependency
+# Rodux = { git = "https://github.com/Roblox/rodux", rev = "master" }
+
+# TODO: CLILUACORE-483
+# RoactRodux = { git = "https://github.com/Roblox/roact-rodux", rev = "master" }

@@ -26,6 +26,7 @@ Studio.GameSettings.General.TitleGenre,Genre
 Studio.GameSettings.General.TitleDevices,Playable Devices
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services
+Studio.GameSettings.General.TitleGameOwner,Game Owner
 Studio.GameSettings.General.PlayabilityHeader,Who can play this game?
 Studio.GameSettings.General.PlayabilityPublic,Public
 Studio.GameSettings.General.PlayabilityGroup,Group Members
@@ -150,6 +151,19 @@ Studio.GameSettings.General.DevSubsId,Id
 Studio.GameSettings.General.DevSubsSubscribers,Subscribers
 Studio.GameSettings.General.DevSubsActive,Active
 Studio.GameSettings.General.DevSubsCreateAction,Create
+Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue
 Studio.GameSettings.General.DevSubsUnsaved,Unsaved
 Studio.GameSettings.General.DevSubsIsActive,Yes
 Studio.GameSettings.General.DevSubsIsNotActive,No
+Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription
+Studio.GameSettings.General.DevSubsDiscontinueHeader,Would you like to discontinue this subscription?
+Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.
+Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue
+Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access
+Studio.GameSettings.AccessPermissions.PlayLabel,Play
+Studio.GameSettings.AccessPermissions.EditLabel,Edit
+Studio.GameSettings.AccessPermissions.ManageLabel,Manage
+Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game
+Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game
+Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game
+Studio.GameSettings.AccessPermissions.ManageDescription,"Can play, edit, and manage this game"

@@ -2,6 +2,7 @@ local PurchaseError = require(script.Parent.Parent.PurchaseError)
 local Symbol = require(script.Parent.Parent.Symbol)
 
 local KeyMappings = require(script.Parent.KeyMappings)
+local ItemType = require(script.Parent.Parent.ItemType)
 local addGroupDelimiters = require(script.Parent.Parent.addGroupDelimiters)
 
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
@@ -111,19 +112,24 @@ function LocalizationService.nestedKeyParam(key)
 end
 
 --[[
-	Utility function returns the localization key for a given asset id
+	Utility function returns the localization key for a given item type
 ]]
-function LocalizationService.getAssetTypeKey(assetTypeId)
-	assert(typeof(assetTypeId) == "number" or typeof(assetTypeId) == "string",
-		"provided asset type must be a number or string")
+function LocalizationService.getKeyFromItemType(itemType)
+	assert(ItemType.isMember(itemType) or typeof(itemType) == "number" or typeof(itemType) == "string",
+		"provided item type " ..tostring(itemType) .." must be a number, string, or ItemType enum")
 
-	local assetType = KeyMappings.AssetTypeById[tostring(assetTypeId)]
-
-	if DEBUG_LOCALIZATION and assetType == nil then
-		warn("Invalid Asset Type id " .. tostring(assetTypeId))
+	local localizationKey
+	if itemType == ItemType.Bundle then
+		localizationKey = "CoreScripts.PurchasePrompt.ItemType.Bundle"
+	else
+		localizationKey = KeyMappings.AssetTypeById[tostring(itemType)]
 	end
 
-	return assetType
+	if DEBUG_LOCALIZATION and localizationKey == nil then
+		warn("Invalid Asset Type id " .. tostring(itemType))
+	end
+
+	return localizationKey
 end
 
 --[[

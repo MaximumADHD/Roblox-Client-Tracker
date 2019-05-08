@@ -28,6 +28,7 @@ function FullModalShareGameComponent:render()
 			layoutProvider = Roact.createElement(LayoutProvider, nil, {
 				ShareGameContainer = Roact.createElement(ShareGameContainer, {
 					analytics = analytics,
+					isVisible = isVisible,
 					skeletonComponent = ModalShareGamePageFrame,
 					onAfterClosePage = function()
 						local sentToUserIds = {}

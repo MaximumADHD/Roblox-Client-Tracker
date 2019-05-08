@@ -5,9 +5,7 @@ local AvatarUpdater = paths.Roact.Component:extend("ComponentAvatarUpdater")
 
 function AvatarUpdater:applyRigUpdates()
     if self.props.StateTemplates and self.props.StateTemplates.templates then
-    	if fastFlags.isAvatarPreviewOn() then
-        	paths.LifetimeManagerAvatar.apply(self.props.StateTemplates.templates)
-        end
+        paths.LifetimeManagerAvatar.apply(self.props.StateTemplates.templates)
     end
 end
 

@@ -66,6 +66,7 @@ return{
 	["Common.AssetTypes.Label.RightLeg"] = [[오른 다리]],
 	["Common.AssetTypes.Label.Torso"] = [[몸통]],
 	["Common.AssetTypes.Label.Animation"] = [[애니메이션]],
+	["Common.AssetTypes.Label.Emote"] = [[감정 표현]],
 	["Common.BuildersClub.Label.PlanFree"] = [[무료]],
 	["Common.BuildersClub.Label.PlanClassic"] = [[Classic]],
 	["Common.BuildersClub.Label.PlanTurbo"] = [[Turbo]],
@@ -116,4 +117,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[{ITEM_NAME} 구매 성공!]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[{NEEDED_AMOUNT} Robux가 더 있어야 {ASSET_TYPE} {ITEM_NAME}을(를) 구매할 수 있습니다. Robux를 구매하시겠습니까?]],
 	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[상품]],
+	["CoreScripts.PurchasePrompt.ItemType.Bundle"] = [[번들]],
 }

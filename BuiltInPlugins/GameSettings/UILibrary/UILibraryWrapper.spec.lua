@@ -34,6 +34,7 @@ return function()
 		local instance = Roact.mount(createTestWrapper({
 			theme = {},
 			focusGui = {},
+			plugin = {},
 		}, {
 			Frame = Roact.createElement("Frame")
 		}), container)

@@ -54,9 +54,17 @@ local function PlayEmote(emoteName)
             return
         end
 
+        local humanoidDescription = humanoid:FindFirstChildOfClass("HumanoidDescription")
+        if not humanoidDescription then
+            handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.NotSupported)
+            return
+        end
+
         local playEmoteBindable = animate:FindFirstChild("PlayEmote")
         if playEmoteBindable and playEmoteBindable:IsA("BindableFunction") then
-            local success, didPlay = pcall(function() return playEmoteBindable:Invoke(emoteName) end)
+            store:dispatch(HideMenu())
+
+            local success, didPlay = pcall(function() return humanoid:PlayEmote(emoteName) end)
 
             if not success or not didPlay then
                 handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable)
@@ -66,9 +74,6 @@ local function PlayEmote(emoteName)
             handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.NotSupported)
             return
         end
-
-        -- Success!
-        store:dispatch(HideMenu())
     end
 end
 

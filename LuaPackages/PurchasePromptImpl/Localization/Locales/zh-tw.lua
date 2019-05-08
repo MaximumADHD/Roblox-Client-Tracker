@@ -66,6 +66,7 @@ return{
 	["Common.AssetTypes.Label.RightLeg"] = [[右腿]],
 	["Common.AssetTypes.Label.Torso"] = [[軀幹]],
 	["Common.AssetTypes.Label.Animation"] = [[動畫]],
+	["Common.AssetTypes.Label.Emote"] = [[表情]],
 	["Common.BuildersClub.Label.PlanFree"] = [[免費]],
 	["Common.BuildersClub.Label.PlanClassic"] = [[Classic]],
 	["Common.BuildersClub.Label.PlanTurbo"] = [[Turbo]],
@@ -116,4 +117,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[成功購買 {ITEM_NAME}！]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[您還需要 {NEEDED_AMOUNT} Robux 才能購買 {ASSET_TYPE} {ITEM_NAME}。您要加購 Robux 嗎？]],
 	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[商品]],
+	["CoreScripts.PurchasePrompt.ItemType.Bundle"] = [[組合]],
 }

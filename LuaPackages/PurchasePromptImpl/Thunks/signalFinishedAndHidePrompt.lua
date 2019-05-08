@@ -11,6 +11,7 @@ local function signalFinishedAndHidePrompt()
 		local state = store:getState()
 		local productType = state.product.infoType
 		local id = state.product.id
+		local assetTypeId = state.productInfo.assetTypeId
 		local didPurchase = (state.promptState == PromptState.PurchaseComplete)
 
 		if id ~= nil then
@@ -20,8 +21,14 @@ local function signalFinishedAndHidePrompt()
 				MarketplaceService:SignalPromptProductPurchaseFinished(playerId, id, didPurchase)
 			elseif productType == Enum.InfoType.GamePass then
 				MarketplaceService:SignalPromptGamePassPurchaseFinished(Players.LocalPlayer, id, didPurchase)
+				if didPurchase and assetTypeId then
+					MarketplaceService:SignalAssetTypePurchased(Players.LocalPlayer, assetTypeId)
+				end
 			elseif productType == Enum.InfoType.Asset then
 				MarketplaceService:SignalPromptPurchaseFinished(Players.LocalPlayer, id, didPurchase)
+				if didPurchase and assetTypeId then
+					MarketplaceService:SignalAssetTypePurchased(Players.LocalPlayer, assetTypeId)
+				end
 			end
 		end
 

@@ -36,49 +36,47 @@ local equalityCheckFunctions = nil
 
 local isEqualCheck = nil
 
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	if FFlagGameSettingsImageUploadingEnabled then
-		isEqualCheck = function(current, changed)
-			local equal = true
-			if isEmpty(current) ~= isEmpty(changed) then
-				return false
-			end
-			for key, value in pairs(current) do
-				if changed[key] ~= value then
-					equal = false
-					break
-				end
-			end
-			for key, value in pairs(changed) do
-				if current[key] ~= value then
-					equal = false
-					break
-				end
-			end
-			return equal
+if FFlagGameSettingsImageUploadingEnabled then
+	isEqualCheck = function(current, changed)
+		local equal = true
+		if isEmpty(current) ~= isEmpty(changed) then
+			return false
 		end
-	else
-		isEqualCheck = function(current, changed)
-			local equal = true
-			for key, value in pairs(current) do
-				if changed[key] ~= value then
-					equal = false
-					break
-				end
+		for key, value in pairs(current) do
+			if changed[key] ~= value then
+				equal = false
+				break
 			end
-			return equal
 		end
+		for key, value in pairs(changed) do
+			if current[key] ~= value then
+				equal = false
+				break
+			end
+		end
+		return equal
 	end
-
-	Scales = require(Plugin.Src.Util.Scales)
-	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
-
-	equalityCheckFunctions = {
-		universeAvatarAssetOverrides = AssetOverrides.isEqual,
-		universeAvatarMinScales = Scales.isEqual,
-		universeAvatarMaxScales = Scales.isEqual,
-	}
+else
+	isEqualCheck = function(current, changed)
+		local equal = true
+		for key, value in pairs(current) do
+			if changed[key] ~= value then
+				equal = false
+				break
+			end
+		end
+		return equal
+	end
 end
+
+Scales = require(Plugin.Src.Util.Scales)
+AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
+
+equalityCheckFunctions = {
+	universeAvatarAssetOverrides = AssetOverrides.isEqual,
+	universeAvatarMinScales = Scales.isEqual,
+	universeAvatarMaxScales = Scales.isEqual,
+}
 
 local function Settings(state, action)
 	state = state or {
@@ -93,22 +91,9 @@ local function Settings(state, action)
 		if state.Current[action.setting] == newValue then
 			newValue = Cryo.None
 		elseif type(newValue) == "table" then
-			if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-				local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
-				if isEqual(state.Current[action.setting], newValue) then
-					newValue = Cryo.None
-				end
-			else
-				local equal = true
-				for key, value in pairs(state.Current[action.setting]) do
-					if newValue[key] ~= value then
-						equal = false
-						break
-					end
-				end
-				if equal then
-					newValue = Cryo.None
-				end
+			local isEqual = equalityCheckFunctions[action.setting] or isEqualCheck
+			if isEqual(state.Current[action.setting], newValue) then
+				newValue = Cryo.None
 			end
 		end
 

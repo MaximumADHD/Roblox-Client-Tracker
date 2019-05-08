@@ -17,6 +17,8 @@ local completePurchase = require(script.Parent.completePurchase)
 
 local performPurchase = require(script.Parent.Parent.Network.performPurchase)
 
+local ItemType = require(script.Parent.Parent.ItemType)
+
 -- Only tools can be equipped on purchase
 local ASSET_TYPE_TOOL = 19
 
@@ -44,6 +46,8 @@ local function purchaseItem()
 		local assetTypeId = state.productInfo.assetTypeId
 		local productId = state.productInfo.productId
 
+		local itemType = state.productInfo.itemType
+
 		return performPurchase(network, infoType, productId, salePrice, requestId)
 			:andThen(function(result)
 				--[[
@@ -52,7 +56,10 @@ local function purchaseItem()
 				]]
 				store:dispatch(completePurchase())
 
-				analytics.signalPurchaseSuccess(id, infoType, salePrice, result)
+				-- Marketplace Analytics for bundles is not available yet.
+				if itemType ~= ItemType.Bundle then
+					analytics.signalPurchaseSuccess(id, infoType, salePrice, result)
+				end
 
 				if equipIfPurchased and assetTypeId == ASSET_TYPE_TOOL then
 					return getToolAsset(network, id)

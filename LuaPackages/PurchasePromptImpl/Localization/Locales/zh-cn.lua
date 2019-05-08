@@ -66,6 +66,7 @@ return{
 	["Common.AssetTypes.Label.RightLeg"] = [[右腿]],
 	["Common.AssetTypes.Label.Torso"] = [[躯干]],
 	["Common.AssetTypes.Label.Animation"] = [[动画]],
+	["Common.AssetTypes.Label.Emote"] = [[表情]],
 	["Common.BuildersClub.Label.PlanFree"] = [[免费]],
 	["Common.BuildersClub.Label.PlanClassic"] = [[Classic]],
 	["Common.BuildersClub.Label.PlanTurbo"] = [[Turbo]],
@@ -96,7 +97,7 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFuture"] = [[你在此次交易后的余额将为 R${BALANCE_FUTURE}]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceNow"] = [[你的当前余额为 {BALANCE_NOW}。]],
 	["CoreScripts.PurchasePrompt.PurchaseDetails.RemainingAfterUpsell"] = [[剩余的 {REMAINING_ROBUX} Robux 将会加进你的余额中。]],
-	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[购买失败，帐户内 Robux 不足。系统并未向你的帐户收取费用。]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[由于你帐户的 Robux 余额不足，购买失败。系统并未向你的帐户收取费用。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.BuildersClubUpsellFailure"] = [[你的订阅等级不足，无法购买此物品。系统并未向你的帐户收取费用。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobuxXbox"] = [[你的 Robux 不足，无法购买此物品。请离开此游戏，然后前往 Robux 屏幕购买更多 Robux。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[你的 Robux 不足，无法购买此物品。请购买更多 Robux。]],
@@ -116,4 +117,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[“{ITEM_NAME}”购买成功！]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[你还需要 {NEEDED_AMOUNT} Robux 才能购买“{ASSET_TYPE}{ITEM_NAME}”。是否要购买更多 Robux？]],
 	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[产品]],
+	["CoreScripts.PurchasePrompt.ItemType.Bundle"] = [[套装]],
 }

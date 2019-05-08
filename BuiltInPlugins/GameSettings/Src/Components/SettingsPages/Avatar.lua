@@ -44,25 +44,19 @@ end
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
-local MorpherRootPanel = nil
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	MorpherRootPanel = require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal)
-end
+local MorpherRootPanel = require(Plugin.MorpherEditor.Code.Components.ComponentRootPanelExternal)
 
-local isPlaceDataAvailable = nil
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	isPlaceDataAvailable = function(props)
-		if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-			return props.CanManage
-		else
-			local result = props.AvatarType and
-				props.AvatarAnimation and
-				props.AvatarCollision and
-				props.AvatarAssetOverrides and
-				props.AvatarScalingMin and
-				props.AvatarScalingMax
-			return result and true or false
-		end
+local isPlaceDataAvailable = function(props)
+	if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+		return props.CanManage
+	else
+		local result = props.AvatarType and
+			props.AvatarAnimation and
+			props.AvatarCollision and
+			props.AvatarAssetOverrides and
+			props.AvatarScalingMin and
+			props.AvatarScalingMax
+		return result and true or false
 	end
 end
 
@@ -129,169 +123,71 @@ end
 local function displayContents(page, localized)
 	local props = page.props
 
-	if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-		return {
-			PageLayout = FFlagGameSettingsReorganizeHeaders and
-			Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 25),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
+	return {
+		PageLayout = FFlagGameSettingsReorganizeHeaders and
+		Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, 25),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 
-			Header = FFlagGameSettingsReorganizeHeaders and
-			Roact.createElement(Header, {
-				Title = localized.Category[PageName],
-				LayoutOrder = -1,
-			}),
+		Header = FFlagGameSettingsReorganizeHeaders and
+		Roact.createElement(Header, {
+			Title = localized.Category[PageName],
+			LayoutOrder = -1,
+		}),
 
-			Morpher = Roact.createElement(MorpherRootPanel, {
-				ThemeData = getTheme(page),
-				LocalizedContent = FFlagGameSettingsWidgetLocalized and localized.Morpher or nil,
-				IsEnabled = fastFlags.isPlaceFilesGameSettingsSerializationOn() and true or isPlaceDataAvailable(props),
+		Morpher = Roact.createElement(MorpherRootPanel, {
+			ThemeData = getTheme(page),
+			LocalizedContent = FFlagGameSettingsWidgetLocalized and localized.Morpher or nil,
+			IsEnabled = fastFlags.isPlaceFilesGameSettingsSerializationOn() and true or isPlaceDataAvailable(props),
 
-				IsGameShutdownRequired = (function()
+			IsGameShutdownRequired = (function()
+				if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
+					return isShutdownRequired(props.CurrentAvatarType, props.AvatarType)
+				else
+					return nil
+				end
+			end)(),
+			AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and props.AssetOverrideErrors or nil,
+			Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and getMouse(page).getNativeMouse() or nil,
+
+			IsPlacePublished = (function()
+				if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
+					return isPlaceDataAvailable(props)
+				else
+					return nil
+				end
+			end)(),
+
+			AvatarType = props.AvatarType,
+			AvatarAnimation = props.AvatarAnimation,
+			AvatarCollision = props.AvatarCollision,
+			AvatarAssetOverrides = props.AvatarAssetOverrides,
+			AvatarScalingMin = props.AvatarScalingMin,
+			AvatarScalingMax = props.AvatarScalingMax,
+
+			OnAvatarTypeChanged = function(newVal)
+				if not fastFlags.isPlaceFilesGameSettingsSerializationOn() or isPlaceDataAvailable(props) then
+					local willShutdown
 					if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-						return isShutdownRequired(props.CurrentAvatarType, props.AvatarType)
+						willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
 					else
-						return nil
+						willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
 					end
-				end)(),
-				AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn() and props.AssetOverrideErrors or nil,
-				Mouse = fastFlags.isMorphingPanelWidgetsStandardizationOn() and getMouse(page).getNativeMouse() or nil,
+					props.AvatarTypeChanged(newVal, willShutdown)
+				else
+					props.AvatarTypeChanged(newVal)
+				end
+			end,
 
-				IsPlacePublished = (function()
-					if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-						return isPlaceDataAvailable(props)
-					else
-						return nil
-					end
-				end)(),
-
-				AvatarType = props.AvatarType,
-				AvatarAnimation = props.AvatarAnimation,
-				AvatarCollision = props.AvatarCollision,
-				AvatarAssetOverrides = props.AvatarAssetOverrides,
-				AvatarScalingMin = props.AvatarScalingMin,
-				AvatarScalingMax = props.AvatarScalingMax,
-
-				OnAvatarTypeChanged = function(newVal)
-					if not fastFlags.isPlaceFilesGameSettingsSerializationOn() or isPlaceDataAvailable(props) then
-						local willShutdown
-						if fastFlags.isMorphingPanelWidgetsStandardizationOn() then
-							willShutdown = isShutdownRequired(props.CurrentAvatarType, newVal)
-						else
-							willShutdown = props.CurrentAvatarType ~= "PlayerChoice" and newVal ~= props.CurrentAvatarType
-						end
-						props.AvatarTypeChanged(newVal, willShutdown)
-					else
-						props.AvatarTypeChanged(newVal)
-					end
-				end,
-
-				OnAvatarAnimationChanged = props.AvatarAnimationChanged,
-				OnAvatarCollisionChanged = props.AvatarCollisionChanged,
-				OnAvatarAssetOverridesChanged = props.AvatarAssetOverridesChanged,
-				OnAvatarScalingMinChanged = props.AvatarScalingMinChanged,
-				OnAvatarScalingMaxChanged = props.AvatarScalingMaxChanged,
-				ContentHeightChanged = props.ContentHeightChanged
-			})
-		}
-	else
-		return {
-			PageLayout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, 25),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-
-			Header = Roact.createElement(Header, {
-				Title = localized.Category[PageName],
-				LayoutOrder = 0,
-			}),
-
-			Type = Roact.createElement(RadioButtonSet, {
-				Title = "Avatar Type",
-				Buttons = {{
-						Id = "MorphToR6",
-						Title = "Morph to R6",
-						Description = "Classic arm and leg movement."
-					}, {
-						Id = "MorphToR15",
-						Title = "Morph to R15",
-						Description = "Freedom of movement with elbows and knees."
-					}, {
-						Id = "PlayerChoice",
-						Title = "Players Choice",
-						Description = "The game will allow R6 or R15 avatars."
-					},
-				},
-				Enabled = props.AvatarType ~= nil,
-				LayoutOrder = 2,
-				--Functionality
-				Selected = props.AvatarType,
-				SelectionChanged = function(button)
-					local willShutdown = props.CurrentAvatarType ~= "PlayerChoice"
-						and button.Id ~= props.CurrentAvatarType
-					props.AvatarTypeChanged(button, willShutdown)
-				end,
-			}),
-
-			Scaling = Roact.createElement(RadioButtonSet, {
-				Title = "Scaling",
-				Buttons = {{
-						Id = "NoScales",
-						Title = "Standard",
-						Description = "Classic set of proportions."
-					}, {
-						Id = "AllScales",
-						Title = "Players Choice",
-						Description = "Allow players to use their own height and width."
-					},
-				},
-				Enabled = props.AvatarScaling ~= nil and props.AvatarType ~= "MorphToR6",
-				LayoutOrder = 3,
-				--Functionality
-				Selected = props.AvatarScaling,
-				SelectionChanged = props.AvatarScalingChanged,
-			}),
-
-			Animation = Roact.createElement(RadioButtonSet, {
-				Title = "Animation",
-				Buttons = {{
-						Id = "Standard",
-						Title = "Standard",
-						Description = "The default animation set."
-					}, {
-						Id = "PlayerChoice",
-						Title = "Players Choice",
-						Description = "Allow players to use their own custom set of animations."
-					},
-				},
-				Enabled = props.AvatarAnimation ~= nil and props.AvatarType ~= "MorphToR6",
-				LayoutOrder = 4,
-				--Functionality
-				Selected = props.AvatarAnimation,
-				SelectionChanged = props.AvatarAnimationChanged,
-			}),
-
-			Collision = Roact.createElement(RadioButtonSet, {
-				Title = "Collision",
-				Buttons = {{
-						Id = "InnerBox",
-						Title = "Inner Box",
-						Description = "Fixed size collision boxes."
-					}, {
-						Id = "OuterBox",
-						Title = "Outer Box",
-						Description = "Dynamically sized collision boxes based on mesh sizes."
-					},
-				},
-				Enabled = props.AvatarCollision ~= nil and props.AvatarType ~= "MorphToR6",
-				LayoutOrder = 5,
-				--Functionality
-				Selected = props.AvatarCollision,
-				SelectionChanged = props.AvatarCollisionChanged,
-			}),
-		}
-	end
+			OnAvatarAnimationChanged = props.AvatarAnimationChanged,
+			OnAvatarCollisionChanged = props.AvatarCollisionChanged,
+			OnAvatarAssetOverridesChanged = props.AvatarAssetOverridesChanged,
+			OnAvatarScalingMinChanged = props.AvatarScalingMinChanged,
+			OnAvatarScalingMaxChanged = props.AvatarScalingMaxChanged,
+			ContentHeightChanged = props.ContentHeightChanged
+		})
+	}
 end
 
 local SettingsPage = createSettingsPage(PageName, loadValuesToProps, dispatchChanges)

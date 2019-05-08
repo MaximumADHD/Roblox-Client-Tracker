@@ -40,6 +40,7 @@ end
 local function performPurchase(infoType, productId, expectedPrice, requestId)
 	return Promise.resolve({
 		success = true,
+		purchased = true,
 		receipt = "fake-receipt-hash",
 	})
 end
@@ -52,6 +53,39 @@ local function getAccountInfo()
 	return Promise.resolve({
 		RobuxBalance = 2147483647,
 		MembershipType = 0,
+	})
+end
+
+local function getBundleDetails(bundleId)
+	return Promise.resolve({
+		id = 1,
+		name = "mock-name",
+		description = "mock-description",
+		items = {
+			[1] = {
+				id = 1,
+				name = "outfit-name",
+				type = "UserOutfit",
+			},
+		},
+		creator = {
+			id = 1,
+			name = "ROBLOX",
+			type = "User",
+		},
+		product = {
+			id = 1,
+			isForSale = true,
+			priceInRobux = 100,
+		}
+	})
+end
+
+local function getProductPurchasableDetails(productId)
+	return Promise.resolve({
+		purchasable = false,
+		reason = "mock-reason",
+		price = 100,
 	})
 end
 
@@ -73,6 +107,8 @@ function MockNetwork.new(shouldFail)
 			performPurchase = networkFailure,
 			loadAssetForEquip = networkFailure,
 			getAccountInfo = networkFailure,
+			getBundleDetails = networkFailure,
+			getProductPurchasableDetails = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -82,6 +118,8 @@ function MockNetwork.new(shouldFail)
 			performPurchase = performPurchase,
 			loadAssetForEquip = loadAssetForEquip,
 			getAccountInfo = getAccountInfo,
+			getBundleDetails = getBundleDetails,
+			getProductPurchasableDetails = getProductPurchasableDetails,
 		}
 	end
 

@@ -66,6 +66,7 @@ return{
 	["Common.AssetTypes.Label.RightLeg"] = [[Right Leg]],
 	["Common.AssetTypes.Label.Torso"] = [[Torso]],
 	["Common.AssetTypes.Label.Animation"] = [[Animation]],
+	["Common.AssetTypes.Label.Emote"] = [[Emote]],
 	["Common.BuildersClub.Label.PlanFree"] = [[Free]],
 	["Common.BuildersClub.Label.PlanClassic"] = [[Classic]],
 	["Common.BuildersClub.Label.PlanTurbo"] = [[Turbo]],
@@ -116,4 +117,5 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[Your purchase of {ITEM_NAME} succeeded!]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[You need {NEEDED_AMOUNT} more Robux to buy the {ASSET_TYPE} {ITEM_NAME}. Would you like to buy more Robux?]],
 	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[Product]],
+	["CoreScripts.PurchasePrompt.ItemType.Bundle"] = [[Bundle]],
 }

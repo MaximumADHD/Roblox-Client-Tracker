@@ -13,18 +13,18 @@ local RobloxTranslator = require(CoreScriptsModules.RobloxTranslator)
 local WheelText = Roact.PureComponent:extend("WheelText")
 
 function WheelText:getWheelText()
-    local emotesList = self.props.emotesPage.emotesList
+    local currentEmotes = self.props.emotesPage.currentEmotes
     local locale = self.props.locale
 
-    if #emotesList == 0 then
+    if next(currentEmotes) == nil then
         return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
     end
 
     local focusedSlot = self.props.emotesWheel.focusedSegmentIndex
-    local emoteInfo = emotesList[focusedSlot]
+    local emoteName = currentEmotes[focusedSlot]
 
-    if emoteInfo then
-        return emoteInfo.name
+    if emoteName then
+        return emoteName
     else
         return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.SelectAnEmote, locale)
     end

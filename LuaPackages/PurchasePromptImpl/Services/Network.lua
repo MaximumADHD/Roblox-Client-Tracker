@@ -11,6 +11,8 @@ BASE_URL = string.gsub(BASE_URL, "http:", "https:")
 
 local API_URL = string.gsub(BASE_URL, "https://www", "https://api")
 local AB_TEST_URL = string.gsub(BASE_URL, "https://www", "https://abtesting")
+local BASE_CATALOG_URL = string.gsub(BASE_URL, "https://www.", "https://catalog.")
+local BASE_ECONOMY_URL = string.gsub(BASE_URL, "https://www.", "https://economy.")
 
 local function request(options, resolve, reject)
 	return HttpService:RequestInternal(options):Start(function(success, response)
@@ -92,6 +94,34 @@ local function getAccountInfo()
 	end)
 end
 
+local function getBundleDetails(bundleId)
+	local url = BASE_CATALOG_URL .."v1/bundles/" ..tostring(bundleId) .."/details"
+	local options = {
+		Url = url,
+		Method = "GET",
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
+end
+
+local function getProductPurchasableDetails(productId)
+	local url = BASE_ECONOMY_URL .."v1/products/" ..tostring(productId) .."?showPurchasable=true"
+	local options = {
+		Url = url,
+		Method = "GET"
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
+end
+
 local Network = {}
 
 function Network.new()
@@ -102,6 +132,8 @@ function Network.new()
 		performPurchase = Promise.promisify(performPurchase),
 		loadAssetForEquip = Promise.promisify(loadAssetForEquip),
 		getAccountInfo = Promise.promisify(getAccountInfo),
+		getBundleDetails = getBundleDetails,
+		getProductPurchasableDetails = getProductPurchasableDetails,
 	}
 
 	setmetatable(networkService, {

@@ -13,7 +13,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
-local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
@@ -29,10 +28,7 @@ if DFFlagGameSettingsWorldPanel or fastFlags.isPlaceFilesGameSettingsSerializati
 	WorkspaceSettings = require(Plugin.Src.Util.WorkspaceSettings)
 end
 
-local AssetOverrides = nil
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
-end
+local AssetOverrides = require(Plugin.Src.Util.AssetOverrides)
 
 local RequestsFolder = Plugin.Src.Networking.Requests
 local Requests = {
@@ -40,10 +36,10 @@ local Requests = {
 	Configuration = require(RequestsFolder.Configuration),
 	Universes = require(RequestsFolder.Universes),
 	RootPlaceInfo = require(RequestsFolder.RootPlaceInfo),
-	Localization = require(RequestsFolder.Localization),
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
 	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
+	OwnerMetadata = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.OwnerMetadata) or nil,
 	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DeveloperSubscriptions) or nil,
 }
 
@@ -71,7 +67,8 @@ end
 ]]
 function SettingsImpl:GetSettings()
 	local settings = {
-		HttpEnabled = HttpService:GetHttpEnabled()
+		HttpEnabled = HttpService:GetHttpEnabled(),
+		studioUserId = FFlagStudioGameSettingsAccessPermissions and self:GetUserId() or nil,
 	}
 	if DFFlagGameSettingsWorldPanel then
 		settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
@@ -110,13 +107,10 @@ function SettingsImpl:GetSettings()
 			table.insert(getRequests, Requests.DeveloperSubscriptions.Get())
 		end
 
-		if FFlagStudioLocalizationGameSettings then
-			table.insert(getRequests, Requests.Localization.Get(universeId))
-		end
-		
 		if FFlagStudioGameSettingsAccessPermissions then
 			local DEBUG_loggedInUserId = self:GetUserId() -- Used to populate with dummy data. Remove when backend returns real data
 			table.insert(getRequests, Requests.GamePermissions.Get(universeId, DEBUG_loggedInUserId))
+			table.insert(getRequests, Requests.OwnerMetadata.Get())
 		end
 
 		return Promise.all(getRequests)
@@ -153,7 +147,7 @@ function SettingsImpl:SaveAll(state)
 		for setting, value in pairs(state.Changed) do
 			if Requests.Configuration.AcceptsValue(setting) then
 				saveInfo.Configuration = saveInfo.Configuration or {}
-				if fastFlags.isMorphingHumanoidDescriptionSystemOn() and "universeAvatarAssetOverrides" == setting then
+				if "universeAvatarAssetOverrides" == setting then
 					saveInfo.Configuration[setting] = AssetOverrides.processSaveData(state.Current[setting], value)
 				else
 					saveInfo.Configuration[setting] = value
@@ -176,9 +170,6 @@ function SettingsImpl:SaveAll(state)
 			elseif Requests.Universes.AcceptsValue(setting) then
 				saveInfo[setting] = value
 
-			elseif FFlagStudioLocalizationGameSettings and Requests.Localization.AcceptsValue(setting) then
-				saveInfo[setting] = value
-
 			elseif FFlagGameSettingsImageUploadingEnabled and Requests.GameIcon.AcceptsValue(setting) then
 				saveInfo[setting] = value
 
@@ -186,6 +177,11 @@ function SettingsImpl:SaveAll(state)
 				saveInfo[setting] = {
 					Current = state.Current.DeveloperSubscriptions,
 					Changed = state.Changed.DeveloperSubscriptions,
+				}
+			elseif FFlagStudioGameSettingsAccessPermissions and Requests.GamePermissions.AcceptsValue(setting) then
+				saveInfo[setting] = {
+					Current = state.Current.permissions,
+					Changed = state.Changed.permissions,
 				}
 			end
 		end
@@ -213,12 +209,12 @@ function SettingsImpl:SaveAll(state)
 			table.insert(setRequests, Requests.Thumbnails.SetOrder(universeId, saveInfo.thumbnailOrder))
 		end
 
-		if FFlagStudioLocalizationGameSettings then
-			table.insert(setRequests, Requests.Localization.Set(universeId, saveInfo.autoscrapingOn))
-		end
-
 		if DFFlagDeveloperSubscriptionsEnabled then
 			table.insert(setRequests, Requests.DeveloperSubscriptions.Set(universeId, saveInfo.DeveloperSubscriptions))
+		end
+		
+		if FFlagStudioGameSettingsAccessPermissions then
+			table.insert(setRequests, Requests.GamePermissions.Set(universeId, saveInfo.permissions))
 		end
 
 		return Promise.all(setRequests):andThen(function()

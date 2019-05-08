@@ -21,7 +21,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Array Instance:GetDescendants() [CustomLuaState]
 	Function string Instance:GetFullName()
 	Function RBXScriptSignal Instance:GetPropertyChangedSignal(string property)
-	Function bool Instance:IsA(string className)
+	Function bool Instance:IsA(string className) [CustomLuaState]
 	Function bool Instance:IsAncestorOf(Instance descendant)
 	Function bool Instance:IsDescendantOf(Instance ancestor)
 	Function void Instance:Remove() [Deprecated]
@@ -31,7 +31,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function void Instance:destroy() [Deprecated]
 	Function Instance Instance:findFirstChild(string name, bool recursive = false) [Deprecated]
 	Function Objects Instance:getChildren() [Deprecated]
-	Function bool Instance:isA(string className) [Deprecated]
+	Function bool Instance:isA(string className) [Deprecated] [CustomLuaState]
 	Function bool Instance:isDescendantOf(Instance ancestor) [Deprecated]
 	Function void Instance:remove() [Deprecated]
 	Event Instance.AncestryChanged(Instance child, Instance parent)
@@ -939,6 +939,9 @@ Class TextBox : GuiObject
 	Event TextBox.FocusLost(bool enterPressed, Instance inputThatCausedFocusLoss)
 	Event TextBox.Focused()
 Class ViewportFrame : GuiObject
+	Property Color3 ViewportFrame.Ambient
+	Property Color3 ViewportFrame.LightColor
+	Property Vector3 ViewportFrame.LightDirection
 	Property Class<Camera> ViewportFrame.CurrentCamera [<📁> Load-only] [NotReplicated]
 	Property Color3 ViewportFrame.ImageColor3
 	Property float ViewportFrame.ImageTransparency
@@ -1095,6 +1098,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:AddSpecialKey(Enum<SpecialKey> key) {RobloxScriptSecurity}
 	Function void GuiService:BroadcastNotification(string data, int notificationType) {RobloxScriptSecurity}
 	Function void GuiService:ClearError() {RobloxScriptSecurity}
+	Function void GuiService:CloseInspectMenu()
 	Function bool GuiService:CloseStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function int GuiService:GetBrickCount() {RobloxScriptSecurity}
 	Function Instance GuiService:GetClosestDialogToPosition(Vector3 position) {RobloxScriptSecurity}
@@ -1103,11 +1107,14 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string GuiService:GetErrorMessage() {RobloxScriptSecurity} [Deprecated]
 	Function Enum<ConnectionError> GuiService:GetErrorType() {RobloxScriptSecurity}
 	Function Tuple GuiService:GetGuiInset()
+	Function bool GuiService:GetInspectMenuEnabled()
 	Function Dictionary GuiService:GetNotificationTypeList() {RobloxScriptSecurity}
 	Function int GuiService:GetResolutionScale() {RobloxScriptSecurity}
 	Function Dictionary GuiService:GetSafeZoneOffsets() {RobloxScriptSecurity}
 	Function Vector2 GuiService:GetScreenResolution() {RobloxScriptSecurity} [Yields]
 	Function string GuiService:GetUiMessage() {RobloxScriptSecurity}
+	Function void GuiService:InspectPlayerFromHumanoidDescription(Instance humanoidDescription, string name)
+	Function void GuiService:InspectPlayerFromUserId(int64 userId)
 	Function bool GuiService:IsMemoryTrackerEnabled() {RobloxScriptSecurity}
 	Function bool GuiService:IsTenFootInterface()
 	Function void GuiService:OpenBrowserWindow(string url) {RobloxScriptSecurity} [Deprecated]
@@ -1118,14 +1125,19 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveSpecialKey(Enum<SpecialKey> key) {RobloxScriptSecurity}
 	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
+	Function void GuiService:SetInspectMenuEnabled(bool enabled)
 	Function void GuiService:SetMenuIsOpen(bool open, string menuName = "default") {RobloxScriptSecurity}
 	Function void GuiService:SetSafeZoneOffsets(float top, float bottom, float left, float right) {RobloxScriptSecurity}
 	Function void GuiService:SetUiMessage(Enum<UiMessageType> msgType, string uiMessage = "errorCode") {LocalUserSecurity}
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function void GuiService:ToggleFullscreen() {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
+	Event GuiService.CloseInspectMenuRequest() {RobloxScriptSecurity}
 	Event GuiService.EmotesMenuOpenChanged(bool isOpen) {RobloxScriptSecurity}
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) {RobloxScriptSecurity} [Deprecated]
+	Event GuiService.InspectMenuEnabledChangedSignal(bool enabled) {RobloxScriptSecurity}
+	Event GuiService.InspectPlayerFromHumanoidDescriptionRequest(Instance humanoidDescription, string name) {RobloxScriptSecurity}
+	Event GuiService.InspectPlayerFromUserIdRequest(int64 userId) {RobloxScriptSecurity}
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
 	Event GuiService.MenuOpened()
@@ -1219,6 +1231,7 @@ Class Humanoid : Instance
 	Function Instance Humanoid:LoadAnimation(Instance animation)
 	Function void Humanoid:Move(Vector3 moveDirection, bool relativeToCamera = false)
 	Function void Humanoid:MoveTo(Vector3 location, Instance part = nil)
+	Function bool Humanoid:PlayEmote(string emoteName) [Yields]
 	Function void Humanoid:RemoveAccessories()
 	Function bool Humanoid:RemoveCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:RemoveStatus(Enum<Status> status = "Poison") [Deprecated]
@@ -1289,6 +1302,14 @@ Class HumanoidDescription : Instance
 	Property float HumanoidDescription.HeightScale
 	Property float HumanoidDescription.ProportionScale
 	Property float HumanoidDescription.WidthScale
+	Function void HumanoidDescription:AddEmote(string name, int64 assetId)
+	Function Dictionary HumanoidDescription:GetEmotes()
+	Function Array HumanoidDescription:GetEquippedEmotes()
+	Function void HumanoidDescription:RemoveEmote(string name)
+	Function void HumanoidDescription:SetEmotes(Dictionary emotes)
+	Function void HumanoidDescription:SetEquippedEmotes(Array equippedEmotes)
+	Event HumanoidDescription.EmotesChanged(Dictionary newEmotes)
+	Event HumanoidDescription.EquippedEmotesChanged(Array newEquippedEmotes)
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
 	Property Enum<KeyCode> InputObject.KeyCode
@@ -1518,6 +1539,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum<InfoType> infoType, int64 productId, int expectedPrice, string requestId) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
+	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int64 productId, bool equipIfPurchased = true, Enum<CurrencyType> currencyType = "Default")
@@ -1525,6 +1547,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:PromptThirdPartyPurchase(Instance player, string productId) {LocalUserSecurity}
 	Function void MarketplaceService:ReportAssetSale(string assetId, int robuxAmount) {RobloxScriptSecurity}
 	Function void MarketplaceService:ReportRobuxUpsellStarted() {RobloxScriptSecurity}
+	Function void MarketplaceService:SignalAssetTypePurchased(Instance player, Enum<AssetType> assetType) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptProductPurchaseFinished(int64 userId, int64 productId, bool success) {RobloxScriptSecurity}
@@ -1534,6 +1557,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) {RobloxScriptSecurity}
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptProductPurchaseFinished(int64 userId, int64 productId, bool isPurchased) [Deprecated]
@@ -1853,6 +1877,7 @@ Class Workspace : Model [NotCreatable] [Service]
 	Property float Workspace.Gravity
 	Property bool Workspace.StreamingEnabled
 	Property int Workspace.StreamingMinRadius  [NotScriptable]
+	Property Enum<StreamingPauseMode> Workspace.StreamingPauseMode  [NotScriptable]
 	Property int Workspace.StreamingTargetRadius  [NotScriptable]
 	Property bool Workspace.TemporaryLegacyPhysicsSolverOverride  [NotReplicated] [NotScriptable]
 	Property Instance Workspace.Terrain  [ReadOnly] [NotReplicated]
@@ -1893,6 +1918,7 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
 Class InventoryPages : Pages [NotCreatable] [NotReplicated]
+Class EmotesPages : InventoryPages [NotCreatable] [NotReplicated]
 Class StandardPages : Pages [NotCreatable] [NotReplicated]
 Class PartOperationAsset : Instance
 Class ParticleEmitter : Instance
@@ -1971,6 +1997,7 @@ Class PhysicsSettings : Instance [Settings]
 	Property double PhysicsSettings.ThrottleAdjustTime
 Class Player : Instance
 	Property bool Player.CanLoadCharacterAppearance
+	Property bool Player.GameplayPaused [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property float Player.CameraMaxZoomDistance
 	Property float Player.CameraMinZoomDistance
 	Property Enum<CameraMode> Player.CameraMode
@@ -2592,6 +2619,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
+	Property bool StarterPlayer.UserEmotesEnabled {✏️RobloxScriptSecurity}
 	Property float StarterPlayer.CharacterJumpHeight
 	Property float StarterPlayer.CharacterJumpPower
 	Property bool StarterPlayer.CharacterUseJumpPower
@@ -2703,6 +2731,9 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Show Navigation Mesh
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
+Class StudioData : Instance [NotCreatable] [Service] [NotReplicated]
+	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
+	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
@@ -3214,6 +3245,7 @@ Enum AssetType
 	EnumItem AssetType.PoseAnimation : 56
 	EnumItem AssetType.EarAccessory : 57
 	EnumItem AssetType.EyeAccessory : 58
+	EnumItem AssetType.EmoteAnimation : 61
 Enum AutoJointsMode
 	EnumItem AutoJointsMode.Default : 0
 	EnumItem AutoJointsMode.Explicit : 1
@@ -3222,6 +3254,7 @@ Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
 	EnumItem AvatarContextMenuOption.Emote : 2
+	EnumItem AvatarContextMenuOption.InspectMenu : 3
 Enum AvatarJointPositionType
 	EnumItem AvatarJointPositionType.Fixed : 0
 	EnumItem AvatarJointPositionType.ArtistIntent : 1
@@ -4399,6 +4432,10 @@ Enum StartCorner
 Enum Status [Deprecated]
 	EnumItem Status.Poison : 0 [Deprecated]
 	EnumItem Status.Confusion : 1 [Deprecated]
+Enum StreamingPauseMode
+	EnumItem StreamingPauseMode.Default : 0
+	EnumItem StreamingPauseMode.Disabled : 1
+	EnumItem StreamingPauseMode.ClientPhysicsPause : 2
 Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.MainBackground : 0
 	EnumItem StudioStyleGuideColor.Titlebar : 1

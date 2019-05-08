@@ -17,7 +17,7 @@ local Roact = require(Plugin.Roact)
 local DeveloperSubscriptionListItem = require(script.Parent.DeveloperSubscriptionListItem)
 local DeveloperSubscriptionListHeaderText = require(script.Parent.DeveloperSubscriptionListHeaderText)
 local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
-local Header = require(Plugin.Src.Components.Header)
+local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
 
 local createFitToContent = require(Plugin.Src.Components.createFitToContent)
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -33,9 +33,14 @@ local function render(props, localized, theme)
 
 	-- start up a table of the elements, put in the header
 	local elements = {
-		Header = Roact.createElement(Header, {
+		Header = Roact.createElement(HeaderWithButton, {
 			Title = localized.DevSubs.ListHeader,
 			LayoutOrder = 0,
+
+			Active = true,
+			ButtonText = localized.DevSubs.CreateAction,
+			OnClicked = onDeveloperSubscriptionCreated,
+			Style = theme.cancelButton,
 		}),
 
 		ListHeader = Roact.createElement("Frame", {
@@ -108,17 +113,6 @@ local function render(props, localized, theme)
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 0),
 		LayoutOrder = index + 1
-	})
-
-	index = index + 1
-
-	-- the button a user clicks to create a new subscription
-	elements.CreateButton = Roact.createElement(RoundTextButton, {
-		Active = true,
-		LayoutOrder = index + 1,
-		Name = localized.DevSubs.CreateAction,
-		OnClicked = onDeveloperSubscriptionCreated,
-		Style = theme.cancelButton,
 	})
 
 	return Roact.createElement(FitToContent, {

@@ -172,12 +172,13 @@ local PLACE_OWNER_ICON = 'rbxasset://textures/ui/icon_placeowner.png'
 local BC_ICON = 'rbxasset://textures/ui/icon_BC-16.png'
 local TBC_ICON = 'rbxasset://textures/ui/icon_TBC-16.png'
 local OBC_ICON = 'rbxasset://textures/ui/icon_OBC-16.png'
+local PREMIUM_ICON = 'rbxasset://textures/ui/PlayerList/PremiumIcon.png'
 local BLOCKED_ICON = 'rbxasset://textures/ui/PlayerList/BlockedIcon.png'
 local FRIEND_ICON = 'rbxasset://textures/ui/icon_friends_16.png'
 local FRIEND_REQUEST_ICON = 'rbxasset://textures/ui/icon_friendrequestsent_16.png'
 local FRIEND_RECEIVED_ICON = 'rbxasset://textures/ui/icon_friendrequestrecieved-16.png'
 
-local FStringPlayerListExperimentName = settings():GetFVariable("PlayerListExperimentName")
+local FFlagCoreScriptPlayerListPremiumIcon = settings():GetFFlag("CoreScriptPlayerListPremiumIcon")
 
 local FOLLOWER_ICON = 'rbxasset://textures/ui/icon_follower-16.png'
 local FOLLOWING_ICON = 'rbxasset://textures/ui/icon_following-16.png'
@@ -289,6 +290,8 @@ local function getMembershipIcon(player)
         return PLACE_OWNER_ICON
       elseif membershipType == Enum.MembershipType.None then
         return ""
+      elseif FFlagCoreScriptPlayerListPremiumIcon then
+        return PREMIUM_ICON
       elseif membershipType == Enum.MembershipType.BuildersClub then
         return BC_ICON
       elseif membershipType == Enum.MembershipType.TurboBuildersClub then
@@ -975,7 +978,7 @@ local function onEntryFrameSelected(selectedFrame, selectedPlayer)
     return
   end
 
-  if selectedPlayer ~= Player and selectedPlayer.UserId > 0 and Player.UserId > 0 then
+  if playerDropDown:HasOptions(selectedPlayer) then
     if LastSelectedFrame ~= selectedFrame then
       if LastSelectedFrame then
         for _,childFrame in pairs(LastSelectedFrame:GetChildren()) do

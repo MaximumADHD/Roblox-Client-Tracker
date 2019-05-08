@@ -22,13 +22,19 @@ local TitledFrame = require(Plugin.Src.Components.TitledFrame)
 local RoundTextBox = require(Plugin.Src.Components.RoundTextBox)
 local RoundNumberBox = require(Plugin.Src.Components.RoundNumberBox)
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
+local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
+
+local showDialog = require(Plugin.Src.Consumers.showDialog)
+local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 
 local DeveloperSubscriptionsFolder = Plugin.Src.Components.DeveloperSubscriptions
 local DeveloperSubscriptionListItemText = require(DeveloperSubscriptionsFolder.DeveloperSubscriptionListItemText)
-local Header = require(Plugin.Src.Components.Header)
+local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
 local BackButton = require(Plugin.Src.Components.BackButton)
 
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
+local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
 local createFitToContent = require(Plugin.Src.Components.createFitToContent)
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -77,9 +83,30 @@ function DeveloperSubscriptionDetails:init()
 			self.onImageChanged(image)
 		end
 	end
+
+	function self.onDiscontinueClicked()
+		local localized = getLocalizedContent(self)
+
+		local dialogProps = {
+			Title = localized.DevSubs.DiscontinueTitle,
+			Header = localized.DevSubs.DiscontinueHeader,
+			Description = localized.DevSubs.DiscontinueDescription,
+			Buttons = {
+				localized.DevSubs.DiscontinueCancel,
+				localized.DevSubs.DiscontinueConfirm,
+			}
+		}
+		local didDiscontinue = showDialog(self, WarningDialog, dialogProps):await()
+
+		if didDiscontinue then
+			-- TODO(dnurkkala): discontinue stuff
+		else
+			-- TODO(dnurkkala): don't... discontinue stuff... I guess?
+		end
+	end
 end
 
-function DeveloperSubscriptionDetails:renderConsolidated(localized)
+function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 	local props = self.props
 
 	local developerSubscription = props.DeveloperSubscription
@@ -92,9 +119,14 @@ function DeveloperSubscriptionDetails:renderConsolidated(localized)
 			LayoutOrder = -1,
 		}),
 
-		Header = Roact.createElement(Header, {
+		Header = Roact.createElement(HeaderWithButton, {
 			Title = localized.DevSubs.EditHeader,
 			LayoutOrder = 0,
+
+			Active = true,
+			ButtonText = localized.DevSubs.DiscontinueAction,
+			OnClicked = self.onDiscontinueClicked,
+			Style = theme.cancelButton,
 		}),
 
 		NameFrame = Roact.createElement(TitledFrame, {
@@ -184,8 +216,10 @@ function DeveloperSubscriptionDetails:renderConsolidated(localized)
 end
 
 function DeveloperSubscriptionDetails:render()
-	return withLocalization(function(localized)
-		return self:renderConsolidated(localized)
+	return withTheme(function(theme)
+		return withLocalization(function(localized)
+			return self:renderConsolidated(theme, localized)
+		end)
 	end)
 end
 

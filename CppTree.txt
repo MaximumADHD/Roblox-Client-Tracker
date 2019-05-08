@@ -761,6 +761,7 @@ RBX
 	EdgeStage
 	EditSelectionVerb
 	Effect
+	EmotesPages
 	EngineStatsCommand
 	EquationDisplay
 	ExplicitWeldJoint
@@ -1162,6 +1163,7 @@ RBX
 	StopCommand
 	StringValue
 	StudAutoJointSurfacePair
+	StudioData
 	StudioService
 	StudsTool
 	SummaryStatsCommand

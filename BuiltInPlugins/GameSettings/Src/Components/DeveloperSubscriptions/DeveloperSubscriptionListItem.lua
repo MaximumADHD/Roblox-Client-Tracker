@@ -22,13 +22,7 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local Constants = require(Plugin.Src.Util.Constants)
 local numberWithCommas = require(Plugin.Src.Util.numberWithCommas)
 
-local StudioService = game:GetService("StudioService")
-
 local DeveloperSubscriptionListItemText = require(script.Parent.DeveloperSubscriptionListItemText)
-
-local COPY_ICON_IMAGE = "rbxassetid://3008317565"
-local COPY_ICON_SIZE = 20
-local COPY_ICON_PADDING = 4
 
 local function render(props, theme, localized)
 	local height = props.Height
@@ -67,30 +61,11 @@ local function render(props, theme, localized)
 			Size = UDim2.new(0.16, 0, 1, 0),
 			LayoutOrder = 1,
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, COPY_ICON_PADDING),
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-			}),
-
 			Text = Roact.createElement(DeveloperSubscriptionListItemText, {
-				Size = UDim2.new(1, -(COPY_ICON_SIZE + COPY_ICON_PADDING), 1, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 				Text = (id > 0) and id or localized.DevSubs.Unsaved,
 				LayoutOrder = 1,
 				Alignment = Enum.TextXAlignment.Left,
-			}),
-
-			Icon = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, COPY_ICON_SIZE, 0, COPY_ICON_SIZE),
-				Image = COPY_ICON_IMAGE,
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-				Visible = (id > 0),
-
-				[Roact.Event.Activated] = function()
-					StudioService:CopyToClipboard(id)
-				end,
 			}),
 		}),
 
@@ -121,18 +96,17 @@ local function render(props, theme, localized)
 			LayoutOrder = 5,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 4),
-				PaddingBottom = UDim.new(0, 4),
+				PaddingRight = UDim.new(0, 12),
 			}),
 
 			Button = Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
-				Image = "rbxassetid://2998597458",
-				Size = UDim2.new(1, 0, 1, 0),
+				Image = "rbxasset://textures/GameSettings/edit.png",
+				Size = UDim2.new(0, 16, 0, 16),
 				SizeConstraint = Enum.SizeConstraint.RelativeYY,
 
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, 0, 0.5, 0),
 
 				[Roact.Event.Activated] = onEditButtonActivated,
 			})

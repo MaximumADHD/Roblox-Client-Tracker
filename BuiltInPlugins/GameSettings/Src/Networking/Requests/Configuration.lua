@@ -10,7 +10,11 @@ local RELEVANT_ENTRIES = {
 	playableDevices = true,
 	isFriendsOnly = true,
 	name = true,
-	studioAccessToApisAllowed = settings():GetFFlag("StudioGameSettingsStudioApiServices") and true or nil
+	studioAccessToApisAllowed = settings():GetFFlag("StudioGameSettingsStudioApiServices") and true or nil,
+	universeAvatarAssetOverrides = true,
+	universeAvatarMinScales = true,
+	universeAvatarMaxScales = true,
+	genre = true,
 }
 
 local PLAYABLE_DEVICES = {
@@ -32,15 +36,6 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 local extractRelevantEntries = require(Plugin.Src.Util.extractRelevantEntries)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	RELEVANT_ENTRIES = Cryo.Dictionary.join(RELEVANT_ENTRIES, {
-		universeAvatarAssetOverrides = true,
-		universeAvatarMinScales = true,
-		universeAvatarMaxScales = true,
-		genre = true,
-	})
-end
 
 local REQUEST_URL = "v2/universes/%d/configuration"
 local REQUEST_TYPE = "develop"

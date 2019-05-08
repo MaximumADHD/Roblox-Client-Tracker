@@ -1,3 +1,4 @@
+local ContentProvider = game:GetService("ContentProvider")
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
@@ -42,11 +43,27 @@ local function getSegmentFromInput(frame, input)
     return GetSegmentFromPosition(position)
 end
 
+local function getRandomAssetId(emotesAssetIds)
+    if #emotesAssetIds == 0 then
+        return
+    end
+
+    local rand = math.random(1, #emotesAssetIds)
+    return emotesAssetIds[rand]
+end
+
+local function getEmoteImage(assetId)
+    return ContentProvider.BaseUrl.. Constants.EmotesImageApi:format(assetId)
+end
+
 function EmotesButtons:render()
-    local emotesInfoTable = self.props.emotesPage.emotesList
+    local emotesPage = self.props.emotesPage.currentEmotes
+    local emotesInfoTable = self.props.emotesPage.emotesInfo
     local emoteButtons = {}
 
-    for segmentIndex = 1, #emotesInfoTable do
+    for segmentIndex, emoteName in pairs(emotesPage) do
+        local emoteAssetIds = emotesInfoTable[emoteName]
+
         if segmentIndex > Constants.EmotesPerPage then
             warn("EmotesMenu: Number of emotes in page exceeds max emotes per page")
             break
@@ -72,9 +89,11 @@ function EmotesButtons:render()
         local yPadding = imagePadding * sin
         local yPos = 0.5 + yRadiusPos + yPadding
 
-        local emoteInfo = emotesInfoTable[segmentIndex]
-        emoteButtons[emoteInfo.name] = Roact.createElement("ImageLabel", {
-            Image = emoteInfo.image,
+        local assetId = getRandomAssetId(emoteAssetIds)
+        local emoteImage = getEmoteImage(assetId)
+
+        emoteButtons[segmentIndex] = Roact.createElement("ImageLabel", {
+            Image = emoteImage,
             AnchorPoint = Vector2.new(0.5, 0.5),
             Position = UDim2.new(xPos, 0, yPos, 0),
             Size = UDim2.new(imageSize, 0, imageSize, 0),
@@ -103,7 +122,7 @@ function EmotesButtons:render()
                     return
                 end
 
-                if self.props.emotesPage.emotesList[segmentIndex] then
+                if self.props.emotesPage.currentEmotes[segmentIndex] then
                     self.props.focusSegment(segmentIndex)
                 else
                     self.props.focusSegment(0)
@@ -116,10 +135,10 @@ function EmotesButtons:render()
 
             if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
                 local segmentIndex = getSegmentFromInput(frame, input)
-                local emoteInfo = self.props.emotesPage.emotesList[segmentIndex]
+                local emoteName = self.props.emotesPage.currentEmotes[segmentIndex]
 
-                if emoteInfo then
-                    self.props.playEmote(emoteInfo.name)
+                if emoteName then
+                    self.props.playEmote(emoteName)
                 end
             end
         end,

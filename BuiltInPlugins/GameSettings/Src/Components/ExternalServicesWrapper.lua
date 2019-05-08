@@ -25,6 +25,8 @@ local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
 local UILibraryThemeProvider = require(Plugin.UILibrary.Theming).Provider
 local UILibraryCreateTheme = require(Plugin.UILibrary.createTheme)
 
+local UILibraryWrapper = require(Plugin.UILibrary.UILibraryWrapper)
+
 local function getUILibraryTheme()
 	local studioTheme = settings().Studio.Theme
 	local studioColors = Enum.StudioStyleGuideColor
@@ -42,9 +44,10 @@ local function ExternalServicesWrapper(props)
 			Roact.createElement(ThemeProvider, {
 				theme = props.theme,
 			}, {
-				Roact.createElement(UILibraryThemeProvider, {
+				Roact.createElement(UILibraryWrapper, {
 					theme = props.theme:getUILibraryTheme(),
-				},  {
+					focusGui = props.pluginGui,
+				},  {	
 					Roact.createElement(MouseProvider, {
 						mouse = props.mouse,
 					}, props[Roact.Children]),

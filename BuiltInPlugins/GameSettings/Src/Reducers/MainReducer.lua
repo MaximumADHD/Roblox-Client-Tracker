@@ -10,10 +10,7 @@ local Status = require(Plugin.Src.Reducers.Status)
 
 local fastFlags = require(Plugin.Src.Util.FastFlags)
 
-local ReducerMorpher = nil
-if fastFlags.isMorphingHumanoidDescriptionSystemOn() then
-	ReducerMorpher = require(Plugin.MorpherEditor.Code.Reducers.ReducerRootExternal)
-end
+local ReducerMorpher = require(Plugin.MorpherEditor.Code.Reducers.ReducerRootExternal)
 
 return Rodux.combineReducers({
 	Settings = Settings,

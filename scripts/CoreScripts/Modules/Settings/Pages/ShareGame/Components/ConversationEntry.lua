@@ -12,6 +12,7 @@ local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteButton = require(ShareGame.Components.InviteButton)
 
+local FFlagLuaInviteFailOnZeroPlaceId = settings():GetFFlag("LuaInviteFailOnZeroPlaceIdV384")
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
@@ -91,7 +92,7 @@ function ConversationEntry:render()
 			onInvite = function()
 				-- Check if this is a one-on-one convo
 				if #users == 1 then
-					inviteUser(users[1].id):andThen(function(results)
+					local onSuccess = function(results)
 						if not results then
 							return
 						end
@@ -122,7 +123,14 @@ function ConversationEntry:render()
 
 							self.eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 						end
-					end)
+					end
+
+					local onReject
+					if FFlagLuaInviteFailOnZeroPlaceId then
+						onReject = function() end
+					end
+
+					inviteUser(users[1].id):andThen(onSuccess, onReject)
 				end
 			end,
 			inviteStatus = inviteStatus,

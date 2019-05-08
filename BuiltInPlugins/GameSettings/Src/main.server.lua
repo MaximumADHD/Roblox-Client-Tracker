@@ -3,7 +3,6 @@ if not plugin then
 end
 
 -- Fast flags
-local FFlagStudioLocalizationGameSettings = settings():GetFFlag("StudioLocalizationGameSettings")
 local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
 local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
@@ -73,10 +72,6 @@ if FFlagStudioGameSettingsAccessPermissions then
 	table.insert(settingsPages, 2, "Access Permissions")
 end
 
-if FFlagStudioLocalizationGameSettings then
-	table.insert(settingsPages, "Localization")
-end
-
 if DFFlagDeveloperSubscriptionsEnabled then
 	table.insert(settingsPages, "Developer Subscriptions")
 end
@@ -142,6 +137,7 @@ local function showDialog(type, props)
 					theme = Theme.new(),
 					mouse = plugin:GetMouse(),
 					localization = localization,
+					pluginGui = pluginGui
 				}, {
 					Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
 						OnResult = function(result)
@@ -259,7 +255,7 @@ local function makePluginGui()
 	})
 	pluginGui.Name = plugin.Name
 	pluginGui.Title = plugin.Name
-	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	pluginGui.ZIndexBehavior = FFlagGameSettingsUseUILibrary and Enum.ZIndexBehavior.Sibling or Enum.ZIndexBehavior.Global
 
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
 		-- Handle if user clicked the X button to close the window
@@ -301,6 +297,7 @@ local function openGameSettings()
 		theme = Theme.new(),
 		mouse = plugin:GetMouse(),
 		localization = localization,
+		pluginGui = pluginGui,
 	}, {
 		mainView = Roact.createElement(MainView, {
 			MenuEntries = menuEntries,

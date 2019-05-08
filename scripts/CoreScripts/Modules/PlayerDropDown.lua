@@ -6,6 +6,7 @@
 local moduleApiTable = {}
 
 local CoreGui = game:GetService('CoreGui')
+local GuiService = game:GetService('GuiService')
 local HttpService = game:GetService('HttpService')
 local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local PlayersService = game:GetService('Players')
@@ -38,6 +39,7 @@ local TEXT_COLOR = Color3.new(1, 1, 243/255)
 local TEXT_STROKE_COLOR = Color3.new(34/255, 34/255, 34/255)
 local MAX_FRIEND_COUNT = 200
 local FRIEND_IMAGE = 'https://www.roblox.com/thumbs/avatar.ashx?userId='
+local INSPECT_KEY = "InGame.InspectMenu.Action.View"
 
 local GET_BLOCKED_USERIDS_TIMEOUT = 5
 
@@ -47,6 +49,16 @@ local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu
 local RobloxTranslator
 if FFlagCoreScriptsUseLocalizationModule then
 	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
+
+local FlagSettings = require(RobloxGui.Modules.FlagSettings)
+local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
+
+local inspectMenuEnabled = false
+local inspectMenuAnalytics = nil
+if FlagSettings.IsInspectAndBuyEnabled() then
+  inspectMenuAnalytics = InspectMenuAnalytics.new()
+  inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
 end
 
 local function LocalizedGetString(key, rtv)
@@ -544,6 +556,27 @@ function createPlayerDropDown()
 
 	local TWEEN_TIME = 0.25
 
+	local function onInspectButtonPressed()
+		if not playerDropDown.Player or not inspectMenuEnabled then
+			return
+		end
+		inspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
+		GuiService:InspectPlayerFromUserId(playerDropDown.Player.UserId)
+		playerDropDown:Hide()
+	end
+
+	-- Checks if a player has at least one option for the player drop down list.
+	function playerDropDown:HasOptions(selectedPlayer)
+		if not FlagSettings.IsInspectAndBuyEnabled() then
+			return selectedPlayer ~= LocalPlayer and selectedPlayer.UserId > 0 and LocalPlayer.UserId > 0
+		else
+			local hasOptions =
+				(selectedPlayer ~= LocalPlayer and selectedPlayer.UserId > 0 and LocalPlayer.UserId > 0) or
+				(selectedPlayer == LocalPlayer and inspectMenuEnabled)
+			return hasOptions
+		end
+	end
+
 	function playerDropDown:Hide()
 		if playerDropDown.PopupFrame then
 			local offscreenPosition = (playerDropDown.PopupFrameOffScreenPosition ~= nil and playerDropDown.PopupFrameOffScreenPosition or UDim2.new(1, 1, 0, playerDropDown.PopupFrame.Position.Y.Offset))
@@ -571,61 +604,75 @@ function createPlayerDropDown()
 
 		local buttons = {}
 
-		local status = getFriendStatus(playerDropDown.Player)
-		local friendText = ""
-		local canDeclineFriend = false
-		if status == Enum.FriendStatus.Friend then
-			friendText = "Unfriend Player"
-		elseif status == Enum.FriendStatus.Unknown or status == Enum.FriendStatus.NotFriend then
-			friendText = "Send Friend Request"
-		elseif status == Enum.FriendStatus.FriendRequestSent then
-			friendText = "Revoke Friend Request"
-		elseif status == Enum.FriendStatus.FriendRequestReceived then
-			friendText = "Accept Friend Request"
-			canDeclineFriend = true
-		end
-
-		local blocked = isBlocked(playerDropDown.Player.UserId)
-
-		if not blocked then
+		if Player == LocalPlayer and inspectMenuEnabled then
 			table.insert(buttons, {
-				Name = "FriendButton",
-				Text = friendText,
-				OnPress = onFriendButtonPressed,
-				})
-		end
-
-		if canDeclineFriend and not blocked then
-			table.insert(buttons, {
-				Name = "DeclineFriend",
-				Text = "Decline Friend Request",
-				OnPress = onDeclineFriendButonPressed,
-				})
-		end
-		-- following status
-		local following = isFollowing(playerDropDown.Player.UserId, LocalPlayer.UserId)
-		local followerText = following and "Unfollow Player" or "Follow Player"
-
-		if not blocked then
-			table.insert(buttons, {
-				Name = "FollowerButton",
-				Text = followerText,
-				OnPress = following and onUnfollowButtonPressed or onFollowButtonPressed,
-				})
-		end
-
-		local blockedText = blocked and "Unblock Player" or "Block Player"
-		table.insert(buttons, {
-			Name = "BlockButton",
-			Text = blockedText,
-			OnPress = blocked and onUnblockButtonPressed or onBlockButtonPressed,
+				Name = "InspectButton",
+				Text = RobloxTranslator:FormatByKey(INSPECT_KEY),
+				OnPress = onInspectButtonPressed,
 			})
-		table.insert(buttons, {
-			Name = "ReportButton",
-			Text = "Report Abuse",
-			OnPress = onReportButtonPressed,
-			})
+		elseif Player ~= LocalPlayer then
+			local status = getFriendStatus(playerDropDown.Player)
+			local friendText = ""
+			local canDeclineFriend = false
+			if status == Enum.FriendStatus.Friend then
+				friendText = "Unfriend Player"
+			elseif status == Enum.FriendStatus.Unknown or status == Enum.FriendStatus.NotFriend then
+				friendText = "Send Friend Request"
+			elseif status == Enum.FriendStatus.FriendRequestSent then
+				friendText = "Revoke Friend Request"
+			elseif status == Enum.FriendStatus.FriendRequestReceived then
+				friendText = "Accept Friend Request"
+				canDeclineFriend = true
+			end
 
+			local blocked = isBlocked(playerDropDown.Player.UserId)
+
+			if not blocked then
+				table.insert(buttons, {
+					Name = "FriendButton",
+					Text = friendText,
+					OnPress = onFriendButtonPressed,
+					})
+			end
+
+			if canDeclineFriend and not blocked then
+				table.insert(buttons, {
+					Name = "DeclineFriend",
+					Text = "Decline Friend Request",
+					OnPress = onDeclineFriendButonPressed,
+					})
+			end
+			-- following status
+			local following = isFollowing(playerDropDown.Player.UserId, LocalPlayer.UserId)
+			local followerText = following and "Unfollow Player" or "Follow Player"
+
+			if not blocked then
+				table.insert(buttons, {
+					Name = "FollowerButton",
+					Text = followerText,
+					OnPress = following and onUnfollowButtonPressed or onFollowButtonPressed,
+					})
+			end
+
+			local blockedText = blocked and "Unblock Player" or "Block Player"
+			table.insert(buttons, {
+				Name = "BlockButton",
+				Text = blockedText,
+				OnPress = blocked and onUnblockButtonPressed or onBlockButtonPressed,
+				})
+			table.insert(buttons, {
+				Name = "ReportButton",
+				Text = "Report Abuse",
+				OnPress = onReportButtonPressed,
+				})
+			if inspectMenuEnabled then
+				table.insert(buttons, {
+					Name = "InspectButton",
+					Text = RobloxTranslator:FormatByKey(INSPECT_KEY),
+					OnPress = onInspectButtonPressed,
+				})
+			end
+		end
 		if playerDropDown.PopupFrame then
 			playerDropDown.PopupFrame:Destroy()
 		end
@@ -686,6 +733,12 @@ LocalPlayer.FriendStatusChanged:connect(function(player, friendStatus)
 		PlayerUnFriendedEvent:Fire(player)
 	end
 end)
+
+if FlagSettings.IsInspectAndBuyEnabled() then
+	GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
+		inspectMenuEnabled = enabled
+	end)
+end
 
 StarterGui:RegisterGetCore("PlayerBlockedEvent", function() return PlayerBlockedEvent end)
 StarterGui:RegisterGetCore("PlayerUnblockedEvent", function() return PlayerUnblockedEvent end)

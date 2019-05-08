@@ -1,40 +1,52 @@
 local CorePackages = game:GetService("CorePackages")
 
+local Cryo = require(CorePackages.Cryo)
 local Rodux = require(CorePackages.Rodux)
 
--- TODO CLIAVATAR-2382: Add paging and get emotes from the HumanoidDescription API
+local Reducers = script.Parent
+local EmotesMenu = Reducers.Parent
+
+local Actions = EmotesMenu.Actions
+
+local EmotesChanged = require(Actions.EmotesChanged)
+local EquippedEmotesChanged = require(Actions.EquippedEmotesChanged)
+
 local default = {
-    -- TODO: Remove default emotes here for testing
-    emotesList = {
-        {
-            name = "dance",
-            image = "rbxassetid://2932499139",
-        },
-        {
-            name = "dance2",
-            image = "rbxassetid://2932494520",
-        },
-        {
-            name = "dance3",
-            image = "rbxassetid://2932481863",
-        },
-        {
-            name = "wave",
-            image = "rbxassetid://2932467072",
-        },
-        {
-            name = "cheer",
-            image = "rbxassetid://2932503205",
-        },
-        {
-            name = "laugh",
-            image = "rbxassetid://2932472095",
-        },
-        {
-            name = "point",
-            image = "rbxassetid://2932434746",
-        },
-    }
+    emotesInfo = {},
+    equippedEmotes = {},
+
+    currentEmotes = {},
 }
 
-return Rodux.createReducer(default, {})
+local function createCurrentEmotes(emotesInfoTable, equippedEmotesTable)
+    local currentEmotes = {}
+
+    for _, emoteInfo in ipairs(equippedEmotesTable) do
+        local slot = emoteInfo.Slot
+        local emoteName = emoteInfo.Name
+
+        if slot and emoteName then
+            if emotesInfoTable[emoteName] then
+                currentEmotes[slot] = emoteName
+            end
+        end
+    end
+
+    return currentEmotes
+end
+
+return Rodux.createReducer(default, {
+    [EmotesChanged.name] = function(state, action)
+        return Cryo.Dictionary.join(state, {
+            emotesInfo = action.emotes,
+            currentEmotes = createCurrentEmotes(action.emotes, state.equippedEmotes),
+        })
+	end,
+
+    [EquippedEmotesChanged.name] = function(state, action)
+        return Cryo.Dictionary.join(state, {
+            equippedEmotes = action.equippedEmotes,
+            currentEmotes = createCurrentEmotes(state.emotesInfo, action.equippedEmotes),
+        })
+	end,
+})

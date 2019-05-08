@@ -41,9 +41,9 @@ local LegacyDefaultEmotes = {
 }
 
 local LocalizationKeys = {
-    NotSupported = "InGame.Chat.Response.EmoteNotAvailable",
-    R15Only = "InGame.Chat.Response.EmotesNotSupported",
-    NoMatchingEmote = "InGame.Chat.Response.EmotesWrongAvatarType",
+    NotSupported = "InGame.Chat.Response.EmotesNotSupported",
+    R15Only = "InGame.Chat.Response.EmotesWrongAvatarType",
+    NoMatchingEmote = "InGame.Chat.Response.EmoteNotAvailable",
     TemporarilyUnavailable = "InGame.Chat.Response.EmotesTemporarilyUnavailable",
 }
 
@@ -120,7 +120,7 @@ local function ProcessMessage(message, ChatWindow, ChatSettings)
 		return true
 	end
 
-	local humanoidDescription = character:FindFirstChildOfClass("HumanoidDescription")
+	local humanoidDescription = humanoid:FindFirstChildOfClass("HumanoidDescription")
 	if not humanoidDescription then
 		sendErrorMessage(channelObj, LocalizationKeys.TemporarilyUnavailable)
 		return true

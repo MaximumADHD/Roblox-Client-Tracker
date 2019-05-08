@@ -215,11 +215,12 @@ function Theme:recalculateTheme()
 			ButtonColor_Hover = color(StyleColor.LinkText),
 			ButtonColor_Disabled = isDark and color(StyleColor.Button, StyleModifier.Disabled) or Constants.BLUE_DISABLED,
 			TextColor = Color3.new(1, 1, 1),
-			TextColor_Disabled = isDark and color(StyleColor.DimmedText) or Color3.new(1, 1, 1),
+			TextColor_Disabled = isDark and color(StyleColor.ButtonText, StyleModifier.Disabled) or Color3.new(1, 1, 1),
 			BorderColor = color(StyleColor.Light),
 		},
 	})
 
+	-- This is how we tell the UILibrary to use our colors instead of its predefined settings
 	self:updateUILibrary({
 		backgroundColor = color(StyleColor.InputFieldBackground),
 		textColor = color(StyleColor.MainText),
@@ -228,7 +229,17 @@ function Theme:recalculateTheme()
 		disabledColor = color(StyleColor.Tab),
 		borderColor = color(StyleColor.Border),
 		hoverColor = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
-		errorColor = Color3.new(1, 0.266, 0.266),
+		
+		-- Dropdown item
+		hoveredItemColor = color(StyleColor.Button, StyleModifier.Hover),
+		hoveredTextColor = color(StyleColor.ButtonText, StyleModifier.Hover),
+		
+		-- Dropdown button
+		selectionColor = color(StyleColor.Button, StyleModifier.Selected),
+		selectedTextColor = color(StyleColor.ButtonText, StyleModifier.Selected),
+		selectionBorderColor = color(StyleColor.ButtonBorder, StyleModifier.Selected),
+		
+		errorColor = color(StyleColor.ErrorText),
 	})
 end
 

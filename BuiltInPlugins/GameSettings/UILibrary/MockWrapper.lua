@@ -13,17 +13,27 @@ local dummyTheme = createTheme()
 
 local MockWrapper = Roact.PureComponent:extend("MockWrapper")
 
-local workspace = game:GetService("Workspace")
+local function createMockPlugin(container)
+	return {
+		CreateQWidgetPluginGui = function()
+			return Instance.new("BillboardGui", container)
+		end
+	}
+end
 
-function MockWrapper:init()
-	self.mockGui = Instance.new("ScreenGui", workspace)
+function MockWrapper:init(props)
+	local container = props.Container
+
+	self.mockGui = Instance.new("ScreenGui", container)
 	self.mockGui.Name = "MockGui"
+	self.mockPlugin = createMockPlugin(container)
 end
 
 function MockWrapper:render()
 	return Roact.createElement(UILibraryWrapper, {
 		theme = dummyTheme,
 		focusGui = self.mockGui,
+		plugin = self.mockPlugin,
 	}, self.props[Roact.Children])
 end
 

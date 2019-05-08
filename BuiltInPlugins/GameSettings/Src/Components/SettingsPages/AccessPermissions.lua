@@ -11,7 +11,7 @@ local Roact = require(Plugin.Roact)
 local Header = require(Plugin.Src.Components.Header)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local Separator = require(Plugin.Src.Components.Separator)
-local CollaboratorItem = require(Plugin.Src.Components.CollaboratorItem)
+local GameOwnerWidget = require(Plugin.Src.Components.Permissions.GameOwnerWidget)
 
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
@@ -28,11 +28,16 @@ local function loadValuesToProps(getValue, state)
 	local loadedProps = {
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
-		Permissions = getValue("permissions")
+		Permissions = getValue("permissions"),
+		OwnerThumbnail = getValue("ownerThumbnail"),
+		OwnerName = getValue("ownerName"),
+		
+		StudioUserId = getValue("studioUserId"),
+		GroupOwnerUserId = getValue("groupOwnerUserId"),
 	}
 
 	if FFlagGameSettingsDispatchShutdownWarning then
-		loadedProps.IsCurrentlyActive =  state.Settings.Current.isActive
+		loadedProps.IsCurrentlyActive = state.Settings.Current.isActive
 	end
 
 	return loadedProps
@@ -42,6 +47,7 @@ end
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
 		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
+		
 		IsActiveChanged = function(button, willShutdown)
 			if willShutdown then
 				dispatch(AddWarning("isActive"))
@@ -49,7 +55,11 @@ local function dispatchChanges(setValue, dispatch)
 				dispatch(DiscardWarning("isActive"))
 			end
 			dispatch(AddChange("isActive", button.Id))
-		end
+		end,
+		
+		PermissionsChanged = function(permissions)
+			dispatch(AddChange("permissions", permissions))
+		end,
 	}
 	
 	return dispatchFuncs
@@ -65,21 +75,18 @@ local function displayContents(page, localized)
 			LayoutOrder = 0,
 		}),
 		
-		-- TODO Inline with dummy data for debug purposes
-		Debug_Owner = Roact.createElement(CollaboratorItem, game.CreatorType == Enum.CreatorType.User and {
+		Owner = Roact.createElement(GameOwnerWidget, {
 			LayoutOrder = 1,
-			CollaboratorName = "OnlyTwentyCharacters",
-			CollaboratorId = game.CreatorId,
-			CollaboratorIcon = "rbxasset://textures/face.png",
-			Removable = false,
-		} or {
-			LayoutOrder = 1,
-			CollaboratorName = "Some Random Group",
-			SecondaryText = "To be populated by dropdown when implemented",
-			CollaboratorId = game.CreatorId,
-			CollaboratorIcon = "rbxasset://textures/grid2.png",
-			Removable = true, -- Not actually removable in final version. Just to test UI
-			Removed = function() print("I clicked the remove button") end, -- Also debug
+			
+			Enabled = props.IsActive ~= nil,
+			OwnerName = props.OwnerName,
+			OwnerThumbnail = props.OwnerThumbnail,
+			
+			StudioUserId = props.StudioUserId,
+			GroupOwnerUserId = props.GroupOwnerUserId,
+			
+			Permissions = props.Permissions,
+			PermissionsChanged = props.PermissionsChanged,
 		}),
 
 		Playability = Roact.createElement(RadioButtonSet, {

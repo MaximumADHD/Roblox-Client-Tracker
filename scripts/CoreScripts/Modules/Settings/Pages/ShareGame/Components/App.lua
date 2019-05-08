@@ -14,7 +14,7 @@ local EventStream = require(AppTempCommon.Temp.EventStream)
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local ShareGameContainer
 local ShareGamePageFrame

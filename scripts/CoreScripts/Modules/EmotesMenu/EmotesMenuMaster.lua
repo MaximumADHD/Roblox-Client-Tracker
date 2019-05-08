@@ -9,8 +9,10 @@ local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 -- Wait for LocalPlayer to exist
-if not Players.LocalPlayer then
+local LocalPlayer = Players.LocalPlayer
+if not LocalPlayer then
     Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+    LocalPlayer = Players.LocalPlayer
 end
 
 local Roact = require(CorePackages.Roact)
@@ -37,6 +39,8 @@ local EmotesMenuReducer = require(Reducers.EmotesMenuReducer)
 local OpenMenu = require(Thunks.OpenMenu)
 local HideMenu = require(Actions.HideMenu)
 
+local EmotesChanged = require(Actions.EmotesChanged)
+local EquippedEmotesChanged = require(Actions.EquippedEmotesChanged)
 local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
@@ -72,7 +76,7 @@ function EmotesMenuMaster:setTopBarEnabled(isEnabled)
     end
 end
 
-function EmotesMenuMaster:_connectListeners()
+function EmotesMenuMaster:_connectCoreGuiListeners()
     Backpack.StateChanged.Event:Connect(function(isBackpackOpen)
         if not isBackpackOpen then
             return
@@ -93,6 +97,9 @@ function EmotesMenuMaster:_connectListeners()
         end
     end)
 
+end
+
+function EmotesMenuMaster:_connectApiListeners()
     StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
         if not self.topBarEnabled then
             return
@@ -118,6 +125,114 @@ function EmotesMenuMaster:_connectListeners()
             end
         end
     end)
+
+end
+
+function EmotesMenuMaster:_onEquippedEmotesChanged(newEquippedEmotes)
+    self.store:dispatch(EquippedEmotesChanged(newEquippedEmotes))
+end
+
+function EmotesMenuMaster:_onEmotesChanged(newEmotes)
+    self.store:dispatch(EmotesChanged(newEmotes))
+end
+
+function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
+    if self.equippedEmotesChangedConn then
+        self.equippedEmotesChangedConn:Disconnect()
+        self.equippedEmotesChangedConn = nil
+    end
+
+    if self.emotesChangedConn then
+        self.emotesChangedConn:Disconnect()
+        self.emotesChangedConn = nil
+    end
+
+    if self.humanoidDescriptionAncestryConn then
+        self.humanoidDescriptionAncestryConn:Disconnect()
+        self.humanoidDescriptionAncestryConn = nil
+    end
+
+    if humanoidDescription then
+        self.equippedEmotesChangedConn = humanoidDescription.EquippedEmotesChanged:Connect(function(newEquippedEmotes)
+            self:_onEquippedEmotesChanged(newEquippedEmotes)
+        end)
+        self:_onEquippedEmotesChanged(humanoidDescription:GetEquippedEmotes())
+
+        self.emotesChangedConn = humanoidDescription.EmotesChanged:Connect(function(newEmotes)
+            self:_onEmotesChanged(newEmotes)
+        end)
+        self:_onEmotesChanged(humanoidDescription:GetEmotes())
+
+        self.humanoidDescriptionAncestryConn = humanoidDescription.AncestryChanged:Connect(function(child, parent)
+            if child == humanoidDescription and parent == nil then
+                self:_onHumanoidDescriptionChanged(nil)
+            end
+        end)
+    else
+        self:_onEquippedEmotesChanged({})
+        self:_onEmotesChanged({})
+    end
+end
+
+function EmotesMenuMaster:_onHumanoidChanged(humanoid)
+    if self.humanoidChildAddedConn then
+        self.humanoidChildAddedConn:Disconnect()
+        self.humanoidChildAddedConn = nil
+    end
+
+    if self.humanoidAncestryChangedConn then
+        self.humanoidAncestryChangedConn:Disconnect()
+        self.humanoidAncestryChangedConn = nil
+    end
+
+    if humanoid then
+        self.humanoidChildAddedConn = humanoid.ChildAdded:Connect(function(child)
+            if child:IsA("HumanoidDescription") then
+                self:_onHumanoidDescriptionChanged(child)
+            end
+        end)
+
+        local humanoidDescription = humanoid:FindFirstChildOfClass("HumanoidDescription")
+        if humanoidDescription then
+            self:_onHumanoidDescriptionChanged(humanoidDescription)
+        end
+
+        self.humanoidAncestryChangedConn = humanoid.AncestryChanged:Connect(function(child, parent)
+            if child == humanoid and parent == nil then
+                self:_onHumanoidChanged(nil)
+            end
+        end)
+    else
+        self:_onHumanoidDescriptionChanged(nil)
+    end
+end
+
+function EmotesMenuMaster:_onCharacterAdded(character)
+    if self.characterChildAddedConn then
+        self.characterChildAddedConn:Disconnect()
+        self.characterChildAddedConn = nil
+    end
+
+    self.characterChildAddedConn = character.ChildAdded:Connect(function(child)
+        if child:IsA("Humanoid") then
+            self:_onHumanoidChanged(child)
+        end
+    end)
+
+    local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+    if humanoid then
+        self:_onHumanoidChanged(humanoid)
+    end
+end
+
+function EmotesMenuMaster:_connectListeners()
+    self:_connectCoreGuiListeners()
+    self:_connectApiListeners()
+
+    LocalPlayer.CharacterAdded:Connect(function(character) self:_onCharacterAdded(character) end)
+    if LocalPlayer.Character then
+        self:_onCharacterAdded(LocalPlayer.Character)
+    end
 
     LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function()
         self.store:dispatch(SetLocale(LocalizationService.RobloxLocaleId))

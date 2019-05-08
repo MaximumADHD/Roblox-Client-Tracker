@@ -16,12 +16,14 @@ local INVITE_TEXT_FONT = Enum.Font.SourceSansSemibold
 local INVITE_TEXT_SIZE = 19
 local InviteStatus = Constants.InviteStatus
 
+local MODERATED_TEXT = "Feature.SettingsHub.Label.Moderated"
 local INVITE_STATUS_TEXT = {
 	[InviteStatus.Success] = "Feature.SettingsHub.Label.Invited",
-	[InviteStatus.Moderated] = "Feature.SettingsHub.Label.Moderated",
+	[InviteStatus.Moderated] = MODERATED_TEXT,
 	[InviteStatus.Pending] = "Feature.SettingsHub.Label.Sending",
 }
 
+local FFlagLuaInviteGameHandleUnknownResponse = settings():GetFFlag("LuaInviteGameHandleUnknownResponse")
 local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
 if FFlagLuaInviteGameMockTextLocalization then
 	local getTranslator = require(ShareGame.getTranslator)
@@ -58,6 +60,11 @@ function InviteButton:render()
 		})
 	else
 		local inviteText = INVITE_STATUS_TEXT[inviteStatus]
+		if FFlagLuaInviteGameHandleUnknownResponse then
+			if not inviteText then
+				inviteText = MODERATED_TEXT
+			end
+		end
 
 		return Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,

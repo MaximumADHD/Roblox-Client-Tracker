@@ -45,7 +45,7 @@ function EmotesWheel:bindActions()
             return
         end
 
-        if self.props.emotesPage.emotesList[segmentIndex] then
+        if self.props.emotesPage.currentEmotes[segmentIndex] then
             self.props.focusSegment(segmentIndex)
         else
             self.props.focusSegment(0)
@@ -59,10 +59,10 @@ function EmotesWheel:bindActions()
     local function playSelected(actionName, inputState, inputObj)
         if inputState == Enum.UserInputState.Begin then
             local focusedSegment = self.props.emotesWheel.focusedSegmentIndex
-            local emoteInfo = self.props.emotesPage.emotesList[focusedSegment]
+            local emoteName = self.props.emotesPage.currentEmotes[focusedSegment]
 
-            if emoteInfo then
-                self.props.playEmote(emoteInfo.name)
+            if emoteName then
+                self.props.playEmote(emoteName)
             end
         end
     end

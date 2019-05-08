@@ -9,11 +9,13 @@ local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
 local FFlagUseRoactPurchasePrompt375 = settings():GetFFlag("UseRoactPurchasePrompt375")
 local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
@@ -122,6 +124,10 @@ if UserInputService.TouchEnabled then -- touch devices don't use same control fr
 	RobloxGui:WaitForChild("ControlFrame")
 	RobloxGui.ControlFrame:WaitForChild("BottomLeftControl")
 	RobloxGui.ControlFrame.BottomLeftControl.Visible = false
+end
+
+if FlagSettings.IsInspectAndBuyEnabled() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/InspectAndBuy", RobloxGui)
 end
 
 if FFlagIWillNotYield then

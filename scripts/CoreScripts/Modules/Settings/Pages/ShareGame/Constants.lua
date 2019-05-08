@@ -7,7 +7,7 @@ local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
 local FStringSettingsHubInviteToGameThumbnailSize = settings():GetFVariable("SettingsHubInviteToGameThumbnailSize")
 local FFlagSettingsHubInviteToGameDefaultThumbnailSize150x150 =
 	settings():GetFFlag("SettingsHubInviteToGameDefaultThumbnailSize150x150")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV381")
+local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local DeviceLayout = {
 	PHONE_PORTRAIT = "PHONE_PORTRAIT",

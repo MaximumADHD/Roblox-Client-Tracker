@@ -1,7 +1,9 @@
 local ContentProvider = game:GetService("ContentProvider")
+local ItemType = require(script.Parent.ItemType)
 
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "https?://m.", "https?://www.")
 local THUMBNAIL_URL = BASE_URL.."thumbs/asset.ashx?assetid="
+local BUNDLE_THUMBNAIL_URL = BASE_URL.."outfit-thumbnail/image?userOutfitId=%s&width=100&height=100&format=png"
 
 local XBOX_DEFAULT_IMAGE = "rbxasset://textures/ui/Shell/Icons/ROBUXIcon@1080.png"
 
@@ -12,7 +14,9 @@ local function getPreviewImageUrl(productInfo, platform)
 	local imageId
 
 	-- AssetId will only be populated if ProductInfo was from an asset
-	if productInfo.AssetId ~= nil and productInfo.AssetId ~= 0 then
+	if productInfo.itemType == ItemType.Bundle then
+		return string.format(BUNDLE_THUMBNAIL_URL, productInfo.costumeId)
+	elseif productInfo.AssetId ~= nil and productInfo.AssetId ~= 0 then
 		imageId = productInfo.AssetId
 	elseif productInfo.IconImageAssetId ~= nil then
 		imageId = productInfo.IconImageAssetId

@@ -58,6 +58,7 @@ KeyMappings.AssetTypeById = {
 	["54"] = ASSET_TYPE_KEY:format("Swim"),
 	["55"] = ASSET_TYPE_KEY:format("Walk"),
 	["56"] = ASSET_TYPE_KEY:format("Pose"),
+	["61"] = ASSET_TYPE_KEY:format("Emote"),
 }
 
 KeyMappings.BuildersClubLevelById = {

@@ -147,6 +147,6 @@ else
 			end,
 		}
 	end)
-end	
+end
 
 return connector(LayoutProvider)

@@ -217,16 +217,17 @@ function PlayerCarousel:FadeTowardsEdges()
 end
 
 function PlayerCarousel:AddCarouselDivider()
+	local carouselDivider = selectedPlayer:FindFirstChild(CAROUSEL_DIVIDER_NAME)
+	if carouselDivider then
+		carouselDivider:Destroy()
+	end
+
 	local buttonCount = #selectedPlayer:GetChildren() - 1
 	if buttonCount < 5 then
-		local carouselDivider = selectedPlayer:FindFirstChild(CAROUSEL_DIVIDER_NAME)
-		if carouselDivider then
-			carouselDivider:Destroy()
-		end
 		return
 	end
 
-	local carouselDivider = Instance.new("Frame")
+	carouselDivider = Instance.new("Frame")
 	carouselDivider.Name = CAROUSEL_DIVIDER_NAME
 	carouselDivider.Size = UDim2.new(1, 0, 1, 0)
 	carouselDivider.BackgroundTransparency = 1
