@@ -18,7 +18,7 @@ end
 
 local methods = {}
 
-local lazyEventNames = 
+local lazyEventNames =
 {
     eDestroyed = true,
 	eSaidMessage = true,
@@ -55,7 +55,7 @@ local lazySignalNames =
 methods.__index = function (self, k)
 	local fromMethods = rawget(methods, k)
 	if fromMethods then return fromMethods end
-	
+
     if lazyEventNames[k] and not rawget(self, k) then
         rawset(self, k, Instance.new("BindableEvent"))
     end
@@ -129,7 +129,9 @@ function methods:LeaveChannel(channelName)
 	channel:InternalRemoveSpeaker(self)
 	local success, err = pcall(function()
 		self:LazyFire("eChannelLeft", channel.Name)
-		self.EventFolder.OnChannelLeft:FireClient(self.PlayerObj, channel.Name)
+		if self.PlayerObj then
+			self.EventFolder.OnChannelLeft:FireClient(self.PlayerObj, channel.Name)
+		end
 	end)
 	if not success and err then
 		print("Error leaving channel: " ..err)
@@ -186,7 +188,9 @@ end
 function methods:SetMainChannel(channelName)
 	local success, err = pcall(function()
 		self:LazyFire("eMainChannelSet", channelName)
-		self.EventFolder.OnMainChannelSet:FireClient(self.PlayerObj, channelName)
+		if self.PlayerObj then
+			self.EventFolder.OnMainChannelSet:FireClient(self.PlayerObj, channelName)
+		end
 	end)
 	if not success and err then
 		print("Error setting main channel: " ..err)
@@ -242,7 +246,9 @@ end
 function methods:InternalSendMessage(messageObj, channelName)
 	local success, err = pcall(function()
 		self:LazyFire("eReceivedUnfilteredMessage", messageObj, channelName)
-		self.EventFolder.OnNewMessage:FireClient(self.PlayerObj, messageObj, channelName)
+		if self.PlayerObj then
+			self.EventFolder.OnNewMessage:FireClient(self.PlayerObj, messageObj, channelName)
+		end
 	end)
 	if not success and err then
 		print("Error sending internal message: " ..err)
@@ -253,14 +259,16 @@ function methods:InternalSendFilteredMessage(messageObj, channelName)
 	local success, err = pcall(function()
 		self:LazyFire("eReceivedMessage", messageObj, channelName)
 		self:LazyFire("eMessageDoneFiltering", messageObj, channelName)
-		self.EventFolder.OnMessageDoneFiltering:FireClient(self.PlayerObj, messageObj, channelName)
+		if self.PlayerObj then
+			self.EventFolder.OnMessageDoneFiltering:FireClient(self.PlayerObj, messageObj, channelName)
+		end
 	end)
 	if not success and err then
 		print("Error sending internal filtered message: " ..err)
 	end
 end
 
---// This method is to be used with the new filter API. This method takes the 
+--// This method is to be used with the new filter API. This method takes the
 --// TextFilterResult objects and converts them into the appropriate string
 --// messages for each player.
 function methods:InternalSendFilteredMessageWithFilterResult(inMessageObj, channelName)
@@ -295,7 +303,9 @@ end
 function methods:InternalSendSystemMessage(messageObj, channelName)
 	local success, err = pcall(function()
 		self:LazyFire("eReceivedSystemMessage", messageObj, channelName)
-		self.EventFolder.OnNewSystemMessage:FireClient(self.PlayerObj, messageObj, channelName)
+		if self.PlayerObj then
+			self.EventFolder.OnNewSystemMessage:FireClient(self.PlayerObj, messageObj, channelName)
+		end
 	end)
 	if not success and err then
 		print("Error sending internal system message: " ..err)
@@ -304,7 +314,9 @@ end
 
 function methods:UpdateChannelNameColor(channelName, channelNameColor)
 	self:LazyFire("eChannelNameColorUpdated", channelName, channelNameColor)
-	self.EventFolder.ChannelNameColorUpdated:FireClient(self.PlayerObj, channelName, channelNameColor)
+	if self.PlayerObj then
+		self.EventFolder.ChannelNameColorUpdated:FireClient(self.PlayerObj, channelName, channelNameColor)
+	end
 end
 
 --///////////////////////// Constructors
@@ -323,7 +335,7 @@ function module.new(vChatService, name)
 	obj.Channels = {}
 	obj.MutedSpeakers = {}
 	obj.EventFolder = nil
-	
+
 	return obj
 end
 

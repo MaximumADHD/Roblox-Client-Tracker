@@ -301,6 +301,7 @@ RBX
 			IdResponseItem
 			JoinDataItem
 			MarkerItem
+			ModelCompletenessJob
 			NewInstanceItem
 			PingBackItem
 			PingItem
@@ -348,6 +349,7 @@ RBX
 		Marker
 		NetworkOwnerJob
 		NetworkPhysicsMegaJob
+		NetworkSendDataMegaJob
 		NetworkStream
 		PacketReceiveJob
 		Peer
@@ -602,6 +604,7 @@ RBX
 	AssemblyStage
 	AssetFetchMediator
 	AssetService
+	AsyncContactStepTask
 	AsyncHttpQueue
 	Attachment
 	AttachmentDraggerTool

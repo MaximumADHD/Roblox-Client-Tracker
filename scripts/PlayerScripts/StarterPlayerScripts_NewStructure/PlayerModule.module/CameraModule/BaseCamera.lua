@@ -38,6 +38,10 @@ local R15_HEAD_OFFSET = Vector3.new(0,2,0)
 local R15_HEAD_OFFSET_NO_SCALING = Vector3.new(0, 2, 0)
 local HUMANOID_ROOT_PART_SIZE = Vector3.new(2, 2, 1)
 
+local GAMEPAD_ZOOM_STEP_1 = 0
+local GAMEPAD_ZOOM_STEP_2 = 10
+local GAMEPAD_ZOOM_STEP_3 = 20
+
 local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsBindAtPriority2")
 end)
@@ -47,6 +51,11 @@ local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcal
 	return UserSettings():IsUserFeatureEnabled("UserAdjustHumanoidRootPartToHipPosition")
 end)
 local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagExists and adjustHumanoidRootPartFlagEnabled
+
+local thirdGamepadZoomStepFlagExists, thirdGamepadZoomStepFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserThirdGamepadZoomStep")
+end)
+local FFlagUserThirdGamepadZoomStep = thirdGamepadZoomStepFlagExists and thirdGamepadZoomStepFlagEnabled
 
 if FFlagUserAdjustHumanoidRootPartToHipPosition then
 	R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
@@ -792,10 +801,21 @@ function BaseCamera:DoGamepadZoom(name, state, input)
 		if input.KeyCode == Enum.KeyCode.ButtonR3 then
 			if state == Enum.UserInputState.Begin then
 				if self.distanceChangeEnabled then
-					if self:GetCameraToSubjectDistance() > 0.5 then
-						self:SetCameraToSubjectDistance(0)
+					local dist = self:GetCameraToSubjectDistance()
+					if FFlagUserThirdGamepadZoomStep then
+						if dist > (GAMEPAD_ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP_3)/2 then
+							self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_2)
+						elseif dist > (GAMEPAD_ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP_2)/2 then
+							self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_1)
+						else
+							self:SetCameraToSubjectDistance(GAMEPAD_ZOOM_STEP_3)
+						end
 					else
-						self:SetCameraToSubjectDistance(10)
+						if dist > 0.5 then
+							self:SetCameraToSubjectDistance(0)
+						else
+							self:SetCameraToSubjectDistance(10)
+						end
 					end
 				end
 			end

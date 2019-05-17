@@ -208,4 +208,8 @@ function FastFlags:isHipHeightPopFixOn()
 	return isFlagOn("StudioAnimationEditorHipHeightPopFix")
 end
 
+function FastFlags:isPlayPauseSpaceHotkeyEnabled()
+	return isFlagOn("StudioAnimationEditorPlayPauseHotkey")
+end
+
 return FastFlags

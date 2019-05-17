@@ -8,9 +8,8 @@
 local DEBUG_MODE = game:GetService("RunService"):IsStudio() -- use this to run as a guest/use in games that don't have AvatarContextMenu. FOR TESTING ONLY!
 local isAvatarContextMenuEnabled = false
 
-local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
-local FFlagUserFixClickToMoveWithACM = settings():GetFFlag("UserFixClickToMoveWithACM")
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagAvatarContextMenuGamepad = settings():GetFFlag("AvatarContextMenuGamepad")
 
 -- CONSTANTS
 local MAX_CONTEXT_MENU_DISTANCE = 100
@@ -22,6 +21,8 @@ local CLOSE_MENU_TIME = 0.2
 local CLOSE_MENU_TWEEN = TweenInfo.new(CLOSE_MENU_TIME, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 
 local LEAVE_MENU_ACTION_NAME = "EscapeAvatarContextMenu"
+local GAMEPAD_OPEN_MENU_ACTION = "GamepadOpenAvatarContextMenu"
+local SWITCH_PAGE_ACTION_NAME = "SwitchPageAvatarContextMenu"
 
 local MAX_MOVEMENT_THRESHOLD = 20
 
@@ -45,13 +46,11 @@ function enableAvatarContextMenu(enabled)
 end
 
 StarterGui:RegisterSetCore("SetAvatarContextMenuEnabled", enableAvatarContextMenu)
-if FFlagUserFixClickToMoveWithACM then
-	StarterGui:RegisterSetCore("AvatarContextMenuEnabled", enableAvatarContextMenu)
+StarterGui:RegisterSetCore("AvatarContextMenuEnabled", enableAvatarContextMenu)
 
-	StarterGui:RegisterGetCore("AvatarContextMenuEnabled", function()
-		return isAvatarContextMenuEnabled
-	end)
-end
+StarterGui:RegisterGetCore("AvatarContextMenuEnabled", function()
+	return isAvatarContextMenuEnabled
+end)
 
 --- MODULES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -98,21 +97,13 @@ local hasTouchSwipeInput = nil
 
 local contextMenuPlayerChangedConn = nil
 
-if FFlagCoreScriptACMThemeCustomization then
-	ContextMenuFrame = ContextMenuGui:CreateMenuFrame(ThemeHandler:GetTheme())
-else
-	ContextMenuFrame = ContextMenuGui:CreateMenuFrame()
-end
+ContextMenuFrame = ContextMenuGui:CreateMenuFrame(ThemeHandler:GetTheme())
 ContextMenuItems = ContextMenuItemsModule.new(ContextMenuFrame.Content.ContextActionList)
 
 function SetSelectedPlayer(player, dontTween)
 	if SelectedPlayer == player then return end
 	SelectedPlayer = player
-	if FFlagCoreScriptACMThemeCustomization then
-		SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer, ThemeHandler:GetTheme())
-	else
-		SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer)
-	end
+	SelectedCharacterIndicator:ChangeSelectedPlayer(SelectedPlayer, ThemeHandler:GetTheme())
 	ContextMenuItems:BuildContextMenuItems(SelectedPlayer)
 	ContextMenuGui:SwitchToPlayerEntry(SelectedPlayer, dontTween)
 end
@@ -122,23 +113,14 @@ function OpenMenu(theme)
 
 	ContextMenuFrame.Visible = true
 	ContextMenuFrame.Content.ContextActionList.CanvasPosition = Vector2.new(0,0)
-	if FFlagCoreScriptACMThemeCustomization then
-		ContextMenuFrame.Position = theme.OffScreenPosition
-	else
-		ContextMenuFrame.Position = UDim2.new(0.5, 0, 1, ContextMenuFrame.AbsoluteSize.Y)
-	end
+	ContextMenuFrame.Position = theme.OffScreenPosition
 
 	contextMenuPlayerChangedConn = ContextMenuGui.SelectedPlayerChanged:connect(function()
 		SetSelectedPlayer(ContextMenuGui:GetSelectedPlayer())
 	end)
 
-	local positionTween
-	if FFlagCoreScriptACMThemeCustomization then
-		ContextMenuFrame.Position = theme.OffScreenPosition
-		positionTween = TweenService:Create(ContextMenuFrame, OPEN_MENU_TWEEN, {Position = theme.OnScreenPosition})
-	else
-		positionTween = TweenService:Create(ContextMenuFrame, OPEN_MENU_TWEEN, {Position = UDim2.new(0.5, 0, 1 - ContextMenuGui:GetBottomScreenPaddingConstant(), 0)})
-	end
+	ContextMenuFrame.Position = theme.OffScreenPosition
+	local positionTween = TweenService:Create(ContextMenuFrame, OPEN_MENU_TWEEN, {Position = theme.OnScreenPosition})
 	positionTween:Play()
 	positionTween.Completed:wait()
 
@@ -155,6 +137,20 @@ function BindMenuActions()
 	end
 	ContextActionService:BindCoreAction(LEAVE_MENU_ACTION_NAME, closeMenuFunc, false, Enum.KeyCode.Escape,
 		Enum.KeyCode.ButtonB)
+
+	local gamepadSwitchPage = function(actionName, inputState, input)
+		if inputState == Enum.UserInputState.Begin then
+			if input.KeyCode == Enum.KeyCode.ButtonR1 then
+				ContextMenuGui:OffsetPlayerEntry(1)
+			elseif input.KeyCode == Enum.KeyCode.ButtonL1 then
+				ContextMenuGui:OffsetPlayerEntry(-1)
+			end
+		end
+	end
+	if FFlagAvatarContextMenuGamepad then
+		ContextActionService:BindCoreAction(SWITCH_PAGE_ACTION_NAME, gamepadSwitchPage, false, Enum.KeyCode.ButtonR1,
+			Enum.KeyCode.ButtonL1)
+	end
 
     local menuOpenedCon = nil
     menuOpenedCon = GuiService.MenuOpened:connect(function()
@@ -183,11 +179,7 @@ function BuildPlayerCarousel(selectedPlayer, worldPoint)
 	end
 	table.sort(playersByProximity, closestPlayerComp)
 
-	if FFlagCoreScriptACMThemeCustomization then
-		ContextMenuGui:BuildPlayerCarousel(playersByProximity, ThemeHandler:GetTheme())
-	else
-		ContextMenuGui:BuildPlayerCarousel(playersByProximity)
-	end
+	ContextMenuGui:BuildPlayerCarousel(playersByProximity, ThemeHandler:GetTheme())
 end
 
 PlayersService.PlayerRemoving:connect(function(player)
@@ -207,18 +199,17 @@ function OpenContextMenu(player, worldPoint)
 	BindMenuActions()
 	SetSelectedPlayer(player, true)
 
-	if FFlagCoreScriptACMThemeCustomization then
-		ContextMenuGui:UpdateGuiTheme(ThemeHandler:GetTheme())
-		OpenMenu(ThemeHandler:GetTheme())
-	else
-		OpenMenu()
-	end
+	ContextMenuGui:UpdateGuiTheme(ThemeHandler:GetTheme())
+	OpenMenu(ThemeHandler:GetTheme())
 end
 
 function CloseContextMenu()
 	GuiService.SelectedCoreObject = nil
 
 	ContextActionService:UnbindCoreAction(LEAVE_MENU_ACTION_NAME)
+	if FFlagAvatarContextMenuGamepad then
+		ContextActionService:UnbindCoreAction(SWITCH_PAGE_ACTION_NAME)
+	end
 
 	ContextMenuUtil:EnablePlayerMovement()
 	if contextMenuPlayerChangedConn then
@@ -387,7 +378,7 @@ end)
 
 function GetWorldPoint(player)
 	if player.Character then
-		local rootPart = player.Character:FindFirstChild("RootPart")
+		local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
 		if rootPart then
 			return rootPart.Position
 		end
@@ -423,3 +414,55 @@ StarterGui:RegisterSetCore("AvatarContextMenuTarget",
 		end
 	end
 )
+
+local function getClosestPlayer()
+	if not LocalPlayer.Character then
+		return
+	end
+
+	local rootPart = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	if not rootPart then
+		return
+	end
+	local localPosition = rootPart.Position
+
+	local closestPlayer = nil
+	local closestPlayerDistance = math.huge
+	local closestPlayerPoint = nil
+	local players = PlayersService:GetPlayers()
+	for _, player in ipairs(players) do
+		if player ~= LocalPlayer and player.Character then
+			local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
+			if rootPart and (rootPart.Position - localPosition).magnitude < closestPlayerDistance then
+				closestPlayer = player
+				closestPlayerDistance = (rootPart.Position - localPosition).magnitude
+				closestPlayerPoint = rootPart.Position
+			end
+		end
+	end
+	return closestPlayer, closestPlayerPoint
+end
+
+local function gamepadOpenMenu(actionName, inputState, input)
+	if not isAvatarContextMenuEnabled then
+		return Enum.ContextActionResult.Pass
+	end
+
+	if inputState ~= Enum.UserInputState.Begin then
+		return Enum.ContextActionResult.Sink
+	end
+
+	if ContextMenuOpen then
+		CloseContextMenu()
+	else
+		local closestPlayer, closestPlayerPoint = getClosestPlayer()
+		if closestPlayer then
+			OpenContextMenu(closestPlayer, closestPlayerPoint)
+		end
+	end
+
+	return Enum.ContextActionResult.Sink
+end
+if FFlagAvatarContextMenuGamepad then
+	ContextActionService:BindCoreAction(GAMEPAD_OPEN_MENU_ACTION, gamepadOpenMenu, false, Enum.KeyCode.DPadUp)
+end

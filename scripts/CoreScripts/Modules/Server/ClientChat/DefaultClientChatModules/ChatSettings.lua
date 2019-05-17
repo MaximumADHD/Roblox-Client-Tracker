@@ -15,6 +15,7 @@ module.WindowDraggable = false
 module.WindowResizable = false
 module.ShowChannelsBar = false
 module.GamepadNavigationEnabled = false
+module.AllowMeCommand = false -- Me Command will only be effective when this set to true
 module.ShowUserOwnFilteredMessage = true	--Show a user the filtered version of their message rather than the original.
 -- Make the chat work when the top bar is off
 module.ChatOnWithTopBarOff = false

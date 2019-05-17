@@ -28,6 +28,15 @@ local PlayEmote = require(Thunks.PlayEmote)
 
 local EmotesWheel = Roact.PureComponent:extend("EmotesWheel")
 
+local function getRandomAssetId(emotesAssetIds)
+    if #emotesAssetIds == 0 then
+        return
+    end
+
+    local rand = math.random(1, #emotesAssetIds)
+    return emotesAssetIds[rand]
+end
+
 function EmotesWheel:bindActions()
     if self.actionsBound then
         return
@@ -61,9 +70,17 @@ function EmotesWheel:bindActions()
             local focusedSegment = self.props.emotesWheel.focusedSegmentIndex
             local emoteName = self.props.emotesPage.currentEmotes[focusedSegment]
 
-            if emoteName then
-                self.props.playEmote(emoteName)
+            if not emoteName then
+                return
             end
+
+            local emoteAssetIds = self.props.emotesPage.emotesInfo[emoteName]
+            if not emoteAssetIds then
+                return
+            end
+
+            local assetId = getRandomAssetId(emoteAssetIds)
+            self.props.playEmote(emoteName, focusedSegment, assetId)
         end
     end
 
@@ -207,8 +224,8 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        playEmote = function(emoteId)
-            return dispatch(PlayEmote(emoteId))
+        playEmote = function(emoteName, slotNumber, assetId)
+            return dispatch(PlayEmote(emoteName, slotNumber, assetId))
         end,
 
         focusSegment = function(segmentIndex)

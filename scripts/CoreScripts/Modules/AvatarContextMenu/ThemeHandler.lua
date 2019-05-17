@@ -48,8 +48,6 @@ local DEFAULT_THEME = {
 	OffScreenPosition = UDim2.new(0.5, 0, 1, 300),
 }
 
-local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
-
 local ThemeHandler = {}
 ThemeHandler.__index = ThemeHandler
 
@@ -74,10 +72,6 @@ end
 
 function ThemeHandler:RegisterCoreMethods()
 	local function setMenuTheme(newTheme)
-		if not FFlagCoreScriptACMThemeCustomization then
-			error("AvatarContextMenuTheme is not yet enabled")
-		end
-
 		if type(newTheme) == "table" then
 			for key in pairs(newTheme) do
 				if DEFAULT_THEME[key] == nil then

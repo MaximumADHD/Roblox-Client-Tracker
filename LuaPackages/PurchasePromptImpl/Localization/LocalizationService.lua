@@ -8,7 +8,7 @@ local addGroupDelimiters = require(script.Parent.Parent.addGroupDelimiters)
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local HARDCODED_CLB_TRANSLATIONS = {
 	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[由于你帐户的乐币余额不足，购买失败。系统并未向你的帐户收取费用。]],
-	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[你的乐币余额不足，无法购买此物品。请购买更多乐币。]],
+	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[你的乐币余额不足，无法购买此物品。]],
 }
 
 local DEBUG_LOCALIZATION = false

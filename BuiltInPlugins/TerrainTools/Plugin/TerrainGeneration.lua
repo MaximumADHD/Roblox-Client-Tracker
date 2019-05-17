@@ -15,16 +15,21 @@ local ProgressFrame = require(script.Parent.ProgressFrame)
 
 local coreGui = game:GetService('CoreGui')
 local changeHistoryService = game:GetService('ChangeHistoryService')
+
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local AnalyticsService = game:GetService("AnalyticsService")
+local StudioService = game:GetService("StudioService")
+
 local terrain
 
 local pluginGui
 local screenGui
 
-local terrainGenerationFrame 
-local progressFrame 
+local terrainGenerationFrame
+local progressFrame
 local pauseButton
-local cancelButton 
-local barFill 
+local cancelButton
+local barFill
 
 
 local kBiomesCheckboxHPadding = 24
@@ -35,7 +40,7 @@ local kProgressFrameObj = nil
 
 local kBiomeData = {}
 function setupBiomeData()
-	if (#kBiomeData == 0) then 		
+	if (#kBiomeData == 0) then
 		kBiomeData = {
 			Mountains = {
 				LayoutOrder = 1,
@@ -80,26 +85,26 @@ end
 
 local kBiomeSizeChoices = {}
 function setupBiomeSizeChoices()
-	if (#kBiomeSizeChoices == 0) then 		
+	if (#kBiomeSizeChoices == 0) then
 		kBiomeSizeChoices = {
 			{
-				Id = "Small", 
-				Data = 50, 
+				Id = "Small",
+				Data = 50,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeSmall")
 			},
 			{
-				Id = "Medium", 
-				Data = 100, 
+				Id = "Medium",
+				Data = 100,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeMedium")
 			},
 			{
-				Id = "Large", 
-				Data = 200, 
+				Id = "Large",
+				Data = 200,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeLarge")
 			},
 			{
-				Id = "Massive", 
-				Data = 500, 
+				Id = "Massive",
+				Data = 500,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.BiomeSizeMassive")
 			},
 		}
@@ -108,26 +113,26 @@ end
 
 local kMapSizeChoices = {}
 function setupMapSizeChoices()
-	if (#kMapSizeChoices == 0) then 		
+	if (#kMapSizeChoices == 0) then
 		kMapSizeChoices = {
 			{
-				Id = "Small", 
-				Data = 128, 
+				Id = "Small",
+				Data = 128,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeSmall")
 			},
 			{
-				Id = "Medium", 
-				Data = 256, 
+				Id = "Medium",
+				Data = 256,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeMedium")
 			},
 			{
-				Id = "Large", 
-				Data = 512, 
+				Id = "Large",
+				Data = 512,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeLarge")
 			},
 			{
-				Id = "Massive", 
-				Data = 1024, 
+				Id = "Massive",
+				Data = 1024,
 				Text = i18n.TranslateId("Studio.TerrainEditor.Generate.MapSizeMassive")
 			},
 		}
@@ -179,6 +184,7 @@ local surfaceThickness = .018
 local biomes = {}
 ---------------------------------------------
 
+local textSeed = masterSeed
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 
@@ -208,25 +214,25 @@ end
 
 local function MakeMapSettingsFrame()
 	-- Height will be adjusted.
-	local mapSettingsObj = CollapsibleTitledSection.new('MapSettingsFrame', 
-	  i18n.TranslateId('Studio.TerrainEditor.Generate.MapSettings'), 
-	  true, 
+	local mapSettingsObj = CollapsibleTitledSection.new('MapSettingsFrame',
+	  i18n.TranslateId('Studio.TerrainEditor.Generate.MapSettings'),
+	  true,
 	  true)
 
 	-- The 'Map size' dropdown.
-	-- The "Size" dropdown.	
+	-- The "Size" dropdown.
 	setupMapSizeChoices()
-	local sizeMultiChoiceObj = LabeledMultiChoice.new("MapSize", 
+	local sizeMultiChoiceObj = LabeledMultiChoice.new("MapSize",
 		i18n.TranslateId('Studio.TerrainEditor.Generate.MapSize'),
 	 	kMapSizeChoices)
-	sizeMultiChoiceObj:SetValueChangedFunction(function(index) 
+	sizeMultiChoiceObj:SetValueChangedFunction(function(index)
 		mapWidth = kMapSizeChoices[index].Data
 	end)
 	sizeMultiChoiceObj:SetSelectedIndex(2)
-		
+
 	-- The 'Seed' text box.
-	local seedTextBoxObj = LabeledTextInput.new("Seed", 
-		i18n.TranslateId('Studio.TerrainEditor.Generate.Seed'), 
+	local seedTextBoxObj = LabeledTextInput.new("Seed",
+		i18n.TranslateId('Studio.TerrainEditor.Generate.Seed'),
 		masterSeed)
 	local seedFrame = seedTextBoxObj:GetFrame()
 	local function computeMasterSeed(text)
@@ -241,6 +247,7 @@ local function MakeMapSettingsFrame()
 			end
 			compositeNumber = compositeNumber%61803	--yes, this does need to be done after every character iteration, otherwise number loses precision by the end
 		end
+		textSeed = text
 		masterSeed = compositeNumber
 	end
 	seedTextBoxObj:SetValueChangedFunction(computeMasterSeed)
@@ -248,7 +255,7 @@ local function MakeMapSettingsFrame()
 
 	-- The 'Caves' check box.
 	local cavesObj = LabeledCheckbox.new("CavesFrame",
-		i18n.TranslateId('Studio.TerrainEditor.Generate.Caves'), 
+		i18n.TranslateId('Studio.TerrainEditor.Generate.Caves'),
 		generateCaves)
 	cavesObj:SetValueChangedFunction(function(value)
 		generateCaves = value
@@ -257,8 +264,8 @@ local function MakeMapSettingsFrame()
 	-- Make contents of collapsible frame an auto-scaling list.
 	GuiUtilities.MakeFrameAutoScalingList(mapSettingsObj:GetContentsFrame())
 
-	-- Add these as striped fields in parent 
-	GuiUtilities.AddStripedChildrenToListFrame(mapSettingsObj:GetContentsFrame(), 
+	-- Add these as striped fields in parent
+	GuiUtilities.AddStripedChildrenToListFrame(mapSettingsObj:GetContentsFrame(),
 		{sizeMultiChoiceObj:GetFrame(), seedFrame, cavesObj:GetFrame()})
 
 	return mapSettingsObj:GetSectionFrame()
@@ -281,11 +288,11 @@ local function MakeBiomesCheckboxes()
 	padding.PaddingLeft = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
 	padding.PaddingRight = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
 	padding.Parent = frame
-	
+
 	-- Make a grid to put checkboxes in.
 	local uiGridLayout = Instance.new("UIGridLayout")
 	uiGridLayout.CellSize = LabeledCheckbox.kMinFrameSize
-	uiGridLayout.CellPadding = UDim2.new(0, 
+	uiGridLayout.CellPadding = UDim2.new(0,
 		kBiomesCheckboxHPadding,
 		0,
 		GuiUtilities.kStandardVMargin)
@@ -295,7 +302,7 @@ local function MakeBiomesCheckboxes()
 	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	setupBiomeData()
-	for biomeId, biomeData in pairs(kBiomeData) do 
+	for biomeId, biomeData in pairs(kBiomeData) do
 		AddBiomeCheckbox(frame, biomeId)
 	end
 
@@ -308,8 +315,8 @@ end
 local function MakeBiomesCheckboxesWithTitle()
 	local vsl = VerticallyScalingListFrame.new("bcwt")
 	vsl:AddBottomPadding()
-	
-	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", 
+
+	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title",
 		i18n.TranslateId('Studio.TerrainEditor.Generate.Biomes'))
 	vsl:AddChild(titleLabel)
 
@@ -322,29 +329,29 @@ end
 
 local function MakeBiomesSettingsFrame()
 	-- Height will be updated dynamically.
-	local biomesSettingsObj = CollapsibleTitledSection.new('BiomesSettingsFrame', 
-	    i18n.TranslateId('Studio.TerrainEditor.Generate.BiomesSettings'), 
-		true, 
+	local biomesSettingsObj = CollapsibleTitledSection.new('BiomesSettingsFrame',
+	    i18n.TranslateId('Studio.TerrainEditor.Generate.BiomesSettings'),
+		true,
 		true)
-	
-	-- The "Size" dropdown.	
+
+	-- The "Size" dropdown.
 	setupBiomeSizeChoices()
-	local sizeMultiChoiceObj = LabeledMultiChoice.new("SizeFrame", 
+	local sizeMultiChoiceObj = LabeledMultiChoice.new("SizeFrame",
 		i18n.TranslateId('Studio.TerrainEditor.Generate.BiomeSize'),
 	 	kBiomeSizeChoices)
-	sizeMultiChoiceObj:SetValueChangedFunction(function(index) 
+	sizeMultiChoiceObj:SetValueChangedFunction(function(index)
 		biomeSize = kBiomeSizeChoices[index].Data
 	end)
 	sizeMultiChoiceObj:SetSelectedIndex(2)
 
 	-- The "Biomes" checkbox frame.
 	local biomeCheckboxesFrame = MakeBiomesCheckboxesWithTitle()
-	
+
 	-- Make contents of collapsible frame an auto-scaling list.
 	GuiUtilities.MakeFrameAutoScalingList(biomesSettingsObj:GetContentsFrame())
 
 	-- add these as striped fields in parent.
-	GuiUtilities.AddStripedChildrenToListFrame(biomesSettingsObj:GetContentsFrame(), {sizeMultiChoiceObj:GetFrame(), 
+	GuiUtilities.AddStripedChildrenToListFrame(biomesSettingsObj:GetContentsFrame(), {sizeMultiChoiceObj:GetFrame(),
 		biomeCheckboxesFrame})
 
 	return biomesSettingsObj:GetSectionFrame()
@@ -354,25 +361,25 @@ local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight)
 	frame.BackgroundTransparency = 1
 
-	local clearButtonObj = CustomTextButton.new("ClearButton", 
+	local clearButtonObj = CustomTextButton.new("ClearButton",
 		i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonClear'))
 	clearButtonObj:getButton().Parent = frame
 	clearButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	clearButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
 		 1, -GuiUtilities.kBottomButtonsHeight)
 
-	local generateButtonObj = CustomTextButton.new("GenerateButton", 
+	local generateButtonObj = CustomTextButton.new("GenerateButton",
 		i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonGenerate'))
 	generateButtonObj:getButton().Parent = frame
 	generateButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	generateButtonObj:getButton().Position = UDim2.new(0.5, kBottomButtonsPadding/2, 
+	generateButtonObj:getButton().Position = UDim2.new(0.5, kBottomButtonsPadding/2,
 		1, -GuiUtilities.kBottomButtonsHeight)
-	
+
 	return frame
 end
 
 function MakeTerrainGenerationFrame()
-	-- Create top level container.  
+	-- Create top level container.
 	-- It has no title bar.
 	local verticallyScalingListFrameObj = VerticallyScalingListFrame.new("GenerationFrame")
 	local verticallyScalingListFrame = verticallyScalingListFrameObj:GetFrame()
@@ -416,7 +423,7 @@ module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 		paused = not paused
 		updatePausedButton()
 	end)
-	
+
 	cancelButton.MouseButton1Down:connect(function()
 		if not cancelIt then
 			cancelIt = true
@@ -426,10 +433,19 @@ module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 
 	terrainGenerationFrame.Buttons.GenerateButton.MouseButton1Down:connect(function()
 		-- A frame delay allows time for the button image to visually respond before the generation starts chugging away with processing.
+		if FFlagTerrainToolMetrics then
+			AnalyticsService:SendEventDeferred("studio", "TerrainEditor", "GenerateTerrain", {
+				userId = StudioService:GetUserId(),
+				mapWidth = mapWidth,
+				biomeSize = biomeSize,
+				seed = textSeed,
+			})
+		end
+
 		wait()
 		generate()
 	end)
-	
+
 	terrainGenerationFrame.Buttons.ClearButton.MouseButton1Down:connect(function()
 		clearTerrain()
 	end)
@@ -521,7 +537,7 @@ local function findBiomeInfo(choiceBiome,x,y,z,verticalGradientTurbulence)
 		choiceBiomeFill = slate
 	elseif choiceBiome == 'Water' then
 		choiceBiomeValue = .36+getPerlin(x,y,z,2,50)*.08
-		choiceBiomeSurface = 
+		choiceBiomeSurface =
 			(1-verticalGradientTurbulence < .44 and slate)
 			or sand
 	elseif choiceBiome == 'Marsh' then
@@ -796,7 +812,7 @@ function generate()
 					local choiceValue = 0
 					local choiceSurface = lava
 					local choiceFill = rock
-	
+
 					if verticalGradient > .65 or verticalGradient < .1 then
 						--under surface of every biome; don't get biome data; waste of time.
 						choiceValue = .5

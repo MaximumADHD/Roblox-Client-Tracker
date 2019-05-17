@@ -2,6 +2,10 @@
 
 local module = {}
 
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local AnalyticsService = game:GetService("AnalyticsService")
+local StudioService = game:GetService("StudioService")
+
 GuiUtilities = require(script.Parent.Parent.Libs.GuiUtilities)
 CollapsibleTitledSection = require(script.Parent.Parent.Libs.CollapsibleTitledSection)
 VerticallyScalingListFrame = require(script.Parent.Parent.Libs.VerticallyScalingListFrame)
@@ -14,7 +18,7 @@ local i18n = require(script.Parent.Parent.Libs.Localization)
 local on
 local kCurrentTool
 local plugin
-local pluginGui 
+local pluginGui
 local kMaterialsListObject = nil
 
 -- FIXME(dbanks)
@@ -45,8 +49,8 @@ local kBrushShapes = {
 local function MakeNthBrushShapeButton(index, position)
 	local config = kBrushShapes[index]
 
-	local shapeButtonObj = StatefulImageButton.new(config.Name, 
-		config.Image, 
+	local shapeButtonObj = StatefulImageButton.new(config.Name,
+		config.Image,
 		UDim2.new(0, GuiUtilities.kShapeButtonSize, 0, GuiUtilities.kShapeButtonSize))
 	shapeButtonObj:getButton().AnchorPoint = Vector2.new(0, 0.5)
 	shapeButtonObj:getButton().Position = position
@@ -58,14 +62,14 @@ local function MakeShapeButtonsRow()
 	local row = GuiUtilities.MakeFixedHeightFrame("ShapeButtonRow", kShapeButtonRowHeight)
 
 	local shapeLabel = GuiUtilities.MakeStandardPropertyLabel(
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Shape')) 
+		i18n.TranslateId('Studio.TerrainEditor.Brush.Shape'))
 	shapeLabel.Parent = row
 	shapeLabel.AnchorPoint = Vector2.new(0, 0.5)
 	shapeLabel.Position = UDim2.new(0, GuiUtilities.StandardLineLabelLeftMargin, 0, kShapeButtonRowHeight/2)
 
 	MakeNthBrushShapeButton(1, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin,
 		0, kShapeButtonRowHeight/2))
-	MakeNthBrushShapeButton(2, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin, 
+	MakeNthBrushShapeButton(2, UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin + GuiUtilities.kShapeButtonSize + GuiUtilities.kStandardHMargin,
 		0, kShapeButtonRowHeight/2))
 
 	kBrushShapes[1].ButtonObj:getButton().Parent = row
@@ -96,11 +100,11 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	local changeHistory = game:GetService('ChangeHistoryService')
 	local terrain = game.Workspace.Terrain
 	local coreGui = game:GetService("CoreGui")
-	
-	local screenGui = Instance.new("ScreenGui") 
+
+	local screenGui = Instance.new("ScreenGui")
 	screenGui.Name = "TerrainBrushGui"
 
-	-- Create top level container.  
+	-- Create top level container.
 	-- It has no title bar.
 	local verticallyScalingListFrameObj = VerticallyScalingListFrame.new("BrushFrame")
 	local verticallyScalingListFrame = verticallyScalingListFrameObj:GetFrame()
@@ -109,47 +113,47 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	-- Top level container has 3 collapsible sections:
 	-- 1) Brush Settings.
-	local brushSettingsObj = CollapsibleTitledSection.new('BrushSettings', 
-		i18n.TranslateId('Studio.TerrainEditor.Brush.BrushSettings'), 
-		true, 
+	local brushSettingsObj = CollapsibleTitledSection.new('BrushSettings',
+		i18n.TranslateId('Studio.TerrainEditor.Brush.BrushSettings'),
+		true,
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(brushSettingsObj:GetContentsFrame())
 
-	kSizeSliderObj = LabeledSlider.new("Size", 
+	kSizeSliderObj = LabeledSlider.new("Size",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.Size'),
-		kMaxSelectionSize, 
+		kMaxSelectionSize,
 		kSelectionSize)
 	local sizeSliderRow =kSizeSliderObj:GetFrame()
 
-	kStrengthSliderObj = LabeledSlider.new("Strength", 
-		i18n.TranslateId('Studio.TerrainEditor.Brush.Strength'), 
-		101, 
+	kStrengthSliderObj = LabeledSlider.new("Strength",
+		i18n.TranslateId('Studio.TerrainEditor.Brush.Strength'),
+		101,
 		kStrength*100)
 	local strengthSliderRow = kStrengthSliderObj:GetFrame()
 
 	local shapeButtonsRow = MakeShapeButtonsRow()
 
-	GuiUtilities.AddStripedChildrenToListFrame(brushSettingsObj:GetContentsFrame(), 
+	GuiUtilities.AddStripedChildrenToListFrame(brushSettingsObj:GetContentsFrame(),
 		{sizeSliderRow, strengthSliderRow, shapeButtonsRow})
-	
+
 	verticallyScalingListFrameObj:AddChild(brushSettingsObj:GetSectionFrame())
 
-	-- 2) Materials Settings.	
-	local materialSettingsObj = CollapsibleTitledSection.new("MaterialSettings", 
+	-- 2) Materials Settings.
+	local materialSettingsObj = CollapsibleTitledSection.new("MaterialSettings",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.MaterialSettings'),
-		true, 
+		true,
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(materialSettingsObj:GetContentsFrame())
 
-	local autoColorObj= LabeledCheckbox.new("Auto", 
+	local autoColorObj= LabeledCheckbox.new("Auto",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.Auto'))
 
 	-- Variable is *not* local, needs to live inside callback below.
 	local materialSectionWithTitle = MakeMaterialsSectionWithTitle()
 
-	GuiUtilities.AddStripedChildrenToListFrame(materialSettingsObj:GetContentsFrame(), 
+	GuiUtilities.AddStripedChildrenToListFrame(materialSettingsObj:GetContentsFrame(),
 		{autoColorObj:GetFrame(), materialSectionWithTitle})
-		
+
 	autoColorObj:SetValueChangedFunction(function()
 		-- When 'auto' material selection is on, hide material selection panel.
 		materialSectionWithTitle.Visible = (not autoColorObj:GetValue())
@@ -158,17 +162,17 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	verticallyScalingListFrameObj:AddChild(materialSettingsObj:GetSectionFrame())
 
 	-- 3) Advanced settings.
-	local advancedSettingsObj = CollapsibleTitledSection.new("AdvancedSettings", 
+	local advancedSettingsObj = CollapsibleTitledSection.new("AdvancedSettings",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.Advanced'),
-		true, 
+		true,
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(advancedSettingsObj:GetContentsFrame())
 
-	local planeLockObj = LabeledCheckbox.new("PLock", 	
+	local planeLockObj = LabeledCheckbox.new("PLock",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.PlaneLock'))
-	local snapToGridObj = LabeledCheckbox.new("STG", 
+	local snapToGridObj = LabeledCheckbox.new("STG",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.SnapToGrid'))
-	local ignoreWaterObj = LabeledCheckbox.new("IGW", 
+	local ignoreWaterObj = LabeledCheckbox.new("IGW",
 		i18n.TranslateId('Studio.TerrainEditor.Brush.IgnoreWater'),
 	 	true)
 	planeLockObj:SetValueChangedFunction(function(value)
@@ -177,8 +181,8 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		end
 	end)
 
-	GuiUtilities.AddStripedChildrenToListFrame(advancedSettingsObj:GetContentsFrame(), 
-		{planeLockObj:GetFrame(), 
+	GuiUtilities.AddStripedChildrenToListFrame(advancedSettingsObj:GetContentsFrame(),
+		{planeLockObj:GetFrame(),
 		 snapToGridObj:GetFrame(),
 		 ignoreWaterObj:GetFrame()})
 
@@ -230,9 +234,9 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	local sin = math.sin
 	local cos = math.cos
 	local pi = math.pi
-	
+
 	---------------
-	
+
 	kSizeSliderObj:SetValueChangedFunction(function(newValue)
 		kSelectionSize = newValue
 		if selectionPart then
@@ -264,10 +268,10 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	-- If this diabled condition is true, fix checkbox in disabled state
 	-- with given override.
 	-- Else fix checkbox in enabled state.
-	local function updateCheckboxDisabledStateWithOverride(checkboxObj, 
-		disabledCondition, 
+	local function updateCheckboxDisabledStateWithOverride(checkboxObj,
+		disabledCondition,
 		disabledOverride)
-		if (disabledCondition) then 
+		if (disabledCondition) then
 			checkboxObj:DisableWithOverrideValue(disabledOverride)
 		else
 			checkboxObj:SetDisabled(false)
@@ -276,20 +280,20 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	local function updateUsabilityLocks()
 		if kCurrentTool then
-			updateCheckboxDisabledStateWithOverride(snapToGridObj, 
-				kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid, 
+			updateCheckboxDisabledStateWithOverride(snapToGridObj,
+				kCurrentTool.UsesMaterials and kMaterialsListObject:GetCurrentMaterialSelection().forceSnapToGrid,
 				true)
 
-			updateCheckboxDisabledStateWithOverride(planeLockObj, 
-				kCurrentTool.DisablesPlaneLock, 
+			updateCheckboxDisabledStateWithOverride(planeLockObj,
+				kCurrentTool.DisablesPlaneLock,
 				true)
 
-			updateCheckboxDisabledStateWithOverride(autoColorObj, 
-				kCurrentTool.DisablesAutoColor, 
+			updateCheckboxDisabledStateWithOverride(autoColorObj,
+				kCurrentTool.DisablesAutoColor,
 					kCurrentTool.Name ~= 'Paint')
 
-			updateCheckboxDisabledStateWithOverride(ignoreWaterObj, 
-				(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth', 
+			updateCheckboxDisabledStateWithOverride(ignoreWaterObj,
+				(kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWater and not autoColorObj:GetValue()) or kCurrentTool.Name == 'Smooth',
 				(kCurrentTool.Name ~= 'Smooth' and kMaterialsListObject:GetCurrentMaterialSelection().forceIgnoreWaterTo))
 
 			autoColorObj:GetFrame().Visible = kCurrentTool.UsesMaterials
@@ -530,7 +534,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 				--[[local centerPointCell = Vector3.new(floor((centerPoint.x+.5)/resolution) * resolution, floor((centerPoint.y+.5)/resolution) * resolution, floor((centerPoint.z+.5)/resolution) * resolution)
 				local sampleRegion = Region3.new(centerPointCell - Vector3.new(resolution,resolution,resolution), centerPointCell + Vector3.new(resolution,resolution,resolution))
 				local sampleMaterials, sampleOccupancies = terrain:ReadVoxels(sampleRegion, resolution)]]
-				
+
 				for ix,vx in ipairs(materials) do
 					for iy,vy in ipairs(vx) do
 						for iz, vz in ipairs(vy) do
@@ -556,7 +560,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 						local cellMaterial = materials[ix][iy][iz]
 						local distance = sqrt(cellVectorX * cellVectorX + cellVectorY * cellVectorY + cellVectorZ * cellVectorZ)
-	
+
 						local magnitudePercent = 1
 						local brushOccupancy = 1
 						if brushShape == 'Sphere' then
@@ -583,7 +587,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 							cellOccupancy = 0
 						end
 						local airFillerMaterial = waterHeight >= iy and airFillerMaterial or materialAir
-	
+
 						if kCurrentTool.Name == 'Add' then
 							if kSelectionSize <= 2 then
 								if brushOccupancy >= .5 then
@@ -591,7 +595,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 										materials[ix][iy][iz] = desiredMaterial
 									end
 									occupancies[ix][iy][iz] = 1
-								end 
+								end
 							else
 								if brushOccupancy > cellOccupancy then
 									occupancies[ix][iy][iz] = brushOccupancy
@@ -688,7 +692,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		terrain:WriteVoxels(region, resolution, materials, occupancies)
 	end
 
-	
+
 	module.On = function(theTool)
 		kCurrentTool = theTool
 		screenGui.Parent = coreGui
@@ -700,11 +704,12 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		local loopTag = {}	--using table as a unique value for debouncing
 		currentLoopTag = loopTag
 
+		local reportClick = true
 		while currentLoopTag and currentLoopTag == loopTag do
 			local t = tick()
 			local radius = kSelectionSize * .5 * resolution
 			local cameraPos = mouse.Origin.p
-			
+
 			local ignoreModel = nil
 			if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
 				ignoreModel = game.Players.LocalPlayer.Character
@@ -725,6 +730,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			if not mouseDown or click then
 				lastPlanePoint = mainPoint
 				lastNormal = findFace()
+				reportClick = true
 			end
 
 			if planeLockObj:GetValue() then
@@ -742,9 +748,18 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 					firstOperation = t
 					lastMainPoint = mainPoint
 				end
-				
+
 				if click or t > firstOperation + clickThreshold then
 					click = false
+					if reportClick then
+						if FFlagTerrainToolMetrics then
+							AnalyticsService:SendEventDeferred("studio", "TerrainEditor", "UseTerrainTool", {
+								userId = StudioService:GetUserId(),
+								toolName = kCurrentTool.Name
+							})
+						end
+					end
+					reportClick = false
 					if downKeys[Enum.KeyCode.LeftAlt] or downKeys[Enum.KeyCode.RightAlt] then
 						--pick color
 						local function filterNonTerrain(thing)
@@ -797,10 +812,10 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 				selectionObject.Adornee = selectionPart
 				selectionObject.Parent = selectionPart
 			end
-			
+
 			if not userInput.TouchEnabled or mouseDown then
 				selectionPart.CFrame = CFrame.new(mainPoint)
-				
+
 				if planeLockObj:GetValue() then
 					local mainPointIntersect = lineToPlaneIntersection(mainPoint, mouse.UnitRay.Direction, lastPlanePoint, lastNormal)	--we need to get this otherwise the plane can shift whiel drawing
 					drawGrid(mainPointIntersect, lastNormal, mouseDown and .8)
@@ -812,13 +827,13 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			quickWait()
 		end
 	end
-	
+
 	module.Off = function()
 		currentLoopTag = nil
 		screenGui.Parent = script.Parent
 		verticallyScalingListFrame.Visible = false
 		on = false
-		
+
 		clearSelection()
 		clearGrid()
 		mouseDown = false
@@ -894,7 +909,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		end
 		fingerTouches[input] = nil
 	end
-	
+
 	-- Input Handling
 	userInput.InputBegan:connect(function(event, soaked)
 		downKeys[event.KeyCode] = true
@@ -905,13 +920,13 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			OnTouchBegan(event, soaked)
 		end
 	end)
-	
+
 	userInput.InputChanged:connect(function(input, processed)
 		if input.UserInputType == Enum.UserInputType.Touch then
 			OnTouchChanged(input, processed)
 		end
 	end)
-	
+
 	userInput.InputEnded:connect(function(event, soaked)
 		downKeys[event.KeyCode] = nil
 		if event.UserInputType == Enum.UserInputType.MouseButton1 and mouseDown then
@@ -936,11 +951,11 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			end
 		end
 	end
-	
+
 	mouse.WheelForward:connect(function()
 		scrollwheel(1)
 	end)
-	
+
 	mouse.WheelBackward:connect(function()
 		scrollwheel(-1)
 	end)

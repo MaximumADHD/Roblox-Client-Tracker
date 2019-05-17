@@ -5,8 +5,6 @@ local installDirectory = game:GetService("Chat")
 local PlayersService = game:GetService("Players")
 local StarterPlayerScripts = game:GetService("StarterPlayer"):WaitForChild("StarterPlayerScripts")
 
-local FFlagFixChatNotAppearingInStudio = settings():GetFFlag("FixChatNotAppearingInStudio")
-
 local function LoadLocalScript(location, name, parent)
 	local originalModule = location:WaitForChild(name)
 	local script = Instance.new("LocalScript")
@@ -81,7 +79,7 @@ local function Install()
 	if not chatConstants then
 		LoadModule(script.Parent.DefaultClientChatModules, "ChatConstants", clientChatModules)
 	end
-	
+
 	local ChatLocalization = clientChatModules:FindFirstChild("ChatLocalization")
 	if not ChatLocalization then
 		LoadModule(script.Parent.DefaultClientChatModules, "ChatLocalization", clientChatModules)
@@ -143,24 +141,16 @@ local function Install()
 		ChatScriptCopy.Archivable = false
 
 		local currentPlayers = PlayersService:GetPlayers()
-		for i, player in pairs(currentPlayers) do
+		for _, player in pairs(currentPlayers) do
 			-- These players were created before we added the ChatScript to StarterPlayerScripts
 			-- This only happens in studio.
-			if FFlagFixChatNotAppearingInStudio then
-				if player:FindFirstChild("PlayerGui") then 
-					-- We need to put this script in the PlayerGui as we can't access the PlayerScripts on the server.
-					local installVerifier = LoadLocalScript(script.Parent, "ChatInstallVerifier", player.PlayerGui)
-					local scriptToVerify = Instance.new("StringValue")
-					scriptToVerify.Name = "ScriptToVerify"
-					scriptToVerify.Value = runnerScriptName
-					scriptToVerify.Parent = installVerifier
-				end
-			else
-				if (player:IsA("Player") and player:FindFirstChild("PlayerScripts") and not player.PlayerScripts:FindFirstChild(runnerScriptName)) then
-					ChatScriptCopy = ChatScript:Clone()
-					ChatScriptCopy.Parent = player.PlayerScripts
-					ChatScriptCopy.Archivable = false
-				end
+			if player:FindFirstChild("PlayerGui") then
+				-- We need to put this script in the PlayerGui as we can't access the PlayerScripts on the server.
+				local installVerifier = LoadLocalScript(script.Parent, "ChatInstallVerifier", player.PlayerGui)
+				local scriptToVerify = Instance.new("StringValue")
+				scriptToVerify.Name = "ScriptToVerify"
+				scriptToVerify.Value = runnerScriptName
+				scriptToVerify.Parent = installVerifier
 			end
 		end
 	end
@@ -173,21 +163,13 @@ local function Install()
 		BubbleChatScriptCopy.Archivable = false
 
 		local currentPlayers = PlayersService:GetPlayers()
-		for i, player in pairs(currentPlayers) do
-			if FFlagFixChatNotAppearingInStudio then
-				if player:FindFirstChild("PlayerGui") then 
-					local installVerifier = LoadLocalScript(script.Parent, "ChatInstallVerifier", player.PlayerGui)
-					local scriptToVerify = Instance.new("StringValue")
-					scriptToVerify.Name = "ScriptToVerify"
-					scriptToVerify.Value = bubbleChatScriptName
-					scriptToVerify.Parent = installVerifier
-				end
-			else
-				if (player:IsA("Player") and player:FindFirstChild("PlayerScripts") and not player.PlayerScripts:FindFirstChild(bubbleChatScriptName)) then
-					BubbleChatScriptCopy = BubbleChatScript:Clone()
-					BubbleChatScriptCopy.Parent = player.PlayerScripts
-					BubbleChatScriptCopy.Archivable = false
-				end
+		for _, player in pairs(currentPlayers) do
+			if player:FindFirstChild("PlayerGui") then
+				local installVerifier = LoadLocalScript(script.Parent, "ChatInstallVerifier", player.PlayerGui)
+				local scriptToVerify = Instance.new("StringValue")
+				scriptToVerify.Name = "ScriptToVerify"
+				scriptToVerify.Value = bubbleChatScriptName
+				scriptToVerify.Parent = installVerifier
 			end
 		end
 	end

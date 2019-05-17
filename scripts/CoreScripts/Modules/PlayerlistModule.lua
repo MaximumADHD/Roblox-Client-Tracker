@@ -16,10 +16,7 @@ local AnalyticsService = game:GetService("AnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
-local FFlagCoreScriptFixFollowingIcon = settings():GetFFlag("CoreScriptFixFollowingIcon")
-
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
-local FFlagLocalizationExpertIcon = settings():GetFFlag("CorescriptLocalizationExpertIcon")
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
@@ -248,7 +245,7 @@ local function getCustomPlayerIcon(player)
     return INTERN_ICON
   elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
     return STAR_ICON
-  elseif FFlagLocalizationExpertIcon and PlayerPermissionsModule.IsPlayerLocalizationExpertAsync(player) then
+  elseif PlayerPermissionsModule.IsPlayerLocalizationExpertAsync(player) then
     return LOCALIZATION_EXPERT_ICON
   end
 end
@@ -1067,48 +1064,14 @@ local function setFollowRelationshipsView(relationshipTable)
     return
   end
 
-  if FFlagCoreScriptFixFollowingIcon then
-    for i = 1, #PlayerEntries do
-      local entry = PlayerEntries[i]
-      local player = entry.Player
-      local userId = tostring(player.UserId)
-
-      local relationship = relationshipTable[userId]
-      if relationship then
-        updateFollowRelationship(player, entry, relationship)
-      end
-    end
-    return
-  end
-
-  --Remove with FFlagCoreScriptFixFollowingIcon
   for i = 1, #PlayerEntries do
     local entry = PlayerEntries[i]
     local player = entry.Player
     local userId = tostring(player.UserId)
 
-    -- don't update icon if already friends
-    local friendStatus = getFriendStatus(player)
-    if friendStatus == Enum.FriendStatus.Friend then
-      return
-    end
-
-    local icon = nil
-    if relationshipTable[userId] then
-      local relationship = relationshipTable[userId]
-      if relationship.IsMutual == true then
-        icon = MUTUAL_FOLLOWING_ICON
-      elseif relationship.IsFollowing == true then
-        icon = FOLLOWING_ICON
-      elseif relationship.IsFollower == true then
-        icon = FOLLOWER_ICON
-      end
-    end
-
-    local frame = entry.Frame
-    local bgFrame = frame:FindFirstChild('BGFrame')
-    if bgFrame then
-      updateSocialIcon(icon, bgFrame)
+    local relationship = relationshipTable[userId]
+    if relationship then
+      updateFollowRelationship(player, entry, relationship)
     end
   end
 end

@@ -82,14 +82,14 @@ local function initPlayPause(self)
 	end))
 	
 	self.Connections:add(self.Paths.InputKeyboard.KeyPressedEvent:connect(function(theKey)
-		if Enum.KeyCode.P == theKey then
+		if self.Paths.InputKeyboard:isKeyPlayPause(theKey) then
 			if self.Paths.DataModelPlayState:getIsPlaying() then
 				self.Paths.ActionPause:execute(self.Paths)
 			else
 				self.Paths.ActionPlay:execute(self.Paths)
 			end
 		end
-	end))		
+	end))
 end
 
 local function initLooping(self)	

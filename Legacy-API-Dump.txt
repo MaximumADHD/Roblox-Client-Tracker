@@ -558,6 +558,7 @@ Class ControllerService : Instance [notCreatable]
 Class CookiesService : Instance
 Class CorePackages : Instance [notCreatable]
 Class CoreScriptSyncService : Instance [notCreatable]
+	Function string CoreScriptSyncService:GetScriptFilePath(Instance script) [RobloxScriptSecurity]
 Class CustomEvent : Instance [deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers()
 	Function void CustomEvent:SetValue(float newValue)
@@ -1649,10 +1650,9 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.UsePhysicsPacketCache
 Class NotificationService : Instance [notCreatable]
 	Property bool NotificationService.IsLuaBottomBarEnabled [readonly] [RobloxScriptSecurity]
+	Property bool NotificationService.IsLuaBottomBarWithText [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaChatEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaGameDetailsEnabled [readonly] [RobloxScriptSecurity]
-	Property bool NotificationService.IsLuaGamesPageEnabled [readonly] [RobloxScriptSecurity]
-	Property bool NotificationService.IsLuaHomePageEnabled [readonly] [RobloxScriptSecurity]
 	Property string NotificationService.SelectedTheme [RobloxScriptSecurity]
 	Function void NotificationService:ActionEnabled(AppShellActionType actionType) [RobloxScriptSecurity]
 	Function void NotificationService:ActionTaken(AppShellActionType actionType) [RobloxScriptSecurity]
@@ -2386,7 +2386,7 @@ Class DataModel : ServiceProvider
 	Property int64 DataModel.CreatorId [readonly]
 	Property CreatorType DataModel.CreatorType [readonly]
 	Property int64 DataModel.GameId [readonly]
-	Property GearGenreSetting DataModel.GearGenreSetting [readonly]
+	Property GearGenreSetting DataModel.GearGenreSetting [deprecated] [readonly]
 	Property Genre DataModel.Genre [readonly]
 	Property bool DataModel.IsSFFlagsLoaded [readonly] [RobloxScriptSecurity]
 	Property string DataModel.JobId [readonly]
@@ -2406,7 +2406,7 @@ Class DataModel : ServiceProvider
 	Function Array DataModel:GetJobsInfo() [PluginSecurity]
 	Function string DataModel:GetMessage() [deprecated]
 	Function bool DataModel:GetRemoteBuildMode() [deprecated]
-	Function bool DataModel:IsGearTypeAllowed(GearType gearType)
+	Function bool DataModel:IsGearTypeAllowed(GearType gearType) [deprecated]
 	Function bool DataModel:IsLoaded()
 	Function void DataModel:Load(Content url) [LocalUserSecurity]
 	Function void DataModel:OpenScreenshotsFolder() [RobloxScriptSecurity]
@@ -2605,6 +2605,7 @@ Class Stats : Instance
 	Property float Stats.PhysicsSendKbps [readonly]
 	Property float Stats.PhysicsStepTimeMs [readonly]
 	Property int Stats.PrimitivesCount [readonly]
+	Function string Stats:GetBrowserTrackerId() [RobloxScriptSecurity]
 	Function float Stats:GetMemoryUsageMbForTag(DeveloperMemoryTag tag)
 	Function float Stats:GetTotalMemoryUsageMb()
 	YieldFunction Dictionary Stats:GetPaginatedMemoryByTexture(TextureQueryType queryType, int pageIndex, int pageSize) [RobloxScriptSecurity]
@@ -3523,18 +3524,18 @@ Enum GameAvatarType
 	EnumItem GameAvatarType.R15 : 1
 	EnumItem GameAvatarType.PlayerChoice : 2
 Enum GearGenreSetting
-	EnumItem GearGenreSetting.AllGenres : 0
-	EnumItem GearGenreSetting.MatchingGenreOnly : 1
+	EnumItem GearGenreSetting.AllGenres : 0 [deprecated]
+	EnumItem GearGenreSetting.MatchingGenreOnly : 1 [deprecated]
 Enum GearType
-	EnumItem GearType.MeleeWeapons : 0
-	EnumItem GearType.RangedWeapons : 1
-	EnumItem GearType.Explosives : 2
-	EnumItem GearType.PowerUps : 3
-	EnumItem GearType.NavigationEnhancers : 4
-	EnumItem GearType.MusicalInstruments : 5
-	EnumItem GearType.SocialItems : 6
-	EnumItem GearType.BuildingTools : 7
-	EnumItem GearType.Transport : 8
+	EnumItem GearType.MeleeWeapons : 0 [deprecated]
+	EnumItem GearType.RangedWeapons : 1 [deprecated]
+	EnumItem GearType.Explosives : 2 [deprecated]
+	EnumItem GearType.PowerUps : 3 [deprecated]
+	EnumItem GearType.NavigationEnhancers : 4 [deprecated]
+	EnumItem GearType.MusicalInstruments : 5 [deprecated]
+	EnumItem GearType.SocialItems : 6 [deprecated]
+	EnumItem GearType.BuildingTools : 7 [deprecated]
+	EnumItem GearType.Transport : 8 [deprecated]
 Enum Genre
 	EnumItem Genre.All : 0
 	EnumItem Genre.TownAndCity : 1

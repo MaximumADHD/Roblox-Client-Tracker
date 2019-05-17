@@ -113,6 +113,16 @@ function Keyboard:isKeyBackSpaceOrDelete(key)
 	return Keyboard.Paths.HelperFunctionsIteration:ifAny(Keyboard.BackSpaceAndDeleteKeys, function(_, backSpaceOrDeleteKey) return key == backSpaceOrDeleteKey end)
 end
 
+-- If several of these are created, a new file should be added to store the keyboard/behavior bindings.
+-- This abstraction is also useful if we ever decide to provide user defined key bindings.
+function Keyboard:isKeyPlayPause(key)
+	if FastFlags:isPlayPauseSpaceHotkeyEnabled() then
+		return Enum.KeyCode.P == key or Enum.KeyCode.Space == key
+	else
+		return Enum.KeyCode.P == key
+	end
+end
+
 function Keyboard:getNavKeys()
 	return self.Paths.InputNavKeys:new(Keyboard)
 end

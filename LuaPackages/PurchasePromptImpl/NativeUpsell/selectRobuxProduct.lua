@@ -7,11 +7,11 @@ local function sortAscending(a, b)
 	return a.robuxValue < b.robuxValue
 end
 
-local function selectProduct(price, availableProducts)
+local function selectProduct(neededRobux, availableProducts)
 	table.sort(availableProducts, sortAscending)
 
 	for _, product in ipairs(availableProducts) do
-		if product.robuxValue >= price then
+		if product.robuxValue >= neededRobux then
 			return Promise.resolve(product)
 		end
 	end
@@ -19,7 +19,7 @@ local function selectProduct(price, availableProducts)
 	return Promise.reject()
 end
 
-local function selectRobuxProductPremium(platform, price, userIsSubscribed)
+local function selectRobuxProductPremium(platform, neededRobux, userIsSubscribed)
 	local productOptions
 	if platform == Enum.Platform.IOS then
 		productOptions = userIsSubscribed
@@ -32,29 +32,29 @@ local function selectRobuxProductPremium(platform, price, userIsSubscribed)
 			or NativeProducts.Standard.PremiumNotSubscribed
 	end
 
-	return selectProduct(price, productOptions)
+	return selectProduct(neededRobux, productOptions)
 end
 
-local function selectRobuxProduct(platform, price, isBuildersClubMember, premiumEnabled)
+local function selectRobuxProduct(platform, neededRobux, isBuildersClubMember, premiumEnabled)
 	-- Premium is not yet enabled for XBox, so we always use the existing approach
 	if platform == Enum.Platform.XBoxOne then
 		return XboxCatalogData.GetCatalogInfoAsync()
 			:andThen(function(availableProducts)
-				return selectProduct(price, availableProducts)
+				return selectProduct(neededRobux, availableProducts)
 			end)
 	end
 
 	if premiumEnabled then
-		return selectRobuxProductPremium(platform, price, isBuildersClubMember)
+		return selectRobuxProductPremium(platform, neededRobux, isBuildersClubMember)
 	end
 
 	if platform == Enum.Platform.IOS then
 		local productOptions = isBuildersClubMember and NativeProducts.IOS.BC or NativeProducts.IOS.NonBC
-		return selectProduct(price, productOptions)
+		return selectProduct(neededRobux, productOptions)
 	else
 		-- This product format is standard for other supported platforms (Android, Amazon, and UWP)
 		local productOptions = isBuildersClubMember and NativeProducts.Standard.BC or NativeProducts.Standard.NonBC
-		return selectProduct(price, productOptions)
+		return selectProduct(neededRobux, productOptions)
 	end
 end
 

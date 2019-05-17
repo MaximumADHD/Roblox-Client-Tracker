@@ -22,6 +22,7 @@ local Tooltip = require(Components.Tooltip)
 local Keyframe = require(Components.Timeline.Keyframe)
 local Timeline = require(Components.Timeline.Timeline)
 local TimelineTick = require(Components.Timeline.TimelineTick)
+local ExpandableList = require(Components.ExpandableList)
 
 local Focus = require(Src.Focus)
 
@@ -44,6 +45,7 @@ local UILibrary = {
 		Keyframe = Keyframe,
 		Timeline = Timeline,
 		TimelineTick = TimelineTick,
+		ExpandableList = ExpandableList,
 	},
 
 	Studio = {

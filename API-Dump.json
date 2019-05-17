@@ -9682,6 +9682,24 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetScriptFilePath",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "CoreScriptSyncService",
@@ -28572,6 +28590,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "IsLuaBottomBarWithText",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "IsLuaChatEnabled",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -28594,48 +28633,6 @@
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "IsLuaGameDetailsEnabled",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "IsLuaGamesPageEnabled",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "IsLuaHomePageEnabled",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -41929,7 +41926,8 @@
                     },
                     "Tags": [
                         "ReadOnly",
-                        "NotReplicated"
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ValueType": {
                         "Category": "Enum",
@@ -42364,7 +42362,10 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     },
-                    "Security": "None"
+                    "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ]
                 },
                 {
                     "MemberType": "Function",
@@ -45709,6 +45710,17 @@
                         "Category": "Primitive",
                         "Name": "int"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetBrowserTrackerId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity"
                 },
                 {
                     "MemberType": "Function",
@@ -57038,10 +57050,16 @@
             "Items": [
                 {
                     "Name": "AllGenres",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 0
                 },
                 {
                     "Name": "MatchingGenreOnly",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 1
                 }
             ],
@@ -57054,42 +57072,72 @@
             "Items": [
                 {
                     "Name": "MeleeWeapons",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 0
                 },
                 {
                     "Name": "RangedWeapons",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 1
                 },
                 {
                     "Name": "Explosives",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 2
                 },
                 {
                     "Name": "PowerUps",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 3
                 },
                 {
                     "Name": "NavigationEnhancers",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 4
                 },
                 {
                     "Name": "MusicalInstruments",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 5
                 },
                 {
                     "Name": "SocialItems",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 6
                 },
                 {
                     "Name": "BuildingTools",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 7
                 },
                 {
                     "Name": "Transport",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 8
                 }
             ],
-            "Name": "GearType"
+            "Name": "GearType",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Items": [

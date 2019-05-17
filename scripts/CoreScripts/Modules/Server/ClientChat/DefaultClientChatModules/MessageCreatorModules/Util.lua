@@ -52,6 +52,15 @@ local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 local okShouldClipInGameChat, valueShouldClipInGameChat = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldClipInGameChat") end)
 local shouldClipInGameChat = okShouldClipInGameChat and valueShouldClipInGameChat
 
+local FlagFixChatMessageLogPerformance = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixChatMessageLogPerformance4")
+	end)
+	if ok then
+		FlagFixChatMessageLogPerformance = value
+	end
+end
+
 local module = {}
 local methods = {}
 methods.__index = methods
@@ -65,6 +74,11 @@ end
 function methods:GetMessageHeight(BaseMessage, BaseFrame, xSize)
 	xSize = xSize or BaseFrame.AbsoluteSize.X
 	local textBoundsSize = self:GetStringTextBounds(BaseMessage.Text, BaseMessage.Font, BaseMessage.TextSize, Vector2.new(xSize, 1000))
+	if FlagFixChatMessageLogPerformance and textBoundsSize.Y ~= math.floor(textBoundsSize.Y) then
+		-- HACK Alert. TODO: Remove this when we switch UDim2 to use float Offsets
+		-- This is nessary due to rounding issues on mobile devices when translating between screen pixels and native pixels
+		return textBoundsSize.Y + 1
+	end
 	return textBoundsSize.Y
 end
 

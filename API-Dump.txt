@@ -558,6 +558,7 @@ Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function string CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
 Class CustomEvent : Instance [Deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers() [Deprecated]
 	Function void CustomEvent:SetValue(float newValue) [Deprecated]
@@ -1660,10 +1661,9 @@ Class NetworkSettings : Instance [Service] [NotBrowsable]
 	Property string NetworkSettings.ProxyURL
 Class NotificationService : Instance [NotCreatable] [Service]
 	Property bool NotificationService.IsLuaBottomBarEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
+	Property bool NotificationService.IsLuaBottomBarWithText {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaChatEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaGameDetailsEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool NotificationService.IsLuaGamesPageEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
-	Property bool NotificationService.IsLuaHomePageEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property string NotificationService.SelectedTheme {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Function void NotificationService:ActionEnabled(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
 	Function void NotificationService:ActionTaken(Enum<AppShellActionType> actionType) {RobloxScriptSecurity}
@@ -2425,7 +2425,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Property int64 DataModel.CreatorId  [ReadOnly] [NotReplicated]
 	Property Enum<CreatorType> DataModel.CreatorType  [ReadOnly] [NotReplicated]
 	Property int64 DataModel.GameId  [ReadOnly] [NotReplicated]
-	Property Enum<GearGenreSetting> DataModel.GearGenreSetting  [ReadOnly] [NotReplicated]
+	Property Enum<GearGenreSetting> DataModel.GearGenreSetting  [ReadOnly] [NotReplicated] [Deprecated]
 	Property Enum<Genre> DataModel.Genre  [ReadOnly] [NotReplicated]
 	Property int64 DataModel.PlaceId  [ReadOnly] [NotReplicated]
 	Property int DataModel.PlaceVersion  [ReadOnly] [NotReplicated]
@@ -2443,7 +2443,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:GetRemoteBuildMode() [Deprecated]
 	Function string DataModel:HttpGetAsync(string url, Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
 	Function string DataModel:HttpPostAsync(string url, string data, string contentType = "*/*", Enum<HttpRequestType> httpRequestType = "Default", bool doNotAllowDiabolicalMode = false) {RobloxScriptSecurity} [Yields]
-	Function bool DataModel:IsGearTypeAllowed(Enum<GearType> gearType)
+	Function bool DataModel:IsGearTypeAllowed(Enum<GearType> gearType) [Deprecated]
 	Function bool DataModel:IsLoaded()
 	Function void DataModel:Load(Content url) {LocalUserSecurity}
 	Function void DataModel:OpenScreenshotsFolder() {RobloxScriptSecurity}
@@ -2643,6 +2643,7 @@ Class Stats : Instance [NotCreatable] [Service]
 	Property float Stats.PhysicsSendKbps  [ReadOnly] [NotReplicated]
 	Property float Stats.PhysicsStepTimeMs  [ReadOnly] [NotReplicated]
 	Property int Stats.PrimitivesCount  [ReadOnly] [NotReplicated]
+	Function string Stats:GetBrowserTrackerId() {RobloxScriptSecurity}
 	Function float Stats:GetMemoryUsageMbForTag(Enum<DeveloperMemoryTag> tag)
 	Function Dictionary Stats:GetPaginatedMemoryByTexture(Enum<TextureQueryType> queryType, int pageIndex, int pageSize) {RobloxScriptSecurity} [Yields]
 	Function float Stats:GetTotalMemoryUsageMb()
@@ -3663,16 +3664,16 @@ Enum GameAvatarType
 Enum GearGenreSetting [Deprecated]
 	EnumItem GearGenreSetting.AllGenres : 0 [Deprecated]
 	EnumItem GearGenreSetting.MatchingGenreOnly : 1 [Deprecated]
-Enum GearType
-	EnumItem GearType.MeleeWeapons : 0
-	EnumItem GearType.RangedWeapons : 1
-	EnumItem GearType.Explosives : 2
-	EnumItem GearType.PowerUps : 3
-	EnumItem GearType.NavigationEnhancers : 4
-	EnumItem GearType.MusicalInstruments : 5
-	EnumItem GearType.SocialItems : 6
-	EnumItem GearType.BuildingTools : 7
-	EnumItem GearType.Transport : 8
+Enum GearType [Deprecated]
+	EnumItem GearType.MeleeWeapons : 0 [Deprecated]
+	EnumItem GearType.RangedWeapons : 1 [Deprecated]
+	EnumItem GearType.Explosives : 2 [Deprecated]
+	EnumItem GearType.PowerUps : 3 [Deprecated]
+	EnumItem GearType.NavigationEnhancers : 4 [Deprecated]
+	EnumItem GearType.MusicalInstruments : 5 [Deprecated]
+	EnumItem GearType.SocialItems : 6 [Deprecated]
+	EnumItem GearType.BuildingTools : 7 [Deprecated]
+	EnumItem GearType.Transport : 8 [Deprecated]
 Enum Genre [Deprecated]
 	EnumItem Genre.All : 0 [Deprecated]
 	EnumItem Genre.TownAndCity : 1 [Deprecated]

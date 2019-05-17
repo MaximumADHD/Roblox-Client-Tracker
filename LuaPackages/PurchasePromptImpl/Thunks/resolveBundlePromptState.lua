@@ -33,10 +33,11 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 				if upsellFlow == UpsellFlow.Web then
 					return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 				else
+					local neededRobux = price - accountInfo.RobuxBalance
 					local hasBuildersClub = accountInfo.MembershipType > 0
 					local isPremium = accountInfo.IsPremiumUser
 
-					return selectRobuxProduct(platform, price, hasBuildersClub or isPremium)
+					return selectRobuxProduct(platform, neededRobux, hasBuildersClub or isPremium)
 						:andThen(function(product)
 							-- We found a valid upsell product for the current platform
 							store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))

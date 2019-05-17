@@ -1,4 +1,7 @@
+local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+
+local FFlagEmotesMenuAnalyticsEnabled = settings():GetFFlag("CoreScriptEmotesMenuAnalytics")
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -8,12 +11,19 @@ local CoreScriptModules = EmotesMenu.Parent
 
 local Actions = EmotesMenu.Actions
 
+local Analytics = require(EmotesMenu.Analytics)
 local Constants = require(EmotesMenu.Constants)
+local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
 local HideMenu = require(Actions.HideMenu)
 local HideError = require(Actions.HideError)
 local ShowError = require(Actions.ShowError)
+
+local EmotesAnalytics
+if FFlagEmotesMenuAnalyticsEnabled then
+    EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
+end
 
 local function handlePlayFailure(store, reasonLocalizationKey)
     if reasonLocalizationKey then
@@ -29,7 +39,7 @@ local function handlePlayFailure(store, reasonLocalizationKey)
     store:dispatch(HideMenu())
 end
 
-local function PlayEmote(emoteName)
+local function PlayEmote(emoteName, slotNumber, emoteAssetId)
     return function(store)
         local character = LocalPlayer.Character
         if not character then
@@ -66,7 +76,11 @@ local function PlayEmote(emoteName)
 
             local success, didPlay = pcall(function() return humanoid:PlayEmote(emoteName) end)
 
-            if not success or not didPlay then
+            if success and didPlay then
+                if FFlagEmotesMenuAnalyticsEnabled then
+                    EmotesAnalytics:onEmotePlayed(slotNumber, emoteAssetId)
+                end
+            else
                 handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable)
                 return
             end

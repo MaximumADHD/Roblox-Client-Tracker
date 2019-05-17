@@ -37,7 +37,6 @@ local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 -- VARIABLES
 
-local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
 local FFlagTranslateAvatarContextMenu = settings():GetFFlag("TranslateAvatarContextMenu")
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -180,7 +179,7 @@ function ContextMenuItems:CreateCustomMenuItems()
 			buttonText,
 			UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 			customButtonFunc,
-			FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+			ThemeHandler:GetTheme()
 		)
 		customButton.Name = "CustomButton"
 		customButton.LayoutOrder = itemInfo.layoutOrder
@@ -233,7 +232,7 @@ function ContextMenuItems:CreateFriendButton(status, isBlocked)
 		addFriendString,
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 		addFriendFunc,
-		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+		ThemeHandler:GetTheme()
 	)
 
 	if isBlocked then
@@ -285,7 +284,7 @@ function ContextMenuItems:CreateInspectAndBuyButton()
 		RobloxTranslator:FormatByKey(VIEW_KEY),
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 		browseItems,
-		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+		ThemeHandler:GetTheme()
 	)
 	browseItemsButton.LayoutOrder = INSPECT_AND_BUY_LAYOUT_ORDER + CustomItemAddedOrder
 	browseItemsButton.Parent = self.MenuItemFrame
@@ -310,7 +309,7 @@ function ContextMenuItems:CreateEmoteButton()
 		waveString,
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 		wave,
-		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+		ThemeHandler:GetTheme()
 	)
 	waveButton.LayoutOrder = WAVE_LAYOUT_ORDER + CustomItemAddedOrder
 	waveButton.Parent = self.MenuItemFrame
@@ -352,7 +351,7 @@ function ContextMenuItems:CreateChatButton()
 		chatString,
 		UDim2.new(MENU_ITEM_SIZE_X, 0, MENU_ITEM_SIZE_Y, MENU_ITEM_SIZE_Y_OFFSET),
 		chatFunc,
-		FFlagCoreScriptACMThemeCustomization and ThemeHandler:GetTheme() or nil
+		ThemeHandler:GetTheme()
 	)
 	chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
 

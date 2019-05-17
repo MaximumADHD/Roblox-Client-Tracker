@@ -30,9 +30,6 @@ local playerChangedEvent = nil
 local buttonToPlayerMap = {}
 local playerToButtonMap = {}
 
-local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
-local FFlagCorescriptACMAddCircularDivider = settings():GetFFlag("CorescriptACMAddCircularDivider")
-
 local function getSortedCarouselButtons()
 	local buttonChildIndexs = {}
 	local carouselButtons = {}
@@ -98,22 +95,18 @@ local function CreateMenuCarousel(theme)
 
 				local lastPage = nil
 				uiPageLayout:GetPropertyChangedSignal("CurrentPage"):Connect(function()
-					if FFlagCorescriptACMAddCircularDivider then
-						if uiPageLayout.CurrentPage then
-							if uiPageLayout.CurrentPage.Name == CAROUSEL_DIVIDER_NAME then
-								local carouselButtons = getSortedCarouselButtons()
-								if lastPage == carouselButtons[1] then
-									uiPageLayout:Previous()
-								else
-									uiPageLayout:Next()
-								end
+					if uiPageLayout.CurrentPage then
+						if uiPageLayout.CurrentPage.Name == CAROUSEL_DIVIDER_NAME then
+							local carouselButtons = getSortedCarouselButtons()
+							if lastPage == carouselButtons[1] then
+								uiPageLayout:Previous()
 							else
-								uiPageLayout.CurrentPage.BackgroundColor3 = BACKGROUND_DEFAULT_COLOR
-								lastPage = uiPageLayout.CurrentPage
+								uiPageLayout:Next()
 							end
+						else
+							uiPageLayout.CurrentPage.BackgroundColor3 = BACKGROUND_DEFAULT_COLOR
+							lastPage = uiPageLayout.CurrentPage
 						end
-					else
-						if uiPageLayout.CurrentPage then uiPageLayout.CurrentPage.BackgroundColor3 = BACKGROUND_DEFAULT_COLOR end
 					end
 					if GuiService.SelectedCoreObject and GuiService.SelectedCoreObject.Parent == uiPageLayout.Parent then
 						GuiService.SelectedCoreObject.BackgroundColor3 = BACKGROUND_SELECTED_COLOR
@@ -125,11 +118,7 @@ local function CreateMenuCarousel(theme)
 
 		local nextButton = Instance.new("ImageButton")
 		nextButton.Name = "NextButton"
-		if FFlagCoreScriptACMThemeCustomization then
-			nextButton.Image = theme.ScrollRightImage
-		else
-			nextButton.Image = "rbxasset://textures/ui/AvatarContextMenu_Arrow.png"
-		end
+		nextButton.Image = theme.ScrollRightImage
 		nextButton.BackgroundTransparency = 1
 		nextButton.AnchorPoint = Vector2.new(1,0.5)
 		nextButton.Position = UDim2.new(1,-5,0.5,0)
@@ -143,7 +132,7 @@ local function CreateMenuCarousel(theme)
 
 		local prevButton = nextButton:Clone()
 		prevButton.Name = "PrevButton"
-		if FFlagCoreScriptACMThemeCustomization and theme.ScrollLeftImage ~= "" then
+		if theme.ScrollLeftImage ~= "" then
 			prevButton.Image = theme.ScrollLeftImage
 		else
 			prevButton.Rotation = 180
@@ -369,8 +358,4 @@ function PlayerCarousel.new(theme)
 	return obj
 end
 
-if FFlagCoreScriptACMThemeCustomization then
-	return PlayerCarousel
-else
-	return PlayerCarousel.new()
-end
+return PlayerCarousel

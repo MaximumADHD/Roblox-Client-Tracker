@@ -1,4 +1,7 @@
+local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+
+local FFlagEmotesMenuAnalyticsEnabled = settings():GetFFlag("CoreScriptEmotesMenuAnalytics")
 
 local Thunks = script.Parent
 local EmotesMenu = Thunks.Parent
@@ -6,8 +9,16 @@ local Actions = EmotesMenu.Actions
 
 local CoreScriptModules = EmotesMenu.Parent
 
+local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+
+local Analytics = require(EmotesMenu.Analytics)
 local Backpack = require(CoreScriptModules.BackpackScript)
 local ShowMenu = require(Actions.ShowMenu)
+
+local EmotesAnalytics
+if FFlagEmotesMenuAnalyticsEnabled then
+    EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
+end
 
 local function OpenMenu(emoteName)
     return function(store)
@@ -22,6 +33,10 @@ local function OpenMenu(emoteName)
         -- If user is interacting with the backpack it can stay open
         if Backpack.IsOpen then
             return
+        end
+
+        if FFlagEmotesMenuAnalyticsEnabled then
+            EmotesAnalytics:onMenuOpened()
         end
 
         -- Backpack was closed, show the emotes menu

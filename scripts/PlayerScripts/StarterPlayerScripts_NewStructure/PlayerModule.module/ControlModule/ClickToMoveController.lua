@@ -8,9 +8,7 @@
 local UserInputService = game:GetService("UserInputService")
 local PathfindingService = game:GetService("PathfindingService")
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 local DebrisService = game:GetService('Debris')
-local TweenService = game:GetService("TweenService")
 local StarterGui = game:GetService("StarterGui")
 local Workspace = game:GetService("Workspace")
 local CollectionService = game:GetService("CollectionService")
@@ -36,15 +34,8 @@ local movementKeys = {
 
 local FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess, FFlagUserNavigationClickToMoveSkipPassedWaypointsResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNavigationClickToMoveSkipPassedWaypoints") end)
 local FFlagUserNavigationClickToMoveSkipPassedWaypoints = FFlagUserNavigationClickToMoveSkipPassedWaypointsSuccess and FFlagUserNavigationClickToMoveSkipPassedWaypointsResult
-local FFlagUserNewClickToMoveDisplaySuccess, FFlagUserNewClickToMoveDisplayValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNewClickToMoveDisplay") end)
-local FFlagUserNewClickToMoveDisplay = FFlagUserNewClickToMoveDisplaySuccess and FFlagUserNewClickToMoveDisplayValue
 local FFlagUserClickToMoveFollowPathRefactorSuccess, FFlagUserClickToMoveFollowPathRefactorResult = pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveFollowPathRefactor") end)
 local FFlagUserClickToMoveFollowPathRefactor = FFlagUserClickToMoveFollowPathRefactorSuccess and FFlagUserClickToMoveFollowPathRefactorResult
-
-local FFlagUserFixClickToMoveWithACMSuccess, FFlagUserFixClickToMoveWithACMResult = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserFixClickToMoveWithACM")
-end)
-local FFlagUserFixClickToMoveWithACM = FFlagUserFixClickToMoveWithACMSuccess and FFlagUserFixClickToMoveWithACMResult
 
 local FFlagUserClickToMoveCancelOnMenuOpenedSuccess, FFlagUserClickToMoveCancelOnMenuOpenedResult = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserClickToMoveCancelOnMenuOpened")
@@ -53,13 +44,9 @@ local FFlagUserClickToMoveCancelOnMenuOpened = FFlagUserClickToMoveCancelOnMenuO
 
 local Player = Players.LocalPlayer
 
-local ClickToMoveDisplay = nil
-if FFlagUserNewClickToMoveDisplay then
-	ClickToMoveDisplay = require(script.Parent:WaitForChild("ClickToMoveDisplay"))
-end
+local ClickToMoveDisplay = require(script.Parent:WaitForChild("ClickToMoveDisplay"))
 
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
-local ZERO_VECTOR2 = Vector2.new(0,0)
 local ALMOST_ZERO = 0.000001
 
 
@@ -85,10 +72,7 @@ do
 			if ignoreNonCollidable and hitPart.CanCollide == false then
 				-- We always include character parts so a user can click on another character
 				-- to walk to them.
-				local _, humanoid = nil, nil
-				if FFlagUserFixClickToMoveWithACM then
-					_, humanoid = FindCharacterAncestor(hitPart)
-				end
+				local _, humanoid = FindCharacterAncestor(hitPart)
 				if humanoid == nil then
 					table.insert(ignoreList, hitPart)
 					return Raycast(ray, ignoreNonCollidable, ignoreList)
@@ -176,160 +160,6 @@ local function getIgnoreList()
 end
 
 -----------------------------------PATHER--------------------------------------
-
--- Remove with FFlagUserNewClickToMoveDisplay
-local popupAdornee
-local function getPopupAdorneePart()
-	--Handle the case of the adornee part getting deleted (camera changed, maybe)
-	if popupAdornee and not popupAdornee.Parent then
-		popupAdornee = nil
-	end
-
-	--If the adornee doesn't exist yet, create it
-	if not popupAdornee then
-		popupAdornee = Instance.new("Part")
-		popupAdornee.Name = "ClickToMovePopupAdornee"
-		popupAdornee.Transparency = 1
-		popupAdornee.CanCollide = false
-		popupAdornee.Anchored = true
-		popupAdornee.Size = Vector3.new(2, 2, 2)
-		popupAdornee.CFrame = CFrame.new()
-
-		popupAdornee.Parent = Workspace.CurrentCamera
-	end
-
-	return popupAdornee
-end
-
-local activePopups = {}
-local function createNewPopup(popupType)
-	local newModel = Instance.new("ImageHandleAdornment")
-
-	newModel.AlwaysOnTop = false
-	newModel.Transparency = 1
-	newModel.Size = ZERO_VECTOR2
-	newModel.SizeRelativeOffset = ZERO_VECTOR3
-	newModel.Image = "rbxasset://textures/ui/move.png"
-	newModel.ZIndex = 20
-
-	local radius = 0
-	if popupType == "DestinationPopup" then
-		newModel.Color3 = Color3.fromRGB(0, 175, 255)
-		radius = 1.25
-	elseif popupType == "DirectWalkPopup" then
-		newModel.Color3 = Color3.fromRGB(0, 175, 255)
-		radius = 1.25
-	elseif popupType == "FailurePopup" then
-		newModel.Color3 = Color3.fromRGB(255, 100, 100)
-		radius = 1.25
-	elseif popupType == "PatherPopup" then
-		newModel.Color3 = Color3.fromRGB(255, 255, 255)
-		radius = 1
-		newModel.ZIndex = 10
-	end
-	newModel.Size = Vector2.new(5, 0.1) * radius
-
-	local dataStructure = {}
-	dataStructure.Model = newModel
-
-	activePopups[#activePopups + 1] = newModel
-
-	function dataStructure:TweenIn()
-		local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out)
-		local tween1 = TweenService:Create(newModel, tweenInfo, { Size = Vector2.new(2,2) * radius })
-		tween1:Play()
-		TweenService:Create(
-			newModel,
-			TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0.1),
-			{ Transparency = 0, SizeRelativeOffset = Vector3.new(0, radius * 1.5, 0) }
-		):Play()
-		return tween1
-	end
-
-	function dataStructure:TweenOut()
-		local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-		local tween1 = TweenService:Create(newModel, tweenInfo, { Size = ZERO_VECTOR2 })
-		tween1:Play()
-
-		coroutine.wrap(function()
-			tween1.Completed:Wait()
-
-			for i = 1, #activePopups do
-				if activePopups[i] == newModel then
-					table.remove(activePopups, i)
-					break
-				end
-			end
-		end)()
-		return tween1
-	end
-
-	function dataStructure:Place(position)
-		-- place the model at position
-		if not self.Model.Parent then
-			local popupAdorneePart = getPopupAdorneePart()
-			self.Model.Parent = popupAdorneePart
-			self.Model.Adornee = popupAdorneePart
-
-			--Start the 10-stud long ray 2.5 studs above where the tap happened and point straight down to try to find
-			--the actual ground position.
-			local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
-			local _, hitPoint = Workspace:FindPartOnRayWithIgnoreList(
-				ray, { Workspace.CurrentCamera, Player.Character }
-			)
-
-			self.Model.CFrame = CFrame.new(hitPoint) + Vector3.new(0, -radius,0)
-		end
-	end
-
-	return dataStructure
-end
-
-local function createPopupPath(points, numCircles)
-	-- creates a path with the provided points, using the path and number of circles provided
-	local popups = {}
-	local stopTraversing = false
-
-	local function killPopup(i)
-		-- kill all popups before and at i
-		for iter, v in pairs(popups) do
-			if iter <= i then
-				local tween = v:TweenOut()
-				coroutine.wrap(function()
-					tween.Completed:Wait()
-					v.Model:Destroy()
-				end)()
-				popups[iter] = nil
-			end
-		end
-	end
-
-	local function stopFunction()
-		stopTraversing = true
-		killPopup(#points)
-	end
-
-	coroutine.wrap(function()
-		for i = 1, #points do
-			if stopTraversing then
-				break
-			end
-
-			local includeWaypoint = i % numCircles == 0
-			                    and i < #points
-			                    and (points[#points].Position - points[i].Position).magnitude > 4
-			if includeWaypoint then
-				local popup = createNewPopup("PatherPopup")
-				popups[i] = popup
-				popup:Place(points[i].Position)
-				popup:TweenIn()
-				wait(0.2)
-			end
-		end
-	end)()
-
-	return stopFunction, killPopup
-end
 
 local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 	local this = {}
@@ -569,11 +399,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 		this.PathComputed = this.pathResult.Status == Enum.PathStatus.Success
 
 		if ShowPath then
-			if FFlagUserNewClickToMoveDisplay then
-				this.stopTraverseFunc, this.setPointFunc = ClickToMoveDisplay.CreatePathDisplay(this.pointList)
-			else
-				this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4, true)
-			end
+			this.stopTraverseFunc, this.setPointFunc = ClickToMoveDisplay.CreatePathDisplay(this.pointList)
 		end
 		if this.PathComputed then
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.
@@ -806,18 +632,11 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 		if this.Started then return end
 		this.Started = true
 
-		if FFlagUserNewClickToMoveDisplay then
-			ClickToMoveDisplay.CancelFailureAnimation()
-		end
+		ClickToMoveDisplay.CancelFailureAnimation()
 
 		if ShowPath then
-			-- choose whichever one Mike likes best
-			if FFlagUserNewClickToMoveDisplay then
-				if overrideShowPath == nil or overrideShowPath then
-					this.stopTraverseFunc, this.setPointFunc = ClickToMoveDisplay.CreatePathDisplay(this.pointList, this.OriginalTargetPoint)
-				end
-			else
-				this.stopTraverseFunc, this.setPointFunc = createPopupPath(this.pointList, 4)
+			if overrideShowPath == nil or overrideShowPath then
+				this.stopTraverseFunc, this.setPointFunc = ClickToMoveDisplay.CreatePathDisplay(this.pointList, this.OriginalTargetPoint)
 			end
 		end
 
@@ -856,29 +675,14 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 		end
 	end
 
-	if FFlagUserNewClickToMoveDisplay then
-		--We always raycast to the ground in the case that the user clicked a wall.
-		local offsetPoint = this.TargetPoint + this.TargetSurfaceNormal*1.5
-		local ray = Ray.new(offsetPoint, Vector3.new(0,-1,0)*50)
-		local newHitPart, newHitPos = Workspace:FindPartOnRayWithIgnoreList(ray, getIgnoreList())
-		if newHitPart then
-			this.TargetPoint = newHitPos
-		end
-		this:ComputePath()
-	else
-		this:ComputePath()
-		if not this.PathComputed then
-			-- set the end point towards the camera and raycasted towards the ground in case we hit a wall
-			local offsetPoint = this.TargetPoint + this.TargetSurfaceNormal*1.5
-			local ray = Ray.new(offsetPoint, Vector3.new(0,-1,0)*50)
-			local newHitPart, newHitPos = Workspace:FindPartOnRayWithIgnoreList(ray, getIgnoreList())
-			if newHitPart then
-				this.TargetPoint = newHitPos
-			end
-			-- try again
-			this:ComputePath()
-		end
+	--We always raycast to the ground in the case that the user clicked a wall.
+	local offsetPoint = this.TargetPoint + this.TargetSurfaceNormal*1.5
+	local ray = Ray.new(offsetPoint, Vector3.new(0,-1,0)*50)
+	local newHitPart, newHitPos = Workspace:FindPartOnRayWithIgnoreList(ray, getIgnoreList())
+	if newHitPart then
+		this.TargetPoint = newHitPos
 	end
+	this:ComputePath()
 
 	return this
 end
@@ -919,56 +723,8 @@ local function CleanupPath()
 		PathFailedListener = nil
 	end
 	if ExistingIndicator then
-		if FFlagUserNewClickToMoveDisplay then
-			ExistingIndicator:Destroy()
-		else
-			local obj = ExistingIndicator
-			local tween = obj:TweenOut()
-			local tweenCompleteEvent = nil
-			tweenCompleteEvent = tween.Completed:connect(function()
-				tweenCompleteEvent:Disconnect()
-				obj.Model:Destroy()
-			end)
-			ExistingIndicator = nil
-		end
+		ExistingIndicator:Destroy()
 	end
-end
-
-local function getExtentsSize(Parts)
-	local maxX,maxY,maxZ = -math.huge,-math.huge,-math.huge
-	local minX,minY,minZ = math.huge,math.huge,math.huge
-	for i = 1, #Parts do
-		local position = Parts[i].Position
-		maxX = math.max(maxX, position.X)
-		maxY = math.max(maxY, position.Y)
-		maxZ = math.max(maxZ, position.Z)
-		minX = math.min(minX, position.X)
-		minY = math.min(minY, position.Y)
-		minZ = math.min(minZ, position.Z)
-	end
-	return Region3.new(Vector3.new(minX, minY, minZ), Vector3.new(maxX, maxY, maxZ))
-end
-
-local function inExtents(Extents, Position)
-	if Position.X < (Extents.CFrame.p.X - Extents.Size.X/2) or Position.X > (Extents.CFrame.p.X + Extents.Size.X/2) then
-		return false
-	end
-	if Position.Z < (Extents.CFrame.p.Z - Extents.Size.Z/2) or Position.Z > (Extents.CFrame.p.Z + Extents.Size.Z/2) then
-		return false
-	end
-	--ignoring Y for now
-	return true
-end
-
--- Remove with FFlagUserNewClickToMoveDisplay
-local function showQuickPopupAsync(position, popupType)
-	local popup = createNewPopup(popupType)
-	popup:Place(position)
-	local tweenIn = popup:TweenIn()
-	tweenIn.Completed:Wait()
-	local tweenOut = popup:TweenOut()
-	tweenOut.Completed:Wait()
-	popup.Model:Destroy()
 end
 
 -- Remove with FFlagUserClickToMoveFollowPathRefactor
@@ -999,16 +755,6 @@ local function HandleMoveTo(thisPather, hitPt, hitChar, character, overrideShowP
 		CleanupPath()
 	end
 
-	local destinationPopup = nil
-	local failurePopup = nil
-	if not FFlagUserNewClickToMoveDisplay then
-		destinationPopup = createNewPopup("DestinationPopup")
-		destinationPopup:Place(hitPt, Vector3.new(0, hitPt.y, 0))
-		failurePopup = createNewPopup("FailurePopup")
-		destinationPopup:TweenIn()
-		ExistingIndicator = destinationPopup
-	end
-
 	if not FFlagUserClickToMoveFollowPathRefactor then
 		ExistingPather = thisPather
 	end
@@ -1016,18 +762,6 @@ local function HandleMoveTo(thisPather, hitPt, hitChar, character, overrideShowP
 	PathCompleteListener = thisPather.Finished.Event:Connect(function()
 		if FFlagUserClickToMoveFollowPathRefactor then
 			CleanupPath()
-		end
-		if destinationPopup then -- Remove with FFlagUserNewClickToMoveDisplay
-			if ExistingIndicator == destinationPopup then
-				ExistingIndicator = nil
-			end
-			local tween = destinationPopup:TweenOut()
-			local tweenCompleteEvent = nil
-			tweenCompleteEvent = tween.Completed:Connect(function()
-				tweenCompleteEvent:Disconnect()
-				destinationPopup.Model:Destroy()
-				destinationPopup = nil
-			end)
 		end
 		if hitChar then
 			local currentWeapon = GetEquippedTool(character)
@@ -1038,24 +772,12 @@ local function HandleMoveTo(thisPather, hitPt, hitChar, character, overrideShowP
 	end)
 	PathFailedListener = thisPather.PathFailed.Event:Connect(function()
 		CleanupPath()
-		if FFlagUserNewClickToMoveDisplay then
-			if overrideShowPath == nil or overrideShowPath then
-				local shouldPlayFailureAnim = PlayFailureAnimation and not (ExistingPather and ExistingPather:IsActive())
-				if shouldPlayFailureAnim then
-					ClickToMoveDisplay.PlayFailureAnimation()
-				end
-				ClickToMoveDisplay.DisplayFailureWaypoint(hitPt)
+		if overrideShowPath == nil or overrideShowPath then
+			local shouldPlayFailureAnim = PlayFailureAnimation and not (ExistingPather and ExistingPather:IsActive())
+			if shouldPlayFailureAnim then
+				ClickToMoveDisplay.PlayFailureAnimation()
 			end
-		else
-			if failurePopup then
-				failurePopup:Place(hitPt, Vector3.new(0,hitPt.y,0))
-				local failTweenIn = failurePopup:TweenIn()
-				failTweenIn.Completed:Wait()
-				local failTweenOut = failurePopup:TweenOut()
-				failTweenOut.Completed:Wait()
-				failurePopup.Model:Destroy()
-				failurePopup = nil
-			end
+			ClickToMoveDisplay.DisplayFailureWaypoint(hitPt)
 		end
 	end)
 end
@@ -1087,8 +809,7 @@ function OnTap(tapPositions, goToPoint, wasTouchTap)
 			local hitPart, hitPt, hitNormal = Utility.Raycast(ray, true, getIgnoreList())
 
 			local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
-			if FFlagUserFixClickToMoveWithACM and wasTouchTap and
-				hitHumanoid and StarterGui:GetCore("AvatarContextMenuEnabled") then
+			if wasTouchTap and hitHumanoid and StarterGui:GetCore("AvatarContextMenuEnabled") then
 				local clickedPlayer = Players:GetPlayerFromCharacter(hitHumanoid.Parent)
 				if clickedPlayer then
 					CleanupPath()
@@ -1110,11 +831,7 @@ function OnTap(tapPositions, goToPoint, wasTouchTap)
 						-- Clean up
 						thisPather:Cleanup()
 						-- Feedback here for when we don't have a good path
-						if FFlagUserNewClickToMoveDisplay then
-							ShowPathFailedFeedback(hitPt)
-						else
-							coroutine.wrap(showQuickPopupAsync)(hitPt, "FailurePopup")()
-						end
+						ShowPathFailedFeedback(hitPt)
 					end
 				end
 			else
@@ -1127,11 +844,7 @@ function OnTap(tapPositions, goToPoint, wasTouchTap)
 					else
 						if hitPt then
 							-- Feedback here for when we don't have a good path
-							if FFlagUserNewClickToMoveDisplay then
-								ShowPathFailedFeedback(hitPt)
-							else
-								coroutine.wrap(showQuickPopupAsync)(hitPt, "FailurePopup")()
-							end
+							ShowPathFailedFeedback(hitPt)
 						end
 					end
 				end
@@ -1203,11 +916,6 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.characterChildRemovedConn)
 	if FFlagUserClickToMoveCancelOnMenuOpened then
 		DisconnectEvent(self.menuOpenedConnection)
-	end
-
-	-- Can be removed with FFlagUserNewClickToMoveDisplay
-	if not FFlagUserClickToMoveFollowPathRefactor then
-		RunService:UnbindFromRenderStep("ClickToMoveRenderUpdate")
 	end
 end
 
@@ -1298,20 +1006,6 @@ function ClickToMove:OnCharacterAdded(character)
 		self.menuOpenedConnection = GuiService.MenuOpened:Connect(function()
 			CleanupPath()
 		end)
-	end
-
-	-- To remove with FFlagUserClickToMoveFollowPathRefactor or with FFlagUserNewClickToMoveDisplay
-	local function Update()
-		local cameraPos = Workspace.CurrentCamera.CFrame.p
-		for i = 1, #activePopups do
-			local popup = activePopups[i]
-			popup.CFrame = CFrame.new(popup.CFrame.p, cameraPos)
-		end
-	end
-
-	-- Can be removed with FFlagUserNewClickToMoveDisplay
-	if not FFlagUserClickToMoveFollowPathRefactor then
-		RunService:BindToRenderStep("ClickToMoveRenderUpdate",Enum.RenderPriority.Camera.Value - 1,Update)
 	end
 
 	local function OnCharacterChildAdded(child)
@@ -1419,13 +1113,6 @@ function ClickToMove:OnRenderStepped(dt)
 		return
 	end
 
-	-- To remove with FFlagUserClickToMoveFollowPathRefactor or with FFlagUserNewClickToMoveDisplay
-	local cameraPos = workspace.CurrentCamera.CFrame.p
-	for i = 1, #activePopups do
-		local popup = activePopups[i]
-		popup.CFrame = CFrame.new(popup.CFrame.p, cameraPos)
-	end
-
 	-- Reset jump
 	self.isJumping = false
 
@@ -1472,7 +1159,7 @@ function ClickToMove:UpdateMovement(inputState)
 			self.moveVector = ZERO_VECTOR3
 		elseif self.wasdEnabled then
 			self.moveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
-			if FFlagUserNewClickToMoveDisplay and self.moveVector.magnitude > 0 then
+			if self.moveVector.magnitude > 0 then
 				CleanupPath()
 				ClickToMoveDisplay.CancelFailureAnimation()
 			end
@@ -1499,55 +1186,35 @@ function ClickToMove:GetShowPath()
 end
 
 function ClickToMove:SetWaypointTexture(texture)
-	if FFlagUserNewClickToMoveDisplay then
-		ClickToMoveDisplay.SetWaypointTexture(texture)
-	end
+	ClickToMoveDisplay.SetWaypointTexture(texture)
 end
 
 function ClickToMove:GetWaypointTexture()
-	if FFlagUserNewClickToMoveDisplay then
-		return ClickToMoveDisplay.GetWaypointTexture()
-	end
-	return ""
+	return ClickToMoveDisplay.GetWaypointTexture()
 end
 
 function ClickToMove:SetWaypointRadius(radius)
-	if FFlagUserNewClickToMoveDisplay then
-		ClickToMoveDisplay.SetWaypointRadius(radius)
-	end
+	ClickToMoveDisplay.SetWaypointRadius(radius)
 end
 
 function ClickToMove:GetWaypointRadius()
-	if FFlagUserNewClickToMoveDisplay then
-		return ClickToMoveDisplay.GetWaypointRadius()
-	end
-	return 0
+	return ClickToMoveDisplay.GetWaypointRadius()
 end
 
 function ClickToMove:SetEndWaypointTexture(texture)
-	if FFlagUserNewClickToMoveDisplay then
-		ClickToMoveDisplay.SetEndWaypointTexture(texture)
-	end
+	ClickToMoveDisplay.SetEndWaypointTexture(texture)
 end
 
 function ClickToMove:GetEndWaypointTexture()
-	if FFlagUserNewClickToMoveDisplay then
-		return ClickToMoveDisplay.GetEndWaypointTexture()
-	end
-	return ""
+	return ClickToMoveDisplay.GetEndWaypointTexture()
 end
 
 function ClickToMove:SetWaypointsAlwaysOnTop(alwaysOnTop)
-	if FFlagUserNewClickToMoveDisplay then
-		ClickToMoveDisplay.SetWaypointsAlwaysOnTop(alwaysOnTop)
-	end
+	ClickToMoveDisplay.SetWaypointsAlwaysOnTop(alwaysOnTop)
 end
 
 function ClickToMove:GetWaypointsAlwaysOnTop()
-	if FFlagUserNewClickToMoveDisplay then
-		return ClickToMoveDisplay.GetWaypointsAlwaysOnTop()
-	end
-	return false
+	return ClickToMoveDisplay.GetWaypointsAlwaysOnTop()
 end
 
 function ClickToMove:SetFailureAnimationEnabled(enabled)

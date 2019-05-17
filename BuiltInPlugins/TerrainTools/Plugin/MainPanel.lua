@@ -4,6 +4,10 @@ local GuiUtilities = require(script.Parent.Parent.Libs.GuiUtilities)
 local ImageButtonWithText = require(script.Parent.Parent.Libs.ImageButtonWithText)
 local i18nModule = require(script.Parent.Parent.Libs.Localization)
 
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local AnalyticsService = game:GetService("AnalyticsService")
+local StudioService = game:GetService("StudioService")
+
 local kMainButtonOuterSize = 53
 local kMainButtonBorderSize = 1
 local kMainButtonActualSize = (kMainButtonOuterSize - 2 * kMainButtonBorderSize)
@@ -261,6 +265,12 @@ module.Initialize = function(thePlugin, thePluginGui)
 			function()
 				if not on or (currentMainButtonConfig ~= nil and mainButtonConfig ~= currentMainButtonConfig) then	--if off or on but current tool isn't the desired tool, then select this tool.
 					Selected(mainButtonConfig)
+					if FFlagTerrainToolMetrics then
+						AnalyticsService:SendEventDeferred("studio", "TerrainEditor", "TopLevelButton", {
+							userId = StudioService:GetUserId(),
+							name = mainButtonConfig.Name
+						})
+					end
 				else
 					Deselected()
 				end

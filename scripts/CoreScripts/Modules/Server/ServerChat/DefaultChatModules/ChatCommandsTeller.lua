@@ -28,7 +28,9 @@ local function Run(ChatService)
 		if (message:lower() == "/?" or message:lower() == "/help") then
 			local speaker = ChatService:GetSpeaker(fromSpeaker)
 			speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatCommandsTeller_Desc","These are the basic chat commands."), channel)
-			speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatCommandsTeller_MeCommand","/me <text> : roleplaying command for doing actions."), channel)
+			if ChatSettings.AllowMeCommand then
+				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatCommandsTeller_MeCommand","/me <text> : roleplaying command for doing actions."), channel)
+			end
 			speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatCommandsTeller_SwitchChannelCommand","/c <channel> : switch channel menu tabs."), channel)
 			if ShowJoinAndLeaveCommands() then
 				speaker:SendSystemMessage(ChatLocalization:FormatMessageToSend("GameChat_ChatCommandsTeller_JoinChannelCommand","/join <channel> or /j <channel> : join channel."), channel)

@@ -7298,6 +7298,12 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataEnum">
+        <Properties>
+            <string name="Name">GearType</string>
+            <bool name="Deprecated">true</bool>
+        </Properties>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
       <Properties>
         <string name="Name">SortOrder</string>
         <string name="summary">The ordering to use for sorting an array of GuiObjects.</string>

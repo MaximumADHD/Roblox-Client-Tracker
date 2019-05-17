@@ -137,9 +137,17 @@ function EmotesButtons:render()
                 local segmentIndex = getSegmentFromInput(frame, input)
                 local emoteName = self.props.emotesPage.currentEmotes[segmentIndex]
 
-                if emoteName then
-                    self.props.playEmote(emoteName)
+                if not emoteName then
+                    return
                 end
+
+                local emoteAssetIds = self.props.emotesPage.emotesInfo[emoteName]
+                if not emoteAssetIds then
+                    return
+                end
+
+                local assetId = getRandomAssetId(emoteAssetIds)
+                self.props.playEmote(emoteName, segmentIndex, assetId)
             end
         end,
 
@@ -159,8 +167,8 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        playEmote = function(emoteId)
-            return dispatch(PlayEmote(emoteId))
+        playEmote = function(emoteName, slotNumber, assetId)
+            return dispatch(PlayEmote(emoteName, slotNumber, assetId))
         end,
 
         focusSegment = function(segmentIndex)

@@ -31,8 +31,6 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PlayerDropDownModule = require(CoreGuiModules:WaitForChild("PlayerDropDown"))
 local BlockingUtility = PlayerDropDownModule:CreateBlockingUtility()
 
-local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
-
 local LocalPlayer = PlayersService.LocalPlayer
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
@@ -166,18 +164,11 @@ local function MakeDefaultButton(name, size, clickFunc, theme)
 
 	local button = Instance.new("ImageButton")
 	button.Name = name
-	if FFlagCoreScriptACMThemeCustomization then
-		button.Image = theme.ButtonImage
-		button.ScaleType = theme.ButtonImageScaleType
-		button.SliceCenter = theme.ButtonImageSliceCenter
-		button.BackgroundColor3 = theme.ButtonColor
-		button.BackgroundTransparency = theme.ButtonTransparency
-	else
-		button.Image = ""
-		button.ScaleType = Enum.ScaleType.Slice
-		button.SliceCenter = Rect.new(8,6,46,44)
-		button.BackgroundTransparency = 1
-	end
+	button.Image = theme.ButtonImage
+	button.ScaleType = theme.ButtonImageScaleType
+	button.SliceCenter = theme.ButtonImageSliceCenter
+	button.BackgroundColor3 = theme.ButtonColor
+	button.BackgroundTransparency = theme.ButtonTransparency
 	button.AutoButtonColor = false
 	button.Size = size
 	button.ZIndex = 2
@@ -186,11 +177,7 @@ local function MakeDefaultButton(name, size, clickFunc, theme)
 
 		local underline = Instance.new("Frame")
 		underline.Name = "Underline"
-		if FFlagCoreScriptACMThemeCustomization then
-			underline.BackgroundColor3 = theme.ButtonUnderlineColor
-		else
-			underline.BackgroundColor3 = Color3.fromRGB(137,137,137)
-		end
+		underline.BackgroundColor3 = theme.ButtonUnderlineColor
 		underline.AnchorPoint = Vector2.new(0.5,1)
 		underline.BorderSizePixel = 0
 		underline.Position = UDim2.new(0.5,0,1,0)
@@ -208,21 +195,13 @@ local function MakeDefaultButton(name, size, clickFunc, theme)
 	end
 
 	local function selectButton()
-		if FFlagCoreScriptACMThemeCustomization then
-			button.BackgroundColor3 = theme.ButtonHoverColor
-			button.BackgroundTransparency = theme.ButtonHoverTransparency
-		else
-			button.BackgroundTransparency = 0.5
-		end
+		button.BackgroundColor3 = theme.ButtonHoverColor
+		button.BackgroundTransparency = theme.ButtonHoverTransparency
 	end
 
 	local function deselectButton()
-		if FFlagCoreScriptACMThemeCustomization then
-			button.BackgroundColor3 = theme.ButtonColor
-			button.BackgroundTransparency = theme.ButtonTransparency
-		else
-			button.BackgroundTransparency = 1
-		end
+		button.BackgroundColor3 = theme.ButtonColor
+		button.BackgroundTransparency = theme.ButtonTransparency
 	end
 
 	button.InputBegan:Connect(function(inputObject)
@@ -295,22 +274,12 @@ function ContextMenuUtil:MakeStyledButton(name, text, size, clickFunc, theme)
 	textLabel.Position = UDim2.new(0,0,0,0)
 	textLabel.TextColor3 = Color3.fromRGB(255,255,255)
 	textLabel.TextYAlignment = Enum.TextYAlignment.Center
-	if FFlagCoreScriptACMThemeCustomization then
-		textLabel.Font = theme.Font
-		textLabel.TextSize = 24 * theme.TextScale
-		if isSmallTouchScreen() then
-			textLabel.TextSize = 18 * theme.TextScale
-		elseif GuiService:IsTenFootInterface() then
-			textLabel.TextSize = 36 * theme.TextScale
-		end
-	else
-		textLabel.Font = Enum.Font.SourceSansLight
-		textLabel.TextSize = 24
-		if isSmallTouchScreen() then
-			textLabel.TextSize = 18
-		elseif GuiService:IsTenFootInterface() then
-			textLabel.TextSize = 36
-		end
+	textLabel.Font = theme.Font
+	textLabel.TextSize = 24 * theme.TextScale
+	if isSmallTouchScreen() then
+		textLabel.TextSize = 18 * theme.TextScale
+	elseif GuiService:IsTenFootInterface() then
+		textLabel.TextSize = 36 * theme.TextScale
 	end
 	textLabel.Text = text
 	textLabel.TextScaled = true

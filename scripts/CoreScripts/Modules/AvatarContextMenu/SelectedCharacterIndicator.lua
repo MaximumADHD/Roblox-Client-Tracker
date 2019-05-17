@@ -16,8 +16,6 @@ local RENDER_ARROW_CONTEXT_ACTION = "ContextActionMenuRenderArrow"
 
 local CurrentCamera = Workspace.CurrentCamera
 
-local FFlagCoreScriptACMThemeCustomization = settings():GetFFlag("CoreScriptACMThemeCustomization")
-
 -- This isn't currently necessary but done as a percaution in case
 -- we move the selected character indicator elsewhere later.
 local function removeScripts(object)
@@ -43,15 +41,8 @@ local function ApplyArrow(character, theme)
 
 	local torso = character:WaitForChild("HumanoidRootPart")
 
-	local arrowPart
-	if FFlagCoreScriptACMThemeCustomization then
-		arrowPart = theme.SelectedCharacterIndicator:Clone()
-		removeScripts(arrowPart)
-	else
-		arrowPart = InsertService:LoadLocalAsset(
-			"rbxasset://models/AvatarContextMenu/AvatarContextArrow.rbxm"
-		)
-	end
+	local arrowPart = theme.SelectedCharacterIndicator:Clone()
+	removeScripts(arrowPart)
 	arrowPart.Anchored = true
 	arrowPart.Transparency = 0
 	arrowPart.CanCollide = false

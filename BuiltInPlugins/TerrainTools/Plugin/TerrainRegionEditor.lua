@@ -5,6 +5,10 @@ local module = {}
 	-fill region (with material, action)
 	-optimize resize scaling code more
 ]]
+local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local AnalyticsService = game:GetService("AnalyticsService")
+local StudioService = game:GetService("StudioService")
+
 local GuiUtilities = require(script.Parent.Parent.Libs.GuiUtilities)
 local CustomTextButton = require(script.Parent.Parent.Libs.CustomTextButton)
 local VerticallyScalingListFrame = require(script.Parent.Parent.Libs.VerticallyScalingListFrame)
@@ -42,7 +46,7 @@ local kFillConfirmButtonHeight = 25
 local kMaterialsListObject = nil
 local kBottomButtonMargin = 10
 
-local kRegionModeButtonConfigs = 
+local kRegionModeButtonConfigs =
 {
 	Select = {
 		Text = "Studio.Common.Action.Select",
@@ -51,7 +55,7 @@ local kRegionModeButtonConfigs =
 		LayoutOrder = 1,
 		Mode = 'Select',
 		Tool = 'Resize',
-	}, 
+	},
 	Move = {
 		Text = "Studio.Common.Action.Move",
 		Name = "ButtonMove",
@@ -59,7 +63,7 @@ local kRegionModeButtonConfigs =
 		LayoutOrder = 2,
 		Mode = 'Edit',
 		Tool = 'Move',
-	}, 
+	},
 	Resize = {
 		Text = "Studio.Common.Action.Resize",
 		Name = "ButtonResize",
@@ -67,7 +71,7 @@ local kRegionModeButtonConfigs =
 		LayoutOrder = 3,
 		Mode = 'Edit',
 		Tool = 'Resize',
-	}, 
+	},
 	Rotate = {
 		Text = "Studio.Common.Action.Rotate",
 		Name = "ButtonRotate",
@@ -75,53 +79,62 @@ local kRegionModeButtonConfigs =
 		LayoutOrder = 4,
 		Mode = 'Edit',
 		Tool = 'Rotate',
-	}, 
+	},
 }
 
-local kRegionOperationButtonConfigs = 
+local kRegionOperationButtonConfigs =
 {
 	Copy = {
 		Text = "Studio.Common.Action.Copy",
 		Name = "ButtonCopy",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_copy.png",
 		LayoutOrder = 5,
-	}, 
+	},
 	Paste = {
 		Text = "Studio.Common.Action.Paste",
 		Name = "ButtonPaste",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_paste.png",
 		LayoutOrder = 6,
-	}, 
+	},
 	Delete = {
 		Text = "Studio.Common.Action.Delete",
 		Name = "ButtonDelete",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_delete.png",
 		LayoutOrder = 7,
-	}, 
+	},
 	Fill = {
 		Text = "Studio.Common.Action.Fill",
 		Name = "ButtonFill",
 		Icon = "rbxasset://textures/TerrainTools/icon_regions_fill.png",
 		LayoutOrder = 8,
-	}, 
+	},
 }
 
+local function reportButtonClick(name)
+	if FFlagTerrainToolMetrics then
+		AnalyticsService:SendEventDeferred("studio", "TerrainEditor", "RegionTool", {
+			userId = StudioService:GetUserId(),
+			buttonName = name
+		})
+	end
+end
+
 local function createRegionButton(parent, buttonConfig)
-	local buttonObj = ImageButtonWithText.new(buttonConfig.Name, 
-		buttonConfig.LayoutOrder, 
-		buttonConfig.Icon, 
-		i18n.TranslateId(buttonConfig.Text), 
+	local buttonObj = ImageButtonWithText.new(buttonConfig.Name,
+		buttonConfig.LayoutOrder,
+		buttonConfig.Icon,
+		i18n.TranslateId(buttonConfig.Text),
 		kRegionButtonActualSizeUDim2,
-		UDim2.new(0,45,0,36), 
+		UDim2.new(0,45,0,36),
 		UDim2.new(0,0,0,0),
-		UDim2.new(1,0,0,22), 
+		UDim2.new(1,0,0,22),
 		UDim2.new(0,0,1,-22))
 
 	buttonObj:getButton().Parent = parent
 	buttonConfig.ButtonObj = buttonObj
 end
 
-function MakeButtonGridInFrameWithTitle(buttonConfigs, name, title) 
+function MakeButtonGridInFrameWithTitle(buttonConfigs, name, title)
 	local vsf = VerticallyScalingListFrame.new(name)
 	vsf:AddBottomPadding()
 
@@ -156,14 +169,14 @@ end
 
 function MakeModeButtonsFrame()
 	local frame = MakeButtonGridInFrameWithTitle(kRegionModeButtonConfigs,
-		 "ModeFrame", 
+		 "ModeFrame",
 		 i18n.TranslateId('Studio.TerrainEditor.Regions.Tools'))
 	return frame
 end
 
 function MakeOperationButtonsFrame()
-	local frame = MakeButtonGridInFrameWithTitle(kRegionOperationButtonConfigs, 
-		"OperationFrame", 
+	local frame = MakeButtonGridInFrameWithTitle(kRegionOperationButtonConfigs,
+		"OperationFrame",
 		i18n.TranslateId('Studio.Common.Action.Edit'))
 	return frame
 end
@@ -177,13 +190,13 @@ local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight + kBottomButtonMargin)
 	frame.BackgroundTransparency = 1
 
-	local okButtonObj = CustomTextButton.new("OkButton", 
+	local okButtonObj = CustomTextButton.new("OkButton",
 		i18n.TranslateId('Studio.Common.Action.OK'))
 	okButtonObj:getButton().Parent = frame
 	okButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
 	okButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,
 		 1, -GuiUtilities.kBottomButtonsHeight - kBottomButtonMargin)
-	
+
 	return frame
 end
 
@@ -192,7 +205,7 @@ function MakeFillFrame(pluginGui)
 	local vsl = VerticallyScalingListFrame.new("mwt")
 	vsl:AddBottomPadding()
 
-	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material", 
+	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Material",
 		i18n.TranslateId('Studio.TerrainEditor.Regions.FillSelection'))
 	vsl:AddChild(titleLabel)
 
@@ -212,7 +225,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	local mode = 'Select'	--Select, Edit
 	local tool = 'None'		--None, Resize, Move, Rotate
 	local currentButtonId = 'Select'
-	
+
 	local fillAir = true
 	local fillWater = true
 	----------------
@@ -237,15 +250,15 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	screenGui = Instance.new("ScreenGui")
 
 	-- Size will be updated dynamically.
-	local editCollapsibleSectionObj = CollapsibleTitledSection.new("Edit", 
-		i18n.TranslateId('Studio.TerrainEditor.Regions.EditTools'), 
-		true, 
+	local editCollapsibleSectionObj = CollapsibleTitledSection.new("Edit",
+		i18n.TranslateId('Studio.TerrainEditor.Regions.EditTools'),
+		true,
 		true)
 	GuiUtilities.MakeFrameAutoScalingList(editCollapsibleSectionObj:GetContentsFrame())
 	editCollapsibleSectionObj:GetSectionFrame().Parent = contentFrame
 
 	-- First child: the "merge empty" button(s).
-	local checkboxObj = LabeledCheckbox.new("CheckboxFrame", 
+	local checkboxObj = LabeledCheckbox.new("CheckboxFrame",
 		i18n.TranslateId('Studio.TerrainEditor.Regions.MergeEmpty'),
 		fillAir)
 
@@ -259,9 +272,9 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 	local fillFrame = MakeFillFrame()
 
 	GuiUtilities.AddStripedChildrenToListFrame(editCollapsibleSectionObj:GetContentsFrame(), {
-		checkboxObj:GetFrame(), 
+		checkboxObj:GetFrame(),
 		modeButtonsFrame,
-		operationButtonsFrame, 
+		operationButtonsFrame,
 		fillFrame})
 
 	editCollapsibleSectionObj:GetSectionFrame().Visible = false
@@ -321,7 +334,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			updateButtonSelectionState(newButtonId, buttonId)
 		end
 
-		if (newButtonId ~= nil) then 			
+		if (newButtonId ~= nil) then
 			mode = kRegionModeButtonConfigs[newButtonId].Mode
 			tool = kRegionModeButtonConfigs[newButtonId].Tool
 		end
@@ -332,18 +345,22 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	buttonSelect.MouseButton1Down:connect(function()
 		setButton('Select')
+		reportButtonClick('Select')
 	end)
 	buttonMove.MouseButton1Down:connect(function()
 		setButton('Move')
+		reportButtonClick('Move')
 	end)
 	buttonResize.MouseButton1Down:connect(function()
 		setButton('Resize')
+		reportButtonClick('Resize')
 	end)
 	buttonRotate.MouseButton1Down:connect(function()
 		setButton('Rotate')
+		reportButtonClick('Rotate')
 	end)
 
-	checkboxObj:SetValueChangedFunction(function(value) 
+	checkboxObj:SetValueChangedFunction(function(value)
 		fillAir = value
 		if selectionStart and selectionEnd then
 			if currentButtonId=='Move' or currentButtonId=='Resize' then
@@ -510,7 +527,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 					if startx > loopx then
 						endx = startx
 					end
-		
+
 					local xtm = {}
 					local xto = {}
 					for y=1, tempSizeY do
@@ -524,7 +541,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 						if starty > loopy then
 							endy = starty
 						end
-		
+
 						local ytm = {}
 						local yto = {}
 						for z=1, tempSizeZ do
@@ -538,19 +555,19 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 							if startz > loopz then
 								endz = startz
 							end
-		
+
 							local interpz1 = exaggeratedLinInterp(lockedOccupancies[startx][starty][startz],lockedOccupancies[startx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
 							local interpz2 = exaggeratedLinInterp(lockedOccupancies[startx][endy][startz],lockedOccupancies[startx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
 							local interpz3 = exaggeratedLinInterp(lockedOccupancies[endx][starty][startz],lockedOccupancies[endx][starty][endz],interpScalez, tempSizeZ/(loopz+1))
 							local interpz4 = exaggeratedLinInterp(lockedOccupancies[endx][endy][startz],lockedOccupancies[endx][endy][endz],interpScalez, tempSizeZ/(loopz+1))
-		
+
 							local interpy1 = exaggeratedLinInterp(interpz1,interpz2,interpScaley, tempSizeY/(loopy+1))
 							local interpy2 = exaggeratedLinInterp(interpz3,interpz4,interpScaley, tempSizeY/(loopy+1))
-		
+
 							local interpx1 = exaggeratedLinInterp(interpy1,interpy2,interpScalex, tempSizeX/(loopx+1))
-		
+
 							local newMaterial = lockedMaterials[round(scalex)+1][round(scaley)+1][round(scalez)+1]
-		
+
 							if fillAir and newMaterial == materialAir then
 								ytm[z]=behindMaterials[x][y][z]
 								yto[z]=behindOccupancies[x][y][z]
@@ -568,7 +585,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 					newMat[x] = xtm
 					newOcc[x] = xto
 				end
-		
+
 				terrain:WriteVoxels(region, resolution, newMat, newOcc)
 			else
 				behindThis = nil
@@ -592,13 +609,13 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 				behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
 
 				local behindMaterials, behindOccupancies = behindThis.materials, behindThis.occupancies
-		
+
 				if not (fillAir or fillWater) then
 					terrain:WriteVoxels(region, resolution, lockedMaterials, lockedOccupancies)
 				else
 					local newMat = {}
 					local newOcc = {}
-		
+
 					for x,xv in ipairs(lockedMaterials) do
 						local xtm = {}
 						local xto = {}
@@ -643,7 +660,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 	local function rotate(mx,x,my,y,rotation)
 		if rotation == 1 then
-			return my + 1 - y, x 
+			return my + 1 - y, x
 		elseif rotation == 2 then
 			return mx + 1 - x, my + 1 - y
 		elseif rotation == 3 then
@@ -661,7 +678,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		)
 		local temporarySize = Vector3.new(1,1,1) + selectionEnd - selectionStart
 		local centerOffset = Vector3.new(ceil(temporarySize.x * .5),
-			ceil(temporarySize.y * .5), 
+			ceil(temporarySize.y * .5),
 			ceil(temporarySize.z * .5))
 
 		temporarySize = rotationCFrame * temporarySize
@@ -751,6 +768,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			local region = Region3int16.new(selectionStartInt16,selectionEndInt16)
 			copyRegion = terrain:CopyRegion(region)
 			selectionEffect(nil,nil,'New Yeller',1,1.2,.5)
+			reportButtonClick('Copy')
 		end
 	end)
 
@@ -767,6 +785,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			setButton('Move')
 			changeHistory:SetWaypoint('Terrain Paste')
 			selectionEffect(nil,nil,'Lime green',1.2,1,.5)
+			reportButtonClick('Paste')
 		end
 	end)
 
@@ -801,6 +820,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 
 			changeHistory:SetWaypoint('Terrain Delete')
 			selectionEffect(oldStart,oldEnd,'Really red',1,1.2,.5)
+			reportButtonClick('Delete')
 		end
 	end)
 
@@ -808,6 +828,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		fillFrame.Visible = not fillFrame.Visible
 		-- Toggle button state as well.
 		kRegionOperationButtonConfigs["Fill"].ButtonObj:setSelected(fillFrame.Visible)
+		reportButtonClick('Fill')
 	end)
 
 	buttonFillConfirm.MouseButton1Down:connect(function()
@@ -989,7 +1010,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 				selectionStart = selectionStart + dragVector
 				selectionEnd = selectionEnd + dragVector
 			end
-			
+
 			changeHistory:SetWaypoint('Terrain '..currentButtonId)
 		end
 		if dragAngle and dragAngle ~= 0 then
@@ -1005,7 +1026,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 			local temporarySizeY = round(math.abs(temporarySize.y))
 			local temporarySizeZ = round(math.abs(temporarySize.z))
 			centerOffset = centerOffset - Vector3.new(ceil(temporarySizeX * .5), ceil(temporarySizeY * .5), ceil(temporarySizeZ * .5))
-			
+
 			selectionEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
 			selectionStart = selectionStart + centerOffset
 			lockInMap()
@@ -1025,7 +1046,7 @@ module.FirstTimeSetup = function(theMouse, thePluginGui, theContentFrame)
 		lockedOccupancies = nil
 		setButton('Select')
 	end
-	
+
 	changeHistory.OnUndo:connect(historyChanged)
 	changeHistory.OnRedo:connect(historyChanged)
 

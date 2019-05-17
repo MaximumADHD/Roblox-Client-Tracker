@@ -26,8 +26,6 @@ local ABUSE_TYPES_PLAYER = {
 	"Offsite Links",
 }
 
-local FFlagReportAbuseMenuDescriptionFix = settings():GetFFlag('ReportAbuseMenuDescriptionFix')
-
 local ABUSE_TYPES_GAME = {
 	"Inappropriate Content"
 }
@@ -38,19 +36,10 @@ if utility:IsSmallTouchScreen() then
 end
 
 pcall(function()
-	local LocalizationService = game:GetService("LocalizationService")
-	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-
-	if FFlagReportAbuseMenuDescriptionFix then
-		if utility:IsSmallTouchScreen() then
-			DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_OPTIONAL")
-		else
-			DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_SHORT_DECRIPTION_OPTIONAL")
-		end
+	if utility:IsSmallTouchScreen() then
+		DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_OPTIONAL")
 	else
-		DEFAULT_ABUSE_DESC_TEXT = CorescriptLocalization:GetString(
-			LocalizationService.RobloxLocaleId,
-			"KEY_DESCRIPTION_OPTIONAL")
+		DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_SHORT_DECRIPTION_OPTIONAL")
 	end
 end)
 
