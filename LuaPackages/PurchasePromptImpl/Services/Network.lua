@@ -94,6 +94,15 @@ local function getAccountInfo()
 	end)
 end
 
+local function getXboxRobuxBalance()
+	return Promise.new(function(resolve, reject)
+		request({
+			Url = API_URL .. "my/platform-currency-budget",
+			Method = "GET",
+		}, resolve, reject)
+	end)
+end
+
 local function getBundleDetails(bundleId)
 	local url = BASE_CATALOG_URL .."v1/bundles/" ..tostring(bundleId) .."/details"
 	local options = {
@@ -124,6 +133,8 @@ end
 
 local Network = {}
 
+-- TODO: "Promisify" is not strictly necessary with the new `request` structure,
+-- refactor this to clean up the overzealous promise-wrapping
 function Network.new()
 	local networkService = {
 		getABTestGroup = Promise.promisify(getABTestGroup),
@@ -132,6 +143,7 @@ function Network.new()
 		performPurchase = Promise.promisify(performPurchase),
 		loadAssetForEquip = Promise.promisify(loadAssetForEquip),
 		getAccountInfo = Promise.promisify(getAccountInfo),
+		getXboxRobuxBalance = Promise.promisify(getXboxRobuxBalance),
 		getBundleDetails = getBundleDetails,
 		getProductPurchasableDetails = getProductPurchasableDetails,
 	}

@@ -1,5 +1,6 @@
 return function ()
-	local Roact = require(script.Parent.Parent.Roact)
+	local CorePackages = game:GetService("CorePackages")
+	local Roact = require(CorePackages.Roact)
 	local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 	it("if mounted, should call the callback when the event is triggered", function()

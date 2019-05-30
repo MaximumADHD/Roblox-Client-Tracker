@@ -166,11 +166,11 @@ end
 function Localization:_getLocaleId()
 	-- First we will see if studio want to override the Toolbox localization.
 	local studioForceLocaleId = settings():GetFVariable("StudioForceLocale")
-    if not (#studioForceLocaleId == 0) then
+	if not (#studioForceLocaleId == 0) then
 		return studioForceLocaleId
 	end
 
-	-- Then we check what's current RobloxLocaleId we want to use
+	-- Then we check what's current LocaleId we want to use
 	-- If toolbox localization is enabled.
 	if FFlagEnableLocalizationForToolbox then
 		if self._externalLocaleIdGetter then

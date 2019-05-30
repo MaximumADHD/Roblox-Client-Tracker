@@ -21,6 +21,7 @@ local DialogProvider = require(Plugin.Src.Providers.DialogProvider)
 local ThemeProvider = require(Plugin.Src.Providers.ThemeProvider)
 local MouseProvider = require(Plugin.Src.Providers.MouseProvider)
 local LocalizationProvider = require(Plugin.Src.Providers.LocalizationProvider)
+local ThumbnailLoaderProvider = require(Plugin.Src.Providers.ThumbnailLoaderProvider)
 
 local UILibraryThemeProvider = require(Plugin.UILibrary.Theming).Provider
 local UILibraryCreateTheme = require(Plugin.UILibrary.createTheme)
@@ -47,7 +48,7 @@ local function ExternalServicesWrapper(props)
 				Roact.createElement(UILibraryWrapper, {
 					theme = props.theme:getUILibraryTheme(),
 					focusGui = props.pluginGui,
-				},  {	
+				},  {
 					Roact.createElement(MouseProvider, {
 						mouse = props.mouse,
 					}, props[Roact.Children]),
@@ -69,6 +70,14 @@ local function ExternalServicesWrapper(props)
 			}, {
 				providers
 			})
+
+			if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
+				providers = Roact.createElement(ThumbnailLoaderProvider, {
+					store = props.store,
+				}, {
+					providers
+				})
+			end
 		end
 		
 		if props.showDialog then
@@ -80,7 +89,7 @@ local function ExternalServicesWrapper(props)
 		end
 
 		return providers
-	else 
+	else
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = props.store
 		}, {

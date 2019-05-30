@@ -2,6 +2,8 @@ local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
+local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
+
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
@@ -191,10 +193,18 @@ end
 
 function EmotesWheel:render()
     return Roact.createElement("Frame", {
+        Active = FFlagCoreScriptEmotesMenuBetterMouseBehavior,
         Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 1,
         Visible = self.props.displayOptions.menuVisible,
     }, {
+        MouseUnlock = FFlagCoreScriptEmotesMenuBetterMouseBehavior and Roact.createElement("TextButton", {
+            Modal = true,
+            Size = UDim2.new(0, 0, 0, 0),
+            Text = "",
+            Transparency = 1,
+        }),
+
         Back = Roact.createElement("Frame", {
             Size = UDim2.new(1, 0, 1, 0),
             BackgroundTransparency = 1,

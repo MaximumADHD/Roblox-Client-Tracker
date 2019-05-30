@@ -1,6 +1,8 @@
 local ContentProvider = game:GetService("ContentProvider")
 local CorePackages = game:GetService("CorePackages")
 
+local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
+
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
@@ -16,6 +18,7 @@ local Constants = require(EmotesMenu.Constants)
 local GetSegmentFromPosition = require(Utility.GetSegmentFromPosition)
 
 local FocusSegment = require(Actions.FocusSegment)
+local HideMenu = require(Actions.HideMenu)
 local PlayEmote = require(Thunks.PlayEmote)
 
 local EmotesButtons = Roact.PureComponent:extend("EmotesButtons")
@@ -135,8 +138,14 @@ function EmotesButtons:render()
 
             if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
                 local segmentIndex = getSegmentFromInput(frame, input)
-                local emoteName = self.props.emotesPage.currentEmotes[segmentIndex]
+                if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
+                    if segmentIndex == 0 then
+                        self.props.hideMenu()
+                        return
+                    end
+                end
 
+                local emoteName = self.props.emotesPage.currentEmotes[segmentIndex]
                 if not emoteName then
                     return
                 end
@@ -173,7 +182,11 @@ local function mapDispatchToProps(dispatch)
 
         focusSegment = function(segmentIndex)
             return dispatch(FocusSegment(segmentIndex))
-        end
+        end,
+
+        hideMenu = function()
+            return dispatch(HideMenu())
+        end,
     }
 end
 

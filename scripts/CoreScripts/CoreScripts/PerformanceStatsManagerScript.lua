@@ -203,8 +203,10 @@ function UpdatePerformanceStatsVisibility()
       openTimeStamp = time()
       AnalyticsService:ReportCounter(OpenCounterName, 1)
     else
-      local timeDiff = time() - openTimeStamp
-      AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
+      if openTimeStamp then
+        local timeDiff = time() - openTimeStamp
+        AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
+      end
     end
   end
 end

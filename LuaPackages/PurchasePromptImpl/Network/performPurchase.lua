@@ -13,16 +13,43 @@ local function performPurchase(network, infoType, productId, expectedPrice, requ
 				opened the purchase prompt, so an AlreadyOwned status is
 				acceptable.
 			]]
-			if (usingNewPurchaseEndPoint and (result.purchased or result.reason == "AlreadyOwned"))
-				or (not usingNewPurchaseEndPoint and (result.success or result.status == "AlreadyOwned")) then
-				return Promise.resolve(result)
-			elseif infoType == Enum.InfoType.Product and not result.receipt then
-				return Promise.reject(PurchaseError.UnknownFailure)
+			if usingNewPurchaseEndPoint then
+				--[[
+					Assets and Gamepasses use the new economy purchasing endpoint. Developer Products still use
+					the old marketplace/submitpurchase endpoint.
+				]]
+				if infoType == Enum.InfoType.Asset or infoType == Enum.InfoType.GamePass then
+					if result.purchased or result.reason == "AlreadyOwned" then
+						return Promise.resolve(result)
+					elseif result.reason == "EconomyDisabled" then
+						return Promise.reject(PurchaseError.PurchaseDisabled)
+					else
+						return Promise.reject(PurchaseError.UnknownFailure)
+					end
+				elseif infoType == Enum.InfoType.Product then
+					if result.success or result.status == "AlreadyOwned" then
+						return Promise.resolve(result)
+					elseif not result.receipt then
+						return Promise.reject(PurchaseError.UnknownFailure)
+					else
+						if result.status == "EconomyDisabled" then
+							return Promise.reject(PurchaseError.PurchaseDisabled)
+						else
+							return Promise.reject(PurchaseError.UnknownFailure)
+						end
+					end
+				end
 			else
-				if result.status == "EconomyDisabled" then
-					return Promise.reject(PurchaseError.PurchaseDisabled)
-				else
+				if result.success or result.status == "AlreadyOwned" then
+					return Promise.resolve(result)
+				elseif infoType == Enum.InfoType.Product and not result.receipt then
 					return Promise.reject(PurchaseError.UnknownFailure)
+				else
+					if result.status == "EconomyDisabled" then
+						return Promise.reject(PurchaseError.PurchaseDisabled)
+					else
+						return Promise.reject(PurchaseError.UnknownFailure)
+					end
 				end
 			end
 		end, function(failure)

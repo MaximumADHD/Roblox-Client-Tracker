@@ -104,20 +104,38 @@ function Deserialize._deserializeAll(webPermissions)
 		[PermissionsConstants.RoleSubjectKey] = {},
 	}
 
+	-- First, deserialize all of the groups. We need this information when deserializing the roles
+	for _,webPermission in pairs(webPermissions) do
+		local subjectType = getSubjectType(webPermission)
+
+		if subjectType == PermissionsConstants.GroupSubjectKey then
+			local permission = Deserialize._deserializeOne(webPermission, subjectType)
+			local subjectId = permission[PermissionsConstants.SubjectIdKey]
+			local subjectName = permission[PermissionsConstants.SubjectNameKey]
+			local action = permission[PermissionsConstants.ActionKey]
+
+			groupMetadata[subjectId] = {Name = subjectName, Action = action}
+		end
+	end
+
 	for _,webPermission in pairs(webPermissions) do
 		local subjectType = getSubjectType(webPermission)
 		local permission = Deserialize._deserializeOne(webPermission, subjectType)
 
 		local subjectId = permission[PermissionsConstants.SubjectIdKey]
-		local subjectName = permission[PermissionsConstants.SubjectNameKey]
-		local action = permission[PermissionsConstants.ActionKey]
 		
-		if subjectType == PermissionsConstants.GroupSubjectKey then
-			groupMetadata[subjectId] = {Name = subjectName, Action = action}
-		else
+		if subjectType ~= PermissionsConstants.GroupSubjectKey then
 			-- Don't display guest ranks, unless the user has somehow managed to assign it a permission, in which case allow them to reset it
 			if permission[PermissionsConstants.SubjectRankKey] ~= GUEST_RANK or permission[PermissionsConstants.ActionKey] ~= PermissionsConstants.NoAccessKey then
 				permissions[subjectType][subjectId] = permission
+
+				-- Permissions can be defined at the group level, so we want to use the group's permission when possible
+				-- The exception to this is if there was a bug in saving that resulted in both a top-level group permission and role permission
+				-- We preserve the role's permission in this case so the user can fix it
+				if subjectType == PermissionsConstants.RoleSubjectKey then
+					local groupId = permission[PermissionsConstants.GroupIdKey]
+					permission[PermissionsConstants.ActionKey] = webPermission[webKeys.Action] == nil and groupMetadata[groupId].Action or permission[PermissionsConstants.ActionKey]
+				end
 			end
 		end
 	end

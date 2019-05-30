@@ -26,8 +26,6 @@ local SetPlayerId = require(InspectAndBuyFolder.Actions.SetPlayerId)
 local SetPlayerName = require(InspectAndBuyFolder.Actions.SetPlayerName)
 local SetLocale = require(InspectAndBuyFolder.Actions.SetLocale)
 local SetItemBeingPurchased = require(InspectAndBuyFolder.Actions.SetItemBeingPurchased)
-local ShowMenu = require(InspectAndBuyFolder.Actions.ShowMenu)
-local HideMenu = require(InspectAndBuyFolder.Actions.HideMenu)
 local GetAssetsFromHumanoidDescription = require(InspectAndBuyFolder.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 
@@ -134,13 +132,11 @@ function InspectAndBuy:didMount()
 	end)
 
 	local menuOpenedConnection = GuiService.MenuOpened:Connect(function()
-		self.state.store:dispatch(HideMenu())
 		self:popMouseIconOverride()
 		GuiService.SelectedCoreObject = nil
 	end)
 
 	local menuClosedConnection = GuiService.MenuClosed:Connect(function()
-		self.state.store:dispatch(ShowMenu())
 		self:pushMouseIconOverride()
 	end)
 
@@ -210,11 +206,16 @@ function InspectAndBuy:bindButtonB()
 			else
 				GuiService:CloseInspectMenu()
 			end
+		elseif inputState == Enum.UserInputState.Begin
+			and inputObject.KeyCode == Enum.KeyCode.Escape or inputObject.KeyCode == Enum.KeyCode.ButtonStart then
+			-- Close the Inspect Menu, allow the ESC menu to open.
+			GuiService:CloseInspectMenu()
+			return Enum.ContextActionResult.Pass
 		end
 
 		return Enum.ContextActionResult.Sink
 	end,
-	false, Enum.KeyCode.ButtonB)
+	false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape, Enum.KeyCode.ButtonStart)
 end
 
 return InspectAndBuy

@@ -252,7 +252,7 @@ function DetailedDropdown:render()
 				Position = UDim2.new(1, -iconPadding, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				ImageColor3 = buttonTheme.displayText,
+				ImageColor3 = enabled and buttonTheme.displayText or buttonTheme.disabledText,
 				Image = dropdownTheme.arrowImage,
 			}),
 
@@ -260,7 +260,7 @@ function DetailedDropdown:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Font = dropdownTheme.font,
-				TextColor3 = buttonTheme.displayText,
+				TextColor3 = enabled and buttonTheme.displayText or buttonTheme.disabledText,
 				TextSize = displayTextSize,
 				Text = buttonText,
 				TextXAlignment = Enum.TextXAlignment.Left,

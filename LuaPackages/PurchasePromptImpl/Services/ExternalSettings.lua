@@ -20,6 +20,14 @@ function ExternalSettings.new()
 		return settings():GetFFlag("PurchasePromptPremiumEnabled2")
 	end
 
+	function service.getFlagPremiumPriceChangeRollout()
+		return settings():GetFFlag("PremiumPriceChangeRolloutFlag")
+	end
+
+	function service.getFlagPremiumPriceChangeEnabled()
+		return settings():GetFFlag("PremiumPriceChangeEnabled")
+	end
+
 	function service.getFlagRestrictSales2()
 		return settings():GetFFlag("RestrictSales2")
 	end

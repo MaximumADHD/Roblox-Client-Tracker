@@ -204,7 +204,7 @@ function SettingsImpl:SaveAll(state)
 			table.insert(setRequests, Requests.DeveloperSubscriptions.Set(universeId, saveInfo.DeveloperSubscriptions))
 		end
 		
-		if FFlagStudioGameSettingsAccessPermissions then
+		if FFlagStudioGameSettingsAccessPermissions and saveInfo.permissions then
 			table.insert(setRequests, Requests.GamePermissions.Set(universeId, saveInfo.permissions))
 		end
 

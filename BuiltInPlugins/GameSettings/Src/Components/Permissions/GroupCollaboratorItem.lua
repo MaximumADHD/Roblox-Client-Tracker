@@ -23,6 +23,7 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 local ExpandableList = require(Plugin.UILibrary.Components.ExpandableList)
 
+local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local createFitToContent = require(Plugin.Src.Components.createFitToContent)
 
@@ -62,7 +63,12 @@ local function getRolesetItems(props, localized)
 	return permissions
 end
 
-local function GroupCollaboratorItem(props)
+local GroupCollaboratorItem = Roact.PureComponent:extend("GroupCollaboratorItem")
+
+function GroupCollaboratorItem:render()
+	local props = self.props
+	local thumbnailLoader = getThumbnailLoader(self)
+
 	return withLocalization(function(localized)
 		local rolesetCollaboratorItems = {}
 		local anyLocked = false
@@ -72,7 +78,8 @@ local function GroupCollaboratorItem(props)
 			
 		for _,permission in pairs(props.Permissions[PermissionsConstants.RoleSubjectKey]) do
 			if permission[PermissionsConstants.GroupIdKey] == props.GroupId then
-				table.insert(rolesets, {Name=permission[PermissionsConstants.SubjectNameKey], Id=permission[PermissionsConstants.SubjectIdKey], LockedTo=permission[PermissionsConstants.SubjectRankKey]==255 and localized.AccessPermissions.ActionDropdown.OwnerLabel or nil, Rank=permission[PermissionsConstants.SubjectRankKey]})
+				local isOwner = game.CreatorType == Enum.CreatorType.Group and props.GroupId == game.CreatorId
+				table.insert(rolesets, {Name=permission[PermissionsConstants.SubjectNameKey], Id=permission[PermissionsConstants.SubjectIdKey], LockedTo=(isOwner and permission[PermissionsConstants.SubjectRankKey]==255) and localized.AccessPermissions.ActionDropdown.OwnerLabel or nil, Rank=permission[PermissionsConstants.SubjectRankKey]})
 			end
 		end
 		table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
@@ -88,7 +95,7 @@ local function GroupCollaboratorItem(props)
 			
 			local collaboratorItem = Roact.createElement(CollaboratorItem, {
 				LayoutOrder = i,
-				Enabled = true,
+				Enabled = props.Enabled,
 				
 				CollaboratorName = rolesetProps.Name,
 				CollaboratorId = rolesetProps.Id,
@@ -114,18 +121,22 @@ local function GroupCollaboratorItem(props)
 			TopLevelItem = {
 				GroupCollaborator = Roact.createElement(CollaboratorItem, {
 					LayoutOrder = 0,
+					Enabled = props.Enabled,
 					
 					CollaboratorName = props.GroupName,
 					CollaboratorId = props.GroupId,
-					CollaboratorIcon = props.GroupIcon,
+					CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, props.GroupId),
 					Action = sameAction and getLabelForAction(localized, sameAction) or localized.AccessPermissions.ActionDropdown.MultipleLabel,
 					Items = anyLocked and {} or props.Items,
 					
 					SecondaryText = props.SecondaryText,
 					HideLastSeparator = true,
 					Removable = props.Removable or false,
+					Removed = props.Removed,
 					
-					PermissionChanged = props.GroupPermissionChanged
+					PermissionChanged = function(newPermission)
+						props.GroupPermissionChanged(props.GroupId, newPermission)
+					end,
 				})
 			},
 			

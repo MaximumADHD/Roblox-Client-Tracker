@@ -23,6 +23,9 @@ local requiredServices = {
 	ExternalSettings,
 }
 
+-- TODO(dnurkkala): change this to use MembershipType enum when it has Premium
+local MEMBERSHIP_TYPE_PREMIUM = 4
+
 local function initiatePurchase(id, infoType, equipIfPurchased)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
@@ -53,20 +56,32 @@ local function initiatePurchase(id, infoType, equipIfPurchased)
 			productInfo = getProductInfo(network, id, infoType),
 			accountInfo = getAccountInfo(network, externalSettings),
 			alreadyOwned = getIsAlreadyOwned(network, id, infoType),
-			premiumEnabled = getEnrolledInPremiumABTest(
+			enrolledInPremiumABTest = getEnrolledInPremiumABTest(
 				network,
 				externalSettings,
 				Players.LocalPlayer.UserId
 			),
 		})
 			:andThen(function(results)
+				local premiumEnabled = results.enrolledInPremiumABTest
+				if externalSettings.getFlagPremiumPriceChangeRollout() then
+					if externalSettings.getFlagPremiumPriceChangeEnabled() then
+						premiumEnabled = true
+					end
+
+					-- if the user is premium
+					if results.accountInfo.MembershipType == MEMBERSHIP_TYPE_PREMIUM then
+						premiumEnabled = true
+					end
+				end
+
 				-- Once we've finished all of our async data fetching, we'll
 				-- resolve the state of the prompt
 				store:dispatch(resolvePromptState(
 					results.productInfo,
 					results.accountInfo,
 					results.alreadyOwned,
-					results.premiumEnabled
+					premiumEnabled
 				))
 			end)
 			:catch(function(errorReason)

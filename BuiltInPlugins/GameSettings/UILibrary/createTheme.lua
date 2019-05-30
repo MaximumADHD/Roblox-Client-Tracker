@@ -132,6 +132,7 @@ return function(style, overrides)
 
 		backgroundColor = style.backgroundColor,
 		disabled = style.disabledColor,
+		disabledText = style.dimmerTextColor,
 		borderColor = style.borderColor,
 		displayText = style.textColor,
 		descriptionText = style.subTextColor,
@@ -148,7 +149,7 @@ return function(style, overrides)
 			backgroundColor = style.selectionColor,
 			disabled = style.disabledColor,
 			borderColor = style.selectionBorderColor,
-			textColor = style.selectedTextColor,
+			displayText = style.selectedTextColor,
 		},
 	}
 
@@ -217,6 +218,11 @@ return function(style, overrides)
 		},
 	}
 
+	local loadingIndicator = {
+		baseColor = style.hoveredItemColor,
+		endColor = style.dimmerTextColor,
+	}
+
 	return replaceDefaults({
 		checkBox = checkBox,
 		roundFrame = roundFrame,
@@ -236,5 +242,6 @@ return function(style, overrides)
 		dialog = dialog,
 		button = button,
 		scrubber = scrubber,
+		loadingIndicator = loadingIndicator,
 	}, overrides)
 end

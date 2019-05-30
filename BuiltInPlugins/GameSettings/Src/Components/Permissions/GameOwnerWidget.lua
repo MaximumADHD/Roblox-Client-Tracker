@@ -17,6 +17,7 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 
+local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
 local createFitToContent = require(Plugin.Src.Components.createFitToContent)
@@ -46,7 +47,12 @@ local function getUserOwnerPermissions()
 	return {} -- Owner can never be changed
 end
 
-local function GameOwnerWidget(props)
+local GameOwnerWidget = Roact.PureComponent:extend("GameOwnerWidget")
+
+function GameOwnerWidget:render()
+	local props = self.props
+	local thumbnailLoader = getThumbnailLoader(self)
+
 	return withLocalization(function(localized)
 		return withTheme(function(theme)
 			local function rolePermissionChanged(roleId, newPermission)
@@ -77,7 +83,7 @@ local function GameOwnerWidget(props)
 					
 					CollaboratorName = creatorName,
 					CollaboratorId = game.CreatorId,
-					CollaboratorIcon = nil, -- TODO (awarwick) 5/8/2019 Populate when we have thumbnail loader
+					CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, game.CreatorId),
 					Action = localized.AccessPermissions.ActionDropdown.OwnerLabel,
 					Enabled = props.Enabled,
 					
@@ -103,6 +109,7 @@ local function GameOwnerWidget(props)
 
 					-- TODO (awarwick) 5/8/2019 Replace this with new component
 					SecondaryText = "Manage: 1 roles(s) Edit: N role(s) Play: M roles(s) No access: 0 role(s)",
+					Thumbnails = props.Thumbnails,
 				})
 			end
 		

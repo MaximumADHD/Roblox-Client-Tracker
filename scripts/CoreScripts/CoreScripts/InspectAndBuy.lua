@@ -9,12 +9,14 @@ local Roact = require(CorePackages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
+local INSPECT_MENU_KEY = "InspectMenu"
+
 local function mount(humanoidDescription, playerName, userId)
 	if InspectAndBuyInstanceHandle then
 		Roact.unmount(InspectAndBuyInstanceHandle)
 	end
 
-	local localPlayerModel = game.Players:CreateHumanoidModelFromUserId(Players.LocalPlayer.UserId)
+	local localPlayerModel = Players:CreateHumanoidModelFromUserId(Players.LocalPlayer.UserId)
 
 	local inspectAndBuy = Roact.createElement(InspectAndBuy, {
 		humanoidDescription = humanoidDescription,
@@ -23,12 +25,14 @@ local function mount(humanoidDescription, playerName, userId)
 		localPlayerModel = localPlayerModel,
 	})
 	InspectAndBuyInstanceHandle = Roact.mount(inspectAndBuy, RobloxGui, "InspectAndBuy")
+	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)
 end
 
 local function unmountInspectAndBuy()
 	if InspectAndBuyInstanceHandle then
 		Roact.unmount(InspectAndBuyInstanceHandle)
 		InspectAndBuyInstanceHandle = nil
+		GuiService:SetMenuIsOpen(false, INSPECT_MENU_KEY)
 	end
 end
 

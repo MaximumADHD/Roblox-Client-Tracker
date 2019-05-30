@@ -11,7 +11,7 @@ local Roact = require(Plugin.Roact)
 local Header = require(Plugin.Src.Components.Header)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Plugin.Src.Components.Permissions.GameOwnerWidget)
---local CollaboratorsWidget = require(Plugin.Src.Components.Permissions.CollaboratorsWidget)
+local CollaboratorsWidget = require(Plugin.Src.Components.Permissions.CollaboratorsWidget)
 
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -29,6 +29,7 @@ local function loadValuesToProps(getValue, state)
 		GroupMetadata = getValue("groupMetadata"),
 		OwnerThumbnail = getValue("ownerThumbnail"),
 		OwnerName = getValue("ownerName"),
+		Thumbnails = state.Thumbnails,
 		
 		StudioUserId = getValue("studioUserId"),
 		GroupOwnerUserId = getValue("groupOwnerUserId"),
@@ -57,6 +58,9 @@ local function dispatchChanges(setValue, dispatch)
 		
 		PermissionsChanged = function(permissions)
 			dispatch(AddChange("permissions", permissions))
+		end,
+		GroupMetadataChanged = function(groupMetadata)
+			dispatch(AddChange("groupMetadata", groupMetadata))
 		end,
 	}
 	
@@ -126,6 +130,7 @@ local function displayContents(page, localized)
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,
 			PermissionsChanged = props.PermissionsChanged,
+			Thumbnails = props.Thumbnails,
 		}),
 		
 		-- TODO replace with a component. Pure label for demo purposes
@@ -142,13 +147,15 @@ local function displayContents(page, localized)
 			Text = "Collaborators",
 		}),
 		
-		--[[CollaboratorList = Roact.createElement(CollaboratorsWidget, {
+		CollaboratorList = Roact.createElement(CollaboratorsWidget, {
 			LayoutOrder = 4,
 			Enabled = props.IsActive ~= nil,
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,
-			PermissionsChanged = nil,
-		}),]]
+			PermissionsChanged = props.PermissionsChanged,
+			GroupMetadataChanged = props.GroupMetadataChanged,
+			Thumbnails = props.Thumbnails,
+		}),
 	}
 end
 

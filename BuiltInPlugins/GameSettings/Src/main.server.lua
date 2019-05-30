@@ -4,6 +4,7 @@ end
 
 -- Fast flags
 local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
+local FFlagUseStudioLocaleId = settings():GetFFlag("UseStudioLocaleId")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
@@ -15,6 +16,7 @@ local LOG_STORE_STATE_AND_EVENTS = false
 
 local RunService = game:GetService("RunService")
 local LocalizationService = game:GetService("LocalizationService")
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -82,18 +84,32 @@ local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferen
 if FFlagDebugGameSettingsLocalizationKeysOnly then
 	localization = Localization.newDummyLocalization()
 else
-	local localeIdToUse = "RobloxLocaleId"
-	localization = Localization.new({
-		localizationTable = localizationTable,
-		getLocale = function()
-			if #OverrideLocaleId > 0 then
-				return OverrideLocaleId
-			else
-				return LocalizationService[localeIdToUse]
-			end
-		end,
-		localeChanged = LocalizationService:GetPropertyChangedSignal(localeIdToUse)
-	})
+	if (FFlagUseStudioLocaleId) then
+		localization = Localization.new({
+			localizationTable = localizationTable,
+			getLocale = function()
+				if #OverrideLocaleId > 0 then
+					return OverrideLocaleId
+				else
+					return StudioService["StudioLocaleId"]
+				end
+			end,
+			localeChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
+		})
+	else
+		local localeIdToUse = "RobloxLocaleId"
+		localization = Localization.new({
+			localizationTable = localizationTable,
+			getLocale = function()
+				if #OverrideLocaleId > 0 then
+					return OverrideLocaleId
+				else
+					return LocalizationService[localeIdToUse]
+				end
+			end,
+			localeChanged = LocalizationService:GetPropertyChangedSignal(localeIdToUse)
+		})
+	end
 end
 
 -- Make sure that the main window elements cannot be interacted with

@@ -24572,14 +24572,6 @@
                     "MemberType": "Function",
                     "Name": "StartTextScraper",
                     "Parameters": [
-                        {
-                            "Default": "false",
-                            "Name": "enforceRequirements",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -45981,23 +45973,6 @@
                     }
                 },
                 {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Attach Debugger To",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "DEPRECATED_DebuggerDataModelPreference"
-                    }
-                },
-                {
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Auto Indent",
@@ -47268,6 +47243,27 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "StudioLocaleId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -56268,19 +56264,6 @@
                 }
             ],
             "Name": "CustomCameraMode"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Server",
-                    "Value": 0
-                },
-                {
-                    "Name": "Client",
-                    "Value": 1
-                }
-            ],
-            "Name": "DEPRECATED_DebuggerDataModelPreference"
         },
         {
             "Items": [

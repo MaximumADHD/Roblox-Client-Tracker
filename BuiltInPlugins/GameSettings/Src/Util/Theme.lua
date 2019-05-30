@@ -125,6 +125,19 @@ function Theme:recalculateTheme()
 			backgroundColor = isDark and color(StyleColor.ScrollBarBackground) or color(StyleColor.MainBackground),
 		},
 
+		searchBar = {
+			border = color(StyleColor.Border),
+			borderHover = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
+			borderSelected = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
+			placeholderText = color(StyleColor.DimmedText),
+
+			clearButton = {
+				-- placeholder colors
+				imageSelected = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
+				image = color(StyleColor.Border),
+			}
+		},
+
 		menuEntry = {
 			hover = isDark and color(StyleColor.CurrentMarker) or color(StyleColor.RibbonTab),
 			highlight = isDark and color(StyleColor.TableItem, StyleModifier.Selected) or color(StyleColor.CurrentMarker),

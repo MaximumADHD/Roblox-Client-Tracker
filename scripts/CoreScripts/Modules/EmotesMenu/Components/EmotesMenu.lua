@@ -1,7 +1,10 @@
 local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
+
+local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -100,6 +103,23 @@ function EmotesMenu:didMount()
         end
     end)
 
+    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
+        self.inputOutsideMenuConn = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+            if gameProcessedEvent then
+                return
+            end
+
+            if not self.props.displayOptions.menuVisible then
+                return
+            end
+
+            local inputType = input.UserInputType
+            if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+                self.props.hideMenu()
+            end
+        end)
+    end
+
     self:bindActions()
 end
 
@@ -108,9 +128,17 @@ function EmotesMenu:willUnmount()
     self.viewportSizeChangedConn:Disconnect()
     self.menuOpenedConn:Disconnect()
 
+    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
+        self.inputOutsideMenuConn:Disconnect()
+    end
+
     self.currentCameraChangedConn = nil
     self.viewportSizeChangedConn = nil
     self.menuOpenedConn = nil
+
+    if FFlagCoreScriptEmotesMenuBetterMouseBehavior then
+        self.inputOutsideMenuConn = nil
+    end
 
     self:unbindActions()
 end

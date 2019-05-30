@@ -2,10 +2,7 @@ if not plugin then
 	return
 end
 
-local FFlagStudioUseNewToolbox = settings():GetFFlag("StudioUseNewToolbox")
-if not FFlagStudioUseNewToolbox then
-	return
-end
+local FFlagUseStudioLocaleId = settings():GetFFlag("UseStudioLocaleId")
 
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
@@ -28,6 +25,7 @@ local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 
 local LocalizationService = game:GetService("LocalizationService")
+local StudioService = game:GetService("StudioService")
 
 if DebugFlags.shouldRunTests() then
 	local Tests = Plugin.Core
@@ -63,18 +61,30 @@ local function createLocalization()
 		return Localization.createTestRealLocaleLocalization(localizationTable, DebugFlags.getOrCreateTestRealLocale())
 	end
 
-	-- Either "RobloxLocaleId" or "SystemLocaleId"
-	local localePropToUse = "RobloxLocaleId"
+	if (FFlagUseStudioLocaleId) then
+		return Localization.new({
+			getLocaleId = function()
+				return StudioService["StudioLocaleId"]
+			end,
+			getTranslator = function(localeId)
+				return localizationTable:GetTranslator(localeId)
+			end,
+			localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
+		})
+	else
+		-- Either "RobloxLocaleId" or "SystemLocaleId"
+		local localePropToUse = "RobloxLocaleId"
 
-	return Localization.new({
-		getLocaleId = function()
-			return LocalizationService[localePropToUse]
-		end,
-		getTranslator = function(localeId)
-			return localizationTable:GetTranslator(localeId)
-		end,
-		localeIdChanged = LocalizationService:GetPropertyChangedSignal(localePropToUse)
-	})
+		return Localization.new({
+			getLocaleId = function()
+				return LocalizationService[localePropToUse]
+			end,
+			getTranslator = function(localeId)
+				return localizationTable:GetTranslator(localeId)
+			end,
+			localeIdChanged = LocalizationService:GetPropertyChangedSignal(localePropToUse)
+		})
+	end
 end
 
 local function main()
