@@ -30,9 +30,9 @@
 ]]
 
 local FOCUSED_ZINDEX = 100000
-
-local Roact = require(script.Parent.Parent.Roact)
-local Symbol = require(script.Parent.Parent.Roact.Symbol)
+local Library = script.Parent
+local Roact = require(Library.Parent.Roact)
+local Symbol = require(Library.Utils.Symbol)
 local focusKey = Symbol.named("UILibraryFocus")
 
 local FocusProvider = Roact.PureComponent:extend("UILibraryFocusProvider")

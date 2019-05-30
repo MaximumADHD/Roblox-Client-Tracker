@@ -9,6 +9,8 @@ local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local HARDCODED_CLB_TRANSLATIONS = {
 	["CoreScripts.PurchasePrompt.PurchaseFailed.InvalidFunds"] = [[由于你帐户的乐币余额不足，购买失败。系统并未向你的帐户收取费用。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.NotEnoughRobux"] = [[你的乐币余额不足，无法购买此物品。]],
+	["CoreScripts.PurchasePrompt.ConfirmPurchase.BuyRobux"] = [[购买乐币]],
+	["CoreScripts.PurchasePrompt.PurchaseDetails.BalanceFuture"] = [[你在此次交易后的余额将为 {BALANCE_FUTURE} 乐币]],
 }
 
 local DEBUG_LOCALIZATION = false

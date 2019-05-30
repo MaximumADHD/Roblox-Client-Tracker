@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local CheckBox = require(script.Parent.CheckBox)
 
 	local function createTestCheckBox(enabled, selected)
@@ -28,9 +26,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBox(true, false), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.Background).to.be.ok()
 		expect(frame.Background.Selection).to.be.ok()
@@ -40,14 +38,14 @@ return function()
 	end)
 
 	it("should change color when highlighted", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBox(true, true), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.Background.Selection.Visible).to.equal(true)
 
 		local newBox = createTestCheckBox(true, false)
-		instance = Roact.reconcile(instance, newBox)
+		instance = Roact.update(instance, newBox)
 
 		expect(frame.Background.Selection.Visible).to.equal(false)
 
@@ -55,9 +53,9 @@ return function()
 	end)
 
 	it("should gray out when disabled", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBox(false, true), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.Background.Selection.Visible).to.equal(false)
 		expect(frame.Background.TitleLabel.TextTransparency).never.to.equal(0)

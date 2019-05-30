@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local StyledDropdown = require(script.Parent.StyledDropdown)
 
 	local function createTestStyledDropdown(props, children)
@@ -21,9 +19,9 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestStyledDropdown(), container)
-		local button = container:FindFirstChild("ImageButton")
+		local button = container:FindFirstChildOfClass("ImageButton")
 
 		expect(button).to.be.ok()
 		expect(button.RoundFrame).to.be.ok()

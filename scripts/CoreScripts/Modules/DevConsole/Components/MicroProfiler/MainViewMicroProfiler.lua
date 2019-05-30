@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local LogService = game:GetService("LogService")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 

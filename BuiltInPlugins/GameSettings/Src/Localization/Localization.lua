@@ -405,12 +405,14 @@ function Localization:recalculateContent()
 				NoAccessLabel = self:getText("Studio.GameSettings.AccessPermissions.NoAccessLabel"),
 				PlayLabel = self:getText("Studio.GameSettings.AccessPermissions.PlayLabel"),
 				EditLabel = self:getText("Studio.GameSettings.AccessPermissions.EditLabel"),
-				ManageLabel = self:getText("Studio.GameSettings.AccessPermissions.ManageLabel"),
+				AdminLabel = self:getText("Studio.GameSettings.AccessPermissions.AdminLabel"),
+				OwnerLabel = self:getText("Studio.GameSettings.AccessPermissions.OwnerLabel"),
+				MultipleLabel = self:getText("Studio.GameSettings.AccessPermissions.MultipleLabel"),
 				
 				NoAccessDescription = self:getText("Studio.GameSettings.AccessPermissions.NoAccessDescription"),
 				PlayDescription = self:getText("Studio.GameSettings.AccessPermissions.PlayDescription"),
 				EditDescription = self:getText("Studio.GameSettings.AccessPermissions.EditDescription"),
-				ManageDescription = self:getText("Studio.GameSettings.AccessPermissions.ManageDescription"),
+				AdminDescription = self:getText("Studio.GameSettings.AccessPermissions.AdminDescription"),
 			},
 		}
 	})

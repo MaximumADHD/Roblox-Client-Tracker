@@ -141,13 +141,6 @@ function DetailedDropdown:createMainTextLabel(key, displayText, displayTextSize,
 		BackgroundTransparency = 1,
 		TextWrapped = true,
 		LayoutOrder = 0,
-
-		[Roact.Event.MouseEnter] = function()
-			self.onKeyMouseEnter(key)
-		end,
-		[Roact.Event.MouseLeave] = function()
-			self.onKeyMouseLeave(key)
-		end,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, textPadding),
@@ -167,13 +160,6 @@ function DetailedDropdown:createDescriptionTextLabel(key, descriptionText, descr
 		BackgroundTransparency = 1,
 		TextWrapped = true,
 		LayoutOrder = 1,
-
-		[Roact.Event.MouseEnter] = function()
-			self.onKeyMouseEnter(key)
-		end,
-		[Roact.Event.MouseLeave] = function()
-			self.onKeyMouseLeave(key)
-		end,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, textPadding),
@@ -319,6 +305,12 @@ function DetailedDropdown:render()
 							LayoutOrder = index,
 							AutoButtonColor = false,
 							[Roact.Event.Activated] = activated,
+							[Roact.Event.MouseEnter] = function()
+								self.onKeyMouseEnter(key)
+							end,
+							[Roact.Event.MouseLeave] = function()
+								self.onKeyMouseLeave(key)
+							end,
 						}, {
 							Roact.createElement(FitToContent, {
 								LayoutOrder = index,

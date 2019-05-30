@@ -1,5 +1,5 @@
 --[[
-	An item that displays information about a collaborator (user/group)
+	An item that displays information about a collaborator (user/group/roleset)
 
 	Props:
 		string CollaboratorName - Name of collaborator. Displayed in primary label
@@ -7,7 +7,7 @@
 		string CollaboratorIcon - Icon to display in item (e.g. user headshot, group logo, etc)
 		string Action - Permission level the collaborator has
 		
-		string [SecondaryText=""] - Subtext to display under the primary label 
+		??? [SecondaryText=""] - TODO (awarwick) 5/8/2018 design wants to replace this with a new component
 		bool [HideLastSeparator=false] - If this is in a list, we don't want to overlap separators
 		bool [Removable=false] - Whether delete button is visible and can be clicked
 		callback [Removed=nil] - Called whenever the delete button is clicked
@@ -20,10 +20,9 @@ local CONTENT_HEIGHT = ITEM_HEIGHT - PADDING_Y
 local LIST_PADDING = 30
 local DROPDOWN_WIDTH = 120
 
-local Plugin = script.Parent.Parent.Parent
+local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local Separator = require(Plugin.Src.Components.Separator)
@@ -33,7 +32,7 @@ local DetailedDropdown = require(Plugin.UILibrary.Components.DetailedDropdown)
 -- are pretty limiting and we have to make a bunch of stuff (custom hover color & custom image
 -- size relative to button size) from scratch, which is a common use case and not specific to
 -- CollaboratorItem
-local function DEBUG_DeleteButton(props)	
+local function DEBUG_DeleteButton(props)
 	return withTheme(function(theme)
 		return Roact.createElement("ImageButton", {
 			Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
@@ -68,17 +67,16 @@ local function DEBUG_DeleteButton(props)
 end
 
 local function CollaboratorIcon(props)
-	return withTheme(function(theme)
-		return Roact.createElement("ImageLabel", {
-			Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-			LayoutOrder = props.LayoutOrder or 0,
-			
-			Image = props.CollaboratorIcon or "",
-			ImageTransparency = props.Enabled and 0 or 0.4,
-			
-			BackgroundTransparency = 1,
-		})
-	end)
+	return Roact.createElement("ImageLabel", {
+		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
+		LayoutOrder = props.LayoutOrder or 0,
+		
+		-- TODO (awarwick) 5/8/2019 replace with avatar/group silhouette when design provides asset
+		Image = props.CollaboratorIcon or "http://www.roblox.com/asset/?id=924320031",
+		ImageTransparency = props.Enabled and 0 or 0.4,
+		
+		BackgroundTransparency = 1,
+	})
 end
 
 local function CollaboratorLabels(props)
@@ -98,6 +96,8 @@ local function CollaboratorLabels(props)
 
 				BackgroundTransparency = 1,
 			})),
+
+			-- TODO (awarwick) 5/8/2019 Design replaced TextLabel with new component. Implement later
 			SecondaryLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
 				Size = UDim2.new(1, 0, 0.5, 0),
 				Position = UDim2.new(0, 0, 0.5, 0),
@@ -112,9 +112,7 @@ local function CollaboratorLabels(props)
 end
 
 local function CollaboratorItem(props)
-	if props.Enabled == nil then
-		props.Enabled = true
-	end
+	props.Items = props.Items or {}
 	
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {
@@ -152,7 +150,7 @@ local function CollaboratorItem(props)
 				}),
 				Dropdown = Roact.createElement(DetailedDropdown, {
 					LayoutOrder = 2,
-					Enabled = props.Enabled,
+					Enabled = props.Enabled and #props.Items > 0,
 					
 					ButtonText = props.Action,
 					Items = props.Items,

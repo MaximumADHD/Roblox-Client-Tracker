@@ -2,8 +2,6 @@
 	Get and set requests for game thumbnails (screenshots and video).
 ]]
 
-local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -12,9 +10,6 @@ local Promise = require(Plugin.Promise)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
-
--- Deprecated, remove with FFlagStudioRenameLocalAssetToFile
-local DEPRECATED_LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
 
 local THUMBNAILS_GET_URL = "v1/games/%d/media"
 local THUMBNAILS_GET_REQUEST_TYPE = "games"
@@ -107,12 +102,8 @@ function Thumbnails.Set(universeId, thumbnails, thumbnailOrder)
 			local url = Http.BuildRobloxUrl(THUMBNAIL_ADD_REQUEST_TYPE, THUMBNAIL_ADD_URL, universeId)
 
 			local requestInfo
-			if FFlagStudioRenameLocalAssetToFile then
-				requestInfo = FileUtils.GetAssetPublishRequestInfo(data.asset, url)
-			else
-				requestInfo = DEPRECATED_LocalAssetUtils.GetAssetPublishRequestInfo(data.asset, url)
-			end
-
+			requestInfo = FileUtils.GetAssetPublishRequestInfo(data.asset, url)
+		
 			table.insert(addRequests, Http.RequestInternal(requestInfo):andThen(function(jsonResult)
 				local result = HttpService:JSONDecode(jsonResult)
 				local oldIndex = Cryo.List.find(thumbnailOrder, id)
@@ -141,41 +132,6 @@ function Thumbnails.Set(universeId, thumbnails, thumbnailOrder)
 		if thumbnailOrder and #thumbnailOrder > 0 then
 			return Thumbnails.SetOrder(universeId, thumbnailOrder)
 		end
-	end)
-end
-
--- Deprecated, remove when removing FFlagGameSettingsImageUploadingEnabled
-function Thumbnails.DEPRECATED_Set(universeId, thumbnails)
-	if thumbnails == nil then
-		return Promise.resolve()
-	end
-
-	local oldThumbs = thumbnails.Current
-	local newThumbs = thumbnails.Changed
-
-	-- Delete thumbnails not present in newThumbs that exist in oldThumbs.
-	local thumbsToDelete = {}
-	local deleteRequests = {}
-	for thumbnailId in pairs(oldThumbs) do
-		if newThumbs[thumbnailId] == nil then
-			table.insert(thumbsToDelete, thumbnailId)
-		end
-	end
-
-	for _, thumbnailId in ipairs(thumbsToDelete) do
-		local requestInfo = {
-			Url = Http.BuildRobloxUrl(THUMBNAIL_DELETE_REQUEST_TYPE, THUMBNAIL_DELETE_URL, universeId, thumbnailId),
-			Method = "DELETE",
-		}
-
-		table.insert(deleteRequests, Http.Request(requestInfo))
-	end
-
-	return Promise.all(deleteRequests)
-	:catch(function()
-		warn("Game Settings: Could not delete thumbnails.")
-		Analytics.onSaveError("Thumbnails")
-		return Promise.reject()
 	end)
 end
 

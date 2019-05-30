@@ -1047,6 +1047,10 @@ function ClickToMove:Stop()
 	self:Enable(false)
 end
 
+function ClickToMove:CleanupPath()
+	CleanupPath()
+end
+
 function ClickToMove:Enable(enable, enableWASD, touchJumpController)
 	if enable then
 		if not self.running then

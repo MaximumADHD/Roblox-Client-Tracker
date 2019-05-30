@@ -17,12 +17,12 @@ return function()
 	end)
 
 	it("should render its children if nothing is provided", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestWrapper({}, {
 			Frame = Roact.createElement("Frame")
 		}), container)
 
-		local frame = container:FindFirstChild("Frame")
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()
 
@@ -30,7 +30,7 @@ return function()
 	end)
 
 	it("should render its children if items are provided", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestWrapper({
 			theme = {},
 			focusGui = {},
@@ -39,7 +39,7 @@ return function()
 			Frame = Roact.createElement("Frame")
 		}), container)
 
-		local frame = container:FindFirstChild("Frame")
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()
 
@@ -48,12 +48,12 @@ return function()
 
 	describe("addProvider", function()
 		it("should place the new provider above the root", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local root = Roact.createElement("Frame")
 
 			local result = UILibraryWrapper:addProvider(root, "Frame")
 			local instance = Roact.mount(result, container)
-			local frame = container:FindFirstChild("Frame")
+			local frame = container:FindFirstChildOfClass("Frame")
 
 			expect(frame).to.be.ok()
 			expect(frame[1]).to.be.ok()
@@ -62,7 +62,7 @@ return function()
 		end)
 
 		it("should not modify the tree below the root", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local root = Roact.createElement("Frame", {}, {
 				ChildFrame = Roact.createElement("Frame", {}, {
 					DescendantFrame = Roact.createElement("Frame"),
@@ -72,7 +72,7 @@ return function()
 
 			local result = UILibraryWrapper:addProvider(root, "Frame")
 			local instance = Roact.mount(result, container)
-			local frame = container:FindFirstChild("Frame")
+			local frame = container:FindFirstChildOfClass("Frame")
 
 			expect(frame).to.be.ok()
 			expect(frame[1]).to.be.ok()

@@ -10,7 +10,7 @@ local CoreGuiService = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local GuiService = game:GetService("GuiService")
 
 -- MODULES

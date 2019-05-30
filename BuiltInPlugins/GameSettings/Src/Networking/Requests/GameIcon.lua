@@ -2,8 +2,6 @@
 	Get and set requests for the current game's icon.
 ]]
 
-local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -11,9 +9,6 @@ local Promise = require(Plugin.Promise)
 local Http = require(Plugin.Src.Networking.Http)
 local Analytics = require(Plugin.Src.Util.Analytics)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
-
--- Deprecated, remove with FFlagStudioRenameLocalAssetToFile
-local DEPRECATED_LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
 
 local ICON_URL_OLD = "places/icons/json?placeId=%d"
 local ICON_REQUEST_TYPE_OLD = "www"
@@ -80,12 +75,8 @@ function GameIcon.Set(universeId, newIcon)
 	local url = Http.BuildRobloxUrl(ICON_CHANGE_REQUEST_TYPE, ICON_CHANGE_URL, universeId)
 
 	local requestInfo
-	if FFlagStudioRenameLocalAssetToFile then
-		requestInfo = FileUtils.GetAssetPublishRequestInfo(newIcon, url)
-	else
-		requestInfo = DEPRECATED_LocalAssetUtils.GetAssetPublishRequestInfo(newIcon, url)
-	end
-
+	requestInfo = FileUtils.GetAssetPublishRequestInfo(newIcon, url)
+	
 	return Http.RequestInternal(requestInfo)
 	:catch(function(err)
 		warn("Game Settings: Could not save game icon.")

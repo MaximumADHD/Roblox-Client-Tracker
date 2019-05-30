@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local Tooltip = require(script.Parent.Tooltip)
 
 	local function createTestTooltip(props)
@@ -21,9 +19,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTooltip(), container)
-		local frame = container:FindFirstChild("Frame")
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()
 

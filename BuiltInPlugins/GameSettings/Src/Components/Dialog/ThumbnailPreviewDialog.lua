@@ -6,8 +6,6 @@
 		list Order = The order in which the thumbnails are sorted.
 		variant StartId = The thumbnailId of the thumbnail to display first.
 ]]
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
-local FFlagGameSettingsPreviewLinkMouseIcon = settings():GetFFlag("GameSettingsPreviewLinkMouseIcon")
 
 local BLACK = Color3.new(0, 0, 0)
 local WHITE = Color3.new(1, 1, 1)
@@ -54,15 +52,11 @@ function ThumbnailPreviewDialog:init(initialProps)
 	end
 
 	self.mouseEnterLink = function()
-		if FFlagGameSettingsPreviewLinkMouseIcon then
-			self:linkHoverChanged(true)
-		end
+		self:linkHoverChanged(true)
 	end
 
 	self.mouseLeaveLink = function()
-		if FFlagGameSettingsPreviewLinkMouseIcon then
-			self:linkHoverChanged(false)
-		end
+		self:linkHoverChanged(false)
 	end
 end
 
@@ -92,16 +86,12 @@ function ThumbnailPreviewDialog:render()
 			local showButtons = hovering and #order > 1
 
 			local fullImageId
-			if FFlagGameSettingsImageUploadingEnabled then
-				if tempId then
-					fullImageId = tempId
-				elseif imageId then
-					fullImageId = "rbxassetid://" .. imageId
-				end
-			else
+			if tempId then
+				fullImageId = tempId
+			elseif imageId then
 				fullImageId = "rbxassetid://" .. imageId
 			end
-
+		
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BorderSizePixel = 0,

@@ -22,9 +22,6 @@
 			These actions are handled by the ThumbnailController above this component.
 ]]
 
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
-local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -135,22 +132,18 @@ function ThumbnailWidget:render()
 			if thumbnails[dragId] then
 				if thumbnails[dragId].imageId then
 					dragImageId = "rbxassetid://" .. thumbnails[dragId].imageId
-				elseif FFlagGameSettingsImageUploadingEnabled and thumbnails[dragId].tempId then
+				elseif thumbnails[dragId].tempId then
 					dragImageId = thumbnails[dragId].tempId
 				end
 			end
 
 			local countTextColor
-			if FFlagGameSettingsEnforceMaxThumbnails then
-				if errorMessage or numThumbnails > Constants.MAX_THUMBNAILS then
-					countTextColor = Constants.ERROR_COLOR
-				else
-					countTextColor = theme.thumbnail.count
-				end
+			if errorMessage or numThumbnails > Constants.MAX_THUMBNAILS then
+				countTextColor = Constants.ERROR_COLOR
 			else
-				countTextColor = errorMessage and Constants.ERROR_COLOR or theme.thumbnail.count
+				countTextColor = theme.thumbnail.count
 			end
-
+		
 			return Roact.createElement(FitToContent, {
 				LayoutOrder = self.props.LayoutOrder or 1,
 				BackgroundTransparency = 1,

@@ -1,4 +1,4 @@
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Opened = false
 
 local function reportOpening()

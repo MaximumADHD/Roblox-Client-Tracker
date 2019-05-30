@@ -1,4 +1,4 @@
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 

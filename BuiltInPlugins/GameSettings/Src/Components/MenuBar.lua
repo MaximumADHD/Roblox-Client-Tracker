@@ -5,8 +5,6 @@
 		table Entries: A table of entries to include in this MenuBar
 		function SelectionChanged: Callback when the selected menu entry changes
 ]]
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
-local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -46,14 +44,9 @@ if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
 	}
 end
 
-if FFlagGameSettingsEnforceMaxThumbnails then
-	-- Fix errors not being assigned to a page
-	errorsFromPage["Basic Info"].thumbnails = true
-	errorsFromPage["Basic Info"].gameIcon = true
-elseif FFlagGameSettingsImageUploadingEnabled then
-	errorsFromPage.thumbnails = true
-	errorsFromPage.gameIcon = true
-end
+-- Fix errors not being assigned to a page
+errorsFromPage["Basic Info"].thumbnails = true
+errorsFromPage["Basic Info"].gameIcon = true
 
 local function MenuBar(props)
 	return withLocalization(function(localized)

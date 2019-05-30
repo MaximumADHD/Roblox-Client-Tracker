@@ -113,7 +113,7 @@ return{
 	["CoreScripts.PurchasePrompt.PurchaseFailed.Under13"] = [[因为你的账号为 13 岁以下，因此不允许购买此物品。系统并未向你的帐户收取费用。]],
 	["CoreScripts.PurchasePrompt.PurchaseFailed.AlreadyOwn"] = [[你已拥有此物品。系统并未向你的帐户收取费用。]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Free"] = [[是否要免费领取“{ITEM_NAME}”？]],
-	["CoreScripts.PurchasePrompt.PurchaseMessage.Purchase"] = [[是否想购买“{ASSET_TYPE}{ITEM_NAME}”？价格为：]],
+	["CoreScripts.PurchasePrompt.PurchaseMessage.Purchase"] = [[确定购买{ASSET_TYPE}“{ITEM_NAME}”？价格为]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.Succeeded"] = [[“{ITEM_NAME}”购买成功！]],
 	["CoreScripts.PurchasePrompt.PurchaseMessage.NeedMoreRobux"] = [[你还需要 {NEEDED_AMOUNT} Robux 才能购买“{ASSET_TYPE}{ITEM_NAME}”。是否要购买更多 Robux？]],
 	["CoreScripts.PurchasePrompt.ProductType.Product"] = [[产品]],

@@ -56,20 +56,6 @@ Class AdService : Instance [notCreatable]
 	Function void AdService:ShowVideoAd() [deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [deprecated]
 Class AdvancedDragger : Instance
-Class AnalyticsService : Instance [notCreatable]
-	Function string AnalyticsService:GetClientId() [RobloxScriptSecurity]
-	Function string AnalyticsService:GetSessionId() [RobloxScriptSecurity]
-	Function void AnalyticsService:ReleaseRBXEventStream(string target) [RobloxScriptSecurity]
-	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
-	Function void AnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) [RobloxScriptSecurity]
-	Function void AnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
-	Function void AnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
-	Function void AnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
-	Function void AnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
-	Function void AnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
-	Function void AnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) [RobloxScriptSecurity]
-	Function void AnalyticsService:TrackEventWithArgs(string category, string action, string label, Dictionary args, int64 value = 0) [RobloxScriptSecurity]
-	Function void AnalyticsService:UpdateHeartbeatObject(Dictionary args) [RobloxScriptSecurity]
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationController : Instance
@@ -511,7 +497,7 @@ Class ContentProvider : Instance
 	Property int ContentProvider.RequestQueueSize [readonly]
 	Function void ContentProvider:Preload(Content contentId) [deprecated]
 	Function void ContentProvider:SetBaseUrl(string url) [LocalUserSecurity]
-	YieldFunction void ContentProvider:PreloadAsync(Array contentIdList)
+	YieldFunction void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil)
 Class ContextActionService : Instance
 	Function void ContextActionService:BindAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes)
 	Function void ContextActionService:BindActionAtPriority(string actionName, Function functionToBind, bool createTouchButton, int priorityLevel, Tuple inputTypes)
@@ -1454,7 +1440,7 @@ Class LocalizationService : Instance [notCreatable]
 	Function Array LocalizationService:GetTableEntries(Instance instance = nil)
 	Function Instance LocalizationService:GetTranslatorForPlayer(Instance player)
 	Function void LocalizationService:SetRobloxLocaleId(string locale) [RobloxScriptSecurity]
-	Function void LocalizationService:StartTextScraper(bool enforceRequirements = false) [RobloxScriptSecurity]
+	Function void LocalizationService:StartTextScraper() [RobloxScriptSecurity]
 	Function void LocalizationService:StopTextScraper() [RobloxScriptSecurity]
 	YieldFunction Instance LocalizationService:GetTranslatorForLocaleAsync(string locale)
 	YieldFunction Instance LocalizationService:GetTranslatorForPlayerAsync(Instance player)
@@ -1997,7 +1983,7 @@ Class Player : Instance
 	Property DevTouchMovementMode Player.DevTouchMovementMode
 	Property string Player.DisplayName [RobloxScriptSecurity]
 	Property int64 Player.FollowUserId [readonly]
-	Property bool Player.GameplayPaused [readonly]
+	Property bool Player.GameplayPaused [ScriptWriteRestricted: [NotAccessibleSecurity]]
 	Property bool Player.Guest [readonly] [RobloxScriptSecurity]
 	Property float Player.HealthDisplayDistance
 	Property string Player.LocaleId [hidden] [readonly]
@@ -2234,6 +2220,20 @@ Class ColorCorrectionEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
+Class RbxAnalyticsService : Instance [notCreatable]
+	Function string RbxAnalyticsService:GetClientId() [RobloxScriptSecurity]
+	Function string RbxAnalyticsService:GetSessionId() [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:ReleaseRBXEventStream(string target) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:TrackEventWithArgs(string category, string action, string label, Dictionary args, int64 value = 0) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:UpdateHeartbeatObject(Dictionary args) [RobloxScriptSecurity]
 Class ReflectionMetadata : Instance
 Class ReflectionMetadataCallbacks : Instance
 Class ReflectionMetadataClasses : Instance
@@ -3067,6 +3067,9 @@ Enum AppShellActionType
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1
+Enum AssetFetchStatus
+	EnumItem AssetFetchStatus.Success : 0
+	EnumItem AssetFetchStatus.Failure : 1
 Enum AssetType
 	EnumItem AssetType.Image : 1
 	EnumItem AssetType.TeeShirt : 2

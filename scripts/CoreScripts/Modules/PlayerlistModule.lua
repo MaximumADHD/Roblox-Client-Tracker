@@ -12,7 +12,7 @@ local TeamsService = game:FindService('Teams')
 local ContextActionService = game:GetService('ContextActionService')
 local StarterGui = game:GetService('StarterGui')
 local PlayersService = game:GetService('Players')
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 

@@ -62,14 +62,10 @@ function BulletPoint:render()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 				TextWrapped = (function()
-					if settings():GetFFlag("GameSettingsOnlyRejectLargeFiles") then
-						return self.props.TextWrapped
-					else
-						return true
-					end
+					return self.props.TextWrapped
 				end)(),
 				TextSize = 20,
-				TextTruncate = settings():GetFFlag("GameSettingsOnlyRejectLargeFiles") and self.props.TextTruncate or nil,
+				TextTruncate = self.props.TextTruncate or nil,
 			}),
 
 			Dot = Roact.createElement("TextLabel", {

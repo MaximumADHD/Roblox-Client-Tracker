@@ -23,9 +23,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundTextButton(), container)
-		local button = container.ImageButton
+		local button = container:FindFirstChildOfClass("ImageButton")
 
 		expect(button.Border).to.be.ok()
 		expect(button.Text).to.be.ok()

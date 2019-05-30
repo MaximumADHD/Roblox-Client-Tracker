@@ -4,8 +4,6 @@
 	Returns a Promise that will resolve when loading is complete.
 ]]
 
-local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Analytics = require(Plugin.Src.Util.Analytics)
@@ -20,12 +18,7 @@ return function(settingsImpl)
 		Analytics.onLoadAttempt()
 		store:dispatch(SetCurrentStatus(CurrentStatus.Working))
 		return settingsImpl:GetSettings():andThen(function(settings)
-			if FFlagGameSettingsCloseWhenBusyFix then
-				if store:getState().Status ~= CurrentStatus.Closed then
-					store:dispatch(SetCurrentSettings(settings))
-					store:dispatch(SetCurrentStatus(CurrentStatus.Open))
-				end
-			else
+			if store:getState().Status ~= CurrentStatus.Closed then
 				store:dispatch(SetCurrentSettings(settings))
 				store:dispatch(SetCurrentStatus(CurrentStatus.Open))
 			end

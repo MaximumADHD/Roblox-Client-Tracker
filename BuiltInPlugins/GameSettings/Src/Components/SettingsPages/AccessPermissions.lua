@@ -10,14 +10,11 @@ local Roact = require(Plugin.Roact)
 
 local Header = require(Plugin.Src.Components.Header)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
-local Separator = require(Plugin.Src.Components.Separator)
 local GameOwnerWidget = require(Plugin.Src.Components.Permissions.GameOwnerWidget)
+--local CollaboratorsWidget = require(Plugin.Src.Components.Permissions.CollaboratorsWidget)
 
-local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
-local ListDialog = require(Plugin.Src.Components.Dialog.ListDialog)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
-local AddErrors = require(Plugin.Src.Actions.AddErrors)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
 
@@ -29,6 +26,7 @@ local function loadValuesToProps(getValue, state)
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
 		Permissions = getValue("permissions"),
+		GroupMetadata = getValue("groupMetadata"),
 		OwnerThumbnail = getValue("ownerThumbnail"),
 		OwnerName = getValue("ownerName"),
 		
@@ -75,24 +73,10 @@ local function displayContents(page, localized)
 			LayoutOrder = 0,
 		}),
 		
-		Owner = Roact.createElement(GameOwnerWidget, {
-			LayoutOrder = 1,
-			
-			Enabled = props.IsActive ~= nil,
-			OwnerName = props.OwnerName,
-			OwnerThumbnail = props.OwnerThumbnail,
-			
-			StudioUserId = props.StudioUserId,
-			GroupOwnerUserId = props.GroupOwnerUserId,
-			
-			Permissions = props.Permissions,
-			PermissionsChanged = props.PermissionsChanged,
-		}),
-
 		Playability = Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.Playability,
 			Description = localized.Playability.Header,
-			LayoutOrder = 3,
+			LayoutOrder = 1,
 			Buttons = {{
 					Id = true,
 					Title = localized.Playability.Public.Title,
@@ -129,13 +113,24 @@ local function displayContents(page, localized)
 			end,
 		}),
 		
-		Separator = Roact.createElement(Separator, {
-			LayoutOrder = 4,
+		Owner = Roact.createElement(GameOwnerWidget, {
+			LayoutOrder = 2,
+			
+			Enabled = props.IsActive ~= nil,
+			OwnerName = props.OwnerName,
+			OwnerThumbnail = props.OwnerThumbnail,
+			
+			StudioUserId = props.StudioUserId,
+			GroupOwnerUserId = props.GroupOwnerUserId,
+			
+			GroupMetadata = props.GroupMetadata,
+			Permissions = props.Permissions,
+			PermissionsChanged = props.PermissionsChanged,
 		}),
 		
 		-- TODO replace with a component. Pure label for demo purposes
 		Debug_Collaborators = Roact.createElement("TextLabel", {
-			LayoutOrder = 5,
+			LayoutOrder = 3,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 16),
@@ -147,19 +142,13 @@ local function displayContents(page, localized)
 			Text = "Collaborators",
 		}),
 		
-		-- TODO replace with a component. Pure label for demo purposes
-		Debug_CollaboratorsInfo = Roact.createElement("TextLabel", {
-			LayoutOrder = 6,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 16),
-
-			Font = Enum.Font.SourceSans,
-			TextSize = 22,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Text = "Add users or groups to play or edit this game.",
-		}),
+		--[[CollaboratorList = Roact.createElement(CollaboratorsWidget, {
+			LayoutOrder = 4,
+			Enabled = props.IsActive ~= nil,
+			GroupMetadata = props.GroupMetadata,
+			Permissions = props.Permissions,
+			PermissionsChanged = nil,
+		}),]]
 	}
 end
 

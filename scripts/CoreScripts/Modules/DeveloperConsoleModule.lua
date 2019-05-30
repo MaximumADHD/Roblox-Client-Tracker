@@ -2457,14 +2457,14 @@ function Methods.AddTab(devConsole, text, body, openCallback, visibleCallback)
 	end
 
 	function tab.RecordInitialOpen(tab)
-		local analyticsService = game:GetService("AnalyticsService")
+		local analyticsService = game:GetService("RbxAnalyticsService")
 		analyticsService:trackEvent(AnalyticsCategory_Game, 
 			AnalyticsAction_InitialOpenTab, 
 			tab.Body.Name)
 	end
 
 	function tab.RecordClickToOpen(tab)
-		local analyticsService = game:GetService("AnalyticsService")
+		local analyticsService = game:GetService("RbxAnalyticsService")
 		analyticsService:trackEvent(AnalyticsCategory_Game, 
 			AnalyticsAction_ClickToOpenOpenTab, 
 			tab.Body.Name)

@@ -13,7 +13,6 @@
 
 local PageName = "Avatar"
 
-local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -138,7 +137,7 @@ local function displayContents(page, localized)
 
 		Morpher = Roact.createElement(MorpherRootPanel, {
 			ThemeData = getTheme(page),
-			LocalizedContent = FFlagGameSettingsWidgetLocalized and localized.Morpher or nil,
+			LocalizedContent = localized.Morpher or nil,
 			IsEnabled = fastFlags.isPlaceFilesGameSettingsSerializationOn() and true or isPlaceDataAvailable(props),
 
 			IsGameShutdownRequired = (function()

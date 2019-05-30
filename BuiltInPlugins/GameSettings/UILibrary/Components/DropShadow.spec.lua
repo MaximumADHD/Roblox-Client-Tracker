@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local DropShadow = require(script.Parent.DropShadow)
 
 	local function createTestDropShadow(props)
@@ -21,9 +19,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDropShadow(), container)
-		local shadow = container:FindFirstChild("ImageLabel")
+		local shadow = container:FindFirstChildOfClass("ImageLabel")
 
 		expect(shadow).to.be.ok()
 

@@ -1,4 +1,4 @@
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local SetDevConsoleVisibility = require(script.Parent.Parent.Actions.SetDevConsoleVisibility)
 
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)

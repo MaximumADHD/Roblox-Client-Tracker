@@ -151,9 +151,9 @@ MessageSender:RegisterSayMessageFunction(EventFolder.SayMessageRequest)
 
 
 if (UserInputService.TouchEnabled) then
-	ChatBar:SetTextLabelText(ChatLocalization:Get("GameChat_ChatMain_ChatBarText",'Tap here to chat'))
+	ChatBar:SetTextLabelText(ChatLocalization:Get("GameChat_ChatMain_ChatBarTextTouch",'Tap here to chat'))
 else
-	ChatBar:SetTextLabelText(ChatLocalization:Get("GameChat_ChatMain_ChatBarTextTouch",'To chat click here or press "/" key'))
+	ChatBar:SetTextLabelText(ChatLocalization:Get("GameChat_ChatMain_ChatBarText",'To chat click here or press "/" key'))
 end
 
 spawn(function()

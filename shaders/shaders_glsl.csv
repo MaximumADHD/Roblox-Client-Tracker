@@ -20,14 +20,6 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 CopyGuiVS,Vertex
-Default_DEPRECATED_PlasticFS,Fragment
-Default_DEPRECATED_PlasticHQFS,Fragment
-Default_DEPRECATED_PlasticReflectionFS,Fragment
-Default_DEPRECATED_PlasticReflectionHQFS,Fragment
-Default_DEPRECATED_SmoothPlasticFS,Fragment
-Default_DEPRECATED_SmoothPlasticHQFS,Fragment
-Default_DEPRECATED_SmoothPlasticReflectionFS,Fragment
-Default_DEPRECATED_SmoothPlasticReflectionHQFS,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
 DefaultGlassHQFS,Fragment
@@ -38,9 +30,9 @@ DefaultNeonHQInGuiFS,Fragment
 DefaultNeonInGuiFS,Fragment
 DefaultOpaqueFS,Fragment
 DefaultOpaqueHQFS,Fragment
-DefaultPlasticUnifiedFS,Fragment
-DefaultPlasticUnifiedHQFS,Fragment
-DefaultPlasticUnifiedReflectionFS,Fragment
+DefaultPlasticFS,Fragment
+DefaultPlasticHQFS,Fragment
+DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowSkinnedVS,Vertex
 DefaultShadowStaticVS,Vertex

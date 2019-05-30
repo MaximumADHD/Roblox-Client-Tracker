@@ -3,9 +3,6 @@ if not plugin then
 end
 
 -- Fast flags
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
-local FFlagGameSettingsCloseWhenBusyFix = settings():GetFFlag("GameSettingsCloseWhenBusyFix")
-local FFlagGameSettingsWidgetLocalized = settings():GetFFlag("GameSettingsWidgetLocalized")
 local FFlagDebugGameSettingsLocalizationKeysOnly = settings():GetFFlag("DebugGameSettingsLocalizationKeysOnly")
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
@@ -82,29 +79,20 @@ end
 
 local localization
 local localizationTable = Plugin.Src.Localization.GameSettingsTranslationReferenceTable
-if FFlagGameSettingsWidgetLocalized then
-	if FFlagDebugGameSettingsLocalizationKeysOnly then
-		localization = Localization.newDummyLocalization()
-	else
-		local localeIdToUse = "RobloxLocaleId"
-		localization = Localization.new({
-			localizationTable = localizationTable,
-			getLocale = function()
-				if #OverrideLocaleId > 0 then
-					return OverrideLocaleId
-				else
-					return LocalizationService[localeIdToUse]
-				end
-			end,
-			localeChanged = LocalizationService:GetPropertyChangedSignal(localeIdToUse)
-		})
-	end
+if FFlagDebugGameSettingsLocalizationKeysOnly then
+	localization = Localization.newDummyLocalization()
 else
+	local localeIdToUse = "RobloxLocaleId"
 	localization = Localization.new({
 		localizationTable = localizationTable,
 		getLocale = function()
-			return "en-us"
+			if #OverrideLocaleId > 0 then
+				return OverrideLocaleId
+			else
+				return LocalizationService[localeIdToUse]
+			end
 		end,
+		localeChanged = LocalizationService:GetPropertyChangedSignal(localeIdToUse)
 	})
 end
 
@@ -260,15 +248,7 @@ local function makePluginGui()
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
 		-- Handle if user clicked the X button to close the window
 		if not pluginGui.Enabled then
-			if FFlagGameSettingsCloseWhenBusyFix then
-				closeGameSettings(false)
-			else
-				local state = settingsStore:getState()
-				local currentStatus = state.Status
-				if currentStatus == CurrentStatus.Open then
-					closeGameSettings(false)
-				end
-			end
+			closeGameSettings(false)
 		end
 	end)
 end
@@ -337,14 +317,10 @@ local function main()
 			openGameSettings()
 		end)
 		settingsStore.changed:connect(function(state)
-			if FFlagGameSettingsImageUploadingEnabled then
-				if state.Status ~= lastObservedStatus then
-					settingsButton:SetActive(state.Status ~= CurrentStatus.Closed)
-					setMainWidgetInteractable(state.Status ~= CurrentStatus.Working)
-					lastObservedStatus = state.Status
-				end
-			else
+			if state.Status ~= lastObservedStatus then
 				settingsButton:SetActive(state.Status ~= CurrentStatus.Closed)
+				setMainWidgetInteractable(state.Status ~= CurrentStatus.Working)
+				lastObservedStatus = state.Status
 			end
 		end)
 	else

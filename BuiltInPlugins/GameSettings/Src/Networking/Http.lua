@@ -13,6 +13,24 @@ elseif BASE_URL:find("http://www.") then
 	BASE_URL = BASE_URL:sub(12)
 end
 
+local function applyParamsToUrl(requestInfo)
+	if settings():GetFFlag("StudioGameSettingsSupportHttpParams") then
+		local params = requestInfo.Params
+		requestInfo.Params = nil -- HttpRbxApiService doesn't know what this is, so remove it before we give it requestInfo
+		
+		if params then
+			local paramList = {}
+			
+			for paramName,paramValue in pairs(params) do
+				local paramPair = HttpService:UrlEncode(paramName).."="..HttpService:UrlEncode(paramValue)
+				table.insert(paramList, paramPair)
+			end
+			
+			requestInfo.Url = requestInfo.Url .. "?" .. table.concat(paramList, "&")
+		end
+	end
+end
+
 local Http = {}
 
 function Http.BuildRobloxUrl(front, back, ...)
@@ -20,6 +38,8 @@ function Http.BuildRobloxUrl(front, back, ...)
 end
 
 function Http.Request(requestInfo)
+	applyParamsToUrl(requestInfo)
+			
 	return Promise.new(function(resolve, reject)
 		-- Prevent yielding
 		spawn(function()
@@ -36,6 +56,8 @@ function Http.Request(requestInfo)
 end
 
 function Http.RequestInternal(requestInfo)
+	applyParamsToUrl(requestInfo)
+	
 	return Promise.new(function(resolve, reject)
 		-- Prevent yielding
 		spawn(function()

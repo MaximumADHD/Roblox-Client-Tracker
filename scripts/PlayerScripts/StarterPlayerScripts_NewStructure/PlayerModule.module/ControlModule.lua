@@ -42,6 +42,16 @@ local FFlagUserFixMovementCameraStraightDownSuccess, FFlagUserFixMovementCameraS
 end)
 local FFlagUserFixMovementCameraStraightDown = FFlagUserFixMovementCameraStraightDownSuccess and FFlagUserFixMovementCameraStraightDownResult
 
+local FFlagUserClickToMoveBetterCleanupSuccess, FFlagUserClickToMoveBetterCleanupResult = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserClickToMoveBetterCleanup")
+end)
+local FFlagUserClickToMoveBetterCleanup = FFlagUserClickToMoveBetterCleanupSuccess and FFlagUserClickToMoveBetterCleanupResult
+
+local FFlagUserFixTouchGuiWhenNoCharacterSuccess, FFlagUserFixTouchGuiWhenNoCharacterResult = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserFixTouchGuiWhenNoCharacter")
+end)
+local FFlagUserFixTouchGuiWhenNoCharacter = FFlagUserFixTouchGuiWhenNoCharacterSuccess and FFlagUserFixTouchGuiWhenNoCharacterResult
+
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
 	[Enum.TouchMovementMode.DPad] = TouchDPad,
@@ -299,6 +309,19 @@ function ControlModule:OnRenderStepped(dt)
 		local moveVector = self.activeController:GetMoveVector()
 		local cameraRelative = self.activeController:IsMoveVectorCameraRelative()
 
+		local clickToMoveController = self:GetClickToMoveController()
+		if FFlagUserClickToMoveBetterCleanup and self.activeController ~= clickToMoveController then
+			if moveVector.magnitude > 0 then
+				-- Clean up any developer started MoveTo path
+				clickToMoveController:CleanupPath()
+			else
+				-- Get move vector for developer started MoveTo
+				clickToMoveController:OnRenderStepped(dt)
+				moveVector = clickToMoveController:GetMoveVector()
+				cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
+			end
+		end
+
 		-- Are we driving a vehicle ?
 		local vehicleConsumedInput = false
 		if self.vehicleController then
@@ -345,6 +368,12 @@ function ControlModule:OnCharacterAdded(char)
 		self.humanoid = char:FindFirstChildOfClass("Humanoid")
 	end
 
+	if FFlagUserFixTouchGuiWhenNoCharacter then
+		if self.touchGui then
+			self.touchGui.Enabled = true
+		end
+	end
+
 	if self.humanoidSeatedConn then
 		self.humanoidSeatedConn:Disconnect()
 		self.humanoidSeatedConn = nil
@@ -354,6 +383,12 @@ end
 
 function ControlModule:OnCharacterRemoving(char)
 	self.humanoid = nil
+
+	if FFlagUserFixTouchGuiWhenNoCharacter then
+		if self.touchGui then
+			self.touchGui.Enabled = false
+		end
+	end
 end
 
 -- Helper function to lazily instantiate a controller if it does not yet exist,
@@ -448,6 +483,9 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchGui = Instance.new('ScreenGui')
 	self.touchGui.Name = "TouchGui"
 	self.touchGui.ResetOnSpawn = false
+	if FFlagUserFixTouchGuiWhenNoCharacter then
+		self.touchGui.Enabled = self.humanoid ~= nil
+	end
 
 	self.touchControlFrame = Instance.new("Frame")
 	self.touchControlFrame.Name = "TouchControlFrame"

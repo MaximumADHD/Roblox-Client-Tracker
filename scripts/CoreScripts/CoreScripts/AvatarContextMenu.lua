@@ -34,7 +34,7 @@ local TweenService = game:GetService("TweenService")
 local CoreGuiService = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local GuiService = game:GetService("GuiService")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local hasTrackedAvatarContextMenu = false
 function enableAvatarContextMenu(enabled)

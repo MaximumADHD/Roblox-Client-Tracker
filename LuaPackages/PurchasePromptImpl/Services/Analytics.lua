@@ -1,5 +1,5 @@
 local Players = game:GetService("Players")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local MarketplaceService = game:GetService("MarketplaceService")
 

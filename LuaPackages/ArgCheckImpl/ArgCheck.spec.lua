@@ -138,4 +138,147 @@ return function()
 			expect(ArgCheck.isEqual(testFunction, testFunction, "")).to.equal(testFunction)
 		end)
 	end)
+
+	describe("representsInteger", function()
+		it("should fail if not a number", function()
+			expect(function()
+				ArgCheck.representsInteger(nil, "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger({}, "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger(function()end, "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger(true, "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger("NaN", "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger("1test", "")
+			end).to.throw()
+		end)
+
+		it("should fail if not an integer", function()
+			expect(function()
+				ArgCheck.representsInteger(1.5, "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger("1.5", "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.representsInteger("1e-1", "")
+			end).to.throw()
+		end)
+
+		it("should return the same value on success", function()
+			expect(ArgCheck.representsInteger(5, "")).to.equal(5)
+			expect(ArgCheck.representsInteger("-5", "")).to.equal("-5")
+			expect(ArgCheck.representsInteger("1e1", "")).to.equal("1e1")
+			expect(ArgCheck.representsInteger("0xa", "")).to.equal("0xa")
+		end)
+	end)
+
+	describe("matchesInterface", function()
+		it("should match a simple interface", function()
+			local interface = {
+				num = "number",
+				str = "string",
+				bool = "boolean",
+				func = "function",
+				tab = "table",
+				list = {"number"},
+				-- only num is required, rest is optional
+				_required = {
+					num = true,
+				}
+			}
+			local obj1 = {
+				num = 5,
+				str = "5",
+				bool = true,
+				func = function()end,
+				tab = {},
+				list = {1, 2, 3}
+			}
+			local obj2 = {
+				num = "5",
+			}
+			local obj3 = {
+				num = 5,
+				list = {"NaN"},
+			}
+			local obj4 = {
+				str = "5",
+			}
+			expect(function()
+				ArgCheck.matchesInterface(obj1, interface, "")
+			end).to.never.throw()
+			expect(function()
+				ArgCheck.matchesInterface(obj2, interface, "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.matchesInterface(obj3, interface, "")
+			end).to.throw()
+		end)
+
+		it("should match ArgCheck functions", function()
+			expect(function()
+				ArgCheck.matchesInterface("5", "nonEmptyString", "")
+			end).to.never.throw()
+			expect(function()
+				ArgCheck.matchesInterface(5, "nonEmptyString", "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.matchesInterface("", "nonEmptyString", "")
+			end).to.throw()
+			expect(function()
+				ArgCheck.matchesInterface({str = "5"}, {str = "nonEmptyString"}, "")
+			end).to.never.throw()
+		end)
+
+		it("should match dependent types", function()
+			local types = {
+				child = {
+					name = "string",
+				},
+				parent = {
+					name = "string",
+					children = {"child"},
+				}
+			}
+			local child1 = {
+				name = "child1",
+			}
+			local child2 = {
+				name = "child2",
+			}
+			local parent1 = {
+				name = "parent1",
+				children = {child1, child2},
+			}
+			local parent2 = {
+				name = "parent2",
+				children = {"child1", "child2"},
+			}
+			expect(function()
+				ArgCheck.matchesInterface(child1, types.child, "", types)
+			end).to.never.throw()
+			expect(function()
+				ArgCheck.matchesInterface(parent1, types.parent, "", types)
+			end).to.never.throw()
+			expect(function()
+				ArgCheck.matchesInterface(parent2, types.parent, "", types)
+			end).to.throw()
+		end)
+
+		it("should return the same value on success", function()
+			expect(ArgCheck.matchesInterface(5, "number", "")).to.equal(5)
+			expect(ArgCheck.matchesInterface("5", "nonEmptyString", "")).to.equal("5")
+			local list = {1, 2, 3}
+			expect(ArgCheck.matchesInterface(list, {"number"}, "")).to.equal(list)
+		end)
+	end)
 end

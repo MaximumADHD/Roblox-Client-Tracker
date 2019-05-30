@@ -4,8 +4,6 @@
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
-local FFlagGameSettingsOnlyRejectLargeFiles = settings():GetFFlag("GameSettingsOnlyRejectLargeFiles")
-
 local StudioService = game:GetService("StudioService")
 
 --multipart/form-data for uploading images to Roblox endpoints
@@ -73,32 +71,20 @@ function FileUtils.PromptForThumbnails(page)
 	local localized = getLocalizedContent(page)
 	local thumbnails = StudioService:PromptImportFiles(Constants.IMAGE_TYPES)
 
-	if FFlagGameSettingsOnlyRejectLargeFiles then
-		local rejectedThumbnailNames = {}
-		local acceptedThumbnails = {}
-		if thumbnails and #thumbnails > 0 then
-			for _, thumb in ipairs(thumbnails) do
-				if thumb.Size > DFIntFileMaxSizeBytes then
-					table.insert(rejectedThumbnailNames, thumb.Name)
-				else
-					table.insert(acceptedThumbnails, thumb)
-				end
+	local rejectedThumbnailNames = {}
+	local acceptedThumbnails = {}
+	if thumbnails and #thumbnails > 0 then
+		for _, thumb in ipairs(thumbnails) do
+			if thumb.Size > DFIntFileMaxSizeBytes then
+				table.insert(rejectedThumbnailNames, thumb.Name)
+			else
+				table.insert(acceptedThumbnails, thumb)
 			end
-			if next(rejectedThumbnailNames) ~= nil then
-				showMultiImageFailedDialog(page, localized, rejectedThumbnailNames)
-			end
-			return acceptedThumbnails
 		end
-	else
-		if thumbnails and #thumbnails > 0 then
-			for _, thumb in ipairs(thumbnails) do
-				if thumb.Size > DFIntFileMaxSizeBytes then
-					showSingleImageFailedDialog(page, localized)
-					return
-				end
-			end
-			return thumbnails
+		if next(rejectedThumbnailNames) ~= nil then
+			showMultiImageFailedDialog(page, localized, rejectedThumbnailNames)
 		end
+		return acceptedThumbnails
 	end
 end
 

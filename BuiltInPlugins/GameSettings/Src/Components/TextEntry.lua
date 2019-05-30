@@ -9,8 +9,6 @@
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
 ]]
 
-local FFlagGameSettingsFixNameWhitespace = settings():GetFFlag("GameSettingsFixNameWhitespace")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
@@ -25,12 +23,8 @@ function TextEntry:init()
 			rbx.TextXAlignment = Enum.TextXAlignment.Right
 		end
 		if rbx.Text ~= self.props.Text then
-			if FFlagGameSettingsFixNameWhitespace then
-				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-				self.props.SetText(processed)
-			else
-				self.props.SetText(rbx.Text)
-			end
+			local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+			self.props.SetText(processed)
 		end
 	end
 

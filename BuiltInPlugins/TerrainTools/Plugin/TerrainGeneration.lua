@@ -17,7 +17,7 @@ local coreGui = game:GetService('CoreGui')
 local changeHistoryService = game:GetService('ChangeHistoryService')
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
 local terrain

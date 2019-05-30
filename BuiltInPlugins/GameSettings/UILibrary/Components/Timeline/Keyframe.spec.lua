@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local Keyframe = require(script.Parent.Keyframe)
 
 	local function createTestKeyframe(enabled, selected)
@@ -21,9 +19,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestKeyframe(), container)
-		local frame = container:FindFirstChild("ImageButton")
+		local frame = container:FindFirstChildOfClass("ImageButton")
 
 		expect(frame).to.be.ok()
 

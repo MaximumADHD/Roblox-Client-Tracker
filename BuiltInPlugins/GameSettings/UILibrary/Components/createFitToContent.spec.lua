@@ -33,7 +33,7 @@ local Roact = require(Library.Parent.Roact)
 		})
 
 		local instance = Roact.mount(component, container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.Frame1).to.be.ok()
 		expect(frame.Frame2).to.be.ok()

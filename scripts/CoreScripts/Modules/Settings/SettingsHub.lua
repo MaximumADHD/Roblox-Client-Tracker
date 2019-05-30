@@ -5,7 +5,7 @@
 				Description: Controls the settings menu navigation and contains the settings pages
 --]]
 
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 

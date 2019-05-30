@@ -73,6 +73,11 @@ return function(style, overrides)
 		},
 	}
 
+	local scrubber = {
+		backgroundColor = style.selectionColor,
+		image = "",
+	}
+
 	local timelineTick = {
 		font = style.font,
 
@@ -230,5 +235,6 @@ return function(style, overrides)
 		separator = separator,
 		dialog = dialog,
 		button = button,
+		scrubber = scrubber,
 	}, overrides)
 end

@@ -12,7 +12,6 @@
 	When saving changes, only settings in the Changed table are saved.
 	When discarding changes, the Changed table is deleted.
 ]]
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
@@ -36,37 +35,24 @@ local equalityCheckFunctions = nil
 
 local isEqualCheck = nil
 
-if FFlagGameSettingsImageUploadingEnabled then
-	isEqualCheck = function(current, changed)
-		local equal = true
-		if isEmpty(current) ~= isEmpty(changed) then
-			return false
-		end
-		for key, value in pairs(current) do
-			if changed[key] ~= value then
-				equal = false
-				break
-			end
-		end
-		for key, value in pairs(changed) do
-			if current[key] ~= value then
-				equal = false
-				break
-			end
-		end
-		return equal
+isEqualCheck = function(current, changed)
+	local equal = true
+	if isEmpty(current) ~= isEmpty(changed) then
+		return false
 	end
-else
-	isEqualCheck = function(current, changed)
-		local equal = true
-		for key, value in pairs(current) do
-			if changed[key] ~= value then
-				equal = false
-				break
-			end
+	for key, value in pairs(current) do
+		if changed[key] ~= value then
+			equal = false
+			break
 		end
-		return equal
 	end
+	for key, value in pairs(changed) do
+		if current[key] ~= value then
+			equal = false
+			break
+		end
+	end
+	return equal
 end
 
 Scales = require(Plugin.Src.Util.Scales)

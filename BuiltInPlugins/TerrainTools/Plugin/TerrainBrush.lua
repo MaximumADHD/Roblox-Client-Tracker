@@ -3,7 +3,7 @@
 local module = {}
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
 GuiUtilities = require(script.Parent.Parent.Libs.GuiUtilities)

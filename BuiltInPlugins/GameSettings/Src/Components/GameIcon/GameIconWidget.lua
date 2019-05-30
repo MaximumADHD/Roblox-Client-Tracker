@@ -11,7 +11,6 @@
 		bool TutorialEnabled = Whether or not we show the tutorial for icons
 ]]
 
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
 local GuiService = game:GetService("GuiService")
@@ -68,17 +67,13 @@ function GameIconWidget:render()
 			local tutorialEnabled = self.props.TutorialEnabled
 
 			local preview
-			if FFlagGameSettingsImageUploadingEnabled then
-				if typeof(icon) == "Instance" then
-					icon = icon:GetTemporaryId()
-					preview = true
-				else
-					preview = false
-				end
+			if typeof(icon) == "Instance" then
+				icon = icon:GetTemporaryId()
+				preview = true
 			else
 				preview = false
 			end
-
+		
 			return Roact.createElement(TitledFrame, {
 				Title = title,
 				MaxHeight = 150,

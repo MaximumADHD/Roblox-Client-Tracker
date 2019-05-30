@@ -8,7 +8,7 @@
 local StarterGui = game:GetService("StarterGui")
 local PlayersService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local LocalPlayer = PlayersService.LocalPlayer

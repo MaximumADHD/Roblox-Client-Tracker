@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local RoundFrame = require(script.Parent.RoundFrame)
 
 	local function createTestRoundFrame(props, children)
@@ -21,9 +19,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundFrame(), container)
-		local frame = container:FindFirstChild("ImageLabel")
+		local frame = container:FindFirstChildOfClass("ImageLabel")
 
 		expect(frame).to.be.ok()
 		expect(frame.Border).to.be.ok()
@@ -32,11 +30,11 @@ return function()
 	end)
 
 	it("should hide its border if BorderSizePixel == 0", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundFrame({
 			BorderSizePixel = 0,
 		}), container)
-		local frame = container:FindFirstChild("ImageLabel")
+		local frame = container:FindFirstChildOfClass("ImageLabel")
 
 		expect(frame.Border.ImageTransparency).to.equal(1)
 
@@ -44,9 +42,9 @@ return function()
 	end)
 
 	it("should be an ImageLabel if OnActivated is undefined", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundFrame(), container)
-		local frame = container:FindFirstChild("ImageLabel")
+		local frame = container:FindFirstChildOfClass("ImageLabel")
 
 		expect(frame:IsA("ImageLabel")).to.equal(true)
 
@@ -54,12 +52,12 @@ return function()
 	end)
 
 	it("should be an ImageButton if OnActivated is defined", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundFrame({
 			OnActivated = function()
 			end,
 		}), container)
-		local frame = container:FindFirstChild("ImageButton")
+		local frame = container:FindFirstChildOfClass("ImageButton")
 
 		expect(frame:IsA("ImageButton")).to.equal(true)
 
@@ -67,11 +65,11 @@ return function()
 	end)
 
 	it("should accept children", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundFrame({}, {
 			Child = Roact.createElement("Frame"),
 		}), container)
-		local frame = container:FindFirstChild("ImageLabel")
+		local frame = container:FindFirstChildOfClass("ImageLabel")
 
 		expect(frame.Border).to.be.ok()
 		expect(frame.Border.Child).to.be.ok()

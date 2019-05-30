@@ -162,8 +162,10 @@ Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access
 Studio.GameSettings.AccessPermissions.PlayLabel,Play
 Studio.GameSettings.AccessPermissions.EditLabel,Edit
-Studio.GameSettings.AccessPermissions.ManageLabel,Manage
+Studio.GameSettings.AccessPermissions.AdminLabel,Manage
+Studio.GameSettings.AccessPermissions.OwnerLabel,Owner
+Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple)
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game
 Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game
 Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game
-Studio.GameSettings.AccessPermissions.ManageDescription,"Can play, edit, and manage this game"
+Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game"

@@ -6,18 +6,18 @@ return function()
 
 	local ExpandableList = require(script.Parent.ExpandableList)
 
-	local function createTestExpandableList(props, children)
+	local function createTestExpandableList(props, children, container)
 		return Roact.createElement(MockWrapper, {
-            Container = Instance.new("Folder")
+            Container = container,
         }, {
-			expandableList = Roact.createElement(ExpandableList, props, children)
+			ExpandableList = Roact.createElement(ExpandableList, props, children)
 		})
     end
 
     it("should create and destroy without errors", function()
 		local element = createTestExpandableList({
             TopLevelItem = {},
-            Content = {}
+            Content = {},
         })
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
@@ -25,7 +25,7 @@ return function()
 
     it("should require a top level item table", function()
 		local element = createTestExpandableList({
-            Content = {}
+            Content = {},
         })
 		expect(function()
 			Roact.mount(element)
@@ -41,7 +41,7 @@ return function()
 
     it("should require a content table", function()
 		local element = createTestExpandableList({
-            TopLevelItem = {}
+            TopLevelItem = {},
         })
 		expect(function()
 			Roact.mount(element)
@@ -53,5 +53,67 @@ return function()
 		expect(function()
 			Roact.mount(element)
 		end).to.throw()
-    end)
+	end)
+	
+	it("should render correctly", function ()
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(createTestExpandableList({
+			TopLevelItem = {},
+            Content = {},
+		}, {}, container), container)
+		local frame = container:FindFirstChildOfClass("Frame")
+
+		expect(frame.TopLevelItem).to.be.ok()
+		expect(frame.ExpandableFrame).to.be.ok()
+
+		Roact.unmount(instance)
+	end)
+
+	it("items should be sized to contents", function ()
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(createTestExpandableList({
+			TopLevelItem = {
+				ArrowIcon = Roact.createElement("TextLabel", {
+					Size = UDim2.new(0, 100, 0, 100),
+				}),
+			},
+			Content = {
+				Label = Roact.createElement("TextLabel", {
+					Size = UDim2.new(0, 100, 0, 100),
+				}),
+			},
+		}, {}, container), container)
+		local frame = container:FindFirstChildOfClass("Frame")
+
+		expect(frame.TopLevelItem.Size.X.Scale).to.equal(1)
+		expect(frame.TopLevelItem.Size.Y.Offset).to.equal(100)
+
+		expect(frame.ExpandableFrame.Size.X.Scale).to.equal(1)
+		expect(frame.ExpandableFrame.Size.Y.Offset).to.equal(100)
+
+
+		Roact.unmount(instance)
+	end)
+
+	it("list should only show top item initially", function ()
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(createTestExpandableList({
+			TopLevelItem = {
+				ArrowIcon = Roact.createElement("TextLabel", {
+					Size = UDim2.new(0, 100, 0, 100),
+				}),
+			},
+			Content = {
+				Label = Roact.createElement("TextLabel", {
+					Size = UDim2.new(0, 100, 0, 100),
+				}),
+			},
+		}, {}, container), container)
+		local frame = container:FindFirstChildOfClass("Frame")
+
+		expect(frame.Size.X.Scale).to.equal(1)
+		expect(frame.Size.Y.Offset).to.equal(100)
+
+		Roact.unmount(instance)
+	end)
 end

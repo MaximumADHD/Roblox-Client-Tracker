@@ -11,7 +11,7 @@ local HttpService = game:GetService('HttpService')
 local HttpRbxApiService = game:GetService('HttpRbxApiService')
 local PlayersService = game:GetService('Players')
 local StarterGui = game:GetService("StarterGui")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 
 local LocalPlayer = PlayersService.LocalPlayer

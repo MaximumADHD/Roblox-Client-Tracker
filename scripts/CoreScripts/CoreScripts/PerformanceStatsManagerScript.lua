@@ -10,7 +10,7 @@ local PlayersService = game:GetService("Players")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 local CoreGuiService = game:GetService('CoreGui')
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 --[[ Modules ]]--
 local GoogleAnalyticsUtils = require(CoreGuiService.RobloxGui.Modules.GoogleAnalyticsUtils)

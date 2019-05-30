@@ -15,11 +15,10 @@
 	Allows for local logging to the console by modifying the constant value below.
 ]]
 
-local FFlagGameSettingsStandardizedOpenEvent = settings():GetFFlag("GameSettingsStandardizedOpenEvent")
 
 local LOG_ANALYTICS_EVENTS = false
 
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -108,13 +107,11 @@ end
 function Analytics.onOpenEvent(userId)
 	Analytics.sendEventDeferred("gameSettingsOpen", {})
 
-	if FFlagGameSettingsStandardizedOpenEvent then
-		Analytics.sendEventDeferred("toolOpened", {
-			method = 1, --studio tab
-			uid = userId,
-			gameId = game.GameId,
-		})
-	end
+	Analytics.sendEventDeferred("toolOpened", {
+		method = 1, --studio tab
+		uid = userId,
+		gameId = game.GameId,
+	})
 end
 
 function Analytics.onCloseEvent(buttonSelected, timeOpen)

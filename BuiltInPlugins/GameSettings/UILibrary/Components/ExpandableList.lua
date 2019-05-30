@@ -95,13 +95,13 @@ function ExpandableList:render()
 					[Roact.Event.Activated] = self.toggleList,
 					[Roact.Event.MouseEnter] = self.onMouseEnter,
 					[Roact.Event.MouseLeave] = self.onMouseLeave,
-				}, join(topLevelItem)),
+				}, topLevelItem),
 
 				ExpandableFrame = Roact.createElement(ContentFit, {
 					LayoutOrder = 1,
 					BackgroundTransparency = 1,
 					Visible = state.listExpanded,
-				}, join(content)),
+				}, content),
 		})
 	end)
 end

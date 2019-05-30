@@ -12,12 +12,13 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 
-local CollaboratorItem = require(Plugin.Src.Components.CollaboratorItem)
-local GroupCollaboratorItem = nil -- TODO 4/23/2019 (awarwick). Replace when component is created
+local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
+
+local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
+local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
 local createFitToContent = require(Plugin.Src.Components.createFitToContent)
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
@@ -27,27 +28,84 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 
 local function getGroupOwnerPermissions(props, localized)
 	local permissions = {
-		Cryo.Dictionary.join({Key = "Play", Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription}),
-		Cryo.Dictionary.join({Key = "Edit", Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription}),
+		Cryo.Dictionary.join({Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription}),
+		Cryo.Dictionary.join({Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription}),
 	}
 	
 	if props.GroupOwnerUserId and props.GroupOwnerUserId == props.StudioUserId then
 		permissions = Cryo.List.join(
 			permissions,
-			{Cryo.Dictionary.join({Key = "Admin", Display = localized.AccessPermissions.ActionDropdown.ManageLabel, Description = localized.AccessPermissions.ActionDropdown.ManageDescription})}
+			{Cryo.Dictionary.join({Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription})}
 		)
 	end
 	
 	return permissions
 end
 
-local function getUserOwnerPermissions(props)
+local function getUserOwnerPermissions()
 	return {} -- Owner can never be changed
 end
 
 local function GameOwnerWidget(props)
 	return withLocalization(function(localized)
 		return withTheme(function(theme)
+			local function rolePermissionChanged(roleId, newPermission)
+				-- Cryo does not provide a good way to replace a deep key
+				local newPermissions = 	Cryo.Dictionary.join(props.Permissions, {[PermissionsConstants.RoleSubjectKey]=Cryo.Dictionary.join(
+											props.Permissions[PermissionsConstants.RoleSubjectKey], {[roleId]=Cryo.Dictionary.join(
+												props.Permissions[PermissionsConstants.RoleSubjectKey][roleId], {[PermissionsConstants.ActionKey]=newPermission}
+											)}
+										)})
+				
+				props.PermissionsChanged(newPermissions)
+			end
+		
+			local collaboratorItem
+			if game.CreatorType == Enum.CreatorType.User then
+				local creatorName
+				for _,permission in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
+					if permission[PermissionsConstants.SubjectIdKey] == game.CreatorId then
+						creatorName = permission[PermissionsConstants.SubjectNameKey]
+						break
+					end
+				end
+				assert(creatorName ~= nil)
+
+				collaboratorItem = Roact.createElement(CollaboratorItem, {
+					LayourOrder = 1,
+					Removable = false,
+					
+					CollaboratorName = creatorName,
+					CollaboratorId = game.CreatorId,
+					CollaboratorIcon = nil, -- TODO (awarwick) 5/8/2019 Populate when we have thumbnail loader
+					Action = localized.AccessPermissions.ActionDropdown.OwnerLabel,
+					Enabled = props.Enabled,
+					
+					Items = getUserOwnerPermissions(props),
+					RolePermissionChanged = nil, -- Owner permissions can't be changed
+				})
+			else
+				collaboratorItem = Roact.createElement(GroupCollaboratorItem, {
+					LayoutOrder = 1,
+					Removable = false,
+					
+					GroupName = props.GroupMetadata[game.CreatorId].Name,
+					GroupId = game.CreatorId,
+					GroupIcon = nil, -- TODO (awarwick) 5/8/2019 Populate when we have thumbnail loader
+					Enabled = props.Enabled,
+
+					Items = getGroupOwnerPermissions(props, localized),
+					
+					RolePermissionChanged = rolePermissionChanged,
+					GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
+
+					Permissions = props.Permissions,
+
+					-- TODO (awarwick) 5/8/2019 Replace this with new component
+					SecondaryText = "Manage: 1 roles(s) Edit: N role(s) Play: M roles(s) No access: 0 role(s)",
+				})
+			end
+		
 			return Roact.createElement(FitToContent, {
 				LayoutOrder = props.LayoutOrder or 0,
 				BackgroundTransparency = 1,
@@ -61,41 +119,7 @@ local function GameOwnerWidget(props)
 					BackgroundTransparency = 1,
 				})),
 				
-				Owner = Roact.createElement(game.CreatorType == Enum.CreatorType.Group and GroupCollaboratorItem or CollaboratorItem, {
-					LayoutOrder = 1,
-					
-					Removable = false,
-					
-					-- TODO (awarwick) 4/29/2019 Clean this up when we have GroupCollaboratorItem
-					CollaboratorName = props.OwnerName,
-					SecondaryText = game.CreatorType ==  Enum.CreatorType.Group and "Manage: 1 roles(s) Edit: N role(s) Play: M roles(s) No access: 0 role(s)" or nil,
-					CollaboratorId = game.CreatorId,
-					CollaboratorIcon = props.OwnerThumbnail,
-					Action = game.CreatorType == Enum.CreatorType.Group and "(Multiple)" or "Owner",
-					Enabled = props.Enabled and game.CreatorType ~= Enum.CreatorType.User,
-					
-					-- TODO (awarwick) 4/29/2019 GroupCollaboratorItem will pass these down to its child role permissions
-					Items = game.CreatorType == Enum.CreatorType.Group and getGroupOwnerPermissions(props, localized) or getUserOwnerPermissions(props),
-					
-					-- TODO (awarwick) 4/24/2019 - Replace with something more meaningful when we have GroupCollaboratorItem
-					PermissionChanged = function(newPermission)
-						if game.CreatorType == Enum.CreatorType.Group then return end
-						
-						local oldPermission
-						local newPermissions = Cryo.List.map(props.Permissions, function(permission, index)
-							if permission.subjectType == game.CreatorType.Name and permission.subjectId == game.CreatorId then
-								oldPermission = permission
-								return Cryo.Dictionary.join(permission, {action=newPermission})
-							else
-								return permission
-							end
-						end)
-
-						-- Needed because dummy dropdowns don't show any real state
-						print("Permission changed to", newPermission, "from", oldPermission.action)
-						props.PermissionsChanged(newPermissions)
-					end,
-				}),
+				Owner = collaboratorItem,
 			})
 		end)
 	end)

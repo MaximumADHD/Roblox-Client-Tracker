@@ -26,7 +26,7 @@ local XPOS_OFFSET = -(STYLE_PADDING - BAR_THICKNESS)
 local playerService = game:GetService("Players")
 local contextActionService = game:GetService("ContextActionService")
 local guiService = game:GetService("GuiService")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local YPOS_OFFSET = -math.floor(STYLE_PADDING / 2)
 local usingGamepad = false
 

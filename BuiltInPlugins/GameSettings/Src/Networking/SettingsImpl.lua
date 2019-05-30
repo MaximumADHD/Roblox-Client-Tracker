@@ -13,7 +13,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagGameSettingsUsesNewIconEndpoint = settings():GetFFlag("GameSettingsUsesNewIconEndpoint")
 local FFlagGameSettingsUpdatesUniverseDisplayName = settings():GetFFlag("GameSettingsUpdatesUniverseDisplayName")
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
@@ -39,7 +38,6 @@ local Requests = {
 	GameIcon = require(RequestsFolder.GameIcon),
 	Thumbnails = require(RequestsFolder.Thumbnails),
 	GamePermissions = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.GamePermissions) or nil,
-	OwnerMetadata = FFlagStudioGameSettingsAccessPermissions and require(RequestsFolder.OwnerMetadata) or nil,
 	DeveloperSubscriptions = DFFlagDeveloperSubscriptionsEnabled and require(RequestsFolder.DeveloperSubscriptions) or nil,
 }
 
@@ -108,9 +106,7 @@ function SettingsImpl:GetSettings()
 		end
 
 		if FFlagStudioGameSettingsAccessPermissions then
-			local DEBUG_loggedInUserId = self:GetUserId() -- Used to populate with dummy data. Remove when backend returns real data
-			table.insert(getRequests, Requests.GamePermissions.Get(universeId, DEBUG_loggedInUserId))
-			table.insert(getRequests, Requests.OwnerMetadata.Get())
+			table.insert(getRequests, Requests.GamePermissions.Get(universeId))
 		end
 
 		return Promise.all(getRequests)
@@ -170,7 +166,7 @@ function SettingsImpl:SaveAll(state)
 			elseif Requests.Universes.AcceptsValue(setting) then
 				saveInfo[setting] = value
 
-			elseif FFlagGameSettingsImageUploadingEnabled and Requests.GameIcon.AcceptsValue(setting) then
+			elseif Requests.GameIcon.AcceptsValue(setting) then
 				saveInfo[setting] = value
 
 			elseif DFFlagDeveloperSubscriptionsEnabled and Requests.DeveloperSubscriptions.AcceptsValue(setting) then
@@ -180,8 +176,8 @@ function SettingsImpl:SaveAll(state)
 				}
 			elseif FFlagStudioGameSettingsAccessPermissions and Requests.GamePermissions.AcceptsValue(setting) then
 				saveInfo[setting] = {
-					Current = state.Current.permissions,
-					Changed = state.Changed.permissions,
+					Current = {permissions=state.Current.permissions, groupMetadata=state.Current.groupMetadata},
+					Changed = {permissions=state.Changed.permissions, groupMetadata=state.Changed.groupMetadata or state.Current.groupMetadata},
 				}
 			end
 		end
@@ -201,14 +197,9 @@ function SettingsImpl:SaveAll(state)
 			Requests.Universes.Set(universeId, saveInfo.isActive),
 		}
 
-		if FFlagGameSettingsImageUploadingEnabled then
-			table.insert(setRequests, Requests.Thumbnails.Set(universeId, saveInfo.thumbnails, saveInfo.thumbnailOrder))
-			table.insert(setRequests, Requests.GameIcon.Set(universeId, saveInfo.gameIcon))
-		else
-			table.insert(setRequests, Requests.Thumbnails.DEPRECATED_Set(universeId, saveInfo.thumbnails))
-			table.insert(setRequests, Requests.Thumbnails.SetOrder(universeId, saveInfo.thumbnailOrder))
-		end
-
+		table.insert(setRequests, Requests.Thumbnails.Set(universeId, saveInfo.thumbnails, saveInfo.thumbnailOrder))
+		table.insert(setRequests, Requests.GameIcon.Set(universeId, saveInfo.gameIcon))
+	
 		if DFFlagDeveloperSubscriptionsEnabled then
 			table.insert(setRequests, Requests.DeveloperSubscriptions.Set(universeId, saveInfo.DeveloperSubscriptions))
 		end

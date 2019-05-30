@@ -3,7 +3,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
 local DebugSettings = settings():GetService("DebugSettings")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0

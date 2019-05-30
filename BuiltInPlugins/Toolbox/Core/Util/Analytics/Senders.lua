@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsLogs = require(Plugin.Core.Util.Analytics.Logs)
 
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local function makeSettingName(counter)
 	return "ToolboxAnalytics_" .. counter

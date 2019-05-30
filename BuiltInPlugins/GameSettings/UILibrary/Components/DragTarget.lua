@@ -50,7 +50,7 @@ function DragTarget:render()
 			[Roact.Event.InputChanged] = self.inputChanged,
 			[Roact.Event.MouseButton1Up] = self.inputEnded,
 			[Roact.Event.MouseButton2Up] = self.inputEnded,
-		})
+		}, self.props[Roact.Children])
 	})
 end
 

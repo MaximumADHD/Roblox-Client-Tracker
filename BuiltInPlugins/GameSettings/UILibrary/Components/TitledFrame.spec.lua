@@ -22,9 +22,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTitledFrame(), container)
-		local titledFrame = container.Frame
+		local titledFrame = container:FindFirstChildOfClass("Frame")
 
 		expect(titledFrame.Title).to.be.ok()
 		expect(titledFrame.Content).to.be.ok()

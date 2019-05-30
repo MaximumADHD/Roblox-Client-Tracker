@@ -56,20 +56,6 @@ Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
-Class AnalyticsService : Instance [NotCreatable] [Service]
-	Function string AnalyticsService:GetClientId() {RobloxScriptSecurity}
-	Function string AnalyticsService:GetSessionId() {RobloxScriptSecurity}
-	Function void AnalyticsService:ReleaseRBXEventStream(string target) {RobloxScriptSecurity}
-	Function void AnalyticsService:ReportCounter(string counterName, int amount = 1) {RobloxScriptSecurity}
-	Function void AnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) {RobloxScriptSecurity}
-	Function void AnalyticsService:ReportStats(string category, float value) {RobloxScriptSecurity}
-	Function void AnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
-	Function void AnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
-	Function void AnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
-	Function void AnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
-	Function void AnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) {RobloxScriptSecurity}
-	Function void AnalyticsService:TrackEventWithArgs(string category, string action, string label, Dictionary args, int64 value = 0) {RobloxScriptSecurity}
-	Function void AnalyticsService:UpdateHeartbeatObject(Dictionary args) {RobloxScriptSecurity}
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationController : Instance
@@ -510,7 +496,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string ContentProvider.BaseUrl [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Property int ContentProvider.RequestQueueSize [<💾> Save-only] [ReadOnly] [NotReplicated]
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
-	Function void ContentProvider:PreloadAsync(Array contentIdList) [Yields]
+	Function void ContentProvider:PreloadAsync(Array contentIdList, Function callbackFunction = nil) [Yields]
 	Function void ContentProvider:SetBaseUrl(string url) {LocalUserSecurity}
 Class ContextActionService : Instance [NotCreatable] [Service]
 	Function void ContextActionService:BindAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes)
@@ -1470,7 +1456,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalizationService:PromptImportFromCSVs() {RobloxScriptSecurity} [Yields]
 	Function Instance LocalizationService:PromptUploadCSVToGameTable() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:SetRobloxLocaleId(string locale) {RobloxScriptSecurity}
-	Function void LocalizationService:StartTextScraper(bool enforceRequirements = false) {RobloxScriptSecurity}
+	Function void LocalizationService:StartTextScraper() {RobloxScriptSecurity}
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
 	Event LocalizationService.AutoTranslateWillRun() {RobloxScriptSecurity}
 Class LocalizationTable : Instance
@@ -1827,8 +1813,8 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 Class MeshPart : TriangleMeshPart
 	Property Content MeshPart.MeshID  [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
-	Property Content MeshPart.TextureID
 	Property Enum<RenderFidelity> MeshPart.RenderFidelity {✏️PluginSecurity}
+	Property Content MeshPart.TextureID
 Class PartOperation : TriangleMeshPart
 	Property Enum<RenderFidelity> PartOperation.RenderFidelity {✏️PluginSecurity}
 	Property int PartOperation.TriangleCount [<💾> Save-only] [ReadOnly] [NotReplicated]
@@ -1997,7 +1983,7 @@ Class PhysicsSettings : Instance [Settings]
 	Property double PhysicsSettings.ThrottleAdjustTime
 Class Player : Instance
 	Property bool Player.CanLoadCharacterAppearance
-	Property bool Player.GameplayPaused [<💾> Save-only] [ReadOnly] [NotReplicated]
+	Property bool Player.GameplayPaused {✏️NotAccessibleSecurity}
 	Property float Player.CameraMaxZoomDistance
 	Property float Player.CameraMinZoomDistance
 	Property Enum<CameraMode> Player.CameraMode
@@ -2260,6 +2246,20 @@ Class ColorCorrectionEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
+Class RbxAnalyticsService : Instance [NotCreatable] [Service]
+	Function string RbxAnalyticsService:GetClientId() {RobloxScriptSecurity}
+	Function string RbxAnalyticsService:GetSessionId() {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:ReleaseRBXEventStream(string target) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:ReportCounter(string counterName, int amount = 1) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:ReportStats(string category, float value) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:TrackEvent(string category, string action, string label, int64 value = 0) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:TrackEventWithArgs(string category, string action, string label, Dictionary args, int64 value = 0) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:UpdateHeartbeatObject(Dictionary args) {RobloxScriptSecurity}
 Class ReflectionMetadata : Instance
 Class ReflectionMetadataCallbacks : Instance
 Class ReflectionMetadataClasses : Instance
@@ -2659,7 +2659,6 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
 	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [Service] [NotReplicated]
-	Property Enum<DEPRECATED_DebuggerDataModelPreference> Studio.Attach Debugger To
 	Property bool Studio.Disable Accurate Play Solo
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable Autocomplete
@@ -2737,6 +2736,7 @@ Class StudioData : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript  [ReadOnly] [NotReplicated]
+	Property string StudioService.StudioLocaleId  [ReadOnly] [NotReplicated]
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
 	Function int64 StudioService:GetUserId() {RobloxScriptSecurity}
@@ -3202,6 +3202,9 @@ Enum AppShellActionType
 Enum AspectType
 	EnumItem AspectType.FitWithinMaxSize : 0
 	EnumItem AspectType.ScaleWithParentSize : 1
+Enum AssetFetchStatus
+	EnumItem AssetFetchStatus.Success : 0
+	EnumItem AssetFetchStatus.Failure : 1
 Enum AssetType
 	EnumItem AssetType.Image : 1
 	EnumItem AssetType.TeeShirt : 2
@@ -3470,9 +3473,6 @@ Enum CustomCameraMode
 	EnumItem CustomCameraMode.Default : 0
 	EnumItem CustomCameraMode.Classic : 1
 	EnumItem CustomCameraMode.Follow : 2
-Enum DEPRECATED_DebuggerDataModelPreference
-	EnumItem DEPRECATED_DebuggerDataModelPreference.Server : 0
-	EnumItem DEPRECATED_DebuggerDataModelPreference.Client : 1
 Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetAsync : 0
 	EnumItem DataStoreRequestType.SetIncrementAsync : 1

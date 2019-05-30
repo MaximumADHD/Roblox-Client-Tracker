@@ -9,8 +9,6 @@
 		function FocusChanged(focus) = Callback to tell parent that this component has focus
 ]]
 
-local FFlagGameSettingsFixNameWhitespace = settings():GetFFlag("GameSettingsFixNameWhitespace")
-
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Roact)
 

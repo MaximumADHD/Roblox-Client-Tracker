@@ -4,8 +4,6 @@ return function()
 
 	local MockWrapper = require(Library.MockWrapper)
 
-	local workspace = game:GetService("Workspace")
-
 	local TimelineTick = require(script.Parent.TimelineTick)
 
 	local function createTestTimelineTick()
@@ -26,9 +24,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTimelineTick(), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.TimeLabel).to.be.ok()
 		expect(frame.TickLine).to.be.ok()

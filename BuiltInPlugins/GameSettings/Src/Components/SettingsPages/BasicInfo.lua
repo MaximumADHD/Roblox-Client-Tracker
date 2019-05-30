@@ -30,9 +30,6 @@ local PageName = "Basic Info"
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
-local FFlagGameSettingsEnforceMaxThumbnails = settings():GetFFlag("GameSettingsEnforceMaxThumbnails")
-local FFlagStudioRenameLocalAssetToFile = settings():GetFFlag("StudioRenameLocalAssetToFile")
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
@@ -93,9 +90,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
--- Deprecated, remove with FFlagStudioRenameLocalAssetToFile
-local DEPRECATED_LocalAssetUtils = require(Plugin.Src.Util.LocalAssetUtils)
-
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
 	local errors = state.Settings.Errors
@@ -120,10 +114,8 @@ local function loadValuesToProps(getValue, state)
 		loadedProps.IsFriendsOnly = getValue("isFriendsOnly")
 	end
 
-	if FFlagGameSettingsImageUploadingEnabled then
-		loadedProps.ThumbnailsError = errors.thumbnails
-		loadedProps.GameIconError = errors.gameIcon
-	end
+	loadedProps.ThumbnailsError = errors.thumbnails
+	loadedProps.GameIconError = errors.gameIcon
 
 	if FFlagGameSettingsDispatchShutdownWarning then
 		loadedProps.IsCurrentlyActive =  state.Settings.Current.isActive
@@ -177,41 +169,33 @@ local function dispatchChanges(setValue, dispatch)
 		end
 	end
 
-	if FFlagGameSettingsImageUploadingEnabled then
-		dispatchFuncs.GameIconChanged = setValue("gameIcon")
-		dispatchFuncs.AddThumbnails = function(newThumbnails, oldThumbnails, oldOrder)
-			local thumbnails = Cryo.Dictionary.join(oldThumbnails, {})
-			local order = Cryo.List.join(oldOrder, {})
-			for _, thumbnail in pairs(newThumbnails) do
-				local id = thumbnail:GetTemporaryId()
-				table.insert(order, id)
-				thumbnails[id] = {
-					asset = thumbnail,
-					tempId = id,
-				}
-			end
-			dispatch(AddChange("thumbnails", thumbnails))
-			dispatch(AddChange("thumbnailOrder", order))
+	dispatchFuncs.GameIconChanged = setValue("gameIcon")
+	dispatchFuncs.AddThumbnails = function(newThumbnails, oldThumbnails, oldOrder)
+		local thumbnails = Cryo.Dictionary.join(oldThumbnails, {})
+		local order = Cryo.List.join(oldOrder, {})
+		for _, thumbnail in pairs(newThumbnails) do
+			local id = thumbnail:GetTemporaryId()
+			table.insert(order, id)
+			thumbnails[id] = {
+				asset = thumbnail,
+				tempId = id,
+			}
+		end
+		dispatch(AddChange("thumbnails", thumbnails))
+		dispatch(AddChange("thumbnailOrder", order))
 
-			if FFlagGameSettingsEnforceMaxThumbnails then
-				if #order > Constants.MAX_THUMBNAILS then
-					dispatch(AddErrors({thumbnails = "TooMany"}))
-				end
-			end
+		if #order > Constants.MAX_THUMBNAILS then
+			dispatch(AddErrors({thumbnails = "TooMany"}))
 		end
 	end
 
-	if FFlagGameSettingsEnforceMaxThumbnails then
-		dispatchFuncs.ThumbnailOrderChanged = function(order)
-			dispatch(AddChange("thumbnailOrder", order))
-			if #order > Constants.MAX_THUMBNAILS then
-				dispatch(AddErrors({thumbnails = "TooMany"}))
-			end
+	dispatchFuncs.ThumbnailOrderChanged = function(order)
+		dispatch(AddChange("thumbnailOrder", order))
+		if #order > Constants.MAX_THUMBNAILS then
+			dispatch(AddErrors({thumbnails = "TooMany"}))
 		end
-	else
-		dispatchFuncs.ThumbnailOrderChanged = setValue("thumbnailOrder")
 	end
-
+	
 	return dispatchFuncs
 end
 
@@ -322,23 +306,14 @@ local function displayContents(page, localized)
 			Icon = props.GameIcon,
 			TutorialEnabled = true,
 			AddIcon = function()
-				if FFlagGameSettingsImageUploadingEnabled then
-					local icon
-					if FFlagStudioRenameLocalAssetToFile then
-						icon = FileUtils.PromptForGameIcon(page)
-					else
-						icon = DEPRECATED_LocalAssetUtils.PromptForGameIcon(page)
-					end
+				local icon
+				icon = FileUtils.PromptForGameIcon(page)
 
-					if icon then
-						props.GameIconChanged(icon)
-					end
-				else
-					BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
+				if icon then
+					props.GameIconChanged(icon)
 				end
 			end,
-			ErrorMessage = FFlagGameSettingsImageUploadingEnabled
-				and localized.Errors[imageErrors[props.GameIconError]],
+			ErrorMessage = localized.Errors[imageErrors[props.GameIconError]],
 		}),
 
 		Separator3 = Roact.createElement(Separator, {
@@ -351,23 +326,14 @@ local function displayContents(page, localized)
 			Thumbnails = props.Thumbnails,
 			Order = props.ThumbnailOrder,
 			AddThumbnail = function()
-				if FFlagGameSettingsImageUploadingEnabled then
-					local newThumbnails
-					if FFlagStudioRenameLocalAssetToFile then
-						newThumbnails = FileUtils.PromptForThumbnails(page)
-					else
-						newThumbnails = DEPRECATED_LocalAssetUtils.PromptForThumbnails(page)
-					end
+				local newThumbnails
+				newThumbnails = FileUtils.PromptForThumbnails(page)
 
-					if newThumbnails then
-						props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
-					end
-				else
-					BrowserUtils.OpenPlaceSettings(props.RootPlaceId)
+				if newThumbnails then
+					props.AddThumbnails(newThumbnails, props.Thumbnails, props.ThumbnailOrder)
 				end
 			end,
-			ErrorMessage = FFlagGameSettingsImageUploadingEnabled
-				and localized.Errors[imageErrors[props.ThumbnailsError]],
+			ErrorMessage = localized.Errors[imageErrors[props.ThumbnailsError]],
 			ThumbnailsChanged = props.ThumbnailsChanged,
 			ThumbnailOrderChanged = props.ThumbnailOrderChanged,
 		}),

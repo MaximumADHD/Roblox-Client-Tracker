@@ -23,9 +23,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTextEntry("", true), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.Text).to.be.ok()
 
@@ -33,9 +33,9 @@ return function()
 	end)
 
 	it("should hide its text when not visible", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestTextEntry("", false), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.Text.Visible).to.equal(false)
 

@@ -25,9 +25,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundTextBox(true), container)
-		local background = container.ImageLabel
+		local background = container:FindFirstChildOfClass("ImageLabel")
 
 		expect(background.Border).to.be.ok()
 		expect(background.Border.Padding).to.be.ok()
@@ -39,9 +39,9 @@ return function()
 
 	describe("Tooltip", function()
 		it("should show the correct length of the text", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestRoundTextBox(true), container)
-			local background = container.ImageLabel
+			local background = container:FindFirstChildOfClass("ImageLabel")
 
 			expect(background.Tooltip.Text).to.equal("4/50")
 
@@ -49,9 +49,9 @@ return function()
 		end)
 
 		it("should show an error message if one exists", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestRoundTextBox(true, "Error"), container)
-			local background = container.ImageLabel
+			local background = container:FindFirstChildOfClass("ImageLabel")
 
 			expect(background.Tooltip.Text).to.equal("Error")
 
@@ -59,9 +59,9 @@ return function()
 		end)
 
 		it("should be empty if component is inactive", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestRoundTextBox(false), container)
-			local background = container.ImageLabel
+			local background = container:FindFirstChildOfClass("ImageLabel")
 
 			expect(background.Tooltip.Text).to.equal("")
 

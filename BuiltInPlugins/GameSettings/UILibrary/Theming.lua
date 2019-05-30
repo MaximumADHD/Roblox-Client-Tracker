@@ -1,9 +1,8 @@
-local CorePackages = game:GetService("CorePackages")
-local Signal = require(CorePackages.AppTempCommon.Common.Signal)
-
 local Library = script.Parent
+
 local Roact = require(Library.Parent.Roact)
-local Symbol = require(Library.Parent.Roact.Symbol)
+local Signal = require(Library.Utils.Signal)
+local Symbol = require(Library.Utils.Symbol)
 local themeKey = Symbol.named("UILibraryTheme")
 
 local ThemeProvider = Roact.PureComponent:extend("UILibraryThemeProvider")

@@ -23,9 +23,9 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMultilineTextEntry(true), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.ScrollingFrame).to.be.ok()
 		expect(frame.ScrollingFrame).to.be.ok()
@@ -36,9 +36,9 @@ return function()
 	end)
 
 	it("should hide its text when not visible", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMultilineTextEntry(false), container)
-		local frame = container.Frame
+		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame.ScrollingFrame.Text.Visible).to.equal(false)
 

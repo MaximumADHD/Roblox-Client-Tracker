@@ -6,7 +6,6 @@
 		bool SaveActive = Whether or not saving is currently allowed.
 			This will enable the Save button if true.
 ]]
-local FFlagGameSettingsImageUploadingEnabled = settings():GetFFlag("GameSettingsImageUploadingEnabled")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -63,18 +62,14 @@ function Footer:render()
 					},
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
 					ButtonClicked = function(userPressedSave)
-						if FFlagGameSettingsImageUploadingEnabled then
-							getMouse(self).setHoverIcon("Wait", true)
-						end
+						getMouse(self).setHoverIcon("Wait", true)
 
 						local resolved = self.props.ButtonClicked(userPressedSave, self):await()
 						if resolved then
 							self.props.OnClose(userPressedSave)
 						end
 
-						if FFlagGameSettingsImageUploadingEnabled then
-							getMouse(self).resetMouse()
-						end
+						getMouse(self).resetMouse()
 					end,
 				}),
 			})

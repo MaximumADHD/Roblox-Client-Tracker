@@ -1,5 +1,5 @@
 local LocalizationService = game:GetService("LocalizationService")
-local AnalyticsService = game:GetService("AnalyticsService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local IsEdit = require(script.Parent.IsEdit)
 
 local LocalizationTools = require(script.Parent.Components.LocalizationTools)
