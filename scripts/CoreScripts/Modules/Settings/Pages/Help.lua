@@ -219,9 +219,11 @@ local function Initialize()
 		accessoriesFrame.Parent = parentFrame
 
 		local miscActions = {}
-		table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})
-		if not isOSX then
-			table.insert(miscActions, {["Record Video"] = "F12"})
+		if not FFlagChinaLicensingApp then
+			table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})
+			if not isOSX then
+				table.insert(miscActions, {["Record Video"] = "F12"})
+			end
 		end
 
 		if not FFlagChinaLicensingApp then

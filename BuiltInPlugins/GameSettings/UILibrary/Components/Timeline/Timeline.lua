@@ -18,6 +18,7 @@
 		UDim2 LabelPosition = Position of each tick's time label relative to their tick line
 		float TickHeightScale = Height of the tick line in proportion to the containing frame
 		float SmallTickHeightScale = Height of non-interval aligned ticks in proportion to the containing frame
+		bool ShowAsTime = if true, tick values will be displayed in seconds, if false, in frame increments
 
 		function OnInputBegan = A callback fired when the user starts to interact with the frame.
 		function OnInputChanged = A callback fired when the user is currently interacting with the frame.
@@ -53,13 +54,17 @@ function Timeline:render()
 		local tickLabelPosition = props.TickLabelPosition
 		local tickHeightScale = props.TickHeightScale
 		local smallTickHeightScale = props.SmallTickHeightScale
+		local showAsTime = props.ShowAsTime
 		local onInputBegan = props.OnInputBegan
 		local onInputChanged = props.OnInputChanged
 		local onInputEnded = props.OnInputEnded
 
 		endFrame = math.max(endFrame, startFrame + majorInterval)
 
-		local ticks = {}
+		local children = props[Roact.Children]
+		if not children then
+			children = {}
+		end
 		local offset = 0
 		if startFrame > 0 then
 			offset = minorInterval - (startFrame % minorInterval)
@@ -68,8 +73,8 @@ function Timeline:render()
 			local xScale = (frameNo - startFrame) / (endFrame - startFrame)
 			local onInterval = frameNo % majorInterval == 0
 			local time = MathUtils:round(frameNo / sampleRate, 2)
-			table.insert(ticks, Roact.createElement(Tick, {
-				Time = time,
+			table.insert(children, Roact.createElement(Tick, {
+				Time = showAsTime and time or frameNo,
 				Height = height,
 				Position = UDim2.new(0, math.floor(xScale * width), 0, 0),
 				TextSize = textSize,
@@ -81,13 +86,13 @@ function Timeline:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, height),
+			Size = UDim2.new(0, width, 0, height),
 			BackgroundColor3 = theme.timeline.barColor,
 			BorderSizePixel = 0,
 			[Roact.Event.InputBegan] = onInputBegan,
 			[Roact.Event.InputChanged] = onInputChanged,
 			[Roact.Event.InputEnded] = onInputEnded,
-		}, ticks)
+		}, children)
 	end)
 end
 

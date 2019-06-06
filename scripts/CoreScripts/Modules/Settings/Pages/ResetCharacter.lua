@@ -14,6 +14,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -22,6 +23,9 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+
+
+local FFlagTrackResetCharacterButtonUsage = settings():GetFFlag("TrackResetCharacterButtonUsage")
 
 ----------- CLASS DECLARATION --------------
 
@@ -108,6 +112,9 @@ local function Initialize()
 					humanoid.Health = 0
 				end
 			end
+		end
+		if FFlagTrackResetCharacterButtonUsage then
+			AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")
 		end
 	end
 	

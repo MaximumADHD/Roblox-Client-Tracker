@@ -84,6 +84,8 @@ function GameOwnerWidget:render()
 					CollaboratorName = creatorName,
 					CollaboratorId = game.CreatorId,
 					CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, game.CreatorId),
+					UseMask = true,
+					
 					Action = localized.AccessPermissions.ActionDropdown.OwnerLabel,
 					Enabled = props.Enabled,
 					

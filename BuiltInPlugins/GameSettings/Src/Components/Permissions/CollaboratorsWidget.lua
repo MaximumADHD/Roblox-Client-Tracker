@@ -25,6 +25,7 @@ local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
 local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local Separator = require(Plugin.Src.Components.Separator)
 
 local FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -177,21 +178,38 @@ function CollaboratorsWidget:render()
 			local groupCollaborators = {}
 			
 			for i,user in pairs(users) do
-				userCollaborators["User"..i] = Roact.createElement(CollaboratorItem, {
+				local separatorProvidedByNextElement = i ~= #users
+				userCollaborators["User"..i] = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
+					-- and we don't want to spend the engineering resources on somethat that could drastically change
+					Size = UDim2.new(1, 0, 0, 60),
 					LayoutOrder = i,
-					Enabled = props.Enabled,
-					
-					CollaboratorName = user.Name,
-					CollaboratorId = user.Id,
-					CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, user.Id),
+				}, {
+					FirstSeparator = Roact.createElement(Separator, {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0, 0, 0, 0),
+					}),
+					CollaboratorItem = Roact.createElement(CollaboratorItem, {
+						Enabled = props.Enabled,
+						
+						CollaboratorName = user.Name,
+						CollaboratorId = user.Id,
+						CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, user.Id),
+						UseMask = true,
 
-					Items = getUserCollaboratorPermissions(props, localized),
-					Action = getLabelForAction(localized, user.Action),
+						Items = getUserCollaboratorPermissions(props, localized),
+						Action = getLabelForAction(localized, user.Action),
 
-					Removable = true,
-					Removed = function() userRemoved(user.Id) end,
-					PermissionChanged = function(newPermission) userPermissionChanged(user.Id, newPermission) end,
-					HideLastSeparator = i ~= #users,
+						Removable = true,
+						Removed = function() userRemoved(user.Id) end,
+						PermissionChanged = function(newPermission) userPermissionChanged(user.Id, newPermission) end,
+						HideLastSeparator = i ~= #users,
+					}),
+					LastSeparator = (not separatorProvidedByNextElement) and Roact.createElement(Separator, {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0, 0, 1, -1),
+					}),
 				})
 			end
 			for i,group in pairs(groups) do

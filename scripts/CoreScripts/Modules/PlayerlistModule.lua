@@ -2066,6 +2066,10 @@ local function onCoreGuiChanged(coreGuiType, enabled)
   if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.PlayerList then
     -- on console we can always toggle on/off, ignore change
     if isTenFootInterface then
+      if topStat then
+        topStat:SetTopStatEnabled(enabled)
+      end
+
       playerlistCoreGuiEnabled = true
       return
     end
@@ -2079,10 +2083,6 @@ local function onCoreGuiChanged(coreGuiType, enabled)
     end
 
     setVisible(playerlistCoreGuiEnabled and isOpen and next(TempHideKeys) == nil, true)
-
-    if isTenFootInterface and topStat then
-      topStat:SetTopStatEnabled(playerlistCoreGuiEnabled)
-    end
 
     if playerlistCoreGuiEnabled then
       ContextActionService:BindCoreAction("RbxPlayerListToggle", Playerlist.ToggleVisibility, false, Enum.KeyCode.Tab)

@@ -5,6 +5,16 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
+local function createKey(keyName)
+	local key = newproxy(true)
+
+	getmetatable(key).__tostring = function()
+		return "Symbol("..keyName..")"
+	end
+
+	return key
+end
+
 --[[
 	Keys used in internal data structures. The tables don't contain any data, and are just
 	unique identifiers used in lieu of Lua's lack of enums. By using these, we can easily
@@ -14,24 +24,29 @@ local Cryo = require(Plugin.Cryo)
 --]]
 local uniqueIdentifiers = {
 	-- Used in internal data structure for permissions
-	NoAccessKey = {},
-	PlayKey = {},
-	EditKey = {},
-	AdminKey = {},
+	NoAccessKey = createKey("NoAccessPermission"),
+	PlayKey = createKey("PlayPermission"),
+	EditKey = createKey("EditPermission"),
+	AdminKey = createKey("AdminPermission"),
 	
-	UserSubjectKey = {},
-	GroupSubjectKey = {},
-	RoleSubjectKey = {},
+	UserSubjectKey = createKey("UserSubjectType"),
+	GroupSubjectKey = createKey("GroupSubjectType"),
+	RoleSubjectKey = createKey("RoleSubjectType"),
 	
-	ActionKey = {},
-	SubjectIdKey = {},
-	SubjectNameKey = {},
-	SubjectTypeKey = {},
-	SubjectRankKey = {},
-	GroupIdKey = {},
-	GroupNameKey = {}
+	ActionKey = createKey("Action"),
+	SubjectIdKey = createKey("SubjectId"),
+	SubjectNameKey = createKey("SubjectName"),
+	SubjectTypeKey = createKey("SubjectType"),
+	SubjectRankKey = createKey("SubjectRank"),
+	GroupIdKey = createKey("GroupId"),
+	GroupNameKey = createKey("GroupName"),
+}
+
+local miscConstants = {
+	MaxSearchResultsPerSubjectType = 3,
 }
 
 return Cryo.Dictionary.join(
-	uniqueIdentifiers
+	uniqueIdentifiers,
+	miscConstants
 )

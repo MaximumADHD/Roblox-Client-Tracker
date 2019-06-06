@@ -25,6 +25,8 @@ local TimelineTick = require(Components.Timeline.TimelineTick)
 local Scrubber = require(Components.Timeline.Scrubber)
 local ExpandableList = require(Components.ExpandableList)
 
+local Spritesheet = require(Utils.Spritesheet)
+
 local Focus = require(Src.Focus)
 
 local UILibrary = {
@@ -58,6 +60,11 @@ local UILibrary = {
 	Focus = {
 		CaptureFocus = Focus.CaptureFocus,
 		ShowOnTop = Focus.ShowOnTop,
+		KeyboardListener = Focus.KeyboardListener,
+	},
+	
+	Util = {
+		Spritesheet = Spritesheet,
 	},
 
 	Wrapper = require(Src.UILibraryWrapper),

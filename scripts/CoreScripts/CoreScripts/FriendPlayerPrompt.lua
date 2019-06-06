@@ -61,7 +61,7 @@ function createFetchImageFunction(...)
 		spawn(function()
 			local imageUrl = SocialUtil.GetPlayerImage(unpack(args))
 			if imageLabel and imageLabel.Parent then
-				imageLabel.Icon.Image = imageUrl
+				imageLabel.Image = imageUrl
 			end
 		end)
 	end
@@ -70,7 +70,7 @@ end
 function SendFriendRequest(playerToFriend)
     AnalyticsService:ReportCounter("FriendPlayerPrompt-RequestFriendship")
     AnalyticsService:TrackEvent("Game", "RequestFriendship", "FriendPlayerPrompt")
-    
+
 	local success = pcall(function()
 		LocalPlayer:RequestFriendship(playerToFriend)
 	end)

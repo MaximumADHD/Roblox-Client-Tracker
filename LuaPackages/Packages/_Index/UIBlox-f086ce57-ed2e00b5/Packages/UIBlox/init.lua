@@ -1,4 +1,5 @@
 return {
+	ImageSet = require(script.ImageSet),
 	Style = {
 		Provider = require(script.Style.StyleProvider),
 		Consumer = require(script.Style.StyleConsumer),

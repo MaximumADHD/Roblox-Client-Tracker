@@ -27,18 +27,18 @@ rev = "roblox"
 name = "UIBlox"
 type = "git"
 source = "https://github.rbx.com/roblox/uiblox"
-commit = "ab5a0b64e6abb7fbe2f8e4c7ba6a786898462c26"
+commit = "ed2e00b5e3a86ab8f96f8f644f3699dd4bd1fa86"
 rev = "master"
 
 [package.dependencies]
 Cryo = "Cryo-e5025947-ce743f67"
 Otter = "Otter-7466d762-fff3ac76"
 Roact = "Roact-e3b370a8-00b6e845"
-t = "t-1a73e5a4-b6535e71"
+t = "t-1a73e5a4-837657cb"
 
 [[package]]
 name = "t"
 type = "git"
 source = "https://github.com/osyrisrblx/t"
-commit = "b6535e7179e64704f84885bdafc14a15c9412600"
+commit = "837657cb198cdfc45b7157770745ee6e9c390eb6"
 rev = "master"

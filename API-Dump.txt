@@ -2338,6 +2338,7 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Event ReplicatedFirst.FinishedReplicating() {RobloxScriptSecurity}
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() {RobloxScriptSecurity}
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
+Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
@@ -2630,8 +2631,8 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property float StarterPlayer.NameDisplayDistance
 	Property bool StarterPlayer.AutoJumpEnabled
 	Function void StarterPlayer:ClearDefaults() {RobloxScriptSecurity}
-Class StarterPlayerScripts : Instance
-Class StarterCharacterScripts : StarterPlayerScripts
+Class StarterPlayerScripts : Instance [NotCreatable]
+Class StarterCharacterScripts : StarterPlayerScripts [NotCreatable]
 Class Stats : Instance [NotCreatable] [Service]
 	Property int Stats.ContactsCount  [ReadOnly] [NotReplicated]
 	Property float Stats.DataReceiveKbps  [ReadOnly] [NotReplicated]
@@ -2687,6 +2688,7 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show Hidden Objects in Explorer
 	Property bool Studio.Show Plugin GUI Service in Explorer
+	Property bool Studio.Show Roblox Plugin GUI Service in Explorer
 	Property bool Studio.Show plus button on hover in Explorer
 	Property bool Studio.Always Save Script Changes
 	Property Enum<ListDisplayMode> Studio.Basic Objects Display Mode
@@ -2894,6 +2896,8 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property Enum<StartCorner> UIGridLayout.StartCorner
+Class UIInlineLayout : UIGridStyleLayout
+	Property Enum<InlineAlignment> UIInlineLayout.InlineAlignment
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 Class UIPageLayout : UIGridStyleLayout
@@ -3789,6 +3793,10 @@ Enum InitialDockState
 	EnumItem InitialDockState.Left : 2
 	EnumItem InitialDockState.Right : 3
 	EnumItem InitialDockState.Float : 4
+Enum InlineAlignment
+	EnumItem InlineAlignment.Bottom : 0
+	EnumItem InlineAlignment.Center : 1
+	EnumItem InlineAlignment.Top : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12

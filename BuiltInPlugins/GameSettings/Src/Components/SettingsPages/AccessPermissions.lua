@@ -12,11 +12,13 @@ local Header = require(Plugin.Src.Components.Header)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Plugin.Src.Components.Permissions.GameOwnerWidget)
 local CollaboratorsWidget = require(Plugin.Src.Components.Permissions.CollaboratorsWidget)
-
+local SearchbarWidget = require(Plugin.Src.Components.Permissions.CollaboratorSearchWidget)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddWarning = require(Plugin.Src.Actions.AddWarning)
 local DiscardWarning = require(Plugin.Src.Actions.DiscardWarning)
+local SearchCollaborators = require(Plugin.Src.Thunks.SearchCollaborators)
+local AddGroupCollaborator = require(Plugin.Src.Thunks.AddGroupCollaborator)
 
 local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSettingsPage)
 
@@ -30,6 +32,7 @@ local function loadValuesToProps(getValue, state)
 		OwnerThumbnail = getValue("ownerThumbnail"),
 		OwnerName = getValue("ownerName"),
 		Thumbnails = state.Thumbnails,
+		SearchData = state.CollaboratorSearch,
 		
 		StudioUserId = getValue("studioUserId"),
 		GroupOwnerUserId = getValue("groupOwnerUserId"),
@@ -46,6 +49,8 @@ end
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
 		IsFriendsOnlyChanged = setValue("isFriendsOnly"),
+		PermissionsChanged = setValue("permissions"),
+		GroupMetadataChanged = setValue("groupMetadata"),
 		
 		IsActiveChanged = function(button, willShutdown)
 			if willShutdown then
@@ -55,12 +60,12 @@ local function dispatchChanges(setValue, dispatch)
 			end
 			dispatch(AddChange("isActive", button.Id))
 		end,
-		
-		PermissionsChanged = function(permissions)
-			dispatch(AddChange("permissions", permissions))
+
+		SearchRequested = function(...)
+			dispatch(SearchCollaborators(...))
 		end,
-		GroupMetadataChanged = function(groupMetadata)
-			dispatch(AddChange("groupMetadata", groupMetadata))
+		GroupCollaboratorAdded = function(...)
+			dispatch(AddGroupCollaborator(...))
 		end,
 	}
 	
@@ -117,7 +122,7 @@ local function displayContents(page, localized)
 			end,
 		}),
 		
-		Owner = Roact.createElement(GameOwnerWidget, {
+		OwnerWidget = Roact.createElement(GameOwnerWidget, {
 			LayoutOrder = 2,
 			
 			Enabled = props.IsActive ~= nil,
@@ -133,21 +138,20 @@ local function displayContents(page, localized)
 			Thumbnails = props.Thumbnails,
 		}),
 		
-		-- TODO replace with a component. Pure label for demo purposes
-		Debug_Collaborators = Roact.createElement("TextLabel", {
+		SearchbarWidget = Roact.createElement(SearchbarWidget, {
 			LayoutOrder = 3,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 16),
+			Enabled = props.IsActive ~= nil,
 
-			Font = Enum.Font.SourceSans,
-			TextSize = 22,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Text = "Collaborators",
+			SearchRequested = props.SearchRequested,
+			SearchData = props.SearchData,
+			Thumbnails = props.Thumbnails,
+			Permissions = props.Permissions,
+			GroupMetadata = props.GroupMetadata,
+			GroupCollaboratorAdded = props.GroupCollaboratorAdded,
+			PermissionsChanged = props.PermissionsChanged,
 		}),
 		
-		CollaboratorList = Roact.createElement(CollaboratorsWidget, {
+		CollaboratorListWidget = Roact.createElement(CollaboratorsWidget, {
 			LayoutOrder = 4,
 			Enabled = props.IsActive ~= nil,
 			GroupMetadata = props.GroupMetadata,

@@ -10,6 +10,9 @@
 		LayoutOrder = props.LayoutOrder (Required, passed through)
 		Position = props.Position (Required, passed through)
 		AnchorPoint = props.AnchorPoint (Required, passed through)
+
+		function OnExpandedStateChanged() - Invoked whenever the ExpandableList is opened/closed
+		bool IsExpanded - Whether the ExpandableList is expanded or not
 ]]
 
 local Library = script.Parent.Parent
@@ -39,15 +42,12 @@ local TopLevelItem
 
 function ExpandableList:init()
 	self.state = {
-		listExpanded = false,
 		isButtonHovered = false,
 	}
 	self.buttonRef = Roact.createRef()
 
 	self.toggleList = function()
-		self:setState({
-			listExpanded = not self.state.listExpanded,
-		})
+		self.props.OnExpandedStateChanged()
 	end
 
 	self.onMouseEnter = function()
@@ -100,7 +100,7 @@ function ExpandableList:render()
 				ExpandableFrame = Roact.createElement(ContentFit, {
 					LayoutOrder = 1,
 					BackgroundTransparency = 1,
-					Visible = state.listExpanded,
+					Visible = props.IsExpanded,
 				}, content),
 		})
 	end)

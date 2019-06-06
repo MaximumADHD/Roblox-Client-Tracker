@@ -8,9 +8,6 @@ local MakeGameTableMain = require(script.Parent.GameTable.GameTableMain)
 local RbxEntriesToWebEntries = require(script.Parent.GameTable.RbxEntriesToWebEntries)
 local Roact = require(game:GetService("CorePackages").Roact)
 
-local FFlagStudioLocalizationPluginButtonAnalytics = settings():GetFFlag("StudioLocalizationPluginButtonAnalytics")
-local FFlagStudioLocalizationToolsAnalytics = settings():GetFFlag("StudioLocalizationToolsAnalytics")
-
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
 		and "rbxasset://textures/localizationUIScrapingOn.png"
@@ -69,59 +66,47 @@ local function createTextScraperControlsEnabled(toolbar, plugin)
 	buttons.captureButton.Click:Connect(function()
 		if not LocalizationService.IsTextScraperRunning then
 			LocalizationService:StartTextScraper()
-			if FFlagStudioLocalizationPluginButtonAnalytics then
-				reportButtonPress(plugin, "textCapture", "start")
-			end
+			reportButtonPress(plugin, "textCapture", "start")
 		else
 			LocalizationService:StopTextScraper()
-			if FFlagStudioLocalizationPluginButtonAnalytics then
-				reportButtonPress(plugin, "textCapture", "stop")
-			end
+			reportButtonPress(plugin, "textCapture", "stop")
 		end
 		buttons.captureButton.Icon = getTextScraperButtonIconAsset()
 	end)
 
 	buttons.exportButton.Enabled = true
 	buttons.exportButton.Click:Connect(function()
-		if FFlagStudioLocalizationPluginButtonAnalytics then
-			local success, message = pcall(
-				function()
-					return LocalizationService:PromptExportToCSVs()
-				end
-			)
-			if success then
-				reportButtonPress(plugin, "export", "success")
-			else
-				if message == "No file selected" then
-					reportButtonPress(plugin, "export", "canceled")
-				else
-					reportButtonPress(plugin, "export", "error")
-				end
+		local success, message = pcall(
+			function()
+				return LocalizationService:PromptExportToCSVs()
 			end
+		)
+		if success then
+			reportButtonPress(plugin, "export", "success")
 		else
-			LocalizationService:PromptExportToCSVs()
+			if message == "No file selected" then
+				reportButtonPress(plugin, "export", "canceled")
+			else
+				reportButtonPress(plugin, "export", "error")
+			end
 		end
 	end)
 
 	buttons.importButton.Enabled = true
 	buttons.importButton.Click:Connect(function()
-		if FFlagStudioLocalizationPluginButtonAnalytics then
-			local success, message = pcall(
-				function()
-					return LocalizationService:PromptImportFromCSVs()
-				end
-			)
-			if success then
-				reportButtonPress(plugin, "import", "success")
-			else
-				if message == "No file selected" then
-					reportButtonPress(plugin, "import", "canceled")
-				else
-					reportButtonPress(plugin, "import", "error")
-				end
+		local success, message = pcall(
+			function()
+				return LocalizationService:PromptImportFromCSVs()
 			end
+		)
+		if success then
+			reportButtonPress(plugin, "import", "success")
 		else
-			LocalizationService:PromptImportFromCSVs()
+			if message == "No file selected" then
+				reportButtonPress(plugin, "import", "canceled")
+			else
+				reportButtonPress(plugin, "import", "error")
+			end
 		end
 	end)
 end
@@ -223,14 +208,10 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 		GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
 		StudioSettings = studioSettings,
 		HandleUploadAnalytics = function(patchInfo, btnName)
-			if FFlagStudioLocalizationToolsAnalytics then
-				reportUploadPatch(plugin, patchInfo, btnName)
-			end
+			reportUploadPatch(plugin, patchInfo, btnName)
 		end,
 		HandleDownloadAnalytics = function(table, btnName)
-			if FFlagStudioLocalizationToolsAnalytics then
-				reportDownloadTable(plugin, table, btnName)
-			end
+			reportDownloadTable(plugin, table, btnName)
 		end,
 	}), Window)
 
@@ -256,12 +237,10 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 				reportToolOpened(plugin, 1)
 			end
 
-			if FFlagStudioLocalizationPluginButtonAnalytics then
-				if Window.Enabled then
-					reportButtonPress(plugin, "tools", "open")
-				else
-					reportButtonPress(plugin, "tools", "closed")
-				end
+			if Window.Enabled then
+				reportButtonPress(plugin, "tools", "open")
+			else
+				reportButtonPress(plugin, "tools", "closed")
 			end
 		end)
 end

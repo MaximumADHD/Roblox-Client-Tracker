@@ -518,23 +518,25 @@ local function CreateSettingsHub()
             spawn(setPlaceVersionText)
         end
 
-        this.EnvironmentLabel = utility:Create("TextLabel") {
-            Name = "EnvironmentLabel",
-            Parent = this.VersionContainer,
-            AnchorPoint = Vector2.new(0.5,0),
-            BackgroundTransparency = 1,
-            TextColor3 = Color3.new(1,1,1),
-            LayoutOrder = 4,
-            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
-            Text = baseUrl,
-            Size = size,
-            Font = Enum.Font.SourceSans,
-            TextXAlignment = Enum.TextXAlignment.Center,
-            TextYAlignment = Enum.TextYAlignment.Center,
-            ZIndex = 5,
-            Visible = isTestEnvironment
-        }
-        this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
+        if not FFlagChinaLicensingApp then
+	        this.EnvironmentLabel = utility:Create("TextLabel") {
+	            Name = "EnvironmentLabel",
+	            Parent = this.VersionContainer,
+	            AnchorPoint = Vector2.new(0.5,0),
+	            BackgroundTransparency = 1,
+	            TextColor3 = Color3.new(1,1,1),
+	            LayoutOrder = 4,
+	            TextSize = isTenFootInterface and 28 or (utility:IsSmallTouchScreen() and 14 or 20),
+	            Text = baseUrl,
+	            Size = size,
+	            Font = Enum.Font.SourceSans,
+	            TextXAlignment = Enum.TextXAlignment.Center,
+	            TextYAlignment = Enum.TextYAlignment.Center,
+	            ZIndex = 5,
+	            Visible = isTestEnvironment
+	        }
+	        this.EnvironmentLabel.TextScaled = not this.EnvironmentLabel.TextFits
+	    end
 
         -- This check relies on the fact that Archivable is false on the default playerscripts we
         -- insert but if a developer has overriden them Archivable will be true. This might be incorrect

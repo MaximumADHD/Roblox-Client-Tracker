@@ -2312,6 +2312,7 @@ Class ReplicatedFirst : Instance [notCreatable]
 	Event ReplicatedFirst.FinishedReplicating() [RobloxScriptSecurity]
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() [RobloxScriptSecurity]
 Class ReplicatedStorage : Instance [notCreatable]
+Class RobloxPluginGuiService : Instance [notCreatable]
 Class RobloxReplicatedStorage : Instance [notbrowsable] [notCreatable]
 Class RunService : Instance
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
@@ -2592,8 +2593,8 @@ Class StarterPlayer : Instance [notCreatable]
 	Property bool StarterPlayer.LoadCharacterAppearance
 	Property float StarterPlayer.NameDisplayDistance
 	Property bool StarterPlayer.UserEmotesEnabled [ScriptWriteRestricted: [RobloxScriptSecurity]]
-Class StarterPlayerScripts : Instance
-Class StarterCharacterScripts : StarterPlayerScripts
+Class StarterPlayerScripts : Instance [notCreatable]
+Class StarterCharacterScripts : StarterPlayerScripts [notCreatable]
 Class Stats : Instance
 	Property int Stats.ContactsCount [readonly]
 	Property float Stats.DataReceiveKbps [readonly]
@@ -2762,6 +2763,8 @@ Class UIGridLayout : UIGridStyleLayout
 	Property UDim2 UIGridLayout.CellSize
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property StartCorner UIGridLayout.StartCorner
+Class UIInlineLayout : UIGridStyleLayout
+	Property InlineAlignment UIInlineLayout.InlineAlignment
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 Class UIPageLayout : UIGridStyleLayout
@@ -3648,6 +3651,10 @@ Enum InitialDockState
 	EnumItem InitialDockState.Left : 2
 	EnumItem InitialDockState.Right : 3
 	EnumItem InitialDockState.Float : 4
+Enum InlineAlignment
+	EnumItem InlineAlignment.Bottom : 0
+	EnumItem InlineAlignment.Center : 1
+	EnumItem InlineAlignment.Top : 2
 Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12

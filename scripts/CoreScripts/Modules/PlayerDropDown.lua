@@ -22,6 +22,7 @@ end
 
 local FFlagHandlePlayerBlockListsInternalPermissive = settings():GetFFlag('HandlePlayerBlockListsInternalPermissive')
 local FFlagPlayerDropDownLocalization = settings():GetFFlag("PlayerDropDownLocalization")
+local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local recentApiRequests = -- stores requests for target players by userId
 {
@@ -437,7 +438,7 @@ function createPlayerDropDown()
 		result = HttpService:JSONDecode(result)
 		if result["success"] then
 			recentApiRequests["Following"][followedUserId] = false
-			local text = "no longer following "..playerDropDown.Player.Name
+			local text = "No longer following "..playerDropDown.Player.Name
 			if FFlagPlayerDropDownLocalization then
 				text = RobloxTranslator:FormatByKey(
 					"PlayerDropDown.onUnfollowButtonPress.success",
@@ -648,17 +649,21 @@ function createPlayerDropDown()
 					})
 			end
 
-			local blockedText = blocked and "Unblock Player" or "Block Player"
-			table.insert(buttons, {
-				Name = "BlockButton",
-				Text = blockedText,
-				OnPress = blocked and onUnblockButtonPressed or onBlockButtonPressed,
-				})
-			table.insert(buttons, {
-				Name = "ReportButton",
-				Text = "Report Abuse",
-				OnPress = onReportButtonPressed,
-				})
+			if not FFlagChinaLicensingApp then
+				local blockedText = blocked and "Unblock Player" or "Block Player"
+				table.insert(buttons, {
+					Name = "BlockButton",
+					Text = blockedText,
+					OnPress = blocked and onUnblockButtonPressed or onBlockButtonPressed,
+					})
+
+				table.insert(buttons, {
+					Name = "ReportButton",
+					Text = "Report Abuse",
+					OnPress = onReportButtonPressed,
+					})
+			end
+
 			if inspectMenuEnabled then
 				table.insert(buttons, {
 					Name = "InspectButton",

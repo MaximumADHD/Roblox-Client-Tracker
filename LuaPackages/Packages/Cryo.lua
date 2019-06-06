@@ -3,4 +3,10 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-return require(PackageIndex["Cryo-e5025947-ce743f67"].Packages["Cryo"])
+local package = PackageIndex["Cryo-e5025947-ce743f67"].Packages["Cryo"]
+
+if package.ClassName == "ModuleScript" then
+	return require(package)
+end
+
+return package

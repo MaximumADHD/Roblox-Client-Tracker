@@ -33,6 +33,10 @@ local ThemePalette = t.strictInterface({
 	SecondaryOnHover = Color,
 	SecondaryContent = Color,
 
+	IconDefault = Color,
+	IconEmphasis = Color,
+	IconOnHover = Color,
+
 	TextEmphasis = Color,
 	TextDefault = Color,
 	TextMuted = Color,

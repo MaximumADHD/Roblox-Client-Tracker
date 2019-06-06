@@ -180,28 +180,32 @@ ID Number,ID Number,ID码,Studio.GameSettings.General.ErrorOverrideEmpty
 ID Number cannot be empty,ID Number cannot be empty,ID码不能为空,Studio.GameSettings.General.CategoryDeveloperSubscriptions
 Subscriptions,Subscriptions,Studio.GameSettings.General.CategoryAccessPermissions,Permissions
 Permissions,Studio.GameSettings.General.TitleGameOwner,Game Owner,Game Owner
-Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded,No Image Loaded,Studio.GameSettings.General.SingleImageDialogBody
-Select a compatible image.,Select a compatible image.,Studio.GameSettings.General.MultiImageDialogHeader,Images Failed
-Images Failed,Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:
-Studio.GameSettings.General.DevSubsEditHeader,Edit Developer Subscription,Edit Developer Subscription,Studio.GameSettings.General.DevSubsListHeader
-Developer Subscriptions,Developer Subscriptions,Studio.GameSettings.General.DevSubsName,Name
-Name,Studio.GameSettings.General.DevSubsTitle,Title,Title
-Studio.GameSettings.General.DevSubsPrice,Price,Price,Studio.GameSettings.General.DevSubsImage
-Image,Image,Studio.GameSettings.General.DevSubsDuration,Duration
-Duration,Studio.GameSettings.General.DevSubsId,Id,Id
-Studio.GameSettings.General.DevSubsSubscribers,Subscribers,Subscribers,Studio.GameSettings.General.DevSubsActive
-Active,Active,Studio.GameSettings.General.DevSubsCreateAction,Create
-Create,Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue,Discontinue
-Studio.GameSettings.General.DevSubsUnsaved,Unsaved,Unsaved,Studio.GameSettings.General.DevSubsIsActive
-Yes,Yes,Studio.GameSettings.General.DevSubsIsNotActive,No
-No,Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription,Discontinue Subscription
-Studio.GameSettings.General.DevSubsDiscontinueHeader,Would you like to discontinue this subscription?,Would you like to discontinue this subscription?,Studio.GameSettings.General.DevSubsDiscontinueDescription
-This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue
-Discontinue,Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access
-Studio.GameSettings.AccessPermissions.PlayLabel,Play,Play,Studio.GameSettings.AccessPermissions.EditLabel
-Edit,Edit,Studio.GameSettings.AccessPermissions.AdminLabel,Manage
-Manage,Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner
-Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple),(Multiple),Studio.GameSettings.AccessPermissions.NoAccessDescription
-Cannot play or edit this game,Cannot play or edit this game,Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game
-Can play this game,Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game,Can play and edit this game
-Studio.GameSettings.AccessPermissions.AdminDescription,Can play, edit, and manage this game,"Can play, edit, and manage this game"
+Studio.GameSettings.General.TitleCollaborators,Collaborators,Collaborators,Studio.GameSettings.General.SingleImageDialogHeader
+No Image Loaded,No Image Loaded,Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image.
+Select a compatible image.,Studio.GameSettings.General.MultiImageDialogHeader,Images Failed,Images Failed
+Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:,Studio.GameSettings.General.DevSubsEditHeader
+Edit Developer Subscription,Edit Developer Subscription,Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions
+Developer Subscriptions,Studio.GameSettings.General.DevSubsName,Name,Name
+Studio.GameSettings.General.DevSubsTitle,Title,Title,Studio.GameSettings.General.DevSubsPrice
+Price,Price,Studio.GameSettings.General.DevSubsImage,Image
+Image,Studio.GameSettings.General.DevSubsDuration,Duration,Duration
+Studio.GameSettings.General.DevSubsId,Id,Id,Studio.GameSettings.General.DevSubsSubscribers
+Subscribers,Subscribers,Studio.GameSettings.General.DevSubsActive,Active
+Active,Studio.GameSettings.General.DevSubsCreateAction,Create,Create
+Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue,Discontinue,Studio.GameSettings.General.DevSubsUnsaved
+Unsaved,Unsaved,Studio.GameSettings.General.DevSubsIsActive,Yes
+Yes,Studio.GameSettings.General.DevSubsIsNotActive,No,No
+Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription,Discontinue Subscription,Studio.GameSettings.General.DevSubsDiscontinueHeader
+Would you like to discontinue this subscription?,Would you like to discontinue this subscription?,Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.
+This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue,Discontinue
+Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access,Studio.GameSettings.AccessPermissions.PlayLabel
+Play,Play,Studio.GameSettings.AccessPermissions.EditLabel,Edit
+Edit,Studio.GameSettings.AccessPermissions.AdminLabel,Manage,Manage
+Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,Studio.GameSettings.AccessPermissions.MultipleLabel
+(Multiple),(Multiple),Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game
+Cannot play or edit this game,Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game,Can play this game
+Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game,Can play and edit this game,Studio.GameSettings.AccessPermissions.AdminDescription
+Can play, edit, and manage this game,"Can play, edit, and manage this game",Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends
+Friends,Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users
+Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups,Studio.GameSettings.AccessPermissions.MyFriendsCollaborator
+My Friends,My Friends

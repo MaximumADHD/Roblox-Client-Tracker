@@ -104,23 +104,35 @@ return function()
 		expect(integerMax5000("1")).to.equal(false)
 	end)
 
-	it("should support array  types", function()
-		local stringArray = t.array(t.string)
-		local anyArray = t.array(t.any)
-		local stringValues = t.values(t.string)
-		expect(anyArray("foo")).to.equal(false)
-		expect(anyArray({1, "2", 3})).to.equal(true)
-		expect(stringArray({1, "2", 3})).to.equal(false)
-		expect(stringArray()).to.equal(false)
-		expect(stringValues()).to.equal(false)
-		expect(anyArray({"1", "2", "3"}, t.string)).to.equal(true)
-		expect(anyArray({
-			foo = "bar"
-		})).to.equal(false)
-		expect(anyArray({
-			[1] = "non",
-			[5] = "sequential"
-		})).to.equal(false)
+	describe("array", function()
+		it("should support array  types", function()
+			local stringArray = t.array(t.string)
+			local anyArray = t.array(t.any)
+			local stringValues = t.values(t.string)
+			expect(anyArray("foo")).to.equal(false)
+			expect(anyArray({1, "2", 3})).to.equal(true)
+			expect(stringArray({1, "2", 3})).to.equal(false)
+			expect(stringArray()).to.equal(false)
+			expect(stringValues()).to.equal(false)
+			expect(anyArray({"1", "2", "3"}, t.string)).to.equal(true)
+			expect(anyArray({
+				foo = "bar"
+			})).to.equal(false)
+			expect(anyArray({
+				[1] = "non",
+				[5] = "sequential"
+			})).to.equal(false)
+		end)
+
+		it("should not be fooled by sparse arrays", function()
+			local anyArray = t.array(t.any)
+
+			expect(anyArray({
+				[1] = 1,
+				[2] = 2,
+				[4] = 4,
+			})).to.equal(false)
+		end)
 	end)
 
 	it("should support map types", function()

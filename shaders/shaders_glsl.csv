@@ -20,6 +20,8 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 CopyGuiVS,Vertex
+DefaultForceField_DEPRECATED_FS,Fragment
+DefaultForceField_DEPRECATED_HQFS,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
 DefaultGlassHQFS,Fragment
@@ -36,12 +38,16 @@ DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
 DefaultShadowSkinnedVS,Vertex
 DefaultShadowStaticVS,Vertex
+DefaultSkinnedForceField_DEPRECATED_HQVS,Vertex
+DefaultSkinnedForceField_DEPRECATED_VS,Vertex
 DefaultSkinnedForceFieldHQVS,Vertex
 DefaultSkinnedForceFieldVS,Vertex
 DefaultSkinnedHQVS,Vertex
 DefaultSkinnedReflectionVS,Vertex
 DefaultSkinnedSurfaceHQVS,Vertex
 DefaultSkinnedVS,Vertex
+DefaultStaticForceField_DEPRECATED_HQVS,Vertex
+DefaultStaticForceField_DEPRECATED_VS,Vertex
 DefaultStaticForceFieldHQVS,Vertex
 DefaultStaticForceFieldVS,Vertex
 DefaultStaticHQVS,Vertex

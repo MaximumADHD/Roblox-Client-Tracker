@@ -84,6 +84,19 @@ local theme = {
 		Transparency = 0.5, -- 0.5 Alpha
 	},
 
+	IconDefault = {
+		Color = Colors.Black,
+		Transparency = 0.5, -- 0.5 alpha
+	},
+	IconEmphasis = {
+		Color = Colors.Flint,
+		Transparency = 0,
+	},
+	IconOnHover = {
+		Color = Colors.Flint,
+		Transparency = 0,
+	},
+
 	TextEmphasis = {
 		Color = Colors.Flint,
 		Transparency = 0,

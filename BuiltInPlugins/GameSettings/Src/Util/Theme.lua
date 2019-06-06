@@ -135,7 +135,22 @@ function Theme:recalculateTheme()
 				-- placeholder colors
 				imageSelected = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
 				image = color(StyleColor.Border),
-			}
+			},
+
+			dropDown = {
+				backgroundColor = color(StyleColor.InputFieldBackground),
+				itemText = color(StyleColor.MainText),
+				headerText = color(StyleColor.SubText),
+
+				hovered = {
+					backgroundColor = color(StyleColor.Button, StyleModifier.Hover),
+					itemText = color(StyleColor.ButtonText, StyleModifier.Hover),
+				},
+
+				selected = {
+					backgroundColor = color(StyleColor.Button, StyleModifier.Selected),
+				},
+			},
 		},
 
 		menuEntry = {
@@ -198,6 +213,10 @@ function Theme:recalculateTheme()
 			text = color(StyleColor.MainText),
 		},
 
+		subjectThumbnail = {
+			background = color(StyleColor.TableItem),
+		},
+
 		thumbnail = {
 			background = color(StyleColor.Dark),
 			count = color(StyleColor.DimmedText),
@@ -230,6 +249,11 @@ function Theme:recalculateTheme()
 			TextColor = Color3.new(1, 1, 1),
 			TextColor_Disabled = isDark and color(StyleColor.ButtonText, StyleModifier.Disabled) or Color3.new(1, 1, 1),
 			BorderColor = color(StyleColor.Light),
+		},
+
+		collaboratorItem = {
+			collapseStateArrow = Color3.fromRGB(25, 25, 25),
+			deleteButton = isDark and Color3.fromRGB(136, 136, 136) or Color3.fromRGB(184, 184, 184),
 		},
 	})
 

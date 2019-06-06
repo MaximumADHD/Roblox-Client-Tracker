@@ -5,8 +5,6 @@ local PatchInfo = require(script.Parent.PatchInfo)
 
 local MakeWebTableInterface = require(script.Parent.WebTableInterface)
 
-local StudioLocalizationNoDeleteWhenUpdating = settings():GetFFlag("StudioLocalizationNoDeleteWhenUpdating")
-
 return function(userId)
 	local WebTableInterface = MakeWebTableInterface(userId)
 
@@ -38,10 +36,7 @@ return function(userId)
 					patchInfo.totalTranslations = newTableEntryInfo.totalTranslations
 					patchInfo.supportedLocales = newTableEntryInfo.supportedLocales
 					patchInfo.unsupportedLocales = newTableEntryInfo.unsupportedLocales
-
-					if StudioLocalizationNoDeleteWhenUpdating then
-						patchInfo.includeDeletes = includeDeletes
-					end
+					patchInfo.includeDeletes = includeDeletes
 
 					resolve(patchInfo)
 				end,

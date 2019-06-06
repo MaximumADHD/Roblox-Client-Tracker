@@ -40681,6 +40681,18 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
+            "Name": "RobloxPluginGuiService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
             "Name": "RobloxReplicatedStorage",
             "Superclass": "Instance",
             "Tags": [
@@ -45486,14 +45498,20 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "StarterPlayerScripts",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
         },
         {
             "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "StarterCharacterScripts",
-            "Superclass": "StarterPlayerScripts"
+            "Superclass": "StarterPlayerScripts",
+            "Tags": [
+                "NotCreatable"
+            ]
         },
         {
             "Members": [
@@ -46988,6 +47006,23 @@
                     "Category": "Advanced",
                     "MemberType": "Property",
                     "Name": "Show QT warnings in output",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Explorer",
+                    "MemberType": "Property",
+                    "Name": "Show Roblox Plugin GUI Service in Explorer",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -50189,6 +50224,30 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "UIGridLayout",
+            "Superclass": "UIGridStyleLayout"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "InlineAlignment",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "InlineAlignment"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "UIInlineLayout",
             "Superclass": "UIGridStyleLayout"
         },
         {
@@ -57618,6 +57677,23 @@
                 }
             ],
             "Name": "InitialDockState"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Bottom",
+                    "Value": 0
+                },
+                {
+                    "Name": "Center",
+                    "Value": 1
+                },
+                {
+                    "Name": "Top",
+                    "Value": 2
+                }
+            ],
+            "Name": "InlineAlignment"
         },
         {
             "Items": [

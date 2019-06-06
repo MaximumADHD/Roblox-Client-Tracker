@@ -931,6 +931,7 @@ RBX
 	LatchedSignalBase
 	LayoutDefault
 	LayoutGrid
+	LayoutInline
 	LayoutList
 	LayoutNode
 	LayoutPage
@@ -1044,6 +1045,7 @@ RBX
 	PluginDragEvent
 	PluginGui
 	PluginGuiService
+	PluginGuiServiceBase
 	PluginManager
 	PluginMenu
 	PluginMouse
@@ -1078,6 +1080,7 @@ RBX
 	RevoluteLink
 	RightMotorTool
 	RigidJoint
+	RobloxPluginGuiService
 	RobloxReplicatedStorage
 	Rocket
 	RootInstance
@@ -1218,6 +1221,7 @@ RBX
 	UIConstraint
 	UIGridLayout
 	UIGridStyleLayout
+	UIInlineLayout
 	UILayout
 	UIListLayout
 	UIPadding

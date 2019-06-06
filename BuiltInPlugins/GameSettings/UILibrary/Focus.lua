@@ -27,6 +27,17 @@
 					focused elements.
 				callback OnFocusLost = A callback for when the user clicks
 					outside of the focused element.
+
+		KeyboardListener
+			A Roact component that listens to keyboard events within the PluginGui.
+
+			Props:
+				callback OnKeyPressed(input, keysHeld)
+					A callback for when the user presses a key inside the plugin.
+					The input param is the InputObject for the InputBegan event. The
+					keysHeld param is a map containing every key that is currently held.
+				callback OnKeyReleased(input)
+					A callback for when the user releases a key.
 ]]
 
 local FOCUSED_ZINDEX = 100000
@@ -111,10 +122,42 @@ function ShowOnTop:render()
 	end)
 end
 
+local KeyboardListener = Roact.PureComponent:extend("KeyboardListener")
+function KeyboardListener:init()
+	self.keysHeld = {}
+	self.onInputBegan = function(input)
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			self.keysHeld[input.KeyCode] = true
+			self.props.OnKeyPressed(input, self.keysHeld)
+		end
+	end
+	self.onInputEnded = function(input)
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			self.keysHeld[input.KeyCode] = nil
+			self.props.OnKeyReleased(input)
+		end
+	end
+end
+function KeyboardListener:render()
+	return Roact.createElement(ShowOnTop, {}, {
+		Listener = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			[Roact.Event.InputBegan] = function(_, input)
+				self.onInputBegan(input)
+			end,
+			[Roact.Event.InputEnded] = function(_, input)
+				self.onInputEnded(input)
+			end,
+		}),
+	})
+end
+
 return {
 	Provider = FocusProvider,
 	Consumer = FocusConsumer,
 	CaptureFocus = CaptureFocus,
 	ShowOnTop = ShowOnTop,
+	KeyboardListener = KeyboardListener,
 	withFocus = withFocus,
 }

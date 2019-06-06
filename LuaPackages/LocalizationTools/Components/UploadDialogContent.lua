@@ -5,8 +5,6 @@ local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
-local StudioLocalizationNoDeleteWhenUpdating = settings():GetFFlag("StudioLocalizationNoDeleteWhenUpdating")
-
 local function Line(props)
 	return Roact.createElement("TextLabel", {
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -97,23 +95,7 @@ function UploadDialogContent:render()
 
 		local DeleteLine
 
-		if StudioLocalizationNoDeleteWhenUpdating then
-			if self.props.PatchInfo.includeDeletes then
-				DeleteLine = Roact.createElement(NumTranslationsLine, {
-					PreText = "Delete translations: ",
-					NumTranslations = self.props.PatchInfo.numRemovedTranslations,
-					EnabledColor = theme.ErrorText,
-					DisabledColor = theme.DimmedText,
-					LayoutOrder = 3,
-					Checked = self.state.RemoveLineEnabled,
-					OnClicked = function()
-						self:setState({
-							RemoveLineEnabled = not self.state.RemoveLineEnabled,
-						})
-					end
-				})
-			end
-		else
+		if self.props.PatchInfo.includeDeletes then
 			DeleteLine = Roact.createElement(NumTranslationsLine, {
 				PreText = "Delete translations: ",
 				NumTranslations = self.props.PatchInfo.numRemovedTranslations,

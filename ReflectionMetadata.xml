@@ -2572,6 +2572,14 @@
 
     <Item class="ReflectionMetadataClass">
         <Properties>
+            <string name="Name">RobloxPluginGuiService</string>
+            <string name="ExplorerOrder">30</string>
+            <string name="ExplorerImageIndex">46</string>
+        </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+        <Properties>
             <string name="Name">PluginGuiService</string>
             <string name="ExplorerOrder">30</string>
             <string name="ExplorerImageIndex">46</string>
@@ -2664,6 +2672,18 @@
                 </Properties>
             </Item>
         </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">UIInlineLayout</string>
+            <string name="ExplorerOrder">30</string>
+            <string name="ExplorerImageIndex">26</string>
+            <string name="ClassCategory">GUI</string>
+            <string name="summary">Sets the position of UI elements inline. You can use a UIInlineLayout by parenting it to a GuiObject. The UIListLayout will then apply itself to all of its GuiObject siblings.</string>
+            <string name="PreferredParent">GuiBase2d</string>
+          <string name="PreferredParents">GuiObject,GuiBase2d</string>
+        </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -6841,7 +6861,7 @@
         <string name="summary">A UnionOperation is a union of multiple parts</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">105</string>
         <string name="ExplorerImageIndex">73</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6859,7 +6879,7 @@
         <string name="summary">A NegateOperation can be used to create holes in other parts</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">false</bool>
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">104</string>
         <string name="ExplorerImageIndex">72</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
@@ -6878,7 +6898,7 @@
         <string name="summary">A MeshPart is a physically simulatable mesh</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">true</bool>
-        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerOrder">105</string>
         <string name="ExplorerImageIndex">73</string>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>

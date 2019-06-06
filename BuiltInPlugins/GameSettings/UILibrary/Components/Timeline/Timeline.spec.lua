@@ -6,7 +6,7 @@ return function()
 
 	local Timeline = require(script.Parent.Timeline)
 
-	local function createTestTimeline(startFrame, endFrame, majorInterval, minorInterval)
+	local function createTestTimeline(startFrame, endFrame, majorInterval, minorInterval, showAsTime)
 		return Roact.createElement(MockWrapper, {}, {
 			timeline = Roact.createElement(Timeline, {
 				StartFrame = startFrame,
@@ -15,6 +15,7 @@ return function()
 				MinorInterval = minorInterval,
 				Height = 24,
 				Width = 1000,
+				ShowAsTime = showAsTime,
 				OnInputBegan = function()
 				end,
 				OnInputChanged = function()
@@ -26,14 +27,14 @@ return function()
 	end
 
 	it("should create and destroy without errors", function()
-		local element = createTestTimeline(0, 30, 15, 15)
+		local element = createTestTimeline(0, 30, 15, 15, true)
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
 
 	it("should render correctly", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTimeline(32, 65, 15, 3), container)
+		local instance = Roact.mount(createTestTimeline(32, 65, 15, 3, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(#frame:GetChildren()).to.never.equal(0)
@@ -48,19 +49,19 @@ return function()
 
 	it("should not error if interval is 0", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTimeline(0, 1, 0, 0), container)
+		local instance = Roact.mount(createTestTimeline(0, 1, 0, 0, true), container)
 		Roact.unmount(instance)
 	end)
 
 	it("should not error if time range is 0", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTimeline(0, 0, 0, 0), container)
+		local instance = Roact.mount(createTestTimeline(0, 0, 0, 0, true), container)
 		Roact.unmount(instance)
 	end)
 
 	it("first tick should be next possible interval if startTime does not fall on it", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTimeline(35, 102, 30, 15), container)
+		local instance = Roact.mount(createTestTimeline(35, 102, 30, 15, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame:FindFirstChild("1").TimeLabel.Text).to.equal("1.5")
@@ -70,11 +71,21 @@ return function()
 
 	it("first tick should always be visible if it is time 0", function ()
 		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTimeline(0, 102, 30, 15), container)
+		local instance = Roact.mount(createTestTimeline(0, 102, 30, 15, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame:FindFirstChild("1").TimeLabel.Text).to.equal("0")
 		expect(frame:FindFirstChild("1").TimeLabel.Visible).to.equal(true)
+
+		Roact.unmount(instance)
+	end)
+
+	it("displays frame number instead of time is showAsTime is false", function ()
+		local container = workspace
+		local instance = Roact.mount(createTestTimeline(35, 102, 30, 15, false), container)
+		local frame = container.Frame
+
+		expect(frame:FindFirstChild("1").TimeLabel.Text).to.equal("45")
 
 		Roact.unmount(instance)
 	end)

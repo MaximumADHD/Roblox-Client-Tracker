@@ -25,8 +25,9 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local Separator = require(Plugin.Src.Components.Separator)
 local DetailedDropdown = require(Plugin.UILibrary.Components.DetailedDropdown)
+local LoadingIndicator = require(Plugin.UILibrary.Components.LoadingIndicator)
+local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
 
 -- I'm going to make this its own component in a separate ticket. Turns out ImageButtons
 -- are pretty limiting and we have to make a bunch of stuff (custom hover color & custom image
@@ -66,13 +67,25 @@ local function DEBUG_DeleteButton(props)
 	end)
 end
 
+local function LoadingDropdown(props)
+	return withTheme(function(theme)
+		return Roact.createElement(LoadingIndicator, {
+			LayoutOrder = props.LayoutOrder or 0,
+			
+			Size = props.Size,
+			Position = props.Position,
+			AnchorPoint = props.AnchorPoint,
+		})
+	end)
+end
+
 local function CollaboratorIcon(props)
-	return Roact.createElement("ImageLabel", {
+	return Roact.createElement(CollaboratorThumbnail, {
 		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 		LayoutOrder = props.LayoutOrder or 0,
 		
-		-- TODO (awarwick) 5/8/2019 replace with avatar/group silhouette when design provides asset
-		Image = props.CollaboratorIcon or "http://www.roblox.com/asset/?id=924320031",
+		Image = props.CollaboratorIcon,
+		UseMask = props.UseMask,
 		ImageTransparency = props.Enabled and 0 or 0.4,
 		
 		BackgroundTransparency = 1,
@@ -122,12 +135,10 @@ local function CollaboratorItem(props)
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
-			Separator = Roact.createElement(Separator, {
-				Position = UDim2.new(0, 0, 0, 0)
-			}),
 			Contents = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
+				BackgroundColor3 = theme.backgroundColor,
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, PADDING_X/2),
@@ -138,7 +149,8 @@ local function CollaboratorItem(props)
 				Icon = Roact.createElement(CollaboratorIcon, {
 					LayoutOrder = 0,
 					Enabled = props.Enabled,
-					
+
+					UseMask = props.UseMask,
 					CollaboratorIcon = props.CollaboratorIcon,
 				}),
 				Labels = Roact.createElement(CollaboratorLabels, {
@@ -148,7 +160,7 @@ local function CollaboratorItem(props)
 					CollaboratorName = props.CollaboratorName,
 					SecondaryText = props.SecondaryText,
 				}),
-				Dropdown = Roact.createElement(DetailedDropdown, {
+				Dropdown = Roact.createElement(props.IsLoading and LoadingDropdown or DetailedDropdown, {
 					LayoutOrder = 2,
 					Enabled = props.Enabled and #props.Items > 0,
 					
@@ -174,14 +186,9 @@ local function CollaboratorItem(props)
 					LayoutOrder = 3,
 					Enabled = props.Enabled,
 					
-					Removable = props.Removable,
+					Removable = props.Removable and not props.IsLoading,
 					OnClicked = props.Removed,
 				}),
-			}),
-			Separator2 = Roact.createElement(Separator, {
-				Position = UDim2.new(0, 0, 1, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				Visible = not props.HideLastSeparator,
 			}),
 		})
 	end)

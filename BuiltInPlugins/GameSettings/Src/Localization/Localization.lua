@@ -126,6 +126,7 @@ function Localization:recalculateContent()
 			Http = self:getText("Studio.GameSettings.General.TitleHttp"),
 			StudioApiServices = self:getText("Studio.GameSettings.General.TitleStudioApiServices"),
 			GameOwner = self:getText("Studio.GameSettings.General.TitleGameOwner"),
+			Collaborators = self:getText("Studio.GameSettings.General.TitleCollaborators"),
 		},
 
 		Playability = {
@@ -414,6 +415,13 @@ function Localization:recalculateContent()
 				EditDescription = self:getText("Studio.GameSettings.AccessPermissions.EditDescription"),
 				AdminDescription = self:getText("Studio.GameSettings.AccessPermissions.AdminDescription"),
 			},
+			
+			Collaborators = {
+				FriendsCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.FriendsCollaboratorType"),
+				UsersCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.UsersCollaboratorType"),
+				GroupsCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.GroupsCollaboratorType"),
+				MyFriendsCollaborator = self:getText("Studio.GameSettings.AccessPermissions.MyFriendsCollaborator"),
+			}
 		}
 	})
 end

@@ -711,8 +711,14 @@ do
 				return false, string.format("[array] %s", keyErrMsg or "")
 			end
 
-			-- all keys are sequential
-			local arraySize = #value
+			-- # is unreliable for sparse arrays
+			-- Count upwards using ipairs to avoid false positives from the behavior of #
+			local arraySize = 0
+
+			for _, _ in ipairs(value) do
+				arraySize = arraySize + 1
+			end
+
 			for key in pairs(value) do
 				if key < 1 or key > arraySize then
 					return false, string.format("[array] key %s must be sequential", tostring(key))
