@@ -19,7 +19,6 @@ local GameSettings = Settings.GameSettings
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTranslateGameText2")
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 
 while not PlayersService.LocalPlayer do
 	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
@@ -1958,9 +1957,6 @@ local closeListFunc = function(name, state, input)
     xboxSetShieldVisibility(false)
     xboxDisableHotkeys()
   end
-  if not FFlagForceMouseInputWhenPromptPopUp2 then
-    spawn(function() GuiService:SetMenuIsOpen(false) end)
-  end
   ContextActionService:UnbindCoreAction("CloseList")
   ContextActionService:UnbindCoreAction("StopAction")
   GuiService:RemoveSelectionGroup("PlayerlistGuiSelection")
@@ -1995,7 +1991,7 @@ setVisible = function(state)
       end
     end
     --We need to OverrideMouseIcon and rebind core action even if the ScrollList is empty
-    if isUsingGamepad and (not FFlagForceMouseInputWhenPromptPopUp2 or isTenFootInterface) then
+    if isUsingGamepad and isTenFootInterface then
       UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
       ContextActionService:UnbindCoreAction("CloseList")
       ContextActionService:UnbindCoreAction("StopAction")

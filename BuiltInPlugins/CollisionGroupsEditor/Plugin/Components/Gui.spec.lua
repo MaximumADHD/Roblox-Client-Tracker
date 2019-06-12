@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 local Gui = require(script.Parent.Gui)
 
 return function()

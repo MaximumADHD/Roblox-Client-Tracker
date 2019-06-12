@@ -36,7 +36,7 @@ local function getGroupOwnerPermissions(props, localized)
 	if props.GroupOwnerUserId and props.GroupOwnerUserId == props.StudioUserId then
 		permissions = Cryo.List.join(
 			permissions,
-			{Cryo.Dictionary.join({Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription})}
+			{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
 		)
 	end
 	

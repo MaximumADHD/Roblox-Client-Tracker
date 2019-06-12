@@ -802,35 +802,37 @@ if not isTenFootInterface then
 	end)
 end
 
-game.ScreenshotReady:Connect(function(path)
-	sendNotificationInfo {
-		Title = "Screenshot Taken",
-		Text = "Check out your screenshots folder to see it.",
-		Duration = 3.0,
-		Button1Text = "Open Folder",
-		Callback = function(text)
-			if text == "Open Folder" then
-				game:OpenScreenshotsFolder()
-			end
-		end
-	}
-end)
-
-settings():GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
-	if not value then
+if not FFlagChinaLicensingApp then
+	game.ScreenshotReady:Connect(function(path)
 		sendNotificationInfo {
-			Title = "Video Recorded",
-			Text = "Check out your videos folder to see it.",
+			Title = "Screenshot Taken",
+			Text = "Check out your screenshots folder to see it.",
 			Duration = 3.0,
 			Button1Text = "Open Folder",
 			Callback = function(text)
 				if text == "Open Folder" then
-					game:OpenVideosFolder()
+					game:OpenScreenshotsFolder()
 				end
 			end
 		}
-	end
-end)
+	end)
+
+	settings():GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
+		if not value then
+			sendNotificationInfo {
+				Title = "Video Recorded",
+				Text = "Check out your videos folder to see it.",
+				Duration = 3.0,
+				Button1Text = "Open Folder",
+				Callback = function(text)
+					if text == "Open Folder" then
+						game:OpenVideosFolder()
+					end
+				end
+			}
+		end
+	end)
+end
 
 GuiService.SendCoreUiNotification = function(title, text)
 	local notification = createNotification(title, text, "")

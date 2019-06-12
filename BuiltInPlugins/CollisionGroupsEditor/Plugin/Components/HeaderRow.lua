@@ -1,6 +1,8 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 
 local choose = require(script.Parent.Parent.choose)
+local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local withLocalization = UILibrary.Localizing.withLocalization
 
 local Constants = require(script.Parent.Parent.Constants)
 
@@ -14,6 +16,12 @@ function HeaderRow.CalculateRowWidth(groupCount)
 end
 
 function HeaderRow:render()
+	return withLocalization(function(localized)
+		return self:renderConsolidated(localized)
+	end)
+end
+
+function HeaderRow:renderConsolidated(localized)
 	local props = self.props
 
 	local headers = {
@@ -25,6 +33,11 @@ function HeaderRow:render()
 	}
 
 	for index, group in pairs(props.Groups) do
+		local text = group.Name
+		if text == "Default" then
+			text = localized:getText("Groups", "DefaultGroupName")
+		end
+
 		headers[group.Name] = Roact.createElement("Frame", {
 			Size = Constants.GroupLabelSize + UDim2.new(0, 0, 0, -1),
 			SizeConstraint = Enum.SizeConstraint.RelativeYY,
@@ -40,11 +53,11 @@ function HeaderRow:render()
 			ZIndex = 2,
 		}, {
 			Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 4)}),
-			
+
 			Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
-				Text = group.Name,
+				Text = text,
 				TextWrapped = true,
 				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
 
@@ -54,7 +67,7 @@ function HeaderRow:render()
 	end
 
 	local nonHeaderSpace = (Constants.GroupRowHeight * 3) + (Constants.GroupRowHeight * Constants.GroupLabelSize.X.Scale)
-	
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
 		BackgroundTransparency = 1,
@@ -85,7 +98,7 @@ function HeaderRow:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 
-				Text = "Group Name",
+				Text = localized:getText("Headers", "GroupName"),
 				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.SubText),
 				TextXAlignment = Enum.TextXAlignment.Right,
 			}),

@@ -93,8 +93,7 @@ function SearchBarButtons:render()
 						0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE),
 					BackgroundTransparency = 1,
 					Image = isClearButtonHovered and Images.CLEAR_ICON_HOVER or Images.CLEAR_ICON,
-					ImageColor3 = isClearButtonHovered and searchBarTheme.clearButton.imageSelectedColor
-						or searchBarTheme.clearButton.imageColor
+					ImageColor3 = searchBarTheme.clearButton.imageColor
 				}),
 			}),
 

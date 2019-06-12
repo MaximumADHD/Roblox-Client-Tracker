@@ -54,6 +54,7 @@ RBX
 		HingeConstraint
 		LineForce
 		MoveToConstraint
+		NoCollisionConstraint
 		OrientationConstraint
 		PrismaticConstraint
 		RayCastContext
@@ -1004,9 +1005,11 @@ RBX
 	NetworkSettings
 	NetworkStatsCommand
 	NewNullTool
+	NoCollisionConstraintTool
 	NonReplicatedCSGDictionaryService
 	NormalBreakConnector
 	NotificationService
+	NumberHandler
 	ObjectValue
 	OnDemandInstance
 	OrderedDataStore
@@ -1017,6 +1020,7 @@ RBX
 	Pages
 	Pants
 	ParabolaAdornment
+	ParameterizeHandler
 	PartAdornment
 	PartByLocalCharacter
 	PartDragTool
@@ -1238,6 +1242,7 @@ RBX
 	UnsecuredStudioGame
 	UserInputBase
 	UserInputService
+	UsernameHandler
 	ValueBase
 	VehicleController
 	VehicleSeat

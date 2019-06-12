@@ -1,15 +1,19 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local withLocalization = UILibrary.Localizing.withLocalization
 
 local GroupButton = require(script.Parent.GroupButton)
 
 return function(props)
-	return Roact.createElement(GroupButton, {
-		Image = "rbxasset://textures/CollisionGroupsEditor/delete.png",
-		HoveredImage = "rbxasset://textures/CollisionGroupsEditor/delete-hover.png",
-		OnActivated = props.Group.OnDeleted,
-		LayoutOrder = 1,
-		Visible = props.Group.Name ~= "Default",
-		Window = props.Window,
-		TooltipMessage = "Delete this group.",
-	})
+	return withLocalization(function(localized)
+		return Roact.createElement(GroupButton, {
+			Image = "rbxasset://textures/CollisionGroupsEditor/delete.png",
+			HoveredImage = "rbxasset://textures/CollisionGroupsEditor/delete-hover.png",
+			OnActivated = props.Group.OnDeleted,
+			LayoutOrder = 1,
+			Visible = props.Group.Name ~= "Default",
+			Window = props.Window,
+			TooltipMessage = localized:getText("Tooltip", "Delete"),
+		})
+	end)
 end

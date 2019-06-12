@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 
 local GroupRow = require(script.Parent.GroupRow)
 local Constants = require(script.Parent.Parent.Constants)

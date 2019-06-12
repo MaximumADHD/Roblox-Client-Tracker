@@ -13,11 +13,22 @@ local PermissionsConstants = require(Plugin.Src.Components.Permissions.Permissio
 local SEARCH_REQUEST_URL = "search/users/results?keyword=%s&maxRows=%d"
 local SEARCH_REQUEST_TYPE = "www"
 
+local FALLBACK_REQUEST_URL = "users/get-by-username"
+local FALLBACK_REQUEST_TYPE = "api"
+local FALLBACK_MISSING_USER_ERROR = "User not found"
+
 local WEB_KEYS = {
 	Users = "UserSearchResults",
 
 	Name = "Name",
 	Id = "UserId",
+}
+
+local FALLBACK_WEB_KEYS = {
+	Name = "Username",
+	Id = "Id",
+	Success = "success",
+	Error = "errorMessage",
 }
 
 -- Endpoint doesn't support search terms outside of this criteria
@@ -45,13 +56,45 @@ function SearchUsers.Get(searchTerm)
 		Method = "GET",
 	}
 
+	local fallbackRequestInfo = {
+		Url = Http.BuildRobloxUrl(FALLBACK_REQUEST_TYPE, FALLBACK_REQUEST_URL),
+		Method = "GET",
+		Params = {
+			username = searchTerm,
+		}
+	}
+
 	if #searchTerm < MIN_NAME_LENGTH or #searchTerm > MAX_NAME_LENGTH then
 		return Promise.resolve({[PermissionsConstants.UserSubjectKey] = {}})
 	end
 
 	return Http.Request(requestInfo):andThen(function(jsonResult)
-		local result = HttpService:JSONDecode(jsonResult)
-		return {[PermissionsConstants.UserSubjectKey] = deserializeResult(result[WEB_KEYS.Users])}
+		local result = HttpService:JSONDecode(jsonResult)[WEB_KEYS.Users]
+		if result then
+			return {[PermissionsConstants.UserSubjectKey] = deserializeResult(result)}
+		else
+			return Http.Request(fallbackRequestInfo):andThen(function(jsonResult)
+				local result = HttpService:JSONDecode(jsonResult)
+				
+				if result[FALLBACK_WEB_KEYS.Success] == false then
+					local errorMessage = result[FALLBACK_WEB_KEYS.Error]
+					if errorMessage ~= FALLBACK_MISSING_USER_ERROR then
+						return Promise.reject("Failed to find user: "..tostring(errorMessage))
+					else
+						return {[PermissionsConstants.UserSubjectKey] = {}}
+					end
+				else
+					return {
+						[PermissionsConstants.UserSubjectKey] = {
+							{
+								[PermissionsConstants.SubjectNameKey] = result[FALLBACK_WEB_KEYS.Name],
+								[PermissionsConstants.SubjectIdKey] = result[FALLBACK_WEB_KEYS.Id],
+							}
+						}
+					}
+				end
+			end)
+		end
 	end)
 	:catch(function()
 		warn("Game Settings: Failed to search for users matching '"..searchTerm.."'")

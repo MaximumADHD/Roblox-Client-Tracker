@@ -11,7 +11,6 @@ local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOv
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
-local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 local fflagErrorPromptTakeExtraConfigurations = settings():GetFFlag("ErrorPromptTakeExtraConfigurations")
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
@@ -230,10 +229,8 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 	self:setErrorText(errorMsg, errorCode)
 	self:resizeHeight()
 	if not self._isOpen then
-		if fflagForceMouseInputWhenPromptPopUp then
-			MouseIconOverrideService.push("ErrorPromptOverride", Enum.OverrideMouseIconBehavior.ForceShow)
-			GuiService:SetMenuIsOpen(true, self._menuIsOpenKey)
-		end
+		MouseIconOverrideService.push("ErrorPromptOverride", Enum.OverrideMouseIconBehavior.ForceShow)
+		GuiService:SetMenuIsOpen(true, self._menuIsOpenKey)
 		self._frame.Visible = true
 		self._isOpen = true
 		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
@@ -248,10 +245,8 @@ end
 
 function ErrorPrompt:_close()
 	if self._isOpen then
-		if fflagForceMouseInputWhenPromptPopUp then
-			MouseIconOverrideService.pop("ErrorPromptOverride")
-			GuiService:SetMenuIsOpen(false, self._menuIsOpenKey)
-		end
+		MouseIconOverrideService.pop("ErrorPromptOverride")
+		GuiService:SetMenuIsOpen(false, self._menuIsOpenKey)
 		self._isOpen = false
 		if self._playAnimation or not fflagErrorPromptTakeExtraConfigurations then
 			self._closeAnimation:Play()
@@ -281,7 +276,7 @@ function ErrorPrompt:setErrorText(errorMsg, errorCode)
 			end
 			local defaultErrorCodeString = ("Error Code: %d"):format(errorCodeValue)
 			local localizedErrorCodeString = attemptTranslate(
-				"InGame.ConnectionError.Message.ErrorCode", 
+				"InGame.ConnectionError.Message.ErrorCode",
 				defaultErrorCodeString,
 				{ERROR_CODE = tostring(errorCodeValue)})
 			errorLabel.Text = ("%s\n(%s)"):format(errorMsg,localizedErrorCodeString)

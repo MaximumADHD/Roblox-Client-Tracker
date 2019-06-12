@@ -33,7 +33,6 @@ local reconnectDisabledReason = safeGetFString("ReconnectDisabledReason", "We're
 
 local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
 local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
-local fflagForceMouseInputWhenPromptPopUp = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp")
 
 local coreScriptTableTranslator
@@ -292,14 +291,10 @@ local updateFullScreenEffect = {
 
 local function onEnter(newState)
 	if not errorPrompt then
-		if fflagForceMouseInputWhenPromptPopUp then
-			local extraConfiguration = {
-				MenuIsOpenKey = "ConnectionErrorPrompt"
-			}
-			errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
-		else
-			errorPrompt = ErrorPrompt.new("Default")
-		end
+		local extraConfiguration = {
+			MenuIsOpenKey = "ConnectionErrorPrompt"
+		}
+		errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
 		errorPrompt:setParent(promptOverlay)
 		errorPrompt:resizeWidth(screenWidth)
 	end

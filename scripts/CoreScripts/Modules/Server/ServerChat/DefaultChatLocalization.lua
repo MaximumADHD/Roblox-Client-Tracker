@@ -773,4 +773,11 @@ return {
             ["zh-cn"] = "系统",
         },
     },
+    {
+        Key = "InGame.Chat.Label.TeamMessagePrefix",
+        Values = {
+            ["en-us"] = "Team",
+            ["zh-cn"] = "团队",
+        },
+    },
 }

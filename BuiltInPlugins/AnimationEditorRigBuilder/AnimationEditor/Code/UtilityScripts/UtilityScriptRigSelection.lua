@@ -68,6 +68,7 @@ local verifyRig = function(self, model)
 	local motorsWithMissingPart0 = {}
 	local motorsWithMissingPart1 = {}
 	local motorsWithCircularAttachments = {}
+	local unanchoredPartExists = false
 
 	for _, child in ipairs(model:GetDescendants()) do
 		if child:IsA("Motor6D") then
@@ -79,6 +80,9 @@ local verifyRig = function(self, model)
 			if not part0 or (part0 and part0.Parent == nil) then
 				table.insert(motorsWithMissingPart0, child)
 			end
+			if FastFlags:isFixRigBugsOn() and part0 and part1 and (not part0.Anchored or not part1.Anchored) then
+				unanchoredPartExists = true
+			end
 			if part1 and part0 and model:FindFirstChild(part1.Name, true) and model:FindFirstChild(part0.Name, true) then
 				if motors[part1] then
 					table.insert(partsWithMultipleParents, part1)
@@ -89,6 +93,11 @@ local verifyRig = function(self, model)
 				end
 			end
 		end
+	end
+
+	if FastFlags:isFixRigBugsOn() and not unanchoredPartExists then
+		self.Paths.HelperFunctionsWarningsAndPrompts:createAnchoredPartsError(self.Paths)
+		return false
 	end
 
 	local circularRig = checkForCircularRig(motors)

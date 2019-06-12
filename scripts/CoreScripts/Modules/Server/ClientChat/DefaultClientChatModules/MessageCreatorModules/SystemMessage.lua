@@ -29,6 +29,9 @@ function CreateSystemMessageLabel(messageData, channelName)
 		if ChatLocalization and messageData.OriginalChannel == "System" then
 			local localizedChannelName = ChatLocalization:Get("InGame.Chat.Label.SystemMessagePrefix", "System")
 			formatChannelName = string.format("{%s}", localizedChannelName)
+		elseif ChatLocalization and messageData.OriginalChannel == "Team" then
+			local localizedChannelName = ChatLocalization:Get("InGame.Chat.Label.TeamMessagePrefix", "System")
+			formatChannelName = string.format("{%s}", localizedChannelName)
 		else
 			formatChannelName = string.format("{%s}", messageData.OriginalChannel)
 		end

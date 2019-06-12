@@ -30,11 +30,9 @@ local function deserializeResult(groupSearchResults)
 			[PermissionsConstants.SubjectNameKey] = webItem[WEB_KEYS.Name],
 			[PermissionsConstants.SubjectIdKey] = webItem[WEB_KEYS.Id],
 		})
-
-		break -- TODO (awarwick) 5/24/2019 For now, only use exact match. Later we need to merge with group's you're in
 	end
 
-	return groups
+	return {[PermissionsConstants.GroupSubjectKey] = groups}
 end
 
 local SearchGroups = {}
@@ -50,11 +48,6 @@ function SearchGroups.Get(searchTerm)
 		return Promise.resolve({[PermissionsConstants.GroupSubjectKey] = {}})
 	end
 
-	-- TODO (awarwick) 5/24/2019 - Remove when endpoint works
-	return Promise.resolve({[PermissionsConstants.GroupSubjectKey] = {}})
-
-	-- TODO (awarwick) 5/24/2019 - Enable when the endpoint works
-	--[[
 	return Http.Request(requestInfo):andThen(function(jsonResult)
 		local result = HttpService:JSONDecode(jsonResult)
 		return deserializeResult(result.data)
@@ -63,7 +56,6 @@ function SearchGroups.Get(searchTerm)
 		warn("Game Settings: Failed to search for groups matching '"..searchTerm.."'")
 		return Promise.reject()
 	end)
-	]]
 end
 
 return SearchGroups

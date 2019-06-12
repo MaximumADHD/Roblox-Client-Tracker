@@ -16,6 +16,10 @@ local function isFlagOn(theFlag)
 	return FastFlags.FlagExists[theFlag] and FastFlags.FlagValue[theFlag]
 end
 
+function FastFlags:isFixRigBugsOn()
+	return isFlagOn("StudioAnimationEditorFixRigBugs")
+end
+
 function FastFlags:isUsePluginBindToCloseOn()
 	return isFlagOn("StudioAnimationEditorUsePluginBindToClose2") and self:useQWidgetsForPopupsOn()
 end

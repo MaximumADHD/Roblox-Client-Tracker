@@ -18,7 +18,6 @@ local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
-local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagLuaInviteGameMockTextLocalization = settings():GetFFlag("LuaInviteGameMockTextLocalization")
 if FFlagLuaInviteGameMockTextLocalization then
@@ -193,39 +192,23 @@ function SearchArea:didUpdate(prevProps)
 	end
 end
 
-if FFlagLuaChatRemoveOldRoactRoduxConnect then
-	SearchArea = RoactRodux.UNSTABLE_connect2(
-		function(state, props)
-			return {
-				isPageOpen = state.Page.IsOpen,
-				searchAreaActive = state.ConversationsSearch.SearchAreaActive,
-			}
-		end,
-		function(dispatch)
-			return {
-				setSearchAreaActive = function(isActive)
-					dispatch(SetSearchAreaActive(isActive))
-				end,
-				setSearchText = function(text)
-					dispatch(SetSearchText(text))
-				end,
-			}
-		end
-	)(SearchArea)
-else
-	SearchArea = RoactRodux.connect(function(store)
-		local state = store:getState()
+SearchArea = RoactRodux.UNSTABLE_connect2(
+	function(state, props)
 		return {
 			isPageOpen = state.Page.IsOpen,
 			searchAreaActive = state.ConversationsSearch.SearchAreaActive,
+		}
+	end,
+	function(dispatch)
+		return {
 			setSearchAreaActive = function(isActive)
-				store:dispatch(SetSearchAreaActive(isActive))
+				dispatch(SetSearchAreaActive(isActive))
 			end,
 			setSearchText = function(text)
-				store:dispatch(SetSearchText(text))
+				dispatch(SetSearchText(text))
 			end,
 		}
-	end)(SearchArea)
-end
+	end
+)(SearchArea)
 
 return SearchArea

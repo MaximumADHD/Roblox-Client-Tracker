@@ -8,6 +8,7 @@ local FFlagGameSettingsDispatchShutdownWarning = settings():getFFlag("GameSettin
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
+local Separator = require(Plugin.Src.Components.Separator)
 local Header = require(Plugin.Src.Components.Header)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Plugin.Src.Components.Permissions.GameOwnerWidget)
@@ -121,9 +122,14 @@ local function displayContents(page, localized)
 				end
 			end,
 		}),
+
+		Separator1 = Roact.createElement(Separator, {
+			LayoutOrder = 2,
+			Size = UDim2.new(1, 0, 0, 1),
+		}),
 		
 		OwnerWidget = Roact.createElement(GameOwnerWidget, {
-			LayoutOrder = 2,
+			LayoutOrder = 3,
 			
 			Enabled = props.IsActive ~= nil,
 			OwnerName = props.OwnerName,
@@ -137,9 +143,14 @@ local function displayContents(page, localized)
 			PermissionsChanged = props.PermissionsChanged,
 			Thumbnails = props.Thumbnails,
 		}),
+
+		Separator2 = Roact.createElement(Separator, {
+			LayoutOrder = 4,
+			Size = UDim2.new(1, 0, 0, 1),
+		}),
 		
 		SearchbarWidget = Roact.createElement(SearchbarWidget, {
-			LayoutOrder = 3,
+			LayoutOrder = 5,
 			Enabled = props.IsActive ~= nil,
 
 			SearchRequested = props.SearchRequested,
@@ -152,8 +163,12 @@ local function displayContents(page, localized)
 		}),
 		
 		CollaboratorListWidget = Roact.createElement(CollaboratorsWidget, {
-			LayoutOrder = 4,
+			LayoutOrder = 6,
 			Enabled = props.IsActive ~= nil,
+
+			StudioUserId = props.StudioUserId,
+			GroupOwnerUserId = props.GroupOwnerUserId,
+
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,
 			PermissionsChanged = props.PermissionsChanged,

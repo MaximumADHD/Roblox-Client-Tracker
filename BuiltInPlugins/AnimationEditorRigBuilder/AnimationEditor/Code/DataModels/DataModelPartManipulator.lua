@@ -425,7 +425,9 @@ end
 local function onMouseEndRotate(self)		
 	if nil ~= self.MouseUpEventConnect then
 		if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
-			self.Paths.DataModelIKManipulator:endIKManipulation()
+			if not FastFlags:isFixRigBugsOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(self.Paths.DataModelSession:getSelectedDataItem().Item) then
+				self.Paths.DataModelIKManipulator:endIKManipulation()
+			end
 		elseif FastFlags:isHipHeightPopFixOn() and self.Paths.DataModelSession:isCurrentlySelectedDataItem(self.Paths.DataModelRig:getHipPartFromHumanoid()) then
 			local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(self.Paths.DataModelRig:getHipPartFromHumanoid().Item, true, true)
 			kfd.CFrame = self:scaleCFrameToHipHeight(kfd.CFrame, self.Paths.DataModelRig:getHipPartFromHumanoid().OriginC1, true)
@@ -571,9 +573,9 @@ end
 
 local function onMouseBeginDrag(self, item)
 	self:startCurrentManipulation()
-	
+
 	local allMotorC1s = self.Paths.DataModelRig:calculateAllMotorC1s()
-	
+
 	local part = item.Item
 
 	local kfd = nil
@@ -603,8 +605,8 @@ local function onMouseBeginDrag(self, item)
 	end
 
 	self.PartCFrameAtTransformStart[part] = part.CFrame
-	
-	self.TranslateUndoRegistered = false		
+
+	self.TranslateUndoRegistered = false
 end
 
 local function onMouseBeginDragAll(self)
@@ -679,7 +681,9 @@ end
 
 local function onMouseEndDrag(self)
 	if FastFlags:isIKModeFlagOn() and self.Paths.DataModelIKManipulator.IsIKModeActive then
-		self.Paths.DataModelIKManipulator:endIKManipulation()
+		if not FastFlags:isFixRigBugsOn() or self.Paths.UtilityScriptHumanIK:isR15BodyPart(self.Paths.DataModelSession:getSelectedDataItem().Item) then
+			self.Paths.DataModelIKManipulator:endIKManipulation()
+		end
 	elseif FastFlags:isHipHeightPopFixOn() and self.Paths.DataModelSession:isCurrentlySelectedDataItem(self.Paths.DataModelRig:getHipPartFromHumanoid()) then
 		local kfd = self.Paths.DataModelKeyframes:getCurrentKeyframeData(self.Paths.DataModelRig:getHipPartFromHumanoid().Item, true, true)
 		kfd.CFrame = self:scaleCFrameToHipHeight(kfd.CFrame, self.Paths.DataModelRig:getHipPartFromHumanoid().OriginC1, true)

@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 
 local choose = require(script.Parent.Parent.choose)
 
@@ -9,6 +9,7 @@ local GroupRenameTextBox = require(script.Parent.GroupRenameTextBox)
 
 return function(props)
 	local renaming = props.Group.Renaming
+	local groupName = props.groupName
 
 	return Roact.createElement("Frame", {
 		Size = Constants.GroupLabelSize,
@@ -35,7 +36,7 @@ return function(props)
 		Button = not renaming and Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
-			Text = props.Group.Name,
+			Text = groupName,
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Right,
 			TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),

@@ -1634,6 +1634,10 @@ Class NetworkSettings : Instance [notbrowsable]
 	Property bool NetworkSettings.TrackDataTypes
 	Property bool NetworkSettings.TrackPhysicsDetails
 	Property bool NetworkSettings.UsePhysicsPacketCache
+Class NoCollisionConstraint : Instance
+	Property bool NoCollisionConstraint.Enabled
+	Property Class:BasePart NoCollisionConstraint.Part0
+	Property Class:BasePart NoCollisionConstraint.Part1
 Class NotificationService : Instance [notCreatable]
 	Property bool NotificationService.IsLuaBottomBarEnabled [readonly] [RobloxScriptSecurity]
 	Property bool NotificationService.IsLuaBottomBarWithText [readonly] [RobloxScriptSecurity]
@@ -2401,6 +2405,12 @@ Class DataModel : ServiceProvider
 	Property Class:Instance DataModel.lighting [deprecated] [readonly]
 	Property Class:Workspace DataModel.workspace [deprecated] [readonly]
 	Function void DataModel:BindToClose(Function function)
+	Function bool DataModel:DefineFastFlag(string name, bool defaultValue) [RobloxScriptSecurity]
+	Function int DataModel:DefineFastInt(string name, int defaultValue) [RobloxScriptSecurity]
+	Function string DataModel:DefineFastString(string name, string defaultValue) [RobloxScriptSecurity]
+	Function bool DataModel:GetFastFlag(string name) [RobloxScriptSecurity]
+	Function int DataModel:GetFastInt(string name) [RobloxScriptSecurity]
+	Function string DataModel:GetFastString(string name) [RobloxScriptSecurity]
 	Function double DataModel:GetJobIntervalPeakFraction(string jobname, double greaterThan) [PluginSecurity]
 	Function double DataModel:GetJobTimePeakFraction(string jobname, double greaterThan) [PluginSecurity]
 	Function Array DataModel:GetJobsExtendedStats() [PluginSecurity]
@@ -3995,6 +4005,7 @@ Enum MembershipType
 	EnumItem MembershipType.BuildersClub : 1
 	EnumItem MembershipType.TurboBuildersClub : 2
 	EnumItem MembershipType.OutrageousBuildersClub : 3
+	EnumItem MembershipType.Premium : 4
 Enum MeshType
 	EnumItem MeshType.Head : 0
 	EnumItem MeshType.Torso : 1

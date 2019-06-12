@@ -28,41 +28,40 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local DetailedDropdown = require(Plugin.UILibrary.Components.DetailedDropdown)
 local LoadingIndicator = require(Plugin.UILibrary.Components.LoadingIndicator)
 local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
+local Button = require(Plugin.UILibrary.Components.Button)
 
--- I'm going to make this its own component in a separate ticket. Turns out ImageButtons
--- are pretty limiting and we have to make a bunch of stuff (custom hover color & custom image
--- size relative to button size) from scratch, which is a common use case and not specific to
--- CollaboratorItem
-local function DEBUG_DeleteButton(props)
+local function DeleteButton(props)
 	return withTheme(function(theme)
-		return Roact.createElement("ImageButton", {
+		return Roact.createElement(Button, {
 			Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 			Position = UDim2.new(1, 0, 0, 0),
 			AnchorPoint = Vector2.new(1, 0),
-			
-			BackgroundTransparency = 0,
-			BackgroundColor3 = theme.backgroundColor,
-			AutoButtonColor = props.Enabled,
+
 			BorderSizePixel = 0,
-			Image = "",
-			LayoutOrder = props.LayoutOrder or 0,
-			Visible = props.Removable,
-			
-			[Roact.Event.Activated] = function()
+			IsRound = false,
+			Style = "LargeHitboxButton",
+
+			RenderContents = function(buttonTheme, hovered)
+				return {
+					Icon = Roact.createElement("ImageLabel", {
+						Size = UDim2.new(0, 16, 0, 16),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+
+						Image = "rbxasset://textures/StudioSharedUI/close.png",
+						ImageColor3 = theme.collaboratorItem.deleteButton,
+						ImageTransparency = props.Enabled and 0 or 0.4,
+
+						BackgroundTransparency = 1,
+					})
+				}
+			end,
+
+			OnClick = function()
 				if props.Enabled and props.OnClicked then
 					props.OnClicked()
 				end
 			end,
-		}, {
-			Icon = Roact.createElement("ImageLabel", {
-				Size = UDim2.new(0, 16, 0, 16),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				BackgroundTransparency = 1,
-				Image = "rbxasset://textures/StudioSharedUI/close.png",
-				ImageColor3 = theme.textBox.borderDefault, -- Will not use border color when moved to own component
-				ImageTransparency = props.Enabled and 0 or 0.4,
-			})
 		})
 	end)
 end
@@ -126,6 +125,8 @@ end
 
 local function CollaboratorItem(props)
 	props.Items = props.Items or {}
+
+	local removable = props.Removable and not props.IsLoading
 	
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {
@@ -182,11 +183,10 @@ local function CollaboratorItem(props)
 						end
 					end,
 				}),
-				Delete = Roact.createElement(DEBUG_DeleteButton, {
+				Delete = removable and Roact.createElement(DeleteButton, {
 					LayoutOrder = 3,
 					Enabled = props.Enabled,
 					
-					Removable = props.Removable and not props.IsLoading,
 					OnClicked = props.Removed,
 				}),
 			}),

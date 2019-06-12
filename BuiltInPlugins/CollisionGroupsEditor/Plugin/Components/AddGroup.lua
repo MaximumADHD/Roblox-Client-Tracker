@@ -1,11 +1,12 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local withLocalization = UILibrary.Localizing.withLocalization
 
 local Constants = require(script.Parent.Parent.Constants)
 
 local GroupLabelPadding = require(script.Parent.GroupLabelPadding)
-local GroupLabelColumn = require(script.Parent.GroupLabelColumn)
 
-return function(props)
+local function render(props, localized)
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
@@ -39,7 +40,7 @@ return function(props)
 				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Right,
 
-				PlaceholderText = "+ Add Group",
+				PlaceholderText = "+ "..localized:getText("Actions", "AddGroup"),
 				PlaceholderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.SubText),
 
 				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
@@ -55,4 +56,10 @@ return function(props)
 			}),
 		})
 	})
+end
+
+return function(props)
+	return withLocalization(function(localized)
+		return render(props, localized)
+	end)
 end

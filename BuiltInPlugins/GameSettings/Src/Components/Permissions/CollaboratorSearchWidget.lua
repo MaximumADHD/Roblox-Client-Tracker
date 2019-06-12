@@ -35,59 +35,19 @@ local function getMatchesFromTable(text, t)
 	return matches
 end
 
-local function getMatches(searchData, permissions, groupMetadata)
+local function getIsLoading(searchData)
 	local cachedSearchResults = searchData.CachedSearchResults
 	local searchTerm = searchData.SearchText
 
-	local matches = {Users={}, Groups={}}
-	local rawGroupMatches = typeof(searchData.LocalUserGroups) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserGroups) or {}
-	if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
-		local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
-		local userMatches = {}
+	return searchData.LocalUserGroups == LOADING
+		or searchData.LocalUserFriends == LOADING
+		or cachedSearchResults[searchTerm] == LOADING
+		or (cachedSearchResults[searchTerm] == nil and searchTerm ~= "")
+end
 
-		for _,v in pairs(rawUserMatches) do
-			local subjectId = v[PermissionsConstants.SubjectIdKey]
-			if not permissions[PermissionsConstants.UserSubjectKey][subjectId] then
-				table.insert(userMatches, v)
-			end
-		end
-
-		matches.Users = userMatches
-
-		local matchedGroups = {}
-		for _,v in pairs(cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]) do
-			if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
-				table.insert(matches.Groups, v)
-				matchedGroups[v[PermissionsConstants.SubjectNameKey]] = true
-			end
-		end
-		for _,v in pairs(rawGroupMatches) do
-			 -- Group web search already matched this. Don't duplicate it
-			if not (matchedGroups[v[PermissionsConstants.SubjectNameKey]] or groupMetadata[v[PermissionsConstants.SubjectIdKey]]) then
-				table.insert(matches.Groups, v)
-			end
-		end
-	else
-		local rawUserMatches = typeof(searchData.LocalUserFriends) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserFriends) or {}
-
-		local userMatches = {}
-		for _,v in pairs(rawUserMatches) do
-			local subjectId = v[PermissionsConstants.SubjectIdKey]
-			if not permissions[PermissionsConstants.UserSubjectKey][subjectId] then
-				table.insert(userMatches, v)
-			end
-		end
-
-		local groupMatches = {}
-		for _,v in pairs(rawGroupMatches) do
-			if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
-				table.insert(groupMatches, v)
-			end
-		end
-
-		matches.Users = userMatches
-		matches.Groups = groupMatches
-	end
+local function getMatches(searchData, permissions, groupMetadata)
+	local cachedSearchResults = searchData.CachedSearchResults
+	local searchTerm = searchData.SearchText
 
 	local function compare(a,b)
 		local a,b = a[PermissionsConstants.SubjectNameKey]:lower(), b[PermissionsConstants.SubjectNameKey]:lower()
@@ -99,8 +59,62 @@ local function getMatches(searchData, permissions, groupMetadata)
 		return a < b
 	end
 
-	table.sort(matches.Users, compare)
-	table.sort(matches.Groups, compare)
+	local matches = {Users={}, Groups={}}
+	if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
+		local rawGroupMatches = cachedSearchResults[searchTerm][PermissionsConstants.GroupSubjectKey]
+		local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]
+		local userMatches = {}
+		local groupMatches = {}
+
+		local rawFriendMatches = typeof(searchData.LocalUserFriends) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserFriends) or {}
+		local rawMyGroups = typeof(searchData.LocalUserGroups) == "table" and getMatchesFromTable(searchTerm, searchData.LocalUserGroups) or {}
+		table.sort(rawFriendMatches, compare)
+		table.sort(rawMyGroups, compare)
+
+		local matchedUsers = {}
+		for _,v in pairs(rawUserMatches) do
+			local subjectId = v[PermissionsConstants.SubjectIdKey]
+			if not permissions[PermissionsConstants.UserSubjectKey][subjectId] then
+				table.insert(userMatches, v)
+				matchedUsers[subjectId] = true
+			end
+		end
+
+		-- Insert friends after exact match (if it exists), but before the rest of the web results (if they exist)
+		local firstUserIsExactMatch = #matchedUsers > 0 and matchedUsers[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+		local position = math.min(firstUserIsExactMatch and 1 or 2, #userMatches + 1)
+		for _,v in pairs(rawFriendMatches) do
+			local subjectId = v[PermissionsConstants.SubjectIdKey]
+			if not (permissions[PermissionsConstants.UserSubjectKey][subjectId] or matchedUsers[subjectId]) then
+				table.insert(userMatches, position, v)
+				position = position + 1
+			end
+		end
+
+		matches.Users = userMatches
+		
+		local matchedGroups = {}
+		for _,v in pairs(rawGroupMatches) do
+			if not groupMetadata[v[PermissionsConstants.SubjectIdKey]] then
+				table.insert(groupMatches, v)
+				matchedGroups[v[PermissionsConstants.SubjectIdKey]] = true
+			end
+		end
+
+		-- Insert your groups after exact match (if it exists), but before the rest of the web results (if they exist)
+		local firstGroupIsExactMatch = #matchedGroups > 0 and matchedGroups[1][PermissionsConstants.SubjectNameKey]:lower() == searchTerm:lower()
+		local position = math.min(firstGroupIsExactMatch and 1 or 2, #groupMatches + 1)
+		for _,v in pairs(rawMyGroups) do
+			 -- Group web search already matched this. Don't duplicate it
+			
+			if not (matchedGroups[v[PermissionsConstants.SubjectIdKey]] or groupMetadata[v[PermissionsConstants.SubjectIdKey]]) then
+				table.insert(groupMatches, position, v)
+				position = position + 1
+			end
+		end
+
+		matches.Groups = groupMatches
+	end
 
 	return matches
 end
@@ -108,6 +122,10 @@ end
 local function getResults(searchTerm, matches, thumbnailLoader, localized)
 	local results
 	if searchTerm == "" then
+		return {}
+		
+		-- TODO (awarwick) 6/3/2019 V2 Access Permissions
+		--[[
 		results = {
 			[localized.AccessPermissions.Collaborators.FriendsCollaboratorType] = {
 				{
@@ -121,10 +139,11 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 				LayoutOrder = 0,
 			}
 		}
+		]]
 	else
 		results = {Users={LayoutOrder=0}, Groups={LayoutOrder=1}}
 		for _, user in pairs(matches.Users) do
-			if #results.Users > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
+			if #results.Users + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
 			table.insert(results.Users, {
 				Icon = Roact.createElement(CollaboratorThumbnail, {
 					Image = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, user[PermissionsConstants.SubjectIdKey]),
@@ -136,7 +155,7 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 			})
 		end
 		for _, group in pairs(matches.Groups) do
-			if #results.Groups > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
+			if #results.Groups + 1 > PermissionsConstants.MaxSearchResultsPerSubjectType then break end
 			table.insert(results.Groups, {
 				Icon = Roact.createElement(CollaboratorThumbnail, {
 					Image = thumbnailLoader.getThumbnail(PermissionsConstants.GroupSubjectKey, group[PermissionsConstants.SubjectIdKey]),
@@ -148,8 +167,8 @@ local function getResults(searchTerm, matches, thumbnailLoader, localized)
 		end
 
 		results = {
-			[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = results.Users,
-			[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = results.Groups,
+			[localized.AccessPermissions.Collaborators.UsersCollaboratorType] = #results.Users > 0 and results.Users or nil,
+			[localized.AccessPermissions.Collaborators.GroupsCollaboratorType] = #results.Groups > 0 and results.Groups or nil,
 		}
 	end
 
@@ -166,6 +185,7 @@ function CollaboratorSearchWidget:render()
 	local thumbnailLoader = getThumbnailLoader(self)
 
 	local matches = getMatches(searchData, props.Permissions, props.GroupMetadata)
+	local isLoading = getIsLoading(searchData)
 
 	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action)
 		local newPermissions
@@ -193,7 +213,6 @@ function CollaboratorSearchWidget:render()
 	return withTheme(function(theme)
 		return withLocalization(function(localized)
 			local results = getResults(searchTerm, matches, thumbnailLoader, localized)
-
 	
 			return Roact.createElement(FitToContent, {
 				BackgroundTransparency = 1,
@@ -214,6 +233,10 @@ function CollaboratorSearchWidget:render()
 
 					HeaderHeight = 25,
 					ItemHeight = 50,
+
+					DefaultText = localized.AccessPermissions.Searchbar.DefaultText,
+					NoResultsText = localized.AccessPermissions.Searchbar.NoResultsText,
+					LoadingMore = isLoading,
 
 					onSearchRequested = function(text)
 						props.SearchRequested(text, true)

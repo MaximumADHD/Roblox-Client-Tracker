@@ -421,6 +421,11 @@ function Localization:recalculateContent()
 				UsersCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.UsersCollaboratorType"),
 				GroupsCollaboratorType = self:getText("Studio.GameSettings.AccessPermissions.GroupsCollaboratorType"),
 				MyFriendsCollaborator = self:getText("Studio.GameSettings.AccessPermissions.MyFriendsCollaborator"),
+			},
+			
+			Searchbar = {
+				DefaultText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText"),
+				NoResultsText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText"),
 			}
 		}
 	})

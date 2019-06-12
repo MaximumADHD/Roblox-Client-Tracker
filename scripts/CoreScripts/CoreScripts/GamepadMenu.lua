@@ -23,7 +23,6 @@ local VRService = game:GetService('VRService')
 --[[ END OF SERVICES ]]
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
-local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
 
 --[[ MODULES ]]
@@ -374,14 +373,8 @@ toggleCoreGuiRadial = function(goingToSettings)
 				if not VRService.VREnabled then
 					setOverrideMouseIconBehavior(false)
 				end
-				if FFlagForceMouseInputWhenPromptPopUp2 then
-					if not isVisible then
-						GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
-					end
-				else
-					if not goingToSettings and not isVisible then
-						GuiService:SetMenuIsOpen(false)
-					end
+				if not isVisible then
+					GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
 				end
 				gamepadSettingsFrame.Visible = isVisible
 
@@ -393,11 +386,7 @@ toggleCoreGuiRadial = function(goingToSettings)
 
 	if isVisible then
 		setSelectedRadialButton(nil)
-		if FFlagForceMouseInputWhenPromptPopUp2 then
-			GuiService:SetMenuIsOpen(true, GAMEPAD_MENU_KEY)
-		else
-			GuiService:SetMenuIsOpen(true)
-		end
+		GuiService:SetMenuIsOpen(true, GAMEPAD_MENU_KEY)
 		bindAllRadialActions()
 	else
 		unbindAllRadialActions()

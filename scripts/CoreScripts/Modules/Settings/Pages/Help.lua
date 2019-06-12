@@ -230,8 +230,10 @@ local function Initialize()
 			table.insert(miscActions, {["Dev Console"] = isOSX and "F9/fn + F9" or "F9"})
 		end
 		table.insert(miscActions, {["Mouselock"] = "Shift"})
-		table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
-		table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
+		if not FFlagChinaLicensingApp then
+			table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
+			table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
+		end
 
 		if not FFlagChinaLicensingApp then
 			table.insert(miscActions, {["Perf. Stats"] = isOSX and "Fn+Opt+Cmd+F7" or "Ctrl + Shift + F7"})

@@ -57,6 +57,11 @@ local thirdGamepadZoomStepFlagExists, thirdGamepadZoomStepFlagEnabled = pcall(fu
 end)
 local FFlagUserThirdGamepadZoomStep = thirdGamepadZoomStepFlagExists and thirdGamepadZoomStepFlagEnabled
 
+local betterDynamicTouchstickCameraFlagExists, betterDynamicTouchstickCameraFlagEnabled = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserBetterDynamicTouchstickCamera")
+end)
+local FFlagUserBetterDynamicTouchstickCamera = betterDynamicTouchstickCameraFlagExists and betterDynamicTouchstickCameraFlagEnabled
+
 if FFlagUserAdjustHumanoidRootPartToHipPosition then
 	R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
 end
@@ -169,6 +174,7 @@ function BaseCamera.new()
 	-- Touch input support
 	self.isDynamicThumbstickEnabled = false
 	self.fingerTouches = {}
+	self.dynamicTouchInput = nil
 	self.numUnsunkTouches = 0
 	self.inputStartPositions = {}
 	self.inputStartTimes = {}
@@ -672,6 +678,7 @@ function BaseCamera:Cleanup()
 	self.isMiddleMouseDown = false
 
 	self.fingerTouches = {}
+	self.dynamicTouchInput = nil
 	self.numUnsunkTouches = 0
 
 	self.startingDiff = nil
@@ -696,6 +703,7 @@ function BaseCamera:ResetInputStates()
 		for inputObject in pairs(self.fingerTouches) do
 			self.fingerTouches[inputObject] = nil
 		end
+		self.dynamicTouchInput = nil
 		self.panBeginLook = nil
 		self.startPos = nil
 		self.lastPos = nil
@@ -899,11 +907,38 @@ function BaseCamera:BindKeyboardInputActions()
 		false, Enum.KeyCode.I, Enum.KeyCode.O)
 end
 
+local function isInDynamicThumbstickArea(input)
+	local playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local touchGui = playerGui and playerGui:FindFirstChild("TouchGui")
+	local touchFrame = touchGui and touchGui:FindFirstChild("TouchControlFrame")
+	local thumbstickFrame = touchFrame and touchFrame:FindFirstChild("DynamicThumbstickFrame")
+
+	if not thumbstickFrame then
+		return false
+	end
+
+	local frameCornerTopLeft = thumbstickFrame.AbsolutePosition
+	local frameCornerBottomRight = frameCornerTopLeft + thumbstickFrame.AbsoluteSize
+	if input.Position.X >= frameCornerTopLeft.X and input.Position.Y >= frameCornerTopLeft.Y then
+		if input.Position.X <= frameCornerBottomRight.X and input.Position.Y <= frameCornerBottomRight.Y then
+			return true
+		end
+	end
+
+	return false
+end
+
 function BaseCamera:OnTouchBegan(input, processed)
 	local canUseDynamicTouch = self.isDynamicThumbstickEnabled and not processed
 	if canUseDynamicTouch then
+		if FFlagUserBetterDynamicTouchstickCamera and self.dynamicTouchInput == nil and isInDynamicThumbstickArea(input) then
+			-- First input in the dynamic thumbstick area should always be ignored for camera purposes
+			-- Even if the dynamic thumbstick does not process it immediately
+			self.dynamicTouchInput = input
+			return
+		end
 		self.fingerTouches[input] = processed
-		if not processed then
+		if not processed or FFlagUserBetterDynamicTouchstickCamera then
 			self.inputStartPositions[input] = input.Position
 			self.inputStartTimes[input] = tick()
 			self.numUnsunkTouches = self.numUnsunkTouches + 1
@@ -921,12 +956,14 @@ function BaseCamera:OnTouchChanged(input, processed)
 			self.numUnsunkTouches = self.numUnsunkTouches + 1
 		end
 	elseif self.isDynamicThumbstickEnabled and self.fingerTouches[input] ~= processed then
-		--This is necessary to allow the dynamic thumbstick to steal touches after passing the InputBegan state.
-		self.fingerTouches[input] = processed
-		if processed then
-			self.numUnsunkTouches = self.numUnsunkTouches - 1
-		else
-			self.numUnsunkTouches = self.numUnsunkTouches + 1
+		if not FFlagUserBetterDynamicTouchstickCamera then
+			--This is necessary to allow the dynamic thumbstick to steal touches after passing the InputBegan state.
+			self.fingerTouches[input] = processed
+			if processed then
+				self.numUnsunkTouches = self.numUnsunkTouches - 1
+			else
+				self.numUnsunkTouches = self.numUnsunkTouches + 1
+			end
 		end
 	end
 
@@ -978,6 +1015,11 @@ function BaseCamera:OnTouchChanged(input, processed)
 end
 
 function BaseCamera:OnTouchEnded(input, processed)
+	if input == self.dynamicTouchInput then
+		self.dynamicTouchInput = nil
+		return
+	end
+
 	if self.fingerTouches[input] == false then
 		if self.numUnsunkTouches == 1 then
 			self.panBeginLook = nil

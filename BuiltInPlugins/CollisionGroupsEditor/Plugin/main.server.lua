@@ -28,10 +28,17 @@ local Info = DockWidgetPluginGuiInfo.new(
 local Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
 Window.Title = "Collision Groups Editor"
 
-local Roact = require(script.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.modules.Roact)
 local Gui = require(script.Parent.Components.Gui)
 
-Roact.mount(Roact.createElement(Gui, {Window = Window}), Window, "CollisionGroupEditorGui")
+Roact.mount(
+	Roact.createElement(Gui, {
+		Window = Window,
+		plugin = plugin
+	}),
+	Window,
+	"CollisionGroupEditorGui"
+)
 
 function onClicked()
 	Window.Enabled = not Window.Enabled

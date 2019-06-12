@@ -7,7 +7,6 @@ local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
-local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local Roact = require(CorePackages.Roact)
@@ -104,53 +103,29 @@ end
 if not FFlagLuaInviteModalEnabled then
 	-- This logic is being moved to ShareGameContainer.lua
 	-- so it can be shared with this file and ModalShareGamePageFrame.lua
-	if FFlagLuaChatRemoveOldRoactRoduxConnect then
-		ShareGamePageFrame = RoactRodux.UNSTABLE_connect2(
-			function(state, props)
-				return {
-					deviceLayout = state.DeviceInfo.DeviceLayout,
-					searchAreaActive = state.ConversationsSearch.SearchAreaActive,
-					searchText = state.ConversationsSearch.SearchText,
-				}
-			end,
-			function(dispatch)
-				return {
-					closePage = function()
-						dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
-					end,
-
-					reFetch = function()
-						local userId = tostring(Players.LocalPlayer.UserId)
-						local requestImpl = httpRequest(HttpRbxApiService)
-
-						dispatch(FetchUserFriends(requestImpl, userId))
-					end
-				}
-			end
-		)(ShareGamePageFrame)
-	else
-		ShareGamePageFrame = RoactRodux.connect(function(store)
-			local state = store:getState()
+	ShareGamePageFrame = RoactRodux.UNSTABLE_connect2(
+		function(state, props)
 			return {
 				deviceLayout = state.DeviceInfo.DeviceLayout,
-
 				searchAreaActive = state.ConversationsSearch.SearchAreaActive,
 				searchText = state.ConversationsSearch.SearchText,
-
+			}
+		end,
+		function(dispatch)
+			return {
 				closePage = function()
-					store:dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
+					dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
 				end,
+
 				reFetch = function()
 					local userId = tostring(Players.LocalPlayer.UserId)
-					local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
-					if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
-						local networkImpl = httpRequest(HttpRbxApiService)
-						store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
-					end
+					local requestImpl = httpRequest(HttpRbxApiService)
+
+					dispatch(FetchUserFriends(requestImpl, userId))
 				end
 			}
-		end)(ShareGamePageFrame)
-	end
+		end
+	)(ShareGamePageFrame)
 end
 
 return ShareGamePageFrame

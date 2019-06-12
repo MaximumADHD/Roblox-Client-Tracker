@@ -46,7 +46,6 @@ local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestNam
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
 local FFlagXboxShowPlayers3 = settings():GetFFlag("XboxShowPlayers3")
-local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 --[[ SERVICES ]]
@@ -1402,11 +1401,7 @@ local function CreateSettingsHub()
 
 			this.SettingsShowSignal:fire(this.Visible)
 
-			if FFlagForceMouseInputWhenPromptPopUp2 then
-				GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
-			else
-				pcall(function() GuiService:SetMenuIsOpen(true) end)
-			end
+			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
 			this.Shield.Visible = this.Visible
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
 				this.Shield.Position = SETTINGS_SHIELD_ACTIVE_POSITION
@@ -1476,21 +1471,13 @@ local function CreateSettingsHub()
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 				this.Shield.Visible = this.Visible
 				this.SettingsShowSignal:fire(this.Visible)
-				if FFlagForceMouseInputWhenPromptPopUp2 then
-					GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-				else
-					pcall(function() GuiService:SetMenuIsOpen(false) end)
-				end
+				GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
 			else
 				this.Shield:TweenPosition(SETTINGS_SHIELD_INACTIVE_POSITION, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.4, true, function()
 					this.Shield.Visible = this.Visible
 					this.SettingsShowSignal:fire(this.Visible)
 					if not this.Visible then
-						if FFlagForceMouseInputWhenPromptPopUp2 then
-							GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-						else
-							pcall(function() GuiService:SetMenuIsOpen(false) end)
-						end
+						GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
 					end
 				end)
 			end

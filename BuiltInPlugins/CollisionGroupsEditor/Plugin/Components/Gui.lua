@@ -1,4 +1,6 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local Resources = script.Parent.Parent.Parent.Resources
 
 local PhysicsService = game:GetService("PhysicsService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -10,6 +12,7 @@ local getSelectedParts = require(script.Parent.Parent.getSelectedParts)
 local getPartsInGroup = require(script.Parent.Parent.getPartsInGroup)
 local contains = require(script.Parent.Parent.contains)
 local getSelectedGroups = require(script.Parent.Parent.getSelectedGroups)
+local withLocalization = UILibrary.Localizing.withLocalization
 
 local getGroupsChanged do
 	local lastGroups
@@ -47,10 +50,10 @@ local getGroupsChanged do
 	end
 end
 
-local DescriptionMessage = require(script.Parent.DescriptionMessage)
 local Table = require(script.Parent.Table)
 local Padding = require(script.Parent.Padding)
 local Modal = require(script.Parent.Modal)
+local ServiceWrapper = require(script.Parent.ServiceWrapper)
 
 local Gui = Roact.Component:extend("CollisionGroupsEditorGui")
 
@@ -63,11 +66,12 @@ function Gui:init()
 	self.state.Groups = self:GetGroups()
 end
 
-function Gui:Modal(message, func)
+function Gui:Modal(messageKey, messageArgs, func)
 	self:SetStateAndRefresh{
 		ModalActive = true,
-		ModalMessage = message,
 		ModalFunction = func,
+		modalMessageKey = messageKey,
+		modalMessageArgs = messageArgs,
 	}
 end
 
@@ -87,9 +91,10 @@ function Gui:GetGroups()
 		group.OnDeleted = function()
 			if group.Name == "Default" then return end
 
-			local message = string.format("Are you sure you want to delete group\n\n\"%s?\"", group.Name)
+			local messageKey = "ConfirmDeletion"
+			local messageArgs = {group.Name}
 
-			self:Modal(message, function()
+			self:Modal(messageKey, messageArgs, function()
 				if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
 					ChangeHistoryService:SetWaypoint("Deleting collision group")
 					PhysicsService:RemoveCollisionGroup(group.Name)
@@ -168,46 +173,65 @@ function Gui:GetGroups()
 end
 
 function Gui:render()
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
+	local props = self.props
+
+	local plugin = props.plugin
+
+	local localization = UILibrary.Studio.Localization.new({
+		stringResourceTable = Resources.TranslationDevelopmentTable,
+		translationResourceTable = Resources.TranslationReferenceTable,
+		pluginName = "CGE",
+	})
+
+	return Roact.createElement(ServiceWrapper, {
+		plugin = plugin,
+		localization = localization,
 	}, {
-		Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 8)}),
-
-		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
-
-		Table = Roact.createElement(Table, {
-			Groups = self.state.Groups,
-			Window = self.props.Window,
-
-			OnGroupAdded = function(groupName)
-				if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
-					ChangeHistoryService:SetWaypoint("Creating collision group")
-					PhysicsService:CreateCollisionGroup(groupName)
-					ChangeHistoryService:SetWaypoint("Created collision group")
-				else
-					PhysicsService:CreateCollisionGroup(groupName)
-				end
-				self:SetStateAndRefresh{}
-			end,
-		}),
-
-		ModalPortal = Roact.createElement(Roact.Portal, {
-			target = self.props.Window,
+		Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
 		}, {
-			Modal = Roact.createElement(Modal, {
-				Active = self.state.ModalActive,
-				Message = self.state.ModalMessage,
-				Function = self.state.ModalFunction,
-				CleanUpFunction = function()
-					self:SetStateAndRefresh{
-						ModalActive = false,
-					}
+			Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 8)}),
+
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			Table = Roact.createElement(Table, {
+				Groups = self.state.Groups,
+				Window = self.props.Window,
+
+				OnGroupAdded = function(groupName)
+					if FFlagStudioYoWhatTheHeckWhyNoUndoInTheCollisionGroupsEditorBro then
+						ChangeHistoryService:SetWaypoint("Creating collision group")
+						PhysicsService:CreateCollisionGroup(groupName)
+						ChangeHistoryService:SetWaypoint("Created collision group")
+					else
+						PhysicsService:CreateCollisionGroup(groupName)
+					end
+					self:SetStateAndRefresh{}
 				end,
 			}),
-		}),
+
+			ModalPortal = Roact.createElement(Roact.Portal, {
+				target = self.props.Window,
+			}, {
+				Modal = Roact.createElement(Modal, {
+					Active = self.state.ModalActive,
+					Message = self.state.ModalMessage,
+
+					messageKey = self.state.modalMessageKey,
+					messageArgs = self.state.modalMessageArgs,
+
+					Function = self.state.ModalFunction,
+					CleanUpFunction = function()
+						self:SetStateAndRefresh{
+							ModalActive = false,
+						}
+					end,
+				}),
+			}),
+		})
 	})
 end
 

@@ -1409,6 +1409,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Color3 Lighting.ColorShift_Bottom
 	Property Color3 Lighting.ColorShift_Top
 	Property bool Lighting.GlobalShadows
+	Property bool Lighting.LegacyOutlines  [NotScriptable]
 	Property Color3 Lighting.OutdoorAmbient
 	Property bool Lighting.Outlines
 	Property Color3 Lighting.ShadowColor [<📁> Load-only] [NotReplicated] [Deprecated]
@@ -1645,6 +1646,10 @@ Class NetworkSettings : Instance [Service] [NotBrowsable]
 	Property Enum<PacketPriority> NetworkSettings.PhysicsSendPriority  [Hidden] [NotReplicated]
 	Property bool NetworkSettings.ProxyEnabled
 	Property string NetworkSettings.ProxyURL
+Class NoCollisionConstraint : Instance
+	Property bool NoCollisionConstraint.Enabled
+	Property Class<BasePart> NoCollisionConstraint.Part0
+	Property Class<BasePart> NoCollisionConstraint.Part1
 Class NotificationService : Instance [NotCreatable] [Service]
 	Property bool NotificationService.IsLuaBottomBarEnabled {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
 	Property bool NotificationService.IsLuaBottomBarWithText {RobloxScriptSecurity} [ReadOnly] [NotReplicated]
@@ -2433,6 +2438,12 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Property Instance DataModel.lighting  [ReadOnly] [NotReplicated] [Deprecated]
 	Property Class<Workspace> DataModel.workspace  [ReadOnly] [NotReplicated] [Deprecated]
 	Function void DataModel:BindToClose(Function function)
+	Function bool DataModel:DefineFastFlag(string name, bool defaultValue) {RobloxScriptSecurity}
+	Function int DataModel:DefineFastInt(string name, int defaultValue) {RobloxScriptSecurity}
+	Function string DataModel:DefineFastString(string name, string defaultValue) {RobloxScriptSecurity}
+	Function bool DataModel:GetFastFlag(string name) {RobloxScriptSecurity}
+	Function int DataModel:GetFastInt(string name) {RobloxScriptSecurity}
+	Function string DataModel:GetFastString(string name) {RobloxScriptSecurity}
 	Function double DataModel:GetJobIntervalPeakFraction(string jobname, double greaterThan) {PluginSecurity}
 	Function double DataModel:GetJobTimePeakFraction(string jobname, double greaterThan) {PluginSecurity}
 	Function Array DataModel:GetJobsExtendedStats() {PluginSecurity}
@@ -2504,7 +2515,7 @@ Class Sound : Instance
 	Property float Sound.MinDistance [<📁> Load-only] [Deprecated]
 	Property float Sound.Pitch [<📁> Load-only] [Deprecated]
 	Property double Sound.PlaybackLoudness  [ReadOnly] [NotReplicated]
-	Property float Sound.PlaybackSpeed
+	Property float Sound.PlaybackSpeed  [NotReplicated]
 	Property bool Sound.Playing
 	Property Enum<RollOffMode> Sound.RollOffMode
 	Property Class<SoundGroup> Sound.SoundGroup
@@ -4144,6 +4155,7 @@ Enum MembershipType
 	EnumItem MembershipType.BuildersClub : 1
 	EnumItem MembershipType.TurboBuildersClub : 2
 	EnumItem MembershipType.OutrageousBuildersClub : 3
+	EnumItem MembershipType.Premium : 4
 Enum MeshType
 	EnumItem MeshType.Head : 0
 	EnumItem MeshType.Torso : 1

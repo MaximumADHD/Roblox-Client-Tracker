@@ -208,4 +208,5 @@ Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this gam
 Can play, edit, and manage this game,"Can play, edit, and manage this game",Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends
 Friends,Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups,Studio.GameSettings.AccessPermissions.MyFriendsCollaborator
-My Friends,My Friends
+My Friends,My Friends,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by user or group name
+Search by user or group name,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results

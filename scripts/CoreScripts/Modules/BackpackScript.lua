@@ -91,7 +91,6 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local FFlagBackpackScriptUseFormatByKey = settings():GetFFlag('BackpackScriptUseFormatByKey')
 local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag('CoreScriptTranslateGameText2')
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
-local FFlagForceMouseInputWhenPromptPopUp2 = settings():GetFFlag("ForceMouseInputWhenPromptPopUp2")
 
 if FFlagBackpackScriptUseFormatByKey then
 	SEARCH_TEXT_OFFSET_FROMLEFT = 3
@@ -1304,9 +1303,6 @@ function enableGamepadInventoryControl()
 			end
 		elseif InventoryFrame.Visible then
 			BackpackScript.OpenClose()
-			if not FFlagForceMouseInputWhenPromptPopUp2 then
-				spawn(function() GuiService:SetMenuIsOpen(false) end)
-			end
 		end
 	end
 
@@ -1458,9 +1454,6 @@ CloseInventoryButton.Position = UDim2.new(0, 0, 0, -50)
 CloseInventoryButton.MouseButton1Click:connect(function()
 	if InventoryFrame.Visible then
 		BackpackScript.OpenClose()
-		if not FFlagForceMouseInputWhenPromptPopUp2 then
-			spawn(function() GuiService:SetMenuIsOpen(false) end)
-		end
 	end
 end)
 

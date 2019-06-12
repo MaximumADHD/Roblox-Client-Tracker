@@ -1,6 +1,6 @@
-local Roact = require(script.Parent.Parent.Parent.modules.roact)
-
-local choose = require(script.Parent.Parent.choose)
+local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local withLocalization = UILibrary.Localizing.withLocalization
 
 local Constants = require(script.Parent.Parent.Constants)
 
@@ -8,7 +8,6 @@ local GroupDeleteButton = require(script.Parent.GroupDeleteButton)
 local GroupRenameButton = require(script.Parent.GroupRenameButton)
 local GroupSetMembershipButton = require(script.Parent.GroupSetMembershipButton)
 local GroupLabel = require(script.Parent.GroupLabel)
-local GroupCollisionCheckMarks = require(script.Parent.GroupCollisionCheckMarks)
 
 local GroupRow = Roact.PureComponent:extend("GroupRow")
 
@@ -18,8 +17,19 @@ function GroupRow.CalculateWidth()
 end
 
 function GroupRow:render()
+	return withLocalization(function(localized)
+		return self:renderConsolidated(localized)
+	end)
+end
+
+function GroupRow:renderConsolidated(localized)
 	local props = self.props
-	
+
+	local groupName = props.Group.Name
+	if groupName == "Default" then
+		groupName = localized:getText("Groups", "DefaultGroupName")
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.GroupRowHeight),
 		BackgroundTransparency = 1,
@@ -55,7 +65,11 @@ function GroupRow:render()
 			DeleteButton = Roact.createElement(GroupDeleteButton, props),
 			RenameButton = Roact.createElement(GroupRenameButton, props),
 			SetMembershipButton = Roact.createElement(GroupSetMembershipButton, props),
-			Label = Roact.createElement(GroupLabel, props),
+			Label = Roact.createElement(GroupLabel, {
+				Group = props.Group,
+				Hovered = props.Hovered,
+				groupName = groupName,
+			}),
 		}),
 
 		-- put in this 1-pixel-wide spacer to correct for the

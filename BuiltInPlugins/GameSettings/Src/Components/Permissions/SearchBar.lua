@@ -7,6 +7,7 @@
 		number LayoutOrder = 0 : optional layout order for UI layouts
 
 		string DefaultText = default text to show in the empty search bar.
+		string NoResultsText = text to show when there is no search results
 
 		table Results : table of search results to display 
 			format should be 
@@ -45,6 +46,7 @@ local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local withTheme = require(Plugin.Src.Consumers.withTheme)
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 local DropdownMenu = require(Plugin.UILibrary.Components.DropdownMenu)
@@ -69,6 +71,7 @@ local SearchBarContentFit = createFitToContent("ImageLabel", "UIListLayout", {
 	FillDirection = Enum.FillDirection.Horizontal,
 })
 
+local THUMBNAIL_SIZE = 32
 local SEARCH_BAR_HEIGHT = 40
 local SEARCH_BAR_BUTTON_ICON_SIZE = 20
 local ENTER_ICON_SIZE = 16
@@ -92,6 +95,7 @@ function SearchBar:init()
 		isFocused = false,
 		isContainerHovered = false,
 		isClearButtonHovered = false,
+		isKeyHovered = false,
 
 		showDropdown = false,
 		dropdownItem = nil,
@@ -163,10 +167,6 @@ function SearchBar:init()
 			isFocused = false,
 			isContainerHovered = false,
 		})
-	
-		if enterPressed then
-			self.requestSearch()
-		end
 
 		-- We also trigger a focus loss of the textbox when we are clicking on a dropdownItem
 		-- If we hide it now, it will hide before our click can be registered with the dropdownItem,
@@ -217,15 +217,19 @@ function SearchBar:init()
 	end
 
 	self.hideDropdown = function()
-		self:setState({
-			showDropdown = false,
-			dropdownItem = Roact.None, -- MouseLeave does not fire when the element goes away. We need to manually clear this
-		})
+		if not self.state.isFocused then 
+			self:setState({
+				showDropdown = false,
+				dropdownItem = Roact.None, -- MouseLeave does not fire when the element goes away. We need to manually clear this
+				isKeyHovered = false,
+			})
+		end
 	end
 
 	self.onKeyMouseEnter = function(item)
 		self:setState({
 			dropdownItem = item,
+			isKeyHovered = true,
 		})
 	end
 
@@ -233,22 +237,36 @@ function SearchBar:init()
 		if self.state.dropdownItem == item then
 			self:setState({
 				dropdownItem = Roact.None,
+				isKeyHovered = false,
 			})
 		end
+	end
+
+	-- A store provided by the consumer arbitrates which results are displayed, but is dependent
+	-- on this component to updates those results. This store persists between re-opening Game Settings,
+	-- so it will show results from last session unless we tell it the text has changed
+	if self.props.onTextChanged then
+		self.props.onTextChanged("")
 	end
 end
 
 -- Merge multi level table into single level for display
 function SearchBar:mergeResultsTable(results)
 	local mergedTable = {}
-	local keys = {}
-	for key,_ in pairs(results) do table.insert(keys, key) end
-	table.sort(keys, function(a,b) return results[a].LayoutOrder < results[b].LayoutOrder end)
+	if next(results) == nil then
+		if not self.props.LoadingMore then
+			table.insert(mergedTable, "NoResults")
+		end
+	else
+		local keys = {}
+		for key,_ in pairs(results) do table.insert(keys, key) end
+		table.sort(keys, function(a,b) return results[a].LayoutOrder < results[b].LayoutOrder end)
 
-	for _,key in ipairs(keys) do
-		table.insert(mergedTable, key)
-		for _,item in ipairs(results[key]) do
-			table.insert(mergedTable, item)
+		for _,key in ipairs(keys) do
+			table.insert(mergedTable, key)
+			for _,item in ipairs(results[key]) do
+				table.insert(mergedTable, item)
+			end
 		end
 	end
 	
@@ -272,6 +290,16 @@ function SearchBar:render()
 		local isContainerHovered = state.isContainerHovered
 		local isClearButtonHovered = state.isClearButtonHovered
 
+		local selectHovering = self.state.isClearButtonHovered or self.state.isKeyHovered
+		local textHovering = self.state.isContainerHovered
+		if selectHovering then
+			getMouse(self).setHoverIcon("PointingHand", selectHovering)
+		elseif textHovering then
+			getMouse(self).setHoverIcon("IBeam", textHovering)
+		else
+			getMouse(self).resetMouse()
+		end
+
 		--[[
 		By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
 		(unless you set properties like ClipDescendants, TextWrapped)
@@ -293,12 +321,13 @@ function SearchBar:render()
 		if isFocused then
 			borderColor = searchBarTheme.borderSelected
 		elseif isContainerHovered then
-			borderColor = searchBarTheme.borderHovered
+			borderColor = searchBarTheme.borderHover
 		else
 			borderColor = searchBarTheme.border
 		end
 
 		local defaultText = props.DefaultText
+		local noResultsText = props.NoResultsText
 
 		local textBoxOffset = text ~= "" and -SEARCH_BAR_HEIGHT * 2 or -SEARCH_BAR_HEIGHT
 
@@ -316,7 +345,6 @@ function SearchBar:render()
 		end
 
 		local results = props.Results or {}
-		local loadingMore = props.LoadingMore
         local headerHeight = props.HeaderHeight
 		local itemHeight = props.ItemHeight
 		local maxItems = props.MaxItems
@@ -329,7 +357,7 @@ function SearchBar:render()
 
 		local dropdownItem = state.dropdownItem
 
-		if next(results) ~= nil and state.lastResults ~= results then
+		if state.lastResults ~= results then
 			state.mergedItems = self:mergeResultsTable(results)
 			state.lastResults = results
 		end
@@ -362,6 +390,7 @@ function SearchBar:render()
 							0, SEARCH_BAR_BUTTON_ICON_SIZE),
 						BackgroundTransparency = 1,
 						Image = "rbxasset://textures/GameSettings/search.png",
+						ImageColor3 = theme.searchBar.searchIcon,
 					}),
 				}),
 
@@ -414,6 +443,7 @@ function SearchBar:render()
 				}),
 
 				Dropdown = showDropdown and searchBarRef and Roact.createElement(DropdownMenu, {
+					OnFocusLost = self.hideDropdown,
 					OnItemClicked = self.onItemClicked,
 					SourceExtents = searchBarExtents,
 					Offset = Vector2.new(0, VERTICAL_OFFSET),
@@ -424,7 +454,7 @@ function SearchBar:render()
 	
 					Items = self.state.mergedItems,
 					RenderItem = function(item, index, activated)
-						if typeof(item) == "string" and item ~= "LoadingIndicator" then
+						if typeof(item) == "string" and (item ~= "LoadingIndicator"  and item ~= "NoResults") then
 							return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
 									Size = UDim2.new(0, searchBarExtents.Width, 0, headerHeight),
 									Text = item,
@@ -438,6 +468,20 @@ function SearchBar:render()
 										PaddingLeft = UDim.new(0, textPadding),
 									}),
 								})
+						elseif item == "NoResults" then
+							return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+								Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+								Text = noResultsText,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+								BorderSizePixel = 0,
+								TextWrapped = true,
+								LayoutOrder = index,
+							}), {
+								Padding = Roact.createElement("UIPadding", {
+									PaddingLeft = UDim.new(0, textPadding),
+								}),
+							})
 						elseif item == "LoadingIndicator" then
 							return Roact.createElement("Frame", {
 								Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
@@ -487,13 +531,21 @@ function SearchBar:render()
 										}),
 	
 										IconFrame = Roact.createElement("Frame", {
-											BackgroundColor3 = backgroundColor,
-											BorderSizePixel = 0,
+											BackgroundTransparency = 1,
 											LayoutOrder = 1,
 											Size = UDim2.new(0, itemHeight,
 												0, itemHeight),
 										} , {
-											Icon = item.Icon,
+											SmallIcon = Roact.createElement("Frame", {
+												AnchorPoint = Vector2.new(0.5, 0.5),
+												Position = UDim2.new(0.5, 0, 0.5, 0),
+												Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
+
+												BackgroundColor3 = backgroundColor,
+												BorderSizePixel = 0,
+											}, {
+												Icon = item.Icon,
+											}),
 										}),
 	
 										TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
@@ -511,7 +563,8 @@ function SearchBar:render()
 											}),
 										}),
 
-										EnterFrame = isHovered and Roact.createElement("Frame", {
+										-- TODO: readd when text navigation is added
+										--[[EnterFrame = isHovered and Roact.createElement("Frame", {
 											BackgroundColor3 = backgroundColor,
 											BorderSizePixel = 0,
 											Size = UDim2.new(0, itemHeight,
@@ -526,7 +579,7 @@ function SearchBar:render()
 												BackgroundTransparency = 1,
 												Image = "rbxasset://textures/GameSettings/add.png",
 											}),
-										}),
+										}),]]
 									})
 								})
 							end

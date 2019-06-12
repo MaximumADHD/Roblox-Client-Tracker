@@ -37,19 +37,26 @@ local FitToContentList = createFitToContent("Frame", "UIListLayout", {
 	Padding = UDim.new(0, 0),
 })
 
+local function isStudioUserOwner(props)
+	local isUserOwner = game.CreatorType == Enum.CreatorType.User and game.CreatorId == props.StudioUserId
+	local isGroupOwner = game.CreatorType == Enum.CreatorType.Group and props.GroupOwnerUserId == props.StudioUserId
+
+	return isUserOwner or isGroupOwner
+end
+
 local function getGroupCollaboratorPermissions(props, localized)
 	local permissions = {
 		{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
-	if props.GroupOwnerUserId and props.GroupOwnerUserId == props.StudioUserId then
+	if isStudioUserOwner(props) then
 		permissions = Cryo.List.join(
 			permissions,
-			{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}
+			{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
 		)
 	end
-	
+
 	return permissions
 end
 
@@ -59,10 +66,10 @@ local function getUserCollaboratorPermissions(props, localized)
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
-	if props.GroupOwnerUserId and props.GroupOwnerUserId == props.StudioUserId then
+	if isStudioUserOwner(props) then
 		permissions = Cryo.List.join(
 			permissions,
-			{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}
+			{{Key = PermissionsConstants.AdminKey, Display = localized.AccessPermissions.ActionDropdown.AdminLabel, Description = localized.AccessPermissions.ActionDropdown.AdminDescription}}
 		)
 	end
 	
@@ -176,6 +183,9 @@ function CollaboratorsWidget:render()
 			-- Roact elements built from users and groups tables
 			local userCollaborators = {}
 			local groupCollaborators = {}
+
+			local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)
+			local groupAssignablePermissions = getGroupCollaboratorPermissions(props, localized)
 			
 			for i,user in pairs(users) do
 				local separatorProvidedByNextElement = i ~= #users
@@ -198,7 +208,7 @@ function CollaboratorsWidget:render()
 						CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, user.Id),
 						UseMask = true,
 
-						Items = getUserCollaboratorPermissions(props, localized),
+						Items = userAssignablePermissions,
 						Action = getLabelForAction(localized, user.Action),
 
 						Removable = true,
@@ -222,7 +232,7 @@ function CollaboratorsWidget:render()
 						GroupId = group.Id,
 						Rolesets = group.RolePermissions,
 						Permissions = props.Permissions,
-						Items = getGroupCollaboratorPermissions(props, localized),
+						Items = groupAssignablePermissions,
 
 						RolePermissionChanged = rolePermissionChanged,
 						GroupPermissionChanged = groupPermissionChanged,

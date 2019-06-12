@@ -23,8 +23,6 @@ local FetchUserFriends = require(ShareGame.Thunks.FetchUserFriends)
 
 local ClosePage = require(ShareGame.Actions.ClosePage)
 
-local FFlagLuaChatRemoveOldRoactRoduxConnect = settings():GetFFlag("LuaChatRemoveOldRoactRoduxConnect")
-
 local ShareGameContainer = Roact.PureComponent:extend("ShareGameContainer")
 ShareGameContainer.defaultProps = {
 	skeletonComponent = ShareGamePageFrame,
@@ -38,52 +36,28 @@ function ShareGameContainer:render()
 	return Roact.createElement(self.props.skeletonComponent, self.props)
 end
 
-if FFlagLuaChatRemoveOldRoactRoduxConnect then
-	ShareGameContainer = RoactRodux.UNSTABLE_connect2(
-		function(state, props)
-			return {
-				deviceLayout = state.DeviceInfo.DeviceLayout,
-				searchAreaActive = state.ConversationsSearch.SearchAreaActive,
-				searchText = state.ConversationsSearch.SearchText,
-			}
-		end,
-		function(dispatch)
-			return {
-				closePage = function()
-					dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
-				end,
-
-				reFetch = function()
-					local userId = tostring(Players.LocalPlayer.UserId)
-					local requestImpl = httpRequest(HttpRbxApiService)
-
-					dispatch(FetchUserFriends(requestImpl, userId))
-				end
-			}
-		end
-	)(ShareGameContainer)
-else
-	ShareGameContainer = RoactRodux.connect(function(store)
-		local state = store:getState()
+ShareGameContainer = RoactRodux.UNSTABLE_connect2(
+	function(state, props)
 		return {
 			deviceLayout = state.DeviceInfo.DeviceLayout,
-
 			searchAreaActive = state.ConversationsSearch.SearchAreaActive,
 			searchText = state.ConversationsSearch.SearchText,
-
+		}
+	end,
+	function(dispatch)
+		return {
 			closePage = function()
-				store:dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
+				dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
 			end,
+
 			reFetch = function()
 				local userId = tostring(Players.LocalPlayer.UserId)
-				local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
-				if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
-					local networkImpl = httpRequest(HttpRbxApiService)
-					store:dispatch(ApiFetchUsersFriends(networkImpl, userId, Constants.ThumbnailRequest.InviteToGame))
-				end
+				local requestImpl = httpRequest(HttpRbxApiService)
+
+				dispatch(FetchUserFriends(requestImpl, userId))
 			end
 		}
-	end)(ShareGameContainer)
-end
+	end
+)(ShareGameContainer)
 
 return ShareGameContainer

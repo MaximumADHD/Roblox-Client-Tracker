@@ -115,6 +115,13 @@ function WarningsAndPrompts:createRigError(Paths, partsWithMultipleParents, part
 		nil)
 end
 
+function WarningsAndPrompts:createAnchoredPartsError(Paths)
+	Paths.GUIScriptAlertMessage:showError(
+		"All parts are anchored",
+		"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model.",
+		nil)
+end
+
 function WarningsAndPrompts:createNoMotorsError(Paths)
 	Paths.GUIScriptAlertMessage:showError(
 		"No Motor6D Joints Found",

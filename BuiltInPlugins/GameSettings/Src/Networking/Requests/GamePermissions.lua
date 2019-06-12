@@ -17,7 +17,7 @@ local PERMISSIONS_URL = "v2/universes/%d/permissions"
 local PERMISSIONS_REQUEST_TYPE = "develop"
 
 -- The endpoints may start to fail above this amount
-local MAX_CHANGES = 1000
+local MAX_CHANGES = 60
 
 local RELEVANT_ENTRIES = {
 	permissions = true,

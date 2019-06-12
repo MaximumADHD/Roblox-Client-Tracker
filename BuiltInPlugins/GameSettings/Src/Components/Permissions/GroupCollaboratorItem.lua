@@ -20,7 +20,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
-
+local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 local ExpandableList = require(Plugin.UILibrary.Components.ExpandableList)
@@ -83,12 +83,31 @@ local GroupCollaboratorItem = Roact.PureComponent:extend("GroupCollaboratorItem"
 function GroupCollaboratorItem:init()
 	self.state = {
 		expanded = false,
+		hovered = false,
 	}
+
+	self.onTopLevelHovered = function()
+		self:setState({
+			hovered = true,
+		})
+	end
+
+	self.onTopLevelHoverEnded = function()
+		self:setState({
+			hovered = false,
+		})
+	end
 end
 
 function GroupCollaboratorItem:render()
 	local props = self.props
 	local thumbnailLoader = getThumbnailLoader(self)
+
+	if self.state.hovered then
+		getMouse(self).setHoverIcon("PointingHand", self.state.hovered)
+	else
+		getMouse(self).resetMouse()
+	end
 
 	return withTheme(function(theme)
 		return withLocalization(function(localized)
@@ -170,6 +189,11 @@ function GroupCollaboratorItem:render()
 						-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
 						-- and we don't want to spend the engineering resources on somethat that could drastically change
 						Size = UDim2.new(1, 0, 0, 60),
+
+						-- TODO: Consider moving this to expandable list when mouse handling is added into ui library
+						[Roact.Event.MouseEnter] = self.onTopLevelHovered,
+						[Roact.Event.MouseMoved] = self.onTopLevelHovered,
+						[Roact.Event.MouseLeave] = self.onTopLevelHoverEnded,
 					}, {
 						Separator = Roact.createElement(Separator, {
 							Size = UDim2.new(1, 0, 0, 1),

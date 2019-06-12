@@ -15,6 +15,7 @@ function Theme.new(override)
 
 		values = {},
 		uiLibraryValues = {},
+		uiLibraryOverrides = {},
 	}
 
 	setmetatable(self, {
@@ -52,6 +53,11 @@ function Theme:updateUILibrary(changedValues)
 	self.signal:fire(self.uiLibraryValues)
 end
 
+function Theme:overrideUILibrary(overrides)
+	self.uiLibraryOverrides = Cryo.Dictionary.join(self.uiLibraryOverrides, overrides)
+	self.signal:fire(self.uiLibraryOverrides)
+end
+
 function Theme:getExternalTheme()
 	local overrideTheme = self.overrideTheme
 	if overrideTheme then
@@ -68,7 +74,7 @@ function Theme:isDarkerTheme()
 end
 
 function Theme:getUILibraryTheme()
-	return UILibraryCreateTheme(self.uiLibraryValues)
+	return UILibraryCreateTheme(self.uiLibraryValues, self.uiLibraryOverrides)
 end
 
 function Theme:recalculateTheme()
@@ -131,10 +137,11 @@ function Theme:recalculateTheme()
 			borderSelected = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
 			placeholderText = color(StyleColor.DimmedText),
 
+			searchIcon = color(StyleColor.SubText),
+
 			clearButton = {
-				-- placeholder colors
-				imageSelected = isDark and color(StyleColor.MainButton) or color(StyleColor.CurrentMarker),
-				image = color(StyleColor.Border),
+				imageSelected = color(StyleColor.SubText),
+				image = color(StyleColor.SubText),
 			},
 
 			dropDown = {
@@ -252,9 +259,21 @@ function Theme:recalculateTheme()
 		},
 
 		collaboratorItem = {
-			collapseStateArrow = Color3.fromRGB(25, 25, 25),
+			collapseStateArrow = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(25, 25, 25),
 			deleteButton = isDark and Color3.fromRGB(136, 136, 136) or Color3.fromRGB(184, 184, 184),
 		},
+	})
+
+	self:overrideUILibrary({
+		button = {
+			LargeHitboxButton = {
+				backgroundColor = self.values.backgroundColor,
+
+				hovered = {
+					backgroundColor = color(StyleColor.Button, StyleModifier.Hover),
+				},
+			},
+		}
 	})
 
 	-- This is how we tell the UILibrary to use our colors instead of its predefined settings
