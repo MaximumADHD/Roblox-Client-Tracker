@@ -1,212 +1,173 @@
-Key,Source,en-us,zh-cn
-Studio.Common.Action.Apply,Apply,Apply,应用
-Studio.Common.Action.Back,Back,Back,返回
-Studio.Common.Action.Cancel,Cancel,Cancel,取消
-Studio.Common.Action.Clear,Clear,Clear,清除
-Studio.Common.Action.Close,Close,Close,关闭
-Studio.Common.Action.Copy,Copy,Copy,复制
-Studio.Common.Action.Create,Create,Create,创建
-Studio.Common.Action.Cut,Cut,Cut,剪切
-Studio.Common.Action.Delete,Delete,Delete,删除
-Studio.Common.Action.Edit,Edit,Edit,编辑
-Studio.Common.Action.Exit,Exit,Exit,退出
-Studio.Common.Action.File,File,File,文件
-Studio.Common.Action.Find,Find,Find,查找
-Studio.Common.Action.Help,Help,Help,帮助
-Studio.Common.Action.Home,Home,Home,首页
-Studio.Common.Action.Ignore,Ignore,Ignore,忽略
-Studio.Common.Action.Insert,Insert,Insert,插入
-Studio.Common.Action.New,New,New,新增
-Studio.Common.Action.Next,Next,Next,下一个
-Studio.Common.Action.No,No,No,否
-Studio.Common.Action.OK,OK,OK,确认
-Studio.Common.Action.Okay,Okay,Okay,好的
-Studio.Common.Action.Open,Open,Open,打开
-Studio.Common.Action.Paste,Paste,Paste,粘贴
-Studio.Common.Action.Pause,Pause,Pause,暂停
-Studio.Common.Action.Play,Play,Play,播放
-Studio.Common.Action.Previous,Previous,Previous,上一个
-Studio.Common.Action.Reload,Reload,Reload,重新加载
-Studio.Common.Action.Remove,Remove,Remove,删除
-Studio.Common.Action.Rename,Rename,Rename,重命名
-Studio.Common.Action.Replace,Replace,Replace,替换
-Studio.Common.Action.Resize,Resize,Resize,缩放
-Studio.Common.Action.Retry,Retry,Retry,重试
-Studio.Common.Action.Save,Save,Save,保存
-Studio.Common.Action.Select,Select,Select,选择
-Studio.Common.Action.Share,Share,Share,分享
-Studio.Common.Action.Stop,Stop,Stop,停止
-Studio.Common.Action.Yes,Yes,Yes,是
-Studio.Common.Action.Continue,Continue,Continue,继续
-Studio.Common.Action.Redo,Redo,Redo,恢复
-Studio.Common.Action.Undo,Undo,Undo,撤消
-Studio.Common.Action.Update,Update,Update,更新
-Studio.Common.Action.Reset,Reset,Reset,Studio.GameSettings.General.PluginName
-Game Settings,Game Settings,游戏设置,Studio.GameSettings.General.PluginDescription
-Update settings related to current game,Update settings related to current game,更新当前游戏的相关设置,Studio.GameSettings.General.SettingOn
-On,On,开启,Studio.GameSettings.General.SettingOff
-Off,Off,关闭,Studio.GameSettings.General.ReplyYes
-Yes,Yes,是,Studio.GameSettings.General.ReplyNo
-No,No,否,Studio.GameSettings.General.ReplyOK
-OK,OK,确认,Studio.GameSettings.General.ReplyAgree
-Agree,Agree,同意,Studio.GameSettings.General.ReplyDisagree
-Disagree,Disagree,不同意,Studio.GameSettings.General.ButtonSave
-Save,Save,保存,Studio.GameSettings.General.ButtonCancel
-Cancel,Cancel,取消,Studio.GameSettings.General.ButtonDiscard
-Discard,Discard,丢弃,Studio.GameSettings.General.CategoryBasicInfo
-Basic Info,Basic Info,基础信息,Studio.GameSettings.General.CategoryAvatar
-Avatar,Avatar,虚拟形象,Studio.GameSettings.General.CategoryWorld
-World,World,世界,Studio.GameSettings.General.CategoryOptions
-Options,Options,选项,Studio.GameSettings.General.TitleName
-Name,Name,名称,Studio.GameSettings.General.TitleDescription
-Description,Description,描述,Studio.GameSettings.General.TitlePlayability
-Playability,Playability,可玩性,Studio.GameSettings.General.TitleGameIcon
-Game Icon,Game Icon,游戏图标,Studio.GameSettings.General.TitleThumbnails
-Screenshots & Videos,Screenshots & Videos,屏幕截图与视频,Studio.GameSettings.General.TitleGenre
-Genre,Genre,类别,Studio.GameSettings.General.TitleDevices
-Playable Devices,Playable Devices,可玩设备,Studio.GameSettings.General.TitleHttp
-Allow HTTP Requests,Allow HTTP Requests,允许HTTP请求,Studio.GameSettings.General.TitleStudioApiServices
-Enable Studio Access to API Services,Enable Studio Access to API Services,启用API服务的Studio访问功能,Studio.GameSettings.General.PlayabilityHeader
-Who can play this game?,Who can play this game?,谁可以玩这个游戏？,Studio.GameSettings.General.PlayabilityPublic
-Public,Public,公开,Studio.GameSettings.General.PlayabilityGroup
-Group Members,Group Members,群组成员,Studio.GameSettings.General.PlayabilityFriends
-Friends,Friends,好友,Studio.GameSettings.General.PlayabilityPrivate
-Private,Private,私人,Studio.GameSettings.General.PlayabilityPublicDesc
-Anyone on Roblox,Anyone on Roblox,Roblox上的所有玩家,Studio.GameSettings.General.PlayabilityGroupDesc
-Members of {group},Members of {group},{group}的成员,Studio.GameSettings.General.PlayabilityFriendsDesc
-Friends on Roblox,Friends on Roblox,Roblox上的好友,Studio.GameSettings.General.PlayabilityPrivateDesc
-Only developers of this game,Only developers of this game,仅开放给此游戏的开发人员,Studio.GameSettings.General.GameIconHint
-Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,可接受的文件：{fileTypes}{newline}建议的分辨率：512 x 512,Studio.GameSettings.General.GameIconModeration
-Image will be reviewed by moderators before being made visible to other users,Image will be reviewed by moderators before being made visible to other users,图片将由协调员审查，然后再对其他用户开放显示,Studio.GameSettings.General.GameIconTutorial
-New to making icons? Check out the Icon Tutorial.,New to making icons? Check out the Icon Tutorial.,不熟悉制作图标吗？来看看图标教程吧。,Studio.GameSettings.General.GameIconChange
-Change,Change,更改,Studio.GameSettings.General.ThumbnailsLimit
-You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,一个游戏最多可设置{maxThumbnails:int}组屏幕截图和YouTube视频。,Studio.GameSettings.General.ThumbnailsHint
-Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080,可接受的图片文件：{fileTypes} | 建议的分辨率：1920 x 1080,Studio.GameSettings.General.ThumbnailsModeration
-Items will be reviewed by moderators before being made visible to other users.,Items will be reviewed by moderators before being made visible to other users.,项目会在协调员审查后，再对其他用户开放。,Studio.GameSettings.General.ThumbnailsCount
-Up to {maxThumbnails:int} items,Up to {maxThumbnails:int} items,最多{maxThumbnails:int}个项目,Studio.GameSettings.General.ImagePreview
-Preview,Preview,预览,Studio.GameSettings.General.ImageReview
-In Review,In Review,审阅中,Studio.GameSettings.General.GenreAll
-All,All,所有,Studio.GameSettings.General.GenreAdventure
-Adventure,Adventure,冒险,Studio.GameSettings.General.GenreBuilding
-Building,Building,建筑,Studio.GameSettings.General.GenreComedy
-Comedy,Comedy,喜剧,Studio.GameSettings.General.GenreFighting
-Fighting,Fighting,格斗,Studio.GameSettings.General.GenreFPS
-FPS,FPS,FPS,Studio.GameSettings.General.GenreHorror
-Horror,Horror,恐怖,Studio.GameSettings.General.GenreMedieval
-Medieval,Medieval,中世纪,Studio.GameSettings.General.GenreMilitary
-Military,Military,军事,Studio.GameSettings.General.GenreNaval
-Naval,Naval,海军,Studio.GameSettings.General.GenreRPG
-RPG,RPG,RPG,Studio.GameSettings.General.GenreSciFi
-Sci-Fi,Sci-Fi,科幻,Studio.GameSettings.General.GenreSports
-Sports,Sports,体育,Studio.GameSettings.General.GenreTownAndCity
-Town and City,Town and City,城市建设,Studio.GameSettings.General.GenreWestern
-Western,Western,西部,Studio.GameSettings.General.DeviceComputer
-Computer,Computer,计算机,Studio.GameSettings.General.DevicePhone
-Phone,Phone,手机,Studio.GameSettings.General.DeviceTablet
-Tablet,Tablet,平板,Studio.GameSettings.General.DeviceConsole
-Console,Console,游戏主机,Studio.GameSettings.General.HttpDesc
-Allow game server to issue requests to remote servers.,Allow game server to issue requests to remote servers.,允许游戏服务器对远程服务器发出请求。,Studio.GameSettings.General.StudioApiServicesDesc
-Enables Studio access to game services such as Data Stores,Enables Studio access to game services such as Data Stores,允许Studio访问数据存储等游戏服务,Studio.GameSettings.General.ContentDialogHeader
-Content Agreement,Content Agreement,内容协议,Studio.GameSettings.General.ContentDialogBody
-Do you agree that your game is controller compatible and contains NONE of the following?,Do you agree that your game is controller compatible and contains NONE of the following?,你同意让游戏兼容控制器，并确认游戏不包含以下内容吗？,Studio.GameSettings.General.ContentDialogItem1
-Blood or Gore,Blood or Gore,血腥,Studio.GameSettings.General.ContentDialogItem2
-Intense Violence,Intense Violence,激烈暴力,Studio.GameSettings.General.ContentDialogItem3
-Strong Language (Swearing),Strong Language (Swearing),粗暴语言（脏话）,Studio.GameSettings.General.ContentDialogItem4
-Robux Gambling,Robux Gambling,以Robux进行赌博,Studio.GameSettings.General.ContentDialogItem5
-Drug Reference or Use,Drug Reference or Use,提及或使用药物,Studio.GameSettings.General.PreviewDialogHeader
-Preview,Preview,预览,Studio.GameSettings.General.PreviewDialogBody
-Studio doesn't currently support video playing,Studio doesn't currently support video playing,Studio当前不支持视频播放,Studio.GameSettings.General.PreviewDialogLink
-Go to YouTube and play the video,Go to YouTube and play the video,前往YouTube播放视频,Studio.GameSettings.General.CancelDialogHeader
-Discard Changes,Discard Changes,放弃更改,Studio.GameSettings.General.CancelDialogBody
-Would you like to discard all changes?,Would you like to discard all changes?,你要放弃所有更改吗？,Studio.GameSettings.General.PrivateDialogHeader
-Make Private,Make Private,设为私人,Studio.GameSettings.General.PrivateDialogPrompt
-Are you sure you want to make this game private?,Are you sure you want to make this game private?,确定要保存更改吗？,Studio.GameSettings.General.PrivateDialogBody
-Making this game private will shut down any running games.,Making this game private will shut down any running games.,将此游戏设为私人将会关闭所有进行中的游戏。,Studio.GameSettings.General.AvatarDialogHeader
-Warning,Warning,警告,Studio.GameSettings.General.AvatarDialogPrompt
-Would you like to proceed?,Would you like to proceed?,你要继续吗？,Studio.GameSettings.General.AvatarDialogBody
-Changing the game's Avatar Type to this setting will shut down any running games.,Changing the game's Avatar Type to this setting will shut down any running games.,更改游戏的虚拟形象类型将会关闭所有进行中的游戏。,Studio.GameSettings.General.DeleteDialogHeader
-Delete Thumbnail,Delete Thumbnail,删除缩略图,Studio.GameSettings.General.DeleteDialogBody
-Would you like to delete this thumbnail?,Would you like to delete this thumbnail?,你要删除此缩略图吗？,Studio.GameSettings.General.ImageDialogHeader
-No Image Loaded,No Image Loaded,未加载图片,Studio.GameSettings.General.ImageDialogBody
-Select a compatible image.,Select a compatible image.,选择一张兼容的图片。,Studio.GameSettings.General.ErrorsOnSaveHeader
-Saving Errors,Saving Errors,保存错误,Studio.GameSettings.General.ErrorsOnSaveBody
-Could not save game settings.,Could not save game settings.,无法保存游戏设置。,Studio.GameSettings.General.ErrorNameEmpty
-Name cannot be empty.,Name cannot be empty.,名称不能为空。,Studio.GameSettings.General.ErrorNameModerated
-The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.,此名称没有通过审核。请修改后再试一次。,Studio.GameSettings.General.ErrorDescModerated
-The description didn't go through our moderation. Please revise it and try again.,The description didn't go through our moderation. Please revise it and try again.,此描述没有通过审核。请修改后再试一次。,Studio.GameSettings.General.ErrorImageLimit
-"You're uploading too much, please wait and try again later.","You're uploading too much, please wait and try again later.",你已上传过多文件。请稍候重试。,Studio.GameSettings.General.ErrorImageNotRecognized
-File uploaded does not match known image format. Try converting to png.,File uploaded does not match known image format. Try converting to png.,上传的文件与已知图片格式不匹配。请将它转成PNG文件。,Studio.GameSettings.General.ErrorNoDevices
-You must select at least one playable device.,You must select at least one playable device.,你必须选择至少一种可游玩设备。,Studio.GameSettings.General.GameIconPrompt
-Add Game Icon,Add Game Icon,添加游戏图标,Studio.GameSettings.General.ThumbnailPrompt
-Add Thumbnails,Add Thumbnails,添加缩略图,Studio.GameSettings.General.TitlePresets
-Presets,Presets,预设,Studio.GameSettings.General.TitleAvatarType
-Avatar Type,Avatar Type,虚拟形象类型,Studio.GameSettings.General.TitleAnimation
-Animation,Animation,动画,Studio.GameSettings.General.TitleCollision
-Collision,Collision,碰撞,Studio.GameSettings.General.TitleScale
-Scale,Scale,调整,Studio.GameSettings.General.TitleBodyParts
-Body Parts,Body Parts,身体部件,Studio.GameSettings.General.TitleClothing
-Clothing,Clothing,服装,Studio.GameSettings.General.ScaleHeight
-Height,Height,高度,Studio.GameSettings.General.ScaleWidth
-Width,Width,宽度,Studio.GameSettings.General.ScaleHead
-Head,Head,头部,Studio.GameSettings.General.ScaleBodyType
-Body Type,Body Type,身体类型,Studio.GameSettings.General.ScaleProportions
-Proportions,Proportions,比例,Studio.GameSettings.General.PartFace
-Face,Face,脸部,Studio.GameSettings.General.PartHead
-Head,Head,头部,Studio.GameSettings.General.PartTorso
-Torso,Torso,躯干,Studio.GameSettings.General.PartLeftArm
-Left Arm,Left Arm,左臂,Studio.GameSettings.General.PartRightArm
-Right Arm,Right Arm,右臂,Studio.GameSettings.General.PartLeftLeg
-Left Leg,Left Leg,左腿,Studio.GameSettings.General.PartRightLeg
-Right Leg,Right Leg,右腿,Studio.GameSettings.General.ClothingTShirt
-T-Shirt ID,T-Shirt ID,T 恤ID,Studio.GameSettings.General.ClothingShirt
-Shirt ID,Shirt ID,上衣ID,Studio.GameSettings.General.ClothingPants
-Pants ID,Pants ID,裤子ID,Studio.GameSettings.General.PresetDefault
-Default,Default,默认,Studio.GameSettings.General.PresetClassicScale
-Classic Scale,Classic Scale,经典比例,Studio.GameSettings.General.PresetFullClassic
-Full Classic,Full Classic,全套经典,Studio.GameSettings.General.PresetRthro
-Rthro,Rthro,Rthro,Studio.GameSettings.General.PresetPlayerChoice
-Player Choice,Player Choice,玩家选择,Studio.GameSettings.General.AvatarTypeR6
-R6,R6,6岁以上,Studio.GameSettings.General.AvatarTypeR15
-R15,R15,15岁以上,Studio.GameSettings.General.AvatarTypePlayerChoice
-Player Choice,Player Choice,玩家选择,Studio.GameSettings.General.AvatarTypeWarning
-Change Avatar Type will shut down the running game when save settings,Change Avatar Type will shut down the running game when save settings,更改虚拟形象类型会在保存设置时关闭进行中的游戏,Studio.GameSettings.General.AnimationStandard
-Standard,Standard,标准,Studio.GameSettings.General.AnimationPlayerChoice
-Player Choice,Player Choice,玩家选择,Studio.GameSettings.General.CollisionOuterBox
-Outer Box,Outer Box,外范围,Studio.GameSettings.General.CollisionInnerBox
-Inner Box,Inner Box,内范围,Studio.GameSettings.General.AvatarOverridePrompt
-Override Player Choice?,Override Player Choice?,要覆盖玩家选择吗？,Studio.GameSettings.General.AvatarOverrideItem
-Custom Item,Custom Item,自定义项目,Studio.GameSettings.General.AvatarOverrideId
-ID Number,ID Number,ID码,Studio.GameSettings.General.ErrorOverrideEmpty
-ID Number cannot be empty,ID Number cannot be empty,ID码不能为空,Studio.GameSettings.General.CategoryDeveloperSubscriptions
-Subscriptions,Subscriptions,Studio.GameSettings.General.CategoryAccessPermissions,Permissions
-Permissions,Studio.GameSettings.General.TitleGameOwner,Game Owner,Game Owner
-Studio.GameSettings.General.TitleCollaborators,Collaborators,Collaborators,Studio.GameSettings.General.SingleImageDialogHeader
-No Image Loaded,No Image Loaded,Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image.
-Select a compatible image.,Studio.GameSettings.General.MultiImageDialogHeader,Images Failed,Images Failed
-Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:,Studio.GameSettings.General.DevSubsEditHeader
-Edit Developer Subscription,Edit Developer Subscription,Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions
-Developer Subscriptions,Studio.GameSettings.General.DevSubsName,Name,Name
-Studio.GameSettings.General.DevSubsTitle,Title,Title,Studio.GameSettings.General.DevSubsPrice
-Price,Price,Studio.GameSettings.General.DevSubsImage,Image
-Image,Studio.GameSettings.General.DevSubsDuration,Duration,Duration
-Studio.GameSettings.General.DevSubsId,Id,Id,Studio.GameSettings.General.DevSubsSubscribers
-Subscribers,Subscribers,Studio.GameSettings.General.DevSubsActive,Active
-Active,Studio.GameSettings.General.DevSubsCreateAction,Create,Create
-Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue,Discontinue,Studio.GameSettings.General.DevSubsUnsaved
-Unsaved,Unsaved,Studio.GameSettings.General.DevSubsIsActive,Yes
-Yes,Studio.GameSettings.General.DevSubsIsNotActive,No,No
-Studio.GameSettings.General.DevSubsDiscontinueTitle,Discontinue Subscription,Discontinue Subscription,Studio.GameSettings.General.DevSubsDiscontinueHeader
-Would you like to discontinue this subscription?,Would you like to discontinue this subscription?,Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.
-This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue,Discontinue
-Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access,No Access,Studio.GameSettings.AccessPermissions.PlayLabel
-Play,Play,Studio.GameSettings.AccessPermissions.EditLabel,Edit
-Edit,Studio.GameSettings.AccessPermissions.AdminLabel,Manage,Manage
-Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,Studio.GameSettings.AccessPermissions.MultipleLabel
-(Multiple),(Multiple),Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game
-Cannot play or edit this game,Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game,Can play this game
-Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game,Can play and edit this game,Studio.GameSettings.AccessPermissions.AdminDescription
-"Can play, edit, and manage this game","Can play, edit, and manage this game",Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends
-Friends,Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users
-Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups,Studio.GameSettings.AccessPermissions.MyFriendsCollaborator
-My Friends,My Friends,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by user or group name
-Search by user or group name,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results,There were no results
+Key,Source,Context,en-us,zh-cn
+Studio.Common.Action.Apply,Apply,Apply,应用,Studio.Common.Action.Back
+Back,Back,返回,Studio.Common.Action.Cancel,Cancel
+Cancel,取消,Studio.Common.Action.Clear,Clear,Clear
+清除,Studio.Common.Action.Close,Close,Close,关闭
+Studio.Common.Action.Copy,Copy,Copy,复制,Studio.Common.Action.Create
+Create,Create,创建,Studio.Common.Action.Cut,Cut
+Cut,剪切,Studio.Common.Action.Delete,Delete,Delete
+删除,Studio.Common.Action.Edit,Edit,Edit,编辑
+Studio.Common.Action.Exit,Exit,Exit,退出,Studio.Common.Action.File
+File,File,文件,Studio.Common.Action.Find,Find
+Find,查找,Studio.Common.Action.Help,Help,Help
+帮助,Studio.Common.Action.Home,Home,Home,首页
+Studio.Common.Action.Ignore,Ignore,Ignore,忽略,Studio.Common.Action.Insert
+Insert,Insert,插入,Studio.Common.Action.New,New
+New,新增,Studio.Common.Action.Next,Next,Next
+下一个,Studio.Common.Action.No,No,No,否
+Studio.Common.Action.OK,OK,OK,确认,Studio.Common.Action.Okay
+Okay,Okay,好的,Studio.Common.Action.Open,Open
+Open,打开,Studio.Common.Action.Paste,Paste,Paste
+粘贴,Studio.Common.Action.Pause,Pause,Pause,暂停
+Studio.Common.Action.Play,Play,Play,播放,Studio.Common.Action.Previous
+Previous,Previous,上一个,Studio.Common.Action.Reload,Reload
+Reload,重新加载,Studio.Common.Action.Remove,Remove,Remove
+删除,Studio.Common.Action.Rename,Rename,Rename,重命名
+Studio.Common.Action.Replace,Replace,Replace,替换,Studio.Common.Action.Resize
+Resize,Resize,缩放,Studio.Common.Action.Retry,Retry
+Retry,重试,Studio.Common.Action.Save,Save,Save
+保存,Studio.Common.Action.Select,Select,Select,选择
+Studio.Common.Action.Share,Share,Share,分享,Studio.Common.Action.Stop
+Stop,Stop,停止,Studio.Common.Action.Yes,Yes
+Yes,是,Studio.Common.Action.Continue,Continue,Continue
+继续,Studio.Common.Action.Redo,Redo,Redo,恢复
+Studio.Common.Action.Undo,Undo,Undo,撤消,Studio.Common.Action.Update
+Update,Update,更新,Studio.Common.Action.Reset,Reset
+Reset,Studio.GameSettings.General.PluginName,Game Settings,Game Settings,游戏设置
+Studio.GameSettings.General.PluginDescription,Update settings related to current game,Update settings related to current game,更新当前游戏的相关设置,Studio.GameSettings.General.SettingOn
+On,On,开启,Studio.GameSettings.General.SettingOff,Off
+Off,关闭,Studio.GameSettings.General.ReplyYes,Yes,Yes
+是,Studio.GameSettings.General.ReplyNo,No,No,否
+Studio.GameSettings.General.ReplyOK,OK,OK,确认,Studio.GameSettings.General.ReplyAgree
+Agree,Agree,同意,Studio.GameSettings.General.ReplyDisagree,Disagree
+Disagree,不同意,Studio.GameSettings.General.ButtonSave,Save,Save
+保存,Studio.GameSettings.General.ButtonCancel,Cancel,Cancel,取消
+Studio.GameSettings.General.ButtonDiscard,Discard,Discard,丢弃,Studio.GameSettings.General.CategoryBasicInfo
+Basic Info,Basic Info,基础信息,Studio.GameSettings.General.CategoryAvatar,Avatar
+Avatar,虚拟形象,Studio.GameSettings.General.CategoryWorld,World,World
+世界,Studio.GameSettings.General.CategoryOptions,Options,Options,选项
+Studio.GameSettings.General.TitleName,Name,Name,名称,Studio.GameSettings.General.TitleDescription
+Description,Description,描述,Studio.GameSettings.General.TitlePlayability,Playability
+Playability,可玩性,Studio.GameSettings.General.TitleGameIcon,Game Icon,Game Icon
+游戏图标,Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos,Screenshots & Videos,屏幕截图与视频
+Studio.GameSettings.General.TitleGenre,Genre,Genre,类别,Studio.GameSettings.General.TitleDevices
+Playable Devices,Playable Devices,可玩设备,Studio.GameSettings.General.TitleHttp,Allow HTTP Requests
+Allow HTTP Requests,允许HTTP请求,Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services,Enable Studio Access to API Services
+启用API服务的Studio访问功能,Studio.GameSettings.General.PlayabilityHeader,Who can play this game?,Who can play this game?,谁可以玩这个游戏？
+Studio.GameSettings.General.PlayabilityPublic,Public,Public,公开,Studio.GameSettings.General.PlayabilityGroup
+Group Members,Group Members,群组成员,Studio.GameSettings.General.PlayabilityFriends,Friends
+Friends,好友,Studio.GameSettings.General.PlayabilityPrivate,Private,Private
+私人,Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Roblox上的所有玩家
+Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group},Members of {group},{group}的成员,Studio.GameSettings.General.PlayabilityFriendsDesc
+Friends on Roblox,Friends on Roblox,Roblox上的好友,Studio.GameSettings.General.PlayabilityPrivateDesc,Only developers of this game
+Only developers of this game,仅开放给此游戏的开发人员,Studio.GameSettings.General.GameIconHint,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512,Acceptable files: {fileTypes}{newline}Recommended resolution: 512 x 512
+可接受的文件：{fileTypes}{newline}建议的分辨率：512 x 512,Studio.GameSettings.General.GameIconModeration,Image will be reviewed by moderators before being made visible to other users,Image will be reviewed by moderators before being made visible to other users,图片将由协调员审查，然后再对其他用户开放显示
+Studio.GameSettings.General.GameIconTutorial,New to making icons? Check out the Icon Tutorial.,New to making icons? Check out the Icon Tutorial.,不熟悉制作图标吗？来看看图标教程吧。,Studio.GameSettings.General.GameIconChange
+Change,Change,更改,Studio.GameSettings.General.ThumbnailsLimit,You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.
+You can set up to {maxThumbnails:int} screenshots and YouTube videos for a game.,一个游戏最多可设置{maxThumbnails:int}组屏幕截图和YouTube视频。,Studio.GameSettings.General.ThumbnailsHint,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080,Acceptable image files: {fileTypes} | Recommended resolution: 1920 x 1080
+可接受的图片文件：{fileTypes} | 建议的分辨率：1920 x 1080,Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moderators before being made visible to other users.,Items will be reviewed by moderators before being made visible to other users.,项目会在协调员审查后，再对其他用户开放。
+Studio.GameSettings.General.ThumbnailsCount,Up to {maxThumbnails:int} items,Up to {maxThumbnails:int} items,最多{maxThumbnails:int}个项目,Studio.GameSettings.General.ImagePreview
+Preview,Preview,预览,Studio.GameSettings.General.ImageReview,In Review
+In Review,审阅中,Studio.GameSettings.General.GenreAll,All,All
+所有,Studio.GameSettings.General.GenreAdventure,Adventure,Adventure,冒险
+Studio.GameSettings.General.GenreBuilding,Building,Building,建筑,Studio.GameSettings.General.GenreComedy
+Comedy,Comedy,喜剧,Studio.GameSettings.General.GenreFighting,Fighting
+Fighting,格斗,Studio.GameSettings.General.GenreFPS,FPS,FPS
+FPS,Studio.GameSettings.General.GenreHorror,Horror,Horror,恐怖
+Studio.GameSettings.General.GenreMedieval,Medieval,Medieval,中世纪,Studio.GameSettings.General.GenreMilitary
+Military,Military,军事,Studio.GameSettings.General.GenreNaval,Naval
+Naval,海军,Studio.GameSettings.General.GenreRPG,RPG,RPG
+RPG,Studio.GameSettings.General.GenreSciFi,Sci-Fi,Sci-Fi,科幻
+Studio.GameSettings.General.GenreSports,Sports,Sports,体育,Studio.GameSettings.General.GenreTownAndCity
+Town and City,Town and City,城市建设,Studio.GameSettings.General.GenreWestern,Western
+Western,西部,Studio.GameSettings.General.DeviceComputer,Computer,Computer
+计算机,Studio.GameSettings.General.DevicePhone,Phone,Phone,手机
+Studio.GameSettings.General.DeviceTablet,Tablet,Tablet,平板,Studio.GameSettings.General.DeviceConsole
+Console,Console,游戏主机,Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers.
+Allow game server to issue requests to remote servers.,允许游戏服务器对远程服务器发出请求。,Studio.GameSettings.General.StudioApiServicesDesc,Enables Studio access to game services such as Data Stores,Enables Studio access to game services such as Data Stores
+允许Studio访问数据存储等游戏服务,Studio.GameSettings.General.ContentDialogHeader,Content Agreement,Content Agreement,内容协议
+Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?,Do you agree that your game is controller compatible and contains NONE of the following?,你同意让游戏兼容控制器，并确认游戏不包含以下内容吗？,Studio.GameSettings.General.ContentDialogItem1
+Blood or Gore,Blood or Gore,血腥,Studio.GameSettings.General.ContentDialogItem2,Intense Violence
+Intense Violence,激烈暴力,Studio.GameSettings.General.ContentDialogItem3,Strong Language (Swearing),Strong Language (Swearing)
+粗暴语言（脏话）,Studio.GameSettings.General.ContentDialogItem4,Robux Gambling,Robux Gambling,以Robux进行赌博
+Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use,Drug Reference or Use,提及或使用药物,Studio.GameSettings.General.PreviewDialogHeader
+Preview,Preview,预览,Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing
+Studio doesn't currently support video playing,Studio当前不支持视频播放,Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video,Go to YouTube and play the video
+前往YouTube播放视频,Studio.GameSettings.General.CancelDialogHeader,Discard Changes,Discard Changes,放弃更改
+Studio.GameSettings.General.CancelDialogBody,Would you like to discard all changes?,Would you like to discard all changes?,你要放弃所有更改吗？,Studio.GameSettings.General.PrivateDialogHeader
+Make Private,Make Private,设为私人,Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?
+Are you sure you want to make this game private?,确定要保存更改吗？,Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games.,Making this game private will shut down any running games.
+将此游戏设为私人将会关闭所有进行中的游戏。,Studio.GameSettings.General.AvatarDialogHeader,Warning,Warning,警告
+Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?,Would you like to proceed?,你要继续吗？,Studio.GameSettings.General.AvatarDialogBody
+Changing the game's Avatar Type to this setting will shut down any running games.,Changing the game's Avatar Type to this setting will shut down any running games.,更改游戏的虚拟形象类型将会关闭所有进行中的游戏。,Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail
+Delete Thumbnail,删除缩略图,Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?,Would you like to delete this thumbnail?
+你要删除此缩略图吗？,Studio.GameSettings.General.ImageDialogHeader,No Image Loaded,No Image Loaded,未加载图片
+Studio.GameSettings.General.ImageDialogBody,Select a compatible image.,Select a compatible image.,选择一张兼容的图片。,Studio.GameSettings.General.ErrorsOnSaveHeader
+Saving Errors,Saving Errors,保存错误,Studio.GameSettings.General.ErrorsOnSaveBody,Could not save game settings.
+Could not save game settings.,无法保存游戏设置。,Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty.,Name cannot be empty.
+名称不能为空。,Studio.GameSettings.General.ErrorNameModerated,The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.,此名称没有通过审核。请修改后再试一次。
+Studio.GameSettings.General.ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again.,The description didn't go through our moderation. Please revise it and try again.,此描述没有通过审核。请修改后再试一次。,Studio.GameSettings.General.ErrorImageLimit
+"You're uploading too much, please wait and try again later.","You're uploading too much, please wait and try again later.",你已上传过多文件。请稍候重试。,Studio.GameSettings.General.ErrorImageNotRecognized,File uploaded does not match known image format. Try converting to png.
+File uploaded does not match known image format. Try converting to png.,上传的文件与已知图片格式不匹配。请将它转成PNG文件。,Studio.GameSettings.General.ErrorNoDevices,You must select at least one playable device.,You must select at least one playable device.
+你必须选择至少一种可游玩设备。,Studio.GameSettings.General.GameIconPrompt,Add Game Icon,Add Game Icon,添加游戏图标
+Studio.GameSettings.General.ThumbnailPrompt,Add Thumbnails,Add Thumbnails,添加缩略图,Studio.GameSettings.General.TitlePresets
+Presets,Presets,预设,Studio.GameSettings.General.TitleAvatarType,Avatar Type
+Avatar Type,虚拟形象类型,Studio.GameSettings.General.TitleAnimation,Animation,Animation
+动画,Studio.GameSettings.General.TitleCollision,Collision,Collision,碰撞
+Studio.GameSettings.General.TitleScale,Scale,Scale,调整,Studio.GameSettings.General.TitleBodyParts
+Body Parts,Body Parts,身体部件,Studio.GameSettings.General.TitleClothing,Clothing
+Clothing,服装,Studio.GameSettings.General.ScaleHeight,Height,Height
+高度,Studio.GameSettings.General.ScaleWidth,Width,Width,宽度
+Studio.GameSettings.General.ScaleHead,Head,Head,头部,Studio.GameSettings.General.ScaleBodyType
+Body Type,Body Type,身体类型,Studio.GameSettings.General.ScaleProportions,Proportions
+Proportions,比例,Studio.GameSettings.General.PartFace,Face,Face
+脸部,Studio.GameSettings.General.PartHead,Head,Head,头部
+Studio.GameSettings.General.PartTorso,Torso,Torso,躯干,Studio.GameSettings.General.PartLeftArm
+Left Arm,Left Arm,左臂,Studio.GameSettings.General.PartRightArm,Right Arm
+Right Arm,右臂,Studio.GameSettings.General.PartLeftLeg,Left Leg,Left Leg
+左腿,Studio.GameSettings.General.PartRightLeg,Right Leg,Right Leg,右腿
+Studio.GameSettings.General.ClothingTShirt,T-Shirt ID,T-Shirt ID,T 恤ID,Studio.GameSettings.General.ClothingShirt
+Shirt ID,Shirt ID,上衣ID,Studio.GameSettings.General.ClothingPants,Pants ID
+Pants ID,裤子ID,Studio.GameSettings.General.PresetDefault,Default,Default
+默认,Studio.GameSettings.General.PresetClassicScale,Classic Scale,Classic Scale,经典比例
+Studio.GameSettings.General.PresetFullClassic,Full Classic,Full Classic,全套经典,Studio.GameSettings.General.PresetRthro
+Rthro,Rthro,Rthro,Studio.GameSettings.General.PresetPlayerChoice,Player Choice
+Player Choice,玩家选择,Studio.GameSettings.General.AvatarTypeR6,R6,R6
+6岁以上,Studio.GameSettings.General.AvatarTypeR15,R15,R15,15岁以上
+Studio.GameSettings.General.AvatarTypePlayerChoice,Player Choice,Player Choice,玩家选择,Studio.GameSettings.General.AvatarTypeWarning
+Change Avatar Type will shut down the running game when save settings,Change Avatar Type will shut down the running game when save settings,更改虚拟形象类型会在保存设置时关闭进行中的游戏,Studio.GameSettings.General.AnimationStandard,Standard
+Standard,标准,Studio.GameSettings.General.AnimationPlayerChoice,Player Choice,Player Choice
+玩家选择,Studio.GameSettings.General.CollisionOuterBox,Outer Box,Outer Box,外范围
+Studio.GameSettings.General.CollisionInnerBox,Inner Box,Inner Box,内范围,Studio.GameSettings.General.AvatarOverridePrompt
+Override Player Choice?,Override Player Choice?,要覆盖玩家选择吗？,Studio.GameSettings.General.AvatarOverrideItem,Custom Item
+Custom Item,自定义项目,Studio.GameSettings.General.AvatarOverrideId,ID Number,ID Number
+ID码,Studio.GameSettings.General.ErrorOverrideEmpty,ID Number cannot be empty,ID Number cannot be empty,ID码不能为空
+Studio.GameSettings.General.CategoryDeveloperSubscriptions,Subscriptions,Subscriptions,Studio.GameSettings.General.CategoryAccessPermissions,Permissions
+Permissions,Studio.GameSettings.General.TitleGameOwner,Game Owner,Game Owner,Studio.GameSettings.General.TitleCollaborators
+Collaborators,Collaborators,Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded,No Image Loaded
+Studio.GameSettings.General.SingleImageDialogBody,Select a compatible image.,Select a compatible image.,Studio.GameSettings.General.MultiImageDialogHeader,Images Failed
+Images Failed,Studio.GameSettings.General.MultiImageDialogBody,The following file(s) exceed {maxThumbnailSize:int} MB:,The following file(s) exceed {maxThumbnailSize:int} MB:,Studio.GameSettings.General.DevSubsEditHeader
+Edit Developer Subscription,Edit Developer Subscription,Studio.GameSettings.General.DevSubsListHeader,Developer Subscriptions,Developer Subscriptions
+Studio.GameSettings.General.DevSubsName,Name,Name,Studio.GameSettings.General.DevSubsTitle,Title
+Title,Studio.GameSettings.General.DevSubsPrice,Price,Price,Studio.GameSettings.General.DevSubsImage
+Image,Image,Studio.GameSettings.General.DevSubsDuration,Duration,Duration
+Studio.GameSettings.General.DevSubsId,Id,Id,Studio.GameSettings.General.DevSubsSubscribers,Subscribers
+Subscribers,Studio.GameSettings.General.DevSubsActive,Active,Active,Studio.GameSettings.General.DevSubsCreateAction
+Create,Create,Studio.GameSettings.General.DevSubsDiscontinueAction,Discontinue,Discontinue
+Studio.GameSettings.General.DevSubsUnsaved,Unsaved,Unsaved,Studio.GameSettings.General.DevSubsIsActive,Yes
+Yes,Studio.GameSettings.General.DevSubsIsNotActive,No,No,Studio.GameSettings.General.DevSubsDiscontinueTitle
+Discontinue Subscription,Discontinue Subscription,Studio.GameSettings.General.DevSubsDiscontinueHeader,Would you like to discontinue this subscription?,Would you like to discontinue this subscription?
+Studio.GameSettings.General.DevSubsDiscontinueDescription,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,This will cancel all renewing payments. You must maintain benefits until no subscribers remain.,Studio.GameSettings.General.DevSubsDiscontinueConfirm,Discontinue
+Discontinue,Studio.GameSettings.General.PublishIsRequiredHyperlink,Publishing the game to Roblox,Inserted into PublishIsRequiredSentence2 as {hyperlink},Publishing the game to Roblox
+Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat},Constructed as hyperlinkText+' is required for {requiredForWhat=adding collaborators}', is required for {requiredForWhat},Studio.GameSettings.AccessPermissions.NoAccessLabel
+No Access,No Access,Studio.GameSettings.AccessPermissions.PlayLabel,Play,Play
+Studio.GameSettings.AccessPermissions.EditLabel,Edit,Edit,Studio.GameSettings.AccessPermissions.AdminLabel,Manage
+Manage,Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,Studio.GameSettings.AccessPermissions.MultipleLabel
+(Multiple),(Multiple),Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game,Cannot play or edit this game
+Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game,Can play this game,Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game
+Can play and edit this game,Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game","Can play, edit, and manage this game",Studio.GameSettings.AccessPermissions.FriendsCollaboratorType
+Friends,Friends,Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users
+Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups,Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends
+My Friends,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by user or group name,Search by user or group name,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText
+There were no results,There were no results,Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators,adding collaborators,Appended as argument to end of 'Publishing a game is required for '
+adding collaborators

@@ -20,7 +20,14 @@ local PermissionsConstants = require(Plugin.Src.Components.Permissions.Permissio
 local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+
+
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -67,23 +74,14 @@ function GameOwnerWidget:render()
 			end
 		
 			local collaboratorItem
-			if game.CreatorType == Enum.CreatorType.User then
-				local creatorName
-				for _,permission in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
-					if permission[PermissionsConstants.SubjectIdKey] == game.CreatorId then
-						creatorName = permission[PermissionsConstants.SubjectNameKey]
-						break
-					end
-				end
-				assert(creatorName ~= nil)
-
+			if props.OwnerType == Enum.CreatorType.User then
 				collaboratorItem = Roact.createElement(CollaboratorItem, {
-					LayourOrder = 1,
+					LayoutOrder = 1,
 					Removable = false,
 					
-					CollaboratorName = creatorName,
-					CollaboratorId = game.CreatorId,
-					CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, game.CreatorId),
+					CollaboratorName = props.OwnerName,
+					CollaboratorId = props.OwnerId,
+					CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, props.OwnerId),
 					UseMask = true,
 					
 					Action = localized.AccessPermissions.ActionDropdown.OwnerLabel,
@@ -97,9 +95,9 @@ function GameOwnerWidget:render()
 					LayoutOrder = 1,
 					Removable = false,
 					
-					GroupName = props.GroupMetadata[game.CreatorId].Name,
-					GroupId = game.CreatorId,
-					GroupIcon = nil, -- TODO (awarwick) 5/8/2019 Populate when we have thumbnail loader
+					GroupName = props.GroupMetadata[props.OwnerId].Name,
+					GroupId = props.OwnerId,
+					IsOwner = true,
 					Enabled = props.Enabled,
 
 					Items = getGroupOwnerPermissions(props, localized),
@@ -109,8 +107,6 @@ function GameOwnerWidget:render()
 
 					Permissions = props.Permissions,
 
-					-- TODO (awarwick) 5/8/2019 Replace this with new component
-					SecondaryText = "Manage: 1 roles(s) Edit: N role(s) Play: M roles(s) No access: 0 role(s)",
 					Thumbnails = props.Thumbnails,
 				})
 			end

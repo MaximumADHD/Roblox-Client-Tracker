@@ -17,6 +17,15 @@ local FFlagPlayEmoteChatCommandEnabled = false do
 	end
 end
 
+local FFlagPlayEmoteBySlotEnabled = false do
+	local ok, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteBySlotEnabled")
+	end)
+	if ok then
+		FFlagPlayEmoteBySlotEnabled = value
+	end
+end
+
 if not FFlagPlayEmoteChatCommandEnabled then
     return {
         [Util.KEY_COMMAND_PROCESSOR_TYPE] = Util.COMPLETED_MESSAGE_PROCESSOR,
@@ -131,6 +140,18 @@ local function ProcessMessage(message, ChatWindow, ChatSettings)
 	local emotes = humanoidDescription:GetEmotes()
 	for name, _ in pairs(emotes) do
 		lowerCaseEmoteNamesMap[string.lower(name)] = name
+	end
+
+	if FFlagPlayEmoteBySlotEnabled then
+		local slot = tonumber(emoteName)
+		if slot then
+			local equippedEmotes = humanoidDescription:GetEquippedEmotes()
+			for _, emoteInfo in pairs(equippedEmotes) do
+				if emoteInfo.Slot == slot then
+					emoteName = emoteInfo.Name
+				end
+			end
+		end
 	end
 
 	local emoteNameLower = string.lower(emoteName)

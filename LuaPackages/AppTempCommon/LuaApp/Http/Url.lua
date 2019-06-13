@@ -69,6 +69,7 @@ local _baseLocale = string.format("https://locale.%s", _baseDomain)
 local _baseBadgesUrl = string.format("https://badges.%s", _baseDomain)
 local _baseMetricsUrl = string.format("https://metrics.%sv1", _baseDomain)
 local _baseApisRcsUrl = string.format("https://apis.rcs.%s", _baseDomain)
+local _baseDiscussionsUrl = string.format("https://discussions.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 
 -- public api
@@ -101,6 +102,7 @@ local Url = {
 	LOCALE = _baseLocale,
 	METRICS_URL = _baseMetricsUrl,
 	APIS_RCS_URL = _baseApisRcsUrl,
+	DISCUSSIONS_URL = _baseDiscussionsUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
 }

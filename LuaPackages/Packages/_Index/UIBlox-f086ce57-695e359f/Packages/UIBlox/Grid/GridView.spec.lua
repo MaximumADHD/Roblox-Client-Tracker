@@ -64,6 +64,8 @@ local function validateSnapshot(grid, snapshot)
 end
 
 return function()
+	HACK_NO_XPCALL()
+
 	it("should lay items out sequentially", function()
 		-- This is a fairly unidiomatic test to verify that the grid view lays
 		-- out items correctly. It tears apart the rendered Roact tree, using
@@ -191,6 +193,8 @@ return function()
 			{ relativePosition = Vector2.new(0, 360), content = "17" },
 			{ relativePosition = Vector2.new(53, 360), content = "18" },
 		}
+
+		wait()
 
 		-- snapshotGridItems(grid)
 		validateSnapshot(grid, afterMoveSnapshot)

@@ -401,6 +401,13 @@ function Localization:recalculateContent()
 			},
 		},
 		
+		PublishingIsRequired = {
+			FormattableSentence = self:getFormatTextFunc("Studio.GameSettings.General.PublishIsRequiredSentence1"),
+			HyperlinkText = self:getText("Studio.GameSettings.General.PublishIsRequiredHyperlink"),
+			
+			AddingCollaborators = self:getText("Studio.GameSettings.AccessPermissions.PublishRequiredForCollaborators"),
+		},
+		
 		AccessPermissions = {
 			ActionDropdown = {
 				NoAccessLabel = self:getText("Studio.GameSettings.AccessPermissions.NoAccessLabel"),

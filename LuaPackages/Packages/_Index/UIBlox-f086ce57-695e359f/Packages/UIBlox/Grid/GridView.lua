@@ -38,6 +38,9 @@ GridView.defaultProps = {
 }
 
 function GridView:init()
+	self.frameRef = Roact.createRef()
+	self.isMounted = false
+
 	self.state = {
 		containerWidth = 0,
 		containerYPosition = 0,
@@ -108,20 +111,52 @@ function GridView:render()
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, containerHeight),
 		[Roact.Change.AbsolutePosition] = self.props.windowHeight ~= nil and function(rbx)
-			self:setState({
-				containerYPosition = -math.min(0, rbx.AbsolutePosition.Y),
-			})
+			spawn(function()
+				if self.isMounted then
+					self:setState({
+						containerYPosition = -math.min(0, rbx.AbsolutePosition.Y),
+					})
+				end
+			end)
 		end or nil,
 		[Roact.Change.AbsoluteSize] = function(rbx)
-			self:setState({
-				containerWidth = rbx.AbsoluteSize.X,
-			})
+			spawn(function()
+				if self.isMounted then
+					self:setState({
+						containerWidth = rbx.AbsoluteSize.X,
+					})
+				end
 
-			if self.props.onWidthChanged ~= nil then
-				self.props.onWidthChanged(rbx.AbsoluteSize.X)
-			end
+				if self.props.onWidthChanged ~= nil then
+					self.props.onWidthChanged(rbx.AbsoluteSize.X)
+				end
+			end)
 		end,
+
+		[Roact.Ref] = self.frameRef,
 	}, gridChildren)
+end
+
+function GridView:didMount()
+	self.isMounted = true
+
+	if self.frameRef.current and self.frameRef.current.AbsoluteSize.X ~= 0 then
+		self:setState({
+			containerWidth = self.frameRef.current.AbsoluteSize.X,
+		})
+
+		if self.props.onWidthChanged ~= nil then
+			delay(0, function()
+				if self.frameRef.current then
+					self.props.onWidthChanged(self.frameRef.current.AbsoluteSize.X)
+				end
+			end)
+		end
+	end
+end
+
+function GridView:willUnmount()
+	self.isMounted = false
 end
 
 return GridView

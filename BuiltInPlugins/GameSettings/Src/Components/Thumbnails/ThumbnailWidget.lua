@@ -32,8 +32,15 @@ local getMouse = require(Plugin.Src.Consumers.getMouse)
 
 local ThumbnailSet = require(Plugin.Src.Components.Thumbnails.ThumbnailSet)
 local DragGhostThumbnail = require(Plugin.Src.Components.Thumbnails.DragGhostThumbnail)
-local BulletPoint = require(Plugin.Src.Components.BulletPoint)
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local BulletPoint 
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	BulletPoint = require(Plugin.Src.Components.BulletPoint)
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 
 local ThumbnailWidget = Roact.PureComponent:extend("ThumbnailWidget")
 

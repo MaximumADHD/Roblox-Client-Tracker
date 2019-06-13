@@ -9,7 +9,6 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local DFFlagGameSettingsWorldPanel = settings():GetFFlag("GameSettingsWorldPanel3")
 local DFFlagDeveloperSubscriptionsEnabled = settings():GetFFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
-local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -135,9 +134,7 @@ local function showDialog(type, props)
 			})
 			dialog.Enabled = true
 			dialog.Title = props.Title
-			local dialogContents
-			if FFlagGameSettingsUseUILibrary then
-				dialogContents = Roact.createElement(ExternalServicesWrapper, {
+			local dialogContents = Roact.createElement(ExternalServicesWrapper, {
 					theme = Theme.new(),
 					mouse = plugin:GetMouse(),
 					localization = localization,
@@ -156,32 +153,6 @@ local function showDialog(type, props)
 						end
 					})),
 				})
-			else
-				dialogContents = Roact.createElement(ThemeProvider, {
-					theme = Theme.new(),
-				}, {
-					Roact.createElement(MouseProvider, {
-						mouse = plugin:GetMouse()
-					}, {
-						Roact.createElement(LocalizationProvider, {
-							localization = localization
-						}, {
-							Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
-								OnResult = function(result)
-									Roact.unmount(dialogHandle)
-									dialog:Destroy()
-									setMainWidgetInteractable(true)
-									if result then
-										resolve()
-									else
-										reject()
-									end
-								end
-							})),
-						}),
-					}),
-				})
-			end
 			dialog:GetPropertyChangedSignal("Enabled"):connect(function()
 				Roact.unmount(dialogHandle)
 				dialog:Destroy()
@@ -259,7 +230,7 @@ local function makePluginGui()
 	})
 	pluginGui.Name = plugin.Name
 	pluginGui.Title = plugin.Name
-	pluginGui.ZIndexBehavior = FFlagGameSettingsUseUILibrary and Enum.ZIndexBehavior.Sibling or Enum.ZIndexBehavior.Global
+	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(function()
 		-- Handle if user clicked the X button to close the window

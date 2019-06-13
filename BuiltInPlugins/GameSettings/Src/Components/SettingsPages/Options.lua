@@ -9,7 +9,6 @@
 local PageName = "Options"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
-local FFlagStudioGameSettingsStudioApiServices = settings():GetFFlag("StudioGameSettingsStudioApiServices")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -23,11 +22,8 @@ local createSettingsPage = require(Plugin.Src.Components.SettingsPages.createSet
 local function loadValuesToProps(getValue)
 	local loadedProps = {
 		HttpEnabled = getValue("HttpEnabled"),
+		studioAccessToApisAllowed = getValue("studioAccessToApisAllowed"),
 	}
-	
-	if FFlagStudioGameSettingsStudioApiServices then
-		loadedProps.studioAccessToApisAllowed = getValue("studioAccessToApisAllowed")
-	end
 	
 	return loadedProps
 end
@@ -35,12 +31,9 @@ end
 --Implements dispatch functions for when the user changes values
 local function dispatchChanges(setValue, dispatch)
 	local dispatchFuncs = {
-		HttpEnabledChanged = setValue("HttpEnabled")
+		HttpEnabledChanged = setValue("HttpEnabled"),
+		StudioApiServicesChanged = setValue("studioAccessToApisAllowed"),
 	}
-	
-	if FFlagStudioGameSettingsStudioApiServices then
-		dispatchFuncs.StudioApiServicesChanged = setValue("studioAccessToApisAllowed")
-	end
 	
 	return dispatchFuncs
 end
@@ -75,7 +68,7 @@ local function displayContents(page, localized)
 			end,
 		}),
 		
-		StudioApiServices = FFlagStudioGameSettingsStudioApiServices and Roact.createElement(RadioButtonSet, {
+		StudioApiServices = Roact.createElement(RadioButtonSet, {
 			Title = localized.Title.StudioApiServices,
 			Buttons = {{
 					Id = true,

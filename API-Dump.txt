@@ -1,7 +1,7 @@
 Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property bool Instance.Archivable
 	Property string Instance.ClassName  [ReadOnly] [NotReplicated]
-	Property int Instance.DataCost {LocalUserSecurity} [ReadOnly] [NotReplicated]
+	Property int Instance.DataCost {LocalUserSecurity} [ReadOnly] [NotReplicated] [Deprecated]
 	Property string Instance.Name
 	Property Instance Instance.Parent [<📁> Load-only] [NotReplicated]
 	Property bool Instance.RobloxLocked {PluginSecurity}
@@ -2758,6 +2758,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
+	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}

@@ -16,10 +16,15 @@ local Roact = require(Plugin.Roact)
 
 local DeveloperSubscriptionListItem = require(script.Parent.DeveloperSubscriptionListItem)
 local DeveloperSubscriptionListHeaderText = require(script.Parent.DeveloperSubscriptionListHeaderText)
-local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
+local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
 local HeaderWithButton = require(Plugin.Src.Components.HeaderWithButton)
 
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, 10),

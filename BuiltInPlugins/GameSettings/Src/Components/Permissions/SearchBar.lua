@@ -140,6 +140,9 @@ function SearchBar:init()
 			delay(TEXT_SEARCH_THRESHOLD / 1000, function()
 				if thisDelay == self.state.lastDelay and text ~= "" then
 					self.requestSearch()
+					if not self.state.showDropdown and next(self.state.mergedItems) ~= nil then
+						self.showDropdown()
+					end
 				end
 			end)
 
@@ -254,7 +257,7 @@ end
 function SearchBar:mergeResultsTable(results)
 	local mergedTable = {}
 	if next(results) == nil then
-		if not self.props.LoadingMore then
+		if not self.props.LoadingMore and self.state.text ~= "" then
 			table.insert(mergedTable, "NoResults")
 		end
 	else

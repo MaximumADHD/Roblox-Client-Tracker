@@ -6,11 +6,15 @@
 		-Load/Save time
 		-Load/Save errors
 		-Load/Save success rate
+		-Permission added/removed for user/group
+		-Number of users with edit/admin/play permissions per game
 
 	Tracked events:
 		-Widget open
 		-Tab switches
 		-Widget close
+		-User/Group added/removed
+		-Access Permissions change failed 
 
 	Allows for local logging to the console by modifying the constant value below.
 ]]
@@ -128,6 +132,47 @@ function Analytics.onTabChangeEvent(oldTab, newTab)
 			["newTab"] = newTab,
 		})
 	end
+end
+
+function Analytics.numberOfUsers(id, permission)
+	Analytics.sendEventDeferred(string.format("GameSettings_%s_UserCount", permission), {
+		uid = id,
+		gameId = game.GameId,
+	})
+end
+
+function Analytics.onPermissionGiven(id, type, permission)
+	Analytics.sendEventDeferred(string.format("GameSettings_%s%sGiven", type, permission), {
+		uid = id,
+		gameId = game.GameId,
+	})
+end
+
+function Analytics.onPermissionRemoved(id, type, permission)
+	Analytics.sendEventDeferred(string.format("GameSettings_%s%sRemoved", type, permission), {
+		uid = id,
+		gameId = game.GameId,
+	})
+end
+
+function Analytics.onUserAdded()
+	Analytics.reportCounter("GameSettings_AccessPermissions_UserAdded")
+end
+
+function Analytics.onUserRemoved()
+	Analytics.reportCounter("GameSettings_AccessPermissions_UserRemoved")
+end
+
+function Analytics.onGroupAdded()
+	Analytics.reportCounter("GameSettings_AccessPermissions_GroupAdded")
+end
+
+function Analytics.onGroupRemoved()
+	Analytics.reportCounter("GameSettings_AccessPermissions_GroupRemoved")
+end
+
+function Analytics.onPermissionFailed()
+	Analytics.reportCounter("GameSettings_AccessPermissions_Failed")
 end
 
 return Analytics

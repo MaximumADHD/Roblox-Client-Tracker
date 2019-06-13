@@ -748,7 +748,6 @@ AsyncHttpQueue
 AsyncNonApiCall
 AsyncNotApiRequest
 AsyncUrlPathContainsDomain
-AsyncWriterProcessItemFix
 AT_KEYEXCHANGE
 AT_SIGNATURE
 AtEndChanged
@@ -3229,6 +3228,7 @@ AXW4UiMessageType
 AXW4UserCFrame
 AXW4UserInputType
 AXW4VRTouchpad
+AZIndexBehavior
 BA447F42A91111E2B410EF351327957B
 BA886F11E18561866242201959
 BAA3C620681180838E23F0DC6224
@@ -3636,7 +3636,6 @@ BroadPhaseIslandBufferZoneMinPartLimit
 BroadPhaseIslandMaxPartLinearFactorTenth
 BroadPhaseIslandMaxSortDepth
 BroadPhaseIslandReprocess
-BrokenAsset
 BrokenAssetsResourceMenu
 BrokenResource
 BrowalliaUPC
@@ -4118,6 +4117,7 @@ CheckedFieldIndicator
 CheckedItem
 CheckFramebufferStatus
 CheckGameValidityInDoTeleport
+CheckIntentWhenInitDefaultScripts
 CheckMarketplaceAvailable
 CheckMarkIcon
 CheckMultipleLoadCharacterCalls
@@ -4251,6 +4251,8 @@ ClientFPS_
 ClientFPS_Country_
 ClientHappyNewYear1
 ClientHello
+ClientHttpRetry564
+ClientHttpRetryTimeout
 ClientInstanceQuotaCap
 ClientInstanceQuotaInitial
 ClientJoin_All
@@ -5008,7 +5010,7 @@ ContentInfo
 ContentPropertyItem
 ContentProvider
 ContentProvider_
-ContentProviderAssetdeliveryRolloutEnabled
+ContentProviderAssetdeliveryRolloutEnabled2
 ContentProviderAssetdeliveryRolloutPercentage
 ContentProviderCounter
 ContentProviderRequests
@@ -5999,6 +6001,7 @@ DebugReportElevatedPhysicsFPSToGA
 DebugReportMessageEXT
 DebugReportPhysicsMissingPlaceSpecific
 DebugRestrictGCDistance
+DebugRetainRegalReceipt
 DebugRotationalViscocityEnabled2
 DebugScriptContextCoverageEnabled
 DebugSendAttemptsToDiagCase1
@@ -7091,7 +7094,6 @@ EnableGetAvailableForExperimentAPI
 EnableGranularMemoryTabStats
 EnableGroupPackagesForToolbox
 EnableHttpProxy
-EnableImageTilingInGUI
 EnableIMESupport3
 EnableInviteGameInStudio
 EnableIsPremiumSettings
@@ -7816,7 +7818,6 @@ FixG3DFpChecks
 FixGameDetailsNavigation
 FixHandlesMouseEvents
 FixHeadScales
-FixHttpAsyncCast
 FixHumanoidClientPartReplication1
 FixHumanoidClientPartReplicationScaling
 FixIAdornableCollectorCrash3
@@ -8251,9 +8252,7 @@ GameSettingsAssetIDRightLeg
 GameSettingsAssetIDShirt
 GameSettingsAssetIDTeeShirt
 GameSettingsAssetIDTorso
-GameSettingsAutoScrollTextBox
 GameSettingsAvatar
-GameSettingsDispatchShutdownWarning
 GameSettingsFixMetricConversionLabels
 GameSettingsParsingRefactor
 GameSettingsR15Collision
@@ -8267,7 +8266,6 @@ GameSettingsTableItem
 GameSettingsTooltip
 GameSettingsUpdatesUniverseDisplayName
 GameSettingsUsesNewIconEndpoint
-GameSettingsUseUILibrary
 GameSettingsUseUILibraryCheckBox
 GameSettingsWorldPanel3
 GamesInvitedToEdit
@@ -9344,6 +9342,7 @@ HoverTokenLogIndex
 HoverTokenLogIndexNext
 HoverTokenNext
 HoverWindowShadow
+HowToSendAMessage
 HPEAU_iobuf
 HPEAUlua_State
 HPEAVQAction
@@ -9479,6 +9478,7 @@ HttpRbxApiRequestsPerMinutePerPlayerInServerLimit
 HttpRbxApiRequestsPerMinuteServerLimit
 HttpRbxApiService
 HttpRbxApiSyncRetryWaitTimeMSec
+HttpReportRetries
 HttpReportStatisticsNew4
 HttpRequest
 HttpRequestCounter
@@ -9492,6 +9492,8 @@ HttpResponse
 HttpResponseDefaultTimeoutMillis
 HttpResultOut
 HttpResultsApprovedUserIDs
+HttpRetryOn564
+HttpRetryOnTimeout
 HttpSendExtendedTimeoutMillis
 HttpSendStatsEveryXSeconds
 HttpService
@@ -10374,6 +10376,7 @@ LatchedSignal
 LatencyErrorMultiplierTennths
 LatencyStats
 LatestAssetVersion
+LatestPlacePersistenceLocation
 LAUNCH_CONVERSATION
 LAUNCH_GAME
 LaunchHelpForSelectionVerb
@@ -10558,6 +10561,7 @@ LEGACY_GOST_PKCS12
 LegacyController
 LegacyDeprecationMessageLink
 LegacyDeprecationMessageText
+LegacyHttpRespectResponseTimeout
 LegacyImplicit
 LegacyInputEventsEnabled
 LegacyLock
@@ -10784,6 +10788,7 @@ LockViolationInstanceCrash
 LockViolationInstanceCrashStudio
 LockViolationScriptCrash
 LocService_InvalidateTranslationsOnChildAdded
+LocServiceNullPtrCheckGetTranslator
 LocServiceSeparateTextScraperStartPath
 LocServiceTrackPlayerTextScraping1
 LocTableNormalizeLocaleAttemptTranslation
@@ -10867,7 +10872,7 @@ LuaAppPolicyRoactConnector
 LuaAppPreloadChatRefactor
 LuaAppPremiumUpdatePrompt
 LuaAppPresencePollingIntervalInSecondsV377
-LuaAppPurchaseErrorToastRefactor
+LuaAppPurchaseErrorToastRefactor2
 LuaAppRefreshScrollingFrameLoadMoreRefactor
 LuaAppRemoveGetFriendshipCountApiCalls
 LuaAppRenderTransparentPageMaxCount
@@ -10972,6 +10977,7 @@ Macronsmall
 MadnessPermyriad
 MagicDisco
 MainBackground
+MainBufferGuiLayoutTextAt1x
 MainButton
 MainModule
 MainWindow
@@ -11577,7 +11583,7 @@ MinWidthPan
 MinWidthWidth
 MirrorMode
 Miscellaneous
-MiscIndividualAssetRequestUseAssetdelivery
+MiscIndividualAssetRequestUseAssetdelivery2
 MissingDumpFile
 MMW4UserInputState
 MobileDevelopmentDeployer
@@ -11735,6 +11741,7 @@ MouseWheelBackward
 MouseWheelBackwardConnectionCount
 MouseWheelForward
 MouseWheelForwardConnectionCount
+MoveAssetFetchEndpointToAssetDelivery
 MoveButtonClicked
 MoveCenter
 MoveComplete
@@ -12351,6 +12358,7 @@ OnTopOfCoreBlur
 OnUnhandledExceptions
 OnUnhandledScriptErrorsAction
 OpacityMask
+OPEN_BUILDERS_CLUB
 OPEN_CUSTOM_WEBVIEW
 OPEN_SOCIAL_MEDIA
 OPEN_YOUTUBE_VIDEO
@@ -13817,6 +13825,8 @@ PlayingUpdatedFromClient
 PlayingUpdatedFromServer
 PlayInSoloMode
 PlayLocalSound
+PlayNextGame
+PlayNextGameTestName
 PlayOnRemove
 PlayServer
 PlaySoloCameraSpawn
@@ -14873,6 +14883,7 @@ QTranslator
 QTreeWidget
 QTreeWidgetItem
 QtSharedPointer
+QTStudio_FileOpen
 QTStudio_IntendPublish
 QTStudio_IntendPublishSelection
 QTStudio_ScriptNew
@@ -15247,6 +15258,7 @@ RecordHopperServiceStats
 RecordInGameDeaths
 RecordingCompleted
 RecordPadding
+RecordRebelReceipt
 RecordToggle
 RecordToggleVerb
 RecoveredScriptFileLocation
@@ -15267,7 +15279,6 @@ ReduceTrussSearchDistance2
 Ref_count_del
 Ref_count_obj
 RefactoringAvatarEditorSetup
-RefactorMpsPre
 ReferenceMenu
 ReferenceSubMenu
 ReferenceTime
@@ -15367,6 +15378,7 @@ RegularExpression
 RegularSource
 ReimplementUIScaleDirectParentBehavior
 RejectionCount
+RejectRebelReceipt
 ReJoinFromSameDataModel
 RelatedObject
 RELATIVE_SETWIDTH
@@ -15834,6 +15846,7 @@ RethrowRuntimeError
 RetinaBlit
 RetryAfter
 RetryBaseTimeMSec
+RetryCountOnPlaceLauncherTimeout
 RetryRequestFailed
 RetryRequestStarted
 RetryRequestSucceeded
@@ -16115,6 +16128,8 @@ RowsToContents
 RowStretch
 RPCHandler
 RPCServers
+RRReceiptFail
+RRReceiptTotal
 RSA_check_key
 RSA_check_key_ex
 RSA_meth_dup
@@ -16739,6 +16754,7 @@ ServerPlayerFilterPermyriad
 ServerPlayersStateInitVerb
 ServerPort
 ServerPreference
+ServerProfileSeparateThread
 ServerPurchaseVerification
 ServerReplicator
 ServerReplicatorDisconnect
@@ -16749,6 +16765,7 @@ ServerReportStatIntervalSec
 ServersAndPlayersAction
 ServerSaveFailure
 ServerScript
+ServerScriptImpl
 ServerScriptService
 ServerScriptServicePROP
 ServerSentEventsTransport
@@ -17797,6 +17814,7 @@ StudioCameraPanUnlockMouse
 StudioCharacterLoadTime
 StudioChat
 StudioCheckTeamServerExistsFrequency
+StudioCheckTeamServerStatusCrashFix
 StudioCleanUpPlaceOrUniverseIdChanged
 StudioCleanupRuiDialog
 StudioClientPresenceUpdateInterval
@@ -17807,11 +17825,11 @@ StudioColorVerb
 StudioConnectCloudEditSessionCrashFix
 StudioCookieConstraintUrlFragment
 StudioCrashLocation
+StudioCreateBadgeOpensBrowserTab
 StudioData
 StudioDataModelLoadUtil
 StudioDebugBTID
 StudioDebugger
-StudioDebuggerFocusAtScreenCenter
 StudioDebugLog
 StudioDefaultNewTemplatePlaceId
 StudioDeprecateUIThemeProperty
@@ -17847,12 +17865,13 @@ StudioFixInsertObjectWindowSetShowBelowCrash
 StudioFixLogoutAnimationV2
 StudioFixMultipleAssetsImportLogic
 StudioFixPlaceConfigLoaded
+StudioFixPlayButton
 StudioFixPlayersDataManager
 StudioFixPluginWidgetEnabledSignal
-StudioFixQtScrollbarEvents
 StudioFixQuickAccessConfigDialogSizing
 StudioFixRestartLogic
 StudioFixSelectAll
+StudioFixServerPauseCamera
 StudioFixShareIcon
 StudioFixSyntaxScriptHighlighter
 StudioFlagEditor
@@ -17865,9 +17884,8 @@ StudioGameExplorerUpdateUniverseName
 StudioGamePageHandfulSize
 StudioGameSettingsAccessPermissions
 StudioGameSettingsFixBrokenScrollingFrames
-StudioGameSettingsNoMoreGifUploads
-StudioGameSettingsStudioApiServices
 StudioGameSettingsSupportHttpParams
+StudioGameSettingsUseUILibraryComponents
 StudioGameStateType
 StudioGameStateType_Null
 StudioGetClassIconEnabled
@@ -17948,6 +17966,7 @@ StudioPublishWholeGame
 StudioPushSaveUrlFailure
 StudioRecentActionCacheSize
 StudioRecoveryWidgetDuplicatedEntry
+StudioRefactorHTTPBlockingCalls
 StudioRefactorSaveToRoblox
 StudioRemoveInsertEvent
 StudioRemoveToolboxScrollingFrameHack
@@ -18031,6 +18050,7 @@ StudioTutorialsTOCUrl
 StudioTutorialsUrl
 StudioTutorialsUseDevHub
 StudioUIEditorZoomPanel
+StudioUnifyTeamCreateMembershipSource
 StudioUpgradedCounter
 StudioUrlAutoUpdate
 StudioUrlAvatarLoadingBeta
@@ -18038,6 +18058,8 @@ StudioUrlMassUpdate
 StudioUrlSaveToCloudV2
 StudioUseDynamicLocTable
 StudioUseEmbeddedFindReplaceWidgetListener
+StudioUseExternalBrowserForGameSettings
+StudioUseExternalBrowserForProductSettings
 StudioUseForceParamsToForceLocales
 StudioUseNonExceptingTranslation
 StudioUserAction
@@ -18477,7 +18499,6 @@ TextScraperClientDataQSize
 TextScraperClientMessageSignal
 TextScraperClientMessageWithPlayerSignal
 TextScraperClientTypewriterDelayMSecs
-TextScraperCrashOnNullStringMapFix
 TextScraperEnableNumberFormatting
 TextScraperListener
 TextScraperParameterizeV2
@@ -19567,6 +19588,7 @@ UpdateGroupMenu
 UpdateHeartbeatObject
 UpdateInProgress
 UpdateInsertServiceDialog
+UpdateInspectAndBuyOffsaleText
 UpdateKeys
 UpdateLightScratch
 UpdateList
@@ -19683,7 +19705,7 @@ UseOptimizedGetPartsObscuringTarget
 UsePartColor
 UsePhysicsPacketCache
 UsePlaneAsWalkToGoal
-UsePlayerPositionPropToStream
+UsePlayerPositionPropToStream2
 UsePortraitMode
 UseProgram
 UsePugiXmlForMetaData
@@ -19777,6 +19799,8 @@ UseUNSPEC1
 UseVectorForDirtyMechanisms
 UseVelocityGateForMoment
 Ushared_state_base
+UsingHeadsIsBadForOwningThings
+UsingHeadsIsBadForPhysicsReplication
 UsingMeshPart
 UsingSendMeasureBatch
 USocketDescriptor
@@ -20620,6 +20644,7 @@ VRInitError_VendorSpecific_UnableToConnectToOculusRuntime
 VRobloxChatWidget
 VRobloxDisabledChatWidget
 VRobloxIDEDoc
+VRobloxMainWindow
 VRobloxPluginGuiService
 VRobloxReplicatedStorage
 VRodConstraint

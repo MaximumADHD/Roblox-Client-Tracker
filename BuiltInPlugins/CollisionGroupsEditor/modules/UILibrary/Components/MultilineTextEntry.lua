@@ -11,8 +11,6 @@
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves this component.
 ]]
 
-local FFlagGameSettingsAutoScrollTextBox = settings():GetFFlag("GameSettingsAutoScrollTextBox")
-
 local TextService = game:GetService("TextService")
 
 local Library = script.Parent.Parent
@@ -53,9 +51,7 @@ function MultilineTextEntry:init()
 			Vector2.new(sizeX, math.huge)
 		)
 		frame.CanvasSize = UDim2.new(0, 0, 0, textSize.y)
-		if FFlagGameSettingsAutoScrollTextBox then
-			frame.CanvasPosition = Vector2.new(0, self.getPositionAtIndex(textBox.CursorPosition).y - 2 * self.props.TextSize)
-		end
+		frame.CanvasPosition = Vector2.new(0, self.getPositionAtIndex(textBox.CursorPosition).y - 2 * self.props.TextSize)
 	end
 
 	self.textChanged = function(rbx)

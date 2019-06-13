@@ -10,7 +10,6 @@
 		localization = A Localization object to provide in the LocalizationProvider.
 ]]
 
-local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -38,86 +37,56 @@ local function getUILibraryTheme()
 end
 
 local function ExternalServicesWrapper(props)
-	if FFlagGameSettingsUseUILibrary then
-		local providers = Roact.createElement(LocalizationProvider, {
-			localization = props.localization,
+	local providers = Roact.createElement(LocalizationProvider, {
+		localization = props.localization,
+	}, {
+		Roact.createElement(ThemeProvider, {
+			theme = props.theme,
 		}, {
-			Roact.createElement(ThemeProvider, {
-				theme = props.theme,
-			}, {
-				Roact.createElement(UILibraryWrapper, {
-					theme = props.theme:getUILibraryTheme(),
-					focusGui = props.pluginGui,
-				},  {
-					Roact.createElement(MouseProvider, {
-						mouse = props.mouse,
-					}, props[Roact.Children]),
-				}),
+			Roact.createElement(UILibraryWrapper, {
+				theme = props.theme:getUILibraryTheme(),
+				focusGui = props.pluginGui,
+			},  {
+				Roact.createElement(MouseProvider, {
+					mouse = props.mouse,
+				}, props[Roact.Children]),
 			}),
-		})
+		}),
+	})
 
-		if props.impl then
-			providers = Roact.createElement(SettingsImplProvider, {
-				impl = props.impl,
-			}, {
-				providers
-			})
-		end
-
-		if props.store then
-			providers = Roact.createElement(RoactRodux.StoreProvider, {
-				store = props.store
-			}, {
-				providers
-			})
-
-			if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
-				providers = Roact.createElement(ThumbnailLoaderProvider, {
-					store = props.store,
-				}, {
-					providers
-				})
-			end
-		end
-		
-		if props.showDialog then
-			providers = Roact.createElement(DialogProvider, {
-				showDialog = props.showDialog,
-			}, {
-				providers
-			})
-		end
-
-		return providers
-	else
-		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = props.store
+	if props.impl then
+		providers = Roact.createElement(SettingsImplProvider, {
+			impl = props.impl,
 		}, {
-			Roact.createElement(LocalizationProvider, {
-				localization = props.localization,
-			}, {
-				Roact.createElement(ThemeProvider, {
-					theme = props.theme,
-				}, {
-					Roact.createElement(UILibraryThemeProvider, {
-						theme = getUILibraryTheme(),
-					}, {
-						Roact.createElement(DialogProvider, {
-							showDialog = props.showDialog,
-						}, {
-							Roact.createElement(MouseProvider, {
-								mouse = props.mouse,
-							}, {
-								Roact.createElement(SettingsImplProvider, {
-									impl = props.impl,
-								}, props[Roact.Children])
-							}),
-						}),
-					}),
-				}),
-			}),
+			providers
 		})
 	end
+
+	if props.store then
+		providers = Roact.createElement(RoactRodux.StoreProvider, {
+			store = props.store
+		}, {
+			providers
+		})
+
+		if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
+			providers = Roact.createElement(ThumbnailLoaderProvider, {
+				store = props.store,
+			}, {
+				providers
+			})
+		end
+	end
+	
+	if props.showDialog then
+		providers = Roact.createElement(DialogProvider, {
+			showDialog = props.showDialog,
+		}, {
+			providers
+		})
+	end
+
+	return providers
 end
 
 return ExternalServicesWrapper

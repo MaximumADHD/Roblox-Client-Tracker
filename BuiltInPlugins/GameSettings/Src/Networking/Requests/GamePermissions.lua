@@ -7,11 +7,15 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Promise = require(Plugin.Promise)
 local Cryo = require(Plugin.Cryo)
+local Analytics = require(Plugin.Src.Util.Analytics)
 local Http = require(Plugin.Src.Networking.Http)
 
 local OwnerMetadata = require(Plugin.Src.Networking.Requests.Permissions.OwnerMetadata)
 local DeserializeFromRequest = require(Plugin.Src.Networking.Requests.Permissions.DeserializeFromRequest)
 local SerializeForRequest = require(Plugin.Src.Networking.Requests.Permissions.SerializeForRequest)
+local Constants = require(Plugin.Src.Networking.Requests.Permissions.Constants)
+
+local webKeys = Constants.webKeys
 
 local PERMISSIONS_URL = "v2/universes/%d/permissions"
 local PERMISSIONS_REQUEST_TYPE = "develop"
@@ -25,15 +29,40 @@ local RELEVANT_ENTRIES = {
 
 local Permissions = {}
 
+local function getTextForAction(action)
+	if internalAction == PermissionsConstants.PlayKey then
+		return "Play"
+	elseif internalAction == PermissionsConstants.EditKey then
+		return "Edit"
+	elseif internalAction == PermissionsConstants.AdminKey then
+		return "Admin"
+	elseif internalAction == PermissionsConstants.NoAccessKey then
+		return "No Access"
+	else
+		-- not supported
+		error("Invalid Action: "..tostring(internalAction))
+	end
+end
+
 function Permissions.AcceptsValue(key)
 	return RELEVANT_ENTRIES[key]
 end
 
-function Permissions.Get(universeId)
+function Permissions.Get(universeId, ownerName, ownerId, ownerType)
 	local requestInfo = {
 		Url = Http.BuildRobloxUrl(PERMISSIONS_REQUEST_TYPE, PERMISSIONS_URL, universeId),
 		Method = "GET",
 	}
+
+	if game.GameId == 0 then
+		return DeserializeFromRequest.DeserializePermissions({}, ownerName, ownerId, ownerType):andThen(function(permissions, groupMetadata)
+			return {
+				permissions = permissions,
+				groupMetadata = groupMetadata,
+				groupOwnerUserId = nil,
+			}
+		end)
+	end
 	
 	return Promise.all({
 		Http.Request(requestInfo):andThen(function(jsonResult) return {permissions=HttpService:JSONDecode(jsonResult).data} end),
@@ -41,7 +70,7 @@ function Permissions.Get(universeId)
 	}):andThen(function(loaded)
 		loaded = Cryo.Dictionary.join(unpack(loaded))
 
-		return DeserializeFromRequest.DeserializePermissions(loaded.permissions, loaded.ownerName):andThen(function(permissions, groupMetadata)
+		return DeserializeFromRequest.DeserializePermissions(loaded.permissions, ownerName, ownerId, ownerType):andThen(function(permissions, groupMetadata)
 			return {
 				permissions = permissions,
 				groupMetadata = groupMetadata,
@@ -51,12 +80,51 @@ function Permissions.Get(universeId)
 	end)
 	:catch(function()
 		warn("Game Settings: Could not fetch permissions for universe")
+		Analytics.onPermissionFailed()
 		return Promise.reject()
 	end)
 end
 
 function Permissions.Set(universeId, props)
-	local permissionAdds, permissionDeletes = SerializeForRequest.SerializePermissions(props)
+	local changes = Serialize.diffPermissionChanges(props.Current, props.Changed)
+
+	for subjectType, subjectTypeChanges in pairs(changes) do
+		for subjectId, change in pair(subjectTypeChanges) do
+			if subjectType == PermissionConstants.UserSubjectKey then
+				if change.Current ~= PermissionConstants.NoAccessKey then
+					Analytics.numberOfUsers(subjectId, getTextForAction(change.Changed))
+				end
+				Analytics.onPermissionGiven(subjectId, "User", getTextForAction(change.Changed))
+				Analytics.onPermissionRemoved(subjectId, "User", getTextForAction(change.Current))
+			elseif subjectType == PermissionConstants.GroupSubjectKey then
+				Analytics.onPermissionGiven(subjectId, "Group", getTextForAction(change.Changed))
+				Analytics.onPermissionRemoved(subjectId, "Group", getTextForAction(change.Current))
+			end
+		end
+	end
+
+	local permissionAdds, permissionDeletes = SerializeForRequest.SerializePermissions(props, changes)
+
+	for _, added in pairs(permissionAdds) do
+		if added[webKeys.Action] == webKeys.PlayAction then
+			if added[webKeys.SubjectType] == webKeys.UserSubject then
+				Analytics.onUserAdded()
+			elseif added[webKeys.SubjectType] == webKeys.GroupSubject then
+				Analytics.onGroupAdded()
+			end
+		end
+	end
+
+	for _, deleted in pairs(permissionDeletes) do
+		if deleted[webKeys.Action] == webKeys.PlayAction then
+			if deleted[webKeys.SubjectType] == webKeys.UserSubject then
+				Analytics.onUserRemoved()
+			elseif deleted[webKeys.SubjectType] == webKeys.GroupSubject then
+				Analytics.onGroupRemoved()
+			end
+		end
+	end
+
 	local numChanges = #permissionAdds + #permissionDeletes
 
 	if (numChanges > MAX_CHANGES) then
@@ -80,6 +148,7 @@ function Permissions.Set(universeId, props)
 	end)
 	:catch(function()
 		warn("Game Settings: Request to update permissions failed")
+		Analytics.onPermissionFailed()
 		return Promise.reject()
 	end)
 end

@@ -28,18 +28,8 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
-local StudioWidgetTitledFrame
-if FFlagGameSettingsUseUILibrary then
-	StudioWidgetTitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
-else
-	StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
-end
-local StudioWidgetRoundTextBox
-if FFlagGameSettingsUseUILibrary then
-	StudioWidgetRoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
-else
-	StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
-end
+local StudioWidgetTitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local StudioWidgetRoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
 local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetSeparator = require(RoactStudioWidgets.Separator)
 local StudioWidgetText = require(RoactStudioWidgets.Text)

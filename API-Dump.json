@@ -54,7 +54,8 @@
                     },
                     "Tags": [
                         "ReadOnly",
-                        "NotReplicated"
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ValueType": {
                         "Category": "Primitive",

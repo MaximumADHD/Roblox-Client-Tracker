@@ -60,7 +60,7 @@ function GridMetrics.getSmallMetrics(containerWidth, horizontalPadding)
 	-- medium metrics, so we grab that and then compute item width manually.
 	local mediumItemsPerRow = GridMetrics.getMediumMetrics(containerWidth, horizontalPadding).itemsPerRow
 	local itemsPerRow = mediumItemsPerRow + 1
-	local itemWidth = (containerWidth - (itemsPerRow - 1) * horizontalPadding) / itemsPerRow
+	local itemWidth = math.floor((containerWidth - (itemsPerRow - 1) * horizontalPadding) / itemsPerRow)
 
 	return {
 		itemsPerRow = itemsPerRow,

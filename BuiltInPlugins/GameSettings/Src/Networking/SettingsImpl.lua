@@ -55,15 +55,23 @@ function SettingsImpl:GetUserId()
 end
 
 function SettingsImpl:CanManagePlace()
-	local universeId = game.PlaceId
-	return Requests.CanManage.Get(universeId, self.userId)
+	if FFlagStudioGameSettingsAccessPermissions and not self:IsPublished() then
+		return Promise.new(function(resolve, _) resolve(true) end)
+	end
+
+	local placeId = game.PlaceId
+	return Requests.CanManage.Get(placeId, self.userId)
+end
+
+function SettingsImpl:IsPublished()
+	return game.GameId ~= 0
 end
 
 --[[
 	Used to get the state of the game settings by downloading them from web
 	endpoints or reading their properties from the datamodel.
 ]]
-function SettingsImpl:GetSettings()
+function SettingsImpl:GetSettings_Old()
 	local settings = {
 		HttpEnabled = HttpService:GetHttpEnabled(),
 		studioUserId = FFlagStudioGameSettingsAccessPermissions and self:GetUserId() or nil,
@@ -117,6 +125,90 @@ function SettingsImpl:GetSettings()
 			return settings
 		end)
 	end)
+end
+
+function SettingsImpl:GetSettings_New()
+	assert(fastFlags.isPlaceFilesGameSettingsSerializationOn(),
+		"Required flags are not enabled")
+
+	local settings = {
+		HttpEnabled = HttpService:GetHttpEnabled(),
+		studioUserId = self:GetUserId(),
+	}
+	if DFFlagGameSettingsWorldPanel then
+		settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getWorldSettings(settings))
+	end
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			local isPublished = self:IsPublished()
+			local gameId = game.GameId
+			
+			local success,loaded = Promise.all({
+				self:CanManagePlace(),
+				Requests.Universes.Get(gameId, self:GetUserId()),
+			}):await()
+			if not success then reject(loaded) return end
+
+			local canManage = loaded[1]
+			local creatorId = loaded[2].creatorId
+			local creatorType = loaded[2].creatorType
+			local creatorName = loaded[2].creatorName
+			
+			settings = Cryo.Dictionary.join(settings, {["canManage"] = canManage })
+			settings = Cryo.Dictionary.join(settings, loaded[2])
+
+			if (not isPublished) then
+				local getRequests = {
+					Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType),
+				}
+				local success,loaded = Promise.all(getRequests):await()
+				if not success then reject(loaded) return end
+				for _, values in ipairs(loaded) do
+					settings = Cryo.Dictionary.join(settings, values)
+				end
+			elseif (not canManage) then
+				settings = Cryo.Dictionary.join(settings, WorkspaceSettings.getAvatarSettings(settings))
+			else
+				local getRequests = {
+					Requests.Configuration.Get(gameId),
+					Requests.Thumbnails.Get(gameId),
+					Requests.GamePermissions.Get(gameId, creatorName, creatorId, creatorType),
+				}
+
+				if FFlagGameSettingsUsesNewIconEndpoint then
+					table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId))
+					table.insert(getRequests, Requests.GameIcon.Get(gameId))
+				else
+					table.insert(getRequests, Requests.RootPlaceInfo.Get(gameId):andThen(function(result)
+						settings = Cryo.Dictionary.join(settings, result)
+						return Requests.GameIcon.DEPRECATED_Get(result.rootPlaceId)
+					end))
+				end
+
+				if DFFlagDeveloperSubscriptionsEnabled then
+					table.insert(getRequests, Requests.DeveloperSubscriptions.Get())
+				end
+
+				local success,loaded = Promise.all(getRequests):await()
+				if not success then reject(loaded) return end
+				for _, values in ipairs(loaded) do
+					settings = Cryo.Dictionary.join(settings, values)
+				end
+			end
+
+			resolve(settings)
+		end)
+	end)
+end
+
+-- TODO (awarwick) 6/5/2019 Remove with flag
+function SettingsImpl:GetSettings()
+	if FFlagStudioGameSettingsAccessPermissions then
+		return self:GetSettings_New()
+	else
+		return self:GetSettings_Old()
+	end
 end
 
 --[[

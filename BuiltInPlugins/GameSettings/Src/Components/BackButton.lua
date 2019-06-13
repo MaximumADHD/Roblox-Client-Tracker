@@ -7,7 +7,12 @@ local Roact = require(Plugin.Roact)
 
 local Separator = require(Plugin.Src.Components.Separator)
 
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,

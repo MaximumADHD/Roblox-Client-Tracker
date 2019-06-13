@@ -53,6 +53,8 @@ DefaultMetricsGridView.defaultProps = {
 }
 
 function DefaultMetricsGridView:init()
+	self.isMounted = false
+
 	self.state = {
 		containerWidth = 0,
 	}
@@ -69,6 +71,21 @@ function DefaultMetricsGridView:render()
 		math.max(0, itemHeight)
 	)
 
+	if self.state.containerWidth == 0 then
+		return Roact.createElement("Frame", {
+			Transparency = 1,
+			Size = UDim2.new(1, 0, 0, 0),
+
+			[Roact.Change.AbsoluteSize] = function(rbx)
+				if self.isMounted and rbx:IsDescendantOf(game) then
+					self:setState({
+						containerWidth = rbx.AbsoluteSize.X,
+					})
+				end
+			end
+		})
+	end
+
 	return Roact.createElement(GridView, {
 		renderItem = self.props.renderItem,
 		maxHeight = self.props.maxHeight,
@@ -77,11 +94,21 @@ function DefaultMetricsGridView:render()
 		items = self.props.items,
 		LayoutOrder = self.props.LayoutOrder,
 		onWidthChanged = function(newWidth)
-			self:setState({
-				containerWidth = newWidth,
-			})
+			if self.isMounted then
+				self:setState({
+					containerWidth = newWidth,
+				})
+			end
 		end,
 	})
+end
+
+function DefaultMetricsGridView:didMount()
+	self.isMounted = true
+end
+
+function DefaultMetricsGridView:willUnmount()
+	self.isMounted = false
 end
 
 return DefaultMetricsGridView
