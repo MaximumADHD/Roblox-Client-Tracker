@@ -47,7 +47,7 @@ Goto,Goto,Studio.Common.Action.Move,Move
 Move,Studio.Common.Action.Rotate,Rotate,Rotate
 Studio.TerrainEditor.Main.Title,Terrain Editor,Terrain Editor,地形编辑器
 Studio.TerrainEditor.Main.ToolbarButton,Editor,Editor,编辑器
-Studio.TerrainEditor.Main.Tooltip,Add, remove, and modify terrain,"Add, remove, and modify terrain",添加、删除和修改地形
+Studio.TerrainEditor.Main.Tooltip,"Add, remove, and modify terrain","Add, remove, and modify terrain",添加、删除和修改地形
 Studio.TerrainEditor.MainButtons.Generate,Generate,Generate,生成
 Studio.TerrainEditor.MainButtons.Add,Add,Add,添加
 Studio.TerrainEditor.MainButtons.Subtract,Subtract,Subtract,减去
