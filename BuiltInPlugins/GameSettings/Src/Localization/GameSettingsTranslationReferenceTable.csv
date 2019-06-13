@@ -134,7 +134,7 @@ Could not save game settings.,Could not save game settings.,无法保存游戏�
 Name cannot be empty.,Name cannot be empty.,名称不能为空。,Studio.GameSettings.General.ErrorNameModerated
 The name didn't go through our moderation. Please revise it and try again.,The name didn't go through our moderation. Please revise it and try again.,此名称没有通过审核。请修改后再试一次。,Studio.GameSettings.General.ErrorDescModerated
 The description didn't go through our moderation. Please revise it and try again.,The description didn't go through our moderation. Please revise it and try again.,此描述没有通过审核。请修改后再试一次。,Studio.GameSettings.General.ErrorImageLimit
-You're uploading too much, please wait and try again later.,"You're uploading too much, please wait and try again later.",你已上传过多文件。请稍候重试。,Studio.GameSettings.General.ErrorImageNotRecognized
+"You're uploading too much, please wait and try again later.","You're uploading too much, please wait and try again later.",你已上传过多文件。请稍候重试。,Studio.GameSettings.General.ErrorImageNotRecognized
 File uploaded does not match known image format. Try converting to png.,File uploaded does not match known image format. Try converting to png.,上传的文件与已知图片格式不匹配。请将它转成PNG文件。,Studio.GameSettings.General.ErrorNoDevices
 You must select at least one playable device.,You must select at least one playable device.,你必须选择至少一种可游玩设备。,Studio.GameSettings.General.GameIconPrompt
 Add Game Icon,Add Game Icon,添加游戏图标,Studio.GameSettings.General.ThumbnailPrompt
@@ -205,7 +205,7 @@ Studio.GameSettings.AccessPermissions.OwnerLabel,Owner,Owner,Studio.GameSettings
 (Multiple),(Multiple),Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game
 Cannot play or edit this game,Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game,Can play this game
 Studio.GameSettings.AccessPermissions.EditDescription,Can play and edit this game,Can play and edit this game,Studio.GameSettings.AccessPermissions.AdminDescription
-Can play, edit, and manage this game,"Can play, edit, and manage this game",Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends
+"Can play, edit, and manage this game","Can play, edit, and manage this game",Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends
 Friends,Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users,Users
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups,Groups,Studio.GameSettings.AccessPermissions.MyFriendsCollaborator
 My Friends,My Friends,Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText,Search by user or group name
