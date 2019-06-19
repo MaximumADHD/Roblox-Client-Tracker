@@ -2,7 +2,7 @@ local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 local Modal = require(script.Parent.Modal)
 
 return function()
-	it("should mount and unmount with some basic properties", function()
+	itSKIP("should mount and unmount with some basic properties", function()
 		local messageText = "Test message"
 
 		local container = Instance.new("Folder")

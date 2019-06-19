@@ -22,7 +22,7 @@ local Roact = require(Plugin.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
+local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
 
 local function HeaderWithButton(props)
 	local title = props.Title

@@ -60,7 +60,7 @@ function Serialize._getGroupsForRoles(current, changed)
 end
 
 -- Returns a diff of permissions in the form of {Current=___, Changed=____} for each subjectId, grouped by subjectType
-function Serialize._diffPermissionChanges(current, changed)
+function Serialize.diffPermissionChanges(current, changed)
 	local changes = {}
 
 	changes[PermissionsConstants.GroupSubjectKey] = {}
@@ -144,9 +144,7 @@ function Serialize._resolvePermissionChanges(changes, roleGroups)
 	return adds, deletes
 end
 
-function Serialize.SerializePermissions(props)
-	local changes = Serialize._diffPermissionChanges(props.Current, props.Changed)
-
+function Serialize.SerializePermissions(props, changes)
 	local roleGroups = Serialize._getGroupsForRoles(props.Current.permissions, props.Changed.permissions)
 	local adds, deletes = Serialize._resolvePermissionChanges(changes, roleGroups)
 

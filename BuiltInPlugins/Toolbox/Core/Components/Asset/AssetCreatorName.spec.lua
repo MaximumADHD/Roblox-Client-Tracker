@@ -8,8 +8,6 @@ return function()
 
 	local AssetCreatorName = require(Plugin.Core.Components.Asset.AssetCreatorName)
 
-	local Workspace = game:GetService("Workspace")
-
 	local creatorNameString = "Example name here"
 
 	it("should create and destroy without errors", function()
@@ -28,7 +26,7 @@ return function()
 				creatorName = creatorNameString,
 			}),
 		})
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "AssetCreatorName")
 		local assetCreatorName = container.AssetCreatorName
 		-- Use match to handle localization

@@ -1,5 +1,5 @@
 return function()
-	local Plugin = script.Parent.Parent.Parent.Parent
+	local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs
 	local Roact = require(Libs.Roact)

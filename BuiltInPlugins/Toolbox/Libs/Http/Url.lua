@@ -11,7 +11,7 @@ local function parseBaseUrlInformation()
 	-- get the current base url from the current configuration
 	local baseUrl = ContentProvider.BaseUrl
 
-	-- keep a copy of the base url (https://www.roblox.com/)
+	-- keep a copy of the base url
 	-- append a trailing slash if there isn't one
 	if baseUrl:sub(#baseUrl) ~= "/" then
 		baseUrl = baseUrl .. "/"
@@ -24,7 +24,7 @@ local function parseBaseUrlInformation()
 	local prefixIndex, prefixEnd = baseUrl:find("%.", schemeEnd + 1)
 	local basePrefix = baseUrl:sub(schemeEnd + 1, prefixIndex - 1)
 
-	-- parse out the domain (roblox.com/, sitetest1.robloxlabs.com/, etc.)
+	-- parse out the domain
 	local baseDomain = baseUrl:sub(prefixEnd + 1)
 
 	return baseUrl, basePrefix, baseDomain
@@ -42,7 +42,7 @@ local _baseGamesUrl = string.format("https://games.%s", _baseDomain)
 local _baseNotificationUrl = string.format("https://notifications.%s", _baseDomain)
 local _baseRealtimeUrl = string.format("https://realtime.%s", _baseDomain)
 local _baseWebUrl = string.format("https://web.%s", _baseDomain)
-
+local _baseCatalogUrl = string.format("https://catalog.%s", _baseDomain)
 
 -- public api
 local Url = {
@@ -56,7 +56,8 @@ local Url = {
 	CHAT_URL = _baseChatUrl,
 	NOTIFICATION_URL = _baseNotificationUrl,
 	REALTIME_URL = _baseRealtimeUrl,
-	WEB_URL = _baseWebUrl
+	WEB_URL = _baseWebUrl,
+	CATALOG_URL = _baseCatalogUrl,
 }
 
 function Url:isVanitySite()

@@ -21,8 +21,6 @@ local createSignal = require(Plugin.Core.Util.createSignal)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagEnableLocalizationForToolbox = settings():GetFFlag("EnableLocalizationForToolbox")
-
 local Localization = {}
 Localization.__index = Localization
 
@@ -172,12 +170,10 @@ function Localization:_getLocaleId()
 
 	-- Then we check what's current LocaleId we want to use
 	-- If toolbox localization is enabled.
-	if FFlagEnableLocalizationForToolbox then
-		if self._externalLocaleIdGetter then
-			return self._externalLocaleIdGetter()
-		end
-	end
-
+    if self._externalLocaleIdGetter then
+        return self._externalLocaleIdGetter()
+    end
+	
 	return self:_getDefaultLocaleId()
 end
 

@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -31,7 +33,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestGameIconWidget(), container)
 		local widget = container.Frame
 
@@ -50,7 +52,7 @@ return function()
 
 	describe("Icon", function()
 		it("should not display when the widget is disabled", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestGameIconWidget({
 				Enabled = false,
 			}), container)
@@ -62,7 +64,7 @@ return function()
 		end)
 
 		it("should display only when icon exists", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestGameIconWidget({
 				Enabled = true,
 				Icon = "rbxassetid://1818"
@@ -85,7 +87,7 @@ return function()
 
 	describe("NewIcon", function()
 		it("should not display when the widget is disabled", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestGameIconWidget({
 				Enabled = false,
 			}), container)
@@ -97,7 +99,7 @@ return function()
 		end)
 
 		it("should display only when icon doesn't exist", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestGameIconWidget({
 				Enabled = true,
 				Icon = "rbxassetid://1818"

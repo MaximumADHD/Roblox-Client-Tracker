@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -27,7 +29,7 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDropdownEntry(), container)
 		local button = container.ImageButton
 
@@ -39,7 +41,7 @@ return function()
 	end)
 
 	it("should highlight only if it is current", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDropdownEntry("Id", "Name", true), container)
 		local button = container.ImageButton
 
@@ -56,7 +58,7 @@ return function()
 
 	describe("Name", function()
 		it("should be Id if Title is nil", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestDropdownEntry("Name", nil), container)
 			local button = container.ImageButton
 
@@ -66,7 +68,7 @@ return function()
 		end)
 
 		it("should be Title if it exists", function ()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestDropdownEntry("Name", "OtherName"), container)
 			local button = container.ImageButton
 

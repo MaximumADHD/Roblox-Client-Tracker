@@ -14,7 +14,12 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
-local BulletPoint = require(Plugin.Src.Components.BulletPoint)
+local BulletPoint 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
+else
+	BulletPoint = require(Plugin.Src.Components.BulletPoint)
+end
 local BaseDialog = require(Plugin.Src.Components.Dialog.BaseDialog)
 
 local function ListDialog(props)

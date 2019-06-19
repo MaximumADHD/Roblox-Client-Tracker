@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local RoundArrowButton = require(Plugin.Src.Components.RoundArrowButton)
@@ -17,7 +19,7 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundArrowButton(), container)
 		local button = container.ImageButton
 
@@ -27,7 +29,7 @@ return function()
 	end)
 
 	it("should hide when not visible", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundArrowButton(), container)
 
 		expect(container.ImageButton.Visible).to.equal(false)
@@ -41,7 +43,7 @@ return function()
 	end)
 
 	it("should turn over when flipped", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRoundArrowButton(true, false), container)
 
 		expect(container.ImageButton.Rotation).to.equal(0)

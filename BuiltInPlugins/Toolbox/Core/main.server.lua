@@ -2,8 +2,6 @@ if not plugin then
 	return
 end
 
-local FFlagUseStudioLocaleId = settings():GetFFlag("UseStudioLocaleId")
-
 local Plugin = script.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -61,30 +59,15 @@ local function createLocalization()
 		return Localization.createTestRealLocaleLocalization(localizationTable, DebugFlags.getOrCreateTestRealLocale())
 	end
 
-	if (FFlagUseStudioLocaleId) then
-		return Localization.new({
-			getLocaleId = function()
-				return StudioService["StudioLocaleId"]
-			end,
-			getTranslator = function(localeId)
-				return localizationTable:GetTranslator(localeId)
-			end,
-			localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
-		})
-	else
-		-- Either "RobloxLocaleId" or "SystemLocaleId"
-		local localePropToUse = "RobloxLocaleId"
-
-		return Localization.new({
-			getLocaleId = function()
-				return LocalizationService[localePropToUse]
-			end,
-			getTranslator = function(localeId)
-				return localizationTable:GetTranslator(localeId)
-			end,
-			localeIdChanged = LocalizationService:GetPropertyChangedSignal(localePropToUse)
-		})
-	end
+    return Localization.new({
+        getLocaleId = function()
+            return StudioService["StudioLocaleId"]
+        end,
+        getTranslator = function(localeId)
+            return localizationTable:GetTranslator(localeId)
+        end,
+        localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
+    })
 end
 
 local function main()

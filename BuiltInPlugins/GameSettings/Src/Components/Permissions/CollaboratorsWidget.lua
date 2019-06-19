@@ -24,8 +24,14 @@ local PermissionsConstants = require(Plugin.Src.Components.Permissions.Permissio
 local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
 local GroupCollaboratorItem = require(Plugin.Src.Components.Permissions.GroupCollaboratorItem)
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
 local Separator = require(Plugin.Src.Components.Separator)
+
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 
 local FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -38,8 +44,8 @@ local FitToContentList = createFitToContent("Frame", "UIListLayout", {
 })
 
 local function isStudioUserOwner(props)
-	local isUserOwner = game.CreatorType == Enum.CreatorType.User and game.CreatorId == props.StudioUserId
-	local isGroupOwner = game.CreatorType == Enum.CreatorType.Group and props.GroupOwnerUserId == props.StudioUserId
+	local isUserOwner = props.OwnerType == Enum.CreatorType.User and props.OwnerId == props.StudioUserId
+	local isGroupOwner = props.OwnerType == Enum.CreatorType.Group and props.GroupOwnerUserId == props.StudioUserId
 
 	return isUserOwner or isGroupOwner
 end
@@ -161,7 +167,7 @@ function CollaboratorsWidget:render()
 			-- Sort groups by alphabetical order for collaborator list
 			local groups = {}
 			for groupId,groupData in pairs(props.GroupMetadata) do
-				if game.CreatorType ~= Enum.CreatorType.Group or game.CreatorId ~= groupId then
+				if props.OwnerType ~= Enum.CreatorType.Group or props.OwnerId ~= groupId then
 					table.insert(groups, {Name=groupData.Name, Id=groupId})
 				end
 			end
@@ -172,7 +178,7 @@ function CollaboratorsWidget:render()
 			-- Sort users by alphabetical order for collaborator list
 			local users = {}
 			for userId,permission in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
-				if game.CreatorType ~= Enum.CreatorType.User or game.CreatorId ~= userId then
+				if props.OwnerType ~= Enum.CreatorType.User or props.OwnerId ~= userId then
 					table.insert(users, {Name=permission[PermissionsConstants.SubjectNameKey], Id=permission[PermissionsConstants.SubjectIdKey], Action=permission[PermissionsConstants.ActionKey]})
 				end
 			end
@@ -223,7 +229,7 @@ function CollaboratorsWidget:render()
 				})
 			end
 			for i,group in pairs(groups) do
-				if game.CreatorType ~= Enum.CreatorType.Group or game.CreatorId ~= group.Id then
+				if props.OwnerType ~= Enum.CreatorType.Group or props.OwnerId ~= group.Id then
 					groupCollaborators["Groups"..i] = Roact.createElement(GroupCollaboratorItem, {
 						LayoutOrder = i,
 						Enabled = props.Enabled,

@@ -1,7 +1,7 @@
 Class Instance [notbrowsable]
 	Property bool Instance.Archivable
 	Property string Instance.ClassName [readonly]
-	Property int Instance.DataCost [readonly] [LocalUserSecurity]
+	Property int Instance.DataCost [deprecated] [readonly] [LocalUserSecurity]
 	Property string Instance.Name
 	Property Class:Instance Instance.Parent
 	Property bool Instance.RobloxLocked [PluginSecurity]

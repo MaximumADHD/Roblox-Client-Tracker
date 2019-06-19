@@ -8,8 +8,6 @@ return function()
 
 	local AssetName = require(Plugin.Core.Components.Asset.AssetName)
 
-	local Workspace = game:GetService("Workspace")
-
 	local assetNameString = "Example name here"
 
 	it("should create and destroy without errors", function()
@@ -28,7 +26,7 @@ return function()
 				assetName = assetNameString,
 			}),
 		})
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "AssetName")
 		local assetNameObject = container.AssetName
 		expect(assetNameObject.Text).to.equal(assetNameString)

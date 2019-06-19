@@ -24,7 +24,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local TextEntry = require(Plugin.Src.Components.TextEntry)
+local TextEntry = require(Plugin.UILibrary.Components.TextEntry)
 
 local RoundNumberBox = Roact.PureComponent:extend("RoundNumberBox")
 

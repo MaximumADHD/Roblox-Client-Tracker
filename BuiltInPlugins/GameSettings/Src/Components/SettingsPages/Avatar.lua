@@ -14,6 +14,7 @@
 local PageName = "Avatar"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
+local FFlagAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -47,7 +48,11 @@ local MorpherRootPanel = require(Plugin.MorpherEditor.Code.Components.ComponentR
 
 local isPlaceDataAvailable = function(props)
 	if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
-		return props.CanManage
+		if FFlagAccessPermissions then
+			return game.GameId ~= 0
+		else
+			return props.CanManage
+		end
 	else
 		local result = props.AvatarType and
 			props.AvatarAnimation and
@@ -80,7 +85,7 @@ local function loadValuesToProps(getValue, state)
 		AssetOverrideErrors = fastFlags.isMorphingPanelWidgetsStandardizationOn()
 			and state.Settings.Errors.universeAvatarAssetOverrides or nil,
 
-		CanManage = (function()
+		CanManage = (not FFlagAccessPermissions) and (function()
 			if fastFlags.isPlaceFilesGameSettingsSerializationOn() then
 				return getValue("canManage")
 			else

@@ -6,7 +6,7 @@
   --Remove with FFlagUseRoactPlayerList
 ]]
 local CoreGui = game:GetService('CoreGui')
-local GuiService = game:GetService('GuiService')	-- NOTE: Can only use in core scripts
+local GuiService = game:GetService('GuiService')
 local UserInputService = game:GetService('UserInputService')
 local TeamsService = game:FindService('Teams')
 local ContextActionService = game:GetService('ContextActionService')
@@ -20,10 +20,12 @@ local FFlagCoreScriptTranslateGameText2 = settings():GetFFlag("CoreScriptTransla
 
 local FFlagRobloxGuiSiblingZindexs = settings():GetFFlag("RobloxGuiSiblingZindexs")
 
+local FFlagPlayerListNewIcons = settings():GetFFlag("PlayerListNewIcons")
+
 while not PlayersService.LocalPlayer do
-	-- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
-	-- because it caused a bug where the local players name would show as Player in game.
-	-- The local players name is not yet set when the PlayerAdded event fires.
+  -- This does not follow the usual pattern of PlayersService:PlayerAdded:Wait()
+  -- because it caused a bug where the local players name would show as Player in game.
+  -- The local players name is not yet set when the PlayerAdded event fires.
   wait()
 end
 
@@ -141,7 +143,7 @@ local SHADOW_IMAGE = 'rbxasset://textures/ui/PlayerList/TileShadowMissingTop.png
 local SHADOW_SLICE_SIZE = 5
 local SHADOW_SLICE_RECT = Rect.new(SHADOW_SLICE_SIZE+1, SHADOW_SLICE_SIZE+1, SHADOW_SLICE_SIZE*2-1, SHADOW_SLICE_SIZE*2-1)
 
-local CUSTOM_ICONS = {	-- Admins with special icons
+local CUSTOM_ICONS = {  -- Admins with special icons
   ['7210880'] = 'rbxassetid://134032333', -- Jeditkacheff
   ['13268404'] = 'rbxassetid://113059239', -- Sorcus
   ['261'] = 'rbxassetid://105897927', -- shedlestky
@@ -174,11 +176,19 @@ local FRIEND_ICON = 'rbxasset://textures/ui/icon_friends_16.png'
 local FRIEND_REQUEST_ICON = 'rbxasset://textures/ui/icon_friendrequestsent_16.png'
 local FRIEND_RECEIVED_ICON = 'rbxasset://textures/ui/icon_friendrequestrecieved-16.png'
 
-local FFlagCoreScriptPlayerListPremiumIcon = settings():GetFFlag("CoreScriptPlayerListPremiumIcon")
+local FFlagCoreScriptPlayerListPremiumIcon = settings():GetFFlag("CoreScriptPlayerListPremiumIcon2")
 
 local FOLLOWER_ICON = 'rbxasset://textures/ui/icon_follower-16.png'
 local FOLLOWING_ICON = 'rbxasset://textures/ui/icon_following-16.png'
 local MUTUAL_FOLLOWING_ICON = 'rbxasset://textures/ui/icon_mutualfollowing-16.png'
+
+if FFlagPlayerListNewIcons then
+  ADMIN_ICON = "rbxasset://textures/ui/PlayerList/AdminIcon.png"
+  STAR_ICON = "rbxasset://textures/ui/PlayerList/StarIcon.png"
+  PLACE_OWNER_ICON = "rbxasset://textures/ui/PlayerList/OwnerIcon.png"
+  FRIEND_ICON = "rbxasset://textures/ui/PlayerList/FriendIcon.png"
+  FOLLOWING_ICON = "rbxasset://textures/ui/PlayerList/FollowingIcon.png"
+end
 
 local CHARACTER_BACKGROUND_IMAGE = 'rbxasset://textures/ui/PlayerList/CharacterImageBackground.png'
 
@@ -189,16 +199,16 @@ if FFlagCoreScriptsUseLocalizationModule then
 end
 
 local function LocalizedGetString(key, rtv)
-	if FFlagCoreScriptsUseLocalizationModule then
-		return RobloxTranslator:FormatByKey(key)
-	else
-		pcall(function()
-			local LocalizationService = game:GetService("LocalizationService")
-			local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-			rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-		end)
-		return rtv
-	end
+  if FFlagCoreScriptsUseLocalizationModule then
+    return RobloxTranslator:FormatByKey(key)
+  else
+    pcall(function()
+      local LocalizationService = game:GetService("LocalizationService")
+      local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
+      rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
+    end)
+    return rtv
+  end
 end
 
 local function rbx_profilebegin(name)
@@ -286,7 +296,7 @@ local function getMembershipIcon(player)
         return PLACE_OWNER_ICON
       elseif membershipType == Enum.MembershipType.None then
         return ""
-      elseif FFlagCoreScriptPlayerListPremiumIcon then
+      elseif FFlagCoreScriptPlayerListPremiumIcon and membershipType == Enum.MembershipType.Premium then
         return PREMIUM_ICON
       elseif membershipType == Enum.MembershipType.BuildersClub then
         return BC_ICON
@@ -294,8 +304,6 @@ local function getMembershipIcon(player)
         return TBC_ICON
       elseif membershipType == Enum.MembershipType.OutrageousBuildersClub then
         return OBC_ICON
-      else
-        return ""
       end
     end
   end
@@ -416,7 +424,7 @@ end
 ScrollList.BackgroundTransparency = 1
 ScrollList.BackgroundColor3 = Color3.new()
 ScrollList.BorderSizePixel = 0
-ScrollList.CanvasSize = UDim2.new(0, 0, 0, 0)	-- NOTE: Look into if x needs to be set to anything
+ScrollList.CanvasSize = UDim2.new(0, 0, 0, 0)
 ScrollList.ScrollBarThickness = 6
 ScrollList.BottomImage = 'rbxasset://textures/ui/scroll-bottom.png'
 ScrollList.MidImage = 'rbxasset://textures/ui/scroll-middle.png'
@@ -532,9 +540,13 @@ local function createEntryFrame(name, sizeYOffset, isTopStat)
   nameFrame.Text = ""
   nameFrame.Parent = containerFrame
   nameFrame.ZIndex = isTenFootInterface and 2 or 1
-  pcall(function()
-    nameFrame.Localize = false
-  end)
+  if FFlagPlayerListNewIcons then
+    nameFrame.AutoLocalize = false
+  else
+    pcall(function()
+      nameFrame.Localize = false
+    end)
+  end
 
   return containerFrame, nameFrame
 end
@@ -564,9 +576,13 @@ local function createEntryNameText(name, text, position, size, fontSize)
   nameLabel.ClipsDescendants = true
   nameLabel.Text = text
   nameLabel.ZIndex = isTenFootInterface and 2 or 1
-  pcall(function()
-    nameLabel.Localize = false
-  end)
+  if FFlagPlayerListNewIcons then
+    nameLabel.AutoLocalize = false
+  else
+    pcall(function()
+      nameLabel.Localize = false
+    end)
+  end
 
   return nameLabel
 end
@@ -580,28 +596,32 @@ local function createStatFrame(offset, parent, name, isTopStat)
     statFrame.BackgroundTransparency = 1
   else
     statFrame.BackgroundTransparency = isTopStat and 0 or BG_TRANSPARENCY
-	statFrame.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
-	statFrame.BorderSizePixel = 0
+    statFrame.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
+    statFrame.BorderSizePixel = 0
   end
   statFrame.Parent = parent
-  pcall(function()
-    statFrame.Localize = false
-  end)
+  if FFlagPlayerListNewIcons then
+    statFrame.AutoLocalize = false
+  else
+    pcall(function()
+      statFrame.Localize = false
+    end)
+  end
 
   local statBackground
   if FFlagRobloxGuiSiblingZindexs then
-	statBackground = Instance.new("Frame")
+    statBackground = Instance.new("Frame")
     statBackground.Name = "BackgroundFrame"
-	statBackground.Size = UDim2.new(1, 0, 1, 0)
-	statBackground.Position = UDim2.new(0, 0, 0, 0)
-	statBackground.BackgroundTransparency = isTopStat and 0 or BG_TRANSPARENCY
-	statBackground.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
-	statBackground.BorderSizePixel = 0
+    statBackground.Size = UDim2.new(1, 0, 1, 0)
+    statBackground.Position = UDim2.new(0, 0, 0, 0)
+    statBackground.BackgroundTransparency = isTopStat and 0 or BG_TRANSPARENCY
+    statBackground.BackgroundColor3 = isTopStat and BG_COLOR_TOP or BG_COLOR
+    statBackground.BorderSizePixel = 0
     statBackground.Parent = statFrame
   end
 
   if isTenFootInterface then
-	if FFlagRobloxGuiSiblingZindexs then
+    if FFlagRobloxGuiSiblingZindexs then
       statBackground.ZIndex = 2
     else
       statFrame.ZIndex = 2
@@ -639,9 +659,13 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
   statText.Text = text
   statText.Active = true
   statText.Parent = parent
-  pcall(function()
-    statText.Localize = false
-  end)
+  if FFlagPlayerListNewIcons then
+    statText.AutoLocalize = false
+  else
+    pcall(function()
+      statText.Localize = false
+    end)
+  end
 
   if isTenFootInterface then
     statText.ZIndex = 2
@@ -666,7 +690,7 @@ local function createStatText(parent, text, isTopStat, isTeamStat)
   end
 
   if isTeamStat then
-    statText.Font = 'SourceSansBold'
+    statText.Font = Enum.Font.SourceSansBold
   end
 
   return statText
@@ -1172,12 +1196,12 @@ local function updateTeamEntry(entry)
   for _,stat in ipairs(GameStats) do
     local statFrame = frame:FindFirstChild(stat.Name)
     if not statFrame then
-	  statFrame = createStatFrame(offset, frame, stat.Name)
-	  if FFlagRobloxGuiSiblingZindexs then
+      statFrame = createStatFrame(offset, frame, stat.Name)
+      if FFlagRobloxGuiSiblingZindexs then
         statFrame.BackgroundFrame.BackgroundColor3 = color
       else
         statFrame.BackgroundColor3 = color
-	  end
+      end
       createStatText(statFrame, "", false, true)
     end
     statFrame.Position = UDim2.new(0, offset + TILE_SPACING, 0, 0)
@@ -1479,8 +1503,8 @@ local function createPlayerEntry(player, isTopStat)
   entryFrame.Active = true
 
   entryFrame.MouseButton1Click:connect(function()
-      onEntryFrameSelected(containerFrame, player)
-    end)
+    onEntryFrameSelected(containerFrame, player)
+  end)
 
   local currentXOffset = isTenFootInterface and 14 or 1
 
@@ -1496,36 +1520,36 @@ local function createPlayerEntry(player, isTopStat)
   end
 
   spawn(function()
-      if isTenFootInterface and membershipIcon then
-        setAvatarIconAsync(player, membershipIcon)
-      end
-    end)
+    if isTenFootInterface and membershipIcon then
+      setAvatarIconAsync(player, membershipIcon)
+    end
+  end)
 
   -- Some functions yield, so we need to spawn off in order to not cause a race condition with other events like PlayersService.ChildRemoved
   spawn(function()
-      -- don't make rank/grp calls on console
-      if isTenFootInterface then return end
+    -- don't make rank/grp calls on console
+    if isTenFootInterface then return end
 
-      if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
-        membershipIconImage = PLACE_OWNER_ICON
-        if not membershipIcon then
-          membershipIcon = createImageIcon(membershipIconImage, "MembershipIcon", 1, entryFrame)
-        else
-          membershipIcon.Image = membershipIconImage
-		    end
+    if PlayerPermissionsModule.IsPlayerPlaceOwnerAsync(player) then
+      membershipIconImage = PLACE_OWNER_ICON
+      if not membershipIcon then
+        membershipIcon = createImageIcon(membershipIconImage, "MembershipIcon", 1, entryFrame)
+      else
+        membershipIcon.Image = membershipIconImage
       end
-      local iconImage = getCustomPlayerIcon(player)
-      if iconImage then
-        if not membershipIcon then
-          membershipIcon = createImageIcon(iconImage, "MembershipIcon", 1, entryFrame)
-        else
-          membershipIcon.Image = iconImage
-        end
+    end
+    local iconImage = getCustomPlayerIcon(player)
+    if iconImage then
+      if not membershipIcon then
+        membershipIcon = createImageIcon(iconImage, "MembershipIcon", 1, entryFrame)
+      else
+        membershipIcon.Image = iconImage
       end
-      -- Friendship and Follower status is checked by onFriendshipChanged, which is called by the FriendStatusChanged
-      -- event. This event is fired when any player joins the game. onFriendshipChanged will check Follower status in
-      -- the case that we are not friends with the new player who is joining.
-    end)
+    end
+    -- Friendship and Follower status is checked by onFriendshipChanged, which is called by the FriendStatusChanged
+    -- event. This event is fired when any player joins the game. onFriendshipChanged will check Follower status in
+    -- the case that we are not friends with the new player who is joining.
+  end)
 
   local playerName
   local playerPlatformName
@@ -1611,7 +1635,7 @@ local function createPlayerEntry(player, isTopStat)
     shadow.BackgroundTransparency = 1
     shadow.Name = 'Shadow'
     shadow.Image = SHADOW_IMAGE
-	shadow.Position = UDim2.new(0, -SHADOW_SLICE_SIZE, 0, 0)
+    shadow.Position = UDim2.new(0, -SHADOW_SLICE_SIZE, 0, 0)
     if FFlagRobloxGuiSiblingZindexs then
       local shadowSizeX = SHADOW_SLICE_SIZE*2 + entryFrame.AbsoluteSize.X
       local shadowSizeY = SHADOW_SLICE_SIZE + entryFrame.AbsoluteSize.Y
@@ -1620,7 +1644,7 @@ local function createPlayerEntry(player, isTopStat)
       shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
     end
     shadow.ScaleType = 'Slice'
-	shadow.SliceCenter = SHADOW_SLICE_RECT
+    shadow.SliceCenter = SHADOW_SLICE_RECT
     if FFlagRobloxGuiSiblingZindexs then
       shadow.Parent = containerFrame
     else
@@ -1641,7 +1665,7 @@ local function createTeamEntry(team)
   teamEntry.TeamScore = 0
 
   local containerFrame, entryFrame = createEntryFrame(team.Name, TeamEntrySizeY)
-  entryFrame.Selectable = false	-- dont allow gamepad selection of team frames
+  entryFrame.Selectable = false  -- dont allow gamepad selection of team frames
   entryFrame.BackgroundColor3 = team.TeamColor.Color
 
   local teamName
@@ -1672,32 +1696,32 @@ local function createTeamEntry(team)
     shadow.Name = 'Shadow'
     shadow.Image = SHADOW_IMAGE
     shadow.Position = UDim2.new(0, -SHADOW_SLICE_SIZE, 0, 0)
-	shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
-	if FFlagRobloxGuiSiblingZindexs then
+    shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
+    if FFlagRobloxGuiSiblingZindexs then
       local shadowSizeX = SHADOW_SLICE_SIZE*2 + entryFrame.AbsoluteSize.X
       local shadowSizeY = SHADOW_SLICE_SIZE + entryFrame.AbsoluteSize.Y
       shadow.Size = UDim2.new(0, shadowSizeX, 0, shadowSizeY)
-	else
+    else
       shadow.Size = UDim2.new(1, SHADOW_SLICE_SIZE*2, 1, SHADOW_SLICE_SIZE)
     end
     shadow.ScaleType = 'Slice'
-	shadow.SliceCenter = SHADOW_SLICE_RECT
-	if FFlagRobloxGuiSiblingZindexs then
+    shadow.SliceCenter = SHADOW_SLICE_RECT
+    if FFlagRobloxGuiSiblingZindexs then
       shadow.Parent = containerFrame
-	else
+    else
       shadow.Parent = entryFrame
-	end
+    end
   end
 
   -- connections
   team.Changed:connect(function(property)
       rbx_profilebegin("team.Changed")
       if property == 'Name' then
-      if FFlagCoreScriptTranslateGameText2 then
+        if FFlagCoreScriptTranslateGameText2 then
           GameTranslator:TranslateAndRegister(teamName, team, team.Name)
-      else
+        else
           teamName.Text = GameTranslator:TranslateGameText(team, team.Name)
-      end
+        end
       elseif property == 'TeamColor' then
         for _,childFrame in pairs(containerFrame:GetChildren()) do
           if childFrame:IsA('GuiObject') then
@@ -1847,7 +1871,7 @@ end
 RobloxGui.Changed:connect(function(property)
     rbx_profilebegin("RobloxGui.Changed")
     if property == 'AbsoluteSize' then
-      spawn(function()	-- must spawn because F11 delays when abs size is set
+      spawn(function()  -- must spawn because F11 delays when abs size is set
           resizePlayerList()
         end)
     end

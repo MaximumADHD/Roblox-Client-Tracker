@@ -10,8 +10,6 @@ return function()
 
 	local Footer = require(Plugin.Core.Components.Footer.Footer)
 
-	local Workspace = game:GetService("Workspace")
-
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Footer = Roact.createElement(Footer, {
@@ -24,7 +22,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should have the correct background buttons", function()
+	itSKIP("should have the correct background buttons", function()
 		local backgrounds = {
 			{
 				name = "White",
@@ -48,7 +46,7 @@ return function()
 			}),
 		})
 
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "Footer")
 
 		local footer = container.Footer
@@ -64,7 +62,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should select and hover the correct background buttons", function()
+	itSKIP("should select and hover the correct background buttons", function()
 		-- TODO CLIDEVSRVS-1687: Fix this test for the new theme APIs
 		-- It checks the colours of buttons but they can be different with the new API
 
@@ -93,7 +91,7 @@ return function()
 			}),
 		})
 
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "Footer")
 
 		local footer = container.Footer

@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -31,7 +33,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRadioButtonSet({
 			{Title = "Button", Description = ""},
 		}, true), container)
@@ -46,7 +48,7 @@ return function()
 	end)
 
 	it("should highlight one button", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRadioButtonSet({
 			{Title = "Button1", Description = ""},
 			{Title = "Button2", Description = ""},
@@ -60,7 +62,7 @@ return function()
 	end)
 
 	it("should work with boolean IDs", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestRadioButtonSet({
 			{Id = true, Title = "Button1", Description = ""},
 			{Id = false, Title = "Button2", Description = ""},

@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -43,7 +45,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBoxSet(createBoxes(true, true)), container)
 		local checkBoxSet = container.Frame
 
@@ -57,7 +59,7 @@ return function()
 	end)
 
 	it("should enable its boxes when enabled", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBoxSet(createBoxes(true, false), true), container)
 		local checkBoxSet = container.Frame
 
@@ -68,7 +70,7 @@ return function()
 	end)
 
 	it("should disable its boxes when disabled", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBoxSet(createBoxes(true, true), false), container)
 		local checkBoxSet = container.Frame
 
@@ -79,7 +81,7 @@ return function()
 	end)
 
 	it("should display the passed error message", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBoxSet(createBoxes(true, true), true, "Error"), container)
 		local checkBoxSet = container.Frame
 

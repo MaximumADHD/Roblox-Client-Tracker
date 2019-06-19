@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -32,7 +34,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestGameIcon(), container)
 		local icon = container.ImageLabel
 
@@ -45,7 +47,7 @@ return function()
 	end)
 
 	it("should show when it is under review", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestGameIcon({
 			Review = true,
 		}), container)

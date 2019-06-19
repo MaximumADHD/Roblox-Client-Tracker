@@ -26,8 +26,7 @@ function ThumbnailLoaderProvider:init()
 	-- TODO (awarwick) 5/14/2019  We will have separate silhouettes for groups/users when design
 	-- gets us assets, so make this forwards-compatible with silhouettes per subjectType
 	local function getSilhouette(subjectType)
-		-- Legacy assetId format so it works on test envs
-		return "http://www.roblox.com/asset/?id=924320031"
+		return "rbxassetid://924320031"
 	end
 
 	local function fetchThumbnailAsync(subjectType, subjectId)

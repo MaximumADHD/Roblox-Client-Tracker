@@ -24,7 +24,7 @@ return function()
 	end)
 
 	it("should add a Layout to its children", function()
-		local container = game.Workspace
+		local container = Instance.new("Folder")
 
 		local fitToContent = createFitToContent("Frame", "UIListLayout", {})
 		local component = Roact.createElement(fitToContent, {}, {
@@ -43,7 +43,7 @@ return function()
 	end)
 
 	it("should add padding if BorderSize is specified", function()
-		local container = game.Workspace
+		local container = Instance.new("Folder")
 
 		local fitToContent = createFitToContent("Frame", "UIListLayout", {
 			BorderSize = 5,

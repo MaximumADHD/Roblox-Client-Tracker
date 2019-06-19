@@ -7,7 +7,6 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 	local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
-	local Workspace = game:GetService("Workspace")
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
@@ -22,7 +21,7 @@ return function()
 			Footer = Roact.createElement(SearchOptionsFooter),
 		})
 
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "Footer")
 
 		local footer = container.Footer

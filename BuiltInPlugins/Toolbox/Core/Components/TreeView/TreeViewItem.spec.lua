@@ -7,7 +7,6 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 	local TreeViewItem = require(Plugin.Core.Components.TreeView.TreeViewItem)
-	local Workspace = game:GetService("Workspace")
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
@@ -29,7 +28,7 @@ return function()
 				Icon = "rbxasset://0"
 			}),
 		})
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "TreeViewItem")
 
 		local treeViewItem = container.TreeViewItem

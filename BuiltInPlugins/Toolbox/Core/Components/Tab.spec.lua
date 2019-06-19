@@ -7,7 +7,6 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 	local Tab = require(Plugin.Core.Components.Tab)
-	local Workspace = game:GetService("Workspace")
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
@@ -21,7 +20,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function()
+	itSKIP("should render correctly", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Tab = Roact.createElement(Tab, {
 				Text = "Tab",
@@ -29,7 +28,7 @@ return function()
 				Selected = false,
 			}),
 		})
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "Tab")
 
 		local tab = container.Tab

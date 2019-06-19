@@ -1,5 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
+	local ContentProvider = game:GetService("ContentProvider")
 
 	local HttpResponse = require(Plugin.Libs.Http.HttpResponse)
 
@@ -24,7 +25,7 @@ return function()
 			}
 
 			for _, errorMessage in ipairs(errorMessages) do
-				local response = HttpResponse.new(errorMessage, 0, 200, "GET", "https://www.roblox.com/")
+				local response = HttpResponse.new(errorMessage, 0, 200, "GET", ContentProvider.BaseUrl)
 				state = NetworkErrors(state, NetworkError(response))
 
 				for i, message in ipairs(state) do

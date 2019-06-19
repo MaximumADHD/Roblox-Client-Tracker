@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
@@ -135,7 +137,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestBasicInfo()
 		local instance = Roact.mount(element, container)
@@ -159,7 +161,7 @@ return function()
 	end)
 
 	it("should disable when no permissions", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestBasicInfo()
 		local instance = Roact.mount(element, container)
@@ -201,7 +203,7 @@ return function()
 	end)
 
 	it("should enable with permissions", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestBasicInfo(settingsInfoTest)
 		local instance = Roact.mount(element, container)
@@ -243,7 +245,7 @@ return function()
 
 	describe("Name", function()
 		it("should error when name is empty", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoEmptyNameTest)
 			local instance = Roact.mount(element, container)
@@ -256,7 +258,7 @@ return function()
 		end)
 
 		it("should error when name is too long", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoLongNameTest)
 			local instance = Roact.mount(element, container)
@@ -268,7 +270,7 @@ return function()
 		end)
 
 		it("should error when name is moderated", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoBadNameTest)
 			local instance = Roact.mount(element, container)
@@ -283,7 +285,7 @@ return function()
 
 	describe("Description", function()
 		it("should error when description is too long", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoLongDescriptionTest)
 			local instance = Roact.mount(element, container)
@@ -295,7 +297,7 @@ return function()
 		end)
 
 		it("should error when description is moderated", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoBadDescriptionTest)
 			local instance = Roact.mount(element, container)
@@ -310,7 +312,7 @@ return function()
 
 	describe("Playability", function()
 		it("should change from Friends to Group Members", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoGroupTest)
 			local instance = Roact.mount(element, container)
@@ -328,7 +330,7 @@ return function()
 
 	describe("Genre", function()
 		it("should display the correct genre", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestBasicInfo(settingsInfoTest)
 			local instance = Roact.mount(element, container)

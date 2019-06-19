@@ -8,8 +8,6 @@ return function()
 
 	local Header = require(Plugin.Core.Components.Header)
 
-	local Workspace = game:GetService("Workspace")
-
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Header = Roact.createElement(Header, {
@@ -28,7 +26,7 @@ return function()
 				categories = {},
 			}),
 		})
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "Header")
 
 		local header = container.Header
@@ -40,7 +38,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	--[[describe("the search bar", function()
+	describeSKIP("the search bar", function()
 		it("should stretch to fill remaining space", function()
 			local toolboxWidths = {200, 500, 1000}
 			local dropdownWidth = 120
@@ -55,7 +53,7 @@ return function()
 						categories = {},
 					}),
 				})
-				local container = workspace.ToolboxTestsTarget
+				local container = Instance.new("Folder")
 				local instance = Roact.mount(element, container, "Header")
 
 				local header = container.Header
@@ -66,5 +64,5 @@ return function()
 				Roact.unmount(instance)
 			end
 		end)
-	end)]]
+	end)
 end

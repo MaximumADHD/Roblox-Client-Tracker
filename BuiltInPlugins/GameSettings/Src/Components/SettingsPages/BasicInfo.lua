@@ -32,8 +32,6 @@ local MAX_DESCRIPTION_LENGTH = 1000
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 local FFlagStudioGameSettingsAccessPermissions = settings():GetFFlag("StudioGameSettingsAccessPermissions")
-local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
-local FFlagGameSettingsDispatchShutdownWarning = settings():getFFlag("GameSettingsDispatchShutdownWarning")
 
 local nameErrors = {
 	Moderated = "ErrorNameModerated",
@@ -56,20 +54,10 @@ local Cryo = require(Plugin.Cryo)
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 
-local TitledFrame 
-if FFlagGameSettingsUseUILibrary then
-	TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
-else
-	TitledFrame = require(Plugin.Src.Components.TitledFrame)
-end
+local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
-local RoundTextBox
-if FFlagGameSettingsUseUILibrary then
-	RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
-else
-	RoundTextBox = require(Plugin.Src.Components.RoundTextBox)
-end
+local RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
 local Dropdown = require(Plugin.Src.Components.Dropdown)
 local Separator = require(Plugin.Src.Components.Separator)
 local ThumbnailController = require(Plugin.Src.Components.Thumbnails.ThumbnailController)
@@ -107,6 +95,8 @@ local function loadValuesToProps(getValue, state)
 		NameError = errors.name,
 		DescriptionError = errors.description,
 		DevicesError = errors.playableDevices,
+
+		IsCurrentlyActive =  state.Settings.Current.isActive,
 	}
 	
 	if not FFlagStudioGameSettingsAccessPermissions then
@@ -116,10 +106,6 @@ local function loadValuesToProps(getValue, state)
 
 	loadedProps.ThumbnailsError = errors.thumbnails
 	loadedProps.GameIconError = errors.gameIcon
-
-	if FFlagGameSettingsDispatchShutdownWarning then
-		loadedProps.IsCurrentlyActive =  state.Settings.Current.isActive
-	end
 
 	return loadedProps
 end
@@ -284,11 +270,7 @@ local function displayContents(page, localized)
 				else
 					props.IsFriendsOnlyChanged(false)
 					local willShutdown = (function()
-						if FFlagGameSettingsDispatchShutdownWarning then
-							return props.IsCurrentlyActive and not button.Id
-						else
-							return props.IsActive and not button.Id
-						end
+						return props.IsCurrentlyActive and not button.Id
 					end)()
 					props.IsActiveChanged(button, willShutdown)
 				end

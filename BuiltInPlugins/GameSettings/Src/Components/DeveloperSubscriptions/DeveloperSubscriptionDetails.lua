@@ -18,11 +18,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
 
-local TitledFrame = require(Plugin.Src.Components.TitledFrame)
-local RoundTextBox = require(Plugin.Src.Components.RoundTextBox)
 local RoundNumberBox = require(Plugin.Src.Components.RoundNumberBox)
 local GameIconWidget = require(Plugin.Src.Components.GameIcon.GameIconWidget)
-local RoundTextButton = require(Plugin.Src.Components.RoundTextButton)
 
 local showDialog = require(Plugin.Src.Consumers.showDialog)
 local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
@@ -36,7 +33,16 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 local getLocalizedContent = require(Plugin.Src.Consumers.getLocalizedContent)
 
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
+local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
+
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	Padding = UDim.new(0, Constants.ELEMENT_PADDING),

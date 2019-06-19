@@ -2,7 +2,6 @@ if not settings():GetFFlag("ToolViewSelector") then
 	return
 end
 local FFlagToolViewSelectorFixFocus = settings():GetFFlag("ToolViewSelectorFixFocus")
-local FFlagUseStudioLocaleId = settings():GetFFlag("UseStudioLocaleId")
 local FFlagToolViewSelectorLocalization = settings():GetFFlag("ToolViewSelectorLocalization")
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
@@ -81,7 +80,7 @@ local function init()
 	viewportCamera.FieldOfView = 70
 	viewport.CurrentCamera = viewportCamera
 	
-	if FFlagToolViewSelectorLocalization and FFlagUseStudioLocaleId then
+	if FFlagToolViewSelectorLocalization then
 		local localizationTable = script.Parent.ViewSelectorLocalizationTable
 		local translator = localizationTable:GetTranslator(StudioService.StudioLocaleId)
 		local fallbackTranslator = localizationTable:GetTranslator("en-us")

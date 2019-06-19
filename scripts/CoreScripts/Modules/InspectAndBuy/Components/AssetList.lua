@@ -106,8 +106,8 @@ function AssetList:resize()
 	if rbx then
 		local numCardsPerRow = viewMapping.MaxAssetCardsPerRow
 
-		local width = (rbx.AbsoluteSize.X - CARD_PADDING *
-			(numCardsPerRow - 1)) / numCardsPerRow
+		local width = math.floor((rbx.AbsoluteSize.X - CARD_PADDING *
+			(numCardsPerRow - 1)) / numCardsPerRow)
 		local assetCardSizeX = math.min(width, viewMapping.AssetCardMaxSizeX)
 		local assetCardSizeY = math.min(width / ASSET_CARD_RATIO, viewMapping.AssetCardMaxSizeY)
 

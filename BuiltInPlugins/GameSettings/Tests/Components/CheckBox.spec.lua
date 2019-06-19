@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -29,7 +31,7 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBox(true, false), container)
 		local frame = container.Frame
 
@@ -41,7 +43,7 @@ return function()
 	end)
 
 	it("should change color when highlighted", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBox(true, true), container)
 		local frame = container.Frame
 
@@ -56,7 +58,7 @@ return function()
 	end)
 
 	it("should gray out when disabled", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestCheckBox(false, true), container)
 		local frame = container.Frame
 

@@ -67,7 +67,7 @@ return function()
 		end)
 	end)
 
-	describe("GetAssets action", function()
+	describeSKIP("GetAssets action", function()
 		it("should append assets", function()
 			local state = Assets(nil, {})
 			expect(tableLength(state.idToAssetMap)).to.equal(0)

@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
@@ -43,7 +45,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestCurrentPage("")
 		local instance = Roact.mount(element, container)
@@ -58,7 +60,7 @@ return function()
 	end)
 
 	it("should display a page", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestCurrentPage("Avatar")
 		local instance = Roact.mount(element, container)

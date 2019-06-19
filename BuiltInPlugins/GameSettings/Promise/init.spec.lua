@@ -75,7 +75,7 @@ return function()
 			-- Loosely check for the pieces of the stack trace we expect
 			expect(promise._values[1]:find("init.spec")).to.be.ok()
 			expect(promise._values[1]:find("new")).to.be.ok()
-			expect(promise._values[1]:find("error")).to.be.ok()
+			expect(promise._values[1]:find("Stack Begin")).to.be.ok()
 		end)
 	end)
 

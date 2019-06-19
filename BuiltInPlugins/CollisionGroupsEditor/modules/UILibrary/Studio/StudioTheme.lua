@@ -22,11 +22,9 @@
 	return Theme
 ]]
 
-local CorePackages = game:GetService("CorePackages")
-local Signal = require(CorePackages.AppTempCommon.Common.Signal)
-
 local Library = script.Parent.Parent
 local join = require(Library.join)
+local Signal = require(Library.Utils.Signal)
 
 local StudioTheme = {}
 StudioTheme.__index = StudioTheme

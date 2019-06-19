@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -33,7 +35,7 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMenuEntry(false), container)
 		local menuEntry = container.Frame
 
@@ -44,7 +46,7 @@ return function()
 	end)
 
 	it("should show a ribbon when selected", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMenuEntry(false), container)
 		local menuEntry = container.Frame
 
@@ -60,7 +62,7 @@ return function()
 	end)
 
 	it("should show an error icon when appropriate", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMenuEntry(false, false), container)
 		local menuEntry = container.Frame
 
@@ -77,7 +79,7 @@ return function()
 	end)
 
 	it("should show a warning icon when appropriate", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestMenuEntry(false, false, false), container)
 		local menuEntry = container.Frame
 

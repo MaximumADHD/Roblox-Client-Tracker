@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
@@ -46,7 +48,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestOptions()
 		local instance = Roact.mount(element, container)
@@ -59,7 +61,7 @@ return function()
 	end)
 
 	it("should disable when no permissions", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestOptions()
 		local instance = Roact.mount(element, container)
@@ -81,7 +83,7 @@ return function()
 	end)
 
 	it("should enable with permissions", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestOptions(settingsOptionsTest)
 		local instance = Roact.mount(element, container)
@@ -103,7 +105,7 @@ return function()
 	end)
 
 	it("should highlight the correct buttons", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestOptions(settingsOptionsTest)
 		local instance = Roact.mount(element, container)

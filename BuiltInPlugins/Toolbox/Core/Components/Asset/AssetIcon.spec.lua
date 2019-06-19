@@ -11,8 +11,6 @@ return function()
 	local AssetIcon = require(Plugin.Core.Components.Asset.AssetIcon)
 	local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 
-	local Workspace = game:GetService("Workspace")
-
 	local assetId = 1234567890
 
 	it("should create and destroy without errors", function()
@@ -38,7 +36,7 @@ return function()
 			}),
 		})
 
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "AssetIcon")
 
 		local assetIcon = container.AssetIcon
@@ -75,7 +73,7 @@ return function()
 				}),
 			})
 
-			local container = workspace.ToolboxTestsTarget
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container, "AssetIcon")
 
 			local background = container.AssetIcon
@@ -96,7 +94,7 @@ return function()
 				}),
 			})
 
-			local container = Workspace.ToolboxTestsTarget
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container, "AssetIcon")
 
 			local assetIcon = container.AssetIcon

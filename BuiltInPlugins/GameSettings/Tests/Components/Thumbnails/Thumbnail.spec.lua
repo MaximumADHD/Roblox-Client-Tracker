@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -32,7 +34,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnail(), container)
 		local thumbnail = container.ImageButton
 
@@ -42,7 +44,7 @@ return function()
 	end)
 
 	it("should show when it is under review", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnail({
 			Review = true,
 		}), container)
@@ -55,7 +57,7 @@ return function()
 	end)
 
 	it("should show a placeholder when a video was passed", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnail({
 			VideoHash = "000000",
 		}), container)

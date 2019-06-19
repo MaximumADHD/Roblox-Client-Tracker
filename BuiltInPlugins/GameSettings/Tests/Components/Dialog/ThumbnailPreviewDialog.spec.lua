@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -48,7 +50,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailPreviewDialog(), container)
 		local dialog = container.Frame
 
@@ -65,7 +67,7 @@ return function()
 	end)
 
 	it("should change starting location based on StartIndex", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailPreviewDialog(), container)
 		expect(container.Frame.Preview.Image).to.equal("rbxassetid://607948062")
 		Roact.unmount(instance)
@@ -76,7 +78,7 @@ return function()
 	end)
 
 	it("should display a title and popup for videos", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailPreviewDialog("02"), container)
 
 		expect(container.Frame.Preview.TitleFrame.Visible).to.equal(true)

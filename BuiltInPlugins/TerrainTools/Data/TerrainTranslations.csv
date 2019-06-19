@@ -1,129 +1,130 @@
-Key,Source,en-us,zh-cn
-Studio.Common.Action.Apply,Apply,Apply,应用
-Studio.Common.Action.Back,Back,Back,返回
-Studio.Common.Action.Cancel,Cancel,Cancel,取消
-Studio.Common.Action.Clear,Clear,Clear,清除
-Studio.Common.Action.Close,Close,Close,关闭
-Studio.Common.Action.Copy,Copy,Copy,复制
-Studio.Common.Action.Create,Create,Create,创建
-Studio.Common.Action.Cut,Cut,Cut,剪切
-Studio.Common.Action.Delete,Delete,Delete,删除
-Studio.Common.Action.Edit,Edit,Edit,编辑
-Studio.Common.Action.Exit,Exit,Exit,退出
-Studio.Common.Action.File,File,File,文件
-Studio.Common.Action.Find,Find,Find,查找
-Studio.Common.Action.Help,Help,Help,帮助
-Studio.Common.Action.Home,Home,Home,首页
-Studio.Common.Action.Ignore,Ignore,Ignore,忽略
-Studio.Common.Action.Insert,Insert,Insert,插入
-Studio.Common.Action.New,New,New,新增
-Studio.Common.Action.Next,Next,Next,下一个
-Studio.Common.Action.No,No,No,否
-Studio.Common.Action.OK,OK,OK,确认
-Studio.Common.Action.Okay,Okay,Okay,好的
-Studio.Common.Action.Open,Open,Open,打开
-Studio.Common.Action.Paste,Paste,Paste,粘贴
-Studio.Common.Action.Pause,Pause,Pause,暂停
-Studio.Common.Action.Play,Play,Play,播放
-Studio.Common.Action.Previous,Previous,Previous,上一个
-Studio.Common.Action.Reload,Reload,Reload,重新加载
-Studio.Common.Action.Remove,Remove,Remove,删除
-Studio.Common.Action.Rename,Rename,Rename,重命名
-Studio.Common.Action.Replace,Replace,Replace,替换
-Studio.Common.Action.Resize,Resize,Resize,缩放
-Studio.Common.Action.Retry,Retry,Retry,重试
-Studio.Common.Action.Save,Save,Save,保存
-Studio.Common.Action.Select,Select,Select,选择
-Studio.Common.Action.Share,Share,Share,分享
-Studio.Common.Action.Stop,Stop,Stop,停止
-Studio.Common.Action.Yes,Yes,Yes,是
-Studio.Common.Action.Continue,Continue,Continue,继续
-Studio.Common.Action.Redo,Redo,Redo,恢复
-Studio.Common.Action.Undo,Undo,Undo,撤消
-Studio.Common.Action.Update,Update,Update,更新
-Studio.Common.Action.Reset,Reset,Reset,重置
-Studio.Common.Action.Fill,Fill,Fill,Studio.Common.Action.Goto
-Goto,Goto,Studio.Common.Action.Move,Move
-Move,Studio.Common.Action.Rotate,Rotate,Rotate
-Studio.TerrainEditor.Main.Title,Terrain Editor,Terrain Editor,地形编辑器
-Studio.TerrainEditor.Main.ToolbarButton,Editor,Editor,编辑器
-Studio.TerrainEditor.Main.Tooltip,"Add, remove, and modify terrain","Add, remove, and modify terrain",添加、删除和修改地形
-Studio.TerrainEditor.MainButtons.Generate,Generate,Generate,生成
-Studio.TerrainEditor.MainButtons.Add,Add,Add,添加
-Studio.TerrainEditor.MainButtons.Subtract,Subtract,Subtract,减去
-Studio.TerrainEditor.MainButtons.Paint,Paint,Paint,涂画
-Studio.TerrainEditor.MainButtons.Grow,Grow,Grow,增长
-Studio.TerrainEditor.MainButtons.Erode,Erode,Erode,侵蚀
-Studio.TerrainEditor.MainButtons.Smooth,Smooth,Smooth,抹平
-Studio.TerrainEditor.MainButtons.Regions,Regions,Regions,地区
-Studio.TerrainEditor.MainButtons.GenerateTooltip,Generate landscapes of terrain.,Generate landscapes of terrain.,生成地形地貌。
-Studio.TerrainEditor.MainButtons.AddTooltip,Click and hold to add terrain.,Click and hold to add terrain.,单击并按住添加地形。
-Studio.TerrainEditor.MainButtons.SubtractTooltip,Click and hold to remove terrain.,Click and hold to remove terrain.,单击并按住删除地形。
-Studio.TerrainEditor.MainButtons.PaintTooltip,Paint the material of the terrain.,Paint the material of the terrain.,涂画地形的材质。
-Studio.TerrainEditor.MainButtons.GrowTooltip,Click and hold to grow and expand terrain.,Click and hold to grow and expand terrain.,单击并按住增长和扩大地形。
-Studio.TerrainEditor.MainButtons.ErodeTooltip,Click and hold to erode and remove terrain.,Click and hold to erode and remove terrain.,单击并按住侵蚀和删除地形。
-Studio.TerrainEditor.MainButtons.SmoothTooltip,Brush to smooth out rough or jagged terrain.,Brush to smooth out rough or jagged terrain.,涂刷抹平粗糙或参差不齐的地形。
-Studio.TerrainEditor.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain.,Manipulate regions of smooth terrain.,操纵地势平坦的地区。
-Studio.TerrainEditor.Generate.BiomeMountains,Mountains,Mountains,山区
-Studio.TerrainEditor.Generate.BiomeCanyons,Canyons,Canyons,峡谷
-Studio.TerrainEditor.Generate.BiomeDunes,Dunes,Dunes,沙丘
-Studio.TerrainEditor.Generate.BiomeArctic,Arctic,Arctic,极地
-Studio.TerrainEditor.Generate.BiomeLavaflow,Lavaflow,Lavaflow,熔岩流
-Studio.TerrainEditor.Generate.BiomeHills,Hills,Hills,丘陵
-Studio.TerrainEditor.Generate.BiomePlains,Plains,Plains,平原
-Studio.TerrainEditor.Generate.BiomeMarsh,Marsh,Marsh,沼泽
-Studio.TerrainEditor.Generate.BiomeWater,Water,Water,水域
-Studio.TerrainEditor.Generate.BiomeSizeSmall,Small (50),Small (50),小（50）
-Studio.TerrainEditor.Generate.BiomeSizeMedium,Medium (100),Medium (100),中等（100）
-Studio.TerrainEditor.Generate.BiomeSizeLarge,Large (200),Large (200),大（200）
-Studio.TerrainEditor.Generate.BiomeSizeMassive,Massive (500),Massive (500),巨大（500）
-Studio.TerrainEditor.Generate.MapSizeSmall,Small (128),Small (128),小（128）
-Studio.TerrainEditor.Generate.MapSizeMedium,Medium (256),Medium (256),中等（256）
-Studio.TerrainEditor.Generate.MapSizeLarge,Large (512),Large (512),大（512）
-Studio.TerrainEditor.Generate.MapSizeMassive,Massive (1024),Massive (1024),巨大（1024）
-Studio.TerrainEditor.Generate.MapSettings,Map Settings,Map Settings,地图设置
-Studio.TerrainEditor.Generate.MapSize,Map Size,Map Size,地图尺寸
-Studio.TerrainEditor.Generate.Seed,Seed,Seed,种子
-Studio.TerrainEditor.Generate.Caves,Caves,Caves,洞穴
-Studio.TerrainEditor.Generate.BiomesSettings,Biomes Settings,Biomes Settings,生物群系设置
-Studio.TerrainEditor.Generate.BiomeSize,Biome Size,Biome Size,生物群系尺寸
-Studio.TerrainEditor.Generate.Biomes,Biomes,Biomes,生物群系
-Studio.TerrainEditor.Generate.ButtonGenerate,Generate,Generate,生成
-Studio.TerrainEditor.Generate.ButtonClear,Clear,Clear,清除
-Studio.TerrainEditor.Materials.Grass,Grass,Grass,草地
-Studio.TerrainEditor.Materials.Sand,Sand,Sand,沙
-Studio.TerrainEditor.Materials.Rock,Rock,Rock,岩石
-Studio.TerrainEditor.Materials.Water,Water,Water,水域
-Studio.TerrainEditor.Materials.Ground,Ground,Ground,土地
-Studio.TerrainEditor.Materials.Sandstone,Sandstone,Sandstone,砂岩
-Studio.TerrainEditor.Materials.Slate,Slate,Slate,石板
-Studio.TerrainEditor.Materials.Snow,Snow,Snow,雪
-Studio.TerrainEditor.Materials.Mud,Mud,Mud,泥
-Studio.TerrainEditor.Materials.Brick,Brick,Brick,砖块
-Studio.TerrainEditor.Materials.Concrete,Concrete,Concrete,水泥
-Studio.TerrainEditor.Materials.Glacier,Glacier,Glacier,冰川
-Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks,Wood Planks,木板
-Studio.TerrainEditor.Materials.CrackedLava,Cracked Lava,Cracked Lava,裂纹熔岩
-Studio.TerrainEditor.Materials.Basalt,Basalt,Basalt,玄武岩
-Studio.TerrainEditor.Materials.Ice,Ice,Ice,冰
-Studio.TerrainEditor.Materials.Salt,Salt,Salt,盐
-Studio.TerrainEditor.Materials.Cobblestone,Cobblestone,Cobblestone,鹅卵石
-Studio.TerrainEditor.Materials.Limestone,Limestone,Limestone,石灰石
-Studio.TerrainEditor.Materials.Asphalt,Asphalt,Asphalt,沥青
-Studio.TerrainEditor.Materials.LeafyGrass,Leafy Grass,Leafy Grass,绿叶草
-Studio.TerrainEditor.Materials.Pavement,Pavement,Pavement,路面
-Studio.TerrainEditor.Brush.BrushSettings,Brush Settings,Brush Settings,涂刷设置
-Studio.TerrainEditor.Brush.Size,Size,Size,尺寸
-Studio.TerrainEditor.Brush.Strength,Strength,Strength,强度
-Studio.TerrainEditor.Brush.MaterialSettings,Material Settings,Material Settings,材质设置
-Studio.TerrainEditor.Brush.Auto,Auto,Auto,自动
-Studio.TerrainEditor.Brush.Advanced,Advanced,Advanced,高级
-Studio.TerrainEditor.Brush.PlaneLock,Plane Lock,Plane Lock,平面锁定
-Studio.TerrainEditor.Brush.SnapToGrid,Snap to Grid,Snap to Grid,捕捉到栅格
-Studio.TerrainEditor.Brush.IgnoreWater,Ignore Water,Ignore Water,忽略水域
-Studio.TerrainEditor.Brush.Material,Material,Material,材质
-Studio.TerrainEditor.Brush.Shape,Shape,Shape,形状
-Studio.TerrainEditor.Regions.EditTools,Edit Tools,Edit Tools,编辑工具
-Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty,Merge Empty,合并空白
-Studio.TerrainEditor.Regions.Tools,Tools,Tools,工具
-Studio.TerrainEditor.Regions.FillSelection,Fill Selection,Fill Selection,填充选中内容
+Key,Source,Context,en-us,zh-cn
+Studio.Common.Action.Apply,Apply, ,Apply,应用
+Studio.Common.Action.Back,Back, ,Back,返回
+Studio.Common.Action.Cancel,Cancel, ,Cancel,取消
+Studio.Common.Action.Clear,Clear, ,Clear,清除
+Studio.Common.Action.Close,Close, ,Close,关闭
+Studio.Common.Action.Copy,Copy, ,Copy,复制
+Studio.Common.Action.Create,Create, ,Create,创建
+Studio.Common.Action.Cut,Cut, ,Cut,剪切
+Studio.Common.Action.Delete,Delete, ,Delete,删除
+Studio.Common.Action.Edit,Edit, ,Edit,编辑
+Studio.Common.Action.Exit,Exit, ,Exit,退出
+Studio.Common.Action.File,File, ,File,文件
+Studio.Common.Action.Find,Find, ,Find,查找
+Studio.Common.Action.Help,Help, ,Help,帮助
+Studio.Common.Action.Home,Home, ,Home,首页
+Studio.Common.Action.Ignore,Ignore, ,Ignore,忽略
+Studio.Common.Action.Insert,Insert, ,Insert,插入
+Studio.Common.Action.New,New, ,New,新增
+Studio.Common.Action.Next,Next, ,Next,下一个
+Studio.Common.Action.No,No, ,No,否
+Studio.Common.Action.OK,OK, ,OK,确认
+Studio.Common.Action.Okay,Okay, ,Okay,好的
+Studio.Common.Action.Open,Open, ,Open,打开
+Studio.Common.Action.Paste,Paste, ,Paste,粘贴
+Studio.Common.Action.Pause,Pause, ,Pause,暂停
+Studio.Common.Action.Play,Play, ,Play,播放
+Studio.Common.Action.Previous,Previous, ,Previous,上一个
+Studio.Common.Action.Reload,Reload, ,Reload,重新加载
+Studio.Common.Action.Remove,Remove, ,Remove,删除
+Studio.Common.Action.Rename,Rename, ,Rename,重命名
+Studio.Common.Action.Replace,Replace, ,Replace,替换
+Studio.Common.Action.Resize,Resize, ,Resize,缩放
+Studio.Common.Action.Retry,Retry, ,Retry,重试
+Studio.Common.Action.Save,Save, ,Save,保存
+Studio.Common.Action.Select,Select, ,Select,选择
+Studio.Common.Action.Share,Share, ,Share,分享
+Studio.Common.Action.Stop,Stop, ,Stop,停止
+Studio.Common.Action.Yes,Yes, ,Yes,是
+Studio.Common.Action.Continue,Continue, ,Continue,继续
+Studio.Common.Action.Redo,Redo, ,Redo,恢复
+Studio.Common.Action.Undo,Undo, ,Undo,撤消
+Studio.Common.Action.Update,Update, ,Update,更新
+Studio.Common.Action.Reset,Reset, ,Reset,重置
+Studio.Common.Action.Fill,Fill, ,Fill, 
+Studio.Common.Action.Goto,Goto, ,Goto, 
+Studio.Common.Action.Move,Move, ,Move, 
+Studio.Common.Action.Rotate,Rotate, ,Rotate, 
+Studio.TerrainEditor.Main.Title,Terrain Editor, ,Terrain Editor,地形编辑器
+Studio.TerrainEditor.Main.ToolbarButton,Editor, ,Editor,编辑器
+Studio.TerrainEditor.Main.Tooltip,"Add, remove, and modify terrain", ,"Add, remove, and modify terrain",添加、删除和修改地形
+Studio.TerrainEditor.MainButtons.Generate,Generate, ,Generate,生成
+Studio.TerrainEditor.MainButtons.Add,Add, ,Add,添加
+Studio.TerrainEditor.MainButtons.Subtract,Subtract, ,Subtract,减去
+Studio.TerrainEditor.MainButtons.Paint,Paint, ,Paint,涂画
+Studio.TerrainEditor.MainButtons.Grow,Grow, ,Grow,增长
+Studio.TerrainEditor.MainButtons.Erode,Erode, ,Erode,侵蚀
+Studio.TerrainEditor.MainButtons.Smooth,Smooth, ,Smooth,抹平
+Studio.TerrainEditor.MainButtons.Regions,Regions, ,Regions,地区
+Studio.TerrainEditor.MainButtons.GenerateTooltip,Generate landscapes of terrain., ,Generate landscapes of terrain.,生成地形地貌。
+Studio.TerrainEditor.MainButtons.AddTooltip,Click and hold to add terrain., ,Click and hold to add terrain.,单击并按住添加地形。
+Studio.TerrainEditor.MainButtons.SubtractTooltip,Click and hold to remove terrain., ,Click and hold to remove terrain.,单击并按住删除地形。
+Studio.TerrainEditor.MainButtons.PaintTooltip,Paint the material of the terrain., ,Paint the material of the terrain.,涂画地形的材质。
+Studio.TerrainEditor.MainButtons.GrowTooltip,Click and hold to grow and expand terrain., ,Click and hold to grow and expand terrain.,单击并按住增长和扩大地形。
+Studio.TerrainEditor.MainButtons.ErodeTooltip,Click and hold to erode and remove terrain., ,Click and hold to erode and remove terrain.,单击并按住侵蚀和删除地形。
+Studio.TerrainEditor.MainButtons.SmoothTooltip,Brush to smooth out rough or jagged terrain., ,Brush to smooth out rough or jagged terrain.,涂刷抹平粗糙或参差不齐的地形。
+Studio.TerrainEditor.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain., ,Manipulate regions of smooth terrain.,操纵地势平坦的地区。
+Studio.TerrainEditor.Generate.BiomeMountains,Mountains, ,Mountains,山区
+Studio.TerrainEditor.Generate.BiomeCanyons,Canyons, ,Canyons,峡谷
+Studio.TerrainEditor.Generate.BiomeDunes,Dunes, ,Dunes,沙丘
+Studio.TerrainEditor.Generate.BiomeArctic,Arctic, ,Arctic,极地
+Studio.TerrainEditor.Generate.BiomeLavaflow,Lavaflow, ,Lavaflow,熔岩流
+Studio.TerrainEditor.Generate.BiomeHills,Hills, ,Hills,丘陵
+Studio.TerrainEditor.Generate.BiomePlains,Plains, ,Plains,平原
+Studio.TerrainEditor.Generate.BiomeMarsh,Marsh, ,Marsh,沼泽
+Studio.TerrainEditor.Generate.BiomeWater,Water, ,Water,水域
+Studio.TerrainEditor.Generate.BiomeSizeSmall,Small (50), ,Small (50),小（50）
+Studio.TerrainEditor.Generate.BiomeSizeMedium,Medium (100), ,Medium (100),中等（100）
+Studio.TerrainEditor.Generate.BiomeSizeLarge,Large (200), ,Large (200),大（200）
+Studio.TerrainEditor.Generate.BiomeSizeMassive,Massive (500), ,Massive (500),巨大（500）
+Studio.TerrainEditor.Generate.MapSizeSmall,Small (128), ,Small (128),小（128）
+Studio.TerrainEditor.Generate.MapSizeMedium,Medium (256), ,Medium (256),中等（256）
+Studio.TerrainEditor.Generate.MapSizeLarge,Large (512), ,Large (512),大（512）
+Studio.TerrainEditor.Generate.MapSizeMassive,Massive (1024), ,Massive (1024),巨大（1024）
+Studio.TerrainEditor.Generate.MapSettings,Map Settings, ,Map Settings,地图设置
+Studio.TerrainEditor.Generate.MapSize,Map Size, ,Map Size,地图尺寸
+Studio.TerrainEditor.Generate.Seed,Seed, ,Seed,种子
+Studio.TerrainEditor.Generate.Caves,Caves, ,Caves,洞穴
+Studio.TerrainEditor.Generate.BiomesSettings,Biomes Settings, ,Biomes Settings,生物群系设置
+Studio.TerrainEditor.Generate.BiomeSize,Biome Size, ,Biome Size,生物群系尺寸
+Studio.TerrainEditor.Generate.Biomes,Biomes, ,Biomes,生物群系
+Studio.TerrainEditor.Generate.ButtonGenerate,Generate, ,Generate,生成
+Studio.TerrainEditor.Generate.ButtonClear,Clear, ,Clear,清除
+Studio.TerrainEditor.Materials.Grass,Grass, ,Grass,草地
+Studio.TerrainEditor.Materials.Sand,Sand, ,Sand,沙
+Studio.TerrainEditor.Materials.Rock,Rock, ,Rock,岩石
+Studio.TerrainEditor.Materials.Water,Water, ,Water,水域
+Studio.TerrainEditor.Materials.Ground,Ground, ,Ground,土地
+Studio.TerrainEditor.Materials.Sandstone,Sandstone, ,Sandstone,砂岩
+Studio.TerrainEditor.Materials.Slate,Slate, ,Slate,石板
+Studio.TerrainEditor.Materials.Snow,Snow, ,Snow,雪
+Studio.TerrainEditor.Materials.Mud,Mud, ,Mud,泥
+Studio.TerrainEditor.Materials.Brick,Brick, ,Brick,砖块
+Studio.TerrainEditor.Materials.Concrete,Concrete, ,Concrete,水泥
+Studio.TerrainEditor.Materials.Glacier,Glacier, ,Glacier,冰川
+Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks, ,Wood Planks,木板
+Studio.TerrainEditor.Materials.CrackedLava,Cracked Lava, ,Cracked Lava,裂纹熔岩
+Studio.TerrainEditor.Materials.Basalt,Basalt, ,Basalt,玄武岩
+Studio.TerrainEditor.Materials.Ice,Ice, ,Ice,冰
+Studio.TerrainEditor.Materials.Salt,Salt, ,Salt,盐
+Studio.TerrainEditor.Materials.Cobblestone,Cobblestone, ,Cobblestone,鹅卵石
+Studio.TerrainEditor.Materials.Limestone,Limestone, ,Limestone,石灰石
+Studio.TerrainEditor.Materials.Asphalt,Asphalt, ,Asphalt,沥青
+Studio.TerrainEditor.Materials.LeafyGrass,Leafy Grass, ,Leafy Grass,绿叶草
+Studio.TerrainEditor.Materials.Pavement,Pavement, ,Pavement,路面
+Studio.TerrainEditor.Brush.BrushSettings,Brush Settings, ,Brush Settings,涂刷设置
+Studio.TerrainEditor.Brush.Size,Size, ,Size,尺寸
+Studio.TerrainEditor.Brush.Strength,Strength, ,Strength,强度
+Studio.TerrainEditor.Brush.MaterialSettings,Material Settings, ,Material Settings,材质设置
+Studio.TerrainEditor.Brush.Auto,Auto, ,Auto,自动
+Studio.TerrainEditor.Brush.Advanced,Advanced, ,Advanced,高级
+Studio.TerrainEditor.Brush.PlaneLock,Plane Lock, ,Plane Lock,平面锁定
+Studio.TerrainEditor.Brush.SnapToGrid,Snap to Grid, ,Snap to Grid,捕捉到栅格
+Studio.TerrainEditor.Brush.IgnoreWater,Ignore Water, ,Ignore Water,忽略水域
+Studio.TerrainEditor.Brush.Material,Material, ,Material,材质
+Studio.TerrainEditor.Brush.Shape,Shape, ,Shape,形状
+Studio.TerrainEditor.Regions.EditTools,Edit Tools, ,Edit Tools,编辑工具
+Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty, ,Merge Empty,合并空白
+Studio.TerrainEditor.Regions.Tools,Tools, ,Tools,工具
+Studio.TerrainEditor.Regions.FillSelection,Fill Selection, ,Fill Selection,填充选中内容

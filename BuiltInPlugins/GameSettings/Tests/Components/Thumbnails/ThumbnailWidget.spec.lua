@@ -33,7 +33,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailWidget(), container)
 		local widget = container.Frame
 
@@ -55,7 +55,7 @@ return function()
 
 	describe("Thumbnails", function()
 		it("should not display when the widget is disabled", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestThumbnailWidget({
 				Enabled = false,
 			}), container)
@@ -69,7 +69,7 @@ return function()
 
 	describe("Count", function()
 		it("should display a current count of thumbnails", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestThumbnailWidget({
 				Enabled = true,
 				Thumbnails = {
@@ -87,7 +87,7 @@ return function()
 		end)
 
 		it("should display a special message when no thumbnails", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestThumbnailWidget({
 				Enabled = true,
 			}), container)
@@ -101,7 +101,7 @@ return function()
 		end)
 
 		it("should not display when the widget is disabled", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local instance = Roact.mount(createTestThumbnailWidget({
 				Enabled = false,
 			}), container)

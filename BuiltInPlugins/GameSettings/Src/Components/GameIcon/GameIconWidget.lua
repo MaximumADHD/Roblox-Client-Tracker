@@ -11,14 +11,10 @@
 		bool TutorialEnabled = Whether or not we show the tutorial for icons
 ]]
 
-local FFlagGameSettingsUseUILibrary = settings():GetFFlag("GameSettingsUseUILibrary")
-
 local GuiService = game:GetService("GuiService")
 
 local NOTES_POSITION = UDim2.new(0, 180, 0, 0)
 local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
-
-local TUTORIAL_URL = "https://developer.roblox.com/articles/Game-Icons-Tips"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -27,13 +23,16 @@ local withLocalization = require(Plugin.Src.Consumers.withLocalization)
 local getMouse = require(Plugin.Src.Consumers.getMouse)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local TitledFrame 
-if FFlagGameSettingsUseUILibrary then
-	TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local Http = require(Plugin.Src.Networking.Http)
+local TUTORIAL_URL = Http.BuildRobloxUrl("developer", "articles/Game-Icons-Tips")
+
+local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
+local BulletPoint 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	BulletPoint = require(Plugin.UILibrary.Components.BulletPoint)
 else
-	TitledFrame = require(Plugin.Src.Components.TitledFrame)
+	BulletPoint = require(Plugin.Src.Components.BulletPoint)
 end
-local BulletPoint = require(Plugin.Src.Components.BulletPoint)
 local GameIcon = require(Plugin.Src.Components.GameIcon.GameIcon)
 local NewGameIcon = require(Plugin.Src.Components.GameIcon.NewGameIcon)
 

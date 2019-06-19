@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 
@@ -28,7 +30,7 @@ return function()
 	end)
 
 	it("should render correctly", function ()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDropdown(true, {}, true), container)
 		local background = container.ImageButton
 
@@ -46,7 +48,7 @@ return function()
 	end)
 
 	it("should not be interactable when disabled", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local element = createTestDropdown(false, {}, true)
 		local instance = Roact.mount(element, container)
 
@@ -59,7 +61,7 @@ return function()
 
 	describe("Entries", function()
 		it("should show only when the dropdown is open", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local element = createTestDropdown(true, {}, false)
 			local instance = Roact.mount(element, container)
 
@@ -71,7 +73,7 @@ return function()
 		end)
 
 		it("should scale to the number of entries", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 			local element = createTestDropdown(true, {
 				{Id = "One"},
 				{Id = "Two"},

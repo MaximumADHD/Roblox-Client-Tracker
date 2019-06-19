@@ -8,8 +8,6 @@ return function()
 
 	local Asset = require(Plugin.Core.Components.Asset.Asset)
 
-	local Workspace = game:GetService("Workspace")
-
 	local asset = {
 		Asset = {
 			Id = 12345,
@@ -45,7 +43,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = createTestAsset(container, "Asset")
 		local asset = container.Asset
 

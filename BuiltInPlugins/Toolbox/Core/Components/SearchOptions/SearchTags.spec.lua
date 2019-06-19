@@ -7,7 +7,6 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 	local SearchTags = require(Plugin.Core.Components.SearchOptions.SearchTags)
-	local Workspace = game:GetService("Workspace")
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
@@ -26,7 +25,7 @@ return function()
 				searchTerm = "Term",
 			}),
 		})
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container, "SearchTags")
 
 		local searchTags = container.SearchTags

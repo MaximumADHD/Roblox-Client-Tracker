@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
@@ -80,7 +82,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 
 		local element = createTestFooter()
 		local instance = Roact.mount(element, container)
@@ -94,7 +96,7 @@ return function()
 
 	describe("Save Button", function()
 		it("should enable when there are changes", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestFooter(settingsFooterTest)
 			local instance = Roact.mount(element, container)
@@ -106,7 +108,7 @@ return function()
 		end)
 
 		it("should disable when there are no changes", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestFooter()
 			local instance = Roact.mount(element, container)
@@ -118,7 +120,7 @@ return function()
 		end)
 
 		it("should disable when the app is working", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestFooter(settingsFooterTest, CurrentStatus.Working)
 			local instance = Roact.mount(element, container)
@@ -130,7 +132,7 @@ return function()
 		end)
 
 		it("should disable when there is an error", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestFooter(settingsFooterErrorTest)
 			local instance = Roact.mount(element, container)
@@ -144,7 +146,7 @@ return function()
 
 	describe("Cancel Button", function()
 		it("should enable when the app is open", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestFooter(settingsFooterTest)
 			local instance = Roact.mount(element, container)
@@ -156,7 +158,7 @@ return function()
 		end)
 
 		it("should disable when the app is working", function()
-			local container = workspace
+			local container = Instance.new("Folder")
 
 			local element = createTestFooter(settingsFooterTest, CurrentStatus.Working)
 			local instance = Roact.mount(element, container)

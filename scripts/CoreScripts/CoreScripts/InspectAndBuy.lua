@@ -11,12 +11,21 @@ local InspectAndBuyInstanceHandle = nil
 
 local INSPECT_MENU_KEY = "InspectMenu"
 
+local FFlagFixInspectAndBuyMountError = settings():GetFFlag("FixInspectAndBuyMountError")
+
 local function mount(humanoidDescription, playerName, userId)
 	if InspectAndBuyInstanceHandle then
 		Roact.unmount(InspectAndBuyInstanceHandle)
+		if FFlagFixInspectAndBuyMountError then
+			InspectAndBuyInstanceHandle = nil
+		end
 	end
 
 	local localPlayerModel = Players:CreateHumanoidModelFromUserId(Players.LocalPlayer.UserId)
+	if FFlagFixInspectAndBuyMountError and InspectAndBuyInstanceHandle then
+		Roact.unmount(InspectAndBuyInstanceHandle)
+		InspectAndBuyInstanceHandle = nil
+	end
 
 	local inspectAndBuy = Roact.createElement(InspectAndBuy, {
 		humanoidDescription = humanoidDescription,

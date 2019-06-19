@@ -3,7 +3,6 @@ if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return ni
 local PageName = "Access Permissions"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
-local FFlagGameSettingsDispatchShutdownWarning = settings():getFFlag("GameSettingsDispatchShutdownWarning")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -31,17 +30,16 @@ local function loadValuesToProps(getValue, state)
 		Permissions = getValue("permissions"),
 		GroupMetadata = getValue("groupMetadata"),
 		OwnerThumbnail = getValue("ownerThumbnail"),
-		OwnerName = getValue("ownerName"),
+		OwnerName = getValue("creatorName"),
+		OwnerId = getValue("creatorId"),
+		OwnerType = getValue("creatorType"),
 		Thumbnails = state.Thumbnails,
 		SearchData = state.CollaboratorSearch,
 		
 		StudioUserId = getValue("studioUserId"),
 		GroupOwnerUserId = getValue("groupOwnerUserId"),
+		IsCurrentlyActive = state.Settings.Current.isActive,
 	}
-
-	if FFlagGameSettingsDispatchShutdownWarning then
-		loadedProps.IsCurrentlyActive = state.Settings.Current.isActive
-	end
 
 	return loadedProps
 end
@@ -112,11 +110,7 @@ local function displayContents(page, localized)
 				else
 					props.IsFriendsOnlyChanged(false)
 					local willShutdown = (function()
-						if FFlagGameSettingsDispatchShutdownWarning then
-							return props.IsCurrentlyActive and not button.Id
-						else
-							return props.IsActive and not button.Id
-						end
+						return props.IsCurrentlyActive and not button.Id
 					end)()
 					props.IsActiveChanged(button, willShutdown)
 				end
@@ -133,7 +127,8 @@ local function displayContents(page, localized)
 			
 			Enabled = props.IsActive ~= nil,
 			OwnerName = props.OwnerName,
-			OwnerThumbnail = props.OwnerThumbnail,
+			OwnerId = props.OwnerId,
+			OwnerType = props.OwnerType,
 			
 			StudioUserId = props.StudioUserId,
 			GroupOwnerUserId = props.GroupOwnerUserId,
@@ -168,6 +163,8 @@ local function displayContents(page, localized)
 
 			StudioUserId = props.StudioUserId,
 			GroupOwnerUserId = props.GroupOwnerUserId,
+			OwnerId = props.OwnerId,
+			OwnerType = props.OwnerType,
 
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,

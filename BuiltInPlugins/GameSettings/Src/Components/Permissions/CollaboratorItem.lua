@@ -85,7 +85,7 @@ local function CollaboratorIcon(props)
 		
 		Image = props.CollaboratorIcon,
 		UseMask = props.UseMask,
-		ImageTransparency = props.Enabled and 0 or 0.4,
+		ImageTransparency = 0,
 		
 		BackgroundTransparency = 1,
 	})

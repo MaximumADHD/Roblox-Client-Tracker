@@ -54,7 +54,8 @@
                     },
                     "Tags": [
                         "ReadOnly",
-                        "NotReplicated"
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ValueType": {
                         "Category": "Primitive",
@@ -47573,6 +47574,24 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SerializeInstances",
+                    "Parameters": [
+                        {
+                            "Name": "instances",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     },
                     "Security": "RobloxScriptSecurity"
                 },

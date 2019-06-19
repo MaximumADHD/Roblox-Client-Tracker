@@ -1,9 +1,7 @@
 --[[
 	An implementation of Promises similar to Promise/A+.
 ]]
-local TU = require(script.Parent.TableUtilities)
-
-local PROMISE_DEBUG = true
+local PROMISE_DEBUG = false
 
 -- If promise debugging is on, use a version of pcall that warns on failure.
 -- This is useful for finding errors that happen within Promise itself.
@@ -282,10 +280,12 @@ function Promise:_resolve(...)
 	if Promise.is((...)) then
 		-- Without this warning, arguments sometimes mysteriously disappear
 		if select("#", ...) > 1 then
-			local message = ("When returning a Promise from andThen, extra arguments are discarded! See:\n\n%s"):format(
-				self._source
-			)
-			warn(message)
+			if PROMISE_DEBUG then
+				local message = ("When returning a Promise from andThen, extra arguments are discarded! See:\n\n%s"):format(
+					self._source
+				)
+				warn(message)
+			end
 		end
 
 		(...):andThen(function(...)

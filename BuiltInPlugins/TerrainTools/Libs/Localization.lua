@@ -7,23 +7,13 @@ local gLocalizationTable
 local gTranslator
 local gFallbackTranslator
 
-local FFlagUseStudioLocaleId = settings():GetFFlag("UseStudioLocaleId")
-
-module.SetLocalizationTable = function(table) 
+module.SetLocalizationTable = function(table)
 	gLocalizationTable = table
 
 	local localeId
-	if (FFlagUseStudioLocaleId) then
-		local instance = game:GetService("StudioService");
-		localeId = instance.StudioLocaleId;
-	else
-		localeId = settings():GetFVariable("StudioForceLocale")
-		if (#localeId == 0) then
-			local instance = game:GetService("LocalizationService");
-			localeId = instance.SystemLocaleId;
-		end
-	end
-
+    local instance = game:GetService("StudioService");
+    localeId = instance.StudioLocaleId;
+	
 	gTranslator = gLocalizationTable:GetTranslator(localeId)
 	if (localeId ~= "en-us") then 
 		gFallbackTranslator = gLocalizationTable:GetTranslator("en-us")

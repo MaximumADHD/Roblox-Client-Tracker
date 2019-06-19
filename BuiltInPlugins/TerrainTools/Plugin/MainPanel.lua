@@ -204,9 +204,9 @@ function makeMainPanel()
 	mainSpaceScrollingFrame.BorderSizePixel = 0
 	mainSpaceScrollingFrame.BackgroundTransparency = 1
 	mainSpaceScrollingFrame.ZIndex = 2
-	mainSpaceScrollingFrame.TopImage = "http://www.roblox.com/asset/?id=1533255544"
-	mainSpaceScrollingFrame.MidImage = "http://www.roblox.com/asset/?id=1535685612"
-	mainSpaceScrollingFrame.BottomImage = "http://www.roblox.com/asset/?id=1533256504"
+	mainSpaceScrollingFrame.TopImage = "rbxassetid://1533255544"
+	mainSpaceScrollingFrame.MidImage = "rbxassetid://1535685612"
+	mainSpaceScrollingFrame.BottomImage = "rbxassetid://1533256504"
 
 	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.Parent = mainSpaceScrollingFrame

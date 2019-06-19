@@ -34,7 +34,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailSet(), container)
 		local thumbnailSet = container.Frame
 
@@ -44,7 +44,7 @@ return function()
 	end)
 
 	it("should create given Thumbnails by Id", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailSet(true, {
 			First = {id = "First"},
 			Second = {id = "Second"},
@@ -58,7 +58,7 @@ return function()
 	end)
 
 	it("should create a NewThumbnail at the end of the set", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailSet(true), container)
 		local thumbnailSet = container.Frame
 
@@ -68,7 +68,7 @@ return function()
 	end)
 
 	it("should render no thumbnails when disabled", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailSet(false, {
 			First = {id = "First"},
 			Second = {id = "Second"},

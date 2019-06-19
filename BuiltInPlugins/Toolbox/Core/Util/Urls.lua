@@ -21,7 +21,7 @@ local ASSET_THUMBNAIL = Url.GAME_ASSET_URL .. "asset-thumbnail/image?"
 local USER_SEARCH = Url.BASE_URL .. "search/users/results?"
 local USER_THUMBNAIL = Url.BASE_URL .. "headshot-thumbnail/image?"
 
-local CATALOG_V1_BASE = "https://catalog.roblox.com/v1%s"
+local CATALOG_V1_BASE = Url.CATALOG_URL .. "v1%s"
 local FAVORITE_COUNT_BASE = "/favorites/assets/%d/count"
 local GET_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
 local POST_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"

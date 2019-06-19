@@ -17,7 +17,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailHoverBar(), container)
 		local bar = container.Frame
 
@@ -29,7 +29,7 @@ return function()
 	end)
 
 	it("should be visible only when Enabled", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestThumbnailHoverBar(true), container)
 		local bar = container.Frame
 

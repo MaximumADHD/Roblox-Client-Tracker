@@ -13,8 +13,6 @@ return function()
 
 	local Toolbox = require(Plugin.Core.Components.Toolbox)
 
-	local Workspace = game:GetService("Workspace")
-
 	local function createTestToolbox(container, name)
 		local element = Roact.createElement(MockWrapper, {}, {
 			Toolbox = Roact.createElement(Toolbox, {
@@ -34,7 +32,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = Workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = createTestToolbox(container, "ToolboxComponent")
 		local toolbox = container.ToolboxComponent
 

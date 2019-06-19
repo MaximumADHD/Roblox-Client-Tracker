@@ -86,7 +86,7 @@ return function()
 			}
 		}
 
-		local container = workspace.ToolboxTestsTarget
+		local container = Instance.new("Folder")
 		local instance = createTestAssetGridContainer("AssetGridContainer", container, idToAssetMap)
 
 		local assetGridContainer = container.AssetGridContainer

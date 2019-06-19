@@ -24,7 +24,7 @@ return function()
 	end)
 
 	it("should add a Layout to its children", function()
-		local container = game.Workspace
+		local container = Instance.new("Folder")
 
 		local fitToContent = createFitToContent("Frame", "UIListLayout", {})
 		local component = Roact.createElement(fitToContent, {}, {

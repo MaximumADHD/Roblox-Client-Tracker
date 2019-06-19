@@ -143,11 +143,11 @@ function Deserialize._deserializeAll(webPermissions)
 	return permissions, groupMetadata
 end
 
-function Deserialize._addOwnerIfMissing(webPermissions, ownerName)
-	local idKey = game.CreatorType == Enum.CreatorType.User and webKeys.UserId or webKeys.GroupId
+function Deserialize._addOwnerIfMissing(webPermissions, ownerName, ownerId, ownerType)
+	local idKey = ownerType == Enum.CreatorType.User and webKeys.UserId or webKeys.GroupId
 	local hasOwner = false
 	for _,webPermission in pairs(webPermissions) do
-		if webPermission[idKey] == game.CreatorId then
+		if webPermission[idKey] == ownerId then
 			hasOwner = true
 			break
 		end
@@ -157,9 +157,9 @@ function Deserialize._addOwnerIfMissing(webPermissions, ownerName)
 		return Promise.new(function(resolve) resolve() end)
 	end
 
-	if game.CreatorType == Enum.CreatorType.User then
+	if ownerType == Enum.CreatorType.User then
 		table.insert(webPermissions, {
-			[webKeys.UserId] = game.CreatorId,
+			[webKeys.UserId] = ownerId,
 			[webKeys.UserName] = ownerName,
 			[webKeys.Action] = nil,
 		})
@@ -168,14 +168,14 @@ function Deserialize._addOwnerIfMissing(webPermissions, ownerName)
 	end
 	
 	table.insert(webPermissions, {
-		[webKeys.GroupId] = game.CreatorId,
+		[webKeys.GroupId] = ownerId,
 		[webKeys.GroupName] = ownerName,
 		[webKeys.Action] = nil,
 	})
-	return GroupRoles.Get(game.CreatorId):andThen(function(groupRoles)
+	return GroupRoles.Get(ownerId):andThen(function(groupRoles)
 		for _,roleMetadata in pairs(groupRoles) do
 			table.insert(webPermissions, Cryo.Dictionary.join(roleMetadata, {
-				[webKeys.GroupId] = game.CreatorId,
+				[webKeys.GroupId] = ownerId,
 				[webKeys.GroupName] = ownerName,
 				[webKeys.Action] = nil,
 			}))
@@ -183,9 +183,9 @@ function Deserialize._addOwnerIfMissing(webPermissions, ownerName)
 	end)
 end
 
-function Deserialize.DeserializePermissions(webPermissions, ownerName)
+function Deserialize.DeserializePermissions(webPermissions, ownerName, ownerId, ownerType)
 	Deserialize._DEPRECATEDFixEndpointKeyTypes(webPermissions)
-	return Deserialize._addOwnerIfMissing(webPermissions, ownerName):andThen(function()
+	return Deserialize._addOwnerIfMissing(webPermissions, ownerName, ownerId, ownerType):andThen(function()
 		local permissions, groupMetadata = Deserialize._deserializeAll(webPermissions)
 		return permissions, groupMetadata
 	end)

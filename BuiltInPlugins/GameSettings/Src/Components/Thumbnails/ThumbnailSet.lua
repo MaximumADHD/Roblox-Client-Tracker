@@ -27,7 +27,12 @@ local Thumbnail = require(Plugin.Src.Components.Thumbnails.Thumbnail)
 local DragDestination = require(Plugin.Src.Components.Thumbnails.DragDestination)
 local NewThumbnail = require(Plugin.Src.Components.Thumbnails.NewThumbnail)
 
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 
 local ThumbnailSet = Roact.PureComponent:extend("ThumbnailSet")
 

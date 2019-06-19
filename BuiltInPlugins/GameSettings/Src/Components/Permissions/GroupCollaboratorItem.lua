@@ -28,8 +28,14 @@ local Spritesheet = require(Plugin.UILibrary.Utils.Spritesheet)
 
 local getThumbnailLoader = require(Plugin.Src.Consumers.getThumbnailLoader)
 local CollaboratorItem = require(Plugin.Src.Components.Permissions.CollaboratorItem)
-local createFitToContent = require(Plugin.Src.Components.createFitToContent)
 local Separator = require(Plugin.Src.Components.Separator)
+
+local createFitToContent 
+if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
+	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
+else
+	createFitToContent = require(Plugin.Src.Components.createFitToContent)
+end
 
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	SortOrder = Enum.SortOrder.LayoutOrder,
@@ -119,11 +125,10 @@ function GroupCollaboratorItem:render()
 				
 			for _,permission in pairs(props.Permissions[PermissionsConstants.RoleSubjectKey]) do
 				if permission[PermissionsConstants.GroupIdKey] == props.GroupId then
-					local isOwner = game.CreatorType == Enum.CreatorType.Group and props.GroupId == game.CreatorId
 					table.insert(rolesets, {
 						Name=permission[PermissionsConstants.SubjectNameKey],
 						Id=permission[PermissionsConstants.SubjectIdKey],
-						LockedTo=(isOwner and permission[PermissionsConstants.SubjectRankKey]==255) and localized.AccessPermissions.ActionDropdown.OwnerLabel or nil,
+						LockedTo=(props.IsOwner and permission[PermissionsConstants.SubjectRankKey]==255) and localized.AccessPermissions.ActionDropdown.OwnerLabel or nil,
 						Rank=permission[PermissionsConstants.SubjectRankKey]
 					})
 				end

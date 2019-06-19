@@ -184,6 +184,12 @@ return function(style, overrides)
 		textColor = style.textColor,
 	}
 
+	local bulletPoint = {
+		font = style.font,
+
+		text = style.textColor,
+	}
+
 	local button = {
 		Default = {
 			font = style.font,
@@ -243,5 +249,6 @@ return function(style, overrides)
 		button = button,
 		scrubber = scrubber,
 		loadingIndicator = loadingIndicator,
+		bulletPoint = bulletPoint,
 	}, overrides)
 end

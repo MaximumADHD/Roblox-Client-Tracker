@@ -1,4 +1,6 @@
 return function()
+	SKIP()
+	
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Roact)
 	local Constants = require(Plugin.Src.Util.Constants)
@@ -25,7 +27,7 @@ return function()
 	end)
 
 	it("should render correctly", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDragGhostThumbnail(), container)
 		local background = container.Frame
 
@@ -35,7 +37,7 @@ return function()
 	end)
 
 	it("should show a ghost thumbnail only when enabled", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDragGhostThumbnail({
 			Enabled = true,
 		}), container)
@@ -54,7 +56,7 @@ return function()
 	end)
 
 	it("should show the correct image", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDragGhostThumbnail({
 			Image = "rbxassetid://607948062",
 		}), container)
@@ -66,7 +68,7 @@ return function()
 	end)
 
 	it("should show a placeholder when no image is passed", function()
-		local container = workspace
+		local container = Instance.new("Folder")
 		local instance = Roact.mount(createTestDragGhostThumbnail(), container)
 		local background = container.Frame
 
