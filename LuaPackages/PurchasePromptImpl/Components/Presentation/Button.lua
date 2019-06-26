@@ -47,7 +47,19 @@ function Button:didMount()
 
 	ContextActionService:BindCoreAction(
 		self.props.stringKey,
-		self.props.onClick,
+		function(actionName, inputState, inputObj)
+			--[[
+				CLILUACORE-521:
+				InputState MUST be 'Begin' in this case; otherwise, opening
+				the settings menu it will create new ContextActionService
+				bindings. When it does this, they trigger the 'Cancel' input
+				state, which invoke our binding (in order to tell it that
+				it's being canceled)
+			]]
+			if inputState == Enum.UserInputState.Begin then
+				self.props.onClick()
+			end
+		end,
 		false,
 		unpack(bindings)
 	)

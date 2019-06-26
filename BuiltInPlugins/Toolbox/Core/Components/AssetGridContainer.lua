@@ -25,9 +25,11 @@ local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
 
-local InsertToolPromise = require(Plugin.Core.Util.InsertToolPromise)
-local InsertAsset = require(Plugin.Core.Util.InsertAsset)
-local ContextMenuHelper = require(Plugin.Core.Util.ContextMenuHelper)
+local Util = Plugin.Core.Util
+local InsertToolPromise = require(Util.InsertToolPromise)
+local InsertAsset = require(Util.InsertAsset)
+local ContextMenuHelper = require(Util.ContextMenuHelper)
+local PageInfoHelper = require(Util.PageInfoHelper)
 
 local getModal = ContextGetter.getModal
 local getPlugin = ContextGetter.getPlugin
@@ -166,7 +168,7 @@ function AssetGridContainer:init(props)
 	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt)
 
 	self.onAssetInsertionSuccesful = function(assetId)
-		self.props.insertAsset(getNetwork(self), assetId)
+		self.props.onAssetInserted(getNetwork(self), assetId)
 		self.onAssetInserted()
 	end
 
@@ -187,7 +189,8 @@ function AssetGridContainer:init(props)
 		local currentProps = self.props
 		local categoryIndex = currentProps.categoryIndex or 1
 		local searchTerm = currentProps.searchTerm or ""
-		local assetIndex = currentProps.assetIndex or 0
+		local assetIndex = currentProps.assetIndex
+		local categories = currentProps.categories
 
 		local plugin = getPlugin(self)
 		InsertAsset.tryInsert({
@@ -197,6 +200,7 @@ function AssetGridContainer:init(props)
 				assetTypeId = assetTypeId,
 				onSuccess = self.onAssetInsertionSuccesful,
 				categoryIndex = categoryIndex,
+				currentCategoryName = PageInfoHelper.getCategory(categories, categoryIndex),
 				searchTerm = searchTerm,
 				assetIndex = assetIndex,
 			},
@@ -333,7 +337,8 @@ local function mapStateToProps(state, props)
 	return {
 		currentSoundId = sound.currentSoundId or 0,
 		isPlaying = sound.isPlaying or false,
-		categoryIndex = categoryIndex,
+		categoryIndex = categoryIndex or 1,
+		categories = pageInfo.categories or {},
 	}
 end
 
@@ -351,7 +356,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ResumePreviewSound())
 		end,
 
-		insertAsset = function(networkInterface, assetId)
+		onAssetInserted = function(networkInterface, assetId)
 			dispatch(PostInsertAssetRequest(networkInterface, assetId))
 		end,
 

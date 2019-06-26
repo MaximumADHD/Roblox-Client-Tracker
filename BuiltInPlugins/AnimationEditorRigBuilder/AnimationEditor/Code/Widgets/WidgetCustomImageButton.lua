@@ -51,73 +51,33 @@ function CustomImageButton:new(Paths, button, keepMouseDownOnLeave)
 	end
 	self.keepMouseDownOnLeave = keepMouseDownOnLeave
 	self.Connections = Paths.UtilityScriptConnections:new(Paths)
-	
+
 	-- this section allows for 'button' to be the image button, or button can be a container frame with the image button inside it
 	local imageButton = self.button:FindFirstChild('ImageButton')
 	imageButton = imageButton and imageButton or self.button
-	
-	if FastFlags:isUseNewThemeAPIOn() then
-		self.Connections:add(imageButton.InputBegan:connect(function(input) 	
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				self.MouseDown = true
-				self.MouseOver = true
-				show(self)
-			elseif input.UserInputType == Enum.UserInputType.MouseMovement then
-				self.MouseOver = true
-				show(self)
-			end
-		end))
-			
-		self.Connections:add(imageButton.InputEnded:connect(function(input) 
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				self.MouseDown = false
-				self.MouseOver = false
-				show(self)
-			elseif input.UserInputType == Enum.UserInputType.MouseMovement then
-				self.MouseOver = false
-				show(self)
-			end
-		end))
-	elseif FastFlags:isIKModeFlagOn() then
-		self.Connections:add(imageButton.InputBegan:connect(function(input) 	
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.MouseMovement then
-				self.MouseDown = true
-				show(self)
-			end
-		end))
-			
-		self.Connections:add(imageButton.InputEnded:connect(function(input) 
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.MouseMovement then
-				self.MouseDown = false
-				show(self)
-			end
-		end))
-	else
-		self.Connections:add(imageButton.MouseEnter:connect(function()
+
+	self.Connections:add(imageButton.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			self.MouseDown = true
 			self.MouseOver = true
 			show(self)
-		end))
-		
-		self.Connections:add(imageButton.MouseLeave:connect(function()
-			self.MouseOver = false	
+		elseif input.UserInputType == Enum.UserInputType.MouseMovement then
+			self.MouseOver = true
 			show(self)
-		end))
-		
-		self.Connections:add(imageButton.InputBegan:connect(function(input) 	
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				self.MouseDown = true
-				show(self)				
-			end 				
-		end))
-			
-		self.Connections:add(imageButton.InputEnded:connect(function(input) 
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				self.MouseDown = false
-				show(self)
-			end
-		end))
-	end
-	
+		end
+	end))
+
+	self.Connections:add(imageButton.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			self.MouseDown = false
+			self.MouseOver = false
+			show(self)
+		elseif input.UserInputType == Enum.UserInputType.MouseMovement then
+			self.MouseOver = false
+			show(self)
+		end
+	end))
+
 	self:turnOn(false)
 	return self
 end

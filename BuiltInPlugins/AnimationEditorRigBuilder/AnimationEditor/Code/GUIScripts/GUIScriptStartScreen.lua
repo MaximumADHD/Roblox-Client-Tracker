@@ -86,9 +86,7 @@ function StartScreen:show(exitFunc)
 	
 	self.AnchorWarning = self.Paths.GUIPopUpAnchorWarning:clone()
 	if not FastFlags:useQWidgetsForPopupsOn() then
-		if FastFlags:isUseNewThemeAPIOn() then
-			self.Paths.UtilityScriptTheme:setColorsToTheme(self.AnchorWarning)
-		end
+		self.Paths.UtilityScriptTheme:setColorsToTheme(self.AnchorWarning)
 		self.AnchorSubWindow = self.Paths.GUIScriptSubWindow:new(self.Paths, self.AnchorWarning, self.Paths.Globals.PluginGUI)
 		self.AnchorSubWindow:turnOn(false)
 		self.AnchorSubWindow.GUI.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -247,11 +245,7 @@ function StartScreen:show(exitFunc)
 	
 	local helpClickConnect = self.gui.Buttons.Help.MouseButton1Click:connect(function()
 		if self.HelpButton:getEnabled() then
-			if FastFlags:isUseDevHubHelpLinksOn() then
-				self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.Help)
-			else
-				self.Paths.Globals.Plugin:OpenWikiPage("Animations")
-			end
+			self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.Help)
 		end
 	end)
 	table.insert(self.cleanupEvents, helpClickConnect)

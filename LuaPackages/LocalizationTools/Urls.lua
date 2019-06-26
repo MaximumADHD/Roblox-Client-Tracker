@@ -19,4 +19,5 @@ return {
 	GetGameInternationalizationUrlFromBaseUrl = MakeUrlGetter("gameinternationalization"),
 	GetLocalizationTablesFromBaseUrl = MakeUrlGetter("localizationtables"),
 	GetTranslationRolesUrlFromBaseUrl = MakeUrlGetter("translationroles"),
+	GetLocaleUrlFromBaseUrl = MakeUrlGetter("locale"),
 }

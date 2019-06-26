@@ -28,8 +28,8 @@ local withTheme = require(Plugin.Src.Consumers.withTheme)
 local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
-local StudioWidgetTitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
-local StudioWidgetRoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
+local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
+local StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
 local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetSeparator = require(RoactStudioWidgets.Separator)
 local StudioWidgetText = require(RoactStudioWidgets.Text)

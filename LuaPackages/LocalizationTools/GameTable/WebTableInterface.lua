@@ -11,6 +11,7 @@ local BaseUrl = game:GetService("ContentProvider").BaseUrl:lower()
 local GameInternationalizationUrl = Urls.GetGameInternationalizationUrlFromBaseUrl(BaseUrl)
 local LocalizationTablesFromBaseUrl = Urls.GetLocalizationTablesFromBaseUrl(BaseUrl)
 local TranslationRolesUrl = Urls.GetTranslationRolesUrlFromBaseUrl(BaseUrl)
+local LocaleUrl = Urls.GetLocaleUrlFromBaseUrl(BaseUrl)
 local ApiUrl = Urls.GetApiUrlFromBaseUrl(BaseUrl)
 
 local BAD_REQUEST = 400
@@ -26,6 +27,8 @@ local LocalizationTableUploadTranslationMax =
 
 local NewLocalizationAPIEndpointEnabled = settings():GetFFlag("NewLocalizationAPIEndpoint_Enabled")
 local NewLocalizationAPIEndpointPercentage = tonumber(settings():GetFVariable("NewLocalizationAPIEndpoint_Percentage")) or 0
+
+local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
 
 return function(studioUserId)
 --[[When a tableid is obtained, remember the gameId associated with it, then check
@@ -49,7 +52,6 @@ local function decodeJSON(json)
 	local success, result = pcall(function()
 		return HttpService:JSONDecode(json)
 	end)
-
 	if not success then
 		return nil
 	end
@@ -222,25 +224,23 @@ local function UpdateGameTableInfo()
 			return
 		end
 
-		UserCanManagePlace(studioUserId, game.PlaceId)
-			:andThen(
-				function(canManage)
-					if canManage then
-						GetOrCreateGameTable(game.GameId)
-							:andThen(
-								function(tableInfo)
-									currentTableId = tableInfo.autoLocalizationTableId
-									currentGameId = game.GameId
-									resolve(true, tableInfo.isAutolocalizationEnabled)
-								end,
-								reject
-							)
-					else
-						resolve(false)
-					end
-				end,
-				reject
-			)
+		UserCanManagePlace(studioUserId, game.PlaceId):andThen(
+			function(canManage)
+				if canManage then
+					GetOrCreateGameTable(game.GameId):andThen(
+						function(tableInfo)
+							currentTableId = tableInfo.autoLocalizationTableId
+							currentGameId = game.GameId
+							resolve(true, tableInfo.isAutolocalizationEnabled)
+						end,
+						reject
+					)
+				else
+					resolve(false)
+				end
+			end,
+			reject
+		)
 	end)
 end
 
@@ -466,21 +466,19 @@ local function DownloadGameTable(gameId)
 	else
 		return Promise.new(
 			function(resolve, reject)
-				GetOrCreateGameTable(gameId)
-					:andThen(
-						function(tableInfo)
-							currentTableId = tableInfo.autoLocalizationTableId
-							currentGameId = gameId
-							DownloadGameTableWithId(gameId, tableInfo.autoLocalizationTableId)
-								:andThen(
-									function(table)
-										resolve(table)
-									end,
-									reject
-								)
-						end,
-						reject
-					)
+				GetOrCreateGameTable(gameId):andThen(
+					function(tableInfo)
+						currentTableId = tableInfo.autoLocalizationTableId
+						currentGameId = gameId
+						DownloadGameTableWithId(gameId, tableInfo.autoLocalizationTableId):andThen(
+							function(table)
+								resolve(table)
+							end,
+							reject
+						)
+					end,
+					reject
+				)
 			end
 		)
 	end
@@ -520,19 +518,168 @@ local function UploadPatch(gameId, patchInfo)
 				function(tableInfo)
 					currentTableId = tableInfo.autoLocalizationTableId
 					currentGameId = gameId
-					UploadPatchesToTableId(gameId, patches, currentTableId)
-						:andThen(resolve, reject)
+					UploadPatchesToTableId(gameId, patches, currentTableId):andThen(resolve, reject)
 				end
 			)
 		end)
 	end
 end
 
+--[[
+	Uploads a single patch to the supported language endpoint for the given game id.
+	Returns a promise that resolves with no arguments upon success.
+]]
+local function AddLanguageToGameId(gameId, languagesSet)
+	local requestBody = {}
+	for languageCode, _ in pairs(languagesSet) do
+		local languageInfo = {}
+		languageInfo["languageCodeType"] = "Language"
+		languageInfo["languageCode"] = languageCode
+		languageInfo["delete"] = false
+
+		table.insert(requestBody, languageInfo)
+	end
+
+	return Promise.new(function(resolve, reject)
+		local Url = GameInternationalizationUrl
+			.. "v1/supported-languages/games/"
+			.. urlEncode(gameId)
+		HttpService:RequestInternal({
+			Url = Url,
+			Method = "PATCH",
+			Body = encodeJSON(requestBody),
+			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
+			Headers = {
+				["Content-Type"] = "application/json"
+			},
+		}):Start(function(success, response)
+			spawn(function()
+				if success then
+					resolve()
+				else
+					reject("Failed to add supported languages")
+				end
+			end)
+		end)
+	end)
+end
+
+--[[
+	Upload game supported languages then upload localization table
+	Returns a promise that resolves with no arguments upon success.
+]]
+local function AddLanguageAndUploadPatch(gameId, patchInfo)
+	if patchInfo.newLanguagesSet ~= nil and next(patchInfo.newLanguagesSet) ~= nil then
+		return Promise.new(function(resolve, reject)
+			AddLanguageToGameId(gameId, patchInfo.newLanguagesSet):andThen(
+				function()
+					UploadPatch(gameId, patchInfo):andThen(resolve, reject)
+				end,
+				reject
+			)
+		end)
+	else
+		return UploadPatch(gameId, patchInfo)
+	end
+end
+
+--[[
+	Get all supported languages from locale API.
+	Returns a promise that resolves with a list of locale information upon success.
+]]
+local function GetAllSupportedLanguages()
+	return Promise.new(function(resolve, reject)
+		local Url = LocaleUrl
+			.. "v1/locales"
+
+		HttpService:RequestInternal({
+			Url = Url,
+			Method = "GET",
+			CachePolicy = Enum.HttpCachePolicy.None,
+			RequestType = Enum.HttpRequestType.Localization,
+		}):Start(function(success, response)
+			spawn(function()
+				if success then
+					local decodedResponseBody = decodeJSON(response.Body)
+					if response.StatusCode >= BAD_REQUEST then
+						if decodedResponseBody ~= nil and decodedResponseBody.message then
+							warn(decodedResponseBody.message)
+						end
+
+						reject("Failed to request list of all supported languages (See Output)")
+					else
+						local languageSet = {}
+						for _, localeInfo in ipairs(decodedResponseBody.data) do
+							languageSet[localeInfo.locale.language.languageCode] = true
+						end
+						resolve(languageSet)
+					end
+				else
+					reject("Failed to request list of all supported languages")
+				end
+			end)
+		end)
+	end)
+end
+
+--[[
+	Get supported languages for current game from gameinternationalization API.
+	Returns a promise that resolves with a list of locale information upon success.
+]]
+local function GetGameSupportedLanguages(gameId)
+	if gameId <= 0 then
+		return Promise.reject("GameId non-positive")
+	else
+		return Promise.new(function(resolve, reject)
+			local Url = GameInternationalizationUrl
+				.. "v1/supported-languages/games/"
+				.. urlEncode(gameId)
+			HttpService:RequestInternal({
+				Url = Url,
+				Method = "GET",
+				CachePolicy = Enum.HttpCachePolicy.None,
+				RequestType = Enum.HttpRequestType.Localization,
+			}):Start(function(success, response)
+				spawn(function()
+					if success then
+						local decodedResponseBody = decodeJSON(response.Body)
+						if response.StatusCode >= BAD_REQUEST then
+							if decodedResponseBody ~= nil and decodedResponseBody.message then
+								warn(decodedResponseBody.message)
+							end
+
+							reject("Failed to get list of game supported languages (See Output)")
+						else
+							local languageSet = {}
+							for _, languageInfo in ipairs(decodedResponseBody.data) do
+								languageSet[languageInfo.languageCode] = true
+							end
+							resolve(languageSet)
+						end
+					else
+						reject("Failed to get list of game supported languages")
+					end
+				end)
+			end)
+		end)
+	end
+end
+
+local UploadPatchFunc
+if UnofficialLanguageSupportEnabled then
+	UploadPatchFunc = AddLanguageAndUploadPatch
+else
+	UploadPatchFunc = UploadPatch
+end
+
 return {
-	UploadPatch = UploadPatch,
+	UploadPatch = UploadPatchFunc,
 	DownloadGameTable = DownloadGameTable,
 	UpdateGameTableInfo = UpdateGameTableInfo,
 	CheckTableAvailability = CheckTableAvailability,
+	GetAllSupportedLanguages = GetAllSupportedLanguages,
+	GetGameSupportedLanguages = GetGameSupportedLanguages,
 }
 
 end

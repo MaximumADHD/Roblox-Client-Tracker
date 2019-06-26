@@ -12,6 +12,7 @@ local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNo
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
+local FFlagMobileChatOneIcon = settings():GetFFlag("MobileChatOneIcon")
 
 --[[ END OF FFLAG VALUES ]]
 
@@ -1043,6 +1044,7 @@ local function CreateChatIcon()
 
 	local ChatModule = require(GuiRoot.Modules.ChatSelector)
 
+	--todo: remove with FFlagMobileChatOneIcon
 	local debounce = 0
 
 	local chatIconButton = Util.Create'ImageButton'
@@ -1063,7 +1065,7 @@ local function CreateChatIcon()
         Image = GetChatIcon("Chat");
 		Parent = chatIconButton;
 	};
-	if not Util.IsTouchDevice() then
+	if FFlagMobileChatOneIcon or not Util.IsTouchDevice() then
 		local chatCounter = CreateUnreadMessagesNotifier(ChatModule)
 		chatCounter.Parent = chatIconImage;
 	end
@@ -1077,7 +1079,7 @@ local function CreateChatIcon()
 	end
 
 	local function onChatStateChanged(visible)
-		if not Util.IsTouchDevice() then
+		if FFlagMobileChatOneIcon or not Util.IsTouchDevice() then
 			updateIcon(visible)
             GameSettings.ChatVisible = visible
 		end
@@ -1087,11 +1089,16 @@ local function CreateChatIcon()
 		if VRService.VREnabled then
 			ChatModule:ToggleVisibility()
 		elseif Util.IsTouchDevice() or ChatModule:IsBubbleChatOnly() then
-			if debounce + TopbarConstants.DEBOUNCE_TIME < tick() then
-				if Util.IsTouchDevice() then
-					ChatModule:SetVisible(true)
+
+			if FFlagMobileChatOneIcon then
+				ChatModule:ToggleVisibility()
+			else
+				if debounce + TopbarConstants.DEBOUNCE_TIME < tick() then
+					if Util.IsTouchDevice() then
+						ChatModule:SetVisible(true)
+					end
+					ChatModule:FocusChatBar()
 				end
-				ChatModule:FocusChatBar()
 			end
 		else
 			ChatModule:ToggleVisibility()
@@ -1108,14 +1115,14 @@ local function CreateChatIcon()
 
 	if ChatModule.ChatBarFocusChanged then
 		ChatModule.ChatBarFocusChanged:connect(function(isFocused)
-			if Util.IsTouchDevice() or ChatModule:IsBubbleChatOnly() then
+			if (FFlagMobileChatOneIcon or Util.IsTouchDevice()) or ChatModule:IsBubbleChatOnly() then
 				updateIcon(isFocused)
 				debounce = tick()
 			end
 		end)
 	end
 
-	if Util.IsTouchDevice() or ChatModule:IsBubbleChatOnly() then
+	if (FFlagMobileChatOneIcon or Util.IsTouchDevice()) or ChatModule:IsBubbleChatOnly() then
 		updateIcon(false)
 	end
 
@@ -1123,7 +1130,7 @@ local function CreateChatIcon()
 		ChatModule.BubbleChatOnlySet:connect(function()
 			if ChatModule:IsBubbleChatOnly() then
 				updateIcon(false)
-			elseif not Util.IsTouchDevice() then
+			elseif FFlagMobileChatOneIcon or not Util.IsTouchDevice() then
 				updateIcon(true)
 			end
 		end)
@@ -1432,7 +1439,12 @@ elseif not isTenFootInterface then
 	noTopBarAccountType = CreateNoTopBarAccountType()
 end
 
-local mobileShowChatIcon = Util.IsTouchDevice() and CreateMobileHideChatIcon() or nil
+--todo: remove mobileShowChatIcon when removing FFlagMobileChatOneIcon
+local mobileShowChatIcon = nil
+if not FFlagMobileChatOneIcon then
+	mobileShowChatIcon = Util.IsTouchDevice() and CreateMobileHideChatIcon() or nil
+end
+
 local chatIcon = CreateChatIcon()
 local backpackIcon = CreateBackpackIcon()
 local emotesIcon = CreateEmotesIcon()

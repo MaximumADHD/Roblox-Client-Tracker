@@ -93,7 +93,9 @@ function Permissions.Set(universeId, props)
 		for subjectId, change in pairs(subjectTypeChanges) do
 			if subjectType == PermissionsConstants.UserSubjectKey then
 				if change.Current ~= nil then
-					Analytics.numberOfUsers(subjectId, getTextForAction(change.Changed))
+					if change.Changed ~= nil then
+						Analytics.numberOfUsers(subjectId, getTextForAction(change.Changed))
+					end
 					Analytics.onPermissionRemoved(subjectId, "User", getTextForAction(change.Current))
 				end
 				if change.Changed ~= nil then

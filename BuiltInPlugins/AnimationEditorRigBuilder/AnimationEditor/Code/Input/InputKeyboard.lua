@@ -67,15 +67,9 @@ function Keyboard:init(Paths)
 	Keyboard.Connection:add(userInputService.InputEnded:connect(inputHandler))
 
 	-- attach input handler to the lua widgets frame
-	if FastFlags:isFlyCameraOn() then
-		Keyboard.Connection:add(Paths.GUI.InputBegan:connect(pluginGuiInputHandler))
-		Keyboard.Connection:add(Paths.GUI.InputChanged:connect(pluginGuiInputHandler))
-		Keyboard.Connection:add(Paths.GUI.InputEnded:connect(pluginGuiInputHandler))
-	else
-		Keyboard.Connection:add(Paths.GUI.InputBegan:connect(inputHandler))
-		Keyboard.Connection:add(Paths.GUI.InputChanged:connect(inputHandler))
-		Keyboard.Connection:add(Paths.GUI.InputEnded:connect(inputHandler))
-	end
+	Keyboard.Connection:add(Paths.GUI.InputBegan:connect(pluginGuiInputHandler))
+	Keyboard.Connection:add(Paths.GUI.InputChanged:connect(pluginGuiInputHandler))
+	Keyboard.Connection:add(Paths.GUI.InputEnded:connect(pluginGuiInputHandler))
 end
 
 function Keyboard:terminate()

@@ -52,6 +52,12 @@ local FFlagUserFixTouchGuiWhenNoCharacterSuccess, FFlagUserFixTouchGuiWhenNoChar
 end)
 local FFlagUserFixTouchGuiWhenNoCharacter = FFlagUserFixTouchGuiWhenNoCharacterSuccess and FFlagUserFixTouchGuiWhenNoCharacterResult
 
+
+local FFlagFixCharacterRemovingControlModuleSuccess, FFlagFixCharacterRemovingControlModuleResult = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserFixCharacterRemovingControlModule")
+end)
+local FFlagUserFixCharacterRemovingControlModule = FFlagFixCharacterRemovingControlModuleSuccess and FFlagFixCharacterRemovingControlModuleResult
+
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
 	[Enum.TouchMovementMode.DPad] = TouchDPad,
@@ -113,7 +119,11 @@ function ControlModule.new()
 	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
 
 	Players.LocalPlayer.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char) end)
-	Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterAdded(char) end)
+	if FFlagUserFixCharacterRemovingControlModule then
+		Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterRemoving(char) end)
+	else
+		Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterAdded(char) end)
+	end
 	if Players.LocalPlayer.Character then
 		self:OnCharacterAdded(Players.LocalPlayer.Character)
 	end

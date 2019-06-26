@@ -975,6 +975,60 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "ApiKey",
+                    "Security": {
+                        "Read": "LocalUserSecurity",
+                        "Write": "LocalUserSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "FireEvent",
+                    "Parameters": [
+                        {
+                            "Name": "category",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AnalyticsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "AnimationId",
                     "Security": {
                         "Read": "None",
@@ -11220,6 +11274,40 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "OffsetStudsU",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "OffsetStudsV",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "StudsPerTileU",
                     "Security": {
                         "Read": "None",
@@ -15469,6 +15557,23 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "SelectionStart",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "ShowNativeInput",
                     "Security": {
                         "Read": "None",
@@ -15558,6 +15663,23 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TextEditable",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -31013,6 +31135,41 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ImportHeightMap",
+                    "Parameters": [
+                        {
+                            "Name": "heightMapBinary",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "colorMapBinary",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "region",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Region3"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "CustomLuaState"
+                    ]
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PasteRegion",
                     "Parameters": [
                         {
@@ -31338,6 +31495,20 @@
                     "Tags": [
                         "CustomLuaState"
                     ]
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "TerrainProgressUpdate",
+                    "Parameters": [
+                        {
+                            "Name": "progressRatio",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -38205,6 +38376,26 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "StatusTip",
                     "Security": {
                         "Read": "None",
@@ -39358,6 +39549,38 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ReportToDiagByCountryCode",
+                    "Parameters": [
+                        {
+                            "Name": "featureName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "measureName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "seconds",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SendEventDeferred",
                     "Parameters": [
                         {
@@ -39956,23 +40179,6 @@
                     "Category": "Reflection",
                     "MemberType": "Property",
                     "Name": "PreferredParent",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Reflection",
-                    "MemberType": "Property",
-                    "Name": "PreferredParents",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -41652,6 +41858,13 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "breakReason",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "BreakReason"
                             }
                         }
                     ],
@@ -50473,6 +50686,23 @@
                         "Category": "Enum",
                         "Name": "InlineAlignment"
                     }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "InlinePadding",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "UDim2"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -54323,6 +54553,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "VersionControlService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -55826,6 +56067,27 @@
         {
             "Items": [
                 {
+                    "Name": "Other",
+                    "Value": 0
+                },
+                {
+                    "Name": "Error",
+                    "Value": 1
+                },
+                {
+                    "Name": "UserBreakpoint",
+                    "Value": 3
+                },
+                {
+                    "Name": "SpecialBreakpoint",
+                    "Value": 2
+                }
+            ],
+            "Name": "BreakReason"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Jump",
                     "Value": 32
                 },
@@ -56321,6 +56583,14 @@
                 {
                     "Name": "DisconnectWrongVersion",
                     "Value": 280
+                },
+                {
+                    "Name": "DisconnectBySecurityPolicy",
+                    "Value": 281
+                },
+                {
+                    "Name": "DisconnectBlockedIP",
+                    "Value": 282
                 },
                 {
                     "Name": "PlacelaunchErrors",

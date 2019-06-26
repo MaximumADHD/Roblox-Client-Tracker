@@ -52,9 +52,12 @@ function Header:init()
 
 	self.onCategorySelected = function(index)
 		if self.props.categoryIndex ~= index then
+			local newCategory = PageInfoHelper.getCategory(self.props.categories, index)
+			local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
+
 			Analytics.onCategorySelected(
-				PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
-				PageInfoHelper.getCategory(self.props.categories, index)
+				currentCategory,
+				newCategory
 			)
 
 			self.props.selectCategory(networkInterface, settings, index)

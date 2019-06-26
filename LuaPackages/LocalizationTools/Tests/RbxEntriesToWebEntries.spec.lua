@@ -108,6 +108,33 @@ local AppleTableWebEntriesNoTranslations = {
 	},
 }
 
+local allSupportedLanguageSet = {}
+allSupportedLanguageSet["en"] = true
+allSupportedLanguageSet["es"] = true
+allSupportedLanguageSet["fr"] = true
+allSupportedLanguageSet["de"] = true
+
+allSupportedLanguageSet["ru"] = true
+allSupportedLanguageSet["uk"] = true
+
+local gameSupportedLanguageSet = {}
+gameSupportedLanguageSet["en"] = true
+gameSupportedLanguageSet["es"] = true
+
+local FruitTableRbxEntriesNewLanguages = {
+	{
+		Key = "APPLEWORD",
+		Source = "apple",
+		Context = "some/context",
+		Example = "Jimmy ate an apple in Cornwall.",
+		Values = {
+			["ru"] = "ru blah",
+			["es"] = "es blah",
+		},
+	},
+}
+
+
 return function()
 	it("Converts a table with two entries into a web table", function()
 		local info = RbxEntriesToWebEntries(FruitTableRbxEntriesSpanish)
@@ -135,4 +162,14 @@ return function()
 		assert(info.supportedLocales == "")
 		assert(info.unsupportedLocales == "")
 	end)
+
+	local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+	if UnofficialLanguageSupportEnabled then
+		it("Converts a table with a new language to be added", function()
+			local info = RbxEntriesToWebEntries(FruitTableRbxEntriesNewLanguages, allSupportedLanguageSet, gameSupportedLanguageSet)
+			assert(info.newLanguages == "ru")
+			assert(info.newLanguagesSet["ru"])
+		end)
+	end
+
 end

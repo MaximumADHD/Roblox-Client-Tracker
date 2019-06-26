@@ -294,10 +294,7 @@ function Paths:init()
 	self.ActionToggleLooping = require(self.Actions.ActionToggleLooping)
 	self.ActionNew = require(self.Actions.ActionNew)
 	self.ActionImport = require(self.Actions.ActionImport)
-
-	if FastFlags:isDebugStudioRigImporterFlagOn() or FastFlags:isStudioFbxAnimationImportEnabled() then
-		self.ActionImportFBXAnimation = require(self.Actions.ActionImportFBXAnimation)
-	end
+	self.ActionImportFBXAnimation = require(self.Actions.ActionImportFBXAnimation)
 
 	self.ActionExport = require(self.Actions.ActionExport)
 	self.ActionSetPriority = require(self.Actions.ActionSetPriority)
@@ -449,9 +446,7 @@ function Paths:init()
 	-- input
 	self.InputMouse = require(self.Input.InputMouse)
 	self.InputKeyboard = require(self.Input.InputKeyboard)
-	if FastFlags:isFlyCameraOn() then
-		self.InputNavKeys = require(self.Input.InputNavKeys)
-	end
+	self.InputNavKeys = require(self.Input.InputNavKeys)
 
 	-- model
 	self.DataModelRig = require(self.DataModels.DataModelRig)
@@ -467,9 +462,7 @@ function Paths:init()
 	end
 
 	self.ViewportScriptGrid = require(Paths.ViewportScripts.ViewportScriptGrid)
-	if FastFlags:isFlyCameraOn() then
-		self.ViewportScriptFlyCamera = require(Paths.ViewportScripts.ViewportScriptFlyCamera)
-	end
+	self.ViewportScriptFlyCamera = require(Paths.ViewportScripts.ViewportScriptFlyCamera)
 end
 
 function Paths:cacheGUIPaths(gui)

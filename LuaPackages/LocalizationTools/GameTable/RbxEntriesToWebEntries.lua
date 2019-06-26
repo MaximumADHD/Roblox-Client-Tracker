@@ -1,5 +1,7 @@
 local SupportedLocales = require(script.Parent.Parent.SupportedLocales)
 
+local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+
 --[[
 	Iterates through a table and returns a list of keys
 ]]
@@ -30,12 +32,13 @@ end
 	unsupportedLocales = a list of all unsupported locales encountered
 		joined with spaces into a string, i.e. "en-gb es-mx"
 ]]
-return function(rbxEntries)
+return function(rbxEntries, allSupportedLanguageSet, gameSupportedLanguageSet)
 	local entries = {}
 	local totalRows = 0
 	local totalTranslations = 0
 	local supportedSet = {}
 	local unsupportedSet = {}
+	local newSet = {}
 
 	--[[
 		Takes a translation map as given by LocalizationTable:GetEntries()
@@ -45,19 +48,37 @@ return function(rbxEntries)
 		Unless the locale isn't supported, in which case it goes in unsupportedlist, and does not
 		get included in the result.
 	]]
+
+	local function IsLanguageSupported(languageCode)
+		if UnofficialLanguageSupportEnabled then
+			if allSupportedLanguageSet ~= nil then
+				return allSupportedLanguageSet[languageCode] or false
+			else
+				-- TODO: This is temporarily catering for `reportDownloadTable` only. Need clean up afterwards.
+				return SupportedLocales.IsLocaleSupported(languageCode)
+			end
+		else
+			return SupportedLocales.IsLocaleSupported(languageCode)
+		end
+	end
+
 	local function RbxEntriesToTranslationEntries(translationMap)
 		local result = {}
 
 		for locale, text in pairs(translationMap) do
-			local normalizedLocale = SupportedLocales.NormalizeLocaleIdForWeb(locale)
-
-			if SupportedLocales.IsLocaleSupported(normalizedLocale) then
+			local languageCode = locale:lower()
+			if IsLanguageSupported(languageCode) then
 				table.insert(result, {
-					locale = normalizedLocale,
+					-- this is actually language instead of locale
+					locale = languageCode,
 					translationText = text,
 				})
-				supportedSet[normalizedLocale] = true
+				supportedSet[languageCode] = true
 				totalTranslations = totalTranslations + 1
+
+				if gameSupportedLanguageSet ~= nil and not gameSupportedLanguageSet[languageCode] then
+					newSet[languageCode] = true
+				end
 			else
 				unsupportedSet[locale] = true
 			end
@@ -93,5 +114,7 @@ return function(rbxEntries)
 		totalTranslations = totalTranslations,
 		supportedLocales = table.concat(SetToSortedList(supportedSet), ", "),
 		unsupportedLocales = table.concat(SetToSortedList(unsupportedSet), ", "),
+		newLanguages = table.concat(SetToSortedList(newSet), ", "),
+		newLanguagesSet = newSet,
 	}
 end

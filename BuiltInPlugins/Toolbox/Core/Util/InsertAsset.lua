@@ -241,9 +241,9 @@ local function sendInsertionAnalytics(options, assetWasDragged)
 	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(options.assetTypeId))
 
 	if not assetWasDragged then
-		Analytics.onAssetInserted(options.assetId, options.searchTerm, options.assetIndex)
+		Analytics.onAssetInserted(options.assetId, options.searchTerm, options.assetIndex, options.currentCategoryName)
 	else
-		Analytics.onAssetDragInserted(options.assetId, options.searchTerm, options.assetIndex)
+		Analytics.onAssetDragInserted(options.assetId, options.searchTerm, options.assetIndex, options.currentCategoryName)
 	end
 
 	if options.assetTypeId == Enum.AssetType.Audio.Value then
@@ -264,6 +264,7 @@ Options table format:
 	assetTypeId = AssetType,
 	onSuccess = function,
 	categoryIndex = number,
+	currentCategoryName = string,
 	searchTerm = string,
 	assetIndex = number,
 }

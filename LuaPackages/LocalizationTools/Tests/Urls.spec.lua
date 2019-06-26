@@ -73,5 +73,8 @@ return function()
 
 		expect(Urls.GetApiUrlFromBaseUrl("http://sitetest2.robloxlabs.com")).to.equal(
 			"https://api.sitetest2.robloxlabs.com")
+
+		expect(Urls.GetLocaleUrlFromBaseUrl("http://roblox.com")).to.equal(
+			"https://locale.roblox.com")
 	end)
 end

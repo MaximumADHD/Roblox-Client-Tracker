@@ -37,7 +37,7 @@ local theme = {
 		Transparency = 0,
 	},
 	UIMuted = {
-		Color = Colors.Black,
+		Color = Colors.Chalk,
 		Transparency = 0.9, -- Alpha 0.1
 	},
 	UIEmphasis = {

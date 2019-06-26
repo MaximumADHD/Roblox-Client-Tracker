@@ -56,6 +56,9 @@ Class AdService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [Deprecated]
 Class AdvancedDragger : Instance
+Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property string AnalyticsService.ApiKey {LocalUserSecurity}
+	Function void AnalyticsService:FireEvent(string category, Variant value)
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationController : Instance
@@ -662,6 +665,8 @@ Class Decal : FaceInstance
 	Property Content Decal.Texture
 	Property float Decal.Transparency
 Class Texture : Decal
+	Property float Texture.OffsetStudsU
+	Property float Texture.OffsetStudsV
 	Property float Texture.StudsPerTileU
 	Property float Texture.StudsPerTileV
 Class Feature : Instance [NotCreatable]
@@ -897,7 +902,9 @@ Class TextBox : GuiObject
 	Property bool TextBox.ManualFocusRelease {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool TextBox.MultiLine
 	Property bool TextBox.OverlayNativeInput {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
+	Property int TextBox.SelectionStart
 	Property bool TextBox.ShowNativeInput
+	Property bool TextBox.TextEditable
 	Property Enum<Font> TextBox.Font
 	Property Enum<FontSize> TextBox.FontSize [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property float TextBox.LineHeight
@@ -1803,6 +1810,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum<Material> material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
+	Function void Terrain:ImportHeightMap(string heightMapBinary, string colorMapBinary, Region3 region) {RobloxScriptSecurity} [CustomLuaState]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState]
 	Function void Terrain:SetCell(int x, int y, int z, Enum<CellMaterial> material, Enum<CellBlock> block, Enum<CellOrientation> orientation) [Deprecated]
@@ -1813,6 +1821,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy) [CustomLuaState]
+	Event Terrain.TerrainProgressUpdate(float progressRatio) {RobloxScriptSecurity}
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum<CollisionFidelity> TriangleMeshPart.CollisionFidelity  [NotReplicated] [NotScriptable]
 Class MeshPart : TriangleMeshPart
@@ -2190,6 +2199,7 @@ Class Plugin : Instance [NotCreatable]
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
 	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
+	Property bool PluginAction.Enabled {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property string PluginAction.StatusTip  [ReadOnly] [NotReplicated]
 	Property string PluginAction.Text  [ReadOnly] [NotReplicated]
 	Event PluginAction.Triggered() {PluginSecurity}
@@ -2258,6 +2268,7 @@ Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function void RbxAnalyticsService:ReportCounter(string counterName, int amount = 1) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReportStats(string category, float value) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:ReportToDiagByCountryCode(string featureName, string measureName, double seconds) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
@@ -2290,7 +2301,6 @@ Class ReflectionMetadataClass : ReflectionMetadataItem
 	Property int ReflectionMetadataClass.ExplorerOrder
 	Property bool ReflectionMetadataClass.Insertable
 	Property string ReflectionMetadataClass.PreferredParent
-	Property string ReflectionMetadataClass.PreferredParents
 Class ReflectionMetadataEnum : ReflectionMetadataItem
 Class ReflectionMetadataEnumItem : ReflectionMetadataItem
 Class ReflectionMetadataMember : ReflectionMetadataItem
@@ -2399,7 +2409,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Function void ScriptDebugger:StepOver() [Deprecated]
 	Event ScriptDebugger.BreakpointAdded(Instance breakpoint)
 	Event ScriptDebugger.BreakpointRemoved(Instance breakpoint)
-	Event ScriptDebugger.EncounteredBreak(int line)
+	Event ScriptDebugger.EncounteredBreak(int line, Enum<BreakReason> breakReason)
 	Event ScriptDebugger.Resuming()
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
@@ -2909,6 +2919,7 @@ Class UIGridLayout : UIGridStyleLayout
 	Property int UIGridLayout.FillDirectionMaxCells
 	Property Enum<StartCorner> UIGridLayout.StartCorner
 Class UIInlineLayout : UIGridStyleLayout
+	Property UDim2 UIInlineLayout.InlinePadding
 	Property Enum<InlineAlignment> UIInlineLayout.InlineAlignment
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
@@ -3139,6 +3150,7 @@ Class Vector3Value : ValueBase
 	Property Vector3 Vector3Value.Value
 	Event Vector3Value.Changed(Vector3 value)
 	Event Vector3Value.changed(Vector3 value) [Deprecated]
+Class VersionControlService : Instance [NotCreatable] [Service]
 Class VirtualInputManager : Instance [Service]
 	Property string VirtualInputManager.AdditionalLuaState {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Function void VirtualInputManager:Dump() {RobloxScriptSecurity}
@@ -3313,6 +3325,11 @@ Enum BodyPartR15
 	EnumItem BodyPartR15.RightUpperArm : 14
 	EnumItem BodyPartR15.RootPart : 15
 	EnumItem BodyPartR15.Unknown : 17
+Enum BreakReason
+	EnumItem BreakReason.Other : 0
+	EnumItem BreakReason.Error : 1
+	EnumItem BreakReason.SpecialBreakpoint : 2
+	EnumItem BreakReason.UserBreakpoint : 3
 Enum Button
 	EnumItem Button.Dismount : 8
 	EnumItem Button.Jump : 32
@@ -3434,6 +3451,8 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectIdle : 278
 	EnumItem ConnectionError.DisconnectRaknetErrors : 279
 	EnumItem ConnectionError.DisconnectWrongVersion : 280
+	EnumItem ConnectionError.DisconnectBySecurityPolicy : 281
+	EnumItem ConnectionError.DisconnectBlockedIP : 282
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516

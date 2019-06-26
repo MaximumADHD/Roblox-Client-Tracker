@@ -159,6 +159,7 @@ local function reportUploadPatch(plugin, patchInfo, btnName)
 		numChangedTranslations = patchInfo.numChangedTranslations,
 		numRemovedTranslations = patchInfo.numRemovedTranslations,
 		numAddedTranslations = patchInfo.numAddedTranslations,
+		addedSupportedLanguages = patchInfo.newLanguages,
 	}
 
 	AnalyticsService:SendEventDeferred(target, context, eventName, args)

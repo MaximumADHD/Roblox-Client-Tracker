@@ -10,15 +10,11 @@ PositionOrientationPanel.PopUpDownButton = nil
 local function toggleUpDown(self)
 	if self.IsPanelUp then
 		self.TargetWidget.MovablePanel.Position = UDim2.new(0, 0, 0, 0)
-		if FastFlags:fixJointSelectionInputSinking() then
-			self.TargetWidget.ClickEater.Position = UDim2.new(0, 0, 0, 0)
-		end
+		self.TargetWidget.ClickEater.Position = UDim2.new(0, 0, 0, 0)
 	else
 		local upYOffset = self.TargetWidget.MovablePanel.Size.Y.Offset-self.TargetWidget.MovablePanel.PopUpDownButton.Size.Y.Offset
 		self.TargetWidget.MovablePanel.Position = UDim2.new(0, 0, 0, -upYOffset)
-		if FastFlags:fixJointSelectionInputSinking() then
-			self.TargetWidget.ClickEater.Position = UDim2.new(0, 0, 0, -upYOffset)
-		end
+		self.TargetWidget.ClickEater.Position = UDim2.new(0, 0, 0, -upYOffset)
 	end
 	self.IsPanelUp = not self.IsPanelUp
 end

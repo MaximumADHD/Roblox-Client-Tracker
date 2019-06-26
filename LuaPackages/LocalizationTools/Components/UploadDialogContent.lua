@@ -5,6 +5,8 @@ local NumTranslationsLine = require(script.Parent.NumTranslationsLine)
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
+local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+
 local function Line(props)
 	return Roact.createElement("TextLabel", {
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -28,18 +30,10 @@ local function StringContentLine(props)
 end
 
 local function UnsupportedLocalesLine(props)
-	local unsupportedLocalesStr = tostring(props.UnsupportedLocales)
-	if unsupportedLocalesStr == "" then
+	if props.Content ~= nil and props.Content ~= "" then
 		return Roact.createElement(Line, {
-			Text = "Unsupported locales: none",
-			Color = props.ColorA,
-			LayoutOrder = props.LayoutOrder})
-	else
-		return Roact.createElement(Line, {
-			Text = "WARNING: unsupported locales detected.\nCurrent supported locales:\n"
-				.. table.concat(SupportedLocales.GetSupportedLocalesList(), ", "),
-			Color = props.ColorB,
-			Size = props.Size or UDim2.new(1, 0, 0, 40),
+			Text = props.PreText .. props.Content,
+			Color = props.Color,
 			LayoutOrder = props.LayoutOrder})
 	end
 end
@@ -111,6 +105,16 @@ function UploadDialogContent:render()
 			})
 		end
 
+		local AddLanguagesLine
+		if UnofficialLanguageSupportEnabled and 
+			self.props.PatchInfo.newLanguages ~= nil and 
+			self.props.PatchInfo.newLanguages ~= "" then
+			AddLanguagesLine = Roact.createElement(Line, {
+				Text = "Add languages: " .. self.props.PatchInfo.newLanguages,
+				Color = theme.BrightText,
+				LayoutOrder = 4})
+		end
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 0,
@@ -142,7 +146,7 @@ function UploadDialogContent:render()
 				}),
 
 				TableContentsTitle = Roact.createElement(Line, {
-					Text = "Table contents:",
+					Text = "This patch contains:",
 					Color = theme.BrightText,
 					LayoutOrder = 1}),
 
@@ -178,16 +182,16 @@ function UploadDialogContent:render()
 						LayoutOrder = 2}),
 
 					SupportedLocales = Roact.createElement(StringContentLine, {
-						PreText = "Locales: ",
+						PreText = "Languages: ",
 						Content = self.props.PatchInfo.supportedLocales,
 						ColorA = theme.BrightText,
 						ColorB = theme.DimmedText,
 						LayoutOrder = 3}),
 
 					UnsupportedLocales = Roact.createElement(UnsupportedLocalesLine, {
-						UnsupportedLocales = self.props.PatchInfo.unsupportedLocales,
-						ColorA = theme.DimmedText,
-						ColorB = theme.WarningText,
+						PreText = "Invalid columns: ",
+						Content = self.props.PatchInfo.unsupportedLocales,
+						Color = theme.WarningText,
 						LayoutOrder = 4}),
 				}),
 
@@ -216,6 +220,7 @@ function UploadDialogContent:render()
 					AddLine = AddLine,
 					ChangeLine = ChangeLine,
 					DeleteLine = DeleteLine,
+					AddLanguagesLine = AddLanguagesLine,
 				}),
 
 				Prompt = Roact.createElement(Line, {

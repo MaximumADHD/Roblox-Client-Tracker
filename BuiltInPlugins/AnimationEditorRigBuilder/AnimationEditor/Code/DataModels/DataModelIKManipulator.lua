@@ -249,13 +249,8 @@ local function addIKBodyParts(self, dataItem, startOfChain)
 end
 
 local function configureIKOnLimb(self, dataItem, notRecursive)
-	if FastFlags:fixFullBodyIKPinning() then
-		self:replaceMotor6DWithConstraint(dataItem, notRecursive)
-		dataItem.Item.Anchored = true
-	else
-		dataItem.Item.Anchored = true
-		self:replaceMotor6DWithConstraint(dataItem)
-	end
+	self:replaceMotor6DWithConstraint(dataItem, notRecursive)
+	dataItem.Item.Anchored = true
 end
 
 local function addBodyPartIKJoints(self, part)
@@ -403,15 +398,6 @@ local function configureJointsBodyPartMode(self, part)
 	end
 end
 
-local function configureJointsFullBodyModeOld(self, part)
-	self:replaceMotor6DWithConstraint(self.Paths.DataModelRig:getDataItem(part.Name))
-	for partName, pinned in pairs(self.Paths.DataModelRig.partPinned) do
-		if pinned and partName ~= part.Name then
-			configureIKOnLimb(self, self.Paths.DataModelRig:getDataItem(partName))
-		end
-	end
-end
-
 function IKManipulator:configureWeldConstraints(part0, part1)
 	if not self.Welds then
 		self.Welds = {}
@@ -420,7 +406,7 @@ function IKManipulator:configureWeldConstraints(part0, part1)
 	weldConstraint.Parent = self.Paths.DataModelRig:getModel()
 	weldConstraint.Part0 = part0
 	weldConstraint.Part1 = part1
-	self.Welds[#self.Welds + 1] = weldConstraint	
+	self.Welds[#self.Welds + 1] = weldConstraint
 end
 
 function IKManipulator:resetWeldConstraints()
@@ -438,11 +424,7 @@ function IKManipulator:configureIkChain(part)
 	self.Motor6DInfo = {}
 
 	if self.IKMode == self.IKModes.FullBody then
-		if FastFlags:fixFullBodyIKPinning() then
-			configureJointsHelper(self, part)
-		else
-			configureJointsFullBodyModeOld(self, part)
-		end
+		configureJointsHelper(self, part)
 	else
 		configureJointsBodyPartMode(self, part)
 	end

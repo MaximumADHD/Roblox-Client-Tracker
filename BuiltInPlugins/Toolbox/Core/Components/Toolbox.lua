@@ -18,7 +18,6 @@
 ]]
 
 local FFlagStudioMarketplaceTabsEnabled = settings():GetFFlag("StudioMarketplaceTabsEnabled")
-local FFlagEnableMarketplaceChangeTabsAnalytics = settings():GetFFlag("EnableMarketplaceChangeTabsAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -129,21 +128,21 @@ function Toolbox:init(props)
 	local settings = getSettings(self)
 
 	self.changeMarketplaceTab = function(tabName)
-		if FFlagEnableMarketplaceChangeTabsAnalytics then
-			local newCategories = Category.TABS[tabName]
-			self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings)
+		local newCategories = Category.TABS[tabName]
+		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, settings)
 
-			-- Change tab will always reset categoryIndex to 1.
-			Analytics.onCategorySelected(
-				PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex),
-				PageInfoHelper.getCategory(newCategories, 1)
-			)
-		else
-			self.props.changeMarketplaceTab(networkInterface, tabName, nil, settings)
-		end
+		local currentCategory = PageInfoHelper.getCategory(self.props.categories, self.props.categoryIndex)
+		-- Change tab will always reset categoryIndex to 1.
+		local newCategoryIndex = 1
+		local newCategory = PageInfoHelper.getCategory(newCategories, newCategoryIndex)
+
+		Analytics.onCategorySelected(
+			currentCategory,
+			newCategory
+		)
 
 		self.props.updatePageInfo(networkInterface, settings, {
-			categoryIndex = 1,
+			categoryIndex = newCategoryIndex,
 			searchTerm = "",
 			sortIndex = 1,
 			groupIndex = 0,

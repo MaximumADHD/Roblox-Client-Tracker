@@ -56,6 +56,9 @@ Class AdService : Instance [notCreatable]
 	Function void AdService:ShowVideoAd() [deprecated]
 	Event AdService.VideoAdClosed(bool adShown) [deprecated]
 Class AdvancedDragger : Instance
+Class AnalyticsService : Instance [notCreatable]
+	Property string AnalyticsService.ApiKey [LocalUserSecurity]
+	Function void AnalyticsService:FireEvent(string category, Variant value)
 Class Animation : Instance
 	Property Content Animation.AnimationId
 Class AnimationController : Instance
@@ -662,6 +665,8 @@ Class Decal : FaceInstance
 	Property Content Decal.Texture
 	Property float Decal.Transparency
 Class Texture : Decal
+	Property float Texture.OffsetStudsU
+	Property float Texture.OffsetStudsV
 	Property float Texture.StudsPerTileU
 	Property float Texture.StudsPerTileV
 Class Feature : Instance
@@ -895,11 +900,13 @@ Class TextBox : GuiObject
 	Property bool TextBox.OverlayNativeInput [RobloxScriptSecurity]
 	Property Color3 TextBox.PlaceholderColor3
 	Property string TextBox.PlaceholderText
+	Property int TextBox.SelectionStart
 	Property bool TextBox.ShowNativeInput
 	Property string TextBox.Text
 	Property Vector2 TextBox.TextBounds [readonly]
 	Property BrickColor TextBox.TextColor [deprecated] [hidden]
 	Property Color3 TextBox.TextColor3
+	Property bool TextBox.TextEditable
 	Property bool TextBox.TextFits [readonly]
 	Property bool TextBox.TextScaled
 	Property float TextBox.TextSize
@@ -1790,6 +1797,7 @@ Class Terrain : BasePart [notCreatable]
 	Function Tuple Terrain:GetCell(int x, int y, int z) [deprecated]
 	Function Color3 Terrain:GetMaterialColor(Material material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [deprecated]
+	Function void Terrain:ImportHeightMap(string heightMapBinary, string colorMapBinary, Region3 region) [RobloxScriptSecurity]
 	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution)
 	Function void Terrain:SetCell(int x, int y, int z, CellMaterial material, CellBlock block, CellOrientation orientation) [deprecated]
@@ -1800,6 +1808,7 @@ Class Terrain : BasePart [notCreatable]
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy)
+	Event Terrain.TerrainProgressUpdate(float progressRatio) [RobloxScriptSecurity]
 Class TriangleMeshPart : BasePart
 Class MeshPart : TriangleMeshPart
 	Property Content MeshPart.MeshId [ScriptWriteRestricted: [NotAccessibleSecurity]]
@@ -2168,6 +2177,7 @@ Class Plugin : Instance
 Class PluginAction : Instance
 	Property string PluginAction.ActionId [readonly]
 	Property bool PluginAction.AllowBinding [readonly]
+	Property bool PluginAction.Enabled [RobloxScriptSecurity]
 	Property string PluginAction.StatusTip [readonly]
 	Property string PluginAction.Text [readonly]
 	Event PluginAction.Triggered() [PluginSecurity]
@@ -2231,6 +2241,7 @@ Class RbxAnalyticsService : Instance [notCreatable]
 	Function void RbxAnalyticsService:ReportCounter(string counterName, int amount = 1) [RobloxScriptSecurity]
 	Function void RbxAnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) [RobloxScriptSecurity]
 	Function void RbxAnalyticsService:ReportStats(string category, float value) [RobloxScriptSecurity]
+	Function void RbxAnalyticsService:ReportToDiagByCountryCode(string featureName, string measureName, double seconds) [RobloxScriptSecurity]
 	Function void RbxAnalyticsService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void RbxAnalyticsService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
 	Function void RbxAnalyticsService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) [RobloxScriptSecurity]
@@ -2263,7 +2274,6 @@ Class ReflectionMetadataClass : ReflectionMetadataItem
 	Property int ReflectionMetadataClass.ExplorerOrder
 	Property bool ReflectionMetadataClass.Insertable
 	Property string ReflectionMetadataClass.PreferredParent
-	Property string ReflectionMetadataClass.PreferredParents
 Class ReflectionMetadataEnum : ReflectionMetadataItem
 Class ReflectionMetadataEnumItem : ReflectionMetadataItem
 Class ReflectionMetadataMember : ReflectionMetadataItem
@@ -2367,7 +2377,7 @@ Class ScriptDebugger : Instance [notCreatable]
 	Function void ScriptDebugger:StepOver() [deprecated]
 	Event ScriptDebugger.BreakpointAdded(Instance breakpoint)
 	Event ScriptDebugger.BreakpointRemoved(Instance breakpoint)
-	Event ScriptDebugger.EncounteredBreak(int line)
+	Event ScriptDebugger.EncounteredBreak(int line, BreakReason breakReason)
 	Event ScriptDebugger.Resuming()
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
@@ -2775,6 +2785,7 @@ Class UIGridLayout : UIGridStyleLayout
 	Property StartCorner UIGridLayout.StartCorner
 Class UIInlineLayout : UIGridStyleLayout
 	Property InlineAlignment UIInlineLayout.InlineAlignment
+	Property UDim2 UIInlineLayout.InlinePadding
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 Class UIPageLayout : UIGridStyleLayout
@@ -3001,6 +3012,7 @@ Class Vector3Value : ValueBase
 	Property Vector3 Vector3Value.Value
 	Event Vector3Value.Changed(Vector3 value)
 	Event Vector3Value.changed(Vector3 value) [deprecated]
+Class VersionControlService : Instance [notCreatable]
 Class VirtualInputManager : Instance
 	Property string VirtualInputManager.AdditionalLuaState [RobloxScriptSecurity]
 	Function void VirtualInputManager:Dump() [RobloxScriptSecurity]
@@ -3175,6 +3187,11 @@ Enum BodyPartR15
 	EnumItem BodyPartR15.RightUpperArm : 14
 	EnumItem BodyPartR15.RootPart : 15
 	EnumItem BodyPartR15.Unknown : 17
+Enum BreakReason
+	EnumItem BreakReason.Other : 0
+	EnumItem BreakReason.Error : 1
+	EnumItem BreakReason.UserBreakpoint : 3
+	EnumItem BreakReason.SpecialBreakpoint : 2
 Enum Button
 	EnumItem Button.Jump : 32
 	EnumItem Button.Dismount : 8
@@ -3296,6 +3313,8 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectIdle : 278
 	EnumItem ConnectionError.DisconnectRaknetErrors : 279
 	EnumItem ConnectionError.DisconnectWrongVersion : 280
+	EnumItem ConnectionError.DisconnectBySecurityPolicy : 281
+	EnumItem ConnectionError.DisconnectBlockedIP : 282
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516

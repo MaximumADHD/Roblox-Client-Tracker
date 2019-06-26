@@ -5,8 +5,12 @@ local ImageButtonWithText = require(script.Parent.Parent.Libs.ImageButtonWithTex
 local i18nModule = require(script.Parent.Parent.Libs.Localization)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local FFlagImportTerrain = settings():GetFFlag("ImportTerrain")
+local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
+local ChangeHistoryService = game:GetService('ChangeHistoryService')
 
 local kMainButtonOuterSize = 53
 local kMainButtonBorderSize = 1
@@ -34,11 +38,12 @@ local modules =
 {
 	Brush = require(script.Parent.TerrainBrush),
 	TerrainGeneration = require(script.Parent.TerrainGeneration),
+	TerrainImporter = require(script.Parent.TerrainImporter),
 	TerrainSmoother = require(script.Parent.TerrainSmoother),
 	TerrainRegionEditor = require(script.Parent.TerrainRegionEditor)
 }
 
-local kMainButtonConfigs = 
+local kMainButtonConfigs =
 {
 	{
 		Name = "Generate",
@@ -47,7 +52,7 @@ local kMainButtonConfigs =
 		Icon = "rbxasset://textures/TerrainTools/mt_generate.png",
 		Modules = {modules.TerrainGeneration},
 		LayoutOrder = 1,
-	}, 
+	},
 	{
 		Name = "Add",
 		Text = "Studio.TerrainEditor.MainButtons.Add",
@@ -55,19 +60,19 @@ local kMainButtonConfigs =
 		Icon = "rbxasset://textures/TerrainTools/mt_add.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
-		LayoutOrder = 2,
+		LayoutOrder = 3,
 		DisablesPlaneLock = true,
-	}, 
+	},
 	{
 		Name = "Subtract",
 		Text = "Studio.TerrainEditor.MainButtons.Subtract",
 		Tip = "Studio.TerrainEditor.MainButtons.SubtractTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_subtract.png",
 		Modules = {modules.Brush,},
-		LayoutOrder = 3,
+		LayoutOrder = 4,
 		DisablesPlaneLock = true,
 		DisablesAutoColor = true,
-	}, 
+	},
 	{
 		Name = "Paint",
 		Text = "Studio.TerrainEditor.MainButtons.Paint",
@@ -75,9 +80,9 @@ local kMainButtonConfigs =
 		Icon = "rbxasset://textures/TerrainTools/mt_paint.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
-		LayoutOrder = 4,
+		LayoutOrder = 5,
 		DisablesAutoColor = true,
-	}, 
+	},
 	{
 		Name = "Grow",
 		Text = "Studio.TerrainEditor.MainButtons.Grow",
@@ -85,46 +90,81 @@ local kMainButtonConfigs =
 		Icon = "rbxasset://textures/TerrainTools/mt_grow.png",
 		Modules = {modules.Brush,},
 		UsesMaterials = true,
-		LayoutOrder = 5,
-	}, 
+		LayoutOrder = 6,
+	},
 	{
 		Name = "Erode",
 		Text = "Studio.TerrainEditor.MainButtons.Erode",
 		Tip = "Studio.TerrainEditor.MainButtons.ErodeTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_erode.png",
 		Modules = {modules.Brush,},
-		LayoutOrder = 6,
+		LayoutOrder = 7,
 		DisablesAutoColor = true,
-	}, 
+	},
 	{
 		Name = "Smooth",
 		Text = "Studio.TerrainEditor.MainButtons.Smooth",
 		Tip = "Studio.TerrainEditor.MainButtons.SmoothTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_smooth.png",
 		Modules = {modules.Brush, modules.TerrainSmoother,},
-		LayoutOrder = 7,
+		LayoutOrder = 8,
 		DisablesAutoColor = true,
-	}, 
+	},
 	{
 		Name = "Regions",
 		Text = "Studio.TerrainEditor.MainButtons.Regions",
 		Tip = "Studio.TerrainEditor.MainButtons.RegionsTooltip",
 		Icon = "rbxasset://textures/TerrainTools/mt_regions.png",
 		Modules = {modules.TerrainRegionEditor,},
-		LayoutOrder = 8,
-	}, 
+		LayoutOrder = 9,
+	}
+
 }
 
+if FFlagImportTerrain then
+	table.insert(kMainButtonConfigs, {
+		Name = "Import",
+		Text = "Studio.TerrainEditor.MainButtons.Import",
+		Tip = "Studio.TerrainEditor.MainButtons.ImportTooltip",
+		Icon = "rbxasset://textures/TerrainTools/mt_terrain_import.png", -- probably need a better image for this
+		Modules = {modules.TerrainImporter},
+		LayoutOrder = 2,
+	})
+end
 
-local function createMainButton(thePlugin, thePluginGui, mainButtonConfig, toggleFunction)	
-	local buttonObj = ImageButtonWithText.new(mainButtonConfig.Name, 
-		mainButtonConfig.LayoutOrder, 
-		mainButtonConfig.Icon, 
-		i18nModule.TranslateId(mainButtonConfig.Text), 
+if FFlagTerrainClearButtonMove then
+	table.insert(kMainButtonConfigs, {
+		Name = "Clear",
+		Text = "Studio.TerrainEditor.MainButtons.Clear",
+		Tip = "Studio.TerrainEditor.MainButtons.ClearTooltip",
+		Icon = "rbxasset://textures/TerrainTools/mt_terrain_clear.png",
+		Modules = {
+			{
+				On = function()
+					-- for the roact rewrite we'll want to pop up confirmation screen in the main window
+					terrain = workspace.Terrain
+					if not clearing and terrain then
+						clearing = true
+						terrain:Clear()
+						ChangeHistoryService:SetWaypoint('Terrain Clear')
+						clearing = false
+					end
+				end
+			}
+		},
+		LayoutOrder = 10,
+	})
+end
+
+local function createMainButton(thePlugin, thePluginGui, mainButtonConfig, toggleFunction)
+	local buttonObj = ImageButtonWithText.new(mainButtonConfig.Name,
+		mainButtonConfig.LayoutOrder,
+		mainButtonConfig.Icon,
+		i18nModule.TranslateId(mainButtonConfig.Text),
 		kMainButtonActualSizeUDim2,
-		UDim2.new(0,26,0,26), 
+		UDim2.new(0,26,0,26),
 		UDim2.new(0,13,0,3),
-		UDim2.new(1,0,0,22), 
+		UDim2.new(1,0,0,22),
 		UDim2.new(0,0,1,-22))
 
 	buttonObj:getButton().Parent = kMainButtonListFrame
@@ -132,10 +172,10 @@ local function createMainButton(thePlugin, thePluginGui, mainButtonConfig, toggl
 
 	mainButtonConfig.ButtonObj:getButton().MouseButton1Click:connect(toggleFunction);
 
-	local pluginAction = thePlugin:CreatePluginAction(mainButtonConfig.Name, 
-		i18nModule.TranslateId(mainButtonConfig.Text), 
+	local pluginAction = thePlugin:CreatePluginAction(mainButtonConfig.Name,
+		i18nModule.TranslateId(mainButtonConfig.Text),
 		i18nModule.TranslateId(mainButtonConfig.Tip))
-			
+
 	pluginAction.Triggered:connect(function()
   		-- Make sure the plugin GUI is visible.
 		thePluginGui.Enabled = true
@@ -154,10 +194,10 @@ function makeMainPanel()
 	local outerBackground = GuiUtilities.MakeFrame("OuterBackground")
 	outerBackground.Parent = pluginGui
 	outerBackground.Position = UDim2.new(0, 0, 0, 0)
-	outerBackground.Size = UDim2.new(1, 0, 1, 0)	
+	outerBackground.Size = UDim2.new(1, 0, 1, 0)
 
 	-- Make the main panel for tool buttons
-	local section = GuiUtilities.MakeFixedHeightFrame("MainPanel",  100)	
+	local section = GuiUtilities.MakeFixedHeightFrame("MainPanel",  100)
 	section.Parent = pluginGui
 	section.Position = UDim2.new(0, 0, 0, 0)
 
@@ -259,9 +299,9 @@ module.Initialize = function(thePlugin, thePluginGui)
 	local prevCameraType = game.Workspace.CurrentCamera.CameraType
 
 	for mainButtonIndex, mainButtonConfig in ipairs(kMainButtonConfigs) do
-		createMainButton(thePlugin, 
-			thePluginGui, 
-			mainButtonConfig, 
+		createMainButton(thePlugin,
+			thePluginGui,
+			mainButtonConfig,
 			function()
 				if not on or (currentMainButtonConfig ~= nil and mainButtonConfig ~= currentMainButtonConfig) then	--if off or on but current tool isn't the desired tool, then select this tool.
 					Selected(mainButtonConfig)
@@ -280,7 +320,7 @@ module.Initialize = function(thePlugin, thePluginGui)
 
 	-- If the plugin gui is disabled, we should definitely be deselected.
 	pluginGui:GetPropertyChangedSignal("Enabled"):Connect(function()
-		if (not pluginGui.Enabled) then 
+		if (not pluginGui.Enabled) then
 			Deselected()
 		end
 	end)
@@ -292,11 +332,11 @@ module.Initialize = function(thePlugin, thePluginGui)
 
 		if not userInput.MouseEnabled then
 			prevCameraType = game.Workspace.CurrentCamera.CameraType
-			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed	
+			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed
 		end
 
         DeselectSelectedTool()
-        
+
 		tool.ButtonObj:setSelected(true)
 
 		on = true
@@ -315,7 +355,7 @@ module.Initialize = function(thePlugin, thePluginGui)
 			end)
 		end
 	end
-	
+
 	function DeselectSelectedTool()
 		local lastTool = currentMainButtonConfig
 		currentMainButtonConfig = nil
@@ -333,15 +373,15 @@ module.Initialize = function(thePlugin, thePluginGui)
 			end
 		end
 	end
-	
+
 	function Deselected()
 		if not userInput.MouseEnabled then
-			game.Workspace.CurrentCamera.CameraType = prevCameraType		
+			game.Workspace.CurrentCamera.CameraType = prevCameraType
 		end
 
 		on = false
 
-		DeselectSelectedTool()		
+		DeselectSelectedTool()
 	end
 
 	if plugin then

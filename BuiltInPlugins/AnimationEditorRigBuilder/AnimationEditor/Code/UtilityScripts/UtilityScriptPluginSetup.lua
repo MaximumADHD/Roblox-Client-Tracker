@@ -42,7 +42,7 @@ function PluginSetup:init(Paths, displayName)
 	self.Button = self.Toolbar:CreateButton(
 		displayName,
 		"Create, preview and publish animations for character rigs", -- The text next to the icon. Leave Othis blank if the icon is sufficient.
-		"http://www.roblox.com/asset/?id=620849296" -- The icon file's name
+		"rbxassetid://620849296" -- The icon file's name
 	)
 
 	self.Button.Click:connect(function() onEnableChanged(self) end)
@@ -85,10 +85,7 @@ local function initializeScripts(self)
 		self.Paths.DataModelPartManipulator:init(self.Paths)
 		self.Paths.InputMouse:init(self.Paths)
 		self.Paths.UtilityScriptCopyPaste:init(self.Paths)
-
-		if FastFlags:isFlyCameraOn() then
-			self.Paths.ViewportScriptFlyCamera:init(self.Paths)
-		end
+		self.Paths.ViewportScriptFlyCamera:init(self.Paths)
 
 		self.Paths.GUIScriptPopUpInput:init(self.Paths)
 		self.Paths.GUIScriptToolTip:init(self.Paths)
@@ -225,10 +222,7 @@ local function terminateScripts(self)
 		self.Paths.DataModelPartManipulator:terminate()
 		self.Paths.InputKeyboard:terminate()
 		self.Paths.InputMouse:terminate()
-
-		if FastFlags:isFlyCameraOn() then
-				self.Paths.ViewportScriptFlyCamera:terminate()
-		end
+		self.Paths.ViewportScriptFlyCamera:terminate()
 
 		self.Paths.UtilityScriptDisplayArea:terminate()
 

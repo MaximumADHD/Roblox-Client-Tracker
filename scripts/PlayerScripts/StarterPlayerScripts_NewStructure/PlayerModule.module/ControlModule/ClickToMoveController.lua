@@ -951,8 +951,9 @@ function ClickToMove:OnCharacterAdded(character)
 			self:OnTouchBegan(input, processed)
 		end
 
-		-- Cancel path when you use the keyboard controls.
-		if processed == false and input.UserInputType == Enum.UserInputType.Keyboard and movementKeys[input.KeyCode] then
+		-- Cancel path when you use the keyboard controls if wasd is enabled.
+		if self.wasdEnabled and processed == false and input.UserInputType == Enum.UserInputType.Keyboard
+			and movementKeys[input.KeyCode] then
 			CleanupPath()
 			if FFlagUserClickToMoveFollowPathRefactor then
 				ClickToMoveDisplay.CancelFailureAnimation()

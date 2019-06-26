@@ -55,11 +55,7 @@ local function getOffsetClickTime(self)
 	local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime(true)
 	if self.selectedHandle then
 		local x = self.Paths.UtilityScriptDisplayArea:timeToAbsoluteXPosition(clickTime)
-		if FastFlags:fixKeyframeScaleHandlesPositioning() then
-			x = x - self.ActivePadding[self.selectedHandle]
-		else
-			x = x - self.Paddings[self.selectedHandle]
-		end
+		x = x - self.ActivePadding[self.selectedHandle]
 		local offsetTime = self.Paths.UtilityScriptDisplayArea:absoluteXPositionToTime(x)
 		offsetTime = self.Paths.DataModelSession:getIncrementSnappedTime(offsetTime)
 		return self.Paths.DataModelSession:formatTimeValue(offsetTime)
@@ -72,45 +68,25 @@ local function flipHandles(self, handle, time)
 	local rightAnchor = Vector2.new(1, 0.5)
 	if handle == self.RightHandle then
 		if time <= self.StartTime then
-			if FastFlags:fixKeyframeScaleHandlesPositioning() then
-				positionHandle(self, self.LeftHandle, self.StartTime, self.ActivePadding[self.RightHandle])
-				positionHandle(self, self.RightHandle, time, self.ActivePadding[self.LeftHandle])
-			else
-				positionHandle(self, self.LeftHandle, self.StartTime, getXPadding(self))
-				positionHandle(self, self.RightHandle, time, -1 * getXPadding(self))
-			end
+			positionHandle(self, self.LeftHandle, self.StartTime, self.ActivePadding[self.RightHandle])
+			positionHandle(self, self.RightHandle, time, self.ActivePadding[self.LeftHandle])
 			self.LeftTag.AnchorPoint = leftAnchor
 			self.RightTag.AnchorPoint = rightAnchor
 		else
-			if FastFlags:fixKeyframeScaleHandlesPositioning() then
-				positionHandle(self, self.LeftHandle, self.StartTime, self.ActivePadding[self.LeftHandle])
-				positionHandle(self, self.RightHandle, time, self.ActivePadding[self.RightHandle])
-			else
-				positionHandle(self, self.LeftHandle, self.StartTime, -1 * getXPadding(self))
-				positionHandle(self, self.RightHandle, time, getXPadding(self))
-			end
+			positionHandle(self, self.LeftHandle, self.StartTime, self.ActivePadding[self.LeftHandle])
+			positionHandle(self, self.RightHandle, time, self.ActivePadding[self.RightHandle])
 			self.LeftTag.AnchorPoint = rightAnchor
 			self.RightTag.AnchorPoint = leftAnchor
 		end
 	elseif handle == self.LeftHandle then
 		if time >= self.EndTime then
-			if FastFlags:fixKeyframeScaleHandlesPositioning() then
-				positionHandle(self, self.LeftHandle, time, self.ActivePadding[self.RightHandle])
-				positionHandle(self, self.RightHandle, self.EndTime, self.ActivePadding[self.LeftHandle])
-			else
-				positionHandle(self, self.LeftHandle, time, getXPadding(self))
-				positionHandle(self, self.RightHandle, self.EndTime, -1 * getXPadding(self))
-			end
+			positionHandle(self, self.LeftHandle, time, self.ActivePadding[self.RightHandle])
+			positionHandle(self, self.RightHandle, self.EndTime, self.ActivePadding[self.LeftHandle])
 			self.LeftTag.AnchorPoint = leftAnchor
 			self.RightTag.AnchorPoint = rightAnchor
 		else
-			if FastFlags:fixKeyframeScaleHandlesPositioning() then
-				positionHandle(self, self.LeftHandle, time, self.ActivePadding[self.LeftHandle])
-				positionHandle(self, self.RightHandle, self.EndTime, self.ActivePadding[self.RightHandle])
-			else
-				positionHandle(self, self.LeftHandle, time, -1 * getXPadding(self))
-				positionHandle(self, self.RightHandle, self.EndTime, getXPadding(self))
-			end
+			positionHandle(self, self.LeftHandle, time, self.ActivePadding[self.LeftHandle])
+			positionHandle(self, self.RightHandle, self.EndTime, self.ActivePadding[self.RightHandle])
 			self.LeftTag.AnchorPoint = rightAnchor
 			self.RightTag.AnchorPoint = leftAnchor
 		end
@@ -175,13 +151,9 @@ function ScaleControls:showControls()
 	self.LeftHandle.Size = UDim2.new(0, 2, 0, length)
 	self.RightHandle.Size = UDim2.new(0, 2, 0, length)
 
-	local leftPadding = self.Paddings[self.LeftHandle]
-	local rightPadding = self.Paddings[self.RightHandle]
+	local leftPadding = getPaddingToApply(self, self.StartTime, self.Paddings[self.LeftHandle])
+	local rightPadding = getPaddingToApply(self, self.EndTime, self.Paddings[self.RightHandle])
 
-	if FastFlags:fixKeyframeScaleHandlesPositioning() then
-		leftPadding = getPaddingToApply(self, self.StartTime, self.Paddings[self.LeftHandle])
-		rightPadding = getPaddingToApply(self, self.EndTime, self.Paddings[self.RightHandle])
-	end
 	positionHandle(self, self.LeftHandle, self.StartTime, leftPadding, topY)
 	positionHandle(self, self.RightHandle, self.EndTime, rightPadding, topY)
 
@@ -196,13 +168,8 @@ end
 function ScaleControls:moveControls(startTime, endTime)
 	setTagTime(self, self.LeftTag, startTime)
 	setTagTime(self, self.RightTag, endTime)
-	if FastFlags:fixKeyframeScaleHandlesPositioning() then
-		positionHandle(self, self.LeftHandle, startTime, self.ActivePadding[self.LeftHandle])
-		positionHandle(self, self.RightHandle, endTime, self.ActivePadding[self.RightHandle])
-	else
-		positionHandle(self, self.LeftHandle, startTime, self.Paddings[self.LeftHandle])
-		positionHandle(self, self.RightHandle, endTime, self.Paddings[self.RightHandle])
-	end
+	positionHandle(self, self.LeftHandle, startTime, self.ActivePadding[self.LeftHandle])
+	positionHandle(self, self.RightHandle, endTime, self.ActivePadding[self.RightHandle])
 	positionTag(self, self.LeftTag, nil, self.LeftHandle.AbsolutePosition.X)
 	positionTag(self, self.RightTag, nil, self.RightHandle.AbsolutePosition.X)
 	resizeHighlightArea(self)
@@ -353,7 +320,7 @@ function ScaleControls:initPostGUICreate()
 		self.Connections:add(self.Paths.UtilityScriptMoveItems.OnMovedEvent:connect(function(targetTime, anchorTime)
 			self:resetControls()
 		end))
-	else	
+	else
 		self.Connections:add(self.Paths.UtilityScriptMoveItems.PosesMovedEvent:connect(function(targetTime, anchorTime)
 			self:resetControls()
 		end))

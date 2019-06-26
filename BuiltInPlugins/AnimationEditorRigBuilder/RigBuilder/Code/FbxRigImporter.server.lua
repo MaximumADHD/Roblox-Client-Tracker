@@ -1,8 +1,3 @@
-local rigBuilderRojoVersionFlagExists, rigBuilderRojoVersionFlagValue =  pcall(function() return settings():GetFFlag("StudioRigBuilderRojoVersion") end)
-if not rigBuilderRojoVersionFlagExists or not rigBuilderRojoVersionFlagValue then
-	return
-end
-
 local RigBuilderFolder = script.Parent.Parent
 local GUIsFolder = RigBuilderFolder:WaitForChild("GUIs")
 

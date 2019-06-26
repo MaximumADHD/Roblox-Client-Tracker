@@ -26,7 +26,7 @@ if not FastFlags:isEnableRigSwitchingOn() then
 	button = toolbar:CreateButton(
 		displayName,
 		"Create, preview and publish animations for character rigs", -- The text next to the icon. Leave Othis blank if the icon is sufficient.
-		"http://www.roblox.com/asset/?id=620849296" -- The icon file's name
+		"rbxassetid://620849296" -- The icon file's name
 	)
 end
 
@@ -98,10 +98,7 @@ local function createMainGUI()
 		Paths.DataModelPartManipulator:init(Paths)
 		Paths.InputMouse:init(Paths)
 		Paths.UtilityScriptCopyPaste:init(Paths)
-
-		if FastFlags:isFlyCameraOn() then
-			Paths.ViewportScriptFlyCamera:init(Paths)
-		end
+		Paths.ViewportScriptFlyCamera:init(Paths)
 
 		Paths.GUIScriptPopUpInput:init(Paths)
 		Paths.GUIScriptToolTip:init(Paths)
@@ -239,10 +236,7 @@ local function destroyMainGUI()
 		Paths.DataModelPartManipulator:terminate()
 		Paths.InputKeyboard:terminate()
 		Paths.InputMouse:terminate()
-
-		if FastFlags:isFlyCameraOn() then
-				Paths.ViewportScriptFlyCamera:terminate()
-		end
+		Paths.ViewportScriptFlyCamera:terminate()
 
 		Paths.UtilityScriptDisplayArea:terminate()
 

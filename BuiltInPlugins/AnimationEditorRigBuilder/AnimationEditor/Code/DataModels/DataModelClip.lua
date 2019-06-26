@@ -393,9 +393,7 @@ function Clip:saveCurrentAnimation(animName)
 	save = self:createAnimationFromCurrentData(true, true)
 	save.Name = animName
 	save.Parent = AnimationBlock
-	if FastFlags:isUseAnimationNameAsTitleOn() then
-		self.Paths.DataModelSession:setSessionTitle(animName)
-	end
+	self.Paths.DataModelSession:setSessionTitle(animName)
 	if FastFlags:isCheckForSavedChangesOn() then
 		self.Paths.UtilityScriptUndoRedo:markAnimationSaved()
 	end
@@ -424,9 +422,7 @@ function Clip:loadCurrentAnimation(animName)
 
 	self:loadImportAnim(Animation)
 	self.Paths.UtilityScriptUndoRedo:reset()
-	if FastFlags:isUseAnimationNameAsTitleOn() then
-		self.Paths.DataModelSession:setSessionTitle(animName)
-	end
+	self.Paths.DataModelSession:setSessionTitle(animName)
 end
 
 return Clip

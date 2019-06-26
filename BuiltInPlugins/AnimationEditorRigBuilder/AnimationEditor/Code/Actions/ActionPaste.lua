@@ -128,7 +128,7 @@ local function pasteInternal(Paths, atTime, scaleFactor, earliestPoseTime, copyP
 	end
 
 	if FastFlags:isIKModeFlagOn() and Paths.DataModelIKManipulator.IsIKModeActive then
-		if not FastFlags:fixIKWarning() or not copiedInIKMode then
+		if not copiedInIKMode then
 			Paths.HelperFunctionsWarningsAndPrompts:createApplyIKPromptForPaste(Paths)
 		end
 	end

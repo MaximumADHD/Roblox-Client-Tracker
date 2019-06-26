@@ -15,19 +15,13 @@ function TimelineMenu:init(Paths)
 
 	self.AddKeyHandle = self.Menu:getOption("MenuOptionAddKey")
 	self.Menu:setClickCallback(self.AddKeyHandle, function()
-		if FastFlags:isRightClickAddKeyFixOn() then
-			Paths.DataModelKeyframes:createAndSelectKeyframe(self.DataItem, self.Time)
-		else
-			Paths.DataModelKeyframes:getOrCreateKeyframes(Paths.DataModelSession:getSelectedDataItems(), self.Time)
-		end
+		Paths.DataModelKeyframes:createAndSelectKeyframe(self.DataItem, self.Time)
 	end)
 
-	if FastFlags:isRightClickAddKeyFixOn() then
-		self.AddKeyAtScrubberHandle = self.Menu:getOption("MenuOptionAddKeyAtScrubber")
-		self.Menu:setClickCallback(self.AddKeyAtScrubberHandle, function()
-			Paths.DataModelKeyframes:createAndSelectMultipleKeys(Paths.DataModelSession:getSelectedDataItems(), Paths.DataModelSession:getScrubberTime())
-		end)
-	end
+	self.AddKeyAtScrubberHandle = self.Menu:getOption("MenuOptionAddKeyAtScrubber")
+	self.Menu:setClickCallback(self.AddKeyAtScrubberHandle, function()
+		Paths.DataModelKeyframes:createAndSelectMultipleKeys(Paths.DataModelSession:getSelectedDataItems(), Paths.DataModelSession:getScrubberTime())
+	end)
 	
 	self.DeleteKeyHandle = self.Menu:getOption("MenuOptionDeleteKey")
 	self.Menu:setClickCallback(self.DeleteKeyHandle, function() Paths.DataModelKeyframes:deleteSelectedPosesAndEmptyKeyframes() end)
@@ -62,13 +56,10 @@ function TimelineMenu:init(Paths)
 	
 	self.resetJointHandle = self.Menu:getOption("MenuOptionResetJoint")
 	self.Menu:setClickCallback(self.resetJointHandle, function()
-		if not FastFlags:isFixResetJointOn() or not self.Paths.HelperFunctionsTable:isNilOrEmpty(Paths.DataModelSession:getSelectedDataItems()) then
+		if not self.Paths.HelperFunctionsTable:isNilOrEmpty(Paths.DataModelSession:getSelectedDataItems()) then
 			Paths.DataModelKeyframes:resetPartsToDefaultPose(Paths.DataModelSession:getSelectedDataItems(), self.Time)
 		end
 	end)
-	if not FastFlags:isFixResetJointOn() then
-		self.Menu:setEnabled(self.resetJointHandle, true)
-	end
 
 	self.RenameKeyFrameHandle = self.Menu:getOption("MenuOptionRenameKeyFrame")
 	self.Menu:setClickCallback(self.RenameKeyFrameHandle, function() self.Paths.ActionEditKeyframeName:execute(self.Paths, self.Paths.DataModelClip:getKeyframe(self.Time)) end)	
@@ -92,16 +83,10 @@ function TimelineMenu:showAvailableOptions(pose)
 	local showKeyframeActionLabel = self.Paths.DataModelSession:isOnlyOneKeyframeSelected() and not poseSelected
 	local showAddKeyAtScrubber = not poseSelected and self.Paths.DataModelSession:areAnyDataItemsSelected()
 
-	if FastFlags:isRightClickAddKeyFixOn() then
-		self.Menu:setEnabled(self.AddKeyHandle, not poseSelected)
-		self.Menu:setEnabled(self.AddKeyAtScrubberHandle, showAddKeyAtScrubber)
-		local addText = multipleDataItemsSelected and "Add Keys at Scrubber" or "Add Key at Scrubber"
-		self.Menu:setMainText(self.AddKeyAtScrubberHandle, addText)
-	else
-		self.Menu:setEnabled(self.AddKeyHandle, not showKeyframeSelectedMenu)
-		local addText = multipleDataItemsSelected and "Add Keys" or "Add Key"
-		self.Menu:setMainText(self.AddKeyHandle, addText)
-	end
+	self.Menu:setEnabled(self.AddKeyHandle, not poseSelected)
+	self.Menu:setEnabled(self.AddKeyAtScrubberHandle, showAddKeyAtScrubber)
+	local addText = multipleDataItemsSelected and "Add Keys at Scrubber" or "Add Key at Scrubber"
+	self.Menu:setMainText(self.AddKeyAtScrubberHandle, addText)
 
 	self.Menu:setEnabled(self.DeleteKeyHandle, showKeyframeSelectedMenu)
 
@@ -139,13 +124,8 @@ function TimelineMenu:showAvailableOptions(pose)
 
 	self.Menu:setEnabled(self.resetChangedHandle, self.Paths.DataModelKeyframes:doAnyPosesExist())
 
-	if FastFlags:isFixResetJointOn() then
-		self.Menu:setMainText(self.resetJointHandle, "Reset Selected")
-		self.Menu:setEnabled(self.resetJointHandle, self.Paths.DataModelSession:areAnyDataItemsSelected())
-	else
-		local resetText = (multipleDataItemsSelected or multiplePosesSelected) and "Reset Selected" or ("Reset " .. self.DataItem.Name)
-		self.Menu:setMainText(self.resetJointHandle, resetText)
-	end
+	self.Menu:setMainText(self.resetJointHandle, "Reset Selected")
+	self.Menu:setEnabled(self.resetJointHandle, self.Paths.DataModelSession:areAnyDataItemsSelected())
 			
 	if FastFlags:isFixRenameKeyOptionOn() then
 		self.Menu:setEnabled(self.RenameKeyFrameHandle, showKeyframeActionLabel or showPoseOptions)

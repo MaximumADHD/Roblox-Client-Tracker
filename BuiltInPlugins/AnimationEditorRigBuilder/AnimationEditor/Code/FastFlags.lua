@@ -24,24 +24,8 @@ function FastFlags:isUsePluginBindToCloseOn()
 	return isFlagOn("StudioAnimationEditorUsePluginBindToClose2") and self:useQWidgetsForPopupsOn()
 end
 
-function FastFlags:isRightClickAddKeyFixOn()
-	return isFlagOn("StudioAnimationEditorRightClickAddKeyFix")
-end
-
-function FastFlags:isPartIncludeFixOn()
-	return isFlagOn("StudioAnimationEditorPartIncludeFix")
-end
-
 function FastFlags:isFixRenameKeyOptionOn()
 	return isFlagOn("StudioAnimationEditorFixRenameKeyOption2")
-end
-
-function FastFlags:isUseNewThemeAPIOn()
-	return isFlagOn("StudioAnimationEditorUseNewThemeAPIV2")
-end
-
-function FastFlags:isUseAnimationNameAsTitleOn()
-	return isFlagOn("StudioAnimationEditorUseAnimationNameAsTitle")
 end
 
 function FastFlags:isIKModeFlagOn()
@@ -56,32 +40,12 @@ function FastFlags:isDebugStudioRigImporterFlagOn()
 	return isFlagOn("DebugStudioRigImporter")
 end
 
-function FastFlags:isStudioFbxAnimationImportEnabled()
-	return isFlagOn("StudioEnableFbxAnimationImport")
-end
-
-function FastFlags:isUseDevHubHelpLinksOn()
-	return isFlagOn("StudioAnimationEditorUseDevHubHelpLinks2")
-end
-
-function FastFlags:isFixResetJointOn()
-	return isFlagOn("StudioAnimationEditorFixResetJoint")
-end
-
-function FastFlags:isImportAndExportFixOn()
-	return isFlagOn("StudioAnimationEditorImportAndExportFix")
-end
-
 function FastFlags:isAutoAddBeginningKeyframeOn()
 	return isFlagOn("StudioAnimationEditorAutoAddBeginningKeyframe")
 end
 
 function FastFlags:isFixInterpolationSettingOn()
 	return isFlagOn("StudioAnimationEditorFixInterpolationSetting")
-end
-
-function FastFlags:isUseRigNameForPromptsOn()
-	return isFlagOn("StudioAnimationEditorUseRigNameForPrompts")
 end
 
 function FastFlags:isSelectAndDragOn()
@@ -94,30 +58,6 @@ end
 
 function FastFlags:isUseHipHeightInKeyframeSequencesOn()
 	return isFlagOn("UseHipHeightInKeyframeSequences2")
-end
-
-function FastFlags:clearIKOnNew()
-	return isFlagOn("StudioAnimationEditorFixClearIKOnNew")
-end
-
-function FastFlags:isFlyCameraOn()
-	return isFlagOn("StudioAnimationEditorFlyCamera")
-end
-
-function FastFlags:fixIKWarning()
-	return isFlagOn("StudioAnimationEditorFixIKWarning")
-end
-
-function FastFlags:fixFullBodyIKPinning()
-	return isFlagOn("StudioAnimationEditorFixFullBodyIKPinning")
-end
-
-function FastFlags:fixJointSelectionInputSinking()
-	return isFlagOn("StudioAnimationEditorFixJointSelectionInputSinking")
-end
-
-function FastFlags:fixKeyframeScaleHandlesPositioning()
-	return isFlagOn("StudioAnimationEditorFixKeyframeScaleHandlesPositioning")
 end
 
 function FastFlags:isAnimationEventsOn()
@@ -137,7 +77,7 @@ function FastFlags:isSelectEventsOnEdgeOn()
 end
 
 function FastFlags:supportExplicitJointsMode()
-	return isFlagOn("StudioAnimationEditorSupportExplicitJointsMode") and self:fixFullBodyIKPinning()
+	return isFlagOn("StudioAnimationEditorSupportExplicitJointsMode")
 end
 
 function FastFlags:isFixIKWhileLockedOn()

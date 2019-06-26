@@ -4,14 +4,21 @@ local i18nModule = require(script.Parent.Parent.Libs.Localization)
 
 i18nModule.SetLocalizationTable(script.Parent.Parent.Data.TerrainTranslations)
 
+local FFlagImportTerrain = settings():GetFFlag("ImportTerrain")
+local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
 local kToolbarButtonText = i18nModule.TranslateId("Studio.TerrainEditor.Main.ToolbarButton")
 
 local kMinWidthWidth = 249
 
+if FFlagImportTerrain or FFlagTerrainClearButtonMove then
+	kMinWidthWidth = 289
+end
+
+
 -- A function to sync toolbar button 'active' state with plugin gui
 -- visibility.
 local function updateButtonActive(button, plugin)
-	if plugin.Enabled then 
+	if plugin.Enabled then
 	  button:SetActive(true)
 	else
 	  button:SetActive(false)
@@ -23,9 +30,9 @@ local toolbar = plugin:CreateToolbar('TerrainToolsLuaToolbarName')
 
 local toggleVisibilityButton
 
-toggleVisibilityButton = toolbar:CreateButton("Editor", 
+toggleVisibilityButton = toolbar:CreateButton("Editor",
 	i18nModule.TranslateId("Studio.TerrainEditor.Main.Tooltip"),
-	"rbxasset://textures/TerrainTools/icon_terrain_big.png", 
+	"rbxasset://textures/TerrainTools/icon_terrain_big.png",
 	kToolbarButtonText)
 
 
@@ -45,14 +52,14 @@ toggleVisibilityButton.Click:connect(function()
 end)
 
 
--- Immediately sync toolbar button active state with plugin gui visibility.   
+-- Immediately sync toolbar button active state with plugin gui visibility.
 updateButtonActive(toggleVisibilityButton, pluginGui)
 
 -- Listen for changes in plugin gui visibility to keep toolbar button
 -- active state synced.
 pluginGui:GetPropertyChangedSignal("Enabled"):connect(function(property)
 	updateButtonActive(toggleVisibilityButton, pluginGui)
-end)     
+end)
 
 -- Make sure plugin and pluginGui have nice names.
 plugin.Name = "Terrain"

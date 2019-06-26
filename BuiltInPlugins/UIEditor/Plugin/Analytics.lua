@@ -1,5 +1,5 @@
 
-local success, AnalyticsService = pcall(function() return game:GetService("AnalyticsService") end)
+local success, AnalyticsService = pcall(function() return game:GetService("RbxAnalyticsService") end)
 
 local Analytics = {}
 

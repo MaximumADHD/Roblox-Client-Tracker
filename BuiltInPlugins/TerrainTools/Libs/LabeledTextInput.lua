@@ -18,12 +18,11 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	setmetatable(self, LabeledTextInputClass)
 
 	-- Note: we are using "graphemes" instead of characters.
-	-- In modern text-manipulation-fu, what with internationalization, 
-	-- emojis, etc, it's not enough to count characters, particularly when 
+	-- In modern text-manipulation-fu, what with internationalization,
+	-- emojis, etc, it's not enough to count characters, particularly when
 	-- concerned with "how many <things> am I rendering?".
-	-- We are using the 
 	self._MaxGraphemes = 10
-	
+
 	self._valueChangedFunction = nil
 
 	local defaultValue = defaultValue or ""
@@ -60,16 +59,16 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBox.ClipsDescendants = true
 
 	GuiUtilities.syncGuiElementFontColor(textBox)
-	
+
 	textBox:GetPropertyChangedSignal("Text"):connect(function()
 		-- Never let the text be too long.
-		-- Careful here: we want to measure number of graphemes, not characters, 
+		-- Careful here: we want to measure number of graphemes, not characters,
 		-- in the text, and we want to clamp on graphemes as well.
-		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
+		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then
 			local count = 0
 			for start, stop in utf8.graphemes(self._textBox.Text) do
 				count = count + 1
-				if (count > self._MaxGraphemes) then 
+				if (count > self._MaxGraphemes) then
 					-- We have gone one too far.
 					-- clamp just before the beginning of this grapheme.
 					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
@@ -83,11 +82,11 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 		end
 
 		self._value = self._textBox.Text
-		if (self._valueChangedFunction) then 
+		if (self._valueChangedFunction) then
 			self._valueChangedFunction(self._value)
 		end
 	end)
-	
+
 	self._textBox = textBox
 
 	return self
@@ -95,6 +94,10 @@ end
 
 function LabeledTextInputClass:SetValueChangedFunction(vcf)
 	self._valueChangedFunction = vcf
+end
+
+function LabeledTextInputClass:GetTextBox()
+	return self._textBox
 end
 
 function LabeledTextInputClass:GetFrame()

@@ -96,7 +96,7 @@ local function connectClicks(self)
 		end))
 		self.Connections:add(self.jointWidget.InfoAndTrack.Track.InputBegan:connect(function(input)
 			if Enum.UserInputType.MouseButton2 == input.UserInputType then
-				if not FastFlags:isPartIncludeFixOn() or self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
+				if self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
 					local clickTime = self.Paths.UtilityScriptDisplayArea:getFormattedMouseTime(true)
 					self.Paths.GUIScriptTimelineMenu:show(clickTime, self.DataItem)
 				end
@@ -127,12 +127,8 @@ local function setNameColor(self)
 			self.jointWidget.InfoAndTrack.JointInfo.NameAndSwizzle.JointName.JointName.TextColor3 = self.Paths.UtilityScriptTheme:GetHighlightedTextColor()
 		end
 	else
-		if FastFlags:isUseNewThemeAPIOn() then
-			if not self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
-				self.jointWidget.InfoAndTrack.JointInfo.NameAndSwizzle.JointName.JointName.TextColor3 = self.Paths.UtilityScriptTheme:GetDisabledTextColor()
-			else
-				self.jointWidget.InfoAndTrack.JointInfo.NameAndSwizzle.JointName.JointName.TextColor3 = self.Paths.UtilityScriptTheme:GetTextColor()
-			end
+		if not self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
+			self.jointWidget.InfoAndTrack.JointInfo.NameAndSwizzle.JointName.JointName.TextColor3 = self.Paths.UtilityScriptTheme:GetDisabledTextColor()
 		else
 			self.jointWidget.InfoAndTrack.JointInfo.NameAndSwizzle.JointName.JointName.TextColor3 = self.Paths.UtilityScriptTheme:GetTextColor()
 		end

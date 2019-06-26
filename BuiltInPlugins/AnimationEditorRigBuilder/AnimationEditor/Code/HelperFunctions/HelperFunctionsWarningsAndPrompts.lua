@@ -30,37 +30,21 @@ function WarningsAndPrompts:createApplyIKPromptForLoad(Paths)
 end
 
 function WarningsAndPrompts:createRemoveIKPrompt(Paths)
-	if FastFlags:isUseRigNameForPromptsOn() then
-		if not Paths.GUIScriptPromptYesNo:show(
-			"Disable IK",
-			"Do you want to disable IK for " ..Paths.DataModelRig:getName() .." joints?",
-			"The IK constraint will no longer be applied to the joints",
-			"Don't show this dialog again",
-			function()
-				Paths.DataModelIKManipulator:setIsIKModeActive(false)
-		end) then
+	if not Paths.GUIScriptPromptYesNo:show(
+		"Disable IK",
+		"Do you want to disable IK for " ..Paths.DataModelRig:getName() .." joints?",
+		"The IK constraint will no longer be applied to the joints",
+		"Don't show this dialog again",
+		function()
 			Paths.DataModelIKManipulator:setIsIKModeActive(false)
-		end
-	else
-		if not Paths.GUIScriptPromptYesNo:show(
-			"Disable IK",
-			"Do you want to disable IK for Dummy joints?",
-			"The IK constraint will no longer be applied to the joints",
-			"Don't show this dialog again",
-			function()
-				Paths.DataModelIKManipulator:setIsIKModeActive(false)
-		end) then
-			Paths.DataModelIKManipulator:setIsIKModeActive(false)
-		end
+	end) then
+		Paths.DataModelIKManipulator:setIsIKModeActive(false)
 	end
 end
 
 function WarningsAndPrompts:createInvalidPoseNamesInFileWarning(Paths, animationName, invalidPoseNames)
 	if not Paths.HelperFunctionsTable:isNilOrEmpty(invalidPoseNames) then
-		local msg = "Some joint names in the file can't match to any Dummy joints: "
-		if FastFlags:isUseRigNameForPromptsOn() then
-			msg = "Some joint names in the file can't match to any " ..Paths.DataModelRig:getName() .." joints: "
-		end
+		local msg = "Some joint names in the file can't match to any " ..Paths.DataModelRig:getName() .." joints: "
 		for _, part in pairs(invalidPoseNames) do
 			msg = msg ..part .."; "
 		end
@@ -146,10 +130,7 @@ if FastFlags:isUseHipHeightInKeyframeSequencesOn() then
 end
 
 function WarningsAndPrompts:createMissingBodyPartsWarning(Paths, missingBodyParts)
-	local msg = "We can't find the following joint names in Dummy: "
-	if FastFlags:isUseRigNameForPromptsOn() then
-		msg = "We can't find the following joint names in " ..Paths.DataModelRig:getName() ..": "
-	end
+	local msg = "We can't find the following joint names in " ..Paths.DataModelRig:getName() ..": "
 	for _, part in ipairs(missingBodyParts) do
 		msg = msg ..part .."; "
 	end

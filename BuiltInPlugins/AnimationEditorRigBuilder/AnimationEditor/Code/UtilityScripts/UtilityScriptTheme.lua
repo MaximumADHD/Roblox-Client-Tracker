@@ -8,68 +8,22 @@ local getLightThemeName = nil
 local getLightThemeIndex = nil
 local getDarkThemeIndex = nil
 local testForOldStudioThemeAPI = nil
-if FastFlags:isUseNewThemeAPIOn() then
-	getLightThemeName = function()
-		return "Light"
-	end
-else
-	-- takes in a function that uses the old studio theme api, if it fails
-	-- it returns the default index for the light theme colors. When new
-	-- theme API is released, this can be removed
-	testForOldStudioThemeAPI = function(func)
-		local success, result = pcall(func)
-		return success and result or 0
-	end
 
-	getLightThemeIndex = function()
-		return testForOldStudioThemeAPI(function() return Enum.UITheme.Light end)
-	end
-
-	getDarkThemeIndex = function()
-		local themeIndex = testForOldStudioThemeAPI(function() return Enum.UITheme.Dark end)
-		return themeIndex ~= 0 and themeIndex or 1
-	end
+getLightThemeName = function()
+	return "Light"
 end
 
 local initThemeColors = nil
-if not FastFlags:isUseNewThemeAPIOn() then
-	initThemeColors = function(self)
-		local lightTheme = getLightThemeIndex()
-		local darkTheme = getDarkThemeIndex()
-
-		self.Themes = {}
-
-		for category, style in pairs(self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap) do
-			self.Themes[category] = {}
-			for key, value in pairs(style) do
-				self.Themes[category][key] = {}
-				self.Themes[category][key][lightTheme] = value.Color
-				self.Themes[category][key][darkTheme] = self.Paths.UtilityScriptThemeData.DarkThemeColors[value.Style][value.Modifier]
-			end
-		end
-	end
-end
 
 local function colorsEqual(self, firstColor, secondColor)
 	return self.Paths.HelperFunctionsMath:isCloseToZero(math.abs(secondColor.r - firstColor.r)) and self.Paths.HelperFunctionsMath:isCloseToZero(math.abs(secondColor.g - firstColor.g)) and self.Paths.HelperFunctionsMath:isCloseToZero(math.abs(secondColor.b - firstColor.b))
 end
 
 local function lookupThemeColorKey(self, color, categoryTable)
-	if FastFlags:isUseNewThemeAPIOn() then
-		if categoryTable then
-			for name, styleInfo in pairs(categoryTable) do
-				if colorsEqual(self, styleInfo.Color, color) then
-					return name
-				end
-			end
-		end
-	else
-		local lightTheme = getLightThemeIndex()
-		if categoryTable then
-			for colorName, colorValues in pairs(categoryTable) do
-				if colorsEqual(self, colorValues[lightTheme], color) then
-					return colorName
-				end
+	if categoryTable then
+		for name, styleInfo in pairs(categoryTable) do
+			if colorsEqual(self, styleInfo.Color, color) then
+				return name
 			end
 		end
 	end
@@ -113,72 +67,42 @@ local function mapThemeColorsToElements(self, element)
 	local hasBackgroundAndBorderColor = isGUIFrameElement(element) or hasTextColor or hasPlaceholderColor or hasImage or hasScrollBarColor
 
 	if hasBackgroundAndBorderColor and not hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.BackgroundColorKey) then
-		local key = nil
-		if FastFlags:isUseNewThemeAPIOn() then
-			key = lookupThemeColorKey(self, element.BackgroundColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Data)
-		else
- 			key = lookupThemeColorKey(self, element.BackgroundColor3, self.Themes.Data)
-		end
+		local key = lookupThemeColorKey(self, element.BackgroundColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Data)
 		if key then
 			createNewKeyInstance(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.BackgroundColorKey, key)
 		end
 	end
 
 	if hasBackgroundAndBorderColor and not hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.BorderColorKey) then
-		local key = nil
-		if FastFlags:isUseNewThemeAPIOn() then
-			key = lookupThemeColorKey(self, element.BorderColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Data)
-		else
- 			key = lookupThemeColorKey(self, element.BorderColor3, self.Themes.Data)
-		end
+		local key = lookupThemeColorKey(self, element.BorderColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Data)
 		if key then
 			createNewKeyInstance(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.BorderColorKey, key)
 		end
 	end
 
 	if hasTextColor and not hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.TextColorKey) then
-		local key = nil
-		if FastFlags:isUseNewThemeAPIOn() then
-			key = lookupThemeColorKey(self, element.TextColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Text)
-		else
- 			key = lookupThemeColorKey(self, element.TextColor3, self.Themes.Text)
-		end
+		local key = lookupThemeColorKey(self, element.TextColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Text)
 		if key then
 			createNewKeyInstance(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.TextColorKey, key)
 		end
 	end
 
 	if hasPlaceholderColor and not hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.PlaceholderColorKey) then
-		local key = nil
-		if FastFlags:isUseNewThemeAPIOn() then
-			key = lookupThemeColorKey(self, element.PlaceholderColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Text)
-		else
- 			key = lookupThemeColorKey(self, element.PlaceholderColor3, self.Themes.Text)
-		end
+		local key = lookupThemeColorKey(self, element.PlaceholderColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Text)
 		if key then
 			createNewKeyInstance(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.PlaceholderColorKey, key)
 		end
 	end
 
 	if hasImage and not hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.ImageKey) then
-		local key = nil
-		if FastFlags:isUseNewThemeAPIOn() then
-			key = lookupThemeColorKey(self, element.ImageColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap[element.Image])
-		else
- 			key = lookupThemeColorKey(self, element.ImageColor3, self.Themes[element.Image])
-		end
+		local key = lookupThemeColorKey(self, element.ImageColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap[element.Image])
 		if key then
 			createNewKeyInstance(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.ImageKey, key)
 		end
 	end
 
 	if hasScrollBarColor and not hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.ScrollBarColorKey) then
-		local key = nil
-		if FastFlags:isUseNewThemeAPIOn() then
-			key = lookupThemeColorKey(self, element.ScrollBarImageColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Scroll)
-		else
- 			key = lookupThemeColorKey(self, element.ScrollBarImageColor3, self.Themes.Scroll)
-		end
+		local key = lookupThemeColorKey(self, element.ScrollBarImageColor3, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Scroll)
 		if key then
 			createNewKeyInstance(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.ScrollBarColorKey, key)
 		end
@@ -190,9 +114,7 @@ local function mapThemeColorsToElements(self, element)
 	end
 end
 
-local getThemeColor = nil
-if FastFlags:isUseNewThemeAPIOn() then
-	getThemeColor = function(self, styleInfo)
+local getThemeColor = function(self, styleInfo)
 		local style = self.Paths.UtilityScriptThemeData.CustomColors[styleInfo.Style]
 		local color = nil
 		if style then 
@@ -206,38 +128,21 @@ if FastFlags:isUseNewThemeAPIOn() then
 			return settings().Studio.Theme:getColor(styleInfo.Style, styleInfo.Modifier)
 		end
 	end
-end
 
 local function GetThemeDataColor(self, colorName)
-	if FastFlags:isUseNewThemeAPIOn() then
-		return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Data[colorName])
-	else
-		return self.Themes.Data[colorName][self.CurrentTheme]
-	end
+	return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Data[colorName])
 end
 
 local function GetThemeTextColor(self, colorName)
-	if FastFlags:isUseNewThemeAPIOn() then
-		return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Text[colorName])
-	else
-		return self.Themes.Text[colorName][self.CurrentTheme]
-	end
+	return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Text[colorName])
 end
 
 local function GetThemeImageColor(self, imageName, colorName)
-	if FastFlags:isUseNewThemeAPIOn() then
-		return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap[imageName][colorName])
-	else
-		return self.Themes[imageName][colorName][self.CurrentTheme]
-	end
+	return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap[imageName][colorName])
 end
 
 local function GetThemeScrollColor(self, colorName)
-	if FastFlags:isUseNewThemeAPIOn() then
-		return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Scroll[colorName])
-	else
-		return self.Themes.Scroll[colorName][self.CurrentTheme]
-	end
+	return getThemeColor(self, self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap.Scroll[colorName])
 end
 
 local function changeElementColors(self, element)
@@ -258,14 +163,8 @@ local function changeElementColors(self, element)
 	end
 
 	if hasChild(element, self.Paths.UtilityScriptThemeData.KeyNamesMap.ImageKey) then
-		if FastFlags:isUseNewThemeAPIOn() then
-			if self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap[element.Image] then
-				element.ImageColor3 = GetThemeImageColor(self, element.Image, element.ImageKey.Value)
-			end
-		else
-			if self.Themes[element.Image] then
-				element.ImageColor3 = GetThemeImageColor(self, element.Image, element.ImageKey.Value)
-			end
+		if self.Paths.UtilityScriptThemeData.AnimationEditorStyleMap[element.Image] then
+			element.ImageColor3 = GetThemeImageColor(self, element.Image, element.ImageKey.Value)
 		end
 	end
 
@@ -281,47 +180,25 @@ end
 
 function ThemeManager:init(Paths)
 	self.Paths = Paths
-	if not FastFlags:isUseNewThemeAPIOn() then
-		initThemeColors(self)
-	end
 	self.CurrentTheme = self:getStudioCurrentTheme()
 
 	pcall(function()
-		if FastFlags:isUseNewThemeAPIOn() then
-			self.Handle = settings().Studio.ThemeChanged:connect(function()
-				self.CurrentTheme = self:getStudioCurrentTheme()
-				if Paths.GUIScriptStartScreen:isOnScreen() then
-					changeElementColors(self, self.Paths.GUIScriptStartScreen.gui)
-				elseif self.Paths and self.Paths.GUI then
-					changeElementColors(self, self.Paths.GUI)
-					if not FastFlags:isEnableRigSwitchingOn() or self.Paths.DataModelSession.SelectedChangeEvent then
-						self.Paths.DataModelSession.SelectedChangeEvent:fire()
-					end
+		self.Handle = settings().Studio.ThemeChanged:connect(function()
+			self.CurrentTheme = self:getStudioCurrentTheme()
+			if Paths.GUIScriptStartScreen:isOnScreen() then
+				changeElementColors(self, self.Paths.GUIScriptStartScreen.gui)
+			elseif self.Paths and self.Paths.GUI then
+				changeElementColors(self, self.Paths.GUI)
+				if not FastFlags:isEnableRigSwitchingOn() or self.Paths.DataModelSession.SelectedChangeEvent then
+					self.Paths.DataModelSession.SelectedChangeEvent:fire()
 				end
-			end)
-		else
-			local signal = settings().Studio:GetPropertyChangedSignal("UI Theme")
-			self.Handle = signal:connect(function()
-				self.CurrentTheme = self:getStudioCurrentTheme()
-				if Paths.GUIScriptStartScreen:isOnScreen() then
-					changeElementColors(self, self.Paths.GUIScriptStartScreen.gui)
-				else
-					changeElementColors(self, self.Paths.GUI)
-					if not FastFlags:isEnableRigSwitchingOn() or self.Paths.DataModelSession.SelectedChangeEvent then
-						self.Paths.DataModelSession.SelectedChangeEvent:fire()
-					end
-				end
-			end)
-		end
+			end
+		end)
 	end)
 end
 
 function ThemeManager:initPreGUICreate()
-	if FastFlags:isUseNewThemeAPIOn() then
-		self.CurrentTheme = getLightThemeName()
-	else
-		self.CurrentTheme = getLightThemeIndex()
-	end
+	self.CurrentTheme = getLightThemeName()
 end
 
 function ThemeManager:initPostGUICreate()
@@ -331,18 +208,11 @@ function ThemeManager:initPostGUICreate()
 end
 
 function ThemeManager:terminate()
-	if not FastFlags:isUseNewThemeAPIOn() then
-		self.Themes = {}
-	end
 	self.Handle:Disconnect()
 end
 
 function ThemeManager:getStudioCurrentTheme()
-	if FastFlags:isUseNewThemeAPIOn() then
-		return settings().Studio.Theme.Name
-	else
-		return testForOldStudioThemeAPI(function() return settings().Studio["UI Theme"] end)
-	end
+	return settings().Studio.Theme.Name
 end
 
 function ThemeManager:setColorsToTheme(element)

@@ -7,18 +7,13 @@ local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 local userAnimationSpeedDampeningSuccess, userAnimationSpeedDampeningValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimationSpeedDampening") end)
 local userAnimationSpeedDampening = userAnimationSpeedDampeningSuccess and userAnimationSpeedDampeningValue
 
-local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserAdjustHumanoidRootPartToHipPosition")
-end)
-local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagExists and adjustHumanoidRootPartFlagEnabled
-
 local animateScriptEmoteHookFlagExists, animateScriptEmoteHookFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserAnimateScriptEmoteHook")
 end)
 local FFlagAnimateScriptEmoteHook = animateScriptEmoteHookFlagExists and animateScriptEmoteHookFlagEnabled
 
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
-local HumanoidHipHeight = FFlagUserAdjustHumanoidRootPartToHipPosition and 2 or 1.35
+local HumanoidHipHeight = 2
 
 local EMOTE_TRANSITION_TIME = 0.1
 
@@ -354,10 +349,8 @@ end
 
 function getHeightScale()
 	if Humanoid then
-		if FFlagUserAdjustHumanoidRootPartToHipPosition then
-			if not Humanoid.AutomaticScalingEnabled then
-				return 1
-			end
+		if not Humanoid.AutomaticScalingEnabled then
+			return 1
 		end
 		
 		local scale = Humanoid.HipHeight / HumanoidHipHeight

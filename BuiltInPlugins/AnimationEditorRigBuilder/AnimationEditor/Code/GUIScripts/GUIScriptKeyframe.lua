@@ -148,12 +148,12 @@ function Keyframe:new(Paths, parent, time, dataItem, pose)
 
 	self.Connections:add(target.MouseButton2Click:connect(function()
 		if FastFlags:isOptimizationsEnabledOn() then
-			if not FastFlags:isPartIncludeFixOn() or self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
+			if self.Paths.DataModelRig:getPartInclude(self.DataItem.Name) then
 				Paths.DataModelSession:selectKeyframe(time, self.DataItem)
 				Paths.GUIScriptTimelineMenu:show(time, self.DataItem, self.Pose)
 			end
 		else
-			if not FastFlags:isPartIncludeFixOn() or self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
+			if self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
 				Paths.DataModelSession:selectKeyframe(time, dataItem)
 				Paths.GUIScriptTimelineMenu:show(time, dataItem, pose)
 			end

@@ -17,6 +17,7 @@ local coreGui = game:GetService('CoreGui')
 local changeHistoryService = game:GetService('ChangeHistoryService')
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
+local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 
@@ -361,19 +362,28 @@ local function MakeButtonsFrame()
 	local frame = GuiUtilities.MakeFixedHeightFrame("Buttons", GuiUtilities.kBottomButtonsFrameHeight)
 	frame.BackgroundTransparency = 1
 
-	local clearButtonObj = CustomTextButton.new("ClearButton",
-		i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonClear'))
-	clearButtonObj:getButton().Parent = frame
-	clearButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	clearButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
-		 1, -GuiUtilities.kBottomButtonsHeight)
+	if FFlagTerrainClearButtonMove then
+		local generateButtonObj = CustomTextButton.new("GenerateButton",
+			i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonGenerate'))
+		generateButtonObj:getButton().Parent = frame
+		generateButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+		generateButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth/2,
+			1, -GuiUtilities.kBottomButtonsHeight)
+	else
+		local clearButtonObj = CustomTextButton.new("ClearButton",
+			i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonClear'))
+		clearButtonObj:getButton().Parent = frame
+		clearButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+		clearButtonObj:getButton().Position = UDim2.new(0.5, -GuiUtilities.kBottomButtonsWidth - kBottomButtonsPadding/2,
+			 1, -GuiUtilities.kBottomButtonsHeight)
 
-	local generateButtonObj = CustomTextButton.new("GenerateButton",
-		i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonGenerate'))
-	generateButtonObj:getButton().Parent = frame
-	generateButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
-	generateButtonObj:getButton().Position = UDim2.new(0.5, kBottomButtonsPadding/2,
-		1, -GuiUtilities.kBottomButtonsHeight)
+		local generateButtonObj = CustomTextButton.new("GenerateButton",
+			i18n.TranslateId('Studio.TerrainEditor.Generate.ButtonGenerate'))
+		generateButtonObj:getButton().Parent = frame
+		generateButtonObj:getButton().Size = UDim2.new(0, GuiUtilities.kBottomButtonsWidth, 0, GuiUtilities.kBottomButtonsHeight)
+		generateButtonObj:getButton().Position = UDim2.new(0.5, kBottomButtonsPadding/2,
+			1, -GuiUtilities.kBottomButtonsHeight)
+	end
 
 	return frame
 end
@@ -446,9 +456,11 @@ module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 		generate()
 	end)
 
-	terrainGenerationFrame.Buttons.ClearButton.MouseButton1Down:connect(function()
-		clearTerrain()
-	end)
+	if not FFlagTerrainClearButtonMove then
+		terrainGenerationFrame.Buttons.ClearButton.MouseButton1Down:connect(function()
+			clearTerrain()
+		end)
+	end
 end
 
 function checkRange(v)

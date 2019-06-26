@@ -45,7 +45,7 @@
       <addaction name="aboutRobloxAction"/>
       <addaction name="onlineHelpAction"/>
       <addaction name="settingsAction"/>
-      <addaction fflag="StudioEnableBetaFeatures" name="betaFeaturesAction"/>
+      <addaction name="betaFeaturesAction"/>
     </SystemPopup>
   </SystemButton>
   <RibbonBar minimizeButton="true" font="">

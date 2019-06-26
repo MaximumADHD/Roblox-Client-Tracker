@@ -50,6 +50,7 @@ Studio.TerrainEditor.Main.Title,Terrain Editor, ,Terrain Editor,地形编辑器
 Studio.TerrainEditor.Main.ToolbarButton,Editor, ,Editor,编辑器
 Studio.TerrainEditor.Main.Tooltip,"Add, remove, and modify terrain", ,"Add, remove, and modify terrain",添加、删除和修改地形
 Studio.TerrainEditor.MainButtons.Generate,Generate, ,Generate,生成
+Studio.TerrainEditor.MainButtons.Import,Import, ,Import,Import
 Studio.TerrainEditor.MainButtons.Add,Add, ,Add,添加
 Studio.TerrainEditor.MainButtons.Subtract,Subtract, ,Subtract,减去
 Studio.TerrainEditor.MainButtons.Paint,Paint, ,Paint,涂画
@@ -57,7 +58,9 @@ Studio.TerrainEditor.MainButtons.Grow,Grow, ,Grow,增长
 Studio.TerrainEditor.MainButtons.Erode,Erode, ,Erode,侵蚀
 Studio.TerrainEditor.MainButtons.Smooth,Smooth, ,Smooth,抹平
 Studio.TerrainEditor.MainButtons.Regions,Regions, ,Regions,地区
+Studio.TerrainEditor.MainButtons.Clear,Clear, ,Clear,Clear
 Studio.TerrainEditor.MainButtons.GenerateTooltip,Generate landscapes of terrain., ,Generate landscapes of terrain.,生成地形地貌。
+Studio.TerrainEditor.MainButtons.ImportTooltip,Import a HeightMap and ColorMap., ,Import a HeightMap and ColorMap.,Import a HeightMap and ColorMap.
 Studio.TerrainEditor.MainButtons.AddTooltip,Click and hold to add terrain., ,Click and hold to add terrain.,单击并按住添加地形。
 Studio.TerrainEditor.MainButtons.SubtractTooltip,Click and hold to remove terrain., ,Click and hold to remove terrain.,单击并按住删除地形。
 Studio.TerrainEditor.MainButtons.PaintTooltip,Paint the material of the terrain., ,Paint the material of the terrain.,涂画地形的材质。
@@ -65,6 +68,7 @@ Studio.TerrainEditor.MainButtons.GrowTooltip,Click and hold to grow and expand t
 Studio.TerrainEditor.MainButtons.ErodeTooltip,Click and hold to erode and remove terrain., ,Click and hold to erode and remove terrain.,单击并按住侵蚀和删除地形。
 Studio.TerrainEditor.MainButtons.SmoothTooltip,Brush to smooth out rough or jagged terrain., ,Brush to smooth out rough or jagged terrain.,涂刷抹平粗糙或参差不齐的地形。
 Studio.TerrainEditor.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain., ,Manipulate regions of smooth terrain.,操纵地势平坦的地区。
+Studio.TerrainEditor.MainButtons.ClearTooltip,Clear all Terrain., ,Clear all Terrain.,Clear all Terrain.
 Studio.TerrainEditor.Generate.BiomeMountains,Mountains, ,Mountains,山区
 Studio.TerrainEditor.Generate.BiomeCanyons,Canyons, ,Canyons,峡谷
 Studio.TerrainEditor.Generate.BiomeDunes,Dunes, ,Dunes,沙丘

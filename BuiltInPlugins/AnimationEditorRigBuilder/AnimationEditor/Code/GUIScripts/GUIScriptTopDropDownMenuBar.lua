@@ -72,9 +72,9 @@ function createSettingsMenu(self)
 end
 
 function createEditMenu(self)
-	local mainMenu = addMenu(self, self.TargetWidget.Edit)	
+	local mainMenu = addMenu(self, self.TargetWidget.Edit)
 	mainMenu:setWidth(210)
-	
+
 	self.UndoHandle = mainMenu:addSelectable("Undo " .. self.Paths.UtilityScriptUndoRedo:getNextUndoDescription(), function() self.Paths.UtilityScriptUndoRedo:undo() end, "Ctrl+Z")		
 	self.RedoHandle = mainMenu:addSelectable("Redo " .. self.Paths.UtilityScriptUndoRedo:getNextRedoDescription(), function() self.Paths.UtilityScriptUndoRedo:redo() end, "Ctrl+Y")	
 	mainMenu:addDivider()
@@ -85,12 +85,7 @@ end
 
 function createFileMenu(self)
 	local mainMenu = addMenu(self, self.TargetWidget.File)
-
-	if FastFlags:isStudioFbxAnimationImportEnabled() then
-		mainMenu:setWidth(160)
-	else
-		mainMenu:setWidth(106)
-	end
+	mainMenu:setWidth(160)
 
 	mainMenu:addSelectable("New", function() self.Paths.ActionNew:execute(self.Paths) end)
 	mainMenu:addSelectable("Load", function() self.Paths.GUIScriptLoad:show() end)
@@ -99,16 +94,13 @@ function createFileMenu(self)
 	mainMenu:addSelectable("Import", function() self.Paths.ActionImport:execute(self.Paths) end)
 	mainMenu:addSelectable("Export", function() self.Paths.ActionExport:execute(self.Paths) end)
 	mainMenu:addDivider()
-
-	if FastFlags:isStudioFbxAnimationImportEnabled() then
-		mainMenu:addSelectable("Import FBX Animation", function() self.Paths.ActionImportFBXAnimation:execute(self.Paths) end)
-		mainMenu:addDivider()
-	end
+	mainMenu:addSelectable("Import FBX Animation", function() self.Paths.ActionImportFBXAnimation:execute(self.Paths) end)
+	mainMenu:addDivider()
 
 	mainMenu:addSelectable("Help", function() self.Paths.ActionShowContextMenu:execute(self.Paths, self.Paths.ActionShowContextMenu.Type.Help) end)
 end
 
-local function createMenus(self)	
+local function createMenus(self)
 	createFileMenu(self)
 	createEditMenu(self)
 	createSettingsMenu(self)

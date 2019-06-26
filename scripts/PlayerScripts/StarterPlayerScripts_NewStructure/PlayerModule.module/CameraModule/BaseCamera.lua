@@ -34,7 +34,7 @@ local MOUSE_SENSITIVITY = Vector2.new( 0.002 * math.pi, 0.0015 * math.pi )
 local SEAT_OFFSET = Vector3.new(0,5,0)
 local VR_SEAT_OFFSET = Vector3.new(0,4,0)
 local HEAD_OFFSET = Vector3.new(0,1.5,0)
-local R15_HEAD_OFFSET = Vector3.new(0,2,0)
+local R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
 local R15_HEAD_OFFSET_NO_SCALING = Vector3.new(0, 2, 0)
 local HUMANOID_ROOT_PART_SIZE = Vector3.new(2, 2, 1)
 
@@ -47,11 +47,6 @@ local bindAtPriorityFlagExists, bindAtPriorityFlagEnabled = pcall(function()
 end)
 local FFlagPlayerScriptsBindAtPriority2 = bindAtPriorityFlagExists and bindAtPriorityFlagEnabled
 
-local adjustHumanoidRootPartFlagExists, adjustHumanoidRootPartFlagEnabled = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserAdjustHumanoidRootPartToHipPosition")
-end)
-local FFlagUserAdjustHumanoidRootPartToHipPosition = adjustHumanoidRootPartFlagExists and adjustHumanoidRootPartFlagEnabled
-
 local thirdGamepadZoomStepFlagExists, thirdGamepadZoomStepFlagEnabled = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserThirdGamepadZoomStep")
 end)
@@ -61,10 +56,6 @@ local betterDynamicTouchstickCameraFlagExists, betterDynamicTouchstickCameraFlag
 	return UserSettings():IsUserFeatureEnabled("UserBetterDynamicTouchstickCamera")
 end)
 local FFlagUserBetterDynamicTouchstickCamera = betterDynamicTouchstickCameraFlagExists and betterDynamicTouchstickCameraFlagEnabled
-
-if FFlagUserAdjustHumanoidRootPartToHipPosition then
-	R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
-end
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
@@ -322,22 +313,18 @@ function BaseCamera:GetSubjectPosition()
 
 				if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
 					local heightOffset
-					if FFlagUserAdjustHumanoidRootPartToHipPosition then
-						if humanoid.RigType == Enum.HumanoidRigType.R15 then
-							if humanoid.AutomaticScalingEnabled then
-								heightOffset = R15_HEAD_OFFSET
-								if bodyPartToFollow == humanoid.RootPart then
-									local rootPartSizeOffset = (humanoid.RootPart.Size.Y/2) - (HUMANOID_ROOT_PART_SIZE.Y/2)
-									heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
-								end
-							else
-								heightOffset = R15_HEAD_OFFSET_NO_SCALING
+					if humanoid.RigType == Enum.HumanoidRigType.R15 then
+						if humanoid.AutomaticScalingEnabled then
+							heightOffset = R15_HEAD_OFFSET
+							if bodyPartToFollow == humanoid.RootPart then
+								local rootPartSizeOffset = (humanoid.RootPart.Size.Y/2) - (HUMANOID_ROOT_PART_SIZE.Y/2)
+								heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
 							end
 						else
-							heightOffset = HEAD_OFFSET
+							heightOffset = R15_HEAD_OFFSET_NO_SCALING
 						end
 					else
-						heightOffset = humanoid.RigType == Enum.HumanoidRigType.R15 and R15_HEAD_OFFSET or HEAD_OFFSET
+						heightOffset = HEAD_OFFSET
 					end
 
 					if humanoidIsDead then

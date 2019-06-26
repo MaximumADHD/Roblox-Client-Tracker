@@ -302,7 +302,6 @@ RBX
 			IdResponseItem
 			JoinDataItem
 			MarkerItem
-			ModelCompletenessJob
 			NewInstanceItem
 			PingBackItem
 			PingItem
@@ -348,6 +347,7 @@ RBX
 		IdSerializer
 		Item
 		Marker
+		ModelCompletenessJob
 		NetworkOwnerJob
 		NetworkPhysicsMegaJob
 		NetworkSendDataMegaJob
@@ -482,6 +482,13 @@ RBX
 		AstVisitor
 		Error
 	}
+	SimpleTimer
+	{
+		TimerManager
+		{
+			TickerJob
+		}
+	}
 	Solver
 	{
 		Constraint
@@ -588,6 +595,7 @@ RBX
 	AdvTransformToolBase
 	AdvTranslateTool
 	AllCanSelectCommand
+	AnalyticsService
 	AnalyzerPassWarnGlobalLocal
 	AnalyzerPassWarnMultiLineStatement
 	AnalyzerPassWarnUnknownType
@@ -742,6 +750,8 @@ RBX
 	DataStoreJob
 	DataStorePages
 	DataStoreService
+	DateHandler
+	DatetimeHandler
 	DebrisService
 	DebugSettings
 	Decal
@@ -787,6 +797,7 @@ RBX
 	FilterSameAssembly
 	Fire
 	FirstPersonCommand
+	FixedHandler
 	Flag
 	FlagStand
 	FlagStandService
@@ -811,6 +822,7 @@ RBX
 	GameSettings
 	GameTool
 	GcJob
+	GenericNumberHandler
 	Geometry
 	GeometryService
 	GeoPairConnector
@@ -902,6 +914,7 @@ RBX
 	InletTool
 	InputObject
 	InsertService
+	IntHandler
 	InventoryPages
 	IPipelined
 	IPluginElementHost
@@ -913,6 +926,7 @@ RBX
 	IStudioPluginHost
 	IStudioServiceHost
 	IValue
+	IVersionControlService
 	IVideoCapture
 	IWorldStage
 	JoinCommand
@@ -1010,6 +1024,7 @@ RBX
 	NormalBreakConnector
 	NotificationService
 	NumberHandler
+	NumHandler
 	ObjectValue
 	OnDemandInstance
 	OrderedDataStore
@@ -1200,6 +1215,7 @@ RBX
 	TextureProxyBase
 	ThreadPool
 	TiltSelectionVerb
+	TimeHandler
 	TimerService
 	ToggleViewMode
 	Tool
@@ -1249,6 +1265,7 @@ RBX
 	VelocityMotor
 	Verb
 	VerbContainer
+	VersionControlService
 	ViewBase
 	ViewportFrame
 	VirtualHardwareDevice

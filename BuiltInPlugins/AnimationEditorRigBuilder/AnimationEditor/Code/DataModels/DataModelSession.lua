@@ -204,7 +204,7 @@ local function addPoseToKeyframe(self, tab, time, dataItem, fireChangeEvent)
 end
 
 local function changePrimarySelection(self, time, dataItem, isKeyframe)
-	if FastFlags:isPartIncludeFixOn() and dataItem and not self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
+	if dataItem and not self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
 		return
 	end
 	self.Selected.Keyframes = {}
@@ -293,7 +293,7 @@ if FastFlags:isShiftSelectJointsOn() then
 end
 
 function Session:addToDataItems(dataItem, fireChangeEvent)
-	if FastFlags:isPartIncludeFixOn() and not self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
+	if not self.Paths.DataModelRig:getPartInclude(dataItem.Name) then
 		return
 	end
 	if not self.Selected.DataItems[dataItem.Item] then
@@ -612,7 +612,7 @@ function Session:resetAnimation()
 	self.Paths.DataModelClip:setLooping(false)
 	self.Paths.DataModelClip:setPriority("Core")
 
-	if FastFlags:isIKModeFlagOn() and FastFlags:clearIKOnNew() then
+	if FastFlags:isIKModeFlagOn() then
 		if self.Paths.DataModelIKManipulator:isIKModeEnabled() then
 			self.Paths.DataModelIKManipulator:setIsIKModeActive(false)
 		end
@@ -625,22 +625,18 @@ function Session:resetAnimation()
 
 	endResetAnimation(self)
 
-	if FastFlags:isUseAnimationNameAsTitleOn() then
-		self:setSessionTitle()
-	end
+	self:setSessionTitle()
 
 	if FastFlags:isClearEventNamesOn() then
 		self.Paths.DataModelAnimationEvents:clearEventNames()
 	end
 end
 
-if FastFlags:isUseAnimationNameAsTitleOn() then
-	function Session:setSessionTitle(name)
-		if name == nil then
-			self.Paths.Globals.PluginGUI.Title = "Untitled Animation"
-		else
-			self.Paths.Globals.PluginGUI.Title = name
-		end
+function Session:setSessionTitle(name)
+	if name == nil then
+		self.Paths.Globals.PluginGUI.Title = "Untitled Animation"
+	else
+		self.Paths.Globals.PluginGUI.Title = name
 	end
 end
 

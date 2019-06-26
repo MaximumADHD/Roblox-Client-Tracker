@@ -39,16 +39,15 @@ return function()
 
 	it("should change color when highlighted", function ()
 		local container = Instance.new("Folder")
+
+		-- selected
 		local instance = Roact.mount(createTestCheckBox(true, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
-
 		expect(frame.Background.Selection.Visible).to.equal(true)
 
-		local newBox = createTestCheckBox(true, false)
-		instance = Roact.update(instance, newBox)
-
+		-- unselected
+		instance = Roact.reconcile(instance, createTestCheckBox(true, false))
 		expect(frame.Background.Selection.Visible).to.equal(false)
-
 		Roact.unmount(instance)
 	end)
 

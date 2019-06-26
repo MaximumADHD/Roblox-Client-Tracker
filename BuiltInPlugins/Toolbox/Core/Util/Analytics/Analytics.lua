@@ -9,6 +9,7 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 local platformId = 0
 
 local FFlagStudioToolboxSearchOptionsAnalytics = settings():GetFFlag("StudioToolboxSearchOptionsAnalytics")
+local FFlagEnableInsertAssetCategoryAnalytics = settings():GetFFlag("EnableInsertAssetCategoryAnalytics")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -81,24 +82,46 @@ function Analytics.onCategorySelected(oldCategory, newCategory)
 	})
 end
 
-function Analytics.onAssetInserted(assetId, searchTerm, assetIndex)
-	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
-		assetId = assetId,
-		searchText = searchTerm,
-		assetIndex = assetIndex,
-		studioSid = getStudioSessionId(),
-		clientId = getClientId(),
-	})
+function Analytics.onAssetInserted(assetId, searchTerm, assetIndex, currentCategory)
+	if FFlagEnableInsertAssetCategoryAnalytics then
+		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
+			assetId = assetId,
+			searchText = searchTerm,
+			assetIndex = assetIndex,
+			currentCategory = currentCategory,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	else
+		AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxInsert", {
+			assetId = assetId,
+			searchText = searchTerm,
+			assetIndex = assetIndex,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	end
 end
 
-function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex)
-	AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
-		assetId = assetId,
-		searchText = searchTerm,
-		assetIndex = assetIndex,
-		studioSid = getStudioSessionId(),
-		clientId = getClientId(),
-	})
+function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentCategory)
+	if FFlagEnableInsertAssetCategoryAnalytics then
+		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
+			assetId = assetId,
+			searchText = searchTerm,
+			assetIndex = assetIndex,
+			currentCategory = currentCategory,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	else
+		AnalyticsSenders.sendEventImmediately("studio", "drag", "toolboxInsert", {
+			assetId = assetId,
+			searchText = searchTerm,
+			assetIndex = assetIndex,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+		})
+	end
 end
 
 function Analytics.onAssetInsertRemains(time, contentId)

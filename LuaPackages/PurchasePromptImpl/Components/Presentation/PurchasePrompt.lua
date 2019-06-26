@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 
 local Roact = require(CorePackages.Roact)
 local Otter = require(CorePackages.Otter)
@@ -6,6 +7,7 @@ local Otter = require(CorePackages.Otter)
 local PromptState = require(script.Parent.Parent.Parent.PromptState)
 local signalFinishedAndHidePrompt = require(script.Parent.Parent.Parent.Thunks.signalFinishedAndHidePrompt)
 
+local ExternalEventConnection = require(script.Parent.Parent.Connection.ExternalEventConnection)
 local PromptContents = require(script.Parent.PromptContents)
 local InProgressContents = require(script.Parent.InProgressContents)
 local connectToStore = require(script.Parent.Parent.Parent.connectToStore)
@@ -88,6 +90,10 @@ function PurchasePrompt:render()
 			[Roact.Ref] = self.ref
 		}, {
 			PromptContents = contents,
+			OnCoreGuiMenuOpened = Roact.createElement(ExternalEventConnection, {
+				event = GuiService.MenuOpened,
+				callback = self.onClose,
+			})
 		})
 	end)
 end

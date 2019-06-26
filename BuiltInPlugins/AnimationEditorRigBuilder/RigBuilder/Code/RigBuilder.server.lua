@@ -1,14 +1,9 @@
-local rigBuilderRojoVersionFlagExists, rigBuilderRojoVersionFlagValue =  pcall(function() return settings():GetFFlag("StudioRigBuilderRojoVersion") end)
-if not rigBuilderRojoVersionFlagExists or not rigBuilderRojoVersionFlagValue then
-	return
-end
-
 --Startup
 local toolbar = plugin:CreateToolbar("Animations")
 local button = toolbar:CreateButton(
 	"Rig Builder", -- The text next to the icon. Leave this blank if the icon is sufficient.
 	"Insert rigs to animate", -- hover text
-	"http://www.roblox.com/asset/?id=620849303" -- The icon file's name
+	"rbxassetid://620849303" -- The icon file's name
 )
 
 --Environment
