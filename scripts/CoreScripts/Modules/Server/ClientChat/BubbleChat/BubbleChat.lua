@@ -22,6 +22,11 @@ local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 local okShouldClipInGameChat, valueShouldClipInGameChat = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldClipInGameChat") end)
 local shouldClipInGameChat = okShouldClipInGameChat and valueShouldClipInGameChat
 
+local success, UserShouldLocalizeGameChatBubble = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserShouldLocalizeGameChatBubble")
+end)
+local UserShouldLocalizeGameChatBubble = success and UserShouldLocalizeGameChatBubble
+
 --[[ SCRIPT VARIABLES ]]
 local CHAT_BUBBLE_FONT = Enum.Font.SourceSans
 local CHAT_BUBBLE_FONT_SIZE = Enum.FontSize.Size24 -- if you change CHAT_BUBBLE_FONT_SIZE_INT please change this to match
@@ -406,7 +411,7 @@ function this:CameraCFrameChanged()
 	end
 end
 
-function this:CreateBubbleText(message)
+function this:CreateBubbleText(message, shouldAutoLocalize)
 	local bubbleText = Instance.new("TextLabel")
 	bubbleText.Name = "BubbleText"
 	bubbleText.BackgroundTransparency = 1
@@ -420,7 +425,7 @@ function this:CreateBubbleText(message)
 	bubbleText.FontSize = CHAT_BUBBLE_FONT_SIZE
 	bubbleText.Text = message
 	bubbleText.Visible = false
-	bubbleText.AutoLocalize = false
+	bubbleText.AutoLocalize = shouldAutoLocalize
 
 	return bubbleText
 end
@@ -504,7 +509,7 @@ function this:DestroyBubble(bubbleQueue, bubbleToDestroy)
 	end)
 end
 
-function this:CreateChatLineRender(instance, line, onlyCharacter, fifo)
+function this:CreateChatLineRender(instance, line, onlyCharacter, fifo, shouldAutoLocalize)
 	if not instance then return end
 
 	if not this.CharacterSortedMsg:Get(instance)["BillboardGui"] then
@@ -515,7 +520,7 @@ function this:CreateChatLineRender(instance, line, onlyCharacter, fifo)
 	if billboardGui then
 		local chatBubbleRender = this.ChatBubbleWithTail[line.BubbleColor]:Clone()
 		chatBubbleRender.Visible = false
-		local bubbleText = this:CreateBubbleText(line.Message)
+		local bubbleText = this:CreateBubbleText(line.Message, shouldAutoLocalize)
 
 		bubbleText.Parent = chatBubbleRender
 		chatBubbleRender.Parent = billboardGui.BillboardFrame
@@ -564,7 +569,7 @@ function this:OnPlayerChatMessage(sourcePlayer, message, targetPlayer)
 		local fifo = this.CharacterSortedMsg:Get(line.Origin).Fifo
 		fifo:PushBack(line)
 		--Game chat (badges) won't show up here
-		this:CreateChatLineRender(sourcePlayer.Character, line, true, fifo)
+		this:CreateChatLineRender(sourcePlayer.Character, line, true, fifo, false)
 	end
 end
 
@@ -582,7 +587,11 @@ function this:OnGameChatMessage(origin, message, color)
 	local line = createGameChatLine(origin, safeMessage, not fromOthers, bubbleColor)
 
 	this.CharacterSortedMsg:Get(line.Origin).Fifo:PushBack(line)
-	this:CreateChatLineRender(origin, line, false, this.CharacterSortedMsg:Get(line.Origin).Fifo)
+	if UserShouldLocalizeGameChatBubble then
+		this:CreateChatLineRender(origin, line, false, this.CharacterSortedMsg:Get(line.Origin).Fifo, true)
+	else
+		this:CreateChatLineRender(origin, line, false, this.CharacterSortedMsg:Get(line.Origin).Fifo, false)
+	end
 end
 
 function this:BubbleChatEnabled()

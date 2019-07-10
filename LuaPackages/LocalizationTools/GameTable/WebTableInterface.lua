@@ -18,8 +18,6 @@ local BAD_REQUEST = 400
 local CODE_INVALID_GAME_ID = 14
 local CODE_PERMISSIONS = 28
 
-local TranslationRolesApi2 = settings():GetFFlag("TranslationRolesApi2")
-
 local LocalizationTableUploadRowMax =
 	tonumber(settings():GetFVariable("LocalizationTableUploadRowMax")) or 50
 local LocalizationTableUploadTranslationMax =
@@ -67,50 +65,6 @@ local function encodeJSON(obj)
 end
 
 --[[
-	Appeals to the internet using placeId as an asset-id to determine if the user
-	has permission to edit the current place.
-
-	Clean up along with TranslationRolesApi2
-]]
-local function UserCanManagePlace(userId, placeId)
-	return Promise.new(function(resolve, reject)
-		local Url = ApiUrl
-			.."users/"
-			.. urlEncode(tostring(userId))
-			.. "/canmanage/"
-			.. urlEncode(tostring(placeId))
-
-		HttpService:RequestInternal({
-			Url = Url,
-			Method = "GET",
-			CachePolicy = Enum.HttpCachePolicy.None,
-			RequestType = Enum.HttpRequestType.Localization,
-		}):Start(function(success, response)
-			spawn(function()
-				if success then
-					local decodedResponseBody = decodeJSON(response.Body)
-					if response.StatusCode >= BAD_REQUEST then
-						warn(string.format("Status code: %s", tostring(response.StatusCode)))
-
-						if decodedResponseBody ~= nil and decodedResponseBody.message then
-							warn(decodedResponseBody.message)
-						end
-
-						reject("Place-management status download failed (See Output)")
-					else
-						if decodedResponseBody.Success then
-							resolve(decodedResponseBody.CanManage)
-						end
-					end
-				else
-					reject("Place-management status download failed")
-				end
-			end)
-		end)
-	end)
-end
-
---[[
 	Appeals to the get/create web endpoint to create the lcoalization table for the current game.
 	Upon success, calls resolve passing the object that the get/create endpoint returns as
 	its response:
@@ -143,43 +97,29 @@ local function GetOrCreateGameTable(gameId)
 			spawn(function()
 				if success then
 					if response.StatusCode >= BAD_REQUEST then
-						if TranslationRolesApi2 then
-							local decodedResponseBody = decodeJSON(response.Body)
-							if decodedResponseBody ~= nil
-								and decodedResponseBody.errors ~= nil
-								and next(decodedResponseBody.errors)~=nil
-							then
-								for _, err in ipairs(decodedResponseBody.errors) do
-									if err.code == CODE_INVALID_GAME_ID or err.code == CODE_PERMISSIONS then
-										--[[Don't warn about these errors, because that could simply mean the
-											That shouldn't present as an error to the user.]]
-										reject("User cannot access game")
-										return
-									else
-										warn(err.message)
-									end
+						local decodedResponseBody = decodeJSON(response.Body)
+						if decodedResponseBody ~= nil
+							and decodedResponseBody.errors ~= nil
+							and next(decodedResponseBody.errors)~=nil
+						then
+							for _, err in ipairs(decodedResponseBody.errors) do
+								if err.code == CODE_INVALID_GAME_ID or err.code == CODE_PERMISSIONS then
+									--[[Don't warn about these errors, because that could simply mean the
+										That shouldn't present as an error to the user.]]
+									reject("User cannot access game")
+									return
+								else
+									warn(err.message)
 								end
-								reject("Game table download failed (See Output)")
-								return
-							else
-								warn(string.format("Get/Create Table status code: %s", tostring(response.StatusCode)))
 							end
-
-							reject("Game table download failed")
+							reject("Game table download failed (See Output)")
 							return
 						else
 							warn(string.format("Get/Create Table status code: %s", tostring(response.StatusCode)))
-
-							local decodedResponseBody = decodeJSON(response.Body)
-							if decodedResponseBody ~= nil and decodedResponseBody.message then
-								warn(decodedResponseBody.message)
-								reject("Game table download failed (See Output)")
-								return
-							end
-
-							reject("Game table download failed")
-							return
 						end
+
+						reject("Game table download failed")
+						return
 					end
 
 					local decodedResponseBody = decodeJSON(response.Body)
@@ -201,46 +141,6 @@ local function GetOrCreateGameTable(gameId)
 				end
 			end)
 		end)
-	end)
-end
-
---[[
-	Determine using the internet whether the current studio user is allowed to
-	access the placefile, and if so, get the tableId for the current
-	web-based localization table and store it.
-
-	Returns a promise that resolves with the following arguments on success:
-		available = whether the current Studio user has permission to edit the place.
-		autoscraping = whether server-side auto scraping is enabled for the place,
-			this is mostly so that the receiving UI can decide whether to turn on the
-			checkbox.
-
-	Clean up along with TranslationRolesApi2
-]]
-local function UpdateGameTableInfo()
-	return Promise.new(function(resolve, reject)
-		if game.PlaceId == 0 then
-			resolve(false)
-			return
-		end
-
-		UserCanManagePlace(studioUserId, game.PlaceId):andThen(
-			function(canManage)
-				if canManage then
-					GetOrCreateGameTable(game.GameId):andThen(
-						function(tableInfo)
-							currentTableId = tableInfo.autoLocalizationTableId
-							currentGameId = game.GameId
-							resolve(true, tableInfo.isAutolocalizationEnabled)
-						end,
-						reject
-					)
-				else
-					resolve(false)
-				end
-			end,
-			reject
-		)
 	end)
 end
 
@@ -673,13 +573,48 @@ else
 	UploadPatchFunc = UploadPatch
 end
 
+--[[
+	Request regenerate asset through gameinternationalization API.
+	Returns a promise that resolves with no arguments upon success.
+]]
+local function RequestAssetGeneration(gameId)
+	if gameId <= 0 then
+		return
+	end
+	local Url = GameInternationalizationUrl
+		.. "v1/localizationtable/games/"
+		.. urlEncode(gameId)
+		.. "/assets-generation-request"
+
+	HttpService:RequestInternal({
+		Url = Url,
+		Method = "POST",
+		Body = encodeJSON({}),
+		CachePolicy = Enum.HttpCachePolicy.None,
+		RequestType = Enum.HttpRequestType.Localization,
+		Headers = {
+			["Accept"] = "application/json",
+		},
+	}):Start(function(success, response)
+		spawn(function()
+			if success then
+				if response.StatusCode >= BAD_REQUEST then
+					warn("Failed to request asset generation. Try again or wait for about 10 mins to test the new content.")
+				end
+			else
+				warn("Failed to request asset generation. Try again or wait for about 10 mins to test the new content.")
+			end
+		end)
+	end)
+end
+
 return {
 	UploadPatch = UploadPatchFunc,
 	DownloadGameTable = DownloadGameTable,
-	UpdateGameTableInfo = UpdateGameTableInfo,
 	CheckTableAvailability = CheckTableAvailability,
 	GetAllSupportedLanguages = GetAllSupportedLanguages,
 	GetGameSupportedLanguages = GetGameSupportedLanguages,
+	RequestAssetGeneration = RequestAssetGeneration,
 }
 
 end

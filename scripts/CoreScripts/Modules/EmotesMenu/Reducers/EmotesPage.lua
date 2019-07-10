@@ -10,11 +10,13 @@ local Actions = EmotesMenu.Actions
 
 local EmotesChanged = require(Actions.EmotesChanged)
 local EquippedEmotesChanged = require(Actions.EquippedEmotesChanged)
+local NumberEmotesLoadedChanged = require(Actions.NumberEmotesLoadedChanged)
 
 local default = {
     emotesInfo = {},
     equippedEmotes = {},
 
+    numberEmotesLoaded = -1,
     currentEmotes = {},
 }
 
@@ -48,5 +50,11 @@ return Rodux.createReducer(default, {
             equippedEmotes = action.equippedEmotes,
             currentEmotes = createCurrentEmotes(state.emotesInfo, action.equippedEmotes),
         })
-	end,
+    end,
+
+    [NumberEmotesLoadedChanged.name] = function(state, action)
+        return Cryo.Dictionary.join(state, {
+            numberEmotesLoaded = action.numberEmotesLoaded,
+        })
+    end,
 })

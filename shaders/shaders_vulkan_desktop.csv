@@ -27,6 +27,8 @@ DefaultForceField_DEPRECATED_HQFSShadowed,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS,Fragment
 DefaultForceFieldHQFSShadowed,Fragment
+DefaultForceFieldSHQFS,Fragment
+DefaultForceFieldSHQFSShadowed,Fragment
 DefaultGlassFFlagUseSkylightHQFSShadowed,Fragment
 DefaultGlassFFlagUseSkylightSuperHQFSShadowed,Fragment
 DefaultGlassHQFS,Fragment
@@ -91,6 +93,10 @@ DefaultPlasticHQFS,Fragment
 DefaultPlasticHQFSShadowed,Fragment
 DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
+DefaultShadowGeomInstancedDepVS,Vertex
+DefaultShadowGeomInstancedVS,Vertex
+DefaultShadowGeomSkinnedVS,Vertex
+DefaultShadowGeomStaticVS,Vertex
 DefaultShadowInstancedDepVS,Vertex
 DefaultShadowInstancedVS,Vertex
 DefaultShadowSkinnedVS,Vertex
@@ -308,6 +314,7 @@ TrailVSQuadLightShadow,Vertex
 UIFogFS,Fragment
 UIFogVS,Vertex
 UIFS,Fragment
+UIFSMdr,Fragment
 UILitFogFS,Fragment
 UILitFogFSShadowed,Fragment
 UILitFS,Fragment

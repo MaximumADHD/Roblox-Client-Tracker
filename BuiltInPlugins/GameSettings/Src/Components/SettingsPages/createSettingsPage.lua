@@ -35,6 +35,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local withLocalization = require(Plugin.Src.Consumers.withLocalization)
+local withTheme = require(Plugin.Src.Consumers.withTheme)
 
 local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 	local SettingsPage = Roact.Component:extend(name)
@@ -47,25 +48,49 @@ local function createSettingsPage(name, loadValuesToProps, dispatchChanges)
 
 	function SettingsPage:render()
 		return withLocalization(function(localized)
-			local children = self.props.Content and self.props.Content(self, localized) or {}
+			if settings():GetFFlag("StudioGameSettingsAccessPermissions") then
+				return withTheme(function(theme)
+					local children = self.props.Content and self.props.Content(self, localized, theme) or {}
 
-			return Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
-				LayoutOrder = self.props.LayoutOrder,
-			}, Cryo.Dictionary.join(children, {
-				Layout = self.props.AddLayout and Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.ELEMENT_PADDING),
-					SortOrder = Enum.SortOrder.LayoutOrder,
+					return Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0, 1, 0),
+						LayoutOrder = self.props.LayoutOrder,
+					}, Cryo.Dictionary.join(children, {
+						Layout = self.props.AddLayout and Roact.createElement("UIListLayout", {
+							Padding = UDim.new(0, Constants.ELEMENT_PADDING),
+							SortOrder = Enum.SortOrder.LayoutOrder,
 
-					[Roact.Change.AbsoluteContentSize] = function(rbx)
-						if self.props.ContentHeightChanged then
-							self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
-						end
-					end,
-				})
-			}))
+							[Roact.Change.AbsoluteContentSize] = function(rbx)
+								if self.props.ContentHeightChanged then
+									self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
+								end
+							end,
+						})
+					}))
+				end)
+			else
+				local children = self.props.Content and self.props.Content(self, localized) or {}
+
+				return Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 1, 0),
+					LayoutOrder = self.props.LayoutOrder,
+				}, Cryo.Dictionary.join(children, {
+					Layout = self.props.AddLayout and Roact.createElement("UIListLayout", {
+						Padding = UDim.new(0, Constants.ELEMENT_PADDING),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+
+						[Roact.Change.AbsoluteContentSize] = function(rbx)
+							if self.props.ContentHeightChanged then
+								self.props.ContentHeightChanged(rbx.AbsoluteContentSize.y)
+							end
+						end,
+					})
+				}))
+			end
 		end)
 	end
 

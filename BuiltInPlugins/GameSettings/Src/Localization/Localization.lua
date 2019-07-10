@@ -433,7 +433,9 @@ function Localization:recalculateContent()
 			Searchbar = {
 				DefaultText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText"),
 				NoResultsText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText"),
-			}
+			},
+
+			TeamCreateWarning = self:getText("Studio.GameSettings.AccessPermissions.TeamCreateWarning"),
 		}
 	})
 end

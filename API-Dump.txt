@@ -894,6 +894,8 @@ Class ScrollingFrame : GuiObject
 	Property Content ScrollingFrame.TopImage
 	Property Enum<ScrollBarInset> ScrollingFrame.VerticalScrollBarInset
 	Property Enum<VerticalScrollBarPosition> ScrollingFrame.VerticalScrollBarPosition
+	Function void ScrollingFrame:ClearInertialScrolling() {RobloxScriptSecurity}
+	Function Vector2 ScrollingFrame:GetSampledInertialVelocity() {RobloxScriptSecurity}
 	Function void ScrollingFrame:ScrollToTop() {RobloxScriptSecurity}
 Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
@@ -1271,6 +1273,7 @@ Class HumanoidDescription : Instance
 	Property int64 HumanoidDescription.FallAnimation
 	Property int64 HumanoidDescription.IdleAnimation
 	Property int64 HumanoidDescription.JumpAnimation
+	Property int HumanoidDescription.NumberEmotesLoaded {RobloxScriptSecurity} [Hidden]
 	Property int64 HumanoidDescription.RunAnimation
 	Property int64 HumanoidDescription.SwimAnimation
 	Property int64 HumanoidDescription.WalkAnimation
@@ -1806,6 +1809,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function int Terrain:CountCells()
 	Function void Terrain:FillBall(Vector3 center, float radius, Enum<Material> material)
 	Function void Terrain:FillBlock(CFrame cframe, Vector3 size, Enum<Material> material)
+	Function void Terrain:FillCylinder(CFrame cframe, float height, float radius, Enum<Material> material)
 	Function void Terrain:FillRegion(Region3 region, float resolution, Enum<Material> material)
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum<Material> material)
@@ -2199,6 +2203,7 @@ Class Plugin : Instance [NotCreatable]
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
 	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
+	Property string PluginAction.DefaultShortcut {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool PluginAction.Enabled {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property string PluginAction.StatusTip  [ReadOnly] [NotReplicated]
 	Property string PluginAction.Text  [ReadOnly] [NotReplicated]
@@ -2683,7 +2688,6 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 Class Studio : Instance [Service] [NotReplicated]
 	Property bool Studio.Disable Accurate Play Solo
 	Property bool Studio.Drag Multiple Parts As Single Part
-	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Intellisense [<📁> Load-only] [NotReplicated] [Deprecated]
 	Property bool Studio.Respect Studio shortcuts when game has focus
@@ -2726,8 +2730,12 @@ Class Studio : Instance [Service] [NotReplicated]
 	Property Enum<OutputLayoutMode> Studio.Output Layout Mode
 	Property float Studio.Line Thickness
 	Property Color3 Studio.Select/Hover Color
+	Property bool Studio.Auto Closing Brackets
+	Property bool Studio.Auto Closing Quotes
 	Property bool Studio.Auto Indent
+	Property bool Studio.Enable Autocomplete
 	Property QFont Studio.Font
+	Property bool Studio.Skip Closing Brackets and Quotes
 	Property int Studio.Tab Width
 	Property bool Studio.Text Wrapping
 	Property Color3 Studio.Background Color
@@ -4567,6 +4575,9 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.DialogButtonBorder : 86
 	EnumItem StudioStyleGuideColor.DialogMainButton : 87
 	EnumItem StudioStyleGuideColor.DialogMainButtonText : 88
+	EnumItem StudioStyleGuideColor.Merge3HighlightOriginal : 89
+	EnumItem StudioStyleGuideColor.Merge3HighlightMine : 90
+	EnumItem StudioStyleGuideColor.Merge3HighlightTheirs : 91
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

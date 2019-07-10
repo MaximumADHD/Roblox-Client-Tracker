@@ -17,15 +17,11 @@ while not LocalPlayer do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
-local FFlagHandlePlayerBlockListsInternalPermissive = settings():GetFFlag("HandlePlayerBlockListsInternalPermissive")
-
 local GET_BLOCKED_USERIDS_TIMEOUT = 5
 
 local RemoteEvent_UpdatePlayerBlockList = nil
 spawn(function()
-	if FFlagHandlePlayerBlockListsInternalPermissive then
-		RemoteEvent_UpdatePlayerBlockList = RobloxReplicatedStorage:WaitForChild("UpdatePlayerBlockList")
-	end
+	RemoteEvent_UpdatePlayerBlockList = RobloxReplicatedStorage:WaitForChild("UpdatePlayerBlockList")
 end)
 
 local BlockStatusChanged = Instance.new("BindableEvent")
@@ -56,13 +52,6 @@ local function GetBlockedPlayersAsync()
 	return {}
 end
 
-if FFlagHandlePlayerBlockListsInternalPermissive == false then
-	spawn(function()
-		BlockedList = GetBlockedPlayersAsync()
-		GetBlockedPlayersCompleted = true
-	end)
-end
-
 local function getBlockedUserIdsFromBlockedList()
 	local userIdList = {}
 	for userId, _ in pairs(BlockedList) do
@@ -88,16 +77,14 @@ local function getBlockedUserIds()
 end
 
 local function initializeBlockList()
-	if FFlagHandlePlayerBlockListsInternalPermissive then
-		spawn(function()
-			BlockedList = GetBlockedPlayersAsync()
-			GetBlockedPlayersCompleted = true
+	spawn(function()
+		BlockedList = GetBlockedPlayersAsync()
+		GetBlockedPlayersCompleted = true
 
-			local RemoteEvent_SetPlayerBlockList = RobloxReplicatedStorage:WaitForChild("SetPlayerBlockList")
-			local blockedUserIds = getBlockedUserIds()
-			RemoteEvent_SetPlayerBlockList:FireServer(blockedUserIds)
-		end)
-	end
+		local RemoteEvent_SetPlayerBlockList = RobloxReplicatedStorage:WaitForChild("SetPlayerBlockList")
+		local blockedUserIds = getBlockedUserIds()
+		RemoteEvent_SetPlayerBlockList:FireServer(blockedUserIds)
+	end)
 end
 
 local function isBlocked(userId)
@@ -122,10 +109,8 @@ local function BlockPlayerAsync(playerToBlock)
 				BlockedList[blockUserId] = true
 				BlockStatusChanged:Fire(blockUserId, true)
 
-				if FFlagHandlePlayerBlockListsInternalPermissive then
-					if RemoteEvent_UpdatePlayerBlockList then
-						RemoteEvent_UpdatePlayerBlockList:FireServer(blockUserId, true)
-					end
+				if RemoteEvent_UpdatePlayerBlockList then
+					RemoteEvent_UpdatePlayerBlockList:FireServer(blockUserId, true)
 				end
 
 				local success, wasBlocked = pcall(function()
@@ -157,10 +142,8 @@ local function UnblockPlayerAsync(playerToUnblock)
 			BlockedList[unblockUserId] = nil
 			BlockStatusChanged:Fire(unblockUserId, false)
 
-			if FFlagHandlePlayerBlockListsInternalPermissive then
-				if RemoteEvent_UpdatePlayerBlockList then
-					RemoteEvent_UpdatePlayerBlockList:FireServer(unblockUserId, false)
-				end
+			if RemoteEvent_UpdatePlayerBlockList then
+				RemoteEvent_UpdatePlayerBlockList:FireServer(unblockUserId, false)
 			end
 
 			local success, wasUnBlocked = pcall(function()

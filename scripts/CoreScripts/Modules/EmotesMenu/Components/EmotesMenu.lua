@@ -5,6 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
 local FFlagCoreScriptEmotesMenuBetterMouseBehavior = settings():GetFFlag("CoreScriptEmotesMenuBetterMouseBehavior")
+local FFlagEmotesMenuRemoveOpenKeybinds = settings():GetFFlag("EmotesMenuRemoveOpenKeybinds")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -26,6 +27,7 @@ local Constants = require(EmotesModules.Constants)
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
+-- Remove this funtion when removing FFlagEmotesMenuRemoveOpenKeybinds
 function EmotesMenu:bindActions()
     local function toggleMenuFunc(actionName, inputState, inputObj)
         if GuiService.MenuIsOpen then
@@ -45,6 +47,7 @@ function EmotesMenu:bindActions()
                                     Constants.EmoteMenuOpenKey, Constants.EmoteMenuOpenButton)
 end
 
+-- Remove this funtion when removing FFlagEmotesMenuRemoveOpenKeybinds
 function EmotesMenu:unbindActions()
     ContextActionService:UnbindAction(Constants.ToggleMenuAction)
 end
@@ -120,7 +123,9 @@ function EmotesMenu:didMount()
         end)
     end
 
-    self:bindActions()
+    if not FFlagEmotesMenuRemoveOpenKeybinds then
+        self:bindActions()
+    end
 end
 
 function EmotesMenu:willUnmount()
@@ -140,7 +145,9 @@ function EmotesMenu:willUnmount()
         self.inputOutsideMenuConn = nil
     end
 
-    self:unbindActions()
+    if not FFlagEmotesMenuRemoveOpenKeybinds then
+        self:unbindActions()
+    end
 end
 
 function EmotesMenu:render()

@@ -7,6 +7,7 @@ local i18nModule = require(script.Parent.Parent.Libs.Localization)
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 local FFlagImportTerrain = settings():GetFFlag("ImportTerrain")
 local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
+local StudioMoveWebAssetsToContent = settings():GetFFlag("StudioMoveWebAssetsToContent")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
@@ -244,9 +245,9 @@ function makeMainPanel()
 	mainSpaceScrollingFrame.BorderSizePixel = 0
 	mainSpaceScrollingFrame.BackgroundTransparency = 1
 	mainSpaceScrollingFrame.ZIndex = 2
-	mainSpaceScrollingFrame.TopImage = "rbxassetid://1533255544"
-	mainSpaceScrollingFrame.MidImage = "rbxassetid://1535685612"
-	mainSpaceScrollingFrame.BottomImage = "rbxassetid://1533256504"
+	mainSpaceScrollingFrame.TopImage = StudioMoveWebAssetsToContent and "rbxasset://textures/TerrainTools/UpArrowButtonOpen17.png" or "rbxassetid://1533255544"
+	mainSpaceScrollingFrame.MidImage = StudioMoveWebAssetsToContent and "rbxasset://textures/TerrainTools/EdgesSquare17x1.png" or "rbxassetid://1535685612"
+	mainSpaceScrollingFrame.BottomImage = StudioMoveWebAssetsToContent and "rbxasset://textures/TerrainTools/DownArrowButtonOpen17.png" or "rbxassetid://1533256504"
 
 	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.Parent = mainSpaceScrollingFrame

@@ -1,6 +1,8 @@
 local RbxEntriesToWebEntries = require(script.Parent.Parent.GameTable.RbxEntriesToWebEntries)
 local RecursiveEquals = require(script.Parent.RecursiveEquals)
 
+local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+
 local FruitTableRbxEntriesSpanish = {
 	{
 		Key = "APPLEWORD",
@@ -108,18 +110,18 @@ local AppleTableWebEntriesNoTranslations = {
 	},
 }
 
-local allSupportedLanguageSet = {}
-allSupportedLanguageSet["en"] = true
-allSupportedLanguageSet["es"] = true
-allSupportedLanguageSet["fr"] = true
-allSupportedLanguageSet["de"] = true
+local allSupportedLanguageSet = {
+	["en"] = true,
+	["es"] = true,
+	["fr"] = true,
+	["de"] = true,
+	["ru"] = true,
+}
 
-allSupportedLanguageSet["ru"] = true
-allSupportedLanguageSet["uk"] = true
-
-local gameSupportedLanguageSet = {}
-gameSupportedLanguageSet["en"] = true
-gameSupportedLanguageSet["es"] = true
+local gameSupportedLanguageSet = {
+	["en"] = true,
+	["es"] = true,
+}
 
 local FruitTableRbxEntriesNewLanguages = {
 	{
@@ -137,7 +139,12 @@ local FruitTableRbxEntriesNewLanguages = {
 
 return function()
 	it("Converts a table with two entries into a web table", function()
-		local info = RbxEntriesToWebEntries(FruitTableRbxEntriesSpanish)
+		local info
+		if UnofficialLanguageSupportEnabled then
+			info = RbxEntriesToWebEntries(FruitTableRbxEntriesSpanish, allSupportedLanguageSet)
+		else
+			info = RbxEntriesToWebEntries(FruitTableRbxEntriesSpanish)
+		end
 		assert(RecursiveEquals(info.entries, FruitTableWebEntries))
 		assert(info.totalRows == 2)
 		assert(info.totalTranslations == 2)
@@ -146,7 +153,12 @@ return function()
 	end)
 
 	it("Converts a table with unsupported locales into an empty web table", function()
-		local info = RbxEntriesToWebEntries(FruitTableRbxEntriesCornish)
+		local info
+		if UnofficialLanguageSupportEnabled then
+			info = RbxEntriesToWebEntries(FruitTableRbxEntriesCornish, allSupportedLanguageSet)
+		else
+			info = RbxEntriesToWebEntries(FruitTableRbxEntriesCornish)
+		end
 		assert(RecursiveEquals(info.entries, FruitTableWebEntriesCornish))
 		assert(info.totalRows == 1)
 		assert(info.totalTranslations == 0)
@@ -155,7 +167,12 @@ return function()
 	end)
 
 	it("Converts a table with a zero-value entry into a row with no translations", function()
-		local info = RbxEntriesToWebEntries(AppleTableRbxEntriesNoValues)
+		local info
+		if UnofficialLanguageSupportEnabled then
+			info = RbxEntriesToWebEntries(AppleTableRbxEntriesNoValues, allSupportedLanguageSet)
+		else
+			info = RbxEntriesToWebEntries(AppleTableRbxEntriesNoValues)
+		end
 		assert(RecursiveEquals(info.entries, AppleTableWebEntriesNoTranslations))
 		assert(info.totalRows == 1)
 		assert(info.totalTranslations == 0)
@@ -163,7 +180,6 @@ return function()
 		assert(info.unsupportedLocales == "")
 	end)
 
-	local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
 	if UnofficialLanguageSupportEnabled then
 		it("Converts a table with a new language to be added", function()
 			local info = RbxEntriesToWebEntries(FruitTableRbxEntriesNewLanguages, allSupportedLanguageSet, gameSupportedLanguageSet)

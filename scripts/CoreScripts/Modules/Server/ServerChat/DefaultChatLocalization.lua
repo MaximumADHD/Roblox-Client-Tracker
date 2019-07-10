@@ -780,4 +780,18 @@ return {
             ["zh-cn"] = "团队",
         },
     },
+    {
+        Key = "InGame.Chat.Label.From",
+        Values = {
+            ["en-us"] = "From ",
+            ["zh-cn"] = "来自于",
+        },
+    },
+        {
+        Key = "InGame.Chat.Label.To",
+        Values = {
+            ["en-us"] = "To ",
+            ["zh-cn"] = "发送至",
+        },
+    },
 }

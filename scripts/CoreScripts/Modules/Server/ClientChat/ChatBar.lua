@@ -391,7 +391,11 @@ function methods:SetChannelTarget(targetChannel)
 	if not self:IsInCustomState() then
 		if targetChannel ~= ChatSettings.GeneralChannelName then
 			messageModeTextButton.Size = UDim2.new(0, 1000, 1, 0)
-			messageModeTextButton.Text = string.format("[%s] ", targetChannel)
+			local localizedTargetChannel = targetChannel
+			if ChatLocalization.tryLocalize then
+				localizedTargetChannel = ChatLocalization:tryLocalize(targetChannel)
+			end
+			messageModeTextButton.Text = string.format("[%s] ", localizedTargetChannel)
 
 			local channelNameColor = self:GetChannelNameColor(targetChannel)
 			if channelNameColor then

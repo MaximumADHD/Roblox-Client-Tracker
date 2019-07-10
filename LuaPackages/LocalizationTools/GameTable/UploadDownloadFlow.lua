@@ -1,5 +1,7 @@
 local Promise = require(script.Parent.Parent.Promise)
 
+local RequestGenerateAssetAfterUpload = settings():GetFFlag("RequestGenerateAssetAfterUpload")
+
 local UploadDownloadFlow = {}
 UploadDownloadFlow.__index = UploadDownloadFlow
 
@@ -158,6 +160,9 @@ function UploadDownloadFlow:OnUpload(ComputePatchFunc, gameId)
 										self.props.SetMessage("Upload complete")
 										self:_setMode(NOT_BUSY)
 										resolve(patchInfo)
+										if RequestGenerateAssetAfterUpload then
+											self.props.RequestAssetGeneration(gameId)
+										end
 									end,
 									function()
 										reject(ErrorInfo.new("Upload failed"))

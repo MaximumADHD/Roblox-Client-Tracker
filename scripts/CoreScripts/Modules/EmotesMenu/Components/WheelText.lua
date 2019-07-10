@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local StarterPlayer = game:GetService("StarterPlayer")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -10,14 +11,25 @@ local CoreScriptsModules = EmotesMenu.Parent
 local Constants = require(EmotesMenu.Constants)
 local RobloxTranslator = require(CoreScriptsModules.RobloxTranslator)
 
+local FFlagCoreScriptBetterEmotesErrorMessaging = settings():GetFFlag("CoreScriptBetterEmotesErrorMessaging")
+
 local WheelText = Roact.PureComponent:extend("WheelText")
 
 function WheelText:getWheelText()
     local currentEmotes = self.props.emotesPage.currentEmotes
     local locale = self.props.locale
+    local numberEmotesLoaded = self.props.emotesPage.numberEmotesLoaded
 
     if next(currentEmotes) == nil then
-        return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
+        if FFlagCoreScriptBetterEmotesErrorMessaging then
+            if StarterPlayer.UserEmotesEnabled and numberEmotesLoaded == 0 then
+                return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
+            else
+                return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.EmotesDisabled, locale)
+            end
+        else
+            return RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.NoEmotesEquipped, locale)
+        end
     end
 
     local focusedSlot = self.props.emotesWheel.focusedSegmentIndex

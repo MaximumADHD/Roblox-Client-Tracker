@@ -23,7 +23,11 @@ function CreateWelcomeMessageLabel(messageData, channelName)
 	local ChannelButton = nil
 
 	if channelName ~= messageData.OriginalChannel then
-			local formatChannelName = string.format("{%s}", messageData.OriginalChannel)
+			local localizedChannelName = messageData.OriginalChannel
+			if ChatLocalization.tryLocalize then
+				localizedChannelName = ChatLocalization:tryLocalize(messageData.OriginalChannel)
+			end
+			local formatChannelName = string.format("{%s}", localizedChannelName)
 			ChannelButton = util:AddChannelButtonToBaseMessage(BaseMessage, useChannelColor, formatChannelName, messageData.OriginalChannel)
 			local numNeededSpaces = util:GetNumberOfSpaces(formatChannelName, useFont, useTextSize) + 1
 			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. message

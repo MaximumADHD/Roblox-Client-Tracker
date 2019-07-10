@@ -305,15 +305,13 @@ local function onPlayerAdded(newPlayer)
 	end
 end
 
-if settings():GetFFlag('HandlePlayerBlockListsInternalPermissive') == true then
-	RemoteEvent_SetPlayerBlockList.OnServerEvent:Connect(function(player, blockList)
-		player:AddToBlockList(blockList)
-	end)
+RemoteEvent_SetPlayerBlockList.OnServerEvent:Connect(function(player, blockList)
+	player:AddToBlockList(blockList)
+end)
 
-	RemoteEvent_UpdatePlayerBlockList.OnServerEvent:Connect(function(player, userId, block)
-		player:UpdatePlayerBlocked(userId, block)
-	end)
-end
+RemoteEvent_UpdatePlayerBlockList.OnServerEvent:Connect(function(player, userId, block)
+	player:UpdatePlayerBlocked(userId, block)
+end)
 
 Players.PlayerAdded:connect(onPlayerAdded)
 for _,player in pairs(Players:GetPlayers()) do

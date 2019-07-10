@@ -887,6 +887,8 @@ Class ScrollingFrame : GuiObject
 	Property Content ScrollingFrame.TopImage
 	Property ScrollBarInset ScrollingFrame.VerticalScrollBarInset
 	Property VerticalScrollBarPosition ScrollingFrame.VerticalScrollBarPosition
+	Function void ScrollingFrame:ClearInertialScrolling() [RobloxScriptSecurity]
+	Function Vector2 ScrollingFrame:GetSampledInertialVelocity() [RobloxScriptSecurity]
 	Function void ScrollingFrame:ScrollToTop() [RobloxScriptSecurity]
 Class TextBox : GuiObject
 	Property bool TextBox.ClearTextOnFocus
@@ -1274,6 +1276,7 @@ Class HumanoidDescription : Instance
 	Property int64 HumanoidDescription.LeftLeg
 	Property Color3 HumanoidDescription.LeftLegColor
 	Property string HumanoidDescription.NeckAccessory
+	Property int HumanoidDescription.NumberEmotesLoaded [hidden] [RobloxScriptSecurity]
 	Property int64 HumanoidDescription.Pants
 	Property float HumanoidDescription.ProportionScale
 	Property int64 HumanoidDescription.RightArm
@@ -1793,6 +1796,7 @@ Class Terrain : BasePart [notCreatable]
 	Function int Terrain:CountCells()
 	Function void Terrain:FillBall(Vector3 center, float radius, Material material)
 	Function void Terrain:FillBlock(CoordinateFrame cframe, Vector3 size, Material material)
+	Function void Terrain:FillCylinder(CoordinateFrame cframe, float height, float radius, Material material)
 	Function void Terrain:FillRegion(Region3 region, float resolution, Material material)
 	Function Tuple Terrain:GetCell(int x, int y, int z) [deprecated]
 	Function Color3 Terrain:GetMaterialColor(Material material)
@@ -2177,6 +2181,7 @@ Class Plugin : Instance
 Class PluginAction : Instance
 	Property string PluginAction.ActionId [readonly]
 	Property bool PluginAction.AllowBinding [readonly]
+	Property string PluginAction.DefaultShortcut [RobloxScriptSecurity]
 	Property bool PluginAction.Enabled [RobloxScriptSecurity]
 	Property string PluginAction.StatusTip [readonly]
 	Property string PluginAction.Text [readonly]

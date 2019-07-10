@@ -11,6 +11,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
+local MainView = require(Plugin.Src.Components.MainView)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -29,7 +30,7 @@ local theme = PluginTheme.new()
 local localization = Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
-	pluginName = "Template",
+	pluginName = "Sandbox",
 })
 
 -- Widget Gui Elements
@@ -52,10 +53,7 @@ local function openPluginWindow()
 		theme = theme,
 		store = dataStore,
 	}, {
-		-- TODO: Use SandboxListWidget instead. See CLISTUDIO-19323.
-		MainView = Roact.createElement("TextLabel", {
-			Text = "Hello World!",
-			Size = UDim2.new(1,0,1,0)
+		mainView = Roact.createElement(MainView, {
 		}),
 	})
 
@@ -79,14 +77,15 @@ end
 local function main()
 	local pluginTitle = localization:getText("Meta", "PluginName")
 	plugin.Name = pluginTitle
-	-- TODO: Show in VIEW tab instead. See CLISTUDIO-19321.
-	local toolbar = plugin:CreateToolbar(pluginTitle)
+
+	local toolbar = plugin:CreateToolbar("sandboxToolbar")
 	local pluginButton = toolbar:CreateButton(
-		localization:getText("Meta", "PluginButtonInspect"),
-		localization:getText("Meta", "PluginButtonInspectTooltip"),
+		"sandboxButton",
+		localization:getText("Meta", "PluginButtonTooltip"),
 		theme.values.PluginTheme.Icons.ToolbarIconInspect
 	)
 
+	pluginButton.ClickableWhenViewportHidden = true
 	pluginButton.Click:connect(toggleWidget)
 
 	local function showIfEnabled()

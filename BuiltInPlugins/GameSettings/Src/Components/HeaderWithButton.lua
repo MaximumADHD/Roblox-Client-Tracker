@@ -19,6 +19,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local withTheme = require(Plugin.Src.Consumers.withTheme)
 
@@ -54,13 +55,13 @@ local function HeaderWithButton(props)
 				VerticalAlignment = Enum.VerticalAlignment.Bottom,
 			}),
 
-			Button = Roact.createElement(RoundTextButton, {
+			Button = Roact.createElement(RoundTextButton, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = active,
 				Name = buttonText,
 				OnClicked = onClicked,
 				Value = value,
-				Style = style
-			}),
+				Style = style,
+			})),
 		})
 	end)
 end

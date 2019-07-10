@@ -15338,6 +15338,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ClearInertialScrolling",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSampledInertialVelocity",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    },
+                    "Security": "RobloxScriptSecurity"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ScrollToTop",
                     "Parameters": [
                     ],
@@ -21878,6 +21900,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Animation",
+                    "MemberType": "Property",
+                    "Name": "NumberEmotesLoaded",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -31015,6 +31057,45 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "FillCylinder",
+                    "Parameters": [
+                        {
+                            "Name": "cframe",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "height",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "radius",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "FillRegion",
                     "Parameters": [
                         {
@@ -38371,6 +38452,26 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DefaultShortcut",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -46417,6 +46518,40 @@
                 {
                     "Category": "Script Editor",
                     "MemberType": "Property",
+                    "Name": "Auto Closing Brackets",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Auto Closing Quotes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
                     "Name": "Auto Indent",
                     "Security": {
                         "Read": "None",
@@ -46721,7 +46856,7 @@
                     }
                 },
                 {
-                    "Category": "Advanced",
+                    "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Enable Autocomplete",
                     "Security": {
@@ -47464,6 +47599,23 @@
                     "Category": "Explorer",
                     "MemberType": "Property",
                     "Name": "Show plus button on hover in Explorer",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Skip Closing Brackets and Quotes",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -61297,6 +61449,18 @@
                 {
                     "Name": "DialogMainButtonText",
                     "Value": 88
+                },
+                {
+                    "Name": "Merge3HighlightOriginal",
+                    "Value": 89
+                },
+                {
+                    "Name": "Merge3HighlightMine",
+                    "Value": 90
+                },
+                {
+                    "Name": "Merge3HighlightTheirs",
+                    "Value": 91
                 }
             ],
             "Name": "StudioStyleGuideColor"

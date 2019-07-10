@@ -1,11 +1,14 @@
 if not settings():GetFFlag("StudioGameSettingsAccessPermissions") then return nil end
 
+local runService = game:GetService("RunService")
+
 local PageName = "Access Permissions"
 
 local FFlagGameSettingsReorganizeHeaders = settings():GetFFlag("GameSettingsReorganizeHeaders")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
+local Cryo = require(Plugin.Cryo)
 
 local Separator = require(Plugin.Src.Components.Separator)
 local Header = require(Plugin.Src.Components.Header)
@@ -39,6 +42,7 @@ local function loadValuesToProps(getValue, state)
 		StudioUserId = getValue("studioUserId"),
 		GroupOwnerUserId = getValue("groupOwnerUserId"),
 		IsCurrentlyActive = state.Settings.Current.isActive,
+		CanManage = getValue("canManage"),
 	}
 
 	return loadedProps
@@ -72,8 +76,14 @@ local function dispatchChanges(setValue, dispatch)
 end
 
 --Uses props to display current settings values
-local function displayContents(page, localized)
+local function displayContents(page, localized, theme)
 	local props = page.props
+
+	-- The endpoint to check this fails a permission error if you do not have Manage, so we have
+	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
+	-- TC you are only running the client. The server is run by RCC
+	local isTeamCreate = runService:IsEdit() and not runService:IsServer()
+	local accessPermissionsEnabled = isTeamCreate
 	
 	return {
 		Header = FFlagGameSettingsReorganizeHeaders and Roact.createElement(Header, {
@@ -100,7 +110,7 @@ local function displayContents(page, localized)
 					Description = localized.Playability.Private.Description,
 				},
 			},
-			Enabled = props.IsActive ~= nil,
+			Enabled = props.IsActive ~= nil and props.CanManage,
 			--Functionality
 			Selected = props.IsFriendsOnly and "Friends" or props.IsActive,
 			SelectionChanged = function(button)
@@ -125,7 +135,7 @@ local function displayContents(page, localized)
 		OwnerWidget = Roact.createElement(GameOwnerWidget, {
 			LayoutOrder = 3,
 			
-			Enabled = props.IsActive ~= nil,
+			Enabled = props.IsActive ~= nil and accessPermissionsEnabled,
 			OwnerName = props.OwnerName,
 			OwnerId = props.OwnerId,
 			OwnerType = props.OwnerType,
@@ -143,8 +153,17 @@ local function displayContents(page, localized)
 			LayoutOrder = 4,
 			Size = UDim2.new(1, 0, 0, 1),
 		}),
+
+		TeamCreateWarning = (not accessPermissionsEnabled) and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			Text = localized.AccessPermissions.TeamCreateWarning,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextColor3 = Color3.fromRGB(255, 115, 21),
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, 30),
+			LayoutOrder = 5,
+		})),
 		
-		SearchbarWidget = Roact.createElement(SearchbarWidget, {
+		SearchbarWidget = accessPermissionsEnabled and props.CanManage and Roact.createElement(SearchbarWidget, {
 			LayoutOrder = 5,
 			Enabled = props.IsActive ~= nil,
 
@@ -157,7 +176,7 @@ local function displayContents(page, localized)
 			PermissionsChanged = props.PermissionsChanged,
 		}),
 		
-		CollaboratorListWidget = Roact.createElement(CollaboratorsWidget, {
+		CollaboratorListWidget = accessPermissionsEnabled and props.CanManage and Roact.createElement(CollaboratorsWidget, {
 			LayoutOrder = 6,
 			Enabled = props.IsActive ~= nil,
 

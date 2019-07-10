@@ -14,6 +14,7 @@ local Constants = {
     LocalizationKeys = {
         SelectAnEmote = "InGame.EmotesMenu.SelectAnEmote",
         NoEmotesEquipped = "InGame.EmotesMenu.NoEmotesEquipped",
+        EmotesDisabled = "InGame.EmotesMenu.EmotesDisabled",
 
         ErrorMessages = {
             NotSupported = "InGame.EmotesMenu.ErrorMessageNotSupported",
@@ -75,6 +76,7 @@ local Constants = {
         Enum.KeyCode.Backquote,
     },
 
+    -- Remove EmoteMenuOpenKey and EmoteMenuOpenButton when removing FFlagEmotesMenuRemoveOpenKeybinds
     EmoteMenuOpenKey = Enum.KeyCode.B,
     EmoteMenuOpenButton = Enum.KeyCode.DPadDown,
 
@@ -89,6 +91,7 @@ local Constants = {
 
     HighPriorityActions = Enum.ContextActionPriority.High.Value,
 
+    -- Remove ToggleMenuAction when removing FFlagEmotesMenuRemoveOpenKeybinds
     ToggleMenuAction = "EmotesMenuToggleAction",
     CloseMenuAction = "EmotesMenuCloseAction",
     EmoteSelectionAction = "EmotesMenuSelectionAction",

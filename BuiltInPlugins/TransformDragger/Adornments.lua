@@ -69,7 +69,7 @@ local fiveDegrees = "rbxasset://textures/transformFiveDegrees.png"
 local oneEigthDegrees = "rbxasset://textures/transformTwentyTwoDegrees.png"
 local ninetyDegrees = "rbxasset://textures/transformNinetyDegrees.png"
 local planeImage = "rbxasset://textures/whiteCircle.png"
-local rotationArrow = "rbxasset://textures/rotationArrow.png"--"rbxassetid://232196030"
+local rotationArrow = "rbxasset://textures/rotationArrow.png"
 local gradient = "rbxasset://textures/gradient.png"
 
 --duplicate - please consolidate

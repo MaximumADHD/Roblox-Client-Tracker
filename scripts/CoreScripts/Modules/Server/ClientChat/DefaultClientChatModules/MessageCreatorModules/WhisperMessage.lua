@@ -14,6 +14,9 @@ local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 local util = require(script.Parent:WaitForChild("Util"))
 
+local ChatLocalization = nil
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+
 function CreateMessageLabel(messageData, channelName)
 
 	local fromSpeaker = messageData.FromSpeaker
@@ -38,6 +41,10 @@ function CreateMessageLabel(messageData, channelName)
 			local whisperString = messageData.OriginalChannel
 			if messageData.FromSpeaker ~= LocalPlayer.Name then
 				whisperString = string.format("From %s", messageData.FromSpeaker)
+			end
+
+			if ChatLocalization.tryLocalize then
+				whisperString = ChatLocalization:tryLocalize (whisperString)
 			end
 
 			local formatChannelName = string.format("{%s}", whisperString)

@@ -383,6 +383,11 @@ return function()
 			end)
 		end
 
+		local function RequestAssetGeneration(gameId)
+			-- place holder function
+			-- RequestAssetGeneration shouldn't affect the upload flow no matter success or fail
+		end
+
 		flow = Flow.new({
 			SetMessage = function(message)
 				currentMessage = message
@@ -392,6 +397,7 @@ return function()
 			MakeRenderDialogContent = MakeRenderDialogContent,
 			ShowDialog = ShowDialog,
 			UploadPatch = UploadPatch,
+			RequestAssetGeneration = RequestAssetGeneration,
 
 			UpdateBusyMode = function(nonInteractive, showProgressIndicator)
 				section:setState({

@@ -8,9 +8,6 @@ local Collapsible = require(script.Parent.Collapsible)
 
 local GameTableSection = Roact.Component:extend("GameTableSection")
 
-local TranslationRolesApi2 = settings():GetFFlag("TranslationRolesApi2")
-
-
 --[[
 	To determine if this feature is available, we have to wait for
 	a web request.  While waiting, we don't draw any UI.  That way
@@ -55,6 +52,7 @@ function GameTableSection:init()
 				})
 			end
 		end,
+		RequestAssetGeneration = self.props.RequestAssetGeneration,
 	})
 
 	self._OnDownload = function()
@@ -93,30 +91,6 @@ function GameTableSection:init()
 			end)
 	end
 
-	if not TranslationRolesApi2 then
-		local function checkIfAvailable()
-			self.props.UpdateGameTableInfo():andThen(
-				function(available)
-					if available then
-						if self._idChangedConnection then
-							self._idChangedConnection:Disconnect()
-							self._idChangedConnection = nil
-						end
-						self:setState({Available = Availability.AVAILABLE})
-					else
-						self:setState({Available = Availability.NOT_AVAILABLE})
-					end
-				end,
-				function(errorMessage)
-					self:setState({Available = Availability.NOT_AVAILABLE})
-				end
-			)
-		end
-
-		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkIfAvailable)
-		spawn(checkIfAvailable)
-	end
-
 	self.progressSpinnerRef = Roact.createRef()
 end
 
@@ -137,10 +111,8 @@ function GameTableSection:didMount()
 		)
 	end
 
-	if TranslationRolesApi2 then
-		self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkTableAvailability)
-		coroutine.resume(coroutine.create(checkTableAvailability))
-	end
+	self._idChangedConnection = self.props.GameIdChangedSignal:Connect(checkTableAvailability)
+	coroutine.resume(coroutine.create(checkTableAvailability))
 end
 
 

@@ -62,11 +62,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
-local FFlagXboxShowPlayers3 = settings():GetFFlag("XboxShowPlayers3")
-local FFlagSelectShareGameButtonByDefault2 = settings():GetFFlag("SelectShareGameButtonByDefault2")
-local FFlagXboxAllowReportFromPlayersPage = settings():GetFFlag("XboxAllowReportFromPlayersPage")
-local FFlagFixFakeSelectionObject = settings():GetFFlag("FixFakeSelectionObject")
-
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -205,10 +200,6 @@ local function Initialize()
 		return nil
 	end
 
-	-- Clean up reportSelectionFound and friendSelectionFound along with
-	-- FFlagSelectShareGameButtonByDefault2
-	local reportSelectionFound = nil
-	local friendSelectionFound = nil
 	local shareGameButton
 
 	local function friendStatusCreate(playerLabel, player)
@@ -222,12 +213,7 @@ local function Initialize()
 			for _, item in pairs(friendLabelParent:GetChildren()) do
 				if item and item.Name == "FriendStatus" then
 					if GuiService.SelectedCoreObject == item then
-						if FFlagSelectShareGameButtonByDefault2 then
-							GuiService.SelectedCoreObject = shareGameButton
-						else
-							friendSelectionFound = nil
-							GuiService.SelectedCoreObject = nil
-						end
+						GuiService.SelectedCoreObject = shareGameButton
 					end
 					item:Destroy()
 				end
@@ -261,13 +247,6 @@ local function Initialize()
 						friendLabel.LayoutOrder = 2
 						friendLabel.Selectable = true
 						friendLabel.Parent = friendLabelParent
-
-						if not FFlagSelectShareGameButtonByDefault2 then
-							if UserInputService.GamepadEnabled and not friendSelectionFound then
-								friendSelectionFound = true
-								GuiService.SelectedCoreObject = friendLabel
-							end
-						end
 					end
 				end)
 			end
@@ -301,13 +280,6 @@ local function Initialize()
 			friendLabel.LayoutOrder = FlagSettings.IsInspectAndBuyEnabled() and 3 or 2
 			friendLabel.Selectable = true
 			friendLabel.Parent = parent
-
-			if not FFlagSelectShareGameButtonByDefault2 then
-				if UserInputService.GamepadEnabled and not friendSelectionFound then
-					friendSelectionFound = true
-					GuiService.SelectedCoreObject = friendLabel
-				end
-			end
 		end
 	end
 
@@ -386,11 +358,6 @@ local function Initialize()
 		if rightSideButtons then
 			local oldReportButton = rightSideButtons:FindFirstChild("ReportPlayer")
 			if oldReportButton then
-				if not FFlagSelectShareGameButtonByDefault2 then
-					if oldReportButton == GuiService.SelectedCoreObject then
-						reportSelectionFound = nil
-					end
-				end
 				oldReportButton:Destroy()
 			end
 
@@ -406,13 +373,6 @@ local function Initialize()
 				reportButton.LayoutOrder = 1
 				reportButton.Selectable = true
 				reportButton.Parent = rightSideButtons
-
-				if not FFlagSelectShareGameButtonByDefault2 then
-					if not reportSelectionFound and not friendSelectionFound and UserInputService.GamepadEnabled then
-						reportSelectionFound = true
-						GuiService.SelectedCoreObject = reportButton
-					end
-				end
 			end
 		end
 	end
@@ -567,7 +527,7 @@ local function Initialize()
 
 		fakeSelectionObject = Instance.new("Frame")
 		fakeSelectionObject.Selectable = true
-		fakeSelectionObject.Size = FFlagFixFakeSelectionObject and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 100, 0, 100)
+		fakeSelectionObject.Size = UDim2.new(1, 0, 1, 0)
 		fakeSelectionObject.BackgroundTransparency = 1
 		fakeSelectionObject.SelectionImageObject = fakeSelectionObject:Clone()
 		fakeSelectionObject.Parent = rightSideButtons
@@ -630,11 +590,7 @@ local function Initialize()
 	end
 
 	local function canShareCurrentGame()
-		if FFlagXboxShowPlayers3 then
-			return localPlayer.UserId > 0
-		else
-			return this.HubRef.ShareGamePage ~= nil and localPlayer.UserId > 0
-		end
+		return localPlayer.UserId > 0
 	end
 
 	local sortedPlayers
@@ -678,22 +634,12 @@ local function Initialize()
 					eventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 				end
 
-				if FFlagXboxShowPlayers3 then
-					this.HubRef:InviteToGame()
-				else
-					this.HubRef:AddToMenuStack(this.HubRef.Pages.CurrentPage)
-					this.HubRef:SwitchToPage(this.HubRef.ShareGamePage, nil, 1, true)
-				end
+				this.HubRef:InviteToGame()
 			end)
 
 			-- Ensure the button is always at the top of the list
 			shareGameButton.LayoutOrder = 1
 			shareGameButton.Parent = this.Page
-		end
-
-		if not FFlagSelectShareGameButtonByDefault2 then
-			friendSelectionFound = nil
-			reportSelectionFound = nil
 		end
 
 		local inspectMenuEnabled = false
@@ -749,14 +695,8 @@ local function Initialize()
 					end)
 				end
 
-				if FFlagXboxAllowReportFromPlayersPage then
-					if not FFlagChinaLicensingApp then
-						reportAbuseButtonCreate(frame, player)
-					end
-				else
-					if platform ~= Enum.Platform.XBoxOne and platform ~= Enum.Platform.PS4 and not FFlagChinaLicensingApp then
-						reportAbuseButtonCreate(frame, player)
-					end
+				if not FFlagChinaLicensingApp then
+					reportAbuseButtonCreate(frame, player)
 				end
 			end
 		end
@@ -768,10 +708,8 @@ local function Initialize()
 			end
 		end
 
-		if FFlagSelectShareGameButtonByDefault2 then
-			if UserInputService.GamepadEnabled then
-				GuiService.SelectedCoreObject = shareGameButton
-			end
+		if UserInputService.GamepadEnabled then
+			GuiService.SelectedCoreObject = shareGameButton
 		end
 
 		utility:OnResized("MenuPlayerListExtraPageSize", function(newSize, isPortrait)
@@ -804,14 +742,9 @@ local function Initialize()
 		local friendStatus = buttons:FindFirstChild("FriendStatus")
 		if friendStatus then
 			if GuiService.SelectedCoreObject == friendStatus then
-				if FFlagSelectShareGameButtonByDefault2 then
-					if UserInputService.GamepadEnabled then
-						GuiService.SelectedCoreObject = shareGameButton
-					else
-						GuiService.SelectedCoreObject = nil
-					end
+				if UserInputService.GamepadEnabled then
+					GuiService.SelectedCoreObject = shareGameButton
 				else
-					friendSelectionFound = nil
 					GuiService.SelectedCoreObject = nil
 				end
 			end
@@ -821,14 +754,9 @@ local function Initialize()
 		local reportPlayer = buttons:FindFirstChild("ReportPlayer")
 		if reportPlayer then
 			if GuiService.SelectedCoreObject == reportPlayer then
-				if FFlagSelectShareGameButtonByDefault2 then
-					if UserInputService.GamepadEnabled then
-						GuiService.SelectedCoreObject = shareGameButton
-					else
-						GuiService.SelectedCoreObject = nil
-					end
+				if UserInputService.GamepadEnabled then
+					GuiService.SelectedCoreObject = shareGameButton
 				else
-					reportSelectionFound = nil
 					GuiService.SelectedCoreObject = nil
 				end
 			end

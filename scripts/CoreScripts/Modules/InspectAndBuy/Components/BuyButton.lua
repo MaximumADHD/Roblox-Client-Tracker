@@ -15,6 +15,8 @@ local ROBLOX_CREATOR_ID = "1"
 
 local BuyButton = Roact.PureComponent:extend("BuyButton")
 
+local FFlagInspectMenuUpdateDisabledColor = game:DefineFastFlag("InspectMenuUpdateDisabledColor", false)
+
 function BuyButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
 end
@@ -31,15 +33,21 @@ function BuyButton:render()
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
 	local sizeXAdjustment = creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
+	local transparencyOverride = 0
+
+	if FFlagInspectMenuUpdateDisabledColor and not forSale then
+		transparencyOverride = 0.5
+	end
 
 	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 0),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0.5, sizeXAdjustment, 0, 44),
 		Image = "rbxasset://textures/ui/InspectMenu/Button_white.png",
-		ImageColor3 = forSale and Colors.Green or Colors.DisabledGreen,
+		ImageColor3 = (forSale or FFlagInspectMenuUpdateDisabledColor) and Colors.Green or Colors.DisabledGreen,
 		SelectionImageObject = self.selectedImage,
 		LayoutOrder = 3,
+		ImageTransparency = transparencyOverride,
 		[Roact.Ref] = buyButtonRef,
 		[Roact.Event.Activated] = function()
 			if forSale then
@@ -57,6 +65,7 @@ function BuyButton:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ROBUX_ICON_SIZE, 0, ROBUX_ICON_SIZE),
 			Image = "rbxasset://textures/ui/InspectMenu/ico_robux.png",
+			ImageTransparency = transparencyOverride,
 			ImageColor3 = Colors.White,
 			LayoutOrder = 1,
 			Visible = showRobuxIcon,
@@ -68,6 +77,7 @@ function BuyButton:render()
 			Font = Enum.Font.Gotham,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Colors.White,
+			TextTransparency = transparencyOverride,
 			LayoutOrder = 2,
 			TextXAlignment = Enum.TextXAlignment.Center,
 		})

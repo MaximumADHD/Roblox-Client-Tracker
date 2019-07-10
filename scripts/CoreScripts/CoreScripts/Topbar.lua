@@ -11,7 +11,7 @@ local FFlagCoreScriptNoPosthumousHurtOverlay = settings():GetFFlag("CoreScriptNo
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
-local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
+local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 local FFlagMobileChatOneIcon = settings():GetFFlag("MobileChatOneIcon")
 
 --[[ END OF FFLAG VALUES ]]
@@ -37,10 +37,12 @@ local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
 local TopbarConstants = require(GuiRoot.Modules.TopbarConstants)
 local Utility = require(GuiRoot.Modules.Settings.Utility)
 local GameTranslator = require(GuiRoot.Modules.GameTranslator)
-
 local EmotesModule
-if FFlagEmotesMenuEnabled then
+
+local FFlagEmotesMenuShowUiOnlyWhenAvailable
+if FFlagEmotesMenuEnabled2 then
 	EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
+	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
 end
 
 --[[ END OF MODULES ]]
@@ -1275,7 +1277,7 @@ end
 
 --- Emotes ---
 local function CreateEmotesIcon()
-	if not FFlagEmotesMenuEnabled then
+	if not FFlagEmotesMenuEnabled2 then
 		return
 	end
 
@@ -1528,7 +1530,7 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 		end
 	end
 
-	if FFlagEmotesMenuEnabled then
+	if FFlagEmotesMenuEnabled2 and not EmotesModule.MenuVisibilityChanged then
 		if coreGuiType == Enum.CoreGuiType.EmotesMenu or coreGuiType == Enum.CoreGuiType.All then
 			if enabled then
 				AddItemInOrder(LeftMenubar, emotesIcon, LEFT_ITEM_ORDER)
@@ -1572,6 +1574,19 @@ local function OnCoreGuiChanged(coreGuiType, coreGuiEnabled)
 		-- Left-align the player's name if either playerlist or healthbar is shown
 		nameAndHealthMenuItem:SetNameVisible(topbarEnabled)
 	end
+end
+
+local function onEmotesMenuVisibilityChangedSignal(isVisible)
+	if isVisible then
+		AddItemInOrder(LeftMenubar, emotesIcon, LEFT_ITEM_ORDER)
+	else
+		LeftMenubar:RemoveItem(emotesIcon)
+	end
+end
+
+if EmotesModule and FFlagEmotesMenuShowUiOnlyWhenAvailable then
+	EmotesModule.MenuVisibilityChanged.Event:Connect(onEmotesMenuVisibilityChangedSignal)
+	onEmotesMenuVisibilityChangedSignal(EmotesModule.MenuIsVisible)
 end
 
 local function OnChatModuleDisabled()

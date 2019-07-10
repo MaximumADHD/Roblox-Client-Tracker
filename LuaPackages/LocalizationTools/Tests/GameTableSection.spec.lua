@@ -9,9 +9,6 @@ return function()
 			theme = Theming.createTheme({}),
 		}, {
 			Content = Roact.createElement(GameTableSection, {
-				UpdateGameTableInfo = function()
-					return Promise.new(function() end)
-				end,
 				CheckTableAvailability = function()
 					return Promise.new(function() end)
 				end,

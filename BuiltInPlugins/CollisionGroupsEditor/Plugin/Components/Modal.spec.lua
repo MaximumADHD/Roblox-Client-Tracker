@@ -1,15 +1,20 @@
 local Roact = require(script.Parent.Parent.Parent.modules.Roact)
 local Modal = require(script.Parent.Modal)
 
+local MockServiceWrapper = require(script.Parent.Parent.TestHelpers.MockServiceWrapper)
+
 return function()
-	itSKIP("should mount and unmount with some basic properties", function()
+	it("should mount and unmount with some basic properties", function()
 		local messageText = "Test message"
 
 		local container = Instance.new("Folder")
-		local element = Roact.createElement(Modal, {
-			Message = messageText,
-			Function = function() end,
-			CleanUpFunction = function() end,
+		local element = Roact.createElement(MockServiceWrapper, {}, {
+			Roact.createElement(Modal, {
+				Message = messageText,
+				Function = function() end,
+				CleanUpFunction = function() end,
+				Active = true,
+			})
 		})
 		local tree = Roact.mount(element, container, "Modal")
 

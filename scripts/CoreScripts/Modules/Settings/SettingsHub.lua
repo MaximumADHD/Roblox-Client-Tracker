@@ -45,7 +45,6 @@ local FStringPlayNextGameTestName = settings():GetFVariable("PlayNextGameTestNam
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
 
-local FFlagXboxShowPlayers3 = settings():GetFFlag("XboxShowPlayers3")
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 --[[ SERVICES ]]
@@ -755,15 +754,6 @@ local function CreateSettingsHub()
 			this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
 		end
 
-		-- Xbox Only.  Clean up along with FFlagXboxShowPlayers3
-		local inviteToGameFunc = function()
-			if not RunService:IsStudio() then
-				if PlatformService then
-					PlatformService:PopupGameInviteUI()
-				end
-			end
-		end
-
 		local resumeFunc = function()
 			setVisibilityInternal(false)
 		end
@@ -774,52 +764,10 @@ local function CreateSettingsHub()
 			buttonImageAppend = "@2x"
 		end
 
-		if FFlagXboxShowPlayers3 then
-			addBottomBarButton("LeaveGame", "Leave Game", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
-				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
-			)
-		else
-			if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
-				local function createInviteButton()
-					addBottomBarButton("InviteToGame", "Send Game Invites", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
-						"", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-						inviteToGameFunc, {Enum.KeyCode.ButtonX}
-					)
-					if RunService:IsStudio() then
-						this.InviteToGameButton.Selectable = false
-						this.InviteToGameButton.Active = false
-						this.InviteToGameButton.Enabled.Value = false
-						local inviteHint = this.InviteToGameButton:FindFirstChild("InviteToGameHint")
-						if inviteHint then
-							inviteHint.ImageColor3 = Color3.fromRGB(100, 100, 100)
-						end
-						local inviteButtonText = this.InviteToGameText
-						if inviteButtonText then
-							inviteButtonText.TextColor3 = Color3.fromRGB(100, 100, 100)
-						end
-					end
-				end
-
-				-- only show invite button on non-PMP games. Some users games may not be enabled for console, so inviting to
-				-- to the game session will not work.
-				spawn(function()
-					if not PlatformService then return end
-
-					pcall(function()
-						local pmpCreatorId = PlatformService:BeginGetPMPCreatorId()
-						if pmpCreatorId == 0 then
-							createInviteButton()
-						end
-					end)
-				end)
-			else
-				addBottomBarButton("LeaveGame", "Leave Game", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
-					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-					leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
-				)
-			end
-		end
+		addBottomBarButton("LeaveGame", "Leave Game", "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
+			"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+			leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
+		)
 
 		local resetCharFunc = function()
 			if resetEnabled then
@@ -1440,19 +1388,7 @@ local function CreateSettingsHub()
 				removeBottomBarBindings()
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
-				if FFlagXboxShowPlayers3 then
-					this:SwitchToPage(this.PlayersPage, nil, 1, true)
-				else
-					if not isTenFootInterface then
-						this:SwitchToPage(this.PlayersPage, nil, 1, true)
-					else
-						if this.HomePage then
-							this:SwitchToPage(this.HomePage, nil, 1, true)
-						else
-							this:SwitchToPage(this.GameSettingsPage, nil, 1, true)
-						end
-					end
-				end
+				this:SwitchToPage(this.PlayersPage, nil, 1, true)
 			end
 
 			playerList:HideTemp('SettingsMenu', true)
@@ -1661,17 +1597,10 @@ local function CreateSettingsHub()
 		this.RecordPage:SetHub(this)
 	end
 
-	if FFlagXboxShowPlayers3 then
-		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
-		this.PlayersPage:SetHub(this)
-	end
+	this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
+	this.PlayersPage:SetHub(this)
 
 	if not isTenFootInterface then
-		if not FFlagXboxShowPlayers3 then
-			this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
-			this.PlayersPage:SetHub(this)
-		end
-
 		local shareGameCorePackages = {
 			"Roact",
 			"Rodux",
@@ -1705,13 +1634,7 @@ local function CreateSettingsHub()
 	end
 
 	-- page registration
-	if FFlagXboxShowPlayers3 then
-		this:AddPage(this.PlayersPage)
-	else
-		if not isTenFootInterface then
-			this:AddPage(this.PlayersPage)
-		end
-	end
+	this:AddPage(this.PlayersPage)
 	this:AddPage(this.ResetCharacterPage)
 	this:AddPage(this.LeaveGamePage)
 	this:AddPage(this.GameSettingsPage)
@@ -1723,19 +1646,8 @@ local function CreateSettingsHub()
 		this:AddPage(this.RecordPage)
 	end
 
-	if FFlagXboxShowPlayers3 then
-		this:InitInPage(this.PlayersPage)
-	else
-		if not isTenFootInterface then
-			this:SwitchToPage(this.PlayersPage, true, 1)
-		else
-			if this.HomePage then
-				this:SwitchToPage(this.HomePage, true, 1)
-			else
-				this:SwitchToPage(this.GameSettingsPage, true, 1)
-			end
-		end
-	end
+	this:InitInPage(this.PlayersPage)
+
 	-- hook up to necessary signals
 
 	-- connect back button on android

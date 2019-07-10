@@ -1,14 +1,10 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
-local AppTempCommon = CorePackages.AppTempCommon
 local Requests = CorePackages.AppTempCommon.LuaApp.Http.Requests
 
 local ChatSendMessage = require(Requests.ChatSendMessage)
 local ChatStartOneToOneConversation = require(Requests.ChatStartOneToOneConversation)
-local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
-
-local trimCharacterFromEndString = require(AppTempCommon.Temp.trimCharacterFromEndString)
 
 local FFlagLuaInviteGameTextLocalization = settings():GetFFlag("LuaInviteGameTextLocalization")
 
@@ -21,9 +17,6 @@ if FFlagLuaInviteGameTextLocalization then
 else
 	INVITE_TEXT_MESSAGE = "Come join me in %s"
 end
-local INVITE_LINK_MESSAGE = "%s/games/%s"
-
-local isLuaChatGameLinkSendEnabled = require(script.Parent.Parent.Flags.isLuaChatGameLinkSendEnabled)
 
 local ChatSendGameLinkMessage = require(Requests.ChatSendGameLinkMessage)
 
@@ -40,9 +33,6 @@ return function(networkImpl, userId, placeInfo)
 		inviteTextMessage = string.format(INVITE_TEXT_MESSAGE, placeInfo.name)
 	end
 
-	local trimmedUrl = trimCharacterFromEndString(Url.WWW_URL, "/")
-	local inviteLinkMessage = string.format(INVITE_LINK_MESSAGE, trimmedUrl, placeInfo.universeRootPlaceId)
-
 	return function(store)
 		return ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)
 			local conversation = conversationResult.responseBody.conversation
@@ -57,11 +47,8 @@ return function(networkImpl, userId, placeInfo)
 						placeId = placeInfo.universeRootPlaceId,
 					}
 				end
-				if isLuaChatGameLinkSendEnabled(clientId) then
-					return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(handleResult)
-				else
-					return ChatSendMessage(networkImpl, conversation.id, inviteLinkMessage):andThen(handleResult)
-				end
+
+				return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(handleResult)
 			end)
 		end)
 	end

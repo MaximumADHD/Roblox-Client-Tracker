@@ -8,6 +8,8 @@ local MakeGameTableMain = require(script.Parent.GameTable.GameTableMain)
 local RbxEntriesToWebEntries = require(script.Parent.GameTable.RbxEntriesToWebEntries)
 local Roact = require(game:GetService("CorePackages").Roact)
 
+local UnofficialLanguageSupportEnabled = settings():GetFFlag("UnofficialLanguageSupportEnabled")
+
 local function getTextScraperButtonIconAsset()
 	return LocalizationService.IsTextScraperRunning
 		and "rbxasset://textures/localizationUIScrapingOn.png"
@@ -165,7 +167,7 @@ local function reportUploadPatch(plugin, patchInfo, btnName)
 	AnalyticsService:SendEventDeferred(target, context, eventName, args)
 end
 
-local function reportDownloadTable(plugin, table, btnName)
+local function reportDownloadTable_deprecated(plugin, table, btnName)
 	local target = "studio"
 	local context = "localizationPlugin"
 	local eventName = "logLocalizationPerfStats"
@@ -187,6 +189,32 @@ local function reportDownloadTable(plugin, table, btnName)
 	AnalyticsService:SendEventDeferred(target, context, eventName, args)
 end
 
+local function reportDownloadTable(plugin, table, btnName, getAllSuppLanguagesFunc)
+	local target = "studio"
+	local context = "localizationPlugin"
+	local eventName = "logLocalizationPerfStats"
+
+	getAllSuppLanguagesFunc():andThen(
+		function(allSupportedLanguagesSet)
+			local info = RbxEntriesToWebEntries(table:GetEntries(), allSupportedLanguagesSet)
+
+			local args = {
+				uid = plugin:GetStudioUserId(),
+				gameId = game.GameId,
+				placeId = game.PlaceId,
+				btnName = btnName,
+
+				totalRows = info.totalRows,
+				totalTranslations = info.totalTranslations,
+				supportedLocales = info.supportedLocales,
+				unsupportedLocales = info.unsupportedLocales,
+			}
+
+			AnalyticsService:SendEventDeferred(target, context, eventName, args)
+		end
+	)
+end
+
 local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 	local ShowDialog = MakeShowDialog(plugin, studioSettings)
 	local GameTableMain = MakeGameTableMain(plugin:GetStudioUserId())
@@ -204,15 +232,20 @@ local function createLocalizationToolsEnabled(toolbar, plugin, studioSettings)
 		ComputeUpdatePatch = GameTableMain.ComputeUpdatePatch,
 		UploadPatch = GameTableMain.UploadPatch,
 		DownloadGameTable = GameTableMain.DownloadGameTable,
-		UpdateGameTableInfo = GameTableMain.UpdateGameTableInfo,
 		CheckTableAvailability = GameTableMain.CheckTableAvailability,
 		GameIdChangedSignal = GameTableMain.GameIdChangedSignal,
+		GetAllSupportedLanguages = GameTableMain.GetAllSupportedLanguages,
+		RequestAssetGeneration = GameTableMain.RequestAssetGeneration,
 		StudioSettings = studioSettings,
 		HandleUploadAnalytics = function(patchInfo, btnName)
 			reportUploadPatch(plugin, patchInfo, btnName)
 		end,
 		HandleDownloadAnalytics = function(table, btnName)
-			reportDownloadTable(plugin, table, btnName)
+			if UnofficialLanguageSupportEnabled then
+				reportDownloadTable(plugin, table, btnName, GameTableMain.GetAllSupportedLanguages)
+			else
+				reportDownloadTable_deprecated(plugin, table, btnName)
+			end
 		end,
 	}), Window)
 

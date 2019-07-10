@@ -2,10 +2,14 @@ local RigFunctions = {}
 
 -- Services
 local ServerStorage = game:GetService("ServerStorage")
+local ContentProvider = game:GetService("ContentProvider")
 
 local Constants = require(script.Parent.Constants)
 local FixedRigPositions = require(script.Parent.FixedRigPositions)
 local R6 = require(script.Parent.R6)
+
+local useBaseUrlFlagExists, useBaseUrlFlagValue = pcall(function() return settings():GetFFlag("UseBaseUrlInPlugins") end)
+local useBaseUrl = useBaseUrlFlagExists and useBaseUrlFlagValue
 
 local R15_PART_MAPPING = {
 	["Head"]      = { "Head"                                        },
@@ -16,15 +20,27 @@ local R15_PART_MAPPING = {
 	["Left Leg"]  = { "LeftUpperLeg" , "LeftLowerLeg" , "LeftFoot"  },
 }
 
-local ASSET_URLS = {
-    "http://www.roblox.com/asset/?id=",
-    "http://roblox.com/asset/?id=",
-    "rbxassetid://"
-}
+local ASSET_URLS = nil
+if useBaseUrl then
+    ASSET_URLS = {
+        ContentProvider.BaseUrl .."asset/?id=",
+        "rbxassetid://"
+    }
+else
+    ASSET_URLS = {
+        "http://www.roblox.com/asset/?id=",
+        "http://roblox.com/asset/?id=",
+        "rbxassetid://"
+    }
+end
 
 local function idToContentUrl(id)
     if tonumber(id) then
-        return "http://roblox.com/asset/?id=" ..id
+        if useBaseUrl then
+            return ContentProvider.BaseUrl .."asset/?id=" ..id
+        else
+            return return "http://roblox.com/asset/?id=" ..id
+        end
     end
 
     return id

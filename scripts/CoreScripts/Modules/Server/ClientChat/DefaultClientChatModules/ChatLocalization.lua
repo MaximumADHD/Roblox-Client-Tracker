@@ -3,6 +3,12 @@ local ChatService = game:GetService("Chat")
 local success, userShouldLocalizeServerMessages = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldLocalizeServerMessages") end)
 local userShouldLocalizeServerMessages = success and userShouldLocalizeServerMessages
 
+local existingKey = {
+	["System"] = "InGame.Chat.Label.SystemMessagePrefix",
+	["Team"] = "InGame.Chat.Label.TeamMessagePrefix",
+	["From "] = "InGame.Chat.Label.From",
+	["To "] = "InGame.Chat.Label.To",
+}
 local ChatLocalization = {
 	_hasFetchedLocalization = false,
 }
@@ -86,6 +92,21 @@ function ChatLocalization:FormatMessageToSend(key, defaultMessage, parameterName
 			return self:Get(key,defaultMessage)
 		end
 	end
+end
+
+-- try localize whole/part of string
+-- no more-than-1 replacement for current existing keys.
+function ChatLocalization:tryLocalize(rawString)
+	if existingKey[rawString] then
+		return self:Get(existingKey[rawString], rawString)
+	end
+	for enString, localizationKey in pairs(existingKey) do
+		if string.find(rawString, enString) then
+			local localizedPart = self:Get(localizationKey, enString)
+			return string.gsub(rawString, enString, localizedPart, 1)
+		end
+	end
+	return rawString
 end
 
 return ChatLocalization

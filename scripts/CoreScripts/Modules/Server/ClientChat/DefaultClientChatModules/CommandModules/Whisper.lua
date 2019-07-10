@@ -7,6 +7,9 @@ local ChatSettings = require(script.Parent.Parent:WaitForChild("ChatSettings"))
 
 local PlayersService = game:GetService("Players")
 
+local ChatLocalization = nil
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+
 local LocalPlayer = PlayersService.LocalPlayer
 while LocalPlayer == nil do
 	PlayersService.ChildAdded:wait()
@@ -89,7 +92,12 @@ function whisperStateMethods:EnterWhisperState(player)
 	self.PlayerName = player.Name
 
 	self.MessageModeButton.Size = UDim2.new(0, 1000, 1, 0)
-	self.MessageModeButton.Text = string.format("[To %s]", player.Name)
+	local messageModeString = string.format("[To %s]", player.Name)
+	if ChatLocalization.tryLocalize then
+		messageModeString = ChatLocalization:tryLocalize(messageModeString)
+	end
+	self.MessageModeButton.Text = messageModeString
+
 	self.MessageModeButton.TextColor3 = self:GetWhisperChanneNameColor()
 
 	local xSize = self.MessageModeButton.TextBounds.X

@@ -23,7 +23,7 @@ local VRService = game:GetService('VRService')
 --[[ END OF SERVICES ]]
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
-local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
+local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 --[[ MODULES ]]
 local tenFootInterface = require(GuiRoot.Modules.TenFootInterface)
@@ -31,6 +31,14 @@ local utility = require(GuiRoot.Modules.Settings.Utility)
 local recordPage = require(GuiRoot.Modules.Settings.Pages.Record)
 local businessLogic = require(GuiRoot.Modules.BusinessLogic)
 local Panel3D = require(GuiRoot.Modules.VR.Panel3D)
+local EmotesModule
+
+local FFlagEmotesMenuShowUiOnlyWhenAvailable
+if FFlagEmotesMenuEnabled2 then
+	EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
+	FFlagEmotesMenuShowUiOnlyWhenAvailable = game:GetFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
+end
+
 
 --[[ VARIABLES ]]
 local gamepadSettingsFrame = nil
@@ -68,7 +76,7 @@ local function getImagesForSlot(slot)
 									UDim2.new(1,-90,0,90), UDim2.new(0,52,0,52),
 									UDim2.new(0,108,0,150), UDim2.new(1,-110,0,50)
 	elseif slot == 3 then	return "rbxasset://textures/ui/Settings/Radial/BottomRight.png", "rbxasset://textures/ui/Settings/Radial/BottomRightSelected.png",
-	                                FFlagEmotesMenuEnabled and "rbxasset://textures/ui/Emotes/EmotesRadialIcon.png" or "rbxasset://textures/ui/Settings/Radial/Alert.png",
+	                                FFlagEmotesMenuEnabled2 and "rbxasset://textures/ui/Emotes/EmotesRadialIcon.png" or "rbxasset://textures/ui/Settings/Radial/Alert.png",
 									UDim2.new(1,-85,1,-150), UDim2.new(0,42,0,58),
 									UDim2.new(0,120,0,150), UDim2.new(1,-120,1,-200)
 	elseif slot == 4 then 	return "rbxasset://textures/ui/Settings/Radial/Bottom.png", "rbxasset://textures/ui/Settings/Radial/BottomSelected.png",
@@ -110,7 +118,7 @@ vrSlotImages[2].iconSize = UDim2.new(0, 52, 0, 52)
 vrSlotImages[3].icon = "rbxasset://textures/ui/VR/Radial/Icons/Recenter.png"
 vrSlotImages[3].iconPosition = UDim2.new(1, -60, 0.5, -25)
 vrSlotImages[3].iconSize = UDim2.new(0, 50, 0, 50)
-vrSlotImages[4].icon = FFlagEmotesMenuEnabled and "rbxasset://textures/ui/Emotes/EmotesRadialIcon.png" or "rbxasset://textures/ui/Settings/Radial/Alert.png"
+vrSlotImages[4].icon = FFlagEmotesMenuEnabled2 and "rbxasset://textures/ui/Emotes/EmotesRadialIcon.png" or "rbxasset://textures/ui/Settings/Radial/Alert.png"
 vrSlotImages[4].iconPosition = UDim2.new(0.71, 12, 0.71, 5)
 vrSlotImages[4].iconSize = UDim2.new(0, 42, 0, 58)
 vrSlotImages[5].icon = "rbxasset://textures/ui/Settings/Radial/Leave.png"
@@ -143,7 +151,7 @@ local vrButtonLayout = {
 	Settings 		= { Range = { Begin = 337.5, End = 22.5 } }
 }
 
-if FFlagEmotesMenuEnabled then
+if FFlagEmotesMenuEnabled2 then
 	-- TODO: Re-add these values to the tables above directly when the flag is removed
 	radialButtonLayout.Emotes = { Range = { Begin = 96, End = 156 } }
 	vrButtonLayout.Emotes = { Range = { Begin = 112.5, End = 157.5 } }
@@ -764,7 +772,7 @@ local function createGamepadMenuGui()
 
 	---------------------------------
 	-------- Notifications ----------
-	if not FFlagEmotesMenuEnabled then
+	if not FFlagEmotesMenuEnabled2 then
 		local gamepadNotifications = Instance.new("BindableEvent")
 		gamepadNotifications.Name = "GamepadNotifications"
 		gamepadNotifications.Parent = script
@@ -786,12 +794,11 @@ local function createGamepadMenuGui()
 
 	---------------------------------
 	-------- Emotes Menu ------------
-	if FFlagEmotesMenuEnabled then
+	if FFlagEmotesMenuEnabled2 then
 		local toggleEmotesFunc = function()
 			toggleCoreGuiRadial()
 			GuiService.MenuClosed:Wait()
 
-			local EmotesModule = require(GuiRoot.Modules.EmotesMenu.EmotesMenuMaster)
 			if EmotesModule:isOpen() then
 				EmotesModule:close()
 			else
@@ -1077,6 +1084,12 @@ local function canChangeButtonVisibleState(buttonType)
 		end
 	end
 
+	if EmotesModule and FFlagEmotesMenuShowUiOnlyWhenAvailable then
+		if buttonType == Enum.CoreGuiType.EmotesMenu then
+			return false
+		end
+	end
+
 	return true
 end
 
@@ -1092,3 +1105,17 @@ StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
 		end
 	end
 end)
+
+local function onEmotesMenuVisibilityChangedSignal(emotesMenuVisible)
+	for button, buttonTable in pairs(radialButtons) do
+		local buttonType = buttonTable["CoreGuiType"]
+		if buttonType and buttonType == Enum.CoreGuiType.EmotesMenu then
+			setButtonEnabled(button, emotesMenuVisible)
+		end
+	end
+end
+
+if EmotesModule and FFlagEmotesMenuShowUiOnlyWhenAvailable then
+	EmotesModule.MenuVisibilityChanged.Event:Connect(onEmotesMenuVisibilityChangedSignal)
+	onEmotesMenuVisibilityChangedSignal(EmotesModule.MenuIsVisible)
+end

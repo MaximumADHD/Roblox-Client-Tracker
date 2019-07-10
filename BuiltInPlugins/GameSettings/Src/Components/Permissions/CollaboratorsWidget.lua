@@ -52,7 +52,8 @@ end
 
 local function getGroupCollaboratorPermissions(props, localized)
 	local permissions = {
-		{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
+		-- TODO (awarwick) 6/24/2019 disabled until backend works with Play
+		--{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
@@ -68,7 +69,8 @@ end
 
 local function getUserCollaboratorPermissions(props, localized)
 	local permissions = {
-		{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
+		-- TODO (awarwick) 6/24/2019 disabled until backend works with Play
+		--{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	

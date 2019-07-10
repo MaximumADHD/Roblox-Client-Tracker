@@ -37,7 +37,7 @@ local TitledFrame = require(Plugin.UILibrary.Components.TitledFrame)
 local RoundTextBox = require(Plugin.UILibrary.Components.RoundTextBox)
 local RoundTextButton = require(Plugin.UILibrary.Components.RoundTextButton)
 
-local createFitToContent 
+local createFitToContent
 if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
 	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 else
@@ -135,27 +135,27 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			Style = theme.cancelButton,
 		}),
 
-		NameFrame = Roact.createElement(TitledFrame, {
+		NameFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 			Title = localized.DevSubs.Name,
 			LayoutOrder = 1,
 			MaxHeight = 64,
-		}, {
-			Roact.createElement(RoundTextBox, {
+		}), {
+			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = true,
 				MaxLength = 32,
 				Multiline = false,
 				Text = developerSubscription.Name,
 
 				SetText = self.onNameChanged,
-			})
+			}))
 		}),
 
-		DescriptionFrame = Roact.createElement(TitledFrame, {
+		DescriptionFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 			Title = localized.DevSubs.Title,
 			LayoutOrder = 2,
 			MaxHeight = 160,
-		}, {
-			Roact.createElement(RoundTextBox, {
+		}), {
+			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 				Active = true,
 				Height = 128,
 				MaxLength = 256,
@@ -163,7 +163,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 				Text = developerSubscription.Description or "",
 
 				SetText = self.onDescriptionChanged,
-			})
+			}))
 		}),
 
 		ImageWidget = Roact.createElement(GameIconWidget, {
@@ -176,11 +176,11 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			AddIcon = self.setImage,
 		}),
 
-		PriceFrame = Roact.createElement(TitledFrame, {
+		PriceFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 			Title = localized.DevSubs.Price,
 			LayoutOrder = 4,
 			MaxHeight = Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT,
-		}, {
+		}), {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -207,11 +207,11 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 			}),
 		}),
 
-		DurationFrame = Roact.createElement(TitledFrame, {
+		DurationFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 			Title = localized.DevSubs.Duration,
 			LayoutOrder = 5,
 			MaxHeight = 42,
-		}, {
+		}), {
 			Text = Roact.createElement(DeveloperSubscriptionListItemText, {
 				Text = "1 Month",
 				Size = UDim2.new(1, 0, 1, 0),

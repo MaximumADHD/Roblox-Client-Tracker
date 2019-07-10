@@ -12,33 +12,20 @@ local ArgCheck = require(CorePackages.ArgCheck)
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local StyleProvider = UIBlox.Style.Provider
+local StylePalette = require(script.Parent.StylePalette)
 
 local AppStyleProvider = Roact.Component:extend("AppStyleProvider")
-
-local getThemeFromName = require(script.Parent.Themes.getThemeFromName)
-local getFontFromName = require(script.Parent.Fonts.getFontFromName)
-local Constants = require(script.Parent.Constants)
-
-local DEFAULT_FONT = Constants.FontName.Gotham
-local FONT_MAP = {
-	[Constants.FontName.Gotham] = require(script.Parent.Fonts.Gotham),
-}
-
-local DEFAULT_THEME = Constants.ThemeName.Dark
-local THEME_MAP = {
-	[Constants.ThemeName.Dark] = require(script.Parent.Themes.DarkTheme),
-	[Constants.ThemeName.Light] = require(script.Parent.Themes.LightTheme),
-}
 
 function AppStyleProvider:render()
 	local style = self.props.style
 	ArgCheck.isNotNil(style, "style prop for AppStyleProvider")
-	local appTheme = getThemeFromName(style.themeName, DEFAULT_THEME, THEME_MAP)
-	local appFont = getFontFromName(style.fontName, DEFAULT_FONT, FONT_MAP)
-	local appStyle = {
-		Theme = appTheme,
-		Font = appFont,
-	}
+	local themeName = style.themeName
+	local fontName = style.fontName
+	local stylePalette = StylePalette.new()
+	stylePalette:updateTheme(themeName)
+	stylePalette:updateFont(fontName)
+	local appStyle = stylePalette:currentStyle()
+
 	return Roact.createElement(StyleProvider,{
 		style = appStyle,
 	}, self.props[Roact.Children])

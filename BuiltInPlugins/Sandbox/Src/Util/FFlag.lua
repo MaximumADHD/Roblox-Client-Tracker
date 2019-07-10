@@ -1,21 +1,21 @@
-local flagMap = {}
+--[[
+	Get flag values. Does not throw if the flag is not defined.
+--]]
 
--- void getFFlagValue(string flag)
-local function getFFlagValue(flag)
-    local flagExists, flagValue = pcall(function () return settings():GetFFlag(flag) end)
-    flagMap[flag] = flagExists and flagValue
-end
-
-
-local FFlag = {}
+local FFlag = {
+	flagMap = {}
+}
 
 -- bool FFlag:isEnabled(string flag)
 function FFlag:isEnabled(flag)
-    if (flagMap[flag] == nil) then
-        getFFlagValue(flag)
-    end
-    
-    return flagMap[flag]
+	if (self.flagMap[flag] == nil) then
+		local flagExists, flagValue = pcall(function ()
+			return settings():GetFFlag(flag)
+		end)
+		self.flagMap[flag] = flagExists and flagValue
+	end
+
+	return self.flagMap[flag]
 end
 
 return FFlag

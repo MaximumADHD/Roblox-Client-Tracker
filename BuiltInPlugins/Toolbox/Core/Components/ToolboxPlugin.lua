@@ -12,6 +12,8 @@ local Toolbox = require(Plugin.Core.Components.Toolbox)
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
+game:DefineFastFlag("ToolboxButtonEnabledWhenScriptOpen", false)
+
 function ToolboxPlugin:init(props)
 	self.localization = props.localization
 
@@ -35,6 +37,9 @@ function ToolboxPlugin:init(props)
 	self.toolboxButton = self.toolbar:CreateButton("luaToolboxButton",
 		"Insert items from the toolbox", Images.TOOLBOX_ICON)
 
+	if game:GetFastFlag("ToolboxButtonEnabledWhenScriptOpen") then
+		self.toolboxButton.ClickableWhenViewportHidden = true
+	end
 	self.toolboxButton:SetActive(self.state.enabled)
 
 	self.toolboxButton.Click:connect(function()

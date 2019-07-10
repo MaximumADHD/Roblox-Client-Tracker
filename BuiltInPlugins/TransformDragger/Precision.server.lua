@@ -136,8 +136,10 @@ end
 
 Adorn.setWorkplaneAccessor(getWorkplane)
 
-game:GetService("ContentProvider"):Preload("rbxassetid://232196030")
-game:GetService("ContentProvider"):Preload("rbxassetid://233257118")
+if not settings():GetFFlag("StudioMoveWebAssetsToContent") then
+	game:GetService("ContentProvider"):Preload("rbxassetid://232196030")
+	game:GetService("ContentProvider"):Preload("rbxassetid://233257118")
+end
 
 --handleDeclaration
 local H_NONE = 0

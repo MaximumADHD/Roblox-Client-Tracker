@@ -43,8 +43,6 @@ function PurchasePrompt:init()
 		onCompleteDisconnector = self.motor:onComplete(function()
 			setPromptHidden()
 			onCompleteDisconnector()
-
-			self.motor:stop()
 		end)
 
 		self.motor:setGoal(Otter.spring(0, SPRING_CONFIG))
@@ -56,10 +54,6 @@ function PurchasePrompt:didUpdate(prevProps, prevState)
 
 		local goal = self.props.promptState == PromptState.Hidden and 0 or 1
 		self.motor:setGoal(Otter.spring(goal, SPRING_CONFIG))
-
-		if prevProps.promptState == PromptState.Hidden then
-			self.motor:start()
-		end
 	end
 end
 

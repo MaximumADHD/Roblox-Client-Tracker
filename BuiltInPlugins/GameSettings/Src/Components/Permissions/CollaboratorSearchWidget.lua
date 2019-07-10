@@ -14,7 +14,7 @@ local StudioService = game:GetService("StudioService")
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 local LOADING = require(Plugin.Src.Keys.loadingInProgress)
-local DEFAULT_ADD_ACTION = PermissionsConstants.PlayKey
+local DEFAULT_ADD_ACTION = PermissionsConstants.EditKey
 local MY_FRIENDS_KEY = "MyFriends"
 
 local Searchbar = require(Plugin.Src.Components.Permissions.SearchBar)

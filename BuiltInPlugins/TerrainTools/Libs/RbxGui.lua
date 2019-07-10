@@ -1,5 +1,7 @@
 local t = {}
 
+local StudioMoveWebAssetsToContent = settings():GetFFlag("StudioMoveWebAssetsToContent")
+
 local function ScopedConnect(parentInstance, instance, event, signalFunc, syncFunc, removeFunc)
 	local eventConnection = nil
 
@@ -123,13 +125,13 @@ t.CreateStyledMessageDialog = function(title, message, style, buttons)
 	styleImage.Position = UDim2.new(0,5,0,15)
 	if style == "error" or style == "Error" then
 		styleImage.Size = UDim2.new(0, 71, 0, 71)
-		styleImage.Image = "rbxassetid://42565285"
+		styleImage.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/popup_redx.png" or "rbxassetid://42565285"
 	elseif style == "notify" or style == "Notify" then
 		styleImage.Size = UDim2.new(0, 71, 0, 71)
-		styleImage.Image = "rbxassetid://42604978"
+		styleImage.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/popup_greenCheckCircle.png" or "rbxassetid://42604978"
 	elseif style == "confirm" or style == "Confirm" then
 		styleImage.Size = UDim2.new(0, 74, 0, 76)
-		styleImage.Image = "rbxassetid://42557901"
+		styleImage.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/popup_warnTriangle.png" or "rbxassetid://42557901"
 	else
 		return t.CreateMessageDialog(title,message,buttons)
 	end
@@ -465,7 +467,7 @@ t.CreateDropDownMenu = function(items, onSelect, forRoblox, whiteSkin, baseZ)
 		dropDownIcon.Size = UDim2.new(0,16,0,12)
 		dropDownIcon.Position = UDim2.new(1,-17,0.5, -6)
 	else
-		dropDownIcon.Image = "rbxassetid://45732894"
+		dropDownIcon.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/ComboBoxArrow.png" or "rbxassetid://45732894"
 		dropDownIcon.Size = UDim2.new(0,11,0,6)
 		dropDownIcon.Position = UDim2.new(1,-11,0.5, -2)
 	end
@@ -1683,7 +1685,7 @@ t.CreateScrollingFrame = function(orderList,scrollStyle)
 	local scrollStamp = 0
 		
 	local scrollDrag = Instance.new("ImageButton")
-	scrollDrag.Image = "rbxassetid://61367186"
+	scrollDrag.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/scroll.png" or "rbxassetid://61367186"
 	scrollDrag.Size = UDim2.new(1, 0, 0, 16)
 	scrollDrag.BackgroundTransparency = 1
 	scrollDrag.Name = "ScrollDrag"
@@ -2951,7 +2953,7 @@ t.CreateSetPanel = function(userIdsForSets, objectSelected, dialogClosed, size, 
 				local cancelImage = Instance.new("ImageLabel")
 				cancelImage.Name = "CancelImage"
 				cancelImage.BackgroundTransparency = 1
-				cancelImage.Image = "rbxassetid://54135717"
+				cancelImage.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/x.png" or "rbxassetid://54135717"
 				cancelImage.Position = UDim2.new(0,-2,0,-2)
 				cancelImage.Size = UDim2.new(0,16,0,16)
 				cancelImage.ZIndex = 6
@@ -3153,7 +3155,7 @@ t.CreateSetPanel = function(userIdsForSets, objectSelected, dialogClosed, size, 
 	local function createDropDownMenuButton(parent)
 		local dropDownButton = Instance.new("ImageButton")
 		dropDownButton.Name = "DropDownButton"
-		dropDownButton.Image = "rbxassetid://67581509"
+		dropDownButton.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/CloseButton.png" or "rbxassetid://67581509"
 		dropDownButton.BackgroundTransparency = 1
 		dropDownButton.Size = UDim2.new(0,16,0,16)
 		dropDownButton.Position = UDim2.new(1,-24,0,6)
@@ -3585,24 +3587,24 @@ t.CreateTerrainMaterialSelector = function(size,position)
 	-- we so need a better way to do this
 	for i,v in pairs(materialNames) do
 		materialToImageMap[v] = {}
-		if v == "Grass" then materialToImageMap[v].Regular = "rbxassetid://56563112"
-		elseif v == "Sand" then materialToImageMap[v].Regular = "rbxassetid://62356652"
-		elseif v == "Brick" then materialToImageMap[v].Regular = "rbxassetid://65961537"
-		elseif v == "Granite" then materialToImageMap[v].Regular = "rbxassetid://67532153"
-		elseif v == "Asphalt" then materialToImageMap[v].Regular = "rbxassetid://67532038"
-		elseif v == "Iron" then materialToImageMap[v].Regular = "rbxassetid://67532093"
-		elseif v == "Aluminum" then materialToImageMap[v].Regular = "rbxassetid://67531995"
-		elseif v == "Gold" then materialToImageMap[v].Regular = "rbxassetid://67532118"
-		elseif v == "Plastic (red)" then materialToImageMap[v].Regular = "rbxassetid://67531848"
-		elseif v == "Plastic (blue)" then materialToImageMap[v].Regular = "rbxassetid://67531924"
-		elseif v == "Plank" then materialToImageMap[v].Regular = "rbxassetid://67532015"
-		elseif v == "Log" then materialToImageMap[v].Regular = "rbxassetid://67532051"
-		elseif v == "Gravel" then materialToImageMap[v].Regular = "rbxassetid://67532206"
-		elseif v == "Cinder Block" then materialToImageMap[v].Regular = "rbxassetid://67532103"
-		elseif v == "Stone Wall" then materialToImageMap[v].Regular = "rbxassetid://67531804"
-		elseif v == "Concrete" then materialToImageMap[v].Regular = "rbxassetid://67532059"
-		elseif v == "Water" then materialToImageMap[v].Regular = "rbxassetid://81407474"
-		else materialToImageMap[v].Regular = "rbxassetid://66887593" -- fill in the rest here!!
+		if v == "Grass" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/M1Side.png" or "rbxassetid://56563112"
+		elseif v == "Sand" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/sandside.png" or "rbxassetid://62356652"
+		elseif v == "Brick" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/brickSide.png" or "rbxassetid://65961537"
+		elseif v == "Granite" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/Granite .png" or "rbxassetid://67532153"
+		elseif v == "Asphalt" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/Asphalt.png" or "rbxassetid://67532038"
+		elseif v == "Iron" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/IronSide.png" or "rbxassetid://67532093"
+		elseif v == "Aluminum" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/Aluminium.png" or "rbxassetid://67531995"
+		elseif v == "Gold" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/Gold.png" or "rbxassetid://67532118"
+		elseif v == "Plastic (red)" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/PlasticRedTop.png" or "rbxassetid://67531848"
+		elseif v == "Plastic (blue)" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/PlasticBlueTop.png" or "rbxassetid://67531924"
+		elseif v == "Plank" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/PlankSide.png" or "rbxassetid://67532015"
+		elseif v == "Log" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/LogSide.png" or "rbxassetid://67532051"
+		elseif v == "Gravel" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/GravelSide.png" or "rbxassetid://67532206"
+		elseif v == "Cinder Block" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/Cinder block.png" or "rbxassetid://67532103"
+		elseif v == "Stone Wall" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/StoneBlockSide.png" or "rbxassetid://67531804"
+		elseif v == "Concrete" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/Cement.png" or "rbxassetid://67532059"
+		elseif v == "Water" then materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/_preview water 03.png" or "rbxassetid://81407474"
+		else materialToImageMap[v].Regular = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/configIcon.png" or "rbxassetid://66887593" -- fill in the rest here!!
 		end
 	end
 
@@ -3705,7 +3707,9 @@ t.CreateTerrainMaterialSelector = function(size,position)
 end
 
 t.CreateLoadingFrame = function(name,size,position)
-	game:GetService("ContentProvider"):Preload("rbxassetid://35238053")
+	if StudioMoveWebAssetsToContent then
+		game:GetService("ContentProvider"):Preload("rbxassetid://35238053")
+	end
 
 	local loadingFrame = Instance.new("Frame")
 	loadingFrame.Name = "LoadingFrame"
@@ -3726,7 +3730,7 @@ t.CreateLoadingFrame = function(name,size,position)
 
 		local loadingGreenBar = Instance.new("ImageLabel")
 		loadingGreenBar.Name = "LoadingGreenBar"
-		loadingGreenBar.Image = "rbxassetid://35238053"
+		loadingGreenBar.Image = StudioMoveWebAssetsToContent and "rbxasset://textures/ui/LegacyRbxGui/health_greenBar.png" or "rbxassetid://35238053"
 		loadingGreenBar.Position = UDim2.new(0,0,0,0)
 		loadingGreenBar.Size = UDim2.new(0,0,1,0)
 		loadingGreenBar.Visible = false

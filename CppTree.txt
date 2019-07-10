@@ -155,9 +155,6 @@ RBX
 		LightGrid
 		LightGridCPU
 		LightObject
-		MaterialGenerator
-		MaterialGeneratorDeprecated
-		MaterialGeneratorNew
 		ObjectExporter
 		ObjectExporterObj
 		ParticleEmitter

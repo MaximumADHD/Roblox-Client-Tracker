@@ -9,6 +9,7 @@ Roact = { git = "https://github.com/Roblox/roact", rev = "roblox" }
 Cryo = { git = "https://github.com/Roblox/cryo", rev = "roblox" }
 UIBlox = { git = "https://github.rbx.com/Roblox/uiblox", rev = "master" }
 Otter = { git = "https://github.com/Roblox/Otter", rev = "roblox" }
+t = { git = "https://github.com/Roblox/t", rev = "master" }
 
 # TODO: CLILUACORE-480
 # There are some changes coming soon for Purchase Prompt that we don't want to

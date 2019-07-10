@@ -51,12 +51,7 @@ return function(rbxEntries, allSupportedLanguageSet, gameSupportedLanguageSet)
 
 	local function IsLanguageSupported(languageCode)
 		if UnofficialLanguageSupportEnabled then
-			if allSupportedLanguageSet ~= nil then
-				return allSupportedLanguageSet[languageCode] or false
-			else
-				-- TODO: This is temporarily catering for `reportDownloadTable` only. Need clean up afterwards.
-				return SupportedLocales.IsLocaleSupported(languageCode)
-			end
+			return allSupportedLanguageSet[languageCode] or false
 		else
 			return SupportedLocales.IsLocaleSupported(languageCode)
 		end

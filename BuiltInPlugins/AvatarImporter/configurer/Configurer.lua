@@ -498,7 +498,7 @@ function Configurer:createButtons(plugin, toolbar)
     local configureButton = toolbar:CreateButton(
         "Configure Avatar",
         "Configure FBX imported avatar",
-        "http://roblox.com/asset/?id=467691760"
+        "rbxassetid://467691760"
     )
 
     configureButton.Click:Connect(function()
@@ -512,7 +512,7 @@ function Configurer:createButtons(plugin, toolbar)
     local saveButton = toolbar:CreateButton(
         "Export Avatar",
         "Export .rbxm files for imported avatar",
-        "http://roblox.com/asset/?id=467691760"
+        "rbxassetid://467691760"
     )
 
     saveButton.Click:Connect(function()

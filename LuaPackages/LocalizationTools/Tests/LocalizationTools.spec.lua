@@ -13,7 +13,6 @@ return function()
 					Connect = function() return {Disconnect = function() end} end,
 				},
 			},
-			UpdateGameTableInfo = function() return Promise.new(function() end) end,
 			CheckTableAvailability = function()
 				return Promise.new(function() end)
 			end,

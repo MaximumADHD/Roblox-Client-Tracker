@@ -378,7 +378,12 @@
         <addseparator visible="false"/>
         <addaction name="toggleGameExplorerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Explorer.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewGameExplorer" height="32" width="32"/>
         <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" height="32" width="32"/>
-        <addaction name="toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp" height="32" width="32"/>
+        <!--
+         FIXME(mwang)
+         Remove DEPRECATED_toggleContextualHelpDockAction
+         with RemoveContextHelpWidget
+         -->
+        <addaction fflag="!RemoveContextHelpWidget" name="DEPRECATED_toggleContextualHelpDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Help-Wiki.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewContextSensitiveHelp" height="32" width="32"/>
         <addaction fflag="StudioShowTutorialsByDefault" name="toggleTutorialsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Tutorials.png" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTutorials" height="32" width="32"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects" height="32" width="32"/>
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" tooltip="Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts" text="Studio.App.RBXMainWindow.Output" height="32" width="32"/>
@@ -403,12 +408,12 @@
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png"
             height="32"
             width="32"/>
-          <!-- TODO(mmcdonnell 6/12/2019): Remove Sandbox C++ widget. See CLISTUDIO-19342 -->
-          <addaction name="toggleSandboxCppDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandbox" height="32" width="32" fflag="StudioVersionControlAlpha"/>
+        <!-- TODO(mmcdonnell 6/12/2019): Remove Sandbox C++ widget. See CLISTUDIO-19342 -->
+        <addaction name="toggleSandboxCppDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandboxCpp" height="32" width="32" fflag="StudioVersionControlAlpha"/>
+        <addaction name="toggleSandboxDockAction" style="textbesideicon" tooltip="Studio.App.RBXMainWindow.ViewSandbox" height="32" width="32" fflag="StudioVersionControlAlpha"/>
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
-        <addaction name="toggleAxisWidgetAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.DisplayAxis" icon=":/RibbonBar/images/RibbonIcons/View/Display-Axis.png" tooltip="Studio.App.RobloxRibbonMainWindow.ShowWorldSpaceAxis" height="32" width="32" fflag="!ToolViewSelector"/>
-        <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32" fflag="ToolViewSelector"/>
+        <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32"/>
         <addaction name="actionFullScreen" style="textundericon" text="Studio.App.RBXMainWindow.FullScreen" icon=":/RibbonBar/images/RibbonIcons/View/Fullscreen.png" tooltip="Studio.App.RBXMainWindow.EnabledFullScreenMode" height="32" width="32" />
         <addaction name="screenShotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.ScreenShot" icon=":/RibbonBar/images/RibbonIcons/View/Screen-Capture.png" tooltip="Studio.App.RobloxRibbonMainWindow.TakeAScreenshot" height="32" width="32" />
         <addaction name="toggleVideoRecordAction" style="textundericon" iswindowsonly="true" icon=":/RibbonBar/images/RibbonIcons/View/Record-Video.png" tooltip="Studio.App.RobloxRibbonMainWindow.RecordAVideo" height="32" width="32" />

@@ -12,8 +12,15 @@ local DEFAULT_POST_ASYNC_CONTENT_TYPE = Enum.HttpContentType.ApplicationJson
 return function(httpImpl)
 
 	local function doHttpPost(url, options)
+		local jsonPayload
 		assert(options.postBody, "Expected a postBody to be specified with this request")
-		assert(type(options.postBody) == "string", "Expected postBody to be a string")
+		if type(options.postBody) == "table" then
+			jsonPayload = HttpService:JSONEncode(options.postBody)
+		elseif type(options.postBody) == "string" then
+			jsonPayload = options.postBody
+		else
+			error("Expected postBody to be a string or table")
+		end
 
 		if not options.contentType then
 			options.contentType = DEFAULT_POST_ASYNC_CONTENT_TYPE
@@ -26,7 +33,7 @@ return function(httpImpl)
 		return function()
 			return httpImpl:PostAsyncFullUrl(
 				url,
-				options.postBody,
+				jsonPayload,
 				options.throttlingPriority,
 				options.contentType
 			)

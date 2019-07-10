@@ -1,8 +1,3 @@
-if not settings():GetFFlag("ToolViewSelector") then
-	return
-end
-local FFlagToolViewSelectorFixFocus = settings():GetFFlag("ToolViewSelectorFixFocus")
-local FFlagToolViewSelectorLocalization = settings():GetFFlag("ToolViewSelectorLocalization")
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
@@ -80,39 +75,26 @@ local function init()
 	viewportCamera.FieldOfView = 70
 	viewport.CurrentCamera = viewportCamera
 	
-	if FFlagToolViewSelectorLocalization then
-		local localizationTable = script.Parent.ViewSelectorLocalizationTable
-		local translator = localizationTable:GetTranslator(StudioService.StudioLocaleId)
-		local fallbackTranslator = localizationTable:GetTranslator("en-us")
-		local children = model:GetChildren()
-		for i = 1, #children do
-			local child = children[i]
-			if child.ClassName == "Part" or child.ClassName == "MeshPart" then
-				initialCFrames[child.Name] = model.CFrame:ToObjectSpace(child.CFrame)
-			elseif child.ClassName == "Decal" then
-				local keyNormal = child.Name
-				local keyHover = child.Name .. "_hover"
-				local success = pcall(function()
-					textureList.Normal[child.Name] = translator:FormatByKey(keyNormal)
-					textureList.Hover[child.Name] = translator:FormatByKey(keyHover)
-				end)
-				if not success then
-					textureList.Normal[child.Name] = fallbackTranslator:FormatByKey(keyNormal)
-					textureList.Hover[child.Name] = fallbackTranslator:FormatByKey(keyHover)
-				end
-				child.Texture = textureList.Normal[child.Name]
+	local localizationTable = script.Parent.ViewSelectorLocalizationTable
+	local translator = localizationTable:GetTranslator(StudioService.StudioLocaleId)
+	local fallbackTranslator = localizationTable:GetTranslator("en-us")
+	local children = model:GetChildren()
+	for i = 1, #children do
+		local child = children[i]
+		if child.ClassName == "Part" or child.ClassName == "MeshPart" then
+			initialCFrames[child.Name] = model.CFrame:ToObjectSpace(child.CFrame)
+		elseif child.ClassName == "Decal" then
+			local keyNormal = child.Name
+			local keyHover = child.Name .. "_hover"
+			local success = pcall(function()
+				textureList.Normal[child.Name] = translator:FormatByKey(keyNormal)
+				textureList.Hover[child.Name] = translator:FormatByKey(keyHover)
+			end)
+			if not success then
+				textureList.Normal[child.Name] = fallbackTranslator:FormatByKey(keyNormal)
+				textureList.Hover[child.Name] = fallbackTranslator:FormatByKey(keyHover)
 			end
-		end
-	else
-		local children = model:GetChildren()
-		for i = 1, #children do
-			local child = children[i]
-			if child.ClassName == "Part" or child.ClassName == "MeshPart" then
-				initialCFrames[child.Name] = model.CFrame:ToObjectSpace(child.CFrame)
-			elseif child.ClassName == "Decal" then
-				textureList.Normal[child.Name] = child.Texture
-				textureList.Hover[child.Name] = string.sub(child.Texture, 1, -5) .. "_hover.png"
-			end
+			child.Texture = textureList.Normal[child.Name]
 		end
 	end
 
@@ -392,9 +374,7 @@ local function afterCamera(delta)
 		currentTime = currentTime + delta
 		if currentTime > ANIMATION_TIME then
 			currentCamera.CFrame = animTargetCFrame
-			if FFlagToolViewSelectorFixFocus then
-				currentCamera.Focus = CFrame.new(animTargetFocus)
-			end
+			currentCamera.Focus = CFrame.new(animTargetFocus)
 			currentTime = nil
 		else
 			currentCamera.CFrame = animStartCFrame:Lerp(animTargetCFrame, currentTime / ANIMATION_TIME)

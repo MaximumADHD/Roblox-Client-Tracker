@@ -19,7 +19,7 @@ local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV38
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
-local FFlagEmotesMenuEnabled = settings():GetFFlag("CoreScriptEmotesMenuEnabled")
+local FFlagEmotesMenuEnabled2 = settings():GetFFlag("CoreScriptEmotesMenuEnabled2")
 
 local soundFolder = Instance.new("Folder")
 soundFolder.Name = "Sounds"
@@ -106,7 +106,7 @@ else
 end
 
 -- Emotes Menu
-if FFlagEmotesMenuEnabled then
+if FFlagEmotesMenuEnabled2 then
 	coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 end
 

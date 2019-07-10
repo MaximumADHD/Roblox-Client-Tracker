@@ -1,6 +1,5 @@
 Key,Source,Context,en-us
-Studio.Template.Meta.PluginButtonInspect, , ,Sandbox
-Studio.Template.Meta.PluginButtonInspectTooltip, , ,View Sandbox
-Studio.Template.Meta.PluginDescription, , ,I'm a hover message
-Studio.Template.Meta.PluginName, , ,Sandbox
-Studio.Template.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"
+Studio.Sandbox.Meta.PluginButtonTooltip, , ,View Sandbox
+Studio.Sandbox.Meta.PluginDescription, , ,I'm a hover message
+Studio.Sandbox.Meta.PluginName, , ,Sandbox
+Studio.Sandbox.Example.ErrorAnUnexpectedThing, , ,"An unexpected thing happened, try again"

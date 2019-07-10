@@ -120,10 +120,9 @@ return function(userId)
 		ComputeUpdatePatch = ComputeUpdatePatch,
 		UploadPatch = WebTableInterface.UploadPatch,
 		DownloadGameTable = WebTableInterface.DownloadGameTable,
-		UpdateGameTableInfo = WebTableInterface.UpdateGameTableInfo,
 		CheckTableAvailability = WebTableInterface.CheckTableAvailability,
 		GameIdChangedSignal = game:GetPropertyChangedSignal("GameId"),
 		GetAllSupportedLanguages = WebTableInterface.GetAllSupportedLanguages,
-		GetGameSupportedLanguages = WebTableInterface.GetGameSupportedLanguages,
+		RequestAssetGeneration = WebTableInterface.RequestAssetGeneration,
 	}
 end

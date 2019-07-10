@@ -4,7 +4,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Example = require(Plugin.Src.Reducers.Example)
 
 local MainReducer = Rodux.combineReducers({
-	Example,
+	Example = Example,
 })
 
 return MainReducer

@@ -8,6 +8,8 @@ local StarterGui = game:GetService("StarterGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local FFlagEmotesMenuShowUiOnlyWhenAvailable = game:DefineFastFlag("EmotesMenuShowUiOnlyWhenAvailable", false)
+
 -- Wait for LocalPlayer to exist
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -26,11 +28,16 @@ local Actions = EmotesModules.Actions
 local Components = EmotesModules.Components
 local Reducers = EmotesModules.Reducers
 local Thunks = EmotesModules.Thunks
+local Utility = EmotesModules.Utility
 
 local Backpack = require(CoreScriptModules.BackpackScript)
 local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
 
+local CanPlayEmotes
+if FFlagEmotesMenuShowUiOnlyWhenAvailable then
+    CanPlayEmotes = require(Utility.CanPlayEmotes)
+end
 local Constants = require(EmotesModules.Constants)
 
 local EmotesMenu = require(Components.EmotesMenu)
@@ -41,9 +48,12 @@ local HideMenu = require(Actions.HideMenu)
 
 local EmotesChanged = require(Actions.EmotesChanged)
 local EquippedEmotesChanged = require(Actions.EquippedEmotesChanged)
+local NumberEmotesLoadedChanged = require(Actions.NumberEmotesLoadedChanged)
 local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
+
+local FFlagCoreScriptBetterEmotesErrorMessaging = settings():GetFFlag("CoreScriptBetterEmotesErrorMessaging")
 
 local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
@@ -68,8 +78,9 @@ end
 
 function EmotesMenuMaster:setTopBarEnabled(isEnabled)
     self.topBarEnabled = isEnabled
+    local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
 
-    if isEnabled then
+    if isEnabled and (not FFlagEmotesMenuShowUiOnlyWhenAvailable or (isEmotesMenuEnabled and self.canPlayEmotes)) then
         self:_mount()
     else
         self:_unmount()
@@ -105,6 +116,10 @@ function EmotesMenuMaster:_connectApiListeners()
             return
         end
 
+        if FFlagEmotesMenuShowUiOnlyWhenAvailable and not self.canPlayEmotes then
+            return
+        end
+
         if coreGuiType == Enum.CoreGuiType.EmotesMenu or coreGuiType == Enum.CoreGuiType.All then
             if enabled then
                 self:_mount()
@@ -125,7 +140,6 @@ function EmotesMenuMaster:_connectApiListeners()
             end
         end
     end)
-
 end
 
 function EmotesMenuMaster:_onEquippedEmotesChanged(newEquippedEmotes)
@@ -134,6 +148,10 @@ end
 
 function EmotesMenuMaster:_onEmotesChanged(newEmotes)
     self.store:dispatch(EmotesChanged(newEmotes))
+end
+
+function EmotesMenuMaster:_onNumberEmotesLoadedChanged(newNumberEmotesLoaded)
+    self.store:dispatch(NumberEmotesLoadedChanged(newNumberEmotesLoaded))
 end
 
 function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
@@ -145,6 +163,13 @@ function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
     if self.emotesChangedConn then
         self.emotesChangedConn:Disconnect()
         self.emotesChangedConn = nil
+    end
+
+    if FFlagCoreScriptBetterEmotesErrorMessaging then
+        if self.numberEmotesLoadedChangedConn then
+            self.numberEmotesLoadedChangedConn:Disconnect()
+            self.numberEmotesLoadedChangedConn = nil
+        end
     end
 
     if self.humanoidDescriptionAncestryConn then
@@ -163,6 +188,14 @@ function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
         end)
         self:_onEmotesChanged(humanoidDescription:GetEmotes())
 
+        if FFlagCoreScriptBetterEmotesErrorMessaging then
+            local numberEmotesChangedSignal = humanoidDescription:GetPropertyChangedSignal("NumberEmotesLoaded")
+            self.numberEmotesLoadedChangedConn = numberEmotesChangedSignal:Connect(function(newNumberEmotesLoaded)
+                self:_onNumberEmotesLoadedChanged(newNumberEmotesLoaded)
+            end)
+            self:_onNumberEmotesLoadedChanged(humanoidDescription.NumberEmotesLoaded)
+        end
+
         self.humanoidDescriptionAncestryConn = humanoidDescription.AncestryChanged:Connect(function(child, parent)
             if child == humanoidDescription and parent == nil then
                 self:_onHumanoidDescriptionChanged(nil)
@@ -171,6 +204,10 @@ function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)
     else
         self:_onEquippedEmotesChanged({})
         self:_onEmotesChanged({})
+
+        if FFlagCoreScriptBetterEmotesErrorMessaging then
+            self:_onNumberEmotesLoadedChanged(-1)
+        end
     end
 end
 
@@ -237,6 +274,19 @@ function EmotesMenuMaster:_connectListeners()
     LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function()
         self.store:dispatch(SetLocale(LocalizationService.RobloxLocaleId))
     end)
+
+    if FFlagEmotesMenuShowUiOnlyWhenAvailable then
+        CanPlayEmotes.ChangedEvent.Event:connect(function(canPlay)
+            self.canPlayEmotes = canPlay
+            local isEmotesMenuEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
+
+            if canPlay and self.topBarEnabled and isEmotesMenuEnabled then
+                self:_mount()
+            else
+                self:_unmount()
+            end
+        end)
+    end
 end
 
 function EmotesMenuMaster:_onStateChanged(newState, oldState)
@@ -256,6 +306,11 @@ function EmotesMenuMaster:_mount()
         })
 
         self.instance = Roact.mount(app, RobloxGui, "EmotesMenu")
+
+        if FFlagEmotesMenuShowUiOnlyWhenAvailable then
+            self.MenuIsVisible = true
+            self.MenuVisibilityChanged:Fire(true)
+        end
     end
 end
 
@@ -263,6 +318,11 @@ function EmotesMenuMaster:_unmount()
     if self.instance then
         Roact.unmount(self.instance)
         self.instance = nil
+
+        if FFlagEmotesMenuShowUiOnlyWhenAvailable then
+            self.MenuIsVisible = false
+            self.MenuVisibilityChanged:Fire(false)
+        end
     end
 end
 
@@ -275,11 +335,23 @@ function EmotesMenuMaster.new()
         return self
     end
 
+    if FFlagEmotesMenuShowUiOnlyWhenAvailable then
+        self.canPlayEmotes = CanPlayEmotes.Value
+    end
     self.topBarEnabled = true
 
     -- Bindable that can be used by other modules to see when the Emotes Menu is opened or closed.
     -- Fired with a bool indicating whether the EmotesMenu is currently open
     self.EmotesMenuToggled = Instance.new("BindableEvent")
+
+    if FFlagEmotesMenuShowUiOnlyWhenAvailable then
+        -- Indicates whether the menu is currently mounted
+        self.MenuIsVisible = false
+
+        -- Bindable that can be used by other modules to see when the Emotes Menu should
+        -- not be visible to users or should be visible to users.
+        self.MenuVisibilityChanged = Instance.new("BindableEvent")
+    end
 
     self.store = Rodux.Store.new(EmotesMenuReducer, {}, {
         Rodux.thunkMiddleware,

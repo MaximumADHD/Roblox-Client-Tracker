@@ -28,6 +28,8 @@ DefaultOpaqueFS,Fragment
 DefaultPlasticFS,Fragment
 DefaultPlasticReflectionFS,Fragment
 DefaultShadowFS,Fragment
+DefaultShadowGeomSkinnedVS,Vertex
+DefaultShadowGeomStaticVS,Vertex
 DefaultShadowSkinnedVS,Vertex
 DefaultShadowStaticVS,Vertex
 DefaultSkinnedForceField_DEPRECATED_VS,Vertex
@@ -145,6 +147,7 @@ TrailVSQuadLight,Vertex
 UIFogFS,Fragment
 UIFogVS,Vertex
 UIFS,Fragment
+UIFSMdr,Fragment
 UILitFogFS,Fragment
 UILitFS,Fragment
 UITransformedLitFogVS,Vertex

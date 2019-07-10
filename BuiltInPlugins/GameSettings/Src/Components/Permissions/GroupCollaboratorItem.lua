@@ -109,7 +109,7 @@ function GroupCollaboratorItem:render()
 	local props = self.props
 	local thumbnailLoader = getThumbnailLoader(self)
 
-	if self.state.hovered then
+	if props.Enabled and self.state.hovered then
 		getMouse(self).setHoverIcon("PointingHand", self.state.hovered)
 	else
 		getMouse(self).resetMouse()
@@ -135,7 +135,7 @@ function GroupCollaboratorItem:render()
 			end
 			table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
 			
-			local collaboratorItemOffset = arrowSize + arrowPadding
+			local collaboratorItemOffset = props.Enabled and arrowSize + arrowPadding or 0
 			for i,rolesetProps in pairs(rolesets) do
 				local action = getActionForRoleset(props, rolesetProps)
 				if i == 1 then
@@ -205,7 +205,7 @@ function GroupCollaboratorItem:render()
 							Position = UDim2.new(0, 0, 0, 0),
 						}),
 
-						CollapseArrow = Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
+						CollapseArrow = props.Enabled and Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
 							Size = UDim2.new(0, arrowSize, 0, arrowSize),
 							AnchorPoint = Vector2.new(0, 0.5),
 							Position = UDim2.new(0, 0, 0.5, 0),
@@ -254,8 +254,9 @@ function GroupCollaboratorItem:render()
 					}, rolesetCollaboratorItems)
 				},
 
-				IsExpanded = self.state.expanded,
+				IsExpanded = props.Enabled and self.state.expanded,
 				OnExpandedStateChanged = function()
+					if not props.Enabled then return end
 					self:setState({
 						expanded = not self.state.expanded,
 					})

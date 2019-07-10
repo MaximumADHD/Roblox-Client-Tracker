@@ -95,12 +95,12 @@ function LocalizationTools:render()
 								ComputeUpdatePatch = self.props.ComputeUpdatePatch,
 								UploadPatch = self.props.UploadPatch,
 								DownloadGameTable = self.props.DownloadGameTable,
-								UpdateGameTableInfo = self.props.UpdateGameTableInfo,
 								CheckTableAvailability = self.props.CheckTableAvailability,
 								GameIdChangedSignal = self.props.GameIdChangedSignal,
 								SaveCSV = self.props.SaveCSV,
 								HandleUploadAnalytics = self.props.HandleUploadAnalytics,
 								HandleDownloadAnalytics = self.props.HandleDownloadAnalytics,
+								RequestAssetGeneration = self.props.RequestAssetGeneration,
 								LayoutOrder = 2,
 							})
 						})

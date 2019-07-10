@@ -52,7 +52,7 @@ return function()
 	end)]]
 
 	describe("Store", function()
-		it("should supply a functional Rodux Store object to its children", function()
+		itSKIP("should supply a functional Rodux Store object to its children", function()
 			local TestElement = Roact.Component:extend("Test")
 			function TestElement:init()
 				-- check that our connection to the rodux store works

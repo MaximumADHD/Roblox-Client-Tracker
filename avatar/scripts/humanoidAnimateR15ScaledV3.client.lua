@@ -507,6 +507,7 @@ function playAnimation(animName, transitionTime, humanoid)
 	local anim = animTable[animName][idx].anim
 
 	switchToAnim(anim, animName, transitionTime, humanoid)
+	currentlyPlayingEmote = false
 end
 
 function playEmote(emoteAnim, transitionTime, humanoid)
@@ -578,14 +579,14 @@ end
 -------------------------------------------------------------------------------------------
 -- STATE CHANGE HANDLERS
 
-function onRunning(speed)
-	if speed > 0.5 then
+function onRunning(speed)	
+	if speed > 0.75 then
 		local scale = 16.0
 		playAnimation("walk", 0.2, Humanoid)
 		setAnimationSpeed(speed / scale)
 		pose = "Running"
 	else
-		if emoteNames[currentAnim] == nil then
+		if emoteNames[currentAnim] == nil and not currentlyPlayingEmote then
 			playAnimation("idle", 0.2, Humanoid)
 			pose = "Standing"
 		end
