@@ -8,6 +8,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local createFitToContent = require(Plugin.Packages.UILibrary.Components.createFitToContent)
+local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withLocalization = require(Plugin.Packages.UILibrary).Localizing.withLocalization
 
 local SandboxListItem = require(Plugin.Src.Components.SandboxListItem)
 
@@ -51,10 +53,13 @@ function SandboxListView:render()
     -- TODO: (mmcdonnell 6/21/2019) Show a label with "Empty" if there are no items. See CLISTUDIO-19329
 
     -- The SandboxListView renders a frame containing the list of SandboxListItem as children
-
-    return Roact.createElement(FitToContent, {
-        -- TODO: (mmcdonnell 6/21/2019) Style the list. See CLISTUDIO-19530
-    }, itemList)
+    return withTheme(function(theme)
+        return withLocalization(function(localization)
+            return Roact.createElement(FitToContent, {
+                -- TODO: (mmcdonnell 6/21/2019) Style the list. See CLISTUDIO-19530
+            }, itemList)
+        end)
+    end)
 end
 
 return SandboxListView

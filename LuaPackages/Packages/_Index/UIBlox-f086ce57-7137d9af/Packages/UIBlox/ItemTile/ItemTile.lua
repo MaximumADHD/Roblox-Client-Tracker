@@ -75,6 +75,7 @@ function ItemTile:render()
 		local font = stylePalette.Font
 		local titleTextHeight = font.BaseSize * font.Header2.RelativeSize * titleTextLineCount
 		local footerHeight = self.state.tileHeight - self.state.tileWidth - innerPadding - titleTextHeight - innerPadding
+		footerHeight = math.max(0, footerHeight)
 
 		-- TODO: use generic/state button from UIBlox
 		return Roact.createElement("TextButton", {

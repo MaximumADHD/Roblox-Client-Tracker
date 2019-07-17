@@ -2,9 +2,16 @@ if not plugin then
 	return
 end
 
--- libraries
 local Plugin = script.Parent.Parent
+
 local FFlag = require(Plugin.Src.Util.FFlag)
+if not FFlag:isEnabled("StudioVersionControlAlpha") then return end
+
+local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
+
+local StudioService = game:GetService("StudioService")
+
+-- libraries
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -30,6 +37,14 @@ local theme = PluginTheme.new()
 local localization = Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
+	overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
+	getLocale = function()
+		if #OverrideLocaleId > 0 then
+			return OverrideLocaleId
+		else
+			return StudioService["StudioLocaleId"]
+		end
+	end,
 	pluginName = "Sandbox",
 })
 
@@ -119,6 +134,4 @@ local function main()
 	showIfEnabled()
 end
 
-if FFlag:isEnabled("StudioVersionControlAlpha") then
-	main()
-end
+main()

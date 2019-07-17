@@ -525,8 +525,9 @@
         <addaction name="reloadScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod" style="textbesideicon"/>
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addseparator />
-        <addaction name="commentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.CommentOutTheSelectedText" style="textbesideicon"/>
-        <addaction name="uncommentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText" style="textbesideicon"/>
+        <!--TODO: (btang 6/26/2019) Remove commentSelectionAction and uncommentSelectionAction when removing FFlagStudioCommentSelection-->
+        <addaction fflag="!StudioCommentSelection" name="commentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.CommentOutTheSelectedText" style="textbesideicon"/>
+        <addaction fflag="!StudioCommentSelection" name="uncommentSelectionAction" tooltip="Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText" style="textbesideicon"/>
         <addaction name="toggleCommentAction" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleCommentSelectedLines" style="textbesideicon"/>
         <addseparator />
         <addaction name="expandAllFoldsAction" tooltip="Studio.App.RobloxRibbonMainWindow.ExpandAllCollapsedFolds" style="textbesideicon"/>

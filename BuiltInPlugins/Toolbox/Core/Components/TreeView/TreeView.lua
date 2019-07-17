@@ -129,6 +129,7 @@ function TreeView:render()
 			BackgroundTransparency = 0,
 			BackgroundColor3 = theme.assetPreview.treeView.background,
 			BorderSizePixel = 0,
+			AutoButtonColor = false,
 
 			[Roact.Event.MouseEnter] = onTreeviewEntered,
 			[Roact.Event.MouseLeave] = onTreeviewLeft,

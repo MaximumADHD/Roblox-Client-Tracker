@@ -1525,6 +1525,8 @@ Class MarketplaceService : Instance [notCreatable]
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) [RobloxScriptSecurity]
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int64 productId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
 	Function void MarketplaceService:PromptPurchase(Instance player, int64 assetId, bool equipIfPurchased = true, CurrencyType currencyType = Default)
+	Function void MarketplaceService:PromptSubscriptionCancellation(Instance player, int64 subscriptionId)
+	Function void MarketplaceService:PromptSubscriptionPurchase(Instance player, int64 subscriptionId)
 	Function void MarketplaceService:PromptThirdPartyPurchase(Instance player, string productId) [LocalUserSecurity]
 	Function void MarketplaceService:ReportAssetSale(string assetId, int robuxAmount) [RobloxScriptSecurity]
 	Function void MarketplaceService:ReportRobuxUpsellStarted() [RobloxScriptSecurity]
@@ -1533,10 +1535,13 @@ Class MarketplaceService : Instance [notCreatable]
 	Function void MarketplaceService:SignalPromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalPromptProductPurchaseFinished(int64 userId, int64 productId, bool success) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalPromptPurchaseFinished(Instance player, int64 assetId, bool success) [RobloxScriptSecurity]
+	Function void MarketplaceService:SignalPromptSubscriptionCancellationFinished(Instance player, int64 subscriptionId, bool wasCanceled) [RobloxScriptSecurity]
+	Function void MarketplaceService:SignalPromptSubscriptionPurchaseFinished(Instance player, int64 subscriptionId, bool wasPurchased) [RobloxScriptSecurity]
 	Function void MarketplaceService:SignalServerLuaDialogClosed(bool value) [RobloxScriptSecurity]
 	YieldFunction Instance MarketplaceService:GetDeveloperProductsAsync()
 	YieldFunction Dictionary MarketplaceService:GetProductInfo(int64 assetId, InfoType infoType = Asset)
 	YieldFunction int MarketplaceService:GetRobuxBalance() [RobloxScriptSecurity]
+	YieldFunction Dictionary MarketplaceService:GetSubscriptionStatus(Instance player, int64 subscriptionId)
 	YieldFunction Dictionary MarketplaceService:PerformPurchase(InfoType infoType, int64 productId, int expectedPrice, string requestId) [RobloxScriptSecurity]
 	YieldFunction bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId)
 	YieldFunction bool MarketplaceService:UserOwnsGamePassAsync(int64 userId, int64 gamePassId)
@@ -1550,6 +1555,10 @@ Class MarketplaceService : Instance [notCreatable]
 	Event MarketplaceService.PromptProductPurchaseRequested(Instance player, int64 productId, bool equipIfPurchased, CurrencyType currencyType) [RobloxScriptSecurity]
 	Event MarketplaceService.PromptPurchaseFinished(Instance player, int64 assetId, bool isPurchased)
 	Event MarketplaceService.PromptPurchaseRequested(Instance player, int64 assetId, bool equipIfPurchased, CurrencyType currencyType) [RobloxScriptSecurity]
+	Event MarketplaceService.PromptSubscriptionCancellationFinished(Instance player, int64 subscriptionId, bool wasCanceled)
+	Event MarketplaceService.PromptSubscriptionCancellationRequested(Instance player, int64 subscriptionId) [RobloxScriptSecurity]
+	Event MarketplaceService.PromptSubscriptionPurchaseFinished(Instance player, int64 subscriptionId, bool wasPurchased)
+	Event MarketplaceService.PromptSubscriptionPurchaseRequested(Instance player, int64 subscriptionId) [RobloxScriptSecurity]
 	Event MarketplaceService.ServerPurchaseVerification(Dictionary serverResponseTable) [RobloxScriptSecurity]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) [LocalUserSecurity]
 	Callback ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
@@ -3679,6 +3688,7 @@ Enum InfoType
 	EnumItem InfoType.Asset : 0
 	EnumItem InfoType.Product : 1
 	EnumItem InfoType.GamePass : 2
+	EnumItem InfoType.Subscription : 3
 Enum InitialDockState
 	EnumItem InitialDockState.Top : 0
 	EnumItem InitialDockState.Bottom : 1

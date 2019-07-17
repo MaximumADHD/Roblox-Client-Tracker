@@ -81,8 +81,6 @@ local success, result =
   end
 )
 local FFlagUseNotificationsLocalization = success and result
-
-local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
 local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum.Platform.OSX) or (platform == Enum.Platform.UWP)
@@ -1271,23 +1269,12 @@ local function Initialize()
     -- makes button in settings menu to open dev console
     local function makeDevConsoleOption()
       local function onOpenDevConsole()
-        if FFlagEnableNewDevConsole then
-          local devConsoleMaster = require(script.Parent.Parent.Parent.DevConsoleMaster)
-          if devConsoleMaster then
-            devConsoleMaster:SetVisibility(true)
-            local MenuModule = require(script.Parent.Parent.SettingsHub)
-            if MenuModule then
-              MenuModule:SetVisibility(false)
-            end
-          end
-        else
-          local devConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
-          if devConsoleModule then
-            devConsoleModule:SetVisibility(true)
-            local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-            if MenuModule then
-              MenuModule:SetVisibility(false)
-            end
+        local devConsoleMaster = require(script.Parent.Parent.Parent.DevConsoleMaster)
+        if devConsoleMaster then
+          devConsoleMaster:SetVisibility(true)
+          local MenuModule = require(script.Parent.Parent.SettingsHub)
+          if MenuModule then
+            MenuModule:SetVisibility(false)
           end
         end
       end
@@ -1342,7 +1329,7 @@ local function Initialize()
                 makeDevConsoleOption()
               end
             else
-              print("DeveloperConsoleModule: GetRankInGroup failed because", result)
+              print("DeveloperConsole: GetRankInGroup failed because", result)
             end
           end
         )

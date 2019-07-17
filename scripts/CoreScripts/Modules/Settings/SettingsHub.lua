@@ -32,7 +32,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
-local FFlagEnableNewDevConsole = settings():GetFFlag("EnableNewDevConsole")
 local FFlagHelpMenuShowPlaceVersion = settings():GetFFlag("HelpMenuShowPlaceVersion")
 local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 
@@ -77,7 +76,6 @@ local platform = UserInputService:GetPlatform()
 
 local baseUrl = ContentProvider.BaseUrl
 local isTestEnvironment = not string.find(baseUrl, "www.roblox.com")
-local DeveloperConsoleModule = require(RobloxGui.Modules.DeveloperConsoleModule)
 local DevConsoleMaster = require(RobloxGui.Modules.DevConsoleMaster)
 
 local lastInputChangedCon = nil
@@ -966,12 +964,7 @@ local function CreateSettingsHub()
 	local function toggleDevConsole(actionName, inputState, inputObject)
 		if actionName == DEV_CONSOLE_ACTION_NAME then	 -- ContextActionService->F9
 			if inputState and inputState == Enum.UserInputState.Begin then
-				if FFlagEnableNewDevConsole then
-					DevConsoleMaster:ToggleVisibility()
-				else
-					local devConsoleVisible = DeveloperConsoleModule:GetVisibility()
-					DeveloperConsoleModule:SetVisibility(not devConsoleVisible)
-				end
+				DevConsoleMaster:ToggleVisibility()
 			end
 		end
 	end

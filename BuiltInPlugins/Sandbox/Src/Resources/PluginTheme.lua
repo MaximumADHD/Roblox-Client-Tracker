@@ -7,23 +7,32 @@ local deepJoin = require(Plugin.Src.Util.deepJoin)
 
 local Theme = {}
 
+function Theme.isDarkerTheme()
+	-- Assume "darker" theme if the average main background colour is darker
+	local mainColour = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground)
+	return (mainColour.r + mainColour.g + mainColour.b) / 3 < 0.5
+end
+
 -- getColor : function<Color3>(color enum)
--- c = Enum.StudioStyleGuideColor
--- m = Enum.StudioStyleGuideModifier
-function Theme.createValues(getColor, c, m)
+-- StyleColor = Enum.StudioStyleGuideColor
+-- StyleModifier = Enum.StudioStyleGuideModifier
+function Theme.createValues(getColor, StyleColor, StyleModifier)
 	-- define the color palette for the UILibrary, override where necessary
-	local UILibraryStylePalette = StudioStyle.new(getColor, c, m)
+	local UILibraryStylePalette = StudioStyle.new(getColor, StyleColor, StyleModifier)
 	--UILibraryStylePalette.backgroundColor = Color3.new(1, 1, 1)
 
+	local isDark = Theme.isDarkerTheme()
 
 	-- define all the colors used in the plugin
 	local PluginTheme = deepJoin(UILibraryStylePalette, {
+		BackgroundColor = getColor(StyleColor.MainBackground),
+
 		Icons = {
 			ToolbarIconInspect = "rbxasset://textures/GameSettings/ToolbarIcon.png",
 		},
 		Labels = {
-			TitleBarText = getColor(c.TitlebarText, m.Default),
-			TitleBarBackground = getColor(c.Titlebar, m.Default),
+			TitleBarText = getColor(StyleColor.TitlebarText, StyleModifier.Default),
+			TitleBarBackground = getColor(StyleColor.Titlebar, StyleModifier.Default),
 		},
 	})
 

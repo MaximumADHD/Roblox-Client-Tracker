@@ -15,15 +15,6 @@ function ProcessMessage(message, ChatWindow, ChatSettings)
 			end
 		end
 		return true
-	elseif string.sub(message, 1, 11):lower() == "/oldconsole" then
-		local success, developerConsoleVisible = pcall(function() return StarterGui:GetCore("DeveloperConsoleVisible") end)
-		if success then
-			local success, err = pcall(function() StarterGui:SetCore("DeveloperConsoleVisible", not developerConsoleVisible) end)
-			if not success and err then
-				print("Error making developer console visible: " ..err)
-			end
-		end
-		return true
 	end
 	return false
 end

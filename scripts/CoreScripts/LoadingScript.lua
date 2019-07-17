@@ -54,14 +54,6 @@ local layoutIsReady = false
 local connectionHealthShown = false
 local connectionHealthCon
 
-local function IsConvertMyPlaceNameInXboxAppEnabled()
-	if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
-		local success, flagValue = pcall(function() return settings():GetFFlag("ConvertMyPlaceNameInXboxApp") end)
-		return (success and flagValue == true)
-	end
-	return false
-end
-
 local InfoProvider = {}
 
 local function WaitForPlaceId()
@@ -73,35 +65,9 @@ local function WaitForPlaceId()
 	return placeId
 end
 
-local function ExtractGeneratedUsername(gameName)
-	local tempUsername = string.match(gameName, "^([0-9a-fA-F]+)'s Place$")
-	if tempUsername and #tempUsername == 32 then
-		return tempUsername
-	end
-end
-
--- Fix places that have been made with incorrect temporary usernames
-local function GetFilteredGameName(gameName, creatorName)
-	if gameName and type(gameName) == 'string' then
-		local tempUsername = ExtractGeneratedUsername(gameName)
-		if tempUsername then
-			local newGameName = string.gsub(gameName, tempUsername, creatorName, 1)
-			if newGameName then
-				return newGameName
-			end
-		end
-	end
-	return gameName
-end
-
-
 function InfoProvider:GetGameName()
 	if GameAssetInfo ~= nil then
-		if IsConvertMyPlaceNameInXboxAppEnabled() then
-			return GetFilteredGameName(GameAssetInfo.Name, self:GetCreatorName())
-		else
-			return GameAssetInfo.Name
-		end
+		return GameAssetInfo.Name
 	else
 		return ''
 	end

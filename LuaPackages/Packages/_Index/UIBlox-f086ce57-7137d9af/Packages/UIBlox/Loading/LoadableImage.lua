@@ -21,6 +21,8 @@ local arePropsValid = t.strictInterface({
 	BackgroundTransparency = t.optional(t.number),
 	-- The final image
 	Image = t.optional(t.string),
+	-- The transparency of the loading image
+	ImageTransparency = t.optional(t.number),
 	-- The layout order of the final and loading image
 	LayoutOrder = t.optional(t.integer),
 	-- The loading image which shows if useShimmerAnimationWhileLoading is false
@@ -29,6 +31,8 @@ local arePropsValid = t.strictInterface({
 	MaxSize = t.optional(t.Vector2),
 	-- The min size of the final and loading image
 	MinSize = t.optional(t.Vector2),
+	-- The function to call when loading is complete
+	onLoaded = t.optional(t.callback),
 	-- The position point of the loading image
 	Position = t.optional(t.UDim2),
 	-- The scale type of the final and loading image
@@ -77,6 +81,7 @@ function LoadableImage:render()
 	local scaleType = self.props.ScaleType
 	local zIndex = self.props.ZIndex
 	local image = self.props.Image
+	local imageTransparency = self.props.ImageTransparency
 	local maxSize = self.props.MaxSize
 	local minSize = self.props.MinSize
 	local loadingImage = self.props.loadingImage
@@ -115,6 +120,7 @@ function LoadableImage:render()
 				BackgroundColor3 = backgroundColor3 or theme.PlaceHolder.Color,
 				BackgroundTransparency = backgroundTransparency or theme.PlaceHolder.Transparency,
 				Image = loaded and image or loadingImage,
+				ImageTransparency = imageTransparency,
 				LayoutOrder = layoutOrder,
 				Position = position,
 				ScaleType = scaleType,

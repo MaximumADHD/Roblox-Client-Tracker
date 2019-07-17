@@ -15,11 +15,21 @@ local RTHRO_INFO = {
 	description = "shoulder wider than hips"
 }
 
-local RTHRO_NARROW_INFO = {
-	title = "Rthro Narrow Type",
-	height = 5.625,
-	description = "shoulder narrower than hips"
-}
+local FFlagChangeNarrowToSlender = game:DefineFastFlag("ChangeNarrowToSlender", false)
+local RTHRO_NARROW_INFO = {}
+if FFlagChangeNarrowToSlender then
+    RTHRO_NARROW_INFO = {
+	    title = "Rthro Slender Type",
+	    height = 5.625,
+	    description = "shoulder narrower than hips"
+    }
+else
+    RTHRO_NARROW_INFO = {
+	    title = "Rthro Narrow Type",
+	    height = 5.625,
+	    description = "shoulder narrower than hips"
+    }
+end
 
 local R15_INFO = {
 	title = "R15 Type",
@@ -271,8 +281,13 @@ function AvatarPrompt:_constructUI(screenGui)
 
 	local rthroButton = self:_constructAvatarButton("Rthro", Assets.RTHRO, RTHRO_INFO, 0)
 	rthroButton.Parent = buttons
-
-	local rthroNarrowButton = self:_constructAvatarButton("Rthro Narrow", Assets.RTHRO_NARROW, RTHRO_NARROW_INFO, 1)
+	local rthroNarrowName = ""
+    if FFlagChangeNarrowToSlender then
+        rthroNarrowName = "Rthro Slender"
+    else
+        rthroNarrowName = "Rthro Narrow"
+    end
+	local rthroNarrowButton = self:_constructAvatarButton(rthroNarrowName, Assets.RTHRO_NARROW, RTHRO_NARROW_INFO, 1)
 	rthroNarrowButton.Parent = buttons
 
 	local r15Button = self:_constructAvatarButton("R15", Assets.R15, R15_INFO, 2)

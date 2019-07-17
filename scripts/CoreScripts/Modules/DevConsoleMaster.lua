@@ -39,8 +39,6 @@ local SetTabList = require(Actions.SetTabList)
 local MiddleWare = DevConsole.MiddleWare
 local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
-local START_DATA_ON_INIT = settings():GetFFlag("EnableNewDevConsoleDataOnInit")
-
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
@@ -233,12 +231,6 @@ function DevConsoleMaster:Start()
 		self.init = true
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
 	end
-end
-
-if START_DATA_ON_INIT then
-	coroutine.wrap(function()
-		master:Start()
-	end)()
 end
 
 function DevConsoleMaster:ToggleVisibility()

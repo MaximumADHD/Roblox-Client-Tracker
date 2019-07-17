@@ -12,18 +12,64 @@ local paintOrderMap = {} --map of child to position in order
 
 local BUFFER_SIZE_MINIMUM = 5
 
+local FFlagInvisibilityCloaksCannotBeSelected  = settings():GetFFlag("InvisibilityCloaksCannotBeSelected")
+
+local function calculateVisibleBounds(instance)
+	if instance.AbsoluteRotation ~= 0 then
+		return instance.AbsolutePosition, instance.AbsoluteSize
+	end
+
+	local upperLeft = instance.AbsolutePosition
+	local lowerRight = instance.AbsoluteSize + upperLeft
+
+	local clipper = instance:FindFirstAncestorWhichIsA("GuiObject")
+
+	while clipper do
+		if clipper.ClipsDescendants then
+			-- ASIDE: How does this work if clipper is rotated?
+			local clipperUpperLeft = clipper.AbsolutePosition
+			local clipperLowerRight = clipper.AbsoluteSize + clipperUpperLeft
+			upperLeft = Vector2.new(math.max(upperLeft.X, clipperUpperLeft.X), math.max(upperLeft.Y, clipperUpperLeft.Y))
+			lowerRight = Vector2.new(math.min(lowerRight.X, clipperLowerRight.X), math.min(lowerRight.Y, clipperLowerRight.Y))
+		end
+		clipper = clipper:FindFirstAncestorWhichIsA("GuiObject")
+	end
+
+	return upperLeft, lowerRight - upperLeft
+end
+
+
 local function doesPointExistInInstance(point, instance)
 	if not instance or not instance:IsA("GuiBase2d") then return false end
 
-	local sizeBuffer = instance.AbsoluteSize
-	sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
+	if FFlagInvisibilityCloaksCannotBeSelected then
+
+		local visiblePosition, visibleSize = calculateVisibleBounds(instance)
+		
+		local sizeBuffer = visibleSize
+		sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
+		
+		local upperLeft = visiblePosition + (visibleSize * 0.5) - (sizeBuffer * 0.5)
+		
+		return point.x >= upperLeft.x and
+			point.x <= upperLeft.x + sizeBuffer.x and
+			point.y >= upperLeft.y and
+			point.y <= upperLeft.y + sizeBuffer.y
+
+	else
+
+		local sizeBuffer = instance.AbsoluteSize
+		sizeBuffer = Vector2.new(math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.X), math.max(BUFFER_SIZE_MINIMUM, sizeBuffer.Y))
+		
+		local upperLeft = instance.AbsolutePosition + (instance.AbsoluteSize * 0.5) - (sizeBuffer * 0.5)
+		
+		return point.x >= upperLeft.x and
+			point.x <= upperLeft.x + sizeBuffer.x and
+			point.y >= upperLeft.y and
+			point.y <= upperLeft.y + sizeBuffer.y
+
+	end
 	
-	local upperLeft = instance.AbsolutePosition + (instance.AbsoluteSize * 0.5) - (sizeBuffer * 0.5)
-	
-	return point.x >= upperLeft.x and
-		point.x <= upperLeft.x + sizeBuffer.x and
-		point.y >= upperLeft.y and
-		point.y <= upperLeft.y + sizeBuffer.y
 end
 
 

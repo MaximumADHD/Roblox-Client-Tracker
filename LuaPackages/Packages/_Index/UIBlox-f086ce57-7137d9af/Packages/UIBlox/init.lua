@@ -23,6 +23,7 @@ return {
 		LoadableImage = require(script.Loading.LoadableImage),
 		ShimmerPanel = require(script.Loading.ShimmerPanel),
 	},
+	ModalBottomSheet = require(script.ModalBottomSheet.ModalBottomSheet),
 	Utility = {
 		ExternalEventConnection = require(script.Utility.ExternalEventConnection),
 		SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),

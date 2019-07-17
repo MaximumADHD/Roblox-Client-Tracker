@@ -27,7 +27,7 @@ rev = "roblox"
 name = "UIBlox"
 type = "git"
 source = "https://github.rbx.com/roblox/uiblox"
-commit = "37b0369a3cbc08771ac8ab53e59ceaf74e7204b2"
+commit = "7137d9afc86efd55bf3cf6a28271df734e59ca0e"
 rev = "master"
 
 [package.dependencies]
