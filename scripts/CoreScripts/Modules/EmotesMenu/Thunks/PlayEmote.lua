@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
+local FFlagCoreScriptLoadEmotesFromWeb = settings():GetFFlag("CoreScriptLoadEmotesFromWeb")
 local FFlagEmotesMenuAnalyticsEnabled = settings():GetFFlag("CoreScriptEmotesMenuAnalytics")
 
 local LocalPlayer = Players.LocalPlayer
@@ -23,6 +24,19 @@ local ShowError = require(Actions.ShowError)
 local EmotesAnalytics
 if FFlagEmotesMenuAnalyticsEnabled then
     EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
+end
+
+local function emoteInHumanoidDescription(humanoidDescription, emoteName)
+    if not humanoidDescription then
+        return false
+    end
+
+    local emotes = humanoidDescription:GetEmotes()
+    if emotes and emotes[emoteName] then
+        return true
+    end
+
+    return false
 end
 
 local function handlePlayFailure(store, reasonLocalizationKey)
@@ -65,7 +79,7 @@ local function PlayEmote(emoteName, slotNumber, emoteAssetId)
         end
 
         local humanoidDescription = humanoid:FindFirstChildOfClass("HumanoidDescription")
-        if not humanoidDescription then
+        if not FFlagCoreScriptLoadEmotesFromWeb and not humanoidDescription then
             handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.NotSupported)
             return
         end
@@ -74,7 +88,12 @@ local function PlayEmote(emoteName, slotNumber, emoteAssetId)
         if playEmoteBindable and playEmoteBindable:IsA("BindableFunction") then
             store:dispatch(HideMenu())
 
-            local success, didPlay = pcall(function() return humanoid:PlayEmote(emoteName) end)
+            local playEmoteFunction = function() return humanoid:PlayEmote(emoteName) end
+            if FFlagCoreScriptLoadEmotesFromWeb and not emoteInHumanoidDescription(humanoidDescription, emoteName) then
+                playEmoteFunction = function() return humanoid:PlayEmoteById(emoteName, emoteAssetId) end
+            end
+
+            local success, didPlay = pcall(playEmoteFunction)
 
             if success and didPlay then
                 if FFlagEmotesMenuAnalyticsEnabled then

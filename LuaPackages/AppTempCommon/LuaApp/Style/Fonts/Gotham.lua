@@ -1,6 +1,9 @@
 local baseSize = 16
+--Nominal size conversion
+--https://confluence.rbx.com/display/PX/Font+Metrics
+local nominalSizeFactor = 1.2
 local font = {
-	BaseSize = baseSize,
+	BaseSize = baseSize * nominalSizeFactor,
 	Title = {
 		Font = Enum.Font.GothamBlack,
 		RelativeSize = 32 / baseSize,

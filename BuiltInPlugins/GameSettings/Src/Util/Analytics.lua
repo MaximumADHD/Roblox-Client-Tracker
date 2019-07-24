@@ -28,6 +28,8 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
+local FIntMaxAccessPermissionsCollaborators = game:DefineFastInt("MaxAccessPermissionsCollaborators", 200)
+
 --These functions will be implemented in CLIDEVSRVS-1689
 local function getStudioSession()
 	local sessionId = nil
@@ -173,6 +175,24 @@ end
 
 function Analytics.onPermissionFailed()
 	Analytics.reportCounter("GameSettings_AccessPermissions_Failed")
+end
+
+function Analytics.onNumCollaboratorsChanged(numCollaborators)
+	-- Averages can be misleading (e.g. 95% of games have < 10 collaborators, but 5% have 150 - avg is ~17)
+	-- So track how many games are getting closer to the max for the charts instead
+	local thresholds = {1.0, 0.75, 0.5, 0.25}
+	for _,threshold in pairs(thresholds) do
+		if numCollaborators >= threshold*FIntMaxAccessPermissionsCollaborators then
+			Analytics.reportCounter("GameSettings_AccessPermissions_NumCollaboratorThreshold_"..math.floor(threshold*100))
+			break
+		end
+	end
+
+	-- Send detailed information to GA if we want to do a more detailed analysis
+	Analytics.sendEventDeferred("GameSettings_AccessPermissions_NumCollaborators", {
+		gameId = game.GameId,
+		numCollaborators = numCollaborators,
+	})
 end
 
 return Analytics

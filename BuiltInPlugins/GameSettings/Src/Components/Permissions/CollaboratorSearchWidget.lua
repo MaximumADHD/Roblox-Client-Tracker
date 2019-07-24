@@ -14,14 +14,14 @@ local StudioService = game:GetService("StudioService")
 
 local PermissionsConstants = require(Plugin.Src.Components.Permissions.PermissionsConstants)
 local LOADING = require(Plugin.Src.Keys.loadingInProgress)
-local DEFAULT_ADD_ACTION = PermissionsConstants.EditKey
+local DEFAULT_ADD_ACTION = PermissionsConstants.PlayKey
 local MY_FRIENDS_KEY = "MyFriends"
 
 local Searchbar = require(Plugin.Src.Components.Permissions.SearchBar)
 local CollaboratorThumbnail = require(Plugin.Src.Components.Permissions.CollaboratorThumbnail)
 local Hyperlink = require(Plugin.RoactStudioWidgets.Hyperlink)
 
-local createFitToContent 
+local createFitToContent
 if settings():GetFFlag("StudioGameSettingsUseUILibraryComponents") then
 	createFitToContent = require(Plugin.UILibrary.Components.createFitToContent)
 else
@@ -238,6 +238,17 @@ function CollaboratorSearchWidget:render()
 	local matches = getMatches(searchData, props.Permissions, props.GroupMetadata)
 	local isLoading = getIsLoading(searchData)
 
+	local numCollaborators = -1 -- Offset and don't count the owner
+	for _,_ in pairs(props.GroupMetadata) do
+		numCollaborators = numCollaborators + 1
+	end
+	for _,_ in pairs(props.Permissions[PermissionsConstants.UserSubjectKey]) do
+		numCollaborators = numCollaborators + 1
+	end
+
+	local maxCollaborators = game:GetFastInt("MaxAccessPermissionsCollaborators")
+	local tooManyCollaborators = numCollaborators > maxCollaborators
+
 	local function collaboratorAdded(collaboratorType, collaboratorId, collaboratorName, action)
 		local newPermissions
 		if collaboratorType == PermissionsConstants.UserSubjectKey then
@@ -265,6 +276,9 @@ function CollaboratorSearchWidget:render()
 		return withLocalization(function(localized)
 			local results = getResults(searchTerm, matches, thumbnailLoader, localized)
 			local isPublished = game.GameId ~= 0
+			local tooManyCollaboratorsText = localized.AccessPermissions.Searchbar.TooManyCollaboratorsText({
+				maxNumCollaborators = maxCollaborators,
+			})
 	
 			return Roact.createElement(FitToContent, {
 				BackgroundTransparency = 1,
@@ -281,11 +295,12 @@ function CollaboratorSearchWidget:render()
 
 				Searchbar = isPublished and Roact.createElement(Searchbar, {
 					LayoutOrder = 1,
-					Enabled = props.Enabled,
+					Enabled = props.Enabled and not tooManyCollaborators,
 
 					HeaderHeight = 25,
 					ItemHeight = 50,
 
+					ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
 					DefaultText = localized.AccessPermissions.Searchbar.DefaultText,
 					NoResultsText = localized.AccessPermissions.Searchbar.NoResultsText,
 					LoadingMore = isLoading,

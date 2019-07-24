@@ -89,6 +89,34 @@ end
 function Permissions.Set(universeId, props)
 	local changes = SerializeForRequest.diffPermissionChanges(props.Current, props.Changed)
 
+	local permissionAdds, permissionDeletes = SerializeForRequest.SerializePermissions(props, changes)
+	local numChanges = #permissionAdds + #permissionDeletes
+
+	if (numChanges > MAX_CHANGES) then
+		warn("Too many changes ("..numChanges..") to permissions. Maximum at once is "+MAX_CHANGES)
+		return Promise.reject()
+	end
+
+	for _, added in pairs(permissionAdds) do
+		if added[webKeys.Action] == webKeys.PlayAction then
+			if added[webKeys.SubjectType] == webKeys.UserSubject then
+				Analytics.onUserAdded()
+			elseif added[webKeys.SubjectType] == webKeys.GroupSubject then
+				Analytics.onGroupAdded()
+			end
+		end
+	end
+
+	for _, deleted in pairs(permissionDeletes) do
+		if deleted[webKeys.Action] == webKeys.PlayAction then
+			if deleted[webKeys.SubjectType] == webKeys.UserSubject then
+				Analytics.onUserRemoved()
+			elseif deleted[webKeys.SubjectType] == webKeys.GroupSubject then
+				Analytics.onGroupRemoved()
+			end
+		end
+	end
+
 	for subjectType, subjectTypeChanges in pairs(changes) do
 		for subjectId, change in pairs(subjectTypeChanges) do
 			if subjectType == PermissionsConstants.UserSubjectKey then
@@ -112,35 +140,16 @@ function Permissions.Set(universeId, props)
 		end
 	end
 
-	local permissionAdds, permissionDeletes = SerializeForRequest.SerializePermissions(props, changes)
-
-	for _, added in pairs(permissionAdds) do
-		if added[webKeys.Action] == webKeys.PlayAction then
-			if added[webKeys.SubjectType] == webKeys.UserSubject then
-				Analytics.onUserAdded()
-			elseif added[webKeys.SubjectType] == webKeys.GroupSubject then
-				Analytics.onGroupAdded()
-			end
-		end
+	local numCollaborators = -1 -- Offset and don't count the owner
+	for _,_ in pairs(props.Changed.groupMetadata) do
+		numCollaborators = numCollaborators + 1
+	end
+	for _,_ in pairs(props.Changed.permissions[PermissionsConstants.UserSubjectKey]) do
+		numCollaborators = numCollaborators + 1
 	end
 
-	for _, deleted in pairs(permissionDeletes) do
-		if deleted[webKeys.Action] == webKeys.PlayAction then
-			if deleted[webKeys.SubjectType] == webKeys.UserSubject then
-				Analytics.onUserRemoved()
-			elseif deleted[webKeys.SubjectType] == webKeys.GroupSubject then
-				Analytics.onGroupRemoved()
-			end
-		end
-	end
+	Analytics.onNumCollaboratorsChanged(numCollaborators)
 
-	local numChanges = #permissionAdds + #permissionDeletes
-
-	if (numChanges > MAX_CHANGES) then
-		warn("Too many changes ("..numChanges..") to permissions. Maximum at once is "+MAX_CHANGES)
-		return Promise.reject()
-	end
-	
 	local postRequestInfo = {
 		Url = Http.BuildRobloxUrl(PERMISSIONS_REQUEST_TYPE, PERMISSIONS_URL, universeId),
 		Method = "POST",

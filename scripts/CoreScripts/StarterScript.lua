@@ -13,8 +13,6 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local FlagSettings = require(CoreGuiModules.FlagSettings)
 
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
-local FFlagUseRoactPurchasePrompt375 = settings():GetFFlag("UseRoactPurchasePrompt375")
-local FFlagIWillNotYield = settings():GetFFlag("IWillNotYield")
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
 
@@ -56,40 +54,19 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", RobloxGui)
 
 -- Chat script
-if FFlagIWillNotYield then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
-	if FFlagUseRoactPlayerList then
-		coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerList.PlayerListManager)
-	else
-		coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerlistModule)
-	end
+coroutine.wrap(safeRequire)(RobloxGui.Modules.ChatSelector)
+if FFlagUseRoactPlayerList then
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerList.PlayerListManager)
 else
-	spawn(function() safeRequire(RobloxGui.Modules.ChatSelector) end)
-	if FFlagUseRoactPlayerList then
-		spawn(function() safeRequire(RobloxGui.Modules.PlayerList.PlayerListManager) end)
-	else
-		spawn(function() safeRequire(RobloxGui.Modules.PlayerlistModule) end)
-	end
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.PlayerlistModule)
 end
 
 -- Purchase Prompt Script
-if FFlagUseRoactPurchasePrompt375 then
-	if FFlagIWillNotYield then
-		coroutine.wrap(function()
-			local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
-
-			PurchasePrompt.mountPurchasePrompt()
-		end)()
-	else
-		spawn(function()
-			local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
-
-			PurchasePrompt.mountPurchasePrompt()
-		end)
-	end
-else
-	ScriptContext:AddCoreScriptLocal("CoreScripts/PurchasePromptScript2", RobloxGui)
-end
+coroutine.wrap(function()
+	local PurchasePrompt = safeRequire(CorePackages.PurchasePrompt)
+	
+	PurchasePrompt.mountPurchasePrompt()
+end)()
 
 -- Prompt Block Player Script
 ScriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
@@ -99,11 +76,7 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/FriendPlayerPrompt", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)
 
 -- Backpack!
-if FFlagIWillNotYield then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
-else
-	spawn(function() safeRequire(RobloxGui.Modules.BackpackScript) end)
-end
+coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 
 -- Emotes Menu
 if FFlagEmotesMenuEnabled2 then
@@ -130,23 +103,10 @@ if FlagSettings.IsInspectAndBuyEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/InspectAndBuy", RobloxGui)
 end
 
-if FFlagIWillNotYield then
-	coroutine.wrap(function()
-		if not VRService.VREnabled then
-			VRService:GetPropertyChangedSignal("VREnabled"):Wait()
-		end
-		safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
-		safeRequire(RobloxGui.Modules.VR.UserGui)
-	end)()
-else
-	spawn(function()
-		local function onVREnabledChanged()
-			if VRService.VREnabled then
-				safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
-				safeRequire(RobloxGui.Modules.VR.UserGui)
-			end
-		end
-		onVREnabledChanged()
-		VRService:GetPropertyChangedSignal("VREnabled"):Connect(onVREnabledChanged)
-	end)
-end
+coroutine.wrap(function()
+	if not VRService.VREnabled then
+		VRService:GetPropertyChangedSignal("VREnabled"):Wait()
+	end
+	safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
+	safeRequire(RobloxGui.Modules.VR.UserGui)
+end)()

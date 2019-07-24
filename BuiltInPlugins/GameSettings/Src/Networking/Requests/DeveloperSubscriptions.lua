@@ -13,10 +13,10 @@ local FileUtils = require(Plugin.Src.Util.FileUtils)
 local IMAGE_URL = "ide/publish/UploadNewImage?Name=\"%s\"&Description=\"%s\""
 local IMAGE_REQUEST_TYPE = "www"
 
-local PLANS_URL = "developer-subscriptions-api/v1/universes/%d/plans"
+local PLANS_URL = "developer-subscriptions/v1/universes/%d/plans"
 local PLANS_REQUEST_TYPE = "apis"
 
-local PLAN_URL = "developer-subscriptions-api/v1/universes/plans/%d"
+local PLAN_URL = "developer-subscriptions/v1/universes/plans/%d"
 local PLAN_REQUEST_TYPE = "apis"
 
 local function compareDeveloperSubscriptions(a, b)
@@ -147,7 +147,7 @@ function DeveloperSubscriptions.Get()
 					Active = (data.status == "Open"),
 					Subscribers = 0,
 				}
-				table.insert(developerSubscriptions, subscription)
+				developerSubscriptions[subscription.Key] = subscription
 			end
 
 			if response.nextPageCursor then

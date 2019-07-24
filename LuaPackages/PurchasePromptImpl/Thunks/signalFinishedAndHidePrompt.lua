@@ -7,6 +7,7 @@ local PromptState = require(script.Parent.Parent.PromptState)
 local HidePrompt = require(script.Parent.Parent.Actions.HidePrompt)
 
 local FFlagEmoteLoadingEnabled = settings():GetFFlag("EmoteLoadingEnabled")
+local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
 
 local function signalFinishedAndHidePrompt()
 	return Thunk.new(script.Name, {}, function(store, services)
@@ -23,6 +24,8 @@ local function signalFinishedAndHidePrompt()
 				MarketplaceService:SignalPromptProductPurchaseFinished(playerId, id, didPurchase)
 			elseif productType == Enum.InfoType.GamePass then
 				MarketplaceService:SignalPromptGamePassPurchaseFinished(Players.LocalPlayer, id, didPurchase)
+			elseif FFlagPerformPurchaseNewBundleInfoTypeEnabled and productType == Enum.InfoType.Bundle then
+				MarketplaceService:SignalPromptBundlePurchaseFinished(Players.LocalPlayer, id, didPurchase)
 			elseif productType == Enum.InfoType.Asset then
 				MarketplaceService:SignalPromptPurchaseFinished(Players.LocalPlayer, id, didPurchase)
 				if FFlagEmoteLoadingEnabled and didPurchase and assetTypeId then

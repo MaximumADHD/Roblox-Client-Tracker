@@ -22,6 +22,7 @@ end
 
 local FFlagPlayerDropDownLocalization = settings():GetFFlag("PlayerDropDownLocalization")
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 local recentApiRequests = -- stores requests for target players by userId
 {
@@ -539,8 +540,12 @@ function createPlayerDropDown()
 		if not playerDropDown.Player or not inspectMenuEnabled then
 			return
 		end
-		inspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
-		GuiService:InspectPlayerFromUserId(playerDropDown.Player.UserId)
+		if FFlagFixInspectMenuAnalytics then
+			GuiService:InspectPlayerFromUserIdWithCtx(playerDropDown.Player.UserId, "leaderBoard")
+		else
+			inspectMenuAnalytics.reportOpenInspectMenu("leaderBoard")
+			GuiService:InspectPlayerFromUserId(playerDropDown.Player.UserId)
+		end
 		playerDropDown:Hide()
 	end
 

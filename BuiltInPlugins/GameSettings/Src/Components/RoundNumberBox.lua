@@ -124,14 +124,14 @@ function RoundNumberBox:render()
 					PaddingTop = PADDING,
 					PaddingBottom = PADDING,
 				}),
-				Text = Roact.createElement(TextEntry, {
+				Text = Roact.createElement(TextEntry, Cryo.Dictionary.join(theme.fontStyle.Normal, {
 					Visible = self.props.Active,
 					Text = self.props.Number,
 					FocusChanged = self.focusChanged,
 					HoverChanged = self.mouseHoverChanged,
 					SetText = self.setText,
 					TextColor3 = theme.textBox.text,
-				}),
+				})),
 			}),
 		})
 	end)

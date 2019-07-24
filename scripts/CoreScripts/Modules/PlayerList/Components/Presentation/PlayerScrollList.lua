@@ -11,6 +11,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local PlayerEntry = require(script.Parent.PlayerEntry)
 local TeamEntry = require(script.Parent.TeamEntry)
+local PlayerDropDown = require(script.Parent.PlayerDropDown)
 
 local FAKE_NEUTRAL_TEAM = Instance.new("Team")
 
@@ -120,6 +121,23 @@ local function buildSortedPlayers(primaryStat, players, playerStats)
 	return sortedPlayers
 end
 
+function PlayerScrollList:init()
+	self.scrollingFrameRef = Roact.createRef()
+end
+
+function PlayerScrollList:calculateDropDownAbsPosition(dropDownPosition, playerEntrySizeY)
+	local scrollingFrame = self.scrollingFrameRef.current
+	if scrollingFrame then
+		dropDownPosition = dropDownPosition - scrollingFrame.CanvasPosition.Y
+		if dropDownPosition + playerEntrySizeY >= scrollingFrame.AbsoluteSize.Y then
+			local offset = dropDownPosition + playerEntrySizeY - scrollingFrame.AbsoluteSize.Y
+			return dropDownPosition - offset, Vector2.new(0, scrollingFrame.CanvasPosition.Y + offset)
+		end
+		return dropDownPosition, nil
+	end
+	return dropDownPosition, nil
+end
+
 function PlayerScrollList:render()
 	return WithLayoutValues(function(layoutValues)
 		local entryPadding = layoutValues.EntryPadding
@@ -136,6 +154,7 @@ function PlayerScrollList:render()
 		})
 
 		local canvasSizeY = 0
+		local dropDownPosition = 0
 
 		local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
 		local sortedPlayers = buildSortedPlayers(primaryStat, self.props.players, self.props.playerStats)
@@ -175,6 +194,10 @@ function PlayerScrollList:render()
 							gameStats = self.props.gameStats,
 						})
 
+						if player == self.props.dropDownPlayer then
+							dropDownPosition = canvasSizeY
+						end
+
 						canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
 						addedEntriesCount = addedEntriesCount + 1
 					end
@@ -191,22 +214,49 @@ function PlayerScrollList:render()
 					titlePlayerEntry = false,
 					gameStats = self.props.gameStats,
 				})
+
+				if player == self.props.dropDownPlayer then
+					dropDownPosition = canvasSizeY
+				end
+
 				canvasSizeY = canvasSizeY + playerEntrySizeY + entryPadding
 			end
 		end
 
-		return Roact.createElement("ScrollingFrame", {
+		local absDropDownPosition, canvasPositionOverride = self:calculateDropDownAbsPosition(
+			dropDownPosition, playerEntrySizeY)
+
+		return Roact.createElement("Frame", {
 			Position = layoutValues.PlayerScrollListPosition,
 			Size = layoutValues.PlayerScrollListSize,
-			CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
 			BackgroundTransparency = 1,
-			ScrollBarImageColor3 = layoutValues.ScrollImageColor,
-			ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
-			BorderSizePixel = 0,
-			ScrollBarThickness = 6,
-			ScrollingEnabled = true,
-			Selectable = false,
-		}, childElements)
+		}, {
+			PlayerDropDown = Roact.createElement(PlayerDropDown, {
+				positionY = absDropDownPosition,
+			}),
+
+			ScollingFrame = Roact.createElement("ScrollingFrame", {
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				CanvasSize = UDim2.new(0, 0, 0, canvasSizeY),
+				BackgroundTransparency = 1,
+				ScrollBarImageColor3 = layoutValues.ScrollImageColor,
+				ScrollBarImageTransparency = layoutValues.ScrollImageTransparency,
+				BorderSizePixel = 0,
+				ScrollBarThickness = 6,
+				ScrollingEnabled = not self.props.dropDownVisible,
+				Selectable = false,
+				CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.lastCanvasPosition,
+
+				[Roact.Change.CanvasPosition] = function()
+					if self.scrollingFrameRef.current then
+						self.lastCanvasPosition = self.scrollingFrameRef.current.CanvasPosition
+					end
+				end,
+
+				[Roact.Ref] = self.scrollingFrameRef,
+			}, childElements),
+		})
 	end)
 end
 
@@ -224,6 +274,9 @@ local function mapStateToProps(state)
 		playerIconInfo = state.playerIconInfo,
 		playerRelationship = state.playerRelationship,
 		playerTeam = state.playerTeam,
+
+		dropDownPlayer = state.playerDropDown.selectedPlayer,
+		dropDownVisible = state.playerDropDown.isVisible,
 	}
 end
 

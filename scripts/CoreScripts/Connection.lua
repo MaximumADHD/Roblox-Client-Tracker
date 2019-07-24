@@ -35,6 +35,8 @@ local fflagUseNewErrorStrings = settings():GetFFlag("UseNewErrorStrings")
 local fflagReconnectToStarterPlace = settings():GetFFlag("ReconnectToStarterPlace")
 local fflagChinaLicensingBuild = settings():GetFFlag("ChinaLicensingApp")
 
+local fflagPhoneHomeSooner = game:DefineFastFlag("PhoneHomeSooner", false)
+
 local coreScriptTableTranslator
 if fflagUseNewErrorStrings then
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
@@ -126,24 +128,41 @@ local reconnectFunction = function()
 	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
 	errorPrompt:primaryShimmerPlay()
 
-	-- Wait until it passes the defaultTimeOut
-	local currentTime = tick()
-	if currentTime < graceTimeout then
-		wait(graceTimeout - currentTime)
-	end
-	if fflagReconnectToStarterPlace then
+	if fflagPhoneHomeSooner then
+		local fetchStarterPlaceSuccess, starterPlaceId
 		if game.GameId > 0 then
-			local success, starterPlaceId = fetchStarterPlaceId(game.GameId)
-			if success and starterPlaceId > 0 then
-				TeleportService:Teleport(starterPlaceId)
-			else
-				TeleportService:Teleport(game.PlaceId)
-			end
+			fetchStarterPlaceSuccess, starterPlaceId = fetchStarterPlaceId(game.GameId)
+		end
+		-- Wait for the remaining time (if there is any)
+		local currentTime = tick()
+		if currentTime < graceTimeout then
+			wait(graceTimeout - currentTime)
+		end
+		if fetchStarterPlaceSuccess and starterPlaceId > 0 then
+			TeleportService:Teleport(starterPlaceId)
 		else
 			TeleportService:Teleport(game.PlaceId)
 		end
 	else
-		TeleportService:Teleport(game.placeId)
+		-- Wait until it passes the defaultTimeOut
+		local currentTime = tick()
+		if currentTime < graceTimeout then
+			wait(graceTimeout - currentTime)
+		end
+		if fflagReconnectToStarterPlace then
+			if game.GameId > 0 then
+				local success, starterPlaceId = fetchStarterPlaceId(game.GameId)
+				if success and starterPlaceId > 0 then
+					TeleportService:Teleport(starterPlaceId)
+				else
+					TeleportService:Teleport(game.PlaceId)
+				end
+			else
+				TeleportService:Teleport(game.PlaceId)
+			end
+		else
+			TeleportService:Teleport(game.placeId)
+		end
 	end
 end
 

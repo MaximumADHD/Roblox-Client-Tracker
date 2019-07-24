@@ -5,7 +5,7 @@ local ImageButtonWithText = require(script.Parent.Parent.Libs.ImageButtonWithTex
 local i18nModule = require(script.Parent.Parent.Libs.Localization)
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
-local FFlagImportTerrain = settings():GetFFlag("ImportTerrain")
+local FFlagImportTerrainV2 = settings():GetFFlag("ImportTerrainV2")
 local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
 local StudioMoveWebAssetsToContent = settings():GetFFlag("StudioMoveWebAssetsToContent")
 
@@ -122,7 +122,7 @@ local kMainButtonConfigs =
 
 }
 
-if FFlagImportTerrain then
+if FFlagImportTerrainV2 then
 	table.insert(kMainButtonConfigs, {
 		Name = "Import",
 		Text = "Studio.TerrainEditor.MainButtons.Import",

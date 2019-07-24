@@ -61,6 +61,7 @@ local FFlagLuaInviteNewAnalytics = settings():GetFFlag("LuaInviteNewAnalytics")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagChinaLicensingApp = settings():GetFFlag("ChinaLicensingApp")
+local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -473,8 +474,12 @@ local function Initialize()
 		end
 
 		local activateInspectAndBuyMenu = function()
-			inspectMenuAnalytics.reportOpenInspectMenu("escapeMenu")
-			GuiService:InspectPlayerFromUserId(player.UserId)
+			if FFlagFixInspectMenuAnalytics then
+				GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
+			else
+				inspectMenuAnalytics.reportOpenInspectMenu("escapeMenu")
+				GuiService:InspectPlayerFromUserId(player.UserId)
+			end
 			this.HubRef:SetVisibility(false)
 		end
 

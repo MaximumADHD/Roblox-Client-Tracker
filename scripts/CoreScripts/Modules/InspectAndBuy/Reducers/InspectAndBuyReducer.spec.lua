@@ -18,6 +18,7 @@ return function()
 			visible = true,
 			itemBeingPurchased = true,
 			gamepadEnabled = true,
+			isLoaded = true,
 			FetchingStatus = true,
 		}
 

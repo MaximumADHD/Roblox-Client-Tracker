@@ -1111,6 +1111,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string GuiService:GetUiMessage() {RobloxScriptSecurity}
 	Function void GuiService:InspectPlayerFromHumanoidDescription(Instance humanoidDescription, string name)
 	Function void GuiService:InspectPlayerFromUserId(int64 userId)
+	Function void GuiService:InspectPlayerFromUserIdWithCtx(int64 userId, string ctx) {RobloxScriptSecurity}
 	Function bool GuiService:IsMemoryTrackerEnabled() {RobloxScriptSecurity}
 	Function bool GuiService:IsTenFootInterface()
 	Function void GuiService:OpenBrowserWindow(string url) {RobloxScriptSecurity} [Deprecated]
@@ -1134,6 +1135,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.InspectMenuEnabledChangedSignal(bool enabled) {RobloxScriptSecurity}
 	Event GuiService.InspectPlayerFromHumanoidDescriptionRequest(Instance humanoidDescription, string name) {RobloxScriptSecurity}
 	Event GuiService.InspectPlayerFromUserIdRequest(int64 userId) {RobloxScriptSecurity}
+	Event GuiService.InspectPlayerFromUserIdWithCtxRequest(int64 userId, string ctx) {RobloxScriptSecurity}
 	Event GuiService.KeyPressed(string key, string modifiers) {RobloxScriptSecurity}
 	Event GuiService.MenuClosed()
 	Event GuiService.MenuOpened()
@@ -1228,6 +1230,7 @@ Class Humanoid : Instance
 	Function void Humanoid:Move(Vector3 moveDirection, bool relativeToCamera = false)
 	Function void Humanoid:MoveTo(Vector3 location, Instance part = nil)
 	Function bool Humanoid:PlayEmote(string emoteName) [Yields]
+	Function bool Humanoid:PlayEmoteById(string emoteName, int64 emoteId) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:RemoveAccessories()
 	Function bool Humanoid:RemoveCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:RemoveStatus(Enum<Status> status = "Poison") [Deprecated]
@@ -1550,6 +1553,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:ReportRobuxUpsellStarted() {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalAssetTypePurchased(Instance player, Enum<AssetType> assetType) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
+	Function void MarketplaceService:SignalPromptBundlePurchaseFinished(Instance player, int64 bundleId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptProductPurchaseFinished(int64 userId, int64 productId, bool success) {RobloxScriptSecurity}
 	Function void MarketplaceService:SignalPromptPurchaseFinished(Instance player, int64 assetId, bool success) {RobloxScriptSecurity}
@@ -1560,6 +1564,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) {RobloxScriptSecurity}
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptBundlePurchaseFinished(Instance player, int64 bundleId, bool wasPurchased) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
@@ -2212,6 +2217,7 @@ Class Plugin : Instance [NotCreatable]
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId  [ReadOnly] [NotReplicated]
 	Property bool PluginAction.AllowBinding  [ReadOnly] [NotReplicated]
+	Property bool PluginAction.Checked {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property string PluginAction.DefaultShortcut {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property bool PluginAction.Enabled {RobloxScriptSecurity} [<📁> Load-only] [NotReplicated]
 	Property string PluginAction.StatusTip  [ReadOnly] [NotReplicated]
@@ -3837,6 +3843,7 @@ Enum InfoType
 	EnumItem InfoType.Product : 1
 	EnumItem InfoType.GamePass : 2
 	EnumItem InfoType.Subscription : 3
+	EnumItem InfoType.Bundle : 4
 Enum InitialDockState
 	EnumItem InitialDockState.Top : 0
 	EnumItem InitialDockState.Bottom : 1

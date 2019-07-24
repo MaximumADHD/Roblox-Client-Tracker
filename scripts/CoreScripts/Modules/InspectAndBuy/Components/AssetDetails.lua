@@ -8,9 +8,13 @@ local DetailsDescription = require(InspectAndBuyFolder.Components.DetailsDescrip
 local DetailsButtons = require(InspectAndBuyFolder.Components.DetailsButtons)
 local TryOnViewport = require(InspectAndBuyFolder.Components.TryOnViewport)
 local GetAssetBundles = require(InspectAndBuyFolder.Thunks.GetAssetBundles)
+local ReportOpenDetailsPage = require(InspectAndBuyFolder.Thunks.ReportOpenDetailsPage)
 local GetEconomyProductInfo = require(InspectAndBuyFolder.Thunks.GetEconomyProductInfo)
 local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
+
+local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
+local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 local AssetDetails = Roact.PureComponent:extend("AssetDetails")
 
@@ -41,9 +45,12 @@ function AssetDetails:willUpdate(nextProps)
 end
 
 function AssetDetails:didUpdate(prevProps)
-	if self.props.assetInfo ~= prevProps.assetInfo and self.props.assetInfo and self.props.assetInfo.bundlesAssetIsIn then
+	local reportOpenDetailsPage = self.props.reportOpenDetailsPage
+	local assetInfo = self.props.assetInfo
+	local prevAssetInfo = prevProps.assetInfo
+
+	if assetInfo ~= prevAssetInfo and assetInfo and assetInfo.bundlesAssetIsIn then
 		local getEconomyProductInfo = self.props.getEconomyProductInfo
-		local assetInfo = self.props.assetInfo
 		local bundles = self.props.bundles
 		local isBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 		local bundleId = isBundle and UtilityFunctions.getBundleId(assetInfo)
@@ -52,6 +59,20 @@ function AssetDetails:didUpdate(prevProps)
 		if (not isBundle and assetInfo.owned == nil) or (isBundle and bundles[bundleId].owned == nil) then
 			getEconomyProductInfo(productId, isBundle, bundleId)
 		end
+	end
+
+	--[[
+		We need to report when the item details page was opened, but we need to know if it's showing a bundle
+		or asset. So we have to check if we've gotten that data yet or not.
+	]]
+	local startedViewingDetails = self.props.detailsInformation.viewingDetails
+		and not prevProps.detailsInformation.viewingDetails
+	local obtainedBundlesInfo = prevAssetInfo and not prevAssetInfo.bundlesAssetIsIn
+		and assetInfo and assetInfo.bundlesAssetIsIn
+
+	if FFlagFixInspectMenuAnalytics and ((assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails)
+		or obtainedBundlesInfo) then
+		reportOpenDetailsPage(assetInfo)
 	end
 end
 
@@ -85,7 +106,8 @@ function AssetDetails:render()
 				Padding = UDim.new(0, 10),
 			}),
 			DetailsThumbnail = Roact.createElement(DetailsThumbnail),
-			TryOnViewport = Roact.createElement(TryOnViewport, {
+			TryOnViewport = (not FFlagInspectMenuProgressiveLoading or localPlayerModel)
+				and Roact.createElement(TryOnViewport, {
 				localPlayerModel = localPlayerModel,
 				setScrollingEnabled = function(enabled)
 					self:setScrollingEnabled(enabled)
@@ -116,6 +138,9 @@ return RoactRodux.UNSTABLE_connect2(
 			end,
 			getEconomyProductInfo = function(productId, isBundle, bundleId)
 				dispatch(GetEconomyProductInfo(productId, isBundle, bundleId))
+			end,
+			reportOpenDetailsPage = function(assetInfo)
+				dispatch(ReportOpenDetailsPage(assetInfo))
 			end,
 		}
 	end

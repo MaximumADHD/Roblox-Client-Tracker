@@ -1,0 +1,40 @@
+local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
+
+local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
+
+local Components = script.Parent.Parent
+local PlayerList = Components.Parent
+
+local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
+
+local EventConnection = require(script.Parent.EventConnection)
+
+local function UserInputServiceConnector(props)
+	-- TODO: Clean this up when Fragments are released.
+	return Roact.createElement("Folder", {}, {
+		InputBeganConnection = Roact.createElement(EventConnection, {
+			event = UserInputService.InputBegan,
+			callback = function(inputObject, isProcessed)
+				if isProcessed then
+					return
+				end
+				local inputType = inputObject.UserInputType
+				if inputType == Enum.UserInputType.Touch or inputType == Enum.UserInputType.MouseButton1 then
+					props.closePlayerDropDown()
+				end
+			end,
+		}),
+	})
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		closePlayerDropDown = function()
+			return dispatch(ClosePlayerDropDown())
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(UserInputServiceConnector)

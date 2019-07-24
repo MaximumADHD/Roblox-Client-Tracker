@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -12,6 +13,10 @@ local PlayerIcon = require(script.Parent.PlayerIcon)
 local SocialIcon = require(script.Parent.SocialIcon)
 local PlayerNameTag = require(script.Parent.PlayerNameTag)
 local StatEntry = require(script.Parent.StatEntry)
+
+local PlayerList = Components.Parent
+local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
+local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
@@ -43,8 +48,16 @@ function PlayerEntry:render()
 
 			BGFrame = Roact.createElement(EntryFrame, {
 				isTitleFrame = self.props.titlePlayerEntry,
+				hasOpenDropDown =  self.props.selectedPlayer == self.props.player and self.props.dropDownOpen,
 				sizeX = layoutValues.EntrySizeX,
 				sizeY = layoutValues.PlayerEntrySizeY,
+				onActivated = function()
+					if self.props.selectedPlayer == self.props.player and self.props.dropDownOpen then
+						self.props.closeDropDown()
+					else
+						self.props.openDropDown(self.props.player)
+					end
+				end,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
@@ -71,7 +84,7 @@ function PlayerEntry:render()
 				PlayerName = Roact.createElement(PlayerNameTag, {
 					player = self.props.player,
 					isTitleEntry = self.props.titlePlayerEntry,
-					isSelected = false, -- TODO: get this from state.
+					isSelected = false, --TODO, figure out a plan for gamepad selection
 					layoutOrder = 3,
 				}),
 			})
@@ -103,4 +116,21 @@ function PlayerEntry:render()
 	end)
 end
 
-return PlayerEntry
+local function mapStateToProps(state)
+	return {
+		selectedPlayer = state.playerDropDown.selectedPlayer,
+		dropDownOpen = state.playerDropDown.isVisible,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		closeDropDown = function()
+			return dispatch(ClosePlayerDropDown())
+		end,
+		openDropDown = function(player)
+			return dispatch(OpenPlayerDropDown(player))
+		end,
+	}
+end
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(PlayerEntry)

@@ -62,7 +62,7 @@ module.DefaultWindowSizeTablet = UDim2.new(0.4, 0, 0.3, extraOffset)
 module.DefaultWindowSizeDesktop = UDim2.new(0.3, 0, 0.25, extraOffset)
 
 ---[[ Fade Out and In Settings ]]
-module.ChatWindowBackgroundFadeOutTime = 0.5 --Chat background will fade out after this many seconds.
+module.ChatWindowBackgroundFadeOutTime = 3.5 --Chat background will fade out after this many seconds.
 module.ChatWindowTextFadeOutTime = 30				--Chat text will fade out after this many seconds.
 module.ChatDefaultFadeDuration = 0.8
 module.ChatShouldFadeInFromNewInformation = false

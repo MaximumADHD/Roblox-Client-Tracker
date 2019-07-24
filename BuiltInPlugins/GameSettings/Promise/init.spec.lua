@@ -53,6 +53,7 @@ return function()
 				callCount = callCount + 1
 				reject()
 			end)
+			promise:catch(function() end) -- prevent noisy warnings
 
 			expect(promise).to.be.ok()
 			expect(callCount).to.equal(1)
@@ -66,6 +67,7 @@ return function()
 				callCount = callCount + 1
 				error("hahah")
 			end)
+			promise:catch(function() end) -- prevent noisy warnings
 
 			expect(promise).to.be.ok()
 			expect(callCount).to.equal(1)
@@ -92,6 +94,7 @@ return function()
 			local promise = Promise.resolve(Promise.new(function(_, reject)
 				reject(7)
 			end))
+			promise:catch(function() end) -- prevent noisy warnings
 
 			expect(promise).to.be.ok()
 			expect(promise:getStatus()).to.equal(Promise.Status.Rejected)
@@ -102,6 +105,7 @@ return function()
 	describe("Promise.reject", function()
 		it("should immediately reject with a value", function()
 			local promise = Promise.reject(6)
+			promise:catch(function() end) -- prevent noisy warnings
 
 			expect(promise).to.be.ok()
 			expect(promise:getStatus()).to.equal(Promise.Status.Rejected)
@@ -114,6 +118,7 @@ return function()
 			end)
 
 			local promise = Promise.reject(innerPromise)
+			promise:catch(function() end) -- prevent noisy warnings
 
 			expect(promise).to.be.ok()
 			expect(promise:getStatus()).to.equal(Promise.Status.Rejected)
@@ -346,6 +351,7 @@ return function()
 			end)
 
 			local combinedPromise = Promise.all({a, b})
+			combinedPromise:catch(function() end) -- prevent noisy warnings
 
 			expect(combinedPromise:getStatus()).to.equal(Promise.Status.Started)
 
@@ -368,12 +374,14 @@ return function()
 			local a = Promise.new(function(_, reject)
 				rejectA = reject
 			end)
+			a:catch(function() end) -- prevent noisy warnings
 
 			local b = Promise.new(function(resolve)
 				resolveB = resolve
 			end)
 
 			local combinedPromise = Promise.all({a, b})
+			combinedPromise:catch(function() end) -- prevent noisy warnings
 
 			expect(combinedPromise:getStatus()).to.equal(Promise.Status.Started)
 
@@ -396,12 +404,15 @@ return function()
 			local a = Promise.new(function(_, reject)
 				rejectA = reject
 			end)
+			a:catch(function() end) -- prevent noisy warnings
 
 			local b = Promise.new(function(_, reject)
 				rejectB = reject
 			end)
+			b:catch(function() end) -- prevent noisy warnings
 
 			local combinedPromise = Promise.all({a, b})
+			combinedPromise:catch(function() end) -- prevent noisy warnings
 
 			expect(combinedPromise:getStatus()).to.equal(Promise.Status.Started)
 

@@ -25,7 +25,6 @@ function PlayerNameTag:render()
 
 		local playerNameChildren = {}
 
-		-- TODO: Remove this true check
 		if layoutValues.IsTenFoot and self.props.player.DisplayName ~= "" then
 			playerNameChildren["VerticalLayout"] = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

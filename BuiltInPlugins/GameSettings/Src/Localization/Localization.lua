@@ -310,7 +310,7 @@ function Localization:recalculateContent()
 			ListHeader = self:getText("Studio.GameSettings.General.DevSubsListHeader"),
 
 			Name = self:getText("Studio.GameSettings.General.DevSubsName"),
-			Title = self:getText("Studio.GameSettings.General.DevSubsTitle"),
+			Description = self:getText("Studio.GameSettings.General.DevSubsDescription"),
 			Image = self:getText("Studio.GameSettings.General.DevSubsImage"),
 			Price = self:getText("Studio.GameSettings.General.DevSubsPrice"),
 			Duration = self:getText("Studio.GameSettings.General.DevSubsDuration"),
@@ -432,6 +432,7 @@ function Localization:recalculateContent()
 			
 			Searchbar = {
 				DefaultText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarDefaultText"),
+				TooManyCollaboratorsText = self:getFormatTextFunc("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1"),
 				NoResultsText = self:getText("Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText"),
 			},
 

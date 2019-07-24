@@ -9,23 +9,13 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local EntryFrame = Roact.PureComponent:extend("EntryFrame")
 
-function EntryFrame:onMouseButton1Click()
-	-- TODO: Implement this
-end
-
-function EntryFrame:onSelectionGained()
-	-- TODO: And this
-end
-
-function EntryFrame:onSelectionLost()
-
-end
-
 function EntryFrame:render()
 	return WithLayoutValues(function(layoutValues)
 		local backgroundTransparency = layoutValues.BackgroundTransparency
 		local backgroundColor3 = layoutValues.BackgroundColor
-		if self.props.isTitleFrame then
+		if self.props.hasOpenDropDown then
+			backgroundColor3 = layoutValues.SelectedEntryColor
+		elseif self.props.isTitleFrame then
 			backgroundTransparency = layoutValues.TitleBackgroundTransparency
 			backgroundColor3 = layoutValues.TitleBackgroundColor
 		elseif self.props.teamColor ~= nil then
@@ -43,9 +33,7 @@ function EntryFrame:render()
 			Selectable = self.props.teamColor == nil, -- dont allow gamepad selection of team frames
 			Active = self.props.teamColor == nil,
 
-			[Roact.Event.MouseButton1Click] = self.onMouseButton1Click,
-			[Roact.Event.SelectionGained] = self.onSelectionGained,
-			[Roact.Event.SelectionLost] = self.onSelectionLost,
+			[Roact.Event.Activated] = self.props.onActivated,
 		}, self.props[Roact.Children])
 	end)
 end

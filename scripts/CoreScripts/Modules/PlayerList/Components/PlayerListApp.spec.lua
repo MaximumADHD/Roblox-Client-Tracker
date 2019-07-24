@@ -1,4 +1,5 @@
 return function()
+	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
@@ -27,6 +28,15 @@ return function()
 	local FollowRelationshipChanged = Instance.new("RemoteEvent")
 	FollowRelationshipChanged.Name = "FollowRelationshipChanged"
 	FollowRelationshipChanged.Parent = RobloxReplicatedStorage
+
+	local NewFollower = Instance.new("RemoteEvent")
+	NewFollower.Name = "NewFollower"
+	NewFollower.Parent = RobloxReplicatedStorage
+
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	local SendNotificationInfo = Instance.new("BindableEvent")
+	SendNotificationInfo.Name = "SendNotificationInfo"
+	SendNotificationInfo.Parent = RobloxGui
 
 	local PlayerListApp = require(script.Parent.PlayerListApp)
 

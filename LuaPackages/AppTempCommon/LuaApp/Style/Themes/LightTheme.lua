@@ -37,7 +37,7 @@ local theme = {
 		Transparency = 0,
 	},
 	UIMuted = {
-		Color = Colors.Chalk,
+		Color = Colors.Black,
 		Transparency = 0.9, -- Alpha 0.1
 	},
 	UIEmphasis = {
@@ -107,7 +107,7 @@ local theme = {
 	},
 	TextMuted = {
 		Color = Colors.Black,
-		Transparency = 0.5, -- 0.7 Alpha
+		Transparency = 0.5, -- 0.5 Alpha
 	},
 
 	Divider = {
@@ -127,13 +127,13 @@ local theme = {
 		Transparency = 0,
 	},
 	PlaceHolder = {
-		Color = Colors.White,
-		Transparency = 0,
+		Color = Colors.Chalk,
+		Transparency = 0.3, -- 0.7 Alpha
 	},
 
 	OnlineStatus = {
 		Color = Colors.Green,
-		Transparency = 0.5, -- 0.5 Alpha
+		Transparency = 0,
 	},
 	OfflineStatus = {
 		Color = Colors.Black,
@@ -146,6 +146,15 @@ local theme = {
 	},
 	Alert = {
 		Color = Colors.Red,
+		Transparency = 0,
+	},
+
+    Badge = {
+		Color = Colors.White,
+		Transparency = 0,
+	},
+	BadgeContent = {
+		Color = Colors.Flint,
 		Transparency = 0,
 	},
 }

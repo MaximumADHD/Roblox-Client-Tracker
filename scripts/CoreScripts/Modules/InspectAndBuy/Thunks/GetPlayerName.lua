@@ -11,7 +11,7 @@ local requiredServices = {
 }
 
 local function keyMapper(playerId)
-	return "inspectAndBuy.getPlayerName." ..playerId
+	return "inspectAndBuy.getPlayerName." ..tostring(playerId)
 end
 
 --[[
@@ -20,10 +20,10 @@ end
 local function GetPlayerName(id)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
-		return PerformFetch.Single(keyMapper(id), function(fetchSingleStore)
+		return PerformFetch.Single(keyMapper(id), function()
 			return network.getPlayerName(id):andThen(
-				function(results)
-					fetchSingleStore:dispatch(SetPlayerName(results))
+				function(name)
+					store:dispatch(SetPlayerName(name))
 					return Promise.resolve()
 				end,
 				function(err)

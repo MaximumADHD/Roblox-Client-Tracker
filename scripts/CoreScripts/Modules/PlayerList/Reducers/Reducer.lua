@@ -14,6 +14,8 @@ local PlayerTeam = require(script.Parent.PlayerTeam)
 local PlayerIconInfo = require(script.Parent.PlayerIconInfo)
 local PlayerRelationship = require(script.Parent.PlayerRelationship)
 
+local PlayerDropDown = require(script.Parent.PlayerDropDown)
+
 local Reducer = Rodux.combineReducers({
 	displayOptions = DisplayOptions,
 	gameStats = GameStats,
@@ -27,6 +29,8 @@ local Reducer = Rodux.combineReducers({
 	playerTeam = PlayerTeam,
 	playerIconInfo = PlayerIconInfo,
 	playerRelationship = PlayerRelationship,
+
+	playerDropDown = PlayerDropDown,
 })
 
 return Reducer

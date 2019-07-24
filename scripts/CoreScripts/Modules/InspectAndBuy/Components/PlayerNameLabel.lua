@@ -6,6 +6,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Colors = require(InspectAndBuyFolder.Colors)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
+local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
+
 local PlayerNameLabel = Roact.PureComponent:extend("PlayerNameLabel")
 
 local INVENTORY_KEY = "InGame.InspectMenu.Label.Avatar"
@@ -16,13 +18,20 @@ function PlayerNameLabel:render()
 	local viewMapping = self._context[view]
 	local playerName = self.props.playerName
 	local sizeX = viewMapping.AvatarHeadShotSize + (viewMapping.BorderPaddingSize * 2) + 10
+	local playerNameText
+
+	if FFlagInspectMenuProgressiveLoading and playerName == "" then
+		playerNameText = ""
+	else
+		playerNameText = RobloxTranslator:FormatByKeyForLocale(INVENTORY_KEY, locale, { PLAYER_NAME = playerName })
+	end
 
 	return Roact.createElement("TextLabel", {
 		Size = UDim2.new(1, -sizeX, 0, viewMapping.TopSizeY),
 		BackgroundTransparency = 1,
 		TextColor3 = Colors.White,
 		TextScaled = true,
-		Text = RobloxTranslator:FormatByKeyForLocale(INVENTORY_KEY, locale, { PLAYER_NAME = playerName }),
+		Text = playerNameText,
 		TextSize = 36,
 		Font = Enum.Font.GothamBlack,
 		TextXAlignment = Enum.TextXAlignment.Left,

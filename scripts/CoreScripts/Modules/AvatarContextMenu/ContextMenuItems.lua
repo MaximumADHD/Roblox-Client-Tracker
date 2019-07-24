@@ -24,6 +24,7 @@ local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local InspectMenuAnalytics = require(RobloxGui.Modules.InspectAndBuy.Services.Analytics)
 
 local FFlagUseRoactPlayerList = settings():GetFFlag("UseRoactPlayerList")
+local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
 
 local BlockingUtility
 if FFlagUseRoactPlayerList then
@@ -276,8 +277,12 @@ function ContextMenuItems:CreateInspectAndBuyButton()
 			return
 		end
 
-		inspectMenuAnalytics.reportOpenInspectMenu("avatarContextMenu")
-		GuiService:InspectPlayerFromUserId(self.SelectedPlayer.UserId)
+		if FFlagFixInspectMenuAnalytics then
+			GuiService:InspectPlayerFromUserIdWithCtx(self.SelectedPlayer.UserId, "avatarContextMenu")
+		else
+			inspectMenuAnalytics.reportOpenInspectMenu("avatarContextMenu")
+			GuiService:InspectPlayerFromUserId(self.SelectedPlayer.UserId)
+		end
 	end
 	local browseItemsButton = ContextMenuUtil:MakeStyledButton(
 		"View",

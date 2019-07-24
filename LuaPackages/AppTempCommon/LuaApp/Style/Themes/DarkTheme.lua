@@ -37,8 +37,8 @@ local theme = {
 		Transparency = 0,
 	},
 	UIMuted = {
-		Color = Colors.Black,
-		Transparency = 0.3, -- Alpha 0.7
+		Color = Colors.Obsidian,
+		Transparency = 0.2, -- Alpha 0.8
 	},
 	UIEmphasis = {
 		Color = Colors.White,
@@ -116,7 +116,7 @@ local theme = {
 	},
 	Overlay = {
 		Color = Colors.Black,
-		Transparency = 0.3, -- 0.7 Alpha
+		Transparency = 0.5, -- 0.5 Alpha
 	},
 	DropShadow = {
 		Color = Colors.Black,
@@ -133,7 +133,7 @@ local theme = {
 
 	OnlineStatus = {
 		Color = Colors.Green,
-		Transparency = 0.5, -- 0.5 Alpha
+		Transparency = 0,
 	},
 	OfflineStatus = {
 		Color = Colors.White,
@@ -146,6 +146,15 @@ local theme = {
 	},
 	Alert = {
 		Color = Colors.Red,
+		Transparency = 0,
+	},
+
+    Badge = {
+		Color = Colors.Flint,
+		Transparency = 0,
+	},
+	BadgeContent = {
+		Color = Colors.White,
 		Transparency = 0,
 	},
 }

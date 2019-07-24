@@ -5,6 +5,8 @@ local DFFlagUseEconomyPurchaseProductsEndPoint = settings():GetFFlag("UseEconomy
 local FFlagSetupEconomyPurchaseProductsEndPoint = settings():GetFFlag("SetupEconomyPurchaseProductsEndPoint")
 local usingNewPurchaseEndPoint = DFFlagUseEconomyPurchaseProductsEndPoint and FFlagSetupEconomyPurchaseProductsEndPoint
 
+local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
+
 local function performPurchase(network, infoType, productId, expectedPrice, requestId)
 	return network.performPurchase(infoType, productId, expectedPrice, requestId)
 		:andThen(function(result)
@@ -18,7 +20,8 @@ local function performPurchase(network, infoType, productId, expectedPrice, requ
 					Assets and Gamepasses use the new economy purchasing endpoint. Developer Products still use
 					the old marketplace/submitpurchase endpoint.
 				]]
-				if infoType == Enum.InfoType.Asset or infoType == Enum.InfoType.GamePass then
+				if infoType == Enum.InfoType.Asset or infoType == Enum.InfoType.GamePass or
+					(FFlagPerformPurchaseNewBundleInfoTypeEnabled and infoType == Enum.InfoType.Bundle) then
 					if result.purchased or result.reason == "AlreadyOwned" then
 						return Promise.resolve(result)
 					elseif result.reason == "EconomyDisabled" then

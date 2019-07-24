@@ -2,13 +2,18 @@ return function()
 	local Players = game:GetService("Players")
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+	local Rodux = require(CorePackages.Rodux)
+	local RoactRodux = require(CorePackages.RoactRodux)
+
+	local PlayerList = script.Parent.Parent.Parent
+	local Reducers = PlayerList.Reducers
+	local Reducer = require(Reducers.Reducer)
 
 	local Components = script.Parent.Parent
 	local Connection = Components.Connection
 	local LayoutValues = require(Connection.LayoutValues)
 	local LayoutValuesProvider = LayoutValues.Provider
 
-	local PlayerList = Components.Parent
 	local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 
 	local PlayerEntry = require(script.Parent.PlayerEntry)
@@ -31,16 +36,22 @@ return function()
 	end
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(false, false)
+		local store = Rodux.Store.new(Reducer)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
 		}, {
-			PlayerEntry = Roact.createElement(PlayerEntry, {
-				player = Players.LocalPlayer,
-				playerStats = {},
-				playerIconInfo = getFakeIconInfo(),
-				playerRelationship = getFakeRelationship(),
-				titlePlayerEntry = false,
-				gameStats = {},
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(false, false)
+			}, {
+				PlayerEntry = Roact.createElement(PlayerEntry, {
+					player = Players.LocalPlayer,
+					playerStats = {},
+					playerIconInfo = getFakeIconInfo(),
+					playerRelationship = getFakeRelationship(),
+					titlePlayerEntry = false,
+					gameStats = {},
+				})
 			})
 		})
 		local instance = Roact.mount(element)
@@ -48,16 +59,22 @@ return function()
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
-		local element = Roact.createElement(LayoutValuesProvider, {
-			layoutValues = CreateLayoutValues(true, false)
+		local store = Rodux.Store.new(Reducer)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
 		}, {
-			PlayerEntry = Roact.createElement(PlayerEntry, {
-				player = Players.LocalPlayer,
-				playerStats = {},
-				playerIconInfo = getFakeIconInfo(),
-				playerRelationship = getFakeRelationship(),
-				titlePlayerEntry = true,
-				gameStats = {},
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(true, false)
+			}, {
+				PlayerEntry = Roact.createElement(PlayerEntry, {
+					player = Players.LocalPlayer,
+					playerStats = {},
+					playerIconInfo = getFakeIconInfo(),
+					playerRelationship = getFakeRelationship(),
+					titlePlayerEntry = true,
+					gameStats = {},
+				})
 			})
 		})
 		local instance = Roact.mount(element)

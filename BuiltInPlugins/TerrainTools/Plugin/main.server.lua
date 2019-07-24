@@ -4,13 +4,13 @@ local i18nModule = require(script.Parent.Parent.Libs.Localization)
 
 i18nModule.SetLocalizationTable(script.Parent.Parent.Data.TerrainTranslations)
 
-local FFlagImportTerrain = settings():GetFFlag("ImportTerrain")
+local FFlagImportTerrainV2 = settings():GetFFlag("ImportTerrainV2")
 local FFlagTerrainClearButtonMove = settings():GetFFlag("TerrainClearButtonMove")
 local kToolbarButtonText = i18nModule.TranslateId("Studio.TerrainEditor.Main.ToolbarButton")
 
 local kMinWidthWidth = 249
 
-if FFlagImportTerrain or FFlagTerrainClearButtonMove then
+if FFlagImportTerrainV2 or FFlagTerrainClearButtonMove then
 	kMinWidthWidth = 289
 end
 
@@ -74,8 +74,3 @@ end
 
 -- Add the main panel.
 mainPanelModule.Initialize(plugin, pluginGui)
-
-
-
-
-

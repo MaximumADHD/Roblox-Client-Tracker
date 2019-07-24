@@ -12,6 +12,7 @@ local i18n = require(script.Parent.Parent.Libs.Localization)
 
 local ProgressFrame = require(script.Parent.ProgressFrame)
 local ImageSelector = require(script.Parent.ImageSelector)
+local AssetIdSelector = require(script.Parent.AssetIdSelector)
 local TabbableVector3Input = require(script.Parent.TabbableVector3Input)
 
 local coreGui = game:GetService('CoreGui')
@@ -19,6 +20,7 @@ local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local StudioService = game:GetService("StudioService")
 local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
 
 local FFlagTerrainToolMetrics = settings():GetFFlag("TerrainToolMetrics")
 
@@ -44,11 +46,12 @@ local progressFrame = nil
 local MIN_STUDS = 5
 local MAX_STUDS = 16384
 
+-- be sure to localize these strings when we move to Roact
 local MIN_STUDS_ERROR_STR = string.format("Input must be greater than %d studs.", MIN_STUDS - 1)
 local MAX_STUDS_ERROR_STR = string.format("Input can not exceed %d studs.", MAX_STUDS)
 local INVALID_INPUT_ERROR = "Input is not a valid number."
 
-local WARN_HEIGHTMAP_MISSING = "HeightMap required to begin importing Terrain"
+local WARN_HEIGHTMAP_MISSING = "Valid HeightMap required to begin importing Terrain"
 local WARN_INVALID_POS_INPUT = "Position has invalid input"
 local WARN_INVALID_SIZE_INPUT = "Size has invalid input."
 local WARN_SIZE_REQUIRED = "Size of region must be defined."
@@ -74,7 +77,7 @@ local LABEL_HEIGHT = 16
 local SECTION_PADDING = 12
 local PADDING = 4
 
-local IMAGE_SELECT_FRAME_SIZE = UDim2.new(1, 0, 0, 60)
+local IMAGE_SELECT_FRAME_SIZE = UDim2.new(1, 0, 0, 22)
 
 module.FirstTimeSetup = function(mouse, thePluginGui, theContentFrame)
 	mouse = theMouse
@@ -115,15 +118,15 @@ function MakeTerrainImporterFrame()
 
 	local mapSettingsFrame = MakeMapSettingsFrame()
 	mapSettingsFrame.Parent = verticallyScalingListFrame
-	mapSettingsFrame.LayoutOrder = 1
+	mapSettingsFrame.LayoutOrder = 2
 
 	local materialSettingsFrame = MakeMaterialSettingsFrame()
 	materialSettingsFrame.Parent = verticallyScalingListFrame
-	materialSettingsFrame.LayoutOrder = 2
+	materialSettingsFrame.LayoutOrder = 3
 
 	local importButtonFrame = MakeButtonsFrame()
 	importButtonFrame.Parent = verticallyScalingListFrame
-	importButtonFrame.LayoutOrder = 3
+	importButtonFrame.LayoutOrder = 4
 
 	return verticallyScalingListFrame
 end
@@ -143,21 +146,9 @@ function MakeMapSettingsFrame()
 	hackPadding.LayoutOrder = 1
 	hackPadding.Parent = contentFrame
 
-	local heightMapFrame = Instance.new("Frame")
-	heightMapFrame.Size = IMAGE_SELECT_FRAME_SIZE
-	heightMapFrame.BackgroundTransparency = 1
-	heightMapFrame.LayoutOrder = 2
-	heightMapFrame.Parent = contentFrame
-
-	local heightMapLabel = GuiUtilities.MakeStandardPropertyLabel("Heightmap")
-	heightMapLabel.TextYAlignment = Enum.TextYAlignment.Top
-	heightMapLabel.Parent = heightMapFrame
-
-	targetHeightMap = ImageSelector.new(supportedFileType)
-	targetHeightMap:getFrame().Position = UDim2.new(0, SECOND_COLUMN_OFFSET, 0, 0)
-	targetHeightMap:getFrame().Parent = heightMapFrame
-
-	local initialFrameHeight = TEXTBOX_HEIGHT * 3 + PADDING * 2
+	targetHeightMap = AssetIdSelector.new("Heightmap")
+	targetHeightMap:getFrame().LayoutOrder = 2
+	targetHeightMap:getFrame().Parent = contentFrame
 
 	regionPosition = TabbableVector3Input.new("Position", {0, 0, 0})
 	regionPosition:GetFrame().LayoutOrder = 3
@@ -204,7 +195,7 @@ function MakeMapSettingsFrame()
 
 	local hackPadding2 = Instance.new("Frame")
 	hackPadding2.BorderSizePixel = 0
-	hackPadding2.LayoutOrder = 5
+	hackPadding2.LayoutOrder = 6
 	hackPadding2.Parent = contentFrame
 
 	local sectionUIListLayout = Instance.new("UIListLayout")
@@ -277,15 +268,10 @@ function MakeMaterialSettingsFrame()
 		toggleButton.Image = useColorMap and toggleOnImage or toggleOffImage
 	end)
 
-	local colorMatFrame = Instance.new("Frame")
-	colorMatFrame.Size = IMAGE_SELECT_FRAME_SIZE
-	colorMatFrame.BackgroundTransparency = 1
-	colorMatFrame.LayoutOrder = 3
-	colorMatFrame.Parent = materialFrame
-
-	targetColorMap = ImageSelector.new(supportedFileType)
+	targetColorMap = AssetIdSelector.new()
 	targetColorMap:getFrame().Position = UDim2.new(0, SECOND_COLUMN_OFFSET, 0, 0)
-	targetColorMap:getFrame().Parent = colorMatFrame
+	targetColorMap:getFrame().LayoutOrder = 4
+	targetColorMap:getFrame().Parent = materialFrame
 
 	targetColorMap:setImageSelectedCallback(function()
 		useColorMap = true
@@ -294,7 +280,7 @@ function MakeMaterialSettingsFrame()
 
 	local hackPadding2 = Instance.new("Frame")
 	hackPadding2.BorderSizePixel = 0
-	hackPadding2.LayoutOrder = 4
+	hackPadding2.LayoutOrder = 5
 	hackPadding2.Parent = materialFrame
 
 	local sectionUIListLayout = Instance.new("UIListLayout")
@@ -323,10 +309,13 @@ function MakeButtonsFrame()
 end
 
 function importTerrain()
-	if targetHeightMap and not targetHeightMap:imageSelected() then
+	local heightValidated = targetHeightMap:isValidated()
+
+	if not heightValidated then
 		warn(WARN_HEIGHTMAP_MISSING)
 		return
 	end
+
 	if posHasError[1] or posHasError[2] or posHasError[3] then
 		warn(WARN_INVALID_POS_INPUT)
 		return
@@ -341,25 +330,28 @@ function importTerrain()
 	if not generating then
 		generating = true
 
+
 		local size = regionSize:GetVector3()
+
+		-- center represents the center of the bottom plane
 		local center = regionPosition:GetVector3() or Vector3.new(0, 0, 0)
-		local region
+		center = center + Vector3.new(0, size.Y/2, 0)
+
 		if size then
 			-- expect Studs
 			local offset = size / 2
 			local regionStart = (center - offset)
 			local regionEnd = (center + offset)
-			region = Region3.new(regionStart, regionEnd)
+			local region = Region3.new(regionStart, regionEnd)
 			region = region:ExpandToGrid(4)
 
-			local binary = targetHeightMap:getBinary()
-			local binary2 = nil
-			if useColorMap and targetColorMap and targetColorMap:imageSelected()then
-				binary2 = targetColorMap:getBinary()
-			end
 			local status, err = pcall(function()
-				-- note this function only starts the generation
-				terrain:ImportHeightMap(binary, binary2, region)
+				local heightUrl = targetHeightMap:getAssetUrl()
+				local colorUrl = nil
+				if targetColorMap:isValidated() then
+					colorUrl = targetColorMap:getAssetUrl()
+				end
+				terrain:ImportHeightMap(heightUrl, colorUrl, region)
 			end)
 
 			if FFlagTerrainToolMetrics then

@@ -6,8 +6,10 @@ return function()
 	local MockNetwork = require(InspectAndBuyFolder.Test.MockNetwork)
 	local Network = require(InspectAndBuyFolder.Services.Network)
 	local Thunk = require(InspectAndBuyFolder.Thunk)
-	local MockId = require(InspectAndBuyFolder.MockId)
 	local GetAssetsFromHumanoidDescription = require(script.Parent.GetAssetsFromHumanoidDescription)
+
+	local FFlagInspectMenuProgressiveLoading = settings():GetFFlag("InspectMenuProgressiveLoading")
+	local FFlagInspectMenuEnableEmotes = settings():GetFFlag("InspectMenuEnableEmotes")
 
 	local function countKeys(t)
 		local count = 0
@@ -63,10 +65,26 @@ return function()
 		expect(countKeys(state.assets)).to.equal(0)
 	end)
 
+	if FFlagInspectMenuProgressiveLoading and FFlagInspectMenuEnableEmotes then
+		it("should correctly add emotes from a humanoid description", function()
+			local store = Rodux.Store.new(Reducer)
+			local mockHumanoidDescription = MockNetwork.GetMockHumanoidDescriptionEmotes()
+			local thunk = GetAssetsFromHumanoidDescription(mockHumanoidDescription)
+
+			Thunk.test(thunk, store, {
+				[Network] = MockNetwork.new(),
+			})
+
+			local state = store:getState()
+
+			expect(countKeys(state.assets)).to.equal(3)
+		end)
+	end
+
 	it("should catch network errors that happen and still run", function()
 		local store = Rodux.Store.new(Reducer)
-		local mockPlayerId = MockId()
-		local thunk = GetAssetsFromHumanoidDescription(mockPlayerId)
+		local mockHumanoidDescription = MockNetwork.GetMockHumanoidDescriptionEmpty()
+		local thunk = GetAssetsFromHumanoidDescription(mockHumanoidDescription, false)
 
 		Thunk.test(thunk, store, {
 			[Network] = MockNetwork.new(true),

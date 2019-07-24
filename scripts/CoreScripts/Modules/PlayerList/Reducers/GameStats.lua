@@ -33,7 +33,7 @@ local function GameStats(state, action)
 			end
 		end
 		gameStatAddIdCounter = gameStatAddIdCounter + 1
-		newState = Cryo.List.join(state, {
+		newState = Cryo.List.join(newState, {
 			{
 				name = action.statName,
 				text = state.text,

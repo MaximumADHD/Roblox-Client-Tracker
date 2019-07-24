@@ -71,6 +71,14 @@ MOCK_HUMANOID_DESCRIPTION.BodyTypeScale = 0.3
 MOCK_HUMANOID_DESCRIPTION.LeftLegColor = Color3.new(0, 0, 0)
 MOCK_HUMANOID_DESCRIPTION.GraphicTShirt = 4
 
+local MOCK_HUMANOID_DESCRIPTION_EMOTES = Instance.new("HumanoidDescription")
+local emoteTable = {
+	["Wave"] = { 1 },
+	["Laugh"] = { 2 },
+	["Cheer"] = { 3 },
+}
+MOCK_HUMANOID_DESCRIPTION_EMOTES:SetEmotes(emoteTable)
+
 local MOCK_HUMANOID_DESCRIPTION_EMPTY = Instance.new("HumanoidDescription")
 
 local MOCK_PLAYER_NAME = "TEST"
@@ -161,6 +169,10 @@ local function getEconomyProductInfo(productId)
 	return Promise.resolve(MOCK_ECONOMY_PRODUCT_INFO)
 end
 
+local function getModelFromUserId(userId)
+	return Promise.resolve()
+end
+
 local function networkFailure(id, infoType)
 	return Promise.reject("Failed to access network service")
 end
@@ -185,6 +197,7 @@ function MockNetwork.new(shouldFail)
 			getFavoriteForAsset = networkFailure,
 			getFavoriteForBundle = networkFailure,
 			getEconomyProductInfo = networkFailure,
+			getModelFromUserId = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -200,6 +213,7 @@ function MockNetwork.new(shouldFail)
 			getFavoriteForAsset = getFavoriteForAsset,
 			getFavoriteForBundle = getFavoriteForBundle,
 			getEconomyProductInfo = getEconomyProductInfo,
+			getModelFromUserId = getModelFromUserId,
 		}
 	end
 
@@ -246,6 +260,10 @@ end
 
 function MockNetwork.GetEconomyProductInfo()
 	return MOCK_ECONOMY_PRODUCT_INFO
+end
+
+function MockNetwork.GetMockHumanoidDescriptionEmotes()
+	return MOCK_HUMANOID_DESCRIPTION_EMOTES
 end
 
 return MockNetwork

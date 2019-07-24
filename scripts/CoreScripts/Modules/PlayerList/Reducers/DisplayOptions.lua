@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
+local GuiService = game:GetService("GuiService")
 
 local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
@@ -12,6 +13,7 @@ local SetTempHideKey = require(Actions.SetTempHideKey)
 local SetPerformanceStatsVisible = require(Actions.SetPerformanceStatsVisible)
 local SetSmallTouchDevice = require(Actions.SetSmallTouchDevice)
 local SetTenFootInterface = require(Actions.SetTenFootInterface)
+local SetInspectMenuEnabled = require(Actions.SetInspectMenuEnabled)
 
 local initialDisplayOptions = {
 	setVisible = true, --If the user wants the leaderboard visible or not
@@ -19,6 +21,7 @@ local initialDisplayOptions = {
 	isSmallTouchDevice = false,
 	performanceStatsVisible = false,
 	vrEnabled = VRService.VREnabled,
+	inspectMenuEnabled = GuiService:GetInspectMenuEnabled(),
 	playerlistCoreGuiEnabled = true,
 	topbarEnabled = true,
 	isTenFootInterface = false,
@@ -84,6 +87,12 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			isTenFootInterface = action.isTenFootInterface,
 		}))
+	end,
+
+	[SetInspectMenuEnabled.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			inspectMenuEnabled = action.enabled,
+		})
 	end,
 })
 

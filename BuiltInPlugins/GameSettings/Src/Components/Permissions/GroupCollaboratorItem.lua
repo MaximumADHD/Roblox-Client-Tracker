@@ -76,12 +76,24 @@ local function getActionForRoleset(props, rolesetProps)
 end
 
 local function getRolesetItems(props, localized)
+	if next(props.Items) == nil then return {} end
+
 	local permissions = Cryo.List.join(
 		{Cryo.Dictionary.join({Key = PermissionsConstants.NoAccessKey, Display = localized.AccessPermissions.ActionDropdown.NoAccessLabel, Description = localized.AccessPermissions.ActionDropdown.NoAccessDescription})},
 		props.Items
 	)
 	
 	return permissions
+end
+
+local function permissionLocked(currentPermission, assignablePermissions)
+	for _,v in pairs(assignablePermissions) do
+		if v.Key == currentPermission then
+			return false
+		end
+	end
+
+	return true
 end
 
 local GroupCollaboratorItem = Roact.PureComponent:extend("GroupCollaboratorItem")
@@ -135,6 +147,7 @@ function GroupCollaboratorItem:render()
 			end
 			table.sort(rolesets, function(a,b) return b.Rank < a.Rank end)
 			
+			local rolesetItems = getRolesetItems(props, localized)
 			local collaboratorItemOffset = props.Enabled and arrowSize + arrowPadding or 0
 			for i,rolesetProps in pairs(rolesets) do
 				local action = getActionForRoleset(props, rolesetProps)
@@ -142,8 +155,9 @@ function GroupCollaboratorItem:render()
 					sameAction = action
 				end
 
+				local lockedPermission = permissionLocked(action, rolesetItems)
 				sameAction = sameAction == action and sameAction or false
-				anyLocked = rolesetProps.LockedTo and true or anyLocked
+				anyLocked = (lockedPermission or rolesetProps.LockedTo) and true or anyLocked
 				
 				local collaboratorItem = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
@@ -167,7 +181,7 @@ function GroupCollaboratorItem:render()
 							CollaboratorIcon = "",
 							
 							Action = rolesetProps.LockedTo or getLabelForAction(localized, action),
-							Items = rolesetProps.LockedTo and {} or getRolesetItems(props, localized),
+							Items = (lockedPermission or rolesetProps.LockedTo) and {} or rolesetItems,
 							
 							HideLastSeparator = i ~= #rolesets,
 							Removable = false,

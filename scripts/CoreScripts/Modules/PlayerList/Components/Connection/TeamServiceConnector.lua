@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local Teams = game:GetService("Teams")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -16,20 +15,29 @@ local RemoveTeam = require(PlayerList.Actions.RemoveTeam)
 
 local EventConnection = require(script.Parent.EventConnection)
 
-local function TeamServiceConnector(props)
+local TeamServiceConnector = Roact.PureComponent:extend("TeamServiceConnector")
+
+function TeamServiceConnector:init()
+	-- We use FindService here so that we don't cause the Teams to be added to the explorer in Studio.
+	self.state = {
+		teams = game:FindService("Teams")
+	}
+end
+
+function TeamServiceConnector:render()
 	local teamChangedConnections = {}
 	local playerAddedConnections = {}
 	local playerRemovedConnections = {}
 
-	for i, team in ipairs(props.teams) do
+	for i, team in ipairs(self.props.teams) do
 		teamChangedConnections[i] = Roact.createElement(EventConnection, {
 			event = team.Changed,
 			callback = function(property)
 				if property == "Name" then
 					-- TODO: Figure out how to do team name translations
-					props.setTeamName(team)
+					self.props.setTeamName(team)
 				elseif property == "TeamColor" then
-					props.setTeamColor(team)
+					self.props.setTeamColor(team)
 				end
 			end,
 		})
@@ -37,17 +45,19 @@ local function TeamServiceConnector(props)
 		playerAddedConnections[i] = Roact.createElement(EventConnection, {
 			event = team.PlayerAdded,
 			callback = function(player)
-				props.addPlayerToTeam(player, team)
+				self.props.addPlayerToTeam(player, team)
 			end,
 		})
 
 		playerRemovedConnections[i] = Roact.createElement(EventConnection, {
 			event = team.PlayerRemoved,
 			callback = function(player)
-				props.removePlayerFromTeam(player, team)
+				self.props.removePlayerFromTeam(player, team)
 			end,
 		})
 	end
+
+	local teams = self.state.teams
 
 	-- TODO: Clean this up when Fragments are released.
 	return Roact.createElement("Folder", {}, {
@@ -55,23 +65,34 @@ local function TeamServiceConnector(props)
 		PlayerAddedConnections = Roact.createElement("Folder", {}, playerAddedConnections),
 		PlayerRemovedConnections = Roact.createElement("Folder", {}, playerRemovedConnections),
 
-		TeamAddedConnection = Roact.createElement(EventConnection, {
-			event = Teams.ChildAdded,
+		ServiceAddedConnection = not teams and Roact.createElement(EventConnection, {
+			event = game.ChildAdded,
+			callback = function(child)
+				if child:IsA("Teams") then
+					self:setState({
+						teams = child
+					})
+				end
+			end,
+		}),
+
+		TeamAddedConnection = teams and Roact.createElement(EventConnection, {
+			event = teams.ChildAdded,
 			callback = function(team)
 				if team:IsA("Team") then
-					props.addTeam(team)
+					self.props.addTeam(team)
 					for _, player in ipairs(team:GetPlayers()) do
-						props.addPlayerToTeam(player, team)
+						self.props.addPlayerToTeam(player, team)
 					end
 				end
 			end,
 		}),
 
-		TeamRemovedConnection = Roact.createElement(EventConnection, {
-			event = Teams.ChildRemoved,
+		TeamRemovedConnection = teams and Roact.createElement(EventConnection, {
+			event = teams.ChildRemoved,
 			callback = function(team)
 				if team:IsA("Team") then
-					props.removeTeam(team)
+					self.props.removeTeam(team)
 				end
 			end,
 		}),

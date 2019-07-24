@@ -9,6 +9,7 @@ local RemovePlayer = require(Actions.RemovePlayer)
 local SetPlayerIsBlocked = require(Actions.SetPlayerIsBlocked)
 local SetPlayerFollowRelationship = require(Actions.SetPlayerFollowRelationship)
 local SetPlayerFriendStatus = require(Actions.SetPlayerFriendStatus)
+local SetPlayerIsFollowing = require(Actions.SetPlayerIsFollowing)
 
 local PlayerRelationship = Rodux.createReducer({}, {
 	[AddPlayer.name] = function(state, action)
@@ -46,6 +47,17 @@ local PlayerRelationship = Rodux.createReducer({}, {
 				friendStatus = state[action.userId].friendStatus,
 				isFollowing = action.isFollowing,
 				isFollower = action.isFollower,
+			},
+		})
+	end,
+
+	[SetPlayerIsFollowing.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			[action.userId] = {
+				isBlocked = state[action.userId].isBlocked,
+				friendStatus = state[action.userId].friendStatus,
+				isFollowing = action.isFollowing,
+				isFollower = state[action.userId].isFollower,
 			},
 		})
 	end,

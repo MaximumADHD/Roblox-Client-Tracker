@@ -17,6 +17,8 @@ local getAccountInfo = require(script.Parent.Parent.Network.getAccountInfo)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
+local FFlagPerformPurchaseNewBundleInfoTypeEnabled = settings():GetFFlag("PerformPurchaseNewBundleInfoTypeEnabled")
+
 local requiredServices = {
 	Network,
 	ExternalSettings,
@@ -34,11 +36,19 @@ local function initiateBundlePurchase(bundleId)
 			return nil
 		end
 
-		--[[
-			Bundles go through the Enum.InfoType.Asset MarketplaceService:PerformPurchase()
-			code path.
-		]]
-		store:dispatch(SetProduct(bundleId, Enum.InfoType.Asset, false))
+		if FFlagPerformPurchaseNewBundleInfoTypeEnabled then
+			--[[
+				Bundles go through the Enum.InfoType.Bundle MarketplaceService:PerformPurchase()
+				code path.
+			]]
+			store:dispatch(SetProduct(bundleId, Enum.InfoType.Bundle, false))
+		else
+			--[[
+				Bundles go through the Enum.InfoType.Asset MarketplaceService:PerformPurchase()
+				code path.
+			]]
+			store:dispatch(SetProduct(bundleId, Enum.InfoType.Asset, false))
+		end
 
 		local isStudio = externalSettings.isStudio()
 

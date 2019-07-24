@@ -231,6 +231,23 @@ local function getEconomyProductInfo(productId)
 	return createYieldingPromise(options, true)
 end
 
+--[[
+	Get a character model from a userId.
+]]
+local function getModelFromUserId(userId)
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			local model = Players:CreateHumanoidModelFromUserId(userId)
+
+			if model then
+				resolve(model)
+			else
+				reject("Failure in getModelFromUserId")
+			end
+		end)
+	end)
+end
+
 local Network = {}
 
 function Network.new()
@@ -248,6 +265,7 @@ function Network.new()
 		deleteFavoriteForAsset = deleteFavoriteForAsset,
 		createFavoriteForBundle = createFavoriteForBundle,
 		deleteFavoriteForBundle = deleteFavoriteForBundle,
+		getModelFromUserId = getModelFromUserId,
 	}
 
 	setmetatable(networkService, {

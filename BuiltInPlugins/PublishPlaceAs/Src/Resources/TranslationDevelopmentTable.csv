@@ -1,0 +1,11 @@
+Key,Source,Context,en-us
+Studio.PublishPlaceAs.General.PublishPlace, , ,Publish Place
+Studio.PublishPlaceAs.General.ResetGames, , ,Reset Games
+Studio.PublishPlaceAs.General.LoadGames, , ,Load Games
+Studio.PublishPlaceAs.General.NoGamesAvailable, , ,No Games Available
+Studio.PublishPlaceAs.General.LoadingGames, , ,Loading Games...
+Studio.PublishPlaceAs.General.MenuItemBasicInfo, , ,Basic Info
+Studio.PublishPlaceAs.General.MenuItemPermissions, , ,Permissions
+Studio.PublishPlaceAs.General.ButtonUpdateExistingGame, , ,Update existing game...
+Studio.PublishPlaceAs.General.ButtonSave, , ,Save
+Studio.PublishPlaceAs.General.ButtonCancel, , ,Cancel

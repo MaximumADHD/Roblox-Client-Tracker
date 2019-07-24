@@ -126,7 +126,7 @@ end
 local function CollaboratorItem(props)
 	props.Items = props.Items or {}
 
-	local removable = props.Removable and not props.IsLoading
+	local removable = props.Removable and #props.Items > 0 and not props.IsLoading
 	
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {

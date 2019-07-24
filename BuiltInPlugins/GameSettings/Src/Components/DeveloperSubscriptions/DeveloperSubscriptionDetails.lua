@@ -151,7 +151,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 		}),
 
 		DescriptionFrame = Roact.createElement(TitledFrame, Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			Title = localized.DevSubs.Title,
+			Title = localized.DevSubs.Description,
 			LayoutOrder = 2,
 			MaxHeight = 160,
 		}), {
@@ -168,7 +168,7 @@ function DeveloperSubscriptionDetails:renderConsolidated(theme, localized)
 
 		ImageWidget = Roact.createElement(GameIconWidget, {
 			Title = localized.DevSubs.Image,
-			Enabled = true,
+			Enabled = developerSubscription.Image ~= nil,
 			Icon = developerSubscription.Image,
 			LayoutOrder = 3,
 			TutorialEnabled = false,

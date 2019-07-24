@@ -36,6 +36,7 @@
         <addaction name="shortcutHelpAction"/>
         <addaction name="fastLogDumpAction"/>
         <addaction name="managePluginsAction"/>
+        <addaction fflag ="StudioAddResetDefaultInstanceProperties" name="resetDefaultInstancePropertiesAction"/>
         <addaction fflag ="DebugFastFlagEditor" name="flagEditorAction"/>
       </submenu>
       <addseparator />
@@ -184,7 +185,7 @@
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="disableDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
         <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix=" studs"/>
+        <addspinbox type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
       <Group name="UI" text="Studio.App.RBXMainWindow.UI" controlsCentering="true">
         <addaction name="RobloxUIEditor" instancename="UIEditor" style="textundericon" text="Studio.App.RBXMainWindow.UIEditor" tooltip="Studio.App.RBXMainWindow.UIEditorVOne" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" width="32" height="32" />

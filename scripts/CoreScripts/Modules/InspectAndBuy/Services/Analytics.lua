@@ -7,11 +7,15 @@ local Analytics = {}
 
 local INSPECT_TAG = "inspectAndBuy"
 
-function Analytics.new()
+local FFlagFixInspectMenuAnalytics = settings():GetFFlag("FixInspectMenuAnalytics")
+
+function Analytics.new(inspecteeUid, ctx)
 	Analytics.eventStream = EventStream.new()
 	Analytics.pid = tostring(game.PlaceId)
 	Analytics.uid = tostring(Players.LocalPlayer.UserId)
 	Analytics.feature = "inspectAndBuy"
+	Analytics.inspecteeUid = inspecteeUid
+	Analytics.ctx = ctx
 
 	local service = {}
 
@@ -21,27 +25,25 @@ function Analytics.new()
 		end
 	})
 
-	function service.reportOpenInspectMenu(ctx)
+	function service.reportOpenInspectMenu()
 		local eventName = "inspectUser"
 		local additionalFields = {
-			ctx = ctx,
 		}
 
 		Analytics:report(eventName, additionalFields)
 	end
 
-	function service.reportTryOnButtonClicked(itemType, itemID, ctx)
+	function service.reportTryOnButtonClicked(itemType, itemID)
 		local eventName = "tryItem"
 		local additionalFields = {
 			itemType = itemType,
 			itemID = itemID,
-			ctx = ctx,
 		}
 
 		Analytics:report(eventName, additionalFields)
 	end
 
-	function service.reportFavoriteItem(itemType, itemID, favorite, success, failureReason, favoriteCount, ctx)
+	function service.reportFavoriteItem(itemType, itemID, favorite, success, failureReason, favoriteCount)
 		local eventName = "favoriteItem"
 		local additionalFields = {
 			itemType = itemType,
@@ -50,29 +52,40 @@ function Analytics.new()
 			success = success,
 			failureReason = failureReason,
 			favoriteCount = favoriteCount,
-			ctx = ctx,
 		}
 
 		Analytics:report(eventName, additionalFields)
 	end
 
-	function service.reportPurchaseAttempt(itemType, itemID, ctx)
+	function service.reportPurchaseAttempt(itemType, itemID)
 		local eventName = "purchaseAttemptItem"
 		local additionalFields = {
 			itemType = itemType,
 			itemID = itemID,
-			ctx = ctx,
 		}
 
 		Analytics:report(eventName, additionalFields)
 	end
 
-	function service.reportPurchaseSuccess(itemType, itemID, ctx)
+	function service.reportPurchaseSuccess(itemType, itemID)
 		local eventName = "purchaseSuccessItem"
 		local additionalFields = {
 			itemType = itemType,
 			itemID = itemID,
-			ctx = ctx,
+		}
+
+		Analytics:report(eventName, additionalFields)
+	end
+
+	--[[
+		itemType: Bundle/Asset
+		itemID: BundleId/AssetId
+	]]
+	function service.reportItemDetailPageOpened(itemType, itemID)
+		local eventName = "itemDetailView"
+		local additionalFields = {
+			itemType = itemType,
+			itemID = itemID,
 		}
 
 		Analytics:report(eventName, additionalFields)
@@ -85,11 +98,17 @@ function Analytics:report(eventName, additionalFields)
 	local requiredFields = {
 		pid = Analytics.pid,
 		uid = Analytics.uid,
+		inspecteeUid = Analytics.inspecteeUid,
 		feature = INSPECT_TAG,
 	}
 
 	local fields = Cryo.Dictionary.join(requiredFields, additionalFields)
-	Analytics.eventStream:setRBXEventStream(INSPECT_TAG, eventName, fields)
+
+	if FFlagFixInspectMenuAnalytics then
+		Analytics.eventStream:setRBXEventStream(Analytics.ctx, eventName, fields)
+	else
+		Analytics.eventStream:setRBXEventStream(INSPECT_TAG, eventName, fields)
+	end
 end
 
 return Analytics

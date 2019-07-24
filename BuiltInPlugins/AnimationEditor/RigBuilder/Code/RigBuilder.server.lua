@@ -140,14 +140,14 @@ local function openGui()
 		sl.R6.BackgroundTransparency = 1
 		sl.Slider:TweenPosition(UDim2.new(0, 0, 1, -3), "Out", "Quad", 0.15)
 		mode = "R15"
-		rebuildOptions(gui, guiFrameSize, optionsFrameSize)
+		rebuildOptions(guiFrameSize, optionsFrameSize)
 	end)
 	sl.R6.MouseButton1Click:connect(function()
 		sl.R15.BackgroundTransparency = 1
 		sl.R6.BackgroundTransparency = 0
 		sl.Slider:TweenPosition(UDim2.new(0.5, 0, 1, -3), "Out", "Quad", 0.15)
 		mode = "R6"
-		rebuildOptions(gui, guiFrameSize, optionsFrameSize)
+		rebuildOptions(guiFrameSize, optionsFrameSize)
 	end)
 	gui.Frame.Close.MouseButton1Click:connect(closeGui)
 	gui.Frame.Options.CanvasSize = UDim2.new(0, 0, 0, (gui.Frame.ListTemplate.Size.Y.Offset + 5) * (#options-1))

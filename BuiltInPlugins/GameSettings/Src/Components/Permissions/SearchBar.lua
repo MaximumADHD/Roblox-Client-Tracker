@@ -155,10 +155,16 @@ function SearchBar:init()
 		end
 	end
 
-	self.onTextBoxFocused = function(rbx)
+	self.onTextBoxFocused = function(textboxEnabled, rbx)
+		local textBox = self.textBoxRef.current
+
 		self:setState({
 			isFocused = true,
 		})
+
+		if not textboxEnabled then
+			textBox:ReleaseFocus()
+		end
 
 		if next(self.state.mergedItems) ~= nil then
 			self.showDropdown()
@@ -289,12 +295,12 @@ function SearchBar:render()
 
 		local text = state.text
 
-		local isFocused = state.isFocused
-		local isContainerHovered = state.isContainerHovered
+		local isFocused = state.isFocused and props.Enabled
+		local isContainerHovered = state.isContainerHovered and props.Enabled
 		local isClearButtonHovered = state.isClearButtonHovered
 
-		local selectHovering = self.state.isClearButtonHovered or self.state.isKeyHovered
-		local textHovering = self.state.isContainerHovered
+		local selectHovering = (self.state.isClearButtonHovered or self.state.isKeyHovered) and props.Enabled
+		local textHovering = self.state.isContainerHovered and props.Enabled
 		if selectHovering then
 			getMouse(self).setHoverIcon("PointingHand", selectHovering)
 		elseif textHovering then
@@ -330,6 +336,7 @@ function SearchBar:render()
 		end
 
 		local defaultText = props.DefaultText
+		local errorText = props.ErrorText
 		local noResultsText = props.NoResultsText
 
 		local textBoxOffset = text ~= "" and -SEARCH_BAR_HEIGHT * 2 or -SEARCH_BAR_HEIGHT
@@ -406,15 +413,16 @@ function SearchBar:render()
 					ClearTextOnFocus = false,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Text = text,
+					TextEditable = props.Enabled,
 
-					PlaceholderText = defaultText,
-					PlaceholderColor3 = searchBarTheme.placeholderText,
+					PlaceholderText = errorText or defaultText,
+					PlaceholderColor3 = errorText and theme.warningColor or searchBarTheme.placeholderText,
 
 					-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
 					[Roact.Ref] = self.textBoxRef,
 
 					[Roact.Change.Text] = self.onTextChanged,
-					[Roact.Event.Focused] = self.onTextBoxFocused,
+					[Roact.Event.Focused] = function(...) self.onTextBoxFocused(props.Enabled, ...) end,
 					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
 				}) , {
 					TextPadding = Roact.createElement("UIPadding", {

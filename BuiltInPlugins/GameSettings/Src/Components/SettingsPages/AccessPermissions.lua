@@ -142,6 +142,7 @@ local function displayContents(page, localized, theme)
 			
 			StudioUserId = props.StudioUserId,
 			GroupOwnerUserId = props.GroupOwnerUserId,
+			CanManage = props.CanManage,
 			
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,
@@ -184,6 +185,7 @@ local function displayContents(page, localized, theme)
 			GroupOwnerUserId = props.GroupOwnerUserId,
 			OwnerId = props.OwnerId,
 			OwnerType = props.OwnerType,
+			CanManage = props.CanManage,
 
 			GroupMetadata = props.GroupMetadata,
 			Permissions = props.Permissions,

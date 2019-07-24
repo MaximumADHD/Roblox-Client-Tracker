@@ -51,9 +51,10 @@ local function isStudioUserOwner(props)
 end
 
 local function getGroupCollaboratorPermissions(props, localized)
+	if not props.CanManage then return {} end
+
 	local permissions = {
-		-- TODO (awarwick) 6/24/2019 disabled until backend works with Play
-		--{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
+		{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
@@ -68,9 +69,10 @@ local function getGroupCollaboratorPermissions(props, localized)
 end
 
 local function getUserCollaboratorPermissions(props, localized)
+	if not props.CanManage then return {} end
+
 	local permissions = {
-		-- TODO (awarwick) 6/24/2019 disabled until backend works with Play
-		--{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
+		{Key = PermissionsConstants.PlayKey, Display = localized.AccessPermissions.ActionDropdown.PlayLabel, Description = localized.AccessPermissions.ActionDropdown.PlayDescription},
 		{Key = PermissionsConstants.EditKey, Display = localized.AccessPermissions.ActionDropdown.EditLabel, Description = localized.AccessPermissions.ActionDropdown.EditDescription},
 	}
 	
@@ -82,6 +84,16 @@ local function getUserCollaboratorPermissions(props, localized)
 	end
 	
 	return permissions
+end
+
+local function permissionLocked(currentPermission, assignablePermissions)
+	for _,v in pairs(assignablePermissions) do
+		if v.Key == currentPermission then
+			return false
+		end
+	end
+
+	return true
 end
 
 local function getLabelForAction(localized, action)
@@ -197,6 +209,8 @@ function CollaboratorsWidget:render()
 			
 			for i,user in pairs(users) do
 				local separatorProvidedByNextElement = i ~= #users
+				local lockedPermission = permissionLocked(user.Action, userAssignablePermissions)
+
 				userCollaborators["User"..i] = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
@@ -216,7 +230,7 @@ function CollaboratorsWidget:render()
 						CollaboratorIcon = thumbnailLoader.getThumbnail(PermissionsConstants.UserSubjectKey, user.Id),
 						UseMask = true,
 
-						Items = userAssignablePermissions,
+						Items = lockedPermission and {} or userAssignablePermissions,
 						Action = getLabelForAction(localized, user.Action),
 
 						Removable = true,

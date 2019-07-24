@@ -10,6 +10,8 @@ local TeamServiceConnector = require(script.Parent.TeamServiceConnector)
 local LeaderstatsConnector = require(script.Parent.LeaderstatsConnector)
 local CoreGuiConnector = require(script.Parent.CoreGuiConnector)
 local SocialConnector = require(script.Parent.SocialConnector)
+local GuiServiceConnector = require(script.Parent.GuiServiceConnector)
+local UserInputServiceConnector = require(script.Parent.UserInputServiceConnector)
 
 local function EventConnections()
 	-- TODO: Clean this up when Fragments are released.
@@ -19,6 +21,8 @@ local function EventConnections()
 		LeaderstatsConnector = Roact.createElement(LeaderstatsConnector),
 		CoreGuiConnector = Roact.createElement(CoreGuiConnector),
 		SocialConnector = Roact.createElement(SocialConnector),
+		GuiServiceConnector = Roact.createElement(GuiServiceConnector),
+		UserInputServiceConnector = Roact.createElement(UserInputServiceConnector),
 	})
 end
 

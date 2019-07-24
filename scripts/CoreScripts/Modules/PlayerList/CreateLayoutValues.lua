@@ -11,8 +11,13 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.ContainerSize = UDim2.new(0, 1000, 0, 720)
 		LayoutValues.AnchorPoint = Vector2.new(0.5, 0.5)
 
+		--No PlayerDropDown on tenfoot
+		LayoutValues.PlayerDropDownSizeX = 0
+
 		LayoutValues.PlayerScrollListPosition = UDim2.new(0, 0, 0, playerEntrySizeY + entryPadding)
 		LayoutValues.PlayerScrollListSize = UDim2.new(1, 19, 1, 0)
+		LayoutValues.PlayerScrollListInnerFramePosition = UDim2.new(0, 0, 0, 0)
+		LayoutValues.PlayerScrollListInnerFrameSize = UDim2.new(1, 0, 1, 0)
 
 		LayoutValues.EntrySizeX = 350
 		LayoutValues.PlayerEntrySizeY = playerEntrySizeY
@@ -37,6 +42,8 @@ return function(isTenFoot, isSmallTouchScreen)
 		LayoutValues.ContainerPosition = UDim2.new(1, 0, 0, 2)
 		LayoutValues.ContainerSize = UDim2.new(0, 170, 0.5, 0)
 		LayoutValues.AnchorPoint = Vector2.new(1, 0)
+
+		LayoutValues.PlayerDropDownSizeX = 150
 
 		LayoutValues.PlayerScrollListPosition = UDim2.new(0, 0, 0, 0)
 		LayoutValues.PlayerScrollListSize = UDim2.new(1, -1, 1, 0)
@@ -93,6 +100,8 @@ return function(isTenFoot, isSmallTouchScreen)
 	LayoutValues.TextSelectedColor = Color3.fromRGB(19, 19, 19)
 	LayoutValues.IconUnSelectedColor = Color3.fromRGB(255, 255, 255)
 
+	LayoutValues.SelectedEntryColor = Color3.fromRGB(0, 255, 255)
+
 	LayoutValues.ShadowImage = "rbxasset://textures/ui/PlayerList/TileShadowMissingTop.png"
 	LayoutValues.ShadowSize = 5
 	LayoutValues.ShadowSliceRect = Rect.new(6, 6, 9, 9)
@@ -128,6 +137,9 @@ return function(isTenFoot, isSmallTouchScreen)
 
 	LayoutValues.NeutralTeamColor = BrickColor.new("White")
 	LayoutValues.NeutralTeamName = "Neutral"
+
+	LayoutValues.DropDownButtonSizeY = 24
+	LayoutValues.DropDownButtonPadding = 2
 
 	setmetatable(LayoutValues, {
 		__index = function(self, key)
